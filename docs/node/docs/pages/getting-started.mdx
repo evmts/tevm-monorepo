@@ -57,6 +57,7 @@ Most commonly used APIs:
 - [Utilities & Addresses](./api/utils) - Core utilities for addresses and common operations
 - [Methods & Properties](./api/methods) - Complete API reference
 - [VM & Submodules](./api/vm-and-submodules) - Internal architecture based on ethereumjs
+- [EVM Events](./api/evm-events) - Debug and trace EVM execution
 
 ### 3. Integration Examples
 Real-world usage examples:
@@ -97,3 +98,26 @@ Dive deeper into advanced capabilities:
 - [EVM Deep Dive](https://ethereum.org/en/developers/docs/evm/) - Understanding the EVM
 - [JSON-RPC API](https://ethereum.org/en/developers/docs/apis/json-rpc/) - Standard Ethereum API
 - [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo) - Core EVM implementation
+
+### Debugging Example
+```ts
+import { createTevmNode } from 'tevm/node'
+
+const node = createTevmNode()
+const vm = await node.getVm()
+
+// Listen to EVM execution events
+vm.evm.events?.on('step', (step, next) => {
+  console.log('Executing opcode:', step.opcode.name)
+  next?.()
+})
+
+vm.evm.events?.on('afterMessage', (result, next) => {
+  if (result.execResult.exceptionError) {
+    console.error('Error:', result.execResult.exceptionError)
+  }
+  next?.()
+})
+
+// Your contract interactions here...
+```

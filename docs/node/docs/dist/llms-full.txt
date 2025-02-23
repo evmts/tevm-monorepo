@@ -65,6 +65,7 @@ Most commonly used APIs:
 * [Utilities & Addresses](./api/utils) - Core utilities for addresses and common operations
 * [Methods & Properties](./api/methods) - Complete API reference
 * [VM & Submodules](./api/vm-and-submodules) - Internal architecture based on ethereumjs
+* [EVM Events](./api/evm-events) - Debug and trace EVM execution
 
 #### 3. Integration Examples
 
@@ -114,1002 +115,29 @@ Dive deeper into advanced capabilities:
 * [JSON-RPC API](https://ethereum.org/en/developers/docs/apis/json-rpc/) - Standard Ethereum API
 * [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo) - Core EVM implementation
 
-
-## Custom Precompiles
-
-[Tevm Node](https://github.com/evmts/tevm-monorepo) allows you to extend the [EVM](https://ethereum.org/en/developers/docs/evm/) with custom [precompiled contracts](https://ethereum.org/en/developers/docs/evm/precompiles/) written in JavaScript. These precompiles can provide native functionality at specific addresses, similar to [Ethereum's built-in precompiles](https://www.evm.codes/precompiled).
-
-### Using @tevm/precompiles
-
-The `@tevm/precompiles` package provides utilities for creating type-safe precompiles from contract [ABIs](https://docs.soliditylang.org/en/latest/abi-spec.html):
-
-```ts
-import { defineCall } from 'tevm/precompiles'
-import { SimpleContract } from 'tevm/contract'
-
-// Create a stateful precompile
-let value = 0n
-
-const call = defineCall(SimpleContract.abi, {
-  // Read method
-  get: async () => ({
-    returnValue: value,
-    executionGasUsed: 100n
-  }),
-
-  // Write method with events
-  set: async ({ args }) => {
-    const [newValue] = args
-    value = newValue
-    return {
-      returnValue: undefined,
-      executionGasUsed: 200n,
-      logs: [{
-        eventName: 'ValueSet',
-        address: '0x1234...',
-        args: [value, newValue],
-      }]
-    }
-  },
-})
-
-// Use with Tevm Node
-const precompile = definePrecompile({
-  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
-  call: async (input) => call(input),
-})
-```
-
-### Basic Usage
-
-```ts
-import { createTevmNode, definePrecompile } from 'tevm/node'
-
-const myPrecompile = definePrecompile({
-  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
-  call: async ({ data, gasLimit }) => {
-    // Process input data
-    const processedData = processData(data)
-
-    return {
-      returnValue: new Uint8Array([...processedData]),
-      executionGasUsed: 200n,
-    }
-  },
-})
-
-const node = createTevmNode({
-  customPrecompiles: [myPrecompile],
-})
-```
-
-### Precompile Interface
-
-```ts
-interface Precompile {
-  address: string // [Address format](https://ethereum.org/en/developers/docs/accounts/#account-creation)
-  call: (params: PrecompileInput) => Promise<PrecompileOutput>
-}
-
-interface PrecompileInput {
-  data: Uint8Array
-  gasLimit: bigint
-  address: string
-  caller: string
-  value: bigint
-  // Additional context
-  block?: Block
-  message?: Message
-}
-
-interface PrecompileOutput {
-  returnValue: Uint8Array
-  executionGasUsed: bigint
-}
-```
-
-### Example Implementations
-
-#### 1. String Manipulation Precompile
-
-```ts
-const stringPrecompile = definePrecompile({
-  address: '0x0000000000000000000000000000000000000123',
-  call: async ({ data }) => {
-    // Decode function selector and parameters
-    const selector = data.slice(0, 4)
-    const params = data.slice(4)
-
-    if (selector.equals(toBytes('toUpper(string)'))) {
-      const str = decodeString(params)
-      const result = str.toUpperCase()
-      return {
-        returnValue: encodeString(result),
-        executionGasUsed: BigInt(str.length * 10), // Gas based on input size
-      }
-    }
-
-    throw new Error('Unknown function selector')
-  },
-})
-```
-
-#### 2. Cryptographic Precompile
-
-```ts
-import { keccak256 } from 'tevm/utils'
-
-const cryptoPrecompile = definePrecompile({
-  address: '0x0000000000000000000000000000000000000456',
-  call: async ({ data }) => {
-    const selector = data.slice(0, 4)
-    const input = data.slice(4)
-
-    switch (selector.toString('hex')) {
-      case 'hash':
-        const hash = keccak256(input)
-        return {
-          returnValue: hash,
-          executionGasUsed: 100n + BigInt(input.length),
-        }
-      // Add more crypto functions...
-    }
-  },
-})
-```
-
-#### 3. External API Precompile
-
-```ts
-const apiPrecompile = definePrecompile({
-  address: '0x0000000000000000000000000000000000000789',
-  call: async ({ data }) => {
-    const { method, url, params } = decodeApiCall(data)
-
-    try {
-      const response = await fetch(url, {
-        method,
-        body: JSON.stringify(params),
-      })
-
-      const result = await response.json()
-      return {
-        returnValue: encodeResult(result),
-        executionGasUsed: 1000n, // Fixed gas cost for API calls
-      }
-    } catch (error) {
-      throw new Error(`API call failed: ${error.message}`)
-    }
-  },
-})
-```
-
-#### 4. Stateful Precompile with Events
-
-```ts
-import { defineCall } from 'tevm/precompiles'
-
-// Define contract ABI
-const abi = [
-  'function getValue() view returns (uint256)',
-  'function setValue(uint256)',
-  'event ValueChanged(uint256 oldValue, uint256 newValue)',
-] as const
-
-// Create stateful precompile
-let storedValue = 0n
-
-const statefulCall = defineCall(abi, {
-  getValue: async () => ({
-    returnValue: storedValue,
-    executionGasUsed: 100n,
-  }),
-
-  setValue: async ({ args }) => {
-    const oldValue = storedValue
-    storedValue = args[0]
-
-    return {
-      returnValue: undefined,
-      executionGasUsed: 200n,
-      logs: [{
-        eventName: 'ValueChanged',
-        address: '0x1234...',
-        args: [oldValue, storedValue],
-      }],
-    }
-  },
-})
-
-const precompile = definePrecompile({
-  address: '0x0000000000000000000000000000000000000999',
-  call: statefulCall,
-})
-```
-
-### Solidity Interface
-
-Create a [Solidity interface](https://docs.soliditylang.org/en/latest/contracts.html#interfaces) to interact with your precompile:
-
-```solidity
-interface IStringPrecompile {
-    function toUpper(string calldata input) external view returns (string memory);
-}
-
-contract MyContract {
-    IStringPrecompile constant strUtils = IStringPrecompile(0x0000000000000000000000000000000000000123);
-
-    function processString(string calldata input) external view returns (string memory) {
-        return strUtils.toUpper(input);
-    }
-}
-```
-
-### Gas Considerations
-
-For more information on gas costs, see the [EVM Gas and Fees](https://ethereum.org/en/developers/docs/gas/) documentation.
-
-1. **Static Gas Cost**:
-   ```ts
-   const precompile = definePrecompile({
-     address: '0x123...',
-     call: async () => ({
-       returnValue: new Uint8Array([1]),
-       executionGasUsed: 100n, // Fixed cost
-     }),
-   })
-   ```
-
-2. **Dynamic Gas Cost**:
-   ```ts
-   const precompile = definePrecompile({
-     address: '0x456...',
-     call: async ({ data }) => ({
-       returnValue: processData(data),
-       executionGasUsed: BigInt(data.length * 10), // Cost based on input
-     }),
-   })
-   ```
-
-3. **Operation-based Gas**:
-   ```ts
-   const precompile = definePrecompile({
-     address: '0x789...',
-     call: async ({ data }) => {
-       let gas = 0n
-
-       // Track gas for each operation
-       for (const op of operations) {
-         gas += calculateOpGas(op)
-       }
-
-       return {
-         returnValue: result,
-         executionGasUsed: gas,
-       }
-     },
-   })
-   ```
-
-### Best Practices
-
-1. **Input Validation**:
-   Follow [best practices for input validation](https://consensys.github.io/smart-contract-best-practices/development-recommendations/precautions/validation/)
-
-2. **Error Handling with defineCall**:
-
-```ts
-const call = defineCall(abi, {
-  method: async ({ args }) => {
-    try {
-      const result = await processArgs(args)
-      return {
-        returnValue: result,
-        executionGasUsed: 100n,
-      }
-    } catch (error) {
-      // Error will be properly formatted for EVM
-      throw new Error(`Custom error: ${error.message}`)
-    }
-  },
-})
-```
-
-3. **Resource Management**:
-   ```ts
-   // Maintain connection pool
-   const connections = new Map()
-
-   const precompile = definePrecompile({
-     address: '0x789...',
-     call: async ({ data }) => {
-       let conn = connections.get(data.toString())
-       if (!conn) {
-         conn = await createConnection()
-         connections.set(data.toString(), conn)
-       }
-
-       try {
-         return await useConnection(conn)
-       } finally {
-         // Clean up if needed
-         await conn.release()
-       }
-     },
-   })
-   ```
-
-4. **Security Considerations**:
-   * Validate all inputs thoroughly
-   * Avoid arbitrary code execution
-   * Implement proper access controls
-   * Consider gas costs carefully
-   * Handle sensitive data appropriately
-
-### Type Safety with defineCall
-
-The `defineCall` utility provides full [type safety](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html) for your precompiles:
-
-```ts
-import { defineCall } from 'tevm/precompiles'
-
-// ABI with types
-const abi = [
-  'function add(uint256 a, uint256 b) returns (uint256)',
-  'function sub(uint256 a, uint256 b) returns (uint256)',
-] as const
-
-// Type-safe implementation
-const call = defineCall(abi, {
-  // Types for args and return value are inferred
-  add: async ({ args: [a, b] }) => ({
-    returnValue: a + b,
-    executionGasUsed: 100n,
-  }),
-
-  sub: async ({ args: [a, b] }) => ({
-    returnValue: a - b,
-    executionGasUsed: 100n,
-  }),
-})
-```
-
-### Related Topics
-
-* [Contract Utilities](../api/contracts)
-* [State Management](../core/managing-state)
-* [JSON-RPC Support](../api/json-rpc)
-* [EVM Opcodes Reference](https://www.evm.codes/)
-* [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
-* [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
-
-
-## Performance & Profiler
-
-Tevm Node includes a built-in performance profiler that helps you analyze EVM execution, identify bottlenecks, and optimize your smart contracts.
-
-### Enabling the Profiler
-
-Enable profiling when creating your node:
+#### Debugging Example
 
 ```ts
 import { createTevmNode } from 'tevm/node'
 
-const node = createTevmNode({
-  profiler: {
-    enabled: true,
-    // Optional: Configure profiling options
-    includeOpcodes: true,
-    includePrecompiles: true,
-  },
-})
-```
-
-### Collecting Performance Data
-
-```ts
+const node = createTevmNode()
 const vm = await node.getVm()
 
-// Execute some transactions
-await vm.runTx({ /* ... */ })
-
-// Get performance logs
-const logs = vm.evm.getPerformanceLogs()
-
-// Clear logs when done
-vm.evm.clearPerformanceLogs()
-```
-
-### Log Types
-
-The profiler collects various types of performance data:
-
-```ts
-interface PerformanceLog {
-  type: 'opcode' | 'precompile' | 'call' | 'create'
-  startTime: number
-  endTime: number
-  executionTime: number
-  gasUsed?: bigint
-  // Additional data based on type
-}
-
-interface OpcodeLog extends PerformanceLog {
-  type: 'opcode'
-  opcode: string
-  pc: number
-}
-
-interface PrecompileLog extends PerformanceLog {
-  type: 'precompile'
-  address: string
-  name: string
-}
-```
-
-### Analyzing Performance
-
-#### 1. Opcode Analysis
-
-```ts
-// Group by opcode
-const opcodeStats = logs
-  .filter(log => log.type === 'opcode')
-  .reduce((acc, log) => {
-    const key = log.opcode
-    acc[key] = acc[key] || { count: 0, totalTime: 0, totalGas: 0n }
-    acc[key].count++
-    acc[key].totalTime += log.executionTime
-    acc[key].totalGas += log.gasUsed ?? 0n
-    return acc
-  }, {})
-
-// Find expensive operations
-const expensiveOps = Object.entries(opcodeStats)
-  .sort(([, a], [, b]) => b.totalTime - a.totalTime)
-  .slice(0, 10)
-
-console.log('Most expensive operations:', expensiveOps)
-```
-
-#### 2. Call Tree Analysis
-
-```ts
-// Analyze call depth and patterns
-const callTree = logs
-  .filter(log => log.type === 'call')
-  .map(log => ({
-    from: log.from,
-    to: log.to,
-    value: log.value,
-    executionTime: log.executionTime,
-    gasUsed: log.gasUsed,
-  }))
-
-console.log('Call tree:', callTree)
-```
-
-#### 3. Gas Usage Patterns
-
-```ts
-// Track gas usage over time
-const gasTimeline = logs
-  .filter(log => log.gasUsed !== undefined)
-  .map(log => ({
-    timestamp: log.startTime,
-    gasUsed: log.gasUsed,
-    type: log.type,
-  }))
-
-// Calculate gas efficiency
-const gasEfficiency = gasTimeline.reduce((acc, log) => {
-  acc.totalGas += log.gasUsed ?? 0n
-  acc.totalTime += log.executionTime
-  return acc
-}, { totalGas: 0n, totalTime: 0 })
-```
-
-### Use Cases
-
-#### 1. Contract Optimization
-
-```ts
-// Deploy and profile contract
-const vm = await node.getVm()
-await vm.runTx({ tx: deployTx })
-
-// Clear previous logs
-vm.evm.clearPerformanceLogs()
-
-// Profile specific function
-await vm.runTx({ tx: functionCallTx })
-const logs = vm.evm.getPerformanceLogs()
-
-// Analyze performance
-const functionProfile = analyzeLogs(logs)
-console.log('Function performance:', {
-  totalTime: functionProfile.executionTime,
-  gasUsed: functionProfile.gasUsed,
-  hotspots: functionProfile.hotspots,
+// Listen to EVM execution events
+vm.evm.events?.on('step', (step, next) => {
+  console.log('Executing opcode:', step.opcode.name)
+  next?.()
 })
-```
 
-#### 2. Comparative Analysis
-
-```ts
-async function compareImplementations(implementations: string[]) {
-  const results = []
-  const vm = await node.getVm()
-
-  for (const impl of implementations) {
-    vm.evm.clearPerformanceLogs()
-    await vm.runTx({ tx: createCallTx(impl) })
-    const logs = vm.evm.getPerformanceLogs()
-    results.push(analyzePerformance(logs))
+vm.evm.events?.on('afterMessage', (result, next) => {
+  if (result.execResult.exceptionError) {
+    console.error('Error:', result.execResult.exceptionError)
   }
-
-  return compareResults(results)
-}
-```
-
-#### 3. Gas Optimization
-
-```ts
-// Track gas usage by contract
-const contractGasUsage = logs
-  .filter(log => log.type === 'call')
-  .reduce((acc, log) => {
-    const contract = log.to
-    acc[contract] = acc[contract] || { calls: 0, totalGas: 0n }
-    acc[contract].calls++
-    acc[contract].totalGas += log.gasUsed ?? 0n
-    return acc
-  }, {})
-
-// Identify gas-intensive contracts
-const gasHotspots = Object.entries(contractGasUsage)
-  .sort(([, a], [, b]) => Number(b.totalGas - a.totalGas))
-```
-
-### Best Practices
-
-1. **Targeted Profiling**:
-   ```ts
-   // Clear logs before specific operations
-   vm.evm.clearPerformanceLogs()
-   // Run the operation you want to profile
-   await vm.runTx({ /* ... */ })
-   // Analyze just that operation
-   const logs = vm.evm.getPerformanceLogs()
-   ```
-
-2. **Memory Management**:
-   * Clear logs periodically
-   * Profile specific operations rather than entire sessions
-   * Export and analyze large datasets externally
-
-3. **Comparative Analysis**:
-   ```ts
-   // Compare before/after optimization
-   const beforeLogs = await profileOperation(originalCode)
-   const afterLogs = await profileOperation(optimizedCode)
-   const improvement = compareProfiles(beforeLogs, afterLogs)
-   ```
-
-4. **Production Considerations**:
-   * Disable profiler in production
-   * Use sampling for long-running operations
-   * Consider the overhead of profiling itself
-
-### Related Topics
-
-* [VM & Submodules](../api/vm-and-submodules)
-* [Gas Estimation](../api/methods)
-* [Transaction Pool](./txpool)
-
-
-## Receipts & Logs
-
-Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.
-
-### Receipt Management
-
-The ReceiptsManager maintains an index of all transaction receipts and their associated logs.
-
-```ts
-const manager = await node.getReceiptsManager()
-
-// Get receipts for a block
-const receipts = await manager.getReceipts(blockHash)
-
-// Get receipt for specific transaction
-const receipt = await manager.getReceiptByTxHash(txHash)
-```
-
-#### Receipt Types
-
-Tevm supports different receipt types based on the Ethereum hardfork:
-
-```ts
-interface PreByzantiumReceipt {
-  stateRoot: Uint8Array
-  cumulativeBlockGasUsed: bigint
-  logs: Log[]
-}
-
-interface PostByzantiumReceipt {
-  status: number
-  cumulativeBlockGasUsed: bigint
-  logs: Log[]
-}
-
-interface EIP4844Receipt extends PostByzantiumReceipt {
-  blobGasUsed: bigint
-  blobGasPrice: bigint
-}
-```
-
-### Event Logs
-
-#### Querying Logs
-
-The ReceiptsManager provides flexible log querying:
-
-```ts
-// Query logs with filters
-const logs = await manager.getLogs({
-  fromBlock: 0n,
-  toBlock: 'latest',
-  address: contractAddress,
-  topics: [
-    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
-    null, // Any from address
-    '0x000000000000000000000000' + address.slice(2), // Specific to address
-  ]
+  next?.()
 })
 
-// Process logs
-for (const log of logs) {
-  console.log({
-    address: log.address,
-    topics: log.topics,
-    data: log.data,
-    blockNumber: log.blockNumber,
-    transactionHash: log.transactionHash,
-    logIndex: log.logIndex
-  })
-}
+// Your contract interactions here...
 ```
-
-#### Log Filters
-
-Tevm implements the Ethereum filter API for real-time log tracking:
-
-```ts
-// Create new filter
-const filterId = await node.request({
-  method: 'eth_newFilter',
-  params: [{
-    fromBlock: 'latest',
-    address: contractAddress,
-    topics: [eventSignature]
-  }]
-})
-
-// Get filter changes
-const changes = await node.request({
-  method: 'eth_getFilterChanges',
-  params: [filterId]
-})
-
-// Get all filter logs
-const allLogs = await node.request({
-  method: 'eth_getFilterLogs',
-  params: [filterId]
-})
-
-// Remove filter when done
-await node.request({
-  method: 'eth_uninstallFilter',
-  params: [filterId]
-})
-```
-
-#### Filter Management
-
-The node maintains filters internally:
-
-```ts
-// Get all active filters
-const filters = node.getFilters()
-
-// Remove specific filter
-node.removeFilter(filterId)
-
-// Add new filter
-node.setFilter({
-  id: filterId,
-  fromBlock: 'latest',
-  toBlock: 'latest',
-  address: contractAddress,
-  topics: [eventSignature]
-})
-```
-
-### Performance Considerations
-
-The ReceiptsManager includes built-in limits to prevent excessive resource usage:
-
-```ts
-// Log query limits
-const GET_LOGS_LIMIT = 10000 // Maximum number of logs
-const GET_LOGS_LIMIT_MEGABYTES = 150 // Maximum response size
-const GET_LOGS_BLOCK_RANGE_LIMIT = 2500 // Maximum block range
-```
-
-#### Best Practices
-
-1. **Efficient Log Queries**:
-   * Use specific address and topic filters
-   * Limit block ranges for large queries
-   * Clean up unused filters
-
-2. **Receipt Storage**:
-   * Receipts are stored by block hash
-   * Transaction hash indexes are maintained within limits
-   * Old transaction indexes are automatically pruned
-
-3. **Error Handling**:
-   ```ts
-   try {
-     const logs = await manager.getLogs({
-       fromBlock,
-       toBlock,
-       address,
-       topics
-     })
-   } catch (error) {
-     if (error.message.includes('block range too large')) {
-       // Handle range error
-     }
-     // Handle other errors
-   }
-   ```
-
-4. **Memory Management**:
-   * Monitor filter count
-   * Remove unused filters
-   * Use pagination for large log queries
-
-### Working with Contract Events
-
-Example of tracking ERC20 Transfer events:
-
-```ts
-const transferTopic = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
-
-// Get all transfers to/from an address
-const logs = await manager.getLogs({
-  address: tokenAddress,
-  topics: [
-    transferTopic,
-    null,
-    '0x000000000000000000000000' + address.slice(2)
-  ],
-  fromBlock: startBlock,
-  toBlock: 'latest'
-})
-
-// Parse transfer events
-for (const log of logs) {
-  const [from, to, value] = ethers.AbiCoder.defaultAbiCoder().decode(
-    ['address', 'address', 'uint256'],
-    log.data
-  )
-  console.log(`Transfer: ${from} -> ${to}: ${value}`)
-}
-```
-
-### Related Topics
-
-* [JSON-RPC Support](../api/json-rpc)
-* [VM & Submodules](../api/vm-and-submodules)
-* [Transaction Pool](./txpool)
-
-
-## Transaction Pool
-
-The Transaction Pool (TxPool) in Tevm Node manages pending transactions that haven't been included in a block yet. It provides functionality for adding, removing, and querying transactions.
-
-### Overview
-
-The TxPool serves several purposes:
-
-* Managing pending transactions
-* Handling transaction ordering by gas price
-* Supporting the `pending` block tag in JSON-RPC calls
-* Validating transactions before inclusion
-
-### Basic Usage
-
-```ts
-const pool = await node.getTxPool()
-
-// Add transaction to pool
-await pool.add(transaction)
-
-// Get all pending transactions
-const pending = await pool.getPendingTransactions()
-
-// Remove transaction
-await pool.removeByHash(txHash)
-```
-
-### Transaction Validation
-
-Before adding transactions to the pool, they undergo validation:
-
-```ts
-try {
-  // Validate transaction
-  await pool.validateTx(transaction)
-  
-  // Add to pool if valid
-  await pool.add(transaction)
-} catch (error) {
-  if (error.message.includes('nonce too low')) {
-    // Handle nonce error
-  } else if (error.message.includes('insufficient funds')) {
-    // Handle balance error
-  }
-  // Handle other validation errors
-}
-```
-
-#### Validation Checks
-
-The TxPool performs several checks:
-
-1. **Nonce Validation**: Ensures transaction nonce matches account nonce
-2. **Balance Check**: Verifies sender has sufficient funds
-3. **Gas Price**: Validates against minimum gas price requirements
-4. **Gas Limit**: Checks against block gas limit
-5. **EIP-1559**: Validates fee parameters for Type-2 transactions
-
-### Transaction Ordering
-
-The TxPool orders transactions by gas price and nonce:
-
-```ts
-// Get transactions ordered by price
-const ordered = await pool.txsByPriceAndNonce({
-  baseFee: 10n
-})
-
-// Get transactions for specific sender
-const senderTxs = await pool.getBySenderAddress(senderAddress)
-```
-
-#### Priority Queue
-
-For EIP-1559 transactions, ordering considers:
-
-* `maxFeePerGas`
-* `maxPriorityFeePerGas`
-* Current block's `baseFee`
-
-```ts
-// Get highest priority transactions
-const highPriority = await pool.getHighestPriorityTransactions()
-```
-
-### Pending State
-
-The TxPool maintains a "pending state" that includes uncommitted transactions:
-
-```ts
-// Get state including pending transactions
-const pendingBalance = await pool.getPendingBalance(address)
-const pendingNonce = await pool.getPendingNonce(address)
-```
-
-#### JSON-RPC Support
-
-The pending state is used when handling JSON-RPC calls with the `pending` block tag:
-
-```ts
-// Example eth_call with pending state
-const result = await node.request({
-  method: 'eth_call',
-  params: [{
-    to: contractAddress,
-    data: calldata
-  }, 'pending']
-})
-```
-
-### Memory Management
-
-The TxPool includes features to prevent memory exhaustion:
-
-```ts
-// Configuration
-const POOL_SIZE_LIMIT = 5000 // Maximum transactions
-const ACCOUNT_TX_LIMIT = 100 // Maximum per account
-const PRICE_BUMP = 10        // % price increase to replace tx
-
-// Clear old transactions
-await pool.clearOldTransactions()
-
-// Get pool statistics
-const stats = await pool.getStats()
-console.log({
-  pending: stats.pending,
-  queued: stats.queued,
-  baseFee: stats.baseFee
-})
-```
-
-### Event Handling
-
-The TxPool emits events for transaction lifecycle:
-
-```ts
-pool.on('addedTx', (tx) => {
-  console.log('New transaction:', tx.hash)
-})
-
-pool.on('removedTx', (txHash) => {
-  console.log('Removed transaction:', txHash)
-})
-
-pool.on('pendingTx', (tx) => {
-  console.log('Transaction pending:', tx.hash)
-})
-```
-
-### Best Practices
-
-1. **Transaction Replacement**:
-   ```ts
-   // Replace transaction with higher gas price
-   const newTx = {
-     ...oldTx,
-     maxFeePerGas: oldTx.maxFeePerGas * 110n / 100n, // 10% increase
-     nonce: oldTx.nonce // Same nonce
-   }
-   await pool.add(newTx)
-   ```
-
-2. **Memory Management**:
-   * Monitor pool size
-   * Clear old transactions periodically
-   * Set appropriate limits per account
-
-3. **Error Handling**:
-   ```ts
-   try {
-     await pool.add(tx)
-   } catch (error) {
-     if (error.message.includes('replacement fee too low')) {
-       // Increase gas price for replacement
-     } else if (error.message.includes('pool is full')) {
-       // Handle pool capacity
-     }
-     // Handle other errors
-   }
-   ```
-
-4. **Gas Price Management**:
-   * Track current base fee
-   * Update gas price suggestions
-   * Handle EIP-1559 parameters
-
-### Related Topics
-
-* [JSON-RPC Support](../api/json-rpc)
-* [VM & Submodules](../api/vm-and-submodules)
-* [Receipts & Logs](./receipts-and-logs)
 
 
 ## Account Management
@@ -1473,6 +501,250 @@ client.watchEvent(filter, (event) => {
 \- [Solidity Documentation](https://docs.soliditylang.org/)
 \- [Ethereum Smart Contracts](https://ethereum.org/en/developers/docs/smart-contracts/)
 \- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/)
+
+
+## EVM Events
+
+Tevm Node provides access to low-level EVM events through the VM's event emitter. This allows you to monitor and debug contract execution at a granular level.
+
+### Available Events
+
+```ts
+type EVMEvent = {
+  // Emitted when a new contract is created
+  newContract: (data: {
+    address: Address,
+    code: Uint8Array
+  }) => void
+
+  // Emitted before a message (call) is processed
+  beforeMessage: (data: Message) => void
+
+  // Emitted after a message (call) is processed
+  afterMessage: (data: EVMResult) => void
+
+  // Emitted on each EVM step
+  step: (data: InterpreterStep) => void
+}
+```
+
+### Basic Usage
+
+```ts
+import { createTevmNode } from 'tevm/node'
+
+const node = createTevmNode()
+const vm = await node.getVm()
+
+// Listen for EVM steps
+vm.evm.events?.on('step', (step, next) => {
+  console.log('EVM Step:', {
+    pc: step.pc,           // Program counter
+    opcode: step.opcode,   // Current opcode
+    gasLeft: step.gasLeft, // Remaining gas
+    stack: step.stack,     // Stack contents
+    depth: step.depth,     // Call depth
+  })
+  next?.()
+})
+
+// Listen for contract creation
+vm.evm.events?.on('newContract', (data, next) => {
+  console.log('New contract deployed:', {
+    address: data.address.toString(),
+    codeSize: data.code.length,
+  })
+  next?.()
+})
+
+// Listen for message execution
+vm.evm.events?.on('beforeMessage', (message, next) => {
+  console.log('Executing message:', {
+    to: message.to?.toString(),
+    value: message.value.toString(),
+    delegatecall: message.delegatecall,
+  })
+  next?.()
+})
+
+vm.evm.events?.on('afterMessage', (result, next) => {
+  console.log('Message result:', {
+    gasUsed: result.execResult.executionGasUsed.toString(),
+    returnValue: result.execResult.returnValue.toString('hex'),
+    error: result.execResult.exceptionError?.error,
+  })
+  next?.()
+})
+```
+
+### Debugging Example
+
+```ts
+// Create a debug tracer
+function createDebugTracer(vm) {
+  const trace = {
+    steps: [],
+    contracts: new Set(),
+    errors: [],
+  }
+
+  // Track each EVM step
+  vm.evm.events?.on('step', (step, next) => {
+    trace.steps.push({
+      pc: step.pc,
+      opcode: step.opcode.name,
+      gasCost: step.opcode.fee,
+      stack: step.stack.map(item => item.toString(16)),
+    })
+    next?.()
+  })
+
+  // Track contract creation
+  vm.evm.events?.on('newContract', (data, next) => {
+    trace.contracts.add(data.address.toString())
+    next?.()
+  })
+
+  // Track errors
+  vm.evm.events?.on('afterMessage', (result, next) => {
+    if (result.execResult.exceptionError) {
+      trace.errors.push({
+        error: result.execResult.exceptionError.error,
+        returnData: result.execResult.returnValue.toString('hex'),
+      })
+    }
+    next?.()
+  })
+
+  return trace
+}
+
+// Use the tracer
+const node = createTevmNode()
+const vm = await node.getVm()
+const trace = createDebugTracer(vm)
+
+// Run some transactions...
+
+console.log('Execution trace:', {
+  stepCount: trace.steps.length,
+  contracts: Array.from(trace.contracts),
+  errors: trace.errors,
+})
+```
+
+### Gas Profiling
+
+```ts
+// Create a gas profiler
+function createGasProfiler(vm) {
+  const profile = {
+    opcodes: new Map(),
+    totalGas: 0n,
+  }
+
+  vm.evm.events?.on('step', (step, next) => {
+    const opName = step.opcode.name
+    const gasCost = BigInt(step.opcode.fee)
+
+    const stats = profile.opcodes.get(opName) || {
+      count: 0,
+      totalGas: 0n
+    }
+
+    stats.count++
+    stats.totalGas += gasCost
+    profile.totalGas += gasCost
+    profile.opcodes.set(opName, stats)
+
+    next?.()
+  })
+
+  return profile
+}
+
+// Use the profiler
+const node = createTevmNode()
+const vm = await node.getVm()
+const profile = createGasProfiler(vm)
+
+// Run transactions...
+
+// Get gas usage by opcode
+for (const [opcode, stats] of profile.opcodes) {
+  console.log(`${opcode}:`, {
+    count: stats.count,
+    totalGas: stats.totalGas.toString(),
+    percentageOfTotal: Number(stats.totalGas * 100n / profile.totalGas),
+  })
+}
+```
+
+### Error Handling
+
+```ts
+vm.evm.events?.on('afterMessage', (result, next) => {
+  if (result.execResult.exceptionError) {
+    const error = result.execResult.exceptionError
+
+    switch (error.error) {
+      case 'out of gas':
+        console.error('Transaction ran out of gas')
+        break
+      case 'revert':
+        console.error('Transaction reverted:',
+          result.execResult.returnValue.toString('hex'))
+        break
+      case 'invalid opcode':
+        console.error('Invalid opcode encountered')
+        break
+      default:
+        console.error('Unknown error:', error)
+    }
+  }
+  next?.()
+})
+```
+
+### Best Practices
+
+1. **Always Call Next**
+   ```ts
+   vm.evm.events?.on('step', (step, next) => {
+     // Process step...
+     next?.() // Important: Call next to continue execution
+   })
+   ```
+
+2. **Clean Up Listeners**
+   ```ts
+   const handler = (step, next) => {
+     // Handle step...
+     next?.()
+   }
+
+   vm.evm.events?.on('step', handler)
+
+   // Later...
+   vm.evm.events?.off('step', handler)
+   ```
+
+3. **Handle Errors Gracefully**
+   ```ts
+   vm.evm.events?.on('step', (step, next) => {
+     try {
+       // Process step...
+     } catch (error) {
+       console.error('Error processing step:', error)
+     }
+     next?.()
+   })
+   ```
+
+### Related Topics
+
+* [Performance Profiler](../advanced/performance-profiler)
+* [Gas Estimation](../api/methods)
 
 
 ## JSON-RPC Support
@@ -2749,6 +2021,1003 @@ for (const log of logs) {
 \- [Advanced Usage](../advanced/txpool)
 
 
+## Custom Precompiles
+
+[Tevm Node](https://github.com/evmts/tevm-monorepo) allows you to extend the [EVM](https://ethereum.org/en/developers/docs/evm/) with custom [precompiled contracts](https://ethereum.org/en/developers/docs/evm/precompiles/) written in JavaScript. These precompiles can provide native functionality at specific addresses, similar to [Ethereum's built-in precompiles](https://www.evm.codes/precompiled).
+
+### Using @tevm/precompiles
+
+The `@tevm/precompiles` package provides utilities for creating type-safe precompiles from contract [ABIs](https://docs.soliditylang.org/en/latest/abi-spec.html):
+
+```ts
+import { defineCall } from 'tevm/precompiles'
+import { SimpleContract } from 'tevm/contract'
+
+// Create a stateful precompile
+let value = 0n
+
+const call = defineCall(SimpleContract.abi, {
+  // Read method
+  get: async () => ({
+    returnValue: value,
+    executionGasUsed: 100n
+  }),
+
+  // Write method with events
+  set: async ({ args }) => {
+    const [newValue] = args
+    value = newValue
+    return {
+      returnValue: undefined,
+      executionGasUsed: 200n,
+      logs: [{
+        eventName: 'ValueSet',
+        address: '0x1234...',
+        args: [value, newValue],
+      }]
+    }
+  },
+})
+
+// Use with Tevm Node
+const precompile = definePrecompile({
+  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
+  call: async (input) => call(input),
+})
+```
+
+### Basic Usage
+
+```ts
+import { createTevmNode, definePrecompile } from 'tevm/node'
+
+const myPrecompile = definePrecompile({
+  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
+  call: async ({ data, gasLimit }) => {
+    // Process input data
+    const processedData = processData(data)
+
+    return {
+      returnValue: new Uint8Array([...processedData]),
+      executionGasUsed: 200n,
+    }
+  },
+})
+
+const node = createTevmNode({
+  customPrecompiles: [myPrecompile],
+})
+```
+
+### Precompile Interface
+
+```ts
+interface Precompile {
+  address: string // [Address format](https://ethereum.org/en/developers/docs/accounts/#account-creation)
+  call: (params: PrecompileInput) => Promise<PrecompileOutput>
+}
+
+interface PrecompileInput {
+  data: Uint8Array
+  gasLimit: bigint
+  address: string
+  caller: string
+  value: bigint
+  // Additional context
+  block?: Block
+  message?: Message
+}
+
+interface PrecompileOutput {
+  returnValue: Uint8Array
+  executionGasUsed: bigint
+}
+```
+
+### Example Implementations
+
+#### 1. String Manipulation Precompile
+
+```ts
+const stringPrecompile = definePrecompile({
+  address: '0x0000000000000000000000000000000000000123',
+  call: async ({ data }) => {
+    // Decode function selector and parameters
+    const selector = data.slice(0, 4)
+    const params = data.slice(4)
+
+    if (selector.equals(toBytes('toUpper(string)'))) {
+      const str = decodeString(params)
+      const result = str.toUpperCase()
+      return {
+        returnValue: encodeString(result),
+        executionGasUsed: BigInt(str.length * 10), // Gas based on input size
+      }
+    }
+
+    throw new Error('Unknown function selector')
+  },
+})
+```
+
+#### 2. Cryptographic Precompile
+
+```ts
+import { keccak256 } from 'tevm/utils'
+
+const cryptoPrecompile = definePrecompile({
+  address: '0x0000000000000000000000000000000000000456',
+  call: async ({ data }) => {
+    const selector = data.slice(0, 4)
+    const input = data.slice(4)
+
+    switch (selector.toString('hex')) {
+      case 'hash':
+        const hash = keccak256(input)
+        return {
+          returnValue: hash,
+          executionGasUsed: 100n + BigInt(input.length),
+        }
+      // Add more crypto functions...
+    }
+  },
+})
+```
+
+#### 3. External API Precompile
+
+```ts
+const apiPrecompile = definePrecompile({
+  address: '0x0000000000000000000000000000000000000789',
+  call: async ({ data }) => {
+    const { method, url, params } = decodeApiCall(data)
+
+    try {
+      const response = await fetch(url, {
+        method,
+        body: JSON.stringify(params),
+      })
+
+      const result = await response.json()
+      return {
+        returnValue: encodeResult(result),
+        executionGasUsed: 1000n, // Fixed gas cost for API calls
+      }
+    } catch (error) {
+      throw new Error(`API call failed: ${error.message}`)
+    }
+  },
+})
+```
+
+#### 4. Stateful Precompile with Events
+
+```ts
+import { defineCall } from 'tevm/precompiles'
+
+// Define contract ABI
+const abi = [
+  'function getValue() view returns (uint256)',
+  'function setValue(uint256)',
+  'event ValueChanged(uint256 oldValue, uint256 newValue)',
+] as const
+
+// Create stateful precompile
+let storedValue = 0n
+
+const statefulCall = defineCall(abi, {
+  getValue: async () => ({
+    returnValue: storedValue,
+    executionGasUsed: 100n,
+  }),
+
+  setValue: async ({ args }) => {
+    const oldValue = storedValue
+    storedValue = args[0]
+
+    return {
+      returnValue: undefined,
+      executionGasUsed: 200n,
+      logs: [{
+        eventName: 'ValueChanged',
+        address: '0x1234...',
+        args: [oldValue, storedValue],
+      }],
+    }
+  },
+})
+
+const precompile = definePrecompile({
+  address: '0x0000000000000000000000000000000000000999',
+  call: statefulCall,
+})
+```
+
+### Solidity Interface
+
+Create a [Solidity interface](https://docs.soliditylang.org/en/latest/contracts.html#interfaces) to interact with your precompile:
+
+```solidity
+interface IStringPrecompile {
+    function toUpper(string calldata input) external view returns (string memory);
+}
+
+contract MyContract {
+    IStringPrecompile constant strUtils = IStringPrecompile(0x0000000000000000000000000000000000000123);
+
+    function processString(string calldata input) external view returns (string memory) {
+        return strUtils.toUpper(input);
+    }
+}
+```
+
+### Gas Considerations
+
+For more information on gas costs, see the [EVM Gas and Fees](https://ethereum.org/en/developers/docs/gas/) documentation.
+
+1. **Static Gas Cost**:
+   ```ts
+   const precompile = definePrecompile({
+     address: '0x123...',
+     call: async () => ({
+       returnValue: new Uint8Array([1]),
+       executionGasUsed: 100n, // Fixed cost
+     }),
+   })
+   ```
+
+2. **Dynamic Gas Cost**:
+   ```ts
+   const precompile = definePrecompile({
+     address: '0x456...',
+     call: async ({ data }) => ({
+       returnValue: processData(data),
+       executionGasUsed: BigInt(data.length * 10), // Cost based on input
+     }),
+   })
+   ```
+
+3. **Operation-based Gas**:
+   ```ts
+   const precompile = definePrecompile({
+     address: '0x789...',
+     call: async ({ data }) => {
+       let gas = 0n
+
+       // Track gas for each operation
+       for (const op of operations) {
+         gas += calculateOpGas(op)
+       }
+
+       return {
+         returnValue: result,
+         executionGasUsed: gas,
+       }
+     },
+   })
+   ```
+
+### Best Practices
+
+1. **Input Validation**:
+   Follow [best practices for input validation](https://consensys.github.io/smart-contract-best-practices/development-recommendations/precautions/validation/)
+
+2. **Error Handling with defineCall**:
+
+```ts
+const call = defineCall(abi, {
+  method: async ({ args }) => {
+    try {
+      const result = await processArgs(args)
+      return {
+        returnValue: result,
+        executionGasUsed: 100n,
+      }
+    } catch (error) {
+      // Error will be properly formatted for EVM
+      throw new Error(`Custom error: ${error.message}`)
+    }
+  },
+})
+```
+
+3. **Resource Management**:
+   ```ts
+   // Maintain connection pool
+   const connections = new Map()
+
+   const precompile = definePrecompile({
+     address: '0x789...',
+     call: async ({ data }) => {
+       let conn = connections.get(data.toString())
+       if (!conn) {
+         conn = await createConnection()
+         connections.set(data.toString(), conn)
+       }
+
+       try {
+         return await useConnection(conn)
+       } finally {
+         // Clean up if needed
+         await conn.release()
+       }
+     },
+   })
+   ```
+
+4. **Security Considerations**:
+   * Validate all inputs thoroughly
+   * Avoid arbitrary code execution
+   * Implement proper access controls
+   * Consider gas costs carefully
+   * Handle sensitive data appropriately
+
+### Type Safety with defineCall
+
+The `defineCall` utility provides full [type safety](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html) for your precompiles:
+
+```ts
+import { defineCall } from 'tevm/precompiles'
+
+// ABI with types
+const abi = [
+  'function add(uint256 a, uint256 b) returns (uint256)',
+  'function sub(uint256 a, uint256 b) returns (uint256)',
+] as const
+
+// Type-safe implementation
+const call = defineCall(abi, {
+  // Types for args and return value are inferred
+  add: async ({ args: [a, b] }) => ({
+    returnValue: a + b,
+    executionGasUsed: 100n,
+  }),
+
+  sub: async ({ args: [a, b] }) => ({
+    returnValue: a - b,
+    executionGasUsed: 100n,
+  }),
+})
+```
+
+### Related Topics
+
+* [Contract Utilities](../api/contracts)
+* [State Management](../core/managing-state)
+* [JSON-RPC Support](../api/json-rpc)
+* [EVM Opcodes Reference](https://www.evm.codes/)
+* [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
+* [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
+
+
+## Performance & Profiler
+
+Tevm Node includes a built-in performance profiler that helps you analyze EVM execution, identify bottlenecks, and optimize your smart contracts.
+
+### Enabling the Profiler
+
+Enable profiling when creating your node:
+
+```ts
+import { createTevmNode } from 'tevm/node'
+
+const node = createTevmNode({
+  profiler: {
+    enabled: true,
+    // Optional: Configure profiling options
+    includeOpcodes: true,
+    includePrecompiles: true,
+  },
+})
+```
+
+### Collecting Performance Data
+
+```ts
+const vm = await node.getVm()
+
+// Execute some transactions
+await vm.runTx({ /* ... */ })
+
+// Get performance logs
+const logs = vm.evm.getPerformanceLogs()
+
+// Clear logs when done
+vm.evm.clearPerformanceLogs()
+```
+
+### Log Types
+
+The profiler collects various types of performance data:
+
+```ts
+interface PerformanceLog {
+  type: 'opcode' | 'precompile' | 'call' | 'create'
+  startTime: number
+  endTime: number
+  executionTime: number
+  gasUsed?: bigint
+  // Additional data based on type
+}
+
+interface OpcodeLog extends PerformanceLog {
+  type: 'opcode'
+  opcode: string
+  pc: number
+}
+
+interface PrecompileLog extends PerformanceLog {
+  type: 'precompile'
+  address: string
+  name: string
+}
+```
+
+### Analyzing Performance
+
+#### 1. Opcode Analysis
+
+```ts
+// Group by opcode
+const opcodeStats = logs
+  .filter(log => log.type === 'opcode')
+  .reduce((acc, log) => {
+    const key = log.opcode
+    acc[key] = acc[key] || { count: 0, totalTime: 0, totalGas: 0n }
+    acc[key].count++
+    acc[key].totalTime += log.executionTime
+    acc[key].totalGas += log.gasUsed ?? 0n
+    return acc
+  }, {})
+
+// Find expensive operations
+const expensiveOps = Object.entries(opcodeStats)
+  .sort(([, a], [, b]) => b.totalTime - a.totalTime)
+  .slice(0, 10)
+
+console.log('Most expensive operations:', expensiveOps)
+```
+
+#### 2. Call Tree Analysis
+
+```ts
+// Analyze call depth and patterns
+const callTree = logs
+  .filter(log => log.type === 'call')
+  .map(log => ({
+    from: log.from,
+    to: log.to,
+    value: log.value,
+    executionTime: log.executionTime,
+    gasUsed: log.gasUsed,
+  }))
+
+console.log('Call tree:', callTree)
+```
+
+#### 3. Gas Usage Patterns
+
+```ts
+// Track gas usage over time
+const gasTimeline = logs
+  .filter(log => log.gasUsed !== undefined)
+  .map(log => ({
+    timestamp: log.startTime,
+    gasUsed: log.gasUsed,
+    type: log.type,
+  }))
+
+// Calculate gas efficiency
+const gasEfficiency = gasTimeline.reduce((acc, log) => {
+  acc.totalGas += log.gasUsed ?? 0n
+  acc.totalTime += log.executionTime
+  return acc
+}, { totalGas: 0n, totalTime: 0 })
+```
+
+### Use Cases
+
+#### 1. Contract Optimization
+
+```ts
+// Deploy and profile contract
+const vm = await node.getVm()
+await vm.runTx({ tx: deployTx })
+
+// Clear previous logs
+vm.evm.clearPerformanceLogs()
+
+// Profile specific function
+await vm.runTx({ tx: functionCallTx })
+const logs = vm.evm.getPerformanceLogs()
+
+// Analyze performance
+const functionProfile = analyzeLogs(logs)
+console.log('Function performance:', {
+  totalTime: functionProfile.executionTime,
+  gasUsed: functionProfile.gasUsed,
+  hotspots: functionProfile.hotspots,
+})
+```
+
+#### 2. Comparative Analysis
+
+```ts
+async function compareImplementations(implementations: string[]) {
+  const results = []
+  const vm = await node.getVm()
+
+  for (const impl of implementations) {
+    vm.evm.clearPerformanceLogs()
+    await vm.runTx({ tx: createCallTx(impl) })
+    const logs = vm.evm.getPerformanceLogs()
+    results.push(analyzePerformance(logs))
+  }
+
+  return compareResults(results)
+}
+```
+
+#### 3. Gas Optimization
+
+```ts
+// Track gas usage by contract
+const contractGasUsage = logs
+  .filter(log => log.type === 'call')
+  .reduce((acc, log) => {
+    const contract = log.to
+    acc[contract] = acc[contract] || { calls: 0, totalGas: 0n }
+    acc[contract].calls++
+    acc[contract].totalGas += log.gasUsed ?? 0n
+    return acc
+  }, {})
+
+// Identify gas-intensive contracts
+const gasHotspots = Object.entries(contractGasUsage)
+  .sort(([, a], [, b]) => Number(b.totalGas - a.totalGas))
+```
+
+### Best Practices
+
+1. **Targeted Profiling**:
+   ```ts
+   // Clear logs before specific operations
+   vm.evm.clearPerformanceLogs()
+   // Run the operation you want to profile
+   await vm.runTx({ /* ... */ })
+   // Analyze just that operation
+   const logs = vm.evm.getPerformanceLogs()
+   ```
+
+2. **Memory Management**:
+   * Clear logs periodically
+   * Profile specific operations rather than entire sessions
+   * Export and analyze large datasets externally
+
+3. **Comparative Analysis**:
+   ```ts
+   // Compare before/after optimization
+   const beforeLogs = await profileOperation(originalCode)
+   const afterLogs = await profileOperation(optimizedCode)
+   const improvement = compareProfiles(beforeLogs, afterLogs)
+   ```
+
+4. **Production Considerations**:
+   * Disable profiler in production
+   * Use sampling for long-running operations
+   * Consider the overhead of profiling itself
+
+### Related Topics
+
+* [VM & Submodules](../api/vm-and-submodules)
+* [Gas Estimation](../api/methods)
+* [Transaction Pool](./txpool)
+
+
+## Receipts & Logs
+
+Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.
+
+### Receipt Management
+
+The ReceiptsManager maintains an index of all transaction receipts and their associated logs.
+
+```ts
+const manager = await node.getReceiptsManager()
+
+// Get receipts for a block
+const receipts = await manager.getReceipts(blockHash)
+
+// Get receipt for specific transaction
+const receipt = await manager.getReceiptByTxHash(txHash)
+```
+
+#### Receipt Types
+
+Tevm supports different receipt types based on the Ethereum hardfork:
+
+```ts
+interface PreByzantiumReceipt {
+  stateRoot: Uint8Array
+  cumulativeBlockGasUsed: bigint
+  logs: Log[]
+}
+
+interface PostByzantiumReceipt {
+  status: number
+  cumulativeBlockGasUsed: bigint
+  logs: Log[]
+}
+
+interface EIP4844Receipt extends PostByzantiumReceipt {
+  blobGasUsed: bigint
+  blobGasPrice: bigint
+}
+```
+
+### Event Logs
+
+#### Querying Logs
+
+The ReceiptsManager provides flexible log querying:
+
+```ts
+// Query logs with filters
+const logs = await manager.getLogs({
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: contractAddress,
+  topics: [
+    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
+    null, // Any from address
+    '0x000000000000000000000000' + address.slice(2), // Specific to address
+  ]
+})
+
+// Process logs
+for (const log of logs) {
+  console.log({
+    address: log.address,
+    topics: log.topics,
+    data: log.data,
+    blockNumber: log.blockNumber,
+    transactionHash: log.transactionHash,
+    logIndex: log.logIndex
+  })
+}
+```
+
+#### Log Filters
+
+Tevm implements the Ethereum filter API for real-time log tracking:
+
+```ts
+// Create new filter
+const filterId = await node.request({
+  method: 'eth_newFilter',
+  params: [{
+    fromBlock: 'latest',
+    address: contractAddress,
+    topics: [eventSignature]
+  }]
+})
+
+// Get filter changes
+const changes = await node.request({
+  method: 'eth_getFilterChanges',
+  params: [filterId]
+})
+
+// Get all filter logs
+const allLogs = await node.request({
+  method: 'eth_getFilterLogs',
+  params: [filterId]
+})
+
+// Remove filter when done
+await node.request({
+  method: 'eth_uninstallFilter',
+  params: [filterId]
+})
+```
+
+#### Filter Management
+
+The node maintains filters internally:
+
+```ts
+// Get all active filters
+const filters = node.getFilters()
+
+// Remove specific filter
+node.removeFilter(filterId)
+
+// Add new filter
+node.setFilter({
+  id: filterId,
+  fromBlock: 'latest',
+  toBlock: 'latest',
+  address: contractAddress,
+  topics: [eventSignature]
+})
+```
+
+### Performance Considerations
+
+The ReceiptsManager includes built-in limits to prevent excessive resource usage:
+
+```ts
+// Log query limits
+const GET_LOGS_LIMIT = 10000 // Maximum number of logs
+const GET_LOGS_LIMIT_MEGABYTES = 150 // Maximum response size
+const GET_LOGS_BLOCK_RANGE_LIMIT = 2500 // Maximum block range
+```
+
+#### Best Practices
+
+1. **Efficient Log Queries**:
+   * Use specific address and topic filters
+   * Limit block ranges for large queries
+   * Clean up unused filters
+
+2. **Receipt Storage**:
+   * Receipts are stored by block hash
+   * Transaction hash indexes are maintained within limits
+   * Old transaction indexes are automatically pruned
+
+3. **Error Handling**:
+   ```ts
+   try {
+     const logs = await manager.getLogs({
+       fromBlock,
+       toBlock,
+       address,
+       topics
+     })
+   } catch (error) {
+     if (error.message.includes('block range too large')) {
+       // Handle range error
+     }
+     // Handle other errors
+   }
+   ```
+
+4. **Memory Management**:
+   * Monitor filter count
+   * Remove unused filters
+   * Use pagination for large log queries
+
+### Working with Contract Events
+
+Example of tracking ERC20 Transfer events:
+
+```ts
+const transferTopic = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+
+// Get all transfers to/from an address
+const logs = await manager.getLogs({
+  address: tokenAddress,
+  topics: [
+    transferTopic,
+    null,
+    '0x000000000000000000000000' + address.slice(2)
+  ],
+  fromBlock: startBlock,
+  toBlock: 'latest'
+})
+
+// Parse transfer events
+for (const log of logs) {
+  const [from, to, value] = ethers.AbiCoder.defaultAbiCoder().decode(
+    ['address', 'address', 'uint256'],
+    log.data
+  )
+  console.log(`Transfer: ${from} -> ${to}: ${value}`)
+}
+```
+
+### Related Topics
+
+* [JSON-RPC Support](../api/json-rpc)
+* [VM & Submodules](../api/vm-and-submodules)
+* [Transaction Pool](./txpool)
+
+
+## Transaction Pool
+
+The Transaction Pool (TxPool) in Tevm Node manages pending transactions that haven't been included in a block yet. It provides functionality for adding, removing, and querying transactions.
+
+### Overview
+
+The TxPool serves several purposes:
+
+* Managing pending transactions
+* Handling transaction ordering by gas price
+* Supporting the `pending` block tag in JSON-RPC calls
+* Validating transactions before inclusion
+
+### Basic Usage
+
+```ts
+const pool = await node.getTxPool()
+
+// Add transaction to pool
+await pool.add(transaction)
+
+// Get all pending transactions
+const pending = await pool.getPendingTransactions()
+
+// Remove transaction
+await pool.removeByHash(txHash)
+```
+
+### Transaction Validation
+
+Before adding transactions to the pool, they undergo validation:
+
+```ts
+try {
+  // Validate transaction
+  await pool.validateTx(transaction)
+  
+  // Add to pool if valid
+  await pool.add(transaction)
+} catch (error) {
+  if (error.message.includes('nonce too low')) {
+    // Handle nonce error
+  } else if (error.message.includes('insufficient funds')) {
+    // Handle balance error
+  }
+  // Handle other validation errors
+}
+```
+
+#### Validation Checks
+
+The TxPool performs several checks:
+
+1. **Nonce Validation**: Ensures transaction nonce matches account nonce
+2. **Balance Check**: Verifies sender has sufficient funds
+3. **Gas Price**: Validates against minimum gas price requirements
+4. **Gas Limit**: Checks against block gas limit
+5. **EIP-1559**: Validates fee parameters for Type-2 transactions
+
+### Transaction Ordering
+
+The TxPool orders transactions by gas price and nonce:
+
+```ts
+// Get transactions ordered by price
+const ordered = await pool.txsByPriceAndNonce({
+  baseFee: 10n
+})
+
+// Get transactions for specific sender
+const senderTxs = await pool.getBySenderAddress(senderAddress)
+```
+
+#### Priority Queue
+
+For EIP-1559 transactions, ordering considers:
+
+* `maxFeePerGas`
+* `maxPriorityFeePerGas`
+* Current block's `baseFee`
+
+```ts
+// Get highest priority transactions
+const highPriority = await pool.getHighestPriorityTransactions()
+```
+
+### Pending State
+
+The TxPool maintains a "pending state" that includes uncommitted transactions:
+
+```ts
+// Get state including pending transactions
+const pendingBalance = await pool.getPendingBalance(address)
+const pendingNonce = await pool.getPendingNonce(address)
+```
+
+#### JSON-RPC Support
+
+The pending state is used when handling JSON-RPC calls with the `pending` block tag:
+
+```ts
+// Example eth_call with pending state
+const result = await node.request({
+  method: 'eth_call',
+  params: [{
+    to: contractAddress,
+    data: calldata
+  }, 'pending']
+})
+```
+
+### Memory Management
+
+The TxPool includes features to prevent memory exhaustion:
+
+```ts
+// Configuration
+const POOL_SIZE_LIMIT = 5000 // Maximum transactions
+const ACCOUNT_TX_LIMIT = 100 // Maximum per account
+const PRICE_BUMP = 10        // % price increase to replace tx
+
+// Clear old transactions
+await pool.clearOldTransactions()
+
+// Get pool statistics
+const stats = await pool.getStats()
+console.log({
+  pending: stats.pending,
+  queued: stats.queued,
+  baseFee: stats.baseFee
+})
+```
+
+### Event Handling
+
+The TxPool emits events for transaction lifecycle:
+
+```ts
+pool.on('addedTx', (tx) => {
+  console.log('New transaction:', tx.hash)
+})
+
+pool.on('removedTx', (txHash) => {
+  console.log('Removed transaction:', txHash)
+})
+
+pool.on('pendingTx', (tx) => {
+  console.log('Transaction pending:', tx.hash)
+})
+```
+
+### Best Practices
+
+1. **Transaction Replacement**:
+   ```ts
+   // Replace transaction with higher gas price
+   const newTx = {
+     ...oldTx,
+     maxFeePerGas: oldTx.maxFeePerGas * 110n / 100n, // 10% increase
+     nonce: oldTx.nonce // Same nonce
+   }
+   await pool.add(newTx)
+   ```
+
+2. **Memory Management**:
+   * Monitor pool size
+   * Clear old transactions periodically
+   * Set appropriate limits per account
+
+3. **Error Handling**:
+   ```ts
+   try {
+     await pool.add(tx)
+   } catch (error) {
+     if (error.message.includes('replacement fee too low')) {
+       // Increase gas price for replacement
+     } else if (error.message.includes('pool is full')) {
+       // Handle pool capacity
+     }
+     // Handle other errors
+   }
+   ```
+
+4. **Gas Price Management**:
+   * Track current base fee
+   * Update gas price suggestions
+   * Handle EIP-1559 parameters
+
+### Related Topics
+
+* [JSON-RPC Support](../api/json-rpc)
+* [VM & Submodules](../api/vm-and-submodules)
+* [Receipts & Logs](./receipts-and-logs)
+
+
 import { Callout, Steps, Step } from 'vocs/components'
 
 ## Creating a Tevm Node
@@ -4010,6 +4279,861 @@ function useNode<TMode extends 'fork' | 'normal'>(
 * See [JSON-RPC Support](../api/json-rpc)
 
 
+## Architecture Overview
+
+### What is Tevm Node?
+
+[Tevm Node](https://github.com/evmts/tevm-monorepo) is a JavaScript implementation of an Ethereum node that can run in any JavaScript environment - browsers, Node.js, or other runtimes. It provides a complete [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) with state management, transaction processing, and JSON-RPC support.
+
+### Core Architecture
+
+![Tevm Node Architecture](https://raw.githubusercontent.com/evmts/tevm-monorepo/main/docs/images/architecture.png)
+
+Tevm Node is built on several key components that work together:
+
+#### 1. Virtual Machine (EVM)
+
+* Core execution engine that runs [EVM bytecode](https://ethereum.org/en/developers/docs/evm/opcodes/)
+* Handles state transitions and gas metering
+* Based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
+
+#### 2. State Manager
+
+* Manages account balances, contract code, and storage
+* Supports forking from live networks
+* Implements caching and lazy loading
+
+#### 3. Transaction Pool (Mempool)
+
+* Manages pending transactions
+* Orders transactions by gas price
+* Validates transaction requirements
+
+#### 4. Blockchain
+
+* Maintains block history and chain state
+* Handles block production (mining)
+* Manages chain reorganizations
+
+#### 5. Receipts Manager
+
+* Tracks transaction outcomes
+* Manages event logs and filters
+* Supports optimistic updates
+
+### Available APIs
+
+Tevm Node provides several layers of APIs for different use cases:
+
+#### 1. High-Level Actions
+
+Most functionality in Tevm is done via tree shakable actions including JSON-RPC compatabile actions.
+
+The most commonly used action is `tevmCall`
+
+```ts
+import { tevmCall, tevmMine, tevmGetAccount } from 'tevm/actions'
+
+// Execute contract calls
+const result = await tevmCall(node, {
+  to: contractAddress,
+  data: calldata
+})
+
+// Mine pending transactions
+await tevmMine(node)
+
+// Read account state
+const account = await tevmGetAccount(node, {
+  address: accountAddress
+})
+```
+
+#### 2. JSON-RPC Interface
+
+```ts
+import { requestEip1193 } from 'tevm/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+
+// Standard Ethereum JSON-RPC calls
+const balance = await node.request({
+  method: 'eth_getBalance',
+  params: [address, 'latest']
+})
+```
+
+#### 3. Direct VM Access
+
+```ts
+const vm = await node.getVm()
+
+// Low-level EVM execution
+const result = await vm.runTx({
+  tx: transaction,
+  block: block
+})
+
+// State management
+await vm.stateManager.putAccount(address, account)
+```
+
+#### 4. Contract Utilities
+
+```ts
+import { createContract } from 'tevm/contract'
+
+// Type-safe contract interactions
+const contract = createContract({
+  humanReadableAbi: abi,
+  address: contractAddress
+})
+
+const action = contract.write.transfer(to, amount)
+```
+
+Note, you can optionally compile these contracts automatically in a typesafe way using the tevm bundler (docs coming soon)
+
+```typescript
+// import solidity direction to create a contract
+import {MyContract} from './MyContract.sol'
+
+console.log(MyContract.abi)
+```
+
+### Key Features
+
+#### 1. Forking
+
+Fork from any live network or another Tevm instance:
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 'latest'
+  }
+})
+```
+
+#### 2. Mining Modes
+
+Configure how transactions are processed:
+
+```ts
+const node = createTevmNode({
+  miningConfig: {
+    type: 'auto' // Mine every transaction
+    // Or 'interval', 'manual', 'gas'
+  }
+})
+```
+
+#### 3. Custom Precompiles
+
+Extend the EVM with JavaScript functions:
+
+```ts
+const precompile = definePrecompile({
+  address: '0x123...',
+  call: async (input) => {
+    // Custom logic
+    return {
+      returnValue: result,
+      executionGasUsed: 100n
+    }
+  }
+})
+```
+
+#### 4. State Management
+
+Direct control over blockchain state:
+
+```ts
+// Modify account state
+await node.setAccount({
+  address: '0x123...',
+  balance: 100n,
+  code: '0x...',
+  storage: { /* ... */ }
+})
+
+// Create checkpoints
+await vm.stateManager.checkpoint()
+await vm.stateManager.commit() // or .revert()
+```
+
+### Common Use Cases
+
+1. **Local Development**
+   * Run a complete Ethereum environment locally
+   * Test contracts without external networks
+   * Simulate complex scenarios
+
+2. **Testing**
+   * Unit test smart contracts
+   * Integration test DApp interactions
+   * Fork mainnet for realistic tests
+
+3. **Transaction Simulation**
+   * Preview transaction outcomes
+   * Estimate gas costs accurately
+   * Debug failed transactions
+
+4. **State Manipulation**
+   * Modify account balances
+   * Override contract state
+   * Test edge cases
+
+### Integration Examples
+
+#### With Viem
+
+```ts
+import { createPublicClient, custom } from 'viem'
+
+const client = createPublicClient({
+  transport: custom(node.request)
+})
+```
+
+#### With Ethers.js
+
+```ts
+import { BrowserProvider } from 'ethers'
+
+const provider = new BrowserProvider(node)
+```
+
+### Next Steps
+
+* [Installation & Quickstart](../introduction/installation)
+* [Core Concepts](../core/create-tevm-node)
+* [API Reference](../api/methods)
+* [Examples](../examples/local-testing)
+
+
+## Installation & Quickstart
+
+### 1. Install
+
+```sh
+npm install @tevm/node
+
+# or
+yarn add @tevm/node
+
+# or
+pnpm add @tevm/node
+
+# or
+bun add @tevm/node
+```
+
+### 2. Quick Start
+
+```ts
+import { createTevmNode } from 'tevm/node'
+
+// Create an instance
+const node = createTevmNode()
+
+// Access the internal VM once it is ready
+const vm = await node.getVm()
+
+// Perform an method on the vm or one of it's subcomponents like blockchain
+console.log(await vm.blockchain.getBlockByTag('latest'))
+```
+
+### 3. Next Steps
+
+* Explore the [Core Concepts](../core/create-tevm-node)
+* Check out [Examples](../examples/local-testing)
+
+
+## What is Tevm Node?
+
+Tevm Node is an in-browser & Node.js-compatible Ethereum Node. It provides a complete Ethereum Virtual Machine (EVM) execution environment, powered by JavaScript, that you can run:
+
+* **In Node.js** for local or CI testing.
+* **In the Browser** for advanced user experiences (offline, real-time simulation, etc.).
+* **In Deno, Bun**, or any modern JS environment.
+
+### Key Features
+
+* **Forking:** Simulate mainnet or testnet state from a live RPC, similar to Hardhat or Anvil.
+* **TxPool (Mempool):** Keep track of unmined transactions locally.
+* **Mining Config:** Choose between auto mining, interval-based mining, manual, or gas-limit-based mining.
+* **Zero dependencies on native modules** – works seamlessly in the browser.
+* **Extendable:** Hook into the VM, custom precompiles, receipts, and more.
+
+### Hello World Example
+
+This example forks optimism then reads block data using `vm.blockchain`
+
+```ts
+import { createTevmNode, http } from 'tevm/node'
+
+// Create a node that forks from Optimism
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.optimism.io')
+  }
+})
+
+const vm = await node.getVm()
+
+console.log(await vm.blockchain.getBlockByTag('latest'))
+```
+
+### Motivations / Why Tevm Node
+
+* **Browser/Local Execution** for improved latency & advanced debugging.
+* **Optimistic updates**: Inspect tx side effects before on-chain mining.
+* **Lightweight**: Slashes overhead vs. running a full geth or anvil node.
+* **Network independence**: Freed from real chain constraints in your applications.
+
+### Next Steps
+
+* [Why run Ethereum in JavaScript?](./why-run-ethereum-in-js)
+* [Installation & Quickstart](./installation)
+
+
+## Why run Ethereum in JavaScript?
+
+### 1. Advanced Gas Estimation & Local Execution
+
+Running the EVM locally removes round-trip latency to a remote node. You can do:
+
+* Bulk simulation or multi-tx simulation
+* Real-time "dry run" of transactions
+* Faster dev/test cycles
+
+### 2. User Experience Enhancements
+
+* **Offline** or *local-first* capabilities
+* **Optimistic UI** updates with local simulation
+* No reliance on ephemeral test networks
+
+### 3. Testing & Debugging
+
+* Fine-grained EVM introspection
+* Deterministic environment
+* Light footprint – no external server needed
+
+### 4. Ecosystem & Portability
+
+* Portable across Node.js, browsers, and serverless
+* Works with standard EVM interfaces
+* Integrates well with modern JS/TS tooling
+
+
+## Building a Debugger UI
+
+This example demonstrates how to create a minimal EVM debugger interface using [Svelte](https://svelte.dev) and Tevm Node. The debugger will show:
+
+* Live opcode execution
+* Stack contents
+* Memory state
+* Error messages
+* Gas usage
+
+### Project Setup
+
+First, create a new Svelte project and install dependencies:
+
+```bash
+npm create vite@latest tevm-debugger -- --template svelte-ts
+cd tevm-debugger
+npm install tevm @tevm/contract
+```
+
+### Components
+
+#### 1. EVMDebugger.svelte
+
+```svelte
+<script lang="ts">
+  import { onMount, onDestroy } from 'svelte'
+  import { createTevmNode } from 'tevm/node'
+  import type { InterpreterStep } from '@tevm/evm'
+
+  // Store execution state
+  let steps: InterpreterStep[] = []
+  let currentStep: InterpreterStep | null = null
+  let errors: string[] = []
+  let gasUsed = 0n
+  let isRunning = false
+
+  // Create Tevm Node
+  const node = createTevmNode()
+  let vm: Awaited<ReturnType<typeof node.getVm>>
+
+  onMount(async () => {
+    vm = await node.getVm()
+    setupEventListeners()
+  })
+
+  function setupEventListeners() {
+    // Track execution steps
+    vm.evm.events?.on('step', (step, next) => {
+      currentStep = step
+      steps = [...steps, step]
+      next?.()
+    })
+
+    // Track errors
+    vm.evm.events?.on('afterMessage', (result, next) => {
+      if (result.execResult.exceptionError) {
+        errors = [...errors, result.execResult.exceptionError.error]
+      }
+      gasUsed = result.execResult.executionGasUsed
+      next?.()
+    })
+  }
+
+  // Clean up
+  onDestroy(() => {
+    vm?.evm.events?.removeAllListeners()
+  })
+
+  // Execute sample transaction
+  async function runSampleTx() {
+    isRunning = true
+    steps = []
+    errors = []
+
+    try {
+      await vm.runTx({
+        tx: {
+          to: '0x1234...',
+          data: '0x...',  // Your transaction data
+        }
+      })
+    } catch (error) {
+      errors = [...errors, error.message]
+    }
+
+    isRunning = false
+  }
+</script>
+
+<div class="debugger">
+  <div class="controls">
+    <button on:click={runSampleTx} disabled={isRunning}>
+      {isRunning ? 'Running...' : 'Run Transaction'}
+    </button>
+    <div class="gas">Gas Used: {gasUsed.toString()}</div>
+  </div>
+
+  <div class="execution">
+    <h3>Current Step</h3>
+    {#if currentStep}
+      <div class="step">
+        <div>PC: {currentStep.pc}</div>
+        <div>Opcode: {currentStep.opcode.name}</div>
+        <div>Gas Left: {currentStep.gasLeft.toString()}</div>
+        <div>Depth: {currentStep.depth}</div>
+      </div>
+    {/if}
+  </div>
+
+  <div class="stack">
+    <h3>Stack</h3>
+    {#if currentStep?.stack}
+      <div class="stack-items">
+        {#each currentStep.stack as item}
+          <div class="stack-item">{item.toString(16)}</div>
+        {/each}
+      </div>
+    {/if}
+  </div>
+
+  <div class="errors">
+    <h3>Errors</h3>
+    {#each errors as error}
+      <div class="error">{error}</div>
+    {/each}
+  </div>
+
+  <div class="history">
+    <h3>Execution History ({steps.length} steps)</h3>
+    <div class="steps">
+      {#each steps as step}
+        <div class="history-step">
+          {step.opcode.name} (Gas: {step.gasLeft.toString()})
+        </div>
+      {/each}
+    </div>
+  </div>
+</div>
+
+<style>
+  .debugger {
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .controls {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .execution, .stack, .errors, .history {
+    background: #2d3748;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: #e2e8f0;
+  }
+
+  .stack-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stack-item {
+    font-family: monospace;
+    padding: 0.25rem;
+    background: #4a5568;
+    border-radius: 0.25rem;
+  }
+
+  .error {
+    color: #fc8181;
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+    background: #742a2a;
+    border-radius: 0.25rem;
+  }
+
+  .steps {
+    height: 200px;
+    overflow-y: auto;
+  }
+
+  .history-step {
+    padding: 0.25rem;
+    border-bottom: 1px solid #4a5568;
+    font-family: monospace;
+  }
+</style>
+```
+
+#### 2. App.svelte
+
+```svelte
+<script lang="ts">
+  import EVMDebugger from './lib/EVMDebugger.svelte'
+</script>
+
+<main>
+  <h1>Tevm Debugger</h1>
+  <EVMDebugger />
+</main>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h1 {
+    color: #2d3748;
+    margin-bottom: 2rem;
+  }
+</style>
+```
+
+### Advanced Features
+
+#### Memory Viewer Component
+
+```svelte
+<script lang="ts">
+  export let memory: Uint8Array
+  export let startOffset = 0
+  export let bytesPerRow = 16
+
+  $: rows = chunk(memory, bytesPerRow)
+
+  function chunk(array: Uint8Array, size: number) {
+    const chunks = []
+    for (let i = 0; i < array.length; i += size) {
+      chunks.push(array.slice(i, i + size))
+    }
+    return chunks
+  }
+
+  function formatByte(byte: number) {
+    return byte.toString(16).padStart(2, '0')
+  }
+
+  function formatAscii(byte: number) {
+    return byte >= 32 && byte <= 126 ? String.fromCharCode(byte) : '.'
+  }
+</script>
+
+<div class="memory-viewer">
+  {#each rows as row, i}
+    <div class="memory-row">
+      <span class="offset">
+        {(startOffset + i * bytesPerRow).toString(16).padStart(8, '0')}:
+      </span>
+      <span class="hex">
+        {#each row as byte}
+          {formatByte(byte)}
+        {/each}
+      </span>
+      <span class="ascii">
+        {#each row as byte}
+          {formatAscii(byte)}
+        {/each}
+      </span>
+    </div>
+  {/each}
+</div>
+
+<style>
+  .memory-viewer {
+    font-family: monospace;
+    white-space: pre;
+  }
+
+  .memory-row {
+    display: flex;
+    gap: 1rem;
+    padding: 0.25rem 0;
+  }
+
+  .offset {
+    color: #718096;
+  }
+
+  .hex {
+    letter-spacing: 0.1em;
+  }
+
+  .ascii {
+    color: #718096;
+  }
+</style>
+```
+
+#### Storage Viewer Component
+
+```svelte
+<script lang="ts">
+  import type { Address } from '@tevm/utils'
+  import { createTevmNode } from 'tevm/node'
+
+  export let address: Address
+
+  let storage = new Map<string, string>()
+  let loading = false
+
+  const node = createTevmNode()
+
+  async function loadStorage() {
+    loading = true
+    try {
+      const vm = await node.getVm()
+      const dump = await vm.stateManager.dumpStorage(address)
+      storage = new Map(Object.entries(dump))
+    } catch (error) {
+      console.error('Failed to load storage:', error)
+    }
+    loading = false
+  }
+</script>
+
+<div class="storage">
+  <button on:click={loadStorage} disabled={loading}>
+    {loading ? 'Loading...' : 'Load Storage'}
+  </button>
+
+  {#if storage.size > 0}
+    <div class="storage-items">
+      {#each [...storage] as [slot, value]}
+        <div class="storage-item">
+          <span class="slot">{slot}:</span>
+          <span class="value">{value}</span>
+        </div>
+      {/each}
+    </div>
+  {/if}
+</div>
+
+<style>
+  .storage {
+    padding: 1rem;
+  }
+
+  .storage-items {
+    margin-top: 1rem;
+  }
+
+  .storage-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.25rem 0;
+    font-family: monospace;
+  }
+
+  .slot {
+    color: #718096;
+  }
+</style>
+```
+
+### Usage
+
+1. Create the project structure:
+
+```
+tevm-debugger/
+├── src/
+│   ├── lib/
+│   │   ├── EVMDebugger.svelte
+│   │   ├── MemoryViewer.svelte
+│   │   └── StorageViewer.svelte
+│   ├── App.svelte
+│   └── main.ts
+└── package.json
+```
+
+2. Run the development server:
+
+```bash
+npm run dev
+```
+
+3. Use the debugger:
+
+```ts
+// Example contract deployment
+const bytecode = '0x...' // Your contract bytecode
+await vm.runTx({
+  tx: {
+    data: bytecode
+  }
+})
+
+// Example contract interaction
+await vm.runTx({
+  tx: {
+    to: '0x...',    // Contract address
+    data: '0x...',  // Encoded function call
+  }
+})
+```
+
+### Customization
+
+#### Adding Transaction History
+
+```svelte
+<script lang="ts">
+  import { writable } from 'svelte/store'
+
+  const transactions = writable<{
+    hash: string
+    to: string
+    data: string
+    status: 'success' | 'error'
+  }[]>([])
+
+  vm.evm.events?.on('afterMessage', (result, next) => {
+    transactions.update(txs => [...txs, {
+      hash: result.execResult.hash?.toString() ?? '',
+      to: result.execResult.to?.toString() ?? '',
+      data: result.execResult.data?.toString('hex') ?? '',
+      status: result.execResult.exceptionError ? 'error' : 'success'
+    }])
+    next?.()
+  })
+</script>
+
+<div class="transactions">
+  <h3>Transaction History</h3>
+  {#each $transactions as tx}
+    <div class="transaction" class:error={tx.status === 'error'}>
+      <div>Hash: {tx.hash}</div>
+      <div>To: {tx.to}</div>
+      <div>Data: {tx.data}</div>
+    </div>
+  {/each}
+</div>
+```
+
+#### Adding Gas Profiling
+
+```svelte
+<script lang="ts">
+  const gasProfile = new Map<string, { count: number, totalGas: bigint }>()
+
+  vm.evm.events?.on('step', (step, next) => {
+    const opName = step.opcode.name
+    const gasCost = BigInt(step.opcode.fee)
+
+    const stats = gasProfile.get(opName) ?? { count: 0, totalGas: 0n }
+    stats.count++
+    stats.totalGas += gasCost
+    gasProfile.set(opName, stats)
+
+    next?.()
+  })
+</script>
+
+<div class="gas-profile">
+  <h3>Gas Profile</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Opcode</th>
+        <th>Count</th>
+        <th>Total Gas</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each [...gasProfile] as [opcode, stats]}
+        <tr>
+          <td>{opcode}</td>
+          <td>{stats.count}</td>
+          <td>{stats.totalGas.toString()}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+```
+
+### Related Topics
+
+* [EVM Events](../api/evm-events)
+* [Performance Profiler](../advanced/performance-profiler)
+
+
 ## Using with Ethers.js
 
 This guide demonstrates how to use Tevm Node with Ethers.js, enabling seamless integration with the popular Ethereum development library.
@@ -5064,335 +6188,4 @@ test('Contract interaction', async () => {
 * [JSON-RPC Support](../api/json-rpc)
 * [Local Testing](./local-testing)
 * [Forking Mainnet](./forking-mainnet)
-
-
-## Architecture Overview
-
-### What is Tevm Node?
-
-[Tevm Node](https://github.com/evmts/tevm-monorepo) is a JavaScript implementation of an Ethereum node that can run in any JavaScript environment - browsers, Node.js, or other runtimes. It provides a complete [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) with state management, transaction processing, and JSON-RPC support.
-
-### Core Architecture
-
-![Tevm Node Architecture](https://raw.githubusercontent.com/evmts/tevm-monorepo/main/docs/images/architecture.png)
-
-Tevm Node is built on several key components that work together:
-
-#### 1. Virtual Machine (EVM)
-
-* Core execution engine that runs [EVM bytecode](https://ethereum.org/en/developers/docs/evm/opcodes/)
-* Handles state transitions and gas metering
-* Based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
-
-#### 2. State Manager
-
-* Manages account balances, contract code, and storage
-* Supports forking from live networks
-* Implements caching and lazy loading
-
-#### 3. Transaction Pool (Mempool)
-
-* Manages pending transactions
-* Orders transactions by gas price
-* Validates transaction requirements
-
-#### 4. Blockchain
-
-* Maintains block history and chain state
-* Handles block production (mining)
-* Manages chain reorganizations
-
-#### 5. Receipts Manager
-
-* Tracks transaction outcomes
-* Manages event logs and filters
-* Supports optimistic updates
-
-### Available APIs
-
-Tevm Node provides several layers of APIs for different use cases:
-
-#### 1. High-Level Actions
-
-Most functionality in Tevm is done via tree shakable actions including JSON-RPC compatabile actions.
-
-The most commonly used action is `tevmCall`
-
-```ts
-import { tevmCall, tevmMine, tevmGetAccount } from 'tevm/actions'
-
-// Execute contract calls
-const result = await tevmCall(node, {
-  to: contractAddress,
-  data: calldata
-})
-
-// Mine pending transactions
-await tevmMine(node)
-
-// Read account state
-const account = await tevmGetAccount(node, {
-  address: accountAddress
-})
-```
-
-#### 2. JSON-RPC Interface
-
-```ts
-import { requestEip1193 } from 'tevm/decorators'
-
-const node = createTevmNode().extend(requestEip1193())
-
-// Standard Ethereum JSON-RPC calls
-const balance = await node.request({
-  method: 'eth_getBalance',
-  params: [address, 'latest']
-})
-```
-
-#### 3. Direct VM Access
-
-```ts
-const vm = await node.getVm()
-
-// Low-level EVM execution
-const result = await vm.runTx({
-  tx: transaction,
-  block: block
-})
-
-// State management
-await vm.stateManager.putAccount(address, account)
-```
-
-#### 4. Contract Utilities
-
-```ts
-import { createContract } from 'tevm/contract'
-
-// Type-safe contract interactions
-const contract = createContract({
-  humanReadableAbi: abi,
-  address: contractAddress
-})
-
-const action = contract.write.transfer(to, amount)
-```
-
-Note, you can optionally compile these contracts automatically in a typesafe way using the tevm bundler (docs coming soon)
-
-```typescript
-// import solidity direction to create a contract
-import {MyContract} from './MyContract.sol'
-
-console.log(MyContract.abi)
-```
-
-### Key Features
-
-#### 1. Forking
-
-Fork from any live network or another Tevm instance:
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-    blockTag: 'latest'
-  }
-})
-```
-
-#### 2. Mining Modes
-
-Configure how transactions are processed:
-
-```ts
-const node = createTevmNode({
-  miningConfig: {
-    type: 'auto' // Mine every transaction
-    // Or 'interval', 'manual', 'gas'
-  }
-})
-```
-
-#### 3. Custom Precompiles
-
-Extend the EVM with JavaScript functions:
-
-```ts
-const precompile = definePrecompile({
-  address: '0x123...',
-  call: async (input) => {
-    // Custom logic
-    return {
-      returnValue: result,
-      executionGasUsed: 100n
-    }
-  }
-})
-```
-
-#### 4. State Management
-
-Direct control over blockchain state:
-
-```ts
-// Modify account state
-await node.setAccount({
-  address: '0x123...',
-  balance: 100n,
-  code: '0x...',
-  storage: { /* ... */ }
-})
-
-// Create checkpoints
-await vm.stateManager.checkpoint()
-await vm.stateManager.commit() // or .revert()
-```
-
-### Common Use Cases
-
-1. **Local Development**
-   * Run a complete Ethereum environment locally
-   * Test contracts without external networks
-   * Simulate complex scenarios
-
-2. **Testing**
-   * Unit test smart contracts
-   * Integration test DApp interactions
-   * Fork mainnet for realistic tests
-
-3. **Transaction Simulation**
-   * Preview transaction outcomes
-   * Estimate gas costs accurately
-   * Debug failed transactions
-
-4. **State Manipulation**
-   * Modify account balances
-   * Override contract state
-   * Test edge cases
-
-### Integration Examples
-
-#### With Viem
-
-```ts
-import { createPublicClient, custom } from 'viem'
-
-const client = createPublicClient({
-  transport: custom(node.request)
-})
-```
-
-#### With Ethers.js
-
-```ts
-import { BrowserProvider } from 'ethers'
-
-const provider = new BrowserProvider(node)
-```
-
-### Next Steps
-
-* [Installation & Quickstart](../introduction/installation)
-* [Core Concepts](../core/create-tevm-node)
-* [API Reference](../api/methods)
-* [Examples](../examples/local-testing)
-
-
-## Installation & Quickstart
-
-### 1. Install
-
-```sh
-npm install @tevm/node
-
-# or
-yarn add @tevm/node
-
-# or
-pnpm add @tevm/node
-
-# or
-bun add @tevm/node
-```
-
-### 2. Quick Start
-
-```ts
-import { createTevmNode } from 'tevm/node'
-
-// Create an instance
-const node = createTevmNode()
-
-// Access the internal VM once it is ready
-const vm = await node.getVm()
-
-// Perform an method on the vm or one of it's subcomponents like blockchain
-console.log(await vm.blockchain.getBlockByTag('latest'))
-```
-
-### 3. Next Steps
-
-* Explore the [Core Concepts](../core/create-tevm-node)
-* Check out [Examples](../examples/local-testing)
-
-
-## What is Tevm Node?
-
-Tevm Node is an in-browser & Node.js-compatible Ethereum Node. It provides a complete Ethereum Virtual Machine (EVM) execution environment, powered by JavaScript, that you can run:
-
-* **In Node.js** for local or CI testing.
-* **In the Browser** for advanced user experiences (offline, real-time simulation, etc.).
-* **In Deno, Bun**, or any modern JS environment.
-
-### Key Features
-
-* **Forking:** Simulate mainnet or testnet state from a live RPC, similar to Hardhat or Anvil.
-* **TxPool (Mempool):** Keep track of unmined transactions locally.
-* **Mining Config:** Choose between auto mining, interval-based mining, manual, or gas-limit-based mining.
-* **Zero dependencies on native modules** – works seamlessly in the browser.
-* **Extendable:** Hook into the VM, custom precompiles, receipts, and more.
-
-### Motivations / Why Tevm Node
-
-* **Browser/Local Execution** for improved latency & advanced debugging.
-* **Optimistic updates**: Inspect tx side effects before on-chain mining.
-* **Lightweight**: Slashes overhead vs. running a full geth or anvil node.
-* **Network independence**: Freed from real chain constraints in your applications.
-
-### Next Steps
-
-* [Why run Ethereum in JavaScript?](./why-run-ethereum-in-js)
-* [Installation & Quickstart](./installation)
-
-
-## Why run Ethereum in JavaScript?
-
-### 1. Advanced Gas Estimation & Local Execution
-
-Running the EVM locally removes round-trip latency to a remote node. You can do:
-
-* Bulk simulation or multi-tx simulation
-* Real-time "dry run" of transactions
-* Faster dev/test cycles
-
-### 2. User Experience Enhancements
-
-* **Offline** or *local-first* capabilities
-* **Optimistic UI** updates with local simulation
-* No reliance on ephemeral test networks
-
-### 3. Testing & Debugging
-
-* Fine-grained EVM introspection
-* Deterministic environment
-* Light footprint – no external server needed
-
-### 4. Ecosystem & Portability
-
-* Portable across Node.js, browsers, and serverless
-* Works with standard EVM interfaces
-* Integrates well with modern JS/TS tooling
 

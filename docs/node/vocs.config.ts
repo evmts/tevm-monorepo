@@ -11,7 +11,7 @@ export default defineConfig({
   ],
   sidebar: [
     {
-      text: 'Getting Started',
+      text: 'Quick Start',
       collapsed: false,
       items: [
         { text: 'Overview', link: '/getting-started' },
@@ -31,44 +31,46 @@ export default defineConfig({
       text: 'Core Concepts',
       collapsed: false,
       items: [
-        { text: 'createTevmNode', link: '/core/create-tevm-node' },
-        { text: 'TevmNode Interface', link: '/core/tevm-node-interface' },
+        { text: 'Creating a Node', link: '/core/create-tevm-node' },
+        { text: 'Node Interface', link: '/core/tevm-node-interface' },
         { text: 'Forking & Reforking', link: '/core/forking' },
         { text: 'Managing State', link: '/core/managing-state' },
-        { text: 'Mining Config', link: '/core/mining-config' },
       ],
     },
     {
-      text: 'API Reference',
+      text: 'Essential APIs',
       collapsed: true,
       items: [
         { text: 'Methods & Properties', link: '/api/methods' },
         { text: 'VM & Submodules', link: '/api/vm-and-submodules' },
         { text: 'JSON-RPC Guide', link: '/api/json-rpc' },
+        { text: 'Memory Client', link: '/api/memory-client' },
         { text: 'tevmCall API', link: '/api/tevm-call' },
         { text: 'Account Management', link: '/api/account-management' },
         { text: 'Contract Utilities', link: '/api/contracts' },
         { text: 'Utilities & Addresses', link: '/api/utils' },
+        { text: 'EVM Events', link: '/api/evm-events' },
       ],
     },
     {
-      text: 'Advanced',
-      collapsed: true,
-      items: [
-        { text: 'TxPool & Mempool', link: '/advanced/txpool' },
-        { text: 'Receipts & Logs', link: '/advanced/receipts-and-logs' },
-        { text: 'Performance & Profiler', link: '/advanced/performance-profiler' },
-        { text: 'Custom Precompiles', link: '/advanced/custom-precompiles' },
-      ],
-    },
-    {
-      text: 'Examples',
+      text: 'Integration Examples',
       collapsed: true,
       items: [
         { text: 'Local Testing Flow', link: '/examples/local-testing' },
         { text: 'Forking Mainnet', link: '/examples/forking-mainnet' },
         { text: 'Using with Viem', link: '/examples/viem' },
         { text: 'Using with Ethers', link: '/examples/ethers' },
+        { text: 'Building a Debugger UI', link: '/examples/debugger-ui' },
+      ],
+    },
+    {
+      text: 'Advanced Features',
+      collapsed: true,
+      items: [
+        { text: 'TxPool & Mempool', link: '/advanced/txpool' },
+        { text: 'Receipts & Logs', link: '/advanced/receipts-and-logs' },
+        { text: 'Performance & Profiler', link: '/advanced/performance-profiler' },
+        { text: 'Custom Precompiles', link: '/advanced/custom-precompiles' },
       ],
     },
   ],

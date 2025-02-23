@@ -1,0 +1,497 @@
+---
+title: Building a Debugger UI
+description: Create a minimal EVM debugger interface using Svelte and Tevm Node
+---
+
+# Building a Debugger UI
+
+This example demonstrates how to create a minimal EVM debugger interface using [Svelte](https://svelte.dev) and Tevm Node. The debugger will show:
+- Live opcode execution
+- Stack contents
+- Memory state
+- Error messages
+- Gas usage
+
+## Project Setup
+
+First, create a new Svelte project and install dependencies:
+
+```bash
+npm create vite@latest tevm-debugger -- --template svelte-ts
+cd tevm-debugger
+npm install tevm @tevm/contract
+```
+
+## Components
+
+### 1. EVMDebugger.svelte
+```svelte
+<script lang="ts">
+  import { onMount, onDestroy } from 'svelte'
+  import { createTevmNode } from 'tevm/node'
+  import type { InterpreterStep } from '@tevm/evm'
+
+  // Store execution state
+  let steps: InterpreterStep[] = []
+  let currentStep: InterpreterStep | null = null
+  let errors: string[] = []
+  let gasUsed = 0n
+  let isRunning = false
+
+  // Create Tevm Node
+  const node = createTevmNode()
+  let vm: Awaited<ReturnType<typeof node.getVm>>
+
+  onMount(async () => {
+    vm = await node.getVm()
+    setupEventListeners()
+  })
+
+  function setupEventListeners() {
+    // Track execution steps
+    vm.evm.events?.on('step', (step, next) => {
+      currentStep = step
+      steps = [...steps, step]
+      next?.()
+    })
+
+    // Track errors
+    vm.evm.events?.on('afterMessage', (result, next) => {
+      if (result.execResult.exceptionError) {
+        errors = [...errors, result.execResult.exceptionError.error]
+      }
+      gasUsed = result.execResult.executionGasUsed
+      next?.()
+    })
+  }
+
+  // Clean up
+  onDestroy(() => {
+    vm?.evm.events?.removeAllListeners()
+  })
+
+  // Execute sample transaction
+  async function runSampleTx() {
+    isRunning = true
+    steps = []
+    errors = []
+
+    try {
+      await vm.runTx({
+        tx: {
+          to: '0x1234...',
+          data: '0x...',  // Your transaction data
+        }
+      })
+    } catch (error) {
+      errors = [...errors, error.message]
+    }
+
+    isRunning = false
+  }
+</script>
+
+<div class="debugger">
+  <div class="controls">
+    <button on:click={runSampleTx} disabled={isRunning}>
+      {isRunning ? 'Running...' : 'Run Transaction'}
+    </button>
+    <div class="gas">Gas Used: {gasUsed.toString()}</div>
+  </div>
+
+  <div class="execution">
+    <h3>Current Step</h3>
+    {#if currentStep}
+      <div class="step">
+        <div>PC: {currentStep.pc}</div>
+        <div>Opcode: {currentStep.opcode.name}</div>
+        <div>Gas Left: {currentStep.gasLeft.toString()}</div>
+        <div>Depth: {currentStep.depth}</div>
+      </div>
+    {/if}
+  </div>
+
+  <div class="stack">
+    <h3>Stack</h3>
+    {#if currentStep?.stack}
+      <div class="stack-items">
+        {#each currentStep.stack as item}
+          <div class="stack-item">{item.toString(16)}</div>
+        {/each}
+      </div>
+    {/if}
+  </div>
+
+  <div class="errors">
+    <h3>Errors</h3>
+    {#each errors as error}
+      <div class="error">{error}</div>
+    {/each}
+  </div>
+
+  <div class="history">
+    <h3>Execution History ({steps.length} steps)</h3>
+    <div class="steps">
+      {#each steps as step}
+        <div class="history-step">
+          {step.opcode.name} (Gas: {step.gasLeft.toString()})
+        </div>
+      {/each}
+    </div>
+  </div>
+</div>
+
+<style>
+  .debugger {
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .controls {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .execution, .stack, .errors, .history {
+    background: #2d3748;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: #e2e8f0;
+  }
+
+  .stack-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stack-item {
+    font-family: monospace;
+    padding: 0.25rem;
+    background: #4a5568;
+    border-radius: 0.25rem;
+  }
+
+  .error {
+    color: #fc8181;
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+    background: #742a2a;
+    border-radius: 0.25rem;
+  }
+
+  .steps {
+    height: 200px;
+    overflow-y: auto;
+  }
+
+  .history-step {
+    padding: 0.25rem;
+    border-bottom: 1px solid #4a5568;
+    font-family: monospace;
+  }
+</style>
+```
+
+### 2. App.svelte
+```svelte
+<script lang="ts">
+  import EVMDebugger from './lib/EVMDebugger.svelte'
+</script>
+
+<main>
+  <h1>Tevm Debugger</h1>
+  <EVMDebugger />
+</main>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h1 {
+    color: #2d3748;
+    margin-bottom: 2rem;
+  }
+</style>
+```
+
+## Advanced Features
+
+### Memory Viewer Component
+```svelte
+<script lang="ts">
+  export let memory: Uint8Array
+  export let startOffset = 0
+  export let bytesPerRow = 16
+
+  $: rows = chunk(memory, bytesPerRow)
+
+  function chunk(array: Uint8Array, size: number) {
+    const chunks = []
+    for (let i = 0; i < array.length; i += size) {
+      chunks.push(array.slice(i, i + size))
+    }
+    return chunks
+  }
+
+  function formatByte(byte: number) {
+    return byte.toString(16).padStart(2, '0')
+  }
+
+  function formatAscii(byte: number) {
+    return byte >= 32 && byte <= 126 ? String.fromCharCode(byte) : '.'
+  }
+</script>
+
+<div class="memory-viewer">
+  {#each rows as row, i}
+    <div class="memory-row">
+      <span class="offset">
+        {(startOffset + i * bytesPerRow).toString(16).padStart(8, '0')}:
+      </span>
+      <span class="hex">
+        {#each row as byte}
+          {formatByte(byte)}
+        {/each}
+      </span>
+      <span class="ascii">
+        {#each row as byte}
+          {formatAscii(byte)}
+        {/each}
+      </span>
+    </div>
+  {/each}
+</div>
+
+<style>
+  .memory-viewer {
+    font-family: monospace;
+    white-space: pre;
+  }
+
+  .memory-row {
+    display: flex;
+    gap: 1rem;
+    padding: 0.25rem 0;
+  }
+
+  .offset {
+    color: #718096;
+  }
+
+  .hex {
+    letter-spacing: 0.1em;
+  }
+
+  .ascii {
+    color: #718096;
+  }
+</style>
+```
+
+### Storage Viewer Component
+```svelte
+<script lang="ts">
+  import type { Address } from '@tevm/utils'
+  import { createTevmNode } from 'tevm/node'
+
+  export let address: Address
+
+  let storage = new Map<string, string>()
+  let loading = false
+
+  const node = createTevmNode()
+
+  async function loadStorage() {
+    loading = true
+    try {
+      const vm = await node.getVm()
+      const dump = await vm.stateManager.dumpStorage(address)
+      storage = new Map(Object.entries(dump))
+    } catch (error) {
+      console.error('Failed to load storage:', error)
+    }
+    loading = false
+  }
+</script>
+
+<div class="storage">
+  <button on:click={loadStorage} disabled={loading}>
+    {loading ? 'Loading...' : 'Load Storage'}
+  </button>
+
+  {#if storage.size > 0}
+    <div class="storage-items">
+      {#each [...storage] as [slot, value]}
+        <div class="storage-item">
+          <span class="slot">{slot}:</span>
+          <span class="value">{value}</span>
+        </div>
+      {/each}
+    </div>
+  {/if}
+</div>
+
+<style>
+  .storage {
+    padding: 1rem;
+  }
+
+  .storage-items {
+    margin-top: 1rem;
+  }
+
+  .storage-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.25rem 0;
+    font-family: monospace;
+  }
+
+  .slot {
+    color: #718096;
+  }
+</style>
+```
+
+## Usage
+
+1. Create the project structure:
+```
+tevm-debugger/
+├── src/
+│   ├── lib/
+│   │   ├── EVMDebugger.svelte
+│   │   ├── MemoryViewer.svelte
+│   │   └── StorageViewer.svelte
+│   ├── App.svelte
+│   └── main.ts
+└── package.json
+```
+
+2. Run the development server:
+```bash
+npm run dev
+```
+
+3. Use the debugger:
+```ts
+// Example contract deployment
+const bytecode = '0x...' // Your contract bytecode
+await vm.runTx({
+  tx: {
+    data: bytecode
+  }
+})
+
+// Example contract interaction
+await vm.runTx({
+  tx: {
+    to: '0x...',    // Contract address
+    data: '0x...',  // Encoded function call
+  }
+})
+```
+
+## Customization
+
+### Adding Transaction History
+```svelte
+<script lang="ts">
+  import { writable } from 'svelte/store'
+
+  const transactions = writable<{
+    hash: string
+    to: string
+    data: string
+    status: 'success' | 'error'
+  }[]>([])
+
+  vm.evm.events?.on('afterMessage', (result, next) => {
+    transactions.update(txs => [...txs, {
+      hash: result.execResult.hash?.toString() ?? '',
+      to: result.execResult.to?.toString() ?? '',
+      data: result.execResult.data?.toString('hex') ?? '',
+      status: result.execResult.exceptionError ? 'error' : 'success'
+    }])
+    next?.()
+  })
+</script>
+
+<div class="transactions">
+  <h3>Transaction History</h3>
+  {#each $transactions as tx}
+    <div class="transaction" class:error={tx.status === 'error'}>
+      <div>Hash: {tx.hash}</div>
+      <div>To: {tx.to}</div>
+      <div>Data: {tx.data}</div>
+    </div>
+  {/each}
+</div>
+```
+
+### Adding Gas Profiling
+```svelte
+<script lang="ts">
+  const gasProfile = new Map<string, { count: number, totalGas: bigint }>()
+
+  vm.evm.events?.on('step', (step, next) => {
+    const opName = step.opcode.name
+    const gasCost = BigInt(step.opcode.fee)
+
+    const stats = gasProfile.get(opName) ?? { count: 0, totalGas: 0n }
+    stats.count++
+    stats.totalGas += gasCost
+    gasProfile.set(opName, stats)
+
+    next?.()
+  })
+</script>
+
+<div class="gas-profile">
+  <h3>Gas Profile</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Opcode</th>
+        <th>Count</th>
+        <th>Total Gas</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each [...gasProfile] as [opcode, stats]}
+        <tr>
+          <td>{opcode}</td>
+          <td>{stats.count}</td>
+          <td>{stats.totalGas.toString()}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+```
+
+## Related Topics
+- [EVM Events](../api/evm-events)
+- [Performance Profiler](../advanced/performance-profiler)

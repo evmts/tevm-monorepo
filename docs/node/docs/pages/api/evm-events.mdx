@@ -1,0 +1,246 @@
+---
+title: EVM Events
+description: Listen to internal EVM events during execution
+---
+
+# EVM Events
+
+Tevm Node provides access to low-level EVM events through the VM's event emitter. This allows you to monitor and debug contract execution at a granular level.
+
+## Available Events
+
+```ts
+type EVMEvent = {
+  // Emitted when a new contract is created
+  newContract: (data: {
+    address: Address,
+    code: Uint8Array
+  }) => void
+
+  // Emitted before a message (call) is processed
+  beforeMessage: (data: Message) => void
+
+  // Emitted after a message (call) is processed
+  afterMessage: (data: EVMResult) => void
+
+  // Emitted on each EVM step
+  step: (data: InterpreterStep) => void
+}
+```
+
+## Basic Usage
+
+```ts
+import { createTevmNode } from 'tevm/node'
+
+const node = createTevmNode()
+const vm = await node.getVm()
+
+// Listen for EVM steps
+vm.evm.events?.on('step', (step, next) => {
+  console.log('EVM Step:', {
+    pc: step.pc,           // Program counter
+    opcode: step.opcode,   // Current opcode
+    gasLeft: step.gasLeft, // Remaining gas
+    stack: step.stack,     // Stack contents
+    depth: step.depth,     // Call depth
+  })
+  next?.()
+})
+
+// Listen for contract creation
+vm.evm.events?.on('newContract', (data, next) => {
+  console.log('New contract deployed:', {
+    address: data.address.toString(),
+    codeSize: data.code.length,
+  })
+  next?.()
+})
+
+// Listen for message execution
+vm.evm.events?.on('beforeMessage', (message, next) => {
+  console.log('Executing message:', {
+    to: message.to?.toString(),
+    value: message.value.toString(),
+    delegatecall: message.delegatecall,
+  })
+  next?.()
+})
+
+vm.evm.events?.on('afterMessage', (result, next) => {
+  console.log('Message result:', {
+    gasUsed: result.execResult.executionGasUsed.toString(),
+    returnValue: result.execResult.returnValue.toString('hex'),
+    error: result.execResult.exceptionError?.error,
+  })
+  next?.()
+})
+```
+
+## Debugging Example
+
+```ts
+// Create a debug tracer
+function createDebugTracer(vm) {
+  const trace = {
+    steps: [],
+    contracts: new Set(),
+    errors: [],
+  }
+
+  // Track each EVM step
+  vm.evm.events?.on('step', (step, next) => {
+    trace.steps.push({
+      pc: step.pc,
+      opcode: step.opcode.name,
+      gasCost: step.opcode.fee,
+      stack: step.stack.map(item => item.toString(16)),
+    })
+    next?.()
+  })
+
+  // Track contract creation
+  vm.evm.events?.on('newContract', (data, next) => {
+    trace.contracts.add(data.address.toString())
+    next?.()
+  })
+
+  // Track errors
+  vm.evm.events?.on('afterMessage', (result, next) => {
+    if (result.execResult.exceptionError) {
+      trace.errors.push({
+        error: result.execResult.exceptionError.error,
+        returnData: result.execResult.returnValue.toString('hex'),
+      })
+    }
+    next?.()
+  })
+
+  return trace
+}
+
+// Use the tracer
+const node = createTevmNode()
+const vm = await node.getVm()
+const trace = createDebugTracer(vm)
+
+// Run some transactions...
+
+console.log('Execution trace:', {
+  stepCount: trace.steps.length,
+  contracts: Array.from(trace.contracts),
+  errors: trace.errors,
+})
+```
+
+## Gas Profiling
+
+```ts
+// Create a gas profiler
+function createGasProfiler(vm) {
+  const profile = {
+    opcodes: new Map(),
+    totalGas: 0n,
+  }
+
+  vm.evm.events?.on('step', (step, next) => {
+    const opName = step.opcode.name
+    const gasCost = BigInt(step.opcode.fee)
+
+    const stats = profile.opcodes.get(opName) || {
+      count: 0,
+      totalGas: 0n
+    }
+
+    stats.count++
+    stats.totalGas += gasCost
+    profile.totalGas += gasCost
+    profile.opcodes.set(opName, stats)
+
+    next?.()
+  })
+
+  return profile
+}
+
+// Use the profiler
+const node = createTevmNode()
+const vm = await node.getVm()
+const profile = createGasProfiler(vm)
+
+// Run transactions...
+
+// Get gas usage by opcode
+for (const [opcode, stats] of profile.opcodes) {
+  console.log(`${opcode}:`, {
+    count: stats.count,
+    totalGas: stats.totalGas.toString(),
+    percentageOfTotal: Number(stats.totalGas * 100n / profile.totalGas),
+  })
+}
+```
+
+## Error Handling
+
+```ts
+vm.evm.events?.on('afterMessage', (result, next) => {
+  if (result.execResult.exceptionError) {
+    const error = result.execResult.exceptionError
+
+    switch (error.error) {
+      case 'out of gas':
+        console.error('Transaction ran out of gas')
+        break
+      case 'revert':
+        console.error('Transaction reverted:',
+          result.execResult.returnValue.toString('hex'))
+        break
+      case 'invalid opcode':
+        console.error('Invalid opcode encountered')
+        break
+      default:
+        console.error('Unknown error:', error)
+    }
+  }
+  next?.()
+})
+```
+
+## Best Practices
+
+1. **Always Call Next**
+   ```ts
+   vm.evm.events?.on('step', (step, next) => {
+     // Process step...
+     next?.() // Important: Call next to continue execution
+   })
+   ```
+
+2. **Clean Up Listeners**
+   ```ts
+   const handler = (step, next) => {
+     // Handle step...
+     next?.()
+   }
+
+   vm.evm.events?.on('step', handler)
+
+   // Later...
+   vm.evm.events?.off('step', handler)
+   ```
+
+3. **Handle Errors Gracefully**
+   ```ts
+   vm.evm.events?.on('step', (step, next) => {
+     try {
+       // Process step...
+     } catch (error) {
+       console.error('Error processing step:', error)
+     }
+     next?.()
+   })
+   ```
+
+## Related Topics
+- [Performance Profiler](../advanced/performance-profiler)
+- [Gas Estimation](../api/methods)
