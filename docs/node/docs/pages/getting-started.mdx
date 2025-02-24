@@ -21,24 +21,31 @@ The most direct way to use Tevm is with the raw [`createTevmNode`](https://githu
 
 ```typescript
 import { createTevmNode } from 'tevm'
+// tevm/actions has many useful high level actions to interact with
+// the tevm api including the entire json rpc api
+import {
+  callHandler,
+  setAccountHandler,
+  getAccountHandler,
+} from 'tevm/actions'
 
 const node = createTevmNode()
 
 // Execute a contract call
-const result = await node.tevmCall({
+const result = await callHandler(node)({
   to: '0x1234567890123456789012345678901234567890',
   data: '0x...',
   value: 0n
 })
 
 // Set account state
-await node.tevmSetAccount({
+await tevmSetAccountHandler(node)({
   address: '0x1234567890123456789012345678901234567890',
   balance: 1000000000000000000n // 1 ETH
 })
 
 // Get account state
-const account = await node.tevmGetAccount({
+const account = await getAccountHandler(node)({
   address: '0x1234567890123456789012345678901234567890'
 })
 ```
@@ -62,7 +69,7 @@ const client = createMemoryClient({
   common: optimism,
 })
 
-// Use viem's public actions
+// Use viem's public, wallet, or test actions
 const block = await client.getBlock({ blockTag: 'latest' })
 console.log(block)
 

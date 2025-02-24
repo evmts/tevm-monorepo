@@ -7,290 +7,225 @@ import { Callout } from 'vocs/components'
 
 # Managing State
 
-Tevm Node provides powerful state management capabilities through its `stateManager` interface. This allows you to interact with and modify Ethereum state, including accounts, contract code, and storage.
+Tevm provides powerful state management capabilities through multiple APIs. Let's explore how to manage Ethereum state using different approaches.
 
-## Getting Started
+## Raw API Approach
 
-Access the state manager through the VM:
+The most direct way to manage state is through the [`StateManager`](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/docs/interfaces/StateManager.md) interface:
 
-```ts
+```typescript
 import { createTevmNode } from 'tevm'
+import { EthjsAccount } from 'tevm/utils'
 
 const node = createTevmNode()
 const vm = await node.getVm()
 const stateManager = vm.stateManager
-```
 
-## Account Management
-
-### Reading Accounts
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
+// Read account state
+const address = '0x1234567890123456789012345678901234567890'
 const account = await stateManager.getAccount(address)
-
-if (account) {
-  console.log({
-    balance: account.balance,      // BigInt
-    nonce: account.nonce,         // BigInt
-    codeHash: account.codeHash,   // Hex string
-    storageRoot: account.storageRoot // Hex string
-  })
-}
-```
-
-### Modifying Accounts
-
-```ts
-import { createAddress } from 'tevm/address'
-import { EthjsAccount } from 'tevm/utils'
+console.log({
+  balance: account.balance,
+  nonce: account.nonce,
+  codeHash: account.codeHash,
+  storageRoot: account.storageRoot
+})
 
 // Create or update an account
-const address = createAddress('0x1234567890123456789012345678901234567890')
 await stateManager.putAccount(
   address,
-  EthjsAccount.fromAccountData({
+  new EthjsAccount({
     nonce: 0n,
     balance: 10_000_000n,
     storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
     codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
   })
 )
-```
 
-<Callout type="info">
-  When modifying accounts, make sure to handle the case where the account doesn't exist by creating a new account using `EthjsAccount.fromAccountData()`.
-</Callout>
-
-### Deleting Accounts
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
+// Delete an account
 await stateManager.deleteAccount(address)
 ```
 
-## Contract Management
+### Contract Management
 
-### Deploying Contract Code
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
-
-// Deploy contract bytecode
+```typescript
+// Deploy contract code
 await stateManager.putContractCode(
   address,
   new Uint8Array([/* bytecode */])
 )
 
-// Verify deployment
+// Read contract code
 const code = await stateManager.getContractCode(address)
-console.log('Deployed code length:', code.length)
-```
 
-### Reading Contract Code
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
-const deployedCode = await stateManager.getContractCode(address)
-if (deployedCode.length > 0) {
-  console.log('Contract exists with code')
-} else {
-  console.log('No contract code at address')
-}
-```
-
-## Storage Management
-
-### Reading Storage
-
-```ts
-import { createAddress, hexToBytes } from 'tevm/utils'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
-
-// Get a specific storage slot
-const slot = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
+// Read storage slot
+const slot = '0x0000000000000000000000000000000000000000000000000000000000000000'
 const value = await stateManager.getContractStorage(address, slot)
 
-// Dump all storage
-const storage = await stateManager.dumpStorage(address)
-console.log('Contract storage:', storage)
-```
+// Write storage
+const key = '0x0000000000000000000000000000000000000000000000000000000000000000'
+const newValue = '0x0000000000000000000000000000000000000000000000000000000000000001'
+await stateManager.putContractStorage(address, key, newValue)
 
-### Writing Storage
-
-```ts
-import { createAddress, hexToBytes } from 'tevm/utils'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
-
-// Set a storage value
-const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
-const value = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
-await stateManager.putContractStorage(address, key, value)
-```
-
-### Clearing Storage
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
+// Clear all storage
 await stateManager.clearContractStorage(address)
 ```
 
-## State Checkpoints
+## Using with Viem
 
-Tevm uses a checkpoint system to manage state changes atomically:
+For a more familiar experience, you can use the Viem client interface while still accessing raw state management when needed:
 
-```ts
-import { createAddress, hexToBytes } from 'tevm/utils'
-import { EthjsAccount } from 'tevm/utils'
+```typescript
+import { createMemoryClient } from 'tevm'
 
-// Create a checkpoint
+const client = createMemoryClient()
+
+// Use Viem-style API for basic operations
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: 1000000000000000000n
+})
+
+// Access raw state manager for advanced operations
+const vm = await client.transport.tevm.getVm()
+const stateManager = vm.stateManager
+
+// Use raw API for complex operations
 await stateManager.checkpoint()
-
 try {
-  const address = createAddress('0x1234567890123456789012345678901234567890')
-  const account = EthjsAccount.fromAccountData({
-    nonce: 0n,
-    balance: 10_000_000n,
-    storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-    codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-  })
-
-  // Make state changes
-  await stateManager.putAccount(address, account)
-  await stateManager.putContractStorage(
-    address,
-    hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
-    hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
-  )
-
-  // Commit changes if successful
+  await stateManager.putContractStorage(address, key, value)
   await stateManager.commit()
 } catch (error) {
-  // Revert changes on failure
+  await stateManager.revert()
+}
+```
+
+## Using with Ethers
+
+When using Ethers.js, you can combine the standard Ethers API with Tevm's state management:
+
+```typescript
+import { createTevmNode } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider } from 'ethers'
+
+const node = createTevmNode().extend(requestEip1193())
+const provider = new BrowserProvider(node)
+
+// Use Ethers API for standard operations
+const balance = await provider.getBalance('0x1234...')
+
+// Access raw state manager for advanced operations
+const vm = await node.getVm()
+const stateManager = vm.stateManager
+```
+
+## Advanced Features
+
+### State Checkpoints
+
+Create atomic state changes that can be committed or reverted:
+
+```typescript
+const stateManager = (await node.getVm()).stateManager
+
+await stateManager.checkpoint()
+try {
+  // Batch multiple state changes
+  await Promise.all([
+    stateManager.putAccount(address, account),
+    stateManager.putContractStorage(address, key, value),
+  ])
+  await stateManager.commit()
+} catch (error) {
   await stateManager.revert()
   console.error('State changes reverted:', error)
 }
 ```
 
-## State Persistence
+### State Persistence
 
-### Dumping State
+Save and load state:
 
-Export the entire state:
-
-```ts
-// Get complete state
+```typescript
+// Dump complete state
 const state = await stateManager.dumpCanonicalGenesis()
-expect(state).toBeDefined()
+
+// Save state (example with localStorage)
+localStorage.setItem('tevmState', JSON.stringify(state))
+
+// Load saved state
+const savedState = JSON.parse(localStorage.getItem('tevmState'))
+await stateManager.generateCanonicalGenesis(savedState)
 ```
 
-### Loading State
+### Fork Mode
 
-Restore state from a previous dump:
+Tevm supports lazy loading with caching when forking from another network:
 
-```ts
-// Restore state
-await stateManager.generateCanonicalGenesis(state)
-```
-
-## Fork Mode State
-
-When running in fork mode, state is fetched lazily from the remote provider:
-
-```ts
-import { createTevmNode, http } from 'tevm'
-import { createAddress } from 'tevm/address'
-import { performance } from 'node:perf_hooks'
-
+```typescript
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+    transport: http('https://mainnet.optimism.io')
   }
 })
 
-const vm = await node.getVm()
-const stateManager = vm.stateManager
-const testAddress = createAddress('0x1234567890123456789012345678901234567890')
+const stateManager = (await node.getVm()).stateManager
 
 // First access fetches from remote
-const t0 = performance.now()
-await stateManager.getAccount(testAddress)
-console.log('Initial fetch:', performance.now() - t0)
+const account = await stateManager.getAccount('0x1234...')
 
 // Subsequent access uses cache
-const t1 = performance.now()
-await stateManager.getAccount(testAddress)
-console.log('Cached access:', performance.now() - t1)
+const cachedAccount = await stateManager.getAccount('0x1234...')
 ```
 
 ## Best Practices
 
-1. **Error Handling**
-   ```ts
-   import { createAddress } from 'tevm/address'
+### 1. Error Handling
 
-   const testAddress = createAddress('0x1234567890123456789012345678901234567890')
-   try {
-     const account = await stateManager.getAccount(testAddress)
-     if (!account) {
-       throw new Error('Account not found')
-     }
-     // Work with account
-   } catch (error) {
-     console.error('State operation failed:', error)
-   }
-   ```
+```typescript
+try {
+  const account = await stateManager.getAccount('0x1234...')
+  if (!account) {
+    throw new Error('Account not found')
+  }
+  // Work with account
+} catch (error) {
+  if (error instanceof MissingAccountError) {
+    // Handle missing account
+  }
+  console.error('State operation failed:', error)
+}
+```
 
-2. **State Isolation**
-   ```ts
-   // Create isolated copy for testing
-   const isolatedState = await stateManager.deepCopy()
-   ```
+### 2. State Isolation
 
-3. **Atomic Operations**
-   ```ts
-   import { createAddress, hexToBytes } from 'tevm/utils'
-   import { EthjsAccount } from 'tevm/utils'
+```typescript
+// Create isolated copy for testing
+const isolatedState = await stateManager.deepCopy()
 
-   const testAddress = createAddress('0x1234567890123456789012345678901234567890')
-   await stateManager.checkpoint()
-   try {
-     const account = EthjsAccount.fromAccountData({
-       nonce: 0n,
-       balance: 10_000_000n,
-       storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-       codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-     })
+// Make changes without affecting original
+await isolatedState.putAccount(address, account)
+```
 
-     // Batch multiple state changes
-     await Promise.all([
-       stateManager.putAccount(testAddress, account),
-       stateManager.putContractStorage(
-         testAddress,
-         hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
-         hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
-       )
-     ])
-     await stateManager.commit()
-   } catch (error) {
-     await stateManager.revert()
-   }
-   ```
+### 3. Atomic Operations
 
-## Related Topics
+```typescript
+await stateManager.checkpoint()
+try {
+  // Group related changes
+  await Promise.all([
+    stateManager.putAccount(address, account),
+    stateManager.putContractStorage(address, key, value),
+  ])
+  await stateManager.commit()
+} catch (error) {
+  await stateManager.revert()
+}
+```
 
-- [Transaction Processing](../advanced/txpool)
-- [Receipts and Logs](../advanced/receipts-and-logs)
-- [Forking](./forking)
+## See Also
+- [State Manager API](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/docs/interfaces/StateManager.md)
+- [Account Management](../api/account-management)
+- [Contract Storage](../api/contracts)
+- [Forking Guide](../core/forking)
