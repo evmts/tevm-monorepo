@@ -13,9 +13,38 @@ Welcome to Tevm Node! This guide will help you get started with running Ethereum
 npm install tevm
 ```
 
+## Quickstart
+
+To get started quick just use the viem api
+
+```typescript
+// createMemoryClient creates a viem client using in memory TevmNode as backend
+import {createMemoryClient} from 'tevm'
+
+// create a viem client using tevmNode as backend
+// note: tree shakable versions are available too
+const client = createMemoryClient()
+
+// example of using a viem api
+console.log(await client.getBlockNumber())
+
+// The tevm node exists on client.transport and handles json rpc requests to the transport
+const internalTevmNode = client.transport.tevm
+```
+
 ## Usage Examples
 
 ### Basic Usage with Tevm Node
+
+The lowest level API for Tevm is called [TevmNode](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNode.ts). It is an ethereum node running in JavaScript.
+
+You have access to the low level primitives such as [await node.getVm()](./reference/vm.mdx) but most of the time you want to use `actions`.
+
+Tevm has a concept of `actions` (similar to viem) that can be imported from [`tevm/actions`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/globals.md#functions) package for use with `TevmNode`. There are high level actions such as `tevmCall`. There are also actions that implement the JSON-RPC API.
+
+Note: This is the lowest level API and higher level APIs exist for usage with Viem and Ethers below. But for both those apis they still have escape hatches for accessing the TevmNode directly for advanced functionality. For a viem client you can access tevm node via `client.transport.tevm`
+
+TevmNode without using viem or ethers can be desired if building libraries or trying to use the most minimal api.
 
 ```typescript
 import { createTevmNode } from 'tevm'
@@ -43,6 +72,12 @@ const account = await getAccountHandler(node)({
 ```
 
 ### Using with Viem
+
+Tevm itself is built on top of viem using viem patterns such as the `actions` pattern. This makes the viem api the most recomended API.
+
+IMPORTANT: Most of these docs do not use the viem api because the viem api is documented in [viem](https://viem.sh). These docs focus on the new apis introduced by Tevm.
+
+See [Tevm viem guide](./examples/viem.mdx) for more.
 
 ```typescript
 import { createMemoryClient, http } from 'tevm'

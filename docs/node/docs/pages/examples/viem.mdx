@@ -7,26 +7,47 @@ description: Connect Tevm Node to Viem as a custom transport
 
 This guide demonstrates how to use Tevm Node with Viem, enabling seamless integration with Viem's powerful Ethereum development tools.
 
+Note the package that owns the viem integration is the [tevm/memory-client](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/docs/globals.md) package.
+
 ## Basic Setup
+
+The recomended API for interacting with viem is the tree-shakable API using `createClient` and importing actions from `viem/actions` and `tevm` packages.
 
 ```ts
 import { createTevmNode } from 'tevm/node'
 import { requestEip1193 } from 'tevm/decorators'
-import { createPublicClient, custom, parseAbi } from 'viem'
-import { mainnet } from 'viem/chains'
+import { createClient, custom } from 'viem'
 
 // Create Tevm Node with EIP-1193 support
 const node = createTevmNode().extend(requestEip1193())
 
 // Create Viem client
-const client = createPublicClient({
-  chain: mainnet,
+const client = createClient({
   // Use Tevm node as the viem transport
   transport: custom(node),
 })
 
-// Now viemClient can do e.g. getBalance, readContract, etc,
-// all fully in memory or forking from node if you configured it
+// use viem actions
+import {getBlockNumber} from 'viem/actions'
+await getBlockNumber(client)
+
+// use custom tevm actions too
+import {tevmDumpState} from 'tevm'
+await tevmDumpState(client)
+```
+
+For a more convenient API when tree shaking isn't a concern use `createMemoryClient` which produces a batteries included client with every viem and tevm action attatched.
+
+```ts
+import { createMemoryClient } from 'tevm'
+
+// Create Viem client
+const client = createMemoryClient()
+
+// use viem actions
+await client.getBlockNumber(client)
+
+await client.tevmDumpState(client)
 ```
 
 ## Using viem
@@ -172,7 +193,8 @@ You can use `tevmLoadState` and `tevmDumpState` to persist state to disk or loca
 `tevmMine` is an important action for mining new blocks.
 
 ```ts
-import { tevmDumpState, tevmLoadState, tevmMine } from 'tevm/actions'
+// the viem actions are prefixed with tevm and exported from tevm and tevm/memory-client
+import { tevmDumpState, tevmLoadState, tevmMine } from 'tevm'
 
 // Save current state
 const state = await tevmDumpState(client)
