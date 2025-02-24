@@ -14,6 +14,8 @@ Tevm Node provides powerful state management capabilities through its `stateMana
 Access the state manager through the VM:
 
 ```ts
+import { createTevmNode } from 'tevm'
+
 const node = createTevmNode()
 const vm = await node.getVm()
 const stateManager = vm.stateManager
@@ -24,7 +26,9 @@ const stateManager = vm.stateManager
 ### Reading Accounts
 
 ```ts
-const address = '0x1234...'
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
 const account = await stateManager.getAccount(address)
 
 if (account) {
@@ -40,14 +44,16 @@ if (account) {
 ### Modifying Accounts
 
 ```ts
+import { createAddress } from 'tevm/address'
 import { EthjsAccount } from 'tevm/utils'
 
 // Create or update an account
+const address = createAddress('0x1234567890123456789012345678901234567890')
 await stateManager.putAccount(
   address,
-  new EthjsAccount({
+  EthjsAccount.fromAccountData({
     nonce: 0n,
-    balance: 10_000_000n, // 0.01 ETH
+    balance: 10_000_000n,
     storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
     codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
   })
@@ -55,12 +61,15 @@ await stateManager.putAccount(
 ```
 
 <Callout type="info">
-  When modifying accounts, make sure to handle the case where the account doesn't exist by creating a new `EthjsAccount` instance.
+  When modifying accounts, make sure to handle the case where the account doesn't exist by creating a new account using `EthjsAccount.fromAccountData()`.
 </Callout>
 
 ### Deleting Accounts
 
 ```ts
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
 await stateManager.deleteAccount(address)
 ```
 
@@ -69,6 +78,10 @@ await stateManager.deleteAccount(address)
 ### Deploying Contract Code
 
 ```ts
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
 // Deploy contract bytecode
 await stateManager.putContractCode(
   address,
@@ -83,6 +96,9 @@ console.log('Deployed code length:', code.length)
 ### Reading Contract Code
 
 ```ts
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
 const deployedCode = await stateManager.getContractCode(address)
 if (deployedCode.length > 0) {
   console.log('Contract exists with code')
@@ -96,8 +112,12 @@ if (deployedCode.length > 0) {
 ### Reading Storage
 
 ```ts
+import { createAddress, hexToBytes } from 'tevm/utils'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
 // Get a specific storage slot
-const slot = '0x0000000000000000000000000000000000000000000000000000000000000000'
+const slot = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
 const value = await stateManager.getContractStorage(address, slot)
 
 // Dump all storage
@@ -108,16 +128,22 @@ console.log('Contract storage:', storage)
 ### Writing Storage
 
 ```ts
+import { createAddress, hexToBytes } from 'tevm/utils'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
 // Set a storage value
-const key = '0x0000000000000000000000000000000000000000000000000000000000000000'
-const value = '0x0000000000000000000000000000000000000000000000000000000000000001'
+const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
+const value = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
 await stateManager.putContractStorage(address, key, value)
 ```
 
 ### Clearing Storage
 
 ```ts
-// Clear all storage for a contract
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
 await stateManager.clearContractStorage(address)
 ```
 
@@ -126,13 +152,28 @@ await stateManager.clearContractStorage(address)
 Tevm uses a checkpoint system to manage state changes atomically:
 
 ```ts
+import { createAddress, hexToBytes } from 'tevm/utils'
+import { EthjsAccount } from 'tevm/utils'
+
 // Create a checkpoint
 await stateManager.checkpoint()
 
 try {
+  const address = createAddress('0x1234567890123456789012345678901234567890')
+  const account = EthjsAccount.fromAccountData({
+    nonce: 0n,
+    balance: 10_000_000n,
+    storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+  })
+
   // Make state changes
-  await stateManager.putAccount(/* ... */)
-  await stateManager.putContractStorage(/* ... */)
+  await stateManager.putAccount(address, account)
+  await stateManager.putContractStorage(
+    address,
+    hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
+    hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
+  )
 
   // Commit changes if successful
   await stateManager.commit()
@@ -147,14 +188,12 @@ try {
 
 ### Dumping State
 
-Export the entire state as a serializable object:
+Export the entire state:
 
 ```ts
 // Get complete state
 const state = await stateManager.dumpCanonicalGenesis()
-
-// Save state (example with localStorage)
-localStorage.setItem('tevmState', JSON.stringify(state))
+expect(state).toBeDefined()
 ```
 
 ### Loading State
@@ -162,145 +201,8 @@ localStorage.setItem('tevmState', JSON.stringify(state))
 Restore state from a previous dump:
 
 ```ts
-// Load saved state
-const savedState = JSON.parse(localStorage.getItem('tevmState'))
-
 // Restore state
-await stateManager.generateCanonicalGenesis(savedState)
-```
-
-## State Persistence with dumpState and loadState
-
-Tevm provides dedicated handlers for persisting and restoring state, which can be used to save the entire state to local storage or the file system.
-
-### Using dumpState
-
-```ts
-import { createTevmNode } from 'tevm'
-import { dumpStateHandler } from 'tevm/actions'
-
-const node = createTevmNode()
-
-// Dump state at latest block
-const { state: dumpedState } = await dumpStateHandler(node)()
-
-// Dump state at specific block
-const { state: historicalState } = await dumpStateHandler(node)({
-  blockTag: 1000n
-})
-
-// Save to localStorage
-localStorage.setItem('tevmState', JSON.stringify(dumpedState))
-
-// Or save to file system
-import { writeFileSync } from 'fs'
-writeFileSync('tevm-state.json', JSON.stringify(dumpedState, null, 2))
-```
-
-### Using loadState
-
-```ts
-import { createTevmNode } from 'tevm'
-import { loadStateHandler } from 'tevm/actions'
-
-const node = createTevmNode()
-
-// Load from localStorage
-const savedState = JSON.parse(localStorage.getItem('tevmState'))
-await loadStateHandler(node)({
-  state: savedState
-})
-
-// Or load from file system
-import { readFileSync } from 'fs'
-const fileState = JSON.parse(readFileSync('tevm-state.json', 'utf8'))
-await loadStateHandler(node)({
-  state: fileState
-})
-```
-
-### State Format
-
-The dumped state includes account data and storage:
-
-```ts
-interface DumpedState {
-  [address: string]: {
-    nonce: bigint
-    balance: bigint
-    storage: {
-      [key: string]: string // hex strings without 0x prefix
-    }
-    code?: string // hex string without 0x prefix
-  }
-}
-```
-
-### Error Handling
-
-```ts
-// Handle errors during dump
-const { state, errors } = await dumpStateHandler(node)({
-  blockTag: 1000n,
-  throwOnFail: false // Don't throw on errors
-})
-
-if (errors) {
-  console.error('State dump errors:', errors)
-}
-
-// Handle errors during load
-const { errors: loadErrors } = await loadStateHandler(node)({
-  state: savedState,
-  throwOnFail: false
-})
-
-if (loadErrors) {
-  console.error('State load errors:', loadErrors)
-}
-```
-
-### Testing Example
-
-```ts
-import { createTevmNode } from 'tevm'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes } from 'tevm/utils'
-import { expect, test } from 'vitest'
-import { dumpStateHandler, loadStateHandler } from 'tevm/actions'
-
-test('State persistence', async () => {
-  // Setup initial state
-  const accountAddress = '0x0420042004200420042004200420042004200420'
-  const account = EthjsAddress.fromString(accountAddress)
-  const accountInstance = new EthjsAccount(0n, 100n)
-
-  const node = createTevmNode()
-  const vm = await node.getVm()
-
-  // Set account and storage
-  await vm.stateManager.putAccount(account, accountInstance)
-  await vm.stateManager.putContractStorage(
-    account,
-    hexToBytes('0x1', { size: 32 }),
-    hexToBytes('0x1', { size: 32 })
-  )
-
-  // Dump state
-  const { state: dumpedState } = await dumpStateHandler(node)()
-
-  // Create new node and load state
-  const node2 = createTevmNode()
-  await loadStateHandler(node2)({
-    state: dumpedState
-  })
-
-  // Verify state was restored
-  const restoredStorage = await (await node2.getVm())
-    .stateManager
-    .getContractStorage(account, hexToBytes('0x1', { size: 32 }))
-
-  expect(bytesToHex(restoredStorage)).toEqual('0x1'.padEnd(66, '0'))
-})
+await stateManager.generateCanonicalGenesis(state)
 ```
 
 ## Fork Mode State
@@ -308,23 +210,28 @@ test('State persistence', async () => {
 When running in fork mode, state is fetched lazily from the remote provider:
 
 ```ts
+import { createTevmNode, http } from 'tevm'
+import { createAddress } from 'tevm/address'
+import { performance } from 'node:perf_hooks'
+
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
   }
 })
 
 const vm = await node.getVm()
 const stateManager = vm.stateManager
+const testAddress = createAddress('0x1234567890123456789012345678901234567890')
 
 // First access fetches from remote
 const t0 = performance.now()
-await stateManager.getAccount('0x1234...')
+await stateManager.getAccount(testAddress)
 console.log('Initial fetch:', performance.now() - t0)
 
 // Subsequent access uses cache
 const t1 = performance.now()
-await stateManager.getAccount('0x1234...')
+await stateManager.getAccount(testAddress)
 console.log('Cached access:', performance.now() - t1)
 ```
 
@@ -332,10 +239,13 @@ console.log('Cached access:', performance.now() - t1)
 
 1. **Error Handling**
    ```ts
+   import { createAddress } from 'tevm/address'
+
+   const testAddress = createAddress('0x1234567890123456789012345678901234567890')
    try {
-     const account = await stateManager.getAccount(address)
+     const account = await stateManager.getAccount(testAddress)
      if (!account) {
-       throw new Error(`Account ${address} not found`)
+       throw new Error('Account not found')
      }
      // Work with account
    } catch (error) {
@@ -349,20 +259,29 @@ console.log('Cached access:', performance.now() - t1)
    const isolatedState = await stateManager.deepCopy()
    ```
 
-3. **Resource Cleanup**
+3. **Atomic Operations**
    ```ts
-   // Clear caches when done
-   stateManager.clearCaches()
-   ```
+   import { createAddress, hexToBytes } from 'tevm/utils'
+   import { EthjsAccount } from 'tevm/utils'
 
-4. **Atomic Operations**
-   ```ts
+   const testAddress = createAddress('0x1234567890123456789012345678901234567890')
    await stateManager.checkpoint()
    try {
+     const account = EthjsAccount.fromAccountData({
+       nonce: 0n,
+       balance: 10_000_000n,
+       storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+       codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+     })
+
      // Batch multiple state changes
      await Promise.all([
-       stateManager.putAccount(/* ... */),
-       stateManager.putContractStorage(/* ... */),
+       stateManager.putAccount(testAddress, account),
+       stateManager.putContractStorage(
+         testAddress,
+         hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
+         hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
+       )
      ])
      await stateManager.commit()
    } catch (error) {

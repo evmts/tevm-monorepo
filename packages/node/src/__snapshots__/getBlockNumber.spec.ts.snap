@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getBlockNumber > should throw an error when there is an error or blockNumber is undefined 1`] = `
+exports[`getBlockNumber should throw an error when there is an error or blockNumber is undefined 1`] = `
 {
   "code": -32000,
   "message": "Unknown error in jsonrpc request",

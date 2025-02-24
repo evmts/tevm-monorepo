@@ -12,7 +12,7 @@ This guide demonstrates how to use Tevm Node with Viem, enabling seamless integr
 ```ts
 import { createTevmNode } from 'tevm/node'
 import { requestEip1193 } from 'tevm/decorators'
-import { createPublicClient, custom } from 'viem'
+import { createPublicClient, custom, parseAbi } from 'viem'
 import { mainnet } from 'viem/chains'
 
 // Create Tevm Node with EIP-1193 support
@@ -21,7 +21,7 @@ const node = createTevmNode().extend(requestEip1193())
 // Create Viem client
 const client = createPublicClient({
   chain: mainnet,
-  transport: custom(node.request),
+  transport: custom(node),
 })
 
 // Now viemClient can do e.g. getBalance, readContract, etc,
@@ -50,25 +50,22 @@ const nonce = await client.getTransactionCount({
 ### 2. Contract Reading
 
 ```ts
-import { parseAbi } from 'viem'
-
 const abi = parseAbi([
   'function balanceOf(address) view returns (uint256)',
   'function symbol() view returns (string)',
   'event Transfer(address indexed from, address indexed to, uint256 value)',
 ])
 
-// Read token data
 const tokenContract = {
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
   abi,
-}
+} as const
 
 const [balance, symbol] = await Promise.all([
   client.readContract({
     ...tokenContract,
     functionName: 'balanceOf',
-    args: ['0x1234...'],
+    args: ['0x1234567890123456789012345678901234567890'],
   }),
   client.readContract({
     ...tokenContract,
@@ -119,19 +116,21 @@ const hash2 = await client.sendRawTransaction({
 ### 1. Reading Past Events
 
 ```ts
-// Get all Transfer events
+const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+const transferEvent = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])[0]
+
 const logs = await client.getLogs({
   address: tokenAddress,
-  event: parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)']),
+  event: transferEvent,
   fromBlock: 0n,
   toBlock: 'latest',
 })
 
 for (const log of logs) {
   console.log('Transfer:', {
-    from: log.args.from,
-    to: log.args.to,
-    value: log.args.value,
+    from: log.args?.from,
+    to: log.args?.to,
+    value: log.args?.value,
   })
 }
 ```
@@ -139,14 +138,30 @@ for (const log of logs) {
 ### 2. Event Filtering
 
 ```ts
-// Create filter for new transfers
+const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+const transferEvent = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])[0]
+
 const filter = await client.createEventFilter({
   address: tokenAddress,
-  event: parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)']),
+  event: transferEvent,
 })
 
-// Get filter changes
 const newEvents = await client.getFilterChanges({ filter })
+```
+
+### 3. Gas Estimation
+
+```ts
+const abi = parseAbi([
+  'function transfer(address to, uint256 amount) returns (bool)',
+])
+
+const gas = await client.estimateContractGas({
+  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+  abi,
+  functionName: 'transfer',
+  args: ['0x1234567890123456789012345678901234567890', 1000000n],
+})
 ```
 
 ## Advanced Usage
@@ -233,7 +248,7 @@ test('Contract interaction', async () => {
   const node = createTevmNode()
   const client = createPublicClient({
     chain: mainnet,
-    transport: custom(node.request),
+    transport: custom(node),
   })
 
   // Deploy contract

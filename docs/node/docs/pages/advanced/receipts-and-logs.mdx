@@ -13,21 +13,34 @@ The ReceiptsManager maintains an index of all transaction receipts and their ass
 
 ```ts
 import { createTevmNode } from 'tevm'
+import { createImpersonatedTx } from 'tevm/tx'
 import { runTx } from 'tevm/vm'
+import { createAddress, hexToBytes } from 'tevm/utils'
 
 const node = createTevmNode()
 const receiptsManager = await node.getReceiptsManager()
 
-// Get receipts for a block
-const receipts = await receiptsManager.getReceipts(blockHash)
-
-// Get receipt for specific transaction
-const receipt = await receiptsManager.getReceiptByTxHash(txHash)
-
 // Execute a transaction and get receipt
 const vm = await node.getVm()
+const tx = createImpersonatedTx({
+  impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+  to: createAddress('0x2345678901234567890123456789012345678901'),
+  value: 1000000000000000000n,
+  gasLimit: 21000n,
+})
+
 const result = await runTx(vm)({ tx })
-const txReceipt = await receiptsManager.getReceiptByTxHash(result.hash)
+const receiptResult = await receiptsManager.getReceiptByTxHash(tx.hash())
+
+if (receiptResult) {
+  const [receipt, blockHash, txIndex, logIndex] = receiptResult
+  // Access receipt data
+  console.log({
+    status: 'status' in receipt ? receipt.status : undefined,
+    gasUsed: receipt.cumulativeBlockGasUsed,
+    logs: receipt.logs
+  })
+}
 ```
 
 ### Receipt Types
@@ -42,7 +55,7 @@ interface PreByzantiumReceipt {
 }
 
 interface PostByzantiumReceipt {
-  status: number
+  status: number // 1 for success, 0 for failure
   cumulativeBlockGasUsed: bigint
   logs: Log[]
 }
@@ -55,89 +68,87 @@ interface EIP4844Receipt extends PostByzantiumReceipt {
 
 ## Event Logs
 
+### Contract Deployment and Event Emission
+
+Here's how to deploy a contract and capture its events:
+
+```ts
+// Deploy contract
+const deployTx = createImpersonatedTx({
+  impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+  data: CONTRACT_BYTECODE,
+  gasLimit: 1000000n,
+})
+
+const vm = await node.getVm()
+const deployResult = await runTx(vm)({ tx: deployTx })
+const contractAddress = deployResult.createdAddress
+if (!contractAddress) throw new Error('Contract deployment failed')
+
+// Interact with contract to emit events
+const interactTx = createImpersonatedTx({
+  impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+  to: contractAddress,
+  data: EMIT_EVENT_SELECTOR, // Function selector that emits events
+  gasLimit: 100000n,
+})
+
+await runTx(vm)({ tx: interactTx })
+```
+
 ### Querying Logs
 
-The ReceiptsManager provides flexible log querying:
+The ReceiptsManager provides flexible log querying with multiple filter options:
 
 ```ts
-// Query logs with filters
-const logs = await manager.getLogs({
-  fromBlock: 0n,
-  toBlock: 'latest',
-  address: contractAddress,
-  topics: [
-    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
-    null, // Any from address
-    '0x000000000000000000000000' + address.slice(2), // Specific to address
-  ]
-})
+// Get blocks for filtering
+const fromBlock = await vm.blockchain.getBlockByTag('earliest')
+const toBlock = await vm.blockchain.getBlockByTag('latest')
 
-// Process logs
-for (const log of logs) {
-  console.log({
-    address: log.address,
-    topics: log.topics,
-    data: log.data,
-    blockNumber: log.blockNumber,
-    transactionHash: log.transactionHash,
-    logIndex: log.logIndex
-  })
+// Filter by contract address
+const addressLogs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  [contractAddress.toBytes()],
+  undefined
+)
+
+// Filter by event topic
+const eventTopic = hexToBytes('0x000000000000000000000000000000000000000000000000000000000000abcd')
+const topicLogs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  undefined,
+  [eventTopic]
+)
+
+// Filter by both address and topic
+const combinedLogs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  [contractAddress.toBytes()],
+  [eventTopic]
+)
+```
+
+### Error Handling
+
+The ReceiptsManager includes robust error handling:
+
+```ts
+// Handle non-existent receipts
+const nonExistentHash = hexToBytes('0x1234567890123456789012345678901234567890123456789012345678901234')
+const receipt = await receiptsManager.getReceiptByTxHash(nonExistentHash)
+if (receipt === null) {
+  console.log('Receipt not found')
 }
-```
 
-### Log Filters
-
-Tevm implements the Ethereum filter API for real-time log tracking:
-
-```ts
-// Create new filter
-const filterId = await node.request({
-  method: 'eth_newFilter',
-  params: [{
-    fromBlock: 'latest',
-    address: contractAddress,
-    topics: [eventSignature]
-  }]
-})
-
-// Get filter changes
-const changes = await node.request({
-  method: 'eth_getFilterChanges',
-  params: [filterId]
-})
-
-// Get all filter logs
-const allLogs = await node.request({
-  method: 'eth_getFilterLogs',
-  params: [filterId]
-})
-
-// Remove filter when done
-await node.request({
-  method: 'eth_uninstallFilter',
-  params: [filterId]
-})
-```
-
-### Filter Management
-
-The node maintains filters internally:
-
-```ts
-// Get all active filters
-const filters = node.getFilters()
-
-// Remove specific filter
-node.removeFilter(filterId)
-
-// Add new filter
-node.setFilter({
-  id: filterId,
-  fromBlock: 'latest',
-  toBlock: 'latest',
-  address: contractAddress,
-  topics: [eventSignature]
-})
+// Handle invalid log filters
+const invalidAddress = hexToBytes('0x0000')
+const logs = await receiptsManager.getLogs(fromBlock, toBlock, [invalidAddress], undefined)
+if (logs.length === 0) {
+  console.log('No logs found for invalid address')
+}
 ```
 
 ## Performance Considerations
@@ -156,63 +167,27 @@ const GET_LOGS_BLOCK_RANGE_LIMIT = 2500 // Maximum block range
 1. **Efficient Log Queries**:
    - Use specific address and topic filters
    - Limit block ranges for large queries
-   - Clean up unused filters
+   - Handle null results appropriately
 
 2. **Receipt Storage**:
-   - Receipts are stored by block hash
-   - Transaction hash indexes are maintained within limits
-   - Old transaction indexes are automatically pruned
+   - Always check for null/undefined results
+   - Handle receipt pruning gracefully
+   - Verify contract deployment success
 
-3. **Error Handling**:
+3. **Type Safety**:
    ```ts
-   try {
-     const logs = await manager.getLogs({
-       fromBlock,
-       toBlock,
-       address,
-       topics
-     })
-   } catch (error) {
-     if (error.message.includes('block range too large')) {
-       // Handle range error
+   // Ensure contract deployment success
+   const contractAddress = deployResult.createdAddress
+   if (!contractAddress) throw new Error('Contract deployment failed')
+
+   // Handle receipt types
+   if (receiptResult) {
+     const [receipt] = receiptResult
+     if ('status' in receipt) {
+       console.log(`Transaction ${receipt.status === 1 ? 'succeeded' : 'failed'}`)
      }
-     // Handle other errors
    }
    ```
-
-4. **Memory Management**:
-   - Monitor filter count
-   - Remove unused filters
-   - Use pagination for large log queries
-
-## Working with Contract Events
-
-Example of tracking ERC20 Transfer events:
-
-```ts
-const transferTopic = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
-
-// Get all transfers to/from an address
-const logs = await manager.getLogs({
-  address: tokenAddress,
-  topics: [
-    transferTopic,
-    null,
-    '0x000000000000000000000000' + address.slice(2)
-  ],
-  fromBlock: startBlock,
-  toBlock: 'latest'
-})
-
-// Parse transfer events
-for (const log of logs) {
-  const [from, to, value] = ethers.AbiCoder.defaultAbiCoder().decode(
-    ['address', 'address', 'uint256'],
-    log.data
-  )
-  console.log(`Transfer: ${from} -> ${to}: ${value}`)
-}
-```
 
 ## Related Topics
 - [JSON-RPC Support](../api/json-rpc)

@@ -15,15 +15,15 @@ npm install @tevm/evm
 The main class for executing Ethereum bytecode. It extends the EthereumJS EVM with Tevm-specific functionality.
 
 ```typescript
-import { type Evm, createEvm } from 'tevm/evm'
+import { createEvm } from 'tevm/evm'
 import { mainnet } from 'tevm/common'
 import { createStateManager } from 'tevm/state'
-import { createBlockchain } from 'tevm/blockchain'
+import { createChain } from 'tevm/chain'
 
 const evm = await createEvm({
   common: mainnet,
   stateManager: createStateManager({}),
-  blockchain: await createBlockchain({ common: mainnet }),
+  blockchain: await createChain({ common: mainnet }),
 })
 ```
 
@@ -34,35 +34,23 @@ const evm = await createEvm({
 - `removeCustomPrecompile(precompile: CustomPrecompile): void` - Removes a custom precompile
 - `getActiveOpcodes(): OpcodeList` - Returns currently activated opcodes
 - `getPrecompile(address: Address): PrecompileFunc | undefined` - Returns precompile at address
+- `getPerformanceLogs()` - Returns performance logs for opcodes and precompiles
 
 ### Creating an EVM Instance
 
 The `createEvm` function is the recommended way to create a new EVM instance:
 
 ```typescript
-import { createEvm, type CreateEvmOptions } from '@tevm/evm'
+import { createEvm } from 'tevm/evm'
 
 const evm = await createEvm({
   common: mainnet,
-  stateManager: stateManager,
-  blockchain: blockchain,
+  stateManager: createStateManager({}),
+  blockchain: await createChain({ common: mainnet }),
   customPrecompiles: [], // Optional custom precompiles
   profiler: false, // Enable/disable profiling
   loggingLevel: 'warn', // Logging configuration
 })
-```
-
-#### CreateEvmOptions
-
-```typescript
-type CreateEvmOptions = {
-  common: Common
-  stateManager: StateManager
-  blockchain: Chain
-  customPrecompiles?: CustomPrecompile[]
-  profiler?: boolean
-  loggingLevel?: LogOptions['level']
-}
 ```
 
 ### Custom Precompiles
@@ -70,27 +58,26 @@ type CreateEvmOptions = {
 The EVM supports custom precompiles that allow executing arbitrary JavaScript code:
 
 ```typescript
-import { definePrecompile } from 'tevm'
-import { createContract } from 'tevm/contract'
-import { parseAbi } from 'tevm/utils'
+import { definePrecompile, defineCall, createContract, parseAbi } from 'tevm'
 import { createAddress } from 'tevm/address'
 
-const MyContractAbi = parseAbi([
-  'function myFunction(uint256 input) returns (uint256)',
-])
+const MyContract = createContract({
+  address: createAddress(2424).toString(),
+  abi: parseAbi([
+    'function addTwo(uint256) returns (uint256)',
+  ])
+})
 
 const customPrecompile = definePrecompile({
-  contract: createContract({
-    abi: MyContractAbi,
-    address: createAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2')
-  }),
-  call: async ({ data, gasLimit }) => {
-    // Custom implementation
-    return {
-      returnValue: new Uint8Array([0x01]),
-      executionGasUsed: 200n
+  contract: MyContract,
+  call: defineCall(MyContract.abi, {
+    addTwo: async ({ args }) => {
+      return {
+        returnValue: args[0] + 5n,
+        executionGasUsed: 0n
+      }
     }
-  }
+  })
 })
 
 // Add to EVM - note we need to call .precompile()

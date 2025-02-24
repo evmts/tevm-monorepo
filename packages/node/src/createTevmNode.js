@@ -25,6 +25,14 @@ import { statePersister } from './statePersister.js'
  *  ```
  */
 export const createTevmNode = (options = {}) => {
+	// for now we just only work with eip-1193 provider but later
+	// we can consider dynamically passing in chain retries etc
+	const transport = (() => {
+		if (typeof options?.fork?.transport === 'function') {
+			return options.fork.transport({})
+		}
+		return options.fork?.transport
+	})()
 	/**
 	 * @type {import('@tevm/utils').Address | undefined}
 	 */
@@ -47,7 +55,7 @@ export const createTevmNode = (options = {}) => {
 	 * @returns {Promise<import('@tevm/state').StateOptions>}
 	 */
 	const getStateManagerOpts = async () => {
-		if (options.fork?.transport) {
+		if (transport) {
 			// if the user passed in latest we must use an explicit block tag
 			const blockTag = await blockTagPromise
 			return {
@@ -55,6 +63,7 @@ export const createTevmNode = (options = {}) => {
 				...(options.persister ? { onCommit: statePersister(options.persister, logger) } : {}),
 				fork: {
 					...options.fork,
+					transport,
 					blockTag,
 				},
 			}
@@ -64,7 +73,7 @@ export const createTevmNode = (options = {}) => {
 			...(options.storageCache !== undefined ? { storageCache: options.storageCache } : {}),
 			...(options.contractCache !== undefined ? { contractCache: options.contractCache } : {}),
 			...(options.accountsCache !== undefined ? { accountsCache: options.accountsCache } : {}),
-			...(options.fork?.transport ? options.fork : {}),
+			...(options.fork?.transport ? { ...options.fork, transport } : {}),
 			...(options.persister !== undefined ? { onCommit: statePersister(options.persister, logger) } : {}),
 		}
 	}
@@ -83,9 +92,8 @@ export const createTevmNode = (options = {}) => {
 		if (options?.common) {
 			return options?.common.id
 		}
-		const forkTransport = options?.fork?.transport
-		if (forkTransport) {
-			const id = await getChainId(forkTransport)
+		if (transport) {
+			const id = await getChainId(transport)
 			return id
 		}
 		return DEFAULT_CHAIN_ID
@@ -142,7 +150,12 @@ export const createTevmNode = (options = {}) => {
 			...(options.fork?.transport !== undefined
 				? {
 						fork: {
-							transport: options.fork.transport,
+							transport: {
+								request:
+									typeof options.fork.transport === 'function'
+										? options.fork.transport({}).request
+										: options.fork.transport.request,
+							},
 							blockTag,
 						},
 					}
@@ -335,7 +348,13 @@ export const createTevmNode = (options = {}) => {
 			getVm: async () => Promise.resolve(vm),
 			miningConfig: baseClient.miningConfig,
 			mode: baseClient.mode,
-			...('forkTransport' in baseClient ? { forkTransport: baseClient.forkTransport } : {}),
+			...('forkTransport' in baseClient
+				? {
+						forkTransport: {
+							request: baseClient.forkTransport.request,
+						},
+					}
+				: {}),
 			extend: (extension) => extend(baseClient)(extension),
 			deepCopy: () => deepCopy(copiedClient)(),
 			ready: () => Promise.resolve(true),
@@ -377,8 +396,12 @@ export const createTevmNode = (options = {}) => {
 			return vmPromise
 		},
 		miningConfig: options.miningConfig ?? { type: 'manual' },
-		mode: options.fork?.transport ? 'fork' : 'normal',
-		...(options.fork?.transport ? { forkTransport: options.fork.transport } : {}),
+		mode: transport ? 'fork' : 'normal',
+		...(transport
+			? {
+					forkTransport: transport,
+				}
+			: {}),
 		extend: (extension) => extend(baseClient)(extension),
 		ready: () => readyPromise,
 		getImpersonatedAccount() {
