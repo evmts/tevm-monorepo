@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { bytesToHex, createTevmNode, definePrecompile, Hex, hexToBytes } from 'tevm'
+import { createTevmNode, definePrecompile, Hex, hexToBytes } from 'tevm'
 import { createAddress} from 'tevm/address'
 import { createContract } from 'tevm/contract'
 import { parseAbi } from 'tevm/utils'
 import { createImpersonatedTx } from 'tevm/tx'
-import { runTx } from 'tevm/vm'
+import { EvmError, EvmErrorMessage } from 'tevm/evm'
 
 describe('Custom Precompiles', () => {
   describe('Basic Precompiles', () => {
@@ -14,7 +14,7 @@ describe('Custom Precompiles', () => {
           abi: parseAbi(['function double(bytes) returns (bytes)']),
           address: '0x0000000000000000000000000000000000000123'
         }),
-        call: async ({ data, gasLimit }) => {
+        call: async ({ data}) => {
           // Simple precompile that doubles each byte
           const input = Array.from(data)
           return {
@@ -36,7 +36,7 @@ describe('Custom Precompiles', () => {
       })
 
       const vm = await node.getVm()
-      const result = await runTx(vm)({ tx })
+      const result = await vm.runTx({ tx })
       expect(result.execResult.returnValue).toBeDefined()
     })
   })
@@ -57,9 +57,17 @@ describe('Custom Precompiles', () => {
             hexToBytes(key),
             hexToBytes(value)
           )
+          const executionGasUsed = 200n
+          if (gasLimit <= executionGasUsed) {
+            return {
+              returnValue: new Uint8Array(),
+              exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+              executionGasUsed: gasLimit,
+            }
+          }
           return {
             returnValue: new Uint8Array(),
-            executionGasUsed: 200n,
+            executionGasUsed,
           }
         },
       })
@@ -76,7 +84,7 @@ describe('Custom Precompiles', () => {
       })
 
       const vm = await node.getVm()
-      await runTx(vm)({ tx })
+      await vm.runTx({ tx })
       const storedValue = await vm.stateManager.getContractStorage(
         createAddress(statePrecompile.contract.address),
         new Uint8Array(32)
@@ -115,7 +123,7 @@ describe('Custom Precompiles', () => {
       })
 
       const vm = await node.getVm()
-      const result = await runTx(vm)({ tx })
+      const result = await vm.runTx({ tx })
       expect(result.execResult.executionGasUsed).toBeGreaterThan(10000n)
     })
   })
@@ -151,7 +159,7 @@ describe('Custom Precompiles', () => {
 
       const vm = await node.getVm()
       try {
-        await runTx(vm)({ tx })
+        await vm.runTx({ tx })
         throw new Error('Should have failed')
       } catch (error: any) {
         expect(error.message).toContain('Empty input not allowed')
@@ -168,7 +176,7 @@ describe('Custom Precompiles', () => {
 
       const node = createTevmNode()
       const vm = await node.getVm()
-      const result = await runTx(vm)({ tx })
+      const result = await vm.runTx({ tx })
       expect(result.execResult.exceptionError).toBeDefined()
     })
   })
@@ -216,8 +224,8 @@ describe('Custom Precompiles', () => {
       })
 
       const vm = await node.getVm()
-      const resultA = await runTx(vm)({ tx: txA })
-      const resultB = await runTx(vm)({ tx: txB })
+      const resultA = await vm.runTx({ tx: txA })
+      const resultB = await vm.runTx({ tx: txB })
 
       expect(resultA.execResult.returnValue).toEqual(new Uint8Array([1]))
       expect(resultB.execResult.returnValue).toEqual(new Uint8Array([2]))
@@ -255,7 +263,7 @@ describe('Custom Precompiles', () => {
       )
 
       const vm = await node.getVm()
-      const results = await Promise.all(txs.map(tx => runTx(vm)({ tx })))
+      const results = await Promise.all(txs.map(tx => vm.runTx({ tx })))
       results.forEach((result: any, i: number) => {
         expect(result.execResult.returnValue).toEqual(new Uint8Array([i + 1]))
       })

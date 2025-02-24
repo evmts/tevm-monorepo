@@ -17,7 +17,7 @@ import { createAddress } from 'tevm/address'
 import { createContract } from 'tevm/contract'
 import { parseAbi } from 'tevm/utils'
 import { createImpersonatedTx } from 'tevm/tx'
-import { runTx } from 'tevm/vm'
+import { EvmError, EvmErrorMessage } from 'tevm/evm'
 
 // Create a basic precompile
 const customPrecompile = definePrecompile({
@@ -25,7 +25,7 @@ const customPrecompile = definePrecompile({
     abi: parseAbi(['function double(bytes) returns (bytes)']),
     address: '0x0000000000000000000000000000000000000123'
   }),
-  call: async ({ data, gasLimit }) => {
+  call: async ({ data }) => {
     // Simple precompile that doubles each byte
     const input = Array.from(data)
     return {
@@ -50,7 +50,7 @@ const tx = createImpersonatedTx({
 
 // Execute the transaction
 const vm = await node.getVm()
-const result = await runTx(vm)({ tx })
+const result = await vm.runTx({ tx })
 ```
 
 ## Basic Usage
@@ -63,6 +63,7 @@ import { createAddress } from 'tevm/address'
 import { createContract } from 'tevm/contract'
 import { parseAbi } from 'tevm/utils'
 import { createImpersonatedTx } from 'tevm/tx'
+import { EvmError, EvmErrorMessage } from 'tevm/evm'
 
 const myPrecompile = definePrecompile({
   contract: createContract({
@@ -70,11 +71,19 @@ const myPrecompile = definePrecompile({
     address: '0x0000000000000000000000000000000000000123'
   }),
   call: async ({ data, gasLimit }) => {
+    const executionGasUsed = 200n
+    if (gasLimit <= executionGasUsed) {
+      return {
+        returnValue: new Uint8Array(),
+        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+        executionGasUsed: gasLimit,
+      }
+    }
     // Process input data
     const processedData = data
     return {
       returnValue: new Uint8Array([...processedData]),
-      executionGasUsed: 200n,
+      executionGasUsed,
     }
   },
 })
@@ -119,12 +128,20 @@ const statePrecompile = definePrecompile({
     const vm = await node.getVm()
     await vm.stateManager.putContractStorage(
       createAddress(statePrecompile.contract.address),
-      key,
-      value
+      hexToBytes(key),
+      hexToBytes(value)
     )
+    const executionGasUsed = 200n
+    if (gasLimit <= executionGasUsed) {
+      return {
+        returnValue: new Uint8Array(),
+        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+        executionGasUsed: gasLimit,
+      }
+    }
     return {
       returnValue: new Uint8Array(),
-      executionGasUsed: 200n,
+      executionGasUsed,
     }
   },
 })
@@ -207,7 +224,7 @@ const node = createTevmNode({
 1. **Gas Calculation**:
    - Always calculate gas based on input size or operations performed
    - Check against provided gas limit
-   - Return accurate gas usage
+   - Return accurate gas usage and proper error types
 
 ```ts
 const precompile = definePrecompile({
@@ -219,7 +236,11 @@ const precompile = definePrecompile({
     const gasPerByte = 100n
     const gasUsed = BigInt(data.length) * gasPerByte
     if (gasUsed > gasLimit) {
-      throw new Error('Out of gas')
+      return {
+        returnValue: new Uint8Array(),
+        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+        executionGasUsed: gasLimit,
+      }
     }
     return {
       returnValue: processData(data),
@@ -230,7 +251,7 @@ const precompile = definePrecompile({
 ```
 
 2. **Error Handling**:
-   - Use descriptive error messages
+   - Use proper EvmError types for EVM-specific errors
    - Check input validity
    - Handle gas limits properly
 
@@ -245,10 +266,18 @@ const precompile = definePrecompile({
       if (data.length === 0) {
         throw new Error('Empty input not allowed')
       }
+      const executionGasUsed = 200n
+      if (gasLimit <= executionGasUsed) {
+        return {
+          returnValue: new Uint8Array(),
+          exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+          executionGasUsed: gasLimit,
+        }
+      }
       // Process data
       return {
         returnValue: processData(data),
-        executionGasUsed: 200n,
+        executionGasUsed,
       }
     } catch (error) {
       throw new Error(`Precompile error: ${error.message}`)

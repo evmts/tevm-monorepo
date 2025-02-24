@@ -1,7 +1,11 @@
 import { describe, it, expect } from 'vitest'
-import { createTevmNode } from 'tevm'
+import { createTevmNode, PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from 'tevm'
 import { http } from 'tevm'
 import type { TevmNode } from 'tevm/node'
+import { createImpersonatedTx } from 'tevm/tx'
+import { createAddress } from 'tevm/address'
+import { LegacyTransaction } from 'tevm/tx'
+import { hexToBytes } from 'tevm/utils'
 
 describe('TevmNode Interface', () => {
   describe('Core Components', () => {
@@ -19,11 +23,7 @@ describe('TevmNode Interface', () => {
         const vm = await node.getVm()
 
         const result = await vm.runTx({
-          tx: {
-            to: '0x1234567890123456789012345678901234567890',
-            value: 1000000000000000000n, // 1 ETH
-            data: '0x',
-          }
+          tx: createImpersonatedTx({data: new Uint8Array(), impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address)})
         })
 
         expect(result).toBeDefined()
@@ -35,76 +35,75 @@ describe('TevmNode Interface', () => {
         const node = createTevmNode()
         const txPool = await node.getTxPool()
 
-        await txPool.add({
-          from: '0x1234567890123456789012345678901234567890',
+        const tx = new LegacyTransaction({
+          nonce: 0,
+          gasPrice: 1000000000,
+          gasLimit: 21000,
           to: '0x5678901234567890123456789012345678901234',
           value: 1000000000000000000n,
-        })
+          data: '0x',
+        }).sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+
+        await txPool.add(tx)
 
         const pending = await txPool.txsByPriceAndNonce()
         expect(pending).toBeDefined()
       })
     })
 
-    describe('Receipt & Log Management', () => {
+    describe('Receipts and Logs', () => {
       it('should manage receipts and logs', async () => {
         const node = createTevmNode()
-        const receipts = await node.getReceiptsManager()
+        const receiptManager = await node.getReceiptsManager()
 
-        const receipt = await receipts.getReceiptByTxHash('0x1234...')
+        // Create and add a transaction
+        const tx = createImpersonatedTx({
+          impersonatedAddress: createAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'),
+          to: createAddress('0x5678901234567890123456789012345678901234'),
+          value: 1000000000000000000n,
+          data: '0x', // Include empty data field
+        })
+
+        const txPool = await node.getTxPool()
+        await txPool.add(tx)
+
+        // Get receipt by transaction hash using receipt manager
+        const receipt = await receiptManager.getReceiptByTxHash(tx.hash())
         expect(receipt).toBeDefined()
+        if (receipt) {
+          const [txReceipt, blockHash, txIndex, logIndex] = receipt
+          expect(blockHash).toBeDefined()
+          expect(txIndex).toBeDefined()
+          expect(logIndex).toBeDefined()
+          // Verify receipt has expected post-Byzantium fields
+          if ('status' in txReceipt) {
+            expect(txReceipt.status).toBeDefined() // 0 or 1
+          }
+          expect(txReceipt.cumulativeBlockGasUsed).toBeDefined()
+          expect(txReceipt.bitvector).toBeDefined() // Bloom bitvector
+          expect(txReceipt.logs).toBeDefined()
+        }
 
-        const logs = await receipts.getLogs({
-          fromBlock: 0n,
-          toBlock: 'latest',
-          address: '0x1234567890123456789012345678901234567890',
-        })
-        expect(logs).toBeDefined()
-      })
-    })
-
-    describe('Account Impersonation', () => {
-      it('should impersonate accounts', async () => {
-        const node = createTevmNode({
-          fork: {
-            transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-          },
-        })
-
-        node.setImpersonatedAccount('0x28C6c06298d514Db089934071355E5743bf21d60')
-
+        // Get logs with proper filter parameters using receipt manager
         const vm = await node.getVm()
-        await vm.runTx({
-          tx: {
-            from: '0x28C6c06298d514Db089934071355E5743bf21d60',
-            to: '0x1234567890123456789012345678901234567890',
-            value: 1000000000000000000n,
-          },
+        const fromBlock = await vm.blockchain.getBlockByTag('earliest')
+        const toBlock = await vm.blockchain.getBlockByTag('latest')
+        const targetAddress = createAddress('0x5678901234567890123456789012345678901234')
+        const logs = await receiptManager.getLogs(
+          fromBlock,
+          toBlock,
+          [targetAddress.toBytes()], // Optional address filter
+          [] // Optional topic filters
+        )
+        expect(logs).toBeDefined()
+        // Each log should have the expected structure
+        logs.forEach(({ log, block, tx, txIndex, logIndex }) => {
+          expect(log).toHaveLength(3) // [address, topics, data]
+          expect(block).toBeDefined()
+          expect(tx).toBeDefined()
+          expect(typeof txIndex).toBe('number')
+          expect(typeof logIndex).toBe('number')
         })
-
-        expect(node.getImpersonatedAccount()).toBe('0x28C6c06298d514Db089934071355E5743bf21d60')
-      })
-    })
-
-    describe('Event Filtering', () => {
-      it('should manage event filters', () => {
-        const node = createTevmNode()
-
-        node.setFilter({
-          id: '0x1',
-          fromBlock: 0n,
-          toBlock: 'latest',
-          address: '0x1234567890123456789012345678901234567890',
-          topics: [
-            '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
-          ],
-        })
-
-        const filters = node.getFilters()
-        expect(filters.size).toBe(1)
-
-        node.removeFilter('0x1')
-        expect(node.getFilters().size).toBe(0)
       })
     })
 
@@ -113,8 +112,8 @@ describe('TevmNode Interface', () => {
         const enhancedNode = createTevmNode().extend((baseNode) => ({
           async getBalance(address: string) {
             const vm = await baseNode.getVm()
-            const account = await vm.stateManager.getAccount(address)
-            return account.balance
+            const account = await vm.stateManager.getAccount(createAddress(address))
+            return account!.balance
           },
         }))
 

@@ -10,99 +10,50 @@ The `@tevm/state` package provides functionality for managing Ethereum state, in
 npm install @tevm/state
 ```
 
+Or use `tevm/state` if you have the main `tevm` package installed
+
 ## Main Components
 
 ### StateManager
 
-The main interface for managing Ethereum state, extending the EVM state manager interface:
+The main interface for managing Ethereum state:
 
 ```typescript
-interface StateManager extends EvmStateManagerInterface {
-  _baseState: BaseState
+interface StateManager {
   ready: () => Promise<true>
   getAccountAddresses: () => Set<Address>
-  deepCopy(): Promise<StateManager>
-  dumpCanonicalGenesis(): Promise<TevmState>
-  clearCaches(): void
-  saveStateRoot(root: Uint8Array, state: TevmState): void
-  commit(createNewStateRoot?: boolean): Promise<void>
+  deepCopy: () => Promise<StateManager>
+  dumpCanonicalGenesis: () => Promise<TevmState>
+  clearCaches: () => void
+  getAccount: (address: Address) => Promise<Account>
+  putAccount: (address: Address, account: Account) => Promise<void>
+  deleteAccount: (address: Address) => Promise<void>
+  modifyAccountFields: (address: Address, fields: { nonce?: bigint; balance?: bigint }) => Promise<void>
+  getContractCode: (address: Address) => Promise<Uint8Array>
+  putContractCode: (address: Address, code: Uint8Array) => Promise<void>
+  getContractStorage: (address: Address, key: Uint8Array) => Promise<Uint8Array>
+  putContractStorage: (address: Address, key: Uint8Array, value: Uint8Array) => Promise<void>
+  clearContractStorage: (address: Address) => Promise<void>
+  checkpoint: () => Promise<void>
+  commit: () => Promise<void>
+  revert: () => Promise<void>
+  getStateRoot: () => Promise<Uint8Array>
+  setStateRoot: (root: Uint8Array) => Promise<void>
+  hasStateRoot: (root: Uint8Array) => Promise<boolean>
+  dumpStorage: (address: Address) => Promise<StorageDump>
+  dumpStorageRange: (address: Address, startKey: bigint, limit: number) => Promise<StorageRange>
+  getProof: (address: Address, storageKeys: Uint8Array[]) => Promise<Proof>
 }
 ```
 
 ### Creating a State Manager
 
 ```typescript
-import { createStateManager } from '@tevm/state'
+import { createStateManager } from 'tevm/state'
 
 const stateManager = createStateManager({
-  common,
-  loggingLevel: 'info',
-  genesisState,
-  currentStateRoot,
-  stateRoots,
+  loggingLevel: 'info'
 })
-```
-
-#### StateOptions
-
-```typescript
-type StateOptions = {
-  // Forking configuration
-  fork?: ForkOptions
-  // Initial genesis state
-  genesisState?: TevmState
-  // Current state root
-  currentStateRoot?: Hex
-  // Mapping of state roots
-  stateRoots?: StateRoots
-  // Called when state manager commits state
-  onCommit?: (stateManager: BaseState) => void
-  // Logging configuration
-  loggingLevel?: LogOptions['level']
-  // Cache configurations
-  contractCache?: ContractCache
-  storageCache?: StorageCache
-  accountsCache?: AccountCache
-}
-```
-
-### State Types
-
-#### TevmState
-
-The core state representation:
-
-```typescript
-type TevmState = {
-  [key: Address]: AccountStorage
-}
-```
-
-#### AccountStorage
-
-Account state information:
-
-```typescript
-interface AccountStorage {
-  nonce: bigint
-  balance: bigint
-  storageRoot: Hex
-  codeHash: Hex
-  deployedBytecode?: Hex
-  storage?: StorageDump
-}
-```
-
-#### StateCache
-
-Internal cache structure:
-
-```typescript
-type StateCache = {
-  accounts: AccountCache
-  storage: StorageCache
-  contracts: ContractCache
-}
 ```
 
 ## Core Functionality
@@ -110,6 +61,12 @@ type StateCache = {
 ### Account Management
 
 ```typescript
+import { createStateManager } from 'tevm/state'
+import { createAddress } from 'tevm/address'
+
+const stateManager = createStateManager({})
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
 // Get account state
 const account = await stateManager.getAccount(address)
 
@@ -129,17 +86,23 @@ await stateManager.modifyAccountFields(address, {
 ### Contract Management
 
 ```typescript
-// Get contract code
-const code = await stateManager.getContractCode(address)
+import { createStateManager } from 'tevm/state'
+import { createAddress } from 'tevm/address'
+import { hexToBytes } from 'tevm/utils'
 
-// Set contract code
+const stateManager = createStateManager({})
+const address = createAddress('0x1234567890123456789012345678901234567890')
+const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
+const value = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
+const code = new Uint8Array([1, 2, 3])
+
+// Get and set contract code
 await stateManager.putContractCode(address, code)
+const retrievedCode = await stateManager.getContractCode(address)
 
-// Get contract storage
-const value = await stateManager.getContractStorage(address, key)
-
-// Set contract storage
+// Get and set contract storage
 await stateManager.putContractStorage(address, key, value)
+const retrievedValue = await stateManager.getContractStorage(address, key)
 
 // Clear contract storage
 await stateManager.clearContractStorage(address)
@@ -177,7 +140,7 @@ const state = await stateManager.dumpCanonicalGenesis()
 const storage = await stateManager.dumpStorage(address)
 
 // Dump storage range
-const range = await stateManager.dumpStorageRange(address, startKey, limit)
+const range = await stateManager.dumpStorageRange(address, 4n, 10)
 
 // Get merkle proof
 const proof = await stateManager.getProof(address, storageKeys)
@@ -189,31 +152,48 @@ const proof = await stateManager.getProof(address, storageKeys)
 // Clear all caches
 stateManager.clearCaches()
 
-// Access original storage cache
-const originalStorage = stateManager.originalStorageCache
-```
-
-### State Copying
-
-```typescript
 // Deep copy (independent state)
 const deepCopy = await stateManager.deepCopy()
-
-// Shallow copy (shared state)
-const shallowCopy = stateManager.shallowCopy()
 ```
 
-## Error Handling
+## Best Practices
 
-The state manager uses the `@tevm/errors` package for error handling. Common errors include:
+1. **Always await ready()**
+```typescript
+const stateManager = createStateManager({})
+await stateManager.ready()
+```
 
-- `StateManagerError`: Base error for state management issues
-- `AccountNotFoundError`: When an account doesn't exist
-- `InvalidStateRoot`: When an invalid state root is provided
-- `StorageNotFoundError`: When storage slot doesn't exist
+2. **Use checkpoints for atomic operations**
+```typescript
+await stateManager.checkpoint()
+try {
+  // Perform state changes
+  await stateManager.commit()
+} catch (error) {
+  await stateManager.revert()
+}
+```
 
-## See Also
+3. **Clear caches when memory usage is high**
+```typescript
+// Periodically clear caches
+stateManager.clearCaches()
+```
 
+4. **Use proper error handling**
+```typescript
+try {
+  await stateManager.getAccount(address)
+} catch (error) {
+  if (error instanceof AccountNotFoundError) {
+    // Handle missing account
+  }
+  // Handle other errors
+}
+```
+
+## Related Topics
 - [EVM State Documentation](https://ethereum.org/en/developers/docs/evm/state)
 - [Merkle Patricia Tree](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie)
 - [Account Management](https://ethereum.org/en/developers/docs/accounts)

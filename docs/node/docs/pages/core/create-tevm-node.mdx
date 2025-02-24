@@ -138,10 +138,16 @@ node.logger.debug('Detailed debugging information')
 Add your own precompiled contracts:
 
 ```ts
-import { definePrecompile } from 'tevm'
+import { definePrecompile, createContract, parseAbi } from 'tevm'
 
 const myPrecompile = definePrecompile({
-  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
+  contract: createContract({
+    abi: parseAbi([
+      'function add(uint256 a, uint256 b) returns (uint256)',
+      'function subtract(uint256 a, uint256 b) returns (uint256)'
+    ]),
+    address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2'
+  }),
   call: async ({ data, gasLimit }) => {
     // Your precompile logic here
     return {
@@ -152,7 +158,7 @@ const myPrecompile = definePrecompile({
 })
 
 const node = createTevmNode({
-  customPrecompiles: [myPrecompile],
+  customPrecompiles: [myPrecompile.precompile()],
 })
 ```
 
@@ -177,27 +183,31 @@ const logs = vm.evm.getPerformanceLogs()
 | `fork` | `{ transport: EIP1193RequestFn; blockTag?: BlockTag; }` | - | Enables forking from a live network or another Tevm instance |
 | `common` | `Common` | `tevmDevnet` | Chain configuration object |
 | `loggingLevel` | `"fatal" \| "error" \| "warn" \| "info" \| "debug" \| "trace"` | `"info"` | Logging verbosity level |
-| `miningConfig` | `'auto' \| 'interval' \| 'manual' \| 'gas'` | `'manual'` | Block mining behavior |
+| `miningConfig` | `{ type: 'auto' } \| { type: 'interval', interval: number }` | `{ type: 'auto' }` | Block mining behavior |
 | `profiler` | `boolean` | `false` | Enables performance logging |
-| `customPrecompiles` | `CustomPrecompile[]` | `[]` | Additional precompiled contracts |
-| `customPredeploys` | `Predeploy[]` | `[]` | Contracts to deploy at genesis |
+| `customPrecompiles` | `Precompile[]` | `[]` | Additional precompiled contracts |
 | `allowUnlimitedContractSize` | `boolean` | `false` | Disables EIP-170 contract size checks |
-| `persister` | `SyncStoragePersister` | - | Hook for state persistence |
 
 ## Best Practices
 
-1. **Optionally await ready()**
+1. **Always await node.ready()**
    ```ts
    const node = createTevmNode()
-   await node.ready() // Ensure node is initialized
+   await node.ready() // Ensure node is fully initialized
    ```
 
-This isn't 100% required but good to do so if you profile any tevm api it isn't profiling the 1 time initialization time.
-
 2. **Use Appropriate Mining Config**
-   - Use `'auto'` for testing
-   - Use `'manual'` for precise control
-   - Use `'interval'` for simulation
+   ```ts
+   // For testing - mine after each transaction
+   const testNode = createTevmNode({
+     miningConfig: { type: 'auto' }
+   })
+
+   // For simulation - mine at intervals
+   const simNode = createTevmNode({
+     miningConfig: { type: 'interval', interval: 12_000 }
+   })
+   ```
 
 3. **Handle Errors**
    ```ts
@@ -209,14 +219,7 @@ This isn't 100% required but good to do so if you profile any tevm api it isn't 
    }
    ```
 
-4. **Clean Up Resources**
-   ```ts
-   const node = createTevmNode()
-   // ... use the node
-   await node.getVm().then(vm => vm.blockchain.close())
-   ```
-
-## Examples
+## Example Configurations
 
 ### Local Development Node
 
@@ -226,6 +229,7 @@ const devNode = createTevmNode({
   loggingLevel: 'debug',
   allowUnlimitedContractSize: true, // Helpful during development
 })
+await devNode.ready()
 ```
 
 ### Production Forked Node
@@ -239,6 +243,7 @@ const prodNode = createTevmNode({
   miningConfig: { type: 'interval', interval: 12000 },
   loggingLevel: 'error', // Less verbose in production
 })
+await prodNode.ready()
 ```
 
 ### Testing Node
@@ -246,8 +251,9 @@ const prodNode = createTevmNode({
 ```ts
 const testNode = createTevmNode({
   miningConfig: { type: 'auto' },
-  profiler: true, // Enable profiling for tests
+  profiler: true, // Enable profiling for performance testing
 })
+await testNode.ready()
 ```
 
 ## Next Steps
@@ -255,3 +261,4 @@ const testNode = createTevmNode({
 - Learn about the [Node Interface](./tevm-node-interface)
 - Explore [Forking](./forking)
 - Understand [State Management](./managing-state)
+- Learn about [Custom Precompiles](../advanced/custom-precompiles)

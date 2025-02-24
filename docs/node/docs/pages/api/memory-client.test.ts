@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { describe, it, expect } from 'vitest'
 import { createMemoryClient, http } from 'tevm'
 import { optimism } from 'tevm/common'

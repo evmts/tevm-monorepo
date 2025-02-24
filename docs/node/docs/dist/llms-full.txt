@@ -192,7 +192,7 @@ import { createAddress } from 'tevm/address'
 import { createContract } from 'tevm/contract'
 import { parseAbi } from 'tevm/utils'
 import { createImpersonatedTx } from 'tevm/tx'
-import { runTx } from 'tevm/vm'
+import { EvmError, EvmErrorMessage } from 'tevm/evm'
 
 // Create a basic precompile
 const customPrecompile = definePrecompile({
@@ -200,7 +200,7 @@ const customPrecompile = definePrecompile({
     abi: parseAbi(['function double(bytes) returns (bytes)']),
     address: '0x0000000000000000000000000000000000000123'
   }),
-  call: async ({ data, gasLimit }) => {
+  call: async ({ data }) => {
     // Simple precompile that doubles each byte
     const input = Array.from(data)
     return {
@@ -225,7 +225,7 @@ const tx = createImpersonatedTx({
 
 // Execute the transaction
 const vm = await node.getVm()
-const result = await runTx(vm)({ tx })
+const result = await vm.runTx({ tx })
 ```
 
 ### Basic Usage
@@ -238,6 +238,7 @@ import { createAddress } from 'tevm/address'
 import { createContract } from 'tevm/contract'
 import { parseAbi } from 'tevm/utils'
 import { createImpersonatedTx } from 'tevm/tx'
+import { EvmError, EvmErrorMessage } from 'tevm/evm'
 
 const myPrecompile = definePrecompile({
   contract: createContract({
@@ -245,11 +246,19 @@ const myPrecompile = definePrecompile({
     address: '0x0000000000000000000000000000000000000123'
   }),
   call: async ({ data, gasLimit }) => {
+    const executionGasUsed = 200n
+    if (gasLimit <= executionGasUsed) {
+      return {
+        returnValue: new Uint8Array(),
+        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+        executionGasUsed: gasLimit,
+      }
+    }
     // Process input data
     const processedData = data
     return {
       returnValue: new Uint8Array([...processedData]),
-      executionGasUsed: 200n,
+      executionGasUsed,
     }
   },
 })
@@ -294,12 +303,20 @@ const statePrecompile = definePrecompile({
     const vm = await node.getVm()
     await vm.stateManager.putContractStorage(
       createAddress(statePrecompile.contract.address),
-      key,
-      value
+      hexToBytes(key),
+      hexToBytes(value)
     )
+    const executionGasUsed = 200n
+    if (gasLimit <= executionGasUsed) {
+      return {
+        returnValue: new Uint8Array(),
+        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+        executionGasUsed: gasLimit,
+      }
+    }
     return {
       returnValue: new Uint8Array(),
-      executionGasUsed: 200n,
+      executionGasUsed,
     }
   },
 })
@@ -382,7 +399,7 @@ const node = createTevmNode({
 1. **Gas Calculation**:
    * Always calculate gas based on input size or operations performed
    * Check against provided gas limit
-   * Return accurate gas usage
+   * Return accurate gas usage and proper error types
 
 ```ts
 const precompile = definePrecompile({
@@ -394,7 +411,11 @@ const precompile = definePrecompile({
     const gasPerByte = 100n
     const gasUsed = BigInt(data.length) * gasPerByte
     if (gasUsed > gasLimit) {
-      throw new Error('Out of gas')
+      return {
+        returnValue: new Uint8Array(),
+        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+        executionGasUsed: gasLimit,
+      }
     }
     return {
       returnValue: processData(data),
@@ -405,7 +426,7 @@ const precompile = definePrecompile({
 ```
 
 2. **Error Handling**:
-   * Use descriptive error messages
+   * Use proper EvmError types for EVM-specific errors
    * Check input validity
    * Handle gas limits properly
 
@@ -420,10 +441,18 @@ const precompile = definePrecompile({
       if (data.length === 0) {
         throw new Error('Empty input not allowed')
       }
+      const executionGasUsed = 200n
+      if (gasLimit <= executionGasUsed) {
+        return {
+          returnValue: new Uint8Array(),
+          exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+          executionGasUsed: gasLimit,
+        }
+      }
       // Process data
       return {
         returnValue: processData(data),
-        executionGasUsed: 200n,
+        executionGasUsed,
       }
     } catch (error) {
       throw new Error(`Precompile error: ${error.message}`)
@@ -681,21 +710,34 @@ The ReceiptsManager maintains an index of all transaction receipts and their ass
 
 ```ts
 import { createTevmNode } from 'tevm'
+import { createImpersonatedTx } from 'tevm/tx'
 import { runTx } from 'tevm/vm'
+import { createAddress, hexToBytes } from 'tevm/utils'
 
 const node = createTevmNode()
 const receiptsManager = await node.getReceiptsManager()
 
-// Get receipts for a block
-const receipts = await receiptsManager.getReceipts(blockHash)
-
-// Get receipt for specific transaction
-const receipt = await receiptsManager.getReceiptByTxHash(txHash)
-
 // Execute a transaction and get receipt
 const vm = await node.getVm()
+const tx = createImpersonatedTx({
+  impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+  to: createAddress('0x2345678901234567890123456789012345678901'),
+  value: 1000000000000000000n,
+  gasLimit: 21000n,
+})
+
 const result = await runTx(vm)({ tx })
-const txReceipt = await receiptsManager.getReceiptByTxHash(result.hash)
+const receiptResult = await receiptsManager.getReceiptByTxHash(tx.hash())
+
+if (receiptResult) {
+  const [receipt, blockHash, txIndex, logIndex] = receiptResult
+  // Access receipt data
+  console.log({
+    status: 'status' in receipt ? receipt.status : undefined,
+    gasUsed: receipt.cumulativeBlockGasUsed,
+    logs: receipt.logs
+  })
+}
 ```
 
 #### Receipt Types
@@ -710,7 +752,7 @@ interface PreByzantiumReceipt {
 }
 
 interface PostByzantiumReceipt {
-  status: number
+  status: number // 1 for success, 0 for failure
   cumulativeBlockGasUsed: bigint
   logs: Log[]
 }
@@ -723,89 +765,87 @@ interface EIP4844Receipt extends PostByzantiumReceipt {
 
 ### Event Logs
 
+#### Contract Deployment and Event Emission
+
+Here's how to deploy a contract and capture its events:
+
+```ts
+// Deploy contract
+const deployTx = createImpersonatedTx({
+  impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+  data: CONTRACT_BYTECODE,
+  gasLimit: 1000000n,
+})
+
+const vm = await node.getVm()
+const deployResult = await runTx(vm)({ tx: deployTx })
+const contractAddress = deployResult.createdAddress
+if (!contractAddress) throw new Error('Contract deployment failed')
+
+// Interact with contract to emit events
+const interactTx = createImpersonatedTx({
+  impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+  to: contractAddress,
+  data: EMIT_EVENT_SELECTOR, // Function selector that emits events
+  gasLimit: 100000n,
+})
+
+await runTx(vm)({ tx: interactTx })
+```
+
 #### Querying Logs
 
-The ReceiptsManager provides flexible log querying:
+The ReceiptsManager provides flexible log querying with multiple filter options:
 
 ```ts
-// Query logs with filters
-const logs = await manager.getLogs({
-  fromBlock: 0n,
-  toBlock: 'latest',
-  address: contractAddress,
-  topics: [
-    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
-    null, // Any from address
-    '0x000000000000000000000000' + address.slice(2), // Specific to address
-  ]
-})
+// Get blocks for filtering
+const fromBlock = await vm.blockchain.getBlockByTag('earliest')
+const toBlock = await vm.blockchain.getBlockByTag('latest')
 
-// Process logs
-for (const log of logs) {
-  console.log({
-    address: log.address,
-    topics: log.topics,
-    data: log.data,
-    blockNumber: log.blockNumber,
-    transactionHash: log.transactionHash,
-    logIndex: log.logIndex
-  })
+// Filter by contract address
+const addressLogs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  [contractAddress.toBytes()],
+  undefined
+)
+
+// Filter by event topic
+const eventTopic = hexToBytes('0x000000000000000000000000000000000000000000000000000000000000abcd')
+const topicLogs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  undefined,
+  [eventTopic]
+)
+
+// Filter by both address and topic
+const combinedLogs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  [contractAddress.toBytes()],
+  [eventTopic]
+)
+```
+
+#### Error Handling
+
+The ReceiptsManager includes robust error handling:
+
+```ts
+// Handle non-existent receipts
+const nonExistentHash = hexToBytes('0x1234567890123456789012345678901234567890123456789012345678901234')
+const receipt = await receiptsManager.getReceiptByTxHash(nonExistentHash)
+if (receipt === null) {
+  console.log('Receipt not found')
 }
-```
 
-#### Log Filters
-
-Tevm implements the Ethereum filter API for real-time log tracking:
-
-```ts
-// Create new filter
-const filterId = await node.request({
-  method: 'eth_newFilter',
-  params: [{
-    fromBlock: 'latest',
-    address: contractAddress,
-    topics: [eventSignature]
-  }]
-})
-
-// Get filter changes
-const changes = await node.request({
-  method: 'eth_getFilterChanges',
-  params: [filterId]
-})
-
-// Get all filter logs
-const allLogs = await node.request({
-  method: 'eth_getFilterLogs',
-  params: [filterId]
-})
-
-// Remove filter when done
-await node.request({
-  method: 'eth_uninstallFilter',
-  params: [filterId]
-})
-```
-
-#### Filter Management
-
-The node maintains filters internally:
-
-```ts
-// Get all active filters
-const filters = node.getFilters()
-
-// Remove specific filter
-node.removeFilter(filterId)
-
-// Add new filter
-node.setFilter({
-  id: filterId,
-  fromBlock: 'latest',
-  toBlock: 'latest',
-  address: contractAddress,
-  topics: [eventSignature]
-})
+// Handle invalid log filters
+const invalidAddress = hexToBytes('0x0000')
+const logs = await receiptsManager.getLogs(fromBlock, toBlock, [invalidAddress], undefined)
+if (logs.length === 0) {
+  console.log('No logs found for invalid address')
+}
 ```
 
 ### Performance Considerations
@@ -824,63 +864,27 @@ const GET_LOGS_BLOCK_RANGE_LIMIT = 2500 // Maximum block range
 1. **Efficient Log Queries**:
    * Use specific address and topic filters
    * Limit block ranges for large queries
-   * Clean up unused filters
+   * Handle null results appropriately
 
 2. **Receipt Storage**:
-   * Receipts are stored by block hash
-   * Transaction hash indexes are maintained within limits
-   * Old transaction indexes are automatically pruned
+   * Always check for null/undefined results
+   * Handle receipt pruning gracefully
+   * Verify contract deployment success
 
-3. **Error Handling**:
+3. **Type Safety**:
    ```ts
-   try {
-     const logs = await manager.getLogs({
-       fromBlock,
-       toBlock,
-       address,
-       topics
-     })
-   } catch (error) {
-     if (error.message.includes('block range too large')) {
-       // Handle range error
+   // Ensure contract deployment success
+   const contractAddress = deployResult.createdAddress
+   if (!contractAddress) throw new Error('Contract deployment failed')
+
+   // Handle receipt types
+   if (receiptResult) {
+     const [receipt] = receiptResult
+     if ('status' in receipt) {
+       console.log(`Transaction ${receipt.status === 1 ? 'succeeded' : 'failed'}`)
      }
-     // Handle other errors
    }
    ```
-
-4. **Memory Management**:
-   * Monitor filter count
-   * Remove unused filters
-   * Use pagination for large log queries
-
-### Working with Contract Events
-
-Example of tracking ERC20 Transfer events:
-
-```ts
-const transferTopic = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
-
-// Get all transfers to/from an address
-const logs = await manager.getLogs({
-  address: tokenAddress,
-  topics: [
-    transferTopic,
-    null,
-    '0x000000000000000000000000' + address.slice(2)
-  ],
-  fromBlock: startBlock,
-  toBlock: 'latest'
-})
-
-// Parse transfer events
-for (const log of logs) {
-  const [from, to, value] = ethers.AbiCoder.defaultAbiCoder().decode(
-    ['address', 'address', 'uint256'],
-    log.data
-  )
-  console.log(`Transfer: ${from} -> ${to}: ${value}`)
-}
-```
 
 ### Related Topics
 
@@ -891,1453 +895,254 @@ for (const log of logs) {
 
 ## Transaction Pool
 
-The Transaction Pool (TxPool) in Tevm Node manages pending transactions that haven't been included in a block yet. It provides functionality for adding, removing, and querying transactions.
+The Transaction Pool (TxPool) is a crucial component that manages pending transactions before they're included in blocks. It handles transaction ordering, replacement, validation, and lifecycle management.
 
-### Overview
-
-The TxPool serves several purposes:
-
-* Managing pending transactions
-* Handling transaction ordering by gas price
-* Supporting the `pending` block tag in JSON-RPC calls
-* Validating transactions before inclusion
-
-### Basic Usage
+### Quick Start
 
 ```ts
-const pool = await node.getTxPool()
+import { createTevmNode } from 'tevm'
+import { createAddress } from 'tevm/address'
+import { createImpersonatedTx } from 'tevm/tx'
 
-// Add transaction to pool
-await pool.add(transaction)
+// Initialize node and get txpool
+const node = createTevmNode()
+const txPool = await node.getTxPool()
 
-// Get all pending transactions
-const pending = await pool.getPendingTransactions()
+// Create and add a transaction
+const tx = createImpersonatedTx({
+  impersonatedAddress: createAddress('0x1234...'),
+  to: createAddress('0x2345...'),
+  value: 1000000000000000000n, // 1 ETH
+  gasLimit: 21000n,
+  maxFeePerGas: 20000000000n,
+  maxPriorityFeePerGas: 20000000000n,
+  nonce: 0n,
+})
 
-// Remove transaction
-await pool.removeByHash(txHash)
+await txPool.addUnverified(tx)
 ```
 
-### Transaction Validation
+### Key Features
 
-Before adding transactions to the pool, they undergo validation:
+* 🔍 **Transaction Validation** - Comprehensive validation including nonce, balance, and gas checks
+* 🔄 **Transaction Replacement** - Replace pending transactions with higher gas price versions
+* 📊 **Nonce Ordering** - Maintains correct transaction sequence per account
+* 🧹 **Automatic Pruning** - Removes old transactions to prevent memory bloat
+* ⚡ **Performance Optimized** - Efficient handling of large transaction volumes
+
+### Core Concepts
+
+#### Pool Limits
+
+The TxPool enforces several limits to ensure stable operation:
 
 ```ts
-try {
-  // Validate transaction
-  await pool.validateTx(transaction)
-  
-  // Add to pool if valid
-  await pool.add(transaction)
-} catch (error) {
-  if (error.message.includes('nonce too low')) {
-    // Handle nonce error
-  } else if (error.message.includes('insufficient funds')) {
-    // Handle balance error
-  }
-  // Handle other validation errors
+const LIMITS = {
+  MAX_POOL_SIZE: 5000,           // Maximum total transactions
+  MAX_TXS_PER_ACCOUNT: 100,      // Maximum per account
+  MIN_GAS_PRICE: 100000000n,     // 0.1 GWei minimum
+  TX_MAX_DATA_SIZE: 128 * 1024,  // 128KB max transaction size
 }
 ```
 
-#### Validation Checks
+#### Transaction Lifecycle
 
-The TxPool performs several checks:
+1. **Addition** - Transactions enter the pool via `add()` or `addUnverified()`
+2. **Validation** - Optional checks for nonce, balance, and gas parameters
+3. **Storage** - Valid transactions are stored and ordered by nonce
+4. **Pruning** - Old transactions are removed after `POOLED_STORAGE_TIME_LIMIT` (20 minutes)
 
-1. **Nonce Validation**: Ensures transaction nonce matches account nonce
-2. **Balance Check**: Verifies sender has sufficient funds
-3. **Gas Price**: Validates against minimum gas price requirements
-4. **Gas Limit**: Checks against block gas limit
-5. **EIP-1559**: Validates fee parameters for Type-2 transactions
+### Detailed Usage
 
-### Transaction Ordering
+#### Adding Transactions
 
-The TxPool orders transactions by gas price and nonce:
+Two methods for adding transactions, each with different validation levels:
 
 ```ts
-// Get transactions ordered by price
-const ordered = await pool.txsByPriceAndNonce({
-  baseFee: 10n
+// Method 1: With full validation
+try {
+  await txPool.add(tx)
+} catch (error) {
+  if (error.message.includes('insufficient balance')) {
+    console.error('Account has insufficient funds')
+  }
+}
+
+// Method 2: Without validation (faster)
+await txPool.addUnverified(tx)
+```
+
+#### Transaction Replacement
+
+Replace a pending transaction by submitting a new one with the same nonce and higher gas price:
+
+```ts
+const originalTx = createImpersonatedTx({
+  // ... base transaction params ...
+  maxFeePerGas: 20000000000n,
+  nonce: 0n,
 })
 
-// Get transactions for specific sender
-const senderTxs = await pool.getBySenderAddress(senderAddress)
-```
-
-#### Priority Queue
-
-For EIP-1559 transactions, ordering considers:
-
-* `maxFeePerGas`
-* `maxPriorityFeePerGas`
-* Current block's `baseFee`
-
-```ts
-// Get highest priority transactions
-const highPriority = await pool.getHighestPriorityTransactions()
-```
-
-### Pending State
-
-The TxPool maintains a "pending state" that includes uncommitted transactions:
-
-```ts
-// Get state including pending transactions
-const pendingBalance = await pool.getPendingBalance(address)
-const pendingNonce = await pool.getPendingNonce(address)
-```
-
-#### JSON-RPC Support
-
-The pending state is used when handling JSON-RPC calls with the `pending` block tag:
-
-```ts
-// Example eth_call with pending state
-const result = await node.request({
-  method: 'eth_call',
-  params: [{
-    to: contractAddress,
-    data: calldata
-  }, 'pending']
+const replacementTx = createImpersonatedTx({
+  // ... same params as original ...
+  maxFeePerGas: 30000000000n, // At least 10% higher
+  nonce: 0n, // Same nonce as original
 })
+
+await txPool.addUnverified(originalTx)
+await txPool.addUnverified(replacementTx) // Replaces originalTx
 ```
 
-### Memory Management
+> **Note**: Replacement transactions must increase gas price by at least `MIN_GAS_PRICE_BUMP_PERCENT` (10%)
 
-The TxPool includes features to prevent memory exhaustion:
+#### Querying Transactions
 
 ```ts
-// Configuration
-const POOL_SIZE_LIMIT = 5000 // Maximum transactions
-const ACCOUNT_TX_LIMIT = 100 // Maximum per account
-const PRICE_BUMP = 10        // % price increase to replace tx
+// Get transactions by sender
+const senderTxs = await txPool.getBySenderAddress(senderAddress)
 
-// Clear old transactions
-await pool.clearOldTransactions()
+// Get transactions by hash
+const txHashes = [hash1, hash2]
+const specificTxs = txPool.getByHash(txHashes)
 
-// Get pool statistics
-const stats = await pool.getStats()
-console.log({
-  pending: stats.pending,
-  queued: stats.queued,
-  baseFee: stats.baseFee
+// Get ordered transactions for mining
+const orderedTxs = await txPool.txsByPriceAndNonce({
+  baseFee: currentBaseFee,
+  allowedBlobs: 6, // For EIP-4844
 })
 ```
 
-### Event Handling
+#### Block Processing
 
-The TxPool emits events for transaction lifecycle:
+When new blocks are added, update the pool:
 
 ```ts
-pool.on('addedTx', (tx) => {
-  console.log('New transaction:', tx.hash)
-})
+import { mineHandler } from 'tevm/actions'
 
-pool.on('removedTx', (txHash) => {
-  console.log('Removed transaction:', txHash)
-})
+// Mine new blocks
+await mineHandler(node)()
 
-pool.on('pendingTx', (tx) => {
-  console.log('Transaction pending:', tx.hash)
-})
+// Remove included transactions
+txPool.removeNewBlockTxs(newBlocks)
 ```
+
+### Advanced Features
+
+#### Pool Management
+
+```ts
+// Start transaction processing
+txPool.start()
+
+// Stop processing (but keep transactions)
+txPool.stop()
+
+// Clear all transactions
+txPool.close()
+
+// Manual cleanup of old transactions
+txPool.cleanup()
+```
+
+#### Transaction Types
+
+The pool supports all Ethereum transaction types:
+
+* Legacy Transactions
+* EIP-2930 (Access Lists)
+* EIP-1559 (Fee Market)
+* EIP-4844 (Blob Transactions)
+* Tevm Impersonated Transactions
 
 ### Best Practices
 
-1. **Transaction Replacement**:
-   ```ts
-   // Replace transaction with higher gas price
-   const newTx = {
-     ...oldTx,
-     maxFeePerGas: oldTx.maxFeePerGas * 110n / 100n, // 10% increase
-     nonce: oldTx.nonce // Same nonce
-   }
-   await pool.add(newTx)
-   ```
+#### 1. Transaction Creation
 
-2. **Memory Management**:
-   * Monitor pool size
-   * Clear old transactions periodically
-   * Set appropriate limits per account
+Always use `createImpersonatedTx` with proper types:
 
-3. **Error Handling**:
-   ```ts
-   try {
-     await pool.add(tx)
-   } catch (error) {
-     if (error.message.includes('replacement fee too low')) {
-       // Increase gas price for replacement
-     } else if (error.message.includes('pool is full')) {
-       // Handle pool capacity
-     }
-     // Handle other errors
-   }
-   ```
+```ts
+const tx = createImpersonatedTx({
+  impersonatedAddress: createAddress(address),
+  to: createAddress(recipient),
+  value: parseEther('1'), // Use helper functions for values
+  gasLimit: 21000n,
+  maxFeePerGas: gweiToWei('20'),
+  maxPriorityFeePerGas: gweiToWei('2'),
+  nonce: 0n,
+})
+```
 
-4. **Gas Price Management**:
-   * Track current base fee
-   * Update gas price suggestions
-   * Handle EIP-1559 parameters
+#### 2. Error Handling
+
+Implement comprehensive error handling:
+
+```ts
+try {
+  await txPool.add(tx)
+} catch (error) {
+  switch (true) {
+    case error.message.includes('insufficient balance'):
+      // Handle balance error
+      break
+    case error.message.includes('nonce too low'):
+      // Handle nonce error
+      break
+    case error.message.includes('gas price too low'):
+      // Handle gas price error
+      break
+    default:
+      // Handle unknown errors
+  }
+}
+```
+
+#### 3. Performance Optimization
+
+* Use `addUnverified` for bulk operations
+* Implement proper cleanup cycles
+* Monitor pool size and transaction age
+
+#### 4. Memory Management
+
+```ts
+// Regular cleanup cycle
+setInterval(() => {
+  txPool.cleanup()
+}, 5 * 60 * 1000) // Every 5 minutes
+
+// Monitor pool size
+const poolSize = txPool.txsInPool
+if (poolSize > MAX_POOL_SIZE * 0.8) {
+  console.warn('Pool approaching capacity')
+}
+```
+
+### API Reference
+
+#### TxPool Class
+
+```ts
+class TxPool {
+  constructor(options: { vm: Vm })
+  async add(tx: Transaction): Promise<void>
+  async addUnverified(tx: Transaction): Promise<void>
+  async getBySenderAddress(address: Address): Promise<TxPoolObject[]>
+  getByHash(hashes: Uint8Array[]): Transaction[]
+  removeByHash(hash: string): void
+  removeNewBlockTxs(blocks: Block[]): void
+  start(): boolean
+  stop(): boolean
+  cleanup(): void
+  close(): void
+}
+```
 
 ### Related Topics
 
 * [JSON-RPC Support](../api/json-rpc)
 * [VM & Submodules](../api/vm-and-submodules)
 * [Receipts & Logs](./receipts-and-logs)
-
-
-import { Callout, Steps, Step } from 'vocs/components'
-
-## Creating a Tevm Node
-
-`createTevmNode` is the main entry point for spinning up a local Tevm Node instance. It provides a flexible configuration API to customize your node's behavior for different use cases.
-
-<Steps>
-  <Step title="Install Dependencies">
-    First, install the required packages:
-
-    ```bash
-    npm install tevm
-    ```
-  </Step>
-
-  <Step title="Create Node Instance">
-    Create a basic node instance:
-
-    #### TypeScript
-
-    ```ts
-    import { createTevmNode } from 'tevm'
-
-    const node = createTevmNode()
-    await node.ready()
-    ```
-
-    #### JavaScript
-
-    ```js
-    const { createTevmNode } = require('tevm')
-
-    const node = createTevmNode()
-    await node.ready()
-    ```
-  </Step>
-
-  <Step title="Configure Options">
-    Customize the node based on your needs:
-
-    ```ts
-    const node = createTevmNode({
-      fork: {
-        transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-      },
-      miningConfig: { type: 'auto' },
-      loggingLevel: 'debug'
-    })
-    ```
-  </Step>
-</Steps>
-
-### Configuration Options
-
-#### Fork Configuration
-
-The `fork` option allows you to create a node that forks from an existing network:
-
-```ts
-import { createTevmNode, http } from 'tevm'
-
-const node = createTevmNode({
-  fork: {
-    // Use any EIP-1193 compatible provider
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-    // Optional: Fork from a specific block
-    blockTag: 17_000_000n,
-  },
-})
-```
-
-<Callout type="info">
-  When forking, state is fetched lazily from the remote provider and cached locally. This means your first access to any account or storage slot will be slower, but subsequent accesses will be fast.
-</Callout>
-
-#### Mining Configuration
-
-Control how and when blocks are produced:
-
-```ts
-const node = createTevmNode({
-  miningConfig: {
-    type: 'auto', // Mine a block for every transaction
-  },
-})
-
-// Or use interval-based mining
-const node2 = createTevmNode({
-  miningConfig: {
-    type: 'interval',
-    interval: 12_000, // Mine every 12 seconds
-  },
-})
-```
-
-#### Chain Configuration
-
-Customize the chain parameters:
-
-```ts
-import { Common } from 'tevm/common'
-
-const node = createTevmNode({
-  common: Common.custom({
-    chainId: 1337,
-    networkId: 1337,
-    // ... other chain parameters
-  }),
-})
-```
-
-Or if your network is a known network import it by name
-
-```ts
-import { mainnet, base, arbitrum, optimism } from 'tevm/common'
-```
-
-If you want your network added you should first add it to `viem/chains` and open an issue to regenerate the commons in Tevm
-
-#### Logging Configuration
-
-Configure the internal logger:
-
-```ts
-const node = createTevmNode({
-  loggingLevel: 'debug', // 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
-})
-
-// Later use the logger
-node.logger.debug('Detailed debugging information')
-```
-
-#### Custom Precompiles
-
-Add your own precompiled contracts:
-
-```ts
-import { definePrecompile } from 'tevm'
-
-const myPrecompile = definePrecompile({
-  address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
-  call: async ({ data, gasLimit }) => {
-    // Your precompile logic here
-    return {
-      returnValue: new Uint8Array([0x01]),
-      executionGasUsed: 200n,
-    }
-  },
-})
-
-const node = createTevmNode({
-  customPrecompiles: [myPrecompile],
-})
-```
-
-#### Performance Profiling
-
-Enable the built-in profiler for performance analysis:
-
-```ts
-const node = createTevmNode({
-  profiler: true,
-})
-
-// Later access profiling data
-const vm = await node.getVm()
-const logs = vm.evm.getPerformanceLogs()
-```
-
-### Complete Configuration Reference
-
-| Property                     | Type                                                           | Default      | Description                                                  |
-| ---------------------------- | -------------------------------------------------------------- | ------------ | ------------------------------------------------------------ |
-| `fork`                       | `{ transport: EIP1193RequestFn; blockTag?: BlockTag; }`        | -            | Enables forking from a live network or another Tevm instance |
-| `common`                     | `Common`                                                       | `tevmDevnet` | Chain configuration object                                   |
-| `loggingLevel`               | `"fatal" \| "error" \| "warn" \| "info" \| "debug" \| "trace"` | `"info"`     | Logging verbosity level                                      |
-| `miningConfig`               | `'auto' \| 'interval' \| 'manual' \| 'gas'`                    | `'manual'`   | Block mining behavior                                        |
-| `profiler`                   | `boolean`                                                      | `false`      | Enables performance logging                                  |
-| `customPrecompiles`          | `CustomPrecompile[]`                                           | `[]`         | Additional precompiled contracts                             |
-| `customPredeploys`           | `Predeploy[]`                                                  | `[]`         | Contracts to deploy at genesis                               |
-| `allowUnlimitedContractSize` | `boolean`                                                      | `false`      | Disables EIP-170 contract size checks                        |
-| `persister`                  | `SyncStoragePersister`                                         | -            | Hook for state persistence                                   |
-
-### Best Practices
-
-1. **Optionally await ready()**
-   ```ts
-   const node = createTevmNode()
-   await node.ready() // Ensure node is initialized
-   ```
-
-This isn't 100% required but good to do so if you profile any tevm api it isn't profiling the 1 time initialization time.
-
-2. **Use Appropriate Mining Config**
-   * Use `'auto'` for testing
-   * Use `'manual'` for precise control
-   * Use `'interval'` for simulation
-
-3. **Handle Errors**
-   ```ts
-   try {
-     const node = createTevmNode()
-     await node.ready()
-   } catch (error) {
-     console.error('Node initialization failed:', error)
-   }
-   ```
-
-4. **Clean Up Resources**
-   ```ts
-   const node = createTevmNode()
-   // ... use the node
-   await node.getVm().then(vm => vm.blockchain.close())
-   ```
-
-### Examples
-
-#### Local Development Node
-
-```ts
-const devNode = createTevmNode({
-  miningConfig: { type: 'auto' },
-  loggingLevel: 'debug',
-  allowUnlimitedContractSize: true, // Helpful during development
-})
-```
-
-#### Production Forked Node
-
-```ts
-const prodNode = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-    blockTag: 'latest',
-  },
-  miningConfig: { type: 'interval', interval: 12000 },
-  loggingLevel: 'error', // Less verbose in production
-})
-```
-
-#### Testing Node
-
-```ts
-const testNode = createTevmNode({
-  miningConfig: { type: 'auto' },
-  profiler: true, // Enable profiling for tests
-})
-```
-
-### Next Steps
-
-* Learn about the [Node Interface](./tevm-node-interface)
-* Explore [Forking](./forking)
-* Understand [State Management](./managing-state)
-
-
-import { Callout } from 'vocs/components'
-
-## Forking Networks
-
-Tevm's forking capability allows you to create a local instance that mirrors the state of any live Ethereum network or another Tevm instance. This is incredibly useful for:
-
-* Testing against production state
-* Debugging transactions
-* Development with real-world data
-* Simulating complex DeFi interactions
-
-### Basic Forking
-
-#### TypeScript
-
-```ts
-import { createTevmNode, http } from 'tevm'
-
-const node = createTevmNode({
-  fork: {
-    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR-API-KEY'),
-    blockTag: 'latest',
-  },
-})
-
-await node.ready()
-```
-
-<Callout type="info">
-  The `transport` can be any EIP-1193 compatible provider, including those from viem, ethers, or even another Tevm instance.
-</Callout>
-
-### Reforking Strategies
-
-There are two main strategies for reforking a Tevm node: using the node as a transport or using deep copy.
-
-#### 1. Using Node as Transport
-
-This is the recommended approach as it's more memory efficient. You can use an existing Tevm node as the transport for a new fork:
-
-```ts
-// Create initial node
-const sourceNode = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-    blockTag: 17_000_000n,
-  },
-})
-
-// Perform some operations...
-await performOperations(sourceNode)
-
-// Get current block number
-const currentBlock = await sourceNode.request({
-  method: 'eth_blockNumber',
-  params: [],
-})
-
-// Create new fork from the current state
-const newNode = createTevmNode({
-  fork: {
-    transport: sourceNode, // Use the source node as transport
-    blockTag: currentBlock, // Fork from current block
-  },
-})
-```
-
-This approach:
-
-* Is memory efficient as it reuses the state from the source node
-* Allows forking from a specific point in time
-* Maintains the original node's state while allowing new modifications
-
-#### 2. Using Deep Copy
-
-For cases where you need a completely independent copy of the node:
-
-```ts
-const sourceNode = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-  },
-})
-
-// Create a complete copy of the node
-const copiedNode = await sourceNode.deepCopy()
-```
-
-This approach:
-
-* Creates a completely independent copy of the node
-* Is more memory intensive
-* Useful for parallel testing scenarios
-* Maintains complete isolation between instances
-
-<Callout type="warning">
-  Deep copying creates a new instance with its own state, which can be memory intensive for large state trees. Use this approach sparingly and prefer using the node as a transport when possible.
-</Callout>
-
-#### Choosing a Strategy
-
-Use **Node as Transport** when:
-
-* Memory efficiency is important
-* You want to fork from a specific block
-* You need to maintain the original state while testing alternatives
-
-Use **Deep Copy** when:
-
-* You need complete isolation
-* Running parallel tests
-* Memory usage is not a concern
-* You want to maintain multiple independent states
-
-### Fork Configuration Options
-
-#### Specifying Block Number
-
-Fork from a specific historical block:
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://endpoints.omniatech.io/v1/eth/mainnet/YOUR-API-KEY'),
-    blockTag: 17_000_000n, // Fork from block 17,000,000
-  },
-})
-```
-
-#### Supported Networks
-
-Tevm can fork from any EVM-compatible network:
-
-```ts
-// Optimism
-const optimismNode = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-  },
-})
-
-// Arbitrum
-const arbitrumNode = createTevmNode({
-  fork: {
-    transport: http('https://arb1.arbitrum.io/rpc'),
-  },
-})
-
-// Polygon
-const polygonNode = createTevmNode({
-  fork: {
-    transport: http('https://polygon-rpc.com'),
-  },
-})
-```
-
-### Working with Forked State
-
-#### Reading State
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-  },
-})
-
-// Get USDC contract state
-const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-const vm = await node.getVm()
-const usdcContract = await vm.stateManager.getAccount(USDC_ADDRESS)
-
-console.log('USDC contract:', {
-  balance: usdcContract.balance,
-  nonce: usdcContract.nonce,
-  codeHash: usdcContract.codeHash,
-})
-```
-
-#### Modifying State
-
-```ts
-// Modify balance of an account
-const vm = await node.getVm()
-const address = '0x1234...'
-const account = await vm.stateManager.getAccount(address)
-account.balance += 1000000000000000000n // Add 1 ETH
-await vm.stateManager.putAccount(address, account)
-```
-
-### Account Impersonation
-
-Impersonation allows you to send transactions as any address without needing private keys:
-
-```ts
-// Impersonate Binance hot wallet
-const BINANCE_14 = '0x28C6c06298d514Db089934071355E5743bf21d60'
-node.setImpersonatedAccount(BINANCE_14)
-
-// Send transaction as Binance
-const vm = await node.getVm()
-await vm.runTx({
-  tx: {
-    from: BINANCE_14,
-    to: '0x1234...',
-    value: 1000000000000000000n, // 1 ETH
-  },
-})
-
-// Stop impersonating
-node.setImpersonatedAccount(undefined)
-```
-
-### Performance Optimization
-
-#### State Caching
-
-Tevm implements lazy loading with caching:
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-  },
-})
-
-// First access - fetches from remote
-const vm = await node.getVm()
-const t0 = performance.now()
-await vm.stateManager.getAccount('0x1234...')
-console.log('First access:', performance.now() - t0)
-
-// Second access - uses cache
-const t1 = performance.now()
-await vm.stateManager.getAccount('0x1234...')
-console.log('Cached access:', performance.now() - t1)
-```
-
-#### Prefetching
-
-For known accounts you'll need, consider prefetching:
-
-```ts
-async function prefetchAccounts(node: TevmNode, addresses: string[]) {
-  const vm = await node.getVm()
-  await Promise.all(
-    addresses.map(addr => vm.stateManager.getAccount(addr))
-  )
-}
-```
-
-### Advanced Usage
-
-#### Forking from Another Tevm Instance
-
-```ts
-const sourceNode = createTevmNode()
-// ... perform operations ...
-
-const forkedNode = createTevmNode({
-  fork: {
-    transport: sourceNode,
-  },
-})
-```
-
-#### Custom State Overrides
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-  },
-})
-
-// Override specific storage slots
-const vm = await node.getVm()
-await vm.stateManager.putContractStorage(
-  '0x1234...',
-  '0x0000000000000000000000000000000000000000000000000000000000000001',
-  '0x0000000000000000000000000000000000000000000000000000000000000123'
-)
-```
-
-### Best Practices
-
-1. **RPC Provider Selection**
-   ```ts
-   // ✅ Use archive nodes for historical blocks
-   const node = createTevmNode({
-     fork: {
-       transport: http('https://ethereum.quicknode.com/YOUR-API-KEY'),
-       blockTag: 15_000_000n,
-     },
-   })
-   ```
-
-2. **Error Handling**
-   ```ts
-   try {
-     const node = createTevmNode({
-       fork: {
-         transport: http('https://...'),
-       },
-     })
-     await node.ready()
-   } catch (error) {
-     if (error.message.includes('rate limit')) {
-       // Handle RPC rate limiting
-     }
-     throw error
-   }
-   ```
-
-3. **Resource Management**
-   ```ts
-   // Clear cached state when no longer needed
-   const vm = await node.getVm()
-   await vm.stateManager.clearCaches()
-   ```
-
-4. **Testing Considerations**
-   ```ts
-   // Use a fixed block number for reproducible tests
-   const node = createTevmNode({
-     fork: {
-       transport: http('https://...'),
-       blockTag: 17_000_000n, // Fixed block
-     },
-   })
-   ```
-
-### Common Issues
-
-<Callout type="warning">
-  When forking from a public RPC endpoint, be mindful of rate limits. Consider using dedicated RPC providers for production use.
-</Callout>
-
-#### Rate Limiting
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://...'),
-  },
-  loggingLevel: 'debug', // Enable detailed logging
-})
-
-// Monitor RPC calls
-node.logger.on('debug', (msg) => {
-  if (msg.includes('rate limit')) {
-    console.warn('RPC rate limit hit')
-  }
-})
-```
-
-#### State Inconsistency
-
-```ts
-// Verify state consistency
-async function verifyState(node: TevmNode, address: string) {
-  const vm = await node.getVm()
-  const local = await vm.stateManager.getAccount(address)
-
-  const remote = await vm.stateManager.getAccountFromProvider(address)
-
-  if (local.balance !== remote.balance) {
-    console.warn('State inconsistency detected')
-  }
-}
-```
-
-### Next Steps
-
-* Learn about [State Management](./managing-state)
-* Explore [Transaction Processing](../advanced/txpool)
-* See [JSON-RPC Support](../api/json-rpc)
-
-
-import { Callout } from 'vocs/components'
-
-## Managing State
-
-Tevm Node provides powerful state management capabilities through its `stateManager` interface. This allows you to interact with and modify Ethereum state, including accounts, contract code, and storage.
-
-### Getting Started
-
-Access the state manager through the VM:
-
-```ts
-const node = createTevmNode()
-const vm = await node.getVm()
-const stateManager = vm.stateManager
-```
-
-### Account Management
-
-#### Reading Accounts
-
-```ts
-const address = '0x1234...'
-const account = await stateManager.getAccount(address)
-
-if (account) {
-  console.log({
-    balance: account.balance,      // BigInt
-    nonce: account.nonce,         // BigInt
-    codeHash: account.codeHash,   // Hex string
-    storageRoot: account.storageRoot // Hex string
-  })
-}
-```
-
-#### Modifying Accounts
-
-```ts
-import { EthjsAccount } from 'tevm/utils'
-
-// Create or update an account
-await stateManager.putAccount(
-  address,
-  new EthjsAccount({
-    nonce: 0n,
-    balance: 10_000_000n, // 0.01 ETH
-    storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-    codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-  })
-)
-```
-
-<Callout type="info">
-  When modifying accounts, make sure to handle the case where the account doesn't exist by creating a new `EthjsAccount` instance.
-</Callout>
-
-#### Deleting Accounts
-
-```ts
-await stateManager.deleteAccount(address)
-```
-
-### Contract Management
-
-#### Deploying Contract Code
-
-```ts
-// Deploy contract bytecode
-await stateManager.putContractCode(
-  address,
-  new Uint8Array([/* bytecode */])
-)
-
-// Verify deployment
-const code = await stateManager.getContractCode(address)
-console.log('Deployed code length:', code.length)
-```
-
-#### Reading Contract Code
-
-```ts
-const deployedCode = await stateManager.getContractCode(address)
-if (deployedCode.length > 0) {
-  console.log('Contract exists with code')
-} else {
-  console.log('No contract code at address')
-}
-```
-
-### Storage Management
-
-#### Reading Storage
-
-```ts
-// Get a specific storage slot
-const slot = '0x0000000000000000000000000000000000000000000000000000000000000000'
-const value = await stateManager.getContractStorage(address, slot)
-
-// Dump all storage
-const storage = await stateManager.dumpStorage(address)
-console.log('Contract storage:', storage)
-```
-
-#### Writing Storage
-
-```ts
-// Set a storage value
-const key = '0x0000000000000000000000000000000000000000000000000000000000000000'
-const value = '0x0000000000000000000000000000000000000000000000000000000000000001'
-await stateManager.putContractStorage(address, key, value)
-```
-
-#### Clearing Storage
-
-```ts
-// Clear all storage for a contract
-await stateManager.clearContractStorage(address)
-```
-
-### State Checkpoints
-
-Tevm uses a checkpoint system to manage state changes atomically:
-
-```ts
-// Create a checkpoint
-await stateManager.checkpoint()
-
-try {
-  // Make state changes
-  await stateManager.putAccount(/* ... */)
-  await stateManager.putContractStorage(/* ... */)
-
-  // Commit changes if successful
-  await stateManager.commit()
-} catch (error) {
-  // Revert changes on failure
-  await stateManager.revert()
-  console.error('State changes reverted:', error)
-}
-```
-
-### State Persistence
-
-#### Dumping State
-
-Export the entire state as a serializable object:
-
-```ts
-// Get complete state
-const state = await stateManager.dumpCanonicalGenesis()
-
-// Save state (example with localStorage)
-localStorage.setItem('tevmState', JSON.stringify(state))
-```
-
-#### Loading State
-
-Restore state from a previous dump:
-
-```ts
-// Load saved state
-const savedState = JSON.parse(localStorage.getItem('tevmState'))
-
-// Restore state
-await stateManager.generateCanonicalGenesis(savedState)
-```
-
-### State Persistence with dumpState and loadState
-
-Tevm provides dedicated handlers for persisting and restoring state, which can be used to save the entire state to local storage or the file system.
-
-#### Using dumpState
-
-```ts
-import { createTevmNode } from 'tevm'
-import { dumpStateHandler } from 'tevm/actions'
-
-const node = createTevmNode()
-
-// Dump state at latest block
-const { state: dumpedState } = await dumpStateHandler(node)()
-
-// Dump state at specific block
-const { state: historicalState } = await dumpStateHandler(node)({
-  blockTag: 1000n
-})
-
-// Save to localStorage
-localStorage.setItem('tevmState', JSON.stringify(dumpedState))
-
-// Or save to file system
-import { writeFileSync } from 'fs'
-writeFileSync('tevm-state.json', JSON.stringify(dumpedState, null, 2))
-```
-
-#### Using loadState
-
-```ts
-import { createTevmNode } from 'tevm'
-import { loadStateHandler } from 'tevm/actions'
-
-const node = createTevmNode()
-
-// Load from localStorage
-const savedState = JSON.parse(localStorage.getItem('tevmState'))
-await loadStateHandler(node)({
-  state: savedState
-})
-
-// Or load from file system
-import { readFileSync } from 'fs'
-const fileState = JSON.parse(readFileSync('tevm-state.json', 'utf8'))
-await loadStateHandler(node)({
-  state: fileState
-})
-```
-
-#### State Format
-
-The dumped state includes account data and storage:
-
-```ts
-interface DumpedState {
-  [address: string]: {
-    nonce: bigint
-    balance: bigint
-    storage: {
-      [key: string]: string // hex strings without 0x prefix
-    }
-    code?: string // hex string without 0x prefix
-  }
-}
-```
-
-#### Error Handling
-
-```ts
-// Handle errors during dump
-const { state, errors } = await dumpStateHandler(node)({
-  blockTag: 1000n,
-  throwOnFail: false // Don't throw on errors
-})
-
-if (errors) {
-  console.error('State dump errors:', errors)
-}
-
-// Handle errors during load
-const { errors: loadErrors } = await loadStateHandler(node)({
-  state: savedState,
-  throwOnFail: false
-})
-
-if (loadErrors) {
-  console.error('State load errors:', loadErrors)
-}
-```
-
-#### Testing Example
-
-```ts
-import { createTevmNode } from 'tevm'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes } from 'tevm/utils'
-import { expect, test } from 'vitest'
-import { dumpStateHandler, loadStateHandler } from 'tevm/actions'
-
-test('State persistence', async () => {
-  // Setup initial state
-  const accountAddress = '0x0420042004200420042004200420042004200420'
-  const account = EthjsAddress.fromString(accountAddress)
-  const accountInstance = new EthjsAccount(0n, 100n)
-
-  const node = createTevmNode()
-  const vm = await node.getVm()
-
-  // Set account and storage
-  await vm.stateManager.putAccount(account, accountInstance)
-  await vm.stateManager.putContractStorage(
-    account,
-    hexToBytes('0x1', { size: 32 }),
-    hexToBytes('0x1', { size: 32 })
-  )
-
-  // Dump state
-  const { state: dumpedState } = await dumpStateHandler(node)()
-
-  // Create new node and load state
-  const node2 = createTevmNode()
-  await loadStateHandler(node2)({
-    state: dumpedState
-  })
-
-  // Verify state was restored
-  const restoredStorage = await (await node2.getVm())
-    .stateManager
-    .getContractStorage(account, hexToBytes('0x1', { size: 32 }))
-
-  expect(bytesToHex(restoredStorage)).toEqual('0x1'.padEnd(66, '0'))
-})
-```
-
-### Fork Mode State
-
-When running in fork mode, state is fetched lazily from the remote provider:
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')
-  }
-})
-
-const vm = await node.getVm()
-const stateManager = vm.stateManager
-
-// First access fetches from remote
-const t0 = performance.now()
-await stateManager.getAccount('0x1234...')
-console.log('Initial fetch:', performance.now() - t0)
-
-// Subsequent access uses cache
-const t1 = performance.now()
-await stateManager.getAccount('0x1234...')
-console.log('Cached access:', performance.now() - t1)
-```
-
-### Best Practices
-
-1. **Error Handling**
-   ```ts
-   try {
-     const account = await stateManager.getAccount(address)
-     if (!account) {
-       throw new Error(`Account ${address} not found`)
-     }
-     // Work with account
-   } catch (error) {
-     console.error('State operation failed:', error)
-   }
-   ```
-
-2. **State Isolation**
-   ```ts
-   // Create isolated copy for testing
-   const isolatedState = await stateManager.deepCopy()
-   ```
-
-3. **Resource Cleanup**
-   ```ts
-   // Clear caches when done
-   stateManager.clearCaches()
-   ```
-
-4. **Atomic Operations**
-   ```ts
-   await stateManager.checkpoint()
-   try {
-     // Batch multiple state changes
-     await Promise.all([
-       stateManager.putAccount(/* ... */),
-       stateManager.putContractStorage(/* ... */),
-     ])
-     await stateManager.commit()
-   } catch (error) {
-     await stateManager.revert()
-   }
-   ```
-
-### Related Topics
-
-* [Transaction Processing](../advanced/txpool)
-* [Receipts and Logs](../advanced/receipts-and-logs)
-* [Forking](./forking)
-
-
-import { Callout } from 'vocs/components'
-
-## TevmNode Interface
-
-The `TevmNode` interface is the core API surface of Tevm. It provides access to all the fundamental Ethereum node capabilities, from transaction processing to state management.
-
-### Interface Overview
-
-```ts
-export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExtended = {}> = {
-  readonly logger: Logger
-  readonly getReceiptsManager: () => Promise<ReceiptsManager>
-  readonly miningConfig: MiningConfig
-  readonly forkTransport?: { request: EIP1193RequestFn }
-  readonly mode: TMode
-  readonly ready: () => Promise<true>
-  readonly getVm: () => Promise<Vm>
-  readonly getTxPool: () => Promise<TxPool>
-  readonly getImpersonatedAccount: () => Address | undefined
-  readonly setImpersonatedAccount: (address: Address | undefined) => void
-  readonly extend: <TExtension>(decorator: (client: TevmNode<TMode, TExtended>) => TExtension) => TevmNode<TMode, TExtended & TExtension>
-  readonly setFilter: (filter: Filter) => void
-  readonly getFilters: () => Map<Hex, Filter>
-  readonly removeFilter: (id: Hex) => void
-  status: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
-  readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
-} & EIP1193EventEmitter & TExtended
-```
-
-### Core Components
-
-#### 1. Initialization & Status
-
-```ts
-const node = createTevmNode()
-
-// Wait for initialization
-await node.ready()
-
-// Check status
-console.log(node.status) // 'READY'
-```
-
-<Callout type="info">
-  The `ready()` method ensures all internal components are initialized. While not strictly required (methods will wait implicitly), calling it explicitly can help manage initialization flow.
-</Callout>
-
-#### 2. Virtual Machine Access
-
-The VM is the heart of Tevm, providing EVM execution capabilities:
-
-```ts
-const node = createTevmNode()
-const vm = await node.getVm()
-
-// Execute a transaction
-const result = await vm.runTx({
-  tx: {
-    to: '0x1234...',
-    value: 1000000000000000000n, // 1 ETH
-    data: '0x...',
-  }
-})
-```
-
-#### 3. Transaction Pool Management
-
-The TxPool handles pending transactions:
-
-```ts
-const node = createTevmNode()
-const txPool = await node.getTxPool()
-
-// Add a transaction
-await txPool.add({
-  from: '0x1234...',
-  to: '0x5678...',
-  value: 1000000000000000000n,
-})
-
-// Get pending transactions
-const pending = await txPool.txsByPriceAndNonce()
-```
-
-#### 4. Receipt & Log Management
-
-Track transaction outcomes and event logs:
-
-```ts
-const node = createTevmNode()
-const receipts = await node.getReceiptsManager()
-
-// Get receipt for a transaction
-const receipt = await receipts.getReceiptByTxHash('0x1234...')
-
-// Query logs
-const logs = await receipts.getLogs({
-  fromBlock: 0n,
-  toBlock: 'latest',
-  address: '0x1234...',
-})
-```
-
-#### 5. Account Impersonation
-
-In fork mode, you can impersonate existing accounts:
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-  },
-})
-
-// Impersonate a whale account
-node.setImpersonatedAccount('0x28C6c06298d514Db089934071355E5743bf21d60')
-
-// Now you can send transactions as this account
-const vm = await node.getVm()
-await vm.runTx({
-  tx: {
-    from: '0x28C6c06298d514Db089934071355E5743bf21d60',
-    to: '0x1234...',
-    value: 1000000000000000000n,
-  },
-})
-```
-
-#### 6. Event Filtering
-
-Manage subscriptions to blockchain events:
-
-```ts
-// Create a filter for Transfer events
-node.setFilter({
-  id: '0x1',
-  fromBlock: 0n,
-  toBlock: 'latest',
-  address: '0x1234...',
-  topics: [
-    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
-  ],
-})
-
-// Get all filters
-const filters = node.getFilters()
-
-// Remove a filter
-node.removeFilter('0x1')
-```
-
-#### 7. Extensibility
-
-The `extend` method allows adding custom functionality:
-
-```ts
-// Add custom methods
-const enhancedNode = node.extend((baseNode) => ({
-  async getBalance(address: string) {
-    const vm = await baseNode.getVm()
-    const account = await vm.stateManager.getAccount(address)
-    return account.balance
-  },
-}))
-
-// Use the new method
-const balance = await enhancedNode.getBalance('0x1234...')
-```
-
-#### 8. Deep Copying
-
-Create independent copies of a node:
-
-```ts
-const node = createTevmNode()
-// ... perform some operations ...
-
-// Create a copy with the same state
-const nodeCopy = await node.deepCopy()
-```
-
-<Callout type="warning">
-  Deep copying creates a completely new instance with its own state. This is useful for testing different scenarios, but can be memory-intensive.
-</Callout>
-
-### Best Practices
-
-1. **Initialization**
-   ```ts
-   const node = createTevmNode()
-   await node.ready() // Always wait for ready
-   ```
-
-2. **Error Handling**
-   ```ts
-   try {
-     const vm = await node.getVm()
-     await vm.runTx(/* ... */)
-   } catch (error) {
-     if (error.message.includes('insufficient funds')) {
-       // Handle specific error cases
-     }
-     throw error
-   }
-   ```
-
-3. **Resource Management**
-   ```ts
-   // Clean up filters when done
-   node.getFilters().forEach((_, id) => node.removeFilter(id))
-   ```
-
-4. **State Isolation**
-   ```ts
-   // Use deepCopy for isolated test cases
-   const baseNode = createTevmNode()
-
-   test('scenario 1', async () => {
-     const node = await baseNode.deepCopy()
-     // Test with isolated state
-   })
-   ```
-
-### Type Safety
-
-The interface is fully typed with TypeScript:
-
-```ts
-import type { TevmNode } from 'tevm/node'
-
-function useNode<TMode extends 'fork' | 'normal'>(
-  node: TevmNode<TMode>
-) {
-  if (node.mode === 'fork') {
-    // Fork-specific operations
-    node.setImpersonatedAccount('0x...')
-  }
-}
-```
-
-### Next Steps
-
-* Learn about [Forking](./forking)
-* Explore [State Management](./managing-state)
-* See [JSON-RPC Support](../api/json-rpc)
+* [Block Processing](./block-processing)
 
 
 ## Building a Debugger UI
@@ -3899,6 +2704,1039 @@ test('Contract interaction', async () => {
 * [JSON-RPC Support](../api/json-rpc)
 * [Local Testing](./local-testing)
 * [Forking Mainnet](./forking-mainnet)
+
+
+import { Callout, Steps, Step } from 'vocs/components'
+
+## Creating a Tevm Node
+
+`createTevmNode` is the main entry point for spinning up a local Tevm Node instance. It provides a flexible configuration API to customize your node's behavior for different use cases.
+
+<Steps>
+  <Step title="Install Dependencies">
+    First, install the required packages:
+
+    ```bash
+    npm install tevm
+    ```
+  </Step>
+
+  <Step title="Create Node Instance">
+    Create a basic node instance:
+
+    #### TypeScript
+
+    ```ts
+    import { createTevmNode } from 'tevm'
+
+    const node = createTevmNode()
+    await node.ready()
+    ```
+
+    #### JavaScript
+
+    ```js
+    const { createTevmNode } = require('tevm')
+
+    const node = createTevmNode()
+    await node.ready()
+    ```
+  </Step>
+
+  <Step title="Configure Options">
+    Customize the node based on your needs:
+
+    ```ts
+    const node = createTevmNode({
+      fork: {
+        transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+      },
+      miningConfig: { type: 'auto' },
+      loggingLevel: 'debug'
+    })
+    ```
+  </Step>
+</Steps>
+
+### Configuration Options
+
+#### Fork Configuration
+
+The `fork` option allows you to create a node that forks from an existing network:
+
+```ts
+import { createTevmNode, http } from 'tevm'
+
+const node = createTevmNode({
+  fork: {
+    // Use any EIP-1193 compatible provider
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    // Optional: Fork from a specific block
+    blockTag: 17_000_000n,
+  },
+})
+```
+
+<Callout type="info">
+  When forking, state is fetched lazily from the remote provider and cached locally. This means your first access to any account or storage slot will be slower, but subsequent accesses will be fast.
+</Callout>
+
+#### Mining Configuration
+
+Control how and when blocks are produced:
+
+```ts
+const node = createTevmNode({
+  miningConfig: {
+    type: 'auto', // Mine a block for every transaction
+  },
+})
+
+// Or use interval-based mining
+const node2 = createTevmNode({
+  miningConfig: {
+    type: 'interval',
+    interval: 12_000, // Mine every 12 seconds
+  },
+})
+```
+
+#### Chain Configuration
+
+Customize the chain parameters:
+
+```ts
+import { Common } from 'tevm/common'
+
+const node = createTevmNode({
+  common: Common.custom({
+    chainId: 1337,
+    networkId: 1337,
+    // ... other chain parameters
+  }),
+})
+```
+
+Or if your network is a known network import it by name
+
+```ts
+import { mainnet, base, arbitrum, optimism } from 'tevm/common'
+```
+
+If you want your network added you should first add it to `viem/chains` and open an issue to regenerate the commons in Tevm
+
+#### Logging Configuration
+
+Configure the internal logger:
+
+```ts
+const node = createTevmNode({
+  loggingLevel: 'debug', // 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
+})
+
+// Later use the logger
+node.logger.debug('Detailed debugging information')
+```
+
+#### Custom Precompiles
+
+Add your own precompiled contracts:
+
+```ts
+import { definePrecompile, createContract, parseAbi } from 'tevm'
+
+const myPrecompile = definePrecompile({
+  contract: createContract({
+    abi: parseAbi([
+      'function add(uint256 a, uint256 b) returns (uint256)',
+      'function subtract(uint256 a, uint256 b) returns (uint256)'
+    ]),
+    address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2'
+  }),
+  call: async ({ data, gasLimit }) => {
+    // Your precompile logic here
+    return {
+      returnValue: new Uint8Array([0x01]),
+      executionGasUsed: 200n,
+    }
+  },
+})
+
+const node = createTevmNode({
+  customPrecompiles: [myPrecompile.precompile()],
+})
+```
+
+#### Performance Profiling
+
+Enable the built-in profiler for performance analysis:
+
+```ts
+const node = createTevmNode({
+  profiler: true,
+})
+
+// Later access profiling data
+const vm = await node.getVm()
+const logs = vm.evm.getPerformanceLogs()
+```
+
+### Complete Configuration Reference
+
+| Property                     | Type                                                           | Default            | Description                                                  |
+| ---------------------------- | -------------------------------------------------------------- | ------------------ | ------------------------------------------------------------ |
+| `fork`                       | `{ transport: EIP1193RequestFn; blockTag?: BlockTag; }`        | -                  | Enables forking from a live network or another Tevm instance |
+| `common`                     | `Common`                                                       | `tevmDevnet`       | Chain configuration object                                   |
+| `loggingLevel`               | `"fatal" \| "error" \| "warn" \| "info" \| "debug" \| "trace"` | `"info"`           | Logging verbosity level                                      |
+| `miningConfig`               | `{ type: 'auto' } \| { type: 'interval', interval: number }`   | `{ type: 'auto' }` | Block mining behavior                                        |
+| `profiler`                   | `boolean`                                                      | `false`            | Enables performance logging                                  |
+| `customPrecompiles`          | `Precompile[]`                                                 | `[]`               | Additional precompiled contracts                             |
+| `allowUnlimitedContractSize` | `boolean`                                                      | `false`            | Disables EIP-170 contract size checks                        |
+
+### Best Practices
+
+1. **Always await node.ready()**
+   ```ts
+   const node = createTevmNode()
+   await node.ready() // Ensure node is fully initialized
+   ```
+
+2. **Use Appropriate Mining Config**
+   ```ts
+   // For testing - mine after each transaction
+   const testNode = createTevmNode({
+     miningConfig: { type: 'auto' }
+   })
+
+   // For simulation - mine at intervals
+   const simNode = createTevmNode({
+     miningConfig: { type: 'interval', interval: 12_000 }
+   })
+   ```
+
+3. **Handle Errors**
+   ```ts
+   try {
+     const node = createTevmNode()
+     await node.ready()
+   } catch (error) {
+     console.error('Node initialization failed:', error)
+   }
+   ```
+
+### Example Configurations
+
+#### Local Development Node
+
+```ts
+const devNode = createTevmNode({
+  miningConfig: { type: 'auto' },
+  loggingLevel: 'debug',
+  allowUnlimitedContractSize: true, // Helpful during development
+})
+await devNode.ready()
+```
+
+#### Production Forked Node
+
+```ts
+const prodNode = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 'latest',
+  },
+  miningConfig: { type: 'interval', interval: 12000 },
+  loggingLevel: 'error', // Less verbose in production
+})
+await prodNode.ready()
+```
+
+#### Testing Node
+
+```ts
+const testNode = createTevmNode({
+  miningConfig: { type: 'auto' },
+  profiler: true, // Enable profiling for performance testing
+})
+await testNode.ready()
+```
+
+### Next Steps
+
+* Learn about the [Node Interface](./tevm-node-interface)
+* Explore [Forking](./forking)
+* Understand [State Management](./managing-state)
+* Learn about [Custom Precompiles](../advanced/custom-precompiles)
+
+
+import { Callout } from 'vocs/components'
+
+## Forking Networks
+
+Tevm's forking capability allows you to create a local instance that mirrors the state of any live Ethereum network or another Tevm instance. This is incredibly useful for:
+
+* Testing against production state
+* Debugging transactions
+* Development with real-world data
+* Simulating complex DeFi interactions
+
+### Basic Forking
+
+#### TypeScript
+
+```ts
+import { createTevmNode, http } from 'tevm'
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR-API-KEY')({}),
+    blockTag: 'latest',
+  },
+})
+
+await node.ready()
+```
+
+<Callout type="info">
+  The `transport` can be any EIP-1193 compatible provider, including those from viem, ethers, or even another Tevm instance. Note that the transport function must be called with an empty object `({})`.
+</Callout>
+
+### Reforking Strategies
+
+There are two main strategies for reforking a Tevm node: using the node as a transport or using deep copy.
+
+#### 1. Using Node as Transport
+
+This is the recommended approach as it's more memory efficient. You can use an existing Tevm node as the transport for a new fork:
+
+```ts
+import { createTevmNode, http, hexToBigInt } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+
+// Create initial node with request handler
+const sourceNode = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+    blockTag: 17_000_000n,
+  },
+}).extend(requestEip1193())
+
+// Get current block number
+const currentBlock = await sourceNode.request({
+  method: 'eth_blockNumber',
+})
+
+// Create new fork from the current state
+const newNode = createTevmNode({
+  fork: {
+    transport: sourceNode,
+    blockTag: hexToBigInt(currentBlock),
+  },
+})
+
+await newNode.ready()
+```
+
+This approach:
+
+* Is memory efficient as it reuses the state from the source node
+* Allows forking from a specific point in time
+* Maintains the original node's state while allowing new modifications
+
+#### 2. Using Deep Copy
+
+For cases where you need a completely independent copy of the node:
+
+```ts
+import { createTevmNode, http } from 'tevm'
+import { createAddress } from 'tevm/address'
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+  },
+})
+
+// Read state from the forked node
+const USDC_ADDRESS = createAddress('0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48')
+const vm = await node.getVm()
+const usdcContract = await vm.stateManager.getAccount(USDC_ADDRESS)
+
+console.log('USDC contract:', {
+  balance: usdcContract?.balance,
+  nonce: usdcContract?.nonce,
+  codeHash: usdcContract?.codeHash,
+})
+```
+
+<Callout type="warning">
+  Deep copying creates a new instance with its own state, which can be memory intensive for large state trees. Use this approach sparingly and prefer using the node as a transport when possible.
+</Callout>
+
+### Working with Forked State
+
+#### Reading State
+
+```ts
+import { createTevmNode, http } from 'tevm'
+import { createAddress } from 'tevm/address'
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+  },
+})
+
+// Get USDC contract state
+const USDC_ADDRESS = createAddress('0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48')
+const vm = await node.getVm()
+const usdcContract = await vm.stateManager.getAccount(USDC_ADDRESS)
+
+if (usdcContract) {
+  console.log('USDC contract:', {
+    balance: usdcContract.balance,
+    nonce: usdcContract.nonce,
+    codeHash: usdcContract.codeHash,
+  })
+}
+```
+
+#### Modifying State
+
+```ts
+import { createAddress } from 'tevm/address'
+
+// Modify balance of an account
+const vm = await node.getVm()
+const address = createAddress('0x1234567890123456789012345678901234567890')
+const account = await vm.stateManager.getAccount(address)
+if (account) {
+  account.balance += 1000000000000000000n // Add 1 ETH
+  await vm.stateManager.putAccount(address, account)
+
+  // Verify the change
+  const updatedAccount = await vm.stateManager.getAccount(address)
+  console.log('New balance:', updatedAccount?.balance)
+}
+```
+
+### Performance Optimization
+
+#### State Caching
+
+Tevm implements lazy loading with caching:
+
+```ts
+import { createTevmNode, http } from 'tevm'
+import { createAddress } from 'tevm/address'
+import { performance } from 'node:perf_hooks'
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+  },
+})
+
+const vm = await node.getVm()
+const testAddress = createAddress('0x1234567890123456789012345678901234567890')
+
+// First access - fetches from remote
+const t0 = performance.now()
+await vm.stateManager.getAccount(testAddress)
+console.log('First access:', performance.now() - t0)
+
+// Second access - uses cache
+const t1 = performance.now()
+await vm.stateManager.getAccount(testAddress)
+console.log('Cached access:', performance.now() - t1)
+```
+
+#### Best Practices
+
+1. **RPC Provider Setup**
+   ```ts
+   // ✅ Always call transport with empty object
+   const node = createTevmNode({
+     fork: {
+       transport: http('https://ethereum.quicknode.com/YOUR-API-KEY')({}),
+       blockTag: 15_000_000n,
+     },
+   })
+   ```
+
+2. **Type Safety**
+   ```ts
+   // ✅ Use proper type checks
+   const account = await vm.stateManager.getAccount(address)
+   if (account) {
+     account.balance += 1000000000000000000n
+     await vm.stateManager.putAccount(address, account)
+   }
+   ```
+
+3. **Address Handling**
+   ```ts
+   // ✅ Use createAddress for type safety
+   import { createAddress } from 'tevm/address'
+   const address = createAddress('0x1234567890123456789012345678901234567890')
+   ```
+
+4. **Testing Setup**
+   ```ts
+   // ✅ Wait for node to be ready
+   const node = createTevmNode({
+     fork: {
+       transport: http('https://...')({}),
+     },
+   })
+   await node.ready()
+   ```
+
+### Related Topics
+
+* [State Management](./managing-state)
+* [Transaction Processing](../advanced/txpool)
+* [JSON-RPC Support](../api/json-rpc)
+
+
+import { Callout } from 'vocs/components'
+
+## Managing State
+
+Tevm Node provides powerful state management capabilities through its `stateManager` interface. This allows you to interact with and modify Ethereum state, including accounts, contract code, and storage.
+
+### Getting Started
+
+Access the state manager through the VM:
+
+```ts
+import { createTevmNode } from 'tevm'
+
+const node = createTevmNode()
+const vm = await node.getVm()
+const stateManager = vm.stateManager
+```
+
+### Account Management
+
+#### Reading Accounts
+
+```ts
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+const account = await stateManager.getAccount(address)
+
+if (account) {
+  console.log({
+    balance: account.balance,      // BigInt
+    nonce: account.nonce,         // BigInt
+    codeHash: account.codeHash,   // Hex string
+    storageRoot: account.storageRoot // Hex string
+  })
+}
+```
+
+#### Modifying Accounts
+
+```ts
+import { createAddress } from 'tevm/address'
+import { EthjsAccount } from 'tevm/utils'
+
+// Create or update an account
+const address = createAddress('0x1234567890123456789012345678901234567890')
+await stateManager.putAccount(
+  address,
+  EthjsAccount.fromAccountData({
+    nonce: 0n,
+    balance: 10_000_000n,
+    storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+  })
+)
+```
+
+<Callout type="info">
+  When modifying accounts, make sure to handle the case where the account doesn't exist by creating a new account using `EthjsAccount.fromAccountData()`.
+</Callout>
+
+#### Deleting Accounts
+
+```ts
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+await stateManager.deleteAccount(address)
+```
+
+### Contract Management
+
+#### Deploying Contract Code
+
+```ts
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
+// Deploy contract bytecode
+await stateManager.putContractCode(
+  address,
+  new Uint8Array([/* bytecode */])
+)
+
+// Verify deployment
+const code = await stateManager.getContractCode(address)
+console.log('Deployed code length:', code.length)
+```
+
+#### Reading Contract Code
+
+```ts
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+const deployedCode = await stateManager.getContractCode(address)
+if (deployedCode.length > 0) {
+  console.log('Contract exists with code')
+} else {
+  console.log('No contract code at address')
+}
+```
+
+### Storage Management
+
+#### Reading Storage
+
+```ts
+import { createAddress, hexToBytes } from 'tevm/utils'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
+// Get a specific storage slot
+const slot = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
+const value = await stateManager.getContractStorage(address, slot)
+
+// Dump all storage
+const storage = await stateManager.dumpStorage(address)
+console.log('Contract storage:', storage)
+```
+
+#### Writing Storage
+
+```ts
+import { createAddress, hexToBytes } from 'tevm/utils'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
+// Set a storage value
+const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
+const value = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
+await stateManager.putContractStorage(address, key, value)
+```
+
+#### Clearing Storage
+
+```ts
+import { createAddress } from 'tevm/address'
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+await stateManager.clearContractStorage(address)
+```
+
+### State Checkpoints
+
+Tevm uses a checkpoint system to manage state changes atomically:
+
+```ts
+import { createAddress, hexToBytes } from 'tevm/utils'
+import { EthjsAccount } from 'tevm/utils'
+
+// Create a checkpoint
+await stateManager.checkpoint()
+
+try {
+  const address = createAddress('0x1234567890123456789012345678901234567890')
+  const account = EthjsAccount.fromAccountData({
+    nonce: 0n,
+    balance: 10_000_000n,
+    storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+  })
+
+  // Make state changes
+  await stateManager.putAccount(address, account)
+  await stateManager.putContractStorage(
+    address,
+    hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
+    hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
+  )
+
+  // Commit changes if successful
+  await stateManager.commit()
+} catch (error) {
+  // Revert changes on failure
+  await stateManager.revert()
+  console.error('State changes reverted:', error)
+}
+```
+
+### State Persistence
+
+#### Dumping State
+
+Export the entire state:
+
+```ts
+// Get complete state
+const state = await stateManager.dumpCanonicalGenesis()
+expect(state).toBeDefined()
+```
+
+#### Loading State
+
+Restore state from a previous dump:
+
+```ts
+// Restore state
+await stateManager.generateCanonicalGenesis(state)
+```
+
+### Fork Mode State
+
+When running in fork mode, state is fetched lazily from the remote provider:
+
+```ts
+import { createTevmNode, http } from 'tevm'
+import { createAddress } from 'tevm/address'
+import { performance } from 'node:perf_hooks'
+
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+  }
+})
+
+const vm = await node.getVm()
+const stateManager = vm.stateManager
+const testAddress = createAddress('0x1234567890123456789012345678901234567890')
+
+// First access fetches from remote
+const t0 = performance.now()
+await stateManager.getAccount(testAddress)
+console.log('Initial fetch:', performance.now() - t0)
+
+// Subsequent access uses cache
+const t1 = performance.now()
+await stateManager.getAccount(testAddress)
+console.log('Cached access:', performance.now() - t1)
+```
+
+### Best Practices
+
+1. **Error Handling**
+   ```ts
+   import { createAddress } from 'tevm/address'
+
+   const testAddress = createAddress('0x1234567890123456789012345678901234567890')
+   try {
+     const account = await stateManager.getAccount(testAddress)
+     if (!account) {
+       throw new Error('Account not found')
+     }
+     // Work with account
+   } catch (error) {
+     console.error('State operation failed:', error)
+   }
+   ```
+
+2. **State Isolation**
+   ```ts
+   // Create isolated copy for testing
+   const isolatedState = await stateManager.deepCopy()
+   ```
+
+3. **Atomic Operations**
+   ```ts
+   import { createAddress, hexToBytes } from 'tevm/utils'
+   import { EthjsAccount } from 'tevm/utils'
+
+   const testAddress = createAddress('0x1234567890123456789012345678901234567890')
+   await stateManager.checkpoint()
+   try {
+     const account = EthjsAccount.fromAccountData({
+       nonce: 0n,
+       balance: 10_000_000n,
+       storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+       codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+     })
+
+     // Batch multiple state changes
+     await Promise.all([
+       stateManager.putAccount(testAddress, account),
+       stateManager.putContractStorage(
+         testAddress,
+         hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
+         hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
+       )
+     ])
+     await stateManager.commit()
+   } catch (error) {
+     await stateManager.revert()
+   }
+   ```
+
+### Related Topics
+
+* [Transaction Processing](../advanced/txpool)
+* [Receipts and Logs](../advanced/receipts-and-logs)
+* [Forking](./forking)
+
+
+import { Callout } from 'vocs/components'
+
+## TevmNode Interface
+
+The `TevmNode` interface is the core API surface of Tevm. It provides access to all the fundamental Ethereum node capabilities, from transaction processing to state management.
+
+### Interface Overview
+
+```ts
+export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExtended = {}> = {
+  readonly logger: Logger
+  readonly getReceiptsManager: () => Promise<ReceiptsManager>
+  readonly miningConfig: MiningConfig
+  readonly forkTransport?: { request: EIP1193RequestFn }
+  readonly mode: TMode
+  readonly ready: () => Promise<true>
+  readonly getVm: () => Promise<Vm>
+  readonly getTxPool: () => Promise<TxPool>
+  readonly getImpersonatedAccount: () => Address | undefined
+  readonly setImpersonatedAccount: (address: Address | undefined) => void
+  readonly extend: <TExtension>(decorator: (client: TevmNode<TMode, TExtended>) => TExtension) => TevmNode<TMode, TExtended & TExtension>
+  readonly setFilter: (filter: Filter) => void
+  readonly getFilters: () => Map<Hex, Filter>
+  readonly removeFilter: (id: Hex) => void
+  status: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
+  readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
+} & EIP1193EventEmitter & TExtended
+```
+
+### Core Components
+
+#### 1. Initialization & Status
+
+```ts
+const node = createTevmNode()
+
+// Wait for initialization
+await node.ready()
+
+// Check status
+console.log(node.status) // 'READY'
+```
+
+<Callout type="info">
+  The `ready()` method ensures all internal components are initialized. While not strictly required (methods will wait implicitly), calling it explicitly can help manage initialization flow.
+</Callout>
+
+#### 2. Virtual Machine Access
+
+The VM is the heart of Tevm, providing EVM execution capabilities:
+
+```ts
+const node = createTevmNode()
+const vm = await node.getVm()
+
+// Execute a transaction
+const result = await vm.runTx({
+  tx: {
+    to: '0x1234...',
+    value: 1000000000000000000n, // 1 ETH
+    data: '0x...',
+  }
+})
+```
+
+#### 3. Transaction Pool Management
+
+The TxPool handles pending transactions:
+
+```ts
+const node = createTevmNode()
+const txPool = await node.getTxPool()
+
+// Add a transaction
+await txPool.add({
+  from: '0x1234...',
+  to: '0x5678...',
+  value: 1000000000000000000n,
+})
+
+// Get pending transactions
+const pending = await txPool.txsByPriceAndNonce()
+```
+
+#### 4. Receipt & Log Management
+
+Track transaction outcomes and event logs:
+
+```ts
+const node = createTevmNode()
+const receipts = await node.getReceiptsManager()
+
+// Get receipt for a transaction
+const receipt = await receipts.getReceiptByTxHash('0x1234...')
+
+// Query logs
+const logs = await receipts.getLogs({
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: '0x1234...',
+})
+```
+
+#### 5. Account Impersonation
+
+In fork mode, you can impersonate existing accounts:
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+  },
+})
+
+// Impersonate a whale account
+node.setImpersonatedAccount('0x28C6c06298d514Db089934071355E5743bf21d60')
+
+// Now you can send transactions as this account
+const vm = await node.getVm()
+await vm.runTx({
+  tx: {
+    from: '0x28C6c06298d514Db089934071355E5743bf21d60',
+    to: '0x1234...',
+    value: 1000000000000000000n,
+  },
+})
+```
+
+#### 6. Event Filtering
+
+Manage subscriptions to blockchain events:
+
+```ts
+// Create a filter for Transfer events
+node.setFilter({
+  id: '0x1',
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: '0x1234...',
+  topics: [
+    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer
+  ],
+})
+
+// Get all filters
+const filters = node.getFilters()
+
+// Remove a filter
+node.removeFilter('0x1')
+```
+
+#### 7. Extensibility
+
+The `extend` method allows adding custom functionality:
+
+```ts
+// Add custom methods
+const enhancedNode = node.extend((baseNode) => ({
+  async getBalance(address: string) {
+    const vm = await baseNode.getVm()
+    const account = await vm.stateManager.getAccount(address)
+    return account.balance
+  },
+}))
+
+// Use the new method
+const balance = await enhancedNode.getBalance('0x1234...')
+```
+
+#### 8. Deep Copying
+
+Create independent copies of a node:
+
+```ts
+const node = createTevmNode()
+// ... perform some operations ...
+
+// Create a copy with the same state
+const nodeCopy = await node.deepCopy()
+```
+
+<Callout type="warning">
+  Deep copying creates a completely new instance with its own state. This is useful for testing different scenarios, but can be memory-intensive.
+</Callout>
+
+### Best Practices
+
+1. **Initialization**
+   ```ts
+   const node = createTevmNode()
+   await node.ready() // Always wait for ready
+   ```
+
+2. **Error Handling**
+   ```ts
+   try {
+     const vm = await node.getVm()
+     await vm.runTx(/* ... */)
+   } catch (error) {
+     if (error.message.includes('insufficient funds')) {
+       // Handle specific error cases
+     }
+     throw error
+   }
+   ```
+
+3. **Resource Management**
+   ```ts
+   // Clean up filters when done
+   node.getFilters().forEach((_, id) => node.removeFilter(id))
+   ```
+
+4. **State Isolation**
+   ```ts
+   // Use deepCopy for isolated test cases
+   const baseNode = createTevmNode()
+
+   test('scenario 1', async () => {
+     const node = await baseNode.deepCopy()
+     // Test with isolated state
+   })
+   ```
+
+### Type Safety
+
+The interface is fully typed with TypeScript:
+
+```ts
+import type { TevmNode } from 'tevm/node'
+
+function useNode<TMode extends 'fork' | 'normal'>(
+  node: TevmNode<TMode>
+) {
+  if (node.mode === 'fork') {
+    // Fork-specific operations
+    node.setImpersonatedAccount('0x...')
+  }
+}
+```
+
+### Next Steps
+
+* Learn about [Forking](./forking)
+* Explore [State Management](./managing-state)
+* See [JSON-RPC Support](../api/json-rpc)
 
 
 ## Architecture Overview
@@ -6860,99 +6698,50 @@ The `@tevm/state` package provides functionality for managing Ethereum state, in
 npm install @tevm/state
 ```
 
+Or use `tevm/state` if you have the main `tevm` package installed
+
 ### Main Components
 
 #### StateManager
 
-The main interface for managing Ethereum state, extending the EVM state manager interface:
+The main interface for managing Ethereum state:
 
 ```typescript
-interface StateManager extends EvmStateManagerInterface {
-  _baseState: BaseState
+interface StateManager {
   ready: () => Promise<true>
   getAccountAddresses: () => Set<Address>
-  deepCopy(): Promise<StateManager>
-  dumpCanonicalGenesis(): Promise<TevmState>
-  clearCaches(): void
-  saveStateRoot(root: Uint8Array, state: TevmState): void
-  commit(createNewStateRoot?: boolean): Promise<void>
+  deepCopy: () => Promise<StateManager>
+  dumpCanonicalGenesis: () => Promise<TevmState>
+  clearCaches: () => void
+  getAccount: (address: Address) => Promise<Account>
+  putAccount: (address: Address, account: Account) => Promise<void>
+  deleteAccount: (address: Address) => Promise<void>
+  modifyAccountFields: (address: Address, fields: { nonce?: bigint; balance?: bigint }) => Promise<void>
+  getContractCode: (address: Address) => Promise<Uint8Array>
+  putContractCode: (address: Address, code: Uint8Array) => Promise<void>
+  getContractStorage: (address: Address, key: Uint8Array) => Promise<Uint8Array>
+  putContractStorage: (address: Address, key: Uint8Array, value: Uint8Array) => Promise<void>
+  clearContractStorage: (address: Address) => Promise<void>
+  checkpoint: () => Promise<void>
+  commit: () => Promise<void>
+  revert: () => Promise<void>
+  getStateRoot: () => Promise<Uint8Array>
+  setStateRoot: (root: Uint8Array) => Promise<void>
+  hasStateRoot: (root: Uint8Array) => Promise<boolean>
+  dumpStorage: (address: Address) => Promise<StorageDump>
+  dumpStorageRange: (address: Address, startKey: bigint, limit: number) => Promise<StorageRange>
+  getProof: (address: Address, storageKeys: Uint8Array[]) => Promise<Proof>
 }
 ```
 
 #### Creating a State Manager
 
 ```typescript
-import { createStateManager } from '@tevm/state'
+import { createStateManager } from 'tevm/state'
 
 const stateManager = createStateManager({
-  common,
-  loggingLevel: 'info',
-  genesisState,
-  currentStateRoot,
-  stateRoots,
+  loggingLevel: 'info'
 })
-```
-
-##### StateOptions
-
-```typescript
-type StateOptions = {
-  // Forking configuration
-  fork?: ForkOptions
-  // Initial genesis state
-  genesisState?: TevmState
-  // Current state root
-  currentStateRoot?: Hex
-  // Mapping of state roots
-  stateRoots?: StateRoots
-  // Called when state manager commits state
-  onCommit?: (stateManager: BaseState) => void
-  // Logging configuration
-  loggingLevel?: LogOptions['level']
-  // Cache configurations
-  contractCache?: ContractCache
-  storageCache?: StorageCache
-  accountsCache?: AccountCache
-}
-```
-
-#### State Types
-
-##### TevmState
-
-The core state representation:
-
-```typescript
-type TevmState = {
-  [key: Address]: AccountStorage
-}
-```
-
-##### AccountStorage
-
-Account state information:
-
-```typescript
-interface AccountStorage {
-  nonce: bigint
-  balance: bigint
-  storageRoot: Hex
-  codeHash: Hex
-  deployedBytecode?: Hex
-  storage?: StorageDump
-}
-```
-
-##### StateCache
-
-Internal cache structure:
-
-```typescript
-type StateCache = {
-  accounts: AccountCache
-  storage: StorageCache
-  contracts: ContractCache
-}
 ```
 
 ### Core Functionality
@@ -6960,6 +6749,12 @@ type StateCache = {
 #### Account Management
 
 ```typescript
+import { createStateManager } from 'tevm/state'
+import { createAddress } from 'tevm/address'
+
+const stateManager = createStateManager({})
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
 // Get account state
 const account = await stateManager.getAccount(address)
 
@@ -6979,17 +6774,23 @@ await stateManager.modifyAccountFields(address, {
 #### Contract Management
 
 ```typescript
-// Get contract code
-const code = await stateManager.getContractCode(address)
+import { createStateManager } from 'tevm/state'
+import { createAddress } from 'tevm/address'
+import { hexToBytes } from 'tevm/utils'
 
-// Set contract code
+const stateManager = createStateManager({})
+const address = createAddress('0x1234567890123456789012345678901234567890')
+const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
+const value = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
+const code = new Uint8Array([1, 2, 3])
+
+// Get and set contract code
 await stateManager.putContractCode(address, code)
+const retrievedCode = await stateManager.getContractCode(address)
 
-// Get contract storage
-const value = await stateManager.getContractStorage(address, key)
-
-// Set contract storage
+// Get and set contract storage
 await stateManager.putContractStorage(address, key, value)
+const retrievedValue = await stateManager.getContractStorage(address, key)
 
 // Clear contract storage
 await stateManager.clearContractStorage(address)
@@ -7027,7 +6828,7 @@ const state = await stateManager.dumpCanonicalGenesis()
 const storage = await stateManager.dumpStorage(address)
 
 // Dump storage range
-const range = await stateManager.dumpStorageRange(address, startKey, limit)
+const range = await stateManager.dumpStorageRange(address, 4n, 10)
 
 // Get merkle proof
 const proof = await stateManager.getProof(address, storageKeys)
@@ -7039,40 +6840,57 @@ const proof = await stateManager.getProof(address, storageKeys)
 // Clear all caches
 stateManager.clearCaches()
 
-// Access original storage cache
-const originalStorage = stateManager.originalStorageCache
-```
-
-#### State Copying
-
-```typescript
 // Deep copy (independent state)
 const deepCopy = await stateManager.deepCopy()
-
-// Shallow copy (shared state)
-const shallowCopy = stateManager.shallowCopy()
 ```
 
-### Error Handling
+### Best Practices
 
-The state manager uses the `@tevm/errors` package for error handling. Common errors include:
+1. **Always await ready()**
 
-* `StateManagerError`: Base error for state management issues
-* `AccountNotFoundError`: When an account doesn't exist
-* `InvalidStateRoot`: When an invalid state root is provided
-* `StorageNotFoundError`: When storage slot doesn't exist
+```typescript
+const stateManager = createStateManager({})
+await stateManager.ready()
+```
 
-### See Also
+2. **Use checkpoints for atomic operations**
+
+```typescript
+await stateManager.checkpoint()
+try {
+  // Perform state changes
+  await stateManager.commit()
+} catch (error) {
+  await stateManager.revert()
+}
+```
+
+3. **Clear caches when memory usage is high**
+
+```typescript
+// Periodically clear caches
+stateManager.clearCaches()
+```
+
+4. **Use proper error handling**
+
+```typescript
+try {
+  await stateManager.getAccount(address)
+} catch (error) {
+  if (error instanceof AccountNotFoundError) {
+    // Handle missing account
+  }
+  // Handle other errors
+}
+```
+
+### Related Topics
 
 * [EVM State Documentation](https://ethereum.org/en/developers/docs/evm/state)
 * [Merkle Patricia Tree](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie)
 * [Account Management](https://ethereum.org/en/developers/docs/accounts)
 
-
-***
-
-title: Call API
-description: Detailed documentation of the Call action handler
 
 import { Callout } from 'vocs/components'
 
@@ -7084,14 +6902,14 @@ The `callHandler` action is one of the most important APIs in Tevm, covering 90%
 
 ```ts
 import { callHandler } from 'tevm/actions'
-import { createTevmNode } from 'tevm'
+import { createTevmNode, PREFUNDED_ACCOUNTS } from 'tevm'
 
 const node = createTevmNode()
 
 const result = await callHandler(node)({
-  to: '0x...',
-  data: '0x...',
-  value: 0n
+  from: PREFUNDED_ACCOUNTS[0].address,
+  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH on mainnet
+  data: '0x' // Empty call
 })
 ```
 
@@ -7163,18 +6981,28 @@ type CallResult = {
 #### 1. Simple Contract Call
 
 ```ts
+// Example ERC20 ABI for 'balanceOf'
+const abi = [{
+  name: 'balanceOf',
+  type: 'function',
+  inputs: [{ name: 'account', type: 'address' }],
+  outputs: [{ name: 'balance', type: 'uint256' }],
+  stateMutability: 'view'
+}] as const
+
 const result = await callHandler(node)({
-  to: contractAddress,
+  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  from: PREFUNDED_ACCOUNTS[0].address,
   data: encodeFunctionData({
-    abi: myABI,
-    functionName: 'getValue',
-    args: []
+    abi,
+    functionName: 'balanceOf',
+    args: [PREFUNDED_ACCOUNTS[0].address]
   })
 })
 
-const value = decodeFunctionResult({
-  abi: myABI,
-  functionName: 'getValue',
+const balance = decodeFunctionResult({
+  abi,
+  functionName: 'balanceOf',
   data: result.rawData
 })
 ```
@@ -7182,12 +7010,12 @@ const value = decodeFunctionResult({
 #### 2. Contract Deployment
 
 ```ts
+// Simple contract bytecode (returns 42)
+const bytecode = '0x6080604052348015600f57600080fd5b50602a60808190526040516100929190810190830190829052565b604051601f19601f830116810160405280815292829060208401853c80601f830112156100c057600080fd5b505b50505050610047806100d36000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80632096525514602d575b600080fd5b60336047565b604051603e91906059565b60405180910390f35b602a81565b6000819050919050565b6053816040565b82525050565b6000602082019050606c6000830184604c565b9291505056fea2646970667358221220f1c69e125f1a9f0c5e22a6fb4f9cb134c5b43496922c563e13731844a6e4d12d64736f6c63430008130033'
+
 const result = await callHandler(node)({
-  data: encodeDeploy({
-    abi: myABI,
-    bytecode: contractBytecode,
-    args: [arg1, arg2]
-  }),
+  from: PREFUNDED_ACCOUNTS[0].address,
+  data: bytecode,
   createTransaction: true
 })
 
@@ -7198,16 +7026,15 @@ console.log('Contract deployed at:', result.createdAddress)
 
 ```ts
 const result = await callHandler(node)({
-  to: contractAddress,
-  data: callData,
+  from: PREFUNDED_ACCOUNTS[0].address,
+  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  data: '0x',
   stateOverrideSet: {
-    [accountAddress]: {
-      balance: '0x1000',
-      nonce: '0x2',
-      code: '0x...',
-      state: {
-        '0x...': '0x...'
-      }
+    [PREFUNDED_ACCOUNTS[0].address]: {
+      balance: 4096n, // 0x1000 as bigint
+      nonce: 2n,
+      code: '0x',
+      state: {}
     }
   }
 })
@@ -7217,51 +7044,23 @@ const result = await callHandler(node)({
 
 ```ts
 const result = await callHandler(node)({
-  to: contractAddress,
-  data: callData,
+  from: PREFUNDED_ACCOUNTS[0].address,
+  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  data: '0x',
   createTrace: true
 })
 
 // Analyze the execution trace
-result.trace?.structLogs.forEach(log => {
-  console.log(log.op, log.stack, log.memory)
-})
+if (result.trace) {
+  result.trace.structLogs.forEach(log => {
+    console.log(log.op, log.stack, log.memory)
+  })
+}
 ```
 
 ### Higher Level APIs
 
-While `callHandler` is powerful, Tevm provides higher-level convenience methods:
-
-#### Contract Handler
-
-```ts
-import { contractHandler } from 'tevm/actions'
-
-const result = await contractHandler(node)({
-  abi: myABI,
-  address: contractAddress,
-  functionName: 'getValue',
-  args: []
-})
-```
-
-#### Deploy Handler
-
-```ts
-import { deployHandler } from 'tevm/actions'
-
-const result = await deployHandler(node)({
-  abi: myABI,
-  bytecode: contractBytecode,
-  args: [arg1, arg2]
-})
-```
-
-### Related Topics
-
-\- [Mining Configuration](#TODO)
-\- [State Management](../core/managing-state)
-\- [JSON-RPC Support](./json-rpc)
+While `callHandler`
 
 
 ## @tevm/tx

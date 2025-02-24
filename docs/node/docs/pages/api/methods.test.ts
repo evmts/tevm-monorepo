@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { createTevmNode, http } from 'tevm'
 import { requestEip1193, ethActions } from 'tevm/decorators'
-import { type Hex, hexToBytes } from '@tevm/utils'
-import { type Filter } from '@tevm/node'
+import { type Hex, hexToBytes } from 'tevm/utils'
+import { type Filter } from 'tevm/node'
 
 describe('Methods Documentation Examples', () => {
   describe('Core Methods', () => {

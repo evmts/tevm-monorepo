@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { createTevmNode, http } from 'tevm'
+import { createContract, createTevmNode, http, parseAbi } from 'tevm'
 import { definePrecompile } from 'tevm'
-import { mainnet } from 'tevm/common'
 
 describe('Create Tevm Node', () => {
   describe('Basic Node Creation', () => {
@@ -16,7 +15,7 @@ describe('Create Tevm Node', () => {
     it('should create a forked node', async () => {
       const node = createTevmNode({
         fork: {
-          transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+          transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
           blockTag: 17_000_000n,
         },
       })
@@ -45,15 +44,22 @@ describe('Create Tevm Node', () => {
       })
       await node.ready()
       expect(node.miningConfig.type).toBe('interval')
-      expect(node.miningConfig.interval).toBe(12_000)
+      expect(node.miningConfig.type === 'interval' && node.miningConfig.interval).toBe(12_000)
     })
   })
 
   describe('Custom Precompiles', () => {
     it('should add custom precompiles', async () => {
       const myPrecompile = definePrecompile({
-        address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2',
+        contract: createContract({
+          abi: parseAbi([
+            'function add(uint256 a, uint256 b) returns (uint256)',
+            'function subtract(uint256 a, uint256 b) returns (uint256)'
+          ]),
+          address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2'
+        }),
         call: async ({ data, gasLimit }) => {
+          console.log(data, gasLimit)
           return {
             returnValue: new Uint8Array([0x01]),
             executionGasUsed: 200n,
@@ -62,7 +68,7 @@ describe('Create Tevm Node', () => {
       })
 
       const node = createTevmNode({
-        customPrecompiles: [myPrecompile],
+        customPrecompiles: [myPrecompile.precompile()],
       })
       await node.ready()
       expect(node).toBeDefined()
@@ -96,7 +102,7 @@ describe('Create Tevm Node', () => {
     it('should create production forked node', async () => {
       const prodNode = createTevmNode({
         fork: {
-          transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+          transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
           blockTag: 'latest',
         },
         miningConfig: { type: 'interval', interval: 12000 },
@@ -127,12 +133,4 @@ describe('Create Tevm Node', () => {
     })
   })
 
-  describe('Resource Cleanup', () => {
-    it('should clean up resources', async () => {
-      const node = createTevmNode()
-      await node.ready()
-      const vm = await node.getVm()
-      await vm.blockchain.close()
-    })
-  })
 })

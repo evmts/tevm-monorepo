@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import { createTevmNode } from 'tevm'
-import { EthjsAccount, EthjsAddress } from 'tevm/utils'
-import { hexToBytes } from 'tevm/utils'
+import { createTevmNode, hexToBytes, http } from 'tevm'
+import { EthjsAccount} from 'tevm/utils'
+import { createAddress } from 'tevm/address'
+import { performance } from 'node:perf_hooks'
 
 describe('Managing State', () => {
   describe('Getting Started', () => {
@@ -19,7 +20,7 @@ describe('Managing State', () => {
       const vm = await node.getVm()
       const stateManager = vm.stateManager
 
-      const address = '0x1234567890123456789012345678901234567890'
+      const address = createAddress('0x1234567890123456789012345678901234567890')
       const account = await stateManager.getAccount(address)
 
       if (account) {
@@ -34,7 +35,7 @@ describe('Managing State', () => {
       // Create or update an account
       await stateManager.putAccount(
         address,
-        new EthjsAccount({
+        EthjsAccount.fromAccountData({
           nonce: 0n,
           balance: 10_000_000n,
           storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
@@ -52,7 +53,7 @@ describe('Managing State', () => {
       const node = createTevmNode()
       const vm = await node.getVm()
       const stateManager = vm.stateManager
-      const address = '0x1234567890123456789012345678901234567890'
+      const address = createAddress('0x1234567890123456789012345678901234567890')
 
       // Deploy contract bytecode
       await stateManager.putContractCode(
@@ -65,16 +66,17 @@ describe('Managing State', () => {
       expect(code.length).toBeDefined()
 
       // Read storage
-      const slot = '0x0000000000000000000000000000000000000000000000000000000000000000'
+      const slot = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
       const value = await stateManager.getContractStorage(address, slot)
+      console.log(value)
 
       // Dump all storage
       const storage = await stateManager.dumpStorage(address)
       expect(storage).toBeDefined()
 
       // Set a storage value
-      const key = '0x0000000000000000000000000000000000000000000000000000000000000000'
-      const newValue = '0x0000000000000000000000000000000000000000000000000000000000000001'
+      const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
+      const newValue = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
       await stateManager.putContractStorage(address, key, newValue)
 
       // Clear storage
@@ -92,9 +94,21 @@ describe('Managing State', () => {
       await stateManager.checkpoint()
 
       try {
+        const address = createAddress('0x1234567890123456789012345678901234567890')
+        const account = EthjsAccount.fromAccountData({
+          nonce: 0n,
+          balance: 10_000_000n,
+          storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+          codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+        })
+
         // Make state changes
-        await stateManager.putAccount('0x1234...', /* account */)
-        await stateManager.putContractStorage('0x1234...', /* key */, /* value */)
+        await stateManager.putAccount(address, account)
+        await stateManager.putContractStorage(
+          address,
+          hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
+          hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
+        )
 
         // Commit changes if successful
         await stateManager.commit()
@@ -114,12 +128,9 @@ describe('Managing State', () => {
 
       // Get complete state
       const state = await stateManager.dumpCanonicalGenesis()
-
-      // Save state (example with localStorage)
-      // localStorage.setItem('tevmState', JSON.stringify(state))
+      expect(state).toBeDefined()
 
       // Load saved state
-      // const savedState = JSON.parse(localStorage.getItem('tevmState'))
       await stateManager.generateCanonicalGenesis(state)
     })
   })
@@ -128,21 +139,22 @@ describe('Managing State', () => {
     it('should demonstrate lazy loading with caching', async () => {
       const node = createTevmNode({
         fork: {
-          transport: { request: async () => ({}) }, // Mock transport
+          transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
         }
       })
 
       const vm = await node.getVm()
       const stateManager = vm.stateManager
+      const testAddress = createAddress('0x1234567890123456789012345678901234567890')
 
       // First access fetches from remote
       const t0 = performance.now()
-      await stateManager.getAccount('0x1234...')
+      await stateManager.getAccount(testAddress)
       console.log('Initial fetch:', performance.now() - t0)
 
       // Subsequent access uses cache
       const t1 = performance.now()
-      await stateManager.getAccount('0x1234...')
+      await stateManager.getAccount(testAddress)
       console.log('Cached access:', performance.now() - t1)
     })
   })
@@ -152,13 +164,15 @@ describe('Managing State', () => {
       const node = createTevmNode()
       const vm = await node.getVm()
       const stateManager = vm.stateManager
+      const testAddress = createAddress('0x1234567890123456789012345678901234567890')
 
       try {
-        const account = await stateManager.getAccount('0x1234...')
+        const account = await stateManager.getAccount(testAddress)
         if (!account) {
           throw new Error('Account not found')
         }
         // Work with account
+        expect(account).toBeDefined()
       } catch (error) {
         console.error('State operation failed:', error)
       }
@@ -178,13 +192,25 @@ describe('Managing State', () => {
       const node = createTevmNode()
       const vm = await node.getVm()
       const stateManager = vm.stateManager
+      const testAddress = createAddress('0x1234567890123456789012345678901234567890')
 
       await stateManager.checkpoint()
       try {
+        const account = EthjsAccount.fromAccountData({
+          nonce: 0n,
+          balance: 10_000_000n,
+          storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+          codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+        })
+
         // Batch multiple state changes
         await Promise.all([
-          stateManager.putAccount('0x1234...', /* account */),
-          stateManager.putContractStorage('0x1234...', /* key */, /* value */),
+          stateManager.putAccount(testAddress, account),
+          stateManager.putContractStorage(
+            testAddress,
+            hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
+            hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
+          )
         ])
         await stateManager.commit()
       } catch (error) {

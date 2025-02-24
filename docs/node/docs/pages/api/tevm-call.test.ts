@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { callHandler } from 'tevm/actions'
-import { createTevmNode } from 'tevm'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
+import { createTevmNode , PREFUNDED_ACCOUNTS } from 'tevm'
 import { encodeFunctionData, decodeFunctionResult } from 'viem'
 
 describe('Call API Documentation Examples', () => {
