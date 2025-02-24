@@ -143,9 +143,10 @@ export const createTevmNode = (options = {}) => {
 				? {
 						fork: {
 							transport: {
-								request: typeof options.fork.transport === 'function'
-									? options.fork.transport({}).request
-									: options.fork.transport.request
+								request:
+									typeof options.fork.transport === 'function'
+										? options.fork.transport({}).request
+										: options.fork.transport.request,
 							},
 							blockTag,
 						},
@@ -339,11 +340,13 @@ export const createTevmNode = (options = {}) => {
 			getVm: async () => Promise.resolve(vm),
 			miningConfig: baseClient.miningConfig,
 			mode: baseClient.mode,
-			...('forkTransport' in baseClient ? {
-				forkTransport: {
-					request: baseClient.forkTransport.request
-				}
-			} : {}),
+			...('forkTransport' in baseClient
+				? {
+						forkTransport: {
+							request: baseClient.forkTransport.request,
+						},
+					}
+				: {}),
 			extend: (extension) => extend(baseClient)(extension),
 			deepCopy: () => deepCopy(copiedClient)(),
 			ready: () => Promise.resolve(true),
@@ -386,13 +389,16 @@ export const createTevmNode = (options = {}) => {
 		},
 		miningConfig: options.miningConfig ?? { type: 'manual' },
 		mode: options.fork?.transport ? 'fork' : 'normal',
-		...(options.fork?.transport ? {
-			forkTransport: {
-				request: typeof options.fork.transport === 'function'
-					? /** @type {import('viem').Transport} */ (options.fork.transport)({}).request
-					: options.fork.transport.request
-			}
-		} : {}),
+		...(options.fork?.transport
+			? {
+					forkTransport: {
+						request:
+							typeof options.fork.transport === 'function'
+								? /** @type {import('viem').Transport} */ (options.fork.transport)({}).request
+								: options.fork.transport.request,
+					},
+				}
+			: {}),
 		extend: (extension) => extend(baseClient)(extension),
 		ready: () => readyPromise,
 		getImpersonatedAccount() {
