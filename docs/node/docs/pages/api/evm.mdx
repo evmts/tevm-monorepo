@@ -1,5 +1,7 @@
 # @tevm/evm
 
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/evm/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs) folder.
+
 The `@tevm/evm` package provides a custom implementation of the Ethereum Virtual Machine (EVM), extending the functionality of `ethereumjs/evm`. It's responsible for executing Ethereum bytecode and managing the execution environment.
 
 ## Installation
@@ -15,10 +17,10 @@ npm install @tevm/evm
 The main class for executing Ethereum bytecode. It extends the EthereumJS EVM with Tevm-specific functionality.
 
 ```typescript
-import { createEvm } from 'tevm/evm'
-import { mainnet } from 'tevm/common'
-import { createStateManager } from 'tevm/state'
-import { createChain } from 'tevm/chain'
+import { createEvm } from '@tevm/evm' // See [createEvm](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/functions/createEvm.md)
+import { mainnet } from '@tevm/common' // See [Common](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/docs/interfaces/Common.md)
+import { createStateManager } from '@tevm/state' // See [createStateManager](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/docs/functions/createStateManager.md)
+import { createChain } from '@tevm/chain' // See [createChain](https://github.com/evmts/tevm-monorepo/blob/main/packages/chain/docs/functions/createChain.md)
 
 const evm = await createEvm({
   common: mainnet,
@@ -29,19 +31,19 @@ const evm = await createEvm({
 
 #### Methods
 
-- `runCall(opts: EvmRunCallOpts): Promise<EvmResult>` - Executes an EVM message
-- `addCustomPrecompile(precompile: CustomPrecompile): void` - Adds a custom precompile
-- `removeCustomPrecompile(precompile: CustomPrecompile): void` - Removes a custom precompile
-- `getActiveOpcodes(): OpcodeList` - Returns currently activated opcodes
-- `getPrecompile(address: Address): PrecompileFunc | undefined` - Returns precompile at address
-- `getPerformanceLogs()` - Returns performance logs for opcodes and precompiles
+- [`runCall(opts: EvmRunCallOpts): Promise<EvmResult>`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#runcall) - Executes an EVM message
+- [`addCustomPrecompile(precompile: CustomPrecompile): void`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#addcustomprecompile) - Adds a custom precompile
+- [`removeCustomPrecompile(precompile: CustomPrecompile): void`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#removecustomprecompile) - Removes a custom precompile
+- [`getActiveOpcodes(): OpcodeList`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#getactiveopcodes) - Returns currently activated opcodes
+- [`getPrecompile(address: Address): PrecompileFunc | undefined`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#getprecompile) - Returns precompile at address
+- [`getPerformanceLogs()`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#getperformancelogs) - Returns performance logs for opcodes and precompiles
 
 ### Creating an EVM Instance
 
-The `createEvm` function is the recommended way to create a new EVM instance:
+The [`createEvm`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/functions/createEvm.md) function is the recommended way to create a new EVM instance:
 
 ```typescript
-import { createEvm } from 'tevm/evm'
+import { createEvm } from '@tevm/evm'
 
 const evm = await createEvm({
   common: mainnet,
@@ -55,11 +57,11 @@ const evm = await createEvm({
 
 ### Custom Precompiles
 
-The EVM supports custom precompiles that allow executing arbitrary JavaScript code:
+The EVM supports [custom precompiles](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/CustomPrecompile.md) that allow executing arbitrary JavaScript code:
 
 ```typescript
-import { definePrecompile, defineCall, createContract, parseAbi } from 'tevm'
-import { createAddress } from 'tevm/address'
+import { definePrecompile, defineCall, createContract, parseAbi } from '@tevm/evm'
+import { createAddress } from '@tevm/utils'
 
 const MyContract = createContract({
   address: createAddress(2424).toString(),
@@ -86,7 +88,7 @@ evm.addCustomPrecompile(customPrecompile.precompile())
 
 ## Types
 
-### EvmResult
+### [EvmResult](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/EvmResult.md)
 
 Result of executing a message via the EVM:
 
@@ -97,7 +99,7 @@ interface EvmResult {
 }
 ```
 
-### ExecResult
+### [ExecResult](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/ExecResult.md)
 
 Detailed execution result:
 
@@ -115,7 +117,7 @@ interface ExecResult {
 }
 ```
 
-### EvmRunCallOpts
+### [EvmRunCallOpts](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/EvmRunCallOpts.md)
 
 Options for running a call operation:
 
@@ -137,7 +139,7 @@ interface EvmRunCallOpts {
 
 ## Error Handling
 
-The EVM uses the `EvmError` class for error handling, with various error types defined in `EvmErrorMessage`:
+The EVM uses the [`EvmError`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/classes/EvmError.md) class for error handling, with various error types defined in [`EvmErrorMessage`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/enums/EvmErrorMessage.md):
 
 ```typescript
 enum EvmErrorMessage {

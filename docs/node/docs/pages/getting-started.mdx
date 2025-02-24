@@ -7,11 +7,47 @@ description: Get started with Tevm Node - A JavaScript Ethereum Virtual Machine
 
 Welcome to [Tevm Node](https://github.com/evmts/tevm-monorepo)! This guide will help you navigate our documentation and get started with running [Ethereum](https://ethereum.org) in JavaScript.
 
-If you're impatient, try creating a [memory client](/api/memory-client) and using the [viem API](https://viem.sh) to interact with a locally running blockchain in JavaScript:
+## Installation
 
 ```bash
 npm install tevm
 ```
+
+## Quick Examples
+
+### 1. Raw Tevm Node API
+
+The most direct way to use Tevm is with the raw [`createTevmNode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/functions/createTevmNode.md) API:
+
+```typescript
+import { createTevmNode } from 'tevm'
+
+const node = createTevmNode()
+
+// Execute a contract call
+const result = await node.tevmCall({
+  to: '0x1234567890123456789012345678901234567890',
+  data: '0x...',
+  value: 0n
+})
+
+// Set account state
+await node.tevmSetAccount({
+  address: '0x1234567890123456789012345678901234567890',
+  balance: 1000000000000000000n // 1 ETH
+})
+
+// Get account state
+const account = await node.tevmGetAccount({
+  address: '0x1234567890123456789012345678901234567890'
+})
+```
+
+### 2. Using with Viem
+
+For a more familiar developer experience, you can use Tevm with [Viem](./examples/viem):
+
+You can still use the Raw Tevm Node API referencing `client.transport.tevm`
 
 ```typescript
 import { createMemoryClient, http } from 'tevm'
@@ -26,11 +62,11 @@ const client = createMemoryClient({
   common: optimism,
 })
 
-// Read block data using viem's public actions
+// Use viem's public actions
 const block = await client.getBlock({ blockTag: 'latest' })
 console.log(block)
 
-// Manipulate state using Tevm actions
+// Mix with Tevm actions
 const testAddress = '0x1234567890123456789012345678901234567890'
 await client.tevmSetAccount({
   address: testAddress,
@@ -40,6 +76,30 @@ await client.tevmSetAccount({
 // Get account state
 const account = await client.tevmGetAccount({ address: testAddress })
 console.log(account)
+
+// Use the raw Tevm node api via `client.transport.tevm`
+const vm = await client.transport.tevm.getVm()
+const block = await vm.blockchain.getBlockByTag('latest')
+```
+
+### 3. Using with Ethers
+
+You can also use Tevm with [Ethers.js](./examples/ethers):
+
+```typescript
+import { createTevmNode } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider } from 'ethers'
+
+// Create Tevm Node with EIP-1193 support
+const node = createTevmNode().extend(requestEip1193())
+
+// Create Ethers provider
+const provider = new BrowserProvider(node)
+
+// Use standard Ethers API
+const block = await provider.getBlockNumber()
+const balance = await provider.getBalance('0x1234...')
 ```
 
 ## Quick Start

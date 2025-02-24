@@ -29,48 +29,48 @@ const blockNum = await node.request({
 ### Core Ethereum Methods
 
 - **Block & Chain**
-  - [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber) - Get current block number
-  - [`eth_getBlockByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbyhash) - Get block by hash
-  - [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber) - Get block by number
-  - [`eth_chainId`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid) - Get current chain ID
+  - [`eth_blockNumber`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/blockNumberHandler.md) - Get current block number
+  - [`eth_getBlockByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetBlockByHashProcedure.md) - Get block by hash
+  - [`eth_getBlockByNumber`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetBlockByNumberProcedure.md) - Get block by number
+  - [`eth_chainId`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/chainIdHandler.md) - Get current chain ID
 
 - **State & Account**
-  - [`eth_getBalance`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getbalance) - Get account balance
-  - [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode) - Get contract code
-  - [`eth_getStorageAt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat) - Get storage value
-  - [`eth_getTransactionCount`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount) - Get account nonce
+  - [`eth_getBalance`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getBalanceHandler.md) - Get account balance
+  - [`eth_getCode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getCodeHandler.md) - Get contract code
+  - [`eth_getStorageAt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getStorageAtHandler.md) - Get storage value
+  - [`eth_getTransactionCount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionCountProcedure.md) - Get account nonce
 
 - **Transaction**
-  - [`eth_call`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call) - Execute contract call
-  - [`eth_estimateGas`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas) - Estimate gas usage
-  - [`eth_sendTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendtransaction) - Send transaction
-  - [`eth_sendRawTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction) - Send signed transaction
-  - [`eth_getTransactionByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyhash) - Get transaction details
-  - [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt) - Get transaction receipt
+  - [`eth_call`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethCallHandler.md) - Execute contract call
+  - [`eth_estimateGas`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethEstimateGasProcedure.md) - Estimate gas usage
+  - [`eth_sendTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethSendTransactionHandler.md) - Send transaction
+  - [`eth_sendRawTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethSendRawTransaction.md) - Send signed transaction
+  - [`eth_getTransactionByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionByHashProcedure.md) - Get transaction details
+  - [`eth_getTransactionReceipt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionReceipt.md) - Get transaction receipt
 
 - **Logs & Events**
-  - [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) - Get event logs
-  - [`eth_newFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newfilter) - Create new filter
-  - [`eth_newBlockFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newblockfilter) - Create block filter
-  - [`eth_getFilterChanges`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterchanges) - Get filter updates
-  - [`eth_getFilterLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterlogs) - Get all filter logs
-  - [`eth_uninstallFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_uninstallfilter) - Remove filter
+  - [`eth_getLogs`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetLogsHandler.md) - Get event logs
+  - [`eth_newFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethNewFilterProcedure.md) - Create new filter
+  - [`eth_newBlockFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethNewBlockFilterProcedure.md) - Create block filter
+  - [`eth_getFilterChanges`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetFilterChangesProcedure.md) - Get filter updates
+  - [`eth_getFilterLogs`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetFilterLogsProcedure.md) - Get all filter logs
+  - [`eth_uninstallFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethUninstallFilterProcedure.md) - Remove filter
 
 ### Extended Methods
 
 Tevm also supports additional methods commonly found in development environments:
 
 - **Debug Methods**
-  - [`debug_traceTransaction`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debug_tracetransaction) - Trace transaction execution
-  - [`debug_dumpState`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debug_dumpstate) - Dump current state
+  - [`debug_traceTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/debugTraceTransactionProcedure.md) - Trace transaction execution
+  - [`debug_dumpState`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/debugDumpStateProcedure.md) - Dump current state
 
 - **Anvil Methods** (For [Foundry](https://book.getfoundry.sh/reference/anvil/) compatibility)
-  - `anvil_setCode` - Set contract code
-  - `anvil_setBalance` - Set account balance
-  - `anvil_setNonce` - Set account nonce
-  - `anvil_setStorageAt` - Set storage value
-  - `anvil_impersonateAccount` - Impersonate account
-  - `anvil_stopImpersonatingAccount` - Stop impersonating
+  - [`anvil_setCode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetCodeProcedure.md) - Set contract code
+  - [`anvil_setBalance`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetBalance.md) - Set account balance
+  - [`anvil_setNonce`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetNonceProcedure.md) - Set account nonce
+  - [`anvil_setStorageAt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetStorageAtProcedure.md) - Set storage value
+  - [`anvil_impersonateAccount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilImpersonateAccount.md) - Impersonate account
+  - [`anvil_stopImpersonatingAccount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilStopImpersonatingAccountProcedure.md) - Stop impersonating
 
 ## Client Integration
 
@@ -106,7 +106,7 @@ const provider = new BrowserProvider(node)
 
 ## Error Handling
 
-JSON-RPC errors follow the [standard format](https://www.jsonrpc.org/specification#error_object):
+JSON-RPC errors follow the [standard format](https://www.jsonrpc.org/specification#error_object) and are fully typed. See the [error types documentation](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/JsonRpcError.md) for more details:
 
 ```ts
 interface JsonRpcError {
@@ -116,21 +116,29 @@ interface JsonRpcError {
 }
 ```
 
-Common error codes (see [Ethereum JSON-RPC Error Codes](https://eips.ethereum.org/EIPS/eip-1474#error-codes)):
-- `-32700`: Parse error
-- `-32600`: Invalid request
-- `-32601`: Method not found
-- `-32602`: Invalid params
-- `-32603`: Internal error
-- `-32000` to `-32099`: Server error
+Common error codes (see [Error Types](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/variables/ErrorCodes.md)):
+- `-32700`: Parse error ([`ParseError`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/ParseError.md))
+- `-32600`: Invalid request ([`InvalidRequest`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/InvalidRequest.md))
+- `-32601`: Method not found ([`MethodNotFound`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/MethodNotFound.md))
+- `-32602`: Invalid params ([`InvalidParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/InvalidParams.md))
+- `-32603`: Internal error ([`InternalError`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/InternalError.md))
+- `-32000` to `-32099`: Server error ([`ServerError`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/ServerError.md))
+
+For detailed error handling examples and best practices, see the [Error Handling Guide](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/variables/ErrorHandling.md).
 
 ## Best Practices
 
-1. **Error Handling**: Always wrap RPC calls in try-catch blocks to handle potential errors gracefully.
+1. **Error Handling**: Always wrap RPC calls in try-catch blocks to handle potential errors gracefully. See [Error Types](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/variables/ErrorCodes.md) for all possible errors.
 
-2. **Gas Estimation**: For transactions, use [`eth_estimateGas`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas) before sending to ensure sufficient gas.
+2. **Gas Estimation**: For transactions, use [`eth_estimateGas`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethEstimateGasProcedure.md) before sending to ensure sufficient gas:
+```ts
+const gasEstimate = await node.request({
+  method: 'eth_estimateGas',
+  params: [tx],
+})
+```
 
-3. **Receipt Confirmation**: Wait for transaction receipts to confirm state changes:
+3. **Receipt Confirmation**: Wait for transaction receipts to confirm state changes using [`eth_getTransactionReceipt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionReceipt.md):
 ```ts
 const txHash = await node.request({
   method: 'eth_sendTransaction',
@@ -146,7 +154,13 @@ const receipt = await node.request({
 4. **Event Filtering**: Use filters efficiently by:
    - Setting appropriate block ranges
    - Using specific [topics](https://docs.soliditylang.org/en/latest/abi-spec.html#events)
-   - Cleaning up unused filters
+   - Cleaning up unused filters with [`eth_uninstallFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethUninstallFilterProcedure.md)
+
+For more examples and detailed API documentation, see:
+- [Complete Actions Documentation](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs)
+- [Type Definitions](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases)
+- [Function Reference](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions)
+- [Variables and Constants](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/variables)
 
 ## Related Topics
 - [Using with Viem](../examples/viem)
@@ -155,13 +169,19 @@ const receipt = await node.request({
 - [Receipts & Logs](../advanced/receipts-and-logs)
 - [Ethereum JSON-RPC Specification](https://ethereum.org/en/developers/docs/apis/json-rpc/)
 - [EIP-1193: Ethereum Provider JavaScript API](https://eips.ethereum.org/EIPS/eip-1193)
+- [Tevm API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs)
 
 ## Using Tevm Actions
 
-Tevm provides a set of high-level actions that can be imported from `tevm/actions`:
+Tevm provides a set of high-level actions that can be imported from `tevm/actions`. See the [complete actions documentation](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs) for all available actions.
 
 ```ts
-import { tevmCall, tevmMine, tevmGetAccount, tevmSetAccount } from 'tevm/actions'
+import {
+  tevmCall, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/callHandler.md
+  tevmMine, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/mineHandler.md
+  tevmGetAccount, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getAccountHandler.md
+  tevmSetAccount // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/setAccountHandler.md
+} from 'tevm/actions'
 import { createTevmNode } from 'tevm'
 
 const node = createTevmNode()
@@ -192,7 +212,13 @@ await tevmSetAccount(node, {
 })
 ```
 
-Note: By default, tevm actions require manual mining via `tevmMine()`. If you want transactions to be automatically applied, you can either:
+For detailed type information, see:
+- [`CallParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/CallParams.md)
+- [`MineParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/MineParams.md)
+- [`GetAccountParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/GetAccountParams.md)
+- [`SetAccountParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/SetAccountParams.md)
+
+Note: By default, tevm actions require manual mining via [`tevmMine()`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/mineHandler.md). If you want transactions to be automatically applied, you can either:
 
 1. Use the lower level API `vm.runCall`
 2. Configure the client with `miningConfig: { type: 'auto' }`
@@ -210,8 +236,8 @@ const receiptsManager = await node.getReceiptsManager()
 
 // Submit transaction
 const { txHash } = await tevmCall(node, {
-  to: '0x...',
-  data: '0x...',
+  method: 'eth_sendTransaction',
+  params: [tx],
   createTransaction: true
 })
 
