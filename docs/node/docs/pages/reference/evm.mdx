@@ -1,17 +1,145 @@
-# @tevm/evm API Reference
+# @tevm/evm
 
-This documentation is generated from the source code. View the full API documentation on GitHub:
+The `@tevm/evm` package provides a custom implementation of the Ethereum Virtual Machine (EVM), extending the functionality of `ethereumjs/evm`. It's responsible for executing Ethereum bytecode and managing the execution environment.
 
-[View @tevm/evm API Reference on GitHub](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/globals.md)
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/evm/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs) folder.
 
-## Quick Links
+## Installation
 
-- [Type Aliases](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases)
-- [Classes](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/classes)
-- [Functions](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/functions)
-- [Variables](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/variables)
+```bash
+npm install @tevm/evm
+```
 
-## Return to Documentation
+## API Reference
 
-- [Back to Getting Started](/getting-started)
-- [Package Overview](/api/evm)
+### Enumerations
+
+- [EvmErrorMessage](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/enumerations/EvmErrorMessage.md) - EVM error message types
+
+### Core Classes
+
+- [Evm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/classes/Evm.md) - Main EVM implementation class
+- [EthjsMessage](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/classes/EthjsMessage.md) - EVM message handling
+- [EvmError](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/classes/EvmError.md) - EVM error handling
+
+### Interfaces
+
+- [EvmResult](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/interfaces/EvmResult.md) - Result of EVM execution
+- [EvmRunCallOpts](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/interfaces/EvmRunCallOpts.md) - Options for running calls
+- [ExecResult](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/interfaces/ExecResult.md) - Execution result details
+- [InterpreterStep](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/interfaces/InterpreterStep.md) - Interpreter step information
+- [PrecompileInput](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/interfaces/PrecompileInput.md) - Input for precompiles
+
+### Type Aliases
+
+- [CreateEvmOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases/CreateEvmOptions.md) - Options for creating an EVM
+- [CustomPrecompile](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases/CustomPrecompile.md) - Custom precompile definition
+- [EVMOpts](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases/EVMOpts.md) - EVM configuration options
+
+### Variables
+
+- [Eof](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/variables/Eof.md) - EOF-related constants
+
+### Functions
+
+- [createEvm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/functions/createEvm.md) - Create a new EVM instance
+- [getActivePrecompiles](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/functions/getActivePrecompiles.md) - Get active precompiles
+
+## Usage Examples
+
+### Creating an EVM Instance
+
+```typescript
+import { createEvm } from '@tevm/evm'
+import { mainnet } from '@tevm/common'
+import { createStateManager } from '@tevm/state'
+import { createChain } from '@tevm/chain'
+
+const evm = await createEvm({
+  common: mainnet,
+  stateManager: createStateManager({}),
+  blockchain: await createChain({ common: mainnet }),
+  customPrecompiles: [], // Optional custom precompiles
+  profiler: false, // Enable/disable profiling
+  loggingLevel: 'warn', // Logging configuration
+})
+```
+
+### Running EVM Calls
+
+```typescript
+const result = await evm.runCall({
+  to: '0x1234...',
+  caller: '0x5678...',
+  data: new Uint8Array([/* bytecode */]),
+  value: 1000n,
+  gasLimit: 100000n
+})
+
+console.log(result.execResult.returnValue)
+console.log(result.execResult.executionGasUsed)
+```
+
+### Custom Precompiles
+
+```typescript
+import { definePrecompile, defineCall, createContract, parseAbi } from '@tevm/evm'
+import { createAddress } from '@tevm/utils'
+
+const MyContract = createContract({
+  address: createAddress(2424).toString(),
+  abi: parseAbi([
+    'function addTwo(uint256) returns (uint256)',
+  ])
+})
+
+const customPrecompile = definePrecompile({
+  contract: MyContract,
+  call: defineCall(MyContract.abi, {
+    addTwo: async ({ args }) => {
+      return {
+        returnValue: args[0] + 5n,
+        executionGasUsed: 0n
+      }
+    }
+  })
+})
+
+evm.addCustomPrecompile(customPrecompile.precompile())
+```
+
+### Error Handling
+
+```typescript
+try {
+  const result = await evm.runCall({
+    to: '0x1234...',
+    gasLimit: 100n // Very low gas limit
+  })
+} catch (error) {
+  if (error instanceof EvmError) {
+    console.log(error.error) // e.g. EvmErrorMessage.OUT_OF_GAS
+  }
+}
+```
+
+### Debugging and Performance
+
+```typescript
+// Enable debug logging
+const evm = await createEvm({
+  loggingLevel: 'trace'
+})
+
+// Get performance logs
+const logs = evm.getPerformanceLogs()
+console.log(logs.opcodes) // Opcode execution stats
+console.log(logs.precompiles) // Precompile execution stats
+```
+
+## See Also
+
+- [EthereumJS EVM Documentation](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
+- [Tevm State Documentation](https://tevm.sh/reference/tevm/state/)
+- [Tevm Precompiles Documentation](https://tevm.sh/reference/tevm/precompiles/)
+- [Full API Reference](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/globals.md)

@@ -1,0 +1,161 @@
+# @tevm/receipt-manager
+
+The `@tevm/receipt-manager` package provides a robust transaction receipt management system for the Tevm blockchain. It handles the storage, retrieval, and management of transaction receipts, logs, and related data.
+
+## Installation
+
+```bash
+npm install @tevm/receipt-manager
+```
+
+## Overview
+
+The receipt manager package is responsible for:
+- Managing transaction receipts and their storage
+- Handling transaction logs and bloom filters
+- Supporting different receipt types (Pre-Byzantium, Post-Byzantium, EIP4844)
+- Providing efficient receipt lookup and retrieval
+
+## Core Components
+
+### ReceiptsManager
+
+The main class that handles receipt management operations.
+
+```typescript
+import { ReceiptsManager } from '@tevm/receipt-manager'
+
+const receiptsManager = new ReceiptsManager(mapDb, chain)
+```
+
+#### Key Methods
+
+- `saveReceipts(block, receipts)`: Saves receipts to the database
+- `getReceipts(blockHash)`: Retrieves receipts for a given block hash
+- `getReceiptByTxHash(txHash)`: Gets a receipt by transaction hash
+- `getLogs(from, to, addresses?, topics?)`: Returns logs based on filter criteria
+- `deleteReceipts(block)`: Removes receipts for a given block
+
+### Receipt Types
+
+The package supports multiple receipt types to accommodate different Ethereum protocol versions:
+
+#### BaseTxReceipt
+```typescript
+interface BaseTxReceipt {
+  cumulativeBlockGasUsed: bigint
+  bitvector: Uint8Array
+  logs: Log[]
+}
+```
+
+#### PreByzantiumTxReceipt
+```typescript
+interface PreByzantiumTxReceipt extends BaseTxReceipt {
+  stateRoot: Uint8Array
+}
+```
+
+#### PostByzantiumTxReceipt
+```typescript
+interface PostByzantiumTxReceipt extends BaseTxReceipt {
+  status: 0 | 1
+}
+```
+
+#### EIP4844BlobTxReceipt
+```typescript
+interface EIP4844BlobTxReceipt extends PostByzantiumTxReceipt {
+  blobGasUsed: bigint
+  blobGasPrice: bigint
+}
+```
+
+## Database Management
+
+### MapDb
+
+The package includes a MapDb implementation for storing receipt data:
+
+```typescript
+import { createMapDb } from '@tevm/receipt-manager'
+
+const mapDb = createMapDb({
+  cache: new Map()
+})
+```
+
+### Configuration Options
+
+```typescript
+interface MetaDBManagerOptions {
+  cache: Map<`0x${string}`, Uint8Array>
+}
+```
+
+## Usage Examples
+
+### Saving and Retrieving Receipts
+
+```typescript
+// Save receipts
+await receiptsManager.saveReceipts(block, receipts)
+
+// Retrieve receipts by block hash
+const receipts = await receiptsManager.getReceipts(blockHash)
+
+// Get receipt by transaction hash
+const receipt = await receiptsManager.getReceiptByTxHash(txHash)
+```
+
+### Working with Logs
+
+```typescript
+// Query logs with filters
+const logs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  addresses,
+  topics
+)
+```
+
+## Constants and Limits
+
+The ReceiptsManager includes several important limits:
+
+```typescript
+GET_LOGS_LIMIT = 10000 // Maximum number of logs to return
+GET_LOGS_LIMIT_MEGABYTES = 150 // Size limit for getLogs response
+GET_LOGS_BLOCK_RANGE_LIMIT = 2500 // Block range limit for getLogs
+```
+
+## Error Handling
+
+The package includes proper error handling for common scenarios:
+
+```typescript
+try {
+  const receipt = await receiptsManager.getReceiptByTxHash(txHash)
+  if (!receipt) {
+    // Handle missing receipt
+  }
+} catch (error) {
+  // Handle errors
+}
+```
+
+## Types
+
+The package exports several important types:
+
+```typescript
+type TxReceipt = PreByzantiumTxReceipt | PostByzantiumTxReceipt | EIP4844BlobTxReceipt
+type TxReceiptWithType = PreByzantiumTxReceiptWithType | PostByzantiumTxReceiptWithType
+type DbType = "Receipts" | "TxHash" | "SkeletonBlock" | "SkeletonBlockHashToNumber" |
+  "SkeletonStatus" | "SkeletonUnfinalizedBlockByHash" | "Preimage"
+```
+
+## License
+
+This package is licensed under the MIT License. Some files are adapted from [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) and are licensed under the Mozilla Public License 2.0.

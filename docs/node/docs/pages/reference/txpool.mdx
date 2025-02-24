@@ -1,0 +1,196 @@
+# @tevm/txpool
+
+The `@tevm/txpool` package provides a transaction pool (mempool) implementation for Tevm, managing pending transactions and their lifecycle within the Ethereum Virtual Machine.
+
+## Installation
+
+```bash
+npm install @tevm/txpool
+```
+
+## Overview
+
+The transaction pool is responsible for:
+- Managing pending transactions
+- Validating transaction requirements
+- Ordering transactions by price and nonce
+- Handling transaction replacement
+- Cleaning up stale transactions
+- Supporting transaction lifecycle management
+
+## API Reference
+
+### Core Class
+
+#### TxPool
+[`TxPool`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts) - The main transaction pool class with the following key features:
+
+##### Constructor
+```typescript
+new TxPool(options: TxPoolOptions)
+```
+
+##### Properties
+- `BLOCKS_BEFORE_TARGET_HEIGHT_ACTIVATION`: Number of blocks before chain head to start tx pool preparation
+- `POOLED_STORAGE_TIME_LIMIT`: Number of minutes to keep txs in the pool
+- `HANDLED_CLEANUP_TIME_LIMIT`: Number of minutes to forget about handled txs
+- `pool`: The central pool dataset mapping addresses to transactions
+- `running`: Boolean indicating if the pool is running
+- `txsInPool`: Number of transactions currently in the pool
+
+##### Methods
+- [`add`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L310) - Adds a transaction to the pool
+- [`addUnverified`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L280) - Adds an unverified transaction to the pool
+- [`getByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L320) - Retrieves transactions by their hashes
+- [`removeByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L341) - Removes a transaction by its hash
+- [`txsByPriceAndNonce`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L477) - Returns transactions sorted by price and nonce
+- [`cleanup`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L374) - Performs pool cleanup
+- [`open`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L141) - Opens the transaction pool
+- [`close`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L581) - Closes the transaction pool
+- [`start`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L153) - Starts transaction processing
+- [`stop`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L570) - Stops transaction processing
+- [`deepCopy`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L128) - Creates a deep copy of the pool
+
+## Usage Examples
+
+### Creating and Managing a Transaction Pool
+
+```typescript
+import { TxPool } from '@tevm/txpool'
+import { createCommon } from '@tevm/common'
+
+const common = createCommon({ chain: 'mainnet' })
+const txPool = new TxPool({
+  common,
+  maxPoolSize: 5000,
+  minGasPriceBump: 10 // 10% price bump for replacement
+})
+
+// Start the pool
+txPool.open()
+txPool.start()
+```
+
+### Adding Transactions
+
+```typescript
+// Add a new transaction
+await txPool.add(transaction, {
+  requireSignature: true,
+  skipBalance: false
+})
+
+// Add an unverified transaction
+await txPool.addUnverified(transaction)
+```
+
+### Retrieving Transactions
+
+```typescript
+// Get transactions by hash
+const txs = txPool.getByHash(txHashes)
+
+// Get transactions by sender
+const senderTxs = await txPool.getBySenderAddress(senderAddress)
+
+// Get transactions ordered by price and nonce
+const orderedTxs = await txPool.txsByPriceAndNonce({
+  baseFee: 1000000000n,
+  allowedBlobs: 3
+})
+```
+
+### Managing Transaction Lifecycle
+
+```typescript
+// Remove a transaction
+txPool.removeByHash(txHash)
+
+// Remove transactions included in new blocks
+txPool.removeNewBlockTxs(newBlocks)
+
+// Perform cleanup of stale transactions
+txPool.cleanup()
+```
+
+### Pool Lifecycle Management
+
+```typescript
+// Start the pool
+txPool.open()
+txPool.start()
+
+// Stop the pool
+txPool.stop()
+txPool.close()
+
+// Create a copy of the pool
+const poolCopy = txPool.deepCopy(options)
+```
+
+## Configuration
+
+The transaction pool can be configured with various options:
+
+```typescript
+interface TxPoolOptions {
+  common: Common
+  maxPoolSize?: number
+  minGasPriceBump?: number
+  minFeeBump?: number
+  maxPendingTotal?: number
+  maxPendingPerAccount?: number
+  maxQueuedTotal?: number
+  maxQueuedPerAccount?: number
+  minPendingNodeBalance?: bigint
+  minRemainingGasLimit?: bigint
+}
+```
+
+### Configuration Options
+
+- `maxPoolSize`: Maximum number of transactions in the pool
+- `minGasPriceBump`: Minimum price bump percentage for transaction replacement
+- `minFeeBump`: Minimum fee bump for transaction replacement
+- `maxPendingTotal`: Maximum number of pending transactions
+- `maxPendingPerAccount`: Maximum pending transactions per account
+- `maxQueuedTotal`: Maximum number of queued transactions
+- `maxQueuedPerAccount`: Maximum queued transactions per account
+- `minPendingNodeBalance`: Minimum balance required for pending transactions
+- `minRemainingGasLimit`: Minimum gas limit for remaining transactions
+
+## Error Handling
+
+The transaction pool throws specific errors for various failure scenarios:
+
+```typescript
+try {
+  await txPool.add(transaction)
+} catch (error) {
+  if (error.code === 'POOL_FULL') {
+    console.error('Transaction pool is full')
+  } else if (error.code === 'UNDERPRICED') {
+    console.error('Transaction is underpriced')
+  } else if (error.code === 'NONCE_TOO_LOW') {
+    console.error('Transaction nonce is too low')
+  }
+}
+```
+
+## Best Practices
+
+1. **Regular Cleanup**: Call `cleanup()` periodically to remove stale transactions
+2. **Transaction Replacement**: Use appropriate gas price bumps for replacement transactions
+3. **Pool Size Management**: Monitor and adjust pool size limits based on network conditions
+4. **Error Handling**: Implement proper error handling for transaction additions and removals
+5. **Lifecycle Management**: Properly manage pool lifecycle with `open()`, `start()`, `stop()`, and `close()`
+
+## Related Packages
+
+- [@tevm/vm](./vm) - Virtual Machine implementation
+- [@tevm/state](./state) - State management
+- [@tevm/common](./common) - Chain configuration
+
+## License
+
+MIT
