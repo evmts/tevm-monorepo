@@ -2,12 +2,11 @@ import { defineConfig } from 'vocs'
 
 export default defineConfig({
   title: 'Tevm Node',
-  description: "An EVM node that runs in the browser",
+  description: "A lightweight, unopinionated, powerful EVM node that runs in the browser",
   topNav: [
     { text: 'Docs', link: '/introduction/what-is-tevm-node', match: '/introduction' },
     { text: 'Viem', link: 'https://viem.sh/' },
     { text: 'Ethereumjs', link: 'https://github.com/ethereumjs/ethereumjs-monorepo' },
-    { text: 'Helios', link: 'https://github.com/a16z/helios' },
     { text: 'Krome', link: 'https://github.com/evmts/krome' },
   ],
   sidebar: [
