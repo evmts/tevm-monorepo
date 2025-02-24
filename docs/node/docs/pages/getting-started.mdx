@@ -17,7 +17,7 @@ npm install tevm
 
 ### 1. Raw Tevm Node API
 
-The most direct way to use Tevm is with the raw [`createTevmNode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/functions/createTevmNode.md) API:
+The most direct way to use Tevm is with the raw [`createTevmNode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/functions/createTevmNode.md) API. This gives you access to the [complete actions API](/api/actions):
 
 ```typescript
 import { createTevmNode } from 'tevm'
@@ -48,19 +48,25 @@ await tevmSetAccountHandler(node)({
 const account = await getAccountHandler(node)({
   address: '0x1234567890123456789012345678901234567890'
 })
+
+// You can also interact directly with the low level node apis
+const vm = await node.getVm()
+await node.blockchain.putBlock(newBlock)
+await node.stateManager.putContractCode(createAddress(420), hexToBytes('0x...'))
 ```
 
 ### 2. Using with Viem
 
-For a more familiar developer experience, you can use Tevm with [Viem](./examples/viem):
+For a more familiar developer experience, you can use [Tevm with Viem](./examples/viem):
 
-You can still use the Raw Tevm Node API referencing `client.transport.tevm`
+You can still use the [Raw Tevm Node API](#1-raw-tevm-node-api) referencing [`client.transport.tevm`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/functions/createTevmNode.md)
 
 ```typescript
 import { createMemoryClient, http } from 'tevm'
 import { optimism } from 'tevm/common'
 
 // Create a client that forks from Optimism mainnet
+// See [MemoryClient docs](/api/memory-client) for more configuration options
 const client = createMemoryClient({
   fork: {
     transport: http('https://mainnet.optimism.io')({}),

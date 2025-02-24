@@ -31,7 +31,7 @@ const client = createPublicClient({
 
 ## Using viem
 
-Use viem via actions. All viem and tevm actions are available as tree shakable actions.
+Use [viem](/examples/viem) via actions. All viem and tevm actions are available as tree shakable actions.
 
 ### 1. Public actions
 
@@ -54,7 +54,7 @@ const nonce = await client.getTransactionCount({
 
 ### 2. Wallet actions
 
-All of viems [`Wallet actions`](https://viem.sh/docs/actions/wallet/introduction) are available via passing in an `account`
+All of [viem's](/examples/viem) [`Wallet actions`](https://viem.sh/docs/actions/wallet/introduction) are available via passing in an `account`
 
 ```ts
 // Import PREFUNDED_ACCOUNTS from tevm
@@ -117,7 +117,7 @@ These test actions are particularly useful for:
 
 ## Tevm Actions
 
-Tevm provides additional actions beyond standard Viem functionality for enhanced testing and debugging capabilities.
+Tevm provides additional actions beyond standard [viem](/examples/viem) functionality for enhanced testing and debugging capabilities.
 
 ### 1. Contract Interactions
 
