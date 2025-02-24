@@ -31,35 +31,35 @@ Tevm Node is built on several key components that work together:
 - Handles state transitions and gas metering
 - Based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
 
-See [evm docs](../api/evm.mdx) for api info
+See [EVM](/reference/evm) for api info
 
 ### 2. State Manager
 - Manages account balances, contract code, and storage
 - Supports forking from live networks
 - Implements caching and lazy loading
 
-See [state docs](../api/state.mdx) for api info
+See [State](/reference/state) for api info
 
 ### 3. Transaction Pool (Mempool)
 - Manages pending transactions
 - Orders transactions by gas price
 - Validates transaction requirements
 
-See [TxPool docs](../api/txpool.mdx) for api info
+See [Transaction Pool](/reference/txpool) for api info
 
 ### 4. Blockchain
 - Maintains block history and chain state
 - Handles block production (mining)
 - Manages chain reorganizations
 
-See [Blockchain docs](../api/blockchain.mdx) for api info
+See [Blockchain](/reference/blockchain) for api info
 
 ### 5. Receipts Manager
 - Caches transaction outcomes
 - Manages event logs and filters
 - Useful for implementing optimistic updates
 
-See [Receipts Manager docs](../api/receipt-manager.mdx) for api info
+See [Receipt Manager](/reference/receipt-manager) for api info
 
 ## Available APIs
 
