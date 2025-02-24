@@ -10,7 +10,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js, enabling seamless i
 ## Basic Setup
 
 ```ts
-import { createTevmNode } from 'tevm/node'
+import { createTevmNode } from 'tevm'
 import { requestEip1193 } from 'tevm/decorators'
 import { BrowserProvider } from 'ethers'
 
@@ -30,14 +30,15 @@ const balance = await provider.getBalance('0x1234...')
 ### 1. Reading Contract State
 
 ```ts
-import { Contract } from 'ethers'
+import { Contract } from '@tevm/ethers'
+import { parseAbi } from 'tevm'
 
 // Contract setup
-const abi = [
+const abi = parseAbi([
   'function balanceOf(address) view returns (uint256)',
   'function symbol() view returns (string)',
   'function decimals() view returns (uint8)',
-]
+])
 
 const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' // USDC
 const contract = new Contract(tokenAddress, abi, provider)
@@ -55,14 +56,22 @@ console.log(`${symbol} Balance: ${formatUnits(balance, decimals)}`)
 ### 2. Writing to Contracts
 
 ```ts
+import { ContractTransactionResponse } from 'ethers'
+
 // Get signer
 const signer = await provider.getSigner()
 
-// Connect contract to signer
-const contractWithSigner = contract.connect(signer)
+const abi = parseAbi([
+  'function transfer(address to, uint256 amount) returns (bool)',
+])
+
+const contract = new Contract(tokenAddress, abi, signer)
 
 // Send transaction
-const tx = await contractWithSigner.transfer('0x5678...', parseUnits('100', 6))
+const tx = await contract.transfer(
+  '0x5678...',
+  parseUnits('100', 6)
+) as ContractTransactionResponse
 
 // Wait for confirmation
 const receipt = await tx.wait()
@@ -74,15 +83,24 @@ console.log('Transaction confirmed:', receipt.hash)
 ### 1. Listening for Events
 
 ```ts
-// Listen for Transfer events
+const abi = parseAbi([
+  'event Transfer(address indexed from, address indexed to, uint256 value)',
+  'function transfer(address to, uint256 amount) returns (bool)',
+])
+
+const contract = new Contract(tokenAddress, abi, provider)
+
+// Type-safe event handling
+type TransferEvent = {
+  from: string
+  to: string
+  amount: bigint
+  event: any
+}
+
+const events: TransferEvent[] = []
 contract.on('Transfer', (from, to, amount, event) => {
-  console.log('Transfer:', {
-    from,
-    to,
-    amount: formatUnits(amount, 6),
-    blockNumber: event.blockNumber,
-    transactionHash: event.transactionHash,
-  })
+  events.push({ from, to, amount, event })
 })
 
 // Remove listener when done
@@ -92,6 +110,12 @@ contract.off('Transfer')
 ### 2. Querying Past Events
 
 ```ts
+const abi = parseAbi([
+  'event Transfer(address indexed from, address indexed to, uint256 value)',
+])
+
+const contract = new Contract(tokenAddress, abi, provider)
+
 // Create filter
 const filter = contract.filters.Transfer()
 
@@ -115,6 +139,10 @@ for (const event of events) {
 ```ts
 import { ContractFactory } from 'ethers'
 
+const abi = parseAbi([
+  'function getValue() view returns (uint256)',
+])
+
 // Get signer
 const signer = await provider.getSigner()
 
@@ -122,7 +150,7 @@ const signer = await provider.getSigner()
 const factory = new ContractFactory(abi, bytecode, signer)
 
 // Deploy contract
-const contract = await factory.deploy(constructorArg1, constructorArg2)
+const contract = await factory.deploy()
 await contract.waitForDeployment()
 
 console.log('Contract deployed to:', await contract.getAddress())
@@ -153,12 +181,14 @@ const receipt = await provider.waitForTransaction(hash)
 
 ```ts
 import { Interface } from 'ethers'
+import { parseAbi } from 'tevm'
 
 // Create interface
-const iface = new Interface([
+const abi = parseAbi([
   'function transfer(address to, uint256 amount) returns (bool)',
   'event Transfer(address indexed from, address indexed to, uint256 value)',
 ])
+const iface = new Interface(abi)
 
 // Encode function data
 const data = iface.encodeFunctionData('transfer', [
@@ -179,6 +209,7 @@ const decodedLog = iface.parseLog({
 ```ts
 import { expect } from 'chai'
 import { loadFixture } from '@nomicfoundation/hardhat-network-helpers'
+import { parseAbi } from 'tevm'
 
 describe('Token Contract', () => {
   async function deployTokenFixture() {
@@ -186,6 +217,11 @@ describe('Token Contract', () => {
     const node = createTevmNode()
     const provider = new BrowserProvider(node)
     const signer = await provider.getSigner()
+
+    const abi = parseAbi([
+      'function balanceOf(address) view returns (uint256)',
+      'function transfer(address to, uint256 amount) returns (bool)',
+    ])
 
     // Deploy contract
     const factory = new ContractFactory(abi, bytecode, signer)
@@ -212,12 +248,19 @@ describe('Token Contract', () => {
 
 1. **Contract Initialization**:
    ```ts
+   import { parseAbi } from 'tevm'
+   import { Contract } from '@tevm/ethers'
+
    // Reuse contract instances
    const contracts = new Map<string, Contract>()
 
    function getContract(address: string): Contract {
      let contract = contracts.get(address)
      if (!contract) {
+       const abi = parseAbi([
+         'function balanceOf(address) view returns (uint256)',
+         'function transfer(address to, uint256 amount) returns (bool)',
+       ])
        contract = new Contract(address, abi, provider)
        contracts.set(address, contract)
      }
@@ -227,6 +270,11 @@ describe('Token Contract', () => {
 
 2. **Error Handling**:
    ```ts
+   const abi = parseAbi([
+     'function riskyFunction() returns (uint256)',
+   ])
+   const contract = new Contract(address, abi, provider)
+
    try {
      const tx = await contract.riskyFunction()
      await tx.wait()
@@ -242,6 +290,11 @@ describe('Token Contract', () => {
 
 3. **Gas Management**:
    ```ts
+   const abi = parseAbi([
+     'function transfer(address to, uint256 amount) returns (bool)',
+   ])
+   const contract = new Contract(address, abi, provider)
+
    // Estimate gas with buffer
    const gasEstimate = await contract.transfer.estimateGas(
      recipient,
@@ -259,6 +312,11 @@ describe('Token Contract', () => {
 
 4. **Event Management**:
    ```ts
+   const abi = parseAbi([
+     'event Transfer(address indexed from, address indexed to, uint256 value)',
+   ])
+   const contract = new Contract(address, abi, provider)
+
    // Clean up listeners
    function setupEventListeners(contract: Contract) {
      const handler = (...args) => {

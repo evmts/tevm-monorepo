@@ -1,0 +1,187 @@
+import { describe, it, expect } from 'vitest'
+import { createTevmNode } from 'tevm'
+import { createImpersonatedTx } from 'tevm/tx'
+import { Block } from 'tevm/block'
+import { createAddress } from 'tevm/address'
+import { mainnet } from 'tevm/common'
+import { hexToBytes } from 'tevm/utils'
+
+describe('Local Testing', () => {
+  describe('Basic Test Setup', () => {
+    it('should perform basic ETH transfer', async () => {
+      const node = createTevmNode()
+      const vm = await node.getVm()
+
+      const tx = createImpersonatedTx({
+        impersonatedAddress: createAddress('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'),
+        to: createAddress('0x70997970C51812dc3A010C7d01b50e0d17dc79C8'),
+        value: 1000000000000000000n, // 1 ETH
+        gasLimit: 21000n,
+      })
+
+      const result = await vm.runTx({ tx })
+      expect(result.execResult.exceptionError).toBeUndefined()
+
+      const account = await vm.stateManager.getAccount(createAddress('0x70997970C51812dc3A010C7d01b50e0d17dc79C8'))
+      expect(account?.balance).toBe(1000000000000000000n)
+    })
+  })
+
+  describe('Contract Testing', () => {
+    it('should deploy and interact with contract', async () => {
+      const node = createTevmNode()
+      const vm = await node.getVm()
+
+      // Simple contract that stores a value
+      const CONTRACT_BYTECODE = hexToBytes('0x608060405234801561001057600080fd5b506101de806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80632096525514610041578063552410771461005f575b600080fd5b61004961007b565b60405161005691906100d9565b60405180910390f35b61007960048036038101906100749190610125565b610081565b005b60005481565b8060008190555050565b6000819050919050565b61009381610087565b82525050565b6000819050919050565b6100b381610099565b82525050565b6000819050919050565b6100d3816100b9565b82525050565b60006020820190506100ee600083018461008a565b92915050565b600080fd5b61010281610087565b811461010d57600080fd5b50565b60008135905061011f816100f9565b92915050565b60006020828403121561013b5761013a6100f4565b5b600061014984828501610110565b9150509291505056fea264697066735822122086e0ee0abf6f0508a49b26edc5f4bbb6cd2e0dc0f87a9ae5c5405f9ff5a6c84d64736f6c63430008110033')
+
+      // Deploy contract
+      const deployTx = createImpersonatedTx({
+        impersonatedAddress: createAddress('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'),
+        data: CONTRACT_BYTECODE,
+        gasLimit: 1000000n,
+      })
+
+      const deployResult = await vm.runTx({ tx: deployTx })
+      expect(deployResult.execResult.exceptionError).toBeUndefined()
+      const contractAddress = deployResult.createdAddress
+      expect(contractAddress).toBeDefined()
+      if (!contractAddress) throw new Error('Contract deployment failed')
+
+      // Call contract method to set value
+      const SET_VALUE_SELECTOR = hexToBytes('0x55241077')
+      const setValue = createImpersonatedTx({
+        impersonatedAddress: createAddress('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'),
+        to: contractAddress,
+        data: SET_VALUE_SELECTOR.toString() + '000000000000000000000000000000000000000000000000000000000000007b', // 123 in hex
+        gasLimit: 100000n,
+      })
+
+      const setValueResult = await vm.runTx({ tx: setValue })
+      expect(setValueResult.execResult.exceptionError).toBeUndefined()
+
+      // Call contract method to get value
+      const GET_VALUE_SELECTOR = hexToBytes('0x20965255')
+      const getValue = createImpersonatedTx({
+        impersonatedAddress: createAddress('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'),
+        to: contractAddress,
+        data: GET_VALUE_SELECTOR,
+        gasLimit: 100000n,
+      })
+
+      const getValueResult = await vm.runTx({ tx: getValue })
+      expect(getValueResult.execResult.exceptionError).toBeUndefined()
+      expect(getValueResult.execResult.returnValue.toString('hex')).toBe('000000000000000000000000000000000000000000000000000000000000007b')
+    })
+
+    it('should handle contract events', async () => {
+      const node = createTevmNode()
+      await node.ready()
+
+      // Mock contract deployment
+      const contract = {
+        address: '0x1234567890123456789012345678901234567890',
+        interface: {
+          getEventTopic: (name: string) => '0x...',
+        },
+      }
+
+      // Create event filter
+      node.setFilter({
+        id: '0x1',
+        address: contract.address,
+        topics: [
+          contract.interface.getEventTopic('ValueChanged'),
+        ],
+      })
+
+      // Trigger event
+      const vm = await node.getVm()
+      const tx = createImpersonatedTx({
+        to: contract.address,
+        data: '0x...',
+      })
+      await vm.runTx({ tx })
+
+      // Get event logs
+      const receipts = await node.getReceiptsManager()
+      const logs = await receipts.getLogs({
+        fromBlock: 0n,
+        toBlock: 'latest',
+        address: contract.address,
+      })
+
+      expect(logs.length).toBe(1)
+      expect(logs[0].topics[0]).toBe(contract.interface.getEventTopic('ValueChanged'))
+    })
+  })
+
+  describe('State Management', () => {
+    it('should handle state changes atomically', async () => {
+      const node = createTevmNode()
+      const vm = await node.getVm()
+
+      // Create checkpoint
+      await vm.stateManager.checkpoint()
+
+      try {
+        const address1 = createAddress('0x1234567890123456789012345678901234567890')
+        const address2 = createAddress('0x2345678901234567890123456789012345678901')
+
+        // Perform state changes
+        await vm.stateManager.putAccount(address1, {
+          nonce: 0n,
+          balance: 1000000000000000000n,
+          codeHash: Buffer.alloc(32),
+          storageRoot: Buffer.alloc(32),
+        })
+
+        // Verify intermediate state
+        const intermediateState = await vm.stateManager.getAccount(address1)
+        expect(intermediateState?.balance).toBe(1000000000000000000n)
+
+        // More changes
+        await vm.stateManager.putAccount(address2, {
+          nonce: 0n,
+          balance: 2000000000000000000n,
+          codeHash: Buffer.alloc(32),
+          storageRoot: Buffer.alloc(32),
+        })
+
+        // Commit changes
+        await vm.stateManager.commit()
+      } catch (error) {
+        // Revert on failure
+        await vm.stateManager.revert()
+        throw error
+      }
+    })
+  })
+
+  describe('Testing Utilities', () => {
+    it('should setup test accounts', async () => {
+      const node = createTevmNode()
+      const vm = await node.getVm()
+
+      const addresses = [
+        createAddress('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'),
+        createAddress('0x70997970C51812dc3A010C7d01b50e0d17dc79C8'),
+      ]
+
+      for (const address of addresses) {
+        await vm.stateManager.putAccount(address, {
+          nonce: 0n,
+          balance: 10000000000000000000n, // 10 ETH
+          codeHash: Buffer.alloc(32),
+          storageRoot: Buffer.alloc(32),
+        })
+      }
+
+      // Verify accounts
+      for (const address of addresses) {
+        const account = await vm.stateManager.getAccount(address)
+        expect(account?.balance).toBe(10000000000000000000n)
+      }
+    })
+  })
+})
