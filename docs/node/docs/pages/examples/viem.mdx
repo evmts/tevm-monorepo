@@ -21,6 +21,7 @@ const node = createTevmNode().extend(requestEip1193())
 // Create Viem client
 const client = createPublicClient({
   chain: mainnet,
+  // Use Tevm node as the viem transport
   transport: custom(node),
 })
 
@@ -28,9 +29,13 @@ const client = createPublicClient({
 // all fully in memory or forking from node if you configured it
 ```
 
-## Reading Blockchain State
+## Using viem
 
-### 1. Basic State Queries
+Use viem via actions. All viem and tevm actions are available as tree shakable actions.
+
+### 1. Public actions
+
+Use [viem's public actions](https://viem.sh/docs/actions/public/introduction) to read from locally running evm node
 
 ```ts
 // Get latest block
@@ -47,292 +52,230 @@ const nonce = await client.getTransactionCount({
 })
 ```
 
-### 2. Contract Reading
+### 2. Wallet actions
+
+All of viems [`Wallet actions`](https://viem.sh/docs/actions/wallet/introduction) are available via passing in an `account`
 
 ```ts
-const abi = parseAbi([
-  'function balanceOf(address) view returns (uint256)',
-  'function symbol() view returns (string)',
-  'event Transfer(address indexed from, address indexed to, uint256 value)',
-])
+// Import PREFUNDED_ACCOUNTS from tevm
+import { PREFUNDED_ACCOUNTS } from 'tevm'
 
-const tokenContract = {
-  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
-  abi,
-} as const
-
-const [balance, symbol] = await Promise.all([
-  client.readContract({
-    ...tokenContract,
-    functionName: 'balanceOf',
-    args: ['0x1234567890123456789012345678901234567890'],
-  }),
-  client.readContract({
-    ...tokenContract,
-    functionName: 'symbol',
-  }),
-])
-
-console.log(`${symbol} Balance:`, balance)
-```
-
-## Writing to the Blockchain
-
-### 1. Transaction Simulation
-
-```ts
-// Simulate contract interaction
-const { request } = await client.simulateContract({
-  address: contractAddress,
-  abi,
-  functionName: 'transfer',
-  args: ['0x1234...', 1000000n],
+// Create client with prefunded test account
+const client = createMemoryClient({
+  account: PREFUNDED_ACCOUNTS[0], // First prefunded account with 10000 ETH
 })
 
-// Execute the transaction
-const hash = await client.writeContract(request)
-
-// Wait for confirmation
-const receipt = await client.waitForTransactionReceipt({ hash })
-```
-
-### 2. Raw Transactions
-
-```ts
-// Send ETH
+// Send transaction using prefunded account
 const hash = await client.sendTransaction({
-  to: '0x1234...',
+  to: '0x1234567890123456789012345678901234567890',
   value: parseEther('1'),
 })
 
-// Send raw transaction
-const hash2 = await client.sendRawTransaction({
-  serializedTransaction: '0x...',
-})
-```
-
-## Event Handling
-
-### 1. Reading Past Events
-
-```ts
-const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-const transferEvent = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])[0]
-
-const logs = await client.getLogs({
-  address: tokenAddress,
-  event: transferEvent,
-  fromBlock: 0n,
-  toBlock: 'latest',
-})
-
-for (const log of logs) {
-  console.log('Transfer:', {
-    from: log.args?.from,
-    to: log.args?.to,
-    value: log.args?.value,
-  })
-}
-```
-
-### 2. Event Filtering
-
-```ts
-const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-const transferEvent = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])[0]
-
-const filter = await client.createEventFilter({
-  address: tokenAddress,
-  event: transferEvent,
-})
-
-const newEvents = await client.getFilterChanges({ filter })
-```
-
-### 3. Gas Estimation
-
-```ts
-const abi = parseAbi([
-  'function transfer(address to, uint256 amount) returns (bool)',
-])
-
-const gas = await client.estimateContractGas({
-  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  abi,
-  functionName: 'transfer',
-  args: ['0x1234567890123456789012345678901234567890', 1000000n],
-})
-```
-
-## Advanced Usage
-
-### 1. Multiple Contract Interactions
-
-```ts
-// Batch contract reads
-const results = await Promise.all([
-  client.readContract({
-    address: token1Address,
-    abi: TOKEN_ABI,
-    functionName: 'balanceOf',
-    args: [address],
-  }),
-  client.readContract({
-    address: token2Address,
-    abi: TOKEN_ABI,
-    functionName: 'balanceOf',
-    args: [address],
-  }),
-])
-
-// Multicall
-const multicallResult = await client.multicall({
-  contracts: [
-    {
-      address: token1Address,
-      abi: TOKEN_ABI,
-      functionName: 'balanceOf',
-      args: [address],
-    },
-    {
-      address: token2Address,
-      abi: TOKEN_ABI,
-      functionName: 'balanceOf',
-      args: [address],
-    },
-  ],
-})
-```
-
-### 2. Contract Deployment
-
-```ts
-// Deploy contract
-const hash = await client.deployContract({
+// Deploy contract using prefunded account
+const { contractAddress } = await client.deployContract({
   abi,
   bytecode,
-  args: [constructorArg1, constructorArg2],
+  account: PREFUNDED_ACCOUNTS[0],
 })
 
-// Get contract address
-const receipt = await client.waitForTransactionReceipt({ hash })
-const contractAddress = receipt.contractAddress
 ```
 
-### 3. Gas Estimation
+### 3. Test actions
+
+All of viem's [`Test actions`](https://viem.sh/docs/actions/test/introduction) are available for testing and debugging
 
 ```ts
-// Estimate gas for contract deployment
-const gas = await client.estimateContractGas({
-  abi,
-  bytecode,
-  args: [constructorArg1, constructorArg2],
+// Import test actions
+import { mine, setBalance, setNextBlockTimestamp, setBlockTimestamp } from 'viem/test'
+
+// Mine blocks
+await client.mine({ blocks: 1 })
+
+// Set account balance
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: parseEther('100')
 })
 
-// Estimate gas for contract call
-const gas2 = await client.estimateContractGas({
-  address: contractAddress,
-  abi,
-  functionName: 'transfer',
-  args: ['0x1234...', 1000000n],
+// Manipulate block timestamps
+await client.setNextBlockTimestamp(1695311333n)
+await client.setBlockTimestamp(1695311333n)
+
+// Combine actions for test scenarios
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: parseEther('100')
 })
+await client.mine({ blocks: 5 })
 ```
 
-## Testing with Viem
+These test actions are particularly useful for:
+- Setting up specific test scenarios
+- Manipulating blockchain state for testing
+- Time-traveling through blocks
+- Debugging smart contract interactions
+
+## Tevm Actions
+
+Tevm provides additional actions beyond standard Viem functionality for enhanced testing and debugging capabilities.
+
+### 1. Contract Interactions
 
 ```ts
-import { expect, test } from 'vitest'
+import { tevmContract, tevmCall, tevmDeploy } from 'tevm/actions'
 
-test('Contract interaction', async () => {
-  // Setup Tevm Node
-  const node = createTevmNode()
-  const client = createPublicClient({
-    chain: mainnet,
-    transport: custom(node),
-  })
+// Call a contract method
+const result = await tevmContract(client, {
+  abi: myContractAbi,
+  functionName: 'balanceOf',
+  args: ['0x1234...'],
+})
 
-  // Deploy contract
-  const hash = await client.deployContract({
-    abi,
-    bytecode,
-  })
-  const receipt = await client.waitForTransactionReceipt({ hash })
-  const contractAddress = receipt.contractAddress
+// Low-level contract call
+const callResult = await tevmCall(client, {
+  to: '0x1234...',
+  data: '0x...',
+})
 
-  // Test contract
-  const result = await client.readContract({
-    address: contractAddress,
-    abi,
-    functionName: 'getValue',
-  })
-
-  expect(result).toBe(expectedValue)
+// Deploy a contract
+const deployResult = await tevmDeploy(client, {
+  abi: myContractAbi,
+  bytecode: '0x...',
 })
 ```
 
-## Best Practices
+### 2. Account Management
 
-1. **Error Handling**:
-   ```ts
-   try {
-     const result = await client.readContract({
-       address,
-       abi,
-       functionName: 'riskyFunction',
-     })
-   } catch (error) {
-     if (error.message.includes('revert')) {
-       // Handle contract revert
-     }
-     throw error
-   }
-   ```
+```ts
+import { tevmGetAccount, tevmSetAccount } from 'tevm/actions'
 
-2. **Gas Management**:
-   ```ts
-   // Always estimate gas before sending transactions
-   const gas = await client.estimateContractGas({
-     address,
-     abi,
-     functionName: 'transfer',
-     args: [to, amount],
-   })
+// Get account state
+const account = await tevmGetAccount(client, {
+  address: '0x1234...',
+})
 
-   const hash = await client.writeContract({
-     address,
-     abi,
-     functionName: 'transfer',
-     args: [to, amount],
-     gas: gas * 120n / 100n, // Add 20% buffer
-   })
-   ```
+// Modify account state
+await tevmSetAccount(client, {
+  address: '0x1234...',
+  balance: parseEther('100'),
+  code: '0x...',  // Optional contract bytecode
+  storage: {      // Optional storage slots
+    '0x0': '0x1'
+  }
+})
+```
 
-3. **Transaction Confirmation**:
-   ```ts
-   // Wait for sufficient confirmations
-   const receipt = await client.waitForTransactionReceipt({
-     hash,
-     confirmations: 2,
-     timeout: 60_000,
-   })
-   ```
+### 3. Other Tevm actions
 
-4. **Resource Cleanup**:
-   ```ts
-   // Clean up filters when done
-   const filter = await client.createEventFilter({
-     address,
-     event: parseAbi(['event Transfer(...)']),
-   })
+You can use `tevmLoadState` and `tevmDumpState` to persist state to disk or local storage.
 
-   try {
-     // Use filter
-   } finally {
-     await client.uninstallFilter({ filter })
-   }
-   ```
+`tevmMine` is an important action for mining new blocks.
 
-## Related Topics
-- [JSON-RPC Support](../api/json-rpc)
-- [Local Testing](./local-testing)
-- [Forking Mainnet](./forking-mainnet)
+```ts
+import { tevmDumpState, tevmLoadState, tevmMine } from 'tevm/actions'
+
+// Save current state
+const state = await tevmDumpState(client)
+
+// Load previously saved state
+await tevmLoadState(client, {
+  state: state
+})
+
+// Mine blocks with Tevm
+await tevmMine(client, {
+  blocks: 5
+})
+```
+
+These Tevm-specific actions provide powerful capabilities for:
+- Direct contract interactions and deployment
+- Fine-grained account state manipulation
+- Complete EVM state management
+- Advanced testing scenarios
+
+## Complete Action Reference
+
+### Public Actions
+
+All [viem's public actions](https://viem.sh/docs/actions/public/introduction) are supported:
+
+#### Contract Interactions
+- [`call`](https://viem.sh/docs/actions/public/call)
+- [`readContract`](https://viem.sh/docs/contract/readContract)
+- [`simulateContract`](https://viem.sh/docs/contract/simulateContract)
+- [`estimateContractGas`](https://viem.sh/docs/contract/estimateContractGas)
+- [`estimateGas`](https://viem.sh/docs/actions/public/estimateGas)
+- [`getBytecode`](https://viem.sh/docs/contract/getBytecode)
+
+#### Block & Transaction
+- [`getBlock`](https://viem.sh/docs/actions/public/getBlock)
+- [`getBlockNumber`](https://viem.sh/docs/actions/public/getBlockNumber)
+- [`getBlockTransactionCount`](https://viem.sh/docs/actions/public/getBlockTransactionCount)
+- [`getTransaction`](https://viem.sh/docs/actions/public/getTransaction)
+- [`getTransactionCount`](https://viem.sh/docs/actions/public/getTransactionCount)
+- [`getTransactionReceipt`](https://viem.sh/docs/actions/public/getTransactionReceipt)
+- [`waitForTransactionReceipt`](https://viem.sh/docs/actions/public/waitForTransactionReceipt)
+
+#### Account & Chain
+- [`getBalance`](https://viem.sh/docs/actions/public/getBalance)
+- [`getChainId`](https://viem.sh/docs/actions/public/getChainId)
+- [`getGasPrice`](https://viem.sh/docs/actions/public/getGasPrice)
+- [`estimateFeesPerGas`](https://viem.sh/docs/actions/public/estimateFeesPerGas)
+- [`getStorageAt`](https://viem.sh/docs/actions/public/getStorageAt)
+
+### Test Actions
+
+All [viem's test actions](https://viem.sh/docs/actions/test/introduction) are supported:
+
+#### Block & Mining
+- [`mine`](https://viem.sh/docs/actions/test/mine)
+- [`setAutomine`](https://viem.sh/docs/actions/test/setAutomine)
+- [`setIntervalMining`](https://viem.sh/docs/actions/test/setIntervalMining)
+- [`setBlockGasLimit`](https://viem.sh/docs/actions/test/setBlockGasLimit)
+- [`setBlockTimestampInterval`](https://viem.sh/docs/actions/test/setBlockTimestampInterval)
+- [`setNextBlockBaseFeePerGas`](https://viem.sh/docs/actions/test/setNextBlockBaseFeePerGas)
+- [`setNextBlockTimestamp`](https://viem.sh/docs/actions/test/setNextBlockTimestamp)
+
+#### Account & State
+- [`setBalance`](https://viem.sh/docs/actions/test/setBalance)
+- [`setCode`](https://viem.sh/docs/actions/test/setCode)
+- [`setNonce`](https://viem.sh/docs/actions/test/setNonce)
+- [`setStorageAt`](https://viem.sh/docs/actions/test/setStorageAt)
+- [`setCoinbase`](https://viem.sh/docs/actions/test/setCoinbase)
+- [`setMinGasPrice`](https://viem.sh/docs/actions/test/setMinGasPrice)
+
+#### State Management
+- [`snapshot`](https://viem.sh/docs/actions/test/snapshot)
+- [`revert`](https://viem.sh/docs/actions/test/revert)
+- [`reset`](https://viem.sh/docs/actions/test/reset)
+- [`dumpState`](https://viem.sh/docs/actions/test/dumpState)
+- [`loadState`](https://viem.sh/docs/actions/test/loadState)
+
+### Wallet Actions
+
+All [viem's wallet actions](https://viem.sh/docs/actions/wallet/introduction) are supported:
+
+#### Account Management
+- [`getAddresses`](https://viem.sh/docs/actions/wallet/getAddresses)
+- [`requestAddresses`](https://viem.sh/docs/actions/wallet/requestAddresses)
+
+#### Transaction Operations
+- [`prepareTransactionRequest`](https://viem.sh/docs/actions/wallet/prepareTransactionRequest)
+- [`sendTransaction`](https://viem.sh/docs/actions/wallet/sendTransaction)
+- [`sendRawTransaction`](https://viem.sh/docs/actions/wallet/sendRawTransaction)
+- [`signTransaction`](https://viem.sh/docs/actions/wallet/signTransaction)
+
+#### Signing Operations
+- [`signMessage`](https://viem.sh/docs/actions/wallet/signMessage)
+- [`signTypedData`](https://viem.sh/docs/actions/wallet/signTypedData)
+
+#### Chain Management
+- [`addChain`](https://viem.sh/docs/actions/wallet/addChain)
+- [`switchChain`](https://viem.sh/docs/actions/wallet/switchChain)
+
+#### Permissions & Assets
+- [`getPermissions`](https://viem.sh/docs/actions/wallet/getPermissions)
+- [`requestPermissions`](https://viem.sh/docs/actions/wallet/requestPermissions)
+- [`watchAsset`](https://viem.sh/docs/actions/wallet/watchAsset)
+

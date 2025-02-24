@@ -6,11 +6,54 @@
 
 Welcome to [Tevm Node](https://github.com/evmts/tevm-monorepo)! This guide will help you navigate our documentation and get started with running [Ethereum](https://ethereum.org) in JavaScript.
 
-If you're impatient, try creating a [memory client](/api/memory-client) and using the [viem API](https://viem.sh) to interact with a locally running blockchain in JavaScript:
+### Installation
 
 ```bash
 npm install tevm
 ```
+
+### Quick Examples
+
+#### 1. Raw Tevm Node API
+
+The most direct way to use Tevm is with the raw [`createTevmNode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/functions/createTevmNode.md) API:
+
+```typescript
+import { createTevmNode } from 'tevm'
+// tevm/actions has many useful high level actions to interact with
+// the tevm api including the entire json rpc api
+import {
+  callHandler,
+  setAccountHandler,
+  getAccountHandler,
+} from 'tevm/actions'
+
+const node = createTevmNode()
+
+// Execute a contract call
+const result = await callHandler(node)({
+  to: '0x1234567890123456789012345678901234567890',
+  data: '0x...',
+  value: 0n
+})
+
+// Set account state
+await tevmSetAccountHandler(node)({
+  address: '0x1234567890123456789012345678901234567890',
+  balance: 1000000000000000000n // 1 ETH
+})
+
+// Get account state
+const account = await getAccountHandler(node)({
+  address: '0x1234567890123456789012345678901234567890'
+})
+```
+
+#### 2. Using with Viem
+
+For a more familiar developer experience, you can use Tevm with [Viem](./examples/viem):
+
+You can still use the Raw Tevm Node API referencing `client.transport.tevm`
 
 ```typescript
 import { createMemoryClient, http } from 'tevm'
@@ -25,11 +68,11 @@ const client = createMemoryClient({
   common: optimism,
 })
 
-// Read block data using viem's public actions
+// Use viem's public, wallet, or test actions
 const block = await client.getBlock({ blockTag: 'latest' })
 console.log(block)
 
-// Manipulate state using Tevm actions
+// Mix with Tevm actions
 const testAddress = '0x1234567890123456789012345678901234567890'
 await client.tevmSetAccount({
   address: testAddress,
@@ -39,6 +82,30 @@ await client.tevmSetAccount({
 // Get account state
 const account = await client.tevmGetAccount({ address: testAddress })
 console.log(account)
+
+// Use the raw Tevm node api via `client.transport.tevm`
+const vm = await client.transport.tevm.getVm()
+const block = await vm.blockchain.getBlockByTag('latest')
+```
+
+#### 3. Using with Ethers
+
+You can also use Tevm with [Ethers.js](./examples/ethers):
+
+```typescript
+import { createTevmNode } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider } from 'ethers'
+
+// Create Tevm Node with EIP-1193 support
+const node = createTevmNode().extend(requestEip1193())
+
+// Create Ethers provider
+const provider = new BrowserProvider(node)
+
+// Use standard Ethers API
+const block = await provider.getBlockNumber()
+const balance = await provider.getBalance('0x1234...')
 ```
 
 ### Quick Start
@@ -2698,6 +2765,8 @@ vm.evm.events?.on('afterMessage', (result, next) => {
 
 ## @tevm/evm
 
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/evm/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs) folder.
+
 The `@tevm/evm` package provides a custom implementation of the Ethereum Virtual Machine (EVM), extending the functionality of `ethereumjs/evm`. It's responsible for executing Ethereum bytecode and managing the execution environment.
 
 ### Installation
@@ -2713,10 +2782,10 @@ npm install @tevm/evm
 The main class for executing Ethereum bytecode. It extends the EthereumJS EVM with Tevm-specific functionality.
 
 ```typescript
-import { createEvm } from 'tevm/evm'
-import { mainnet } from 'tevm/common'
-import { createStateManager } from 'tevm/state'
-import { createChain } from 'tevm/chain'
+import { createEvm } from '@tevm/evm' // See [createEvm](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/functions/createEvm.md)
+import { mainnet } from '@tevm/common' // See [Common](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/docs/interfaces/Common.md)
+import { createStateManager } from '@tevm/state' // See [createStateManager](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/docs/functions/createStateManager.md)
+import { createChain } from '@tevm/chain' // See [createChain](https://github.com/evmts/tevm-monorepo/blob/main/packages/chain/docs/functions/createChain.md)
 
 const evm = await createEvm({
   common: mainnet,
@@ -2727,19 +2796,19 @@ const evm = await createEvm({
 
 ##### Methods
 
-* `runCall(opts: EvmRunCallOpts): Promise<EvmResult>` - Executes an EVM message
-* `addCustomPrecompile(precompile: CustomPrecompile): void` - Adds a custom precompile
-* `removeCustomPrecompile(precompile: CustomPrecompile): void` - Removes a custom precompile
-* `getActiveOpcodes(): OpcodeList` - Returns currently activated opcodes
-* `getPrecompile(address: Address): PrecompileFunc | undefined` - Returns precompile at address
-* `getPerformanceLogs()` - Returns performance logs for opcodes and precompiles
+* [`runCall(opts: EvmRunCallOpts): Promise<EvmResult>`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#runcall) - Executes an EVM message
+* [`addCustomPrecompile(precompile: CustomPrecompile): void`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#addcustomprecompile) - Adds a custom precompile
+* [`removeCustomPrecompile(precompile: CustomPrecompile): void`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#removecustomprecompile) - Removes a custom precompile
+* [`getActiveOpcodes(): OpcodeList`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#getactiveopcodes) - Returns currently activated opcodes
+* [`getPrecompile(address: Address): PrecompileFunc | undefined`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#getprecompile) - Returns precompile at address
+* [`getPerformanceLogs()`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/Evm.md#getperformancelogs) - Returns performance logs for opcodes and precompiles
 
 #### Creating an EVM Instance
 
-The `createEvm` function is the recommended way to create a new EVM instance:
+The [`createEvm`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/functions/createEvm.md) function is the recommended way to create a new EVM instance:
 
 ```typescript
-import { createEvm } from 'tevm/evm'
+import { createEvm } from '@tevm/evm'
 
 const evm = await createEvm({
   common: mainnet,
@@ -2753,11 +2822,11 @@ const evm = await createEvm({
 
 #### Custom Precompiles
 
-The EVM supports custom precompiles that allow executing arbitrary JavaScript code:
+The EVM supports [custom precompiles](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/CustomPrecompile.md) that allow executing arbitrary JavaScript code:
 
 ```typescript
-import { definePrecompile, defineCall, createContract, parseAbi } from 'tevm'
-import { createAddress } from 'tevm/address'
+import { definePrecompile, defineCall, createContract, parseAbi } from '@tevm/evm'
+import { createAddress } from '@tevm/utils'
 
 const MyContract = createContract({
   address: createAddress(2424).toString(),
@@ -2784,7 +2853,7 @@ evm.addCustomPrecompile(customPrecompile.precompile())
 
 ### Types
 
-#### EvmResult
+#### [EvmResult](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/EvmResult.md)
 
 Result of executing a message via the EVM:
 
@@ -2795,7 +2864,7 @@ interface EvmResult {
 }
 ```
 
-#### ExecResult
+#### [ExecResult](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/ExecResult.md)
 
 Detailed execution result:
 
@@ -2813,7 +2882,7 @@ interface ExecResult {
 }
 ```
 
-#### EvmRunCallOpts
+#### [EvmRunCallOpts](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/EvmRunCallOpts.md)
 
 Options for running a call operation:
 
@@ -2835,7 +2904,7 @@ interface EvmRunCallOpts {
 
 ### Error Handling
 
-The EVM uses the `EvmError` class for error handling, with various error types defined in `EvmErrorMessage`:
+The EVM uses the [`EvmError`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/classes/EvmError.md) class for error handling, with various error types defined in [`EvmErrorMessage`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/enums/EvmErrorMessage.md):
 
 ```typescript
 enum EvmErrorMessage {
@@ -2902,48 +2971,48 @@ const blockNum = await node.request({
 #### Core Ethereum Methods
 
 * **Block & Chain**
-  * [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber) - Get current block number
-  * [`eth_getBlockByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbyhash) - Get block by hash
-  * [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber) - Get block by number
-  * [`eth_chainId`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid) - Get current chain ID
+  * [`eth_blockNumber`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/blockNumberHandler.md) - Get current block number
+  * [`eth_getBlockByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetBlockByHashProcedure.md) - Get block by hash
+  * [`eth_getBlockByNumber`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetBlockByNumberProcedure.md) - Get block by number
+  * [`eth_chainId`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/chainIdHandler.md) - Get current chain ID
 
 * **State & Account**
-  * [`eth_getBalance`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getbalance) - Get account balance
-  * [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode) - Get contract code
-  * [`eth_getStorageAt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat) - Get storage value
-  * [`eth_getTransactionCount`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount) - Get account nonce
+  * [`eth_getBalance`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getBalanceHandler.md) - Get account balance
+  * [`eth_getCode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getCodeHandler.md) - Get contract code
+  * [`eth_getStorageAt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getStorageAtHandler.md) - Get storage value
+  * [`eth_getTransactionCount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionCountProcedure.md) - Get account nonce
 
 * **Transaction**
-  * [`eth_call`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call) - Execute contract call
-  * [`eth_estimateGas`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas) - Estimate gas usage
-  * [`eth_sendTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendtransaction) - Send transaction
-  * [`eth_sendRawTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction) - Send signed transaction
-  * [`eth_getTransactionByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyhash) - Get transaction details
-  * [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt) - Get transaction receipt
+  * [`eth_call`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethCallHandler.md) - Execute contract call
+  * [`eth_estimateGas`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethEstimateGasProcedure.md) - Estimate gas usage
+  * [`eth_sendTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethSendTransactionHandler.md) - Send transaction
+  * [`eth_sendRawTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethSendRawTransaction.md) - Send signed transaction
+  * [`eth_getTransactionByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionByHashProcedure.md) - Get transaction details
+  * [`eth_getTransactionReceipt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionReceipt.md) - Get transaction receipt
 
 * **Logs & Events**
-  * [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) - Get event logs
-  * [`eth_newFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newfilter) - Create new filter
-  * [`eth_newBlockFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newblockfilter) - Create block filter
-  * [`eth_getFilterChanges`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterchanges) - Get filter updates
-  * [`eth_getFilterLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterlogs) - Get all filter logs
-  * [`eth_uninstallFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_uninstallfilter) - Remove filter
+  * [`eth_getLogs`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetLogsHandler.md) - Get event logs
+  * [`eth_newFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethNewFilterProcedure.md) - Create new filter
+  * [`eth_newBlockFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethNewBlockFilterProcedure.md) - Create block filter
+  * [`eth_getFilterChanges`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetFilterChangesProcedure.md) - Get filter updates
+  * [`eth_getFilterLogs`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetFilterLogsProcedure.md) - Get all filter logs
+  * [`eth_uninstallFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethUninstallFilterProcedure.md) - Remove filter
 
 #### Extended Methods
 
 Tevm also supports additional methods commonly found in development environments:
 
 * **Debug Methods**
-  * [`debug_traceTransaction`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debug_tracetransaction) - Trace transaction execution
-  * [`debug_dumpState`](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug#debug_dumpstate) - Dump current state
+  * [`debug_traceTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/debugTraceTransactionProcedure.md) - Trace transaction execution
+  * [`debug_dumpState`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/debugDumpStateProcedure.md) - Dump current state
 
 * **Anvil Methods** (For [Foundry](https://book.getfoundry.sh/reference/anvil/) compatibility)
-  * `anvil_setCode` - Set contract code
-  * `anvil_setBalance` - Set account balance
-  * `anvil_setNonce` - Set account nonce
-  * `anvil_setStorageAt` - Set storage value
-  * `anvil_impersonateAccount` - Impersonate account
-  * `anvil_stopImpersonatingAccount` - Stop impersonating
+  * [`anvil_setCode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetCodeProcedure.md) - Set contract code
+  * [`anvil_setBalance`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetBalance.md) - Set account balance
+  * [`anvil_setNonce`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetNonceProcedure.md) - Set account nonce
+  * [`anvil_setStorageAt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetStorageAtProcedure.md) - Set storage value
+  * [`anvil_impersonateAccount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilImpersonateAccount.md) - Impersonate account
+  * [`anvil_stopImpersonatingAccount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilStopImpersonatingAccountProcedure.md) - Stop impersonating
 
 ### Client Integration
 
@@ -2979,7 +3048,7 @@ const provider = new BrowserProvider(node)
 
 ### Error Handling
 
-JSON-RPC errors follow the [standard format](https://www.jsonrpc.org/specification#error_object):
+JSON-RPC errors follow the [standard format](https://www.jsonrpc.org/specification#error_object) and are fully typed. See the [error types documentation](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/JsonRpcError.md) for more details:
 
 ```ts
 interface JsonRpcError {
@@ -2989,22 +3058,31 @@ interface JsonRpcError {
 }
 ```
 
-Common error codes (see [Ethereum JSON-RPC Error Codes](https://eips.ethereum.org/EIPS/eip-1474#error-codes)):
+Common error codes (see [Error Types](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/variables/ErrorCodes.md)):
 
-* `-32700`: Parse error
-* `-32600`: Invalid request
-* `-32601`: Method not found
-* `-32602`: Invalid params
-* `-32603`: Internal error
-* `-32000` to `-32099`: Server error
+* `-32700`: Parse error ([`ParseError`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/ParseError.md))
+* `-32600`: Invalid request ([`InvalidRequest`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/InvalidRequest.md))
+* `-32601`: Method not found ([`MethodNotFound`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/MethodNotFound.md))
+* `-32602`: Invalid params ([`InvalidParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/InvalidParams.md))
+* `-32603`: Internal error ([`InternalError`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/InternalError.md))
+* `-32000` to `-32099`: Server error ([`ServerError`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/ServerError.md))
+
+For detailed error handling examples and best practices, see the [Error Handling Guide](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/variables/ErrorHandling.md).
 
 ### Best Practices
 
-1. **Error Handling**: Always wrap RPC calls in try-catch blocks to handle potential errors gracefully.
+1. **Error Handling**: Always wrap RPC calls in try-catch blocks to handle potential errors gracefully. See [Error Types](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/variables/ErrorCodes.md) for all possible errors.
 
-2. **Gas Estimation**: For transactions, use [`eth_estimateGas`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas) before sending to ensure sufficient gas.
+2. **Gas Estimation**: For transactions, use [`eth_estimateGas`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethEstimateGasProcedure.md) before sending to ensure sufficient gas:
 
-3. **Receipt Confirmation**: Wait for transaction receipts to confirm state changes:
+```ts
+const gasEstimate = await node.request({
+  method: 'eth_estimateGas',
+  params: [tx],
+})
+```
+
+3. **Receipt Confirmation**: Wait for transaction receipts to confirm state changes using [`eth_getTransactionReceipt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionReceipt.md):
 
 ```ts
 const txHash = await node.request({
@@ -3021,7 +3099,14 @@ const receipt = await node.request({
 4. **Event Filtering**: Use filters efficiently by:
    * Setting appropriate block ranges
    * Using specific [topics](https://docs.soliditylang.org/en/latest/abi-spec.html#events)
-   * Cleaning up unused filters
+   * Cleaning up unused filters with [`eth_uninstallFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethUninstallFilterProcedure.md)
+
+For more examples and detailed API documentation, see:
+
+* [Complete Actions Documentation](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs)
+* [Type Definitions](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases)
+* [Function Reference](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions)
+* [Variables and Constants](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/variables)
 
 ### Related Topics
 
@@ -3031,13 +3116,19 @@ const receipt = await node.request({
 * [Receipts & Logs](../advanced/receipts-and-logs)
 * [Ethereum JSON-RPC Specification](https://ethereum.org/en/developers/docs/apis/json-rpc/)
 * [EIP-1193: Ethereum Provider JavaScript API](https://eips.ethereum.org/EIPS/eip-1193)
+* [Tevm API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs)
 
 ### Using Tevm Actions
 
-Tevm provides a set of high-level actions that can be imported from `tevm/actions`:
+Tevm provides a set of high-level actions that can be imported from `tevm/actions`. See the [complete actions documentation](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs) for all available actions.
 
 ```ts
-import { tevmCall, tevmMine, tevmGetAccount, tevmSetAccount } from 'tevm/actions'
+import {
+  tevmCall, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/callHandler.md
+  tevmMine, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/mineHandler.md
+  tevmGetAccount, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getAccountHandler.md
+  tevmSetAccount // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/setAccountHandler.md
+} from 'tevm/actions'
 import { createTevmNode } from 'tevm'
 
 const node = createTevmNode()
@@ -3068,7 +3159,14 @@ await tevmSetAccount(node, {
 })
 ```
 
-Note: By default, tevm actions require manual mining via `tevmMine()`. If you want transactions to be automatically applied, you can either:
+For detailed type information, see:
+
+* [`CallParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/CallParams.md)
+* [`MineParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/MineParams.md)
+* [`GetAccountParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/GetAccountParams.md)
+* [`SetAccountParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/SetAccountParams.md)
+
+Note: By default, tevm actions require manual mining via [`tevmMine()`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/mineHandler.md). If you want transactions to be automatically applied, you can either:
 
 1. Use the lower level API `vm.runCall`
 2. Configure the client with `miningConfig: { type: 'auto' }`
@@ -3086,8 +3184,8 @@ const receiptsManager = await node.getReceiptsManager()
 
 // Submit transaction
 const { txHash } = await tevmCall(node, {
-  to: '0x...',
-  data: '0x...',
+  method: 'eth_sendTransaction',
+  params: [tx],
   createTransaction: true
 })
 
@@ -5840,293 +5938,229 @@ import { Callout } from 'vocs/components'
 
 ## Managing State
 
-Tevm Node provides powerful state management capabilities through its `stateManager` interface. This allows you to interact with and modify Ethereum state, including accounts, contract code, and storage.
+Tevm provides powerful state management capabilities through multiple APIs. Let's explore how to manage Ethereum state using different approaches.
 
-### Getting Started
+### Raw API Approach
 
-Access the state manager through the VM:
+The most direct way to manage state is through the [`StateManager`](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/docs/interfaces/StateManager.md) interface:
 
-```ts
+```typescript
 import { createTevmNode } from 'tevm'
+import { EthjsAccount } from 'tevm/utils'
 
 const node = createTevmNode()
 const vm = await node.getVm()
 const stateManager = vm.stateManager
-```
 
-### Account Management
-
-#### Reading Accounts
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
+// Read account state
+const address = '0x1234567890123456789012345678901234567890'
 const account = await stateManager.getAccount(address)
-
-if (account) {
-  console.log({
-    balance: account.balance,      // BigInt
-    nonce: account.nonce,         // BigInt
-    codeHash: account.codeHash,   // Hex string
-    storageRoot: account.storageRoot // Hex string
-  })
-}
-```
-
-#### Modifying Accounts
-
-```ts
-import { createAddress } from 'tevm/address'
-import { EthjsAccount } from 'tevm/utils'
+console.log({
+  balance: account.balance,
+  nonce: account.nonce,
+  codeHash: account.codeHash,
+  storageRoot: account.storageRoot
+})
 
 // Create or update an account
-const address = createAddress('0x1234567890123456789012345678901234567890')
 await stateManager.putAccount(
   address,
-  EthjsAccount.fromAccountData({
+  new EthjsAccount({
     nonce: 0n,
     balance: 10_000_000n,
     storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
     codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
   })
 )
-```
 
-<Callout type="info">
-  When modifying accounts, make sure to handle the case where the account doesn't exist by creating a new account using `EthjsAccount.fromAccountData()`.
-</Callout>
-
-#### Deleting Accounts
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
+// Delete an account
 await stateManager.deleteAccount(address)
 ```
 
-### Contract Management
+#### Contract Management
 
-#### Deploying Contract Code
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
-
-// Deploy contract bytecode
+```typescript
+// Deploy contract code
 await stateManager.putContractCode(
   address,
   new Uint8Array([/* bytecode */])
 )
 
-// Verify deployment
+// Read contract code
 const code = await stateManager.getContractCode(address)
-console.log('Deployed code length:', code.length)
-```
 
-#### Reading Contract Code
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
-const deployedCode = await stateManager.getContractCode(address)
-if (deployedCode.length > 0) {
-  console.log('Contract exists with code')
-} else {
-  console.log('No contract code at address')
-}
-```
-
-### Storage Management
-
-#### Reading Storage
-
-```ts
-import { createAddress, hexToBytes } from 'tevm/utils'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
-
-// Get a specific storage slot
-const slot = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
+// Read storage slot
+const slot = '0x0000000000000000000000000000000000000000000000000000000000000000'
 const value = await stateManager.getContractStorage(address, slot)
 
-// Dump all storage
-const storage = await stateManager.dumpStorage(address)
-console.log('Contract storage:', storage)
-```
+// Write storage
+const key = '0x0000000000000000000000000000000000000000000000000000000000000000'
+const newValue = '0x0000000000000000000000000000000000000000000000000000000000000001'
+await stateManager.putContractStorage(address, key, newValue)
 
-#### Writing Storage
-
-```ts
-import { createAddress, hexToBytes } from 'tevm/utils'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
-
-// Set a storage value
-const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
-const value = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
-await stateManager.putContractStorage(address, key, value)
-```
-
-#### Clearing Storage
-
-```ts
-import { createAddress } from 'tevm/address'
-
-const address = createAddress('0x1234567890123456789012345678901234567890')
+// Clear all storage
 await stateManager.clearContractStorage(address)
 ```
 
-### State Checkpoints
+### Using with Viem
 
-Tevm uses a checkpoint system to manage state changes atomically:
+For a more familiar experience, you can use the Viem client interface while still accessing raw state management when needed:
 
-```ts
-import { createAddress, hexToBytes } from 'tevm/utils'
-import { EthjsAccount } from 'tevm/utils'
+```typescript
+import { createMemoryClient } from 'tevm'
 
-// Create a checkpoint
+const client = createMemoryClient()
+
+// Use Viem-style API for basic operations
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: 1000000000000000000n
+})
+
+// Access raw state manager for advanced operations
+const vm = await client.transport.tevm.getVm()
+const stateManager = vm.stateManager
+
+// Use raw API for complex operations
 await stateManager.checkpoint()
-
 try {
-  const address = createAddress('0x1234567890123456789012345678901234567890')
-  const account = EthjsAccount.fromAccountData({
-    nonce: 0n,
-    balance: 10_000_000n,
-    storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-    codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-  })
-
-  // Make state changes
-  await stateManager.putAccount(address, account)
-  await stateManager.putContractStorage(
-    address,
-    hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
-    hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
-  )
-
-  // Commit changes if successful
+  await stateManager.putContractStorage(address, key, value)
   await stateManager.commit()
 } catch (error) {
-  // Revert changes on failure
+  await stateManager.revert()
+}
+```
+
+### Using with Ethers
+
+When using Ethers.js, you can combine the standard Ethers API with Tevm's state management:
+
+```typescript
+import { createTevmNode } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider } from 'ethers'
+
+const node = createTevmNode().extend(requestEip1193())
+const provider = new BrowserProvider(node)
+
+// Use Ethers API for standard operations
+const balance = await provider.getBalance('0x1234...')
+
+// Access raw state manager for advanced operations
+const vm = await node.getVm()
+const stateManager = vm.stateManager
+```
+
+### Advanced Features
+
+#### State Checkpoints
+
+Create atomic state changes that can be committed or reverted:
+
+```typescript
+const stateManager = (await node.getVm()).stateManager
+
+await stateManager.checkpoint()
+try {
+  // Batch multiple state changes
+  await Promise.all([
+    stateManager.putAccount(address, account),
+    stateManager.putContractStorage(address, key, value),
+  ])
+  await stateManager.commit()
+} catch (error) {
   await stateManager.revert()
   console.error('State changes reverted:', error)
 }
 ```
 
-### State Persistence
+#### State Persistence
 
-#### Dumping State
+Save and load state:
 
-Export the entire state:
-
-```ts
-// Get complete state
+```typescript
+// Dump complete state
 const state = await stateManager.dumpCanonicalGenesis()
-expect(state).toBeDefined()
+
+// Save state (example with localStorage)
+localStorage.setItem('tevmState', JSON.stringify(state))
+
+// Load saved state
+const savedState = JSON.parse(localStorage.getItem('tevmState'))
+await stateManager.generateCanonicalGenesis(savedState)
 ```
 
-#### Loading State
+#### Fork Mode
 
-Restore state from a previous dump:
+Tevm supports lazy loading with caching when forking from another network:
 
-```ts
-// Restore state
-await stateManager.generateCanonicalGenesis(state)
-```
-
-### Fork Mode State
-
-When running in fork mode, state is fetched lazily from the remote provider:
-
-```ts
-import { createTevmNode, http } from 'tevm'
-import { createAddress } from 'tevm/address'
-import { performance } from 'node:perf_hooks'
-
+```typescript
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+    transport: http('https://mainnet.optimism.io')
   }
 })
 
-const vm = await node.getVm()
-const stateManager = vm.stateManager
-const testAddress = createAddress('0x1234567890123456789012345678901234567890')
+const stateManager = (await node.getVm()).stateManager
 
 // First access fetches from remote
-const t0 = performance.now()
-await stateManager.getAccount(testAddress)
-console.log('Initial fetch:', performance.now() - t0)
+const account = await stateManager.getAccount('0x1234...')
 
 // Subsequent access uses cache
-const t1 = performance.now()
-await stateManager.getAccount(testAddress)
-console.log('Cached access:', performance.now() - t1)
+const cachedAccount = await stateManager.getAccount('0x1234...')
 ```
 
 ### Best Practices
 
-1. **Error Handling**
-   ```ts
-   import { createAddress } from 'tevm/address'
+#### 1. Error Handling
 
-   const testAddress = createAddress('0x1234567890123456789012345678901234567890')
-   try {
-     const account = await stateManager.getAccount(testAddress)
-     if (!account) {
-       throw new Error('Account not found')
-     }
-     // Work with account
-   } catch (error) {
-     console.error('State operation failed:', error)
-   }
-   ```
+```typescript
+try {
+  const account = await stateManager.getAccount('0x1234...')
+  if (!account) {
+    throw new Error('Account not found')
+  }
+  // Work with account
+} catch (error) {
+  if (error instanceof MissingAccountError) {
+    // Handle missing account
+  }
+  console.error('State operation failed:', error)
+}
+```
 
-2. **State Isolation**
-   ```ts
-   // Create isolated copy for testing
-   const isolatedState = await stateManager.deepCopy()
-   ```
+#### 2. State Isolation
 
-3. **Atomic Operations**
-   ```ts
-   import { createAddress, hexToBytes } from 'tevm/utils'
-   import { EthjsAccount } from 'tevm/utils'
+```typescript
+// Create isolated copy for testing
+const isolatedState = await stateManager.deepCopy()
 
-   const testAddress = createAddress('0x1234567890123456789012345678901234567890')
-   await stateManager.checkpoint()
-   try {
-     const account = EthjsAccount.fromAccountData({
-       nonce: 0n,
-       balance: 10_000_000n,
-       storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-       codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-     })
+// Make changes without affecting original
+await isolatedState.putAccount(address, account)
+```
 
-     // Batch multiple state changes
-     await Promise.all([
-       stateManager.putAccount(testAddress, account),
-       stateManager.putContractStorage(
-         testAddress,
-         hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
-         hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
-       )
-     ])
-     await stateManager.commit()
-   } catch (error) {
-     await stateManager.revert()
-   }
-   ```
+#### 3. Atomic Operations
 
-### Related Topics
+```typescript
+await stateManager.checkpoint()
+try {
+  // Group related changes
+  await Promise.all([
+    stateManager.putAccount(address, account),
+    stateManager.putContractStorage(address, key, value),
+  ])
+  await stateManager.commit()
+} catch (error) {
+  await stateManager.revert()
+}
+```
 
-* [Transaction Processing](../advanced/txpool)
-* [Receipts and Logs](../advanced/receipts-and-logs)
-* [Forking](./forking)
+### See Also
+
+* [State Manager API](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/docs/interfaces/StateManager.md)
+* [Account Management](../api/account-management)
+* [Contract Storage](../api/contracts)
+* [Forking Guide](../core/forking)
 
 
 import { Callout } from 'vocs/components'
@@ -7692,6 +7726,7 @@ const node = createTevmNode().extend(requestEip1193())
 // Create Viem client
 const client = createPublicClient({
   chain: mainnet,
+  // Use Tevm node as the viem transport
   transport: custom(node),
 })
 
@@ -7699,9 +7734,13 @@ const client = createPublicClient({
 // all fully in memory or forking from node if you configured it
 ```
 
-### Reading Blockchain State
+### Using viem
 
-#### 1. Basic State Queries
+Use viem via actions. All viem and tevm actions are available as tree shakable actions.
+
+#### 1. Public actions
+
+Use [viem's public actions](https://viem.sh/docs/actions/public/introduction) to read from locally running evm node
 
 ```ts
 // Get latest block
@@ -7718,296 +7757,245 @@ const nonce = await client.getTransactionCount({
 })
 ```
 
-#### 2. Contract Reading
+#### 2. Wallet actions
+
+All of viems [`Wallet actions`](https://viem.sh/docs/actions/wallet/introduction) are available via passing in an `account`
 
 ```ts
-const abi = parseAbi([
-  'function balanceOf(address) view returns (uint256)',
-  'function symbol() view returns (string)',
-  'event Transfer(address indexed from, address indexed to, uint256 value)',
-])
+// Import PREFUNDED_ACCOUNTS from tevm
+import { PREFUNDED_ACCOUNTS } from 'tevm'
 
-const tokenContract = {
-  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
-  abi,
-} as const
-
-const [balance, symbol] = await Promise.all([
-  client.readContract({
-    ...tokenContract,
-    functionName: 'balanceOf',
-    args: ['0x1234567890123456789012345678901234567890'],
-  }),
-  client.readContract({
-    ...tokenContract,
-    functionName: 'symbol',
-  }),
-])
-
-console.log(`${symbol} Balance:`, balance)
-```
-
-### Writing to the Blockchain
-
-#### 1. Transaction Simulation
-
-```ts
-// Simulate contract interaction
-const { request } = await client.simulateContract({
-  address: contractAddress,
-  abi,
-  functionName: 'transfer',
-  args: ['0x1234...', 1000000n],
+// Create client with prefunded test account
+const client = createMemoryClient({
+  account: PREFUNDED_ACCOUNTS[0], // First prefunded account with 10000 ETH
 })
 
-// Execute the transaction
-const hash = await client.writeContract(request)
-
-// Wait for confirmation
-const receipt = await client.waitForTransactionReceipt({ hash })
-```
-
-#### 2. Raw Transactions
-
-```ts
-// Send ETH
+// Send transaction using prefunded account
 const hash = await client.sendTransaction({
-  to: '0x1234...',
+  to: '0x1234567890123456789012345678901234567890',
   value: parseEther('1'),
 })
 
-// Send raw transaction
-const hash2 = await client.sendRawTransaction({
-  serializedTransaction: '0x...',
-})
-```
-
-### Event Handling
-
-#### 1. Reading Past Events
-
-```ts
-const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-const transferEvent = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])[0]
-
-const logs = await client.getLogs({
-  address: tokenAddress,
-  event: transferEvent,
-  fromBlock: 0n,
-  toBlock: 'latest',
-})
-
-for (const log of logs) {
-  console.log('Transfer:', {
-    from: log.args?.from,
-    to: log.args?.to,
-    value: log.args?.value,
-  })
-}
-```
-
-#### 2. Event Filtering
-
-```ts
-const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-const transferEvent = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])[0]
-
-const filter = await client.createEventFilter({
-  address: tokenAddress,
-  event: transferEvent,
-})
-
-const newEvents = await client.getFilterChanges({ filter })
-```
-
-#### 3. Gas Estimation
-
-```ts
-const abi = parseAbi([
-  'function transfer(address to, uint256 amount) returns (bool)',
-])
-
-const gas = await client.estimateContractGas({
-  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  abi,
-  functionName: 'transfer',
-  args: ['0x1234567890123456789012345678901234567890', 1000000n],
-})
-```
-
-### Advanced Usage
-
-#### 1. Multiple Contract Interactions
-
-```ts
-// Batch contract reads
-const results = await Promise.all([
-  client.readContract({
-    address: token1Address,
-    abi: TOKEN_ABI,
-    functionName: 'balanceOf',
-    args: [address],
-  }),
-  client.readContract({
-    address: token2Address,
-    abi: TOKEN_ABI,
-    functionName: 'balanceOf',
-    args: [address],
-  }),
-])
-
-// Multicall
-const multicallResult = await client.multicall({
-  contracts: [
-    {
-      address: token1Address,
-      abi: TOKEN_ABI,
-      functionName: 'balanceOf',
-      args: [address],
-    },
-    {
-      address: token2Address,
-      abi: TOKEN_ABI,
-      functionName: 'balanceOf',
-      args: [address],
-    },
-  ],
-})
-```
-
-#### 2. Contract Deployment
-
-```ts
-// Deploy contract
-const hash = await client.deployContract({
+// Deploy contract using prefunded account
+const { contractAddress } = await client.deployContract({
   abi,
   bytecode,
-  args: [constructorArg1, constructorArg2],
+  account: PREFUNDED_ACCOUNTS[0],
 })
 
-// Get contract address
-const receipt = await client.waitForTransactionReceipt({ hash })
-const contractAddress = receipt.contractAddress
 ```
 
-#### 3. Gas Estimation
+#### 3. Test actions
+
+All of viem's [`Test actions`](https://viem.sh/docs/actions/test/introduction) are available for testing and debugging
 
 ```ts
-// Estimate gas for contract deployment
-const gas = await client.estimateContractGas({
-  abi,
-  bytecode,
-  args: [constructorArg1, constructorArg2],
+// Import test actions
+import { mine, setBalance, setNextBlockTimestamp, setBlockTimestamp } from 'viem/test'
+
+// Mine blocks
+await client.mine({ blocks: 1 })
+
+// Set account balance
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: parseEther('100')
 })
 
-// Estimate gas for contract call
-const gas2 = await client.estimateContractGas({
-  address: contractAddress,
-  abi,
-  functionName: 'transfer',
-  args: ['0x1234...', 1000000n],
+// Manipulate block timestamps
+await client.setNextBlockTimestamp(1695311333n)
+await client.setBlockTimestamp(1695311333n)
+
+// Combine actions for test scenarios
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: parseEther('100')
 })
+await client.mine({ blocks: 5 })
 ```
 
-### Testing with Viem
+These test actions are particularly useful for:
+
+* Setting up specific test scenarios
+* Manipulating blockchain state for testing
+* Time-traveling through blocks
+* Debugging smart contract interactions
+
+### Tevm Actions
+
+Tevm provides additional actions beyond standard Viem functionality for enhanced testing and debugging capabilities.
+
+#### 1. Contract Interactions
 
 ```ts
-import { expect, test } from 'vitest'
+import { tevmContract, tevmCall, tevmDeploy } from 'tevm/actions'
 
-test('Contract interaction', async () => {
-  // Setup Tevm Node
-  const node = createTevmNode()
-  const client = createPublicClient({
-    chain: mainnet,
-    transport: custom(node),
-  })
+// Call a contract method
+const result = await tevmContract(client, {
+  abi: myContractAbi,
+  functionName: 'balanceOf',
+  args: ['0x1234...'],
+})
 
-  // Deploy contract
-  const hash = await client.deployContract({
-    abi,
-    bytecode,
-  })
-  const receipt = await client.waitForTransactionReceipt({ hash })
-  const contractAddress = receipt.contractAddress
+// Low-level contract call
+const callResult = await tevmCall(client, {
+  to: '0x1234...',
+  data: '0x...',
+})
 
-  // Test contract
-  const result = await client.readContract({
-    address: contractAddress,
-    abi,
-    functionName: 'getValue',
-  })
-
-  expect(result).toBe(expectedValue)
+// Deploy a contract
+const deployResult = await tevmDeploy(client, {
+  abi: myContractAbi,
+  bytecode: '0x...',
 })
 ```
 
-### Best Practices
+#### 2. Account Management
 
-1. **Error Handling**:
-   ```ts
-   try {
-     const result = await client.readContract({
-       address,
-       abi,
-       functionName: 'riskyFunction',
-     })
-   } catch (error) {
-     if (error.message.includes('revert')) {
-       // Handle contract revert
-     }
-     throw error
-   }
-   ```
+```ts
+import { tevmGetAccount, tevmSetAccount } from 'tevm/actions'
 
-2. **Gas Management**:
-   ```ts
-   // Always estimate gas before sending transactions
-   const gas = await client.estimateContractGas({
-     address,
-     abi,
-     functionName: 'transfer',
-     args: [to, amount],
-   })
+// Get account state
+const account = await tevmGetAccount(client, {
+  address: '0x1234...',
+})
 
-   const hash = await client.writeContract({
-     address,
-     abi,
-     functionName: 'transfer',
-     args: [to, amount],
-     gas: gas * 120n / 100n, // Add 20% buffer
-   })
-   ```
+// Modify account state
+await tevmSetAccount(client, {
+  address: '0x1234...',
+  balance: parseEther('100'),
+  code: '0x...',  // Optional contract bytecode
+  storage: {      // Optional storage slots
+    '0x0': '0x1'
+  }
+})
+```
 
-3. **Transaction Confirmation**:
-   ```ts
-   // Wait for sufficient confirmations
-   const receipt = await client.waitForTransactionReceipt({
-     hash,
-     confirmations: 2,
-     timeout: 60_000,
-   })
-   ```
+#### 3. Other Tevm actions
 
-4. **Resource Cleanup**:
-   ```ts
-   // Clean up filters when done
-   const filter = await client.createEventFilter({
-     address,
-     event: parseAbi(['event Transfer(...)']),
-   })
+You can use `tevmLoadState` and `tevmDumpState` to persist state to disk or local storage.
 
-   try {
-     // Use filter
-   } finally {
-     await client.uninstallFilter({ filter })
-   }
-   ```
+`tevmMine` is an important action for mining new blocks.
 
-### Related Topics
+```ts
+import { tevmDumpState, tevmLoadState, tevmMine } from 'tevm/actions'
 
-* [JSON-RPC Support](../api/json-rpc)
-* [Local Testing](./local-testing)
-* [Forking Mainnet](./forking-mainnet)
+// Save current state
+const state = await tevmDumpState(client)
+
+// Load previously saved state
+await tevmLoadState(client, {
+  state: state
+})
+
+// Mine blocks with Tevm
+await tevmMine(client, {
+  blocks: 5
+})
+```
+
+These Tevm-specific actions provide powerful capabilities for:
+
+* Direct contract interactions and deployment
+* Fine-grained account state manipulation
+* Complete EVM state management
+* Advanced testing scenarios
+
+### Complete Action Reference
+
+#### Public Actions
+
+All [viem's public actions](https://viem.sh/docs/actions/public/introduction) are supported:
+
+##### Contract Interactions
+
+* [`call`](https://viem.sh/docs/actions/public/call)
+* [`readContract`](https://viem.sh/docs/contract/readContract)
+* [`simulateContract`](https://viem.sh/docs/contract/simulateContract)
+* [`estimateContractGas`](https://viem.sh/docs/contract/estimateContractGas)
+* [`estimateGas`](https://viem.sh/docs/actions/public/estimateGas)
+* [`getBytecode`](https://viem.sh/docs/contract/getBytecode)
+
+##### Block & Transaction
+
+* [`getBlock`](https://viem.sh/docs/actions/public/getBlock)
+* [`getBlockNumber`](https://viem.sh/docs/actions/public/getBlockNumber)
+* [`getBlockTransactionCount`](https://viem.sh/docs/actions/public/getBlockTransactionCount)
+* [`getTransaction`](https://viem.sh/docs/actions/public/getTransaction)
+* [`getTransactionCount`](https://viem.sh/docs/actions/public/getTransactionCount)
+* [`getTransactionReceipt`](https://viem.sh/docs/actions/public/getTransactionReceipt)
+* [`waitForTransactionReceipt`](https://viem.sh/docs/actions/public/waitForTransactionReceipt)
+
+##### Account & Chain
+
+* [`getBalance`](https://viem.sh/docs/actions/public/getBalance)
+* [`getChainId`](https://viem.sh/docs/actions/public/getChainId)
+* [`getGasPrice`](https://viem.sh/docs/actions/public/getGasPrice)
+* [`estimateFeesPerGas`](https://viem.sh/docs/actions/public/estimateFeesPerGas)
+* [`getStorageAt`](https://viem.sh/docs/actions/public/getStorageAt)
+
+#### Test Actions
+
+All [viem's test actions](https://viem.sh/docs/actions/test/introduction) are supported:
+
+##### Block & Mining
+
+* [`mine`](https://viem.sh/docs/actions/test/mine)
+* [`setAutomine`](https://viem.sh/docs/actions/test/setAutomine)
+* [`setIntervalMining`](https://viem.sh/docs/actions/test/setIntervalMining)
+* [`setBlockGasLimit`](https://viem.sh/docs/actions/test/setBlockGasLimit)
+* [`setBlockTimestampInterval`](https://viem.sh/docs/actions/test/setBlockTimestampInterval)
+* [`setNextBlockBaseFeePerGas`](https://viem.sh/docs/actions/test/setNextBlockBaseFeePerGas)
+* [`setNextBlockTimestamp`](https://viem.sh/docs/actions/test/setNextBlockTimestamp)
+
+##### Account & State
+
+* [`setBalance`](https://viem.sh/docs/actions/test/setBalance)
+* [`setCode`](https://viem.sh/docs/actions/test/setCode)
+* [`setNonce`](https://viem.sh/docs/actions/test/setNonce)
+* [`setStorageAt`](https://viem.sh/docs/actions/test/setStorageAt)
+* [`setCoinbase`](https://viem.sh/docs/actions/test/setCoinbase)
+* [`setMinGasPrice`](https://viem.sh/docs/actions/test/setMinGasPrice)
+
+##### State Management
+
+* [`snapshot`](https://viem.sh/docs/actions/test/snapshot)
+* [`revert`](https://viem.sh/docs/actions/test/revert)
+* [`reset`](https://viem.sh/docs/actions/test/reset)
+* [`dumpState`](https://viem.sh/docs/actions/test/dumpState)
+* [`loadState`](https://viem.sh/docs/actions/test/loadState)
+
+#### Wallet Actions
+
+All [viem's wallet actions](https://viem.sh/docs/actions/wallet/introduction) are supported:
+
+##### Account Management
+
+* [`getAddresses`](https://viem.sh/docs/actions/wallet/getAddresses)
+* [`requestAddresses`](https://viem.sh/docs/actions/wallet/requestAddresses)
+
+##### Transaction Operations
+
+* [`prepareTransactionRequest`](https://viem.sh/docs/actions/wallet/prepareTransactionRequest)
+* [`sendTransaction`](https://viem.sh/docs/actions/wallet/sendTransaction)
+* [`sendRawTransaction`](https://viem.sh/docs/actions/wallet/sendRawTransaction)
+* [`signTransaction`](https://viem.sh/docs/actions/wallet/signTransaction)
+
+##### Signing Operations
+
+* [`signMessage`](https://viem.sh/docs/actions/wallet/signMessage)
+* [`signTypedData`](https://viem.sh/docs/actions/wallet/signTypedData)
+
+##### Chain Management
+
+* [`addChain`](https://viem.sh/docs/actions/wallet/addChain)
+* [`switchChain`](https://viem.sh/docs/actions/wallet/switchChain)
+
+##### Permissions & Assets
+
+* [`getPermissions`](https://viem.sh/docs/actions/wallet/getPermissions)
+* [`requestPermissions`](https://viem.sh/docs/actions/wallet/requestPermissions)
+* [`watchAsset`](https://viem.sh/docs/actions/wallet/watchAsset)
 
 
 ## Architecture Overview
