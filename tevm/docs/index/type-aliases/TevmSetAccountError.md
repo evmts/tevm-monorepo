@@ -6,7 +6,7 @@
 
 # Type Alias: TevmSetAccountError
 
-> **TevmSetAccountError**: `ValidateSetAccountParamsError` \| [`InternalError`](../../errors/classes/InternalError.md)
+> **TevmSetAccountError**: [`ValidateSetAccountParamsError`](../../actions/type-aliases/ValidateSetAccountParamsError.md) \| [`InternalError`](../../errors/classes/InternalError.md)
 
 ## Defined in
 

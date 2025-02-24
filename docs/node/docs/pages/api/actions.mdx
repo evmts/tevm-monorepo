@@ -1,8 +1,8 @@
 # @tevm/actions
 
-> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/actions/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs) folder.
-
 The `@tevm/actions` package provides a comprehensive set of actions for interacting with the Tevm client. It includes both standard Ethereum JSON-RPC methods and Tevm-specific functionality.
+
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/actions/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs) folder.
 
 ## Installation
 
@@ -10,154 +10,144 @@ The `@tevm/actions` package provides a comprehensive set of actions for interact
 npm install @tevm/actions
 ```
 
-## Main Categories
+## Overview
+
+The `@tevm/actions` package provides handlers for:
+
+- Executing EVM calls and contract interactions
+- Managing blockchain state and accounts
+- Standard Ethereum JSON-RPC methods
+- Testing and development utilities (Anvil-compatible)
+- Debugging and tracing functionality
+
+## API Reference
+
+### Error Classes
+
+- [BlobGasLimitExceededError](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/classes/BlobGasLimitExceededError.md) - Error thrown when blob gas limit is exceeded
+- [MissingAccountError](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/classes/MissingAccountError.md) - Error thrown when an account doesn't exist
+- [NoForkUrlSetError](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/classes/NoForkUrlSetError.md) - Error thrown when fork URL is required but not set
+
+### Core Types
+
+- [Address](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/Address.md) - Ethereum address type
+- [Abi](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/Abi.md) - Contract ABI type
+- [Block](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/Block.md) - Ethereum block type
+- [BlockTag](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/BlockTag.md) - Block reference tag (latest, earliest, etc)
 
 ### Base Actions
 
-- **Call**: Execute EVM calls
-  - `CallHandler`: Execute a call against the VM
-  - `BaseCallParams`: Common parameters for call operations
-  - `CallResult`: Result of call execution
+#### Call Actions
+- [CallHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/CallHandler.md) - Handler for executing EVM calls
+- [CallParams](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/CallParams.md) - Parameters for call operations
+- [CallResult](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/CallResult.md) - Result of call execution
+- [BaseCallParams](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/BaseCallParams.md) - Common parameters for all call operations
 
-- **Contract**: Smart contract interactions
-  - `ContractHandler`: Execute contract calls with type safety
-  - `ContractParams`: Parameters for contract calls
-  - `ContractResult`: Result of contract execution
+#### Contract Actions
+- [ContractHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/ContractHandler.md) - Handler for contract interactions
+- [ContractParams](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/ContractParams.md) - Parameters for contract calls
+- [ContractResult](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/ContractResult.md) - Result of contract execution
 
-- **Deploy**: Contract deployment
-  - `DeployHandler`: Deploy contracts to the VM
-  - `DeployParams`: Parameters for contract deployment
-  - `DeployResult`: Result of deployment
-
-- **State Management**:
-  - `DumpStateHandler`: Dump current VM state
-  - `LoadStateHandler`: Load a previously dumped state
-  - `GetAccountHandler`: Get account state
-  - `SetAccountHandler`: Set account state
+#### Deploy Actions
+- [DeployHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/DeployHandler.md) - Handler for contract deployment
+- [DeployParams](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/DeployParams.md) - Parameters for deployment
+- [DeployResult](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/DeployResult.md) - Result of deployment
 
 ### Ethereum JSON-RPC Actions
 
-Standard Ethereum JSON-RPC methods:
-
 #### Account & Network
-- `eth_accounts`: List available accounts
-- `eth_chainId`: Get current chain ID
-- `eth_coinbase`: Get coinbase address
-- `eth_gasPrice`: Get current gas price
-- `eth_blockNumber`: Get current block number
+- [EthAccountsHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthAccountsHandler.md) - List available accounts
+- [EthChainIdHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthChainIdHandler.md) - Get current chain ID
+- [EthCoinbaseHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthCoinbaseHandler.md) - Get coinbase address
+- [EthGasPriceHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthGasPriceHandler.md) - Get current gas price
+- [EthBlockNumberHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthBlockNumberHandler.md) - Get current block number
 
 #### State Reading
-- `eth_getBalance`: Get account balance
-- `eth_getCode`: Get contract code
-- `eth_getStorageAt`: Get storage at position
-- `eth_call`: Execute call without state changes
+- [EthGetBalanceHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthGetBalanceHandler.md) - Get account balance
+- [EthGetCodeHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthGetCodeHandler.md) - Get contract code
+- [EthGetStorageAtHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthGetStorageAtHandler.md) - Get storage at position
+- [EthCallHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthCallHandler.md) - Execute call without state changes
 
 #### Block Operations
-- `eth_getBlockByHash`: Get block by hash
-- `eth_getBlockByNumber`: Get block by number
-- `eth_getBlockTransactionCountByHash`: Get block transaction count by hash
-- `eth_getBlockTransactionCountByNumber`: Get block transaction count by number
-
-#### Transaction Operations
-- `eth_getTransactionByHash`: Get transaction by hash
-- `eth_getTransactionByBlockHashAndIndex`: Get transaction by block hash and index
-- `eth_getTransactionByBlockNumberAndIndex`: Get transaction by block number and index
-- `eth_estimateGas`: Estimate gas usage
-
-#### Logs & Filters
-- `eth_getLogs`: Get event logs
-- `eth_getFilterChanges`: Get filter changes
-- `eth_getFilterLogs`: Get filter logs
+- [EthGetBlockByHashHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthGetBlockByHashHandler.md) - Get block by hash
+- [EthGetBlockByNumberHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/EthGetBlockByNumberHandler.md) - Get block by number
 
 ### Anvil (Testing & Development) Actions
 
-Anvil-compatible actions for testing and development:
-
 #### State Manipulation
-- `anvil_setBalance`: Set account balance
-- `anvil_setCode`: Set contract code
-- `anvil_setNonce`: Set account nonce
-- `anvil_setStorageAt`: Set storage at position
-- `anvil_setChainId`: Set chain ID
-- `anvil_setCoinbase`: Set coinbase address
+- [AnvilSetBalanceHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/AnvilSetBalanceHandler.md) - Set account balance
+- [AnvilSetCodeHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/AnvilSetCodeHandler.md) - Set contract code
+- [AnvilSetNonceHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/AnvilSetNonceHandler.md) - Set account nonce
+- [AnvilSetStorageAtHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/AnvilSetStorageAtHandler.md) - Set storage at position
 
-#### Account Management
-- `anvil_impersonateAccount`: Impersonate an account
-- `anvil_stopImpersonatingAccount`: Stop impersonating account
-
-#### Transaction Management
-- `anvil_dropTransaction`: Remove transaction from pool
-- `anvil_mine`: Mine blocks
-- `anvil_automine`: Get/set automine status
-
-#### State Management
-- `anvil_dumpState`: Dump current state
-- `anvil_loadState`: Load state
-- `anvil_reset`: Reset to initial state
+#### Mining & Chain Control
+- [AnvilMineHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/AnvilMineHandler.md) - Mine blocks
+- [AnvilSetChainIdHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/AnvilSetChainIdHandler.md) - Set chain ID
+- [AnvilResetHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/AnvilResetHandler.md) - Reset to initial state
 
 ### Debug Actions
 
-Debugging functionality:
+- [DebugTraceCallHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/DebugTraceCallHandler.md) - Trace a call execution
+- [DebugTraceTransactionHandler](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/type-aliases/DebugTraceTransactionHandler.md) - Trace a transaction execution
 
-- `debug_traceCall`: Trace a call execution
-- `debug_traceTransaction`: Trace a transaction execution
+## Usage Examples
 
-## Usage Example
+### Basic Call Example
 
 ```typescript
 import { createTevmNode } from 'tevm/node'
-import {
-  callHandler,
-  contractHandler,
-  deployHandler,
-  ethCallHandler
-} from '@tevm/actions'
+import { callHandler } from '@tevm/actions'
 
-// Create base client
 const client = createTevmNode()
-
-// Initialize handlers
 const call = callHandler(client)
-const contract = contractHandler(client)
-const deploy = deployHandler(client)
-const ethCall = ethCallHandler(client)
 
-// Execute a call
-const callResult = await call({
+const result = await call({
   to: '0x123...',
   data: '0x456...',
   value: 1000n
 })
+```
 
-// Execute a contract call
-const contractResult = await contract({
+### Contract Interaction Example
+
+```typescript
+import { contractHandler } from '@tevm/actions'
+
+const contract = contractHandler(client)
+const result = await contract({
   to: '0x123...',
   abi: [...],
   function: 'transfer',
   args: ['0x456...', 1000n]
 })
+```
 
-// Deploy a contract
-const deployResult = await deploy({
+### Deployment Example
+
+```typescript
+import { deployHandler } from '@tevm/actions'
+
+const deploy = deployHandler(client)
+const result = await deploy({
   bytecode: '0x...',
   abi: [...],
   args: ['constructor arg']
 })
+```
 
-// Standard eth_call
-const ethCallResult = await ethCall({
+### JSON-RPC Example
+
+```typescript
+import { ethCallHandler } from '@tevm/actions'
+
+const ethCall = ethCallHandler(client)
+const result = await ethCall({
   to: '0x123...',
   data: '0x456...'
 })
 ```
 
 ## Error Handling
-
-The package includes several error types:
-
-- `BlobGasLimitExceededError`: When blob gas limit is exceeded
-- `MissingAccountError`: When an account doesn't exist
-- `NoForkUrlSetError`: When fork URL is required but not set
 
 All actions support a `throwOnFail` parameter to control error handling:
 
@@ -172,4 +162,4 @@ const result = await call({
 
 - [Ethereum JSON-RPC Specification](https://ethereum.org/en/developers/docs/apis/json-rpc/)
 - [Anvil Documentation](https://book.getfoundry.sh/reference/anvil/)
-- [Tevm Documentation](https://tevm.sh/)
+- [Full API Reference](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs/globals.md)

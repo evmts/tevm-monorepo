@@ -17,7 +17,7 @@ Currently is not very generic with regard to input and output types.
 
 ## Parameters
 
-• **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| `EthJsonRpcRequest` \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`\>
+• **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../actions/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../actions/type-aliases/AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`\>
 
 ## Returns
 

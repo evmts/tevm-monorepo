@@ -6,7 +6,7 @@
 
 # Type Alias: TevmGetAccountError
 
-> **TevmGetAccountError**: [`AccountNotFoundError`](../../errors/classes/AccountNotFoundError.md) \| `ValidateGetAccountParamsError`
+> **TevmGetAccountError**: [`AccountNotFoundError`](../../errors/classes/AccountNotFoundError.md) \| [`ValidateGetAccountParamsError`](../../actions/type-aliases/ValidateGetAccountParamsError.md)
 
 ## Defined in
 

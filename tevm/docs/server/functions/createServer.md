@@ -2172,7 +2172,7 @@ const mempool = await memoryClient.tevm.getTxPool()
 const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 ```
 
-• **client.tevmCall?**: `CallHandler`
+• **client.tevmCall?**: [`CallHandler`](../../actions/type-aliases/CallHandler.md)
 
 A powerful low level API for executing calls and sending transactions.
 See [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/) for options reference.
@@ -2204,7 +2204,7 @@ In addition to making basic calls, you can also do advanced things like:
 - Send as a transaction with `createTransaction: true`
 For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/)
 
-• **client.tevmContract?**: `ContractHandler`
+• **client.tevmContract?**: [`ContractHandler`](../../actions/type-aliases/ContractHandler.md)
 
 A powerful low level API for calling contracts. Similar to `tevmCall` but takes care of encoding and decoding data, revert messages, etc.
 See [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/) for options reference.
@@ -2234,7 +2234,7 @@ In addition to making basic calls, you can also do advanced things like:
 - Send as a transaction with `createTransaction: true`
 For all options see [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/)
 
-• **client.tevmDeploy?**: `DeployHandler`
+• **client.tevmDeploy?**: [`DeployHandler`](../../actions/type-aliases/DeployHandler.md)
 
 Deploys a contract to the EVM with encoded constructor arguments. Extends `tevmCall` so it supports all advanced options.
 
@@ -2263,7 +2263,7 @@ const deploymentResult = await client.tevmDeploy({
 console.log(deploymentResult.createdAddress)
 ```
 
-• **client.tevmDumpState?**: `DumpStateHandler`
+• **client.tevmDumpState?**: [`DumpStateHandler`](../../actions/type-aliases/DumpStateHandler.md)
 
 Dumps a JSON serializable state from the EVM. This can be useful for persisting and restoring state between processes.
 
@@ -2277,7 +2277,7 @@ const state = await client.tevmDumpState()
 fs.writeFileSync('state.json', JSON.stringify(state))
 ```
 
-• **client.tevmGetAccount?**: `GetAccountHandler`
+• **client.tevmGetAccount?**: [`GetAccountHandler`](../../actions/type-aliases/GetAccountHandler.md)
 
 Gets the account state of an account. It does not return the storage state by default but can if `returnStorage` is set to `true`.
 In forked mode, the storage is only the storage TEVM has cached and may not represent all the on-chain storage.
@@ -2300,7 +2300,7 @@ const account = await client.tevmGetAccount({
 })
 ```
 
-• **client.tevmLoadState?**: `LoadStateHandler`
+• **client.tevmLoadState?**: [`LoadStateHandler`](../../actions/type-aliases/LoadStateHandler.md)
 
 Loads a JSON serializable state into the EVM. This can be useful for persisting and restoring state between processes.
 
@@ -2347,7 +2347,7 @@ await client.tevmReady()
 ```
 Same as calling `client.tevm.ready()`
 
-• **client.tevmSetAccount?**: `SetAccountHandler`
+• **client.tevmSetAccount?**: [`SetAccountHandler`](../../actions/type-aliases/SetAccountHandler.md)
 
 Sets any property of an account including its balance, nonce, contract deployedBytecode, contract state, and more.
 

@@ -18,7 +18,7 @@ Result of a TEVM VM Call method.
 
 ### accessList?
 
-> `optional` **accessList**: `Record`\<`Address`, `Set`\<`Hex`\>\>
+> `optional` **accessList**: `Record`\<[`Address`](../../actions/type-aliases/Address.md), `Set`\<[`Hex`](../../actions/type-aliases/Hex.md)\>\>
 
 The access list if enabled on call.
 Mapping of addresses to storage slots.
@@ -50,13 +50,13 @@ Amount of blob gas consumed by the transaction.
 
 ### createdAddress?
 
-> `optional` **createdAddress**: `Address`
+> `optional` **createdAddress**: [`Address`](../../actions/type-aliases/Address.md)
 
 Address of created account during the transaction, if any.
 
 ### createdAddresses?
 
-> `optional` **createdAddresses**: `Set`\<`Address`\>
+> `optional` **createdAddresses**: `Set`\<[`Address`](../../actions/type-aliases/Address.md)\>
 
 Map of addresses which were created (used in EIP 6780).
 Note the addresses are not actually created until the transaction is mined.
@@ -131,7 +131,7 @@ Only included when an OP-Stack common is provided.
 
 ### logs?
 
-> `optional` **logs**: `Log`[]
+> `optional` **logs**: [`Log`](../../actions/type-aliases/Log.md)[]
 
 Array of logs that the contract emitted.
 
@@ -150,7 +150,7 @@ The value that accrues to the miner by this transaction.
 
 ### preimages?
 
-> `optional` **preimages**: `Record`\<`Hex`, `Hex`\>
+> `optional` **preimages**: `Record`\<[`Hex`](../../actions/type-aliases/Hex.md), [`Hex`](../../actions/type-aliases/Hex.md)\>
 
 Preimages mapping of the touched accounts from the transaction (see `reportPreimages` option).
 
@@ -162,7 +162,7 @@ Priority fee set by the transaction.
 
 ### rawData
 
-> **rawData**: `Hex`
+> **rawData**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 Encoded return value from the contract as a hex string.
 
@@ -175,7 +175,7 @@ console.log(`Raw data returned: ${rawData}`)
 
 ### selfdestruct?
 
-> `optional` **selfdestruct**: `Set`\<`Address`\>
+> `optional` **selfdestruct**: `Set`\<[`Address`](../../actions/type-aliases/Address.md)\>
 
 A set of accounts to selfdestruct.
 
@@ -190,7 +190,7 @@ This is analogous to what `eth_estimateGas` would return. Does not include L1 fe
 
 ### trace?
 
-> `optional` **trace**: `DebugTraceCallResult`
+> `optional` **trace**: [`DebugTraceCallResult`](../../actions/type-aliases/DebugTraceCallResult.md)
 
 The call trace if tracing is enabled on call.
 
@@ -203,7 +203,7 @@ trace.structLogs.forEach(console.log)
 
 ### txHash?
 
-> `optional` **txHash**: `Hex`
+> `optional` **txHash**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 The returned transaction hash if the call was included in the chain.
 Will not be defined if the call was not included in the chain.

@@ -6,6 +6,7 @@
 
 ## Modules
 
+- [actions](actions/README.md)
 - [address](address/README.md)
 - [block](block/README.md)
 - [blockchain](blockchain/README.md)

@@ -6,7 +6,7 @@
 
 # Type Alias: TevmJsonRpcRequest
 
-> **TevmJsonRpcRequest**: `GetAccountJsonRpcRequest` \| `SetAccountJsonRpcRequest` \| `CallJsonRpcRequest` \| `LoadStateJsonRpcRequest` \| `DumpStateJsonRpcRequest` \| `MineJsonRpcRequest`
+> **TevmJsonRpcRequest**: [`GetAccountJsonRpcRequest`](../../actions/type-aliases/GetAccountJsonRpcRequest.md) \| [`SetAccountJsonRpcRequest`](../../actions/type-aliases/SetAccountJsonRpcRequest.md) \| [`CallJsonRpcRequest`](../../actions/type-aliases/CallJsonRpcRequest.md) \| [`LoadStateJsonRpcRequest`](../../actions/type-aliases/LoadStateJsonRpcRequest.md) \| [`DumpStateJsonRpcRequest`](../../actions/type-aliases/DumpStateJsonRpcRequest.md) \| [`MineJsonRpcRequest`](../../actions/type-aliases/MineJsonRpcRequest.md)
 
 A Tevm JSON-RPC request
 `tevm_account`, `tevm_call`, `tevm_contract`, `tevm_script`

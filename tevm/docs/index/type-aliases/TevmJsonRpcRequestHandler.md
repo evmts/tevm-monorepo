@@ -13,7 +13,7 @@ and more feature-rich `actions` api
 
 ## Type Parameters
 
-• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| `EthJsonRpcRequest` \| `AnvilJsonRpcRequest` \| `DebugJsonRpcRequest`
+• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../actions/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../actions/type-aliases/AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`
 
 ## Parameters
 

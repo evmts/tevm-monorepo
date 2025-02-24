@@ -6,21 +6,13 @@
 
 # Type Alias: RunTx()
 
-> **RunTx**: (`vm`) => (`opts`) => `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
+> **RunTx**: (`opts`) => `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
 ## Parameters
 
-• **vm**: `BaseVm`
-
-## Returns
-
-`Function`
-
-### Parameters
-
 • **opts**: [`RunTxOpts`](../interfaces/RunTxOpts.md)
 
-### Returns
+## Returns
 
 `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 

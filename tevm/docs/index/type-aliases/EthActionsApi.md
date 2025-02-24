@@ -25,7 +25,7 @@ Standard JSON-RPC methods for interacting with the VM
 
 ### eth.blockNumber
 
-> **blockNumber**: `EthBlockNumberHandler`
+> **blockNumber**: [`EthBlockNumberHandler`](../../actions/type-aliases/EthBlockNumberHandler.md)
 
 Returns the current block number
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -44,7 +44,7 @@ console.log(blockNumber) // 0n
 
 ### eth.call
 
-> **call**: `EthCallHandler`
+> **call**: [`EthCallHandler`](../../actions/type-aliases/EthCallHandler.md)
 
 Executes a call without modifying the state
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -63,7 +63,7 @@ console.log(res) // "0x..."
 
 ### eth.chainId
 
-> **chainId**: `EthChainIdHandler`
+> **chainId**: [`EthChainIdHandler`](../../actions/type-aliases/EthChainIdHandler.md)
 
 Returns the current chain id
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -82,7 +82,7 @@ console.log(chainId) // 10n
 
 ### eth.gasPrice
 
-> **gasPrice**: `EthGasPriceHandler`
+> **gasPrice**: [`EthGasPriceHandler`](../../actions/type-aliases/EthGasPriceHandler.md)
 
 Returns the current gas price
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -101,7 +101,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getBalance
 
-> **getBalance**: `EthGetBalanceHandler`
+> **getBalance**: [`EthGetBalanceHandler`](../../actions/type-aliases/EthGetBalanceHandler.md)
 
 Returns the balance of a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -120,7 +120,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getCode
 
-> **getCode**: `EthGetCodeHandler`
+> **getCode**: [`EthGetCodeHandler`](../../actions/type-aliases/EthGetCodeHandler.md)
 
 Returns code at a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -138,7 +138,7 @@ const code = await tevm.eth.getCode({address: '0x123...'})
 
 ### eth.getStorageAt
 
-> **getStorageAt**: `EthGetStorageAtHandler`
+> **getStorageAt**: [`EthGetStorageAtHandler`](../../actions/type-aliases/EthGetStorageAtHandler.md)
 
 Returns storage at a given address and slot
 Set the `tag` to a block number or block hash to get the balance at that block

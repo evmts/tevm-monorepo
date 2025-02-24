@@ -35,7 +35,7 @@ provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', d
 
 ### tevm\_call.Parameters
 
-> **Parameters**: `CallJsonRpcRequest`\[`"params"`\]
+> **Parameters**: [`CallJsonRpcRequest`](../../actions/type-aliases/CallJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_call.ReturnType
 
@@ -65,7 +65,7 @@ provider.request({ method: 'tevm_dumpState' })})
 
 ### tevm\_dumpState.Parameters?
 
-> `optional` **Parameters**: `DumpStateJsonRpcRequest`\[`"params"`\]
+> `optional` **Parameters**: [`DumpStateJsonRpcRequest`](../../actions/type-aliases/DumpStateJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_dumpState.ReturnType
 
@@ -95,7 +95,7 @@ provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
 
 ### tevm\_getAccount.Parameters
 
-> **Parameters**: `GetAccountJsonRpcRequest`\[`"params"`\]
+> **Parameters**: [`GetAccountJsonRpcRequest`](../../actions/type-aliases/GetAccountJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_getAccount.ReturnType
 
@@ -126,7 +126,7 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 
 ### tevm\_loadState.Parameters
 
-> **Parameters**: `LoadStateJsonRpcRequest`\[`"params"`\]
+> **Parameters**: [`LoadStateJsonRpcRequest`](../../actions/type-aliases/LoadStateJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_loadState.ReturnType
 
@@ -157,7 +157,7 @@ r
 
 ### tevm\_setAccount.Parameters
 
-> **Parameters**: `SetAccountJsonRpcRequest`\[`"params"`\]
+> **Parameters**: [`SetAccountJsonRpcRequest`](../../actions/type-aliases/SetAccountJsonRpcRequest.md)\[`"params"`\]
 
 ### tevm\_setAccount.ReturnType
 

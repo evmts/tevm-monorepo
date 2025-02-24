@@ -20,11 +20,7 @@ packages/state/dist/index.d.ts:23
 
 ### transport
 
-> **transport**: `object`
-
-#### request
-
-> **request**: `EIP1193RequestFn`
+> **transport**: `Transport` \| `object`
 
 #### Defined in
 

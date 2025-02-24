@@ -6,7 +6,7 @@
 
 # Type Alias: DeployParams\<TThrowOnFail, TAbi, THasConstructor, TAllArgs\>
 
-> **DeployParams**\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>: `Omit`\<`BaseCallParams`\<`TThrowOnFail`\>, `"to"`\> & `object` & [`EncodeDeployDataParameters`](../../utils/type-aliases/EncodeDeployDataParameters.md)\<`TAbi`, `THasConstructor`, `TAllArgs`\>
+> **DeployParams**\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>: `Omit`\<[`BaseCallParams`](../../actions/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\>, `"to"`\> & `object` & [`EncodeDeployDataParameters`](../../utils/type-aliases/EncodeDeployDataParameters.md)\<`TAbi`, `THasConstructor`, `TAllArgs`\>
 
 Defines the parameters used for deploying a contract on TEVM.
 This type extends the base call parameters used for typical TEVM calls,
@@ -19,7 +19,7 @@ The `salt` parameter supports the use of CREATE2, allowing for deterministic add
 
 ### salt?
 
-> `readonly` `optional` **salt**: `Hex`
+> `readonly` `optional` **salt**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 An optional CREATE2 salt, if deploying with CREATE2 for a predictable contract address.
 

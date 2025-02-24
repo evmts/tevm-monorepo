@@ -1,0 +1,153 @@
+---
+title: Mining Modes
+description: Configure block production in Tevm Node
+---
+
+# Mining Modes
+
+Tevm Node provides several mining modes to control how and when blocks are produced. This flexibility allows you to simulate different network conditions and test various scenarios.
+
+## Available Mining Modes
+
+### Auto Mining (`auto`)
+
+Automatically mines a new block after each transaction.
+
+```typescript
+const node = createTevmNode({
+  miningConfig: {
+    type: 'auto'
+  }
+})
+```
+
+Best for:
+- Quick testing and development
+- Immediate transaction confirmation
+- Simulating instant finality
+
+### Interval Mining (`interval`)
+
+Mines blocks at fixed time intervals, simulating real network block times.
+
+```typescript
+const node = createTevmNode({
+  miningConfig: {
+    type: 'interval',
+    interval: 12000 // 12 seconds, similar to Ethereum
+  }
+})
+```
+
+Best for:
+- Testing time-dependent logic
+- Simulating realistic network conditions
+- Handling pending transaction queues
+
+### Manual Mining (`manual`)
+
+Only mines blocks when explicitly requested, giving you complete control over block production.
+
+```typescript
+const node = createTevmNode({
+  miningConfig: {
+    type: 'manual'
+  }
+})
+
+// Later, mine blocks manually
+await node.mine()
+```
+
+Best for:
+- Complex test scenarios
+- Precise control over block timing
+- Testing mempool behavior
+
+### Gas-Based Mining (`gas`)
+
+Mines a new block when the accumulated gas usage reaches a specified threshold.
+
+```typescript
+const node = createTevmNode({
+  miningConfig: {
+    type: 'gas',
+    gasLimit: 15000000 // Similar to Ethereum block gas limit
+  }
+})
+```
+
+Best for:
+- Testing gas-dependent behavior
+- Simulating block fullness scenarios
+- Performance testing with varying load
+
+## Changing Mining Modes
+
+You can change the mining mode after node creation:
+
+```typescript
+// Switch to interval mining
+await node.setMiningConfig({
+  type: 'interval',
+  interval: 5000 // 5 seconds
+})
+
+// Switch to manual mining
+await node.setMiningConfig({
+  type: 'manual'
+})
+```
+
+## Best Practices
+
+1. **Choose the Right Mode**
+   - Use `auto` for simple testing and development
+   - Use `interval` or `gas` for more realistic scenarios
+   - Use `manual` for precise control in tests
+
+2. **Consider Performance**
+   - `auto` mining can be resource-intensive with many transactions
+   - `interval` mining might delay transaction processing
+   - `gas` mining helps simulate network congestion
+
+3. **Testing Considerations**
+   - Test time-sensitive logic with `interval` mining
+   - Use `manual` mining for deterministic test cases
+   - Simulate network conditions with appropriate intervals
+
+## Example: Testing Different Mining Modes
+
+```typescript
+import { createTevmNode } from 'tevm'
+
+// Auto mining for quick tests
+const autoNode = createTevmNode({
+  miningConfig: { type: 'auto' }
+})
+
+// Interval mining for realistic scenarios
+const intervalNode = createTevmNode({
+  miningConfig: {
+    type: 'interval',
+    interval: 12000
+  }
+})
+
+// Manual mining for controlled tests
+const manualNode = createTevmNode({
+  miningConfig: { type: 'manual' }
+})
+
+// Test transaction processing
+await autoNode.sendTransaction({...}) // Mines immediately
+await intervalNode.sendTransaction({...}) // Mines after interval
+await manualNode.sendTransaction({...}) // Stays pending until manual mine
+await manualNode.mine() // Now the transaction is mined
+```
+
+## Related Topics
+
+- [Transaction Pool](../advanced/txpool) - Understanding pending transaction handling
+- [Performance Optimization](../advanced/performance-profiler) - Tuning mining for better performance
+- [Block Management](../api/methods#block-methods) - Low-level block control

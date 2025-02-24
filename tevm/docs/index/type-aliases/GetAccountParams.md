@@ -14,7 +14,7 @@ Tevm params to get an account
 
 ### address
 
-> `readonly` **address**: `Address`
+> `readonly` **address**: [`Address`](../../actions/type-aliases/Address.md)
 
 Address of account
 

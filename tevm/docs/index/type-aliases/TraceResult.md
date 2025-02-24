@@ -16,7 +16,7 @@
 
 ### from
 
-> **from**: `Address`
+> **from**: [`Address`](../../actions/type-aliases/Address.md)
 
 ### gas
 
@@ -28,19 +28,19 @@
 
 ### input
 
-> **input**: `Hex`
+> **input**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### output
 
-> **output**: `Hex`
+> **output**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### to
 
-> **to**: `Address`
+> **to**: [`Address`](../../actions/type-aliases/Address.md)
 
 ### type
 
-> **type**: `TraceType`
+> **type**: [`TraceType`](../../actions/type-aliases/TraceType.md)
 
 ### value
 

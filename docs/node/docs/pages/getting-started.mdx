@@ -5,7 +5,7 @@ description: Get started with Tevm Node - A JavaScript Ethereum Virtual Machine
 
 # Getting Started
 
-Welcome to [Tevm Node](https://github.com/evmts/tevm-monorepo)! This guide will help you navigate our documentation and get started with running [Ethereum](https://ethereum.org) in JavaScript.
+Welcome to Tevm Node! This guide will help you get started with running Ethereum in JavaScript.
 
 ## Installation
 
@@ -13,21 +13,13 @@ Welcome to [Tevm Node](https://github.com/evmts/tevm-monorepo)! This guide will 
 npm install tevm
 ```
 
-## Quick Examples
+## Usage Examples
 
-### 1. Raw Tevm Node API
-
-The most direct way to use Tevm is with the raw [`createTevmNode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/functions/createTevmNode.md) API. This gives you access to the [complete actions API](/api/actions):
+### Basic Usage with Tevm Node
 
 ```typescript
 import { createTevmNode } from 'tevm'
-// tevm/actions has many useful high level actions to interact with
-// the tevm api including the entire json rpc api
-import {
-  callHandler,
-  setAccountHandler,
-  getAccountHandler,
-} from 'tevm/actions'
+import { callHandler, setAccountHandler, getAccountHandler } from 'tevm/actions'
 
 const node = createTevmNode()
 
@@ -39,7 +31,7 @@ const result = await callHandler(node)({
 })
 
 // Set account state
-await tevmSetAccountHandler(node)({
+await setAccountHandler(node)({
   address: '0x1234567890123456789012345678901234567890',
   balance: 1000000000000000000n // 1 ETH
 })
@@ -48,184 +40,108 @@ await tevmSetAccountHandler(node)({
 const account = await getAccountHandler(node)({
   address: '0x1234567890123456789012345678901234567890'
 })
-
-// You can also interact directly with the low level node apis
-const vm = await node.getVm()
-await node.blockchain.putBlock(newBlock)
-await node.stateManager.putContractCode(createAddress(420), hexToBytes('0x...'))
 ```
 
-### 2. Using with Viem
-
-For a more familiar developer experience, you can use [Tevm with Viem](./examples/viem):
-
-You can still use the [Raw Tevm Node API](#1-raw-tevm-node-api) referencing [`client.transport.tevm`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/functions/createTevmNode.md)
+### Using with Viem
 
 ```typescript
 import { createMemoryClient, http } from 'tevm'
 import { optimism } from 'tevm/common'
 
-// Create a client that forks from Optimism mainnet
-// See [MemoryClient docs](/api/memory-client) for more configuration options
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
+    transport: http('https://mainnet.optimism.io'),
     blockTag: 'latest',
   },
   common: optimism,
 })
 
-// Use viem's public, wallet, or test actions
+// Use viem's public actions
 const block = await client.getBlock({ blockTag: 'latest' })
-console.log(block)
 
 // Mix with Tevm actions
-const testAddress = '0x1234567890123456789012345678901234567890'
 await client.tevmSetAccount({
-  address: testAddress,
-  balance: 1000000000000000000n // 1 ETH
+  address: '0x1234567890123456789012345678901234567890',
+  balance: 1000000000000000000n
 })
-
-// Get account state
-const account = await client.tevmGetAccount({ address: testAddress })
-console.log(account)
-
-// Use the raw Tevm node api via `client.transport.tevm`
-const vm = await client.transport.tevm.getVm()
-const block = await vm.blockchain.getBlockByTag('latest')
 ```
 
-### 3. Using with Ethers
-
-You can also use Tevm with [Ethers.js](./examples/ethers):
+### Using with Ethers
 
 ```typescript
 import { createTevmNode } from 'tevm'
 import { requestEip1193 } from 'tevm/decorators'
 import { BrowserProvider } from 'ethers'
 
-// Create Tevm Node with EIP-1193 support
 const node = createTevmNode().extend(requestEip1193())
-
-// Create Ethers provider
 const provider = new BrowserProvider(node)
 
-// Use standard Ethers API
 const block = await provider.getBlockNumber()
 const balance = await provider.getBalance('0x1234...')
 ```
 
-## Quick Start
-Start here to understand the basics:
-- [What is Tevm Node?](./introduction/what-is-tevm-node) - Overview and key features
-- [Architecture Overview](./introduction/architecture-overview) - High-level explanation of how Tevm works
-- [Why run Ethereum in JS?](./introduction/why-run-ethereum-in-js) - Benefits and use cases
-- [Installation & Quickstart](./introduction/installation) - Get up and running
+## Core Concepts
 
-## Learning Path
+### 1. Node Creation & Configuration
 
-### 1. Core Concepts
-Learn the fundamental building blocks:
-- [Creating a Node](./core/create-tevm-node) - Set up and configure your node
-- [Node Interface](./core/tevm-node-interface) - Understand the main API surface
-- [Forking & Reforking](./core/forking) - Fork from networks or other Tevm instances
-- [Managing State](./core/managing-state) - Handle accounts, storage, and blockchain state
-- [Mining Configuration](#TODO) - Configure block production
+- [Creating a Node](./core/create-tevm-node) - Basic setup and configuration
+- [Node Interface](./core/tevm-node-interface) - Core API surface
+- [Mining Modes](./core/mining-modes) - Configure block production:
+  - `auto`: Mine on every transaction
+  - `interval`: Mine at fixed intervals
+  - `manual`: Explicit mining control
+  - `gas`: Mine based on gas usage
 
-### 2. Essential APIs
-Most commonly used APIs:
-- [tevmCall API](./api/tevm-call) - Execute contract calls and transactions
-- [JSON-RPC Support](./api/json-rpc) - Standard Ethereum JSON-RPC interface
-- [Account Management](./api/account-management) - Work with accounts and balances
-- [Contract Utilities](./api/contracts) - Create and interact with contracts
-- [Utilities & Addresses](./api/utils) - Core utilities for addresses and common operations
-- [Methods & Properties](./api/methods) - Complete API reference
-- [VM & Submodules](./api/vm-and-submodules) - Internal architecture based on ethereumjs
-- [EVM Events](./api/evm-events) - Debug and trace EVM execution
+### 2. State Management
 
-### 3. Integration Examples
-Real-world usage examples:
-- [Local Testing](./examples/local-testing) - Write tests for your contracts
-- [Forking Mainnet](./examples/forking-mainnet) - Work with production state locally
-- [Using with Viem](./examples/viem) - Integration with [Viem](https://viem.sh)
-- [Using with Ethers](./examples/ethers) - Integration with [Ethers.js](https://docs.ethers.org)
-
-### 4. Advanced Features
-Dive deeper into advanced capabilities:
+- [Forking Networks](./core/forking) - Fork from any EVM chain
+- [Managing State](./core/managing-state) - Handle accounts and storage
 - [Transaction Pool](./advanced/txpool) - Manage pending transactions
+
+### 3. API Integration
+
+- [JSON-RPC Support](./api/json-rpc) - Standard Ethereum JSON-RPC
+- [Contract Interaction](./api/contracts) - Smart contract utilities
+- [Events & Logging](./api/evm-events) - Debug and trace execution
+
+## Advanced Features
+
 - [Custom Precompiles](./advanced/custom-precompiles) - Extend EVM functionality
-- [Performance Profiler](./advanced/performance-profiler) - Optimize performance
-- [Receipts & Logs](./advanced/receipts-and-logs) - Handle events and logs
-
-## Key Features
-
-### Forking & State Management
-- Fork from any EVM-compatible network
-- Memory-efficient reforking strategies
-- Complete state control and manipulation
-- Account impersonation for testing
-
-### Performance & Flexibility
-- Automatic or manual block mining
-- Lazy loading with caching
-- Custom precompiles in JavaScript
-- Comprehensive debugging tools
-
-### Developer Experience
-- TypeScript-first design
-- Viem & Ethers.js compatibility
-- Standard JSON-RPC support
-- Rich testing utilities
+- [Performance Optimization](./advanced/performance-profiler) - Profiling and tuning
+- [Reforking Strategies](./core/forking#reforking) - Efficient state management
 
 ## Package Documentation
 
-All Tevm packages can be installed individually (e.g., `npm install @tevm/actions`) or together by installing `tevm` and importing from the specific package (e.g., `import { ... } from 'tevm/actions'`). Each package has its own generated API documentation:
+Tevm is modular - install the full package with `npm install tevm` or individual packages like `@tevm/actions`. Import from specific packages:
 
-### Core Packages
-- [@tevm/actions](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs) - Comprehensive set of actions for interacting with the Tevm client
-- [@tevm/vm](https://github.com/evmts/tevm-monorepo/tree/main/packages/vm/docs) - Custom Ethereum Virtual Machine implementation
-- [@tevm/state](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs) - State management for accounts, storage, and contracts
-- [@tevm/blockchain](https://github.com/evmts/tevm-monorepo/tree/main/packages/blockchain/docs) - Blockchain implementation and block management
-- [@tevm/evm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs) - EVM execution environment and bytecode processing
+```typescript
+// Full package
+import { createTevmNode } from 'tevm'
 
-### Transaction & Block Handling
-- [@tevm/block](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs) - Block creation and manipulation utilities
-- [@tevm/tx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs) - Transaction types and handling
-- [@tevm/txpool](https://github.com/evmts/tevm-monorepo/tree/main/packages/txpool/docs) - Transaction pool (mempool) implementation
-- [@tevm/receipt-manager](https://github.com/evmts/tevm-monorepo/tree/main/packages/receipt-manager/docs) - Transaction receipt management
+// Individual packages
+import { createTevmNode } from '@tevm/node'
+import { callHandler } from '@tevm/actions'
+```
 
-### Client & Communication
-- [@tevm/memory-client](https://github.com/evmts/tevm-monorepo/tree/main/packages/memory-client/docs) - In-memory Ethereum client implementation
-- [@tevm/http-client](https://github.com/evmts/tevm-monorepo/tree/main/packages/http-client/docs) - HTTP client for remote Tevm nodes
-- [@tevm/jsonrpc](https://github.com/evmts/tevm-monorepo/tree/main/packages/jsonrpc/docs) - JSON-RPC protocol implementation
-- [@tevm/server](https://github.com/evmts/tevm-monorepo/tree/main/packages/server/docs) - Tevm server implementation
+See our [Package Reference](./api/packages) for detailed documentation of each module.
 
-### Smart Contract Tools
-- [@tevm/contract](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs) - Smart contract interaction utilities
-- [@tevm/precompiles](https://github.com/evmts/tevm-monorepo/tree/main/packages/precompiles/docs) - Precompiled contract implementations
-- [@tevm/predeploys](https://github.com/evmts/tevm-monorepo/tree/main/packages/predeploys/docs) - Pre-deployed contract management
+## Reference Documentation
 
-### Utilities & Helpers
-- [@tevm/utils](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils/docs) - Common utilities for Ethereum data structures
-- [@tevm/common](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs) - Shared constants and chain configurations
-- [@tevm/decorators](https://github.com/evmts/tevm-monorepo/tree/main/packages/decorators/docs) - Function decorators for extending client functionality
-- [@tevm/procedures](https://github.com/evmts/tevm-monorepo/tree/main/packages/procedures/docs) - Common procedures and operations
-- [@tevm/rlp](https://github.com/evmts/tevm-monorepo/tree/main/packages/rlp/docs) - RLP encoding/decoding utilities
-- [@tevm/trie](https://github.com/evmts/tevm-monorepo/tree/main/packages/trie/docs) - Merkle Patricia Tree implementation
+For detailed API reference documentation of each package, visit:
 
-### Development & Error Handling
-- [@tevm/errors](https://github.com/evmts/tevm-monorepo/tree/main/packages/errors/docs) - Error types and handling
-- [@tevm/logger](https://github.com/evmts/tevm-monorepo/tree/main/packages/logger/docs) - Logging functionality
-- [@tevm/effect](https://github.com/evmts/tevm-monorepo/tree/main/packages/effect/docs) - Effect system for handling side effects
-
-### Storage & Synchronization
-- [@tevm/sync-storage-persister](https://github.com/evmts/tevm-monorepo/tree/main/packages/sync-storage-persister/docs) - Storage persistence and synchronization
-- [@tevm/client-types](https://github.com/evmts/tevm-monorepo/tree/main/packages/client-types/docs) - Type definitions for client interfaces
-- [@tevm/node](https://github.com/evmts/tevm-monorepo/tree/main/packages/node/docs) - Node implementation and management
-- [@tevm/address](https://github.com/evmts/tevm-monorepo/tree/main/packages/address/docs) - Ethereum address utilities and validation
+- [@tevm/actions Reference](/reference/actions)
+- [@tevm/block Reference](/reference/block)
+- [@tevm/evm Reference](/reference/evm)
+- [@tevm/node Reference](/reference/node)
+- [@tevm/state Reference](/reference/state)
+- [@tevm/trie Reference](/reference/trie)
+- [@tevm/tx Reference](/reference/tx)
+- [@tevm/vm Reference](/reference/vm)
+- [@tevm/rlp Reference](/reference/rlp)
 
 ## Additional Resources
-- [Ethereum Development Documentation](https://ethereum.org/en/developers/docs/) - Official Ethereum docs
-- [EVM Deep Dive](https://ethereum.org/en/developers/docs/evm/) - Understanding the EVM
-- [JSON-RPC API](https://ethereum.org/en/developers/docs/apis/json-rpc/) - Standard Ethereum API
-- [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo) - Core EVM implementation
+
+- [Ethereum Developer Documentation](https://ethereum.org/developers)
+- [EVM Deep Dive](https://ethereum.org/developers/docs/evm)
+- [JSON-RPC Specification](https://ethereum.org/developers/docs/apis/json-rpc)
+- [GitHub Repository](https://github.com/evmts/tevm-monorepo)

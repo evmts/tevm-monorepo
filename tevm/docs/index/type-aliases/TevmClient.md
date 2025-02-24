@@ -12,7 +12,7 @@
 
 ### ~~call~~
 
-> **call**: `CallHandler`
+> **call**: [`CallHandler`](../../actions/type-aliases/CallHandler.md)
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -34,7 +34,7 @@ const res = tevm.call({
 
 ### ~~contract~~
 
-> **contract**: `ContractHandler`
+> **contract**: [`ContractHandler`](../../actions/type-aliases/ContractHandler.md)
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -61,7 +61,7 @@ console.log(res.data) // "hello"
 
 ### ~~dumpState~~
 
-> **dumpState**: `DumpStateHandler`
+> **dumpState**: [`DumpStateHandler`](../../actions/type-aliases/DumpStateHandler.md)
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -93,7 +93,7 @@ Standard JSON-RPC methods for interacting with the VM
 
 ### eth.blockNumber
 
-> **blockNumber**: `EthBlockNumberHandler`
+> **blockNumber**: [`EthBlockNumberHandler`](../../actions/type-aliases/EthBlockNumberHandler.md)
 
 Returns the current block number
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -112,7 +112,7 @@ console.log(blockNumber) // 0n
 
 ### eth.call
 
-> **call**: `EthCallHandler`
+> **call**: [`EthCallHandler`](../../actions/type-aliases/EthCallHandler.md)
 
 Executes a call without modifying the state
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -131,7 +131,7 @@ console.log(res) // "0x..."
 
 ### eth.chainId
 
-> **chainId**: `EthChainIdHandler`
+> **chainId**: [`EthChainIdHandler`](../../actions/type-aliases/EthChainIdHandler.md)
 
 Returns the current chain id
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -150,7 +150,7 @@ console.log(chainId) // 10n
 
 ### eth.gasPrice
 
-> **gasPrice**: `EthGasPriceHandler`
+> **gasPrice**: [`EthGasPriceHandler`](../../actions/type-aliases/EthGasPriceHandler.md)
 
 Returns the current gas price
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -169,7 +169,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getBalance
 
-> **getBalance**: `EthGetBalanceHandler`
+> **getBalance**: [`EthGetBalanceHandler`](../../actions/type-aliases/EthGetBalanceHandler.md)
 
 Returns the balance of a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -188,7 +188,7 @@ console.log(gasPrice) // 0n
 
 ### eth.getCode
 
-> **getCode**: `EthGetCodeHandler`
+> **getCode**: [`EthGetCodeHandler`](../../actions/type-aliases/EthGetCodeHandler.md)
 
 Returns code at a given address
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -206,7 +206,7 @@ const code = await tevm.eth.getCode({address: '0x123...'})
 
 ### eth.getStorageAt
 
-> **getStorageAt**: `EthGetStorageAtHandler`
+> **getStorageAt**: [`EthGetStorageAtHandler`](../../actions/type-aliases/EthGetStorageAtHandler.md)
 
 Returns storage at a given address and slot
 Set the `tag` to a block number or block hash to get the balance at that block
@@ -224,7 +224,7 @@ const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position:
 
 ### ~~getAccount~~
 
-> **getAccount**: `GetAccountHandler`
+> **getAccount**: [`GetAccountHandler`](../../actions/type-aliases/GetAccountHandler.md)
 
 Gets the state of a specific ethereum address
 
@@ -239,7 +239,7 @@ console.log(res.balance)
 
 ### ~~loadState~~
 
-> **loadState**: `LoadStateHandler`
+> **loadState**: [`LoadStateHandler`](../../actions/type-aliases/LoadStateHandler.md)
 
 Loads a previously dumped state into the VM
 
@@ -375,7 +375,7 @@ response - EthGetBalanceJsonRpcResponse
 
 ### ~~setAccount~~
 
-> **setAccount**: `SetAccountHandler`
+> **setAccount**: [`SetAccountHandler`](../../actions/type-aliases/SetAccountHandler.md)
 
 Sets the state of a specific ethereum address
 

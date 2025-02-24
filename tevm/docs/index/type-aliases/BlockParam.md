@@ -6,7 +6,7 @@
 
 # Type Alias: BlockParam
 
-> **BlockParam**: `BlockTag` \| [`Hex`](Hex.md) \| `bigint`
+> **BlockParam**: [`BlockTag`](../../actions/type-aliases/BlockTag.md) \| [`Hex`](Hex.md) \| `bigint`
 
 ## Defined in
 

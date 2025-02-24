@@ -14,7 +14,7 @@ An event filter options object
 
 ### address?
 
-> `readonly` `optional` **address**: `Address`
+> `readonly` `optional` **address**: [`Address`](../../actions/type-aliases/Address.md)
 
 ### fromBlock?
 
@@ -26,7 +26,7 @@ An event filter options object
 
 ### topics?
 
-> `readonly` `optional` **topics**: `ReadonlyArray`\<`Hex`\> \| `ReadonlyArray`\<`ReadonlyArray`\<`Hex`\>\>
+> `readonly` `optional` **topics**: `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\> \| `ReadonlyArray`\<`ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>\>
 
 ## Defined in
 

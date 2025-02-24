@@ -4,20 +4,11 @@
 
 ## Docs
 
-- [Getting Started](/getting-started): Welcome to [Tevm Node](https://github.com/evmts/tevm-monorepo)! This guide will help you navigate our documentation and get started with running [Ethereum](https://ethereum.org) in JavaScript.
+- [Getting Started](/getting-started): Welcome to Tevm Node! This guide will help you get started with running Ethereum in JavaScript.
 - [Custom Precompiles](/advanced/custom-precompiles): [Tevm Node](https://github.com/evmts/tevm-monorepo) allows you to extend the [EVM](https://ethereum.org/en/developers/docs/evm/) with custom [precompiled contracts](https://ethereum.org/en/developers/docs/evm/precompiles/) written in JavaScript. These precompiles can provide native functionality at specific addresses, similar to [Ethereum's built-in precompiles](https://www.evm.codes/precompiled).
 - [Performance & Profiler](/advanced/performance-profiler): Tevm Node includes a built-in performance profiler that helps you analyze EVM execution, identify bottlenecks, and optimize your smart contracts.
 - [Receipts & Logs](/advanced/receipts-and-logs): Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.
 - [Transaction Pool](/advanced/txpool): The Transaction Pool (TxPool) is a crucial component that manages pending transactions before they're included in blocks. It handles transaction ordering, replacement, validation, and lifecycle management.
-- [Creating a Tevm Node](/core/create-tevm-node): `createTevmNode` is the main entry point for spinning up a local Tevm Node instance. It provides a flexible configuration API to customize your node's behavior for different use cases.
-- [Forking Networks](/core/forking): Tevm's forking capability allows you to create a local instance that mirrors the state of any live Ethereum network or another Tevm instance. This is incredibly useful for:
-- [Managing State](/core/managing-state): Tevm provides powerful state management capabilities through multiple APIs. Let's explore how to manage Ethereum state using different approaches.
-- [TevmNode Interface](/core/tevm-node-interface): The `TevmNode` interface is the core API surface of Tevm. It provides access to all the fundamental Ethereum node capabilities, from transaction processing to state management.
-- [Building a Debugger UI](/examples/debugger-ui): This example demonstrates how to create a minimal EVM debugger interface using [Svelte](https://svelte.dev) and Tevm Node. The debugger will show:
-- [Using with Ethers.js](/examples/ethers): This guide demonstrates how to use Tevm Node with Ethers.js, enabling seamless integration with the popular Ethereum development library.
-- [Forking Mainnet Example](/examples/forking-mainnet): **Related**
-- [Local Testing](/examples/local-testing): This guide demonstrates how to use Tevm Node for local testing of [smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/) and [transactions](https://ethereum.org/en/developers/docs/transactions/). For more background on testing Ethereum applications, see the [Smart Contract Testing Guide](https://ethereum.org/en/developers/docs/smart-contracts/testing/).
-- [Using with Viem](/examples/viem): This guide demonstrates how to use Tevm Node with Viem, enabling seamless integration with Viem's powerful Ethereum development tools.
 - [Account Management](/api/account-management): Tevm provides two key actions for managing account state: `getAccountHandler` and `setAccountHandler`.
 - [@tevm/actions](/api/actions): **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/actions/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs) folder.
 - [Block](/api/block): The `@tevm/block` package provides functionality for working with Ethereum blocks. It includes classes and utilities for handling block headers, block data, and block-related operations.
@@ -30,6 +21,7 @@
 - [JSON-RPC Support](/api/json-rpc): Tevm Node provides comprehensive [JSON-RPC](https://ethereum.org/en/developers/docs/apis/json-rpc/) support through an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible interface. This allows seamless integration with popular Ethereum libraries and tools.
 - [MemoryClient](/api/memory-client): **MemoryClient** combines a fully in-memory Ethereum node powered by [Tevm Node](/introduction/what-is-tevm-node) with [viem](https://viem.sh/). It includes:
 - [Tevm Node Methods](/api/methods): Tevm Node provides a comprehensive API for interacting with the Ethereum Virtual Machine. This reference covers all core methods and capabilities.
+- [Package Reference](/api/packages): Tevm Node is built as a collection of modular packages. You can install the complete suite with `npm install tevm` or individual packages based on your needs.
 - [@tevm/receipt-manager](/api/receipt-manager): The `@tevm/receipt-manager` package provides functionality for managing Ethereum transaction receipts, including storage, retrieval, and querying of transaction receipts and logs.
 - [@tevm/state](/api/state): **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/state/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs) folder.
 - [Call API](/api/tevm-call): The `callHandler` action is one of the most important APIs in Tevm, covering 90% of use cases along with `mineHandler`. It provides a powerful interface for executing EVM calls with extensive configuration options.
@@ -39,7 +31,17 @@
 - [@tevm/utils](/api/utils): \> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/utils/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils/docs) folder.
 - [VM & Submodules](/api/vm-and-submodules): [Tevm Node](https://github.com/evmts/tevm-monorepo) is built on a modular architecture that separates concerns into distinct submodules. This guide covers the internal components and their APIs.
 - [@tevm/vm](/api/vm): **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/vm/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/vm/docs) folder.
+- [Creating a Tevm Node](/core/create-tevm-node): `createTevmNode` is the main entry point for spinning up a local Tevm Node instance. It provides a flexible configuration API to customize your node's behavior for different use cases.
+- [Forking Networks](/core/forking): Tevm's forking capability allows you to create a local instance that mirrors the state of any live Ethereum network or another Tevm instance. This is incredibly useful for:
+- [Managing State](/core/managing-state): Tevm provides powerful state management capabilities through multiple APIs. Let's explore how to manage Ethereum state using different approaches.
+- [Mining Modes](/core/mining-modes): Tevm Node provides several mining modes to control how and when blocks are produced. This flexibility allows you to simulate different network conditions and test various scenarios.
+- [TevmNode Interface](/core/tevm-node-interface): The `TevmNode` interface is the core API surface of Tevm. It provides access to all the fundamental Ethereum node capabilities, from transaction processing to state management.
+- [Building a Debugger UI](/examples/debugger-ui): This example demonstrates how to create a minimal EVM debugger interface using [Svelte](https://svelte.dev) and Tevm Node. The debugger will show:
+- [Using with Ethers.js](/examples/ethers): This guide demonstrates how to use Tevm Node with Ethers.js, enabling seamless integration with the popular Ethereum development library.
+- [Forking Mainnet Example](/examples/forking-mainnet): **Related**
+- [Local Testing](/examples/local-testing): This guide demonstrates how to use Tevm Node for local testing of [smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/) and [transactions](https://ethereum.org/en/developers/docs/transactions/). For more background on testing Ethereum applications, see the [Smart Contract Testing Guide](https://ethereum.org/en/developers/docs/smart-contracts/testing/).
+- [Using with Viem](/examples/viem): This guide demonstrates how to use Tevm Node with Viem, enabling seamless integration with Viem's powerful Ethereum development tools.
 - [Architecture Overview](/introduction/architecture-overview): [Tevm Node](https://github.com/evmts/tevm-monorepo) is a JavaScript implementation of an Ethereum node that can run in any JavaScript environment - browsers, Node.js, or other runtimes. It provides a complete [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) with state management, transaction processing, and JSON-RPC support.
 - [Installation & Quickstart](/introduction/installation): Explore the [Core Concepts](../core/create-tevm-node)
-- [What is Tevm Node?](/introduction/what-is-tevm-node): Tevm Node is an in-browser & Node.js-compatible Ethereum Node. It provides a complete Ethereum Virtual Machine (EVM) execution environment, powered by JavaScript, that you can run:
+- [What is Tevm Node?](/introduction/what-is-tevm-node): Tevm Node is an in-browser & Node.js-compatible Ethereum Virtual Machine (EVM) environment. It provides a complete Ethereum execution environment, powered by JavaScript, that you can run:
 - [Why run Ethereum in JavaScript?](/introduction/why-run-ethereum-in-js): Running the EVM locally removes round-trip latency to a remote node. You can do:

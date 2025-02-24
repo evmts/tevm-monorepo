@@ -14,7 +14,7 @@ This type extends the `CallResult` type with additional contract-specific fields
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+• **TAbi** *extends* [`Abi`](../../actions/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../actions/type-aliases/Abi.md)
 
 The ABI type.
 

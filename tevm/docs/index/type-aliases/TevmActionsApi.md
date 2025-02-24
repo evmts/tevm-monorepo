@@ -14,7 +14,7 @@ The actions api is the high level API for interacting with a Tevm client similar
 
 ### call
 
-> **call**: `CallHandler`
+> **call**: [`CallHandler`](../../actions/type-aliases/CallHandler.md)
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -36,7 +36,7 @@ const res = tevm.call({
 
 ### contract
 
-> **contract**: `ContractHandler`
+> **contract**: [`ContractHandler`](../../actions/type-aliases/ContractHandler.md)
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -63,7 +63,7 @@ console.log(res.data) // "hello"
 
 ### deal
 
-> **deal**: `AnvilDealHandler`
+> **deal**: [`AnvilDealHandler`](../../actions/type-aliases/AnvilDealHandler.md)
 
 Deals ERC20 tokens to an account by overriding the storage of balanceOf(account)
 
@@ -79,13 +79,13 @@ await tevm.deal({
 
 ### deploy
 
-> **deploy**: `DeployHandler`
+> **deploy**: [`DeployHandler`](../../actions/type-aliases/DeployHandler.md)
 
 Creates a transaction to deploys a contract to tevm
 
 ### dumpState
 
-> **dumpState**: `DumpStateHandler`
+> **dumpState**: [`DumpStateHandler`](../../actions/type-aliases/DumpStateHandler.md)
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -107,7 +107,7 @@ await tevm.loadState({state})
 
 ### getAccount
 
-> **getAccount**: `GetAccountHandler`
+> **getAccount**: [`GetAccountHandler`](../../actions/type-aliases/GetAccountHandler.md)
 
 Gets the state of a specific ethereum address
 
@@ -122,7 +122,7 @@ console.log(res.balance)
 
 ### loadState
 
-> **loadState**: `LoadStateHandler`
+> **loadState**: [`LoadStateHandler`](../../actions/type-aliases/LoadStateHandler.md)
 
 Loads a previously dumped state into the VM
 
@@ -150,7 +150,7 @@ Mines 1 or more blocks
 
 ### setAccount
 
-> **setAccount**: `SetAccountHandler`
+> **setAccount**: [`SetAccountHandler`](../../actions/type-aliases/SetAccountHandler.md)
 
 Sets the state of a specific ethereum address
 

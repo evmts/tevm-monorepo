@@ -18,7 +18,7 @@ Result of GetAccount Action
 
 ### address
 
-> **address**: `Address`
+> **address**: [`Address`](../../actions/type-aliases/Address.md)
 
 Address of account
 
@@ -30,13 +30,13 @@ Balance to set account to
 
 ### codeHash
 
-> **codeHash**: `Hex`
+> **codeHash**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 Code hash to set account to
 
 ### deployedBytecode
 
-> **deployedBytecode**: `Hex`
+> **deployedBytecode**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 Contract bytecode to set account to
 
@@ -73,11 +73,11 @@ only included if `returnStorage` is set to true in the request
 
 #### Index Signature
 
- \[`key`: `Hex`\]: `Hex`
+ \[`key`: [`Hex`](../../actions/type-aliases/Hex.md)\]: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### storageRoot
 
-> **storageRoot**: `Hex`
+> **storageRoot**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 Storage root to set account to
 

@@ -14,31 +14,31 @@ A transaction request object
 
 ### from
 
-> `readonly` **from**: `Address`
+> `readonly` **from**: [`Address`](../../actions/type-aliases/Address.md)
 
 ### gas?
 
-> `readonly` `optional` **gas**: `Hex`
+> `readonly` `optional` **gas**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### gasPrice?
 
-> `readonly` `optional` **gasPrice**: `Hex`
+> `readonly` `optional` **gasPrice**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### input
 
-> `readonly` **input**: `Hex`
+> `readonly` **input**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### nonce?
 
-> `readonly` `optional` **nonce**: `Hex`
+> `readonly` `optional` **nonce**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### to?
 
-> `readonly` `optional` **to**: `Address`
+> `readonly` `optional` **to**: [`Address`](../../actions/type-aliases/Address.md)
 
 ### value?
 
-> `readonly` `optional` **value**: `Hex`
+> `readonly` `optional` **value**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ## Defined in
 

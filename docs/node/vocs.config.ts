@@ -18,6 +18,21 @@ export default defineConfig({
       ],
     },
     {
+      text: 'Reference Documentation',
+      collapsed: true,
+      items: [
+        { text: '@tevm/actions', link: '/reference/actions' },
+        { text: '@tevm/block', link: '/reference/block' },
+        { text: '@tevm/evm', link: '/reference/evm' },
+        { text: '@tevm/node', link: '/reference/node' },
+        { text: '@tevm/state', link: '/reference/state' },
+        { text: '@tevm/trie', link: '/reference/trie' },
+        { text: '@tevm/tx', link: '/reference/tx' },
+        { text: '@tevm/vm', link: '/reference/vm' },
+        { text: '@tevm/rlp', link: '/reference/rlp' },
+      ],
+    },
+    {
       text: 'Introduction',
       collapsed: false,
       items: [

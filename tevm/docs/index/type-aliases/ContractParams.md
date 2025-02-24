@@ -6,7 +6,7 @@
 
 # Type Alias: ContractParams\<TAbi, TFunctionName, TThrowOnFail\>
 
-> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & `BaseCallParams`\<`TThrowOnFail`\> & `object` \| `object` \| `object`
+> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & `object` \| `object` \| `object`
 
 Parameters to execute a call on a contract with TEVM.
 
@@ -14,7 +14,7 @@ This type combines the parameters required for encoding function data with addit
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+• **TAbi** *extends* [`Abi`](../../actions/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../actions/type-aliases/Abi.md)
 
 The ABI type.
 
@@ -54,7 +54,7 @@ console.log(res)
 ## See
 
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
- - BaseCallParams
+ - [BaseCallParams](../../actions/type-aliases/BaseCallParams.md)
  - [EncodeFunctionDataParameters](EncodeFunctionDataParameters.md)
 
 ## Defined in
