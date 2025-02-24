@@ -28,7 +28,9 @@ export const getForkClient = ({ options: { fork } }) => {
 				type: 'tevm',
 				key: 'tevm',
 				name: 'TevmStateManagerForkClientTransport',
-				request: /** @type {any}*/ (fork.transport.request),
+				request: typeof fork.transport === 'function'
+					? fork.transport({}).request
+					: fork.transport.request,
 			}),
 	})
 }
