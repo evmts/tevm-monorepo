@@ -1,5 +1,13 @@
 # @tevm/client
 
+## 1.0.0-next.128
+
+### Patch Changes
+
+- Updated dependencies [b3d81e0]
+  - @tevm/vm@1.0.0-next.128
+  - @tevm/txpool@1.0.0-next.128
+
 ## 1.0.0-next.124
 
 ### Patch Changes
