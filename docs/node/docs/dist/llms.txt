@@ -4,7 +4,7 @@
 
 ## Docs
 
-- [Getting Started](/getting-started): Welcome to Tevm Node! This guide will help you get started with running Ethereum in JavaScript.
+- [Getting Started](/getting-started): Tevm Node is an Ethereum Node that runs in all JavaScript environments. It's like hardhat or anvil, but provides
 - [Custom Precompiles](/advanced/custom-precompiles): [Tevm Node](https://github.com/evmts/tevm-monorepo) allows you to extend the [EVM](https://ethereum.org/en/developers/docs/evm/) with custom [precompiled contracts](https://ethereum.org/en/developers/docs/evm/precompiles/) written in JavaScript. These precompiles can provide native functionality at specific addresses, similar to [Ethereum's built-in precompiles](https://www.evm.codes/precompiled).
 - [Performance & Profiler](/advanced/performance-profiler): Tevm Node includes a built-in performance profiler that helps you analyze EVM execution, identify bottlenecks, and optimize your smart contracts.
 - [Receipts & Logs](/advanced/receipts-and-logs): Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.

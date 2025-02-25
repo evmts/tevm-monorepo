@@ -4,7 +4,15 @@
 
 ## Getting Started
 
-Welcome to Tevm Node! This guide will help you get started with running Ethereum in JavaScript.
+Tevm Node is an Ethereum Node that runs in all JavaScript environments. It's like hardhat or anvil, but provides
+
+* No native dependencies (runs in browser)
+* Connects directly to Viem or Ethers
+* Provides lower level control over the ethereum node
+
+If you know how to use viem or ethers, you [already know how to use TevmNode](./examples/ethers.mdx) and can get started right away.
+
+If you don't know how to use viem or ethers, don't worry, Tevm is a great way to learn Ethereum+TypeScript.
 
 ### Installation
 
@@ -24,26 +32,36 @@ import {createMemoryClient} from 'tevm'
 // note: tree shakable versions are available too
 const client = createMemoryClient()
 
-// example of using a viem api
-console.log(await client.getBlockNumber())
+// Use any viem public, wallet, or test action
+await client.getBlockNumber()
+
+// Use powerful tevm specific actions
+// For example impersonate a 'from' address with tevmCall
+await client.tevmCall({
+  to: `0x${'22'.repeat(20)}`,
+  from: `0x23592058122409345522058295201577228859`
+})
 
 // The tevm node exists on client.transport and handles json rpc requests to the transport
 const internalTevmNode = client.transport.tevm
 ```
 
-### Usage Examples
+You can also use the tree shakeable api. See [viem tevm docs](./examples/viem.mdx)
 
-#### Basic Usage with Tevm Node
+### TevmNode
 
-The lowest level API for Tevm is called [TevmNode](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNode.ts). It is an ethereum node running in JavaScript.
+For 95% of use cases of Tevm you will only need to know the [viem](./examples/viem.mdx) and [ethers](./examples/ethers.mdx) apis to use Tevm.
 
-You have access to the low level primitives such as [await node.getVm()](./reference/vm.mdx) but most of the time you want to use `actions`.
+There is however a lower level API underpinning both of those APIs called TevmNode. Remember TevmNode was on our viem client earlier powering the transport.
 
-Tevm has a concept of `actions` (similar to viem) that can be imported from [`tevm/actions`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/globals.md#functions) package for use with `TevmNode`. There are high level actions such as `tevmCall`. There are also actions that implement the JSON-RPC API.
+* TevmNode starts and manages an in-javascript ethereum node while [viem actions](./examples/viem.mdx) or [TevmNode actions](./reference/actions.mdx) are how you communicate with the node.
+* TevmNode actions include tree shakeable actions for the entire ethereum JSON-RPC api including Anvil/Hardhat/Ganache methods.
 
-Note: This is the lowest level API and higher level APIs exist for usage with Viem and Ethers below. But for both those apis they still have escape hatches for accessing the TevmNode directly for advanced functionality. For a viem client you can access tevm node via `client.transport.tevm`
+```typescript
+const tevmNode = viemClient.transport.tevm
+```
 
-TevmNode without using viem or ethers can be desired if building libraries or trying to use the most minimal api.
+We can create a TevmNode directly as well using `createTevmNode`
 
 ```typescript
 import { createTevmNode } from 'tevm'
@@ -70,37 +88,12 @@ const account = await getAccountHandler(node)({
 })
 ```
 
-#### Using with Viem
+* Learn more about the TevmNode actions api in the [actions api reference](./reference/actions.mdx)
+* Learn more about TevmNode internals in the [TevmNode reference](./reference/node.mdx)
 
-Tevm itself is built on top of viem using viem patterns such as the `actions` pattern. This makes the viem api the most recomended API.
+### Using with Ethers
 
-IMPORTANT: Most of these docs do not use the viem api because the viem api is documented in [viem](https://viem.sh). These docs focus on the new apis introduced by Tevm.
-
-See [Tevm viem guide](./examples/viem.mdx) for more.
-
-```typescript
-import { createMemoryClient, http } from 'tevm'
-import { optimism } from 'tevm/common'
-
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    blockTag: 'latest',
-  },
-  common: optimism,
-})
-
-// Use viem's public actions
-const block = await client.getBlock({ blockTag: 'latest' })
-
-// Mix with Tevm actions
-await client.tevmSetAccount({
-  address: '0x1234567890123456789012345678901234567890',
-  balance: 1000000000000000000n
-})
-```
-
-#### Using with Ethers
+Tevm is an EIP-1193 provider and works with any library that follows the same standared including ethers, thirdweb, ponder and many others. Though it is primarily built for viem it stays provider agnostic.
 
 ```typescript
 import { createTevmNode } from 'tevm'
@@ -114,39 +107,69 @@ const block = await provider.getBlockNumber()
 const balance = await provider.getBalance('0x1234...')
 ```
 
-### Core Concepts
+### Next Steps
 
-#### 1. Node Creation & Configuration
+#### Those looking to learn more of the basics
 
-* [Creating a Node](./core/create-tevm-node) - Basic setup and configuration
-* [Node Interface](./core/tevm-node-interface) - Core API surface
-* [Mining Modes](./core/mining-modes) - Configure block production:
-  * `auto`: Mine on every transaction
-  * `interval`: Mine at fixed intervals
-  * `manual`: Explicit mining control
-  * `gas`: Mine based on gas usage
+* Move on to the [what is tevm](./introduction/what-is-tevm-node.mdx), [why tevm](./introduction/why-run-ethereum-in-js.mdx) and [architecture](./introduction/architecture-overview.mdx) docs
 
-#### 2. State Management
+#### Those looking to play with tevm
 
-* [Forking Networks](./core/forking) - Fork from any EVM chain
-* [Managing State](./core/managing-state) - Handle accounts and storage
-* [Transaction Pool](./advanced/txpool) - Manage pending transactions
+* Move on to the [installation](./introduction/installation.mdx) docs
+* Example projects can be found in the [tevm org](asdf) and [tevm monorepo](asdf)
 
-#### 3. API Integration
+#### Those who want to use Tevm in a frontend but don't know where to start.
 
-* [JSON-RPC Support](./api/json-rpc) - Standard Ethereum JSON-RPC
-* [Contract Interaction](/reference/contract) - Smart contract utilities
-* [Events & Logging](./api/evm-events) - Debug and trace execution
+My recomendation is you use an ai tool like [bolt.new](https://bolt.new) or cursor
 
-### Advanced Features
+* ask it to scaffold for you a `vanilla vite`, `react vite`, or `sveltkit` app.
+* Krome and scaffold eth are other great starter projects
 
-* [Custom Precompiles](./advanced/custom-precompiles) - Extend EVM functionality
-* [Performance Optimization](./advanced/performance-profiler) - Profiling and tuning
-* [Reforking Strategies](./core/forking#reforking) - Efficient state management
+Usage of Tevm is the same regardless of environment
 
-### Package Documentation
+#### Viem users
 
-Tevm is modular - install the full package with `npm install tevm` or individual packages like `@tevm/actions`. Import from specific packages:
+Viem users can get started and go their entire life using Tevm without learning a single new API thanks to viem's powerful Public, Wallet, and Test actions.
+
+* Skip straight to [viem tevm docs](./examples/viem.mdx).
+* Reference the rest of these docs if you need advanced functionality
+
+#### Those wishing to run Tevm on a server
+
+Tevm offers a simple http server to run Tevm. It can also be used with hono, express, next.js, cloudflare workers, or any server framework that supports standard JavaScript requests handlers.
+
+* See [server](./reference/server.mdx) docs
+
+### Guides
+
+Tevm offers various guides that can be useful depending on your use case.
+
+#### Core guides
+
+The most essential guides are core guides
+
+* [createTevmNode](./core/create-tevm-node.mdx) goes more in depth on configuring Tevm
+* [forking](./core/forking.mdx) goes more in depth on how Tevm forks and how to refork or clone tevm instances
+* [managing state](./core/managing-state.mdx) explains how tevm state works, how to manipulate it, and best practices
+
+#### API guides
+
+In addition to the reference documentation we offer more conceptual guides for important concepts for those wanting to dive deeper.
+
+* [tevm-call](./api/tevm-call.mdx) covers in depth the most powerful custom API for simulating and sending transactions with Tevm
+* [json-rpc](./api/json-rpc.mdx) covers how to plug into Tevm with JSON-RPC. This is important if you are building tools around tevm
+* [evm-events](./api/evm-events.mdx) dives into low level EVM utilities you can do to run callbacks or customize the EVM as it runs. These apis are not available in any other tools including anvil or hardhat.
+
+#### Advanced guides
+
+Tevm supports many advanced use cases.
+
+* [vm-and-submodules](./api/vm-and-submodules.mdx) - Dives deep into the TevmNode interface explaining it's lower level components like `blockchain`, `evm`, `txpool`, `statemanager`, `common` and more- Dives deep into the TevmNode interface explaining it's lower level components like `blockchain`, `evm`, `txpool`, `statemanager`, `common` and more. Go here if you want to become a Tevm master or contribute internally.
+* [custom precompiles](./advanced/custom-precompiles.mdx) - Covers how to write EVM contracts in JavaScript and run them. This is an advanced but extremely powerful feature only supported by Tevm. You cannot do this with Geth, Anvil, or Hardhat.
+
+### Reference Documentation
+
+Tevm is modular - install the full package with `npm install tevm` and use packages like `tevm/actions` or individual packages like `@tevm/actions`. Import from specific packages:
 
 ```typescript
 // Full package
@@ -157,11 +180,9 @@ import { createTevmNode } from '@tevm/node'
 import { callHandler } from '@tevm/actions'
 ```
 
-See our [Package Reference](./api/packages) for detailed documentation of each module.
+Throughout documentation we will favor the `tevm` style of import.
 
-### Reference Documentation
-
-For detailed API reference documentation of each package, visit:
+[For detailed API reference documentation](./api/packages) of each package, visit:
 
 * [@tevm/actions](/reference/actions)
 * [@tevm/address](/reference/address)
@@ -8025,6 +8046,8 @@ This documentation is generated from the source code. View the full API document
 
 * [Back to Getting Started](/getting-started)
 * [Package Overview](/reference)
+
+
 
 
 ## @tevm/state
