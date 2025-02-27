@@ -70,9 +70,9 @@
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^22.7.3",
-		"effect": "3.8.4",
-		"solc": "0.8.27",
+		"@types/node": "^22.13.5",
+		"effect": "3.13.2",
+		"solc": "0.8.28",
 		"solidity-ast": "^0.4.59"
 	},
 	"publishConfig": {
