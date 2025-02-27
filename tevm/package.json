@@ -449,10 +449,10 @@
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
-    "commander": "^12.1.0",
-    "effect": "3.8.4",
-    "glob": "^11.0.0",
-    "solc": "^0.8.27"
+    "commander": "^13.1.0",
+    "effect": "3.13.2",
+    "glob": "^11.0.1",
+    "solc": "^0.8.28"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

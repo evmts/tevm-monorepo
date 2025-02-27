@@ -71,7 +71,7 @@
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "zod": "^3.23.8"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@tevm/actions": "workspace:^",
@@ -80,8 +80,8 @@
     "@tevm/tsupconfig": "workspace:^",
     "@types/express": "^5.0.0",
     "@types/supertest": "^6.0.2",
-    "express": "^4.21.0",
-    "next": "^14.2.13",
+    "express": "^4.21.2",
+    "next": "^15.1.7",
     "supertest": "^7.0.0"
   },
   "publishConfig": {
