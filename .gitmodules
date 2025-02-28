@@ -4,6 +4,3 @@
 [submodule "lib/revm"]
 	path = lib/revm
 	url = https://github.com/evmts/revm
-[submodule "blockhead"]
-	path = blockhead
-	url = git@github.com:darrylyeo/blockhead.git
