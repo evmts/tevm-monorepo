@@ -20,5 +20,5 @@ export {
 	type AccessList,
 	type AccessListItem,
 } from '@ethereumjs/tx'
-export { type ImpersonatedTx } from './ImpersonatedTx.js'
+export type { ImpersonatedTx } from './ImpersonatedTx.js'
 export { createImpersonatedTx } from './createImpersonatedTx.js'

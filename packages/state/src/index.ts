@@ -10,9 +10,9 @@ export type {
 	StateOptions,
 	StateAction,
 } from './state-types/index.js'
-export { type BaseState } from './BaseState.js'
+export type { BaseState } from './BaseState.js'
 export { ContractCache } from './ContractCache.js'
-export { type StateManager } from './StateManager.js'
+export type { StateManager } from './StateManager.js'
 export { createStateManager } from './createStateManager.js'
 export { createBaseState } from './createBaseState.js'
 export {
