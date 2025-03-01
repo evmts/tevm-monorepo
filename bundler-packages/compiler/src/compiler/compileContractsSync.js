@@ -61,7 +61,7 @@ export function compileContractSync(filePath, basedir, config, includeAst, inclu
 		}
 		modules[m.id] = m
 		for (const dep of m.importedIds) {
-			stack.push(/** @type {import("../types.js").ModuleInfo} */ (moduleMap.get(dep)))
+			stack.push(/** @type {import("../types.js").ModuleInfo} */(moduleMap.get(dep)))
 		}
 	}
 
@@ -102,11 +102,12 @@ export function compileContractSync(filePath, basedir, config, includeAst, inclu
 	const isErrors = (solcOutput?.errors?.length ?? 0) > (warnings?.length ?? 0)
 
 	if (isErrors) {
-		logger.error('Compilation errors:', /** @type {any}*/ (solcOutput?.errors))
+		logger.error('Compilation errors:', /** @type {any}*/(solcOutput?.errors))
+		console.log(solcOutput.errors)
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
-		logger.warn('Compilation warnings:', /** @type {any}*/ (solcOutput?.errors))
+		logger.warn('Compilation warnings:', /** @type {any}*/(solcOutput?.errors))
 	}
 
 	if (includeAst) {
