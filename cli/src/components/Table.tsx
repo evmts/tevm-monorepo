@@ -2,6 +2,7 @@ import { Box, Text } from 'ink'
 import { sha1 } from 'object-hash'
 // Copied from ink-table https://github.com/maticzav/ink-table/blob/master/src/index.tsx
 import React from 'react'
+import type { JSX } from 'react'
 
 /* Table */
 
