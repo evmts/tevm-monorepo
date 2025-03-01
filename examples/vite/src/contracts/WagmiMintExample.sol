@@ -19,7 +19,7 @@ contract WagmiMintExample is ERC721 {
     /// @notice Allows an address to mint
     function mint() external {
         uint256 tokenId = nextTokenId;
-        while (_exists(tokenId)) {
+        while (_ownerOf(tokenId) != address(0)) {
             unchecked {
                 tokenId++;
             }
@@ -34,7 +34,7 @@ contract WagmiMintExample is ERC721 {
     /// @notice Returns the token URI for a given token by ID
     /// @param tokenId Token ID to mint.
     function mint(uint256 tokenId) external {
-        require(!_exists(tokenId), "Token ID is taken");
+        require(_ownerOf(tokenId) == address(0), "Token ID is taken");
         _safeMint(msg.sender, tokenId);
         unchecked {
             totalSupply++;
