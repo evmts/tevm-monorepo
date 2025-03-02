@@ -5,46 +5,220 @@ description: Get started with Tevm Node - A JavaScript Ethereum Virtual Machine
 
 # Getting Started
 
-Tevm Node is an Ethereum Node that runs in all JavaScript environments. It's like hardhat or anvil, but provides
-- No native dependencies (runs in browser)
-- Connects directly to Viem or Ethers
+Tevm Node is an Ethereum Node that runs in all JavaScript environments. 
+It's like [hardhat](https://hardhat.org/) or [anvil](https://book.getfoundry.sh/anvil/), but provides these advantages:
+
+- Zero native dependencies (runs in browser)
+- Connects directly to [Viem](https://viem.sh/) or [Ethers](https://docs.ethers.org/v6/)
 - Provides lower level control over the ethereum node
 
-If you know how to use viem or ethers, you [already know how to use TevmNode](./examples/ethers.mdx) and can get started right away.
+If you know how to use viem or ethers, you [already know how to use Tevm Node](./examples/ethers.mdx) and can get started right away.
 
-If you don't know how to use viem or ethers, don't worry, Tevm is a great way to learn Ethereum+TypeScript.
+If you don't know how to use viem or ethers, don't worry, Tevm is a great way to learn Ethereumand TypeScript.
 
 ## Installation
 
-```bash
+:::code-group
+
+```bash [npm]
 npm install tevm
 ```
 
+```bash [pnpm]
+pnpm install tevm
+```
+
+```bash [yarn]
+yarn add tevm
+:::
+
 ## Quickstart
 
-To get started quick just use the viem api
+You can just fork an existing blockchain and use [viem actions](https://viem.sh).
 
-```typescript
-// createMemoryClient creates a viem client using in memory TevmNode as backend
-import {createMemoryClient} from 'tevm'
+```ts [quickstart.mts]
+import {createMemoryClient, http} from 'tevm'
+import {optimism} from 'tevm/common'
+import {encodeFunctionData, parseAbi, decodeFunctionResult, parseEther} from 'viem'
 
-// create a viem client using tevmNode as backend
-// note: tree shakable versions are available too
-const client = createMemoryClient()
-
-// Use any viem public, wallet, or test action
-await client.getBlockNumber()
-
-// Use powerful tevm specific actions
-// For example impersonate a 'from' address with tevmCall
-await client.tevmCall({
-  to: `0x${'22'.repeat(20)}`,
-  from: `0x23592058122409345522058295201577228859`
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io')({}),
+    common: optimism,
+  },
 })
 
-// The tevm node exists on client.transport and handles json rpc requests to the transport
-const internalTevmNode = client.transport.tevm
+console.log("Client created")
+
+await client.tevmReady()
+
+console.log("Client ready")
+
+const blockNumber = await client.getBlockNumber()
+console.log(blockNumber)
+
+const account = `0x${baD60A7".padStart(40, "0")}` as const
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
+
+const greetAbi = parseAbi(['function greet() view returns (string)'])
+const setGreetingAbi = parseAbi(['function setGreeting(string memory _greeting) public'])
+
+const getGreeting = async () => {
+  const callResult = await client.call({
+    account,
+    to: greeterContractAddress,
+    data: encodeFunctionData({
+      abi: greetAbi
+    }),
+  })
+
+  const greeting = decodeFunctionResult({
+    abi: greetAbi,
+    data: callResult.data,
+  })
+
+  return greeting
+}
+
+const setGreeting = async newGreeting => {
+  const callResult = await client.sendTransaction({
+    account,
+    to: greeterContractAddress,
+    data: encodeFunctionData({
+      abi: setGreetingAbi,
+      args: [newGreeting]
+    }),
+    chain: optimism,
+  })
+
+  return callResult
+}
+
+await client.setBalance({
+  address: account,
+  value: parseEther("1")
+})
+
+console.log(`Original greeting: ${await getGreeting()}`)
+console.log(`Txn hash: ${await setGreeting("Hi")}`)
+await client.mine({blocks: 1})
+console.log(`Changed greeting: ${await getGreeting()}`)
 ```
+
+:::details[Explanation]
+
+```ts
+import {createMemoryClient, http} from 'tevm'
+import {optimism} from 'tevm/common'
+import {encodeFunctionData, parseAbi, decodeFunctionResult, parseEther} from 'viem'
+```
+
+Import functions we need, which will be explained when we call them.
+Notice that most functions we call are from `viem`, not `tevm`.
+
+```ts
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io')({}),
+    common: optimism
+  },
+})
+
+await client.tevmReady()
+```
+
+Create a client as a fork of the Optimism mainnet, and wait until it is ready.
+
+```ts
+const blockNumber = await client.getBlockNumber()
+console.log(blockNumber)
+```
+
+Report the fork block number.
+Any changes that happen on Optimism mainnet after this point will not be reflected in the TEVM client.
+
+```ts
+const account = "0x" + "baD60A7".padStart(40, "0")
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
+```
+
+A couple of addresses. `0x0...0baD60A7` is just a random unused address which we'll use as our address.
+[`0x10ed0b176048c34d69ffc0712de06CbE95730748`](https://optimism.blockscout.com/address/0x10ed0b176048c34d69ffc0712de06CbE95730748?tab=read_write_contract) is a `Greeter` contract we can use to experiment.
+
+```ts
+const greetAbi = parseAbi(['function greet() view returns (string)'])
+const setGreetingAbi = parseAbi(['function setGreeting(string memory _greeting) public'])
+```
+
+Use [`viem`'s `parseAbi`](https://viem.sh/docs/abi/parseAbi#parseabi) to get the ABI for the two functions we need.
+
+```ts
+const getGreeting = async () => {
+  const callResult = await client.call({
+    account,
+    to: greeterContractAddress,
+    data: encodeFunctionData({
+      abi: greetAbi
+    })
+  })
+
+  const greeting = decodeFunctionResult({
+    abi: greetAbi,
+    data: callResult.data
+  })
+
+  return greeting
+}
+```
+
+This function is identical to what you would use to call an actual node using `viem` to get the greeting.
+
+```ts
+const setGreeting = async newGreeting => {
+  const callResult = await client.sendTransaction({
+    account,
+    to: greeterContractAddress,
+    data: encodeFunctionData({
+      abi: setGreetingAbi,
+      args: [newGreeting]
+    }),
+    chain: optimism
+  })
+
+  return callResult
+}
+```
+
+This function is similar to what you'd use with `viem`.
+Normally `viem` does not support specifying the account as an address, because it needs the private key to sign the transaction.
+However, this is supported when using `viem` with a [test client](https://viem.sh/docs/clients/test).
+
+```ts
+await client.setBalance({
+  address: account,
+  value: parseEther("1")
+})
+```
+
+Mint 1 ETH for our address so we'll be able to send transactions.
+The function we use is identical to [`viem`s `setBalance`](https://viem.sh/docs/actions/test/setBalance#setbalance).
+
+```ts
+console.log(`Original greeting: ${await getGreeting()}`)
+```
+
+The way you get a greeting is identical to the way you'd do it with viem.
+
+```ts
+console.log(`Txn hash: ${await setGreeting("Hi")}`)
+await client.mine({blocks: 1})
+console.log(`Changed greeting: ${await getGreeting()}`)
+```
+
+Because we control the "node", we control when it mines a new block and processes transactions.
+So after we use [`<client>.sendTransaction`](https://viem.sh/docs/actions/wallet/sendTransaction) we need to use [`<client>.mine`](https://viem.sh/docs/actions/test/mine) for the transaction to take effect. 
+
+:::
 
 You can also use the tree shakeable api. See [viem tevm docs](./examples/viem.mdx)
 
