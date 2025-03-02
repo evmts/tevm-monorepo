@@ -1,7 +1,7 @@
 import { optimism } from '@tevm/common'
 import { InvalidBytecodeError, MisconfiguredClientError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { SimpleContract, TestERC20, PREFUNDED_ACCOUNTS, transports } from '@tevm/test-utils'
+import { PREFUNDED_ACCOUNTS, SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
 	Address,
 	EthjsAddress,
@@ -237,13 +237,9 @@ describe('callHandler', () => {
 		// should have a created access list
 		expect(result.accessList).toBeDefined()
 		// check keys(storage slots) are available in accessList
-		expect(
-			Object.keys(result.accessList as Record<string, Set<string>>).length,
-		).toEqual(2)
+		expect(Object.keys(result.accessList as Record<string, Set<string>>).length).toEqual(2)
 		// check values(storage slots) are available in accessList
-		const vals = Array.from(
-			Object.values(result.accessList as Record<string, Set<string>>),
-		).map((v) => Array.from(v))
+		const vals = Array.from(Object.values(result.accessList as Record<string, Set<string>>)).map((v) => Array.from(v))
 		expect(vals.length).toEqual(2)
 		expect(vals).toEqual([[], []])
 	})

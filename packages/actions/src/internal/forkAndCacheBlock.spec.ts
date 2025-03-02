@@ -14,7 +14,7 @@ describe('forkAndCacheBlock', () => {
 
 	it('should fork a block and save the state root without executing block transactions', async () => {
 		const client = createTevmNode({
-			fork: { 
+			fork: {
 				transport: transports.mainnet,
 				blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
 			},
@@ -32,7 +32,7 @@ describe('forkAndCacheBlock', () => {
 		'should fork a block, execute transactions, and save the state root',
 		async () => {
 			const client = createTevmNode({
-				fork: { 
+				fork: {
 					transport: transports.mainnet,
 					blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
 				},
@@ -52,7 +52,7 @@ describe('forkAndCacheBlock', () => {
 		'should process block transactions',
 		async () => {
 			const client = createTevmNode({
-				fork: { 
+				fork: {
 					transport: transports.mainnet,
 					blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
 				},

@@ -1,10 +1,10 @@
+import { createRequire } from 'node:module'
 import { map, runSync, runSyncExit } from 'effect/Effect'
 import { type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CreateRequireError, RequireError, createRequireEffect } from './createRequireEffect.js'
-import { createRequire } from 'node:module'
 
 vi.mock('node:module', () => ({
-	createRequire: vi.fn()
+	createRequire: vi.fn(),
 }))
 
 const mockCreateRequire = createRequire as MockedFunction<typeof import('node:module').createRequire>
@@ -35,19 +35,17 @@ describe(createRequireEffect.name, () => {
 			throw dummyError
 		})
 
-		const res = runSyncExit(createRequireEffect(dummyUrl).pipe(
-		))
+		const res = runSyncExit(createRequireEffect(dummyUrl).pipe())
 		if (res._tag === 'Success') {
 			throw new Error('should throw')
-		} else {
-			expect(res.cause).toMatchInlineSnapshot(`
+		}
+		expect(res.cause).toMatchInlineSnapshot(`
 				{
 				  "_id": "Cause",
 				  "_tag": "Fail",
 				  "failure": [Error: Failed to create require for /Users/williamcory/tevm-monorepo/packages/effect/src/],
 				}
 			`)
-		}
 	})
 
 	it('should throw RequireError when the require throws', async () => {
@@ -65,14 +63,13 @@ describe(createRequireEffect.name, () => {
 		const res = runSyncExit(requireAsEffect('./foo'))
 		if (res._tag === 'Success') {
 			throw new Error('should throw')
-		} else {
-			expect(res.cause).toMatchInlineSnapshot(`
+		}
+		expect(res.cause).toMatchInlineSnapshot(`
 				{
 				  "_id": "Cause",
 				  "_tag": "Fail",
 				  "failure": [Error: Failed to require ./foo],
 				}
 			`)
-		}
 	})
 })
