@@ -30,13 +30,11 @@ pnpm install tevm
 
 ```bash [yarn]
 yarn add tevm
-```
-
 :::
 
 ## Quickstart
 
-You can just fork an existing blockchain and use viem actions.
+You can just fork an existing blockchain and use [viem actions](https://viem.sh).
 
 ```ts [quickstart.mts]
 import {createMemoryClient, http} from 'tevm'
@@ -46,7 +44,7 @@ import {encodeFunctionData, parseAbi, decodeFunctionResult, parseEther} from 'vi
 const client = createMemoryClient({
   fork: {
     transport: http('https://mainnet.optimism.io')({}),
-    common: optimism
+    common: optimism,
   },
 })
 
@@ -59,7 +57,7 @@ console.log("Client ready")
 const blockNumber = await client.getBlockNumber()
 console.log(blockNumber)
 
-const account = "0x" + "baD60A7".padStart(40, "0")
+const account = `0x${baD60A7".padStart(40, "0")}` as const
 const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
 
 const greetAbi = parseAbi(['function greet() view returns (string)'])
@@ -71,12 +69,12 @@ const getGreeting = async () => {
     to: greeterContractAddress,
     data: encodeFunctionData({
       abi: greetAbi
-    })
+    }),
   })
 
   const greeting = decodeFunctionResult({
     abi: greetAbi,
-    data: callResult.data
+    data: callResult.data,
   })
 
   return greeting
@@ -90,7 +88,7 @@ const setGreeting = async newGreeting => {
       abi: setGreetingAbi,
       args: [newGreeting]
     }),
-    chain: optimism
+    chain: optimism,
   })
 
   return callResult
