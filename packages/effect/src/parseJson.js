@@ -1,4 +1,4 @@
-import { logDebug, tap, try as tryEffect } from 'effect/Effect'
+import { try as tryEffect } from 'effect/Effect'
 import { parse } from 'jsonc-parser'
 
 /**
@@ -45,5 +45,5 @@ export const parseJson = (jsonStr) => {
 			return res
 		},
 		catch: (cause) => new ParseJsonError({ cause }),
-	}).pipe(tap((res) => logDebug(`Parsed tsconfig.json: ${JSON.stringify(res)}`)))
+	})
 }
