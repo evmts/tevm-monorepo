@@ -1,6 +1,39 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`createTevmNode with State Persister Restores state correctly from persister 1`] = `Map {}`;
+exports[`createTevmNode > Creates a base client 1`] = `
+{
+  "createdAddress": Address {
+    "bytes": Uint8Array [
+      189,
+      119,
+      4,
+      22,
+      163,
+      52,
+      95,
+      145,
+      228,
+      179,
+      69,
+      118,
+      203,
+      128,
+      74,
+      87,
+      111,
+      164,
+      142,
+      177,
+    ],
+  },
+  "execResult": {
+    "exceptionError": undefined,
+    "executionGasUsed": 0n,
+    "gasRefund": 0n,
+    "returnValue": Uint8Array [],
+  },
+}
+`;
 
 exports[`createTevmNode Creates a base client 1`] = `
 {
@@ -36,3 +69,7 @@ exports[`createTevmNode Creates a base client 1`] = `
   },
 }
 `;
+
+exports[`createTevmNode with State Persister > Restores state correctly from persister 1`] = `Map {}`;
+
+exports[`createTevmNode with State Persister Restores state correctly from persister 1`] = `Map {}`;
