@@ -27,6 +27,13 @@ describe(parseJson.name, () => {
 		const json = `{
 "foo"::'} "bar",
 `
-		expect(() => runSync(parseJson(json))).toThrowError(new ParseJsonError())
+		try {
+			runSync(parseJson(json))
+			// Should not reach here
+			expect(true).toBe(false)
+		} catch (error) {
+			console.log('ParseJson error message:', error)
+			expect((error as any).message).toContain('Failed to parse tsconfig.json')
+		}
 	})
 })

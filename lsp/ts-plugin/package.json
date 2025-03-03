@@ -67,17 +67,17 @@
 		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bundler-cache": "workspace:^",
 		"@types/minimatch": "^5.1.2",
-		"effect": "3.8.4",
-		"glob": "^11.0.0",
+		"effect": "3.13.2",
+		"glob": "^11.0.1",
 		"minimatch": "^10.0.1",
-		"solc": "0.8.27",
+		"solc": "0.8.28",
 		"solidity-ast": "^0.4.59"
 	},
 	"devDependencies": {
 		"@tevm/config": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"typescript": "^5.6.2"
+		"typescript": "^5.7.3"
 	},
 	"peerDependencies": {
 		"typescript": ">=5.0.0"

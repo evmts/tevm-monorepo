@@ -61,7 +61,7 @@
     "lint:deps": "bunx depcheck"
   },
   "dependencies": {
-    "@shazow/whatsabi": "^0.14.1",
+    "@shazow/whatsabi": "^0.19.0",
     "@tevm/config": "workspace:^",
     "@tevm/utils": "workspace:^"
   },

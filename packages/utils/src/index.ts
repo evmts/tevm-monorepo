@@ -1,5 +1,5 @@
-export { type CreateMemoryDbFn } from './CreateMemoryDbFn.js'
-export { type MemoryDb } from './MemoryDb.js'
+export type { CreateMemoryDbFn } from './CreateMemoryDbFn.js'
+export type { MemoryDb } from './MemoryDb.js'
 export { createMemoryDb } from './createMemoryDb.js'
 
 export type {
@@ -128,4 +128,4 @@ export type {
 	JsonSerializableObject,
 } from './SerializeToJson.js'
 export * from './invariant.js'
-export { type EncodeEventTopicsParameters } from 'viem/utils'
+export type { EncodeEventTopicsParameters } from 'viem/utils'
