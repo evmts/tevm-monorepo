@@ -57,7 +57,7 @@ console.log("Client ready")
 const blockNumber = await client.getBlockNumber()
 console.log(blockNumber)
 
-const account = `0x${baD60A7".padStart(40, "0")}` as const
+const account = `0x${"baD60A7".padStart(40, "0")}` as const
 const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
 
 const greetAbi = parseAbi(['function greet() view returns (string)'])
@@ -137,7 +137,7 @@ console.log(blockNumber)
 Report the fork block number. Any changes that happen on Optimism mainnet after this point will not be reflected in the `tevm` client.
 
 ```ts
-const account = "0x" + "baD60A7".padStart(40, "0")
+const account = `0x${"baD60A7".padStart(40, "0")}` as const
 const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
 ```
 
