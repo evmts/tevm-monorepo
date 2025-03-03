@@ -1,18 +1,17 @@
 import { optimism } from '@tevm/common'
 import { InvalidBytecodeError, MisconfiguredClientError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { PREFUNDED_ACCOUNTS, SimpleContract, TestERC20, transports } from '@tevm/test-utils'
+import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
-	Address,
+	type Address,
 	EthjsAddress,
-	createAddress,
-	createContractAddress,
+	PREFUNDED_ACCOUNTS,
 	decodeFunctionResult,
 	encodeDeployData,
 	encodeFunctionData,
-	numberToHex,
 	parseEther,
 } from '@tevm/utils'
+import { createAddress, createContractAddress } from '@tevm/address'
 import { describe, expect, it, vi } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -38,7 +37,7 @@ describe('callHandler', () => {
 		// try to execute a tracing request
 		const result = await callHandler(tevm)({
 			gas: 16784800n,
-			data: '0x12',
+			data: "0x12" as `0x${string}`,
 		})
 
 		// make sure it used the provided or default parameters for gas
@@ -94,7 +93,7 @@ describe('callHandler', () => {
 		const callOpts = {
 			gas: 16784800n,
 			createTransaction: true,
-			data: '0x12',
+			data: "0x12" as `0x${string}`,
 		}
 		const result = await callHandler(tevm)(callOpts)
 		// should have a tx hash for transactions
@@ -108,13 +107,13 @@ describe('callHandler', () => {
 		const callOpts = {
 			gas: 16784800n,
 			createTransaction: true,
-			data: '0xbeef',
+			data: "0xbeef" as `0x${string}`,
 		}
 		const result = await callHandler(tevm)(callOpts)
 		// should have a tx hash for transactions
 		expect(result.txHash).toBeDefined()
 		// should have the provided data
-		expect(result.data).toMatchInlineSnapshot('0xbeefn')
+		expect(result.rawData).toMatchInlineSnapshot()
 	})
 
 	it('should fail on bytecode error ', async () => {
@@ -123,7 +122,7 @@ describe('callHandler', () => {
 		const callOpts = {
 			gas: 16784800n,
 			// use the 'stack underflow bytecode'
-			data: '0x5b', // stack underflow
+			data: "0x5b" as `0x${string}`, // stack underflow
 			throwOnFail: false,
 		}
 		const result = await callHandler(tevm)(callOpts)
@@ -137,7 +136,7 @@ describe('callHandler', () => {
 		const callOpts = {
 			gas: 16784800n,
 			createTransaction: true,
-			data: '0x',
+			data: "0x" as `0x${string}`,
 			value: 1000n,
 		}
 		const result = await callHandler(tevm)(callOpts)
@@ -152,7 +151,7 @@ describe('callHandler', () => {
 		const callOpts = {
 			gas: 16784800n,
 			createTransaction: true,
-			data: '0x',
+			data: "0x" as `0x${string}`,
 			nonce: 42n,
 		}
 		const result = await callHandler(tevm)(callOpts)
@@ -172,7 +171,7 @@ describe('callHandler', () => {
 		const callOpts = {
 			gas: 16784800n,
 			createTransaction: true,
-			data: '0x',
+			data: "0x" as `0x${string}`,
 		}
 		// should throw on txPool.addUnverified failing
 		await expect(callHandler(tevm)(callOpts)).rejects.toThrow('Error adding transaction to pool')
@@ -183,7 +182,7 @@ describe('callHandler', () => {
 
 		const callOpts = {
 			gas: 16784800n,
-			data: '0x12', // push1 0x12
+			data: "0x12" as `0x${string}`, // push1 0x12
 		}
 		const result = await callHandler(tevm)(callOpts)
 		// should have a tx hash for transactions
@@ -195,7 +194,7 @@ describe('callHandler', () => {
 
 		const callOpts = {
 			gas: 16784800n,
-			data: '0x12', // push1 0x12
+			data: "0x12" as `0x${string}`, // push1 0x12
 		}
 		const result = await callHandler(tevm)(callOpts)
 		// should have a tx hash for transactions
@@ -216,7 +215,7 @@ describe('callHandler', () => {
 
 		const callOpts = {
 			gas: 16784800n,
-			data: '0x12', // push1 0x12
+			data: "0x12" as `0x${string}`, // push1 0x12
 			maxFeePerGas: 1000000000n,
 			maxPriorityFeePerGas: 100000000n,
 		}
@@ -230,9 +229,9 @@ describe('callHandler', () => {
 
 		const callOpts = {
 			gas: 16784800n,
-			data: '0x3333333333333333333333333333333333333333',
+			data: "0x3333333333333333333333333333333333333333" as `0x${string}`,
 			createAccessList: true,
-		}
+		} as const
 		const result = await callHandler(tevm)(callOpts)
 		// should have a created access list
 		expect(result.accessList).toBeDefined()
@@ -284,8 +283,7 @@ describe('callHandler', () => {
 		const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
 		const client = createTevmNode()
 
-		// Set up the ERC20 contract
-		const erc20Address = `0x${'a'.repeat(40)}`
+		const erc20Address = `0x${'a'.repeat(40)}` as const
 		await setAccountHandler(client)({
 			address: erc20Address,
 			deployedBytecode: TestERC20.deployedBytecode,
@@ -308,8 +306,7 @@ describe('callHandler', () => {
 		})
 		expect(initialBalance).toEqual(0n)
 
-		// Now mint some tokens
-		const mintAmount = 1000000000000000000n // 1 token with 18 decimals
+		const mintAmount = 1000000000000000000n
 		await callHandler(client)({
 			createTransaction: true,
 			from: from.toString(),
@@ -344,11 +341,11 @@ describe('callHandler', () => {
 
 	it('should handle state overrides', async () => {
 		const client = createTevmNode()
-		const address = `0x${'42'.repeat(20)}`
+		const address = `0x${"42".repeat(20)}` as `0x${string}`
 
 		// Set up state override to give the address a balance
 		const result = await callHandler(client)({
-			stateOverride: {
+			stateOverrideSet: {
 				[address]: {
 					balance: parseEther('1000'),
 				},
@@ -720,14 +717,14 @@ describe('callHandler', () => {
 
 		// make it so an error happens while mining
 		const originalDeepCopy = client.deepCopy.bind(client)
-		;(client as any).deepCopy = async () => {
-			const copy = await originalDeepCopy()
-			return {
-				...copy,
-				// This will cause the mine handler to throw an error for not being ready
-				status: 'SYNCING',
+			; (client as any).deepCopy = async () => {
+				const copy = await originalDeepCopy()
+				return {
+					...copy,
+					// This will cause the mine handler to throw an error for not being ready
+					status: 'SYNCING',
+				}
 			}
-		}
 
 		const { errors } = await callHandler(client)({
 			blockTag: 'pending',
