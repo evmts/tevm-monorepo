@@ -307,15 +307,15 @@ describe('callHandler', () => {
 		expect(initialBalance).toEqual(0n)
 
 		const mintAmount = 1000000000000000000n
-		await callHandler(client)({
-			createTransaction: true,
-			from: from.toString(),
-			to: erc20Address,
-			data: encodeFunctionData({
-				abi: TestERC20.abi,
-				functionName: 'mint',
-				args: [from.toString(), mintAmount],
-			}),
+		
+		// Import dealHandler to deal tokens to the account
+		const { dealHandler } = await import('../anvil/anvilDealHandler.js')
+		
+		// Use dealHandler to give ERC20 tokens to the account
+		await dealHandler(client)({
+			erc20: erc20Address,
+			account: from.toString(),
+			amount: mintAmount,
 		})
 
 		// Mine the block to include the transaction
