@@ -3,6 +3,8 @@ title: Getting Started
 description: Get started with Tevm Node - A JavaScript Ethereum Virtual Machine
 ---
 
+import { Callout } from 'vocs/components'
+
 # Getting Started
 
 Tevm Node is an Ethereum Node that runs in all JavaScript environments. 
@@ -14,7 +16,7 @@ It's like [hardhat](https://hardhat.org/) or [anvil](https://book.getfoundry.sh/
 
 If you know how to use viem or ethers, you [already know how to use Tevm Node](./examples/ethers.mdx) and can get started right away.
 
-If you don't know how to use viem or ethers, don't worry, Tevm is a great way to learn Ethereumand TypeScript.
+If you don't know how to use viem or ethers, don't worry, Tevm is a great way to learn Ethereum and TypeScript.
 
 ## Installation
 
@@ -32,7 +34,7 @@ pnpm install tevm
 yarn add tevm
 :::
 
-## Quickstart
+## Using with Viem
 
 You can fork an existing blockchain and use [`viem` actions](https://viem.sh).
 
@@ -57,7 +59,7 @@ console.log("Client ready")
 const blockNumber = await client.getBlockNumber()
 console.log(blockNumber)
 
-const account = `0x${"baD60A7".padStart(40, "0")}` as const
+const account = "0x" + "baD60A7".padStart(40, "0")
 const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
 
 const greetAbi = parseAbi(['function greet() view returns (string)'])
@@ -137,7 +139,7 @@ console.log(blockNumber)
 Report the fork block number. Any changes that happen on Optimism mainnet after this point will not be reflected in the `tevm` client.
 
 ```ts
-const account = `0x${"baD60A7".padStart(40, "0")}` as const
+const account = "0x" + "baD60A7".padStart(40, "0")
 const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
 ```
 
@@ -221,57 +223,184 @@ So after we use [`<client>.sendTransaction`](https://viem.sh/docs/actions/wallet
 
 You can also use the tree shakeable api. See [`viem` tevm docs](./examples/viem.mdx)
 
-{/* 
+### Tevm actions
+
+**put something here**
 
 ## TevmNode
 
-In most cases you can use a standard API, either [`viem`](./examples/viem.mdx) API or [ethers](./examples/ethers.mdx), to control `tevm`.
-However, if you need a lower level API, it is available in the [`TevmNode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNode.ts) object.
+In most cases, you can use a standard API, either [`viem`](./examples/viem.mdx) API or [ethers](./examples/ethers.mdx), to control `tevm`.
+These APIs let you communicate as you would with a real Ethernet node.
 
-- `TevmNode` starts and manages an Ethereum node in JavaScript while [`viem` actions](./examples/viem.mdx) or [`TevmNode` actions](./reference/actions.mdx) are how you communicate with the node.
-- `TevmNode` actions include tree shakeable actions for the entire ethereum JSON-RPC API including Anvil/Hardhat/Ganache methods.
+But if you need to access the node's internals, for example the EVM (Ethereum virtual machine), that is also available. The lower level API is available in the [`TevmNode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNode.ts) object.
 
-```typescript
-const tevmNode = viemClient.transport.tevm
+For example, this code shows the trace of a `setGreeting` call.
+
+```ts [trace-execution.mts]
+import {createMemoryClient, http} from 'tevm'
+import {optimism} from 'tevm/common'
+import {createAddress} from `tevm/address`
+
+import {
+  encodeFunctionData, 
+  parseAbi, 
+  decodeFunctionResult, 
+  parseEther,
+  hexToBytes
+} from 'viem'
+
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io')({}),
+    common: optimism,
+  },
+})
+
+console.log("Client created")
+
+await client.tevmReady()
+
+console.log("Client ready")
+
+const blockNumber = await client.getBlockNumber()
+console.log(blockNumber)
+
+const account = `0x${"baD60A7".padStart(40, "0")}` as const
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
+
+const greetAbi = parseAbi(['function greet() view returns (string)'])
+const setGreetingAbi = parseAbi(['function setGreeting(string memory _greeting) public'])
+
+const getGreeting = async () => {
+  const callResult = await client.call({
+    account,
+    to: greeterContractAddress,
+    data: encodeFunctionData({
+      abi: greetAbi
+    }),
+  })
+
+  const greeting = decodeFunctionResult({
+    abi: greetAbi,
+    data: callResult.data,
+  })
+
+  return greeting
+}
+
+await client.setBalance({
+  address: account,
+  value: parseEther("1")
+})
+
+const tevmNode = client.transport.tevm   // [!code hl]
+const vm = await tevmNode.getVm() // [!code hl]
+ 
+vm.evm.events.on("step", (data, next) => { // [!code hl]
+  try { // [!code hl]
+    console.log( // [!code hl]
+      data.pc.toString().padStart(5, " "), // [!code hl]
+      data.opcode.name.padEnd(9, " "), // [!code hl]
+      data.stack.length.toString().padStart(3, " "), // [!code hl]
+      data.stack.length<5 ? data.stack : data.stack.slice(-5)) // [!code hl]
+// [!code hl]
+  } catch (err) {  // [!code hl]
+    console.error(err)  // [!code hl]
+  }   // [!code hl]
+  next?.() // [!code hl]  
+}) // [!code hl]
+
+console.log(`Original greeting: ${await getGreeting()}`)
+
+const requestData = encodeFunctionData({ // [!code hl]
+  abi: setGreetingAbi, // [!code hl]
+  args: ["Hi"] // [!code hl]
+}) // [!code hl]
+
+await vm.evm.runCall({ // [!code hl]
+  to: createAddress(greeterContractAddress), // [!code hl]
+  caller: createAddress(account), // [!code hl]
+  data: hexToBytes(requestData) // [!code hl]
+}) // [!code hl]
+
+console.log(`Changed greeting: ${await getGreeting()}`) 
 ```
 
-We can create a TevmNode directly as well using `createTevmNode`
+:::details[Explanation]
 
-```typescript
-import { createTevmNode } from 'tevm'
-import { callHandler, setAccountHandler, getAccountHandler } from 'tevm/actions'
+```ts
+const tevmNode = client.transport.tevm
+const vm = await tevmNode.getVm()
+```
 
-const node = createTevmNode()
+Get a [`Vm`](/reference/vm#vm) object for the `tevmNode`.
+Note that this is *not* the `Vm` that runs when you mine a block to execute transactions.
+Mining is performed by new, pristine `Vm`s to ensure transactions are separated properly.
 
-// Execute a contract call
-const result = await callHandler(node)({
-  to: '0x1234567890123456789012345678901234567890',
-  data: '0x...',
-  value: 0n
-})
+```ts
+vm.evm.events.on("step", (data, next) => {
+```
 
-// Set account state
-await setAccountHandler(node)({
-  address: '0x1234567890123456789012345678901234567890',
-  balance: 1000000000000000000n // 1 ETH
-})
+The actual [`EVM`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/classes/Evm.md) is in `vm.evm`.
+It supports [three events](/api/evm-events#available-events).
+Here we listen to `step`, which is called for every opcode processed by the EVM.
 
-// Get account state
-const account = await getAccountHandler(node)({
-  address: '0x1234567890123456789012345678901234567890'
+```ts
+  try {
+```
+
+By default, when errors happen in event handlers they are discarded silently.
+By wrapping our code in a `try ... catch` statement, we make sure that we see the errors that are thrown.
+
+```ts
+    console.log(
+      data.pc.toString().padStart(5, " "),
+      data.opcode.name.padEnd(9, " "),
+      data.stack.length.toString().padStart(3, " "),
+      data.stack.length<5 ? data.stack : data.stack.slice(-5))
+```
+
+The `data` parameter is an [`InterpreterStep`](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/docs/interfaces/InterpreterStep.md).
+Here we output the interesting fields.
+
+```ts    
+  } catch (err) {
+    console.err(err)
+  }
+
+  next?.()
 })
 ```
 
-- Learn more about the TevmNode actions api in the [actions api reference](./reference/actions.mdx)
-- Learn more about TevmNode internals in the [TevmNode reference](./reference/node.mdx)
+The `next` parameter is the function to call after the event handler is done.
 
-*/}
+```ts
+const requestData = encodeFunctionData({
+  abi: setGreetingAbi,
+  args: ["Hi"]
+})
+```
+
+Create the ABI encoded data you would normally send with the transaction, using `viem`'s [`encodeFunctionData`](https://viem.sh/docs/contract/encodeFunctionData.html).
+
+```ts
+await vm.evm.runCall({
+  to: createAddress(greeterContractAddress),
+  caller: createAddress(account),
+  data: hexToBytes(requestData)
+})
+```
+
+This is the way we [call the EVM](http://localhost:5173/reference/evm#running-evm-calls), which activates the event handler registered earlier.
+This call modifies the state, so you can see the updated greeting.
+
+:::
 
 
 ## Using with Ethers
 
-Tevm is an EIP-1193 provider and works with any library that follows the same standard including `ethers`, `thirdweb`, `ponder` and many others. 
-Though it is primarily built for `viem` it stays provider agnostic.
+Tevm is an EIP-1193 provider and works with any library that follows the same standared including `ethers`, `thirdweb`, `ponder` and many others. 
+Though it is primarily built for `viem` it stays provider-agnostic.
 
 ```ts [ethers-quickstart.mts]
 import {createMemoryClient, http, parseAbi} from 'tevm'
@@ -329,7 +458,7 @@ console.log(`Changed greeting: ${await getGreeting()}`)
 
 :::details[Explanation]
 
-```ts [ethers-quickstart.mts]
+```ts
 import {createMemoryClient, http, parseAbi} from 'tevm'
 import {optimism} from 'tevm/common'
 import {requestEip1193} from 'tevm/decorators'
@@ -378,7 +507,7 @@ const signer = Wallet.createRandom(provider)
 ```
 
 Create [a random wallet](https://docs.ethers.org/v6/api/wallet/#Wallet_createRandom).
-The `ethers` library requires us to have a private key to submit a transaction, even if `tevm` will accept it without a valid signature, so we need a full fledged wallet and not just an address.
+The `ethers` library requires us to have a private key to submit a transaction, even if `tevm` will accept it without a valid signature, so we need a full-fledged wallet and not just an address.
 
 ```ts
 const blockNumber = await provider.getBlockNumber()
@@ -432,7 +561,8 @@ await client.mine({blocks: 1})
 console.log(`Changed greeting: ${await getGreeting()}`)
 ```
 
-Because we control the "node", we control when it mines a new block and processes transactions. So after we use a function that creates a transaction we need to use [`<client>.mine`](https://viem.sh/docs/actions/test/mine) for the transaction to take effect.
+Because we control the "node", we control when it mines a new block and processes transactions. 
+So after we use a function that creates a transaction, we need to use [`<client>.mine`](https://viem.sh/docs/actions/test/mine) for the transaction to take effect.
 
 :::
 
