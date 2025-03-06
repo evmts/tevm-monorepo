@@ -24,7 +24,7 @@ export default defineConfig({
         { text: 'What is Tevm Node?', link: '/introduction/what-is-tevm-node' },
         { text: 'Architecture Overview', link: '/introduction/architecture-overview' },
         { text: 'Why run Ethereum in JS?', link: '/introduction/why-run-ethereum-in-js' },
-        { text: 'Installation & Quickstart', link: '/introduction/installation' },
+//        { text: 'Installation & Quickstart', link: '/introduction/installation' },
       ],
     },
     {
