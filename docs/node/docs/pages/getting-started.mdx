@@ -136,7 +136,7 @@ const blockNumber = await client.getBlockNumber()
 console.log(blockNumber)
 ```
 
-Report the fork block number. Any changes that happen on Optimism mainnet after this point will not be reflected in the `tevm` client.
+Report the fork block number. Any changes on the Optimism mainnet after this point will not be reflected in the `tevm` client.
 
 ```ts
 const account = "0x" + "baD60A7".padStart(40, "0")
@@ -221,7 +221,7 @@ So after we use [`<client>.sendTransaction`](https://viem.sh/docs/actions/wallet
 
 :::
 
-You can also use the tree shakeable api. See [`viem` tevm docs](./examples/viem.mdx)
+You can also use the tree-shakeable API. See [`viem` tevm docs](./examples/viem.mdx)
 
 ### Tevm actions
 
@@ -239,7 +239,7 @@ For example, this code shows the trace of a `setGreeting` call.
 ```ts [trace-execution.mts]
 import {createMemoryClient, http} from 'tevm'
 import {optimism} from 'tevm/common'
-import {createAddress} from `tevm/address`
+import {createAddress} from 'tevm/address'
 
 import {
   encodeFunctionData, 
@@ -514,7 +514,7 @@ const blockNumber = await provider.getBlockNumber()
 console.log(blockNumber)
 ```
 
-Report the fork block number. Any changes that happen on Optimism mainnet after this point will not be reflected in the `tevm` client.
+Report the fork block number. Any changes on the Optimism mainnet after this point will not be reflected in the `tevm` client.
 
 ```ts
 const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
