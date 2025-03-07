@@ -62,7 +62,7 @@ describe(getAccountAddresses.name, () => {
 
 	it('works with custom cache type', async () => {
 		const state = createBaseState({
-			accountsCache: new AccountCache({ size: 10, type: CacheType.SIMPLE }),
+			accountsCache: new AccountCache({ size: 10, type: CacheType.ORDERED_MAP }),
 		})
 
 		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 100n }))
