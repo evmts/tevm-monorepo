@@ -8,8 +8,8 @@ describe('forkAndCacheBlock', () => {
 	it('should throw an error if forkTransport is not provided', async () => {
 		const client = createTevmNode({ miningConfig: { type: 'manual' } })
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
-		expect(forkAndCacheBlock(client, block)).rejects.toThrow(InternalError)
-		expect(forkAndCacheBlock(client, block)).rejects.toThrow('Cannot forkAndCacheBlock without a fork url')
+		await expect(forkAndCacheBlock(client, block)).rejects.toThrow(InternalError)
+		await expect(forkAndCacheBlock(client, block)).rejects.toThrow('Cannot forkAndCacheBlock without a fork url')
 	})
 
 	it('should fork a block and save the state root without executing block transactions', async () => {
