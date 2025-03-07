@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: l3x
 
-> `const` **l3x**: `Common`
+> `const` **l3x**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/l3x.d.ts:21
 
 Creates a common configuration for the l3x chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/l3x.d.ts:21

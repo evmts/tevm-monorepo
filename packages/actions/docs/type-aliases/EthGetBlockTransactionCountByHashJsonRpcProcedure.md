@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBlockTransactionCountByHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](EthGetBlockTransactionCountByHashJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/eth/EthProcedure.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L117)
+
 ## Parameters
 
-• **request**: [`EthGetBlockTransactionCountByHashJsonRpcRequest`](EthGetBlockTransactionCountByHashJsonRpcRequest.md)
+### request
+
+[`EthGetBlockTransactionCountByHashJsonRpcRequest`](EthGetBlockTransactionCountByHashJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](EthGetBlockTransactionCountByHashJsonRpcResponse.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthProcedure.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L117)

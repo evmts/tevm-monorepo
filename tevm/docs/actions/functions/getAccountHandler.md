@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: getAccountHandler()
 
-> **getAccountHandler**(`client`, `options`?): `GetAccountHandler`
+> **getAccountHandler**(`client`, `options`?): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
+
+Defined in: packages/actions/types/GetAccount/getAccountHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **options?**
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **options.throwOnFail?**: `boolean`
+### options?
+
+#### throwOnFail?
+
+`boolean`
 
 ## Returns
 
-`GetAccountHandler`
-
-## Defined in
-
-packages/actions/types/GetAccount/getAccountHandler.d.ts:1
+[`GetAccountHandler`](../type-aliases/GetAccountHandler.md)

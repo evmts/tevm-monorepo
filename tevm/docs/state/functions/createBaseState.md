@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **createBaseState**(`options`): [`BaseState`](../type-aliases/BaseState.md)
 
+Defined in: packages/state/dist/index.d.ts:204
+
 ## Parameters
 
-• **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
+### options
+
+[`StateOptions`](../../index/type-aliases/StateOptions.md)
 
 ## Returns
 
 [`BaseState`](../type-aliases/BaseState.md)
-
-## Defined in
-
-packages/state/dist/index.d.ts:204

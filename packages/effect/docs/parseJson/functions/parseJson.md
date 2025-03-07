@@ -1,4 +1,4 @@
-[**@tevm/effect**](../../README.md) • **Docs**
+[**@tevm/effect**](../../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **parseJson**(`jsonStr`): `Effect`\<`unknown`, [`ParseJsonError`](../classes/ParseJsonError.md), `never`\>
 
+Defined in: [packages/effect/src/parseJson.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)
+
 Parses a json string
 
 ## Parameters
 
-• **jsonStr**: `string`
+### jsonStr
+
+`string`
 
 ## Returns
 
@@ -28,7 +32,3 @@ when the tevm.json file is not valid json
 const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@tevm/ts-plugin" }] } }')
 ````
 @internal
-
-## Defined in
-
-[packages/effect/src/parseJson.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L33)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DeployResult
 
 > **DeployResult**: [`CallResult`](CallResult.md)
+
+Defined in: [packages/actions/src/Deploy/DeployResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployResult.ts#L38)
 
 Represents the result of a contract deployment on TEVM.
 This type extends the CallResult type, which includes properties like gas usage, logs, and errors.
@@ -44,7 +46,3 @@ console.log('Gas used:', result.executionGasUsed)
 ## See
 
 CallResult for a detailed breakdown of the available properties.
-
-## Defined in
-
-[packages/actions/src/Deploy/DeployResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployResult.ts#L38)

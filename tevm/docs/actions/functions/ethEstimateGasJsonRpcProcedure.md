@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethEstimateGasJsonRpcProcedure()
 
-> **ethEstimateGasJsonRpcProcedure**(`client`): `EthEstimateGasJsonRpcProcedure`
+> **ethEstimateGasJsonRpcProcedure**(`client`): [`EthEstimateGasJsonRpcProcedure`](../type-aliases/EthEstimateGasJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethEstimateGasProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthEstimateGasJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethEstimateGasProcedure.d.ts:1
+[`EthEstimateGasJsonRpcProcedure`](../type-aliases/EthEstimateGasJsonRpcProcedure.md)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmContractError
 
 > **TevmContractError**: [`TevmCallError`](TevmCallError.md)
+
+Defined in: packages/actions/types/Contract/TevmContractError.d.ts:37
 
 TEVM Contract Error type.
 
@@ -44,7 +46,3 @@ try {
 ## See
 
 [TevmCallError](TevmCallError.md)
-
-## Defined in
-
-packages/actions/types/Contract/TevmContractError.d.ts:37

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: ethSignTransactionHandler()
 
-> **ethSignTransactionHandler**(`__namedParameters`): `EthSignTransactionHandler`
+> **ethSignTransactionHandler**(`__namedParameters`): [`EthSignTransactionHandler`](../type-aliases/EthSignTransactionHandler.md)
+
+Defined in: packages/actions/types/eth/ethSignTransactionHandler.d.ts:1
 
 ## Parameters
 
-• **\_\_namedParameters**
+### \_\_namedParameters
 
-• **\_\_namedParameters.accounts**: readonly `object`[]
+#### accounts
 
-• **\_\_namedParameters.getChainId**
+readonly `object`[]
+
+#### getChainId
+
+() => `Promise`\<`number`\>
 
 ## Returns
 
-`EthSignTransactionHandler`
-
-## Defined in
-
-packages/actions/types/eth/ethSignTransactionHandler.d.ts:1
+[`EthSignTransactionHandler`](../type-aliases/EthSignTransactionHandler.md)

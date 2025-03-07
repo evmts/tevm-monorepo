@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CustomPrecompile
 
 > **CustomPrecompile**: `Exclude`\<`Exclude`\<`Parameters`\<*typeof* [`Evm`](../classes/Evm.md)\[`"create"`\]\>\[`0`\], `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
+
+Defined in: packages/evm/dist/index.d.ts:48
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
 
@@ -44,7 +46,3 @@ const memoryClient = createMemoryClient({ customPrecompiles: [customPrecompiles]
  - [Scripting guide](https://tevm.sh/learn/scripting/)
  - [definePrecompile](https://tevm.sh/reference/tevm/precompiles/functions/defineprecompile/)
  - [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
-
-## Defined in
-
-packages/evm/dist/index.d.ts:48

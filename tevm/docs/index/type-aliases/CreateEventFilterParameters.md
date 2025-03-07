@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,13 +6,15 @@
 
 # Type Alias: CreateEventFilterParameters\<abiEvent, abiEvents, strict, fromBlock, toBlock, _eventName, _args\>
 
-> **CreateEventFilterParameters**\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_eventName`, `_args`\>: `object` & `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> *extends* infer eventFilterArgs ? `object` \| `object` \| `object` \| `object` : `object`
+> **CreateEventFilterParameters**\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_eventName`, `_args`\>: `object` & `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> *extends* infer eventFilterArgs ? \{ `args`: `eventFilterArgs` \| `_args` *extends* `eventFilterArgs` ? `_args` : `never`; `event`: `abiEvent`; `events`: `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `abiEvent`; `events`: `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `undefined`; `events`: `abiEvents` \| `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `undefined`; `events`: `undefined`; `strict`: `undefined`; \} : `object`
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13
 
 ## Type declaration
 
 ### address?
 
-> `optional` **address**: `Address` \| `Address`[]
+> `optional` **address**: [`Address`](Address.md) \| [`Address`](Address.md)[]
 
 ### fromBlock?
 
@@ -24,9 +26,9 @@
 
 ## Type Parameters
 
-• **abiEvent** *extends* `AbiEvent` \| `undefined` = `undefined`
+• **abiEvent** *extends* [`AbiEvent`](AbiEvent.md) \| `undefined` = `undefined`
 
-• **abiEvents** *extends* readonly `AbiEvent`[] \| readonly `unknown`[] \| `undefined` = `abiEvent` *extends* `AbiEvent` ? [`abiEvent`] : `undefined`
+• **abiEvents** *extends* readonly [`AbiEvent`](AbiEvent.md)[] \| readonly `unknown`[] \| `undefined` = `abiEvent` *extends* [`AbiEvent`](AbiEvent.md) ? \[`abiEvent`\] : `undefined`
 
 • **strict** *extends* `boolean` \| `undefined` = `undefined`
 
@@ -37,7 +39,3 @@
 • **_eventName** *extends* `string` \| `undefined` = `MaybeAbiEventName`\<`abiEvent`\>
 
 • **_args** *extends* `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> \| `undefined` = `undefined`
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13

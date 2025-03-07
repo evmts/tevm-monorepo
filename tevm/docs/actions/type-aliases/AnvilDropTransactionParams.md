@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilDropTransactionParams
 
 > **AnvilDropTransactionParams**: `object`
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:51
 
 Params for `anvil_dropTransaction` handler
 
@@ -17,7 +19,3 @@ Params for `anvil_dropTransaction` handler
 > `readonly` **transactionHash**: [`Hex`](Hex.md)
 
 The transaction hash
-
-## Defined in
-
-packages/actions/types/anvil/AnvilParams.d.ts:51

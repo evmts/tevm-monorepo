@@ -1,4 +1,4 @@
-[**@tevm/unplugin**](README.md) • **Docs**
+[**@tevm/unplugin**](README.md)
 
 ***
 

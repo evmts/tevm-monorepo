@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,18 +8,18 @@
 
 > **Extension**\<`TExtended`\>: (`client`) => `TExtended`
 
+Defined in: packages/node/dist/index.d.ts:362
+
 ## Type Parameters
 
 • **TExtended**
 
 ## Parameters
 
-• **client**: [`TevmNode`](TevmNode.md)
+### client
+
+[`TevmNode`](TevmNode.md)
 
 ## Returns
 
 `TExtended`
-
-## Defined in
-
-packages/node/dist/index.d.ts:412

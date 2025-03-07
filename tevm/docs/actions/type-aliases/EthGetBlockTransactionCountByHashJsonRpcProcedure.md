@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBlockTransactionCountByHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](EthGetBlockTransactionCountByHashJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:14
+
 ## Parameters
 
-• **request**: [`EthGetBlockTransactionCountByHashJsonRpcRequest`](EthGetBlockTransactionCountByHashJsonRpcRequest.md)
+### request
+
+[`EthGetBlockTransactionCountByHashJsonRpcRequest`](EthGetBlockTransactionCountByHashJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](EthGetBlockTransactionCountByHashJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:14

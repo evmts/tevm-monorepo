@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [vm](../README.md) / BuilderOpts
 
 # Interface: BuilderOpts
+
+Defined in: packages/vm/types/utils/BuilderOpts.d.ts:5
 
 Options for the block builder.
 
@@ -18,6 +20,8 @@ Options for the block builder.
 
 > `optional` **calcDifficultyFromHeader**: [`BlockHeader`](../../block/classes/BlockHeader.md)
 
+Defined in: packages/block/types/types.d.ts:42
+
 If a preceding [BlockHeader](../../block/classes/BlockHeader.md) (usually the parent header) is given the preceding
 header will be used to calculate the difficulty for this block and the calculated
 difficulty takes precedence over a provided static `difficulty` value.
@@ -29,15 +33,13 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`calcDifficultyFromHeader`](../../block/interfaces/BlockOptions.md#calcdifficultyfromheader)
 
-#### Defined in
-
-packages/block/types/types.d.ts:42
-
 ***
 
 ### cliqueSigner?
 
-> `optional` **cliqueSigner**: `Uint8Array`
+> `optional` **cliqueSigner**: `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: packages/block/types/types.d.ts:59
 
 Provide a clique signer's privateKey to seal this block.
 Will throw if provided on a non-PoA chain.
@@ -46,15 +48,13 @@ Will throw if provided on a non-PoA chain.
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`cliqueSigner`](../../block/interfaces/BlockOptions.md#cliquesigner)
 
-#### Defined in
-
-packages/block/types/types.d.ts:59
-
 ***
 
 ### common
 
 > **common**: `object`
+
+Defined in: packages/block/types/types.d.ts:23
 
 A [Common](../../common/type-aliases/Common.md) object defining the chain and the hardfork a block/block header belongs to.
 
@@ -74,9 +74,9 @@ Collection of block explorers
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainBlockExplorer`
+\[`key`: `string`\]: `ChainBlockExplorer`
 
-#### blockExplorers.default
+##### blockExplorers.default
 
 > **default**: `ChainBlockExplorer`
 
@@ -86,25 +86,33 @@ Collection of block explorers
 
 Collection of contracts
 
-#### contracts.ensRegistry?
+##### Index Signature
+
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+
+##### contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
 
-#### contracts.ensUniversalResolver?
+##### contracts.ensUniversalResolver?
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
-#### contracts.multicall3?
+##### contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
 
+##### contracts.universalSignatureVerifier?
+
+> `optional` **universalSignatureVerifier**: `ChainContract`
+
 #### copy()
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 #### custom?
 
@@ -154,9 +162,9 @@ Collection of RPC endpoints
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainRpcUrls`
+\[`key`: `string`\]: `ChainRpcUrls`
 
-#### rpcUrls.default
+##### rpcUrls.default
 
 > **default**: `ChainRpcUrls`
 
@@ -182,29 +190,25 @@ Flag for test networks
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`common`](../../block/interfaces/BlockOptions.md#common)
 
-#### Defined in
-
-packages/block/types/types.d.ts:23
-
 ***
 
 ### executionWitness?
 
 > `optional` **executionWitness**: [`VerkleExecutionWitness`](../../block/interfaces/VerkleExecutionWitness.md)
 
+Defined in: packages/block/types/types.d.ts:64
+
 #### Inherited from
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`executionWitness`](../../block/interfaces/BlockOptions.md#executionwitness)
-
-#### Defined in
-
-packages/block/types/types.d.ts:64
 
 ***
 
 ### freeze?
 
 > `optional` **freeze**: `boolean`
+
+Defined in: packages/block/types/types.d.ts:54
 
 A block object by default gets frozen along initialization. This gives you
 strong additional security guarantees on the consistency of the block parameters.
@@ -220,15 +224,13 @@ Default: true
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`freeze`](../../block/interfaces/BlockOptions.md#freeze)
 
-#### Defined in
-
-packages/block/types/types.d.ts:54
-
 ***
 
 ### putBlockIntoBlockchain?
 
 > `optional` **putBlockIntoBlockchain**: `boolean`
+
+Defined in: packages/vm/types/utils/BuilderOpts.d.ts:15
 
 Whether to put the block into the vm's blockchain after building it.
 This is useful for completing a full cycle when building a block so
@@ -238,15 +240,13 @@ the underlying blockchain.
 
 Default: true
 
-#### Defined in
-
-packages/vm/types/utils/BuilderOpts.d.ts:15
-
 ***
 
 ### setHardfork?
 
 > `optional` **setHardfork**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+
+Defined in: packages/block/types/types.d.ts:33
 
 Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
 for older Hfs.
@@ -260,22 +260,16 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`setHardfork`](../../block/interfaces/BlockOptions.md#sethardfork)
 
-#### Defined in
-
-packages/block/types/types.d.ts:33
-
 ***
 
 ### skipConsensusFormatValidation?
 
 > `optional` **skipConsensusFormatValidation**: `boolean`
 
+Defined in: packages/block/types/types.d.ts:63
+
 Skip consensus format validation checks on header if set. Defaults to false.
 
 #### Inherited from
 
 [`BlockOptions`](../../block/interfaces/BlockOptions.md).[`skipConsensusFormatValidation`](../../block/interfaces/BlockOptions.md#skipconsensusformatvalidation)
-
-#### Defined in
-
-packages/block/types/types.d.ts:63

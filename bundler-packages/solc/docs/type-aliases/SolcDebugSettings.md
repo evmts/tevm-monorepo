@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcDebugSettings
 
 > **SolcDebugSettings**: `object`
+
+Defined in: [solcTypes.ts:204](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L204)
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### revertStrings?
 
 > `optional` **revertStrings**: `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"`
-
-## Defined in
-
-[solcTypes.ts:204](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L204)

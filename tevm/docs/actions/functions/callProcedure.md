@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: callProcedure()
 
-> **callProcedure**(`client`): `CallJsonRpcProcedure`
+> **callProcedure**(`client`): [`CallJsonRpcProcedure`](../type-aliases/CallJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/Call/callProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`CallJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/Call/callProcedure.d.ts:1
+[`CallJsonRpcProcedure`](../type-aliases/CallJsonRpcProcedure.md)

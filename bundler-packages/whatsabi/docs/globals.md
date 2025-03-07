@@ -1,4 +1,4 @@
-[**@tevm/whatsabi**](README.md) • **Docs**
+[**@tevm/whatsabi**](README.md)
 
 ***
 

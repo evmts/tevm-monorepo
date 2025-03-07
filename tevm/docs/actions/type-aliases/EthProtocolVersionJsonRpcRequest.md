@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthProtocolVersionJsonRpcRequest
 
-> **EthProtocolVersionJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_protocolVersion"`, readonly []\>
+> **EthProtocolVersionJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_protocolVersion"`, readonly \[\]\>
+
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:160
 
 JSON-RPC request for `eth_protocolVersion` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcRequest.d.ts:160

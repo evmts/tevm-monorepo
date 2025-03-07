@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: NonceAlreadyUsedErrorParameters
 
 > **NonceAlreadyUsedErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/NonceAlreadyUsedError.d.ts:50
 
 Parameters for constructing a NonceAlreadyUsedError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a NonceAlreadyUsedError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/NonceAlreadyUsedError.d.ts:50

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **bytesToUtf8**(`data`): `string`
 
+Defined in: node\_modules/.pnpm/ethereum-cryptography@2.2.1/node\_modules/ethereum-cryptography/utils.d.ts:5
+
 ## Parameters
 
-• **data**: `Uint8Array`
+### data
+
+`Uint8Array`
 
 ## Returns
 
 `string`
-
-## Defined in
-
-node\_modules/.pnpm/ethereum-cryptography@2.2.1/node\_modules/ethereum-cryptography/utils.d.ts:5

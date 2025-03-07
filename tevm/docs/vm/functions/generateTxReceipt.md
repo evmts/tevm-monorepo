@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **generateTxReceipt**(`vm`): (`tx`, `txResult`, `cumulativeGasUsed`, `blobGasUsed`?, `blobGasPrice`?) => `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>
 
+Defined in: packages/vm/types/actions/generateTxResult.d.ts:13
+
 Returns the tx receipt.
 
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
+
+`BaseVm`
 
 ## Returns
 
@@ -20,20 +24,26 @@ Returns the tx receipt.
 
 ### Parameters
 
-• **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)
+#### tx
 
-• **txResult**: [`RunTxResult`](../interfaces/RunTxResult.md)
+[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)
 
-• **cumulativeGasUsed**: `bigint`
+#### txResult
 
-• **blobGasUsed?**: `bigint`
+[`RunTxResult`](../interfaces/RunTxResult.md)
 
-• **blobGasPrice?**: `bigint`
+#### cumulativeGasUsed
+
+`bigint`
+
+#### blobGasUsed?
+
+`bigint`
+
+#### blobGasPrice?
+
+`bigint`
 
 ### Returns
 
 `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>
-
-## Defined in
-
-packages/vm/types/actions/generateTxResult.d.ts:13

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthGetUncleByBlockHashAndIndexJsonRpcRequest
 
-> **EthGetUncleByBlockHashAndIndexJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getUncleByBlockHashAndIndex"`, readonly [`Hex`, `Hex`]\>
+> **EthGetUncleByBlockHashAndIndexJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getUncleByBlockHashAndIndex"`, readonly \[`Hex`, `Hex`\]\>
+
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:212](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L212)
 
 JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthJsonRpcRequest.ts:212](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L212)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,12 +6,10 @@
 
 # Function: ethProtocolVersionJsonRpcProcedure()
 
-> **ethProtocolVersionJsonRpcProcedure**(): `EthProtocolVersionJsonRpcProcedure`
+> **ethProtocolVersionJsonRpcProcedure**(): [`EthProtocolVersionJsonRpcProcedure`](../type-aliases/EthProtocolVersionJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethProtocolVersionProcedure.d.ts:1
 
 ## Returns
 
-`EthProtocolVersionJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethProtocolVersionProcedure.d.ts:1
+[`EthProtocolVersionJsonRpcProcedure`](../type-aliases/EthProtocolVersionJsonRpcProcedure.md)

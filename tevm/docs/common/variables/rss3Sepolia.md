@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: rss3Sepolia
 
-> `const` **rss3Sepolia**: `Common`
+> `const` **rss3Sepolia**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/rss3Sepolia.d.ts:21
 
 Creates a common configuration for the rss3Sepolia chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/rss3Sepolia.d.ts:21

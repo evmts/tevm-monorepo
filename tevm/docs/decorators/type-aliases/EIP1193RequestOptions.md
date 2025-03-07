@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EIP1193RequestOptions
 
 > **EIP1193RequestOptions**: `object`
+
+Defined in: packages/decorators/dist/index.d.ts:260
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### retryDelay?
 
 > `optional` **retryDelay**: `number`
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:260

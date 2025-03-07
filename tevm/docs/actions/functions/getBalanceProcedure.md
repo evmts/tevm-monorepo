@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: getBalanceProcedure()
 
-> **getBalanceProcedure**(`baseClient`): `EthGetBalanceJsonRpcProcedure`
+> **getBalanceProcedure**(`baseClient`): [`EthGetBalanceJsonRpcProcedure`](../type-aliases/EthGetBalanceJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/getBalanceProcedure.d.ts:1
 
 ## Parameters
 
-• **baseClient**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### baseClient
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetBalanceJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/getBalanceProcedure.d.ts:1
+[`EthGetBalanceJsonRpcProcedure`](../type-aliases/EthGetBalanceJsonRpcProcedure.md)

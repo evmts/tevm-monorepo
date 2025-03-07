@@ -1,4 +1,4 @@
-**@tevm/vite-plugin** • [**Docs**](globals.md)
+**@tevm/vite-plugin**
 
 ***
 

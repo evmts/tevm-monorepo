@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: MethodNotSupportedErrorParameters
 
 > **MethodNotSupportedErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/MethodNotSupportedError.d.ts:50
 
 Parameters for constructing a MethodNotSupportedError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a MethodNotSupportedError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/MethodNotSupportedError.d.ts:50

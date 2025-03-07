@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **TraceType**: `"CALL"` \| `"DELEGATECALL"` \| `"STATICCALL"` \| `"CREATE"` \| `"CREATE2"` \| `"SELFDESTRUCT"` \| `"REWARD"`
 
-## Defined in
-
-packages/actions/types/common/TraceType.d.ts:1
+Defined in: packages/actions/types/common/TraceType.d.ts:1

@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: tevmGetAccount()
 
 > **tevmGetAccount**(`client`, `params`): `Promise`\<`GetAccountResult`\<`TevmGetAccountError`\>\>
+
+Defined in: [packages/memory-client/src/tevmGetAccount.js:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmGetAccount.js#L45)
 
 A tree-shakeable version of the `tevmGetAccount` action for viem.
 Retrieves the account information from TEVM.
@@ -18,11 +20,15 @@ Be aware that returning storage can be very expensive if a contract has a lot of
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| `object`\>
+### client
+
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
 
 The viem client configured with TEVM transport.
 
-• **params**: `GetAccountParams`\<`boolean`\>
+### params
+
+`GetAccountParams`\<`boolean`\>
 
 Parameters for retrieving the account information.
 
@@ -63,7 +69,3 @@ example()
  - [GetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountparams/) for options reference.
  - [GetAccountResult](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountresult/) for return values reference.
  - [TEVM Actions Guide](https://tevm.sh/learn/actions/)
-
-## Defined in
-
-[packages/memory-client/src/tevmGetAccount.js:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmGetAccount.js#L45)

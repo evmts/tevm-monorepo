@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: tevmViemActions()
 
-> **tevmViemActions**(): (`client`) => `TevmViemActionsApi`
+> **tevmViemActions**(): (`client`) => [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
+
+Defined in: packages/memory-client/types/tevmViemActions.d.ts:1
 
 ## Returns
 
@@ -14,12 +16,10 @@
 
 ### Parameters
 
-• **client**: `Client`
+#### client
+
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| [`Account`](../type-aliases/Account.md), `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
 
 ### Returns
 
-`TevmViemActionsApi`
-
-## Defined in
-
-packages/memory-client/types/tevmViemActions.d.ts:1
+[`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)

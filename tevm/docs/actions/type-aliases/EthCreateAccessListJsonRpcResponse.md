@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthCreateAccessListJsonRpcResponse
 
-> **EthCreateAccessListJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_createAccessList"`, `object`, `string` \| `number`\>
+> **EthCreateAccessListJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_createAccessList"`, \{ `accessList`: `object`[]; `gasUsed`: [`Hex`](../../index/type-aliases/Hex.md); \}, `string` \| `number`\>
+
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:179
 
 JSON-RPC response for `eth_createAccessList` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcResponse.d.ts:179

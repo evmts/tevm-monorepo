@@ -1,4 +1,4 @@
-[**@tevm/config**](../README.md) • **Docs**
+[**@tevm/config**](../README.md)
 
 ***
 
@@ -6,12 +6,10 @@
 
 # defineConfig
 
-## Index
-
-### Classes
+## Classes
 
 - [DefineConfigError](classes/DefineConfigError.md)
 
-### Functions
+## Functions
 
 - [defineConfig](functions/defineConfig.md)

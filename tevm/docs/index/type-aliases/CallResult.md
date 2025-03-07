@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CallResult\<ErrorType\>
 
 > **CallResult**\<`ErrorType`\>: `object`
+
+Defined in: packages/actions/types/Call/CallResult.d.ts:31
 
 Result of a TEVM VM Call method.
 
@@ -244,7 +246,3 @@ console.log(result)
 ## See
 
 [tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall/)
-
-## Defined in
-
-packages/actions/types/Call/CallResult.d.ts:31

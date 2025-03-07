@@ -1,14 +1,8 @@
-[**@tevm/actions**](README.md) • **Docs**
+[**@tevm/actions**](README.md)
 
 ***
 
 # @tevm/actions
-
-## References
-
-### HandleRunTxError
-
-Renames and re-exports [ExecuteCallError](type-aliases/ExecuteCallError.md)
 
 ## Classes
 
@@ -565,3 +559,9 @@ Renames and re-exports [ExecuteCallError](type-aliases/ExecuteCallError.md)
 - [validateLoadStateParams](functions/validateLoadStateParams.md)
 - [validateMineParams](functions/validateMineParams.md)
 - [validateSetAccountParams](functions/validateSetAccountParams.md)
+
+## References
+
+### HandleRunTxError
+
+Renames and re-exports [ExecuteCallError](type-aliases/ExecuteCallError.md)

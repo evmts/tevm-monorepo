@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,22 +8,24 @@
 
 > **definePrecompile**\<`TContract`\>(`__namedParameters`): `Precompile`\<`TContract`\>
 
+Defined in: packages/precompiles/dist/index.d.ts:109
+
 ## Type Parameters
 
-• **TContract** *extends* [`Contract`](../type-aliases/Contract.md)\<`any`, `any`, \`0x$\{string\}\`, `any`, `any`, `any`\> = [`Contract`](../type-aliases/Contract.md)\<`string`, readonly `string`[], \`0x$\{string\}\`, `any`, `any`, `any`\>
+• **TContract** *extends* [`Contract`](../type-aliases/Contract.md)\<`any`, `any`, `` `0x${string}` ``, `any`, `any`, `any`\> = [`Contract`](../type-aliases/Contract.md)\<`string`, readonly `string`[], `` `0x${string}` ``, `any`, `any`, `any`\>
 
 ## Parameters
 
-• **\_\_namedParameters**
+### \_\_namedParameters
 
-• **\_\_namedParameters.call**
+#### call
 
-• **\_\_namedParameters.contract**: `TContract`
+(`context`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
+
+#### contract
+
+`TContract`
 
 ## Returns
 
 `Precompile`\<`TContract`\>
-
-## Defined in
-
-packages/precompiles/dist/index.d.ts:109

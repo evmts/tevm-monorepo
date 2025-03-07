@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **createEvm**(`__namedParameters`): `Promise`\<[`Evm`](../classes/Evm.md)\>
 
+Defined in: packages/evm/dist/index.d.ts:193
+
 ## Parameters
 
-• **\_\_namedParameters**: [`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
+### \_\_namedParameters
+
+[`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
 
 ## Returns
 
 `Promise`\<[`Evm`](../classes/Evm.md)\>
-
-## Defined in
-
-packages/evm/dist/index.d.ts:193

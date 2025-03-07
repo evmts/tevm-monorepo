@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **ReadRequestBodyErrorParameters**: `object`
 
+Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:38
+
 Parameters for constructing a [ReadRequestBodyError](../classes/ReadRequestBodyError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: `BaseError` \| `Error`
+> `optional` **cause**: [`BaseError`](../../errors/classes/BaseError.md) \| `Error`
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a [ReadRequestBodyError](../classes/ReadRequestBodyE
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/server/types/errors/ReadRequestBodyError.d.ts:38

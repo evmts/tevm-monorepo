@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -8,12 +8,16 @@
 
 > **assignBlockRewards**(`vm`): (`block`) => `Promise`\<`void`\>
 
+Defined in: [packages/vm/src/actions/assignBlockRewards.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/assignBlockRewards.ts#L12)
+
 Calculates block rewards for miner and ommers and puts
 the updated balances of their accounts to state.
 
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
+
+`BaseVm`
 
 ## Returns
 
@@ -21,12 +25,10 @@ the updated balances of their accounts to state.
 
 ### Parameters
 
-• **block**: `Block`
+#### block
+
+`Block`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-[packages/vm/src/actions/assignBlockRewards.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/assignBlockRewards.ts#L12)

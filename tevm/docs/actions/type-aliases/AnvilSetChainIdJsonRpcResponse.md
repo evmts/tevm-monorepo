@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **AnvilSetChainIdJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setChainId"`, `SerializeToJson`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>, `AnvilError`\>
 
+Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:57
+
 JSON-RPC response for `anvil_setChainId` procedure
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:57

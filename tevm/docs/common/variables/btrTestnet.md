@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: btrTestnet
 
-> `const` **btrTestnet**: `Common`
+> `const` **btrTestnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/btrTestnet.d.ts:21
 
 Creates a common configuration for the btrTestnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/btrTestnet.d.ts:21

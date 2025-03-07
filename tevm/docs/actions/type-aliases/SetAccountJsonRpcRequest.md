@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: SetAccountJsonRpcRequest
 
-> **SetAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_setAccount"`, [`SerializeToJson`\<[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\>]\>
+> **SetAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_setAccount"`, \[`SerializeToJson`\<[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\>\]\>
+
+Defined in: packages/actions/types/SetAccount/SetAccountJsonRpcRequest.d.ts:7
 
 JSON-RPC request for `tevm_setAccount` method
-
-## Defined in
-
-packages/actions/types/SetAccount/SetAccountJsonRpcRequest.d.ts:7

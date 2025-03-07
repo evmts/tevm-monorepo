@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **DumpStateHandler**: (`params`?) => `Promise`\<[`DumpStateResult`](../../index/type-aliases/DumpStateResult.md)\>
 
+Defined in: packages/actions/types/DumpState/DumpStateHandlerType.d.ts:28
+
 Dumps the current state of the VM into a JSON-serializable object.
 
 This handler allows you to capture the entire state of the VM, which can be useful for
@@ -15,7 +17,9 @@ debugging, testing, or persisting the state across sessions.
 
 ## Parameters
 
-• **params?**: [`DumpStateParams`](DumpStateParams.md)
+### params?
+
+[`DumpStateParams`](DumpStateParams.md)
 
 Optional parameters to customize the state dumping process.
 
@@ -42,7 +46,3 @@ await tevm.loadState({ state })
 ## See
 
 LoadStateHandler for loading the dumped state back into the VM.
-
-## Defined in
-
-packages/actions/types/DumpState/DumpStateHandlerType.d.ts:28

@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -6,12 +6,10 @@
 
 # Type Alias: TestRpcSchema\<TMode\>
 
-> **TestRpcSchema**\<`TMode`\>: [`object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`]
+> **TestRpcSchema**\<`TMode`\>: \[`object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`\]
+
+Defined in: [eip1193/JsonRpcSchemaTest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTest.ts#L10)
 
 ## Type Parameters
 
 • **TMode** *extends* `string`
-
-## Defined in
-
-[eip1193/JsonRpcSchemaTest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTest.ts#L10)

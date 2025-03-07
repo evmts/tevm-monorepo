@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **RpcSchemaOverride**: `Omit`\<[`RpcSchema`](RpcSchema.md)\[`number`\], `"Method"`\>
 
-## Defined in
-
-packages/decorators/dist/index.d.ts:241
+Defined in: packages/decorators/dist/index.d.ts:241

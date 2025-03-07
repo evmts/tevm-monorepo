@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ContractExecutionFailedErrorParameters
 
 > **ContractExecutionFailedErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/ContractExecutionFailedError.d.ts:63
 
 Parameters for constructing a ContractExecutionFailedError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a ContractExecutionFailedError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ContractExecutionFailedError.d.ts:63

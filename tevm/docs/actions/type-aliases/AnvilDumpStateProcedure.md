@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilDumpStateProcedure**: (`request`) => `Promise`\<[`AnvilDumpStateJsonRpcResponse`](AnvilDumpStateJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:55
+
 JSON-RPC procedure for `anvil_dumpState`
 
 ## Parameters
 
-• **request**: [`AnvilDumpStateJsonRpcRequest`](AnvilDumpStateJsonRpcRequest.md)
+### request
+
+[`AnvilDumpStateJsonRpcRequest`](AnvilDumpStateJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilDumpStateJsonRpcResponse`](AnvilDumpStateJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilProcedure.d.ts:55

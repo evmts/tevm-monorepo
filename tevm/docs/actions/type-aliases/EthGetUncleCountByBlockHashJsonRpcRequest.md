@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthGetUncleCountByBlockHashJsonRpcRequest
 
-> **EthGetUncleCountByBlockHashJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getUncleCountByBlockHash"`, readonly [[`Hex`](../../index/type-aliases/Hex.md)]\>
+> **EthGetUncleCountByBlockHashJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getUncleCountByBlockHash"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
+
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:124
 
 JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcRequest.d.ts:124

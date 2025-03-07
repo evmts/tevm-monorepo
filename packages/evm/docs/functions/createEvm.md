@@ -1,4 +1,4 @@
-[**@tevm/evm**](../README.md) • **Docs**
+[**@tevm/evm**](../README.md)
 
 ***
 
@@ -8,12 +8,16 @@
 
 > **createEvm**(`__namedParameters`): `Promise`\<[`Evm`](../classes/Evm.md)\>
 
+Defined in: [packages/evm/src/createEvm.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L30)
+
 Creates the Tevm Evm to execute ethereum bytecode internally.
 Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
 
 ## Parameters
 
-• **\_\_namedParameters**: [`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
+### \_\_namedParameters
+
+[`CreateEvmOptions`](../type-aliases/CreateEvmOptions.md)
 
 ## Returns
 
@@ -42,7 +46,3 @@ console.log(runCallResult)
 ````
 @param {import('./CreateEvmOptions.js').CreateEvmOptions} options
 @returns {Promise<import('./EvmType.js').Evm>} A tevm Evm instance with tevm specific defaults
-
-## Defined in
-
-[packages/evm/src/createEvm.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/createEvm.js#L30)

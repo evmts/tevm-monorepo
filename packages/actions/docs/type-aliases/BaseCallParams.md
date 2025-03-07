@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: BaseCallParams\<TThrowOnFail\>
 
 > **BaseCallParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+
+Defined in: [packages/actions/src/BaseCall/BaseCallParams.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/BaseCallParams.ts#L37)
 
 Properties shared across call-like params.
 This type is used as the base for various call-like parameter types:
@@ -250,7 +252,3 @@ const params: BaseCallParams = {
   to: '0x123...',
 }
 ```
-
-## Defined in
-
-[packages/actions/src/BaseCall/BaseCallParams.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/BaseCallParams.ts#L37)

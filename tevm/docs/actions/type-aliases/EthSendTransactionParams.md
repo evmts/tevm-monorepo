@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,11 +8,9 @@
 
 > **EthSendTransactionParams**: [`CallParams`](../../index/type-aliases/CallParams.md)
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:219
+
 **`Experimental`**
 
 Based on the JSON-RPC request for `eth_sendTransaction` procedure
 This type is a placeholder
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:219

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthHashrateParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:69
+
 Based on the JSON-RPC request for `eth_hashrate` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:69

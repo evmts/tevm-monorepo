@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: AnvilSetChainIdJsonRpcRequest
 
-> **AnvilSetChainIdJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setChainId"`, readonly [[`Hex`](../../index/type-aliases/Hex.md)]\>
+> **AnvilSetChainIdJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setChainId"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
+
+Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:66
 
 JSON-RPC request for `anvil_setChainId` method
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:66

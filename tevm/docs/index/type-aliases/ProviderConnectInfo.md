@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,12 +8,10 @@
 
 > **ProviderConnectInfo**: `object`
 
+Defined in: packages/node/dist/index.d.ts:17
+
 ## Type declaration
 
 ### chainId
 
 > **chainId**: `string`
-
-## Defined in
-
-packages/node/dist/index.d.ts:20

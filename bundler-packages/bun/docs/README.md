@@ -1,4 +1,4 @@
-**@tevm/bun-plugin** • [**Docs**](globals.md)
+**@tevm/bun-plugin**
 
 ***
 

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **calculateMinerReward**(`minerReward`, `ommersNum`): `bigint`
 
+Defined in: packages/vm/types/actions/calculateMinerReward.d.ts:1
+
 ## Parameters
 
-• **minerReward**: `bigint`
+### minerReward
 
-• **ommersNum**: `number`
+`bigint`
+
+### ommersNum
+
+`number`
 
 ## Returns
 
 `bigint`
-
-## Defined in
-
-packages/vm/types/actions/calculateMinerReward.d.ts:1

@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,26 +6,24 @@
 
 # state
 
-## Index
-
-### Enumerations
+## Enumerations
 
 - [CacheType](enumerations/CacheType.md)
 
-### Classes
+## Classes
 
 - [AccountCache](classes/AccountCache.md)
 - [ContractCache](classes/ContractCache.md)
 - [StorageCache](classes/StorageCache.md)
 
-### Interfaces
+## Interfaces
 
 - [AccountStorage](interfaces/AccountStorage.md)
 - [ForkOptions](interfaces/ForkOptions.md)
 - [ParameterizedAccountStorage](interfaces/ParameterizedAccountStorage.md)
 - [StateManager](interfaces/StateManager.md)
 
-### Type Aliases
+## Type Aliases
 
 - [BaseState](type-aliases/BaseState.md)
 - [ParameterizedTevmState](type-aliases/ParameterizedTevmState.md)
@@ -34,7 +32,7 @@
 - [StateCache](type-aliases/StateCache.md)
 - [StateRoots](type-aliases/StateRoots.md)
 
-### Functions
+## Functions
 
 - [checkpoint](functions/checkpoint.md)
 - [clearCaches](functions/clearCaches.md)
@@ -51,7 +49,7 @@
 - [getAccount](functions/getAccount.md)
 - [getAccountAddresses](functions/getAccountAddresses.md)
 - [getAccountFromProvider](functions/getAccountFromProvider.md)
-- [getAppliedKey](functions/getAppliedKey.md)
+- [~~getAppliedKey~~](functions/getAppliedKey.md)
 - [getContractCode](functions/getContractCode.md)
 - [getContractStorage](functions/getContractStorage.md)
 - [getForkBlockTag](functions/getForkBlockTag.md)

@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [vm](../README.md) / BuildBlockOpts
 
 # Interface: BuildBlockOpts
+
+Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:7
 
 Options for building a block.
 
@@ -14,11 +16,9 @@ Options for building a block.
 
 > `optional` **blockOpts**: [`BuilderOpts`](BuilderOpts.md)
 
+Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:21
+
 The block and builder options to use.
-
-#### Defined in
-
-packages/vm/types/utils/BuildBlockOpts.d.ts:21
 
 ***
 
@@ -26,12 +26,10 @@ packages/vm/types/utils/BuildBlockOpts.d.ts:21
 
 > `optional` **headerData**: [`HeaderData`](../../block/interfaces/HeaderData.md)
 
+Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:16
+
 The block header data to use.
 Defaults used for any values not provided.
-
-#### Defined in
-
-packages/vm/types/utils/BuildBlockOpts.d.ts:16
 
 ***
 
@@ -39,11 +37,9 @@ packages/vm/types/utils/BuildBlockOpts.d.ts:16
 
 > **parentBlock**: [`Block`](../../block/classes/Block.md)
 
+Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:11
+
 The parent block
-
-#### Defined in
-
-packages/vm/types/utils/BuildBlockOpts.d.ts:11
 
 ***
 
@@ -51,6 +47,4 @@ packages/vm/types/utils/BuildBlockOpts.d.ts:11
 
 > `optional` **withdrawals**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
 
-#### Defined in
-
-packages/vm/types/utils/BuildBlockOpts.d.ts:17
+Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:17

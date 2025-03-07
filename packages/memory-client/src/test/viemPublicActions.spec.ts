@@ -8,6 +8,7 @@ describe('viemPublicActions', () => {
 		 */
 		const isSupported: Record<keyof PublicActions, boolean> = {
 			call: true,
+			createAccessList: true,
 			createBlockFilter: true,
 			createContractEventFilter: true,
 			createEventFilter: true,
@@ -44,6 +45,9 @@ describe('viemPublicActions', () => {
 			prepareTransactionRequest: true,
 			readContract: true,
 			sendRawTransaction: true,
+			simulate: true,
+			simulateBlocks: true,
+			simulateCalls: true,
 			simulateContract: true,
 			uninstallFilter: true,
 			verifyMessage: true,

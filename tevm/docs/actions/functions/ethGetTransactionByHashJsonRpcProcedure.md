@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetTransactionByHashJsonRpcProcedure()
 
-> **ethGetTransactionByHashJsonRpcProcedure**(`client`): `EthGetTransactionByHashJsonRpcProcedure`
+> **ethGetTransactionByHashJsonRpcProcedure**(`client`): [`EthGetTransactionByHashJsonRpcProcedure`](../type-aliases/EthGetTransactionByHashJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethGetTransactionByHashProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetTransactionByHashJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethGetTransactionByHashProcedure.d.ts:1
+[`EthGetTransactionByHashJsonRpcProcedure`](../type-aliases/EthGetTransactionByHashJsonRpcProcedure.md)

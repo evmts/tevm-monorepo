@@ -1,4 +1,4 @@
-**@tevm/tsupconfig** • [**Docs**](globals.md)
+**@tevm/tsupconfig**
 
 ***
 

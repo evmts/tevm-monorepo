@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: validateGetAccountParams()
 
-> **validateGetAccountParams**(`action`): [`ValidateGetAccountParamsError`](../type-aliases/ValidateGetAccountParamsError.md)[]
+> **validateGetAccountParams**(`action`): [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
+
+Defined in: packages/actions/types/GetAccount/validateGetAccountParams.d.ts:1
 
 ## Parameters
 
-• **action**: [`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)\<`boolean`\>
+### action
+
+[`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)\<`boolean`\>
 
 ## Returns
 
-[`ValidateGetAccountParamsError`](../type-aliases/ValidateGetAccountParamsError.md)[]
-
-## Defined in
-
-packages/actions/types/GetAccount/validateGetAccountParams.d.ts:1
+[`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]

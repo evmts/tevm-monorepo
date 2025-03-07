@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcModelChecker
 
 > **SolcModelChecker**: `object`
+
+Defined in: [solcTypes.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L165)
 
 ## Type declaration
 
@@ -53,7 +55,3 @@
 ### timeout?
 
 > `optional` **timeout**: `boolean`
-
-## Defined in
-
-[solcTypes.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L165)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CallResult\<TAbi, TFunctionName\>
 
 > **CallResult**\<`TAbi`, `TFunctionName`\>: `object`
+
+Defined in: packages/precompiles/dist/index.d.ts:29
 
 A result of a precompile javascript call
 
@@ -38,24 +40,10 @@ The amount of gas used during execution.
 
 ### logs?
 
-> `optional` **logs**: `ReadonlyArray`\<`object`\>
+> `optional` **logs**: `ReadonlyArray`\<\{ `address`: [`Address`](../../index/type-aliases/Address.md); `args`: [`EncodeEventTopicsParameters`](../../utils/type-aliases/EncodeEventTopicsParameters.md)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"args"`\]; `eventName`: [`EncodeEventTopicsParameters`](../../utils/type-aliases/EncodeEventTopicsParameters.md)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"eventName"`\]; \}\>
 
 Logs emitted during contract execution.
 Logs must match the interface of the ABI
-
-#### Type declaration
-
-##### address
-
-> **address**: [`Address`](../../index/type-aliases/Address.md)
-
-##### args
-
-> **args**: [`EncodeEventTopicsParameters`](../../utils/type-aliases/EncodeEventTopicsParameters.md)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"args"`\]
-
-##### eventName
-
-> **eventName**: [`EncodeEventTopicsParameters`](../../utils/type-aliases/EncodeEventTopicsParameters.md)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"eventName"`\]
 
 ### returnValue
 
@@ -68,7 +56,3 @@ The return value of the call. Required even on exceptions
 > `optional` **selfdestruct**: `Set`\<[`Address`](../../index/type-aliases/Address.md)\>
 
 A set of accounts to selfdestruct
-
-## Defined in
-
-packages/precompiles/dist/index.d.ts:29

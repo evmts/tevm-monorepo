@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,22 @@
 
 # Function: getCanonicalHeadBlock()
 
-> **getCanonicalHeadBlock**(`baseChain`): `Chain`\[`"getCanonicalHeadBlock"`\]
+> **getCanonicalHeadBlock**(`baseChain`): () => `Promise`\<[`Block`](../../block/classes/Block.md)\>
+
+Defined in: packages/blockchain/types/actions/getCanonicalHeadBlock.d.ts:1
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
-`Chain`\[`"getCanonicalHeadBlock"`\]
+`Function`
 
-## Defined in
+Returns the latest full block in the canonical chain.
 
-packages/blockchain/types/actions/getCanonicalHeadBlock.d.ts:1
+### Returns
+
+`Promise`\<[`Block`](../../block/classes/Block.md)\>

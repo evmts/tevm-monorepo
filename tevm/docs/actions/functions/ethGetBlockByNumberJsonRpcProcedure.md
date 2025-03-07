@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetBlockByNumberJsonRpcProcedure()
 
-> **ethGetBlockByNumberJsonRpcProcedure**(`client`): `EthGetBlockByNumberJsonRpcProcedure`
+> **ethGetBlockByNumberJsonRpcProcedure**(`client`): [`EthGetBlockByNumberJsonRpcProcedure`](../type-aliases/EthGetBlockByNumberJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethGetBlockByNumberProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetBlockByNumberJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethGetBlockByNumberProcedure.d.ts:1
+[`EthGetBlockByNumberJsonRpcProcedure`](../type-aliases/EthGetBlockByNumberJsonRpcProcedure.md)

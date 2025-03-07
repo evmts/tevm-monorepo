@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: MemoryClientOptions\<TCommon, TAccountOrAddress, TRpcSchema\>
 
 > **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>: [`TevmNodeOptions`](TevmNodeOptions.md)\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\>
+
+Defined in: packages/memory-client/types/MemoryClientOptions.d.ts:49
 
 Configuration options for creating a [MemoryClient](MemoryClient.md).
 
@@ -51,7 +53,3 @@ const client = createMemoryClient(options);
 
  - [MemoryClient](MemoryClient.md)
  - [CreateMemoryClientFn](CreateMemoryClientFn.md)
-
-## Defined in
-
-packages/memory-client/types/MemoryClientOptions.d.ts:49

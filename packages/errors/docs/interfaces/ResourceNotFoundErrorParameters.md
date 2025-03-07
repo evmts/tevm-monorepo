@@ -1,4 +1,4 @@
-[**@tevm/errors**](../README.md) • **Docs**
+[**@tevm/errors**](../README.md)
 
 ***
 
@@ -6,86 +6,74 @@
 
 # Interface: ResourceNotFoundErrorParameters
 
+Defined in: [packages/errors/src/ethereum/ResourceNotFoundError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L6)
+
 ## Properties
 
-### cause
+### cause?
 
-> **cause**: `undefined` \| [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+
+Defined in: [packages/errors/src/ethereum/ResourceNotFoundError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L11)
 
 The cause of the error.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ResourceNotFoundError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L11)
-
 ***
 
-### details
+### details?
 
-> **details**: `undefined` \| `string`
+> `optional` **details**: `string`
+
+Defined in: [packages/errors/src/ethereum/ResourceNotFoundError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L12)
 
 Details of the error.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ResourceNotFoundError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L12)
-
 ***
 
-### docsBaseUrl
+### docsBaseUrl?
 
-> **docsBaseUrl**: `undefined` \| `string`
+> `optional` **docsBaseUrl**: `string`
+
+Defined in: [packages/errors/src/ethereum/ResourceNotFoundError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L7)
 
 Base URL for the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ResourceNotFoundError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L7)
-
 ***
 
-### docsPath
+### docsPath?
 
-> **docsPath**: `undefined` \| `string`
+> `optional` **docsPath**: `string`
+
+Defined in: [packages/errors/src/ethereum/ResourceNotFoundError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L8)
 
 Path to the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ResourceNotFoundError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L8)
-
 ***
 
-### docsSlug
+### docsSlug?
 
-> **docsSlug**: `undefined` \| `string`
+> `optional` **docsSlug**: `string`
+
+Defined in: [packages/errors/src/ethereum/ResourceNotFoundError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L9)
 
 Slug for the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ResourceNotFoundError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L9)
-
 ***
 
-### meta
+### meta?
 
-> **meta**: `undefined` \| `object`
+> `optional` **meta**: `object`
+
+Defined in: [packages/errors/src/ethereum/ResourceNotFoundError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L13)
 
 Optional object containing additional information about the error.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ResourceNotFoundError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L13)
-
 ***
 
-### metaMessages
+### metaMessages?
 
-> **metaMessages**: `undefined` \| `string`[]
+> `optional` **metaMessages**: `string`[]
+
+Defined in: [packages/errors/src/ethereum/ResourceNotFoundError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L10)
 
 Additional meta messages.
-
-#### Defined in
-
-[packages/errors/src/ethereum/ResourceNotFoundError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ResourceNotFoundError.js#L10)

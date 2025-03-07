@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [utils](../README.md) / GenesisState
 
 # Interface: GenesisState
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/genesis.d.ts:33
 
 If you are using a custom chain Common, pass the genesis state.
 
@@ -31,4 +33,4 @@ A complex genesis state with Contract and EoA states would have the following fo
 
 ## Indexable
 
- \[`key`: `string`\]: `PrefixedHexString` \| `AccountState`
+\[`key`: `string`\]: `` `0x${string}` `` \| `AccountState`

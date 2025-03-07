@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EVMOpts
 
 > **EVMOpts**: `Parameters`\<*typeof* `EVM.create`\>\[`0`\]
+
+Defined in: packages/evm/dist/index.d.ts:68
 
 The options available to pass to the EVM. Inferred from ethereumjs/evm
 
@@ -29,7 +31,3 @@ const evm: Evm = createEvm({
   blockchain: createBlockchain(),
 })
 ```
-
-## Defined in
-
-packages/evm/dist/index.d.ts:68

@@ -1,4 +1,4 @@
-[**@tevm/contract**](../README.md) • **Docs**
+[**@tevm/contract**](../README.md)
 
 ***
 
@@ -13,6 +13,8 @@
 	deployedBytecode,
 	code,
 }`) => [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+
+Defined in: [CreateContractFn.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractFn.ts#L77)
 
 Type of `createContract` factory function.
 Creates a tevm Contract instance from a human readable ABI or JSON ABI.
@@ -47,13 +49,15 @@ The runtime bytecode type (optional)
 
 ## Parameters
 
-• **\{
+### \{
 	name,
 	humanReadableAbi,
 	bytecode,
 	deployedBytecode,
 	code,
-\}**: [`CreateContractParams`](CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+\}
+
+[`CreateContractParams`](CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Returns
 
@@ -119,7 +123,3 @@ const contract = createContract({
   code: '0x608060405234801561001057600080fd5b50600436106100885760003560e01c806370a082311161005b57806370a08231146101bc',  // Example runtime code (truncated)
 })
 ```
-
-## Defined in
-
-[CreateContractFn.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractFn.ts#L77)

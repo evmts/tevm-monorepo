@@ -3,5 +3,5 @@
 exports[`ethGetBlockTransactionCountByHashJsonRpcProcedure > should handle an invalid block hash 1`] = `
 [BaseError: Invalid byte sequence ("0I" in "0InvalidHash").
 
-Version: 2.21.1]
+Version: viem@2.23.5]
 `;

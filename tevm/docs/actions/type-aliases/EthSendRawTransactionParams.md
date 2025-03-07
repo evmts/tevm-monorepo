@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **EthSendRawTransactionParams**: `object`
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:211
+
 Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
 This type is a placeholder
 
@@ -16,7 +18,3 @@ This type is a placeholder
 ### data
 
 > `readonly` **data**: [`Hex`](Hex.md)
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:211

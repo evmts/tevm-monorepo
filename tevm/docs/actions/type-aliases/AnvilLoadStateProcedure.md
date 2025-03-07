@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilLoadStateProcedure**: (`request`) => `Promise`\<[`AnvilLoadStateJsonRpcResponse`](AnvilLoadStateJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:59
+
 JSON-RPC procedure for `anvil_loadState`
 
 ## Parameters
 
-• **request**: [`AnvilLoadStateJsonRpcRequest`](AnvilLoadStateJsonRpcRequest.md)
+### request
+
+[`AnvilLoadStateJsonRpcRequest`](AnvilLoadStateJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilLoadStateJsonRpcResponse`](AnvilLoadStateJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilProcedure.d.ts:59

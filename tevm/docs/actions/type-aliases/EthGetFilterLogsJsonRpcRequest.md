@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthGetFilterLogsJsonRpcRequest
 
-> **EthGetFilterLogsJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getFilterLogs"`, [[`Hex`](../../index/type-aliases/Hex.md)]\>
+> **EthGetFilterLogsJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getFilterLogs"`, \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
+
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:108
 
 JSON-RPC request for `eth_getFilterLogs` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcRequest.d.ts:108

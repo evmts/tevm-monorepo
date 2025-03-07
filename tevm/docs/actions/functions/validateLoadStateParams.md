@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: validateLoadStateParams()
 
-> **validateLoadStateParams**(`action`): [`ValidateLoadStateParamsError`](../type-aliases/ValidateLoadStateParamsError.md)[]
+> **validateLoadStateParams**(`action`): [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
+
+Defined in: packages/actions/types/LoadState/validateLoadStateParams.d.ts:1
 
 ## Parameters
 
-• **action**: [`LoadStateParams`](../type-aliases/LoadStateParams.md)\<`boolean`\>
+### action
+
+[`LoadStateParams`](../type-aliases/LoadStateParams.md)\<`boolean`\>
 
 ## Returns
 
-[`ValidateLoadStateParamsError`](../type-aliases/ValidateLoadStateParamsError.md)[]
-
-## Defined in
-
-packages/actions/types/LoadState/validateLoadStateParams.d.ts:1
+[`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]

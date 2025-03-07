@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **AnvilImpersonateAccountResult**: `null`
 
-## Defined in
-
-[packages/actions/src/anvil/AnvilResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L4)
+Defined in: [packages/actions/src/anvil/AnvilResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L4)

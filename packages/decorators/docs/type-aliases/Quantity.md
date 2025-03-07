@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **Quantity**: `Hex`
 
-## Defined in
-
-[eip1193/NetworkSync.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L9)
+Defined in: [eip1193/NetworkSync.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L9)

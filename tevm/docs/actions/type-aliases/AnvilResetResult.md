@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **AnvilResetResult**: `null`
 
-## Defined in
-
-packages/actions/types/anvil/AnvilResult.d.ts:6
+Defined in: packages/actions/types/anvil/AnvilResult.d.ts:6

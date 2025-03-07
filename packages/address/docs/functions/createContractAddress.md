@@ -1,4 +1,4 @@
-[**@tevm/address**](../README.md) • **Docs**
+[**@tevm/address**](../README.md)
 
 ***
 
@@ -8,15 +8,21 @@
 
 > **createContractAddress**(`from`, `nonce`): [`Address`](../classes/Address.md)
 
+Defined in: [packages/address/src/createContractAddress.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createContractAddress.js#L15)
+
 Generates an [Address](../classes/Address.md) for a newly created contract.
 
 ## Parameters
 
-• **from**: `Address`
+### from
+
+`Address`
 
 The address of the account creating the contract.
 
-• **nonce**: `bigint`
+### nonce
+
+`bigint`
 
 The nonce of the account creating the contract.
 
@@ -33,7 +39,3 @@ If the 'from' parameter is not a valid EthjsAddress.
 ## See
 
 [Contract Creation](https://ethereum.org/en/developers/docs/smart-contracts/deploying/#contract-creation-code|Ethereum)
-
-## Defined in
-
-[packages/address/src/createContractAddress.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createContractAddress.js#L15)

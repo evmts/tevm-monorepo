@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: LoadStateParams\<TThrowOnFail\>
 
 > **LoadStateParams**\<`TThrowOnFail`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
+
+Defined in: packages/actions/types/LoadState/LoadStateParams.d.ts:24
 
 Parameters for the `tevmLoadState` method.
 
@@ -43,7 +45,3 @@ await loadState({ state })
 ## Param
 
 The TEVM state object to load.
-
-## Defined in
-
-packages/actions/types/LoadState/LoadStateParams.d.ts:24

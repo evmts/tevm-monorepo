@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmJsonRpcRequestHandler()
 
 > **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
+
+Defined in: [packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L102)
 
 Typesafe request handler for JSON-RPC requests. Most users will want to use the higher level
 and more feature-rich `actions` api
@@ -17,7 +19,9 @@ and more feature-rich `actions` api
 
 ## Parameters
 
-• **request**: `TRequest`
+### request
+
+`TRequest`
 
 ## Returns
 
@@ -115,7 +119,3 @@ const response = await tevm.request({
   jsonrpc: '2.0'
 })
 ```
-
-## Defined in
-
-[packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L102)

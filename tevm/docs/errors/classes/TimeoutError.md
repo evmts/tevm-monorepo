@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [errors](../README.md) / TimeoutError
 
 # Class: TimeoutError
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/request.d.ts:71
 
 ## Extends
 
@@ -16,13 +18,19 @@
 
 > **new TimeoutError**(`__namedParameters`): [`TimeoutError`](TimeoutError.md)
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/request.d.ts:72
+
 #### Parameters
 
-• **\_\_namedParameters**
+##### \_\_namedParameters
 
-• **\_\_namedParameters.body**: `object` \| `object`[]
+###### body
 
-• **\_\_namedParameters.url**: `string`
+\{\} \| `object`[]
+
+###### url
+
+`string`
 
 #### Returns
 
@@ -32,23 +40,17 @@
 
 `BaseError.constructor`
 
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/request.d.ts:70
-
 ## Properties
 
 ### cause?
 
 > `optional` **cause**: `unknown`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+
 #### Inherited from
 
 `BaseError.cause`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 ***
 
@@ -56,13 +58,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es2022.err
 
 > **details**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:19
+
 #### Inherited from
 
 `BaseError.details`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:19
 
 ***
 
@@ -70,13 +70,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > `optional` **docsPath**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:20
+
 #### Inherited from
 
 `BaseError.docsPath`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:20
 
 ***
 
@@ -84,13 +82,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > **message**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+
 #### Inherited from
 
 `BaseError.message`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -98,13 +94,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `optional` **metaMessages**: `string`[]
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:21
+
 #### Inherited from
 
 `BaseError.metaMessages`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:21
 
 ***
 
@@ -112,13 +106,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > **name**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:24
+
 #### Inherited from
 
 `BaseError.name`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:24
 
 ***
 
@@ -126,13 +118,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > **shortMessage**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:22
+
 #### Inherited from
 
 `BaseError.shortMessage`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:22
 
 ***
 
@@ -140,13 +130,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > `optional` **stack**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+
 #### Inherited from
 
 `BaseError.stack`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -154,13 +142,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **version**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:23
+
 #### Inherited from
 
 `BaseError.version`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:23
 
 ***
 
@@ -168,13 +154,19 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+
 Optional override for formatting stack traces
 
 #### Parameters
 
-• **err**: `Error`
+##### err
 
-• **stackTraces**: `CallSite`[]
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
 
 #### Returns
 
@@ -188,31 +180,27 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `BaseError.prepareStackTrace`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
-
 ***
 
 ### stackTraceLimit
 
 > `static` **stackTraceLimit**: `number`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+
 #### Inherited from
 
 `BaseError.stackTraceLimit`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
 ### walk()
 
-#### walk()
+#### Call Signature
 
 > **walk**(): `Error`
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:26
 
 ##### Returns
 
@@ -222,17 +210,17 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:14
 
 `BaseError.walk`
 
-##### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:26
-
-#### walk(fn)
+#### Call Signature
 
 > **walk**(`fn`): `null` \| `Error`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:27
+
 ##### Parameters
 
-• **fn**
+###### fn
+
+(`err`) => `boolean`
 
 ##### Returns
 
@@ -242,23 +230,25 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 `BaseError.walk`
 
-##### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:27
-
 ***
 
 ### captureStackTrace()
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
+
 Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+##### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+##### constructorOpt?
+
+`Function`
 
 #### Returns
 
@@ -267,7 +257,3 @@ Create .stack property on a target object
 #### Inherited from
 
 `BaseError.captureStackTrace`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:136

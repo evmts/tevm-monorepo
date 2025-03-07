@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [state](../README.md) / ContractCache
 
 # Class: ContractCache
+
+Defined in: packages/state/dist/index.d.ts:52
 
 Contract cache is a mapping of addresses to deployedBytecode
 It is implemented via extending StorageCache and hardcoding slot 0
@@ -15,17 +17,17 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 > **new ContractCache**(`storageCache`?): [`ContractCache`](ContractCache.md)
 
+Defined in: packages/state/dist/index.d.ts:53
+
 #### Parameters
 
-• **storageCache?**: [`StorageCache`](StorageCache.md)
+##### storageCache?
+
+[`StorageCache`](StorageCache.md)
 
 #### Returns
 
 [`ContractCache`](ContractCache.md)
-
-#### Defined in
-
-packages/state/dist/index.d.ts:53
 
 ## Properties
 
@@ -33,23 +35,21 @@ packages/state/dist/index.d.ts:53
 
 > **storageCache**: [`StorageCache`](StorageCache.md)
 
-#### Defined in
-
-packages/state/dist/index.d.ts:54
+Defined in: packages/state/dist/index.d.ts:54
 
 ## Accessors
 
 ### \_checkpoints
 
-> `get` **\_checkpoints**(): `number`
+#### Get Signature
 
-#### Returns
+> **get** **\_checkpoints**(): `number`
+
+Defined in: packages/state/dist/index.d.ts:88
+
+##### Returns
 
 `number`
-
-#### Defined in
-
-packages/state/dist/index.d.ts:88
 
 ## Methods
 
@@ -57,13 +57,11 @@ packages/state/dist/index.d.ts:88
 
 > **checkpoint**(): `void`
 
+Defined in: packages/state/dist/index.d.ts:82
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-packages/state/dist/index.d.ts:82
 
 ***
 
@@ -71,13 +69,11 @@ packages/state/dist/index.d.ts:82
 
 > **clear**(): `void`
 
+Defined in: packages/state/dist/index.d.ts:62
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-packages/state/dist/index.d.ts:62
 
 ***
 
@@ -85,13 +81,11 @@ packages/state/dist/index.d.ts:62
 
 > **commit**(): `void`
 
+Defined in: packages/state/dist/index.d.ts:58
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-packages/state/dist/index.d.ts:58
 
 ***
 
@@ -99,35 +93,35 @@ packages/state/dist/index.d.ts:58
 
 > **del**(`address`): `void`
 
+Defined in: packages/state/dist/index.d.ts:78
+
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+##### address
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
-
-packages/state/dist/index.d.ts:78
-
 ***
 
 ### get()
 
-> **get**(`address`): `undefined` \| `Uint8Array`
+> **get**(`address`): `undefined` \| `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: packages/state/dist/index.d.ts:67
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+##### address
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Returns
 
-`undefined` \| `Uint8Array`
-
-#### Defined in
-
-packages/state/dist/index.d.ts:67
+`undefined` \| `Uint8Array`\<`ArrayBufferLike`\>
 
 ***
 
@@ -135,9 +129,13 @@ packages/state/dist/index.d.ts:67
 
 > **has**(`address`): `boolean`
 
+Defined in: packages/state/dist/index.d.ts:87
+
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+##### address
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 #### Returns
 
@@ -145,29 +143,27 @@ packages/state/dist/index.d.ts:67
 
 if the cache has the key
 
-#### Defined in
-
-packages/state/dist/index.d.ts:87
-
 ***
 
 ### put()
 
 > **put**(`address`, `bytecode`): `void`
 
+Defined in: packages/state/dist/index.d.ts:73
+
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+##### address
 
-• **bytecode**: `Uint8Array`
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+##### bytecode
+
+`Uint8Array`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-packages/state/dist/index.d.ts:73
 
 ***
 
@@ -175,13 +171,11 @@ packages/state/dist/index.d.ts:73
 
 > **revert**(): `void`
 
+Defined in: packages/state/dist/index.d.ts:93
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-packages/state/dist/index.d.ts:93
 
 ***
 
@@ -189,10 +183,8 @@ packages/state/dist/index.d.ts:93
 
 > **size**(): `number`
 
+Defined in: packages/state/dist/index.d.ts:89
+
 #### Returns
 
 `number`
-
-#### Defined in
-
-packages/state/dist/index.d.ts:89

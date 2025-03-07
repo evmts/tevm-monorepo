@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **clearCaches**(`baseState`, `skipFetchingFromFork`?): () => `void`
 
+Defined in: packages/state/dist/index.d.ts:217
+
 Resets all internal caches
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -25,7 +31,3 @@ Resets all internal caches
 ### Returns
 
 `void`
-
-## Defined in
-
-packages/state/dist/index.d.ts:217

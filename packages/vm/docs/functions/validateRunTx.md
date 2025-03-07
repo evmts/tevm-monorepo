@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **validateRunTx**(`vm`): (`opts`) => `Promise`\<[`RunTxOpts`](../interfaces/RunTxOpts.md) & `Required`\<`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"block"`\>\>\>
 
+Defined in: [packages/vm/src/actions/validateRunTx.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/validateRunTx.js#L10)
+
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
+
+`BaseVm`
 
 ## Returns
 
@@ -18,12 +22,10 @@
 
 ### Parameters
 
-• **opts**: [`RunTxOpts`](../interfaces/RunTxOpts.md)
+#### opts
+
+[`RunTxOpts`](../interfaces/RunTxOpts.md)
 
 ### Returns
 
 `Promise`\<[`RunTxOpts`](../interfaces/RunTxOpts.md) & `Required`\<`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"block"`\>\>\>
-
-## Defined in
-
-[packages/vm/src/actions/validateRunTx.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/validateRunTx.js#L10)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: FilterParams
 
 > **FilterParams**: `object`
+
+Defined in: [packages/actions/src/common/FilterParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FilterParams.ts#L8)
 
 An event filter options object
 
@@ -27,7 +29,3 @@ An event filter options object
 ### topics?
 
 > `readonly` `optional` **topics**: `ReadonlyArray`\<[`Hex`](Hex.md)\> \| `ReadonlyArray`\<`ReadonlyArray`\<[`Hex`](Hex.md)\>\>
-
-## Defined in
-
-[packages/actions/src/common/FilterParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FilterParams.ts#L8)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **getAccountFromProvider**(`baseState`): (`address`) => `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
+Defined in: packages/state/dist/index.d.ts:277
+
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
+
+[`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
@@ -18,12 +22,10 @@
 
 ### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+#### address
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ### Returns
 
 `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:277

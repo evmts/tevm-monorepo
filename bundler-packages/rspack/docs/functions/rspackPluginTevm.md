@@ -1,4 +1,4 @@
-[**@tevm/rspack-plugin**](../README.md) • **Docs**
+[**@tevm/rspack-plugin**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **rspackPluginTevm**(`options`?): `RspackPluginInstance`
 
+Defined in: [bundler-packages/rspack/src/rspackPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rspack/src/rspackPluginTevm.js#L75)
+
 Rspack plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
 will transform solidity contract imports into Tevm `Contract` instances.
 
@@ -15,9 +17,11 @@ To configure add this plugin to your rspack config and add the ts-plugin to your
 
 ## Parameters
 
-• **options?**
+### options?
 
-• **options.solc?**: `SolcVersions`
+#### solc?
+
+`SolcVersions`
 
 ## Returns
 
@@ -92,7 +96,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## See
 
 [Tevm rspack solid.js example](https://todo.todo.todo)
-
-## Defined in
-
-[bundler-packages/rspack/src/rspackPluginTevm.js:75](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rspack/src/rspackPluginTevm.js#L75)

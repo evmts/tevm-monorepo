@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthSignTransactionResult**: [`Hex`](Hex.md)
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:139
+
 JSON-RPC response for `eth_signTransaction` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:139

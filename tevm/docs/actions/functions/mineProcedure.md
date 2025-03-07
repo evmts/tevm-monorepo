@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: mineProcedure()
 
-> **mineProcedure**(`client`): `MineJsonRpcProcedure`
+> **mineProcedure**(`client`): [`MineJsonRpcProcedure`](../type-aliases/MineJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/Mine/mineProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`MineJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/Mine/mineProcedure.d.ts:1
+[`MineJsonRpcProcedure`](../type-aliases/MineJsonRpcProcedure.md)

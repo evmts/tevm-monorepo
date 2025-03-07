@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **CodeSizeExceedsMaximumErrorParameters**: `object`
 
+Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:90
+
 Parameters for constructing a [CodeSizeExceedsMaximumError](../classes/CodeSizeExceedsMaximumError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`GasLimitExceededError`](../classes/GasLimitExceededError.md) \| `EvmError`
+> `optional` **cause**: [`GasLimitExceededError`](../classes/GasLimitExceededError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a [CodeSizeExceedsMaximumError](../classes/CodeSizeE
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:90

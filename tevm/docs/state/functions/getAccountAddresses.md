@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,13 +6,19 @@
 
 # Function: getAccountAddresses()
 
-> **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => `Set`\<\`0x$\{string\}\`\>
+> **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => `Set`\<`` `0x${string}` ``\>
+
+Defined in: packages/state/dist/index.d.ts:275
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -20,8 +26,4 @@
 
 ### Returns
 
-`Set`\<\`0x$\{string\}\`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:275
+`Set`\<`` `0x${string}` ``\>

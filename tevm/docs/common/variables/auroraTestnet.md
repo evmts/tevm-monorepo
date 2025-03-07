@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: auroraTestnet
 
-> `const` **auroraTestnet**: `Common`
+> `const` **auroraTestnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/auroraTestnet.d.ts:21
 
 Creates a common configuration for the auroraTestnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/auroraTestnet.d.ts:21

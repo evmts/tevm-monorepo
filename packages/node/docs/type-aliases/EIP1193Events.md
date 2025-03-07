@@ -1,4 +1,4 @@
-[**@tevm/node**](../README.md) • **Docs**
+[**@tevm/node**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EIP1193Events
 
 > **EIP1193Events**: `object`
+
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L46)
 
 ## Type declaration
 
@@ -18,9 +20,13 @@
 
 #### Parameters
 
-• **event**: `TEvent`
+##### event
 
-• **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
+`TEvent`
+
+##### listener
+
+[`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
 
 #### Returns
 
@@ -34,14 +40,14 @@
 
 #### Parameters
 
-• **event**: `TEvent`
+##### event
 
-• **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
+`TEvent`
+
+##### listener
+
+[`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
 
 #### Returns
 
 `void`
-
-## Defined in
-
-[packages/node/src/EIP1193EventEmitterTypes.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L46)

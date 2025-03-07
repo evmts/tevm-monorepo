@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcErrorEntry
 
 > **SolcErrorEntry**: `object`
+
+Defined in: [solcTypes.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L351)
 
 ## Type declaration
 
@@ -41,7 +43,3 @@
 ### type
 
 > **type**: `string`
-
-## Defined in
-
-[solcTypes.ts:351](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L351)

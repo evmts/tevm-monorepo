@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ParseErrorParameters
 
 > **ParseErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:61
 
 Parameters for constructing a ParseError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a ParseError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ParseErrorError.d.ts:61

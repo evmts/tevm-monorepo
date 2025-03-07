@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,20 @@
 
 > **commit**(`baseState`, `skipFetchingFromFork`?): (`createNewStateRoot`?) => `Promise`\<`void`\>
 
+Defined in: packages/state/dist/index.d.ts:230
+
 Commits the current change-set to the instance since the
 last call to checkpoint.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -25,7 +31,9 @@ Commits the current state.
 
 ### Parameters
 
-• **createNewStateRoot?**: `boolean`
+#### createNewStateRoot?
+
+`boolean`
 
 **`Experimental`**
 
@@ -36,7 +44,3 @@ This api is not stable
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:230

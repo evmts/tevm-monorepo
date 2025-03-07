@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,20 +8,22 @@
 
 > **StateAction**\<`T`\>: (`baseState`, `skipFetchingFromFork`?) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
 
+Defined in: packages/state/dist/index.d.ts:164
+
 ## Type Parameters
 
 • **T** *extends* keyof [`StateManager`](../interfaces/StateManager.md)
 
 ## Parameters
 
-• **baseState**: [`BaseState`](BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
 [`StateManager`](../interfaces/StateManager.md)\[`T`\]
-
-## Defined in
-
-packages/state/dist/index.d.ts:164

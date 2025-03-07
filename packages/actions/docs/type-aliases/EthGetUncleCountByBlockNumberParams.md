@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **EthGetUncleCountByBlockNumberParams**: `object`
 
+Defined in: [packages/actions/src/eth/EthParams.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L172)
+
 Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 ## Type declaration
@@ -15,7 +17,3 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 ### blockTag?
 
 > `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:172](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L172)

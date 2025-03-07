@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [vm](../README.md) / RunBlockResult
 
 # Interface: RunBlockResult
+
+Defined in: packages/vm/types/utils/RunBlockResult.d.ts:6
 
 Result of runBlock
 
@@ -22,15 +24,13 @@ Result of runBlock
 
 > **gasUsed**: `bigint`
 
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:16
+
 The gas used after executing the block
 
 #### Inherited from
 
 `Omit.gasUsed`
-
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:16
 
 ***
 
@@ -38,17 +38,17 @@ packages/vm/types/utils/ApplyBlockResult.d.ts:16
 
 > **logsBloom**: `Uint8Array`
 
+Defined in: packages/vm/types/utils/RunBlockResult.d.ts:14
+
 The bloom filter of the LOGs (events) after executing the block
-
-#### Defined in
-
-packages/vm/types/utils/RunBlockResult.d.ts:14
 
 ***
 
 ### preimages?
 
-> `optional` **preimages**: `Map`\<\`0x$\{string\}\`, `Uint8Array`\>
+> `optional` **preimages**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:32
 
 Preimages mapping of the touched accounts from the block (see reportPreimages option)
 
@@ -56,15 +56,13 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 `Omit.preimages`
 
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:32
-
 ***
 
 ### receipts
 
 > **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
+
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:24
 
 Receipts generated for transactions in the block
 
@@ -72,15 +70,13 @@ Receipts generated for transactions in the block
 
 `Omit.receipts`
 
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:24
-
 ***
 
 ### receiptsRoot
 
 > **receiptsRoot**: `Uint8Array`
+
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:20
 
 The receipt root after executing the block
 
@@ -88,33 +84,25 @@ The receipt root after executing the block
 
 `Omit.receiptsRoot`
 
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:20
-
 ***
 
 ### requests?
 
 > `optional` **requests**: [`ClRequest`](../../block/classes/ClRequest.md)[]
 
+Defined in: packages/vm/types/utils/RunBlockResult.d.ts:22
+
 Any CL requests that were processed in the course of this block
-
-#### Defined in
-
-packages/vm/types/utils/RunBlockResult.d.ts:22
 
 ***
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `Uint8Array`
+> `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: packages/vm/types/utils/RunBlockResult.d.ts:18
 
 The requestsRoot for any CL requests in the block
-
-#### Defined in
-
-packages/vm/types/utils/RunBlockResult.d.ts:18
 
 ***
 
@@ -122,15 +110,13 @@ packages/vm/types/utils/RunBlockResult.d.ts:18
 
 > **results**: [`RunTxResult`](RunTxResult.md)[]
 
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:28
+
 Results of executing the transactions in the block
 
 #### Inherited from
 
 `Omit.results`
-
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:28
 
 ***
 
@@ -138,8 +124,6 @@ packages/vm/types/utils/ApplyBlockResult.d.ts:28
 
 > **stateRoot**: `Uint8Array`
 
+Defined in: packages/vm/types/utils/RunBlockResult.d.ts:10
+
 The stateRoot after executing the block
-
-#### Defined in
-
-packages/vm/types/utils/RunBlockResult.d.ts:10

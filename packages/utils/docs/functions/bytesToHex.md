@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: bytesToHex()
 
-> **bytesToHex**(`value`, `opts`?): [`Hex`](../type-aliases/Hex.md)
+> **bytesToHex**(`value`, `opts`?): `` `0x${string}` ``
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:91
 
 Encodes a bytes array into a hex string
 
@@ -14,17 +16,21 @@ Encodes a bytes array into a hex string
 
 ## Parameters
 
-• **value**: `Uint8Array`
+### value
+
+`ByteArray`
 
 Value to encode.
 
-• **opts?**: `BytesToHexOpts`
+### opts?
+
+`BytesToHexOpts`
 
 Options.
 
 ## Returns
 
-[`Hex`](../type-aliases/Hex.md)
+`` `0x${string}` ``
 
 Hex value.
 
@@ -41,7 +47,3 @@ import { bytesToHex } from 'viem'
 const data = bytesToHex(Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]), { size: 32 })
 // '0x48656c6c6f20576f726c64210000000000000000000000000000000000000000'
 ```
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:91

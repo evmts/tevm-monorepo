@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,20 @@
 
 # Function: cloneVmWithBlockTag()
 
-> **cloneVmWithBlockTag**(`client`, `block`): `Promise`\<`Vm` \| [`ForkError`](../../errors/classes/ForkError.md) \| [`InternalError`](../../errors/classes/InternalError.md)\>
+> **cloneVmWithBlockTag**(`client`, `block`): `Promise`\<[`InternalError`](../../errors/classes/InternalError.md) \| [`Vm`](../../vm/type-aliases/Vm.md) \| [`ForkError`](../../errors/classes/ForkError.md)\>
+
+Defined in: packages/actions/types/Call/cloneVmWithBlock.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **block**: [`Block`](../../block/classes/Block.md)
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+
+### block
+
+[`Block`](../../block/classes/Block.md)
 
 ## Returns
 
-`Promise`\<`Vm` \| [`ForkError`](../../errors/classes/ForkError.md) \| [`InternalError`](../../errors/classes/InternalError.md)\>
-
-## Defined in
-
-packages/actions/types/Call/cloneVmWithBlock.d.ts:1
+`Promise`\<[`InternalError`](../../errors/classes/InternalError.md) \| [`Vm`](../../vm/type-aliases/Vm.md) \| [`ForkError`](../../errors/classes/ForkError.md)\>

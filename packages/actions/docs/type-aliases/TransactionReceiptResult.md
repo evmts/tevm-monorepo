@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TransactionReceiptResult
 
 > **TransactionReceiptResult**: `object`
+
+Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L7)
 
 Transaction receipt result type for eth JSON-RPC procedures
 
@@ -67,7 +69,3 @@ Transaction receipt result type for eth JSON-RPC procedures
 ### transactionIndex
 
 > `readonly` **transactionIndex**: `bigint`
-
-## Defined in
-
-[packages/actions/src/common/TransactionReceiptResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L7)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **createBaseChain**(`options`): `BaseChain`
 
+Defined in: packages/blockchain/types/createBaseChain.d.ts:1
+
 ## Parameters
 
-• **options**: [`ChainOptions`](../type-aliases/ChainOptions.md)
+### options
+
+[`ChainOptions`](../type-aliases/ChainOptions.md)
 
 ## Returns
 
 `BaseChain`
-
-## Defined in
-
-packages/blockchain/types/createBaseChain.d.ts:1

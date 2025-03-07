@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetUncleByBlockNumberAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](EthGetUncleByBlockNumberAndIndexJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:29
+
 ## Parameters
 
-• **request**: [`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](EthGetUncleByBlockNumberAndIndexJsonRpcRequest.md)
+### request
+
+[`EthGetUncleByBlockNumberAndIndexJsonRpcRequest`](EthGetUncleByBlockNumberAndIndexJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](EthGetUncleByBlockNumberAndIndexJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:29

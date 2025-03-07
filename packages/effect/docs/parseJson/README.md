@@ -1,4 +1,4 @@
-[**@tevm/effect**](../README.md) • **Docs**
+[**@tevm/effect**](../README.md)
 
 ***
 
@@ -6,12 +6,10 @@
 
 # parseJson
 
-## Index
-
-### Classes
+## Classes
 
 - [ParseJsonError](classes/ParseJsonError.md)
 
-### Functions
+## Functions
 
 - [parseJson](functions/parseJson.md)

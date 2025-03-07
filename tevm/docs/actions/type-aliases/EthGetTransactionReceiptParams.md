@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **EthGetTransactionReceiptParams**: `object`
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:182
+
 Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 ## Type declaration
@@ -15,7 +17,3 @@ Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 ### hash
 
 > `readonly` **hash**: [`Hex`](Hex.md)
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:182

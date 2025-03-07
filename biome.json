@@ -33,7 +33,6 @@
 			"examples/svelte-ethers/.svelte-kit",
 			"examples/next",
 			"cli",
-			"experimental/viem-effect",
 			"bundler-packages/config/src/fixtures",
 			"bundler-packages/cli/fixtures"
 		]

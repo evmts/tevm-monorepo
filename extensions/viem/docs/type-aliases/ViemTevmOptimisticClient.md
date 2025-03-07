@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ~~ViemTevmOptimisticClient\<TChain, TAccount\>~~
 
 > **ViemTevmOptimisticClient**\<`TChain`, `TAccount`\>: `object`
+
+Defined in: [extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)
 
 **`Experimental`**
 
@@ -21,8 +23,6 @@
 ### ~~tevm~~
 
 > **tevm**: `Omit`\<`TevmClient`, `"request"`\> & `object`
-
-**`Experimental`**
 
 #### Type declaration
 
@@ -40,18 +40,16 @@
 
 ###### Parameters
 
-• **action**: `WriteContractParameters`\<`TAbi`, `TFunctionName`, `TArgs`, `TChain`, `TAccount`, `TChainOverride`\>
+###### action
+
+`WriteContractParameters`\<`TAbi`, `TFunctionName`, `TArgs`, `TChain`, `TAccount`, `TChainOverride`\>
 
 ###### Returns
 
-`AsyncGenerator`\<[`OptimisticResult`](OptimisticResult.md)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `any`\>
+`AsyncGenerator`\<[`OptimisticResult`](OptimisticResult.md)\<`TAbi`, `TFunctionName`, `TChain`\>\>
 
 ## Deprecated
 
 in favor of the viem transport
 
 The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`
-
-## Defined in
-
-[extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)

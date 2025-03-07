@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AbiConstructor
 
 > **AbiConstructor**: `object`
+
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.2\_zod@3.24.2/node\_modules/abitype/dist/types/abi.d.ts:77
 
 ABI ["constructor"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type
 
@@ -35,7 +37,3 @@ https://github.com/ethereum/solidity/issues/992
 ### type
 
 > **type**: `"constructor"`
-
-## Defined in
-
-node\_modules/.pnpm/abitype@1.0.6\_typescript@5.7.3\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:77

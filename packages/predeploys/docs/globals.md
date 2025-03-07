@@ -1,4 +1,4 @@
-[**@tevm/predeploys**](README.md) • **Docs**
+[**@tevm/predeploys**](README.md)
 
 ***
 

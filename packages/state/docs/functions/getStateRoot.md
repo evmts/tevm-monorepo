@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -6,15 +6,21 @@
 
 # Function: getStateRoot()
 
-> **getStateRoot**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`Uint8Array`\>
+> **getStateRoot**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: [packages/state/src/actions/getStateRoot.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getStateRoot.js#L7)
 
 Gets the current state root
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,8 +28,4 @@ Gets the current state root
 
 ### Returns
 
-`Promise`\<`Uint8Array`\>
-
-## Defined in
-
-[packages/state/src/actions/getStateRoot.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getStateRoot.js#L7)
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

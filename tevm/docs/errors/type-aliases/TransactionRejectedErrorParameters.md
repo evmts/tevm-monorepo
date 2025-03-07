@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TransactionRejectedErrorParameters
 
 > **TransactionRejectedErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/TransactionRejectedError.d.ts:69
 
 Parameters for constructing a TransactionRejectedError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a TransactionRejectedError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/TransactionRejectedError.d.ts:69

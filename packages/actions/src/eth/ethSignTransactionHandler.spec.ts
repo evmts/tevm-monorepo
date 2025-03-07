@@ -24,7 +24,7 @@ describe('ethSignTransactionHandler', () => {
 		).toMatchSnapshot()
 	})
 	it("should throw an error if account doesn't exist", async () => {
-		expect(
+		await expect(
 			ethSignTransactionHandler({
 				accounts: testAccounts,
 				getChainId: async () => 10,

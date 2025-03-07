@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AddEthereumChainParameter
 
 > **AddEthereumChainParameter**: `object`
+
+Defined in: packages/decorators/dist/index.d.ts:215
 
 ## Type declaration
 
@@ -36,22 +38,18 @@ The chain name.
 
 Native currency for the chain.
 
-### nativeCurrency.decimals
+#### nativeCurrency.decimals
 
 > **decimals**: `number`
 
-### nativeCurrency.name
+#### nativeCurrency.name
 
 > **name**: `string`
 
-### nativeCurrency.symbol
+#### nativeCurrency.symbol
 
 > **symbol**: `string`
 
 ### rpcUrls
 
 > **rpcUrls**: readonly `string`[]
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:215

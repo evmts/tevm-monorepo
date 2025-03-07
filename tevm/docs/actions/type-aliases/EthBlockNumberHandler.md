@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthBlockNumberHandler**: (`request`?) => `Promise`\<[`EthBlockNumberResult`](EthBlockNumberResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:4
+
 ## Parameters
 
-• **request?**: [`EthBlockNumberParams`](EthBlockNumberParams.md)
+### request?
+
+[`EthBlockNumberParams`](EthBlockNumberParams.md)
 
 ## Returns
 
 `Promise`\<[`EthBlockNumberResult`](EthBlockNumberResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:4

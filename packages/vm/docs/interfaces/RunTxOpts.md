@@ -1,10 +1,12 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
 [@tevm/vm](../globals.md) / RunTxOpts
 
 # Interface: RunTxOpts
+
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L8)
 
 Options for the `runTx` method.
 
@@ -14,12 +16,10 @@ Options for the `runTx` method.
 
 > `optional` **block**: `Block`
 
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L13)
+
 The `@ethereumjs/block` the `tx` belongs to.
 If omitted, a default blank block will be used.
-
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L13)
 
 ***
 
@@ -27,17 +27,17 @@ If omitted, a default blank block will be used.
 
 > `optional` **blockGasUsed**: `bigint`
 
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L61)
+
 To obtain an accurate tx receipt input the block gas used up until this tx.
-
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L61)
 
 ***
 
 ### reportAccessList?
 
 > `optional` **reportAccessList**: `boolean`
+
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L50)
 
 If true, adds a generated EIP-2930 access list
 to the `RunTxResult` returned.
@@ -48,22 +48,16 @@ be activated (included in `berlin` HF).
 Note: if this option is used with a custom StateManager implementation
 StateManager.generateAccessList must be implemented.
 
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L50)
-
 ***
 
 ### reportPreimages?
 
 > `optional` **reportPreimages**: `boolean`
 
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L56)
+
 If true, adds a hashedKey -> preimages mapping of all touched accounts
 to the `RunTxResult` returned.
-
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L56)
 
 ***
 
@@ -71,11 +65,9 @@ to the `RunTxResult` returned.
 
 > `optional` **skipBalance**: `boolean`
 
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L26)
+
 Skip balance checks if true. Adds transaction cost to balance to ensure execution doesn't fail.
-
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L26)
 
 ***
 
@@ -83,12 +75,10 @@ Skip balance checks if true. Adds transaction cost to balance to ensure executio
 
 > `optional` **skipBlockGasLimitValidation**: `boolean`
 
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L32)
+
 If true, skips the validation of the tx's gas limit
 against the block's gas limit.
-
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L32)
 
 ***
 
@@ -96,12 +86,10 @@ against the block's gas limit.
 
 > `optional` **skipHardForkValidation**: `boolean`
 
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L38)
+
 If true, skips the hardfork validation of vm, block
 and tx
-
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L38)
 
 ***
 
@@ -109,11 +97,9 @@ and tx
 
 > `optional` **skipNonce**: `boolean`
 
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L21)
+
 If true, skips the nonce check
-
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L21)
 
 ***
 
@@ -121,8 +107,6 @@ If true, skips the nonce check
 
 > **tx**: `TypedTransaction`
 
+Defined in: [packages/vm/src/utils/RunTxOpts.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L17)
+
 An `@ethereumjs/tx` to run
-
-#### Defined in
-
-[packages/vm/src/utils/RunTxOpts.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L17)

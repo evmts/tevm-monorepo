@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: AnvilResetJsonRpcRequest
 
-> **AnvilResetJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_reset"`, readonly []\>
+> **AnvilResetJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_reset"`, readonly \[\]\>
+
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L54)
 
 JSON-RPC request for `anvil_reset` method
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L54)

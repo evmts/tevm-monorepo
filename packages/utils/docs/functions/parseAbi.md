@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: parseAbi()
 
 > **parseAbi**\<`signatures`\>(`signatures`): [`ParseAbi`](../type-aliases/ParseAbi.md)\<`signatures`\>
+
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.2\_zod@3.24.2/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37
 
 Parses human-readable ABI into JSON [Abi](../type-aliases/Abi.md)
 
@@ -18,7 +20,9 @@ Human-Readable ABI
 
 ## Parameters
 
-• **signatures**: `signatures`\[`"length"`\] *extends* `0` ? [`"Error: At least one signature required"`] : `Signatures`\<`signatures`\> *extends* `signatures` ? `signatures` : `Signatures`\<`signatures`\>
+### signatures
+
+`signatures`\[`"length"`\] *extends* `0` ? \[`"Error: At least one signature required"`\] : `Signatures`\<`signatures`\> *extends* `signatures` ? `signatures` : `Signatures`\<`signatures`\>
 
 ## Returns
 
@@ -35,7 +39,3 @@ const abi = parseAbi([
   'event Transfer(address indexed from, address indexed to, uint256 amount)',
 ])
 ```
-
-## Defined in
-
-node\_modules/.pnpm/abitype@1.0.6\_typescript@5.7.3\_zod@3.23.8/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:37

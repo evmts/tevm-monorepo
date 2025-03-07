@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthChainIdResult**: `bigint`
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:23
+
 JSON-RPC response for `eth_chainId` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:23

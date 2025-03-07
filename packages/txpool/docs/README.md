@@ -1,4 +1,4 @@
-**@tevm/txpool** • [**Docs**](globals.md)
+**@tevm/txpool**
 
 ***
 

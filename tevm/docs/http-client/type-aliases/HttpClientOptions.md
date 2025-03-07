@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ~~HttpClientOptions~~
 
 > **HttpClientOptions**: `object`
+
+Defined in: packages/http-client/types/HttpClientOptions.d.ts:5
 
 ## Type declaration
 
@@ -25,7 +27,3 @@ Remote URL to connect to
 ## Deprecated
 
 Options for a HttpClient
-
-## Defined in
-
-packages/http-client/types/HttpClientOptions.d.ts:5

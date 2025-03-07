@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **ForkErrorParameters**: `object`
 
+Defined in: packages/errors/types/fork/ForkError.d.ts:54
+
 Parameters for constructing a ForkError.
 
 ## Type declaration
 
 ### cause
 
-> **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `object`
+> **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| \{ `code`: `number` \| `string`; `message`: `string`; \}
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a ForkError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/fork/ForkError.d.ts:54

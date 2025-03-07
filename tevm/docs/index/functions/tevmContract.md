@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: tevmContract()
 
 > **tevmContract**\<`TAbi`, `TFunctionName`\>(`client`, `params`): `Promise`\<[`ContractResult`](../type-aliases/ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
+
+Defined in: packages/memory-client/types/tevmContract.d.ts:39
 
 A tree-shakeable version of the `tevmContract` action for viem.
 Interacts with a contract method call using TEVM.
@@ -21,9 +23,13 @@ Internally, `tevmContract` wraps `tevmCall`. It automatically encodes and decode
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>\>
+### client
 
-• **params**: [`ContractParams`](../type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\>
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>\>
+
+### params
+
+[`ContractParams`](../type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\>
 
 ## Returns
 
@@ -62,7 +68,3 @@ example()
  - [ContractResult](https://tevm.sh/reference/tevm/actions/type-aliases/contractresult/) for return values reference.
  - [BaseCallParams](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams-1/) for the base call parameters.
  - [TEVM Actions Guide](https://tevm.sh/learn/actions/)
-
-## Defined in
-
-packages/memory-client/types/tevmContract.d.ts:39

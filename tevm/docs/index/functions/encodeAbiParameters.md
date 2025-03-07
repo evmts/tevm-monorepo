@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: encodeAbiParameters()
 
-> **encodeAbiParameters**\<`params`\>(`params`, `values`): `EncodeAbiParametersReturnType`
+> **encodeAbiParameters**\<`params`\>(`params`, `values`): `` `0x${string}` ``
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/abi/encodeAbiParameters.d.ts:49
 
 ## Type Parameters
 
@@ -16,15 +18,19 @@ a set of ABI Parameters (params), that can be in the shape of the inputs or outp
 
 ## Parameters
 
-• **params**: `params`
+### params
 
-• **values**: `params` *extends* readonly `AbiParameter`[] ? \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<params\<params\>\[key\<key\>\], AbiParameterKind\> \}\[key\] \} : `never`
+`params`
+
+### values
+
+`params` *extends* readonly `AbiParameter`[] ? \{ \[key in string \| number \| symbol\]: \{ \[key in string \| number \| symbol\]: AbiParameterToPrimitiveType\<params\<params\>\[key\<key\>\], AbiParameterKind\> \}\[key\] \} : `never`
 
 a set of values (values) that correspond to the given params.
 
 ## Returns
 
-`EncodeAbiParametersReturnType`
+`` `0x${string}` ``
 
 ## Description
 
@@ -59,7 +65,3 @@ const encodedData = encodeAbiParameters(
   ['wagmi', 420n, true]
 )
 ```
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/encodeAbiParameters.d.ts:49

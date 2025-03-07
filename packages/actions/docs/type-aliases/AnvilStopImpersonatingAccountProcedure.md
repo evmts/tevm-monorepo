@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilStopImpersonatingAccountProcedure**: (`request`) => `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](AnvilStopImpersonatingAccountJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L50)
+
 JSON-RPC procedure for `anvil_stopImpersonatingAccount`
 
 ## Parameters
 
-• **request**: [`AnvilStopImpersonatingAccountJsonRpcRequest`](AnvilStopImpersonatingAccountJsonRpcRequest.md)
+### request
+
+[`AnvilStopImpersonatingAccountJsonRpcRequest`](AnvilStopImpersonatingAccountJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](AnvilStopImpersonatingAccountJsonRpcResponse.md)\>
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilProcedure.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L50)

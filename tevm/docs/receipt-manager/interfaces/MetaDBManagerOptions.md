@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,12 +6,12 @@
 
 # Interface: MetaDBManagerOptions
 
+Defined in: packages/receipt-manager/types/MapDb.d.ts:3
+
 ## Properties
 
 ### cache
 
-> **cache**: `Map`\<\`0x$\{string\}\`, `Uint8Array`\>
+> **cache**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
-#### Defined in
-
-packages/receipt-manager/types/MapDb.d.ts:4
+Defined in: packages/receipt-manager/types/MapDb.d.ts:4

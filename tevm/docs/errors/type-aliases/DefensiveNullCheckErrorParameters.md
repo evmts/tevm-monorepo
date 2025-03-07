@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **DefensiveNullCheckErrorParameters**: `object`
 
+Defined in: packages/errors/types/defensive/DefensiveNullCheckError.d.ts:53
+
 Parameters for constructing a [DefensiveNullCheckError](../classes/DefensiveNullCheckError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| `EvmError`
+> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a [DefensiveNullCheckError](../classes/DefensiveNull
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/defensive/DefensiveNullCheckError.d.ts:53

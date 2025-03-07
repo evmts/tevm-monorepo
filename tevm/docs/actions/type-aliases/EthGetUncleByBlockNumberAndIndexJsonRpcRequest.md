@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthGetUncleByBlockNumberAndIndexJsonRpcRequest
 
-> **EthGetUncleByBlockNumberAndIndexJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getUncleByBlockNumberAndIndex"`, readonly [[`BlockTag`](../../index/type-aliases/BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)]\>
+> **EthGetUncleByBlockNumberAndIndexJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getUncleByBlockNumberAndIndex"`, readonly \[[`BlockTag`](../../index/type-aliases/BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
+
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:152
 
 JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcRequest.d.ts:152

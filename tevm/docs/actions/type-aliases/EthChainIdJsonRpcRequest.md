@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthChainIdJsonRpcRequest
 
-> **EthChainIdJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_chainId"`, readonly []\>
+> **EthChainIdJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_chainId"`, readonly \[\]\>
+
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:55
 
 JSON-RPC request for `eth_chainId` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcRequest.d.ts:55

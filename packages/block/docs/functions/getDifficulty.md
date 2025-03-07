@@ -1,4 +1,4 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: getDifficulty()
 
-> **getDifficulty**(`headerData`): `bigint` \| `null`
+> **getDifficulty**(`headerData`): `null` \| `bigint`
+
+Defined in: [packages/block/src/helpers.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/helpers.ts#L81)
 
 ## Parameters
 
-• **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
+### headerData
+
+[`HeaderData`](../interfaces/HeaderData.md)
 
 ## Returns
 
-`bigint` \| `null`
-
-## Defined in
-
-[packages/block/src/helpers.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/helpers.ts#L81)
+`null` \| `bigint`

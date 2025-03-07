@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **DebugTraceTransactionResult**: [`TraceResult`](../../index/type-aliases/TraceResult.md)
 
-## Defined in
-
-packages/actions/types/debug/DebugResult.d.ts:15
+Defined in: packages/actions/types/debug/DebugResult.d.ts:15

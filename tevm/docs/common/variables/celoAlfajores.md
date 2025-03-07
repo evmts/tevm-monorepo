@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: celoAlfajores
 
-> `const` **celoAlfajores**: `Common`
+> `const` **celoAlfajores**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/celoAlfajores.d.ts:21
 
 Creates a common configuration for the celoAlfajores chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/celoAlfajores.d.ts:21

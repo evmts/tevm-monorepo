@@ -1,4 +1,4 @@
-[**@tevm/receipt-manager**](../README.md) • **Docs**
+[**@tevm/receipt-manager**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: MapDb
 
 > **MapDb**: `object`
+
+Defined in: [MapDb.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L20)
 
 Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
@@ -22,9 +24,13 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 #### Parameters
 
-• **type**: [`DbType`](DbType.md)
+##### type
 
-• **hash**: `Uint8Array`
+[`DbType`](DbType.md)
+
+##### hash
+
+`Uint8Array`
 
 #### Returns
 
@@ -34,28 +40,34 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 #### Parameters
 
-• **type**: [`DbType`](DbType.md)
+##### type
 
-• **hash**: `Uint8Array`
+[`DbType`](DbType.md)
+
+##### hash
+
+`Uint8Array`
 
 #### Returns
 
-`Promise`\<`null` \| `Uint8Array`\>
+`Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
 
 ### put()
 
 #### Parameters
 
-• **type**: [`DbType`](DbType.md)
+##### type
 
-• **hash**: `Uint8Array`
+[`DbType`](DbType.md)
 
-• **value**: `Uint8Array`
+##### hash
+
+`Uint8Array`
+
+##### value
+
+`Uint8Array`
 
 #### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-[MapDb.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L20)

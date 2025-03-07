@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,18 +8,22 @@
 
 > **rewardAccount**(`evm`, `address`, `reward`): `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
+Defined in: packages/vm/types/actions/rewardAccount.d.ts:3
+
 ## Parameters
 
-• **evm**: [`Evm`](../../evm/classes/Evm.md)
+### evm
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+[`Evm`](../../evm/classes/Evm.md)
 
-• **reward**: `bigint`
+### address
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+### reward
+
+`bigint`
 
 ## Returns
 
 `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
-
-## Defined in
-
-packages/vm/types/actions/rewardAccount.d.ts:3

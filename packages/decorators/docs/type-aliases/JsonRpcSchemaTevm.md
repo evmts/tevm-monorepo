@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: JsonRpcSchemaTevm
 
 > **JsonRpcSchemaTevm**: `object`
+
+Defined in: [eip1193/JsonRpcSchemaTevm.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L12)
 
 ## Type declaration
 
@@ -29,15 +31,15 @@ provider.request({ method: 'tevm_call', params: [{ from: '0x...', to: '0x...', d
 // => { data: '0x...', events: [{...}], ... }
 ```
 
-### tevm\_call.Method
+#### tevm\_call.Method
 
 > **Method**: `"tevm_call"`
 
-### tevm\_call.Parameters
+#### tevm\_call.Parameters
 
 > **Parameters**: `CallJsonRpcRequest`\[`"params"`\]
 
-### tevm\_call.ReturnType
+#### tevm\_call.ReturnType
 
 > **ReturnType**: `SerializeToJson`\<`CallResult`\<`never`\>\>
 
@@ -59,15 +61,15 @@ https://tevm.sh/learn/json-rpc/#tevm-methods
 provider.request({ method: 'tevm_dumpState' })})
 ```
 
-### tevm\_dumpState.Method
+#### tevm\_dumpState.Method
 
 > **Method**: `"tevm_dumpState"`
 
-### tevm\_dumpState.Parameters?
+#### tevm\_dumpState.Parameters?
 
 > `optional` **Parameters**: `DumpStateJsonRpcRequest`\[`"params"`\]
 
-### tevm\_dumpState.ReturnType
+#### tevm\_dumpState.ReturnType
 
 > **ReturnType**: `SerializeToJson`\<`DumpStateResult`\<`never`\>\>
 
@@ -89,15 +91,15 @@ https://tevm.sh/learn/json-rpc/#tevm-methods
 provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
 ```
 
-### tevm\_getAccount.Method
+#### tevm\_getAccount.Method
 
 > **Method**: `"tevm_getAccount"`
 
-### tevm\_getAccount.Parameters
+#### tevm\_getAccount.Parameters
 
 > **Parameters**: `GetAccountJsonRpcRequest`\[`"params"`\]
 
-### tevm\_getAccount.ReturnType
+#### tevm\_getAccount.ReturnType
 
 > **ReturnType**: `SerializeToJson`\<`GetAccountResult`\<`never`\>\>
 
@@ -120,15 +122,15 @@ provider.request({ method: 'tevm_loadState', params: [{ state: {...} }] }])})
 // => { success: true }
 ```
 
-### tevm\_loadState.Method
+#### tevm\_loadState.Method
 
 > **Method**: `"tevm_loadState"`
 
-### tevm\_loadState.Parameters
+#### tevm\_loadState.Parameters
 
 > **Parameters**: `LoadStateJsonRpcRequest`\[`"params"`\]
 
-### tevm\_loadState.ReturnType
+#### tevm\_loadState.ReturnType
 
 > **ReturnType**: `SerializeToJson`\<`LoadStateResult`\<`never`\>\>
 
@@ -151,18 +153,14 @@ provider.request({ method: 'tevm_setAccount', params: [{address: '0x...', value:
 r
 ```
 
-### tevm\_setAccount.Method
+#### tevm\_setAccount.Method
 
 > **Method**: `"tevm_setAccount"`
 
-### tevm\_setAccount.Parameters
+#### tevm\_setAccount.Parameters
 
 > **Parameters**: `SetAccountJsonRpcRequest`\[`"params"`\]
 
-### tevm\_setAccount.ReturnType
+#### tevm\_setAccount.ReturnType
 
 > **ReturnType**: `SerializeToJson`\<`SetAccountResult`\<`never`\>\>
-
-## Defined in
-
-[eip1193/JsonRpcSchemaTevm.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts#L12)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmActionsApi
 
 > **TevmActionsApi**: `object`
+
+Defined in: packages/decorators/dist/index.d.ts:94
 
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 
@@ -169,7 +171,3 @@ await tevm.setAccount({
 ## See
 
 [https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:94

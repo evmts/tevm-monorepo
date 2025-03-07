@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [errors](../README.md) / BaseError
 
 # Class: `abstract` BaseError
+
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:29
 
 Base class for custom errors in TEVM.
 This class is abstract and should be extended by other error classes.
@@ -65,19 +67,29 @@ This class is abstract and should be extended by other error classes.
 
 > **new BaseError**(`shortMessage`, `args`, `_tag`, `code`?): [`BaseError`](BaseError.md)
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:36
+
 #### Parameters
 
-• **shortMessage**: `string`
+##### shortMessage
+
+`string`
 
 A short, human-readable summary of the error.
 
-• **args**: [`BaseErrorParameters`](../type-aliases/BaseErrorParameters.md)
+##### args
 
-• **\_tag**: `string`
+[`BaseErrorParameters`](../type-aliases/BaseErrorParameters.md)
+
+##### \_tag
+
+`string`
 
 Internal tag for the error.
 
-• **code?**: `number`
+##### code?
+
+`number`
 
 Error code analogous to the code in JSON RPC error.
 
@@ -89,23 +101,17 @@ Error code analogous to the code in JSON RPC error.
 
 `Error.constructor`
 
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:36
-
 ## Properties
 
 ### \_tag
 
 > **\_tag**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:40
+
 #### Implementation of
 
 `BaseErrorType._tag`
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:40
 
 ***
 
@@ -113,13 +119,11 @@ packages/errors/types/ethereum/BaseError.d.ts:40
 
 > **cause**: `any`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:65
+
 #### Overrides
 
 `Error.cause`
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -127,13 +131,11 @@ packages/errors/types/ethereum/BaseError.d.ts:65
 
 > **code**: `number`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:64
+
 #### Implementation of
 
 `BaseErrorType.code`
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -141,13 +143,11 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **details**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:44
+
 #### Implementation of
 
 `BaseErrorType.details`
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -155,19 +155,19 @@ packages/errors/types/ethereum/BaseError.d.ts:44
 
 > **docsPath**: `undefined` \| `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:48
+
 #### Implementation of
 
 `BaseErrorType.docsPath`
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
 ### message
 
 > **message**: `string`
+
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 #### Implementation of
 
@@ -177,25 +177,21 @@ packages/errors/types/ethereum/BaseError.d.ts:48
 
 `Error.message`
 
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
-
 ***
 
 ### metaMessages
 
 > **metaMessages**: `undefined` \| `string`[]
 
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:52
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
 ### name
 
 > **name**: `string`
+
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 #### Implementation of
 
@@ -205,23 +201,17 @@ packages/errors/types/ethereum/BaseError.d.ts:52
 
 `Error.name`
 
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
-
 ***
 
 ### shortMessage
 
 > **shortMessage**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
+
 #### Implementation of
 
 `BaseErrorType.shortMessage`
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -229,13 +219,11 @@ packages/errors/types/ethereum/BaseError.d.ts:56
 
 > `optional` **stack**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+
 #### Inherited from
 
 `Error.stack`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -243,13 +231,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **version**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
+
 #### Implementation of
 
 `BaseErrorType.version`
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -257,13 +243,19 @@ packages/errors/types/ethereum/BaseError.d.ts:60
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+
 Optional override for formatting stack traces
 
 #### Parameters
 
-• **err**: `Error`
+##### err
 
-• **stackTraces**: `CallSite`[]
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
 
 #### Returns
 
@@ -277,23 +269,17 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `Error.prepareStackTrace`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
-
 ***
 
 ### stackTraceLimit
 
 > `static` **stackTraceLimit**: `number`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+
 #### Inherited from
 
 `Error.stackTraceLimit`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
@@ -301,11 +287,15 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:14
 
 > **walk**(`fn`?): `unknown`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:71
+
 Walks through the error chain.
 
 #### Parameters
 
-• **fn?**: `Function`
+##### fn?
+
+`Function`
 
 A function to execute on each error in the chain.
 
@@ -319,23 +309,25 @@ The first error that matches the function, or the original error.
 
 `BaseErrorType.walk`
 
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:71
-
 ***
 
 ### captureStackTrace()
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
+
 Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+##### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+##### constructorOpt?
+
+`Function`
 
 #### Returns
 
@@ -344,7 +336,3 @@ Create .stack property on a target object
 #### Inherited from
 
 `Error.captureStackTrace`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:136

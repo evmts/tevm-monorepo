@@ -1,4 +1,4 @@
-[**@tevm/runtime**](../README.md) • **Docs**
+[**@tevm/runtime**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **ModuleType**: `"cjs"` \| `"dts"` \| `"ts"` \| `"mjs"`
 
-## Defined in
-
-[types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/runtime/src/types.ts#L1)
+Defined in: [types.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/runtime/src/types.ts#L1)

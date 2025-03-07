@@ -1,4 +1,4 @@
-[**@tevm/address**](../README.md) • **Docs**
+[**@tevm/address**](../README.md)
 
 ***
 
@@ -8,14 +8,18 @@
 
 > **createAddress**(`address`): [`Address`](../classes/Address.md)
 
+Defined in: [packages/address/src/createAddress.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createAddress.js#L26)
+
 Creates an [Address](../classes/Address.md) for safely interacting with an Ethereum address.
 Wraps EthjsAddress with a tevm style API.
 
 ## Parameters
 
-• **address**: `string` \| `number` \| `bigint` \| `Address` \| `Uint8Array`
+### address
 
 The input to create an address from.
+
+`string` | `number` | `bigint` | `Address` | `Uint8Array`\<`ArrayBufferLike`\>
 
 ## Returns
 
@@ -41,7 +45,3 @@ address = createAddress(new Uint8Array(20))
 // From non-hex string
 address = createAddress('55'.repeat(20))
 ```
-
-## Defined in
-
-[packages/address/src/createAddress.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createAddress.js#L26)

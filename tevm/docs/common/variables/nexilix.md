@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: nexilix
 
-> `const` **nexilix**: `Common`
+> `const` **nexilix**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/nexilix.d.ts:21
 
 Creates a common configuration for the nexilix chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/nexilix.d.ts:21

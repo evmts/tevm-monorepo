@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: getBalanceHandler()
 
-> **getBalanceHandler**(`baseClient`): `EthGetBalanceHandler`
+> **getBalanceHandler**(`baseClient`): [`EthGetBalanceHandler`](../type-aliases/EthGetBalanceHandler.md)
+
+Defined in: packages/actions/types/eth/getBalanceHandler.d.ts:12
 
 ## Parameters
 
-• **baseClient**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### baseClient
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetBalanceHandler`
-
-## Defined in
-
-packages/actions/types/eth/getBalanceHandler.d.ts:12
+[`EthGetBalanceHandler`](../type-aliases/EthGetBalanceHandler.md)

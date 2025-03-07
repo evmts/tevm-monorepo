@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EIP1193Events
 
 > **EIP1193Events**: `object`
+
+Defined in: packages/node/dist/index.d.ts:40
 
 ## Type declaration
 
@@ -18,9 +20,13 @@
 
 #### Parameters
 
-• **event**: `TEvent`
+##### event
 
-• **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
+`TEvent`
+
+##### listener
+
+[`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
 
 #### Returns
 
@@ -34,14 +40,14 @@
 
 #### Parameters
 
-• **event**: `TEvent`
+##### event
 
-• **listener**: [`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
+`TEvent`
+
+##### listener
+
+[`EIP1193EventMap`](EIP1193EventMap.md)\[`TEvent`\]
 
 #### Returns
 
 `void`
-
-## Defined in
-
-packages/node/dist/index.d.ts:43

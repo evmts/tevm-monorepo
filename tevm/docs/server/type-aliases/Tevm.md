@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **Tevm**: [`MemoryClient`](../../index/type-aliases/MemoryClient.md)\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]
 
-## Defined in
-
-packages/server/types/Client.d.ts:2
+Defined in: packages/server/types/Client.d.ts:2

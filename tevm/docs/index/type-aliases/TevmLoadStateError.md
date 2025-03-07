@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmLoadStateError
 
 > **TevmLoadStateError**: [`InternalError`](../../errors/classes/InternalError.md)
+
+Defined in: packages/actions/types/LoadState/TevmLoadStateError.d.ts:25
 
 Error type for `tevmLoadState`.
 
@@ -32,7 +34,3 @@ if (result.errors) {
 ## See
 
 [InternalError](../../errors/classes/InternalError.md)
-
-## Defined in
-
-packages/actions/types/LoadState/TevmLoadStateError.d.ts:25

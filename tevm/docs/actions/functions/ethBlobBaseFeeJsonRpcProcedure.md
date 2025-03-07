@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethBlobBaseFeeJsonRpcProcedure()
 
-> **ethBlobBaseFeeJsonRpcProcedure**(`client`): `EthGasPriceJsonRpcProcedure`
+> **ethBlobBaseFeeJsonRpcProcedure**(`client`): [`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethBlobBaseFeeProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGasPriceJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethBlobBaseFeeProcedure.d.ts:1
+[`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)

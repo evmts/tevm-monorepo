@@ -1,4 +1,4 @@
-**@tevm/esbuild-plugin** • [**Docs**](globals.md)
+**@tevm/esbuild-plugin**
 
 ***
 

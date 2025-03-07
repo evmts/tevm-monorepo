@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **getCodeHandler**(`baseClient`): [`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
 
+Defined in: [packages/actions/src/eth/getCodeHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L10)
+
 ## Parameters
 
-• **baseClient**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### baseClient
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
 [`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
-
-## Defined in
-
-[packages/actions/src/eth/getCodeHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getCodeHandler.js#L10)

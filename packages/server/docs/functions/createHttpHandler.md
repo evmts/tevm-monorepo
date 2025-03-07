@@ -1,4 +1,4 @@
-[**@tevm/server**](../README.md) • **Docs**
+[**@tevm/server**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **createHttpHandler**(`client`): `RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
+Defined in: [packages/server/src/createHttpHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createHttpHandler.js#L37)
+
 /**
 * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
 * Any unimplemented methods will be proxied to the given proxyUrl
@@ -16,7 +18,9 @@
 
 ## Parameters
 
-• **client**: [`Client`](../type-aliases/Client.md)
+### client
+
+[`Client`](../type-aliases/Client.md)
 
 *
 
@@ -51,7 +55,3 @@
 * server.listen(PORT, () => console.log({ listening: PORT }))
 *
 ```
-
-## Defined in
-
-[packages/server/src/createHttpHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createHttpHandler.js#L37)

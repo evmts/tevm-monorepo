@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilLoadStateHandler**: (`params`) => `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
 
+Defined in: [packages/actions/src/anvil/AnvilHandler.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L68)
+
 ## Parameters
 
-• **params**: [`AnvilLoadStateParams`](AnvilLoadStateParams.md)
+### params
+
+[`AnvilLoadStateParams`](AnvilLoadStateParams.md)
 
 ## Returns
 
 `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilHandler.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L68)

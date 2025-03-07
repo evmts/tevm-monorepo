@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,20 @@
 
 # Function: tevmDeploy()
 
-> **tevmDeploy**(`client`, `params`): `Promise`\<`DeployResult`\>
+> **tevmDeploy**(`client`, `params`): `Promise`\<[`DeployResult`](../type-aliases/DeployResult.md)\>
+
+Defined in: packages/memory-client/types/tevmDeploy.d.ts:1
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| [`Account`](../type-aliases/Account.md), `undefined`, `undefined` \| `object`\>
+### client
 
-• **params**: [`DeployParams`](../type-aliases/DeployParams.md)\<`boolean`, [`Abi`](../type-aliases/Abi.md), `true`, readonly `unknown`[]\>
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| [`Account`](../type-aliases/Account.md), `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
+
+### params
+
+[`DeployParams`](../type-aliases/DeployParams.md)\<`boolean`, [`Abi`](../type-aliases/Abi.md), `true`, readonly `unknown`[]\>
 
 ## Returns
 
-`Promise`\<`DeployResult`\>
-
-## Defined in
-
-packages/memory-client/types/tevmDeploy.d.ts:1
+`Promise`\<[`DeployResult`](../type-aliases/DeployResult.md)\>

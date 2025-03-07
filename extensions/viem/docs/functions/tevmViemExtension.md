@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: tevmViemExtension()
 
 > **tevmViemExtension**(): [`ViemTevmClientDecorator`](../type-aliases/ViemTevmClientDecorator.md)
+
+Defined in: [extensions/viem/src/tevmViemExtension.js:36](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtension.js#L36)
 
 Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
 
@@ -32,7 +34,3 @@ await client.tevm.account({
 ## See
 
 [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
-
-## Defined in
-
-[extensions/viem/src/tevmViemExtension.js:36](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtension.js#L36)

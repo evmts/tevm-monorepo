@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **UnreachableCodeErrorParameters**: `object`
 
+Defined in: packages/errors/types/defensive/UnreachableCodeError.d.ts:67
+
 Parameters for constructing a [UnreachableCodeError](../classes/UnreachableCodeError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| `EvmError`
+> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a [UnreachableCodeError](../classes/UnreachableCodeE
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/defensive/UnreachableCodeError.d.ts:67

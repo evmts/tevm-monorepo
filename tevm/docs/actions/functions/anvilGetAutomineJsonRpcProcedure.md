@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilGetAutomineJsonRpcProcedure()
 
-> **anvilGetAutomineJsonRpcProcedure**(`client`): `AnvilGetAutomineProcedure`
+> **anvilGetAutomineJsonRpcProcedure**(`client`): [`AnvilGetAutomineProcedure`](../type-aliases/AnvilGetAutomineProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilGetAutomineProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilGetAutomineProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilGetAutomineProcedure.d.ts:1
+[`AnvilGetAutomineProcedure`](../type-aliases/AnvilGetAutomineProcedure.md)

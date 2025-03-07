@@ -1,4 +1,4 @@
-[**@tevm/contract**](../README.md) • **Docs**
+[**@tevm/contract**](../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: CreateContractParams\<TName, TAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
 
-> **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object` \| `object`
+> **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: \{ `abi`: `never`; `address`: `TAddress`; `bytecode`: `TBytecode`; `code`: `TCode`; `deployedBytecode`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name`: `TName`; \} \| \{ `abi`: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`; `address`: `TAddress`; `bytecode`: `TBytecode`; `code`: `TCode`; `deployedBytecode`: `TDeployedBytecode`; `humanReadableAbi`: `never`; `name`: `TName`; \}
+
+Defined in: [CreateContractParams.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L49)
 
 Parameters for creating a [Contract](Contract.md) instance.
 This type allows for two mutually exclusive ways of specifying the ABI:
@@ -37,6 +39,92 @@ The deployed bytecode type (optional)
 • **TCode** *extends* `undefined` \| `Hex` \| `never`
 
 The runtime bytecode type (optional)
+
+## Type declaration
+
+\{ `abi`: `never`; `address`: `TAddress`; `bytecode`: `TBytecode`; `code`: `TCode`; `deployedBytecode`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name`: `TName`; \}
+
+### abi?
+
+> `optional` **abi**: `never`
+
+### address?
+
+> `optional` **address**: `TAddress`
+
+Optional address of the deployed contract
+
+### bytecode?
+
+> `optional` **bytecode**: `TBytecode`
+
+Optional creation bytecode of the contract
+
+### code?
+
+> `optional` **code**: `TCode`
+
+Optional runtime bytecode of the contract
+
+### deployedBytecode?
+
+> `optional` **deployedBytecode**: `TDeployedBytecode`
+
+Optional deployed bytecode of the contract
+
+### humanReadableAbi
+
+> **humanReadableAbi**: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>
+
+Human-readable ABI of the contract
+
+### name?
+
+> `optional` **name**: `TName`
+
+Optional name of the contract
+
+\{ `abi`: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`; `address`: `TAddress`; `bytecode`: `TBytecode`; `code`: `TCode`; `deployedBytecode`: `TDeployedBytecode`; `humanReadableAbi`: `never`; `name`: `TName`; \}
+
+### abi
+
+> **abi**: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`
+
+JSON ABI of the contract
+
+### address?
+
+> `optional` **address**: `TAddress`
+
+Optional address of the deployed contract
+
+### bytecode?
+
+> `optional` **bytecode**: `TBytecode`
+
+Optional creation bytecode of the contract
+
+### code?
+
+> `optional` **code**: `TCode`
+
+Optional runtime bytecode of the contract
+
+### deployedBytecode?
+
+> `optional` **deployedBytecode**: `TDeployedBytecode`
+
+Optional deployed bytecode of the contract
+
+### humanReadableAbi?
+
+> `optional` **humanReadableAbi**: `never`
+
+### name?
+
+> `optional` **name**: `TName`
+
+Optional name of the contract
 
 ## See
 
@@ -72,7 +160,3 @@ const params: CreateContractParams = {
   address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
 }
 ```
-
-## Defined in
-
-[CreateContractParams.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L49)

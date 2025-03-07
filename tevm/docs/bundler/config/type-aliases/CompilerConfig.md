@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **CompilerConfig**: `CompilerConfig`
 
-## Defined in
-
-bundler-packages/config/types/index.d.ts:4
+Defined in: bundler-packages/config/types/index.d.ts:4

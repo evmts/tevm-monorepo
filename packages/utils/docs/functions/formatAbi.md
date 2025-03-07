@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: formatAbi()
 
 > **formatAbi**\<`abi`\>(`abi`): [`FormatAbi`](../type-aliases/FormatAbi.md)\<`abi`\>
+
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.2\_zod@3.24.2/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18
 
 Parses JSON ABI into human-readable ABI
 
@@ -18,14 +20,12 @@ ABI
 
 ## Parameters
 
-• **abi**: `abi`
+### abi
+
+`abi`
 
 ## Returns
 
 [`FormatAbi`](../type-aliases/FormatAbi.md)\<`abi`\>
 
 Human-readable ABI
-
-## Defined in
-
-node\_modules/.pnpm/abitype@1.0.6\_typescript@5.7.3\_zod@3.23.8/node\_modules/abitype/dist/types/human-readable/formatAbi.d.ts:18

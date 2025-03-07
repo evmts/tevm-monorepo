@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthNewPendingTransactionFilterHandler**: (`request`) => `Promise`\<[`EthNewPendingTransactionFilterResult`](EthNewPendingTransactionFilterResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:39
+
 ## Parameters
 
-• **request**: [`EthNewPendingTransactionFilterParams`](EthNewPendingTransactionFilterParams.md)
+### request
+
+[`EthNewPendingTransactionFilterParams`](EthNewPendingTransactionFilterParams.md)
 
 ## Returns
 
 `Promise`\<[`EthNewPendingTransactionFilterResult`](EthNewPendingTransactionFilterResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:39

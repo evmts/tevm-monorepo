@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TraceResult
 
 > **TraceResult**: `object`
+
+Defined in: packages/actions/types/common/TraceResult.d.ts:5
 
 ## Type declaration
 
@@ -45,7 +47,3 @@
 ### value
 
 > **value**: `bigint`
-
-## Defined in
-
-packages/actions/types/common/TraceResult.d.ts:5

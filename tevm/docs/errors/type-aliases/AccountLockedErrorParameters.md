@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AccountLockedErrorParameters
 
 > **AccountLockedErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/AccountLockedError.d.ts:65
 
 Parameters for constructing an AccountLockedError.
 
@@ -53,7 +55,3 @@ Parameters for constructing an AccountLockedError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/AccountLockedError.d.ts:65

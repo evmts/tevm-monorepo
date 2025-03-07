@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: InvalidTransactionErrorParameters
 
 > **InvalidTransactionErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/InvalidTransactionError.d.ts:50
 
 Parameters for constructing an InvalidTransactionError.
 
@@ -53,7 +55,3 @@ Parameters for constructing an InvalidTransactionError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/InvalidTransactionError.d.ts:50

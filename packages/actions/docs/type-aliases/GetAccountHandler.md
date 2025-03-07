@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,12 +8,16 @@
 
 > **GetAccountHandler**: (`params`) => `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 
+Defined in: [packages/actions/src/GetAccount/GetAccountHandlerType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountHandlerType.ts#L21)
+
 Gets the state of a specific Ethereum address.
 This handler is for use with a low-level TEVM `TevmNode`, unlike `tevmGetAccount`.
 
 ## Parameters
 
-• **params**: [`GetAccountParams`](GetAccountParams.md)
+### params
+
+[`GetAccountParams`](GetAccountParams.md)
 
 ## Returns
 
@@ -33,7 +37,3 @@ console.log(res.deployedBytecode)
 console.log(res.nonce)
 console.log(res.balance)
 ```
-
-## Defined in
-
-[packages/actions/src/GetAccount/GetAccountHandlerType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountHandlerType.ts#L21)

@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,9 +6,7 @@
 
 # predeploys
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [DefinePredeployFn](type-aliases/DefinePredeployFn.md)
 

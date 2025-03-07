@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: JsonRpcRequest\<TMethod, TParams\>
 
-> **JsonRpcRequest**\<`TMethod`, `TParams`\>: `object` & `TParams` *extends* readonly [] ? `object` : `object`
+> **JsonRpcRequest**\<`TMethod`, `TParams`\>: `object` & `TParams` *extends* readonly \[\] ? `object` : `object`
+
+Defined in: packages/jsonrpc/types/JsonRpcRequest.d.ts:4
 
 Helper type for creating JSON-RPC request types
 
@@ -29,7 +31,3 @@ Helper type for creating JSON-RPC request types
 • **TMethod** *extends* `string`
 
 • **TParams**
-
-## Defined in
-
-packages/jsonrpc/types/JsonRpcRequest.d.ts:4

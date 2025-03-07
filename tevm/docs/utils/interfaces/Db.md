@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [utils](../README.md) / Db
 
 # Interface: Db\<TKey, TValue\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:30
 
 ## Type Parameters
 
@@ -18,11 +20,15 @@
 
 > **batch**(`opStack`): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:52
+
 Performs a batch operation on db.
 
 #### Parameters
 
-• **opStack**: [`BatchDbOp`](../type-aliases/BatchDbOp.md)\<`TKey`, `TValue`\>[]
+##### opStack
+
+[`BatchDbOp`](../type-aliases/BatchDbOp.md)\<`TKey`, `TValue`\>[]
 
 A stack of levelup operations
 
@@ -30,31 +36,29 @@ A stack of levelup operations
 
 `Promise`\<`void`\>
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:52
-
 ***
 
 ### del()
 
 > **del**(`key`, `opts`?): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:47
+
 Removes a raw value in the underlying db.
 
 #### Parameters
 
-• **key**: `TKey`
+##### key
 
-• **opts?**: [`EncodingOpts`](../type-aliases/EncodingOpts.md)
+`TKey`
+
+##### opts?
+
+[`EncodingOpts`](../type-aliases/EncodingOpts.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:47
 
 ***
 
@@ -62,13 +66,19 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **get**(`key`, `opts`?): `Promise`\<`undefined` \| `TValue`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:36
+
 Retrieves a raw value from db.
 
 #### Parameters
 
-• **key**: `TKey`
+##### key
 
-• **opts?**: [`EncodingOpts`](../type-aliases/EncodingOpts.md)
+`TKey`
+
+##### opts?
+
+[`EncodingOpts`](../type-aliases/EncodingOpts.md)
 
 #### Returns
 
@@ -76,15 +86,13 @@ Retrieves a raw value from db.
 
 A Promise that resolves to `Uint8Array` if a value is found or `undefined` if no value is found.
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:36
-
 ***
 
 ### open()
 
 > **open**(): `Promise`\<`void`\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:61
 
 Opens the database -- if applicable
 
@@ -92,35 +100,35 @@ Opens the database -- if applicable
 
 `Promise`\<`void`\>
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:61
-
 ***
 
 ### put()
 
 > **put**(`key`, `val`, `opts`?): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:42
+
 Writes a value directly to db.
 
 #### Parameters
 
-• **key**: `TKey`
+##### key
+
+`TKey`
 
 The key as a `TValue`
 
-• **val**: `TValue`
+##### val
 
-• **opts?**: [`EncodingOpts`](../type-aliases/EncodingOpts.md)
+`TValue`
+
+##### opts?
+
+[`EncodingOpts`](../type-aliases/EncodingOpts.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:42
 
 ***
 
@@ -128,13 +136,11 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **shallowCopy**(): [`Db`](Db.md)\<`TKey`, `TValue`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:57
+
 Returns a copy of the DB instance, with a reference
 to the **same** underlying db instance.
 
 #### Returns
 
 [`Db`](Db.md)\<`TKey`, `TValue`\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:57

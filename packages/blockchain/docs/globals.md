@@ -1,4 +1,4 @@
-[**@tevm/blockchain**](README.md) • **Docs**
+[**@tevm/blockchain**](README.md)
 
 ***
 

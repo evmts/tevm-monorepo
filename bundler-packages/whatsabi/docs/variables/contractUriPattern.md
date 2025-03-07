@@ -1,4 +1,4 @@
-[**@tevm/whatsabi**](../README.md) • **Docs**
+[**@tevm/whatsabi**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > `const` **contractUriPattern**: `RegExp`
 
+Defined in: [bundler-packages/whatsabi/src/contractUriPattern.js:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/contractUriPattern.js#L10)
+
 Regular expression pattern for matching contract URIs.
 Looks like evm://<chainId>/<address>?<query>
 Valid query params (all optional)
@@ -15,7 +17,3 @@ Valid query params (all optional)
 - etherscanBaseUrl: string
 - followProxies: boolean
 - etherscanApiKey: string
-
-## Defined in
-
-[bundler-packages/whatsabi/src/contractUriPattern.js:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/contractUriPattern.js#L10)

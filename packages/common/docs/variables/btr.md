@@ -1,4 +1,4 @@
-[**@tevm/common**](../README.md) • **Docs**
+[**@tevm/common**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Variable: btr
 
 > `const` **btr**: `object`
+
+Defined in: [packages/common/src/presets/btr.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/btr.js#L26)
 
 Creates a common configuration for the btr chain.
 
@@ -20,9 +22,9 @@ Collection of block explorers
 
 #### Index Signature
 
- \[`key`: `string`\]: `ChainBlockExplorer`
+\[`key`: `string`\]: `ChainBlockExplorer`
 
-### blockExplorers.default
+#### blockExplorers.default
 
 > **default**: `ChainBlockExplorer`
 
@@ -32,25 +34,33 @@ Collection of block explorers
 
 Collection of contracts
 
-### contracts.ensRegistry?
+#### Index Signature
+
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+
+#### contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
 
-### contracts.ensUniversalResolver?
+#### contracts.ensUniversalResolver?
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
-### contracts.multicall3?
+#### contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
 
+#### contracts.universalSignatureVerifier?
+
+> `optional` **universalSignatureVerifier**: `ChainContract`
+
 ### copy()
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 #### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 ### custom?
 
@@ -100,9 +110,9 @@ Collection of RPC endpoints
 
 #### Index Signature
 
- \[`key`: `string`\]: `ChainRpcUrls`
+\[`key`: `string`\]: `ChainRpcUrls`
 
-### rpcUrls.default
+#### rpcUrls.default
 
 > **default**: `ChainRpcUrls`
 
@@ -145,7 +155,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-[packages/common/src/presets/btr.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/presets/btr.js#L26)

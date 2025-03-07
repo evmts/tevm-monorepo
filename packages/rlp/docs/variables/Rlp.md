@@ -1,4 +1,4 @@
-[**@tevm/rlp**](../README.md) • **Docs**
+[**@tevm/rlp**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Variable: Rlp
 
 > `const` **Rlp**: `object`
+
+Defined in: index.d.ts:34
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### encode
 
 > **encode**: *typeof* `encode`
-
-## Defined in
-
-index.d.ts:34

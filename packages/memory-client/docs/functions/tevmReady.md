@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: tevmReady()
 
 > **tevmReady**(`client`): `Promise`\<`true`\>
+
+Defined in: [packages/memory-client/src/tevmReady.js:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmReady.js#L43)
 
 A tree-shakeable version of the `tevmReady` action for viem.
 Checks if TEVM is ready.
@@ -19,7 +21,9 @@ However, this can be useful if you want to isolate initialization from the actio
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| `object`\>
+### client
+
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
 
 The viem client configured with TEVM transport.
 
@@ -63,7 +67,3 @@ example()
 ## See
 
 [TEVM Actions Guide](https://tevm.sh/learn/actions/)
-
-## Defined in
-
-[packages/memory-client/src/tevmReady.js:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmReady.js#L43)

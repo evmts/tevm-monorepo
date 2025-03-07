@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **TevmGetAccountError**: [`AccountNotFoundError`](../../errors/classes/AccountNotFoundError.md) \| [`ValidateGetAccountParamsError`](../../actions/type-aliases/ValidateGetAccountParamsError.md)
 
-## Defined in
-
-packages/actions/types/GetAccount/TevmGetAccountError.d.ts:3
+Defined in: packages/actions/types/GetAccount/TevmGetAccountError.d.ts:3

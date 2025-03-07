@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,22 +6,28 @@
 
 # Function: callHandlerResult()
 
-> **callHandlerResult**(`evmResult`, `txHash`, `trace`, `accessList`): `CallResult`
+> **callHandlerResult**(`evmResult`, `txHash`, `trace`, `accessList`): [`CallResult`](../../index/type-aliases/CallResult.md)\<[`TevmCallError`](../../index/type-aliases/TevmCallError.md)\>
+
+Defined in: packages/actions/types/Call/callHandlerResult.d.ts:1
 
 ## Parameters
 
-• **evmResult**: [`RunTxResult`](../../vm/interfaces/RunTxResult.md)
+### evmResult
 
-• **txHash**: `undefined` \| \`0x$\{string\}\`
+[`RunTxResult`](../../vm/interfaces/RunTxResult.md)
 
-• **trace**: `undefined` \| [`DebugTraceCallResult`](../type-aliases/DebugTraceCallResult.md)
+### txHash
 
-• **accessList**: `undefined` \| `Map`\<`string`, `Set`\<`string`\>\>
+`undefined` | `` `0x${string}` ``
+
+### trace
+
+`undefined` | [`DebugTraceCallResult`](../type-aliases/DebugTraceCallResult.md)
+
+### accessList
+
+`undefined` | `Map`\<`string`, `Set`\<`string`\>\>
 
 ## Returns
 
-`CallResult`
-
-## Defined in
-
-packages/actions/types/Call/callHandlerResult.d.ts:1
+[`CallResult`](../../index/type-aliases/CallResult.md)\<[`TevmCallError`](../../index/type-aliases/TevmCallError.md)\>

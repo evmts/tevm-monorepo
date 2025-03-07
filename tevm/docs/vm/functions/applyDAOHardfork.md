@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **applyDAOHardfork**(`evm`): `Promise`\<`void`\>
 
+Defined in: packages/vm/types/actions/applyDAOHardfork.d.ts:5
+
 Apply the DAO fork changes to the VM
 
 ## Parameters
 
-• **evm**: [`Evm`](../../evm/classes/Evm.md)
+### evm
+
+[`Evm`](../../evm/classes/Evm.md)
 
 ## Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/vm/types/actions/applyDAOHardfork.d.ts:5

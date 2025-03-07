@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetLogsHandler()
 
-> **ethGetLogsHandler**(`client`): `EthGetLogsHandler`
+> **ethGetLogsHandler**(`client`): [`EthGetLogsHandler`](../type-aliases/EthGetLogsHandler.md)
+
+Defined in: packages/actions/types/eth/ethGetLogsHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetLogsHandler`
-
-## Defined in
-
-packages/actions/types/eth/ethGetLogsHandler.d.ts:1
+[`EthGetLogsHandler`](../type-aliases/EthGetLogsHandler.md)

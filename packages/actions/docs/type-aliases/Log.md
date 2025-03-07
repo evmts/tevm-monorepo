@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Log
 
 > **Log**: `object`
+
+Defined in: [packages/actions/src/common/Log.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Log.ts#L7)
 
 Generic log information
 
@@ -23,7 +25,3 @@ Generic log information
 ### topics
 
 > `readonly` **topics**: [`Hex`](Hex.md)[]
-
-## Defined in
-
-[packages/actions/src/common/Log.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Log.ts#L7)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: fuseSparknet
 
-> `const` **fuseSparknet**: `Common`
+> `const` **fuseSparknet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/fuseSparknet.d.ts:21
 
 Creates a common configuration for the fuseSparknet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/fuseSparknet.d.ts:21

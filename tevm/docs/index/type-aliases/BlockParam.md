@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **BlockParam**: [`BlockTag`](../../actions/type-aliases/BlockTag.md) \| [`Hex`](Hex.md) \| `bigint`
 
-## Defined in
-
-packages/actions/types/common/BlockParam.d.ts:3
+Defined in: packages/actions/types/common/BlockParam.d.ts:3

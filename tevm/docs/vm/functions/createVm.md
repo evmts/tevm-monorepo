@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: createVm()
 
-> **createVm**(`opts`): `Vm`
+> **createVm**(`opts`): [`Vm`](../type-aliases/Vm.md)
+
+Defined in: packages/vm/types/createVm.d.ts:1
 
 ## Parameters
 
-• **opts**: `VmOpts`
+### opts
+
+`VmOpts`
 
 ## Returns
 
-`Vm`
-
-## Defined in
-
-packages/vm/types/createVm.d.ts:1
+[`Vm`](../type-aliases/Vm.md)

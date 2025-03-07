@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetUncleByBlockHashAndIndexHandler**: (`request`) => `Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](EthGetUncleByBlockHashAndIndexResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:28
+
 ## Parameters
 
-• **request**: [`EthGetUncleByBlockHashAndIndexParams`](EthGetUncleByBlockHashAndIndexParams.md)
+### request
+
+[`EthGetUncleByBlockHashAndIndexParams`](EthGetUncleByBlockHashAndIndexParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](EthGetUncleByBlockHashAndIndexResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:28

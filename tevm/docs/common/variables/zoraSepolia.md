@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: zoraSepolia
 
-> `const` **zoraSepolia**: `Common`
+> `const` **zoraSepolia**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/zoraSepolia.d.ts:21
 
 Creates a common configuration for the zoraSepolia chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/zoraSepolia.d.ts:21

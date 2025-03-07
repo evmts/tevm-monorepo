@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethNewBlockFilterProcedure()
 
-> **ethNewBlockFilterProcedure**(`client`): `EthNewBlockFilterJsonRpcProcedure`
+> **ethNewBlockFilterProcedure**(`client`): [`EthNewBlockFilterJsonRpcProcedure`](../type-aliases/EthNewBlockFilterJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethNewBlockFilterProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthNewBlockFilterJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethNewBlockFilterProcedure.d.ts:1
+[`EthNewBlockFilterJsonRpcProcedure`](../type-aliases/EthNewBlockFilterJsonRpcProcedure.md)

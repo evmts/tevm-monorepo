@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,12 +8,10 @@
 
 > **EVMProfilerOpts**: `object`
 
+Defined in: packages/vm/types/utils/EVMProfileOpts.d.ts:1
+
 ## Type declaration
 
 ### enabled
 
 > **enabled**: `boolean`
-
-## Defined in
-
-packages/vm/types/utils/EVMProfileOpts.d.ts:1

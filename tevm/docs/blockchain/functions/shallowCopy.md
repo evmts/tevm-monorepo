@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **shallowCopy**(`baseChain`): () => `BaseChain`
 
+Defined in: packages/blockchain/types/actions/shallowCopy.d.ts:1
+
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
@@ -19,7 +23,3 @@
 ### Returns
 
 `BaseChain`
-
-## Defined in
-
-packages/blockchain/types/actions/shallowCopy.d.ts:1

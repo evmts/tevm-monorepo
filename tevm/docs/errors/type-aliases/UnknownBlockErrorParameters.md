@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: UnknownBlockErrorParameters
 
 > **UnknownBlockErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:62
 
 Parameters for constructing an UnknownBlockError.
 
@@ -53,7 +55,3 @@ Parameters for constructing an UnknownBlockError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/UnknownBlockError.d.ts:62

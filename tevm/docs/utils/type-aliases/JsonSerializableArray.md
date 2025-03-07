@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **JsonSerializableArray**: `ReadonlyArray`\<[`JsonSerializable`](JsonSerializable.md)\>
 
+Defined in: packages/utils/types/SerializeToJson.d.ts:9
+
 A type that represents a JSON-serializable array.
-
-## Defined in
-
-packages/utils/types/SerializeToJson.d.ts:9

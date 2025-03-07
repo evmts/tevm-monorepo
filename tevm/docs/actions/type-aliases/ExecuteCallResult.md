@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ExecuteCallResult
 
 > **ExecuteCallResult**: `object`
+
+Defined in: packages/actions/types/Call/executeCall.d.ts:13
 
 The return value of executeCall
 
@@ -18,12 +20,8 @@ The return value of executeCall
 
 ### runTxResult
 
-> **runTxResult**: `RunTxResult`
+> **runTxResult**: [`RunTxResult`](../../vm/interfaces/RunTxResult.md)
 
 ### trace
 
-> **trace**: `DebugTraceCallResult` \| `undefined`
-
-## Defined in
-
-packages/actions/types/Call/executeCall.d.ts:13
+> **trace**: [`DebugTraceCallResult`](DebugTraceCallResult.md) \| `undefined`

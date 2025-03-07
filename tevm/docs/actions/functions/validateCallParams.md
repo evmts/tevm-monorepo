@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **validateCallParams**(`action`): [`ValidateCallParamsError`](../type-aliases/ValidateCallParamsError.md)[]
 
+Defined in: packages/actions/types/Call/validateCallParams.d.ts:1
+
 ## Parameters
 
-• **action**: [`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+### action
+
+[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
 
 ## Returns
 
 [`ValidateCallParamsError`](../type-aliases/ValidateCallParamsError.md)[]
-
-## Defined in
-
-packages/actions/types/Call/validateCallParams.d.ts:1

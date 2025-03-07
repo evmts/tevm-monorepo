@@ -1,10 +1,12 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
 [@tevm/vm](../globals.md) / VMOpts
 
 # Interface: VMOpts
+
+Defined in: [packages/vm/src/utils/VMOpts.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L11)
 
 Options for instantiating a VM.
 
@@ -13,6 +15,8 @@ Options for instantiating a VM.
 ### activatePrecompiles?
 
 > `optional` **activatePrecompiles**: `boolean`
+
+Defined in: [packages/vm/src/utils/VMOpts.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L55)
 
 If true, create entries in the state tree for the precompiled contracts, saving some gas the
 first time each of them is called.
@@ -26,27 +30,23 @@ the very first call, which is intended for testing networks.
 
 Default: `false`
 
-#### Defined in
-
-[packages/vm/src/utils/VMOpts.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L55)
-
 ***
 
 ### blockchain?
 
 > `optional` **blockchain**: `Chain`
 
+Defined in: [packages/vm/src/utils/VMOpts.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L41)
+
 A Blockchain object for storing/retrieving blocks
-
-#### Defined in
-
-[packages/vm/src/utils/VMOpts.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L41)
 
 ***
 
 ### common?
 
 > `optional` **common**: `object`
+
+Defined in: [packages/vm/src/utils/VMOpts.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L33)
 
 Use a Common instance
 if you want to change the chain setup.
@@ -76,9 +76,9 @@ Collection of block explorers
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainBlockExplorer`
+\[`key`: `string`\]: `ChainBlockExplorer`
 
-#### blockExplorers.default
+##### blockExplorers.default
 
 > **default**: `ChainBlockExplorer`
 
@@ -88,25 +88,33 @@ Collection of block explorers
 
 Collection of contracts
 
-#### contracts.ensRegistry?
+##### Index Signature
+
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+
+##### contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
 
-#### contracts.ensUniversalResolver?
+##### contracts.ensUniversalResolver?
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
-#### contracts.multicall3?
+##### contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
 
+##### contracts.universalSignatureVerifier?
+
+> `optional` **universalSignatureVerifier**: `ChainContract`
+
 #### copy()
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 #### custom?
 
@@ -156,9 +164,9 @@ Collection of RPC endpoints
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainRpcUrls`
+\[`key`: `string`\]: `ChainRpcUrls`
 
-#### rpcUrls.default
+##### rpcUrls.default
 
 > **default**: `ChainRpcUrls`
 
@@ -180,21 +188,15 @@ Source Chain ID (ie. the L1 chain)
 
 Flag for test networks
 
-#### Defined in
-
-[packages/vm/src/utils/VMOpts.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L33)
-
 ***
 
 ### evm?
 
 > `optional` **evm**: `Evm`
 
+Defined in: [packages/vm/src/utils/VMOpts.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L76)
+
 Use a custom EVM to run Messages on. If this is not present, use the default EVM.
-
-#### Defined in
-
-[packages/vm/src/utils/VMOpts.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L76)
 
 ***
 
@@ -202,12 +204,10 @@ Use a custom EVM to run Messages on. If this is not present, use the default EVM
 
 > `optional` **genesisState**: `GenesisState`
 
+Defined in: [packages/vm/src/utils/VMOpts.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L60)
+
 A genesisState to generate canonical genesis for the "in-house" created stateManager if external
 stateManager not provided for the VM, defaults to an empty state
-
-#### Defined in
-
-[packages/vm/src/utils/VMOpts.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L60)
 
 ***
 
@@ -215,15 +215,15 @@ stateManager not provided for the VM, defaults to an empty state
 
 > `optional` **profilerOpts**: [`VMProfilerOpts`](../type-aliases/VMProfilerOpts.md)
 
-#### Defined in
-
-[packages/vm/src/utils/VMOpts.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L78)
+Defined in: [packages/vm/src/utils/VMOpts.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L78)
 
 ***
 
 ### setHardfork?
 
 > `optional` **setHardfork**: `boolean` \| `BigIntLike`
+
+Defined in: [packages/vm/src/utils/VMOpts.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L71)
 
 Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
 for older Hfs.
@@ -233,18 +233,12 @@ transitions. Note that this should only be needed in very rare and specific scen
 
 Default: `false` (HF is set to whatever default HF is set by the Common instance)
 
-#### Defined in
-
-[packages/vm/src/utils/VMOpts.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L71)
-
 ***
 
 ### stateManager?
 
 > `optional` **stateManager**: `StateManager`
 
+Defined in: [packages/vm/src/utils/VMOpts.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L37)
+
 A StateManager instance to use as the state store
-
-#### Defined in
-
-[packages/vm/src/utils/VMOpts.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMOpts.ts#L37)

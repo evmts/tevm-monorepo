@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthRequestType
 
 > **EthRequestType**: `object`
+
+Defined in: packages/actions/types/tevm-request-handler/EthRequestType.d.ts:5
 
 A mapping of `eth_*` method names to their request type
 
@@ -163,7 +165,3 @@ A mapping of `eth_*` method names to their request type
 ### eth\_uninstallFilter
 
 > **eth\_uninstallFilter**: [`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md)
-
-## Defined in
-
-packages/actions/types/tevm-request-handler/EthRequestType.d.ts:5

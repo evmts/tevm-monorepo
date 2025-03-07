@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -8,18 +8,20 @@
 
 > **solcCompile**(`solc`, `input`): [`SolcOutput`](../type-aliases/SolcOutput.md)
 
+Defined in: [solc.js:132](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L132)
+
 Typesafe wrapper around solc.compile
 
 ## Parameters
 
-• **solc**: `any`
+### solc
 
-• **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
+`any`
+
+### input
+
+[`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
 ## Returns
 
 [`SolcOutput`](../type-aliases/SolcOutput.md)
-
-## Defined in
-
-[solc.js:131](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L131)

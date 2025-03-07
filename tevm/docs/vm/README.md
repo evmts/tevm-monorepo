@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,17 +6,15 @@
 
 # vm
 
-## Index
-
-### Enumerations
+## Enumerations
 
 - [BuildStatus](enumerations/BuildStatus.md)
 
-### Classes
+## Classes
 
 - [BlockBuilder](classes/BlockBuilder.md)
 
-### Interfaces
+## Interfaces
 
 - [AfterBlockEvent](interfaces/AfterBlockEvent.md)
 - [AfterTxEvent](interfaces/AfterTxEvent.md)
@@ -34,7 +32,7 @@
 - [SealBlockOpts](interfaces/SealBlockOpts.md)
 - [VMOpts](interfaces/VMOpts.md)
 
-### Type Aliases
+## Type Aliases
 
 - [AddTransactionError](type-aliases/AddTransactionError.md)
 - [BlockStatus](type-aliases/BlockStatus.md)
@@ -50,13 +48,13 @@
 - [VMEvents](type-aliases/VMEvents.md)
 - [VMProfilerOpts](type-aliases/VMProfilerOpts.md)
 
-### Variables
+## Variables
 
 - [DAOConfig](variables/DAOConfig.md)
 - [KECCAK256\_NULL](variables/KECCAK256_NULL.md)
 - [parentBeaconBlockRootAddress](variables/parentBeaconBlockRootAddress.md)
 
-### Functions
+## Functions
 
 - [accumulateParentBeaconBlockRoot](functions/accumulateParentBeaconBlockRoot.md)
 - [accumulateParentBlockHash](functions/accumulateParentBlockHash.md)

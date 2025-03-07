@@ -49,21 +49,21 @@ describe('anvilImpersonateAccountJsonRpcProcedure', () => {
 
 		// Check the returned result for an error
 		expect(result).toMatchInlineSnapshot(`
-      {
-        "error": {
-          "code": -32602,
-          "message": "Address "0xinvalid" is invalid.
+			{
+			  "error": {
+			    "code": -32602,
+			    "message": "Address "0xinvalid" is invalid.
 
-      - Address must be a hex value of 20 bytes (40 hex characters).
-      - Address must match its checksum counterpart.
+			- Address must be a hex value of 20 bytes (40 hex characters).
+			- Address must match its checksum counterpart.
 
-      Version: 2.21.1",
-        },
-        "id": 1,
-        "jsonrpc": "2.0",
-        "method": "anvil_impersonateAccount",
-      }
-    `)
+			Version: viem@2.23.5",
+			  },
+			  "id": 1,
+			  "jsonrpc": "2.0",
+			  "method": "anvil_impersonateAccount",
+			}
+		`)
 
 		// Verify that the impersonated account was not set in the client
 		const impersonatedAccount = client.getImpersonatedAccount()

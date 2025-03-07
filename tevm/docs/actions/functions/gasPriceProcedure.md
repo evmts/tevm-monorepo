@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: gasPriceProcedure()
 
-> **gasPriceProcedure**(`__namedParameters`): `EthGasPriceJsonRpcProcedure`
+> **gasPriceProcedure**(`__namedParameters`): [`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/gasPriceProcedure.d.ts:1
 
 ## Parameters
 
-• **\_\_namedParameters**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### \_\_namedParameters
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGasPriceJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/gasPriceProcedure.d.ts:1
+[`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)

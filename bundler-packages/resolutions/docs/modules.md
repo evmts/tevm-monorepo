@@ -1,4 +1,4 @@
-[**@tevm/resolutions**](README.md) • **Docs**
+[**@tevm/resolutions**](README.md)
 
 ***
 

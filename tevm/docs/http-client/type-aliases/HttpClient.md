@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ~~HttpClient~~
 
 > **HttpClient**: [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
+
+Defined in: packages/http-client/types/HttpClient.d.ts:5
 
 ## Type declaration
 
@@ -25,7 +27,3 @@ The url being used to connect to the remote Tevm backend
 ## Deprecated
 
 a new http client will be created in a future version. For now it's recomended to use viem
-
-## Defined in
-
-packages/http-client/types/HttpClient.d.ts:5

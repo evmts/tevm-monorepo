@@ -1,4 +1,4 @@
-**@tevm/runtime** • [**Docs**](globals.md)
+**@tevm/runtime**
 
 ***
 

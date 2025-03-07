@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,18 +8,22 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
+Defined in: packages/address/types/create2ContractAddress.d.ts:1
+
 ## Parameters
 
-• **from**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+### from
 
-• **salt**: \`0x$\{string\}\`
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **code**: \`0x$\{string\}\`
+### salt
+
+`` `0x${string}` ``
+
+### code
+
+`` `0x${string}` ``
 
 ## Returns
 
 [`Address`](../classes/Address.md)
-
-## Defined in
-
-packages/address/types/create2ContractAddress.d.ts:1

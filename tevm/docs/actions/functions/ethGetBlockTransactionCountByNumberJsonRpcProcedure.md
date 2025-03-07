@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetBlockTransactionCountByNumberJsonRpcProcedure()
 
-> **ethGetBlockTransactionCountByNumberJsonRpcProcedure**(`client`): `EthGetBlockTransactionCountByNumberJsonRpcProcedure`
+> **ethGetBlockTransactionCountByNumberJsonRpcProcedure**(`client`): [`EthGetBlockTransactionCountByNumberJsonRpcProcedure`](../type-aliases/EthGetBlockTransactionCountByNumberJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethGetBlockTransactionCountByNumberProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetBlockTransactionCountByNumberJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethGetBlockTransactionCountByNumberProcedure.d.ts:1
+[`EthGetBlockTransactionCountByNumberJsonRpcProcedure`](../type-aliases/EthGetBlockTransactionCountByNumberJsonRpcProcedure.md)

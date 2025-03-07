@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: PendingTransactionTimeoutErrorParameters
 
 > **PendingTransactionTimeoutErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/PendingTransactionTimeoutError.d.ts:55
 
 Parameters for constructing a PendingTransactionTimeoutError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a PendingTransactionTimeoutError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/PendingTransactionTimeoutError.d.ts:55

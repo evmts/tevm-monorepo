@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: dodochainTestnet
 
-> `const` **dodochainTestnet**: `Common`
+> `const` **dodochainTestnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/dodochainTestnet.d.ts:21
 
 Creates a common configuration for the dodochainTestnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/dodochainTestnet.d.ts:21

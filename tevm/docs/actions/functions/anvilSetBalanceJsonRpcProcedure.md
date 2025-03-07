@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilSetBalanceJsonRpcProcedure()
 
-> **anvilSetBalanceJsonRpcProcedure**(`client`): `AnvilSetBalanceProcedure`
+> **anvilSetBalanceJsonRpcProcedure**(`client`): [`AnvilSetBalanceProcedure`](../type-aliases/AnvilSetBalanceProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilSetBalanceProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilSetBalanceProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilSetBalanceProcedure.d.ts:1
+[`AnvilSetBalanceProcedure`](../type-aliases/AnvilSetBalanceProcedure.md)

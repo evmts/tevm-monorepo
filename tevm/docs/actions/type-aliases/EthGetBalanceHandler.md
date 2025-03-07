@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBalanceHandler**: (`request`) => `Promise`\<[`EthGetBalanceResult`](EthGetBalanceResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:11
+
 ## Parameters
 
-• **request**: [`EthGetBalanceParams`](EthGetBalanceParams.md)
+### request
+
+[`EthGetBalanceParams`](EthGetBalanceParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBalanceResult`](EthGetBalanceResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:11

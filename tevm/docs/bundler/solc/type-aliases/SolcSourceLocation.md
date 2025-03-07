@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcSourceLocation
 
 > **SolcSourceLocation**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:114
 
 ## Type declaration
 
@@ -21,7 +23,3 @@
 ### start
 
 > **start**: `number`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:114

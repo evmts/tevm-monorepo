@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: mainnet
 
-> `const` **mainnet**: `Common`
+> `const` **mainnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/mainnet.d.ts:21
 
 Creates a common configuration for the mainnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/mainnet.d.ts:21

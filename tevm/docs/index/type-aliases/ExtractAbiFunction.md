@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: ExtractAbiFunction\<abi, functionName, abiStateMutability\>
 
-> **ExtractAbiFunction**\<`abi`, `functionName`, `abiStateMutability`\>: `Extract`\<`ExtractAbiFunctions`\<`abi`, `abiStateMutability`\>, `object`\>
+> **ExtractAbiFunction**\<`abi`, `functionName`, `abiStateMutability`\>: `Extract`\<`ExtractAbiFunctions`\<`abi`, `abiStateMutability`\>, \{ `name`: `functionName`; \}\>
+
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.2\_zod@3.24.2/node\_modules/abitype/dist/types/utils.d.ts:123
 
 Extracts [AbiFunction](AbiFunction.md) with name from [Abi](Abi.md).
 
@@ -24,6 +26,6 @@ String name of function to extract from [Abi](Abi.md)
 
 AbiStateMutability to filter by
 
-## Defined in
+## Returns
 
-node\_modules/.pnpm/abitype@1.0.6\_typescript@5.7.3\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:123
+Matching [AbiFunction](AbiFunction.md)

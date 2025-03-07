@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **handleRunTxError**(`e`): [`HandleRunTxError`](../type-aliases/HandleRunTxError.md)
 
+Defined in: packages/actions/types/Call/handleEvmError.d.ts:1
+
 ## Parameters
 
-• **e**: `unknown`
+### e
+
+`unknown`
 
 ## Returns
 
 [`HandleRunTxError`](../type-aliases/HandleRunTxError.md)
-
-## Defined in
-
-packages/actions/types/Call/handleEvmError.d.ts:1

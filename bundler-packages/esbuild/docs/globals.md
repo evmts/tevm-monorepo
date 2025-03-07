@@ -1,4 +1,4 @@
-[**@tevm/esbuild-plugin**](README.md) • **Docs**
+[**@tevm/esbuild-plugin**](README.md)
 
 ***
 

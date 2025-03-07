@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Vm
 
 > **Vm**: `BaseVm` & `object`
+
+Defined in: packages/vm/types/Vm.d.ts:5
 
 ## Type declaration
 
@@ -29,7 +31,3 @@
 ### runTx
 
 > **runTx**: [`RunTx`](RunTx.md)
-
-## Defined in
-
-packages/vm/types/Vm.d.ts:5

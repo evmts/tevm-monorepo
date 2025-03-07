@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilGetAutomineProcedure**: (`request`) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:19
+
 JSON-RPC procedure for `anvil_getAutomine`
 
 ## Parameters
 
-• **request**: [`AnvilGetAutomineJsonRpcRequest`](AnvilGetAutomineJsonRpcRequest.md)
+### request
+
+[`AnvilGetAutomineJsonRpcRequest`](AnvilGetAutomineJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilProcedure.d.ts:19

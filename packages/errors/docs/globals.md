@@ -1,4 +1,4 @@
-[**@tevm/errors**](README.md) • **Docs**
+[**@tevm/errors**](README.md)
 
 ***
 

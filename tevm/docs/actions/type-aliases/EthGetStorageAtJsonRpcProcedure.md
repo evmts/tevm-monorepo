@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetStorageAtJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:20
+
 ## Parameters
 
-• **request**: [`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md)
+### request
+
+[`EthGetStorageAtJsonRpcRequest`](EthGetStorageAtJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:20

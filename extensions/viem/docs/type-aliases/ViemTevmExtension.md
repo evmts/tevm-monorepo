@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,10 @@
 # Type Alias: ~~ViemTevmExtension()~~
 
 > **ViemTevmExtension**: () => [`ViemTevmClientDecorator`](ViemTevmClientDecorator.md)
+
+Defined in: [extensions/viem/src/ViemTevmExtension.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)
+
+**`Experimental`**
 
 ## Returns
 
@@ -74,7 +78,3 @@ params: params,
 		})
 	}
 }
-
-## Defined in
-
-[extensions/viem/src/ViemTevmExtension.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmExtension.ts#L63)

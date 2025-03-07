@@ -1,4 +1,4 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **WithdrawalsBytes**: `Uint8Array`[]
 
-## Defined in
-
-[packages/block/src/types.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L154)
+Defined in: [packages/block/src/types.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L154)

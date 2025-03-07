@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGetBlockByHashResult**: [`BlockResult`](../../index/type-aliases/BlockResult.md)
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:47
+
 JSON-RPC response for `eth_getBlockByHash` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:47

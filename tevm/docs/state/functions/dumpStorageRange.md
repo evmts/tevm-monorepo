@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,11 +8,17 @@
 
 > **dumpStorageRange**(`baseState`, `skipFetchingFromFork`?): (`address`, `startKey`, `limit`) => `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
+Defined in: packages/state/dist/index.d.ts:257
+
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -20,16 +26,18 @@
 
 ### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+#### address
 
-• **startKey**: `bigint`
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-• **limit**: `number`
+#### startKey
+
+`bigint`
+
+#### limit
+
+`number`
 
 ### Returns
 
 `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:257

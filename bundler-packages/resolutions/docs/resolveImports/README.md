@@ -1,4 +1,4 @@
-[**@tevm/resolutions**](../README.md) • **Docs**
+[**@tevm/resolutions**](../README.md)
 
 ***
 
@@ -6,12 +6,10 @@
 
 # resolveImports
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [ResolveImportsError](type-aliases/ResolveImportsError.md)
 
-### Functions
+## Functions
 
 - [resolveImports](functions/resolveImports.md)

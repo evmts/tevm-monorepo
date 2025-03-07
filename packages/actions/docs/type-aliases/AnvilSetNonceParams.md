@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilSetNonceParams
 
 > **AnvilSetNonceParams**: `object`
+
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L107)
 
 Params for `anvil_setNonce` handler
 
@@ -23,7 +25,3 @@ The address to set the nonce for
 > `readonly` **nonce**: `BigInt`
 
 The nonce to set
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilParams.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L107)

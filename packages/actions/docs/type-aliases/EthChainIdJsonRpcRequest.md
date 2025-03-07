@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthChainIdJsonRpcRequest
 
-> **EthChainIdJsonRpcRequest**: `JsonRpcRequest`\<`"eth_chainId"`, readonly []\>
+> **EthChainIdJsonRpcRequest**: `JsonRpcRequest`\<`"eth_chainId"`, readonly \[\]\>
+
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L64)
 
 JSON-RPC request for `eth_chainId` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthJsonRpcRequest.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L64)

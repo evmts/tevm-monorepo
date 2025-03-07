@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthSyncingJsonRpcRequest
 
-> **EthSyncingJsonRpcRequest**: `JsonRpcRequest`\<`"eth_syncing"`, readonly []\>
+> **EthSyncingJsonRpcRequest**: `JsonRpcRequest`\<`"eth_syncing"`, readonly \[\]\>
+
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:272](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L272)
 
 JSON-RPC request for `eth_syncing` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthJsonRpcRequest.ts:272](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L272)

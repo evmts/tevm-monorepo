@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: crab
 
-> `const` **crab**: `Common`
+> `const` **crab**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/crab.d.ts:21
 
 Creates a common configuration for the crab chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/crab.d.ts:21

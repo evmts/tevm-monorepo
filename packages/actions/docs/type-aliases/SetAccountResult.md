@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SetAccountResult\<ErrorType\>
 
 > **SetAccountResult**\<`ErrorType`\>: `object`
+
+Defined in: [packages/actions/src/SetAccount/SetAccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountResult.ts#L6)
 
 Result of SetAccount Action
 
@@ -21,7 +23,3 @@ Result of SetAccount Action
 > `optional` **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
-
-## Defined in
-
-[packages/actions/src/SetAccount/SetAccountResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountResult.ts#L6)

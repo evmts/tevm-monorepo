@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: StateCache
 
 > **StateCache**: `object`
+
+Defined in: [packages/state/src/state-types/StateCache.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateCache.ts#L8)
 
 **`Internal`**
 
@@ -25,7 +27,3 @@ The shape of the internal cache
 ### storage
 
 > **storage**: [`StorageCache`](../classes/StorageCache.md)
-
-## Defined in
-
-[packages/state/src/state-types/StateCache.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateCache.ts#L8)

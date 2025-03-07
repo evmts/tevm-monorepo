@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SetAccountParams\<TThrowOnFail\>
 
 > **SetAccountParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+
+Defined in: packages/actions/types/SetAccount/SetAccountParams.d.ts:16
 
 Tevm params to set an account in the vm state
 all fields are optional except address
@@ -70,7 +72,3 @@ const accountParams: import('tevm/api').SetAccountParams = {
   deployedBytecode: '0x....'
 }
 ```
-
-## Defined in
-
-packages/actions/types/SetAccount/SetAccountParams.d.ts:16

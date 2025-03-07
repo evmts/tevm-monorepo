@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: createHttpHandler()
 
-> **createHttpHandler**(`client`): `RequestListener`
+> **createHttpHandler**(`client`): `RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
+
+Defined in: packages/server/types/createHttpHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`Client`](../type-aliases/Client.md)
+### client
+
+[`Client`](../type-aliases/Client.md)
 
 ## Returns
 
-`RequestListener`
-
-## Defined in
-
-packages/server/types/createHttpHandler.d.ts:1
+`RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>

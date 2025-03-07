@@ -1,4 +1,4 @@
-**@tevm/errors** • [**Docs**](globals.md)
+**@tevm/errors**
 
 ***
 

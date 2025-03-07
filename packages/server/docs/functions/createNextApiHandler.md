@@ -1,4 +1,4 @@
-[**@tevm/server**](../README.md) • **Docs**
+[**@tevm/server**](../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **createNextApiHandler**(`client`): `NextApiHandler`\<`any`\>
 
+Defined in: [packages/server/src/adapters/createNextApiHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createNextApiHandler.js#L16)
+
 Creates a Next.js API handler for a Tevm JSON-RPC server
 
 ## Parameters
 
-• **client**: [`Client`](../type-aliases/Client.md)
+### client
+
+[`Client`](../type-aliases/Client.md)
 
 ## Returns
 
@@ -27,7 +31,3 @@ import { createMemoryClient } from 'tevm'
 const tevm = createMemoryClient()
 export default createNextApiHandler({ request: tevm.request })
 ```
-
-## Defined in
-
-[packages/server/src/adapters/createNextApiHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createNextApiHandler.js#L16)

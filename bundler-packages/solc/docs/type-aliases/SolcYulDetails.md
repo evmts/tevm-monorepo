@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcYulDetails
 
 > **SolcYulDetails**: `object`
+
+Defined in: [solcTypes.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L55)
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### stackAllocation?
 
 > `optional` **stackAllocation**: `boolean`
-
-## Defined in
-
-[solcTypes.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L55)

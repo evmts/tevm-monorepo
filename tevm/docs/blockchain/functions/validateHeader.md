@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,36 @@
 
 # Function: validateHeader()
 
-> **validateHeader**(`baseChain`): `Chain`\[`"validateHeader"`\]
+> **validateHeader**(`baseChain`): (`header`, `height`?) => `Promise`\<`void`\>
+
+Defined in: packages/blockchain/types/actions/validateHeader.d.ts:1
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
-`Chain`\[`"validateHeader"`\]
+`Function`
 
-## Defined in
+Validates a block header, throwing if invalid. It is being validated against the reported `parentHash`.
 
-packages/blockchain/types/actions/validateHeader.d.ts:1
+### Parameters
+
+#### header
+
+[`BlockHeader`](../../block/classes/BlockHeader.md)
+
+header to be validated
+
+#### height?
+
+`bigint`
+
+If this is an uncle header, this is the height of the block that is including it
+
+### Returns
+
+`Promise`\<`void`\>

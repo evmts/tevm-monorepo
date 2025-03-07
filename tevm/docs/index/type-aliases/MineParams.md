@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: MineParams\<TThrowOnFail\>
 
 > **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+
+Defined in: packages/actions/types/Mine/MineParams.d.ts:14
 
 Tevm params to mine one or more blocks.
 
@@ -43,7 +45,3 @@ Number of blocks to mine. Defaults to 1.
 ## Param
 
 Interval between block timestamps in seconds. Defaults to 1.
-
-## Defined in
-
-packages/actions/types/Mine/MineParams.d.ts:14

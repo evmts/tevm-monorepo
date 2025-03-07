@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthUninstallFilterHandler**: (`request`) => `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:40
+
 ## Parameters
 
-• **request**: [`EthUninstallFilterParams`](EthUninstallFilterParams.md)
+### request
+
+[`EthUninstallFilterParams`](EthUninstallFilterParams.md)
 
 ## Returns
 
 `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:40

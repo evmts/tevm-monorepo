@@ -1,7 +1,0 @@
-{
-	"$schema": "https://typedoc.org/schema.json",
-	"out": "./docs",
-	"entryPoints": ["./src/types.d.ts", "./src/ethereum/index.js", "./src/common/index.js", "./src/tevm/index.js"],
-	"plugin": ["typedoc-plugin-markdown"],
-	"gitRevision": "main"
-}

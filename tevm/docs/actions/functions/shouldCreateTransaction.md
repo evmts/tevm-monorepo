@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **shouldCreateTransaction**(`params`, `runTxResult`): `boolean`
 
+Defined in: packages/actions/types/Call/shouldCreateTransaction.d.ts:1
+
 ## Parameters
 
-• **params**: [`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+### params
 
-• **runTxResult**: [`RunTxResult`](../../vm/interfaces/RunTxResult.md)
+[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+
+### runTxResult
+
+[`RunTxResult`](../../vm/interfaces/RunTxResult.md)
 
 ## Returns
 
 `boolean`
-
-## Defined in
-
-packages/actions/types/Call/shouldCreateTransaction.d.ts:1

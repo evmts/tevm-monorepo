@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: StateOverrideSet
 
 > **StateOverrideSet**: `object`
+
+Defined in: [packages/actions/src/common/StateOverrideSet.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/StateOverrideSet.ts#L29)
 
 The state override set is an optional address-to-state mapping, where each entry specifies some state to be ephemerally overridden prior to executing the call. Each address maps to an object containing:
 This option cannot be used when `createTransaction` is set to `true`
@@ -19,7 +21,7 @@ It can be used to debug smart contracts in an already deployed large suite of co
 
 ## Index Signature
 
- \[`address`: `Address`\]: `object`
+\[`address`: `` `0x${string}` ``\]: `object`
 
 ## Example
 
@@ -36,7 +38,3 @@ It can be used to debug smart contracts in an already deployed large suite of co
   }
 }
 ```
-
-## Defined in
-
-[packages/actions/src/common/StateOverrideSet.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/StateOverrideSet.ts#L29)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,16 @@
 
 # bundler/config
 
-## Index
-
-### Namespaces
+## Namespaces
 
 - [defaultConfig](namespaces/defaultConfig/README.md)
 
-### Type Aliases
+## Type Aliases
 
 - [CompilerConfig](type-aliases/CompilerConfig.md)
 - [ResolvedCompilerConfig](type-aliases/ResolvedCompilerConfig.md)
 
-### Functions
+## Functions
 
 - [defineConfig](functions/defineConfig.md)
 - [loadConfig](functions/loadConfig.md)

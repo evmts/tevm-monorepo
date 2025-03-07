@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcInputSourcesDestructibleSettings
 
 > **SolcInputSourcesDestructibleSettings**: `object`
+
+Defined in: [solcTypes.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L312)
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### keccak256?
 
 > `optional` **keccak256**: `HexNumber`
-
-## Defined in
-
-[solcTypes.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L312)

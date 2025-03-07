@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,19 +6,17 @@
 
 # evm
 
-## Index
-
-### Enumerations
+## Enumerations
 
 - [EvmErrorMessage](enumerations/EvmErrorMessage.md)
 
-### Classes
+## Classes
 
 - [EthjsMessage](classes/EthjsMessage.md)
 - [Evm](classes/Evm.md)
 - [EvmError](classes/EvmError.md)
 
-### Interfaces
+## Interfaces
 
 - [EvmResult](interfaces/EvmResult.md)
 - [EvmRunCallOpts](interfaces/EvmRunCallOpts.md)
@@ -26,17 +24,17 @@
 - [InterpreterStep](interfaces/InterpreterStep.md)
 - [PrecompileInput](interfaces/PrecompileInput.md)
 
-### Type Aliases
+## Type Aliases
 
 - [CreateEvmOptions](type-aliases/CreateEvmOptions.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [EVMOpts](type-aliases/EVMOpts.md)
 
-### Variables
+## Variables
 
 - [Eof](variables/Eof.md)
 
-### Functions
+## Functions
 
 - [createEvm](functions/createEvm.md)
 - [getActivePrecompiles](functions/getActivePrecompiles.md)

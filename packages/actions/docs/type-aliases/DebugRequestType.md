@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DebugRequestType
 
 > **DebugRequestType**: `object`
+
+Defined in: [packages/actions/src/tevm-request-handler/DebugRequestType.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/DebugRequestType.ts#L6)
 
 A mapping of `debug_*` method names to their request type
 
@@ -19,7 +21,3 @@ A mapping of `debug_*` method names to their request type
 ### debug\_traceTransaction
 
 > **debug\_traceTransaction**: `DebugTraceTransactionJsonRpcRequest`
-
-## Defined in
-
-[packages/actions/src/tevm-request-handler/DebugRequestType.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/DebugRequestType.ts#L6)

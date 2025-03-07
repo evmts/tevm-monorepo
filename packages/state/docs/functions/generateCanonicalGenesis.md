@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **generateCanonicalGenesis**(`baseState`, `skipFetchingFromFork`?): (`initState`) => `Promise`\<`void`\>
 
+Defined in: [packages/state/src/actions/generateCannonicalGenesis.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L12)
+
 Loads a [TevmState](../type-aliases/TevmState.md) into the state manager
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,12 +28,10 @@ Loads a [TevmState](../type-aliases/TevmState.md) into the state manager
 
 ### Parameters
 
-• **initState**: `any`
+#### initState
+
+`any`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-[packages/state/src/actions/generateCannonicalGenesis.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L12)

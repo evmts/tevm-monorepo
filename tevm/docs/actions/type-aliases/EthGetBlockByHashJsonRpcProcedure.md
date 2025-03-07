@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBlockByHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockByHashJsonRpcResponse`](EthGetBlockByHashJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:12
+
 ## Parameters
 
-• **request**: [`EthGetBlockByHashJsonRpcRequest`](EthGetBlockByHashJsonRpcRequest.md)
+### request
+
+[`EthGetBlockByHashJsonRpcRequest`](EthGetBlockByHashJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBlockByHashJsonRpcResponse`](EthGetBlockByHashJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:12

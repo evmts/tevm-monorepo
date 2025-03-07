@@ -1,4 +1,4 @@
-[**@tevm/logger**](README.md) • **Docs**
+[**@tevm/logger**](README.md)
 
 ***
 

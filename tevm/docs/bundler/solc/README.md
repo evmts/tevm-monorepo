@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,13 +6,11 @@
 
 # bundler/solc
 
-## Index
-
-### Interfaces
+## Interfaces
 
 - [Solc](interfaces/Solc.md)
 
-### Type Aliases
+## Type Aliases
 
 - [Releases](type-aliases/Releases.md)
 - [SolcBytecodeOutput](type-aliases/SolcBytecodeOutput.md)
@@ -45,11 +43,11 @@
 - [SolcVersions](type-aliases/SolcVersions.md)
 - [SolcYulDetails](type-aliases/SolcYulDetails.md)
 
-### Variables
+## Variables
 
 - [releases](variables/releases.md)
 
-### Functions
+## Functions
 
 - [createSolc](functions/createSolc.md)
 - [solcCompile](functions/solcCompile.md)

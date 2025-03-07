@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **putAccount**(`baseState`, `skipFetchingFromFork`?): (`address`, `account`?) => `Promise`\<`void`\>
 
+Defined in: packages/state/dist/index.d.ts:341
+
 Saves an account into state under the provided `address`.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,14 +28,14 @@ Saves an account into state under the provided `address`.
 
 ### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+#### address
 
-• **account?**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+#### account?
+
+[`EthjsAccount`](../../utils/classes/EthjsAccount.md)
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:341

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: WalletPermissionCaveat
 
 > **WalletPermissionCaveat**: `object`
+
+Defined in: packages/decorators/dist/index.d.ts:1287
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### value
 
 > **value**: `any`
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:1287

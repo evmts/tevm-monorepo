@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: LoadStateResult\<ErrorType\>
 
 > **LoadStateResult**\<`ErrorType`\>: `object`
+
+Defined in: packages/actions/types/LoadState/LoadStateResult.d.ts:25
 
 Result of the `tevmLoadState` method.
 
@@ -44,7 +46,3 @@ if (result.errors) {
 ## See
 
 [TevmLoadStateError](TevmLoadStateError.md)
-
-## Defined in
-
-packages/actions/types/LoadState/LoadStateResult.d.ts:25

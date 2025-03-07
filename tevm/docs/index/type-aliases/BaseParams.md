@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: BaseParams\<TThrowOnFail\>
 
 > **BaseParams**\<`TThrowOnFail`\>: `object`
+
+Defined in: packages/actions/types/common/BaseParams.d.ts:4
 
 The base parameters shared across all actions
 
@@ -22,7 +24,3 @@ The base parameters shared across all actions
 
 Whether to throw on errors or return errors as value on the 'errors' property
 Defaults to `true`
-
-## Defined in
-
-packages/actions/types/common/BaseParams.d.ts:4

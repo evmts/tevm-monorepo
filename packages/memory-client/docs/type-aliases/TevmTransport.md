@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -12,6 +12,8 @@
 	retryCount,
 	timeout,
 }`) => `object`
+
+Defined in: [packages/memory-client/src/TevmTransport.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmTransport.ts#L18)
 
 A type representing a custom TEVM Transport for viem.
 
@@ -29,40 +31,28 @@ The blockchain configuration.
 
 ## Parameters
 
-• **\{
+### \{
 	chain,
 	pollingInterval,
 	retryCount,
 	timeout,
-\}**
+\}
 
-• **\{
-	chain,
-	pollingInterval,
-	retryCount,
-	timeout,
-\}.chain?**: `TChain`
+#### chain?
 
-• **\{
-	chain,
-	pollingInterval,
-	retryCount,
-	timeout,
-\}.pollingInterval?**: `ClientConfig`\[`"pollingInterval"`\]
+`TChain`
 
-• **\{
-	chain,
-	pollingInterval,
-	retryCount,
-	timeout,
-\}.retryCount?**: `TransportConfig`\[`"retryCount"`\]
+#### pollingInterval?
 
-• **\{
-	chain,
-	pollingInterval,
-	retryCount,
-	timeout,
-\}.timeout?**: `TransportConfig`\[`"timeout"`\]
+`ClientConfig`\[`"pollingInterval"`\]
+
+#### retryCount?
+
+`TransportConfig`\[`"retryCount"`\]
+
+#### timeout?
+
+`TransportConfig`\[`"timeout"`\]
 
 ## Returns
 
@@ -82,16 +72,12 @@ The configured TEVM transport.
 
 > **value**: `object`
 
-### value.tevm
+#### value.tevm
 
 > **tevm**: `TevmNode` & `object`
 
-#### Type declaration
+##### Type declaration
 
-##### request
+###### request
 
 > **request**: `EIP1193RequestFn`
-
-## Defined in
-
-[packages/memory-client/src/TevmTransport.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmTransport.ts#L18)

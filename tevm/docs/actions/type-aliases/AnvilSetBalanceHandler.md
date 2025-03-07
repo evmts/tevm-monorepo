@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilSetBalanceHandler**: (`params`) => `Promise`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:9
+
 ## Parameters
 
-• **params**: [`AnvilSetBalanceParams`](AnvilSetBalanceParams.md)
+### params
+
+[`AnvilSetBalanceParams`](AnvilSetBalanceParams.md)
 
 ## Returns
 
 `Promise`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilHandler.d.ts:9

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: JsonRpcTransaction
 
 > **JsonRpcTransaction**: `object`
+
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L10)
 
 the transaction call object for methods like `eth_call`
 
@@ -47,7 +49,3 @@ The address to which the transaction is addressed
 > `optional` **value**: `Hex`
 
 The integer of value sent with this transaction encoded as hexadecimal
-
-## Defined in
-
-[packages/actions/src/eth/EthJsonRpcRequest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L10)

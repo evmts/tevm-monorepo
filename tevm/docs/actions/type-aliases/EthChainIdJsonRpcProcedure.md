@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthChainIdJsonRpcProcedure**: (`request`) => `Promise`\<[`EthChainIdJsonRpcResponse`](EthChainIdJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:6
+
 ## Parameters
 
-• **request**: [`EthChainIdJsonRpcRequest`](EthChainIdJsonRpcRequest.md)
+### request
+
+[`EthChainIdJsonRpcRequest`](EthChainIdJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthChainIdJsonRpcResponse`](EthChainIdJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:6

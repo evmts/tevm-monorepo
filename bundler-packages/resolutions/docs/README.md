@@ -1,4 +1,4 @@
-**@tevm/resolutions** • [**Docs**](modules.md)
+**@tevm/resolutions**
 
 ***
 

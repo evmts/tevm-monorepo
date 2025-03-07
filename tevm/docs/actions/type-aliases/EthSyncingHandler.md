@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthSyncingHandler**: (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:36
+
 ## Parameters
 
-• **request**: [`EthSyncingParams`](EthSyncingParams.md)
+### request
+
+[`EthSyncingParams`](EthSyncingParams.md)
 
 ## Returns
 
 `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:36

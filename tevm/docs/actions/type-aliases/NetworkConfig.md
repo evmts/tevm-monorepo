@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: NetworkConfig
 
 > **NetworkConfig**: `object`
+
+Defined in: packages/actions/types/common/NetworkConfig.d.ts:5
 
 Represents a configuration for a forked or proxied network
 
@@ -23,7 +25,3 @@ the block tag to fork from
 > **url**: `string`
 
 The URL to the RPC endpoint
-
-## Defined in
-
-packages/actions/types/common/NetworkConfig.d.ts:5

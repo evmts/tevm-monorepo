@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: loadConfig()
 
-> **loadConfig**(`configFilePath`): `Effect`
+> **loadConfig**(`configFilePath`): `Effect`\<`ResolvedCompilerConfig`, `LoadConfigError`, `never`\>
+
+Defined in: bundler-packages/config/types/loadConfig.d.ts:23
 
 ## Parameters
 
-• **configFilePath**: `string`
+### configFilePath
+
+`string`
 
 ## Returns
 
-`Effect`
-
-## Defined in
-
-bundler-packages/config/types/loadConfig.d.ts:23
+`Effect`\<`ResolvedCompilerConfig`, `LoadConfigError`, `never`\>

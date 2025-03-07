@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **AnvilDumpStateResult**: [`Hex`](Hex.md)
 
-## Defined in
-
-[packages/actions/src/anvil/AnvilResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L30)
+Defined in: [packages/actions/src/anvil/AnvilResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L30)

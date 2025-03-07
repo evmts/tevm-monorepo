@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: tevmDeploy()
 
 > **tevmDeploy**(`client`, `params`): `Promise`\<`DeployResult`\>
+
+Defined in: [packages/memory-client/src/tevmDeploy.js:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmDeploy.js#L87)
 
 A tree-shakeable version of the `tevmDeploy` action for viem.
 Deploys a contract using TEVM.
@@ -17,11 +19,15 @@ As an alternative, the `setAccount` action can be used to directly put contract 
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| `object`\>
+### client
+
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
 
 The viem client configured with TEVM transport.
 
-• **params**: `DeployParams`\<`boolean`, `Abi`, `true`, readonly `unknown`[]\>
+### params
+
+`DeployParams`\<`boolean`, `Abi`, `true`, readonly `unknown`[]\>
 
 Parameters for the contract deployment, including ABI, bytecode, and constructor arguments.
 
@@ -104,7 +110,3 @@ example()
  - [TEVM Bundler Guide](https://tevm.sh/learn/solidity-imports/) for using the TEVM bundler to deploy contracts.
 
 Additionally, you can use the viem wallet action `deploy` as a viable alternative. While it doesn't offer the same advanced functionality such as account impersonation or tracing capabilities, it works great for simple use cases.
-
-## Defined in
-
-[packages/memory-client/src/tevmDeploy.js:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmDeploy.js#L87)

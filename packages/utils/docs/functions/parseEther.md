@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -8,15 +8,21 @@
 
 > **parseEther**(`ether`, `unit`?): `bigint`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/unit/parseEther.d.ts:15
+
 Converts a string representation of ether to numerical wei.
 
 - Docs: https://viem.sh/docs/utilities/parseEther
 
 ## Parameters
 
-• **ether**: `string`
+### ether
 
-• **unit?**: `"wei"` \| `"gwei"`
+`string`
+
+### unit?
+
+`"wei"` | `"gwei"`
 
 ## Returns
 
@@ -30,7 +36,3 @@ import { parseEther } from 'viem'
 parseEther('420')
 // 420000000000000000000n
 ```
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/unit/parseEther.d.ts:15

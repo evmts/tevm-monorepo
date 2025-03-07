@@ -1,4 +1,3 @@
-import { hexToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getStateRoot } from './getStateRoot.js'
@@ -8,6 +7,6 @@ describe(getStateRoot.name, () => {
 		const baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		expect(await getStateRoot(baseState)()).toEqual(hexToBytes(baseState.getCurrentStateRoot()))
+		expect(await getStateRoot(baseState)()).toMatchSnapshot()
 	})
 })

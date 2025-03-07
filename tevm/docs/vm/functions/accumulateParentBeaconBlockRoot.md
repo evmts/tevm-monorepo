@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **accumulateParentBeaconBlockRoot**(`vm`): (`root`, `timestamp`) => `Promise`\<`void`\>
 
+Defined in: packages/vm/types/actions/accumulateParentBeaconBlockRoot.d.ts:2
+
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
+
+`BaseVm`
 
 ## Returns
 
@@ -18,14 +22,14 @@
 
 ### Parameters
 
-• **root**: `Uint8Array`
+#### root
 
-• **timestamp**: `bigint`
+`Uint8Array`
+
+#### timestamp
+
+`bigint`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/vm/types/actions/accumulateParentBeaconBlockRoot.d.ts:2

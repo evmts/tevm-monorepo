@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **ValidateGetAccountParamsError**: [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
 
-## Defined in
-
-packages/actions/types/GetAccount/validateGetAccountParams.d.ts:2
+Defined in: packages/actions/types/GetAccount/validateGetAccountParams.d.ts:2

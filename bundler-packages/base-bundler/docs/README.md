@@ -1,4 +1,4 @@
-**@tevm/base-bundler** • [**Docs**](globals.md)
+**@tevm/base-bundler**
 
 ***
 

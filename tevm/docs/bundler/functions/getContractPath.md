@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: getContractPath()
 
-> **getContractPath**(`basePath`): `"tevm/contract"` \| `"@tevm/contract"`
+> **getContractPath**(`basePath`): `"@tevm/contract"` \| `"tevm/contract"`
+
+Defined in: bundler-packages/base-bundler/types/src/getContractPath.d.ts:1
 
 ## Parameters
 
-• **basePath**: `string`
+### basePath
+
+`string`
 
 ## Returns
 
-`"tevm/contract"` \| `"@tevm/contract"`
-
-## Defined in
-
-bundler-packages/base-bundler/types/src/getContractPath.d.ts:1
+`"@tevm/contract"` \| `"tevm/contract"`

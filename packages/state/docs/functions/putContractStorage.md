@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **putContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`, `value`) => `Promise`\<`void`\>
 
+Defined in: [packages/state/src/actions/putContractStorage.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L12)
+
 Adds value to the cache for the `account`
 corresponding to `address` at the provided `key`.
 Cannot be more than 32 bytes. Leading zeros are stripped.
@@ -15,9 +17,13 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -25,16 +31,18 @@ If it is empty or filled with zeros, deletes the value.
 
 ### Parameters
 
-• **address**: `Address`
+#### address
 
-• **key**: `Uint8Array`
+`Address`
 
-• **value**: `Uint8Array`
+#### key
+
+`Uint8Array`
+
+#### value
+
+`Uint8Array`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-[packages/state/src/actions/putContractStorage.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L12)

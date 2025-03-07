@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **RevertErrorParameters**: `object`
 
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:64
+
 Parameters for constructing a RevertError.
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: `EvmError` \| [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause**: [`EvmError`](../../evm/classes/EvmError.md) \| [`BaseError`](../classes/BaseError.md) \| `Error`
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a RevertError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/RevertError.d.ts:64

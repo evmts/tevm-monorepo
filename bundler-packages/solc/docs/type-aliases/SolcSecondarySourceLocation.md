@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -8,12 +8,10 @@
 
 > **SolcSecondarySourceLocation**: [`SolcSourceLocation`](SolcSourceLocation.md) & `object`
 
+Defined in: [solcTypes.ts:383](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L383)
+
 ## Type declaration
 
 ### message
 
 > **message**: `string`
-
-## Defined in
-
-[solcTypes.ts:383](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L383)

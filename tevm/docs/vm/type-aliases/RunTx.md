@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **RunTx**: (`opts`) => `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
+Defined in: packages/vm/types/actions/runTx.d.ts:3
+
 ## Parameters
 
-• **opts**: [`RunTxOpts`](../interfaces/RunTxOpts.md)
+### opts
+
+[`RunTxOpts`](../interfaces/RunTxOpts.md)
 
 ## Returns
 
 `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
-
-## Defined in
-
-packages/vm/types/actions/runTx.d.ts:3

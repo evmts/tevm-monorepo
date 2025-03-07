@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,18 @@
 
 # Function: createJsonRpcFetcher()
 
-> **createJsonRpcFetcher**(`client`): `JsonRpcClient`
+> **createJsonRpcFetcher**(`client`): [`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
+
+Defined in: packages/jsonrpc/types/createJsonRpcFetcher.d.ts:1
 
 ## Parameters
 
-• **client**
+### client
 
-• **client.request**: `EIP1193RequestFn`\<`undefined`\>
+#### request
+
+`EIP1193RequestFn`\<`undefined`\>
 
 ## Returns
 
-`JsonRpcClient`
-
-## Defined in
-
-packages/jsonrpc/types/createJsonRpcFetcher.d.ts:1
+[`JsonRpcClient`](../type-aliases/JsonRpcClient.md)

@@ -1,4 +1,4 @@
-[**@tevm/contract**](README.md) • **Docs**
+[**@tevm/contract**](README.md)
 
 ***
 

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: StructLog
 
 > **StructLog**: `object`
+
+Defined in: [packages/actions/src/debug/DebugResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L4)
 
 ## Type declaration
 
@@ -18,11 +20,11 @@
 
 > `readonly` `optional` **error**: `object`
 
-### error.error
+#### error.error
 
 > **error**: `string`
 
-### error.errorType
+#### error.errorType
 
 > **errorType**: `string`
 
@@ -45,7 +47,3 @@
 ### stack
 
 > `readonly` **stack**: [`Hex`](Hex.md)[]
-
-## Defined in
-
-[packages/actions/src/debug/DebugResult.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L4)

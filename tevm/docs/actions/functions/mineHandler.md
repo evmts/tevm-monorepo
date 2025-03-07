@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: mineHandler()
 
-> **mineHandler**(`client`, `options`?): `MineHandler`
+> **mineHandler**(`client`, `options`?): [`MineHandler`](../../index/type-aliases/MineHandler.md)
+
+Defined in: packages/actions/types/Mine/mineHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **options?**
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **options.throwOnFail?**: `boolean`
+### options?
+
+#### throwOnFail?
+
+`boolean`
 
 ## Returns
 
-`MineHandler`
-
-## Defined in
-
-packages/actions/types/Mine/mineHandler.d.ts:1
+[`MineHandler`](../../index/type-aliases/MineHandler.md)

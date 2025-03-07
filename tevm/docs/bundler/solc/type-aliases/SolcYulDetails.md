@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcYulDetails
 
 > **SolcYulDetails**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:14
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### stackAllocation?
 
 > `optional` **stackAllocation**: `boolean`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:14

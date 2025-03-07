@@ -1,0 +1,289 @@
+# .claude/add-json-rpc
+
+This command guides you through implementing a new JSON-RPC method for Tevm, following the project's architecture and coding patterns.
+
+## Usage
+
+```bash
+claude < .claude/add-json-rpc
+```
+
+## Interactive Process
+
+When you run this command, I will:
+
+1. First, ask you to describe the JSON-RPC method you want to implement
+2. Rephrase your requirements in my own words to confirm understanding
+3. Ask clarifying questions about any ambiguities in:
+   - Method naming (namespace and convention)
+   - Parameter structure and validation requirements
+   - Return value format
+   - Error handling scenarios
+   - Integration points with other Tevm components
+4. Identify potential edge cases or performance considerations
+5. Create implementation files based on your confirmed specifications
+
+## Input Requirements
+
+Before running this command, it helps to prepare:
+1. The name of your JSON-RPC method (e.g., `tevm_myMethod`, `anvil_specialAction`)
+2. A clear description of what the method does
+3. The parameters it should accept
+4. The expected return value
+5. Potential error scenarios
+
+## Process
+
+I'll help you implement a complete JSON-RPC method in Tevm by:
+
+1. Analyzing existing implementations for patterns
+2. Creating the required files with proper naming conventions
+3. Implementing the handler function, types, validation, and procedures
+4. Integrating with the memory client
+5. Adding necessary exports
+6. Writing tests for your implementation
+
+## Implementation Guide
+
+### Step 1: Understand the Structure
+
+Tevm JSON-RPC methods follow this implementation pattern:
+
+```
+packages/actions/src/MethodNamespace/
+  ├── methodHandler.js             # Core implementation logic
+  ├── MethodHandlerType.ts         # TypeScript type definitions for the handler
+  ├── methodProcedure.js           # JSON-RPC procedure adapter
+  ├── validateMethodParams.js      # Parameter validation with Zod
+  └── index.js                     # Exports
+```
+
+Plus integration with:
+- `packages/memory-client/src/tevmMethod.js` - Client API
+- `packages/decorators/src/actions/tevmActions.js` - Decorator support
+
+### Step 2: Create the Handler
+
+The handler is the core implementation of your method logic:
+
+```javascript
+// methodHandler.js
+import { TevmMethodErrors } from '@tevm/errors'
+
+/**
+ * Implements the method_name JSON-RPC method
+ *
+ * @param {import('./MethodHandlerType.js').MethodHandlerParams} params - Method parameters
+ * @param {import('@tevm/base-client').BaseClient} client - Tevm client instance
+ * @returns {Promise<import('./MethodHandlerType.js').MethodHandlerResult>} Method result
+ * @throws {import('@tevm/errors').TevmMethodError} If operation fails
+ * @example
+ * ```typescript
+ * import { methodHandler } from '@tevm/actions'
+ * const result = await methodHandler(params, client)
+ * ```
+ */
+export const methodHandler = async (params, client) => {
+  try {
+    // Implement your method logic here
+    // Access VM, blockchain, state, etc. via client.tevm
+    const result = // Your implementation
+    
+    return result
+  } catch (error) {
+    if (error instanceof TevmMethodErrors.MethodError) {
+      throw error
+    }
+    throw new TevmMethodErrors.MethodError({
+      message: `Failed to execute method_name: ${error.message}`,
+      cause: error
+    })
+  }
+}
+```
+
+### Step 3: Define TypeScript Types
+
+```typescript
+// MethodHandlerType.ts
+
+/**
+ * Parameters for the method_name JSON-RPC method
+ */
+export type MethodHandlerParams = {
+  // Define your parameters here
+  paramName: string
+  paramNumber: number
+  // etc.
+}
+
+/**
+ * Result type for the method_name JSON-RPC method
+ */
+export type MethodHandlerResult = {
+  // Define your result structure here
+  someValue: string
+  success: boolean
+  // etc.
+}
+```
+
+### Step 4: Create the Validation
+
+```javascript
+// validateMethodParams.js
+import { z } from 'zod'
+
+/**
+ * Zod schema for method_name parameters
+ */
+export const MethodParamsSchema = z.object({
+  // Define your parameter validation
+  paramName: z.string(),
+  paramNumber: z.number(),
+  // etc.
+})
+
+/**
+ * Validates method_name parameters
+ * 
+ * @param {unknown} params - Parameters to validate
+ * @returns {import('./MethodHandlerType.js').MethodHandlerParams} Validated parameters
+ * @throws {import('@tevm/errors').TevmValidationError} If validation fails
+ */
+export const validateMethodParams = (params) => {
+  try {
+    return MethodParamsSchema.parse(params)
+  } catch (error) {
+    throw new TevmValidationError({
+      message: `Invalid method_name params: ${error.message}`,
+      cause: error
+    })
+  }
+}
+```
+
+### Step 5: Create the Procedure
+
+```javascript
+// methodProcedure.js
+import { createJsonRpcProcedure } from '@tevm/procedures'
+import { validateMethodParams } from './validateMethodParams.js'
+import { methodHandler } from './methodHandler.js'
+
+/**
+ * JSON-RPC procedure for method_name
+ */
+export const methodProcedure = createJsonRpcProcedure({
+  method: 'method_name',
+  description: 'Description of what the method does',
+  params: 'Named parameters as per JSON-RPC spec',
+  handlers: {
+    tevm: async (params, client) => {
+      const validParams = validateMethodParams(params)
+      return methodHandler(validParams, client)
+    }
+  }
+})
+```
+
+### Step 6: Update the Memory Client
+
+```javascript
+// In packages/memory-client/src/tevmMethod.js
+import { methodHandler } from '@tevm/actions'
+
+/**
+ * Executes the method_name JSON-RPC method
+ * 
+ * @param {import('@tevm/actions').MethodHandlerParams} params - Method parameters
+ * @returns {Promise<import('@tevm/actions').MethodHandlerResult>} Method result
+ * @throws {import('@tevm/errors').TevmMethodError} If operation fails
+ * @example
+ * ```typescript
+ * import { createMemoryClient } from 'tevm'
+ * const client = createMemoryClient()
+ * const result = await client.tevmMethod(params)
+ * ```
+ */
+export const tevmMethod = async function tevmMethod(params) {
+  return methodHandler(params, this)
+}
+```
+
+### Step 7: Create Tests
+
+```typescript
+// methodHandler.spec.ts
+import { describe, it, expect, beforeEach } from 'vitest'
+import { methodHandler } from './methodHandler.js'
+import { createMemoryClient } from '@tevm/memory-client'
+
+describe('methodHandler', () => {
+  let client
+
+  beforeEach(() => {
+    client = createMemoryClient()
+  })
+  
+  it('should successfully execute with valid parameters', async () => {
+    const params = {
+      // Your test parameters
+    }
+    
+    const result = await methodHandler(params, client)
+    
+    expect(result).toEqual({
+      // Expected result
+    })
+  })
+  
+  it('should throw an error with invalid parameters', async () => {
+    const params = {
+      // Invalid parameters
+    }
+    
+    await expect(methodHandler(params, client)).rejects.toThrow()
+  })
+})
+```
+
+## Output Format
+
+For each implementation step, I'll provide:
+1. The file path where code should be added
+2. The complete code to implement
+3. Explanations of key components
+4. Guidance on integration with the rest of the codebase
+
+## Examples
+
+### Example 1: Implementing `tevm_call`
+
+For a method like `tevm_call` that executes a contract call in the VM:
+
+- Handler validates the call parameters
+- Accesses the VM through client.tevm
+- Executes the call with the VM
+- Returns formatted results
+
+### Example 2: Implementing `anvil_setBalance`
+
+For a method like `anvil_setBalance` that modifies state:
+
+- Handler takes an address and balance value
+- Validates the parameters
+- Updates account state in the state manager
+- Returns success confirmation
+
+## Evaluation Criteria
+
+A successful implementation should:
+1. Follow project code style (JSDoc, consistent naming)
+2. Include complete type definitions
+3. Have proper error handling
+4. Be properly integrated with exports and client methods
+5. Include comprehensive tests
+6. Pass all existing linting rules
+
+Would you like me to help you implement a specific JSON-RPC method, or would you prefer general guidance on the implementation process?

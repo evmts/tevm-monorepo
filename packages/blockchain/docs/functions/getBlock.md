@@ -1,4 +1,4 @@
-[**@tevm/blockchain**](../README.md) • **Docs**
+[**@tevm/blockchain**](../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **getBlock**(`baseChain`): (`blockId`) => `Promise`\<`Block`\>
 
+Defined in: [packages/blockchain/src/actions/getBlock.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getBlock.js#L13)
+
 An ethereumjs interface method that accepts a block id number or hash and returns the block
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
@@ -22,12 +26,10 @@ Returns a block by its hash or number.
 
 ### Parameters
 
-• **blockId**: `number` \| `bigint` \| `Uint8Array`
+#### blockId
+
+`number` | `bigint` | `Uint8Array`\<`ArrayBufferLike`\>
 
 ### Returns
 
 `Promise`\<`Block`\>
-
-## Defined in
-
-[packages/blockchain/src/actions/getBlock.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getBlock.js#L13)

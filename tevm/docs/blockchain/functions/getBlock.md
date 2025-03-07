@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,28 @@
 
 # Function: getBlock()
 
-> **getBlock**(`baseChain`): `Chain`\[`"getBlock"`\]
+> **getBlock**(`baseChain`): (`blockId`) => `Promise`\<[`Block`](../../block/classes/Block.md)\>
+
+Defined in: packages/blockchain/types/actions/getBlock.d.ts:1
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
-`Chain`\[`"getBlock"`\]
+`Function`
 
-## Defined in
+Returns a block by its hash or number.
 
-packages/blockchain/types/actions/getBlock.d.ts:1
+### Parameters
+
+#### blockId
+
+`number` | `bigint` | `Uint8Array`\<`ArrayBufferLike`\>
+
+### Returns
+
+`Promise`\<[`Block`](../../block/classes/Block.md)\>

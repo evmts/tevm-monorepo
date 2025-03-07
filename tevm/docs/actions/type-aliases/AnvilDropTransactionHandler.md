@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilDropTransactionHandler**: (`params`) => `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:8
+
 ## Parameters
 
-• **params**: [`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)
+### params
+
+[`AnvilDropTransactionParams`](AnvilDropTransactionParams.md)
 
 ## Returns
 
 `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilHandler.d.ts:8

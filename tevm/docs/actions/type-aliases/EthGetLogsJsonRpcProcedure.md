@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetLogsJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetLogsJsonRpcResponse`](EthGetLogsJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:19
+
 ## Parameters
 
-• **request**: [`EthGetLogsJsonRpcRequest`](EthGetLogsJsonRpcRequest.md)
+### request
+
+[`EthGetLogsJsonRpcRequest`](EthGetLogsJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetLogsJsonRpcResponse`](EthGetLogsJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:19

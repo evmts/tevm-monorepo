@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **AnvilLoadStateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_loadState"`, `SerializeToJson`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>, `AnvilError`\>
 
+Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:65
+
 JSON-RPC response for `anvil_loadState` procedure
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:65

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethNewPendingTransactionFilterProcedure()
 
-> **ethNewPendingTransactionFilterProcedure**(`client`): `EthNewPendingTransactionFilterJsonRpcProcedure`
+> **ethNewPendingTransactionFilterProcedure**(`client`): [`EthNewPendingTransactionFilterJsonRpcProcedure`](../type-aliases/EthNewPendingTransactionFilterJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethNewPendingTransactionFilterProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthNewPendingTransactionFilterJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethNewPendingTransactionFilterProcedure.d.ts:1
+[`EthNewPendingTransactionFilterJsonRpcProcedure`](../type-aliases/EthNewPendingTransactionFilterJsonRpcProcedure.md)

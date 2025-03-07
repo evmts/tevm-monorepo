@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: createNextApiHandler()
 
-> **createNextApiHandler**(`client`): `NextApiHandler`
+> **createNextApiHandler**(`client`): `NextApiHandler`\<`any`\>
+
+Defined in: packages/server/types/adapters/createNextApiHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`Client`](../type-aliases/Client.md)
+### client
+
+[`Client`](../type-aliases/Client.md)
 
 ## Returns
 
-`NextApiHandler`
-
-## Defined in
-
-packages/server/types/adapters/createNextApiHandler.d.ts:1
+`NextApiHandler`\<`any`\>

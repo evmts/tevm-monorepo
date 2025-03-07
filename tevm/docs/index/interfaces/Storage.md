@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Interface: Storage
 
+Defined in: packages/sync-storage-persister/types/Storage.d.ts:1
+
 ## Properties
 
 ### getItem()
 
 > **getItem**: (`key`) => `null` \| `string`
 
+Defined in: packages/sync-storage-persister/types/Storage.d.ts:2
+
 #### Parameters
 
-• **key**: `string`
+##### key
+
+`string`
 
 #### Returns
 
 `null` \| `string`
-
-#### Defined in
-
-packages/sync-storage-persister/types/Storage.d.ts:2
 
 ***
 
@@ -30,17 +32,17 @@ packages/sync-storage-persister/types/Storage.d.ts:2
 
 > **removeItem**: (`key`) => `void`
 
+Defined in: packages/sync-storage-persister/types/Storage.d.ts:4
+
 #### Parameters
 
-• **key**: `string`
+##### key
+
+`string`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-packages/sync-storage-persister/types/Storage.d.ts:4
 
 ***
 
@@ -48,16 +50,18 @@ packages/sync-storage-persister/types/Storage.d.ts:4
 
 > **setItem**: (`key`, `value`) => `void`
 
+Defined in: packages/sync-storage-persister/types/Storage.d.ts:3
+
 #### Parameters
 
-• **key**: `string`
+##### key
 
-• **value**: `string`
+`string`
+
+##### value
+
+`string`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-packages/sync-storage-persister/types/Storage.d.ts:3

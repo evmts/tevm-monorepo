@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **AuthCallUnsetErrorParameters**: `object`
 
+Defined in: packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:71
+
 Parameters for constructing a [AuthCallUnsetError](../classes/AuthCallUnsetError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| `EvmError`
+> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a [AuthCallUnsetError](../classes/AuthCallUnsetError
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:71

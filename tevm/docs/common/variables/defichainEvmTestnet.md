@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: defichainEvmTestnet
 
-> `const` **defichainEvmTestnet**: `Common`
+> `const` **defichainEvmTestnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/defichainEvmTestnet.d.ts:21
 
 Creates a common configuration for the defichainEvmTestnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/defichainEvmTestnet.d.ts:21

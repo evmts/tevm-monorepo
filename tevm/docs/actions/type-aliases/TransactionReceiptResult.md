@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TransactionReceiptResult
 
 > **TransactionReceiptResult**: `object`
+
+Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:6
 
 Transaction receipt result type for eth JSON-RPC procedures
 
@@ -67,7 +69,3 @@ Transaction receipt result type for eth JSON-RPC procedures
 ### transactionIndex
 
 > `readonly` **transactionIndex**: `bigint`
-
-## Defined in
-
-packages/actions/types/common/TransactionReceiptResult.d.ts:6

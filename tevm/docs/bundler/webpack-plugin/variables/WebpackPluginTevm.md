@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Variable: WebpackPluginTevm
 
 > `const` **WebpackPluginTevm**: `TevmWebpackPluginConstructor`
+
+Defined in: bundler-packages/webpack/types/WebpackPluginTevm.d.ts:66
 
 Webpack plugin for tevm. Enables Solidity imports in JavaScript.
 
@@ -72,7 +74,3 @@ For custom configuration add a [tevm.config.json](https://todo.todo.todo) file t
   cacheDir: '.tevm'
 }
 ```
-
-## Defined in
-
-bundler-packages/webpack/types/WebpackPluginTevm.d.ts:66

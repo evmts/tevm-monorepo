@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: VMProfilerOpts
 
 > **VMProfilerOpts**: `object`
+
+Defined in: packages/vm/types/utils/VMProfileOpts.d.ts:1
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### reportAfterTx?
 
 > `optional` **reportAfterTx**: `boolean`
-
-## Defined in
-
-packages/vm/types/utils/VMProfileOpts.d.ts:1

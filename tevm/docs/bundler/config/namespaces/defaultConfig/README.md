@@ -1,4 +1,4 @@
-[**tevm**](../../../../README.md) • **Docs**
+[**tevm**](../../../../README.md)
 
 ***
 
@@ -6,9 +6,7 @@
 
 # defaultConfig
 
-## Index
-
-### Variables
+## Variables
 
 - [cacheDir](variables/cacheDir.md)
 - [debug](variables/debug.md)

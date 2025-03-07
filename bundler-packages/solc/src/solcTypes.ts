@@ -523,6 +523,7 @@ export type SolcEwasmOutput = {
 }
 
 export type SolcVersions =
+	| '0.8.28'
 	| '0.8.27'
 	| '0.8.26'
 	| '0.8.25'
@@ -635,6 +636,7 @@ export type SolcVersions =
 	| '0.1.1'
 
 export type Releases = {
+	'0.8.28': 'v0.8.28+commit.c33e5a8c.js'
 	'0.8.27': 'v0.8.27+commit.4a35a09.js'
 	'0.8.26': 'v0.8.26+commit.8a97fa7a.js'
 	'0.8.25': 'v0.8.25+commit.b61c2a91.js'

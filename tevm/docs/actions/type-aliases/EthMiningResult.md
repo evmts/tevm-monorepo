@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthMiningResult**: `boolean`
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:119
+
 JSON-RPC response for `eth_mining` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:119

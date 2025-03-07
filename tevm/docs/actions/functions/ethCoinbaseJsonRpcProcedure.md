@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethCoinbaseJsonRpcProcedure()
 
-> **ethCoinbaseJsonRpcProcedure**(`client`): `EthCoinbaseJsonRpcProcedure`
+> **ethCoinbaseJsonRpcProcedure**(`client`): [`EthCoinbaseJsonRpcProcedure`](../type-aliases/EthCoinbaseJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethCoinbaseProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthCoinbaseJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethCoinbaseProcedure.d.ts:1
+[`EthCoinbaseJsonRpcProcedure`](../type-aliases/EthCoinbaseJsonRpcProcedure.md)

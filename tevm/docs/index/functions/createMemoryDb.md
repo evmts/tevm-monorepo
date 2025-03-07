@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: createMemoryDb()
 
-> **createMemoryDb**(`initialDb`?): [`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`, `Uint8Array`\>
+> **createMemoryDb**(`initialDb`?): [`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`\<`ArrayBufferLike`\>, `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/utils/types/createMemoryDb.d.ts:8
 
 **`Internal`**
 
@@ -15,14 +17,12 @@ Pass in an initial DB optionally to prepoulate the DB.
 
 ## Parameters
 
-• **initialDb?**: `Map`\<`Uint8Array`, `Uint8Array`\>
+### initialDb?
+
+`Map`\<`Uint8Array`\<`ArrayBufferLike`\>, `Uint8Array`\<`ArrayBufferLike`\>\>
 
 ## Returns
 
-[`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`, `Uint8Array`\>
+[`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`\<`ArrayBufferLike`\>, `Uint8Array`\<`ArrayBufferLike`\>\>
 
 ## Throws
-
-## Defined in
-
-packages/utils/types/createMemoryDb.d.ts:8

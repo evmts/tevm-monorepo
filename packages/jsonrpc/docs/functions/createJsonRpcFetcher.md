@@ -1,4 +1,4 @@
-[**@tevm/jsonrpc**](../README.md) • **Docs**
+[**@tevm/jsonrpc**](../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **createJsonRpcFetcher**(`client`): [`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
 
+Defined in: [packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/createJsonRpcFetcher.js#L19)
+
 ## Parameters
 
-• **client**
+### client
 
-• **client.request**: `EIP1193RequestFn`\<`undefined`\>
+#### request
+
+`EIP1193RequestFn`\<`undefined`\>
 
 ## Returns
 
@@ -40,7 +44,3 @@ const params = {
 }
 const {result: block} = await fetchJsonRpc(url, params)
 ```
-
-## Defined in
-
-[packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/createJsonRpcFetcher.js#L19)

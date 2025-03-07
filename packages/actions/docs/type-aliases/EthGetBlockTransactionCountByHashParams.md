@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **EthGetBlockTransactionCountByHashParams**: `object`
 
+Defined in: [packages/actions/src/eth/EthParams.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L118)
+
 Based on the JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 ## Type declaration
@@ -15,7 +17,3 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 ### hash
 
 > **hash**: [`Hex`](Hex.md)
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L118)

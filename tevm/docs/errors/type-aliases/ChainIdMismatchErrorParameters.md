@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ChainIdMismatchErrorParameters
 
 > **ChainIdMismatchErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/ChainIdMismatchError.d.ts:55
 
 Parameters for constructing a ChainIdMismatchError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a ChainIdMismatchError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ChainIdMismatchError.d.ts:55

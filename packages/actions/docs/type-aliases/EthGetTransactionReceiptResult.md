@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](TransactionReceiptResult.md) \| `null`
 
+Defined in: [packages/actions/src/eth/EthResult.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L155)
+
 JSON-RPC response for `eth_getTransactionReceipt` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthResult.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L155)

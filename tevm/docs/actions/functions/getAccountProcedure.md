@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: getAccountProcedure()
 
-> **getAccountProcedure**(`client`): `GetAccountJsonRpcProcedure`
+> **getAccountProcedure**(`client`): [`GetAccountJsonRpcProcedure`](../type-aliases/GetAccountJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/GetAccount/getAccountProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`GetAccountJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/GetAccount/getAccountProcedure.d.ts:1
+[`GetAccountJsonRpcProcedure`](../type-aliases/GetAccountJsonRpcProcedure.md)

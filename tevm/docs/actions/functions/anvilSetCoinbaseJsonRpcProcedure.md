@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilSetCoinbaseJsonRpcProcedure()
 
-> **anvilSetCoinbaseJsonRpcProcedure**(`client`): `AnvilSetCoinbaseProcedure`
+> **anvilSetCoinbaseJsonRpcProcedure**(`client`): [`AnvilSetCoinbaseProcedure`](../type-aliases/AnvilSetCoinbaseProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilSetCoinbaseProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilSetCoinbaseProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilSetCoinbaseProcedure.d.ts:1
+[`AnvilSetCoinbaseProcedure`](../type-aliases/AnvilSetCoinbaseProcedure.md)

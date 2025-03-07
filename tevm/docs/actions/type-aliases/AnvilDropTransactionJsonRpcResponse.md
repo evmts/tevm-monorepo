@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **AnvilDropTransactionJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_dropTransaction"`, `SerializeToJson`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>, `AnvilError`\>
 
+Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:37
+
 JSON-RPC response for `anvil_dropTransaction` procedure
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:37

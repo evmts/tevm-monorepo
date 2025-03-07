@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcContractOutput
 
 > **SolcContractOutput**: `object`
+
+Defined in: [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)
 
 ## Type declaration
 
@@ -38,11 +40,11 @@
 
 > **storageLayout**: `object`
 
-### storageLayout.storage
+#### storageLayout.storage
 
 > **storage**: `any`[]
 
-### storageLayout.types
+#### storageLayout.types
 
 > **types**: `any`
 
@@ -50,22 +52,18 @@
 
 > **userdoc**: `object`
 
-### userdoc.kind
+#### userdoc.kind
 
 > **kind**: `"user"`
 
-### userdoc.methods?
+#### userdoc.methods?
 
-> `optional` **methods**: `Record`\<`string`, `object`\>
+> `optional` **methods**: `Record`\<`string`, \{ `notice`: `string`; \}\>
 
-### userdoc.notice?
+#### userdoc.notice?
 
 > `optional` **notice**: `string`
 
-### userdoc.version
+#### userdoc.version
 
 > **version**: `number`
-
-## Defined in
-
-[solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)

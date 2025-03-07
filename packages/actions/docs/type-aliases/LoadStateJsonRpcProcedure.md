@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,12 +8,16 @@
 
 > **LoadStateJsonRpcProcedure**: (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/LoadState/LoadStateJsonRpcProcedure.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateJsonRpcProcedure.ts#L17)
+
 Procedure for handling script JSON-RPC requests
 Procedure for handling tevm_loadState JSON-RPC requests
 
 ## Parameters
 
-• **request**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
+### request
+
+[`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
 
 ## Returns
 
@@ -32,7 +36,3 @@ const result = await tevm.request({
 . }
 console.log(result) // { jsonrpc: '2.0', id: 1, method: 'tevm_loadState', result: {}}
 ```
-
-## Defined in
-
-[packages/actions/src/LoadState/LoadStateJsonRpcProcedure.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateJsonRpcProcedure.ts#L17)

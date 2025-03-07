@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGetTransactionByBlockHashAndIndexResult**: [`TransactionResult`](../../index/type-aliases/TransactionResult.md)
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:99
+
 JSON-RPC response for `eth_getTransactionByBlockHashAndIndex` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:99

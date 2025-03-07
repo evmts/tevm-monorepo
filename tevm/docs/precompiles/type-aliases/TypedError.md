@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TypedError\<TName\>
 
 > **TypedError**\<`TName`\>: `object`
+
+Defined in: packages/precompiles/dist/index.d.ts:16
 
 ## Type Parameters
 
@@ -25,7 +27,3 @@
 ### name
 
 > **name**: `TName`
-
-## Defined in
-
-packages/precompiles/dist/index.d.ts:16

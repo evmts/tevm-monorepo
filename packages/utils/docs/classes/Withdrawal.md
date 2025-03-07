@@ -1,10 +1,12 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
 [@tevm/utils](../globals.md) / Withdrawal
 
 # Class: Withdrawal
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:27
 
 Representation of EIP-4895 withdrawal data
 
@@ -14,19 +16,29 @@ Representation of EIP-4895 withdrawal data
 
 > **new Withdrawal**(`index`, `validatorIndex`, `address`, `amount`): [`Withdrawal`](Withdrawal.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:40
+
 This constructor assigns and validates the values.
 Use the static factory methods to assist in creating a Withdrawal object from varying data types.
 Its amount is in Gwei to match CL representation and for eventual ssz withdrawalsRoot
 
 #### Parameters
 
-• **index**: `bigint`
+##### index
 
-• **validatorIndex**: `bigint`
+`bigint`
 
-• **address**: [`EthjsAddress`](EthjsAddress.md)
+##### validatorIndex
 
-• **amount**: `bigint`
+`bigint`
+
+##### address
+
+[`EthjsAddress`](EthjsAddress.md)
+
+##### amount
+
+`bigint`
 
 withdrawal amount in Gwei to match the CL repesentation and eventually ssz withdrawalsRoot
 
@@ -34,19 +46,13 @@ withdrawal amount in Gwei to match the CL repesentation and eventually ssz withd
 
 [`Withdrawal`](Withdrawal.md)
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:40
-
 ## Properties
 
 ### address
 
 > `readonly` **address**: [`EthjsAddress`](EthjsAddress.md)
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:30
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:30
 
 ***
 
@@ -54,11 +60,9 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `readonly` **amount**: `bigint`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:34
+
 withdrawal amount in Gwei to match the CL repesentation and eventually ssz withdrawalsRoot
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:34
 
 ***
 
@@ -66,9 +70,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `readonly` **index**: `bigint`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:28
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:28
 
 ***
 
@@ -76,9 +78,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `readonly` **validatorIndex**: `bigint`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:29
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:29
 
 ## Methods
 
@@ -86,13 +86,11 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **raw**(): `WithdrawalBytes`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:53
+
 #### Returns
 
 `WithdrawalBytes`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:53
 
 ***
 
@@ -100,35 +98,35 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **toJSON**(): `object`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:60
+
 #### Returns
 
 `object`
 
 ##### address
 
-> **address**: \`0x$\{string\}\`
+> **address**: `` `0x${string}` ``
 
 ##### amount
 
-> **amount**: \`0x$\{string\}\`
+> **amount**: `` `0x${string}` ``
 
 ##### index
 
-> **index**: \`0x$\{string\}\`
+> **index**: `` `0x${string}` ``
 
 ##### validatorIndex
 
-> **validatorIndex**: \`0x$\{string\}\`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:60
+> **validatorIndex**: `` `0x${string}` ``
 
 ***
 
 ### toValue()
 
 > **toValue**(): `object`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:54
 
 #### Returns
 
@@ -150,27 +148,23 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **validatorIndex**: `bigint`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:54
-
 ***
 
 ### fromValuesArray()
 
 > `static` **fromValuesArray**(`withdrawalArray`): [`Withdrawal`](Withdrawal.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:46
+
 #### Parameters
 
-• **withdrawalArray**: `WithdrawalBytes`
+##### withdrawalArray
+
+`WithdrawalBytes`
 
 #### Returns
 
 [`Withdrawal`](Withdrawal.md)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:46
 
 ***
 
@@ -178,17 +172,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `static` **fromWithdrawalData**(`withdrawalData`): [`Withdrawal`](Withdrawal.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:45
+
 #### Parameters
 
-• **withdrawalData**: [`WithdrawalData`](../type-aliases/WithdrawalData.md)
+##### withdrawalData
+
+[`WithdrawalData`](../type-aliases/WithdrawalData.md)
 
 #### Returns
 
 [`Withdrawal`](Withdrawal.md)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:45
 
 ***
 
@@ -196,20 +190,20 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `static` **toBytesArray**(`withdrawal`): `WithdrawalBytes`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:52
+
 Convert a withdrawal to a buffer array
 
 #### Parameters
 
-• **withdrawal**: [`Withdrawal`](Withdrawal.md) \| [`WithdrawalData`](../type-aliases/WithdrawalData.md)
+##### withdrawal
 
 the withdrawal to convert
+
+[`Withdrawal`](Withdrawal.md) | [`WithdrawalData`](../type-aliases/WithdrawalData.md)
 
 #### Returns
 
 `WithdrawalBytes`
 
 buffer array of the withdrawal
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:52

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: GetAccountParams\<TThrowOnFail\>
 
 > **GetAccountParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+
+Defined in: packages/actions/types/GetAccount/GetAccountParams.d.ts:10
 
 Tevm params to get an account
 
@@ -48,7 +50,3 @@ const getAccountParams: import('@tevm/api').GetAccountParams = {
   address: '0x...',
 }
 ```
-
-## Defined in
-
-packages/actions/types/GetAccount/GetAccountParams.d.ts:10

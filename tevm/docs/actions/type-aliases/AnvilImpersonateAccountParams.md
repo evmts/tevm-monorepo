@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilImpersonateAccountParams
 
 > **AnvilImpersonateAccountParams**: `object`
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:8
 
 Params fro `anvil_impersonateAccount` handler
 
@@ -17,7 +19,3 @@ Params fro `anvil_impersonateAccount` handler
 > `readonly` **address**: [`Address`](Address.md)
 
 The address to impersonate
-
-## Defined in
-
-packages/actions/types/anvil/AnvilParams.d.ts:8

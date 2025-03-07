@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: InvalidRequestErrorParameters
 
 > **InvalidRequestErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/InvalidRequestError.d.ts:50
 
 Parameters for constructing an InvalidRequestError.
 
@@ -53,7 +55,3 @@ Parameters for constructing an InvalidRequestError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/InvalidRequestError.d.ts:50

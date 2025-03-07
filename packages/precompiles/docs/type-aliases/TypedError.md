@@ -1,4 +1,4 @@
-[**@tevm/precompiles**](../README.md) • **Docs**
+[**@tevm/precompiles**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TypedError\<TName\>
 
 > **TypedError**\<`TName`\>: `object`
+
+Defined in: [TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L1)
 
 ## Type Parameters
 
@@ -25,7 +27,3 @@
 ### name
 
 > **name**: `TName`
-
-## Defined in
-
-[TypedError.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/TypedError.ts#L1)

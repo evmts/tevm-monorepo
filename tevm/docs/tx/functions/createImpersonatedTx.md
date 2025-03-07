@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,20 @@
 
 # Function: createImpersonatedTx()
 
-> **createImpersonatedTx**(`txData`, `opts`?): `ImpersonatedTx`
+> **createImpersonatedTx**(`txData`, `opts`?): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
+
+Defined in: packages/tx/types/createImpersonatedTx.d.ts:1
 
 ## Parameters
 
-• **txData**: `FeeMarketEIP1559TxData` & `object`
+### txData
 
-• **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
+`FeeMarketEIP1559TxData` & `object`
+
+### opts?
+
+[`TxOptions`](../interfaces/TxOptions.md)
 
 ## Returns
 
-`ImpersonatedTx`
-
-## Defined in
-
-packages/tx/types/createImpersonatedTx.d.ts:1
+[`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)

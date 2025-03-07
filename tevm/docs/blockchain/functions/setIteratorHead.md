@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,37 @@
 
 # Function: setIteratorHead()
 
-> **setIteratorHead**(`baseChain`): `Chain`\[`"setIteratorHead"`\]
+> **setIteratorHead**(`baseChain`): (`tag`, `headHash`) => `Promise`\<`void`\>
+
+Defined in: packages/blockchain/types/actions/setIteratorHead.d.ts:1
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
-`Chain`\[`"setIteratorHead"`\]
+`Function`
 
-## Defined in
+Set header hash of a certain `tag`.
+When calling the iterator, the iterator will start running the first child block after the header hash currently stored.
 
-packages/blockchain/types/actions/setIteratorHead.d.ts:1
+### Parameters
+
+#### tag
+
+`string`
+
+The tag to save the headHash to
+
+#### headHash
+
+`Uint8Array`
+
+The head hash to save
+
+### Returns
+
+`Promise`\<`void`\>

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **TevmMineError**: `InternalError` \| `InvalidAddressError` \| `InvalidParamsError` \| `InvalidRequestError`
 
-## Defined in
-
-[packages/actions/src/Mine/TevmMineError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/TevmMineError.ts#L3)
+Defined in: [packages/actions/src/Mine/TevmMineError.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/TevmMineError.ts#L3)

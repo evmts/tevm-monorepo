@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthGetBlockByNumberParams
 
 > **EthGetBlockByNumberParams**: `object`
+
+Defined in: packages/actions/types/eth/EthParams.d.ts:91
 
 Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
@@ -19,7 +21,3 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 ### fullTransactionObjects
 
 > `readonly` **fullTransactionObjects**: `boolean`
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:91

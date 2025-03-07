@@ -1,4 +1,4 @@
-[**@tevm/errors**](../README.md) • **Docs**
+[**@tevm/errors**](../README.md)
 
 ***
 
@@ -6,74 +6,64 @@
 
 # Interface: BaseErrorParameters
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L9)
+
 ## Properties
 
-### cause
+### cause?
 
-> **cause**: `unknown`
+> `optional` **cause**: `unknown`
+
+Defined in: [packages/errors/src/ethereum/BaseError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L14)
 
 The cause of the error.
 
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L14)
-
 ***
 
-### details
+### details?
 
-> **details**: `undefined` \| `string`
+> `optional` **details**: `string`
+
+Defined in: [packages/errors/src/ethereum/BaseError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L15)
 
 Details of the error.
 
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L15)
-
 ***
 
-### docsBaseUrl
+### docsBaseUrl?
 
-> **docsBaseUrl**: `undefined` \| `string`
+> `optional` **docsBaseUrl**: `string`
+
+Defined in: [packages/errors/src/ethereum/BaseError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L10)
 
 Base URL for the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L10)
-
 ***
 
-### docsPath
+### docsPath?
 
-> **docsPath**: `undefined` \| `string`
+> `optional` **docsPath**: `string`
+
+Defined in: [packages/errors/src/ethereum/BaseError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L11)
 
 Path to the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L11)
-
 ***
 
-### docsSlug
+### docsSlug?
 
-> **docsSlug**: `undefined` \| `string`
+> `optional` **docsSlug**: `string`
+
+Defined in: [packages/errors/src/ethereum/BaseError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L12)
 
 Slug for the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L12)
-
 ***
 
-### metaMessages
+### metaMessages?
 
-> **metaMessages**: `undefined` \| `string`[]
+> `optional` **metaMessages**: `string`[]
+
+Defined in: [packages/errors/src/ethereum/BaseError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L13)
 
 Additional meta messages.
-
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L13)

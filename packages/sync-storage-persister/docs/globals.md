@@ -1,4 +1,4 @@
-[**@tevm/sync-storage-persister**](README.md) • **Docs**
+[**@tevm/sync-storage-persister**](README.md)
 
 ***
 

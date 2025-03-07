@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,12 @@
 
 > **Eip1193RequestProvider**: `object`
 
+Defined in: packages/decorators/dist/index.d.ts:1538
+
 The default EIP1193 compatable provider request method with enabled tevm methods.
 
 ## Type declaration
 
 ### request
 
-> **request**: [`EIP1193RequestFn`](EIP1193RequestFn.md)\<[`...PublicRpcSchema`, ...TestRpcSchema$1\<"anvil" \| "ganache" \| "hardhat"\>, [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_call"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_dumpState"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_loadState"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_getAccount"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_setAccount"`\]]\>
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:1538
+> **request**: [`EIP1193RequestFn`](EIP1193RequestFn.md)\<\[`...PublicRpcSchema`, ...TestRpcSchema$1\<"anvil" \| "ganache" \| "hardhat"\>, [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_call"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_dumpState"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_loadState"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_getAccount"`\], [`JsonRpcSchemaTevm`](../../decorators/type-aliases/JsonRpcSchemaTevm.md)\[`"tevm_setAccount"`\]\]\>

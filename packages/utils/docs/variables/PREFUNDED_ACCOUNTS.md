@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # Variable: PREFUNDED\_ACCOUNTS
 
-> `const` **PREFUNDED\_ACCOUNTS**: [`PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`]
+> `const` **PREFUNDED\_ACCOUNTS**: \[`PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`\]
 
-## Defined in
-
-[packages/utils/src/prefundedAccounts.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/prefundedAccounts.ts#L29)
+Defined in: [packages/utils/src/prefundedAccounts.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/prefundedAccounts.ts#L29)

@@ -1,4 +1,4 @@
-[**@tevm/esbuild-plugin**](../README.md) • **Docs**
+[**@tevm/esbuild-plugin**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **esbuildPluginTevm**(`options`?): `Plugin`
 
+Defined in: [bundler-packages/esbuild/src/esbuildPluginTevm.js:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L76)
+
 Esbuild plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
 will transform solidity contract imports into Tevm `Contract` instances.
 
@@ -15,9 +17,11 @@ To configure add this plugin to your esbuild config and add the ts-plugin to you
 
 ## Parameters
 
-• **options?**
+### options?
 
-• **options.solc?**: `SolcVersions`
+#### solc?
+
+`SolcVersions`
 
 ## Returns
 
@@ -93,7 +97,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## See
 
 [Tevm esbuild example](https://todo.todo.todo)
-
-## Defined in
-
-[bundler-packages/esbuild/src/esbuildPluginTevm.js:76](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L76)

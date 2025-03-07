@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,11 +6,15 @@
 
 # Class: TransactionFactory
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:9
+
 ## Methods
 
 ### fromBlockBodyData()
 
 > `static` **fromBlockBodyData**(`data`, `txOptions`?): [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md) \| `EOACodeEIP7702Transaction`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:34
 
 When decoding a BlockBody, in the transactions field, a field is either:
 A Uint8Array (a TypedTransaction - encoded as TransactionType || rlp(TransactionPayload))
@@ -19,11 +23,15 @@ This method returns the right transaction.
 
 #### Parameters
 
-• **data**: `Uint8Array` \| `Uint8Array`[]
+##### data
 
 A Uint8Array or Uint8Array[]
 
-• **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
+`Uint8Array`\<`ArrayBufferLike`\> | `Uint8Array`\<`ArrayBufferLike`\>[]
+
+##### txOptions?
+
+[`TxOptions`](../interfaces/TxOptions.md)
 
 The transaction options
 
@@ -31,29 +39,33 @@ The transaction options
 
 [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md) \| `EOACodeEIP7702Transaction`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:34
-
 ***
 
 ### fromJsonRpcProvider()
 
 > `static` **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions`?): `Promise`\<[`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md) \| `EOACodeEIP7702Transaction`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:42
+
 Method to retrieve a transaction from the provider
 
 #### Parameters
 
-• **provider**: `string` \| `EthersProvider`
+##### provider
 
 a url string for a JSON-RPC provider or an Ethers JsonRPCProvider object
 
-• **txHash**: `string`
+`string` | `EthersProvider`
+
+##### txHash
+
+`string`
 
 Transaction hash
 
-• **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
+##### txOptions?
+
+[`TxOptions`](../interfaces/TxOptions.md)
 
 The transaction options
 
@@ -63,15 +75,13 @@ The transaction options
 
 the transaction specified by `txHash`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:42
-
 ***
 
 ### fromRPC()
 
 > `static` **fromRPC**\<`T`\>(`txData`, `txOptions`?): `Promise`\<`Transaction`\[`T`\]\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:50
 
 Method to decode data retrieved from RPC, such as `eth_getTransactionByHash`
 Note that this normalizes some of the parameters
@@ -82,11 +92,15 @@ Note that this normalizes some of the parameters
 
 #### Parameters
 
-• **txData**: [`TxData`](../interfaces/TxData.md)\[`T`\]
+##### txData
+
+[`TxData`](../interfaces/TxData.md)\[`T`\]
 
 The RPC-encoded data
 
-• **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
+##### txOptions?
+
+[`TxOptions`](../interfaces/TxOptions.md)
 
 The transaction options
 
@@ -94,15 +108,13 @@ The transaction options
 
 `Promise`\<`Transaction`\[`T`\]\>
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:50
-
 ***
 
 ### fromSerializedData()
 
 > `static` **fromSerializedData**\<`T`\>(`data`, `txOptions`?): `Transaction`\[`T`\]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:24
 
 This method tries to decode serialized data.
 
@@ -112,11 +124,15 @@ This method tries to decode serialized data.
 
 #### Parameters
 
-• **data**: `Uint8Array`
+##### data
+
+`Uint8Array`
 
 The data Uint8Array
 
-• **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
+##### txOptions?
+
+[`TxOptions`](../interfaces/TxOptions.md)
 
 The transaction options
 
@@ -124,15 +140,13 @@ The transaction options
 
 `Transaction`\[`T`\]
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:24
-
 ***
 
 ### fromTxData()
 
 > `static` **fromTxData**\<`T`\>(`txData`, `txOptions`?): `Transaction`\[`T`\]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:17
 
 Create a transaction from a `txData` object
 
@@ -142,18 +156,18 @@ Create a transaction from a `txData` object
 
 #### Parameters
 
-• **txData**: `TypedTxData`
+##### txData
+
+`TypedTxData`
 
 The transaction data. The `type` field will determine which transaction type is returned (if undefined, creates a legacy transaction)
 
-• **txOptions?**: [`TxOptions`](../interfaces/TxOptions.md)
+##### txOptions?
+
+[`TxOptions`](../interfaces/TxOptions.md)
 
 Options to pass on to the constructor of the transaction
 
 #### Returns
 
 `Transaction`\[`T`\]
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:17

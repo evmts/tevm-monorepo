@@ -1,4 +1,4 @@
-[**@tevm/effect**](../../README.md) • **Docs**
+[**@tevm/effect**](../../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **logAllErrors**(`e`): `Effect`\<`void`, `never`, `never`\>
 
+Defined in: [packages/effect/src/logAllErrors.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/logAllErrors.js#L16)
+
 Logs all errors and causes from effect
 
 ## Parameters
 
-• **e**: `unknown`
+### e
+
+`unknown`
 
 ## Returns
 
@@ -26,7 +30,3 @@ import { logAllErrors } from '@eth-optimism/config'
 someEffect.pipe(
   tapError(logAllErrors)
 )
-
-## Defined in
-
-[packages/effect/src/logAllErrors.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/logAllErrors.js#L16)

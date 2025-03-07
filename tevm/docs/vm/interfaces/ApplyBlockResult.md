@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [vm](../README.md) / ApplyBlockResult
 
 # Interface: ApplyBlockResult
+
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:8
 
 Result of [applyBlock](../functions/applyBlock.md)
 
@@ -14,11 +16,9 @@ Result of [applyBlock](../functions/applyBlock.md)
 
 > **bloom**: `Bloom`
 
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:12
+
 The Bloom filter
-
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:12
 
 ***
 
@@ -26,23 +26,19 @@ packages/vm/types/utils/ApplyBlockResult.d.ts:12
 
 > **gasUsed**: `bigint`
 
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:16
+
 The gas used after executing the block
-
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:16
 
 ***
 
 ### preimages?
 
-> `optional` **preimages**: `Map`\<\`0x$\{string\}\`, `Uint8Array`\>
+> `optional` **preimages**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:32
 
 Preimages mapping of the touched accounts from the block (see reportPreimages option)
-
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:32
 
 ***
 
@@ -50,11 +46,9 @@ packages/vm/types/utils/ApplyBlockResult.d.ts:32
 
 > **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:24
+
 Receipts generated for transactions in the block
-
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:24
 
 ***
 
@@ -62,11 +56,9 @@ packages/vm/types/utils/ApplyBlockResult.d.ts:24
 
 > **receiptsRoot**: `Uint8Array`
 
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:20
+
 The receipt root after executing the block
-
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:20
 
 ***
 
@@ -74,8 +66,6 @@ packages/vm/types/utils/ApplyBlockResult.d.ts:20
 
 > **results**: [`RunTxResult`](RunTxResult.md)[]
 
+Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:28
+
 Results of executing the transactions in the block
-
-#### Defined in
-
-packages/vm/types/utils/ApplyBlockResult.d.ts:28

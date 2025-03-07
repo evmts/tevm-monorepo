@@ -112,6 +112,7 @@ describe(tsPlugin.name, () => {
 			  "mapCode": [Function],
 			  "organizeImports": [Function],
 			  "prepareCallHierarchy": [Function],
+			  "preparePasteEditsForFile": [Function],
 			  "provideCallHierarchyIncomingCalls": [Function],
 			  "provideCallHierarchyOutgoingCalls": [Function],
 			  "provideInlayHints": [Function],

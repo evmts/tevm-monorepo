@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [vm](../README.md) / RunTxOpts
 
 # Interface: RunTxOpts
+
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:6
 
 Options for the `runTx` method.
 
@@ -14,12 +16,10 @@ Options for the `runTx` method.
 
 > `optional` **block**: [`Block`](../../block/classes/Block.md)
 
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:11
+
 The `@ethereumjs/block` the `tx` belongs to.
 If omitted, a default blank block will be used.
-
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:11
 
 ***
 
@@ -27,17 +27,17 @@ packages/vm/types/utils/RunTxOpts.d.ts:11
 
 > `optional` **blockGasUsed**: `bigint`
 
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:53
+
 To obtain an accurate tx receipt input the block gas used up until this tx.
-
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:53
 
 ***
 
 ### reportAccessList?
 
 > `optional` **reportAccessList**: `boolean`
+
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:44
 
 If true, adds a generated EIP-2930 access list
 to the `RunTxResult` returned.
@@ -48,22 +48,16 @@ be activated (included in `berlin` HF).
 Note: if this option is used with a custom StateManager implementation
 StateManager.generateAccessList must be implemented.
 
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:44
-
 ***
 
 ### reportPreimages?
 
 > `optional` **reportPreimages**: `boolean`
 
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:49
+
 If true, adds a hashedKey -> preimages mapping of all touched accounts
 to the `RunTxResult` returned.
-
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:49
 
 ***
 
@@ -71,11 +65,9 @@ packages/vm/types/utils/RunTxOpts.d.ts:49
 
 > `optional` **skipBalance**: `boolean`
 
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:23
+
 Skip balance checks if true. Adds transaction cost to balance to ensure execution doesn't fail.
-
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:23
 
 ***
 
@@ -83,12 +75,10 @@ packages/vm/types/utils/RunTxOpts.d.ts:23
 
 > `optional` **skipBlockGasLimitValidation**: `boolean`
 
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:28
+
 If true, skips the validation of the tx's gas limit
 against the block's gas limit.
-
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:28
 
 ***
 
@@ -96,12 +86,10 @@ packages/vm/types/utils/RunTxOpts.d.ts:28
 
 > `optional` **skipHardForkValidation**: `boolean`
 
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:33
+
 If true, skips the hardfork validation of vm, block
 and tx
-
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:33
 
 ***
 
@@ -109,11 +97,9 @@ packages/vm/types/utils/RunTxOpts.d.ts:33
 
 > `optional` **skipNonce**: `boolean`
 
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:19
+
 If true, skips the nonce check
-
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:19
 
 ***
 
@@ -121,8 +107,6 @@ packages/vm/types/utils/RunTxOpts.d.ts:19
 
 > **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)
 
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:15
+
 An `@ethereumjs/tx` to run
-
-#### Defined in
-
-packages/vm/types/utils/RunTxOpts.d.ts:15

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: taraxa
 
-> `const` **taraxa**: `Common`
+> `const` **taraxa**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/taraxa.d.ts:21
 
 Creates a common configuration for the taraxa chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/taraxa.d.ts:21

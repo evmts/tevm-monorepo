@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthReturnType
 
 > **EthReturnType**: `object`
+
+Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:5
 
 A mapping of `eth_*` method names to their return type
 
@@ -167,7 +169,3 @@ A mapping of `eth_*` method names to their return type
 ### eth\_uninstallFilter
 
 > **eth\_uninstallFilter**: [`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)
-
-## Defined in
-
-packages/actions/types/tevm-request-handler/EthReturnType.d.ts:5

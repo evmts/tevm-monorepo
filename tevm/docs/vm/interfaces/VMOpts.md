@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [vm](../README.md) / VMOpts
 
 # Interface: VMOpts
+
+Defined in: packages/vm/types/utils/VMOpts.d.ts:10
 
 Options for instantiating a VM.
 
@@ -13,6 +15,8 @@ Options for instantiating a VM.
 ### activatePrecompiles?
 
 > `optional` **activatePrecompiles**: `boolean`
+
+Defined in: packages/vm/types/utils/VMOpts.d.ts:54
 
 If true, create entries in the state tree for the precompiled contracts, saving some gas the
 first time each of them is called.
@@ -26,27 +30,23 @@ the very first call, which is intended for testing networks.
 
 Default: `false`
 
-#### Defined in
-
-packages/vm/types/utils/VMOpts.d.ts:54
-
 ***
 
 ### blockchain?
 
 > `optional` **blockchain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
 
+Defined in: packages/vm/types/utils/VMOpts.d.ts:40
+
 A Blockchain object for storing/retrieving blocks
-
-#### Defined in
-
-packages/vm/types/utils/VMOpts.d.ts:40
 
 ***
 
 ### common?
 
 > `optional` **common**: `object`
+
+Defined in: packages/vm/types/utils/VMOpts.d.ts:32
 
 Use a [Common](../../common/type-aliases/Common.md) instance
 if you want to change the chain setup.
@@ -76,9 +76,9 @@ Collection of block explorers
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainBlockExplorer`
+\[`key`: `string`\]: `ChainBlockExplorer`
 
-#### blockExplorers.default
+##### blockExplorers.default
 
 > **default**: `ChainBlockExplorer`
 
@@ -88,25 +88,33 @@ Collection of block explorers
 
 Collection of contracts
 
-#### contracts.ensRegistry?
+##### Index Signature
+
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+
+##### contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
 
-#### contracts.ensUniversalResolver?
+##### contracts.ensUniversalResolver?
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
-#### contracts.multicall3?
+##### contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
 
+##### contracts.universalSignatureVerifier?
+
+> `optional` **universalSignatureVerifier**: `ChainContract`
+
 #### copy()
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 #### custom?
 
@@ -156,9 +164,9 @@ Collection of RPC endpoints
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainRpcUrls`
+\[`key`: `string`\]: `ChainRpcUrls`
 
-#### rpcUrls.default
+##### rpcUrls.default
 
 > **default**: `ChainRpcUrls`
 
@@ -180,21 +188,15 @@ Source Chain ID (ie. the L1 chain)
 
 Flag for test networks
 
-#### Defined in
-
-packages/vm/types/utils/VMOpts.d.ts:32
-
 ***
 
 ### evm?
 
 > `optional` **evm**: [`Evm`](../../evm/classes/Evm.md)
 
+Defined in: packages/vm/types/utils/VMOpts.d.ts:73
+
 Use a custom EVM to run Messages on. If this is not present, use the default EVM.
-
-#### Defined in
-
-packages/vm/types/utils/VMOpts.d.ts:73
 
 ***
 
@@ -202,12 +204,10 @@ packages/vm/types/utils/VMOpts.d.ts:73
 
 > `optional` **genesisState**: [`GenesisState`](../../utils/interfaces/GenesisState.md)
 
+Defined in: packages/vm/types/utils/VMOpts.d.ts:59
+
 A genesisState to generate canonical genesis for the "in-house" created stateManager if external
 stateManager not provided for the VM, defaults to an empty state
-
-#### Defined in
-
-packages/vm/types/utils/VMOpts.d.ts:59
 
 ***
 
@@ -215,15 +215,15 @@ packages/vm/types/utils/VMOpts.d.ts:59
 
 > `optional` **profilerOpts**: [`VMProfilerOpts`](../type-aliases/VMProfilerOpts.md)
 
-#### Defined in
-
-packages/vm/types/utils/VMOpts.d.ts:74
+Defined in: packages/vm/types/utils/VMOpts.d.ts:74
 
 ***
 
 ### setHardfork?
 
 > `optional` **setHardfork**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+
+Defined in: packages/vm/types/utils/VMOpts.d.ts:69
 
 Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
 for older Hfs.
@@ -233,18 +233,12 @@ transitions. Note that this should only be needed in very rare and specific scen
 
 Default: `false` (HF is set to whatever default HF is set by the [Common](../../common/type-aliases/Common.md) instance)
 
-#### Defined in
-
-packages/vm/types/utils/VMOpts.d.ts:69
-
 ***
 
 ### stateManager?
 
 > `optional` **stateManager**: [`StateManager`](../../state/interfaces/StateManager.md)
 
+Defined in: packages/vm/types/utils/VMOpts.d.ts:36
+
 A [StateManager](../../state/interfaces/StateManager.md) instance to use as the state store
-
-#### Defined in
-
-packages/vm/types/utils/VMOpts.d.ts:36

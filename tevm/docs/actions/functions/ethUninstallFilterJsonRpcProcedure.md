@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethUninstallFilterJsonRpcProcedure()
 
-> **ethUninstallFilterJsonRpcProcedure**(`client`): `EthUninstallFilterJsonRpcProcedure`
+> **ethUninstallFilterJsonRpcProcedure**(`client`): [`EthUninstallFilterJsonRpcProcedure`](../type-aliases/EthUninstallFilterJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethUninstallFilterProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthUninstallFilterJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethUninstallFilterProcedure.d.ts:1
+[`EthUninstallFilterJsonRpcProcedure`](../type-aliases/EthUninstallFilterJsonRpcProcedure.md)

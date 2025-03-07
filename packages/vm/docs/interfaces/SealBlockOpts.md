@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -6,30 +6,28 @@
 
 # Interface: SealBlockOpts
 
+Defined in: [packages/vm/src/utils/SealBlockOpts.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L4)
+
 Options for sealing a block.
 
 ## Properties
 
 ### mixHash?
 
-> `optional` **mixHash**: `Uint8Array`
+> `optional` **mixHash**: `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: [packages/vm/src/utils/SealBlockOpts.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L15)
 
 For PoW, the mixHash.
 Overrides the value passed in the constructor.
-
-#### Defined in
-
-[packages/vm/src/utils/SealBlockOpts.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L15)
 
 ***
 
 ### nonce?
 
-> `optional` **nonce**: `Uint8Array`
+> `optional` **nonce**: `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: [packages/vm/src/utils/SealBlockOpts.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L9)
 
 For PoW, the nonce.
 Overrides the value passed in the constructor.
-
-#### Defined in
-
-[packages/vm/src/utils/SealBlockOpts.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L9)

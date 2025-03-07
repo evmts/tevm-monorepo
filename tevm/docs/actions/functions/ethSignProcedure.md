@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethSignProcedure()
 
-> **ethSignProcedure**(`accounts`): `EthSignJsonRpcProcedure`
+> **ethSignProcedure**(`accounts`): [`EthSignJsonRpcProcedure`](../type-aliases/EthSignJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethSignProcedure.d.ts:1
 
 ## Parameters
 
-• **accounts**: readonly `object`[]
+### accounts
+
+readonly `object`[]
 
 ## Returns
 
-`EthSignJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethSignProcedure.d.ts:1
+[`EthSignJsonRpcProcedure`](../type-aliases/EthSignJsonRpcProcedure.md)

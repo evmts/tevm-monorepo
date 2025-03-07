@@ -1,4 +1,4 @@
-[**@tevm/node**](../README.md) • **Docs**
+[**@tevm/node**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > `const` **GENESIS\_STATE**: `TevmState`
 
-## Defined in
-
-[packages/node/src/GENESIS\_STATE.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/GENESIS_STATE.js#L36)
+Defined in: [packages/node/src/GENESIS\_STATE.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/GENESIS_STATE.js#L36)

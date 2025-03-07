@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthCoinbaseParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:60
+
 Based on the JSON-RPC request for `eth_coinbase` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:60

@@ -1,4 +1,4 @@
-[**@tevm/effect**](../README.md) • **Docs**
+[**@tevm/effect**](../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # fileExists
 
-## Index
-
-### Functions
+## Functions
 
 - [fileExists](functions/fileExists.md)

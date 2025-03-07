@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcDebugSettings
 
 > **SolcDebugSettings**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:58
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### revertStrings?
 
 > `optional` **revertStrings**: `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:58

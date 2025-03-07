@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBlockTransactionCountByHashHandler**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashResult`](EthGetBlockTransactionCountByHashResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:14
+
 ## Parameters
 
-• **request**: [`EthGetBlockTransactionCountByHashParams`](EthGetBlockTransactionCountByHashParams.md)
+### request
+
+[`EthGetBlockTransactionCountByHashParams`](EthGetBlockTransactionCountByHashParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBlockTransactionCountByHashResult`](EthGetBlockTransactionCountByHashResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:14

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthMiningHandler**: (`request`) => `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:30
+
 ## Parameters
 
-• **request**: [`EthMiningParams`](EthMiningParams.md)
+### request
+
+[`EthMiningParams`](EthMiningParams.md)
 
 ## Returns
 
 `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:30

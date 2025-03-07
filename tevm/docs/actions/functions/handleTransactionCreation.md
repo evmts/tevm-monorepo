@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,22 +6,28 @@
 
 # Function: handleTransactionCreation()
 
-> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<`object` \| `object`\>
+> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../../index/type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
+
+Defined in: packages/actions/types/Call/handleTransactionCreation.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **params**: [`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **executedCall**: [`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md)
+### params
 
-• **evmInput**: [`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md)
+[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+
+### executedCall
+
+[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md)
+
+### evmInput
+
+[`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md)
 
 ## Returns
 
-`Promise`\<`object` \| `object`\>
-
-## Defined in
-
-packages/actions/types/Call/handleTransactionCreation.d.ts:1
+`Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../../index/type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>

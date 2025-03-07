@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TransactionResult
 
 > **TransactionResult**: `object`
+
+Defined in: packages/actions/types/common/TransactionResult.d.ts:6
 
 The type returned by transaction related
 json rpc procedures
@@ -68,7 +70,3 @@ json rpc procedures
 ### value
 
 > `readonly` **value**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-## Defined in
-
-packages/actions/types/common/TransactionResult.d.ts:6

@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: getContractStorage()
 
-> **getContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`) => `Promise`\<`Uint8Array`\>
+> **getContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: [packages/state/src/actions/getContractStorage.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L15)
 
 Gets the storage value associated with the provided `address` and `key`. This method returns
 the shortest representation of the stored value.
@@ -15,9 +17,13 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -25,14 +31,14 @@ If this does not exist an empty `Uint8Array` is returned.
 
 ### Parameters
 
-• **address**: `Address`
+#### address
 
-• **key**: `Uint8Array`
+`Address`
+
+#### key
+
+`Uint8Array`
 
 ### Returns
 
-`Promise`\<`Uint8Array`\>
-
-## Defined in
-
-[packages/state/src/actions/getContractStorage.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L15)
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

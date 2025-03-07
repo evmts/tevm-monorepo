@@ -1,4 +1,4 @@
-**@tevm/blockchain** • [**Docs**](globals.md)
+**@tevm/blockchain**
 
 ***
 

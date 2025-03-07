@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilLoadStateJsonRpcProcedure()
 
-> **anvilLoadStateJsonRpcProcedure**(`client`): `AnvilLoadStateProcedure`
+> **anvilLoadStateJsonRpcProcedure**(`client`): [`AnvilLoadStateProcedure`](../type-aliases/AnvilLoadStateProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilLoadStateProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilLoadStateProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilLoadStateProcedure.d.ts:1
+[`AnvilLoadStateProcedure`](../type-aliases/AnvilLoadStateProcedure.md)

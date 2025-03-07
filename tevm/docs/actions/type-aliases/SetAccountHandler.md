@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **SetAccountHandler**: (`params`) => `Promise`\<[`SetAccountResult`](../../index/type-aliases/SetAccountResult.md)\>
 
+Defined in: packages/actions/types/SetAccount/SetAccountHandlerType.d.ts:14
+
 Sets the state of a specific ethereum address
 
 ## Parameters
 
-• **params**: [`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)
+### params
+
+[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)
 
 ## Returns
 
@@ -29,7 +33,3 @@ await tevm.setAccount({
  balance: parseEther('1.0')
 })
 ```
-
-## Defined in
-
-packages/actions/types/SetAccount/SetAccountHandlerType.d.ts:14

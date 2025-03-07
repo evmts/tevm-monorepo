@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilSetNonceProcedure**: (`request`) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L98)
+
 JSON-RPC procedure for `anvil_setNonce`
 
 ## Parameters
 
-• **request**: [`AnvilSetNonceJsonRpcRequest`](AnvilSetNonceJsonRpcRequest.md)
+### request
+
+[`AnvilSetNonceJsonRpcRequest`](AnvilSetNonceJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilProcedure.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L98)

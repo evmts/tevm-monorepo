@@ -1,4 +1,4 @@
-[**tevm**](../../../../../README.md) • **Docs**
+[**tevm**](../../../../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **remappings**: `object`
 
-## Defined in
-
-bundler-packages/config/types/config/withDefaults.d.ts:4
+Defined in: bundler-packages/config/types/config/withDefaults.d.ts:4

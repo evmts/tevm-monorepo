@@ -1,4 +1,4 @@
-**@tevm/bundler-cache** • [**Docs**](globals.md)
+**@tevm/bundler-cache**
 
 ***
 

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **shallowCopy**(`baseState`): () => [`BaseState`](../type-aliases/BaseState.md)
 
+Defined in: packages/state/dist/index.d.ts:372
+
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
+
+[`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
@@ -19,7 +23,3 @@
 ### Returns
 
 [`BaseState`](../type-aliases/BaseState.md)
-
-## Defined in
-
-packages/state/dist/index.d.ts:372

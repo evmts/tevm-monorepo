@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthNewPendingTransactionFilterResult**: [`Hex`](Hex.md)
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:170
+
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:170

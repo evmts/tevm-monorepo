@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthSendRawTransactionJsonRpcProcedure**: (`request`) => `Promise`\<[`EthSendRawTransactionJsonRpcResponse`](EthSendRawTransactionJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:32
+
 ## Parameters
 
-• **request**: [`EthSendRawTransactionJsonRpcRequest`](EthSendRawTransactionJsonRpcRequest.md)
+### request
+
+[`EthSendRawTransactionJsonRpcRequest`](EthSendRawTransactionJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthSendRawTransactionJsonRpcResponse`](EthSendRawTransactionJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:32

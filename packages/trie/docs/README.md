@@ -1,4 +1,4 @@
-**@tevm/trie** • [**Docs**](globals.md)
+**@tevm/trie**
 
 ***
 

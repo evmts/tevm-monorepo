@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetTransactionCountProcedure()
 
-> **ethGetTransactionCountProcedure**(`node`): `EthGetTransactionCountJsonRpcProcedure`
+> **ethGetTransactionCountProcedure**(`node`): [`EthGetTransactionCountJsonRpcProcedure`](../type-aliases/EthGetTransactionCountJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethGetTransactionCountProcedure.d.ts:1
 
 ## Parameters
 
-• **node**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### node
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetTransactionCountJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethGetTransactionCountProcedure.d.ts:1
+[`EthGetTransactionCountJsonRpcProcedure`](../type-aliases/EthGetTransactionCountJsonRpcProcedure.md)

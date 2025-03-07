@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,18 @@
 
 # Function: ethSignHandler()
 
-> **ethSignHandler**(`__namedParameters`): `EthSignHandler`
+> **ethSignHandler**(`__namedParameters`): [`EthSignHandler`](../type-aliases/EthSignHandler.md)
+
+Defined in: packages/actions/types/eth/ethSignHandler.d.ts:12
 
 ## Parameters
 
-• **\_\_namedParameters**
+### \_\_namedParameters
 
-• **\_\_namedParameters.accounts**: readonly `object`[]
+#### accounts
+
+readonly `object`[]
 
 ## Returns
 
-`EthSignHandler`
-
-## Defined in
-
-packages/actions/types/eth/ethSignHandler.d.ts:12
+[`EthSignHandler`](../type-aliases/EthSignHandler.md)

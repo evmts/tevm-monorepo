@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,15 +6,13 @@
 
 # actions
 
-## Index
-
-### Classes
+## Classes
 
 - [BlobGasLimitExceededError](classes/BlobGasLimitExceededError.md)
 - [MissingAccountError](classes/MissingAccountError.md)
 - [NoForkUrlSetError](classes/NoForkUrlSetError.md)
 
-### Type Aliases
+## Type Aliases
 
 - [Abi](type-aliases/Abi.md)
 - [Address](type-aliases/Address.md)
@@ -408,7 +406,7 @@
 - [ValidateMineParamsError](type-aliases/ValidateMineParamsError.md)
 - [ValidateSetAccountParamsError](type-aliases/ValidateSetAccountParamsError.md)
 
-### Variables
+## Variables
 
 - [zAbi](variables/zAbi.md)
 - [zAddress](variables/zAddress.md)
@@ -427,7 +425,7 @@
 - [zStateOverrideSet](variables/zStateOverrideSet.md)
 - [zStorageRoot](variables/zStorageRoot.md)
 
-### Functions
+## Functions
 
 - [anvilDealJsonRpcProcedure](functions/anvilDealJsonRpcProcedure.md)
 - [anvilDropTransactionJsonRpcProcedure](functions/anvilDropTransactionJsonRpcProcedure.md)

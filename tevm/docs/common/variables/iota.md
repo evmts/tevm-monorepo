@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: iota
 
-> `const` **iota**: `Common`
+> `const` **iota**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/iota.d.ts:21
 
 Creates a common configuration for the iota chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/iota.d.ts:21

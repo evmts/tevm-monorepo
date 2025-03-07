@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,15 +6,13 @@
 
 # utils
 
-## Index
-
-### Enumerations
+## Enumerations
 
 - [KeyEncoding](enumerations/KeyEncoding.md)
 - [TypeOutput](enumerations/TypeOutput.md)
 - [ValueEncoding](enumerations/ValueEncoding.md)
 
-### Classes
+## Classes
 
 - [AsyncEventEmitter](classes/AsyncEventEmitter.md)
 - [Bloom](classes/Bloom.md)
@@ -22,13 +20,13 @@
 - [EthjsAddress](classes/EthjsAddress.md)
 - [Withdrawal](classes/Withdrawal.md)
 
-### Interfaces
+## Interfaces
 
 - [Db](interfaces/Db.md)
 - [GenesisState](interfaces/GenesisState.md)
 - [JsonRpcWithdrawal](interfaces/JsonRpcWithdrawal.md)
 
-### Type Aliases
+## Type Aliases
 
 - [AddressLike](type-aliases/AddressLike.md)
 - [BatchDbOp](type-aliases/BatchDbOp.md)
@@ -49,15 +47,15 @@
 - [SetToHex](type-aliases/SetToHex.md)
 - [WithdrawalData](type-aliases/WithdrawalData.md)
 
-### Variables
+## Variables
 
 - [GWEI\_TO\_WEI](variables/GWEI_TO_WEI.md)
 - [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
 - [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
 
-### Functions
+## Functions
 
-- [bytesToUnprefixedHex](functions/bytesToUnprefixedHex.md)
+- [~~bytesToUnprefixedHex~~](functions/bytesToUnprefixedHex.md)
 - [bytesToUtf8](functions/bytesToUtf8.md)
 - [concatBytes](functions/concatBytes.md)
 - [ecrecover](functions/ecrecover.md)

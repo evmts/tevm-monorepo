@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **SyncStoragePersister**: `object`
 
+Defined in: packages/sync-storage-persister/types/SyncStoragePersister.d.ts:2
+
 ## Type declaration
 
 ### persistTevmState()
@@ -16,7 +18,9 @@
 
 #### Parameters
 
-• **state**: [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
+##### state
+
+[`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
 
 #### Returns
 
@@ -37,7 +41,3 @@
 #### Returns
 
 [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md) \| `undefined`
-
-## Defined in
-
-packages/sync-storage-persister/types/SyncStoragePersister.d.ts:2

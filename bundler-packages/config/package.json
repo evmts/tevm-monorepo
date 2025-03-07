@@ -66,11 +66,11 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
-		"@effect/schema": "0.74.1",
+		"@effect/schema": "0.75.5",
 		"@tevm/effect": "workspace:^",
-		"@types/node": "^22.7.3",
-		"effect": "3.8.4",
-		"zod": "^3.23.8"
+		"@types/node": "^22.13.5",
+		"effect": "3.13.2",
+		"zod": "^3.24.2"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

@@ -1,4 +1,4 @@
-**@tevm/rspack-plugin** • [**Docs**](globals.md)
+**@tevm/rspack-plugin**
 
 ***
 

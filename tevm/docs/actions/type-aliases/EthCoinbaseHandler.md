@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthCoinbaseHandler**: (`request`) => `Promise`\<[`EthCoinbaseResult`](EthCoinbaseResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:7
+
 ## Parameters
 
-• **request**: [`EthCoinbaseParams`](EthCoinbaseParams.md)
+### request
+
+[`EthCoinbaseParams`](EthCoinbaseParams.md)
 
 ## Returns
 
 `Promise`\<[`EthCoinbaseResult`](EthCoinbaseResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:7

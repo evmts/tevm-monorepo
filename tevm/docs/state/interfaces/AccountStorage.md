@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,35 +6,31 @@
 
 # Interface: AccountStorage
 
+Defined in: packages/state/dist/index.d.ts:10
+
 ## Properties
 
 ### balance
 
 > **balance**: `bigint`
 
-#### Defined in
-
-packages/state/dist/index.d.ts:12
+Defined in: packages/state/dist/index.d.ts:12
 
 ***
 
 ### codeHash
 
-> **codeHash**: \`0x$\{string\}\`
+> **codeHash**: `` `0x${string}` ``
 
-#### Defined in
-
-packages/state/dist/index.d.ts:14
+Defined in: packages/state/dist/index.d.ts:14
 
 ***
 
 ### deployedBytecode?
 
-> `optional` **deployedBytecode**: \`0x$\{string\}\`
+> `optional` **deployedBytecode**: `` `0x${string}` ``
 
-#### Defined in
-
-packages/state/dist/index.d.ts:15
+Defined in: packages/state/dist/index.d.ts:15
 
 ***
 
@@ -42,9 +38,7 @@ packages/state/dist/index.d.ts:15
 
 > **nonce**: `bigint`
 
-#### Defined in
-
-packages/state/dist/index.d.ts:11
+Defined in: packages/state/dist/index.d.ts:11
 
 ***
 
@@ -52,16 +46,12 @@ packages/state/dist/index.d.ts:11
 
 > `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-#### Defined in
-
-packages/state/dist/index.d.ts:16
+Defined in: packages/state/dist/index.d.ts:16
 
 ***
 
 ### storageRoot
 
-> **storageRoot**: \`0x$\{string\}\`
+> **storageRoot**: `` `0x${string}` ``
 
-#### Defined in
-
-packages/state/dist/index.d.ts:13
+Defined in: packages/state/dist/index.d.ts:13

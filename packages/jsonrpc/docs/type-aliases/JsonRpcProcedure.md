@@ -1,4 +1,4 @@
-[**@tevm/jsonrpc**](../README.md) • **Docs**
+[**@tevm/jsonrpc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: JsonRpcProcedure()\<TMethod, TParams, TResult, TErrorCode\>
 
 > **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\>: (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
+
+Defined in: [packages/jsonrpc/src/JsonRpcProcedure.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcProcedure.ts#L4)
 
 ## Type Parameters
 
@@ -20,12 +22,10 @@
 
 ## Parameters
 
-• **request**: [`JsonRpcRequest`](JsonRpcRequest.md)\<`TMethod`, `TParams`\>
+### request
+
+[`JsonRpcRequest`](JsonRpcRequest.md)\<`TMethod`, `TParams`\>
 
 ## Returns
 
 `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
-
-## Defined in
-
-[packages/jsonrpc/src/JsonRpcProcedure.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcProcedure.ts#L4)

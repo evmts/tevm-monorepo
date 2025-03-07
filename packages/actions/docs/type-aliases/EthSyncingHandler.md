@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthSyncingHandler**: (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
+Defined in: [packages/actions/src/eth/EthHandler.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L173)
+
 ## Parameters
 
-• **request**: [`EthSyncingParams`](EthSyncingParams.md)
+### request
+
+[`EthSyncingParams`](EthSyncingParams.md)
 
 ## Returns
 
 `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthHandler.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L173)

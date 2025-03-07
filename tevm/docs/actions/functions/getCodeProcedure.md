@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: getCodeProcedure()
 
-> **getCodeProcedure**(`baseClient`): `EthGetCodeJsonRpcProcedure`
+> **getCodeProcedure**(`baseClient`): [`EthGetCodeJsonRpcProcedure`](../type-aliases/EthGetCodeJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/getCodeProcedure.d.ts:1
 
 ## Parameters
 
-• **baseClient**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### baseClient
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetCodeJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/getCodeProcedure.d.ts:1
+[`EthGetCodeJsonRpcProcedure`](../type-aliases/EthGetCodeJsonRpcProcedure.md)

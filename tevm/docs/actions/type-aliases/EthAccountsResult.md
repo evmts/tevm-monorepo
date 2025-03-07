@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **EthAccountsResult**: [`Address`](Address.md)[]
 
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:11
+Defined in: packages/actions/types/eth/EthResult.d.ts:11

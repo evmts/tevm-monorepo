@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,30 @@
 
 # Function: putBlock()
 
-> **putBlock**(`baseChain`): `Chain`\[`"putBlock"`\]
+> **putBlock**(`baseChain`): (`block`) => `Promise`\<`void`\>
+
+Defined in: packages/blockchain/types/actions/putBlock.d.ts:1
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
-`Chain`\[`"putBlock"`\]
+`Function`
 
-## Defined in
+Adds a block to the blockchain.
 
-packages/blockchain/types/actions/putBlock.d.ts:1
+### Parameters
+
+#### block
+
+[`Block`](../../block/classes/Block.md)
+
+The block to be added to the blockchain.
+
+### Returns
+
+`Promise`\<`void`\>

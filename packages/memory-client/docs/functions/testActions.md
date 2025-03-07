@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -8,15 +8,19 @@
 
 > **testActions**\<`mode`\>(`__namedParameters`): \<`transport`, `chain`, `account`\>(`client`) => `TestActions`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/clients/decorators/test.d.ts:637
+
 ## Type Parameters
 
 • **mode** *extends* `TestClientMode`
 
 ## Parameters
 
-• **\_\_namedParameters**
+### \_\_namedParameters
 
-• **\_\_namedParameters.mode**: `mode`
+#### mode
+
+`mode`
 
 ## Returns
 
@@ -26,18 +30,16 @@
 
 • **transport** *extends* `Transport` = `Transport`
 
-• **chain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+• **chain** *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
 
-• **account** *extends* `Account` \| `undefined` = `Account` \| `undefined`
+• **account** *extends* `undefined` \| `Account` = `undefined` \| `Account`
 
 ### Parameters
 
-• **client**: `Client`\<`transport`, `chain`, `account`\>
+#### client
+
+`Client`\<`transport`, `chain`, `account`\>
 
 ### Returns
 
 `TestActions`
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/clients/decorators/test.d.ts:637

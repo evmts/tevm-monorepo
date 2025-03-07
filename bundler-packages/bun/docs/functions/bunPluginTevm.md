@@ -1,4 +1,4 @@
-[**@tevm/bun-plugin**](../README.md) • **Docs**
+[**@tevm/bun-plugin**](../README.md)
 
 ***
 
@@ -8,16 +8,20 @@
 
 > **bunPluginTevm**(`SolcVersions`): `BunPlugin`
 
+Defined in: [bunPluginTevm.js:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunPluginTevm.js#L86)
+
 Bun plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
 will transform solidity contract imports into Tevm `Contract` instances.
 
 ## Parameters
 
-• **SolcVersions**
+### SolcVersions
 
 Which solc version to use
 
-• **SolcVersions.solc?**: `SolcVersions` = `defaultSolc.version`
+#### solc?
+
+`SolcVersions` = `defaultSolc.version`
 
 ## Returns
 
@@ -98,7 +102,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
 ## See
 
 [Tevm esbuild example](https://todo.todo.todo)
-
-## Defined in
-
-[bunPluginTevm.js:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunPluginTevm.js#L86)

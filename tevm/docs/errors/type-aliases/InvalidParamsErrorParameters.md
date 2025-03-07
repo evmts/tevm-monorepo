@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: InvalidParamsErrorParameters
 
 > **InvalidParamsErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/InvalidParamsError.d.ts:55
 
 Parameters for constructing an InvalidParamsError.
 
@@ -53,7 +55,3 @@ Parameters for constructing an InvalidParamsError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/InvalidParamsError.d.ts:55

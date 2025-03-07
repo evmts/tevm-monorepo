@@ -1,4 +1,4 @@
-[**@tevm/address**](../README.md) • **Docs**
+[**@tevm/address**](../README.md)
 
 ***
 
@@ -8,19 +8,27 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
+Defined in: [packages/address/src/create2ContractAddress.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L19)
+
 Generates an [Address](../classes/Address.md) for a contract created using CREATE2.
 
 ## Parameters
 
-• **from**: `Address`
+### from
+
+`Address`
 
 The address which is creating this new address
 
-• **salt**: \`0x$\{string\}\`
+### salt
+
+`` `0x${string}` ``
 
 A 32-byte salt value as a hex string
 
-• **code**: \`0x$\{string\}\`
+### code
+
+`` `0x${string}` ``
 
 The creation code of the contract
 
@@ -36,8 +44,4 @@ If salt is not 32 bytes or if inputs are invalid
 
 ## See
 
-[https://eips.ethereum.org/EIPS/eip-1014|EIP-1014](https://eips.ethereum.org/EIPS/eip-1014|EIP-1014) for more information on CREATE2
-
-## Defined in
-
-[packages/address/src/create2ContractAddress.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L19)
+[https://eips.ethereum.org/EIPS/eip-1014\|EIP-1014](https://eips.ethereum.org/EIPS/eip-1014|EIP-1014) for more information on CREATE2

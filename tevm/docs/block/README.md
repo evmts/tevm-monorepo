@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,15 +6,13 @@
 
 # block
 
-## Index
-
-### Classes
+## Classes
 
 - [Block](classes/Block.md)
 - [BlockHeader](classes/BlockHeader.md)
 - [ClRequest](classes/ClRequest.md)
 
-### Interfaces
+## Interfaces
 
 - [BlockData](interfaces/BlockData.md)
 - [BlockOptions](interfaces/BlockOptions.md)
@@ -26,7 +24,7 @@
 - [VerkleProof](interfaces/VerkleProof.md)
 - [VerkleStateDiff](interfaces/VerkleStateDiff.md)
 
-### Type Aliases
+## Type Aliases
 
 - [BeaconPayloadJson](type-aliases/BeaconPayloadJson.md)
 - [BlockBodyBytes](type-aliases/BlockBodyBytes.md)
@@ -40,9 +38,9 @@
 - [WithdrawalsBytes](type-aliases/WithdrawalsBytes.md)
 - [WithdrawalV1](type-aliases/WithdrawalV1.md)
 
-### Functions
+## Functions
 
-- [blockFromRpc](functions/blockFromRpc.md)
+- [~~blockFromRpc~~](functions/blockFromRpc.md)
 - [executionPayloadFromBeaconPayload](functions/executionPayloadFromBeaconPayload.md)
 - [getDifficulty](functions/getDifficulty.md)
 - [valuesArrayToHeaderData](functions/valuesArrayToHeaderData.md)

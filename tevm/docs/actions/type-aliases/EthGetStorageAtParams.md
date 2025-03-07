@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthGetStorageAtParams
 
 > **EthGetStorageAtParams**: `object`
+
+Defined in: packages/actions/types/eth/EthParams.d.ts:135
 
 Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
@@ -23,7 +25,3 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 ### position
 
 > `readonly` **position**: [`Hex`](Hex.md)
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:135

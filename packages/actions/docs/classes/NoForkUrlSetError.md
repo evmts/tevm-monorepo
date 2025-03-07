@@ -1,10 +1,12 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
 [@tevm/actions](../globals.md) / NoForkUrlSetError
 
 # Class: NoForkUrlSetError
+
+Defined in: [packages/actions/src/eth/getBalanceHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L6)
 
 ## Extends
 
@@ -16,9 +18,13 @@
 
 > **new NoForkUrlSetError**(`message`?): [`NoForkUrlSetError`](NoForkUrlSetError.md)
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1082
+
 #### Parameters
 
-• **message?**: `string`
+##### message?
+
+`string`
 
 #### Returns
 
@@ -27,20 +33,22 @@
 #### Inherited from
 
 `Error.constructor`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1082
 
 ### new NoForkUrlSetError()
 
 > **new NoForkUrlSetError**(`message`?, `options`?): [`NoForkUrlSetError`](NoForkUrlSetError.md)
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1082
+
 #### Parameters
 
-• **message?**: `string`
+##### message?
 
-• **options?**: `ErrorOptions`
+`string`
+
+##### options?
+
+`ErrorOptions`
 
 #### Returns
 
@@ -49,10 +57,6 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 #### Inherited from
 
 `Error.constructor`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1082
 
 ## Properties
 
@@ -60,9 +64,7 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **\_tag**: `"NoForkUrlSetError"` = `'NoForkUrlSetError'`
 
-#### Defined in
-
-[packages/actions/src/eth/getBalanceHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L10)
+Defined in: [packages/actions/src/eth/getBalanceHandler.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L10)
 
 ***
 
@@ -70,13 +72,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `optional` **cause**: `unknown`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+
 #### Inherited from
 
 `Error.cause`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 ***
 
@@ -84,13 +84,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es2022.err
 
 > **message**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+
 #### Inherited from
 
 `Error.message`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -98,13 +96,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **name**: `"NoForkUrlSetError"` = `'NoForkUrlSetError'`
 
+Defined in: [packages/actions/src/eth/getBalanceHandler.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L15)
+
 #### Overrides
 
 `Error.name`
-
-#### Defined in
-
-[packages/actions/src/eth/getBalanceHandler.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceHandler.js#L15)
 
 ***
 
@@ -112,13 +108,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `optional` **stack**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+
 #### Inherited from
 
 `Error.stack`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -126,13 +120,19 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+
 Optional override for formatting stack traces
 
 #### Parameters
 
-• **err**: `Error`
+##### err
 
-• **stackTraces**: `CallSite`[]
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
 
 #### Returns
 
@@ -146,39 +146,39 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `Error.prepareStackTrace`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
-
 ***
 
 ### stackTraceLimit
 
 > `static` **stackTraceLimit**: `number`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+
 #### Inherited from
 
 `Error.stackTraceLimit`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
+#### Call Signature
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
 ##### Parameters
 
-• **targetObject**: `object`
+###### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+###### constructorOpt?
+
+`Function`
 
 ##### Returns
 
@@ -188,21 +188,23 @@ Create .stack property on a target object
 
 `Error.captureStackTrace`
 
-##### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:136
-
-#### captureStackTrace(targetObject, constructorOpt)
+#### Call Signature
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/bun-types@1.2.4/node\_modules/bun-types/globals.d.ts:1632
 
 Create .stack property on a target object
 
 ##### Parameters
 
-• **targetObject**: `object`
+###### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+###### constructorOpt?
+
+`Function`
 
 ##### Returns
 
@@ -211,31 +213,3 @@ Create .stack property on a target object
 ##### Inherited from
 
 `Error.captureStackTrace`
-
-##### Defined in
-
-node\_modules/.pnpm/bun-types@1.1.29/node\_modules/bun-types/globals.d.ts:1630
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-`Error.captureStackTrace`
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

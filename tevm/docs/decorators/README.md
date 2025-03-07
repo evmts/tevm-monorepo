@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,9 +6,7 @@
 
 # decorators
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [AddEthereumChainParameter](type-aliases/AddEthereumChainParameter.md)
 - [DerivedRpcSchema](type-aliases/DerivedRpcSchema.md)
@@ -29,7 +27,7 @@
 - [WalletPermissionCaveat](type-aliases/WalletPermissionCaveat.md)
 - [WatchAssetParams](type-aliases/WatchAssetParams.md)
 
-### Functions
+## Functions
 
 - [ethActions](functions/ethActions.md)
 - [requestEip1193](functions/requestEip1193.md)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **EthGetFilterLogsParams**: `object`
 
+Defined in: [packages/actions/src/eth/EthParams.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L140)
+
 Based on the JSON-RPC request for `eth_getFilterLogs` procedure
 
 ## Type declaration
@@ -15,7 +17,3 @@ Based on the JSON-RPC request for `eth_getFilterLogs` procedure
 ### filterId
 
 > `readonly` **filterId**: [`Hex`](Hex.md)
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L140)

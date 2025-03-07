@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthCoinbaseJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:7
+
 ## Parameters
 
-• **request**: [`EthCoinbaseJsonRpcRequest`](EthCoinbaseJsonRpcRequest.md)
+### request
+
+[`EthCoinbaseJsonRpcRequest`](EthCoinbaseJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:7

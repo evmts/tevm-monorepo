@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **StateRoots**: `Map`\<[`Hex`](../../index/type-aliases/Hex.md), [`TevmState`](../../index/type-aliases/TevmState.md)\>
 
+Defined in: packages/state/dist/index.d.ts:173
+
 Mapping of state roots as hex string to the state
-
-## Defined in
-
-packages/state/dist/index.d.ts:173

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthHashrateHandler**: (`request`?) => `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:9
+
 ## Parameters
 
-• **request?**: [`EthHashrateParams`](EthHashrateParams.md)
+### request?
+
+[`EthHashrateParams`](EthHashrateParams.md)
 
 ## Returns
 
 `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:9

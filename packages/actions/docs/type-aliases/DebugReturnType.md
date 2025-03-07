@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DebugReturnType
 
 > **DebugReturnType**: `object`
+
+Defined in: [packages/actions/src/tevm-request-handler/DebugReturnType.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/DebugReturnType.ts#L9)
 
 A mapping of `debug_*` method names to their return type
 
@@ -19,7 +21,3 @@ A mapping of `debug_*` method names to their return type
 ### debug\_traceTransaction
 
 > **debug\_traceTransaction**: `DebugTraceTransactionJsonRpcResponse`
-
-## Defined in
-
-[packages/actions/src/tevm-request-handler/DebugReturnType.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/DebugReturnType.ts#L9)

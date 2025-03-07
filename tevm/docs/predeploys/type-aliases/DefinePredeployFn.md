@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DefinePredeployFn()
 
 > **DefinePredeployFn**: \<`TName`, `THumanReadableAbi`\>(`contract`) => [`Predeploy`](../../index/type-aliases/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
+Defined in: packages/predeploys/types/DefinePredeployFn.d.ts:27
 
 Defines a predeploy contract to use in the tevm vm
 
@@ -18,7 +20,9 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Parameters
 
-• **contract**: [`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, [`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\>
+### contract
+
+[`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, [`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\>
 
 ## Returns
 
@@ -45,7 +49,3 @@ const vm = createMemoryClient({
  predeploys: [predeploy.predeploy()],
 })
 ```
-
-## Defined in
-
-packages/predeploys/types/DefinePredeployFn.d.ts:27

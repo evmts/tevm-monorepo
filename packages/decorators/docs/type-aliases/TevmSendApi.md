@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmSendApi
 
 > **TevmSendApi**: `object`
+
+Defined in: [request/TevmSendApi.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/TevmSendApi.ts#L3)
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### sendBulk
 
 > **sendBulk**: `TevmJsonRpcBulkRequestHandler`
-
-## Defined in
-
-[request/TevmSendApi.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/request/TevmSendApi.ts#L3)

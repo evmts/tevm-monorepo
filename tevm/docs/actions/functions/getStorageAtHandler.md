@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: getStorageAtHandler()
 
-> **getStorageAtHandler**(`client`): `EthGetStorageAtHandler`
+> **getStorageAtHandler**(`client`): [`EthGetStorageAtHandler`](../type-aliases/EthGetStorageAtHandler.md)
+
+Defined in: packages/actions/types/eth/getStorageAtHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetStorageAtHandler`
-
-## Defined in
-
-packages/actions/types/eth/getStorageAtHandler.d.ts:1
+[`EthGetStorageAtHandler`](../type-aliases/EthGetStorageAtHandler.md)

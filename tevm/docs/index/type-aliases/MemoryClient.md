@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: MemoryClient\<TChain, TAccountOrAddress\>
 
 > **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`, [`TevmRpcSchema`](TevmRpcSchema.md), [`TevmActions`](TevmActions.md) & `PublicActions`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`\> & `TestActions`\>\>
+
+Defined in: packages/memory-client/types/MemoryClient.d.ts:192
 
 Represents a TEVM-enhanced viem client with an in-memory Ethereum client as its transport.
 The MemoryClient comes preloaded with all wallet, test, public, and TEVM actions, and supports both manual and auto mining modes.
@@ -198,7 +200,3 @@ const balance = await tevm.runContractCall(
 );
 console.log(balance); // 1n
 ```
-
-## Defined in
-
-packages/memory-client/types/MemoryClient.d.ts:192

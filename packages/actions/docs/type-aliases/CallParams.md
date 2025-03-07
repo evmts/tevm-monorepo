@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CallParams\<TThrowOnFail\>
 
 > **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
+
+Defined in: [packages/actions/src/Call/CallParams.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallParams.ts#L31)
 
 TEVM parameters to execute a call on the VM.
 `Call` is the lowest level method to interact with the VM, and other methods such as `contract` and `script` use `call` under the hood.
@@ -154,7 +156,3 @@ await tevmCall(client, callParams)
 
  - [BaseCallParams](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams-1/)
  - [tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall/)
-
-## Defined in
-
-[packages/actions/src/Call/CallParams.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallParams.ts#L31)

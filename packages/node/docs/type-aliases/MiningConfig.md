@@ -1,4 +1,4 @@
-[**@tevm/node**](../README.md) • **Docs**
+[**@tevm/node**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **MiningConfig**: [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| `GasMining`
 
-## Defined in
-
-[packages/node/src/MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L15)
+Defined in: [packages/node/src/MiningConfig.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L15)

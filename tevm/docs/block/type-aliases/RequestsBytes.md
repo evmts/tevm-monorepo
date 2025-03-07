@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **RequestsBytes**: `Uint8Array`[]
 
-## Defined in
-
-packages/block/types/types.d.ts:146
+Defined in: packages/block/types/types.d.ts:146

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetTransactionByBlockHashAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](EthGetTransactionByBlockHashAndIndexJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/eth/EthProcedure.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L157)
+
 ## Parameters
 
-• **request**: [`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](EthGetTransactionByBlockHashAndIndexJsonRpcRequest.md)
+### request
+
+[`EthGetTransactionByBlockHashAndIndexJsonRpcRequest`](EthGetTransactionByBlockHashAndIndexJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](EthGetTransactionByBlockHashAndIndexJsonRpcResponse.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthProcedure.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L157)

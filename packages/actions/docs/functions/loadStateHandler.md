@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,19 +8,25 @@
 
 > **loadStateHandler**(`client`, `options`?): [`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
 
+Defined in: [packages/actions/src/LoadState/loadStateHandler.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/loadStateHandler.js#L35)
+
 Creates a handler for loading a previously dumped state into the VM.
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 The base client instance.
 
-• **options?** = `{}`
+### options?
 
 Optional configuration.
 
-• **options.throwOnFail?**: `undefined` \| `boolean`
+#### throwOnFail?
+
+`boolean`
 
 Whether to throw an error when a failure occurs.
 
@@ -52,7 +58,3 @@ if (result.errors) {
  - [LoadStateParams](../type-aliases/LoadStateParams.md)
  - [LoadStateResult](../type-aliases/LoadStateResult.md)
  - [TevmLoadStateError](../type-aliases/TevmLoadStateError.md)
-
-## Defined in
-
-[packages/actions/src/LoadState/loadStateHandler.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/loadStateHandler.js#L35)

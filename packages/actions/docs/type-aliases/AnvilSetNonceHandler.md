@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilSetNonceHandler**: (`params`) => `Promise`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>
 
+Defined in: [packages/actions/src/anvil/AnvilHandler.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L58)
+
 ## Parameters
 
-• **params**: [`AnvilSetNonceParams`](AnvilSetNonceParams.md)
+### params
+
+[`AnvilSetNonceParams`](AnvilSetNonceParams.md)
 
 ## Returns
 
 `Promise`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilHandler.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L58)

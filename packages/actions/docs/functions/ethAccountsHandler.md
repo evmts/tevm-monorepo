@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **ethAccountsHandler**(`params`): [`EthAccountsHandler`](../type-aliases/EthAccountsHandler.md)
 
+Defined in: [packages/actions/src/eth/ethAccountsHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethAccountsHandler.js#L6)
+
 ## Parameters
 
-• **params**
+### params
 
-• **params.accounts**: readonly `Account`\<\`0x$\{string\}\`\>[]
+#### accounts
+
+readonly `Account`\<`` `0x${string}` ``\>[]
 
 ## Returns
 
 [`EthAccountsHandler`](../type-aliases/EthAccountsHandler.md)
-
-## Defined in
-
-[packages/actions/src/eth/ethAccountsHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethAccountsHandler.js#L6)

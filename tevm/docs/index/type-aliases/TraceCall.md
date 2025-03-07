@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TraceCall
 
 > **TraceCall**: `object`
+
+Defined in: packages/actions/types/common/TraceCall.d.ts:4
 
 ## Type declaration
 
@@ -45,7 +47,3 @@
 ### value?
 
 > `optional` **value**: `bigint`
-
-## Defined in
-
-packages/actions/types/common/TraceCall.d.ts:4

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **TevmSetAccountError**: [`ValidateSetAccountParamsError`](../../actions/type-aliases/ValidateSetAccountParamsError.md) \| [`InternalError`](../../errors/classes/InternalError.md)
 
-## Defined in
-
-packages/actions/types/SetAccount/TevmSetAccountError.d.ts:3
+Defined in: packages/actions/types/SetAccount/TevmSetAccountError.d.ts:3

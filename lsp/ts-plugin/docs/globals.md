@@ -1,4 +1,4 @@
-[**@tevm/ts-plugin**](README.md) • **Docs**
+[**@tevm/ts-plugin**](README.md)
 
 ***
 

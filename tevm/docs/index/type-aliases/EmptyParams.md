@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # Type Alias: EmptyParams
 
-> **EmptyParams**: readonly [] \| `object` \| `undefined` \| `never`
+> **EmptyParams**: readonly \[\] \| \{\} \| `undefined` \| `never`
 
-## Defined in
-
-packages/actions/types/common/EmptyParams.d.ts:1
+Defined in: packages/actions/types/common/EmptyParams.d.ts:1

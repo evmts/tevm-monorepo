@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: InvalidGasPriceErrorParameters
 
 > **InvalidGasPriceErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/InvalidGasPriceError.d.ts:50
 
 Parameters for constructing an InvalidGasPriceError.
 
@@ -53,7 +55,3 @@ Parameters for constructing an InvalidGasPriceError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/InvalidGasPriceError.d.ts:50

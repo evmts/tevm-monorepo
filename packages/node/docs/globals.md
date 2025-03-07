@@ -1,4 +1,4 @@
-[**@tevm/node**](README.md) • **Docs**
+[**@tevm/node**](README.md)
 
 ***
 
@@ -11,7 +11,7 @@
 ## Type Aliases
 
 - [AutoMining](type-aliases/AutoMining.md)
-- [BaseClientOptions](type-aliases/BaseClientOptions.md)
+- [~~BaseClientOptions~~](type-aliases/BaseClientOptions.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
 - [EIP1193EventEmitter](type-aliases/EIP1193EventEmitter.md)
 - [EIP1193EventMap](type-aliases/EIP1193EventMap.md)

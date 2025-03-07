@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **SolcBytecodeOutput**: `object` & `Omit`\<[`SolcDeployedBytecodeOutput`](SolcDeployedBytecodeOutput.md), `"immutableReferences"`\>
 
+Defined in: [solcTypes.ts:451](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L451)
+
 ## Type declaration
 
 ### functionDebugData
@@ -16,7 +18,7 @@
 
 #### Index Signature
 
- \[`functionName`: `string`\]: [`SolcFunctionDebugData`](SolcFunctionDebugData.md)
+\[`functionName`: `string`\]: [`SolcFunctionDebugData`](SolcFunctionDebugData.md)
 
 ### generatedSources
 
@@ -28,7 +30,7 @@
 
 #### Index Signature
 
- \[`fileName`: `string`\]: `object`
+\[`fileName`: `string`\]: `object`
 
 ### object
 
@@ -41,7 +43,3 @@
 ### sourceMap
 
 > **sourceMap**: `string`
-
-## Defined in
-
-[solcTypes.ts:451](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L451)

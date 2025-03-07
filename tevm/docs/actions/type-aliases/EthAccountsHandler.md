@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthAccountsHandler**: (`request`?) => `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:3
+
 ## Parameters
 
-• **request?**: [`EthAccountsParams`](EthAccountsParams.md)
+### request?
+
+[`EthAccountsParams`](EthAccountsParams.md)
 
 ## Returns
 
 `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:3

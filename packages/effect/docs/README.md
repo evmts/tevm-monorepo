@@ -1,4 +1,4 @@
-**@tevm/effect** • [**Docs**](modules.md)
+**@tevm/effect**
 
 ***
 

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: requestBulkProcedure()
 
-> **requestBulkProcedure**(`client`): `TevmJsonRpcBulkRequestHandler`
+> **requestBulkProcedure**(`client`): [`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
+
+Defined in: packages/actions/types/requestBulkProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`TevmJsonRpcBulkRequestHandler`
-
-## Defined in
-
-packages/actions/types/requestBulkProcedure.d.ts:1
+[`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)

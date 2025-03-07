@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: gasPriceHandler()
 
-> **gasPriceHandler**(`__namedParameters`): `EthGasPriceHandler`
+> **gasPriceHandler**(`__namedParameters`): [`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
+
+Defined in: packages/actions/types/eth/gasPriceHandler.d.ts:1
 
 ## Parameters
 
-• **\_\_namedParameters**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### \_\_namedParameters
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGasPriceHandler`
-
-## Defined in
-
-packages/actions/types/eth/gasPriceHandler.d.ts:1
+[`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)

@@ -1,4 +1,4 @@
-[**@tevm/receipt-manager**](README.md) • **Docs**
+[**@tevm/receipt-manager**](README.md)
 
 ***
 

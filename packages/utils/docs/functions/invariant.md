@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **invariant**(`condition`, `error`): `asserts condition`
 
+Defined in: [packages/utils/src/invariant.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/invariant.ts#L3)
+
 ## Parameters
 
-• **condition**: `any`
+### condition
 
-• **error**: `Error` = `...`
+`any`
+
+### error
+
+`Error` = `...`
 
 ## Returns
 
 `asserts condition`
-
-## Defined in
-
-[packages/utils/src/invariant.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/invariant.ts#L3)

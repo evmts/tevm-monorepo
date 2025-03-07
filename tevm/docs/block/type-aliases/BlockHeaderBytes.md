@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **BlockHeaderBytes**: `Uint8Array`[]
 
+Defined in: packages/block/types/types.d.ts:152
+
 BlockHeaderBuffer is a Buffer array, except for the Verkle PreState which is an array of prestate arrays.
-
-## Defined in
-
-packages/block/types/types.d.ts:152

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: GetAccountResult\<ErrorType\>
 
 > **GetAccountResult**\<`ErrorType`\>: `object`
+
+Defined in: [packages/actions/src/GetAccount/GetAccountResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountResult.ts#L7)
 
 Result of GetAccount Action
 
@@ -73,14 +75,10 @@ only included if `returnStorage` is set to true in the request
 
 #### Index Signature
 
- \[`key`: [`Hex`](Hex.md)\]: [`Hex`](Hex.md)
+\[`key`: `` `0x${string}` ``\]: `` `0x${string}` ``
 
 ### storageRoot
 
 > **storageRoot**: [`Hex`](Hex.md)
 
 Storage root to set account to
-
-## Defined in
-
-[packages/actions/src/GetAccount/GetAccountResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountResult.ts#L7)

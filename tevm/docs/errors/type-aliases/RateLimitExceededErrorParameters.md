@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: RateLimitExceededErrorParameters
 
 > **RateLimitExceededErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/RateLimitExceededError.d.ts:50
 
 Parameters for constructing a RateLimitExceededError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a RateLimitExceededError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/RateLimitExceededError.d.ts:50

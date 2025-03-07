@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DebugReturnType
 
 > **DebugReturnType**: `object`
+
+Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:5
 
 A mapping of `debug_*` method names to their return type
 
@@ -19,7 +21,3 @@ A mapping of `debug_*` method names to their return type
 ### debug\_traceTransaction
 
 > **debug\_traceTransaction**: `DebugTraceTransactionJsonRpcResponse`
-
-## Defined in
-
-packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:5

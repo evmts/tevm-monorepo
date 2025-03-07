@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthAccountsParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:6
+
 Params taken by `eth_accounts` handler (no params)
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:6

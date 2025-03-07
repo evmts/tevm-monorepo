@@ -1,4 +1,4 @@
-[**@tevm/predeploys**](../README.md) • **Docs**
+[**@tevm/predeploys**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DefinePredeployFn()
 
 > **DefinePredeployFn**: \<`TName`, `THumanReadableAbi`\>(`contract`) => [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
+Defined in: [DefinePredeployFn.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/DefinePredeployFn.ts#L28)
 
 Defines a predeploy contract to use in the tevm vm
 
@@ -18,7 +20,9 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Parameters
 
-• **contract**: `Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\>
+### contract
+
+`Contract`\<`TName`, `THumanReadableAbi`, `Address`, `Hex`, `Hex`\>
 
 ## Returns
 
@@ -45,7 +49,3 @@ const vm = createMemoryClient({
  predeploys: [predeploy.predeploy()],
 })
 ```
-
-## Defined in
-
-[DefinePredeployFn.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/DefinePredeployFn.ts#L28)

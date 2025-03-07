@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGasPriceResult**: `bigint`
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:39
+
 JSON-RPC response for `eth_gasPrice` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:39

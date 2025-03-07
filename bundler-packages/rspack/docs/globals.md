@@ -1,4 +1,4 @@
-[**@tevm/rspack-plugin**](README.md) • **Docs**
+[**@tevm/rspack-plugin**](README.md)
 
 ***
 

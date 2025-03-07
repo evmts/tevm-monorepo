@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilSetCodeJsonRpcProcedure()
 
-> **anvilSetCodeJsonRpcProcedure**(`client`): `AnvilSetCodeProcedure`
+> **anvilSetCodeJsonRpcProcedure**(`client`): [`AnvilSetCodeProcedure`](../type-aliases/AnvilSetCodeProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilSetCodeProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilSetCodeProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilSetCodeProcedure.d.ts:1
+[`AnvilSetCodeProcedure`](../type-aliases/AnvilSetCodeProcedure.md)

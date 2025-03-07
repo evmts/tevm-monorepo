@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](TransactionReceiptResult.md) \| `null`
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:107
+
 JSON-RPC response for `eth_getTransactionReceipt` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:107

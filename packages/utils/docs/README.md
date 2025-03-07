@@ -1,4 +1,4 @@
-**@tevm/utils** • [**Docs**](globals.md)
+**@tevm/utils**
 
 ***
 

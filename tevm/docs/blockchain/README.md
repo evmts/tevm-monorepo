@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,14 +6,12 @@
 
 # blockchain
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [Chain](type-aliases/Chain.md)
 - [ChainOptions](type-aliases/ChainOptions.md)
 
-### Functions
+## Functions
 
 - [createBaseChain](functions/createBaseChain.md)
 - [createChain](functions/createChain.md)

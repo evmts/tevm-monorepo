@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **DebugTraceCallHandler**: (`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
 
+Defined in: [packages/actions/src/debug/DebugHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugHandler.ts#L11)
+
 ## Parameters
 
-• **params**: [`DebugTraceCallParams`](DebugTraceCallParams.md)
+### params
+
+[`DebugTraceCallParams`](DebugTraceCallParams.md)
 
 ## Returns
 
 `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
-
-## Defined in
-
-[packages/actions/src/debug/DebugHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugHandler.ts#L11)

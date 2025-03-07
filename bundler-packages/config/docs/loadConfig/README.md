@@ -1,4 +1,4 @@
-[**@tevm/config**](../README.md) • **Docs**
+[**@tevm/config**](../README.md)
 
 ***
 
@@ -6,16 +6,14 @@
 
 # loadConfig
 
-## Index
-
-### Classes
+## Classes
 
 - [LoadConfigError](classes/LoadConfigError.md)
 
-### Type Aliases
+## Type Aliases
 
 - [LoadConfigErrorType](type-aliases/LoadConfigErrorType.md)
 
-### Functions
+## Functions
 
 - [loadConfig](functions/loadConfig.md)

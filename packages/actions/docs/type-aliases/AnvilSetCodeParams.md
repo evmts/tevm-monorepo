@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilSetCodeParams
 
 > **AnvilSetCodeParams**: `object`
+
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L92)
 
 Params for `anvil_setCode` handler
 
@@ -23,7 +25,3 @@ The address to set the code for
 > `readonly` **code**: [`Hex`](Hex.md)
 
 The code to set
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilParams.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L92)

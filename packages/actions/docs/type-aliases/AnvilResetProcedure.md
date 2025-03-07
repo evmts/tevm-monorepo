@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilResetProcedure**: (`request`) => `Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L74)
+
 JSON-RPC procedure for `anvil_reset`
 
 ## Parameters
 
-• **request**: [`AnvilResetJsonRpcRequest`](AnvilResetJsonRpcRequest.md)
+### request
+
+[`AnvilResetJsonRpcRequest`](AnvilResetJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilProcedure.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L74)

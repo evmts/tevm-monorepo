@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthCoinbaseResult**: [`Address`](Address.md)
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:27
+
 JSON-RPC response for `eth_coinbase` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:27

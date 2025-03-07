@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **hasStateRoot**(`baseState`, `skipFetchingFromFork`?): (`root`) => `Promise`\<`boolean`\>
 
+Defined in: packages/state/dist/index.d.ts:327
+
 Returns true if state root exists
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,12 +28,10 @@ Returns true if state root exists
 
 ### Parameters
 
-• **root**: `Uint8Array`
+#### root
+
+`Uint8Array`
 
 ### Returns
 
 `Promise`\<`boolean`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:327

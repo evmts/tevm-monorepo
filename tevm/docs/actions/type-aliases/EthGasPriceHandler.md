@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGasPriceHandler**: (`request`?) => `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:10
+
 ## Parameters
 
-• **request?**: [`EthGasPriceParams`](EthGasPriceParams.md)
+### request?
+
+[`EthGasPriceParams`](EthGasPriceParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:10

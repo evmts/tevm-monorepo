@@ -1,4 +1,4 @@
-[**@tevm/effect**](../README.md) • **Docs**
+[**@tevm/effect**](../README.md)
 
 ***
 
@@ -6,13 +6,11 @@
 
 # createRequireEffect
 
-## Index
-
-### Classes
+## Classes
 
 - [CreateRequireError](classes/CreateRequireError.md)
 - [RequireError](classes/RequireError.md)
 
-### Functions
+## Functions
 
 - [createRequireEffect](functions/createRequireEffect.md)

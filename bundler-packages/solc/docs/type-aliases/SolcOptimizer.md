@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcOptimizer
 
 > **SolcOptimizer**: `object`
+
+Defined in: [solcTypes.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L106)
 
 ## Type declaration
 
@@ -21,7 +23,3 @@
 ### runs
 
 > **runs**: `number`
-
-## Defined in
-
-[solcTypes.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L106)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **EvmRevertErrorParameters**: `object`
 
+Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:79
+
 Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: `EvmError`
+> `optional` **cause**: [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error. From running ethereumjs EVM.runCall
 
@@ -53,7 +55,3 @@ Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:79

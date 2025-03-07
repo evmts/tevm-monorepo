@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: modeTestnet
 
-> `const` **modeTestnet**: `Common`
+> `const` **modeTestnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/modeTestnet.d.ts:21
 
 Creates a common configuration for the modeTestnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/modeTestnet.d.ts:21

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DeployParams\<TThrowOnFail, TAbi, THasConstructor, TAllArgs\>
 
 > **DeployParams**\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>: `Omit`\<[`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\>, `"to"`\> & `object` & `EncodeDeployDataParameters`\<`TAbi`, `THasConstructor`, `TAllArgs`\>
+
+Defined in: [packages/actions/src/Deploy/DeployParams.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployParams.ts#L47)
 
 Defines the parameters used for deploying a contract on TEVM.
 This type extends the base call parameters used for typical TEVM calls,
@@ -33,7 +35,7 @@ Indicates whether the function should throw on failure.
 
 The ABI type, typically including constructor definitions.
 
-• **THasConstructor** = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : [`Extract`\<`TAbi`\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`
+• **THasConstructor** = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
 
 Determines whether the ABI includes a constructor.
 
@@ -70,7 +72,3 @@ const deployParams = {
 const result = await deployHandler(client)(deployParams)
 console.log('Deployed contract address:', result.createdAddress)
 ```
-
-## Defined in
-
-[packages/actions/src/Deploy/DeployParams.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployParams.ts#L47)

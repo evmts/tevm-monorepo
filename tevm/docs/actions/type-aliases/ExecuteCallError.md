@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: ExecuteCallError
 
-> **ExecuteCallError**: `HandleRunTxError`
+> **ExecuteCallError**: [`HandleRunTxError`](HandleRunTxError.md)
+
+Defined in: packages/actions/types/Call/executeCall.d.ts:9
 
 The error returned by executeCall
-
-## Defined in
-
-packages/actions/types/Call/executeCall.d.ts:9

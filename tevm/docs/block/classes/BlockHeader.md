@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [block](../README.md) / BlockHeader
 
 # Class: BlockHeader
+
+Defined in: packages/block/types/header.d.ts:10
 
 An object that represents the block header.
 
@@ -14,13 +16,19 @@ An object that represents the block header.
 
 > **new BlockHeader**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
+Defined in: packages/block/types/header.d.ts:67
+
 This constructor takes the values, validates them, assigns them and freezes the object.
 
 #### Parameters
 
-• **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
+##### headerData
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+[`HeaderData`](../interfaces/HeaderData.md)
+
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
 
@@ -31,19 +39,13 @@ This constructor takes the values, validates them, assigns them and freezes the 
 Use the public static factory methods to assist in creating a Header object from
 varying data types. For a default empty header, use [BlockHeader.fromHeaderData](BlockHeader.md#fromheaderdata).
 
-#### Defined in
-
-packages/block/types/header.d.ts:67
-
 ## Properties
 
 ### baseFeePerGas?
 
 > `readonly` `optional` **baseFeePerGas**: `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:26
+Defined in: packages/block/types/header.d.ts:26
 
 ***
 
@@ -51,9 +53,7 @@ packages/block/types/header.d.ts:26
 
 > `readonly` `optional` **blobGasUsed**: `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:28
+Defined in: packages/block/types/header.d.ts:28
 
 ***
 
@@ -61,9 +61,7 @@ packages/block/types/header.d.ts:28
 
 > `protected` **cache**: `HeaderCache`
 
-#### Defined in
-
-packages/block/types/header.d.ts:34
+Defined in: packages/block/types/header.d.ts:34
 
 ***
 
@@ -71,15 +69,15 @@ packages/block/types/header.d.ts:34
 
 > `readonly` **coinbase**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-#### Defined in
-
-packages/block/types/header.d.ts:13
+Defined in: packages/block/types/header.d.ts:13
 
 ***
 
 ### common
 
 > `readonly` **common**: `object`
+
+Defined in: packages/block/types/header.d.ts:32
 
 #### blockExplorers?
 
@@ -89,9 +87,9 @@ Collection of block explorers
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainBlockExplorer`
+\[`key`: `string`\]: `ChainBlockExplorer`
 
-#### blockExplorers.default
+##### blockExplorers.default
 
 > **default**: `ChainBlockExplorer`
 
@@ -101,25 +99,33 @@ Collection of block explorers
 
 Collection of contracts
 
-#### contracts.ensRegistry?
+##### Index Signature
+
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+
+##### contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
 
-#### contracts.ensUniversalResolver?
+##### contracts.ensUniversalResolver?
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
-#### contracts.multicall3?
+##### contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
 
+##### contracts.universalSignatureVerifier?
+
+> `optional` **universalSignatureVerifier**: `ChainContract`
+
 #### copy()
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 #### custom?
 
@@ -169,9 +175,9 @@ Collection of RPC endpoints
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainRpcUrls`
+\[`key`: `string`\]: `ChainRpcUrls`
 
-#### rpcUrls.default
+##### rpcUrls.default
 
 > **default**: `ChainRpcUrls`
 
@@ -193,19 +199,13 @@ Source Chain ID (ie. the L1 chain)
 
 Flag for test networks
 
-#### Defined in
-
-packages/block/types/header.d.ts:32
-
 ***
 
 ### difficulty
 
 > `readonly` **difficulty**: `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:18
+Defined in: packages/block/types/header.d.ts:18
 
 ***
 
@@ -213,9 +213,7 @@ packages/block/types/header.d.ts:18
 
 > `readonly` `optional` **excessBlobGas**: `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:29
+Defined in: packages/block/types/header.d.ts:29
 
 ***
 
@@ -223,9 +221,7 @@ packages/block/types/header.d.ts:29
 
 > `readonly` **extraData**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:23
+Defined in: packages/block/types/header.d.ts:23
 
 ***
 
@@ -233,9 +229,7 @@ packages/block/types/header.d.ts:23
 
 > `readonly` **gasLimit**: `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:20
+Defined in: packages/block/types/header.d.ts:20
 
 ***
 
@@ -243,9 +237,7 @@ packages/block/types/header.d.ts:20
 
 > `readonly` **gasUsed**: `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:21
+Defined in: packages/block/types/header.d.ts:21
 
 ***
 
@@ -253,17 +245,17 @@ packages/block/types/header.d.ts:21
 
 > `protected` **keccakFunction**: (`msg`) => `Uint8Array`
 
+Defined in: packages/block/types/header.d.ts:33
+
 #### Parameters
 
-• **msg**: `Uint8Array`
+##### msg
+
+`Uint8Array`
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-packages/block/types/header.d.ts:33
 
 ***
 
@@ -271,9 +263,7 @@ packages/block/types/header.d.ts:33
 
 > `readonly` **logsBloom**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:17
+Defined in: packages/block/types/header.d.ts:17
 
 ***
 
@@ -281,9 +271,7 @@ packages/block/types/header.d.ts:17
 
 > `readonly` **mixHash**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:24
+Defined in: packages/block/types/header.d.ts:24
 
 ***
 
@@ -291,9 +279,7 @@ packages/block/types/header.d.ts:24
 
 > `readonly` **nonce**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:25
+Defined in: packages/block/types/header.d.ts:25
 
 ***
 
@@ -301,19 +287,15 @@ packages/block/types/header.d.ts:25
 
 > `readonly` **number**: `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:19
+Defined in: packages/block/types/header.d.ts:19
 
 ***
 
 ### parentBeaconBlockRoot?
 
-> `readonly` `optional` **parentBeaconBlockRoot**: `Uint8Array`
+> `readonly` `optional` **parentBeaconBlockRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
-#### Defined in
-
-packages/block/types/header.d.ts:30
+Defined in: packages/block/types/header.d.ts:30
 
 ***
 
@@ -321,9 +303,7 @@ packages/block/types/header.d.ts:30
 
 > `readonly` **parentHash**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:11
+Defined in: packages/block/types/header.d.ts:11
 
 ***
 
@@ -331,19 +311,15 @@ packages/block/types/header.d.ts:11
 
 > `readonly` **receiptTrie**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:16
+Defined in: packages/block/types/header.d.ts:16
 
 ***
 
 ### requestsRoot?
 
-> `readonly` `optional` **requestsRoot**: `Uint8Array`
+> `readonly` `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
-#### Defined in
-
-packages/block/types/header.d.ts:31
+Defined in: packages/block/types/header.d.ts:31
 
 ***
 
@@ -351,9 +327,7 @@ packages/block/types/header.d.ts:31
 
 > `readonly` **stateRoot**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:14
+Defined in: packages/block/types/header.d.ts:14
 
 ***
 
@@ -361,9 +335,7 @@ packages/block/types/header.d.ts:14
 
 > `readonly` **timestamp**: `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:22
+Defined in: packages/block/types/header.d.ts:22
 
 ***
 
@@ -371,9 +343,7 @@ packages/block/types/header.d.ts:22
 
 > `readonly` **transactionsTrie**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:15
+Defined in: packages/block/types/header.d.ts:15
 
 ***
 
@@ -381,41 +351,39 @@ packages/block/types/header.d.ts:15
 
 > `readonly` **uncleHash**: `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:12
+Defined in: packages/block/types/header.d.ts:12
 
 ***
 
 ### withdrawalsRoot?
 
-> `readonly` `optional` **withdrawalsRoot**: `Uint8Array`
+> `readonly` `optional` **withdrawalsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
-#### Defined in
-
-packages/block/types/header.d.ts:27
+Defined in: packages/block/types/header.d.ts:27
 
 ## Accessors
 
 ### prevRandao
 
-> `get` **prevRandao**(): `Uint8Array`
+#### Get Signature
+
+> **get** **prevRandao**(): `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: packages/block/types/header.d.ts:38
 
 EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
-#### Returns
+##### Returns
 
-`Uint8Array`
-
-#### Defined in
-
-packages/block/types/header.d.ts:38
+`Uint8Array`\<`ArrayBufferLike`\>
 
 ## Methods
 
 ### \_consensusFormatValidation()
 
 > `protected` **\_consensusFormatValidation**(): `void`
+
+Defined in: packages/block/types/header.d.ts:76
 
 Checks static parameters related to consensus algorithm
 
@@ -427,15 +395,13 @@ Checks static parameters related to consensus algorithm
 
 if any check fails
 
-#### Defined in
-
-packages/block/types/header.d.ts:76
-
 ***
 
 ### \_genericFormatValidation()
 
 > `protected` **\_genericFormatValidation**(): `void`
+
+Defined in: packages/block/types/header.d.ts:71
 
 Validates correct buffer lengths, throws if invalid.
 
@@ -443,33 +409,31 @@ Validates correct buffer lengths, throws if invalid.
 
 `void`
 
-#### Defined in
-
-packages/block/types/header.d.ts:71
-
 ***
 
 ### \_requireClique()
 
 > `protected` **\_requireClique**(`name`): `void`
 
+Defined in: packages/block/types/header.d.ts:126
+
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-packages/block/types/header.d.ts:126
 
 ***
 
 ### \_validateDAOExtraData()
 
 > `protected` **\_validateDAOExtraData**(): `void`
+
+Defined in: packages/block/types/header.d.ts:190
 
 Validates extra data is DAO_ExtraData for DAO_ForceExtraDataRange blocks after DAO
 activation block (see: https://blog.slock.it/hard-fork-specification-24b889e70703)
@@ -478,21 +442,21 @@ activation block (see: https://blog.slock.it/hard-fork-specification-24b889e7070
 
 `void`
 
-#### Defined in
-
-packages/block/types/header.d.ts:190
-
 ***
 
 ### calcDataFee()
 
 > **calcDataFee**(`numBlobs`): `bigint`
 
+Defined in: packages/block/types/header.d.ts:104
+
 Returns the total fee for blob gas spent for including blobs in block.
 
 #### Parameters
 
-• **numBlobs**: `number`
+##### numBlobs
+
+`number`
 
 number of blobs in the transaction/block
 
@@ -502,15 +466,13 @@ number of blobs in the transaction/block
 
 the total blob gas fee for numBlobs blobs
 
-#### Defined in
-
-packages/block/types/header.d.ts:104
-
 ***
 
 ### calcNextBaseFee()
 
 > **calcNextBaseFee**(): `bigint`
+
+Defined in: packages/block/types/header.d.ts:87
 
 Calculates the base fee for a potential next block
 
@@ -518,15 +480,13 @@ Calculates the base fee for a potential next block
 
 `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:87
-
 ***
 
 ### calcNextBlobGasPrice()
 
 > **calcNextBlobGasPrice**(): `bigint`
+
+Defined in: packages/block/types/header.d.ts:113
 
 Calculate the blob gas price of the block built on top of this one
 
@@ -536,15 +496,13 @@ Calculate the blob gas price of the block built on top of this one
 
 The blob gas price
 
-#### Defined in
-
-packages/block/types/header.d.ts:113
-
 ***
 
 ### calcNextExcessBlobGas()
 
 > **calcNextExcessBlobGas**(): `bigint`
+
+Defined in: packages/block/types/header.d.ts:108
 
 Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
@@ -552,15 +510,13 @@ Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
 `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:108
-
 ***
 
 ### cliqueEpochTransitionSigners()
 
 > **cliqueEpochTransitionSigners**(): [`EthjsAddress`](../../utils/classes/EthjsAddress.md)[]
+
+Defined in: packages/block/types/header.d.ts:166
 
 Returns a list of signers
 (only clique PoA, throws otherwise)
@@ -573,15 +529,13 @@ in conjunction with [BlockHeader.cliqueIsEpochTransition](BlockHeader.md#cliquei
 
 [`EthjsAddress`](../../utils/classes/EthjsAddress.md)[]
 
-#### Defined in
-
-packages/block/types/header.d.ts:166
-
 ***
 
 ### cliqueExtraSeal()
 
 > **cliqueExtraSeal**(): `Uint8Array`
+
+Defined in: packages/block/types/header.d.ts:151
 
 Returns extra seal data
 (only clique PoA, throws otherwise)
@@ -590,15 +544,13 @@ Returns extra seal data
 
 `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:151
-
 ***
 
 ### cliqueExtraVanity()
 
 > **cliqueExtraVanity**(): `Uint8Array`
+
+Defined in: packages/block/types/header.d.ts:146
 
 Returns extra vanity data
 (only clique PoA, throws otherwise)
@@ -607,15 +559,13 @@ Returns extra vanity data
 
 `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:146
-
 ***
 
 ### cliqueIsEpochTransition()
 
 > **cliqueIsEpochTransition**(): `boolean`
+
+Defined in: packages/block/types/header.d.ts:141
 
 Checks if the block header is an epoch transition
 header (only clique PoA, throws otherwise)
@@ -624,25 +574,19 @@ header (only clique PoA, throws otherwise)
 
 `boolean`
 
-#### Defined in
-
-packages/block/types/header.d.ts:141
-
 ***
 
 ### cliqueSigHash()
 
-> **cliqueSigHash**(): `Uint8Array`
+> **cliqueSigHash**(): `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: packages/block/types/header.d.ts:136
 
 PoA clique signature hash without the seal.
 
 #### Returns
 
-`Uint8Array`
-
-#### Defined in
-
-packages/block/types/header.d.ts:136
+`Uint8Array`\<`ArrayBufferLike`\>
 
 ***
 
@@ -650,21 +594,21 @@ packages/block/types/header.d.ts:136
 
 > **cliqueSigner**(): [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
+Defined in: packages/block/types/header.d.ts:177
+
 Returns the signer address
 
 #### Returns
 
 [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-#### Defined in
-
-packages/block/types/header.d.ts:177
-
 ***
 
 ### cliqueVerifySignature()
 
 > **cliqueVerifySignature**(`signerList`): `boolean`
+
+Defined in: packages/block/types/header.d.ts:173
 
 Verifies the signature of the block (last 65 bytes of extraData field)
 (only clique PoA, throws otherwise)
@@ -673,15 +617,13 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 
 #### Parameters
 
-• **signerList**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)[]
+##### signerList
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)[]
 
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-packages/block/types/header.d.ts:173
 
 ***
 
@@ -689,15 +631,13 @@ packages/block/types/header.d.ts:173
 
 > **errorStr**(): `string`
 
+Defined in: packages/block/types/header.d.ts:194
+
 Return a compact error string representation of the object
 
 #### Returns
 
 `string`
-
-#### Defined in
-
-packages/block/types/header.d.ts:194
 
 ***
 
@@ -705,11 +645,15 @@ packages/block/types/header.d.ts:194
 
 > **ethashCanonicalDifficulty**(`parentBlockHeader`): `bigint`
 
+Defined in: packages/block/types/header.d.ts:132
+
 Returns the canonical difficulty for this block.
 
 #### Parameters
 
-• **parentBlockHeader**: [`BlockHeader`](BlockHeader.md)
+##### parentBlockHeader
+
+[`BlockHeader`](BlockHeader.md)
 
 the header from the parent `Block` of this header
 
@@ -717,15 +661,13 @@ the header from the parent `Block` of this header
 
 `bigint`
 
-#### Defined in
-
-packages/block/types/header.d.ts:132
-
 ***
 
 ### getBlobGasPrice()
 
 > **getBlobGasPrice**(): `bigint`
+
+Defined in: packages/block/types/header.d.ts:92
 
 Returns the price per unit of blob gas for a blob transaction in the current/pending block
 
@@ -735,15 +677,13 @@ Returns the price per unit of blob gas for a blob transaction in the current/pen
 
 the price in gwei per unit of blob gas spent
 
-#### Defined in
-
-packages/block/types/header.d.ts:92
-
 ***
 
 ### hash()
 
 > **hash**(): `Uint8Array`
+
+Defined in: packages/block/types/header.d.ts:121
 
 Returns the hash of the block header.
 
@@ -751,15 +691,13 @@ Returns the hash of the block header.
 
 `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:121
-
 ***
 
 ### isGenesis()
 
 > **isGenesis**(): `boolean`
+
+Defined in: packages/block/types/header.d.ts:125
 
 Checks if the block header is a genesis header.
 
@@ -767,15 +705,13 @@ Checks if the block header is a genesis header.
 
 `boolean`
 
-#### Defined in
-
-packages/block/types/header.d.ts:125
-
 ***
 
 ### raw()
 
 > **raw**(): [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
+
+Defined in: packages/block/types/header.d.ts:117
 
 Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
@@ -783,15 +719,13 @@ Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
 [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
 
-#### Defined in
-
-packages/block/types/header.d.ts:117
-
 ***
 
 ### serialize()
 
 > **serialize**(): `Uint8Array`
+
+Defined in: packages/block/types/header.d.ts:181
 
 Returns the rlp encoding of the block header.
 
@@ -799,15 +733,13 @@ Returns the rlp encoding of the block header.
 
 `Uint8Array`
 
-#### Defined in
-
-packages/block/types/header.d.ts:181
-
 ***
 
 ### toJSON()
 
 > **toJSON**(): [`JsonHeader`](../interfaces/JsonHeader.md)
+
+Defined in: packages/block/types/header.d.ts:185
 
 Returns the block header in JSON format.
 
@@ -815,22 +747,22 @@ Returns the block header in JSON format.
 
 [`JsonHeader`](../interfaces/JsonHeader.md)
 
-#### Defined in
-
-packages/block/types/header.d.ts:185
-
 ***
 
 ### validateGasLimit()
 
 > **validateGasLimit**(`parentBlockHeader`): `void`
 
+Defined in: packages/block/types/header.d.ts:83
+
 Validates if the block gasLimit remains in the boundaries set by the protocol.
 Throws if out of bounds.
 
 #### Parameters
 
-• **parentBlockHeader**: [`BlockHeader`](BlockHeader.md)
+##### parentBlockHeader
+
+[`BlockHeader`](BlockHeader.md)
 
 the header from the parent `Block` of this header
 
@@ -838,31 +770,29 @@ the header from the parent `Block` of this header
 
 `void`
 
-#### Defined in
-
-packages/block/types/header.d.ts:83
-
 ***
 
 ### fromHeaderData()
 
 > `static` **fromHeaderData**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
+Defined in: packages/block/types/header.d.ts:45
+
 Static constructor to create a block header from a header data dictionary
 
 #### Parameters
 
-• **headerData**: [`HeaderData`](../interfaces/HeaderData.md)
+##### headerData
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+[`HeaderData`](../interfaces/HeaderData.md)
+
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
 
 [`BlockHeader`](BlockHeader.md)
-
-#### Defined in
-
-packages/block/types/header.d.ts:45
 
 ***
 
@@ -870,21 +800,23 @@ packages/block/types/header.d.ts:45
 
 > `static` **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`): [`BlockHeader`](BlockHeader.md)
 
+Defined in: packages/block/types/header.d.ts:52
+
 Static constructor to create a block header from a RLP-serialized header
 
 #### Parameters
 
-• **serializedHeaderData**: `Uint8Array`
+##### serializedHeaderData
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+`Uint8Array`
+
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
 
 [`BlockHeader`](BlockHeader.md)
-
-#### Defined in
-
-packages/block/types/header.d.ts:52
 
 ***
 
@@ -892,18 +824,20 @@ packages/block/types/header.d.ts:52
 
 > `static` **fromValuesArray**(`values`, `opts`): [`BlockHeader`](BlockHeader.md)
 
+Defined in: packages/block/types/header.d.ts:59
+
 Static constructor to create a block header from an array of Bytes values
 
 #### Parameters
 
-• **values**: [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
+##### values
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+[`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
+
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
 
 [`BlockHeader`](BlockHeader.md)
-
-#### Defined in
-
-packages/block/types/header.d.ts:59

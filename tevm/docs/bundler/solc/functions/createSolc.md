@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: createSolc()
 
-> **createSolc**(`release`): `Promise`\<`Solc`\>
+> **createSolc**(`release`): `Promise`\<[`Solc`](../interfaces/Solc.md)\>
+
+Defined in: bundler-packages/solc/types/src/solc.d.ts:10
 
 ## Parameters
 
-• **release**: keyof [`Releases`](../type-aliases/Releases.md)
+### release
+
+keyof [`Releases`](../type-aliases/Releases.md)
 
 ## Returns
 
-`Promise`\<`Solc`\>
-
-## Defined in
-
-bundler-packages/solc/types/src/solc.d.ts:10
+`Promise`\<[`Solc`](../interfaces/Solc.md)\>

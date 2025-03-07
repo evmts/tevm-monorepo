@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **VMEvents**: `object`
 
+Defined in: packages/vm/types/utils/VMEvents.d.ts:5
+
 ## Type declaration
 
 ### afterBlock()
@@ -16,9 +18,13 @@
 
 #### Parameters
 
-• **data**: [`AfterBlockEvent`](../interfaces/AfterBlockEvent.md)
+##### data
 
-• **resolve?**
+[`AfterBlockEvent`](../interfaces/AfterBlockEvent.md)
+
+##### resolve?
+
+(`result`?) => `void`
 
 #### Returns
 
@@ -30,9 +36,13 @@
 
 #### Parameters
 
-• **data**: [`AfterTxEvent`](../interfaces/AfterTxEvent.md)
+##### data
 
-• **resolve?**
+[`AfterTxEvent`](../interfaces/AfterTxEvent.md)
+
+##### resolve?
+
+(`result`?) => `void`
 
 #### Returns
 
@@ -44,9 +54,13 @@
 
 #### Parameters
 
-• **data**: [`Block`](../../block/classes/Block.md)
+##### data
 
-• **resolve?**
+[`Block`](../../block/classes/Block.md)
+
+##### resolve?
+
+(`result`?) => `void`
 
 #### Returns
 
@@ -58,14 +72,14 @@
 
 #### Parameters
 
-• **data**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)
+##### data
 
-• **resolve?**
+[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)
+
+##### resolve?
+
+(`result`?) => `void`
 
 #### Returns
 
 `void`
-
-## Defined in
-
-packages/vm/types/utils/VMEvents.d.ts:5

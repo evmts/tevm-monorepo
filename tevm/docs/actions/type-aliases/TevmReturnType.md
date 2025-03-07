@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmReturnType
 
 > **TevmReturnType**: `object`
+
+Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:10
 
 A mapping of `tevm_*` method names to their return type
 
@@ -37,7 +39,3 @@ A mapping of `tevm_*` method names to their return type
 ### tevm\_setAccount
 
 > **tevm\_setAccount**: `SetAccountJsonRpcResponse`
-
-## Defined in
-
-packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:10

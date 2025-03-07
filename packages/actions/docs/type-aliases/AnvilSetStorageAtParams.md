@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilSetStorageAtParams
 
 > **AnvilSetStorageAtParams**: `object`
+
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L122)
 
 Params for `anvil_setStorageAt` handler
 
@@ -29,7 +31,3 @@ The position in storage to set
 > `readonly` **value**: [`Hex`](Hex.md) \| `BigInt`
 
 The value to set
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilParams.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L122)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthSendTransactionHandler**: (`request`) => `Promise`\<[`EthSendTransactionResult`](EthSendTransactionResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:33
+
 ## Parameters
 
-• **request**: [`EthSendTransactionParams`](EthSendTransactionParams.md)
+### request
+
+[`EthSendTransactionParams`](EthSendTransactionParams.md)
 
 ## Returns
 
 `Promise`\<[`EthSendTransactionResult`](EthSendTransactionResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:33

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ProviderMessage
 
 > **ProviderMessage**: `object`
+
+Defined in: packages/node/dist/index.d.ts:20
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### type
 
 > **type**: `string`
-
-## Defined in
-
-packages/node/dist/index.d.ts:23

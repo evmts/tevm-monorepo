@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,30 @@
 
 # Function: getIteratorHead()
 
-> **getIteratorHead**(`baseChain`): `Chain`\[`"getIteratorHead"`\]
+> **getIteratorHead**(`baseChain`): (`name`?) => `Promise`\<[`Block`](../../block/classes/Block.md)\>
+
+Defined in: packages/blockchain/types/actions/getIteratorHead.d.ts:1
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
-`Chain`\[`"getIteratorHead"`\]
+`Function`
 
-## Defined in
+Returns the specified iterator head.
 
-packages/blockchain/types/actions/getIteratorHead.d.ts:1
+### Parameters
+
+#### name?
+
+`string`
+
+Optional name of the iterator head (default: 'vm')
+
+### Returns
+
+`Promise`\<[`Block`](../../block/classes/Block.md)\>

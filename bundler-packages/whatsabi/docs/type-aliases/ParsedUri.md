@@ -1,4 +1,4 @@
-[**@tevm/whatsabi**](../README.md) • **Docs**
+[**@tevm/whatsabi**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ParsedUri
 
 > **ParsedUri**: `object`
+
+Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ParsedUri.ts#L4)
 
 ## Type declaration
 
@@ -33,7 +35,3 @@
 ### rpcUrl?
 
 > `optional` **rpcUrl**: `string`
-
-## Defined in
-
-[bundler-packages/whatsabi/src/ParsedUri.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ParsedUri.ts#L4)

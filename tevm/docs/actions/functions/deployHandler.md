@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: deployHandler()
 
-> **deployHandler**(`client`, `__namedParameters`?): `DeployHandler`
+> **deployHandler**(`client`, `__namedParameters`?): [`DeployHandler`](../type-aliases/DeployHandler.md)
+
+Defined in: packages/actions/types/Deploy/deployHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **\_\_namedParameters?**
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **\_\_namedParameters.throwOnFail?**: `boolean`
+### \_\_namedParameters?
+
+#### throwOnFail?
+
+`boolean`
 
 ## Returns
 
-`DeployHandler`
-
-## Defined in
-
-packages/actions/types/Deploy/deployHandler.d.ts:1
+[`DeployHandler`](../type-aliases/DeployHandler.md)

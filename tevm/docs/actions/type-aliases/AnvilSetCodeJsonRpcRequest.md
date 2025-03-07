@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: AnvilSetCodeJsonRpcRequest
 
-> **AnvilSetCodeJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setCode"`, readonly [[`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md)]\>
+> **AnvilSetCodeJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setCode"`, readonly \[[`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
+
+Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:50
 
 JSON-RPC request for `anvil_setCode` method
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:50

@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,13 +6,11 @@
 
 # receipt-manager
 
-## Index
-
-### Classes
+## Classes
 
 - [ReceiptsManager](classes/ReceiptsManager.md)
 
-### Interfaces
+## Interfaces
 
 - [BaseTxReceipt](interfaces/BaseTxReceipt.md)
 - [EIP4844BlobTxReceipt](interfaces/EIP4844BlobTxReceipt.md)
@@ -20,13 +18,13 @@
 - [PostByzantiumTxReceipt](interfaces/PostByzantiumTxReceipt.md)
 - [PreByzantiumTxReceipt](interfaces/PreByzantiumTxReceipt.md)
 
-### Type Aliases
+## Type Aliases
 
 - [DbType](type-aliases/DbType.md)
 - [MapDb](type-aliases/MapDb.md)
 - [TxReceipt](type-aliases/TxReceipt.md)
 - [TxReceiptWithType](type-aliases/TxReceiptWithType.md)
 
-### Functions
+## Functions
 
 - [createMapDb](functions/createMapDb.md)

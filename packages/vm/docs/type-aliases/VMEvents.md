@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **VMEvents**: `object`
 
+Defined in: [packages/vm/src/utils/VMEvents.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L6)
+
 ## Type declaration
 
 ### afterBlock()
@@ -16,9 +18,13 @@
 
 #### Parameters
 
-• **data**: [`AfterBlockEvent`](../interfaces/AfterBlockEvent.md)
+##### data
 
-• **resolve?**
+[`AfterBlockEvent`](../interfaces/AfterBlockEvent.md)
+
+##### resolve?
+
+(`result`?) => `void`
 
 #### Returns
 
@@ -30,9 +36,13 @@
 
 #### Parameters
 
-• **data**: [`AfterTxEvent`](../interfaces/AfterTxEvent.md)
+##### data
 
-• **resolve?**
+[`AfterTxEvent`](../interfaces/AfterTxEvent.md)
+
+##### resolve?
+
+(`result`?) => `void`
 
 #### Returns
 
@@ -44,9 +54,13 @@
 
 #### Parameters
 
-• **data**: `Block`
+##### data
 
-• **resolve?**
+`Block`
+
+##### resolve?
+
+(`result`?) => `void`
 
 #### Returns
 
@@ -58,14 +72,14 @@
 
 #### Parameters
 
-• **data**: `TypedTransaction`
+##### data
 
-• **resolve?**
+`TypedTransaction`
+
+##### resolve?
+
+(`result`?) => `void`
 
 #### Returns
 
 `void`
-
-## Defined in
-
-[packages/vm/src/utils/VMEvents.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L6)

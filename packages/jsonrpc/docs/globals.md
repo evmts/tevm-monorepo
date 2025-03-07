@@ -1,4 +1,4 @@
-[**@tevm/jsonrpc**](README.md) • **Docs**
+[**@tevm/jsonrpc**](README.md)
 
 ***
 
@@ -14,7 +14,7 @@
 
 ## Functions
 
-- [createJsonRpcFetcher](functions/createJsonRpcFetcher.md)
+- [~~createJsonRpcFetcher~~](functions/createJsonRpcFetcher.md)
 - [http](functions/http.md)
 - [loadBalance](functions/loadBalance.md)
 - [rateLimit](functions/rateLimit.md)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetCodeHandler**: (`request`) => `Promise`\<[`EthGetCodeResult`](EthGetCodeResult.md)\>
 
+Defined in: [packages/actions/src/eth/EthHandler.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L113)
+
 ## Parameters
 
-• **request**: [`EthGetCodeParams`](EthGetCodeParams.md)
+### request
+
+[`EthGetCodeParams`](EthGetCodeParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetCodeResult`](EthGetCodeResult.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthHandler.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L113)

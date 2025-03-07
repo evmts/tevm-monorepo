@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: loadStateHandler()
 
-> **loadStateHandler**(`client`, `options`?): `LoadStateHandler`
+> **loadStateHandler**(`client`, `options`?): [`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
+
+Defined in: packages/actions/types/LoadState/loadStateHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **options?**
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **options.throwOnFail?**: `boolean`
+### options?
+
+#### throwOnFail?
+
+`boolean`
 
 ## Returns
 
-`LoadStateHandler`
-
-## Defined in
-
-packages/actions/types/LoadState/loadStateHandler.d.ts:1
+[`LoadStateHandler`](../type-aliases/LoadStateHandler.md)

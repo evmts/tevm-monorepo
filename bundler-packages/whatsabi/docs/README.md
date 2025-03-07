@@ -1,4 +1,4 @@
-**@tevm/whatsabi** • [**Docs**](globals.md)
+**@tevm/whatsabi**
 
 ***
 

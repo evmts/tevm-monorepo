@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # bundler/webpack-plugin
 
-## Index
-
-### Variables
+## Variables
 
 - [WebpackPluginTevm](variables/WebpackPluginTevm.md)

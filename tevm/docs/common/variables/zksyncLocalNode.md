@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: zksyncLocalNode
 
-> `const` **zksyncLocalNode**: `Common`
+> `const` **zksyncLocalNode**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/zksyncLocalNode.d.ts:21
 
 Creates a common configuration for the zksyncLocalNode chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/zksyncLocalNode.d.ts:21

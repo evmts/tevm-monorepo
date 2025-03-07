@@ -1,4 +1,4 @@
-[**@tevm/common**](../README.md) • **Docs**
+[**@tevm/common**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: MockKzg
 
 > **MockKzg**: `object`
+
+Defined in: [packages/common/src/MockKzg.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L24)
 
 The interface of the custom crypto for kzg implemented by `createMockKzg``
 The real kzg commitmenet is over 500kb added to bundle size
@@ -20,7 +22,9 @@ so this is useful alternative for smaller bundles and the default
 
 #### Parameters
 
-• **blob**: `Uint8Array`
+##### blob
+
+`Uint8Array`
 
 #### Returns
 
@@ -32,9 +36,13 @@ so this is useful alternative for smaller bundles and the default
 
 #### Parameters
 
-• **blob**: `Uint8Array`
+##### blob
 
-• **commitment**: `Uint8Array`
+`Uint8Array`
+
+##### commitment
+
+`Uint8Array`
 
 #### Returns
 
@@ -54,7 +62,9 @@ so this is useful alternative for smaller bundles and the default
 
 #### Parameters
 
-• **trustedSetup?**: `any`
+##### trustedSetup?
+
+`any`
 
 #### Returns
 
@@ -66,11 +76,17 @@ so this is useful alternative for smaller bundles and the default
 
 #### Parameters
 
-• **blob**: `Uint8Array`
+##### blob
 
-• **commitment**: `Uint8Array`
+`Uint8Array`
 
-• **proof**: `Uint8Array`
+##### commitment
+
+`Uint8Array`
+
+##### proof
+
+`Uint8Array`
 
 #### Returns
 
@@ -82,11 +98,17 @@ so this is useful alternative for smaller bundles and the default
 
 #### Parameters
 
-• **blobs**: `Uint8Array`[]
+##### blobs
 
-• **commitments**: `Uint8Array`[]
+`Uint8Array`[]
 
-• **proofs**: `Uint8Array`[]
+##### commitments
+
+`Uint8Array`[]
+
+##### proofs
+
+`Uint8Array`[]
 
 #### Returns
 
@@ -98,13 +120,21 @@ so this is useful alternative for smaller bundles and the default
 
 #### Parameters
 
-• **commitment**: `Uint8Array`
+##### commitment
 
-• **z**: `Uint8Array`
+`Uint8Array`
 
-• **y**: `Uint8Array`
+##### z
 
-• **proof**: `Uint8Array`
+`Uint8Array`
+
+##### y
+
+`Uint8Array`
+
+##### proof
+
+`Uint8Array`
 
 #### Returns
 
@@ -129,7 +159,3 @@ const common = createCommon({
 
  - [createMockKzg](https://tevm.sh/reference/tevm/common/functions/createmockkzg/)
  - [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
-
-## Defined in
-
-[packages/common/src/MockKzg.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L24)

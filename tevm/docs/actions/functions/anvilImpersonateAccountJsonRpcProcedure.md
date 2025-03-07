@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilImpersonateAccountJsonRpcProcedure()
 
-> **anvilImpersonateAccountJsonRpcProcedure**(`client`): `AnvilImpersonateAccountProcedure`
+> **anvilImpersonateAccountJsonRpcProcedure**(`client`): [`AnvilImpersonateAccountProcedure`](../type-aliases/AnvilImpersonateAccountProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilImpersonateAccountProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilImpersonateAccountProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilImpersonateAccountProcedure.d.ts:1
+[`AnvilImpersonateAccountProcedure`](../type-aliases/AnvilImpersonateAccountProcedure.md)

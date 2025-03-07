@@ -1,4 +1,4 @@
-[**@tevm/blockchain**](../README.md) • **Docs**
+[**@tevm/blockchain**](../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **putBlock**(`baseChain`): (`block`) => `Promise`\<`void`\>
 
+Defined in: [packages/blockchain/src/actions/putBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/putBlock.js#L7)
+
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
@@ -20,14 +24,12 @@ Adds a block to the blockchain.
 
 ### Parameters
 
-• **block**: `Block`
+#### block
+
+`Block`
 
 The block to be added to the blockchain.
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-[packages/blockchain/src/actions/putBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/putBlock.js#L7)

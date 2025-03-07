@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilLoadStateParams
 
 > **AnvilLoadStateParams**: `object`
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:129
 
 Params for `anvil_loadState` handler
 
@@ -17,7 +19,3 @@ Params for `anvil_loadState` handler
 > `readonly` **state**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
 The state to load
-
-## Defined in
-
-packages/actions/types/anvil/AnvilParams.d.ts:129

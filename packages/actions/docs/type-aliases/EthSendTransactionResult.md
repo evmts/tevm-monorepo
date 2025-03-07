@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthSendTransactionResult**: [`Hex`](Hex.md)
 
+Defined in: [packages/actions/src/eth/EthResult.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L191)
+
 JSON-RPC response for `eth_sendTransaction` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthResult.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L191)

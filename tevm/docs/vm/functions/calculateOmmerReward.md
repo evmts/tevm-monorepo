@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,18 +8,22 @@
 
 > **calculateOmmerReward**(`ommerBlockNumber`, `blockNumber`, `minerReward`): `bigint`
 
+Defined in: packages/vm/types/actions/calculateOmmerReward.d.ts:1
+
 ## Parameters
 
-• **ommerBlockNumber**: `bigint`
+### ommerBlockNumber
 
-• **blockNumber**: `bigint`
+`bigint`
 
-• **minerReward**: `bigint`
+### blockNumber
+
+`bigint`
+
+### minerReward
+
+`bigint`
 
 ## Returns
 
 `bigint`
-
-## Defined in
-
-packages/vm/types/actions/calculateOmmerReward.d.ts:1

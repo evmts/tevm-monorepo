@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethCallProcedure()
 
-> **ethCallProcedure**(`client`): `EthCallJsonRpcProcedure`
+> **ethCallProcedure**(`client`): [`EthCallJsonRpcProcedure`](../type-aliases/EthCallJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethCallProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthCallJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethCallProcedure.d.ts:1
+[`EthCallJsonRpcProcedure`](../type-aliases/EthCallJsonRpcProcedure.md)

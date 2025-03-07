@@ -1,4 +1,4 @@
-[**@tevm/tsupconfig**](../README.md) • **Docs**
+[**@tevm/tsupconfig**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > `const` **browser**: `Options`
 
-## Defined in
-
-[browser.js:3](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/browser.js#L3)
+Defined in: [browser.js:3](https://github.com/evmts/tevm-monorepo/blob/main/configs/tsupconfig/src/browser.js#L3)

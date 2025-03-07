@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,20 @@
 
 > **checkpoint**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`void`\>
 
+Defined in: packages/state/dist/index.d.ts:211
+
 Checkpoints the current change-set to the instance since the
 last call to checkpoint.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -24,7 +30,3 @@ last call to checkpoint.
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:211

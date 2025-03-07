@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcFunctionDebugData
 
 > **SolcFunctionDebugData**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:181
 
 ## Type declaration
 
@@ -25,7 +27,3 @@
 ### returnSlots?
 
 > `optional` **returnSlots**: `number`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:181

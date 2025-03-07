@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DebugTraceCallResult
 
 > **DebugTraceCallResult**: `object`
+
+Defined in: packages/actions/types/debug/DebugResult.d.ts:16
 
 ## Type declaration
 
@@ -25,7 +27,3 @@
 ### structLogs
 
 > **structLogs**: [`StructLog`](StructLog.md)[]
-
-## Defined in
-
-packages/actions/types/debug/DebugResult.d.ts:16

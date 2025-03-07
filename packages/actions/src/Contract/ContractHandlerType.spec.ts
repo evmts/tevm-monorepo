@@ -37,7 +37,7 @@ describe('ContractHandler', () => {
 			to: '0x123' as const,
 		} as const
 
-		expect(
+		await expect(
 			contractHandler(
 				goodAction satisfies ContractParams<(typeof goodAction)['abi'], (typeof goodAction)['functionName']>,
 			) satisfies Promise<ContractResult<(typeof goodAction)['abi'], (typeof goodAction)['functionName']>>,

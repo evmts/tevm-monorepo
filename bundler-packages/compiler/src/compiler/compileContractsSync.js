@@ -103,6 +103,7 @@ export function compileContractSync(filePath, basedir, config, includeAst, inclu
 
 	if (isErrors) {
 		logger.error('Compilation errors:', /** @type {any}*/ (solcOutput?.errors))
+		console.log(solcOutput.errors)
 		throw new Error('Compilation failed')
 	}
 	if (warnings?.length) {
