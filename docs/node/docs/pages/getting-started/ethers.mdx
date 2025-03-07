@@ -194,7 +194,7 @@ So after we use a function that creates a transaction, we need to use [`<client>
 
 ## TevmNode
 
-In most cases, you can use a standard API, either [`viem`](./examples/viem.mdx) API or [ethers](./examples/ethers.mdx), to control `tevm`.
+In most cases, you can use a standard API, such as `ethers`, to control `tevm`.
 These APIs let you communicate as you would with a real Ethernet node.
 
 But if you need to access the node's internals, for example the EVM (Ethereum virtual machine), that is also available. The lower level API is available in the [`TevmNode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNode.ts) object.
@@ -205,6 +205,10 @@ For example, this code shows the trace of a `setGreeting` call.
 import {createMemoryClient, http} from 'tevm'
 import {optimism} from 'tevm/common'
 import {createAddress} from 'tevm/address'
+
+import {requestEip1193} from 'tevm/decorators'
+import {BrowserProvider, Contract, Wallet} from 'ethers'
+import {parseUnits} from 'ethers/utils'
 
 import {
   encodeFunctionData,
@@ -221,44 +225,34 @@ const client = createMemoryClient({
   },
 })
 
-console.log("Client created")
-
+client.tevm.extend(requestEip1193())
 await client.tevmReady()
 
 console.log("Client ready")
 
+const provider = new BrowserProvider(client.tevm)
+const signer = Wallet.createRandom(provider)
+
 const blockNumber = await client.getBlockNumber()
 console.log(blockNumber)
 
-const account = `0x${"baD60A7".padStart(40, "0")}` as const
 const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
 
-const greetAbi = parseAbi(['function greet() view returns (string)'])
-const setGreetingAbi = parseAbi(['function setGreeting(string memory _greeting) public'])
+const greeterAbi = parseAbi([
+    'function greet() view returns (string)',
+    'function setGreeting(string memory _greeting) public',
+])
 
-const getGreeting = async () => {
-  const callResult = await client.call({
-    account,
-    to: greeterContractAddress,
-    data: encodeFunctionData({
-      abi: greetAbi
-    }),
-  })
+const greeter = new Contract(greeterContractAddress, greeterAbi, signer)
 
-  const greeting = decodeFunctionResult({
-    abi: greetAbi,
-    data: callResult.data,
-  })
-
-  return greeting
-}
+const getGreeting = async () => await greeter.greet()
 
 await client.setBalance({
-  address: account,
+  address: signer.address,
   value: parseEther("1")
 })
 
-const tevmNode = client.transport.tevm   // [!code hl]
+const tevmNode = client.transport.tevm  // [!code hl]
 const vm = await tevmNode.getVm() // [!code hl]
 
 vm.evm.events.on("step", (data, next) => { // [!code hl]
@@ -268,23 +262,22 @@ vm.evm.events.on("step", (data, next) => { // [!code hl]
       data.opcode.name.padEnd(9, " "), // [!code hl]
       data.stack.length.toString().padStart(3, " "), // [!code hl]
       data.stack.length<5 ? data.stack : data.stack.slice(-5)) // [!code hl]
-// [!code hl]
-  } catch (err) {  // [!code hl]
-    console.error(err)  // [!code hl]
-  }   // [!code hl]
+  } catch (err) { // [!code hl]
+    console.error(err) // [!code hl]
+  } // [!code hl]
   next?.() // [!code hl]
 }) // [!code hl]
 
 console.log(`Original greeting: ${await getGreeting()}`)
 
 const requestData = encodeFunctionData({ // [!code hl]
-  abi: setGreetingAbi, // [!code hl]
+  abi: [greeterAbi[1]], // [!code hl]
   args: ["Hi"] // [!code hl]
 }) // [!code hl]
 
 await vm.evm.runCall({ // [!code hl]
   to: createAddress(greeterContractAddress), // [!code hl]
-  caller: createAddress(account), // [!code hl]
+  caller: createAddress(signer.address), // [!code hl]
   data: hexToBytes(requestData) // [!code hl]
 }) // [!code hl]
 
@@ -341,7 +334,7 @@ The `next` parameter is the function to call after the event handler is done.
 
 ```ts
 const requestData = encodeFunctionData({
-  abi: setGreetingAbi,
+  abi: [greeterAbi[1]],
   args: ["Hi"]
 })
 ```
