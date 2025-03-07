@@ -1,4 +1,4 @@
-[**@tevm/jsonrpc**](../README.md) • **Docs**
+[**@tevm/jsonrpc**](../README.md)
 
 ***
 
@@ -8,15 +8,23 @@
 
 > **rateLimit**(`_transport`, `__namedParameters`): `Transport`
 
+Defined in: node\_modules/.pnpm/@ponder+utils@0.2.3\_typescript@5.8.2\_viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2\_/node\_modules/@ponder/utils/dist/index.d.ts:51
+
 ## Parameters
 
-• **\_transport**: `Transport`
+### \_transport
 
-• **\_\_namedParameters**
+`Transport`
 
-• **\_\_namedParameters.browser?**: `boolean`
+### \_\_namedParameters
 
-• **\_\_namedParameters.requestsPerSecond**: `number`
+#### browser?
+
+`boolean`
+
+#### requestsPerSecond
+
+`number`
 
 ## Returns
 
@@ -25,7 +33,3 @@
 ## Description
 
 Creates a rate limited transport that throttles request throughput.
-
-## Defined in
-
-node\_modules/.pnpm/@ponder+utils@0.2.1\_typescript@5.7.3\_viem@2.21.15\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8\_/node\_modules/@ponder/utils/dist/index.d.ts:51

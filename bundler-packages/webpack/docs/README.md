@@ -1,4 +1,4 @@
-**@tevm/webpack-plugin** • [**Docs**](globals.md)
+**@tevm/webpack-plugin**
 
 ***
 

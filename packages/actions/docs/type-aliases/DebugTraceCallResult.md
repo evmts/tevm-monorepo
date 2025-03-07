@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DebugTraceCallResult
 
 > **DebugTraceCallResult**: `object`
+
+Defined in: [packages/actions/src/debug/DebugResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L20)
 
 ## Type declaration
 
@@ -25,7 +27,3 @@
 ### structLogs
 
 > **structLogs**: [`StructLog`](StructLog.md)[]
-
-## Defined in
-
-[packages/actions/src/debug/DebugResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L20)

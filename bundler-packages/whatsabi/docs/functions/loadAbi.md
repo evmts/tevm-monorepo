@@ -1,4 +1,4 @@
-[**@tevm/whatsabi**](../README.md) • **Docs**
+[**@tevm/whatsabi**](../README.md)
 
 ***
 
@@ -8,24 +8,32 @@
 
 > **loadAbi**(`options`): `Promise`\<`AutoloadResult`\>
 
+Defined in: [bundler-packages/whatsabi/src/loadAbi.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/loadAbi.js#L12)
+
 ## Parameters
 
-• **options**
+### options
 
-• **options.address**: \`0x$\{string\}\`
+#### address
 
-• **options.client**: `Client`\<`Transport`, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| `object`\>
+`` `0x${string}` ``
 
-• **options.etherscanApiKey**: `undefined` \| `string`
+#### client
 
-• **options.explorerUrl**: `undefined` \| `string`
+`Client`\<`Transport`, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
 
-• **options.followProxies**: `boolean`
+#### etherscanApiKey
+
+`undefined` \| `string`
+
+#### explorerUrl
+
+`undefined` \| `string`
+
+#### followProxies
+
+`boolean`
 
 ## Returns
 
 `Promise`\<`AutoloadResult`\>
-
-## Defined in
-
-[bundler-packages/whatsabi/src/loadAbi.js:12](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/loadAbi.js#L12)

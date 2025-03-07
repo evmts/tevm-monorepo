@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthGetTransactionByBlockHashAndIndexParams
 
 > **EthGetTransactionByBlockHashAndIndexParams**: `object`
+
+Defined in: [packages/actions/src/eth/EthParams.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L182)
 
 Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
@@ -19,7 +21,3 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 ### index
 
 > `readonly` **index**: [`Hex`](Hex.md)
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L182)

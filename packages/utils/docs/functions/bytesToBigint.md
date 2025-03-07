@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -8,17 +8,23 @@
 
 > **bytesToBigint**(`bytes`, `opts`?): `bigint`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:59
+
 Decodes a byte array into a bigint.
 
 - Docs: https://viem.sh/docs/utilities/fromBytes#bytestobigint
 
 ## Parameters
 
-• **bytes**: `Uint8Array`
+### bytes
+
+`ByteArray`
 
 Byte array to decode.
 
-• **opts?**: `BytesToBigIntOpts`
+### opts?
+
+`BytesToBigIntOpts`
 
 Options.
 
@@ -35,7 +41,3 @@ import { bytesToBigInt } from 'viem'
 const data = bytesToBigInt(new Uint8Array([1, 164]))
 // 420n
 ```
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromBytes.d.ts:59

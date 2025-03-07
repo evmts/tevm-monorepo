@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcMetadataSettings
 
 > **SolcMetadataSettings**: `object`
+
+Defined in: [solcTypes.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L225)
 
 ## Type declaration
 
@@ -21,7 +23,3 @@
 ### useLiteralContent?
 
 > `optional` **useLiteralContent**: `boolean`
-
-## Defined in
-
-[solcTypes.ts:225](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L225)

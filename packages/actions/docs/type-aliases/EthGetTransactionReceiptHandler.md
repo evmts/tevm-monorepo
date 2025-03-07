@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetTransactionReceiptHandler**: (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 
+Defined in: [packages/actions/src/eth/EthHandler.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L147)
+
 ## Parameters
 
-• **request**: [`EthGetTransactionReceiptParams`](EthGetTransactionReceiptParams.md)
+### request
+
+[`EthGetTransactionReceiptParams`](EthGetTransactionReceiptParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthHandler.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L147)

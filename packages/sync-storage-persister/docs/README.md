@@ -1,4 +1,4 @@
-**@tevm/sync-storage-persister** • [**Docs**](globals.md)
+**@tevm/sync-storage-persister**
 
 ***
 

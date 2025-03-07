@@ -1,4 +1,4 @@
-**@tevm/jsonrpc** • [**Docs**](globals.md)
+**@tevm/jsonrpc**
 
 ***
 

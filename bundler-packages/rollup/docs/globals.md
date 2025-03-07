@@ -1,4 +1,4 @@
-[**@tevm/rollup-plugin**](README.md) • **Docs**
+[**@tevm/rollup-plugin**](README.md)
 
 ***
 

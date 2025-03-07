@@ -1,4 +1,4 @@
-[**@tevm/effect**](../README.md) • **Docs**
+[**@tevm/effect**](../README.md)
 
 ***
 
@@ -6,17 +6,15 @@
 
 # resolve
 
-## Index
-
-### Classes
+## Classes
 
 - [CouldNotResolveImportError](classes/CouldNotResolveImportError.md)
 
-### Type Aliases
+## Type Aliases
 
 - [ResolveSafe](type-aliases/ResolveSafe.md)
 
-### Functions
+## Functions
 
 - [resolveAsync](functions/resolveAsync.md)
 - [resolveSync](functions/resolveSync.md)

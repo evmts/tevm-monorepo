@@ -1,4 +1,4 @@
-[**@tevm/ethers**](../README.md) • **Docs**
+[**@tevm/ethers**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **BaseContractMethod**\<`TArguments`, `TReturnType`, `TExtendedReturnType`\>: (...`args`) => `Promise`\<`TReturnType` \| `TExtendedReturnType`\>
 
+Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L4)
+
 ## Type Parameters
 
 • **TArguments** *extends* `ReadonlyArray`\<`any`\> = `ReadonlyArray`\<`any`\>
@@ -16,15 +18,17 @@
 
 • **TExtendedReturnType** *extends* `TReturnType` \| `ContractTransactionResponse` = `ContractTransactionResponse`
 
+## Type declaration
+
 ## Parameters
 
-• ...**args**: [`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
+### args
+
+...[`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
 
 ## Returns
 
 `Promise`\<`TReturnType` \| `TExtendedReturnType`\>
-
-## Type declaration
 
 ### \_contract
 
@@ -40,7 +44,9 @@
 
 #### Parameters
 
-• ...**args**: [`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
+##### args
+
+...[`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
 
 #### Returns
 
@@ -56,7 +62,9 @@
 
 #### Parameters
 
-• ...**args**: [`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
+##### args
+
+...[`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
 
 #### Returns
 
@@ -72,7 +80,9 @@
 
 #### Parameters
 
-• ...**args**: [`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
+##### args
+
+...[`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
 
 #### Returns
 
@@ -84,7 +94,9 @@
 
 #### Parameters
 
-• ...**args**: [`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
+##### args
+
+...[`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
 
 #### Returns
 
@@ -96,7 +108,9 @@
 
 #### Parameters
 
-• ...**args**: [`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
+##### args
+
+...[`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
 
 #### Returns
 
@@ -108,12 +122,10 @@
 
 #### Parameters
 
-• ...**args**: [`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
+##### args
+
+...[`ContractMethodArgs`](ContractMethodArgs.md)\<`TArguments`\>
 
 #### Returns
 
 `Promise`\<`Result`\>
-
-## Defined in
-
-[extensions/ethers/src/contract/BaseContractMethod.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L4)

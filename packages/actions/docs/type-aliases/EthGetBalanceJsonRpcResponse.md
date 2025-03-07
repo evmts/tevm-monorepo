@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGetBalanceJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getBalance"`, `Hex`, `string` \| `number`\>
 
+Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L66)
+
 JSON-RPC response for `eth_getBalance` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthJsonRpcResponse.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L66)

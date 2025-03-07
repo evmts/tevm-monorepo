@@ -1,4 +1,4 @@
-[**@tevm/node**](../README.md) • **Docs**
+[**@tevm/node**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ProviderMessage
 
 > **ProviderMessage**: `object`
+
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L16)
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### type
 
 > **type**: `string`
-
-## Defined in
-
-[packages/node/src/EIP1193EventEmitterTypes.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L16)

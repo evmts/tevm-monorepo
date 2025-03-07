@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **validateGetAccountParams**(`action`): `InvalidRequestError`[]
 
+Defined in: [packages/actions/src/GetAccount/validateGetAccountParams.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/validateGetAccountParams.js#L12)
+
 ## Parameters
 
-• **action**: [`GetAccountParams`](../type-aliases/GetAccountParams.md)\<`boolean`\>
+### action
+
+[`GetAccountParams`](../type-aliases/GetAccountParams.md)\<`boolean`\>
 
 ## Returns
 
 `InvalidRequestError`[]
-
-## Defined in
-
-[packages/actions/src/GetAccount/validateGetAccountParams.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/validateGetAccountParams.js#L12)

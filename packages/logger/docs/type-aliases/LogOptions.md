@@ -1,4 +1,4 @@
-[**@tevm/logger**](../README.md) • **Docs**
+[**@tevm/logger**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: LogOptions
 
 > **LogOptions**: `object`
+
+Defined in: [LogOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/LogOptions.ts#L8)
 
 Options for logger
 
@@ -24,7 +26,3 @@ Typically, debug and trace logs are only valid for development, and not needed i
 > **name**: `string`
 
 The name of the logger. Adds a name field to every JSON line logged.
-
-## Defined in
-
-[LogOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/LogOptions.ts#L8)

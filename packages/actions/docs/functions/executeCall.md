@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,26 +6,30 @@
 
 # Function: executeCall()
 
-> **executeCall**(`client`, `evmInput`, `params`): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| `object`\>
+> **executeCall**(`client`, `evmInput`, `params`): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`ExecuteCallError`](../type-aliases/ExecuteCallError.md)\]; \}\>
+
+Defined in: [packages/actions/src/Call/executeCall.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/executeCall.js#L28)
 
 executeCall encapsalates the internal logic of running a call in the EVM
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **evmInput**: `EVMRunCallOpts`
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
-• **params**: [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
+### evmInput
+
+`EVMRunCallOpts`
+
+### params
+
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 
 ## Returns
 
-`Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| `object`\>
+`Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`ExecuteCallError`](../type-aliases/ExecuteCallError.md)\]; \}\>
 
 ## Throws
 
 returns errors as values
-
-## Defined in
-
-[packages/actions/src/Call/executeCall.js:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/executeCall.js#L28)

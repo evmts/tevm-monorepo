@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **calculateMinerReward**(`minerReward`, `ommersNum`): `bigint`
 
+Defined in: [packages/vm/src/actions/calculateMinerReward.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/calculateMinerReward.ts#L1)
+
 ## Parameters
 
-• **minerReward**: `bigint`
+### minerReward
 
-• **ommersNum**: `number`
+`bigint`
+
+### ommersNum
+
+`number`
 
 ## Returns
 
 `bigint`
-
-## Defined in
-
-[packages/vm/src/actions/calculateMinerReward.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/calculateMinerReward.ts#L1)

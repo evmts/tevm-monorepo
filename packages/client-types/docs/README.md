@@ -1,4 +1,4 @@
-**@tevm/client-types** • [**Docs**](globals.md)
+**@tevm/client-types**
 
 ***
 

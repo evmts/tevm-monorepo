@@ -1,4 +1,4 @@
-[**@tevm/effect**](README.md) • **Docs**
+[**@tevm/effect**](README.md)
 
 ***
 

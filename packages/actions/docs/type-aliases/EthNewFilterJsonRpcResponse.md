@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthNewFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_newFilter"`, `Hex`, `string` \| `number`\>
 
+Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L297)
+
 JSON-RPC response for `eth_newFilter` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthJsonRpcResponse.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L297)

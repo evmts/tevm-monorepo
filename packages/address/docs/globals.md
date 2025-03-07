@@ -1,4 +1,4 @@
-[**@tevm/address**](README.md) • **Docs**
+[**@tevm/address**](README.md)
 
 ***
 

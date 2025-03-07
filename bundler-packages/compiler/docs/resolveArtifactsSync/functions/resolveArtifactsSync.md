@@ -1,4 +1,4 @@
-[**@tevm/compiler**](../../README.md) • **Docs**
+[**@tevm/compiler**](../../README.md)
 
 ***
 
@@ -8,28 +8,42 @@
 
 > **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): [`ResolvedArtifacts`](../../types/type-aliases/ResolvedArtifacts.md)
 
+Defined in: [compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifactsSync.js#L6)
+
 ## Parameters
 
-• **solFile**: `string`
+### solFile
 
-• **basedir**: `string`
+`string`
 
-• **logger**: [`Logger`](../../types/type-aliases/Logger.md)
+### basedir
 
-• **config**: `ResolvedCompilerConfig`
+`string`
 
-• **includeAst**: `boolean`
+### logger
 
-• **includeBytecode**: `boolean`
+[`Logger`](../../types/type-aliases/Logger.md)
 
-• **fao**: [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
+### config
 
-• **solc**: `any`
+`ResolvedCompilerConfig`
+
+### includeAst
+
+`boolean`
+
+### includeBytecode
+
+`boolean`
+
+### fao
+
+[`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
+
+### solc
+
+`any`
 
 ## Returns
 
 [`ResolvedArtifacts`](../../types/type-aliases/ResolvedArtifacts.md)
-
-## Defined in
-
-[compiler/src/resolveArtifactsSync.js:6](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/compiler/src/resolveArtifactsSync.js#L6)

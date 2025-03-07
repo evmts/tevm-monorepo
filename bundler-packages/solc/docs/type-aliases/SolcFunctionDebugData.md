@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcFunctionDebugData
 
 > **SolcFunctionDebugData**: `object`
+
+Defined in: [solcTypes.ts:484](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L484)
 
 ## Type declaration
 
@@ -25,7 +27,3 @@
 ### returnSlots?
 
 > `optional` **returnSlots**: `number`
-
-## Defined in
-
-[solcTypes.ts:484](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L484)

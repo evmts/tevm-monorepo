@@ -1,4 +1,4 @@
-**@tevm/logger** • [**Docs**](globals.md)
+**@tevm/logger**
 
 ***
 

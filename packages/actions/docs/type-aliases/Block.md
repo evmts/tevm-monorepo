@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Block
 
 > **Block**: `object`
+
+Defined in: [packages/actions/src/common/Block.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Block.ts#L6)
 
 Header information of an ethereum block
 
@@ -53,7 +55,3 @@ The block number (height) in the blockchain.
 > `readonly` **timestamp**: `bigint`
 
 The timestamp at which the block was mined or validated.
-
-## Defined in
-
-[packages/actions/src/common/Block.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Block.ts#L6)

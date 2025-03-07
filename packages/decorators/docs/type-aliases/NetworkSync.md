@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: NetworkSync
 
 > **NetworkSync**: `object`
+
+Defined in: [eip1193/NetworkSync.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L11)
 
 ## Type declaration
 
@@ -27,7 +29,3 @@ Number of latest block on the network
 > **startingBlock**: [`Quantity`](Quantity.md)
 
 Block number at which syncing started
-
-## Defined in
-
-[eip1193/NetworkSync.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L11)

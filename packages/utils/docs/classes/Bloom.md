@@ -1,10 +1,12 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
 [@tevm/utils](../globals.md) / Bloom
 
 # Class: Bloom
+
+Defined in: [packages/utils/src/Bloom.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L14)
 
 A simple Bloom filter implementation originally from ethereumjs
 
@@ -14,11 +16,15 @@ A simple Bloom filter implementation originally from ethereumjs
 
 > **new Bloom**(`bitvector`?): [`Bloom`](Bloom.md)
 
+Defined in: [packages/utils/src/Bloom.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L21)
+
 Represents a Bloom filter.
 
 #### Parameters
 
-• **bitvector?**: `Uint8Array`
+##### bitvector?
+
+`Uint8Array`\<`ArrayBufferLike`\>
 
 #### Returns
 
@@ -28,19 +34,13 @@ Represents a Bloom filter.
 
 If the byte size of the bitvector is not 256.
 
-#### Defined in
-
-[packages/utils/src/Bloom.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L21)
-
 ## Properties
 
 ### bitvector
 
 > **bitvector**: `Uint8Array`
 
-#### Defined in
-
-[packages/utils/src/Bloom.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L15)
+Defined in: [packages/utils/src/Bloom.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L15)
 
 ## Methods
 
@@ -48,11 +48,15 @@ If the byte size of the bitvector is not 256.
 
 > **add**(`e`): `void`
 
+Defined in: [packages/utils/src/Bloom.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L35)
+
 Adds an element to a bit vector of a 64 byte bloom filter.
 
 #### Parameters
 
-• **e**: `Uint8Array`
+##### e
+
+`Uint8Array`
 
 The element to add
 
@@ -62,21 +66,21 @@ The element to add
 
 #### Throws
 
-#### Defined in
-
-[packages/utils/src/Bloom.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L35)
-
 ***
 
 ### check()
 
 > **check**(`e`): `boolean`
 
+Defined in: [packages/utils/src/Bloom.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L58)
+
 Checks if an element is in the bloom.
 
 #### Parameters
 
-• **e**: `Uint8Array`
+##### e
+
+`Uint8Array`
 
 The element to check
 
@@ -86,21 +90,21 @@ The element to check
 
 #### Throws
 
-#### Defined in
-
-[packages/utils/src/Bloom.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L58)
-
 ***
 
 ### multiCheck()
 
 > **multiCheck**(`topics`): `boolean`
 
+Defined in: [packages/utils/src/Bloom.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L83)
+
 Checks if multiple topics are in a bloom.
 
 #### Parameters
 
-• **topics**: `Uint8Array`[]
+##### topics
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
 
 #### Returns
 
@@ -110,28 +114,24 @@ Checks if multiple topics are in a bloom.
 
 #### Throws
 
-#### Defined in
-
-[packages/utils/src/Bloom.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L83)
-
 ***
 
 ### or()
 
 > **or**(`bloom`): `void`
 
+Defined in: [packages/utils/src/Bloom.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L91)
+
 Bitwise or blooms together.
 
 #### Parameters
 
-• **bloom**: [`Bloom`](Bloom.md)
+##### bloom
+
+[`Bloom`](Bloom.md)
 
 #### Returns
 
 `void`
 
 #### Throws
-
-#### Defined in
-
-[packages/utils/src/Bloom.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L91)

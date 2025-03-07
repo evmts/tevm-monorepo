@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: boolToHex()
 
-> **boolToHex**(`value`, `opts`?): [`Hex`](../type-aliases/Hex.md)
+> **boolToHex**(`value`, `opts`?): `` `0x${string}` ``
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:66
 
 Encodes a boolean into a hex string
 
@@ -14,17 +16,21 @@ Encodes a boolean into a hex string
 
 ## Parameters
 
-• **value**: `boolean`
+### value
+
+`boolean`
 
 Value to encode.
 
-• **opts?**: `BoolToHexOpts`
+### opts?
+
+`BoolToHexOpts`
 
 Options.
 
 ## Returns
 
-[`Hex`](../type-aliases/Hex.md)
+`` `0x${string}` ``
 
 Hex value.
 
@@ -47,7 +53,3 @@ import { boolToHex } from 'viem'
 const data = boolToHex(true, { size: 32 })
 // '0x0000000000000000000000000000000000000000000000000000000000000001'
 ```
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/toHex.d.ts:66

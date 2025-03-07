@@ -1,4 +1,4 @@
-[**@tevm/block**](README.md) • **Docs**
+[**@tevm/block**](README.md)
 
 ***
 
@@ -38,7 +38,7 @@
 
 ## Functions
 
-- [blockFromRpc](functions/blockFromRpc.md)
+- [~~blockFromRpc~~](functions/blockFromRpc.md)
 - [executionPayloadFromBeaconPayload](functions/executionPayloadFromBeaconPayload.md)
 - [getDifficulty](functions/getDifficulty.md)
 - [valuesArrayToHeaderData](functions/valuesArrayToHeaderData.md)

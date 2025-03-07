@@ -1,4 +1,4 @@
-[**@tevm/errors**](../README.md) • **Docs**
+[**@tevm/errors**](../README.md)
 
 ***
 
@@ -6,86 +6,74 @@
 
 # Interface: EvmRevertErrorParameters
 
+Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L6)
+
 ## Properties
 
-### cause
+### cause?
 
-> **cause**: `undefined` \| `EvmError`
+> `optional` **cause**: `EvmError`
+
+Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L11)
 
 The cause of the error. From running ethereumjs EVM.runCall
 
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L11)
-
 ***
 
-### details
+### details?
 
-> **details**: `undefined` \| `string`
+> `optional` **details**: `string`
+
+Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L12)
 
 Details of the error.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L12)
-
 ***
 
-### docsBaseUrl
+### docsBaseUrl?
 
-> **docsBaseUrl**: `undefined` \| `string`
+> `optional` **docsBaseUrl**: `string`
+
+Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L7)
 
 Base URL for the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L7)
-
 ***
 
-### docsPath
+### docsPath?
 
-> **docsPath**: `undefined` \| `string`
+> `optional` **docsPath**: `string`
+
+Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L8)
 
 Path to the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L8)
-
 ***
 
-### docsSlug
+### docsSlug?
 
-> **docsSlug**: `undefined` \| `string`
+> `optional` **docsSlug**: `string`
+
+Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L9)
 
 Slug for the documentation.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L9)
-
 ***
 
-### meta
+### meta?
 
-> **meta**: `undefined` \| `object`
+> `optional` **meta**: `object`
+
+Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L13)
 
 Optional object containing additional information about the error.
 
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L13)
-
 ***
 
-### metaMessages
+### metaMessages?
 
-> **metaMessages**: `undefined` \| `string`[]
+> `optional` **metaMessages**: `string`[]
+
+Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L10)
 
 Additional meta messages.
-
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L10)

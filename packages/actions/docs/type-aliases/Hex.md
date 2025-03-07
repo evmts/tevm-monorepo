@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: Hex
 
-> **Hex**: \`0x$\{string\}\`
+> **Hex**: `` `0x${string}` ``
+
+Defined in: [packages/actions/src/common/Hex.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Hex.ts#L6)
 
 A hex string
 
@@ -15,7 +17,3 @@ A hex string
 ```ts
 const hex: Hex = '0x1234ff'
 ```
-
-## Defined in
-
-[packages/actions/src/common/Hex.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Hex.ts#L6)

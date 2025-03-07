@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthGetUncleByBlockNumberAndIndexParams
 
 > **EthGetUncleByBlockNumberAndIndexParams**: `object`
+
+Defined in: [packages/actions/src/eth/EthParams.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L211)
 
 Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
@@ -19,7 +21,3 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 ### uncleIndex
 
 > `readonly` **uncleIndex**: [`Hex`](Hex.md)
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L211)

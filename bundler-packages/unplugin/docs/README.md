@@ -1,4 +1,4 @@
-**@tevm/unplugin** • [**Docs**](globals.md)
+**@tevm/unplugin**
 
 ***
 

@@ -1,4 +1,4 @@
-[**@tevm/base-bundler**](README.md) • **Docs**
+[**@tevm/base-bundler**](README.md)
 
 ***
 

@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -6,20 +6,24 @@
 
 # Function: rewardAccount()
 
-> **rewardAccount**(`evm`, `address`, `reward`): `Promise`\<`EthjsAccount`\>
+> **rewardAccount**(`evm`, `address`, `reward`): `Promise`\<`Account`\>
+
+Defined in: [packages/vm/src/actions/rewardAccount.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/rewardAccount.ts#L5)
 
 ## Parameters
 
-• **evm**: `Evm`
+### evm
 
-• **address**: `Address`
+`Evm`
 
-• **reward**: `bigint`
+### address
+
+`Address`
+
+### reward
+
+`bigint`
 
 ## Returns
 
-`Promise`\<`EthjsAccount`\>
-
-## Defined in
-
-[packages/vm/src/actions/rewardAccount.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/rewardAccount.ts#L5)
+`Promise`\<`Account`\>

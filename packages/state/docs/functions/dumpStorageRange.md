@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -8,11 +8,17 @@
 
 > **dumpStorageRange**(`baseState`, `skipFetchingFromFork`?): (`address`, `startKey`, `limit`) => `Promise`\<`StorageRange`\>
 
+Defined in: [packages/state/src/actions/dumpStorageRange.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorageRange.js#L7)
+
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -20,16 +26,18 @@
 
 ### Parameters
 
-• **address**: `Address`
+#### address
 
-• **startKey**: `bigint`
+`Address`
 
-• **limit**: `number`
+#### startKey
+
+`bigint`
+
+#### limit
+
+`number`
 
 ### Returns
 
 `Promise`\<`StorageRange`\>
-
-## Defined in
-
-[packages/state/src/actions/dumpStorageRange.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorageRange.js#L7)

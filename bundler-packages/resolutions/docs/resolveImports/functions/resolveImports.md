@@ -1,4 +1,4 @@
-[**@tevm/resolutions**](../../README.md) • **Docs**
+[**@tevm/resolutions**](../../README.md)
 
 ***
 
@@ -8,19 +8,31 @@
 
 > **resolveImports**(`absolutePath`, `code`, `remappings`, `libs`, `sync`): `Effect`\<readonly [`ResolvedImport`](../../types/type-aliases/ResolvedImport.md)[], [`ResolveImportsError`](../type-aliases/ResolveImportsError.md), `never`\>
 
+Defined in: [resolveImports.js:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L50)
+
 Returns a the import resolutions for the given code
 
 ## Parameters
 
-• **absolutePath**: `string`
+### absolutePath
 
-• **code**: `string`
+`string`
 
-• **remappings**: `Record`\<`string`, `string`\>
+### code
 
-• **libs**: readonly `string`[]
+`string`
 
-• **sync**: `boolean` = `false`
+### remappings
+
+`Record`\<`string`, `string`\>
+
+### libs
+
+readonly `string`[]
+
+### sync
+
+`boolean` = `false`
 
 ## Returns
 
@@ -45,7 +57,3 @@ const imports = runPromise(
 )
 console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to/Contract.sol', original: '../Contract.sol' }]
 ```
-
-## Defined in
-
-[resolveImports.js:50](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L50)

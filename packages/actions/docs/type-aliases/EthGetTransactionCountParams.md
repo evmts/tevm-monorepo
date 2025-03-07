@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthGetTransactionCountParams
 
 > **EthGetTransactionCountParams**: `object`
+
+Defined in: [packages/actions/src/eth/EthParams.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L159)
 
 Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
@@ -19,7 +21,3 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 ### blockTag?
 
 > `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:159](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L159)

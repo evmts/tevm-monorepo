@@ -1,10 +1,12 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
 [@tevm/utils](../globals.md) / EthjsAccount
 
 # Class: EthjsAccount
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:27
 
 Account class to load and maintain the  basic account objects.
 Supports partial loading and access required for verkle with null
@@ -21,31 +23,41 @@ witness access
 
 > **new EthjsAccount**(`nonce`?, `balance`?, `storageRoot`?, `codeHash`?, `codeSize`?, `version`?): [`EthjsAccount`](EthjsAccount.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:56
+
 This constructor assigns and validates the values.
 Use the static factory methods to assist in creating an Account from varying data types.
 undefined get assigned with the defaults present, but null args are retained as is
 
 #### Parameters
 
-• **nonce?**: `null` \| `bigint`
+##### nonce?
 
-• **balance?**: `null` \| `bigint`
+`null` | `bigint`
 
-• **storageRoot?**: `null` \| `Uint8Array`
+##### balance?
 
-• **codeHash?**: `null` \| `Uint8Array`
+`null` | `bigint`
 
-• **codeSize?**: `null` \| `number`
+##### storageRoot?
 
-• **version?**: `null` \| `number`
+`null` | `Uint8Array`\<`ArrayBufferLike`\>
+
+##### codeHash?
+
+`null` | `Uint8Array`\<`ArrayBufferLike`\>
+
+##### codeSize?
+
+`null` | `number`
+
+##### version?
+
+`null` | `number`
 
 #### Returns
 
 [`EthjsAccount`](EthjsAccount.md)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:56
 
 ## Properties
 
@@ -53,19 +65,15 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **\_balance**: `null` \| `bigint`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:29
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:29
 
 ***
 
 ### \_codeHash
 
-> **\_codeHash**: `null` \| `Uint8Array`
+> **\_codeHash**: `null` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:31
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:31
 
 ***
 
@@ -73,9 +81,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **\_codeSize**: `null` \| `number`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:32
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:32
 
 ***
 
@@ -83,19 +89,15 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **\_nonce**: `null` \| `bigint`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:28
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:28
 
 ***
 
 ### \_storageRoot
 
-> **\_storageRoot**: `null` \| `Uint8Array`
+> **\_storageRoot**: `null` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:30
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:30
 
 ***
 
@@ -103,129 +105,187 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **\_version**: `null` \| `number`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:33
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:33
 
 ## Accessors
 
 ### balance
 
-> `get` **balance**(): `bigint`
+#### Get Signature
 
-> `set` **balance**(`_balance`): `void`
+> **get** **balance**(): `bigint`
 
-#### Parameters
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:38
 
-• **\_balance**: `bigint`
-
-#### Returns
+##### Returns
 
 `bigint`
 
-#### Defined in
+#### Set Signature
 
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:38
+> **set** **balance**(`_balance`): `void`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:39
+
+##### Parameters
+
+###### \_balance
+
+`bigint`
+
+##### Returns
+
+`void`
 
 ***
 
 ### codeHash
 
-> `get` **codeHash**(): `Uint8Array`
+#### Get Signature
 
-> `set` **codeHash**(`_codeHash`): `void`
+> **get** **codeHash**(): `Uint8Array`
 
-#### Parameters
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:42
 
-• **\_codeHash**: `Uint8Array`
-
-#### Returns
+##### Returns
 
 `Uint8Array`
 
-#### Defined in
+#### Set Signature
 
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:42
+> **set** **codeHash**(`_codeHash`): `void`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:43
+
+##### Parameters
+
+###### \_codeHash
+
+`Uint8Array`
+
+##### Returns
+
+`void`
 
 ***
 
 ### codeSize
 
-> `get` **codeSize**(): `number`
+#### Get Signature
 
-> `set` **codeSize**(`_codeSize`): `void`
+> **get** **codeSize**(): `number`
 
-#### Parameters
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:44
 
-• **\_codeSize**: `number`
-
-#### Returns
+##### Returns
 
 `number`
 
-#### Defined in
+#### Set Signature
 
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:44
+> **set** **codeSize**(`_codeSize`): `void`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:45
+
+##### Parameters
+
+###### \_codeSize
+
+`number`
+
+##### Returns
+
+`void`
 
 ***
 
 ### nonce
 
-> `get` **nonce**(): `bigint`
+#### Get Signature
 
-> `set` **nonce**(`_nonce`): `void`
+> **get** **nonce**(): `bigint`
 
-#### Parameters
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:36
 
-• **\_nonce**: `bigint`
-
-#### Returns
+##### Returns
 
 `bigint`
 
-#### Defined in
+#### Set Signature
 
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:36
+> **set** **nonce**(`_nonce`): `void`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:37
+
+##### Parameters
+
+###### \_nonce
+
+`bigint`
+
+##### Returns
+
+`void`
 
 ***
 
 ### storageRoot
 
-> `get` **storageRoot**(): `Uint8Array`
+#### Get Signature
 
-> `set` **storageRoot**(`_storageRoot`): `void`
+> **get** **storageRoot**(): `Uint8Array`
 
-#### Parameters
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:40
 
-• **\_storageRoot**: `Uint8Array`
-
-#### Returns
+##### Returns
 
 `Uint8Array`
 
-#### Defined in
+#### Set Signature
 
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:40
+> **set** **storageRoot**(`_storageRoot`): `void`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:41
+
+##### Parameters
+
+###### \_storageRoot
+
+`Uint8Array`
+
+##### Returns
+
+`void`
 
 ***
 
 ### version
 
-> `get` **version**(): `number`
+#### Get Signature
 
-> `set` **version**(`_version`): `void`
+> **get** **version**(): `number`
 
-#### Parameters
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:34
 
-• **\_version**: `number`
-
-#### Returns
+##### Returns
 
 `number`
 
-#### Defined in
+#### Set Signature
 
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:34
+> **set** **version**(`_version`): `void`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:35
+
+##### Parameters
+
+###### \_version
+
+`number`
+
+##### Returns
+
+`void`
 
 ## Methods
 
@@ -233,21 +293,21 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **isContract**(): `boolean`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:70
+
 Returns a `Boolean` determining if the account is a contract.
 
 #### Returns
 
 `boolean`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:70
-
 ***
 
 ### isEmpty()
 
 > **isEmpty**(): `boolean`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:76
 
 Returns a `Boolean` determining if the account is empty complying to the definition of
 account emptiness in [EIP-161](https://eips.ethereum.org/EIPS/eip-161):
@@ -257,25 +317,19 @@ account emptiness in [EIP-161](https://eips.ethereum.org/EIPS/eip-161):
 
 `boolean`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:76
-
 ***
 
 ### raw()
 
-> **raw**(): `Uint8Array`[]
+> **raw**(): `Uint8Array`\<`ArrayBufferLike`\>[]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:61
 
 Returns an array of Uint8Arrays of the raw bytes for the account, in order.
 
 #### Returns
 
-`Uint8Array`[]
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:61
+`Uint8Array`\<`ArrayBufferLike`\>[]
 
 ***
 
@@ -283,15 +337,13 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **serialize**(): `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:65
+
 Returns the RLP serialization of the account as a `Uint8Array`.
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:65
 
 ***
 
@@ -299,13 +351,11 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **serializeWithPartialInfo**(): `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:66
+
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:66
 
 ***
 
@@ -313,17 +363,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `static` **fromAccountData**(`accountData`): [`EthjsAccount`](EthjsAccount.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:46
+
 #### Parameters
 
-• **accountData**: `AccountData`
+##### accountData
+
+`AccountData`
 
 #### Returns
 
 [`EthjsAccount`](EthjsAccount.md)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:46
 
 ***
 
@@ -331,17 +381,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `static` **fromPartialAccountData**(`partialAccountData`): [`EthjsAccount`](EthjsAccount.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:47
+
 #### Parameters
 
-• **partialAccountData**: `PartialAccountData`
+##### partialAccountData
+
+`PartialAccountData`
 
 #### Returns
 
 [`EthjsAccount`](EthjsAccount.md)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:47
 
 ***
 
@@ -349,17 +399,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `static` **fromRlpSerializedAccount**(`serialized`): [`EthjsAccount`](EthjsAccount.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:48
+
 #### Parameters
 
-• **serialized**: `Uint8Array`
+##### serialized
+
+`Uint8Array`
 
 #### Returns
 
 [`EthjsAccount`](EthjsAccount.md)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:48
 
 ***
 
@@ -367,17 +417,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `static` **fromRlpSerializedPartialAccount**(`serialized`): [`EthjsAccount`](EthjsAccount.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:49
+
 #### Parameters
 
-• **serialized**: `Uint8Array`
+##### serialized
+
+`Uint8Array`
 
 #### Returns
 
 [`EthjsAccount`](EthjsAccount.md)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:49
 
 ***
 
@@ -385,14 +435,14 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > `static` **fromValuesArray**(`values`): [`EthjsAccount`](EthjsAccount.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:50
+
 #### Parameters
 
-• **values**: `Uint8Array`[]
+##### values
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
 
 #### Returns
 
 [`EthjsAccount`](EthjsAccount.md)
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:50

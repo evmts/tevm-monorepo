@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **SerializableTevmState**: `object`
 
+Defined in: [packages/state/src/state-types/SerializableTevmState.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/SerializableTevmState.ts#L4)
+
 ## Index Signature
 
- \[`key`: `string`\]: `object`
-
-## Defined in
-
-[packages/state/src/state-types/SerializableTevmState.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/SerializableTevmState.ts#L4)
+\[`key`: `string`\]: `object`

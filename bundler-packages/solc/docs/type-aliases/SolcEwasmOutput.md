@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcEwasmOutput
 
 > **SolcEwasmOutput**: `object`
+
+Defined in: [solcTypes.ts:518](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L518)
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### wast
 
 > **wast**: `string`
-
-## Defined in
-
-[solcTypes.ts:518](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L518)

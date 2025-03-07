@@ -1,14 +1,8 @@
-[**@tevm/utils**](README.md) • **Docs**
+[**@tevm/utils**](README.md)
 
 ***
 
 # @tevm/utils
-
-## References
-
-### bytesToBigInt
-
-Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)
 
 ## Enumerations
 
@@ -96,7 +90,7 @@ Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)
 - [bytesToBool](functions/bytesToBool.md)
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
-- [bytesToUnprefixedHex](functions/bytesToUnprefixedHex.md)
+- [~~bytesToUnprefixedHex~~](functions/bytesToUnprefixedHex.md)
 - [bytesToUtf8](functions/bytesToUtf8.md)
 - [concatBytes](functions/concatBytes.md)
 - [createMemoryDb](functions/createMemoryDb.md)
@@ -149,3 +143,9 @@ Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)
 - [toRlp](functions/toRlp.md)
 - [toType](functions/toType.md)
 - [zeros](functions/zeros.md)
+
+## References
+
+### bytesToBigInt
+
+Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)

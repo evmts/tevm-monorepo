@@ -1,4 +1,4 @@
-[**@tevm/effect**](../../README.md) • **Docs**
+[**@tevm/effect**](../../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **resolveAsync**(`arg0`, `arg1`): `Effect`\<`string`, [`CouldNotResolveImportError`](../classes/CouldNotResolveImportError.md), `never`\>
 
+Defined in: [packages/effect/src/resolve.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L65)
+
 Effect wrpper around import('node:resolve')
 
 ## Parameters
 
-• **arg0**: `string`
+### arg0
 
-• **arg1**: `SyncOpts` & `AsyncOpts`
+`string`
+
+### arg1
+
+`SyncOpts` & `AsyncOpts`
 
 ## Returns
 
@@ -29,7 +35,3 @@ resolveAsync('react').pipe(
    tap(console.log)
 )
 ````
-
-## Defined in
-
-[packages/effect/src/resolve.js:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L65)

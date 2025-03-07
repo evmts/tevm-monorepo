@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthEstimateGasJsonRpcProcedure**: (`request`) => `Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/eth/EthProcedure.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L97)
+
 ## Parameters
 
-• **request**: [`EthEstimateGasJsonRpcRequest`](EthEstimateGasJsonRpcRequest.md)
+### request
+
+[`EthEstimateGasJsonRpcRequest`](EthEstimateGasJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthProcedure.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L97)

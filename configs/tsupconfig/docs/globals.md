@@ -1,4 +1,4 @@
-[**@tevm/tsupconfig**](README.md) • **Docs**
+[**@tevm/tsupconfig**](README.md)
 
 ***
 

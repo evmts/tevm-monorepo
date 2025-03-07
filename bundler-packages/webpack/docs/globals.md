@@ -1,4 +1,4 @@
-[**@tevm/webpack-plugin**](README.md) • **Docs**
+[**@tevm/webpack-plugin**](README.md)
 
 ***
 

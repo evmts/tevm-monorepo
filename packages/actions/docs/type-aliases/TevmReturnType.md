@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmReturnType
 
 > **TevmReturnType**: `object`
+
+Defined in: [packages/actions/src/tevm-request-handler/TevmReturnType.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L11)
 
 A mapping of `tevm_*` method names to their return type
 
@@ -37,7 +39,3 @@ A mapping of `tevm_*` method names to their return type
 ### tevm\_setAccount
 
 > **tevm\_setAccount**: `SetAccountJsonRpcResponse`
-
-## Defined in
-
-[packages/actions/src/tevm-request-handler/TevmReturnType.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmReturnType.ts#L11)

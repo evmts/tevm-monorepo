@@ -1,4 +1,4 @@
-[**@tevm/base-bundler**](../README.md) • **Docs**
+[**@tevm/base-bundler**](../README.md)
 
 ***
 
@@ -8,36 +8,50 @@
 
 > **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage`?): `object`
 
+Defined in: [bundler.js:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/base-bundler/src/bundler.js#L45)
+
 The base bundler instance used within tevm to generate JavaScript and TypeScript files
 from solidity files. This is used internally by all other tevm build tooling including
 the ts-plugin, the webpack plugin, the bun plugin, the vite plugin, and more.
 
 ## Parameters
 
-• **config**: `ResolvedCompilerConfig`
+### config
+
+`ResolvedCompilerConfig`
 
 The tevm config. Can be loaded with `loadConfig()`
 
-• **logger**: `Logger`
+### logger
+
+`Logger`
 
 The logger to use for logging. Can be `console`
 
-• **fao**: `FileAccessObject`
+### fao
+
+`FileAccessObject`
 
 The file access object to use for reading and writing files. Can use fs to fill this out
 
-• **solc**: `any`
+### solc
+
+`any`
 
 The solc compiler to use. Can be loaded with `createSolc()`
 
-• **cache**: `Cache`
+### cache
+
+`Cache`
 
 The cache to use. Can be created with `createCache()`
 
-• **contractPackage?**: `"tevm/contract"` \| `"@tevm/contract"`
+### contractPackage?
 
 The name of the package that contains the contract package
 If not included the bundler will attempt to autodetect the package
+
+`"tevm/contract"` | `"@tevm/contract"`
 
 ## Returns
 
@@ -136,7 +150,3 @@ const path = '../contracts/ERC20.sol'
 
 const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
 ```
-
-## Defined in
-
-[bundler.js:45](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/base-bundler/src/bundler.js#L45)

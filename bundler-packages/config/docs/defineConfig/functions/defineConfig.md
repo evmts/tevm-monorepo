@@ -1,4 +1,4 @@
-[**@tevm/config**](../../README.md) • **Docs**
+[**@tevm/config**](../../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **defineConfig**(`configFactory`): `object`
 
+Defined in: [bundler-packages/config/src/defineConfig.js:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L48)
+
 Typesafe way to create an Tevm CompilerConfig
 
 ## Parameters
 
-• **configFactory**: [`ConfigFactory`](../../types/type-aliases/ConfigFactory.md)
+### configFactory
+
+[`ConfigFactory`](../../types/type-aliases/ConfigFactory.md)
 
 ## Returns
 
@@ -24,7 +28,9 @@ Typesafe way to create an Tevm CompilerConfig
 
 #### Parameters
 
-• **configFilePath**: `string`
+##### configFilePath
+
+`string`
 
 #### Returns
 
@@ -42,7 +48,3 @@ export default defineConfig(() => ({
 	}
 })
 ```
-
-## Defined in
-
-[bundler-packages/config/src/defineConfig.js:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L48)

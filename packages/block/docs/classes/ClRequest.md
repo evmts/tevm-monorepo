@@ -1,10 +1,12 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
 [@tevm/block](../globals.md) / ClRequest
 
 # Class: ClRequest
+
+Defined in: [packages/block/src/ClRequest.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L18)
 
 ## Implements
 
@@ -16,19 +18,21 @@
 
 > **new ClRequest**(`type`, `bytes`): [`ClRequest`](ClRequest.md)
 
+Defined in: [packages/block/src/ClRequest.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L21)
+
 #### Parameters
 
-• **type**: `number`
+##### type
 
-• **bytes**: `Uint8Array`
+`number`
+
+##### bytes
+
+`Uint8Array`
 
 #### Returns
 
 [`ClRequest`](ClRequest.md)
-
-#### Defined in
-
-[packages/block/src/ClRequest.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L21)
 
 ## Properties
 
@@ -36,13 +40,11 @@
 
 > **bytes**: `Uint8Array`
 
+Defined in: [packages/block/src/ClRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L20)
+
 #### Implementation of
 
 `CLRequestType.bytes`
-
-#### Defined in
-
-[packages/block/src/ClRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L20)
 
 ***
 
@@ -50,28 +52,24 @@
 
 > **type**: `number`
 
+Defined in: [packages/block/src/ClRequest.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L19)
+
 #### Implementation of
 
 `CLRequestType.type`
-
-#### Defined in
-
-[packages/block/src/ClRequest.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L19)
 
 ## Methods
 
 ### serialize()
 
-> **serialize**(): `Uint8Array`
+> **serialize**(): `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: [packages/block/src/ClRequest.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L27)
 
 #### Returns
 
-`Uint8Array`
+`Uint8Array`\<`ArrayBufferLike`\>
 
 #### Implementation of
 
 `CLRequestType.serialize`
-
-#### Defined in
-
-[packages/block/src/ClRequest.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L27)

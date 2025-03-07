@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: JsonRpcSchemaPublic
 
 > **JsonRpcSchemaPublic**: `object`
+
+Defined in: [eip1193/JsonRpcSchemaPublic.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L24)
 
 ## Type declaration
 
@@ -25,15 +27,15 @@ provider.request({ method: 'eth_blobGasPrice' })
 // => '0x09184e72a000'
 ```
 
-### eth\_blobGasPrice.Method
+#### eth\_blobGasPrice.Method
 
 > **Method**: `"eth_blobGasPrice"`
 
-### eth\_blobGasPrice.Parameters?
+#### eth\_blobGasPrice.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_blobGasPrice.ReturnType
+#### eth\_blobGasPrice.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -52,15 +54,15 @@ provider.request({ method: 'eth_blockNumber' })
 // => '0x1b4'
 ```
 
-### eth\_blockNumber.Method
+#### eth\_blockNumber.Method
 
 > **Method**: `"eth_blockNumber"`
 
-### eth\_blockNumber.Parameters?
+#### eth\_blockNumber.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_blockNumber.ReturnType
+#### eth\_blockNumber.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -79,15 +81,15 @@ provider.request({ method: 'eth_call', params: [{ to: '0x...', data: '0x...' }] 
 // => '0x...'
 ```
 
-### eth\_call.Method
+#### eth\_call.Method
 
 > **Method**: `"eth_call"`
 
-### eth\_call.Parameters
+#### eth\_call.Parameters
 
-> **Parameters**: [`Partial`\<`TransactionRequest`\>] \| [`Partial`\<`TransactionRequest`\>, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`] \| [`Partial`\<`TransactionRequest`\>, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`, `RpcStateOverride`]
+> **Parameters**: \[`Partial`\<`TransactionRequest`\>\] \| \[`Partial`\<`TransactionRequest`\>, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\] \| \[`Partial`\<`TransactionRequest`\>, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`, `RpcStateOverride`\]
 
-### eth\_call.ReturnType
+#### eth\_call.ReturnType
 
 > **ReturnType**: `Hex`
 
@@ -106,15 +108,15 @@ provider.request({ method: 'eth_chainId' })
 // => '1'
 ```
 
-### eth\_chainId.Method
+#### eth\_chainId.Method
 
 > **Method**: `"eth_chainId"`
 
-### eth\_chainId.Parameters?
+#### eth\_chainId.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_chainId.ReturnType
+#### eth\_chainId.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -133,15 +135,15 @@ provider.request({ method: 'eth_coinbase' })
 // => '0x...'
 ```
 
-### eth\_coinbase.Method
+#### eth\_coinbase.Method
 
 > **Method**: `"eth_coinbase"`
 
-### eth\_coinbase.Parameters?
+#### eth\_coinbase.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_coinbase.ReturnType
+#### eth\_coinbase.ReturnType
 
 > **ReturnType**: `Address`
 
@@ -163,15 +165,15 @@ provider.request({
 // => '0x5208'
 ```
 
-### eth\_estimateGas.Method
+#### eth\_estimateGas.Method
 
 > **Method**: `"eth_estimateGas"`
 
-### eth\_estimateGas.Parameters
+#### eth\_estimateGas.Parameters
 
-> **Parameters**: [`TransactionRequest`] \| [`TransactionRequest`, `BlockNumber` \| `BlockTag`]
+> **Parameters**: \[`TransactionRequest`\] \| \[`TransactionRequest`, `BlockNumber` \| `BlockTag`\]
 
-### eth\_estimateGas.ReturnType
+#### eth\_estimateGas.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -198,15 +200,15 @@ provider.request({
 // }
 ```
 
-### eth\_feeHistory.Method
+#### eth\_feeHistory.Method
 
 > **Method**: `"eth_feeHistory"`
 
-### eth\_feeHistory.Parameters
+#### eth\_feeHistory.Parameters
 
-> **Parameters**: [`Quantity`, `BlockNumber` \| `BlockTag`, `number`[] \| `undefined`]
+> **Parameters**: \[`Quantity`, `BlockNumber` \| `BlockTag`, `number`[] \| `undefined`\]
 
-### eth\_feeHistory.ReturnType
+#### eth\_feeHistory.ReturnType
 
 > **ReturnType**: `FeeHistory`
 
@@ -225,15 +227,15 @@ provider.request({ method: 'eth_gasPrice' })
 // => '0x09184e72a000'
 ```
 
-### eth\_gasPrice.Method
+#### eth\_gasPrice.Method
 
 > **Method**: `"eth_gasPrice"`
 
-### eth\_gasPrice.Parameters?
+#### eth\_gasPrice.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_gasPrice.ReturnType
+#### eth\_gasPrice.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -252,15 +254,15 @@ provider.request({ method: 'eth_getBalance', params: ['0x...', 'latest'] })
 // => '0x12a05...'
 ```
 
-### eth\_getBalance.Method
+#### eth\_getBalance.Method
 
 > **Method**: `"eth_getBalance"`
 
-### eth\_getBalance.Parameters
+#### eth\_getBalance.Parameters
 
-> **Parameters**: [`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`]
+> **Parameters**: \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\]
 
-### eth\_getBalance.ReturnType
+#### eth\_getBalance.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -288,15 +290,15 @@ provider.request({ method: 'eth_getBlockByHash', params: ['0x...', true] })
 // }
 ```
 
-### eth\_getBlockByHash.Method
+#### eth\_getBlockByHash.Method
 
 > **Method**: `"eth_getBlockByHash"`
 
-### eth\_getBlockByHash.Parameters
+#### eth\_getBlockByHash.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md), `boolean`]
+> **Parameters**: \[[`Hash`](Hash.md), `boolean`\]
 
-### eth\_getBlockByHash.ReturnType
+#### eth\_getBlockByHash.ReturnType
 
 > **ReturnType**: `Block` \| `null`
 
@@ -324,15 +326,15 @@ provider.request({ method: 'eth_getBlockByNumber', params: ['0x1b4', true] })
 // }
 ```
 
-### eth\_getBlockByNumber.Method
+#### eth\_getBlockByNumber.Method
 
 > **Method**: `"eth_getBlockByNumber"`
 
-### eth\_getBlockByNumber.Parameters
+#### eth\_getBlockByNumber.Parameters
 
-> **Parameters**: [`BlockNumber` \| `BlockTag`, `boolean`]
+> **Parameters**: \[`BlockNumber` \| `BlockTag`, `boolean`\]
 
-### eth\_getBlockByNumber.ReturnType
+#### eth\_getBlockByNumber.ReturnType
 
 > **ReturnType**: `Block` \| `null`
 
@@ -355,15 +357,15 @@ provider.request({ method: 'eth_getBlockTransactionCountByHash', params: ['0x...
 // => '0x1'
 ```
 
-### eth\_getBlockTransactionCountByHash.Method
+#### eth\_getBlockTransactionCountByHash.Method
 
 > **Method**: `"eth_getBlockTransactionCountByHash"`
 
-### eth\_getBlockTransactionCountByHash.Parameters
+#### eth\_getBlockTransactionCountByHash.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **Parameters**: \[[`Hash`](Hash.md)\]
 
-### eth\_getBlockTransactionCountByHash.ReturnType
+#### eth\_getBlockTransactionCountByHash.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -386,15 +388,15 @@ provider.request({ method: 'eth_getBlockTransactionCountByNumber', params: ['0x1
 // => '0x1'
 ```
 
-### eth\_getBlockTransactionCountByNumber.Method
+#### eth\_getBlockTransactionCountByNumber.Method
 
 > **Method**: `"eth_getBlockTransactionCountByNumber"`
 
-### eth\_getBlockTransactionCountByNumber.Parameters
+#### eth\_getBlockTransactionCountByNumber.Parameters
 
-> **Parameters**: [`BlockNumber` \| `BlockTag`]
+> **Parameters**: \[`BlockNumber` \| `BlockTag`\]
 
-### eth\_getBlockTransactionCountByNumber.ReturnType
+#### eth\_getBlockTransactionCountByNumber.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -417,15 +419,15 @@ provider.request({ method: 'eth_getCode', params: ['0x...', 'latest'] })
 // => '0x...'
 ```
 
-### eth\_getCode.Method
+#### eth\_getCode.Method
 
 > **Method**: `"eth_getCode"`
 
-### eth\_getCode.Parameters
+#### eth\_getCode.Parameters
 
-> **Parameters**: [`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`]
+> **Parameters**: \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\]
 
-### eth\_getCode.ReturnType
+#### eth\_getCode.ReturnType
 
 > **ReturnType**: `Hex`
 
@@ -448,15 +450,15 @@ provider.request({ method: 'eth_getFilterChanges', params: ['0x...'] })
 // => [{ ... }, { ... }]
 ```
 
-### eth\_getFilterChanges.Method
+#### eth\_getFilterChanges.Method
 
 > **Method**: `"eth_getFilterChanges"`
 
-### eth\_getFilterChanges.Parameters
+#### eth\_getFilterChanges.Parameters
 
-> **Parameters**: [`Quantity`]
+> **Parameters**: \[`Quantity`\]
 
-### eth\_getFilterChanges.ReturnType
+#### eth\_getFilterChanges.ReturnType
 
 > **ReturnType**: `Log`[] \| `Hex`[]
 
@@ -479,15 +481,15 @@ provider.request({ method: 'eth_getFilterLogs', params: ['0x...'] })
 // => [{ ... }, { ... }]
 ```
 
-### eth\_getFilterLogs.Method
+#### eth\_getFilterLogs.Method
 
 > **Method**: `"eth_getFilterLogs"`
 
-### eth\_getFilterLogs.Parameters
+#### eth\_getFilterLogs.Parameters
 
-> **Parameters**: [`Quantity`]
+> **Parameters**: \[`Quantity`\]
 
-### eth\_getFilterLogs.ReturnType
+#### eth\_getFilterLogs.ReturnType
 
 > **ReturnType**: `Log`[]
 
@@ -510,15 +512,15 @@ provider.request({ method: 'eth_getLogs', params: [{ fromBlock: '0x...', toBlock
 // => [{ ... }, { ... }]
 ```
 
-### eth\_getLogs.Method
+#### eth\_getLogs.Method
 
 > **Method**: `"eth_getLogs"`
 
-### eth\_getLogs.Parameters
+#### eth\_getLogs.Parameters
 
-> **Parameters**: [`object` & `object` \| `object`]
+> **Parameters**: \[`object` & \{ `blockHash`: `never`; `fromBlock`: `BlockNumber` \| `BlockTag`; `toBlock`: `BlockNumber` \| `BlockTag`; \} \| \{ `blockHash`: [`Hash`](Hash.md); `fromBlock`: `never`; `toBlock`: `never`; \}\]
 
-### eth\_getLogs.ReturnType
+#### eth\_getLogs.ReturnType
 
 > **ReturnType**: `Log`[]
 
@@ -543,15 +545,15 @@ provider.request({ method: 'eth_getProof', params: ['0x...', ['0x...'], 'latest'
 // }
 ```
 
-### eth\_getProof.Method
+#### eth\_getProof.Method
 
 > **Method**: `"eth_getProof"`
 
-### eth\_getProof.Parameters
+#### eth\_getProof.Parameters
 
-> **Parameters**: [`Address`, [`Hash`](Hash.md)[], `BlockNumber` \| `BlockTag`]
+> **Parameters**: \[`Address`, [`Hash`](Hash.md)[], `BlockNumber` \| `BlockTag`\]
 
-### eth\_getProof.ReturnType
+#### eth\_getProof.ReturnType
 
 > **ReturnType**: `Proof`
 
@@ -574,15 +576,15 @@ provider.request({ method: 'eth_getStorageAt', params: ['0x...', '0x...', 'lates
 // => '0x...'
 ```
 
-### eth\_getStorageAt.Method
+#### eth\_getStorageAt.Method
 
 > **Method**: `"eth_getStorageAt"`
 
-### eth\_getStorageAt.Parameters
+#### eth\_getStorageAt.Parameters
 
-> **Parameters**: [`Address`, `Quantity`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`]
+> **Parameters**: \[`Address`, `Quantity`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\]
 
-### eth\_getStorageAt.ReturnType
+#### eth\_getStorageAt.ReturnType
 
 > **ReturnType**: `Hex`
 
@@ -605,15 +607,15 @@ provider.request({ method: 'eth_getTransactionByBlockHashAndIndex', params: ['0x
 // => { ... }
 ```
 
-### eth\_getTransactionByBlockHashAndIndex.Method
+#### eth\_getTransactionByBlockHashAndIndex.Method
 
 > **Method**: `"eth_getTransactionByBlockHashAndIndex"`
 
-### eth\_getTransactionByBlockHashAndIndex.Parameters
+#### eth\_getTransactionByBlockHashAndIndex.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md), `Quantity`]
+> **Parameters**: \[[`Hash`](Hash.md), `Quantity`\]
 
-### eth\_getTransactionByBlockHashAndIndex.ReturnType
+#### eth\_getTransactionByBlockHashAndIndex.ReturnType
 
 > **ReturnType**: `Transaction` \| `null`
 
@@ -636,15 +638,15 @@ provider.request({ method: 'eth_getTransactionByBlockNumberAndIndex', params: ['
 // => { ... }
 ```
 
-### eth\_getTransactionByBlockNumberAndIndex.Method
+#### eth\_getTransactionByBlockNumberAndIndex.Method
 
 > **Method**: `"eth_getTransactionByBlockNumberAndIndex"`
 
-### eth\_getTransactionByBlockNumberAndIndex.Parameters
+#### eth\_getTransactionByBlockNumberAndIndex.Parameters
 
-> **Parameters**: [`BlockNumber` \| `BlockTag`, `Quantity`]
+> **Parameters**: \[`BlockNumber` \| `BlockTag`, `Quantity`\]
 
-### eth\_getTransactionByBlockNumberAndIndex.ReturnType
+#### eth\_getTransactionByBlockNumberAndIndex.ReturnType
 
 > **ReturnType**: `Transaction` \| `null`
 
@@ -667,15 +669,15 @@ provider.request({ method: 'eth_getTransactionByHash', params: ['0x...'] })
 // => { ... }
 ```
 
-### eth\_getTransactionByHash.Method
+#### eth\_getTransactionByHash.Method
 
 > **Method**: `"eth_getTransactionByHash"`
 
-### eth\_getTransactionByHash.Parameters
+#### eth\_getTransactionByHash.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **Parameters**: \[[`Hash`](Hash.md)\]
 
-### eth\_getTransactionByHash.ReturnType
+#### eth\_getTransactionByHash.ReturnType
 
 > **ReturnType**: `Transaction` \| `null`
 
@@ -698,15 +700,15 @@ provider.request({ method: 'eth_getTransactionCount', params: ['0x...', 'latest'
 // => '0x1'
 ```
 
-### eth\_getTransactionCount.Method
+#### eth\_getTransactionCount.Method
 
 > **Method**: `"eth_getTransactionCount"`
 
-### eth\_getTransactionCount.Parameters
+#### eth\_getTransactionCount.Parameters
 
-> **Parameters**: [`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`]
+> **Parameters**: \[`Address`, `BlockNumber` \| `BlockTag` \| `BlockIdentifier`\]
 
-### eth\_getTransactionCount.ReturnType
+#### eth\_getTransactionCount.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -729,15 +731,15 @@ provider.request({ method: 'eth_getTransactionReceipt', params: ['0x...'] })
 // => { ... }
 ```
 
-### eth\_getTransactionReceipt.Method
+#### eth\_getTransactionReceipt.Method
 
 > **Method**: `"eth_getTransactionReceipt"`
 
-### eth\_getTransactionReceipt.Parameters
+#### eth\_getTransactionReceipt.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **Parameters**: \[[`Hash`](Hash.md)\]
 
-### eth\_getTransactionReceipt.ReturnType
+#### eth\_getTransactionReceipt.ReturnType
 
 > **ReturnType**: `TransactionReceipt` \| `null`
 
@@ -760,15 +762,15 @@ provider.request({ method: 'eth_getUncleByBlockHashAndIndex', params: ['0x...', 
 // => { ... }
 ```
 
-### eth\_getUncleByBlockHashAndIndex.Method
+#### eth\_getUncleByBlockHashAndIndex.Method
 
 > **Method**: `"eth_getUncleByBlockHashAndIndex"`
 
-### eth\_getUncleByBlockHashAndIndex.Parameters
+#### eth\_getUncleByBlockHashAndIndex.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md), `Quantity`]
+> **Parameters**: \[[`Hash`](Hash.md), `Quantity`\]
 
-### eth\_getUncleByBlockHashAndIndex.ReturnType
+#### eth\_getUncleByBlockHashAndIndex.ReturnType
 
 > **ReturnType**: `Uncle` \| `null`
 
@@ -791,15 +793,15 @@ provider.request({ method: 'eth_getUncleByBlockNumberAndIndex', params: ['0x...'
 // => { ... }
 ```
 
-### eth\_getUncleByBlockNumberAndIndex.Method
+#### eth\_getUncleByBlockNumberAndIndex.Method
 
 > **Method**: `"eth_getUncleByBlockNumberAndIndex"`
 
-### eth\_getUncleByBlockNumberAndIndex.Parameters
+#### eth\_getUncleByBlockNumberAndIndex.Parameters
 
-> **Parameters**: [`BlockNumber` \| `BlockTag`, `Quantity`]
+> **Parameters**: \[`BlockNumber` \| `BlockTag`, `Quantity`\]
 
-### eth\_getUncleByBlockNumberAndIndex.ReturnType
+#### eth\_getUncleByBlockNumberAndIndex.ReturnType
 
 > **ReturnType**: `Uncle` \| `null`
 
@@ -822,15 +824,15 @@ provider.request({ method: 'eth_getUncleCountByBlockHash', params: ['0x...'] })
 // => '0x1'
 ```
 
-### eth\_getUncleCountByBlockHash.Method
+#### eth\_getUncleCountByBlockHash.Method
 
 > **Method**: `"eth_getUncleCountByBlockHash"`
 
-### eth\_getUncleCountByBlockHash.Parameters
+#### eth\_getUncleCountByBlockHash.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **Parameters**: \[[`Hash`](Hash.md)\]
 
-### eth\_getUncleCountByBlockHash.ReturnType
+#### eth\_getUncleCountByBlockHash.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -853,15 +855,15 @@ provider.request({ method: 'eth_getUncleCountByBlockNumber', params: ['0x...'] }
 // => '0x1'
 ```
 
-### eth\_getUncleCountByBlockNumber.Method
+#### eth\_getUncleCountByBlockNumber.Method
 
 > **Method**: `"eth_getUncleCountByBlockNumber"`
 
-### eth\_getUncleCountByBlockNumber.Parameters
+#### eth\_getUncleCountByBlockNumber.Parameters
 
-> **Parameters**: [`BlockNumber` \| `BlockTag`]
+> **Parameters**: \[`BlockNumber` \| `BlockTag`\]
 
-### eth\_getUncleCountByBlockNumber.ReturnType
+#### eth\_getUncleCountByBlockNumber.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -884,15 +886,15 @@ provider.request({ method: 'eth_maxPriorityFeePerGas' })
 // => '0x5f5e100'
 ```
 
-### eth\_maxPriorityFeePerGas.Method
+#### eth\_maxPriorityFeePerGas.Method
 
 > **Method**: `"eth_maxPriorityFeePerGas"`
 
-### eth\_maxPriorityFeePerGas.Parameters?
+#### eth\_maxPriorityFeePerGas.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_maxPriorityFeePerGas.ReturnType
+#### eth\_maxPriorityFeePerGas.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -915,15 +917,15 @@ provider.request({ method: 'eth_newBlockFilter' })
 // => '0x1'
 ```
 
-### eth\_newBlockFilter.Method
+#### eth\_newBlockFilter.Method
 
 > **Method**: `"eth_newBlockFilter"`
 
-### eth\_newBlockFilter.Parameters?
+#### eth\_newBlockFilter.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_newBlockFilter.ReturnType
+#### eth\_newBlockFilter.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -946,15 +948,15 @@ provider.request({ method: 'eth_newFilter', params: [{ fromBlock: '0x...', toBlo
 // => '0x1'
 ```
 
-### eth\_newFilter.Method
+#### eth\_newFilter.Method
 
 > **Method**: `"eth_newFilter"`
 
-### eth\_newFilter.Parameters
+#### eth\_newFilter.Parameters
 
-> **Parameters**: [`object`]
+> **Parameters**: \[`object`\]
 
-### eth\_newFilter.ReturnType
+#### eth\_newFilter.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -977,15 +979,15 @@ provider.request({ method: 'eth_newPendingTransactionFilter' })
 // => '0x1'
 ```
 
-### eth\_newPendingTransactionFilter.Method
+#### eth\_newPendingTransactionFilter.Method
 
 > **Method**: `"eth_newPendingTransactionFilter"`
 
-### eth\_newPendingTransactionFilter.Parameters?
+#### eth\_newPendingTransactionFilter.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_newPendingTransactionFilter.ReturnType
+#### eth\_newPendingTransactionFilter.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -1008,15 +1010,15 @@ provider.request({ method: 'eth_protocolVersion' })
 // => '54'
 ```
 
-### eth\_protocolVersion.Method
+#### eth\_protocolVersion.Method
 
 > **Method**: `"eth_protocolVersion"`
 
-### eth\_protocolVersion.Parameters?
+#### eth\_protocolVersion.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### eth\_protocolVersion.ReturnType
+#### eth\_protocolVersion.ReturnType
 
 > **ReturnType**: `string`
 
@@ -1039,15 +1041,15 @@ provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] })
 // => '0x...'
 ```
 
-### eth\_sendRawTransaction.Method
+#### eth\_sendRawTransaction.Method
 
 > **Method**: `"eth_sendRawTransaction"`
 
-### eth\_sendRawTransaction.Parameters
+#### eth\_sendRawTransaction.Parameters
 
-> **Parameters**: [`Hex`]
+> **Parameters**: \[`Hex`\]
 
-### eth\_sendRawTransaction.ReturnType
+#### eth\_sendRawTransaction.ReturnType
 
 > **ReturnType**: [`Hash`](Hash.md)
 
@@ -1070,15 +1072,15 @@ provider.request({ method: 'eth_uninstallFilter', params: ['0x1'] })
 // => true
 ```
 
-### eth\_uninstallFilter.Method
+#### eth\_uninstallFilter.Method
 
 > **Method**: `"eth_uninstallFilter"`
 
-### eth\_uninstallFilter.Parameters
+#### eth\_uninstallFilter.Parameters
 
-> **Parameters**: [`Quantity`]
+> **Parameters**: \[`Quantity`\]
 
-### eth\_uninstallFilter.ReturnType
+#### eth\_uninstallFilter.ReturnType
 
 > **ReturnType**: `boolean`
 
@@ -1097,15 +1099,15 @@ provider.request({ method: 'net_listening' })
 // => true
 ```
 
-### net\_listening.Method
+#### net\_listening.Method
 
 > **Method**: `"net_listening"`
 
-### net\_listening.Parameters?
+#### net\_listening.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### net\_listening.ReturnType
+#### net\_listening.ReturnType
 
 > **ReturnType**: `boolean`
 
@@ -1124,15 +1126,15 @@ provider.request({ method: 'net_peerCount' })
 // => '0x1'
 ```
 
-### net\_peerCount.Method
+#### net\_peerCount.Method
 
 > **Method**: `"net_peerCount"`
 
-### net\_peerCount.Parameters?
+#### net\_peerCount.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### net\_peerCount.ReturnType
+#### net\_peerCount.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -1151,15 +1153,15 @@ provider.request({ method: 'net_version' })
 // => '1'
 ```
 
-### net\_version.Method
+#### net\_version.Method
 
 > **Method**: `"net_version"`
 
-### net\_version.Parameters?
+#### net\_version.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### net\_version.ReturnType
+#### net\_version.ReturnType
 
 > **ReturnType**: `Quantity`
 
@@ -1178,15 +1180,15 @@ provider.request({ method: 'web3_clientVersion' })
 // => 'MetaMask/v1.0.0'
 ```
 
-### web3\_clientVersion.Method
+#### web3\_clientVersion.Method
 
 > **Method**: `"web3_clientVersion"`
 
-### web3\_clientVersion.Parameters?
+#### web3\_clientVersion.Parameters?
 
 > `optional` **Parameters**: `undefined`
 
-### web3\_clientVersion.ReturnType
+#### web3\_clientVersion.ReturnType
 
 > **ReturnType**: `string`
 
@@ -1205,18 +1207,14 @@ provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] })
 // => '0xc94770007dda54cF92009BFF0dE90c06F603a09f'
 ```
 
-### web3\_sha3.Method
+#### web3\_sha3.Method
 
 > **Method**: `"web3_sha3"`
 
-### web3\_sha3.Parameters
+#### web3\_sha3.Parameters
 
-> **Parameters**: [[`Hash`](Hash.md)]
+> **Parameters**: \[[`Hash`](Hash.md)\]
 
-### web3\_sha3.ReturnType
+#### web3\_sha3.ReturnType
 
 > **ReturnType**: `string`
-
-## Defined in
-
-[eip1193/JsonRpcSchemaPublic.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L24)

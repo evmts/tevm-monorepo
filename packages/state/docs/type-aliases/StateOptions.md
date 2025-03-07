@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: StateOptions
 
 > **StateOptions**: `object`
+
+Defined in: [packages/state/src/state-types/StateOptions.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L10)
 
 ## Type declaration
 
@@ -48,7 +50,9 @@ Called when state manager commits state
 
 #### Parameters
 
-• **stateManager**: [`BaseState`](BaseState.md)
+##### stateManager
+
+[`BaseState`](BaseState.md)
 
 #### Returns
 
@@ -63,7 +67,3 @@ Called when state manager commits state
 > `readonly` `optional` **storageCache**: [`StorageCache`](../classes/StorageCache.md)
 
 Optionally configure and pass in your own StorageCache
-
-## Defined in
-
-[packages/state/src/state-types/StateOptions.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L10)

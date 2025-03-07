@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,20 +8,22 @@
 
 > **mineHandler**(`client`, `options`?): [`MineHandler`](../type-aliases/MineHandler.md)
 
+Defined in: [packages/actions/src/Mine/mineHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/mineHandler.js#L16)
+
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **options?** = `{}`
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
-• **options.throwOnFail?**: `undefined` \| `boolean`
+### options?
+
+#### throwOnFail?
+
+`boolean`
 
 whether to default to throwing or not when errors occur
 
 ## Returns
 
 [`MineHandler`](../type-aliases/MineHandler.md)
-
-## Defined in
-
-[packages/actions/src/Mine/mineHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/mineHandler.js#L16)

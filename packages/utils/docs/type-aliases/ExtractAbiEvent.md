@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: ExtractAbiEvent\<abi, eventName\>
 
-> **ExtractAbiEvent**\<`abi`, `eventName`\>: `Extract`\<[`ExtractAbiEvents`](ExtractAbiEvents.md)\<`abi`\>, `object`\>
+> **ExtractAbiEvent**\<`abi`, `eventName`\>: `Extract`\<[`ExtractAbiEvents`](ExtractAbiEvents.md)\<`abi`\>, \{ `name`: `eventName`; \}\>
+
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.2\_zod@3.24.2/node\_modules/abitype/dist/types/utils.d.ts:149
 
 Extracts [AbiEvent](AbiEvent.md) with name from [Abi](Abi.md).
 
@@ -20,6 +22,6 @@ Extracts [AbiEvent](AbiEvent.md) with name from [Abi](Abi.md).
 
 String name of event to extract from [Abi](Abi.md)
 
-## Defined in
+## Returns
 
-node\_modules/.pnpm/abitype@1.0.6\_typescript@5.7.3\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:149
+Matching [AbiEvent](AbiEvent.md)

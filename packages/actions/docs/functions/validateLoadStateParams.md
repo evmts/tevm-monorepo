@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **validateLoadStateParams**(`action`): `InvalidRequestError`[]
 
+Defined in: [packages/actions/src/LoadState/validateLoadStateParams.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/validateLoadStateParams.js#L26)
+
 Validates the parameters for loading the state into the VM.
 
 ## Parameters
 
-• **action**: [`LoadStateParams`](../type-aliases/LoadStateParams.md)\<`boolean`\>
+### action
+
+[`LoadStateParams`](../type-aliases/LoadStateParams.md)\<`boolean`\>
 
 The parameters for the load state action.
 
@@ -33,7 +37,3 @@ if (errors.length > 0) {
   console.error('Validation errors:', errors)
 }
 ```
-
-## Defined in
-
-[packages/actions/src/LoadState/validateLoadStateParams.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/validateLoadStateParams.js#L26)

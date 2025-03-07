@@ -1,4 +1,4 @@
-[**@tevm/precompiles**](../README.md) • **Docs**
+[**@tevm/precompiles**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CallResult\<TAbi, TFunctionName\>
 
 > **CallResult**\<`TAbi`, `TFunctionName`\>: `object`
+
+Defined in: [CallResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L25)
 
 A result of a precompile javascript call
 
@@ -38,24 +40,10 @@ The amount of gas used during execution.
 
 ### logs?
 
-> `optional` **logs**: `ReadonlyArray`\<`object`\>
+> `optional` **logs**: `ReadonlyArray`\<\{ `address`: `Address`; `args`: `EncodeEventTopicsParameters`\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"args"`\]; `eventName`: `EncodeEventTopicsParameters`\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"eventName"`\]; \}\>
 
 Logs emitted during contract execution.
 Logs must match the interface of the ABI
-
-#### Type declaration
-
-##### address
-
-> **address**: `Address`
-
-##### args
-
-> **args**: `EncodeEventTopicsParameters`\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"args"`\]
-
-##### eventName
-
-> **eventName**: `EncodeEventTopicsParameters`\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"eventName"`\]
 
 ### returnValue
 
@@ -68,7 +56,3 @@ The return value of the call. Required even on exceptions
 > `optional` **selfdestruct**: `Set`\<`Address`\>
 
 A set of accounts to selfdestruct
-
-## Defined in
-
-[CallResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CallResult.ts#L25)

@@ -1,10 +1,12 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
 [@tevm/block](../globals.md) / JsonHeader
 
 # Interface: JsonHeader
+
+Defined in: [packages/block/src/types.ts:194](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L194)
 
 An object with the block header's data represented as 0x-prefixed hex strings.
 
@@ -14,9 +16,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **baseFeePerGas**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:210](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L210)
+Defined in: [packages/block/src/types.ts:210](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L210)
 
 ***
 
@@ -24,9 +24,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **blobGasUsed**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:212](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L212)
+Defined in: [packages/block/src/types.ts:212](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L212)
 
 ***
 
@@ -34,9 +32,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **coinbase**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L197)
+Defined in: [packages/block/src/types.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L197)
 
 ***
 
@@ -44,9 +40,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **difficulty**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L202)
+Defined in: [packages/block/src/types.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L202)
 
 ***
 
@@ -54,9 +48,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **excessBlobGas**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L213)
+Defined in: [packages/block/src/types.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L213)
 
 ***
 
@@ -64,9 +56,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **extraData**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L207)
+Defined in: [packages/block/src/types.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L207)
 
 ***
 
@@ -74,9 +64,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **gasLimit**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:204](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L204)
+Defined in: [packages/block/src/types.ts:204](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L204)
 
 ***
 
@@ -84,9 +72,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **gasUsed**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:205](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L205)
+Defined in: [packages/block/src/types.ts:205](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L205)
 
 ***
 
@@ -94,9 +80,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **logsBloom**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L201)
+Defined in: [packages/block/src/types.ts:201](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L201)
 
 ***
 
@@ -104,9 +88,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **mixHash**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:208](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L208)
+Defined in: [packages/block/src/types.ts:208](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L208)
 
 ***
 
@@ -114,9 +96,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **nonce**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L209)
+Defined in: [packages/block/src/types.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L209)
 
 ***
 
@@ -124,9 +104,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **number**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:203](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L203)
+Defined in: [packages/block/src/types.ts:203](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L203)
 
 ***
 
@@ -134,9 +112,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **parentBeaconBlockRoot**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:214](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L214)
+Defined in: [packages/block/src/types.ts:214](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L214)
 
 ***
 
@@ -144,9 +120,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **parentHash**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:195](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L195)
+Defined in: [packages/block/src/types.ts:195](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L195)
 
 ***
 
@@ -154,9 +128,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **receiptTrie**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:200](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L200)
+Defined in: [packages/block/src/types.ts:200](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L200)
 
 ***
 
@@ -164,9 +136,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **requestsRoot**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L215)
+Defined in: [packages/block/src/types.ts:215](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L215)
 
 ***
 
@@ -174,9 +144,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **stateRoot**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L198)
+Defined in: [packages/block/src/types.ts:198](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L198)
 
 ***
 
@@ -184,9 +152,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **timestamp**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:206](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L206)
+Defined in: [packages/block/src/types.ts:206](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L206)
 
 ***
 
@@ -194,9 +160,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **transactionsTrie**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:199](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L199)
+Defined in: [packages/block/src/types.ts:199](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L199)
 
 ***
 
@@ -204,9 +168,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **uncleHash**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:196](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L196)
+Defined in: [packages/block/src/types.ts:196](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L196)
 
 ***
 
@@ -214,6 +176,4 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 > `optional` **withdrawalsRoot**: `string`
 
-#### Defined in
-
-[packages/block/src/types.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L211)
+Defined in: [packages/block/src/types.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L211)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,20 +8,20 @@
 
 > **anvilDumpStateJsonRpcProcedure**(`client`): [`AnvilDumpStateProcedure`](../type-aliases/AnvilDumpStateProcedure.md)
 
+Defined in: [packages/actions/src/anvil/anvilDumpStateProcedure.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilDumpStateProcedure.js#L11)
+
 **`Experimental`**
 
 Request handler for anvil_dumpState JSON-RPC requests.
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
 [`AnvilDumpStateProcedure`](../type-aliases/AnvilDumpStateProcedure.md)
 
 ## Param
-
-## Defined in
-
-[packages/actions/src/anvil/anvilDumpStateProcedure.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilDumpStateProcedure.js#L11)

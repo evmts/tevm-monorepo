@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CreateVmOptions
 
 > **CreateVmOptions**: `object`
+
+Defined in: [packages/vm/src/CreateVmOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/CreateVmOptions.ts#L6)
 
 ## Type declaration
 
@@ -25,7 +27,3 @@
 ### stateManager
 
 > **stateManager**: `StateManager`
-
-## Defined in
-
-[packages/vm/src/CreateVmOptions.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/CreateVmOptions.ts#L6)

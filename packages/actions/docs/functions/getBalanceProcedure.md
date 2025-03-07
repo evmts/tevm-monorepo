@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **getBalanceProcedure**(`baseClient`): [`EthGetBalanceJsonRpcProcedure`](../type-aliases/EthGetBalanceJsonRpcProcedure.md)
 
+Defined in: [packages/actions/src/eth/getBalanceProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceProcedure.js#L8)
+
 ## Parameters
 
-• **baseClient**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### baseClient
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
 [`EthGetBalanceJsonRpcProcedure`](../type-aliases/EthGetBalanceJsonRpcProcedure.md)
-
-## Defined in
-
-[packages/actions/src/eth/getBalanceProcedure.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getBalanceProcedure.js#L8)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,13 +8,17 @@
 
 > **CallHandler**: (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
 
+Defined in: [packages/actions/src/Call/CallHandlerType.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L38)
+
 Executes a call against the VM, similar to `eth_call` but with more options for controlling the execution environment.
 
 This low-level function is used internally by higher-level functions like `contract` and `script`, which are designed to interact with deployed contracts or undeployed scripts, respectively.
 
 ## Parameters
 
-• **action**: [`CallParams`](CallParams.md)
+### action
+
+[`CallParams`](CallParams.md)
 
 The parameters for the call.
 
@@ -55,7 +59,3 @@ console.log(res)
  - [tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall)
  - [CallParams](CallParams.md)
  - [CallResult](CallResult.md)
-
-## Defined in
-
-[packages/actions/src/Call/CallHandlerType.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L38)

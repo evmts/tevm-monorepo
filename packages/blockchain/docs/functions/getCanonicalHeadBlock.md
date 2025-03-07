@@ -1,4 +1,4 @@
-[**@tevm/blockchain**](../README.md) • **Docs**
+[**@tevm/blockchain**](../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **getCanonicalHeadBlock**(`baseChain`): () => `Promise`\<`Block`\>
 
+Defined in: [packages/blockchain/src/actions/getCanonicalHeadBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getCanonicalHeadBlock.js#L7)
+
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
@@ -21,7 +25,3 @@ Returns the latest full block in the canonical chain.
 ### Returns
 
 `Promise`\<`Block`\>
-
-## Defined in
-
-[packages/blockchain/src/actions/getCanonicalHeadBlock.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getCanonicalHeadBlock.js#L7)

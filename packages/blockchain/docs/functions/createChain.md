@@ -1,4 +1,4 @@
-[**@tevm/blockchain**](../README.md) • **Docs**
+[**@tevm/blockchain**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **createChain**(`options`): `Promise`\<[`Chain`](../type-aliases/Chain.md)\>
 
+Defined in: [packages/blockchain/src/createChain.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createChain.js#L16)
+
 ## Parameters
 
-• **options**: [`ChainOptions`](../type-aliases/ChainOptions.md)
+### options
+
+[`ChainOptions`](../type-aliases/ChainOptions.md)
 
 ## Returns
 
 `Promise`\<[`Chain`](../type-aliases/Chain.md)\>
-
-## Defined in
-
-[packages/blockchain/src/createChain.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createChain.js#L16)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,10 +6,38 @@
 
 # Type Alias: MineResult
 
-> **MineResult**: `object` \| `object`
+> **MineResult**: \{ `blockHashes`: `Hex`[]; `errors`: `undefined`; \} \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](TevmMineError.md)[]; \}
+
+Defined in: [packages/actions/src/Mine/MineResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineResult.ts#L7)
 
 Result of Mine Method
 
-## Defined in
+## Type declaration
 
-[packages/actions/src/Mine/MineResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineResult.ts#L7)
+\{ `blockHashes`: `Hex`[]; `errors`: `undefined`; \}
+
+### blockHashes
+
+> **blockHashes**: `Hex`[]
+
+Array of mined block hashes
+
+### errors?
+
+> `optional` **errors**: `undefined`
+
+No errors occurred
+
+\{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](TevmMineError.md)[]; \}
+
+### blockHashes?
+
+> `optional` **blockHashes**: `undefined`
+
+No block hashes available
+
+### errors
+
+> **errors**: [`TevmMineError`](TevmMineError.md)[]
+
+Description of the exception, if any occurred

@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **SolcOutput**: `object`
 
+Defined in: [solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)
+
 ## Type declaration
 
 ### contracts
@@ -16,7 +18,7 @@
 
 #### Index Signature
 
- \[`sourceFile`: `string`\]: `object`
+\[`sourceFile`: `string`\]: `object`
 
 ### errors?
 
@@ -28,8 +30,4 @@
 
 #### Index Signature
 
- \[`sourceFile`: `string`\]: [`SolcSourceEntry`](SolcSourceEntry.md)
-
-## Defined in
-
-[solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)
+\[`sourceFile`: `string`\]: [`SolcSourceEntry`](SolcSourceEntry.md)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilRequestType
 
 > **AnvilRequestType**: `object`
+
+Defined in: [packages/actions/src/tevm-request-handler/AnvilRequestType.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/AnvilRequestType.ts#L20)
 
 A mapping of `anvil_*` method names to their request type
 
@@ -67,7 +69,3 @@ A mapping of `anvil_*` method names to their request type
 ### anvil\_stopImpersonatingAccount
 
 > **anvil\_stopImpersonatingAccount**: [`AnvilStopImpersonatingAccountJsonRpcRequest`](AnvilStopImpersonatingAccountJsonRpcRequest.md)
-
-## Defined in
-
-[packages/actions/src/tevm-request-handler/AnvilRequestType.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/AnvilRequestType.ts#L20)

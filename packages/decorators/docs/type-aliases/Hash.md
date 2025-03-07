@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # Type Alias: Hash
 
-> **Hash**: \`0x$\{string\}\`
+> **Hash**: `` `0x${string}` ``
 
-## Defined in
-
-[eip1193/misc.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/misc.ts#L9)
+Defined in: [eip1193/misc.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/misc.ts#L9)

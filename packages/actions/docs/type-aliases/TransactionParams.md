@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TransactionParams
 
 > **TransactionParams**: `object`
+
+Defined in: [packages/actions/src/common/TransactionParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionParams.ts#L7)
 
 A transaction request object
 
@@ -39,7 +41,3 @@ A transaction request object
 ### value?
 
 > `readonly` `optional` **value**: [`Hex`](Hex.md)
-
-## Defined in
-
-[packages/actions/src/common/TransactionParams.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionParams.ts#L7)

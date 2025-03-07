@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,19 +8,25 @@
 
 > **dumpStateHandler**(`client`, `options`?): [`DumpStateHandler`](../type-aliases/DumpStateHandler.md)
 
+Defined in: [packages/actions/src/DumpState/dumpStateHandler.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/dumpStateHandler.js#L32)
+
 Creates a handler for dumping the TEVM state.
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 The TEVM client instance.
 
-• **options?** = `{}`
+### options?
 
 Optional settings.
 
-• **options.throwOnFail?**: `undefined` \| `boolean`
+#### throwOnFail?
+
+`boolean`
 
 Whether to throw an error if the state dump fails.
 
@@ -47,7 +53,3 @@ if (errors) {
   console.log(state)
 }
 ```
-
-## Defined in
-
-[packages/actions/src/DumpState/dumpStateHandler.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/dumpStateHandler.js#L32)

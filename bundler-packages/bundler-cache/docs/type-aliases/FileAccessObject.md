@@ -1,4 +1,4 @@
-[**@tevm/bundler-cache**](../README.md) • **Docs**
+[**@tevm/bundler-cache**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: FileAccessObject
 
 > **FileAccessObject**: `object`
+
+Defined in: [types.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L9)
 
 Generalized interface for accessing file system
 Allows this package to be used in browser environments or otherwise pluggable
@@ -19,7 +21,9 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 #### Parameters
 
-• **path**: `string`
+##### path
+
+`string`
 
 #### Returns
 
@@ -31,7 +35,9 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 #### Parameters
 
-• **path**: `string`
+##### path
+
+`string`
 
 #### Returns
 
@@ -51,9 +57,13 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 #### Parameters
 
-• **path**: `string`
+##### path
 
-• **encoding**: `BufferEncoding`
+`string`
+
+##### encoding
+
+`BufferEncoding`
 
 #### Returns
 
@@ -65,9 +75,13 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 #### Parameters
 
-• **path**: `string`
+##### path
 
-• **encoding**: `BufferEncoding`
+`string`
+
+##### encoding
+
+`BufferEncoding`
 
 #### Returns
 
@@ -91,14 +105,14 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 #### Parameters
 
-• **path**: `string`
+##### path
 
-• **data**: `string`
+`string`
+
+##### data
+
+`string`
 
 #### Returns
 
 `void`
-
-## Defined in
-
-[types.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L9)

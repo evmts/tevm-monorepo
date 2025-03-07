@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -8,12 +8,10 @@
 
 > **JsonSerializableObject**: `object`
 
+Defined in: [packages/utils/src/SerializeToJson.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L24)
+
 A type that represents a JSON-serializable object.
 
 ## Index Signature
 
- \[`key`: `string`\]: [`JsonSerializable`](JsonSerializable.md)
-
-## Defined in
-
-[packages/utils/src/SerializeToJson.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L24)
+\[`key`: `string`\]: [`JsonSerializable`](JsonSerializable.md)

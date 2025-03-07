@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -8,17 +8,23 @@
 
 > **hexToString**(`hex`, `opts`?): `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:148
+
 Decodes a hex value into a UTF-8 string.
 
 - Docs: https://viem.sh/docs/utilities/fromHex#hextostring
 
 ## Parameters
 
-• **hex**: \`0x$\{string\}\`
+### hex
+
+`` `0x${string}` ``
 
 Hex value to decode.
 
-• **opts?**: `HexToStringOpts`
+### opts?
+
+`HexToStringOpts`
 
 Options.
 
@@ -43,7 +49,3 @@ const data = hexToString('0x48656c6c6f20576f726c64210000000000000000000000000000
 })
 // 'Hello world'
 ```
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:148

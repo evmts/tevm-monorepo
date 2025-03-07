@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # Type Alias: SolcRemapping
 
-> **SolcRemapping**: \`$\{string\}=$\{string\}\`[]
+> **SolcRemapping**: `` `${string}=${string}` ``[]
 
-## Defined in
-
-[solcTypes.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L52)
+Defined in: [solcTypes.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L52)

@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AddEthereumChainParameter
 
 > **AddEthereumChainParameter**: `object`
+
+Defined in: [eip1193/AddEthereumChainParameter.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L7)
 
 ## Type declaration
 
@@ -36,22 +38,18 @@ The chain name.
 
 Native currency for the chain.
 
-### nativeCurrency.decimals
+#### nativeCurrency.decimals
 
 > **decimals**: `number`
 
-### nativeCurrency.name
+#### nativeCurrency.name
 
 > **name**: `string`
 
-### nativeCurrency.symbol
+#### nativeCurrency.symbol
 
 > **symbol**: `string`
 
 ### rpcUrls
 
 > **rpcUrls**: readonly `string`[]
-
-## Defined in
-
-[eip1193/AddEthereumChainParameter.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L7)

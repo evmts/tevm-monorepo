@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -6,9 +6,11 @@
 
 # Function: toType()
 
-## toType(input, outputType)
+## Call Signature
 
 > **toType**\<`T`\>(`input`, `outputType`): `null`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:36
 
 Convert an input to a specified type.
 Input of null/undefined returns null/undefined regardless of the output type.
@@ -19,11 +21,15 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 ### Parameters
 
-• **input**: `null`
+#### input
+
+`null`
 
 value to convert
 
-• **outputType**: `T`
+#### outputType
+
+`T`
 
 type to output
 
@@ -31,13 +37,14 @@ type to output
 
 `null`
 
-### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:36
-
-## toType(input, outputType)
+## Call Signature
 
 > **toType**\<`T`\>(`input`, `outputType`): `undefined`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37
+
+Convert an input to a specified type.
+Input of null/undefined returns null/undefined regardless of the output type.
 
 ### Type Parameters
 
@@ -45,21 +52,30 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 ### Parameters
 
-• **input**: `undefined`
+#### input
 
-• **outputType**: `T`
+`undefined`
+
+value to convert
+
+#### outputType
+
+`T`
+
+type to output
 
 ### Returns
 
 `undefined`
 
-### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37
-
-## toType(input, outputType)
+## Call Signature
 
 > **toType**\<`T`\>(`input`, `outputType`): `TypeOutputReturnType`\[`T`\]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:38
+
+Convert an input to a specified type.
+Input of null/undefined returns null/undefined regardless of the output type.
 
 ### Type Parameters
 
@@ -67,14 +83,18 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 ### Parameters
 
-• **input**: `ToBytesInputTypes`
+#### input
 
-• **outputType**: `T`
+`ToBytesInputTypes`
+
+value to convert
+
+#### outputType
+
+`T`
+
+type to output
 
 ### Returns
 
 `TypeOutputReturnType`\[`T`\]
-
-### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:38

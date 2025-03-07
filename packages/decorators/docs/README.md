@@ -1,4 +1,4 @@
-**@tevm/decorators** • [**Docs**](globals.md)
+**@tevm/decorators**
 
 ***
 

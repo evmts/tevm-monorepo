@@ -1,10 +1,12 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
 [@tevm/utils](../globals.md) / AsyncEventEmitter
 
 # Class: AsyncEventEmitter\<T\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:15
 
 ## Extends
 
@@ -20,9 +22,13 @@
 
 > **new AsyncEventEmitter**\<`T`\>(`options`?): [`AsyncEventEmitter`](AsyncEventEmitter.md)\<`T`\>
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:134
+
 #### Parameters
 
-• **options?**: `EventEmitterOptions`
+##### options?
+
+`EventEmitterOptions`
 
 #### Returns
 
@@ -32,15 +38,13 @@
 
 `EventEmitter.constructor`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:134
-
 ## Properties
 
 ### captureRejections
 
 > `static` **captureRejections**: `boolean`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:459
 
 Value: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type)
 
@@ -54,15 +58,13 @@ v13.4.0, v12.16.0
 
 `EventEmitter.captureRejections`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:459
-
 ***
 
 ### captureRejectionSymbol
 
 > `readonly` `static` **captureRejectionSymbol**: *typeof* [`captureRejectionSymbol`](AsyncEventEmitter.md#capturerejectionsymbol)
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:452
 
 Value: `Symbol.for('nodejs.rejection')`
 
@@ -76,15 +78,13 @@ v13.4.0, v12.16.0
 
 `EventEmitter.captureRejectionSymbol`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:452
-
 ***
 
 ### defaultMaxListeners
 
 > `static` **defaultMaxListeners**: `number`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:498
 
 By default, a maximum of `10` listeners can be registered for any single
 event. This limit can be changed for individual `EventEmitter` instances
@@ -130,15 +130,13 @@ v0.11.2
 
 `EventEmitter.defaultMaxListeners`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:498
-
 ***
 
 ### errorMonitor
 
 > `readonly` `static` **errorMonitor**: *typeof* [`errorMonitor`](AsyncEventEmitter.md#errormonitor)
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:445
 
 This symbol shall be used to install a listener for only monitoring `'error'` events. Listeners installed using this symbol are called before the regular `'error'` listeners are called.
 
@@ -153,27 +151,31 @@ v13.6.0, v12.17.0
 
 `EventEmitter.errorMonitor`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:445
-
 ## Methods
 
 ### \[captureRejectionSymbol\]()?
 
 > `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:136
+
 #### Type Parameters
 
 • **K**
 
 #### Parameters
 
-• **error**: `Error`
+##### error
 
-• **event**: `string` \| `symbol`
+`Error`
 
-• ...**args**: `AnyRest`
+##### event
+
+`string` | `symbol`
+
+##### args
+
+...`AnyRest`
 
 #### Returns
 
@@ -182,46 +184,14 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:445
 #### Inherited from
 
 `EventEmitter.[captureRejectionSymbol]`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:136
-
-***
-
-### \[captureRejectionSymbol\]()?
-
-> `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
-
-#### Type Parameters
-
-• **K**
-
-#### Parameters
-
-• **error**: `Error`
-
-• **event**: `string` \| `symbol`
-
-• ...**args**: `AnyRest`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-`EventEmitter.[captureRejectionSymbol]`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:545
 
 ***
 
 ### addListener()
 
 > **addListener**\<`E`\>(`event`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:23
 
 Alias for `emitter.on(eventName, listener)`.
 
@@ -231,9 +201,13 @@ Alias for `emitter.on(eventName, listener)`.
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **listener**: `T`\[`E`\]
+`E` & `string`
+
+##### listener
+
+`T`\[`E`\]
 
 #### Returns
 
@@ -247,15 +221,13 @@ v0.1.26
 
 `EventEmitter.addListener`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:23
-
 ***
 
 ### after()
 
 > **after**\<`E`\>(`event`, `target`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:20
 
 #### Type Parameters
 
@@ -263,19 +235,21 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **target**: `T`\[`E`\]
+`E` & `string`
 
-• **listener**: `T`\[`E`\]
+##### target
+
+`T`\[`E`\]
+
+##### listener
+
+`T`\[`E`\]
 
 #### Returns
 
 `this`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:20
 
 ***
 
@@ -283,31 +257,37 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **before**\<`E`\>(`event`, `target`, `listener`): `this`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:19
+
 #### Type Parameters
 
 • **E** *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **target**: `T`\[`E`\]
+`E` & `string`
 
-• **listener**: `T`\[`E`\]
+##### target
+
+`T`\[`E`\]
+
+##### listener
+
+`T`\[`E`\]
 
 #### Returns
 
 `this`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:19
 
 ***
 
 ### emit()
 
 > **emit**\<`E`\>(`event`, ...`args`): `boolean`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:16
 
 Synchronously calls each of the listeners registered for the event named `eventName`, in the order they were registered, passing the supplied arguments
 to each.
@@ -353,9 +333,13 @@ myEmitter.emit('event', 1, 2, 3, 4, 5);
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• ...**args**: `Parameters`\<`T`\[`E`\]\>
+`E` & `string`
+
+##### args
+
+...`Parameters`\<`T`\[`E`\]\>
 
 #### Returns
 
@@ -369,15 +353,13 @@ v0.1.26
 
 `EventEmitter.emit`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:16
-
 ***
 
 ### eventNames()
 
 > **eventNames**(): keyof `T` & `string`[]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:28
 
 Returns an array listing the events for which the emitter has registered
 listeners. The values in the array are strings or `Symbol`s.
@@ -408,15 +390,13 @@ v6.0.0
 
 `EventEmitter.eventNames`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:28
-
 ***
 
 ### first()
 
 > **first**\<`E`\>(`event`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:18
 
 #### Type Parameters
 
@@ -424,17 +404,17 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **listener**: `T`\[`E`\]
+`E` & `string`
+
+##### listener
+
+`T`\[`E`\]
 
 #### Returns
 
 `this`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:18
 
 ***
 
@@ -442,8 +422,10 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **getMaxListeners**(): `number`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:31
+
 Returns the current max listener value for the `EventEmitter` which is either
-set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](AsyncEventEmitter.md#defaultmaxlisteners).
+set by `emitter.setMaxListeners(n)` or defaults to [EventEmitter.defaultMaxListeners](AsyncEventEmitter.md#defaultmaxlisteners).
 
 #### Returns
 
@@ -457,15 +439,13 @@ v1.0.0
 
 `EventEmitter.getMaxListeners`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:31
-
 ***
 
 ### listenerCount()
 
 > **listenerCount**(`event`): `number`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:30
 
 Returns the number of listeners listening for the event named `eventName`.
 If `listener` is provided, it will return how many times the listener is found
@@ -473,7 +453,9 @@ in the list of the listeners of the event.
 
 #### Parameters
 
-• **event**: keyof `T` & `string`
+##### event
+
+keyof `T` & `string`
 
 #### Returns
 
@@ -487,15 +469,13 @@ v3.2.0
 
 `EventEmitter.listenerCount`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:30
-
 ***
 
 ### listeners()
 
 > **listeners**\<`E`\>(`event`): `T`\[`E`\][]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:29
 
 Returns a copy of the array of listeners for the event named `eventName`.
 
@@ -513,7 +493,9 @@ console.log(util.inspect(server.listeners('connection')));
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
+
+`E` & `string`
 
 #### Returns
 
@@ -527,83 +509,49 @@ v0.1.26
 
 `EventEmitter.listeners`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:29
-
 ***
 
 ### off()
 
-#### off(eventName, listener)
-
 > **off**\<`K`\>(`eventName`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:747
 
 Alias for `emitter.removeListener()`.
 
-##### Type Parameters
+#### Type Parameters
 
 • **K**
 
-##### Parameters
+#### Parameters
 
-• **eventName**: `string` \| `symbol`
+##### eventName
 
-• **listener**
+`string` | `symbol`
 
-##### Returns
+##### listener
 
-`this`
+(...`args`) => `void`
 
-##### Since
-
-v10.0.0
-
-##### Inherited from
-
-`EventEmitter.off`
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:747
-
-#### off(eventName, listener)
-
-> **off**\<`K`\>(`eventName`, `listener`): `this`
-
-Alias for `emitter.removeListener()`.
-
-##### Type Parameters
-
-• **K**
-
-##### Parameters
-
-• **eventName**: `string` \| `symbol`
-
-• **listener**
-
-##### Returns
+#### Returns
 
 `this`
 
-##### Since
+#### Since
 
 v10.0.0
 
-##### Inherited from
+#### Inherited from
 
 `EventEmitter.off`
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:700
 
 ***
 
 ### on()
 
 > **on**\<`E`\>(`event`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:22
 
 Adds the `listener` function to the end of the listeners array for the event
 named `eventName`. No checks are made to see if the `listener` has already
@@ -638,9 +586,13 @@ myEE.emit('foo');
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **listener**: `T`\[`E`\]
+`E` & `string`
+
+##### listener
+
+`T`\[`E`\]
 
 The callback function
 
@@ -656,15 +608,13 @@ v0.1.101
 
 `EventEmitter.on`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:22
-
 ***
 
 ### once()
 
 > **once**\<`E`\>(`event`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:17
 
 Adds a **one-time** `listener` function for the event named `eventName`. The
 next time `eventName` is triggered, this listener is removed and then invoked.
@@ -697,9 +647,13 @@ myEE.emit('foo');
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **listener**: `T`\[`E`\]
+`E` & `string`
+
+##### listener
+
+`T`\[`E`\]
 
 The callback function
 
@@ -715,15 +669,13 @@ v0.3.0
 
 `EventEmitter.once`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:17
-
 ***
 
 ### prependListener()
 
 > **prependListener**\<`E`\>(`event`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:24
 
 Adds the `listener` function to the _beginning_ of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -744,9 +696,13 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **listener**: `T`\[`E`\]
+`E` & `string`
+
+##### listener
+
+`T`\[`E`\]
 
 The callback function
 
@@ -762,15 +718,13 @@ v6.0.0
 
 `EventEmitter.prependListener`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:24
-
 ***
 
 ### prependOnceListener()
 
 > **prependOnceListener**\<`E`\>(`event`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:25
 
 Adds a **one-time**`listener` function for the event named `eventName` to the _beginning_ of the listeners array. The next time `eventName` is triggered, this
 listener is removed, and then invoked.
@@ -789,9 +743,13 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **listener**: `T`\[`E`\]
+`E` & `string`
+
+##### listener
+
+`T`\[`E`\]
 
 The callback function
 
@@ -807,17 +765,13 @@ v6.0.0
 
 `EventEmitter.prependOnceListener`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:25
-
 ***
 
 ### rawListeners()
 
-#### rawListeners(eventName)
-
 > **rawListeners**\<`K`\>(`eventName`): `Function`[]
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:818
 
 Returns a copy of the array of listeners for the event named `eventName`,
 including any wrappers (such as those created by `.once()`).
@@ -847,91 +801,35 @@ newListeners[0]();
 emitter.emit('log');
 ```
 
-##### Type Parameters
+#### Type Parameters
 
 • **K**
 
-##### Parameters
+#### Parameters
 
-• **eventName**: `string` \| `symbol`
+##### eventName
 
-##### Returns
+`string` | `symbol`
 
-`Function`[]
-
-##### Since
-
-v9.4.0
-
-##### Inherited from
-
-`EventEmitter.rawListeners`
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:818
-
-#### rawListeners(eventName)
-
-> **rawListeners**\<`K`\>(`eventName`): `Function`[]
-
-Returns a copy of the array of listeners for the event named `eventName`,
-including any wrappers (such as those created by `.once()`).
-
-```js
-import { EventEmitter } from 'node:events';
-const emitter = new EventEmitter();
-emitter.once('log', () => console.log('log once'));
-
-// Returns a new Array with a function `onceWrapper` which has a property
-// `listener` which contains the original listener bound above
-const listeners = emitter.rawListeners('log');
-const logFnWrapper = listeners[0];
-
-// Logs "log once" to the console and does not unbind the `once` event
-logFnWrapper.listener();
-
-// Logs "log once" to the console and removes the listener
-logFnWrapper();
-
-emitter.on('log', () => console.log('log persistently'));
-// Will return a new Array with a single function bound by `.on()` above
-const newListeners = emitter.rawListeners('log');
-
-// Logs "log persistently" twice
-newListeners[0]();
-emitter.emit('log');
-```
-
-##### Type Parameters
-
-• **K**
-
-##### Parameters
-
-• **eventName**: `string` \| `symbol`
-
-##### Returns
+#### Returns
 
 `Function`[]
 
-##### Since
+#### Since
 
 v9.4.0
 
-##### Inherited from
+#### Inherited from
 
 `EventEmitter.rawListeners`
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/events.d.ts:771
 
 ***
 
 ### removeAllListeners()
 
 > **removeAllListeners**(`event`?): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:26
 
 Removes all listeners, or those of the specified `eventName`.
 
@@ -943,7 +841,9 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Parameters
 
-• **event?**: keyof `T` & `string`
+##### event?
+
+keyof `T` & `string`
 
 #### Returns
 
@@ -957,15 +857,13 @@ v0.1.26
 
 `EventEmitter.removeAllListeners`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:26
-
 ***
 
 ### removeListener()
 
 > **removeListener**\<`E`\>(`event`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:27
 
 Removes the specified `listener` from the listener array for the event named `eventName`.
 
@@ -1053,9 +951,13 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Parameters
 
-• **event**: `E` & `string`
+##### event
 
-• **listener**: `T`\[`E`\]
+`E` & `string`
+
+##### listener
+
+`T`\[`E`\]
 
 #### Returns
 
@@ -1069,15 +971,13 @@ v0.1.26
 
 `EventEmitter.removeListener`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:27
-
 ***
 
 ### setMaxListeners()
 
 > **setMaxListeners**(`maxListeners`): `this`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:32
 
 By default `EventEmitter`s will print a warning if more than `10` listeners are
 added for a particular event. This is a useful default that helps finding
@@ -1088,7 +988,9 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Parameters
 
-• **maxListeners**: `number`
+##### maxListeners
+
+`number`
 
 #### Returns
 
@@ -1102,15 +1004,13 @@ v0.3.5
 
 `EventEmitter.setMaxListeners`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:32
-
 ***
 
 ### addAbortListener()
 
 > `static` **addAbortListener**(`signal`, `resource`): `Disposable`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:437
 
 **`Experimental`**
 
@@ -1146,9 +1046,13 @@ function example(signal) {
 
 #### Parameters
 
-• **signal**: `AbortSignal`
+##### signal
 
-• **resource**
+`AbortSignal`
+
+##### resource
+
+(`event`) => `void`
 
 #### Returns
 
@@ -1164,15 +1068,13 @@ v20.5.0
 
 `EventEmitter.addAbortListener`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:437
-
 ***
 
 ### getEventListeners()
 
 > `static` **getEventListeners**(`emitter`, `name`): `Function`[]
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:358
 
 Returns a copy of the array of listeners for the event named `eventName`.
 
@@ -1201,9 +1103,13 @@ import { getEventListeners, EventEmitter } from 'node:events';
 
 #### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\> \| `EventTarget`
+##### emitter
 
-• **name**: `string` \| `symbol`
+`EventEmitter`\<`DefaultEventMap`\> | `EventTarget`
+
+##### name
+
+`string` | `symbol`
 
 #### Returns
 
@@ -1217,15 +1123,13 @@ v15.2.0, v14.17.0
 
 `EventEmitter.getEventListeners`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:358
-
 ***
 
 ### getMaxListeners()
 
 > `static` **getMaxListeners**(`emitter`): `number`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:387
 
 Returns the currently set max amount of listeners.
 
@@ -1255,7 +1159,9 @@ import { getMaxListeners, setMaxListeners, EventEmitter } from 'node:events';
 
 #### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\> \| `EventTarget`
+##### emitter
+
+`EventEmitter`\<`DefaultEventMap`\> | `EventTarget`
 
 #### Returns
 
@@ -1269,15 +1175,13 @@ v19.9.0
 
 `EventEmitter.getMaxListeners`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:387
-
 ***
 
 ### ~~listenerCount()~~
 
 > `static` **listenerCount**(`emitter`, `eventName`): `number`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:330
 
 A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
 
@@ -1293,13 +1197,17 @@ console.log(listenerCount(myEmitter, 'event'));
 
 #### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\>
+##### emitter
+
+`EventEmitter`
 
 The emitter to query
 
-• **eventName**: `string` \| `symbol`
+##### eventName
 
 The event name
+
+`string` | `symbol`
 
 #### Returns
 
@@ -1317,17 +1225,15 @@ Since v3.2.0 - Use `listenerCount` instead.
 
 `EventEmitter.listenerCount`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:330
-
 ***
 
 ### on()
 
-#### on(emitter, eventName, options)
+#### Call Signature
 
-> `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterableIterator`\<`any`[], `any`, `any`\>
+> `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterator`\<`any`[]\>
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:303
 
 ```js
 import { on, EventEmitter } from 'node:events';
@@ -1408,15 +1314,21 @@ console.log('done'); // prints 'done'
 
 ##### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\>
+###### emitter
 
-• **eventName**: `string` \| `symbol`
+`EventEmitter`
 
-• **options?**: `StaticEventEmitterIteratorOptions`
+###### eventName
+
+`string` | `symbol`
+
+###### options?
+
+`StaticEventEmitterIteratorOptions`
 
 ##### Returns
 
-`AsyncIterableIterator`\<`any`[], `any`, `any`\>
+`AsyncIterator`\<`any`[]\>
 
 An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
 
@@ -1428,41 +1340,126 @@ v13.6.0, v12.16.0
 
 `EventEmitter.on`
 
-##### Defined in
+#### Call Signature
 
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:303
+> `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterator`\<`any`[]\>
 
-#### on(emitter, eventName, options)
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:308
 
-> `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterableIterator`\<`any`[], `any`, `any`\>
+```js
+import { on, EventEmitter } from 'node:events';
+import process from 'node:process';
+
+const ee = new EventEmitter();
+
+// Emit later on
+process.nextTick(() => {
+  ee.emit('foo', 'bar');
+  ee.emit('foo', 42);
+});
+
+for await (const event of on(ee, 'foo')) {
+  // The execution of this inner block is synchronous and it
+  // processes one event at a time (even with await). Do not use
+  // if concurrent execution is required.
+  console.log(event); // prints ['bar'] [42]
+}
+// Unreachable here
+```
+
+Returns an `AsyncIterator` that iterates `eventName` events. It will throw
+if the `EventEmitter` emits `'error'`. It removes all listeners when
+exiting the loop. The `value` returned by each iteration is an array
+composed of the emitted event arguments.
+
+An `AbortSignal` can be used to cancel waiting on events:
+
+```js
+import { on, EventEmitter } from 'node:events';
+import process from 'node:process';
+
+const ac = new AbortController();
+
+(async () => {
+  const ee = new EventEmitter();
+
+  // Emit later on
+  process.nextTick(() => {
+    ee.emit('foo', 'bar');
+    ee.emit('foo', 42);
+  });
+
+  for await (const event of on(ee, 'foo', { signal: ac.signal })) {
+    // The execution of this inner block is synchronous and it
+    // processes one event at a time (even with await). Do not use
+    // if concurrent execution is required.
+    console.log(event); // prints ['bar'] [42]
+  }
+  // Unreachable here
+})();
+
+process.nextTick(() => ac.abort());
+```
+
+Use the `close` option to specify an array of event names that will end the iteration:
+
+```js
+import { on, EventEmitter } from 'node:events';
+import process from 'node:process';
+
+const ee = new EventEmitter();
+
+// Emit later on
+process.nextTick(() => {
+  ee.emit('foo', 'bar');
+  ee.emit('foo', 42);
+  ee.emit('close');
+});
+
+for await (const event of on(ee, 'foo', { close: ['close'] })) {
+  console.log(event); // prints ['bar'] [42]
+}
+// the loop will exit after 'close' is emitted
+console.log('done'); // prints 'done'
+```
 
 ##### Parameters
 
-• **emitter**: `EventTarget`
+###### emitter
 
-• **eventName**: `string`
+`EventTarget`
 
-• **options?**: `StaticEventEmitterIteratorOptions`
+###### eventName
+
+`string`
+
+###### options?
+
+`StaticEventEmitterIteratorOptions`
 
 ##### Returns
 
-`AsyncIterableIterator`\<`any`[], `any`, `any`\>
+`AsyncIterator`\<`any`[]\>
+
+An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
+
+##### Since
+
+v13.6.0, v12.16.0
 
 ##### Inherited from
 
 `EventEmitter.on`
 
-##### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:308
-
 ***
 
 ### once()
 
-#### once(emitter, eventName, options)
+#### Call Signature
 
 > `static` **once**(`emitter`, `eventName`, `options`?): `Promise`\<`any`[]\>
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:217
 
 Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
 event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
@@ -1543,11 +1540,17 @@ ee.emit('foo'); // Prints: Waiting for the event was canceled!
 
 ##### Parameters
 
-• **emitter**: `EventEmitter`\<`DefaultEventMap`\>
+###### emitter
 
-• **eventName**: `string` \| `symbol`
+`EventEmitter`
 
-• **options?**: `StaticEventEmitterOptions`
+###### eventName
+
+`string` | `symbol`
+
+###### options?
+
+`StaticEventEmitterOptions`
 
 ##### Returns
 
@@ -1561,39 +1564,122 @@ v11.13.0, v10.16.0
 
 `EventEmitter.once`
 
-##### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:217
-
-#### once(emitter, eventName, options)
+#### Call Signature
 
 > `static` **once**(`emitter`, `eventName`, `options`?): `Promise`\<`any`[]\>
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:222
+
+Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
+event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
+The `Promise` will resolve with an array of all the arguments emitted to the
+given event.
+
+This method is intentionally generic and works with the web platform [EventTarget](https://dom.spec.whatwg.org/#interface-eventtarget) interface, which has no special`'error'` event
+semantics and does not listen to the `'error'` event.
+
+```js
+import { once, EventEmitter } from 'node:events';
+import process from 'node:process';
+
+const ee = new EventEmitter();
+
+process.nextTick(() => {
+  ee.emit('myevent', 42);
+});
+
+const [value] = await once(ee, 'myevent');
+console.log(value);
+
+const err = new Error('kaboom');
+process.nextTick(() => {
+  ee.emit('error', err);
+});
+
+try {
+  await once(ee, 'myevent');
+} catch (err) {
+  console.error('error happened', err);
+}
+```
+
+The special handling of the `'error'` event is only used when `events.once()` is used to wait for another event. If `events.once()` is used to wait for the
+'`error'` event itself, then it is treated as any other kind of event without
+special handling:
+
+```js
+import { EventEmitter, once } from 'node:events';
+
+const ee = new EventEmitter();
+
+once(ee, 'error')
+  .then(([err]) => console.log('ok', err.message))
+  .catch((err) => console.error('error', err.message));
+
+ee.emit('error', new Error('boom'));
+
+// Prints: ok boom
+```
+
+An `AbortSignal` can be used to cancel waiting for the event:
+
+```js
+import { EventEmitter, once } from 'node:events';
+
+const ee = new EventEmitter();
+const ac = new AbortController();
+
+async function foo(emitter, event, signal) {
+  try {
+    await once(emitter, event, { signal });
+    console.log('event emitted!');
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.error('Waiting for the event was canceled!');
+    } else {
+      console.error('There was an error', error.message);
+    }
+  }
+}
+
+foo(ee, 'foo', ac.signal);
+ac.abort(); // Abort waiting for the event
+ee.emit('foo'); // Prints: Waiting for the event was canceled!
+```
+
 ##### Parameters
 
-• **emitter**: `EventTarget`
+###### emitter
 
-• **eventName**: `string`
+`EventTarget`
 
-• **options?**: `StaticEventEmitterOptions`
+###### eventName
+
+`string`
+
+###### options?
+
+`StaticEventEmitterOptions`
 
 ##### Returns
 
 `Promise`\<`any`[]\>
 
+##### Since
+
+v11.13.0, v10.16.0
+
 ##### Inherited from
 
 `EventEmitter.once`
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:222
 
 ***
 
 ### setMaxListeners()
 
 > `static` **setMaxListeners**(`n`?, ...`eventTargets`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:402
 
 ```js
 import { setMaxListeners, EventEmitter } from 'node:events';
@@ -1606,11 +1692,18 @@ setMaxListeners(5, target, emitter);
 
 #### Parameters
 
-• **n?**: `number`
+##### n?
+
+`number`
 
 A non-negative number. The maximum number of listeners per `EventTarget` event.
 
-• ...**eventTargets?**: (`EventEmitter`\<`DefaultEventMap`\> \| `EventTarget`)[]
+##### eventTargets?
+
+...(`EventEmitter`\<`DefaultEventMap`\> \| `EventTarget`)[]
+
+Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
+objects.
 
 #### Returns
 
@@ -1623,7 +1716,3 @@ v15.4.0
 #### Inherited from
 
 `EventEmitter.setMaxListeners`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/events.d.ts:402

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **SerializedParams**: `object`
 
+Defined in: [packages/actions/src/LoadState/LoadStateJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateJsonRpcRequest.ts#L8)
+
 The parameters for the `tevm_loadState` method
 
 ## Type declaration
@@ -15,7 +17,3 @@ The parameters for the `tevm_loadState` method
 ### state
 
 > **state**: `SerializeToJson`\<`ParameterizedTevmState`\>
-
-## Defined in
-
-[packages/actions/src/LoadState/LoadStateJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateJsonRpcRequest.ts#L8)

@@ -1,4 +1,4 @@
-[**@tevm/precompiles**](../README.md) • **Docs**
+[**@tevm/precompiles**](../README.md)
 
 ***
 
@@ -8,22 +8,24 @@
 
 > **definePrecompile**\<`TContract`\>(`__namedParameters`): `Precompile`\<`TContract`\>
 
+Defined in: [definePrecompile.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L6)
+
 ## Type Parameters
 
-• **TContract** *extends* `Contract`\<`any`, `any`, \`0x$\{string\}\`, `any`, `any`, `any`\> = `Contract`\<`string`, readonly `string`[], \`0x$\{string\}\`, `any`, `any`, `any`\>
+• **TContract** *extends* `Contract`\<`any`, `any`, `` `0x${string}` ``, `any`, `any`, `any`\> = `Contract`\<`string`, readonly `string`[], `` `0x${string}` ``, `any`, `any`, `any`\>
 
 ## Parameters
 
-• **\_\_namedParameters**
+### \_\_namedParameters
 
-• **\_\_namedParameters.call**
+#### call
 
-• **\_\_namedParameters.contract**: `TContract`
+(`context`) => `Promise`\<`ExecResult`\>
+
+#### contract
+
+`TContract`
 
 ## Returns
 
 `Precompile`\<`TContract`\>
-
-## Defined in
-
-[definePrecompile.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/definePrecompile.ts#L6)

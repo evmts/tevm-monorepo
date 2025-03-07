@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -6,35 +6,31 @@
 
 # Interface: ParameterizedAccountStorage
 
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L5)
+
 ## Properties
 
 ### balance
 
-> **balance**: \`0x$\{string\}\`
+> **balance**: `` `0x${string}` ``
 
-#### Defined in
-
-[packages/state/src/state-types/ParameterizedAccountStorage.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L7)
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L7)
 
 ***
 
 ### codeHash
 
-> **codeHash**: \`0x$\{string\}\`
+> **codeHash**: `` `0x${string}` ``
 
-#### Defined in
-
-[packages/state/src/state-types/ParameterizedAccountStorage.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L9)
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L9)
 
 ***
 
 ### nonce
 
-> **nonce**: \`0x$\{string\}\`
+> **nonce**: `` `0x${string}` ``
 
-#### Defined in
-
-[packages/state/src/state-types/ParameterizedAccountStorage.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L6)
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L6)
 
 ***
 
@@ -42,16 +38,12 @@
 
 > `optional` **storage**: `StorageDump`
 
-#### Defined in
-
-[packages/state/src/state-types/ParameterizedAccountStorage.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L10)
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L10)
 
 ***
 
 ### storageRoot
 
-> **storageRoot**: \`0x$\{string\}\`
+> **storageRoot**: `` `0x${string}` ``
 
-#### Defined in
-
-[packages/state/src/state-types/ParameterizedAccountStorage.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L8)
+Defined in: [packages/state/src/state-types/ParameterizedAccountStorage.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedAccountStorage.ts#L8)

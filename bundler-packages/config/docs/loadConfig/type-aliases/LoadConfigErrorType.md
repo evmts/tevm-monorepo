@@ -1,4 +1,4 @@
-[**@tevm/config**](../../README.md) • **Docs**
+[**@tevm/config**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **LoadConfigErrorType**\<\>: `LoadTsConfigError` \| `GetTevmConfigFromTsConfigError` \| `LoadFoundryConfigError` \| `InvalidJsonConfigError`
 
+Defined in: [bundler-packages/config/src/loadConfig.js:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L10)
+
 ## Type Parameters
-
-## Defined in
-
-[bundler-packages/config/src/loadConfig.js:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L10)

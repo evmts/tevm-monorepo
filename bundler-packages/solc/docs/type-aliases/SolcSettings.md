@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcSettings
 
 > **SolcSettings**: `object`
+
+Defined in: [solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L239)
 
 ## Type declaration
 
@@ -49,7 +51,3 @@
 ### viaIR?
 
 > `optional` **viaIR**: `boolean`
-
-## Defined in
-
-[solcTypes.ts:239](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L239)

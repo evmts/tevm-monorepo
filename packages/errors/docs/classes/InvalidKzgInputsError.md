@@ -1,10 +1,12 @@
-[**@tevm/errors**](../README.md) • **Docs**
+[**@tevm/errors**](../README.md)
 
 ***
 
 [@tevm/errors](../globals.md) / InvalidKzgInputsError
 
 # Class: InvalidKzgInputsError
+
+Defined in: [packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js#L45)
 
 Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.
 
@@ -43,6 +45,8 @@ Additional parameters for the BaseError.
 
 > **new InvalidKzgInputsError**(`message`?, `args`?, `tag`?): [`InvalidKzgInputsError`](InvalidKzgInputsError.md)
 
+Defined in: [packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js#L59)
+
 Constructs an InvalidKzgInputsError.
 Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.
 
@@ -51,15 +55,21 @@ Invalid inputs errors can occur due to:
 
 #### Parameters
 
-• **message?**: `string` = `'Invalid inputs error occurred.'`
+##### message?
+
+`string` = `'Invalid inputs error occurred.'`
 
 Human-readable error message.
 
-• **args?**: [`InvalidKzgInputsErrorParameters`](../interfaces/InvalidKzgInputsErrorParameters.md) = `{}`
+##### args?
+
+[`InvalidKzgInputsErrorParameters`](../interfaces/InvalidKzgInputsErrorParameters.md) = `{}`
 
 Additional parameters for the BaseError.
 
-• **tag?**: `string` = `'InvalidKzgInputsError'`
+##### tag?
+
+`string` = `'InvalidKzgInputsError'`
 
 The tag for the error.}
 
@@ -71,15 +81,13 @@ The tag for the error.}
 
 [`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructors)
 
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js#L59)
-
 ## Properties
 
 ### \_tag
 
 > **\_tag**: `string`
+
+Defined in: [packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
 
 Same as name, used internally.
 
@@ -87,23 +95,17 @@ Same as name, used internally.
 
 [`ExecutionError`](ExecutionError.md).[`_tag`](ExecutionError.md#_tag)
 
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
-
 ***
 
 ### cause
 
 > **cause**: `any`
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
+
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`cause`](ExecutionError.md#cause)
-
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L114)
 
 ***
 
@@ -111,13 +113,11 @@ Same as name, used internally.
 
 > **code**: `number`
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
+
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`code`](ExecutionError.md#code)
-
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L112)
 
 ***
 
@@ -125,13 +125,11 @@ Same as name, used internally.
 
 > **details**: `string`
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
+
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`details`](ExecutionError.md#details)
-
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L91)
 
 ***
 
@@ -139,15 +137,13 @@ Same as name, used internally.
 
 > **docsPath**: `undefined` \| `string`
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
+
 Path to the documentation for this error.
 
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`docsPath`](ExecutionError.md#docspath)
-
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
 ***
 
@@ -155,15 +151,13 @@ Path to the documentation for this error.
 
 > **message**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+
 Human-readable error message.
 
 #### Inherited from
 
-[`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+[`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message-1)
 
 ***
 
@@ -171,15 +165,13 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
+
 Additional meta messages for more context.
 
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`metaMessages`](ExecutionError.md#metamessages)
-
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
 ***
 
@@ -187,15 +179,13 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
+
 The name of the error, used to discriminate errors.
 
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`name`](ExecutionError.md#name)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -203,13 +193,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **shortMessage**: `string`
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
+
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`shortMessage`](ExecutionError.md#shortmessage)
-
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L104)
 
 ***
 
@@ -217,13 +205,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `optional` **stack**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`stack`](ExecutionError.md#stack)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -231,13 +217,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **version**: `string`
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
+
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`version`](ExecutionError.md#version)
-
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L108)
 
 ***
 
@@ -245,15 +229,13 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `static` **code**: `number` = `-32000`
 
+Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L46)
+
 Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`code`](ExecutionError.md#code-1)
-
-#### Defined in
-
-[packages/errors/src/ethereum/ExecutionErrorError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L46)
 
 ***
 
@@ -261,9 +243,7 @@ Error code, analogous to the code in JSON RPC error.
 
 > `static` **EVMErrorMessage**: `ERROR` = `EVMErrorMessage.INVALID_INPUTS`
 
-#### Defined in
-
-[packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js#L46)
+Defined in: [packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidKzgInputsError.js#L46)
 
 ***
 
@@ -271,13 +251,19 @@ Error code, analogous to the code in JSON RPC error.
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+
 Optional override for formatting stack traces
 
 #### Parameters
 
-• **err**: `Error`
+##### err
 
-• **stackTraces**: `CallSite`[]
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
 
 #### Returns
 
@@ -291,23 +277,17 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`ExecutionError`](ExecutionError.md).[`prepareStackTrace`](ExecutionError.md#preparestacktrace)
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
-
 ***
 
 ### stackTraceLimit
 
 > `static` **stackTraceLimit**: `number`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+
 #### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`stackTraceLimit`](ExecutionError.md#stacktracelimit)
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
@@ -315,11 +295,15 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:14
 
 > **walk**(`fn`?): `unknown`
 
+Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
+
 Walks through the error chain.
 
 #### Parameters
 
-• **fn?**: `Function`
+##### fn?
+
+`Function`
 
 A function to execute on each error in the chain.
 
@@ -333,25 +317,27 @@ The first error that matches the function, or the original error.
 
 [`ExecutionError`](ExecutionError.md).[`walk`](ExecutionError.md#walk)
 
-#### Defined in
-
-[packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
-
 ***
 
 ### captureStackTrace()
 
-#### captureStackTrace(targetObject, constructorOpt)
+#### Call Signature
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
 ##### Parameters
 
-• **targetObject**: `object`
+###### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+###### constructorOpt?
+
+`Function`
 
 ##### Returns
 
@@ -361,21 +347,23 @@ Create .stack property on a target object
 
 [`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
 
-##### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:136
-
-#### captureStackTrace(targetObject, constructorOpt)
+#### Call Signature
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/bun-types@1.2.4/node\_modules/bun-types/globals.d.ts:1632
 
 Create .stack property on a target object
 
 ##### Parameters
 
-• **targetObject**: `object`
+###### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+###### constructorOpt?
+
+`Function`
 
 ##### Returns
 
@@ -384,31 +372,3 @@ Create .stack property on a target object
 ##### Inherited from
 
 [`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
-
-##### Defined in
-
-node\_modules/.pnpm/bun-types@1.1.29/node\_modules/bun-types/globals.d.ts:1630
-
-#### captureStackTrace(targetObject, constructorOpt)
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Create .stack property on a target object
-
-##### Parameters
-
-• **targetObject**: `object`
-
-• **constructorOpt?**: `Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
-
-##### Defined in
-
-node\_modules/.pnpm/@types+node@20.12.14/node\_modules/@types/node/globals.d.ts:21

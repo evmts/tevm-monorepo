@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **getStorageAtProcedure**(`client`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
 
+Defined in: [packages/actions/src/eth/getStorageAtProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getStorageAtProcedure.js#L7)
+
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
 [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
-
-## Defined in
-
-[packages/actions/src/eth/getStorageAtProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/getStorageAtProcedure.js#L7)

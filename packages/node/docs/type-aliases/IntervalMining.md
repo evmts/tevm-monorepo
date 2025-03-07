@@ -1,4 +1,4 @@
-[**@tevm/node**](../README.md) • **Docs**
+[**@tevm/node**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: IntervalMining
 
 > **IntervalMining**: `object`
+
+Defined in: [packages/node/src/MiningConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L1)
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### type
 
 > **type**: `"interval"`
-
-## Defined in
-
-[packages/node/src/MiningConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L1)

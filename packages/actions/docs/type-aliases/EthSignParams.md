@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthSignParams
 
 > **EthSignParams**: `object`
+
+Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)
 
 **`Experimental`**
 
@@ -18,14 +20,6 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
-**`Experimental`**
-
 ### data
 
 > `readonly` **data**: [`Hex`](Hex.md)
-
-**`Experimental`**
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)

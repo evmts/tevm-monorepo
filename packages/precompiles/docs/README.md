@@ -1,4 +1,4 @@
-**@tevm/precompiles** • [**Docs**](globals.md)
+**@tevm/precompiles**
 
 ***
 

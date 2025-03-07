@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
 
+Defined in: [packages/actions/src/BaseCall/validateBaseCallParams.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L32)
+
 **`Internal`**
 
 can break on a minor release
@@ -15,12 +17,10 @@ Validates that the parameters are correct with zod
 
 ## Parameters
 
-• **action**: [`BaseCallParams`](../type-aliases/BaseCallParams.md)\<`boolean`\>
+### action
+
+[`BaseCallParams`](../type-aliases/BaseCallParams.md)\<`boolean`\>
 
 ## Returns
 
 `ValidateBaseCallParamsError`[]
-
-## Defined in
-
-[packages/actions/src/BaseCall/validateBaseCallParams.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L32)

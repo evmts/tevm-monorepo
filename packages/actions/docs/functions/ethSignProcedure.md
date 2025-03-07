@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **ethSignProcedure**(`accounts`): [`EthSignJsonRpcProcedure`](../type-aliases/EthSignJsonRpcProcedure.md)
 
+Defined in: [packages/actions/src/eth/ethSignProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSignProcedure.js#L7)
+
 ## Parameters
 
-• **accounts**: readonly `object`[]
+### accounts
+
+readonly `object`[]
 
 ## Returns
 
 [`EthSignJsonRpcProcedure`](../type-aliases/EthSignJsonRpcProcedure.md)
-
-## Defined in
-
-[packages/actions/src/eth/ethSignProcedure.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSignProcedure.js#L7)

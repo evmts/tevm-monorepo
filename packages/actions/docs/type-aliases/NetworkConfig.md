@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: NetworkConfig
 
 > **NetworkConfig**: `object`
+
+Defined in: [packages/actions/src/common/NetworkConfig.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/NetworkConfig.ts#L6)
 
 Represents a configuration for a forked or proxied network
 
@@ -23,7 +25,3 @@ the block tag to fork from
 > **url**: `string`
 
 The URL to the RPC endpoint
-
-## Defined in
-
-[packages/actions/src/common/NetworkConfig.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/NetworkConfig.ts#L6)

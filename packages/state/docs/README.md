@@ -1,4 +1,4 @@
-**@tevm/state** • [**Docs**](globals.md)
+**@tevm/state**
 
 ***
 

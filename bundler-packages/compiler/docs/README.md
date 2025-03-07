@@ -1,4 +1,4 @@
-**@tevm/compiler** • [**Docs**](modules.md)
+**@tevm/compiler**
 
 ***
 

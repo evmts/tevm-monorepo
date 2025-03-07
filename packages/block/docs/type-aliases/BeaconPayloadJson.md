@@ -1,4 +1,4 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: BeaconPayloadJson
 
 > **BeaconPayloadJson**: `object`
+
+Defined in: [packages/block/src/from-beacon-payload.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L13)
 
 ## Type declaration
 
@@ -85,7 +87,3 @@
 ### withdrawals?
 
 > `optional` **withdrawals**: `BeaconWithdrawal`[]
-
-## Defined in
-
-[packages/block/src/from-beacon-payload.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L13)

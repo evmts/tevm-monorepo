@@ -1,4 +1,4 @@
-[**@tevm/whatsabi**](../README.md) • **Docs**
+[**@tevm/whatsabi**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **KnownChainIds**: keyof [`KnownChainsType`](KnownChainsType.md)
 
-## Defined in
-
-[bundler-packages/whatsabi/src/KnownChainIds.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/KnownChainIds.ts#L3)
+Defined in: [bundler-packages/whatsabi/src/KnownChainIds.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/KnownChainIds.ts#L3)

@@ -1,4 +1,4 @@
-[**@tevm/effect**](../../README.md) • **Docs**
+[**@tevm/effect**](../../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **fileExists**(`path`): `Effect`\<`boolean`, `never`, `never`\>
 
+Defined in: [packages/effect/src/fileExists.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/fileExists.js#L16)
+
 Checks if a file exists at the given path
 
 ## Parameters
 
-• **path**: `string`
+### path
+
+`string`
 
 path to check
 
@@ -28,7 +32,3 @@ true if the file exists, false otherwise
 import { fileExists } from '@eth-optimism/config'
 await fileExists('./someFile.txt')
 ```
-
-## Defined in
-
-[packages/effect/src/fileExists.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/fileExists.js#L16)

@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **ParameterizedTevmState**: `object`
 
+Defined in: [packages/state/src/state-types/ParameterizedTevmState.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedTevmState.ts#L4)
+
 ## Index Signature
 
- \[`key`: `string`\]: [`ParameterizedAccountStorage`](../interfaces/ParameterizedAccountStorage.md)
-
-## Defined in
-
-[packages/state/src/state-types/ParameterizedTevmState.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedTevmState.ts#L4)
+\[`key`: `string`\]: [`ParameterizedAccountStorage`](../interfaces/ParameterizedAccountStorage.md)

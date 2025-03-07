@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBlockTransactionCountByNumberHandler**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](EthGetBlockTransactionCountByNumberResult.md)\>
 
+Defined in: [packages/actions/src/eth/EthHandler.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L109)
+
 ## Parameters
 
-• **request**: [`EthGetBlockTransactionCountByNumberParams`](EthGetBlockTransactionCountByNumberParams.md)
+### request
+
+[`EthGetBlockTransactionCountByNumberParams`](EthGetBlockTransactionCountByNumberParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](EthGetBlockTransactionCountByNumberResult.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthHandler.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L109)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TraceCall
 
 > **TraceCall**: `object`
+
+Defined in: [packages/actions/src/common/TraceCall.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L5)
 
 ## Type declaration
 
@@ -45,7 +47,3 @@
 ### value?
 
 > `optional` **value**: `bigint`
-
-## Defined in
-
-[packages/actions/src/common/TraceCall.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L5)

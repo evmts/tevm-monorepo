@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthNewPendingTransactionFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/eth/EthProcedure.ts:205](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L205)
+
 ## Parameters
 
-• **request**: [`EthNewPendingTransactionFilterJsonRpcRequest`](EthNewPendingTransactionFilterJsonRpcRequest.md)
+### request
+
+[`EthNewPendingTransactionFilterJsonRpcRequest`](EthNewPendingTransactionFilterJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthProcedure.ts:205](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L205)

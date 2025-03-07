@@ -1,4 +1,4 @@
-[**@tevm/decorators**](README.md) • **Docs**
+[**@tevm/decorators**](README.md)
 
 ***
 

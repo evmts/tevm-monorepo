@@ -1,4 +1,4 @@
-[**@tevm/blockchain**](../README.md) • **Docs**
+[**@tevm/blockchain**](../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **delBlock**(`baseChain`): (`blockHash`) => `Promise`\<`void`\>
 
+Defined in: [packages/blockchain/src/actions/delBlock.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/delBlock.js#L12)
+
 Deletes a block from the blockchain
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
@@ -23,7 +27,9 @@ deleted and any encountered heads are set to the parent block.
 
 ### Parameters
 
-• **blockHash**: `Uint8Array`
+#### blockHash
+
+`Uint8Array`
 
 The hash of the block to be deleted
 
@@ -34,7 +40,3 @@ The hash of the block to be deleted
 ## Throws
 
 If the block is the `forked` block
-
-## Defined in
-
-[packages/blockchain/src/actions/delBlock.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/delBlock.js#L12)

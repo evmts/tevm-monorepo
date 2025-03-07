@@ -1,4 +1,4 @@
-[**@tevm/vite-plugin**](README.md) • **Docs**
+[**@tevm/vite-plugin**](README.md)
 
 ***
 

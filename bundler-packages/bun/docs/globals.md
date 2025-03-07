@@ -1,4 +1,4 @@
-[**@tevm/bun-plugin**](README.md) • **Docs**
+[**@tevm/bun-plugin**](README.md)
 
 ***
 

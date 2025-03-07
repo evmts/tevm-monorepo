@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,22 +8,26 @@
 
 > **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<`Vm`\>
 
+Defined in: [packages/actions/src/internal/forkAndCacheBlock.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/forkAndCacheBlock.js#L14)
+
 Will fork a given block number and save the state roots to state manager
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **block**: `Block`
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
-• **executeBlock?**: `boolean` = `false`
+### block
+
+`Block`
+
+### executeBlock?
+
+`boolean` = `false`
 
 ## Returns
 
 `Promise`\<`Vm`\>
 
 A vm that forks the given block
-
-## Defined in
-
-[packages/actions/src/internal/forkAndCacheBlock.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/forkAndCacheBlock.js#L14)

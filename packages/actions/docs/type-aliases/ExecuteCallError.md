@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **ExecuteCallError**\<\>: [`TevmEvmError`](TevmEvmError.md) \| `InvalidGasPriceError` \| `InvalidAddressError` \| `InvalidGasLimitError`
 
+Defined in: [packages/actions/src/Call/handleEvmError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleEvmError.js#L95)
+
 ## Type Parameters
-
-## Defined in
-
-[packages/actions/src/Call/handleEvmError.js:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleEvmError.js#L95)

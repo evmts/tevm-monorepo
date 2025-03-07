@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmRequestType
 
 > **TevmRequestType**: `object`
+
+Defined in: [packages/actions/src/tevm-request-handler/TevmRequestType.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmRequestType.ts#L11)
 
 A mapping of `tevm_*` method names to their request type
 
@@ -35,7 +37,3 @@ A mapping of `tevm_*` method names to their request type
 ### tevm\_setAccount
 
 > **tevm\_setAccount**: [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md)
-
-## Defined in
-
-[packages/actions/src/tevm-request-handler/TevmRequestType.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmRequestType.ts#L11)

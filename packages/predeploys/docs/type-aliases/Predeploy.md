@@ -1,4 +1,4 @@
-[**@tevm/predeploys**](../README.md) • **Docs**
+[**@tevm/predeploys**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Predeploy\<TName, THumanReadableAbi\>
 
 > **Predeploy**\<`TName`, `THumanReadableAbi`\>: `object`
+
+Defined in: [Predeploy.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L7)
 
 Type of predeploy contract for tevm
 
@@ -33,7 +35,3 @@ Type of predeploy contract for tevm
 ##### address
 
 > **address**: `EthjsAddress`
-
-## Defined in
-
-[Predeploy.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/Predeploy.ts#L7)

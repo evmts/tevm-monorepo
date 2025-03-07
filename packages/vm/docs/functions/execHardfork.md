@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: execHardfork()
 
 > **execHardfork**(`hardfork`, `preMergeHf`): `string`
+
+Defined in: [packages/vm/src/actions/execHardfork.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/execHardfork.js#L14)
 
 Returns the hardfork excluding the merge hf which has
 no effect on the vm execution capabilities.
@@ -17,16 +19,16 @@ hardfork in for e.g. vm or txs or when the chain is not fully synced yet.
 
 ## Parameters
 
-• **hardfork**: `string`
+### hardfork
 
-• **preMergeHf**: `string`
+`string`
+
+### preMergeHf
+
+`string`
 
 ## Returns
 
 `string`
 
 ## Throws
-
-## Defined in
-
-[packages/vm/src/actions/execHardfork.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/execHardfork.js#L14)

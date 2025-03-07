@@ -1,4 +1,4 @@
-[**@tevm/precompiles**](../README.md) • **Docs**
+[**@tevm/precompiles**](../README.md)
 
 ***
 
@@ -8,15 +8,21 @@
 
 > **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<`ExecResult`\>
 
+Defined in: [defineCall.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L19)
+
 ## Type Parameters
 
 • **TAbi** *extends* `Abi`
 
 ## Parameters
 
-• **abi**: `TAbi`
+### abi
 
-• **handlers**: `{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
+`TAbi`
+
+### handlers
+
+`{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
 
 ## Returns
 
@@ -24,16 +30,16 @@
 
 ### Parameters
 
-• **\_\_namedParameters**
+#### \_\_namedParameters
 
-• **\_\_namedParameters.data**: \`0x$\{string\}\`
+##### data
 
-• **\_\_namedParameters.gasLimit**: `bigint`
+`` `0x${string}` ``
+
+##### gasLimit
+
+`bigint`
 
 ### Returns
 
 `Promise`\<`ExecResult`\>
-
-## Defined in
-
-[defineCall.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/defineCall.ts#L19)

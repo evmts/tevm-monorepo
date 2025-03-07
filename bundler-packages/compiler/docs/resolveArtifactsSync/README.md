@@ -1,4 +1,4 @@
-[**@tevm/compiler**](../README.md) • **Docs**
+[**@tevm/compiler**](../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # resolveArtifactsSync
 
-## Index
-
-### Functions
+## Functions
 
 - [resolveArtifactsSync](functions/resolveArtifactsSync.md)

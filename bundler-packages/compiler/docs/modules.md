@@ -1,4 +1,4 @@
-[**@tevm/compiler**](README.md) • **Docs**
+[**@tevm/compiler**](README.md)
 
 ***
 

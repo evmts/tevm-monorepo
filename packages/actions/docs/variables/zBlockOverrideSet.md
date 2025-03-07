@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,34 +6,6 @@
 
 # Variable: zBlockOverrideSet
 
-> `const` **zBlockOverrideSet**: `ZodObject`\<`object`, `"strict"`, `ZodTypeAny`, `object`, `object`\>
+> `const` **zBlockOverrideSet**: `ZodObject`\<\{ `baseFee`: `ZodOptional`\<`ZodBigInt`\>; `blobBaseFee`: `ZodOptional`\<`ZodBigInt`\>; `coinbase`: `ZodOptional`\<`ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>\>; `gasLimit`: `ZodOptional`\<`ZodBigInt`\>; `number`: `ZodOptional`\<`ZodBigInt`\>; `time`: `ZodOptional`\<`ZodBigInt`\>; \}, `"strict"`, `ZodTypeAny`, \{ `baseFee`: `bigint`; `blobBaseFee`: `bigint`; `coinbase`: `` `0x${string}` ``; `gasLimit`: `bigint`; `number`: `bigint`; `time`: `bigint`; \}, \{ `baseFee`: `bigint`; `blobBaseFee`: `bigint`; `coinbase`: `string`; `gasLimit`: `bigint`; `number`: `bigint`; `time`: `bigint`; \}\>
 
-## Type declaration
-
-### baseFee
-
-> **baseFee**: `ZodOptional`\<`ZodBigInt`\>
-
-### blobBaseFee
-
-> **blobBaseFee**: `ZodOptional`\<`ZodBigInt`\>
-
-### coinbase
-
-> **coinbase**: `ZodOptional`\<`ZodEffects`\<`ZodString`, \`0x$\{string\}\`, `string`\>\>
-
-### gasLimit
-
-> **gasLimit**: `ZodOptional`\<`ZodBigInt`\>
-
-### number
-
-> **number**: `ZodOptional`\<`ZodBigInt`\>
-
-### time
-
-> **time**: `ZodOptional`\<`ZodBigInt`\>
-
-## Defined in
-
-[packages/actions/src/internal/zod/zBlockOverrideSet.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zBlockOverrideSet.js#L4)
+Defined in: [packages/actions/src/internal/zod/zBlockOverrideSet.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zBlockOverrideSet.js#L4)

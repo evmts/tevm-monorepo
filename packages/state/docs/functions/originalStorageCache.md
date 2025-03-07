@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -8,14 +8,20 @@
 
 > **originalStorageCache**(`baseState`, `skipFetchingFromFork`?): `object`
 
+Defined in: [packages/state/src/actions/originalStorageCache.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/originalStorageCache.js#L9)
+
 Commits the current change-set to the instance since the
 last call to checkpoint.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -31,14 +37,14 @@ last call to checkpoint.
 
 #### Parameters
 
-• **address**: `Address`
+##### address
 
-• **key**: `Uint8Array`
+`Address`
+
+##### key
+
+`Uint8Array`
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
-
-## Defined in
-
-[packages/state/src/actions/originalStorageCache.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/originalStorageCache.js#L9)
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

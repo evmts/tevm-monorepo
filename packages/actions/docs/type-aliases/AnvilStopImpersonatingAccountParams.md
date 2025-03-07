@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilStopImpersonatingAccountParams
 
 > **AnvilStopImpersonatingAccountParams**: `object`
+
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L21)
 
 Params for `anvil_stopImpersonatingAccount` handler
 
@@ -17,7 +19,3 @@ Params for `anvil_stopImpersonatingAccount` handler
 > `readonly` **address**: [`Address`](Address.md)
 
 The address to stop impersonating
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L21)

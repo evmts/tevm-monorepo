@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **SolcInputSources**: `object`
 
+Defined in: [solcTypes.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L319)
+
 ## Index Signature
 
- \[`globalName`: `string`\]: [`SolcInputSource`](SolcInputSource.md) & `object`
-
-## Defined in
-
-[solcTypes.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L319)
+\[`globalName`: `string`\]: [`SolcInputSource`](SolcInputSource.md) & `object`

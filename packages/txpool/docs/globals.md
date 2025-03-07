@@ -1,4 +1,4 @@
-[**@tevm/txpool**](README.md) • **Docs**
+[**@tevm/txpool**](README.md)
 
 ***
 

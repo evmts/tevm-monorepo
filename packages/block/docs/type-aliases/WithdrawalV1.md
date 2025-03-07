@@ -1,4 +1,4 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: WithdrawalV1
 
 > **WithdrawalV1**: `object`
+
+Defined in: [packages/block/src/types.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L254)
 
 ## Type declaration
 
@@ -25,7 +27,3 @@
 ### validatorIndex
 
 > **validatorIndex**: `Hex`
-
-## Defined in
-
-[packages/block/src/types.ts:254](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L254)

@@ -1,4 +1,4 @@
-[**@tevm/common**](../README.md) • **Docs**
+[**@tevm/common**](../README.md)
 
 ***
 
@@ -6,27 +6,33 @@
 
 # Interface: CustomCrypto
 
+Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:62
+
 ## Properties
 
 ### ecdsaRecover()?
 
 > `optional` **ecdsaRecover**: (`sig`, `recId`, `hash`) => `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:74
+
 #### Parameters
 
-• **sig**: `Uint8Array`
+##### sig
 
-• **recId**: `number`
+`Uint8Array`
 
-• **hash**: `Uint8Array`
+##### recId
+
+`number`
+
+##### hash
+
+`Uint8Array`
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:74
 
 ***
 
@@ -34,11 +40,17 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 > `optional` **ecdsaSign**: (`msg`, `pk`) => `object`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:70
+
 #### Parameters
 
-• **msg**: `Uint8Array`
+##### msg
 
-• **pk**: `Uint8Array`
+`Uint8Array`
+
+##### pk
+
+`Uint8Array`
 
 #### Returns
 
@@ -52,35 +64,39 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 > **signature**: `Uint8Array`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:70
-
 ***
 
 ### ecrecover()?
 
 > `optional` **ecrecover**: (`msgHash`, `v`, `r`, `s`, `chainId`?) => `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:67
+
 #### Parameters
 
-• **msgHash**: `Uint8Array`
+##### msgHash
 
-• **v**: `bigint`
+`Uint8Array`
 
-• **r**: `Uint8Array`
+##### v
 
-• **s**: `Uint8Array`
+`bigint`
 
-• **chainId?**: `bigint`
+##### r
+
+`Uint8Array`
+
+##### s
+
+`Uint8Array`
+
+##### chainId?
+
+`bigint`
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:67
 
 ***
 
@@ -88,21 +104,25 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 > `optional` **ecsign**: (`msg`, `pk`, `chainId`?) => `ECDSASignature`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:69
+
 #### Parameters
 
-• **msg**: `Uint8Array`
+##### msg
 
-• **pk**: `Uint8Array`
+`Uint8Array`
 
-• **chainId?**: `bigint`
+##### pk
+
+`Uint8Array`
+
+##### chainId?
+
+`bigint`
 
 #### Returns
 
 `ECDSASignature`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:69
 
 ***
 
@@ -110,19 +130,19 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 > `optional` **keccak256**: (`msg`) => `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:66
+
 Interface for providing custom cryptographic primitives in place of `ethereum-cryptography` variants
 
 #### Parameters
 
-• **msg**: `Uint8Array`
+##### msg
+
+`Uint8Array`
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:66
 
 ***
 
@@ -130,9 +150,7 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 > `optional` **kzg**: `Kzg`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:75
+Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:75
 
 ***
 
@@ -140,14 +158,14 @@ node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/di
 
 > `optional` **sha256**: (`msg`) => `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:68
+
 #### Parameters
 
-• **msg**: `Uint8Array`
+##### msg
+
+`Uint8Array`
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:68

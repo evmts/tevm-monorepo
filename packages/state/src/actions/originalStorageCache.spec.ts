@@ -11,7 +11,7 @@ describe(originalStorageCache.name, () => {
 
 		const address = createAddress('0x1')
 		const key = numberToBytes(42, { size: 32 }) // Key must be 32 bytes
-		
+
 		// We'll skip the direct storage manipulation and focus on testing cache behavior
 		// This test just needs to verify the cache works after calling get() twice
 

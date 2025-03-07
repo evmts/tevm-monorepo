@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -8,15 +8,21 @@
 
 > **modifyAccountFields**(`baseState`, `skipFetchingFromFork`?): (`address`, `accountFields`) => `Promise`\<`void`\>
 
+Defined in: [packages/state/src/actions/modifyAccountFields.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/modifyAccountFields.js#L11)
+
 Gets the account associated with `address`, modifies the given account
 fields, then saves the account into state. Account fields can include
 `nonce`, `balance`, `storageRoot`, and `codeHash`.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -24,14 +30,14 @@ fields, then saves the account into state. Account fields can include
 
 ### Parameters
 
-• **address**: `Address`
+#### address
 
-• **accountFields**: `Partial`\<`Pick`\<`Account`, `"nonce"` \| `"balance"` \| `"storageRoot"` \| `"codeHash"`\>\>
+`Address`
+
+#### accountFields
+
+`Partial`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-[packages/state/src/actions/modifyAccountFields.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/modifyAccountFields.js#L11)

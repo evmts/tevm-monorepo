@@ -1,4 +1,4 @@
-[**@tevm/address**](../README.md) • **Docs**
+[**@tevm/address**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **Create2ContractAddressError**\<\>: `InvalidSaltError` \| `InvalidAddressError`
 
+Defined in: [packages/address/src/create2ContractAddress.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L7)
+
 ## Type Parameters
-
-## Defined in
-
-[packages/address/src/create2ContractAddress.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/create2ContractAddress.js#L7)

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBlockByHashHandler**: (`request`) => `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
 
+Defined in: [packages/actions/src/eth/EthHandler.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L101)
+
 ## Parameters
 
-• **request**: [`EthGetBlockByHashParams`](EthGetBlockByHashParams.md)
+### request
+
+[`EthGetBlockByHashParams`](EthGetBlockByHashParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthHandler.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L101)

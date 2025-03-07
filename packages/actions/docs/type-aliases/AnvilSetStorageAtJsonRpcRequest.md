@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: AnvilSetStorageAtJsonRpcRequest
 
-> **AnvilSetStorageAtJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setStorageAt"`, [`Address`, `Hex`, `Hex`]\>
+> **AnvilSetStorageAtJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setStorageAt"`, \[`Address`, `Hex`, `Hex`\]\>
+
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L88)
 
 JSON-RPC request for `anvil_setStorageAt` method
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:88](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L88)

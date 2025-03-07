@@ -1,4 +1,4 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ExecutionPayload
 
 > **ExecutionPayload**: `object`
+
+Defined in: [packages/block/src/types.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L263)
 
 ## Type declaration
 
@@ -89,7 +91,3 @@
 ### withdrawals?
 
 > `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
-
-## Defined in
-
-[packages/block/src/types.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L263)

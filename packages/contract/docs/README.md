@@ -1,4 +1,4 @@
-**@tevm/contract** • [**Docs**](globals.md)
+**@tevm/contract**
 
 ***
 

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthUninstallFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
 
+Defined in: [packages/actions/src/eth/EthProcedure.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L209)
+
 ## Parameters
 
-• **request**: [`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md)
+### request
+
+[`EthUninstallFilterJsonRpcRequest`](EthUninstallFilterJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
-
-## Defined in
-
-[packages/actions/src/eth/EthProcedure.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L209)

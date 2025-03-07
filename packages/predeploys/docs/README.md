@@ -1,4 +1,4 @@
-**@tevm/predeploys** • [**Docs**](globals.md)
+**@tevm/predeploys**
 
 ***
 

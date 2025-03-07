@@ -1,4 +1,4 @@
-[**@tevm/bundler-cache**](../README.md) • **Docs**
+[**@tevm/bundler-cache**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Cache
 
 > **Cache**: `object`
+
+Defined in: [types.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L42)
 
 ## Type declaration
 
@@ -57,7 +59,3 @@
 ### writeMjsSync
 
 > **writeMjsSync**: `WriteMjsSync`
-
-## Defined in
-
-[types.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bundler-cache/src/types.ts#L42)

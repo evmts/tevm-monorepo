@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **deployHandler**(`client`, `options`?): [`DeployHandler`](../type-aliases/DeployHandler.md)
 
+Defined in: [packages/actions/src/Deploy/deployHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/deployHandler.js#L37)
+
 Creates a tree-shakable instance of `deployHandler` for handling the deployment of contracts to TEVM.
 This function uses `callHandler` under the hood to execute the deployment.
 
@@ -15,15 +17,19 @@ Note: This is the internal logic used by higher-level APIs such as `tevmDeploy`.
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 The TEVM base client instance.
 
-• **options?** = `{}`
+### options?
 
 Optional parameters.
 
-• **options.throwOnFail?**: `undefined` \| `boolean` = `true`
+#### throwOnFail?
+
+`boolean` = `true`
 
 Whether to throw an error on failure.
 
@@ -54,7 +60,3 @@ const res = await deploy({
   createTransaction: true,
 })
 ```
-
-## Defined in
-
-[packages/actions/src/Deploy/deployHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/deployHandler.js#L37)

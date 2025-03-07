@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **MineHandler**: (`params`?) => `Promise`\<[`MineResult`](MineResult.md)\>
 
+Defined in: [packages/actions/src/Mine/MineHandlerType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineHandlerType.ts#L19)
+
 Mines a block including all transactions in the mempool.
 
 ## Parameters
 
-• **params?**: [`MineParams`](MineParams.md)
+### params?
+
+[`MineParams`](MineParams.md)
 
 The parameters for the mine action.
 
@@ -33,7 +37,3 @@ console.log(res.errors) // undefined
 
  - [MineParams](MineParams.md) for details on the parameters.
  - [MineResult](MineResult.md) for details on the result.
-
-## Defined in
-
-[packages/actions/src/Mine/MineHandlerType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineHandlerType.ts#L19)

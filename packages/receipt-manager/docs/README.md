@@ -1,4 +1,4 @@
-**@tevm/receipt-manager** • [**Docs**](globals.md)
+**@tevm/receipt-manager**
 
 ***
 

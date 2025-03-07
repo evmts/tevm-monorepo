@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthUninstallFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_uninstallFilter"`, `boolean`, `string` \| `number`\>
 
+Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L325)
+
 JSON-RPC response for `eth_uninstallFilter` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthJsonRpcResponse.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L325)

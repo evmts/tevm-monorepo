@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -6,18 +6,18 @@
 
 # Function: getForkBlockTag()
 
-> **getForkBlockTag**(`baseState`): `undefined` \| `object` \| `object`
+> **getForkBlockTag**(`baseState`): `undefined` \| \{ `blockTag`: `BlockTag`; \} \| \{ `blockNumber`: `bigint`; \}
+
+Defined in: [packages/state/src/actions/getForkBlockTag.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getForkBlockTag.js#L6)
 
 If this does not exist an empty `Uint8Array` is returned.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
+
+[`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-`undefined` \| `object` \| `object`
-
-## Defined in
-
-[packages/state/src/actions/getForkBlockTag.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getForkBlockTag.js#L6)
+`undefined` \| \{ `blockTag`: `BlockTag`; \} \| \{ `blockNumber`: `bigint`; \}

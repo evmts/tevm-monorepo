@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **gasPriceHandler**(`client`): [`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
 
+Defined in: [packages/actions/src/eth/gasPriceHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/gasPriceHandler.js#L9)
+
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
 [`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
-
-## Defined in
-
-[packages/actions/src/eth/gasPriceHandler.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/gasPriceHandler.js#L9)

@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **clearContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`void`\>
 
+Defined in: [packages/state/src/actions/clearContractStorage.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/clearContractStorage.js#L5)
+
 Clears all storage entries for the account corresponding to `address`.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,12 +28,10 @@ Clears all storage entries for the account corresponding to `address`.
 
 ### Parameters
 
-• **address**: `Address`
+#### address
+
+`Address`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-[packages/state/src/actions/clearContractStorage.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/clearContractStorage.js#L5)

@@ -1,4 +1,4 @@
-[**@tevm/tx**](../README.md) • **Docs**
+[**@tevm/tx**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: createImpersonatedTx()
 
 > **createImpersonatedTx**(`txData`, `opts`?): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
+
+Defined in: [packages/tx/src/createImpersonatedTx.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L21)
 
 Creates an impersonated tx that wraps [FeeMarketEIP1559Transaction](../classes/FeeMarketEIP1559Transaction.md).
 Wraps following methods
@@ -17,9 +19,13 @@ Wraps following methods
 
 ## Parameters
 
-• **txData**: `FeeMarketEIP1559TxData` & `object`
+### txData
 
-• **opts?**: [`TxOptions`](../interfaces/TxOptions.md)
+`FeeMarketEIP1559TxData` & `object`
+
+### opts?
+
+[`TxOptions`](../interfaces/TxOptions.md)
 
 ## Returns
 
@@ -28,7 +34,3 @@ Wraps following methods
 ## Throws
 
 Error if the constructor for [FeeMarketEIP1559Transaction](../classes/FeeMarketEIP1559Transaction.md) throws
-
-## Defined in
-
-[packages/tx/src/createImpersonatedTx.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L21)

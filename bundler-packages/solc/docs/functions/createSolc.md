@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **createSolc**(`release`): `Promise`\<[`Solc`](../interfaces/Solc.md)\>
 
+Defined in: [solc.js:145](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L145)
+
 ## Parameters
 
-• **release**: keyof [`Releases`](../type-aliases/Releases.md)
+### release
+
+keyof [`Releases`](../type-aliases/Releases.md)
 
 ## Returns
 
 `Promise`\<[`Solc`](../interfaces/Solc.md)\>
 
 An instance of solc
-
-## Defined in
-
-[solc.js:144](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solc.js#L144)

@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcEVMOutput
 
 > **SolcEVMOutput**: `object`
+
+Defined in: [solcTypes.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L429)
 
 ## Type declaration
 
@@ -36,8 +38,4 @@
 
 #### Index Signature
 
- \[`functionSignature`: `string`\]: `string`
-
-## Defined in
-
-[solcTypes.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L429)
+\[`functionSignature`: `string`\]: `string`

@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthMiningParams**: [`EmptyParams`](EmptyParams.md)
 
+Defined in: [packages/actions/src/eth/EthParams.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L219)
+
 Based on the JSON-RPC request for `eth_mining` procedure
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L219)

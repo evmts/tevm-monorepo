@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TraceParams
 
 > **TraceParams**: `object`
+
+Defined in: [packages/actions/src/debug/DebugParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L8)
 
 Config params for trace calls
 
@@ -36,7 +38,3 @@ Currently only callTracer supported
 > `readonly` `optional` **tracerConfig**: `object`
 
 object to specify configurations for the tracer
-
-## Defined in
-
-[packages/actions/src/debug/DebugParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L8)

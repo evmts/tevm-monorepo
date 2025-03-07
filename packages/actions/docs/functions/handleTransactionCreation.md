@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,38 +6,44 @@
 
 # Function: handleTransactionCreation()
 
-> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<`object` \| `object`\>
+> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
+
+Defined in: [packages/actions/src/Call/handleTransactionCreation.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleTransactionCreation.js#L15)
 
 Handles the creation of a transaction based on the call parameters and execution result.
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 The TEVM base client instance.
 
-• **params**: [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
+### params
+
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 
 The call parameters.
 
-• **executedCall**: [`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md)
+### executedCall
+
+[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md)
 
 The result of the executed call.
 
-• **evmInput**: `EVMRunCallOpts`
+### evmInput
+
+`EVMRunCallOpts`
 
 The EVM input parameters.
 
 ## Returns
 
-`Promise`\<`object` \| `object`\>
+`Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
 
 A promise that resolves to the transaction hash or undefined.
 
 ## Throws
 
 Returns errors as values
-
-## Defined in
-
-[packages/actions/src/Call/handleTransactionCreation.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleTransactionCreation.js#L15)

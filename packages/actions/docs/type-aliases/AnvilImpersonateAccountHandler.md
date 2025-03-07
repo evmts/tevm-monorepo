@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilImpersonateAccountHandler**: (`params`) => `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
 
+Defined in: [packages/actions/src/anvil/AnvilHandler.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L35)
+
 ## Parameters
 
-• **params**: [`AnvilImpersonateAccountParams`](AnvilImpersonateAccountParams.md)
+### params
+
+[`AnvilImpersonateAccountParams`](AnvilImpersonateAccountParams.md)
 
 ## Returns
 
 `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
-
-## Defined in
-
-[packages/actions/src/anvil/AnvilHandler.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L35)

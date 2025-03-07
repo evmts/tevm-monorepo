@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **ethActions**(): `Extension`\<[`EthActionsApi`](../type-aliases/EthActionsApi.md)\>
 
+Defined in: [actions/ethActions.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/ethActions.js#L14)
+
 ## Returns
 
 `Extension`\<[`EthActionsApi`](../type-aliases/EthActionsApi.md)\>
-
-## Defined in
-
-[actions/ethActions.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/ethActions.js#L14)

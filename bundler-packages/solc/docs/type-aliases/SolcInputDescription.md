@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcInputDescription
 
 > **SolcInputDescription**: `object`
+
+Defined in: [solcTypes.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L325)
 
 ## Type declaration
 
@@ -21,7 +23,3 @@
 ### sources
 
 > **sources**: [`SolcInputSources`](SolcInputSources.md)
-
-## Defined in
-
-[solcTypes.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L325)

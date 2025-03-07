@@ -1,4 +1,4 @@
-[**@tevm/blockchain**](../README.md) • **Docs**
+[**@tevm/blockchain**](../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **getIteratorHead**(`baseChain`): (`name`?) => `Promise`\<`Block`\>
 
+Defined in: [packages/blockchain/src/actions/getIteratorHead.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getIteratorHead.js#L8)
+
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
@@ -20,14 +24,12 @@ Returns the specified iterator head.
 
 ### Parameters
 
-• **name?**: `string`
+#### name?
+
+`string`
 
 Optional name of the iterator head (default: 'vm')
 
 ### Returns
 
 `Promise`\<`Block`\>
-
-## Defined in
-
-[packages/blockchain/src/actions/getIteratorHead.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getIteratorHead.js#L8)

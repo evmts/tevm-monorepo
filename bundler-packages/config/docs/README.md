@@ -1,4 +1,4 @@
-**@tevm/config** • [**Docs**](modules.md)
+**@tevm/config**
 
 ***
 

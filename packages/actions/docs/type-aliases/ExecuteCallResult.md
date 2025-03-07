@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ExecuteCallResult
 
 > **ExecuteCallResult**\<\>: `object`
+
+Defined in: [packages/actions/src/Call/executeCall.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/executeCall.js#L16)
 
 ## Type Parameters
 
@@ -22,8 +24,4 @@
 
 ### trace
 
-> **trace**: `DebugTraceCallResult` \| `undefined`
-
-## Defined in
-
-[packages/actions/src/Call/executeCall.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/executeCall.js#L16)
+> **trace**: [`DebugTraceCallResult`](DebugTraceCallResult.md) \| `undefined`

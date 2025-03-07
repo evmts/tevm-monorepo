@@ -1,4 +1,4 @@
-[**@tevm/errors**](../README.md) • **Docs**
+[**@tevm/errors**](../README.md)
 
 ***
 
@@ -6,86 +6,74 @@
 
 # Interface: InvalidValueErrorParameters
 
+Defined in: [packages/errors/src/input/InvalidValueError.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L5)
+
 ## Properties
 
-### cause
+### cause?
 
-> **cause**: `undefined` \| [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+
+Defined in: [packages/errors/src/input/InvalidValueError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L10)
 
 The cause of the error.
 
-#### Defined in
-
-[packages/errors/src/input/InvalidValueError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L10)
-
 ***
 
-### details
+### details?
 
-> **details**: `undefined` \| `string`
+> `optional` **details**: `string`
+
+Defined in: [packages/errors/src/input/InvalidValueError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L11)
 
 Details of the error.
 
-#### Defined in
-
-[packages/errors/src/input/InvalidValueError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L11)
-
 ***
 
-### docsBaseUrl
+### docsBaseUrl?
 
-> **docsBaseUrl**: `undefined` \| `string`
+> `optional` **docsBaseUrl**: `string`
+
+Defined in: [packages/errors/src/input/InvalidValueError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L6)
 
 Base URL for the documentation.
 
-#### Defined in
-
-[packages/errors/src/input/InvalidValueError.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L6)
-
 ***
 
-### docsPath
+### docsPath?
 
-> **docsPath**: `undefined` \| `string`
+> `optional` **docsPath**: `string`
+
+Defined in: [packages/errors/src/input/InvalidValueError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L7)
 
 Path to the documentation.
 
-#### Defined in
-
-[packages/errors/src/input/InvalidValueError.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L7)
-
 ***
 
-### docsSlug
+### docsSlug?
 
-> **docsSlug**: `undefined` \| `string`
+> `optional` **docsSlug**: `string`
+
+Defined in: [packages/errors/src/input/InvalidValueError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L8)
 
 Slug for the documentation.
 
-#### Defined in
-
-[packages/errors/src/input/InvalidValueError.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L8)
-
 ***
 
-### meta
+### meta?
 
-> **meta**: `undefined` \| `object`
+> `optional` **meta**: `object`
+
+Defined in: [packages/errors/src/input/InvalidValueError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L12)
 
 Optional object containing additional information about the error.
 
-#### Defined in
-
-[packages/errors/src/input/InvalidValueError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L12)
-
 ***
 
-### metaMessages
+### metaMessages?
 
-> **metaMessages**: `undefined` \| `string`[]
+> `optional` **metaMessages**: `string`[]
+
+Defined in: [packages/errors/src/input/InvalidValueError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L9)
 
 Additional meta messages.
-
-#### Defined in
-
-[packages/errors/src/input/InvalidValueError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidValueError.js#L9)

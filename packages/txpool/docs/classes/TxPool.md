@@ -1,10 +1,12 @@
-[**@tevm/txpool**](../README.md) • **Docs**
+[**@tevm/txpool**](../README.md)
 
 ***
 
 [@tevm/txpool](../globals.md) / TxPool
 
 # Class: TxPool
+
+Defined in: [TxPool.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L64)
 
 **`Experimental`**
 
@@ -20,11 +22,15 @@ module:service
 
 > **new TxPool**(`options`): [`TxPool`](TxPool.md)
 
+Defined in: [TxPool.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L118)
+
 **`Experimental`**
 
 #### Parameters
 
-• **options**: `TxPoolOptions`
+##### options
+
+`TxPoolOptions`
 
 constructor parameters
 
@@ -32,24 +38,18 @@ constructor parameters
 
 [`TxPool`](TxPool.md)
 
-#### Defined in
-
-[TxPool.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L118)
-
 ## Properties
 
 ### BLOCKS\_BEFORE\_TARGET\_HEIGHT\_ACTIVATION
 
 > **BLOCKS\_BEFORE\_TARGET\_HEIGHT\_ACTIVATION**: `number` = `20`
 
+Defined in: [TxPool.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L101)
+
 **`Experimental`**
 
 Activate before chain head is reached to start
 tx pool preparation (sorting out included txs)
-
-#### Defined in
-
-[TxPool.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L101)
 
 ***
 
@@ -57,14 +57,12 @@ tx pool preparation (sorting out included txs)
 
 > **HANDLED\_CLEANUP\_TIME\_LIMIT**: `number` = `60`
 
+Defined in: [TxPool.ts:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L112)
+
 **`Experimental`**
 
 Number of minutes to forget about handled
 txs (for cleanup/memory reasons)
-
-#### Defined in
-
-[TxPool.ts:112](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L112)
 
 ***
 
@@ -72,15 +70,13 @@ txs (for cleanup/memory reasons)
 
 > **pool**: `Map`\<`string`, `TxPoolObject`[]\>
 
+Defined in: [TxPool.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L80)
+
 **`Experimental`**
 
 The central pool dataset.
 
 Maps an address to a `TxPoolObject`
-
-#### Defined in
-
-[TxPool.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L80)
 
 ***
 
@@ -88,13 +84,11 @@ Maps an address to a `TxPoolObject`
 
 > **POOLED\_STORAGE\_TIME\_LIMIT**: `number` = `20`
 
+Defined in: [TxPool.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L106)
+
 **`Experimental`**
 
 Number of minutes to keep txs in the pool
-
-#### Defined in
-
-[TxPool.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L106)
 
 ***
 
@@ -102,11 +96,9 @@ Number of minutes to keep txs in the pool
 
 > **running**: `boolean`
 
+Defined in: [TxPool.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L69)
+
 **`Experimental`**
-
-#### Defined in
-
-[TxPool.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L69)
 
 ***
 
@@ -114,13 +106,11 @@ Number of minutes to keep txs in the pool
 
 > **txsInPool**: `number`
 
+Defined in: [TxPool.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L85)
+
 **`Experimental`**
 
 The number of txs currently in the pool
-
-#### Defined in
-
-[TxPool.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L85)
 
 ## Methods
 
@@ -128,15 +118,13 @@ The number of txs currently in the pool
 
 > **\_logPoolStats**(): `void`
 
+Defined in: [TxPool.ts:588](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L588)
+
 **`Experimental`**
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[TxPool.ts:588](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L588)
 
 ***
 
@@ -144,25 +132,29 @@ The number of txs currently in the pool
 
 > **add**(`tx`, `requireSignature`, `skipBalance`): `Promise`\<`void`\>
 
+Defined in: [TxPool.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L310)
+
 **`Experimental`**
 
 #### Parameters
 
-• **tx**: `TypedTransaction` \| `ImpersonatedTx`
+##### tx
 
 Transaction
 
-• **requireSignature**: `boolean` = `true`
+`TypedTransaction` | `ImpersonatedTx`
 
-• **skipBalance**: `boolean` = `false`
+##### requireSignature
+
+`boolean` = `true`
+
+##### skipBalance
+
+`boolean` = `false`
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Defined in
-
-[TxPool.ts:310](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L310)
 
 ***
 
@@ -170,21 +162,21 @@ Transaction
 
 > **addUnverified**(`tx`): `Promise`\<`void`\>
 
+Defined in: [TxPool.ts:280](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L280)
+
 **`Experimental`**
 
 #### Parameters
 
-• **tx**: `TypedTransaction` \| `ImpersonatedTx`
+##### tx
 
 Transaction
+
+`TypedTransaction` | `ImpersonatedTx`
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Defined in
-
-[TxPool.ts:280](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L280)
 
 ***
 
@@ -192,15 +184,13 @@ Transaction
 
 > **cleanup**(): `void`
 
+Defined in: [TxPool.ts:374](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L374)
+
 **`Experimental`**
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[TxPool.ts:374](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L374)
 
 ***
 
@@ -208,15 +198,13 @@ Transaction
 
 > **close**(): `void`
 
+Defined in: [TxPool.ts:581](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L581)
+
 **`Experimental`**
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[TxPool.ts:581](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L581)
 
 ***
 
@@ -224,19 +212,19 @@ Transaction
 
 > **deepCopy**(`opt`): [`TxPool`](TxPool.md)
 
+Defined in: [TxPool.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L128)
+
 **`Experimental`**
 
 #### Parameters
 
-• **opt**: `TxPoolOptions`
+##### opt
+
+`TxPoolOptions`
 
 #### Returns
 
 [`TxPool`](TxPool.md)
-
-#### Defined in
-
-[TxPool.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L128)
 
 ***
 
@@ -244,11 +232,15 @@ Transaction
 
 > **getByHash**(`txHashes`): (`TypedTransaction` \| `ImpersonatedTx`)[]
 
+Defined in: [TxPool.ts:320](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L320)
+
 **`Experimental`**
 
 #### Parameters
 
-• **txHashes**: readonly `Uint8Array`[]
+##### txHashes
+
+readonly `Uint8Array`\<`ArrayBufferLike`\>[]
 
 #### Returns
 
@@ -256,29 +248,25 @@ Transaction
 
 Array with tx objects
 
-#### Defined in
-
-[TxPool.ts:320](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L320)
-
 ***
 
 ### getBySenderAddress()
 
 > **getBySenderAddress**(`address`): `Promise`\<`TxPoolObject`[]\>
 
+Defined in: [TxPool.ts:456](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L456)
+
 **`Experimental`**
 
 #### Parameters
 
-• **address**: `Address`
+##### address
+
+`Address`
 
 #### Returns
 
 `Promise`\<`TxPoolObject`[]\>
-
-#### Defined in
-
-[TxPool.ts:456](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L456)
 
 ***
 
@@ -286,15 +274,13 @@ Array with tx objects
 
 > **open**(): `boolean`
 
+Defined in: [TxPool.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L141)
+
 **`Experimental`**
 
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[TxPool.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L141)
 
 ***
 
@@ -302,11 +288,15 @@ Array with tx objects
 
 > **removeByHash**(`txHash`): `void`
 
+Defined in: [TxPool.ts:341](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L341)
+
 **`Experimental`**
 
 #### Parameters
 
-• **txHash**: `string`
+##### txHash
+
+`string`
 
 Hash of the transaction
 
@@ -314,29 +304,25 @@ Hash of the transaction
 
 `void`
 
-#### Defined in
-
-[TxPool.ts:341](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L341)
-
 ***
 
 ### removeNewBlockTxs()
 
 > **removeNewBlockTxs**(`newBlocks`): `void`
 
+Defined in: [TxPool.ts:361](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L361)
+
 **`Experimental`**
 
 #### Parameters
 
-• **newBlocks**: `Block`[]
+##### newBlocks
+
+`Block`[]
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[TxPool.ts:361](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L361)
 
 ***
 
@@ -344,15 +330,13 @@ Hash of the transaction
 
 > **start**(): `boolean`
 
+Defined in: [TxPool.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L153)
+
 **`Experimental`**
 
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[TxPool.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L153)
 
 ***
 
@@ -360,15 +344,13 @@ Hash of the transaction
 
 > **stop**(): `boolean`
 
+Defined in: [TxPool.ts:570](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L570)
+
 **`Experimental`**
 
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[TxPool.ts:570](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L570)
 
 ***
 
@@ -376,22 +358,24 @@ Hash of the transaction
 
 > **txsByPriceAndNonce**(`baseFee`): `Promise`\<(`TypedTransaction` \| `ImpersonatedTx`)[]\>
 
+Defined in: [TxPool.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L477)
+
 **`Experimental`**
 
 #### Parameters
 
-• **baseFee** = `{}`
+##### baseFee
 
 Provide a baseFee to exclude txs with a lower gasPrice
 
-• **baseFee.allowedBlobs?**: `number`
+###### allowedBlobs?
 
-• **baseFee.baseFee?**: `bigint`
+`number`
+
+###### baseFee?
+
+`bigint`
 
 #### Returns
 
 `Promise`\<(`TypedTransaction` \| `ImpersonatedTx`)[]\>
-
-#### Defined in
-
-[TxPool.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L477)

@@ -1,4 +1,4 @@
-[**@tevm/sync-storage-persister**](../README.md) • **Docs**
+[**@tevm/sync-storage-persister**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Variable: noopPersister
 
 > `const` **noopPersister**: `object`
+
+Defined in: [noopPersister.js:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/noopPersister.js#L2)
 
 ## Type declaration
 
@@ -33,7 +35,3 @@
 #### Returns
 
 `undefined`
-
-## Defined in
-
-[noopPersister.js:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/noopPersister.js#L2)

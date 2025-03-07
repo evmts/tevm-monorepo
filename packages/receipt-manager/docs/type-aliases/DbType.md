@@ -1,4 +1,4 @@
-[**@tevm/receipt-manager**](../README.md) • **Docs**
+[**@tevm/receipt-manager**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **DbType**: `"Receipts"` \| `"TxHash"` \| `"SkeletonBlock"` \| `"SkeletonBlockHashToNumber"` \| `"SkeletonStatus"` \| `"SkeletonUnfinalizedBlockByHash"` \| `"Preimage"`
 
-## Defined in
-
-[MapDb.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L4)
+Defined in: [MapDb.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L4)

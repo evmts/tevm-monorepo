@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcOptimizerDetails
 
 > **SolcOptimizerDetails**: `object`
+
+Defined in: [solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)
 
 ## Type declaration
 
@@ -45,7 +47,3 @@
 ### yulDetails
 
 > **yulDetails**: [`SolcYulDetails`](SolcYulDetails.md)
-
-## Defined in
-
-[solcTypes.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L77)

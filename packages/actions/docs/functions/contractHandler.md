@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **contractHandler**(`client`, `options`?): [`ContractHandler`](../type-aliases/ContractHandler.md)
 
+Defined in: [packages/actions/src/Contract/contractHandler.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L38)
+
 Creates a tree-shakable instance of `contractHandler` for handling contract interactions with the Ethereumjs EVM.
 This function uses `callHandler` under the hood to execute contract calls.
 
@@ -15,15 +17,19 @@ Note: This is the internal logic used by higher-level APIs such as `tevmContract
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 The TEVM base client instance.
 
-• **options?** = `{}`
+### options?
 
 Optional parameters.
 
-• **options.throwOnFail?**: `undefined` \| `boolean` = `true`
+#### throwOnFail?
+
+`boolean` = `true`
 
 Whether to throw an error on failure.
 
@@ -54,7 +60,3 @@ const res = await contract({
   args: [1, 2, 3],
 })
 ```
-
-## Defined in
-
-[packages/actions/src/Contract/contractHandler.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L38)

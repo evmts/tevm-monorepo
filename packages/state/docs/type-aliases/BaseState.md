@@ -1,4 +1,4 @@
-[**@tevm/state**](../README.md) • **Docs**
+[**@tevm/state**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: BaseState
 
 > **BaseState**: `object`
+
+Defined in: [packages/state/src/BaseState.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L9)
 
 **`Internal`**
 
@@ -48,7 +50,9 @@ The core data structure powering the state manager internally
 
 #### Parameters
 
-• **newStateRoot**: `Hex`
+##### newStateRoot
+
+`Hex`
 
 #### Returns
 
@@ -59,7 +63,3 @@ The core data structure powering the state manager internally
 > **stateRoots**: [`StateRoots`](StateRoots.md)
 
 Mapping of hashes to State roots
-
-## Defined in
-
-[packages/state/src/BaseState.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/BaseState.ts#L9)

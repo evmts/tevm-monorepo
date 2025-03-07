@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,15 +8,21 @@
 
 > **shouldCreateTransaction**(`params`, `runTxResult`): `boolean`
 
+Defined in: [packages/actions/src/Call/shouldCreateTransaction.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/shouldCreateTransaction.js#L8)
+
 **`Internal`**
 
 Determines if a transaction should be created based on the `createTransaction` parameter
 
 ## Parameters
 
-• **params**: [`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
+### params
 
-• **runTxResult**: `RunTxResult`
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
+
+### runTxResult
+
+`RunTxResult`
 
 ## Returns
 
@@ -25,7 +31,3 @@ Determines if a transaction should be created based on the `createTransaction` p
 ## Throws
 
 only if the `createTransaction` parameter is invalid based on ts type
-
-## Defined in
-
-[packages/actions/src/Call/shouldCreateTransaction.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/shouldCreateTransaction.js#L8)

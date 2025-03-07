@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthCallParams
 
 > **EthCallParams**: `object`
+
+Defined in: [packages/actions/src/eth/EthParams.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L26)
 
 Based on the JSON-RPC request for `eth_call` procedure
 
@@ -66,7 +68,3 @@ The address to which the transaction is addressed. Defaults to zero address
 > `readonly` `optional` **value**: `bigint`
 
 The integer of value sent with this transaction
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L26)

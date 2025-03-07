@@ -1,4 +1,4 @@
-[**@tevm/state**](README.md) • **Docs**
+[**@tevm/state**](README.md)
 
 ***
 
@@ -48,7 +48,7 @@
 - [generateCanonicalGenesis](functions/generateCanonicalGenesis.md)
 - [getAccount](functions/getAccount.md)
 - [getAccountAddresses](functions/getAccountAddresses.md)
-- [getAppliedKey](functions/getAppliedKey.md)
+- [~~getAppliedKey~~](functions/getAppliedKey.md)
 - [getContractCode](functions/getContractCode.md)
 - [getContractStorage](functions/getContractStorage.md)
 - [getForkBlockTag](functions/getForkBlockTag.md)

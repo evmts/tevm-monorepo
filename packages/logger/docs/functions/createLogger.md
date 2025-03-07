@@ -1,4 +1,4 @@
-[**@tevm/logger**](../README.md) • **Docs**
+[**@tevm/logger**](../README.md)
 
 ***
 
@@ -8,19 +8,19 @@
 
 > **createLogger**(`options`): [`Logger`](../type-aliases/Logger.md)
 
+Defined in: [createLogger.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/createLogger.js#L9)
+
 Creates a tevm logger instance
 Wraps [pino](https://github.com/pinojs/pino/blob/master/docs/api.md)
 
 ## Parameters
 
-• **options**: [`LogOptions`](../type-aliases/LogOptions.md)
+### options
+
+[`LogOptions`](../type-aliases/LogOptions.md)
 
 ## Returns
 
 [`Logger`](../type-aliases/Logger.md)
 
 A logger instance
-
-## Defined in
-
-[createLogger.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/createLogger.js#L9)

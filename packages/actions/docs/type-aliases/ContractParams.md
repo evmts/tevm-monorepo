@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: ContractParams\<TAbi, TFunctionName, TThrowOnFail\>
 
-> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object` \| `object` \| `object`
+> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & \{ `code`: `Hex`; `deployedBytecode`: `Hex`; `to`: [`Address`](Address.md); \} \| \{ `code`: `Hex`; `deployedBytecode`: `Hex`; `to`: [`Address`](Address.md); \} \| \{ `code`: `Hex`; `deployedBytecode`: `Hex`; `to`: [`Address`](Address.md); \}
+
+Defined in: [packages/actions/src/Contract/ContractParams.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractParams.ts#L42)
 
 Parameters to execute a call on a contract with TEVM.
 
@@ -56,7 +58,3 @@ console.log(res)
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
  - [BaseCallParams](BaseCallParams.md)
  - EncodeFunctionDataParameters
-
-## Defined in
-
-[packages/actions/src/Contract/ContractParams.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractParams.ts#L42)

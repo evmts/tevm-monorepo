@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **blockNumberHandler**(`client`): [`EthBlockNumberHandler`](../type-aliases/EthBlockNumberHandler.md)
 
+Defined in: [packages/actions/src/eth/blockNumberHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/blockNumberHandler.js#L6)
+
 Handler for the `eth_blockNumber` RPC call
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
 [`EthBlockNumberHandler`](../type-aliases/EthBlockNumberHandler.md)
-
-## Defined in
-
-[packages/actions/src/eth/blockNumberHandler.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/blockNumberHandler.js#L6)

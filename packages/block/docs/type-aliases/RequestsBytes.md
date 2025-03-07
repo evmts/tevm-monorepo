@@ -1,4 +1,4 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **RequestsBytes**: `Uint8Array`[]
 
-## Defined in
-
-[packages/block/src/types.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L155)
+Defined in: [packages/block/src/types.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L155)

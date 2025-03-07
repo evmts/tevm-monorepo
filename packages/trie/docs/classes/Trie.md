@@ -1,10 +1,12 @@
-[**@tevm/trie**](../README.md) • **Docs**
+[**@tevm/trie**](../README.md)
 
 ***
 
 [@tevm/trie](../globals.md) / Trie
 
 # Class: Trie
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:11
 
 The basic trie interface, use with `import { Trie } from '@ethereumjs/trie'`.
 
@@ -14,11 +16,15 @@ The basic trie interface, use with `import { Trie } from '@ethereumjs/trie'`.
 
 > **new Trie**(`opts`?): [`Trie`](Trie.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:30
+
 Creates a new trie.
 
 #### Parameters
 
-• **opts?**: `TrieOpts`
+##### opts?
+
+`TrieOpts`
 
 Options for instantiating the trie
 
@@ -28,21 +34,15 @@ Note: in most cases, the static [Trie.create](Trie.md#create) constructor should
 
 [`Trie`](Trie.md)
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:30
-
 ## Properties
 
 ### \_db
 
 > `protected` **\_db**: `CheckpointDB`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:16
+
 The backend DB
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:16
 
 ***
 
@@ -50,9 +50,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` **\_debug**: `Debugger`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:22
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:22
 
 ***
 
@@ -60,9 +58,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` **\_hashLen**: `number`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:17
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:17
 
 ***
 
@@ -70,9 +66,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` **\_lock**: `Lock`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:18
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:18
 
 ***
 
@@ -80,9 +74,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` `readonly` **\_opts**: `TrieOptsWithDefaults`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:12
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:12
 
 ***
 
@@ -90,9 +82,7 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` **\_root**: `Uint8Array`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:19
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:19
 
 ***
 
@@ -100,17 +90,17 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` **debug**: (...`args`) => `void`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:23
+
 #### Parameters
 
-• ...**args**: `any`
+##### args
+
+...`any`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:23
 
 ***
 
@@ -118,11 +108,9 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` **DEBUG**: `boolean`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:21
+
 Debug logging
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:21
 
 ***
 
@@ -130,45 +118,43 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **EMPTY\_TRIE\_ROOT**: `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:14
+
 The root for an empty trie
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:14
 
 ***
 
 ### walkTrieIterable()
 
-> **walkTrieIterable**: (`nodeHash`, `currentKey`?, `onFound`?, `filter`?, `visited`?) => `AsyncIterable`\<`object`, `any`, `any`\>
+> **walkTrieIterable**: (`nodeHash`, `currentKey`?, `onFound`?, `filter`?, `visited`?) => `AsyncIterable`\<\{ `currentKey`: `number`[]; `node`: `TrieNode`; \}\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:169
 
 #### Parameters
 
-• **nodeHash**: `Uint8Array`
+##### nodeHash
 
-• **currentKey?**: `number`[]
+`Uint8Array`
 
-• **onFound?**: `OnFound`
+##### currentKey?
 
-• **filter?**: `NodeFilter`
+`number`[]
 
-• **visited?**: `Set`\<`string`\>
+##### onFound?
+
+`OnFound`
+
+##### filter?
+
+`NodeFilter`
+
+##### visited?
+
+`Set`\<`string`\>
 
 #### Returns
 
-`AsyncIterable`\<`object`, `any`, `any`\>
-
-##### currentKey
-
-> **currentKey**: `number`[]
-
-##### node
-
-> **node**: `TrieNode`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:169
+`AsyncIterable`\<\{ `currentKey`: `number`[]; `node`: `TrieNode`; \}\>
 
 ## Methods
 
@@ -176,20 +162,20 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` **appliedKey**(`key`): `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:277
+
 Returns the key practically applied for trie construction
 depending on the `useKeyHashing` option being set or not.
 
 #### Parameters
 
-• **key**: `Uint8Array`
+##### key
+
+`Uint8Array`
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:277
 
 ***
 
@@ -197,14 +183,20 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **batch**(`ops`, `skipKeyTransform`?): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:240
+
 The given hash of operations (key additions or deletions) are executed on the trie
 (delete operations are only executed on DB with `deleteFromDB` set to `true`)
 
 #### Parameters
 
-• **ops**: `BatchDBOp`[]
+##### ops
 
-• **skipKeyTransform?**: `boolean`
+`BatchDBOp`[]
+
+##### skipKeyTransform?
+
+`boolean`
 
 #### Returns
 
@@ -223,15 +215,13 @@ const ops = [
 await trie.batch(ops)
 ```
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:240
-
 ***
 
 ### checkpoint()
 
 > **checkpoint**(): `void`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:287
 
 Creates a checkpoint that can later be reverted to or committed.
 After this is called, all changes can be reverted until `commit` is called.
@@ -240,35 +230,33 @@ After this is called, all changes can be reverted until `commit` is called.
 
 `void`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:287
-
 ***
 
 ### checkRoot()
 
 > **checkRoot**(`root`): `Promise`\<`boolean`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:130
+
 Checks if a given root exists.
 
 #### Parameters
 
-• **root**: `Uint8Array`
+##### root
+
+`Uint8Array`
 
 #### Returns
 
 `Promise`\<`boolean`\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:130
 
 ***
 
 ### commit()
 
 > **commit**(): `Promise`\<`void`\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:293
 
 Commits a checkpoint to disk, if current checkpoint is not nested.
 If nested, only sets the parent checkpoint as current checkpoint.
@@ -281,23 +269,23 @@ If nested, only sets the parent checkpoint as current checkpoint.
 
 If not during a checkpoint phase
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:293
-
 ***
 
 ### createProof()
 
 > **createProof**(`key`): `Promise`\<`Proof`\>
 
-Creates a proof from a trie and key that can be verified using [Trie.verifyProof](Trie.md#verifyproof-1). An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:93
+
+Creates a proof from a trie and key that can be verified using [Trie.verifyProof](Trie.md#verifyproof-2). An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains
 the encoded trie nodes from the root node to the leaf node storing state data. The returned proof will be in the format of an array that contains Uint8Arrays of
 serialized branch, extension, and/or leaf nodes.
 
 #### Parameters
 
-• **key**: `Uint8Array`
+##### key
+
+`Uint8Array`
 
 key to create a proof for
 
@@ -305,15 +293,13 @@ key to create a proof for
 
 `Promise`\<`Proof`\>
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:93
-
 ***
 
 ### createReadStream()
 
 > **createReadStream**(): `TrieReadStream`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:246
 
 The `data` event is given an `Object` that has two properties; the `key` and the `value`. Both should be Uint8Arrays.
 
@@ -323,29 +309,27 @@ The `data` event is given an `Object` that has two properties; the `key` and the
 
 Returns a [stream](https://nodejs.org/dist/latest-v12.x/docs/api/stream.html#stream_class_stream_readable) of the contents of the `trie`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:246
-
 ***
 
 ### database()
 
 > **database**(`db`?, `valueEncoding`?): `CheckpointDB`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:122
+
 #### Parameters
 
-• **db?**: `DB`\<`string`, `string` \| `Uint8Array`\>
+##### db?
 
-• **valueEncoding?**: `ValueEncoding`
+`DB`\<`string`, `string` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+
+##### valueEncoding?
+
+`ValueEncoding`
 
 #### Returns
 
 `CheckpointDB`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:122
 
 ***
 
@@ -353,14 +337,20 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **del**(`key`, `skipKeyTransform`?): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:152
+
 Deletes a value given a `key` from the trie
 (delete operations are only executed on DB with `deleteFromDB` set to `true`)
 
 #### Parameters
 
-• **key**: `Uint8Array`
+##### key
 
-• **skipKeyTransform?**: `boolean`
+`Uint8Array`
+
+##### skipKeyTransform?
+
+`boolean`
 
 #### Returns
 
@@ -368,40 +358,40 @@ Deletes a value given a `key` from the trie
 
 A Promise that resolves once value is deleted.
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:152
-
 ***
 
 ### findPath()
 
 > **findPath**(`key`, `throwIfMissing`?, `partialPath`?): `Promise`\<`Path`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:159
+
 Tries to find a path to the node for the given key.
 It returns a `stack` of nodes to the closest node.
 
 #### Parameters
 
-• **key**: `Uint8Array`
+##### key
+
+`Uint8Array`
 
 the search key
 
-• **throwIfMissing?**: `boolean`
+##### throwIfMissing?
+
+`boolean`
 
 if true, throws if any nodes are missing. Used for verifying proofs. (default: false)
 
-• **partialPath?**
+##### partialPath?
 
-• **partialPath.stack?**: `TrieNode`[]
+###### stack
+
+`TrieNode`[]
 
 #### Returns
 
 `Promise`\<`Path`\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:159
 
 ***
 
@@ -409,15 +399,13 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **flushCheckpoints**(): `void`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:303
+
 Flushes all checkpoints, restoring the initial checkpoint state.
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:303
 
 ***
 
@@ -425,13 +413,17 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **fromProof**(`proof`): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:120
+
 Create a trie from a given (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof. An EIP-1186 proof contains the encoded trie nodes from the root
 node to the leaf node storing state data. This function does not check if the proof has the same expected root. A static version of this function exists
 with the same name.
 
 #### Parameters
 
-• **proof**: `Proof`
+##### proof
+
+`Proof`
 
 an EIP-1186 proof to update the trie from
 
@@ -443,37 +435,35 @@ an EIP-1186 proof to update the trie from
 
 Use `updateFromProof`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:120
-
 ***
 
 ### get()
 
-> **get**(`key`, `throwIfMissing`?): `Promise`\<`null` \| `Uint8Array`\>
+> **get**(`key`, `throwIfMissing`?): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:137
 
 Gets a value given a `key`
 
 #### Parameters
 
-• **key**: `Uint8Array`
+##### key
+
+`Uint8Array`
 
 the key to search for
 
-• **throwIfMissing?**: `boolean`
+##### throwIfMissing?
+
+`boolean`
 
 if true, throws if any nodes are missing. Used for verifying proofs. (default: false)
 
 #### Returns
 
-`Promise`\<`null` \| `Uint8Array`\>
+`Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
 
 A Promise that resolves to `Uint8Array` if a value was found or `null` if no value was found.
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:137
 
 ***
 
@@ -481,15 +471,13 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **hasCheckpoints**(): `boolean`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:282
+
 Is the trie during a checkpoint phase?
 
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:282
 
 ***
 
@@ -497,17 +485,17 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `protected` **hash**(`msg`): `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:278
+
 #### Parameters
 
-• **msg**: `Uint8Array`
+##### msg
+
+`Uint8Array`
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:278
 
 ***
 
@@ -515,19 +503,19 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **lookupNode**(`node`): `Promise`\<`TrieNode`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:193
+
 Retrieves a node from db by hash.
 
 #### Parameters
 
-• **node**: `Uint8Array` \| `Uint8Array`[]
+##### node
+
+`Uint8Array`\<`ArrayBufferLike`\> | `Uint8Array`\<`ArrayBufferLike`\>[]
 
 #### Returns
 
 `Promise`\<`TrieNode`\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:193
 
 ***
 
@@ -535,15 +523,13 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **persistRoot**(): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:264
+
 Persists the root hash in the underlying database
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:264
 
 ***
 
@@ -551,16 +537,24 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **put**(`key`, `value`, `skipKeyTransform`?): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:145
+
 Stores a given `value` at the given `key` or do a delete if `value` is empty
 (delete operations are only executed on DB with `deleteFromDB` set to `true`)
 
 #### Parameters
 
-• **key**: `Uint8Array`
+##### key
 
-• **value**: `null` \| `Uint8Array`
+`Uint8Array`
 
-• **skipKeyTransform?**: `boolean`
+##### value
+
+`null` | `Uint8Array`\<`ArrayBufferLike`\>
+
+##### skipKeyTransform?
+
+`boolean`
 
 #### Returns
 
@@ -568,15 +562,13 @@ Stores a given `value` at the given `key` or do a delete if `value` is empty
 
 A Promise that resolves once value is stored.
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:145
-
 ***
 
 ### revert()
 
 > **revert**(): `Promise`\<`void`\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:299
 
 Reverts the trie to the state it was at when `checkpoint` was first called.
 If during a nested checkpoint, sets root to most recent checkpoint, and sets
@@ -586,29 +578,25 @@ parent checkpoint as current.
 
 `Promise`\<`void`\>
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:299
-
 ***
 
 ### root()
 
 > **root**(`value`?): `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:126
+
 Gets and/or Sets the current root of the `trie`
 
 #### Parameters
 
-• **value?**: `null` \| `Uint8Array`
+##### value?
+
+`null` | `Uint8Array`\<`ArrayBufferLike`\>
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:126
 
 ***
 
@@ -616,19 +604,27 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **saveStack**(`key`, `stack`, `opStack`): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:215
+
 Saves a stack of nodes to the database.
 
 #### Parameters
 
-• **key**: `Nibbles`
+##### key
+
+`Nibbles`
 
 the key. Should follow the stack
 
-• **stack**: `TrieNode`[]
+##### stack
+
+`TrieNode`[]
 
 a stack of nodes to the value given by the key
 
-• **opStack**: `BatchDBOp`[]
+##### opStack
+
+`BatchDBOp`[]
 
 a stack of levelup operations to commit at the end of this function
 
@@ -636,15 +632,13 @@ a stack of levelup operations to commit at the end of this function
 
 `Promise`\<`void`\>
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:215
-
 ***
 
 ### shallowCopy()
 
 > **shallowCopy**(`includeCheckpoints`?, `opts`?): [`Trie`](Trie.md)
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:260
 
 Returns a copy of the underlying trie.
 
@@ -658,25 +652,27 @@ explicitly setting `cacheSize` as an option on the method.
 
 #### Parameters
 
-• **includeCheckpoints?**: `boolean`
+##### includeCheckpoints?
+
+`boolean`
 
 If true and during a checkpoint, the copy will contain the checkpointing metadata and will use the same scratch as underlying db.
 
-• **opts?**: `TrieShallowCopyOpts`
+##### opts?
+
+`TrieShallowCopyOpts`
 
 #### Returns
 
 [`Trie`](Trie.md)
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:260
-
 ***
 
 ### updateFromProof()
 
-> **updateFromProof**(`proof`, `shouldVerifyRoot`?): `Promise`\<`undefined` \| `Uint8Array`\>
+> **updateFromProof**(`proof`, `shouldVerifyRoot`?): `Promise`\<`undefined` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:102
 
 Updates a trie from a proof by putting all the nodes in the proof into the trie. If a trie is being updated with multiple proofs, {@param shouldVerifyRoot} can
 be passed as false in order to not immediately throw on an unexpected root, so that root verification can happen after all proofs and their nodes have been added.
@@ -684,50 +680,58 @@ An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encode
 
 #### Parameters
 
-• **proof**: `Proof`
+##### proof
+
+`Proof`
 
 An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof to update the trie from.
 
-• **shouldVerifyRoot?**: `boolean`
+##### shouldVerifyRoot?
+
+`boolean`
 
 If `true`, verifies that the root key of the proof matches the trie root. Throws if this is not the case.
 
 #### Returns
 
-`Promise`\<`undefined` \| `Uint8Array`\>
+`Promise`\<`undefined` \| `Uint8Array`\<`ArrayBufferLike`\>\>
 
 The root of the proof
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:102
 
 ***
 
 ### verifyProof()
 
-> **verifyProof**(`rootHash`, `key`, `proof`): `Promise`\<`null` \| `Uint8Array`\>
+> **verifyProof**(`rootHash`, `key`, `proof`): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:112
 
 Verifies a proof by putting all of its nodes into a trie and attempting to get the proven key. An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof
 contains the encoded trie nodes from the root node to the leaf node storing state data. A static version of this function exists with the same name.
 
 #### Parameters
 
-• **rootHash**: `Uint8Array`
+##### rootHash
+
+`Uint8Array`
 
 Root hash of the trie that this proof was created from and is being verified for
 
-• **key**: `Uint8Array`
+##### key
+
+`Uint8Array`
 
 Key that is being verified and that the proof is created for
 
-• **proof**: `Proof`
+##### proof
+
+`Proof`
 
 an EIP-1186 proof to verify the key against
 
 #### Returns
 
-`Promise`\<`null` \| `Uint8Array`\>
+`Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
 
 The value from the key, or null if valid proof of non-existence.
 
@@ -735,23 +739,17 @@ The value from the key, or null if valid proof of non-existence.
 
 If proof is found to be invalid.
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:112
-
 ***
 
 ### verifyPrunedIntegrity()
 
 > **verifyPrunedIntegrity**(): `Promise`\<`boolean`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:241
+
 #### Returns
 
 `Promise`\<`boolean`\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:241
 
 ***
 
@@ -759,36 +757,50 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **verifyRangeProof**(`rootHash`, `firstKey`, `lastKey`, `keys`, `values`, `proof`): `Promise`\<`boolean`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:86
+
 A range proof is a proof that includes the encoded trie nodes from the root node to leaf node for one or more branches of a trie,
 allowing an entire range of leaf nodes to be validated. This is useful in applications such as snap sync where contiguous ranges
-of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](Trie.md#verifyrangeproof-1). A static
+of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](Trie.md#verifyrangeproof-2). A static
 version of this function also exists.
 
 #### Parameters
 
-• **rootHash**: `Uint8Array`
+##### rootHash
+
+`Uint8Array`
 
 root hash of state trie this proof is being verified against.
 
-• **firstKey**: `null` \| `Uint8Array`
+##### firstKey
 
 first key of range being proven.
 
-• **lastKey**: `null` \| `Uint8Array`
+`null` | `Uint8Array`\<`ArrayBufferLike`\>
+
+##### lastKey
 
 last key of range being proven.
 
-• **keys**: `Uint8Array`[]
+`null` | `Uint8Array`\<`ArrayBufferLike`\>
+
+##### keys
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
 
 key list of leaf data being proven.
 
-• **values**: `Uint8Array`[]
+##### values
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
 
 value list of leaf data being proven, one-to-one correspondence with keys.
 
-• **proof**: `null` \| `Uint8Array`[]
+##### proof
 
 proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well
+
+`null` | `Uint8Array`\<`ArrayBufferLike`\>[]
 
 #### Returns
 
@@ -796,21 +808,21 @@ proof node list, if all-elements-proof where no proof is needed, proof should be
 
 a flag to indicate whether there exists more trie node in the trie
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:86
-
 ***
 
 ### walkAllNodes()
 
 > **walkAllNodes**(`onFound`): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:178
+
 Executes a callback for each node in the trie.
 
 #### Parameters
 
-• **onFound**: `OnFound`
+##### onFound
+
+`OnFound`
 
 callback to call when a node is found.
 
@@ -819,10 +831,6 @@ callback to call when a node is found.
 `Promise`\<`void`\>
 
 Resolves when finished walking trie.
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:178
 
 ***
 
@@ -830,11 +838,15 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > **walkAllValueNodes**(`onFound`): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:184
+
 Executes a callback for each value node in the trie.
 
 #### Parameters
 
-• **onFound**: `OnFound`
+##### onFound
+
+`OnFound`
 
 callback to call when a node is found.
 
@@ -844,23 +856,25 @@ callback to call when a node is found.
 
 Resolves when finished walking trie.
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:184
-
 ***
 
 ### walkTrie()
 
 > **walkTrie**(`root`, `onFound`): `Promise`\<`void`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:168
+
 Walks a trie until finished.
 
 #### Parameters
 
-• **root**: `Uint8Array`
+##### root
 
-• **onFound**: `FoundNodeFunction`
+`Uint8Array`
+
+##### onFound
+
+`FoundNodeFunction`
 
 callback to call when a node is found. This schedules new tasks. If no tasks are available, the Promise resolves.
 
@@ -870,27 +884,23 @@ callback to call when a node is found. This schedules new tasks. If no tasks are
 
 Resolves when finished walking trie.
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:168
-
 ***
 
 ### create()
 
 > `static` **create**(`opts`?): `Promise`\<[`Trie`](Trie.md)\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:121
+
 #### Parameters
 
-• **opts?**: `TrieOpts`
+##### opts?
+
+`TrieOpts`
 
 #### Returns
 
 `Promise`\<[`Trie`](Trie.md)\>
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:121
 
 ***
 
@@ -898,20 +908,28 @@ node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/e
 
 > `static` **createFromProof**(`proof`, `trieOpts`?, `shouldVerifyRoot`?): `Promise`\<[`Trie`](Trie.md)\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:39
+
 Create a trie from a given (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof. A proof contains the encoded trie nodes
 from the root node to the leaf node storing state data.
 
 #### Parameters
 
-• **proof**: `Proof`
+##### proof
+
+`Proof`
 
 an EIP-1186 proof to create trie from
 
-• **trieOpts?**: `TrieOpts`
+##### trieOpts?
+
+`TrieOpts`
 
 trie opts to be applied to returned trie
 
-• **shouldVerifyRoot?**: `boolean`
+##### shouldVerifyRoot?
+
+`boolean`
 
 If `true`, verifies that the root key of the proof matches the trie root. Throws if this is not the case.
 
@@ -921,26 +939,28 @@ If `true`, verifies that the root key of the proof matches the trie root. Throws
 
 new trie created from given proof
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:39
-
 ***
 
 ### ~~fromProof()~~
 
 > `static` **fromProof**(`proof`, `opts`?): `Promise`\<[`Trie`](Trie.md)\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:72
+
 Static version of fromProof function. If a root is provided in the opts param, the proof will be checked to have the same expected root. An
 (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes from the root node to the leaf node storing state data.
 
 #### Parameters
 
-• **proof**: `Proof`
+##### proof
+
+`Proof`
 
 An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes from the root node to the leaf node storing state data.
 
-• **opts?**: `TrieOpts`
+##### opts?
+
+`TrieOpts`
 
 #### Returns
 
@@ -950,36 +970,40 @@ An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encode
 
 Use `createFromProof`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:72
-
 ***
 
 ### verifyProof()
 
-> `static` **verifyProof**(`key`, `proof`, `opts`?): `Promise`\<`null` \| `Uint8Array`\>
+> `static` **verifyProof**(`key`, `proof`, `opts`?): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:50
 
 Static version of verifyProof function with the same behavior. An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes
 from the root node to the leaf node storing state data.
 
 #### Parameters
 
-• **key**: `Uint8Array`
+##### key
+
+`Uint8Array`
 
 Key that is being verified and that the proof is created for
 
-• **proof**: `Proof`
+##### proof
+
+`Proof`
 
 An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes from the root node to the leaf node storing state data.
 
-• **opts?**: `TrieOpts`
+##### opts?
+
+`TrieOpts`
 
 optional, the opts may include a custom hashing function to use with the trie for proof verification
 
 #### Returns
 
-`Promise`\<`null` \| `Uint8Array`\>
+`Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
 
 The value from the key, or null if valid proof of non-existence.
 
@@ -987,48 +1011,60 @@ The value from the key, or null if valid proof of non-existence.
 
 If proof is found to be invalid.
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:50
-
 ***
 
 ### verifyRangeProof()
 
 > `static` **verifyRangeProof**(`rootHash`, `firstKey`, `lastKey`, `keys`, `values`, `proof`, `opts`?): `Promise`\<`boolean`\>
 
+Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:65
+
 A range proof is a proof that includes the encoded trie nodes from the root node to leaf node for one or more branches of a trie,
 allowing an entire range of leaf nodes to be validated. This is useful in applications such as snap sync where contiguous ranges
-of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](Trie.md#verifyrangeproof-1). A static
+of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](Trie.md#verifyrangeproof-2). A static
 version of this function also exists.
 
 #### Parameters
 
-• **rootHash**: `Uint8Array`
+##### rootHash
+
+`Uint8Array`
 
 root hash of state trie this proof is being verified against.
 
-• **firstKey**: `null` \| `Uint8Array`
+##### firstKey
 
 first key of range being proven.
 
-• **lastKey**: `null` \| `Uint8Array`
+`null` | `Uint8Array`\<`ArrayBufferLike`\>
+
+##### lastKey
 
 last key of range being proven.
 
-• **keys**: `Uint8Array`[]
+`null` | `Uint8Array`\<`ArrayBufferLike`\>
+
+##### keys
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
 
 key list of leaf data being proven.
 
-• **values**: `Uint8Array`[]
+##### values
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
 
 value list of leaf data being proven, one-to-one correspondence with keys.
 
-• **proof**: `null` \| `Uint8Array`[]
+##### proof
 
 proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well
 
-• **opts?**: `TrieOpts`
+`null` | `Uint8Array`\<`ArrayBufferLike`\>[]
+
+##### opts?
+
+`TrieOpts`
 
 optional, the opts may include a custom hashing function to use with the trie for proof verification
 
@@ -1037,7 +1073,3 @@ optional, the opts may include a custom hashing function to use with the trie fo
 `Promise`\<`boolean`\>
 
 a flag to indicate whether there exists more trie node in the trie
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:65

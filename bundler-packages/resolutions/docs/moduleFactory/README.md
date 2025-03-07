@@ -1,4 +1,4 @@
-[**@tevm/resolutions**](../README.md) • **Docs**
+[**@tevm/resolutions**](../README.md)
 
 ***
 
@@ -6,12 +6,10 @@
 
 # moduleFactory
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [ModuleFactoryError](type-aliases/ModuleFactoryError.md)
 
-### Functions
+## Functions
 
 - [moduleFactory](functions/moduleFactory.md)

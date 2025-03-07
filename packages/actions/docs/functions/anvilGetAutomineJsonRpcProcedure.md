@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **anvilGetAutomineJsonRpcProcedure**(`client`): [`AnvilGetAutomineProcedure`](../type-aliases/AnvilGetAutomineProcedure.md)
 
+Defined in: [packages/actions/src/anvil/anvilGetAutomineProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilGetAutomineProcedure.js#L6)
+
 Request handler for anvil_getAutomine JSON-RPC requests.
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
 [`AnvilGetAutomineProcedure`](../type-aliases/AnvilGetAutomineProcedure.md)
-
-## Defined in
-
-[packages/actions/src/anvil/anvilGetAutomineProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilGetAutomineProcedure.js#L6)

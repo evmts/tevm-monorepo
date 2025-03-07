@@ -1,4 +1,4 @@
-[**@tevm/utils**](../README.md) • **Docs**
+[**@tevm/utils**](../README.md)
 
 ***
 
@@ -8,20 +8,22 @@
 
 > **toRlp**\<`to`\>(`bytes`, `to`?): `ToRlpReturnType`\<`to`\>
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/encoding/toRlp.d.ts:10
+
 ## Type Parameters
 
 • **to** *extends* `To` = `"hex"`
 
 ## Parameters
 
-• **bytes**: `RecursiveArray`\<`Uint8Array`\> \| `RecursiveArray`\<\`0x$\{string\}\`\>
+### bytes
 
-• **to?**: `to` \| `To`
+`RecursiveArray`\<`ByteArray`\> | `RecursiveArray`\<`` `0x${string}` ``\>
+
+### to?
+
+`to` | `To`
 
 ## Returns
 
 `ToRlpReturnType`\<`to`\>
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/toRlp.d.ts:10

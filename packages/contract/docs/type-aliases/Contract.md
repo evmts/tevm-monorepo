@@ -1,4 +1,4 @@
-[**@tevm/contract**](../README.md) • **Docs**
+[**@tevm/contract**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Contract\<TName, THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
 
 > **Contract**\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: `object`
+
+Defined in: [Contract.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L62)
 
 Represents a specific contract with its ABI and optional bytecode.
 Contracts provide type-safe interfaces for interacting with smart contracts,
@@ -80,7 +82,9 @@ Action creator for deploying the contract.
 
 #### Parameters
 
-• ...**args**: `EncodeDeployDataParameters`\<`ParseAbi`\<`THumanReadableAbi`\>\> *extends* `object` ? `TArgs` *extends* `ReadonlyArray`\<`any`\> ? `TArgs` : [] : []
+##### args
+
+...`EncodeDeployDataParameters`\<`ParseAbi`\<`THumanReadableAbi`\>\> *extends* `object` ? `TArgs` *extends* `ReadonlyArray`\<`any`\> ? `TArgs` : \[\] : \[\]
 
 #### Returns
 
@@ -158,7 +162,9 @@ it does not modify the existing contract.
 
 #### Parameters
 
-• **address**: `TNewAddress`
+##### address
+
+`TNewAddress`
 
 #### Returns
 
@@ -179,7 +185,9 @@ Returns a new contract instance with the updated code.
 
 #### Parameters
 
-• **encodedBytecode**: `Hex`
+##### encodedBytecode
+
+`Hex`
 
 The encoded bytecode of the contract
 
@@ -268,7 +276,3 @@ const balance = await client.readContract(
   MyContract.read.balanceOf('0xabcdef...')
 )
 ```
-
-## Defined in
-
-[Contract.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L62)

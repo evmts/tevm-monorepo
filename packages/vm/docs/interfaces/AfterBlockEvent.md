@@ -1,10 +1,12 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
 [@tevm/vm](../globals.md) / AfterBlockEvent
 
 # Interface: AfterBlockEvent
+
+Defined in: [packages/vm/src/utils/AfterblockEvent.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L4)
 
 Result of runBlock
 
@@ -18,9 +20,7 @@ Result of runBlock
 
 > **block**: `Block`
 
-#### Defined in
-
-[packages/vm/src/utils/AfterblockEvent.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L6)
+Defined in: [packages/vm/src/utils/AfterblockEvent.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L6)
 
 ***
 
@@ -28,15 +28,13 @@ Result of runBlock
 
 > **gasUsed**: `bigint`
 
+Defined in: [packages/vm/src/utils/ApplyBlockResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L17)
+
 The gas used after executing the block
 
 #### Inherited from
 
 [`RunBlockResult`](RunBlockResult.md).[`gasUsed`](RunBlockResult.md#gasused)
-
-#### Defined in
-
-[packages/vm/src/utils/ApplyBlockResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L17)
 
 ***
 
@@ -44,21 +42,21 @@ The gas used after executing the block
 
 > **logsBloom**: `Uint8Array`
 
+Defined in: [packages/vm/src/utils/RunBlockResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L15)
+
 The bloom filter of the LOGs (events) after executing the block
 
 #### Inherited from
 
 [`RunBlockResult`](RunBlockResult.md).[`logsBloom`](RunBlockResult.md#logsbloom)
 
-#### Defined in
-
-[packages/vm/src/utils/RunBlockResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L15)
-
 ***
 
 ### preimages?
 
-> `optional` **preimages**: `Map`\<\`0x$\{string\}\`, `Uint8Array`\>
+> `optional` **preimages**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: [packages/vm/src/utils/ApplyBlockResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L33)
 
 Preimages mapping of the touched accounts from the block (see reportPreimages option)
 
@@ -66,15 +64,13 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 [`RunBlockResult`](RunBlockResult.md).[`preimages`](RunBlockResult.md#preimages)
 
-#### Defined in
-
-[packages/vm/src/utils/ApplyBlockResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L33)
-
 ***
 
 ### receipts
 
 > **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
+
+Defined in: [packages/vm/src/utils/ApplyBlockResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L25)
 
 Receipts generated for transactions in the block
 
@@ -82,15 +78,13 @@ Receipts generated for transactions in the block
 
 [`RunBlockResult`](RunBlockResult.md).[`receipts`](RunBlockResult.md#receipts)
 
-#### Defined in
-
-[packages/vm/src/utils/ApplyBlockResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L25)
-
 ***
 
 ### receiptsRoot
 
 > **receiptsRoot**: `Uint8Array`
+
+Defined in: [packages/vm/src/utils/ApplyBlockResult.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L21)
 
 The receipt root after executing the block
 
@@ -98,15 +92,13 @@ The receipt root after executing the block
 
 [`RunBlockResult`](RunBlockResult.md).[`receiptsRoot`](RunBlockResult.md#receiptsroot)
 
-#### Defined in
-
-[packages/vm/src/utils/ApplyBlockResult.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L21)
-
 ***
 
 ### requests?
 
 > `optional` **requests**: `ClRequest`[]
+
+Defined in: [packages/vm/src/utils/RunBlockResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L24)
 
 Any CL requests that were processed in the course of this block
 
@@ -114,15 +106,13 @@ Any CL requests that were processed in the course of this block
 
 [`RunBlockResult`](RunBlockResult.md).[`requests`](RunBlockResult.md#requests)
 
-#### Defined in
-
-[packages/vm/src/utils/RunBlockResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L24)
-
 ***
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `Uint8Array`
+> `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: [packages/vm/src/utils/RunBlockResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L20)
 
 The requestsRoot for any CL requests in the block
 
@@ -130,15 +120,13 @@ The requestsRoot for any CL requests in the block
 
 [`RunBlockResult`](RunBlockResult.md).[`requestsRoot`](RunBlockResult.md#requestsroot)
 
-#### Defined in
-
-[packages/vm/src/utils/RunBlockResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L20)
-
 ***
 
 ### results
 
 > **results**: [`RunTxResult`](RunTxResult.md)[]
+
+Defined in: [packages/vm/src/utils/ApplyBlockResult.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L29)
 
 Results of executing the transactions in the block
 
@@ -146,22 +134,16 @@ Results of executing the transactions in the block
 
 [`RunBlockResult`](RunBlockResult.md).[`results`](RunBlockResult.md#results)
 
-#### Defined in
-
-[packages/vm/src/utils/ApplyBlockResult.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L29)
-
 ***
 
 ### stateRoot
 
 > **stateRoot**: `Uint8Array`
 
+Defined in: [packages/vm/src/utils/RunBlockResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L11)
+
 The stateRoot after executing the block
 
 #### Inherited from
 
 [`RunBlockResult`](RunBlockResult.md).[`stateRoot`](RunBlockResult.md#stateroot)
-
-#### Defined in
-
-[packages/vm/src/utils/RunBlockResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L11)

@@ -1,4 +1,4 @@
-[**@tevm/vm**](../README.md) • **Docs**
+[**@tevm/vm**](../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > `const` **parentBeaconBlockRootAddress**: `Address`
 
-## Defined in
-
-[packages/vm/src/actions/parentBeaconBlockRootAddress.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/parentBeaconBlockRootAddress.ts#L3)
+Defined in: [packages/vm/src/actions/parentBeaconBlockRootAddress.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/parentBeaconBlockRootAddress.ts#L3)

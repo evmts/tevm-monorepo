@@ -1,4 +1,4 @@
-[**@tevm/actions**](../README.md) • **Docs**
+[**@tevm/actions**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthGetBalanceParams
 
 > **EthGetBalanceParams**: `object`
+
+Defined in: [packages/actions/src/eth/EthParams.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L97)
 
 Based on the  JSON-RPC request for `eth_getBalance` procedure
 
@@ -19,7 +21,3 @@ Based on the  JSON-RPC request for `eth_getBalance` procedure
 ### blockTag?
 
 > `optional` **blockTag**: [`BlockParam`](BlockParam.md)
-
-## Defined in
-
-[packages/actions/src/eth/EthParams.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L97)

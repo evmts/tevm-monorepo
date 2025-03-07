@@ -1,4 +1,4 @@
-[**@tevm/sync-storage-persister**](../README.md) • **Docs**
+[**@tevm/sync-storage-persister**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Interface: Storage
 
+Defined in: [Storage.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L1)
+
 ## Properties
 
 ### getItem()
 
 > **getItem**: (`key`) => `null` \| `string`
 
+Defined in: [Storage.ts:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L2)
+
 #### Parameters
 
-• **key**: `string`
+##### key
+
+`string`
 
 #### Returns
 
 `null` \| `string`
-
-#### Defined in
-
-[Storage.ts:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L2)
 
 ***
 
@@ -30,17 +32,17 @@
 
 > **removeItem**: (`key`) => `void`
 
+Defined in: [Storage.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L4)
+
 #### Parameters
 
-• **key**: `string`
+##### key
+
+`string`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[Storage.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L4)
 
 ***
 
@@ -48,16 +50,18 @@
 
 > **setItem**: (`key`, `value`) => `void`
 
+Defined in: [Storage.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L3)
+
 #### Parameters
 
-• **key**: `string`
+##### key
 
-• **value**: `string`
+`string`
+
+##### value
+
+`string`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[Storage.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L3)

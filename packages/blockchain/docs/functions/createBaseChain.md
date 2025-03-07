@@ -1,4 +1,4 @@
-[**@tevm/blockchain**](../README.md) • **Docs**
+[**@tevm/blockchain**](../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **createBaseChain**(`options`): `BaseChain`
 
+Defined in: [packages/blockchain/src/createBaseChain.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L50)
+
 ## Parameters
 
-• **options**: [`ChainOptions`](../type-aliases/ChainOptions.md)
+### options
+
+[`ChainOptions`](../type-aliases/ChainOptions.md)
 
 ## Returns
 
 `BaseChain`
 
 Base chain object
-
-## Defined in
-
-[packages/blockchain/src/createBaseChain.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L50)

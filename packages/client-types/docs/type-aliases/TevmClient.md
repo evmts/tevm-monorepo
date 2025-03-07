@@ -1,4 +1,4 @@
-[**@tevm/client-types**](../README.md) • **Docs**
+[**@tevm/client-types**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ~~TevmClient~~
 
 > **TevmClient**: `object`
+
+Defined in: [TevmClient.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L131)
 
 ## Type declaration
 
@@ -91,7 +93,7 @@ Standard JSON-RPC methods for interacting with the VM
 
 [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
 
-### eth.blockNumber
+#### eth.blockNumber
 
 > **blockNumber**: `EthBlockNumberHandler`
 
@@ -99,18 +101,18 @@ Returns the current block number
 Set the `tag` to a block number or block hash to get the balance at that block
 Block tag defaults to 'pending' tag which is the optimistic state of the VM
 
-#### See
+##### See
 
 [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
 
-#### Example
+##### Example
 
 ```ts
 const blockNumber = await tevm.eth.blockNumber()
 console.log(blockNumber) // 0n
 ```
 
-### eth.call
+#### eth.call
 
 > **call**: `EthCallHandler`
 
@@ -118,18 +120,18 @@ Executes a call without modifying the state
 Set the `tag` to a block number or block hash to get the balance at that block
 Block tag defaults to 'pending' tag which is the optimistic state of the VM
 
-#### See
+##### See
 
 [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
 
-#### Example
+##### Example
 
 ```ts
 const res = await tevm.eth.call({to: '0x123...', data: '0x123...'})
 console.log(res) // "0x..."
 ```
 
-### eth.chainId
+#### eth.chainId
 
 > **chainId**: `EthChainIdHandler`
 
@@ -137,18 +139,18 @@ Returns the current chain id
 Set the `tag` to a block number or block hash to get the balance at that block
 Block tag defaults to 'pending' tag which is the optimistic state of the VM
 
-#### See
+##### See
 
 [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
 
-#### Example
+##### Example
 
 ```ts
 const chainId = await tevm.eth.chainId()
 console.log(chainId) // 10n
 ```
 
-### eth.gasPrice
+#### eth.gasPrice
 
 > **gasPrice**: `EthGasPriceHandler`
 
@@ -156,18 +158,18 @@ Returns the current gas price
 Set the `tag` to a block number or block hash to get the balance at that block
 Block tag defaults to 'pending' tag which is the optimistic state of the VM
 
-#### See
+##### See
 
 [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
 
-#### Example
+##### Example
 
 ```ts
 const gasPrice = await tevm.eth.gasPrice()
 console.log(gasPrice) // 0n
 ```
 
-### eth.getBalance
+#### eth.getBalance
 
 > **getBalance**: `EthGetBalanceHandler`
 
@@ -175,18 +177,18 @@ Returns the balance of a given address
 Set the `tag` to a block number or block hash to get the balance at that block
 Block tag defaults to 'pending' tag which is the optimistic state of the VM
 
-#### See
+##### See
 
 [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
 
-#### Example
+##### Example
 
 ```ts
 const balance = await tevm.eth.getBalance({address: '0x123...', tag: 'pending'})
 console.log(gasPrice) // 0n
 ```
 
-### eth.getCode
+#### eth.getCode
 
 > **getCode**: `EthGetCodeHandler`
 
@@ -194,17 +196,17 @@ Returns code at a given address
 Set the `tag` to a block number or block hash to get the balance at that block
 Block tag defaults to 'pending' tag which is the optimistic state of the VM
 
-#### See
+##### See
 
 [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
 
-#### Example
+##### Example
 
 ```ts
 const code = await tevm.eth.getCode({address: '0x123...'})
 ```
 
-### eth.getStorageAt
+#### eth.getStorageAt
 
 > **getStorageAt**: `EthGetStorageAtHandler`
 
@@ -212,11 +214,11 @@ Returns storage at a given address and slot
 Set the `tag` to a block number or block hash to get the balance at that block
 Block tag defaults to 'pending' tag which is the optimistic state of the VM
 
-#### See
+##### See
 
 [JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
 
-#### Example
+##### Example
 
 ```ts
 const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position: 0})
@@ -406,7 +408,7 @@ using Tevm.
 
 #### JSON-RPC
 
-Tevm exposes a JSON-RPC interface for interacting with the EVM via the TevmClient.request
+Tevm exposes a JSON-RPC interface for interacting with the EVM via the [TevmClient.request](TevmClient.md#request)
 
 ## Examples
 
@@ -436,7 +438,7 @@ console.log(account.balance) // 0n
 
 #### Ethereum actions
 
-Ethereum actions are namespaced under TevmClient.eth
+Ethereum actions are namespaced under [TevmClient.eth](TevmClient.md#eth)
 
 ```typescript
 const blockNumber = await tevm.eth.blockNumber()
@@ -446,7 +448,3 @@ console.log(blockNumber) // 0n
 #### Anvil hardhat and ganache compatibility
 
 Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
-
-## Defined in
-
-[TevmClient.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L131)

@@ -1,4 +1,4 @@
-[**@tevm/vite-plugin**](../README.md) • **Docs**
+[**@tevm/vite-plugin**](../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: vitePluginTevm()
 
-> **vitePluginTevm**(`options`?): `Plugin`\<`any`\>
+> **vitePluginTevm**(`options`?): `Plugin`
+
+Defined in: [bundler-packages/vite/src/vitePluginTevm.js:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/vite/src/vitePluginTevm.js#L73)
 
 Vite plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
 will transform solidity contract imports into Tevm `Contract` instances.
@@ -15,13 +17,15 @@ To configure add this plugin to your vite config and add the ts-plugin to your t
 
 ## Parameters
 
-• **options?**
+### options?
 
-• **options.solc?**: `SolcVersions`
+#### solc?
+
+`SolcVersions`
 
 ## Returns
 
-`Plugin`\<`any`\>
+`Plugin`
 
 ## Examples
 
@@ -88,7 +92,3 @@ For custom configuration of the Tevm compiler add a [tevm.config.json](https://t
   cacheDir: '.tevm'
 }
 ```
-
-## Defined in
-
-[bundler-packages/vite/src/vitePluginTevm.js:73](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/vite/src/vitePluginTevm.js#L73)

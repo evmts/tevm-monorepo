@@ -1,4 +1,4 @@
-**@tevm/rollup-plugin** • [**Docs**](globals.md)
+**@tevm/rollup-plugin**
 
 ***
 

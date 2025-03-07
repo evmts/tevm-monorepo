@@ -1,4 +1,4 @@
-[**@tevm/solc**](../README.md) • **Docs**
+[**@tevm/solc**](../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **SolcModelCheckerContracts**: `object`
 
+Defined in: [solcTypes.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L161)
+
 ## Index Signature
 
- \[`fileName`: \`$\{string\}.sol\`\]: `string`[]
-
-## Defined in
-
-[solcTypes.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L161)
+\[`fileName`: `` `${string}.sol` ``\]: `string`[]

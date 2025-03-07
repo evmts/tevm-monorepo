@@ -1,4 +1,4 @@
-[**@tevm/decorators**](../README.md) • **Docs**
+[**@tevm/decorators**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EIP1193RequestFn()\<TRpcSchema\>
 
 > **EIP1193RequestFn**\<`TRpcSchema`\>: \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options`?) => `Promise`\<`_ReturnType`\>
+
+Defined in: [eip1193/EIP1993RequestFn.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestFn.ts#L14)
 
 ## Type Parameters
 
@@ -18,18 +20,18 @@
 
 • **TParameters** *extends* [`EIP1193Parameters`](EIP1193Parameters.md)\<[`DerivedRpcSchema`](DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> = [`EIP1193Parameters`](EIP1193Parameters.md)\<[`DerivedRpcSchema`](DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\>
 
-• **_ReturnType** = [`DerivedRpcSchema`](DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\> *extends* [`RpcSchema`](RpcSchema.md) ? `Extract`\<[`DerivedRpcSchema`](DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\[`number`\], `object`\>\[`"ReturnType"`\] : `unknown`
+• **_ReturnType** = [`DerivedRpcSchema`](DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\> *extends* [`RpcSchema`](RpcSchema.md) ? `Extract`\<[`DerivedRpcSchema`](DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\[`number`\], \{ `Method`: `TParameters`\[`"method"`\]; \}\>\[`"ReturnType"`\] : `unknown`
 
 ## Parameters
 
-• **args**: `TParameters`
+### args
 
-• **options?**: [`EIP1193RequestOptions`](EIP1193RequestOptions.md)
+`TParameters`
+
+### options?
+
+[`EIP1193RequestOptions`](EIP1193RequestOptions.md)
 
 ## Returns
 
 `Promise`\<`_ReturnType`\>
-
-## Defined in
-
-[eip1193/EIP1993RequestFn.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestFn.ts#L14)

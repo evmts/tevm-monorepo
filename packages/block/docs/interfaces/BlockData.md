@@ -1,10 +1,12 @@
-[**@tevm/block**](../README.md) • **Docs**
+[**@tevm/block**](../README.md)
 
 ***
 
 [@tevm/block](../globals.md) / BlockData
 
 # Interface: BlockData
+
+Defined in: [packages/block/src/types.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L139)
 
 A block's data.
 
@@ -14,11 +16,9 @@ A block's data.
 
 > `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
+Defined in: [packages/block/src/types.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L151)
+
 EIP-6800: Verkle Proof Data (experimental)
-
-#### Defined in
-
-[packages/block/src/types.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L151)
 
 ***
 
@@ -26,11 +26,9 @@ EIP-6800: Verkle Proof Data (experimental)
 
 > `optional` **header**: [`HeaderData`](HeaderData.md)
 
+Defined in: [packages/block/src/types.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L143)
+
 Header data for the block
-
-#### Defined in
-
-[packages/block/src/types.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L143)
 
 ***
 
@@ -38,9 +36,7 @@ Header data for the block
 
 > `optional` **requests**: [`ClRequest`](../classes/ClRequest.md)[]
 
-#### Defined in
-
-[packages/block/src/types.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L147)
+Defined in: [packages/block/src/types.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L147)
 
 ***
 
@@ -48,9 +44,7 @@ Header data for the block
 
 > `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| `EOACodeEIP7702TxData`)[]
 
-#### Defined in
-
-[packages/block/src/types.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L144)
+Defined in: [packages/block/src/types.ts:144](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L144)
 
 ***
 
@@ -58,9 +52,7 @@ Header data for the block
 
 > `optional` **uncleHeaders**: [`HeaderData`](HeaderData.md)[]
 
-#### Defined in
-
-[packages/block/src/types.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L145)
+Defined in: [packages/block/src/types.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L145)
 
 ***
 
@@ -68,6 +60,4 @@ Header data for the block
 
 > `optional` **withdrawals**: `WithdrawalData`[]
 
-#### Defined in
-
-[packages/block/src/types.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L146)
+Defined in: [packages/block/src/types.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L146)

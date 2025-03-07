@@ -1,4 +1,4 @@
-[**@tevm/resolutions**](../../README.md) • **Docs**
+[**@tevm/resolutions**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: moduleFactory()
 
 > **moduleFactory**(`absolutePath`, `rawCode`, `remappings`, `libs`, `fao`, `sync`): `Effect`\<`Map`\<`string`, [`ModuleInfo`](../../types/interfaces/ModuleInfo.md)\>, [`ModuleFactoryError`](../type-aliases/ModuleFactoryError.md), `never`\>
+
+Defined in: [moduleFactory.js:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/moduleFactory.js#L53)
 
 Creates a module from the given module information.
 This includes resolving all imports and creating a dependency graph.
@@ -20,17 +22,29 @@ Doing it this way for now is easier but for sure a leaky abstraction
 
 ## Parameters
 
-• **absolutePath**: `string`
+### absolutePath
 
-• **rawCode**: `string`
+`string`
 
-• **remappings**: `Record`\<`string`, `string`\>
+### rawCode
 
-• **libs**: readonly `string`[]
+`string`
 
-• **fao**: [`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
+### remappings
 
-• **sync**: `boolean`
+`Record`\<`string`, `string`\>
+
+### libs
+
+readonly `string`[]
+
+### fao
+
+[`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
+
+### sync
+
+`boolean`
 
 Whether to run this synchronously or not
 
@@ -62,7 +76,3 @@ const modules = runPromise(
 )
 console.log(modules.get(pathToSolidity)) // { id: '/path/to/Contract.sol', rawCode: '...', importedIds: ['/path/to/Imported.sol'], code: '...' }
 ```
-
-## Defined in
-
-[moduleFactory.js:53](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/moduleFactory.js#L53)

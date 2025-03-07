@@ -1,4 +1,4 @@
-[**@tevm/precompiles**](../README.md) • **Docs**
+[**@tevm/precompiles**](../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](ConstructorArgument.md)\<`Evm`\>, `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
 
+Defined in: [CustomPrecompile.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CustomPrecompile.ts#L13)
+
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM
-
-## Defined in
-
-[CustomPrecompile.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CustomPrecompile.ts#L13)

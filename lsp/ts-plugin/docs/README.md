@@ -1,4 +1,4 @@
-**@tevm/ts-plugin** • [**Docs**](globals.md)
+**@tevm/ts-plugin**
 
 ***
 
