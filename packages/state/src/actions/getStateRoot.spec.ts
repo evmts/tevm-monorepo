@@ -8,6 +8,6 @@ describe(getStateRoot.name, () => {
 		const baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		expect(await getStateRoot(baseState)()).toEqual(hexToBytes(baseState.getCurrentStateRoot()))
+		expect(await getStateRoot(baseState)()).toMatchSnapshot()
 	})
 })

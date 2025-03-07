@@ -257,22 +257,22 @@ describe('ethers.Contract', () => {
 		expectTypeOf(await c.name()).toBeString()
 		expectTypeOf(await c.symbol()).toBeString()
 		expectTypeOf(await c.decimals()).toBeNumber()
-		assertType<BigInt>(await c.totalSupply({ blockTag: 4061226 }))
+		assertType<BigInt>(await c.totalSupply({ blockTag: 132873940 }))
 	})
 
 	test('Should be typesafe with arguments', async () => {
 		const c = new Contract(addresses[10], abi, provider)
 
 		assertType<Parameters<typeof c.totalSupply>>([])
-		assertType<Parameters<typeof c.totalSupply>>([{ blockTag: 4061226, chainId: 25 }])
+		assertType<Parameters<typeof c.totalSupply>>([{ blockTag: 132873940, chainId: 25 }])
 		assertType<Parameters<typeof c.balanceOf>>([addresses[10]])
-		assertType<Parameters<typeof c.balanceOf>>([addresses[10], { blockTag: 4061226, chainId: 25 }])
+		assertType<Parameters<typeof c.balanceOf>>([addresses[10], { blockTag: 132873940, chainId: 25 }])
 		assertType<Parameters<typeof c.mint>>(['0x2342', 234234n])
 		assertType<Parameters<typeof c.mint>>([
 			'0x234234',
 			234234n,
 			{
-				blockTag: 4061226,
+				blockTag: 132873940,
 				chainId: 25,
 				gasLimit: BigInt(420),
 				value: BigInt(420),
@@ -292,7 +292,7 @@ describe('ethers.Contract', () => {
 		expect(await c.name()).toMatchInlineSnapshot('"Dai Stablecoin"')
 		expect(await c.symbol()).toMatchInlineSnapshot('"DAI"')
 		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(await c.totalSupply({ blockTag: 4061226 })).toMatchInlineSnapshot('17275834779199905882210256n')
+		expect(await c.totalSupply({ blockTag: 132873940 })).toMatchInlineSnapshot(`17805468002779884407766788n`)
 		expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 	})
 
@@ -304,9 +304,9 @@ describe('ethers.Contract', () => {
 		expect(await c.decimals()).toMatchInlineSnapshot('18n')
 		expect(
 			await c.totalSupply({
-				blockTag: 4061226,
+				blockTag: 132873940,
 			}),
-		).toMatchInlineSnapshot('17275834779199905882210256n')
+		).toMatchInlineSnapshot(`17805468002779884407766788n`)
 		expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 	})
 })

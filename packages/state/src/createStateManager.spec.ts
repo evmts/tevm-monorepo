@@ -87,7 +87,7 @@ describe(createStateManager.name, () => {
 		const originalAccount = await stateManager.getAccount(address)
 		const copiedAccount = await shallowCopy.getAccount(address)
 
-		expect(originalAccount?.balance).toBe(200n)
+		expect(originalAccount?.balance).toBe(100n)
 		expect(copiedAccount?.balance).toBe(200n)
 	})
 

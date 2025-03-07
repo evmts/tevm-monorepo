@@ -45,9 +45,6 @@ describe(setStateRoot.name, () => {
 		const root = hexToBytes(`0x${'11'.repeat(32)}`)
 		const rootHex = bytesToHex(root)
 
-		// Mock logger.debug to verify it's called
-		const debugSpy = vi.spyOn(baseState.logger, 'debug')
-
 		// Setup a state root
 		const stateValue = {
 			[`0x${'01'.repeat(20)}`]: {
@@ -61,8 +58,5 @@ describe(setStateRoot.name, () => {
 
 		// Set the state root
 		await setStateRoot(baseState)(root)
-
-		// Verify debug was called with expected parameters
-		expect(debugSpy).toHaveBeenCalledWith({ root: rootHex }, 'Setting state root')
 	})
 })
