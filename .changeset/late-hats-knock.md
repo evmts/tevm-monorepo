@@ -17,8 +17,6 @@
 "@tevm/tsconfig": minor
 "@tevm/tsupconfig": minor
 "@tevm/revm": minor
-"@tevm/schemas": minor
-"@tevm/experimental-solc": minor
 "@tevm/viem-effect": minor
 "@tevm/ethers": minor
 "@tevm/viem": minor

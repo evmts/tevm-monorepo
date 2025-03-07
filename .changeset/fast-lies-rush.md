@@ -10,7 +10,6 @@
 "@tevm/config": patch
 "@tevm/memory-client": patch
 "@tevm/solc": patch
-"@tevm/schemas": patch
 "@tevm/http-client": patch
 "@tevm/precompiles": patch
 "@tevm/blockchain": patch

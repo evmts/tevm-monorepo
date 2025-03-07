@@ -2,7 +2,6 @@
 "@tevm/resolutions": patch
 "@tevm/ts-plugin": patch
 "@tevm/unplugin": patch
-"@tevm/schemas": patch
 "@tevm/runtime": patch
 "@tevm/viem": patch
 "@tevm/effect": patch

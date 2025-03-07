@@ -1,10 +1,8 @@
 ---
 "@tevm/resolutions": patch
 "@tevm/ts-plugin": patch
-"@tevm/experimental-solc": patch
 "@tevm/ethers": patch
 "@tevm/unplugin": patch
-"@tevm/schemas": patch
 "@tevm/esbuild-plugin": patch
 "@tevm/runtime": patch
 "@tevm/webpack-plugin": patch

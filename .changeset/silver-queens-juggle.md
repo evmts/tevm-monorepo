@@ -1,5 +1,4 @@
 ---
-"@tevm/schemas": patch
 "@tevm/viem": patch
 "@tevm/effect": patch
 "@tevm/config": patch

@@ -38,8 +38,6 @@
 "@tevm/webpack-plugin": patch
 "@tevm/tsconfig": patch
 "@tevm/revm": patch
-"@tevm/schemas": patch
-"@tevm/experimental-solc": patch
 "@tevm/viem-effect": patch
 "@tevm/address": patch
 "@tevm/block": patch

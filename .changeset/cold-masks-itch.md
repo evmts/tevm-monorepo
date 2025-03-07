@@ -6,7 +6,6 @@
 "@tevm/vite-plugin": patch
 "@tevm/bun-plugin": patch
 "@tevm/ts-plugin": patch
-"@tevm/schemas": patch
 "@tevm/config": patch
 "@tevm/ethers": patch
 "@tevm/contract": patch
