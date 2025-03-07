@@ -1,0 +1,385 @@
+# .claude/create-component
+
+This command helps you create well-structured, reusable React components for Tevm-based applications, with proper TypeScript typing and integration with Ethereum functionality.
+
+## Usage
+
+```bash
+claude < .claude/create-component
+```
+
+## Interactive Process
+
+When you run this command, I will:
+
+1. First, ask you to describe the React component you want to create
+2. Rephrase your requirements in my own words to confirm understanding
+3. Ask clarifying questions about:
+   - Component purpose and functionality
+   - Props structure and validation needs
+   - Blockchain interactions required
+   - State management approach
+   - UI/UX considerations
+   - Testing requirements
+4. Identify potential edge cases or performance considerations
+5. Create complete component files based on your feedback
+
+## Input Requirements
+
+Before running this command, it helps to prepare:
+1. The name of your component
+2. The purpose of the component (UI element, data display, form, etc.)
+3. Any Tevm/blockchain functionality it needs to interact with
+4. Props the component should accept
+5. Where the component will be used
+
+## Process
+
+I'll help you create a React component that follows best practices by:
+
+1. Analyzing your requirements to determine the appropriate component structure
+2. Creating properly typed component files with TypeScript
+3. Implementing Tevm-specific functionality (contract interactions, state reading, etc.)
+4. Adding proper documentation with JSDoc comments
+5. Creating tests for the component
+
+## Component Guide
+
+### Step 1: Define Component Structure
+
+React components in Tevm applications typically follow this structure:
+
+```
+components/
+  └── ComponentName/
+      ├── ComponentName.tsx          # Main component implementation
+      ├── ComponentName.test.tsx     # Component tests
+      ├── ComponentName.module.css   # Styling (if needed)
+      └── index.ts                   # Re-export for cleaner imports
+```
+
+### Step 2: Create the Component
+
+Here's a template for a typical component:
+
+```tsx
+// ComponentName.tsx
+import { useState, useEffect } from 'react'
+import type { FC } from 'react'
+import { useMemoryClient } from 'tevm/memory-client'
+import styles from './ComponentName.module.css'
+
+/**
+ * Props for the ComponentName component
+ */
+export interface ComponentNameProps {
+  /** Description of prop1 */
+  prop1: string
+  /** Description of prop2, which is optional */
+  prop2?: number
+  /** Callback function */
+  onChange?: (value: string) => void
+}
+
+/**
+ * ComponentName - Brief description of what this component does
+ * 
+ * Detailed description of the component's purpose, usage context,
+ * and any important behaviors or limitations.
+ * 
+ * @example
+ * ```tsx
+ * <ComponentName 
+ *   prop1="example"
+ *   prop2={42}
+ *   onChange={(value) => console.log(value)}
+ * />
+ * ```
+ */
+export const ComponentName: FC<ComponentNameProps> = ({
+  prop1,
+  prop2 = 0, // Default value for optional prop
+  onChange,
+}) => {
+  const [state, setState] = useState('')
+  const client = useMemoryClient()
+  
+  useEffect(() => {
+    // Example effect to interact with Tevm
+    const fetchData = async () => {
+      try {
+        // Example contract interaction
+        const result = await client.getBalance({
+          address: prop1,
+        })
+        
+        setState(result.toString())
+        onChange?.(result.toString())
+      } catch (error) {
+        console.error('Error in ComponentName:', error)
+      }
+    }
+    
+    fetchData()
+  }, [prop1, client, onChange])
+  
+  return (
+    <div className={styles.container}>
+      <h2>{prop1}</h2>
+      {prop2 > 0 && <p>Value: {prop2}</p>}
+      <p>Balance: {state}</p>
+    </div>
+  )
+}
+```
+
+### Step 3: Create the Tests
+
+```tsx
+// ComponentName.test.tsx
+import { render, screen, waitFor } from '@testing-library/react'
+import { ComponentName } from './ComponentName'
+import { MemoryClientProvider, createMemoryClient } from 'tevm/memory-client'
+
+// Mock the Tevm client
+jest.mock('tevm/memory-client', () => {
+  const actual = jest.requireActual('tevm/memory-client')
+  return {
+    ...actual,
+    useMemoryClient: () => ({
+      getBalance: jest.fn().mockResolvedValue(BigInt(1000000000000000000))
+    })
+  }
+})
+
+describe('ComponentName', () => {
+  const client = createMemoryClient()
+  
+  it('renders with required props', async () => {
+    render(
+      <MemoryClientProvider client={client}>
+        <ComponentName prop1="0x123..." />
+      </MemoryClientProvider>
+    )
+    
+    expect(screen.getByText('0x123...')).toBeInTheDocument()
+    
+    await waitFor(() => {
+      expect(screen.getByText('Balance: 1000000000000000000')).toBeInTheDocument()
+    })
+  })
+  
+  it('calls onChange when data is loaded', async () => {
+    const onChange = jest.fn()
+    
+    render(
+      <MemoryClientProvider client={client}>
+        <ComponentName 
+          prop1="0x123..." 
+          onChange={onChange} 
+        />
+      </MemoryClientProvider>
+    )
+    
+    await waitFor(() => {
+      expect(onChange).toHaveBeenCalledWith('1000000000000000000')
+    })
+  })
+})
+```
+
+### Step 4: Create the Index File
+
+```ts
+// index.ts
+export * from './ComponentName'
+```
+
+### Step 5: Create CSS Module (if needed)
+
+```css
+/* ComponentName.module.css */
+.container {
+  padding: 1rem;
+  border: 1px solid #eaeaea;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+```
+
+## Advanced Integration Patterns
+
+### Contract Interaction Component
+
+For components that interact with specific contracts:
+
+```tsx
+import { useContract } from '../hooks/useContract'
+import { MyContractAbi } from '../contracts/MyContract'
+
+export const ContractComponent: FC<{ address: string }> = ({ address }) => {
+  const contract = useContract({
+    address,
+    abi: MyContractAbi,
+  })
+  
+  const [data, setData] = useState(null)
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await contract.read.myMethod()
+      setData(result)
+    }
+    
+    fetchData()
+  }, [contract])
+  
+  const handleAction = async () => {
+    await contract.write.performAction()
+  }
+  
+  return (
+    <div>
+      <p>Data: {data?.toString()}</p>
+      <button onClick={handleAction}>Perform Action</button>
+    </div>
+  )
+}
+```
+
+### Block Data Component
+
+For components that display block or transaction data:
+
+```tsx
+import { useBlock } from '../hooks/useBlock'
+
+export const BlockInfo: FC<{ blockNumber?: bigint }> = ({ blockNumber }) => {
+  const { data, loading, error } = useBlock({ blockNumber })
+  
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
+  
+  return (
+    <div>
+      <h3>Block {data.number.toString()}</h3>
+      <p>Timestamp: {new Date(Number(data.timestamp) * 1000).toLocaleString()}</p>
+      <p>Gas Used: {data.gasUsed.toString()}</p>
+    </div>
+  )
+}
+```
+
+## Output Format
+
+For your component, I'll provide:
+1. All necessary files with complete implementations
+2. Explanations of key design decisions
+3. Integration guidance for your specific use case
+4. Testing strategy recommendations
+
+## Examples
+
+### Example 1: Balance Display Component
+
+A simple component that displays an account's balance:
+
+```tsx
+export const BalanceDisplay: FC<{ address: string }> = ({ address }) => {
+  const client = useMemoryClient()
+  const [balance, setBalance] = useState<bigint>(BigInt(0))
+  
+  useEffect(() => {
+    const getBalance = async () => {
+      const result = await client.getBalance({ address })
+      setBalance(result)
+    }
+    
+    getBalance()
+  }, [address, client])
+  
+  return (
+    <div>
+      <p>Address: {address}</p>
+      <p>Balance: {formatEther(balance)} ETH</p>
+    </div>
+  )
+}
+```
+
+### Example 2: Transaction Form Component
+
+A form component for submitting transactions:
+
+```tsx
+export const TransactionForm: FC<{ onSubmit?: (txHash: string) => void }> = ({ onSubmit }) => {
+  const client = useMemoryClient()
+  const [to, setTo] = useState('')
+  const [value, setValue] = useState('')
+  const [sending, setSending] = useState(false)
+  
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    if (!to) return
+    
+    try {
+      setSending(true)
+      const txHash = await client.sendTransaction({
+        to,
+        value: parseEther(value || '0'),
+      })
+      
+      onSubmit?.(txHash)
+    } catch (error) {
+      console.error('Transaction error:', error)
+    } finally {
+      setSending(false)
+    }
+  }
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="to">To Address:</label>
+        <input
+          id="to"
+          value={to}
+          onChange={(e) => setTo(e.target.value)}
+          placeholder="0x..."
+          required
+        />
+      </div>
+      
+      <div>
+        <label htmlFor="value">Amount (ETH):</label>
+        <input
+          id="value"
+          type="number"
+          step="0.001"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="0.0"
+        />
+      </div>
+      
+      <button type="submit" disabled={sending}>
+        {sending ? 'Sending...' : 'Send Transaction'}
+      </button>
+    </form>
+  )
+}
+```
+
+## Evaluation Criteria
+
+A successful component should:
+
+1. Follow React best practices (proper hooks usage, memoization when needed)
+2. Be fully typed with TypeScript
+3. Include comprehensive JSDoc comments
+4. Handle loading, error, and empty states
+5. Be properly tested
+6. Follow project styling conventions
+7. Be accessible (semantic HTML, ARIA attributes when needed)
+
+What type of component would you like to create today?

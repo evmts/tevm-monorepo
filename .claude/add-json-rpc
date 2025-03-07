@@ -8,9 +8,24 @@ This command guides you through implementing a new JSON-RPC method for Tevm, fol
 claude < .claude/add-json-rpc
 ```
 
+## Interactive Process
+
+When you run this command, I will:
+
+1. First, ask you to describe the JSON-RPC method you want to implement
+2. Rephrase your requirements in my own words to confirm understanding
+3. Ask clarifying questions about any ambiguities in:
+   - Method naming (namespace and convention)
+   - Parameter structure and validation requirements
+   - Return value format
+   - Error handling scenarios
+   - Integration points with other Tevm components
+4. Identify potential edge cases or performance considerations
+5. Create implementation files based on your confirmed specifications
+
 ## Input Requirements
 
-Before running this command, prepare:
+Before running this command, it helps to prepare:
 1. The name of your JSON-RPC method (e.g., `tevm_myMethod`, `anvil_specialAction`)
 2. A clear description of what the method does
 3. The parameters it should accept
