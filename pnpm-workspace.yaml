@@ -1,7 +1,6 @@
 packages:
   - bundler-packages/*
   - bundler
-  - cli
   - configs/*
   - docs/*
   - examples/*
