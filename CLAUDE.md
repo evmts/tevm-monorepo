@@ -257,6 +257,15 @@ The way to run any job is with nx. For example, to run tests in the @tevm/action
 pnpm nx run test:coverage 
 ```
 
+#### FILE_BASED_TESTS
+
+- **IMPORTANT** Make sure the tests especially snapshot tests are not dependent on file system e.g. `/Users/williamcory/tevm-monorepo` shouldn't be in a snapshot
+- If this is the case you can fix it in any way possible including changing the path to a relative path
+- For error/inline snapshots consider using error messages or patterns that don't include absolute paths
+- Use toMatchInlineSnapshot with generic patterns when possible to avoid path dependencies
+- For mocked modules, use patterns that focus on the behavior, not path-specific information
+- When upgrading dependencies (like viem), test snapshots may need to be updated to match the new version strings
+
 ## Nx
 
 We use nx for repo management.

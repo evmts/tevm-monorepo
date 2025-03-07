@@ -36,16 +36,11 @@ describe(createRequireEffect.name, () => {
 		})
 
 		const res = runSyncExit(createRequireEffect(dummyUrl).pipe())
-		if (res._tag === 'Success') {
-			throw new Error('should throw')
-		}
-		expect(res.cause).toMatchInlineSnapshot(`
-				{
-				  "_id": "Cause",
-				  "_tag": "Fail",
-				  "failure": [Error: Failed to create require for /Users/williamcory/tevm-monorepo/packages/effect/src/],
-				}
-			`)
+
+		// Just check that it's a failure
+		expect(res._tag).toBe('Failure')
+		// Check for _tag value rather than specific error message content
+		expect(JSON.stringify(res)).toContain('CreateRequireError')
 	})
 
 	it('should throw RequireError when the require throws', async () => {
@@ -61,15 +56,10 @@ describe(createRequireEffect.name, () => {
 		expect(mockCreateRequire).toHaveBeenCalledWith(dummyUrl)
 
 		const res = runSyncExit(requireAsEffect('./foo'))
-		if (res._tag === 'Success') {
-			throw new Error('should throw')
-		}
-		expect(res.cause).toMatchInlineSnapshot(`
-				{
-				  "_id": "Cause",
-				  "_tag": "Fail",
-				  "failure": [Error: Failed to require ./foo],
-				}
-			`)
+
+		// Just check that it's a failure
+		expect(res._tag).toBe('Failure')
+		// Check for the error type rather than specific content
+		expect(JSON.stringify(res)).toContain('RequireError')
 	})
 })

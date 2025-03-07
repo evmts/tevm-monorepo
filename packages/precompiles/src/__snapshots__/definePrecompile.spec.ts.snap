@@ -49,7 +49,7 @@ exports[`defineCall > should correctly process logs 2`] = `
 Expected length (params): 1
 Given length (values): 2
 
-Version: 2.21.1",
+Version: viem@2.23.5",
   },
   "executionGasUsed": 0n,
   "returnValue": Uint8Array [],
@@ -97,112 +97,6 @@ exports[`defineCall > should correctly process logs 3`] = `
 `;
 
 exports[`defineCall > should handle errors in the catch block 1`] = `
-{
-  "error": "revert",
-  "errorType": "EvmError",
-  "message": "Test Error",
-}
-`;
-
-exports[`defineCall should correctly process logs 1`] = `
-{
-  "executionGasUsed": 0n,
-  "returnValue": Uint8Array [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-  ],
-}
-`;
-
-exports[`defineCall should correctly process logs 2`] = `
-{
-  "exceptionError": {
-    "error": "revert",
-    "errorType": "EvmError",
-    "message": 
-"ABI encoding params/values length mismatch.
-Expected length (params): 1
-Given length (values): 2
-
-Version: 2.21.1"
-,
-  },
-  "executionGasUsed": 0n,
-  "returnValue": Uint8Array [],
-}
-`;
-
-exports[`defineCall should correctly process logs 3`] = `
-{
-  "executionGasUsed": 0n,
-  "returnValue": Uint8Array [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    5,
-  ],
-}
-`;
-
-exports[`defineCall should handle errors in the catch block 1`] = `
 {
   "error": "revert",
   "errorType": "EvmError",

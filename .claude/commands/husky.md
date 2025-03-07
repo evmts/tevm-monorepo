@@ -62,7 +62,11 @@ These commands from step 2 check typescript types and when they are broken it's 
 If the proof of why your typescript type isn't already in context or obvious it's best to look for the typescript type for confirmation before attempting to fix it. THis includes looking for it in node_modules. If it's a tevm package it's in this monorepo. 
 If you fail more than a few times here we should look at documentation
 
-### pnpm nx-run-many --targets=test:coverage
+### Run tests
+
+To run the tests run the nx command for test:coverage. NEVER RUN normal test command as that command will time out. Run on individual packages in the same order the previous command ran the packages 1 by 1.
+
+Run tests 1 package at a time to make them easier to debug
 
 We use vite for all our tests.
 
