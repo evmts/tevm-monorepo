@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: MethodNotFoundErrorParameters
 
 > **MethodNotFoundErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/MethodNotFoundError.d.ts:51
 
 Parameters for constructing a MethodNotFoundError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a MethodNotFoundError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/MethodNotFoundError.d.ts:51

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_mining"`, `boolean`, `string` \| `number`\>
 
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:120
+
 JSON-RPC response for `eth_mining` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcResponse.d.ts:120

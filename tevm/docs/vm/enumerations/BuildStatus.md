@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Enumeration: BuildStatus
 
+Defined in: packages/vm/types/actions/BuildStatus.d.ts:1
+
 ## Enumeration Members
 
 ### Build
 
 > **Build**: `"build"`
 
-#### Defined in
-
-packages/vm/types/actions/BuildStatus.d.ts:3
+Defined in: packages/vm/types/actions/BuildStatus.d.ts:3
 
 ***
 
@@ -22,9 +22,7 @@ packages/vm/types/actions/BuildStatus.d.ts:3
 
 > **Pending**: `"pending"`
 
-#### Defined in
-
-packages/vm/types/actions/BuildStatus.d.ts:4
+Defined in: packages/vm/types/actions/BuildStatus.d.ts:4
 
 ***
 
@@ -32,6 +30,4 @@ packages/vm/types/actions/BuildStatus.d.ts:4
 
 > **Reverted**: `"reverted"`
 
-#### Defined in
-
-packages/vm/types/actions/BuildStatus.d.ts:2
+Defined in: packages/vm/types/actions/BuildStatus.d.ts:2

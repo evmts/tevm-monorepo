@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **invariant**(`condition`, `error`?): `asserts condition`
 
+Defined in: packages/utils/types/invariant.d.ts:1
+
 ## Parameters
 
-• **condition**: `any`
+### condition
 
-• **error?**: `Error`
+`any`
+
+### error?
+
+`Error`
 
 ## Returns
 
 `asserts condition`
-
-## Defined in
-
-packages/utils/types/invariant.d.ts:1

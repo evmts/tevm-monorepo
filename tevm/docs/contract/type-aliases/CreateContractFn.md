@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CreateContractFn()
 
 > **CreateContractFn**: \<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`{ name, humanReadableAbi, bytecode, deployedBytecode, code, }`) => [`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+
+Defined in: packages/contract/types/CreateContractFn.d.ts:76
 
 Type of `createContract` factory function.
 Creates a tevm Contract instance from a human readable ABI or JSON ABI.
@@ -41,7 +43,9 @@ The runtime bytecode type (optional)
 
 ## Parameters
 
-• **\{ name, humanReadableAbi, bytecode, deployedBytecode, code, \}**: [`CreateContractParams`](../../index/type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
+### \{ name, humanReadableAbi, bytecode, deployedBytecode, code, \}
+
+[`CreateContractParams`](../../index/type-aliases/CreateContractParams.md)\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
 ## Returns
 
@@ -107,7 +111,3 @@ const contract = createContract({
   code: '0x608060405234801561001057600080fd5b50600436106100885760003560e01c806370a082311161005b57806370a08231146101bc',  // Example runtime code (truncated)
 })
 ```
-
-## Defined in
-
-packages/contract/types/CreateContractFn.d.ts:76

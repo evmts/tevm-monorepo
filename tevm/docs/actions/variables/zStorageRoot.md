@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > `const` **zStorageRoot**: `z.ZodEffects`\<`z.ZodString`, `string`, `string`\>
 
+Defined in: packages/actions/types/internal/zod/zStorageRoot.d.ts:4
+
 Zod validator for valid ethereum storage root
-
-## Defined in
-
-packages/actions/types/internal/zod/zStorageRoot.d.ts:4

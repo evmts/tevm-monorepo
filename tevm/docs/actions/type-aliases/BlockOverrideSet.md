@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: BlockOverrideSet
 
 > **BlockOverrideSet**: `object`
+
+Defined in: packages/actions/types/common/BlockOverrideSet.d.ts:7
 
 The fields of this optional object customize the block as part of which the call is simulated. The object contains the following fields:
 This option cannot be used when `createTransaction` is set to `true`
@@ -49,7 +51,3 @@ Fake block number
 > `optional` **time**: `bigint`
 
 Fake block timestamp
-
-## Defined in
-
-packages/actions/types/common/BlockOverrideSet.d.ts:7

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **EthGetFilterChangesParams**: `object`
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:117
+
 Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
 ## Type declaration
@@ -15,7 +17,3 @@ Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 ### filterId
 
 > `readonly` **filterId**: [`Hex`](Hex.md)
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:117

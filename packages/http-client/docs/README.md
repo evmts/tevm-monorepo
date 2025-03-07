@@ -1,4 +1,4 @@
-**@tevm/http-client** • [**Docs**](globals.md)
+**@tevm/http-client**
 
 ***
 

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **ExecutionErrorParameters**: `object`
 
+Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:55
+
 Parameters for constructing an ExecutionError.
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `EvmError`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing an ExecutionError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ExecutionErrorError.d.ts:55

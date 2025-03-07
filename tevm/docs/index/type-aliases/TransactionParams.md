@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TransactionParams
 
 > **TransactionParams**: `object`
+
+Defined in: packages/actions/types/common/TransactionParams.d.ts:6
 
 A transaction request object
 
@@ -39,7 +41,3 @@ A transaction request object
 ### value?
 
 > `readonly` `optional` **value**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-## Defined in
-
-packages/actions/types/common/TransactionParams.d.ts:6

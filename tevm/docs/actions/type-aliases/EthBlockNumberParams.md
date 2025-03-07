@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthBlockNumberParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:10
+
 Based on the JSON-RPC request for `eth_blockNumber` procedure (no params)
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:10

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,12 +6,10 @@
 
 # Type Alias: TestRpcSchema\<TMode\>
 
-> **TestRpcSchema**\<`TMode`\>: [`object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`]
+> **TestRpcSchema**\<`TMode`\>: \[`object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`, `object`\]
+
+Defined in: packages/decorators/dist/index.d.ts:332
 
 ## Type Parameters
 
 • **TMode** *extends* `string`
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:332

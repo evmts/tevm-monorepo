@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetFilterLogsHandler**: (`request`) => `Promise`\<[`EthGetFilterLogsResult`](EthGetFilterLogsResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:18
+
 ## Parameters
 
-• **request**: [`EthGetFilterLogsParams`](EthGetFilterLogsParams.md)
+### request
+
+[`EthGetFilterLogsParams`](EthGetFilterLogsParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetFilterLogsResult`](EthGetFilterLogsResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:18

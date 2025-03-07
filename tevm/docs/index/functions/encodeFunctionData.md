@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,22 +6,22 @@
 
 # Function: encodeFunctionData()
 
-> **encodeFunctionData**\<`abi`, `functionName`\>(`parameters`): `EncodeFunctionDataReturnType`
+> **encodeFunctionData**\<`abi`, `functionName`\>(`parameters`): `` `0x${string}` ``
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/abi/encodeFunctionData.d.ts:27
 
 ## Type Parameters
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
 
 • **functionName** *extends* `undefined` \| `string` = `undefined`
 
 ## Parameters
 
-• **parameters**: [`EncodeFunctionDataParameters`](../type-aliases/EncodeFunctionDataParameters.md)\<`abi`, `functionName`, `abi` *extends* `Abi` ? `Abi` *extends* `abi`\<`abi`\> ? `true` : [`Extract`\<`abi`\<`abi`\>\[`number`\], `object`\>] *extends* [`never`] ? `false` : `true` : `true`, `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` *extends* [`ContractFunctionName`](../type-aliases/ContractFunctionName.md)\<`abi`, `AbiStateMutability`\> ? `functionName`\<`functionName`\> : [`ContractFunctionName`](../type-aliases/ContractFunctionName.md)\<`abi`, `AbiStateMutability`\>\>, [`ContractFunctionName`](../type-aliases/ContractFunctionName.md)\<`abi`, `AbiStateMutability`\>\>
+### parameters
+
+[`EncodeFunctionDataParameters`](../type-aliases/EncodeFunctionDataParameters.md)\<`abi`, `functionName`\>
 
 ## Returns
 
-`EncodeFunctionDataReturnType`
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/abi/encodeFunctionData.d.ts:27
+`` `0x${string}` ``

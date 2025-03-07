@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [utils](../README.md) / TypeOutput
 
 # Enumeration: TypeOutput
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:18
 
 Type output options
 
@@ -14,9 +16,7 @@ Type output options
 
 > **BigInt**: `1`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:20
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:20
 
 ***
 
@@ -24,9 +24,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **Number**: `0`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:19
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:19
 
 ***
 
@@ -34,9 +32,7 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **PrefixedHexString**: `3`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:22
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:22
 
 ***
 
@@ -44,6 +40,4 @@ node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/e
 
 > **Uint8Array**: `2`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:21
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:21

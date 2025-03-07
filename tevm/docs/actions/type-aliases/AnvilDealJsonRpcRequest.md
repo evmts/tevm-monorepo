@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: AnvilDealJsonRpcRequest
 
-> **AnvilDealJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_deal"`, [`SerializeToJson`\<[`AnvilDealParams`](AnvilDealParams.md)\>]\>
+> **AnvilDealJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_deal"`, \[`SerializeToJson`\<[`AnvilDealParams`](AnvilDealParams.md)\>\]\>
+
+Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:78
 
 JSON-RPC request for `anvil_deal` method
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:78

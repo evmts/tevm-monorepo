@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [block](../README.md) / BlockData
 
 # Interface: BlockData
+
+Defined in: packages/block/types/types.d.ts:131
 
 A block's data.
 
@@ -14,11 +16,9 @@ A block's data.
 
 > `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
+Defined in: packages/block/types/types.d.ts:143
+
 EIP-6800: Verkle Proof Data (experimental)
-
-#### Defined in
-
-packages/block/types/types.d.ts:143
 
 ***
 
@@ -26,11 +26,9 @@ packages/block/types/types.d.ts:143
 
 > `optional` **header**: [`HeaderData`](HeaderData.md)
 
+Defined in: packages/block/types/types.d.ts:135
+
 Header data for the block
-
-#### Defined in
-
-packages/block/types/types.d.ts:135
 
 ***
 
@@ -38,9 +36,7 @@ packages/block/types/types.d.ts:135
 
 > `optional` **requests**: [`ClRequest`](../classes/ClRequest.md)[]
 
-#### Defined in
-
-packages/block/types/types.d.ts:139
+Defined in: packages/block/types/types.d.ts:139
 
 ***
 
@@ -48,9 +44,7 @@ packages/block/types/types.d.ts:139
 
 > `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| `EOACodeEIP7702TxData`)[]
 
-#### Defined in
-
-packages/block/types/types.d.ts:136
+Defined in: packages/block/types/types.d.ts:136
 
 ***
 
@@ -58,9 +52,7 @@ packages/block/types/types.d.ts:136
 
 > `optional` **uncleHeaders**: [`HeaderData`](HeaderData.md)[]
 
-#### Defined in
-
-packages/block/types/types.d.ts:137
+Defined in: packages/block/types/types.d.ts:137
 
 ***
 
@@ -68,6 +60,4 @@ packages/block/types/types.d.ts:137
 
 > `optional` **withdrawals**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
 
-#### Defined in
-
-packages/block/types/types.d.ts:138
+Defined in: packages/block/types/types.d.ts:138

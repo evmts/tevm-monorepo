@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **DeepCopyError**: [`MisconfiguredClientError`](../../errors/classes/MisconfiguredClientError.md)
 
-## Defined in
-
-packages/vm/types/actions/deepCopy.d.ts:2
+Defined in: packages/vm/types/actions/deepCopy.d.ts:2

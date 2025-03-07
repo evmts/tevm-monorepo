@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGetStorageAtResult**: [`Hex`](Hex.md)
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:79
+
 JSON-RPC response for `eth_getStorageAt` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:79

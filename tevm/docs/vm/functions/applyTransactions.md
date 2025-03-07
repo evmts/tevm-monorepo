@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: applyTransactions()
 
-> **applyTransactions**(`vm`): (`block`, `opts`) => `Promise`\<`object`\>
+> **applyTransactions**(`vm`): (`block`, `opts`) => `Promise`\<\{ `bloom`: `Bloom`; `gasUsed`: `bigint`; `preimages`: `Map`\<`string`, `Uint8Array`\<`ArrayBufferLike`\>\>; `receipts`: [`TxReceipt`](../type-aliases/TxReceipt.md)[]; `receiptsRoot`: `Uint8Array`\<`ArrayBufferLike`\>; `results`: [`RunTxResult`](../interfaces/RunTxResult.md)[]; \}\>
+
+Defined in: packages/vm/types/actions/applyTransactions.d.ts:10
 
 Applies the transactions in a block, computing the receipts
 as well as gas usage and some relevant data. This method is
@@ -14,7 +16,9 @@ side-effect free (it doesn't modify the block nor the state).
 
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
+
+`BaseVm`
 
 ## Returns
 
@@ -22,38 +26,14 @@ side-effect free (it doesn't modify the block nor the state).
 
 ### Parameters
 
-• **block**: [`Block`](../../block/classes/Block.md)
+#### block
 
-• **opts**: [`RunBlockOpts`](../interfaces/RunBlockOpts.md)
+[`Block`](../../block/classes/Block.md)
+
+#### opts
+
+[`RunBlockOpts`](../interfaces/RunBlockOpts.md)
 
 ### Returns
 
-`Promise`\<`object`\>
-
-#### bloom
-
-> **bloom**: `Bloom`
-
-#### gasUsed
-
-> **gasUsed**: `bigint`
-
-#### preimages
-
-> **preimages**: `Map`\<`string`, `Uint8Array`\>
-
-#### receipts
-
-> **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
-
-#### receiptsRoot
-
-> **receiptsRoot**: `Uint8Array`
-
-#### results
-
-> **results**: [`RunTxResult`](../interfaces/RunTxResult.md)[]
-
-## Defined in
-
-packages/vm/types/actions/applyTransactions.d.ts:10
+`Promise`\<\{ `bloom`: `Bloom`; `gasUsed`: `bigint`; `preimages`: `Map`\<`string`, `Uint8Array`\<`ArrayBufferLike`\>\>; `receipts`: [`TxReceipt`](../type-aliases/TxReceipt.md)[]; `receiptsRoot`: `Uint8Array`\<`ArrayBufferLike`\>; `results`: [`RunTxResult`](../interfaces/RunTxResult.md)[]; \}\>

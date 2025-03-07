@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,14 +6,12 @@
 
 # tx
 
-## Index
-
-### Enumerations
+## Enumerations
 
 - [Capability](enumerations/Capability.md)
 - [TransactionType](enumerations/TransactionType.md)
 
-### Classes
+## Classes
 
 - [AccessListEIP2930Transaction](classes/AccessListEIP2930Transaction.md)
 - [BlobEIP4844Transaction](classes/BlobEIP4844Transaction.md)
@@ -21,7 +19,7 @@
 - [LegacyTransaction](classes/LegacyTransaction.md)
 - [TransactionFactory](classes/TransactionFactory.md)
 
-### Interfaces
+## Interfaces
 
 - [EIP1559CompatibleTx](interfaces/EIP1559CompatibleTx.md)
 - [EIP4844CompatibleTx](interfaces/EIP4844CompatibleTx.md)
@@ -31,13 +29,13 @@
 - [TxData](interfaces/TxData.md)
 - [TxOptions](interfaces/TxOptions.md)
 
-### Type Aliases
+## Type Aliases
 
 - [AccessList](type-aliases/AccessList.md)
 - [AccessListItem](type-aliases/AccessListItem.md)
 - [TypedTransaction](type-aliases/TypedTransaction.md)
 
-### Functions
+## Functions
 
 - [createImpersonatedTx](functions/createImpersonatedTx.md)
 - [isAccessListEIP2930Tx](functions/isAccessListEIP2930Tx.md)

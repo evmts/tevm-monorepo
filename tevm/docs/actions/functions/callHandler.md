@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: callHandler()
 
-> **callHandler**(`client`, `__namedParameters`?): `CallHandler`
+> **callHandler**(`client`, `__namedParameters`?): [`CallHandler`](../type-aliases/CallHandler.md)
+
+Defined in: packages/actions/types/Call/callHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **\_\_namedParameters?**
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **\_\_namedParameters.throwOnFail?**: `boolean`
+### \_\_namedParameters?
+
+#### throwOnFail?
+
+`boolean`
 
 ## Returns
 
-`CallHandler`
-
-## Defined in
-
-packages/actions/types/Call/callHandler.d.ts:1
+[`CallHandler`](../type-aliases/CallHandler.md)

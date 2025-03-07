@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **DebugTraceTransactionHandler**: (`params`) => `Promise`\<[`DebugTraceTransactionResult`](DebugTraceTransactionResult.md)\>
 
+Defined in: packages/actions/types/debug/DebugHandler.d.ts:3
+
 ## Parameters
 
-• **params**: [`DebugTraceTransactionParams`](DebugTraceTransactionParams.md)\<`boolean`\>
+### params
+
+[`DebugTraceTransactionParams`](DebugTraceTransactionParams.md)\<`boolean`\>
 
 ## Returns
 
 `Promise`\<[`DebugTraceTransactionResult`](DebugTraceTransactionResult.md)\>
-
-## Defined in
-
-packages/actions/types/debug/DebugHandler.d.ts:3

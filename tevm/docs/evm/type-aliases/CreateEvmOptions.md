@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CreateEvmOptions
 
 > **CreateEvmOptions**: `object`
+
+Defined in: packages/evm/dist/index.d.ts:107
 
 Options for [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
 
@@ -147,7 +149,3 @@ The EVM is normally encapsolated by both `@tevm/vm` Vm, TevmNode, and MemoryClie
  - [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
  - [TevmNode](https://tevm.sh/reference/tevm/node/functions/createbaseclient/)
  - [Vm](https://tevm.sh/reference/tevm/vm/functions/createvm/)
-
-## Defined in
-
-packages/evm/dist/index.d.ts:107

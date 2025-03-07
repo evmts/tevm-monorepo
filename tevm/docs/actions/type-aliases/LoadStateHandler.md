@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,17 @@
 
 > **LoadStateHandler**: (`params`) => `Promise`\<[`LoadStateResult`](../../index/type-aliases/LoadStateResult.md)\>
 
+Defined in: packages/actions/types/LoadState/LoadStateHandlerType.d.ts:39
+
 Loads a previously dumped state into the VM.
 
 State can be dumped as follows:
 
 ## Parameters
 
-• **params**: [`LoadStateParams`](LoadStateParams.md)
+### params
+
+[`LoadStateParams`](LoadStateParams.md)
 
 The parameters for loading the state.
 
@@ -53,7 +57,3 @@ await loadState({ state })
 ```
 
 Note: This handler is intended for use with the low-level TEVM TevmNode, unlike `tevmLoadState` which is a higher-level API function.
-
-## Defined in
-
-packages/actions/types/LoadState/LoadStateHandlerType.d.ts:39

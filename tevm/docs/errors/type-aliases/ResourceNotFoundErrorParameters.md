@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ResourceNotFoundErrorParameters
 
 > **ResourceNotFoundErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/ResourceNotFoundError.d.ts:50
 
 Parameters for constructing a ResourceNotFoundError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a ResourceNotFoundError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ResourceNotFoundError.d.ts:50

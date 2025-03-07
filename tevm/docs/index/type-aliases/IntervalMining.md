@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: IntervalMining
 
 > **IntervalMining**: `object`
+
+Defined in: packages/node/dist/index.d.ts:106
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### type
 
 > **type**: `"interval"`
-
-## Defined in
-
-packages/node/dist/index.d.ts:109

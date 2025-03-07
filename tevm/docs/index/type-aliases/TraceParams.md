@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TraceParams
 
 > **TraceParams**: `object`
+
+Defined in: packages/actions/types/debug/DebugParams.d.ts:7
 
 Config params for trace calls
 
@@ -36,7 +38,3 @@ Currently only callTracer supported
 > `readonly` `optional` **tracerConfig**: `object`
 
 object to specify configurations for the tracer
-
-## Defined in
-
-packages/actions/types/debug/DebugParams.d.ts:7

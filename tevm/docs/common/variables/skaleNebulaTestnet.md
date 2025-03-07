@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: skaleNebulaTestnet
 
-> `const` **skaleNebulaTestnet**: `Common`
+> `const` **skaleNebulaTestnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/skaleNebulaTestnet.d.ts:21
 
 Creates a common configuration for the skaleNebulaTestnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/skaleNebulaTestnet.d.ts:21

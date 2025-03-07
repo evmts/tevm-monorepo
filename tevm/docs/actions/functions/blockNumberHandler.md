@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: blockNumberHandler()
 
-> **blockNumberHandler**(`client`): `EthBlockNumberHandler`
+> **blockNumberHandler**(`client`): [`EthBlockNumberHandler`](../type-aliases/EthBlockNumberHandler.md)
+
+Defined in: packages/actions/types/eth/blockNumberHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthBlockNumberHandler`
-
-## Defined in
-
-packages/actions/types/eth/blockNumberHandler.d.ts:1
+[`EthBlockNumberHandler`](../type-aliases/EthBlockNumberHandler.md)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Log
 
 > **Log**: `object`
+
+Defined in: packages/actions/types/common/Log.d.ts:6
 
 Generic log information
 
@@ -23,7 +25,3 @@ Generic log information
 ### topics
 
 > `readonly` **topics**: [`Hex`](Hex.md)[]
-
-## Defined in
-
-packages/actions/types/common/Log.d.ts:6

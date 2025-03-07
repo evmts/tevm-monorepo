@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: kromaSepolia
 
-> `const` **kromaSepolia**: `Common`
+> `const` **kromaSepolia**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/kromaSepolia.d.ts:21
 
 Creates a common configuration for the kromaSepolia chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/kromaSepolia.d.ts:21

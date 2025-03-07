@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **Artifacts**: `Artifacts`
 
+Defined in: bundler-packages/compiler/types/src/index.d.ts:6
+
 ./types.ts
-
-## Defined in
-
-bundler-packages/compiler/types/src/index.d.ts:6

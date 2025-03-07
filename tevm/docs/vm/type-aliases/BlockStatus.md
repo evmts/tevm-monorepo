@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # Type Alias: BlockStatus
 
-> **BlockStatus**: `object` \| `object`
+> **BlockStatus**: \{ `status`: [`Pending`](../enumerations/BuildStatus.md#pending) \| [`Reverted`](../enumerations/BuildStatus.md#reverted); \} \| \{ `block`: [`Block`](../../block/classes/Block.md); `status`: [`Build`](../enumerations/BuildStatus.md#build); \}
 
-## Defined in
-
-packages/vm/types/actions/BlockStatus.d.ts:3
+Defined in: packages/vm/types/actions/BlockStatus.d.ts:3

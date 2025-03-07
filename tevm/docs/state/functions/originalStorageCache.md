@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,20 @@
 
 > **originalStorageCache**(`baseState`, `skipFetchingFromFork`?): `object`
 
+Defined in: packages/state/dist/index.d.ts:379
+
 Commits the current change-set to the instance since the
 last call to checkpoint.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -31,14 +37,14 @@ last call to checkpoint.
 
 #### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+##### address
 
-• **key**: `Uint8Array`
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+##### key
+
+`Uint8Array`
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:379
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

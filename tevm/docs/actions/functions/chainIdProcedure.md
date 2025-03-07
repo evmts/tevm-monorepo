@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: chainIdProcedure()
 
-> **chainIdProcedure**(`baseClient`): `EthChainIdJsonRpcProcedure`
+> **chainIdProcedure**(`baseClient`): [`EthChainIdJsonRpcProcedure`](../type-aliases/EthChainIdJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/chainIdProcedure.d.ts:1
 
 ## Parameters
 
-• **baseClient**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### baseClient
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthChainIdJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/chainIdProcedure.d.ts:1
+[`EthChainIdJsonRpcProcedure`](../type-aliases/EthChainIdJsonRpcProcedure.md)

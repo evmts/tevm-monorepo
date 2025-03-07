@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Chain
 
 > **Chain**: `object` & `BaseChain` & `object`
+
+Defined in: packages/blockchain/types/Chain.d.ts:14
 
 Blockchain
 
@@ -47,7 +49,9 @@ deleted and any encountered heads are set to the parent block.
 
 #### Parameters
 
-• **blockHash**: `Uint8Array`
+##### blockHash
+
+`Uint8Array`
 
 The hash of the block to be deleted
 
@@ -61,7 +65,9 @@ Returns a block by its hash or number.
 
 #### Parameters
 
-• **blockId**: `number` \| `bigint` \| `Uint8Array`
+##### blockId
+
+`number` | `bigint` | `Uint8Array`\<`ArrayBufferLike`\>
 
 #### Returns
 
@@ -80,7 +86,9 @@ Gets block given one of the following inputs:
 
 #### Parameters
 
-• **blockTag**: `number` \| `bigint` \| \`0x$\{string\}\` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `Uint8Array`
+##### blockTag
+
+`number` | `bigint` | `` `0x${string}` `` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | `Uint8Array`\<`ArrayBufferLike`\>
 
 #### Returns
 
@@ -108,7 +116,9 @@ Returns the specified iterator head.
 
 #### Parameters
 
-• **name?**: `string`
+##### name?
+
+`string`
 
 Optional name of the iterator head (default: 'vm')
 
@@ -122,9 +132,13 @@ Gets total difficulty for a block specified by hash and number
 
 #### Parameters
 
-• **hash**: `Uint8Array`
+##### hash
 
-• **number?**: `bigint`
+`Uint8Array`
+
+##### number?
+
+`bigint`
 
 #### Returns
 
@@ -137,20 +151,28 @@ the onBlock function on each block.
 
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 Name of the state root head
 
-• **onBlock**: `OnBlock`
+##### onBlock
+
+`OnBlock`
 
 Function called on each block with params (block: Block,
 
-• **maxBlocks?**: `number`
+##### maxBlocks?
+
+`number`
 
 optional maximum number of blocks to iterate through
 reorg: boolean)
 
-• **releaseLockOnCallback?**: `boolean`
+##### releaseLockOnCallback?
+
+`boolean`
 
 #### Returns
 
@@ -162,7 +184,9 @@ Adds a block to the blockchain.
 
 #### Parameters
 
-• **block**: [`Block`](../../block/classes/Block.md)
+##### block
+
+[`Block`](../../block/classes/Block.md)
 
 The block to be added to the blockchain.
 
@@ -177,11 +201,15 @@ When calling the iterator, the iterator will start running the first child block
 
 #### Parameters
 
-• **tag**: `string`
+##### tag
+
+`string`
 
 The tag to save the headHash to
 
-• **headHash**: `Uint8Array`
+##### headHash
+
+`Uint8Array`
 
 The head hash to save
 
@@ -195,18 +223,18 @@ Validates a block header, throwing if invalid. It is being validated against the
 
 #### Parameters
 
-• **header**: [`BlockHeader`](../../block/classes/BlockHeader.md)
+##### header
+
+[`BlockHeader`](../../block/classes/BlockHeader.md)
 
 header to be validated
 
-• **height?**: `bigint`
+##### height?
+
+`bigint`
 
 If this is an uncle header, this is the height of the block that is including it
 
 #### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/blockchain/types/Chain.d.ts:14

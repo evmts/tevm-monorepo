@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetLogsProcedure()
 
-> **ethGetLogsProcedure**(`client`): `EthGetLogsJsonRpcProcedure`
+> **ethGetLogsProcedure**(`client`): [`EthGetLogsJsonRpcProcedure`](../type-aliases/EthGetLogsJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethGetLogsProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetLogsJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethGetLogsProcedure.d.ts:1
+[`EthGetLogsJsonRpcProcedure`](../type-aliases/EthGetLogsJsonRpcProcedure.md)

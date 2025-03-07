@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **BaseClientOptions**: [`TevmNodeOptions`](../../index/type-aliases/TevmNodeOptions.md)
 
+Defined in: packages/node/dist/index.d.ts:360
+
 ## Deprecated
 
 Use [TevmNodeOptions](../../index/type-aliases/TevmNodeOptions.md) instead.
-
-## Defined in
-
-packages/node/dist/index.d.ts:410

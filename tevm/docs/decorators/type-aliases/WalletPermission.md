@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: WalletPermission
 
 > **WalletPermission**: `object`
+
+Defined in: packages/decorators/dist/index.d.ts:1292
 
 ## Type declaration
 
@@ -24,12 +26,8 @@
 
 ### invoker
 
-> **invoker**: \`http://$\{string\}\` \| \`https://$\{string\}\`
+> **invoker**: `` `http://${string}` `` \| `` `https://${string}` ``
 
 ### parentCapability
 
 > **parentCapability**: `"eth_accounts"` \| `string`
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:1292

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: ancient8
 
-> `const` **ancient8**: `Common`
+> `const` **ancient8**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/ancient8.d.ts:21
 
 Creates a common configuration for the ancient8 chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/ancient8.d.ts:21

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmNode\<TMode, TExtended\>
 
 > **TevmNode**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
+
+Defined in: packages/node/dist/index.d.ts:125
 
 The base client used by Tevm. Add extensions to add additional functionality
 
@@ -35,7 +37,9 @@ and extensibility
 
 #### Parameters
 
-• **decorator**
+##### decorator
+
+(`client`) => `TExtension`
 
 #### Returns
 
@@ -53,7 +57,7 @@ Client to make json rpc requests to a forked node
 const client = createMemoryClient({ request: eip1193RequestFn })
 ```
 
-### forkTransport.request
+#### forkTransport.request
 
 > **request**: `EIP1193RequestFn`
 
@@ -168,7 +172,9 @@ Removes a filter by id
 
 #### Parameters
 
-• **id**: [`Hex`](Hex.md)
+##### id
+
+[`Hex`](Hex.md)
 
 #### Returns
 
@@ -182,7 +188,9 @@ Creates a new filter to watch for logs events and blocks
 
 #### Parameters
 
-• **filter**: [`Filter`](Filter.md)
+##### filter
+
+[`Filter`](Filter.md)
 
 #### Returns
 
@@ -197,7 +205,9 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 #### Parameters
 
-• **address**: [`Address`](Address.md) \| `undefined`
+##### address
+
+[`Address`](Address.md) | `undefined`
 
 #### Returns
 
@@ -217,8 +227,4 @@ Returns status of the client
 
 • **TMode** *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
 
-• **TExtended** = `object`
-
-## Defined in
-
-packages/node/dist/index.d.ts:128
+• **TExtended** = \{\}

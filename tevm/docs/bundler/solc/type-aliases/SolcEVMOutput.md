@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcEVMOutput
 
 > **SolcEVMOutput**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:146
 
 ## Type declaration
 
@@ -36,8 +38,4 @@
 
 #### Index Signature
 
- \[`functionSignature`: `string`\]: `string`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:146
+\[`functionSignature`: `string`\]: `string`

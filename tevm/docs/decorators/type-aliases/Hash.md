@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # Type Alias: Hash
 
-> **Hash**: \`0x$\{string\}\`
+> **Hash**: `` `0x${string}` ``
 
-## Defined in
-
-packages/decorators/dist/index.d.ts:329
+Defined in: packages/decorators/dist/index.d.ts:329

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthNewFilterJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_newFilter"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:163
+
 JSON-RPC response for `eth_newFilter` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcResponse.d.ts:163

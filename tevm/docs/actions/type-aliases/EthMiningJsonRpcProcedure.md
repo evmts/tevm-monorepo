@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthMiningJsonRpcProcedure**: (`request`) => `Promise`\<[`EthMiningJsonRpcResponse`](EthMiningJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:30
+
 ## Parameters
 
-• **request**: [`EthMiningJsonRpcRequest`](EthMiningJsonRpcRequest.md)
+### request
+
+[`EthMiningJsonRpcRequest`](EthMiningJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthMiningJsonRpcResponse`](EthMiningJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:30

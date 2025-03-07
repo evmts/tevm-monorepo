@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthHashrateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_hashrate"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:36
+
 JSON-RPC response for `eth_hashrate` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcResponse.d.ts:36

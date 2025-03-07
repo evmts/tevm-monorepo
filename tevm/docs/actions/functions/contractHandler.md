@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: contractHandler()
 
-> **contractHandler**(`client`, `__namedParameters`?): `ContractHandler`
+> **contractHandler**(`client`, `__namedParameters`?): [`ContractHandler`](../type-aliases/ContractHandler.md)
+
+Defined in: packages/actions/types/Contract/contractHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **\_\_namedParameters?**
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **\_\_namedParameters.throwOnFail?**: `boolean`
+### \_\_namedParameters?
+
+#### throwOnFail?
+
+`boolean`
 
 ## Returns
 
-`ContractHandler`
-
-## Defined in
-
-packages/actions/types/Contract/contractHandler.d.ts:1
+[`ContractHandler`](../type-aliases/ContractHandler.md)

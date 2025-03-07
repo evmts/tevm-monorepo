@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: traceCallHandler()
 
-> **traceCallHandler**(`__namedParameters`): `DebugTraceCallHandler`
+> **traceCallHandler**(`__namedParameters`): [`DebugTraceCallHandler`](../type-aliases/DebugTraceCallHandler.md)
+
+Defined in: packages/actions/types/debug/traceCallHandler.d.ts:1
 
 ## Parameters
 
-• **\_\_namedParameters**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### \_\_namedParameters
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`DebugTraceCallHandler`
-
-## Defined in
-
-packages/actions/types/debug/traceCallHandler.d.ts:1
+[`DebugTraceCallHandler`](../type-aliases/DebugTraceCallHandler.md)

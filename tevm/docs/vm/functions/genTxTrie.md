@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: genTxTrie()
 
-> **genTxTrie**(`block`): `Promise`\<`Uint8Array`\>
+> **genTxTrie**(`block`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/vm/types/actions/genTxTrie.d.ts:2
 
 ## Parameters
 
-• **block**: [`Block`](../../block/classes/Block.md)
+### block
+
+[`Block`](../../block/classes/Block.md)
 
 ## Returns
 
-`Promise`\<`Uint8Array`\>
-
-## Defined in
-
-packages/vm/types/actions/genTxTrie.d.ts:2
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

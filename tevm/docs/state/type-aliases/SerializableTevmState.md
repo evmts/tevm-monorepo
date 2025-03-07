@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **SerializableTevmState**: `object`
 
+Defined in: packages/state/dist/index.d.ts:38
+
 ## Index Signature
 
- \[`key`: `string`\]: `object`
-
-## Defined in
-
-packages/state/dist/index.d.ts:38
+\[`key`: `string`\]: `object`

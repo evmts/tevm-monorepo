@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetFilterChangesProcedure()
 
-> **ethGetFilterChangesProcedure**(`client`): `EthGetFilterChangesJsonRpcProcedure`
+> **ethGetFilterChangesProcedure**(`client`): [`EthGetFilterChangesJsonRpcProcedure`](../type-aliases/EthGetFilterChangesJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethGetFilterChangesProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetFilterChangesJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethGetFilterChangesProcedure.d.ts:1
+[`EthGetFilterChangesJsonRpcProcedure`](../type-aliases/EthGetFilterChangesJsonRpcProcedure.md)

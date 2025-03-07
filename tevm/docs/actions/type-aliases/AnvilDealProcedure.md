@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilDealProcedure**: (`request`) => `Promise`\<[`AnvilDealJsonRpcResponse`](AnvilDealJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:63
+
 JSON-RPC procedure for `anvil_deal`
 
 ## Parameters
 
-• **request**: [`AnvilDealJsonRpcRequest`](AnvilDealJsonRpcRequest.md)
+### request
+
+[`AnvilDealJsonRpcRequest`](AnvilDealJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilDealJsonRpcResponse`](AnvilDealJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilProcedure.d.ts:63

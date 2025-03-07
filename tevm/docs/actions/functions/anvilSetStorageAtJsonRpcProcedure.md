@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilSetStorageAtJsonRpcProcedure()
 
-> **anvilSetStorageAtJsonRpcProcedure**(`client`): `AnvilSetStorageAtProcedure`
+> **anvilSetStorageAtJsonRpcProcedure**(`client`): [`AnvilSetStorageAtProcedure`](../type-aliases/AnvilSetStorageAtProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilSetStorageAtProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilSetStorageAtProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilSetStorageAtProcedure.d.ts:1
+[`AnvilSetStorageAtProcedure`](../type-aliases/AnvilSetStorageAtProcedure.md)

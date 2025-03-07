@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: lightlinkPhoenix
 
-> `const` **lightlinkPhoenix**: `Common`
+> `const` **lightlinkPhoenix**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/lightlinkPhoenix.d.ts:21
 
 Creates a common configuration for the lightlinkPhoenix chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/lightlinkPhoenix.d.ts:21

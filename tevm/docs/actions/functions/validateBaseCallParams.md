@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
 
+Defined in: packages/actions/types/BaseCall/validateBaseCallParams.d.ts:1
+
 ## Parameters
 
-• **action**: [`BaseCallParams`](../type-aliases/BaseCallParams.md)\<`boolean`\>
+### action
+
+[`BaseCallParams`](../type-aliases/BaseCallParams.md)\<`boolean`\>
 
 ## Returns
 
 `ValidateBaseCallParamsError`[]
-
-## Defined in
-
-packages/actions/types/BaseCall/validateBaseCallParams.d.ts:1

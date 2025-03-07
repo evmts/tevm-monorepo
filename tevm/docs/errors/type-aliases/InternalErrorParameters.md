@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: InternalErrorParameters
 
 > **InternalErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/InternalErrorError.d.ts:63
 
 Parameters for constructing an InternalError.
 
@@ -53,7 +55,3 @@ Parameters for constructing an InternalError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/InternalErrorError.d.ts:63

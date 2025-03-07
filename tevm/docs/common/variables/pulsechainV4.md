@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: pulsechainV4
 
-> `const` **pulsechainV4**: `Common`
+> `const` **pulsechainV4**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/pulsechainV4.d.ts:21
 
 Creates a common configuration for the pulsechainV4 chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/pulsechainV4.d.ts:21

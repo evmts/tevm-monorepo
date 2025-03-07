@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **getProof**(`baseState`, `skipFetchingFromFork`?): (`address`, `storageSlots`?) => `Promise`\<`Proof`\>
 
+Defined in: packages/state/dist/index.d.ts:315
+
 Get an EIP-1186 proof from the provider
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,14 +28,14 @@ Get an EIP-1186 proof from the provider
 
 ### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+#### address
 
-• **storageSlots?**: `Uint8Array`[]
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+#### storageSlots?
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
 
 ### Returns
 
 `Promise`\<`Proof`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:315

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **assignWithdrawals**(`vm`): (`block`) => `Promise`\<`void`\>
 
+Defined in: packages/vm/types/actions/assignWithdrawals.d.ts:3
+
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
+
+`BaseVm`
 
 ## Returns
 
@@ -18,12 +22,10 @@
 
 ### Parameters
 
-• **block**: [`Block`](../../block/classes/Block.md)
+#### block
+
+[`Block`](../../block/classes/Block.md)
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/vm/types/actions/assignWithdrawals.d.ts:3

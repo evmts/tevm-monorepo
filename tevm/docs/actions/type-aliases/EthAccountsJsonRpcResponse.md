@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_accounts"`, [`Address`](../../index/type-aliases/Address.md)[], `string` \| `number`\>
 
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:12
+
 JSON-RPC response for `eth_accounts` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcResponse.d.ts:12

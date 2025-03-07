@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **setStateRoot**(`baseState`, `skipFetchingFromFork`?): (`stateRoot`, `clearCache`?) => `Promise`\<`void`\>
 
+Defined in: packages/state/dist/index.d.ts:370
+
 Changes the currently loaded state root
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,14 +28,14 @@ Changes the currently loaded state root
 
 ### Parameters
 
-• **stateRoot**: `Uint8Array`
+#### stateRoot
 
-• **clearCache?**: `boolean`
+`Uint8Array`
+
+#### clearCache?
+
+`boolean`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:370

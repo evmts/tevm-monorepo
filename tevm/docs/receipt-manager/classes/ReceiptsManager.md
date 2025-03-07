@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,25 +6,29 @@
 
 # Class: ReceiptsManager
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:82
+
 ## Constructors
 
 ### new ReceiptsManager()
 
 > **new ReceiptsManager**(`mapDb`, `chain`): [`ReceiptsManager`](ReceiptsManager.md)
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:85
+
 #### Parameters
 
-• **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
+##### mapDb
 
-• **chain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
+[`MapDb`](../type-aliases/MapDb.md)
+
+##### chain
+
+[`Chain`](../../blockchain/type-aliases/Chain.md)
 
 #### Returns
 
 [`ReceiptsManager`](ReceiptsManager.md)
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:85
 
 ## Properties
 
@@ -32,9 +36,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:85
 
 > `readonly` **chain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
 
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:84
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:84
 
 ***
 
@@ -42,11 +44,9 @@ packages/receipt-manager/types/RecieptManager.d.ts:84
 
 > **GET\_LOGS\_BLOCK\_RANGE\_LIMIT**: `number`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:97
+
 Block range limit for getLogs
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:97
 
 ***
 
@@ -54,11 +54,9 @@ packages/receipt-manager/types/RecieptManager.d.ts:97
 
 > **GET\_LOGS\_LIMIT**: `number`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:89
+
 Limit of logs to return in getLogs
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:89
 
 ***
 
@@ -66,11 +64,9 @@ packages/receipt-manager/types/RecieptManager.d.ts:89
 
 > **GET\_LOGS\_LIMIT\_MEGABYTES**: `number`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:93
+
 Size limit for the getLogs response in megabytes
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:93
 
 ***
 
@@ -78,9 +74,7 @@ packages/receipt-manager/types/RecieptManager.d.ts:93
 
 > `readonly` **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
 
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:83
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:83
 
 ## Methods
 
@@ -88,17 +82,17 @@ packages/receipt-manager/types/RecieptManager.d.ts:83
 
 > **deepCopy**(`chain`): [`ReceiptsManager`](ReceiptsManager.md)
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:98
+
 #### Parameters
 
-• **chain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
+##### chain
+
+[`Chain`](../../blockchain/type-aliases/Chain.md)
 
 #### Returns
 
 [`ReceiptsManager`](ReceiptsManager.md)
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:98
 
 ***
 
@@ -106,17 +100,17 @@ packages/receipt-manager/types/RecieptManager.d.ts:98
 
 > **deleteReceipts**(`block`): `Promise`\<`void`\>
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:106
+
 #### Parameters
 
-• **block**: [`Block`](../../block/classes/Block.md)
+##### block
+
+[`Block`](../../block/classes/Block.md)
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:106
 
 ***
 
@@ -124,25 +118,31 @@ packages/receipt-manager/types/RecieptManager.d.ts:106
 
 > **getLogs**(`from`, `to`, `addresses`?, `topics`?): `Promise`\<`GetLogsReturn`\>
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:123
+
 Returns logs as specified by the eth_getLogs JSON RPC query parameters
 
 #### Parameters
 
-• **from**: [`Block`](../../block/classes/Block.md)
+##### from
 
-• **to**: [`Block`](../../block/classes/Block.md)
+[`Block`](../../block/classes/Block.md)
 
-• **addresses?**: `Uint8Array`[]
+##### to
 
-• **topics?**: (`null` \| `Uint8Array` \| `Uint8Array`[])[]
+[`Block`](../../block/classes/Block.md)
+
+##### addresses?
+
+`Uint8Array`\<`ArrayBufferLike`\>[]
+
+##### topics?
+
+(`null` \| `Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[])[]
 
 #### Returns
 
 `Promise`\<`GetLogsReturn`\>
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:123
 
 ***
 
@@ -150,11 +150,15 @@ packages/receipt-manager/types/RecieptManager.d.ts:123
 
 > **getReceiptByTxHash**(`txHash`): `Promise`\<`null` \| `GetReceiptByTxHashReturn`\>
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:119
+
 Returns receipt by tx hash with additional metadata for the JSON RPC response, or null if not found
 
 #### Parameters
 
-• **txHash**: `Uint8Array`
+##### txHash
+
+`Uint8Array`
 
 the tx hash
 
@@ -162,31 +166,35 @@ the tx hash
 
 `Promise`\<`null` \| `GetReceiptByTxHashReturn`\>
 
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:119
-
 ***
 
 ### getReceipts()
 
-#### getReceipts(blockHash, calcBloom, includeTxType)
+#### Call Signature
 
 > **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
+
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:113
 
 Returns receipts for given blockHash
 
 ##### Parameters
 
-• **blockHash**: `Uint8Array`
+###### blockHash
+
+`Uint8Array`
 
 the block hash
 
-• **calcBloom?**: `boolean`
+###### calcBloom?
+
+`boolean`
 
 whether to calculate and return the logs bloom for each receipt (default: false)
 
-• **includeTxType?**: `true`
+###### includeTxType?
+
+`true`
 
 whether to include the tx type for each receipt (default: false)
 
@@ -194,29 +202,37 @@ whether to include the tx type for each receipt (default: false)
 
 `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
 
-##### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:113
-
-#### getReceipts(blockHash, calcBloom, includeTxType)
+#### Call Signature
 
 > **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:114
+
+Returns receipts for given blockHash
+
 ##### Parameters
 
-• **blockHash**: `Uint8Array`
+###### blockHash
 
-• **calcBloom?**: `boolean`
+`Uint8Array`
 
-• **includeTxType?**: `false`
+the block hash
+
+###### calcBloom?
+
+`boolean`
+
+whether to calculate and return the logs bloom for each receipt (default: false)
+
+###### includeTxType?
+
+`false`
+
+whether to include the tx type for each receipt (default: false)
 
 ##### Returns
 
 `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
-
-##### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:114
 
 ***
 
@@ -224,23 +240,25 @@ packages/receipt-manager/types/RecieptManager.d.ts:114
 
 > **saveReceipts**(`block`, `receipts`): `Promise`\<`void`\>
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:105
+
 Saves receipts to db. Also saves tx hash indexes if within txLookupLimit,
 and removes tx hash indexes for one block past txLookupLimit.
 
 #### Parameters
 
-• **block**: [`Block`](../../block/classes/Block.md)
+##### block
+
+[`Block`](../../block/classes/Block.md)
 
 the block to save receipts for
 
-• **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
+##### receipts
+
+[`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
 the receipts to save
 
 #### Returns
 
 `Promise`\<`void`\>
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:105

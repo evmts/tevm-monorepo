@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: createHttpClient()
 
-> **createHttpClient**(`__namedParameters`): `HttpClient`
+> **createHttpClient**(`__namedParameters`): [`HttpClient`](../type-aliases/HttpClient.md)
+
+Defined in: packages/http-client/types/createHttpClient.d.ts:1
 
 ## Parameters
 
-• **\_\_namedParameters**: [`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
+### \_\_namedParameters
+
+[`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
 
 ## Returns
 
-`HttpClient`
-
-## Defined in
-
-packages/http-client/types/createHttpClient.d.ts:1
+[`HttpClient`](../type-aliases/HttpClient.md)

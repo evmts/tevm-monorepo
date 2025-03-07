@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,20 +8,24 @@
 
 > **formatLog**(`log`, `__namedParameters`?): `Log`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/formatters/log.d.ts:6
+
 ## Parameters
 
-• **log**: `ExactPartial`\<`RpcLog`\>
+### log
 
-• **\_\_namedParameters?**
+`ExactPartial`\<`RpcLog`\>
 
-• **\_\_namedParameters.args?**: `unknown`
+### \_\_namedParameters?
 
-• **\_\_namedParameters.eventName?**: `string`
+#### args?
+
+`unknown`
+
+#### eventName?
+
+`string`
 
 ## Returns
 
 `Log`
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/formatters/log.d.ts:6

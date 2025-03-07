@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **TevmState**: `object`
 
+Defined in: packages/state/dist/index.d.ts:166
+
 ## Index Signature
 
- \[`key`: `Address`\]: [`AccountStorage`](../../state/interfaces/AccountStorage.md)
-
-## Defined in
-
-packages/state/dist/index.d.ts:166
+\[`key`: `` `0x${string}` ``\]: [`AccountStorage`](../../state/interfaces/AccountStorage.md)

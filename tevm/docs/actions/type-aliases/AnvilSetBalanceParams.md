@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilSetBalanceParams
 
 > **AnvilSetBalanceParams**: `object`
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:60
 
 Params for `anvil_setBalance` handler
 
@@ -23,7 +25,3 @@ The address to set the balance for
 > `readonly` **balance**: [`Hex`](Hex.md) \| `BigInt`
 
 The balance to set
-
-## Defined in
-
-packages/actions/types/anvil/AnvilParams.d.ts:60

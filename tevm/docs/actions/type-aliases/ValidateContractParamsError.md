@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **ValidateContractParamsError**: [`InvalidAbiError`](../../errors/classes/InvalidAbiError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md) \| [`InvalidArgsError`](../../errors/classes/InvalidArgsError.md) \| [`InvalidFunctionNameError`](../../errors/classes/InvalidFunctionNameError.md) \| `ValidateBaseCallParamsError`
 
-## Defined in
-
-packages/actions/types/Contract/validateContractParams.d.ts:2
+Defined in: packages/actions/types/Contract/validateContractParams.d.ts:2

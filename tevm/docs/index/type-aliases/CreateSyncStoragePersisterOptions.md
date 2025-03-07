@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CreateSyncStoragePersisterOptions
 
 > **CreateSyncStoragePersisterOptions**: `object`
+
+Defined in: packages/sync-storage-persister/types/CreateSyncStoragePersisterOptions.d.ts:6
 
 Options for creating a sync storage persister.
 
@@ -20,7 +22,9 @@ How to deserialize the data from storage.
 
 #### Parameters
 
-• **cachedString**: `string`
+##### cachedString
+
+`string`
 
 #### Returns
 
@@ -44,7 +48,9 @@ How to serialize the data to storage.
 
 #### Parameters
 
-• **client**: [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
+##### client
+
+[`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
 
 #### Returns
 
@@ -67,7 +73,3 @@ For SSR pass in `undefined`. Note that window.localStorage can be
 > `optional` **throttleTime**: `number`
 
 To avoid spamming, pass a time in ms to throttle saving the cache to disk
-
-## Defined in
-
-packages/sync-storage-persister/types/CreateSyncStoragePersisterOptions.d.ts:6

@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [errors](../README.md) / EvmRevertError
 
 # Class: EvmRevertError
+
+Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:51
 
 Represents an execution error that occurs when a transaction is reverted during EVM execution.
 This error is typically encountered when a smart contract execution is reverted due to unmet conditions or failed assertions.
@@ -53,6 +55,8 @@ Additional parameters for the BaseError.
 
 > **new EvmRevertError**(`message`?, `args`?, `tag`?): [`EvmRevertError`](EvmRevertError.md)
 
+Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:74
+
 Constructs a EvmRevertError.
 Represents an execution error that occurs when a transaction is reverted during EVM execution.
 This error is typically encountered when a smart contract execution is reverted due to unmet conditions or failed assertions.
@@ -71,15 +75,21 @@ To debug a revert error:
 
 #### Parameters
 
-• **message?**: `string`
+##### message?
+
+`string`
 
 Human-readable error message.
 
-• **args?**: [`EvmRevertErrorParameters`](../type-aliases/EvmRevertErrorParameters.md)
+##### args?
+
+[`EvmRevertErrorParameters`](../type-aliases/EvmRevertErrorParameters.md)
 
 Additional parameters for the BaseError.
 
-• **tag?**: `string`
+##### tag?
+
+`string`
 
 The tag for the error.
 
@@ -91,15 +101,13 @@ The tag for the error.
 
 [`RevertError`](RevertError.md).[`constructor`](RevertError.md#constructors)
 
-#### Defined in
-
-packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:74
-
 ## Properties
 
 ### \_tag
 
 > **\_tag**: `string`
+
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:40
 
 Same as name, used internally.
 
@@ -107,23 +115,17 @@ Same as name, used internally.
 
 [`RevertError`](RevertError.md).[`_tag`](RevertError.md#_tag)
 
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:40
-
 ***
 
 ### cause
 
 > **cause**: `any`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:65
+
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`cause`](RevertError.md#cause)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -131,13 +133,11 @@ packages/errors/types/ethereum/BaseError.d.ts:65
 
 > **code**: `number`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:64
+
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`code`](RevertError.md#code)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -145,13 +145,11 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **details**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:44
+
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`details`](RevertError.md#details)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -159,15 +157,13 @@ packages/errors/types/ethereum/BaseError.d.ts:44
 
 > **docsPath**: `undefined` \| `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:48
+
 Path to the documentation for this error.
 
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`docsPath`](RevertError.md#docspath)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -175,15 +171,13 @@ packages/errors/types/ethereum/BaseError.d.ts:48
 
 > **message**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+
 Human-readable error message.
 
 #### Inherited from
 
-[`RevertError`](RevertError.md).[`message`](RevertError.md#message)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+[`RevertError`](RevertError.md).[`message`](RevertError.md#message-1)
 
 ***
 
@@ -191,15 +185,13 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:52
+
 Additional meta messages for more context.
 
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`metaMessages`](RevertError.md#metamessages)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -207,15 +199,13 @@ packages/errors/types/ethereum/BaseError.d.ts:52
 
 > **name**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
+
 The name of the error, used to discriminate errors.
 
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`name`](RevertError.md#name)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -223,13 +213,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **shortMessage**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
+
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`shortMessage`](RevertError.md#shortmessage)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -237,13 +225,11 @@ packages/errors/types/ethereum/BaseError.d.ts:56
 
 > `optional` **stack**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`stack`](RevertError.md#stack)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -251,13 +237,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **version**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
+
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`version`](RevertError.md#version)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -265,15 +249,13 @@ packages/errors/types/ethereum/BaseError.d.ts:60
 
 > `static` **code**: `number`
 
+Defined in: packages/errors/types/ethereum/RevertError.d.ts:51
+
 Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`code`](RevertError.md#code-1)
-
-#### Defined in
-
-packages/errors/types/ethereum/RevertError.d.ts:51
 
 ***
 
@@ -281,9 +263,7 @@ packages/errors/types/ethereum/RevertError.d.ts:51
 
 > `static` **EVMErrorMessage**: [`EvmErrorMessage`](../../evm/enumerations/EvmErrorMessage.md)
 
-#### Defined in
-
-packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:52
+Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:52
 
 ***
 
@@ -291,13 +271,19 @@ packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:52
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+
 Optional override for formatting stack traces
 
 #### Parameters
 
-• **err**: `Error`
+##### err
 
-• **stackTraces**: `CallSite`[]
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
 
 #### Returns
 
@@ -311,23 +297,17 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`RevertError`](RevertError.md).[`prepareStackTrace`](RevertError.md#preparestacktrace)
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
-
 ***
 
 ### stackTraceLimit
 
 > `static` **stackTraceLimit**: `number`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`stackTraceLimit`](RevertError.md#stacktracelimit)
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
@@ -335,11 +315,15 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:14
 
 > **walk**(`fn`?): `unknown`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:71
+
 Walks through the error chain.
 
 #### Parameters
 
-• **fn?**: `Function`
+##### fn?
+
+`Function`
 
 A function to execute on each error in the chain.
 
@@ -353,23 +337,25 @@ The first error that matches the function, or the original error.
 
 [`RevertError`](RevertError.md).[`walk`](RevertError.md#walk)
 
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:71
-
 ***
 
 ### captureStackTrace()
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
+
 Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+##### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+##### constructorOpt?
+
+`Function`
 
 #### Returns
 
@@ -378,7 +364,3 @@ Create .stack property on a target object
 #### Inherited from
 
 [`RevertError`](RevertError.md).[`captureStackTrace`](RevertError.md#capturestacktrace)
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:136

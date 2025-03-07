@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **LogTopic**: [`Hex`](../../index/type-aliases/Hex.md) \| [`Hex`](../../index/type-aliases/Hex.md)[] \| `null`
 
-## Defined in
-
-packages/decorators/dist/index.d.ts:330
+Defined in: packages/decorators/dist/index.d.ts:330

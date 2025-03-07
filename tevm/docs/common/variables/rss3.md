@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: rss3
 
-> `const` **rss3**: `Common`
+> `const` **rss3**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/rss3.d.ts:21
 
 Creates a common configuration for the rss3 chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/rss3.d.ts:21

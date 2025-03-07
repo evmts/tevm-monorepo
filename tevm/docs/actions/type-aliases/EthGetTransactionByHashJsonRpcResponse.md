@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGetTransactionByHashJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getTransactionByHash"`, [`TransactionResult`](../../index/type-aliases/TransactionResult.md), `string` \| `number`\>
 
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:96
+
 JSON-RPC response for `eth_getTransactionByHash` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcResponse.d.ts:96

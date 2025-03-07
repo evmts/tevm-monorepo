@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetTransactionReceiptJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionReceiptJsonRpcResponse`](EthGetTransactionReceiptJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:27
+
 ## Parameters
 
-• **request**: [`EthGetTransactionReceiptJsonRpcRequest`](EthGetTransactionReceiptJsonRpcRequest.md)
+### request
+
+[`EthGetTransactionReceiptJsonRpcRequest`](EthGetTransactionReceiptJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetTransactionReceiptJsonRpcResponse`](EthGetTransactionReceiptJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:27

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **DeepCopy**: () => `Promise`\<`BaseVm`\>
 
+Defined in: packages/vm/types/actions/deepCopy.d.ts:3
+
 ## Returns
 
 `Promise`\<`BaseVm`\>
-
-## Defined in
-
-packages/vm/types/actions/deepCopy.d.ts:3

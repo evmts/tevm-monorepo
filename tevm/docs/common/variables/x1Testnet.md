@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: x1Testnet
 
-> `const` **x1Testnet**: `Common`
+> `const` **x1Testnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/x1Testnet.d.ts:21
 
 Creates a common configuration for the x1Testnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/x1Testnet.d.ts:21

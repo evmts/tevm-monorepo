@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [receipt-manager](../README.md) / PreByzantiumTxReceipt
 
 # Interface: PreByzantiumTxReceipt
+
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:37
 
 Pre-Byzantium receipt type with a field
 for the intermediary state root
@@ -19,15 +21,13 @@ for the intermediary state root
 
 > **bitvector**: `Uint8Array`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:17
+
 Bloom bitvector
 
 #### Inherited from
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`bitvector`](BaseTxReceipt.md#bitvector)
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:17
 
 ***
 
@@ -35,15 +35,13 @@ packages/receipt-manager/types/RecieptManager.d.ts:17
 
 > **cumulativeBlockGasUsed**: `bigint`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:13
+
 Cumulative gas used in the block including this tx
 
 #### Inherited from
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`cumulativeBlockGasUsed`](BaseTxReceipt.md#cumulativeblockgasused)
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:13
 
 ***
 
@@ -51,15 +49,13 @@ packages/receipt-manager/types/RecieptManager.d.ts:13
 
 > **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:21
+
 Logs emitted
 
 #### Inherited from
 
 [`BaseTxReceipt`](BaseTxReceipt.md).[`logs`](BaseTxReceipt.md#logs)
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:21
 
 ***
 
@@ -67,8 +63,6 @@ packages/receipt-manager/types/RecieptManager.d.ts:21
 
 > **stateRoot**: `Uint8Array`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:41
+
 Intermediary state root
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:41

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,20 @@
 
 # Function: tevmMine()
 
-> **tevmMine**(`client`, `params`?): `Promise`\<`MineResult`\>
+> **tevmMine**(`client`, `params`?): `Promise`\<[`MineResult`](../type-aliases/MineResult.md)\>
+
+Defined in: packages/memory-client/types/tevmMine.d.ts:1
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| [`Account`](../type-aliases/Account.md), `undefined`, `undefined` \| `object`\>
+### client
 
-• **params?**: [`MineParams`](../type-aliases/MineParams.md)\<`boolean`\>
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| [`Account`](../type-aliases/Account.md), `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
+
+### params?
+
+[`MineParams`](../type-aliases/MineParams.md)\<`boolean`\>
 
 ## Returns
 
-`Promise`\<`MineResult`\>
-
-## Defined in
-
-packages/memory-client/types/tevmMine.d.ts:1
+`Promise`\<[`MineResult`](../type-aliases/MineResult.md)\>

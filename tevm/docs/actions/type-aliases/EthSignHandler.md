@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthSignHandler**: (`request`) => `Promise`\<[`EthSignResult`](EthSignResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:34
+
 ## Parameters
 
-• **request**: [`EthSignParams`](EthSignParams.md)
+### request
+
+[`EthSignParams`](EthSignParams.md)
 
 ## Returns
 
 `Promise`\<[`EthSignResult`](EthSignResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:34

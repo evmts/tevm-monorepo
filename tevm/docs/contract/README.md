@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,15 +6,13 @@
 
 # contract
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [CreateContractFn](type-aliases/CreateContractFn.md)
 - [MaybeExtractEventArgsFromAbi](type-aliases/MaybeExtractEventArgsFromAbi.md)
 - [ValueOf](type-aliases/ValueOf.md)
 
-### Variables
+## Variables
 
 - [ERC20](variables/ERC20.md)
 - [ERC721](variables/ERC721.md)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: lightlinkPegasus
 
-> `const` **lightlinkPegasus**: `Common`
+> `const` **lightlinkPegasus**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/lightlinkPegasus.d.ts:21
 
 Creates a common configuration for the lightlinkPegasus chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/lightlinkPegasus.d.ts:21

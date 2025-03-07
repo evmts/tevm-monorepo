@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,11 +6,15 @@
 
 # Function: validateRunTx()
 
-> **validateRunTx**(`vm`): (`opts`) => `Promise`\<`RunTxOpts` & `Required`\<`Pick`\<`RunTxOpts`, `"block"`\>\>\>
+> **validateRunTx**(`vm`): (`opts`) => `Promise`\<[`RunTxOpts`](../interfaces/RunTxOpts.md) & `Required`\<`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"block"`\>\>\>
+
+Defined in: packages/vm/types/actions/validateRunTx.d.ts:1
 
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
+
+`BaseVm`
 
 ## Returns
 
@@ -18,12 +22,10 @@
 
 ### Parameters
 
-• **opts**: `RunTxOpts`
+#### opts
+
+[`RunTxOpts`](../interfaces/RunTxOpts.md)
 
 ### Returns
 
-`Promise`\<`RunTxOpts` & `Required`\<`Pick`\<`RunTxOpts`, `"block"`\>\>\>
-
-## Defined in
-
-packages/vm/types/actions/validateRunTx.d.ts:1
+`Promise`\<[`RunTxOpts`](../interfaces/RunTxOpts.md) & `Required`\<`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"block"`\>\>\>

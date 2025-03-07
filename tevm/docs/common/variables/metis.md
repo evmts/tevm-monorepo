@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: metis
 
-> `const` **metis**: `Common`
+> `const` **metis**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/metis.d.ts:21
 
 Creates a common configuration for the metis chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/metis.d.ts:21

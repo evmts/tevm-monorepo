@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Variable: zHex
 
-> `const` **zHex**: `z.ZodEffects`\<`z.ZodString`, \`0x$\{string\}\`, `string`\>
+> `const` **zHex**: `z.ZodEffects`\<`z.ZodString`, `` `0x${string}` ``, `string`\>
+
+Defined in: packages/actions/types/internal/zod/zHex.d.ts:5
 
 Zod validator for a valid hex string
-
-## Defined in
-
-packages/actions/types/internal/zod/zHex.d.ts:5

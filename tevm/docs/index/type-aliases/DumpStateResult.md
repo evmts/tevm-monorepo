@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DumpStateResult\<ErrorType\>
 
 > **DumpStateResult**\<`ErrorType`\>: `object`
+
+Defined in: packages/actions/types/DumpState/DumpStateResult.d.ts:9
 
 Result of the dumpState method.
 
@@ -36,7 +38,3 @@ The serialized TEVM state.
 
 This property contains the entire state of the TEVM, serialized into a JSON-compatible
 format. This state can be used for debugging, analysis, or state persistence.
-
-## Defined in
-
-packages/actions/types/DumpState/DumpStateResult.d.ts:9

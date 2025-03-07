@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **tevmSend**(): [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmSendApi`](../type-aliases/TevmSendApi.md)\>
 
+Defined in: packages/decorators/dist/index.d.ts:1557
+
 ## Returns
 
 [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmSendApi`](../type-aliases/TevmSendApi.md)\>
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:1557

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: GetAccountResult\<ErrorType\>
 
 > **GetAccountResult**\<`ErrorType`\>: `object`
+
+Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:6
 
 Result of GetAccount Action
 
@@ -73,14 +75,10 @@ only included if `returnStorage` is set to true in the request
 
 #### Index Signature
 
- \[`key`: [`Hex`](../../actions/type-aliases/Hex.md)\]: [`Hex`](../../actions/type-aliases/Hex.md)
+\[`key`: `` `0x${string}` ``\]: `` `0x${string}` ``
 
 ### storageRoot
 
 > **storageRoot**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 Storage root to set account to
-
-## Defined in
-
-packages/actions/types/GetAccount/GetAccountResult.d.ts:6

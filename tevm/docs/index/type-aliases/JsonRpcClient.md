@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **JsonRpcClient**: `object`
 
+Defined in: packages/jsonrpc/types/JsonRpcClient.d.ts:5
+
 A client for making JsonRpc requests over http
 
 ## Type declaration
@@ -15,7 +17,3 @@ A client for making JsonRpc requests over http
 ### request
 
 > **request**: [`JsonRpcProcedure`](JsonRpcProcedure.md)\<`string`, `unknown`, `unknown`, `string` \| `number`\>
-
-## Defined in
-
-packages/jsonrpc/types/JsonRpcClient.d.ts:5

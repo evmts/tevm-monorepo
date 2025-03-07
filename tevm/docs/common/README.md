@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,21 +6,19 @@
 
 # common
 
-## Index
-
-### Enumerations
+## Enumerations
 
 - [ConsensusAlgorithm](enumerations/ConsensusAlgorithm.md)
 - [ConsensusType](enumerations/ConsensusType.md)
 
-### Interfaces
+## Interfaces
 
 - [CustomCrypto](interfaces/CustomCrypto.md)
 - [EvmStateManagerInterface](interfaces/EvmStateManagerInterface.md)
 - [StorageDump](interfaces/StorageDump.md)
 - [StorageRange](interfaces/StorageRange.md)
 
-### Type Aliases
+## Type Aliases
 
 - [AccountFields](type-aliases/AccountFields.md)
 - [CliqueConfig](type-aliases/CliqueConfig.md)
@@ -29,7 +27,7 @@
 - [Hardfork](type-aliases/Hardfork.md)
 - [MockKzg](type-aliases/MockKzg.md)
 
-### Variables
+## Variables
 
 - [abstractTestnet](variables/abstractTestnet.md)
 - [acala](variables/acala.md)
@@ -366,7 +364,7 @@
 - [zoraSepolia](variables/zoraSepolia.md)
 - [zoraTestnet](variables/zoraTestnet.md)
 
-### Functions
+## Functions
 
 - [createCommon](functions/createCommon.md)
 - [createMockKzg](functions/createMockKzg.md)

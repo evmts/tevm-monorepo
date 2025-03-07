@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: BaseState
 
 > **BaseState**: `object`
+
+Defined in: packages/state/dist/index.d.ts:110
 
 **`Internal`**
 
@@ -48,7 +50,9 @@ The core data structure powering the state manager internally
 
 #### Parameters
 
-• **newStateRoot**: [`Hex`](../../index/type-aliases/Hex.md)
+##### newStateRoot
+
+[`Hex`](../../index/type-aliases/Hex.md)
 
 #### Returns
 
@@ -59,7 +63,3 @@ The core data structure powering the state manager internally
 > **stateRoots**: [`StateRoots`](StateRoots.md)
 
 Mapping of hashes to State roots
-
-## Defined in
-
-packages/state/dist/index.d.ts:110

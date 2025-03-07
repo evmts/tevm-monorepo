@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **requestEip1193**(): [`Extension`](../../index/type-aliases/Extension.md)\<[`Eip1193RequestProvider`](../../index/type-aliases/Eip1193RequestProvider.md)\>
 
+Defined in: packages/decorators/dist/index.d.ts:1550
+
 ## Returns
 
 [`Extension`](../../index/type-aliases/Extension.md)\<[`Eip1193RequestProvider`](../../index/type-aliases/Eip1193RequestProvider.md)\>
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:1550

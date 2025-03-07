@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilDealHandler**: (`params`) => `Promise`\<[`AnvilDealResult`](AnvilDealResult.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:16
+
 ## Parameters
 
-• **params**: [`AnvilDealParams`](AnvilDealParams.md)
+### params
+
+[`AnvilDealParams`](AnvilDealParams.md)
 
 ## Returns
 
 `Promise`\<[`AnvilDealResult`](AnvilDealResult.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilHandler.d.ts:16

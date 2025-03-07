@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: ethSignTransactionProcedure()
 
-> **ethSignTransactionProcedure**(`options`): `EthSignTransactionJsonRpcProcedure`
+> **ethSignTransactionProcedure**(`options`): [`EthSignTransactionJsonRpcProcedure`](../type-aliases/EthSignTransactionJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethSignTransactionProcedure.d.ts:1
 
 ## Parameters
 
-• **options**
+### options
 
-• **options.accounts**: readonly `object`[]
+#### accounts
 
-• **options.getChainId**
+readonly `object`[]
+
+#### getChainId
+
+() => `Promise`\<`number`\>
 
 ## Returns
 
-`EthSignTransactionJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethSignTransactionProcedure.d.ts:1
+[`EthSignTransactionJsonRpcProcedure`](../type-aliases/EthSignTransactionJsonRpcProcedure.md)

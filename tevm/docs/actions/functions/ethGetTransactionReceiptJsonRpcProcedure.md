@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetTransactionReceiptJsonRpcProcedure()
 
-> **ethGetTransactionReceiptJsonRpcProcedure**(`client`): `EthGetTransactionReceiptJsonRpcProcedure`
+> **ethGetTransactionReceiptJsonRpcProcedure**(`client`): [`EthGetTransactionReceiptJsonRpcProcedure`](../type-aliases/EthGetTransactionReceiptJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethGetTransactionReceiptProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetTransactionReceiptJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethGetTransactionReceiptProcedure.d.ts:1
+[`EthGetTransactionReceiptJsonRpcProcedure`](../type-aliases/EthGetTransactionReceiptJsonRpcProcedure.md)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilDropTransactionProcedure**: (`request`) => `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](AnvilDropTransactionJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:31
+
 JSON-RPC procedure for `anvil_dropTransaction`
 
 ## Parameters
 
-• **request**: [`AnvilDropTransactionJsonRpcRequest`](AnvilDropTransactionJsonRpcRequest.md)
+### request
+
+[`AnvilDropTransactionJsonRpcRequest`](AnvilDropTransactionJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](AnvilDropTransactionJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilProcedure.d.ts:31

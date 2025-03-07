@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethSendRawTransactionHandler()
 
-> **ethSendRawTransactionHandler**(`client`): `EthSendRawTransactionHandler`
+> **ethSendRawTransactionHandler**(`client`): [`EthSendRawTransactionHandler`](../type-aliases/EthSendRawTransactionHandler.md)
+
+Defined in: packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:16
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthSendRawTransactionHandler`
-
-## Defined in
-
-packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:16
+[`EthSendRawTransactionHandler`](../type-aliases/EthSendRawTransactionHandler.md)

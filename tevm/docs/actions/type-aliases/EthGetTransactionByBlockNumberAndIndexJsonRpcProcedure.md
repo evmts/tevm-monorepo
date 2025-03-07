@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:26
+
 ## Parameters
 
-• **request**: [`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md)
+### request
+
+[`EthGetTransactionByBlockNumberAndIndexJsonRpcRequest`](EthGetTransactionByBlockNumberAndIndexJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:26

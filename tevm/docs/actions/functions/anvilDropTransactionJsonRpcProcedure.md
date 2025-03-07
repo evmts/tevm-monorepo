@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilDropTransactionJsonRpcProcedure()
 
-> **anvilDropTransactionJsonRpcProcedure**(`client`): `AnvilDropTransactionProcedure`
+> **anvilDropTransactionJsonRpcProcedure**(`client`): [`AnvilDropTransactionProcedure`](../type-aliases/AnvilDropTransactionProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilDropTransactionProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilDropTransactionProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilDropTransactionProcedure.d.ts:1
+[`AnvilDropTransactionProcedure`](../type-aliases/AnvilDropTransactionProcedure.md)

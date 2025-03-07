@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **BuildBlock**: (`opts`) => `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
 
+Defined in: packages/vm/types/actions/buildBlock.d.ts:4
+
 ## Parameters
 
-• **opts**: [`BuildBlockOpts`](../interfaces/BuildBlockOpts.md)
+### opts
+
+[`BuildBlockOpts`](../interfaces/BuildBlockOpts.md)
 
 ## Returns
 
 `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
-
-## Defined in
-
-packages/vm/types/actions/buildBlock.d.ts:4

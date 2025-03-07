@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,9 +6,7 @@
 
 # errors
 
-## Index
-
-### Classes
+## Classes
 
 - [AccountLockedError](classes/AccountLockedError.md)
 - [AccountNotFoundError](classes/AccountNotFoundError.md)
@@ -126,7 +124,7 @@
 - [UserRejectedRequestError](classes/UserRejectedRequestError.md)
 - [ValueOverflowError](classes/ValueOverflowError.md)
 
-### Type Aliases
+## Type Aliases
 
 - [AccountLockedErrorParameters](type-aliases/AccountLockedErrorParameters.md)
 - [AuthCallUnsetErrorParameters](type-aliases/AuthCallUnsetErrorParameters.md)
@@ -226,6 +224,6 @@
 - [UnsupportedChainErrorParameters](type-aliases/UnsupportedChainErrorParameters.md)
 - [ValueOverflowErrorParameters](type-aliases/ValueOverflowErrorParameters.md)
 
-### Variables
+## Variables
 
 - [rpcErrorCodeToMessage](variables/rpcErrorCodeToMessage.md)

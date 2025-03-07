@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,15 +6,21 @@
 
 # Function: getStateRoot()
 
-> **getStateRoot**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`Uint8Array`\>
+> **getStateRoot**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/state/dist/index.d.ts:321
 
 Gets the current state root
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,8 +28,4 @@ Gets the current state root
 
 ### Returns
 
-`Promise`\<`Uint8Array`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:321
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

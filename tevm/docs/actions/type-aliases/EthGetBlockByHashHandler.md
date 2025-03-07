@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBlockByHashHandler**: (`request`) => `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:12
+
 ## Parameters
 
-• **request**: [`EthGetBlockByHashParams`](EthGetBlockByHashParams.md)
+### request
+
+[`EthGetBlockByHashParams`](EthGetBlockByHashParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:12

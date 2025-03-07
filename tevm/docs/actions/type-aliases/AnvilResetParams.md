@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **AnvilResetParams**: `object`
 
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:47
+
 Params for `anvil_reset` handler
-
-## Defined in
-
-packages/actions/types/anvil/AnvilParams.d.ts:47

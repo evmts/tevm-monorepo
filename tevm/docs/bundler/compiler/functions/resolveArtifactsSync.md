@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,28 +8,42 @@
 
 > **resolveArtifactsSync**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `ResolvedArtifacts`
 
+Defined in: bundler-packages/compiler/types/src/resolveArtifactsSync.d.ts:4
+
 ## Parameters
 
-• **solFile**: `string`
+### solFile
 
-• **basedir**: `string`
+`string`
 
-• **logger**: `Logger`
+### basedir
 
-• **config**: `ResolvedCompilerConfig`
+`string`
 
-• **includeAst**: `boolean`
+### logger
 
-• **includeBytecode**: `boolean`
+`Logger`
 
-• **fao**: `FileAccessObject`
+### config
 
-• **solc**: `any`
+`ResolvedCompilerConfig`
+
+### includeAst
+
+`boolean`
+
+### includeBytecode
+
+`boolean`
+
+### fao
+
+`FileAccessObject`
+
+### solc
+
+`any`
 
 ## Returns
 
 `ResolvedArtifacts`
-
-## Defined in
-
-bundler-packages/compiler/types/src/resolveArtifactsSync.d.ts:4

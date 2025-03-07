@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,35 +6,31 @@
 
 # Interface: ParameterizedAccountStorage
 
+Defined in: packages/state/dist/index.d.ts:26
+
 ## Properties
 
 ### balance
 
-> **balance**: \`0x$\{string\}\`
+> **balance**: `` `0x${string}` ``
 
-#### Defined in
-
-packages/state/dist/index.d.ts:28
+Defined in: packages/state/dist/index.d.ts:28
 
 ***
 
 ### codeHash
 
-> **codeHash**: \`0x$\{string\}\`
+> **codeHash**: `` `0x${string}` ``
 
-#### Defined in
-
-packages/state/dist/index.d.ts:30
+Defined in: packages/state/dist/index.d.ts:30
 
 ***
 
 ### nonce
 
-> **nonce**: \`0x$\{string\}\`
+> **nonce**: `` `0x${string}` ``
 
-#### Defined in
-
-packages/state/dist/index.d.ts:27
+Defined in: packages/state/dist/index.d.ts:27
 
 ***
 
@@ -42,16 +38,12 @@ packages/state/dist/index.d.ts:27
 
 > `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-#### Defined in
-
-packages/state/dist/index.d.ts:31
+Defined in: packages/state/dist/index.d.ts:31
 
 ***
 
 ### storageRoot
 
-> **storageRoot**: \`0x$\{string\}\`
+> **storageRoot**: `` `0x${string}` ``
 
-#### Defined in
-
-packages/state/dist/index.d.ts:29
+Defined in: packages/state/dist/index.d.ts:29

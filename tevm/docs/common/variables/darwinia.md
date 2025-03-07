@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: darwinia
 
-> `const` **darwinia**: `Common`
+> `const` **darwinia**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/darwinia.d.ts:21
 
 Creates a common configuration for the darwinia chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/darwinia.d.ts:21

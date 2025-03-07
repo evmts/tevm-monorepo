@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,24 @@
 
 # Function: executeCall()
 
-> **executeCall**(`client`, `evmInput`, `params`): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| `object`\>
+> **executeCall**(`client`, `evmInput`, `params`): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`HandleRunTxError`](../type-aliases/HandleRunTxError.md)\]; \}\>
+
+Defined in: packages/actions/types/Call/executeCall.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **evmInput**: [`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md)
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **params**: [`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+### evmInput
+
+[`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md)
+
+### params
+
+[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
 
 ## Returns
 
-`Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| `object`\>
-
-## Defined in
-
-packages/actions/types/Call/executeCall.d.ts:1
+`Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`HandleRunTxError`](../type-aliases/HandleRunTxError.md)\]; \}\>

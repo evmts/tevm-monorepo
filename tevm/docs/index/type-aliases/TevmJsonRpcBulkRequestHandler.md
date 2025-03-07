@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,10 @@
 # Type Alias: TevmJsonRpcBulkRequestHandler()
 
 > **TevmJsonRpcBulkRequestHandler**: (`requests`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
+
+Defined in: packages/actions/types/tevm-request-handler/TevmJsonRpcBulkRequestHandler.d.ts:85
+
+**`Experimental`**
 
 Bulk request handler for JSON-RPC requests. Takes an array of requests and returns an array of results.
 Bulk requests are currently handled in parallel which can cause issues if the requests are expected to run
@@ -17,7 +21,9 @@ Currently is not very generic with regard to input and output types.
 
 ## Parameters
 
-• **requests**: `ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../actions/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../actions/type-aliases/AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`\>
+### requests
+
+`ReadonlyArray`\<[`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](../../actions/type-aliases/EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](../../actions/type-aliases/AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`\>
 
 ## Returns
 
@@ -94,7 +100,3 @@ response - EthGasPriceJsonRpcResponse
 
 request - EthGetBalanceJsonRpcRequest
 response - EthGetBalanceJsonRpcResponse
-
-## Defined in
-
-packages/actions/types/tevm-request-handler/TevmJsonRpcBulkRequestHandler.d.ts:85

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,79 +8,125 @@
 
 > **txLogsBloom**(`logs`, `common`): `Bloom`
 
+Defined in: packages/vm/types/actions/txLogsBloom.d.ts:9
+
 **`Internal`**
 
 Creates a bloom filter from the logs.
 
 ## Parameters
 
-• **logs**: `undefined` \| `any`[]
+### logs
 
 The logs to create the bloom filter from.
 
-• **common**
+`undefined` | `any`[]
+
+### common
 
 The common object.')}
 
-• **common.blockExplorers?**
+#### blockExplorers?
+
+\{ `[key: string]`: `ChainBlockExplorer`;  `default`: `ChainBlockExplorer`; \}
 
 Collection of block explorers
 
-• **common.blockExplorers.default**: `ChainBlockExplorer`
+#### blockExplorers.default
 
-• **common.contracts?**
+`ChainBlockExplorer`
+
+#### contracts?
+
+\{ `[key: string]`: `undefined` \| `ChainContract` \| \{\};  `ensRegistry`: `ChainContract`; `ensUniversalResolver`: `ChainContract`; `multicall3`: `ChainContract`; `universalSignatureVerifier`: `ChainContract`; \}
 
 Collection of contracts
 
-• **common.contracts.ensRegistry?**: `ChainContract`
+#### contracts.ensRegistry?
 
-• **common.contracts.ensUniversalResolver?**: `ChainContract`
+`ChainContract`
 
-• **common.contracts.multicall3?**: `ChainContract`
+#### contracts.ensUniversalResolver?
 
-• **common.copy**
+`ChainContract`
 
-• **common.custom?**: `Record`\<`string`, `unknown`\>
+#### contracts.multicall3?
+
+`ChainContract`
+
+#### contracts.universalSignatureVerifier?
+
+`ChainContract`
+
+#### copy
+
+() => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
+
+#### custom?
+
+`Record`\<`string`, `unknown`\>
 
 Custom chain data.
 
-• **common.ethjsCommon**: `Common`
+#### ethjsCommon
 
-• **common.fees?**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+`Common`
+
+#### fees?
+
+`ChainFees`\<`undefined` \| `ChainFormatters`\>
 
 Modifies how fees are derived.
 
-• **common.formatters?**: `ChainFormatters`
+#### formatters?
+
+`ChainFormatters`
 
 Modifies how data is formatted and typed (e.g. blocks and transactions)
 
-• **common.id**: `number`
+#### id
+
+`number`
 
 ID in number form
 
-• **common.name**: `string`
+#### name
+
+`string`
 
 Human-readable name
 
-• **common.nativeCurrency**: `ChainNativeCurrency`
+#### nativeCurrency
+
+`ChainNativeCurrency`
 
 Currency used by chain
 
-• **common.rpcUrls**
+#### rpcUrls
+
+\{ `[key: string]`: `ChainRpcUrls`;  `default`: `ChainRpcUrls`; \}
 
 Collection of RPC endpoints
 
-• **common.rpcUrls.default**: `ChainRpcUrls`
+#### rpcUrls.default
 
-• **common.serializers?**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+`ChainRpcUrls`
+
+#### serializers?
+
+`ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
 
 Modifies how data is serialized (e.g. transactions).
 
-• **common.sourceId?**: `number`
+#### sourceId?
+
+`number`
 
 Source Chain ID (ie. the L1 chain)
 
-• **common.testnet?**: `boolean`
+#### testnet?
+
+`boolean`
 
 Flag for test networks
 
@@ -89,7 +135,3 @@ Flag for test networks
 `Bloom`
 
 ## Throws
-
-## Defined in
-
-packages/vm/types/actions/txLogsBloom.d.ts:9

@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **SolcLanguage**: `"Solidity"` \| `"Yul"` \| `"SolidityAST"`
 
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:4
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:4

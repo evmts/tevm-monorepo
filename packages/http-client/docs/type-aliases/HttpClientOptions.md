@@ -1,4 +1,4 @@
-[**@tevm/http-client**](../README.md) • **Docs**
+[**@tevm/http-client**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ~~HttpClientOptions~~
 
 > **HttpClientOptions**: `object`
+
+Defined in: [HttpClientOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L5)
 
 ## Type declaration
 
@@ -25,7 +27,3 @@ Remote URL to connect to
 ## Deprecated
 
 Options for a HttpClient
-
-## Defined in
-
-[HttpClientOptions.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L5)

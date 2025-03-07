@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilResetJsonRpcProcedure()
 
-> **anvilResetJsonRpcProcedure**(`node`): `AnvilResetProcedure`
+> **anvilResetJsonRpcProcedure**(`node`): [`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilResetProcedure.d.ts:1
 
 ## Parameters
 
-• **node**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### node
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilResetProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilResetProcedure.d.ts:1
+[`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)

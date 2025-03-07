@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SetAccountResult\<ErrorType\>
 
 > **SetAccountResult**\<`ErrorType`\>: `object`
+
+Defined in: packages/actions/types/SetAccount/SetAccountResult.d.ts:5
 
 Result of SetAccount Action
 
@@ -21,7 +23,3 @@ Result of SetAccount Action
 > `optional` **errors**: `ErrorType`[]
 
 Description of the exception, if any occurred
-
-## Defined in
-
-packages/actions/types/SetAccount/SetAccountResult.d.ts:5

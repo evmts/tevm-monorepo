@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: NonceTooHighErrorParameters
 
 > **NonceTooHighErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/NonceTooHighError.d.ts:60
 
 Parameters for constructing a NonceTooHighError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a NonceTooHighError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/NonceTooHighError.d.ts:60

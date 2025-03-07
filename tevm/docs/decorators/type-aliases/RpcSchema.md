@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **RpcSchema**: readonly `object`[]
 
+Defined in: packages/decorators/dist/index.d.ts:235
+
 **`Internal`**
 
 Most general RPC schema type.
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:235

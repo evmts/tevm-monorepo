@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: LoadStateJsonRpcRequest
 
-> **LoadStateJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_loadState"`, [[`SerializedParams`](SerializedParams.md)]\>
+> **LoadStateJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_loadState"`, \[[`SerializedParams`](SerializedParams.md)\]\>
+
+Defined in: packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:13
 
 The JSON-RPC request for the `tevm_loadState` method
-
-## Defined in
-
-packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:13

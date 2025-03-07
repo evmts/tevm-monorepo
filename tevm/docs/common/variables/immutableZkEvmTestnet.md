@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: immutableZkEvmTestnet
 
-> `const` **immutableZkEvmTestnet**: `Common`
+> `const` **immutableZkEvmTestnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/immutableZkEvmTestnet.d.ts:21
 
 Creates a common configuration for the immutableZkEvmTestnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/immutableZkEvmTestnet.d.ts:21

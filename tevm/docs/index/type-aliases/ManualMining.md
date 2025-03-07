@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,12 +8,10 @@
 
 > **ManualMining**: `object`
 
+Defined in: packages/node/dist/index.d.ts:110
+
 ## Type declaration
 
 ### type
 
 > **type**: `"manual"`
-
-## Defined in
-
-packages/node/dist/index.d.ts:113

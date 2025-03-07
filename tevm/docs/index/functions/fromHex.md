@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: fromHex()
 
 > **fromHex**\<`to`\>(`hex`, `toOrOpts`): `FromHexReturnType`\<`to`\>
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:47
 
 Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
@@ -19,11 +21,15 @@ Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
 ## Parameters
 
-• **hex**: \`0x$\{string\}\`
+### hex
+
+`` `0x${string}` ``
 
 Hex string to decode.
 
-• **toOrOpts**: `FromHexParameters`\<`to`\>
+### toOrOpts
+
+`FromHexParameters`\<`to`\>
 
 Type to convert to or options.
 
@@ -55,7 +61,3 @@ const data = fromHex('0x48656c6c6f20576f726c642100000000000000000000000000000000
 })
 // 'Hello world'
 ```
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:47

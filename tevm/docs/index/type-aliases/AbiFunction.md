@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AbiFunction
 
 > **AbiFunction**: `object`
+
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.2\_zod@3.24.2/node\_modules/abitype/dist/types/abi.d.ts:54
 
 ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type
 
@@ -67,7 +69,3 @@ https://github.com/ethereum/solidity/issues/992
 ### type
 
 > **type**: `"function"`
-
-## Defined in
-
-node\_modules/.pnpm/abitype@1.0.6\_typescript@5.7.3\_zod@3.23.8/node\_modules/abitype/dist/types/abi.d.ts:54

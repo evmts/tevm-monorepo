@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **valuesArrayToHeaderData**(`values`): [`HeaderData`](../interfaces/HeaderData.md)
 
+Defined in: packages/block/types/helpers.d.ts:9
+
 ## Parameters
 
-• **values**: [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
+### values
+
+[`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
 
 ## Returns
 
 [`HeaderData`](../interfaces/HeaderData.md)
-
-## Defined in
-
-packages/block/types/helpers.d.ts:9

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: createChain()
 
-> **createChain**(`options`): `Promise`\<`Chain`\>
+> **createChain**(`options`): `Promise`\<[`Chain`](../type-aliases/Chain.md)\>
+
+Defined in: packages/blockchain/types/createChain.d.ts:1
 
 ## Parameters
 
-• **options**: [`ChainOptions`](../type-aliases/ChainOptions.md)
+### options
+
+[`ChainOptions`](../type-aliases/ChainOptions.md)
 
 ## Returns
 
-`Promise`\<`Chain`\>
-
-## Defined in
-
-packages/blockchain/types/createChain.d.ts:1
+`Promise`\<[`Chain`](../type-aliases/Chain.md)\>

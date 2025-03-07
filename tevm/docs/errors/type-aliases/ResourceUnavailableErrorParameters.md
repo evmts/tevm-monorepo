@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ResourceUnavailableErrorParameters
 
 > **ResourceUnavailableErrorParameters**: `object`
+
+Defined in: packages/errors/types/ethereum/ResourceUnavailableError.d.ts:55
 
 Parameters for constructing a ResourceUnavailableError.
 
@@ -53,7 +55,3 @@ Parameters for constructing a ResourceUnavailableError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ResourceUnavailableError.d.ts:55

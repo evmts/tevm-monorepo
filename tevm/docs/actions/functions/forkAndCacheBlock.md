@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,24 @@
 
 # Function: forkAndCacheBlock()
 
-> **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<`Vm`\>
+> **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<[`Vm`](../../vm/type-aliases/Vm.md)\>
+
+Defined in: packages/actions/types/internal/forkAndCacheBlock.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **block**: [`Block`](../../block/classes/Block.md)
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **executeBlock?**: `boolean`
+### block
+
+[`Block`](../../block/classes/Block.md)
+
+### executeBlock?
+
+`boolean`
 
 ## Returns
 
-`Promise`\<`Vm`\>
-
-## Defined in
-
-packages/actions/types/internal/forkAndCacheBlock.d.ts:1
+`Promise`\<[`Vm`](../../vm/type-aliases/Vm.md)\>

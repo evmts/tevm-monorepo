@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **isAccessListEIP2930Tx**(`tx`): `tx is AccessListEIP2930Transaction`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:104
+
 ## Parameters
 
-• **tx**: [`TypedTransaction`](../type-aliases/TypedTransaction.md)
+### tx
+
+[`TypedTransaction`](../type-aliases/TypedTransaction.md)
 
 ## Returns
 
 `tx is AccessListEIP2930Transaction`
-
-## Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:104

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **FilterType**: `"PendingTransaction"` \| `"Block"` \| `"Log"`
 
-## Defined in
-
-packages/node/dist/index.d.ts:60
+Defined in: packages/node/dist/index.d.ts:57

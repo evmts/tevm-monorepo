@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **CallHandlerOptsError**: [`UnknownBlockError`](../../errors/classes/UnknownBlockError.md) \| [`UnknownBlockError`](../../errors/classes/UnknownBlockError.md) \| [`InvalidParamsError`](../../errors/classes/InvalidParamsError.md)
 
-## Defined in
-
-packages/actions/types/Call/callHandlerOpts.d.ts:8
+Defined in: packages/actions/types/Call/callHandlerOpts.d.ts:8

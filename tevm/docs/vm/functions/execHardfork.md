@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,20 @@
 
 # Function: execHardfork()
 
-> **execHardfork**(`hardfork`, `preMergeHf`): `string` \| `Hardfork`
+> **execHardfork**(`hardfork`, `preMergeHf`): `string`
+
+Defined in: packages/vm/types/actions/execHardfork.d.ts:1
 
 ## Parameters
 
-• **hardfork**: `string`
+### hardfork
 
-• **preMergeHf**: `string`
+`string`
+
+### preMergeHf
+
+`string`
 
 ## Returns
 
-`string` \| `Hardfork`
-
-## Defined in
-
-packages/vm/types/actions/execHardfork.d.ts:1
+`string`

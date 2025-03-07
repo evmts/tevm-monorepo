@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: getForkBlockTag()
 
-> **getForkBlockTag**(`__namedParameters`): `undefined` \| `object` \| `object`
+> **getForkBlockTag**(`__namedParameters`): `undefined` \| \{ `blockTag`: [`BlockTag`](../../index/type-aliases/BlockTag.md); \} \| \{ `blockNumber`: `bigint`; \}
+
+Defined in: packages/state/dist/index.d.ts:303
 
 ## Parameters
 
-• **\_\_namedParameters**: [`BaseState`](../type-aliases/BaseState.md)
+### \_\_namedParameters
+
+[`BaseState`](../type-aliases/BaseState.md)
 
 ## Returns
 
-`undefined` \| `object` \| `object`
-
-## Defined in
-
-packages/state/dist/index.d.ts:303
+`undefined` \| \{ `blockTag`: [`BlockTag`](../../index/type-aliases/BlockTag.md); \} \| \{ `blockNumber`: `bigint`; \}

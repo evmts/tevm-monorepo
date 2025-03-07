@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **InvalidBalanceErrorParameters**: `object`
 
+Defined in: packages/errors/types/input/InvalidBalanceError.d.ts:51
+
 Parameters for constructing an InvalidBalanceError.
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: `BaseError` \| `Error`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing an InvalidBalanceError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/input/InvalidBalanceError.d.ts:51

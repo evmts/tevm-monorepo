@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethSendRawTransactionJsonRpcProcedure()
 
-> **ethSendRawTransactionJsonRpcProcedure**(`client`): `EthSendRawTransactionJsonRpcProcedure`
+> **ethSendRawTransactionJsonRpcProcedure**(`client`): [`EthSendRawTransactionJsonRpcProcedure`](../type-aliases/EthSendRawTransactionJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethSendRawTransactionProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthSendRawTransactionJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethSendRawTransactionProcedure.d.ts:1
+[`EthSendRawTransactionJsonRpcProcedure`](../type-aliases/EthSendRawTransactionJsonRpcProcedure.md)

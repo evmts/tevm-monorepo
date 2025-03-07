@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -6,18 +6,20 @@
 
 # Function: solcCompile()
 
-> **solcCompile**(`solc`, `input`): `SolcOutput`
+> **solcCompile**(`solc`, `input`): [`SolcOutput`](../type-aliases/SolcOutput.md)
+
+Defined in: bundler-packages/solc/types/src/solc.d.ts:9
 
 ## Parameters
 
-• **solc**: `any`
+### solc
 
-• **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
+`any`
+
+### input
+
+[`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
 ## Returns
 
-`SolcOutput`
-
-## Defined in
-
-bundler-packages/solc/types/src/solc.d.ts:9
+[`SolcOutput`](../type-aliases/SolcOutput.md)

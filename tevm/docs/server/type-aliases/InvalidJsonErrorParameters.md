@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **InvalidJsonErrorParameters**: `object`
 
+Defined in: packages/server/types/errors/InvalidJsonError.d.ts:49
+
 Parameters for constructing an [InvalidJsonError](../classes/InvalidJsonError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: `BaseError` \| `Error`
+> `optional` **cause**: [`BaseError`](../../errors/classes/BaseError.md) \| `Error`
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing an [InvalidJsonError](../classes/InvalidJsonError.md
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/server/types/errors/InvalidJsonError.d.ts:49

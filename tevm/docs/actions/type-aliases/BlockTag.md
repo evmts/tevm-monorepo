@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **BlockTag**: `"latest"` \| `"earliest"` \| `"pending"` \| `"safe"` \| `"finalized"`
 
-## Defined in
-
-packages/actions/types/common/BlockTag.d.ts:1
+Defined in: packages/actions/types/common/BlockTag.d.ts:1

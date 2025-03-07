@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilDealParams
 
 > **AnvilDealParams**: `object`
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:135
 
 ## Type declaration
 
@@ -27,7 +29,3 @@ The amount of tokens to deal
 > `optional` **erc20**: [`Address`](Address.md)
 
 The address of the ERC20 token to deal
-
-## Defined in
-
-packages/actions/types/anvil/AnvilParams.d.ts:135

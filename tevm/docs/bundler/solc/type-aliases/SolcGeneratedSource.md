@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcGeneratedSource
 
 > **SolcGeneratedSource**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:187
 
 ## Type declaration
 
@@ -29,7 +31,3 @@
 ### name
 
 > **name**: `string`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:187

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,20 @@
 
 > **putContractCode**(`baseState`, `skipFetchingFromFork`?): (`address`, `value`) => `Promise`\<`void`\>
 
+Defined in: packages/state/dist/index.d.ts:348
+
 Adds `value` to the state trie as code, and sets `codeHash` on the account
 corresponding to `address` to reference this.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -23,14 +29,14 @@ corresponding to `address` to reference this.
 
 ### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+#### address
 
-• **value**: `Uint8Array`
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+#### value
+
+`Uint8Array`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:348

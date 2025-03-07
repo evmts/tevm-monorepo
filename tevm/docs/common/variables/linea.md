@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: linea
 
-> `const` **linea**: `Common`
+> `const` **linea**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/linea.d.ts:21
 
 Creates a common configuration for the linea chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/linea.d.ts:21

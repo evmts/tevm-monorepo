@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ContractHandler()
 
 > **ContractHandler**: \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](../../index/type-aliases/ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
+
+Defined in: packages/actions/types/Contract/ContractHandlerType.d.ts:44
 
 Handler for executing contract interactions with the TEVM.
 
@@ -25,7 +27,9 @@ The function name type from the ABI.
 
 ## Parameters
 
-• **action**: [`ContractParams`](../../index/type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\>
+### action
+
+[`ContractParams`](../../index/type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\>
 
 The parameters for the contract call, including ABI, function name, and arguments.
 
@@ -68,7 +72,3 @@ console.log(res)
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
  - [ContractParams](../../index/type-aliases/ContractParams.md)
  - [ContractResult](../../index/type-aliases/ContractResult.md)
-
-## Defined in
-
-packages/actions/types/Contract/ContractHandlerType.d.ts:44

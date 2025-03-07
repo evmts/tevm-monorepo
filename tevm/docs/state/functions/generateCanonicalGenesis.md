@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **generateCanonicalGenesis**(`baseState`, `skipFetchingFromFork`?): (`initState`) => `Promise`\<`void`\>
 
+Defined in: packages/state/dist/index.d.ts:263
+
 Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manager
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,12 +28,10 @@ Loads a [TevmState](../../index/type-aliases/TevmState.md) into the state manage
 
 ### Parameters
 
-• **initState**: `any`
+#### initState
+
+`any`
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:263

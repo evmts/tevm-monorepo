@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [utils](../README.md) / JsonRpcWithdrawal
 
 # Interface: JsonRpcWithdrawal
+
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:17
 
 JSON RPC interface for EIP-4895 withdrawal data with amount in Gwei to
 match CL representation and for eventual ssz withdrawalsRoot
@@ -13,38 +15,30 @@ match CL representation and for eventual ssz withdrawalsRoot
 
 ### address
 
-> **address**: \`0x$\{string\}\`
+> **address**: `` `0x${string}` ``
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:20
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:20
 
 ***
 
 ### amount
 
-> **amount**: \`0x$\{string\}\`
+> **amount**: `` `0x${string}` ``
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:21
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:21
 
 ***
 
 ### index
 
-> **index**: \`0x$\{string\}\`
+> **index**: `` `0x${string}` ``
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:18
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:18
 
 ***
 
 ### validatorIndex
 
-> **validatorIndex**: \`0x$\{string\}\`
+> **validatorIndex**: `` `0x${string}` ``
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:19
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:19

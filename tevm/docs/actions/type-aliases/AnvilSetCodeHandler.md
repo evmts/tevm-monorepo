@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilSetCodeHandler**: (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:10
+
 ## Parameters
 
-• **params**: [`AnvilSetCodeParams`](AnvilSetCodeParams.md)
+### params
+
+[`AnvilSetCodeParams`](AnvilSetCodeParams.md)
 
 ## Returns
 
 `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilHandler.d.ts:10

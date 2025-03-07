@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [errors](../README.md) / CodeSizeExceedsMaximumError
 
 # Class: CodeSizeExceedsMaximumError
+
+Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:56
 
 Represents an calldata/creation error that occurs when the code size exceeds the maximum limit.
 This error is typically encountered when the contract size to be deployed exceeds the maximum allowed size.
@@ -58,6 +60,8 @@ Additional parameters for the BaseError.
 
 > **new CodeSizeExceedsMaximumError**(`message`?, `args`?, `tag`?): [`CodeSizeExceedsMaximumError`](CodeSizeExceedsMaximumError.md)
 
+Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:85
+
 Constructs a CodeSizeExceedsMaximumError.
 Represents an calldata/creation error that occurs when the code size exceeds the maximum limit.
 This error is typically encountered when the contract size to be deployed exceeds the maximum allowed size.
@@ -81,15 +85,21 @@ To debug a code size exceeds maximum error:
 
 #### Parameters
 
-• **message?**: `string`
+##### message?
+
+`string`
 
 Human-readable error message.
 
-• **args?**: [`CodeSizeExceedsMaximumErrorParameters`](../type-aliases/CodeSizeExceedsMaximumErrorParameters.md)
+##### args?
+
+[`CodeSizeExceedsMaximumErrorParameters`](../type-aliases/CodeSizeExceedsMaximumErrorParameters.md)
 
 Additional parameters for the BaseError.
 
-• **tag?**: `string`
+##### tag?
+
+`string`
 
 The tag for the error.
 
@@ -101,15 +111,13 @@ The tag for the error.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`constructor`](GasLimitExceededError.md#constructors)
 
-#### Defined in
-
-packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:85
-
 ## Properties
 
 ### \_tag
 
 > **\_tag**: `string`
+
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:40
 
 Same as name, used internally.
 
@@ -117,23 +125,17 @@ Same as name, used internally.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`_tag`](GasLimitExceededError.md#_tag)
 
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:40
-
 ***
 
 ### cause
 
 > **cause**: `any`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:65
+
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`cause`](GasLimitExceededError.md#cause)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:65
 
 ***
 
@@ -141,15 +143,13 @@ packages/errors/types/ethereum/BaseError.d.ts:65
 
 > **code**: `number`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:64
+
 Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`code`](GasLimitExceededError.md#code)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:64
 
 ***
 
@@ -157,13 +157,11 @@ packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **details**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:44
+
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`details`](GasLimitExceededError.md#details)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:44
 
 ***
 
@@ -171,15 +169,13 @@ packages/errors/types/ethereum/BaseError.d.ts:44
 
 > **docsPath**: `undefined` \| `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:48
+
 Path to the documentation for this error.
 
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`docsPath`](GasLimitExceededError.md#docspath)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:48
 
 ***
 
@@ -187,15 +183,13 @@ packages/errors/types/ethereum/BaseError.d.ts:48
 
 > **message**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+
 Human-readable error message.
 
 #### Inherited from
 
-[`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+[`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message-1)
 
 ***
 
@@ -203,15 +197,13 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **metaMessages**: `undefined` \| `string`[]
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:52
+
 Additional meta messages for more context.
 
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`metaMessages`](GasLimitExceededError.md#metamessages)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:52
 
 ***
 
@@ -219,15 +211,13 @@ packages/errors/types/ethereum/BaseError.d.ts:52
 
 > **name**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
+
 The name of the error, used to discriminate errors.
 
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`name`](GasLimitExceededError.md#name)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -235,13 +225,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **shortMessage**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
+
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`shortMessage`](GasLimitExceededError.md#shortmessage)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:56
 
 ***
 
@@ -249,13 +237,11 @@ packages/errors/types/ethereum/BaseError.d.ts:56
 
 > `optional` **stack**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`stack`](GasLimitExceededError.md#stack)
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -263,13 +249,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **version**: `string`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
+
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`version`](GasLimitExceededError.md#version)
-
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:60
 
 ***
 
@@ -277,9 +261,7 @@ packages/errors/types/ethereum/BaseError.d.ts:60
 
 > `static` **EVMErrorMessage**: [`EvmErrorMessage`](../../evm/enumerations/EvmErrorMessage.md)
 
-#### Defined in
-
-packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:57
+Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:57
 
 ***
 
@@ -287,13 +269,19 @@ packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:57
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+
 Optional override for formatting stack traces
 
 #### Parameters
 
-• **err**: `Error`
+##### err
 
-• **stackTraces**: `CallSite`[]
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
 
 #### Returns
 
@@ -307,23 +295,17 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`prepareStackTrace`](GasLimitExceededError.md#preparestacktrace)
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
-
 ***
 
 ### stackTraceLimit
 
 > `static` **stackTraceLimit**: `number`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`stackTraceLimit`](GasLimitExceededError.md#stacktracelimit)
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
@@ -331,11 +313,15 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:14
 
 > **walk**(`fn`?): `unknown`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:71
+
 Walks through the error chain.
 
 #### Parameters
 
-• **fn?**: `Function`
+##### fn?
+
+`Function`
 
 A function to execute on each error in the chain.
 
@@ -349,23 +335,25 @@ The first error that matches the function, or the original error.
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`walk`](GasLimitExceededError.md#walk)
 
-#### Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:71
-
 ***
 
 ### captureStackTrace()
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
+
 Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+##### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+##### constructorOpt?
+
+`Function`
 
 #### Returns
 
@@ -374,7 +362,3 @@ Create .stack property on a target object
 #### Inherited from
 
 [`GasLimitExceededError`](GasLimitExceededError.md).[`captureStackTrace`](GasLimitExceededError.md#capturestacktrace)
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:136

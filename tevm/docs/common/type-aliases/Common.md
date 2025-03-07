@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Common
 
 > **Common**: `Prettify`\<`ViemChain` & `object`\>
+
+Defined in: packages/common/types/Common.d.ts:26
 
 Common is the main representation of chain specific configuration for tevm clients.
 
@@ -34,7 +36,3 @@ const client = createClient(optimism)
 
  - [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  - [Tevm client docs](https://tevm.sh/learn/clients/)
-
-## Defined in
-
-packages/common/types/Common.d.ts:26

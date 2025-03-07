@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetTransactionCountHandler**: (`request`) => `Promise`\<[`EthGetTransactionCountResult`](EthGetTransactionCountResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:21
+
 ## Parameters
 
-• **request**: [`EthGetTransactionCountParams`](EthGetTransactionCountParams.md)
+### request
+
+[`EthGetTransactionCountParams`](EthGetTransactionCountParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetTransactionCountResult`](EthGetTransactionCountResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:21

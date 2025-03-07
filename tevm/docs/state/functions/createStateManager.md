@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **createStateManager**(`options`): [`StateManager`](../interfaces/StateManager.md)
 
+Defined in: packages/state/dist/index.d.ts:202
+
 ## Parameters
 
-• **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
+### options
+
+[`StateOptions`](../../index/type-aliases/StateOptions.md)
 
 ## Returns
 
 [`StateManager`](../interfaces/StateManager.md)
-
-## Defined in
-
-packages/state/dist/index.d.ts:202

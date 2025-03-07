@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > `const` **zBytecode**: `ZodEffects`
 
+Defined in: packages/actions/types/internal/zod/zBytecode.d.ts:4
+
 Zod validator for valid Ethereum bytecode
-
-## Defined in
-
-packages/actions/types/internal/zod/zBytecode.d.ts:4

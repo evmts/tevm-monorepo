@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **AnvilSetCoinbaseJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setCoinbase"`, [`Address`](../../index/type-aliases/Address.md), `AnvilError`\>
 
+Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:17
+
 JSON-RPC response for `anvil_setCoinbase` procedure
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:17

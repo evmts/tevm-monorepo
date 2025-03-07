@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmActions
 
 > **TevmActions**: `object`
+
+Defined in: packages/memory-client/types/TevmActions.d.ts:10
 
 Provides powerful actions for interacting with the EVM using the TEVM API.
 These actions allow for low-level access to the EVM, managing accounts, deploying contracts, and more.
@@ -271,7 +273,3 @@ await client.tevmSetAccount({
 
  - [Actions Guide](https://tevm.sh/learn/actions/)
  - [Viem Actions API](https://viem.sh/docs/actions/introduction)
-
-## Defined in
-
-packages/memory-client/types/TevmActions.d.ts:10

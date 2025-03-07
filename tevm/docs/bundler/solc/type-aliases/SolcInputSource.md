@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: SolcInputSource
 
-> **SolcInputSource**: `object` & `object` \| `object`
+> **SolcInputSource**: `object` & \{ `urls`: `string`[]; \} \| \{ `content`: `string`; \}
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:5
 
 ## Type declaration
 
@@ -17,7 +19,3 @@
 ### keccak256?
 
 > `optional` **keccak256**: `HexNumber`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:5

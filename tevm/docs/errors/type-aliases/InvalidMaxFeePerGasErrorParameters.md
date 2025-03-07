@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **InvalidMaxFeePerGasErrorParameters**: `object`
 
+Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:52
+
 Parameters for constructing an InvalidMaxFeePerGasError.
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: `BaseError` \| `Error`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing an InvalidMaxFeePerGasError.
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:52

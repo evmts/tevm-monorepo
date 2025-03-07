@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **validateSetAccountParams**(`action`): [`ValidateSetAccountParamsError`](../type-aliases/ValidateSetAccountParamsError.md)[]
 
+Defined in: packages/actions/types/SetAccount/validateSetAccountParams.d.ts:1
+
 ## Parameters
 
-• **action**: [`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\<`boolean`\>
+### action
+
+[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\<`boolean`\>
 
 ## Returns
 
 [`ValidateSetAccountParamsError`](../type-aliases/ValidateSetAccountParamsError.md)[]
-
-## Defined in
-
-packages/actions/types/SetAccount/validateSetAccountParams.d.ts:1

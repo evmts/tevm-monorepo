@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **ParameterizedTevmState**: `object`
 
+Defined in: packages/state/dist/index.d.ts:34
+
 ## Index Signature
 
- \[`key`: `string`\]: [`ParameterizedAccountStorage`](../interfaces/ParameterizedAccountStorage.md)
-
-## Defined in
-
-packages/state/dist/index.d.ts:34
+\[`key`: `string`\]: [`ParameterizedAccountStorage`](../interfaces/ParameterizedAccountStorage.md)

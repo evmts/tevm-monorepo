@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,30 +8,44 @@
 
 > **resolveArtifacts**(`solFile`, `basedir`, `logger`, `config`, `includeAst`, `includeBytecode`, `fao`, `solc`): `Promise`\<`ResolvedArtifacts`\>
 
+Defined in: bundler-packages/compiler/types/src/resolveArtifacts.d.ts:5
+
 Resolves artifacts with solc asyncronously
 
 ## Parameters
 
-• **solFile**: `string`
+### solFile
 
-• **basedir**: `string`
+`string`
 
-• **logger**: `Logger`
+### basedir
 
-• **config**: `ResolvedCompilerConfig`
+`string`
 
-• **includeAst**: `boolean`
+### logger
 
-• **includeBytecode**: `boolean`
+`Logger`
 
-• **fao**: `FileAccessObject`
+### config
 
-• **solc**: `any`
+`ResolvedCompilerConfig`
+
+### includeAst
+
+`boolean`
+
+### includeBytecode
+
+`boolean`
+
+### fao
+
+`FileAccessObject`
+
+### solc
+
+`any`
 
 ## Returns
 
 `Promise`\<`ResolvedArtifacts`\>
-
-## Defined in
-
-bundler-packages/compiler/types/src/resolveArtifacts.d.ts:5

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > `const` **parentBeaconBlockRootAddress**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-## Defined in
-
-packages/vm/types/actions/parentBeaconBlockRootAddress.d.ts:2
+Defined in: packages/vm/types/actions/parentBeaconBlockRootAddress.d.ts:2

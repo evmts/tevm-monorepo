@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,17 @@
 
 > **EIP1193EventMap**: `object`
 
+Defined in: packages/node/dist/index.d.ts:29
+
 ## Type declaration
 
 ### accountsChanged()
 
 #### Parameters
 
-• **accounts**: \`0x$\{string\}\`[]
+##### accounts
+
+`` `0x${string}` ``[]
 
 #### Returns
 
@@ -24,7 +28,9 @@
 
 #### Parameters
 
-• **chainId**: `string`
+##### chainId
+
+`string`
 
 #### Returns
 
@@ -34,7 +40,9 @@
 
 #### Parameters
 
-• **connectInfo**: [`ProviderConnectInfo`](ProviderConnectInfo.md)
+##### connectInfo
+
+[`ProviderConnectInfo`](ProviderConnectInfo.md)
 
 #### Returns
 
@@ -44,7 +52,9 @@
 
 #### Parameters
 
-• **error**: [`ProviderRpcError`](../classes/ProviderRpcError.md)
+##### error
+
+[`ProviderRpcError`](../classes/ProviderRpcError.md)
 
 #### Returns
 
@@ -54,7 +64,9 @@
 
 #### Parameters
 
-• **message**: [`ProviderMessage`](ProviderMessage.md)
+##### message
+
+[`ProviderMessage`](ProviderMessage.md)
 
 #### Returns
 
@@ -64,7 +76,9 @@
 
 #### Parameters
 
-• **block**: [`Block`](../../block/classes/Block.md)
+##### block
+
+[`Block`](../../block/classes/Block.md)
 
 #### Returns
 
@@ -74,7 +88,9 @@
 
 #### Parameters
 
-• **log**: `Log`\<`bigint`, `number`, `false`, `undefined`, `undefined`, `undefined`, `undefined`\>
+##### log
+
+`Log`\<`bigint`, `number`, `false`, `undefined`, `undefined`, `undefined`, `undefined`\>
 
 #### Returns
 
@@ -84,7 +100,9 @@
 
 #### Parameters
 
-• **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
+##### tx
+
+[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) | [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
 
 #### Returns
 
@@ -94,12 +112,10 @@
 
 #### Parameters
 
-• **receipt**: [`TxReceipt`](../../receipt-manager/type-aliases/TxReceipt.md)
+##### receipt
+
+[`TxReceipt`](../../receipt-manager/type-aliases/TxReceipt.md)
 
 #### Returns
 
 `void`
-
-## Defined in
-
-packages/node/dist/index.d.ts:32

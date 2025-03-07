@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Function: serializeTransaction()
 
-> **serializeTransaction**\<`transaction`, `_transactionType`\>(`transaction`, `signature`?): `SerializedTransactionReturnType`\<`transaction`, `_transactionType`\>
+> **serializeTransaction**\<`transaction`, `_transactionType`\>(`transaction`, `signature`?): `TransactionSerialized`\<`_transactionType`, `_transactionType` *extends* `"eip1559"` ? `` `0x02${string}` `` : `never` \| `_transactionType` *extends* `"eip2930"` ? `` `0x01${string}` `` : `never` \| `_transactionType` *extends* `"eip4844"` ? `` `0x03${string}` `` : `never` \| `_transactionType` *extends* `"eip7702"` ? `` `0x04${string}` `` : `never` \| `_transactionType` *extends* `"legacy"` ? `TransactionSerializedLegacy` : `never`\>
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/transaction/serializeTransaction.d.ts:20
 
 ## Type Parameters
 
@@ -16,14 +18,14 @@
 
 ## Parameters
 
-• **transaction**: `transaction`
+### transaction
 
-• **signature?**: `Signature`
+`transaction`
+
+### signature?
+
+`Signature`
 
 ## Returns
 
-`SerializedTransactionReturnType`\<`transaction`, `_transactionType`\>
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/transaction/serializeTransaction.d.ts:20
+`TransactionSerialized`\<`_transactionType`, `_transactionType` *extends* `"eip1559"` ? `` `0x02${string}` `` : `never` \| `_transactionType` *extends* `"eip2930"` ? `` `0x01${string}` `` : `never` \| `_transactionType` *extends* `"eip4844"` ? `` `0x03${string}` `` : `never` \| `_transactionType` *extends* `"eip7702"` ? `` `0x04${string}` `` : `never` \| `_transactionType` *extends* `"legacy"` ? `TransactionSerializedLegacy` : `never`\>

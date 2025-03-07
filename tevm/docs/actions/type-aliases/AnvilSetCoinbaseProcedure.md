@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilSetCoinbaseProcedure**: (`request`) => `Promise`\<[`AnvilSetCoinbaseJsonRpcResponse`](AnvilSetCoinbaseJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:3
+
 ## Parameters
 
-• **request**: [`AnvilSetCoinbaseJsonRpcRequest`](AnvilSetCoinbaseJsonRpcRequest.md)
+### request
+
+[`AnvilSetCoinbaseJsonRpcRequest`](AnvilSetCoinbaseJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilSetCoinbaseJsonRpcResponse`](AnvilSetCoinbaseJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilProcedure.d.ts:3

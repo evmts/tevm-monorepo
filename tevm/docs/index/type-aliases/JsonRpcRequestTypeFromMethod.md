@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: JsonRpcRequestTypeFromMethod\<TMethod\>
 
 > **JsonRpcRequestTypeFromMethod**\<`TMethod`\>: [`EthRequestType`](../../actions/type-aliases/EthRequestType.md) & [`TevmRequestType`](../../actions/type-aliases/TevmRequestType.md) & [`AnvilRequestType`](../../actions/type-aliases/AnvilRequestType.md) & [`DebugRequestType`](../../actions/type-aliases/DebugRequestType.md)\[`TMethod`\]
+
+Defined in: packages/actions/types/tevm-request-handler/JsonRpcRequestTypeFromMethod.d.ts:12
 
 Utility type to get the request type given a method name
 
@@ -19,7 +21,3 @@ Utility type to get the request type given a method name
 ```typescript
 type BlockNumberRequestType = JsonRpcRequestTypeFromMethod<'eth_blockNumber'>
 ```
-
-## Defined in
-
-packages/actions/types/tevm-request-handler/JsonRpcRequestTypeFromMethod.d.ts:12

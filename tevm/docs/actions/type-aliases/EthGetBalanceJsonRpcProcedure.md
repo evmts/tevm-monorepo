@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetBalanceJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:11
+
 ## Parameters
 
-• **request**: [`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md)
+### request
+
+[`EthGetBalanceJsonRpcRequest`](EthGetBalanceJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:11

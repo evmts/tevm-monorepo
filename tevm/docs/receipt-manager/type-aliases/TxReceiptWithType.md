@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,9 +8,7 @@
 
 > **TxReceiptWithType**: `PreByzantiumTxReceiptWithType` \| `PostByzantiumTxReceiptWithType`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:64
+
 TxReceiptWithType extends TxReceipt to provide:
  - txType: byte prefix for serializing typed tx receipts
-
-## Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:64

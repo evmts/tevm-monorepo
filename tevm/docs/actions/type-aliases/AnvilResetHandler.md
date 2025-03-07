@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **AnvilResetHandler**: (`params`) => `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:7
+
 ## Parameters
 
-• **params**: [`AnvilResetParams`](AnvilResetParams.md)
+### params
+
+[`AnvilResetParams`](AnvilResetParams.md)
 
 ## Returns
 
 `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilHandler.d.ts:7

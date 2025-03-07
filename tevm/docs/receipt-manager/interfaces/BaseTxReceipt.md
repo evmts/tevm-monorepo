@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [receipt-manager](../README.md) / BaseTxReceipt
 
 # Interface: BaseTxReceipt
+
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:9
 
 Abstract interface with common transaction receipt fields
 
@@ -19,11 +21,9 @@ Abstract interface with common transaction receipt fields
 
 > **bitvector**: `Uint8Array`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:17
+
 Bloom bitvector
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:17
 
 ***
 
@@ -31,11 +31,9 @@ packages/receipt-manager/types/RecieptManager.d.ts:17
 
 > **cumulativeBlockGasUsed**: `bigint`
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:13
+
 Cumulative gas used in the block including this tx
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:13
 
 ***
 
@@ -43,8 +41,6 @@ packages/receipt-manager/types/RecieptManager.d.ts:13
 
 > **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
 
+Defined in: packages/receipt-manager/types/RecieptManager.d.ts:21
+
 Logs emitted
-
-#### Defined in
-
-packages/receipt-manager/types/RecieptManager.d.ts:21

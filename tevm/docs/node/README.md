@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,11 +6,9 @@
 
 # node
 
-## Index
+## Type Aliases
 
-### Type Aliases
-
-- [BaseClientOptions](type-aliases/BaseClientOptions.md)
+- [~~BaseClientOptions~~](type-aliases/BaseClientOptions.md)
 
 ## References
 

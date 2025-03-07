@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,31 @@
 
 # Function: delBlock()
 
-> **delBlock**(`baseChain`): `Chain`\[`"delBlock"`\]
+> **delBlock**(`baseChain`): (`blockHash`) => `Promise`\<`void`\>
+
+Defined in: packages/blockchain/types/actions/delBlock.d.ts:1
 
 ## Parameters
 
-• **baseChain**: `BaseChain`
+### baseChain
+
+`BaseChain`
 
 ## Returns
 
-`Chain`\[`"delBlock"`\]
+`Function`
 
-## Defined in
+Deletes a block from the blockchain. All child blocks in the chain are
+deleted and any encountered heads are set to the parent block.
 
-packages/blockchain/types/actions/delBlock.d.ts:1
+### Parameters
+
+#### blockHash
+
+`Uint8Array`
+
+The hash of the block to be deleted
+
+### Returns
+
+`Promise`\<`void`\>

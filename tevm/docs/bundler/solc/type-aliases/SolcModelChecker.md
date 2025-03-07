@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcModelChecker
 
 > **SolcModelChecker**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:45
 
 ## Type declaration
 
@@ -53,7 +55,3 @@
 ### timeout?
 
 > `optional` **timeout**: `boolean`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:45

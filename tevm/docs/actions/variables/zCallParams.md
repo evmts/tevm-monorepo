@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > `const` **zCallParams**: `ZodEffects`
 
+Defined in: packages/actions/types/Call/zCallParams.d.ts:5
+
 **`Internal`**
 
 Zod validator for a valid call action
-
-## Defined in
-
-packages/actions/types/Call/zCallParams.d.ts:5

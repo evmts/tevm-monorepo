@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilMineParams
 
 > **AnvilMineParams**: `object`
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:34
 
 Params for `anvil_mine` handler
 
@@ -23,7 +25,3 @@ Number of blocks to mine. Defaults to 1
 > `readonly` `optional` **interval**: `number`
 
 mineing interval
-
-## Defined in
-
-packages/actions/types/anvil/AnvilParams.d.ts:34

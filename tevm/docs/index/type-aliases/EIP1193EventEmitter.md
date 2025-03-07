@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EIP1193EventEmitter
 
 > **EIP1193EventEmitter**: [`EIP1193Events`](EIP1193Events.md) & `object`
+
+Defined in: packages/node/dist/index.d.ts:47
 
 A very minimal EventEmitter interface
 
@@ -18,11 +20,15 @@ Emit an event.
 
 #### Parameters
 
-• **eventName**: keyof [`EIP1193EventMap`](EIP1193EventMap.md)
+##### eventName
+
+keyof [`EIP1193EventMap`](EIP1193EventMap.md)
 
 The event name.
 
-• ...**args**: `any`[]
+##### args
+
+...`any`[]
 
 Arguments to pass to the event listeners.
 
@@ -31,7 +37,3 @@ Arguments to pass to the event listeners.
 `boolean`
 
 True if the event was emitted, false otherwise.
-
-## Defined in
-
-packages/node/dist/index.d.ts:50

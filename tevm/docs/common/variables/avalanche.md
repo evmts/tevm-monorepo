@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: avalanche
 
-> `const` **avalanche**: `Common`
+> `const` **avalanche**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/avalanche.d.ts:21
 
 Creates a common configuration for the avalanche chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/avalanche.d.ts:21

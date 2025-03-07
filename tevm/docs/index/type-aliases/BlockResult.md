@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: BlockResult\<TIncludeTransactions\>
 
 > **BlockResult**\<`TIncludeTransactions`\>: `object`
+
+Defined in: packages/actions/types/common/BlockResult.d.ts:7
 
 The type returned by block related
 json rpc procedures
@@ -96,7 +98,3 @@ The hex stringhash of the uncles of the block.
 ### uncles
 
 > `readonly` **uncles**: [`Hex`](../../actions/type-aliases/Hex.md)[]
-
-## Defined in
-
-packages/actions/types/common/BlockResult.d.ts:7

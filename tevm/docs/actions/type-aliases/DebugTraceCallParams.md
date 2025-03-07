@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **DebugTraceCallParams**: [`TraceParams`](../../index/type-aliases/TraceParams.md) & [`EthCallParams`](EthCallParams.md)
 
+Defined in: packages/actions/types/debug/DebugParams.d.ts:35
+
 Params taken by `debug_traceCall` handler
-
-## Defined in
-
-packages/actions/types/debug/DebugParams.d.ts:35

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthCreateAccessListJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:41
+
 ## Parameters
 
-• **request**: [`EthCreateAccessListJsonRpcRequest`](EthCreateAccessListJsonRpcRequest.md)
+### request
+
+[`EthCreateAccessListJsonRpcRequest`](EthCreateAccessListJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:41

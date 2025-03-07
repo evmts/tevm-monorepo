@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetUncleCountByBlockHashHandler**: (`request`) => `Promise`\<[`EthGetUncleCountByBlockHashResult`](EthGetUncleCountByBlockHashResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:22
+
 ## Parameters
 
-• **request**: [`EthGetUncleCountByBlockHashParams`](EthGetUncleCountByBlockHashParams.md)
+### request
+
+[`EthGetUncleCountByBlockHashParams`](EthGetUncleCountByBlockHashParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetUncleCountByBlockHashResult`](EthGetUncleCountByBlockHashResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:22

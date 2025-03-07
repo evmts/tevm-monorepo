@@ -67,7 +67,7 @@ Many of the tests use alchemy. They do not require an alchemy key but not provid
 
 ## Nx can get slow
 
-Sometimes you may notice nx slowing down. When this happens try running `pnpm nx reset` and it should reset it to being fast again.
+Sometimes you may notice nx slowing down single tasks taking a very long time consistentally. When this happens try running `pnpm nx reset` and it should reset it to being fast again.
 
 ## Monorepo
 

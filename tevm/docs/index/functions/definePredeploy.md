@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: definePredeploy()
 
 > **definePredeploy**\<`TName`, `THumanReadableAbi`\>(`contract`): [`Predeploy`](../type-aliases/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+
+Defined in: packages/predeploys/types/definePredeploy.d.ts:25
 
 Defines a predeploy contract to use in the tevm vm
 
@@ -18,7 +20,9 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Parameters
 
-• **contract**: [`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, \`0x$\{string\}\`, \`0x$\{string\}\`, \`0x$\{string\}\`\>
+### contract
+
+[`Contract`](../type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `` `0x${string}` ``, `` `0x${string}` ``, `` `0x${string}` ``\>
 
 ## Returns
 
@@ -45,7 +49,3 @@ const vm = createMemoryClient({
  predeploys: [predeploy.predeploy()],
 })
 ```
-
-## Defined in
-
-packages/predeploys/types/definePredeploy.d.ts:25

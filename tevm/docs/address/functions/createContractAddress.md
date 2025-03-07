@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,18 @@
 
 > **createContractAddress**(`from`, `nonce`): [`Address`](../classes/Address.md)
 
+Defined in: packages/address/types/createContractAddress.d.ts:1
+
 ## Parameters
 
-• **from**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+### from
 
-• **nonce**: `bigint`
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+### nonce
+
+`bigint`
 
 ## Returns
 
 [`Address`](../classes/Address.md)
-
-## Defined in
-
-packages/address/types/createContractAddress.d.ts:1

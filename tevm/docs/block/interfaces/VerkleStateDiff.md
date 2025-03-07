@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,15 +6,15 @@
 
 # Interface: VerkleStateDiff
 
+Defined in: packages/block/types/types.d.ts:77
+
 ## Properties
 
 ### stem
 
-> **stem**: \`0x$\{string\}\`
+> **stem**: `` `0x${string}` ``
 
-#### Defined in
-
-packages/block/types/types.d.ts:78
+Defined in: packages/block/types/types.d.ts:78
 
 ***
 
@@ -22,6 +22,16 @@ packages/block/types/types.d.ts:78
 
 > **suffixDiffs**: `object`[]
 
-#### Defined in
+Defined in: packages/block/types/types.d.ts:79
 
-packages/block/types/types.d.ts:79
+#### currentValue
+
+> **currentValue**: `null` \| `` `0x${string}` ``
+
+#### newValue
+
+> **newValue**: `null` \| `` `0x${string}` ``
+
+#### suffix
+
+> **suffix**: `string` \| `number`

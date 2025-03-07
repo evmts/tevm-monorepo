@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: AnvilDumpStateParams
 
-> **AnvilDumpStateParams**: `object` \| `undefined` \| `never`
+> **AnvilDumpStateParams**: \{\} \| `undefined` \| `never`
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:125
 
 Params for `anvil_dumpState` handler
-
-## Defined in
-
-packages/actions/types/anvil/AnvilParams.d.ts:125

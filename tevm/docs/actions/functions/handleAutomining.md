@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,18 +6,20 @@
 
 # Function: handleAutomining()
 
-> **handleAutomining**(`client`, `txHash`?): `Promise`\<`object` \| `undefined`\>
+> **handleAutomining**(`client`, `txHash`?): `Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../../index/type-aliases/TevmMineError.md)[]; \}\>
+
+Defined in: packages/actions/types/Call/handleAutomining.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **txHash?**: \`0x$\{string\}\`
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+
+### txHash?
+
+`` `0x${string}` ``
 
 ## Returns
 
-`Promise`\<`object` \| `undefined`\>
-
-## Defined in
-
-packages/actions/types/Call/handleAutomining.d.ts:1
+`Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../../index/type-aliases/TevmMineError.md)[]; \}\>

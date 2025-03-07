@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: l3xTestnet
 
-> `const` **l3xTestnet**: `Common`
+> `const` **l3xTestnet**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/l3xTestnet.d.ts:21
 
 Creates a common configuration for the l3xTestnet chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/l3xTestnet.d.ts:21

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,19 +8,23 @@
 
 > `const` **Eof**: `object`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18
+
 ## Type declaration
 
 ### codeAnalysis()
 
-> **codeAnalysis**: (`container`) => `object` \| `undefined`
+> **codeAnalysis**: (`container`) => \{ `code`: `number`; `data`: `number`; \} \| `undefined`
 
 #### Parameters
 
-• **container**: `Uint8Array`
+##### container
+
+`Uint8Array`
 
 #### Returns
 
-`object` \| `undefined`
+\{ `code`: `number`; `data`: `number`; \} \| `undefined`
 
 ### FORMAT
 
@@ -36,7 +40,9 @@
 
 #### Parameters
 
-• **code**: `Uint8Array`
+##### code
+
+`Uint8Array`
 
 #### Returns
 
@@ -45,7 +51,3 @@
 ### VERSION
 
 > **VERSION**: `number`
-
-## Defined in
-
-node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof.d.ts:18

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: EthCallParams
 
 > **EthCallParams**: `object`
+
+Defined in: packages/actions/types/eth/EthParams.d.ts:14
 
 Based on the JSON-RPC request for `eth_call` procedure
 
@@ -66,7 +68,3 @@ The address to which the transaction is addressed. Defaults to zero address
 > `readonly` `optional` **value**: `bigint`
 
 The integer of value sent with this transaction
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:14

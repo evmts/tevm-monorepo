@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **Quantity**: [`Hex`](../../index/type-aliases/Hex.md)
 
-## Defined in
-
-packages/decorators/dist/index.d.ts:1277
+Defined in: packages/decorators/dist/index.d.ts:1277

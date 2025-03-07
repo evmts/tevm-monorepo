@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: b3Sepolia
 
-> `const` **b3Sepolia**: `Common`
+> `const` **b3Sepolia**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/b3Sepolia.d.ts:21
 
 Creates a common configuration for the b3Sepolia chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/b3Sepolia.d.ts:21

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: FilterLog
 
 > **FilterLog**: `object`
+
+Defined in: packages/actions/types/common/FilterLog.d.ts:5
 
 FilterLog type for eth JSON-RPC procedures
 
@@ -47,7 +49,3 @@ FilterLog type for eth JSON-RPC procedures
 ### transactionIndex
 
 > `readonly` **transactionIndex**: `bigint`
-
-## Defined in
-
-packages/actions/types/common/FilterLog.d.ts:5

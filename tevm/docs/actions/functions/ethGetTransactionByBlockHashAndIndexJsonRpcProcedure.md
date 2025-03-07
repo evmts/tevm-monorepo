@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethGetTransactionByBlockHashAndIndexJsonRpcProcedure()
 
-> **ethGetTransactionByBlockHashAndIndexJsonRpcProcedure**(`client`): `EthGetTransactionByBlockHashAndIndexJsonRpcProcedure`
+> **ethGetTransactionByBlockHashAndIndexJsonRpcProcedure**(`client`): [`EthGetTransactionByBlockHashAndIndexJsonRpcProcedure`](../type-aliases/EthGetTransactionByBlockHashAndIndexJsonRpcProcedure.md)
+
+Defined in: packages/actions/types/eth/ethGetTransactionByBlockHashAndIndexProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthGetTransactionByBlockHashAndIndexJsonRpcProcedure`
-
-## Defined in
-
-packages/actions/types/eth/ethGetTransactionByBlockHashAndIndexProcedure.d.ts:1
+[`EthGetTransactionByBlockHashAndIndexJsonRpcProcedure`](../type-aliases/EthGetTransactionByBlockHashAndIndexJsonRpcProcedure.md)

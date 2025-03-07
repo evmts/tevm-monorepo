@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **buildBlock**(`vm`): [`BuildBlock`](../type-aliases/BuildBlock.md)
 
+Defined in: packages/vm/types/actions/buildBlock.d.ts:5
+
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
+
+`BaseVm`
 
 ## Returns
 
 [`BuildBlock`](../type-aliases/BuildBlock.md)
-
-## Defined in
-
-packages/vm/types/actions/buildBlock.d.ts:5

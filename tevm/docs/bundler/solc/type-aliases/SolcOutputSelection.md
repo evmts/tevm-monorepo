@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **SolcOutputSelection**: `object`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:35
+
 ## Index Signature
 
- \[`fileName`: `string`\]: `object` & `object`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:35
+\[`fileName`: `string`\]: `object` & `object`

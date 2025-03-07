@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # Variable: KECCAK256\_NULL
 
-> `const` **KECCAK256\_NULL**: `Uint8Array`
+> `const` **KECCAK256\_NULL**: `ByteArray`
 
-## Defined in
-
-packages/vm/types/actions/constants.d.ts:1
+Defined in: packages/vm/types/actions/constants.d.ts:1

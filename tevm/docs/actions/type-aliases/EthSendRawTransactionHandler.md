@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthSendRawTransactionHandler**: (`request`) => `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:32
+
 ## Parameters
 
-• **request**: [`EthSendRawTransactionParams`](EthSendRawTransactionParams.md)
+### request
+
+[`EthSendRawTransactionParams`](EthSendRawTransactionParams.md)
 
 ## Returns
 
 `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:32

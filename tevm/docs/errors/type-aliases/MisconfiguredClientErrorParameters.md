@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **MisconfiguredClientErrorParameters**: `object`
 
+Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:57
+
 Parameters for constructing a [MisconfiguredClientError](../classes/MisconfiguredClientError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| `EvmError`
+> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a [MisconfiguredClientError](../classes/Misconfigure
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/client/MisconfiguredClient.d.ts:57

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **EthGetUncleCountByBlockHashParams**: `object`
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:150
+
 Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 ## Type declaration
@@ -15,7 +17,3 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 ### hash
 
 > `readonly` **hash**: [`Hex`](Hex.md)
-
-## Defined in
-
-packages/actions/types/eth/EthParams.d.ts:150

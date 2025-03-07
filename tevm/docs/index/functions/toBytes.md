@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **toBytes**(`value`, `opts`?): `ByteArray`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:37
+
 Encodes a UTF-8 string, hex value, bigint, number or boolean to a byte array.
 
 - Docs: https://viem.sh/docs/utilities/toBytes
@@ -15,11 +17,15 @@ Encodes a UTF-8 string, hex value, bigint, number or boolean to a byte array.
 
 ## Parameters
 
-• **value**: `string` \| `number` \| `bigint` \| `boolean`
+### value
 
 Value to encode.
 
-• **opts?**: `ToBytesParameters`
+`string` | `number` | `bigint` | `boolean`
+
+### opts?
+
+`ToBytesParameters`
 
 Options.
 
@@ -48,7 +54,3 @@ import { toBytes } from 'viem'
 const data = toBytes(420, { size: 4 })
 // Uint8Array([0, 0, 1, 164])
 ```
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/encoding/toBytes.d.ts:37

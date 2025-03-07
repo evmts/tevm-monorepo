@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthHashrateJsonRpcProcedure**: (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:9
+
 ## Parameters
 
-• **request**: [`EthHashrateJsonRpcRequest`](EthHashrateJsonRpcRequest.md)
+### request
+
+[`EthHashrateJsonRpcRequest`](EthHashrateJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthProcedure.d.ts:9

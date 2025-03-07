@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,17 +6,15 @@
 
 # address
 
-## Index
-
-### Classes
+## Classes
 
 - [Address](classes/Address.md)
 
-### Type Aliases
+## Type Aliases
 
 - [Create2ContractAddressError](type-aliases/Create2ContractAddressError.md)
 
-### Functions
+## Functions
 
 - [create2ContractAddress](functions/create2ContractAddress.md)
 - [createContractAddress](functions/createContractAddress.md)

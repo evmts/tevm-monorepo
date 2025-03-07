@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthCoinbaseJsonRpcRequest
 
-> **EthCoinbaseJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_coinbase"`, readonly []\>
+> **EthCoinbaseJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_coinbase"`, readonly \[\]\>
+
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:59
 
 JSON-RPC request for `eth_coinbase` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcRequest.d.ts:59

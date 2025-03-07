@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: Filter
 
 > **Filter**: `object`
+
+Defined in: packages/node/dist/index.d.ts:62
 
 Internal representation of a registered filter
 
@@ -61,6 +63,16 @@ https://github.com/ethereum/go-ethereum/blob/master/eth/filters/filter_system.go
 
 Listeners registered for the filter
 
+#### Parameters
+
+##### args
+
+...`any`[]
+
+#### Returns
+
+`any`
+
 ### tx
 
 > **tx**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
@@ -72,7 +84,3 @@ stores tx
 > **type**: [`FilterType`](FilterType.md)
 
 The type of the filter
-
-## Defined in
-
-packages/node/dist/index.d.ts:65

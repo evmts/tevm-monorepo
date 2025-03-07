@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **UncleHeadersBytes**: `Uint8Array`[][]
 
-## Defined in
-
-packages/block/types/types.d.ts:158
+Defined in: packages/block/types/types.d.ts:158

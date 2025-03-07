@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: ContractParams\<TAbi, TFunctionName, TThrowOnFail\>
 
-> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & `object` \| `object` \| `object`
+> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & \{ `code`: [`Hex`](Hex.md); `deployedBytecode`: [`Hex`](Hex.md); `to`: [`Address`](../../actions/type-aliases/Address.md); \} \| \{ `code`: [`Hex`](Hex.md); `deployedBytecode`: [`Hex`](Hex.md); `to`: [`Address`](../../actions/type-aliases/Address.md); \} \| \{ `code`: [`Hex`](Hex.md); `deployedBytecode`: [`Hex`](Hex.md); `to`: [`Address`](../../actions/type-aliases/Address.md); \}
+
+Defined in: packages/actions/types/Contract/ContractParams.d.ts:41
 
 Parameters to execute a call on a contract with TEVM.
 
@@ -56,7 +58,3 @@ console.log(res)
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
  - [BaseCallParams](../../actions/type-aliases/BaseCallParams.md)
  - [EncodeFunctionDataParameters](EncodeFunctionDataParameters.md)
-
-## Defined in
-
-packages/actions/types/Contract/ContractParams.d.ts:41

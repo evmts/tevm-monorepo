@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **InvalidBytesSizeErrorParameters**: `object`
 
+Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:64
+
 Parameters for constructing an [InvalidBytesSizeError](../classes/InvalidBytesSizeError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| `EvmError`
+> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing an [InvalidBytesSizeError](../classes/InvalidBytesSi
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/data/InvalidByteSizeError.d.ts:64

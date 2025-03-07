@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CreateVmOptions
 
 > **CreateVmOptions**: `object`
+
+Defined in: packages/vm/types/CreateVmOptions.d.ts:5
 
 ## Type declaration
 
@@ -25,7 +27,3 @@
 ### stateManager
 
 > **stateManager**: [`StateManager`](../../state/interfaces/StateManager.md)
-
-## Defined in
-
-packages/vm/types/CreateVmOptions.d.ts:5

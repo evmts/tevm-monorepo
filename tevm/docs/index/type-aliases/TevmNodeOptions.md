@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TevmNodeOptions\<TCommon\>
 
 > **TevmNodeOptions**\<`TCommon`\>: [`StateOptions`](StateOptions.md) & `object`
+
+Defined in: packages/node/dist/index.d.ts:239
 
 Options for creating an Tevm MemoryClient instance
 
@@ -153,7 +155,3 @@ Enable profiler. Defaults to false.
 ## Type Parameters
 
 • **TCommon** *extends* [`Common`](../../common/type-aliases/Common.md) = [`Common`](../../common/type-aliases/Common.md)
-
-## Defined in
-
-packages/node/dist/index.d.ts:242

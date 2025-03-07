@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [block](../README.md) / Block
 
 # Class: Block
+
+Defined in: packages/block/types/block.d.ts:12
 
 An object that represents the block.
 
@@ -14,32 +16,44 @@ An object that represents the block.
 
 > **new Block**(`opts`, `header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `requests`?, `executionWitness`?): [`Block`](Block.md)
 
+Defined in: packages/block/types/block.d.ts:89
+
 This constructor takes the values, validates them, assigns them and freezes the object.
 Use the static factory methods to assist in creating a Block object from varying data types and options.
 
 #### Parameters
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+##### opts
 
-• **header?**: [`BlockHeader`](BlockHeader.md)
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
-• **transactions?**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
+##### header?
 
-• **uncleHeaders?**: [`BlockHeader`](BlockHeader.md)[]
+[`BlockHeader`](BlockHeader.md)
 
-• **withdrawals?**: [`Withdrawal`](../../utils/classes/Withdrawal.md)[]
+##### transactions?
 
-• **requests?**: [`ClRequest`](ClRequest.md)[]
+[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
 
-• **executionWitness?**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+##### uncleHeaders?
+
+[`BlockHeader`](BlockHeader.md)[]
+
+##### withdrawals?
+
+[`Withdrawal`](../../utils/classes/Withdrawal.md)[]
+
+##### requests?
+
+[`ClRequest`](ClRequest.md)[]
+
+##### executionWitness?
+
+`null` | [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
 #### Returns
 
 [`Block`](Block.md)
-
-#### Defined in
-
-packages/block/types/block.d.ts:89
 
 ## Properties
 
@@ -47,27 +61,27 @@ packages/block/types/block.d.ts:89
 
 > `protected` **cache**: `object`
 
+Defined in: packages/block/types/block.d.ts:26
+
 #### requestsRoot?
 
-> `optional` **requestsRoot**: `Uint8Array`
+> `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
 #### txTrieRoot?
 
-> `optional` **txTrieRoot**: `Uint8Array`
+> `optional` **txTrieRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
 #### withdrawalsTrieRoot?
 
-> `optional` **withdrawalsTrieRoot**: `Uint8Array`
-
-#### Defined in
-
-packages/block/types/block.d.ts:26
+> `optional` **withdrawalsTrieRoot**: `Uint8Array`\<`ArrayBufferLike`\>
 
 ***
 
 ### common
 
 > `readonly` **common**: `object`
+
+Defined in: packages/block/types/block.d.ts:18
 
 #### blockExplorers?
 
@@ -77,9 +91,9 @@ Collection of block explorers
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainBlockExplorer`
+\[`key`: `string`\]: `ChainBlockExplorer`
 
-#### blockExplorers.default
+##### blockExplorers.default
 
 > **default**: `ChainBlockExplorer`
 
@@ -89,25 +103,33 @@ Collection of block explorers
 
 Collection of contracts
 
-#### contracts.ensRegistry?
+##### Index Signature
+
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+
+##### contracts.ensRegistry?
 
 > `optional` **ensRegistry**: `ChainContract`
 
-#### contracts.ensUniversalResolver?
+##### contracts.ensUniversalResolver?
 
 > `optional` **ensUniversalResolver**: `ChainContract`
 
-#### contracts.multicall3?
+##### contracts.multicall3?
 
 > `optional` **multicall3**: `ChainContract`
 
+##### contracts.universalSignatureVerifier?
+
+> `optional` **universalSignatureVerifier**: `ChainContract`
+
 #### copy()
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; \} \| undefined; ... 11...
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; contracts?: \{ \[x: string\]: ChainContract \| \{ ...; \} \| undefined; ensRegistry?: ChainContract \| undefined; ensUniversalResolver?: ChainContract \| undefined; multicall3?: ChainContract \| undefined; universalSignatureVer...
 
 #### custom?
 
@@ -157,9 +179,9 @@ Collection of RPC endpoints
 
 ##### Index Signature
 
- \[`key`: `string`\]: `ChainRpcUrls`
+\[`key`: `string`\]: `ChainRpcUrls`
 
-#### rpcUrls.default
+##### rpcUrls.default
 
 > **default**: `ChainRpcUrls`
 
@@ -181,23 +203,17 @@ Source Chain ID (ie. the L1 chain)
 
 Flag for test networks
 
-#### Defined in
-
-packages/block/types/block.d.ts:18
-
 ***
 
 ### executionWitness?
 
 > `readonly` `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
+Defined in: packages/block/types/block.d.ts:25
+
 EIP-6800: Verkle Proof Data (experimental)
 null implies that the non default executionWitness might exist but not available
 and will not lead to execution of the block via vm with verkle stateless manager
-
-#### Defined in
-
-packages/block/types/block.d.ts:25
 
 ***
 
@@ -205,9 +221,7 @@ packages/block/types/block.d.ts:25
 
 > `readonly` **header**: [`BlockHeader`](BlockHeader.md)
 
-#### Defined in
-
-packages/block/types/block.d.ts:13
+Defined in: packages/block/types/block.d.ts:13
 
 ***
 
@@ -215,17 +229,17 @@ packages/block/types/block.d.ts:13
 
 > `protected` **keccakFunction**: (`msg`) => `Uint8Array`
 
+Defined in: packages/block/types/block.d.ts:19
+
 #### Parameters
 
-• **msg**: `Uint8Array`
+##### msg
+
+`Uint8Array`
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-packages/block/types/block.d.ts:19
 
 ***
 
@@ -233,9 +247,7 @@ packages/block/types/block.d.ts:19
 
 > `readonly` `optional` **requests**: [`ClRequest`](ClRequest.md)[]
 
-#### Defined in
-
-packages/block/types/block.d.ts:17
+Defined in: packages/block/types/block.d.ts:17
 
 ***
 
@@ -243,9 +255,7 @@ packages/block/types/block.d.ts:17
 
 > `readonly` **transactions**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
 
-#### Defined in
-
-packages/block/types/block.d.ts:14
+Defined in: packages/block/types/block.d.ts:14
 
 ***
 
@@ -253,9 +263,7 @@ packages/block/types/block.d.ts:14
 
 > `readonly` **uncleHeaders**: [`BlockHeader`](BlockHeader.md)[]
 
-#### Defined in
-
-packages/block/types/block.d.ts:15
+Defined in: packages/block/types/block.d.ts:15
 
 ***
 
@@ -263,9 +271,7 @@ packages/block/types/block.d.ts:15
 
 > `readonly` `optional` **withdrawals**: [`Withdrawal`](../../utils/classes/Withdrawal.md)[]
 
-#### Defined in
-
-packages/block/types/block.d.ts:16
+Defined in: packages/block/types/block.d.ts:16
 
 ## Methods
 
@@ -273,15 +279,13 @@ packages/block/types/block.d.ts:16
 
 > **errorStr**(): `string`
 
+Defined in: packages/block/types/block.d.ts:186
+
 Return a compact error string representation of the object
 
 #### Returns
 
 `string`
-
-#### Defined in
-
-packages/block/types/block.d.ts:186
 
 ***
 
@@ -289,11 +293,15 @@ packages/block/types/block.d.ts:186
 
 > **ethashCanonicalDifficulty**(`parentBlock`): `bigint`
 
+Defined in: packages/block/types/block.d.ts:170
+
 Returns the canonical difficulty for this block.
 
 #### Parameters
 
-• **parentBlock**: [`Block`](Block.md)
+##### parentBlock
+
+[`Block`](Block.md)
 
 the parent of this `Block`
 
@@ -301,31 +309,27 @@ the parent of this `Block`
 
 `bigint`
 
-#### Defined in
-
-packages/block/types/block.d.ts:170
-
 ***
 
 ### genTxTrie()
 
-> **genTxTrie**(): `Promise`\<`Uint8Array`\>
+> **genTxTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/block/types/block.d.ts:109
 
 Generates transaction trie for validation.
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
-
-#### Defined in
-
-packages/block/types/block.d.ts:109
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 ***
 
 ### getTransactionsValidationErrors()
 
 > **getTransactionsValidationErrors**(): `string`[]
+
+Defined in: packages/block/types/block.d.ts:121
 
 Validates transaction signatures and minimum gas requirements.
 
@@ -335,15 +339,13 @@ Validates transaction signatures and minimum gas requirements.
 
 an array of error strings
 
-#### Defined in
-
-packages/block/types/block.d.ts:121
-
 ***
 
 ### hash()
 
 > **hash**(): `Uint8Array`
+
+Defined in: packages/block/types/block.d.ts:97
 
 Returns the hash of the block.
 
@@ -351,15 +353,13 @@ Returns the hash of the block.
 
 `Uint8Array`
 
-#### Defined in
-
-packages/block/types/block.d.ts:97
-
 ***
 
 ### isGenesis()
 
 > **isGenesis**(): `boolean`
+
+Defined in: packages/block/types/block.d.ts:101
 
 Determines if this block is the genesis block.
 
@@ -367,15 +367,13 @@ Determines if this block is the genesis block.
 
 `boolean`
 
-#### Defined in
-
-packages/block/types/block.d.ts:101
-
 ***
 
 ### raw()
 
 > **raw**(): [`BlockBytes`](../type-aliases/BlockBytes.md)
+
+Defined in: packages/block/types/block.d.ts:93
 
 Returns a Array of the raw Bytes Arrays of this block, in order.
 
@@ -383,23 +381,17 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 
 [`BlockBytes`](../type-aliases/BlockBytes.md)
 
-#### Defined in
-
-packages/block/types/block.d.ts:93
-
 ***
 
 ### requestsTrieIsValid()
 
 > **requestsTrieIsValid**(): `Promise`\<`boolean`\>
 
+Defined in: packages/block/types/block.d.ts:116
+
 #### Returns
 
 `Promise`\<`boolean`\>
-
-#### Defined in
-
-packages/block/types/block.d.ts:116
 
 ***
 
@@ -407,15 +399,13 @@ packages/block/types/block.d.ts:116
 
 > **serialize**(): `Uint8Array`
 
+Defined in: packages/block/types/block.d.ts:105
+
 Returns the rlp encoding of the block.
 
 #### Returns
 
 `Uint8Array`
-
-#### Defined in
-
-packages/block/types/block.d.ts:105
 
 ***
 
@@ -423,13 +413,11 @@ packages/block/types/block.d.ts:105
 
 > **toExecutionPayload**(): [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
+Defined in: packages/block/types/block.d.ts:182
+
 #### Returns
 
 [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
-
-#### Defined in
-
-packages/block/types/block.d.ts:182
 
 ***
 
@@ -437,21 +425,21 @@ packages/block/types/block.d.ts:182
 
 > **toJSON**(): [`JsonBlock`](../interfaces/JsonBlock.md)
 
+Defined in: packages/block/types/block.d.ts:181
+
 Returns the block in JSON format.
 
 #### Returns
 
 [`JsonBlock`](../interfaces/JsonBlock.md)
 
-#### Defined in
-
-packages/block/types/block.d.ts:181
-
 ***
 
 ### transactionsAreValid()
 
 > **transactionsAreValid**(): `boolean`
+
+Defined in: packages/block/types/block.d.ts:126
 
 Validates transaction signatures and minimum gas requirements.
 
@@ -461,15 +449,13 @@ Validates transaction signatures and minimum gas requirements.
 
 True if all transactions are valid, false otherwise
 
-#### Defined in
-
-packages/block/types/block.d.ts:126
-
 ***
 
 ### transactionsTrieIsValid()
 
 > **transactionsTrieIsValid**(): `Promise`\<`boolean`\>
+
+Defined in: packages/block/types/block.d.ts:115
 
 Validates the transaction trie by generating a trie
 and do a check on the root hash.
@@ -480,15 +466,13 @@ and do a check on the root hash.
 
 True if the transaction trie is valid, false otherwise
 
-#### Defined in
-
-packages/block/types/block.d.ts:115
-
 ***
 
 ### uncleHashIsValid()
 
 > **uncleHashIsValid**(): `boolean`
+
+Defined in: packages/block/types/block.d.ts:149
 
 Validates the uncle's hash.
 
@@ -498,15 +482,13 @@ Validates the uncle's hash.
 
 true if the uncle's hash is valid, false otherwise.
 
-#### Defined in
-
-packages/block/types/block.d.ts:149
-
 ***
 
 ### validateBlobTransactions()
 
 > **validateBlobTransactions**(`parentHeader`): `void`
+
+Defined in: packages/block/types/block.d.ts:144
 
 Validates that blob gas fee for each transaction is greater than or equal to the
 blobGasPrice for the block and that total blob gas in block is less than maximum
@@ -514,7 +496,9 @@ blob gas per block
 
 #### Parameters
 
-• **parentHeader**: [`BlockHeader`](BlockHeader.md)
+##### parentHeader
+
+[`BlockHeader`](BlockHeader.md)
 
 header of parent block
 
@@ -522,15 +506,13 @@ header of parent block
 
 `void`
 
-#### Defined in
-
-packages/block/types/block.d.ts:144
-
 ***
 
 ### validateData()
 
 > **validateData**(`onlyHeader`?, `verifyTxs`?): `Promise`\<`void`\>
+
+Defined in: packages/block/types/block.d.ts:137
 
 Validates the block data, throwing if invalid.
 This can be checked on the Block itself without needing access to any parent block
@@ -541,11 +523,15 @@ It checks:
 
 #### Parameters
 
-• **onlyHeader?**: `boolean`
+##### onlyHeader?
+
+`boolean`
 
 if only passed the header, skip validating txTrie and unclesHash (default: false)
 
-• **verifyTxs?**: `boolean`
+##### verifyTxs?
+
+`boolean`
 
 if set to `false`, will not check for transaction validation errors (default: true)
 
@@ -553,22 +539,22 @@ if set to `false`, will not check for transaction validation errors (default: tr
 
 `Promise`\<`void`\>
 
-#### Defined in
-
-packages/block/types/block.d.ts:137
-
 ***
 
 ### validateGasLimit()
 
 > **validateGasLimit**(`parentBlock`): `void`
 
+Defined in: packages/block/types/block.d.ts:177
+
 Validates if the block gasLimit remains in the boundaries set by the protocol.
 Throws if invalid
 
 #### Parameters
 
-• **parentBlock**: [`Block`](Block.md)
+##### parentBlock
+
+[`Block`](Block.md)
 
 the parent of this `Block`
 
@@ -576,15 +562,13 @@ the parent of this `Block`
 
 `void`
 
-#### Defined in
-
-packages/block/types/block.d.ts:177
-
 ***
 
 ### validateUncles()
 
 > **validateUncles**(): `void`
+
+Defined in: packages/block/types/block.d.ts:164
 
 Consistency checks for uncles included in the block, if any.
 
@@ -598,15 +582,13 @@ Header does not count an uncle twice.
 
 `void`
 
-#### Defined in
-
-packages/block/types/block.d.ts:164
-
 ***
 
 ### withdrawalsTrieIsValid()
 
 > **withdrawalsTrieIsValid**(): `Promise`\<`boolean`\>
+
+Defined in: packages/block/types/block.d.ts:154
 
 Validates the withdrawal root
 
@@ -616,25 +598,27 @@ Validates the withdrawal root
 
 true if the withdrawals trie root is valid, false otherwise
 
-#### Defined in
-
-packages/block/types/block.d.ts:154
-
 ***
 
 ### fromBeaconPayloadJson()
 
 > `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
 
+Defined in: packages/block/types/block.d.ts:84
+
 Method to retrieve a block from a beacon payload json
 
 #### Parameters
 
-• **payload**: [`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
+##### payload
+
+[`BeaconPayloadJson`](../type-aliases/BeaconPayloadJson.md)
 
 json of a beacon beacon fetched from beacon apis
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 [BlockOptions](../interfaces/BlockOptions.md)
 
@@ -643,10 +627,6 @@ json of a beacon beacon fetched from beacon apis
 `Promise`\<[`Block`](Block.md)\>
 
 the block constructed block
-
-#### Defined in
-
-packages/block/types/block.d.ts:84
 
 ***
 
@@ -654,21 +634,23 @@ packages/block/types/block.d.ts:84
 
 > `static` **fromBlockData**(`blockData`, `opts`): [`Block`](Block.md)
 
+Defined in: packages/block/types/block.d.ts:56
+
 Static constructor to create a block from a block data dictionary
 
 #### Parameters
 
-• **blockData**: [`BlockData`](../interfaces/BlockData.md)
+##### blockData
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+[`BlockData`](../interfaces/BlockData.md)
+
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
 
 [`Block`](Block.md)
-
-#### Defined in
-
-packages/block/types/block.d.ts:56
 
 ***
 
@@ -676,13 +658,19 @@ packages/block/types/block.d.ts:56
 
 > `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
 
+Defined in: packages/block/types/block.d.ts:77
+
 Method to retrieve a block from an execution payload
 
 #### Parameters
 
-• **payload**: [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
+##### payload
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+[`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
+
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 [BlockOptions](../interfaces/BlockOptions.md)
 
@@ -692,31 +680,29 @@ Method to retrieve a block from an execution payload
 
 the block constructed block
 
-#### Defined in
-
-packages/block/types/block.d.ts:77
-
 ***
 
 ### fromRLPSerializedBlock()
 
 > `static` **fromRLPSerializedBlock**(`serialized`, `opts`): [`Block`](Block.md)
 
+Defined in: packages/block/types/block.d.ts:63
+
 Static constructor to create a block from a RLP-serialized block
 
 #### Parameters
 
-• **serialized**: `Uint8Array`
+##### serialized
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+`Uint8Array`
+
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
 
 [`Block`](Block.md)
-
-#### Defined in
-
-packages/block/types/block.d.ts:63
 
 ***
 
@@ -724,94 +710,102 @@ packages/block/types/block.d.ts:63
 
 > `static` **fromValuesArray**(`values`, `opts`): [`Block`](Block.md)
 
+Defined in: packages/block/types/block.d.ts:70
+
 Static constructor to create a block from an array of Bytes values
 
 #### Parameters
 
-• **values**: [`BlockBytes`](../type-aliases/BlockBytes.md)
+##### values
 
-• **opts**: [`BlockOptions`](../interfaces/BlockOptions.md)
+[`BlockBytes`](../type-aliases/BlockBytes.md)
+
+##### opts
+
+[`BlockOptions`](../interfaces/BlockOptions.md)
 
 #### Returns
 
 [`Block`](Block.md)
 
-#### Defined in
-
-packages/block/types/block.d.ts:70
-
 ***
 
 ### genRequestsTrieRoot()
 
-> `static` **genRequestsTrieRoot**(`requests`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
+> `static` **genRequestsTrieRoot**(`requests`, `emptyTrie`?): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/block/types/block.d.ts:49
 
 Returns the requests trie root for an array of CLRequests
 
 #### Parameters
 
-• **requests**: [`ClRequest`](ClRequest.md)[]
+##### requests
+
+[`ClRequest`](ClRequest.md)[]
 
 an array of CLRequests
 
-• **emptyTrie?**: `Trie`
+##### emptyTrie?
+
+`Trie`
 
 optional empty trie used to generate the root
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 a 32 byte Uint8Array representing the requests trie root
-
-#### Defined in
-
-packages/block/types/block.d.ts:49
 
 ***
 
 ### genTransactionsTrieRoot()
 
-> `static` **genTransactionsTrieRoot**(`txs`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
+> `static` **genTransactionsTrieRoot**(`txs`, `emptyTrie`?): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/block/types/block.d.ts:42
 
 Returns the txs trie root for array of TypedTransaction
 
 #### Parameters
 
-• **txs**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
+##### txs
+
+[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
 
 array of TypedTransaction to compute the root of
 
-• **emptyTrie?**: `Trie`
+##### emptyTrie?
+
+`Trie`
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
-
-#### Defined in
-
-packages/block/types/block.d.ts:42
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 ***
 
 ### genWithdrawalsTrieRoot()
 
-> `static` **genWithdrawalsTrieRoot**(`wts`, `emptyTrie`?): `Promise`\<`Uint8Array`\>
+> `static` **genWithdrawalsTrieRoot**(`wts`, `emptyTrie`?): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/block/types/block.d.ts:36
 
 Returns the withdrawals trie root for array of Withdrawal.
 
 #### Parameters
 
-• **wts**: [`Withdrawal`](../../utils/classes/Withdrawal.md)[]
+##### wts
+
+[`Withdrawal`](../../utils/classes/Withdrawal.md)[]
 
 array of Withdrawal to compute the root of
 
-• **emptyTrie?**: `Trie`
+##### emptyTrie?
+
+`Trie`
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
-
-#### Defined in
-
-packages/block/types/block.d.ts:36
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

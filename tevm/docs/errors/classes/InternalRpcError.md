@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [errors](../README.md) / InternalRpcError
 
 # Class: InternalRpcError
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/rpc.d.ts:101
 
 ## Extends
 
@@ -16,9 +18,13 @@
 
 > **new InternalRpcError**(`cause`): [`InternalRpcError`](InternalRpcError.md)
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/rpc.d.ts:103
+
 #### Parameters
 
-• **cause**: `Error`
+##### cause
+
+`Error`
 
 #### Returns
 
@@ -28,23 +34,17 @@
 
 `RpcError.constructor`
 
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/rpc.d.ts:103
-
 ## Properties
 
 ### cause?
 
 > `optional` **cause**: `unknown`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+
 #### Inherited from
 
 `RpcError.cause`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 ***
 
@@ -52,13 +52,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es2022.err
 
 > **code**: `RpcErrorCode` \| `number` & `object`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/rpc.d.ts:20
+
 #### Inherited from
 
 `RpcError.code`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/rpc.d.ts:20
 
 ***
 
@@ -66,13 +64,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > **details**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:19
+
 #### Inherited from
 
 `RpcError.details`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:19
 
 ***
 
@@ -80,13 +76,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > `optional` **docsPath**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:20
+
 #### Inherited from
 
 `RpcError.docsPath`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:20
 
 ***
 
@@ -94,13 +88,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > **message**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+
 #### Inherited from
 
 `RpcError.message`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -108,13 +100,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > `optional` **metaMessages**: `string`[]
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:21
+
 #### Inherited from
 
 `RpcError.metaMessages`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:21
 
 ***
 
@@ -122,13 +112,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > **name**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:24
+
 #### Inherited from
 
 `RpcError.name`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:24
 
 ***
 
@@ -136,13 +124,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > **shortMessage**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:22
+
 #### Inherited from
 
 `RpcError.shortMessage`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:22
 
 ***
 
@@ -150,13 +136,11 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > `optional` **stack**: `string`
 
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+
 #### Inherited from
 
 `RpcError.stack`
-
-#### Defined in
-
-node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
@@ -164,13 +148,11 @@ node\_modules/.pnpm/typescript@5.6.2/node\_modules/typescript/lib/lib.es5.d.ts:1
 
 > **version**: `string`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:23
+
 #### Inherited from
 
 `RpcError.version`
-
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:23
 
 ***
 
@@ -178,9 +160,7 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > `static` **code**: `-32603`
 
-#### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/rpc.d.ts:102
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/rpc.d.ts:102
 
 ***
 
@@ -188,13 +168,19 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+
 Optional override for formatting stack traces
 
 #### Parameters
 
-• **err**: `Error`
+##### err
 
-• **stackTraces**: `CallSite`[]
+`Error`
+
+##### stackTraces
+
+`CallSite`[]
 
 #### Returns
 
@@ -208,31 +194,27 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 `RpcError.prepareStackTrace`
 
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:143
-
 ***
 
 ### stackTraceLimit
 
 > `static` **stackTraceLimit**: `number`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+
 #### Inherited from
 
 `RpcError.stackTraceLimit`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:145
 
 ## Methods
 
 ### walk()
 
-#### walk()
+#### Call Signature
 
 > **walk**(): `Error`
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:26
 
 ##### Returns
 
@@ -242,17 +224,17 @@ node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:14
 
 `RpcError.walk`
 
-##### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:26
-
-#### walk(fn)
+#### Call Signature
 
 > **walk**(`fn`): `null` \| `Error`
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/base.d.ts:27
+
 ##### Parameters
 
-• **fn**
+###### fn
+
+(`err`) => `boolean`
 
 ##### Returns
 
@@ -262,23 +244,25 @@ node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-valid
 
 `RpcError.walk`
 
-##### Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/errors/base.d.ts:27
-
 ***
 
 ### captureStackTrace()
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
+Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
+
 Create .stack property on a target object
 
 #### Parameters
 
-• **targetObject**: `object`
+##### targetObject
 
-• **constructorOpt?**: `Function`
+`object`
+
+##### constructorOpt?
+
+`Function`
 
 #### Returns
 
@@ -287,7 +271,3 @@ Create .stack property on a target object
 #### Inherited from
 
 `RpcError.captureStackTrace`
-
-#### Defined in
-
-node\_modules/.pnpm/@types+node@22.7.3/node\_modules/@types/node/globals.d.ts:136

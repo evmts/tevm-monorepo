@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > **SolcInputSources**: `object`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:83
+
 ## Index Signature
 
- \[`globalName`: `string`\]: [`SolcInputSource`](SolcInputSource.md) & `object`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:83
+\[`globalName`: `string`\]: [`SolcInputSource`](SolcInputSource.md) & `object`

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthNewFilterResult**: [`Hex`](Hex.md)
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:162
+
 JSON-RPC response for `eth_newFilter` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:162

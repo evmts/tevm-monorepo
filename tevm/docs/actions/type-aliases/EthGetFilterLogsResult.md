@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **EthGetFilterLogsResult**: [`FilterLog`](FilterLog.md)[]
 
+Defined in: packages/actions/types/eth/EthResult.d.ts:71
+
 JSON-RPC response for `eth_getFilterLogs` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthResult.d.ts:71

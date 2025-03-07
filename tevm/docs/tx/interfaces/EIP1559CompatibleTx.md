@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [tx](../README.md) / EIP1559CompatibleTx
 
 # Interface: EIP1559CompatibleTx\<T\>
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:151
 
 ## Extends
 
@@ -24,13 +26,11 @@
 
 > `readonly` **accessList**: `AccessListBytes`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:148
+
 #### Inherited from
 
 `EIP2930CompatibleTx.accessList`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:148
 
 ***
 
@@ -38,13 +38,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:149
+
 #### Inherited from
 
 `EIP2930CompatibleTx.AccessListJSON`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:149
 
 ***
 
@@ -52,13 +50,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **cache**: `TransactionCache`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:118
+
 #### Inherited from
 
 `EIP2930CompatibleTx.cache`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:118
 
 ***
 
@@ -66,13 +62,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **chainId**: `bigint`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:144
+
 #### Inherited from
 
 `EIP2930CompatibleTx.chainId`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:144
 
 ***
 
@@ -80,13 +74,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **common**: `Common`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:109
+
 #### Inherited from
 
 `EIP2930CompatibleTx.common`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:109
 
 ***
 
@@ -94,13 +86,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **data**: `Uint8Array`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:114
+
 #### Inherited from
 
 `EIP2930CompatibleTx.data`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:114
 
 ***
 
@@ -108,13 +98,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **gasLimit**: `bigint`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:111
+
 #### Inherited from
 
 `EIP2930CompatibleTx.gasLimit`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:111
 
 ***
 
@@ -122,9 +110,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **maxFeePerGas**: `bigint`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:153
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:153
 
 ***
 
@@ -132,9 +118,7 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **maxPriorityFeePerGas**: `bigint`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:152
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:152
 
 ***
 
@@ -142,13 +126,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **nonce**: `bigint`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:110
+
 #### Inherited from
 
 `EIP2930CompatibleTx.nonce`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:110
 
 ***
 
@@ -156,13 +138,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` `optional` **r**: `bigint`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:116
+
 #### Inherited from
 
 `EIP2930CompatibleTx.r`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:116
 
 ***
 
@@ -170,13 +150,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` `optional` **s**: `bigint`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:117
+
 #### Inherited from
 
 `EIP2930CompatibleTx.s`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:117
 
 ***
 
@@ -184,13 +162,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` `optional` **to**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:112
+
 #### Inherited from
 
 `EIP2930CompatibleTx.to`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:112
 
 ***
 
@@ -198,13 +174,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > **type**: [`TransactionType`](../enumerations/TransactionType.md)
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:120
+
 #### Inherited from
 
 `EIP2930CompatibleTx.type`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:120
 
 ***
 
@@ -212,13 +186,11 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` `optional` **v**: `bigint`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:115
+
 #### Inherited from
 
 `EIP2930CompatibleTx.v`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:115
 
 ***
 
@@ -226,19 +198,19 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 > `readonly` **value**: `bigint`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:113
+
 #### Inherited from
 
 `EIP2930CompatibleTx.value`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:113
 
 ## Methods
 
 ### errorStr()
 
 > **errorStr**(): `string`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:139
 
 #### Returns
 
@@ -248,15 +220,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.errorStr`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:139
-
 ***
 
 ### getBaseFee()
 
 > **getBaseFee**(): `bigint`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:121
 
 #### Returns
 
@@ -266,15 +236,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getBaseFee`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:121
-
 ***
 
 ### getDataFee()
 
 > **getDataFee**(): `bigint`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:122
 
 #### Returns
 
@@ -284,15 +252,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getDataFee`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:122
-
 ***
 
 ### getHashedMessageToSign()
 
 > **getHashedMessageToSign**(): `Uint8Array`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:128
 
 #### Returns
 
@@ -302,15 +268,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getHashedMessageToSign`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:128
-
 ***
 
 ### getMessageToSign()
 
 > **getMessageToSign**(): `Uint8Array`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:145
 
 #### Returns
 
@@ -320,15 +284,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getMessageToSign`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:145
-
 ***
 
 ### getMessageToVerifySignature()
 
 > **getMessageToVerifySignature**(): `Uint8Array`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:130
 
 #### Returns
 
@@ -338,15 +300,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getMessageToVerifySignature`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:130
-
 ***
 
 ### getSenderAddress()
 
 > **getSenderAddress**(): [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:135
 
 #### Returns
 
@@ -356,15 +316,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getSenderAddress`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:135
-
 ***
 
 ### getSenderPublicKey()
 
 > **getSenderPublicKey**(): `Uint8Array`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:136
 
 #### Returns
 
@@ -374,15 +332,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getSenderPublicKey`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:136
-
 ***
 
 ### getUpfrontCost()
 
 > **getUpfrontCost**(): `bigint`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:123
 
 #### Returns
 
@@ -392,15 +348,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getUpfrontCost`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:123
-
 ***
 
 ### getValidationErrors()
 
 > **getValidationErrors**(): `string`[]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:131
 
 #### Returns
 
@@ -410,15 +364,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.getValidationErrors`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:131
-
 ***
 
 ### hash()
 
 > **hash**(): `Uint8Array`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:129
 
 #### Returns
 
@@ -428,15 +380,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.hash`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:129
-
 ***
 
 ### isSigned()
 
 > **isSigned**(): `boolean`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:132
 
 #### Returns
 
@@ -446,15 +396,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.isSigned`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:132
-
 ***
 
 ### isValid()
 
 > **isValid**(): `boolean`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:133
 
 #### Returns
 
@@ -464,15 +412,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.isValid`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:133
-
 ***
 
 ### raw()
 
 > **raw**(): `TxValuesArray`\[`T`\]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:125
 
 #### Returns
 
@@ -482,15 +428,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.raw`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:125
-
 ***
 
 ### serialize()
 
 > **serialize**(): `Uint8Array`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:126
 
 #### Returns
 
@@ -500,19 +444,19 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.serialize`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:126
-
 ***
 
 ### sign()
 
 > **sign**(`privateKey`): `Transaction`\[`T`\]
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:137
+
 #### Parameters
 
-• **privateKey**: `Uint8Array`
+##### privateKey
+
+`Uint8Array`
 
 #### Returns
 
@@ -522,19 +466,19 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.sign`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:137
-
 ***
 
 ### supports()
 
 > **supports**(`capability`): `boolean`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:119
+
 #### Parameters
 
-• **capability**: [`Capability`](../enumerations/Capability.md)
+##### capability
+
+[`Capability`](../enumerations/Capability.md)
 
 #### Returns
 
@@ -544,15 +488,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.supports`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:119
-
 ***
 
 ### toCreationAddress()
 
 > **toCreationAddress**(): `boolean`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:124
 
 #### Returns
 
@@ -562,15 +504,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.toCreationAddress`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:124
-
 ***
 
 ### toJSON()
 
 > **toJSON**(): [`JsonTx`](JsonTx.md)
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:138
 
 #### Returns
 
@@ -580,15 +520,13 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 
 `EIP2930CompatibleTx.toJSON`
 
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:138
-
 ***
 
 ### verifySignature()
 
 > **verifySignature**(): `boolean`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:134
 
 #### Returns
 
@@ -597,7 +535,3 @@ node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/t
 #### Inherited from
 
 `EIP2930CompatibleTx.verifySignature`
-
-#### Defined in
-
-node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:134

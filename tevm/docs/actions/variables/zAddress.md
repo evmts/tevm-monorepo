@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > `const` **zAddress**: `ZodEffects`
 
+Defined in: packages/actions/types/internal/zod/zAddress.d.ts:4
+
 Zod validator for a valid ethereum address
-
-## Defined in
-
-packages/actions/types/internal/zod/zAddress.d.ts:4

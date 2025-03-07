@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,21 +6,19 @@
 
 # server
 
-## Index
-
-### Classes
+## Classes
 
 - [InvalidJsonError](classes/InvalidJsonError.md)
 - [ReadRequestBodyError](classes/ReadRequestBodyError.md)
 
-### Type Aliases
+## Type Aliases
 
 - [Client](type-aliases/Client.md)
 - [InvalidJsonErrorParameters](type-aliases/InvalidJsonErrorParameters.md)
 - [ReadRequestBodyErrorParameters](type-aliases/ReadRequestBodyErrorParameters.md)
 - [Tevm](type-aliases/Tevm.md)
 
-### Functions
+## Functions
 
 - [createExpressMiddleware](functions/createExpressMiddleware.md)
 - [createHttpHandler](functions/createHttpHandler.md)

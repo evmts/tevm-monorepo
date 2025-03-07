@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Interface: Solc
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:325
+
 ## Properties
 
 ### compile()
 
 > **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:331
+
 #### Parameters
 
-• **input**: [`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
+##### input
+
+[`SolcInputDescription`](../type-aliases/SolcInputDescription.md)
 
 #### Returns
 
 [`SolcOutput`](../type-aliases/SolcOutput.md)
-
-#### Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:330
 
 ***
 
@@ -30,9 +32,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:330
 
 > **features**: `FeaturesConfig`
 
-#### Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:329
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:330
 
 ***
 
@@ -40,9 +40,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:329
 
 > **license**: `string`
 
-#### Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:327
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:328
 
 ***
 
@@ -50,19 +48,21 @@ bundler-packages/solc/types/src/solcTypes.d.ts:327
 
 > **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:332
+
 #### Parameters
 
-• **versionString**: `string`
+##### versionString
 
-• **callback**
+`string`
+
+##### callback
+
+(`err`, `solc`?) => `void`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:331
 
 ***
 
@@ -70,9 +70,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:331
 
 > **lowlevel**: `LowLevelConfig`
 
-#### Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:328
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:329
 
 ***
 
@@ -80,9 +78,7 @@ bundler-packages/solc/types/src/solcTypes.d.ts:328
 
 > **semver**: `string`
 
-#### Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:326
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:327
 
 ***
 
@@ -90,17 +86,17 @@ bundler-packages/solc/types/src/solcTypes.d.ts:326
 
 > **setupMethods**: (`soljson`) => `void`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:333
+
 #### Parameters
 
-• **soljson**: `any`
+##### soljson
+
+`any`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:332
 
 ***
 
@@ -108,6 +104,4 @@ bundler-packages/solc/types/src/solcTypes.d.ts:332
 
 > **version**: `string`
 
-#### Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:325
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:326

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: anvilSetNonceJsonRpcProcedure()
 
-> **anvilSetNonceJsonRpcProcedure**(`client`): `AnvilSetNonceProcedure`
+> **anvilSetNonceJsonRpcProcedure**(`client`): [`AnvilSetNonceProcedure`](../type-aliases/AnvilSetNonceProcedure.md)
+
+Defined in: packages/actions/types/anvil/anvilSetNonceProcedure.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`AnvilSetNonceProcedure`
-
-## Defined in
-
-packages/actions/types/anvil/anvilSetNonceProcedure.d.ts:1
+[`AnvilSetNonceProcedure`](../type-aliases/AnvilSetNonceProcedure.md)

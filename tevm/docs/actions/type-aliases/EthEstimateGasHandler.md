@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthEstimateGasHandler**: (`request`) => `Promise`\<[`EthEstimateGasResult`](EthEstimateGasResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:8
+
 ## Parameters
 
-• **request**: [`EthEstimateGasParams`](EthEstimateGasParams.md)
+### request
+
+[`EthEstimateGasParams`](EthEstimateGasParams.md)
 
 ## Returns
 
 `Promise`\<[`EthEstimateGasResult`](EthEstimateGasResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:8

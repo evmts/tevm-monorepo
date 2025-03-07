@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: NetworkSync
 
 > **NetworkSync**: `object`
+
+Defined in: packages/decorators/dist/index.d.ts:1278
 
 ## Type declaration
 
@@ -27,7 +29,3 @@ Number of latest block on the network
 > **startingBlock**: [`Quantity`](Quantity.md)
 
 Block number at which syncing started
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:1278

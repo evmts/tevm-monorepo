@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,11 +8,13 @@
 
 > **BaseErrorParameters**: `object`
 
+Defined in: packages/errors/types/ethereum/BaseError.d.ts:73
+
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `EvmError` \| `unknown`
+> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| [`EvmError`](../../evm/classes/EvmError.md) \| `unknown`
 
 - The cause of the error.
 
@@ -45,7 +47,3 @@
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/BaseError.d.ts:73

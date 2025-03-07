@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthChainIdHandler**: (`request`?) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:6
+
 ## Parameters
 
-• **request?**: [`EthChainIdParams`](EthChainIdParams.md)
+### request?
+
+[`EthChainIdParams`](EthChainIdParams.md)
 
 ## Returns
 
 `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:6

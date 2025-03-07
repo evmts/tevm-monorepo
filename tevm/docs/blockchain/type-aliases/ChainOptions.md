@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ChainOptions
 
 > **ChainOptions**: `object`
+
+Defined in: packages/blockchain/types/ChainOptions.d.ts:8
 
 Options passed into `createChain` to initialize a Chain object
 
@@ -24,20 +26,20 @@ A Common instance
 
 Optional fork config for forking a live chain
 
-### fork.blockTag?
+#### fork.blockTag?
 
-> `optional` **blockTag**: [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `bigint` \| \`0x$\{string\}\`
+> `optional` **blockTag**: [`BlockTag`](../../index/type-aliases/BlockTag.md) \| `bigint` \| `` `0x${string}` ``
 
 Optional block tag to fork
 Defaults to 'latest'
 
-### fork.transport
+#### fork.transport
 
 > **transport**: `object`
 
 EIP-1193 request function to fetch forked blocks with
 
-### fork.transport.request
+#### fork.transport.request
 
 > **request**: `EIP1193RequestFn`
 
@@ -56,7 +58,3 @@ Override the genesis block. If fork is provided it will be fetched from fork. Ot
 > `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
 
 Logging level of blockchain package. Defaults to `warn`
-
-## Defined in
-
-packages/blockchain/types/ChainOptions.d.ts:8

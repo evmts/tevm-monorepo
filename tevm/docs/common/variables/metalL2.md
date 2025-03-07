@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: metalL2
 
-> `const` **metalL2**: `Common`
+> `const` **metalL2**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/metalL2.d.ts:21
 
 Creates a common configuration for the metalL2 chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/metalL2.d.ts:21

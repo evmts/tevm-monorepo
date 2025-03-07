@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: ERC20
 
-> `const` **ERC20**: `Contract`
+> `const` **ERC20**: [`Contract`](../../index/type-aliases/Contract.md)
+
+Defined in: packages/contract/types/contract-lib/ERC20.d.ts:34
 
 Bytecode and ABI for the ERC20 contract from OpenZeppelin.
 This constant represents a standard ERC20 token implementation.
@@ -39,7 +41,3 @@ console.log('Token name:', name)
 // Transfer tokens
 await tevm.contract(existingERC20.write.transfer('0x5678...', 1000n))
 ```
-
-## Defined in
-
-packages/contract/types/contract-lib/ERC20.d.ts:34

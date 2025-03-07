@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,16 @@
 
 > **AnvilSetBalanceProcedure**: (`request`) => `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](AnvilSetBalanceJsonRpcResponse.md)\>
 
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:35
+
 JSON-RPC procedure for `anvil_setBalance`
 
 ## Parameters
 
-• **request**: [`AnvilSetBalanceJsonRpcRequest`](AnvilSetBalanceJsonRpcRequest.md)
+### request
+
+[`AnvilSetBalanceJsonRpcRequest`](AnvilSetBalanceJsonRpcRequest.md)
 
 ## Returns
 
 `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](AnvilSetBalanceJsonRpcResponse.md)\>
-
-## Defined in
-
-packages/actions/types/anvil/AnvilProcedure.d.ts:35

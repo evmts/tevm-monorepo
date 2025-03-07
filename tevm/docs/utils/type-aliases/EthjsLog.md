@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthjsLog
 
-> **EthjsLog**: [`Uint8Array`, `Uint8Array`[], `Uint8Array`]
+> **EthjsLog**: \[`Uint8Array`, `Uint8Array`[], `Uint8Array`\]
+
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:336
 
 Log that the contract emits.
-
-## Defined in
-
-node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:336

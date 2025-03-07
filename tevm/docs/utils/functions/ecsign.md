@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **ecsign**(`msgHash`, `privateKey`, `chainId`?): `ECDSASignature`
 
+Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/signature.d.ts:13
+
 Returns the ECDSA signature of a message hash.
 
 If `chainId` is provided assume an EIP-155-style signature and calculate the `v` value
@@ -15,16 +17,18 @@ accordingly, otherwise return a "static" `v` just derived from the `recovery` bi
 
 ## Parameters
 
-• **msgHash**: `Uint8Array`
+### msgHash
 
-• **privateKey**: `Uint8Array`
+`Uint8Array`
 
-• **chainId?**: `bigint`
+### privateKey
+
+`Uint8Array`
+
+### chainId?
+
+`bigint`
 
 ## Returns
 
 `ECDSASignature`
-
-## Defined in
-
-node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/signature.d.ts:13

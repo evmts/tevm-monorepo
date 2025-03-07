@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,12 +8,10 @@
 
 > **AutoMining**: `object`
 
+Defined in: packages/node/dist/index.d.ts:113
+
 ## Type declaration
 
 ### type
 
 > **type**: `"auto"`
-
-## Defined in
-
-packages/node/dist/index.d.ts:116

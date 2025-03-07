@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,20 +8,26 @@
 
 > **warmAddresses2929**(`vm`, `caller`, `to`, `coinbase`): `void`
 
+Defined in: packages/vm/types/actions/warmAddresses2929.d.ts:1
+
 ## Parameters
 
-• **vm**: `BaseVm`
+### vm
 
-• **caller**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+`BaseVm`
 
-• **to**: `undefined` \| [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+### caller
 
-• **coinbase**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+### to
+
+`undefined` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+
+### coinbase
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ## Returns
 
 `void`
-
-## Defined in
-
-packages/vm/types/actions/warmAddresses2929.d.ts:1

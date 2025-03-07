@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: AnvilReturnType
 
 > **AnvilReturnType**: `object`
+
+Defined in: packages/actions/types/tevm-request-handler/AnvilReturnType.d.ts:5
 
 A mapping of `anvil_*` method names to their return type
 
@@ -71,7 +73,3 @@ A mapping of `anvil_*` method names to their return type
 ### anvil\_stopImpersonatingAccount
 
 > **anvil\_stopImpersonatingAccount**: [`AnvilStopImpersonatingAccountJsonRpcResponse`](AnvilStopImpersonatingAccountJsonRpcResponse.md)
-
-## Defined in
-
-packages/actions/types/tevm-request-handler/AnvilReturnType.d.ts:5

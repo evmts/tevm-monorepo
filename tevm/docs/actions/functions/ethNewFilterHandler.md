@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethNewFilterHandler()
 
-> **ethNewFilterHandler**(`tevmNode`): `EthNewFilterHandler`
+> **ethNewFilterHandler**(`tevmNode`): [`EthNewFilterHandler`](../type-aliases/EthNewFilterHandler.md)
+
+Defined in: packages/actions/types/eth/ethNewFilterHandler.d.ts:1
 
 ## Parameters
 
-• **tevmNode**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### tevmNode
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthNewFilterHandler`
-
-## Defined in
-
-packages/actions/types/eth/ethNewFilterHandler.d.ts:1
+[`EthNewFilterHandler`](../type-aliases/EthNewFilterHandler.md)

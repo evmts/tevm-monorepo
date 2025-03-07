@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **ValidateLoadStateParamsError**: [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
 
+Defined in: packages/actions/types/LoadState/validateLoadStateParams.d.ts:5
+
 Type for errors returned by validateLoadStateParams.
-
-## Defined in
-
-packages/actions/types/LoadState/validateLoadStateParams.d.ts:5

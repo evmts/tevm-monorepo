@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,16 +8,14 @@
 
 > **Client**: `object`
 
+Defined in: packages/server/types/Client.d.ts:3
+
 ## Type declaration
 
 ### transport
 
 > **transport**: `object`
 
-### transport.tevm
+#### transport.tevm
 
 > **tevm**: [`MemoryClient`](../../index/type-aliases/MemoryClient.md)\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]
-
-## Defined in
-
-packages/server/types/Client.d.ts:3

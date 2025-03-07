@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,9 +8,7 @@
 
 > `const` **prefundedAccounts**: `ReadonlyArray`\<[`Address`](../type-aliases/Address.md)\>
 
+Defined in: packages/node/dist/index.d.ts:374
+
 These are the same accounts hardhat and anvil start with 10000 eth
 Also including zero address
-
-## Defined in
-
-packages/node/dist/index.d.ts:424

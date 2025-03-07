@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: StateCache
 
 > **StateCache**: `object`
+
+Defined in: packages/state/dist/index.d.ts:100
 
 **`Internal`**
 
@@ -25,7 +27,3 @@ The shape of the internal cache
 ### storage
 
 > **storage**: [`StorageCache`](../classes/StorageCache.md)
-
-## Defined in
-
-packages/state/dist/index.d.ts:100

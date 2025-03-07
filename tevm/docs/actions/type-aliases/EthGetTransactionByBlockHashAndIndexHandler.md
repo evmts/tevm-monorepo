@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetTransactionByBlockHashAndIndexHandler**: (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:25
+
 ## Parameters
 
-• **request**: [`EthGetTransactionByBlockHashAndIndexParams`](EthGetTransactionByBlockHashAndIndexParams.md)
+### request
+
+[`EthGetTransactionByBlockHashAndIndexParams`](EthGetTransactionByBlockHashAndIndexParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:25

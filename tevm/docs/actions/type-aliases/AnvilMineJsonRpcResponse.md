@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **AnvilMineJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_mine"`, `SerializeToJson`\<[`AnvilMineResult`](AnvilMineResult.md)\>, `AnvilError`\>
 
+Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:29
+
 JSON-RPC response for `anvil_mine` procedure
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:29

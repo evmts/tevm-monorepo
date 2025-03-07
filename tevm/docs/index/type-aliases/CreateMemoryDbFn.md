@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **CreateMemoryDbFn**\<`TKey`, `TValue`\>: (`initialDb`?) => [`MemoryDb`](MemoryDb.md)\<`TKey`, `TValue`\>
 
+Defined in: packages/utils/types/CreateMemoryDbFn.d.ts:3
+
 ## Type Parameters
 
 • **TKey** *extends* `string` \| `number` \| `Uint8Array` = `Uint8Array`
@@ -16,12 +18,10 @@
 
 ## Parameters
 
-• **initialDb?**: `Map`\<`TKey`, `TValue`\>
+### initialDb?
+
+`Map`\<`TKey`, `TValue`\>
 
 ## Returns
 
 [`MemoryDb`](MemoryDb.md)\<`TKey`, `TValue`\>
-
-## Defined in
-
-packages/utils/types/CreateMemoryDbFn.d.ts:3

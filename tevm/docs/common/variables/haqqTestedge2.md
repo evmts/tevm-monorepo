@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: haqqTestedge2
 
-> `const` **haqqTestedge2**: `Common`
+> `const` **haqqTestedge2**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/haqqTestedge2.d.ts:21
 
 Creates a common configuration for the haqqTestedge2 chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/haqqTestedge2.d.ts:21

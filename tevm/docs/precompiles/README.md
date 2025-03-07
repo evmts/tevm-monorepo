@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,9 +6,7 @@
 
 # precompiles
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [CallResult](type-aliases/CallResult.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)

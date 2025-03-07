@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: ethCallHandler()
 
-> **ethCallHandler**(`client`): `EthCallHandler`
+> **ethCallHandler**(`client`): [`EthCallHandler`](../type-aliases/EthCallHandler.md)
+
+Defined in: packages/actions/types/eth/ethCallHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthCallHandler`
-
-## Defined in
-
-packages/actions/types/eth/ethCallHandler.d.ts:1
+[`EthCallHandler`](../type-aliases/EthCallHandler.md)

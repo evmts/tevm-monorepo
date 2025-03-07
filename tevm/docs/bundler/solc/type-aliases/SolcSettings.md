@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcSettings
 
 > **SolcSettings**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:67
 
 ## Type declaration
 
@@ -49,7 +51,3 @@
 ### viaIR?
 
 > `optional` **viaIR**: `boolean`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:67

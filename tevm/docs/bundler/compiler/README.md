@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,9 +6,7 @@
 
 # bundler/compiler
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [Artifacts](type-aliases/Artifacts.md)
 - [CompiledContracts](type-aliases/CompiledContracts.md)
@@ -17,7 +15,7 @@
 - [ModuleInfo](type-aliases/ModuleInfo.md)
 - [ResolvedArtifacts](type-aliases/ResolvedArtifacts.md)
 
-### Functions
+## Functions
 
 - [resolveArtifacts](functions/resolveArtifacts.md)
 - [resolveArtifactsSync](functions/resolveArtifactsSync.md)

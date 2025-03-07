@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Variable: tevmDefault
 
 > `const` **tevmDefault**: `object`
+
+Defined in: packages/common/types/presets/tevmDefault.d.ts:4
 
 The default chain if no fork url is passed
 
@@ -18,35 +20,55 @@ The default chain if no fork url is passed
 
 #### Index Signature
 
- \[`key`: `string`\]: `object`
+\[`key`: `string`\]: `object`
 
-### blockExplorers.default
+#### blockExplorers.default
 
 > **default**: `object`
 
-### blockExplorers.default.apiUrl?
+#### blockExplorers.default.apiUrl?
 
 > `optional` **apiUrl**: `string`
 
-### blockExplorers.default.name
+#### blockExplorers.default.name
 
 > **name**: `string`
 
-### blockExplorers.default.url
+#### blockExplorers.default.url
 
 > **url**: `string`
 
 ### contracts?
 
-> `optional` **contracts**: `Prettify`
+> `optional` **contracts**: `object`
+
+#### Index Signature
+
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+
+#### contracts.ensRegistry?
+
+> `optional` **ensRegistry**: `ChainContract`
+
+#### contracts.ensUniversalResolver?
+
+> `optional` **ensUniversalResolver**: `ChainContract`
+
+#### contracts.multicall3?
+
+> `optional` **multicall3**: `ChainContract`
+
+#### contracts.universalSignatureVerifier?
+
+> `optional` **universalSignatureVerifier**: `ChainContract`
 
 ### copy()
 
-> **copy**: () => `Common`
+> **copy**: () => [`Common`](../type-aliases/Common.md)
 
 #### Returns
 
-`Common`
+[`Common`](../type-aliases/Common.md)
 
 ### custom?
 
@@ -76,15 +98,15 @@ The default chain if no fork url is passed
 
 > **nativeCurrency**: `object`
 
-### nativeCurrency.decimals
+#### nativeCurrency.decimals
 
 > **decimals**: `number`
 
-### nativeCurrency.name
+#### nativeCurrency.name
 
 > **name**: `string`
 
-### nativeCurrency.symbol
+#### nativeCurrency.symbol
 
 > **symbol**: `string`
 
@@ -94,17 +116,17 @@ The default chain if no fork url is passed
 
 #### Index Signature
 
- \[`key`: `string`\]: `object`
+\[`key`: `string`\]: `object`
 
-### rpcUrls.default
+#### rpcUrls.default
 
 > **default**: `object`
 
-### rpcUrls.default.http
+#### rpcUrls.default.http
 
 > **http**: readonly `string`[]
 
-### rpcUrls.default.webSocket?
+#### rpcUrls.default.webSocket?
 
 > `optional` **webSocket**: readonly `string`[]
 
@@ -119,7 +141,3 @@ The default chain if no fork url is passed
 ### testnet?
 
 > `optional` **testnet**: `boolean`
-
-## Defined in
-
-packages/common/types/presets/tevmDefault.d.ts:4

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **deepCopy**(`baseVm`): [`DeepCopy`](../type-aliases/DeepCopy.md)
 
+Defined in: packages/vm/types/actions/deepCopy.d.ts:1
+
 ## Parameters
 
-• **baseVm**: `BaseVm`
+### baseVm
+
+`BaseVm`
 
 ## Returns
 
 [`DeepCopy`](../type-aliases/DeepCopy.md)
-
-## Defined in
-
-packages/vm/types/actions/deepCopy.d.ts:1

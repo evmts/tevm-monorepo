@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,14 +6,12 @@
 
 # Type Alias: DerivedRpcSchema\<TRpcSchema, TRpcSchemaOverride\>
 
-> **DerivedRpcSchema**\<`TRpcSchema`, `TRpcSchemaOverride`\>: `TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) ? [`TRpcSchemaOverride` & `object`] : `TRpcSchema`
+> **DerivedRpcSchema**\<`TRpcSchema`, `TRpcSchemaOverride`\>: `TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) ? \[`TRpcSchemaOverride` & `object`\] : `TRpcSchema`
+
+Defined in: packages/decorators/dist/index.d.ts:243
 
 ## Type Parameters
 
 • **TRpcSchema** *extends* [`RpcSchema`](RpcSchema.md) \| `undefined`
 
 • **TRpcSchemaOverride** *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) \| `undefined`
-
-## Defined in
-
-packages/decorators/dist/index.d.ts:243

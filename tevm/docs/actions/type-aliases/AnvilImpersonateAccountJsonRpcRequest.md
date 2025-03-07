@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: AnvilImpersonateAccountJsonRpcRequest
 
-> **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_impersonateAccount"`, readonly [[`Address`](../../index/type-aliases/Address.md)]\>
+> **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_impersonateAccount"`, readonly \[[`Address`](../../index/type-aliases/Address.md)\]\>
+
+Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:9
 
 JSON-RPC request for `anvil_impersonateAccount` method
-
-## Defined in
-
-packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:9

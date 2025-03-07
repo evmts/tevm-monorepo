@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: DumpStateParams\<TThrowOnFail\>
 
 > **DumpStateParams**\<`TThrowOnFail`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
+
+Defined in: packages/actions/types/DumpState/DumpStateParams.d.ts:3
 
 ## Type declaration
 
@@ -22,7 +24,3 @@ Block tag to fetch account from
 ## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
-
-## Defined in
-
-packages/actions/types/DumpState/DumpStateParams.d.ts:3

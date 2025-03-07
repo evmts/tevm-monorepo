@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,15 @@
 
 > **BLS12381PointNotOnCurveErrorParameters**: `object`
 
+Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:59
+
 Parameters for constructing a [BLS12381PointNotOnCurveError](../classes/BLS12381PointNotOnCurveError.md).
 
 ## Type declaration
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| `EvmError`
+> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EvmError`](../../evm/classes/EvmError.md)
 
 - The cause of the error.
 
@@ -53,7 +55,3 @@ Parameters for constructing a [BLS12381PointNotOnCurveError](../classes/BLS12381
 > `optional` **metaMessages**: `string`[]
 
 - Additional meta messages.
-
-## Defined in
-
-packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:59

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ExecutionPayload
 
 > **ExecutionPayload**: `object`
+
+Defined in: packages/block/types/types.d.ts:236
 
 ## Type declaration
 
@@ -89,7 +91,3 @@
 ### withdrawals?
 
 > `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
-
-## Defined in
-
-packages/block/types/types.d.ts:236

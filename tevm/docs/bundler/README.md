@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,9 +6,7 @@
 
 # bundler
 
-## Index
-
-### Type Aliases
+## Type Aliases
 
 - [AsyncBundlerResult](type-aliases/AsyncBundlerResult.md)
 - [Bundler](type-aliases/Bundler.md)
@@ -18,7 +16,7 @@
 - [SolidityResolver](type-aliases/SolidityResolver.md)
 - [SyncBundlerResult](type-aliases/SyncBundlerResult.md)
 
-### Functions
+## Functions
 
 - [bundler](functions/bundler.md)
 - [getContractPath](functions/getContractPath.md)

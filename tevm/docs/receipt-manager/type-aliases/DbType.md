@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **DbType**: `"Receipts"` \| `"TxHash"` \| `"SkeletonBlock"` \| `"SkeletonBlockHashToNumber"` \| `"SkeletonStatus"` \| `"SkeletonUnfinalizedBlockByHash"` \| `"Preimage"`
 
-## Defined in
-
-packages/receipt-manager/types/MapDb.d.ts:2
+Defined in: packages/receipt-manager/types/MapDb.d.ts:2

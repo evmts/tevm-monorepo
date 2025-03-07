@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,21 +8,23 @@
 
 > **SolcGasEstimates**: `object`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:194
+
 ## Type declaration
 
 ### creation
 
 > **creation**: `object`
 
-### creation.codeDepositCost
+#### creation.codeDepositCost
 
 > **codeDepositCost**: `string`
 
-### creation.executionCost
+#### creation.executionCost
 
 > **executionCost**: `string`
 
-### creation.totalCost
+#### creation.totalCost
 
 > **totalCost**: `string`
 
@@ -32,7 +34,7 @@
 
 #### Index Signature
 
- \[`functionSignature`: `string`\]: `string`
+\[`functionSignature`: `string`\]: `string`
 
 ### internal
 
@@ -40,8 +42,4 @@
 
 #### Index Signature
 
- \[`functionSignature`: `string`\]: `string`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:194
+\[`functionSignature`: `string`\]: `string`

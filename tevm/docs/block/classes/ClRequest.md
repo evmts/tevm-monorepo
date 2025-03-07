@@ -1,10 +1,12 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
 [tevm](../../modules.md) / [block](../README.md) / ClRequest
 
 # Class: ClRequest
+
+Defined in: packages/block/types/ClRequest.d.ts:11
 
 ## Implements
 
@@ -16,19 +18,21 @@
 
 > **new ClRequest**(`type`, `bytes`): [`ClRequest`](ClRequest.md)
 
+Defined in: packages/block/types/ClRequest.d.ts:14
+
 #### Parameters
 
-• **type**: `number`
+##### type
 
-• **bytes**: `Uint8Array`
+`number`
+
+##### bytes
+
+`Uint8Array`
 
 #### Returns
 
 [`ClRequest`](ClRequest.md)
-
-#### Defined in
-
-packages/block/types/ClRequest.d.ts:14
 
 ## Properties
 
@@ -36,13 +40,11 @@ packages/block/types/ClRequest.d.ts:14
 
 > **bytes**: `Uint8Array`
 
+Defined in: packages/block/types/ClRequest.d.ts:13
+
 #### Implementation of
 
 `CLRequestType.bytes`
-
-#### Defined in
-
-packages/block/types/ClRequest.d.ts:13
 
 ***
 
@@ -50,28 +52,24 @@ packages/block/types/ClRequest.d.ts:13
 
 > **type**: `number`
 
+Defined in: packages/block/types/ClRequest.d.ts:12
+
 #### Implementation of
 
 `CLRequestType.type`
-
-#### Defined in
-
-packages/block/types/ClRequest.d.ts:12
 
 ## Methods
 
 ### serialize()
 
-> **serialize**(): `Uint8Array`
+> **serialize**(): `Uint8Array`\<`ArrayBufferLike`\>
+
+Defined in: packages/block/types/ClRequest.d.ts:15
 
 #### Returns
 
-`Uint8Array`
+`Uint8Array`\<`ArrayBufferLike`\>
 
 #### Implementation of
 
 `CLRequestType.serialize`
-
-#### Defined in
-
-packages/block/types/ClRequest.d.ts:15

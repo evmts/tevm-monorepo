@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthNewBlockFilterHandler**: (`request`) => `Promise`\<[`EthNewBlockFilterResult`](EthNewBlockFilterResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:38
+
 ## Parameters
 
-• **request**: [`EthNewBlockFilterParams`](EthNewBlockFilterParams.md)
+### request
+
+[`EthNewBlockFilterParams`](EthNewBlockFilterParams.md)
 
 ## Returns
 
 `Promise`\<[`EthNewBlockFilterResult`](EthNewBlockFilterResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:38

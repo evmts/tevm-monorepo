@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **SolcDeployedBytecodeOutput**: `object`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:173
+
 ## Type declaration
 
 ### immutableReferences
@@ -16,8 +18,4 @@
 
 #### Index Signature
 
- \[`astID`: `string`\]: `object`[]
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:173
+\[`astID`: `string`\]: `object`[]

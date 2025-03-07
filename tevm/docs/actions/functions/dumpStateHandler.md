@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,20 +6,22 @@
 
 # Function: dumpStateHandler()
 
-> **dumpStateHandler**(`client`, `options`?): `DumpStateHandler`
+> **dumpStateHandler**(`client`, `options`?): [`DumpStateHandler`](../type-aliases/DumpStateHandler.md)
+
+Defined in: packages/actions/types/DumpState/dumpStateHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **options?**
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **options.throwOnFail?**: `boolean`
+### options?
+
+#### throwOnFail?
+
+`boolean`
 
 ## Returns
 
-`DumpStateHandler`
-
-## Defined in
-
-packages/actions/types/DumpState/dumpStateHandler.d.ts:1
+[`DumpStateHandler`](../type-aliases/DumpStateHandler.md)

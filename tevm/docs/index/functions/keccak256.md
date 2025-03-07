@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,20 +8,22 @@
 
 > **keccak256**\<`to`\>(`value`, `to_`?): `Keccak256Hash`\<`to`\>
 
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/utils/hash/keccak256.d.ts:9
+
 ## Type Parameters
 
 • **to** *extends* `To` = `"hex"`
 
 ## Parameters
 
-• **value**: \`0x$\{string\}\` \| `Uint8Array`
+### value
 
-• **to\_?**: `to`
+`` `0x${string}` `` | `ByteArray`
+
+### to\_?
+
+`to`
 
 ## Returns
 
 `Keccak256Hash`\<`to`\>
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/utils/hash/keccak256.d.ts:9

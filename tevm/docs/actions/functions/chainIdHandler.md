@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,16 +6,16 @@
 
 # Function: chainIdHandler()
 
-> **chainIdHandler**(`client`): `EthChainIdHandler`
+> **chainIdHandler**(`client`): [`EthChainIdHandler`](../type-aliases/EthChainIdHandler.md)
+
+Defined in: packages/actions/types/eth/chainIdHandler.d.ts:1
 
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
+
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
 ## Returns
 
-`EthChainIdHandler`
-
-## Defined in
-
-packages/actions/types/eth/chainIdHandler.d.ts:1
+[`EthChainIdHandler`](../type-aliases/EthChainIdHandler.md)

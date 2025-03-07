@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # Variable: zBlockParam
 
-> `const` **zBlockParam**: `z.ZodUnion`\<[`z.ZodLiteral`\<`"latest"`\>, `z.ZodLiteral`\<`"earliest"`\>, `z.ZodLiteral`\<`"pending"`\>, `z.ZodLiteral`\<`"safe"`\>, `z.ZodLiteral`\<`"finalized"`\>, `z.ZodBigInt`, `z.ZodEffects`\<`z.ZodString`, \`0x$\{string\}\`, `string`\>]\>
+> `const` **zBlockParam**: `z.ZodUnion`\<\[`z.ZodLiteral`\<`"latest"`\>, `z.ZodLiteral`\<`"earliest"`\>, `z.ZodLiteral`\<`"pending"`\>, `z.ZodLiteral`\<`"safe"`\>, `z.ZodLiteral`\<`"finalized"`\>, `z.ZodBigInt`, `z.ZodEffects`\<`z.ZodString`, `` `0x${string}` ``, `string`\>\]\>
 
-## Defined in
-
-packages/actions/types/internal/zod/zBlockParam.d.ts:1
+Defined in: packages/actions/types/internal/zod/zBlockParam.d.ts:1

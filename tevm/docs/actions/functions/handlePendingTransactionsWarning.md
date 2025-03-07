@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,20 +8,26 @@
 
 > **handlePendingTransactionsWarning**(`client`, `params`, `code`, `deployedBytecode`): `Promise`\<`void`\>
 
+Defined in: packages/actions/types/Call/handlePendingTransactionsWarning.d.ts:1
+
 ## Parameters
 
-• **client**: [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, `object`\>
+### client
 
-• **params**: [`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
-• **code**: `undefined` \| `string`
+### params
 
-• **deployedBytecode**: `undefined` \| `string`
+[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+
+### code
+
+`undefined` | `string`
+
+### deployedBytecode
+
+`undefined` | `string`
 
 ## Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/actions/types/Call/handlePendingTransactionsWarning.d.ts:1

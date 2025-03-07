@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: StateOptions
 
 > **StateOptions**: `object`
+
+Defined in: packages/state/dist/index.d.ts:175
 
 ## Type declaration
 
@@ -48,7 +50,9 @@ Called when state manager commits state
 
 #### Parameters
 
-• **stateManager**: [`BaseState`](../../state/type-aliases/BaseState.md)
+##### stateManager
+
+[`BaseState`](../../state/type-aliases/BaseState.md)
 
 #### Returns
 
@@ -63,7 +67,3 @@ Called when state manager commits state
 > `readonly` `optional` **storageCache**: [`StorageCache`](../../state/classes/StorageCache.md)
 
 Optionally configure and pass in your own StorageCache
-
-## Defined in
-
-packages/state/dist/index.d.ts:175

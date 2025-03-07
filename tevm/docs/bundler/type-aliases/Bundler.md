@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,8 +8,6 @@
 
 > **Bundler**: `Bundler`
 
+Defined in: bundler-packages/base-bundler/types/src/index.d.ts:10
+
 ./types.ts
-
-## Defined in
-
-bundler-packages/base-bundler/types/src/index.d.ts:10

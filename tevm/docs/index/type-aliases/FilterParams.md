@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: FilterParams
 
 > **FilterParams**: `object`
+
+Defined in: packages/actions/types/common/FilterParams.d.ts:7
 
 An event filter options object
 
@@ -27,7 +29,3 @@ An event filter options object
 ### topics?
 
 > `readonly` `optional` **topics**: `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\> \| `ReadonlyArray`\<`ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>\>
-
-## Defined in
-
-packages/actions/types/common/FilterParams.d.ts:7

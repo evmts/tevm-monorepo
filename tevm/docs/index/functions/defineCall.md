@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,15 +8,21 @@
 
 > **defineCall**\<`TAbi`\>(`abi`, `handlers`): (`__namedParameters`) => `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
 
+Defined in: packages/precompiles/dist/index.d.ts:121
+
 ## Type Parameters
 
 • **TAbi** *extends* [`Abi`](../type-aliases/Abi.md)
 
 ## Parameters
 
-• **abi**: `TAbi`
+### abi
 
-• **handlers**: `{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
+`TAbi`
+
+### handlers
+
+`{ [TFunctionName in string]: Handler<TAbi, TFunctionName> }`
 
 ## Returns
 
@@ -24,16 +30,16 @@
 
 ### Parameters
 
-• **\_\_namedParameters**
+#### \_\_namedParameters
 
-• **\_\_namedParameters.data**: \`0x$\{string\}\`
+##### data
 
-• **\_\_namedParameters.gasLimit**: `bigint`
+`` `0x${string}` ``
+
+##### gasLimit
+
+`bigint`
 
 ### Returns
 
 `Promise`\<[`ExecResult`](../../evm/interfaces/ExecResult.md)\>
-
-## Defined in
-
-packages/precompiles/dist/index.d.ts:121

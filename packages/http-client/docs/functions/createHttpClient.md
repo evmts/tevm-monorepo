@@ -1,4 +1,4 @@
-[**@tevm/http-client**](../README.md) • **Docs**
+[**@tevm/http-client**](../README.md)
 
 ***
 
@@ -8,9 +8,13 @@
 
 > **createHttpClient**(`params`): [`HttpClient`](../type-aliases/HttpClient.md)
 
+Defined in: [createHttpClient.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/createHttpClient.js#L11)
+
 ## Parameters
 
-• **params**: [`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
+### params
+
+[`HttpClientOptions`](../type-aliases/HttpClientOptions.md)
 
 ## Returns
 
@@ -26,7 +30,3 @@ For now we suggest you use viem
 ```ts
 
 ```
-
-## Defined in
-
-[createHttpClient.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/createHttpClient.js#L11)

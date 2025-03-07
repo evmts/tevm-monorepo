@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,13 +8,19 @@
 
 > **clearContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`void`\>
 
+Defined in: packages/state/dist/index.d.ts:223
+
 Clears all storage entries for the account corresponding to `address`.
 
 ## Parameters
 
-• **baseState**: [`BaseState`](../type-aliases/BaseState.md)
+### baseState
 
-• **skipFetchingFromFork?**: `boolean`
+[`BaseState`](../type-aliases/BaseState.md)
+
+### skipFetchingFromFork?
+
+`boolean`
 
 ## Returns
 
@@ -22,12 +28,10 @@ Clears all storage entries for the account corresponding to `address`.
 
 ### Parameters
 
-• **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+#### address
+
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
 ### Returns
 
 `Promise`\<`void`\>
-
-## Defined in
-
-packages/state/dist/index.d.ts:223

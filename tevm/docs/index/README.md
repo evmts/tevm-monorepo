@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,17 +6,15 @@
 
 # index
 
-## Index
-
-### Classes
+## Classes
 
 - [ProviderRpcError](classes/ProviderRpcError.md)
 
-### Interfaces
+## Interfaces
 
 - [Storage](interfaces/Storage.md)
 
-### Type Aliases
+## Type Aliases
 
 - [Abi](type-aliases/Abi.md)
 - [AbiConstructor](type-aliases/AbiConstructor.md)
@@ -104,7 +102,7 @@
 - [TevmActions](type-aliases/TevmActions.md)
 - [TevmActionsApi](type-aliases/TevmActionsApi.md)
 - [TevmCallError](type-aliases/TevmCallError.md)
-- [TevmClient](type-aliases/TevmClient.md)
+- [~~TevmClient~~](type-aliases/TevmClient.md)
 - [TevmContract](type-aliases/TevmContract.md)
 - [TevmContractError](type-aliases/TevmContractError.md)
 - [TevmDeployError](type-aliases/TevmDeployError.md)
@@ -129,7 +127,7 @@
 - [TransactionResult](type-aliases/TransactionResult.md)
 - [WriteActionCreator](type-aliases/WriteActionCreator.md)
 
-### Variables
+## Variables
 
 - [GENESIS\_STATE](variables/GENESIS_STATE.md)
 - [PREFUNDED\_ACCOUNTS](variables/PREFUNDED_ACCOUNTS.md)
@@ -138,7 +136,7 @@
 - [PREFUNDED\_SEED](variables/PREFUNDED_SEED.md)
 - [prefundedAccounts](variables/prefundedAccounts.md)
 
-### Functions
+## Functions
 
 - [boolToBytes](functions/boolToBytes.md)
 - [boolToHex](functions/boolToHex.md)

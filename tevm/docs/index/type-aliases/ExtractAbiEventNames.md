@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **ExtractAbiEventNames**\<`abi`\>: [`ExtractAbiEvents`](ExtractAbiEvents.md)\<`abi`\>\[`"name"`\]
 
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.2\_zod@3.24.2/node\_modules/abitype/dist/types/utils.d.ts:141
+
 Extracts all [AbiEvent](AbiEvent.md) names from [Abi](Abi.md).
 
 ## Type Parameters
@@ -16,6 +18,6 @@ Extracts all [AbiEvent](AbiEvent.md) names from [Abi](Abi.md).
 
 [Abi](Abi.md) to extract event names from
 
-## Defined in
+## Returns
 
-node\_modules/.pnpm/abitype@1.0.6\_typescript@5.7.3\_zod@3.23.8/node\_modules/abitype/dist/types/utils.d.ts:141
+Union of event names

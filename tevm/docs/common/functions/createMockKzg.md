@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,12 +6,10 @@
 
 # Function: createMockKzg()
 
-> **createMockKzg**(): `MockKzg`
+> **createMockKzg**(): [`MockKzg`](../type-aliases/MockKzg.md)
+
+Defined in: packages/common/types/createMockKzg.d.ts:1
 
 ## Returns
 
-`MockKzg`
-
-## Defined in
-
-packages/common/types/createMockKzg.d.ts:1
+[`MockKzg`](../type-aliases/MockKzg.md)

@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Type Alias: JsonRpcResponse\<TMethod, TResult, TErrorCode\>
 
-> **JsonRpcResponse**\<`TMethod`, `TResult`, `TErrorCode`\>: `object` \| `object`
+> **JsonRpcResponse**\<`TMethod`, `TResult`, `TErrorCode`\>: \{ `error`: `never`; `id`: `string` \| `number` \| `null`; `jsonrpc`: `"2.0"`; `method`: `TMethod`; `result`: `TResult`; \} \| \{ `error`: \{ `code`: `TErrorCode`; `message`: `string`; \}; `id`: `string` \| `number` \| `null`; `jsonrpc`: `"2.0"`; `method`: `TMethod`; `result`: `never`; \}
+
+Defined in: packages/jsonrpc/types/JsonRpcResponse.d.ts:1
 
 ## Type Parameters
 
@@ -15,7 +17,3 @@
 • **TResult**
 
 • **TErrorCode** *extends* `string` \| `number`
-
-## Defined in
-
-packages/jsonrpc/types/JsonRpcResponse.d.ts:1

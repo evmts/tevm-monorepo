@@ -1,4 +1,4 @@
-[**tevm**](../../../README.md) • **Docs**
+[**tevm**](../../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: SolcErrorEntry
 
 > **SolcErrorEntry**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:104
 
 ## Type declaration
 
@@ -41,7 +43,3 @@
 ### type
 
 > **type**: `string`
-
-## Defined in
-
-bundler-packages/solc/types/src/solcTypes.d.ts:104

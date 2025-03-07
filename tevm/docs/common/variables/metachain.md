@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: metachain
 
-> `const` **metachain**: `Common`
+> `const` **metachain**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/metachain.d.ts:21
 
 Creates a common configuration for the metachain chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/metachain.d.ts:21

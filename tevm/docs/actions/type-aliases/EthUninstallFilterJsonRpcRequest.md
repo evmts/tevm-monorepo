@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,10 +6,8 @@
 
 # Type Alias: EthUninstallFilterJsonRpcRequest
 
-> **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_uninstallFilter"`, readonly [[`Hex`](../../index/type-aliases/Hex.md)]\>
+> **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_uninstallFilter"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
+
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:207
 
 JSON-RPC request for `eth_uninstallFilter` procedure
-
-## Defined in
-
-packages/actions/types/eth/EthJsonRpcRequest.d.ts:207

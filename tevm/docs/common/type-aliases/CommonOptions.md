@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CommonOptions
 
 > **CommonOptions**: `ViemChain` & `object`
+
+Defined in: packages/common/types/CommonOptions.d.ts:37
 
 ## Type declaration
 
@@ -102,7 +104,3 @@ const common = createCommon({
 ## See
 
 [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
-
-## Defined in
-
-packages/common/types/CommonOptions.d.ts:37

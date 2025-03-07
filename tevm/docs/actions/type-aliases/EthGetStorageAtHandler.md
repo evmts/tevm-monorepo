@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,14 +8,14 @@
 
 > **EthGetStorageAtHandler**: (`request`) => `Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
 
+Defined in: packages/actions/types/eth/EthHandler.d.ts:20
+
 ## Parameters
 
-• **request**: [`EthGetStorageAtParams`](EthGetStorageAtParams.md)
+### request
+
+[`EthGetStorageAtParams`](EthGetStorageAtParams.md)
 
 ## Returns
 
 `Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
-
-## Defined in
-
-packages/actions/types/eth/EthHandler.d.ts:20

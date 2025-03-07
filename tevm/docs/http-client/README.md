@@ -1,4 +1,4 @@
-[**tevm**](../README.md) • **Docs**
+[**tevm**](../README.md)
 
 ***
 
@@ -6,13 +6,11 @@
 
 # http-client
 
-## Index
+## Type Aliases
 
-### Type Aliases
+- [~~HttpClient~~](type-aliases/HttpClient.md)
+- [~~HttpClientOptions~~](type-aliases/HttpClientOptions.md)
 
-- [HttpClient](type-aliases/HttpClient.md)
-- [HttpClientOptions](type-aliases/HttpClientOptions.md)
-
-### Functions
+## Functions
 
 - [createHttpClient](functions/createHttpClient.md)

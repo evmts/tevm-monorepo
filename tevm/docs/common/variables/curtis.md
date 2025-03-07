@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -6,7 +6,9 @@
 
 # Variable: curtis
 
-> `const` **curtis**: `Common`
+> `const` **curtis**: [`Common`](../type-aliases/Common.md)
+
+Defined in: packages/common/types/presets/curtis.d.ts:21
 
 Creates a common configuration for the curtis chain.
 
@@ -31,7 +33,3 @@ const client = createMemoryClient({
   },
 })
 ```
-
-## Defined in
-
-packages/common/types/presets/curtis.d.ts:21

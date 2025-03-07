@@ -1,4 +1,4 @@
-[**tevm**](../../README.md) • **Docs**
+[**tevm**](../../README.md)
 
 ***
 
@@ -8,6 +8,4 @@
 
 > **HandleRunTxError**: [`TevmEvmError`](TevmEvmError.md) \| [`InvalidGasPriceError`](../../errors/classes/InvalidGasPriceError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md) \| [`InvalidGasLimitError`](../../errors/classes/InvalidGasLimitError.md)
 
-## Defined in
-
-packages/actions/types/Call/handleEvmError.d.ts:4
+Defined in: packages/actions/types/Call/handleEvmError.d.ts:4
