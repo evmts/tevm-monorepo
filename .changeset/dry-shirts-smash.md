@@ -27,7 +27,6 @@
 "@tevm/vscode": patch
 "@tevm/lsp": patch
 "tevm": patch
-"@tevm/cli": patch
 ---
 
 Updated every dependency in entire tevm monorepo to latest

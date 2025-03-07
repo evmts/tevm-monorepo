@@ -1,7 +1,6 @@
 ---
 "@tevm/memory-client": minor
 "@tevm/client-types": minor
-"@tevm/schemas": minor
 "@tevm/node": minor
 "@tevm/http-client": minor
 "@tevm/precompiles": minor
@@ -9,7 +8,6 @@
 "@tevm/decorators": minor
 "@tevm/predeploys": minor
 "@tevm/procedures": minor
-"@tevm/revm": minor
 "@tevm/contract": minor
 "@tevm/actions": minor
 "@tevm/jsonrpc": minor

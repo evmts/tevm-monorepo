@@ -15,10 +15,6 @@
 "@tevm/webpack-plugin": patch
 "@tevm/tsconfig": patch
 "@tevm/tsupconfig": patch
-"@tevm/revm": patch
-"@tevm/schemas": patch
-"@tevm/experimental-solc": patch
-"@tevm/viem-effect": patch
 "@tevm/ethers": patch
 "@tevm/viem": patch
 "@tevm/lsp": patch

@@ -3,7 +3,6 @@
 "@tevm/runtime": patch
 "@tevm/memory-client": patch
 "@tevm/client-types": patch
-"@tevm/schemas": patch
 "@tevm/node": patch
 "@tevm/http-client": patch
 "@tevm/precompiles": patch
@@ -11,7 +10,6 @@
 "@tevm/decorators": patch
 "@tevm/predeploys": patch
 "@tevm/procedures": patch
-"@tevm/revm": patch
 "@tevm/ethers": patch
 "@tevm/contract": patch
 "@tevm/actions": patch

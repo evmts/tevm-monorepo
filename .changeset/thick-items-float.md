@@ -1,5 +1,4 @@
 ---
-"@tevm/schemas": patch
 "@tevm/actions": patch
 "@tevm/jsonrpc": patch
 "@tevm/errors": patch

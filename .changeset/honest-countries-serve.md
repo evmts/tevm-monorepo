@@ -8,7 +8,6 @@
 "@tevm/esbuild-plugin": patch
 "@tevm/runtime": patch
 "@tevm/webpack-plugin": patch
-"@tevm/viem-effect": patch
 "@tevm/receipt-manager": patch
 "@tevm/config": patch
 "@tevm/rollup-plugin": patch
@@ -18,8 +17,6 @@
 "@tevm/vite-plugin": patch
 "@tevm/client-types": patch
 "@tevm/bun-plugin": patch
-"@tevm/cli": patch
-"@tevm/schemas": patch
 "@tevm/node": patch
 "@tevm/http-client": patch
 "@tevm/precompiles": patch
@@ -28,8 +25,6 @@
 "@tevm/predeploys": patch
 "@tevm/procedures": patch
 "@tevm/tsupconfig": patch
-"@tevm/revm": patch
-"@tevm/experimental-solc": patch
 "@tevm/ethers": patch
 "@tevm/contract": patch
 "@tevm/tsconfig": patch

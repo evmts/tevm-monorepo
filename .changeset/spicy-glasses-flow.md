@@ -8,8 +8,6 @@
 "@tevm/config": patch
 "@tevm/solc": patch
 "@tevm/bun-plugin": patch
-"@tevm/cli": patch
-"@tevm/schemas": patch
 "@tevm/node": patch
 "@tevm/tsupconfig": patch
 "@tevm/ethers": patch

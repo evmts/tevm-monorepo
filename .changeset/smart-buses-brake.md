@@ -17,13 +17,8 @@
 "@tevm/vite-plugin": patch
 "@tevm/webpack-plugin": patch
 "@tevm/whatsabi": patch
-"@tevm/cli": patch
 "@tevm/tsconfig": patch
 "@tevm/tsupconfig": patch
-"@tevm/revm": patch
-"@tevm/schemas": patch
-"@tevm/experimental-solc": patch
-"@tevm/viem-effect": patch
 "@tevm/viem": patch
 "@tevm/lsp": patch
 "@tevm/ts-plugin": patch

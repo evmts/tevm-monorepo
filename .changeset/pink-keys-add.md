@@ -1,6 +1,5 @@
 ---
 "@tevm/unplugin": patch
-"@tevm/experimental-solc": patch
 "@tevm/esbuild-plugin": patch
 "@tevm/webpack-plugin": patch
 "@tevm/rollup-plugin": patch
@@ -10,7 +9,6 @@
 "@tevm/resolutions": patch
 "@tevm/ts-plugin": patch
 "@tevm/runtime": patch
-"@tevm/schemas": patch
 "@tevm/config": patch
 "@tevm/effect": patch
 "@tevm/ethers": patch

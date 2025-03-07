@@ -2,7 +2,6 @@
 "@tevm/base-bundler": minor
 "@tevm/bun-plugin": minor
 "@tevm/bundler-cache": minor
-"@tevm/cli": minor
 "@tevm/compiler": minor
 "@tevm/config": minor
 "@tevm/esbuild-plugin": minor
@@ -16,10 +15,6 @@
 "@tevm/webpack-plugin": minor
 "@tevm/tsconfig": minor
 "@tevm/tsupconfig": minor
-"@tevm/revm": minor
-"@tevm/schemas": minor
-"@tevm/experimental-solc": minor
-"@tevm/viem-effect": minor
 "@tevm/ethers": minor
 "@tevm/viem": minor
 "@tevm/lsp": minor

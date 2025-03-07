@@ -5,17 +5,12 @@
 "@tevm/compiler": patch
 "@tevm/unplugin": patch
 "@tevm/runtime": patch
-"@tevm/viem-effect": patch
 "@tevm/config": patch
 "@tevm/solc": patch
 "@tevm/bun-plugin": patch
-"@tevm/cli": patch
-"@tevm/schemas": patch
 "@tevm/node": patch
 "@tevm/procedures": patch
 "@tevm/tsupconfig": patch
-"@tevm/revm": patch
-"@tevm/experimental-solc": patch
 "@tevm/ethers": patch
 "@tevm/actions": patch
 "@tevm/jsonrpc": patch

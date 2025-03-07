@@ -29,7 +29,6 @@
 "@tevm/vscode": patch
 "@tevm/lsp": patch
 "tevm": patch
-"@tevm/cli": patch
 "@tevm/esbuild-plugin": patch
 "@tevm/rollup-plugin": patch
 "@tevm/rspack-plugin": patch
@@ -37,10 +36,6 @@
 "@tevm/vite-plugin": patch
 "@tevm/webpack-plugin": patch
 "@tevm/tsconfig": patch
-"@tevm/revm": patch
-"@tevm/schemas": patch
-"@tevm/experimental-solc": patch
-"@tevm/viem-effect": patch
 "@tevm/address": patch
 "@tevm/block": patch
 "@tevm/blockchain": patch

@@ -9,7 +9,6 @@
 "@tevm/base-bundler": patch
 "@tevm/bun-plugin": patch
 "@tevm/bundler-cache": patch
-"@tevm/cli": patch
 "@tevm/compiler": patch
 "@tevm/config": patch
 "@tevm/esbuild-plugin": patch
@@ -23,10 +22,6 @@
 "@tevm/webpack-plugin": patch
 "@tevm/tsconfig": patch
 "@tevm/tsupconfig": patch
-"@tevm/revm": patch
-"@tevm/schemas": patch
-"@tevm/experimental-solc": patch
-"@tevm/viem-effect": patch
 "@tevm/ethers": patch
 "@tevm/viem": patch
 "@tevm/lsp": patch

@@ -12,13 +12,10 @@
 "@tevm/vite-plugin": patch
 "@tevm/webpack-plugin": patch
 "@tevm/tsconfig": patch
-"@tevm/experimental-solc": patch
 "@tevm/ethers": patch
 "@tevm/viem": patch
 "@tevm/contract": patch
 "@tevm/effect": patch
-"@tevm/revm": patch
-"@tevm/schemas": patch
 "@tevm/state": patch
 "@tevm/memory-client": patch
 ---
