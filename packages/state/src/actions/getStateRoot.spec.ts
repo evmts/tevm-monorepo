@@ -1,4 +1,3 @@
-import { hexToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getStateRoot } from './getStateRoot.js'

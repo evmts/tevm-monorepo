@@ -13,7 +13,7 @@ describe(TevmProvider.name, () => {
 		provider = await TevmProvider.createMemoryProvider({
 			fork: {
 				transport: transports.optimism,
-				blockTag: "latest",
+				blockTag: 'latest',
 			},
 		})
 	})

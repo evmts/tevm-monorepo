@@ -292,7 +292,7 @@ describe('ethers.Contract', () => {
 		expect(await c.name()).toMatchInlineSnapshot('"Dai Stablecoin"')
 		expect(await c.symbol()).toMatchInlineSnapshot('"DAI"')
 		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(await c.totalSupply({ blockTag: 132873940 })).toMatchInlineSnapshot(`17805468002779884407766788n`)
+		expect(await c.totalSupply({ blockTag: 132873940 })).toMatchInlineSnapshot('17805468002779884407766788n')
 		expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 	})
 
@@ -306,7 +306,7 @@ describe('ethers.Contract', () => {
 			await c.totalSupply({
 				blockTag: 132873940,
 			}),
-		).toMatchInlineSnapshot(`17805468002779884407766788n`)
+		).toMatchInlineSnapshot('17805468002779884407766788n')
 		expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 	})
 })
