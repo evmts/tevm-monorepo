@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: TypedError\<T\>
 
 > **TypedError**\<`T`\>: `Error` & `object`
+
+Defined in: [extensions/viem/src/TypedError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)
 
 An error with a tag
 
@@ -19,7 +21,3 @@ An error with a tag
 ## Type Parameters
 
 • **T**
-
-## Defined in
-
-[extensions/viem/src/TypedError.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/TypedError.ts#L4)

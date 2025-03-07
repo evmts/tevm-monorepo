@@ -1,4 +1,4 @@
-[**@tevm/server**](../README.md) • **Docs**
+[**@tevm/server**](../README.md)
 
 ***
 
@@ -8,16 +8,14 @@
 
 > **Client**: `object`
 
+Defined in: [packages/server/src/Client.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/Client.ts#L5)
+
 ## Type declaration
 
 ### transport
 
 > **transport**: `object`
 
-### transport.tevm
+#### transport.tevm
 
 > **tevm**: `MemoryClient`\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]
-
-## Defined in
-
-[packages/server/src/Client.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/Client.ts#L5)

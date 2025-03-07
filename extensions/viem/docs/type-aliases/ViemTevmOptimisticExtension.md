@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,10 @@
 # Type Alias: ~~ViemTevmOptimisticExtension()~~
 
 > **ViemTevmOptimisticExtension**: () => [`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
+
+Defined in: [extensions/viem/src/ViemTevmOptimisticExtension.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L22)
+
+**`Experimental`**
 
 ## Returns
 
@@ -36,7 +40,3 @@ await client.tevm.account({
 ## See
 
 [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
-
-## Defined in
-
-[extensions/viem/src/ViemTevmOptimisticExtension.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L22)

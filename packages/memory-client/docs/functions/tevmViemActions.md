@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: tevmViemActions()
 
 > **tevmViemActions**(): (`client`) => [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
+
+Defined in: [packages/memory-client/src/tevmViemActions.js:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmViemActions.js#L39)
 
 A viem extension that adds TEVM actions to a viem client.
 The viem client must already have TEVM support via `createTevmClient` or `createTevmTransport`.
@@ -23,7 +25,9 @@ The viem extension to add TevmViemActionsApi
 
 ### Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| `object`\>
+#### client
+
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
 
 ### Returns
 
@@ -58,7 +62,3 @@ example()
 
  - [TEVM Actions Guide](https://tevm.sh/learn/actions/)
  - [Viem Client Guide](https://viem.sh/docs/clients/)
-
-## Defined in
-
-[packages/memory-client/src/tevmViemActions.js:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmViemActions.js#L39)

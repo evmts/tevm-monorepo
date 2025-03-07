@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: GenError\<TErrorType, TTag\>
 
 > **GenError**\<`TErrorType`, `TTag`\>: `object`
+
+Defined in: [extensions/viem/src/GenError.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L7)
 
 An error yield of writeContractOptimistic
 Errors are yielded rather than throwing
@@ -34,7 +36,3 @@ Errors are yielded rather than throwing
 ### tag
 
 > **tag**: `TTag`
-
-## Defined in
-
-[extensions/viem/src/GenError.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L7)

@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,10 @@
 # Type Alias: ~~ViemTevmOptimisticClientDecorator()~~
 
 > **ViemTevmOptimisticClientDecorator**: \<`TTransport`, `TChain`, `TAccount`\>(`client`) => [`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
+
+Defined in: [extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)
+
+**`Experimental`**
 
 ## Type Parameters
 
@@ -18,7 +22,9 @@
 
 ## Parameters
 
-• **client**: `Pick`\<`WalletClient`, `"request"` \| `"writeContract"`\>
+### client
+
+`Pick`\<`WalletClient`, `"request"` \| `"writeContract"`\>
 
 ## Returns
 
@@ -29,7 +35,3 @@
 in favor of the viem transport
 
 A viem decorator for `tevmViemExtension`
-
-## Defined in
-
-[extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)

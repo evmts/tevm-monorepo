@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: CreateMemoryClientFn()
 
 > **CreateMemoryClientFn**: \<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options`?) => [`MemoryClient`](MemoryClient.md)\<`TCommon`, `TAccountOrAddress`\>
+
+Defined in: [packages/memory-client/src/CreateMemoryClientFn.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/CreateMemoryClientFn.ts#L36)
 
 Type definition for the function that creates a [MemoryClient](MemoryClient.md).
 This function initializes a MemoryClient with the provided options,
@@ -28,7 +30,9 @@ The RPC schema type, defaults to `TevmRpcSchema`.
 
 ## Parameters
 
-• **options?**: [`MemoryClientOptions`](MemoryClientOptions.md)\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>
+### options?
+
+[`MemoryClientOptions`](MemoryClientOptions.md)\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>
 
 The options to configure the MemoryClient.
 
@@ -56,7 +60,3 @@ const client = createMemoryClient({
 ## See
 
 For more details on using the MemoryClient, refer to [MemoryClient](MemoryClient.md).
-
-## Defined in
-
-[packages/memory-client/src/CreateMemoryClientFn.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/CreateMemoryClientFn.ts#L36)

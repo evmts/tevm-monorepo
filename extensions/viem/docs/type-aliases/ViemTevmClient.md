@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Type Alias: ~~ViemTevmClient~~
 
 > **ViemTevmClient**: `object`
+
+Defined in: [extensions/viem/src/ViemTevmClient.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L7)
 
 ## Type declaration
 
@@ -18,7 +20,3 @@
 
 in favor of the viem transport
 The decorated properties added by the `tevmViemExtension`
-
-## Defined in
-
-[extensions/viem/src/ViemTevmClient.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmClient.ts#L7)

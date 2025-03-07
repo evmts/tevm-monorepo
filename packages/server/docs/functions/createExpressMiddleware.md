@@ -1,4 +1,4 @@
-[**@tevm/server**](../README.md) • **Docs**
+[**@tevm/server**](../README.md)
 
 ***
 
@@ -8,11 +8,15 @@
 
 > **createExpressMiddleware**(`client`): `RequestHandler`\<`ParamsDictionary`, `any`, `any`, `ParsedQs`, `Record`\<`string`, `any`\>\>
 
+Defined in: [packages/server/src/adapters/createExpressMiddleware.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L34)
+
 Creates express middleware for a Tevm JSON-RPC server
 
 ## Parameters
 
-• **client**: [`Client`](../type-aliases/Client.md)
+### client
+
+[`Client`](../type-aliases/Client.md)
 
 ## Returns
 
@@ -45,7 +49,3 @@ const client = createClient({
  const blockNumber = await client.eth.getBlockNumber()
  const chainId = await client.eth.getChainId()
  ```
-
-## Defined in
-
-[packages/server/src/adapters/createExpressMiddleware.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/adapters/createExpressMiddleware.js#L34)

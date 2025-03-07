@@ -226,6 +226,10 @@ bun generate:docs
 
 Docs are generated based on the jsdoc and type errors
 
+#### Peer dependencies
+
+If we upgrade viem we should make sure we update the peer dependency version too
+
 #### Barrel files
 
 Whenever a new API is added, you will need to update a lot of barrel files. Though tedious this helps keep the packages stable from accidental breaking changes or exporting something that should be private. You will need to update the following places:

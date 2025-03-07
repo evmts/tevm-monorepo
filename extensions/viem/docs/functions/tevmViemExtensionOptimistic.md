@@ -1,4 +1,4 @@
-[**@tevm/viem**](../README.md) • **Docs**
+[**@tevm/viem**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: ~~tevmViemExtensionOptimistic()~~
 
 > **tevmViemExtensionOptimistic**(): [`ViemTevmOptimisticClientDecorator`](../type-aliases/ViemTevmOptimisticClientDecorator.md)
+
+Defined in: [extensions/viem/src/tevmViemExtensionOptimistic.js:66](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.js#L66)
 
 **`Experimental`**
 
@@ -77,7 +79,3 @@ for (const result of client.tevm.writeContractOptimistic({
 		})
 	}
 }
-
-## Defined in
-
-[extensions/viem/src/tevmViemExtensionOptimistic.js:66](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/tevmViemExtensionOptimistic.js#L66)

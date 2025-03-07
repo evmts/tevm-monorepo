@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -8,6 +8,8 @@
 
 > **tevmLoadState**(`client`, `params`): `Promise`\<`LoadStateResult`\<`InternalError`\>\>
 
+Defined in: [packages/memory-client/src/tevmLoadState.js:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmLoadState.js#L42)
+
 A tree-shakeable version of the `tevmLoadState` action for viem.
 Loads the state into TEVM from a plain JavaScript object.
 
@@ -15,11 +17,15 @@ This action is useful for restoring the state that was previously dumped using t
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| `object`\>
+### client
+
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
 
 The viem client configured with TEVM transport.
 
-• **params**: `LoadStateParams`\<`boolean`\>
+### params
+
+`LoadStateParams`\<`boolean`\>
 
 The state to load into TEVM.
 
@@ -60,7 +66,3 @@ example()
  - [LoadStateResult](https://tevm.sh/reference/tevm/actions/type-aliases/loadstateresult/) for return values reference.
  - [TEVM Actions Guide](https://tevm.sh/learn/actions/)
  - [tevmDumpState](https://tevm.sh/reference/tevm/actions/functions/tevmDumpState/) for dumping the state.
-
-## Defined in
-
-[packages/memory-client/src/tevmLoadState.js:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmLoadState.js#L42)

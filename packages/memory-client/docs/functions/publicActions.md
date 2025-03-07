@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: publicActions()
 
 > **publicActions**\<`transport`, `chain`, `account`\>(`client`): `PublicActions`\<`transport`, `chain`, `account`\>
+
+Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/clients/decorators/public.d.ts:1446
 
 ## Type Parameters
 
@@ -18,12 +20,10 @@
 
 ## Parameters
 
-• **client**: `Client`\<`transport`, `chain`, `account`\>
+### client
+
+`Client`\<`transport`, `chain`, `account`\>
 
 ## Returns
 
 `PublicActions`\<`transport`, `chain`, `account`\>
-
-## Defined in
-
-node\_modules/.pnpm/viem@2.21.1\_bufferutil@4.0.8\_typescript@5.7.3\_utf-8-validate@6.0.4\_zod@3.23.8/node\_modules/viem/\_types/clients/decorators/public.d.ts:1339

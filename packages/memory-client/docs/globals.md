@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](README.md) • **Docs**
+[**@tevm/memory-client**](README.md)
 
 ***
 

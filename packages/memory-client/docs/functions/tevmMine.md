@@ -1,4 +1,4 @@
-[**@tevm/memory-client**](../README.md) • **Docs**
+[**@tevm/memory-client**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: tevmMine()
 
 > **tevmMine**(`client`, `params`?): `Promise`\<`MineResult`\>
+
+Defined in: [packages/memory-client/src/tevmMine.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmMine.js#L49)
 
 A tree-shakeable version of the `tevmMine` action for viem.
 Mines blocks in TEVM.
@@ -20,11 +22,15 @@ You can customize the mining process with the `blockCount` and `interval` parame
 
 ## Parameters
 
-• **client**: `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| `object`\>
+### client
+
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
 
 The viem client configured with TEVM transport.
 
-• **params?**: `MineParams`\<`boolean`\>
+### params?
+
+`MineParams`\<`boolean`\>
 
 Optional parameters for mining blocks.
 
@@ -67,7 +73,3 @@ example()
  - [MineParams](https://tevm.sh/reference/tevm/actions/type-aliases/mineparams/) for options reference.
  - [MineResult](https://tevm.sh/reference/tevm/actions/type-aliases/mineresult/) for return values reference.
  - [TEVM Actions Guide](https://tevm.sh/learn/actions/)
-
-## Defined in
-
-[packages/memory-client/src/tevmMine.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmMine.js#L49)

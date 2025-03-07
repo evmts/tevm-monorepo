@@ -5,7 +5,6 @@ packages:
   - configs/*
   - docs/*
   - examples/*
-  - experimental/*
   - extensions/*
   - lsp/*
   - packages/*

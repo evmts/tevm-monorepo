@@ -1,4 +1,4 @@
-**@tevm/memory-client** • [**Docs**](globals.md)
+**@tevm/memory-client**
 
 ***
 

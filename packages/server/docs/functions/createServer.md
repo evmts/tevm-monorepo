@@ -1,4 +1,4 @@
-[**@tevm/server**](../README.md) • **Docs**
+[**@tevm/server**](../README.md)
 
 ***
 
@@ -8,17 +8,23 @@
 
 > **createServer**(`client`, `serverOptions`?): `Server`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
+Defined in: [packages/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)
+
 Creates a lightweight http server for handling requests
 
 ## Parameters
 
-• **client**
+### client
 
-• **client.account**: `undefined` \| `Account`
+#### account
+
+`undefined` \| `Account`
 
 The Account of the Client.
 
-• **client.addChain?**
+#### addChain
+
+(`args`) => `Promise`\<`void`\>
 
 Adds an EVM chain to the wallet.
 
@@ -37,19 +43,27 @@ const client = createWalletClient({
 await client.addChain({ chain: optimism })
 ```
 
-• **client.batch?**
+#### batch?
+
+\{ `multicall`: `boolean` \| \{ `batchSize`: `number`; `wait`: `number`; \}; \}
 
 Flags for batch settings.
 
-• **client.batch.multicall?**: `boolean` \| `object`
+#### batch.multicall?
+
+`boolean` \| \{ `batchSize`: `number`; `wait`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
-• **client.cacheTime?**: `number`
+#### cacheTime
+
+`number`
 
 Time (in ms) that cached data will remain in memory.
 
-• **client.call?**
+#### call
+
+(`parameters`) => `Promise`\<`CallReturnType`\>
 
 Executes a new message call immediately without submitting a transaction to the network.
 
@@ -73,15 +87,47 @@ const data = await client.call({
 })
 ```
 
-• **client.ccipRead?**: `false` \| `object`
+#### ccipRead?
+
+`false` \| \{ `request`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-• **client.chain?**: `undefined` \| `Chain`
+#### chain
+
+`undefined` \| `Chain`
 
 Chain for the client.
 
-• **client.createBlockFilter?**
+#### createAccessList
+
+(`parameters`) => `Promise`\<\{ `accessList`: `AccessList`; `gasUsed`: `bigint`; \}\>
+
+Creates an EIP-2930 access list that you can include in a transaction.
+
+- Docs: https://viem.sh/docs/actions/public/createAccessList
+- JSON-RPC Methods: `eth_createAccessList`
+
+**Example**
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+const data = await client.createAccessList({
+  data: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+})
+```
+
+#### createBlockFilter
+
+() => `Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `` `0x${string}` ``[] \| `RpcLog`[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"block"`; \}\>
 
 Creates a Filter to listen for new block hashes that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -102,7 +148,9 @@ const filter = await createBlockFilter(client)
 // { id: "0x345a6572337856574a76364e457a4366", type: 'block' }
 ```
 
-• **client.createContractEventFilter?**
+#### createContractEventFilter
+
+\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`CreateContractEventFilterReturnType`\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>\>
 
 Creates a Filter to retrieve event logs that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges) or [`getFilterLogs`](https://viem.sh/docs/actions/public/getFilterLogs).
 
@@ -123,7 +171,9 @@ const filter = await client.createContractEventFilter({
 })
 ```
 
-• **client.createEventFilter?**
+#### createEventFilter
+
+\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>(`args`?) => `Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", abiEvents, \_EventName, \_Args, strict, fromBlock, toBlock\>\[K\] \}\>
 
 Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for new events that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -145,7 +195,9 @@ const filter = await client.createEventFilter({
 })
 ```
 
-• **client.createPendingTransactionFilter?**
+#### createPendingTransactionFilter
+
+() => `Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `` `0x${string}` ``[] \| `RpcLog`[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"transaction"`; \}\>
 
 Creates a Filter to listen for new pending transaction hashes that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -166,12 +218,14 @@ const filter = await client.createPendingTransactionFilter()
 // { id: "0x345a6572337856574a76364e457a4366", type: 'transaction' }
 ```
 
-• **client.deployContract?**
+#### deployContract
+
+\<`abi`, `chainOverride`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Deploys a contract to the network, given bytecode and constructor arguments.
 
 - Docs: https://viem.sh/docs/contract/deployContract
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/deploying-contracts
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts_deploying-contracts
 
 **Example**
 
@@ -192,7 +246,9 @@ const hash = await client.deployContract({
 })
 ```
 
-• **client.dropTransaction?**
+#### dropTransaction
+
+(`args`) => `Promise`\<`void`\>
 
 Removes a transaction from the mempool.
 
@@ -214,7 +270,9 @@ await client.dropTransaction({
 })
 ```
 
-• **client.dumpState?**
+#### dumpState
+
+() => `Promise`\<`` `0x${string}` ``\>
 
 Serializes the current state (including contracts code, contract's storage,
 accounts properties, etc.) into a savable data blob.
@@ -235,7 +293,9 @@ const client = createTestClient({
 await client.dumpState()
 ```
 
-• **client.estimateContractGas?**
+#### estimateContractGas
+
+\<`chain`, `abi`, `functionName`, `args`\>(`args`) => `Promise`\<`bigint`\>
 
 Estimates the gas required to successfully execute a contract write function call.
 
@@ -263,7 +323,9 @@ const gas = await client.estimateContractGas({
 })
 ```
 
-• **client.estimateFeesPerGas?**
+#### estimateFeesPerGas
+
+\<`chainOverride`, `type`\>(`args`?) => `Promise`\<`EstimateFeesPerGasReturnType`\<`type`\>\>
 
 Returns an estimate for the fees per gas for a transaction to be included
 in the next block.
@@ -284,7 +346,9 @@ const maxPriorityFeePerGas = await client.estimateFeesPerGas()
 // { maxFeePerGas: ..., maxPriorityFeePerGas: ... }
 ```
 
-• **client.estimateGas?**
+#### estimateGas
+
+(`args`) => `Promise`\<`bigint`\>
 
 Estimates the gas necessary to complete a transaction without submitting it to the network.
 
@@ -308,7 +372,9 @@ const gasEstimate = await client.estimateGas({
 })
 ```
 
-• **client.estimateMaxPriorityFeePerGas?**
+#### estimateMaxPriorityFeePerGas
+
+\<`chainOverride`\>(`args`?) => `Promise`\<`bigint`\>
 
 Returns an estimate for the max priority fee per gas (in wei) for a transaction
 to be included in the next block.
@@ -329,9 +395,13 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 // 10000000n
 ```
 
-• **client.extend?**
+#### extend
 
-• **client.getAddresses?**
+\<`client`\>(`fn`) => `Client`\<`TevmTransport`, `undefined` \| `Chain`, `undefined` \| `Account`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & `TevmActions` & `PublicActions`\<`TevmTransport`, `undefined` \| `Chain`, `undefined` \| `Account`\> & `WalletActions`\<`undefined` \| `Chain`, `undefined` \| `Account`\> & `TestActions`\>
+
+#### getAddresses
+
+() => `Promise`\<`GetAddressesReturnType`\>
 
 Returns a list of account addresses owned by the wallet or client.
 
@@ -351,7 +421,9 @@ const client = createWalletClient({
 const accounts = await client.getAddresses()
 ```
 
-• **client.getAutomine?**
+#### getAutomine
+
+() => `Promise`\<`boolean`\>
 
 Returns the automatic mining status of the node.
 
@@ -371,7 +443,9 @@ const client = createTestClient({
 const isAutomining = await client.getAutomine()
 ```
 
-• **client.getBalance?**
+#### getBalance
+
+(`args`) => `Promise`\<`bigint`\>
 
 Returns the balance of an address in wei.
 
@@ -407,7 +481,9 @@ const balance = await client.getBalance({
 // 10000000000000000000000n (wei)
 ```
 
-• **client.getBlobBaseFee?**
+#### getBlobBaseFee
+
+() => `Promise`\<`bigint`\>
 
 Returns the base fee per blob gas in wei.
 
@@ -428,12 +504,14 @@ const client = createPublicClient({
 const blobBaseFee = await client.getBlobBaseFee()
 ```
 
-• **client.getBlock?**
+#### getBlock
+
+\<`includeTransactions`, `blockTag`\>(`args`?) => `Promise`\<\{ `baseFeePerGas`: `null` \| `bigint`; `blobGasUsed`: `bigint`; `difficulty`: `bigint`; `excessBlobGas`: `bigint`; `extraData`: `` `0x${string}` ``; `gasLimit`: `bigint`; `gasUsed`: `bigint`; `hash`: `blockTag` *extends* `"pending"` ? `null` : `` `0x${string}` ``; `logsBloom`: `blockTag` *extends* `"pending"` ? `null` : `` `0x${string}` ``; `miner`: `` `0x${string}` ``; `mixHash`: `` `0x${string}` ``; `nonce`: `blockTag` *extends* `"pending"` ? `null` : `` `0x${string}` ``; `number`: `blockTag` *extends* `"pending"` ? `null` : `bigint`; `parentBeaconBlockRoot`: `` `0x${string}` ``; `parentHash`: `` `0x${string}` ``; `receiptsRoot`: `` `0x${string}` ``; `sealFields`: `` `0x${string}` ``[]; `sha3Uncles`: `` `0x${string}` ``; `size`: `bigint`; `stateRoot`: `` `0x${string}` ``; `timestamp`: `bigint`; `totalDifficulty`: `null` \| `bigint`; `transactions`: `includeTransactions` *extends* `true` ? (\{ `accessList`: `undefined`; `authorizationList`: `undefined`; `blobVersionedHashes`: `undefined`; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"legacy"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `undefined`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobVersionedHashes`: `undefined`; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"eip2930"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobVersionedHashes`: `undefined`; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"eip1559"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"eip4844"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `SignedAuthorizationList`; `blobVersionedHashes`: `undefined`; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"eip7702"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \})[] : `` `0x${string}` ``[]; `transactionsRoot`: `` `0x${string}` ``; `uncles`: `` `0x${string}` ``[]; `withdrawals`: `Withdrawal`[]; `withdrawalsRoot`: `` `0x${string}` ``; \}\>
 
 Returns information about a block at a block number, hash, or tag.
 
 - Docs: https://viem.sh/docs/actions/public/getBlock
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks_fetching-blocks
 - JSON-RPC Methods:
   - Calls [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber) for `blockNumber` & `blockTag`.
   - Calls [`eth_getBlockByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbyhash) for `blockHash`.
@@ -451,12 +529,14 @@ const client = createPublicClient({
 const block = await client.getBlock()
 ```
 
-• **client.getBlockNumber?**
+#### getBlockNumber
+
+(`args`?) => `Promise`\<`bigint`\>
 
 Returns the number of the most recent block seen.
 
 - Docs: https://viem.sh/docs/actions/public/getBlockNumber
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks_fetching-blocks
 - JSON-RPC Methods: [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber)
 
 **Example**
@@ -473,7 +553,9 @@ const blockNumber = await client.getBlockNumber()
 // 69420n
 ```
 
-• **client.getBlockTransactionCount?**
+#### getBlockTransactionCount
+
+(`args`?) => `Promise`\<`number`\>
 
 Returns the number of Transactions at a block number, hash, or tag.
 
@@ -495,13 +577,17 @@ const client = createPublicClient({
 const count = await client.getBlockTransactionCount()
 ```
 
-• **client.getBytecode?**
+#### getBytecode
+
+(`args`) => `Promise`\<`GetCodeReturnType`\>
 
 **Deprecated**
 
 Use `getCode` instead.
 
-• **client.getChainId?**: () => `Promise`\<`number`\> & () => `Promise`\<`number`\>
+#### getChainId
+
+() => `Promise`\<`number`\> & () => `Promise`\<`number`\>
 
 Returns the chain ID associated with the current network.
 
@@ -522,7 +608,9 @@ const chainId = await client.getChainId()
 // 1
 ```
 
-• **client.getCode?**
+#### getCode
+
+(`args`) => `Promise`\<`GetCodeReturnType`\>
 
 Retrieves the bytecode at an address.
 
@@ -544,7 +632,9 @@ const code = await client.getCode({
 })
 ```
 
-• **client.getContractEvents?**
+#### getContractEvents
+
+\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetContractEventsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
 Returns a list of event logs emitted by a contract.
 
@@ -569,7 +659,9 @@ const logs = await client.getContractEvents(client, {
 })
 ```
 
-• **client.getEip712Domain?**
+#### getEip712Domain
+
+(`args`) => `Promise`\<`GetEip712DomainReturnType`\>
 
 Reads the EIP-712 domain from a contract, based on the ERC-5267 specification.
 
@@ -599,7 +691,9 @@ const domain = await client.getEip712Domain({
 // }
 ```
 
-• **client.getEnsAddress?**
+#### getEnsAddress
+
+(`args`) => `Promise`\<`GetEnsAddressReturnType`\>
 
 Gets address for ENS name.
 
@@ -629,7 +723,9 @@ const ensAddress = await client.getEnsAddress({
 // '0xd2135CfB216b74109775236E36d4b433F1DF507B'
 ```
 
-• **client.getEnsAvatar?**
+#### getEnsAvatar
+
+(`args`) => `Promise`\<`GetEnsAvatarReturnType`\>
 
 Gets the avatar of an ENS name.
 
@@ -659,7 +755,9 @@ const ensAvatar = await client.getEnsAvatar({
 // 'https://ipfs.io/ipfs/Qma8mnp6xV3J2cRNf3mTth5C8nV11CAnceVinc3y8jSbio'
 ```
 
-• **client.getEnsName?**
+#### getEnsName
+
+(`args`) => `Promise`\<`GetEnsNameReturnType`\>
 
 Gets primary name for specified address.
 
@@ -686,7 +784,9 @@ const ensName = await client.getEnsName({
 // 'wevm.eth'
 ```
 
-• **client.getEnsResolver?**
+#### getEnsResolver
+
+(`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Gets resolver for ENS name.
 
@@ -716,7 +816,9 @@ const resolverAddress = await client.getEnsResolver({
 // '0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41'
 ```
 
-• **client.getEnsText?**
+#### getEnsText
+
+(`args`) => `Promise`\<`GetEnsTextReturnType`\>
 
 Gets a text record for specified ENS name.
 
@@ -747,7 +849,9 @@ const twitterRecord = await client.getEnsText({
 // 'wevm_dev'
 ```
 
-• **client.getFeeHistory?**
+#### getFeeHistory
+
+(`args`) => `Promise`\<`GetFeeHistoryReturnType`\>
 
 Returns a collection of historical gas information.
 
@@ -770,7 +874,9 @@ const feeHistory = await client.getFeeHistory({
 })
 ```
 
-• **client.getFilterChanges?**
+#### getFilterChanges
+
+\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetFilterChangesReturnType`\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
 Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter) since the last time it was called.
 
@@ -853,7 +959,9 @@ const filter = await client.createPendingTransactionFilter()
 const hashes = await client.getFilterChanges({ filter })
 ```
 
-• **client.getFilterLogs?**
+#### getFilterLogs
+
+\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetFilterLogsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
 Returns a list of event logs since the filter was created.
 
@@ -881,7 +989,9 @@ const filter = await client.createEventFilter({
 const logs = await client.getFilterLogs({ filter })
 ```
 
-• **client.getGasPrice?**
+#### getGasPrice
+
+() => `Promise`\<`bigint`\>
 
 Returns the current price of gas (in wei).
 
@@ -901,12 +1011,14 @@ const client = createPublicClient({
 const gasPrice = await client.getGasPrice()
 ```
 
-• **client.getLogs?**
+#### getLogs
+
+\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>(`args`?) => `Promise`\<`GetLogsReturnType`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>\>
 
 Returns a list of event logs matching the provided parameters.
 
 - Docs: https://viem.sh/docs/actions/public/getLogs
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/filters-and-logs/event-logs
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/logs_event-logs
 - JSON-RPC Methods: [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs)
 
 **Example**
@@ -922,7 +1034,9 @@ const client = createPublicClient({
 const logs = await client.getLogs()
 ```
 
-• **client.getPermissions?**
+#### getPermissions
+
+() => `Promise`\<`GetPermissionsReturnType`\>
 
 Gets the wallets current permissions.
 
@@ -942,7 +1056,9 @@ const client = createWalletClient({
 const permissions = await client.getPermissions()
 ```
 
-• **client.getProof?**
+#### getProof
+
+(`args`) => `Promise`\<`GetProofReturnType`\>
 
 Returns the account and storage values of the specified account including the Merkle-proof.
 
@@ -966,7 +1082,9 @@ const block = await client.getProof({
 })
 ```
 
-• **client.getStorageAt?**
+#### getStorageAt
+
+(`args`) => `Promise`\<`GetStorageAtReturnType`\>
 
 Returns the value from a storage slot at a given address.
 
@@ -990,12 +1108,14 @@ const code = await client.getStorageAt({
 })
 ```
 
-• **client.getTransaction?**
+#### getTransaction
+
+\<`blockTag`\>(`args`) => `Promise`\<\{ `accessList`: `undefined`; `authorizationList`: `undefined`; `blobVersionedHashes`: `undefined`; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"legacy"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `undefined`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobVersionedHashes`: `undefined`; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"eip2930"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobVersionedHashes`: `undefined`; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"eip1559"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"eip4844"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \} \| \{ `accessList`: `AccessList`; `authorizationList`: `SignedAuthorizationList`; `blobVersionedHashes`: `undefined`; `blockHash`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `` `0x${string}` ``; `blockNumber`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `bigint`; `chainId`: `number`; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `hash`: `` `0x${string}` ``; `input`: `` `0x${string}` ``; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `r`: `` `0x${string}` ``; `s`: `` `0x${string}` ``; `to`: `null` \| `` `0x${string}` ``; `transactionIndex`: `blockTag` *extends* `"pending"` ? `true` : `false` *extends* `true` ? `null` : `number`; `type`: `"eip7702"`; `typeHex`: `null` \| `` `0x${string}` ``; `v`: `bigint`; `value`: `bigint`; `yParity`: `number`; \}\>
 
 Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#transaction) given a hash or block identifier.
 
 - Docs: https://viem.sh/docs/actions/public/getTransaction
-- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
+- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions_fetching-transactions
 - JSON-RPC Methods: [`eth_getTransactionByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionByHash)
 
 **Example**
@@ -1013,12 +1133,14 @@ const transaction = await client.getTransaction({
 })
 ```
 
-• **client.getTransactionConfirmations?**
+#### getTransactionConfirmations
+
+(`args`) => `Promise`\<`bigint`\>
 
 Returns the number of blocks passed (confirmations) since the transaction was processed on a block.
 
 - Docs: https://viem.sh/docs/actions/public/getTransactionConfirmations
-- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
+- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions_fetching-transactions
 - JSON-RPC Methods: [`eth_getTransactionConfirmations`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionConfirmations)
 
 **Example**
@@ -1036,7 +1158,9 @@ const confirmations = await client.getTransactionConfirmations({
 })
 ```
 
-• **client.getTransactionCount?**
+#### getTransactionCount
+
+(`args`) => `Promise`\<`number`\>
 
 Returns the number of [Transactions](https://viem.sh/docs/glossary/terms#transaction) an Account has broadcast / sent.
 
@@ -1058,12 +1182,14 @@ const transactionCount = await client.getTransactionCount({
 })
 ```
 
-• **client.getTransactionReceipt?**
+#### getTransactionReceipt
+
+(`args`) => `Promise`\<`TransactionReceipt`\>
 
 Returns the [Transaction Receipt](https://viem.sh/docs/glossary/terms#transaction-receipt) given a [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash.
 
 - Docs: https://viem.sh/docs/actions/public/getTransactionReceipt
-- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
+- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions_fetching-transactions
 - JSON-RPC Methods: [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionReceipt)
 
 **Example**
@@ -1081,7 +1207,9 @@ const transactionReceipt = await client.getTransactionReceipt({
 })
 ```
 
-• **client.getTxpoolContent?**
+#### getTxpoolContent
+
+() => `Promise`\<`GetTxpoolContentReturnType`\>
 
 Returns the details of all transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
 
@@ -1101,7 +1229,9 @@ const client = createTestClient({
 const content = await client.getTxpoolContent()
 ```
 
-• **client.getTxpoolStatus?**
+#### getTxpoolStatus
+
+() => `Promise`\<`GetTxpoolStatusReturnType`\>
 
 Returns a summary of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
 
@@ -1121,7 +1251,9 @@ const client = createTestClient({
 const status = await client.getTxpoolStatus()
 ```
 
-• **client.impersonateAccount?**
+#### impersonateAccount
+
+(`args`) => `Promise`\<`void`\>
 
 Impersonate an account or contract address. This lets you send transactions from that account even if you don't have access to its private key.
 
@@ -1143,7 +1275,9 @@ await client.impersonateAccount({
 })
 ```
 
-• **client.increaseTime?**
+#### increaseTime
+
+(`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Jump forward in time by the given amount of time, in seconds.
 
@@ -1165,7 +1299,9 @@ await client.increaseTime({
 })
 ```
 
-• **client.inspectTxpool?**
+#### inspectTxpool
+
+() => `Promise`\<`InspectTxpoolReturnType`\>
 
 Returns a summary of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
 
@@ -1185,11 +1321,15 @@ const client = createTestClient({
 const data = await client.inspectTxpool()
 ```
 
-• **client.key?**: `string`
+#### key
+
+`string`
 
 A key for the client.
 
-• **client.loadState?**
+#### loadState
+
+(`args`) => `Promise`\<`void`\>
 
 Adds state previously dumped with `dumpState` to the current chain.
 
@@ -1209,7 +1349,9 @@ const client = createTestClient({
 await client.loadState({ state: '0x...' })
 ```
 
-• **client.mine?**
+#### mine
+
+(`args`) => `Promise`\<`void`\>
 
 Mine a specified number of blocks.
 
@@ -1229,7 +1371,9 @@ const client = createTestClient({
 await client.mine({ blocks: 1 })
 ```
 
-• **client.multicall?**
+#### multicall
+
+\<`contracts`, `allowFailure`\>(`args`) => `Promise`\<`MulticallReturnType`\<`contracts`, `allowFailure`\>\>
 
 Similar to [`readContract`](https://viem.sh/docs/contract/readContract), but batches up multiple functions on a contract in a single RPC call via the [`multicall3` contract](https://github.com/mds1/multicall).
 
@@ -1267,15 +1411,21 @@ const result = await client.multicall({
 // [{ result: 424122n, status: 'success' }, { result: 1000000n, status: 'success' }]
 ```
 
-• **client.name?**: `string`
+#### name
+
+`string`
 
 A name for the client.
 
-• **client.pollingInterval?**: `number`
+#### pollingInterval
+
+`number`
 
 Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 milliseconds.
 
-• **client.prepareTransactionRequest?**: \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & Object, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? Object : Pick\<request, "kzg"\>))\[K\] \}\> & \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & Object, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? Object : Pick\<request, "kzg"\>))\[K\] \}\>
+#### prepareTransactionRequest
+
+\<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & \{ chainId?: (...) \| (...) \}, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\> & \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & \{ chainId?: (...) \| (...) \}, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\>
 
 Prepares a transaction request for signing.
 
@@ -1319,12 +1469,14 @@ const request = await client.prepareTransactionRequest({
 })
 ```
 
-• **client.readContract?**
+#### readContract
+
+\<`abi`, `functionName`, `args`\>(`args`) => `Promise`\<`ReadContractReturnType`\<`abi`, `functionName`, `args`\>\>
 
 Calls a read-only function on a contract, and returns the response.
 
 - Docs: https://viem.sh/docs/contract/readContract
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/reading-contracts
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts_reading-contracts
 
 **Remarks**
 
@@ -1352,7 +1504,9 @@ const result = await client.readContract({
 // 424122n
 ```
 
-• **client.removeBlockTimestampInterval?**
+#### removeBlockTimestampInterval
+
+() => `Promise`\<`void`\>
 
 Removes [`setBlockTimestampInterval`](https://viem.sh/docs/actions/test/setBlockTimestampInterval) if it exists.
 
@@ -1373,11 +1527,15 @@ const client = createTestClient({
 await client.removeBlockTimestampInterval()
 ```
 
-• **client.request?**: `EIP1193RequestFn`\<[`object`, `object`, `object`, `object`, `object`]\>
+#### request
+
+`EIP1193RequestFn`\<\[\{ `Method`: `"web3_clientVersion"`; `Parameters`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]\>
 
 Request function wrapped with friendly error handling
 
-• **client.requestAddresses?**
+#### requestAddresses
+
+() => `Promise`\<`RequestAddressesReturnType`\>
 
 Requests a list of accounts managed by a wallet.
 
@@ -1401,7 +1559,9 @@ const client = createWalletClient({
 const accounts = await client.requestAddresses()
 ```
 
-• **client.requestPermissions?**
+#### requestPermissions
+
+(`args`) => `Promise`\<`RequestPermissionsReturnType`\>
 
 Requests permissions for a wallet.
 
@@ -1423,7 +1583,9 @@ const permissions = await client.requestPermissions({
 })
 ```
 
-• **client.reset?**
+#### reset
+
+(`args`?) => `Promise`\<`void`\>
 
 Resets fork back to its original state.
 
@@ -1443,7 +1605,9 @@ const client = createTestClient({
 await client.reset({ blockNumber: 69420n })
 ```
 
-• **client.revert?**
+#### revert
+
+(`args`) => `Promise`\<`void`\>
 
 Revert the state of the blockchain at the current block.
 
@@ -1463,7 +1627,9 @@ const client = createTestClient({
 await client.revert({ id: '0x…' })
 ```
 
-• **client.sendRawTransaction?**: (`args`) => `Promise`\<\`0x$\{string\}\`\> & (`args`) => `Promise`\<\`0x$\{string\}\`\>
+#### sendRawTransaction
+
+(`args`) => `Promise`\<`` `0x${string}` ``\> & (`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Sends a **signed** transaction to the network
 
@@ -1495,12 +1661,14 @@ const hash = await client.sendRawTransaction({
 })
 ```
 
-• **client.sendTransaction?**
+#### sendTransaction
+
+\<`request`, `chainOverride`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Creates, signs, and sends a new transaction to the network.
 
 - Docs: https://viem.sh/docs/actions/wallet/sendTransaction
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/sending-transactions
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions_sending-transactions
 - JSON-RPC Methods:
   - JSON-RPC Accounts: [`eth_sendTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendtransaction)
   - Local Accounts: [`eth_sendRawTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction)
@@ -1539,7 +1707,9 @@ const hash = await client.sendTransaction({
 })
 ```
 
-• **client.sendUnsignedTransaction?**
+#### sendUnsignedTransaction
+
+\<`chain`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Returns the details of all transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
 
@@ -1563,7 +1733,9 @@ const hash = await client.sendUnsignedTransaction({
 })
 ```
 
-• **client.setAutomine?**
+#### setAutomine
+
+(`args`) => `Promise`\<`void`\>
 
 Enables or disables the automatic mining of new blocks with each new transaction submitted to the network.
 
@@ -1583,7 +1755,9 @@ const client = createTestClient({
 await client.setAutomine()
 ```
 
-• **client.setBalance?**
+#### setBalance
+
+(`args`) => `Promise`\<`void`\>
 
 Modifies the balance of an account.
 
@@ -1606,7 +1780,9 @@ await client.setBalance({
 })
 ```
 
-• **client.setBlockGasLimit?**
+#### setBlockGasLimit
+
+(`args`) => `Promise`\<`void`\>
 
 Sets the block's gas limit.
 
@@ -1626,7 +1802,9 @@ const client = createTestClient({
 await client.setBlockGasLimit({ gasLimit: 420_000n })
 ```
 
-• **client.setBlockTimestampInterval?**
+#### setBlockTimestampInterval
+
+(`args`) => `Promise`\<`void`\>
 
 Similar to [`increaseTime`](https://viem.sh/docs/actions/test/increaseTime), but sets a block timestamp `interval`. The timestamp of future blocks will be computed as `lastBlock_timestamp` + `interval`.
 
@@ -1646,7 +1824,9 @@ const client = createTestClient({
 await client.setBlockTimestampInterval({ interval: 5 })
 ```
 
-• **client.setCode?**
+#### setCode
+
+(`args`) => `Promise`\<`void`\>
 
 Modifies the bytecode stored at an account's address.
 
@@ -1669,7 +1849,9 @@ await client.setCode({
 })
 ```
 
-• **client.setCoinbase?**
+#### setCoinbase
+
+(`args`) => `Promise`\<`void`\>
 
 Sets the coinbase address to be used in new blocks.
 
@@ -1691,7 +1873,9 @@ await client.setCoinbase({
 })
 ```
 
-• **client.setIntervalMining?**
+#### setIntervalMining
+
+(`args`) => `Promise`\<`void`\>
 
 Sets the automatic mining interval (in seconds) of blocks. Setting the interval to 0 will disable automatic mining.
 
@@ -1711,7 +1895,9 @@ const client = createTestClient({
 await client.setIntervalMining({ interval: 5 })
 ```
 
-• **client.setLoggingEnabled?**
+#### setLoggingEnabled
+
+(`args`) => `Promise`\<`void`\>
 
 Enable or disable logging on the test node network.
 
@@ -1731,7 +1917,9 @@ const client = createTestClient({
 await client.setLoggingEnabled()
 ```
 
-• **client.setMinGasPrice?**
+#### setMinGasPrice
+
+(`args`) => `Promise`\<`void`\>
 
 Change the minimum gas price accepted by the network (in wei).
 
@@ -1755,7 +1943,9 @@ await client.setMinGasPrice({
 })
 ```
 
-• **client.setNextBlockBaseFeePerGas?**
+#### setNextBlockBaseFeePerGas
+
+(`args`) => `Promise`\<`void`\>
 
 Sets the next block's base fee per gas.
 
@@ -1777,7 +1967,9 @@ await client.setNextBlockBaseFeePerGas({
 })
 ```
 
-• **client.setNextBlockTimestamp?**
+#### setNextBlockTimestamp
+
+(`args`) => `Promise`\<`void`\>
 
 Sets the next block's timestamp.
 
@@ -1797,7 +1989,9 @@ const client = createTestClient({
 await client.setNextBlockTimestamp({ timestamp: 1671744314n })
 ```
 
-• **client.setNonce?**
+#### setNonce
+
+(`args`) => `Promise`\<`void`\>
 
 Modifies (overrides) the nonce of an account.
 
@@ -1820,7 +2014,9 @@ await client.setNonce({
 })
 ```
 
-• **client.setRpcUrl?**
+#### setRpcUrl
+
+(`args`) => `Promise`\<`void`\>
 
 Sets the backend RPC URL.
 
@@ -1840,7 +2036,9 @@ const client = createTestClient({
 await client.setRpcUrl('https://eth-mainnet.g.alchemy.com/v2')
 ```
 
-• **client.setStorageAt?**
+#### setStorageAt
+
+(`args`) => `Promise`\<`void`\>
 
 Writes to a slot of an account's storage.
 
@@ -1864,7 +2062,9 @@ await client.setStorageAt({
 })
 ```
 
-• **client.signMessage?**
+#### signMessage
+
+(`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Calculates an Ethereum-specific signature in [EIP-191 format](https://eips.ethereum.org/EIPS/eip-191): `keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))`.
 
@@ -1909,7 +2109,9 @@ const signature = await client.signMessage({
 })
 ```
 
-• **client.signTransaction?**
+#### signTransaction
+
+\<`chainOverride`, `request`\>(`args`) => `Promise`\<`TransactionSerialized`\<`GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\>, `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip1559"` ? `` `0x02${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip2930"` ? `` `0x01${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip4844"` ? `` `0x03${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip7702"` ? `` `0x04${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"legacy"` ? `TransactionSerializedLegacy` : `never`\>\>
 
 Signs a transaction.
 
@@ -1954,7 +2156,9 @@ const request = await client.prepareTransactionRequest({
 const signature = await client.signTransaction(request)
 ```
 
-• **client.signTypedData?**
+#### signTypedData
+
+\<`typedData`, `primaryType`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Signs typed data and calculates an Ethereum-specific signature in [EIP-191 format](https://eips.ethereum.org/EIPS/eip-191): `keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))`.
 
@@ -2051,12 +2255,96 @@ const signature = await client.signTypedData({
 })
 ```
 
-• **client.simulateContract?**
+#### simulate
+
+\<`calls`\>(`args`) => `Promise`\<`SimulateBlocksReturnType`\<`calls`\>\>
+
+**Deprecated**
+
+Use `simulateBlocks` instead.
+
+#### simulateBlocks
+
+\<`calls`\>(`args`) => `Promise`\<`SimulateBlocksReturnType`\<`calls`\>\>
+
+Simulates a set of calls on block(s) with optional block and state overrides.
+
+**Example**
+
+```ts
+import { createPublicClient, http, parseEther } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+const result = await client.simulateBlocks({
+  blocks: [{
+    blockOverrides: {
+      number: 69420n,
+    },
+    calls: [{
+      {
+        account: '0x5a0b54d5dc17e482fe8b0bdca5320161b95fb929',
+        data: '0xdeadbeef',
+        to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+      },
+      {
+        account: '0x5a0b54d5dc17e482fe8b0bdca5320161b95fb929',
+        to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+        value: parseEther('1'),
+      },
+    }],
+    stateOverrides: [{
+      address: '0x5a0b54d5dc17e482fe8b0bdca5320161b95fb929',
+      balance: parseEther('10'),
+    }],
+  }]
+})
+```
+
+#### simulateCalls
+
+\<`calls`\>(`args`) => `Promise`\<`SimulateCallsReturnType`\<`calls`\>\>
+
+Simulates a set of calls.
+
+**Example**
+
+```ts
+import { createPublicClient, http, parseEther } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+const result = await client.simulateCalls({
+  account: '0x5a0b54d5dc17e482fe8b0bdca5320161b95fb929',
+  calls: [{
+    {
+      data: '0xdeadbeef',
+      to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+    },
+    {
+      to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+      value: parseEther('1'),
+    },
+  ]
+})
+```
+
+#### simulateContract
+
+\<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `undefined` \| `Chain`, `undefined` \| `Account`, `chainOverride`, `accountOverride`\>\>
 
 Simulates/validates a contract interaction. This is useful for retrieving **return data** and **revert reasons** of contract write functions.
 
 - Docs: https://viem.sh/docs/contract/simulateContract
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/writing-to-contracts
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts_writing-to-contracts
 
 **Remarks**
 
@@ -2083,7 +2371,9 @@ const result = await client.simulateContract({
 })
 ```
 
-• **client.snapshot?**
+#### snapshot
+
+() => `Promise`\<`` `0x${string}` ``\>
 
 Snapshot the state of the blockchain at the current block.
 
@@ -2104,7 +2394,9 @@ const client = createTestClient({
 await client.snapshot()
 ```
 
-• **client.stopImpersonatingAccount?**
+#### stopImpersonatingAccount
+
+(`args`) => `Promise`\<`void`\>
 
 Stop impersonating an account after having previously used [`impersonateAccount`](https://viem.sh/docs/actions/test/impersonateAccount).
 
@@ -2127,7 +2419,9 @@ await client.stopImpersonatingAccount({
 })
 ```
 
-• **client.switchChain?**
+#### switchChain
+
+(`args`) => `Promise`\<`void`\>
 
 Switch the target chain in a wallet.
 
@@ -2147,7 +2441,9 @@ const client = createWalletClient({
 await client.switchChain({ id: optimism.id })
 ```
 
-• **client.tevm?**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider`
+#### tevm
+
+`object` & `EIP1193Events` & `object` & `Eip1193RequestProvider`
 
 Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
 
@@ -2174,7 +2470,9 @@ const mempool = await memoryClient.tevm.getTxPool()
 const receiptsManager = await memoryClient.tevm.getReceiptsManager()
 ```
 
-• **client.tevmCall?**: `CallHandler`
+#### tevmCall
+
+`CallHandler`
 
 A powerful low level API for executing calls and sending transactions.
 See [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/) for options reference.
@@ -2206,7 +2504,9 @@ In addition to making basic calls, you can also do advanced things like:
 - Send as a transaction with `createTransaction: true`
 For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/)
 
-• **client.tevmContract?**: `ContractHandler`
+#### tevmContract
+
+`ContractHandler`
 
 A powerful low level API for calling contracts. Similar to `tevmCall` but takes care of encoding and decoding data, revert messages, etc.
 See [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/) for options reference.
@@ -2236,7 +2536,9 @@ In addition to making basic calls, you can also do advanced things like:
 - Send as a transaction with `createTransaction: true`
 For all options see [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/)
 
-• **client.tevmDeploy?**: `DeployHandler`
+#### tevmDeploy
+
+`DeployHandler`
 
 Deploys a contract to the EVM with encoded constructor arguments. Extends `tevmCall` so it supports all advanced options.
 
@@ -2265,7 +2567,9 @@ const deploymentResult = await client.tevmDeploy({
 console.log(deploymentResult.createdAddress)
 ```
 
-• **client.tevmDumpState?**: `DumpStateHandler`
+#### tevmDumpState
+
+`DumpStateHandler`
 
 Dumps a JSON serializable state from the EVM. This can be useful for persisting and restoring state between processes.
 
@@ -2279,7 +2583,9 @@ const state = await client.tevmDumpState()
 fs.writeFileSync('state.json', JSON.stringify(state))
 ```
 
-• **client.tevmGetAccount?**: `GetAccountHandler`
+#### tevmGetAccount
+
+`GetAccountHandler`
 
 Gets the account state of an account. It does not return the storage state by default but can if `returnStorage` is set to `true`.
 In forked mode, the storage is only the storage TEVM has cached and may not represent all the on-chain storage.
@@ -2302,7 +2608,9 @@ const account = await client.tevmGetAccount({
 })
 ```
 
-• **client.tevmLoadState?**: `LoadStateHandler`
+#### tevmLoadState
+
+`LoadStateHandler`
 
 Loads a JSON serializable state into the EVM. This can be useful for persisting and restoring state between processes.
 
@@ -2319,7 +2627,9 @@ const state = fs.readFileSync('state.json', 'utf8')
 await client.tevmLoadState(state)
 ```
 
-• **client.tevmMine?**: `MineHandler`
+#### tevmMine
+
+`MineHandler`
 
 Mines a new block with all pending transactions. In `manual` mode you must call this manually before the canonical head state is updated.
 
@@ -2333,7 +2643,9 @@ const client = createMemoryClient()
 await client.tevmMine()
 ```
 
-• **client.tevmReady?**
+#### tevmReady
+
+() => `Promise`\<`true`\>
 
 Returns a promise that resolves when the TEVM is ready.
 This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.
@@ -2349,7 +2661,9 @@ await client.tevmReady()
 ```
 Same as calling `client.tevm.ready()`
 
-• **client.tevmSetAccount?**: `SetAccountHandler`
+#### tevmSetAccount
+
+`SetAccountHandler`
 
 Sets any property of an account including its balance, nonce, contract deployedBytecode, contract state, and more.
 
@@ -2377,19 +2691,27 @@ await client.tevmSetAccount({
 })
 ```
 
-• **client.transport?**: `TransportConfig`\<`string`\> & `object`
+#### transport
+
+`TransportConfig`\<`string`\> & `object`
 
 The RPC transport
 
-• **client.type?**: `string`
+#### type
+
+`string`
 
 The type of client.
 
-• **client.uid?**: `string`
+#### uid
+
+`string`
 
 A unique ID for the client.
 
-• **client.uninstallFilter?**
+#### uninstallFilter
+
+(`args`) => `Promise`\<`boolean`\>
 
 Destroys a Filter that was created from one of the following Actions:
 
@@ -2412,7 +2734,9 @@ const uninstalled = await client.uninstallFilter({ filter })
 // true
 ```
 
-• **client.verifyMessage?**
+#### verifyMessage
+
+(`args`) => `Promise`\<`boolean`\>
 
 Verify that a message was signed by the provided address.
 
@@ -2420,7 +2744,9 @@ Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-649
 
 - Docs [https://viem.sh/docs/actions/public/verifyMessage](https://viem.sh/docs/actions/public/verifyMessage)
 
-• **client.verifySiweMessage?**
+#### verifySiweMessage
+
+(`args`) => `Promise`\<`boolean`\>
 
 Verifies [EIP-4361](https://eips.ethereum.org/EIPS/eip-4361) formatted message was signed.
 
@@ -2428,18 +2754,22 @@ Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-649
 
 - Docs [https://viem.sh/docs/siwe/actions/verifySiweMessage](https://viem.sh/docs/siwe/actions/verifySiweMessage)
 
-• **client.verifyTypedData?**
+#### verifyTypedData
+
+(`args`) => `Promise`\<`boolean`\>
 
 Verify that typed data was signed by the provided address.
 
 - Docs [https://viem.sh/docs/actions/public/verifyTypedData](https://viem.sh/docs/actions/public/verifyTypedData)
 
-• **client.waitForTransactionReceipt?**
+#### waitForTransactionReceipt
+
+(`args`) => `Promise`\<`TransactionReceipt`\>
 
 Waits for the [Transaction](https://viem.sh/docs/glossary/terms#transaction) to be included on a [Block](https://viem.sh/docs/glossary/terms#block) (one confirmation), and then returns the [Transaction Receipt](https://viem.sh/docs/glossary/terms#transaction-receipt). If the Transaction reverts, then the action will throw an error.
 
 - Docs: https://viem.sh/docs/actions/public/waitForTransactionReceipt
-- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/sending-transactions
+- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions_sending-transactions
 - JSON-RPC Methods:
   - Polls [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionReceipt) on each block until it has been processed.
   - If a Transaction has been replaced:
@@ -2474,7 +2804,9 @@ const transactionReceipt = await client.waitForTransactionReceipt({
 })
 ```
 
-• **client.watchAsset?**
+#### watchAsset
+
+(`args`) => `Promise`\<`boolean`\>
 
 Adds an EVM chain to the wallet.
 
@@ -2501,12 +2833,14 @@ const success = await client.watchAsset({
 })
 ```
 
-• **client.watchBlockNumber?**
+#### watchBlockNumber
+
+(`args`) => `WatchBlockNumberReturnType`
 
 Watches and returns incoming block numbers.
 
 - Docs: https://viem.sh/docs/actions/public/watchBlockNumber
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/watching-blocks
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks_watching-blocks
 - JSON-RPC Methods:
   - When `poll: true`, calls [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber) on a polling interval.
   - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newHeads"` event.
@@ -2526,12 +2860,14 @@ const unwatch = await client.watchBlockNumber({
 })
 ```
 
-• **client.watchBlocks?**
+#### watchBlocks
+
+\<`includeTransactions`, `blockTag`\>(`args`) => `WatchBlocksReturnType`
 
 Watches and returns information for incoming blocks.
 
 - Docs: https://viem.sh/docs/actions/public/watchBlocks
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/watching-blocks
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks_watching-blocks
 - JSON-RPC Methods:
   - When `poll: true`, calls [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getBlockByNumber) on a polling interval.
   - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newHeads"` event.
@@ -2551,7 +2887,9 @@ const unwatch = await client.watchBlocks({
 })
 ```
 
-• **client.watchContractEvent?**
+#### watchContractEvent
+
+\<`abi`, `eventName`, `strict`\>(`args`) => `WatchContractEventReturnType`
 
 Watches and returns emitted contract event logs.
 
@@ -2582,7 +2920,9 @@ const unwatch = client.watchContractEvent({
 })
 ```
 
-• **client.watchEvent?**
+#### watchEvent
+
+\<`abiEvent`, `abiEvents`, `strict`\>(`args`) => `WatchEventReturnType`
 
 Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#event-log).
 
@@ -2615,7 +2955,9 @@ const unwatch = client.watchEvent({
 })
 ```
 
-• **client.watchPendingTransactions?**
+#### watchPendingTransactions
+
+(`args`) => `WatchPendingTransactionsReturnType`
 
 Watches and returns pending transaction hashes.
 
@@ -2645,12 +2987,14 @@ const unwatch = await client.watchPendingTransactions({
 })
 ```
 
-• **client.writeContract?**
+#### writeContract
+
+\<`abi`, `functionName`, `args`, `chainOverride`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
 Executes a write function on a contract.
 
 - Docs: https://viem.sh/docs/contract/writeContract
-- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/writing-to-contracts
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts_writing-to-contracts
 
 A "write" function on a Solidity contract modifies the state of the blockchain. These types of functions require gas to be executed, and hence a [Transaction](https://viem.sh/docs/glossary/terms) is needed to be broadcast in order to change the state.
 
@@ -2694,7 +3038,9 @@ const { request } = await client.simulateContract({
 const hash = await client.writeContract(request)
 ```
 
-• **serverOptions?**: `ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\> = `{}`
+### serverOptions?
+
+`ServerOptions`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\> = `{}`
 
 Optional options to pass to the http server
 
@@ -2727,7 +3073,3 @@ import { createTevmClient } from '@tevm/client'
 
 const client = createTevmClient()
 ```
-
-## Defined in
-
-[packages/server/src/createServer.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createServer.js#L32)
