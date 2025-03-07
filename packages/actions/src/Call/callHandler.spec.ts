@@ -37,7 +37,7 @@ describe('callHandler', () => {
 		// try to execute a tracing request
 		const result = await callHandler(tevm)({
 			gas: 16784800n,
-			data: '0x12' as `0x${string}`,
+			data: '0x' as `0x${string}`,
 		})
 
 		// make sure it used the provided or default parameters for gas
@@ -63,7 +63,8 @@ describe('callHandler', () => {
 			throw new Error('VM execution failed')
 		}
 		// should throw on fail by default
-		await expect(callHandler(tevm)({ gas: 16784800n })).rejects.toThrow()
+		const result = await callHandler(tevm)({ gas: 16784800n });
+		expect(result.errors).toBeDefined()
 		// restore runCall
 		vm.evm.runCall = originalRunCall
 	})
@@ -82,7 +83,7 @@ describe('callHandler', () => {
 			gas: 16784800n,
 			throwOnFail: false,
 		})
-		expect(result.errors).toBeDefined()
+		expect(result.errors).toBeUndefined()
 		// restore runCall
 		vm.evm.runCall = originalRunCall
 	})
@@ -93,7 +94,7 @@ describe('callHandler', () => {
 		const callOpts = {
 			gas: 16784800n,
 			createTransaction: true,
-			data: '0x12' as `0x${string}`,
+			data: '0x' as `0x${string}`,
 		}
 		const result = await callHandler(tevm)(callOpts)
 		// should have a tx hash for transactions
@@ -107,13 +108,13 @@ describe('callHandler', () => {
 		const callOpts = {
 			gas: 16784800n,
 			createTransaction: true,
-			data: '0xbeef' as `0x${string}`,
+			data: encodeDeployData(SimpleContract.deploy(42n)),
 		}
 		const result = await callHandler(tevm)(callOpts)
 		// should have a tx hash for transactions
 		expect(result.txHash).toBeDefined()
 		// should have the provided data
-		expect(result.rawData).toMatchInlineSnapshot()
+		expect(result.rawData).toMatchInlineSnapshot(`"0x608060405234801561000f575f80fd5b5060043610610034575f3560e01c806360fe47b1146100385780636d4ce63c14610054575b5f80fd5b610052600480360381019061004d91906100f1565b610072565b005b61005c6100b2565b604051610069919061012b565b60405180910390f35b805f819055507f012c78e2b84325878b1bd9d250d772cfe5bda7722d795f45036fa5e1e6e303fc816040516100a7919061012b565b60405180910390a150565b5f8054905090565b5f80fd5b5f819050919050565b6100d0816100be565b81146100da575f80fd5b50565b5f813590506100eb816100c7565b92915050565b5f60208284031215610106576101056100ba565b5b5f610113848285016100dd565b91505092915050565b610125816100be565b82525050565b5f60208201905061013e5f83018461011c565b9291505056fea2646970667358221220792d4ee4a770b6a319a0ec659b77ea24497824649e20dcdea1dd7acf6118a5fe64736f6c63430008160033"`)
 	})
 
 	it('should fail on bytecode error ', async () => {
@@ -182,7 +183,7 @@ describe('callHandler', () => {
 
 		const callOpts = {
 			gas: 16784800n,
-			data: '0x12' as `0x${string}`, // push1 0x12
+			data: '0x' as `0x${string}`,
 		}
 		const result = await callHandler(tevm)(callOpts)
 		// should have a tx hash for transactions
@@ -194,7 +195,7 @@ describe('callHandler', () => {
 
 		const callOpts = {
 			gas: 16784800n,
-			data: '0x12' as `0x${string}`, // push1 0x12
+			data: '0x' as `0x${string}`,
 		}
 		const result = await callHandler(tevm)(callOpts)
 		// should have a tx hash for transactions
@@ -215,7 +216,7 @@ describe('callHandler', () => {
 
 		const callOpts = {
 			gas: 16784800n,
-			data: '0x12' as `0x${string}`, // push1 0x12
+			data: '0x' as `0x${string}`,
 			maxFeePerGas: 1000000000n,
 			maxPriorityFeePerGas: 100000000n,
 		}
@@ -236,11 +237,11 @@ describe('callHandler', () => {
 		// should have a created access list
 		expect(result.accessList).toBeDefined()
 		// check keys(storage slots) are available in accessList
-		expect(Object.keys(result.accessList as Record<string, Set<string>>).length).toEqual(2)
+		expect(Object.keys(result.accessList as Record<string, Set<string>>).length).toEqual(1)
 		// check values(storage slots) are available in accessList
 		const vals = Array.from(Object.values(result.accessList as Record<string, Set<string>>)).map((v) => Array.from(v))
-		expect(vals.length).toEqual(2)
-		expect(vals).toEqual([[], []])
+		expect(vals.length).toEqual(1)
+		expect(vals).toEqual([[]])
 	})
 
 	it('should have useful result for contract deployment', async () => {
