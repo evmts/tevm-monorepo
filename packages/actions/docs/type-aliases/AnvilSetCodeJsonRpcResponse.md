@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_setCode` procedure
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcResponse.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L95)
+[packages/actions/src/anvil/AnvilJsonRpcResponse.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L96)

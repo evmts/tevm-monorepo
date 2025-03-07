@@ -15,31 +15,6 @@ This type is used as the base for various call-like parameter types:
 - [DeployParams](https://tevm.sh/reference/tevm/actions/type-aliases/deployparams-1/)
 - [ScriptParams](https://tevm.sh/reference/tevm/actions/type-aliases/scriptparams-1/)
 
-## Example
-
-```typescript
-import { BaseCallParams } from 'tevm'
-
-const params: BaseCallParams = {
-  createTrace: true,
-  createAccessList: true,
-  createTransaction: 'on-success',
-  blockTag: 'latest',
-  skipBalance: true,
-  gas: 1000000n,
-  gasPrice: 1n,
-  maxFeePerGas: 1n,
-  maxPriorityFeePerGas: 1n,
-  gasRefund: 0n,
-  from: '0x123...',
-  origin: '0x123...',
-  caller: '0x123...',
-  value: 0n,
-  depth: 0,
-  to: '0x123...',
-}
-```
-
 ## Type declaration
 
 ### blobVersionedHashes?
@@ -250,6 +225,31 @@ The value in ether that is being sent to the `to` address. Defaults to `0`.
 ## Type Parameters
 
 • **TThrowOnFail** *extends* `boolean` = `boolean`
+
+## Example
+
+```typescript
+import { BaseCallParams } from 'tevm'
+
+const params: BaseCallParams = {
+  createTrace: true,
+  createAccessList: true,
+  createTransaction: 'on-success',
+  blockTag: 'latest',
+  skipBalance: true,
+  gas: 1000000n,
+  gasPrice: 1n,
+  maxFeePerGas: 1n,
+  maxPriorityFeePerGas: 1n,
+  gasRefund: 0n,
+  from: '0x123...',
+  origin: '0x123...',
+  caller: '0x123...',
+  value: 0n,
+  depth: 0,
+  to: '0x123...',
+}
+```
 
 ## Defined in
 

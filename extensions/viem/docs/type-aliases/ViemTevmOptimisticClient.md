@@ -10,12 +10,6 @@
 
 **`Experimental`**
 
-## Deprecated
-
-in favor of the viem transport
-
-The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`
-
 ## Type Parameters
 
 • **TChain** *extends* `Chain` \| `undefined` = `Chain`
@@ -50,7 +44,13 @@ The decorated methods added to a viem wallet client by `tevmViemExtensionOptimis
 
 ###### Returns
 
-`AsyncGenerator`\<[`OptimisticResult`](OptimisticResult.md)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `unknown`\>
+`AsyncGenerator`\<[`OptimisticResult`](OptimisticResult.md)\<`TAbi`, `TFunctionName`, `TChain`\>, `any`, `any`\>
+
+## Deprecated
+
+in favor of the viem transport
+
+The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`
 
 ## Defined in
 

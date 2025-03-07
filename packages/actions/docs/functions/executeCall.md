@@ -8,6 +8,8 @@
 
 > **executeCall**(`client`, `evmInput`, `params`): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| `object`\>
 
+executeCall encapsalates the internal logic of running a call in the EVM
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -19,6 +21,10 @@
 ## Returns
 
 `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| `object`\>
+
+## Throws
+
+returns errors as values
 
 ## Defined in
 

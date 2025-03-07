@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_impersonateAccount`
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilProcedure.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L41)
+[packages/actions/src/anvil/AnvilProcedure.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L43)

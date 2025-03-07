@@ -6,10 +6,10 @@
 
 # Type Alias: AnvilLoadStateJsonRpcRequest
 
-> **AnvilLoadStateJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_loadState"`, [`SerializeToJson`\<[`AnvilLoadStateParams`](AnvilLoadStateParams.md)\>]\>
+> **AnvilLoadStateJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_loadState"`, readonly [`SerializeToJson`\<[`AnvilLoadStateParams`](AnvilLoadStateParams.md)\>]\>
 
 JSON-RPC request for `anvil_loadState` method
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L99)
+[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:111](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L111)

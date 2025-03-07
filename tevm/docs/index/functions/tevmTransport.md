@@ -12,7 +12,7 @@
 
 • **\_\_namedParameters**: `Pick`\<[`Eip1193RequestProvider`](../type-aliases/Eip1193RequestProvider.md), `"request"`\> \| `Pick`\<`object`, `"request"`\>
 
-• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\>, `"name"` \| `"timeout"` \| `"key"` \| `"retryCount"` \| `"retryDelay"`\>
+• **options?**: `Pick`\<`TransportConfig`\<`string`, `EIP1193RequestFn`\<`undefined`\>\>, `"name"` \| `"timeout"` \| `"key"` \| `"retryCount"` \| `"retryDelay"`\>
 
 ## Returns
 

@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_impersonateAccount` procedure
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcResponse.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L29)
+[packages/actions/src/anvil/AnvilJsonRpcResponse.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L30)

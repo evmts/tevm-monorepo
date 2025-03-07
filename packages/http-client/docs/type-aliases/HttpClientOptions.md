@@ -8,10 +8,6 @@
 
 > **HttpClientOptions**: `object`
 
-## Deprecated
-
-Options for a HttpClient
-
 ## Type declaration
 
 ### ~~name?~~
@@ -25,6 +21,10 @@ Optional name for the client
 > `readonly` **url**: `string`
 
 Remote URL to connect to
+
+## Deprecated
+
+Options for a HttpClient
 
 ## Defined in
 

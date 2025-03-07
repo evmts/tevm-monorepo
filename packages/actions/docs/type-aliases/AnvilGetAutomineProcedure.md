@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_getAutomine`
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilProcedure.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L60)
+[packages/actions/src/anvil/AnvilProcedure.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L62)

@@ -6,7 +6,7 @@
 
 # Type Alias: EthSendTransactionJsonRpcRequest
 
-> **EthSendTransactionJsonRpcRequest**: `JsonRpcRequest`\<`"eth_sendTransaction"`, [[`JsonRpcTransaction`](JsonRpcTransaction.md)]\>
+> **EthSendTransactionJsonRpcRequest**: `JsonRpcRequest`\<`"eth_sendTransaction"`, readonly [[`JsonRpcTransaction`](JsonRpcTransaction.md)]\>
 
 JSON-RPC request for `eth_sendTransaction` procedure
 

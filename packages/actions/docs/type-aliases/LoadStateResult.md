@@ -12,6 +12,18 @@ Result of the `tevmLoadState` method.
 
 This type represents the result returned by the `tevmLoadState` method. It includes any errors that might have occurred during the state loading process.
 
+## Type Parameters
+
+• **ErrorType** = [`TevmLoadStateError`](TevmLoadStateError.md)
+
+## Type declaration
+
+### errors?
+
+> `optional` **errors**: `ErrorType`[]
+
+Description of the exception, if any occurred.
+
 ## Example
 
 ```typescript
@@ -32,18 +44,6 @@ if (result.errors) {
 ## See
 
 [TevmLoadStateError](TevmLoadStateError.md)
-
-## Type Parameters
-
-• **ErrorType** = [`TevmLoadStateError`](TevmLoadStateError.md)
-
-## Type declaration
-
-### errors?
-
-> `optional` **errors**: `ErrorType`[]
-
-Description of the exception, if any occurred.
 
 ## Defined in
 

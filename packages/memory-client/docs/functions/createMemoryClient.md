@@ -42,6 +42,16 @@ Adds an EVM chain to the wallet.
 - Docs: https://viem.sh/docs/actions/wallet/addChain
 - JSON-RPC Methods: [`eth_addEthereumChain`](https://eips.ethereum.org/EIPS/eip-3085)
 
+#### Parameters
+
+• **args**: `AddChainParameters`
+
+AddChainParameters
+
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Example
 
 ```ts
@@ -53,16 +63,6 @@ const client = createWalletClient({
 })
 await client.addChain({ chain: optimism })
 ```
-
-#### Parameters
-
-• **args**: `AddChainParameters`
-
-AddChainParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 ### batch?
 
@@ -86,6 +86,11 @@ Time (in ms) that cached data will remain in memory.
 
 > **call**: (`parameters`) => `Promise`\<`CallReturnType`\>
 
+Executes a new message call immediately without submitting a transaction to the network.
+
+- Docs: https://viem.sh/docs/actions/public/call
+- JSON-RPC Methods: [`eth_call`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call)
+
 #### Parameters
 
 • **parameters**: `CallParameters`\<`TCommon`\>
@@ -95,6 +100,23 @@ Time (in ms) that cached data will remain in memory.
 `Promise`\<`CallReturnType`\>
 
 The call data. CallReturnType
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const data = await client.call({
+  account: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+  data: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+})
+```
 
 ### ccipRead?
 
@@ -111,6 +133,11 @@ Chain for the client.
 ### createBlockFilter()
 
 > **createBlockFilter**: () => `Promise`\<`object`\>
+
+Creates a Filter to listen for new block hashes that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
+
+- Docs: https://viem.sh/docs/actions/public/createBlockFilter
+- JSON-RPC Methods: [`eth_newBlockFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newBlockFilter)
 
 #### Returns
 
@@ -130,9 +157,27 @@ Filter. CreateBlockFilterReturnType
 
 > **type**: `"block"`
 
+#### Example
+
+```ts
+import { createPublicClient, createBlockFilter, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await createBlockFilter(client)
+// { id: "0x345a6572337856574a76364e457a4366", type: 'block' }
+```
+
 ### createContractEventFilter()
 
 > **createContractEventFilter**: \<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`CreateContractEventFilterReturnType`\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>\>
+
+Creates a Filter to retrieve event logs that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges) or [`getFilterLogs`](https://viem.sh/docs/actions/public/getFilterLogs).
+
+- Docs: https://viem.sh/docs/contract/createContractEventFilter
 
 #### Type Parameters
 
@@ -160,9 +205,29 @@ CreateContractEventFilterParameters
 
 [`Filter`](https://viem.sh/docs/glossary/types#filter). CreateContractEventFilterReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await client.createContractEventFilter({
+  abi: parseAbi(['event Transfer(address indexed, address indexed, uint256)']),
+})
+```
+
 ### createEventFilter()
 
 > **createEventFilter**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>(`args`?) => `Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", abiEvents, \_EventName, \_Args, strict, fromBlock, toBlock\>\[K\] \}\>
+
+Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for new events that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
+
+- Docs: https://viem.sh/docs/actions/public/createEventFilter
+- JSON-RPC Methods: [`eth_newFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newfilter)
 
 #### Type Parameters
 
@@ -192,9 +257,29 @@ CreateEventFilterParameters
 
 [`Filter`](https://viem.sh/docs/glossary/types#filter). CreateEventFilterReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await client.createEventFilter({
+  address: '0xfba3912ca04dd458c843e2ee08967fc04f3579c2',
+})
+```
+
 ### createPendingTransactionFilter()
 
 > **createPendingTransactionFilter**: () => `Promise`\<`object`\>
+
+Creates a Filter to listen for new pending transaction hashes that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
+
+- Docs: https://viem.sh/docs/actions/public/createPendingTransactionFilter
+- JSON-RPC Methods: [`eth_newPendingTransactionFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newpendingtransactionfilter)
 
 #### Returns
 
@@ -214,9 +299,28 @@ CreateEventFilterParameters
 
 > **type**: `"transaction"`
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await client.createPendingTransactionFilter()
+// { id: "0x345a6572337856574a76364e457a4366", type: 'transaction' }
+```
+
 ### deployContract()
 
 > **deployContract**: \<`abi`, `chainOverride`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+Deploys a contract to the network, given bytecode and constructor arguments.
+
+- Docs: https://viem.sh/docs/contract/deployContract
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/deploying-contracts
 
 #### Type Parameters
 
@@ -236,6 +340,25 @@ DeployContractParameters
 
 The [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash. DeployContractReturnType
 
+#### Example
+
+```ts
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: http(),
+})
+const hash = await client.deployContract({
+  abi: [],
+  account: '0x…,
+  bytecode: '0x608060405260405161083e38038061083e833981016040819052610...',
+})
+```
+
 ### dropTransaction()
 
 > **dropTransaction**: (`args`) => `Promise`\<`void`\>
@@ -243,6 +366,16 @@ The [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash. DeployC
 Removes a transaction from the mempool.
 
 - Docs: https://viem.sh/docs/actions/test/dropTransaction
+
+#### Parameters
+
+• **args**: `DropTransactionParameters`
+
+DropTransactionParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -260,16 +393,6 @@ await client.dropTransaction({
 })
 ```
 
-#### Parameters
-
-• **args**: `DropTransactionParameters`
-
-DropTransactionParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### dumpState()
 
 > **dumpState**: () => `Promise`\<\`0x$\{string\}\`\>
@@ -278,6 +401,10 @@ Serializes the current state (including contracts code, contract's storage,
 accounts properties, etc.) into a savable data blob.
 
 - Docs: https://viem.sh/docs/actions/test/dumpState
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
 
 #### Example
 
@@ -293,13 +420,13 @@ const client = createTestClient({
 await client.dumpState()
 ```
 
-#### Returns
-
-`Promise`\<\`0x$\{string\}\`\>
-
 ### estimateContractGas()
 
 > **estimateContractGas**: \<`chain`, `abi`, `functionName`, `args`\>(`args`) => `Promise`\<`bigint`\>
+
+Estimates the gas required to successfully execute a contract write function call.
+
+- Docs: https://viem.sh/docs/contract/estimateContractGas
 
 #### Type Parameters
 
@@ -323,9 +450,36 @@ EstimateContractGasParameters
 
 The gas estimate (in wei). EstimateContractGasReturnType
 
+#### Remarks
+
+Internally, uses a [Public Client](https://viem.sh/docs/clients/public) to call the [`estimateGas` action](https://viem.sh/docs/actions/public/estimateGas) with [ABI-encoded `data`](https://viem.sh/docs/contract/encodeFunctionData).
+
+#### Example
+
+```ts
+import { createPublicClient, http, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const gas = await client.estimateContractGas({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+  abi: parseAbi(['function mint() public']),
+  functionName: 'mint',
+  account: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+})
+```
+
 ### estimateFeesPerGas()
 
 > **estimateFeesPerGas**: \<`chainOverride`, `type`\>(`args`?) => `Promise`\<`EstimateFeesPerGasReturnType`\<`type`\>\>
+
+Returns an estimate for the fees per gas for a transaction to be included
+in the next block.
+
+- Docs: https://viem.sh/docs/actions/public/estimateFeesPerGas
 
 #### Type Parameters
 
@@ -343,9 +497,28 @@ The gas estimate (in wei). EstimateContractGasReturnType
 
 An estimate (in wei) for the fees per gas. EstimateFeesPerGasReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const maxPriorityFeePerGas = await client.estimateFeesPerGas()
+// { maxFeePerGas: ..., maxPriorityFeePerGas: ... }
+```
+
 ### estimateGas()
 
 > **estimateGas**: (`args`) => `Promise`\<`bigint`\>
+
+Estimates the gas necessary to complete a transaction without submitting it to the network.
+
+- Docs: https://viem.sh/docs/actions/public/estimateGas
+- JSON-RPC Methods: [`eth_estimateGas`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas)
 
 #### Parameters
 
@@ -359,9 +532,31 @@ EstimateGasParameters
 
 The gas estimate (in wei). EstimateGasReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http, parseEther } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const gasEstimate = await client.estimateGas({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+  value: parseEther('1'),
+})
+```
+
 ### estimateMaxPriorityFeePerGas()
 
 > **estimateMaxPriorityFeePerGas**: \<`chainOverride`\>(`args`?) => `Promise`\<`bigint`\>
+
+Returns an estimate for the max priority fee per gas (in wei) for a transaction
+to be included in the next block.
+
+- Docs: https://viem.sh/docs/actions/public/estimateMaxPriorityFeePerGas
 
 #### Type Parameters
 
@@ -376,6 +571,20 @@ The gas estimate (in wei). EstimateGasReturnType
 `Promise`\<`bigint`\>
 
 An estimate (in wei) for the max priority fee per gas. EstimateMaxPriorityFeePerGasReturnType
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
+// 10000000n
+```
 
 ### extend()
 
@@ -397,15 +606,37 @@ An estimate (in wei) for the max priority fee per gas. EstimateMaxPriorityFeePer
 
 > **getAddresses**: () => `Promise`\<`GetAddressesReturnType`\>
 
+Returns a list of account addresses owned by the wallet or client.
+
+- Docs: https://viem.sh/docs/actions/wallet/getAddresses
+- JSON-RPC Methods: [`eth_accounts`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_accounts)
+
 #### Returns
 
 `Promise`\<`GetAddressesReturnType`\>
 
 List of account addresses owned by the wallet or client. GetAddressesReturnType
 
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const accounts = await client.getAddresses()
+```
+
 ### getAutomine()
 
 > **getAutomine**: () => `Promise`\<`boolean`\>
+
+Returns the automatic mining status of the node.
+
+- Docs: https://viem.sh/docs/actions/test/getAutomine
 
 #### Returns
 
@@ -413,9 +644,28 @@ List of account addresses owned by the wallet or client. GetAddressesReturnType
 
 Whether or not the node is auto mining. GetAutomineReturnType
 
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+const isAutomining = await client.getAutomine()
+```
+
 ### getBalance()
 
 > **getBalance**: (`args`) => `Promise`\<`bigint`\>
+
+Returns the balance of an address in wei.
+
+- Docs: https://viem.sh/docs/actions/public/getBalance
+- JSON-RPC Methods: [`eth_getBalance`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getbalance)
 
 #### Parameters
 
@@ -429,9 +679,43 @@ GetBalanceParameters
 
 The balance of the address in wei. GetBalanceReturnType
 
+#### Remarks
+
+You can convert the balance to ether units with [`formatEther`](https://viem.sh/docs/utilities/formatEther).
+
+```ts
+const balance = await getBalance(client, {
+  address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  blockTag: 'safe'
+})
+const balanceAsEther = formatEther(balance)
+// "6.942"
+```
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const balance = await client.getBalance({
+  address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+// 10000000000000000000000n (wei)
+```
+
 ### getBlobBaseFee()
 
 > **getBlobBaseFee**: () => `Promise`\<`bigint`\>
+
+Returns the base fee per blob gas in wei.
+
+- Docs: https://viem.sh/docs/actions/public/getBlobBaseFee
+- JSON-RPC Methods: [`eth_blobBaseFee`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blobBaseFee)
 
 #### Returns
 
@@ -439,9 +723,31 @@ The balance of the address in wei. GetBalanceReturnType
 
 The blob base fee (in wei). GetBlobBaseFeeReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { getBlobBaseFee } from 'viem/public'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const blobBaseFee = await client.getBlobBaseFee()
+```
+
 ### getBlock()
 
 > **getBlock**: \<`includeTransactions`, `blockTag`\>(`args`?) => `Promise`\<\{ \[K in string \| number \| symbol\]: FormattedBlock\<TCommon, includeTransactions, blockTag\>\[K\] \}\>
+
+Returns information about a block at a block number, hash, or tag.
+
+- Docs: https://viem.sh/docs/actions/public/getBlock
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks
+- JSON-RPC Methods:
+  - Calls [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber) for `blockNumber` & `blockTag`.
+  - Calls [`eth_getBlockByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbyhash) for `blockHash`.
 
 #### Type Parameters
 
@@ -461,9 +767,28 @@ GetBlockParameters
 
 Information about the block. GetBlockReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const block = await client.getBlock()
+```
+
 ### getBlockNumber()
 
 > **getBlockNumber**: (`args`?) => `Promise`\<`bigint`\>
+
+Returns the number of the most recent block seen.
+
+- Docs: https://viem.sh/docs/actions/public/getBlockNumber
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks
+- JSON-RPC Methods: [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber)
 
 #### Parameters
 
@@ -477,9 +802,30 @@ GetBlockNumberParameters
 
 The number of the block. GetBlockNumberReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const blockNumber = await client.getBlockNumber()
+// 69420n
+```
+
 ### getBlockTransactionCount()
 
 > **getBlockTransactionCount**: (`args`?) => `Promise`\<`number`\>
+
+Returns the number of Transactions at a block number, hash, or tag.
+
+- Docs: https://viem.sh/docs/actions/public/getBlockTransactionCount
+- JSON-RPC Methods:
+  - Calls [`eth_getBlockTransactionCountByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbynumber) for `blockNumber` & `blockTag`.
+  - Calls [`eth_getBlockTransactionCountByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbyhash) for `blockHash`.
 
 #### Parameters
 
@@ -493,13 +839,22 @@ GetBlockTransactionCountParameters
 
 The block transaction count. GetBlockTransactionCountReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const count = await client.getBlockTransactionCount()
+```
+
 ### ~~getBytecode()~~
 
 > **getBytecode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
-
-#### Deprecated
-
-Use `getCode` instead.
 
 #### Parameters
 
@@ -508,6 +863,10 @@ Use `getCode` instead.
 #### Returns
 
 `Promise`\<`GetCodeReturnType`\>
+
+#### Deprecated
+
+Use `getCode` instead.
 
 ### getChainId
 
@@ -536,6 +895,11 @@ const chainId = await client.getChainId()
 
 > **getCode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
 
+Retrieves the bytecode at an address.
+
+- Docs: https://viem.sh/docs/contract/getCode
+- JSON-RPC Methods: [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode)
+
 #### Parameters
 
 • **args**: `GetCodeParameters`
@@ -548,9 +912,29 @@ GetBytecodeParameters
 
 The contract's bytecode. GetBytecodeReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const code = await client.getCode({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+})
+```
+
 ### getContractEvents()
 
 > **getContractEvents**: \<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetContractEventsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
+
+Returns a list of event logs emitted by a contract.
+
+- Docs: https://viem.sh/docs/actions/public/getContractEvents
+- JSON-RPC Methods: [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs)
 
 #### Type Parameters
 
@@ -574,9 +958,29 @@ The contract's bytecode. GetBytecodeReturnType
 
 A list of event logs. GetContractEventsReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { wagmiAbi } from './abi'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const logs = await client.getContractEvents(client, {
+ address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+ abi: wagmiAbi,
+ eventName: 'Transfer'
+})
+```
+
 ### getEip712Domain()
 
 > **getEip712Domain**: (`args`) => `Promise`\<`GetEip712DomainReturnType`\>
+
+Reads the EIP-712 domain from a contract, based on the ERC-5267 specification.
 
 #### Parameters
 
@@ -588,9 +992,40 @@ A list of event logs. GetContractEventsReturnType
 
 The EIP-712 domain, fields, and extensions. GetEip712DomainReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+const domain = await client.getEip712Domain({
+  address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+})
+// {
+//   domain: {
+//     name: 'ExampleContract',
+//     version: '1',
+//     chainId: 1,
+//     verifyingContract: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+//   },
+//   fields: '0x0f',
+//   extensions: [],
+// }
+```
+
 ### getEnsAddress()
 
 > **getEnsAddress**: (`args`) => `Promise`\<`GetEnsAddressReturnType`\>
+
+Gets address for ENS name.
+
+- Docs: https://viem.sh/docs/ens/actions/getEnsAddress
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
 #### Parameters
 
@@ -638,9 +1073,37 @@ Address of ENS Universal Resolver Contract.
 
 Address for ENS name or `null` if not found. GetEnsAddressReturnType
 
+#### Remarks
+
+Calls `resolve(bytes, bytes)` on ENS Universal Resolver Contract.
+
+Since ENS names prohibit certain forbidden characters (e.g. underscore) and have other validation rules, you likely want to [normalize ENS names](https://docs.ens.domains/contract-api-reference/name-processing#normalising-names) with [UTS-46 normalization](https://unicode.org/reports/tr46) before passing them to `getEnsAddress`. You can use the built-in [`normalize`](https://viem.sh/docs/ens/utilities/normalize) function for this.
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { normalize } from 'viem/ens'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const ensAddress = await client.getEnsAddress({
+  name: normalize('wevm.eth'),
+})
+// '0xd2135CfB216b74109775236E36d4b433F1DF507B'
+```
+
 ### getEnsAvatar()
 
 > **getEnsAvatar**: (`args`) => `Promise`\<`GetEnsAvatarReturnType`\>
+
+Gets the avatar of an ENS name.
+
+- Docs: https://viem.sh/docs/ens/actions/getEnsAvatar
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
 #### Parameters
 
@@ -688,9 +1151,37 @@ Address of ENS Universal Resolver Contract.
 
 Avatar URI or `null` if not found. GetEnsAvatarReturnType
 
+#### Remarks
+
+Calls [`getEnsText`](https://viem.sh/docs/ens/actions/getEnsText) with `key` set to `'avatar'`.
+
+Since ENS names prohibit certain forbidden characters (e.g. underscore) and have other validation rules, you likely want to [normalize ENS names](https://docs.ens.domains/contract-api-reference/name-processing#normalising-names) with [UTS-46 normalization](https://unicode.org/reports/tr46) before passing them to `getEnsAddress`. You can use the built-in [`normalize`](https://viem.sh/docs/ens/utilities/normalize) function for this.
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { normalize } from 'viem/ens'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const ensAvatar = await client.getEnsAvatar({
+  name: normalize('wevm.eth'),
+})
+// 'https://ipfs.io/ipfs/Qma8mnp6xV3J2cRNf3mTth5C8nV11CAnceVinc3y8jSbio'
+```
+
 ### getEnsName()
 
 > **getEnsName**: (`args`) => `Promise`\<`GetEnsNameReturnType`\>
+
+Gets primary name for specified address.
+
+- Docs: https://viem.sh/docs/ens/actions/getEnsName
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
 #### Parameters
 
@@ -734,9 +1225,34 @@ Address of ENS Universal Resolver Contract.
 
 Name or `null` if not found. GetEnsNameReturnType
 
+#### Remarks
+
+Calls `reverse(bytes)` on ENS Universal Resolver Contract to "reverse resolve" the address to the primary ENS name.
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const ensName = await client.getEnsName({
+  address: '0xd2135CfB216b74109775236E36d4b433F1DF507B',
+})
+// 'wevm.eth'
+```
+
 ### getEnsResolver()
 
 > **getEnsResolver**: (`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+Gets resolver for ENS name.
+
+- Docs: https://viem.sh/docs/ens/actions/getEnsResolver
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
 #### Parameters
 
@@ -772,9 +1288,37 @@ Address of ENS Universal Resolver Contract.
 
 Address for ENS resolver. GetEnsResolverReturnType
 
+#### Remarks
+
+Calls `findResolver(bytes)` on ENS Universal Resolver Contract to retrieve the resolver of an ENS name.
+
+Since ENS names prohibit certain forbidden characters (e.g. underscore) and have other validation rules, you likely want to [normalize ENS names](https://docs.ens.domains/contract-api-reference/name-processing#normalising-names) with [UTS-46 normalization](https://unicode.org/reports/tr46) before passing them to `getEnsAddress`. You can use the built-in [`normalize`](https://viem.sh/docs/ens/utilities/normalize) function for this.
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { normalize } from 'viem/ens'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const resolverAddress = await client.getEnsResolver({
+  name: normalize('wevm.eth'),
+})
+// '0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41'
+```
+
 ### getEnsText()
 
 > **getEnsText**: (`args`) => `Promise`\<`GetEnsTextReturnType`\>
+
+Gets a text record for specified ENS name.
+
+- Docs: https://viem.sh/docs/ens/actions/getEnsResolver
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/ens
 
 #### Parameters
 
@@ -822,9 +1366,38 @@ Address of ENS Universal Resolver Contract.
 
 Address for ENS resolver. GetEnsTextReturnType
 
+#### Remarks
+
+Calls `resolve(bytes, bytes)` on ENS Universal Resolver Contract.
+
+Since ENS names prohibit certain forbidden characters (e.g. underscore) and have other validation rules, you likely want to [normalize ENS names](https://docs.ens.domains/contract-api-reference/name-processing#normalising-names) with [UTS-46 normalization](https://unicode.org/reports/tr46) before passing them to `getEnsAddress`. You can use the built-in [`normalize`](https://viem.sh/docs/ens/utilities/normalize) function for this.
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { normalize } from 'viem/ens'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const twitterRecord = await client.getEnsText({
+  name: normalize('wevm.eth'),
+  key: 'com.twitter',
+})
+// 'wevm_dev'
+```
+
 ### getFeeHistory()
 
 > **getFeeHistory**: (`args`) => `Promise`\<`GetFeeHistoryReturnType`\>
+
+Returns a collection of historical gas information.
+
+- Docs: https://viem.sh/docs/actions/public/getFeeHistory
+- JSON-RPC Methods: [`eth_feeHistory`](https://docs.alchemy.com/reference/eth-feehistory)
 
 #### Parameters
 
@@ -838,9 +1411,30 @@ GetFeeHistoryParameters
 
 The gas estimate (in wei). GetFeeHistoryReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const feeHistory = await client.getFeeHistory({
+  blockCount: 4,
+  rewardPercentiles: [25, 75],
+})
+```
+
 ### getFilterChanges()
 
 > **getFilterChanges**: \<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetFilterChangesReturnType`\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
+
+Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter) since the last time it was called.
+
+- Docs: https://viem.sh/docs/actions/public/getFilterChanges
+- JSON-RPC Methods: [`eth_getFilterChanges`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterchanges)
 
 #### Type Parameters
 
@@ -868,9 +1462,90 @@ GetFilterChangesParameters
 
 Logs or hashes. GetFilterChangesReturnType
 
+#### Remarks
+
+A Filter can be created from the following actions:
+
+- [`createBlockFilter`](https://viem.sh/docs/actions/public/createBlockFilter)
+- [`createContractEventFilter`](https://viem.sh/docs/contract/createContractEventFilter)
+- [`createEventFilter`](https://viem.sh/docs/actions/public/createEventFilter)
+- [`createPendingTransactionFilter`](https://viem.sh/docs/actions/public/createPendingTransactionFilter)
+
+Depending on the type of filter, the return value will be different:
+
+- If the filter was created with `createContractEventFilter` or `createEventFilter`, it returns a list of logs.
+- If the filter was created with `createPendingTransactionFilter`, it returns a list of transaction hashes.
+- If the filter was created with `createBlockFilter`, it returns a list of block hashes.
+
+#### Examples
+
+```ts
+// Blocks
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await client.createBlockFilter()
+const hashes = await client.getFilterChanges({ filter })
+```
+
+```ts
+// Contract Events
+import { createPublicClient, http, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await client.createContractEventFilter({
+  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+  abi: parseAbi(['event Transfer(address indexed, address indexed, uint256)']),
+  eventName: 'Transfer',
+})
+const logs = await client.getFilterChanges({ filter })
+```
+
+```ts
+// Raw Events
+import { createPublicClient, http, parseAbiItem } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await client.createEventFilter({
+  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+  event: parseAbiItem('event Transfer(address indexed, address indexed, uint256)'),
+})
+const logs = await client.getFilterChanges({ filter })
+```
+
+```ts
+// Transactions
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await client.createPendingTransactionFilter()
+const hashes = await client.getFilterChanges({ filter })
+```
+
 ### getFilterLogs()
 
 > **getFilterLogs**: \<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetFilterLogsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
+
+Returns a list of event logs since the filter was created.
+
+- Docs: https://viem.sh/docs/actions/public/getFilterLogs
+- JSON-RPC Methods: [`eth_getFilterLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterlogs)
 
 #### Type Parameters
 
@@ -896,9 +1571,35 @@ GetFilterLogsParameters
 
 A list of event logs. GetFilterLogsReturnType
 
+#### Remarks
+
+`getFilterLogs` is only compatible with **event filters**.
+
+#### Example
+
+```ts
+import { createPublicClient, http, parseAbiItem } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const filter = await client.createEventFilter({
+  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+  event: parseAbiItem('event Transfer(address indexed, address indexed, uint256)'),
+})
+const logs = await client.getFilterLogs({ filter })
+```
+
 ### getGasPrice()
 
 > **getGasPrice**: () => `Promise`\<`bigint`\>
+
+Returns the current price of gas (in wei).
+
+- Docs: https://viem.sh/docs/actions/public/getGasPrice
+- JSON-RPC Methods: [`eth_gasPrice`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gasprice)
 
 #### Returns
 
@@ -906,9 +1607,28 @@ A list of event logs. GetFilterLogsReturnType
 
 The gas price (in wei). GetGasPriceReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const gasPrice = await client.getGasPrice()
+```
+
 ### getLogs()
 
 > **getLogs**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>(`args`?) => `Promise`\<`GetLogsReturnType`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>\>
+
+Returns a list of event logs matching the provided parameters.
+
+- Docs: https://viem.sh/docs/actions/public/getLogs
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/filters-and-logs/event-logs
+- JSON-RPC Methods: [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs)
 
 #### Type Parameters
 
@@ -934,9 +1654,27 @@ GetLogsParameters
 
 A list of event logs. GetLogsReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http, parseAbiItem } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const logs = await client.getLogs()
+```
+
 ### getPermissions()
 
 > **getPermissions**: () => `Promise`\<`GetPermissionsReturnType`\>
+
+Gets the wallets current permissions.
+
+- Docs: https://viem.sh/docs/actions/wallet/getPermissions
+- JSON-RPC Methods: [`wallet_getPermissions`](https://eips.ethereum.org/EIPS/eip-2255)
 
 #### Returns
 
@@ -944,9 +1682,28 @@ A list of event logs. GetLogsReturnType
 
 The wallet permissions. GetPermissionsReturnType
 
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const permissions = await client.getPermissions()
+```
+
 ### getProof()
 
 > **getProof**: (`args`) => `Promise`\<`GetProofReturnType`\>
+
+Returns the account and storage values of the specified account including the Merkle-proof.
+
+- Docs: https://viem.sh/docs/actions/public/getProof
+- JSON-RPC Methods:
+  - Calls [`eth_getProof`](https://eips.ethereum.org/EIPS/eip-1186)
 
 #### Parameters
 
@@ -958,9 +1715,30 @@ The wallet permissions. GetPermissionsReturnType
 
 Proof data. GetProofReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const block = await client.getProof({
+ address: '0x...',
+ storageKeys: ['0x...'],
+})
+```
+
 ### getStorageAt()
 
 > **getStorageAt**: (`args`) => `Promise`\<`GetStorageAtReturnType`\>
+
+Returns the value from a storage slot at a given address.
+
+- Docs: https://viem.sh/docs/contract/getStorageAt
+- JSON-RPC Methods: [`eth_getStorageAt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat)
 
 #### Parameters
 
@@ -974,9 +1752,32 @@ GetStorageAtParameters
 
 The value of the storage slot. GetStorageAtReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { getStorageAt } from 'viem/contract'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const code = await client.getStorageAt({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+  slot: toHex(0),
+})
+```
+
 ### getTransaction()
 
 > **getTransaction**: \<`blockTag`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: FormattedTransaction\<TCommon, blockTag\>\[K\] \}\>
+
+Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#transaction) given a hash or block identifier.
+
+- Docs: https://viem.sh/docs/actions/public/getTransaction
+- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
+- JSON-RPC Methods: [`eth_getTransactionByHash`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionByHash)
 
 #### Type Parameters
 
@@ -994,9 +1795,30 @@ GetTransactionParameters
 
 The transaction information. GetTransactionReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const transaction = await client.getTransaction({
+  hash: '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d',
+})
+```
+
 ### getTransactionConfirmations()
 
 > **getTransactionConfirmations**: (`args`) => `Promise`\<`bigint`\>
+
+Returns the number of blocks passed (confirmations) since the transaction was processed on a block.
+
+- Docs: https://viem.sh/docs/actions/public/getTransactionConfirmations
+- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
+- JSON-RPC Methods: [`eth_getTransactionConfirmations`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionConfirmations)
 
 #### Parameters
 
@@ -1010,9 +1832,29 @@ GetTransactionConfirmationsParameters
 
 The number of blocks passed since the transaction was processed. If confirmations is 0, then the Transaction has not been confirmed & processed yet. GetTransactionConfirmationsReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const confirmations = await client.getTransactionConfirmations({
+  hash: '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d',
+})
+```
+
 ### getTransactionCount()
 
 > **getTransactionCount**: (`args`) => `Promise`\<`number`\>
+
+Returns the number of [Transactions](https://viem.sh/docs/glossary/terms#transaction) an Account has broadcast / sent.
+
+- Docs: https://viem.sh/docs/actions/public/getTransactionCount
+- JSON-RPC Methods: [`eth_getTransactionCount`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount)
 
 #### Parameters
 
@@ -1026,9 +1868,30 @@ GetTransactionCountParameters
 
 The number of transactions an account has sent. GetTransactionCountReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const transactionCount = await client.getTransactionCount({
+  address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+```
+
 ### getTransactionReceipt()
 
 > **getTransactionReceipt**: (`args`) => `Promise`\<`ExtractChainFormatterReturnType`\<`TCommon`, `"transactionReceipt"`, `TransactionReceipt`\>\>
+
+Returns the [Transaction Receipt](https://viem.sh/docs/glossary/terms#transaction-receipt) given a [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash.
+
+- Docs: https://viem.sh/docs/actions/public/getTransactionReceipt
+- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transactions
+- JSON-RPC Methods: [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionReceipt)
 
 #### Parameters
 
@@ -1042,9 +1905,28 @@ GetTransactionReceiptParameters
 
 The transaction receipt. GetTransactionReceiptReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const transactionReceipt = await client.getTransactionReceipt({
+  hash: '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d',
+})
+```
+
 ### getTxpoolContent()
 
 > **getTxpoolContent**: () => `Promise`\<`GetTxpoolContentReturnType`\>
+
+Returns the details of all transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
+
+- Docs: https://viem.sh/docs/actions/test/getTxpoolContent
 
 #### Returns
 
@@ -1052,15 +1934,47 @@ The transaction receipt. GetTransactionReceiptReturnType
 
 Transaction pool content. GetTxpoolContentReturnType
 
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+const content = await client.getTxpoolContent()
+```
+
 ### getTxpoolStatus()
 
 > **getTxpoolStatus**: () => `Promise`\<`GetTxpoolStatusReturnType`\>
+
+Returns a summary of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
+
+- Docs: https://viem.sh/docs/actions/test/getTxpoolStatus
 
 #### Returns
 
 `Promise`\<`GetTxpoolStatusReturnType`\>
 
 Transaction pool status. GetTxpoolStatusReturnType
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+const status = await client.getTxpoolStatus()
+```
 
 ### impersonateAccount()
 
@@ -1069,6 +1983,16 @@ Transaction pool status. GetTxpoolStatusReturnType
 Impersonate an account or contract address. This lets you send transactions from that account even if you don't have access to its private key.
 
 - Docs: https://viem.sh/docs/actions/test/impersonateAccount
+
+#### Parameters
+
+• **args**: `ImpersonateAccountParameters`
+
+ImpersonateAccountParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1086,16 +2010,6 @@ await client.impersonateAccount({
 })
 ```
 
-#### Parameters
-
-• **args**: `ImpersonateAccountParameters`
-
-ImpersonateAccountParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### increaseTime()
 
 > **increaseTime**: (`args`) => `Promise`\<\`0x$\{string\}\`\>
@@ -1103,6 +2017,16 @@ ImpersonateAccountParameters
 Jump forward in time by the given amount of time, in seconds.
 
 - Docs: https://viem.sh/docs/actions/test/increaseTime
+
+#### Parameters
+
+• **args**: `IncreaseTimeParameters`
+
+– IncreaseTimeParameters
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
 
 #### Example
 
@@ -1120,25 +2044,33 @@ await client.increaseTime({
 })
 ```
 
-#### Parameters
-
-• **args**: `IncreaseTimeParameters`
-
-– IncreaseTimeParameters
-
-#### Returns
-
-`Promise`\<\`0x$\{string\}\`\>
-
 ### inspectTxpool()
 
 > **inspectTxpool**: () => `Promise`\<`InspectTxpoolReturnType`\>
+
+Returns a summary of all the transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
+
+- Docs: https://viem.sh/docs/actions/test/inspectTxpool
 
 #### Returns
 
 `Promise`\<`InspectTxpoolReturnType`\>
 
 Transaction pool inspection data. InspectTxpoolReturnType
+
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+const data = await client.inspectTxpool()
+```
 
 ### key
 
@@ -1154,6 +2086,14 @@ Adds state previously dumped with `dumpState` to the current chain.
 
 - Docs: https://viem.sh/docs/actions/test/loadState
 
+#### Parameters
+
+• **args**: `LoadStateParameters`
+
+#### Returns
+
+`Promise`\<`void`\>
+
 #### Example
 
 ```ts
@@ -1168,14 +2108,6 @@ const client = createTestClient({
 await client.loadState({ state: '0x...' })
 ```
 
-#### Parameters
-
-• **args**: `LoadStateParameters`
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### mine()
 
 > **mine**: (`args`) => `Promise`\<`void`\>
@@ -1183,6 +2115,16 @@ await client.loadState({ state: '0x...' })
 Mine a specified number of blocks.
 
 - Docs: https://viem.sh/docs/actions/test/mine
+
+#### Parameters
+
+• **args**: `MineParameters`
+
+– MineParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1198,19 +2140,13 @@ const client = createTestClient({
 await client.mine({ blocks: 1 })
 ```
 
-#### Parameters
-
-• **args**: `MineParameters`
-
-– MineParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### multicall()
 
 > **multicall**: \<`contracts`, `allowFailure`\>(`args`) => `Promise`\<`MulticallReturnType`\<`contracts`, `allowFailure`\>\>
+
+Similar to [`readContract`](https://viem.sh/docs/contract/readContract), but batches up multiple functions on a contract in a single RPC call via the [`multicall3` contract](https://github.com/mds1/multicall).
+
+- Docs: https://viem.sh/docs/contract/multicall
 
 #### Type Parameters
 
@@ -1229,6 +2165,38 @@ MulticallParameters
 `Promise`\<`MulticallReturnType`\<`contracts`, `allowFailure`\>\>
 
 An array of results with accompanying status. MulticallReturnType
+
+#### Example
+
+```ts
+import { createPublicClient, http, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const abi = parseAbi([
+  'function balanceOf(address) view returns (uint256)',
+  'function totalSupply() view returns (uint256)',
+])
+const result = await client.multicall({
+  contracts: [
+    {
+      address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+      abi,
+      functionName: 'balanceOf',
+      args: ['0xA0Cf798816D4b9b9866b5330EEa46a18382f251e'],
+    },
+    {
+      address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+      abi,
+      functionName: 'totalSupply',
+    },
+  ],
+})
+// [{ result: 424122n, status: 'success' }, { result: 1000000n, status: 'success' }]
+```
 
 ### name
 
@@ -1292,6 +2260,11 @@ const request = await client.prepareTransactionRequest({
 
 > **readContract**: \<`abi`, `functionName`, `args`\>(`args`) => `Promise`\<`ReadContractReturnType`\<`abi`, `functionName`, `args`\>\>
 
+Calls a read-only function on a contract, and returns the response.
+
+- Docs: https://viem.sh/docs/contract/readContract
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/reading-contracts
+
 #### Type Parameters
 
 • **abi** *extends* `Abi` \| readonly `unknown`[]
@@ -1312,6 +2285,32 @@ ReadContractParameters
 
 The response from the contract. Type is inferred. ReadContractReturnType
 
+#### Remarks
+
+A "read-only" function (constant function) on a Solidity contract is denoted by a `view` or `pure` keyword. They can only read the state of the contract, and cannot make any changes to it. Since read-only methods do not change the state of the contract, they do not require any gas to be executed, and can be called by any user without the need to pay for gas.
+
+Internally, uses a [Public Client](https://viem.sh/docs/clients/public) to call the [`call` action](https://viem.sh/docs/actions/public/call) with [ABI-encoded `data`](https://viem.sh/docs/contract/encodeFunctionData).
+
+#### Example
+
+```ts
+import { createPublicClient, http, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+import { readContract } from 'viem/contract'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const result = await client.readContract({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+  abi: parseAbi(['function balanceOf(address) view returns (uint256)']),
+  functionName: 'balanceOf',
+  args: ['0xA0Cf798816D4b9b9866b5330EEa46a18382f251e'],
+})
+// 424122n
+```
+
 ### removeBlockTimestampInterval()
 
 > **removeBlockTimestampInterval**: () => `Promise`\<`void`\>
@@ -1319,6 +2318,10 @@ The response from the contract. Type is inferred. ReadContractReturnType
 Removes [`setBlockTimestampInterval`](https://viem.sh/docs/actions/test/setBlockTimestampInterval) if it exists.
 
 - Docs: https://viem.sh/docs/actions/test/removeBlockTimestampInterval
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1335,10 +2338,6 @@ const client = createTestClient({
 await client.removeBlockTimestampInterval()
 ```
 
-#### Returns
-
-`Promise`\<`void`\>
-
 ### request
 
 > **request**: `EIP1193RequestFn`\<[`object`, `object`, `object`, `object`, `object`]\>
@@ -1349,15 +2348,42 @@ Request function wrapped with friendly error handling
 
 > **requestAddresses**: () => `Promise`\<`RequestAddressesReturnType`\>
 
+Requests a list of accounts managed by a wallet.
+
+- Docs: https://viem.sh/docs/actions/wallet/requestAddresses
+- JSON-RPC Methods: [`eth_requestAccounts`](https://eips.ethereum.org/EIPS/eip-1102)
+
+Sends a request to the wallet, asking for permission to access the user's accounts. After the user accepts the request, it will return a list of accounts (addresses).
+
+This API can be useful for dapps that need to access the user's accounts in order to execute transactions or interact with smart contracts.
+
 #### Returns
 
 `Promise`\<`RequestAddressesReturnType`\>
 
 List of accounts managed by a wallet RequestAddressesReturnType
 
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const accounts = await client.requestAddresses()
+```
+
 ### requestPermissions()
 
 > **requestPermissions**: (`args`) => `Promise`\<`RequestPermissionsReturnType`\>
+
+Requests permissions for a wallet.
+
+- Docs: https://viem.sh/docs/actions/wallet/requestPermissions
+- JSON-RPC Methods: [`wallet_requestPermissions`](https://eips.ethereum.org/EIPS/eip-2255)
 
 #### Parameters
 
@@ -1373,6 +2399,21 @@ RequestPermissionsParameters
 
 The wallet permissions. RequestPermissionsReturnType
 
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const permissions = await client.requestPermissions({
+  eth_accounts: {}
+})
+```
+
 ### reset()
 
 > **reset**: (`args`?) => `Promise`\<`void`\>
@@ -1380,6 +2421,16 @@ The wallet permissions. RequestPermissionsReturnType
 Resets fork back to its original state.
 
 - Docs: https://viem.sh/docs/actions/test/reset
+
+#### Parameters
+
+• **args?**: `ResetParameters`
+
+– ResetParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1395,16 +2446,6 @@ const client = createTestClient({
 await client.reset({ blockNumber: 69420n })
 ```
 
-#### Parameters
-
-• **args?**: `ResetParameters`
-
-– ResetParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### revert()
 
 > **revert**: (`args`) => `Promise`\<`void`\>
@@ -1412,6 +2453,16 @@ await client.reset({ blockNumber: 69420n })
 Revert the state of the blockchain at the current block.
 
 - Docs: https://viem.sh/docs/actions/test/revert
+
+#### Parameters
+
+• **args**: `RevertParameters`
+
+– RevertParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1426,16 +2477,6 @@ const client = createTestClient({
 })
 await client.revert({ id: '0x…' })
 ```
-
-#### Parameters
-
-• **args**: `RevertParameters`
-
-– RevertParameters
-
-#### Returns
-
-`Promise`\<`void`\>
 
 ### sendRawTransaction
 
@@ -1475,6 +2516,14 @@ const hash = await client.sendRawTransaction({
 
 > **sendTransaction**: \<`request`, `chainOverride`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
 
+Creates, signs, and sends a new transaction to the network.
+
+- Docs: https://viem.sh/docs/actions/wallet/sendTransaction
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/sending-transactions
+- JSON-RPC Methods:
+  - JSON-RPC Accounts: [`eth_sendTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendtransaction)
+  - Local Accounts: [`eth_sendRawTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction)
+
 #### Type Parameters
 
 • **request** *extends* `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> \| `Omit`\<`object`, `"from"`\> & `object`
@@ -1493,9 +2542,47 @@ SendTransactionParameters
 
 The [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash. SendTransactionReturnType
 
+#### Examples
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const hash = await client.sendTransaction({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+  value: 1000000000000000000n,
+})
+```
+
+```ts
+// Account Hoisting
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: http(),
+})
+const hash = await client.sendTransaction({
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+  value: 1000000000000000000n,
+})
+```
+
 ### sendUnsignedTransaction()
 
 > **sendUnsignedTransaction**: \<`chain`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+Returns the details of all transactions currently pending for inclusion in the next block(s), as well as the ones that are being scheduled for future execution only.
+
+- Docs: https://viem.sh/docs/actions/test/getTxpoolContent
 
 #### Type Parameters
 
@@ -1513,6 +2600,24 @@ The [Transaction](https://viem.sh/docs/glossary/terms#transaction) hash. SendTra
 
 The transaction hash. SendUnsignedTransactionReturnType
 
+#### Example
+
+```ts
+import { createTestClient, http } from 'viem'
+import { foundry } from 'viem/chains'
+
+const client = createTestClient({
+  mode: 'anvil',
+  chain: 'foundry',
+  transport: http(),
+})
+const hash = await client.sendUnsignedTransaction({
+  from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+  value: 1000000000000000000n,
+})
+```
+
 ### setAutomine()
 
 > **setAutomine**: (`args`) => `Promise`\<`void`\>
@@ -1520,6 +2625,14 @@ The transaction hash. SendUnsignedTransactionReturnType
 Enables or disables the automatic mining of new blocks with each new transaction submitted to the network.
 
 - Docs: https://viem.sh/docs/actions/test/setAutomine
+
+#### Parameters
+
+• **args**: `boolean`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1535,14 +2648,6 @@ const client = createTestClient({
 await client.setAutomine()
 ```
 
-#### Parameters
-
-• **args**: `boolean`
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setBalance()
 
 > **setBalance**: (`args`) => `Promise`\<`void`\>
@@ -1550,6 +2655,16 @@ await client.setAutomine()
 Modifies the balance of an account.
 
 - Docs: https://viem.sh/docs/actions/test/setBalance
+
+#### Parameters
+
+• **args**: `SetBalanceParameters`
+
+– SetBalanceParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1568,16 +2683,6 @@ await client.setBalance({
 })
 ```
 
-#### Parameters
-
-• **args**: `SetBalanceParameters`
-
-– SetBalanceParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setBlockGasLimit()
 
 > **setBlockGasLimit**: (`args`) => `Promise`\<`void`\>
@@ -1585,6 +2690,16 @@ await client.setBalance({
 Sets the block's gas limit.
 
 - Docs: https://viem.sh/docs/actions/test/setBlockGasLimit
+
+#### Parameters
+
+• **args**: `SetBlockGasLimitParameters`
+
+– SetBlockGasLimitParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1600,16 +2715,6 @@ const client = createTestClient({
 await client.setBlockGasLimit({ gasLimit: 420_000n })
 ```
 
-#### Parameters
-
-• **args**: `SetBlockGasLimitParameters`
-
-– SetBlockGasLimitParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setBlockTimestampInterval()
 
 > **setBlockTimestampInterval**: (`args`) => `Promise`\<`void`\>
@@ -1617,6 +2722,16 @@ await client.setBlockGasLimit({ gasLimit: 420_000n })
 Similar to [`increaseTime`](https://viem.sh/docs/actions/test/increaseTime), but sets a block timestamp `interval`. The timestamp of future blocks will be computed as `lastBlock_timestamp` + `interval`.
 
 - Docs: https://viem.sh/docs/actions/test/setBlockTimestampInterval
+
+#### Parameters
+
+• **args**: `SetBlockTimestampIntervalParameters`
+
+– SetBlockTimestampIntervalParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1632,16 +2747,6 @@ const client = createTestClient({
 await client.setBlockTimestampInterval({ interval: 5 })
 ```
 
-#### Parameters
-
-• **args**: `SetBlockTimestampIntervalParameters`
-
-– SetBlockTimestampIntervalParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setCode()
 
 > **setCode**: (`args`) => `Promise`\<`void`\>
@@ -1649,6 +2754,16 @@ await client.setBlockTimestampInterval({ interval: 5 })
 Modifies the bytecode stored at an account's address.
 
 - Docs: https://viem.sh/docs/actions/test/setCode
+
+#### Parameters
+
+• **args**: `SetCodeParameters`
+
+– SetCodeParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1667,16 +2782,6 @@ await client.setCode({
 })
 ```
 
-#### Parameters
-
-• **args**: `SetCodeParameters`
-
-– SetCodeParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setCoinbase()
 
 > **setCoinbase**: (`args`) => `Promise`\<`void`\>
@@ -1684,6 +2789,16 @@ await client.setCode({
 Sets the coinbase address to be used in new blocks.
 
 - Docs: https://viem.sh/docs/actions/test/setCoinbase
+
+#### Parameters
+
+• **args**: `SetCoinbaseParameters`
+
+– SetCoinbaseParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1701,16 +2816,6 @@ await client.setCoinbase({
 })
 ```
 
-#### Parameters
-
-• **args**: `SetCoinbaseParameters`
-
-– SetCoinbaseParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setIntervalMining()
 
 > **setIntervalMining**: (`args`) => `Promise`\<`void`\>
@@ -1718,6 +2823,16 @@ await client.setCoinbase({
 Sets the automatic mining interval (in seconds) of blocks. Setting the interval to 0 will disable automatic mining.
 
 - Docs: https://viem.sh/docs/actions/test/setIntervalMining
+
+#### Parameters
+
+• **args**: `SetIntervalMiningParameters`
+
+– SetIntervalMiningParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1733,16 +2848,6 @@ const client = createTestClient({
 await client.setIntervalMining({ interval: 5 })
 ```
 
-#### Parameters
-
-• **args**: `SetIntervalMiningParameters`
-
-– SetIntervalMiningParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setLoggingEnabled()
 
 > **setLoggingEnabled**: (`args`) => `Promise`\<`void`\>
@@ -1750,6 +2855,14 @@ await client.setIntervalMining({ interval: 5 })
 Enable or disable logging on the test node network.
 
 - Docs: https://viem.sh/docs/actions/test/setLoggingEnabled
+
+#### Parameters
+
+• **args**: `boolean`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1765,14 +2878,6 @@ const client = createTestClient({
 await client.setLoggingEnabled()
 ```
 
-#### Parameters
-
-• **args**: `boolean`
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setMinGasPrice()
 
 > **setMinGasPrice**: (`args`) => `Promise`\<`void`\>
@@ -1782,6 +2887,16 @@ Change the minimum gas price accepted by the network (in wei).
 - Docs: https://viem.sh/docs/actions/test/setMinGasPrice
 
 Note: `setMinGasPrice` can only be used on clients that do not have EIP-1559 enabled.
+
+#### Parameters
+
+• **args**: `SetMinGasPriceParameters`
+
+– SetBlockGasLimitParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1799,16 +2914,6 @@ await client.setMinGasPrice({
 })
 ```
 
-#### Parameters
-
-• **args**: `SetMinGasPriceParameters`
-
-– SetBlockGasLimitParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setNextBlockBaseFeePerGas()
 
 > **setNextBlockBaseFeePerGas**: (`args`) => `Promise`\<`void`\>
@@ -1816,6 +2921,16 @@ await client.setMinGasPrice({
 Sets the next block's base fee per gas.
 
 - Docs: https://viem.sh/docs/actions/test/setNextBlockBaseFeePerGas
+
+#### Parameters
+
+• **args**: `SetNextBlockBaseFeePerGasParameters`
+
+– SetNextBlockBaseFeePerGasParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1833,16 +2948,6 @@ await client.setNextBlockBaseFeePerGas({
 })
 ```
 
-#### Parameters
-
-• **args**: `SetNextBlockBaseFeePerGasParameters`
-
-– SetNextBlockBaseFeePerGasParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setNextBlockTimestamp()
 
 > **setNextBlockTimestamp**: (`args`) => `Promise`\<`void`\>
@@ -1850,6 +2955,16 @@ await client.setNextBlockBaseFeePerGas({
 Sets the next block's timestamp.
 
 - Docs: https://viem.sh/docs/actions/test/setNextBlockTimestamp
+
+#### Parameters
+
+• **args**: `SetNextBlockTimestampParameters`
+
+– SetNextBlockTimestampParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1865,16 +2980,6 @@ const client = createTestClient({
 await client.setNextBlockTimestamp({ timestamp: 1671744314n })
 ```
 
-#### Parameters
-
-• **args**: `SetNextBlockTimestampParameters`
-
-– SetNextBlockTimestampParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setNonce()
 
 > **setNonce**: (`args`) => `Promise`\<`void`\>
@@ -1882,6 +2987,16 @@ await client.setNextBlockTimestamp({ timestamp: 1671744314n })
 Modifies (overrides) the nonce of an account.
 
 - Docs: https://viem.sh/docs/actions/test/setNonce
+
+#### Parameters
+
+• **args**: `SetNonceParameters`
+
+– SetNonceParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1900,16 +3015,6 @@ await client.setNonce({
 })
 ```
 
-#### Parameters
-
-• **args**: `SetNonceParameters`
-
-– SetNonceParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setRpcUrl()
 
 > **setRpcUrl**: (`args`) => `Promise`\<`void`\>
@@ -1917,6 +3022,14 @@ await client.setNonce({
 Sets the backend RPC URL.
 
 - Docs: https://viem.sh/docs/actions/test/setRpcUrl
+
+#### Parameters
+
+• **args**: `string`
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1932,14 +3045,6 @@ const client = createTestClient({
 await client.setRpcUrl('https://eth-mainnet.g.alchemy.com/v2')
 ```
 
-#### Parameters
-
-• **args**: `string`
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### setStorageAt()
 
 > **setStorageAt**: (`args`) => `Promise`\<`void`\>
@@ -1947,6 +3052,16 @@ await client.setRpcUrl('https://eth-mainnet.g.alchemy.com/v2')
 Writes to a slot of an account's storage.
 
 - Docs: https://viem.sh/docs/actions/test/setStorageAt
+
+#### Parameters
+
+• **args**: `SetStorageAtParameters`
+
+– SetStorageAtParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -1966,19 +3081,20 @@ await client.setStorageAt({
 })
 ```
 
-#### Parameters
-
-• **args**: `SetStorageAtParameters`
-
-– SetStorageAtParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### signMessage()
 
 > **signMessage**: (`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+Calculates an Ethereum-specific signature in [EIP-191 format](https://eips.ethereum.org/EIPS/eip-191): `keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))`.
+
+- Docs: https://viem.sh/docs/actions/wallet/signMessage
+- JSON-RPC Methods:
+  - JSON-RPC Accounts: [`personal_sign`](https://docs.metamask.io/guide/signing-data#personal-sign)
+  - Local Accounts: Signs locally. No JSON-RPC request.
+
+With the calculated signature, you can:
+- use [`verifyMessage`](https://viem.sh/docs/utilities/verifyMessage) to verify the signature,
+- use [`recoverMessageAddress`](https://viem.sh/docs/utilities/recoverMessageAddress) to recover the signing address from a signature.
 
 #### Parameters
 
@@ -1992,9 +3108,48 @@ SignMessageParameters
 
 The signed message. SignMessageReturnType
 
+#### Examples
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const signature = await client.signMessage({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  message: 'hello world',
+})
+```
+
+```ts
+// Account Hoisting
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: http(),
+})
+const signature = await client.signMessage({
+  message: 'hello world',
+})
+```
+
 ### signTransaction()
 
 > **signTransaction**: \<`chainOverride`\>(`args`) => `Promise`\<\`0x02$\{string\}\` \| \`0x01$\{string\}\` \| \`0x03$\{string\}\` \| \`0x04$\{string\}\` \| `TransactionSerializedLegacy`\>
+
+Signs a transaction.
+
+- Docs: https://viem.sh/docs/actions/wallet/signTransaction
+- JSON-RPC Methods:
+  - JSON-RPC Accounts: [`eth_signTransaction`](https://ethereum.github.io/execution-apis/api-documentation/)
+  - Local Accounts: Signs locally. No JSON-RPC request.
 
 #### Type Parameters
 
@@ -2012,9 +3167,52 @@ SignTransactionParameters
 
 The signed message. SignTransactionReturnType
 
+#### Examples
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const request = await client.prepareTransactionRequest({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  to: '0x0000000000000000000000000000000000000000',
+  value: 1n,
+})
+const signature = await client.signTransaction(request)
+```
+
+```ts
+// Account Hoisting
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const request = await client.prepareTransactionRequest({
+  to: '0x0000000000000000000000000000000000000000',
+  value: 1n,
+})
+const signature = await client.signTransaction(request)
+```
+
 ### signTypedData()
 
 > **signTypedData**: \<`typedData`, `primaryType`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+Signs typed data and calculates an Ethereum-specific signature in [EIP-191 format](https://eips.ethereum.org/EIPS/eip-191): `keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))`.
+
+- Docs: https://viem.sh/docs/actions/wallet/signTypedData
+- JSON-RPC Methods:
+  - JSON-RPC Accounts: [`eth_signTypedData_v4`](https://docs.metamask.io/guide/signing-data#signtypeddata-v4)
+  - Local Accounts: Signs locally. No JSON-RPC request.
 
 #### Type Parameters
 
@@ -2034,9 +3232,102 @@ SignTypedDataParameters
 
 The signed data. SignTypedDataReturnType
 
+#### Examples
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const signature = await client.signTypedData({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  domain: {
+    name: 'Ether Mail',
+    version: '1',
+    chainId: 1,
+    verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+  },
+  types: {
+    Person: [
+      { name: 'name', type: 'string' },
+      { name: 'wallet', type: 'address' },
+    ],
+    Mail: [
+      { name: 'from', type: 'Person' },
+      { name: 'to', type: 'Person' },
+      { name: 'contents', type: 'string' },
+    ],
+  },
+  primaryType: 'Mail',
+  message: {
+    from: {
+      name: 'Cow',
+      wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+    },
+    to: {
+      name: 'Bob',
+      wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+    },
+    contents: 'Hello, Bob!',
+  },
+})
+```
+
+```ts
+// Account Hoisting
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: http(),
+})
+const signature = await client.signTypedData({
+  domain: {
+    name: 'Ether Mail',
+    version: '1',
+    chainId: 1,
+    verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+  },
+  types: {
+    Person: [
+      { name: 'name', type: 'string' },
+      { name: 'wallet', type: 'address' },
+    ],
+    Mail: [
+      { name: 'from', type: 'Person' },
+      { name: 'to', type: 'Person' },
+      { name: 'contents', type: 'string' },
+    ],
+  },
+  primaryType: 'Mail',
+  message: {
+    from: {
+      name: 'Cow',
+      wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+    },
+    to: {
+      name: 'Bob',
+      wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+    },
+    contents: 'Hello, Bob!',
+  },
+})
+```
+
 ### simulateContract()
 
 > **simulateContract**: \<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `chainOverride`, `accountOverride`\>\>
+
+Simulates/validates a contract interaction. This is useful for retrieving **return data** and **revert reasons** of contract write functions.
+
+- Docs: https://viem.sh/docs/contract/simulateContract
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/writing-to-contracts
 
 #### Type Parameters
 
@@ -2062,6 +3353,31 @@ SimulateContractParameters
 
 The simulation result and write request. SimulateContractReturnType
 
+#### Remarks
+
+This function does not require gas to execute and _**does not**_ change the state of the blockchain. It is almost identical to [`readContract`](https://viem.sh/docs/contract/readContract), but also supports contract write functions.
+
+Internally, uses a [Public Client](https://viem.sh/docs/clients/public) to call the [`call` action](https://viem.sh/docs/actions/public/call) with [ABI-encoded `data`](https://viem.sh/docs/contract/encodeFunctionData).
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const result = await client.simulateContract({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+  abi: parseAbi(['function mint(uint32) view returns (uint32)']),
+  functionName: 'mint',
+  args: ['69420'],
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+```
+
 ### snapshot()
 
 > **snapshot**: () => `Promise`\<\`0x$\{string\}\`\>
@@ -2069,6 +3385,10 @@ The simulation result and write request. SimulateContractReturnType
 Snapshot the state of the blockchain at the current block.
 
 - Docs: https://viem.sh/docs/actions/test/snapshot
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
 
 #### Example
 
@@ -2085,10 +3405,6 @@ const client = createTestClient({
 await client.snapshot()
 ```
 
-#### Returns
-
-`Promise`\<\`0x$\{string\}\`\>
-
 ### stopImpersonatingAccount()
 
 > **stopImpersonatingAccount**: (`args`) => `Promise`\<`void`\>
@@ -2096,6 +3412,16 @@ await client.snapshot()
 Stop impersonating an account after having previously used [`impersonateAccount`](https://viem.sh/docs/actions/test/impersonateAccount).
 
 - Docs: https://viem.sh/docs/actions/test/stopImpersonatingAccount
+
+#### Parameters
+
+• **args**: `StopImpersonatingAccountParameters`
+
+– StopImpersonatingAccountParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -2114,16 +3440,6 @@ await client.stopImpersonatingAccount({
 })
 ```
 
-#### Parameters
-
-• **args**: `StopImpersonatingAccountParameters`
-
-– StopImpersonatingAccountParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### switchChain()
 
 > **switchChain**: (`args`) => `Promise`\<`void`\>
@@ -2132,6 +3448,16 @@ Switch the target chain in a wallet.
 
 - Docs: https://viem.sh/docs/actions/wallet/switchChain
 - JSON-RPC Methods: [`eth_switchEthereumChain`](https://eips.ethereum.org/EIPS/eip-3326)
+
+#### Parameters
+
+• **args**: `SwitchChainParameters`
+
+SwitchChainParameters
+
+#### Returns
+
+`Promise`\<`void`\>
 
 #### Example
 
@@ -2146,44 +3472,11 @@ const client = createWalletClient({
 await client.switchChain({ id: optimism.id })
 ```
 
-#### Parameters
-
-• **args**: `SwitchChainParameters`
-
-SwitchChainParameters
-
-#### Returns
-
-`Promise`\<`void`\>
-
 ### tevm
 
 > **tevm**: `object` & `EIP1193Events` & `object` & `Eip1193RequestProvider`
 
 Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
-
-#### See
-
-TevmNode
-
-#### Example
-
-```typescript
-import { createMemoryClient } from 'tevm'
-
-const memoryClient = createMemoryClient()
-
-// low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient.tevm.getVm()
-vm.runBlock(...)
-const { blockchain, evm, stateManager } = vm
-blockchain.addBlock(...)
-evm.runCall(...)
-stateManager.putAccount(...)
-
-const mempool = await memoryClient.tevm.getTxPool()
-const receiptsManager = await memoryClient.tevm.getReceiptsManager()
-```
 
 #### Type declaration
 
@@ -2324,16 +3617,16 @@ Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
 have extra latency on the first call from initialization
 
+###### Returns
+
+`Promise`\<`true`\>
+
 ###### Example
 
 ```ts
 const client = createMemoryClient()
 await client.ready()
 ```
-
-###### Returns
-
-`Promise`\<`true`\>
 
 ##### removeFilter()
 
@@ -2409,6 +3702,29 @@ Arguments to pass to the event listeners.
 `boolean`
 
 True if the event was emitted, false otherwise.
+
+#### See
+
+TevmNode
+
+#### Example
+
+```typescript
+import { createMemoryClient } from 'tevm'
+
+const memoryClient = createMemoryClient()
+
+// low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
+const vm = await memoryClient.tevm.getVm()
+vm.runBlock(...)
+const { blockchain, evm, stateManager } = vm
+blockchain.addBlock(...)
+evm.runCall(...)
+stateManager.putAccount(...)
+
+const mempool = await memoryClient.tevm.getTxPool()
+const receiptsManager = await memoryClient.tevm.getReceiptsManager()
+```
 
 ### tevmCall
 
@@ -2590,6 +3906,10 @@ await client.tevmMine()
 Returns a promise that resolves when the TEVM is ready.
 This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.
 
+#### Returns
+
+`Promise`\<`true`\>
+
 #### Example
 
 ```typescript
@@ -2600,10 +3920,6 @@ const client = createMemoryClient()
 await client.tevmReady()
 ```
 Same as calling `client.tevm.ready()`
-
-#### Returns
-
-`Promise`\<`true`\>
 
 ### tevmSetAccount
 
@@ -2786,16 +4102,16 @@ Returns promise that resulves when the client is ready
 The client is usable without calling this method but may
 have extra latency on the first call from initialization
 
+###### Returns
+
+`Promise`\<`true`\>
+
 ###### Example
 
 ```ts
 const client = createMemoryClient()
 await client.ready()
 ```
-
-###### Returns
-
-`Promise`\<`true`\>
 
 ###### removeFilter()
 
@@ -2894,6 +4210,15 @@ A unique ID for the client.
 
 > **uninstallFilter**: (`args`) => `Promise`\<`boolean`\>
 
+Destroys a Filter that was created from one of the following Actions:
+
+- [`createBlockFilter`](https://viem.sh/docs/actions/public/createBlockFilter)
+- [`createEventFilter`](https://viem.sh/docs/actions/public/createEventFilter)
+- [`createPendingTransactionFilter`](https://viem.sh/docs/actions/public/createPendingTransactionFilter)
+
+- Docs: https://viem.sh/docs/actions/public/uninstallFilter
+- JSON-RPC Methods: [`eth_uninstallFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_uninstallFilter)
+
 #### Parameters
 
 • **args**: `UninstallFilterParameters`
@@ -2906,9 +4231,27 @@ UninstallFilterParameters
 
 A boolean indicating if the Filter was successfully uninstalled. UninstallFilterReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { createPendingTransactionFilter, uninstallFilter } from 'viem/public'
+
+const filter = await client.createPendingTransactionFilter()
+const uninstalled = await client.uninstallFilter({ filter })
+// true
+```
+
 ### verifyMessage()
 
 > **verifyMessage**: (`args`) => `Promise`\<`boolean`\>
+
+Verify that a message was signed by the provided address.
+
+Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492).
+
+- Docs [https://viem.sh/docs/actions/public/verifyMessage](https://viem.sh/docs/actions/public/verifyMessage)
 
 #### Parameters
 
@@ -2953,6 +4296,12 @@ Whether or not the signature is valid. VerifyMessageReturnType
 ### verifySiweMessage()
 
 > **verifySiweMessage**: (`args`) => `Promise`\<`boolean`\>
+
+Verifies [EIP-4361](https://eips.ethereum.org/EIPS/eip-4361) formatted message was signed.
+
+Compatible with Smart Contract Accounts & Externally Owned Accounts via [ERC-6492](https://eips.ethereum.org/EIPS/eip-6492).
+
+- Docs [https://viem.sh/docs/siwe/actions/verifySiweMessage](https://viem.sh/docs/siwe/actions/verifySiweMessage)
 
 #### Parameters
 
@@ -3016,6 +4365,10 @@ Whether or not the signature is valid. VerifySiweMessageReturnType
 
 > **verifyTypedData**: (`args`) => `Promise`\<`boolean`\>
 
+Verify that typed data was signed by the provided address.
+
+- Docs [https://viem.sh/docs/actions/public/verifyTypedData](https://viem.sh/docs/actions/public/verifyTypedData)
+
 #### Parameters
 
 • **args**: `VerifyTypedDataParameters`
@@ -3030,6 +4383,17 @@ Whether or not the signature is valid. VerifyTypedDataReturnType
 
 > **waitForTransactionReceipt**: (`args`) => `Promise`\<`ExtractChainFormatterReturnType`\<`TCommon`, `"transactionReceipt"`, `TransactionReceipt`\>\>
 
+Waits for the [Transaction](https://viem.sh/docs/glossary/terms#transaction) to be included on a [Block](https://viem.sh/docs/glossary/terms#block) (one confirmation), and then returns the [Transaction Receipt](https://viem.sh/docs/glossary/terms#transaction-receipt). If the Transaction reverts, then the action will throw an error.
+
+- Docs: https://viem.sh/docs/actions/public/waitForTransactionReceipt
+- Example: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/sending-transactions
+- JSON-RPC Methods:
+  - Polls [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionReceipt) on each block until it has been processed.
+  - If a Transaction has been replaced:
+    - Calls [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber) and extracts the transactions
+    - Checks if one of the Transactions is a replacement
+    - If so, calls [`eth_getTransactionReceipt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getTransactionReceipt).
+
 #### Parameters
 
 • **args**: `WaitForTransactionReceiptParameters`\<`TCommon`\>
@@ -3042,9 +4406,41 @@ WaitForTransactionReceiptParameters
 
 The transaction receipt. WaitForTransactionReceiptReturnType
 
+#### Remarks
+
+The `waitForTransactionReceipt` action additionally supports Replacement detection (e.g. sped up Transactions).
+
+Transactions can be replaced when a user modifies their transaction in their wallet (to speed up or cancel). Transactions are replaced when they are sent from the same nonce.
+
+There are 3 types of Transaction Replacement reasons:
+
+- `repriced`: The gas price has been modified (e.g. different `maxFeePerGas`)
+- `cancelled`: The Transaction has been cancelled (e.g. `value === 0n`)
+- `replaced`: The Transaction has been replaced (e.g. different `value` or `data`)
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const transactionReceipt = await client.waitForTransactionReceipt({
+  hash: '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d',
+})
+```
+
 ### watchAsset()
 
 > **watchAsset**: (`args`) => `Promise`\<`boolean`\>
+
+Adds an EVM chain to the wallet.
+
+- Docs: https://viem.sh/docs/actions/wallet/watchAsset
+- JSON-RPC Methods: [`eth_switchEthereumChain`](https://eips.ethereum.org/EIPS/eip-747)
 
 #### Parameters
 
@@ -3058,9 +4454,37 @@ WatchAssetParameters
 
 Boolean indicating if the token was successfully added. WatchAssetReturnType
 
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const success = await client.watchAsset({
+  type: 'ERC20',
+  options: {
+    address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    decimals: 18,
+    symbol: 'WETH',
+  },
+})
+```
+
 ### watchBlockNumber()
 
 > **watchBlockNumber**: (`args`) => `WatchBlockNumberReturnType`
+
+Watches and returns incoming block numbers.
+
+- Docs: https://viem.sh/docs/actions/public/watchBlockNumber
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/watching-blocks
+- JSON-RPC Methods:
+  - When `poll: true`, calls [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber) on a polling interval.
+  - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newHeads"` event.
 
 #### Parameters
 
@@ -3074,9 +4498,32 @@ WatchBlockNumberParameters
 
 A function that can be invoked to stop watching for new block numbers. WatchBlockNumberReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const unwatch = await client.watchBlockNumber({
+  onBlockNumber: (blockNumber) => console.log(blockNumber),
+})
+```
+
 ### watchBlocks()
 
 > **watchBlocks**: \<`includeTransactions`, `blockTag`\>(`args`) => `WatchBlocksReturnType`
+
+Watches and returns information for incoming blocks.
+
+- Docs: https://viem.sh/docs/actions/public/watchBlocks
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/watching-blocks
+- JSON-RPC Methods:
+  - When `poll: true`, calls [`eth_getBlockByNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getBlockByNumber) on a polling interval.
+  - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newHeads"` event.
 
 #### Type Parameters
 
@@ -3096,9 +4543,28 @@ WatchBlocksParameters
 
 A function that can be invoked to stop watching for new block numbers. WatchBlocksReturnType
 
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const unwatch = await client.watchBlocks({
+  onBlock: (block) => console.log(block),
+})
+```
+
 ### watchContractEvent()
 
 > **watchContractEvent**: \<`abi`, `eventName`, `strict`\>(`args`) => `WatchContractEventReturnType`
+
+Watches and returns emitted contract event logs.
+
+- Docs: https://viem.sh/docs/contract/watchContractEvent
 
 #### Type Parameters
 
@@ -3120,9 +4586,44 @@ WatchContractEventParameters
 
 A function that can be invoked to stop watching for new event logs. WatchContractEventReturnType
 
+#### Remarks
+
+This Action will batch up all the event logs found within the [`pollingInterval`](https://viem.sh/docs/contract/watchContractEvent#pollinginterval-optional), and invoke them via [`onLogs`](https://viem.sh/docs/contract/watchContractEvent#onLogs).
+
+`watchContractEvent` will attempt to create an [Event Filter](https://viem.sh/docs/contract/createContractEventFilter) and listen to changes to the Filter per polling interval, however, if the RPC Provider does not support Filters (e.g. `eth_newFilter`), then `watchContractEvent` will fall back to using [`getLogs`](https://viem.sh/docs/actions/public/getLogs) instead.
+
+#### Example
+
+```ts
+import { createPublicClient, http, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const unwatch = client.watchContractEvent({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+  abi: parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)']),
+  eventName: 'Transfer',
+  args: { from: '0xc961145a54C96E3aE9bAA048c4F4D6b04C13916b' },
+  onLogs: (logs) => console.log(logs),
+})
+```
+
 ### watchEvent()
 
 > **watchEvent**: \<`abiEvent`, `abiEvents`, `strict`\>(`args`) => `WatchEventReturnType`
+
+Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#event-log).
+
+- Docs: https://viem.sh/docs/actions/public/watchEvent
+- JSON-RPC Methods:
+  - **RPC Provider supports `eth_newFilter`:**
+    - Calls [`eth_newFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newfilter) to create a filter (called on initialize).
+    - On a polling interval, it will call [`eth_getFilterChanges`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getfilterchanges).
+  - **RPC Provider does not support `eth_newFilter`:**
+    - Calls [`eth_getLogs`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs) for each block between the polling interval.
 
 #### Type Parameters
 
@@ -3144,9 +4645,39 @@ WatchEventParameters
 
 A function that can be invoked to stop watching for new Event Logs. WatchEventReturnType
 
+#### Remarks
+
+This Action will batch up all the Event Logs found within the [`pollingInterval`](https://viem.sh/docs/actions/public/watchEvent#pollinginterval-optional), and invoke them via [`onLogs`](https://viem.sh/docs/actions/public/watchEvent#onLogs).
+
+`watchEvent` will attempt to create an [Event Filter](https://viem.sh/docs/actions/public/createEventFilter) and listen to changes to the Filter per polling interval, however, if the RPC Provider does not support Filters (e.g. `eth_newFilter`), then `watchEvent` will fall back to using [`getLogs`](https://viem.sh/docs/actions/public/getLogs) instead.
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const unwatch = client.watchEvent({
+  onLogs: (logs) => console.log(logs),
+})
+```
+
 ### watchPendingTransactions()
 
 > **watchPendingTransactions**: (`args`) => `WatchPendingTransactionsReturnType`
+
+Watches and returns pending transaction hashes.
+
+- Docs: https://viem.sh/docs/actions/public/watchPendingTransactions
+- JSON-RPC Methods:
+  - When `poll: true`
+    - Calls [`eth_newPendingTransactionFilter`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_newpendingtransactionfilter) to initialize the filter.
+    - Calls [`eth_getFilterChanges`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getFilterChanges) on a polling interval.
+  - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newPendingTransactions"` event.
 
 #### Parameters
 
@@ -3160,9 +4691,39 @@ WatchPendingTransactionsParameters
 
 A function that can be invoked to stop watching for new pending transaction hashes. WatchPendingTransactionsReturnType
 
+#### Remarks
+
+This Action will batch up all the pending transactions found within the [`pollingInterval`](https://viem.sh/docs/actions/public/watchPendingTransactions#pollinginterval-optional), and invoke them via [`onTransactions`](https://viem.sh/docs/actions/public/watchPendingTransactions#ontransactions).
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const unwatch = await client.watchPendingTransactions({
+  onTransactions: (hashes) => console.log(hashes),
+})
+```
+
 ### writeContract()
 
 > **writeContract**: \<`abi`, `functionName`, `args`, `chainOverride`\>(`args`) => `Promise`\<\`0x$\{string\}\`\>
+
+Executes a write function on a contract.
+
+- Docs: https://viem.sh/docs/contract/writeContract
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/writing-to-contracts
+
+A "write" function on a Solidity contract modifies the state of the blockchain. These types of functions require gas to be executed, and hence a [Transaction](https://viem.sh/docs/glossary/terms) is needed to be broadcast in order to change the state.
+
+Internally, uses a [Wallet Client](https://viem.sh/docs/clients/wallet) to call the [`sendTransaction` action](https://viem.sh/docs/actions/wallet/sendTransaction) with [ABI-encoded `data`](https://viem.sh/docs/contract/encodeFunctionData).
+
+__Warning: The `write` internally sends a transaction – it does not validate if the contract write will succeed (the contract may throw an error). It is highly recommended to [simulate the contract write with `contract.simulate`](https://viem.sh/docs/contract/writeContract#usage) before you execute it.__
 
 #### Type Parameters
 
@@ -3185,6 +4746,222 @@ WriteContractParameters
 `Promise`\<\`0x$\{string\}\`\>
 
 A [Transaction Hash](https://viem.sh/docs/glossary/terms#hash). WriteContractReturnType
+
+#### Examples
+
+```ts
+import { createWalletClient, custom, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const hash = await client.writeContract({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+  abi: parseAbi(['function mint(uint32 tokenId) nonpayable']),
+  functionName: 'mint',
+  args: [69420],
+})
+```
+
+```ts
+// With Validation
+import { createWalletClient, custom, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const { request } = await client.simulateContract({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+  abi: parseAbi(['function mint(uint32 tokenId) nonpayable']),
+  functionName: 'mint',
+  args: [69420],
+}
+const hash = await client.writeContract(request)
+```
+
+## Example
+
+```typescript
+import { createMemoryClient } from "tevm";
+
+const client = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io")({}),
+  },
+});
+
+const blockNumber = await client.getBlockNumber();
+console.log(blockNumber);
+```
+
+## See
+
+ - [Client Guide](https://tevm.sh/learn/clients/)
+ - [Actions Guide](https://tevm.sh/learn/actions/)
+ - [Reference Docs](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)
+ - For more information on viem clients, see the [viem client docs](https://viem.sh/docs/clients/introduction)
+
+## Actions API
+
+MemoryClient supports the following viem actions:
+
+- [TEVM actions API](https://tevm.sh/reference/tevm/memory-client/type-aliases/tevmactions/)
+```typescript
+import { createMemoryClient } from "tevm";
+
+const tevm = createMemoryClient();
+await tevm.setAccount({ address: `0x${'01'.repeat(20)}`, balance: 100n });
+```
+- [Viem public actions API](https://viem.sh/docs/actions/public/introduction) such as [getBlockNumber](https://viem.sh/docs/actions/public/getBlockNumber)
+```typescript
+import { createMemoryClient } from "tevm";
+
+const tevm = createMemoryClient();
+const bn = await tevm.getBlockNumber();
+```
+- [Test actions](https://viem.sh/docs/actions/test/introduction) are included by default.
+```typescript
+import { createMemoryClient } from "tevm";
+
+const tevm = createMemoryClient();
+await tevm.setBalance({ address: `0x${'01'.repeat(20)}`, balance: 100n });
+```
+
+## Forking
+
+To fork an existing network, pass an EIP-1193 transport to the `fork.transport` option with an optional block tag.
+When you fork, TEVM will pin the block tag and lazily cache state from the fork transport.
+It's highly recommended to pass in a `common` object that matches the chain. This will increase the performance of forking with known values.
+
+```typescript
+import { createMemoryClient, http } from "tevm";
+import { optimism } from "tevm/common";
+
+const forkedClient = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io")({}),
+    blockTag: '0xa6a63cd70fbbe396321ca6fe79e1b6735760c03538208b50d7e3a5dac5226435',
+  },
+  common: optimism,
+});
+```
+
+The `common` object extends the viem chain interface with EVM-specific information. When using TEVM, you should also use `tevm/common` rather than `viem/chains` or use `createCommon` and pass in a viem chain.
+
+Viem clients, including MemoryClient, are themselves EIP-1193 transports. This means you can fork a client with another client.
+
+## Mining Modes
+
+TEVM supports two mining modes:
+- Manual: Using `tevm.mine()`
+- Auto: Automatically mines a block after every transaction.
+
+TEVM state does not update until blocks are mined.
+
+## Using TEVM over HTTP
+
+TEVM can be run as an HTTP server using `@tevm/server` to handle JSON-RPC requests.
+
+```typescript
+import { createServer } from "tevm/server";
+import { createMemoryClient } from "tevm";
+
+const memoryClient = createMemoryClient();
+
+const server = createServer({
+  request: memoryClient.request,
+});
+
+server.listen(8545, () => console.log("listening on 8545"));
+```
+
+This allows you to use any Ethereum client to communicate with it, including a viem public client.
+
+```typescript
+import { createPublicClient, http } from "viem";
+import { mainnet } from "viem/chains";
+
+const publicClient = createPublicClient({
+  chain: mainnet,
+  transport: http("https://localhost:8545"),
+});
+
+console.log(await publicClient.getChainId());
+```
+
+## State Persistence (Experimental)
+
+It is possible to persist the TEVM client to a synchronous source using the `persister` option.
+
+```typescript
+import { createMemoryClient, createSyncPersister } from "tevm";
+import { createMemoryClient } from "tevm/sync-storage-persister";
+
+// Client state will be hydrated and persisted from/to local storage
+const clientWithLocalStoragePersistence = createMemoryClient({
+  persister: createSyncPersister({
+    storage: localStorage,
+  }),
+});
+```
+
+## Network Support
+
+TEVM guarantees support for the following networks:
+- Ethereum mainnet
+- Standard OP Stack chains
+
+Other EVM chains are likely to work but do not officially carry support. More official chain support will be added in the near future.
+
+Note: Optimism deposit transactions are not currently supported but will be in a future release. TEVM filters out these transactions from blocks.
+
+## Network and Hardfork Support
+
+TEVM supports enabling and disabling different EIPs, but the following EIPs are always turned on:
+- 1559
+- 4895
+- 4844
+- 4788
+
+Currently, only EIP-1559 Fee Market transactions are supported.
+
+## Tree Shakeable Actions
+
+TEVM supports tree-shakeable actions using `createTevmNode()` and the `tevm/actions` package. If you are building a UI, you should use tree-shakeable actions to optimize bundle size. These are described in detail in the [actions API guide](https://tevm.sh/learn/actions/).
+
+## Composing with TEVM Contracts and Bundler
+
+MemoryClient can compose with TEVM contracts and the TEVM bundler. For more information, see the [TEVM contracts guide](https://tevm.sh/learn/contracts/) and the [TEVM Solidity imports guide](https://tevm.sh/learn/solidity-imports/).
+
+```typescript
+import { createMemoryClient } from "tevm";
+import { MyERC721 } from './MyERC721.sol';
+
+const tevm = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io")({}),
+  },
+});
+
+const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+
+await tevm.runContractCall(
+  MyERC721.write.mint({
+    caller: address,
+  }),
+);
+
+const balance = await tevm.runContractCall(
+  MyERC721.read.balanceOf({
+    caller: address,
+  }),
+);
+console.log(balance); // 1n
+```
 
 ## Defined in
 

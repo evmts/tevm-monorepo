@@ -8,6 +8,8 @@
 
 > **ethGetFilterLogsProcedure**(`client`): [`EthGetFilterLogsJsonRpcProcedure`](../type-aliases/EthGetFilterLogsJsonRpcProcedure.md)
 
+Request handler for eth_getFilterLogs JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

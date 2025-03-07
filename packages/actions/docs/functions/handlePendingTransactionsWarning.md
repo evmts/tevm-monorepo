@@ -8,6 +8,8 @@
 
 > **handlePendingTransactionsWarning**(`client`, `params`, `code`, `deployedBytecode`): `Promise`\<`void`\>
 
+Handles warning for pending transactions in the transaction pool.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -31,6 +33,10 @@ The deployed bytecode to use.
 `Promise`\<`void`\>
 
 A promise that resolves when the check is complete.
+
+## Throws
+
+This function does not throw errors.
 
 ## Defined in
 

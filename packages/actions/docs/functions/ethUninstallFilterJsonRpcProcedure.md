@@ -8,6 +8,8 @@
 
 > **ethUninstallFilterJsonRpcProcedure**(`client`): [`EthUninstallFilterJsonRpcProcedure`](../type-aliases/EthUninstallFilterJsonRpcProcedure.md)
 
+Request handler for eth_uninstallFilter JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

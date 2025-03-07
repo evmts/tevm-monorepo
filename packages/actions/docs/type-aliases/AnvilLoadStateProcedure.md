@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_loadState`
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilProcedure.ts:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L122)
+[packages/actions/src/anvil/AnvilProcedure.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L124)

@@ -17,6 +17,10 @@ It can be used by DApps to reduce the amount of contract code needed to be deplo
 It can be used for smart contract analysis by extending the code deployed on chain with custom methods and invoking them. This avoids having to download and reconstruct the entire state in a sandbox to run custom code against.
 It can be used to debug smart contracts in an already deployed large suite of contracts by selectively overriding some code or state and seeing how execution changes. Specialized tooling will probably be necessary.
 
+## Index Signature
+
+ \[`address`: `Address`\]: `object`
+
 ## Example
 
 ```ts
@@ -32,10 +36,6 @@ It can be used to debug smart contracts in an already deployed large suite of co
   }
 }
 ```
-
-## Index Signature
-
- \[`address`: `Address`\]: `object`
 
 ## Defined in
 

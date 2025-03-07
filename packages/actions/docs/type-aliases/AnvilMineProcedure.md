@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_mine`
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilProcedure.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L67)
+[packages/actions/src/anvil/AnvilProcedure.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L69)

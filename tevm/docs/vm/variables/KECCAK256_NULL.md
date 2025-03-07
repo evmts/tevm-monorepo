@@ -6,7 +6,7 @@
 
 # Variable: KECCAK256\_NULL
 
-> `const` **KECCAK256\_NULL**: `ByteArray`
+> `const` **KECCAK256\_NULL**: `Uint8Array`
 
 ## Defined in
 

@@ -28,10 +28,10 @@
 
 Creates a JSON RPC server for serving tevm\_ requests from an ethereumjs evm.
 
-- [`createHttpHandler`]() Creates a generic http handler
-- [`createServer`]() Creates a simple vanilla node.js server to serve TEVM json-rpc api
-- [`createExpressMiddleware`]() Creates an express middleware to serve TEVM json-rpc api
-- [`createNextApiHandler`]() Creates a next.js handler for tevm.
+- [`createHttpHandler`](_media/createHttpHandler.js) Creates a generic http handler
+- [`createServer`](_media/createServer.js) Creates a simple vanilla node.js server to serve TEVM json-rpc api
+- [`createExpressMiddleware`](_media/createExpressMiddleware.js) Creates an express middleware to serve TEVM json-rpc api
+- [`createNextApiHandler`](./src/adapters/createNextApiHandler.js.js) Creates a next.js handler for tevm.
 
 ## Example
 
@@ -84,4 +84,4 @@ This works because all tevm actions are implemented both in memory and as JSON-R
 
 ## License 📄
 
-<a href=""><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>
+<a href="_media/LICENSE"><img src="https://user-images.githubusercontent.com/35039927/231030761-66f5ce58-a4e9-4695-b1fe-255b1bceac92.png" width="200" /></a>

@@ -8,6 +8,10 @@
 
 > **CreateMemoryClientFn**: \<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options`?) => [`MemoryClient`](MemoryClient.md)\<`TCommon`, `TAccountOrAddress`\>
 
+Type definition for the function that creates a [MemoryClient](MemoryClient.md).
+This function initializes a MemoryClient with the provided options,
+including forking configurations, logging levels, and state persistence options.
+
 ## Type Parameters
 
 • **TCommon** *extends* `Common` & `Chain` = `Common` & `Chain`
@@ -33,6 +37,25 @@ The options to configure the MemoryClient.
 [`MemoryClient`](MemoryClient.md)\<`TCommon`, `TAccountOrAddress`\>
 
 - A configured MemoryClient instance.
+
+## Example
+
+```typescript
+import { createMemoryClient } from "tevm";
+import { optimism } from "tevm/common";
+
+const client = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io")({}),
+    blockTag: '0xa6a63cd70fbbe396321ca6fe79e1b6735760c03538208b50d7e3a5dac5226435',
+  },
+  common: optimism,
+});
+```
+
+## See
+
+For more details on using the MemoryClient, refer to [MemoryClient](MemoryClient.md).
 
 ## Defined in
 

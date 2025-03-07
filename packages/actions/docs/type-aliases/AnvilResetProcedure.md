@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_reset`
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilProcedure.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L72)
+[packages/actions/src/anvil/AnvilProcedure.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L74)

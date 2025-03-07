@@ -8,6 +8,8 @@
 
 > **anvilGetAutomineJsonRpcProcedure**(`client`): [`AnvilGetAutomineProcedure`](../type-aliases/AnvilGetAutomineProcedure.md)
 
+Request handler for anvil_getAutomine JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

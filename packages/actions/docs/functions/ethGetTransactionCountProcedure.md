@@ -8,6 +8,8 @@
 
 > **ethGetTransactionCountProcedure**(`node`): [`EthGetTransactionCountJsonRpcProcedure`](../type-aliases/EthGetTransactionCountJsonRpcProcedure.md)
 
+Request handler for eth_getFilterLogs JSON-RPC requests.
+
 ## Parameters
 
 • **node**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

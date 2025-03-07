@@ -22,8 +22,6 @@ module:service
 
 **`Experimental`**
 
-Create new tx pool
-
 #### Parameters
 
 • **options**: `TxPoolOptions`
@@ -70,20 +68,6 @@ txs (for cleanup/memory reasons)
 
 ***
 
-### POOLED\_STORAGE\_TIME\_LIMIT
-
-> **POOLED\_STORAGE\_TIME\_LIMIT**: `number` = `20`
-
-**`Experimental`**
-
-Number of minutes to keep txs in the pool
-
-#### Defined in
-
-[TxPool.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L106)
-
-***
-
 ### pool
 
 > **pool**: `Map`\<`string`, `TxPoolObject`[]\>
@@ -97,6 +81,20 @@ Maps an address to a `TxPoolObject`
 #### Defined in
 
 [TxPool.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L80)
+
+***
+
+### POOLED\_STORAGE\_TIME\_LIMIT
+
+> **POOLED\_STORAGE\_TIME\_LIMIT**: `number` = `20`
+
+**`Experimental`**
+
+Number of minutes to keep txs in the pool
+
+#### Defined in
+
+[TxPool.ts:106](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L106)
 
 ***
 
@@ -148,12 +146,6 @@ The number of txs currently in the pool
 
 **`Experimental`**
 
-Adds a tx to the pool.
-
-If there is a tx in the pool with the same address and
-nonce it will be replaced by the new tx, if it has a sufficient gas bump.
-This also verifies certain constraints, if these are not met, tx will not be added to the pool.
-
 #### Parameters
 
 • **tx**: `TypedTransaction` \| `ImpersonatedTx`
@@ -180,12 +172,6 @@ Transaction
 
 **`Experimental`**
 
-Adds a tx to the pool without validating it.
-
-If there is a tx in the pool with the same address and
-nonce it will be replaced by the new tx, if it has a sufficient gas bump.
-This also verifies certain constraints, if these are not met, tx will not be added to the pool.
-
 #### Parameters
 
 • **tx**: `TypedTransaction` \| `ImpersonatedTx`
@@ -208,8 +194,6 @@ Transaction
 
 **`Experimental`**
 
-Regular tx pool cleanup
-
 #### Returns
 
 `void`
@@ -225,8 +209,6 @@ Regular tx pool cleanup
 > **close**(): `void`
 
 **`Experimental`**
-
-Close pool
 
 #### Returns
 
@@ -263,8 +245,6 @@ Close pool
 > **getByHash**(`txHashes`): (`TypedTransaction` \| `ImpersonatedTx`)[]
 
 **`Experimental`**
-
-Returns the available txs from the pool
 
 #### Parameters
 
@@ -308,8 +288,6 @@ Array with tx objects
 
 **`Experimental`**
 
-Open pool
-
 #### Returns
 
 `boolean`
@@ -325,8 +303,6 @@ Open pool
 > **removeByHash**(`txHash`): `void`
 
 **`Experimental`**
-
-Removes the given tx from the pool
 
 #### Parameters
 
@@ -350,8 +326,6 @@ Hash of the transaction
 
 **`Experimental`**
 
-Remove txs included in the latest blocks from the tx pool
-
 #### Parameters
 
 • **newBlocks**: `Block`[]
@@ -372,8 +346,6 @@ Remove txs included in the latest blocks from the tx pool
 
 **`Experimental`**
 
-Start tx processing
-
 #### Returns
 
 `boolean`
@@ -390,8 +362,6 @@ Start tx processing
 
 **`Experimental`**
 
-Stop pool execution
-
 #### Returns
 
 `boolean`
@@ -407,19 +377,6 @@ Stop pool execution
 > **txsByPriceAndNonce**(`baseFee`): `Promise`\<(`TypedTransaction` \| `ImpersonatedTx`)[]\>
 
 **`Experimental`**
-
-Returns eligible txs to be mined sorted by price in such a way that the
-nonce orderings within a single account are maintained.
-
-Note, this is not as trivial as it seems from the first look as there are three
-different criteria that need to be taken into account (price, nonce, account
-match), which cannot be done with any plain sorting method, as certain items
-cannot be compared without context.
-
-This method first sorts the separates the list of transactions into individual
-sender accounts and sorts them by nonce. After the account nonce ordering is
-satisfied, the results are merged back together by price, always comparing only
-the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Parameters
 

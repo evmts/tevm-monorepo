@@ -32,6 +32,10 @@ A mapping of `eth_*` method names to their return type
 
 > **eth\_coinbase**: [`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)
 
+### eth\_createAccessList
+
+> **eth\_createAccessList**: [`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)
+
 ### eth\_estimateGas
 
 > **eth\_estimateGas**: [`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)
@@ -166,4 +170,4 @@ A mapping of `eth_*` method names to their return type
 
 ## Defined in
 
-[packages/actions/src/tevm-request-handler/EthReturnType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthReturnType.ts#L45)
+[packages/actions/src/tevm-request-handler/EthReturnType.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthReturnType.ts#L46)

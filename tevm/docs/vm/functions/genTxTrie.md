@@ -6,7 +6,7 @@
 
 # Function: genTxTrie()
 
-> **genTxTrie**(`block`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+> **genTxTrie**(`block`): `Promise`\<`Uint8Array`\>
 
 ## Parameters
 
@@ -14,7 +14,7 @@
 
 ## Returns
 
-`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+`Promise`\<`Uint8Array`\>
 
 ## Defined in
 

@@ -8,6 +8,8 @@
 
 > **ethGetBlockByNumberJsonRpcProcedure**(`client`): [`EthGetBlockByNumberJsonRpcProcedure`](../type-aliases/EthGetBlockByNumberJsonRpcProcedure.md)
 
+Request handler for eth_getBlockByNumber JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

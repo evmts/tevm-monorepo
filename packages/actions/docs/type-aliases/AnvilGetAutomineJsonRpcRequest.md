@@ -12,4 +12,4 @@ JSON-RPC request for `anvil_getAutomine` method
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L32)
+[packages/actions/src/anvil/AnvilJsonRpcRequest.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L35)

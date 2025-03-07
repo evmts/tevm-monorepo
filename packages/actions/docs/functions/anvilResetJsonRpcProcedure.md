@@ -6,16 +6,28 @@
 
 # Function: anvilResetJsonRpcProcedure()
 
-> **anvilResetJsonRpcProcedure**(`client`): [`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)
+> **anvilResetJsonRpcProcedure**(`node`): [`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)
+
+Request handler for anvil_reset JSON-RPC requests.
+If the node is forked, anvil_reset will reset to the forked block.
 
 ## Parameters
 
-• **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
+• **node**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
 
 ## Returns
 
 [`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)
 
+## Example
+
+```ts
+const node = createTevmNode()
+const resetProcedure = anvilResetJsonRpcProcedure(node)
+const result = await resetProcedure({ method: 'anvil_reset', params: [], id: 1, jsonrpc: '2.0' })
+console.log(result) // { result: null, method: 'anvil_reset', jsonrpc: '2.0', id: 1 }
+```
+
 ## Defined in
 
-[packages/actions/src/anvil/anvilResetProcedure.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilResetProcedure.js#L6)
+[packages/actions/src/anvil/anvilResetProcedure.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/anvilResetProcedure.js#L15)

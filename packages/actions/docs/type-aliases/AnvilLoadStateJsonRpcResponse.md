@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_loadState` procedure
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcResponse.ts:142](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L142)
+[packages/actions/src/anvil/AnvilJsonRpcResponse.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L143)

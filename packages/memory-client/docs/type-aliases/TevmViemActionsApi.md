@@ -12,15 +12,6 @@ A custom [viem extension](https://viem.sh/docs/clients/custom#extending-with-act
 Tevm specific actions to the client. These actions come preloaded with [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
 To add these actions use the `extend` method on a TevmClient with the tevmViemActions() extension.
 
-## Example
-
-```typescript
-import { createTevmClient, tevmViemActions } from 'tevm'
-
-const client = createTevmClient()
-  .extend(tevmViemActions())
-```
-
 ## Type declaration
 
 ### tevm
@@ -62,6 +53,15 @@ const client = createTevmClient()
 ### tevmSetAccount
 
 > **tevmSetAccount**: `TevmActionsApi`\[`"setAccount"`\]
+
+## Example
+
+```typescript
+import { createTevmClient, tevmViemActions } from 'tevm'
+
+const client = createTevmClient()
+  .extend(tevmViemActions())
+```
 
 ## Defined in
 

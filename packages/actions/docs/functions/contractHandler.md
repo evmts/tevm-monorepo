@@ -8,6 +8,11 @@
 
 > **contractHandler**(`client`, `options`?): [`ContractHandler`](../type-aliases/ContractHandler.md)
 
+Creates a tree-shakable instance of `contractHandler` for handling contract interactions with the Ethereumjs EVM.
+This function uses `callHandler` under the hood to execute contract calls.
+
+Note: This is the internal logic used by higher-level APIs such as `tevmContract`.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -27,6 +32,28 @@ Whether to throw an error on failure.
 [`ContractHandler`](../type-aliases/ContractHandler.md)
 
 The contract handler function.
+
+## Throws
+
+If `throwOnFail` is true, returns `TevmCallError` as value.
+
+## Example
+
+```typescript
+import { createTevmNode } from 'tevm/node'
+import { contractHandler } from 'tevm/actions'
+
+const client = createTevmNode()
+
+const contract = contractHandler(client)
+
+const res = await contract({
+  to: `0x${'69'.repeat(20)}`,
+  abi: [{...}], // ABI array
+  functionName: 'myFunction',
+  args: [1, 2, 3],
+})
+```
 
 ## Defined in
 

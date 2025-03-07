@@ -10,7 +10,7 @@ An [ethers JsonRpcApiProvider](https://docs.ethers.org/v6/api/providers/jsonrpc/
 
 ## TevmProvider
 
-The TevmProvider class is an instance of an ethers provider using Tevm as it's backend. The `createMemoryProvider` method can be used to create an in memory instance of tevm using a [memoryClient]() as it's backend.
+The TevmProvider class is an instance of an ethers provider using Tevm as it's backend. The `createMemoryProvider` method can be used to create an in memory instance of tevm using a [memoryClient](../clients/) as it's backend.
 
 ## Examples
 
@@ -51,7 +51,7 @@ console.log(
 
 ## Tevm actions support
 
-The entire [tevm api]() exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
+The entire [tevm api](../clients/) exists on the `tevm` property. For example the `tevm.script` method can be used to run an arbitrary script.
 
 ```typescript
 import {TevmProvider} from '@tevm/ethers'
@@ -86,7 +86,7 @@ console.log(result)
 
 ## Tevm JSON-RPC support
 
-An ethers TevmProvider supports the tevm [JSON-RPC methods](). For example you can use `tevm_account` to set account
+An ethers TevmProvider supports the tevm [JSON-RPC methods](../json-rpc). For example you can use `tevm_account` to set account
 
 ```typescript
 await provider.send('tevm_setAccount', {
@@ -717,7 +717,7 @@ Create a timer that will execute %%func%% after at least %%timeout%%
  (in ms). If %%timeout%% is unspecified, then %%func%% will execute
  in the next event loop.
 
- [Pausing]() the provider will pause any
+ [Pausing](AbstractProvider-paused) the provider will pause any
  associated timers.
 
 #### Parameters
@@ -1140,14 +1140,14 @@ Get the account balance (in wei) of %%address%%. If %%blockTag%%
 
 `Promise`\<`bigint`\>
 
-#### Inherited from
-
-`JsonRpcApiProvider.getBalance`
-
 #### Note
 
 On nodes without archive access enabled, the %%blockTag%% may be
        **silently ignored** by the node, which may cause issues if relied on.
+
+#### Inherited from
+
+`JsonRpcApiProvider.getBalance`
 
 #### Defined in
 
@@ -1222,14 +1222,14 @@ Get the bytecode for %%address%%.
 
 `Promise`\<`string`\>
 
-#### Inherited from
-
-`JsonRpcApiProvider.getCode`
-
 #### Note
 
 On nodes without archive access enabled, the %%blockTag%% may be
        **silently ignored** by the node, which may cause issues if relied on.
+
+#### Inherited from
+
+`JsonRpcApiProvider.getCode`
 
 #### Defined in
 
@@ -1482,14 +1482,14 @@ Get the storage slot value for %%address%% at slot %%position%%.
 
 `Promise`\<`string`\>
 
-#### Inherited from
-
-`JsonRpcApiProvider.getStorage`
-
 #### Note
 
 On nodes without archive access enabled, the %%blockTag%% may be
        **silently ignored** by the node, which may cause issues if relied on.
+
+#### Inherited from
+
+`JsonRpcApiProvider.getStorage`
 
 #### Defined in
 
@@ -1544,14 +1544,14 @@ Get the number of transactions ever sent for %%address%%, which
 
 `Promise`\<`number`\>
 
-#### Inherited from
-
-`JsonRpcApiProvider.getTransactionCount`
-
 #### Note
 
 On nodes without archive access enabled, the %%blockTag%% may be
        **silently ignored** by the node, which may cause issues if relied on.
+
+#### Inherited from
+
+`JsonRpcApiProvider.getTransactionCount`
 
 #### Defined in
 

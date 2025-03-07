@@ -8,6 +8,11 @@
 
 > **cloneVmWithBlockTag**(`client`, `block`): `Promise`\<`Vm` \| `InternalError` \| `ForkError`\>
 
+Prepares the VM for a call given a block tag. This includes
+- Cloning the VM
+- Setting the state root
+- Setting the fork transport if the block is in the past
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -19,6 +24,10 @@
 `Promise`\<`Vm` \| `InternalError` \| `ForkError`\>
 
 VM or errors
+
+## Throws
+
+returns errors as values
 
 ## Defined in
 

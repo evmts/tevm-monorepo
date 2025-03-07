@@ -20,4 +20,4 @@ JSON-RPC procedure for `anvil_dumpState`
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilProcedure.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L116)
+[packages/actions/src/anvil/AnvilProcedure.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L118)

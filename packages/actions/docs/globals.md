@@ -4,6 +4,12 @@
 
 # @tevm/actions
 
+## References
+
+### HandleRunTxError
+
+Renames and re-exports [ExecuteCallError](type-aliases/ExecuteCallError.md)
+
 ## Classes
 
 - [BlobGasLimitExceededError](classes/BlobGasLimitExceededError.md)
@@ -14,6 +20,12 @@
 
 - [Abi](type-aliases/Abi.md)
 - [Address](type-aliases/Address.md)
+- [AnvilDealHandler](type-aliases/AnvilDealHandler.md)
+- [AnvilDealJsonRpcRequest](type-aliases/AnvilDealJsonRpcRequest.md)
+- [AnvilDealJsonRpcResponse](type-aliases/AnvilDealJsonRpcResponse.md)
+- [AnvilDealParams](type-aliases/AnvilDealParams.md)
+- [AnvilDealProcedure](type-aliases/AnvilDealProcedure.md)
+- [AnvilDealResult](type-aliases/AnvilDealResult.md)
 - [AnvilDropTransactionHandler](type-aliases/AnvilDropTransactionHandler.md)
 - [AnvilDropTransactionJsonRpcRequest](type-aliases/AnvilDropTransactionJsonRpcRequest.md)
 - [AnvilDropTransactionJsonRpcResponse](type-aliases/AnvilDropTransactionJsonRpcResponse.md)
@@ -51,6 +63,7 @@
 - [AnvilMineParams](type-aliases/AnvilMineParams.md)
 - [AnvilMineProcedure](type-aliases/AnvilMineProcedure.md)
 - [AnvilMineResult](type-aliases/AnvilMineResult.md)
+- [AnvilProcedure](type-aliases/AnvilProcedure.md)
 - [AnvilRequestType](type-aliases/AnvilRequestType.md)
 - [AnvilResetHandler](type-aliases/AnvilResetHandler.md)
 - [AnvilResetJsonRpcRequest](type-aliases/AnvilResetJsonRpcRequest.md)
@@ -163,6 +176,9 @@
 - [EthCoinbaseJsonRpcResponse](type-aliases/EthCoinbaseJsonRpcResponse.md)
 - [EthCoinbaseParams](type-aliases/EthCoinbaseParams.md)
 - [EthCoinbaseResult](type-aliases/EthCoinbaseResult.md)
+- [EthCreateAccessListJsonRpcProcedure](type-aliases/EthCreateAccessListJsonRpcProcedure.md)
+- [EthCreateAccessListJsonRpcRequest](type-aliases/EthCreateAccessListJsonRpcRequest.md)
+- [EthCreateAccessListJsonRpcResponse](type-aliases/EthCreateAccessListJsonRpcResponse.md)
 - [EthEstimateGasHandler](type-aliases/EthEstimateGasHandler.md)
 - [EthEstimateGasJsonRpcProcedure](type-aliases/EthEstimateGasJsonRpcProcedure.md)
 - [EthEstimateGasJsonRpcRequest](type-aliases/EthEstimateGasJsonRpcRequest.md)
@@ -452,6 +468,7 @@
 
 ## Functions
 
+- [anvilDealJsonRpcProcedure](functions/anvilDealJsonRpcProcedure.md)
 - [anvilDropTransactionJsonRpcProcedure](functions/anvilDropTransactionJsonRpcProcedure.md)
 - [anvilDumpStateJsonRpcProcedure](functions/anvilDumpStateJsonRpcProcedure.md)
 - [anvilGetAutomineJsonRpcProcedure](functions/anvilGetAutomineJsonRpcProcedure.md)
@@ -475,6 +492,7 @@
 - [chainIdProcedure](functions/chainIdProcedure.md)
 - [cloneVmWithBlockTag](functions/cloneVmWithBlockTag.md)
 - [contractHandler](functions/contractHandler.md)
+- [dealHandler](functions/dealHandler.md)
 - [deployHandler](functions/deployHandler.md)
 - [dumpStateHandler](functions/dumpStateHandler.md)
 - [dumpStateProcedure](functions/dumpStateProcedure.md)
@@ -484,6 +502,7 @@
 - [ethCallHandler](functions/ethCallHandler.md)
 - [ethCallProcedure](functions/ethCallProcedure.md)
 - [ethCoinbaseJsonRpcProcedure](functions/ethCoinbaseJsonRpcProcedure.md)
+- [ethCreateAccessListProcedure](functions/ethCreateAccessListProcedure.md)
 - [ethEstimateGasJsonRpcProcedure](functions/ethEstimateGasJsonRpcProcedure.md)
 - [ethGetBlockByHashJsonRpcProcedure](functions/ethGetBlockByHashJsonRpcProcedure.md)
 - [ethGetBlockByNumberJsonRpcProcedure](functions/ethGetBlockByNumberJsonRpcProcedure.md)

@@ -8,6 +8,8 @@
 
 > **anvilSetCodeJsonRpcProcedure**(`client`): [`AnvilSetCodeProcedure`](../type-aliases/AnvilSetCodeProcedure.md)
 
+Request handler for anvil_setCode JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

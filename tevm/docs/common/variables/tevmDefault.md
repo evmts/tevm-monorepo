@@ -38,23 +38,7 @@ The default chain if no fork url is passed
 
 ### contracts?
 
-> `optional` **contracts**: `object`
-
-#### Index Signature
-
- \[`x`: `string`\]: `ChainContract` \| `object` \| `undefined`
-
-### contracts.ensRegistry?
-
-> `optional` **ensRegistry**: `ChainContract`
-
-### contracts.ensUniversalResolver?
-
-> `optional` **ensUniversalResolver**: `ChainContract`
-
-### contracts.multicall3?
-
-> `optional` **multicall3**: `ChainContract`
+> `optional` **contracts**: `Prettify`
 
 ### copy()
 

@@ -8,6 +8,8 @@
 
 > **ethGetBlockTransactionCountByHashJsonRpcProcedure**(`client`): [`EthGetBlockTransactionCountByHashJsonRpcProcedure`](../type-aliases/EthGetBlockTransactionCountByHashJsonRpcProcedure.md)
 
+Request handler for eth_getBlockTransactionCountByHash JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

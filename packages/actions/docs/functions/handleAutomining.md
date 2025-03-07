@@ -8,6 +8,8 @@
 
 > **handleAutomining**(`client`, `txHash`?): `Promise`\<`undefined` \| `object`\>
 
+Runs the mining logic if the client is set to automine
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -19,6 +21,10 @@
 `Promise`\<`undefined` \| `object`\>
 
 undefined if noop, errors if automining fails, blockHashes if automining succeeds
+
+## Throws
+
+returns errors as values
 
 ## Defined in
 

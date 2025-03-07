@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionReceiptJsonRpcRequest
 
-> **EthGetTransactionReceiptJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getTransactionReceipt"`, [`Hex`]\>
+> **EthGetTransactionReceiptJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getTransactionReceipt"`, readonly [`Hex`]\>
 
 JSON-RPC request for `eth_getTransactionReceipt` procedure
 

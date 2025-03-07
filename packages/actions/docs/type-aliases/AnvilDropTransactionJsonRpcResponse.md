@@ -12,4 +12,4 @@ JSON-RPC response for `anvil_dropTransaction` procedure
 
 ## Defined in
 
-[packages/actions/src/anvil/AnvilJsonRpcResponse.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L77)
+[packages/actions/src/anvil/AnvilJsonRpcResponse.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L78)

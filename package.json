@@ -66,6 +66,7 @@
     "vite": "^5.4.8",
     "vitest": "^2.1.1"
   },
+  "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
   "engines": {
     "node": ">=18"
   }

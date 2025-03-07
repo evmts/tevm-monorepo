@@ -8,16 +8,16 @@
 
 > **ViemTevmClient**: `object`
 
-## Deprecated
-
-in favor of the viem transport
-The decorated properties added by the `tevmViemExtension`
-
 ## Type declaration
 
 ### ~~tevm~~
 
 > **tevm**: `TevmClient`
+
+## Deprecated
+
+in favor of the viem transport
+The decorated properties added by the `tevmViemExtension`
 
 ## Defined in
 

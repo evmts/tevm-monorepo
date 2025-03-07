@@ -10,10 +10,6 @@
 
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 
-## See
-
-[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
-
 ## Type declaration
 
 ### call
@@ -63,6 +59,22 @@ const res = await tevm.contract({
   skipBalance: true,
 }
 console.log(res.data) // "hello"
+```
+
+### deal
+
+> **deal**: `AnvilDealHandler`
+
+Deals ERC20 tokens to an account by overriding the storage of balanceOf(account)
+
+#### Example
+
+```typescript
+await tevm.deal({
+  erc20: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // Optional: USDC address
+  account: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+  amount: 1000000n // 1 USDC (6 decimals)
+})
 ```
 
 ### deploy
@@ -154,6 +166,10 @@ await tevm.setAccount({
 })
 ```
 
+## See
+
+[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
+
 ## Defined in
 
-[actions/TevmActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L16)
+[actions/TevmActionsApi.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L17)

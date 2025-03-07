@@ -8,6 +8,8 @@
 
 > **ethNewFilterJsonRpcProcedure**(`tevmNode`): [`EthNewFilterJsonRpcProcedure`](../type-aliases/EthNewFilterJsonRpcProcedure.md)
 
+Request handler for eth_newFilter JSON-RPC requests.
+
 ## Parameters
 
 • **tevmNode**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

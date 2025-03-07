@@ -12,6 +12,10 @@ A mapping of `anvil_*` method names to their return type
 
 ## Type declaration
 
+### anvil\_deal
+
+> **anvil\_deal**: [`AnvilDealJsonRpcResponse`](AnvilDealJsonRpcResponse.md)
+
 ### anvil\_dropTransaction
 
 > **anvil\_dropTransaction**: [`AnvilDropTransactionJsonRpcResponse`](AnvilDropTransactionJsonRpcResponse.md)
@@ -70,4 +74,4 @@ A mapping of `anvil_*` method names to their return type
 
 ## Defined in
 
-[packages/actions/src/tevm-request-handler/AnvilReturnType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/AnvilReturnType.ts#L21)
+[packages/actions/src/tevm-request-handler/AnvilReturnType.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/AnvilReturnType.ts#L22)

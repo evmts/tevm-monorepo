@@ -8,6 +8,8 @@
 
 > **anvilSetCoinbaseJsonRpcProcedure**(`client`): [`AnvilSetCoinbaseProcedure`](../type-aliases/AnvilSetCoinbaseProcedure.md)
 
+Request handler for anvil_SetCoinbase JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

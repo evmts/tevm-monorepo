@@ -165,13 +165,13 @@ packages/vm/types/actions/BlockBuilder.d.ts:84
 
 ### logsBloom()
 
-> **logsBloom**(): `any`
+> **logsBloom**(): `Uint8Array`
 
 Calculates and returns the logs bloom for the block.
 
 #### Returns
 
-`any`
+`Uint8Array`
 
 #### Defined in
 
@@ -181,13 +181,13 @@ packages/vm/types/actions/BlockBuilder.d.ts:46
 
 ### receiptTrie()
 
-> **receiptTrie**(): `Promise`\<`any`\>
+> **receiptTrie**(): `Promise`\<`Uint8Array`\>
 
 Calculates and returns the receiptTrie for the block.
 
 #### Returns
 
-`Promise`\<`any`\>
+`Promise`\<`Uint8Array`\>
 
 #### Defined in
 
@@ -213,13 +213,13 @@ packages/vm/types/actions/BlockBuilder.d.ts:71
 
 ### transactionsTrie()
 
-> **transactionsTrie**(): `Promise`\<`any`\>
+> **transactionsTrie**(): `Promise`\<`Uint8Array`\>
 
 Calculates and returns the transactionsTrie for the block.
 
 #### Returns
 
-`Promise`\<`any`\>
+`Promise`\<`Uint8Array`\>
 
 #### Defined in
 

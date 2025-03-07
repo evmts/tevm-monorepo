@@ -54,4 +54,13 @@ describe(dumpCanonicalGenesis.name, () => {
 			}
 		`)
 	})
+
+	it('should handle empty state', async () => {
+		const state = createBaseState({})
+
+		// Empty state should return empty object
+		const result = await dumpCanonicalGenesis(state)()
+
+		expect(result).toEqual({})
+	})
 })

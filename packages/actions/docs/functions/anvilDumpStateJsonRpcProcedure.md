@@ -10,6 +10,8 @@
 
 **`Experimental`**
 
+Request handler for anvil_dumpState JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -17,6 +19,8 @@
 ## Returns
 
 [`AnvilDumpStateProcedure`](../type-aliases/AnvilDumpStateProcedure.md)
+
+## Param
 
 ## Defined in
 

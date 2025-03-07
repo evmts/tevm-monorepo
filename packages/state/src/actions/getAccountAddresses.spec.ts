@@ -28,6 +28,7 @@ describe(getAccountAddresses.name, () => {
 			]),
 		)
 	})
+
 	it('works with ordered map cache', async () => {
 		const state = createBaseState({
 			accountsCache: new AccountCache({ size: 200, type: CacheType.ORDERED_MAP }),
@@ -50,5 +51,45 @@ describe(getAccountAddresses.name, () => {
 				createAddress(111111).toString(),
 			]),
 		)
+	})
+
+	it('works with empty state', async () => {
+		const state = createBaseState({})
+
+		// No accounts added
+		expect(getAccountAddresses(state)()).toEqual(new Set())
+	})
+
+	it('works with custom cache type', async () => {
+		const state = createBaseState({
+			accountsCache: new AccountCache({ size: 10, type: CacheType.SIMPLE }),
+		})
+
+		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 100n }))
+		await putAccount(state)(createAddress(2), EthjsAccount.fromAccountData({ balance: 200n }))
+
+		expect(getAccountAddresses(state)()).toEqual(new Set([createAddress(1).toString(), createAddress(2).toString()]))
+	})
+
+	it('handles deleted accounts properly', async () => {
+		const state = createBaseState({})
+
+		// Add accounts
+		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 100n }))
+		await putAccount(state)(createAddress(2), EthjsAccount.fromAccountData({ balance: 200n }))
+
+		// Delete one account (by setting its properties to zero)
+		await putAccount(state)(
+			createAddress(1),
+			EthjsAccount.fromAccountData({
+				balance: 0n,
+				nonce: 0n,
+				storageRoot: new Uint8Array(32),
+				codeHash: new Uint8Array(32),
+			}),
+		)
+
+		// Should still include both addresses
+		expect(getAccountAddresses(state)()).toEqual(new Set([createAddress(1).toString(), createAddress(2).toString()]))
 	})
 })

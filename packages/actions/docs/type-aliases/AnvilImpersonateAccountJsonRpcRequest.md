@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilImpersonateAccountJsonRpcRequest
 
-> **AnvilImpersonateAccountJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_impersonateAccount"`, [`Address`]\>
+> **AnvilImpersonateAccountJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_impersonateAccount"`, readonly [`Address`]\>
 
 JSON-RPC request for `anvil_impersonateAccount` method
 

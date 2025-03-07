@@ -8,6 +8,8 @@
 
 > **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<`object` \| `object`\>
 
+Handles the creation of a transaction based on the call parameters and execution result.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>
@@ -31,6 +33,10 @@ The EVM input parameters.
 `Promise`\<`object` \| `object`\>
 
 A promise that resolves to the transaction hash or undefined.
+
+## Throws
+
+Returns errors as values
 
 ## Defined in
 

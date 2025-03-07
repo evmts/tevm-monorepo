@@ -40,7 +40,7 @@ side-effect free (it doesn't modify the block nor the state).
 
 #### preimages
 
-> **preimages**: `Map`\<`string`, `any`\>
+> **preimages**: `Map`\<`string`, `Uint8Array`\>
 
 #### receipts
 
@@ -48,7 +48,7 @@ side-effect free (it doesn't modify the block nor the state).
 
 #### receiptsRoot
 
-> **receiptsRoot**: `any`
+> **receiptsRoot**: `Uint8Array`
 
 #### results
 

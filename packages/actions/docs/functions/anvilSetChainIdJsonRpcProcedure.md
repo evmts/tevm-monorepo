@@ -8,6 +8,8 @@
 
 > **anvilSetChainIdJsonRpcProcedure**(`client`): [`AnvilSetChainIdProcedure`](../type-aliases/AnvilSetChainIdProcedure.md)
 
+Request handler for anvil_setChainId JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

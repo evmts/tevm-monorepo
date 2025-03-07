@@ -8,6 +8,8 @@
 
 > **anvilImpersonateAccountJsonRpcProcedure**(`client`): [`AnvilImpersonateAccountProcedure`](../type-aliases/AnvilImpersonateAccountProcedure.md)
 
+Request handler for anvil_impersonateAccount JSON-RPC requests.
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

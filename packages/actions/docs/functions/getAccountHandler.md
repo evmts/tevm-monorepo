@@ -8,6 +8,8 @@
 
 > **getAccountHandler**(`client`, `options`?): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
 
+Creates an GetAccountHandler for handling account params with Ethereumjs VM
+
 ## Parameters
 
 • **client**: `TevmNode`\<`"fork"` \| `"normal"`, `object`\>

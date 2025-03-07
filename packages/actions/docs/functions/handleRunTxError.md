@@ -8,6 +8,8 @@
 
 > **handleRunTxError**(`e`): [`ExecuteCallError`](../type-aliases/ExecuteCallError.md)
 
+Takes an unknown error that is suspected of coming from EVM and returns a strongly typed error
+
 ## Parameters
 
 • **e**: `unknown`
@@ -15,6 +17,10 @@
 ## Returns
 
 [`ExecuteCallError`](../type-aliases/ExecuteCallError.md)
+
+## Throws
+
+returns errors as values
 
 ## Defined in
 
