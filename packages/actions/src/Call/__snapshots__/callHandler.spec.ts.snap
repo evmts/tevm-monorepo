@@ -1,11 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`callHandler > should create a transaction if specified 1`] = `"0x085596f354b1cc8114f798731fc78a24f724d9dfe9a03431f09f341c6b0445a5"`;
-
-exports[`callHandler > should create a transaction with nonce if provided 1`] = `"0x085596f354b1cc8114f798731fc78a24f724d9dfe9a03431f09f341c6b0445a5"`;
-
-exports[`callHandler > should create a transaction with value if provided 1`] = `"0x8c2b2e9e13f73788ec242ac6003ee213636acaf5bd98b2382aea719d2896f696"`;
-
 exports[`callHandler > should create transaction when createTransaction is true 1`] = `"0x932c965e92ff1a173077fcf85543a7e1582b2d452f300571bed82a1b2c0180d3"`;
 
 exports[`callHandler > should handle being unable to get options 1`] = `

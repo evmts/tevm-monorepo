@@ -11,16 +11,16 @@ describe(getL1FeeInformationOpStack.name, () => {
 			common: optimism,
 			fork: {
 				transport: transports.optimism,
-				blockTag: 132675810n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 121138357n,
 			},
 		})
 		const vm = await client.getVm()
 		const data = numberToBytes(42069420)
 		expect(await getL1FeeInformationOpStack(data, vm)).toEqual({
-			l1BaseFee: 1997813623n,
-			l1BlobFee: 95454059n,
-			l1Fee: 26389189645n,
-			l1GasUsed: 1600n,
+			l1BaseFee: 10396876243n,
+			l1BlobFee: 1n,
+			l1Fee: 18888046725n,
+			l1GasUsed: 1328n,
 		})
 	})
 })

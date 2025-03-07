@@ -13,7 +13,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 20743493n,
 			},
 		})
 		expect(
@@ -28,7 +28,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 			  "id": 1,
 			  "jsonrpc": "2.0",
 			  "method": "eth_getTransactionCount",
-			  "result": "0xa7998f",
+			  "result": "0x8e96b4",
 			}
 		`)
 	})
@@ -36,7 +36,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 20743493n,
 			},
 		})
 		expect(
@@ -44,14 +44,14 @@ describe(ethGetTransactionCountProcedure.name, () => {
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
-				params: [address, numberToHex(21900000n)], // Updated to a more recent block
+				params: [address, numberToHex(20700000n)],
 			}),
 		).toMatchInlineSnapshot(`
 			{
 			  "id": 1,
 			  "jsonrpc": "2.0",
 			  "method": "eth_getTransactionCount",
-			  "result": "0xa67619",
+			  "result": "0x8df90f",
 			}
 		`)
 	})
@@ -59,7 +59,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 20743493n,
 			},
 		})
 		await callHandler(node)({
@@ -80,7 +80,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 			  "id": 1,
 			  "jsonrpc": "2.0",
 			  "method": "eth_getTransactionCount",
-			  "result": "0xa7998f",
+			  "result": "0x8e96b4",
 			}
 		`)
 		expect(
@@ -95,7 +95,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 			  "id": 1,
 			  "jsonrpc": "2.0",
 			  "method": "eth_getTransactionCount",
-			  "result": "0xa79990",
+			  "result": "0x8e96b5",
 			}
 		`)
 	})

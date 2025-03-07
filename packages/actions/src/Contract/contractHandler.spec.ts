@@ -197,7 +197,7 @@ describe('contractHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 132675810n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 122606365n,
 			},
 			common: optimism,
 		})
@@ -335,7 +335,7 @@ describe('contractHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 132675810n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 122606365n,
 			},
 			common: optimism,
 		})

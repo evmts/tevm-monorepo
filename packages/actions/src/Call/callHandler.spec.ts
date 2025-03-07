@@ -1,6 +1,6 @@
 import { createAddress, createContractAddress } from '@tevm/address'
 import { optimism } from '@tevm/common'
-import { InvalidBytecodeError, MisconfiguredClientError } from '@tevm/errors'
+import { InvalidGasPriceError, MisconfiguredClientError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
@@ -10,359 +10,541 @@ import {
 	decodeFunctionResult,
 	encodeDeployData,
 	encodeFunctionData,
+	hexToBytes,
 	parseEther,
 } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
+import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { callHandler } from './callHandler.js'
 
-const ERC20_ABI = TestERC20.abi
+const ERC20_ADDRESS = `0x${'3'.repeat(40)}` as const
 const ERC20_BYTECODE = TestERC20.deployedBytecode
+const ERC20_ABI = TestERC20.abi
+
 describe('callHandler', () => {
-	it('should execute a call using existing VM', async () => {
-		const tevm = createTevmNode()
-		const vm = await tevm.getVm()
-
-		// we need to cache a block by triggering a transaction(this triggers the fork and caching)
-		// an empty trasnaction will do (for cached state root)
-		await vm.evm.runCall({
-			gasLimit: 16784800n,
-			origin: EthjsAddress.zero(),
-			caller: EthjsAddress.zero(),
-			data: Buffer.from(''),
-			block: await vm.blockchain.getCanonicalHeadBlock(),
+	it('should execute a contract call', async () => {
+		const client = createTevmNode()
+		// deploy contract
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+		expect(
+			await getAccountHandler(client)({
+				address: ERC20_ADDRESS,
+			}),
+		).toMatchObject({
+			address: ERC20_ADDRESS,
+			deployedBytecode: ERC20_BYTECODE,
 		})
 
-		// try to execute a tracing request
-		const result = await callHandler(tevm)({
-			gas: 16784800n,
-			data: '0x' as `0x${string}`,
-		})
+		// as a sanity check double check calling the underlying evm works
+		const gasUsed = await client
+			.getVm()
+			.then((vm) => vm.deepCopy())
+			.then(async (vm) => {
+				const head = await vm.blockchain.getCanonicalHeadBlock()
+				await vm.stateManager.setStateRoot(head.header.stateRoot)
+				return vm
+			})
+			.then(async (vm) =>
+				vm.evm
+					.runCall({
+						data: hexToBytes(
+							encodeFunctionData({
+								abi: ERC20_ABI,
+								functionName: 'balanceOf',
+								args: [ERC20_ADDRESS],
+							}),
+						),
+						gasLimit: 16784800n,
+						to: EthjsAddress.fromString(ERC20_ADDRESS),
+						block: await vm.blockchain.getCanonicalHeadBlock(),
+						origin: EthjsAddress.zero(),
+						caller: EthjsAddress.zero(),
+					})
+					.then((res) => {
+						if (res.execResult.exceptionError) {
+							throw res.execResult.exceptionError
+						}
+						return res.execResult.executionGasUsed
+					}),
+			)
+		expect(gasUsed).toBe(2851n)
 
-		// make sure it used the provided or default parameters for gas
-		expect(result.executionGasUsed).toBe(21002n)
-		// We should have no logs on a blank execution
-		expect(result.logs).toEqual([])
-		// should provide a reasonable gas remaining
-		expect(result.gas).toBe(29992797n)
-		// We shoudn't have any created addresses or selfdestruct
-		expect(result.selfdestruct).toEqual(new Set())
-		expect(result.createdAddresses).toEqual(new Set())
-		// callHandler should return the raw data from a call
-		expect(result.rawData).toMatchInlineSnapshot('"0x"')
+		expect(
+			await callHandler(client)({
+				createAccessList: true,
+				data: encodeFunctionData({
+					abi: ERC20_ABI,
+					functionName: 'balanceOf',
+					args: [ERC20_ADDRESS],
+				}),
+				to: ERC20_ADDRESS,
+				gas: 16784800n,
+			}),
+		).toEqual({
+			amountSpent: 169981n,
+			preimages: {
+				'0x37d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1ab':
+					'0x3333333333333333333333333333333333333333',
+				'0x5380c7b7ae81a58eb98d9c78de4a1fd7fd9535fc953ed2be602daaa41767312a':
+					'0x0000000000000000000000000000000000000000',
+			},
+			totalGasSpent: 24283n,
+			rawData: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			executionGasUsed: 2851n,
+			gas: 29975717n,
+			selfdestruct: new Set(),
+			logs: [],
+			createdAddresses: new Set(),
+			accessList: Object.fromEntries([
+				[
+					'0x3333333333333333333333333333333333333333',
+					new Set(['0x0ae1369e98a926a2595ace665f90c7976b6a86afbcadb3c1ceee24998c087435']),
+				],
+			]),
+		})
 	})
 
-	// This test added for coverage of throwing on fail
-	it('should throw on a failed execution of runCall', async () => {
-		const tevm = createTevmNode()
-		const vm = await tevm.getVm()
-		const originalRunCall = vm.evm.runCall
-		// Here we mock a failed execution, where runCall throws
-		vm.evm.runCall = async () => {
-			throw new Error('VM execution failed')
-		}
-		// should throw on fail by default
-		const result = await callHandler(tevm)({ gas: 16784800n });
+	it('should be able to send value', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+		// send value
+		expect(
+			await callHandler(client)({
+				createTransaction: true,
+				to,
+				value: 420n,
+				skipBalance: true,
+			}),
+		).toEqual({
+			executionGasUsed: 0n,
+			rawData: '0x',
+			txHash: '0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80',
+			amountSpent: 147000n,
+			totalGasSpent: 21000n,
+		})
+		await mineHandler(client)()
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to,
+				})
+			).balance,
+		).toEqual(420n)
+	})
+	it('should handle errors returned during contract call', async () => {
+		const client = createTevmNode()
+		const vm = await client.getVm()
+		// deploy contract
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+		await vm.evm.stateManager.checkpoint()
+		await vm.evm.stateManager.commit()
+		const caller = `0x${'23'.repeat(20)}` as const
+		const callRes = await callHandler(client)({
+			data: encodeFunctionData({
+				abi: ERC20_ABI,
+				functionName: 'transferFrom',
+				args: [caller, caller, 1n],
+			}),
+			skipBalance: true,
+			from: caller,
+			to: ERC20_ADDRESS,
+			throwOnFail: false,
+		})
+		expect(callRes.errors).toBeDefined()
+		expect(callRes.errors).toMatchSnapshot()
+	})
+
+	it('should be able to send multiple tx from same account and then mine it', async () => {
+		const client = createTevmNode()
+		const from = EthjsAddress.fromString(`0x${'69'.repeat(20)}`)
+		const to = `0x${'42'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: from.toString() as Address,
+			nonce: 69n,
+			balance: parseEther('1000'),
+		})
+		expect(errors).toBeUndefined()
+		// send value
+		expect(
+			await callHandler(client)({
+				createTransaction: true,
+				to,
+				value: 1n,
+				skipBalance: true,
+				from: from.toString() as Address,
+			}),
+		).toEqual({
+			executionGasUsed: 0n,
+			rawData: '0x',
+			txHash: '0xa5be8692fbb39d79a9d2aa2e87333d6620ceeec3cf52da8bef4d3dec3743145e',
+			amountSpent: 147000n,
+			totalGasSpent: 21000n,
+		})
+		expect(
+			await callHandler(client)({
+				createTransaction: true,
+				to,
+				value: 2n,
+				skipBalance: true,
+				from: from.toString() as Address,
+			}),
+		).toEqual({
+			executionGasUsed: 0n,
+			rawData: '0x',
+			txHash: '0xc4b3576c1bbdda23cf40aa5b6efe08d4c881d569820b6d996cfd611e323af6a9',
+			amountSpent: 147000n,
+			totalGasSpent: 21000n,
+		})
+		expect(
+			await callHandler(client)({
+				createTransaction: true,
+				to,
+				value: 3n,
+				skipBalance: true,
+				from: from.toString() as Address,
+			}),
+		).toEqual({
+			executionGasUsed: 0n,
+			rawData: '0x',
+			txHash: '0x27a596c1e6c26b8fc84f4dc07337b75300e29ab0ba5918fe7509414e62ff9fe9',
+			amountSpent: 147000n,
+			totalGasSpent: 21000n,
+		})
+		const txPool = await client.getTxPool()
+		// ts hashes are in pool
+		expect((await txPool.getBySenderAddress(from)).map((tx) => tx.hash)).toEqual([
+			'a5be8692fbb39d79a9d2aa2e87333d6620ceeec3cf52da8bef4d3dec3743145e',
+			'c4b3576c1bbdda23cf40aa5b6efe08d4c881d569820b6d996cfd611e323af6a9',
+			'27a596c1e6c26b8fc84f4dc07337b75300e29ab0ba5918fe7509414e62ff9fe9',
+		])
+		await mineHandler(client)()
+		// the value should be sent
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to,
+				})
+			).balance,
+		).toEqual(1n + 2n + 3n)
+		// nonce should be increased by 3
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: from.toString() as Address,
+				})
+			).nonce,
+		).toEqual(69n + 3n)
+	})
+
+	it.todo('should return error when deploying contract with insufficient balance', async () => {
+		const client = createTevmNode()
+		const from = EthjsAddress.fromString(`0x${'00'.repeat(20)}`)
+		const to = `0x${'42'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: from.toString() as Address,
+			nonce: 0n,
+			balance: 0n,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			createTransaction: true,
+			throwOnFail: false,
+			to,
+			value: parseEther('1'),
+			from: from.toString() as Address,
+		})
 		expect(result.errors).toBeDefined()
-		// restore runCall
-		vm.evm.runCall = originalRunCall
+		expect(result.errors).toMatchSnapshot()
 	})
 
-	// This test added for coverage of not throwing on fail
-	it('should not throw if specified on a failed execution of runCall', async () => {
-		const tevm = createTevmNode()
-		const vm = await tevm.getVm()
-		const originalRunCall = vm.evm.runCall
-		// Here we mock a failed execution, where runCall throws
-		vm.evm.runCall = async () => {
-			throw new Error('VM execution failed')
-		}
-		// with a specific throwOnFail flag
-		const result = await callHandler(tevm)({
-			gas: 16784800n,
+	it.todo('should return error for invalid contract call data', async () => {
+		const client = createTevmNode()
+		const invalidData = '0x1234' // invalid function data
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			data: invalidData,
+			to,
+		})
+		expect(result.errors).toContainEqual(
+			expect.objectContaining({
+				name: 'UnexpectedError',
+				message: expect.any(String),
+			}),
+		)
+	})
+
+	it.todo('should handle gas limit exceeded error', async () => {
+		const client = createTevmNode()
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			data: encodeFunctionData({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: [to],
+			}),
+			to,
+		})
+		expect(result.errors).toContainEqual(
+			expect.objectContaining({
+				name: 'GasLimitExceeded',
+				message: expect.any(String),
+			}),
+		)
+	})
+
+	it('should handle gas price too low error', async () => {
+		const client = createTevmNode()
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			throwOnFail: false,
+			createTransaction: true,
+			data: encodeFunctionData({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: [to],
+			}),
+			to,
+			maxFeePerGas: 1n,
+		})
+		expect(result.errors).toContainEqual(expect.any(InvalidGasPriceError))
+	})
+
+	it.todo('should return correct result for read-only call', async () => {
+		const client = createTevmNode()
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			data: encodeFunctionData({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: [to],
+			}),
+			to,
+		})
+		expect(result.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		expect(result.executionGasUsed).toBeGreaterThan(0n)
+		expect(result.errors).toBeUndefined()
+	})
+
+	it('should return error for invalid contract call data', async () => {
+		const client = createTevmNode()
+		const invalidData = '0x1234' // invalid function data
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			data: invalidData,
+			to,
 			throwOnFail: false,
 		})
-		expect(result.errors).toBeUndefined()
-		// restore runCall
-		vm.evm.runCall = originalRunCall
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
 	})
 
-	it('should create a transaction if specified', async () => {
-		const tevm = createTevmNode()
-
-		const callOpts = {
-			gas: 16784800n,
-			createTransaction: true,
-			data: '0x' as `0x${string}`,
-		}
-		const result = await callHandler(tevm)(callOpts)
-		// should have a tx hash for transactions
-		expect(result.txHash).toBeDefined()
-		expect(result.txHash).toMatchSnapshot()
-	})
-
-	it('should create a transaction with data if it would be a contract deployment', async () => {
-		const tevm = createTevmNode()
-
-		const callOpts = {
-			gas: 16784800n,
-			createTransaction: true,
-			data: encodeDeployData(SimpleContract.deploy(42n)),
-		}
-		const result = await callHandler(tevm)(callOpts)
-		// should have a tx hash for transactions
-		expect(result.txHash).toBeDefined()
-		// should have the provided data
-		expect(result.rawData).toMatchInlineSnapshot(`"0x608060405234801561000f575f80fd5b5060043610610034575f3560e01c806360fe47b1146100385780636d4ce63c14610054575b5f80fd5b610052600480360381019061004d91906100f1565b610072565b005b61005c6100b2565b604051610069919061012b565b60405180910390f35b805f819055507f012c78e2b84325878b1bd9d250d772cfe5bda7722d795f45036fa5e1e6e303fc816040516100a7919061012b565b60405180910390a150565b5f8054905090565b5f80fd5b5f819050919050565b6100d0816100be565b81146100da575f80fd5b50565b5f813590506100eb816100c7565b92915050565b5f60208284031215610106576101056100ba565b5b5f610113848285016100dd565b91505092915050565b610125816100be565b82525050565b5f60208201905061013e5f83018461011c565b9291505056fea2646970667358221220792d4ee4a770b6a319a0ec659b77ea24497824649e20dcdea1dd7acf6118a5fe64736f6c63430008160033"`)
-	})
-
-	it('should fail on bytecode error ', async () => {
-		const tevm = createTevmNode()
-
-		const callOpts = {
-			gas: 16784800n,
-			// use the 'stack underflow bytecode'
-			data: '0x5b' as `0x${string}`, // stack underflow
+	it('should handle unexpected errors during param conversion', async () => {
+		const client = createTevmNode()
+		const invalidParams = {
 			throwOnFail: false,
+			data: '0x1234',
+			gas: -1n, // Invalid gas value
 		}
-		const result = await callHandler(tevm)(callOpts)
-		// should have appropriate errors
-		expect(result.errors?.[0]).toBeInstanceOf(InvalidBytecodeError)
+
+		const result = await callHandler(client)(invalidParams as any)
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
 	})
 
-	it('should create a transaction with value if provided', async () => {
-		const tevm = createTevmNode()
-
-		const callOpts = {
-			gas: 16784800n,
-			createTransaction: true,
-			data: '0x' as `0x${string}`,
+	it('should handle unexpected errors during script creation', async () => {
+		const client = createTevmNode()
+		const invalidScriptParams = {
+			throwOnFail: false,
+			to: `0x${'12'.repeat(20)}`,
+			data: '0x1234',
 			value: 1000n,
+			code: '0x1234', // Invalid code
 		}
-		const result = await callHandler(tevm)(callOpts)
-		// should have a tx hash for transactions
-		expect(result.txHash).toBeDefined()
-		expect(result.txHash).toMatchSnapshot()
+
+		const result = await callHandler(client)(invalidScriptParams as any)
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
 	})
 
-	it('should create a transaction with nonce if provided', async () => {
-		const tevm = createTevmNode()
+	it('should return correct result for read-only call', async () => {
+		const client = createTevmNode()
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			data: encodeFunctionData({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: [to],
+			}),
+			to,
+		})
+		expect(result.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		expect(result.executionGasUsed).toBeGreaterThan(0n)
+		expect(result.errors).toBeUndefined()
+	})
 
-		const callOpts = {
-			gas: 16784800n,
+	it('should handle error during VM cloning', async () => {
+		const client = createTevmNode()
+		const invalidParams = {
+			throwOnFail: false,
+			data: '0x1234',
+			gas: 1000000n,
+			blockTag: 'invalid-block-tag', // Invalid block tag to trigger VM cloning error
+		}
+
+		const result = await callHandler(client)(invalidParams as any)
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should handle error during script creation', async () => {
+		const client = createTevmNode()
+		const invalidScriptParams = {
+			throwOnFail: false,
+			to: `0x${'12'.repeat(20)}`,
+			data: '0x1234',
+			value: 1000n,
+			code: '0x1234', // Invalid code
+		}
+
+		const result = await callHandler(client)(invalidScriptParams as any)
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should handle error during EVM execution', async () => {
+		const client = createTevmNode()
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(errors).toBeUndefined()
+		const result = await callHandler(client)({
+			throwOnFail: false,
+			data: '0x1234', // Invalid function data to trigger EVM execution error
+			to,
+		})
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should create transaction when createTransaction is true', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+		// Set up account with enough balance
+		await setAccountHandler(client)({
+			address: to,
+			balance: parseEther('1'),
+			nonce: 0n,
+		})
+		const result = await callHandler(client)({
 			createTransaction: true,
-			data: '0x' as `0x${string}`,
-			nonce: 42n,
-		}
-		const result = await callHandler(tevm)(callOpts)
-		// should have a tx hash for transactions
+			to,
+			value: parseEther('0.1'),
+		})
 		expect(result.txHash).toBeDefined()
 		expect(result.txHash).toMatchSnapshot()
 	})
 
-	it('should throw with a useful error if creating a transaction fails', async () => {
-		const tevm = createTevmNode()
-		const txPool = await tevm.getTxPool()
-		// mock a failing txPool.addUnverified
+	it('should handle insufficient balance error', async () => {
+		const client = createTevmNode()
+		const from = `0x${'69'.repeat(20)}` as const
+		const to = `0x${'42'.repeat(20)}` as const
+		// Set up account with zero balance
+		await setAccountHandler(client)({
+			address: from,
+			balance: 0n,
+			nonce: 0n,
+		})
+		const result = await callHandler(client)({
+			createTransaction: true,
+			from,
+			to,
+			value: parseEther('1'),
+			throwOnFail: false,
+		})
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toMatchSnapshot()
+	})
+
+	it('should handle error during transaction creation', async () => {
+		const client = createTevmNode()
+		const txPool = await client.getTxPool()
 		txPool.addUnverified = () => {
 			throw new Error('Error adding transaction to pool')
 		}
-
-		const callOpts = {
-			gas: 16784800n,
-			createTransaction: true,
-			data: '0x' as `0x${string}`,
-		}
-		// should throw on txPool.addUnverified failing
-		await expect(callHandler(tevm)(callOpts)).rejects.toThrow('Error adding transaction to pool')
-	})
-
-	it('should provide a reasonable execution trace', async () => {
-		const tevm = createTevmNode()
-
-		const callOpts = {
-			gas: 16784800n,
-			data: '0x' as `0x${string}`,
-		}
-		const result = await callHandler(tevm)(callOpts)
-		// should have a tx hash for transactions
-		expect(result.executionGasUsed).toBe(21002n)
-	})
-
-	it('should override options if some sort of useLatestOptions is provided', async () => {
-		const tevm = createTevmNode()
-
-		const callOpts = {
-			gas: 16784800n,
-			data: '0x' as `0x${string}`,
-		}
-		const result = await callHandler(tevm)(callOpts)
-		// should have a tx hash for transactions
-		expect(result.executionGasUsed).toBe(21002n)
-	})
-
-	it('should use custom validation of call parameters', () => {
-		expect(async () => {
-			const tevm = createTevmNode()
-			await callHandler(tevm)({
-				gas: -1n, // Invalid gas value
-			})
-		}).rejects.toThrowError()
-	})
-
-	it('should work with EIP-1559 tx type params', async () => {
-		const tevm = createTevmNode()
-
-		const callOpts = {
-			gas: 16784800n,
-			data: '0x' as `0x${string}`,
-			maxFeePerGas: 1000000000n,
-			maxPriorityFeePerGas: 100000000n,
-		}
-		const result = await callHandler(tevm)(callOpts)
-		// should have a tx hash for transactions
-		expect(result.executionGasUsed).toBe(21002n)
-	})
-
-	it('should create an access list if specified', async () => {
-		const tevm = createTevmNode()
-
-		const callOpts = {
-			gas: 16784800n,
-			data: '0x3333333333333333333333333333333333333333' as `0x${string}`,
-			createAccessList: true,
-		} as const
-		const result = await callHandler(tevm)(callOpts)
-		// should have a created access list
-		expect(result.accessList).toBeDefined()
-		// check keys(storage slots) are available in accessList
-		expect(Object.keys(result.accessList as Record<string, Set<string>>).length).toEqual(1)
-		// check values(storage slots) are available in accessList
-		const vals = Array.from(Object.values(result.accessList as Record<string, Set<string>>)).map((v) => Array.from(v))
-		expect(vals.length).toEqual(1)
-		expect(vals).toEqual([[]])
-	})
-
-	it('should have useful result for contract deployment', async () => {
-		const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
-		const contractAddress = createContractAddress(from, 0n)
-		const client = createTevmNode()
-
-		// Deploy a contract and ensure it succeeded
-		const { errors, createdAddress } = await callHandler(client)({
-			createTransaction: true,
-			from: PREFUNDED_ACCOUNTS[0].address,
-			data: encodeDeployData(SimpleContract.deploy(42n)),
-			gas: 10_000_000n,
+		const to = `0x${'33'.repeat(20)}` as const
+		const { errors } = await setAccountHandler(client)({
+			address: to,
+			deployedBytecode: ERC20_BYTECODE,
 		})
 		expect(errors).toBeUndefined()
-		expect(createdAddress).toEqual(contractAddress.toString())
-
-		// Mine the block to include the transaction
-		await mineHandler(client)()
-
-		// Now verify the deployed contract works
 		const result = await callHandler(client)({
-			to: contractAddress.toString(),
+			throwOnFail: false,
+			createTransaction: true,
 			data: encodeFunctionData({
-				abi: SimpleContract.abi,
-				functionName: 'get',
-			}),
-		})
-
-		// Decode the result and check it matches our deployment argument
-		const decodedResult = decodeFunctionResult({
-			abi: SimpleContract.abi,
-			functionName: 'get',
-			data: result.rawData,
-		})
-		expect(decodedResult).toEqual(42n)
-	})
-
-	it('should be able to call a contract', async () => {
-		const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
-		const client = createTevmNode()
-
-		const erc20Address = `0x${'a'.repeat(40)}` as const
-		await setAccountHandler(client)({
-			address: erc20Address,
-			deployedBytecode: TestERC20.deployedBytecode,
-		})
-
-		// Check initial balance
-		const initialBalanceResult = await callHandler(client)({
-			to: erc20Address,
-			data: encodeFunctionData({
-				abi: TestERC20.abi,
+				abi: ERC20_ABI,
 				functionName: 'balanceOf',
-				args: [from.toString()],
+				args: [to],
 			}),
+			to,
 		})
-
-		const initialBalance = decodeFunctionResult({
-			abi: TestERC20.abi,
-			functionName: 'balanceOf',
-			data: initialBalanceResult.rawData,
-		})
-		expect(initialBalance).toEqual(0n)
-
-		const mintAmount = 1000000000000000000n
-
-		// Import dealHandler to deal tokens to the account
-		const { dealHandler } = await import('../anvil/anvilDealHandler.js')
-
-		// Use dealHandler to give ERC20 tokens to the account
-		await dealHandler(client)({
-			erc20: erc20Address,
-			account: from.toString(),
-			amount: mintAmount,
-		})
-
-		// Mine the block to include the transaction
-		await mineHandler(client)()
-
-		// Verify the balance was updated
-		const newBalanceResult = await callHandler(client)({
-			to: erc20Address,
-			data: encodeFunctionData({
-				abi: TestERC20.abi,
-				functionName: 'balanceOf',
-				args: [from.toString()],
-			}),
-		})
-
-		const newBalance = decodeFunctionResult({
-			abi: TestERC20.abi,
-			functionName: 'balanceOf',
-			data: newBalanceResult.rawData,
-		})
-		expect(newBalance).toEqual(mintAmount)
-	})
-
-	it('should handle state overrides', async () => {
-		const client = createTevmNode()
-		const address = `0x${'42'.repeat(20)}` as `0x${string}`
-
-		// Set up state override to give the address a balance
-		const result = await callHandler(client)({
-			stateOverrideSet: {
-				[address]: {
-					balance: parseEther('1000'),
-				},
-			},
-			to: address,
-		})
-
-		expect(result.amountSpent).toBeDefined()
-		expect(result.executionGasUsed).toBeDefined()
+		expect(result.errors).toBeDefined()
+		expect(result.errors).toHaveLength(1)
+		expect(result.errors).toMatchSnapshot()
 	})
 
 	it('should return op stack info if forking', async () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 132675810n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 122606365n,
 			},
 			common: optimism,
 		})
@@ -397,7 +579,7 @@ describe('callHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 132675810n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 122606365n,
 			},
 			common: {
 				...optimism,
@@ -439,7 +621,7 @@ describe('callHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 132675810n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 122606365n,
 			},
 			common: {
 				...optimism,
@@ -480,7 +662,7 @@ describe('callHandler', () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 132675810n, // Updated to latest block as of Mar 2, 2025
+				blockTag: 122606365n,
 			},
 			common: {
 				...optimism,

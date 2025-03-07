@@ -14,10 +14,7 @@ describe('forkAndCacheBlock', () => {
 
 	it('should fork a block and save the state root without executing block transactions', async () => {
 		const client = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-				blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
-			},
+			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
 		})
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
@@ -32,10 +29,7 @@ describe('forkAndCacheBlock', () => {
 		'should fork a block, execute transactions, and save the state root',
 		async () => {
 			const client = createTevmNode({
-				fork: {
-					transport: transports.mainnet,
-					blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
-				},
+				fork: { transport: transports.optimism },
 				miningConfig: { type: 'manual' },
 			})
 			const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
@@ -52,10 +46,7 @@ describe('forkAndCacheBlock', () => {
 		'should process block transactions',
 		async () => {
 			const client = createTevmNode({
-				fork: {
-					transport: transports.mainnet,
-					blockTag: 21961826n, // Updated to latest block as of Mar 2, 2025
-				},
+				fork: { transport: transports.optimism },
 				miningConfig: { type: 'manual' },
 			})
 			const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
