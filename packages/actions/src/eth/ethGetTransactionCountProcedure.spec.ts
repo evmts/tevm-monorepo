@@ -4,8 +4,8 @@ import { transports } from '@tevm/test-utils'
 import { numberToHex, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
-import { ethGetTransactionCountProcedure } from './ethGetTransactionCountProcedure.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { ethGetTransactionCountProcedure } from './ethGetTransactionCountProcedure.js'
 
 const address = '0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511' as const
 
@@ -65,7 +65,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		})
 		await setAccountHandler(node)({
 			address,
-			balance: parseEther('25')
+			balance: parseEther('25'),
 		})
 		await callHandler(node)({
 			from: address,
