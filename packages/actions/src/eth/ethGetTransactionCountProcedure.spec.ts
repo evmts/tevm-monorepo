@@ -13,7 +13,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 20743493n,
+				blockTag: 21996967n,
 			},
 		})
 		expect(
@@ -36,7 +36,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 20743493n,
+				blockTag: 21996939n,
 			},
 		})
 		expect(
@@ -59,7 +59,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		const node = createTevmNode({
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 20743493n,
+				blockTag: 21996939n,
 			},
 		})
 		await callHandler(node)({
