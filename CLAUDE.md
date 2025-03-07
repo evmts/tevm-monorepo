@@ -575,6 +575,7 @@ pnpm nx run test:coverage
 - If this is the case you can fix it in any way possible including changing the path to a relative path
 - For error/inline snapshots consider using error messages or patterns that don't include absolute paths
 - Use toMatchInlineSnapshot with generic patterns when possible to avoid path dependencies
+- Prefer fixing snapshot tests using the -u command but always justify why the diff is actually expected and not a regression. If it looks like it's possibly a regression like a successful call turning into an error call it out
 - For mocked modules, use patterns that focus on the behavior, not path-specific information
 - When upgrading dependencies (like viem), test snapshots may need to be updated to match the new version strings
 
