@@ -1,5 +1,19 @@
 # @tevm/state
 
+## 1.0.0-next.128
+
+### Patch Changes
+
+- bc0c4a1: Rerelease packages
+- Updated dependencies [bc0c4a1]
+  - @tevm/blockchain@1.0.0-next.128
+  - @tevm/common@1.0.0-next.128
+  - @tevm/errors@1.0.0-next.128
+  - @tevm/logger@1.0.0-next.128
+  - @tevm/predeploys@1.0.0-next.128
+  - @tevm/state@1.0.0-next.128
+  - @tevm/utils@1.0.0-next.128
+
 ## 1.0.0-next.124
 
 ### Patch Changes

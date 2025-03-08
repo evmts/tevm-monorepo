@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.128
+
+### Patch Changes
+
+- bc0c4a1: Rerelease packages
+
 ## 1.0.0-next.122
 
 ### Minor Changes

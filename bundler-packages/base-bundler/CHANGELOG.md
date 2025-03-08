@@ -1,5 +1,19 @@
 # @tevm/base
 
+## 1.0.0-next.128
+
+### Patch Changes
+
+- bc0c4a1: Rerelease packages
+- Updated dependencies [bc0c4a1]
+  - @tevm/bundler-cache@1.0.0-next.128
+  - @tevm/compiler@1.0.0-next.128
+  - @tevm/config@1.0.0-next.128
+  - @tevm/runtime@1.0.0-next.128
+  - @tevm/solc@1.0.0-next.128
+  - @tevm/tsconfig@1.0.0-next.128
+  - @tevm/tsupconfig@1.0.0-next.128
+
 ## 1.0.0-next.124
 
 ### Patch Changes

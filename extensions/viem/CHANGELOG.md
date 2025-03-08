@@ -1,5 +1,15 @@
 # @tevm/viem
 
+## 1.0.0-next.128
+
+### Patch Changes
+
+- bc0c4a1: Rerelease packages
+- Updated dependencies [bc0c4a1]
+  - @tevm/decorators@1.0.0-next.128
+  - @tevm/jsonrpc@1.0.0-next.128
+  - @tevm/node@1.0.0-next.128
+
 ## 1.0.0-next.127
 
 ### Patch Changes

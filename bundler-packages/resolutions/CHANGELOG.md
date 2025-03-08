@@ -1,5 +1,14 @@
 # @tevm/resolutions
 
+## 1.0.0-next.128
+
+### Patch Changes
+
+- bc0c4a1: Rerelease packages
+- Updated dependencies [bc0c4a1]
+  - @tevm/tsconfig@1.0.0-next.128
+  - @tevm/tsupconfig@1.0.0-next.128
+
 ## 1.0.0-next.118
 
 ### Patch Changes
