@@ -1,5 +1,18 @@
 # @tevm/ethers
 
+## 1.0.0-next.128
+
+### Patch Changes
+
+- bc0c4a1: Rerelease packages
+- Updated dependencies [bc0c4a1]
+  - @tevm/actions@1.0.0-next.128
+  - @tevm/client-types@1.0.0-next.128
+  - @tevm/contract@1.0.0-next.128
+  - @tevm/decorators@1.0.0-next.128
+  - @tevm/node@1.0.0-next.128
+  - @tevm/utils@1.0.0-next.128
+
 ## 1.0.0-next.127
 
 ### Patch Changes

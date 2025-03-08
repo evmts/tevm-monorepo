@@ -1,6 +1,6 @@
 {
   "name": "@tevm/jsonrpc",
-  "version": "1.0.0-next.118",
+  "version": "1.0.0-next.128",
   "private": false,
   "description": "A typesafe library for writing forge scripts in typescript",
   "keywords": [

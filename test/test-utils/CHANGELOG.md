@@ -1,5 +1,15 @@
 # @tevm/test-utils
 
+## 1.0.0-next.128
+
+### Patch Changes
+
+- bc0c4a1: Rerelease packages
+- Updated dependencies [bc0c4a1]
+  - @tevm/esbuild-plugin@1.0.0-next.128
+  - @tevm/ts-plugin@1.0.0-next.128
+  - @tevm/contract@1.0.0-next.128
+
 ## 1.0.0-next.124
 
 ### Patch Changes
