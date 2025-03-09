@@ -45,7 +45,7 @@ import { validateCallParams } from './validateCallParams.js'
  */
 export const callHandler =
 	(client, { throwOnFail: defaultThrowOnFail = true } = {}) =>
-	async ({ code, deployedBytecode, ...params }) => {
+	async ({ code, deployedBytecode, onStep, onNewContract, onBeforeMessage, onAfterMessage, ...params }) => {
 		client.logger.debug(params, 'callHandler: Executing call with params')
 		const validationErrors = validateCallParams(params)
 		if (validationErrors.length > 0) {
@@ -173,7 +173,22 @@ export const callHandler =
 			},
 			'callHandler: Executing runCall with params',
 		)
-		const executedCall = await executeCall({ ...client, getVm: () => Promise.resolve(vm) }, evmInput, _params)
+
+		// Extract event handlers from original params to pass to executeCall
+		// Only include event handlers that are defined to match CallEvents type
+		/** @type {import('../common/CallEvents.js').CallEvents} */
+		const eventHandlers = {}
+		if (onStep) eventHandlers.onStep = onStep
+		if (onNewContract) eventHandlers.onNewContract = onNewContract
+		if (onBeforeMessage) eventHandlers.onBeforeMessage = onBeforeMessage
+		if (onAfterMessage) eventHandlers.onAfterMessage = onAfterMessage
+		const executedCall = await executeCall(
+			{ ...client, getVm: () => Promise.resolve(vm) },
+			evmInput,
+			_params,
+			eventHandlers,
+		)
+
 		if ('errors' in executedCall) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
 				executionGasUsed: /** @type {any}*/ (executeCall).rawData ?? 0n,

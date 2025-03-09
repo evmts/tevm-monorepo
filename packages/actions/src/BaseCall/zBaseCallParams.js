@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { zCallEvents } from '../common/zCallEvents.js'
 import { zAddress } from '../internal/zod/zAddress.js'
 import { zBlockOverrideSet } from '../internal/zod/zBlockOverrideSet.js'
 import { zBlockParam } from '../internal/zod/zBlockParam.js'
@@ -8,6 +9,7 @@ import { zBaseParams } from './zBaseParams.js'
 
 export const zBaseCallParams = zBaseParams
 	.extend({
+		...zCallEvents.shape,
 		createTrace: z.boolean().optional().describe('If true, the call will also return a `trace` on the trace property'),
 		createAccessList: z
 			.boolean()

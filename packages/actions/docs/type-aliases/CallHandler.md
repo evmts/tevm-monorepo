@@ -8,7 +8,7 @@
 
 > **CallHandler**: (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
 
-Defined in: [packages/actions/src/Call/CallHandlerType.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L38)
+Defined in: [packages/actions/src/Call/CallHandlerType.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L50)
 
 Executes a call against the VM, similar to `eth_call` but with more options for controlling the execution environment.
 
@@ -18,9 +18,9 @@ This low-level function is used internally by higher-level functions like `contr
 
 ### action
 
-[`CallParams`](CallParams.md)
+[`CallHandlerParams`](CallHandlerParams.md)
 
-The parameters for the call.
+The parameters for the call, including optional event handlers.
 
 ## Returns
 
@@ -49,6 +49,11 @@ const res = await call({
   gas: 1000000n,
   gasPrice: 1n,
   skipBalance: true,
+  // Optional event handlers
+  onStep: (step, next) => {
+    console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
+    next?.()
+  }
 })
 
 console.log(res)

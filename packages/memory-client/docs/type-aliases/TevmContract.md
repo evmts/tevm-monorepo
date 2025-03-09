@@ -34,7 +34,7 @@ The viem client configured with TEVM transport.
 
 ### params
 
-`ContractParams`\<`TAbi`, `TFunctionName`\>
+`ContractParams`\<`TAbi`, `TFunctionName`\> & `CallEvents`
 
 Parameters for the contract method call, including ABI, function name, and arguments.
 

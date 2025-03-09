@@ -1,6 +1,8 @@
 import type { BaseParams } from '../common/BaseParams.js'
 import type { Address, BlockOverrideSet, BlockParam, Hex, StateOverrideSet } from '../common/index.js'
 
+// Don't import CallEvents here since it's not used directly in this file
+
 /**
  * Properties shared across call-like params.
  * This type is used as the base for various call-like parameter types:

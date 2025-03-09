@@ -56,6 +56,23 @@ Tevm has two distinct API styles due to its underlying implementation:
    - More familiar to web3 developers
    - Used in most client-facing interfaces and the JSON-RPC implementation
 
+### Package Structure and Dependencies
+
+Tevm wraps its main dependencies (viem and ethereumjs) in dedicated packages:
+
+- **Viem utilities** are wrapped in the `packages/utils` package
+- **Ethereumjs packages** are wrapped in corresponding Tevm packages:
+  - `packages/evm` - Wraps the EVM implementation
+  - `packages/state` - Wraps state management
+  - `packages/blockchain` - Wraps blockchain functionality
+  - `packages/block` - Wraps block handling
+  - `packages/address` - Wraps address utilities
+  - `packages/vm` - Wraps the main VM implementation
+  - `packages/common` - Wraps chain configuration
+  - And more...
+
+This structure provides a unified API and allows Tevm to extend or modify functionality when needed.
+
 When working with both APIs, you may need to convert between formats:
 ```typescript
 // Converting from Viem hex string to Ethereumjs bytes
@@ -386,6 +403,20 @@ This means all tevm packages run without being built by default and the same src
 - [src/index.js](./src/index.js) - the entrypoint to the package
 
 **Note** there is still 100% typesafety. TypeScript is able to typecheck via setting `checkJs: true` in the tsconfig and using jsdoc.
+
+#### Import preferences
+
+- Prefer inline imports in JSDoc comments where the type is used instead of global imports at the top of the file
+- This gives better tree shaking and more precise type dependencies
+- Example:
+  ```js
+  /**
+   * @param {import('../common/CallEvents.js').CallEvents} events - Event handlers
+   */
+  export const executeCall = async (client, evmInput, params, events) => {
+    // ...
+  }
+  ```
 
 #### Single file per item
 

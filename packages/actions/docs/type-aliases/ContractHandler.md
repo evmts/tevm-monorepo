@@ -8,7 +8,7 @@
 
 > **ContractHandler**: \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-Defined in: [packages/actions/src/Contract/ContractHandlerType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractHandlerType.ts#L45)
+Defined in: [packages/actions/src/Contract/ContractHandlerType.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractHandlerType.ts#L51)
 
 Handler for executing contract interactions with the TEVM.
 
@@ -29,9 +29,9 @@ The function name type from the ABI.
 
 ### action
 
-[`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\>
+[`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](CallEvents.md)
 
-The parameters for the contract call, including ABI, function name, and arguments.
+The parameters for the contract call, including ABI, function name, and arguments, with optional event handlers.
 
 ## Returns
 
@@ -62,6 +62,11 @@ const res = await contractCall({
   gas: 1000000n,
   gasPrice: 1n,
   skipBalance: true,
+  // Optional event handlers
+  onStep: (step, next) => {
+    console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
+    next?.()
+  }
 })
 
 console.log(res)

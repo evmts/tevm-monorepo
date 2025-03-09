@@ -8,7 +8,7 @@
 
 > **BaseCallParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: [packages/actions/src/BaseCall/BaseCallParams.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/BaseCallParams.ts#L37)
+Defined in: [packages/actions/src/BaseCall/BaseCallParams.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/BaseCallParams.ts#L39)
 
 Properties shared across call-like params.
 This type is used as the base for various call-like parameter types:

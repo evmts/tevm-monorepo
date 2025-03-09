@@ -1,12 +1,19 @@
+import type { CallEvents } from '../common/CallEvents.js'
 import type { CallParams } from './CallParams.js'
 import type { CallResult } from './CallResult.js'
+
+/**
+ * Parameters for the call handler, extending CallParams with event handlers
+ * These event handlers are not JSON-serializable, so they are kept separate from the base CallParams
+ */
+export type CallHandlerParams = CallParams & CallEvents
 
 /**
  * Executes a call against the VM, similar to `eth_call` but with more options for controlling the execution environment.
  *
  * This low-level function is used internally by higher-level functions like `contract` and `script`, which are designed to interact with deployed contracts or undeployed scripts, respectively.
  *
- * @param {CallParams} action - The parameters for the call.
+ * @param {CallHandlerParams} action - The parameters for the call, including optional event handlers.
  * @returns {Promise<CallResult>} The result of the call, including execution details and any returned data.
  * @throws {TevmCallError} If `throwOnFail` is true, returns `TevmCallError` as value.
  *
@@ -26,6 +33,11 @@ import type { CallResult } from './CallResult.js'
  *   gas: 1000000n,
  *   gasPrice: 1n,
  *   skipBalance: true,
+ *   // Optional event handlers
+ *   onStep: (step, next) => {
+ *     console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
+ *     next?.()
+ *   }
  * })
  *
  * console.log(res)
@@ -35,4 +47,4 @@ import type { CallResult } from './CallResult.js'
  * @see {@link CallParams}
  * @see {@link CallResult}
  */
-export type CallHandler = (action: CallParams) => Promise<CallResult>
+export type CallHandler = (action: CallHandlerParams) => Promise<CallResult>

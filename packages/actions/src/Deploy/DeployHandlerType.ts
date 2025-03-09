@@ -1,4 +1,5 @@
 import type { Abi, ContractConstructorArgs } from '@tevm/utils'
+import type { CallEvents } from '../common/CallEvents.js'
 import type { DeployParams } from './DeployParams.js'
 import type { DeployResult } from './DeployResult.js'
 
@@ -24,6 +25,11 @@ import type { DeployResult } from './DeployResult.js'
  *   from: '0x123...',
  *   gas: 1000000n,
  *   gasPrice: 1n,
+ *   // Optional event handlers
+ *   onStep: (step, next) => {
+ *     console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
+ *     next?.()
+ *   }
  * })
  * console.log(result)
  * ```
@@ -33,7 +39,7 @@ import type { DeployResult } from './DeployResult.js'
  * @template THasConstructor - Indicates whether the contract has a constructor.
  * @template TAllArgs - The types of the constructor arguments.
  *
- * @param {DeployParams<TThrowOnFail, TAbi, THasConstructor, TAllArgs>} action - The deployment parameters.
+ * @param {DeployParams<TThrowOnFail, TAbi, THasConstructor, TAllArgs> & CallEvents} action - The deployment parameters and optional event handlers.
  * @returns {Promise<DeployResult>} The result of the deployment.
  */
 export type DeployHandler = <
@@ -48,5 +54,5 @@ export type DeployHandler = <
 		: true,
 	TAllArgs = ContractConstructorArgs<TAbi>,
 >(
-	action: DeployParams<TThrowOnFail, TAbi, THasConstructor, TAllArgs>,
+	action: DeployParams<TThrowOnFail, TAbi, THasConstructor, TAllArgs> & CallEvents,
 ) => Promise<DeployResult>

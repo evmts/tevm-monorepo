@@ -1,5 +1,6 @@
 import type { Abi } from '@tevm/utils'
 import type { ContractFunctionName } from '@tevm/utils'
+import type { CallEvents } from '../common/CallEvents.js'
 import type { ContractParams } from './ContractParams.js'
 import type { ContractResult } from './ContractResult.js'
 
@@ -9,7 +10,7 @@ import type { ContractResult } from './ContractResult.js'
  * This handler is adapted from viem and is designed to closely match the viem `contractRead`/`contractWrite` API.
  * It encodes the ABI, function name, and arguments to perform the contract call.
  *
- * @param {ContractParams<TAbi, TFunctionName>} action - The parameters for the contract call, including ABI, function name, and arguments.
+ * @param {ContractParams<TAbi, TFunctionName> & CallEvents} action - The parameters for the contract call, including ABI, function name, and arguments, with optional event handlers.
  * @returns {Promise<ContractResult<TAbi, TFunctionName>>} The result of the contract call, including execution details and any returned data.
  * @throws {TevmCallError} If `throwOnFail` is true, returns `TevmCallError` as value.
  *
@@ -31,6 +32,11 @@ import type { ContractResult } from './ContractResult.js'
  *   gas: 1000000n,
  *   gasPrice: 1n,
  *   skipBalance: true,
+ *   // Optional event handlers
+ *   onStep: (step, next) => {
+ *     console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
+ *     next?.()
+ *   }
  * })
  *
  * console.log(res)
@@ -46,5 +52,5 @@ export type ContractHandler = <
 	TAbi extends Abi | readonly unknown[] = Abi,
 	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
 >(
-	action: ContractParams<TAbi, TFunctionName>,
+	action: ContractParams<TAbi, TFunctionName> & CallEvents,
 ) => Promise<ContractResult<TAbi, TFunctionName>>

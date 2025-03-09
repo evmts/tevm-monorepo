@@ -1,4 +1,4 @@
-import type { ContractParams } from '@tevm/actions'
+import type { CallEvents, ContractParams } from '@tevm/actions'
 import type { ContractResult } from '@tevm/actions'
 import type { Abi } from '@tevm/utils'
 import type { ContractFunctionName } from '@tevm/utils'
@@ -52,5 +52,5 @@ export type TevmContract = <
 	TFunctionName extends ContractFunctionName<TAbi> = ContractFunctionName<TAbi>,
 >(
 	client: Client<TevmTransport<string>>,
-	params: ContractParams<TAbi, TFunctionName>,
+	params: ContractParams<TAbi, TFunctionName> & CallEvents,
 ) => Promise<ContractResult<TAbi, TFunctionName>>

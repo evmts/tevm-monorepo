@@ -8,7 +8,7 @@
 
 > **DeployHandler**: \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](DeployResult.md)\>
 
-Defined in: [packages/actions/src/Deploy/DeployHandlerType.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployHandlerType.ts#L39)
+Defined in: [packages/actions/src/Deploy/DeployHandlerType.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployHandlerType.ts#L45)
 
 Handler for deploying contracts on TEVM.
 This handler is used to deploy a contract by specifying the deployment parameters, ABI, and constructor arguments.
@@ -35,9 +35,9 @@ The types of the constructor arguments.
 
 ### action
 
-[`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>
+[`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> & [`CallEvents`](CallEvents.md)
 
-The deployment parameters.
+The deployment parameters and optional event handlers.
 
 ## Returns
 
@@ -64,6 +64,11 @@ const result = await handler({
   from: '0x123...',
   gas: 1000000n,
   gasPrice: 1n,
+  // Optional event handlers
+  onStep: (step, next) => {
+    console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
+    next?.()
+  }
 })
 console.log(result)
 ```

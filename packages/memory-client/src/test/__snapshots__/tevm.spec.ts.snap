@@ -1,0 +1,14 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Tevm should create a local vm in JavaScript > client.script > should support event handlers to monitor EVM execution 1`] = `
+[
+  {
+    "depth": 0,
+    "type": "before",
+  },
+  {
+    "gasUsed": 927n,
+    "type": "after",
+  },
+]
+`;

@@ -162,6 +162,103 @@ node.logger.warn('Warning messages')
 node.logger.error('Error information')
 ```
 
+## Tevm Call Methods
+
+The `tevmCall` family of methods provides direct EVM execution with extensive control and debugging capabilities:
+
+### tevmCall
+
+Execute low-level EVM calls with detailed control:
+
+```ts
+import { tevmCall } from 'tevm/actions'
+import { encodeFunctionData } from 'viem'
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+const result = await tevmCall(client, {
+  to: '0x1234...',
+  data: encodeFunctionData({
+    abi,
+    functionName: 'myFunction',
+    args: [arg1, arg2]
+  }),
+  // Monitor EVM execution steps
+  onStep: (step, next) => {
+    console.log(`Opcode: ${step.opcode.name}, PC: ${step.pc}`)
+    next?.()
+  },
+  // Monitor contract creation
+  onNewContract: (data, next) => {
+    console.log(`New contract at: ${data.address.toString()}`)
+    next?.()
+  },
+  // Monitor call execution
+  onBeforeMessage: (message, next) => {
+    console.log(`Call to: ${message.to?.toString()}`)
+    next?.()
+  },
+  onAfterMessage: (result, next) => {
+    console.log(`Return: ${result.execResult.returnValue.toString('hex')}`)
+    next?.()
+  }
+})
+```
+
+### tevmContract
+
+High-level contract interaction with EVM event monitoring:
+
+```ts
+import { tevmContract } from 'tevm/actions'
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+const result = await tevmContract(client, {
+  abi,
+  address: '0x1234...',
+  functionName: 'myFunction',
+  args: [arg1, arg2],
+  // Monitor EVM execution
+  onStep: (step, next) => {
+    console.log(`Opcode: ${step.opcode.name}, Stack: ${step.stack.length}`)
+    next?.()
+  },
+  onNewContract: (data, next) => {
+    console.log(`New contract created: ${data.address.toString()}`)
+    next?.()
+  }
+})
+```
+
+### tevmDeploy
+
+Contract deployment with execution monitoring:
+
+```ts
+import { tevmDeploy } from 'tevm/actions'
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+const result = await tevmDeploy(client, {
+  abi,
+  bytecode,
+  args: [constructorArg1, constructorArg2],
+  // Monitor deployment execution
+  onStep: (step, next) => {
+    console.log(`Executing: ${step.opcode.name}`)
+    next?.()
+  },
+  onNewContract: (data, next) => {
+    console.log(`Deployed at: ${data.address.toString()}`)
+    next?.()
+  }
+})
+```
+
 ## Extensibility
 
 ### Adding Custom Functionality

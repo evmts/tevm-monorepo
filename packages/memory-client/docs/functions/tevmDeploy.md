@@ -27,7 +27,7 @@ The viem client configured with TEVM transport.
 
 ### params
 
-`DeployParams`\<`boolean`, `Abi`, `true`, readonly `unknown`[]\>
+`Omit`\<`BaseCallParams`\<`boolean`\>, `"to"`\> & `object` & `object` & `object` & `CallEvents`
 
 Parameters for the contract deployment, including ABI, bytecode, and constructor arguments.
 

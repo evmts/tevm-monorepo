@@ -22,10 +22,11 @@ import { handleRunTxError } from './handleEvmError.js'
  * @param {import('@tevm/node').TevmNode} client
  * @param {import("@tevm/evm").EvmRunCallOpts} evmInput
  * @param {import('./CallParams.js').CallParams} params
+ * @param {import('../common/CallEvents.js').CallEvents} [events] - Optional event handlers for EVM execution
  * @returns {Promise<(ExecuteCallResult & {errors?: [ExecuteCallError]}) | {errors: [ExecuteCallError]}>}
  * @throws {never} returns errors as values
  */
-export const executeCall = async (client, evmInput, params) => {
+export const executeCall = async (client, evmInput, params, events) => {
 	/**
 	 * @type {import('../debug/DebugResult.js').DebugTraceCallResult | undefined}
 	 */
@@ -36,6 +37,13 @@ export const executeCall = async (client, evmInput, params) => {
 	 */
 	let accessList = undefined
 	const vm = await client.getVm()
+
+	// Register event handlers if provided
+	if (events?.onStep) vm.evm.events?.on('step', events.onStep)
+	if (events?.onNewContract) vm.evm.events?.on('newContract', events.onNewContract)
+	if (events?.onBeforeMessage) vm.evm.events?.on('beforeMessage', events.onBeforeMessage)
+	if (events?.onAfterMessage) vm.evm.events?.on('afterMessage', events.onAfterMessage)
+
 	try {
 		const tx = await evmInputToImpersonatedTx({
 			...client,
@@ -94,5 +102,11 @@ export const executeCall = async (client, evmInput, params) => {
 			accessList,
 			errors: [handleRunTxError(e)],
 		}
+	} finally {
+		// Clean up event handlers to prevent memory leaks
+		if (events?.onStep) vm.evm.events?.off('step', events.onStep)
+		if (events?.onNewContract) vm.evm.events?.off('newContract', events.onNewContract)
+		if (events?.onBeforeMessage) vm.evm.events?.off('beforeMessage', events.onBeforeMessage)
+		if (events?.onAfterMessage) vm.evm.events?.off('afterMessage', events.onAfterMessage)
 	}
 }
