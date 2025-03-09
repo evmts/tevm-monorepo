@@ -13,11 +13,11 @@ if (optimismRpcUrls.length === 0) {
 }
 
 const mainnet = loadBalance(
-	mainnetRpcUrls.map((url) => rateLimit(http(url), { browser: false, requestsPerSecond: 75 })),
+	mainnetRpcUrls.map((url) => rateLimit(http(url), { browser: false, requestsPerSecond: 150 })),
 )({ retryCount: 3, chain: viemMainnet })
 
 const optimism = loadBalance(
-	optimismRpcUrls.map((url) => rateLimit(http(url), { browser: false, requestsPerSecond: 75 })),
+	optimismRpcUrls.map((url) => rateLimit(http(url), { browser: false, requestsPerSecond: 150 })),
 )({ retryCount: 3, chain: viemOptimism })
 
 export const transports = {
