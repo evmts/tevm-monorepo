@@ -40,5 +40,5 @@ import { contractHandler } from '@tevm/actions'
  */
 export const tevmContract = async (client, params) => {
 	// TODO this shouldn't need to be any any
-	return contractHandler(client.transport.tevm)(/** @type {any}*/(params))
+	return contractHandler(client.transport.tevm)(/** @type {any}*/ (params))
 }
