@@ -21,19 +21,26 @@ Tevm Node is an in-browser & Node.js-compatible Ethereum Virtual Machine (EVM) e
 
 ## Quick Example
 
-```ts
-import { createTevmNode, http } from 'tevm'
+Tevm is a viem transport along with a viem extension to add the functionality of running an in memory node to viem.
 
-// Create a node that forks from Optimism
-const node = createTevmNode({
+The tevmNode can be seen via `client.transport.tevm`
+
+```ts
+import { createMemoryClient, http } from 'tevm'
+
+const client = createMemoryClient({
   fork: {
     transport: http('https://mainnet.optimism.io')
   }
 })
 
-const vm = await node.getVm()
+const tevmNode = client.transport.tevm
+
+const vm = await tevmNode.getVm()
 console.log(await vm.blockchain.getBlockByTag('latest'))
 ```
+
+It is not recomended to interact directly with the TevmNode but to instead use the viem actions api along with custom tevm actions.
 
 ## Why Tevm Node?
 
@@ -42,9 +49,11 @@ console.log(await vm.blockchain.getBlockByTag('latest'))
 - **Lightweight:** Minimal overhead compared to full Ethereum nodes
 - **Network Independent:** Test and develop without real network constraints
 
-## Important Note
+## Why viem
 
-Tevm Node is designed primarily for development, testing, and simulation. While it implements the full EVM specification, it is not recommended for production mainnet validation or as a replacement for full consensus nodes.
+Tevm minimizes it's api surface and is easy to use because it [uses viem](../getting-started/viem.mdx) as it's API rather than forcing users to learn a bespoke api. If you know viem you already know ethers.
+
+Note: [ethers is also supported](../getting-started/ethers.mdx)
 
 ## Next Steps
 
