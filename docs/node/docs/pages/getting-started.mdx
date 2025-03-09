@@ -46,8 +46,8 @@ import {encodeFunctionData, parseAbi, decodeFunctionResult, parseEther} from 'vi
 const client = createMemoryClient({
   fork: {
     transport: http('https://mainnet.optimism.io')({}),
-    common: optimism,
   },
+  common: optimism,
 })
 
 console.log("Client created")
