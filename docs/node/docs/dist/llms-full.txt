@@ -1817,7 +1817,7 @@ await setAccountHandler(node)({
 
 ## EVM Events
 
-Tevm Node provides access to low-level EVM events through the VM's event emitter. This allows you to monitor and debug contract execution at a granular level.
+Tevm Node provides access to low-level EVM events, allowing you to monitor and debug contract execution at a granular level.
 
 ### Available Events
 
@@ -1825,83 +1825,223 @@ Tevm Node provides access to low-level EVM events through the VM's event emitter
 type EVMEvent = {
   // Emitted when a new contract is created
   newContract: (data: {
-    address: Address,
-    code: Uint8Array
-  }) => void
+    address: Address, // Contract address
+    code: Uint8Array  // Contract bytecode
+  }, next?: () => void) => void
 
   // Emitted before a message (call) is processed
-  beforeMessage: (data: Message) => void
+  beforeMessage: (data: Message, next?: () => void) => void
 
   // Emitted after a message (call) is processed
-  afterMessage: (data: EVMResult) => void
+  afterMessage: (data: EVMResult, next?: () => void) => void
 
-  // Emitted on each EVM step
-  step: (data: InterpreterStep) => void
+  // Emitted on each EVM step (instruction execution)
+  step: (data: InterpreterStep, next?: () => void) => void
 }
 ```
 
-### Basic Usage
+#### The InterpreterStep Object
+
+The `step` event handler receives a detailed `InterpreterStep` object with the following properties:
 
 ```ts
-import { createTevmNode } from 'tevm'
-
-const node = createTevmNode()
-const vm = await node.getVm()
-
-// Listen for EVM steps
-vm.evm.events?.on('step', (step, next) => {
-  console.log('EVM Step:', {
-    pc: step.pc,           // Program counter
-    opcode: step.opcode,   // Current opcode
-    gasLeft: step.gasLeft, // Remaining gas
-    stack: step.stack,     // Stack contents
-    depth: step.depth,     // Call depth
-  })
-  next?.()
-})
-
-// Listen for contract creation
-vm.evm.events?.on('newContract', (data, next) => {
-  console.log('New contract deployed:', {
-    address: data.address.toString(),
-    codeSize: data.code.length,
-  })
-  next?.()
-})
-
-// Listen for message execution
-vm.evm.events?.on('beforeMessage', (message, next) => {
-  console.log('Executing message:', {
-    to: message.to?.toString(),
-    value: message.value.toString(),
-    delegatecall: message.delegatecall,
-  })
-  next?.()
-})
-
-vm.evm.events?.on('afterMessage', (result, next) => {
-  console.log('Message result:', {
-    gasUsed: result.execResult.executionGasUsed.toString(),
-    returnValue: result.execResult.returnValue.toString('hex'),
-    error: result.execResult.exceptionError?.error,
-  })
-  next?.()
-})
+interface InterpreterStep {
+  // Program counter - current position in the bytecode
+  pc: number
+  
+  // Current opcode information
+  opcode: {
+    name: string        // Opcode name (e.g., 'SSTORE', 'CALL')
+    fee: number         // Base gas fee of the opcode
+    dynamicFee?: bigint // Additional dynamic gas fee (if applicable)
+    isAsync: boolean    // Whether opcode is asynchronous
+  }
+  
+  // Gas information
+  gasLeft: bigint    // Remaining gas
+  gasRefund: bigint  // Gas refund accumulator
+  
+  // EVM state
+  stateManager: StateManager  // Reference to the StateManager instance
+  stack: Uint8Array[]         // Current EVM stack contents
+  returnStack: bigint[]       // Return stack for RETURNSUB operations
+  
+  // Account information
+  account: Account    // Account which owns the code running
+  address: Address    // Address of the current account
+  
+  // Execution context
+  depth: number       // Current call depth (starts at 0 for top-level call)
+  memory: Uint8Array  // Current EVM memory contents
+  memoryWordCount: bigint  // Current size of memory in words (32 bytes)
+  codeAddress: Address     // Address of the code being executed
+                          // (differs from address in DELEGATECALL/CALLCODE)
+}
 ```
 
-### Debugging Example
+Where:
+
+* [`Address`](/reference/address) is Tevm's address type (from `tevm/address`)
+* [`StateManager`](/reference/state) is the state manager interface (from `tevm/state`)
+* [`Account`](/reference/node) is Tevm's account representation
+
+#### The NewContractEvent Object
+
+The `onNewContract` event handler receives a `NewContractEvent` object with the following properties:
 
 ```ts
-// Create a debug tracer
-function createDebugTracer(vm) {
-  const trace = {
-    steps: [],
-    contracts: new Set(),
-    errors: [],
-  }
+interface NewContractEvent {
+  // Contract information
+  address: Address      // Address of the newly created contract
+  code: Uint8Array      // Deployed contract bytecode
+}
+```
 
+#### The Message Object
+
+The `beforeMessage` event handler receives a `Message` object with the following properties:
+
+```ts
+interface Message {
+  // Call information
+  to?: Address            // Target address (undefined for contract creation)
+  value: bigint           // Value sent with the call (in wei)
+  caller: Address         // Address of the account that initiated this call
+  
+  // Gas information
+  gasLimit: bigint        // Gas limit for this call
+  
+  // Data and code
+  data: Uint8Array        // Input data to the call
+  code?: Uint8Array       // Contract code for the call
+  codeAddress?: Address   // Address of contract code
+  
+  // Call type
+  depth: number           // Call depth
+  isStatic: boolean       // Whether the call is static (view)
+  isCompiled: boolean     // Whether this is precompiled contract code
+  delegatecall: boolean   // Whether this is a DELEGATECALL
+  callcode: boolean       // Whether this is a CALLCODE
+  
+  // Other
+  salt?: Uint8Array       // Salt for CREATE2 calls
+  authcallOrigin?: Address // Origin address for AUTH calls
+}
+```
+
+#### The EVMResult Object
+
+The `afterMessage` event handler receives an `EVMResult` object with the following properties:
+
+````ts
+interface EVMResult {
+  execResult: {
+    // Return information
+    returnValue: Uint8Array   // Return data from the call
+    executionGasUsed: bigint  // Gas used in execution
+    gasRefund?: bigint        // Gas refunded
+    
+    // Error information
+    exceptionError?: {        // Error encountered during execution
+      error: string           // Error type (e.g., 'revert', 'out of gas')
+      errorType?: string      // Additional error type information
+    }
+    
+    // State
+    logs?: Log[]              // Logs emitted during execution
+    selfdestruct?: Record<string, true>  // Self-destructed addresses
+    gas?: bigint              // Remaining gas
+  }
+  
+  // Other information
+  gasUsed: bigint             // Total gas used (including intrinsic costs)
+  createdAddress?: Address    // Address of created contract (if any)
+  gasRefund?: bigint          // Total gas refunded
+}
+
+## Using with tevmCall Family
+
+The recommended way to access EVM events is through the tevmCall family of methods:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { tevmCall } from 'tevm/actions'
+import { encodeFunctionData } from 'viem'
+
+const client = createMemoryClient()
+
+// Listen for EVM steps and other events during execution
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: encodeFunctionData({
+    abi,
+    functionName: 'myFunction',
+    args: [arg1, arg2]
+  }),
+  // Listen for EVM steps
+  onStep: (step, next) => {
+    console.log('EVM Step:', {
+      pc: step.pc,           // Program counter
+      opcode: step.opcode,   // Current opcode
+      gasLeft: step.gasLeft, // Remaining gas
+      stack: step.stack,     // Stack contents
+      depth: step.depth,     // Call depth
+    })
+    next?.()
+  },
+  // Listen for contract creation
+  onNewContract: (data, next) => {
+    console.log('New contract deployed:', {
+      address: data.address.toString(),
+      codeSize: data.code.length,
+    })
+    next?.()
+  },
+  // Listen for message execution
+  onBeforeMessage: (message, next) => {
+    console.log('Executing message:', {
+      to: message.to?.toString(),
+      value: message.value.toString(),
+      delegatecall: message.delegatecall,
+    })
+    next?.()
+  },
+  onAfterMessage: (result, next) => {
+    console.log('Message result:', {
+      gasUsed: result.execResult.executionGasUsed.toString(),
+      returnValue: result.execResult.returnValue.toString('hex'),
+      error: result.execResult.exceptionError?.error,
+    })
+    next?.()
+  }
+})
+````
+
+### Advanced Examples
+
+#### Debugging
+
+You can create a debug tracer to collect comprehensive execution data:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { tevmCall } from 'tevm/actions'
+
+const client = createMemoryClient()
+
+// Create a debug tracer
+const trace = {
+  steps: [],
+  contracts: new Set(),
+  errors: [],
+}
+
+// Execute with tracing
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: '0x...',
   // Track each EVM step
-  vm.evm.events?.on('step', (step, next) => {
+  onStep: (step, next) => {
     trace.steps.push({
       pc: step.pc,
       opcode: step.opcode.name,
@@ -1909,16 +2049,14 @@ function createDebugTracer(vm) {
       stack: step.stack.map(item => item.toString(16)),
     })
     next?.()
-  })
-
+  },
   // Track contract creation
-  vm.evm.events?.on('newContract', (data, next) => {
+  onNewContract: (data, next) => {
     trace.contracts.add(data.address.toString())
     next?.()
-  })
-
+  },
   // Track errors
-  vm.evm.events?.on('afterMessage', (result, next) => {
+  onAfterMessage: (result, next) => {
     if (result.execResult.exceptionError) {
       trace.errors.push({
         error: result.execResult.exceptionError.error,
@@ -1926,17 +2064,8 @@ function createDebugTracer(vm) {
       })
     }
     next?.()
-  })
-
-  return trace
-}
-
-// Use the tracer
-const node = createTevmNode()
-const vm = await node.getVm()
-const trace = createDebugTracer(vm)
-
-// Run some transactions...
+  }
+})
 
 console.log('Execution trace:', {
   stepCount: trace.steps.length,
@@ -1945,17 +2074,27 @@ console.log('Execution trace:', {
 })
 ```
 
-### Gas Profiling
+#### Gas Profiling
+
+Create a gas profiler to analyze opcode costs:
 
 ```ts
-// Create a gas profiler
-function createGasProfiler(vm) {
-  const profile = {
-    opcodes: new Map(),
-    totalGas: 0n,
-  }
+import { createMemoryClient } from 'tevm'
+import { tevmCall } from 'tevm/actions'
 
-  vm.evm.events?.on('step', (step, next) => {
+const client = createMemoryClient()
+
+// Create a gas profiler
+const profile = {
+  opcodes: new Map(),
+  totalGas: 0n,
+}
+
+// Execute with profiling
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: '0x...',
+  onStep: (step, next) => {
     const opName = step.opcode.name
     const gasCost = BigInt(step.opcode.fee)
 
@@ -1970,17 +2109,8 @@ function createGasProfiler(vm) {
     profile.opcodes.set(opName, stats)
 
     next?.()
-  })
-
-  return profile
-}
-
-// Use the profiler
-const node = createTevmNode()
-const vm = await node.getVm()
-const profile = createGasProfiler(vm)
-
-// Run transactions...
+  }
+})
 
 // Get gas usage by opcode
 for (const [opcode, stats] of profile.opcodes) {
@@ -1992,29 +2122,40 @@ for (const [opcode, stats] of profile.opcodes) {
 }
 ```
 
-### Error Handling
+#### Error Handling
+
+Handle errors in execution:
 
 ```ts
-vm.evm.events?.on('afterMessage', (result, next) => {
-  if (result.execResult.exceptionError) {
-    const error = result.execResult.exceptionError
+import { createMemoryClient } from 'tevm'
+import { tevmCall } from 'tevm/actions'
 
-    switch (error.error) {
-      case 'out of gas':
-        console.error('Transaction ran out of gas')
-        break
-      case 'revert':
-        console.error('Transaction reverted:',
-          result.execResult.returnValue.toString('hex'))
-        break
-      case 'invalid opcode':
-        console.error('Invalid opcode encountered')
-        break
-      default:
-        console.error('Unknown error:', error)
+const client = createMemoryClient()
+
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: '0x...',
+  onAfterMessage: (result, next) => {
+    if (result.execResult.exceptionError) {
+      const error = result.execResult.exceptionError
+
+      switch (error.error) {
+        case 'out of gas':
+          console.error('Transaction ran out of gas')
+          break
+        case 'revert':
+          console.error('Transaction reverted:',
+            result.execResult.returnValue.toString('hex'))
+          break
+        case 'invalid opcode':
+          console.error('Invalid opcode encountered')
+          break
+        default:
+          console.error('Unknown error:', error)
+      }
     }
+    next?.()
   }
-  next?.()
 })
 ```
 
@@ -2022,39 +2163,44 @@ vm.evm.events?.on('afterMessage', (result, next) => {
 
 1. **Always Call Next**
    ```ts
-   vm.evm.events?.on('step', (step, next) => {
+   // Important: Call next to continue execution
+   onStep: (step, next) => {
      // Process step...
-     next?.() // Important: Call next to continue execution
-   })
-   ```
-
-2. **Clean Up Listeners**
-   ```ts
-   const handler = (step, next) => {
-     // Handle step...
-     next?.()
+     next?.() 
    }
-
-   vm.evm.events?.on('step', handler)
-
-   // Later...
-   vm.evm.events?.off('step', handler)
    ```
 
-3. **Handle Errors Gracefully**
+2. **Handle Errors Gracefully**
    ```ts
-   vm.evm.events?.on('step', (step, next) => {
+   onStep: (step, next) => {
      try {
        // Process step...
      } catch (error) {
        console.error('Error processing step:', error)
      }
      next?.()
-   })
+   }
+   ```
+
+3. **Be Efficient**
+   ```ts
+   // Focus on information you need
+   onStep: (step, next) => {
+     // Only log SSTORE operations
+     if (step.opcode.name === 'SSTORE') {
+       console.log('Storage write:', {
+         key: step.stack[step.stack.length - 1].toString(16),
+         value: step.stack[step.stack.length - 2].toString(16)
+       })
+     }
+     next?.()
+   }
    ```
 
 ### Related Topics
 
+* [Tevm Call API](../api/tevm-call)
+* [Methods](../api/methods)
 * [Performance Profiler](../advanced/performance-profiler)
 * [Gas Estimation](../api/methods)
 
@@ -2508,6 +2654,103 @@ node.logger.warn('Warning messages')
 node.logger.error('Error information')
 ```
 
+### Tevm Call Methods
+
+The `tevmCall` family of methods provides direct EVM execution with extensive control and debugging capabilities:
+
+#### tevmCall
+
+Execute low-level EVM calls with detailed control:
+
+```ts
+import { tevmCall } from 'tevm/actions'
+import { encodeFunctionData } from 'viem'
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+const result = await tevmCall(client, {
+  to: '0x1234...',
+  data: encodeFunctionData({
+    abi,
+    functionName: 'myFunction',
+    args: [arg1, arg2]
+  }),
+  // Monitor EVM execution steps
+  onStep: (step, next) => {
+    console.log(`Opcode: ${step.opcode.name}, PC: ${step.pc}`)
+    next?.()
+  },
+  // Monitor contract creation
+  onNewContract: (data, next) => {
+    console.log(`New contract at: ${data.address.toString()}`)
+    next?.()
+  },
+  // Monitor call execution
+  onBeforeMessage: (message, next) => {
+    console.log(`Call to: ${message.to?.toString()}`)
+    next?.()
+  },
+  onAfterMessage: (result, next) => {
+    console.log(`Return: ${result.execResult.returnValue.toString('hex')}`)
+    next?.()
+  }
+})
+```
+
+#### tevmContract
+
+High-level contract interaction with EVM event monitoring:
+
+```ts
+import { tevmContract } from 'tevm/actions'
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+const result = await tevmContract(client, {
+  abi,
+  address: '0x1234...',
+  functionName: 'myFunction',
+  args: [arg1, arg2],
+  // Monitor EVM execution
+  onStep: (step, next) => {
+    console.log(`Opcode: ${step.opcode.name}, Stack: ${step.stack.length}`)
+    next?.()
+  },
+  onNewContract: (data, next) => {
+    console.log(`New contract created: ${data.address.toString()}`)
+    next?.()
+  }
+})
+```
+
+#### tevmDeploy
+
+Contract deployment with execution monitoring:
+
+```ts
+import { tevmDeploy } from 'tevm/actions'
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+const result = await tevmDeploy(client, {
+  abi,
+  bytecode,
+  args: [constructorArg1, constructorArg2],
+  // Monitor deployment execution
+  onStep: (step, next) => {
+    console.log(`Executing: ${step.opcode.name}`)
+    next?.()
+  },
+  onNewContract: (data, next) => {
+    console.log(`Deployed at: ${data.address.toString()}`)
+    next?.()
+  }
+})
+```
+
 ### Extensibility
 
 #### Adding Custom Functionality
@@ -2859,6 +3102,11 @@ type CallParams = {
   stateOverrideSet?: StateOverrideSet
   // Block overrides
   blockOverrideSet?: BlockOverrideSet
+  // Event handlers for EVM execution
+  onStep?: (data: InterpreterStep, next?: () => void) => void
+  onNewContract?: (data: NewContractEvent, next?: () => void) => void
+  onBeforeMessage?: (data: Message, next?: () => void) => void
+  onAfterMessage?: (data: EVMResult, next?: () => void) => void
 }
 ```
 
@@ -2969,6 +3217,54 @@ if (result.trace) {
     console.log(log.op, log.stack, log.memory)
   })
 }
+```
+
+#### 5. EVM Event Handlers
+
+You can attach event handlers to monitor EVM execution in real-time:
+
+```ts
+// Use EVM event handlers to monitor execution
+const result = await callHandler(node)({
+  from: PREFUNDED_ACCOUNTS[0].address,
+  to: contractAddress,
+  data: encodeFunctionData({
+    abi,
+    functionName: 'myFunction',
+    args: [arg1, arg2]
+  }),
+  // Monitor each EVM step
+  onStep: (step, next) => {
+    console.log(
+      `Executing ${step.opcode.name} at PC=${step.pc}`,
+      `Gas left: ${step.gasLeft.toString()}`,
+      `Stack depth: ${step.stack.length}`
+    )
+    // Important: Call next to continue execution
+    next?.()
+  },
+  // Monitor contract creation events
+  onNewContract: (data, next) => {
+    console.log(`New contract created at: ${data.address.toString()}`)
+    next?.()
+  },
+  // Monitor messages (calls) before execution
+  onBeforeMessage: (message, next) => {
+    console.log(`Call to: ${message.to?.toString()}`, 
+                `Value: ${message.value.toString()}`, 
+                `Gas limit: ${message.gasLimit.toString()}`)
+    next?.()
+  },
+  // Monitor messages (calls) after execution
+  onAfterMessage: (result, next) => {
+    console.log(`Call result: ${result.execResult.returnValue.toString('hex')}`,
+                `Gas used: ${result.execResult.executionGasUsed.toString()}`)
+    if (result.execResult.exceptionError) {
+      console.error(`Error: ${result.execResult.exceptionError.error}`)
+    }
+    next?.()
+  }
+})
 ```
 
 ### Higher Level APIs
@@ -4350,510 +4646,6 @@ function useNode<TMode extends 'fork' | 'normal'>(
 * Learn about [Forking](./forking)
 * Explore [State Management](./managing-state)
 * See [JSON-RPC Support](../api/json-rpc)
-
-
-## Architecture Overview
-
-These docs will go into the low level architecture of [TevmNode](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/type-aliases/TevmNode.md). To focus on the high level api go straight to the [viem docs](../examples/viem.mdx).
-
-### Actions api
-
-To focus on being tree shakable, Tevm is broken up into Objects and Actions. This pattern will be familiar to those who have used [viem](https://viem.sh/).
-
-#### Objects
-
-Objects in Tevm are:
-
-* Stateful components that maintain data and state
-* Come in tree shakable forms or with actions on the object
-* Similar to structs in other languages
-
-#### Actions
-
-Actions in Tevm are:
-
-* Pure functions that take an object as their first parameter
-* Tree-shakable operations that can be imported individually
-* Can also optionally be on prototype
-* Single-purpose utilities that perform specific tasks
-* Composable pieces that can be combined for complex operations
-
-For example, an action like `getAccountHandler` takes a `TevmNode` object and returns a function for getting account details:
-
-Objects in Tevm include:
-
-* [`TevmNode`](/reference/node)
-* Low level Node components such as [`Evm`](/reference/evm) and [`Blockchain`](/reference/blockchain)
-* Tevm shares objects with viem such as the [ViemClient](https://viem.sh/docs/clients/public.html)
-
-These objects have tree shakable actions that can be imported from their respective actions. Here's an example:
-
-```typescript
-import { createTevmNode } from 'tevm'
-import { getAccountHandler } from 'tevm/actions'
-
-const node = createTevmNode()
-const getAccount = getAccountHandler(node)
-
-// Use the action
-const account = await getAccount({
-  address: '0x...'
-})
-```
-
-The most important actions are the `TevmNode` actions from [`tevm/actions`](/reference/actions). There are also viem actions in [tevm/memory-client](/reference/memory-client).
-
-### MemoryClient
-
-MemoryClient is a viem client with every viem and tevm action included on prototype so you don't need to import them as actions. This is more convenient but less tree shakable.
-
-```typescript
-import { createMemoryClient } from 'tevm/memory-client'
-
-const client = createMemoryClient()
-
-// All viem actions are available directly on memory client
-await client.getContractCode({
-  address: '0x...'
-})
-
-// custom tevm actions corresponding to the most popular TevmNode actions
-// are available prefixed with tevm
-const state = await client.tevmDumpState()
-```
-
-See [viem guide on tree shakable actions](https://wagmi.sh/react/guides/viem) for more.
-
-To use in tree shakable way you must create a TevmTransport and pass that into `createClient`. See [viem tevm docs](../examples/viem.mdx)
-
-### What is Tevm Node?
-
-[Tevm Node](https://github.com/evmts/tevm-monorepo) is a JavaScript implementation of an Ethereum node that can run in any JavaScript environment - browsers, Node.js, or other runtimes. It provides a complete [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) with state management, transaction processing, and JSON-RPC support.
-
-To use in tree shakable way simply import actions to use with tevm node
-
-```typescript
-// create a tevm node
-import {createTevmNode} from 'tevm'
-// import actions from tevm/actions
-import {getAccountHandler} from 'tevm/actions'
-
-const node = createTevmNode()
-
-const getAccount = getAccountHandler(node)
-
-const account = getAccount({address: `0x...`})
-```
-
-You can also interact with lower level components like evm, statemanager, blockchain and more via [advanced apis](../reference/index.mdx).
-
-### What can you do with Tevm Node?
-
-Tevm has a lot of use cases many which are covered in the examples section
-
-1. Anything viem can do as tevm is an extension of viem's capabilities
-2. Simulate blocks and transactions locally. Hook directly into evm execution
-3. Estimate gas with no network requests and no loading setupEventListeners
-4. Build an EVM simulator like [svvy.sh](https://svvy.sh)
-5. Test your JavaScript against an anvil compatible fork in JavaScript
-6. Debug evm tx step by step
-7. Optimistic ui updates when tx are sent
-8. And more!
-
-### Core Architecture
-
-[TevmNode](/reference/node) is built on several key components that work together:
-
-#### 1. Virtual Machine (EVM)
-
-* Core execution engine that runs [EVM bytecode](https://ethereum.org/en/developers/docs/evm/opcodes/)
-* Handles state transitions and gas metering
-* Based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
-
-Example usage:
-
-```typescript
-const vm = await node.getVm()
-const result = await vm.runCode({
-  code: '0x60806040...',
-  gasLimit: 21000n
-})
-```
-
-#### 2. State Manager
-
-* Manages account balances, contract code, and storage
-* Supports forking from live networks
-* Implements caching and lazy loading
-
-See [State](/reference/state) for api info
-
-#### 3. Transaction Pool (Mempool)
-
-* Manages pending transactions
-* Orders transactions by gas price
-* Validates transaction requirements
-
-See [Transaction Pool](/reference/txpool) for api info
-
-#### 4. Blockchain
-
-* Maintains block history and chain state
-* Handles block production (mining)
-* Manages chain reorganizations
-
-See [Blockchain](/reference/blockchain) for api info
-
-#### 5. Receipts Manager
-
-* Caches transaction outcomes
-* Manages event logs and filters
-* Useful for implementing optimistic updates
-
-See [Receipt Manager](/reference/receipt-manager) for api info
-
-### Available APIs
-
-Tevm Node provides several layers of APIs for different use cases:
-
-#### 1. High-Level Actions
-
-Most functionality in Tevm is done via tree shakable actions including JSON-RPC compatabile actions.
-
-The most commonly used actions are provided as handlers:
-
-```ts
-import { createTevmNode } from 'tevm'
-import { callHandler, mineHandler, getAccountHandler } from 'tevm/actions'
-
-// Create a Tevm node
-const node = createTevmNode()
-
-// Execute contract calls
-const result = await callHandler(node)({
-  to: contractAddress,
-  data: calldata
-})
-
-// Mine pending transactions
-await mineHandler(node)()
-
-// Read account state
-const account = await getAccountHandler(node)({
-  address: accountAddress
-})
-```
-
-#### 2. JSON-RPC Interface
-
-```ts
-import { requestEip1193 } from 'tevm/decorators'
-
-const node = createTevmNode().extend(requestEip1193())
-
-// Standard Ethereum JSON-RPC calls
-const balance = await node.request({
-  method: 'eth_getBalance',
-  params: [address, 'latest']
-})
-```
-
-#### 3. Direct VM Access
-
-```ts
-const vm = await node.getVm()
-
-// Low-level EVM execution
-const result = await vm.runTx({
-  tx: transaction,
-  block: block
-})
-
-// State management
-await vm.stateManager.putAccount(address, account)
-```
-
-#### 4. Contract Utilities
-
-```typescript
-import { createContract } from 'tevm/contract'
-
-// Type-safe contract interactions
-const contract = createContract({
-  humanReadableAbi: ['function transfer(address to, uint256 amount)'],
-  address: '0x123...'
-})
-
-// Write operations
-const action = contract.write.transfer('0x456...', 100n)
-
-// Read operations
-const balance = await contract.read.balanceOf('0x789...')
-```
-
-You can also use the tevm bundler for automatic contract compilation:
-
-```typescript
-// Import Solidity contracts directly
-import { ERC20 } from './ERC20.sol'
-
-// Contract type information is automatically generated
-const contract = createContract({
-  abi: ERC20.abi,
-  address: '0x123...'
-})
-```
-
-### Key Features
-
-#### 1. Forking
-
-Fork from any live network or another Tevm instance:
-
-```ts
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-    blockTag: 'latest'
-  }
-})
-```
-
-#### 2. Mining Modes
-
-Configure how transactions are processed:
-
-```ts
-const node = createTevmNode({
-  miningConfig: {
-    type: 'auto' // Mine every transaction
-    // Or 'interval', 'manual', 'gas'
-  }
-})
-```
-
-#### 3. Custom Precompiles
-
-Extend the EVM with JavaScript functions:
-
-```ts
-const precompile = definePrecompile({
-  address: '0x123...',
-  call: async (input) => {
-    // Custom logic
-    return {
-      returnValue: result,
-      executionGasUsed: 100n
-    }
-  }
-})
-```
-
-#### 4. State Management
-
-Direct control over blockchain state:
-
-```ts
-// Modify account state
-await node.setAccount({
-  address: '0x123...',
-  balance: 100n,
-  code: '0x...',
-  storage: { /* ... */ }
-})
-
-// Create checkpoints
-await vm.stateManager.checkpoint()
-await vm.stateManager.commit() // or .revert()
-```
-
-### Common Use Cases
-
-1. **Local Development**
-   * Run a complete Ethereum environment locally
-   * Test contracts without external networks
-   * Simulate complex scenarios
-
-2. **Testing**
-   * Unit test smart contracts
-   * Integration test DApp interactions
-   * Fork mainnet for realistic tests
-
-3. **Transaction Simulation**
-   * Preview transaction outcomes
-   * Estimate gas costs accurately
-   * Debug failed transactions
-
-4. **State Manipulation**
-   * Modify account balances
-   * Override contract state
-   * Test edge cases
-
-### Integration Examples
-
-#### With Viem
-
-```typescript
-import { createPublicClient, custom, http } from 'viem'
-import { mainnet } from 'viem/chains'
-
-// Create a Tevm node
-const node = createTevmNode({
-  fork: {
-    url: 'https://mainnet.infura.io/v3/YOUR-KEY'
-  }
-})
-
-// Create a viem client using Tevm
-const client = createPublicClient({
-  transport: custom(node.request),
-  chain: mainnet
-})
-
-// Use viem actions
-const balance = await client.getBalance({
-  address: '0x...'
-})
-```
-
-#### With Ethers.js
-
-```typescript
-import { BrowserProvider } from 'ethers'
-
-const node = createTevmNode()
-const provider = new BrowserProvider(node)
-
-// Use ethers.js functionality
-const balance = await provider.getBalance('0x...')
-const block = await provider.getBlock('latest')
-```
-
-### Next Steps
-
-* [Installation & Quickstart](../introduction/installation)
-* [Core Concepts](../core/create-tevm-node)
-* [Viem docs](../examples/viem.mdx)
-* [API Reference](../api/methods)
-* [Examples](../examples/local-testing)
-* [GitHub Repository](https://github.com/evmts/tevm-monorepo)
-
-
-## Installation & Quickstart
-
-### 1. Install
-
-```sh
-npm install tevm
-
-# or
-yarn add tevm
-
-# or
-pnpm add tevm
-
-# or
-bun add tevm
-```
-
-### 2. Quick Start
-
-```ts
-import { createTevmNode } from 'tevm'
-
-// Create an instance
-const node = createTevmNode()
-
-// Access the internal VM once it is ready
-const vm = await node.getVm()
-
-// Perform an method on the vm or one of it's subcomponents like blockchain
-console.log(await vm.blockchain.getBlockByTag('latest'))
-```
-
-### 3. Next Steps
-
-* Explore the [Core Concepts](../core/create-tevm-node)
-* Check out [Examples](../examples/local-testing)
-
-
-## What is Tevm Node?
-
-Tevm Node is an in-browser & Node.js-compatible Ethereum Virtual Machine (EVM) environment. It provides a complete Ethereum execution environment, powered by JavaScript, that you can run:
-
-* **In Node.js** for local development and testing
-* **In the Browser** for advanced user experiences (offline simulation, real-time testing)
-* **In Deno, Bun**, or any modern JavaScript runtime
-
-### Key Features
-
-* **Forking:** Fork from any EVM-compatible network (mainnet, testnet) with efficient caching
-* **Transaction Pool:** Track and manage pending transactions locally
-* **Flexible Mining:** Choose between automatic, interval-based, manual, or gas-limit-based mining
-* **Zero Native Dependencies:** Works seamlessly in browsers and JavaScript runtimes
-* **Highly Extensible:** Customize the VM, add precompiles, handle receipts, and more
-
-### Quick Example
-
-```ts
-import { createTevmNode, http } from 'tevm'
-
-// Create a node that forks from Optimism
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.optimism.io')
-  }
-})
-
-const vm = await node.getVm()
-console.log(await vm.blockchain.getBlockByTag('latest'))
-```
-
-### Why Tevm Node?
-
-* **Browser & Local Execution:** Improved latency and advanced debugging capabilities
-* **Optimistic Updates:** Preview transaction effects before on-chain confirmation
-* **Lightweight:** Minimal overhead compared to full Ethereum nodes
-* **Network Independent:** Test and develop without real network constraints
-
-### Important Note
-
-Tevm Node is designed primarily for development, testing, and simulation. While it implements the full EVM specification, it is not recommended for production mainnet validation or as a replacement for full consensus nodes.
-
-### Next Steps
-
-* [Why JavaScript for Ethereum?](./why-run-ethereum-in-js)
-* [Installation Guide](./installation)
-* [Architecture Overview](./architecture-overview)
-
-
-## Why run Ethereum in JavaScript?
-
-### 1. Advanced Gas Estimation & Local Execution
-
-Running the EVM locally removes round-trip latency to a remote node. You can do:
-
-* Bulk simulation or multi-tx simulation
-* Real-time "dry run" of transactions
-* Faster dev/test cycles
-
-### 2. User Experience Enhancements
-
-* **Offline** or *local-first* capabilities
-* **Optimistic UI** updates with local simulation
-* No reliance on ephemeral test networks
-
-### 3. Testing & Debugging
-
-* Fine-grained EVM introspection
-* Deterministic environment
-* Light footprint – no external server needed
-
-### 4. Ecosystem & Portability
-
-* Portable across Node.js, browsers, and serverless
-* Works with standard EVM interfaces
-* Integrates well with modern JS/TS tooling
 
 
 ## Building a Debugger UI
@@ -6464,6 +6256,510 @@ All [viem's wallet actions](https://viem.sh/docs/actions/wallet/introduction) ar
 * [`getPermissions`](https://viem.sh/docs/actions/wallet/getPermissions)
 * [`requestPermissions`](https://viem.sh/docs/actions/wallet/requestPermissions)
 * [`watchAsset`](https://viem.sh/docs/actions/wallet/watchAsset)
+
+
+## Architecture Overview
+
+These docs will go into the low level architecture of [TevmNode](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/docs/type-aliases/TevmNode.md). To focus on the high level api go straight to the [viem docs](../examples/viem.mdx).
+
+### Actions api
+
+To focus on being tree shakable, Tevm is broken up into Objects and Actions. This pattern will be familiar to those who have used [viem](https://viem.sh/).
+
+#### Objects
+
+Objects in Tevm are:
+
+* Stateful components that maintain data and state
+* Come in tree shakable forms or with actions on the object
+* Similar to structs in other languages
+
+#### Actions
+
+Actions in Tevm are:
+
+* Pure functions that take an object as their first parameter
+* Tree-shakable operations that can be imported individually
+* Can also optionally be on prototype
+* Single-purpose utilities that perform specific tasks
+* Composable pieces that can be combined for complex operations
+
+For example, an action like `getAccountHandler` takes a `TevmNode` object and returns a function for getting account details:
+
+Objects in Tevm include:
+
+* [`TevmNode`](/reference/node)
+* Low level Node components such as [`Evm`](/reference/evm) and [`Blockchain`](/reference/blockchain)
+* Tevm shares objects with viem such as the [ViemClient](https://viem.sh/docs/clients/public.html)
+
+These objects have tree shakable actions that can be imported from their respective actions. Here's an example:
+
+```typescript
+import { createTevmNode } from 'tevm'
+import { getAccountHandler } from 'tevm/actions'
+
+const node = createTevmNode()
+const getAccount = getAccountHandler(node)
+
+// Use the action
+const account = await getAccount({
+  address: '0x...'
+})
+```
+
+The most important actions are the `TevmNode` actions from [`tevm/actions`](/reference/actions). There are also viem actions in [tevm/memory-client](/reference/memory-client).
+
+### MemoryClient
+
+MemoryClient is a viem client with every viem and tevm action included on prototype so you don't need to import them as actions. This is more convenient but less tree shakable.
+
+```typescript
+import { createMemoryClient } from 'tevm/memory-client'
+
+const client = createMemoryClient()
+
+// All viem actions are available directly on memory client
+await client.getContractCode({
+  address: '0x...'
+})
+
+// custom tevm actions corresponding to the most popular TevmNode actions
+// are available prefixed with tevm
+const state = await client.tevmDumpState()
+```
+
+See [viem guide on tree shakable actions](https://wagmi.sh/react/guides/viem) for more.
+
+To use in tree shakable way you must create a TevmTransport and pass that into `createClient`. See [viem tevm docs](../examples/viem.mdx)
+
+### What is Tevm Node?
+
+[Tevm Node](https://github.com/evmts/tevm-monorepo) is a JavaScript implementation of an Ethereum node that can run in any JavaScript environment - browsers, Node.js, or other runtimes. It provides a complete [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/) with state management, transaction processing, and JSON-RPC support.
+
+To use in tree shakable way simply import actions to use with tevm node
+
+```typescript
+// create a tevm node
+import {createTevmNode} from 'tevm'
+// import actions from tevm/actions
+import {getAccountHandler} from 'tevm/actions'
+
+const node = createTevmNode()
+
+const getAccount = getAccountHandler(node)
+
+const account = getAccount({address: `0x...`})
+```
+
+You can also interact with lower level components like evm, statemanager, blockchain and more via [advanced apis](../reference/index.mdx).
+
+### What can you do with Tevm Node?
+
+Tevm has a lot of use cases many which are covered in the examples section
+
+1. Anything viem can do as tevm is an extension of viem's capabilities
+2. Simulate blocks and transactions locally. Hook directly into evm execution
+3. Estimate gas with no network requests and no loading setupEventListeners
+4. Build an EVM simulator like [svvy.sh](https://svvy.sh)
+5. Test your JavaScript against an anvil compatible fork in JavaScript
+6. Debug evm tx step by step
+7. Optimistic ui updates when tx are sent
+8. And more!
+
+### Core Architecture
+
+[TevmNode](/reference/node) is built on several key components that work together:
+
+#### 1. Virtual Machine (EVM)
+
+* Core execution engine that runs [EVM bytecode](https://ethereum.org/en/developers/docs/evm/opcodes/)
+* Handles state transitions and gas metering
+* Based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
+
+Example usage:
+
+```typescript
+const vm = await node.getVm()
+const result = await vm.runCode({
+  code: '0x60806040...',
+  gasLimit: 21000n
+})
+```
+
+#### 2. State Manager
+
+* Manages account balances, contract code, and storage
+* Supports forking from live networks
+* Implements caching and lazy loading
+
+See [State](/reference/state) for api info
+
+#### 3. Transaction Pool (Mempool)
+
+* Manages pending transactions
+* Orders transactions by gas price
+* Validates transaction requirements
+
+See [Transaction Pool](/reference/txpool) for api info
+
+#### 4. Blockchain
+
+* Maintains block history and chain state
+* Handles block production (mining)
+* Manages chain reorganizations
+
+See [Blockchain](/reference/blockchain) for api info
+
+#### 5. Receipts Manager
+
+* Caches transaction outcomes
+* Manages event logs and filters
+* Useful for implementing optimistic updates
+
+See [Receipt Manager](/reference/receipt-manager) for api info
+
+### Available APIs
+
+Tevm Node provides several layers of APIs for different use cases:
+
+#### 1. High-Level Actions
+
+Most functionality in Tevm is done via tree shakable actions including JSON-RPC compatabile actions.
+
+The most commonly used actions are provided as handlers:
+
+```ts
+import { createTevmNode } from 'tevm'
+import { callHandler, mineHandler, getAccountHandler } from 'tevm/actions'
+
+// Create a Tevm node
+const node = createTevmNode()
+
+// Execute contract calls
+const result = await callHandler(node)({
+  to: contractAddress,
+  data: calldata
+})
+
+// Mine pending transactions
+await mineHandler(node)()
+
+// Read account state
+const account = await getAccountHandler(node)({
+  address: accountAddress
+})
+```
+
+#### 2. JSON-RPC Interface
+
+```ts
+import { requestEip1193 } from 'tevm/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+
+// Standard Ethereum JSON-RPC calls
+const balance = await node.request({
+  method: 'eth_getBalance',
+  params: [address, 'latest']
+})
+```
+
+#### 3. Direct VM Access
+
+```ts
+const vm = await node.getVm()
+
+// Low-level EVM execution
+const result = await vm.runTx({
+  tx: transaction,
+  block: block
+})
+
+// State management
+await vm.stateManager.putAccount(address, account)
+```
+
+#### 4. Contract Utilities
+
+```typescript
+import { createContract } from 'tevm/contract'
+
+// Type-safe contract interactions
+const contract = createContract({
+  humanReadableAbi: ['function transfer(address to, uint256 amount)'],
+  address: '0x123...'
+})
+
+// Write operations
+const action = contract.write.transfer('0x456...', 100n)
+
+// Read operations
+const balance = await contract.read.balanceOf('0x789...')
+```
+
+You can also use the tevm bundler for automatic contract compilation:
+
+```typescript
+// Import Solidity contracts directly
+import { ERC20 } from './ERC20.sol'
+
+// Contract type information is automatically generated
+const contract = createContract({
+  abi: ERC20.abi,
+  address: '0x123...'
+})
+```
+
+### Key Features
+
+#### 1. Forking
+
+Fork from any live network or another Tevm instance:
+
+```ts
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
+    blockTag: 'latest'
+  }
+})
+```
+
+#### 2. Mining Modes
+
+Configure how transactions are processed:
+
+```ts
+const node = createTevmNode({
+  miningConfig: {
+    type: 'auto' // Mine every transaction
+    // Or 'interval', 'manual', 'gas'
+  }
+})
+```
+
+#### 3. Custom Precompiles
+
+Extend the EVM with JavaScript functions:
+
+```ts
+const precompile = definePrecompile({
+  address: '0x123...',
+  call: async (input) => {
+    // Custom logic
+    return {
+      returnValue: result,
+      executionGasUsed: 100n
+    }
+  }
+})
+```
+
+#### 4. State Management
+
+Direct control over blockchain state:
+
+```ts
+// Modify account state
+await node.setAccount({
+  address: '0x123...',
+  balance: 100n,
+  code: '0x...',
+  storage: { /* ... */ }
+})
+
+// Create checkpoints
+await vm.stateManager.checkpoint()
+await vm.stateManager.commit() // or .revert()
+```
+
+### Common Use Cases
+
+1. **Local Development**
+   * Run a complete Ethereum environment locally
+   * Test contracts without external networks
+   * Simulate complex scenarios
+
+2. **Testing**
+   * Unit test smart contracts
+   * Integration test DApp interactions
+   * Fork mainnet for realistic tests
+
+3. **Transaction Simulation**
+   * Preview transaction outcomes
+   * Estimate gas costs accurately
+   * Debug failed transactions
+
+4. **State Manipulation**
+   * Modify account balances
+   * Override contract state
+   * Test edge cases
+
+### Integration Examples
+
+#### With Viem
+
+```typescript
+import { createPublicClient, custom, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+// Create a Tevm node
+const node = createTevmNode({
+  fork: {
+    url: 'https://mainnet.infura.io/v3/YOUR-KEY'
+  }
+})
+
+// Create a viem client using Tevm
+const client = createPublicClient({
+  transport: custom(node.request),
+  chain: mainnet
+})
+
+// Use viem actions
+const balance = await client.getBalance({
+  address: '0x...'
+})
+```
+
+#### With Ethers.js
+
+```typescript
+import { BrowserProvider } from 'ethers'
+
+const node = createTevmNode()
+const provider = new BrowserProvider(node)
+
+// Use ethers.js functionality
+const balance = await provider.getBalance('0x...')
+const block = await provider.getBlock('latest')
+```
+
+### Next Steps
+
+* [Installation & Quickstart](../introduction/installation)
+* [Core Concepts](../core/create-tevm-node)
+* [Viem docs](../examples/viem.mdx)
+* [API Reference](../api/methods)
+* [Examples](../examples/local-testing)
+* [GitHub Repository](https://github.com/evmts/tevm-monorepo)
+
+
+## Installation & Quickstart
+
+### 1. Install
+
+```sh
+npm install tevm
+
+# or
+yarn add tevm
+
+# or
+pnpm add tevm
+
+# or
+bun add tevm
+```
+
+### 2. Quick Start
+
+```ts
+import { createTevmNode } from 'tevm'
+
+// Create an instance
+const node = createTevmNode()
+
+// Access the internal VM once it is ready
+const vm = await node.getVm()
+
+// Perform an method on the vm or one of it's subcomponents like blockchain
+console.log(await vm.blockchain.getBlockByTag('latest'))
+```
+
+### 3. Next Steps
+
+* Explore the [Core Concepts](../core/create-tevm-node)
+* Check out [Examples](../examples/local-testing)
+
+
+## What is Tevm Node?
+
+Tevm Node is an in-browser & Node.js-compatible Ethereum Virtual Machine (EVM) environment. It provides a complete Ethereum execution environment, powered by JavaScript, that you can run:
+
+* **In Node.js** for local development and testing
+* **In the Browser** for advanced user experiences (offline simulation, real-time testing)
+* **In Deno, Bun**, or any modern JavaScript runtime
+
+### Key Features
+
+* **Forking:** Fork from any EVM-compatible network (mainnet, testnet) with efficient caching
+* **Transaction Pool:** Track and manage pending transactions locally
+* **Flexible Mining:** Choose between automatic, interval-based, manual, or gas-limit-based mining
+* **Zero Native Dependencies:** Works seamlessly in browsers and JavaScript runtimes
+* **Highly Extensible:** Customize the VM, add precompiles, handle receipts, and more
+
+### Quick Example
+
+```ts
+import { createTevmNode, http } from 'tevm'
+
+// Create a node that forks from Optimism
+const node = createTevmNode({
+  fork: {
+    transport: http('https://mainnet.optimism.io')
+  }
+})
+
+const vm = await node.getVm()
+console.log(await vm.blockchain.getBlockByTag('latest'))
+```
+
+### Why Tevm Node?
+
+* **Browser & Local Execution:** Improved latency and advanced debugging capabilities
+* **Optimistic Updates:** Preview transaction effects before on-chain confirmation
+* **Lightweight:** Minimal overhead compared to full Ethereum nodes
+* **Network Independent:** Test and develop without real network constraints
+
+### Important Note
+
+Tevm Node is designed primarily for development, testing, and simulation. While it implements the full EVM specification, it is not recommended for production mainnet validation or as a replacement for full consensus nodes.
+
+### Next Steps
+
+* [Why JavaScript for Ethereum?](./why-run-ethereum-in-js)
+* [Installation Guide](./installation)
+* [Architecture Overview](./architecture-overview)
+
+
+## Why run Ethereum in JavaScript?
+
+### 1. Advanced Gas Estimation & Local Execution
+
+Running the EVM locally removes round-trip latency to a remote node. You can do:
+
+* Bulk simulation or multi-tx simulation
+* Real-time "dry run" of transactions
+* Faster dev/test cycles
+
+### 2. User Experience Enhancements
+
+* **Offline** or *local-first* capabilities
+* **Optimistic UI** updates with local simulation
+* No reliance on ephemeral test networks
+
+### 3. Testing & Debugging
+
+* Fine-grained EVM introspection
+* Deterministic environment
+* Light footprint – no external server needed
+
+### 4. Ecosystem & Portability
+
+* Portable across Node.js, browsers, and serverless
+* Works with standard EVM interfaces
+* Integrates well with modern JS/TS tooling
 
 
 ## @tevm/actions

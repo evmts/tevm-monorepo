@@ -39,5 +39,6 @@ import { contractHandler } from '@tevm/actions'
  * @see [TEVM Actions Guide](https://tevm.sh/learn/actions/)
  */
 export const tevmContract = async (client, params) => {
-	return contractHandler(client.transport.tevm)(params)
+	// TODO this shouldn't need to be any any
+	return contractHandler(client.transport.tevm)(/** @type {any}*/(params))
 }

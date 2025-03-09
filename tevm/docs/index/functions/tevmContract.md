@@ -29,7 +29,7 @@ Internally, `tevmContract` wraps `tevmCall`. It automatically encodes and decode
 
 ### params
 
-[`ContractParams`](../type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\>
+[`ContractParams`](../type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](../../actions/type-aliases/CallEvents.md)
 
 ## Returns
 

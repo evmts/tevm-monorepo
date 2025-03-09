@@ -54,6 +54,7 @@ describe('callHandler event handlers', () => {
 			opcode: expect.any(String),
 			stackSize: expect.any(Number),
 		})
+		expect(steps).toMatchSnapshot()
 	})
 
 	it('should properly handle multiple event handlers', async () => {

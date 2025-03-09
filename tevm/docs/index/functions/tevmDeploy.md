@@ -18,7 +18,7 @@ Defined in: packages/memory-client/types/tevmDeploy.d.ts:1
 
 ### params
 
-[`DeployParams`](../type-aliases/DeployParams.md)\<`boolean`, [`Abi`](../type-aliases/Abi.md), `true`, readonly `unknown`[]\>
+`Omit`\<[`BaseCallParams`](../../actions/type-aliases/BaseCallParams.md)\<`boolean`\>, `"to"`\> & `object` & `object` & `object` & [`CallEvents`](../../actions/type-aliases/CallEvents.md)
 
 ## Returns
 

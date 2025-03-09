@@ -1,5 +1,5 @@
 import { optimism } from '@tevm/common'
-import { ERC20 } from '@tevm/contract'
+import { ERC20, SimpleContract } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
 import { EthjsAddress } from '@tevm/utils'
 import { hexToBytes } from '@tevm/utils'
@@ -80,6 +80,70 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			expect(res.data).toBe(3n)
 			expect(res.executionGasUsed).toBe(927n)
 			expect(res.logs).toEqual([])
+		})
+
+		it('should support event handlers to monitor EVM execution', async () => {
+			const tevm = createMemoryClient()
+
+			// Track execution events
+			const steps: Array<{ opcode: string; stackSize: number }> = []
+			const contracts: Array<{ address: string }> = []
+			const messages: Array<{ type: string; depth?: number; gasUsed?: bigint }> = []
+
+			// Execute contract call with event handlers
+			// @ts-ignore - Event handlers will be supported in types soon
+			const result = await tevm.tevmContract({
+				deployedBytecode: addbytecode,
+				to: `0x${'45'.repeat(20)}`,
+				abi: addabi,
+				functionName: 'add',
+				args: [1n, 2n],
+				// Track EVM steps
+				onStep: (step: any, next: () => void) => {
+					steps.push({
+						opcode: step.opcode.name,
+						stackSize: step.stack.length,
+					})
+					next?.()
+				},
+				// Track new contracts
+				onNewContract: (contract: any, next: () => void) => {
+					contracts.push({
+						address: contract.address.toString(),
+					})
+					next?.()
+				},
+				// Track messages
+				onBeforeMessage: (message: any, next: () => void) => {
+					messages.push({
+						type: 'before',
+						depth: message.depth,
+					})
+					next?.()
+				},
+				onAfterMessage: (result: any, next: () => void) => {
+					messages.push({
+						type: 'after',
+						gasUsed: result.execResult.executionGasUsed,
+					})
+					next?.()
+				},
+			})
+
+			// Verify the call executed correctly
+			expect(result.data).toBe(3n)
+			expect(result.executionGasUsed).toBe(927n)
+
+			// Verify events were captured
+			expect(steps.length).toBeGreaterThan(10)
+			expect(messages.length).toBeGreaterThan(0)
+
+			// Verify we have both before and after message events
+			const beforeMessages = messages.filter((m) => m.type === 'before')
+			const afterMessages = messages.filter((m) => m.type === 'after')
+			expect(beforeMessages.length).toBeGreaterThan(0)
+			expect(afterMessages.length).toBeGreaterThan(0)
+			expect(messages).toMatchSnapshot()
 		})
 	})
 
@@ -240,6 +304,72 @@ describe('Tevm should create a local vm in JavaScript', () => {
 				address: '0xff420000000000000000000000000000000000ff',
 			})
 			expect(code.errors).toBe(undefined as any)
+		})
+	})
+
+	describe('tevmDeploy with events', () => {
+		it('should track EVM events during contract deployment', async () => {
+			const tevm = createMemoryClient()
+
+			// Track execution events
+			const steps: Array<{ opcode: string; stackSize: number }> = []
+			const contracts: Array<{ address: string }> = []
+			const messages: Array<{ type: string; depth?: number; gasUsed?: bigint }> = []
+
+			// Deploy a contract with event handlers
+			// @ts-ignore - Event handlers will be supported in types soon
+			const result = await tevm.tevmDeploy({
+				bytecode: SimpleContract.bytecode,
+				abi: SimpleContract.abi,
+				args: [42n], // Constructor argument
+				// Track EVM steps
+				onStep: (step: any, next: () => void) => {
+					steps.push({
+						opcode: step.opcode.name,
+						stackSize: step.stack.length,
+					})
+					next?.()
+				},
+				// Track new contracts
+				onNewContract: (contract: any, next: () => void) => {
+					contracts.push({
+						address: contract.address.toString(),
+					})
+					next?.()
+				},
+				// Track messages
+				onBeforeMessage: (message: any, next: () => void) => {
+					messages.push({
+						type: 'before',
+						depth: message.depth,
+					})
+					next?.()
+				},
+				onAfterMessage: (result: any, next: () => void) => {
+					messages.push({
+						type: 'after',
+						gasUsed: result.execResult.executionGasUsed,
+					})
+					next?.()
+				},
+			})
+
+			// Verify the deployment succeeded
+			expect(result.createdAddress).toBeDefined()
+
+			// Mine a block to include the deployment transaction
+			await tevm.mine({ blocks: 1 })
+
+			// Verify events were captured
+			expect(steps.length).toBeGreaterThan(10)
+			expect(messages.length).toBeGreaterThan(0)
+			expect(contracts.length).toBeGreaterThan(0)
+
+			// Verify we have both before and after message events
+			const beforeMessages = messages.filter((m) => m.type === 'before')
+			const afterMessages = messages.filter((m) => m.type === 'after')
+			expect(beforeMessages.length).toBeGreaterThan(0)
+			expect(afterMessages.length).toBeGreaterThan(0)
 		})
 	})
 })
