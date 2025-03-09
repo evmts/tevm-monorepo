@@ -57,7 +57,7 @@ import { createChain } from '@tevm/chain'
 
 const evm = await createEvm({
   common: mainnet,
-  stateManager: createStateManager({}),
+  stateManager: createStateManager,
   blockchain: await createChain({ common: mainnet }),
   customPrecompiles: [], // Optional custom precompiles
   profiler: false, // Enable/disable profiling
