@@ -1,4 +1,4 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`tevmViemExtension runScript should call client.request with "tevm_script" and parse the response 1`] = `
 {

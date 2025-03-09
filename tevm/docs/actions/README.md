@@ -12,6 +12,11 @@
 - [MissingAccountError](classes/MissingAccountError.md)
 - [NoForkUrlSetError](classes/NoForkUrlSetError.md)
 
+## Interfaces
+
+- [Message](interfaces/Message.md)
+- [NewContractEvent](interfaces/NewContractEvent.md)
+
 ## Type Aliases
 
 - [Abi](type-aliases/Abi.md)
@@ -111,8 +116,10 @@
 - [Block](type-aliases/Block.md)
 - [BlockOverrideSet](type-aliases/BlockOverrideSet.md)
 - [BlockTag](type-aliases/BlockTag.md)
+- [CallEvents](type-aliases/CallEvents.md)
 - [CallHandler](type-aliases/CallHandler.md)
 - [CallHandlerOptsError](type-aliases/CallHandlerOptsError.md)
+- [CallHandlerParams](type-aliases/CallHandlerParams.md)
 - [CallJsonRpcProcedure](type-aliases/CallJsonRpcProcedure.md)
 - [CallJsonRpcRequest](type-aliases/CallJsonRpcRequest.md)
 - [CallJsonRpcResponse](type-aliases/CallJsonRpcResponse.md)

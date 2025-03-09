@@ -60,7 +60,7 @@
 		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
-		"test:coverage": "vitest --coverage",
+		"test:coverage": "vitest --coverage --run",
 		"test:run": "vitest",
 		"typecheck": "tsc --noEmit"
 	},

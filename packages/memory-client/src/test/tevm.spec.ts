@@ -119,6 +119,61 @@ describe('Tevm should create a local vm in JavaScript', () => {
 			).toBe(286183069n)
 			// TODO test other return properties
 		})
+
+		it('should support event handlers to monitor EVM execution', async () => {
+			const tevm = createMemoryClient()
+
+			// Track execution events
+			const steps: Array<{ opcode: string; stackSize: number }> = []
+			const messages: Array<{ type: string; depth?: number; gasUsed?: bigint }> = []
+
+			// Deploy and call add contract with event handlers
+			// @ts-ignore - Event handlers will be supported in types soon
+			const result = await tevm.tevmContract({
+				deployedBytecode: addbytecode,
+				to: `0x${'45'.repeat(20)}`,
+				abi: addabi,
+				functionName: 'add',
+				args: [1n, 2n],
+				// Track EVM steps
+				onStep: (step: any, next: () => void) => {
+					steps.push({
+						opcode: step.opcode.name,
+						stackSize: step.stack.length,
+					})
+					next?.()
+				},
+				// Track messages
+				onBeforeMessage: (message: any, next: () => void) => {
+					messages.push({
+						type: 'before',
+						depth: message.depth,
+					})
+					next?.()
+				},
+				onAfterMessage: (result: any, next: () => void) => {
+					messages.push({
+						type: 'after',
+						gasUsed: result.execResult.executionGasUsed,
+					})
+					next?.()
+				},
+			})
+
+			// Verify the call executed correctly
+			expect(result.data).toBe(3n)
+			expect(result.executionGasUsed).toBe(927n)
+
+			// Verify events were captured
+			expect(steps.length).toBeGreaterThan(10)
+			expect(messages.length).toBeGreaterThan(0)
+
+			// Verify we have both before and after message events
+			const beforeMessages = messages.filter((m) => m.type === 'before')
+			const afterMessages = messages.filter((m) => m.type === 'after')
+			expect(beforeMessages.length).toBeGreaterThan(0)
+			expect(afterMessages.length).toBeGreaterThan(0)
+		})
 	})
 
 	describe('client.contract', () => {

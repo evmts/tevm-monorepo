@@ -8,7 +8,7 @@
 
 > **CallHandler**: (`action`) => `Promise`\<[`CallResult`](../../index/type-aliases/CallResult.md)\>
 
-Defined in: packages/actions/types/Call/CallHandlerType.d.ts:37
+Defined in: packages/actions/types/Call/CallHandlerType.d.ts:48
 
 Executes a call against the VM, similar to `eth_call` but with more options for controlling the execution environment.
 
@@ -18,9 +18,9 @@ This low-level function is used internally by higher-level functions like `contr
 
 ### action
 
-[`CallParams`](../../index/type-aliases/CallParams.md)
+[`CallHandlerParams`](CallHandlerParams.md)
 
-The parameters for the call.
+The parameters for the call, including optional event handlers.
 
 ## Returns
 
@@ -49,6 +49,11 @@ const res = await call({
   gas: 1000000n,
   gasPrice: 1n,
   skipBalance: true,
+  // Optional event handlers
+  onStep: (step, next) => {
+    console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
+    next?.()
+  }
 })
 
 console.log(res)

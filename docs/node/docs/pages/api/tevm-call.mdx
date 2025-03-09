@@ -57,6 +57,11 @@ type CallParams = {
   stateOverrideSet?: StateOverrideSet
   // Block overrides
   blockOverrideSet?: BlockOverrideSet
+  // Event handlers for EVM execution
+  onStep?: (data: InterpreterStep, next?: () => void) => void
+  onNewContract?: (data: NewContractEvent, next?: () => void) => void
+  onBeforeMessage?: (data: Message, next?: () => void) => void
+  onAfterMessage?: (data: EVMResult, next?: () => void) => void
 }
 ```
 
@@ -167,6 +172,54 @@ if (result.trace) {
     console.log(log.op, log.stack, log.memory)
   })
 }
+```
+
+### 5. EVM Event Handlers
+
+You can attach event handlers to monitor EVM execution in real-time:
+
+```ts
+// Use EVM event handlers to monitor execution
+const result = await callHandler(node)({
+  from: PREFUNDED_ACCOUNTS[0].address,
+  to: contractAddress,
+  data: encodeFunctionData({
+    abi,
+    functionName: 'myFunction',
+    args: [arg1, arg2]
+  }),
+  // Monitor each EVM step
+  onStep: (step, next) => {
+    console.log(
+      `Executing ${step.opcode.name} at PC=${step.pc}`,
+      `Gas left: ${step.gasLeft.toString()}`,
+      `Stack depth: ${step.stack.length}`
+    )
+    // Important: Call next to continue execution
+    next?.()
+  },
+  // Monitor contract creation events
+  onNewContract: (data, next) => {
+    console.log(`New contract created at: ${data.address.toString()}`)
+    next?.()
+  },
+  // Monitor messages (calls) before execution
+  onBeforeMessage: (message, next) => {
+    console.log(`Call to: ${message.to?.toString()}`, 
+                `Value: ${message.value.toString()}`, 
+                `Gas limit: ${message.gasLimit.toString()}`)
+    next?.()
+  },
+  // Monitor messages (calls) after execution
+  onAfterMessage: (result, next) => {
+    console.log(`Call result: ${result.execResult.returnValue.toString('hex')}`,
+                `Gas used: ${result.execResult.executionGasUsed.toString()}`)
+    if (result.execResult.exceptionError) {
+      console.error(`Error: ${result.execResult.exceptionError.error}`)
+    }
+    next?.()
+  }
+})
 ```
 
 ## Higher Level APIs
