@@ -10,15 +10,15 @@ description: Get started with Tevm node using viem
 :::code-group
 
 ```bash [npm]
-npm install tevm
+npm install tevm viem@latest
 ```
 
 ```bash [pnpm]
-pnpm install tevm
+pnpm install tevm viem@latest
 ```
 
 ```bash [yarn]
-yarn add tevm
+yarn add tevm viem@latest
 ```
 
 :::
@@ -39,61 +39,40 @@ const client = createMemoryClient({
   },
 })
 
-console.log("Client created")
-
-await client.tevmReady()
-
-console.log("Client ready")
-
 const blockNumber = await client.getBlockNumber()
 console.log(blockNumber)
 
-const account = "0x" + "baD60A7".padStart(40, "0")
+const account = `0x${"baD60A7".padStart(40, "0")}` as const
 const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
 
 const greetAbi = parseAbi(['function greet() view returns (string)'])
 const setGreetingAbi = parseAbi(['function setGreeting(string memory _greeting) public'])
 
-const getGreeting = async () => {
-  const callResult = await client.call({
-    account,
-    to: greeterContractAddress,
-    data: encodeFunctionData({
-      abi: greetAbi
-    }),
-  })
-
-  const greeting = decodeFunctionResult({
-    abi: greetAbi,
-    data: callResult.data,
-  })
-
-  return greeting
-}
-
-const setGreeting = async newGreeting => {
-  const callResult = await client.sendTransaction({
-    account,
-    to: greeterContractAddress,
-    data: encodeFunctionData({
-      abi: setGreetingAbi,
-      args: [newGreeting]
-    }),
-    chain: optimism,
-  })
-
-  return callResult
-}
-
+// Use viem test actions to modify the blockchain
+// There are also powerful tevm actions that are prefixed with tevm like tevmSetAccount
 await client.setBalance({
   address: account,
   value: parseEther("1")
 })
 
-console.log(`Original greeting: ${await getGreeting()}`)
-console.log(`Txn hash: ${await setGreeting("Hi")}`)
+// Read contracts using normal viem apis
+const callResult = await client.readContract({
+  to: greeterContractAddress,
+  abi: greetAbi,
+  functionName: 'greet',
+})
+
+// use writecontract to send a eth_sendRawTransaction
+const writeResult = await client.writeContract({
+  account,
+  to: greeterContractAddress,
+  abi: setGreetingAbi,
+  args: [newGreeting]
+  chain: optimism,
+})
+
+// mine a new block to include your tx in the blockchain
 await client.mine({blocks: 1})
-console.log(`Changed greeting: ${await getGreeting()}`)
 ```
 
 :::details[Explanation]
