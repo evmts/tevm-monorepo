@@ -148,17 +148,18 @@ interface EVMResult {
 
 ## Using with tevmCall Family
 
-The recommended way to access EVM events is through the tevmCall family of methods:
+The recommended way to access EVM events is through the tevmCall family of methods. Tevm offers two API styles for this:
+
+### Client-based API (batteries included)
 
 ```ts
 import { createMemoryClient } from 'tevm'
-import { tevmCall } from 'tevm/actions'
 import { encodeFunctionData } from 'viem'
 
 const client = createMemoryClient()
 
 // Listen for EVM steps and other events during execution
-const result = await tevmCall(client, {
+const result = await client.tevmCall({
   to: contractAddress,
   data: encodeFunctionData({
     abi,
@@ -185,6 +186,68 @@ const result = await tevmCall(client, {
     next?.()
   },
   // Listen for message execution
+  onBeforeMessage: (message, next) => {
+    console.log('Executing message:', {
+      to: message.to?.toString(),
+      value: message.value.toString(),
+      delegatecall: message.delegatecall,
+    })
+    next?.()
+  },
+  onAfterMessage: (result, next) => {
+    console.log('Message result:', {
+      gasUsed: result.execResult.executionGasUsed.toString(),
+      returnValue: result.execResult.returnValue.toString('hex'),
+      error: result.execResult.exceptionError?.error,
+    })
+    next?.()
+  }
+})
+```
+
+### Tree-shakable API
+
+```ts
+import { tevmCall } from 'tevm/actions'
+import { createClient, custom } from 'viem'
+import { createTevmNode } from 'tevm/node'
+import { requestEip1193 } from 'tevm/decorators'
+import { encodeFunctionData } from 'viem'
+
+// Create Tevm Node with EIP-1193 support
+const node = createTevmNode().extend(requestEip1193())
+
+// Create Viem client
+const client = createClient({
+  transport: custom(node),
+})
+
+// Listen for EVM steps and other events during execution
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: encodeFunctionData({
+    abi,
+    functionName: 'myFunction',
+    args: [arg1, arg2]
+  }),
+  // Event handlers work the same way with both API styles
+  onStep: (step, next) => {
+    console.log('EVM Step:', {
+      pc: step.pc,
+      opcode: step.opcode,
+      gasLeft: step.gasLeft,
+      stack: step.stack,
+      depth: step.depth,
+    })
+    next?.()
+  },
+  onNewContract: (data, next) => {
+    console.log('New contract deployed:', {
+      address: data.address.toString(),
+      codeSize: data.code.length,
+    })
+    next?.()
+  },
   onBeforeMessage: (message, next) => {
     console.log('Executing message:', {
       to: message.to?.toString(),

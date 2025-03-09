@@ -33,7 +33,7 @@ export default defineConfig({
       collapsed: false,
       items: [
         { text: 'Creating a Node', link: '/core/create-tevm-node' },
-        { text: 'Node Interface', link: '/core/tevm-node-interface' },
+        { text: 'TevmNode', link: '/core/tevm-node-interface' },
         { text: 'Forking & Reforking', link: '/core/forking' },
         { text: 'Managing State', link: '/core/managing-state' },
       ],
