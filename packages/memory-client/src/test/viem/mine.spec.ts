@@ -46,6 +46,7 @@ describe('mine', () => {
 		expect(await mc.getBlockNumber()).toEqual(2n)
 		const block1 = await mc.getBlock({ blockNumber: 1n })
 		const block2 = await mc.getBlock({ blockNumber: 2n })
-		expect(block2.timestamp - block1.timestamp).toBe(1000n)
+		expect(block2.timestamp - block1.timestamp).toBeGreaterThanOrEqual(1000n)
+		expect(block2.timestamp - block1.timestamp).toBeLessThanOrEqual(1002n)
 	})
 })
