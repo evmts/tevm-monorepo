@@ -1,5 +1,11 @@
 # tevm-run
 
+## 1.0.0-next.129
+
+### Patch Changes
+
+- tevm@1.0.0-next.129
+
 ## 1.0.0-next.128
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @tevm/server
 
+## 1.0.0-next.129
+
+### Patch Changes
+
+- Updated dependencies [edbfc70]
+  - @tevm/memory-client@1.0.0-next.129
+  - @tevm/decorators@1.0.0-next.129
+
 ## 1.0.0-next.128
 
 ### Patch Changes

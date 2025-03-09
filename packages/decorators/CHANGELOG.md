@@ -1,5 +1,13 @@
 # @tevm/client
 
+## 1.0.0-next.129
+
+### Patch Changes
+
+- Updated dependencies [edbfc70]
+  - @tevm/actions@1.0.0-next.129
+  - @tevm/node@1.0.0-next.129
+
 ## 1.0.0-next.128
 
 ### Patch Changes
