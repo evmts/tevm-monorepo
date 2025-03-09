@@ -22,7 +22,7 @@ import { createTevmNode, http } from 'tevm'
 
 const node = createTevmNode({
   fork: {
-    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR-API-KEY')({}),
+    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR-API-KEY'),
     blockTag: 'latest',
   },
 })
@@ -49,7 +49,7 @@ import { requestEip1193 } from 'tevm/decorators'
 // Create initial node with request handler
 const sourceNode = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
     blockTag: 17_000_000n,
   },
 }).extend(requestEip1193())
@@ -85,7 +85,7 @@ import { createAddress } from 'tevm/address'
 
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
   },
 })
 
@@ -115,7 +115,7 @@ import { createAddress } from 'tevm/address'
 
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
   },
 })
 
@@ -165,7 +165,7 @@ import { performance } from 'node:perf_hooks'
 
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+    transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
   },
 })
 
@@ -190,7 +190,7 @@ console.log('Cached access:', performance.now() - t1)
    // ✅ Always call transport with empty object
    const node = createTevmNode({
      fork: {
-       transport: http('https://ethereum.quicknode.com/YOUR-API-KEY')({}),
+       transport: http('https://ethereum.quicknode.com/YOUR-API-KEY'),
        blockTag: 15_000_000n,
      },
    })
@@ -218,7 +218,7 @@ console.log('Cached access:', performance.now() - t1)
    // ✅ Wait for node to be ready
    const node = createTevmNode({
      fork: {
-       transport: http('https://...')({}),
+       transport: http('https://...'),
      },
    })
    await node.ready()

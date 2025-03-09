@@ -34,7 +34,7 @@ import {encodeFunctionData, parseAbi, decodeFunctionResult, parseEther} from 'vi
 
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
+    transport: http('https://mainnet.optimism.io'),
     common: optimism,
   },
 })
@@ -110,7 +110,7 @@ Notice that most functions we call are from `viem`, not `tevm`.
 ```ts
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
+    transport: http('https://mainnet.optimism.io'),
     common: optimism
   },
 })
@@ -243,7 +243,7 @@ import {
 
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
+    transport: http('https://mainnet.optimism.io'),
     common: optimism,
   },
 })

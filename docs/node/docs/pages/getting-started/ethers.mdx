@@ -37,7 +37,7 @@ import {parseUnits} from 'ethers/utils'
 
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
+    transport: http('https://mainnet.optimism.io'),
     common: optimism
   },
 })
@@ -97,7 +97,7 @@ Import functions we need, which will be explained when we call them.
 ```ts
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
+    transport: http('https://mainnet.optimism.io'),
     common: optimism
   },
 })
@@ -220,7 +220,7 @@ import {
 
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.optimism.io')({}),
+    transport: http('https://mainnet.optimism.io'),
     common: optimism,
   },
 })
