@@ -301,3 +301,80 @@ All [viem's wallet actions](https://viem.sh/docs/actions/wallet/introduction) ar
 - [`requestPermissions`](https://viem.sh/docs/actions/wallet/requestPermissions)
 - [`watchAsset`](https://viem.sh/docs/actions/wallet/watchAsset)
 
+## What is a Memory Client Exactly?
+
+Like the viem PublicClient or WalletClient, a MemoryClient is just a viem client with a bunch of actions attatched to it.
+
+Below we make a `MemoryClient` from scratch
+
+```typescript
+// We are going to create a MemoryClient from scratch
+// const memoryClient = createMemoryClient({
+//   common: optimism,
+//   fork: {
+//     transport: http('https://mainnet.optimism.io')
+//   }
+// })
+
+/**
+ * Step 1: Create a Fork transport
+ * This is the transport tevm will fork the latest block of similar to anvil or hardhat
+ * Use any viem transport or EIP-1193 provider for this
+ */
+import { http } from 'viem'
+
+const forkTransport = http('https://mainnet.optimism.io')
+
+/**
+ * Step 2: Create a TevmNode
+ * This is the low level ethereum node powering the memory client
+ * Extend the provider with an EIP-1193 node.request function
+ * This is a function viem will use to resolve json-rpc requests
+ */
+import {createTevmNode} from 'tevm'
+import {requestEip1193} from 'tevm/decorators'
+
+const node = createTevmNode({
+  fork: {
+    transport: forkTransport
+  }
+  // extend into EIP-1193 request provider
+}).extend(requestEip1193())
+
+/**
+ * Step 3: Create a viem client extending with tevm
+ * Tevm doesn't have it's own API it just plugs into Viem and ethers
+ */
+import { custom, createClient, publicActions, testActions, walletActions } from 'viem'
+import { tevmViemActions } from 'tevm/memory-client'
+
+const memoryClientFromScratch = createClient({
+  // Use the tevm node as the viem transport
+  transport: custom(node),
+})
+// Add powerful custom tevm actions such as tevmCall tevmContract tevmMine tevmDeploy tevmSetAccount and more
+// All actions available as tree shakable actions too
+  .extend(tevmViemActions())
+// Add viem public actions like call readContract estimateGas etc.
+  .extend(publicActions)
+// Add viem wallet actions like writeContract sendRawTransaction etc
+  .extend(walletActions)
+// Add viem test actions like setBalance setCode etc.
+  .extend(testActions({ mode: 'anvil' }))
+```
+
+The above code breaks down what a MemoryClient is
+
+Breaking down a MemoryClient succinctly breaks down all of Tevm
+
+#### 1. Based on Viem Transports like `http`
+
+Tevm uses EIP-1193 so it composes with all libraries including viem wagmi ethers and more. In the above code we fork a network using a viem transport that follows EIP-1193.
+
+#### 2. In memory EVM with `createTevmNode`
+
+We create a TevmNode in memory rather than talking to one over http. This can be done using `createTevmNode`. We then turn our node into an EIP-1193 provider so it can be used as a transport.
+
+#### 3. Plugs into viem
+
+We use our TevmNode as our transport and build a client using viem actions imported directly from viem along with some tevm actions that follow viem patterns but add advanced functionality.
