@@ -8,12 +8,23 @@
 
 > **tevmViemActions**(): (`client`) => [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
 
-Defined in: [packages/memory-client/src/tevmViemActions.js:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmViemActions.js#L39)
+Defined in: [packages/memory-client/src/tevmViemActions.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmViemActions.js#L81)
 
 A viem extension that adds TEVM actions to a viem client.
-The viem client must already have TEVM support via `createTevmClient` or `createTevmTransport`.
 
-This extension provides a comprehensive set of actions to interact with the TEVM, including calls, contract interactions, deployments, mining, and more.
+This function creates a viem extension that adds the full set of TEVM-specific actions to any viem client
+that has been configured with the TEVM transport. These actions provide direct access to the Ethereum
+Virtual Machine's capabilities, including:
+
+- Low-level EVM execution (`tevmCall`)
+- Contract interaction with ABI encoding/decoding (`tevmContract`)
+- Contract deployment (`tevmDeploy`)
+- Block mining (`tevmMine`)
+- Account state management (`tevmGetAccount`, `tevmSetAccount`)
+- State persistence (`tevmDumpState`, `tevmLoadState`)
+- Direct VM access (`tevm` for advanced usage)
+
+The viem client must already have TEVM support via a `createTevmTransport` transport.
 
 Note: If you are building a frontend application, you should use the tree-shakable API instead to optimize bundle size.
 
@@ -21,7 +32,7 @@ Note: If you are building a frontend application, you should use the tree-shakab
 
 `Function`
 
-The viem extension to add TevmViemActionsApi
+A viem extension function that adds TEVM actions
 
 ### Parameters
 
@@ -33,6 +44,10 @@ The viem extension to add TevmViemActionsApi
 
 [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
 
+## Throws
+
+If the client doesn't have a TEVM transport configured
+
 ## Example
 
 ```typescript
@@ -40,19 +55,47 @@ import { createClient, http } from 'viem'
 import { optimism } from 'tevm/common'
 import { createTevmTransport, tevmViemActions } from 'tevm'
 
+// Create a basic viem client with TEVM transport
 const client = createClient({
   transport: createTevmTransport({
-    fork: { transport: http('https://mainnet.optimism.io')({}) }
+    fork: {
+      transport: http('https://mainnet.optimism.io')({})
+    }
   }),
   chain: optimism,
-}).extend(tevmViemActions())
+})
+
+// Extend the client with TEVM actions
+const tevmClient = client.extend(tevmViemActions())
 
 async function example() {
-  const account = await client.tevmGetAccount({
-    address: '0x123...',
+  // Wait for the client to be ready
+  await tevmClient.tevmReady()
+
+  // Set up an account with ETH
+  await tevmClient.tevmSetAccount({
+    address: '0x1234567890123456789012345678901234567890',
+    balance: 1000000000000000000n // 1 ETH
+  })
+
+  // Get account state including storage
+  const account = await tevmClient.tevmGetAccount({
+    address: '0x1234567890123456789012345678901234567890',
     returnStorage: true,
   })
-  console.log(account)
+  console.log('Account:', account)
+
+  // Deploy a contract
+  const deployResult = await tevmClient.tevmDeploy({
+    bytecode: '0x608060405234801561001057600080fd5b50610150806100206000396000f3fe...',
+    abi: [...],
+    createTransaction: true // Create an actual transaction, not just a call
+  })
+
+  // Mine the transaction to include it in state
+  await tevmClient.tevmMine()
+
+  console.log('Contract deployed at:', deployResult.createdAddress)
 }
 
 example()
@@ -60,5 +103,6 @@ example()
 
 ## See
 
- - [TEVM Actions Guide](https://tevm.sh/learn/actions/)
- - [Viem Client Guide](https://viem.sh/docs/clients/)
+ - [TEVM Actions Guide](https://tevm.sh/learn/actions/) - Complete documentation of all TEVM actions
+ - [Viem Client Guide](https://viem.sh/docs/clients/) - Viem client documentation
+ - [TevmViemActionsApi](../type-aliases/TevmViemActionsApi.md) - The API interface this extension implements

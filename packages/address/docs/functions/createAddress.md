@@ -67,7 +67,7 @@ const numAddr = createAddress(1) // Convert 1 to address '0x00000000000000000000
 const bigintAddr = createAddress(42n) // '0x000000000000000000000000000000000000002A'
 
 // From bytes
-const bytesAddr = createAddress(new Uint8Array(20).fill(1)) 
+const bytesAddr = createAddress(new Uint8Array(20).fill(1))
 // '0x0101010101010101010101010101010101010101'
 ```
 
