@@ -17,7 +17,7 @@ import { mineHandler } from '@tevm/actions'
  * Note: By default, TEVM operates in manual mining mode, requiring explicit calls to the mine function.
  * You can configure automatic mining in `createMemoryClient` or `createTevmTransport` options.
  *
- * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {import('@tevm/actions').MineParams} [params] - Optional parameters for mining blocks.
  * @returns {Promise<import('@tevm/actions').MineResult>} The result of mining blocks, including an array of block hashes.
  *

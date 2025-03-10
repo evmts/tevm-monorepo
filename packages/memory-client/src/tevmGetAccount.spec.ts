@@ -5,7 +5,7 @@ import { transports } from '@tevm/test-utils'
 import { type Client, createClient } from 'viem'
 import { parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { TevmTransport } from './TevmTransport.js'
+import type { TevmTransport } from './MemoryClient.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
 

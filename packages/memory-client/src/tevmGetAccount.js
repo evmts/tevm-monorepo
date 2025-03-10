@@ -20,7 +20,7 @@ import { getAccountHandler } from '@tevm/actions'
  * Be aware that returning storage can be computationally expensive for contracts with large storage,
  * so the default is `false`.
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {import('@tevm/actions').GetAccountParams} params - Parameters for retrieving the account information.
  * @returns {Promise<import('@tevm/actions').GetAccountResult>} The account information including balance, nonce, code, and optionally storage.
  *

@@ -1,6 +1,5 @@
 export type { CreateMemoryClientFn } from './CreateMemoryClientFn.js'
-export type { MemoryClient } from './MemoryClient.js'
-export type { TevmTransport } from './TevmTransport.js'
+export type { MemoryClient, TevmTransport } from './MemoryClient.js'
 export type { MemoryClientOptions } from './MemoryClientOptions.js'
 export type { TevmActions } from './TevmActions.js'
 export type { TevmContract } from './TevmContractType.js'
