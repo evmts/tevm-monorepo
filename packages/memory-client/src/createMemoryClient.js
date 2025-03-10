@@ -7,19 +7,43 @@ import { tevmViemActions } from './tevmViemActions.js'
  * Creates a {@link MemoryClient} which is a viem client with an in-memory Ethereum client as its transport.
  * It comes batteries included with all wallet, test, public, and tevm actions.
  *
+ * This function creates a fully-featured Ethereum client that runs entirely in memory, allowing you to perform
+ * blockchain operations without connecting to a live network. It supports forking from existing networks,
+ * different mining modes, and state persistence.
+ *
  * @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn}
+ * @param {import('./MemoryClientOptions.js').MemoryClientOptions} [options] - Configuration options for the memory client
+ * @param {object} [options.fork] - Configuration for forking from an existing network
+ * @param {Function} [options.fork.transport] - Transport function to connect to the fork source
+ * @param {string|number} [options.fork.blockTag] - Specific block to fork from (hash, number or tag)
+ * @param {import('@tevm/common').Common} [options.common] - Chain configuration
+ * @param {string} [options.name] - Custom name for the client
+ * @param {string} [options.key] - Custom key for the client 
+ * @param {object} [options.miningConfig] - Mining configuration options
+ * @param {import('@tevm/utils').SyncStoragePersister} [options.persister] - State persistence handler
+ * @returns {import('./MemoryClient.js').MemoryClient} A fully initialized MemoryClient instance
+ * @throws {Error} When initialization of required components fails
  *
  * @example
  * ```typescript
- * import { createMemoryClient } from "tevm";
+ * import { createMemoryClient, http } from "tevm";
  *
- * const client = createMemoryClient({
+ * // Create a basic memory client
+ * const client = createMemoryClient();
+ * 
+ * // Create a client that forks from Optimism mainnet
+ * const forkedClient = createMemoryClient({
  *   fork: {
  *     transport: http("https://mainnet.optimism.io")({}),
+ *     blockTag: 'latest'
  *   },
  * });
  *
- * const blockNumber = await client.getBlockNumber();
+ * // Wait for the client to be ready before using it
+ * await forkedClient.tevmReady();
+ * 
+ * // Get the current block number
+ * const blockNumber = await forkedClient.getBlockNumber();
  * console.log(blockNumber);
  * ```
  *
