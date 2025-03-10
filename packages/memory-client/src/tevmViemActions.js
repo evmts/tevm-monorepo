@@ -85,7 +85,7 @@ export const tevmViemActions = () => {
 	 * This function extracts the TEVM API methods from the client's transport and
 	 * exposes them with the prefix 'tevm' to make them available on the client object.
 	 * 
-	 * @param {import from "./MemoryClient.js"').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+	 * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
 	 * @returns {import('./TevmViemActionsApi.js').TevmViemActionsApi} The TEVM actions API interface with all methods.
 	 * @throws {TypeError} If the client doesn't have a TEVM transport configured.
 	 * @private
