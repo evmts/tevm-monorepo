@@ -101,7 +101,7 @@ const ComboBoxResponsive: FC<ComboBoxResponsiveProps> = (props) => {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <span className="mt-2 text-center font-medium text-secondary-foreground">
+        <span className="text-secondary-foreground mt-2 text-center font-medium">
           {header}
         </span>
         <div className="mt-4 border-t">

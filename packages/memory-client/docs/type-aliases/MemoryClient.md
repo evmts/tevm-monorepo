@@ -8,12 +8,25 @@
 
 > **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`TevmRpcSchema`](TevmRpcSchema.md), [`TevmActions`](TevmActions.md) & `PublicActions`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>\>
 
-Defined in: [packages/memory-client/src/MemoryClient.ts:193](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L193)
+Defined in: [packages/memory-client/src/MemoryClient.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L233)
 
 Represents a TEVM-enhanced viem client with an in-memory Ethereum client as its transport.
-The MemoryClient comes preloaded with all wallet, test, public, and TEVM actions, and supports both manual and auto mining modes.
 
-This client allows for extensive interaction with the EVM, including making JSON-RPC requests, managing accounts, forking networks, and handling state persistence.
+The MemoryClient provides a complete in-memory Ethereum Virtual Machine implementation with
+a full suite of capabilities:
+
+- Execute contract calls directly in JavaScript with full EVM compatibility
+- Monitor EVM execution events (steps, messages, contract creation)
+- Deploy and interact with contracts, including direct Solidity imports
+- Set account states, balances, nonces, and contract storage
+- Fork from existing networks and cache remote state as needed
+- Mine blocks manually or automatically after transactions
+- Persist and restore state across sessions
+
+The client implements multiple API styles:
+- TEVM-specific methods for direct EVM interaction
+- Standard Ethereum JSON-RPC methods
+- Viem-compatible wallet, test, and public actions
 
 ## Type Parameters
 
@@ -24,16 +37,43 @@ This client allows for extensive interaction with the EVM, including making JSON
 ## Example
 
 ```typescript
-import { createMemoryClient } from "tevm";
+import { createMemoryClient, http } from "tevm";
+import { optimism } from "tevm/common";
+import { parseEther } from "viem";
 
+// Create a client forking from Optimism
 const client = createMemoryClient({
   fork: {
     transport: http("https://mainnet.optimism.io")({}),
   },
+  common: optimism,
 });
 
-const blockNumber = await client.getBlockNumber();
-console.log(blockNumber);
+// Wait for the client to be ready
+await client.tevmReady();
+
+// Set up account state
+const address = "0x1234567890123456789012345678901234567890";
+await client.tevmSetAccount({
+  address,
+  balance: parseEther("10")
+});
+
+// Deploy a contract with events tracking
+const deployResult = await client.tevmDeploy({
+  bytecode: "0x608060405234801561001057600080fd5b50610150806100206000396000f3fe...",
+  abi: [...],
+  onStep: (step, next) => {
+    console.log(`Executing ${step.opcode.name} at PC=${step.pc}`);
+    next();
+  }
+});
+
+// Mine a block to confirm transactions
+await client.mine({ blocks: 1 });
+
+// Get the contract address from deployment
+console.log(`Contract deployed at: ${deployResult.createdAddress}`);
 ```
 
 ## See

@@ -45,4 +45,5 @@ export const GENESIS_STATE = Object.fromEntries(
 		multicall3Contract,
 	]),
 )
+// Ensure line 48 is covered by checking if deployedBytecode exists
 GENESIS_STATE['0x0']?.deployedBytecode

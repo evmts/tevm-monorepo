@@ -8,7 +8,7 @@
 
 > **commit**(`baseState`, `skipFetchingFromFork`?): (`createNewStateRoot`?) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:230
+Defined in: packages/state/dist/index.d.ts:231
 
 Commits the current change-set to the instance since the
 last call to checkpoint.

@@ -148,7 +148,7 @@ const ArbitraryCall = () => {
         <div className="grid w-full grid-cols-[1fr_min-content] flex-col gap-1 sm:flex sm:w-auto">
           <Label
             htmlFor="value"
-            className="col-span-2 flex items-center gap-2 text-sm text-secondary-foreground"
+            className="text-secondary-foreground col-span-2 flex items-center gap-2 text-sm"
           >
             Value
           </Label>
@@ -168,7 +168,7 @@ const ArbitraryCall = () => {
             <Button
               size="sm"
               variant="ghost"
-              className="flex items-center gap-2 text-secondary-foreground"
+              className="text-secondary-foreground flex items-center gap-2"
               onClick={() => navigator.clipboard.readText().then(setValueInput)}
             >
               <Icons.paste className="size-4" /> Paste
@@ -178,7 +178,7 @@ const ArbitraryCall = () => {
         <div className="grid grow grid-cols-[1fr_min-content] flex-col gap-1 sm:flex">
           <Label
             htmlFor="data"
-            className="col-span-2 flex items-center gap-2 text-sm text-secondary-foreground"
+            className="text-secondary-foreground col-span-2 flex items-center gap-2 text-sm"
           >
             Data
           </Label>
@@ -198,7 +198,7 @@ const ArbitraryCall = () => {
             <Button
               size="sm"
               variant="ghost"
-              className="flex items-center gap-2 text-secondary-foreground"
+              className="text-secondary-foreground flex items-center gap-2"
               onClick={() => navigator.clipboard.readText().then(setDataInput)}
             >
               <Icons.paste className="size-4" /> Paste

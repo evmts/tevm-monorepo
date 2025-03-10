@@ -20,6 +20,10 @@ The core data structure powering the state manager internally
 
 > **caches**: [`StateCache`](StateCache.md)
 
+### forkCache
+
+> **forkCache**: [`StateCache`](StateCache.md)
+
 ### getCurrentStateRoot()
 
 > **getCurrentStateRoot**: () => `Hex`

@@ -12,7 +12,7 @@ Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\
 
 ## Type Parameters
 
-• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+• **abi** *extends* readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md)
 
 • **errorName** *extends* `undefined` \| `string` = `undefined`
 

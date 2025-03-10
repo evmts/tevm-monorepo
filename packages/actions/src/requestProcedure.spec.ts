@@ -137,7 +137,7 @@ describe('requestProcedure', () => {
 
 			const poolTx = txPool.getByHash([
 				hexToBytes('0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80'),
-			])
+			]) as any
 
 			expect(poolTx).toHaveLength(1)
 

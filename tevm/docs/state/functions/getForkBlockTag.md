@@ -8,7 +8,7 @@
 
 > **getForkBlockTag**(`__namedParameters`): `undefined` \| \{ `blockTag`: [`BlockTag`](../../index/type-aliases/BlockTag.md); \} \| \{ `blockNumber`: `bigint`; \}
 
-Defined in: packages/state/dist/index.d.ts:303
+Defined in: packages/state/dist/index.d.ts:325
 
 ## Parameters
 

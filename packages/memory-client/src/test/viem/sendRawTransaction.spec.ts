@@ -29,7 +29,7 @@ describe('sendRawTransaction', () => {
 		const hash = await mc.sendRawTransaction({
 			serializedTransaction: tx,
 		})
-		const txPool = await mc.tevm.getTxPool()
+		const txPool = await mc.transport.tevm.getTxPool()
 		expect(txPool.getByHash([hexToBytes(hash)])).toMatchSnapshot()
 	})
 })

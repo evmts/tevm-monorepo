@@ -10,6 +10,13 @@ export default defineConfig({
 			include: ['src/**/*.js'],
 			provider: 'v8',
 			reporter: ['text', 'json-summary', 'json'],
+			thresholds: {
+				autoUpdate: false,
+				lines: 88.0,
+				functions: 98.0,
+				branches: 79.0,
+				statements: 88.0,
+			},
 		},
 	},
 })

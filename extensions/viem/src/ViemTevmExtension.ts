@@ -14,7 +14,7 @@ import type { ViemTevmClientDecorator } from './ViemTevmClientDecorator.js'
 *
 * const client = walletClient.extend(tevmViemExtensionOptimistic())
 *
-* for (const result of client.tevm.writeContractOptimistic({
+* for (const result of client.transport.tevm.writeContractOptimistic({
 *   from: '0x...',
 *   to: '0x...',
 *   abi: [...],

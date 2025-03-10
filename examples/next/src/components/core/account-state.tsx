@@ -82,7 +82,7 @@ const AccountState = () => {
       )}
       {!account?.isContract && !account?.isEmpty ? (
         <>
-          <span className="flex items-center gap-2 whitespace-nowrap text-sm text-gray-500">
+          <span className="flex items-center gap-2 text-sm whitespace-nowrap text-gray-500">
             Transactions
             <TooltipResponsive
               trigger="info"

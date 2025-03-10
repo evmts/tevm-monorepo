@@ -11,7 +11,6 @@ describe('tevmViemActions', () => {
 			chain: optimism,
 		}).extend(tevmViemActions())
 
-		expect(client.tevm).toBeDefined()
 		expect(client.tevmReady).toBeDefined()
 		expect(client.tevmCall).toBeDefined()
 		expect(client.tevmContract).toBeDefined()

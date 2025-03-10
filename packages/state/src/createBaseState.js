@@ -61,6 +61,21 @@ export const createBaseState = (options) => {
 					type: CacheType.LRU,
 				}),
 		},
+		forkCache: {
+			contracts: options.contractCache ?? new ContractCache(new StorageCache({ size: 100_000, type: CacheType.LRU })),
+			accounts:
+				options.accountsCache ??
+				new AccountCache({
+					size: 100_000,
+					type: CacheType.LRU,
+				}),
+			storage:
+				options.storageCache ??
+				new StorageCache({
+					size: 100_000,
+					type: CacheType.LRU,
+				}),
+		},
 		ready: () => genesisPromise.then(() => true),
 	}
 	const genesisPromise = (

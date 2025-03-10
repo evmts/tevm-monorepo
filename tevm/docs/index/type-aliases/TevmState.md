@@ -8,7 +8,7 @@
 
 > **TevmState**: `object`
 
-Defined in: packages/state/dist/index.d.ts:166
+Defined in: packages/state/dist/index.d.ts:167
 
 ## Index Signature
 

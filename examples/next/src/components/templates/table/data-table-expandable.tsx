@@ -123,7 +123,7 @@ const DataTableExpandable = <TData,>({
                       colSpan={table.getAllColumns().length + 1}
                       className="border-b pb-4"
                     >
-                      <div className="border-x border-muted/30">
+                      <div className="border-muted/30 border-x">
                         {expandableRender(row)}
                       </div>
                     </td>

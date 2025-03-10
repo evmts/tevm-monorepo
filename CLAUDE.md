@@ -205,7 +205,7 @@ await client.mine({blocks: 1})
 import {createMemoryClient, http, parseAbi} from 'tevm'
 import {optimism} from 'tevm/common'
 import {requestEip1193} from 'tevm/decorators'
-import {BrowserProvider, Contract, Wallet} from 'ethers' 
+import {BrowserProvider, Contract, Wallet} from 'ethers'
 import {parseUnits} from 'ethers/utils'
 
 const client = createMemoryClient({
@@ -215,10 +215,10 @@ const client = createMemoryClient({
   },
 })
 
-client.tevm.extend(requestEip1193())
+client.transport.tevm.extend(requestEip1193())
 await client.tevmReady()
 
-const provider = new BrowserProvider(client.tevm)
+const provider = new BrowserProvider(client.transport.tevm)
 const signer = Wallet.createRandom(provider)
 
 // Mint ETH for our wallet
@@ -425,7 +425,7 @@ Tevm generally includes a single file per item to make code easy to find for bot
 #### Create pattern
 
 To match viem conventions most objects will have :
-- a type, often in a `Foo.ts` file called `Foo`. 
+- a type, often in a `Foo.ts` file called `Foo`.
 - a create method, often in a `createFoo.ts` file called `createFoo`
 - a test, often in a `createFoo.spec.ts` file.
 
@@ -443,7 +443,7 @@ Note source code is in Js with jsdoc but the rest of it is ts.
 
 - **IMPORTANT** Never run `test` command. Always use `test:coverage`. `test` is interactive and will time out
 
-- We NEVER mock things if we can get away with it. The exception is the bundler packages in bundler-packages/* which is pretty hard to test without mocking. 
+- We NEVER mock things if we can get away with it. The exception is the bundler packages in bundler-packages/* which is pretty hard to test without mocking.
 - But even in bundler package we generally should NEVER mock if we don't have to. Create fixtures if you need to.
 - This includes RPCs which we use real examples to
 - To find real examples we can use the `cast` cli from foundry to find a real example. Run `cast --help` if you are unsure how to use the cast cli and use `https://mainnet.optimism.io` as your fork-url
@@ -597,7 +597,7 @@ If you add a lot of files, there is a tool to automatically generate a barrel fi
 The way to run any job is with nx. For example, to run tests in the @tevm/actions package
 
 ```sh
-pnpm nx run test:coverage 
+pnpm nx run test:coverage
 ```
 
 #### FILE_BASED_TESTS

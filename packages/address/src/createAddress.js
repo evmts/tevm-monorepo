@@ -4,23 +4,68 @@ import { numberToBytes } from 'viem'
 import { Address } from './Address.js'
 
 /**
- * Creates an {@link Address} for safely interacting with an Ethereum address.
- * Wraps {@link EthjsAddress} with a tevm style API.
- * @param {import("@tevm/utils").AddressLike | number | bigint | string} address - The input to create an address from.
- * @returns {Address} An Address instance.
- * @throws {InvalidAddressError} If the input is not a valid address.
+ * Creates an {@link Address} instance from various input formats for safely
+ * interacting with Ethereum addresses.
+ *
+ * This factory function provides a flexible and robust way to create Address
+ * objects, handling multiple input formats:
+ *
+ * - Hex strings (with or without 0x prefix)
+ * - Numbers or BigInts (converted to bytes)
+ * - Uint8Array (raw bytes)
+ * - Existing EthjsAddress or Address instances
+ *
+ * The created Address objects provide convenience methods and proper EIP-55
+ * checksumming for improved safety when working with Ethereum addresses.
+ *
+ * This is the recommended way to create Address instances throughout TEVM.
+ *
+ * @param {import("@tevm/utils").AddressLike | number | bigint | string} address - The input to create an address from
+ * @returns {Address} An Address instance representing the input
+ * @throws {InvalidAddressError} If the input is not a valid address or cannot be converted to one
+ *
  * @example
  * ```javascript
  * import { createAddress } from '@tevm/address'
  *
- * // From hex string
- * let address = createAddress(`0x${'00'.repeat(20)}`)
- * // From number or bigint
- * address = createAddress(0n)
+ * // From checksummed or lowercase hex strings (with 0x prefix)
+ * const addr1 = createAddress('0x8ba1f109551bD432803012645Ac136ddd64DBA72')
+ * const addr2 = createAddress('0x8ba1f109551bd432803012645ac136ddd64dba72')
+ *
+ * // From unprefixed hex string
+ * const addr3 = createAddress('8ba1f109551bd432803012645ac136ddd64dba72')
+ *
+ * // From zero address
+ * const zeroAddr = createAddress(`0x${'00'.repeat(20)}`)
+ * console.log(zeroAddr.toString()) // '0x0000000000000000000000000000000000000000'
+ *
+ * // From numbers (not recommended for real addresses due to potential overflow)
+ * const numAddr = createAddress(1) // Convert 1 to address '0x0000000000000000000000000000000000000001'
+ *
+ * // From bigint (useful for sequential address generation)
+ * const bigintAddr = createAddress(42n) // '0x000000000000000000000000000000000000002A'
+ *
  * // From bytes
- * address = createAddress(new Uint8Array(20))
- * // From non-hex string
- * address = createAddress('55'.repeat(20))
+ * const bytesAddr = createAddress(new Uint8Array(20).fill(1))
+ * // '0x0101010101010101010101010101010101010101'
+ * ```
+ *
+ * @example
+ * ```javascript
+ * // Error handling example
+ * import { createAddress } from '@tevm/address'
+ * import { InvalidAddressError } from '@tevm/errors'
+ *
+ * try {
+ *   // Invalid address (too short)
+ *   const address = createAddress('0x123')
+ * } catch (error) {
+ *   if (error instanceof InvalidAddressError) {
+ *     console.error('Invalid address format:', error.message)
+ *   } else {
+ *     throw error
+ *   }
+ * }
  * ```
  */
 export const createAddress = (address) => {

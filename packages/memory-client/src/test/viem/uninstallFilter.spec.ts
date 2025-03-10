@@ -11,7 +11,7 @@ beforeEach(async () => {
 describe('uninstallFilter', async () => {
 	it('should uninstall a filter', async () => {
 		const filter = await mc.createBlockFilter()
-		expect(mc.tevm.getFilters().get(filter.id)).toEqual({
+		expect(mc.transport.tevm.getFilters().get(filter.id)).toEqual({
 			id: filter.id,
 			tx: [],
 			installed: {},
@@ -24,6 +24,6 @@ describe('uninstallFilter', async () => {
 		})
 		const result = await mc.uninstallFilter({ filter })
 		expect(result).toEqual(true)
-		expect(mc.tevm.getFilters().get(filter.id)).toBeUndefined()
+		expect(mc.transport.tevm.getFilters().get(filter.id)).toBeUndefined()
 	})
 })

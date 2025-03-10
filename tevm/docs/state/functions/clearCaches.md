@@ -8,7 +8,7 @@
 
 > **clearCaches**(`baseState`, `skipFetchingFromFork`?): () => `void`
 
-Defined in: packages/state/dist/index.d.ts:217
+Defined in: packages/state/dist/index.d.ts:218
 
 Resets all internal caches
 

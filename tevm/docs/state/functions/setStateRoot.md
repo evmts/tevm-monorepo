@@ -8,7 +8,7 @@
 
 > **setStateRoot**(`baseState`, `skipFetchingFromFork`?): (`stateRoot`, `clearCache`?) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:370
+Defined in: packages/state/dist/index.d.ts:392
 
 Changes the currently loaded state root
 

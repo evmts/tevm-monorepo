@@ -25,7 +25,7 @@ const GlobalError = ({
           <p className="text-secondary-foreground">
             An error occurred while rendering the application.
           </p>
-          <p className="text-xs text-secondary-foreground">
+          <p className="text-secondary-foreground text-xs">
             {error.digest
               ? `Error digest: ${error.digest}`
               : `Error message: ${error.message}`}

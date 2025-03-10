@@ -16,6 +16,8 @@ export type BaseState = {
 	stateRoots: StateRoots
 	options: StateOptions
 	caches: StateCache
+	// Cache that only stores items forked from fork url. Normal cache is source of truth if the value changed after
+	forkCache: StateCache
 	getCurrentStateRoot: () => Hex
 	setCurrentStateRoot: (newStateRoot: Hex) => void
 }

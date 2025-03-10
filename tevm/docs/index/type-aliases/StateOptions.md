@@ -8,7 +8,7 @@
 
 > **StateOptions**: `object`
 
-Defined in: packages/state/dist/index.d.ts:175
+Defined in: packages/state/dist/index.d.ts:176
 
 ## Type declaration
 

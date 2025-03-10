@@ -103,7 +103,7 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
           <DataTableColumnHeader column={column} title="#" />
         ),
         cell: ({ row }) => (
-          <span className="mr-2 text-secondary-foreground lg:mr-0">
+          <span className="text-secondary-foreground mr-2 lg:mr-0">
             {row.original.id + 1}
           </span>
         ),
@@ -130,7 +130,7 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
           getCellNode(
             <pre className="text-left">
               {row.original.context.functionName ?? (
-                <span className="text-left text-secondary-foreground">
+                <span className="text-secondary-foreground text-left">
                   arbitrary call
                 </span>
               )}
@@ -187,18 +187,18 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
     ) : (
       <>
         <TxDetailsSubTable tx={row.original} />
-        <div className="grid grid-cols-[min-content_1fr] justify-between gap-x-4 gap-y-2 bg-muted/30 p-2">
+        <div className="bg-muted/30 grid grid-cols-[min-content_1fr] justify-between gap-x-4 gap-y-2 p-2">
           <span className="text-xs font-medium">Data</span>
           {row.original.data && row.original.data !== '0x' ? (
-            <pre className="overflow-x-auto whitespace-pre-wrap break-words text-xs">
+            <pre className="overflow-x-auto text-xs break-words whitespace-pre-wrap">
               {row.original.data}
             </pre>
           ) : (
-            <span className="text-xs text-secondary-foreground">No data</span>
+            <span className="text-secondary-foreground text-xs">No data</span>
           )}
           <span className="text-xs font-medium">Errors</span>
           {row.original.errors ? (
-            <ScrollArea className="max-h-48 rounded-sm border border-secondary p-2">
+            <ScrollArea className="border-secondary max-h-48 rounded-sm border p-2">
               <div className="grid grid-cols-[min-content_1fr] gap-x-2 gap-y-1 text-xs">
                 {row.original.errors.map((e, i) => (
                   <pre key={i}>
@@ -209,12 +209,12 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
               </div>
             </ScrollArea>
           ) : (
-            <span className="text-xs text-secondary-foreground">No errors</span>
+            <span className="text-secondary-foreground text-xs">No errors</span>
           )}
           <span className="text-xs font-medium">Logs</span>
           {row.original.logs && row.original.logs.length > 0 ? (
-            <ScrollArea className="max-h-48 rounded-sm border border-secondary p-2">
-              <div className="grid grid-cols-[min-content_1fr_1fr_1fr] gap-x-2 gap-y-1 text-wrap text-xs">
+            <ScrollArea className="border-secondary max-h-48 rounded-sm border p-2">
+              <div className="grid grid-cols-[min-content_1fr_1fr_1fr] gap-x-2 gap-y-1 text-xs text-wrap">
                 <span />
                 <span className="text-secondary-foreground">Address</span>
                 <span className="text-secondary-foreground">Data</span>
@@ -230,17 +230,17 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
               </div>
             </ScrollArea>
           ) : (
-            <span className="text-xs text-secondary-foreground">No logs</span>
+            <span className="text-secondary-foreground text-xs">No logs</span>
           )}
           <Separator className="col-span-2 my-2 w-8" />
-          <span className="whitespace-nowrap text-xs font-medium">Inputs</span>
+          <span className="text-xs font-medium whitespace-nowrap">Inputs</span>
           {row.original.context.inputValues.length > 0 &&
           !(
             row.original.context.inputValues.length === 1 &&
             row.original.context.inputValues[0].value === '0x'
           ) ? (
-            <ScrollArea className="max-h-48 rounded-sm border border-secondary p-2">
-              <div className="grid grid-cols-[min-content_1fr] gap-x-2 gap-y-1 text-wrap text-xs">
+            <ScrollArea className="border-secondary max-h-48 rounded-sm border p-2">
+              <div className="grid grid-cols-[min-content_1fr] gap-x-2 gap-y-1 text-xs text-wrap">
                 {row.original.context.inputValues.map((input, i) => (
                   <Fragment key={i}>
                     <pre className="text-secondary-foreground">
@@ -260,7 +260,7 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
               </div>
             </ScrollArea>
           ) : (
-            <span className="text-xs text-secondary-foreground">No inputs</span>
+            <span className="text-secondary-foreground text-xs">No inputs</span>
           )}
         </div>
       </>
@@ -317,12 +317,12 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
         table={table}
         expandableRender={expandableCell}
         pagination={dataMemoized.length > 10}
-        className="rounded-none border-x border-secondary px-2"
+        className="border-secondary rounded-none border-x px-2"
         noDataLabel="No transactions yet."
         header={
           <div className="flex w-full items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <span className="grow whitespace-nowrap font-medium">
+              <span className="grow font-medium whitespace-nowrap">
                 Local transactions
               </span>
               <Input
@@ -361,7 +361,7 @@ const TxHistoryTable: FC<TxHistoryTableProps> = ({ data, loading }) => {
       expandableRender={expandableCell}
       header={
         <div className="grid grid-cols-[1fr_min-content] items-center gap-4">
-          <span className="grow whitespace-nowrap font-medium">
+          <span className="grow font-medium whitespace-nowrap">
             Local transactions
           </span>
           {table.getColumn('status') ? (
@@ -460,10 +460,10 @@ const TxDetailsSubTable: FC<TxDetailsSubTableProps> = ({ tx }) => {
 
   /* --------------------------------- RENDER --------------------------------- */
   return (
-    <div className="grid grid-cols-1 gap-x-4 gap-y-2 bg-muted/30 p-2 lg:grid-cols-5">
+    <div className="bg-muted/30 grid grid-cols-1 gap-x-4 gap-y-2 p-2 lg:grid-cols-5">
       {table.map((row, i) => (
         <div key={i} className="flex flex-col gap-2">
-          <span className="text-xs font-medium text-secondary-foreground">
+          <span className="text-secondary-foreground text-xs font-medium">
             {row.header()}
           </span>
           {row.cell()}

@@ -72,7 +72,7 @@ describe.skip(createHttpClient.name, () => {
 
 				expect(errors).toBeUndefined()
 
-				const resultAccount = await (await tevm.tevm.getVm()).stateManager.getAccount(
+				const resultAccount = await (await tevm.transport.tevm.getVm()).stateManager.getAccount(
 					EthjsAddress.fromString(account.address),
 				)
 				if (!resultAccount) throw new Error('Account not found')

@@ -30,6 +30,18 @@ describe(getBlockByTag.name, async () => {
 		expect(await getBlockByTag(chain)(Number(blocks[0].header.number))).toBe(blocks[0])
 	})
 
+	it('should handle block hash as hex string', async () => {
+		// Convert block hash to hex string
+		const blockHashHex = `0x${Buffer.from(blocks[0].hash()).toString('hex')}` as `0x${string}`
+		expect(await getBlockByTag(chain)(blockHashHex)).toBe(blocks[0])
+	})
+
+	it('should handle block number as hex string', async () => {
+		// Convert block number to hex string
+		const blockNumberHex = `0x${blocks[0].header.number.toString(16)}` as `0x${string}`
+		expect(await getBlockByTag(chain)(blockNumberHex)).toBe(blocks[0])
+	})
+
 	it('should throw an error if the block does not exist', async () => {
 		let error = await getBlockByTag(chain)(69).catch((e) => e)
 		expect(error).toBeInstanceOf(UnknownBlockError)

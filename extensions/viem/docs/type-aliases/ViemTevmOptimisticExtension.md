@@ -31,7 +31,7 @@ import { tevmViemExtension } from '@tevm/viem-extension'
 const client = createClient('https://mainnet.optimism.io')
   .extend(tevmViemExtension())
 
-await client.tevm.account({
+await client.transport.tevm.account({
   address: `0x${'12'.repeat(20)}`,
   balance: parseEth('420'),
 })

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { runSync } from 'effect/Effect'
 import { defaultConfig, withDefaults } from './withDefaults.js'
@@ -66,5 +66,23 @@ describe(withDefaults.name, () => {
 			debug: false,
 			cacheDir: defaultConfig.cacheDir,
 		})
+	})
+
+	it('should handle invalid jsonAsConst by using default', () => {
+		const originalConsoleError = console.error
+		console.error = vi.fn()
+
+		// @ts-ignore - Testing invalid type
+		expect(runSync(withDefaults({ jsonAsConst: 123 }))).toEqual({
+			jsonAsConst: [],
+			foundryProject: false,
+			remappings: {},
+			libs: [],
+			debug: false,
+			cacheDir: '.tevm',
+		})
+
+		expect(console.error).toHaveBeenCalledWith('Invalid jsonAsConst value must be a string or array of strings')
+		console.error = originalConsoleError
 	})
 })

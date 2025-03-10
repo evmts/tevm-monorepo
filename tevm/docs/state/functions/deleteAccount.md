@@ -8,7 +8,7 @@
 
 > **deleteAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:238
+Defined in: packages/state/dist/index.d.ts:239
 
 Deletes an account from state under the provided `address`.
 

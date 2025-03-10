@@ -2439,35 +2439,6 @@ const client = createWalletClient({
 await client.switchChain({ id: optimism.id })
 ```
 
-#### tevm
-
-`object` & [`EIP1193Events`](../../index/type-aliases/EIP1193Events.md) & `object` & [`Eip1193RequestProvider`](../../index/type-aliases/Eip1193RequestProvider.md)
-
-Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
-
-**See**
-
-[TevmNode](../../index/type-aliases/TevmNode.md)
-
-**Example**
-
-```typescript
-import { createMemoryClient } from 'tevm'
-
-const memoryClient = createMemoryClient()
-
-// low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient.tevm.getVm()
-vm.runBlock(...)
-const { blockchain, evm, stateManager } = vm
-blockchain.addBlock(...)
-evm.runCall(...)
-stateManager.putAccount(...)
-
-const mempool = await memoryClient.tevm.getTxPool()
-const receiptsManager = await memoryClient.tevm.getReceiptsManager()
-```
-
 #### tevmCall
 
 [`CallHandler`](../../actions/type-aliases/CallHandler.md)
@@ -2657,7 +2628,7 @@ const client = createMemoryClient()
 
 await client.tevmReady()
 ```
-Same as calling `client.tevm.ready()`
+Same as calling `client.transport.tevm.ready()`
 
 #### tevmSetAccount
 

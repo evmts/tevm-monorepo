@@ -41,6 +41,22 @@ describe(createImpersonatedTx.name, () => {
 		expect(tx.isSigned()).toBe(true)
 	})
 
+	it('should access underlying transaction properties via Proxy', () => {
+		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
+		const data = '0x5234'
+		const gasLimit = 21000n
+		const tx = createImpersonatedTx({
+			data,
+			impersonatedAddress,
+			gasLimit,
+		})
+		// Access a property directly from the underlying transaction
+		// tx.data is stored as a Uint8Array internally
+		expect(tx.data).toBeDefined()
+		expect(tx.gasLimit).toEqual(gasLimit)
+		expect(typeof tx.toJSON).toBe('function')
+	})
+
 	it('should support Object.keys', () => {
 		const impersonatedAddress = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
 		expect(Object.keys(createImpersonatedTx({ impersonatedAddress }))).toMatchSnapshot()

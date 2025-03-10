@@ -29,7 +29,7 @@ describe('Tevm.request', async () => {
 			method: 'tevm_call',
 			id: 1,
 		} as const satisfies CallJsonRpcRequest
-		const res = await tevm.tevm.request(req)
+		const res = await tevm.transport.tevm.request(req)
 		expect(
 			decodeFunctionResult({
 				abi: ERC20.abi,
@@ -80,7 +80,7 @@ describe('Tevm.request', async () => {
 				method: 'tevm_call',
 				id: 1,
 			} as const satisfies CallJsonRpcRequest
-			const res = await tevm.tevm.request(req)
+			const res = await tevm.transport.tevm.request(req)
 			expect(
 				decodeFunctionResult({
 					data: res.rawData,
@@ -104,7 +104,7 @@ describe('Tevm.request', async () => {
 			balance,
 		})
 		const transferAmount = 0x420n
-		const res = await tevm.tevm.request({
+		const res = await tevm.transport.tevm.request({
 			params: [
 				{
 					caller: address1,
@@ -122,17 +122,19 @@ describe('Tevm.request', async () => {
 		expect(res.rawData).toEqual('0x')
 		await tevm.tevmMine()
 		expect(
-			(await (await tevm.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance,
+			(await (await tevm.transport.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))
+				?.balance,
 		).toBe(transferAmount)
 		expect(
-			(await (await tevm.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance,
+			(await (await tevm.transport.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))
+				?.balance,
 		).toBe(286183069n)
 	})
 
 	it('Should execute a putAccount request', async () => {
 		const tevm = createMemoryClient()
 		const balance = 0x11111111n
-		const res = await tevm.tevm.request({
+		const res = await tevm.transport.tevm.request({
 			method: 'tevm_setAccount',
 			params: [
 				{
@@ -143,7 +145,7 @@ describe('Tevm.request', async () => {
 			],
 		})
 		expect(res).not.toHaveProperty('error')
-		const account = await (await tevm.tevm.getVm()).stateManager.getAccount(
+		const account = await (await tevm.transport.tevm.getVm()).stateManager.getAccount(
 			EthjsAddress.fromString('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)
@@ -180,7 +182,7 @@ describe('Tevm.request', async () => {
 			txHash: '0x2a872fc2c05d90cbbdfbed7a5c831533dc1d02c1be4ab374b7d9c66e9ccec0e8',
 		})
 		const mineResult = await tevm.tevmMine()
-		const vm = await tevm.tevm.getVm()
+		const vm = await tevm.transport.tevm.getVm()
 		expect(mineResult.errors).toBeUndefined()
 		expect(mineResult.blockHashes).toHaveLength(1)
 

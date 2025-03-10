@@ -1,4 +1,4 @@
-import type { Eip1193RequestProvider, TevmActionsApi } from '@tevm/decorators'
+import type { TevmActionsApi } from '@tevm/decorators'
 import type { TevmNode } from '@tevm/node'
 
 /**
@@ -14,7 +14,6 @@ import type { TevmNode } from '@tevm/node'
  * ```
  */
 export type TevmViemActionsApi = {
-	tevm: TevmNode & Eip1193RequestProvider
 	tevmReady: TevmNode['ready']
 	tevmCall: TevmActionsApi['call']
 	tevmContract: TevmActionsApi['contract']

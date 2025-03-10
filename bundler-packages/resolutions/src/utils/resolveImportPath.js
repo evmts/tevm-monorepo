@@ -71,7 +71,6 @@ export const resolveImportPath = (absolutePath, importPath, remappings, libs, sy
 			},
 			(err, resolvedPath) => {
 				if (err) {
-					console.error(err)
 					resume(fail(new CouldNotResolveImportError(importPath, absolutePath, err)))
 				} else {
 					resume(succeed(formatPath(/** @type {string} */ (resolvedPath))))

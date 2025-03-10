@@ -7,6 +7,13 @@ export default defineConfig({
 		environment: 'node',
 		coverage: {
 			reporter: ['text', 'json-summary', 'json'],
+			thresholds: {
+				autoUpdate: true,
+				lines: 90.84,
+				functions: 89.65,
+				branches: 95.83,
+				statements: 90.84,
+			},
 		},
 	},
 })

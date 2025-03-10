@@ -6,7 +6,7 @@
 
 # Interface: StateManager
 
-Defined in: packages/state/dist/index.d.ts:123
+Defined in: packages/state/dist/index.d.ts:124
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: packages/state/dist/index.d.ts:123
 
 > **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: packages/state/dist/index.d.ts:127
+Defined in: packages/state/dist/index.d.ts:128
 
 The internal state representation
 
@@ -28,7 +28,7 @@ The internal state representation
 
 > **getAccountAddresses**: () => `Set`\<`` `0x${string}` ``\>
 
-Defined in: packages/state/dist/index.d.ts:132
+Defined in: packages/state/dist/index.d.ts:133
 
 Returns contract addresses
 
@@ -76,7 +76,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > **ready**: () => `Promise`\<`true`\>
 
-Defined in: packages/state/dist/index.d.ts:128
+Defined in: packages/state/dist/index.d.ts:129
 
 #### Returns
 
@@ -130,7 +130,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > **clearCaches**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:144
+Defined in: packages/state/dist/index.d.ts:145
 
 Resets all internal caches
 
@@ -166,7 +166,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > **commit**(`createNewStateRoot`?): `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:154
+Defined in: packages/state/dist/index.d.ts:155
 
 Commits the current state.
 
@@ -196,7 +196,7 @@ This api is not stable
 
 > **deepCopy**(): `Promise`\<[`StateManager`](StateManager.md)\>
 
-Defined in: packages/state/dist/index.d.ts:136
+Defined in: packages/state/dist/index.d.ts:137
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
@@ -232,7 +232,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](../../index/type-aliases/TevmState.md)\>
 
-Defined in: packages/state/dist/index.d.ts:140
+Defined in: packages/state/dist/index.d.ts:141
 
 Dumps the state of the state manager as a [TevmState](../../index/type-aliases/TevmState.md)
 
@@ -622,7 +622,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > **saveStateRoot**(`root`, `state`): `void`
 
-Defined in: packages/state/dist/index.d.ts:150
+Defined in: packages/state/dist/index.d.ts:151
 
 **`Experimental`**
 

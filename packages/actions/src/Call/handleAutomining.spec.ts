@@ -56,7 +56,6 @@ describe('handleAutomining', () => {
 
 	it('should log mining process', async () => {
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' },
 		})
 

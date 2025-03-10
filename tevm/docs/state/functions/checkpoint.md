@@ -8,7 +8,7 @@
 
 > **checkpoint**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:211
+Defined in: packages/state/dist/index.d.ts:212
 
 Checkpoints the current change-set to the instance since the
 last call to checkpoint.

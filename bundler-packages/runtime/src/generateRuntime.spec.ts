@@ -114,4 +114,11 @@ describe('generateRuntime', () => {
 			export const MyContract = createContract(_MyContract)"
 		`)
 	})
+
+	it('should handle mjs module type with includeBytecode', () => {
+		const result = runSync(generateRuntime(artifacts, 'mjs', true, '@tevm/contract'))
+		expect(result).toBeDefined()
+		expect(result).toContain('createContract')
+		expect(result).toContain('import { createContract } from') // Check import statement
+	})
 })

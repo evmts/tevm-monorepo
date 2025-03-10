@@ -22,17 +22,29 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 	 */
 	const errors = []
 	if (shouldCreateTransaction(params, executedCall.runTxResult)) {
-		const txRes = await createTransaction(client)({
-			throwOnFail: false,
-			evmOutput: executedCall.runTxResult,
-			evmInput,
-			maxPriorityFeePerGas: params.maxPriorityFeePerGas,
-			maxFeePerGas: params.maxFeePerGas,
-		})
-		txHash = 'txHash' in txRes ? txRes.txHash : undefined
-		const miningRes = (await handleAutomining(client, txHash)) ?? {}
-		const { errors: txCreationErrors } = /** @type {{errors: Array<any>}}*/ (txRes)
-		errors.push(...(miningRes.errors ?? []), ...(txCreationErrors ?? []))
+		try {
+			// Use a try-catch to handle errors from createTransaction or handleAutomining
+			const txRes = await createTransaction(client)({
+				throwOnFail: false,
+				evmOutput: executedCall.runTxResult,
+				evmInput,
+				maxPriorityFeePerGas: params.maxPriorityFeePerGas,
+				maxFeePerGas: params.maxFeePerGas,
+			})
+			txHash = 'txHash' in txRes ? txRes.txHash : undefined
+			const miningRes = (await handleAutomining(client, txHash)) ?? {}
+
+			// Check for errors in the transaction creation and mining results
+			if ('errors' in txRes && txRes.errors) {
+				errors.push(.../** @type {any} */ (txRes.errors))
+			}
+			if (miningRes.errors) {
+				errors.push(.../** @type {any} */ (miningRes.errors))
+			}
+		} catch (error) {
+			// Handle any unexpected errors during transaction creation
+			errors.push(/** @type {any} */ (error))
+		}
 	}
 	if (errors.length > 0) {
 		return {

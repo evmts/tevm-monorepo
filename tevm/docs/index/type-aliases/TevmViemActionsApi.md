@@ -16,10 +16,6 @@ To add these actions use the `extend` method on a TevmClient with the tevmViemAc
 
 ## Type declaration
 
-### tevm
-
-> **tevm**: [`TevmNode`](TevmNode.md) & [`Eip1193RequestProvider`](Eip1193RequestProvider.md)
-
 ### tevmCall
 
 > **tevmCall**: [`TevmActionsApi`](TevmActionsApi.md)\[`"call"`\]
