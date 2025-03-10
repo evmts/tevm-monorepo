@@ -32,9 +32,9 @@ describe(getProof.name, () => {
 		`)
 	})
 
-	it('throws error if attempting to getProof with no fork uri', () => {
+	it('throws error if attempting to getProof with no fork uri', async () => {
 		const state = createBaseState({})
-		expect(() => getProof(state)(createAddress(0))).rejects.toThrowErrorMatchingInlineSnapshot(
+		await expect(getProof(state)(createAddress(0))).rejects.toThrowErrorMatchingInlineSnapshot(
 			'[Error: getProof only implemented in fork mode atm because tevm at this moment does not merkilize the state]',
 		)
 	})

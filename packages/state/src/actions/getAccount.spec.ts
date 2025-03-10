@@ -75,4 +75,46 @@ describe(`${getAccount.name} forking`, () => {
 		// test that it indead is cached and we didn't fetch twice
 		expect(await getAccount(baseState)(knownAccount)).toMatchSnapshot()
 	})
+
+	it('Should store fetched account in both main and fork caches', async () => {
+		await getAccount(baseState)(knownAccount)
+
+		// Check if account is in main cache
+		expect(baseState.caches.accounts.get(knownAccount)).toBeDefined()
+
+		// Check if account is in fork cache
+		expect(baseState.forkCache.accounts.get(knownAccount)).toBeDefined()
+
+		// Check the account values
+		const mainCacheAccount = baseState.caches.accounts.get(knownAccount)
+		const forkCacheAccount = baseState.forkCache.accounts.get(knownAccount)
+		expect(mainCacheAccount).toEqual(forkCacheAccount)
+	})
+
+	it('Should check fork cache if account not found in main cache', async () => {
+		// First fetch to populate both caches
+		const result = await getAccount(baseState)(knownAccount)
+
+		// Store fork cache entry
+		const forkCacheEntry = baseState.forkCache.accounts.get(knownAccount)
+
+		// Clear main cache but keep fork cache
+		baseState.caches.accounts.clear()
+
+		// Verify main cache is empty
+		expect(baseState.caches.accounts.get(knownAccount)).toBeUndefined()
+
+		// Verify fork cache still has the account
+		expect(baseState.forkCache.accounts.get(knownAccount)).toEqual(forkCacheEntry)
+
+		// Now fetch again - should get from fork cache and populate main cache
+		const newResult = await getAccount(baseState)(knownAccount)
+
+		// Should get same result as before
+		expect(newResult?.nonce).toEqual(result?.nonce)
+		expect(newResult?.balance).toEqual(result?.balance)
+
+		// Main cache should now have the account again
+		expect(baseState.caches.accounts.get(knownAccount)).toBeDefined()
+	})
 })

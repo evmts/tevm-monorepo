@@ -8,7 +8,7 @@
 
 > **getProof**(`baseState`, `skipFetchingFromFork`?): (`address`, `storageSlots`?) => `Promise`\<`Proof`\>
 
-Defined in: packages/state/dist/index.d.ts:315
+Defined in: packages/state/dist/index.d.ts:337
 
 Get an EIP-1186 proof from the provider
 

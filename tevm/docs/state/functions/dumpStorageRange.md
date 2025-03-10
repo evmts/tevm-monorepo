@@ -8,7 +8,7 @@
 
 > **dumpStorageRange**(`baseState`, `skipFetchingFromFork`?): (`address`, `startKey`, `limit`) => `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
-Defined in: packages/state/dist/index.d.ts:257
+Defined in: packages/state/dist/index.d.ts:258
 
 ## Parameters
 

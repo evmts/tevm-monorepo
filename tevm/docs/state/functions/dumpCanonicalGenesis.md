@@ -8,7 +8,7 @@
 
 > **dumpCanonicalGenesis**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<[`TevmState`](../../index/type-aliases/TevmState.md)\>
 
-Defined in: packages/state/dist/index.d.ts:244
+Defined in: packages/state/dist/index.d.ts:245
 
 Dumps the state of the state manager as a [TevmState](../../index/type-aliases/TevmState.md)
 

@@ -8,7 +8,7 @@
 
 > **getAccountAddresses**(`baseState`, `skipFetchingFromFork`?): () => `Set`\<`` `0x${string}` ``\>
 
-Defined in: packages/state/dist/index.d.ts:275
+Defined in: packages/state/dist/index.d.ts:283
 
 ## Parameters
 

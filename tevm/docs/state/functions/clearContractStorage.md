@@ -8,7 +8,7 @@
 
 > **clearContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:223
+Defined in: packages/state/dist/index.d.ts:224
 
 Clears all storage entries for the account corresponding to `address`.
 
