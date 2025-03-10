@@ -1,29 +1,24 @@
 import { mineHandler } from '@tevm/actions'
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { requestEip1193 } from '@tevm/decorators'
-import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { type Address, createClient } from 'viem'
+import { type Address, type Client, createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
+import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmContract } from './tevmContract.js'
 import { tevmDeploy } from './tevmDeploy.js'
 import { tevmMine } from './tevmMine.js'
-import { tevmViemActions } from './tevmViemActions.js'
 
-// Use any to work around the type mismatch in tests
-let client: any
+let client: Client<TevmTransport>
 
 beforeEach(async () => {
-	const node = createTevmNode({
-		fork: { transport: transports.optimism },
-	}).extend(requestEip1193())
-
 	client = createClient({
-		transport: createTevmTransport(node),
+		transport: createTevmTransport({
+			fork: { transport: transports.optimism },
+		}),
 		chain: optimism,
-	}).extend(tevmViemActions())
+	})
 })
 
 describe('tevmDeploy', () => {

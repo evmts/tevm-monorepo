@@ -1,9 +1,7 @@
-import { requestEip1193 } from '@tevm/decorators'
-import { createTevmNode } from '@tevm/node'
 import { EthjsAddress, type Hex, numberToHex } from '@tevm/utils'
 import { type Client, bytesToHex, createClient, hexToBytes } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { TevmTransport } from './MemoryClient.js'
+import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
@@ -19,9 +17,8 @@ const state = {
 } as const
 
 beforeEach(async () => {
-	const node = createTevmNode().extend(requestEip1193())
 	client = createClient({
-		transport: createTevmTransport(node),
+		transport: createTevmTransport(),
 	})
 })
 

@@ -1,5 +1,4 @@
-import { type Eip1193RequestProvider, type TevmActionsApi } from '@tevm/decorators'
-import type { TevmNode } from '@tevm/node'
+import { type TevmActionsApi } from '@tevm/decorators'
 
 /**
  * Provides powerful actions for interacting with the EVM using the TEVM API.
@@ -9,29 +8,6 @@ import type { TevmNode } from '@tevm/node'
  * @see [Viem Actions API](https://viem.sh/docs/actions/introduction)
  */
 export type TevmActions = {
-	/**
-	 * Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
-	 * @see {@link TevmNode}
-	 * @example
-	 * ```typescript
-	 * import { createMemoryClient } from 'tevm'
-	 *
-	 * const memoryClient = createMemoryClient()
-	 *
-	 * // low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
-	 * const vm = await memoryClient.tevm.getVm()
-	 * vm.runBlock(...)
-	 * const { blockchain, evm, stateManager } = vm
-	 * blockchain.addBlock(...)
-	 * evm.runCall(...)
-	 * stateManager.putAccount(...)
-	 *
-	 * const mempool = await memoryClient.tevm.getTxPool()
-	 * const receiptsManager = await memoryClient.tevm.getReceiptsManager()
-	 * ```
-	 */
-	tevm: TevmNode & Eip1193RequestProvider
-
 	/**
 	 * Returns a promise that resolves when the TEVM is ready.
 	 * This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.

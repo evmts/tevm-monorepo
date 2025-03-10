@@ -8,7 +8,6 @@ describe('createMemoryClient', () => {
 		const client = createMemoryClient()
 		expect(client).toBeDefined()
 		// tevm actions
-		expect(client.tevm).toBeDefined()
 		expect(client.tevmReady).toBeDefined()
 		expect(client.tevmCall).toBeDefined()
 		expect(client.tevmContract).toBeDefined()
@@ -43,7 +42,6 @@ describe('createMemoryClient', () => {
 		}
 		const client = createMemoryClient(customOptions)
 		expect(client).toBeDefined()
-		expect(client.tevm).toBeDefined()
 		expect(client.tevmReady).toBeDefined()
 		expect(client.tevmCall).toBeDefined()
 		expect(client.tevmContract).toBeDefined()

@@ -8,7 +8,7 @@ import { deployHandler } from '@tevm/actions'
  *
  * As an alternative, the `setAccount` action can be used to directly put contract bytecode into the state without deploying it via a transaction.
  *
- * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {import('@tevm/actions').DeployParams & import('@tevm/actions').CallEvents} params - Parameters for the contract deployment, including ABI, bytecode, and constructor arguments.
  * @returns {Promise<import('@tevm/actions').DeployResult>} The result of the contract deployment, including the created contract address.
  *
