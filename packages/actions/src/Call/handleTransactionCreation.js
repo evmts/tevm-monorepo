@@ -23,6 +23,7 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 	const errors = []
 	if (shouldCreateTransaction(params, executedCall.runTxResult)) {
 		try {
+			// Use a try-catch to handle errors from createTransaction or handleAutomining
 			const txRes = await createTransaction(client)({
 				throwOnFail: false,
 				evmOutput: executedCall.runTxResult,
@@ -32,11 +33,17 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 			const miningRes = (await handleAutomining(client, txHash)) ?? {}
-			const { errors: txCreationErrors } = /** @type {{errors: Array<any>}}*/ (txRes)
-			errors.push(...(miningRes.errors ?? []), ...(txCreationErrors ?? []))
-		} catch (e) {
-			// Handle the error thrown directly by createTransaction or handleAutomining
-			errors.push(/** @type {import('./TevmCallError.js').TevmCallError} */ (e))
+
+			// Check for errors in the transaction creation and mining results
+			if ('errors' in txRes && txRes.errors) {
+				errors.push(...txRes.errors)
+			}
+			if (miningRes.errors) {
+				errors.push(...miningRes.errors)
+			}
+		} catch (error) {
+			// Handle any unexpected errors during transaction creation
+			errors.push(/** @type {import('./TevmCallError.js').TevmCallError} */ (error))
 		}
 	}
 	if (errors.length > 0) {
