@@ -114,7 +114,7 @@ import { callHandler } from '@tevm/actions'
  * example()
  * ```
  *
- * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {object} params - Parameters for the call
  * @param {string} [params.to] - Target address (required for calls, optional for deployments)
  * @param {string} [params.data] - Call data (function selector and encoded parameters)
