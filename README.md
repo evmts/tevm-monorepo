@@ -12,7 +12,7 @@
 
 Tevm enables next generation UX for users while providing delightful DX for developers. It's like sticking an RPC node in your web app and making Solidity contracts a first class citizen.
 
-## Visit [New Docs Site!](https://node.tevm.dev/) for docs, guides, API, and more! 📄
+## Visit [New Docs Site!](https://node.tevm.sh/) for docs, guides, API, and more! 📄
 
 - [Tevm node](https://node.tevm.sh)
 
