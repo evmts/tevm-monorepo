@@ -159,10 +159,10 @@ import{d as r,j as s}from"./index-DJo4NlPj.js";const a={title:"JSON-RPC Guide",d
 `]}),`
 `,s.jsxs(e.h2,{id:"related-topics",children:["Related Topics",s.jsx(e.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:s.jsx(e.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(e.ul,{children:[`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/examples/viem",children:"Using with Viem"})}),`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/examples/ethers",children:"Using with Ethers"})}),`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/core/managing-state",children:"Managing State"})}),`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/receipts-and-logs",children:"Receipts & Logs"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/examples/viem",children:"Using with Viem"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/examples/ethers",children:"Using with Ethers"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/core/managing-state",children:"Managing State"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/advanced/receipts-and-logs",children:"Receipts & Logs"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"https://ethereum.org/en/developers/docs/apis/json-rpc/",children:"Ethereum JSON-RPC Specification"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"https://eips.ethereum.org/EIPS/eip-1193",children:"EIP-1193: Ethereum Provider JavaScript API"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"https://github.com/evmts/tevm-monorepo/tree/main/packages/actions/docs",children:"Tevm API Documentation"})}),`

@@ -180,5 +180,5 @@ import{d as n,j as s,f as l}from"./index-DJo4NlPj.js";/* empty css              
 `,s.jsxs(i.ul,{children:[`
 `,s.jsxs(i.li,{children:["Learn about ",s.jsx(i.a,{href:"/forking",children:"Forking"})]}),`
 `,s.jsxs(i.li,{children:["Explore ",s.jsx(i.a,{href:"/managing-state",children:"State Management"})]}),`
-`,s.jsxs(i.li,{children:["See ",s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/json-rpc",children:"JSON-RPC Support"})]}),`
+`,s.jsxs(i.li,{children:["See ",s.jsx(i.a,{href:"/api/json-rpc",children:"JSON-RPC Support"})]}),`
 `]})]})}function o(e={}){const{wrapper:i}={...n(),...e.components};return i?s.jsx(i,{...e,children:s.jsx(r,{...e})}):r(e)}export{o as default,c as frontmatter};

@@ -125,7 +125,7 @@ import{d as l,j as s}from"./index-DJo4NlPj.js";const r={title:"Mining Modes",des
 `,s.jsxs(i.span,{className:"line",children:[s.jsx(i.span,{style:{color:"#D73A49","--shiki-dark":"#F47067"},children:"await"}),s.jsx(i.span,{style:{color:"#24292E","--shiki-dark":"#ADBAC7"},children:" manualNode."}),s.jsx(i.span,{style:{color:"#6F42C1","--shiki-dark":"#DCBDFB"},children:"mine"}),s.jsx(i.span,{style:{color:"#24292E","--shiki-dark":"#ADBAC7"},children:"() "}),s.jsx(i.span,{style:{color:"#6A737D","--shiki-dark":"#768390"},children:"// Now the transaction is mined"})]})]})})}),`
 `,s.jsxs(i.h2,{id:"related-topics",children:["Related Topics",s.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:s.jsx(i.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(i.ul,{children:[`
-`,s.jsxs(i.li,{children:[s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/txpool",children:"Transaction Pool"})," - Understanding pending transaction handling"]}),`
-`,s.jsxs(i.li,{children:[s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/performance-profiler",children:"Performance Optimization"})," - Tuning mining for better performance"]}),`
-`,s.jsxs(i.li,{children:[s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/methods#block-methods",children:"Block Management"})," - Low-level block control"]}),`
+`,s.jsxs(i.li,{children:[s.jsx(i.a,{href:"/advanced/txpool",children:"Transaction Pool"})," - Understanding pending transaction handling"]}),`
+`,s.jsxs(i.li,{children:[s.jsx(i.a,{href:"/advanced/performance-profiler",children:"Performance Optimization"})," - Tuning mining for better performance"]}),`
+`,s.jsxs(i.li,{children:[s.jsx(i.a,{href:"/api/methods#block-methods",children:"Block Management"})," - Low-level block control"]}),`
 `]})]})}function d(n={}){const{wrapper:i}={...l(),...n.components};return i?s.jsx(i,{...n,children:s.jsx(e,{...n})}):e(n)}export{d as default,r as frontmatter};

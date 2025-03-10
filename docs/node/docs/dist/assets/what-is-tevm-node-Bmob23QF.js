@@ -37,8 +37,8 @@ import{d as r,j as e}from"./index-DJo4NlPj.js";const t={title:"What is Tevm Node
 `,e.jsxs(s.li,{children:[e.jsx(s.strong,{children:"Network Independent:"})," Test and develop without real network constraints"]}),`
 `]}),`
 `,e.jsxs(s.h2,{id:"why-viem",children:["Why viem",e.jsx(s.a,{"aria-hidden":"true",tabIndex:"-1",href:"#why-viem",children:e.jsx(s.div,{"data-autolink-icon":!0})})]}),`
-`,e.jsxs(s.p,{children:["Tevm minimizes it's api surface and is easy to use because it ",e.jsx(s.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/getting-started/viem",children:"uses viem"})," as it's API rather than forcing users to learn a bespoke api. If you know viem you already know ethers."]}),`
-`,e.jsxs(s.p,{children:["Note: ",e.jsx(s.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/getting-started/ethers",children:"ethers is also supported"})]}),`
+`,e.jsxs(s.p,{children:["Tevm minimizes it's api surface and is easy to use because it ",e.jsx(s.a,{href:"/getting-started/viem",children:"uses viem"})," as it's API rather than forcing users to learn a bespoke api. If you know viem you already know ethers."]}),`
+`,e.jsxs(s.p,{children:["Note: ",e.jsx(s.a,{href:"/getting-started/ethers",children:"ethers is also supported"})]}),`
 `,e.jsxs(s.h2,{id:"next-steps",children:["Next Steps",e.jsx(s.a,{"aria-hidden":"true",tabIndex:"-1",href:"#next-steps",children:e.jsx(s.div,{"data-autolink-icon":!0})})]}),`
 `,e.jsxs(s.ul,{children:[`
 `,e.jsx(s.li,{children:e.jsx(s.a,{href:"/why-run-ethereum-in-js",children:"Why JavaScript for Ethereum?"})}),`

@@ -394,6 +394,6 @@ import{d as r,j as s}from"./index-DJo4NlPj.js";const a={title:"EVM Events",descr
 `,s.jsxs(e.ul,{children:[`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"/tevm-call",children:"Tevm Call API"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"/methods",children:"Methods"})}),`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/performance-profiler",children:"Performance Profiler"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/advanced/performance-profiler",children:"Performance Profiler"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"/methods",children:"Gas Estimation"})}),`
 `]})]})}function c(l={}){const{wrapper:e}={...r(),...l.components};return e?s.jsx(e,{...l,children:s.jsx(i,{...l})}):i(l)}export{c as default,a as frontmatter};

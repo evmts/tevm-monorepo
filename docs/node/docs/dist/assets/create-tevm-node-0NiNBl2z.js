@@ -157,5 +157,5 @@ import{d as l,j as s,S as a,e as n,f as d}from"./index-DJo4NlPj.js";/* empty css
 `,s.jsxs(e.li,{children:["Learn about the ",s.jsx(e.a,{href:"/tevm-node-interface",children:"Node Interface"})]}),`
 `,s.jsxs(e.li,{children:["Explore ",s.jsx(e.a,{href:"/forking",children:"Forking"})]}),`
 `,s.jsxs(e.li,{children:["Understand ",s.jsx(e.a,{href:"/managing-state",children:"State Management"})]}),`
-`,s.jsxs(e.li,{children:["Learn about ",s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/custom-precompiles",children:"Custom Precompiles"})]}),`
+`,s.jsxs(e.li,{children:["Learn about ",s.jsx(e.a,{href:"/advanced/custom-precompiles",children:"Custom Precompiles"})]}),`
 `]})]})}function t(i={}){const{wrapper:e}={...l(),...i.components};return e?s.jsx(e,{...i,children:s.jsx(r,{...i})}):r(i)}export{t as default,h as frontmatter};

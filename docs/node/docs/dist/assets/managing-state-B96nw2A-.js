@@ -170,7 +170,7 @@ import{d as l,j as s}from"./index-DJo4NlPj.js";/* empty css                     
 `,s.jsxs(e.h2,{id:"see-also",children:["See Also",s.jsx(e.a,{"aria-hidden":"true",tabIndex:"-1",href:"#see-also",children:s.jsx(e.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(e.ul,{children:[`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"https://github.com/evmts/tevm-monorepo/blob/main/packages/state/docs/interfaces/StateManager.md",children:"State Manager API"})}),`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/account-management",children:"Account Management"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/api/account-management",children:"Account Management"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"/reference/contract",children:"Contract Storage"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"/forking",children:"Forking Guide"})}),`
 `]})]})}function d(i={}){const{wrapper:e}={...l(),...i.components};return e?s.jsx(e,{...i,children:s.jsx(a,{...i})}):a(i)}export{d as default,c as frontmatter};

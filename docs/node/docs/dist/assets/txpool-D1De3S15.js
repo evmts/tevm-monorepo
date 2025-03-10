@@ -187,7 +187,7 @@ import{d as l,j as s}from"./index-DJo4NlPj.js";const a={title:"Transaction Pool"
 `,s.jsx(i.span,{className:"line",children:s.jsx(i.span,{style:{color:"#24292E","--shiki-dark":"#ADBAC7"},children:"}"})})]})})}),`
 `,s.jsxs(i.h2,{id:"related-topics",children:["Related Topics",s.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:s.jsx(i.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(i.ul,{children:[`
-`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/json-rpc",children:"JSON-RPC Support"})}),`
-`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/vm-and-submodules",children:"VM & Submodules"})}),`
+`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/api/json-rpc",children:"JSON-RPC Support"})}),`
+`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/api/vm-and-submodules",children:"VM & Submodules"})}),`
 `,s.jsx(i.li,{children:s.jsx(i.a,{href:"/receipts-and-logs",children:"Receipts & Logs"})}),`
 `]})]})}function c(e={}){const{wrapper:i}={...l(),...e.components};return i?s.jsx(i,{...e,children:s.jsx(n,{...e})}):n(e)}export{c as default,a as frontmatter};

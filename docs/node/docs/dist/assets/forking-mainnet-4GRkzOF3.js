@@ -66,7 +66,7 @@ import{d as l,j as s}from"./index-DJo4NlPj.js";const a={title:"Forking Mainnet",
 `,s.jsx(i.span,{className:"line",children:s.jsx(i.span,{style:{color:"#24292E","--shiki-dark":"#ADBAC7"},children:"})"})})]})})}),`
 `,s.jsx(i.strong,{children:"Related"}),`
 `,s.jsxs(i.ul,{children:[`
-`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/core/forking",children:"Forking Guide"})}),`
-`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/core/managing-state",children:"State Management"})}),`
-`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/json-rpc",children:"JSON-RPC Support"})}),`
+`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/core/forking",children:"Forking Guide"})}),`
+`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/core/managing-state",children:"State Management"})}),`
+`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/api/json-rpc",children:"JSON-RPC Support"})}),`
 `]})]})}function c(e={}){const{wrapper:i}={...l(),...e.components};return i?s.jsx(i,{...e,children:s.jsx(n,{...e})}):n(e)}export{c as default,a as frontmatter};

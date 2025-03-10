@@ -207,7 +207,7 @@ import{d as r,j as s}from"./index-DJo4NlPj.js";const a={title:"MemoryClient",des
 `,s.jsx(e.p,{children:"This package is licensed under the MIT License."}),`
 `,s.jsxs(e.h2,{id:"see-also",children:["See Also",s.jsx(e.a,{"aria-hidden":"true",tabIndex:"-1",href:"#see-also",children:s.jsx(e.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(e.ul,{children:[`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/introduction/what-is-tevm-node",children:"What is Tevm Node?"})}),`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/core/create-tevm-node",children:"Creating a Node"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/introduction/what-is-tevm-node",children:"What is Tevm Node?"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/core/create-tevm-node",children:"Creating a Node"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"https://viem.sh",children:"Viem Documentation"})}),`
 `]})]})}function c(i={}){const{wrapper:e}={...r(),...i.components};return e?s.jsx(e,{...i,children:s.jsx(n,{...i})}):n(i)}export{c as default,a as frontmatter};

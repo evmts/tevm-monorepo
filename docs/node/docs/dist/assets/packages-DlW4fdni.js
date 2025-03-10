@@ -309,7 +309,7 @@ import{d as r,j as n}from"./index-DJo4NlPj.js";const t={title:"Package Reference
 `]}),`
 `,n.jsxs(e.h2,{id:"related-topics",children:["Related Topics",n.jsx(e.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:n.jsx(e.div,{"data-autolink-icon":!0})})]}),`
 `,n.jsxs(e.ul,{children:[`
-`,n.jsx(e.li,{children:n.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/introduction/architecture-overview",children:"Architecture Overview"})}),`
+`,n.jsx(e.li,{children:n.jsx(e.a,{href:"/introduction/architecture-overview",children:"Architecture Overview"})}),`
 `,n.jsx(e.li,{children:n.jsx(e.a,{href:"/methods",children:"API Reference"})}),`
 `,n.jsx(e.li,{children:n.jsx(e.a,{href:"https://github.com/evmts/tevm-monorepo",children:"GitHub Repository"})}),`
 `]})]})}function d(i={}){const{wrapper:e}={...r(),...i.components};return e?n.jsx(e,{...i,children:n.jsx(s,{...i})}):s(i)}export{d as default,t as frontmatter};

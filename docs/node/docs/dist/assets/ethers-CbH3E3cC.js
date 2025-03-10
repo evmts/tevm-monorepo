@@ -288,7 +288,7 @@ import{d as e,j as s}from"./index-DJo4NlPj.js";const a={title:"Using with Ethers
 `]}),`
 `,s.jsxs(i.h2,{id:"related-topics",children:["Related Topics",s.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:s.jsx(i.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(i.ul,{children:[`
-`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/json-rpc",children:"JSON-RPC Support"})}),`
+`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/api/json-rpc",children:"JSON-RPC Support"})}),`
 `,s.jsx(i.li,{children:s.jsx(i.a,{href:"/local-testing",children:"Local Testing"})}),`
 `,s.jsx(i.li,{children:s.jsx(i.a,{href:"/forking-mainnet",children:"Forking Mainnet"})}),`
 `]})]})}function c(l={}){const{wrapper:i}={...e(),...l.components};return i?s.jsx(i,{...l,children:s.jsx(r,{...l})}):r(l)}export{c as default,a as frontmatter};

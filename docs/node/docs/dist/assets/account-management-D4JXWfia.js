@@ -135,7 +135,7 @@ import{d as l,j as s}from"./index-DJo4NlPj.js";const a={title:"Account Managemen
 `]}),`
 `,s.jsxs(e.h2,{id:"related-topics",children:["Related Topics",s.jsx(e.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:s.jsx(e.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(e.ul,{children:[`
-`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/core/managing-state",children:"State Management"})}),`
+`,s.jsx(e.li,{children:s.jsx(e.a,{href:"/core/managing-state",children:"State Management"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"/tevm-call",children:"Call API"})}),`
 `,s.jsx(e.li,{children:s.jsx(e.a,{href:"/json-rpc",children:"JSON-RPC Support"})}),`
 `]})]})}function c(i={}){const{wrapper:e}={...l(),...i.components};return e?s.jsx(e,{...i,children:s.jsx(n,{...i})}):n(i)}export{c as default,a as frontmatter};

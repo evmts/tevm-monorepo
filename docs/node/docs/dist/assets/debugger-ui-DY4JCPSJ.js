@@ -460,6 +460,6 @@ import{d as e,j as s}from"./index-DJo4NlPj.js";const a={title:"Building a Debugg
 `,s.jsxs(l.span,{className:"line",children:[s.jsx(l.span,{style:{color:"#24292E","--shiki-dark":"#ADBAC7"},children:"</"}),s.jsx(l.span,{style:{color:"#22863A","--shiki-dark":"#8DDB8C"},children:"div"}),s.jsx(l.span,{style:{color:"#24292E","--shiki-dark":"#ADBAC7"},children:">"})]})]})})}),`
 `,s.jsxs(l.h2,{id:"related-topics",children:["Related Topics",s.jsx(l.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:s.jsx(l.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(l.ul,{children:[`
-`,s.jsx(l.li,{children:s.jsx(l.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/evm-events",children:"EVM Events"})}),`
-`,s.jsx(l.li,{children:s.jsx(l.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/performance-profiler",children:"Performance Profiler"})}),`
+`,s.jsx(l.li,{children:s.jsx(l.a,{href:"/api/evm-events",children:"EVM Events"})}),`
+`,s.jsx(l.li,{children:s.jsx(l.a,{href:"/advanced/performance-profiler",children:"Performance Profiler"})}),`
 `]})]})}function c(i={}){const{wrapper:l}={...e(),...i.components};return l?s.jsx(l,{...i,children:s.jsx(r,{...i})}):r(i)}export{c as default,a as frontmatter};

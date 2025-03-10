@@ -180,7 +180,7 @@ import{d as r,j as s}from"./index-DJo4NlPj.js";const a={title:"Performance & Pro
 `]}),`
 `,s.jsxs(i.h2,{id:"related-topics",children:["Related Topics",s.jsx(i.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:s.jsx(i.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(i.ul,{children:[`
-`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/vm-and-submodules",children:"VM & Submodules"})}),`
-`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/api/methods",children:"Gas Estimation"})}),`
+`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/api/vm-and-submodules",children:"VM & Submodules"})}),`
+`,s.jsx(i.li,{children:s.jsx(i.a,{href:"/api/methods",children:"Gas Estimation"})}),`
 `,s.jsx(i.li,{children:s.jsx(i.a,{href:"/txpool",children:"Transaction Pool"})}),`
 `]})]})}function c(l={}){const{wrapper:i}={...r(),...l.components};return i?s.jsx(i,{...l,children:s.jsx(e,{...l})}):e(l)}export{c as default,a as frontmatter};

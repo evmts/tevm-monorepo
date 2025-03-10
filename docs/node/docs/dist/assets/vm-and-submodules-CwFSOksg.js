@@ -179,12 +179,12 @@ description: Overview of the internal EVM, blockchain, state, receipts, and more
 - Validate inputs`]}),`
 `,s.jsxs(e.h2,{id:"related-topics",children:["Related Topics",s.jsx(e.a,{"aria-hidden":"true",tabIndex:"-1",href:"#related-topics",children:s.jsx(e.div,{"data-autolink-icon":!0})})]}),`
 `,s.jsxs(e.p,{children:["- ",s.jsx(e.a,{href:"/json-rpc",children:"JSON-RPC Support"}),`
-- `,s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/core/managing-state",children:"Managing State"}),`
-- `,s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/txpool",children:"Transaction Pool"}),`
-- `,s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/receipts-and-logs",children:"Receipts & Logs"}),`
+- `,s.jsx(e.a,{href:"/core/managing-state",children:"Managing State"}),`
+- `,s.jsx(e.a,{href:"/advanced/txpool",children:"Transaction Pool"}),`
+- `,s.jsx(e.a,{href:"/advanced/receipts-and-logs",children:"Receipts & Logs"}),`
 - `,s.jsx(e.a,{href:"https://www.evm.codes/",children:"EVM Opcodes Reference"}),`
 - `,s.jsx(e.a,{href:"https://ethereum.github.io/yellowpaper/paper.pdf",children:"Ethereum Yellow Paper"}),`
 - `,s.jsx(e.a,{href:"https://github.com/ethereumjs/ethereumjs-monorepo",children:"ethereumjs/ethereumjs-monorepo"})]}),`
 `,s.jsxs(e.p,{children:[s.jsx(e.strong,{children:"Up Next"}),s.jsx(e.br,{}),`
 `,"- ",s.jsx(e.a,{href:"/json-rpc",children:"JSON-RPC Guide"}),`
-- `,s.jsx(e.a,{href:"/Users/williamcory/tevm-monorepo/docs/node/docs/pages/advanced/txpool",children:"Advanced Usage"})]})]})}function c(i={}){const{wrapper:e}={...l(),...i.components};return e?s.jsx(e,{...i,children:s.jsx(n,{...i})}):n(i)}export{c as default,a as frontmatter};
+- `,s.jsx(e.a,{href:"/advanced/txpool",children:"Advanced Usage"})]})]})}function c(i={}){const{wrapper:e}={...l(),...i.components};return e?s.jsx(e,{...i,children:s.jsx(n,{...i})}):n(i)}export{c as default,a as frontmatter};
