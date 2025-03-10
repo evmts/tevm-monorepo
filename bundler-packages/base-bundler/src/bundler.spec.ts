@@ -33,7 +33,58 @@ contract TestContract {}`,
 
 const contractPackage = '@tevm/contract'
 
+// Mock @tevm/compiler at the module level
+vi.mock('@tevm/compiler', () => {
+	return {
+		resolveArtifacts: vi.fn(),
+		resolveArtifactsSync: vi.fn(),
+	}
+})
+
+// Create a mock for getContractPath that we can use in tests
+const mockGetContractPath = vi.fn().mockReturnValue('fallback/contract/path')
+
+// Mock getContractPath.js before tests
+vi.mock('./getContractPath.js', () => ({
+  getContractPath: mockGetContractPath
+}))
+
 describe(bundler.name, () => {
+	it('should fall back to getContractPath when contractPackage is not provided', () => {
+		// Save the original process.cwd
+		const originalCwd = process.cwd
+		// Mock process.cwd
+		process.cwd = vi.fn().mockReturnValue('/test/cwd')
+		
+		// Reset the mock before this specific test
+		mockGetContractPath.mockClear()
+		
+		// We need to re-require the bundler module to use our mocked version
+		const { bundler: freshBundler } = require('./bundler.js')
+		
+		// Create a bundler instance without a contract package
+		const mockLogger = { error: vi.fn() }
+		const mockConfig = {}
+		const mockFao = {}
+		const mockSolc = {}
+		const mockCache = {}
+		
+		const bundlerInstance = freshBundler(
+			mockConfig,
+			mockLogger,
+			mockFao,
+			mockSolc,
+			mockCache,
+			undefined
+		)
+		
+		expect(mockGetContractPath).toHaveBeenCalledWith('/test/cwd')
+		expect(bundlerInstance).toBeDefined()
+		
+		// Restore original process.cwd
+		process.cwd = originalCwd
+	})
+	
 	let resolver: ReturnType<Bundler>
 	let logger: Logger
 	let config: any
@@ -42,6 +93,9 @@ describe(bundler.name, () => {
 		10: '0x123',
 	}
 	beforeEach(() => {
+		// Reset any mocks that might affect the main tests
+		mockGetContractPath.mockReturnValue('fallback/contract/path')
+		
 		logger = { ...console, error: vi.fn() }
 		config = {
 			compiler: 'compiler config',
@@ -58,12 +112,6 @@ describe(bundler.name, () => {
 			createCache(tmpdir(), fao, tmpdir()),
 			contractPackage,
 		)
-		vi.mock('@tevm/compiler', () => {
-			return {
-				resolveArtifacts: vi.fn(),
-				resolveArtifactsSync: vi.fn(),
-			}
-		})
 	})
 
 	afterEach(() => {

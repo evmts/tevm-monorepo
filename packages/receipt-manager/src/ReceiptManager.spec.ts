@@ -103,7 +103,7 @@ describe('createMapDb', () => {
 		const cacheEntries = Array.from(cache.entries())
 
 		expect(cacheEntries.length).toBe(1)
-		const [cacheKey] = cacheEntries[0]
+		const [cacheKey] = cacheEntries[0] as any
 
 		// The key should start with the type ID in hex
 		expect(cacheKey.startsWith(toHex(hexToBytes(`0x0${typeId}`)))).toBeTruthy()

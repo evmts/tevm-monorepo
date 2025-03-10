@@ -60,7 +60,7 @@ const RowsPerPageControls = <TData,>({
 }: DataTablePaginationProps<TData>) => {
   return (
     <div className="flex w-full items-center justify-between gap-4">
-      <p className="text-sm font-medium text-secondary-foreground">
+      <p className="text-secondary-foreground text-sm font-medium">
         Rows per page
       </p>
       <Select
@@ -93,7 +93,7 @@ const NavigationControls = <TData,>({
 
   return (
     <div className="flex w-full items-center justify-between gap-4">
-      <div className="flex items-center justify-center text-sm font-medium text-secondary-foreground">
+      <div className="text-secondary-foreground flex items-center justify-center text-sm font-medium">
         Page {table.getState().pagination.pageIndex + 1} of{' '}
         {table.getPageCount()}
       </div>

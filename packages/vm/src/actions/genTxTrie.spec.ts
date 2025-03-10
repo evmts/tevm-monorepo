@@ -1,5 +1,4 @@
-import { describe, expect, it, jest } from 'bun:test'
-import { Trie } from '@tevm/trie'
+import { describe, expect, it } from 'bun:test'
 import { KECCAK256_RLP } from '@tevm/utils'
 import { genTxTrie } from './genTxTrie.js'
 

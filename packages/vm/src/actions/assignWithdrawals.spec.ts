@@ -1,5 +1,4 @@
-import { describe, expect, it, jest } from 'bun:test'
-import { EthjsAddress, parseGwei } from '@tevm/utils'
+import { describe, expect, it } from 'bun:test'
 import { assignWithdrawals } from './assignWithdrawals.js'
 
 describe('assignWithdrawals', () => {

@@ -56,7 +56,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 ### code
 
-> **code**: `number` & `object` \| `ProviderRpcErrorCode`
+> **code**: `ProviderRpcErrorCode` \| `number` & `object`
 
 Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/errors/rpc.d.ts:20
 

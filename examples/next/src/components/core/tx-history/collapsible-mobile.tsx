@@ -67,7 +67,7 @@ const TxHistoryCollapsibleMobile = <TData,>({
               </AccordionTrigger>
               <AccordionContent className="relative">
                 {/* timestamp */}
-                <div className="absolute right-0 top-0 flex justify-end bg-muted/30 px-2 pt-2 text-xs font-medium text-secondary-foreground">
+                <div className="bg-muted/30 text-secondary-foreground absolute top-0 right-0 flex justify-end px-2 pt-2 text-xs font-medium">
                   {flexRender(
                     row.getVisibleCells()[3].column.columnDef.cell,
                     row.getVisibleCells()[3].getContext(),

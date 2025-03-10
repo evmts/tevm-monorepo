@@ -2,16 +2,14 @@ import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { LegacyTransaction } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, parseEther } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'
 
 // Mock the BlobEIP4844Transaction class
 vi.mock('@tevm/tx', async (importOriginal) => {
-	const originalModule = await importOriginal()
+	const originalModule = await importOriginal() as any
 	return {
 		...originalModule,
 		BlobEIP4844Transaction: class MockBlobEIP4844Transaction {
@@ -32,13 +30,12 @@ vi.mock('@tevm/tx', async (importOriginal) => {
 			}
 		},
 		// Add flag for transaction type checks
-		isBlobEIP4844Tx: (tx) =>
+		isBlobEIP4844Tx: (tx: any) =>
 			tx instanceof originalModule.BlobEIP4844Transaction || tx.constructor.name === 'MockBlobEIP4844Transaction',
 	}
 })
 
 describe('TxPool with Blob Transactions', () => {
-	let txPool: TxPool
 	let vm: Vm
 	let senderAddress: EthjsAddress
 
@@ -60,7 +57,6 @@ describe('TxPool with Blob Transactions', () => {
 			evm,
 			stateManager,
 		})
-		txPool = new TxPool({ vm })
 	})
 
 	it('should track blob count in txsByPriceAndNonce', async () => {
@@ -86,7 +82,7 @@ describe('TxPool with Blob Transactions', () => {
 					{
 						tx: mockBlob,
 						hash: Array.from(mockBlob.hash())
-							.map((b) => b.toString(16).padStart(2, '0'))
+							.map((b: any) => b.toString(16).padStart(2, '0'))
 							.join(''),
 						added: Date.now(),
 					},
@@ -113,7 +109,7 @@ describe('TxPool with Blob Transactions', () => {
 			}
 		}
 
-		const testPool = new TestPool({ vm })
+		const testPool = new TestPool({ vm } as any)
 
 		// Test when blobs are allowed
 		const txs1 = await testPool.testWithMockBlob(1)
@@ -128,8 +124,8 @@ describe('TxPool with Blob Transactions', () => {
 // Mock Heap for the tests
 class Heap {
 	length = 1
-	items = []
-	insert(item) {
+	items: any[] = []
+	insert(item: any) {
 		this.items.push(item)
 	}
 	remove() {

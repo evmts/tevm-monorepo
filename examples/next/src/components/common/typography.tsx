@@ -20,7 +20,7 @@ export const LinkTo = ({
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="underline-offset-3 font-medium underline transition-colors duration-100 hover:text-secondary-foreground"
+    className="hover:text-secondary-foreground font-medium underline underline-offset-3 transition-colors duration-100"
   >
     {children}
   </Link>
@@ -40,7 +40,7 @@ export const List = ({ items }: { items: ReactNode[] }) => (
   <ul className="ml-4 list-none [&:not(:first-child)]:mt-2 [&:not(:last-child)]:mb-2 [&>li]:mt-1">
     {items.map((item, i) => (
       <li key={i} className="flex items-start gap-2">
-        <Icons.right className="mt-[3px] size-4 text-secondary-foreground" />
+        <Icons.right className="text-secondary-foreground mt-[3px] size-4" />
         <span>{item}</span>
       </li>
     ))}
@@ -51,7 +51,7 @@ export const List = ({ items }: { items: ReactNode[] }) => (
  * @notice A styled inline code snippet
  */
 export const InlineCode = ({ children }: { children: ReactNode }) => (
-  <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-semibold">
+  <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-xs font-semibold">
     {children}
   </code>
 );

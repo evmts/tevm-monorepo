@@ -6,9 +6,7 @@ import { createBaseState } from '../createBaseState.js'
 import type { TevmState } from '../state-types/TevmState.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
-import { getContractCode } from './getContractCode.js'
 import { putAccount } from './putAccount.js'
-import { putContractStorage } from './putContractStorage.js'
 
 describe(generateCanonicalGenesis.name, () => {
 	let baseState: ReturnType<typeof createBaseState>

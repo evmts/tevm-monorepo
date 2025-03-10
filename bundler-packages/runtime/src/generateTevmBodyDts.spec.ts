@@ -49,7 +49,7 @@ describe('generateDtsBody', () => {
 		},
 	} as const
 
-	it('should generate correct body with etherscan links', () => {
+	it('should generate correct body without bytecode', () => {
 		expect(runSync(generateDtsBody(artifacts, false))).toMatchInlineSnapshot(`
 			"const _abiMyContract = ["constructor() payable"] as const;
 			const _nameMyContract = "MyContract" as const;
@@ -80,6 +80,60 @@ describe('generateDtsBody', () => {
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const MissingContract: Contract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined, undefined, undefined>;"
+		`)
+	})
+
+	it('should generate correct body with bytecode', () => {
+		expect(runSync(generateDtsBody(artifacts, true))).toMatchInlineSnapshot(`
+			"const _nameMyContract = "MyContract" as const;
+			const _abiMyContract = [
+			  "constructor() payable"
+			] as const;
+			/**
+			 * MyContract Contract (with bytecode)
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+			 */
+			export const MyContract: Contract<
+			  typeof _nameMyContract,
+			  typeof _abiMyContract,
+			  undefined,
+			  \`0x\${string}\`,
+			  \`0x\${string}\`,
+			  undefined,
+			>;
+			const _nameAnotherContract = "AnotherContract" as const;
+			const _abiAnotherContract = [] as const;
+			/**
+			 * AnotherContract Contract (with bytecode)
+			 * @notice MyContract
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+			 */
+			export const AnotherContract: Contract<
+			  typeof _nameAnotherContract,
+			  typeof _abiAnotherContract,
+			  undefined,
+			  \`0x\${string}\`,
+			  \`0x\${string}\`,
+			  undefined,
+			>;
+			const _nameMissingContract = "MissingContract" as const;
+			const _abiMissingContract = [] as const;
+			/**
+			 * MissingContract Contract (with bytecode)
+			 * @notice MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+			 */
+			export const MissingContract: Contract<
+			  typeof _nameMissingContract,
+			  typeof _abiMissingContract,
+			  undefined,
+			  \`0x\${string}\`,
+			  \`0x\${string}\`,
+			  undefined,
+			>;"
 		`)
 	})
 })

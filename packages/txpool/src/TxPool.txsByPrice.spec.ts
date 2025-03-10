@@ -6,7 +6,7 @@ import { LegacyTransaction } from '@tevm/tx'
 import { EthjsAccount, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
 import Heap from 'qheap'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'
 
@@ -51,7 +51,7 @@ describe('TxPool.txsByPriceAndNonce', () => {
 
 		// Instead of mocking instanceof directly, create a class that extends the pool
 		class TestTxPool extends TxPool {
-			async txsByPriceAndNonce(options?: any) {
+			override async txsByPriceAndNonce(options?: any) {
 				// Directly access the original method
 				const result = await TxPool.prototype.txsByPriceAndNonce.call(this, options)
 

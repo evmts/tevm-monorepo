@@ -155,7 +155,7 @@ const ChainSelection: FC<ChainSelectionProps> = ({ hydrating = false }) => {
           content="Fork the chain to the current block (you will lose the local state of the chain)"
         />
       </div>
-      <div className="-bottom-5 right-0 col-span-2 justify-self-end text-xs font-semibold text-gray-500 sm:absolute">
+      <div className="right-0 -bottom-5 col-span-2 justify-self-end text-xs font-semibold text-gray-500 sm:absolute">
         {!initializing && forkTime[chain.id] !== 0 ? (
           <TooltipResponsive
             trigger={

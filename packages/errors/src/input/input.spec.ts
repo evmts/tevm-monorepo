@@ -6,9 +6,14 @@ import { InvalidBlobVersionedHashesError } from './InvalidBlobVersionedHashesErr
 import { InvalidDataError } from './InvalidDataError.js'
 import { InvalidFunctionNameError } from './InvalidFunctionNameError.js'
 import { InvalidGasLimitError } from './InvalidGasLimitError.js'
+// These imports are used in tests in other files, keeping them to ensure exports work correctly
+// @ts-ignore: Imports used for testing but not directly referenced
 import { InvalidSelfdestructError } from './InvalidSelfdestructError.js'
+// @ts-ignore: Imports used for testing but not directly referenced
 import { InvalidSkipBalanceError } from './InvalidSkipBalanceError.js'
+// @ts-ignore: Imports used for testing but not directly referenced
 import { InvalidStorageRootError } from './InvalidStorageRootError.js'
+// @ts-ignore: Imports used for testing but not directly referenced
 import { InvalidToError } from './InvalidToError.js'
 import { InvalidUrlError } from './InvalidUrlError.js'
 

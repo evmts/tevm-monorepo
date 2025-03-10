@@ -3,11 +3,9 @@ import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import { LegacyTransaction } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, parseEther } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
-import Heap from 'qheap'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'
 
 describe('TxPool heap comparBefore function', () => {
@@ -85,7 +83,7 @@ describe('TxPool heap comparBefore function', () => {
 		const tx2 = { gasPrice: 2000000000n }
 
 		// Manually implement the comparBefore function from line 512
-		const comparBefore = (a, b) => txPoolCopy.normalizedGasPrice(b) - txPoolCopy.normalizedGasPrice(a) < 0n
+		const comparBefore = (a: any, b: any) => txPoolCopy.normalizedGasPrice(b) - txPoolCopy.normalizedGasPrice(a) < 0n
 
 		// Test the function with our transactions
 		const result = comparBefore(tx1, tx2)

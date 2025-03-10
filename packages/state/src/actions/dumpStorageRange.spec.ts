@@ -138,7 +138,7 @@ describe(dumpStorageRange.name, () => {
 		// Verify error message contains the address
 		try {
 			dumpStorageRange(state)(nonExistentAddress, 0n, 10)
-		} catch (e) {
+		} catch (e: any) {
 			expect(e.message).toContain('No storage found at address 0x1234567890123456789012345678901234567890')
 		}
 	})

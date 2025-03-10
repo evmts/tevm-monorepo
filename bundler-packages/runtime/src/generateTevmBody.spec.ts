@@ -7,8 +7,12 @@ describe('generateTevmBody', () => {
 		MyContract: {
 			abi: [],
 			evm: {
-				bytecode: '0x0',
-				deployedBytecode: '0x0420',
+				bytecode: {
+					object: '1234',
+				},
+				deployedBytecode: {
+					object: '5678',
+				},
 			} as any,
 			userdoc: {
 				kind: 'user',
@@ -24,8 +28,12 @@ describe('generateTevmBody', () => {
 		AnotherContract: {
 			abi: [],
 			evm: {
-				bytecode: '0x0',
-				deployedBytecode: '0x0420',
+				bytecode: {
+					object: '4321',
+				},
+				deployedBytecode: {
+					object: '8765',
+				},
 			} as any,
 			userdoc: {
 				kind: 'user',
@@ -132,6 +140,35 @@ describe('generateTevmBody', () => {
 			 * @notice MyContract
 			 */
 			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;"
+		`)
+	})
+
+	it('should include bytecode when requested for mjs module', () => {
+		const result = runSync(generateTevmBody(artifacts, 'mjs', true))
+		expect(result).toMatchInlineSnapshot(`
+			"const _MyContract = {
+			  "name": "MyContract",
+			  "humanReadableAbi": [],
+			  "bytecode": "0x1234",
+			  "deployedBytecode": "0x5678"
+			}
+			/**
+			 * MyContract
+			 * @property balanceOf(address) Returns the amount of tokens owned by account
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+			 */
+			export const MyContract = createContract(_MyContract)
+			const _AnotherContract = {
+			  "name": "AnotherContract",
+			  "humanReadableAbi": [],
+			  "bytecode": "0x4321",
+			  "deployedBytecode": "0x8765"
+			}
+			/**
+			 * MyContract
+			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+			 */
+			export const AnotherContract = createContract(_AnotherContract)"
 		`)
 	})
 })

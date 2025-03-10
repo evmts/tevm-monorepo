@@ -108,14 +108,10 @@ describe(commit.name, () => {
 		// that handles deployedBytecode specifically
 
 		// Create a test account
-		const address = '0x1234567890123456789012345678901234567890'
 		const account = EthjsAccount.fromAccountData({
 			balance: 100n,
 			nonce: 1n,
 		})
-
-		// Create a test bytecode
-		const bytecode = new Uint8Array([0x12, 0x34])
 
 		// Create a sample state entry (converting BigInts to strings for JSON compatibility)
 		const stateEntry = {

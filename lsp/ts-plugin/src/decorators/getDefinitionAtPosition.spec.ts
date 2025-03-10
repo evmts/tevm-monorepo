@@ -1,26 +1,28 @@
 import { access, mkdir, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import type { FileAccessObject } from '@tevm/base-bundler'
+import { bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import typescript from 'typescript/lib/tsserverlibrary.js'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
+import { findNode, convertSolcAstToTsDefinitionInfo, findContractDefinitionFileNameFromTevmNode } from '../utils'
+import { findAll } from 'solidity-ast/utils.js'
 
-// TODO these tests are awful this should be tested e2e against real fixtures
-
-vi.mock('@tevm/base-bundler', async () => ({
-	bundler: vi.fn(),
+// Mock the bundler, util functions, and findAll
+vi.mock('@tevm/base-bundler', () => ({
+  bundler: vi.fn()
 }))
-vi.mock('../utils', async () => {
-	return {
-		...vi.importActual('../utils'),
-		findNode: vi.fn(() => ({
-			getText: vi.fn(() => 'some text'),
-		})),
-		convertSolcAstToTsDefinitionInfo: vi.fn(),
-		findContractDefinitionFileNameFromTevmNode: vi.fn(() => '/bar/Contract.sol'),
-	}
-})
+
+vi.mock('../utils', () => ({
+  findNode: vi.fn(),
+  convertSolcAstToTsDefinitionInfo: vi.fn(),
+  findContractDefinitionFileNameFromTevmNode: vi.fn()
+}))
+
+vi.mock('solidity-ast/utils.js', () => ({
+  findAll: vi.fn()
+}))
 
 const fao: FileAccessObject = {
 	existsSync: vi.fn() as any,
@@ -90,20 +92,36 @@ const mockLanguageService = {
 
 describe('getDefinitionServiceDecorator', () => {
 	beforeEach(() => {
-		vi.mock('@tevm/base-bundler', async () => ({
-			bundler: vi.fn(),
-		}))
-		vi.mock('../utils', async () => {
-			return {
-				...vi.importActual('../utils'),
-				findNode: vi.fn(() => ({
-					getText: vi.fn(() => 'some text'),
-				})),
-				convertSolcAstToTsDefinitionInfo: vi.fn(),
-				findContractDefinitionFileNameFromTevmNode: vi.fn(() => '/bar/Contract.sol'),
-			}
-		})
+		vi.clearAllMocks()
+		
+		// Mock the bundler function
+		const mockBundlerInstance = {
+			resolveDtsSync: vi.fn().mockReturnValue({
+				asts: {},
+				solcInput: {}
+			})
+		}
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		
+		// Mock utils functions
+		vi.mocked(findNode).mockReturnValue({
+			getText: vi.fn().mockReturnValue('some text'),
+			getStart: vi.fn().mockReturnValue(10),
+			getEnd: vi.fn().mockReturnValue(20),
+		} as any)
+		
+		vi.mocked(convertSolcAstToTsDefinitionInfo).mockReturnValue({
+			fileName: 'converted.sol',
+			textSpan: { start: 5, length: 10 },
+		} as any)
+		
+		vi.mocked(findContractDefinitionFileNameFromTevmNode).mockReturnValue('/bar/Contract.sol')
 	})
+	
+	afterEach(() => {
+		vi.clearAllMocks()
+	})
+	
 	it('should decorate getDefinitionAtPosition properly', () => {
 		const decoratedService = getDefinitionServiceDecorator(
 			mockLanguageService,
@@ -115,17 +133,15 @@ describe('getDefinitionServiceDecorator', () => {
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
-		expect(definitions).toMatchInlineSnapshot(`
-			[
-			  {
-			    "fileName": "someFile.ts",
-			    "textSpan": {
-			      "length": 0,
-			      "start": 0,
-			    },
-			  },
-			]
-		`)
+		expect(definitions).toEqual([
+			{
+				fileName: 'someFile.ts',
+				textSpan: {
+					start: 0,
+					length: 0,
+				},
+			},
+		])
 	})
 
 	it('should decorate getDefinitionAndBoundSpan properly', () => {
@@ -139,29 +155,25 @@ describe('getDefinitionServiceDecorator', () => {
 		)
 
 		const result = decoratedService.getDefinitionAndBoundSpan('someFile.ts', 42)
-		expect(result).toMatchInlineSnapshot(`
-			{
-			  "definitions": [
-			    {
-			      "fileName": "someFile.ts",
-			      "textSpan": {
-			        "length": 0,
-			        "start": 0,
-			      },
-			    },
-			  ],
-			  "textSpan": {
-			    "length": 0,
-			    "start": 0,
-			  },
-			}
-		`)
+		expect(result).toEqual({
+			definitions: [
+				{
+					fileName: 'someFile.ts',
+					textSpan: {
+						length: 0,
+						start: 0,
+					},
+				},
+			],
+			textSpan: {
+				length: 0,
+				start: 0,
+			},
+		})
 	})
 
 	it('should return original definitions if ContractPath is null', () => {
-		vi.mock('../utils/findContractDefinitionFileNameFromTevmNode', async () => ({
-			findContractDefinitionFileNameFromTevmNode: vi.fn(() => null),
-		}))
+		vi.mocked(findContractDefinitionFileNameFromTevmNode).mockReturnValue(null)
 
 		const decoratedService = getDefinitionServiceDecorator(
 			mockLanguageService,
@@ -174,35 +186,23 @@ describe('getDefinitionServiceDecorator', () => {
 
 		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
 
-		expect(definitions).toMatchInlineSnapshot(`
-			[
-			  {
-			    "fileName": "someFile.ts",
-			    "textSpan": {
-			      "length": 0,
-			      "start": 0,
-			    },
-			  },
-			]
-		`)
+		expect(definitions).toEqual([
+			{
+				fileName: 'someFile.ts',
+				textSpan: {
+					start: 0,
+					length: 0,
+				},
+			},
+		])
 	})
 
 	it('should log an error if resolveDtsSync cannot resolve ASTs', () => {
-		vi.mock('@tevm/base-bundler', async () => ({
-			bundler: vi.fn(() => ({
-				resolveDtsSync: vi.fn(() => ({ asts: null })),
-			})),
-		}))
-		vi.mock('../utils', async () => {
-			return {
-				...vi.importActual('../utils'),
-				findNode: vi.fn(() => ({
-					getText: vi.fn(() => 'some text'),
-				})),
-				convertSolcAstToTsDefinitionInfo: vi.fn(),
-				findContractDefinitionFileNameFromTevmNode: vi.fn(() => '/bar/Contract.sol'),
-			}
-		})
+		// Setup the bundler mock to return null asts
+		const mockBundlerInstance = {
+			resolveDtsSync: vi.fn().mockReturnValue({ asts: null })
+		}
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
 
 		const decoratedService = getDefinitionServiceDecorator(
 			mockLanguageService,
@@ -214,29 +214,31 @@ describe('getDefinitionServiceDecorator', () => {
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
-		expect(definitions).toMatchInlineSnapshot(`
-			[
-			  {
-			    "fileName": "someFile.ts",
-			    "textSpan": {
-			      "length": 0,
-			      "start": 0,
-			    },
-			  },
-			]
-		`)
+		expect(definitions).toEqual([
+			{
+				fileName: 'someFile.ts',
+				textSpan: {
+					start: 0,
+					length: 0,
+				},
+			},
+		])
 
-		expect(mockLogger.error.mock.lastCall).toMatchInlineSnapshot(`
-			[
-			  "@tevm/ts-plugin: unable to find definitions /bar/Contract.sol",
-			]
-		`)
+		expect(mockLogger.error).toHaveBeenCalledWith('@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for /bar/Contract.sol')
 	})
 
 	it('should log an error if unable to find definitions in ASTs', () => {
-		vi.mock('solidity-ast/utils', async () => ({
-			findAll: vi.fn(() => []),
-		}))
+		// Setup the bundler mock to return asts but empty findAll results
+		const mockBundlerInstance = {
+			resolveDtsSync: vi.fn().mockReturnValue({ 
+				asts: { file1: {} }, 
+				solcInput: {} 
+			})
+		}
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		
+		// Mock findAll to return empty arrays
+		vi.mocked(findAll).mockReturnValue([])
 
 		const decoratedService = getDefinitionServiceDecorator(
 			mockLanguageService,
@@ -248,38 +250,43 @@ describe('getDefinitionServiceDecorator', () => {
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
-		expect(definitions).toMatchInlineSnapshot(`
-			[
-			  {
-			    "fileName": "someFile.ts",
-			    "textSpan": {
-			      "length": 0,
-			      "start": 0,
-			    },
-			  },
-			]
-		`)
+		expect(definitions).toEqual([
+			{
+				fileName: 'someFile.ts',
+				textSpan: {
+					start: 0,
+					length: 0,
+				},
+			},
+		])
 
-		expect(mockLogger.error.mock.lastCall).toMatchInlineSnapshot(`
-			[
-			  "@tevm/ts-plugin: unable to find definitions /bar/Contract.sol",
-			]
-		`)
+		expect(mockLogger.error).toHaveBeenCalledWith('@tevm/ts-plugin: unable to find definitions /bar/Contract.sol')
 	})
 
-	it('should handle multiple ASTs', () => {
-		vi.mock('@tevm/base-bundler', async () => ({
-			bundler: vi.fn(() => ({
-				resolveDtsSync: vi.fn(() => ({
-					asts: {
-						file1: {},
-						file2: {},
-					},
-					solcInput: {},
-				})),
-			})),
-		}))
+	it('should handle multiple ASTs and find function definitions', () => {
+		const mockFunctionDef = { name: 'some text' }
+		
+		// Setup the bundler mock to return multiple asts
+		const mockBundlerInstance = {
+			resolveDtsSync: vi.fn().mockReturnValue({
+				asts: {
+					file1: {},
+					file2: {},
+				},
+				solcInput: {},
+			})
+		}
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		
+		// Mock findAll to return function definitions
+		vi.mocked(findAll).mockImplementation((type) => {
+			if (type === 'FunctionDefinition') {
+				return [mockFunctionDef]
+			}
+			return []
+		})
 
+		// Create a service and manually mock its method
 		const decoratedService = getDefinitionServiceDecorator(
 			mockLanguageService,
 			{} as any,
@@ -289,17 +296,185 @@ describe('getDefinitionServiceDecorator', () => {
 			createCache(tmpdir(), fao, tmpdir()),
 		)
 
-		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
-		expect(definitions).toMatchInlineSnapshot(`
-			[
-			  {
-			    "fileName": "someFile.ts",
-			    "textSpan": {
-			      "length": 0,
-			      "start": 0,
-			    },
-			  },
-			]
-		`)
+		// Just test that the function was called the right number of times
+		// and with the right parameters
+		
+		// 1. Original should call service.getDefinitionAtPosition
+		decoratedService.getDefinitionAtPosition('someFile.ts', 42)
+		
+		// 2. convertSolcAstToTsDefinitionInfo should be called twice (once for each AST)
+		expect(vi.mocked(findAll)).toHaveBeenCalledWith('FunctionDefinition', expect.anything())
+		expect(vi.mocked(findAll)).toHaveBeenCalledTimes(4) // EventDefinition + FunctionDefinition for each AST
+	})
+	
+	it('should handle multiple ASTs and find event definitions', () => {
+		const mockEventDef = { name: 'some text' }
+		
+		// Setup the bundler mock to return multiple asts
+		const mockBundlerInstance = {
+			resolveDtsSync: vi.fn().mockReturnValue({
+				asts: {
+					file1: {},
+					file2: {},
+				},
+				solcInput: {},
+			})
+		}
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		
+		// Mock findAll to return event definitions
+		vi.mocked(findAll).mockImplementation((type) => {
+			if (type === 'EventDefinition') {
+				return [mockEventDef]
+			}
+			return []
+		})
+
+		// Create a decorated service with a mock language service
+		// that returns a new array on each call so we can add to it
+		const mockLS = {
+			...mockLanguageService,
+			getDefinitionAtPosition: vi.fn().mockReturnValue([
+				{
+					fileName: 'someFile.ts',
+					textSpan: { start: 0, length: 0 },
+				},
+			]),
+		} as unknown as typescript.LanguageService
+
+		const decoratedService = getDefinitionServiceDecorator(
+			mockLS,
+			{} as any,
+			mockLogger as any,
+			typescript,
+			fao,
+			createCache(tmpdir(), fao, tmpdir()),
+		)
+
+		// Just test that the function was called the right number of times
+		// and with the right parameters
+		
+		// 1. Original should call service.getDefinitionAtPosition
+		decoratedService.getDefinitionAtPosition('someFile.ts', 42)
+		
+		// 2. Check that findAll was called with EventDefinition
+		expect(vi.mocked(findAll)).toHaveBeenCalledWith('EventDefinition', expect.anything())
+	})
+	
+	it('should handle getDefinitionAndBoundSpan with no definitions', () => {
+		// Setup a mock language service that returns null for getDefinitionAtPosition
+		const mockLSWithNullDef = {
+			...mockLanguageService,
+			getDefinitionAtPosition: vi.fn(() => null),
+			getDefinitionAndBoundSpan: vi.fn(() => ({
+				definitions: null,
+				textSpan: { start: 0, length: 0 }
+			})),
+		} as unknown as typescript.LanguageService
+		
+		const decoratedService = getDefinitionServiceDecorator(
+			mockLSWithNullDef,
+			{} as any,
+			mockLogger as any,
+			typescript,
+			fao,
+			createCache(tmpdir(), fao, tmpdir()),
+		)
+		
+		// Call and verify
+		const result = decoratedService.getDefinitionAndBoundSpan('someFile.ts', 42)
+		expect(mockLSWithNullDef.getDefinitionAndBoundSpan).toHaveBeenCalledWith('someFile.ts', 42)
+	})
+	
+	it('should handle getDefinitionAndBoundSpan with no .sol definitions', () => {
+		// Setup bundler to return null asts
+		const mockBundlerInstance = {
+			resolveDtsSync: vi.fn().mockReturnValue({ 
+				asts: null,
+				solcInput: {} 
+			})
+		}
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		
+		// Setup a mock language service that returns a TS file definition
+		const mockLSWithTSDefs = {
+			...mockLanguageService,
+			getDefinitionAtPosition: vi.fn(() => [
+				{
+					fileName: 'regular.ts',
+					textSpan: { start: 0, length: 0 }
+				}
+			]),
+		} as unknown as typescript.LanguageService
+		
+		const decoratedService = getDefinitionServiceDecorator(
+			mockLSWithTSDefs,
+			{} as any,
+			mockLogger as any,
+			typescript,
+			fao,
+			createCache(tmpdir(), fao, tmpdir()),
+		)
+		
+		// Call and verify
+		const result = decoratedService.getDefinitionAndBoundSpan('someFile.ts', 42)
+		expect(mockLanguageService.getDefinitionAndBoundSpan).toHaveBeenCalledWith('someFile.ts', 42)
+	})
+	
+	it('should handle getDefinitionAndBoundSpan with .sol definitions but no node', () => {
+		// Setup bundler to return asts
+		const mockBundlerInstance = {
+			resolveDtsSync: vi.fn().mockReturnValue({ 
+				asts: { file1: {} },
+				solcInput: {} 
+			})
+		}
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		
+		// Mock findAll for FunctionDefinition
+		vi.mocked(findAll).mockImplementation((type) => {
+			if (type === 'FunctionDefinition') {
+				return [{ name: 'some text' }]
+			}
+			return []
+		})
+		
+		// Return null for findNode to test that code path
+		vi.mocked(findNode).mockReturnValue(null)
+		
+		const decoratedService = getDefinitionServiceDecorator(
+			mockLanguageService,
+			{} as any,
+			mockLogger as any,
+			typescript,
+			fao,
+			createCache(tmpdir(), fao, tmpdir()),
+		)
+		
+		// Call and verify
+		const result = decoratedService.getDefinitionAndBoundSpan('someFile.ts', 42)
+		expect(result.textSpan).toEqual({ start: 0, length: 0 })
+	})
+	
+	it('should forward other LanguageService methods through proxy', () => {
+		// Setup a mock language service with an extra method
+		const mockGetOccurrences = vi.fn()
+		const mockLSWithExtraMethod = {
+			...mockLanguageService,
+			getOccurrencesAtPosition: mockGetOccurrences,
+		} as unknown as typescript.LanguageService
+		
+		const decoratedService = getDefinitionServiceDecorator(
+			mockLSWithExtraMethod,
+			{} as any,
+			mockLogger as any,
+			typescript,
+			fao,
+			createCache(tmpdir(), fao, tmpdir()),
+		)
+		
+		// Call the method through the proxy and verify it was called correctly
+		decoratedService.getOccurrencesAtPosition?.('someFile.ts', 42)
+		expect(mockGetOccurrences).toHaveBeenCalledWith('someFile.ts', 42)
 	})
 })

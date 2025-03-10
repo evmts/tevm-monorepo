@@ -3,7 +3,7 @@ import * as errors from './index.js'
 
 describe('Error Classes', () => {
 	it('should have all error classes available with expected shape', () => {
-		// Array of error names to test
+		// Array of error names to test - these are actual error classes, not other exports
 		const errorNames = [
 			// From input/index.js
 			'InvalidToError',
@@ -133,7 +133,7 @@ describe('Error Classes', () => {
 				continue
 			}
 
-			const ErrorConstructor = errors[errorName]
+			const ErrorConstructor = errors[errorName as keyof typeof errors] as new (message: string, args: any) => Error
 
 			// Create an instance with basic arguments
 			const errorInstance = new ErrorConstructor('Test error message', {

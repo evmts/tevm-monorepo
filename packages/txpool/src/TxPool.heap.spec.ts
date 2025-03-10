@@ -58,7 +58,7 @@ describe('TxPool private heap methods', () => {
 
 		// Create a heap with our comparison function
 		const heap = new Heap({
-			comparBefore: (a, b) => (txPool as any).normalizedGasPrice(b) - (txPool as any).normalizedGasPrice(a) < 0n,
+			comparBefore: (a: any, b: any) => (txPool as any).normalizedGasPrice(b) - (txPool as any).normalizedGasPrice(a) < 0n,
 		})
 
 		// Add transactions to the heap
@@ -98,7 +98,7 @@ describe('TxPool private heap methods', () => {
 
 		// Create a heap with our comparison function using baseFee
 		const heap = new Heap({
-			comparBefore: (a, b) =>
+			comparBefore: (a: any, b: any) =>
 				(txPool as any).normalizedGasPrice(b, baseFee) - (txPool as any).normalizedGasPrice(a, baseFee) < 0n,
 		})
 
@@ -168,8 +168,8 @@ describe('TxPool private heap methods', () => {
 
 		// Verify the order - highest gas price should be first
 		expect(txs.length).toBe(2)
-		expect(txs[0].hash()).toEqual(highPriceTx.hash())
-		expect(txs[1].hash()).toEqual(lowPriceTx.hash())
+		expect(txs[0]!.hash()).toEqual(highPriceTx.hash())
+		expect(txs[1]!.hash()).toEqual(lowPriceTx.hash())
 
 		// Test with a baseFee parameter
 		const baseFee = 500000000n // 0.5 Gwei
@@ -177,8 +177,8 @@ describe('TxPool private heap methods', () => {
 
 		// Order should still be the same with baseFee
 		expect(txsWithBaseFee.length).toBe(2)
-		expect(txsWithBaseFee[0].hash()).toEqual(highPriceTx.hash())
-		expect(txsWithBaseFee[1].hash()).toEqual(lowPriceTx.hash())
+		expect(txsWithBaseFee[0]!.hash()).toEqual(highPriceTx.hash())
+		expect(txsWithBaseFee[1]!.hash()).toEqual(lowPriceTx.hash())
 	})
 
 	// Test the heap comparison function directly for different transaction order
@@ -204,7 +204,7 @@ describe('TxPool private heap methods', () => {
 
 		// Create a heap with our comparison function
 		const heap = new Heap({
-			comparBefore: (a, b) => (txPool as any).normalizedGasPrice(b) - (txPool as any).normalizedGasPrice(a) < 0n,
+			comparBefore: (a: any, b: any) => (txPool as any).normalizedGasPrice(b) - (txPool as any).normalizedGasPrice(a) < 0n,
 		})
 
 		// Add transactions to the heap

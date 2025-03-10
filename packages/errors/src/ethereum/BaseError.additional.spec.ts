@@ -9,6 +9,8 @@ describe('BaseError (additional cases)', () => {
 	}
 
 	// Create a custom error with errorType for testing
+	// This class is part of the test suite setup, even if not directly used in this file
+	// @ts-ignore: Used for testing purposes but may not be directly used
 	class CustomErrorWithType extends Error {
 		errorType = 'CustomTypeError'
 	}
@@ -71,7 +73,7 @@ describe('BaseError (additional cases)', () => {
 
 	it('should return null when walking with predicate and no match found', () => {
 		const error = new CustomError('Test error', {})
-		const result = error.walk((err) => err instanceof Date)
+		const result = error.walk((err: Error) => err instanceof Date)
 		expect(result).toBeNull()
 	})
 })

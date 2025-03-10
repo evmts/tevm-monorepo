@@ -69,7 +69,7 @@ describe('handleError', () => {
 
 		handleError(client, error, res)
 
-		expect(client.tevm.logger.error).toHaveBeenCalledWith(error)
+		expect(client.transport.tevm.logger.error).toHaveBeenCalledWith(error)
 		expect(res.writeHead).toHaveBeenCalledWith(400, { 'Content-Type': 'application/json' })
 		expect(res.end).toHaveBeenCalledWith(
 			JSON.stringify({

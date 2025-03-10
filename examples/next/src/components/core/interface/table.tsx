@@ -273,12 +273,12 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
               <span>
                 <pre>{row.original.sig}</pre>
               </span>
-              <span className="text-sm text-secondary-foreground">
+              <span className="text-secondary-foreground text-sm">
                 {row.original.selector}
               </span>
               {/* We can't show for sure write functions, because sometimes the abi will specify
               "nonpayable/payable" for all functions if it couldn't determine the state */}
-              <span className="text-sm text-secondary-foreground">
+              <span className="text-secondary-foreground text-sm">
                 {mut && (mut === 'pure' || mut === 'view') ? (
                   <Badge variant="secondary">read</Badge>
                 ) : null}
@@ -313,7 +313,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
                 <>
                   <Label
                     htmlFor={`${id}-value`}
-                    className="flex min-w-[100px] items-center gap-2 whitespace-nowrap text-xs text-secondary-foreground sm:text-sm"
+                    className="text-secondary-foreground flex min-w-[100px] items-center gap-2 text-xs whitespace-nowrap sm:text-sm"
                   >
                     value ({chain.nativeCurrency.symbol})
                     <TooltipResponsive
@@ -338,7 +338,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
                 <Fragment key={index}>
                   <Label
                     htmlFor={`${id}-args-${index}`}
-                    className="min-w-[100px] whitespace-nowrap text-xs text-secondary-foreground sm:text-sm"
+                    className="text-secondary-foreground min-w-[100px] text-xs whitespace-nowrap sm:text-sm"
                   >
                     {input.name || `arg ${index + 1}`}
                   </Label>
@@ -495,7 +495,7 @@ const InterfaceTable: FC<InterfaceTableProps> = ({ data, loading }) => {
     <DataTable<ABIFunction>
       table={table}
       pagination={dataMemoized.length > 10}
-      className="rounded-none border-x border-secondary px-2"
+      className="border-secondary rounded-none border-x px-2"
       header={
         <div className="flex w-full items-center justify-between gap-4">
           <span className="grow font-medium">Contract interface</span>

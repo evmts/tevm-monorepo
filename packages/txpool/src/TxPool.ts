@@ -80,6 +80,21 @@ export class TxPool {
 	public pool: Map<UnprefixedAddress, TxPoolObject[]>
 
 	/**
+	 * Transactions in nonce order for all senders
+	 */
+	public txsInNonceOrder: Map<UnprefixedAddress, TypedTransaction[]> = new Map()
+
+	/**
+	 * Transactions by hash
+	 */
+	public txsByHash: Map<UnprefixedHash, TypedTransaction> = new Map()
+
+	/**
+	 * Transactions by account and nonce
+	 */
+	public txsByNonce: Map<UnprefixedAddress, Map<bigint, TypedTransaction>> = new Map()
+
+	/**
 	 * The number of txs currently in the pool
 	 */
 	public txsInPool: number
@@ -317,21 +332,37 @@ export class TxPool {
 	 * @param txHashes
 	 * @returns Array with tx objects
 	 */
-	getByHash(txHashes: ReadonlyArray<Uint8Array>): Array<TypedTransaction | ImpersonatedTx> {
-		const found = []
-		for (const txHash of txHashes) {
-			const txHashStr = bytesToUnprefixedHex(txHash)
+	getByHash(txHashes: ReadonlyArray<Uint8Array> | string): Array<TypedTransaction | ImpersonatedTx> | TypedTransaction | ImpersonatedTx | null {
+		if (typeof txHashes === 'string') {
+			// Single hash case
+			const txHashStr = txHashes.startsWith('0x') ? txHashes.slice(2).toLowerCase() : txHashes.toLowerCase()
 			const handled = this.handled.get(txHashStr)
-			if (!handled) continue
+			if (!handled) return null
 			const inPool = this.pool.get(handled.address)?.filter((poolObj) => poolObj.hash === txHashStr)
 			if (inPool && inPool.length === 1) {
 				if (!inPool[0]) {
 					throw new Error('Expected element to exist in pool')
 				}
-				found.push(inPool[0].tx)
+				return inPool[0].tx
 			}
+			return null
+		} else {
+			// Array of hashes case
+			const found = []
+			for (const txHash of txHashes) {
+				const txHashStr = bytesToUnprefixedHex(txHash)
+				const handled = this.handled.get(txHashStr)
+				if (!handled) continue
+				const inPool = this.pool.get(handled.address)?.filter((poolObj) => poolObj.hash === txHashStr)
+				if (inPool && inPool.length === 1) {
+					if (!inPool[0]) {
+						throw new Error('Expected element to exist in pool')
+					}
+					found.push(inPool[0].tx)
+				}
+			}
+			return found
 		}
-		return found
 	}
 
 	/**

@@ -128,7 +128,7 @@ describe(setStateRoot.name, () => {
 		const setCurrentStateRootSpy = vi.spyOn(baseState, 'setCurrentStateRoot')
 
 		// Create a valid new state root and add to stateRoots
-		const newRootHex = `0x${'22'.repeat(32)}`
+		const newRootHex = `0x${'22'.repeat(32)}` as const
 		const newRoot = hexToBytes(newRootHex)
 		baseState.stateRoots.set(newRootHex, {})
 
@@ -143,7 +143,7 @@ describe(setStateRoot.name, () => {
 			await setStateRoot(baseState)(newRoot)
 			// If we get here, the test should fail because an error should have been thrown
 			expect(true).toBe(false) // This should not execute
-		} catch (error) {
+		} catch (error: any) {
 			// Verify the error
 			expect(error).toBeDefined()
 			expect(error.message).toBe('Test error from generateCanonicalGenesis')

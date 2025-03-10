@@ -63,7 +63,7 @@ describe(validateHeader.name, async () => {
 
 		// Mock getBlock to return the parent block
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: blocks[0].header })
+			return async () => blocks[0]
 		})
 
 		const headerValidator = validateHeader(chain)
@@ -96,7 +96,7 @@ describe(validateHeader.name, async () => {
 
 		// Mock getBlock for parent
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: blocks[0].header })
+			return async () => blocks[0]
 		})
 
 		const headerValidator = validateHeader(chain)
@@ -118,9 +118,9 @@ describe(validateHeader.name, async () => {
 
 		try {
 			await headerValidator(header as any, correctHeight)
-		} catch (e) {
+		} catch (e: unknown) {
 			// Make sure the error is not about the height
-			expect(e.message).not.toContain('uncle block has a parent that is too old or too young')
+			expect((e as Error).message).not.toContain('uncle block has a parent that is too old or too young')
 		}
 	})
 
@@ -137,7 +137,7 @@ describe(validateHeader.name, async () => {
 
 		// Mock getBlock for parent
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: blocks[0].header })
+			return async () => blocks[0]
 		})
 
 		const headerValidator = validateHeader(chain)
@@ -159,7 +159,7 @@ describe(validateHeader.name, async () => {
 
 		// Mock getBlock for parent
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: blocks[0].header })
+			return async () => blocks[0]
 		})
 
 		const headerValidator = validateHeader(chain)
@@ -187,7 +187,7 @@ describe(validateHeader.name, async () => {
 
 		// Mock getBlock for parent
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: blocks[0].header })
+			return async () => blocks[0]
 		})
 
 		const headerValidator = validateHeader(chain)
@@ -225,7 +225,7 @@ describe(validateHeader.name, async () => {
 
 		// Mock getBlock to return parent
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: blocks[0].header })
+			return async () => blocks[0]
 		})
 
 		const headerValidator = validateHeader(chain)
@@ -237,7 +237,8 @@ describe(validateHeader.name, async () => {
 	it('should handle height check for uncle blocks', async () => {
 		// This test directly tests the logic for height checking in validateHeader
 		const parentNumber = BigInt(5)
-		const headerNumber = BigInt(6)
+		// Remove unused variable
+		// const headerNumber = BigInt(6)
 
 		// Valid difference (between 1 and 8)
 		const validHeight = parentNumber + BigInt(3)
@@ -258,15 +259,18 @@ describe(validateHeader.name, async () => {
 		const chain = createBaseChain({ common: optimism.copy() })
 		const headerValidator = validateHeader(chain)
 
-		// Mock parent header with calcNextBaseFee
-		const mockParentHeader = {
-			...blocks[0].header,
-			calcNextBaseFee: () => BigInt(1000000000),
+		// Create a parent block with calcNextBaseFee
+		const parentBlock = {
+			...blocks[0],
+			header: {
+				...blocks[0].header,
+				calcNextBaseFee: () => BigInt(1000000000),
+			},
 		}
 
-		// Mock getBlock to return our mocked parent header
+		// Mock getBlock to return our mocked parent block - use type assertion for tests
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: mockParentHeader })
+			return async () => parentBlock as any
 		})
 
 		// Create a header with correct EIP1559 settings but wrong baseFeePerGas
@@ -320,7 +324,7 @@ describe(validateHeader.name, async () => {
 
 		// Mock getBlock to return our mocked parent header
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: mockParentHeader })
+			return async () => ({ header: mockParentHeader }) as any
 		})
 
 		// Create a header at London HF with incorrect baseFeePerGas
@@ -359,13 +363,14 @@ describe(validateHeader.name, async () => {
 
 		// Mock getBlock to return our mocked parent header
 		vi.spyOn(getBlockModule, 'getBlock').mockImplementation(() => {
-			return async () => ({ header: mockParentHeader })
+			return async () => ({ header: mockParentHeader }) as any
 		})
 
 		// Create a header with EIP4844 but incorrect excessBlobGas
 		const header = {
 			...blocks[1].header,
 			isGenesis: () => false,
+			errorStr: () => 'EIP4844 header',
 			parentHash: blocks[0].header.hash(),
 			excessBlobGas: BigInt(800000), // Incorrect value
 			common: {

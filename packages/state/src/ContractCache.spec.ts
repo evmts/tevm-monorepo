@@ -1,4 +1,4 @@
-import { StorageCache } from '@ethereumjs/statemanager'
+// This package import is not used, removing it
 import { createAddress } from '@tevm/address'
 import { describe, expect, it } from 'vitest'
 import { ContractCache } from './ContractCache.js'

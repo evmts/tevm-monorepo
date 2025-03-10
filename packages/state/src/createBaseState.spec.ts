@@ -34,7 +34,7 @@ describe(createBaseState.name, () => {
 		// Verify error message
 		try {
 			baseState.setCurrentStateRoot(nonExistentRoot)
-		} catch (e) {
+		} catch (e: any) {
 			expect(e.message).toContain('Cannot set state root to non existing state root')
 		}
 	})

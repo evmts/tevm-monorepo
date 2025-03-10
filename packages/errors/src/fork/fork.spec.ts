@@ -26,7 +26,7 @@ describe('ForkError', () => {
 	})
 
 	it('should handle cause as error with code property', () => {
-		const cause = new Error('Error with code')
+		const cause = new Error('Error with code') as Error & { code: number }
 		cause.code = 456
 		const error = new ForkError('Fork error message', { cause })
 

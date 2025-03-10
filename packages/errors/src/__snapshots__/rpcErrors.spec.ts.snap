@@ -88,8 +88,8 @@ Version: viem@2.23.5]
 exports[`RPC Error Classes > should create proper instances of RPC errors > TimeoutError 1`] = `
 [TimeoutError: The request took too long to respond.
 
-URL: undefined
-Request body: undefined
+URL: https://example.com
+Request body: {}
 
 Details: The request timed out.
 Version: viem@2.23.5]

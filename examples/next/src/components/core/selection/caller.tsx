@@ -182,7 +182,7 @@ const CallerSelection = () => {
           <Button
             size="sm"
             variant="ghost"
-            className="flex items-center gap-2 text-secondary-foreground"
+            className="text-secondary-foreground flex items-center gap-2"
             onClick={() => navigator.clipboard.readText().then(setInputValue)}
           >
             <Icons.paste className="size-4" /> Paste
@@ -217,11 +217,11 @@ const CallerSelection = () => {
         </Button>
       </div>
       {isHydrated ? (
-        <span className="text-xs font-medium text-secondary-foreground opacity-80 sm:text-sm">
+        <span className="text-secondary-foreground text-xs font-medium opacity-80 sm:text-sm">
           Currently set to <pre className="inline-block">{caller}</pre>.
         </span>
       ) : (
-        <div className="flex items-center gap-2 text-sm font-medium text-secondary-foreground opacity-80">
+        <div className="text-secondary-foreground flex items-center gap-2 text-sm font-medium opacity-80">
           Currently set to
           <Skeleton className="h-4 w-80" />
         </div>

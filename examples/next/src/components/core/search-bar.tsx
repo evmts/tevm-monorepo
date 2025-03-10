@@ -119,7 +119,7 @@ const SearchBar: FC<SearchBarProps> = ({
           <Button
             size="sm"
             variant="ghost"
-            className="flex items-center gap-2 text-secondary-foreground"
+            className="text-secondary-foreground flex items-center gap-2"
             onClick={() => navigator.clipboard.readText().then(setInputValue)}
           >
             <Icons.paste className="size-4" /> Paste
@@ -144,7 +144,7 @@ const SearchBar: FC<SearchBarProps> = ({
         )}
       </div>
       {!isValidAddress && inputValue !== '' ? (
-        <span className="text-sm font-medium text-secondary-foreground">
+        <span className="text-secondary-foreground text-sm font-medium">
           Invalid address
         </span>
       ) : null}
