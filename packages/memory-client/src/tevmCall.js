@@ -2,11 +2,11 @@ import { callHandler } from '@tevm/actions'
 
 /**
  * A tree-shakeable version of the `tevmCall` action for direct EVM execution.
- * 
+ *
  * This function provides low-level access to execute calls against the Ethereum Virtual Machine.
  * It is similar to the standard `eth_call` JSON-RPC method but offers significantly more control
  * over the execution environment and returns more detailed results, including:
- * 
+ *
  * - Detailed execution results and gas usage information
  * - Optional execution traces for debugging
  * - Access lists for gas optimization
@@ -29,8 +29,8 @@ import { callHandler } from '@tevm/actions'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { 
- *       transport: http('https://mainnet.optimism.io')({}) 
+ *     fork: {
+ *       transport: http('https://mainnet.optimism.io')({})
  *     },
  *     mining: { mode: 'auto' } // Auto-mine transactions
  *   }),
@@ -46,7 +46,7 @@ import { callHandler } from '@tevm/actions'
  *     functionName: 'balanceOf',
  *     args: ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
  *   })
- *   
+ *
  *   const readResult = await tevmCall(client, {
  *     to: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC contract
  *     data,
@@ -54,7 +54,7 @@ import { callHandler } from '@tevm/actions'
  *   console.log('Call succeeded:', readResult.executionResult.exceptionError === undefined)
  *   console.log('Raw data:', readResult.rawData)
  *   console.log('Gas used:', readResult.executionResult.gasUsed)
- *   
+ *
  *   // Example 2: Call with tracing enabled for debugging
  *   const traceResult = await tevmCall(client, {
  *     to: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
@@ -62,19 +62,19 @@ import { callHandler } from '@tevm/actions'
  *     createTrace: true,
  *     createAccessList: true
  *   })
- *   
+ *
  *   if (traceResult.trace) {
  *     // Examine each step in the execution trace
  *     for (const step of traceResult.trace) {
  *       console.log(`${step.pc}: ${step.opcode.name} Gas: ${step.gasLeft}`)
  *     }
  *   }
- *   
+ *
  *   if (traceResult.accessList) {
  *     // Access list shows which storage slots and addresses were accessed
  *     console.log('Access list:', traceResult.accessList)
  *   }
- *   
+ *
  *   // Example 3: State-modifying transaction (transfer ETH)
  *   const txResult = await tevmCall(client, {
  *     to: '0x1234567890123456789012345678901234567890',
@@ -83,10 +83,10 @@ import { callHandler } from '@tevm/actions'
  *     createTransaction: true
  *   })
  *   console.log('Transaction hash:', txResult.txHash)
- *   
+ *
  *   // In manual mining mode, you would need to mine to apply changes
  *   // await client.mine()
- *   
+ *
  *   // Example 4: Using event handlers to monitor execution
  *   let stepCount = 0
  *   const debugResult = await tevmCall(client, {
@@ -100,7 +100,7 @@ import { callHandler } from '@tevm/actions'
  *     }
  *   })
  *   console.log(`Execution completed in ${stepCount} steps`)
- *   
+ *
  *   // Example 5: Skip balance check for testing scenarios
  *   const skipBalanceResult = await tevmCall(client, {
  *     to: '0x1234567890123456789012345678901234567890',
@@ -114,7 +114,7 @@ import { callHandler } from '@tevm/actions'
  * example()
  * ```
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {object} params - Parameters for the call
  * @param {string} [params.to] - Target address (required for calls, optional for deployments)
  * @param {string} [params.data] - Call data (function selector and encoded parameters)

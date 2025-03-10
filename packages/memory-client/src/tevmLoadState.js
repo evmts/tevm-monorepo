@@ -9,12 +9,12 @@ import { loadStateHandler } from '@tevm/actions'
  * - Roll back to a previous state snapshot
  * - Initialize a new TEVM instance with a predefined state
  * - Share state between different TEVM instances or processes
- * 
+ *
  * When loading state, the entire current state is replaced, including:
  * - All account balances, nonces, and contract code
  * - All contract storage values
  * - Blockchain history and configuration
- * 
+ *
  * This is particularly useful for testing, where you can prepare a specific state once
  * and then reuse it across multiple test runs for consistency and performance.
  *
@@ -48,17 +48,17 @@ import { loadStateHandler } from '@tevm/actions'
  *   // Save this baseline state for future use
  *   const baselineState = await tevmDumpState(client)
  *   await fs.writeFile('baseline-state.json', JSON.stringify(baselineState))
- *   
+ *
  *   // Later, start with a fresh client
  *   const newClient = createClient({
  *     transport: createTevmTransport(),
  *     chain: optimism,
  *   })
- *   
+ *
  *   // Load the saved state
  *   const savedState = JSON.parse(await fs.readFile('baseline-state.json', 'utf8'))
  *   await tevmLoadState(newClient, savedState)
- *   
+ *
  *   // Verify the state was restored
  *   const balance = await newClient.getBalance({
  *     address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
@@ -72,46 +72,46 @@ import { loadStateHandler } from '@tevm/actions'
  * // Using for test snapshots and state rollback
  * import { createMemoryClient } from 'tevm'
  * import { ERC20 } from './ERC20.sol'
- * 
+ *
  * async function testTokenTransfers() {
  *   const client = createMemoryClient()
- *   
+ *
  *   // Set up token contract
  *   const token = await client.deployContract(ERC20)
  *   await client.mine()
- *   
+ *
  *   // Set up two test accounts
  *   const alice = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
  *   const bob = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
- *   
+ *
  *   // Mint tokens to Alice
  *   await token.write.mint(alice, 1000n)
  *   await client.mine()
- *   
+ *
  *   // Save state after setup but before test actions
  *   const setupState = await client.tevmDumpState()
- *   
+ *
  *   // Test 1: Transfer tokens
  *   await token.write.transfer(bob, 100n, {from: alice})
  *   await client.mine()
- *   
+ *
  *   const aliceBalance1 = await token.read.balanceOf(alice)
  *   const bobBalance1 = await token.read.balanceOf(bob)
  *   console.log('Test 1 - Alice:', aliceBalance1, 'Bob:', bobBalance1)
- *   
+ *
  *   // Restore to initial state to run a different test
  *   await client.tevmLoadState(setupState)
- *   
+ *
  *   // Test 2: Different transfer amount
  *   await token.write.transfer(bob, 200n, {from: alice})
  *   await client.mine()
- *   
+ *
  *   const aliceBalance2 = await token.read.balanceOf(alice)
  *   const bobBalance2 = await token.read.balanceOf(bob)
  *   console.log('Test 2 - Alice:', aliceBalance2, 'Bob:', bobBalance2)
  * }
  * ```
- * 
+ *
  * @throws Will throw if the state object format is invalid or incompatible.
  * @throws Will throw if the state object contains corrupted or invalid data.
  *

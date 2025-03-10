@@ -42,14 +42,14 @@ import { dumpStateHandler } from '@tevm/actions'
  *     address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
  *     value: parseEther('100')
  *   })
- *   
+ *
  *   // Send some transactions
  *   await client.sendTransaction({
  *     from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
  *     to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
  *     value: parseEther('10')
  *   })
- *   
+ *
  *   // Mine the transactions to update state
  *   await client.mine()
  *
@@ -57,7 +57,7 @@ import { dumpStateHandler } from '@tevm/actions'
  *   const state = await tevmDumpState(client)
  *   await fs.writeFile('tevm-state.json', JSON.stringify(state, null, 2))
  *   console.log('State saved to tevm-state.json')
- *   
+ *
  *   return state
  * }
  *
@@ -67,15 +67,15 @@ import { dumpStateHandler } from '@tevm/actions'
  *     transport: createTevmTransport(),
  *     chain: optimism,
  *   })
- *   
+ *
  *   // Load state from file
  *   const stateJson = await fs.readFile('tevm-state.json', 'utf8')
  *   const state = JSON.parse(stateJson)
- *   
+ *
  *   // Restore the state
  *   await tevmLoadState(newClient, state)
  *   console.log('State restored from tevm-state.json')
- *   
+ *
  *   // Verify state was restored correctly
  *   const balance = await newClient.getBalance({
  *     address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
@@ -100,23 +100,23 @@ import { dumpStateHandler } from '@tevm/actions'
  *
  * async function testExample() {
  *   const client = createMemoryClient()
- *   
+ *
  *   // Set up initial test state
  *   const contract = await client.deployContract(SimpleStorage)
  *   await client.mine()
- *   
+ *
  *   // Save a snapshot of the initial state
  *   const initialState = await client.tevmDumpState()
- *   
+ *
  *   // Run test 1 with modifications to state
  *   await contract.write.set(42n)
  *   await client.mine()
  *   const value1 = await contract.read.get()
  *   console.log('Test 1 result:', value1) // 42n
- *   
+ *
  *   // Restore initial state for next test
  *   await client.tevmLoadState(initialState)
- *   
+ *
  *   // Run test 2 with a clean state
  *   await contract.write.set(99n)
  *   await client.mine()

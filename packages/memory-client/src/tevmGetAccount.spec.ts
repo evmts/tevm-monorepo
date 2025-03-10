@@ -16,7 +16,7 @@ beforeEach(async () => {
 	const node = createTevmNode({
 		fork: { transport: transports.optimism },
 	}).extend(requestEip1193())
-	
+
 	client = createClient({
 		transport: createTevmTransport(node),
 		chain: optimism,

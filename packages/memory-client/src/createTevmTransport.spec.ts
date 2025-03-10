@@ -46,7 +46,7 @@ describe('createTevmTransport', () => {
 		const node1 = createTevmNode({ common: tevmDefault }).extend(requestEip1193())
 		const customChain = { ...tevmDefault, id: 9999 }
 		const node2 = createTevmNode({ common: customChain }).extend(requestEip1193())
-		
+
 		const transport1 = createTevmTransport(node1)({ chain: tevmDefault })
 		const transport2 = createTevmTransport(node2)({ chain: customChain })
 

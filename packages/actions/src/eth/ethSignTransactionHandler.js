@@ -2,34 +2,34 @@ import { MissingAccountError } from './ethSignHandler.js'
 
 /**
  * Creates a handler for the `eth_signTransaction` JSON-RPC method that signs transactions using the specified accounts
- * 
+ *
  * This handler enables signing Ethereum transactions without broadcasting them to the network. It creates an EIP-2930
  * transaction signature using the private key of the specified account. The handler automatically retrieves the
  * current chain ID from the node.
- * 
+ *
  * @param {object} options - Configuration options for the handler
  * @param {ReadonlyArray<import('@tevm/utils').HDAccount>} options.accounts - Array of HD accounts that can be used for signing
  * @param {() => Promise<number>} options.getChainId - Function to retrieve the current chain ID
  * @returns {import('./EthHandler.js').EthSignTransactionHandler} A handler function for eth_signTransaction requests
  * @throws {MissingAccountError} If the requested account (from address) is not found in the provided accounts list
- * 
+ *
  * @example
  * ```javascript
  * import { ethSignTransactionHandler } from '@tevm/actions'
  * import { mnemonicToAccount, parseGwei } from '@tevm/utils'
- * 
+ *
  * // Create accounts from a mnemonic
  * const mnemonic = 'test test test test test test test test test test test junk'
  * const accounts = Array.from(Array(10).keys()).map(
  *   (i) => mnemonicToAccount(mnemonic, { addressIndex: i })
  * )
- * 
+ *
  * // Create the handler
  * const handler = ethSignTransactionHandler({
  *   accounts,
  *   getChainId: async () => 1 // Mainnet
  * })
- * 
+ *
  * // Sign a transaction
  * try {
  *   const signedTx = await handler({
@@ -41,7 +41,7 @@ import { MissingAccountError } from './ethSignHandler.js'
  *     nonce: 0n,
  *     data: '0x'
  *   })
- *   
+ *
  *   console.log('Signed transaction:', signedTx)
  *   // Can be used with eth_sendRawTransaction
  * } catch (error) {

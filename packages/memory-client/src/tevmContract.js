@@ -43,7 +43,7 @@ import { contractHandler } from '@tevm/actions'
  *     args: ['0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'],
  *   })
  *   console.log('Balance:', balanceResult.data)
- *   
+ *
  *   // Write call example - state-changing function
  *   const transferResult = await tevmContract(client, {
  *     to: '0x4200000000000000000000000000000000000042', // contract address
@@ -84,10 +84,10 @@ import { contractHandler } from '@tevm/actions'
  *   // Call write method using tevmContract
  *   const setValue = await tevmContract(client, contract.write.set(42n))
  *   console.log('Set value success:', setValue.data)
- *   
+ *
  *   // In manual mining mode, you need to mine the transaction
  *   await client.mine()
- *   
+ *
  *   // Verify the value was updated
  *   const newValue = await tevmContract(client, contract.read.get())
  *   console.log('New value:', newValue.data) // Should be 42n
@@ -100,7 +100,7 @@ import { contractHandler } from '@tevm/actions'
  * @throws Will throw if the ABI doesn't contain the specified function.
  * @throws Will throw if the contract execution reverts.
  * @throws Will throw if the arguments don't match the function signature.
- * 
+ *
  * @see [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/) for options reference.
  * @see [ContractResult](https://tevm.sh/reference/tevm/actions/type-aliases/contractresult/) for return values reference.
  * @see [BaseCallParams](https://tevm.sh/reference/tevm/actions/type-aliases/basecallparams-1/) for the base call parameters.

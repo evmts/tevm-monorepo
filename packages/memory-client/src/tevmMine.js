@@ -5,9 +5,9 @@ import { mineHandler } from '@tevm/actions'
  * Mines blocks in TEVM.
  *
  * This function allows you to mine blocks in the TEVM, which is necessary for applying pending transactions
- * to the canonical head state and advancing the blockchain. When you make state-changing calls or send 
+ * to the canonical head state and advancing the blockchain. When you make state-changing calls or send
  * transactions, they need to be mined in a block to update the chain's state.
- * 
+ *
  * The result of mining includes an array of block hashes of the mined blocks.
  *
  * You can customize the mining process with the `blockCount` and `interval` parameters:
@@ -17,7 +17,7 @@ import { mineHandler } from '@tevm/actions'
  * Note: By default, TEVM operates in manual mining mode, requiring explicit calls to the mine function.
  * You can configure automatic mining in `createMemoryClient` or `createTevmTransport` options.
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {import('@tevm/actions').MineParams} [params] - Optional parameters for mining blocks.
  * @returns {Promise<import('@tevm/actions').MineResult>} The result of mining blocks, including an array of block hashes.
  *
@@ -45,11 +45,11 @@ import { mineHandler } from '@tevm/actions'
  *     to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
  *     value: 1000000000000000000n,
  *   })
- *   
+ *
  *   // Mine a single block to include the transaction
  *   const result = await tevmMine(client)
  *   console.log('Mined block hash:', result.blockHashes[0])
- *   
+ *
  *   // Transaction is now confirmed - can get receipt
  *   const receipt = await client.getTransactionReceipt({ hash: tx })
  *   console.log('Transaction confirmed in block:', receipt.blockNumber)
@@ -77,18 +77,18 @@ import { mineHandler } from '@tevm/actions'
  *   // Deploy a contract
  *   const deployResult = await client.deployContract(SimpleStorage)
  *   console.log('Deployment transaction hash:', deployResult.hash)
- *   
+ *
  *   // Mine the block to complete the contract deployment
  *   const mineResult = await client.mine()
  *   console.log('Contract deployed in block:', mineResult.blockHashes[0])
- *   
+ *
  *   // Now we can interact with the deployed contract
  *   const contract = SimpleStorage.withAddress(deployResult.address)
  *   await contract.write.set(42n)
- *   
+ *
  *   // Mine another block to apply the state change
  *   await client.mine()
- *   
+ *
  *   // Read the updated value
  *   const value = await contract.read.get()
  *   console.log('Stored value:', value) // 42n
@@ -96,7 +96,7 @@ import { mineHandler } from '@tevm/actions'
  *
  * example()
  * ```
- * 
+ *
  * @throws Will throw if the TEVM node is not properly initialized.
  * @throws Will throw if `blockCount` is negative or not a number.
  *

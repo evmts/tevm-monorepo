@@ -7,9 +7,9 @@ import { custom } from 'viem'
  * This function creates a transport implementation that connects viem clients to TEVM's in-memory
  * Ethereum Virtual Machine. It takes a TevmNode and ensures it has an EIP-1193 request function,
  * making it compatible with viem's transport system.
- * 
+ *
  * @param {import('@tevm/node').TevmNode & Partial<{request: import('@tevm/decorators').EIP1193RequestFn}>} tevmNode - A TevmNode instance to use as the transport provider
- * @returns {import('./TevmTransport.js').TevmTransport} A configured TEVM transport
+ * @returns {import('./MemoryClient.js').TevmTransport} A configured TEVM transport
  * @throws {Error} When initialization fails or options are invalid
  *
  * @example
@@ -21,8 +21,8 @@ import { custom } from 'viem'
  *
  * // Create the TEVM node
  * const node = createTevmNode({
- *   fork: { 
- *     transport: http('https://mainnet.optimism.io')({}) 
+ *   fork: {
+ *     transport: http('https://mainnet.optimism.io')({})
  *   },
  *   common: optimism
  * }).extend(requestEip1193())
@@ -49,34 +49,34 @@ import { custom } from 'viem'
  * @see [EIP-1193 Specification](https://eips.ethereum.org/EIPS/eip-1193)
  */
 export const createTevmTransport = (tevmNode) => {
-  if (!tevmNode) {
-    throw new Error('tevmNode is required to create a TevmTransport')
-  }
+	if (!tevmNode) {
+		throw new Error('tevmNode is required to create a TevmTransport')
+	}
 
-  // Ensure the node has an EIP-1193 request function
-  /** @type {import('@tevm/node').TevmNode & {request: import('@tevm/decorators').EIP1193RequestFn}} */
-  const nodeWithRequest = tevmNode.request ? 
-    /** @type {any} */ (tevmNode) : 
-    /** @type {any} */ (tevmNode.extend(requestEip1193()))
-  
-  // Create and return the transport function
-  /**
-   * @type {import('./TevmTransport.js').TevmTransport}
-   */
-  return ({ timeout = 20_000, retryCount = 3, chain }) => {
-    const transport = custom(nodeWithRequest)({
-      chain,
-      timeout,
-      retryCount,
-    })
-    
-    // Add the tevm field to the value property
-    return {
-      ...transport,
-      value: { 
-        ...transport.value,
-        tevm: nodeWithRequest
-      }
-    }
-  }
+	// Ensure the node has an EIP-1193 request function
+	/** @type {import('@tevm/node').TevmNode & {request: import('@tevm/decorators').EIP1193RequestFn}} */
+	const nodeWithRequest = tevmNode.request
+		? /** @type {any} */ (tevmNode)
+		: /** @type {any} */ (tevmNode.extend(requestEip1193()))
+
+	// Create and return the transport function
+	/**
+	 * @type {import('./MemoryClient.js').TevmTransport}
+	 */
+	return ({ timeout = 20_000, retryCount = 3, chain }) => {
+		const transport = custom(nodeWithRequest)({
+			chain,
+			timeout,
+			retryCount,
+		})
+
+		// Add the tevm field to the value property
+		return {
+			...transport,
+			value: {
+				...transport.value,
+				tevm: nodeWithRequest,
+			},
+		}
+	}
 }

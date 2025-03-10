@@ -1,16 +1,25 @@
 import type { Address } from '@tevm/utils'
-import type { Account, Chain, Client, PublicActions, TestActions, WalletActions } from 'viem'
+import type { Account, Chain, Client, PublicActions, TestActions, Transport, WalletActions } from 'viem'
 import type { Prettify } from 'viem/chains'
 import type { TevmActions } from './TevmActions.js'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
-import type { TevmTransport } from './TevmTransport.js'
+
+/**
+ * A Viem transport that connects to a TEVM node.
+ *
+ * The TevmTransport adds the `tevm` property to Viem's Transport, allowing direct access to the
+ * underlying TEVM node. This is a custom transport used by MemoryClient and created by createTevmTransport.
+ *
+ * @template TTevm - The type of the TEVM node instance
+ */
+export type TevmTransport<TTevm = any> = Transport<'tevm', { tevm: TTevm }>
 
 /**
  * Represents a TEVM-enhanced viem client with an in-memory Ethereum client as its transport.
- * 
+ *
  * The MemoryClient provides a complete in-memory Ethereum Virtual Machine implementation with
  * a full suite of capabilities:
- * 
+ *
  * - Execute contract calls directly in JavaScript with full EVM compatibility
  * - Monitor EVM execution events (steps, messages, contract creation)
  * - Deploy and interact with contracts, including direct Solidity imports
@@ -18,7 +27,7 @@ import type { TevmTransport } from './TevmTransport.js'
  * - Fork from existing networks and cache remote state as needed
  * - Mine blocks manually or automatically after transactions
  * - Persist and restore state across sessions
- * 
+ *
  * The client implements multiple API styles:
  * - TEVM-specific methods for direct EVM interaction
  * - Standard Ethereum JSON-RPC methods
@@ -26,7 +35,7 @@ import type { TevmTransport } from './TevmTransport.js'
  *
  * @template TChain - The blockchain configuration type, extends Chain or undefined
  * @template TAccountOrAddress - The account or address type for the client
- * 
+ *
  * @example
  * ```typescript
  * import { createMemoryClient, http } from "tevm";
@@ -43,14 +52,14 @@ import type { TevmTransport } from './TevmTransport.js'
  *
  * // Wait for the client to be ready
  * await client.tevmReady();
- * 
+ *
  * // Set up account state
  * const address = "0x1234567890123456789012345678901234567890";
  * await client.tevmSetAccount({
  *   address,
  *   balance: parseEther("10")
  * });
- * 
+ *
  * // Deploy a contract with events tracking
  * const deployResult = await client.tevmDeploy({
  *   bytecode: "0x608060405234801561001057600080fd5b50610150806100206000396000f3fe...",
@@ -60,10 +69,10 @@ import type { TevmTransport } from './TevmTransport.js'
  *     next();
  *   }
  * });
- * 
+ *
  * // Mine a block to confirm transactions
  * await client.mine({ blocks: 1 });
- * 
+ *
  * // Get the contract address from deployment
  * console.log(`Contract deployed at: ${deployResult.createdAddress}`);
  * ```

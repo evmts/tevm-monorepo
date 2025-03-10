@@ -7,42 +7,42 @@ import { traceCallHandler } from './traceCallHandler.js'
 
 /**
  * Creates a JSON-RPC procedure handler for the `debug_traceTransaction` method
- * 
+ *
  * This handler traces the execution of a historical transaction using the EVM's step-by-step
  * execution tracing capabilities. It reconstructs the state at the point of the transaction
  * by replaying all previous transactions in the block and then provides a detailed trace.
- * 
+ *
  * @param {import('@tevm/node').TevmNode} client - The TEVM node instance
  * @returns {import('./DebugProcedure.js').DebugTraceTransactionProcedure} A handler function for debug_traceTransaction requests
  * @throws {Error} If the transaction cannot be found
  * @throws {Error} If the parent block's state root is not available and cannot be forked
- * 
+ *
  * @example
  * ```javascript
  * import { createTevmNode } from '@tevm/node'
  * import { createAddress } from '@tevm/address'
  * import { debugTraceTransactionJsonRpcProcedure } from '@tevm/actions'
  * import { SimpleContract } from '@tevm/contract'
- * 
+ *
  * // Create a node and deploy a contract
  * const node = createTevmNode({ miningConfig: { type: 'auto' } })
  * const contract = SimpleContract.withAddress(createAddress('0x1234').toString())
- * 
+ *
  * // Deploy contract
  * const deployResult = await node.tevmDeploy(contract.deploy(1n))
- * 
+ *
  * // Call a contract method that will create a transaction
  * const callResult = await node.tevmCall({
  *   createTransaction: true,
  *   ...contract.write.set(42n)
  * })
- * 
+ *
  * // Get the transaction hash from the call result
  * const txHash = callResult.txHash
- * 
+ *
  * // Create the debug procedure handler
  * const debugProcedure = debugTraceTransactionJsonRpcProcedure(node)
- * 
+ *
  * // Trace the transaction
  * const trace = await debugProcedure({
  *   jsonrpc: '2.0',
@@ -53,7 +53,7 @@ import { traceCallHandler } from './traceCallHandler.js'
  *   }],
  *   id: 1
  * })
- * 
+ *
  * console.log('Transaction trace:', trace.result)
  * ```
  */

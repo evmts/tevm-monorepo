@@ -7,10 +7,10 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
 
 /**
  * Type definition for the function that creates a {@link MemoryClient}.
- * 
+ *
  * This function type represents `createMemoryClient`, which initializes a complete in-memory Ethereum
  * virtual machine with a comprehensive API. The function supports extensive configuration options for:
- * 
+ *
  * - Network forking from live Ethereum networks
  * - Custom chain settings and EVM parameters
  * - Mining behavior configuration
@@ -37,7 +37,7 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  *
  * // Basic client with default settings
  * const basicClient = createMemoryClient();
- * 
+ *
  * // Advanced client with custom configuration
  * const client = createMemoryClient({
  *   // Fork from Optimism mainnet
@@ -60,17 +60,17 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  *   // Set logging verbosity
  *   loggingLevel: 'debug'
  * });
- * 
+ *
  * // Initialize and configure client
  * await client.tevmReady();
- * 
+ *
  * // Set up test account
  * await client.tevmSetAccount({
  *   address: '0x1234567890123456789012345678901234567890',
  *   balance: parseEther('100'),
  *   nonce: 0n
  * });
- * 
+ *
  * // Read from forked network
  * const balance = await client.getBalance({
  *   address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'

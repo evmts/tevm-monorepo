@@ -7,11 +7,11 @@
  * - The blockchain state is loaded
  * - If using a fork, the fork connection is established and initial data is loaded
  * - Any predeploys have been set up
- * 
- * It resolves to `true` when TEVM is fully ready for operations, or throws an error if 
+ *
+ * It resolves to `true` when TEVM is fully ready for operations, or throws an error if
  * initialization fails for any reason.
  *
- * Note: All TEVM actions implicitly wait for the VM to be ready, so it's usually not necessary 
+ * Note: All TEVM actions implicitly wait for the VM to be ready, so it's usually not necessary
  * to explicitly call `tevmReady` before other operations. However, it can be useful in these scenarios:
  * - When you want to ensure initialization completes before timing critical operations
  * - For isolating startup time from operation time in benchmarks
@@ -32,7 +32,7 @@
  * // Initialize a client with fork configuration
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { 
+ *     fork: {
  *       transport: http('https://mainnet.optimism.io')({})
  *     }
  *   }),
@@ -46,11 +46,11 @@
  *     await tevmReady(client)
  *     console.timeEnd('Initialization')
  *     console.log('TEVM fork is ready')
- *     
+ *
  *     // Now perform operations knowing the fork is ready
  *     const blockNumber = await client.getBlockNumber()
  *     console.log(`Forked at block: ${blockNumber}`)
- *     
+ *
  *   } catch (error) {
  *     console.error('Failed to initialize TEVM fork:', error)
  *     // Handle the error appropriately, e.g., retry or use a fallback
@@ -72,22 +72,22 @@
  *       url: 'https://mainnet.optimism.io',
  *     }
  *   })
- *   
+ *
  *   // Measure initialization time separately
  *   console.time('Initialization')
  *   await client.tevmReady()
  *   console.timeEnd('Initialization')
- *   
+ *
  *   // Now measure operation time
  *   console.time('Operations')
- *   
+ *
  *   // Run your benchmark operations
  *   for (let i = 0; i < 100; i++) {
  *     const balance = await client.getBalance({
  *       address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
  *     })
  *   }
- *   
+ *
  *   console.timeEnd('Operations')
  * }
  * ```

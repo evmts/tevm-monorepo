@@ -33,7 +33,7 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  *   name: 'Optimism Memory Client',
  *   key: 'optimism-memory',
  *   // Mining configuration (auto mines blocks after transactions)
- *   miningConfig: { 
+ *   miningConfig: {
  *     type: 'auto'
  *   },
  *   // Client performance tuning

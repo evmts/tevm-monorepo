@@ -24,7 +24,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  * // Create a basic memory client
  * const client = createMemoryClient();
- * 
+ *
  * // Create a client that forks from Optimism mainnet
  * const forkedClient = createMemoryClient({
  *   fork: {
@@ -35,7 +35,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  * // Wait for the client to be ready before using it
  * await forkedClient.tevmReady();
- * 
+ *
  * // Get the current block number
  * const blockNumber = await forkedClient.getBlockNumber();
  * console.log(blockNumber);
@@ -216,16 +216,16 @@ export const createMemoryClient = (options) => {
 		// but if not forking we know common will be default
 		return tevmDefault
 	})()
-  
+
 	// Create a TevmNode
 	const node = createTevmNode({
 		...options,
 		...(common !== undefined ? { common } : {}),
 	}).extend(requestEip1193())
-  
+
 	// Use createTevmTransport with the node
 	const transport = createTevmTransport(node)
-  
+
 	const memoryClient = createClient({
 		...options,
 		transport: transport,
@@ -236,6 +236,6 @@ export const createMemoryClient = (options) => {
 		.extend(publicActions)
 		.extend(walletActions)
 		.extend(testActions({ mode: 'anvil' }))
-  
+
 	return /** @type {any} */ (memoryClient)
 }
