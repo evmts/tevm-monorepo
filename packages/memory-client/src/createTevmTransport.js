@@ -9,7 +9,7 @@ import { custom } from 'viem'
  * making it compatible with viem's transport system.
  * 
  * @param {import('@tevm/node').TevmNode & Partial<{request: import('@tevm/decorators').EIP1193RequestFn}>} tevmNode - A TevmNode instance to use as the transport provider
- * @returns {import from "./MemoryClient.js"').TevmTransport} A configured TEVM transport
+ * @returns {import('./TevmTransport.js').TevmTransport} A configured TEVM transport
  * @throws {Error} When initialization fails or options are invalid
  *
  * @example
