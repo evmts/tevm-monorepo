@@ -61,18 +61,33 @@ export const createBaseState = (options) => {
 					type: CacheType.LRU,
 				}),
 		},
+		forkCache: {
+			contracts: options.contractCache ?? new ContractCache(new StorageCache({ size: 100_000, type: CacheType.LRU })),
+			accounts:
+				options.accountsCache ??
+				new AccountCache({
+					size: 100_000,
+					type: CacheType.LRU,
+				}),
+			storage:
+				options.storageCache ??
+				new StorageCache({
+					size: 100_000,
+					type: CacheType.LRU,
+				}),
+		},
 		ready: () => genesisPromise.then(() => true),
 	}
 	const genesisPromise = (
 		options.genesisState !== undefined && options.currentStateRoot === undefined
 			? generateCanonicalGenesis(state)(options.genesisState)
 			: Promise.resolve().then(() => {
-					if (options.currentStateRoot) {
-						state.setCurrentStateRoot(options.currentStateRoot)
-						return generateCanonicalGenesis(state)(options.genesisState ?? stateRoots.get(options.currentStateRoot))
-					}
-					return Promise.resolve()
-				})
+				if (options.currentStateRoot) {
+					state.setCurrentStateRoot(options.currentStateRoot)
+					return generateCanonicalGenesis(state)(options.genesisState ?? stateRoots.get(options.currentStateRoot))
+				}
+				return Promise.resolve()
+			})
 	).then(async () => {
 		await checkpoint(state)()
 		await commit(state)()
