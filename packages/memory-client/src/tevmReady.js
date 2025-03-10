@@ -8,7 +8,7 @@
  * Note: It is not necessary to explicitly call `tevmReady` because all actions implicitly wait for TEVM to be ready.
  * However, this can be useful if you want to isolate initialization from the action, for example, when running benchmark tests.
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import from "./MemoryClient.js"').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @returns {Promise<true>} Resolves when ready, rejects if VM fails to initialize.
  * @throws {Error} If the VM fails to initialize.
  *

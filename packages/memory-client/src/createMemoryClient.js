@@ -1,6 +1,8 @@
 import { tevmDefault } from '@tevm/common'
+import { requestEip1193 } from '@tevm/decorators'
+import { createTevmNode } from '@tevm/node'
 import { createClient, publicActions, testActions, walletActions } from 'viem'
-import { createTevmTransport } from './createTevmTransport.js'
+import from "./MemoryClient.js"'
 import { tevmViemActions } from './tevmViemActions.js'
 
 /**
@@ -13,14 +15,6 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  * @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn}
  * @param {import('./MemoryClientOptions.js').MemoryClientOptions} [options] - Configuration options for the memory client
- * @param {object} [options.fork] - Configuration for forking from an existing network
- * @param {Function} [options.fork.transport] - Transport function to connect to the fork source
- * @param {string|number} [options.fork.blockTag] - Specific block to fork from (hash, number or tag)
- * @param {import('@tevm/common').Common} [options.common] - Chain configuration
- * @param {string} [options.name] - Custom name for the client
- * @param {string} [options.key] - Custom key for the client 
- * @param {object} [options.miningConfig] - Mining configuration options
- * @param {import('@tevm/utils').SyncStoragePersister} [options.persister] - State persistence handler
  * @returns {import('./MemoryClient.js').MemoryClient} A fully initialized MemoryClient instance
  * @throws {Error} When initialization of required components fails
  *
@@ -222,12 +216,19 @@ export const createMemoryClient = (options) => {
 		// but if not forking we know common will be default
 		return tevmDefault
 	})()
+  
+	// Create a TevmNode
+	const node = createTevmNode({
+		...options,
+		...(common !== undefined ? { common } : {}),
+	}).extend(requestEip1193())
+  
+	// Use createTevmTransport with the node
+	const transport = createTevmTransport(node)
+  
 	const memoryClient = createClient({
 		...options,
-		transport: createTevmTransport({
-			...options,
-			...(common !== undefined ? { common } : {}),
-		}),
+		transport: transport,
 		type: 'tevm',
 		...(common !== undefined ? { chain: common } : {}),
 	})
@@ -235,5 +236,6 @@ export const createMemoryClient = (options) => {
 		.extend(publicActions)
 		.extend(walletActions)
 		.extend(testActions({ mode: 'anvil' }))
+  
 	return /** @type {any} */ (memoryClient)
 }

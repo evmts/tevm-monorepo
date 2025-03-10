@@ -3,7 +3,7 @@ import type { ContractResult } from '@tevm/actions'
 import type { Abi } from '@tevm/utils'
 import type { ContractFunctionName } from '@tevm/utils'
 import type { Client } from 'viem'
-import type { TevmTransport } from './TevmTransport.js'
+import type { TevmTransport } from './MemoryClient.js'
 
 /**
  * A type representing the handler for a TEVM contract procedure.

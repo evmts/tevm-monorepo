@@ -7,7 +7,7 @@ import { dumpStateHandler } from '@tevm/actions'
  *
  * This action is useful for persisting and restoring the state between different sessions or processes.
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import from "./MemoryClient.js"').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @returns {Promise<import('@tevm/actions').DumpStateResult>} The dump of the TEVM state.
  *
  * @example
