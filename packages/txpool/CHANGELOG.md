@@ -1,5 +1,14 @@
 # @tevm/state
 
+## 1.0.0-next.130
+
+### Patch Changes
+
+- Updated dependencies [e962176]
+  - @tevm/state@1.0.0-next.130
+  - @tevm/evm@1.0.0-next.130
+  - @tevm/vm@1.0.0-next.130
+
 ## 1.0.0-next.128
 
 ### Patch Changes
