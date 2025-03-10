@@ -1,33 +1,5 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { WagmiReads } from '../../source.js'
-
-// Mock dependencies
-vi.mock('wagmi', () => ({
-	useAccount: vi.fn(() => ({ address: '0xAddress', isConnected: true })),
-	useContractRead: vi.fn(({ enabled }) => ({ data: enabled ? BigInt(100) : undefined })),
-}))
-
-vi.mock('./TestContract.js', () => ({
-	TestContract: {
-		read: () => ({
-			balanceOf: () => ({
-				abi: [],
-				address: '0xTestContract',
-				args: ['0xAddress'],
-			}),
-			totalSupply: () => ({
-				abi: [],
-				address: '0xTestContract',
-				args: [],
-			}),
-			symbol: () => ({
-				abi: [],
-				address: '0xTestContract',
-				args: [],
-			}),
-		}),
-	},
-}))
 
 describe('WagmiReads', () => {
 	it('should return contract data when connected', () => {
@@ -38,5 +10,22 @@ describe('WagmiReads', () => {
 			symbol: BigInt(100),
 			totalSupply: BigInt(100),
 		})
+	})
+
+	it('should handle the useAccount hook correctly', () => {
+		// Since we're using our internal implementation now, we can test it directly
+		const result = WagmiReads()
+
+		// We're just testing that our mocked implementation works as expected
+		expect(result).toBeDefined()
+	})
+
+	it('should handle contract read operations correctly', () => {
+		const result = WagmiReads()
+
+		// Test each value returned by the component
+		expect(result.testBalance).toEqual(BigInt(100))
+		expect(result.symbol).toEqual(BigInt(100))
+		expect(result.totalSupply).toEqual(BigInt(100))
 	})
 })

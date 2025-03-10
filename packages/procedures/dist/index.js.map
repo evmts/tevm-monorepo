@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/index.ts"],"names":[],"mappings":";AAAA,OAAA,CAAQ,IAAI,wFAAwF,CAAA","file":"index.js","sourcesContent":["console.log('@tevm/procedures has been merged with @tevm/actions. Please use @tevm/actions instead.')\n"]}

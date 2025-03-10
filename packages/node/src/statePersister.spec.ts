@@ -95,7 +95,7 @@ describe(statePersister.name, () => {
 		)
 
 		// Call with our fake state
-		persisterFn(fakeState)
+		persisterFn(fakeState as any)
 
 		// Wait for the promise rejection to be caught
 		await new Promise((resolve) => setTimeout(resolve, 100))

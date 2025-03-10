@@ -14,19 +14,19 @@ describe('createTevmNode coverage tests', () => {
 		}
 
 		// Test emit returns true when listeners exist
-		client.on('test', listener)
-		expect(client.emit('test')).toBe(true)
+		client.on('test' as any, listener)
+		expect(client.emit('test' as any)).toBe(true)
 		expect(eventFired).toBe(true)
 
 		// Test emit returns false when no listeners exist
-		expect(client.emit('nonexistent')).toBe(false)
+		expect(client.emit('nonexistent' as any)).toBe(false)
 
 		// Test removeListener with nonexistent event
-		client.removeListener('nonexistent', listener)
+		client.removeListener('nonexistent' as any, listener)
 
 		// Test removeListener when removing last listener
-		client.removeListener('test', listener)
-		expect(client.emit('test')).toBe(false)
+		client.removeListener('test' as any, listener)
+		expect(client.emit('test' as any)).toBe(false)
 	})
 
 	it('Handles connect event for already connected client', async () => {
@@ -88,14 +88,16 @@ describe('createTevmNode coverage tests', () => {
 		}
 
 		const client = createTevmNode({
-			persister: mockPersister,
+			persister: mockPersister as any,
 		})
 
 		await client.ready()
 		const vm = await client.getVm()
 
 		// Verify the persisted state was processed correctly
-		const account = await vm.stateManager.getAccount(createAddress('0x1234567890123456789012345678901234567890'))
+		const account = (await vm.stateManager.getAccount(
+			createAddress('0x1234567890123456789012345678901234567890'),
+		)) as any
 
 		expect(account.nonce).toBe(hexToBigInt('0x1'))
 		expect(account.balance).toBe(hexToBigInt('0x2'))
@@ -168,8 +170,8 @@ describe('createTevmNode coverage tests', () => {
 			id: 1,
 			hardfork: 'cancun',
 			eips: [1559, 4895],
-			customCrypto: { hash: undefined, keccak256: undefined, ripemd160: undefined, secp256k1: undefined },
-		})
+			customCrypto: { hash: undefined, keccak256: undefined, ripemd160: undefined, secp256k1: undefined } as any,
+		} as any)
 
 		const client = createTevmNode({
 			common: customCommon,
@@ -193,7 +195,7 @@ describe('createTevmNode coverage tests', () => {
 
 		const copiedClient = await client.deepCopy()
 		expect(copiedClient.forkTransport).toBeDefined()
-		expect(copiedClient.forkTransport.request).toBe(client.forkTransport.request)
+		expect((copiedClient.forkTransport as any).request).toBe((client as any).forkTransport.request)
 	})
 
 	it('Tests removeFilter with nonexistent filter', async () => {
@@ -208,9 +210,9 @@ describe('createTevmNode coverage tests', () => {
 
 	// Test to cover lines 75-76 in getStateManagerOpts where cache options are used
 	it('Handles explicit cache options', async () => {
-		const accountsCache = new Map()
-		const storageCache = new Map()
-		const contractCache = new Map()
+		const accountsCache = new Map() as any
+		const storageCache = new Map() as any
+		const contractCache = new Map() as any
 
 		const client = createTevmNode({
 			accountsCache,
@@ -234,11 +236,11 @@ describe('createTevmNode coverage tests', () => {
 			common: {
 				id: 1,
 				ethjsCommon: {
-					hardfork: () => null, // This will make it use the default 'cancun'
+					hardfork: () => null as any, // This will make it use the default 'cancun'
 					eips: () => [1559, 4895],
 					customCrypto: {},
-				},
-			},
+				} as any,
+			} as any,
 		})
 
 		expect(client).toBeDefined()

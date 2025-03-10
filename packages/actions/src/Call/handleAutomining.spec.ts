@@ -58,7 +58,7 @@ describe('handleAutomining', () => {
 		const client = createTevmNode({
 			miningConfig: { type: 'auto' },
 		})
-		
+
 		const result = await handleAutomining(client, '0x123')
 		expect(result).toBeUndefined()
 	})

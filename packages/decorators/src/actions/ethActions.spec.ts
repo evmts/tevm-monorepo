@@ -3,7 +3,7 @@ import { ethActions } from './ethActions.js'
 
 // Mock the handlers from @tevm/actions
 vi.mock('@tevm/actions', () => {
-	const createMockHandler = (name) => {
+	const createMockHandler = (name: string) => {
 		return vi.fn().mockImplementation(() => {
 			return function mockHandler() {
 				return `${name} result`
@@ -28,7 +28,7 @@ describe('ethActions', () => {
 		const mockClient = {
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		const extended = ethActions()(mockClient)
 
@@ -44,7 +44,7 @@ describe('ethActions', () => {
 
 		// Verify that the methods return expected values
 		expect(extended.eth.blockNumber()).toBe('blockNumber result')
-		expect(extended.eth.call()).toBe('ethCall result')
+		expect(extended.eth.call({ to: '0x123' } as any)).toBe('ethCall result')
 	})
 
 	it('should preserve existing eth properties', () => {
@@ -55,14 +55,14 @@ describe('ethActions', () => {
 			},
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		const extended = ethActions()(mockClient)
 
 		// Check that existing properties are preserved
-		expect(extended.eth.existingProperty).toBe('should remain')
-		expect(typeof extended.eth.getExistingMethod).toBe('function')
-		expect(extended.eth.getExistingMethod()).toBe('should remain')
+		expect((extended.eth as any).existingProperty).toBe('should remain')
+		expect(typeof (extended.eth as any).getExistingMethod).toBe('function')
+		expect((extended.eth as any).getExistingMethod()).toBe('should remain')
 
 		// And new methods are added
 		expect(extended.eth).toHaveProperty('blockNumber')
@@ -77,7 +77,7 @@ describe('ethActions', () => {
 			eth: 'not an object',
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		expect(() => ethActions()(mockClient)).toThrow(
 			'Cannot extend eth with ethActions decorator. detected a client.eth property that is not an object',

@@ -28,7 +28,7 @@ describe('getTransaction', () => {
 	it('should work', async () => {
 		const { blockHash, ...tx } = await mc.getTransaction({ hash: deployTxHash })
 		expect(blockHash.startsWith('0x')).toBe(true)
-		const vm = await mc.tevm.getVm()
+		const vm = await mc.transport.tevm.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
 		expect(blockHash).toEqual(bytesToHex(block.header.hash()))
 		expect(tx).toMatchSnapshot()

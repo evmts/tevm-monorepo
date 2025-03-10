@@ -12,7 +12,7 @@ export const anvilDropTransactionJsonRpcProcedure = (client) => {
 			(request)
 		const txHash = anvilDropTransactionRequest.params[0].transactionHash
 		const txPool = await client.getTxPool()
-		if (txPool.getByHash([hexToBytes(txHash)]).length > 0) {
+		if (/** @type {any[]}*/ (txPool.getByHash([hexToBytes(txHash)])).length > 0) {
 			txPool.removeByHash(txHash)
 		} else {
 			throw new Error(

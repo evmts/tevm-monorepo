@@ -8,41 +8,12 @@
 
 > **TevmActions**: `object`
 
-Defined in: [packages/memory-client/src/TevmActions.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmActions.ts#L11)
+Defined in: [packages/memory-client/src/TevmActions.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmActions.ts#L10)
 
 Provides powerful actions for interacting with the EVM using the TEVM API.
 These actions allow for low-level access to the EVM, managing accounts, deploying contracts, and more.
 
 ## Type declaration
-
-### tevm
-
-> **tevm**: `TevmNode` & `Eip1193RequestProvider`
-
-Low level access to TEVM can be accessed via `tevm`. These APIs are not guaranteed to be stable.
-
-#### See
-
-TevmNode
-
-#### Example
-
-```typescript
-import { createMemoryClient } from 'tevm'
-
-const memoryClient = createMemoryClient()
-
-// low level access to the TEVM VM, blockchain, EVM, stateManager, mempool, receiptsManager and more are available
-const vm = await memoryClient.tevm.getVm()
-vm.runBlock(...)
-const { blockchain, evm, stateManager } = vm
-blockchain.addBlock(...)
-evm.runCall(...)
-stateManager.putAccount(...)
-
-const mempool = await memoryClient.tevm.getTxPool()
-const receiptsManager = await memoryClient.tevm.getReceiptsManager()
-```
 
 ### tevmCall
 
@@ -237,7 +208,7 @@ const client = createMemoryClient()
 
 await client.tevmReady()
 ```
-Same as calling `client.tevm.ready()`
+Same as calling `client.transport.tevm.ready()`
 
 ### tevmSetAccount
 

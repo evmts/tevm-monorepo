@@ -3,8 +3,8 @@ import { tevmActions } from './tevmActions.js'
 
 // Mock the handlers from @tevm/actions
 vi.mock('@tevm/actions', () => {
-	const createMockHandler = (name) => {
-		return vi.fn().mockImplementation((client) => {
+	const createMockHandler = (name: string) => {
+		return vi.fn().mockImplementation((_client: any) => {
 			return function mockHandler() {
 				return `${name} result`
 			}
@@ -28,7 +28,7 @@ describe('tevmActions', () => {
 	it('should add all tevm actions to client through extension', () => {
 		// Create a client with proper extension implementation
 		const mockClient = {
-			extend: function (extender) {
+			extend: function (extender: any) {
 				// Apply the extender to this client
 				const extension = extender(this)
 				// Return a new client with the extension's properties
@@ -36,7 +36,7 @@ describe('tevmActions', () => {
 			},
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		// Apply tevmActions to the mock client
 		const extended = tevmActions()(mockClient)
@@ -55,22 +55,24 @@ describe('tevmActions', () => {
 
 	it('should chain extensions correctly', () => {
 		// Create a simpler mock client to test the extension chaining
-		const extensionCalls = []
+		const extensionCalls: string[] = []
 
 		const mockClient = {
-			extend: function (extender) {
+			extend: function (extender: any) {
 				// Keep track of which extension was called
 				const extension = extender(this)
 				// Extract the properties added by the extender to track order
 				const props = Object.keys(extension)
-				extensionCalls.push(props[0])
+				if (props.length > 0 && props[0]) {
+					extensionCalls.push(props[0])
+				}
 
 				// Return a new client with the new property
 				return { ...this, ...extension }
 			},
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		// Apply tevmActions
 		tevmActions()(mockClient)
@@ -91,12 +93,12 @@ describe('tevmActions', () => {
 
 	it('should return methods that call the handlers with the client', () => {
 		const mockClient = {
-			extend: function (extender) {
+			extend: function (extender: any) {
 				return { ...this, ...extender(this) }
 			},
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		const extended = tevmActions()(mockClient)
 

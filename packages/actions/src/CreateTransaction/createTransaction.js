@@ -115,10 +115,11 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 			},
 		)
 		client.logger.debug(tx, 'callHandler: Created a new transaction from transaction data')
-		/**
-		 * @type {Promise<void>}
-		 */
-		let poolPromise = Promise.resolve()
+		let poolPromise =
+			/**
+			 * @type {Promise<{error: null; hash: `0x${string}`;} | {error: string; hash: `0x${string}`;}>}
+			 */
+			(Promise.resolve({}))
 		try {
 			client.logger.debug({ requireSig, skipBalance: evmInput.skipBalance }, 'callHandler: Adding tx to mempool')
 			poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false)

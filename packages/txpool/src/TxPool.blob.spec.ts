@@ -9,7 +9,7 @@ import { TxPool } from './TxPool.js'
 
 // Mock the BlobEIP4844Transaction class
 vi.mock('@tevm/tx', async (importOriginal) => {
-	const originalModule = await importOriginal() as any
+	const originalModule = (await importOriginal()) as any
 	return {
 		...originalModule,
 		BlobEIP4844Transaction: class MockBlobEIP4844Transaction {

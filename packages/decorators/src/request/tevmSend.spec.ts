@@ -17,7 +17,7 @@ describe('tevmSend', () => {
 		const mockClient = {
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 		const extended = tevmSend()(mockClient)
 
 		expect(extended).toHaveProperty('send')
@@ -31,7 +31,7 @@ describe('tevmSend', () => {
 		const mockClient = {
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		const extended = tevmSend()(mockClient)
 		expect(typeof extended.send).toBe('function')
@@ -41,7 +41,7 @@ describe('tevmSend', () => {
 		const mockClient = {
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		const extended = tevmSend()(mockClient)
 		expect(typeof extended.sendBulk).toBe('function')

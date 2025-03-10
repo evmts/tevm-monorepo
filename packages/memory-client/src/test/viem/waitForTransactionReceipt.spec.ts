@@ -37,7 +37,7 @@ describe('waitForTransactionReceipt', () => {
 		if (!txHash) throw new Error('txHash not found')
 		await mc.mine({ blocks: 1 })
 		const { blockHash, logs, ...receipt } = await mc.waitForTransactionReceipt({ hash: txHash })
-		const vm = await mc.tevm.getVm()
+		const vm = await mc.transport.tevm.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
 		expect(blockHash).toBe(bytesToHex(block.header.hash()))
 		expect(receipt).toMatchSnapshot()

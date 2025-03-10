@@ -1,9 +1,9 @@
-import { access, mkdir, writeFile } from 'node:fs/promises'
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { access, mkdir, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import type { LanguageServiceHost } from 'typescript'
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createFileAccessObject, createRealFileAccessObject } from './fileAccessObject.js'
 
 // Mock the LanguageServiceHost
@@ -58,19 +58,19 @@ describe('createFileAccessObject', () => {
 			fileAccessObject.readFileSync('test.ts', 'utf8')
 		}).toThrow('@tevm/ts-plugin: unable to read file test.ts')
 	})
-	
+
 	it('should call writeFile on languageServiceHost', () => {
 		const lsHost = mockLsHost('file content')
 		const fileAccessObject = createFileAccessObject(lsHost)
-		
+
 		fileAccessObject.writeFileSync('test.ts', 'new content')
 		expect(lsHost.writeFile).toHaveBeenCalledWith('test.ts', 'new content')
 	})
-	
+
 	it('should check if file exists asynchronously', async () => {
 		const lsHost = mockLsHost('file content') // Simulate file exists
 		const fileAccessObject = createFileAccessObject(lsHost)
-		
+
 		const result = await fileAccessObject.exists('test.ts')
 		expect(result).toBe(true)
 	})
@@ -78,24 +78,24 @@ describe('createFileAccessObject', () => {
 
 describe('createRealFileAccessObject', () => {
 	let tempFilePath: string
-	
+
 	beforeEach(() => {
 		tempFilePath = path.join(os.tmpdir(), `test-${Date.now()}.txt`)
 	})
-	
+
 	afterEach(() => {
 		try {
 			if (existsSync(tempFilePath)) {
-				require('fs').unlinkSync(tempFilePath)
+				require('node:fs').unlinkSync(tempFilePath)
 			}
 		} catch (e) {
 			// Ignore cleanup errors
 		}
 	})
-	
+
 	it('should create a file access object using real fs functions', async () => {
 		const fao = createRealFileAccessObject()
-		
+
 		// Test that the object contains all expected methods
 		expect(fao.readFile).toBeDefined()
 		expect(fao.existsSync).toBe(existsSync)
@@ -106,19 +106,19 @@ describe('createRealFileAccessObject', () => {
 		expect(fao.mkdir).toBe(mkdir)
 		expect(fao.writeFile).toBe(writeFile)
 	})
-	
+
 	it('should check if file exists using real fs', async () => {
 		const fao = createRealFileAccessObject()
-		
+
 		// Write a test file
 		await fao.writeFile(tempFilePath, 'test content')
-		
+
 		// Check if it exists
 		const exists = await fao.exists(tempFilePath)
 		expect(exists).toBe(true)
-		
+
 		// Check a non-existent file
-		const nonExistentPath = tempFilePath + '.nonexistent'
+		const nonExistentPath = `${tempFilePath}.nonexistent`
 		const nonExists = await fao.exists(nonExistentPath)
 		expect(nonExists).toBe(false)
 	})

@@ -13,6 +13,6 @@ describe('impersonateAccount', () => {
 	it('should work as expected', async () => {
 		const address = `0x${'42'.repeat(20)}` as const
 		await mc.impersonateAccount({ address })
-		expect(mc.tevm.getImpersonatedAccount()).toBe(address)
+		expect(mc.transport.tevm.getImpersonatedAccount()).toBe(address)
 	})
 })

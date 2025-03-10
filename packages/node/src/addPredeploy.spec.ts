@@ -46,7 +46,7 @@ describe('addPredeploy', () => {
 			balance,
 		})
 
-		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))
+		const account = (await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))) as any
 		expect(account.nonce).toEqual(nonce)
 		expect(account.balance).toEqual(balance)
 	})
@@ -59,7 +59,7 @@ describe('addPredeploy', () => {
 			address,
 		})
 
-		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))
+		const account = (await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))) as any
 		expect(account).toBeDefined()
 		// These should be the default values
 		expect(account.nonce).toEqual(0n)

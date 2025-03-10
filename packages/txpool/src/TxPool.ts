@@ -29,6 +29,8 @@ const MAX_TXS_PER_ACCOUNT = 100
 
 export interface TxPoolOptions {
 	vm: Vm
+	maxSize?: number
+	maxPerSender?: number
 }
 
 type TxPoolObject = {
@@ -63,9 +65,9 @@ type GasPrice = {
  */
 export class TxPool {
 	private vm: Vm
-
+	private maxSize: number
+	private maxPerSender: number
 	private opened: boolean
-
 	public running: boolean
 
 	/* global NodeJS */
@@ -130,11 +132,16 @@ export class TxPool {
 	 * Create new tx pool
 	 * @param options constructor parameters
 	 */
-	constructor({ vm }: TxPoolOptions) {
+	constructor({ vm, maxSize = MAX_POOL_SIZE, maxPerSender = MAX_TXS_PER_ACCOUNT }: TxPoolOptions) {
 		this.vm = vm
+		this.maxSize = maxSize
+		this.maxPerSender = maxPerSender
 		this.pool = new Map<UnprefixedAddress, TxPoolObject[]>()
 		this.txsInPool = 0
 		this.handled = new Map<UnprefixedHash, HandledObject>()
+		this.txsByHash = new Map<UnprefixedHash, TypedTransaction>()
+		this.txsByNonce = new Map<UnprefixedAddress, Map<bigint, TypedTransaction>>()
+		this.txsInNonceOrder = new Map<UnprefixedAddress, TypedTransaction[]>()
 
 		this.opened = false
 		this.running = true
@@ -145,6 +152,9 @@ export class TxPool {
 		newTxPool.pool = new Map(this.pool)
 		newTxPool.txsInPool = this.txsInPool
 		newTxPool.handled = new Map(this.handled)
+		newTxPool.txsByHash = new Map(this.txsByHash)
+		newTxPool.txsByNonce = new Map(this.txsByNonce)
+		newTxPool.txsInNonceOrder = new Map(this.txsInNonceOrder)
 		newTxPool.opened = this.opened
 		newTxPool.running = this.running
 		return newTxPool
@@ -222,8 +232,8 @@ export class TxPool {
 		const currentTip = currentGasPrice.tip
 		if (!isLocalTransaction) {
 			const txsInPool = this.txsInPool
-			if (txsInPool >= MAX_POOL_SIZE) {
-				throw new Error('Cannot add tx: pool is full')
+			if (txsInPool >= this.maxSize) {
+				throw new Error('Transaction pool is full')
 			}
 			// Local txs are not checked against MIN_GAS_PRICE
 			if (currentTip < MIN_GAS_PRICE) {
@@ -234,8 +244,8 @@ export class TxPool {
 		const sender: UnprefixedAddress = senderAddress.toString().slice(2).toLowerCase()
 		const inPool = this.pool.get(sender)
 		if (inPool) {
-			if (!isLocalTransaction && inPool.length >= MAX_TXS_PER_ACCOUNT) {
-				throw new Error(`Cannot add tx for ${senderAddress}: already have max amount of txs for this account`)
+			if (!isLocalTransaction && inPool.length >= this.maxPerSender) {
+				throw new Error(`Sender has too many transactions: already have ${inPool.length} txs for this account`)
 			}
 			// Replace pooled txs with the same nonce
 			const existingTxn = inPool.find((poolObj) => poolObj.tx.nonce === tx.nonce)
@@ -299,6 +309,25 @@ export class TxPool {
 		try {
 			let add: TxPoolObject[] = this.pool.get(address) ?? []
 			const inPool = this.pool.get(address)
+
+			// Update txsByHash
+			this.txsByHash.set(hash, tx)
+
+			// Update txsByNonce
+			let nonceMap = this.txsByNonce.get(address)
+			if (!nonceMap) {
+				nonceMap = new Map()
+				this.txsByNonce.set(address, nonceMap)
+			}
+			nonceMap.set(tx.nonce, tx)
+
+			// Update txsInNonceOrder
+			let txList = this.txsInNonceOrder.get(address) ?? []
+			txList = txList.filter((existingTx) => existingTx.nonce !== tx.nonce)
+			txList.push(tx)
+			txList.sort((a, b) => Number(a.nonce - b.nonce))
+			this.txsInNonceOrder.set(address, txList)
+
 			if (inPool) {
 				// Replace pooled txs with the same nonce
 				add = inPool.filter((poolObj) => poolObj.tx.nonce !== tx.nonce)
@@ -307,9 +336,14 @@ export class TxPool {
 			this.pool.set(address, add)
 			this.handled.set(hash, { address, added })
 			this.txsInPool++
+
+			// Fire txadded event
+			this.fireEvent('txadded', bytesToHex(tx.hash()))
+
+			return { error: null, hash: bytesToHex(tx.hash()) }
 		} catch (e) {
 			this.handled.set(hash, { address, added, error: e as Error })
-			throw e
+			return { error: (e as Error).message, hash: bytesToHex(tx.hash()) }
 		}
 	}
 
@@ -323,8 +357,15 @@ export class TxPool {
 	 * @param isLocalTransaction if this is a local transaction (loosens some constraints) (default: false)
 	 */
 	async add(tx: TypedTransaction | ImpersonatedTx, requireSignature = true, skipBalance = false) {
-		await this.validate(tx, true, requireSignature, skipBalance)
-		return this.addUnverified(tx)
+		try {
+			await this.validate(tx, true, requireSignature, skipBalance)
+			return this.addUnverified(tx)
+		} catch (error) {
+			return {
+				error: (error as Error).message,
+				hash: bytesToHex(tx.hash()),
+			}
+		}
 	}
 
 	/**
@@ -332,7 +373,9 @@ export class TxPool {
 	 * @param txHashes
 	 * @returns Array with tx objects
 	 */
-	getByHash(txHashes: ReadonlyArray<Uint8Array> | string): Array<TypedTransaction | ImpersonatedTx> | TypedTransaction | ImpersonatedTx | null {
+	getByHash(
+		txHashes: ReadonlyArray<Uint8Array> | string,
+	): Array<TypedTransaction | ImpersonatedTx> | TypedTransaction | ImpersonatedTx | null {
 		if (typeof txHashes === 'string') {
 			// Single hash case
 			const txHashStr = txHashes.startsWith('0x') ? txHashes.slice(2).toLowerCase() : txHashes.toLowerCase()
@@ -346,23 +389,22 @@ export class TxPool {
 				return inPool[0].tx
 			}
 			return null
-		} else {
-			// Array of hashes case
-			const found = []
-			for (const txHash of txHashes) {
-				const txHashStr = bytesToUnprefixedHex(txHash)
-				const handled = this.handled.get(txHashStr)
-				if (!handled) continue
-				const inPool = this.pool.get(handled.address)?.filter((poolObj) => poolObj.hash === txHashStr)
-				if (inPool && inPool.length === 1) {
-					if (!inPool[0]) {
-						throw new Error('Expected element to exist in pool')
-					}
-					found.push(inPool[0].tx)
-				}
-			}
-			return found
 		}
+		// Array of hashes case
+		const found = []
+		for (const txHash of txHashes) {
+			const txHashStr = bytesToUnprefixedHex(txHash)
+			const handled = this.handled.get(txHashStr)
+			if (!handled) continue
+			const inPool = this.pool.get(handled.address)?.filter((poolObj) => poolObj.hash === txHashStr)
+			if (inPool && inPool.length === 1) {
+				if (!inPool[0]) {
+					throw new Error('Expected element to exist in pool')
+				}
+				found.push(inPool[0].tx)
+			}
+		}
+		return found
 	}
 
 	/**
@@ -373,8 +415,39 @@ export class TxPool {
 		const handled = this.handled.get(txHash)
 		if (!handled) return
 		const { address } = handled
+
+		// Remove from txsByHash
+		this.txsByHash.delete(txHash)
+
+		// Get the transaction to find its nonce
 		const poolObjects = this.pool.get(address)
 		if (!poolObjects) return
+
+		// Find the tx to get its nonce
+		const txToRemove = poolObjects.find((poolObj) => poolObj.hash === txHash)
+		if (txToRemove) {
+			// Remove from txsByNonce
+			const nonceMap = this.txsByNonce.get(address)
+			if (nonceMap) {
+				nonceMap.delete(txToRemove.tx.nonce)
+				if (nonceMap.size === 0) {
+					this.txsByNonce.delete(address)
+				}
+			}
+
+			// Remove from txsInNonceOrder
+			const txList = this.txsInNonceOrder.get(address)
+			if (txList) {
+				const newTxList = txList.filter((tx) => tx.nonce !== txToRemove.tx.nonce)
+				if (newTxList.length === 0) {
+					this.txsInNonceOrder.delete(address)
+				} else {
+					this.txsInNonceOrder.set(address, newTxList)
+				}
+			}
+		}
+
+		// Update main pool
 		const newPoolObjects = poolObjects.filter((poolObj) => poolObj.hash !== txHash)
 		this.txsInPool--
 		if (newPoolObjects.length === 0) {
@@ -394,7 +467,11 @@ export class TxPool {
 		for (const block of newBlocks) {
 			for (const tx of block.transactions) {
 				const txHash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
+				const prefixedHash = bytesToHex(tx.hash())
 				this.removeByHash(txHash)
+
+				// Fire txremoved event
+				this.fireEvent('txremoved', prefixedHash)
 			}
 		}
 	}
@@ -487,6 +564,107 @@ export class TxPool {
 	async getBySenderAddress(address: EthjsAddress): Promise<Array<TxPoolObject>> {
 		const unprefixedAddress = address.toString().slice(2).toLowerCase()
 		return this.pool.get(unprefixedAddress) ?? []
+	}
+
+	/**
+	 * Get all pending transactions in the pool
+	 * @returns Array of transactions
+	 */
+	async getPendingTransactions(): Promise<Array<TypedTransaction | ImpersonatedTx>> {
+		const allTxs: Array<TypedTransaction | ImpersonatedTx> = []
+		for (const txs of this.pool.values()) {
+			allTxs.push(...txs.map((obj) => obj.tx))
+		}
+		return allTxs
+	}
+
+	/**
+	 * Get transaction status
+	 * @param txHash Transaction hash
+	 * @returns Transaction status: 'pending', 'mined', or 'unknown'
+	 */
+	async getTransactionStatus(txHash: string): Promise<'pending' | 'mined' | 'unknown'> {
+		const hash = txHash.startsWith('0x') ? txHash.slice(2).toLowerCase() : txHash.toLowerCase()
+
+		// Check if in pool (pending)
+		if (this.txsByHash.has(hash)) {
+			return 'pending'
+		}
+
+		// Check if in handled map but not in pool (could be mined)
+		const handled = this.handled.get(hash)
+		if (handled) {
+			return 'mined'
+		}
+
+		return 'unknown'
+	}
+
+	/**
+	 * Events system for transaction pool
+	 */
+	private events: { [key: string]: Array<(hash: string) => void> } = {
+		txadded: [],
+		txremoved: [],
+	}
+
+	/**
+	 * Register an event handler
+	 * @param event Event name ('txadded' or 'txremoved')
+	 * @param callback Handler function
+	 */
+	on(event: 'txadded' | 'txremoved', callback: (hash: string) => void) {
+		if (!this.events[event]) {
+			this.events[event] = []
+		}
+		this.events[event].push(callback)
+	}
+
+	/**
+	 * Fire an event
+	 * @param event Event name
+	 * @param hash Transaction hash
+	 */
+	private fireEvent(event: 'txadded' | 'txremoved', hash: string) {
+		if (this.events[event]) {
+			for (const callback of this.events[event]) {
+				callback(hash)
+			}
+		}
+	}
+
+	/**
+	 * Handle block being added to the chain
+	 * @param block The block that was added
+	 */
+	async onBlockAdded(block: Block) {
+		this.removeNewBlockTxs([block])
+	}
+
+	/**
+	 * Handle chain reorganization
+	 * @param removedBlocks Blocks that were removed from the canonical chain
+	 * @param addedBlocks Blocks that were added to the canonical chain
+	 */
+	async onChainReorganization(removedBlocks: Block[], addedBlocks: Block[]) {
+		// First process removed blocks - add their txs back to the pool
+		for (const block of removedBlocks) {
+			for (const tx of block.transactions) {
+				// Skip if tx is already in pool or in one of the added blocks
+				const txHash = bytesToHex(tx.hash())
+				const txHashUnprefixed = txHash.slice(2).toLowerCase()
+				if (this.txsByHash.has(txHashUnprefixed)) continue
+
+				// Add tx back to the pool
+				await this.addUnverified(tx)
+
+				// Fire event
+				this.fireEvent('txadded', txHash)
+			}
+		}
+
+		// Then process added blocks - remove their txs from the pool
+		this.removeNewBlockTxs(addedBlocks)
 	}
 
 	/**
@@ -612,17 +790,28 @@ export class TxPool {
 	close() {
 		this.pool.clear()
 		this.handled.clear()
+		this.txsByHash.clear()
+		this.txsByNonce.clear()
+		this.txsInNonceOrder.clear()
 		this.txsInPool = 0
 		this.opened = false
 	}
 
-	_logPoolStats() {
-		let broadcasts = 0
-		let broadcasterrors = 0
-		if (this.txsInPool > 0) {
-			broadcasts = broadcasts / this.txsInPool
-			broadcasterrors = broadcasterrors / this.txsInPool
-		}
+	/**
+	 * Clears the pool of all transactions.
+	 */
+	async clear() {
+		this.pool.clear()
+		this.txsByHash.clear()
+		this.txsByNonce.clear()
+		this.txsInNonceOrder.clear()
+		this.txsInPool = 0
+	}
+
+	logStats() {
+		console.log('TxPool Stats:')
+		console.log(`  Pending: ${this.txsInPool}`)
+		console.log(`  Handled: ${this.handled.size}`)
 
 		let handledadds = 0
 		let handlederrors = 0
@@ -633,5 +822,16 @@ export class TxPool {
 				handlederrors++
 			}
 		}
+
+		console.log(`  Successful: ${handledadds}`)
+		console.log(`  Errors: ${handlederrors}`)
+
+		const addresses = Array.from(this.pool.keys())
+		console.log(`  Unique accounts: ${addresses.length}`)
+	}
+
+	// For backward compatibility with tests
+	_logPoolStats() {
+		this.logStats()
 	}
 }

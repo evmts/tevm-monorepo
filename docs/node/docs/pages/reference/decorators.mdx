@@ -127,12 +127,12 @@ const client = createClient({
 })
 
 // Use Tevm-specific actions
-const result = await client.tevm.call({
+const result = await client.transport.tevm.call({
   to: '0x...',
   data: '0x...'
 })
 
-const state = await client.tevm.dumpState()
+const state = await client.transport.tevm.dumpState()
 ```
 
 ### Error Handling

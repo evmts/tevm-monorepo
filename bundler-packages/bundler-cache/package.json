@@ -45,10 +45,6 @@
 		"src"
 	],
 	"scripts": {
-		"test": "vitest --coverage",
-		"test:coverage": "vitest run --coverage",
-		"test:run": "vitest run",
-		"test:ui": "vitest --ui",
 		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base-bundler ",
 		"build:dist": "tsup",
@@ -60,7 +56,11 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack"
+		"lint:package": "bunx publint --strict && attw --pack",
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
 		"@tevm/compiler": "workspace:^",

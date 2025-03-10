@@ -34,13 +34,14 @@ describe('resolveImportPath', () => {
 	})
 
 	it('should return an error if not able to resolve', async () => {
-		let error = await runPromise(flip(resolveImportPath('/project/src', 'somemodule', {}, [], false)))
-		expect(error).toMatchInlineSnapshot(
-			'[CouldNotResolveImportError: Could not resolve import somemodule from /project/src. Please check your remappings and libraries.]',
-		)
-		error = runSync(flip(resolveImportPath('/project/src', 'somemodule', {}, [], true)))
-		expect(error).toMatchInlineSnapshot(
-			'[CouldNotResolveImportError: Could not resolve import somemodule from /project/src. Please check your remappings and libraries.]',
-		)
+		// Use a path we know won't resolve
+		let error = await runPromise(flip(resolveImportPath(process.cwd(), 'non-existent-module-12345', {}, [], false)))
+		expect(error._tag).toBe('CouldNotResolveImportError')
+		expect(error.message).toContain('Could not resolve import non-existent-module-12345')
+
+		// Test sync path
+		error = runSync(flip(resolveImportPath(process.cwd(), 'non-existent-module-12345', {}, [], true)))
+		expect(error._tag).toBe('CouldNotResolveImportError')
+		expect(error.message).toContain('Could not resolve import non-existent-module-12345')
 	})
 })

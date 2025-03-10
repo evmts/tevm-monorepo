@@ -171,4 +171,43 @@ describe('generateTevmBody', () => {
 			export const AnotherContract = createContract(_AnotherContract)"
 		`)
 	})
+
+	it('should include bytecode when requested for ts module', () => {
+		const result = runSync(generateTevmBody(artifacts, 'ts', true))
+		expect(result).toContain('"bytecode": "0x1234"')
+		expect(result).toContain('"deployedBytecode": "0x5678"')
+		expect(result).toContain('"bytecode": "0x4321"')
+		expect(result).toContain('"deployedBytecode": "0x8765"')
+		expect(result).toContain('as const')
+	})
+
+	it('should include bytecode when requested for cjs module', () => {
+		const result = runSync(generateTevmBody(artifacts, 'cjs', true))
+		expect(result).toContain('"bytecode": "0x1234"')
+		expect(result).toContain('"deployedBytecode": "0x5678"')
+		expect(result).toContain('"bytecode": "0x4321"')
+		expect(result).toContain('"deployedBytecode": "0x8765"')
+		expect(result).toContain('module.exports')
+	})
+
+	it('should handle artifacts with missing bytecode properties gracefully', () => {
+		const incompleteArtifacts = {
+			IncompleteContract: {
+				abi: [],
+				evm: {} as any, // Add empty evm object to satisfy the type
+				userdoc: {
+					kind: 'user',
+					version: 1,
+					notice: 'IncompleteContract',
+				},
+			},
+		} as any // Cast to any to bypass TypeScript checks
+
+		const result = runSync(generateTevmBody(incompleteArtifacts, 'mjs', true))
+		expect(result).toContain('"name": "IncompleteContract"')
+		expect(result).toContain('"humanReadableAbi": []')
+		// Should not have bytecode properties when they don't exist in artifacts
+		expect(result).not.toContain('"bytecode":')
+		expect(result).not.toContain('"deployedBytecode":')
+	})
 })

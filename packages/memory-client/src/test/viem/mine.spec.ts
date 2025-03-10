@@ -29,7 +29,7 @@ describe('mine', () => {
 			throw new Error('txHash not found')
 		}
 		await mc.mine({ blocks: 1 })
-		const vm = await mc.tevm.getVm()
+		const vm = await mc.transport.tevm.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
 		expect(block.header.number).toEqual(1n)
 		expect(await mc.getBlockNumber()).toEqual(1n)

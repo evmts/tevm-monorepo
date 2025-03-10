@@ -2657,7 +2657,7 @@ const client = createMemoryClient()
 
 await client.tevmReady()
 ```
-Same as calling `client.tevm.ready()`
+Same as calling `client.transport.tevm.ready()`
 
 #### tevmSetAccount
 

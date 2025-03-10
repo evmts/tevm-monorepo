@@ -22,17 +22,22 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 	 */
 	const errors = []
 	if (shouldCreateTransaction(params, executedCall.runTxResult)) {
-		const txRes = await createTransaction(client)({
-			throwOnFail: false,
-			evmOutput: executedCall.runTxResult,
-			evmInput,
-			maxPriorityFeePerGas: params.maxPriorityFeePerGas,
-			maxFeePerGas: params.maxFeePerGas,
-		})
-		txHash = 'txHash' in txRes ? txRes.txHash : undefined
-		const miningRes = (await handleAutomining(client, txHash)) ?? {}
-		const { errors: txCreationErrors } = /** @type {{errors: Array<any>}}*/ (txRes)
-		errors.push(...(miningRes.errors ?? []), ...(txCreationErrors ?? []))
+		try {
+			const txRes = await createTransaction(client)({
+				throwOnFail: false,
+				evmOutput: executedCall.runTxResult,
+				evmInput,
+				maxPriorityFeePerGas: params.maxPriorityFeePerGas,
+				maxFeePerGas: params.maxFeePerGas,
+			})
+			txHash = 'txHash' in txRes ? txRes.txHash : undefined
+			const miningRes = (await handleAutomining(client, txHash)) ?? {}
+			const { errors: txCreationErrors } = /** @type {{errors: Array<any>}}*/ (txRes)
+			errors.push(...(miningRes.errors ?? []), ...(txCreationErrors ?? []))
+		} catch (e) {
+			// Handle the error thrown directly by createTransaction or handleAutomining
+			errors.push(/** @type {import('./TevmCallError.js').TevmCallError} */ (e))
+		}
 	}
 	if (errors.length > 0) {
 		return {

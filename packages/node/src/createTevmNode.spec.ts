@@ -4,8 +4,8 @@ import { definePredeploy } from '@tevm/predeploys'
 import { CacheType, ContractCache, StorageCache } from '@tevm/state'
 import { createSyncStoragePersister } from '@tevm/sync-storage-persister'
 import { SimpleContract, transports } from '@tevm/test-utils'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBigInt } from '@tevm/utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { EthjsAccount, EthjsAddress, bytesToHex } from '@tevm/utils'
+import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 
 describe('createTevmNode with State Persister', () => {

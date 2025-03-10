@@ -1,6 +1,9 @@
 import { async as effectAsync, fail, runPromise, succeed } from 'effect/Effect'
-import resolve from 'resolve'
+import resolveModule from 'resolve'
 import { ExistsError, ReadFileError } from './safeFao.js'
+
+// Use the default export for CommonJS compatibility
+const resolve = resolveModule
 
 /**
  * Error thrown when resolve fails

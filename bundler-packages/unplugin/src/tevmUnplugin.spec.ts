@@ -235,14 +235,14 @@ describe('unpluginFn', () => {
 
 		await plugin.buildStart?.call(mockPlugin)
 		const result = await plugin.load?.call(mockPlugin, 'test.s.sol')
-		
+
 		expect(result).toBe('bytecodeResolved')
 		// Check that the resolveEsmModule was called with the correct parameters
 		expect(moduleResolverMock.resolveEsmModule).toHaveBeenCalledWith(
 			'test.s.sol',
 			mockCwd,
 			false,
-			true // Verify bytecode resolution is enabled
+			true, // Verify bytecode resolution is enabled
 		)
 	})
 
@@ -256,10 +256,10 @@ describe('unpluginFn', () => {
 		// Mock the solc return value
 		const mockSolc = { version: () => '0.8.20+commit.abc123' }
 		mockCreateSolc.mockResolvedValue(mockSolc)
-		
+
 		const plugin = tevmUnplugin({ solc: '0.8.20' }, {} as any)
 		await plugin.buildStart?.call(mockPlugin)
-		
+
 		// Verify createSolc was called with the correct version
 		expect(mockCreateSolc).toHaveBeenCalledWith('0.8.20')
 	})

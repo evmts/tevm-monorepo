@@ -3,7 +3,7 @@ import { requestEip1193 } from './requestEip1193.js'
 
 // Mock the external modules that are imported in requestEip1193.js
 vi.mock('@tevm/actions', () => ({
-	requestProcedure: vi.fn().mockImplementation(() => (request) => {
+	requestProcedure: vi.fn().mockImplementation(() => (request: any) => {
 		// If mocking for error test
 		if (request.method === 'error_method') {
 			return Promise.resolve({ error: { code: -32000, message: 'Error message' } })
@@ -22,7 +22,7 @@ describe('requestEip1193', () => {
 		const mockClient = {
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 		const extended = requestEip1193()(mockClient)
 		expect(extended).toHaveProperty('request')
 		expect(typeof extended.request).toBe('function')
@@ -32,12 +32,12 @@ describe('requestEip1193', () => {
 		const mockClient = {
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		const extended = requestEip1193()(mockClient)
 
 		const result = await extended.request({
-			method: 'test_method',
+			method: 'test_method' as any,
 			params: ['param1', 'param2'],
 		})
 
@@ -49,12 +49,12 @@ describe('requestEip1193', () => {
 		const mockClient = {
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		const extended = requestEip1193()(mockClient)
 
 		const result = await extended.request({
-			method: 'test_method',
+			method: 'test_method' as any,
 		})
 
 		expect(result).toBe('success')
@@ -64,13 +64,13 @@ describe('requestEip1193', () => {
 		const mockClient = {
 			ready: async () => {},
 			logger: { debug: () => {} },
-		}
+		} as any
 
 		const extended = requestEip1193()(mockClient)
 
 		await expect(
 			extended.request({
-				method: 'error_method',
+				method: 'error_method' as any,
 			}),
 		).rejects.toEqual({ code: -32000, message: 'Error message' })
 	})

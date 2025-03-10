@@ -86,9 +86,9 @@ import { TevmMethodErrors } from '@tevm/errors'
 export const methodHandler = async (params, client) => {
   try {
     // Implement your method logic here
-    // Access VM, blockchain, state, etc. via client.tevm
+    // Access VM, blockchain, state, etc. via client.transport.tevm
     const result = // Your implementation
-    
+
     return result
   } catch (error) {
     if (error instanceof TevmMethodErrors.MethodError) {
@@ -146,7 +146,7 @@ export const MethodParamsSchema = z.object({
 
 /**
  * Validates method_name parameters
- * 
+ *
  * @param {unknown} params - Parameters to validate
  * @returns {import('./MethodHandlerType.js').MethodHandlerParams} Validated parameters
  * @throws {import('@tevm/errors').TevmValidationError} If validation fails
@@ -195,7 +195,7 @@ import { methodHandler } from '@tevm/actions'
 
 /**
  * Executes the method_name JSON-RPC method
- * 
+ *
  * @param {import('@tevm/actions').MethodHandlerParams} params - Method parameters
  * @returns {Promise<import('@tevm/actions').MethodHandlerResult>} Method result
  * @throws {import('@tevm/errors').TevmMethodError} If operation fails
@@ -225,24 +225,24 @@ describe('methodHandler', () => {
   beforeEach(() => {
     client = createMemoryClient()
   })
-  
+
   it('should successfully execute with valid parameters', async () => {
     const params = {
       // Your test parameters
     }
-    
+
     const result = await methodHandler(params, client)
-    
+
     expect(result).toEqual({
       // Expected result
     })
   })
-  
+
   it('should throw an error with invalid parameters', async () => {
     const params = {
       // Invalid parameters
     }
-    
+
     await expect(methodHandler(params, client)).rejects.toThrow()
   })
 })
@@ -263,7 +263,7 @@ For each implementation step, I'll provide:
 For a method like `tevm_call` that executes a contract call in the VM:
 
 - Handler validates the call parameters
-- Accesses the VM through client.tevm
+- Accesses the VM through client.transport.tevm
 - Executes the call with the VM
 - Returns formatted results
 

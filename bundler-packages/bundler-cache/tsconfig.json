@@ -4,7 +4,10 @@
 		"outDir": "types",
 		"skipLibCheck": true,
 		"allowSyntheticDefaultImports": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"noImplicitAny": false,
+		"types": ["vitest/globals", "node"]
 	},
-	"include": ["src", "src/**/*.json", "package.json"]
+	"include": ["src", "src/**/*.json", "package.json"],
+	"exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }

@@ -7,7 +7,7 @@ describe('GENESIS_STATE', () => {
 		// Check that the GENESIS_STATE contains all the expected prefunded accounts
 		for (const account of prefundedAccounts) {
 			expect(GENESIS_STATE[account]).toBeDefined()
-			expect(GENESIS_STATE[account].balance).toBeGreaterThan(0n)
+			expect((GENESIS_STATE[account] as any).balance).toBeGreaterThan(0n)
 		}
 
 		// Add a property to 0x0 to test the optional chaining on line 48/49
