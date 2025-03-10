@@ -171,7 +171,8 @@ describe('contractHandler', () => {
 	it('should handle error during transaction creation', async () => {
 		const client = createTevmNode()
 		const txPool = await client.getTxPool()
-		txPool.addUnverified = () => {
+		// Mock the add method to throw an error
+		txPool.add = () => {
 			throw new Error('Error adding transaction to pool')
 		}
 		const to = `0x${'33'.repeat(20)}` as const

@@ -2,11 +2,13 @@ import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { encodeFunctionData } from 'viem'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+import * as CreateTransactionModule from '../CreateTransaction/createTransaction.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { CallParams } from './CallParams.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { executeCall } from './executeCall.js'
+import * as HandleAutominingModule from './handleAutomining.js'
 import { handleTransactionCreation } from './handleTransactionCreation.js'
 
 const contract = TestERC20.withAddress(createAddress(420420420420420).toString())
@@ -104,5 +106,90 @@ describe(handleTransactionCreation.name, async () => {
 		expect(errors).toBeDefined()
 		expect(hash).toBeUndefined()
 		expect(errors).toMatchSnapshot()
+	})
+
+	it('should handle errors from handleAutomining', async () => {
+		const client = createTevmNode()
+
+		// Mock createTransaction to return a txHash
+		const createTransactionSpy = vi.spyOn(CreateTransactionModule, 'createTransaction')
+		createTransactionSpy.mockImplementation(() => {
+			return async () => {
+				return {
+					txHash: '0x123456',
+				}
+			}
+		})
+
+		// Mock handleAutomining to return errors
+		const handleAutominingSpy = vi.spyOn(HandleAutominingModule, 'handleAutomining')
+		handleAutominingSpy.mockResolvedValue({
+			errors: [
+				{
+					name: 'MiningError',
+					message: 'Mining failed',
+				} as any,
+			],
+		})
+
+		const result = (await handleTransactionCreation(
+			client,
+			{ createTransaction: true },
+			{
+				runTxResult: {
+					execResult: {
+						executionGasUsed: 0n,
+						returnValue: Buffer.from(''),
+					},
+				} as any,
+				trace: undefined,
+			} as any,
+			{
+				origin: createAddress('0x0000000000000000000000000000000000000001'),
+				skipBalance: true,
+			},
+		)) as any
+
+		expect(result.errors).toBeDefined()
+		expect(result.errors.length).toBeGreaterThan(0)
+
+		createTransactionSpy.mockRestore()
+		handleAutominingSpy.mockRestore()
+	})
+
+	it('should handle thrown errors', async () => {
+		const client = createTevmNode()
+
+		// Mock createTransaction to throw an error
+		const createTransactionSpy = vi.spyOn(CreateTransactionModule, 'createTransaction')
+		createTransactionSpy.mockImplementation(() => {
+			return async () => {
+				throw new Error('Unexpected error')
+			}
+		})
+
+		const result = (await handleTransactionCreation(
+			client,
+			{ createTransaction: true },
+			{
+				runTxResult: {
+					execResult: {
+						executionGasUsed: 0n,
+						returnValue: Buffer.from(''),
+					},
+				} as any,
+				trace: undefined,
+			} as any,
+			{
+				origin: createAddress('0x0000000000000000000000000000000000000001'),
+				skipBalance: true,
+			},
+		)) as any
+
+		expect(result.errors).toBeDefined()
+		expect(result.errors.length).toBeGreaterThan(0)
+		expect(result.errors[0].message).toBe('Unexpected error')
+
+		createTransactionSpy.mockRestore()
 	})
 })

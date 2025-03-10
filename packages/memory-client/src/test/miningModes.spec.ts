@@ -18,7 +18,7 @@ describe('Mining modes', () => {
 			balance,
 		})
 		const transferAmount = 0x420n
-		const res = await tevm.tevm.request({
+		const res = await tevm.transport.tevm.request({
 			jsonrpc: '2.0',
 			method: 'tevm_call',
 			params: [
@@ -36,7 +36,7 @@ describe('Mining modes', () => {
 		expect(res.rawData).toEqual('0x')
 
 		// should be no tx in mempool
-		const txPool = await tevm.tevm.getTxPool()
+		const txPool = await tevm.transport.tevm.getTxPool()
 		expect((await txPool.getBySenderAddress(new EthjsAddress(hexToBytes(address1)))).length).toBe(0)
 
 		// should have mined the tx
@@ -44,10 +44,12 @@ describe('Mining modes', () => {
 
 		// should have updated states
 		expect(
-			(await (await tevm.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))?.balance,
+			(await (await tevm.transport.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address2))))
+				?.balance,
 		).toBe(transferAmount)
 		expect(
-			(await (await tevm.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))?.balance,
+			(await (await tevm.transport.tevm.getVm()).stateManager.getAccount(new EthjsAddress(hexToBytes(address1))))
+				?.balance,
 		).toBe(286183069n)
 	})
 })

@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`validateHeader > should throw an error for invalid block number 1`] = `[TypeError: header.isGenesis is not a function]`;
-
-exports[`validateHeader > should throw an error for invalid timestamp 1`] = `[TypeError: header.isGenesis is not a function]`;
-
-exports[`validateHeader > should throw an error for invalid timestamp diff (clique) 1`] = `"header.isGenesis is not a function"`;
-
-exports[`validateHeader > should throw an error for unsupported consensus type 1`] = `"header.isGenesis is not a function"`;

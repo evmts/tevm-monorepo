@@ -36,17 +36,17 @@ describe(gasPriceHandler.name, () => {
 			} as any)({}),
 		).toBeGreaterThan(parseGwei('.1'))
 
-		// should be able tof etch again and have it cached
-		expect(
-			await gasPriceHandler({
-				forkTransport: transports.mainnet,
-				getVm: () => ({ blockchain }) as any,
-			} as any)({}),
-		).toBe(
-			await gasPriceHandler({
-				forkTransport: transports.mainnet,
-				getVm: () => ({ blockchain }) as any,
-			} as any)({}),
-		)
+		// should be able to fetch again and have it cached
+		const firstResult = await gasPriceHandler({
+			forkTransport: transports.mainnet,
+			getVm: () => ({ blockchain }) as any,
+		} as any)({})
+
+		const secondResult = await gasPriceHandler({
+			forkTransport: transports.mainnet,
+			getVm: () => ({ blockchain }) as any,
+		} as any)({})
+
+		expect(firstResult).toBe(secondResult)
 	})
 })

@@ -177,7 +177,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 			batchStallTime: 0,
 			cacheTimeout: -1,
 		})
-		this.tevm = 'tevm' in client ? client.transport.tevm : client
+		this.tevm = 'tevm' in client ? client.tevm : client
 	}
 
 	/**

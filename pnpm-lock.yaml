@@ -971,9 +971,6 @@ importers:
         specifier: ^2.21.1
         version: 2.23.5(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@6.0.5)(zod@3.24.2)
     devDependencies:
-      '@ethereumjs/util':
-        specifier: ^9.1.0
-        version: 9.1.0
       '@tevm/actions':
         specifier: workspace:^
         version: link:../../packages/actions
