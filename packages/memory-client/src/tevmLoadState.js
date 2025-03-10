@@ -18,7 +18,7 @@ import { loadStateHandler } from '@tevm/actions'
  * This is particularly useful for testing, where you can prepare a specific state once
  * and then reuse it across multiple test runs for consistency and performance.
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {import('@tevm/actions').LoadStateParams} params - The state object previously obtained from tevmDumpState.
  * @returns {Promise<import('@tevm/actions').LoadStateResult>} The result of loading the state.
  *

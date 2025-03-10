@@ -4,15 +4,16 @@ import { SimpleContract } from '@tevm/contract'
 import { requestEip1193 } from '@tevm/decorators'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { type Address, type Client, createClient } from 'viem'
+import { type Address, createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmContract } from './tevmContract.js'
 import { tevmDeploy } from './tevmDeploy.js'
 import { tevmMine } from './tevmMine.js'
+import { tevmViemActions } from './tevmViemActions.js'
 
-let client: Client<TevmTransport>
+// Use any to work around the type mismatch in tests
+let client: any
 
 beforeEach(async () => {
 	const node = createTevmNode({
@@ -22,7 +23,7 @@ beforeEach(async () => {
 	client = createClient({
 		transport: createTevmTransport(node),
 		chain: optimism,
-	})
+	}).extend(tevmViemActions())
 })
 
 describe('tevmDeploy', () => {

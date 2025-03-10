@@ -18,7 +18,7 @@ import { setAccountHandler } from '@tevm/actions'
  * - Directly inserting contract bytecode without going through deployment
  * - Creating test accounts with specific balances
  *
- * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {import('@tevm/actions').SetAccountParams} params - Parameters for setting the account.
  * @returns {Promise<import('@tevm/actions').SetAccountResult>} The result of setting the account.
  *

@@ -61,7 +61,7 @@ export const createTevmTransport = (tevmNode) => {
   
   // Create and return the transport function
   /**
-   * @type {import('./MemoryClient.js').TevmTransport}
+   * @type {import('./TevmTransport.js').TevmTransport}
    */
   return ({ timeout = 20_000, retryCount = 3, chain }) => {
     const transport = custom(nodeWithRequest)({

@@ -18,7 +18,7 @@
  * - To handle initialization errors separately from operation errors
  * - When using a fork configuration to ensure the fork is ready before operations
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @returns {Promise<true>} Resolves to true when ready, rejects if initialization fails.
  * @throws {Error} If the VM fails to initialize for any reason.
  *

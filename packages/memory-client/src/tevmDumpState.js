@@ -18,7 +18,7 @@ import { dumpStateHandler } from '@tevm/actions'
  * - Testing scenarios that require a specific blockchain state
  * - Creating reproducible test environments
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import('viem').Client<import('./MemoryClient.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @returns {Promise<import('@tevm/actions').DumpStateResult>} A serializable object representing the entire TEVM state.
  *
  * @example
