@@ -1,4 +1,5 @@
 import { createAddress } from '@tevm/address'
+import { InvalidParamsError } from '@tevm/errors'
 import { SimpleContract } from '@tevm/test-utils'
 import { EthjsAccount } from '@tevm/utils'
 import { type Hex, hexToBigInt, hexToBytes, numberToBytes } from 'viem'
@@ -123,5 +124,22 @@ describe(dumpStorageRange.name, () => {
 			  },
 			}
 		`)
+	})
+
+	it('should throw error when no storage exists for address', () => {
+		const state = createBaseState({})
+		const nonExistentAddress = createAddress('0x1234567890123456789012345678901234567890')
+
+		// Address doesn't have any storage entries, should throw
+		expect(() => {
+			dumpStorageRange(state)(nonExistentAddress, 0n, 10)
+		}).toThrow(InvalidParamsError)
+
+		// Verify error message contains the address
+		try {
+			dumpStorageRange(state)(nonExistentAddress, 0n, 10)
+		} catch (e) {
+			expect(e.message).toContain('No storage found at address 0x1234567890123456789012345678901234567890')
+		}
 	})
 })

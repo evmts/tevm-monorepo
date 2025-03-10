@@ -47,6 +47,22 @@ describe('addPredeploy', () => {
 		})
 
 		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))
-		expect(account).toEqual
+		expect(account.nonce).toEqual(nonce)
+		expect(account.balance).toEqual(balance)
+	})
+
+	it('should add a predeploy with only address to cover lines 25-26', async () => {
+		const address = `0x${'34'.repeat(20)}` as const
+
+		await addPredeploy({
+			vm: await client.getVm(),
+			address,
+		})
+
+		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(address))
+		expect(account).toBeDefined()
+		// These should be the default values
+		expect(account.nonce).toEqual(0n)
+		expect(account.balance).toEqual(0n)
 	})
 })

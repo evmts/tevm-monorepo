@@ -71,4 +71,37 @@ describe(statePersister.name, () => {
 			expect(mockError.mock.calls).toMatchSnapshot()
 		})
 	})
+
+	it('handles non-Error type errors to cover line 32', async () => {
+		const logger = createLogger({ name: 'test', level: 'warn' })
+		const mockError = vi.fn()
+		logger.error = mockError
+
+		// Create a more complete mock that will still trigger the error handling
+		const fakeState = {
+			dumpCanonicalGenesis: () => Promise.reject('string error'),
+		}
+
+		const persisterFn = statePersister(
+			createSyncStoragePersister({
+				key: 'testkey',
+				storage: {
+					getItem: () => '',
+					setItem: () => {},
+					removeItem: () => undefined,
+				},
+			}),
+			logger,
+		)
+
+		// Call with our fake state
+		persisterFn(fakeState)
+
+		// Wait for the promise rejection to be caught
+		await new Promise((resolve) => setTimeout(resolve, 100))
+
+		// Just check that the error function was called with the first parameter
+		// This is more reliable than checking the exact error
+		expect(mockError).toHaveBeenCalledWith('Failed to persist state:', expect.anything())
+	})
 })

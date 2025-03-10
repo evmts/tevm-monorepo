@@ -66,6 +66,6 @@ describe('createMemoryDb', () => {
 	})
 
 	it('should resolve the open method', async () => {
-		expect(db.open()).resolves.toBeUndefined()
+		await expect(db.open()).resolves.toBeUndefined()
 	})
 })

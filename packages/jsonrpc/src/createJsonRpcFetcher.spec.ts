@@ -108,4 +108,83 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
 	})
+
+	it('should use default error message when error has code but no message', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			params: ['latest', false],
+			id: 1,
+		}
+		const mockError = {
+			code: -32601,
+			// no message property
+		}
+
+		mockClient.request.mockRejectedValueOnce(mockError)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			error: {
+				code: mockError.code,
+				message: 'Unknown error in jsonrpc request',
+			},
+			method: 'eth_getBlockByNumber',
+			params: ['latest', false],
+			id: 1,
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+
+	it('should handle errors correctly with minimal request parameters', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			// no params or id
+		}
+		const mockError = {
+			code: -32000,
+			message: 'Some error',
+		}
+
+		mockClient.request.mockRejectedValueOnce(mockError)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			error: {
+				code: mockError.code,
+				message: mockError.message,
+			},
+			method: 'eth_getBlockByNumber',
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+
+	it('should handle unknown errors correctly with minimal request parameters', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			// no params or id
+		}
+		// An error that doesn't have the code property
+		const mockError = new Error('Some unexpected error')
+
+		mockClient.request.mockRejectedValueOnce(mockError)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			error: {
+				code: -32000,
+				message: 'Unknown error in jsonrpc request',
+			},
+			method: 'eth_getBlockByNumber',
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
 })
