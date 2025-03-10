@@ -2,7 +2,7 @@ import { tevmDefault } from '@tevm/common'
 import { requestEip1193 } from '@tevm/decorators'
 import { createTevmNode } from '@tevm/node'
 import { createClient, publicActions, testActions, walletActions } from 'viem'
-import from "./MemoryClient.js"'
+import { createTevmTransport } from './createTevmTransport.js'
 import { tevmViemActions } from './tevmViemActions.js'
 
 /**
