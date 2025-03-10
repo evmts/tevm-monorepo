@@ -1,4 +1,6 @@
 import { tevmDefault } from '@tevm/common'
+import { requestEip1193 } from '@tevm/decorators'
+import { createTevmNode } from '@tevm/node'
 import { createClient, publicActions, testActions, walletActions } from 'viem'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmViemActions } from './tevmViemActions.js'
@@ -7,19 +9,35 @@ import { tevmViemActions } from './tevmViemActions.js'
  * Creates a {@link MemoryClient} which is a viem client with an in-memory Ethereum client as its transport.
  * It comes batteries included with all wallet, test, public, and tevm actions.
  *
+ * This function creates a fully-featured Ethereum client that runs entirely in memory, allowing you to perform
+ * blockchain operations without connecting to a live network. It supports forking from existing networks,
+ * different mining modes, and state persistence.
+ *
  * @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn}
+ * @param {import('./MemoryClientOptions.js').MemoryClientOptions} [options] - Configuration options for the memory client
+ * @returns {import('./MemoryClient.js').MemoryClient} A fully initialized MemoryClient instance
+ * @throws {Error} When initialization of required components fails
  *
  * @example
  * ```typescript
- * import { createMemoryClient } from "tevm";
+ * import { createMemoryClient, http } from "tevm";
  *
- * const client = createMemoryClient({
+ * // Create a basic memory client
+ * const client = createMemoryClient();
+ * 
+ * // Create a client that forks from Optimism mainnet
+ * const forkedClient = createMemoryClient({
  *   fork: {
  *     transport: http("https://mainnet.optimism.io")({}),
+ *     blockTag: 'latest'
  *   },
  * });
  *
- * const blockNumber = await client.getBlockNumber();
+ * // Wait for the client to be ready before using it
+ * await forkedClient.tevmReady();
+ * 
+ * // Get the current block number
+ * const blockNumber = await forkedClient.getBlockNumber();
  * console.log(blockNumber);
  * ```
  *
@@ -198,12 +216,19 @@ export const createMemoryClient = (options) => {
 		// but if not forking we know common will be default
 		return tevmDefault
 	})()
+  
+	// Create a TevmNode
+	const node = createTevmNode({
+		...options,
+		...(common !== undefined ? { common } : {}),
+	}).extend(requestEip1193())
+  
+	// Use createTevmTransport with the node
+	const transport = createTevmTransport(node)
+  
 	const memoryClient = createClient({
 		...options,
-		transport: createTevmTransport({
-			...options,
-			...(common !== undefined ? { common } : {}),
-		}),
+		transport: transport,
 		type: 'tevm',
 		...(common !== undefined ? { chain: common } : {}),
 	})
@@ -211,5 +236,6 @@ export const createMemoryClient = (options) => {
 		.extend(publicActions)
 		.extend(walletActions)
 		.extend(testActions({ mode: 'anvil' }))
+  
 	return /** @type {any} */ (memoryClient)
 }

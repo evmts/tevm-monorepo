@@ -1,8 +1,10 @@
 import { optimism } from '@tevm/common'
+import { requestEip1193 } from '@tevm/decorators'
+import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { type Client, createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { TevmTransport } from './TevmTransport.js'
+import type { TevmTransport } from './MemoryClient.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmCall } from './tevmCall.js'
 import { tevmMine } from './tevmMine.js'
@@ -10,10 +12,12 @@ import { tevmMine } from './tevmMine.js'
 let client: Client<TevmTransport>
 
 beforeEach(async () => {
+	const node = createTevmNode({
+		fork: { transport: transports.optimism },
+	}).extend(requestEip1193())
+	
 	client = createClient({
-		transport: createTevmTransport({
-			fork: { transport: transports.optimism },
-		}),
+		transport: createTevmTransport(node),
 		chain: optimism,
 	})
 	await tevmMine(client, { blockCount: 1 })
