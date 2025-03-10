@@ -9,7 +9,7 @@ import { getAccountHandler } from '@tevm/actions'
  * In fork mode, if the storage hasn't been cached yet, it will not be returned. This defaults to `false`.
  * Be aware that returning storage can be very expensive if a contract has a lot of storage.
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import from "./MemoryClient.js"').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {import('@tevm/actions').GetAccountParams} params - Parameters for retrieving the account information.
  * @returns {Promise<import('@tevm/actions').GetAccountResult>} The account information.
  *

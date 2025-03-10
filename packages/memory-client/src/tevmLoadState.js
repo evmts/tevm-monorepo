@@ -6,7 +6,7 @@ import { loadStateHandler } from '@tevm/actions'
  *
  * This action is useful for restoring the state that was previously dumped using the `tevmDumpState` action.
  *
- * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
+ * @param {import from "./MemoryClient.js"').TevmTransport<string>>} client - The viem client configured with TEVM transport.
  * @param {import('@tevm/actions').LoadStateParams} params - The state to load into TEVM.
  * @returns {Promise<import('@tevm/actions').LoadStateResult>} The result of loading the state.
  *
