@@ -6,7 +6,8 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Steps, Button, Card, Tabs, Tab, FileTree } from 'vocs/components'
+import { Callout, Steps, Button } from 'vocs/components'
+import { TabGroup, FileTree, Card } from '../../../components'
 
 # Tevm Architecture Overview
 
@@ -42,7 +43,7 @@ graph TD
 
 At its core, Tevm follows a clear separation between **Objects** (stateful components) and **Actions** (pure functions that operate on those objects). This pattern, inspired by [viem](https://viem.sh/), enables tree-shaking and a composable API.
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem', margin: '1.5rem 0' }}>
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-6">
   <Card title="Objects">
     <p>Stateful components that encapsulate and maintain data.</p>
     <ul className="custom-list">
@@ -106,8 +107,8 @@ This pattern allows you to:
 
 Tevm offers two main approaches for using its functionality:
 
-<Tabs>
-  <Tab label="MemoryClient: All-in-One">
+<TabGroup items={['MemoryClient: All-in-One', 'Tree-Shakable: Optimized']}>
+  <div data-title="MemoryClient: All-in-One">
     ```ts showLineNumbers {1,4-8,11-13,16-19} filename="memory-client.ts"
     import { createMemoryClient, http } from 'tevm'
     
@@ -132,9 +133,9 @@ Tevm offers two main approaches for using its functionality:
     <Callout type="info" title="Convenience Choice">
       The MemoryClient approach is great for quick prototyping and applications where bundle size isn't critical.
     </Callout>
-  </Tab>
+  </div>
   
-  <Tab label="Tree-Shakable: Optimized">
+  <div data-title="Tree-Shakable: Optimized">
     ```ts showLineNumbers {1-4,7-12,15-16,19-22} filename="tree-shakable.ts"
     import { createClient, http } from 'viem'
     import { createTevmTransport } from 'tevm/transport'
@@ -164,11 +165,11 @@ Tevm offers two main approaches for using its functionality:
     <Callout type="tip" title="Production Optimization">
       This approach is ideal for production applications and browser environments where bundle size matters.
     </Callout>
-  </Tab>
-</Tabs>
+  </div>
+</TabGroup>
 
-<div style={{ display: 'flex', gap: '1rem', margin: '1.5rem 0', flexWrap: 'wrap' }}>
-  <Card title="MemoryClient" style={{ flex: '1', minWidth: '250px' }}>
+<div className="flex flex-wrap gap-4 my-6">
+  <Card title="MemoryClient" className="flex-1 min-w-[250px]">
     <ul className="custom-list">
       <li>✅ Easy to get started</li>
       <li>✅ All methods available immediately</li>
@@ -177,7 +178,7 @@ Tevm offers two main approaches for using its functionality:
     </ul>
   </Card>
   
-  <Card title="Tree-Shakable Actions" style={{ flex: '1', minWidth: '250px' }}>
+  <Card title="Tree-Shakable Actions" className="flex-1 min-w-[250px]">
     <ul className="custom-list">
       <li>✅ Smallest possible bundle size</li>
       <li>✅ Only include what you use</li>
@@ -263,8 +264,7 @@ const pendingNonces = txPool.getPendingNonce(address)
 
 Tevm enables several powerful use cases that were previously difficult or impossible with traditional Ethereum clients:
 
-:::code-group
-```ts [Advanced Debugging]
+```ts title="Advanced Debugging"
 import { createTevmNode } from 'tevm'
 import { runCall } from 'tevm/vm'
 
@@ -285,7 +285,7 @@ await runCall(vm)({
 })
 ```
 
-```ts [Cross-Environment]
+```ts title="Cross-Environment"
 // Works in Node.js
 const nodejsClient = createMemoryClient()
 
@@ -302,7 +302,7 @@ export default async function handler(req, res) {
 }
 ```
 
-```ts [Custom Tools]
+```ts title="Custom Tools"
 import { createMemoryClient } from 'tevm'
 
 export async function simulateTransaction(tx) {
@@ -328,11 +328,10 @@ export async function simulateTransaction(tx) {
   }
 }
 ```
-:::
 
 ### Custom Tool Opportunities
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-6">
   <Card title="Transaction Simulators">
     <p>Preview transaction outcomes before sending to mainnet</p>
   </Card>
@@ -434,8 +433,8 @@ For detailed examples of these use cases, see the [examples section](../examples
   </FileTree.Folder>
 </FileTree>
 
-<Tabs>
-  <Tab label="Client API">
+<TabGroup items={['Client API', 'JSON-RPC API', 'Low-Level API']}>
+  <div data-title="Client API">
     ```ts showLineNumbers {1,3,6-7,10-13} filename="client-api.ts"
     import { createMemoryClient } from 'tevm'
     
@@ -455,9 +454,9 @@ For detailed examples of these use cases, see the [examples section](../examples
     <Callout type="info">
       This is the most developer-friendly API, perfect for most application development.
     </Callout>
-  </Tab>
+  </div>
 
-  <Tab label="JSON-RPC API">
+  <div data-title="JSON-RPC API">
     ```ts showLineNumbers {1-2,4,7-10,13-16,19-22} filename="json-rpc-api.ts"
     import { createTevmNode } from 'tevm'
     import { requestEip1193 } from 'tevm/decorators'
@@ -482,9 +481,9 @@ For detailed examples of these use cases, see the [examples section](../examples
       params: [] // [!code focus]
     }) // [!code focus]
     ```
-  </Tab>
+  </div>
 
-  <Tab label="Low-Level API">
+  <div data-title="Low-Level API">
     ```ts showLineNumbers {1-2,4-5,8-12,15-22,25} filename="low-level-api.ts"
     import { createTevmNode } from 'tevm'
     import { createAddress } from 'tevm/address'
@@ -516,8 +515,8 @@ For detailed examples of these use cases, see the [examples section](../examples
     <Callout type="warning">
       This API provides maximum control but requires deeper understanding of EVM internals.
     </Callout>
-  </Tab>
-</Tabs>
+  </div>
+</TabGroup>
 
 For component API details, see:
 - [State Manager](/reference/state)
@@ -683,20 +682,20 @@ This extension model allows for powerful customizations while maintaining the co
 
 ## Next Steps
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
-  <Button href="../core/create-tevm-node" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Create a Tevm Node</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Learn how to create and configure a Tevm Node for your project.</div>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
+  <Button href="../core/create-tevm-node" className="h-auto p-4 flex flex-col items-start">
+    <div className="font-medium mb-2">Create a Tevm Node</div>
+    <div className="text-sm text-left">Learn how to create and configure a Tevm Node for your project.</div>
   </Button>
   
-  <Button href="../examples/viem" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Viem Integration</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>See how to use Tevm with viem for a complete Ethereum development experience.</div>
+  <Button href="../examples/viem" className="h-auto p-4 flex flex-col items-start">
+    <div className="font-medium mb-2">Viem Integration</div>
+    <div className="text-sm text-left">See how to use Tevm with viem for a complete Ethereum development experience.</div>
   </Button>
   
-  <Button href="../examples/local-testing" variant="accent" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Practical Examples</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Explore real-world examples and use cases for Tevm Node.</div>
+  <Button href="../examples/local-testing" variant="accent" className="h-auto p-4 flex flex-col items-start">
+    <div className="font-medium mb-2">Practical Examples</div>
+    <div className="text-sm text-left">Explore real-world examples and use cases for Tevm Node.</div>
   </Button>
 </div>
 

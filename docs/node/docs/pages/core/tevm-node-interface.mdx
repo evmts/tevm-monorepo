@@ -3,7 +3,8 @@ title: TevmNode Interface
 description: Detailed look at the main node interface and its capabilities
 ---
 
-import { Callout, Cards, Card, Tabs, Tab } from 'vocs/components'
+import { Callout } from 'vocs/components'
+import { Card, CardGrid, Tab, TabGroup } from '../../../components'
 
 # TevmNode Interface
 
@@ -57,23 +58,23 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 
 ## Key Capabilities
 
-<Cards>
-  <Card title="EVM Access" href="#virtual-machine-access">
-    Direct access to the Ethereum Virtual Machine for executing code
+<CardGrid>
+  <Card title="EVM Access" icon="⚙️">
+    <a href="#virtual-machine-access">Direct access to the Ethereum Virtual Machine for executing code</a>
   </Card>
-  <Card title="Transaction Pool" href="#transaction-pool-management">
-    Working with pending transactions
+  <Card title="Transaction Pool" icon="📥">
+    <a href="#transaction-pool-management">Working with pending transactions</a>
   </Card>
-  <Card title="Account Control" href="#account-impersonation">
-    Advanced account management and impersonation
+  <Card title="Account Control" icon="👤">
+    <a href="#account-impersonation">Advanced account management and impersonation</a>
   </Card>
-  <Card title="Event System" href="#event-filtering">
-    Creating and managing event filters and subscriptions
+  <Card title="Event System" icon="🔍">
+    <a href="#event-filtering">Creating and managing event filters and subscriptions</a>
   </Card>
-  <Card title="Extensibility" href="#extensibility">
-    Adding custom functionality through decorators
+  <Card title="Extensibility" icon="🧰">
+    <a href="#extensibility">Adding custom functionality through decorators</a>
   </Card>
-</Cards>
+</CardGrid>
 
 ## Initialization & Status
 
@@ -468,9 +469,8 @@ console.log('Scenario balance:', modifiedAccount.balance) // 200 ETH
 
 ## Practical Examples
 
-<Tabs>
-<Tab label="Contract Deployment">
-```ts
+:::code-group
+```ts [Contract Deployment]
 import { createTevmNode } from 'tevm'
 import { hexToBytes } from 'viem'
 
@@ -510,10 +510,8 @@ const callResult = await vm.runTx({
 
 console.log('Call result:', callResult.execResult.returnValue)
 ```
-</Tab>
 
-<Tab label="Contract Debugging">
-```ts
+```ts [Contract Debugging]
 import { createTevmNode } from 'tevm'
 import { hexToBytes } from 'viem'
 
@@ -571,10 +569,8 @@ console.log('PUSH operations:', stackChanges.length)
 // Clean up
 vm.evm.events.removeAllListeners('step')
 ```
-</Tab>
 
-<Tab label="Chain Simulation">
-```ts
+```ts [Chain Simulation]
 import { createTevmNode } from 'tevm'
 import { parseEther } from 'viem'
 
@@ -647,8 +643,7 @@ async function simulateICO() {
 // Run the simulation
 simulateICO().catch(console.error)
 ```
-</Tab>
-</Tabs>
+:::
 
 ## Best Practices
 
@@ -801,23 +796,23 @@ function createEnhancedNode() {
 
 ## Next Steps
 
-<Cards num={3}>
-  <Card title="Forking" href="./forking">
-    Learn how to create and manage forks from live Ethereum networks
+<CardGrid columns="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  <Card title="Forking" icon="🔗">
+    <a href="./forking">Learn how to create and manage forks from live Ethereum networks</a>
   </Card>
-  <Card title="State Management" href="./managing-state">
-    Understand the state management capabilities of Tevm
+  <Card title="State Management" icon="💾">
+    <a href="./managing-state">Understand the state management capabilities of Tevm</a>
   </Card>
-  <Card title="Mining Modes" href="./mining-modes">
-    Explore the different block mining strategies
+  <Card title="Mining Modes" icon="⛏️">
+    <a href="./mining-modes">Explore the different block mining strategies</a>
   </Card>
-  <Card title="JSON-RPC Support" href="../api/json-rpc">
-    Use Tevm's Ethereum-compatible JSON-RPC interface
+  <Card title="JSON-RPC Support" icon="🌐">
+    <a href="../api/json-rpc">Use Tevm's Ethereum-compatible JSON-RPC interface</a>
   </Card>
-  <Card title="EVM Events" href="../api/evm-events">
-    Work with low-level EVM execution events
+  <Card title="EVM Events" icon="🔔">
+    <a href="../api/evm-events">Work with low-level EVM execution events</a>
   </Card>
-  <Card title="Custom Precompiles" href="../advanced/custom-precompiles">
-    Add custom precompiled contracts to extend EVM functionality
+  <Card title="Custom Precompiles" icon="🧩">
+    <a href="../advanced/custom-precompiles">Add custom precompiled contracts to extend EVM functionality</a>
   </Card>
-</Cards>
+</CardGrid>

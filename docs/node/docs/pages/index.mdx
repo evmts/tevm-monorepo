@@ -2,21 +2,28 @@
 layout: landing
 ---
 
-import { HomePage, Card, Button } from 'vocs/components'
+import { HomePage, Button } from 'vocs/components'
+import { Card } from '../../components'
 
 <HomePage.Root>
-  <HomePage.Logo />
-  <HomePage.Tagline>Tevm Node</HomePage.Tagline>
+  <div style={{ textAlign: 'center', margin: '0 auto', maxWidth: '200px' }}>
+    <img 
+      src="/tevm-logo-dark.png" 
+      alt="Tevm Logo" 
+      style={{ width: '100%', height: 'auto' }} 
+    />
+  </div>
+  <HomePage.Tagline>Powerful Ethereum Node and Solidity Compiler for TypeScript Applications</HomePage.Tagline>
   <HomePage.InstallPackage name="tevm" type="install" />
-  <HomePage.Description>A full Ethereum node in JavaScript - browser, Node.js, or anywhere</HomePage.Description>
   
   <div className="code-snippet" style={{
     maxWidth: '600px',
-    margin: '1.5rem auto',
+    margin: '1.5rem 0',
     backgroundColor: 'var(--vocs-color_background2)',
     borderRadius: 'var(--vocs-borderRadius_4)',
     padding: '1rem',
-    overflow: 'auto'
+    overflow: 'auto',
+    textAlign: 'left'
   }}>
     ```ts
     import { createMemoryClient } from 'tevm'
@@ -32,7 +39,9 @@ import { HomePage, Card, Button } from 'vocs/components'
     })
     ```
   </div>
-  
+
+  <HomePage.Description>A full Ethereum node in JavaScript - browser, Node.js, or anywhere that plugs into Viem enabling new Use cases for Ethereum applications in TypeScript</HomePage.Description>
+
   <HomePage.Buttons>
     <HomePage.Button href="/getting-started/overview" variant="accent">Get started</HomePage.Button>
     <HomePage.Button href="/examples/viem">Viem Guide</HomePage.Button>
@@ -41,9 +50,9 @@ import { HomePage, Card, Button } from 'vocs/components'
   
   <div style={{ 
     display: 'grid', 
-    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
+    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
     gap: '1.5rem', 
-    maxWidth: '1200px',
+    maxWidth: '900px',
     margin: '3rem auto 1.5rem'
   }}>
     <div style={{ 
@@ -116,23 +125,23 @@ import { HomePage, Card, Button } from 'vocs/components'
   <div style={{ 
     maxWidth: '800px', 
     margin: '3rem auto',
-    padding: '1.5rem',
+    padding: '2rem',
     backgroundColor: 'var(--vocs-color_background2)',
     borderRadius: 'var(--vocs-borderRadius_4)',
     border: '1px solid var(--vocs-color_border)'
   }}>
-    <h2 style={{ textAlign: 'center', marginTop: 0 }}>What Developers Are Saying</h2>
+    <h2 style={{ textAlign: 'center', marginTop: 0, marginBottom: '1.5rem' }}>What Developers Are Saying</h2>
     
     <div style={{ 
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '1.5rem'
+      gap: '2rem'
     }}>
       <blockquote style={{ 
         margin: 0,
         fontSize: 'var(--vocs-fontSize_16)',
-        borderLeft: 'none',
-        padding: 0
+        borderLeft: '3px solid var(--vocs-color_borderAccent)',
+        padding: '0 0 0 1rem'
       }}>
         "If you're building a blockchain application on the web, I'm almost certain there is a use case for Tevm. It might change everything, and at worse it would most likely improve your devX."
         <div style={{ 
@@ -151,8 +160,8 @@ import { HomePage, Card, Button } from 'vocs/components'
       <blockquote style={{ 
         margin: 0,
         fontSize: 'var(--vocs-fontSize_16)',
-        borderLeft: 'none',
-        padding: 0
+        borderLeft: '3px solid var(--vocs-color_borderAccent)',
+        padding: '0 0 0 1rem'
       }}>
         "Fully @tevmtools pilled now. The beauty and harmony of the dev tooling 😍."
         <div style={{ 
@@ -169,7 +178,7 @@ import { HomePage, Card, Button } from 'vocs/components'
       </blockquote>
     </div>
     
-    <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
       <Button href="/getting-started/testimonials" variant="outline">See More Testimonials</Button>
     </div>
   </div>

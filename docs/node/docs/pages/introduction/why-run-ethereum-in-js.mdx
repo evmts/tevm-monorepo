@@ -6,7 +6,8 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Card, Steps, Tabs, Tab, Button, FileTree } from 'vocs/components'
+import { Callout, Steps, Button } from 'vocs/components'
+import { Card, TabGroup, FileTree } from '../../../components'
 
 # Why Run Ethereum in JavaScript?
 
@@ -14,14 +15,12 @@ JavaScript has emerged as an ideal environment for running Ethereum, offering un
 
 ## Performance & Efficiency
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
-  <Card>
-    <h3>⚡ Zero Network Latency</h3>
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+  <Card title="⚡ Zero Network Latency">
     <p>Running the EVM locally eliminates round-trip delays to remote nodes, enabling near-instantaneous transaction simulations and gas estimations.</p>
   </Card>
   
-  <Card>
-    <h3>🔄 Parallel Simulations</h3>
+  <Card title="🔄 Parallel Simulations">
     <p>Simulate multiple transactions or execution paths concurrently, impossible with traditional RPC calls to remote nodes.</p>
   </Card>
 </div>
@@ -50,29 +49,24 @@ const gasEstimate3 = await client.estimateGas({ ... }) // ~5-20ms // [!code focu
 
 JavaScript-based EVM execution enables entirely new categories of dApp features:
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
-  <Card>
-    <h3>📱 Offline Capabilities</h3>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
+  <Card title="📱 Offline Capabilities">
     <p>Enable local-first applications that work without constant network connectivity.</p>
   </Card>
   
-  <Card>
-    <h3>⚡ Optimistic UI</h3>
+  <Card title="⚡ Optimistic UI">
     <p>Show users the likely outcome of transactions before they're mined on-chain.</p>
   </Card>
   
-  <Card>
-    <h3>🛡️ Improved Reliability</h3>
+  <Card title="🛡️ Improved Reliability">
     <p>Reduce dependency on external infrastructure, making dApps more resilient.</p>
   </Card>
   
-  <Card>
-    <h3>🧮 Transaction Simulation</h3>
+  <Card title="🧮 Transaction Simulation">
     <p>Simulate complex interactions and preview results before sending transactions.</p>
   </Card>
   
-  <Card>
-    <h3>🔐 Enhanced Privacy</h3>
+  <Card title="🔐 Enhanced Privacy">
     <p>Process sensitive data locally without sending it to external services.</p>
   </Card>
 </div>
@@ -119,8 +113,8 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
   
   The same Ethereum environment works across Node.js, browsers, serverless functions, and other JavaScript runtimes.
   
-  <Tabs>
-    <Tab label="Browser">
+  <TabGroup items={['Browser', 'Node.js', 'Serverless']}>
+    <div data-title="Browser">
       ```ts
       import { createMemoryClient } from 'tevm'
       
@@ -134,8 +128,8 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
         console.log(`Balance: ${formatEther(balance)} ETH`)
       })
       ```
-    </Tab>
-    <Tab label="Node.js">
+    </div>
+    <div data-title="Node.js">
       ```ts
       import { createMemoryClient } from 'tevm'
       
@@ -151,8 +145,8 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
       
       main().catch(console.error)
       ```
-    </Tab>
-    <Tab label="Serverless">
+    </div>
+    <div data-title="Serverless">
       ```ts
       import { createMemoryClient } from 'tevm'
       
@@ -170,8 +164,8 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
         }
       }
       ```
-    </Tab>
-  </Tabs>
+    </div>
+  </TabGroup>
 </Steps>
 
 ## JavaScript Ecosystem Integration
@@ -180,44 +174,32 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
   Running Ethereum in JavaScript means you can leverage the entire JavaScript ecosystem effortlessly.
 </Callout>
 
-<div style={{ 
-  display: 'grid', 
-  gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', 
-  gap: '1rem', 
-  margin: '1.5rem 0' 
-}}>
-  <Card>
-    <h3>🔤 TypeScript</h3>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-6">
+  <Card title="🔤 TypeScript">
     <p>Type-safe contract interactions with full IntelliSense support</p>
   </Card>
   
-  <Card>
-    <h3>⚛️ UI Frameworks</h3>
+  <Card title="⚛️ UI Frameworks">
     <p>React, Vue, Svelte and other frontend libraries</p>
   </Card>
   
-  <Card>
-    <h3>🏗️ Build Tools</h3>
+  <Card title="🏗️ Build Tools">
     <p>Vite, Webpack, ESBuild and other bundlers</p>
   </Card>
   
-  <Card>
-    <h3>🧪 Testing</h3>
+  <Card title="🧪 Testing">
     <p>Jest, Vitest and other testing frameworks</p>
   </Card>
   
-  <Card>
-    <h3>🔄 Runtimes</h3>
+  <Card title="🔄 Runtimes">
     <p>Node.js, browsers, Electron, serverless functions</p>
   </Card>
   
-  <Card>
-    <h3>📦 NPM Ecosystem</h3>
+  <Card title="📦 NPM Ecosystem">
     <p>Access to millions of packages and libraries in the npm registry</p>
   </Card>
   
-  <Card>
-    <h3>🌐 Web APIs</h3>
+  <Card title="🌐 Web APIs">
     <p>Integration with browser storage, WebSockets, service workers, and more</p>
   </Card>
 </div>
@@ -232,7 +214,7 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
   </FileTree.Folder>
 </FileTree>
 
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
+<div className="flex flex-wrap gap-4 mt-8">
   <Button href="../getting-started/overview" variant="accent" size="large">Install Tevm →</Button>
   <Button href="../examples/viem">View Examples</Button>
   <Button href="https://github.com/evmts/tevm-monorepo" variant="outline">GitHub Repo</Button>

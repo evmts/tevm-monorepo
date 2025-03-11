@@ -6,7 +6,8 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Steps, Tabs, Button } from 'vocs/components'
+import { Callout, Steps, Button } from 'vocs/components'
+import { TabGroup } from '../../../components'
 
 # Getting Started with Ethers.js
 
@@ -23,28 +24,28 @@ This guide shows you how to use Tevm Node with ethers.js, allowing you to levera
 
 First, install Tevm and ethers as dependencies:
 
-<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tabs.Tab>
+<TabGroup items={['npm', 'pnpm', 'yarn', 'bun']}>
+  <div data-title="npm">
   ```bash
   npm install tevm ethers@latest
   ```
-  </Tabs.Tab>
-  <Tabs.Tab>
+  </div>
+  <div data-title="pnpm">
   ```bash
   pnpm add tevm ethers@latest
   ```
-  </Tabs.Tab>
-  <Tabs.Tab>
+  </div>
+  <div data-title="yarn">
   ```bash
   yarn add tevm ethers@latest
   ```
-  </Tabs.Tab>
-  <Tabs.Tab>
+  </div>
+  <div data-title="bun">
   ```bash
   bun add tevm ethers@latest
   ```
-  </Tabs.Tab>
-</Tabs>
+  </div>
+</TabGroup>
 
 ### Create Tevm Client
 
@@ -492,9 +493,9 @@ await client.reset({
 
 Now that you know how to use ethers.js with Tevm, you can:
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem', marginTop: '1.5rem' }}>
-  <div style={{ border: '1px solid var(--vocs-color_border)', borderRadius: '8px', padding: '1rem' }}>
-    <h3 style={{ marginTop: 0 }}>Explore More Features</h3>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Explore More Features</h3>
     <ul>
       <li><a href="../examples/ethers">Complete Ethers.js integration guide</a></li>
       <li><a href="../core/forking">Powerful forking capabilities</a></li>
@@ -502,8 +503,8 @@ Now that you know how to use ethers.js with Tevm, you can:
     </ul>
   </div>
   
-  <div style={{ border: '1px solid var(--vocs-color_border)', borderRadius: '8px', padding: '1rem' }}>
-    <h3 style={{ marginTop: 0 }}>Learn Core Concepts</h3>
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Learn Core Concepts</h3>
     <ul>
       <li><a href="../introduction/what-is-tevm-node">What is Tevm Node?</a></li>
       <li><a href="../core/create-tevm-node">Creating a Tevm Node</a></li>
@@ -511,8 +512,8 @@ Now that you know how to use ethers.js with Tevm, you can:
     </ul>
   </div>
   
-  <div style={{ border: '1px solid var(--vocs-color_border)', borderRadius: '8px', padding: '1rem' }}>
-    <h3 style={{ marginTop: 0 }}>Try Advanced Use Cases</h3>
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Try Advanced Use Cases</h3>
     <ul>
       <li><a href="../examples/forking-mainnet">Forking from mainnet</a></li>
       <li><a href="../advanced/custom-precompiles">Custom precompiles</a></li>
@@ -521,7 +522,7 @@ Now that you know how to use ethers.js with Tevm, you can:
   </div>
 </div>
 
-<div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+<div className="flex gap-4 mt-8">
   <Button href="./viem" variant="accent">← Viem Integration</Button>
   <Button href="../examples/ethers">Using with Ethers.js →</Button>
 </div>

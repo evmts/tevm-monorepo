@@ -3,7 +3,8 @@ title: Using with Viem
 description: Connect Tevm Node to Viem as a custom transport
 ---
 
-import { Callout, Tabs, Tab, Cards, Card } from 'vocs/components'
+import { Callout } from 'vocs/components'
+import { Tab, TabGroup, Card, CardGrid } from '../../../components'
 
 # Using with Viem
 
@@ -17,7 +18,7 @@ This guide demonstrates how to use Tevm with viem, enabling you to leverage viem
 
 Tevm offers two integration approaches with viem to suit different development needs:
 
-<Tabs>
+<TabGroup>
   <Tab label="Tree-shakable API (Recommended)">
     The recommended approach for production applications that need to minimize bundle size:
 
@@ -69,24 +70,24 @@ Tevm offers two integration approaches with viem to suit different development n
       This approach provides a more convenient developer experience with all actions available directly on the client object, ideal for rapid development and testing.
     </Callout>
   </Tab>
-</Tabs>
+</TabGroup>
 
 ## Core Functionality
 
-<Cards>
-  <Card title="Public Actions" href="#public-actions">
-    Read blockchain state, query contracts, and estimate gas
+<CardGrid>
+  <Card title="Public Actions" icon="🔍">
+    <a href="#public-actions">Read blockchain state, query contracts, and estimate gas</a>
   </Card>
-  <Card title="Wallet Actions" href="#wallet-actions">
-    Send transactions, sign messages, and interact with accounts
+  <Card title="Wallet Actions" icon="💼">
+    <a href="#wallet-actions">Send transactions, sign messages, and interact with accounts</a>
   </Card>
-  <Card title="Test Actions" href="#test-actions">
-    Manipulate blockchain state for testing and development
+  <Card title="Test Actions" icon="🧪">
+    <a href="#test-actions">Manipulate blockchain state for testing and development</a>
   </Card>
-  <Card title="Tevm Actions" href="#tevm-actions">
-    Tevm-specific extensions for enhanced EVM capabilities
+  <Card title="Tevm Actions" icon="⚡">
+    <a href="#tevm-actions">Tevm-specific extensions for enhanced EVM capabilities</a>
   </Card>
-</Cards>
+</CardGrid>
 
 ## Public Actions
 

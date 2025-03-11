@@ -3,12 +3,12 @@ import { defineConfig } from 'vocs'
 export default defineConfig({
   title: 'Tevm Node',
   description: "A lightweight, unopinionated, powerful EVM node that runs in the browser",
-  // Improved logo and icon configuration
+  // Updated logo configuration
   logoUrl: { 
-    light: '/logo.jpg', 
-    dark: '/logo.jpg'
+    light: '/tevm-logo-light.png', 
+    dark: '/tevm-logo-dark.png'
   },
-  iconUrl: '/favicon.ico',
+  iconUrl: '/tevm-logo.webp',
   // Configuring OG Image
   ogImageUrl: 'https://vocs.dev/api/og?logo=%logo&title=%title&description=%description',
   // Set default font

@@ -3,7 +3,7 @@ title: Creating a Tevm Node
 description: Learn how to create and configure a Tevm Node
 ---
 
-import { Callout, Steps, Step, Cards, Card } from 'vocs/components'
+import { Callout, Steps, Step } from 'vocs/components'
 
 # Creating a Tevm Node
 
@@ -332,17 +332,9 @@ try {
 
 ## Usage Scenarios
 
-<Cards>
-  <Card title="Local Development" href="#local-development-node">
-    Fast, auto-mining configuration with unlimited contract sizes for rapid local development
-  </Card>
-  <Card title="Production Forking" href="#production-forked-node">
-    Realistic forked environment with precise error handling for production simulation
-  </Card>
-  <Card title="Testing Environment" href="#testing-node">
-    Performance-focused configuration for CI/CD and test automation
-  </Card>
-</Cards>
+- **Local Development**: Fast, auto-mining configuration with unlimited contract sizes for rapid local development
+- **Production Forking**: Realistic forked environment with precise error handling for production simulation
+- **Testing Environment**: Performance-focused configuration for CI/CD and test automation
 
 ### Local Development Node
 
@@ -401,17 +393,7 @@ console.log('Testing node with profiling ready!')
 
 ## Next Steps
 
-<Cards num={2}>
-  <Card title="Node Interface" href="./tevm-node-interface">
-    Explore the complete TevmNode interface and its capabilities
-  </Card>
-  <Card title="Forking & Reforking" href="./forking">
-    Learn how to fork from live networks and efficiently manage forks
-  </Card>
-  <Card title="State Management" href="./managing-state">
-    Understand how to manipulate blockchain state
-  </Card>
-  <Card title="Custom Precompiles" href="../advanced/custom-precompiles">
-    Create your own precompiled contracts to extend EVM functionality
-  </Card>
-</Cards>
+- [Node Interface](./tevm-node-interface) - Explore the complete TevmNode interface and its capabilities
+- [Forking & Reforking](./forking) - Learn how to fork from live networks and efficiently manage forks
+- [State Management](./managing-state) - Understand how to manipulate blockchain state
+- [Custom Precompiles](../advanced/custom-precompiles) - Create your own precompiled contracts to extend EVM functionality

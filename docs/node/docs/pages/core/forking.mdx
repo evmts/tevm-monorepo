@@ -3,7 +3,7 @@ title: Forking & Reforking
 description: How to fork from live networks and other Tevm instances
 ---
 
-import { Callout, Cards, Card, Tabs, Tab } from 'vocs/components'
+import { Callout } from 'vocs/components'
 
 # Forking & Reforking
 
@@ -21,8 +21,8 @@ Forking allows you to create a local copy of an Ethereum network (or any EVM-com
 
 ## Basic Forking
 
-<Tabs>
-<Tab label="Fork from Mainnet">
+### Fork from Mainnet
+
 ```ts
 import { createTevmNode, http } from 'tevm'
 
@@ -40,9 +40,9 @@ await node.ready()
 // The node now contains a copy of the entire Ethereum mainnet state
 console.log('Forked node ready!')
 ```
-</Tab>
 
-<Tab label="Fork from Optimism">
+### Fork from Optimism
+
 ```ts
 import { createTevmNode, http } from 'tevm'
 import { optimism } from 'tevm/common'
@@ -59,9 +59,9 @@ const node = createTevmNode({
 await node.ready()
 console.log('Optimism fork ready!')
 ```
-</Tab>
 
-<Tab label="Fork from Specific Block">
+### Fork from Specific Block
+
 ```ts
 import { createTevmNode, http } from 'tevm'
 
@@ -76,8 +76,6 @@ const node = createTevmNode({
 await node.ready()
 console.log('Forked from block 17,500,000')
 ```
-</Tab>
-</Tabs>
 
 <Callout type="warning" emoji="⚠️">
   Remember to call the transport function with an empty object `({})` as shown in the examples above. This is required for the viem transport to be initialized correctly.
@@ -399,20 +397,10 @@ await vm.stateManager.putContractStorage(
 
 ## Advanced Use Cases
 
-<Cards>
-  <Card title="DeFi Protocol Testing" emoji="🔄">
-    Test complex DeFi interactions like flash loans, liquidations, and arbitrage
-  </Card>
-  <Card title="Vulnerability Analysis" emoji="🔒">
-    Analyze smart contract security by manipulating state to trigger edge cases
-  </Card>
-  <Card title="Governance Simulation" emoji="🗳️">
-    Simulate DAO votes and governance proposals
-  </Card>
-  <Card title="MEV Strategy Testing" emoji="💰">
-    Develop and test MEV strategies without risking real capital
-  </Card>
-</Cards>
+- **🔄 DeFi Protocol Testing** - Test complex DeFi interactions like flash loans, liquidations, and arbitrage
+- **🔒 Vulnerability Analysis** - Analyze smart contract security by manipulating state to trigger edge cases
+- **🗳️ Governance Simulation** - Simulate DAO votes and governance proposals
+- **💰 MEV Strategy Testing** - Develop and test MEV strategies without risking real capital
 
 ### DeFi Protocol Example
 
@@ -695,17 +683,7 @@ beforeEach(async () => {
 
 ## Next Steps
 
-<Cards num={2}>
-  <Card title="State Management" href="./managing-state">
-    Learn more about manipulating blockchain state
-  </Card>
-  <Card title="Mining Modes" href="./mining-modes">
-    Configure how transactions are mined in your forked node
-  </Card>
-  <Card title="Transaction Pool" href="../advanced/txpool">
-    Understand how to work with pending transactions
-  </Card>
-  <Card title="Forking Example" href="../examples/forking-mainnet">
-    See a complete example of forking mainnet
-  </Card>
-</Cards>
+- [State Management](./managing-state) - Learn more about manipulating blockchain state
+- [Mining Modes](./mining-modes) - Configure how transactions are mined in your forked node
+- [Transaction Pool](../advanced/txpool) - Understand how to work with pending transactions
+- [Forking Example](../examples/forking-mainnet) - See a complete example of forking mainnet
