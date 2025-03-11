@@ -66,7 +66,7 @@ describe('bunPluginTevm', () => {
 
 	it('should create the plugin correctly', async () => {
 		const plugin = bunPluginTevm({})
-		expect(plugin.name).toEqual('@tevm/esbuild-plugin')
+		expect(plugin.name).toMatchInlineSnapshot(`"@tevm/bun-plugin"`)
 	})
 
 	it('Should not specify a target', async () => {
