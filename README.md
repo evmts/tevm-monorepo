@@ -1,3 +1,5 @@
+![tevm-logo-dark](https://github.com/user-attachments/assets/e9ff4350-5d3f-446b-8425-afd4d73a6d3f)
+
 <p align="center">
   A library that enables next-generation UX and DX via putting an ethereum node in the browser and solidity in javascript
 </p>
