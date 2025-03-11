@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: A JavaScript-compatible Ethereum Virtual Machine with forking capabilities
+description: A JavaScript-native Ethereum Virtual Machine with full node capabilities
 authors:
   - "[William Cory](https://x.com/fucory)"
   - "[Tevm Team](https://github.com/evmts)"
@@ -79,7 +79,8 @@ vm.evm.events.on("step", (data, next) => {
 
 - **Fine-grained EVM Control** — Access the execution environment at any level of detail, from high-level transactions to individual EVM opcodes
 - **Enhanced User Experience** — Enable advanced features like instantaneous gas estimation, optimistic UI updates, and sophisticated transaction simulation
-- **Cross-Platform Compatibility** — The same code works everywhere JavaScript runs
+- **Cross-Platform Compatibility** — The same code works everywhere JavaScript runs, with zero native dependencies
+- **Type-safe Interactions** — Full TypeScript support throughout the entire API surface
 
 ## Quick Example
 
@@ -211,6 +212,7 @@ If you're new to Ethereum development, don't worry! Tevm serves as an excellent 
 - **Isolated Environment** — Experiment freely without worrying about network costs or confirmation times
 - **TypeScript Integration** — Get full type safety and autocomplete for Ethereum interactions
 - **Simple API Surface** — Focus on learning core concepts with a streamlined interface
+- **Step Debugger** — Trace transaction execution at the opcode level for deep understanding
 :::
 
 ## Next Steps

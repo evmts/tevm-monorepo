@@ -1,6 +1,6 @@
 ---
 title: Getting Started with Ethers
-description: Get started with Tevm node using ethers.js
+description: Get started with Tevm Node using the ethers.js library for familiar Ethereum development
 authors:
   - "[William Cory](https://x.com/fucory)"
   - "[Tevm Team](https://github.com/evmts)"
@@ -11,7 +11,7 @@ import { Callout, Steps, Tabs, Button } from 'vocs/components'
 # Getting Started with Ethers.js
 
 <Callout type="info">
-While Tevm is built with viem as its primary API, it provides **full compatibility** with [ethers.js](https://docs.ethers.org/v6/) through its EIP-1193 provider interface!
+While Tevm is built with viem as its primary API, it provides **full compatibility** with [ethers.js](https://docs.ethers.org/v6/) through its EIP-1193 provider interface! This makes Tevm a perfect fit for existing ethers.js projects.
 </Callout>
 
 This guide shows you how to use Tevm Node with ethers.js, allowing you to leverage Tevm's powerful features with the ethers library you already know.
@@ -417,6 +417,14 @@ When using ethers.js with Tevm, keep these key differences in mind:
 4. **Performance**
    - **Real Network**: Operations require network calls and confirmations
    - **Tevm**: All operations happen locally with near-instant execution
+   
+5. **Debugging Capabilities**
+   - **Real Network**: Limited visibility into transaction execution
+   - **Tevm**: Step-by-step EVM tracing and execution insights
+
+6. **Determinism**
+   - **Real Network**: Network conditions can affect execution
+   - **Tevm**: 100% deterministic execution for reliable testing
 
 ## Advanced Features
 

@@ -20,7 +20,7 @@ import { resolveModuleSync } from './resolveModuleSync.js'
  * @param {import('./types.js').FileAccessObject} fao - File system access object for reading/writing files
  * @param {import('@tevm/solc').Solc} solc - Solidity compiler instance
  * @param {import('@tevm/bundler-cache').Cache} cache - Cache instance for build artifacts
- * @param {'tevm/contract' | '@tevm/contract' | undefined} contractPackage - Optional contract package name
+ * @param {'tevm/contract' | '@tevm/contract' | undefined} [contractPackage] - Optional contract package name
  * @returns {ReturnType<import('./types.js').Bundler>} A bundler instance with methods for resolving Solidity modules
  *
  * @example

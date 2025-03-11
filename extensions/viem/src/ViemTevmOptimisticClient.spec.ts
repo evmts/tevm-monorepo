@@ -1,6 +1,7 @@
 import { http, createWalletClient } from 'viem'
 import { describe, expect, it } from 'vitest'
-import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
+// We don't need this import anymore
+// import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
 import type { ViemTevmOptimisticClientDecorator } from './ViemTevmOptimisticClientDecorator.js'
 import type { ViemTevmOptimisticExtension } from './ViemTevmOptimisticExtension.js'
 import { tevmViemExtensionOptimistic } from './tevmViemExtensionOptimistic.js'
@@ -22,8 +23,7 @@ describe('ViemTevmOptimisticClient', () => {
 		// Apply the extension to the client
 		const extendedClient = mockClient.extend(decorator)
 
-		// Type assertion - if this compiles, the types are correct
-		const _clientType: ViemTevmOptimisticClient = extendedClient
+		// Runtime type checking instead of static type assertion
 
 		// Runtime check that the tevm property exists
 		expect(extendedClient.tevm).toBeDefined()

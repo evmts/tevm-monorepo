@@ -3,7 +3,7 @@
  * The Bun file API provides an optimized interface for file operations with
  * methods for reading, writing, and checking file existence.
  *
- * @type {import('bun').FileSystemAPI['file']}
+ * @type {typeof import('bun').file}
  * @see {@link https://bun.sh/docs/api/file-io | Bun File I/O Documentation}
  *
  * @example

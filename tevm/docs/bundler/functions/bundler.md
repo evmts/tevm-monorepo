@@ -8,11 +8,7 @@
 
 > **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage`?): `object`
 
-Defined in: bundler-packages/base-bundler/types/src/bundler.d.ts:41
-
-The base bundler instance used within tevm to generate JavaScript and TypeScript files
-from solidity files. This is used internally by all other tevm build tooling including
-the ts-plugin, the webpack plugin, the bun plugin, the vite plugin, and more.
+Defined in: bundler-packages/base-bundler/types/src/bundler.d.ts:1
 
 ## Parameters
 
@@ -20,38 +16,25 @@ the ts-plugin, the webpack plugin, the bun plugin, the vite plugin, and more.
 
 `ResolvedCompilerConfig`
 
-The tevm config. Can be loaded with `loadConfig()`
-
 ### logger
 
 `Logger`
-
-The logger to use for logging. Can be `console`
 
 ### fao
 
 `FileAccessObject`
 
-The file access object to use for reading and writing files. Can use fs to fill this out
-
 ### solc
 
-`any`
-
-The solc compiler to use. Can be loaded with `createSolc()`
+[`Solc`](../solc/interfaces/Solc.md)
 
 ### cache
 
 `Cache`
 
-The cache to use. Can be created with `createCache()`
-
 ### contractPackage?
 
-The name of the package that contains the contract package
-If not included the bundler will attempt to autodetect the package
-
-`"@tevm/contract"` | `"tevm/contract"`
+`"tevm/contract"` | `"@tevm/contract"`
 
 ## Returns
 
@@ -124,29 +107,3 @@ Resolves typescript representation of the solidity module
 > **resolveTsModuleSync**: `SyncBundlerResult`
 
 Resolves typescript representation of the solidity module
-
-## Example
-
-```typescript
-import { bundler } from '@tevm/base-bundler-bundler'
-import { createCache } from '@tevm/bundler-cache'
-import { readFile, writeFile } from 'fs/promises'
-import { readFileSync, writeFileSync, existsSync } from 'fs'
-import { createSolc } from '@tevm/solc'
-import { loadConfig } from '@tevm/config'
-
-const fao = {
-  readFile,
-  writeFile,
-  readFileSync,
-  writeFileSync,
-  existsSync,
-  // may need more methods
-}
-
-const b = bundler(await loadConfig(), console, fao, await createSolc(), createCache())
-
-const path = '../contracts/ERC20.sol'
-
-const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
-```

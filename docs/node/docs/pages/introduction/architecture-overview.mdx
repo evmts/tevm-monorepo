@@ -1,6 +1,6 @@
 ---
 title: Architecture Overview
-description: A high-level overview of how Tevm Node works and its available APIs
+description: A detailed overview of Tevm Node's architecture, components, and extension capabilities
 authors:
   - "[William Cory](https://x.com/fucory)"
   - "[Tevm Team](https://github.com/evmts)"
@@ -30,6 +30,12 @@ graph TD
     E --> J[Transaction Pool]
     E --> K[Receipt Manager]
     H -->|Optional| L[Forking Provider]
+    
+    %% Add extra nodes for key components
+    E --> M[Custom Precompiles]
+    F --> N[EVM Events]
+    E --> O[JSON-RPC API]
+    J --> P[Mining Controller]
 ```
 
 ## Design Philosophy: Objects and Actions
@@ -349,6 +355,14 @@ export async function simulateTransaction(tx) {
   
   <Card title="Gas Optimization">
     <p>Analyze contract gas usage patterns with precision</p>
+  </Card>
+  
+  <Card title="Serverless Execution">
+    <p>Run Ethereum nodes in serverless or edge computing environments</p>
+  </Card>
+
+  <Card title="State Snapshots">
+    <p>Create, save, and restore blockchain state at precise points</p>
   </Card>
 </div>
 

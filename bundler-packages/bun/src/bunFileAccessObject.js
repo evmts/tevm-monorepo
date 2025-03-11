@@ -77,7 +77,7 @@ export const bunFileAccesObject = {
 	 * Synchronously writes data to a file using Bun's optimized file API
 	 * @param {string} filePath - Path to the file
 	 * @param {string} data - Data to write
-	 * @returns {boolean} - True if successful
+	 * @returns {number} - Non 0 if successful
 	 */
 	writeFileSync: (filePath, data) => {
 		const bunFile = file(filePath)

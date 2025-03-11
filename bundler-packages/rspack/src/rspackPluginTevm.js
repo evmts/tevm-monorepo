@@ -12,8 +12,8 @@ import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
  * [Rspack](https://www.rspack.dev/) is a Rust-based JavaScript bundler that's highly
  * compatible with Webpack APIs but offers significantly better performance.
  *
- * @param {Object} [options] - Plugin configuration options
- * @param {import('@tevm/solc').SolcVersions} [options.solc] - Solidity compiler version to use
+ * @param config Plugin configuration options
+ * @param [options.solc] - Solidity compiler version to use
  * @returns {import('rspack').RspackPluginInstance} - An Rspack plugin instance
  *
  * @example

@@ -6,49 +6,58 @@
 
 # Function: bunPluginTevm()
 
-> **bunPluginTevm**(`SolcVersions`): `BunPlugin`
+> **bunPluginTevm**(`options`): `BunPlugin`
 
-Defined in: [bunPluginTevm.js:86](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunPluginTevm.js#L86)
+Defined in: [bundler-packages/bun/src/bunPluginTevm.js:115](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunPluginTevm.js#L115)
 
-Bun plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
-will transform solidity contract imports into Tevm `Contract` instances.
+Creates a Bun plugin for Tevm that enables direct Solidity imports in JavaScript and TypeScript.
+
+This plugin allows you to import Solidity contracts directly in your JavaScript/TypeScript code,
+where they are automatically compiled and transformed into Tevm `Contract` instances with
+fully typed interfaces. It integrates with the Bun build system to provide seamless handling
+of .sol files.
 
 ## Parameters
 
-### SolcVersions
+### options
 
-Which solc version to use
+Plugin configuration options
 
 #### solc?
 
 `SolcVersions` = `defaultSolc.version`
 
+Solidity compiler version to use
+
 ## Returns
 
 `BunPlugin`
 
-- A bun plugin
+- A configured Bun plugin
 
-To configure add this plugin to your Bun config and add the ts-plugin to your tsconfig.json
+## Example
 
-## Examples
-
-```ts plugin.ts
-// Configure plugin in a plugin.ts file
-import { tevmPluginBun } from '@tevm/bun-plugin'
+#### Setup in a plugin.ts file
+```typescript
+// plugins.ts
+import { bunPluginTevm } from '@tevm/bun'
 import { plugin } from 'bun'
 
-plugin(tevmPluginBun())
+// Initialize with default options
+plugin(bunPluginTevm({}))
+
+// Or with a specific Solidity compiler version
+plugin(bunPluginTevm({ solc: '0.8.20' }))
 ```
 
-// Add the plugin.ts to your bunfig.toml
-```ts bunfig.toml
+#### Configure in bunfig.toml
+```toml
+# bunfig.toml
 preload = ["./plugins.ts"]
 ```
 
-For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
-The ts-plugin will provide type hints, code completion, and other features.
-
+#### Configure TypeScript support in tsconfig.json
+For editor integration with LSP (code completion, type checking):
 ```json
 {
   "compilerOptions": {
@@ -57,24 +66,36 @@ The ts-plugin will provide type hints, code completion, and other features.
 }
 ```
 
-Once the esbuild plugin and the ts-plugin are configured, you can import Solidity files in JavaScript. The compiler will
-turn them into Tevm `Contract` instances.
-
+#### Using imported Solidity contracts
 ```typescript
-// Solidity imports are automaticlaly turned into Tevm Contract objects
+// Import Solidity contracts directly
 import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
-import { createTevm } from 'tevm'
+import { createMemoryClient } from 'tevm'
 
-console.log(ERC20.abi)
-console.log(ERC20.humanReadableAbi)
-console.log(ERC20.bytecode)
+// Access contract metadata
+console.log('ABI:', ERC20.abi)
+console.log('Human-readable ABI:', ERC20.humanReadableAbi)
+console.log('Bytecode:', ERC20.bytecode)
 
-tevm.contract(
-  ERC20.withAddress(.read.balanceOf()
+// Deploy and interact with the contract
+const client = createMemoryClient()
+
+// Deploy the contract
+const deployed = await client.deployContract(ERC20)
+
+// Call contract methods
+const name = await deployed.read.name()
+const tx = await deployed.write.transfer(
+  "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  1000n
 )
 ```
 
-Under the hood the esbuild plugin is creating a virtual file for ERC20.sol called ERC20.sol.cjs that looks like this
+### How it works
+
+Under the hood, the plugin processes Solidity files and generates JavaScript modules
+that create Tevm Contract instances. For example, importing ERC20.sol results in code
+like:
 
 ```typescript
 import { createContract } from '@tevm/contract'
@@ -87,18 +108,27 @@ export const ERC20 = createContract({
 })
 ```
 
-For custom configuration of the Tevm compiler add a [tevm.config.json](https://todo.todo.todo) file to your project root.
+### Custom Configuration
+
+For custom configuration of the Tevm compiler, add a `tevm.config.json` file
+to your project root:
 
 ```json
 {
-  foundryProject?: boolean | string | undefined,
-  libs: ['lib'],
-  remappings: {'foo': 'vendored/foo'},
-  debug: true,
-  cacheDir: '.tevm'
+  "foundryProject": true,       // Is this a Foundry project? (or path to project)
+  "libs": ["lib"],              // Library directories
+  "remappings": {               // Import remappings (like in Foundry)
+    "foo": "vendored/foo"
+  },
+  "debug": true,                // Enable debug logging
+  "cacheDir": ".tevm"           // Cache directory for compiled contracts
 }
 ```
 
+## Throws
+
+If there's an issue loading or processing Solidity files
+
 ## See
 
-[Tevm esbuild example](https://todo.todo.todo)
+[Tevm Solidity Import Documentation](https://tevm.sh/learn/solidity-imports/)

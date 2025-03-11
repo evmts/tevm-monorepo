@@ -4,9 +4,9 @@ export default defineConfig({
   title: 'Tevm Node',
   description: "A lightweight, unopinionated, powerful EVM node that runs in the browser",
   // Improved logo and icon configuration
-  logoUrl: {
-    light: '/tevm-logo-light.svg',
-    dark: '/tevm-logo-dark.svg'
+  logoUrl: { 
+    light: '/logo.jpg', 
+    dark: '/logo.jpg'
   },
   iconUrl: '/favicon.ico',
   // Configuring OG Image
@@ -24,14 +24,14 @@ export default defineConfig({
   banner: {
     content: '🚀 Tevm Node is now production-ready! Join our [Discord community](https://discord.gg/tevm)',
     dismissable: true,
-    backgroundColor: 'var(--vocs-color_backgroundBlueTint)',
+    backgroundColor: '#e6f7ff',
   },
   // Improved top navigation
   topNav: [
     { text: 'Docs', link: '/introduction/what-is-tevm-node', match: '/introduction' },
     { text: 'Quick Start', link: '/getting-started/overview', match: '/getting-started' },
     { text: 'Examples', link: '/examples/viem', match: '/examples' },
-    { 
+    {
       text: 'Ecosystem',
       items: [
         { text: 'Viem', link: 'https://viem.sh/' },

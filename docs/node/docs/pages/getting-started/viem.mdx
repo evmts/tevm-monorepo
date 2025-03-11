@@ -1,6 +1,6 @@
 ---
 title: Getting Started with Viem
-description: Get started with Tevm node using viem
+description: Get started with Tevm Node using the viem library with full TypeScript support
 authors:
   - "[William Cory](https://x.com/fucory)"
   - "[Tevm Team](https://github.com/evmts)"
@@ -374,7 +374,13 @@ await client.tevmContract({
     
     // Call next() to continue execution // [!code focus]
     next?.() // [!code focus]
-  } // [!code focus]
+  }, // [!code focus]
+  
+  // You can also access the detailed result after execution
+  onResult: (result) => {
+    console.log(`Gas used: ${result.executionGasUsed}`)
+    console.log(`Return value: 0x${result.returnValue?.toString('hex')}`)
+  }
 })
 ```
 
@@ -399,6 +405,9 @@ Tevm extends viem with specialized actions that provide enhanced capabilities:
 | `tevmGetAccount` | Read detailed account state | Inspect nonce, code, storage |
 | `tevmDumpState` | Export full EVM state | State persistence and analysis |
 | `tevmLoadState` | Import saved EVM state | Restore a specific state for testing |
+| `tevmReady` | Wait for fork to initialize | Ensure node is ready before use |
+| `tevmEnableTracing` | Enable detailed execution tracing | Capture full execution traces |
+| `tevmReset` | Reset node to initial state | Start fresh for new test scenarios |
 
 :::info
 All tevm-specific actions are also available as individual imports from `tevm/actions` for tree-shaking.
