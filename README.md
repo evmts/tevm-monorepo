@@ -2,6 +2,8 @@
   A library that enables next-generation UX and DX via putting an ethereum node in the browser and solidity in javascript
 </p>
 
+![tevm-logo-dark](https://github.com/user-attachments/assets/e9ff4350-5d3f-446b-8425-afd4d73a6d3f)
+
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
 [![NPM Version](https://img.shields.io/npm/v/tevm)](https://www.npmjs.com/package/tevm)
 [![Tevm Downloads](https://img.shields.io/npm/dm/@tevm/memory-client.svg)](https://www.npmjs.com/package/@tevm/memory-client)
