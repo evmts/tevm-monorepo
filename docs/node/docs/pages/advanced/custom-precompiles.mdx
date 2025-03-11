@@ -3,298 +3,488 @@ title: Custom Precompiles
 description: Extend EVM with JavaScript-based precompile at a given address
 ---
 
+import { Callout, Steps, Tabs, Tab, Card, Cards, Button, FileTree } from 'vocs/components'
+
 # Custom Precompiles
 
-[Tevm Node](https://github.com/evmts/tevm-monorepo) allows you to extend the [EVM](https://ethereum.org/en/developers/docs/evm/) with custom [precompiled contracts](https://ethereum.org/en/developers/docs/evm/precompiles/) written in JavaScript. These precompiles can provide native functionality at specific addresses, similar to [Ethereum's built-in precompiles](https://www.evm.codes/precompiled).
+<Callout type="info" title="Extending the EVM">
+  Tevm Node allows you to extend the Ethereum Virtual Machine with custom JavaScript functions that behave like native precompiled contracts.
+</Callout>
 
-## Using tevm/precompiles
+Precompiled contracts are special EVM contracts with native implementations at fixed addresses. Tevm lets you create your own precompiles in JavaScript to add custom functionality, improve performance, or implement new features directly in the EVM.
 
-The `tevm/precompiles` package provides utilities for creating type-safe precompiles from contract [ABIs](https://docs.soliditylang.org/en/latest/abi-spec.html):
+## What Are Precompiles?
 
-```ts
-import { createTevmNode, definePrecompile } from 'tevm'
-import { createAddress } from 'tevm/address'
-import { createContract } from 'tevm/contract'
-import { parseAbi } from 'tevm/utils'
-import { createImpersonatedTx } from 'tevm/tx'
-import { EvmError, EvmErrorMessage } from 'tevm/evm'
+<Cards>
+  <Card title="Ethereum Native" icon="🧩">
+    Standard precompiles include hash functions, curve operations, and more at reserved addresses
+  </Card>
+  <Card title="Custom JavaScript" icon="⚡">
+    Tevm lets you add your own JavaScript functions as precompiles
+  </Card>
+  <Card title="Performance" icon="🚀">
+    Native code is much faster than EVM bytecode for complex operations
+  </Card>
+  <Card title="Cross-Chain" icon="🌉">
+    Many L2s use precompiles to implement chain-specific functionality
+  </Card>
+</Cards>
 
-// Create a basic precompile
-const customPrecompile = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function double(bytes) returns (bytes)']),
-    address: '0x0000000000000000000000000000000000000123'
-  }),
-  call: async ({ data }) => {
-    // Simple precompile that doubles each byte
-    const input = Array.from(data)
-    return {
-      returnValue: new Uint8Array(input.map(byte => Number(byte) * 2)),
-      executionGasUsed: 200n,
-    }
-  },
-})
+## Quick Start
 
-// Create node with precompile
-const node = createTevmNode({
-  customPrecompiles: [customPrecompile.precompile()],
-})
+<Tabs>
+  <Tab label="Basic Example">
+    ```typescript showLineNumbers {1-6,9-18,21-22,25-32} filename="simple-precompile.ts"
+    import { createTevmNode, definePrecompile } from 'tevm'
+    import { createAddress } from 'tevm/address'
+    import { createContract } from 'tevm/contract'
+    import { parseAbi } from 'tevm/utils'
+    import { createImpersonatedTx } from 'tevm/tx'
+    import { EvmError, EvmErrorMessage } from 'tevm/evm'
 
-// Create a transaction to interact with the precompile
-const tx = createImpersonatedTx({
-  impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-  to: customPrecompile.contract.address,
-  data: '0x00',
-  gasLimit: 21000n,
-})
+    // Create a basic precompile that doubles each byte
+    const customPrecompile = definePrecompile({ // [!code focus]
+      contract: createContract({ // [!code focus]
+        abi: parseAbi(['function double(bytes) returns (bytes)']), // [!code focus]
+        address: '0x0000000000000000000000000000000000000123' // [!code focus]
+      }), // [!code focus]
+      call: async ({ data }) => { // [!code focus]
+        const input = Array.from(data) // [!code focus]
+        return { // [!code focus]
+          returnValue: new Uint8Array(input.map(byte => Number(byte) * 2)), // [!code focus]
+          executionGasUsed: 200n, // [!code focus]
+        } // [!code focus]
+      }, // [!code focus]
+    })
 
-// Execute the transaction
-const vm = await node.getVm()
-const result = await vm.runTx({ tx })
-```
+    // Create node with the precompile
+    const node = createTevmNode({ // [!code focus]
+      customPrecompiles: [customPrecompile.precompile()], // [!code focus]
+    })
 
-## Basic Usage
+    // Create a transaction to call the precompile
+    const tx = createImpersonatedTx({ // [!code focus]
+      impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'), // [!code focus]
+      to: customPrecompile.contract.address, // [!code focus]
+      data: '0x00', // [!code focus]
+      gasLimit: 21000n, // [!code focus]
+    }) // [!code focus]
+    
+    // Execute the transaction
+    const vm = await node.getVm() // [!code focus]
+    const result = await vm.runTx({ tx }) // [!code focus]
+    ```
+    
+    <Callout type="tip" title="Type Safety">
+      The <code>definePrecompile</code> function provides full type safety based on the provided ABI, making your precompiles safer and easier to use.
+    </Callout>
+  </Tab>
+  
+  <Tab label="Complex Example">
+    ```typescript showLineNumbers {9-22,25-26} filename="advanced-precompile.ts"
+    import { createTevmNode, definePrecompile } from 'tevm'
+    import { createAddress } from 'tevm/address'
+    import { createContract } from 'tevm/contract'
+    import { parseAbi, hexToBytes } from 'tevm/utils'
+    import { createImpersonatedTx } from 'tevm/tx'
+    import { EvmError, EvmErrorMessage } from 'tevm/evm'
+    import { keccak256 } from 'tevm/crypto'
 
-Here's a simple example of creating and using a precompile:
+    // Create a cryptographic hash precompile
+    const hashPrecompile = definePrecompile({ // [!code focus]
+      contract: createContract({ // [!code focus]
+        abi: parseAbi(['function hash(bytes) returns (bytes32)']), // [!code focus]
+        address: '0x0000000000000000000000000000000000000321' // [!code focus]
+      }), // [!code focus]
+      call: async ({ data, gasLimit }) => { // [!code focus]
+        // Calculate gas cost based on input size
+        const gasPerByte = 10n
+        const gasUsed = BigInt(data.length) * gasPerByte + 100n // Base cost + per-byte cost
+        
+        // Perform the hash operation
+        const hash = keccak256(data)
+        
+        return { returnValue: hash, executionGasUsed: gasUsed } // [!code focus]
+      }, // [!code focus]
+    })
 
-```ts
-import { createTevmNode, definePrecompile } from 'tevm'
-import { createAddress } from 'tevm/address'
-import { createContract } from 'tevm/contract'
-import { parseAbi } from 'tevm/utils'
-import { createImpersonatedTx } from 'tevm/tx'
-import { EvmError, EvmErrorMessage } from 'tevm/evm'
-
-const myPrecompile = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function process(bytes) returns (bytes)']),
-    address: '0x0000000000000000000000000000000000000123'
-  }),
-  call: async ({ data, gasLimit }) => {
-    const executionGasUsed = 200n
-    if (gasLimit <= executionGasUsed) {
-      return {
-        returnValue: new Uint8Array(),
-        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
-        executionGasUsed: gasLimit,
-      }
-    }
-    // Process input data
-    const processedData = data
-    return {
-      returnValue: new Uint8Array([...processedData]),
-      executionGasUsed,
-    }
-  },
-})
-
-const node = createTevmNode({
-  customPrecompiles: [myPrecompile.precompile()],
-})
-```
+    // Create a node with multiple precompiles
+    const node = createTevmNode({ // [!code focus]
+      customPrecompiles: [customPrecompile.precompile(), hashPrecompile.precompile()], // [!code focus]
+    })
+    ```
+  </Tab>
+</Tabs>
 
 ## Precompile Interface
 
-```ts
-interface PrecompileInput {
-  data: Uint8Array
-  gasLimit: bigint
-}
+<Callout type="info" title="Interface Definition">
+  When creating a precompile, you need to define both the contract interface (ABI) and the implementation function.
+</Callout>
 
-interface PrecompileOutput {
-  returnValue: Uint8Array
-  executionGasUsed: bigint
-}
-
-interface PrecompileContract {
-  contract: Contract
-  call: (input: PrecompileInput) => Promise<PrecompileOutput>
-}
-```
+<Steps>
+  ### Define the Contract Interface
+  
+  Every precompile needs an ABI and address:
+  
+  ```typescript showLineNumbers {1-4} filename="interface.ts"
+  const contract = createContract({
+    abi: parseAbi(['function myFunction(uint256) returns (uint256)']),
+    address: '0x0000000000000000000000000000000000000123'
+  })
+  ```
+  
+  ### Implement the Call Handler
+  
+  The call handler receives the input data and gas limit:
+  
+  ```typescript showLineNumbers {1-10} filename="handler.ts"
+  const call = async ({ data, gasLimit }: PrecompileInput): Promise<PrecompileOutput> => {
+    // Process input data
+    // ...
+    
+    return {
+      returnValue: new Uint8Array([/* result data */]),
+      executionGasUsed: 1000n,
+      // Optional: exceptionError for when the operation fails
+    }
+  }
+  ```
+  
+  ### Create and Register the Precompile
+  
+  Combine both parts and register with a Tevm Node:
+  
+  ```typescript showLineNumbers {1-8} filename="register.ts"
+  const myPrecompile = definePrecompile({ contract, call })
+  
+  // Create a node with the precompile
+  const node = createTevmNode({
+    customPrecompiles: [
+      myPrecompile.precompile()
+    ]
+  })
+  ```
+</Steps>
 
 ## Example Implementations
 
-### 1. State Access Precompile
+<Tabs>
+  <Tab label="State Access">
+    ```typescript showLineNumbers {1-20} filename="state-precompile.ts"
+    const statePrecompile = definePrecompile({
+      contract: createContract({
+        abi: parseAbi(['function store(bytes32,bytes32)']),
+        address: '0x0000000000000000000000000000000000000124'
+      }),
+      call: async ({ data, gasLimit }) => {
+        // Extract key and value from input data
+        const key = data.slice(0, 32)
+        const value = data.slice(32)
+        
+        // Get VM and state manager
+        const vm = await node.getVm()
+        
+        // Store the value at the specified key
+        await vm.stateManager.putContractStorage(
+          createAddress(statePrecompile.contract.address),
+          key,
+          value
+        )
+        
+        return { returnValue: new Uint8Array(), executionGasUsed: 200n }
+      },
+    })
+    ```
+    
+    <Callout type="tip" title="Persistent Storage">
+      This precompile demonstrates how to access and modify blockchain state from within a precompile.
+    </Callout>
+  </Tab>
+  
+  <Tab label="Gas Calculation">
+    ```typescript showLineNumbers {1-16} filename="gas-precompile.ts"
+    const gasPrecompile = definePrecompile({
+      contract: createContract({
+        abi: parseAbi(['function processWithGas(bytes)']),
+        address: '0x0000000000000000000000000000000000000125'
+      }),
+      call: async ({ data, gasLimit }) => {
+        // Charge 100 gas per byte
+        const gasUsed = BigInt(data.length * 100)
+        
+        // Check if we have enough gas
+        if (gasUsed > gasLimit) {
+          return {
+            returnValue: new Uint8Array(),
+            exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+            executionGasUsed: gasLimit,
+          }
+        }
+        
+        return { returnValue: new Uint8Array(), executionGasUsed: gasUsed }
+      },
+    })
+    ```
+    
+    <Callout type="warning" title="Gas Handling">
+      Always check if there's enough gas before executing operations, and return the exact amount of gas used.
+    </Callout>
+  </Tab>
+  
+  <Tab label="Error Handling">
+    ```typescript showLineNumbers {1-21} filename="error-precompile.ts"
+    const errorPrecompile = definePrecompile({
+      contract: createContract({
+        abi: parseAbi(['function process(bytes)']),
+        address: '0x0000000000000000000000000000000000000126'
+      }),
+      call: async ({ data, gasLimit }) => {
+        try {
+          // Validate input
+          if (data.length === 0) {
+            return {
+              returnValue: new Uint8Array(),
+              exceptionError: new EvmError('Custom error: Empty input not allowed'),
+              executionGasUsed: 200n,
+            }
+          }
+          
+          // Process data
+          return { returnValue: processData(data), executionGasUsed: 200n }
+        } catch (error) {
+          // Handle unexpected errors
+          return {
+            returnValue: new Uint8Array(),
+            exceptionError: new EvmError(`Precompile error: ${error.message}`),
+            executionGasUsed: gasLimit,
+          }
+        }
+      },
+    })
+    ```
+  </Tab>
+  
+  <Tab label="Multiple Precompiles">
+    ```typescript showLineNumbers {1-22} filename="multiple-precompiles.ts"
+    // First precompile
+    const precompileA = definePrecompile({
+      contract: createContract({
+        abi: parseAbi(['function processA() returns (bytes)']),
+        address: '0x0000000000000000000000000000000000000127'
+      }),
+      call: async () => ({
+        returnValue: new Uint8Array([1]),
+        executionGasUsed: 200n,
+      }),
+    })
 
-```ts
-const statePrecompile = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function store(bytes32,bytes32)']),
-    address: '0x0000000000000000000000000000000000000124'
-  }),
-  call: async ({ data, gasLimit }) => {
-    const key = data.slice(0, 32)
-    const value = data.slice(32)
-    const vm = await node.getVm()
-    await vm.stateManager.putContractStorage(
-      createAddress(statePrecompile.contract.address),
-      hexToBytes(key),
-      hexToBytes(value)
-    )
-    const executionGasUsed = 200n
-    if (gasLimit <= executionGasUsed) {
-      return {
-        returnValue: new Uint8Array(),
-        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
-        executionGasUsed: gasLimit,
-      }
-    }
-    return {
-      returnValue: new Uint8Array(),
-      executionGasUsed,
-    }
-  },
-})
-```
+    // Second precompile
+    const precompileB = definePrecompile({
+      contract: createContract({
+        abi: parseAbi(['function processB() returns (bytes)']),
+        address: '0x0000000000000000000000000000000000000128'
+      }),
+      call: async () => ({
+        returnValue: new Uint8Array([2]),
+        executionGasUsed: 200n,
+      }),
+    })
 
-### 2. Gas Calculation Precompile
+    // Register both precompiles
+    const node = createTevmNode({
+      customPrecompiles: [precompileA.precompile(), precompileB.precompile()],
+    })
+    ```
+  </Tab>
+</Tabs>
 
-```ts
-const gasPrecompile = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function processWithGas(bytes)']),
-    address: '0x0000000000000000000000000000000000000125'
-  }),
-  call: async ({ data, gasLimit }) => {
-    // Charge 100 gas per byte
-    const gasUsed = BigInt(data.length * 100)
-    if (gasUsed > gasLimit) {
-      throw new Error('Out of gas')
-    }
-    return {
-      returnValue: new Uint8Array(),
-      executionGasUsed: gasUsed,
-    }
-  },
-})
-```
+## Use Cases
 
-### 3. Error Handling Precompile
-
-```ts
-const errorPrecompile = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function process()']),
-    address: '0x0000000000000000000000000000000000000126'
-  }),
-  call: async ({ data }) => {
-    if (data.length === 0) {
-      throw new Error('Empty input not allowed')
-    }
-    return {
-      returnValue: new Uint8Array(),
-      executionGasUsed: 200n,
-    }
-  },
-})
-```
-
-### 4. Multiple Precompiles
-
-```ts
-const precompileA = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function processA() returns (bytes)']),
-    address: '0x0000000000000000000000000000000000000127'
-  }),
-  call: async () => ({
-    returnValue: new Uint8Array([1]),
-    executionGasUsed: 200n,
-  }),
-})
-
-const precompileB = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function processB() returns (bytes)']),
-    address: '0x0000000000000000000000000000000000000128'
-  }),
-  call: async () => ({
-    returnValue: new Uint8Array([2]),
-    executionGasUsed: 200n,
-  }),
-})
-
-const node = createTevmNode({
-  customPrecompiles: [precompileA.precompile(), precompileB.precompile()],
-})
-```
+<Cards num={2}>
+  <Card title="Cryptographic Operations" icon="🔐">
+    Implement efficient cryptographic operations like encryption, hashing, or signature verification
+  </Card>
+  <Card title="Oracle Functionality" icon="🔮">
+    Simulate oracles or external data sources during local testing
+  </Card>
+  <Card title="Complex Math" icon="🧮">
+    Perform complex mathematical calculations that would be gas-intensive in Solidity
+  </Card>
+  <Card title="Cross-Chain Bridges" icon="🌉">
+    Simulate cross-chain verification logic for testing bridge implementations
+  </Card>
+  <Card title="Custom Data Structures" icon="📊">
+    Implement efficient data structure operations (trees, graphs, etc.)
+  </Card>
+  <Card title="Testing Helpers" icon="🧪">
+    Create special testing functions like time manipulation or state snapshots
+  </Card>
+</Cards>
 
 ## Best Practices
 
-1. **Gas Calculation**:
-   - Always calculate gas based on input size or operations performed
-   - Check against provided gas limit
-   - Return accurate gas usage and proper error types
-
-```ts
-const precompile = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function process(bytes)']),
-    address: createAddress('0x0000000000000000000000000000000000000123')
-  }),
-  call: async ({ data, gasLimit }) => {
-    const gasPerByte = 100n
-    const gasUsed = BigInt(data.length) * gasPerByte
-    if (gasUsed > gasLimit) {
-      return {
-        returnValue: new Uint8Array(),
-        exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
-        executionGasUsed: gasLimit,
-      }
-    }
-    return {
-      returnValue: processData(data),
-      executionGasUsed: gasUsed,
-    }
-  },
-})
-```
-
-2. **Error Handling**:
-   - Use proper EvmError types for EVM-specific errors
-   - Check input validity
-   - Handle gas limits properly
-
-```ts
-const precompile = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function process(bytes)']),
-    address: createAddress('0x0000000000000000000000000000000000000123')
-  }),
-  call: async ({ data, gasLimit }) => {
-    try {
-      if (data.length === 0) {
-        throw new Error('Empty input not allowed')
-      }
-      const executionGasUsed = 200n
-      if (gasLimit <= executionGasUsed) {
-        return {
-          returnValue: new Uint8Array(),
-          exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
-          executionGasUsed: gasLimit,
+<Tabs>
+  <Tab label="Gas Calculation">
+    <Callout type="tip" title="Accurate Gas Usage">
+      Always calculate gas based on the actual work performed, similar to how the EVM charges gas for operations.
+    </Callout>
+    
+    ```typescript showLineNumbers {1-18} filename="gas-best-practices.ts"
+    const precompile = definePrecompile({
+      contract: createContract({
+        abi: parseAbi(['function process(bytes)']),
+        address: createAddress('0x0000000000000000000000000000000000000123')
+      }),
+      call: async ({ data, gasLimit }) => {
+        // Calculate gas based on input size and operations
+        const baseGas = 100n;                     // Base cost
+        const dataGas = BigInt(data.length * 10); // Per-byte cost
+        const totalGas = baseGas + dataGas;       // Total cost
+        
+        // Check gas limit
+        if (totalGas > gasLimit) {
+          return {
+            returnValue: new Uint8Array(),
+            exceptionError: new EvmError(EvmErrorMessage.OUT_OF_GAS),
+            executionGasUsed: gasLimit,
+          }
         }
-      }
-      // Process data
-      return {
-        returnValue: processData(data),
-        executionGasUsed,
-      }
-    } catch (error) {
-      throw new Error(`Precompile error: ${error.message}`)
-    }
-  },
-})
-```
+        
+        // Process data
+        return { returnValue: processData(data), executionGasUsed: totalGas }
+      },
+    })
+    ```
+  </Tab>
+  
+  <Tab label="Error Handling">
+    <Callout type="warning" title="Robust Error Management">
+      Use appropriate error types and include detailed error information.
+    </Callout>
+    
+    ```typescript showLineNumbers {1-24} filename="error-best-practices.ts"
+    const precompile = definePrecompile({
+      contract: createContract({
+        abi: parseAbi(['function process(bytes32,uint256)']),
+        address: createAddress('0x0000000000000000000000000000000000000123')
+      }),
+      call: async ({ data, gasLimit }) => {
+        try {
+          // Validate input format
+          if (data.length < 36) {
+            return {
+              returnValue: new Uint8Array(),
+              exceptionError: new EvmError('Invalid input: insufficient data'),
+              executionGasUsed: 100n,
+            }
+          }
+          
+          // Additional validation and processing
+          // ...
+          
+          return { returnValue: result, executionGasUsed: gasUsed }
+        } catch (error) {
+          // Log error for debugging (will not be visible to the transaction caller)
+          console.error('Precompile execution error:', error);
+          
+          // Return appropriate error to the EVM
+          return {
+            returnValue: new Uint8Array(),
+            exceptionError: new EvmError(error.message || 'Unknown precompile error'),
+            executionGasUsed: Math.min(100n, gasLimit), // Charge some minimum gas
+          }
+        }
+      },
+    })
+    ```
+  </Tab>
+  
+  <Tab label="State Management">
+    <Callout type="tip" title="Persistent State">
+      When your precompile needs to maintain state across calls.
+    </Callout>
+    
+    ```typescript showLineNumbers {1-20} filename="state-best-practices.ts"
+    const statePrecompile = definePrecompile({
+      contract: createContract({
+        abi: parseAbi(['function getData(bytes32) returns (bytes32)', 'function setData(bytes32,bytes32)']),
+        address: createAddress('0x0000000000000000000000000000000000000124')
+      }),
+      call: async ({ data, gasLimit }) => {
+        const vm = await node.getVm();
+        const stateManager = vm.stateManager;
+        const address = createAddress(statePrecompile.contract.address);
+        
+        // Parse function selector
+        const selector = data.slice(0, 4);
+        const isGetData = selector[0] === 0x9b & selector[1] === 0x18 & selector[2] === 0x30 & selector[3] === 0x4c;
+        
+        if (isGetData) {
+          // Read from state
+          const key = data.slice(4, 36);
+          const value = await stateManager.getContractStorage(address, key);
+          return { returnValue: value, executionGasUsed: 200n };
+        } else {
+          // Write to state
+          const key = data.slice(4, 36);
+          const value = data.slice(36, 68);
+          await stateManager.putContractStorage(address, key, value);
+          return { returnValue: new Uint8Array(), executionGasUsed: 500n };
+        }
+      },
+    })
+    ```
+  </Tab>
+  
+  <Tab label="Performance">
+    <Callout type="tip" title="Efficient Execution">
+      Optimize your precompile's performance to minimize resource usage.
+    </Callout>
+    
+    ```typescript showLineNumbers {1-15} filename="performance-best-practices.ts"
+    const precompile = definePrecompile({
+      // Contract definition...
+      call: async ({ data, gasLimit }) => {
+        // For expensive operations, consider caching results
+        const cacheKey = data.toString();
+        if (resultsCache.has(cacheKey)) {
+          return resultsCache.get(cacheKey);
+        }
+        
+        // Perform computation
+        const result = performExpensiveOperation(data);
+        
+        // Cache the result
+        resultsCache.set(cacheKey, { returnValue: result, executionGasUsed: gasUsed });
+        
+        return { returnValue: result, executionGasUsed: gasUsed };
+      },
+    })
+    ```
+  </Tab>
+</Tabs>
 
-3. **State Management**:
-   - Use VM state manager for persistent storage
-   - Handle state access errors
-   - Clean up resources when needed
+## Related Resources
 
-## Related Topics
-- [contract reference](/reference/contract)
-- [State Management](../core/managing-state)
-- [JSON-RPC Support](../api/json-rpc)
-- [EVM Opcodes Reference](https://www.evm.codes/)
-- [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
-- [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
+  <Button href="/reference/contract" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Contract Reference</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Working with smart contracts in Tevm</div>
+  </Button>
+  
+  <Button href="../core/managing-state" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>State Management</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Access and manipulate blockchain state</div>
+  </Button>
+  
+  <Button href="../api/json-rpc" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>JSON-RPC Support</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Expose precompiles via JSON-RPC</div>
+  </Button>
+  
+  <Button href="https://www.evm.codes/precompiled" variant="accent" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>EVM Precompiles Reference</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Standard Ethereum precompiled contracts</div>
+  </Button>
+</div>

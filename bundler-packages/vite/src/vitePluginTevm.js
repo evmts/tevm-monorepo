@@ -1,73 +1,54 @@
 import { createUnplugin, tevmUnplugin } from '@tevm/unplugin'
 
 /**
- * Vite plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
- * will transform solidity contract imports into Tevm `Contract` instances.
+ * Creates a Vite plugin for Tevm that enables direct Solidity imports in JavaScript
+ * and TypeScript code.
  *
- * To configure add this plugin to your vite config and add the ts-plugin to your tsconfig.json
+ * This plugin integrates with Vite to transform imports of .sol files into JavaScript
+ * modules that export Tevm Contract instances. These instances include the contract's ABI,
+ * bytecode, and type information, allowing you to interact with Ethereum smart contracts
+ * in a type-safe way directly in your Vite-powered applications.
+ *
+ * @returns {import('vite').Plugin} A Vite plugin that handles Solidity imports
+ *
  * @example
- * ```typescript
- * import { vitePluginTevm } from '@tevm/vite'
+ * // Basic Configuration - Add the plugin to your Vite configuration
+ * // vite.config.js
  * import { defineConfig } from 'vite'
+ * import { vitePluginTevm } from '@tevm/vite'
  *
  * export default defineConfig({
- *  plugins: [
- *    vitePluginTevm()
- *  ]
+ *   plugins: [vitePluginTevm()],
  * })
- * ```
  *
- * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
- * The ts-plugin will provide type hints, code completion, and other features.
  * @example
- * ```json
- * {
- *   "compilerOptions": {
- *     "plugins": [{ "name": "tevm/ts-plugin" }]
- *   }
- * }
- * ```
+ * // TypeScript Configuration - For full TypeScript support
+ * // Add to tsconfig.json:
+ * // {
+ * //   "compilerOptions": {
+ * //     "plugins": [{ "name": "tevm/ts-plugin" }]
+ * //   }
+ * // }
  *
- * Once the vite plugin and the ts-plugin are configured, you can import Solidity files in JavaScript. The compiler will
- * turn them into Tevm `Contract` instances.
  * @example
- * ```typescript
- * // Solidity imports are automaticlaly turned into Tevm Contract objects
- * import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
- * import { createTevm } from 'tevm'
- *
- * console.log(ERC20.abi)
- * console.log(ERC20.humanReadableAbi)
- * console.log(ERC20.bytecode)
- *
- * tevm.contract(
- *   ERC20.withAddress(.read.balanceOf()
- * )
- * ```
- *
- * Under the hood the vite plugin is creating a virtual file for ERC20.sol called ERC20.sol.cjs that looks like this
- * @example
- * ```typescript
+ * // How Solidity imports work - Generated module example
  * import { createContract } from '@tevm/contract'
  *
  * export const ERC20 = createContract({
  *   name: 'ERC20',
- *   humanReadableAbi: [ 'function balanceOf(address): uint256', ... ],
+ *   humanReadableAbi: [
+ *     'function name() view returns (string)',
+ *     'function symbol() view returns (string)',
+ *     // other functions...
+ *   ],
  *   bytecode: '0x...',
  *   deployedBytecode: '0x...',
  * })
- * ```
  *
- * For custom configuration of the Tevm compiler add a [tevm.config.json](https://todo.todo.todo) file to your project root.
- * @example
- * ```json
- * {
- *   foundryProject?: boolean | string | undefined,
- *   libs: ['lib'],
- *   remappings: {'foo': 'vendored/foo'},
- *   debug: true,
- *   cacheDir: '.tevm'
- * }
- * ```
+ * The plugin supports Vite's HMR, so when you edit your Solidity files, your
+ * application will update without a full reload if possible.
+ *
+ * @see {@link https://tevm.sh/learn/solidity-imports | Tevm Solidity Import Documentation}
+ * @see {@link https://vitejs.dev/guide/api-plugin.html | Vite Plugin API}
  */
 export const vitePluginTevm = createUnplugin(tevmUnplugin).vite

@@ -10,12 +10,28 @@ import type { Logger } from '../factories/logger.js'
 import { findNode } from '../utils/index.js'
 import { convertSolcAstToTsDefinitionInfo, findContractDefinitionFileNameFromTevmNode } from '../utils/index.js'
 
-// TODO make me to a normal decorator
-// is a woneoff decorator becuase this decorates the language service not the Host
-// We will want to generalize the decorator before moving this elsewhere
 /**
- * Decorate `LangaugeServerHost.getScriptKind` to return TS type for `.sol` files
- * This lets the ts-server expect `.sol` files to resolve to `.d.ts` files in `resolveModuleNameLiterals`
+ * Decorates the TypeScript LanguageService to provide "Go to Definition" support for Solidity contracts.
+ *
+ * This decorator extends the standard TypeScript language service by:
+ * 1. Detecting when a user attempts to navigate to a definition in a Solidity contract
+ * 2. Compiling the Solidity source using solc
+ * 3. Parsing the AST to find matching function/event definitions
+ * 4. Converting Solidity AST nodes to TypeScript definition information
+ * 5. Returning these definitions alongside any TypeScript definitions
+ *
+ * This enables IDE features like "Go to Definition" to work seamlessly between TypeScript and Solidity.
+ *
+ * Note: Unlike other decorators in this codebase, this decorates the language service directly,
+ * not the LanguageServiceHost. Future refactoring may generalize this approach.
+ *
+ * @param service - The TypeScript language service to decorate
+ * @param config - Compiler configuration for Solidity files
+ * @param logger - Logger instance for debugging information
+ * @param ts - TypeScript library instance
+ * @param fao - File access object for reading files
+ * @param solcCache - Cache instance for solc compilations
+ * @returns Decorated TypeScript language service with Solidity definition support
  */
 export const getDefinitionServiceDecorator = (
 	service: typescript.LanguageService,

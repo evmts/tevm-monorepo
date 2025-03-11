@@ -5,18 +5,72 @@ import { readCache } from './readCache.js'
 import { writeCache } from './writeCache.js'
 
 /**
- * @param {import('@tevm/compiler').Logger} logger
- * @param {import('@tevm/config').ResolvedCompilerConfig} config
- * @param {import('@tevm/compiler').FileAccessObject} fao
- * @param {import('@tevm/solc').Solc} solc
- * @param {string} modulePath
- * @param {string} basedir
- * @param {boolean} includeAst
- * @param {boolean} includeBytecode
- * @param {import('@tevm/runtime').ModuleType} moduleType
- * @param {import('@tevm/bundler-cache').Cache} cache
- * @param {'tevm/contract' | '@tevm/contract'} contractPackage
- * @returns {Promise<import('./types.js').BundlerResult>} a promise that resolves to a bundler result object
+ * Asynchronously resolves a Solidity module to the specified module format.
+ *
+ * This function is the core of the bundler's module resolution process. It:
+ * 1. Attempts to read from cache first
+ * 2. If not cached, compiles the Solidity source and generates artifacts
+ * 3. Generates code for the requested module type (dts, mjs, etc.)
+ * 4. Writes results to cache (without blocking the resolution)
+ * 5. Returns the bundler result
+ *
+ * @param {import('@tevm/compiler').Logger} logger - Logger for error reporting
+ * @param {import('@tevm/config').ResolvedCompilerConfig} config - Compiler configuration
+ * @param {import('@tevm/compiler').FileAccessObject} fao - File system access object
+ * @param {import('@tevm/solc').Solc} solc - Solidity compiler instance
+ * @param {string} modulePath - Path to the Solidity module
+ * @param {string} basedir - Base directory for resolving relative paths
+ * @param {boolean} includeAst - Whether to include AST in the result
+ * @param {boolean} includeBytecode - Whether to include bytecode in the result
+ * @param {import('@tevm/runtime').ModuleType} moduleType - Type of module to generate ('dts', 'mjs', 'cjs', 'ts')
+ * @param {import('@tevm/bundler-cache').Cache} cache - Cache instance for artifacts
+ * @param {'tevm/contract' | '@tevm/contract'} contractPackage - Contract package name to import in generated code
+ * @returns {Promise<import('./types.js').BundlerResult>} A promise that resolves to a bundler result object
+ * @throws {Error} - Throws if compilation or code generation fails
+ *
+ * @example
+ * ```javascript
+ * import { resolveModuleAsync } from '@tevm/base-bundler'
+ * import { createCache } from '@tevm/bundler-cache'
+ * import { createSolc } from '@tevm/solc'
+ * import { loadConfig } from '@tevm/config'
+ * import { mkdir, readFile, writeFile } from 'fs/promises'
+ * import { existsSync, statSync } from 'fs'
+ *
+ * // Setup dependencies
+ * const config = await loadConfig()
+ * const solc = await createSolc()
+ * const cache = createCache()
+ * const logger = console
+ *
+ * // File access object
+ * const fao = {
+ *   readFile: (path, encoding) => readFile(path, { encoding }),
+ *   writeFile,
+ *   exists: async (path) => existsSync(path),
+ *   existsSync,
+ *   statSync,
+ *   mkdir
+ *   // Include other required methods
+ * }
+ *
+ * // Resolve a Solidity file to a TypeScript declaration file
+ * const result = await resolveModuleAsync(
+ *   logger,
+ *   config,
+ *   fao,
+ *   solc,
+ *   './contracts/Counter.sol',
+ *   process.cwd(),
+ *   true,  // include AST
+ *   true,  // include bytecode
+ *   'dts', // generate .d.ts file
+ *   cache,
+ *   '@tevm/contract'
+ * )
+ *
+ * console.log(result.code) // Generated TypeScript declarations
+ * ```
  */
 export const resolveModuleAsync = async (
 	logger,

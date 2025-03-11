@@ -3,51 +3,101 @@ import { resolveModuleAsync } from './resolveModuleAsync.js'
 import { resolveModuleSync } from './resolveModuleSync.js'
 
 /**
- * The base bundler instance used within tevm to generate JavaScript and TypeScript files
- * from solidity files. This is used internally by all other tevm build tooling including
- * the ts-plugin, the webpack plugin, the bun plugin, the vite plugin, and more.
- * @param config - The tevm config. Can be loaded with `loadConfig()`
- * @param logger - The logger to use for logging. Can be `console`
- * @param fao - The file access object to use for reading and writing files. Can use fs to fill this out
- * @param solc - The solc compiler to use. Can be loaded with `createSolc()`
- * @param cache - The cache to use. Can be created with `createCache()`
- * @type {import('./types.js').Bundler}
+ * Creates a bundler instance for processing Solidity files into JavaScript and TypeScript.
  *
- * Since ts-plugin must be synchronous, this bundler supports both async and sync methods.
+ * The bundler is the core component of Tevm's build system, providing the capability to:
+ * - Compile Solidity files to ABI, bytecode, and AST
+ * - Generate TypeScript type definitions from the ABI
+ * - Generate JavaScript or TypeScript code for importing contracts
+ * - Cache compilation results for better performance
+ * - Support multiple module formats (ESM, CJS, TypeScript)
  *
- * To use initialize the bundler and then call a resolve* methods
+ * This base bundler is used by all Tevm build plugins including TypeScript,
+ * Webpack, Vite, Bun, ESBuild, and others.
+ *
+ * @param {import('@tevm/config').ResolvedCompilerConfig} config - The Tevm compiler configuration
+ * @param {import('./types.js').Logger} logger - Logger for error and info reporting
+ * @param {import('./types.js').FileAccessObject} fao - File system access object for reading/writing files
+ * @param {import('@tevm/solc').Solc} solc - Solidity compiler instance
+ * @param {import('@tevm/bundler-cache').Cache} cache - Cache instance for build artifacts
+ * @param {'tevm/contract' | '@tevm/contract' | undefined} contractPackage - Optional contract package name
+ * @returns {ReturnType<import('./types.js').Bundler>} A bundler instance with methods for resolving Solidity modules
  *
  * @example
- * ```typescript
- * import { bundler } from '@tevm/base-bundler-bundler'
+ * ```javascript
+ * import { bundler } from '@tevm/base-bundler'
  * import { createCache } from '@tevm/bundler-cache'
  * import { readFile, writeFile } from 'fs/promises'
- * import { readFileSync, writeFileSync, existsSync } from 'fs'
+ * import { readFileSync, writeFileSync, existsSync, statSync, mkdirSync } from 'fs'
+ * import { mkdir, stat } from 'fs/promises'
  * import { createSolc } from '@tevm/solc'
  * import { loadConfig } from '@tevm/config'
  *
+ * // Create a file access object with all required methods
  * const fao = {
- *   readFile,
+ *   // Async methods
+ *   readFile: (path, encoding) => readFile(path, { encoding }),
  *   writeFile,
- *   readFileSync,
+ *   exists: async (path) => existsSync(path),
+ *   stat,
+ *   mkdir,
+ *
+ *   // Sync methods
+ *   readFileSync: (path, encoding) => readFileSync(path, { encoding }),
  *   writeFileSync,
  *   existsSync,
- *   // may need more methods
+ *   statSync,
+ *   mkdirSync
  * }
  *
- * const b = bundler(await loadConfig(), console, fao, await createSolc(), createCache())
+ * async function setupBundler() {
+ *   // Initialize dependencies
+ *   const config = await loadConfig()
+ *   const solcCompiler = await createSolc()
+ *   const cacheInstance = createCache()
  *
- * const path = '../contracts/ERC20.sol'
+ *   // Create the bundler
+ *   const tevmBundler = bundler(
+ *     config,
+ *     console,
+ *     fao,
+ *     solcCompiler,
+ *     cacheInstance
+ *   )
  *
- * const { abi, bytecode } = await b.resolveTs(path, __dirname, true, true)
+ *   // Process a Solidity file to TypeScript
+ *   const result = await tevmBundler.resolveTsModule(
+ *     './contracts/ERC20.sol',
+ *     process.cwd(),
+ *     true,  // include AST
+ *     true   // include bytecode
+ *   )
+ *
+ *   console.log(result.code)
+ *
+ *   // The result contains:
+ *   // - code: The generated TypeScript code
+ *   // - modules: Information about processed modules
+ *   // - solcInput: The input provided to solc
+ *   // - solcOutput: The compiler output
+ *   // - asts: Abstract Syntax Trees (if requested)
+ * }
+ *
+ * setupBundler().catch(console.error)
  * ```
  */
 export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
 	const _contractPackage = typeof contractPackage === 'string' ? contractPackage : getContractPath(process.cwd())
 	return {
-		name: bundler.name,
+		/** @type {string} */
+		name: 'TevmBaseBundler',
 		config,
-		resolveDts: (modulePath, basedir, includeAst, includeBytecode) =>
+		resolveDts: (
+			/** @type {string} */ modulePath,
+			/** @type {string} */ basedir,
+			/** @type {boolean} */ includeAst,
+			/** @type {boolean} */ includeBytecode,
+		) =>
 			resolveModuleAsync(
 				logger,
 				config,
@@ -61,7 +111,12 @@ export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
 				cache,
 				_contractPackage,
 			),
-		resolveDtsSync: (modulePath, basedir, includeAst, includeBytecode) =>
+		resolveDtsSync: (
+			/** @type {string} */ modulePath,
+			/** @type {string} */ basedir,
+			/** @type {boolean} */ includeAst,
+			/** @type {boolean} */ includeBytecode,
+		) =>
 			resolveModuleSync(
 				logger,
 				config,
@@ -75,7 +130,12 @@ export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
 				cache,
 				_contractPackage,
 			),
-		resolveTsModuleSync: (modulePath, basedir, includeAst, includeBytecode) =>
+		resolveTsModuleSync: (
+			/** @type {string} */ modulePath,
+			/** @type {string} */ basedir,
+			/** @type {boolean} */ includeAst,
+			/** @type {boolean} */ includeBytecode,
+		) =>
 			resolveModuleSync(
 				logger,
 				config,
@@ -89,7 +149,12 @@ export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
 				cache,
 				_contractPackage,
 			),
-		resolveTsModule: (modulePath, basedir, includeAst, includeBytecode) =>
+		resolveTsModule: (
+			/** @type {string} */ modulePath,
+			/** @type {string} */ basedir,
+			/** @type {boolean} */ includeAst,
+			/** @type {boolean} */ includeBytecode,
+		) =>
 			resolveModuleAsync(
 				logger,
 				config,
@@ -103,7 +168,12 @@ export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
 				cache,
 				_contractPackage,
 			),
-		resolveCjsModuleSync: (modulePath, basedir, includeAst, includeBytecode) =>
+		resolveCjsModuleSync: (
+			/** @type {string} */ modulePath,
+			/** @type {string} */ basedir,
+			/** @type {boolean} */ includeAst,
+			/** @type {boolean} */ includeBytecode,
+		) =>
 			resolveModuleSync(
 				logger,
 				config,
@@ -117,7 +187,12 @@ export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
 				cache,
 				_contractPackage,
 			),
-		resolveCjsModule: (modulePath, basedir, includeAst, includeBytecode) =>
+		resolveCjsModule: (
+			/** @type {string} */ modulePath,
+			/** @type {string} */ basedir,
+			/** @type {boolean} */ includeAst,
+			/** @type {boolean} */ includeBytecode,
+		) =>
 			resolveModuleAsync(
 				logger,
 				config,
@@ -131,7 +206,12 @@ export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
 				cache,
 				_contractPackage,
 			),
-		resolveEsmModuleSync: (modulePath, basedir, includeAst, includeBytecode) =>
+		resolveEsmModuleSync: (
+			/** @type {string} */ modulePath,
+			/** @type {string} */ basedir,
+			/** @type {boolean} */ includeAst,
+			/** @type {boolean} */ includeBytecode,
+		) =>
 			resolveModuleSync(
 				logger,
 				config,
@@ -145,7 +225,12 @@ export const bundler = (config, logger, fao, solc, cache, contractPackage) => {
 				cache,
 				_contractPackage,
 			),
-		resolveEsmModule: (modulePath, basedir, includeAst, includeBytecode) =>
+		resolveEsmModule: (
+			/** @type {string} */ modulePath,
+			/** @type {string} */ basedir,
+			/** @type {boolean} */ includeAst,
+			/** @type {boolean} */ includeBytecode,
+		) =>
 			resolveModuleAsync(
 				logger,
 				config,

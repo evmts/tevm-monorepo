@@ -3,151 +3,316 @@ title: Mining Modes
 description: Configure block production in Tevm Node
 ---
 
+import { Callout, Steps, Tabs, Tab, Card, Cards, Button, FileTree } from 'vocs/components'
+
 # Mining Modes
 
-Tevm Node provides several mining modes to control how and when blocks are produced. This flexibility allows you to simulate different network conditions and test various scenarios.
+<Callout type="info" title="Block Production">
+  Tevm Node provides several mining modes to control how and when blocks are produced, allowing you to simulate different network conditions.
+</Callout>
+
+Mining modes determine when transactions are included in blocks and confirmed. By choosing the right mining mode, you can accurately simulate real blockchain networks or optimize for specific testing scenarios.
 
 ## Available Mining Modes
 
-### Auto Mining (`auto`)
+<Cards>
+  <Card title="Auto Mining" icon="⚡">
+    Mines a block after each transaction
+  </Card>
+  <Card title="Interval Mining" icon="⏱️">
+    Mines blocks at fixed time intervals
+  </Card>
+  <Card title="Manual Mining" icon="🔨">
+    Only mines when explicitly requested
+  </Card>
+  <Card title="Gas-Based Mining" icon="⛽">
+    Mines when gas threshold is reached
+  </Card>
+</Cards>
 
-Automatically mines a new block after each transaction.
-
-```typescript
-const node = createTevmNode({
-  miningConfig: {
-    type: 'auto'
-  }
-})
-```
-
-Best for:
-- Quick testing and development
-- Immediate transaction confirmation
-- Simulating instant finality
-
-### Interval Mining (`interval`)
-
-Mines blocks at fixed time intervals, simulating real network block times.
-
-```typescript
-const node = createTevmNode({
-  miningConfig: {
-    type: 'interval',
-    interval: 12000 // 12 seconds, similar to Ethereum
-  }
-})
-```
-
-Best for:
-- Testing time-dependent logic
-- Simulating realistic network conditions
-- Handling pending transaction queues
-
-### Manual Mining (`manual`)
-
-Only mines blocks when explicitly requested, giving you complete control over block production.
-
-```typescript
-const node = createTevmNode({
-  miningConfig: {
-    type: 'manual'
-  }
-})
-
-// Later, mine blocks manually
-await node.mine()
-```
-
-Best for:
-- Complex test scenarios
-- Precise control over block timing
-- Testing mempool behavior
-
-### Gas-Based Mining (`gas`)
-
-Mines a new block when the accumulated gas usage reaches a specified threshold.
-
-```typescript
-const node = createTevmNode({
-  miningConfig: {
-    type: 'gas',
-    gasLimit: 15000000 // Similar to Ethereum block gas limit
-  }
-})
-```
-
-Best for:
-- Testing gas-dependent behavior
-- Simulating block fullness scenarios
-- Performance testing with varying load
+<Tabs>
+  <Tab label="Auto Mining">
+    <p>Automatically mines a new block after each transaction.</p>
+    
+    ```typescript showLineNumbers {2-4} filename="auto-mining.ts"
+    const node = createTevmNode({
+      miningConfig: { // [!code focus]
+        type: 'auto' // [!code focus]
+      } // [!code focus]
+    })
+    
+    // Send a transaction - it will be mined immediately
+    const txHash = await node.sendTransaction({
+      // transaction details
+    })
+    
+    // Transaction is already confirmed in a block
+    const receipt = await node.getTransactionReceipt({ hash: txHash })
+    console.log('Block number:', receipt.blockNumber)
+    ```
+    
+    <Callout type="tip" title="Best For">
+      <ul>
+        <li>Quick testing and development</li>
+        <li>Immediate transaction confirmation</li>
+        <li>Simulating instant finality</li>
+      </ul>
+    </Callout>
+  </Tab>
+  
+  <Tab label="Interval Mining">
+    <p>Mines blocks at fixed time intervals, simulating real network block times.</p>
+    
+    ```typescript showLineNumbers {2-5} filename="interval-mining.ts"
+    const node = createTevmNode({
+      miningConfig: { // [!code focus]
+        type: 'interval', // [!code focus]
+        interval: 12000 // 12 seconds, similar to Ethereum // [!code focus]
+      } // [!code focus]
+    })
+    
+    // Transaction will remain pending until the next mining interval
+    const txHash = await node.sendTransaction({
+      // transaction details
+    })
+    
+    // Wait for the next interval (or use a Promise to be notified)
+    setTimeout(async () => {
+      const receipt = await node.getTransactionReceipt({ hash: txHash })
+      console.log('Block number:', receipt.blockNumber)
+    }, 12000)
+    ```
+    
+    <Callout type="tip" title="Best For">
+      <ul>
+        <li>Testing time-dependent logic</li>
+        <li>Simulating realistic network conditions</li>
+        <li>Handling pending transaction queues</li>
+      </ul>
+    </Callout>
+  </Tab>
+  
+  <Tab label="Manual Mining">
+    <p>Only mines blocks when explicitly requested, giving you complete control over block production.</p>
+    
+    ```typescript showLineNumbers {2-4,10} filename="manual-mining.ts"
+    const node = createTevmNode({
+      miningConfig: { // [!code focus]
+        type: 'manual' // [!code focus]
+      } // [!code focus]
+    })
+    
+    // Transaction will remain pending until you manually mine
+    const txHash = await node.sendTransaction({/* transaction details */})
+    
+    // Later, mine blocks manually
+    await node.mine() // [!code focus]
+    
+    // Now the transaction is confirmed
+    const receipt = await node.getTransactionReceipt({ hash: txHash })
+    console.log('Block number:', receipt.blockNumber)
+    ```
+    
+    <Callout type="tip" title="Best For">
+      <ul>
+        <li>Complex test scenarios</li>
+        <li>Precise control over block timing</li>
+        <li>Testing mempool behavior</li>
+      </ul>
+    </Callout>
+  </Tab>
+  
+  <Tab label="Gas-Based Mining">
+    <p>Mines a new block when the accumulated gas usage reaches a specified threshold.</p>
+    
+    ```typescript showLineNumbers {2-5} filename="gas-based-mining.ts"
+    const node = createTevmNode({
+      miningConfig: { // [!code focus]
+        type: 'gas', // [!code focus]
+        gasLimit: 15000000 // Similar to Ethereum block gas limit // [!code focus]
+      } // [!code focus]
+    })
+    
+    // Transactions accumulate in the mempool until gas threshold is reached
+    // A block is mined when total gas exceeds gasLimit
+    
+    // Small transaction (won't trigger mining by itself)
+    await node.sendTransaction({/* details for small tx */})
+    
+    // Large transaction that pushes total over threshold will trigger mining
+    await node.sendTransaction({/* details for large tx */})
+    ```
+    
+    <Callout type="tip" title="Best For">
+      <ul>
+        <li>Testing gas-dependent behavior</li>
+        <li>Simulating block fullness scenarios</li>
+        <li>Performance testing with varying load</li>
+      </ul>
+    </Callout>
+  </Tab>
+</Tabs>
 
 ## Changing Mining Modes
 
-You can change the mining mode after node creation:
+<Callout type="tip" title="Dynamic Configuration">
+  You can change the mining mode at any time during the node's lifecycle to adapt to different testing phases.
+</Callout>
 
-```typescript
+```typescript showLineNumbers {2-5,8-10} filename="changing-mining-modes.ts"
 // Switch to interval mining
-await node.setMiningConfig({
-  type: 'interval',
-  interval: 5000 // 5 seconds
-})
+await node.setMiningConfig({ // [!code focus]
+  type: 'interval', // [!code focus]
+  interval: 5000 // 5 seconds // [!code focus]
+}) // [!code focus]
 
 // Switch to manual mining
-await node.setMiningConfig({
-  type: 'manual'
-})
+await node.setMiningConfig({ // [!code focus]
+  type: 'manual' // [!code focus]
+}) // [!code focus]
 ```
 
 ## Best Practices
 
-1. **Choose the Right Mode**
-   - Use `auto` for simple testing and development
-   - Use `interval` or `gas` for more realistic scenarios
-   - Use `manual` for precise control in tests
-
-2. **Consider Performance**
-   - `auto` mining can be resource-intensive with many transactions
-   - `interval` mining might delay transaction processing
-   - `gas` mining helps simulate network congestion
-
-3. **Testing Considerations**
-   - Test time-sensitive logic with `interval` mining
-   - Use `manual` mining for deterministic test cases
-   - Simulate network conditions with appropriate intervals
+<Steps>
+  ### Choose the Right Mode for Your Use Case
+  
+  <Cards num={2}>
+    <Card title="Development" icon="💻">
+      Use <code>auto</code> mining for the fastest feedback loop during development
+    </Card>
+    <Card title="Testing" icon="🧪">
+      Use <code>manual</code> mining for deterministic tests with precise control
+    </Card>
+    <Card title="Simulation" icon="🔄">
+      Use <code>interval</code> mining to simulate real-world network conditions
+    </Card>
+    <Card title="Load Testing" icon="📊">
+      Use <code>gas</code> mining to test application behavior under congestion
+    </Card>
+  </Cards>
+  
+  ### Consider Performance Implications
+  
+  <Callout type="warning">
+    Different mining modes have varying performance characteristics:
+    
+    - <strong>Auto mining</strong> can be resource-intensive with many transactions
+    - <strong>Interval mining</strong> might delay transaction processing
+    - <strong>Gas mining</strong> helps simulate network congestion but requires careful configuration
+  </Callout>
+  
+  ### Testing Best Practices
+  
+  ```typescript filename="testing-strategies.ts"
+  // For time-sensitive logic testing
+  const timeNode = createTevmNode({
+    miningConfig: { type: 'interval', interval: 10000 }
+  })
+  
+  // For deterministic test cases
+  const deterministicNode = createTevmNode({
+    miningConfig: { type: 'manual' }
+  })
+  
+  // For gas-sensitive contract testing
+  const gasNode = createTevmNode({
+    miningConfig: { type: 'gas', gasLimit: 8000000 }
+  })
+  ```
+</Steps>
 
 ## Example: Testing Different Mining Modes
 
-```typescript
-import { createTevmNode } from 'tevm'
+<Tabs>
+  <Tab label="Comparative Example">
+    ```typescript showLineNumbers {4-6,9-13,16-18,21-24} filename="mining-mode-comparison.ts"
+    import { createTevmNode } from 'tevm'
+    
+    // Auto mining for quick tests
+    const autoNode = createTevmNode({ // [!code focus]
+      miningConfig: { type: 'auto' } // [!code focus]
+    }) // [!code focus]
+    
+    // Interval mining for realistic scenarios
+    const intervalNode = createTevmNode({ // [!code focus]
+      miningConfig: { // [!code focus]
+        type: 'interval', // [!code focus]
+        interval: 12000 // [!code focus]
+      } // [!code focus]
+    })
+    
+    // Manual mining for controlled tests
+    const manualNode = createTevmNode({ // [!code focus]
+      miningConfig: { type: 'manual' } // [!code focus]
+    }) // [!code focus]
+    
+    // Test transaction processing
+    await autoNode.sendTransaction({...}) // Mines immediately // [!code focus]
+    await intervalNode.sendTransaction({...}) // Mines after interval // [!code focus]
+    await manualNode.sendTransaction({...}) // Stays pending until manual mine // [!code focus]
+    await manualNode.mine() // Now the transaction is mined // [!code focus]
+    ```
+  </Tab>
+  
+  <Tab label="Real-world Simulation">
+    ```typescript filename="real-world-simulation.ts"
+    import { createTevmNode, http } from 'tevm'
+    import { mainnet } from 'tevm/chains'
+    
+    // Create a node that simulates mainnet conditions
+    const node = createTevmNode({
+      // Fork from mainnet
+      fork: {
+        transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY'),
+        common: mainnet
+      },
+      // Use Ethereum's ~12 second block time
+      miningConfig: {
+        type: 'interval',
+        interval: 12000
+      }
+    })
+    
+    // Transaction will stay in mempool until next block
+    const txHash = await node.sendTransaction({
+      from: '0x123...',
+      to: '0x456...',
+      value: 1000000000000000000n
+    })
+    
+    console.log('Transaction is pending in the mempool...')
+    
+    // You can monitor pending transactions
+    const pending = await node.getTxPoolContent()
+    console.log('Pending transactions:', pending)
+    
+    // Wait for the block to be mined
+    setTimeout(async () => {
+      const receipt = await node.getTransactionReceipt({
+        hash: txHash
+      })
+      console.log('Transaction mined in block:', receipt.blockNumber)
+    }, 12000)
+    ```
+  </Tab>
+</Tabs>
 
-// Auto mining for quick tests
-const autoNode = createTevmNode({
-  miningConfig: { type: 'auto' }
-})
+## Related Resources
 
-// Interval mining for realistic scenarios
-const intervalNode = createTevmNode({
-  miningConfig: {
-    type: 'interval',
-    interval: 12000
-  }
-})
-
-// Manual mining for controlled tests
-const manualNode = createTevmNode({
-  miningConfig: { type: 'manual' }
-})
-
-// Test transaction processing
-await autoNode.sendTransaction({...}) // Mines immediately
-await intervalNode.sendTransaction({...}) // Mines after interval
-await manualNode.sendTransaction({...}) // Stays pending until manual mine
-await manualNode.mine() // Now the transaction is mined
-```
-
-## Related Topics
-
-- [Transaction Pool](../advanced/txpool) - Understanding pending transaction handling
-- [Performance Optimization](../advanced/performance-profiler) - Tuning mining for better performance
-- [Block Management](../api/methods#block-methods) - Low-level block control
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
+  <Button href="../advanced/txpool" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Transaction Pool</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Understanding pending transaction handling and mempool behavior</div>
+  </Button>
+  
+  <Button href="../advanced/performance-profiler" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Performance Optimization</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Tuning mining modes for better performance</div>
+  </Button>
+  
+  <Button href="../api/methods#block-methods" variant="accent" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Block Management</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Low-level block control and manipulation</div>
+  </Button>
+</div>

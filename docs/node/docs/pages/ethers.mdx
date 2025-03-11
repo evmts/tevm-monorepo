@@ -1,0 +1,103 @@
+## Advanced Ethers.js Integration
+
+### Contract Deployment
+
+```ts
+import { ContractFactory } from 'ethers'
+import { Wallet } from 'ethers'
+
+// Prepare compiler output (ABI and bytecode)
+const abi = [/* ... */]
+const bytecode = '0x...'
+
+// Get a signer
+const signer = Wallet.createRandom().connect(provider)
+
+// Fund the account
+await client.setBalance({
+  address: signer.address,
+  value: parseEther('10')
+})
+
+// Create and deploy the contract
+const factory = new ContractFactory(abi, bytecode, signer)
+const contract = await factory.deploy(...constructorArgs)
+
+// Mine the deployment transaction
+await client.mine({ blocks: 1 })
+
+// Get the deployment address
+const contractAddress = await contract.getAddress()
+console.log(`Contract deployed to: ${contractAddress}`)
+```
+
+### Working with Events
+
+```ts
+// Add event listeners
+contract.on('Transfer', (from, to, amount, event) => {
+  console.log(`Transfer of ${amount} from ${from} to ${to}`)
+  
+  // Access additional data
+  console.log(`Block: ${event.blockNumber}`)
+  console.log(`Transaction hash: ${event.transactionHash}`)
+})
+
+// Query past events
+const filter = contract.filters.Transfer()
+const events = await contract.queryFilter(filter, -1000, 'latest')
+
+// Process events
+for (const event of events) {
+  const { from, to, value } = event.args
+  console.log(`Historical transfer: ${value} from ${from} to ${to}`)
+}
+```
+
+## Common Patterns with Ethers & Tevm
+
+### State Snapshots & Time Control
+
+```ts
+// Take a snapshot of current state
+const snapshot = await client.snapshot()
+
+// Run some transactions
+await contract.transfer(recipient, amount)
+await client.mine({ blocks: 1 })
+
+// Reset to previous state
+await client.revert({ id: snapshot })
+
+// Manipulate blockchain time
+await client.setNextBlockTimestamp(Date.now() + 3600000) // 1 hour in the future
+```
+
+### Debugging Transactions
+
+Combine ethers.js with Tevm's EVM stepping capability:
+
+```ts
+// Get the calldata for a transaction
+const calldata = contract.interface.encodeFunctionData(
+  'complexFunction',
+  [param1, param2]
+)
+
+// Execute with EVM stepping
+const result = await client.tevmCall({
+  to: await contract.getAddress(),
+  data: calldata,
+  onStep: (step, next) => {
+    console.log(`Opcode: ${step.opcode.name}`)
+    console.log(`Memory: ${step.memory}`)
+    next?.()
+  }
+})
+```
+
+## Next Steps
+
+- Learn about [forking from live networks](../core/forking)
+- Explore [building a debugger UI](./debugger-ui)
+- See how to [integrate with local testing](./local-testing)

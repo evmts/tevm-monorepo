@@ -4,9 +4,15 @@ import type typescript from 'typescript/lib/tsserverlibrary.js'
 import type { Logger } from './logger.js'
 
 /**
- * Internal type representing a leangauge service host decorator.
+ * Represents a function that transforms a TypeScript LanguageServiceHost.
+ *
+ * A host decorator takes the original LanguageServiceHost from the TypeScript
+ * language service and returns a modified version that alters or extends its behavior.
+ * This is the primary mechanism used by this plugin to intercept and modify
+ * TypeScript language service operations.
+ *
  * @internal
- * @see {@link LanguageServiceHost}
+ * @see {@link typescript.LanguageServiceHost}
  */
 export type HostDecorator = (
 	createInfo: typescript.server.PluginCreateInfo,
@@ -38,19 +44,28 @@ export type PartialHostDecorator = (
 ) => Partial<typescript.LanguageServiceHost>
 
 /**
- * Creates a decorator from a DecoratorFn
- * A decoratorFn is a function that returns a partial LanguageServiceHost
+ * Creates a full LanguageServiceHost decorator from a partial decorator function.
+ *
+ * This factory simplifies creating decorators by allowing you to specify only the
+ * methods you want to override. The resulting decorator uses JavaScript Proxy to
+ * intercept only the specified methods while delegating all other method calls
+ * to the original LanguageServiceHost.
+ *
+ * @param decorator - A function that returns partial LanguageServiceHost implementation
+ * @returns A complete HostDecorator function that can be used to decorate a LanguageServiceHost
  * @see {@link PartialHostDecorator}
  * @example
- * const DecoratorFn: PartialDecorator = (createInfo, ts, logger) => ({
- *  getScriptKind: (fileName) => {
- *   if (fileName.endsWith('.json')) {
- *    return ts.ScriptKind.JSON
- *  } else {
- *   return ts.ScriptKind.TS
- * }
- * },
- * })
+ * ```typescript
+ * // Create a decorator that overrides the getScriptKind method
+ * const jsonDecorator = createHostDecorator((createInfo, ts) => ({
+ *   getScriptKind: (fileName) => {
+ *     if (fileName.endsWith('.json')) {
+ *       return ts.ScriptKind.JSON
+ *     }
+ *     return createInfo.languageServiceHost.getScriptKind(fileName)
+ *   }
+ * }))
+ * ```
  */
 export const createHostDecorator = (decorator: PartialHostDecorator): HostDecorator => {
 	return (createInfo, ...rest) => {
@@ -69,14 +84,29 @@ export const createHostDecorator = (decorator: PartialHostDecorator): HostDecora
 }
 
 /**
- * Util used to turn an array of decorators into a single decorator
+ * Composes multiple HostDecorator functions into a single decorator.
+ *
+ * This utility allows combining multiple independent decorators that each modify
+ * different aspects of the TypeScript LanguageServiceHost. The decorators are
+ * applied in the order they are provided (first to last).
+ *
+ * The composition works by chaining decorators, where each decorator receives
+ * the result of applying all previous decorators.
+ *
+ * @param decorators - Array of HostDecorator functions to compose
+ * @returns A single HostDecorator that applies all the provided decorators
  * @example
- * const composedDecorators = decorate(
- *   decorator1,
- *   decorator2,
- *   decorator3,
- *   decorator4,
+ * ```typescript
+ * // Combine multiple decorators into one
+ * const combinedDecorator = decorateHost(
+ *   scriptKindDecorator,
+ *   moduleResolverDecorator,
+ *   scriptSnapshotDecorator
  * )
+ *
+ * // Apply all decorators at once
+ * const decoratedHost = combinedDecorator(createInfo, typescript, logger, config, fao)
+ * ```
  */
 export const decorateHost = (...decorators: HostDecorator[]): HostDecorator => {
 	return (createInfo, ...rest) => {
