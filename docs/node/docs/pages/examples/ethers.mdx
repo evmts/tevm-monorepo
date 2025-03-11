@@ -6,7 +6,7 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Steps, Tabs, Tab, Button, Cards, Card } from 'vocs/components'
+import { Callout, Steps, Step, Tabs, Tab, Button, Cards, Card } from 'vocs/components'
 
 # Using with Ethers.js v6
 
@@ -19,133 +19,133 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
 ## Setup
 
 <Steps>
-<Step title="Install Dependencies">
-First, install the required packages:
+  <Step title="Install Dependencies">
+    First, install the required packages:
 
-```bash
-npm install tevm ethers
-```
+    ```bash
+    npm install tevm ethers
+    ```
 
-<details>
-<summary>Using Yarn or pnpm?</summary>
+    <details>
+      <summary>Using Yarn or pnpm?</summary>
 
-```bash
-# Yarn
-yarn add tevm ethers
+      ```bash
+      # Yarn
+      yarn add tevm ethers
 
-# pnpm
-pnpm add tevm ethers
-```
-</details>
-</Step>
+      # pnpm
+      pnpm add tevm ethers
+      ```
+    </details>
+  </Step>
 
-<Step title="Create the Tevm Node">
-Set up a Tevm node with EIP-1193 compatibility:
+  <Step title="Create the Tevm Node">
+    Set up a Tevm node with EIP-1193 compatibility:
 
-```ts
-import { createTevmNode } from 'tevm'
-import { requestEip1193 } from 'tevm/decorators'
+    ```ts
+    import { createTevmNode } from 'tevm'
+    import { requestEip1193 } from 'tevm/decorators'
 
-// Create a Tevm Node with optional configuration
-const node = createTevmNode({
-  // Configure mining behavior (auto or interval)
-  miningConfig: { 
-    type: 'interval',
-    interval: 2000 // Mine blocks every 2 seconds
-  }
-})
+    // Create a Tevm Node with optional configuration
+    const node = createTevmNode({
+      // Configure mining behavior (auto or interval)
+      miningConfig: { 
+        type: 'interval',
+        interval: 2000 // Mine blocks every 2 seconds
+      }
+    })
 
-// Add EIP-1193 compatibility layer for Ethers.js
-const nodeWithEip1193 = node.extend(requestEip1193())
+    // Add EIP-1193 compatibility layer for Ethers.js
+    const nodeWithEip1193 = node.extend(requestEip1193())
 
-// Wait for the node to be ready
-await node.ready()
-```
+    // Wait for the node to be ready
+    await node.ready()
+    ```
 
-<Callout type="tip">
-  The <code>requestEip1193()</code> decorator is essential - it adds the standard Ethereum provider interface that Ethers.js requires.
-</Callout>
-</Step>
+    <Callout type="tip">
+      The <code>requestEip1193()</code> decorator is essential - it adds the standard Ethereum provider interface that Ethers.js requires.
+    </Callout>
+  </Step>
 
-<Step title="Create an Ethers Provider">
-Connect Ethers to your Tevm node:
+  <Step title="Create an Ethers Provider">
+    Connect Ethers to your Tevm node:
 
-<Tabs>
-<Tab label="BrowserProvider (Recommended)">
-```ts
-import { BrowserProvider } from 'ethers'
+    <Tabs>
+      <Tab label="BrowserProvider (Recommended)">
+        ```ts
+        import { BrowserProvider } from 'ethers'
 
-// Create a provider using the EIP-1193 compatible node
-const provider = new BrowserProvider(nodeWithEip1193)
+        // Create a provider using the EIP-1193 compatible node
+        const provider = new BrowserProvider(nodeWithEip1193)
 
-// Test the connection
-const blockNumber = await provider.getBlockNumber()
-console.log(`Connected to block: ${blockNumber}`)
-```
+        // Test the connection
+        const blockNumber = await provider.getBlockNumber()
+        console.log(`Connected to block: ${blockNumber}`)
+        ```
 
-<Callout type="success">
-  BrowserProvider is recommended for most applications - it's the modern Ethers.js provider and handles all async operations correctly.
-</Callout>
-</Tab>
+        <Callout type="success">
+          BrowserProvider is recommended for most applications - it's the modern Ethers.js provider and handles all async operations correctly.
+        </Callout>
+      </Tab>
 
-<Tab label="JsonRpcProvider (Legacy)">
-```ts
-import { JsonRpcProvider } from 'ethers'
+      <Tab label="JsonRpcProvider (Legacy)">
+        ```ts
+        import { JsonRpcProvider } from 'ethers'
 
-// For legacy code bases that require JsonRpcProvider
-const legacyProvider = new JsonRpcProvider(
-  // Pass the node as an endpoint
-  nodeWithEip1193
-)
+        // For legacy code bases that require JsonRpcProvider
+        const legacyProvider = new JsonRpcProvider(
+          // Pass the node as an endpoint
+          nodeWithEip1193
+        )
 
-// Test the connection
-const network = await legacyProvider.getNetwork()
-console.log(`Connected to network: ${network.name} (${network.chainId})`)
-```
-</Tab>
-</Tabs>
-</Step>
+        // Test the connection
+        const network = await legacyProvider.getNetwork()
+        console.log(`Connected to network: ${network.name} (${network.chainId})`)
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
 
-<Step title="Set Up a Wallet">
-Create a wallet for transactions:
+  <Step title="Set Up a Wallet">
+    Create a wallet for transactions:
 
-```ts
-import { Wallet } from 'ethers'
+    ```ts
+    import { Wallet } from 'ethers'
 
-// Generate a random wallet
-const wallet = Wallet.createRandom()
-console.log(`Generated wallet address: ${wallet.address}`)
+    // Generate a random wallet
+    const wallet = Wallet.createRandom()
+    console.log(`Generated wallet address: ${wallet.address}`)
 
-// Connect the wallet to your provider
-const signer = wallet.connect(provider)
+    // Connect the wallet to your provider
+    const signer = wallet.connect(provider)
 
-// The default balance will be zero
-const balance = await provider.getBalance(signer.address)
-console.log(`Initial wallet balance: ${balance} wei (${balance === 0n ? 'empty' : balance})`)
-```
-</Step>
+    // The default balance will be zero
+    const balance = await provider.getBalance(signer.address)
+    console.log(`Initial wallet balance: ${balance} wei (${balance === 0n ? 'empty' : balance})`)
+    ```
+  </Step>
 
-<Step title="Fund the Account">
-Use Tevm's state manipulation to fund your testing wallet:
+  <Step title="Fund the Account">
+    Use Tevm's state manipulation to fund your testing wallet:
 
-```ts
-import { parseEther, formatEther } from 'ethers'
+    ```ts
+    import { parseEther, formatEther } from 'ethers'
 
-// Manipulate blockchain state directly with Tevm
-await node.setAccount({
-  address: signer.address,
-  balance: parseEther('100') // Add 100 ETH
-})
+    // Manipulate blockchain state directly with Tevm
+    await node.setAccount({
+      address: signer.address,
+      balance: parseEther('100') // Add 100 ETH
+    })
 
-// Verify the new balance
-const newBalance = await provider.getBalance(signer.address)
-console.log(`New wallet balance: ${formatEther(newBalance)} ETH`)
-```
+    // Verify the new balance
+    const newBalance = await provider.getBalance(signer.address)
+    console.log(`New wallet balance: ${formatEther(newBalance)} ETH`)
+    ```
 
-<Callout type="tip">
-  This direct state manipulation is one of Tevm's powerful features - it allows you to set up any testing scenario without complex transactions.
-</Callout>
-</Step>
+    <Callout type="tip">
+      This direct state manipulation is one of Tevm's powerful features - it allows you to set up any testing scenario without complex transactions.
+    </Callout>
+  </Step>
 </Steps>
 
 ## Core Functionality
@@ -204,759 +204,3 @@ const [
 // Format the results
 console.log(`${name} (${symbol})`)
 console.log(`Balance: ${formatUnits(balance, decimals)} ${symbol}`)
-```
-
-### Optimizing Contract Reads
-
-For high-performance applications, use the multicall pattern for batched reads:
-
-```ts
-import { Contract } from 'ethers'
-import { parseAbi } from 'tevm'
-
-// Setup multiple token contracts
-const tokenAddresses = [
-  '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
-  '0xdAC17F958D2ee523a2206206994597C13D831ec7', // USDT
-  '0x6B175474E89094C44Da98b954EedeAC495271d0F'  // DAI
-]
-
-const erc20Abi = parseAbi([
-  'function balanceOf(address) view returns (uint256)',
-  'function symbol() view returns (string)'
-])
-
-// Create contract instances
-const tokens = tokenAddresses.map(address => 
-  new Contract(address, erc20Abi, provider)
-)
-
-// Execute parallel requests for all tokens
-const userAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' // vitalik.eth
-const balancePromises = tokens.map(token => 
-  Promise.all([
-    token.symbol(),
-    token.balanceOf(userAddress)
-  ])
-)
-
-// Process all results
-const balances = await Promise.all(balancePromises)
-balances.forEach(([symbol, balance]) => {
-  console.log(`${symbol} balance: ${balance.toString()}`)
-})
-```
-
-## Writing to Contracts
-
-<Callout type="tip" emoji="✏️">
-  Tevm allows you to execute transactions against contracts in a fully isolated environment, perfect for testing and development.
-</Callout>
-
-```ts
-import { Contract, parseUnits, MaxUint256 } from 'ethers'
-import { parseAbi } from 'tevm'
-
-// Define contract ABI with state-changing functions
-const abi = parseAbi([
-  'function approve(address spender, uint256 amount) returns (bool)',
-  'function transfer(address to, uint256 amount) returns (bool)',
-  'function allowance(address owner, address spender) view returns (uint256)'
-])
-
-// Create contract instance connected to signer (use your token address)
-const tokenContract = new Contract(tokenAddress, abi, signer)
-
-// Send a transaction
-const approveTx = await tokenContract.approve(
-  '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', // Destination address
-  MaxUint256 // Unlimited approval
-)
-
-// ⚠️ Important: Mine blocks to include the transaction!
-await node.mine({ blocks: 1 })
-
-// Wait for transaction confirmation
-const receipt = await approveTx.wait()
-console.log(`Transaction confirmed in block ${receipt.blockNumber}`)
-console.log(`Gas used: ${receipt.gasUsed.toString()}`)
-
-// Verify the result
-const allowance = await tokenContract.allowance(
-  signer.address,
-  '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-)
-console.log(`New allowance: ${allowance.toString()}`)
-```
-
-<Callout type="warning" emoji="⚠️">
-  Remember to mine blocks after sending transactions! Unlike real networks, Tevm doesn't automatically mine transactions unless configured with <code>{ type: 'auto' }</code> mining.
-</Callout>
-
-## Event Handling
-
-<Callout type="tip" emoji="🔔">
-  Contract events provide a powerful way to track state changes and important occurrences in your smart contracts.
-</Callout>
-
-### Listening for Events
-
-Monitor contract events in real-time:
-
-```ts
-import { Contract } from 'ethers'
-import { parseAbi, parseUnits } from 'tevm'
-
-// Define contract ABI with events
-const abi = parseAbi([
-  'event Transfer(address indexed from, address indexed to, uint256 value)',
-  'function transfer(address to, uint256 amount) returns (bool)'
-])
-
-const contract = new Contract(tokenAddress, abi, signer)
-
-// Set up event listener
-contract.on('Transfer', (from, to, value, event) => {
-  console.log('Transfer event detected:')
-  console.log(`  From: ${from}`)
-  console.log(`  To: ${to}`)
-  console.log(`  Value: ${formatUnits(value, 18)} tokens`)
-  console.log(`  Block: ${event.blockNumber}`)
-  console.log(`  Transaction: ${event.transactionHash}`)
-})
-
-// Trigger an event by sending a transaction
-const tx = await contract.transfer(
-  '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-  parseUnits('10', 18)
-)
-
-// Mine the block to trigger the event
-await node.mine({ blocks: 1 })
-
-// Don't forget to clean up listeners when done
-// contract.removeAllListeners()
-```
-
-### Querying Past Events
-
-Retrieve and filter historical events:
-
-```ts
-import { Contract } from 'ethers'
-import { parseAbi } from 'tevm'
-
-// Define contract ABI with events
-const abi = parseAbi([
-  'event Transfer(address indexed from, address indexed to, uint256 value)'
-])
-
-const contract = new Contract(tokenAddress, abi, provider)
-
-// Create a filter to narrow down results (all parameters are optional)
-const filter = contract.filters.Transfer(
-  signer.address,  // Filter events from our address
-  null             // To any address
-)
-
-// Query events from a specific block range
-const blockNumber = await provider.getBlockNumber()
-const fromBlock = blockNumber - 10  // Last 10 blocks
-const events = await contract.queryFilter(filter, fromBlock, 'latest')
-
-console.log(`Found ${events.length} Transfer events:`)
-events.forEach((event, i) => {
-  const { from, to, value } = event.args
-  console.log(`${i+1}. From: ${from}, To: ${to}, Value: ${value.toString()}`)
-})
-```
-
-## Contract Deployment
-
-<Callout type="tip" emoji="🚀">
-  Deploy contracts to your local Tevm environment for testing and development.
-</Callout>
-
-```ts
-import { ContractFactory } from 'ethers'
-import { parseAbi } from 'tevm'
-
-// Contract information
-const abi = parseAbi([
-  'constructor(string memory name, string memory symbol, uint8 decimals)',
-  'function balanceOf(address owner) view returns (uint256)',
-  'function transfer(address to, uint256 amount) returns (bool)',
-  'function name() view returns (string)',
-  'function symbol() view returns (string)',
-  'function decimals() view returns (uint8)'
-])
-
-// This is a simplified ERC20 bytecode for demonstration
-const bytecode = '0x608060405234801561001057600080fd5b5060405161091f38038061091f83398101604081905261002f916100f7565b600380546001600160a01b031916331790558251610052906004906020850190610076565b5081516100669060059060208401906100f7565b506006805460ff191660ff92909216919091179055506101bf565b82805461008290610184565b90600052602060002090601f0160209004810192826100a457600085556100ea565b82601f106100bd57805160ff19168380011785556100ea565b828001600101855582156100ea579182015b828111156100ea5782518255916020019190600101906100cf565b506100f69291506100ea565b5090565b82805461010390610184565b90600052602060002090601f016020900481019282610125576000855561016c565b82601f1061013e57805160ff191683800117855561016c565b8280016001018555821561016c579182015b8281111561016c578251825591602001919060010190610150565b5061017892915061016c565b5090565b5b80821115610178576000815560010161016d565b600181811c9082168061019857607f821691505b602082108114156101b9576101b46101a9565b610184565b5b818110156101b0578235600a91820191905560209182019101610184565b50905090565b610751806101ce6000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c8063095ea7b31461005c57806318160ddd1461005c578063313ce5671461005c57806370a082311461005c57806395d89b411461005c575b600080fd5b6100937f000000000000000000000000000000000000000000000000000000000000000081565b60405180806020018281038252600d8152602001807f4578616d706c6520546f6b656e000000000000000000000000000000000000008152506020019250505060405180910390f35b5b6100a16101b357505b90565b5b6100af6101b357505b90565b5b6100bd6101b357505b90565b60006100dc6040518060600160405280602b8152602001610722602b913990565b905090565b81600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156101445760006101b6565b5b828110610159576001805b92505050610159565b61017c826001600160e01b03191633600160e01b031916146101b6565b610191576001600160e01b03191690505b5b809050610196565b5b92915050565b600073ffffffffffffffffffffffffffffffffffffffff821614156101b6575b600091505b5090565b5b919050565b600090565b828054828255906000526020600020908101928215610214579160200282015b82811115610214578251825591602001919060010190610204565b50610220929150610245565b5090565b82805482825590600052602060002090810192821561025a579160200282015b828111156102415782518255916020019190600101906101b357505b5090565b5b808211156102575760008155600101610246565b6000815560010161023d565b603e80610266833960385f56fe'
-
-// Create factory with signer
-const factory = new ContractFactory(abi, bytecode, signer)
-
-// Deploy contract with constructor arguments
-const token = await factory.deploy(
-  'My Test Token',  // name
-  'MTT',            // symbol
-  18                // decimals
-)
-
-// Mine a block to include the deployment
-await node.mine({ blocks: 1 })
-
-// Get the deployed contract address
-const deployedAddress = await token.getAddress()
-console.log(`Token deployed at: ${deployedAddress}`)
-
-// Verify the deployment by reading contract state
-const [name, symbol, decimals] = await Promise.all([
-  token.name(),
-  token.symbol(),
-  token.decimals()
-])
-
-console.log(`Deployed token: ${name} (${symbol}) with ${decimals} decimals`)
-```
-
-## Advanced Features
-
-<Cards>
-  <Card title="Working with Interfaces" href="#working-with-interfaces">
-    Low-level ABI encoding and decoding with Ethers.js Interface
-  </Card>
-  <Card title="Contract Debugging" href="#contract-debugging">
-    Debug smart contracts at the EVM opcode level
-  </Card>
-  <Card title="Testing Patterns" href="#testing-patterns">
-    Build comprehensive test suites with Ethers and Tevm
-  </Card>
-  <Card title="Forking Networks" href="#working-with-forks">
-    Create local forks of mainnet and test networks
-  </Card>
-</Cards>
-
-## Working with Interfaces
-
-<Callout type="tip" emoji="🔧">
-  The Ethers.js Interface class provides powerful tools for working with contract ABIs at a low level.
-</Callout>
-
-```ts
-import { Interface } from 'ethers'
-import { parseAbi, parseUnits } from 'tevm'
-
-// Create interface instance
-const abi = parseAbi([
-  'function transfer(address to, uint256 amount) returns (bool)',
-  'event Transfer(address indexed from, address indexed to, uint256 value)'
-])
-const iface = new Interface(abi)
-
-// 1. Encode function data (useful for low-level calls)
-const encodedData = iface.encodeFunctionData(
-  'transfer',
-  [
-    '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-    parseUnits('1.5', 18)
-  ]
-)
-console.log(`Encoded function data: ${encodedData}`)
-
-// 2. Execute low-level transaction
-const tx = await signer.sendTransaction({
-  to: tokenAddress,
-  data: encodedData
-})
-
-// Mine block
-await node.mine({ blocks: 1 })
-
-// 3. Wait for receipt
-const receipt = await tx.wait()
-
-// 4. Decode event logs
-if (receipt.logs && receipt.logs.length > 0) {
-  const log = receipt.logs[0]
-  
-  try {
-    const parsedLog = iface.parseLog({
-      topics: log.topics,
-      data: log.data
-    })
-    
-    if (parsedLog) {
-      console.log('Decoded event:', parsedLog.name)
-      console.log('Event args:', parsedLog.args)
-    }
-  } catch (e) {
-    console.log('Log does not match this interface')
-  }
-}
-```
-
-## Contract Debugging
-
-<Callout type="tip" emoji="🔍">
-  Tevm provides unparalleled visibility into EVM execution, allowing you to debug at the opcode level.
-</Callout>
-
-```ts
-import { Contract } from 'ethers'
-import { parseAbi } from 'tevm'
-
-// Get the VM instance for direct access to the EVM
-const vm = await node.getVm()
-
-// Subscribe to EVM execution steps
-vm.evm.events.on('step', (data, next) => {
-  // Log each opcode execution
-  console.log(`${data.pc.toString().padStart(4, '0')}: ${data.opcode.name.padEnd(10)} stack=${data.stack.length}`)
-  
-  // Inspect the stack if needed
-  if (data.stack.length > 0) {
-    console.log(`  Top of stack: ${data.stack[data.stack.length - 1]}`)
-  }
-  
-  // Continue to next step
-  next?.()
-})
-
-// Create contract instance for testing
-const abi = parseAbi([
-  'function add(uint256 a, uint256 b) pure returns (uint256)',
-  'function divide(uint256 a, uint256 b) pure returns (uint256)'
-])
-const contract = new Contract(contractAddress, abi, signer)
-
-try {
-  // Execute a function and watch the EVM steps
-  console.log('Executing add(123, 456):')
-  const result = await contract.add(123, 456)
-  console.log(`Result: ${result}`)
-  
-  // Try a function that might fail
-  console.log('\nExecuting divide(100, 0):')
-  await contract.divide(100, 0)
-} catch (e) {
-  console.error('Execution failed:', e.message)
-} finally {
-  // Clean up event listeners
-  vm.evm.events.removeAllListeners('step')
-}
-```
-
-## Testing Patterns
-
-<Callout type="tip" emoji="🧪">
-  Tevm and Ethers.js together create a powerful testing environment for smart contracts.
-</Callout>
-
-```ts
-import { expect } from 'chai'
-import { createTevmNode } from 'tevm'
-import { requestEip1193 } from 'tevm/decorators'
-import { BrowserProvider, Wallet, Contract, parseUnits } from 'ethers'
-import { parseAbi } from 'tevm'
-
-describe('ERC20 Token Tests', () => {
-  // Test fixtures
-  let provider, node, signer, token
-  
-  beforeEach(async () => {
-    // Set up a fresh Tevm instance for each test
-    node = createTevmNode({
-      miningConfig: { type: 'auto' } // Auto-mine for easier testing
-    }).extend(requestEip1193())
-    await node.ready()
-    
-    provider = new BrowserProvider(node)
-    
-    // Create and fund a test wallet
-    const wallet = Wallet.createRandom()
-    signer = wallet.connect(provider)
-    
-    // Fund the wallet with 100 ETH
-    await node.setAccount({
-      address: signer.address,
-      balance: parseUnits('100', 18)
-    })
-    
-    // Deploy a token contract for testing
-    const tokenFactory = new ContractFactory(
-      // ABI with all the functions we want to test
-      parseAbi([
-        'function balanceOf(address) view returns (uint256)',
-        'function transfer(address, uint256) returns (bool)',
-        'function approve(address, uint256) returns (bool)',
-        'function allowance(address, address) view returns (uint256)',
-        'function transferFrom(address, address, uint256) returns (bool)',
-        'event Transfer(address indexed, address indexed, uint256)',
-        'event Approval(address indexed, address indexed, uint256)'
-      ]),
-      '0x...', // Your token contract bytecode
-      signer
-    )
-    
-    token = await tokenFactory.deploy()
-    
-    // Initial token supply to the deployer
-    await token.mint(signer.address, parseUnits('1000', 18))
-  })
-  
-  describe('Basic functionality', () => {
-    it('should allow transfers between accounts', async () => {
-      // Create a second account
-      const recipient = Wallet.createRandom().address
-      
-      // Transfer tokens
-      const amount = parseUnits('100', 18)
-      await token.transfer(recipient, amount)
-      
-      // Check balances
-      const recipientBalance = await token.balanceOf(recipient)
-      expect(recipientBalance).to.equal(amount)
-    })
-  
-    it('should emit Transfer event on transfer', async () => {
-      const recipient = Wallet.createRandom().address
-      const amount = parseUnits('50', 18)
-      
-      // Check for event emission
-      await expect(token.transfer(recipient, amount))
-        .to.emit(token, 'Transfer')
-        .withArgs(signer.address, recipient, amount)
-    })
-  })
-  
-  describe('Advanced functionality', () => {
-    it('should handle approvals and transferFrom', async () => {
-      // Create spender account
-      const spenderWallet = Wallet.createRandom()
-      const spender = spenderWallet.connect(provider)
-      
-      // Approve spender
-      const allowanceAmount = parseUnits('200', 18)
-      await token.approve(spender.address, allowanceAmount)
-      
-      // Check allowance
-      const allowance = await token.allowance(signer.address, spender.address)
-      expect(allowance).to.equal(allowanceAmount)
-      
-      // Create recipient
-      const recipient = Wallet.createRandom().address
-      
-      // Transfer tokens using transferFrom
-      const spenderToken = token.connect(spender)
-      const transferAmount = parseUnits('150', 18)
-      await spenderToken.transferFrom(signer.address, recipient, transferAmount)
-      
-      // Verify balances
-      const recipientBalance = await token.balanceOf(recipient)
-      expect(recipientBalance).to.equal(transferAmount)
-      
-      // Verify reduced allowance
-      const newAllowance = await token.allowance(signer.address, spender.address)
-      expect(newAllowance).to.equal(allowanceAmount - transferAmount)
-    })
-  })
-  
-  describe('Time-based tests', () => {
-    it('should allow manipulating block timestamps', async () => {
-      // Set next block timestamp (1 hour in the future)
-      const futureTime = Math.floor(Date.now() / 1000) + 3600
-      await node.setNextBlockTimestamp(futureTime)
-      
-      // Mine a block with that timestamp
-      await node.mine({ blocks: 1 })
-      
-      // Verify the block timestamp
-      const block = await provider.getBlock('latest')
-      expect(block.timestamp).to.equal(futureTime)
-      
-      // Use this for testing time-dependent contracts like token vesting
-    })
-  })
-})
-```
-
-## Working with Forks
-
-<Callout type="tip" emoji="🍴">
-  Tevm can fork from mainnet or any EVM chain, allowing you to test against real production contracts and state.
-</Callout>
-
-```ts
-import { createTevmNode } from 'tevm'
-import { requestEip1193 } from 'tevm/decorators'
-import { http } from 'tevm'
-import { BrowserProvider, Contract, parseUnits, formatUnits } from 'ethers'
-import { parseAbi } from 'tevm'
-
-// Create a node that forks from Ethereum mainnet
-const node = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.infura.io/v3/YOUR_API_KEY'),
-    blockNumber: 17000000n // Optional: fork from a specific block
-  }
-}).extend(requestEip1193())
-
-await node.ready()
-
-// Create Ethers provider
-const provider = new BrowserProvider(node)
-
-// Create signer
-const wallet = Wallet.createRandom()
-const signer = wallet.connect(provider)
-
-// Fund the signer (only affects our local fork)
-await node.setBalance({
-  address: signer.address,
-  balance: parseUnits('1000', 'ether')
-})
-
-// Now interact with real mainnet contracts
-// Example: AAVE lending pool
-const aavePoolAddress = '0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9'
-const aavePoolAbi = parseAbi([
-  'function getUserAccountData(address user) view returns (uint256 totalCollateralETH, uint256 totalDebtETH, uint256 availableBorrowsETH, uint256 currentLiquidationThreshold, uint256 ltv, uint256 healthFactor)',
-  'function deposit(address asset, uint256 amount, address onBehalfOf, uint16 referralCode)'
-])
-
-const aavePool = new Contract(aavePoolAddress, aavePoolAbi, signer)
-
-// Get a real user's data from mainnet
-const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-const userData = await aavePool.getUserAccountData(vitalikAddress)
-
-console.log('Vitalik\'s AAVE data from mainnet fork:')
-console.log(`Total Collateral: ${formatUnits(userData.totalCollateralETH, 18)} ETH`)
-console.log(`Total Debt: ${formatUnits(userData.totalDebtETH, 18)} ETH`)
-console.log(`Health Factor: ${formatUnits(userData.healthFactor, 18)}`)
-
-// Now we can simulate interactions with AAVE using our local signer
-// Deposit DAI into AAVE
-const daiAddress = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
-const daiAbi = parseAbi([
-  'function approve(address spender, uint256 amount) returns (bool)',
-  'function balanceOf(address owner) view returns (uint256)'
-])
-
-// First get some DAI by directly setting the balance in our local fork
-await node.setStorageAt({
-  address: daiAddress,
-  index: /* storage slot for balance */,
-  value: parseUnits('10000', 18)
-})
-
-// Create DAI contract instance
-const dai = new Contract(daiAddress, daiAbi, signer)
-
-// Approve AAVE to spend our DAI
-await dai.approve(aavePoolAddress, parseUnits('1000', 18))
-await node.mine({ blocks: 1 })
-
-// Deposit DAI into AAVE
-await aavePool.deposit(
-  daiAddress,
-  parseUnits('1000', 18),
-  signer.address,
-  0 // referral code
-)
-await node.mine({ blocks: 1 })
-
-// Check our updated AAVE account data
-const myData = await aavePool.getUserAccountData(signer.address)
-console.log('\nMy AAVE data after deposit:')
-console.log(`Total Collateral: ${formatUnits(myData.totalCollateralETH, 18)} ETH`)
-console.log(`Available Borrows: ${formatUnits(myData.availableBorrowsETH, 18)} ETH`)
-```
-
-## Best Practices
-
-<Callout type="tip" emoji="👍">
-  Follow these patterns to get the most out of Ethers.js with Tevm.
-</Callout>
-
-### Robust Error Handling
-
-```ts
-import { Contract, Interface } from 'ethers'
-import { parseAbi } from 'tevm'
-
-/**
- * Safely executes a contract write operation with detailed error handling
- */
-async function safeContractWrite(
-  contract: Contract,
-  method: string,
-  args: any[],
-  options = { gasBuffer: 1.2 }
-) {
-  try {
-    // Estimate gas with buffer
-    const gasEstimate = await contract[method].estimateGas(...args)
-    const bufferedGas = BigInt(Math.floor(Number(gasEstimate) * options.gasBuffer))
-    
-    // Execute the transaction with the buffered gas limit
-    const tx = await contract[method](...args, { gasLimit: bufferedGas })
-    
-    // Mine the block if needed
-    if (node.miningConfig.type !== 'auto') {
-      await node.mine({ blocks: 1 })
-    }
-    
-    // Wait for confirmation
-    const receipt = await tx.wait()
-    return { success: true, receipt }
-  } catch (error) {
-    console.error(`Transaction failed:`, error.message)
-    
-    // Try to decode revert reason if available
-    if (error.data) {
-      try {
-        // Standard error interface
-        const errorIface = new Interface(['function Error(string)'])
-        const decodedError = errorIface.parseError(error.data)
-        console.error('Revert reason:', decodedError?.args[0] || 'Unknown')
-      } catch (e) {
-        // Custom errors require the contract ABI to decode properly
-        console.error('Could not decode error data:', error.data)
-      }
-    }
-    
-    return { success: false, error }
-  }
-}
-
-// Usage example
-const result = await safeContractWrite(
-  tokenContract,
-  'transfer',
-  [recipientAddress, parseUnits('10', 18)]
-)
-
-if (result.success) {
-  console.log('Transfer successful:', result.receipt.hash)
-} else {
-  console.log('Transfer failed, see console for details')
-}
-```
-
-### Contract Registry Pattern
-
-For applications working with many contracts:
-
-```ts
-import { Contract, BrowserProvider } from 'ethers'
-import { parseAbi } from 'tevm'
-
-/**
- * Efficient contract registry for managing multiple contract instances
- */
-class ContractRegistry {
-  private provider: BrowserProvider
-  private contracts: Map<string, Contract> = new Map()
-  private abis: Map<string, any[]> = new Map()
-  
-  constructor(provider: BrowserProvider) {
-    this.provider = provider
-    
-    // Register commonly used ABIs
-    this.registerAbi('erc20', parseAbi([
-      'function balanceOf(address) view returns (uint256)',
-      'function transfer(address, uint256) returns (bool)',
-      'function allowance(address, address) view returns (uint256)',
-      'function approve(address, uint256) returns (bool)',
-      'event Transfer(address indexed, address indexed, uint256)',
-      'event Approval(address indexed, address indexed, uint256)'
-    ]))
-    
-    this.registerAbi('erc721', parseAbi([
-      'function balanceOf(address) view returns (uint256)',
-      'function ownerOf(uint256) view returns (address)',
-      'function transferFrom(address, address, uint256)',
-      'function safeTransferFrom(address, address, uint256)',
-      'function approve(address, uint256)',
-      'function getApproved(uint256) view returns (address)',
-      'function setApprovalForAll(address, bool)',
-      'function isApprovedForAll(address, address) view returns (bool)',
-      'event Transfer(address indexed, address indexed, uint256 indexed)',
-      'event Approval(address indexed, address indexed, uint256 indexed)',
-      'event ApprovalForAll(address indexed, address indexed, bool)'
-    ]))
-  }
-  
-  registerAbi(name: string, abi: any[]) {
-    this.abis.set(name, abi)
-  }
-  
-  getContract(address: string, abiName: string): Contract {
-    const key = `${abiName}:${address.toLowerCase()}`
-    
-    if (this.contracts.has(key)) {
-      return this.contracts.get(key)
-    }
-    
-    const abi = this.abis.get(abiName)
-    if (!abi) {
-      throw new Error(`ABI not registered: ${abiName}`)
-    }
-    
-    const contract = new Contract(address, abi, this.provider)
-    this.contracts.set(key, contract)
-    return contract
-  }
-  
-  connectSigner(contract: Contract, signer) {
-    return contract.connect(signer)
-  }
-}
-
-// Usage
-const registry = new ContractRegistry(provider)
-
-// Get multiple tokens by address
-const tokens = [
-  '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
-  '0xdAC17F958D2ee523a2206206994597C13D831ec7', // USDT
-].map(address => registry.getContract(address, 'erc20'))
-
-// Check balances efficiently
-const balances = await Promise.all(
-  tokens.map(token => 
-    Promise.all([token.symbol(), token.balanceOf(walletAddress)])
-  )
-)
-
-// Connect a token to a signer for transactions
-const usdcWithSigner = registry.connectSigner(tokens[0], signer)
-```
-
-## Related Topics
-
-<Cards>
-  <Card title="JSON-RPC Support" href="../api/json-rpc">
-    Learn about Tevm's JSON-RPC API implementation
-  </Card>
-  <Card title="Local Testing" href="./local-testing">
-    Build comprehensive testing environments
-  </Card>
-  <Card title="Forking Mainnet" href="./forking-mainnet">
-    Advanced forking patterns and techniques
-  </Card>
-  <Card title="Using with Viem" href="./viem">
-    Alternative integration with viem client
-  </Card>
-  <Card title="EVM Events" href="../api/evm-events">
-    Working with low-level EVM events
-  </Card>
-</Cards>
-
-<div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-  <Button href="../getting-started/ethers" variant="accent">← Getting Started with Ethers</Button>
-  <Button href="./viem">Using with Viem →</Button>
-</div>
