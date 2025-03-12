@@ -46,7 +46,7 @@ export default defineConfig({
       collapsed: false,
       items: [
         { text: 'Overview', link: '/getting-started/overview' },
-        { text: 'Testimonials', link: '/getting-started/testimonials' },
+        { text: 'Community & Testimonials', link: '/getting-started/testimonials' },
         { text: 'Viem Quickstart', link: '/getting-started/viem' },
         { text: 'Ethers Quickstart', link: '/getting-started/ethers' },
         { text: 'What is Tevm Node?', link: '/introduction/what-is-tevm-node' },
