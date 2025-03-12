@@ -50,7 +50,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
     // Create a Tevm Node with optional configuration
     const node = createTevmNode({
       // Configure mining behavior (auto or interval)
-      miningConfig: { 
+      miningConfig: {
         type: 'interval',
         interval: 2000 // Mine blocks every 2 seconds
       }
@@ -71,7 +71,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
   <Step title="Create an Ethers Provider">
     Connect Ethers to your Tevm node:
 
-    <Tabs>
+    <TabGroup>
       <Tab label="BrowserProvider (Recommended)">
         ```ts
         import { BrowserProvider } from 'ethers'
@@ -104,7 +104,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
         console.log(`Connected to network: ${network.name} (${network.chainId})`)
         ```
       </Tab>
-    </Tabs>
+    </TabGroup>
   </Step>
 
   <Step title="Set Up a Wallet">
@@ -151,7 +151,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
 
 ## Core Functionality
 
-<Cards>
+<CardGrid>
   <Card title="Reading Contracts" href="#reading-from-contracts">
     Query contract state using Ethers.js Contract objects
   </Card>
@@ -164,7 +164,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
   <Card title="Contract Deployment" href="#contract-deployment">
     Deploy new contracts to your local Tevm environment
   </Card>
-</Cards>
+</CardGrid>
 
 ## Reading from Contracts
 

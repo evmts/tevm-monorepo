@@ -14,6 +14,7 @@
     "ethers": "^6.13.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.9",
     "tevm": "workspace:^",
     "viem": "^2.23.9",
     "vitest": "^3.0.8",

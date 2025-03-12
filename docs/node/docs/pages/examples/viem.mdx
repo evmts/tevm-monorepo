@@ -26,20 +26,20 @@ Tevm offers two integration approaches with viem to suit different development n
     import { createTevmNode } from 'tevm/node'
     import { requestEip1193 } from 'tevm/decorators'
     import { createClient, custom } from 'viem'
-    
+
     // Create Tevm Node with EIP-1193 support
     const node = createTevmNode().extend(requestEip1193())
-    
+
     // Create Viem client
     const client = createClient({
       // Use Tevm node as the viem transport
       transport: custom(node),
     })
-    
+
     // Import and use viem actions individually
     import { getBlockNumber } from 'viem/actions'
     await getBlockNumber(client)
-    
+
     // Import and use tevm actions
     import { tevmDumpState } from 'tevm'
     await tevmDumpState(client)
@@ -49,20 +49,20 @@ Tevm offers two integration approaches with viem to suit different development n
       This approach enables tree-shaking, resulting in smaller bundle sizes as only the actions you import are included in your final build.
     </Callout>
   </Tab>
-  
+
   <Tab label="Batteries-included API">
     A more convenient approach when bundle size isn't a primary concern:
 
     ```ts
     import { createMemoryClient } from 'tevm'
-    
+
     // Create a fully-loaded client with all actions attached
     const client = createMemoryClient()
-    
+
     // Use viem actions directly from the client
     await client.getBlockNumber()
-    
-    // Use tevm-specific actions 
+
+    // Use tevm-specific actions
     await client.tevmDumpState()
     ```
 
@@ -152,7 +152,7 @@ console.log(`Transaction sent: ${hash}`)
 const receipt = await client.waitForTransactionReceipt({ hash })
 console.log(`Transaction mined in block: ${receipt.blockNumber}`)
 
-// Deploy a contract 
+// Deploy a contract
 const { contractAddress } = await client.deployContract({
   abi: parseAbi([
     'function greet() view returns (string)',
@@ -479,7 +479,7 @@ This breakdown illustrates Tevm's key architectural components:
 
 ## Next Steps
 
-<Cards>
+<CardGrid>
   <Card title="Using with Ethers.js" href="/examples/ethers">
     Learn how to integrate Tevm with ethers.js
   </Card>
@@ -492,4 +492,4 @@ This breakdown illustrates Tevm's key architectural components:
   <Card title="TevmNode Interface" href="/core/tevm-node-interface">
     Explore the low-level node interface
   </Card>
-</Cards>
+</CardGrid>

@@ -4,7 +4,7 @@ description: Detailed look at the main node interface and its capabilities
 ---
 
 import { Callout } from 'vocs/components'
-import { Card, CardGrid, Tab, TabGroup } from '../../../components'
+import { Card, CardGrid } from '../../../components'
 
 # TevmNode Interface
 
@@ -22,31 +22,31 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
   readonly logger: Logger
   status: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
   readonly ready: () => Promise<true>
-  
+
   // Core components
   readonly getVm: () => Promise<Vm>
   readonly getTxPool: () => Promise<TxPool>
   readonly getReceiptsManager: () => Promise<ReceiptsManager>
   readonly miningConfig: MiningConfig
-  
+
   // Forking support
   readonly mode: TMode
   readonly forkTransport?: { request: EIP1193RequestFn }
-  
+
   // Account management
   readonly getImpersonatedAccount: () => Address | undefined
   readonly setImpersonatedAccount: (address: Address | undefined) => void
-  
+
   // Event filtering
   readonly setFilter: (filter: Filter) => void
   readonly getFilters: () => Map<Hex, Filter>
   readonly removeFilter: (id: Hex) => void
-  
+
   // Extensibility
   readonly extend: <TExtension>(
     decorator: (client: TevmNode<TMode, TExtended>) => TExtension
   ) => TevmNode<TMode, TExtended & TExtension>
-  
+
   // State management
   readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
 } & EIP1193EventEmitter & TExtended
@@ -133,8 +133,8 @@ const txResult = await vm.runTx({
   }
 })
 
-console.log('Transaction executed:', txResult.execResult.exceptionError 
-  ? `Failed: ${txResult.execResult.exceptionError}` 
+console.log('Transaction executed:', txResult.execResult.exceptionError
+  ? `Failed: ${txResult.execResult.exceptionError}`
   : 'Success!')
 
 // Execute EVM bytecode directly
@@ -332,7 +332,7 @@ logs.forEach(log => {
   const from = '0x' + log.topics[1].slice(26)
   const to = '0x' + log.topics[2].slice(26)
   const value = BigInt(log.data)
-  
+
   console.log(`Transfer: ${from} -> ${to}: ${formatEther(value)} ETH`)
 })
 
@@ -361,11 +361,11 @@ const enhancedNode = node.extend((baseNode) => ({
     const account = await vm.stateManager.getAccount(address)
     return account.balance
   },
-  
+
   // Add a method to transfer ETH between accounts
   async transferETH(from, to, amount) {
     const vm = await baseNode.getVm()
-    
+
     // Execute the transfer
     const result = await vm.runTx({
       tx: {
@@ -375,21 +375,21 @@ const enhancedNode = node.extend((baseNode) => ({
         gasLimit: 21000n,
       }
     })
-    
+
     return {
       success: !result.execResult.exceptionError,
       gasUsed: result.gasUsed,
     }
   },
-  
+
   // Add a method to get all account balances
   async getAllBalances(addresses) {
     const results = {}
-    
+
     for (const addr of addresses) {
       results[addr] = formatEther(await this.getBalance(addr))
     }
-    
+
     return results
   }
 }))
@@ -460,7 +460,7 @@ const originalAccount = await (await baseNode.getVm()).stateManager.getAccount(
   '0x1234567890123456789012345678901234567890'
 )
 const modifiedAccount = await (await scenarioNode.getVm()).stateManager.getAccount(
-  '0x1234567890123456789012345678901234567890' 
+  '0x1234567890123456789012345678901234567890'
 )
 
 console.log('Original balance:', originalAccount.balance) // 100 ETH
@@ -528,7 +528,7 @@ const stackChanges = []
 vm.evm.events.on('step', (data, next) => {
   // Count opcodes
   opcodeCounts[data.opcode.name] = (opcodeCounts[data.opcode.name] || 0) + 1
-  
+
   // Track memory operations
   if (['MLOAD', 'MSTORE', 'MSTORE8'].includes(data.opcode.name)) {
     memoryAccesses.push({
@@ -536,7 +536,7 @@ vm.evm.events.on('step', (data, next) => {
       offset: data.stack[data.stack.length - 1]?.toString(16),
     })
   }
-  
+
   // Track stack changes
   if (data.opcode.name === 'PUSH1') {
     stackChanges.push({
@@ -545,7 +545,7 @@ vm.evm.events.on('step', (data, next) => {
       value: data.opcode.pushValue?.toString(16),
     })
   }
-  
+
   // Continue execution
   next?.()
 })
@@ -580,9 +580,9 @@ async function simulateICO() {
     miningConfig: { type: 'auto' }  // Auto-mine transactions
   })
   await node.ready()
-  
+
   const vm = await node.getVm()
-  
+
   // Setup accounts
   const deployer = '0x1111111111111111111111111111111111111111'
   const investors = [
@@ -590,7 +590,7 @@ async function simulateICO() {
     '0x3333333333333333333333333333333333333333',
     '0x4444444444444444444444444444444444444444',
   ]
-  
+
   // Fund accounts
   await vm.stateManager.putAccount(deployer, {
     nonce: 0n,
@@ -598,7 +598,7 @@ async function simulateICO() {
     codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
     storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
   })
-  
+
   for (const investor of investors) {
     await vm.stateManager.putAccount(investor, {
       nonce: 0n,
@@ -607,15 +607,15 @@ async function simulateICO() {
       storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
     })
   }
-  
+
   // Deploy ICO contract (simplified)
   // In reality, you would deploy a real contract here
   console.log('Deploying ICO contract...')
-  
+
   // Simulate investors participating
   for (const investor of investors) {
     console.log(`Investor ${investor} participating...`)
-    
+
     // In a real simulation, you would call the contract's participate method
     // This is a simplified example
     await vm.runTx({
@@ -627,16 +627,16 @@ async function simulateICO() {
       }
     })
   }
-  
+
   // Check final state
   const deployerAccount = await vm.stateManager.getAccount(deployer)
   console.log(`Deployer final balance: ${deployerAccount.balance}`)
-  
+
   for (const investor of investors) {
     const investorAccount = await vm.stateManager.getAccount(investor)
     console.log(`Investor ${investor} final balance: ${investorAccount.balance}`)
   }
-  
+
   // In a real simulation, you would also check token balances
 }
 
@@ -673,7 +673,7 @@ try {
   const result = await vm.runTx({
     tx: { /* ... */ }
   })
-  
+
   if (result.execResult.exceptionError) {
     console.error(`Execution failed: ${result.execResult.exceptionError}`)
     console.error(`At PC: ${result.execResult.exceptionError.pc}`)
@@ -716,13 +716,13 @@ await baseNode.ready()
 // For each test case, create an independent copy
 async function runTestCase(scenario) {
   const testNode = await baseNode.deepCopy()
-  
+
   // Modify state for this specific test
   // ...
-  
+
   // Run the test
   // ...
-  
+
   // Each test has isolated state that doesn't affect other tests
 }
 ```
@@ -766,13 +766,13 @@ function setupNode<TMode extends 'fork' | 'normal'>(
 ) {
   return async () => {
     await node.ready()
-    
+
     // Fork-specific operations with type checking
     if (node.mode === 'fork') {
       node.setImpersonatedAccount('0x...')
       return { mode: 'fork', impersonatedAccount: node.getImpersonatedAccount() }
     }
-    
+
     return { mode: 'normal' }
   }
 }
@@ -780,7 +780,7 @@ function setupNode<TMode extends 'fork' | 'normal'>(
 // With extension types
 function createEnhancedNode() {
   const baseNode = createTevmNode()
-  
+
   const enhancedNode = baseNode.extend((base) => ({
     async getBalance(address: string): Promise<bigint> {
       const vm = await base.getVm()
@@ -788,7 +788,7 @@ function createEnhancedNode() {
       return account.balance
     }
   }))
-  
+
   // TypeScript knows enhancedNode has getBalance method
   return enhancedNode
 }

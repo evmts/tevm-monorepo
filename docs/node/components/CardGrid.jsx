@@ -12,7 +12,7 @@ export function Card({ title, icon, children, className, ...props }) {
 export function CardGrid({ children, columns }) {
   // Default grid with responsive breakpoints
   const gridClass = columns || "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-4";
-  
+
   return (
     <div className={gridClass}>
       {children}

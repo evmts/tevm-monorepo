@@ -4,7 +4,7 @@ description: Configure block production in Tevm Node
 ---
 
 import { Callout, Steps, Button } from 'vocs/components'
-import { Card, CardGrid, Tab, TabGroup, FileTree } from '../../../components'
+import { Card, CardGrid, FileTree } from '../../../components'
 
 # Mining Modes
 
@@ -177,7 +177,7 @@ await node.setMiningConfig({ // [!code focus]
 
 <Steps>
   ### Choose the Right Mode for Your Use Case
-  
+
   <CardGrid columns="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <Card title="Development" icon="💻">
       Use <code>auto</code> mining for the fastest feedback loop during development
@@ -192,30 +192,30 @@ await node.setMiningConfig({ // [!code focus]
       Use <code>gas</code> mining to test application behavior under congestion
     </Card>
   </CardGrid>
-  
+
   ### Consider Performance Implications
-  
+
   <Callout type="warning">
     Different mining modes have varying performance characteristics:
-    
+
     - <strong>Auto mining</strong> can be resource-intensive with many transactions
     - <strong>Interval mining</strong> might delay transaction processing
     - <strong>Gas mining</strong> helps simulate network congestion but requires careful configuration
   </Callout>
-  
+
   ### Testing Best Practices
-  
+
   ```typescript filename="testing-strategies.ts"
   // For time-sensitive logic testing
   const timeNode = createTevmNode({
     miningConfig: { type: 'interval', interval: 10000 }
   })
-  
+
   // For deterministic test cases
   const deterministicNode = createTevmNode({
     miningConfig: { type: 'manual' }
   })
-  
+
   // For gas-sensitive contract testing
   const gasNode = createTevmNode({
     miningConfig: { type: 'gas', gasLimit: 8000000 }
@@ -302,12 +302,12 @@ setTimeout(async () => {
     <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Transaction Pool</div>
     <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Understanding pending transaction handling and mempool behavior</div>
   </Button>
-  
+
   <Button href="../advanced/performance-profiler" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
     <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Performance Optimization</div>
     <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Tuning mining modes for better performance</div>
   </Button>
-  
+
   <Button href="../api/methods#block-methods" variant="accent" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
     <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Block Management</div>
     <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Low-level block control and manipulation</div>

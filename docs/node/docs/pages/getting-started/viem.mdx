@@ -172,7 +172,7 @@ const counterAbi = parseAbi([
   'function count() view returns (uint256)'
 ])
 
-// Counter contract bytecode (pre-compiled) 
+// Counter contract bytecode (pre-compiled)
 const counterBytecode = '0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
 
 // 3. Deploy the contract
@@ -363,19 +363,19 @@ await client.tevmContract({
   abi: greeterAbi,
   functionName: 'setGreeting',
   args: ['Hello!'],
-  
+
   // onStep is called for each EVM operation // [!code focus]
   onStep: (stepInfo, next) => { // [!code focus]
     console.log(`Executing: ${stepInfo.opcode.name} at PC=${stepInfo.pc}`) // [!code focus]
     console.log(`Stack: ${stepInfo.stack.map(val => val.toString())}`) // [!code focus]
     console.log(`Memory: ${stepInfo.memory.toString('hex')}`) // [!code focus]
-    
+
     // You can also modify EVM state here if needed // [!code focus]
-    
+
     // Call next() to continue execution // [!code focus]
     next?.() // [!code focus]
   }, // [!code focus]
-  
+
   // You can also access the detailed result after execution
   onResult: (result) => {
     console.log(`Gas used: ${result.executionGasUsed}`)

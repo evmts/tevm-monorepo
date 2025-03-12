@@ -2,20 +2,20 @@
 layout: landing
 ---
 
-import { HomePage, Button } from 'vocs/components'
+import { Button, HomePage } from 'vocs/components'
 import { Card } from '../../components'
 
 <HomePage.Root>
   <div style={{ textAlign: 'center', margin: '0 auto', maxWidth: '200px' }}>
-    <img 
-      src="/tevm-logo-dark.png" 
-      alt="Tevm Logo" 
-      style={{ width: '100%', height: 'auto' }} 
+    <img
+      src="/tevm-logo-dark.png"
+      alt="Tevm Logo"
+      style={{ width: '100%', height: 'auto' }}
     />
   </div>
   <HomePage.Tagline>Powerful Ethereum Node and Solidity Compiler for TypeScript Applications</HomePage.Tagline>
   <HomePage.InstallPackage name="tevm" type="install" />
-  
+
   <div className="code-snippet" style={{
     maxWidth: '600px',
     margin: '1.5rem 0',
@@ -27,10 +27,10 @@ import { Card } from '../../components'
   }}>
     ```ts
     import { createMemoryClient } from 'tevm'
-    
+
     // Create a complete Ethereum environment in one line
     const client = createMemoryClient()
-    
+
     // Execute EVM transactions locally with type safety
     const result = await client.call({
       account: '0x123...',
@@ -47,156 +47,75 @@ import { Card } from '../../components'
     <HomePage.Button href="/examples/viem">Viem Guide</HomePage.Button>
     <HomePage.Button href="/introduction/what-is-tevm-node">Learn More</HomePage.Button>
   </HomePage.Buttons>
-  
-  <div style={{ 
-    display: 'grid', 
-    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
-    gap: '1.5rem', 
-    maxWidth: '900px',
-    margin: '3rem auto 1.5rem'
-  }}>
-    <div style={{ 
-      border: '1px solid var(--vocs-color_border)', 
-      borderRadius: 'var(--vocs-borderRadius_4)', 
-      padding: '1.5rem',
-      backgroundColor: 'var(--vocs-color_background2)'
-    }}>
-      <h3 style={{ margin: '0 0 0.75rem 0' }}>JavaScript-Native EVM</h3>
-      <p style={{ margin: '0 0 1rem 0' }}>Run a complete Ethereum environment directly in browsers, Node.js, Deno, or serverless - with zero native dependencies. Perfect for development, testing, and production.</p>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[900px] mx-auto my-12">
+    <Card title="JavaScript-Native EVM">
+      <p className="mb-4">Run a complete Ethereum environment directly in browsers, Node.js, Deno, or serverless - with zero native dependencies. Perfect for development, testing, and production.</p>
       <Button href="/introduction/why-run-ethereum-in-js" variant="text" size="small">Why JavaScript? →</Button>
-    </div>
-    
-    <div style={{ 
-      border: '1px solid var(--vocs-color_border)', 
-      borderRadius: 'var(--vocs-borderRadius_4)', 
-      padding: '1.5rem',
-      backgroundColor: 'var(--vocs-color_background2)'
-    }}>
-      <h3 style={{ margin: '0 0 0.75rem 0' }}>10-25x Faster Than Remote Calls</h3>
-      <p style={{ margin: '0 0 1rem 0' }}>Execute transactions locally without network roundtrips. Get instant gas estimates, simulate complex transactions, and build responsive dApps with local execution.</p>
+    </Card>
+
+    <Card title="10-25x Faster Than Remote Calls">
+      <p className="mb-4">Execute transactions locally without network roundtrips. Get instant gas estimates, simulate complex transactions, and build responsive dApps with local execution.</p>
       <Button href="/introduction/why-run-ethereum-in-js#performance--efficiency" variant="text" size="small">Performance Benefits →</Button>
-    </div>
-    
-    <div style={{ 
-      border: '1px solid var(--vocs-color_border)', 
-      borderRadius: 'var(--vocs-borderRadius_4)', 
-      padding: '1.5rem',
-      backgroundColor: 'var(--vocs-color_background2)'
-    }}>
-      <h3 style={{ margin: '0 0 0.75rem 0' }}>Import Solidity Files Directly</h3>
-      <p style={{ margin: '0 0 1rem 0' }}>Use .sol files as native ES modules with full TypeScript type safety. Access NatSpec documentation and interact with contracts using familiar patterns.</p>
+    </Card>
+
+    <Card title="Import Solidity Files Directly">
+      <p className="mb-4">Use .sol files as native ES modules with full TypeScript type safety. Access NatSpec documentation and interact with contracts using familiar patterns.</p>
       <Button href="https://tevm.sh/bundler/direct-solidity-imports" variant="text" size="small">Bundler Integration →</Button>
-    </div>
-    
-    <div style={{ 
-      border: '1px solid var(--vocs-color_border)', 
-      borderRadius: 'var(--vocs-borderRadius_4)', 
-      padding: '1.5rem',
-      backgroundColor: 'var(--vocs-color_background2)'
-    }}>
-      <h3 style={{ margin: '0 0 0.75rem 0' }}>Fork Any Chain in Your Browser</h3>
-      <p style={{ margin: '0 0 1rem 0' }}>Create instant local copies of Ethereum, Optimism, or any EVM chain - directly in your browser. Test against real contracts and state without external tools like Anvil or Hardhat.</p>
+    </Card>
+
+    <Card title="Fork Any Chain in Your Browser">
+      <p className="mb-4">Create instant local copies of Ethereum, Optimism, or any EVM chain - directly in your browser. Test against real contracts and state without external tools like Anvil or Hardhat.</p>
       <Button href="/core/forking" variant="text" size="small">Forking Guide →</Button>
-    </div>
-    
-    <div style={{ 
-      border: '1px solid var(--vocs-color_border)', 
-      borderRadius: 'var(--vocs-borderRadius_4)', 
-      padding: '1.5rem',
-      backgroundColor: 'var(--vocs-color_background2)'
-    }}>
-      <h3 style={{ margin: '0 0 0.75rem 0' }}>EVM Execution Hooks</h3>
-      <p style={{ margin: '0 0 1rem 0' }}>Intercept and modify EVM execution at the opcode level. Build advanced tools like debuggers, tracers, or custom gas profilers with complete visibility into each execution step.</p>
+    </Card>
+
+    <Card title="EVM Execution Hooks">
+      <p className="mb-4">Intercept and modify EVM execution at the opcode level. Build advanced tools like debuggers, tracers, or custom gas profilers with complete visibility into each execution step.</p>
       <Button href="/api/evm-events" variant="text" size="small">EVM Hooks Guide →</Button>
-    </div>
-    
-    <div style={{ 
-      border: '1px solid var(--vocs-color_border)', 
-      borderRadius: 'var(--vocs-borderRadius_4)', 
-      padding: '1.5rem',
-      backgroundColor: 'var(--vocs-color_background2)'
-    }}>
-      <h3 style={{ margin: '0 0 0.75rem 0' }}>Works With Tools You Know</h3>
-      <p style={{ margin: '0 0 1rem 0' }}>Native integration with viem and full compatibility with ethers.js, web3.js, wagmi, and any EIP-1193 library. Your existing code just works.</p>
+    </Card>
+
+    <Card title="Works With Tools You Know">
+      <p className="mb-4">Native integration with viem and full compatibility with ethers.js, web3.js, wagmi, and any EIP-1193 library. Your existing code just works.</p>
       <Button href="/introduction/what-is-tevm-node#library-compatibility" variant="text" size="small">Library Support →</Button>
-    </div>
+    </Card>
   </div>
-  
-  <div style={{ 
-    maxWidth: '800px', 
-    margin: '3rem auto',
-    padding: '2rem',
-    backgroundColor: 'var(--vocs-color_background2)',
-    borderRadius: 'var(--vocs-borderRadius_4)',
-    border: '1px solid var(--vocs-color_border)'
-  }}>
-    <h2 style={{ textAlign: 'center', marginTop: 0, marginBottom: '1.5rem' }}>What Developers Are Saying</h2>
-    
-    <div style={{ 
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '2rem'
-    }}>
-      <blockquote style={{ 
-        margin: 0,
-        fontSize: 'var(--vocs-fontSize_16)',
-        borderLeft: '3px solid var(--vocs-color_borderAccent)',
-        padding: '0 0 0 1rem'
-      }}>
+
+  <div className="max-w-[800px] mx-auto my-12 p-8 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+    <h2 className="text-center mt-0 mb-6">What Developers Are Saying</h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <blockquote className="m-0 text-base border-l-4 border-blue-500 pl-4">
         "If you're building a blockchain application on the web, I'm almost certain there is a use case for Tevm. It might change everything, and at worse it would most likely improve your devX."
-        <div style={{ 
-          marginTop: '0.75rem', 
-          fontWeight: 'var(--vocs-fontWeight_medium)' 
-        }}>
+        <div className="mt-3 font-medium">
           polarzero
-          <a href="https://twitter.com/0xpolarzero" style={{ 
-            fontSize: 'var(--vocs-fontSize_14)',
-            color: 'var(--vocs-color_textAccent)',
-            marginLeft: '0.5rem'
-          }}>@0xpolarzero</a>
+          <a href="https://twitter.com/0xpolarzero" className="text-sm text-blue-500 ml-2">@0xpolarzero</a>
         </div>
       </blockquote>
-      
-      <blockquote style={{ 
-        margin: 0,
-        fontSize: 'var(--vocs-fontSize_16)',
-        borderLeft: '3px solid var(--vocs-color_borderAccent)',
-        padding: '0 0 0 1rem'
-      }}>
+
+      <blockquote className="m-0 text-base border-l-4 border-blue-500 pl-4">
         "Fully @tevmtools pilled now. The beauty and harmony of the dev tooling 😍."
-        <div style={{ 
-          marginTop: '0.75rem', 
-          fontWeight: 'var(--vocs-fontWeight_medium)' 
-        }}>
+        <div className="mt-3 font-medium">
           EulerLagrange.eth - ver/acc
-          <a href="https://twitter.com/Euler__Lagrange" style={{ 
-            fontSize: 'var(--vocs-fontSize_14)',
-            color: 'var(--vocs-color_textAccent)',
-            marginLeft: '0.5rem'
-          }}>@Euler__Lagrange</a>
+          <a href="https://twitter.com/Euler__Lagrange" className="text-sm text-blue-500 ml-2">@Euler__Lagrange</a>
         </div>
       </blockquote>
     </div>
-    
-    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+
+    <div className="text-center mt-8">
       <Button href="/getting-started/testimonials" variant="outline">See More Testimonials</Button>
     </div>
   </div>
-  
-  <div style={{ 
-    margin: '2rem auto', 
-    maxWidth: '600px', 
-    textAlign: 'center' 
-  }}>
+
+  <div className="max-w-[600px] mx-auto my-8 text-center">
     <h2>Ready to get started?</h2>
-    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+    <div className="flex gap-4 justify-center flex-wrap">
       <Button href="/getting-started/overview" variant="accent">Installation Guide</Button>
       <Button href="/examples/viem">Viem Integration</Button>
       <Button href="/examples/ethers">Ethers Integration</Button>
     </div>
   </div>
-  
-  <div style={{ marginTop: '3rem', fontSize: 'var(--vocs-fontSize_14)', opacity: 0.8 }}>
+
+  <div className="mt-12 text-sm opacity-80">
     Here's our <a href="https://node.tevm.sh/llms-full.txt">documentation as plain text</a> for providing context to LLM systems
   </div>
 </HomePage.Root>
