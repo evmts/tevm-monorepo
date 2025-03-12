@@ -60,7 +60,7 @@ export const resolveImports = (absolutePath, code, remappings, libs, sync) => {
 	if (typeof sync !== 'boolean') {
 		return die(`Type ${typeof sync} is not of type boolean`)
 	}
-	const imports =
+	const allImports =
 		/** @type Array<import("effect/Effect").Effect<import("./types.js").ResolvedImport, import("./utils/resolveImportPath.js").CouldNotResolveImportError, >> */ ([])
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {
@@ -68,7 +68,7 @@ export const resolveImports = (absolutePath, code, remappings, libs, sync) => {
 		if (!importPath) {
 			return fail(new ImportDoesNotExistError())
 		}
-		imports.push(
+		allImports.push(
 			resolveImportPath(absolutePath, importPath, remappings, libs, sync).pipe(
 				map((absolute) => ({
 					updated: absolute,
@@ -79,5 +79,5 @@ export const resolveImports = (absolutePath, code, remappings, libs, sync) => {
 		)
 		foundImport = importRegEx.exec(code)
 	}
-	return all(imports)
+	return all(allImports)
 }

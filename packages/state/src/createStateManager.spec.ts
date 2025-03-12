@@ -1,7 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { EthjsAccount } from '@tevm/utils'
-import { bytesToHex, hexToBytes } from 'viem'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { createStateManager } from './createStateManager.js'
 
 describe(createStateManager.name, () => {

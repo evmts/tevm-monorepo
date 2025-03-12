@@ -4,6 +4,7 @@ import type { ResolvedCompilerConfig } from '@tevm/config'
 // @ts-expect-error
 import * as solc from 'solc'
 import type { Node } from 'solidity-ast/node.js'
+import type { SolcInput } from 'solidity-ast/solc.js'
 import { findAll } from 'solidity-ast/utils.js'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
 import type { Logger } from '../factories/logger.js'
@@ -91,7 +92,7 @@ export const getDefinitionServiceDecorator = (
 		}
 		return [
 			...definitions.map(({ fileName, node }) =>
-				convertSolcAstToTsDefinitionInfo(node, fileName, contractName, solcInput, ts),
+				convertSolcAstToTsDefinitionInfo(node, fileName, contractName, { sources: solcInput.sources } as SolcInput, ts),
 			),
 			...(definition ?? []),
 		]

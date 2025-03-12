@@ -1,8 +1,5 @@
-import { createAddress } from '@tevm/address'
-import { hexToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
-import { createStateManager } from '../createStateManager.js'
 import { checkpoint } from './checkpoint.js'
 import { commit } from './commit.js'
 import { revert } from './revert.js'

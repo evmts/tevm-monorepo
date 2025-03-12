@@ -1,8 +1,6 @@
-import { createAddress } from '@tevm/address'
 import { bytesToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
-import { createStateManager } from '../createStateManager.js'
 import { getStateRoot } from './getStateRoot.js'
 import { hasStateRoot } from './hasStateRoot.js'
 import { saveStateRoot } from './saveStateRoot.js'
@@ -41,15 +39,18 @@ describe(getStateRoot.name, () => {
 			loggingLevel: 'error',
 		})
 
-		// Get initial state root
-		const initialRoot = await getStateRoot(baseState)()
+		// Get the current state root to save
+		const currentRoot = await getStateRoot(baseState)()
 
-		// Save the state root with a label
-		await saveStateRoot(baseState)('testRoot')
+		// Save the state root with an empty state object
+		await saveStateRoot(baseState)(currentRoot, {})
 
 		// Check that the saved root exists
-		expect(await hasStateRoot(baseState)('testRoot')).toBe(true)
-		expect(await hasStateRoot(baseState)('nonexistentRoot')).toBe(false)
+		expect(await hasStateRoot(baseState)(currentRoot)).toBe(true)
+
+		// Create a fake root that shouldn't exist
+		const fakeRoot = new Uint8Array(32).fill(0xff)
+		expect(await hasStateRoot(baseState)(fakeRoot)).toBe(false)
 	})
 
 	it('should test basic setStateRoot functionality', async () => {

@@ -1,7 +1,6 @@
 import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
-import { createStateManager } from '../createStateManager.js'
 import { getAccount } from './getAccount.js'
 import { putAccount } from './putAccount.js'
 
@@ -69,7 +68,7 @@ describe(putAccount.name, () => {
 		const retrievedAccount = await getAccount(baseState)(address)
 
 		// Check that values match
-		expect(retrievedAccount.balance).toBe(largeBalance)
-		expect(retrievedAccount.nonce).toBe(largeNonce)
+		expect(retrievedAccount?.balance).toBe(largeBalance)
+		expect(retrievedAccount?.nonce).toBe(largeNonce)
 	})
 })
