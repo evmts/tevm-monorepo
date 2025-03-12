@@ -12,3 +12,10 @@ Uint8Array [
   0,
 ]
 `;
+
+exports[`getContractStorage should throw an error if the key is not 32 bytes long 1`] = `
+"Storage key must be 32 bytes long. Received 2. If using numberToHex make the length 32.
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73"
+`;

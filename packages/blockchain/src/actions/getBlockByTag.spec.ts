@@ -71,4 +71,17 @@ describe(getBlockByTag.name, async () => {
 		expect(error).toBeInstanceOf(UnknownBlockError)
 		expect(error).toMatchSnapshot()
 	})
+
+	it('should retrieve a block by tag directly from cache', async () => {
+		const chain = createBaseChain({
+			common: optimism.copy(),
+		})
+
+		// Set a block with a specific tag
+		chain.blocksByTag.set('test-tag' as any, blocks[0])
+
+		// Now retrieve it using getBlockByTag
+		const retrievedBlock = await getBlockByTag(chain)('test-tag' as any)
+		expect(retrievedBlock).toBe(blocks[0])
+	})
 })

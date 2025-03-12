@@ -51,4 +51,24 @@ describe('createTevmTransport', () => {
 		const { common } = await transport.value.tevm.getVm()
 		expect(common.id).toBe(base.id)
 	})
+
+	it('should create a common from a non-ethjsCommon chain object', async () => {
+		// Using a minimal chain-like object to test the branch where
+		// chain is defined but not an ethjsCommon instance
+		const minimalChain = {
+			id: 8888,
+			name: 'Test Chain',
+		}
+
+		// We need to cast to any because TypeScript will complain about the minimal chain object
+		const transport = createTevmTransport()({
+			// @ts-ignore - Using minimal object to test the code path
+			chain: minimalChain,
+		})
+
+		// Just verify the transport was created successfully
+		expect(transport.config.timeout).toBe(20000)
+		expect(transport.config.retryCount).toBe(3)
+		expect(transport.value.tevm).toBeDefined()
+	})
 })

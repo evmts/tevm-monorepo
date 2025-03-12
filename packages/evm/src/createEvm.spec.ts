@@ -4,6 +4,7 @@ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import { createStateManager } from '@tevm/state'
 import { EthjsAddress } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { Evm } from './Evm.js'
 import { createEvm } from './createEvm.js'
 
 describe(createEvm.name, () => {
@@ -152,6 +153,30 @@ describe(createEvm.name, () => {
 
 			// Verify the method exists
 			expect(typeof evm.addCustomPrecompile).toBe('function')
+		})
+
+		it('should use fallback binding for custom precompile methods', async () => {
+			// Create a mock object that simulates an EVM instance without the addCustomPrecompile and removeCustomPrecompile methods
+			const mockEvm = {
+				// Minimal properties needed for the test
+				_customPrecompiles: [],
+				common: mainnet.ethjsCommon,
+				getPrecompile: () => undefined,
+			}
+
+			// Apply the binding logic from lines 69-70 in createEvm.js to the mock object
+			mockEvm.addCustomPrecompile =
+				mockEvm.addCustomPrecompile?.bind(mockEvm) ?? Evm.prototype.addCustomPrecompile.bind(mockEvm)
+			mockEvm.removeCustomPrecompile =
+				mockEvm.removeCustomPrecompile?.bind(mockEvm) ?? Evm.prototype.removeCustomPrecompile.bind(mockEvm)
+
+			// Verify the methods are now bound functions
+			expect(typeof mockEvm.addCustomPrecompile).toBe('function')
+			expect(typeof mockEvm.removeCustomPrecompile).toBe('function')
+
+			// Test that the methods are bound correctly
+			expect(mockEvm.addCustomPrecompile).not.toBeUndefined()
+			expect(mockEvm.removeCustomPrecompile).not.toBeUndefined()
 		})
 	})
 

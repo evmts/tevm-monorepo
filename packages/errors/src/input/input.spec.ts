@@ -6,14 +6,12 @@ import { InvalidBlobVersionedHashesError } from './InvalidBlobVersionedHashesErr
 import { InvalidDataError } from './InvalidDataError.js'
 import { InvalidFunctionNameError } from './InvalidFunctionNameError.js'
 import { InvalidGasLimitError } from './InvalidGasLimitError.js'
-// These imports are used in tests in other files, keeping them to ensure exports work correctly
-// @ts-ignore: Imports used for testing but not directly referenced
+import { InvalidGasRefundError } from './InvalidGasRefundError.js'
+import { InvalidMaxFeePerGasError } from './InvalidMaxFeePerGaserror.js'
+import { InvalidMaxPriorityFeePerGasError } from './InvalidMaxPriorityFeePerGas.js'
 import { InvalidSelfdestructError } from './InvalidSelfdestructError.js'
-// @ts-ignore: Imports used for testing but not directly referenced
 import { InvalidSkipBalanceError } from './InvalidSkipBalanceError.js'
-// @ts-ignore: Imports used for testing but not directly referenced
 import { InvalidStorageRootError } from './InvalidStorageRootError.js'
-// @ts-ignore: Imports used for testing but not directly referenced
 import { InvalidToError } from './InvalidToError.js'
 import { InvalidUrlError } from './InvalidUrlError.js'
 
@@ -134,6 +132,125 @@ describe('Input errors', () => {
 
 		it('should create with custom docs parameters', () => {
 			const error = new InvalidGasLimitError('Invalid gas limit', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidGasRefundError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidGasRefundError('Invalid gas refund')
+			expect(error.message).toContain('Invalid gas refund')
+			expect(error.name).toBe('InvalidGasRefundError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidGasRefundError('Invalid refund', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidMaxFeePerGasError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidMaxFeePerGasError('Invalid max fee per gas')
+			expect(error.message).toContain('Invalid max fee per gas')
+			expect(error.name).toBe('InvalidMaxFeePerGasError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidMaxFeePerGasError('Invalid fee', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidMaxPriorityFeePerGasError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidMaxPriorityFeePerGasError('Invalid max priority fee')
+			expect(error.message).toContain('Invalid max priority fee')
+			expect(error.name).toBe('InvalidMaxPriorityFeePerGasError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidMaxPriorityFeePerGasError('Invalid priority fee', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidSelfdestructError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidSelfdestructError('Invalid selfdestruct params')
+			expect(error.message).toContain('Invalid selfdestruct params')
+			expect(error.name).toBe('InvalidSelfdestructError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidSelfdestructError('Invalid selfdestruct', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidSkipBalanceError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidSkipBalanceError('Invalid skip balance')
+			expect(error.message).toContain('Invalid skip balance')
+			expect(error.name).toBe('InvalidSkipBalanceError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidSkipBalanceError('Invalid skip', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidStorageRootError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidStorageRootError('Invalid storage root')
+			expect(error.message).toContain('Invalid storage root')
+			expect(error.name).toBe('InvalidStorageRootError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidStorageRootError('Invalid root', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidToError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidToError('Invalid to address')
+			expect(error.message).toContain('Invalid to address')
+			expect(error.name).toBe('InvalidToError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidToError('Invalid to', {
 				docsBaseUrl: 'https://custom.docs',
 				docsPath: '/custom/path',
 			})

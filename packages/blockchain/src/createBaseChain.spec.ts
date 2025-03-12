@@ -76,4 +76,21 @@ describe(createBaseChain.name, () => {
 		expect(chain.blocksByTag.get('forked')).toBeUndefined()
 		expect(chain.blocksByTag.get('latest')).toBe(genesisBlock)
 	})
+
+	it('should create a genesis block with withdrawals when EIP-4895 is activated', async () => {
+		// Create a common with EIP-4895 activated
+		const common = optimism.copy()
+		common.ethjsCommon.setEIPs([4895])
+
+		const options = { common }
+		const chain = createBaseChain(options)
+		await chain.ready()
+
+		// Get the genesis block
+		const genesisBlock = chain.blocksByNumber.get(0n)
+		// Verify it has withdrawalsRoot and withdrawals field
+		expect(genesisBlock?.header.withdrawalsRoot).toBeDefined()
+		expect(genesisBlock?.withdrawals).toBeDefined()
+		expect(genesisBlock?.withdrawals).toEqual([])
+	})
 })

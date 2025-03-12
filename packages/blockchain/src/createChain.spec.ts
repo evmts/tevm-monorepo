@@ -29,6 +29,14 @@ describe(createChain.name, () => {
 		expect(chain).toHaveProperty('iterator')
 	})
 
+	it('should throw error when iterator method is called', async () => {
+		const options = { common: optimism.copy() }
+		const chain = (await createChain(options)) as any
+
+		// Verify that calling iterator throws an error
+		expect(() => chain.iterator()).toThrow('iterator is not implemented')
+	})
+
 	it('should perform deep copy of the chain', async () => {
 		const options = { common: optimism.copy() }
 		const chain = await createChain(options)
@@ -66,7 +74,10 @@ describe(createChain.name, () => {
 		const mockBlocks = await getMockBlocks()
 
 		await chain.putBlock(mockBlocks[0])
-		const invalidHeader = { ...mockBlocks[1].header, number: mockBlocks[0].header.number } // invalid block number
+		const invalidHeader = {
+			...mockBlocks[1].header,
+			number: mockBlocks[0].header.number,
+		} // invalid block number
 		const error = await chain.validateHeader(invalidHeader as any).catch((e) => e)
 		expect(error).toBeInstanceOf(Error)
 		expect(error.message).toMatchSnapshot()

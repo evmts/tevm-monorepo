@@ -1,9 +1,10 @@
 import { createAddress } from '@tevm/address'
 import { SimpleContract, transports } from '@tevm/test-utils'
 import { hexToBytes } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getContractCode } from './getContractCode.js'
+import * as getForkClientModule from './getForkClient.js'
 import { putContractCode } from './putContractCode.js'
 
 const contract = SimpleContract.withAddress(`0x${'69'.repeat(20)}`)
@@ -117,5 +118,44 @@ describe(getContractCode.name, () => {
 
 		// Check fork cache has empty code
 		expect(state.forkCache.contracts.get(emptyAddress)).toEqual(new Uint8Array())
+	})
+
+	it('should return EMPTY_CODE if contracts.has(address) is true', async () => {
+		// This tests lines 60-62 in getContractCode.js
+		const state = createBaseState({
+			fork: {
+				transport: transports.optimism,
+			},
+		})
+		const testAddress = createAddress('0xbeef12345678901234567890123456789012')
+
+		// Setup the contracts.has mock to return true
+		vi.spyOn(state.caches.contracts, 'has').mockReturnValue(true)
+
+		// We don't need to mock the client as we should never reach that code path
+
+		// Call getContractCode
+		const result = await getContractCode(state)(testAddress)
+
+		// Should return empty code without calling getBytecode
+		expect(result).toEqual(new Uint8Array())
+	})
+
+	it('should return empty code if address has already been cached in contracts but not forkContracts', async () => {
+		const state = createBaseState({
+			fork: {
+				transport: transports.optimism,
+			},
+		})
+		const address = createAddress(`0x${'abcd'.repeat(10)}`)
+
+		// Manually put an empty code entry in the main contracts cache
+		state.caches.contracts.put(address, new Uint8Array())
+
+		// This should trigger lines 60-62 in getContractCode.js
+		const code = await getContractCode(state)(address)
+
+		// Should return empty code without doing a remote call
+		expect(code).toEqual(new Uint8Array())
 	})
 })

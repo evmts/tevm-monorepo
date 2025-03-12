@@ -159,6 +159,24 @@ describe(getTevmConfigFromTsConfig, () => {
 			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
 		})
 	})
+
+	it('should handle the case when baseUrl exists but no user remappings', async () => {
+		const tevmConfig = {
+			name: '@tevm/ts-plugin',
+			remappings: { 'existing/': '/path/to/existing/' },
+		}
+		const config = {
+			compilerOptions: {
+				baseUrl: './src',
+				plugins: [tevmConfig],
+			},
+		}
+		expect(runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toEqual({
+			...tevmConfig,
+			remappings: { 'existing/': '/path/to/existing/' },
+			libs: ['./src'],
+		})
+	})
 	it(`should throw a ${NoPluginInTsConfigFoundError} if there is no plugins`, async () => {
 		const config = {
 			compilerOptions: {

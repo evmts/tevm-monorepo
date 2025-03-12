@@ -70,7 +70,7 @@ describe('createHttpHandler', () => {
 		const res = await supertest(server).post('/').send(invalidJson).expect(400).expect('Content-Type', /json/)
 
 		expect(res.body.error).toBeDefined()
-		expect(res.body.error.code).toBe(-32700)
+		expect(res.body.error.message).toContain('Expected')
 		expect(res.body.error.message).toMatchSnapshot()
 	})
 

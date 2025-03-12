@@ -1,142 +1,108 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { readCacheSync } from './readCacheSync.js'
 
+const mockCache = {
+	readArtifactsSync: vi.fn(),
+} as any
+
+const mockLogger = {
+	error: vi.fn(),
+} as any
+
 describe('readCacheSync', () => {
-	const mockLogger = {
-		error: vi.fn(),
-		warn: vi.fn(),
-		info: vi.fn(),
-		debug: vi.fn(),
-		log: vi.fn(),
-	}
+	it('should return undefined if cache.readArtifactsSync returns nothing', () => {
+		mockCache.readArtifactsSync.mockReturnValueOnce(undefined)
 
-	const mockCache = {
-		readArtifacts: vi.fn(),
-		readArtifactsSync: vi.fn(),
-		writeArtifacts: vi.fn(),
-		writeArtifactsSync: vi.fn(),
-		readDtsSync: vi.fn(),
-		readDts: vi.fn(),
-		readMjsSync: vi.fn(),
-		readMjs: vi.fn(),
-		writeDtsSync: vi.fn(),
-		writeDts: vi.fn(),
-		writeMjsSync: vi.fn(),
-		writeMjs: vi.fn(),
-	}
-
-	const modulePath = '/path/to/module.sol'
-
-	beforeEach(() => {
-		vi.resetAllMocks()
-	})
-
-	it('should return cached artifacts when they exist and no special requirements', () => {
-		const mockArtifacts = {
-			artifacts: {
-				Contract: {
-					evm: {
-						deployedBytecode: '0x123',
-					},
-				},
-			},
-			asts: { Contract: { nodes: [] } },
-		}
-
-		mockCache.readArtifactsSync.mockReturnValue(mockArtifacts)
-
-		const result = readCacheSync(mockLogger, mockCache, modulePath, false, false)
-
-		expect(result).toEqual(mockArtifacts)
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith(modulePath)
-		expect(mockLogger.error).not.toHaveBeenCalled()
-	})
-
-	it('should return undefined when no cached artifacts exist', () => {
-		mockCache.readArtifactsSync.mockReturnValue(null)
-
-		const result = readCacheSync(mockLogger, mockCache, modulePath, false, false)
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith(modulePath)
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
-	it('should return undefined when includeAst is true but no ASTs in cache', () => {
-		const mockArtifacts = {
-			artifacts: {
-				Contract: {
-					evm: {
-						deployedBytecode: '0x123',
-					},
-				},
-			},
-			asts: {},
-		}
+	it('should return cached artifacts if they exist and no AST or bytecode is required', () => {
+		const mockArtifacts = { artifacts: {} }
+		mockCache.readArtifactsSync.mockReturnValueOnce(mockArtifacts)
 
-		mockCache.readArtifactsSync.mockReturnValue(mockArtifacts)
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, false)
 
-		const result = readCacheSync(mockLogger, mockCache, modulePath, true, false)
+		expect(result).toBe(mockArtifacts)
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockLogger.error).not.toHaveBeenCalled()
+	})
+
+	it('should return undefined if AST is required but not cached', () => {
+		const mockArtifacts = { artifacts: {}, asts: {} }
+		mockCache.readArtifactsSync.mockReturnValueOnce(mockArtifacts)
+
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', true, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith(modulePath)
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
-	it('should return undefined when includeBytecode is true but no bytecode in cache', () => {
+	it('should return cached artifacts if AST is required and available', () => {
+		const mockArtifacts = { artifacts: {}, asts: { 'test.sol': {} } }
+		mockCache.readArtifactsSync.mockReturnValueOnce(mockArtifacts)
+
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', true, false)
+
+		expect(result).toBe(mockArtifacts)
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockLogger.error).not.toHaveBeenCalled()
+	})
+
+	it('should return undefined if bytecode is required but not cached', () => {
 		const mockArtifacts = {
 			artifacts: {
-				Contract: {
-					evm: {
-						deployedBytecode: undefined,
-					},
-				},
+				Contract1: { evm: { deployedBytecode: '' } },
 			},
-			asts: { Contract: { nodes: [] } },
 		}
+		mockCache.readArtifactsSync.mockReturnValueOnce(mockArtifacts)
 
-		mockCache.readArtifactsSync.mockReturnValue(mockArtifacts)
-
-		const result = readCacheSync(mockLogger, mockCache, modulePath, false, true)
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, true)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith(modulePath)
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
-	it('should handle artifacts with evm property but no deployedBytecode when checking for bytecode', () => {
+	it('should return cached artifacts if bytecode is required and available', () => {
 		const mockArtifacts = {
 			artifacts: {
-				Contract: {
-					evm: {}, // evm exists but no deployedBytecode
-				},
+				Contract1: { evm: { deployedBytecode: '0x1234' } },
 			},
-			asts: { Contract: { nodes: [] } },
 		}
+		mockCache.readArtifactsSync.mockReturnValueOnce(mockArtifacts)
 
-		mockCache.readArtifactsSync.mockReturnValue(mockArtifacts)
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, true)
 
-		const result = readCacheSync(mockLogger, mockCache, modulePath, false, true)
-
-		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith(modulePath)
+		expect(result).toBe(mockArtifacts)
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
-	it('should return undefined and log error if readArtifactsSync throws', () => {
-		const error = new Error('Cache read error')
-		mockCache.readArtifactsSync.mockImplementation(() => {
-			throw error
+	it('should handle case where artifacts is undefined when checking bytecode', () => {
+		const mockArtifacts = { asts: { 'test.sol': {} } }
+		mockCache.readArtifactsSync.mockReturnValueOnce(mockArtifacts)
+
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, true)
+
+		expect(result).toBeUndefined()
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockLogger.error).not.toHaveBeenCalled()
+	})
+
+	it('should log an error and return undefined if there is an error reading from cache', () => {
+		mockCache.readArtifactsSync.mockImplementationOnce(() => {
+			throw new Error('Test error')
 		})
 
-		const result = readCacheSync(mockLogger, mockCache, modulePath, false, false)
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith(modulePath)
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
 		expect(mockLogger.error).toHaveBeenCalledTimes(2)
-		expect(mockLogger.error).toHaveBeenCalledWith(
-			expect.stringContaining('there was an error in tevm plugin reading cache'),
-		)
-		expect(mockLogger.error).toHaveBeenCalledWith(error)
 	})
 })

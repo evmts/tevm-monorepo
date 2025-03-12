@@ -1,4 +1,8 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { EventEmitter } from 'node:events'
+
+// Increase max listeners globally to prevent warnings
+EventEmitter.defaultMaxListeners = 100
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
@@ -35,6 +39,13 @@ describe('runTx', () => {
 			blockchain,
 			activatePrecompiles: false,
 		})
+	})
+
+	afterEach(() => {
+		// Clean up event listeners after each test
+		if (vm?.evm?.events) {
+			vm.evm.events.removeAllListeners()
+		}
 	})
 
 	it('should execute a transaction successfully', async () => {

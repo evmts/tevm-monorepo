@@ -1,6 +1,9 @@
-const noop = () => {}
+/**
+ * A persister that does nothing, useful as a default
+ * @type {import('./SyncStoragePersister.js').SyncStoragePersister}
+ */
 export const noopPersister = {
-	persistClient: noop,
-	restoreClient: () => undefined,
-	removeClient: noop,
+	persistTevmState: () => undefined,
+	restoreState: () => undefined,
+	removePersistedState: () => undefined,
 }

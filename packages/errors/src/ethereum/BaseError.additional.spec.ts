@@ -60,6 +60,16 @@ describe('BaseError (additional cases)', () => {
 		expect(error.message).toContain('Details: Regular error')
 	})
 
+	it('should handle Error instance with errorType property', () => {
+		const mockErrorWithType = new CustomErrorWithType('Error with type')
+		const error = new CustomError('Error wrapper', {
+			cause: mockErrorWithType,
+		})
+
+		// For Error instances with errorType property, the property is used as the details
+		expect(error.message).toContain('Details: Error with type')
+	})
+
 	it('should handle error with cause that cannot be stringified', () => {
 		// Create a circular reference that can't be JSON stringified
 		const circular: any = {}
@@ -75,5 +85,22 @@ describe('BaseError (additional cases)', () => {
 		const error = new CustomError('Test error', {})
 		const result = error.walk((err: Error) => err instanceof Date)
 		expect(result).toBeNull()
+	})
+
+	it('should handle walk with no predicate', () => {
+		const error = new CustomError('Test error', {})
+		const result = error.walk()
+		expect(result).toBe(error)
+	})
+
+	it('should handle deeply nested causes', () => {
+		const deepest = new Error('Deepest cause')
+		const middle = new CustomError('Middle cause', { cause: deepest })
+		const top = new CustomError('Top error', { cause: middle })
+
+		// Find the deepest Error (not BaseError)
+		const result = top.walk((err: Error) => !(err instanceof BaseError) && err instanceof Error)
+
+		expect(result).toBe(deepest)
 	})
 })

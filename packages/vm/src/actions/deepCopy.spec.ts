@@ -1,10 +1,10 @@
-import { beforeEach, describe, expect, it, jest } from 'bun:test'
 import { createChain } from '@tevm/blockchain'
 import { type Common, mainnet } from '@tevm/common'
 import { createCommon } from '@tevm/common'
 import { MisconfiguredClientError } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { BaseVm } from '../BaseVm.js'
 import { createBaseVm } from '../createBaseVm.js'
 import { deepCopy } from './deepCopy.js'
@@ -39,23 +39,10 @@ describe('deepCopy', () => {
 	it('should throw MisconfiguredClientError if stateManager does not support deepCopy', async () => {
 		delete (baseVm as any).stateManager.deepCopy
 		const err = await deepCopy(baseVm)().catch((err) => err)
-		console.log(err)
 		expect(err).toBeInstanceOf(Error)
 		expect(err).toBeInstanceOf(MisconfiguredClientError)
-		expect(err).toMatchSnapshot()
+		expect(err.message).toContain('StateManager does not support deepCopy')
 	})
 
-	it.skip('should retain custom EVM configurations', async () => {
-		const anyEvm = baseVm.evm as any
-		anyEvm.allowUnlimitedContractSize = true
-		anyEvm._customPrecompiles = [{ mock: 'object' }]
-		anyEvm.DEBUG = true
-		anyEvm._debug = jest.fn()
-
-		const deepCopyVm = await deepCopy(baseVm)()
-		expect(deepCopyVm.evm.allowUnlimitedContractSize).toBe(true)
-		expect((deepCopyVm.evm as any)._customPrecompiles).toEqual([{ mock: 'object' }])
-		expect(deepCopyVm.evm.DEBUG).toBe(true)
-		expect((deepCopyVm.evm as any)._debug).toBeDefined()
-	})
+	it.todo('should retain custom EVM configurations')
 })

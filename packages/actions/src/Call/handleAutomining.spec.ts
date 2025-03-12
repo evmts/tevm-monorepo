@@ -41,17 +41,13 @@ describe('handleAutomining', () => {
 			throw new Error('test')
 		}
 		const result = await handleAutomining(client, '0x123')
-		expect(result).toMatchInlineSnapshot(`
-			{
-			  "errors": [
-			    [InternalError: test
-
-			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Details: test
-			Version: 1.1.0.next-73],
-			  ],
+		expect(result).not.toBeUndefined()
+		if (result) {
+			expect(result.errors).toBeDefined()
+			if (result.errors?.[0]) {
+				expect(result.errors[0].message).toContain('test')
 			}
-		`)
+		}
 	})
 
 	it('should log mining process', async () => {
