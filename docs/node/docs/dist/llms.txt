@@ -1,0 +1,54 @@
+# Tevm Node
+
+> A lightweight, unopinionated, powerful EVM node that runs in the browser
+
+## Docs
+
+- [Custom Precompiles](/advanced/custom-precompiles): Tevm Node allows you to extend the Ethereum Virtual Machine with custom JavaScript functions that behave like native precompiled contracts.
+- [Performance & Profiler](/advanced/performance-profiler): Tevm Node includes a powerful built-in profiler that helps you analyze EVM execution, identify bottlenecks, and optimize your smart contracts.
+- [Receipts & Logs](/advanced/receipts-and-logs): Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.
+- [Transaction Pool](/advanced/txpool): The Transaction Pool (TxPool) is a crucial component that manages pending transactions before they're included in blocks. It handles transaction ordering, replacement, validation, and lifecycle management.
+- [Account Management](/api/account-management): Tevm provides two key actions for managing account state: `getAccountHandler` and `setAccountHandler`.
+- [EVM Events](/api/evm-events): Tevm Node provides access to low-level EVM events, allowing you to monitor and debug contract execution at a granular level.
+- [JSON-RPC Support](/api/json-rpc): Tevm Node provides comprehensive [JSON-RPC](https://ethereum.org/en/developers/docs/apis/json-rpc/) support through an [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) compatible interface. This allows seamless integration with popular Ethereum libraries and tools.
+- [Tevm Node Methods](/api/methods): Tevm Node provides a comprehensive API for interacting with the Ethereum Virtual Machine. This reference covers all core methods and capabilities.
+- [Package Reference](/api/packages): Tevm Node is built as a collection of modular packages. You can install the complete suite with `npm install tevm` or individual packages based on your needs.
+- [Call API](/api/tevm-call): The Call API is one of the most important APIs in Tevm, covering 90% of use cases along with mining. It provides a powerful interface for executing EVM calls with extensive configuration options.
+- [VM & Submodules](/api/vm-and-submodules): [Tevm Node](https://github.com/evmts/tevm-monorepo) is built on a modular architecture that separates concerns into distinct submodules. This guide covers the internal components and their APIs.
+- [Creating a Tevm Node](/core/create-tevm-node): `createTevmNode` is the foundation of Tevm - a powerful function that bootstraps a complete Ethereum execution environment in JavaScript.
+- [Forking & Reforking](/core/forking): Tevm's forking capability creates a local blockchain that mirrors the state of any EVM network, allowing you to work with real-world data in an isolated environment.
+- [Managing State](/core/managing-state): Tevm provides powerful state management capabilities through multiple APIs to read, write, and manipulate blockchain state.
+- [Mining Modes](/core/mining-modes): Tevm Node provides several mining modes to control how and when blocks are produced, allowing you to simulate different network conditions.
+- [TevmNode Interface](/core/tevm-node-interface): The TevmNode interface is the core API of Tevm, providing direct access to all Ethereum execution capabilities without abstraction layers.
+- [Getting Started with Ethers.js](/getting-started/ethers): While Tevm is built with viem as its primary API, it provides **full compatibility** with [ethers.js](https://docs.ethers.org/v6/) through its EIP-1193 provider interface! This makes Tevm a perfect fit for existing ethers.js projects.
+- [Tevm Node Overview](/getting-started/overview): Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
+- [Community](/getting-started/testimonials): Here's what developers and industry leaders are saying about Tevm
+- [Getting Started with Viem](/getting-started/viem): Perfect for Viem Users
+- [Tevm Architecture Overview](/introduction/architecture-overview): This page covers the internal architecture of Tevm and is intended for advanced users, contributors, or those looking to understand how Tevm works under the hood. If you're just getting started, we recommend the [viem API guide](../getting-started/viem) instead.
+- [What is Tevm Node?](/introduction/what-is-tevm-node): Ethereum in JavaScript
+- [Why Run Ethereum in JavaScript?](/introduction/why-run-ethereum-in-js): JavaScript has emerged as an ideal environment for running Ethereum, offering unique advantages for both developers and end-users. Here's why running an Ethereum node in JavaScript unlocks powerful new capabilities.
+- [Building a Debugger UI](/examples/debugger-ui): These docs have not been checked for correctness yet. Use with caution
+- [Using with Ethers.js v6](/examples/ethers): Tevm integrates seamlessly with <a href="https://docs.ethers.org/v6/" target="_blank">Ethers.js v6</a>, allowing you to use your favorite Ethereum library alongside Tevm's powerful in-memory EVM capabilities.
+- [Forking Mainnet Example](/examples/forking-mainnet): These docs have not been checked for correctness yet. Use with caution
+- [Local Testing](/examples/local-testing): These docs have not been checked for correctness yet. Use with caution
+- [Using with Viem](/examples/viem): Tevm integrates seamlessly with <a href="https://viem.sh" target="_blank">viem</a>, providing a powerful local Ethereum environment with viem's familiar API surface.
+- [@tevm/actions](/reference/actions): The `@tevm/actions` package provides a comprehensive set of actions for interacting with the Tevm client. It includes both standard Ethereum JSON-RPC methods and Tevm-specific functionality.
+- [@tevm/address](/reference/address): The `@tevm/address` package provides utilities for handling Ethereum addresses. It wraps the functionality from [`@ethereumjs/utils` address](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/util/src/address.ts) with a Tevm-style API.
+- [@tevm/block](/reference/block): The `@tevm/block` package provides functionality for working with Ethereum blocks. It includes classes and utilities for handling block headers, block data, and block-related operations.
+- [@tevm/blockchain](/reference/blockchain): The `@tevm/blockchain` package provides a custom implementation of the Ethereum blockchain, extending the functionality of `ethereumjs/blockchain`. It's responsible for managing blocks, handling chain reorganizations, and maintaining the blockchain state.
+- [@tevm/common](/reference/common): The `@tevm/common` package provides chain-specific configuration and utilities for Tevm clients. It extends the functionality of `ethereumjs/common` and integrates with Viem's chain definitions.
+- [@tevm/contract](/reference/contract): The `@tevm/contract` package provides powerful utilities for working with Ethereum smart contracts, offering type-safe contract interactions and simplified deployment workflows.
+- [@tevm/decorators](/reference/decorators): The `@tevm/decorators` package provides action decorators and utilities for extending Tevm clients with additional functionality. It includes EIP-1193 compatible providers, Ethereum JSON-RPC methods, and Tevm-specific actions.
+- [@tevm/evm](/reference/evm): The `@tevm/evm` package provides a custom implementation of the Ethereum Virtual Machine (EVM), extending the functionality of `ethereumjs/evm`. It's responsible for executing Ethereum bytecode and managing the execution environment.
+- [Package Reference Documentation](/reference): This section contains detailed API reference documentation for all Tevm packages.
+- [@tevm/memory-client](/reference/memory-client): The `@tevm/memory-client` package provides a powerful in-memory Ethereum client implementation for Tevm. It combines the capabilities of viem with Tevm's custom EVM implementation to offer a complete testing and development environment.
+- [@tevm/node API Reference](/reference/node): This documentation is generated from the source code. View the full API documentation on GitHub:
+- [@tevm/receipt-manager](/reference/receipt-manager): The `@tevm/receipt-manager` package provides a robust transaction receipt management system for the Tevm blockchain. It handles the storage, retrieval, and management of transaction receipts, logs, and related data.
+- [@tevm/rlp API Reference](/reference/rlp): This documentation is generated from the source code. View the full API documentation on GitHub:
+- [@tevm/state](/reference/state): The `@tevm/state` package provides a robust state management system for Tevm, handling Ethereum account states, contract storage, and state transitions. It offers both synchronous and asynchronous APIs for managing the EVM state.
+- [@tevm/trie API Reference](/reference/trie): This documentation is generated from the source code. View the full API documentation on GitHub:
+- [@tevm/tx](/reference/tx): **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/tx/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs) folder.
+- [@tevm/txpool](/reference/txpool): The `@tevm/txpool` package provides a transaction pool (mempool) implementation for Tevm, managing pending transactions and their lifecycle within the Ethereum Virtual Machine.
+- [Utilities & Addresses](/reference/utils): Tevm exports a set of lightweight utility functions and classes. Many of these build upon lower-level packages like [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) and [`viem`](https://viem.sh) while standardizing usage for Tevm Node. Below are the most commonly used.
+- [@tevm/utils](/reference/utils): Accepts various input types: [`0x`-prefixed hex strings](https://ethereum.org/en/developers/docs/data-structures-and-encoding/hex/), unprefixed hex, numbers, bigints, `Uint8Array`s, or `EthjsAddress`.
+- [@tevm/vm](/reference/vm): The `@tevm/vm` package provides a high-performance Ethereum Virtual Machine (EVM) implementation specifically designed for Tevm. It extends the functionality of the base EVM with additional features for testing, debugging, and development purposes.
