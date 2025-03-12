@@ -13,7 +13,7 @@ export default defineConfig({
 				autoUpdate: true,
 				lines: 100,
 				functions: 91.17,
-				branches: 99.26, // Updated to match current coverage
+				branches: 99.27, // Updated to match current coverage
 				statements: 100,
 			},
 		},
