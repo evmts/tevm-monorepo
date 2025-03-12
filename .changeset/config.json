@@ -8,7 +8,6 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@tevm/example*",
-    "@tevm/bundler-docs",
     "@tevm/node-docs",
     "svelte-ethers",
     "mdt-repro",
