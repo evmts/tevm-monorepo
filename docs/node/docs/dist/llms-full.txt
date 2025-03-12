@@ -6753,1606 +6753,6 @@ function createEnhancedNode() {
 
 
 import { Callout, Steps, Button } from 'vocs/components'
-import { TabGroup } from '../../../components'
-
-## Getting Started with Ethers.js
-
-<Callout type="info">
-  While Tevm is built with viem as its primary API, it provides **full compatibility** with [ethers.js](https://docs.ethers.org/v6/) through its EIP-1193 provider interface! This makes Tevm a perfect fit for existing ethers.js projects.
-</Callout>
-
-This guide shows you how to use Tevm Node with ethers.js, allowing you to leverage Tevm's powerful features with the ethers library you already know.
-
-### Installation
-
-<Steps>
-  #### Install Dependencies
-
-  First, install Tevm and ethers as dependencies:
-
-  <TabGroup items={['npm', 'pnpm', 'yarn', 'bun']}>
-    <div data-title="npm">
-      ```bash
-      npm install tevm ethers@latest
-      ```
-    </div>
-
-    <div data-title="pnpm">
-      ```bash
-      pnpm add tevm ethers@latest
-      ```
-    </div>
-
-    <div data-title="yarn">
-      ```bash
-      yarn add tevm ethers@latest
-      ```
-    </div>
-
-    <div data-title="bun">
-      ```bash
-      bun add tevm ethers@latest
-      ```
-    </div>
-  </TabGroup>
-
-  #### Create Tevm Client
-
-  Set up your Tevm client and enable the EIP-1193 interface:
-
-  ```ts
-  import { createMemoryClient, http } from 'tevm'
-  import { optimism } from 'tevm/chains'
-  import { requestEip1193 } from 'tevm/decorators'
-
-  // Create a client (optionally forking from a network)
-  const client = createMemoryClient({
-    fork: {
-      transport: http('https://mainnet.optimism.io'),
-      common: optimism
-    },
-  })
-
-  // Enable EIP-1193 compatibility for ethers
-  client.transport.tevm.extend(requestEip1193())
-  await client.tevmReady()
-  ```
-
-  #### Connect Ethers
-
-  Create an ethers provider that uses your Tevm node:
-
-  ```ts
-  import { BrowserProvider, Wallet } from 'ethers'
-
-  // Create ethers provider using the Tevm node
-  const provider = new BrowserProvider(client.transport.tevm)
-
-  // Create a new wallet or connect an existing one
-  const signer = Wallet.createRandom().connect(provider)
-
-  // Fund the wallet using Tevm's direct state modification
-  await client.setBalance({
-    address: signer.address,
-    value: 1000000000000000000n // 1 ETH
-  })
-  ```
-
-  #### Start Using Ethers
-
-  You're now ready to use ethers.js with Tevm's local environment:
-
-  ```ts
-  // Check the current block
-  const blockNumber = await provider.getBlockNumber()
-  console.log(`Current block: ${blockNumber}`)
-
-  // Check your wallet balance
-  const balance = await provider.getBalance(signer.address)
-  console.log(`Wallet balance: ${balance.toString()}`)
-  ```
-</Steps>
-
-### Complete Example
-
-The following example demonstrates how to use ethers.js with Tevm to interact with a contract:
-
-```ts showLineNumbers {3,12-13,27-28,47-48,66} filename="ethers-with-tevm.ts" 
-import { createMemoryClient, http, parseAbi } from 'tevm'
-import { optimism } from 'tevm/chains'
-import { requestEip1193 } from 'tevm/decorators' // [!code focus]
-import { BrowserProvider, Wallet, Contract, formatEther } from 'ethers'
-import { parseUnits } from 'ethers/utils'
-
-// Step 1: Create a memory client forking from Optimism
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    common: optimism
-  },
-})
-
-// Step 2: Enable EIP-1193 compatibility for ethers // [!code focus]
-client.transport.tevm.extend(requestEip1193()) // [!code focus]
-await client.tevmReady()
-
-// Step 3: Set up ethers provider and wallet
-const provider = new BrowserProvider(client.transport.tevm)
-const signer = Wallet.createRandom().connect(provider)
-
-// Verify connectivity by getting the block number
-const blockNumber = await provider.getBlockNumber()
-console.log(`Current block number: ${blockNumber}`)
-
-// Step 4: Set up contract interaction // [!code focus]
-const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748" // [!code focus]
-const greeterAbi = parseAbi([
-  'function greet() view returns (string)',
-  'function setGreeting(string memory _greeting) public',
-])
-const greeter = new Contract(greeterContractAddress, greeterAbi, signer)
-
-// Helper functions for cleaner interaction
-const getGreeting = async () => await greeter.greet()
-const setGreeting = async (newGreeting) => {
-  const tx = await greeter.setGreeting(newGreeting)
-  return tx.hash
-}
-
-// Step 5: Fund our wallet (using Tevm's test actions)
-await client.setBalance({
-  address: signer.address,
-  value: parseUnits("1.0", "ether")
-})
-console.log(`Wallet funded with: ${formatEther(await provider.getBalance(signer.address))} ETH`)
-
-// Step 6: Read current greeting
-console.log(`Original greeting: ${await getGreeting()}`)
-
-// Step 7: Update the greeting // [!code focus]
-const txHash = await setGreeting("Hello from ethers.js and Tevm!") // [!code focus]
-console.log(`Transaction sent: ${txHash}`)
-
-// Step 8: Mine the block to include our transaction
-await client.mine({ blocks: 1 })
-
-// Step 9: Verify the updated greeting
-console.log(`Updated greeting: ${await getGreeting()}`)
-```
-
-<Callout type="warning">
-  Unlike real networks, Tevm requires you to manually mine blocks after sending transactions. Don't forget to call `client.mine()` after each transaction!
-</Callout>
-
-<details>
-  <summary>Understanding the Code</summary>
-
-  The integration between Tevm and ethers.js happens through these key components:
-
-  #### EIP-1193 Decorator
-
-  ```ts
-  // Enable EIP-1193 standard provider interface
-  client.transport.tevm.extend(requestEip1193())
-  ```
-
-  The `requestEip1193()` decorator transforms Tevm's internal interface into the standard provider interface that ethers.js expects. This crucial bridge allows the two libraries to communicate seamlessly.
-
-  #### Provider Creation
-
-  ```ts
-  // Create ethers provider using the Tevm node
-  const provider = new BrowserProvider(client.transport.tevm)
-  ```
-
-  Ethers accepts the decorated Tevm node as a standard Ethereum provider, allowing all ethers functionality to work as expected.
-
-  #### Hybrid API Approach
-
-  The example demonstrates a hybrid approach:
-
-  * **Ethers API** for contract interaction (`Contract`, `provider`, `signer`)
-  * **Tevm API** for blockchain control (`client.setBalance()`, `client.mine()`)
-
-  This gives you the best of both worlds - familiar ethers.js contract interaction with Tevm's powerful state control.
-
-  #### Mining Control
-
-  ```ts
-  // Mine the block to include our transaction
-  await client.mine({ blocks: 1 })
-  ```
-
-  Unlike when using real networks with ethers, you need to explicitly mine blocks with Tevm to include transactions. This gives you precise control over transaction execution timing.
-</details>
-
-### Common Patterns
-
-#### Contract Deployment
-
-Here's how to deploy a new contract using ethers.js with Tevm:
-
-```ts showLineNumbers
-import { createMemoryClient } from 'tevm'
-import { requestEip1193 } from 'tevm/decorators'
-import { BrowserProvider, Wallet, ContractFactory, formatEther } from 'ethers'
-
-// Set up Tevm and ethers
-const client = createMemoryClient()
-client.transport.tevm.extend(requestEip1193())
-await client.tevmReady()
-
-const provider = new BrowserProvider(client.transport.tevm)
-const signer = Wallet.createRandom().connect(provider)
-
-// Fund the signer
-await client.setBalance({
-  address: signer.address,
-  value: 10000000000000000000n // 10 ETH
-})
-console.log(`Wallet funded with: ${formatEther(await provider.getBalance(signer.address))} ETH`)
-
-// Contract ABI and bytecode
-const counterAbi = [
-  'function count() view returns (uint256)',
-  'function increment() public'
-]
-const counterBytecode = '0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
-
-// Deploy contract
-const counterFactory = new ContractFactory(counterAbi, counterBytecode, signer)
-const counterDeploy = await counterFactory.deploy()
-console.log(`Deployment transaction: ${counterDeploy.deploymentTransaction().hash}`)
-
-// Mine to include the deployment transaction
-await client.mine({ blocks: 1 })
-
-// Get contract at deployed address
-const counter = await counterDeploy.waitForDeployment()
-const counterAddress = await counter.getAddress()
-console.log(`Counter deployed at: ${counterAddress}`)
-
-// Use the contract
-console.log(`Initial count: ${await counter.count()}`)
-const tx = await counter.increment()
-console.log(`Increment transaction: ${tx.hash}`)
-await client.mine({ blocks: 1 })
-console.log(`New count: ${await counter.count()}`)
-```
-
-#### Reading and Writing Contract Data
-
-Interact with an existing contract using ethers.js:
-
-```ts
-import { createMemoryClient, http, parseAbi } from 'tevm'
-import { mainnet } from 'tevm/chains'
-import { requestEip1193 } from 'tevm/decorators'
-import { BrowserProvider, Wallet, Contract, formatEther, formatUnits } from 'ethers'
-
-// Setup client with a mainnet fork
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY'),
-    common: mainnet
-  }
-})
-client.transport.tevm.extend(requestEip1193())
-await client.tevmReady()
-
-// Setup provider and wallet
-const provider = new BrowserProvider(client.transport.tevm)
-const signer = Wallet.createRandom().connect(provider)
-
-// Fund the wallet
-await client.setBalance({
-  address: signer.address,
-  value: 100000000000000000000n // 100 ETH
-})
-
-// Connect to USDC contract
-const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-const usdcAbi = parseAbi([
-  'function name() view returns (string)',
-  'function symbol() view returns (string)',
-  'function decimals() view returns (uint8)',
-  'function totalSupply() view returns (uint256)',
-  'function balanceOf(address owner) view returns (uint256)'
-])
-
-const usdc = new Contract(usdcAddress, usdcAbi, provider)
-
-// Read-only operation
-const [name, symbol, decimals, totalSupply] = await Promise.all([
-  usdc.name(),
-  usdc.symbol(),
-  usdc.decimals(),
-  usdc.totalSupply()
-])
-
-console.log(`Contract: ${name} (${symbol})`)
-console.log(`Decimals: ${decimals}`)
-console.log(`Total Supply: ${formatUnits(totalSupply, decimals)} ${symbol}`)
-
-// Check DAI's USDC balance
-const daiAddress = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
-const daiUsdcBalance = await usdc.balanceOf(daiAddress)
-console.log(`DAI contract's USDC balance: ${formatUnits(daiUsdcBalance, decimals)} ${symbol}`)
-```
-
-#### Working with Events
-
-Listen for and query contract events:
-
-```ts
-import { createMemoryClient } from 'tevm'
-import { requestEip1193 } from 'tevm/decorators'
-import { BrowserProvider, Wallet, Contract, formatUnits } from 'ethers'
-import { parseAbi } from 'tevm'
-
-// Setup
-const client = createMemoryClient()
-client.transport.tevm.extend(requestEip1193())
-await client.tevmReady()
-
-const provider = new BrowserProvider(client.transport.tevm)
-const signer = Wallet.createRandom().connect(provider)
-
-// Fund account
-await client.setBalance({
-  address: signer.address,
-  value: 10000000000000000000n
-})
-
-// Deploy a simple ERC20 token
-const tokenAbi = parseAbi([
-  'constructor(string name, string symbol, uint8 decimals)',
-  'function transfer(address to, uint256 amount) returns (bool)',
-  'function balanceOf(address owner) view returns (uint256)',
-  'event Transfer(address indexed from, address indexed to, uint256 value)'
-])
-
-const tokenBytecode = '0x608060405234801561001057600080fd5b506040516107fa3803806107fa83398101604081905261002f91610215565b600380546001600160a01b031916331790558151610052906004906020850190610076565b5081516100669060059060208401906100fd565b506006805460ff191660ff929092169190911790555061030c565b828054610082906102c8565b90600052602060002090601f0160209004810192826100a4576000855561010a565b82601f106100bd57805160ff19168380011785556100ea565b828001600101855582156100ea579182015b828111156100ea5782518255916020019190600101906100cf565b506100f69291506100f6565b5090565b5b808211156100f657600081556001016100f7565b828054610109906102c8565b90600052602060002090601f01602090048101928261012b5760008552610167565b82601f1061014457805160ff1916838001178555610171565b82800160010185558215610171579182015b82811115610171578251825591602001919060010190610156565b5061017d9291506101bd565b5090565b5b8082111561017d576000815560010161017e565b6000602082840312156101a657600080fd5b81516001600160a01b03811681146101bd57600080fd5b9392505050565b5b8082111561017d57600081556001016101be565b80516001600160a01b03811681146101eb57600080fd5b919050565b600080600060608486031215610205578283fd5b833590925060208401359160408401359050509250925092565b60008060006060848603121561022a578081fd5b835160208501516040860151919450919290910181111581146102ad57634e487b7160e01b600052601160045260246000fd5b809150509250925092565b634e487b7160e01b600052602260045260246000fd5b600181811c908216806102dc57607f821691505b6020821081036102fc57634e487b7160e01b600052602260045260246000fd5b50919050565b6104df8061031b6000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806370a082311461004657806395d89b4114610079578063a9059cbb14610081575b600080fd5b610066610054366004610356565b6001600160a01b031660009081526001602052604090205490565b60405190815260200160405180910390f35b61007b610094565b005b61007b61008f366004610379565b610121565b6005805461009f906104a0565b80601f01602080910402602001604051908101604052809291908181526020018280546100cb906104a0565b80156101185780601f106100ed57610100808354040283529160200191610118565b820191906000526020600020905b8154815290600101906020018083116100fb57829003601f168201915b505050505081565b6001600160a01b03821660009081526001602052604081205461014a908363ffffffff61022916565b6001600160a01b038416600090815260016020526040812091909155610177908263ffffffff61024116565b6001600160a01b0383166000908152600160205260409020556101d0816040518060600160405280602381526020016104876023913960405180604001604052806029815260200161045e60299139600090339161025a565b816001600160a01b0316836001600160a01b03167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef83604051610216918252602082015260400190565b60405180910390a35050565b600081831061023857506000610239565b5b92915050565b6000828201610239825b8351602g2b6020600020905b905090565b60408051808201909152602d8152600080516020610457833981519152602082015290565b9050919050565b841515610297576001600160e01b031916600052601160045260246000fd5b5063ffffffff1690565b6000602082840312156102b357600080fd5b81356001600160a01b03811681146102ca57600080fd5b9392505050565b6000602082840312156102e357600080fd5b813560fc81168114t12870be52600052602260045260246000d5b602082108a5734e487b7160q0b600052602260045260246000fd5b50919050565b6004f3fe68747470733a2f2f6769646c6572732e696f2f6a616d657368756768657369o97365722f7468696e67736e6f626f6479656c7365686173a2646970667358221220f3acb75fca24514561f12a53c4a92042a9a6c524895dc1b01f3c3d2cda5d8ff364736f6c634300080a0033'
-
-const tokenFactory = new ContractFactory(tokenAbi, tokenBytecode, signer)
-const token = await tokenFactory.deploy('Test Token', 'TST', 18)
-await client.mine({ blocks: 1 })
-
-const tokenAddress = await token.getAddress()
-console.log(`Token deployed at: ${tokenAddress}`)
-
-// Set up event listener
-token.on('Transfer', (from, to, value, event) => {
-  console.log(`Transfer detected in block ${event.blockNumber}:`)
-  console.log(`  From: ${from}`)
-  console.log(`  To:   ${to}`)
-  console.log(`  Value: ${formatUnits(value, 18)} TST`)
-})
-
-// Send a transfer transaction
-const recipient = Wallet.createRandom().address
-const tx = await token.transfer(recipient, 1000000000000000000n) // 1 TST
-console.log(`Transfer transaction: ${tx.hash}`)
-
-// Mine to include transaction
-await client.mine({ blocks: 1 })
-
-// Check balance
-const balance = await token.balanceOf(recipient)
-console.log(`Recipient balance: ${formatUnits(balance, 18)} TST`)
-
-// Clean up event listener
-token.removeAllListeners()
-```
-
-### Key Differences from Standard Ethers Usage
-
-When using ethers.js with Tevm, keep these key differences in mind:
-
-<Callout type="warning">
-  **Mining is manual!** Transactions won't be automatically mined - you need to call `client.mine()` to process them.
-</Callout>
-
-1. **Transaction Flow**
-   * **Real Network**: Transactions are mined by the network automatically
-   * **Tevm**: You must manually call `client.mine()` to process transactions
-
-2. **Account Management**
-   * **Real Network**: Accounts have real funds and nonces
-   * **Tevm**: Create and fund accounts on demand with `client.setBalance()`
-
-3. **Environment Control**
-   * **Real Network**: Limited ability to manipulate state, block time, etc.
-   * **Tevm**: Complete control over all aspects of the environment
-
-4. **Performance**
-   * **Real Network**: Operations require network calls and confirmations
-   * **Tevm**: All operations happen locally with near-instant execution
-
-5. **Debugging Capabilities**
-   * **Real Network**: Limited visibility into transaction execution
-   * **Tevm**: Step-by-step EVM tracing and execution insights
-
-6. **Determinism**
-   * **Real Network**: Network conditions can affect execution
-   * **Tevm**: 100% deterministic execution for reliable testing
-
-### Advanced Features
-
-<Steps>
-  #### EVM State Control
-
-  Take advantage of Tevm's state manipulation with ethers:
-
-  ```ts
-  // Fund an account
-  await client.setBalance({
-    address: '0x123...',
-    value: parseUnits('1000', 'ether')
-  })
-
-  // Set storage directly
-  await client.setStorageAt({
-    address: contractAddress,
-    index: 0, // Storage slot
-    value: '0x1234...'
-  })
-
-  // Adjust block timestamp
-  await client.setNextBlockTimestamp(Date.now())
-  ```
-
-  #### Contract Debugging
-
-  Debug ethers transactions with Tevm's EVM hooks:
-
-  ```ts
-  // Get underlying Tevm node for advanced operations
-  const tevmNode = await client.getTevmNode()
-  const vm = await tevmNode.getVm()
-
-  // Listen to EVM execution steps
-  vm.evm.events.on('step', (data, next) => {
-    console.log(`EVM Step: ${data.opcode.name}`)
-    next()
-  })
-
-  // Now run a transaction with ethers as normal
-  // You'll see detailed logs of each EVM step
-  ```
-
-  #### Fork Management
-
-  Work with mainnet contracts in your test environment:
-
-  ```ts
-  // Reset to a clean fork state
-  await client.reset({
-    fork: {
-      blockNumber: 42069n,
-      transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY')
-    }
-  })
-
-  // After reset, your ethers provider still works
-  // but with the newly reset chain state
-  ```
-</Steps>
-
-### Next Steps
-
-Now that you know how to use ethers.js with Tevm, you can:
-
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
-    <h3 className="mt-0">Explore More Features</h3>
-
-    <ul>
-      <li><a href="../examples/ethers">Complete Ethers.js integration guide</a></li>
-      <li><a href="../core/forking">Powerful forking capabilities</a></li>
-      <li><a href="../core/managing-state">EVM state management</a></li>
-    </ul>
-  </div>
-
-  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
-    <h3 className="mt-0">Learn Core Concepts</h3>
-
-    <ul>
-      <li><a href="../introduction/what-is-tevm-node">What is Tevm Node?</a></li>
-      <li><a href="../core/create-tevm-node">Creating a Tevm Node</a></li>
-      <li><a href="../api/json-rpc">JSON-RPC interface</a></li>
-    </ul>
-  </div>
-
-  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
-    <h3 className="mt-0">Try Advanced Use Cases</h3>
-
-    <ul>
-      <li><a href="../examples/forking-mainnet">Forking from mainnet</a></li>
-      <li><a href="../advanced/custom-precompiles">Custom precompiles</a></li>
-      <li><a href="../examples/debugger-ui">Building a debugger UI</a></li>
-    </ul>
-  </div>
-</div>
-
-<div className="flex gap-4 mt-8">
-  <Button href="./viem" variant="accent">← Viem Integration</Button>
-  <Button href="../examples/ethers">Using with Ethers.js →</Button>
-</div>
-
-
-import { Callout, Steps, Button } from "vocs/components";
-
-## Tevm Node Overview
-
-Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
-
-Conceptually, it works very similar to Anvil and Hardhat but with more powerful TypeScript native interop.
-
-:::tip[You might not need these docs?]
-If you already know how to use `viem` or `ethers`, you can start using Tevm Node right away with your existing knowledge! Tevm simply plugs into your library of choice.
-:::
-
-### What Makes Tevm Unique?
-
-Unlike traditional development environments like [Hardhat](https://hardhat.org/) or [Anvil](https://book.getfoundry.sh/anvil/), Tevm Node offers several distinct advantages:
-
-* **Cross-Platform Compatibility** — The same code works everywhere JavaScript runs, with zero native dependencies including your applications in the browser
-* **Fine-grained EVM Control** — Access the execution environment at any level of detail, from high-level transactions to individual EVM opcodes
-* **Enhanced User Experience** — Enable advanced features like instantaneous gas estimation, optimistic UI updates, and sophisticated transaction simulation
-* **Type-safe Interactions** — Full TypeScript support throughout the entire API surface
-
-### Getting Started
-
-::::steps
-#### Install Tevm
-
-First, install Tevm in your project:
-
-:::code-group
-```bash [npm]
-npm install tevm
-```
-
-```bash [pnpm]
-pnpm add tevm
-```
-
-```bash [yarn]
-yarn add tevm
-```
-
-```bash [bun]
-bun add tevm
-```
-:::
-
-#### Choose Your Client
-
-Tevm offers different client types depending on your needs:
-
-```ts
-// In-memory client (fastest, fully isolated)
-import { createMemoryClient } from "tevm";
-const memoryClient = createMemoryClient();
-
-// Fork client (use existing chain state)
-import { createMemoryClient } from "tevm";
-import { http } from "viem";
-import { mainnet } from "tevm/chains";
-const forkClient = createMemoryClient({
-  fork: {
-    transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"),
-    common: mainnet,
-  },
-});
-
-// Tree-shakable client (lighter weight)
-import { createClient, http, custom } from "viem";
-import { createTevmNode } from "tevm";
-import { optimism } from "tevm/common";
-import { eip1193Request } from "tevm/decorators";
-const node = createTevmNode({
-  fork: {
-    transport: http("https://mainnet.optimism.io"),
-    common: optimism,
-  },
-}).extend(eip1193Request());
-const client = createClient({
-  transport: custom(node),
-});
-import { getBlockNumber } from "viem";
-await getBlockNumber(client);
-
-// Ethers client
-import { TevmProvider } from "tevm/ethers";
-import { http, toHex, parseEth } from "tevm";
-const provider = await TevmProvider.createMemoryProvider({
-  fork: {
-    transport: http("https://mainnet.optimism.io"),
-  },
-});
-await provider.send("tevm_setAccount", [
-  {
-    address: `0x${"69".repeat(20)}`,
-    nonce: toHex(1),
-    balance: toHex(parseEth("25")),
-  },
-]);
-```
-
-#### Use your client to read and write to an in-memory blockchain
-
-Below is a complete typical flow of using Tevm to:
-
-1. Add a contract to the Tevm state
-2. Write to the contract with viem
-3. Mine a new block with the transaction
-4. Read from contract with viem
-
-```ts showLineNumbers {1,11-13,22} filename="simple-contract.ts"
-import { createMemoryClient, PREFUNDED_ACCOUNTS } from "tevm";
-import { http } from "viem";
-import { SimpleContract } from "tevm/contract";
-import { optimism } from "tevm/common";
-
-// Create an in-memory Ethereum client forking optimism
-const client = createMemoryClient({
-  common: optimism,
-  fork: { transport: http("https://mainnet.optimism.io") },
-});
-
-const contract = SimpleContract.withAddress(`0x${"40".repeat(20)}`);
-
-// Deploy contract bytecode. There are many ways to do this including tevmDeploy.
-// Here we just use an anvil test action
-await client.setCode({
-  address: contract.address,
-  bytecode: contract.deployedBytecode,
-});
-
-// Write to contract
-await client.writeContract({
-  account: PREFUNDED_ACCOUNTS[0],
-  abi: contract.abi,
-  functionName: "set",
-  args: [420n],
-  address: contract.address,
-});
-
-await client.tevmMine();
-
-// Read from contract
-const value = await client.readContract({
-  abi: contract.abi,
-  functionName: "get",
-  address: contract.address,
-});
-
-console.log(value); // 420n
-```
-
-:::details[How it works]
-1. We create a `memoryClient` that runs an Ethereum node entirely in memory
-2. We define a contract and its address
-3. We deploy the contract using `setCode` (simpler than a full deployment transaction)
-4. We write to the contract using a familiar viem-style interface
-5. We mine the transaction to include it in a block
-6. We read the updated value from the contract
-:::
-
-#### Key Points:
-
-* **Familiar Interface** — Tevm uses [viem](https://viem.sh) as its primary API, making it instantly familiar to viem users
-* **In-Memory Execution** — TevmNode runs the Ethereum environment directly in memory rather than using JSON-RPC over HTTP
-* **Full Control** — Mine blocks on demand, manipulate state, and more
-
-#### Start Building
-
-You're now ready to build with Tevm!
-
-```ts
-// Runs in browsers, Node.js, Deno, Bun and beyond
-// Zero native dependencies
-import { createMemoryClient } from "tevm";
-// Optionally import solidity contracts directly into typescript in a typesafe way
-import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
-
-const client = createMemoryClient();
-
-// Use the viem api you already know
-console.log(await client.getBlockNumber());
-
-// Or use powerful typescript native apis
-const {
-  data,
-  error,
-  logs,
-  createdAddresses,
-  executionGasUsed,
-  l1Fee,
-  trace,
-  accessList,
-  txHash,
-} = await client.tevmContract({
-  deployedBytecode: ComplexSimulation.deployedBytecode,
-  ...ComplexSimulation.read.simulate(2n, "arg2"),
-  createTrace: true,
-  createAccessList: true,
-  createTransaction: true,
-  throwOnFail: false,
-  onStep: (step, next) => {
-    console.log(step.opcode);
-    next?.();
-  },
-});
-```
-::::
-
-### Learning Path
-
-If you're new to Ethereum development, don't worry! Tevm serves as an excellent learning platform for both Ethereum and TypeScript:
-
-:::info
-* **Isolated Environment** — Experiment freely without worrying about network costs or confirmation times
-* **TypeScript Integration** — Get full type safety and autocomplete for Ethereum interactions
-* **Simple API Surface** — Focus on learning core concepts with a streamlined interface
-* **Step Debugger** — Trace transaction execution at the opcode level for deep understanding
-:::
-
-### Ready to dive in right away?
-
-<div
-  style={{
-  display: "flex",
-  gap: "1rem",
-  marginTop: "1.5rem",
-  flexWrap: "wrap",
-}}
->
-  <Button href="./viem" variant="accent">
-    Viem Quickstart →
-  </Button>
-
-  <Button href="./ethers">Ethers Quickstart →</Button>
-  <Button href="../introduction/what-is-tevm-node">What is Tevm Node? →</Button>
-</div>
-
-
-import { Callout, Button } from "vocs/components";
-
-## Community
-
-Here's what developers and industry leaders are saying about Tevm
-
-### Community Highlights
-
-:::tip[Developer Feedback]
-Tevm's unique approach of bringing Ethereum execution directly to JavaScript environments has resonated with most developers who have given Tevm a try.
-Developers report problems previously difficult being simple to solve with Tevm
-:::
-
-<div
-  style={{ 
-display: 'grid', 
-gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
-gap: '1.5rem', 
-margin: '2rem 0' 
-}}
->
-  <div
-    style={{ 
-  border: '1px solid var(--vocs-color_border)', 
-  borderRadius: 'var(--vocs-borderRadius_4)', 
-  padding: '1.5rem',
-  backgroundColor: 'var(--vocs-color_background2)'
-}}
-  >
-    <blockquote
-      style={{ 
-    margin: 0, 
-    fontSize: 'var(--vocs-fontSize_16)',
-    borderLeft: 'none',
-    padding: 0
-  }}
-    >
-      "Fully @tevmtools pilled now. The beauty and harmony of the dev tooling 😍."
-    </blockquote>
-
-    <div
-      style={{ 
-    marginTop: '1rem', 
-    display: 'flex', 
-    alignItems: 'center',
-    gap: '0.5rem'
-  }}
-    >
-      <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)' }}>
-        EulerLagrange.eth - ver/acc
-      </div>
-
-      <a href="https://twitter.com/Euler__Lagrange" style={{ fontSize: 'var(--vocs-fontSize_14)', color: 'var(--vocs-color_textAccent)' }}>
-        @Euler\_\_Lagrange
-      </a>
-    </div>
-  </div>
-
-  {" "}
-
-  <div
-    style={{
-  border: "1px solid var(--vocs-color_border)",
-  borderRadius: "var(--vocs-borderRadius_4)",
-  padding: "1.5rem",
-  backgroundColor: "var(--vocs-color_background2)",
-}}
-  >
-    <blockquote
-      style={{
-    margin: 0,
-    fontSize: "var(--vocs-fontSize_16)",
-    borderLeft: "none",
-    padding: 0,
-  }}
-    >
-      "If you're building a blockchain application on the web, I'm almost certain
-      there is a use case for Tevm. It might change everything, and at worse it
-      would most likely improve your devX."
-    </blockquote>
-
-    <div
-      style={{
-    marginTop: "1rem",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.5rem",
-  }}
-    >
-      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>polarzero</div>
-
-      <a
-        href="https://twitter.com/0xpolarzero"
-        style={{
-      fontSize: "var(--vocs-fontSize_14)",
-      color: "var(--vocs-color_textAccent)",
-    }}
-      >
-        @0xpolarzero
-      </a>
-    </div>
-  </div>
-
-  {" "}
-
-  <div
-    style={{
-  border: "1px solid var(--vocs-color_border)",
-  borderRadius: "var(--vocs-borderRadius_4)",
-  padding: "1.5rem",
-  backgroundColor: "var(--vocs-color_background2)",
-}}
-  >
-    <blockquote
-      style={{
-    margin: 0,
-    fontSize: "var(--vocs-fontSize_16)",
-    borderLeft: "none",
-    padding: 0,
-  }}
-    >
-      "Yeah, using bundling tools like Tevm with Viem offers a very nice
-      experience here."
-    </blockquote>
-
-    <div
-      style={{
-    marginTop: "1rem",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.5rem",
-  }}
-    >
-      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>jxom</div>
-
-      <a
-        href="https://twitter.com/_jxom"
-        style={{
-      fontSize: "var(--vocs-fontSize_14)",
-      color: "var(--vocs-color_textAccent)",
-    }}
-      >
-        @\_jxom
-      </a>
-    </div>
-  </div>
-
-  <div
-    style={{
-  border: "1px solid var(--vocs-color_border)",
-  borderRadius: "var(--vocs-borderRadius_4)",
-  padding: "1.5rem",
-  backgroundColor: "var(--vocs-color_background2)",
-}}
-  >
-    <blockquote
-      style={{
-    margin: 0,
-    fontSize: "var(--vocs-fontSize_16)",
-    borderLeft: "none",
-    padding: 0,
-  }}
-    >
-      "Incredible! And also very cursed haha"
-    </blockquote>
-
-    <div
-      style={{
-    marginTop: "1rem",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.5rem",
-  }}
-    >
-      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>
-        Darryl Yeo・d/acc
-      </div>
-
-      <a
-        href="https://twitter.com/darryl__yeo"
-        style={{
-      fontSize: "var(--vocs-fontSize_14)",
-      color: "var(--vocs-color_textAccent)",
-    }}
-      >
-        @darryl\_\_yeo
-      </a>
-    </div>
-  </div>
-
-  {" "}
-
-  <div
-    style={{
-  border: "1px solid var(--vocs-color_border)",
-  borderRadius: "var(--vocs-borderRadius_4)",
-  padding: "1.5rem",
-  backgroundColor: "var(--vocs-color_background2)",
-}}
-  >
-    <blockquote
-      style={{
-    margin: 0,
-    fontSize: "var(--vocs-fontSize_16)",
-    borderLeft: "none",
-    padding: 0,
-  }}
-    >
-      "tevm is the accessible version of reth exex for data engineers"
-    </blockquote>
-
-    <div
-      style={{
-    marginTop: "1rem",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.5rem",
-  }}
-    >
-      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>ilemi</div>
-
-      <a
-        href="https://twitter.com/andrewhong5297"
-        style={{
-      fontSize: "var(--vocs-fontSize_14)",
-      color: "var(--vocs-color_textAccent)",
-    }}
-      >
-        @andrewhong5297
-      </a>
-    </div>
-  </div>
-
-  {" "}
-
-  <div
-    style={{
-  border: "1px solid var(--vocs-color_border)",
-  borderRadius: "var(--vocs-borderRadius_4)",
-  padding: "1.5rem",
-  backgroundColor: "var(--vocs-color_background2)",
-}}
-  >
-    <blockquote
-      style={{
-    margin: 0,
-    fontSize: "var(--vocs-fontSize_16)",
-    borderLeft: "none",
-    padding: 0,
-  }}
-    >
-      "Helios 🤝 Tevm"
-    </blockquote>
-
-    <div
-      style={{
-    marginTop: "1rem",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.5rem",
-  }}
-    >
-      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>
-        ncitron.eth
-      </div>
-
-      <a
-        href="https://twitter.com/NoahCitron"
-        style={{
-      fontSize: "var(--vocs-fontSize_14)",
-      color: "var(--vocs-color_textAccent)",
-    }}
-      >
-        @NoahCitron
-      </a>
-    </div>
-  </div>
-
-  {" "}
-
-  <div
-    style={{
-  border: "1px solid var(--vocs-color_border)",
-  borderRadius: "var(--vocs-borderRadius_4)",
-  padding: "1.5rem",
-  backgroundColor: "var(--vocs-color_background2)",
-}}
-  >
-    <blockquote
-      style={{
-    margin: 0,
-    fontSize: "var(--vocs-fontSize_16)",
-    borderLeft: "none",
-    padding: 0,
-  }}
-    >
-      "Please tell me this is a shitpost"
-    </blockquote>
-
-    <div
-      style={{
-    marginTop: "1rem",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.5rem",
-  }}
-    >
-      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>
-        Patrick Collins
-      </div>
-
-      <a
-        href="https://twitter.com/PatrickAlphaC"
-        style={{
-      fontSize: "var(--vocs-fontSize_14)",
-      color: "var(--vocs-color_textAccent)",
-    }}
-      >
-        @PatrickAlphaC
-      </a>
-    </div>
-  </div>
-
-  <div
-    style={{ 
-  border: '1px solid var(--vocs-color_border)', 
-  borderRadius: 'var(--vocs-borderRadius_4)', 
-  padding: '1.5rem',
-  backgroundColor: 'var(--vocs-color_background2)'
-}}
-  >
-    <blockquote
-      style={{ 
-    margin: 0, 
-    fontSize: 'var(--vocs-fontSize_16)',
-    borderLeft: 'none',
-    padding: 0
-  }}
-    >
-      "I don't know if I should be impressed or scared"
-    </blockquote>
-
-    <div
-      style={{ 
-    marginTop: '1rem', 
-    display: 'flex', 
-    alignItems: 'center',
-    gap: '0.5rem'
-  }}
-    >
-      <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)' }}>
-        James
-      </div>
-
-      <a href="https://twitter.com/lcm_in_pangea" style={{ fontSize: 'var(--vocs-fontSize_14)', color: 'var(--vocs-color_textAccent)' }}>
-        @lcm\_in\_pangea
-      </a>
-    </div>
-  </div>
-</div>
-
-### Share Your Experience
-
-:::steps
-#### Join the Community
-
-We'd love to hear how Tevm has improved your development workflow:
-
-* [Telegram Group](https://t.me/+ANThR9bHDLAwMjUx)
-* [Twitter/X](https://twitter.com/tevmtools)
-
-#### Report Success Stories
-
-Have a compelling use case or success story?
-
-* [Create an issue](https://github.com/evmts/tevm-monorepo/issues/new?labels=testimonial\&template=testimonial.md) with the label "testimonial"
-* Email the team at [support@tevm.sh](mailto\:support@tevm.sh)
-:::
-
-Your feedback helps us improve Tevm and guides our development priorities!
-
-<div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
-  <Button href="./overview" variant="accent">
-    ← Back to Overview
-  </Button>
-
-  <Button href="./viem">Continue to Viem Integration →</Button>
-</div>
-
-
-import { Callout, Steps, Button } from 'vocs/components'
-
-## Getting Started with Viem
-
-:::tip[Perfect for Viem Users]
-If you're already familiar with [viem](https://viem.sh), Tevm works seamlessly with your existing knowledge, providing a nearly identical API.
-:::
-
-This guide will help you integrate Tevm with [viem](https://viem.sh), the modern TypeScript interface for Ethereum. By the end, you'll have a working setup with Tevm Node and understand how to leverage viem's actions with Tevm.
-
-### Installation
-
-::::steps
-#### Install Dependencies
-
-First, install Tevm along with viem as a peer dependency:
-
-:::code-group
-```bash [npm]
-npm install tevm viem@latest
-```
-
-```bash [pnpm]
-pnpm add tevm viem@latest
-```
-
-```bash [yarn]
-yarn add tevm viem@latest
-```
-
-```bash [bun]
-bun add tevm viem@latest
-```
-:::
-
-#### Create Your Client
-
-For the quickest start, create a memory client:
-
-```ts
-import { createMemoryClient } from 'tevm'
-
-const client = createMemoryClient()
-```
-
-Or, to fork from an existing chain:
-
-```ts
-import { createMemoryClient, http } from 'tevm'
-import { optimism } from 'tevm/chains'
-
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    common: optimism,
-  },
-})
-
-// Wait for the node to be ready before using it
-await client.tevmReady()
-```
-
-#### You're Ready!
-
-Start using your client with familiar viem actions:
-
-```ts
-// Get the current block number
-const blockNumber = await client.getBlockNumber()
-console.log(`Current block: ${blockNumber}`)
-```
-::::
-
-### Complete Example
-
-The following example demonstrates the key capabilities of Tevm with viem:
-
-:::code-group
-```ts [Forking Example] showLineNumbers {1-3,8-12,25-29,40,52}
-import { createMemoryClient, http } from 'tevm' // [!code focus]
-import { optimism } from 'tevm/common' // [!code focus]
-import { parseAbi, parseEther } from 'viem' // [!code focus]
-
-// 1. Create a memory client forked from Optimism mainnet
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'), // [!code focus]
-    common: optimism, // [!code focus]
-  }, // [!code focus]
-}) // [!code focus]
-
-// Wait for the node to be ready
-await client.tevmReady()
-
-// 2. Get current block number (from the fork point)
-const blockNumber = await client.getBlockNumber()
-console.log(`Current block number: ${blockNumber}`)
-
-// Setup addresses and contract interfaces
-const account = `0x${"baD60A7".padStart(40, "0")}` as const
-const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
-
-// Define contract interfaces with parseAbi
-const greeterAbi = parseAbi([
-  'function greet() view returns (string)', // [!code focus]
-  'function setGreeting(string memory _greeting) public' // [!code focus]
-]) // [!code focus]
-
-// 3. Modify blockchain state with test actions
-// Fund our test account with 1 ETH
-await client.setBalance({
-  address: account,
-  value: parseEther("1")
-})
-
-// Read the current greeting using viem's readContract
-const currentGreeting = await client.readContract({
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'greet',
-})
-console.log(`Current greeting: ${currentGreeting}`)
-
-// Update the greeting with writeContract
-const txHash = await client.writeContract({ // [!code focus]
-  account,
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'setGreeting',
-  args: ["Hello from Tevm!"],
-  chain: optimism,
-})
-console.log(`Transaction sent: ${txHash}`)
-
-// 4. Mine a new block to include our transaction
-await client.mine({ blocks: 1 }) // [!code focus]
-
-// Verify the greeting was updated
-const updatedGreeting = await client.readContract({
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'greet',
-})
-console.log(`Updated greeting: ${updatedGreeting}`)
-```
-
-```ts [Contract Deployment] showLineNumbers
-import { createMemoryClient } from 'tevm'
-import { parseAbi, parseEther, encodeAbiParameters } from 'viem'
-
-// Create a memory client (isolated environment)
-const client = createMemoryClient()
-
-// 1. Create a test account with funds
-const deployerAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
-await client.setBalance({
-  address: deployerAddress,
-  value: parseEther('10')
-})
-
-// 2. Define a simple contract
-const counterAbi = parseAbi([
-  'function increment() public',
-  'function count() view returns (uint256)'
-])
-
-// Counter contract bytecode (pre-compiled)
-const counterBytecode = '0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
-
-// 3. Deploy the contract
-const deployHash = await client.sendTransaction({
-  account: deployerAddress,
-  to: undefined, // Contract creation
-  data: counterBytecode
-})
-
-// Mine to include the deployment
-await client.mine()
-
-// 4. Get the deployment receipt to find contract address
-const receipt = await client.getTransactionReceipt({
-  hash: deployHash
-})
-const contractAddress = receipt.contractAddress
-console.log(`Contract deployed at: ${contractAddress}`)
-
-// 5. Use the contract
-const initialCount = await client.readContract({
-  address: contractAddress,
-  abi: counterAbi,
-  functionName: 'count'
-})
-console.log(`Initial count: ${initialCount}`)
-
-// Increment the counter
-await client.writeContract({
-  account: deployerAddress,
-  address: contractAddress,
-  abi: counterAbi,
-  functionName: 'increment'
-})
-
-// Mine the transaction
-await client.mine()
-
-// Read the new count
-const newCount = await client.readContract({
-  address: contractAddress,
-  abi: counterAbi,
-  functionName: 'count'
-})
-console.log(`New count: ${newCount}`)
-```
-:::
-
-:::details[Code Walkthrough]
-#### 1. Imports & Client Creation
-
-```ts
-import { createMemoryClient, http } from 'tevm'
-import { optimism } from 'tevm/common'
-import { parseAbi, parseEther } from 'viem'
-
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    common: optimism,
-  },
-})
-
-await client.tevmReady()
-```
-
-* We create a client that **forks** from Optimism mainnet
-* This gives us a local sandbox with all of mainnet's state
-* `client.tevmReady()` ensures the fork is complete before proceeding
-
-#### 2. Contract Interaction
-
-```ts
-// Define the contract interface
-const greeterAbi = parseAbi([
-  'function greet() view returns (string)',
-  'function setGreeting(string memory _greeting) public'
-])
-
-// Read from contract
-const currentGreeting = await client.readContract({
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'greet',
-})
-
-// Write to contract
-const txHash = await client.writeContract({
-  account,
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'setGreeting',
-  args: ["Hello from Tevm!"],
-  chain: optimism,
-})
-```
-
-* The API matches viem exactly - anyone familiar with viem can use this immediately
-* Write operations return a transaction hash just like on a real network
-
-#### 3. Mining Control
-
-```ts
-// Mine a block to include our transaction
-await client.mine({ blocks: 1 })
-```
-
-* Unlike real networks, you control exactly when blocks are mined
-* This gives you complete determinism for testing and development
-:::
-
-### Key Viem-Compatible Features
-
-Tevm's viem client implements the full viem API, maintaining compatibility while adding powerful features:
-
-:::code-group
-```ts [Standard viem API]
-// These standard viem actions work exactly as expected
-await client.getBalance({ address: '0x...' })
-await client.getBlockNumber()
-await client.readContract({ ... })
-await client.writeContract({ ... })
-await client.estimateGas({ ... })
-await client.sendTransaction({ ... })
-// And all other viem actions
-```
-
-```ts [Tevm Extensions]
-// Tevm adds powerful extensions
-await client.tevmReady() // Wait for fork initialization
-await client.setBalance({ address: '0x...', value: 100n })
-await client.setCode({ address: '0x...', bytecode: '0x...' })
-await client.mine({ blocks: 1 })
-await client.reset() // Reset to initial state
-await client.impersonateAccount({ address: '0x...' })
-```
-
-```ts [EVM Debugging]
-// Advanced EVM debugging and inspection
-await client.tevmContract({
-  address: '0x...',
-  abi: [...],
-  functionName: 'transfer',
-  args: ['0x...', 100n],
-  // Get step-by-step EVM execution details
-  onStep: (data, next) => {
-    console.log(`Opcode: ${data.opcode.name}`)
-    console.log(`Stack: ${data.stack.join(', ')}`)
-    next() // Continue execution
-  }
-})
-```
-:::
-
-### Tree-Shakeable API
-
-For production applications, especially in browser environments, you may want to use Tevm's tree-shakeable API to minimize bundle size:
-
-```ts showLineNumbers {1-3,6-11}
-import { createClient, http } from 'viem'
-import { createTevmTransport } from 'tevm/transport' // [!code focus]
-import { tevmCall, tevmDumpState } from 'tevm/actions' // [!code focus]
-
-// Create a standard viem client with Tevm transport
-const client = createClient({
-  transport: createTevmTransport({ // [!code focus]
-    fork: { // [!code focus]
-      transport: http('https://mainnet.optimism.io') // [!code focus]
-    } // [!code focus]
-  }) // [!code focus]
-})
-
-// Import only the actions you need
-await tevmDumpState(client)
-```
-
-:::tip[Tree-Shaking Benefit]
-Using the tree-shakeable API can significantly reduce your bundle size when you're using only a subset of Tevm's features.
-:::
-
-### EVM Execution Hooks
-
-One of Tevm's most powerful features is the ability to hook directly into EVM execution:
-
-```ts showLineNumbers {7-16}
-await client.tevmContract({
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'setGreeting',
-  args: ['Hello!'],
-
-  // onStep is called for each EVM operation // [!code focus]
-  onStep: (stepInfo, next) => { // [!code focus]
-    console.log(`Executing: ${stepInfo.opcode.name} at PC=${stepInfo.pc}`) // [!code focus]
-    console.log(`Stack: ${stepInfo.stack.map(val => val.toString())}`) // [!code focus]
-    console.log(`Memory: ${stepInfo.memory.toString('hex')}`) // [!code focus]
-
-    // You can also modify EVM state here if needed // [!code focus]
-
-    // Call next() to continue execution // [!code focus]
-    next?.() // [!code focus]
-  }, // [!code focus]
-
-  // You can also access the detailed result after execution
-  onResult: (result) => {
-    console.log(`Gas used: ${result.executionGasUsed}`)
-    console.log(`Return value: 0x${result.returnValue?.toString('hex')}`)
-  }
-})
-```
-
-This enables advanced use cases like:
-
-* **Visual Debuggers**: Create step-by-step transaction debuggers
-* **Educational Tools**: Explain EVM execution for learning purposes
-* **Custom Instrumentation**: Profile and analyze contract execution
-* **Intercepting Execution**: Modify execution behavior for testing
-
-### Tevm-Specific Actions
-
-Tevm extends viem with specialized actions that provide enhanced capabilities:
-
-| Action              | Description                                  | Use Case                                |
-| ------------------- | -------------------------------------------- | --------------------------------------- |
-| `tevmCall`          | Low-level EVM call with execution hooks      | Deep inspection of contract execution   |
-| `tevmContract`      | Enhanced contract interaction with EVM hooks | Detailed debugging of contract calls    |
-| `tevmDeploy`        | Deploy with execution hooks                  | Understanding deployment execution flow |
-| `tevmMine`          | Control block mining                         | Precise transaction inclusion control   |
-| `tevmSetAccount`    | Modify account state                         | Test different account scenarios        |
-| `tevmGetAccount`    | Read detailed account state                  | Inspect nonce, code, storage            |
-| `tevmDumpState`     | Export full EVM state                        | State persistence and analysis          |
-| `tevmLoadState`     | Import saved EVM state                       | Restore a specific state for testing    |
-| `tevmReady`         | Wait for fork to initialize                  | Ensure node is ready before use         |
-| `tevmEnableTracing` | Enable detailed execution tracing            | Capture full execution traces           |
-| `tevmReset`         | Reset node to initial state                  | Start fresh for new test scenarios      |
-
-:::info
-All tevm-specific actions are also available as individual imports from `tevm/actions` for tree-shaking.
-:::
-
-### Next Steps
-
-Now that you're familiar with using Tevm with viem, you can:
-
-:::steps
-#### Explore More Tevm Features
-
-Dive deeper into Tevm's powerful capabilities:
-
-* [Forking capabilities](/core/forking) to simulate production chains
-* [State management](/core/managing-state) for manipulating the blockchain
-* [Mining modes](/core/mining-modes) for controlling transaction inclusion
-
-#### Check Out Examples
-
-See how Tevm solves real-world problems:
-
-* [Forking mainnet](/examples/forking-mainnet) for production simulation
-* [Building a debugger UI](/examples/debugger-ui) with EVM insights
-* [Local testing flows](/examples/local-testing) for development
-
-#### Advanced API Usage
-
-Master the Tevm API for more sophisticated applications:
-
-* [EVM events & hooks](/api/evm-events) for detailed execution analysis
-* [Custom precompiles](/advanced/custom-precompiles) for extending the EVM
-* [Transaction pool management](/advanced/txpool) for pending transaction control
-:::
-
-<div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-  <Button href="./overview" variant="accent">← Back to Overview</Button>
-  <Button href="./ethers">Ethers Integration →</Button>
-</div>
-
-
-import { Callout, Steps, Button } from 'vocs/components'
 import { TabGroup, FileTree, Card } from '../../../components'
 
 ## Tevm Architecture Overview
@@ -9698,6 +8098,1615 @@ The devx is optimized in following ways:
   <Button href="https://github.com/evmts/tevm-monorepo" variant="outline">
     GitHub Repo
   </Button>
+</div>
+
+
+import { Callout, Steps, Button } from 'vocs/components'
+import { TabGroup } from '../../../components'
+
+## Getting Started with Ethers.js
+
+<Callout type="info">
+  While Tevm is built with viem as its primary API, it provides **full compatibility** with [ethers.js](https://docs.ethers.org/v6/) through its EIP-1193 provider interface! This makes Tevm a perfect fit for existing ethers.js projects.
+</Callout>
+
+This guide shows you how to use Tevm Node with ethers.js, allowing you to leverage Tevm's powerful features with the ethers library you already know.
+
+### Installation
+
+<Steps>
+  #### Install Dependencies
+
+  First, install Tevm and ethers as dependencies:
+
+  <TabGroup items={['npm', 'pnpm', 'yarn', 'bun']}>
+    <div data-title="npm">
+      ```bash
+      npm install tevm ethers@latest
+      ```
+    </div>
+
+    <div data-title="pnpm">
+      ```bash
+      pnpm add tevm ethers@latest
+      ```
+    </div>
+
+    <div data-title="yarn">
+      ```bash
+      yarn add tevm ethers@latest
+      ```
+    </div>
+
+    <div data-title="bun">
+      ```bash
+      bun add tevm ethers@latest
+      ```
+    </div>
+  </TabGroup>
+
+  #### Create Tevm Client
+
+  Set up your Tevm client and enable the EIP-1193 interface:
+
+  ```ts
+  import { createMemoryClient, http } from 'tevm'
+  import { optimism } from 'tevm/chains'
+  import { requestEip1193 } from 'tevm/decorators'
+
+  // Create a client (optionally forking from a network)
+  const client = createMemoryClient({
+    fork: {
+      transport: http('https://mainnet.optimism.io'),
+      common: optimism
+    },
+  })
+
+  // Enable EIP-1193 compatibility for ethers
+  client.transport.tevm.extend(requestEip1193())
+  await client.tevmReady()
+  ```
+
+  #### Connect Ethers
+
+  Create an ethers provider that uses your Tevm node:
+
+  ```ts
+  import { BrowserProvider, Wallet } from 'ethers'
+
+  // Create ethers provider using the Tevm node
+  const provider = new BrowserProvider(client.transport.tevm)
+
+  // Create a new wallet or connect an existing one
+  const signer = Wallet.createRandom().connect(provider)
+
+  // Fund the wallet using Tevm's direct state modification
+  await client.setBalance({
+    address: signer.address,
+    value: 1000000000000000000n // 1 ETH
+  })
+  ```
+
+  #### Start Using Ethers
+
+  You're now ready to use ethers.js with Tevm's local environment:
+
+  ```ts
+  // Check the current block
+  const blockNumber = await provider.getBlockNumber()
+  console.log(`Current block: ${blockNumber}`)
+
+  // Check your wallet balance
+  const balance = await provider.getBalance(signer.address)
+  console.log(`Wallet balance: ${balance.toString()}`)
+  ```
+</Steps>
+
+### Complete Example
+
+The following example demonstrates how to use ethers.js with Tevm to interact with a contract:
+
+```ts showLineNumbers {3,12-13,27-28,47-48,66} filename="ethers-with-tevm.ts" 
+import { createMemoryClient, http, parseAbi } from 'tevm'
+import { optimism } from 'tevm/chains'
+import { requestEip1193 } from 'tevm/decorators' // [!code focus]
+import { BrowserProvider, Wallet, Contract, formatEther } from 'ethers'
+import { parseUnits } from 'ethers/utils'
+
+// Step 1: Create a memory client forking from Optimism
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+    common: optimism
+  },
+})
+
+// Step 2: Enable EIP-1193 compatibility for ethers // [!code focus]
+client.transport.tevm.extend(requestEip1193()) // [!code focus]
+await client.tevmReady()
+
+// Step 3: Set up ethers provider and wallet
+const provider = new BrowserProvider(client.transport.tevm)
+const signer = Wallet.createRandom().connect(provider)
+
+// Verify connectivity by getting the block number
+const blockNumber = await provider.getBlockNumber()
+console.log(`Current block number: ${blockNumber}`)
+
+// Step 4: Set up contract interaction // [!code focus]
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748" // [!code focus]
+const greeterAbi = parseAbi([
+  'function greet() view returns (string)',
+  'function setGreeting(string memory _greeting) public',
+])
+const greeter = new Contract(greeterContractAddress, greeterAbi, signer)
+
+// Helper functions for cleaner interaction
+const getGreeting = async () => await greeter.greet()
+const setGreeting = async (newGreeting) => {
+  const tx = await greeter.setGreeting(newGreeting)
+  return tx.hash
+}
+
+// Step 5: Fund our wallet (using Tevm's test actions)
+await client.setBalance({
+  address: signer.address,
+  value: parseUnits("1.0", "ether")
+})
+console.log(`Wallet funded with: ${formatEther(await provider.getBalance(signer.address))} ETH`)
+
+// Step 6: Read current greeting
+console.log(`Original greeting: ${await getGreeting()}`)
+
+// Step 7: Update the greeting // [!code focus]
+const txHash = await setGreeting("Hello from ethers.js and Tevm!") // [!code focus]
+console.log(`Transaction sent: ${txHash}`)
+
+// Step 8: Mine the block to include our transaction
+await client.mine({ blocks: 1 })
+
+// Step 9: Verify the updated greeting
+console.log(`Updated greeting: ${await getGreeting()}`)
+```
+
+<Callout type="warning">
+  Unlike real networks, Tevm requires you to manually mine blocks after sending transactions. Don't forget to call `client.mine()` after each transaction!
+</Callout>
+
+<details>
+  <summary>Understanding the Code</summary>
+
+  The integration between Tevm and ethers.js happens through these key components:
+
+  #### EIP-1193 Decorator
+
+  ```ts
+  // Enable EIP-1193 standard provider interface
+  client.transport.tevm.extend(requestEip1193())
+  ```
+
+  The `requestEip1193()` decorator transforms Tevm's internal interface into the standard provider interface that ethers.js expects. This crucial bridge allows the two libraries to communicate seamlessly.
+
+  #### Provider Creation
+
+  ```ts
+  // Create ethers provider using the Tevm node
+  const provider = new BrowserProvider(client.transport.tevm)
+  ```
+
+  Ethers accepts the decorated Tevm node as a standard Ethereum provider, allowing all ethers functionality to work as expected.
+
+  #### Hybrid API Approach
+
+  The example demonstrates a hybrid approach:
+
+  * **Ethers API** for contract interaction (`Contract`, `provider`, `signer`)
+  * **Tevm API** for blockchain control (`client.setBalance()`, `client.mine()`)
+
+  This gives you the best of both worlds - familiar ethers.js contract interaction with Tevm's powerful state control.
+
+  #### Mining Control
+
+  ```ts
+  // Mine the block to include our transaction
+  await client.mine({ blocks: 1 })
+  ```
+
+  Unlike when using real networks with ethers, you need to explicitly mine blocks with Tevm to include transactions. This gives you precise control over transaction execution timing.
+</details>
+
+### Common Patterns
+
+#### Contract Deployment
+
+Here's how to deploy a new contract using ethers.js with Tevm:
+
+```ts showLineNumbers
+import { createMemoryClient } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider, Wallet, ContractFactory, formatEther } from 'ethers'
+
+// Set up Tevm and ethers
+const client = createMemoryClient()
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
+
+const provider = new BrowserProvider(client.transport.tevm)
+const signer = Wallet.createRandom().connect(provider)
+
+// Fund the signer
+await client.setBalance({
+  address: signer.address,
+  value: 10000000000000000000n // 10 ETH
+})
+console.log(`Wallet funded with: ${formatEther(await provider.getBalance(signer.address))} ETH`)
+
+// Contract ABI and bytecode
+const counterAbi = [
+  'function count() view returns (uint256)',
+  'function increment() public'
+]
+const counterBytecode = '0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
+
+// Deploy contract
+const counterFactory = new ContractFactory(counterAbi, counterBytecode, signer)
+const counterDeploy = await counterFactory.deploy()
+console.log(`Deployment transaction: ${counterDeploy.deploymentTransaction().hash}`)
+
+// Mine to include the deployment transaction
+await client.mine({ blocks: 1 })
+
+// Get contract at deployed address
+const counter = await counterDeploy.waitForDeployment()
+const counterAddress = await counter.getAddress()
+console.log(`Counter deployed at: ${counterAddress}`)
+
+// Use the contract
+console.log(`Initial count: ${await counter.count()}`)
+const tx = await counter.increment()
+console.log(`Increment transaction: ${tx.hash}`)
+await client.mine({ blocks: 1 })
+console.log(`New count: ${await counter.count()}`)
+```
+
+#### Reading and Writing Contract Data
+
+Interact with an existing contract using ethers.js:
+
+```ts
+import { createMemoryClient, http, parseAbi } from 'tevm'
+import { mainnet } from 'tevm/chains'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider, Wallet, Contract, formatEther, formatUnits } from 'ethers'
+
+// Setup client with a mainnet fork
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY'),
+    common: mainnet
+  }
+})
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
+
+// Setup provider and wallet
+const provider = new BrowserProvider(client.transport.tevm)
+const signer = Wallet.createRandom().connect(provider)
+
+// Fund the wallet
+await client.setBalance({
+  address: signer.address,
+  value: 100000000000000000000n // 100 ETH
+})
+
+// Connect to USDC contract
+const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+const usdcAbi = parseAbi([
+  'function name() view returns (string)',
+  'function symbol() view returns (string)',
+  'function decimals() view returns (uint8)',
+  'function totalSupply() view returns (uint256)',
+  'function balanceOf(address owner) view returns (uint256)'
+])
+
+const usdc = new Contract(usdcAddress, usdcAbi, provider)
+
+// Read-only operation
+const [name, symbol, decimals, totalSupply] = await Promise.all([
+  usdc.name(),
+  usdc.symbol(),
+  usdc.decimals(),
+  usdc.totalSupply()
+])
+
+console.log(`Contract: ${name} (${symbol})`)
+console.log(`Decimals: ${decimals}`)
+console.log(`Total Supply: ${formatUnits(totalSupply, decimals)} ${symbol}`)
+
+// Check DAI's USDC balance
+const daiAddress = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+const daiUsdcBalance = await usdc.balanceOf(daiAddress)
+console.log(`DAI contract's USDC balance: ${formatUnits(daiUsdcBalance, decimals)} ${symbol}`)
+```
+
+#### Working with Events
+
+Listen for and query contract events:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider, Wallet, Contract, formatUnits } from 'ethers'
+import { parseAbi } from 'tevm'
+
+// Setup
+const client = createMemoryClient()
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
+
+const provider = new BrowserProvider(client.transport.tevm)
+const signer = Wallet.createRandom().connect(provider)
+
+// Fund account
+await client.setBalance({
+  address: signer.address,
+  value: 10000000000000000000n
+})
+
+// Deploy a simple ERC20 token
+const tokenAbi = parseAbi([
+  'constructor(string name, string symbol, uint8 decimals)',
+  'function transfer(address to, uint256 amount) returns (bool)',
+  'function balanceOf(address owner) view returns (uint256)',
+  'event Transfer(address indexed from, address indexed to, uint256 value)'
+])
+
+const tokenBytecode = '0x608060405234801561001057600080fd5b506040516107fa3803806107fa83398101604081905261002f91610215565b600380546001600160a01b031916331790558151610052906004906020850190610076565b5081516100669060059060208401906100fd565b506006805460ff191660ff929092169190911790555061030c565b828054610082906102c8565b90600052602060002090601f0160209004810192826100a4576000855561010a565b82601f106100bd57805160ff19168380011785556100ea565b828001600101855582156100ea579182015b828111156100ea5782518255916020019190600101906100cf565b506100f69291506100f6565b5090565b5b808211156100f657600081556001016100f7565b828054610109906102c8565b90600052602060002090601f01602090048101928261012b5760008552610167565b82601f1061014457805160ff1916838001178555610171565b82800160010185558215610171579182015b82811115610171578251825591602001919060010190610156565b5061017d9291506101bd565b5090565b5b8082111561017d576000815560010161017e565b6000602082840312156101a657600080fd5b81516001600160a01b03811681146101bd57600080fd5b9392505050565b5b8082111561017d57600081556001016101be565b80516001600160a01b03811681146101eb57600080fd5b919050565b600080600060608486031215610205578283fd5b833590925060208401359160408401359050509250925092565b60008060006060848603121561022a578081fd5b835160208501516040860151919450919290910181111581146102ad57634e487b7160e01b600052601160045260246000fd5b809150509250925092565b634e487b7160e01b600052602260045260246000fd5b600181811c908216806102dc57607f821691505b6020821081036102fc57634e487b7160e01b600052602260045260246000fd5b50919050565b6104df8061031b6000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806370a082311461004657806395d89b4114610079578063a9059cbb14610081575b600080fd5b610066610054366004610356565b6001600160a01b031660009081526001602052604090205490565b60405190815260200160405180910390f35b61007b610094565b005b61007b61008f366004610379565b610121565b6005805461009f906104a0565b80601f01602080910402602001604051908101604052809291908181526020018280546100cb906104a0565b80156101185780601f106100ed57610100808354040283529160200191610118565b820191906000526020600020905b8154815290600101906020018083116100fb57829003601f168201915b505050505081565b6001600160a01b03821660009081526001602052604081205461014a908363ffffffff61022916565b6001600160a01b038416600090815260016020526040812091909155610177908263ffffffff61024116565b6001600160a01b0383166000908152600160205260409020556101d0816040518060600160405280602381526020016104876023913960405180604001604052806029815260200161045e60299139600090339161025a565b816001600160a01b0316836001600160a01b03167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef83604051610216918252602082015260400190565b60405180910390a35050565b600081831061023857506000610239565b5b92915050565b6000828201610239825b8351602g2b6020600020905b905090565b60408051808201909152602d8152600080516020610457833981519152602082015290565b9050919050565b841515610297576001600160e01b031916600052601160045260246000fd5b5063ffffffff1690565b6000602082840312156102b357600080fd5b81356001600160a01b03811681146102ca57600080fd5b9392505050565b6000602082840312156102e357600080fd5b813560fc81168114t12870be52600052602260045260246000d5b602082108a5734e487b7160q0b600052602260045260246000fd5b50919050565b6004f3fe68747470733a2f2f6769646c6572732e696f2f6a616d657368756768657369o97365722f7468696e67736e6f626f6479656c7365686173a2646970667358221220f3acb75fca24514561f12a53c4a92042a9a6c524895dc1b01f3c3d2cda5d8ff364736f6c634300080a0033'
+
+const tokenFactory = new ContractFactory(tokenAbi, tokenBytecode, signer)
+const token = await tokenFactory.deploy('Test Token', 'TST', 18)
+await client.mine({ blocks: 1 })
+
+const tokenAddress = await token.getAddress()
+console.log(`Token deployed at: ${tokenAddress}`)
+
+// Set up event listener
+token.on('Transfer', (from, to, value, event) => {
+  console.log(`Transfer detected in block ${event.blockNumber}:`)
+  console.log(`  From: ${from}`)
+  console.log(`  To:   ${to}`)
+  console.log(`  Value: ${formatUnits(value, 18)} TST`)
+})
+
+// Send a transfer transaction
+const recipient = Wallet.createRandom().address
+const tx = await token.transfer(recipient, 1000000000000000000n) // 1 TST
+console.log(`Transfer transaction: ${tx.hash}`)
+
+// Mine to include transaction
+await client.mine({ blocks: 1 })
+
+// Check balance
+const balance = await token.balanceOf(recipient)
+console.log(`Recipient balance: ${formatUnits(balance, 18)} TST`)
+
+// Clean up event listener
+token.removeAllListeners()
+```
+
+### Key Differences from Standard Ethers Usage
+
+When using ethers.js with Tevm, keep these key differences in mind:
+
+<Callout type="warning">
+  **Mining is manual!** Transactions won't be automatically mined - you need to call `client.mine()` to process them.
+</Callout>
+
+1. **Transaction Flow**
+   * **Real Network**: Transactions are mined by the network automatically
+   * **Tevm**: You must manually call `client.mine()` to process transactions
+
+2. **Account Management**
+   * **Real Network**: Accounts have real funds and nonces
+   * **Tevm**: Create and fund accounts on demand with `client.setBalance()`
+
+3. **Environment Control**
+   * **Real Network**: Limited ability to manipulate state, block time, etc.
+   * **Tevm**: Complete control over all aspects of the environment
+
+4. **Performance**
+   * **Real Network**: Operations require network calls and confirmations
+   * **Tevm**: All operations happen locally with near-instant execution
+
+5. **Debugging Capabilities**
+   * **Real Network**: Limited visibility into transaction execution
+   * **Tevm**: Step-by-step EVM tracing and execution insights
+
+6. **Determinism**
+   * **Real Network**: Network conditions can affect execution
+   * **Tevm**: 100% deterministic execution for reliable testing
+
+### Advanced Features
+
+<Steps>
+  #### EVM State Control
+
+  Take advantage of Tevm's state manipulation with ethers:
+
+  ```ts
+  // Fund an account
+  await client.setBalance({
+    address: '0x123...',
+    value: parseUnits('1000', 'ether')
+  })
+
+  // Set storage directly
+  await client.setStorageAt({
+    address: contractAddress,
+    index: 0, // Storage slot
+    value: '0x1234...'
+  })
+
+  // Adjust block timestamp
+  await client.setNextBlockTimestamp(Date.now())
+  ```
+
+  #### Contract Debugging
+
+  Debug ethers transactions with Tevm's EVM hooks:
+
+  ```ts
+  // Get underlying Tevm node for advanced operations
+  const tevmNode = await client.getTevmNode()
+  const vm = await tevmNode.getVm()
+
+  // Listen to EVM execution steps
+  vm.evm.events.on('step', (data, next) => {
+    console.log(`EVM Step: ${data.opcode.name}`)
+    next()
+  })
+
+  // Now run a transaction with ethers as normal
+  // You'll see detailed logs of each EVM step
+  ```
+
+  #### Fork Management
+
+  Work with mainnet contracts in your test environment:
+
+  ```ts
+  // Reset to a clean fork state
+  await client.reset({
+    fork: {
+      blockNumber: 42069n,
+      transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY')
+    }
+  })
+
+  // After reset, your ethers provider still works
+  // but with the newly reset chain state
+  ```
+</Steps>
+
+### Next Steps
+
+Now that you know how to use ethers.js with Tevm, you can:
+
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Explore More Features</h3>
+
+    <ul>
+      <li><a href="../examples/ethers">Complete Ethers.js integration guide</a></li>
+      <li><a href="../core/forking">Powerful forking capabilities</a></li>
+      <li><a href="../core/managing-state">EVM state management</a></li>
+    </ul>
+  </div>
+
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Learn Core Concepts</h3>
+
+    <ul>
+      <li><a href="../introduction/what-is-tevm-node">What is Tevm Node?</a></li>
+      <li><a href="../core/create-tevm-node">Creating a Tevm Node</a></li>
+      <li><a href="../api/json-rpc">JSON-RPC interface</a></li>
+    </ul>
+  </div>
+
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Try Advanced Use Cases</h3>
+
+    <ul>
+      <li><a href="../examples/forking-mainnet">Forking from mainnet</a></li>
+      <li><a href="../advanced/custom-precompiles">Custom precompiles</a></li>
+      <li><a href="../examples/debugger-ui">Building a debugger UI</a></li>
+    </ul>
+  </div>
+</div>
+
+<div className="flex gap-4 mt-8">
+  <Button href="./viem" variant="accent">← Viem Integration</Button>
+  <Button href="../examples/ethers">Using with Ethers.js →</Button>
+</div>
+
+
+import { Callout, Steps, Button } from "vocs/components";
+
+## Tevm Node Overview
+
+Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
+
+Conceptually, it works very similar to Anvil and Hardhat but with more powerful TypeScript native interop.
+
+:::tip[You might not need these docs?]
+If you already know how to use `viem` or `ethers`, you can start using Tevm Node right away with your existing knowledge! Tevm simply plugs into your library of choice.
+:::
+
+### What Makes Tevm Unique?
+
+Unlike traditional development environments like [Hardhat](https://hardhat.org/) or [Anvil](https://book.getfoundry.sh/anvil/), Tevm Node offers several distinct advantages:
+
+* **Cross-Platform Compatibility** — The same code works everywhere JavaScript runs, with zero native dependencies including your applications in the browser
+* **Fine-grained EVM Control** — Access the execution environment at any level of detail, from high-level transactions to individual EVM opcodes
+* **Enhanced User Experience** — Enable advanced features like instantaneous gas estimation, optimistic UI updates, and sophisticated transaction simulation
+* **Type-safe Interactions** — Full TypeScript support throughout the entire API surface
+
+### Getting Started
+
+::::steps
+#### Install Tevm
+
+First, install Tevm in your project:
+
+:::code-group
+```bash [npm]
+npm install tevm
+```
+
+```bash [pnpm]
+pnpm add tevm
+```
+
+```bash [yarn]
+yarn add tevm
+```
+
+```bash [bun]
+bun add tevm
+```
+:::
+
+#### Choose Your Client
+
+Tevm offers different client types depending on your needs:
+
+```ts
+// In-memory client (fastest, fully isolated)
+import { createMemoryClient } from "tevm";
+const memoryClient = createMemoryClient();
+
+// Fork client (use existing chain state)
+import { createMemoryClient } from "tevm";
+import { http } from "viem";
+import { mainnet } from "tevm/chains";
+const forkClient = createMemoryClient({
+  fork: {
+    transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"),
+    common: mainnet,
+  },
+});
+
+// Tree-shakable client (lighter weight)
+import { createClient, http, custom } from "viem";
+import { createTevmNode } from "tevm";
+import { optimism } from "tevm/common";
+import { eip1193Request } from "tevm/decorators";
+const node = createTevmNode({
+  fork: {
+    transport: http("https://mainnet.optimism.io"),
+    common: optimism,
+  },
+}).extend(eip1193Request());
+const client = createClient({
+  transport: custom(node),
+});
+import { getBlockNumber } from "viem";
+await getBlockNumber(client);
+
+// Ethers client
+import { TevmProvider } from "tevm/ethers";
+import { http, toHex, parseEth } from "tevm";
+const provider = await TevmProvider.createMemoryProvider({
+  fork: {
+    transport: http("https://mainnet.optimism.io"),
+  },
+});
+await provider.send("tevm_setAccount", [
+  {
+    address: `0x${"69".repeat(20)}`,
+    nonce: toHex(1),
+    balance: toHex(parseEth("25")),
+  },
+]);
+```
+
+#### Use your client to read and write to an in-memory blockchain
+
+Below is a complete typical flow of using Tevm to:
+
+1. Add a contract to the Tevm state
+2. Write to the contract with viem
+3. Mine a new block with the transaction
+4. Read from contract with viem
+
+```ts showLineNumbers {1,11-13,22} filename="simple-contract.ts"
+import { createMemoryClient, PREFUNDED_ACCOUNTS } from "tevm";
+import { http } from "viem";
+import { SimpleContract } from "tevm/contract";
+import { optimism } from "tevm/common";
+
+// Create an in-memory Ethereum client forking optimism
+const client = createMemoryClient({
+  common: optimism,
+  fork: { transport: http("https://mainnet.optimism.io") },
+});
+
+const contract = SimpleContract.withAddress(`0x${"40".repeat(20)}`);
+
+// Deploy contract bytecode. There are many ways to do this including tevmDeploy.
+// Here we just use an anvil test action
+await client.setCode({
+  address: contract.address,
+  bytecode: contract.deployedBytecode,
+});
+
+// Write to contract
+await client.writeContract({
+  account: PREFUNDED_ACCOUNTS[0],
+  abi: contract.abi,
+  functionName: "set",
+  args: [420n],
+  address: contract.address,
+});
+
+await client.tevmMine();
+
+// Read from contract
+const value = await client.readContract({
+  abi: contract.abi,
+  functionName: "get",
+  address: contract.address,
+});
+
+console.log(value); // 420n
+```
+
+:::details[How it works]
+1. We create a `memoryClient` that runs an Ethereum node entirely in memory
+2. We define a contract and its address
+3. We deploy the contract using `setCode` (simpler than a full deployment transaction)
+4. We write to the contract using a familiar viem-style interface
+5. We mine the transaction to include it in a block
+6. We read the updated value from the contract
+:::
+
+#### Key Points:
+
+* **Familiar Interface** — Tevm uses [viem](https://viem.sh) as its primary API, making it instantly familiar to viem users
+* **In-Memory Execution** — TevmNode runs the Ethereum environment directly in memory rather than using JSON-RPC over HTTP
+* **Full Control** — Mine blocks on demand, manipulate state, and more
+
+#### Start Building
+
+You're now ready to build with Tevm!
+
+```ts
+// Runs in browsers, Node.js, Deno, Bun and beyond
+// Zero native dependencies
+import { createMemoryClient } from "tevm";
+// Optionally import solidity contracts directly into typescript in a typesafe way
+import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
+
+const client = createMemoryClient();
+
+// Use the viem api you already know
+console.log(await client.getBlockNumber());
+
+// Or use powerful typescript native apis
+const {
+  data,
+  error,
+  logs,
+  createdAddresses,
+  executionGasUsed,
+  l1Fee,
+  trace,
+  accessList,
+  txHash,
+} = await client.tevmContract({
+  deployedBytecode: ComplexSimulation.deployedBytecode,
+  ...ComplexSimulation.read.simulate(2n, "arg2"),
+  createTrace: true,
+  createAccessList: true,
+  createTransaction: true,
+  throwOnFail: false,
+  onStep: (step, next) => {
+    console.log(step.opcode);
+    next?.();
+  },
+});
+```
+::::
+
+### Learning Path
+
+If you're new to Ethereum development, don't worry! Tevm serves as an excellent learning platform for both Ethereum and TypeScript:
+
+:::info
+* **Isolated Environment** — Experiment freely without worrying about network costs or confirmation times
+* **TypeScript Integration** — Get full type safety and autocomplete for Ethereum interactions
+* **Simple API Surface** — Focus on learning core concepts with a streamlined interface
+* **Step Debugger** — Trace transaction execution at the opcode level for deep understanding
+:::
+
+### Ready to dive in right away?
+
+<div
+  style={{
+  display: "flex",
+  gap: "1rem",
+  marginTop: "1.5rem",
+  flexWrap: "wrap",
+}}
+>
+  <Button href="./viem" variant="accent">
+    Viem Quickstart →
+  </Button>
+
+  <Button href="./ethers">Ethers Quickstart →</Button>
+  <Button href="../introduction/what-is-tevm-node">What is Tevm Node? →</Button>
+</div>
+
+
+import { Callout, Button } from "vocs/components";
+
+## Community
+
+Here's what developers and industry leaders are saying about Tevm
+
+### Community Highlights
+
+:::tip[Developer Feedback]
+Tevm's unique approach of bringing Ethereum execution directly to JavaScript environments has resonated with most developers who have given Tevm a try.
+Developers report problems previously difficult being simple to solve with Tevm
+:::
+
+<div
+  style={{ 
+display: 'grid', 
+gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
+gap: '1.5rem', 
+margin: '2rem 0' 
+}}
+>
+  <div
+    style={{ 
+  border: '1px solid var(--vocs-color_border)', 
+  borderRadius: 'var(--vocs-borderRadius_4)', 
+  padding: '1.5rem',
+  backgroundColor: 'var(--vocs-color_background2)'
+}}
+  >
+    <blockquote
+      style={{ 
+    margin: 0, 
+    fontSize: 'var(--vocs-fontSize_16)',
+    borderLeft: 'none',
+    padding: 0
+  }}
+    >
+      "Fully @tevmtools pilled now. The beauty and harmony of the dev tooling 😍."
+    </blockquote>
+
+    <div
+      style={{ 
+    marginTop: '1rem', 
+    display: 'flex', 
+    alignItems: 'center',
+    gap: '0.5rem'
+  }}
+    >
+      <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)' }}>
+        EulerLagrange.eth - ver/acc
+      </div>
+
+      <a href="https://twitter.com/Euler__Lagrange" style={{ fontSize: 'var(--vocs-fontSize_14)', color: 'var(--vocs-color_textAccent)' }}>
+        @Euler\_\_Lagrange
+      </a>
+    </div>
+  </div>
+
+  {" "}
+
+  <div
+    style={{
+  border: "1px solid var(--vocs-color_border)",
+  borderRadius: "var(--vocs-borderRadius_4)",
+  padding: "1.5rem",
+  backgroundColor: "var(--vocs-color_background2)",
+}}
+  >
+    <blockquote
+      style={{
+    margin: 0,
+    fontSize: "var(--vocs-fontSize_16)",
+    borderLeft: "none",
+    padding: 0,
+  }}
+    >
+      "If you're building a blockchain application on the web, I'm almost certain
+      there is a use case for Tevm. It might change everything, and at worse it
+      would most likely improve your devX."
+    </blockquote>
+
+    <div
+      style={{
+    marginTop: "1rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+  }}
+    >
+      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>polarzero</div>
+
+      <a
+        href="https://twitter.com/0xpolarzero"
+        style={{
+      fontSize: "var(--vocs-fontSize_14)",
+      color: "var(--vocs-color_textAccent)",
+    }}
+      >
+        @0xpolarzero
+      </a>
+    </div>
+  </div>
+
+  {" "}
+
+  <div
+    style={{
+  border: "1px solid var(--vocs-color_border)",
+  borderRadius: "var(--vocs-borderRadius_4)",
+  padding: "1.5rem",
+  backgroundColor: "var(--vocs-color_background2)",
+}}
+  >
+    <blockquote
+      style={{
+    margin: 0,
+    fontSize: "var(--vocs-fontSize_16)",
+    borderLeft: "none",
+    padding: 0,
+  }}
+    >
+      "Yeah, using bundling tools like Tevm with Viem offers a very nice
+      experience here."
+    </blockquote>
+
+    <div
+      style={{
+    marginTop: "1rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+  }}
+    >
+      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>jxom</div>
+
+      <a
+        href="https://twitter.com/_jxom"
+        style={{
+      fontSize: "var(--vocs-fontSize_14)",
+      color: "var(--vocs-color_textAccent)",
+    }}
+      >
+        @\_jxom
+      </a>
+    </div>
+  </div>
+
+  <div
+    style={{
+  border: "1px solid var(--vocs-color_border)",
+  borderRadius: "var(--vocs-borderRadius_4)",
+  padding: "1.5rem",
+  backgroundColor: "var(--vocs-color_background2)",
+}}
+  >
+    <blockquote
+      style={{
+    margin: 0,
+    fontSize: "var(--vocs-fontSize_16)",
+    borderLeft: "none",
+    padding: 0,
+  }}
+    >
+      "Incredible! And also very cursed haha"
+    </blockquote>
+
+    <div
+      style={{
+    marginTop: "1rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+  }}
+    >
+      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>
+        Darryl Yeo・d/acc
+      </div>
+
+      <a
+        href="https://twitter.com/darryl__yeo"
+        style={{
+      fontSize: "var(--vocs-fontSize_14)",
+      color: "var(--vocs-color_textAccent)",
+    }}
+      >
+        @darryl\_\_yeo
+      </a>
+    </div>
+  </div>
+
+  {" "}
+
+  <div
+    style={{
+  border: "1px solid var(--vocs-color_border)",
+  borderRadius: "var(--vocs-borderRadius_4)",
+  padding: "1.5rem",
+  backgroundColor: "var(--vocs-color_background2)",
+}}
+  >
+    <blockquote
+      style={{
+    margin: 0,
+    fontSize: "var(--vocs-fontSize_16)",
+    borderLeft: "none",
+    padding: 0,
+  }}
+    >
+      "tevm is the accessible version of reth exex for data engineers"
+    </blockquote>
+
+    <div
+      style={{
+    marginTop: "1rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+  }}
+    >
+      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>ilemi</div>
+
+      <a
+        href="https://twitter.com/andrewhong5297"
+        style={{
+      fontSize: "var(--vocs-fontSize_14)",
+      color: "var(--vocs-color_textAccent)",
+    }}
+      >
+        @andrewhong5297
+      </a>
+    </div>
+  </div>
+
+  {" "}
+
+  <div
+    style={{
+  border: "1px solid var(--vocs-color_border)",
+  borderRadius: "var(--vocs-borderRadius_4)",
+  padding: "1.5rem",
+  backgroundColor: "var(--vocs-color_background2)",
+}}
+  >
+    <blockquote
+      style={{
+    margin: 0,
+    fontSize: "var(--vocs-fontSize_16)",
+    borderLeft: "none",
+    padding: 0,
+  }}
+    >
+      "Helios 🤝 Tevm"
+    </blockquote>
+
+    <div
+      style={{
+    marginTop: "1rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+  }}
+    >
+      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>
+        ncitron.eth
+      </div>
+
+      <a
+        href="https://twitter.com/NoahCitron"
+        style={{
+      fontSize: "var(--vocs-fontSize_14)",
+      color: "var(--vocs-color_textAccent)",
+    }}
+      >
+        @NoahCitron
+      </a>
+    </div>
+  </div>
+
+  {" "}
+
+  <div
+    style={{
+  border: "1px solid var(--vocs-color_border)",
+  borderRadius: "var(--vocs-borderRadius_4)",
+  padding: "1.5rem",
+  backgroundColor: "var(--vocs-color_background2)",
+}}
+  >
+    <blockquote
+      style={{
+    margin: 0,
+    fontSize: "var(--vocs-fontSize_16)",
+    borderLeft: "none",
+    padding: 0,
+  }}
+    >
+      "Please tell me this is a shitpost"
+    </blockquote>
+
+    <div
+      style={{
+    marginTop: "1rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+  }}
+    >
+      <div style={{ fontWeight: "var(--vocs-fontWeight_medium)" }}>
+        Patrick Collins
+      </div>
+
+      <a
+        href="https://twitter.com/PatrickAlphaC"
+        style={{
+      fontSize: "var(--vocs-fontSize_14)",
+      color: "var(--vocs-color_textAccent)",
+    }}
+      >
+        @PatrickAlphaC
+      </a>
+    </div>
+  </div>
+
+  <div
+    style={{ 
+  border: '1px solid var(--vocs-color_border)', 
+  borderRadius: 'var(--vocs-borderRadius_4)', 
+  padding: '1.5rem',
+  backgroundColor: 'var(--vocs-color_background2)'
+}}
+  >
+    <blockquote
+      style={{ 
+    margin: 0, 
+    fontSize: 'var(--vocs-fontSize_16)',
+    borderLeft: 'none',
+    padding: 0
+  }}
+    >
+      "I don't know if I should be impressed or scared"
+    </blockquote>
+
+    <div
+      style={{ 
+    marginTop: '1rem', 
+    display: 'flex', 
+    alignItems: 'center',
+    gap: '0.5rem'
+  }}
+    >
+      <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)' }}>
+        James
+      </div>
+
+      <a href="https://twitter.com/lcm_in_pangea" style={{ fontSize: 'var(--vocs-fontSize_14)', color: 'var(--vocs-color_textAccent)' }}>
+        @lcm\_in\_pangea
+      </a>
+    </div>
+  </div>
+</div>
+
+### Share Your Experience
+
+:::steps
+#### Join the Community
+
+We'd love to hear how Tevm has improved your development workflow:
+
+* [Telegram Group](https://t.me/+ANThR9bHDLAwMjUx)
+* [Twitter/X](https://twitter.com/tevmtools)
+
+#### Report Success Stories
+
+Have a compelling use case or success story?
+
+* [Create an issue](https://github.com/evmts/tevm-monorepo/issues/new?labels=testimonial\&template=testimonial.md) with the label "testimonial"
+* Email the team at [support@tevm.sh](mailto\:support@tevm.sh)
+:::
+
+Your feedback helps us improve Tevm and guides our development priorities!
+
+<div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
+  <Button href="./overview" variant="accent">
+    ← Back to Overview
+  </Button>
+
+  <Button href="./viem">Continue to Viem Integration →</Button>
+</div>
+
+
+import { Callout, Steps, Button } from "vocs/components";
+
+## Getting Started with Viem
+
+:::tip[Perfect for Viem Users]
+If you're already familiar with [viem](https://viem.sh), Tevm works seamlessly with your existing knowledge, providing a nearly identical API.
+:::
+
+This guide will help you integrate Tevm with [viem](https://viem.sh), the modern TypeScript interface for Ethereum. By the end, you'll have a working setup with Tevm Node and understand how to leverage viem's actions with Tevm.
+
+### Installation
+
+::::steps
+#### Install Dependencies
+
+First, install Tevm along with viem as a peer dependency:
+
+:::code-group
+```bash [npm]
+npm install tevm viem@latest
+```
+
+```bash [pnpm]
+pnpm add tevm viem@latest
+```
+
+```bash [yarn]
+yarn add tevm viem@latest
+```
+
+```bash [bun]
+bun add tevm viem@latest
+```
+:::
+
+#### Create Your Client
+
+For the quickest start, create a memory client:
+
+```ts
+import { createMemoryClient } from "tevm";
+
+const client = createMemoryClient();
+```
+
+Or, to fork from an existing chain:
+
+```ts
+import { createMemoryClient } from "tevm";
+import { optimism } from "tevm/chains";
+import { http } from "viem";
+
+const client = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io"),
+    common: optimism,
+  },
+});
+
+// Wait for the node to be ready before using it
+await client.tevmReady();
+```
+
+#### You're Ready!
+
+Start using your client with familiar viem actions:
+
+```ts
+// Get the current block number
+const blockNumber = await client.getBlockNumber();
+console.log(`Current block: ${blockNumber}`);
+```
+::::
+
+### Complete Example
+
+The following example demonstrates the key capabilities of Tevm with viem:
+
+:::code-group
+```ts [Forking Example] showLineNumbers {1-3,8-12,25-29,40,52}
+import { createMemoryClient, http } from "tevm"; // [!code focus]
+import { optimism } from "tevm/common"; // [!code focus]
+import { parseAbi, parseEther } from "viem"; // [!code focus]
+
+// 1. Create a memory client forked from Optimism mainnet
+const client = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io"), // [!code focus]
+    common: optimism, // [!code focus]
+  }, // [!code focus]
+}); // [!code focus]
+
+// Wait for the node to be ready
+await client.tevmReady();
+
+// 2. Get current block number (from the fork point)
+const blockNumber = await client.getBlockNumber();
+console.log(`Current block number: ${blockNumber}`);
+
+// Setup addresses and contract interfaces
+const account = `0x${"baD60A7".padStart(40, "0")}` as const;
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748";
+
+// Define contract interfaces with parseAbi
+const greeterAbi = parseAbi([
+  "function greet() view returns (string)", // [!code focus]
+  "function setGreeting(string memory _greeting) public", // [!code focus]
+]); // [!code focus]
+
+// 3. Modify blockchain state with test actions
+// Fund our test account with 1 ETH
+await client.setBalance({
+  address: account,
+  value: parseEther("1"),
+});
+
+// Read the current greeting using viem's readContract
+const currentGreeting = await client.readContract({
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: "greet",
+});
+console.log(`Current greeting: ${currentGreeting}`);
+
+// Update the greeting with writeContract
+const txHash = await client.writeContract({
+  // [!code focus]
+  account,
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: "setGreeting",
+  args: ["Hello from Tevm!"],
+  chain: optimism,
+});
+console.log(`Transaction sent: ${txHash}`);
+
+// 4. Mine a new block to include our transaction
+await client.mine({ blocks: 1 }); // [!code focus]
+
+// Verify the greeting was updated
+const updatedGreeting = await client.readContract({
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: "greet",
+});
+console.log(`Updated greeting: ${updatedGreeting}`);
+```
+
+```ts [Contract Deployment] showLineNumbers
+import { createMemoryClient } from "tevm";
+import { parseAbi, parseEther, encodeAbiParameters } from "viem";
+
+// Create a memory client (isolated environment)
+const client = createMemoryClient();
+
+// 1. Create a test account with funds
+const deployerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+await client.setBalance({
+  address: deployerAddress,
+  value: parseEther("10"),
+});
+
+// 2. Define a simple contract
+const counterAbi = parseAbi([
+  "function increment() public",
+  "function count() view returns (uint256)",
+]);
+
+// Counter contract bytecode (pre-compiled)
+const counterBytecode =
+  "0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033";
+
+// 3. Deploy the contract
+const deployHash = await client.sendTransaction({
+  account: deployerAddress,
+  to: undefined, // Contract creation
+  data: counterBytecode,
+});
+
+// Mine to include the deployment
+await client.mine();
+
+// 4. Get the deployment receipt to find contract address
+const receipt = await client.getTransactionReceipt({
+  hash: deployHash,
+});
+const contractAddress = receipt.contractAddress;
+console.log(`Contract deployed at: ${contractAddress}`);
+
+// 5. Use the contract
+const initialCount = await client.readContract({
+  address: contractAddress,
+  abi: counterAbi,
+  functionName: "count",
+});
+console.log(`Initial count: ${initialCount}`);
+
+// Increment the counter
+await client.writeContract({
+  account: deployerAddress,
+  address: contractAddress,
+  abi: counterAbi,
+  functionName: "increment",
+});
+
+// Mine the transaction
+await client.mine();
+
+// Read the new count
+const newCount = await client.readContract({
+  address: contractAddress,
+  abi: counterAbi,
+  functionName: "count",
+});
+console.log(`New count: ${newCount}`);
+```
+:::
+
+:::details[Code Walkthrough]
+#### 1. Imports & Client Creation
+
+```ts
+import { createMemoryClient, http } from "tevm";
+import { optimism } from "tevm/common";
+import { parseAbi, parseEther } from "viem";
+
+const client = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io"),
+    common: optimism,
+  },
+});
+
+await client.tevmReady();
+```
+
+* We create a client that **forks** from Optimism mainnet
+* This gives us a local sandbox with all of mainnet's state
+* `client.tevmReady()` ensures the fork is complete before proceeding
+
+#### 2. Contract Interaction
+
+```ts
+// Define the contract interface
+const greeterAbi = parseAbi([
+  "function greet() view returns (string)",
+  "function setGreeting(string memory _greeting) public",
+]);
+
+// Read from contract
+const currentGreeting = await client.readContract({
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: "greet",
+});
+
+// Write to contract
+const txHash = await client.writeContract({
+  account,
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: "setGreeting",
+  args: ["Hello from Tevm!"],
+  chain: optimism,
+});
+```
+
+* The API matches viem exactly - anyone familiar with viem can use this immediately
+* Write operations return a transaction hash just like on a real network
+
+#### 3. Mining Control
+
+```ts
+// Mine a block to include our transaction
+await client.mine({ blocks: 1 });
+```
+
+* Unlike real networks, you control exactly when blocks are mined
+* This gives you complete determinism for testing and development
+:::
+
+### Key Viem-Compatible Features
+
+Tevm's viem client implements the full viem API, maintaining compatibility while adding powerful features:
+
+:::code-group
+```ts [Standard viem API]
+// These standard viem actions work exactly as expected
+await client.getBalance({ address: '0x...' })
+await client.getBlockNumber()
+await client.readContract({ ... })
+await client.writeContract({ ... })
+await client.estimateGas({ ... })
+await client.sendTransaction({ ... })
+// And all other viem actions
+```
+
+```ts [Tevm Extensions]
+// Tevm adds powerful extensions
+await client.tevmReady(); // Wait for fork initialization
+await client.setBalance({ address: "0x...", value: 100n });
+await client.setCode({ address: "0x...", bytecode: "0x..." });
+await client.mine({ blocks: 1 });
+await client.reset(); // Reset to initial state
+await client.impersonateAccount({ address: "0x..." });
+```
+
+```ts [EVM Debugging]
+// Advanced EVM debugging and inspection
+await client.tevmContract({
+  address: '0x...',
+  abi: [...],
+  functionName: 'transfer',
+  args: ['0x...', 100n],
+  // Get step-by-step EVM execution details
+  onStep: (data, next) => {
+    console.log(`Opcode: ${data.opcode.name}`)
+    console.log(`Stack: ${data.stack.join(', ')}`)
+    next() // Continue execution
+  }
+})
+```
+:::
+
+### Tree-Shakeable API
+
+For production applications, especially in browser environments, you may want to use Tevm's tree-shakeable API to minimize bundle size:
+
+```ts showLineNumbers {1-3,6-11}
+import { createClient, http } from "viem";
+import { createTevmTransport } from "tevm/transport"; // [!code focus]
+import { tevmCall, tevmDumpState } from "tevm/actions"; // [!code focus]
+
+// Create a standard viem client with Tevm transport
+const client = createClient({
+  transport: createTevmTransport({
+    // [!code focus]
+    fork: {
+      // [!code focus]
+      transport: http("https://mainnet.optimism.io"), // [!code focus]
+    }, // [!code focus]
+  }), // [!code focus]
+});
+
+// Import only the actions you need
+await tevmDumpState(client);
+```
+
+:::tip[Tree-Shaking Benefit]
+Using the tree-shakeable API can significantly reduce your bundle size when you're using only a subset of Tevm's features.
+:::
+
+### EVM Execution Hooks
+
+One of Tevm's most powerful features is the ability to hook directly into EVM execution:
+
+```ts showLineNumbers {7-16}
+await client.tevmContract({
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: "setGreeting",
+  args: ["Hello!"],
+
+  // onStep is called for each EVM operation // [!code focus]
+  onStep: (stepInfo, next) => {
+    // [!code focus]
+    console.log(`Executing: ${stepInfo.opcode.name} at PC=${stepInfo.pc}`); // [!code focus]
+    console.log(`Stack: ${stepInfo.stack.map((val) => val.toString())}`); // [!code focus]
+    console.log(`Memory: ${stepInfo.memory.toString("hex")}`); // [!code focus]
+
+    // You can also modify EVM state here if needed // [!code focus]
+
+    // Call next() to continue execution // [!code focus]
+    next?.(); // [!code focus]
+  }, // [!code focus]
+
+  // You can also access the detailed result after execution
+  onResult: (result) => {
+    console.log(`Gas used: ${result.executionGasUsed}`);
+    console.log(`Return value: 0x${result.returnValue?.toString("hex")}`);
+  },
+});
+```
+
+This enables advanced use cases like:
+
+* **Visual Debuggers**: Create step-by-step transaction debuggers
+* **Educational Tools**: Explain EVM execution for learning purposes
+* **Custom Instrumentation**: Profile and analyze contract execution
+* **Intercepting Execution**: Modify execution behavior for testing
+
+### Tevm-Specific Actions
+
+Tevm extends viem with specialized actions that provide enhanced capabilities:
+
+| Action              | Description                                  | Use Case                                |
+| ------------------- | -------------------------------------------- | --------------------------------------- |
+| `tevmCall`          | Low-level EVM call with execution hooks      | Deep inspection of contract execution   |
+| `tevmContract`      | Enhanced contract interaction with EVM hooks | Detailed debugging of contract calls    |
+| `tevmDeploy`        | Deploy with execution hooks                  | Understanding deployment execution flow |
+| `tevmMine`          | Control block mining                         | Precise transaction inclusion control   |
+| `tevmSetAccount`    | Modify account state                         | Test different account scenarios        |
+| `tevmGetAccount`    | Read detailed account state                  | Inspect nonce, code, storage            |
+| `tevmDumpState`     | Export full EVM state                        | State persistence and analysis          |
+| `tevmLoadState`     | Import saved EVM state                       | Restore a specific state for testing    |
+| `tevmReady`         | Wait for fork to initialize                  | Ensure node is ready before use         |
+| `tevmEnableTracing` | Enable detailed execution tracing            | Capture full execution traces           |
+| `tevmReset`         | Reset node to initial state                  | Start fresh for new test scenarios      |
+
+:::info
+All tevm-specific actions are also available as individual imports from `tevm/actions` for tree-shaking.
+:::
+
+### Next Steps
+
+Now that you're familiar with using Tevm with viem, you can:
+
+:::steps
+#### Explore More Tevm Features
+
+Dive deeper into Tevm's powerful capabilities:
+
+* [Forking capabilities](/core/forking) to simulate production chains
+* [State management](/core/managing-state) for manipulating the blockchain
+* [Mining modes](/core/mining-modes) for controlling transaction inclusion
+
+#### Check Out Examples
+
+See how Tevm solves real-world problems:
+
+* [Forking mainnet](/examples/forking-mainnet) for production simulation
+* [Building a debugger UI](/examples/debugger-ui) with EVM insights
+* [Local testing flows](/examples/local-testing) for development
+
+#### Advanced API Usage
+
+Master the Tevm API for more sophisticated applications:
+
+* [EVM events & hooks](/api/evm-events) for detailed execution analysis
+* [Custom precompiles](/advanced/custom-precompiles) for extending the EVM
+* [Transaction pool management](/advanced/txpool) for pending transaction control
+:::
+
+<div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
+  <Button href="./overview" variant="accent">
+    ← Back to Overview
+  </Button>
+
+  <Button href="./ethers">Ethers Integration →</Button>
 </div>
 
 
