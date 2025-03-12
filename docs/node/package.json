@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
-    "build": "vocs build",
+    "build": "bun build:app",
+    "build:app": "vocs build",
     "preview": "vocs preview",
     "test": "vitest"
   },
