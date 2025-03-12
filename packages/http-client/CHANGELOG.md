@@ -1,5 +1,16 @@
 # @tevm/client
 
+## 1.0.0-next.131
+
+### Patch Changes
+
+- e91acbc: Improved docs testcoverage and jsdoc of all packages
+- Updated dependencies [e91acbc]
+  - @tevm/viem@1.0.0-next.131
+  - @tevm/utils@1.0.0-next.131
+  - @tevm/contract@1.0.0-next.131
+  - @tevm/memory-client@1.0.0-next.131
+
 ## 1.0.0-next.130
 
 ### Patch Changes

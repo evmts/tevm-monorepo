@@ -1,5 +1,49 @@
 # @tevm/contract
 
+## 1.0.0-next.131
+
+### Patch Changes
+
+- e91acbc: Improved docs testcoverage and jsdoc of all packages
+- Updated dependencies [e91acbc]
+  - @tevm/bundler-cache@1.0.0-next.131
+  - @tevm/base-bundler@1.0.0-next.131
+  - @tevm/esbuild-plugin@1.0.0-next.131
+  - @tevm/webpack-plugin@1.0.0-next.131
+  - @tevm/config@1.0.0-next.131
+  - @tevm/rollup-plugin@1.0.0-next.131
+  - @tevm/rspack-plugin@1.0.0-next.131
+  - @tevm/vite-plugin@1.0.0-next.131
+  - @tevm/bun-plugin@1.0.0-next.131
+  - @tevm/actions@1.0.0-next.131
+  - @tevm/viem@1.0.0-next.131
+  - @tevm/common@1.0.0-next.131
+  - @tevm/errors@1.0.0-next.131
+  - @tevm/server@1.0.0-next.131
+  - @tevm/state@1.0.0-next.131
+  - @tevm/utils@1.0.0-next.131
+  - @tevm/ts-plugin@1.0.0-next.131
+  - @tevm/node@1.0.0-next.131
+  - @tevm/evm@1.0.0-next.131
+  - @tevm/vm@1.0.0-next.131
+  - @tevm/compiler@1.0.0-next.131
+  - @tevm/solc@1.0.0-next.131
+  - @tevm/address@1.0.0-next.131
+  - @tevm/block@1.0.0-next.131
+  - @tevm/blockchain@1.0.0-next.131
+  - @tevm/client-types@1.0.0-next.131
+  - @tevm/contract@1.0.0-next.131
+  - @tevm/decorators@1.0.0-next.131
+  - @tevm/http-client@1.0.0-next.131
+  - @tevm/jsonrpc@1.0.0-next.131
+  - @tevm/memory-client@1.0.0-next.131
+  - @tevm/precompiles@1.0.0-next.131
+  - @tevm/predeploys@1.0.0-next.131
+  - @tevm/receipt-manager@1.0.0-next.131
+  - @tevm/sync-storage-persister@1.0.0-next.131
+  - @tevm/tx@1.0.0-next.131
+  - @tevm/txpool@1.0.0-next.131
+
 ## 1.0.0-next.130
 
 ### Patch Changes

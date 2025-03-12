@@ -1,5 +1,15 @@
 # @tevm/lsp
 
+## 1.0.0-next.131
+
+### Patch Changes
+
+- e91acbc: Improved docs testcoverage and jsdoc of all packages
+- Updated dependencies [e91acbc]
+  - @tevm/config@1.0.0-next.131
+  - @tevm/tsconfig@1.0.0-next.131
+  - @tevm/tsupconfig@1.0.0-next.131
+
 ## 1.0.0-next.128
 
 ### Patch Changes
