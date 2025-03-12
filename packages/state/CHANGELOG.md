@@ -1,5 +1,18 @@
 # @tevm/state
 
+## 1.0.0-next.131
+
+### Patch Changes
+
+- e91acbc: Improved docs testcoverage and jsdoc of all packages
+- Updated dependencies [e91acbc]
+  - @tevm/common@1.0.0-next.131
+  - @tevm/errors@1.0.0-next.131
+  - @tevm/utils@1.0.0-next.131
+  - @tevm/address@1.0.0-next.131
+  - @tevm/logger@1.0.0-next.131
+  - @tevm/test-utils@1.0.0-next.131
+
 ## 1.0.0-next.130
 
 ### Minor Changes

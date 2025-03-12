@@ -1,5 +1,13 @@
 # @tevm/plugin
 
+## 1.0.0-next.131
+
+### Patch Changes
+
+- e91acbc: Improved docs testcoverage and jsdoc of all packages
+- Updated dependencies [e91acbc]
+  - @tevm/unplugin@1.0.0-next.131
+
 ## 1.0.0-next.128
 
 ### Patch Changes

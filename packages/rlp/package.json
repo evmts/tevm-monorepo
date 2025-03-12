@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/rlp",
-	"version": "1.0.0-next.128",
+	"version": "1.0.0-next.131",
 	"private": false,
 	"description": "A custom implementation of ethereumjs rlp",
 	"keywords": [

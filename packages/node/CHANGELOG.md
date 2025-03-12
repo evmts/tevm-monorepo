@@ -1,5 +1,27 @@
 # @tevm/client
 
+## 1.0.0-next.131
+
+### Patch Changes
+
+- e91acbc: Improved docs testcoverage and jsdoc of all packages
+- Updated dependencies [e91acbc]
+  - @tevm/common@1.0.0-next.131
+  - @tevm/state@1.0.0-next.131
+  - @tevm/utils@1.0.0-next.131
+  - @tevm/evm@1.0.0-next.131
+  - @tevm/vm@1.0.0-next.131
+  - @tevm/address@1.0.0-next.131
+  - @tevm/block@1.0.0-next.131
+  - @tevm/blockchain@1.0.0-next.131
+  - @tevm/jsonrpc@1.0.0-next.131
+  - @tevm/logger@1.0.0-next.131
+  - @tevm/predeploys@1.0.0-next.131
+  - @tevm/receipt-manager@1.0.0-next.131
+  - @tevm/sync-storage-persister@1.0.0-next.131
+  - @tevm/tx@1.0.0-next.131
+  - @tevm/txpool@1.0.0-next.131
+
 ## 1.0.0-next.130
 
 ### Patch Changes

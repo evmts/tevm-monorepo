@@ -1,5 +1,18 @@
 # @tevm/server
 
+## 1.0.0-next.131
+
+### Patch Changes
+
+- e91acbc: Improved docs testcoverage and jsdoc of all packages
+- Updated dependencies [e91acbc]
+  - @tevm/common@1.0.0-next.131
+  - @tevm/errors@1.0.0-next.131
+  - @tevm/utils@1.0.0-next.131
+  - @tevm/decorators@1.0.0-next.131
+  - @tevm/jsonrpc@1.0.0-next.131
+  - @tevm/memory-client@1.0.0-next.131
+
 ## 1.0.0-next.130
 
 ### Patch Changes
