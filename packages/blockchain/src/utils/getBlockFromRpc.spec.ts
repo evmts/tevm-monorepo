@@ -1,6 +1,6 @@
 import { Block } from '@tevm/block'
 import { optimism } from '@tevm/common'
-import { UnknownBlockError } from '@tevm/errors'
+import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
 import { bytesToHex, custom } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
@@ -57,6 +57,24 @@ describe('getBlockFromRpc', () => {
 		)
 		expect(err).toBeInstanceOf(UnknownBlockError)
 		expect(err).toMatchSnapshot()
+	})
+
+	it('should throw InvalidBlockError for an invalid block tag', async () => {
+		const transport = transports.optimism
+		const common = optimism.copy()
+		const invalidBlockTag = 'invalid-tag' // Not a valid TevmBlockTag
+
+		// Attempt to get a block with an invalid tag
+		const error = await getBlockFromRpc(
+			createBaseChain({ common: optimism.copy() }),
+			// @ts-expect-error
+			{ transport, blockTag: invalidBlockTag },
+			common,
+		).catch((e) => e)
+
+		expect(error).toBeInstanceOf(InvalidBlockError)
+		expect(error.message).toContain('Invalid blocktag')
+		expect(error.message).toContain(invalidBlockTag)
 	})
 
 	it('should handle a fetch error', async () => {

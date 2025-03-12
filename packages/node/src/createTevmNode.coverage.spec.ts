@@ -249,4 +249,101 @@ describe('createTevmNode coverage tests', () => {
 		// If hardfork defaulted correctly to 'cancun', this would pass
 		expect(vm.common.ethjsCommon.hardfork()).toBe('cancun')
 	})
+
+	// Test to cover line 76 with fork.transport but no fork option
+	it('Handles fork.transport when fork is undefined', async () => {
+		const client = createTevmNode({
+			accountsCache: new Map() as any,
+			fork: {
+				// Testing scenario where fork exists but transport is undefined
+				blockTag: 123n,
+			} as any,
+		})
+
+		expect(client).toBeDefined()
+		await client.ready()
+		// This should execute the branch where options.fork?.transport is falsy
+		const vm = await client.getVm()
+		expect(vm).toBeDefined()
+	})
+
+	// Targeting the specific branch at line 76 in createTevmNode.js
+	it('Tests getStateManagerOpts with fork and various caches', async () => {
+		// Create a client with all possible state manager options
+		const client = createTevmNode({
+			fork: {
+				transport: transports.optimism,
+				blockTag: 123n,
+			},
+			storageCache: new Map() as any,
+			contractCache: new Map() as any,
+			accountsCache: new Map() as any,
+			persister: {
+				persistTevmState: vi.fn(),
+				restoreState: vi.fn().mockReturnValue(null),
+			} as any,
+		})
+
+		await client.ready()
+		const vm = await client.getVm()
+		expect(vm).toBeDefined()
+		expect(vm.stateManager).toBeDefined()
+	})
+
+	// Specifically targeting line 76 branch in createTevmNode.js
+	it('Tests line 76 branch condition for complete coverage', async () => {
+		// This is a very targeted test for the specific uncovered branch
+		// Create a mocked implementation of the transport request
+		const mockTransport = {
+			request: vi.fn().mockResolvedValue('123'),
+		}
+
+		// Create a client with a fork that has a transport
+		const client1 = createTevmNode({
+			fork: {
+				transport: mockTransport,
+				blockTag: 123n,
+			},
+		})
+
+		// Create a client with a fork that has no transport
+		const client2 = createTevmNode({
+			fork: {
+				// No transport here, forcing the other branch
+				blockTag: 123n,
+			} as any,
+		})
+
+		await Promise.all([client1.ready(), client2.ready()])
+
+		// Both clients should initialize successfully
+		expect(client1.mode).toBe('fork')
+		expect(client2.mode).toBe('normal') // Without transport it defaults to normal mode
+	})
+
+	// Test extend chaining
+	it('Tests extend chaining', async () => {
+		const client = createTevmNode()
+			.extend(() => ({ feature1: 'value1' }))
+			.extend(() => ({ feature2: 'value2' }))
+
+		expect(client.feature1).toBe('value1')
+		expect(client.feature2).toBe('value2')
+	})
+
+	// Tests event emitter with multiple listeners and parameters
+	it('Tests event emitter with multiple listeners and parameters', async () => {
+		const client = createTevmNode()
+
+		const results = [] as string[]
+		const listener1 = (param: string) => results.push(`listener1-${param}`)
+		const listener2 = (param: string) => results.push(`listener2-${param}`)
+
+		client.on('test' as any, listener1)
+		client.on('test' as any, listener2)
+
+		client.emit('test' as any, 'parameter')
+
+		expect(results).toEqual(['listener1-parameter', 'listener2-parameter'])
+	})
 })

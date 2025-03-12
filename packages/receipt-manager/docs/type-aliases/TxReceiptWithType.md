@@ -8,7 +8,7 @@
 
 > **TxReceiptWithType**: `PreByzantiumTxReceiptWithType` \| `PostByzantiumTxReceiptWithType`
 
-Defined in: [RecieptManager.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L71)
+Defined in: [ReceiptManager.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L95)
 
-TxReceiptWithType extends TxReceipt to provide:
- - txType: byte prefix for serializing typed tx receipts
+TxReceiptWithType extends TxReceipt to provide transaction type information
+This is used when the receipt needs to include the transaction type (EIP-2718)

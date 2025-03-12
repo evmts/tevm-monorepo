@@ -31,7 +31,12 @@ export const createSyncStoragePersister = ({
 		}
 	}
 	return {
-		persistTevmState: throttle((persistedState) => {
+		/**
+		 * @param {import('@tevm/state').SerializableTevmState | undefined} persistedState
+		 * @param {(error: Error | undefined) => void} [onError]
+		 * @returns {Error | undefined}
+		 */
+		persistTevmState: throttle((persistedState, onError) => {
 			if (!persistedState) {
 				return
 			}
@@ -43,8 +48,14 @@ export const createSyncStoragePersister = ({
 				errorCount++
 				error = trySave(persistedState)
 			}
+			if (onError && error) {
+				onError(error)
+			}
 			return error
 		}, throttleTime),
+		/**
+		 * @returns {import('@tevm/state').SerializableTevmState | undefined}
+		 */
 		restoreState: () => {
 			const cacheString = storage.getItem(key)
 			if (!cacheString) {
@@ -52,12 +63,15 @@ export const createSyncStoragePersister = ({
 			}
 			return deserialize(cacheString)
 		},
+		/**
+		 * @returns {Error | undefined}
+		 */
 		removePersistedState: () => {
 			try {
 				storage.removeItem(key)
 				return undefined
 			} catch (e) {
-				return e
+				return /** @type {Error} */ (e)
 			}
 		},
 	}

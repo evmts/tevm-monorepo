@@ -9,8 +9,8 @@ import type { BaseVm } from '../BaseVm.js'
  * This contract is used to retrieve BLOCKHASHes in EVM if EIP 2935 is activated.
  * In case that the previous block of `block` is pre-EIP-2935 (so we are on the EIP 2935 fork block), additionally
  * also add the currently available past blockhashes which are available by BLOCKHASH (so, the past 256 block hashes)
- * @param this The VM to run on
- * @param block The current block to save the parent block hash of
+ * @param vm The VM to run on
+ * @returns Function that accumulates parent block hash
  */
 export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumber: bigint, parentHash: Uint8Array) => {
 	if (!vm.common.ethjsCommon.isActivatedEIP(2935)) {
@@ -34,7 +34,7 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	async function putBlockHash(vm: BaseVm, hash: Uint8Array, number: bigint) {
 		// ringKey is the key the hash is actually put in (it is a ring buffer)
 		const ringKey = number % historyServeWindow
-		const key = setLengthLeft(toBytes(ringKey), 32)
+		const key = setLengthLeft(toBytes(Number(ringKey)), 32)
 		await vm.stateManager.putContractStorage(historyAddress, key, hash)
 	}
 	await putBlockHash(vm, parentHash, currentBlockNumber - 1n)

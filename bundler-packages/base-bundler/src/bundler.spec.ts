@@ -44,45 +44,90 @@ contract TestContract {}`,
 const contractPackage = '@tevm/contract'
 
 describe(bundler.name, () => {
-	it('should fall back to getContractPath when contractPackage is not provided', async () => {
-		// We can't easily test getContractPath with mocking directly because it's an ES module
-		// Instead, we'll create our own simplified version of the bundler function to test
-		// the behavior
+	it('should fall back to getContractPath when contractPackage is not a string', async () => {
+		// Import the actual bundler function from ./bundler.js
+		const { bundler: actualBundler } = await import('./bundler.js')
+
+		// Mock the getContractPath module
+		vi.mock('./getContractPath.js', () => ({
+			getContractPath: vi.fn().mockReturnValue('@tevm/mocked-contract-path'),
+		}))
 
 		// Save the original process.cwd
 		const originalCwd = process.cwd
 		// Mock process.cwd
 		process.cwd = vi.fn().mockReturnValue('/test/cwd')
 
-		// Mock getContractPath for this test
-		const mockGetContractPath = vi.fn().mockReturnValue('mocked/contract/path')
-
-		// Manually create a bundler-like function that replicates the fallback logic
-		const testBundler = (config: any, _logger: any, _fao: any, _solc: any, _cache: any, contractPackage: any) => {
-			// This is the logic we're testing - it should use getContractPath when contractPackage is undefined
-			const _contractPackage =
-				typeof contractPackage === 'string' ? contractPackage : mockGetContractPath(process.cwd())
-			return {
-				contractPackage: _contractPackage,
-				config,
-			}
-		}
-
-		// Test the function with undefined contractPackage
+		// Prepare test data
 		const mockLogger = { error: vi.fn() }
 		const mockConfig = {}
 		const mockFao = {}
-		const mockSolc = {}
+		const mockSolc = { version: () => '0.8.10' }
 		const mockCache = {}
 
-		const bundlerInstance = testBundler(mockConfig, mockLogger, mockFao, mockSolc, mockCache, undefined)
+		// Test with string contractPackage (should use the provided string directly)
+		const bundlerWithString = actualBundler(
+			mockConfig as any,
+			mockLogger as any,
+			mockFao as any,
+			mockSolc as any,
+			mockCache as any,
+			'custom/package/path' as any,
+		)
 
-		// Check that the mock was called and the returned value is used
-		expect(mockGetContractPath).toHaveBeenCalledWith('/test/cwd')
-		expect(bundlerInstance.contractPackage).toBe('mocked/contract/path')
+		// Ensure bundler is working by checking for expected properties
+		expect(bundlerWithString).toHaveProperty('name', 'TevmBaseBundler')
+		expect(bundlerWithString).toHaveProperty('config', mockConfig)
+		expect(bundlerWithString).toHaveProperty('resolveDts')
+
+		// Now test with non-string values
+		// For each test, we need to create a fresh import to refresh the module scope
+		vi.resetModules()
+		vi.mock('./getContractPath.js', () => ({
+			getContractPath: vi.fn().mockReturnValue('@tevm/mocked-contract-path'),
+		}))
+		const { bundler: bundlerForUndefined } = await import('./bundler.js')
+		const { getContractPath: getContractPathForUndefined } = await import('./getContractPath.js')
+
+		// Test with undefined
+		bundlerForUndefined(
+			mockConfig as any,
+			mockLogger as any,
+			mockFao as any,
+			mockSolc as any,
+			mockCache as any,
+			undefined as any,
+		)
+		expect(getContractPathForUndefined).toHaveBeenCalled()
+
+		// Test with null
+		vi.resetModules()
+		vi.mock('./getContractPath.js', () => ({
+			getContractPath: vi.fn().mockReturnValue('@tevm/mocked-contract-path'),
+		}))
+		const { bundler: bundlerForNull } = await import('./bundler.js')
+		const { getContractPath: getContractPathForNull } = await import('./getContractPath.js')
+
+		bundlerForNull(mockConfig as any, mockLogger as any, mockFao as any, mockSolc as any, mockCache as any, null as any)
+		expect(getContractPathForNull).toHaveBeenCalled()
+
+		// Test with object
+		vi.resetModules()
+		vi.mock('./getContractPath.js', () => ({
+			getContractPath: vi.fn().mockReturnValue('@tevm/mocked-contract-path'),
+		}))
+		const { bundler: bundlerForObject } = await import('./bundler.js')
+		const { getContractPath: getContractPathForObject } = await import('./getContractPath.js')
+
+		bundlerForObject(mockConfig as any, mockLogger as any, mockFao as any, mockSolc as any, mockCache as any, {} as any)
+		expect(getContractPathForObject).toHaveBeenCalled()
 
 		// Restore original process.cwd
 		process.cwd = originalCwd
+
+		// Restore original modules
+		vi.restoreAllMocks()
+		vi.resetModules()
 	})
 
 	let resolver: ReturnType<Bundler>

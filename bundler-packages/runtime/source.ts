@@ -14,7 +14,7 @@ const useAccount = () => ({ address: '0x123', isConnected: true })
  * @param {{enabled: boolean}} options
  * @returns {{data: T|undefined}}
  */
-const useContractRead = (options: { enabled: boolean }) => ({
+export const useContractRead = (options: { enabled: boolean }) => ({
 	data: options.enabled ? /** @type {any} */ (BigInt(100)) : undefined,
 })
 

@@ -1,0 +1,275 @@
+import { EipNotEnabledError } from '@tevm/errors'
+import { describe, expect, it, mock } from 'bun:test'
+import type { BaseVm } from '../BaseVm.js'
+import { accumulateParentBlockHash } from './accumulateParentBlockHash.js'
+
+// We'll use inline mocks instead of vi.mock to be compatible with both testing frameworks
+
+// Create mock utility functions
+const mockEthjsAccount = mock(() => ({}))
+const mockFromString = mock((address) => ({ address }))
+const mockNumberToHex = mock((num) => `0x${num.toString(16)}`)
+const mockSetLengthLeft = mock((bytes) => bytes)
+const mockToBytes = mock((num) => new Uint8Array([num]))
+
+// Mock the imports
+mock('@tevm/utils', () => ({
+	EthjsAccount: mockEthjsAccount,
+	EthjsAddress: {
+		fromString: mockFromString,
+	},
+	numberToHex: mockNumberToHex,
+	setLengthLeft: mockSetLengthLeft,
+	toBytes: mockToBytes,
+	KECCAK256_RLP: new Uint8Array(32),
+}))
+
+describe('accumulateParentBlockHash', () => {
+	// This test verifies the first error case
+	it('should throw EipNotEnabledError if EIP 2935 is not activated', async () => {
+		// Mock VM with EIP 2935 not activated
+		const vm = {
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: () => false, // EIP 2935 is not active
+				},
+			},
+		} as unknown as BaseVm
+
+		const accumulate = accumulateParentBlockHash(vm)
+
+		try {
+			await accumulate(1n, new Uint8Array(32))
+			// Should not reach here
+			expect(true).toBe(false) // Force a failure if we don't throw
+		} catch (error: unknown) {
+			expect(error instanceof EipNotEnabledError).toBe(true)
+			expect((error as Error).message).toContain('EIP 2935 is not active')
+		}
+	})
+
+	it('should throw EipNotEnabledError if EIP 2935 is not activated by timestamp', async () => {
+		// Mock VM with EIP 2935 activated but not by timestamp
+		const vm = {
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: () => true, // EIP 2935 is active
+					param: mock().mockReturnValue(256n), // Mock historyServeWindow
+					eipTimestamp: mock().mockReturnValue(null), // Not activated by timestamp
+				},
+			},
+		} as unknown as BaseVm
+
+		const accumulate = accumulateParentBlockHash(vm)
+
+		// Should throw because EIP 2935 should be activated by timestamp
+		try {
+			await accumulate(1n, new Uint8Array(32))
+			expect(true).toBe(false) // Force failure if no throw
+		} catch (error) {
+			expect(error instanceof EipNotEnabledError).toBe(true)
+			expect((error as Error).message).toContain('EIP 2935 should be activated by timestamp')
+		}
+	})
+
+	it('should create account if it does not exist', async () => {
+		// Mock for timestamp-activated EIP-2935
+		const forkTimestamp = 15000000n
+		const historyServeWindow = 256n
+		const parentHash = new Uint8Array(32).fill(1)
+		const currentBlockNumber = 1000n
+
+		// Create account mock method
+		const putAccountMock = mock()
+
+		// Mock VM with required methods
+		const vm = {
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: () => true, // EIP 2935 is active
+					param: mock((_, name) => {
+						if (name === 'historyStorageAddress') return 0x123
+						if (name === 'historyServeWindow') return historyServeWindow
+						return undefined
+					}),
+					eipTimestamp: mock().mockReturnValue(forkTimestamp),
+				},
+			},
+			stateManager: {
+				getAccount: mock().mockResolvedValue(undefined), // Account doesn't exist yet
+				putContractStorage: mock().mockResolvedValue(undefined),
+			},
+			evm: {
+				journal: {
+					putAccount: putAccountMock,
+				},
+			},
+			blockchain: {
+				getBlock: mock().mockResolvedValue({
+					header: {
+						timestamp: forkTimestamp + 1n, // After fork
+						number: currentBlockNumber - 1n,
+						parentHash: new Uint8Array(32).fill(2),
+					},
+					hash: () => new Uint8Array(32).fill(3),
+				}),
+			},
+		} as unknown as BaseVm
+
+		// Get our utils mock
+		const { EthjsAddress, EthjsAccount } = await import('@tevm/utils')
+
+		const accumulate = accumulateParentBlockHash(vm)
+		await accumulate(currentBlockNumber, parentHash)
+
+		// Should create account since it doesn't exist
+		expect(vm.stateManager.getAccount.mock.calls.length).toBeGreaterThan(0)
+		expect(putAccountMock.mock.calls.length).toBeGreaterThan(0)
+		expect(EthjsAccount.mock.calls.length).toBeGreaterThan(0)
+		expect(mockFromString.mock.calls.length).toBeGreaterThan(0)
+
+		// Should call putContractStorage to store the parent hash
+		expect(vm.stateManager.putContractStorage.mock.calls.length).toBeGreaterThan(0)
+	})
+
+	it('should handle fork block and store old block hashes', async () => {
+		// Mock for timestamp-activated EIP-2935 at the fork block
+		const forkTimestamp = 15000000n
+		const historyServeWindow = 3n // Small value for testing
+		const parentHash = new Uint8Array(32).fill(1)
+		const currentBlockNumber = 1000n
+
+		// Create blocks for ancestry
+		const block0 = {
+			header: {
+				timestamp: forkTimestamp - 10n, // Before fork
+				number: 997n,
+				parentHash: new Uint8Array(32).fill(4),
+			},
+			hash: () => new Uint8Array(32).fill(3),
+		}
+
+		const block1 = {
+			header: {
+				timestamp: forkTimestamp - 20n, // Before fork
+				number: 996n,
+				parentHash: new Uint8Array(32).fill(5),
+			},
+			hash: () => new Uint8Array(32).fill(4),
+		}
+
+		const block2 = {
+			header: {
+				timestamp: forkTimestamp - 30n, // Before fork
+				number: 0n, // Genesis block
+				parentHash: new Uint8Array(32).fill(0),
+			},
+			hash: () => new Uint8Array(32).fill(5),
+		}
+
+		// Create mockable functions
+		const putContractStorageMock = mock().mockResolvedValue(undefined)
+		const getBlockMock = mock().mockImplementation(async (hash) => {
+			if (hash === parentHash) {
+				return block0
+			}
+			if (hash === block0.header.parentHash) {
+				return block1
+			}
+			return block2
+		})
+
+		// Mock VM with required methods
+		const vm = {
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: () => true, // EIP 2935 is active
+					param: mock((_, name) => {
+						if (name === 'historyStorageAddress') return 0x123
+						if (name === 'historyServeWindow') return historyServeWindow
+						return undefined
+					}),
+					eipTimestamp: mock().mockReturnValue(forkTimestamp),
+				},
+			},
+			stateManager: {
+				getAccount: mock().mockResolvedValue({}), // Account exists
+				putContractStorage: putContractStorageMock,
+			},
+			evm: {
+				journal: {
+					putAccount: mock(),
+				},
+			},
+			blockchain: {
+				getBlock: getBlockMock,
+			},
+		} as unknown as BaseVm
+
+		const accumulate = accumulateParentBlockHash(vm)
+		await accumulate(currentBlockNumber, parentHash)
+
+		// Should have requested the parent block
+		expect(getBlockMock.mock.calls.length).toBeGreaterThan(0)
+
+		// Since parent block is before fork, should store ancestors
+		// Total putContractStorage calls should be 1 (parent) + 2 (ancestors) = 3
+		expect(putContractStorageMock.mock.calls.length).toBe(3)
+	})
+
+	it('should skip ancestor storage when not at fork block', async () => {
+		// Mock for timestamp-activated EIP-2935 after fork
+		const forkTimestamp = 15000000n
+		const historyServeWindow = 3n
+		const parentHash = new Uint8Array(32).fill(1)
+		const currentBlockNumber = 1000n
+
+		// Create mockable functions
+		const putContractStorageMock = mock().mockResolvedValue(undefined)
+		const getBlockMock = mock().mockResolvedValue({
+			header: {
+				timestamp: forkTimestamp + 100n, // After fork
+				number: currentBlockNumber - 1n,
+				parentHash: new Uint8Array(32).fill(2),
+			},
+			hash: () => new Uint8Array(32).fill(3),
+		})
+
+		// Mock VM with required methods
+		const vm = {
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: () => true,
+					param: mock((_, name) => {
+						if (name === 'historyStorageAddress') return 0x123
+						if (name === 'historyServeWindow') return historyServeWindow
+						return undefined
+					}),
+					eipTimestamp: mock().mockReturnValue(forkTimestamp),
+				},
+			},
+			stateManager: {
+				getAccount: mock().mockResolvedValue({}), // Account exists
+				putContractStorage: putContractStorageMock,
+			},
+			evm: {
+				journal: {
+					putAccount: mock(),
+				},
+			},
+			blockchain: {
+				getBlock: getBlockMock,
+			},
+		} as unknown as BaseVm
+
+		const accumulate = accumulateParentBlockHash(vm)
+		await accumulate(currentBlockNumber, parentHash)
+
+		// Should only put the parent hash for the current block (not ancestors)
+		expect(putContractStorageMock.mock.calls.length).toBe(1)
+
+		// Should only request the parent block (not ancestors)
+		expect(getBlockMock.mock.calls.length).toBe(1)
+		expect(getBlockMock.mock.calls[0][0]).toBe(parentHash)
+	})
+})

@@ -1,26 +1,6 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { getArtifactsPath } from './getArtifactsPath.js'
 import type { CachedItem } from './types.js'
-
-// Mock the implementation of getArtifactsPath to match our test expectations
-vi.mock('./getArtifactsPath.js', () => ({
-	getArtifactsPath: (entryModuleId, item, cwd, cacheDir) => {
-		const fileName = {
-			dts: 'contract.d.ts',
-			artifactsJson: 'artifacts.json',
-			mjs: 'contract.mjs',
-		}[item]
-
-		let normalizedEntryModuleId = entryModuleId.replace(cwd, '')
-		if (normalizedEntryModuleId.startsWith('/')) {
-			normalizedEntryModuleId = normalizedEntryModuleId.slice(1)
-		}
-
-		const dir = `${cwd}/${cacheDir}/${normalizedEntryModuleId}`
-		const path = `${dir}/${fileName}`
-		return { dir, path }
-	},
-}))
 
 describe('getArtifactsPath', () => {
 	const cwd = '/mock/cwd'

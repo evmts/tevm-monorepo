@@ -25,6 +25,7 @@ describe('safeFao', () => {
 		expect(safeFao(fao)).toHaveProperty('existsSync')
 		expect(safeFao(fao)).toHaveProperty('readFile')
 		expect(safeFao(fao)).toHaveProperty('readFileSync')
+		expect(safeFao(fao)).toHaveProperty('exists')
 	})
 
 	describe('existsSync', () => {
@@ -45,6 +46,35 @@ describe('safeFao', () => {
 				},
 			})
 			const err = runSync(flip(sf.existsSync('./nonexistent')))
+			expect(err).toBeInstanceOf(ExistsError)
+			expect(err._tag).toBe('ExistsError')
+			expect(err.name).toBe('ExistsError')
+			expect((err.cause as Error)?.message).toBe(expectedCause)
+		})
+	})
+
+	describe('exists', () => {
+		it('should return true if a file exists', async () => {
+			const sf = safeFao(fao)
+			const result = await runPromise(sf.exists(__filename))
+			expect(result).toBe(true)
+		})
+
+		it('should return false if a file does not exist', async () => {
+			const sf = safeFao(fao)
+			const result = await runPromise(sf.exists('./nonexistent-file.js'))
+			expect(result).toBe(false)
+		})
+
+		it('should return an ExistsError if exists throws', async () => {
+			const expectedCause = 'exists error'
+			const sf = safeFao({
+				...fao,
+				exists: () => {
+					throw new Error(expectedCause)
+				},
+			})
+			const err = await runPromise(flip(sf.exists('./nonexistent')))
 			expect(err).toBeInstanceOf(ExistsError)
 			expect(err._tag).toBe('ExistsError')
 			expect(err.name).toBe('ExistsError')

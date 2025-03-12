@@ -1,10 +1,12 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
 import { EthjsAccount, EthjsAddress, hexToBytes, toBytes } from '@tevm/utils'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'
+import * as getAccountModule from './getAccount.js'
 import { getContractStorage } from './getContractStorage.js'
+import * as getForkClientModule from './getForkClient.js'
 import { putAccount } from './putAccount.js'
 import { putContractStorage } from './putContractStorage.js'
 
@@ -53,6 +55,29 @@ describe('getContractStorage', () => {
 		await putAccount(baseState)(newAddress, EthjsAccount.fromAccountData({ balance: 100n, nonce: 1n }))
 		expect(await getContractStorage(baseState)(newAddress, key)).toEqual(Uint8Array.from([0]))
 	})
+
+	it('should return empty Uint8Array when contract exists but forking is disabled', async () => {
+		// Create an account with code hash that would make isContract() return true
+		const contractAddress = EthjsAddress.fromString(`0x${'cc'.repeat(20)}`)
+		const contractAccount = EthjsAccount.fromAccountData({
+			balance: 0n,
+			nonce: 0n,
+			// Non-zero code hash makes isContract() return true
+			codeHash: new Uint8Array(32).fill(1),
+		})
+
+		// Put the contract account in state
+		await putAccount(baseState)(contractAddress, contractAccount)
+
+		// Verify this is treated as a contract
+		expect((await getAccountModule.getAccount(baseState)(contractAddress))?.isContract()).toBe(true)
+
+		// The state has no fork configuration
+		expect(baseState.options.fork?.transport).toBeUndefined()
+
+		// Should return empty storage since we're not in fork mode
+		expect(await getContractStorage(baseState)(contractAddress, key)).toEqual(Uint8Array.from([0]))
+	})
 })
 
 describe('getContractStorage forking', () => {
@@ -97,11 +122,9 @@ describe('getContractStorage forking', () => {
 		const noForkBaseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		expect(await getContractStorage(noForkBaseState)(knownContractAddress, knownStorageKey)).toMatchInlineSnapshot(`
-			Uint8Array [
-			  0,
-			]
-		`)
+		expect(await getContractStorage(noForkBaseState)(knownContractAddress, knownStorageKey)).toEqual(
+			Uint8Array.from([0]),
+		)
 	})
 
 	it('should store fetched storage value in both main and fork caches', async () => {
@@ -134,5 +157,50 @@ describe('getContractStorage forking', () => {
 
 		// Main cache should now have a value again
 		expect(baseState.caches.storage.get(knownContractAddress, knownStorageKey)).toBeDefined()
+	})
+
+	it('should handle null result from getStorageAt', async () => {
+		// Create a test address and storage key
+		const testAddress = createAddress('0x9999999999999999999999999999999999999999')
+		const testKey = new Uint8Array(32).fill(42)
+
+		// Create a state with fork configuration
+		const testState = createBaseState({
+			fork: {
+				transport: transports.optimism,
+				blockTag: 1n,
+			},
+		})
+
+		// Mock getAccount to return our contract account
+		// Use a factory approach for isContract to avoid the error
+		const mockAccount = {
+			isContract: () => true,
+		}
+
+		// Mock the getAccount module
+		const getAccountSpy = vi.spyOn(getAccountModule, 'getAccount')
+		getAccountSpy.mockImplementation(() => () => Promise.resolve(mockAccount) as any)
+
+		// Mock getForkClient to return a client that returns null from getStorageAt
+		const mockForkClient = {
+			getStorageAt: vi.fn().mockResolvedValue(null),
+		}
+
+		const getForkClientSpy = vi.spyOn(getForkClientModule, 'getForkClient')
+		getForkClientSpy.mockReturnValue(mockForkClient as any)
+
+		// Call getContractStorage - it should handle the null response
+		const result = await getContractStorage(testState)(testAddress, testKey)
+
+		// Verify the result is equivalent to hexToBytes('0x0')
+		expect(result).toEqual(hexToBytes('0x0'))
+
+		// Verify our mock was called
+		expect(mockForkClient.getStorageAt).toHaveBeenCalled()
+
+		// Restore original implementations
+		getForkClientSpy.mockRestore()
+		getAccountSpy.mockRestore()
 	})
 })

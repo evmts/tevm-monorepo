@@ -1,5 +1,5 @@
 import type { SerializableTevmState } from '@tevm/state'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import type { Storage } from './Storage.js'
 import { createSyncStoragePersister } from './createSyncStoragePersister.js'
 
@@ -38,5 +38,114 @@ describe(createSyncStoragePersister.name, () => {
 
 		persister.removePersistedState()
 		expect(persister.restoreState()).toBeUndefined()
+	})
+
+	it('should handle errors during saving', async () => {
+		const storage: Storage = {
+			setItem: vi.fn(() => {
+				throw new Error('Failed to save')
+			}),
+			getItem: vi.fn(),
+			removeItem: vi.fn(),
+		}
+
+		const persister = createSyncStoragePersister({
+			storage,
+			throttleTime: 0,
+		})
+
+		const state: SerializableTevmState = {
+			'0x123': { balance: '0x1', nonce: '0x0', codeHash: '0x123', storageRoot: '0x456' },
+		}
+
+		let result: any
+		persister.persistTevmState(state, (error: Error | undefined) => {
+			result = error
+		})
+
+		await new Promise((resolve) => setTimeout(resolve, 0))
+
+		expect(storage.setItem).toHaveBeenCalledTimes(4) // Initial + 3 retries
+		expect(result).toBeInstanceOf(Error)
+	})
+
+	it('should handle undefined persistedState', async () => {
+		const storage: Storage = {
+			setItem: vi.fn(),
+			getItem: vi.fn(),
+			removeItem: vi.fn(),
+		}
+
+		const persister = createSyncStoragePersister({
+			storage,
+			throttleTime: 0,
+		})
+
+		const result = persister.persistTevmState(undefined)
+		await new Promise((resolve) => setTimeout(resolve, 0))
+
+		expect(storage.setItem).not.toHaveBeenCalled()
+		expect(result).toBeUndefined()
+	})
+
+	it('should handle errors during removePersistedState', () => {
+		const error = new Error('Failed to remove')
+		const storage: Storage = {
+			setItem: vi.fn(),
+			getItem: vi.fn(),
+			removeItem: vi.fn(() => {
+				throw error
+			}),
+		}
+
+		const persister = createSyncStoragePersister({
+			storage,
+		})
+
+		const result = persister.removePersistedState()
+		expect(storage.removeItem).toHaveBeenCalled()
+		expect(result).toBe(error)
+	})
+
+	it('should handle null return from getItem during restore', () => {
+		const storage: Storage = {
+			setItem: vi.fn(),
+			getItem: vi.fn(() => null),
+			removeItem: vi.fn(),
+		}
+
+		const persister = createSyncStoragePersister({
+			storage,
+		})
+
+		const result = persister.restoreState()
+		expect(storage.getItem).toHaveBeenCalled()
+		expect(result).toBeUndefined()
+	})
+
+	it('should handle saved state not matching during persist', async () => {
+		const storage: Storage = {
+			setItem: vi.fn(),
+			getItem: vi.fn(() => 'different value'),
+			removeItem: vi.fn(),
+		}
+
+		const persister = createSyncStoragePersister({
+			storage,
+			throttleTime: 0,
+		})
+
+		const state: SerializableTevmState = {
+			'0x123': { balance: '0x1', nonce: '0x0', codeHash: '0x123', storageRoot: '0x456' },
+		}
+
+		let errorResult: any
+		persister.persistTevmState(state, (error: Error | undefined) => {
+			errorResult = error
+		})
+		await new Promise((resolve) => setTimeout(resolve, 0))
+
+		expect(errorResult).toBeInstanceOf(Error)
+		expect(errorResult.message).toContain('Detected a failure to save state')
 	})
 })

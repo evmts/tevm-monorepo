@@ -8,19 +8,25 @@
 
 > **MapDb**: `object`
 
-Defined in: [MapDb.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L20)
+Defined in: [MapDb.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L29)
 
-Helper class to access the metaDB with methods `put`, `get`, and `delete`
+Helper class to access the metaDB with methods for managing receipts and transaction data
 
 ## Type declaration
 
 ### deepCopy()
 
+Create a deep copy of the MapDb instance
+
 #### Returns
 
 [`MapDb`](MapDb.md)
 
+A new MapDb instance with a copy of the data
+
 ### delete()
+
+Delete a value from the database
 
 #### Parameters
 
@@ -28,9 +34,13 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 [`DbType`](DbType.md)
 
+The type of data to delete
+
 ##### hash
 
 `Uint8Array`
+
+The hash key for the data to delete
 
 #### Returns
 
@@ -38,21 +48,31 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 ### get()
 
+Retrieve a value from the database
+
 #### Parameters
 
 ##### type
 
 [`DbType`](DbType.md)
 
+The type of data to retrieve
+
 ##### hash
 
 `Uint8Array`
+
+The hash key for the data
 
 #### Returns
 
 `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
 
+The stored value or null if not found
+
 ### put()
+
+Store a value in the database
 
 #### Parameters
 
@@ -60,13 +80,19 @@ Helper class to access the metaDB with methods `put`, `get`, and `delete`
 
 [`DbType`](DbType.md)
 
+The type of data being stored
+
 ##### hash
 
 `Uint8Array`
 
+The hash key for the data
+
 ##### value
 
 `Uint8Array`
+
+The value to store
 
 #### Returns
 

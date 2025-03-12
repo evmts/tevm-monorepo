@@ -95,4 +95,21 @@ describe('bunFileAccessObject', () => {
 			expect(result).toBe(true)
 		})
 	})
+
+	describe(bunFileAccesObject.writeFileSync.name, () => {
+		it('writes data to a file', () => {
+			// Setup mock file writer
+			const mockWriter = {
+				write: vi.fn().mockReturnValue(1),
+			}
+			mockFile.mockImplementation(() => ({
+				writer: () => mockWriter,
+			}))
+
+			const result = bunFileAccesObject.writeFileSync('test.txt', 'test content')
+			expect(result).toBe(1)
+			expect(mockFile).toHaveBeenCalledWith('test.txt')
+			expect(mockWriter.write).toHaveBeenCalledWith('test content')
+		})
+	})
 })

@@ -1,0 +1,78 @@
+$ vitest run --coverage
+
+ RUN  v3.0.7 /Users/williamcory/tevm-monorepo/bundler-packages/compiler
+      Coverage enabled with v8
+
+ ✓ src/utils/isImportLocal.spec.ts (2 tests) 1ms
+ ✓ src/utils/isSolidity.spec.ts (2 tests) 1ms
+ ✓ src/utils/formatPath.spec.ts (1 test) 4ms
+ ✓ src/utils/isRelativeSolidity.spec.ts (3 tests) 2ms
+ ✓ src/types.spec.ts (1 test) 1ms
+ ✓ src/utils/invariant.spec.ts (2 tests) 2ms
+stderr | src/utils/resolvePromise.spec.ts > resolvePromise > should throw an error if exists throws
+Promise returned by `expect(actual).rejects.toThrowErrorMatchingInlineSnapshot(expected)` was not awaited. Vitest currently auto-awaits hanging assertions at the end of the test, but this will cause the test to fail in Vitest 3. Please remember to await the assertion.
+    at /Users/williamcory/tevm-monorepo/bundler-packages/compiler/src/utils/resolvePromise.spec.ts:93:3
+
+ ✓ src/utils/resolvePromise.spec.ts (4 tests) 12ms
+ ✓ src/compiler/index.spec.ts (2 tests) 1ms
+ ✓ src/index.spec.ts (2 tests) 3ms
+stderr | src/resolveArtifacts.spec.ts > resolveArtifacts > should throw an error if the solidity file does not end in .sol
+Promise returned by `expect(actual).rejects.toThrowErrorMatchingInlineSnapshot(expected)` was not awaited. Vitest currently auto-awaits hanging assertions at the end of the test, but this will cause the test to fail in Vitest 3. Please remember to await the assertion.
+    at /Users/williamcory/tevm-monorepo/bundler-packages/compiler/src/resolveArtifacts.spec.ts:68:3
+
+stderr | src/resolveArtifacts.spec.ts > resolveArtifacts > should throw an error if no artifacts are returned by the compiler
+Promise returned by `expect(actual).rejects.toThrowErrorMatchingInlineSnapshot(expected)` was not awaited. Vitest currently auto-awaits hanging assertions at the end of the test, but this will cause the test to fail in Vitest 3. Please remember to await the assertion.
+    at /Users/williamcory/tevm-monorepo/bundler-packages/compiler/src/resolveArtifacts.spec.ts:78:3
+
+ ✓ src/resolveArtifactsSync.spec.ts (6 tests) 625ms
+   ✓ resolveArtifactsSync > should throw an error if the file is not a solidity file 622ms
+ ✓ src/resolveArtifacts.spec.ts (3 tests) 623ms
+   ✓ resolveArtifacts > should return the contract artifacts 619ms
+ ✓ src/compiler/compileContractsSync.spec.ts (4 tests) 987ms
+   ✓ compileContractSync > should successfully compile a contract with AST included 458ms
+ ❯ src/compiler/compileContracts.spec.ts (5 tests | 2 failed) 1089ms
+   ✓ compileContract > should successfully compile a contract without errors
+   ✓ compileContract > should successfully compile a contract with AST included 453ms
+   ✓ compileContract > should successfully compile a contract with bytecode included
+   × compileContract > should handle compilation warnings 105ms
+     → expected 1st "spy" call to have been called with [ [ { type: 'Warning', …(1) } ] ], but called only 0 times
+   × compileContract > should throw an error if compilation fails 98ms
+     → expected 'expected true to be false // Object.i…' to be 'Compilation failed' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/compiler/compileContracts.spec.ts > compileContract > should handle compilation warnings
+AssertionError: expected 1st "spy" call to have been called with [ [ { type: 'Warning', …(1) } ] ], but called only 0 times
+ ❯ src/compiler/compileContracts.spec.ts:159:27
+    157|   expect(result).toBeDefined()
+    158|   // According to implementation in compileContracts.js, these calls a…
+    159|   expect(mockLogger.warn).toHaveBeenNthCalledWith(1, warnings)
+       |                           ^
+    160|   expect(mockLogger.warn).toHaveBeenNthCalledWith(2, 'Compilation warn…
+    161|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/compiler/compileContracts.spec.ts > compileContract > should throw an error if compilation fails
+AssertionError: expected 'expected true to be false // Object.i…' to be 'Compilation failed' // Object.is equality
+
+Expected: [32m"Compilation failed"[39m
+Received: [31m"expected true to be false // Object.is equality"[39m
+
+ ❯ src/compiler/compileContracts.spec.ts:201:24
+    199|    expect(true).toBe(false)
+    200|   } catch (err: any) {
+    201|    expect(err.message).toBe('Compilation failed')
+       |                        ^
+    202|    expect(mockLogger.error).toHaveBeenNthCalledWith(1, 'Compilation er…
+    203|    expect(mockLogger.error).toHaveBeenNthCalledWith(2, errors)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 12 passed (13)
+      Tests  2 failed | 35 passed (37)
+   Start at  22:26:54
+   Duration  2.25s (transform 249ms, setup 0ms, collect 4.27s, tests 3.35s, environment 1ms, prepare 798ms)
+
+error: script "test:coverage" exited with code 1

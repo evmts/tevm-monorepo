@@ -1,0 +1,131 @@
+import { KECCAK256_RLP } from '@tevm/utils'
+import { describe, expect, it, mock } from 'bun:test'
+import { genTxTrie } from './genTxTrie.js'
+
+// Create mock functions
+const mockPut = mock().mockResolvedValue(undefined)
+const mockRoot = mock().mockReturnValue(new Uint8Array(32).fill(1))
+const mockTrieConstructor = mock().mockImplementation(() => ({
+	put: mockPut,
+	root: mockRoot,
+}))
+const mockRlpEncode = mock((value) => new Uint8Array([value]))
+
+// Mock dependencies with simplified approach
+mock('@tevm/trie', () => ({
+	Trie: mockTrieConstructor,
+}))
+
+mock('@tevm/rlp', () => ({
+	Rlp: {
+		encode: mockRlpEncode,
+	},
+}))
+
+describe('genTxTrie', () => {
+	it('should return KECCAK256_RLP when transactions array is empty', async () => {
+		// Setup mock block with no transactions
+		const mockBlock = {
+			transactions: [],
+		}
+
+		// Call the function
+		const result = await genTxTrie(mockBlock as any)
+
+		// Verify
+		expect(result).toBe(KECCAK256_RLP)
+	})
+
+	it('should build a transaction trie with transactions', async () => {
+		// Create mock transactions
+		const tx1 = {
+			serialize: mock().mockReturnValue(new Uint8Array([1, 2, 3])),
+		}
+		const tx2 = {
+			serialize: mock().mockReturnValue(new Uint8Array([4, 5, 6])),
+		}
+
+		// Setup mock block with transactions
+		const mockBlock = {
+			transactions: [tx1, tx2],
+			common: {
+				ethjsCommon: {},
+			},
+		}
+
+		// Get mocked Trie instance
+		const { Trie } = await import('@tevm/trie')
+		const mockTrieInstance = new (Trie as any)()
+
+		// Call the function
+		const result = await genTxTrie(mockBlock as any)
+
+		// Verify Trie constructor was called with the block's common
+		expect(mockTrieConstructor.mock.calls.length).toBe(1)
+		expect(mockTrieConstructor.mock.calls[0][0]).toStrictEqual({ common: mockBlock.common.ethjsCommon })
+
+		// Verify trie.put was called for each transaction
+		expect(mockPut.mock.calls.length).toBe(2)
+
+		// Verify trie.root was called to get the final root
+		expect(mockRoot.mock.calls.length).toBe(1)
+
+		// Verify the result is the root from the trie
+		expect(result).toBe(mockRoot())
+
+		// Verify each transaction was serialized
+		expect(tx1.serialize.mock.calls.length).toBe(1)
+		expect(tx2.serialize.mock.calls.length).toBe(1)
+	})
+
+	it('should handle null or undefined transactions in the array', async () => {
+		// Create mock with null/undefined items
+		const tx1 = {
+			serialize: mock().mockReturnValue(new Uint8Array([1, 2, 3])),
+		}
+		const mockBlock = {
+			transactions: [tx1, null, undefined],
+			common: {
+				ethjsCommon: {},
+			},
+		}
+		
+		// Reset mock calls
+		mockPut.mockClear()
+		mockRoot.mockClear()
+		mockTrieConstructor.mockClear()
+		
+		const result = await genTxTrie(mockBlock as any)
+		
+		// Verify trie.put was called only for the valid transaction
+		expect(mockPut.mock.calls.length).toBe(1)
+		expect(result).toBe(mockRoot())
+	})
+
+	it('should handle errors during transaction serialization', async () => {
+		const tx1 = {
+			serialize: mock().mockImplementation(() => {
+				throw new Error('Serialization error')
+			}),
+		}
+		
+		const mockBlock = {
+			transactions: [tx1],
+			common: {
+				ethjsCommon: {},
+			},
+		}
+		
+		// Reset mock calls
+		mockPut.mockClear()
+		mockRoot.mockClear()
+		mockTrieConstructor.mockClear()
+		
+		try {
+			await genTxTrie(mockBlock as any)
+			expect(true).toBe(false) // Force failure if no error
+		} catch (error) {
+			expect((error as Error).message).toBe('Serialization error')
+		}
+	})
+})

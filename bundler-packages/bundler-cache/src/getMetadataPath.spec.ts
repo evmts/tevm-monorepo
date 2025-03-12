@@ -1,18 +1,5 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { getMetadataPath } from './getMetadataPath.js'
-
-// Mock the implementation of getMetadataPath to match our test expectations
-vi.mock('./getMetadataPath.js', () => ({
-	getMetadataPath: (entryModuleId, cwd, cacheDir) => {
-		let normalizedEntryModuleId = entryModuleId.replace(cwd, '')
-		if (normalizedEntryModuleId.startsWith('/')) {
-			normalizedEntryModuleId = normalizedEntryModuleId.slice(1)
-		}
-		const dir = `${cwd}/${cacheDir}/${normalizedEntryModuleId}`
-		const path = `${dir}/metadata.json`
-		return { dir, path }
-	},
-}))
 
 describe('getMetadataPath', () => {
 	const cwd = '/mock/cwd'

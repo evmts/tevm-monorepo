@@ -22,9 +22,13 @@ also add the currently available past blockhashes which are available by BLOCKHA
 
 `BaseVm`
 
+The VM to run on
+
 ## Returns
 
 `Function`
+
+Function that accumulates parent block hash
 
 ### Parameters
 

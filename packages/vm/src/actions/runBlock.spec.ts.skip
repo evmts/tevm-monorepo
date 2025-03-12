@@ -1,0 +1,269 @@
+import { Block } from '@tevm/block'
+import { describe, expect, it, mock } from 'bun:test'
+import type { BaseVm } from '../BaseVm.js'
+import type { RunBlockOpts } from '../utils/index.js'
+import { runBlock } from './runBlock.js'
+
+// Create mock for applyBlock
+const mockApplyBlockResult = {
+	receipts: [],
+	results: [],
+	gasUsed: 100n,
+	bloom: {
+		bitvector: new Uint8Array(256),
+		keccakFunction: () => new Uint8Array(32),
+		add: () => {},
+		check: () => false,
+		multiCheck: () => false,
+		or: () => {},
+	},
+	receiptsRoot: new Uint8Array(32),
+}
+
+const mockApplyBlockImpl = mock().mockImplementation(() => async () => mockApplyBlockResult)
+
+// Mock the applyBlock dependency - provide a complete implementation that doesn't rely on validateHeader
+mock('./applyBlock.js', () => ({
+	applyBlock: (vm, opts) => {
+		// This is a simplified implementation that doesn't call validateHeader
+		return async (block, skipBlockValidation) => {
+			// Just return the result without any validation
+			return mockApplyBlockResult
+		}
+	}
+}))
+
+describe('runBlock', () => {
+	it('should emit events and execute a block', async () => {
+		// Create mocks
+		const setStateRootMock = mock().mockResolvedValue(undefined)
+		const getStateRootMock = mock().mockResolvedValue(new Uint8Array(32).fill(1))
+		const checkpointMock = mock().mockResolvedValue(undefined)
+		const commitMock = mock().mockResolvedValue(undefined)
+		const revertMock = mock().mockResolvedValue(undefined)
+		const emitSpy = mock()
+		const hardforkIsActiveOnBlockMock = mock().mockReturnValue(false)
+		const isActivatedEIPMock = mock().mockReturnValue(false)
+		const readyMock = mock().mockResolvedValue(undefined)
+
+		const stateManager = {
+			setStateRoot: setStateRootMock,
+			getStateRoot: getStateRootMock,
+		}
+
+		const journal = {
+			checkpoint: checkpointMock,
+			commit: commitMock,
+			revert: revertMock,
+		}
+
+		const evm = {
+			journal,
+		}
+
+		// Create a minimal block
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32).fill(1),
+			},
+			transactions: [],
+			uncleHeaders: [],
+		} as unknown as Block
+
+		// Create VM mock
+		const vm = {
+			stateManager,
+			evm,
+			_emit: emitSpy,
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: hardforkIsActiveOnBlockMock,
+					isActivatedEIP: isActivatedEIPMock,
+				},
+			},
+			ready: readyMock,
+		} as unknown as BaseVm
+
+		// Execute runBlock
+		const runBlockFunction = runBlock(vm)
+		const result = await runBlockFunction({ block, generate: false } as RunBlockOpts)
+
+		// Verify basic events and methods were called
+		expect(emitSpy.mock.calls.length).toBe(2)
+		expect(emitSpy.mock.calls[0][0]).toBe('beforeBlock')
+		expect(emitSpy.mock.calls[0][1]).toBe(block)
+		expect(emitSpy.mock.calls[1][0]).toBe('afterBlock')
+		expect(emitSpy.mock.calls[1][1].block).toBe(block)
+		expect(emitSpy.mock.calls[1][1].receipts).toEqual([])
+		expect(emitSpy.mock.calls[1][1].gasUsed).toBe(100n)
+		
+		expect(checkpointMock.mock.calls.length).toBeGreaterThan(0)
+		expect(commitMock.mock.calls.length).toBeGreaterThan(0)
+		expect(setStateRootMock.mock.calls.length).toBeGreaterThan(0)
+		expect(setStateRootMock.mock.calls[0][0]).toBe(block.header.stateRoot)
+		expect(getStateRootMock.mock.calls.length).toBeGreaterThan(0)
+
+		// Verify result structure
+		expect(result.receipts).toEqual([])
+		expect(result.gasUsed).toBe(100n)
+	})
+
+	it('should set state root if provided', async () => {
+		const customStateRoot = new Uint8Array(32).fill(5)
+		
+		const stateManager = {
+			setStateRoot: mock().mockResolvedValue(undefined),
+			getStateRoot: mock().mockResolvedValue(customStateRoot),
+		}
+		
+		const journal = {
+			checkpoint: mock().mockResolvedValue(undefined),
+			commit: mock().mockResolvedValue(undefined),
+			revert: mock().mockResolvedValue(undefined),
+		}
+		
+		const vm = {
+			stateManager,
+			evm: { journal },
+			_emit: mock(),
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+					isActivatedEIP: mock().mockReturnValue(false),
+				},
+			},
+			ready: mock().mockResolvedValue(undefined),
+		} as unknown as BaseVm
+		
+		const block = { 
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32).fill(1),
+			},
+			transactions: [],
+			uncleHeaders: []
+		} as unknown as Block
+		
+		const runBlockFunction = runBlock(vm)
+		await runBlockFunction({ 
+			block, 
+			root: customStateRoot,
+			generate: false
+		} as RunBlockOpts)
+		
+		expect(stateManager.setStateRoot.mock.calls.length).toBe(1)
+		expect(stateManager.setStateRoot.mock.calls[0][0]).toBe(customStateRoot)
+	})
+
+	it('should revert on error and rethrow', async () => {
+		const stateManager = {
+			setStateRoot: mock().mockResolvedValue(undefined),
+			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+		}
+		
+		const journalRevert = mock().mockResolvedValue(undefined)
+		const journalCheckpoint = mock().mockResolvedValue(undefined)
+		
+		const journal = {
+			checkpoint: journalCheckpoint,
+			revert: journalRevert,
+		}
+		
+		const mockApplyBlockError = new Error('Apply block failed')
+		mockApplyBlockImpl.mockImplementationOnce(() => async () => { throw mockApplyBlockError })
+		
+		const vm = {
+			stateManager,
+			evm: { journal },
+			_emit: mock(),
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+					isActivatedEIP: mock().mockReturnValue(false),
+				},
+			},
+			ready: mock().mockResolvedValue(undefined),
+		} as unknown as BaseVm
+		
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32),
+			},
+			transactions: [],
+			uncleHeaders: []
+		} as unknown as Block
+		
+		const runBlockFunction = runBlock(vm)
+		
+		try {
+			await runBlockFunction({ block, generate: false } as RunBlockOpts)
+			expect(true).toBe(false) // Should not reach here
+		} catch (error) {
+			expect(error).toBe(mockApplyBlockError)
+			expect(journalRevert.mock.calls.length).toBeGreaterThan(0)
+		}
+	})
+
+	it('should handle skipBlockValidation option', async () => {
+		const stateManager = {
+			setStateRoot: mock().mockResolvedValue(undefined),
+			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+		}
+		
+		const journal = {
+			checkpoint: mock().mockResolvedValue(undefined),
+			commit: mock().mockResolvedValue(undefined),
+		}
+		
+		// Reset the mock implementation to its original behavior
+		mockApplyBlockImpl.mockImplementation(() => async () => mockApplyBlockResult)
+		
+		const vm = {
+			stateManager,
+			evm: { journal },
+			_emit: mock(),
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+					isActivatedEIP: mock().mockReturnValue(false),
+				},
+			},
+			ready: mock().mockResolvedValue(undefined),
+		} as unknown as BaseVm
+		
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32),
+			},
+			transactions: [],
+			uncleHeaders: []
+		} as unknown as Block
+		
+		const runBlockFunction = runBlock(vm)
+		await runBlockFunction({ 
+			block, 
+			generate: false,
+			skipBlockValidation: true 
+		} as RunBlockOpts)
+		
+		// Check if applyBlock was called with skipBlockValidation: true
+		expect(mockApplyBlockImpl.mock.calls.length).toBe(1)
+		const options = mockApplyBlockImpl.mock.calls[0][1]
+		expect(options.skipBlockValidation).toBe(true)
+	})
+})

@@ -10,7 +10,10 @@ describe(modifyAccountFields.name, () => {
 	it('allows you to modify account fields with a partial config', async () => {
 		const state = createBaseState({})
 		await putAccount(state)(createAddress(0), EthjsAccount.fromAccountData({ nonce: 1n, balance: 2n }))
-		await modifyAccountFields(state)(createAddress(0), { nonce: 2n, balance: 3n })
+		await modifyAccountFields(state)(createAddress(0), {
+			nonce: 2n,
+			balance: 3n,
+		})
 		const { nonce, balance } = (await getAccount(state)(createAddress(0))) ?? {}
 		expect(nonce).toBe(2n)
 		expect(balance).toBe(3n)
@@ -84,5 +87,55 @@ describe(modifyAccountFields.name, () => {
 		expect(account?.balance).toBe(100n) // Changed
 		expect(account?.storageRoot).toEqual(initialStorageRoot) // Unchanged
 		expect(account?.codeHash).toEqual(initialCodeHash) // Unchanged
+	})
+
+	it('should handle explicit undefined field values', async () => {
+		const state = createBaseState({})
+		const address = createAddress('0xdef')
+
+		// Create an initial account with non-zero values
+		await putAccount(state)(
+			address,
+			EthjsAccount.fromAccountData({
+				nonce: 5n,
+				balance: 10n,
+			}),
+		)
+
+		// Pass undefined for some fields - should keep existing values
+		await modifyAccountFields(state)(address, {
+			nonce: undefined,
+			balance: 20n,
+		} as any)
+
+		// Verify only balance changed, nonce kept original value
+		const account = await getAccount(state)(address)
+		expect(account?.nonce).toBe(5n) // Should keep original value when undefined is passed
+		expect(account?.balance).toBe(20n) // Changed
+	})
+
+	it('should handle undefined balance value', async () => {
+		const state = createBaseState({})
+		const address = createAddress('0xabc123')
+
+		// Create an initial account with non-zero values
+		await putAccount(state)(
+			address,
+			EthjsAccount.fromAccountData({
+				nonce: 3n,
+				balance: 50n,
+			}),
+		)
+
+		// Pass undefined for balance - should keep existing value
+		await modifyAccountFields(state)(address, {
+			nonce: 4n,
+			balance: undefined, // This tests line 14 specifically
+		} as any)
+
+		// Verify nonce changed, but balance kept original value
+		const account = await getAccount(state)(address)
+		expect(account?.nonce).toBe(4n) // Changed
+		expect(account?.balance).toBe(50n) // Should keep original value when undefined is passed
 	})
 })

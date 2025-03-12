@@ -166,4 +166,104 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 			]
 		`)
 	})
+
+	it('should apply remappings to module names', () => {
+		const logger = {
+			info: vi.fn(),
+			error: vi.fn(),
+			log: vi.fn(),
+			warn: vi.fn(),
+		}
+		const createInfo = {
+			languageServiceHost: {
+				resolveModuleNameLiterals: vi.fn().mockReturnValue([{ resolvedModule: { original: 'original' } }]),
+			},
+			project: {
+				getCompilerOptions: () => ({ baseUrl: 'foo' }),
+				projectService: {
+					logger: {
+						info: vi.fn(),
+					},
+				},
+			},
+		} as any
+
+		// Create a config with remappings
+		const configWithRemappings = {
+			...config,
+			remappings: {
+				'@openzeppelin/': 'node_modules/@openzeppelin/',
+				'lib/': 'node_modules/lib/',
+			},
+		}
+
+		const host = resolveModuleNameLiteralsDecorator(createInfo, typescript, logger, configWithRemappings, fao)
+
+		// Test with a module name that matches a remapping
+		const moduleNames = [{ text: '@openzeppelin/contracts/token/ERC20/ERC20.sol' }]
+		const containingFile = 'foo.ts'
+		const rest = [{} as any, {} as any, {} as any, {} as any] as const
+
+		// Setup the mock to verify the remapped name is passed
+		mockSolidityModuleResolver.mockImplementationOnce((moduleName) => {
+			// Verify the module name was remapped correctly
+			expect(moduleName).toBe('node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol')
+			return undefined
+		})
+
+		host.resolveModuleNameLiterals?.(moduleNames as any, containingFile, ...rest)
+
+		// Verify solidityModuleResolver was called
+		expect(mockSolidityModuleResolver).toHaveBeenCalled()
+	})
+
+	it("should not apply remappings to module names that don't match", () => {
+		const logger = {
+			info: vi.fn(),
+			error: vi.fn(),
+			log: vi.fn(),
+			warn: vi.fn(),
+		}
+		const createInfo = {
+			languageServiceHost: {
+				resolveModuleNameLiterals: vi.fn().mockReturnValue([{ resolvedModule: { original: 'original' } }]),
+			},
+			project: {
+				getCompilerOptions: () => ({ baseUrl: 'foo' }),
+				projectService: {
+					logger: {
+						info: vi.fn(),
+					},
+				},
+			},
+		} as any
+
+		// Create a config with remappings
+		const configWithRemappings = {
+			...config,
+			remappings: {
+				'@openzeppelin/': 'node_modules/@openzeppelin/',
+				'lib/': 'node_modules/lib/',
+			},
+		}
+
+		const host = resolveModuleNameLiteralsDecorator(createInfo, typescript, logger, configWithRemappings, fao)
+
+		// Test with a module name that doesn't match any remapping
+		const moduleNames = [{ text: 'some-other-module/file.sol' }]
+		const containingFile = 'foo.ts'
+		const rest = [{} as any, {} as any, {} as any, {} as any] as const
+
+		// Setup the mock to verify the original name is passed
+		mockSolidityModuleResolver.mockImplementationOnce((moduleName) => {
+			// Verify the module name was not remapped
+			expect(moduleName).toBe('some-other-module/file.sol')
+			return undefined
+		})
+
+		host.resolveModuleNameLiterals?.(moduleNames as any, containingFile, ...rest)
+
+		// Verify solidityModuleResolver was called
+		expect(mockSolidityModuleResolver).toHaveBeenCalled()
+	})
 })

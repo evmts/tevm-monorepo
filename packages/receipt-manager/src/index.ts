@@ -6,7 +6,7 @@ export {
 	type PostByzantiumTxReceipt,
 	type TxReceipt,
 	type TxReceiptWithType,
-} from './RecieptManager.js'
+} from './ReceiptManager.js'
 export { createMapDb } from './createMapDb.js'
 export type {
 	MapDb,

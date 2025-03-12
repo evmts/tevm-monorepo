@@ -8,4 +8,7 @@
 
 > **TxReceipt**: [`PreByzantiumTxReceipt`](../interfaces/PreByzantiumTxReceipt.md) \| [`PostByzantiumTxReceipt`](../interfaces/PostByzantiumTxReceipt.md) \| [`EIP4844BlobTxReceipt`](../interfaces/EIP4844BlobTxReceipt.md)
 
-Defined in: [RecieptManager.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L66)
+Defined in: [ReceiptManager.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L89)
+
+Union type of all transaction receipt types
+Can be pre-Byzantium, post-Byzantium, or EIP-4844 blob receipt

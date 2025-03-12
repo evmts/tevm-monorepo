@@ -28,30 +28,31 @@ describe(putBlock.name, async () => {
 		expect(chain.blocksByTag.get('latest')).toBe(blocks[1])
 	})
 
-	// Note: In a real-world scenario, we'd mock this more thoroughly
-	// For now, we're commenting out this test as it's difficult to mock correctly
-	// and we've already improved coverage with our other tests
-	/* 
 	it('should throw an error if block chainId does not match common chainId', async () => {
 		const chain = createBaseChain({ common: optimism.copy() })
-		
-		// Get the current chainId
-		const chainId = chain.common.ethjsCommon.chainId()
-		
-		// Create a block with a different chainId
+		const mockBlocks = await getMockBlocks()
+
+		// Create a modified block with different chainId
 		const invalidBlock = {
-			...blocks[0],
+			...mockBlocks[0],
 			common: {
-				...blocks[0].common,
+				...mockBlocks[0].common,
 				ethjsCommon: {
-					...blocks[0].common.ethjsCommon,
-					chainId: () => BigInt(Number(chainId) + 1) // Ensure it's a BigInt
-				}
+					chainId: () => 999n, // Different from optimism chain ID
+				},
 			},
-			hash: () => blocks[0].hash()
+			hash: () => mockBlocks[0].hash(),
 		}
-		
-		await expect(putBlock(chain)(invalidBlock as any)).rejects.toThrow('Block does not match the chainId of common')
+
+		// Attempt to put this block and verify it throws the expected error
+		let error: any
+		try {
+			await putBlock(chain)(invalidBlock as any)
+		} catch (err) {
+			error = err
+		}
+
+		expect(error).toBeDefined()
+		expect(error.message).toBe('Block does not match the chainId of common')
 	})
-	*/
 })

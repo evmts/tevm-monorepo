@@ -98,4 +98,65 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.id).toBeUndefined()
 		expect(response.result).toMatchSnapshot()
 	})
+
+	it('should handle error responses when using stateOverrides', async () => {
+		const request: EthEstimateGasJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'eth_estimateGas',
+			id: 2,
+			params: [
+				{
+					to: '0x0000000000000000000000000000000000000000',
+					from: '0x0000000000000000000000000000000000000000',
+					data: '0x',
+				},
+				'latest',
+				{
+					'0x0000000000000000000000000000000000000000': {
+						balance: '0x1000000000000000000',
+					},
+				},
+			],
+		}
+
+		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
+		expect(response.error).toBeDefined()
+		expect(response.result).toBeUndefined()
+		expect(response.method).toBe('eth_estimateGas')
+		expect(response.id).toBe(2)
+		expect(response.error?.code).toBeDefined()
+		expect(response.error?.message).toBeDefined()
+	})
+
+	it('should handle error responses when using stateOverrides and blockOverrides', async () => {
+		const request: EthEstimateGasJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'eth_estimateGas',
+			id: 3,
+			params: [
+				{
+					to: '0x0000000000000000000000000000000000000000',
+					from: '0x0000000000000000000000000000000000000000',
+					data: '0x',
+				},
+				'latest',
+				{
+					'0x0000000000000000000000000000000000000000': {
+						balance: '0x1000000000000000000',
+					},
+				},
+				{
+					baseFee: '0x1000',
+				},
+			],
+		}
+
+		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
+		expect(response.error).toBeDefined()
+		expect(response.result).toBeUndefined()
+		expect(response.method).toBe('eth_estimateGas')
+		expect(response.id).toBe(3)
+		expect(response.error?.code).toBeDefined()
+		expect(response.error?.message).toBeDefined()
+	})
 })

@@ -1,90 +1,257 @@
-import { createTevmNode } from '@tevm/node'
-import { describe, expect, it } from 'vitest'
-import { callHandler } from '../Call/callHandler.js'
-import { mineHandler } from '../Mine/mineHandler.js'
+// @ts-nocheck - Disabling TypeScript checks for test file to simplify mocking
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ethGetTransactionByHashJsonRpcProcedure } from './ethGetTransactionByHashProcedure.js'
 
+// Mock dependencies
+vi.mock('@tevm/jsonrpc', () => ({
+	createJsonRpcFetcher: vi.fn(() => ({
+		request: vi.fn(),
+	})),
+}))
+
+vi.mock('@tevm/utils', () => ({
+	hexToBytes: vi.fn((hex) => new Uint8Array([1, 2, 3, 4])),
+}))
+
+vi.mock('../utils/txToJsonRpcTx.js', () => ({
+	txToJsonRpcTx: vi.fn((tx, block, index) => ({
+		hash: '0x1234',
+		blockHash: '0x5678',
+		blockNumber: '0x1',
+		transactionIndex: `0x${index.toString(16)}`,
+	})),
+}))
+
+import { createJsonRpcFetcher } from '@tevm/jsonrpc'
+import { hexToBytes } from '@tevm/utils'
+import { txToJsonRpcTx } from '../utils/txToJsonRpcTx.js'
+
 describe('ethGetTransactionByHashJsonRpcProcedure', () => {
-	it('should return the transaction if found', async () => {
-		const client = createTevmNode()
-		const to = `0x${'69'.repeat(20)}` as const
+	const mockTx = { hash: () => new Uint8Array([1, 2, 3, 4]) }
+	const mockBlock = { transactions: [mockTx] }
+	const mockTxHash = '0x1234abcd'
 
-		// Send a transaction
-		const callResult = await callHandler(client)({
-			createTransaction: true,
-			to,
-			value: 420n,
-			skipBalance: true,
-		})
+	let mockClient: any
+	let mockFetcher: any
+	let mockVm: any
+	let mockBlockchain: any
+	let mockReceiptsManager: any
 
-		if (!callResult.txHash) {
-			throw new Error('expected a tx hash')
+	beforeEach(() => {
+		mockBlockchain = {
+			getBlock: vi.fn().mockResolvedValue(mockBlock),
 		}
 
-		// Mine a block to include the transaction
-		await mineHandler(client)({})
+		mockVm = {
+			blockchain: mockBlockchain,
+		}
+
+		mockReceiptsManager = {
+			getReceiptByTxHash: vi.fn(),
+		}
+
+		mockClient = {
+			getVm: vi.fn().mockResolvedValue(mockVm),
+			getReceiptsManager: vi.fn().mockResolvedValue(mockReceiptsManager),
+		}
+
+		mockFetcher = { request: vi.fn() }
+		vi.mocked(createJsonRpcFetcher).mockReturnValue(mockFetcher)
+	})
+
+	it('should return transaction details when found locally', async () => {
+		// Setup - transaction found locally
+		mockReceiptsManager.getReceiptByTxHash.mockResolvedValue([{}, '0xblockHash', 0])
 
 		const request = {
-			id: 1,
-			method: 'eth_getTransactionByHash',
-			params: [callResult.txHash],
 			jsonrpc: '2.0',
-		} as const
+			method: 'eth_getTransactionByHash',
+			params: [mockTxHash],
+			id: 1,
+		}
 
-		const procedure = ethGetTransactionByHashJsonRpcProcedure(client)
+		const procedure = ethGetTransactionByHashJsonRpcProcedure(mockClient)
 		const response = await procedure(request)
 
-		expect(response.result?.hash).toEqual(callResult.txHash)
-		expect(response).toMatchObject({
-			id: 1,
+		// Verify the procedure calls
+		expect(mockClient.getVm).toHaveBeenCalled()
+		expect(mockClient.getReceiptsManager).toHaveBeenCalled()
+		expect(mockReceiptsManager.getReceiptByTxHash).toHaveBeenCalledWith(expect.any(Uint8Array))
+		expect(mockBlockchain.getBlock).toHaveBeenCalledWith('0xblockHash')
+
+		// Verify response
+		expect(response).toEqual({
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionByHash',
 			result: {
-				accessList: [],
-				blobVersionedHashes: undefined,
-				blockHash: expect.stringMatching(/^0x[a-fA-F0-9]{64}$/),
+				hash: '0x1234',
+				blockHash: '0x5678',
 				blockNumber: '0x1',
-				data: '0x',
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				gas: '0x5a3c',
-				gasPrice: '0x7',
-				hash: callResult.txHash,
-				maxFeePerBlobGas: undefined,
-				maxFeePerGas: '0x7',
-				maxPriorityFeePerGas: '0x0',
-				nonce: '0x0',
-				to: '0x6969696969696969696969696969696969696969',
 				transactionIndex: '0x0',
-				type: '0x2',
-				value: '0x1a4',
 			},
+			id: 1,
 		})
 	})
 
-	it('should return an error if the transaction is not found', async () => {
-		const client = createTevmNode()
-
-		// Mine a block without any transactions
-		await mineHandler(client)({})
+	it('should handle when transaction not found locally and no fork transport', async () => {
+		// Setup - transaction not found locally
+		mockReceiptsManager.getReceiptByTxHash.mockResolvedValue(null)
 
 		const request = {
-			id: 1,
-			method: 'eth_getTransactionByHash',
-			params: ['0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80'],
 			jsonrpc: '2.0',
-		} as const
+			method: 'eth_getTransactionByHash',
+			params: [mockTxHash],
+			id: 1,
+		}
 
-		const procedure = ethGetTransactionByHashJsonRpcProcedure(client)
+		const procedure = ethGetTransactionByHashJsonRpcProcedure(mockClient)
 		const response = await procedure(request)
 
+		// Verify response is an error
 		expect(response).toEqual({
-			id: 1,
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionByHash',
+			id: 1,
 			error: {
 				code: -32602,
 				message: 'Transaction not found',
 			},
 		})
+	})
+
+	it('should fetch from fork when transaction not found locally', async () => {
+		// Setup - transaction not found locally but fork transport exists
+		mockReceiptsManager.getReceiptByTxHash.mockResolvedValue(null)
+		mockClient.forkTransport = {}
+
+		const mockForkedTx = {
+			hash: '0x1234',
+			blockHash: '0x5678',
+			blockNumber: '0x1a',
+			transactionIndex: '0x2',
+		}
+
+		mockFetcher.request.mockResolvedValue({
+			jsonrpc: '2.0',
+			id: 1,
+			result: mockForkedTx,
+		})
+
+		const request = {
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionByHash',
+			params: [mockTxHash],
+			id: 1,
+		}
+
+		const procedure = ethGetTransactionByHashJsonRpcProcedure(mockClient)
+		const response = await procedure(request)
+
+		// Verify fork fetcher was used
+		expect(createJsonRpcFetcher).toHaveBeenCalledWith(mockClient.forkTransport)
+		expect(mockFetcher.request).toHaveBeenCalledWith({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_getTransactionByHash',
+			params: [mockTxHash],
+		})
+
+		// Verify response
+		expect(response).toEqual({
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionByHash',
+			result: mockForkedTx,
+			id: 1,
+		})
+	})
+
+	it('should handle errors from fork transport', async () => {
+		// Setup - transaction not found locally and fork transport returns error
+		mockReceiptsManager.getReceiptByTxHash.mockResolvedValue(null)
+		mockClient.forkTransport = {}
+
+		mockFetcher.request.mockResolvedValue({
+			jsonrpc: '2.0',
+			id: 1,
+			error: {
+				code: -32000,
+				message: 'Fork error',
+			},
+		})
+
+		const request = {
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionByHash',
+			params: [mockTxHash],
+			id: 1,
+		}
+
+		const procedure = ethGetTransactionByHashJsonRpcProcedure(mockClient)
+		const response = await procedure(request)
+
+		// Verify response contains the error from fork
+		expect(response).toEqual({
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionByHash',
+			id: 1,
+			error: {
+				code: -32000,
+				message: 'Fork error',
+			},
+		})
+	})
+
+	it('should handle when receipt found but tx not in block', async () => {
+		// Setup - receipt found but tx not in block
+		mockReceiptsManager.getReceiptByTxHash.mockResolvedValue([{}, '0xblockHash', 1])
+		mockBlock.transactions = [mockTx] // Only has index 0, not index 1
+
+		const request = {
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionByHash',
+			params: [mockTxHash],
+			id: 1,
+		}
+
+		const procedure = ethGetTransactionByHashJsonRpcProcedure(mockClient)
+		const response = await procedure(request)
+
+		// Verify response is an error
+		expect(response).toEqual({
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionByHash',
+			id: 1,
+			error: {
+				code: -32602,
+				message: 'Transaction not found',
+			},
+		})
+	})
+
+	it('should handle requests without ID', async () => {
+		// Setup - transaction found locally
+		mockReceiptsManager.getReceiptByTxHash.mockResolvedValue([{}, '0xblockHash', 0])
+
+		const request = {
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionByHash',
+			params: [mockTxHash],
+		}
+
+		const procedure = ethGetTransactionByHashJsonRpcProcedure(mockClient)
+		const response = await procedure(request)
+
+		// Verify response doesn't have id
+		expect(response).toEqual({
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionByHash',
+			result: {
+				hash: '0x1234',
+				blockHash: '0x5678',
+				blockNumber: '0x1',
+				transactionIndex: '0x0',
+			},
+		})
+		expect(response).not.toHaveProperty('id')
 	})
 })

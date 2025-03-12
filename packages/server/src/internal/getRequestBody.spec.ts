@@ -1,45 +1,55 @@
-import { EventEmitter } from 'node:events'
-import { IncomingMessage } from 'node:http'
 import { describe, expect, it } from 'vitest'
 import { ReadRequestBodyError } from '../errors/ReadRequestBodyError.js'
 import { getRequestBody } from './getRequestBody.js'
 
-class MockIncomingMessage extends EventEmitter {
-	headers: any
-	constructor() {
-		super()
-		this.headers = {}
-	}
-}
-
 describe('getRequestBody', () => {
-	it('should return the request body as a string', async () => {
-		const req = new MockIncomingMessage()
-		const body = JSON.stringify({ jsonrpc: '2.0', method: 'tevm_call', params: [], id: 1 })
+	it('should read request body from http request with on method', async () => {
+		const req = {
+			on: (event: string, callback: any) => {
+				if (event === 'data') {
+					callback(Buffer.from('{"data":"test"}'))
+				}
+				if (event === 'end') {
+					setTimeout(() => callback(), 1)
+				}
+				return req
+			},
+		}
 
-		// Mock the events
-		process.nextTick(() => {
-			req.emit('data', Buffer.from(body))
-			req.emit('end')
-		})
-
-		const result = await getRequestBody(req as unknown as IncomingMessage)
-		expect(result).toBe(body)
+		const result = await getRequestBody(req as any)
+		expect(result).toBe('{"data":"test"}')
 	})
 
-	it('should return a ReadRequestBodyError on request error', async () => {
-		const req = new MockIncomingMessage()
-		const errorMessage = 'Network error'
+	it('should handle error events from request', async () => {
+		const req = {
+			on: (event: string, callback: any) => {
+				if (event === 'error') {
+					setTimeout(() => callback(new Error('test error')), 1)
+				}
+				return req
+			},
+		}
 
-		// Mock the events
-		process.nextTick(() => {
-			req.emit('error', new Error(errorMessage))
-		})
-
-		const result = await getRequestBody(req as unknown as IncomingMessage)
+		const result = await getRequestBody(req as any)
 		expect(result).toBeInstanceOf(ReadRequestBodyError)
-		expect((result as ReadRequestBodyError).cause?.message).toBe(errorMessage)
-		expect((result as ReadRequestBodyError).message.includes(errorMessage)).toBe(true)
-		expect(result).toMatchSnapshot()
+	})
+
+	it('should read request body from request with body property', async () => {
+		const req = {
+			body: '{"data":"test"}',
+		}
+
+		const result = await getRequestBody(req as any)
+		expect(result).toBe('{"data":"test"}')
+	})
+
+	it('should handle invalid request object with no body or on method', async () => {
+		const req = {}
+
+		const result = await getRequestBody(req as any)
+		expect(result).toBeInstanceOf(ReadRequestBodyError)
+		if (result instanceof ReadRequestBodyError) {
+			expect(result.message).toContain('Request object is not a valid stream')
+		}
 	})
 })

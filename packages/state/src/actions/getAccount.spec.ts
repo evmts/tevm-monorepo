@@ -4,6 +4,7 @@ import { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'
+import * as getAccountFromProviderModule from './getAccountFromProvider.js'
 import { putAccount } from './putAccount.js'
 
 afterEach(() => {
@@ -140,11 +141,10 @@ describe(`${getAccount.name} forking`, () => {
 	})
 
 	it('Should handle empty accounts from remote provider', async () => {
-		// This test would be complex to implement with proper mocking
-		// Instead, we can use a simpler approach to trigger the relevant code path
+		// Create an address for testing
+		const testAddress = createAddress('0x1234567890123456789012345678901234567890')
 
-		// Create a mock account that matches the "empty account" criteria
-		// (nonce=0, balance=0, codeHash and storageRoot all zeros)
+		// Mock the getAccountFromProvider to return an empty account
 		const mockEmptyAccount = EthjsAccount.fromAccountData({
 			balance: 0n,
 			nonce: 0n,
@@ -152,19 +152,24 @@ describe(`${getAccount.name} forking`, () => {
 			storageRoot: new Uint8Array(32).fill(0),
 		})
 
-		// Verify that this account would be considered "empty" by the condition
-		expect(mockEmptyAccount.nonce).toBe(0n)
-		expect(mockEmptyAccount.balance).toBe(0n)
-		expect(mockEmptyAccount.codeHash.every((d) => d === 0)).toBe(true)
-		expect(mockEmptyAccount.storageRoot.every((d) => d === 0)).toBe(true)
+		const mockGetAccountFromProvider = vi.spyOn(getAccountFromProviderModule, 'getAccountFromProvider')
+		mockGetAccountFromProvider.mockImplementation(() => async () => mockEmptyAccount)
 
-		// This would pass the condition in getAccount.js, line 59-63:
-		// if (
-		//   account.nonce === 0n &&
-		//   account.balance === 0n &&
-		//   account.codeHash.every((d) => d === 0) &&
-		//   account.storageRoot.every((d) => d === 0)
-		// )
-		// and result in both caches storing undefined and returning undefined
+		// Make sure both caches are empty
+		baseState.caches.accounts.clear()
+		baseState.forkCache.accounts.clear()
+
+		// Call getAccount - should fetch from provider and recognize as empty
+		const result = await getAccount(baseState)(testAddress)
+
+		// Verify provider was called
+		expect(mockGetAccountFromProvider).toHaveBeenCalledTimes(1)
+
+		// Should return undefined for an empty account
+		expect(result).toBeUndefined()
+
+		// Both caches should have undefined stored for this address
+		expect(baseState.caches.accounts.get(testAddress)?.accountRLP).toBeUndefined()
+		expect(baseState.forkCache.accounts.get(testAddress)?.accountRLP).toBeUndefined()
 	})
 })

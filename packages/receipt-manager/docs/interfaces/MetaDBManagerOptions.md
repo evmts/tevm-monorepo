@@ -6,7 +6,9 @@
 
 # Interface: MetaDBManagerOptions
 
-Defined in: [MapDb.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L13)
+Defined in: [MapDb.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L19)
+
+Options for creating a MapDb instance
 
 ## Properties
 
@@ -14,4 +16,6 @@ Defined in: [MapDb.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packa
 
 > **cache**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [MapDb.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L14)
+Defined in: [MapDb.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L23)
+
+Map used as the cache for the database

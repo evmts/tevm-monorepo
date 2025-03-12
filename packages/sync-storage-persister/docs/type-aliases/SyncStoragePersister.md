@@ -8,36 +8,58 @@
 
 > **SyncStoragePersister**: `object`
 
-Defined in: [SyncStoragePersister.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/SyncStoragePersister.ts#L3)
+Defined in: [SyncStoragePersister.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/SyncStoragePersister.ts#L6)
+
+Storage persister for client state
 
 ## Type declaration
 
 ### persistTevmState()
 
-> **persistTevmState**: (`state`) => `void`
+> **persistTevmState**: (`state`, `onError`?) => `Error` \| `undefined`
+
+Persist serializable tevm state
 
 #### Parameters
 
 ##### state
 
-`SerializableTevmState`
+State to be persisted
+
+`SerializableTevmState` | `undefined`
+
+##### onError?
+
+(`error`) => `void`
+
+Called when state fails to persist
 
 #### Returns
 
-`void`
+`Error` \| `undefined`
+
+Error if one occurs during persistence
 
 ### removePersistedState()
 
-> **removePersistedState**: () => `void`
+> **removePersistedState**: () => `Error` \| `undefined`
+
+Removes persisted state
 
 #### Returns
 
-`void`
+`Error` \| `undefined`
+
+Error if one occurs during removal
 
 ### restoreState()
 
 > **restoreState**: () => `SerializableTevmState` \| `undefined`
 
+Restores persisted state
+
 #### Returns
 
 `SerializableTevmState` \| `undefined`
+
+The persisted state if it exists

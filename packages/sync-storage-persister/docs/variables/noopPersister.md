@@ -6,32 +6,8 @@
 
 # Variable: noopPersister
 
-> `const` **noopPersister**: `object`
+> `const` **noopPersister**: [`SyncStoragePersister`](../type-aliases/SyncStoragePersister.md)
 
-Defined in: [noopPersister.js:2](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/noopPersister.js#L2)
+Defined in: [noopPersister.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/noopPersister.js#L5)
 
-## Type declaration
-
-### persistClient()
-
-> **persistClient**: () => `void` = `noop`
-
-#### Returns
-
-`void`
-
-### removeClient()
-
-> **removeClient**: () => `void` = `noop`
-
-#### Returns
-
-`void`
-
-### restoreClient()
-
-> **restoreClient**: () => `undefined`
-
-#### Returns
-
-`undefined`
+A persister that does nothing, useful as a default

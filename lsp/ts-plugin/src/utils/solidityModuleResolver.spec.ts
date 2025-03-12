@@ -3,6 +3,14 @@ import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
 import { solidityModuleResolver } from './solidityModuleResolver.js'
 
+// Mock for typescript.resolveModuleName
+const createMockTs = (resolvedModule: any = undefined) => {
+	return {
+		...typescript,
+		resolveModuleName: vi.fn().mockReturnValue({ resolvedModule }),
+	}
+}
+
 describe('solidityModuleResolver', () => {
 	it('should resolve relative solidity modules', () => {
 		const result = solidityModuleResolver('./module.sol', typescript, {} as any, '/path/to/file.sol')
@@ -35,25 +43,74 @@ describe('solidityModuleResolver', () => {
 		expect(result).toBeUndefined()
 	})
 
-	// Skip the tests that try to mock resolveModuleName since it's not mockable
-	it.skip('should handle @tevm/contract imports', () => {
-		// This test is skipped because we can't mock the resolveModuleName property
-		// Test the actual handling by testing the core logic
-		const moduleName = '@tevm/contract'
+	// Testing @tevm/contract handling
+	it('should handle @tevm/contract imports with successful resolution', () => {
+		const mockResolvedModule = {
+			resolvedFileName: '/path/to/node_modules/@tevm/contract/index.d.ts',
+		}
+		const mockTs = createMockTs(mockResolvedModule)
+		const mockCreateInfo = {
+			project: {
+				getCompilerOptions: () => ({}),
+			},
+		}
 
-		// We know isRelativeSolidity and isSolidity will return false for this module name
-		expect(moduleName.startsWith('@tevm/contract')).toBe(true)
+		const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+		const result = solidityModuleResolver('@tevm/contract', mockTs, mockCreateInfo as any, '/path/to/file.ts')
+
+		expect(mockTs.resolveModuleName).toHaveBeenCalledWith(
+			'@tevm/contract',
+			'/path/to/file.ts',
+			{},
+			mockCreateInfo.project,
+		)
+
+		expect(result).toEqual({
+			extension: typescript.Extension.Dts,
+			isExternalLibraryImport: true,
+			resolvedFileName: '/path/to/node_modules/@tevm/contract/index.d.ts',
+		})
+
+		consoleSpy.mockRestore()
 	})
 
-	it.skip('should handle @tevm/contract subpath imports', () => {
-		// This test is skipped because we can't mock the resolveModuleName property
-		// Test the actual handling by testing the core logic
-		const moduleName = '@tevm/contract/subpath'
-		expect(moduleName.startsWith('@tevm/contract')).toBe(true)
+	it('should handle @tevm/contract/subpath imports', () => {
+		const mockResolvedModule = {
+			resolvedFileName: '/path/to/node_modules/@tevm/contract/subpath/index.d.ts',
+		}
+		const mockTs = createMockTs(mockResolvedModule)
+		const mockCreateInfo = {
+			project: {
+				getCompilerOptions: () => ({}),
+			},
+		}
+
+		const result = solidityModuleResolver('@tevm/contract/subpath', mockTs, mockCreateInfo as any, '/path/to/file.ts')
+
+		expect(result).toEqual({
+			extension: typescript.Extension.Dts,
+			isExternalLibraryImport: true,
+			resolvedFileName: '/path/to/node_modules/@tevm/contract/subpath/index.d.ts',
+		})
 	})
 
-	it.skip('should handle unresolvable @tevm/contract imports', () => {
-		// This test is skipped because we can't mock the resolveModuleName property
-		// We could modify the implementation to make it more testable in the future
+	it('should handle unresolvable @tevm/contract imports', () => {
+		const mockTs = createMockTs(undefined) // No resolved module
+		const mockCreateInfo = {
+			project: {
+				getCompilerOptions: () => ({}),
+			},
+		}
+
+		const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+		const result = solidityModuleResolver('@tevm/contract', mockTs, mockCreateInfo as any, '/path/to/file.ts')
+
+		expect(mockTs.resolveModuleName).toHaveBeenCalled()
+		expect(consoleSpy).toHaveBeenCalled()
+		expect(result).toBeUndefined()
+
+		consoleSpy.mockRestore()
 	})
 })

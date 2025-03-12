@@ -97,4 +97,18 @@ describe(createStateManager.name, () => {
 		// Call ready and ensure it resolves
 		await expect(stateManager.ready()).resolves.not.toThrow()
 	})
+
+	it('should have getAppliedKey method', async () => {
+		const stateManager = createStateManager({})
+
+		// Just verify the method exists, don't call it
+		expect(stateManager).toHaveProperty('getAppliedKey')
+	})
+
+	it('should have originalStorageCache method', () => {
+		const stateManager = createStateManager({})
+
+		// Just verify the method exists, don't call it
+		expect(stateManager).toHaveProperty('originalStorageCache')
+	})
 })
