@@ -4,6 +4,11 @@
 
 ## Docs
 
+- [Creating a Tevm Node](/core/create-tevm-node): `createTevmNode` is the foundation of Tevm - a powerful function that bootstraps a complete Ethereum execution environment in JavaScript.
+- [Forking & Reforking](/core/forking): Tevm's forking capability creates a local blockchain that mirrors the state of any EVM network, allowing you to work with real-world data in an isolated environment.
+- [Managing State](/core/managing-state): Tevm provides powerful state management capabilities through multiple APIs to read, write, and manipulate blockchain state.
+- [Mining Modes](/core/mining-modes): Tevm Node provides several mining modes to control how and when blocks are produced, allowing you to simulate different network conditions.
+- [TevmNode Interface](/core/tevm-node-interface): The TevmNode interface is the core API of Tevm, providing direct access to all Ethereum execution capabilities without abstraction layers.
 - [Custom Precompiles](/advanced/custom-precompiles): Tevm Node allows you to extend the Ethereum Virtual Machine with custom JavaScript functions that behave like native precompiled contracts.
 - [Performance & Profiler](/advanced/performance-profiler): Tevm Node includes a powerful built-in profiler that helps you analyze EVM execution, identify bottlenecks, and optimize your smart contracts.
 - [Receipts & Logs](/advanced/receipts-and-logs): Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.
@@ -15,23 +20,18 @@
 - [Package Reference](/api/packages): Tevm Node is built as a collection of modular packages. You can install the complete suite with `npm install tevm` or individual packages based on your needs.
 - [Call API](/api/tevm-call): The Call API is one of the most important APIs in Tevm, covering 90% of use cases along with mining. It provides a powerful interface for executing EVM calls with extensive configuration options.
 - [VM & Submodules](/api/vm-and-submodules): [Tevm Node](https://github.com/evmts/tevm-monorepo) is built on a modular architecture that separates concerns into distinct submodules. This guide covers the internal components and their APIs.
-- [Creating a Tevm Node](/core/create-tevm-node): `createTevmNode` is the foundation of Tevm - a powerful function that bootstraps a complete Ethereum execution environment in JavaScript.
-- [Forking & Reforking](/core/forking): Tevm's forking capability creates a local blockchain that mirrors the state of any EVM network, allowing you to work with real-world data in an isolated environment.
-- [Managing State](/core/managing-state): Tevm provides powerful state management capabilities through multiple APIs to read, write, and manipulate blockchain state.
-- [Mining Modes](/core/mining-modes): Tevm Node provides several mining modes to control how and when blocks are produced, allowing you to simulate different network conditions.
-- [TevmNode Interface](/core/tevm-node-interface): The TevmNode interface is the core API of Tevm, providing direct access to all Ethereum execution capabilities without abstraction layers.
-- [Tevm Architecture Overview](/introduction/architecture-overview): This page covers the internal architecture of Tevm and is intended for advanced users, contributors, or those looking to understand how Tevm works under the hood. If you're just getting started, we recommend the [viem API guide](../getting-started/viem) instead.
-- [What is Tevm Node?](/introduction/what-is-tevm-node): Ethereum in JavaScript
-- [Why Run Ethereum in JavaScript?](/introduction/why-run-ethereum-in-js): JavaScript has emerged as an ideal environment for running Ethereum, offering unique advantages for both developers and end-users. Here's why running an Ethereum node in JavaScript unlocks powerful new capabilities.
-- [Getting Started with Ethers.js](/getting-started/ethers): While Tevm is built with viem as its primary API, it provides **full compatibility** with [ethers.js](https://docs.ethers.org/v6/) through its EIP-1193 provider interface! This makes Tevm a perfect fit for existing ethers.js projects.
-- [Tevm Node Overview](/getting-started/overview): Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
-- [Community](/getting-started/testimonials): Here's what developers and industry leaders are saying about Tevm
-- [Getting Started with Viem](/getting-started/viem): Perfect for Viem Users
 - [Building a Debugger UI](/examples/debugger-ui): These docs have not been checked for correctness yet. Use with caution
 - [Using with Ethers.js v6](/examples/ethers): Tevm integrates seamlessly with <a href="https://docs.ethers.org/v6/" target="_blank">Ethers.js v6</a>, allowing you to use your favorite Ethereum library alongside Tevm's powerful in-memory EVM capabilities.
 - [Forking Mainnet Example](/examples/forking-mainnet): These docs have not been checked for correctness yet. Use with caution
 - [Local Testing](/examples/local-testing): These docs have not been checked for correctness yet. Use with caution
 - [Using with Viem](/examples/viem): Tevm integrates seamlessly with <a href="https://viem.sh" target="_blank">viem</a>, providing a powerful local Ethereum environment with viem's familiar API surface.
+- [Getting Started with Ethers.js](/getting-started/ethers): While Tevm is built with viem as its primary API, it provides **full compatibility** with [ethers.js](https://docs.ethers.org/v6/) through its EIP-1193 provider interface! This makes Tevm a perfect fit for existing ethers.js projects.
+- [Tevm Node Overview](/getting-started/overview): Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
+- [Community](/getting-started/testimonials): Here's what developers and industry leaders are saying about Tevm
+- [Getting Started with Viem](/getting-started/viem): Perfect for Viem Users
+- [Tevm Architecture Overview](/introduction/architecture-overview): This page covers the internal architecture of Tevm and is intended for advanced users, contributors, or those looking to understand how Tevm works under the hood. If you're just getting started, we recommend the [viem API guide](../getting-started/viem) instead.
+- [What is Tevm Node?](/introduction/what-is-tevm-node): Ethereum in JavaScript
+- [Why Run Ethereum in JavaScript?](/introduction/why-run-ethereum-in-js): JavaScript has emerged as an ideal environment for running Ethereum, offering unique advantages for both developers and end-users. Here's why running an Ethereum node in JavaScript unlocks powerful new capabilities.
 - [@tevm/actions](/reference/actions): The `@tevm/actions` package provides a comprehensive set of actions for interacting with the Tevm client. It includes both standard Ethereum JSON-RPC methods and Tevm-specific functionality.
 - [@tevm/address](/reference/address): The `@tevm/address` package provides utilities for handling Ethereum addresses. It wraps the functionality from [`@ethereumjs/utils` address](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/util/src/address.ts) with a Tevm-style API.
 - [@tevm/block](/reference/block): The `@tevm/block` package provides functionality for working with Ethereum blocks. It includes classes and utilities for handling block headers, block data, and block-related operations.

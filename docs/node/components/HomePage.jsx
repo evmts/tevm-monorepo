@@ -15,7 +15,24 @@ export const HomePage = {
   
   InstallPackage: ({ name, type }) => (
     <div className="install-package bg-gray-100 dark:bg-gray-800 rounded-lg p-4 max-w-lg mx-auto text-left">
-      <pre className="text-sm"><code>{type === 'install' ? `npm install ${name}` : name}</code></pre>
+      {type === 'install' ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <div className="text-xs font-bold mb-1">npm</div>
+            <pre className="text-sm"><code>{`npm install ${name}`}</code></pre>
+          </div>
+          <div>
+            <div className="text-xs font-bold mb-1">bun</div>
+            <pre className="text-sm"><code>{`bun add ${name}`}</code></pre>
+          </div>
+          <div>
+            <div className="text-xs font-bold mb-1">deno</div>
+            <pre className="text-sm"><code>{`import { createMemoryClient } from "npm:${name}";`}</code></pre>
+          </div>
+        </div>
+      ) : (
+        <pre className="text-sm"><code>{name}</code></pre>
+      )}
     </div>
   ),
   

@@ -85,6 +85,12 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
       Process sensitive data locally without sending it to external services.
     </p>
   </Card>
+
+  <Card title="🚀 Accelerated Development">
+    <p>
+      Ship advanced UX faster and safer using Tevm bundler's typesafe Solidity imports, eliminating contract integration errors.
+    </p>
+  </Card>
 </div>
 
 ## Developer Experience Advantages
@@ -95,15 +101,23 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
   Step through EVM execution opcode by opcode, inspect memory and stack, and see exactly what happens in your contracts.
   
   ```typescript filename="debug-example.ts"
-  // Listen to every EVM instruction
-  vm.evm.events.on('step', (data, next) => {
-    console.log(
-      `${data.pc.toString().padStart(5)}:`,
-      `${data.opcode.name.padEnd(10)}`,
-      `gas: ${data.gasLeft.toString().padStart(8)}`,
-      `stack: ${data.stack.join(', ')}`
-    )
-    next()
+  // Use tevmContract for easy debugging with execution hooks
+  const result = await client.tevmContract({
+    to: contractAddress,
+    abi: contractAbi,
+    functionName: 'myFunction',
+    args: [param1, param2],
+    
+    // Listen to every EVM instruction
+    onStep: (data, next) => {
+      console.log(
+        `${data.pc.toString().padStart(5)}:`,
+        `${data.opcode.name.padEnd(10)}`,
+        `gas: ${data.gasLeft.toString().padStart(8)}`,
+        `stack: ${data.stack.join(', ')}`
+      )
+      next()
+    }
   })
   ```
 

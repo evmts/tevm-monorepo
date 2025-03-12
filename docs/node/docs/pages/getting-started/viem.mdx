@@ -337,6 +337,85 @@ await client.tevmContract({
 })
 ```
 
+```ts [Complete tevmContract Example]
+// Complete example showing all available options and return values
+const { 
+  // Decoded return data based on the ABI
+  data,
+  // Raw return data as hex string
+  rawData,
+  // Any errors that occurred during execution 
+  error,
+  // Event logs emitted during execution
+  logs,
+  // Addresses created during execution (for contract creation)
+  createdAddresses,
+  // Gas used by the execution only
+  executionGasUsed,
+  // Total gas spent (includes upfront costs)
+  totalGasSpent,
+  // Fee for L1 data (for L2 chains)
+  l1Fee,
+  // L1 gas used (for L2 chains)
+  l1GasUsed,
+  // L1 base fee (for L2 chains)
+  l1BaseFee,
+  // L1 blob fee (for L2 chains)
+  l1BlobFee,
+  // Detailed execution trace (if createTrace:true)
+  trace,
+  // EIP-2930 access list (if createAccessList:true)
+  accessList,
+  // Transaction hash (if createTransaction is set)
+  txHash,
+  // Amount spent on this transaction
+  amountSpent,
+  // Remaining gas
+  gas,
+  // Set of addresses to self-destruct
+  selfdestruct
+} = await client.tevmContract({
+  // Contract details
+  to: '0x1234...',                       // Contract address
+  abi: [...],                            // Contract ABI
+  functionName: 'myFunction',            // Function to call
+  args: [123n, 'hello'],                 // Function arguments
+  deployedBytecode: '0x...',             // Alternative to 'to' + 'abi' approach
+  
+  // Call configuration
+  from: '0x5678...',                     // Caller address
+  value: 1000000000000000000n,           // ETH value to send (in wei)
+  gas: 1000000n,                         // Gas limit
+  gasPrice: 1000000000n,                 // Gas price
+  blockTag: 'latest',                    // Block context for execution
+  
+  // Advanced options
+  createTrace: true,                     // Generate execution trace
+  createAccessList: true,                // Generate EIP-2930 access list
+  createTransaction: 'always',           // Create tx ('always', 'on-success', or false)
+  throwOnFail: false,                    // Throw on execution failure
+  skipBalance: true,                     // Skip balance checks
+  
+  // EVM execution hooks
+  onStep: (step, next) => {              // Called for each EVM operation
+    console.log(step.opcode.name);
+    next();
+  },
+  onNewContract: (contract, next) => {   // Called when a new contract is created
+    console.log(contract.address);
+    next();
+  },
+  onBeforeMessage: (msg, next) => {      // Called before a message call
+    console.log(msg.depth);
+    next();
+  },
+  onAfterMessage: (result, next) => {    // Called after a message call
+    console.log(result.execResult.executionGasUsed);
+    next();
+  }
+});
+```
+
 :::
 
 ## Tree-Shakeable API
@@ -408,7 +487,23 @@ This enables advanced use cases like:
 
 ## Tevm-Specific Actions
 
-Tevm extends viem with specialized actions that provide enhanced capabilities:
+Tevm extends viem with powerful specialized actions, all prefixed with `tevm`. These actions provide direct access to Tevm's enhanced Ethereum Virtual Machine capabilities, giving you unprecedented control and visibility into blockchain execution.
+
+### The Power of `tevmContract`
+
+Among all Tevm actions, `tevmContract` stands out as the most versatile and powerful. It can do almost anything with the Tevm EVM, combining the simplicity of high-level contract interactions with the depth of low-level EVM control:
+
+- **Complete EVM Access**: Hook into any phase of EVM execution at the opcode level
+- **Rich Result Data**: Get detailed execution results beyond just the return value
+- **Execution Visibility**: Capture traces, access lists, gas usage, and more
+- **Flexible Contract Interface**: Work with contracts using address+ABI or directly with bytecode
+- **Layer 2 Awareness**: Get L1 fee calculations and gas usage for L2 chains
+
+When you need maximum control and insight into contract execution, `tevmContract` is your go-to action. It seamlessly handles everything from simple function calls to complex debugging scenarios.
+
+### Complete Action Reference
+
+Here's the full list of Tevm-specific actions:
 
 | Action              | Description                                  | Use Case                                |
 | ------------------- | -------------------------------------------- | --------------------------------------- |

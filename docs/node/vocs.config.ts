@@ -22,7 +22,7 @@ export default defineConfig({
   },
   // Banner for important updates or announcements
   banner: {
-    content: '🚀 Tevm Node is now production-ready! Join our [Discord community](https://discord.gg/tevm)',
+    content: '🚀 Tevm Node is now production-ready! Join our [Telegram community](https://t.me/+ANThR9bHDLAwMjUx)',
     dismissable: true,
     backgroundColor: '#e6f7ff',
   },
@@ -190,11 +190,6 @@ export default defineConfig({
       icon: 'x',
       link: 'https://x.com/tevmtools',
       label: 'Twitter'
-    },
-    {
-      icon: 'discord',
-      link: 'https://discord.gg/tevm',
-      label: 'Discord'
     },
   ],
   // Configure code highlighting

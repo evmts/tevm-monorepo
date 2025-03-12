@@ -37,22 +37,8 @@ pnpm add tevm
 <Step title="Create a Basic Node">
 Instantiate a node with default configuration:
 
-### TypeScript
 ```ts
 import { createTevmNode } from 'tevm'
-
-// Create the node instance
-const node = createTevmNode()
-
-// Always wait for the node to be ready before using it
-await node.ready()
-
-// Your node is now ready to use!
-```
-
-### JavaScript
-```js
-const { createTevmNode } = require('tevm')
 
 // Create the node instance
 const node = createTevmNode()
@@ -115,6 +101,8 @@ await node.ready()
 
 <Callout type="info">
   When forking, state is fetched lazily from the remote provider and cached locally. This means your first access to any account or storage slot will be slower, but subsequent accesses will be fast.
+  
+  Tevm uses a least recently used (LRU) cache for state management that can hold up to 10 million items before it starts pruning state that hasn't been accessed recently. This provides an excellent balance between memory usage and performance.
 </Callout>
 
 ### Mining Configuration
@@ -332,33 +320,33 @@ try {
 
 ## Usage Scenarios
 
-- **Local Development**: Fast, auto-mining configuration with unlimited contract sizes for rapid local development
-- **Production Forking**: Realistic forked environment with precise error handling for production simulation
+- **Fresh Node**: Fast, auto-mining configuration with unlimited contract sizes for rapid local development
+- **Forked Node**: Realistic forked environment with precise error handling for production simulation
 - **Testing Environment**: Performance-focused configuration for CI/CD and test automation
 
-### Local Development Node
+### Fresh Node
 
 ```ts
 import { createTevmNode } from 'tevm'
 
-const devNode = createTevmNode({
+const freshNode = createTevmNode({
   miningConfig: { type: 'auto' },
   loggingLevel: 'debug',        // See detailed logs during development
   allowUnlimitedContractSize: true, // No contract size limits during development
 })
 
-await devNode.ready()
+await freshNode.ready()
 
 // Node is ready for local development
-console.log('Development node ready!')
+console.log('Fresh node ready!')
 ```
 
-### Production Forked Node
+### Forked Node
 
 ```ts
 import { createTevmNode, http } from 'tevm'
 
-const prodNode = createTevmNode({
+const forkedNode = createTevmNode({
   fork: {
     transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
     blockTag: 'latest',  // Always use the latest block
@@ -367,12 +355,12 @@ const prodNode = createTevmNode({
     type: 'interval', 
     interval: 12000     // Mine every 12 seconds like Ethereum mainnet
   },
-  loggingLevel: 'error', // Only show critical issues in production
+  loggingLevel: 'error', // Only show errors
 })
 
-await prodNode.ready()
+await forkedNode.ready()
 
-console.log('Production forked node ready!')
+console.log('Forked node ready!')
 ```
 
 ### Testing Node
