@@ -1,4 +1,4 @@
-![tevm-logo-dark](https://github.com/user-attachments/assets/e9ff4350-5d3f-446b-8425-afd4d73a6d3f)
+![telegram-cloud-photo-size-4-5949505058129430577-y](https://github.com/user-attachments/assets/880d8f54-8063-4018-8777-98ba383433ee)
 
 <p align="center">
   A library that enables next-generation UX and DX via putting an ethereum node in the browser and solidity in javascript
