@@ -315,6 +315,31 @@ function App() {
 export default App
 ```
 
+### Example of Type-Safe Method Calls
+
+The bundler generates strongly-typed methods for your contract:
+
+```ts
+// Read methods (view/pure functions)
+const balance = await client.readContract(
+  ERC20.read.balanceOf('0x' + '20'.repeat(20))
+)
+
+// Write methods (state-changing functions)
+await client.writeContract(
+  ERC20.write.transfer('0x' + '30'.repeat(20), 1000000n)
+)
+
+// Listen to events
+client.watchEvent(
+  ERC20.events.Transfer({
+    from: '0x' + '20'.repeat(20),
+    to: null // `null` acts as a wildcard
+  }),
+  (log) => console.log('Transfer event:', log)
+)
+```
+
 ## What's Happening?
 
 When you import `Counter.s.sol`, Tevm:
@@ -326,12 +351,18 @@ When you import `Counter.s.sol`, Tevm:
 The `Counter` object is a [Tevm Contract](/reference/contract) instance with:
 
 - `abi`: The contract's ABI
-- `bytecode`: The contract's creation bytecode (only for .s.sol files)
-- `deployedBytecode`: The contract's runtime bytecode (only for .s.sol files)
+- `address`: The contract's address (if set with `withAddress()`)
+- `bytecode`: The contract's creation bytecode (undefined for regular .sol files)
+- `deployedBytecode`: The contract's runtime bytecode (undefined for regular .sol files)
 - `deploy()`: Method to create deployment data with constructor arguments
 - `read`: Type-safe read methods (view/pure functions)
 - `write`: Type-safe write methods (state-changing functions)
+- `events`: Type-safe event filters for subscription
 - `withAddress()`: Method to create a new instance with an address
+
+:::info
+Note that `bytecode` and `deployedBytecode` are only available when using the `.s.sol` extension. If you import a regular `.sol` file, these properties will be `undefined`, and you won't be able to deploy the contract.
+:::
 
 ## Advanced Configuration
 
@@ -365,8 +396,26 @@ Setting `"foundryProject": true` will:
 - Automatically read your Foundry remappings from `foundry.toml` or `remappings.txt`
 - Include your Foundry library paths (`lib/` directory by default)
 - Allow you to import contracts using the same paths as in your Foundry project
+- Merge your manually specified remappings and libs with those from Foundry
 
-This is especially useful if you:
+You can also manually set remappings and lib paths without using Foundry:
+
+```json
+{
+  "foundryProject": false,  // or omit this line
+  "libs": [
+    "./contracts",
+    "node_modules"
+  ],
+  "remappings": {
+    "@openzeppelin/": "node_modules/@openzeppelin/",
+    "ds-test/": "lib/forge-std/lib/ds-test/src/",
+    "solmate/": "node_modules/solmate/src/"
+  }
+}
+```
+
+This configuration is especially useful if you:
 - Have a mixed Foundry/JavaScript project
 - Use Forge libraries like OpenZeppelin or Solmate
 - Have complex import paths in your Solidity code
@@ -455,8 +504,12 @@ This will provide the same type-safety and features as file-based imports, but w
 
 ## Documentation Resources
 
-- The [bundler reference docs](/reference/bundler) provide detailed information about all bundler features
-- For AI and LLM users, the full Tevm documentation is available as plain text at [https://node.tevm.sh/llms-full.txt](https://node.tevm.sh/llms-full.txt)
+- Bundler Reference Documentation:
+  - [Overview](/reference/bundler/overview) - Key benefits and features
+  - [Internals](/reference/bundler/internals) - How the bundler works
+  - [Methods & Exports](/reference/bundler/methods) - Advanced APIs
+  - [Troubleshooting](/reference/bundler/troubleshooting) - Common issues and solutions
+- For AI and LLM users, the full Tevm documentation is available as plain text at [/llms-full.txt](/llms-full.txt)
 
 ## Troubleshooting
 
@@ -488,9 +541,12 @@ This generates `.ts` files alongside your `.sol` files that can be imported dire
 
 Now that you have the bundler set up, you can:
 
-- [Learn more about Tevm Contracts](/reference/contract)
-- [Explore the bundler in depth](/reference/bundler)
-- [Configure bundler plugins for advanced use cases](/reference/bundler-plugins)
+- [Learn more about Tevm Contracts](/reference/contract) 
+- Explore the bundler in depth:
+  - [Bundler Overview](/reference/bundler/overview) - Key benefits and features
+  - [Bundler Internals](/reference/bundler/internals) - How the bundler works
+  - [Advanced Methods & APIs](/reference/bundler/methods) - For custom implementations
+  - [Troubleshooting](/reference/bundler/troubleshooting) - Solutions for common issues
 - [Build applications with Tevm Node](/core/create-tevm-node)
 
 For complete project examples, check out the [Tevm examples repository](https://github.com/evmts/tevm-monorepo/tree/main/examples).

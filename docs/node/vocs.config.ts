@@ -175,7 +175,16 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Contract (@tevm/contract)", link: "/reference/contract" },
-            { text: "Contract Bundler", link: "/reference/bundler" },
+            { 
+              text: "Contract Bundler", 
+              link: "/reference/bundler",
+              items: [
+                { text: "Overview", link: "/reference/bundler/overview" },
+                { text: "Internals", link: "/reference/bundler/internals" },
+                { text: "Methods & Exports", link: "/reference/bundler/methods" },
+                { text: "Troubleshooting", link: "/reference/bundler/troubleshooting" },
+              ]
+            },
             {
               text: "Precompiles (@tevm/precompiles)",
               link: "/advanced/custom-precompiles",
