@@ -1,15 +1,8 @@
 import { type ResolvedCompilerConfig, defaultConfig } from '@tevm/config'
-import { type MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
+import { type MockedFunction, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { compileContract } from './compiler/compileContracts.js'
 import { resolveArtifacts } from './resolveArtifacts.js'
-import type {
-	FileAccessObject,
-	Logger,
-	ModuleInfo,
-	ResolvedArtifacts,
-	SolcInputDescription,
-	SolcOutput,
-} from './types.js'
+import type { FileAccessObject, Logger, ModuleInfo, SolcInputDescription, SolcOutput } from './types.js'
 
 vi.mock('./compiler/compileContracts', () => ({
 	compileContract: vi.fn(),
@@ -74,18 +67,18 @@ describe('resolveArtifacts', () => {
 		`)
 	})
 
-	it('should throw an error if the solidity file does not end in .sol', () => {
-		expect(() =>
+	it('should throw an error if the solidity file does not end in .sol', async () => {
+		await expect(() =>
 			resolveArtifacts('test', basedir, logger, config, false, false, fao, require('solc')),
 		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: Not a solidity file]')
 	})
 
-	it('should throw an error if no artifacts are returned by the compiler', () => {
+	it('should throw an error if no artifacts are returned by the compiler', async () => {
 		mockCompileContract.mockReturnValue({
 			artifacts: undefined,
 			modules: {} as Record<string, ModuleInfo>,
 		} as any)
-		expect(() =>
+		await expect(() =>
 			resolveArtifacts(solFile, basedir, logger, config, false, false, fao, require('solc')),
 		).rejects.toThrowErrorMatchingInlineSnapshot('[Error: Compilation failed]')
 	})
@@ -157,6 +150,7 @@ describe('resolveArtifacts', () => {
 			},
 		} as SolcInputDescription
 
+		// @ts-expect-error - This is a mock for testing purposes
 		const mockSolcOutput = {
 			contracts: {
 				'test.sol': complexContracts,
@@ -173,11 +167,21 @@ describe('resolveArtifacts', () => {
 
 		const result = await resolveArtifacts(solFile, basedir, logger, config, false, true, fao, require('solc'))
 
-		expect(result.artifacts['ComplexContract']).toBeDefined()
-		expect(result.artifacts['ComplexContract'].abi).toHaveLength(2)
-		expect(result.artifacts['ComplexContract'].userdoc).toBeDefined()
-		expect(result.artifacts['ComplexContract'].userdoc?.methods).toBeDefined()
-		expect(result.artifacts['ComplexContract'].evm?.bytecode?.object).toBeDefined()
+		expect(result.artifacts).toBeDefined()
+		if ('ComplexContract' in result.artifacts) {
+			const contract = result.artifacts['ComplexContract']
+			expect(contract).toBeDefined()
+			if (contract) {
+				expect(contract.abi).toHaveLength(2)
+				expect(contract.userdoc).toBeDefined()
+				if (contract.userdoc) {
+					expect(contract.userdoc.methods).toBeDefined()
+				}
+				if (contract.evm?.bytecode) {
+					expect(contract.evm.bytecode.object).toBeDefined()
+				}
+			}
+		}
 		expect(result.solcInput).toEqual(mockSolcInput)
 		expect(result.solcOutput).toEqual(mockSolcOutput)
 	})

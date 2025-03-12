@@ -23,6 +23,7 @@ describe('generateDtsBody', () => {
 					},
 				},
 			},
+			contractName: 'MyContract',
 		},
 		AnotherContract: {
 			abi: [],
@@ -34,6 +35,7 @@ describe('generateDtsBody', () => {
 				version: 1,
 				notice: 'MyContract',
 			},
+			contractName: 'AnotherContract',
 		},
 		MissingContract: {
 			abi: [],
@@ -50,6 +52,7 @@ describe('generateDtsBody', () => {
 					},
 				},
 			},
+			contractName: 'MissingContract',
 		},
 	} as const
 
@@ -150,10 +153,10 @@ describe('generateDtsBody', () => {
 						name: 'transfer',
 						inputs: [
 							{ name: 'to', type: 'address' },
-							{ name: 'amount', type: 'uint256' }
+							{ name: 'amount', type: 'uint256' },
 						],
 						outputs: [{ type: 'bool' }],
-						stateMutability: 'nonpayable'
+						stateMutability: 'nonpayable',
 					},
 					{
 						type: 'event',
@@ -161,14 +164,14 @@ describe('generateDtsBody', () => {
 						inputs: [
 							{ name: 'from', type: 'address', indexed: true },
 							{ name: 'to', type: 'address', indexed: true },
-							{ name: 'amount', type: 'uint256', indexed: false }
+							{ name: 'amount', type: 'uint256', indexed: false },
 						],
-						anonymous: false
-					}
+						anonymous: false,
+					},
 				],
 				evm: {
 					bytecode: { object: 'complexBytecode' },
-					deployedBytecode: { object: 'complexDeployedBytecode' }
+					deployedBytecode: { object: 'complexDeployedBytecode' },
 				},
 				userdoc: {
 					kind: 'user',
@@ -176,11 +179,12 @@ describe('generateDtsBody', () => {
 					notice: 'A complex ERC20-like contract',
 					methods: {
 						'transfer(address,uint256)': {
-							notice: 'Transfers tokens to the specified address'
-						}
-					}
-				}
-			}
+							notice: 'Transfers tokens to the specified address',
+						},
+					},
+				},
+				contractName: 'ComplexContract',
+			},
 		})
 
 		const result = runSync(generateDtsBody(complexArtifacts, true))
@@ -202,16 +206,17 @@ describe('generateDtsBody', () => {
 						name: 'getValue',
 						inputs: [],
 						outputs: [{ type: 'uint256' }],
-						stateMutability: 'view'
-					}
+						stateMutability: 'view',
+					},
 				],
 				evm: {
 					bytecode: { object: 'simpleBytecode' },
-					deployedBytecode: { object: 'simpleDeployedBytecode' }
-				}
+					deployedBytecode: { object: 'simpleDeployedBytecode' },
+				},
 				// No userdoc property
-			}
-		}
+				contractName: 'SimpleContract',
+			},
+		})
 
 		const result = runSync(generateDtsBody(noDocsArtifact, false))
 		expect(result).toContain('const _abiSimpleContract = [')
@@ -223,7 +228,7 @@ describe('generateDtsBody', () => {
 	})
 
 	it('should handle contracts with methods documentation but no method notice', () => {
-		const partialDocsArtifact = {
+		const partialDocsArtifact = createTestArtifacts({
 			PartialDocsContract: {
 				abi: [
 					{
@@ -231,12 +236,12 @@ describe('generateDtsBody', () => {
 						name: 'setValue',
 						inputs: [{ name: 'newValue', type: 'uint256' }],
 						outputs: [],
-						stateMutability: 'nonpayable'
-					}
+						stateMutability: 'nonpayable',
+					},
 				],
 				evm: {
 					bytecode: { object: 'partialBytecode' },
-					deployedBytecode: { object: 'partialDeployedBytecode' }
+					deployedBytecode: { object: 'partialDeployedBytecode' },
 				},
 				userdoc: {
 					kind: 'user',
@@ -244,16 +249,17 @@ describe('generateDtsBody', () => {
 					notice: 'Contract with partial docs',
 					methods: {
 						// Method exists but has no notice property
-						'setValue(uint256)': {}
-					}
-				}
-			}
-		}
+						'setValue(uint256)': {},
+					},
+				},
+				contractName: 'PartialDocsContract',
+			},
+		})
 
 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
 		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
 		expect(result).toContain('* @notice Contract with partial docs')
-		
+
 		// The implementation will include @property with undefined, let's accept both outcomes
 		if (result.includes('* @property setValue(uint256)')) {
 			expect(result).toContain('* @property setValue(uint256) undefined')
@@ -261,20 +267,21 @@ describe('generateDtsBody', () => {
 	})
 
 	it('should handle contracts with empty ABI in declaration files', () => {
-		const emptyAbiArtifact = {
+		const emptyAbiArtifact = createTestArtifacts({
 			EmptyAbiContract: {
 				abi: [], // Empty ABI
 				evm: {
 					bytecode: { object: 'emptyBytecode' },
-					deployedBytecode: { object: 'emptyDeployedBytecode' }
+					deployedBytecode: { object: 'emptyDeployedBytecode' },
 				},
 				userdoc: {
 					kind: 'user',
 					version: 1,
-					notice: 'A contract with no functions'
-				}
-			}
-		}
+					notice: 'A contract with no functions',
+				},
+				contractName: 'EmptyAbiContract',
+			},
+		})
 
 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
 		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
@@ -285,7 +292,7 @@ describe('generateDtsBody', () => {
 
 		const resultWithoutBytecode = runSync(generateDtsBody(emptyAbiArtifact, false))
 		expect(resultWithoutBytecode).toContain('* EmptyAbiContract Contract (no bytecode)')
-		expect(resultWithoutBytecode).toContain('change file name or add file that ends in \'.s.sol\' extension')
+		expect(resultWithoutBytecode).toContain("change file name or add file that ends in '.s.sol' extension")
 		expect(resultWithoutBytecode).toContain('undefined, undefined, undefined')
 	})
 })

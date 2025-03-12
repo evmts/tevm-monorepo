@@ -84,7 +84,8 @@ describe('maybeThrowOnFail', () => {
 
 	it('should handle custom error objects correctly', () => {
 		class CustomError extends Error {
-			constructor(message) {
+			customProperty: string
+			constructor(message: string) {
 				super(message)
 				this.name = 'CustomError'
 				this.customProperty = 'custom value'
@@ -99,16 +100,23 @@ describe('maybeThrowOnFail', () => {
 			// Should not reach here
 			expect(false).toBe(true)
 		} catch (e) {
-			expect(e).toBeInstanceOf(CustomError)
-			expect(e.name).toBe('CustomError')
-			expect(e.message).toBe('Custom error message')
-			expect(e.customProperty).toBe('custom value')
+			const customErr = e as CustomError
+			expect(customErr).toBeInstanceOf(CustomError)
+			expect(customErr.name).toBe('CustomError')
+			expect(customErr.message).toBe('Custom error message')
+			expect(customErr.customProperty).toBe('custom value')
 		}
 	})
 
 	it('should handle error objects without Error class properties', () => {
+		// Define interface for type safety
+		interface ErrorLikeObject {
+			_tag: string
+			message: string
+		}
+
 		// Object with error-like properties but not an instance of Error
-		const errorLikeObject = {
+		const errorLikeObject: ErrorLikeObject = {
 			_tag: 'CustomErrorType',
 			message: 'This is not a real Error instance',
 		}
@@ -119,9 +127,10 @@ describe('maybeThrowOnFail', () => {
 			// Should not reach here
 			expect(false).toBe(true)
 		} catch (e) {
-			expect(e).toBe(errorLikeObject)
-			expect(e._tag).toBe('CustomErrorType')
-			expect(e.message).toBe('This is not a real Error instance')
+			const errLike = e as ErrorLikeObject
+			expect(errLike).toBe(errorLikeObject)
+			expect(errLike._tag).toBe('CustomErrorType')
+			expect(errLike.message).toBe('This is not a real Error instance')
 		}
 	})
 })

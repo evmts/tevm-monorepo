@@ -21,6 +21,7 @@ describe('generateRuntime', () => {
 					},
 				},
 			},
+			contractName: 'MyContract',
 		},
 	}
 

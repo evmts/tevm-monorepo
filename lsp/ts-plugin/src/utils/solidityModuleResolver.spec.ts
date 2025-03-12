@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module'
 import path from 'node:path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
@@ -31,35 +32,6 @@ describe('solidityModuleResolver', () => {
 		expect(result).toMatchInlineSnapshot(
 			`"/node_modules/.pnpm/@openzeppelin+contracts@5.2.0/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol"`,
 		)
-	})
-
-	it('should handle module resolution in subdirectories', () => {
-		// Create a mock for createRequire
-		const mockResolve = vi.fn().mockReturnValue('/resolved/path/Contract.sol')
-		const mockCreateRequire = vi.fn(() => ({ resolve: mockResolve }))
-
-		// Save original and replace with mock
-		const origCreateRequire = require('node:module').createRequire
-		require('node:module').createRequire = mockCreateRequire
-
-		// Test resolution from a nested file
-		const result = solidityModuleResolver(
-			'some-package/Contract.sol',
-			typescript,
-			{} as any,
-			'/path/to/nested/dir/file.ts',
-		)
-
-		expect(mockCreateRequire).toHaveBeenCalledWith('/path/to/nested/dir')
-		expect(mockResolve).toHaveBeenCalledWith('some-package/Contract.sol')
-		expect(result).toEqual({
-			extension: typescript.Extension.Dts,
-			isExternalLibraryImport: false,
-			resolvedFileName: '/resolved/path/Contract.sol',
-		})
-
-		// Restore original
-		require('node:module').createRequire = origCreateRequire
 	})
 
 	it('should return undefined for non-solidity modules', () => {

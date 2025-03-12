@@ -27,6 +27,7 @@ class ImportDoesNotExistError extends Error {
  * @param {Record<string, string>} remappings
  * @param {ReadonlyArray<string>} libs
  * @param {boolean} sync
+ *
  * @returns {import("effect/Effect").Effect<ReadonlyArray<import("./types.js").ResolvedImport>, ResolveImportsError, never>}
  * @example
  * ```ts
@@ -47,7 +48,7 @@ class ImportDoesNotExistError extends Error {
  * console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to/Contract.sol', original: '../Contract.sol' }]
  * ```
  */
-export const resolveImports = (absolutePath, code, remappings, libs, sync = false) => {
+export const resolveImports = (absolutePath, code, remappings, libs, sync) => {
 	const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
 
 	if (typeof absolutePath !== 'string') {

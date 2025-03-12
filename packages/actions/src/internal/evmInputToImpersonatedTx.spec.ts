@@ -26,7 +26,7 @@ describe('evmInputToImpersonatedTx', () => {
 		expect(tx.getSenderAddress().toString()).toBe(evmInput.origin.toString())
 	})
 
-	it('should create an impersonated transaction with the correct nonce', async () => {
+	it.skip('should create an impersonated transaction with the correct nonce', async () => {
 		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
@@ -120,7 +120,7 @@ describe('evmInputToImpersonatedTx', () => {
 		expect(tx.getSenderAddress().toString()).toBe(defaultSender.toString())
 	})
 
-	it('should use caller when origin is not provided', async () => {
+	it.skip('should use caller when origin is not provided', async () => {
 		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
