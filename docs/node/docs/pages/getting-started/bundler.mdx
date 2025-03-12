@@ -18,7 +18,7 @@ Tevm bundler enables a seamless integration between Solidity and TypeScript, let
 
 ## Prerequisites
 
-- Node.js 16+ and npm/yarn/pnpm
+- Node.js 18+ (recommended for best ESM support) and npm/yarn/pnpm
 - A supported bundler (Vite, Webpack, Rollup, ESBuild, or Bun)
 
 ## Step 1: Install Tevm and TypeScript Plugin
@@ -36,6 +36,12 @@ The bundler plugin handles the actual compilation of Solidity files during your 
 
 :::tip
 If you have a complex project or Foundry-based imports, you might need advanced configuration. See the [Advanced Configuration](#advanced-configuration) section for setting up `tevm.config.json`.
+
+The bundler creates a `.tevm` cache directory. Consider adding it to your `.gitignore`:
+```bash
+# .gitignore
+.tevm
+```
 :::
 
 ### For Vite (recommended)
@@ -352,7 +358,7 @@ It's highly recommended to add the `.tevm` cache directory to your `.gitignore`:
 .tevm
 ```
 
-This prevents compiled artifacts from being committed to your repository.
+This prevents compiled artifacts from being committed to your repository. The `.tevm` directory is ephemeral - you can safely delete it if you encounter stale builds or caching issues, but it will require recompiling all contracts on the next build.
 :::
 
 Setting `"foundryProject": true` will:
@@ -364,6 +370,8 @@ This is especially useful if you:
 - Have a mixed Foundry/JavaScript project
 - Use Forge libraries like OpenZeppelin or Solmate
 - Have complex import paths in your Solidity code
+
+For a complete example of Bundler + Foundry integration, see the [Foundry example](https://github.com/evmts/tevm-monorepo/tree/main/examples/vite) in the Tevm examples repository.
 
 ## Using Third-Party Contracts
 
