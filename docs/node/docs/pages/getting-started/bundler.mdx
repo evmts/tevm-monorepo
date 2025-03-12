@@ -34,6 +34,10 @@ npm install -D @tevm/ts-plugin
 
 The bundler plugin handles the actual compilation of Solidity files during your build process. This ensures your final JavaScript output will contain the compiled Solidity contract ABIs, bytecode, and TypeScript interfaces.
 
+:::tip
+If you have a complex project or Foundry-based imports, you might need advanced configuration. See the [Advanced Configuration](#advanced-configuration) section for setting up `tevm.config.json`.
+:::
+
 ### For Vite (recommended)
 
 ```ts
@@ -93,6 +97,12 @@ const nextConfig = {
 
 export default nextConfig
 ```
+
+:::warning
+Next.js has its own type-checking pipeline that may conflict with Solidity imports. If you see type errors during `next build`, either:
+1. Use `typescript.ignoreBuildErrors: true` (as shown above)
+2. Use the codegen approach with `npx tevm gen` to generate explicit TypeScript files 
+:::
 </details>
 
 <details>
@@ -203,6 +213,20 @@ For Vim, Neovim, and most other editors with TypeScript support, everything shou
 ## Step 5: Create a Solidity Contract
 
 Create a simple contract in your project. Name it `Counter.s.sol` to include bytecode (the `.s.sol` extension tells Tevm to generate deployable bytecode):
+
+:::info
+**Understanding .sol vs .s.sol extensions:**
+
+- **`.sol`** - Only generates the ABI (Application Binary Interface)
+  - Use for interacting with existing deployed contracts
+  - Cannot be deployed (no bytecode)
+  - Example: `import { Token } from './Token.sol'`
+
+- **`.s.sol`** - Generates both ABI and bytecode
+  - Can be deployed or used as an interface
+  - Increases bundle size but enables deployment
+  - Example: `import { Token } from './Token.s.sol'`
+:::
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -315,9 +339,21 @@ By default, Tevm uses Node.js resolution to resolve contract imports (similar to
   "libs": ["lib", "node_modules"],
   "remappings": {
     "@openzeppelin/": "node_modules/@openzeppelin/"
-  }
+  },
+  "cacheDir": ".tevm"
 }
 ```
+
+:::tip
+It's highly recommended to add the `.tevm` cache directory to your `.gitignore`:
+
+```bash
+# .gitignore
+.tevm
+```
+
+This prevents compiled artifacts from being committed to your repository.
+:::
 
 Setting `"foundryProject": true` will:
 - Automatically read your Foundry remappings from `foundry.toml` or `remappings.txt`
@@ -421,10 +457,24 @@ This will provide the same type-safety and features as file-based imports, but w
 - **Deployment errors**: Make sure you're calling `.deploy()` with any required constructor arguments
 - **Compilation errors**: Check your Solidity code and ensure you're using a compatible Solidity version
 - **TypeScript errors**: Ensure you have the TypeScript plugin correctly configured
+- **Red underlines in editor**: Verify your editor is using the workspace version of TypeScript with the plugin loaded
 - **Import resolution failures**: If you're using Foundry-style imports (like `@openzeppelin/contracts/...`) and seeing errors:
   - Create a `tevm.config.json` with `"foundryProject": true`
   - Check that your remappings in `foundry.toml` are correct
   - Try adding explicit remappings in `tevm.config.json`
+- **Test runner issues**: Most test runners (Vitest, Jest) work out-of-the-box once the bundler plugin is configured. For Jest, you might need extra configuration or use the codegen approach with `npx tevm gen`
+
+## Codegen Alternative to Bundler
+
+:::tip
+If your framework conflicts with the bundler approach or you prefer explicit type generation, try the codegen approach:
+
+```bash
+npx tevm gen
+```
+
+This generates `.ts` files alongside your `.sol` files that can be imported directly, without requiring bundler integration. This is especially useful for Next.js or other frameworks with strict type-checking pipelines.
+:::
 
 ## Next Steps
 
