@@ -13,7 +13,7 @@ describe('Tevm Mining Modes', () => {
 
 	it('should mine blocks automatically in auto mode', async () => {
 		// Create a client with auto mining mode (default)
-		const client = createClient({
+		const client = createMemoryClient({
 			mining: {
 				mode: 'auto',
 			},
@@ -48,7 +48,7 @@ describe('Tevm Mining Modes', () => {
 		const contract = SimpleContract.withAddress(contractAddress)
 
 		// Send a transaction to update the contract state
-		await tevmContract(client, contract.write.set(99n), {
+		await tevmContract(client, contract.write.set([99n]), {
 			from: testAddress,
 		})
 
@@ -59,7 +59,7 @@ describe('Tevm Mining Modes', () => {
 
 	it('should require manual mining in manual mode', async () => {
 		// Create a client with manual mining mode
-		const client = createClient({
+		const client = createMemoryClient({
 			mining: {
 				mode: 'manual',
 			},
@@ -119,7 +119,7 @@ describe('Tevm Mining Modes', () => {
 
 	it('should handle multiple transactions in single blocks', async () => {
 		// Create a client with manual mining mode
-		const client = createClient({
+		const client = createMemoryClient({
 			mining: {
 				mode: 'manual',
 			},
@@ -175,7 +175,7 @@ describe('Tevm Mining Modes', () => {
 		const miningInterval = 10
 
 		// Create a client with interval mining mode
-		const client = createClient({
+		const client = createMemoryClient({
 			mining: {
 				mode: 'interval',
 				interval: miningInterval,

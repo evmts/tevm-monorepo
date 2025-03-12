@@ -31,7 +31,7 @@ describe('isArray utility', () => {
 		expect(isArray(argumentsLike)).toBe(false)
 
 		// Rest parameters (array-like but actually a real array)
-		function testRestParams(...params) {
+		function testRestParams(...params: any[]) {
 			return isArray(params)
 		}
 		expect(testRestParams('a', 'b')).toBe(true)

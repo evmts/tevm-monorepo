@@ -60,7 +60,7 @@ describe('Tevm Contract Integration', () => {
 		await tevmCall(client, {
 			to: contractAddress,
 			data: callData,
-			from: testAddress,
+			account: testAddress,
 			createTransaction: true,
 		})
 
@@ -99,7 +99,7 @@ describe('Tevm Contract Integration', () => {
 		await tevmCall(client, {
 			to: contractAddress,
 			data: '0x', // empty data for a simple value transfer
-			from: testAddress,
+			account: testAddress,
 			value,
 			createTransaction: true,
 		})
@@ -130,7 +130,7 @@ describe('Tevm Contract Integration', () => {
 			bytecode: SimpleContract.bytecode,
 			abi: SimpleContract.abi,
 			args: [0n],
-			from: testAddress,
+			account: testAddress,
 		})
 
 		expect(deployResult.createdAddress).toBeDefined()
@@ -186,7 +186,7 @@ describe('Tevm Contract Integration', () => {
 			bytecode: SimpleContract.bytecode,
 			abi: SimpleContract.abi,
 			args: [0n],
-			from: testAddress,
+			account: testAddress,
 		})
 
 		expect(deployResult.createdAddress).toBeDefined()

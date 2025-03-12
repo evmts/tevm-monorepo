@@ -1,4 +1,4 @@
-import { type Address, type Client, createClient, parseEther } from 'viem'
+import { type Address, createClient, parseEther } from 'viem'
 import { getBalance, getCode, getStorageAt, getTransactionCount } from 'viem/actions'
 import { describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
@@ -152,9 +152,10 @@ describe('Tevm Account Management', () => {
 
 		for (let i = 0; i < addresses.length; i++) {
 			const addr = addresses[i] as `0x${string}`
+			const balance = balances[i]!
 			await tevmSetAccount(client, {
 				address: addr,
-				balance: balances[i]!,
+				balance,
 				nonce: BigInt(i),
 			})
 		}
@@ -166,7 +167,7 @@ describe('Tevm Account Management', () => {
 			// Convert number to bigint for comparison
 			const nonce = await getTransactionCount(client, { address: addr })
 
-			expect(balance).toBe(balances[i]!)
+			expect(balance).toBe(balances[i])
 			// Allow for both number and bigint types
 			expect(BigInt(nonce)).toBe(BigInt(i))
 		}
@@ -188,7 +189,7 @@ describe('Tevm Account Management', () => {
 			if (i === updatedIndex) {
 				expect(balance).toBe(updatedBalance)
 			} else {
-				expect(balance).toBe(balances[i]!)
+				expect(balance).toBe(balances[i])
 			}
 		}
 	})
@@ -224,7 +225,7 @@ describe('Tevm Account Management', () => {
 			const keyPadding = i.toString(16).padStart(64, '0')
 			const key = `0x${keyPadding}`
 
-			const expectedValue = `0x${i.toString(16).padStart(2, '0')}`
+			const expectedValue = `0x${i.toString(16).padStart(2, '0')}` as `0x${string}`
 
 			const actualValue = await getStorageAt(client, {
 				address: testAddress,

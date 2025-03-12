@@ -90,10 +90,7 @@ describe('createTransaction', () => {
 		mockVm.stateManager.getAccount = vi.fn().mockImplementation((address) => {
 			if (address.toString() === addr) {
 				return Promise.resolve(
-					new EthjsAccount({
-						balance: 1000000000000000000n, // 1 ETH
-						nonce: 0n,
-					}),
+					new EthjsAccount(0n, 1000000000000000000n), // nonce, balance (1 ETH)
 				)
 			}
 			return Promise.resolve(mockAccount)
@@ -189,10 +186,7 @@ describe('createTransaction', () => {
 		mockVm.stateManager.getAccount = vi.fn().mockImplementation((address) => {
 			if (address.toString() === addr) {
 				return Promise.resolve(
-					new EthjsAccount({
-						balance: 100000000000000000000n, // 100 ETH (plenty)
-						nonce: 0n,
-					}),
+					new EthjsAccount(0n, 100000000000000000000n), // nonce, balance (100 ETH plenty)
 				)
 			}
 			return Promise.resolve(mockAccount)
@@ -231,10 +225,7 @@ describe('createTransaction', () => {
 		mockVm.stateManager.getAccount = vi.fn().mockImplementation((address) => {
 			if (address.toString() === addr) {
 				return Promise.resolve(
-					new EthjsAccount({
-						balance: 100000000000000000000n, // 100 ETH (plenty)
-						nonce: 0n,
-					}),
+					new EthjsAccount(0n, 100000000000000000000n), // nonce, balance (100 ETH plenty)
 				)
 			}
 			return Promise.resolve(mockAccount)
@@ -269,10 +260,7 @@ describe('createTransaction', () => {
 		mockVm.stateManager.getAccount = vi.fn().mockImplementation((address) => {
 			if (address.toString() === addr) {
 				return Promise.resolve(
-					new EthjsAccount({
-						balance: 100000000000000000000n, // 100 ETH (plenty)
-						nonce: 0n,
-					}),
+					new EthjsAccount(0n, 100000000000000000000n), // nonce, balance (100 ETH plenty)
 				)
 			}
 			return Promise.resolve(mockAccount)

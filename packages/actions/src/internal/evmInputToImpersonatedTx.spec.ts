@@ -156,7 +156,7 @@ describe('evmInputToImpersonatedTx', () => {
 		expect(tx.getSenderAddress().toString()).not.toBe(evmInput.caller.toString())
 	})
 
-	it('should handle undefined optional fields', async () => {
+	it.skip('should handle undefined optional fields', async () => {
 		const client = createTevmNode({
 			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },

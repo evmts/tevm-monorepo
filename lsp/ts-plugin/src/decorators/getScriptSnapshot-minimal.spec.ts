@@ -101,9 +101,15 @@ describe('getScriptSnapshot minimal tests', () => {
 		// Enable debug mode
 		mockConfig.debug = true
 
-		// Create decorator
+		// Create decorator with TypeScript plugin create info
 		const decorator = getScriptSnapshotDecorator(createCache(tempDir, mockFao, tempDir))(
-			{ languageServiceHost: mockHost },
+			{
+				languageServiceHost: mockHost,
+				project: {} as typescript.server.Project,
+				languageService: {} as typescript.LanguageService,
+				serverHost: {} as typescript.server.ServerHost,
+				config: {},
+			},
 			typescript,
 			mockLogger,
 			mockConfig,
@@ -128,7 +134,13 @@ describe('getScriptSnapshot minimal tests', () => {
 	it('should set resolveBytecode flag for .s.sol files', () => {
 		// Create decorator
 		const decorator = getScriptSnapshotDecorator(createCache(tempDir, mockFao, tempDir))(
-			{ languageServiceHost: mockHost },
+			{
+				languageServiceHost: mockHost,
+				project: {} as typescript.server.Project,
+				languageService: {} as typescript.LanguageService,
+				serverHost: {} as typescript.server.ServerHost,
+				config: {},
+			},
 			typescript,
 			mockLogger,
 			mockConfig,
@@ -152,7 +164,13 @@ describe('getScriptSnapshot minimal tests', () => {
 	it('should process JSON files with jsonAsConst', () => {
 		// Create decorator
 		const decorator = getScriptSnapshotDecorator(createCache(tempDir, mockFao, tempDir))(
-			{ languageServiceHost: mockHost },
+			{
+				languageServiceHost: mockHost,
+				project: {} as typescript.server.Project,
+				languageService: {} as typescript.LanguageService,
+				serverHost: {} as typescript.server.ServerHost,
+				config: {},
+			},
 			typescript,
 			mockLogger,
 			mockConfig,
@@ -178,7 +196,13 @@ describe('getScriptSnapshot minimal tests', () => {
 
 		// Create decorator
 		const decorator = getScriptSnapshotDecorator(createCache(tempDir, mockFao, tempDir))(
-			{ languageServiceHost: mockHost },
+			{
+				languageServiceHost: mockHost,
+				project: {} as typescript.server.Project,
+				languageService: {} as typescript.LanguageService,
+				serverHost: {} as typescript.server.ServerHost,
+				config: {},
+			},
 			typescript,
 			mockLogger,
 			mockConfig,

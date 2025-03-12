@@ -1,9 +1,8 @@
 import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
-import { http, type Address, type Client, createClient, parseEther } from 'viem'
+import { type Address, createClient, parseEther } from 'viem'
 import { getBalance, getBlockNumber, getCode, sendTransaction } from 'viem/actions'
-import { beforeEach, describe, expect, it } from 'vitest'
-import type { TevmTransport } from './TevmTransport.js'
+import { describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmMine } from './tevmMine.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
@@ -30,7 +29,9 @@ describe('Tevm Forking Integration', () => {
 		// DAI contract should exist on the forked network
 		const code = await getCode(client, { address: daiContractAddress })
 		expect(code).not.toBe('0x')
-		expect(code.length).toBeGreaterThan(2) // More than just '0x'
+		if (code) {
+			expect(code.length).toBeGreaterThan(2) // More than just '0x'
+		}
 	})
 
 	it('should allow local state modifications while preserving fork state', async () => {

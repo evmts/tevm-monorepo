@@ -60,7 +60,7 @@ describe('Tevm State Persistence', () => {
 		})
 
 		const initialCallResult = await tevmCall(sourceClient, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: getDataEncoded,
 		})
 
@@ -94,7 +94,7 @@ describe('Tevm State Persistence', () => {
 
 		// Verify contract code and state were transferred
 		const targetCallResult = await tevmCall(targetClient, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: getDataEncoded,
 		})
 
@@ -115,7 +115,7 @@ describe('Tevm State Persistence', () => {
 		})
 
 		await tevmCall(targetClient, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: setDataEncoded,
 			createTransaction: true,
 		})
@@ -124,7 +124,7 @@ describe('Tevm State Persistence', () => {
 
 		// 7. Verify modified state
 		const updatedCallResult = await tevmCall(targetClient, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: getDataEncoded,
 		})
 
@@ -138,7 +138,7 @@ describe('Tevm State Persistence', () => {
 
 		// 8. Confirm sourceClient state remains unaffected
 		const originalCallResult = await tevmCall(sourceClient, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: getDataEncoded,
 		})
 

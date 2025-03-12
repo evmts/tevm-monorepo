@@ -76,7 +76,7 @@ describe('Tevm State Management', () => {
 		})
 
 		await tevmCall(client, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: setDataEncoded,
 			createTransaction: true,
 		})
@@ -85,7 +85,7 @@ describe('Tevm State Management', () => {
 
 		// Verify the change was made
 		const tempCallResult = await tevmCall(client, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: getDataEncoded,
 		})
 
@@ -150,7 +150,7 @@ describe('Tevm State Management', () => {
 		})
 
 		await tevmCall(client, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: setDataEncoded,
 			createTransaction: true,
 		})
@@ -169,7 +169,7 @@ describe('Tevm State Management', () => {
 		})
 
 		await tevmCall(client, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: finalSetDataEncoded,
 			createTransaction: true,
 		})
@@ -183,7 +183,7 @@ describe('Tevm State Management', () => {
 		})
 
 		const latestCallResult = await tevmCall(client, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: getDataEncoded,
 		})
 
@@ -200,7 +200,7 @@ describe('Tevm State Management', () => {
 
 		// 8. Verify we're back to the middle value
 		const midCallResult = await tevmCall(client, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: getDataEncoded,
 		})
 
@@ -217,7 +217,7 @@ describe('Tevm State Management', () => {
 
 		// 10. Verify we're back to the initial value
 		const initialCallResult = await tevmCall(client, {
-			to: contractAddress as `0x${string}`,
+			to: contractAddress,
 			data: getDataEncoded,
 		})
 

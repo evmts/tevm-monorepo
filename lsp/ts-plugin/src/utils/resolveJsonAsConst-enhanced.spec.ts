@@ -28,7 +28,7 @@ describe('resolveJsonAsConst enhanced tests', () => {
 			ScriptSnapshot: {
 				fromString: vi.fn((content) => ({
 					getLength: () => content.length,
-					getText: (start, end) => content.substring(start, end),
+					getText: (start: number, end: number) => content.substring(start, end),
 					getChangeRange: () => null,
 					text: content, // For test inspection
 				})),
