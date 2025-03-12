@@ -6,7 +6,9 @@
 
 # Interface: MetaDBManagerOptions
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:3
+Defined in: packages/receipt-manager/types/MapDb.d.ts:9
+
+Options for creating a MapDb instance
 
 ## Properties
 
@@ -14,4 +16,6 @@ Defined in: packages/receipt-manager/types/MapDb.d.ts:3
 
 > **cache**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:4
+Defined in: packages/receipt-manager/types/MapDb.d.ts:13
+
+Map used as the cache for the database

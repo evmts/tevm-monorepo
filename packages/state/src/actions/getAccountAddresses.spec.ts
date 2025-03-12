@@ -31,7 +31,10 @@ describe(getAccountAddresses.name, () => {
 
 	it('works with ordered map cache', async () => {
 		const state = createBaseState({
-			accountsCache: new AccountCache({ size: 200, type: CacheType.ORDERED_MAP }),
+			accountsCache: new AccountCache({
+				size: 200,
+				type: CacheType.ORDERED_MAP,
+			}),
 		})
 
 		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 420n }))
@@ -62,7 +65,10 @@ describe(getAccountAddresses.name, () => {
 
 	it('works with custom cache type', async () => {
 		const state = createBaseState({
-			accountsCache: new AccountCache({ size: 10, type: CacheType.ORDERED_MAP }),
+			accountsCache: new AccountCache({
+				size: 10,
+				type: CacheType.ORDERED_MAP,
+			}),
 		})
 
 		await putAccount(state)(createAddress(1), EthjsAccount.fromAccountData({ balance: 100n }))
@@ -112,7 +118,7 @@ describe(getAccountAddresses.name, () => {
 		// This is to test both branches of the condition in line 18
 		const originalRkeys = state.caches.accounts._lruCache?.rkeys
 		if (state.caches.accounts._lruCache) {
-			state.caches.accounts._lruCache.rkeys = () => {
+			;(state as any).caches.accounts._lruCache.rkeys = () => {
 				return ['0x0000000000000000000000000000000000000001', '0000000000000000000000000000000000000002']
 			}
 		}
@@ -133,7 +139,10 @@ describe(getAccountAddresses.name, () => {
 
 	it('handles both prefixed and unprefixed addresses in OrderedMap forEach', async () => {
 		const state = createBaseState({
-			accountsCache: new AccountCache({ size: 10, type: CacheType.ORDERED_MAP }),
+			accountsCache: new AccountCache({
+				size: 10,
+				type: CacheType.ORDERED_MAP,
+			}),
 		})
 
 		// Add accounts
@@ -150,9 +159,9 @@ describe(getAccountAddresses.name, () => {
 		// Mock the forEach method to inject our test values
 		if (state.caches.accounts._orderedMapCache) {
 			state.caches.accounts._orderedMapCache.forEach = (callback) => {
-				// Call the callback with a prefixed address
+				// @ts-expect-error
 				callback(['0x0000000000000000000000000000000000000003'])
-				// Call the callback with an unprefixed address
+				// @ts-expect-error
 				callback(['0000000000000000000000000000000000000004'])
 			}
 		}

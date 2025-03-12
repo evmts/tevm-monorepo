@@ -53,7 +53,7 @@ describe(createBaseState.name, () => {
 
 		// Create base state with genesis state
 		const baseState = createBaseState({
-			genesisState,
+			genesisState: genesisState as any,
 		})
 
 		// Wait for initialization to complete

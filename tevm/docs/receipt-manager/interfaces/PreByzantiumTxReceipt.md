@@ -6,10 +6,10 @@
 
 # Interface: PreByzantiumTxReceipt
 
-Defined in: packages/receipt-manager/types/RecieptManager.d.ts:37
+Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:44
 
-Pre-Byzantium receipt type with a field
-for the intermediary state root
+Pre-Byzantium receipt type used before the Byzantium hard fork
+Contains a state root field instead of the status code used in later versions
 
 ## Extends
 
@@ -21,9 +21,10 @@ for the intermediary state root
 
 > **bitvector**: `Uint8Array`
 
-Defined in: packages/receipt-manager/types/RecieptManager.d.ts:17
+Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:20
 
-Bloom bitvector
+Bloom filter bitvector containing indexed log data
+Used for efficient searching of logs in the blockchain
 
 #### Inherited from
 
@@ -35,9 +36,10 @@ Bloom bitvector
 
 > **cumulativeBlockGasUsed**: `bigint`
 
-Defined in: packages/receipt-manager/types/RecieptManager.d.ts:13
+Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:15
 
-Cumulative gas used in the block including this tx
+Cumulative gas used in the block including this transaction
+Represented as a bigint to handle large gas values accurately
 
 #### Inherited from
 
@@ -49,9 +51,10 @@ Cumulative gas used in the block including this tx
 
 > **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
 
-Defined in: packages/receipt-manager/types/RecieptManager.d.ts:21
+Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:25
 
-Logs emitted
+Array of logs emitted during transaction execution
+Each log contains address, topics, and data fields
 
 #### Inherited from
 
@@ -63,6 +66,7 @@ Logs emitted
 
 > **stateRoot**: `Uint8Array`
 
-Defined in: packages/receipt-manager/types/RecieptManager.d.ts:41
+Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:49
 
-Intermediary state root
+Intermediary state root after transaction execution
+This is a 32-byte Merkle root of the state trie

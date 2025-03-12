@@ -204,10 +204,30 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 
 			// Create receipts to match the transactions
 			const receipts = [
-				{ status: 1 as const, cumulativeBlockGasUsed: 10000n, logs: [], bitvector: new Uint8Array(256) },
-				{ status: 1 as const, cumulativeBlockGasUsed: 20000n, logs: [], bitvector: new Uint8Array(256) },
-				{ status: 1 as const, cumulativeBlockGasUsed: 30000n, logs: [], bitvector: new Uint8Array(256) },
-				{ status: 1 as const, cumulativeBlockGasUsed: 40000n, logs: [], bitvector: new Uint8Array(256) },
+				{
+					status: 1 as const,
+					cumulativeBlockGasUsed: 10000n,
+					logs: [],
+					bitvector: new Uint8Array(256),
+				},
+				{
+					status: 1 as const,
+					cumulativeBlockGasUsed: 20000n,
+					logs: [],
+					bitvector: new Uint8Array(256),
+				},
+				{
+					status: 1 as const,
+					cumulativeBlockGasUsed: 30000n,
+					logs: [],
+					bitvector: new Uint8Array(256),
+				},
+				{
+					status: 1 as const,
+					cumulativeBlockGasUsed: 40000n,
+					logs: [],
+					bitvector: new Uint8Array(256),
+				},
 			]
 
 			// Mock the getBlock and mapDb.get methods
@@ -328,21 +348,21 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 			// First encode the logs
 			const encoded = receiptManager['rlp'](0, 1, logs as any)
 			// Then decode them
-			const decoded = receiptManager['rlp'](1, 1, encoded)
+			const decoded = receiptManager['rlp'](1, 1 as any, encoded)
 
 			expect(decoded).toHaveLength(1)
 		})
 
 		it('should handle RLP decode for TxHash', async () => {
-			const txHashIndex = [hexToBytes('0x1234'), 1]
+			const txHashIndex = [hexToBytes('0x1234'), 0]
 
 			// First encode
 			const encoded = receiptManager['rlp'](0, 2, txHashIndex as any)
 			// Then decode
-			const decoded = receiptManager['rlp'](1, 2, encoded)
+			const decoded = receiptManager['rlp'](1, 2 as any, encoded)
 
 			expect(decoded).toHaveLength(2)
-			expect(decoded[1]).toBe(1)
+			expect(decoded[1]).toBe(0)
 		})
 
 		it('should handle RLP decode for Receipts', async () => {
@@ -379,12 +399,6 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 				},
 			]
 
-			// Now let's encode and decode it manually to simulate the RLP encoding/decoding process
-			// This gets tricky because we need to create the exact RLP format expected by the decoder
-
-			// First create the RLP-encoded representation
-			const encodedLogs = receiptManager['rlp'](0, 1, preByzantiumReceipt[0].logs as any)
-
 			// Create a basic RLP encoding for a pre-Byzantium receipt
 			// Format is: [stateRoot, cumulativeGasUsed, logs]
 			// We'll construct it manually similar to how the rlp method would do it
@@ -392,7 +406,7 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 				{
 					stateRoot, // must be exactly 32 bytes for pre-Byzantium detection
 					cumulativeBlockGasUsed: 100000n,
-					logs: preByzantiumReceipt[0].logs,
+					logs: preByzantiumReceipt[0]?.logs,
 				},
 			] as any)
 
@@ -472,9 +486,6 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 
 		// Directly test the exact implementation from the getLogs method
 		it('should test the topic filtering logic directly', () => {
-			// Create a simpler test
-			const block = createMockBlock()
-
 			// Define our own equality check for Uint8Arrays using toHex
 			const arrayEquals = (a: Uint8Array, b: Uint8Array) => {
 				return toHex(a) === toHex(b)
@@ -504,7 +515,7 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 			const block = createMockBlock(['0xabc1', '0xabc2'])
 
 			// First save receipts to create indexes
-			const receipts = createMockBlock().transactions.map((tx, i) => ({
+			const receipts = createMockBlock().transactions.map((_, i) => ({
 				status: 1 as const,
 				cumulativeBlockGasUsed: 50000n * BigInt(i + 1),
 				bitvector: new Uint8Array(256),
@@ -626,11 +637,6 @@ describe('ReceiptsManager 100% Coverage Targets', () => {
 			// Using type-only import to avoid runtime errors
 			// @ts-ignore - TypeScript error with dynamic imports
 			await import('./MapDb.js')
-
-			// Do some simple type checking to prevent the imports from being optimized away
-			expect(typeof MapDb).not.toBe('function') // It's a type, not a value
-			expect(typeof MetaDBManagerOptions).not.toBe('function') // It's a type, not a value
-			expect(typeof DbType).not.toBe('function') // It's a type, not a value
 
 			// Create a MapDb instance using createMapDb
 			const cache = new Map()

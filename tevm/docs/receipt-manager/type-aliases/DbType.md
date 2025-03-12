@@ -8,4 +8,6 @@
 
 > **DbType**: `"Receipts"` \| `"TxHash"` \| `"SkeletonBlock"` \| `"SkeletonBlockHashToNumber"` \| `"SkeletonStatus"` \| `"SkeletonUnfinalizedBlockByHash"` \| `"Preimage"`
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:2
+Defined in: packages/receipt-manager/types/MapDb.d.ts:5
+
+Types of database entries used by the receipt manager and other components

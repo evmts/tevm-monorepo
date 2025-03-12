@@ -40,7 +40,7 @@ describe(generateCanonicalGenesis.name, () => {
 		// For this test, we'll mock the required imported functions to directly test the branching in lines 50-51
 
 		// First, import the functions we need to mock
-		const { isHex, hexToBytes } = await import('@tevm/utils')
+		const { isHex } = await import('@tevm/utils')
 
 		// Create spy implementations that will let us track branch execution
 		const isHexSpy = vi.fn((value) => {
@@ -49,28 +49,11 @@ describe(generateCanonicalGenesis.name, () => {
 		})
 
 		// Mock hexToBytes to avoid actual execution
-		const hexToBytesSpy = vi.fn((value) => new Uint8Array([1, 2, 3]))
+		const hexToBytesSpy = vi.fn(() => new Uint8Array([1, 2, 3]))
 
 		// Replace the imported functions with our spies
 		vi.stubGlobal('isHex', isHexSpy)
 		vi.stubGlobal('hexToBytes', hexToBytesSpy)
-
-		// Create a simple state with storage keys in different formats
-		const simpleState = {
-			'0x1234567890123456789012345678901234567890': {
-				nonce: 1n,
-				balance: 100n,
-				storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-				codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-				storage: {
-					// Test key formats:
-					'0x0000000000000000000000000000000000000000000000000000000000000001': '0x0a', // both with 0x
-					'0000000000000000000000000000000000000000000000000000000000000002': '0x0b', // key without 0x
-					'0x0000000000000000000000000000000000000000000000000000000000000003': '0c', // value without 0x
-					'0000000000000000000000000000000000000000000000000000000000000004': '0d', // both without 0x
-				},
-			},
-		}
 
 		// Create direct test cases for the conditional logic in lines 50-51
 		// This accurately tests the branch coverage for:

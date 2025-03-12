@@ -69,7 +69,9 @@ describe(dumpCanonicalGenesis.name, () => {
 
 		// Mock getAccountAddresses to return addresses both with and without 0x prefix
 		// This directly tests line 23: const hexAddress = getAddress(address.startsWith('0x') ? address : `0x${address}`)
+		// @ts-expect-error - getAccountAddresses doesn't exist on BaseState but added for testing
 		const originalGetAccountAddresses = state.getAccountAddresses
+		// @ts-expect-error - getAccountAddresses doesn't exist on BaseState but added for testing
 		state.getAccountAddresses = () =>
 			new Set([
 				'6969696969696969696969696969696969696969', // Without 0x prefix
@@ -93,16 +95,11 @@ describe(dumpCanonicalGenesis.name, () => {
 			}),
 		)
 
-		// Instead of trying to spy on imported functions, we'll test the logic directly
-		// This is equivalent to testing the branch in line 23 of dumpCannonicalGenesis.js
-
-		// Import the functions for direct testing
-		const { getAddress } = await import('@tevm/utils')
-
 		// Dump the state and verify it worked correctly
 		const result = await dumpCanonicalGenesis(state)()
 
 		// Restore original function
+		// @ts-expect-error - getAccountAddresses doesn't exist on BaseState but added for testing
 		state.getAccountAddresses = originalGetAccountAddresses
 
 		// Check that both addresses appear in the result

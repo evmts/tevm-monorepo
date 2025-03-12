@@ -23,7 +23,7 @@ describe(getForkClient.name, () => {
 
 		const state = createBaseState({
 			fork: {
-				transport: mockTransport,
+				transport: mockTransport as any,
 			},
 		})
 
@@ -43,8 +43,8 @@ describe(getForkClient.name, () => {
 			getForkClient(state)
 		} catch (error) {
 			expect(error).toBeInstanceOf(NoForkError)
-			expect(error.name).toBe('NoForkError')
-			expect(error._tag).toBe('NoForkError')
+			expect((error as any).name).toBe('NoForkError')
+			expect((error as any)._tag).toBe('NoForkError')
 		}
 	})
 })
