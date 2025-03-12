@@ -1,0 +1,169 @@
+---
+title: Bundler Troubleshooting
+description: Solutions for common Tevm bundler issues
+---
+
+# Bundler Troubleshooting
+
+This guide addresses common issues that may arise when using the Tevm bundler.
+
+## Common Issues
+
+### 1. Missing or Red Underlines in Editor
+
+**Symptoms**: Your editor shows red underlines for Solidity imports, or auto-completion doesn't work.
+
+**Solution**:
+- Confirm you have `"plugins": [{ "name": "@tevm/ts-plugin" }]` in tsconfig.json
+- In VS Code or Cursor, switch to the "workspace version" of TypeScript:
+  1. Open Command Palette (Ctrl+Shift+P or Cmd+Shift+P)
+  2. Type "TypeScript: Select TypeScript Version"
+  3. Select "Use Workspace Version"
+- For Vim, Neovim, and other editors, ensure they're using the workspace TypeScript version
+
+### 2. Type-check Errors with Next.js
+
+**Symptoms**: Your build works, but Next.js type-checking fails with errors about `.sol` imports.
+
+**Solution**:
+- Next's built-in type checker might not handle dynamic `.sol` imports well
+- Option 1: Disable type-checking in next.config.mjs:
+  ```js
+  // next.config.mjs
+  export default {
+    typescript: {
+      // Typechecking will only be available after the LSP is migrated to volar
+      // Until then typechecking will work in editor but not during a next.js build 
+      ignoreBuildErrors: true,
+    }
+  }
+  ```
+- Option 2: Use the [Codegen Approach](#codegen-approach) (recommended for Next.js)
+
+### 3. "File Not Found" Errors
+
+**Symptoms**: Bundler can't find imported Solidity files, especially with custom paths.
+
+**Solution**:
+- Check that your libraries or local imports are accounted for in libs or remappings
+- If you're using Foundry, ensure `foundryProject: true` is set in tevm.config.json
+- For npm packages, verify they're installed and the import path is correct
+- For complex import structures, add explicit remappings:
+  ```json
+  // tevm.config.json
+  {
+    "remappings": {
+      "@customlib/": "node_modules/@customlib/",
+      "local/": "./contracts/"
+    }
+  }
+  ```
+
+### 4. Cache Stale Issues
+
+**Symptoms**: Changes to Solidity files don't appear to take effect.
+
+**Solution**:
+- If a contract's changes don't appear to be recognized, remove the `.tevm` folder and rebuild
+- The `.tevm` directory is ephemeral - you can safely delete it at any time
+- Add `.tevm` to your `.gitignore` to prevent caching issues in version control
+
+### 5. No Bytecode Available
+
+**Symptoms**: Contract deployment fails with errors about missing bytecode.
+
+**Solution**:
+- Check that you're using the `.s.sol` extension for contracts you want to deploy
+- Regular `.sol` files only generate ABIs, not deployable bytecode
+- Rename your file from `Contract.sol` to `Contract.s.sol` if you need bytecode
+
+### 6. Deployment Errors
+
+**Symptoms**: Contract deployment fails even with bytecode available.
+
+**Solution**:
+- Make sure you're calling `.deploy()` with any required constructor arguments:
+  ```ts
+  // Incorrect (when contract has constructor args)
+  const deployed = await client.deployContract(MyToken)
+  
+  // Correct
+  const deployed = await client.deployContract(
+    MyToken.deploy("TokenName", "TKN", 18)
+  )
+  ```
+
+### 7. Test Runner Issues
+
+**Symptoms**: Tests using `.sol` imports fail in Jest or other test runners.
+
+**Solution**:
+- Most test runners (Vitest) work out-of-the-box once the bundler plugin is configured
+- For Jest, you might need extra configuration or use the codegen approach
+- Consider using the bundler that matches your test environment (esbuild for Vitest, etc.)
+
+## Codegen Approach
+
+If you're encountering persistent bundler-related issues, particularly with frameworks like Next.js, or if you prefer to have explicit TypeScript files for your contracts, the codegen approach may be better suited for your needs.
+
+### What is Codegen?
+
+The codegen approach generates `.ts` files from your `.sol` files ahead of time, rather than during the build process. This results in regular TypeScript files that can be imported normally.
+
+### Using Codegen
+
+To generate TypeScript files for your Solidity contracts:
+
+```bash
+npx tevm gen
+```
+
+This will:
+- Generate `.ts` files next to each `.sol` file (or wherever configured)
+- Create TypeScript files that you can commit to source control
+- Produce the same output as the bundler, but in a pre-build step
+
+These generated `.ts` files can be imported directly in your code:
+
+```ts
+// Import the generated TypeScript file
+import { MyContract } from './contracts/MyContract.js'
+```
+
+### When to Use Codegen
+
+Codegen is especially helpful when:
+
+- You have a framework that tightly controls its build pipeline (e.g., Next.js with enforced type-checking)
+- You prefer explicit, committed TypeScript artifacts for contracts
+- You want a stable CI pipeline or want to avoid runtime resolution
+- You're using Jest or another test runner that has difficulty with dynamic imports
+
+### Codegen Configuration
+
+You can configure the codegen tool by adding options to your `tevm.config.json`:
+
+```json
+{
+  "gen": {
+    "outDir": "./generated",  // Where to generate files
+    "patterns": ["contracts/**/*.sol"],  // Which files to process
+    "exclude": ["**/node_modules/**"]    // Which files to ignore
+  }
+}
+```
+
+## Additional Resources
+
+If you're still experiencing issues:
+
+- Check the [GitHub Issues](https://github.com/evmts/tevm-monorepo/issues) for similar problems and solutions
+- Look at the [Examples](https://github.com/evmts/tevm-monorepo/tree/main/examples) for working configurations
+- Join the Tevm community on [Discord](https://discord.gg/tevm) for direct assistance
+- For Next.js specific issues, see the [Next.js example](https://github.com/evmts/tevm-monorepo/tree/main/examples/next) in the Tevm repository
+
+## Further Reading
+
+- [Bundler Overview](/reference/bundler/overview) - Key benefits and features
+- [Bundler Internals](/reference/bundler/internals) - How the bundler works
+- [Methods & Exports](/reference/bundler/methods) - Advanced APIs and utilities

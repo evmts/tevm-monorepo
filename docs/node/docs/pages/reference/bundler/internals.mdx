@@ -1,0 +1,171 @@
+---
+title: Bundler Internals
+description: How the Tevm bundler works under the hood
+---
+
+# Bundler Internals
+
+This page explains the internal workings of the Tevm bundler to help you understand how it transforms Solidity contracts into TypeScript modules.
+
+## Architecture Overview
+
+All Tevm bundler plugins share a unified core (`@tevm/base-bundler`). This architecture ensures consistent behavior across different build tools while allowing each plugin to adapt to its specific environment.
+
+The bundler pipeline consists of several key stages:
+
+## 1. Import Detection & Resolution
+
+When the bundler encounters a `.sol` import, it:
+
+- Parses the import statement using regex to extract the import path
+- Converts relative paths to absolute paths
+- Applies custom remappings from various sources (tsconfig.json paths, foundry remappings, tevm.config.json)
+- Handles node_modules resolution for npm packages
+- Supports special import formats like `.s.sol` for bytecode inclusion
+
+The import resolution mechanism merges multiple sources of configuration:
+
+```
+User Import → Node.js Resolution + Foundry Remappings → Absolute File Path
+```
+
+This allows the bundler to support both traditional JavaScript module resolution and Solidity/Foundry-style import resolution simultaneously.
+
+## 2. Compilation
+
+Once all imports are resolved, the bundler:
+
+- Creates a dependency graph of all imported Solidity files
+- Passes the full source code and import structure to solc (the Solidity compiler)
+- If the file ends in `.s.sol`, both ABI and bytecode are generated; otherwise only ABI is produced
+- Extracts metadata, NatSpec documentation, and optionally the AST (Abstract Syntax Tree)
+
+The compilation step handles error reporting and version management for the Solidity compiler.
+
+## 3. Code Generation
+
+After compilation, the bundler:
+
+- Generates a TypeScript (or JavaScript) module that exports a Tevm Contract instance
+- Creates type definitions for all contract methods, events, and errors
+- Maps Solidity types to TypeScript types (uint256 → bigint, address → string, etc.)
+- Adds metadata, ABI, and optionally bytecode as properties of the exported contract
+- Generates `.read` and `.write` method interfaces for type-safe contract interaction
+
+The code generation step preserves NatSpec documentation as JSDoc comments, allowing editors to display contract documentation on hover.
+
+## 4. Caching
+
+To improve build performance, the bundler:
+
+- Stores compiled artifacts in a `.tevm` directory
+- Caches based on file content hashes, not just timestamps
+- Avoids unnecessary recompilation when source files haven't changed
+- Stores intermediate artifacts (ABI, bytecode) separately from generated code
+- Handles cache invalidation when dependencies or compiler settings change
+
+The caching system balances build speed with correctness by selectively invalidating only affected parts of the cache.
+
+## 5. LSP & TS Plugin Integration
+
+The final piece of the bundler architecture is the TypeScript Language Service Plugin:
+
+- The `@tevm/ts-plugin` hooks into the TypeScript compiler
+- References bundler outputs to provide type information for `.sol` imports
+- Enables advanced IDE features:
+  - Contract-level auto-completion
+  - Go-to-definition for contract methods
+  - Hover documentation showing NatSpec comments
+  - Type checking for contract method arguments and return values
+
+The plugin bridges the gap between the build-time bundler process and the development-time editor experience.
+
+## Internal Implementation Details
+
+### Module Factory
+
+The bundler uses a module factory pattern to create a dependency graph of all Solidity files:
+
+```ts
+// Internal implementation (simplified)
+function moduleFactory(entry, source, remappings, libs) {
+  const modules = new Map()
+  const queue = [{ path: entry, source }]
+  
+  while (queue.length > 0) {
+    const { path, source } = queue.shift()
+    if (modules.has(path)) continue
+    
+    // Find all imports in the source
+    const imports = resolveImports(path, source, remappings, libs)
+    
+    // Add to module map
+    modules.set(path, {
+      id: path,
+      source,
+      imports: imports.map(i => i.path)
+    })
+    
+    // Queue imports for processing
+    for (const imp of imports) {
+      if (!modules.has(imp.path)) {
+        queue.push({ path: imp.path, source: readFile(imp.path) })
+      }
+    }
+  }
+  
+  return modules
+}
+```
+
+### Solidity Compiler Integration
+
+The bundler interfaces with the Solidity compiler through a standardized API:
+
+```ts
+// Internal implementation (simplified)
+function compile(sources, settings) {
+  const input = {
+    language: 'Solidity',
+    sources: Object.fromEntries(
+      Array.from(sources.entries()).map(
+        ([path, { content }]) => [path, { content }]
+      )
+    ),
+    settings: {
+      outputSelection: {
+        '*': {
+          '*': ['abi', 'evm.bytecode', 'evm.deployedBytecode', 'metadata', 'userdoc', 'devdoc']
+        }
+      },
+      ...settings
+    }
+  }
+  
+  return solc.compile(JSON.stringify(input), { import: resolveImport })
+}
+```
+
+### Contract Instance Generation
+
+The bundler generates a TypeScript module that exports a Tevm Contract instance:
+
+```ts
+// Generated code (simplified)
+import { createContract } from 'tevm/contract'
+
+export const MyContract = createContract({
+  abi: [...], // ABI from compiler
+  bytecode: '0x...', // Optional, only for .s.sol files
+  deployedBytecode: '0x...', // Optional, only for .s.sol files
+})
+
+// Strongly typed methods available via:
+// MyContract.read.methodName
+// MyContract.write.methodName
+```
+
+## Further Reading
+
+- [Methods & Exports](/reference/bundler/methods) - Learn about the key APIs exposed by the bundler
+- [Troubleshooting](/reference/bundler/troubleshooting) - Solve common issues with the bundler

@@ -339,12 +339,12 @@ await client.tevmContract({
 
 ```ts [Complete tevmContract Example]
 // Complete example showing all available options and return values
-const { 
+const {
   // Decoded return data based on the ABI
   data,
   // Raw return data as hex string
   rawData,
-  // Any errors that occurred during execution 
+  // Any errors that occurred during execution
   error,
   // Event logs emitted during execution
   logs,
@@ -381,21 +381,21 @@ const {
   functionName: 'myFunction',            // Function to call
   args: [123n, 'hello'],                 // Function arguments
   deployedBytecode: '0x...',             // Alternative to 'to' + 'abi' approach
-  
+
   // Call configuration
   from: '0x5678...',                     // Caller address
   value: 1000000000000000000n,           // ETH value to send (in wei)
   gas: 1000000n,                         // Gas limit
   gasPrice: 1000000000n,                 // Gas price
   blockTag: 'latest',                    // Block context for execution
-  
+
   // Advanced options
   createTrace: true,                     // Generate execution trace
   createAccessList: true,                // Generate EIP-2930 access list
   createTransaction: 'always',           // Create tx ('always', 'on-success', or false)
   throwOnFail: false,                    // Throw on execution failure
   skipBalance: true,                     // Skip balance checks
-  
+
   // EVM execution hooks
   onStep: (step, next) => {              // Called for each EVM operation
     console.log(step.opcode.name);
@@ -536,6 +536,7 @@ Dive deeper into Tevm's powerful capabilities:
 - [Forking capabilities](/core/forking) to simulate production chains
 - [State management](/core/managing-state) for manipulating the blockchain
 - [Mining modes](/core/mining-modes) for controlling transaction inclusion
+- [Direct Solidity imports](/getting-started/bundler) with the Tevm Bundler
 
 ### Check Out Examples
 
@@ -552,6 +553,7 @@ Master the Tevm API for more sophisticated applications:
 - [EVM events & hooks](/api/evm-events) for detailed execution analysis
 - [Custom precompiles](/advanced/custom-precompiles) for extending the EVM
 - [Transaction pool management](/advanced/txpool) for pending transaction control
+- [Contract Bundler](/reference/bundler) for importing Solidity files directly
   ::::
 
 <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
