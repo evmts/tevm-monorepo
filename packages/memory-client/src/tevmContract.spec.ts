@@ -1,28 +1,21 @@
-import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
-import { type Client, createClient } from 'viem'
+import { SimpleContract as SimpleContractUtils } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { TevmTransport } from './TevmTransport.js'
-import { createTevmTransport } from './createTevmTransport.js'
+import type { MemoryClient } from './MemoryClient.js'
+import { createMemoryClient } from './createMemoryClient.js'
 import { tevmContract } from './tevmContract.js'
-import { tevmSetAccount } from './tevmSetAccount.js'
 
-let client: Client<TevmTransport>
+let client: MemoryClient
 const contractAddress = '0x0000000000000000000000000000000000000000'
-const contract = SimpleContract.withAddress(contractAddress)
+const contract = SimpleContractUtils.withAddress(contractAddress)
 
 beforeEach(async () => {
-	client = createClient({
-		transport: createTevmTransport({
-			fork: { transport: transports.optimism },
-		}),
-		chain: optimism,
-	})
+	client = createMemoryClient()
+	await client.tevmReady()
 
-	await tevmSetAccount(client, {
+	await client.tevmSetAccount({
 		address: contractAddress,
-		deployedBytecode: SimpleContract.deployedBytecode,
+		deployedBytecode: SimpleContractUtils.deployedBytecode,
 	})
 })
 

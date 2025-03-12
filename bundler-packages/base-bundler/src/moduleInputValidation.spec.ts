@@ -36,7 +36,20 @@ describe('module resolvers input validation', () => {
 		mkdir: vi.fn(),
 	}
 
-	const mockSolc = {}
+	const mockSolc = {
+		version: '0.8.17',
+		semver: '0.8.17',
+		license: 'MIT',
+		lowlevel: {
+			compileSingle: vi.fn(),
+			compileMulti: vi.fn(),
+			compileCallback: vi.fn(),
+		},
+		compile: vi.fn(),
+		features: {},
+		loadRemoteVersion: vi.fn(),
+		setupMethods: vi.fn(),
+	}
 	const mockCache = {
 		readArtifacts: vi.fn(),
 		readArtifactsSync: vi.fn(),

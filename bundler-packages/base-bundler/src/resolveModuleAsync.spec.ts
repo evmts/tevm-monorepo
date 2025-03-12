@@ -1,5 +1,5 @@
-import { generateRuntime } from '@tevm/bundler-runtime'
-import { runPromise } from '@tevm/runtime'
+import { generateRuntime } from '@tevm/runtime'
+import { runPromise } from 'effect/Effect'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { readCache } from './readCache.js'
 import { resolveModuleAsync } from './resolveModuleAsync.js'
@@ -14,25 +14,34 @@ vi.mock('./writeCache.js', () => ({
 	writeCache: vi.fn(),
 }))
 
-vi.mock('@tevm/bundler-runtime', () => ({
+vi.mock('@tevm/runtime', () => ({
 	generateRuntime: vi.fn(),
 }))
 
-vi.mock('@tevm/runtime', () => ({
+vi.mock('effect/Effect', () => ({
 	runPromise: vi.fn(),
 }))
 
-// Mock the resolveArtifacts function which would be imported within the module
-const resolveArtifacts = vi.fn()
+// Define mock artifacts object
+const mockArtifacts = {
+	solcInput: { sources: {} },
+	solcOutput: { contracts: {} },
+	asts: { 'Contract.sol': {} },
+	artifacts: {
+		Contract: {
+			abi: [],
+			userdoc: { methods: {}, kind: 'user', version: 1 },
+			evm: { deployedBytecode: { object: '0x123' } },
+		},
+	},
+	modules: {},
+}
 
-// Override the internal import in the module
-vi.mock('@tevm/bundler-solc', async () => {
-	const actual = await vi.importActual('@tevm/bundler-solc')
-	return {
-		...actual,
-		resolveArtifacts,
-	}
-})
+// Mock the @tevm/compiler module with a proper mock function that we can access
+const resolveArtifactsMock = vi.fn().mockResolvedValue(mockArtifacts)
+vi.mock('@tevm/compiler', () => ({
+	resolveArtifacts: resolveArtifactsMock,
+}))
 
 describe('resolveModuleAsync', () => {
 	// Test setup
@@ -45,18 +54,38 @@ describe('resolveModuleAsync', () => {
 	}
 
 	const mockConfig = {
+		jsonAsConst: [],
+		foundryProject: false,
+		libs: [],
+		remappings: {},
+		cacheDir: '/tmp/cache',
 		solc: {
 			version: '0.8.17',
 		},
-		fao: {},
 	}
 
 	const mockFao = {
 		readFile: vi.fn(),
+		readFileSync: vi.fn(),
+		writeFile: vi.fn(),
+		writeFileSync: vi.fn(),
+		exists: vi.fn(),
+		existsSync: vi.fn(),
+		stat: vi.fn(),
+		statSync: vi.fn(),
+		mkdir: vi.fn(),
+		mkdirSync: vi.fn(),
 	}
 
 	const mockSolc = {
+		version: '0.8.17',
+		semver: '0.8.17',
+		license: 'MIT',
+		lowlevel: {},
 		compile: vi.fn(),
+		features: {},
+		loadRemoteVersion: vi.fn(),
+		setupMethods: vi.fn(),
 	}
 
 	const modulePath = '/path/to/module.sol'

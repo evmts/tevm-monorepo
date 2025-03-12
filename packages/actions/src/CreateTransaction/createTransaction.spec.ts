@@ -40,7 +40,7 @@ describe('createTransaction', () => {
 
 	const mockVm = {
 		stateManager: {
-			getAccount: vi.fn().mockResolvedValue(mockAccount),
+			getAccount: vi.fn(), // We'll set this in beforeEach
 			revert: vi.fn(),
 		},
 		blockchain: {
@@ -80,7 +80,7 @@ describe('createTransaction', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
 		// Create a fresh account with 1 ETH for each test
-		mockAccount = new EthjsAccount(0n, 1000000000000000000n) // nonce, balance
+		mockAccount = new EthjsAccount(0n, 1000000000000000000n) // 1 ETH
 		mockVm.stateManager.getAccount.mockResolvedValue(mockAccount)
 	})
 
@@ -89,9 +89,7 @@ describe('createTransaction', () => {
 		const addr = '0x0000000000000000000000000000000000000001'
 		mockVm.stateManager.getAccount = vi.fn().mockImplementation((address) => {
 			if (address.toString() === addr) {
-				return Promise.resolve(
-					new EthjsAccount(0n, 1000000000000000000n), // nonce, balance (1 ETH)
-				)
+				return Promise.resolve(new EthjsAccount(0n, 1000000000000000000n)) // 1 ETH
 			}
 			return Promise.resolve(mockAccount)
 		})
@@ -108,6 +106,7 @@ describe('createTransaction', () => {
 			evmOutput: {
 				execResult: {
 					executionGasUsed: 21000n,
+					returnValue: new Uint8Array(),
 				},
 			},
 		})
@@ -120,14 +119,13 @@ describe('createTransaction', () => {
 
 		// Result should have transaction hash
 		expect(result).toHaveProperty('txHash')
-		expect(result.txHash).toBe('0x01020304')
+		const txResult = result as { txHash: string }
+		expect(txResult.txHash).toBe('0x01020304')
 	})
 
 	it('should handle insufficient balance', async () => {
 		// Mock empty account with no balance
-		mockVm.stateManager.getAccount = vi.fn().mockResolvedValueOnce(
-			new EthjsAccount(0n, 0n), // nonce, balance (0 ETH)
-		)
+		mockVm.stateManager.getAccount = vi.fn().mockResolvedValueOnce(new EthjsAccount(0n, 0n))
 
 		const createTx = createTransaction(mockClient)
 
@@ -141,6 +139,7 @@ describe('createTransaction', () => {
 			evmOutput: {
 				execResult: {
 					executionGasUsed: 21000n,
+					returnValue: new Uint8Array(),
 				},
 			},
 			throwOnFail: true,
@@ -154,9 +153,7 @@ describe('createTransaction', () => {
 
 	it('should not throw error if throwOnFail is false', async () => {
 		// Mock empty account with no balance
-		mockVm.stateManager.getAccount = vi.fn().mockResolvedValueOnce(
-			new EthjsAccount(0n, 0n), // nonce, balance (0 ETH)
-		)
+		mockVm.stateManager.getAccount = vi.fn().mockResolvedValueOnce(new EthjsAccount(0n, 0n))
 
 		const createTx = createTransaction(mockClient)
 
@@ -170,6 +167,7 @@ describe('createTransaction', () => {
 			evmOutput: {
 				execResult: {
 					executionGasUsed: 21000n,
+					returnValue: new Uint8Array(),
 				},
 			},
 			throwOnFail: false,
@@ -177,7 +175,9 @@ describe('createTransaction', () => {
 
 		// Should return error object without throwing
 		expect(result).toHaveProperty('errors')
-		expect(result.errors[0]._tag).toBe('InsufficientBalance')
+		type ErrorResult = { errors: Array<{ _tag: string }> }
+		const errorResult = result as ErrorResult
+		expect(errorResult.errors?.[0]?._tag).toBe('InsufficientBalance')
 	})
 
 	it.skip('should calculate gas parameters when not provided', async () => {
@@ -185,9 +185,7 @@ describe('createTransaction', () => {
 		const addr = '0x0000000000000000000000000000000000000003'
 		mockVm.stateManager.getAccount = vi.fn().mockImplementation((address) => {
 			if (address.toString() === addr) {
-				return Promise.resolve(
-					new EthjsAccount(0n, 100000000000000000000n), // nonce, balance (100 ETH plenty)
-				)
+				return Promise.resolve(new EthjsAccount(0n, 1000000000000000000n)) // 1 ETH
 			}
 			return Promise.resolve(mockAccount)
 		})
@@ -203,6 +201,7 @@ describe('createTransaction', () => {
 			evmOutput: {
 				execResult: {
 					executionGasUsed: 21000n,
+					returnValue: new Uint8Array(),
 				},
 			},
 		})
@@ -224,9 +223,7 @@ describe('createTransaction', () => {
 		const addr = '0x0000000000000000000000000000000000000004'
 		mockVm.stateManager.getAccount = vi.fn().mockImplementation((address) => {
 			if (address.toString() === addr) {
-				return Promise.resolve(
-					new EthjsAccount(0n, 100000000000000000000n), // nonce, balance (100 ETH plenty)
-				)
+				return Promise.resolve(new EthjsAccount(0n, 1000000000000000000n)) // 1 ETH
 			}
 			return Promise.resolve(mockAccount)
 		})
@@ -243,6 +240,7 @@ describe('createTransaction', () => {
 			evmOutput: {
 				execResult: {
 					executionGasUsed: 100000n,
+					returnValue: new Uint8Array(),
 				},
 			},
 		})
@@ -259,19 +257,15 @@ describe('createTransaction', () => {
 		const addr = '0x0000000000000000000000000000000000000005'
 		mockVm.stateManager.getAccount = vi.fn().mockImplementation((address) => {
 			if (address.toString() === addr) {
-				return Promise.resolve(
-					new EthjsAccount(0n, 100000000000000000000n), // nonce, balance (100 ETH plenty)
-				)
+				return Promise.resolve(new EthjsAccount(0n, 1000000000000000000n)) // 1 ETH
 			}
 			return Promise.resolve(mockAccount)
 		})
 
-		// Mock the pool.add to throw an error with the "UnexpectedError" tag
-		// to match the assertion in the test
+		// Mock the pool.add to throw an error - this needs to be after the account is verified
+		// but before the tx is added to the pool
 		mockPool.add = vi.fn().mockImplementation(() => {
-			const error = new Error('Pool error')
-			error._tag = 'UnexpectedError'
-			throw error
+			throw new Error('Pool error')
 		})
 
 		const createTx = createTransaction(mockClient)
@@ -285,6 +279,7 @@ describe('createTransaction', () => {
 			evmOutput: {
 				execResult: {
 					executionGasUsed: 21000n,
+					returnValue: new Uint8Array(),
 				},
 			},
 			throwOnFail: false,
@@ -292,6 +287,8 @@ describe('createTransaction', () => {
 
 		// Should return error object with UnexpectedError
 		expect(result).toHaveProperty('errors')
-		expect(result.errors[0]._tag).toBe('UnexpectedError')
+		type ErrorResult = { errors: Array<{ _tag: string }> }
+		const errorResult = result as ErrorResult
+		expect(errorResult.errors?.[0]?._tag).toBe('UnexpectedError')
 	})
 })

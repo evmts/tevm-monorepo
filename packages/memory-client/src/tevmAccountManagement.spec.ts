@@ -152,7 +152,7 @@ describe('Tevm Account Management', () => {
 
 		for (let i = 0; i < addresses.length; i++) {
 			const addr = addresses[i] as `0x${string}`
-			const balance = balances[i]!
+			const balance = balances[i]
 			await tevmSetAccount(client, {
 				address: addr,
 				balance,
@@ -223,7 +223,7 @@ describe('Tevm Account Management', () => {
 		// Verify storage slots
 		for (let i = 0; i < 10; i++) {
 			const keyPadding = i.toString(16).padStart(64, '0')
-			const key = `0x${keyPadding}`
+			const key = `0x${keyPadding}` as `0x${string}`
 
 			const expectedValue = `0x${i.toString(16).padStart(2, '0')}` as `0x${string}`
 

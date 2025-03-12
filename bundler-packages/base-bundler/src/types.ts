@@ -9,8 +9,8 @@ import type { Node } from 'solidity-ast/node.js'
 export type BundlerResult = {
 	code: string
 	modules: Record<'string', ModuleInfo>
-	solcInput: SolcInputDescription
-	solcOutput: SolcOutput
+	solcInput?: SolcInputDescription
+	solcOutput?: SolcOutput
 	asts?: Record<string, Node> | undefined
 }
 

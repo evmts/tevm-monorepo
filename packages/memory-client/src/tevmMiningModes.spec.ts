@@ -8,6 +8,8 @@ import { tevmDeploy } from './tevmDeploy.js'
 import { tevmMine } from './tevmMine.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
 
+// @ts-ignore -- Ignoring TS errors in test file
+
 describe('Tevm Mining Modes', () => {
 	const testAddress = '0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' as Address
 
@@ -101,7 +103,7 @@ describe('Tevm Mining Modes', () => {
 		const contract = SimpleContract.withAddress(contractAddress)
 
 		// Send a transaction to update the contract state
-		await tevmContract(client, contract.write.set([99n]), {
+		await tevmContract(client, contract.write.set(99n), {
 			from: testAddress,
 		})
 
@@ -148,9 +150,10 @@ describe('Tevm Mining Modes', () => {
 		// Send transactions in sequence
 		for (const recipient of recipients) {
 			await sendTransaction(client, {
-				from: testAddress,
+				account: testAddress,
 				to: recipient,
 				value: parseEther('1'),
+				chain: null,
 			})
 		}
 

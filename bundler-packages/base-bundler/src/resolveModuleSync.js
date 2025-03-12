@@ -114,7 +114,13 @@ export const resolveModuleSync = (
 			artifactsExist,
 		)
 
-		return { solcInput, solcOutput, asts, modules, code }
+		return {
+			solcInput: solcInput ?? undefined,
+			solcOutput: solcOutput ?? undefined,
+			asts,
+			modules,
+			code,
+		}
 	} catch (e) {
 		logger.error(`there was an error in tevm plugin resolving .${moduleType}`)
 		logger.error(/** @type any */ (e))
