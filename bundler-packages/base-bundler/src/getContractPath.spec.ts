@@ -73,4 +73,58 @@ describe('getContractPath', () => {
 
 		consoleWarnSpy.mockRestore()
 	})
+
+	it('should try packages in the correct order', () => {
+		// Create a mock implementation that tracks the order of calls
+		const callOrder: string[] = []
+		mockRequire.resolve.mockImplementation((path) => {
+			callOrder.push(path)
+			if (path === '@tevm/contract') return '/path/to/@tevm/contract'
+			throw new Error(`Cannot find module '${path}'`)
+		})
+
+		getContractPath('/test/path')
+
+		// Verify the first package tried is tevm/contract, followed by @tevm/contract
+		expect(callOrder[0]).toBe('tevm/contract')
+		expect(callOrder[1]).toBe('@tevm/contract')
+	})
+
+	it('should handle various path formats correctly', () => {
+		mockRequire.resolve.mockReturnValue('/some/path')
+
+		// Test with different path formats
+		getContractPath('/absolute/path')
+		expect(createRequire).toHaveBeenCalledWith('/absolute/path/')
+
+		getContractPath('relative/path')
+		expect(createRequire).toHaveBeenCalledWith('relative/path/')
+
+		getContractPath('.')
+		expect(createRequire).toHaveBeenCalledWith('./')
+
+		getContractPath('')
+		expect(createRequire).toHaveBeenCalledWith('/')
+	})
+
+	it('should handle errors thrown by require.resolve gracefully', () => {
+		// Test with different error types
+		mockRequire.resolve.mockImplementation(() => {
+			throw new TypeError('Custom type error')
+		})
+
+		const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+		const result1 = getContractPath('/test/path')
+		expect(result1).toBe('tevm/contract') // Still falls back to default
+
+		// Change error to be a non-Error object
+		mockRequire.resolve.mockImplementation(() => {
+			throw 'String error' as any
+		})
+
+		const result2 = getContractPath('/test/path')
+		expect(result2).toBe('tevm/contract')
+
+		consoleWarnSpy.mockRestore()
+	})
 })

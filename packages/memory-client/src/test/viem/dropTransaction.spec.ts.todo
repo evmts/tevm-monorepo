@@ -1,8 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { SimpleContract } from '@tevm/contract'
-import { type Hex } from '@tevm/utils'
+import { type Hex, parseEther } from 'viem'
+import { createClient } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import { createTevmTransport } from '../../createTevmTransport.js'
 
 let mc: MemoryClient
 let deployTxHash: Hex
@@ -10,8 +12,25 @@ let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
 
+// Test addresses
+const testAccount1 = `0x${'11'.repeat(20)}` as const
+const testAccount2 = `0x${'22'.repeat(20)}` as const
+
 beforeEach(async () => {
 	mc = createMemoryClient()
+	await mc.tevmReady()
+	
+	// Set up test accounts with known state
+	await mc.tevmSetAccount({
+		address: testAccount1,
+		balance: parseEther('10'),
+	})
+	
+	await mc.tevmSetAccount({
+		address: testAccount2,
+		balance: parseEther('5'),
+	})
+	
 	const deployResult = await mc.tevmDeploy({
 		bytecode: SimpleContract.bytecode,
 		abi: SimpleContract.abi,
@@ -31,7 +50,247 @@ beforeEach(async () => {
 })
 
 describe('dropTransaction', () => {
-	it.todo('should work as expected', () => {
-		expect(true).toBe(true)
+	it('should drop a pending transaction from the txpool', async () => {
+		// Disable automine so transactions stay in the pool
+		await mc.setAutomine({ enabled: false })
+		
+		// Impersonate account to send transactions
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		// Send a transaction
+		const txHash = await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('1')
+		})
+		
+		// Check that the transaction is in the txpool
+		const txpoolStatus = await mc.getTxpoolStatus()
+		expect(txpoolStatus.pending).toBeGreaterThan(0)
+		
+		// Drop the transaction
+		await mc.dropTransaction({ hash: txHash })
+		
+		// Check that the transaction is no longer in the txpool
+		const updatedTxpoolStatus = await mc.getTxpoolStatus()
+		expect(updatedTxpoolStatus.pending).toBe(0)
+		
+		// Verify the transaction doesn't exist anymore
+		try {
+			await mc.getTransaction({ hash: txHash })
+			// If we get here, the test should fail because the transaction should not exist
+			expect(true).toBe(false)
+		} catch (error) {
+			// Expected error when transaction doesn't exist
+			expect(error).toBeDefined()
+		}
+	})
+	
+	it('should not affect other pending transactions when dropping a specific one', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Impersonate account
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		// Send multiple transactions
+		const tx1Hash = await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.1')
+		})
+		
+		const tx2Hash = await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.2')
+		})
+		
+		const tx3Hash = await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.3')
+		})
+		
+		// Get initial txpool status
+		const initialStatus = await mc.getTxpoolStatus()
+		expect(initialStatus.pending).toBe(3)
+		
+		// Drop the second transaction
+		await mc.dropTransaction({ hash: tx2Hash })
+		
+		// Check updated txpool status
+		const updatedStatus = await mc.getTxpoolStatus()
+		expect(updatedStatus.pending).toBe(2) // Should be 2 left
+		
+		// Verify first and third transactions still exist
+		const tx1 = await mc.getTransaction({ hash: tx1Hash })
+		expect(tx1).toBeDefined()
+		expect(tx1.hash).toBe(tx1Hash)
+		
+		const tx3 = await mc.getTransaction({ hash: tx3Hash })
+		expect(tx3).toBeDefined()
+		expect(tx3.hash).toBe(tx3Hash)
+		
+		// Second transaction should be gone
+		try {
+			await mc.getTransaction({ hash: tx2Hash })
+			expect(true).toBe(false) // Should not reach here
+		} catch (error) {
+			expect(error).toBeDefined()
+		}
+	})
+	
+	it('should handle dropping a transaction from a different account', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Impersonate both accounts
+		await mc.impersonateAccount({ address: testAccount1 })
+		await mc.impersonateAccount({ address: testAccount2 })
+		
+		// Send transactions from both accounts
+		const tx1Hash = await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.1')
+		})
+		
+		const tx2Hash = await mc.sendTransaction({
+			from: testAccount2,
+			to: testAccount1,
+			value: parseEther('0.05')
+		})
+		
+		// Verify both transactions are in the pool
+		const initialStatus = await mc.getTxpoolStatus()
+		expect(initialStatus.pending).toBe(2)
+		
+		// Drop transaction from testAccount1
+		await mc.dropTransaction({ hash: tx1Hash })
+		
+		// Verify only one transaction remains
+		const updatedStatus = await mc.getTxpoolStatus()
+		expect(updatedStatus.pending).toBe(1)
+		
+		// Transaction from testAccount2 should still exist
+		const tx2 = await mc.getTransaction({ hash: tx2Hash })
+		expect(tx2).toBeDefined()
+		expect(tx2.hash).toBe(tx2Hash)
+	})
+	
+	it('should handle dropping a non-existent transaction', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Create a fake transaction hash
+		const fakeTxHash = `0x${'aa'.repeat(32)}` as const
+		
+		// Attempt to drop a non-existent transaction
+		// This should not throw an error, but should be a no-op
+		await mc.dropTransaction({ hash: fakeTxHash })
+		
+		// Txpool status should be unchanged
+		const status = await mc.getTxpoolStatus()
+		expect(status.pending).toBe(0)
+	})
+	
+	it('should handle dropping a transaction that has already been mined', async () => {
+		// Send transaction with automine enabled
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		// Send a transaction that will be auto-mined
+		const txHash = await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.5')
+		})
+		
+		// Verify transaction was mined
+		const tx = await mc.getTransaction({ hash: txHash })
+		expect(tx.blockNumber).not.toBeNull()
+		
+		// Attempt to drop the mined transaction
+		// This should not throw an error but should be a no-op
+		await mc.dropTransaction({ hash: txHash })
+		
+		// Transaction should still exist and be mined
+		const txAfterDrop = await mc.getTransaction({ hash: txHash })
+		expect(txAfterDrop).toBeDefined()
+		expect(txAfterDrop.hash).toBe(txHash)
+		expect(txAfterDrop.blockNumber).not.toBeNull()
+	})
+	
+	it('should work with contract interactions', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Impersonate account
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		// Send a contract transaction
+		const txHash = await c.simpleContract.write.setValue([999n], {
+			account: testAccount1
+		})
+		
+		// Verify transaction is pending
+		const tx = await mc.getTransaction({ hash: txHash })
+		expect(tx.blockNumber).toBeNull()
+		
+		// Get the initial value (should still be 420)
+		const initialValue = await c.simpleContract.read.getValue()
+		expect(initialValue).toBe(420n)
+		
+		// Drop the transaction
+		await mc.dropTransaction({ hash: txHash })
+		
+		// Value should remain unchanged
+		const valueAfterDrop = await c.simpleContract.read.getValue()
+		expect(valueAfterDrop).toBe(420n)
+		
+		// Try setting a new value and mining it
+		const newTxHash = await c.simpleContract.write.setValue([888n], {
+			account: testAccount1
+		})
+		await mc.tevmMine()
+		
+		// Value should now be updated
+		const finalValue = await c.simpleContract.read.getValue()
+		expect(finalValue).toBe(888n)
+	})
+	
+	it('should work with traditional client API', async () => {
+		// Create a standard client
+		const client = createClient({
+			transport: createTevmTransport({}),
+		})
+		
+		// Set up accounts
+		await client.tevmSetAccount({
+			address: testAccount1,
+			balance: parseEther('10'),
+		})
+		
+		// Disable automine
+		await client.setAutomine({ enabled: false })
+		
+		// Send a transaction
+		await client.impersonateAccount({ address: testAccount1 })
+		const txHash = await client.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('1')
+		})
+		
+		// Verify transaction is in pool
+		const txpoolStatus = await client.getTxpoolStatus()
+		expect(txpoolStatus.pending).toBeGreaterThan(0)
+		
+		// Drop the transaction
+		await client.dropTransaction({ hash: txHash })
+		
+		// Verify transaction is dropped
+		const updatedStatus = await client.getTxpoolStatus()
+		expect(updatedStatus.pending).toBe(0)
 	})
 })

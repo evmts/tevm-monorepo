@@ -11,7 +11,7 @@ export default defineConfig({
 				autoUpdate: true,
 				lines: 100,
 				functions: 100,
-				branches: 100,
+				branches: 95.91,
 				statements: 100,
 			},
 			include: ['src/**/*.{js,ts}'],

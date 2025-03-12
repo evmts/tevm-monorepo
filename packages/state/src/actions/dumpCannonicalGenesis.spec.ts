@@ -64,6 +64,42 @@ describe(dumpCanonicalGenesis.name, () => {
 		expect(result).toEqual({})
 	})
 
+	it('should dump state in canonical format', async () => {
+		// Create a state with accounts, code, and storage
+		const state = createBaseState({})
+
+		// Set up test accounts and data
+		const address1 = createAddress('0x1111111111111111111111111111111111111111')
+		const address2 = createAddress('0x2222222222222222222222222222222222222222')
+
+		// Add first account with code and storage
+		await putAccount(state)(
+			address1,
+			EthjsAccount.fromAccountData({
+				nonce: 1n,
+				balance: 100n,
+			}),
+		)
+		await putContractCode(state)(address1, hexToBytes('0xabcdef'))
+		await putContractStorage(state)(address1, numberToBytes(1, { size: 32 }), numberToBytes(42))
+
+		// Add second account with different values
+		await putAccount(state)(
+			address2,
+			EthjsAccount.fromAccountData({
+				nonce: 2n,
+				balance: 200n,
+			}),
+		)
+
+		// Dump the state to canonical genesis format
+		const genesisData = await dumpCanonicalGenesis(state)()
+
+		// Verify the dumped data contains expected values
+		expect(genesisData).toHaveProperty(address1.toString())
+		expect(genesisData).toHaveProperty(address2.toString())
+	})
+
 	it('should handle addresses with and without 0x prefix in getAccountAddresses', async () => {
 		const state = createBaseState({})
 

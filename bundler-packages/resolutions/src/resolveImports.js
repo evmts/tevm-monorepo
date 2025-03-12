@@ -27,6 +27,7 @@ class ImportDoesNotExistError extends Error {
  * @param {Record<string, string>} remappings
  * @param {ReadonlyArray<string>} libs
  * @param {boolean} sync
+ *
  * @returns {import("effect/Effect").Effect<ReadonlyArray<import("./types.js").ResolvedImport>, ResolveImportsError, never>}
  * @example
  * ```ts
@@ -47,7 +48,7 @@ class ImportDoesNotExistError extends Error {
  * console.log(imports) // [{ updated: '/path/to/Contract.sol', absolute: '/path/to/Contract.sol', original: '../Contract.sol' }]
  * ```
  */
-export const resolveImports = (absolutePath, code, remappings, libs, sync = false) => {
+export const resolveImports = (absolutePath, code, remappings, libs, sync) => {
 	const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
 
 	if (typeof absolutePath !== 'string') {
@@ -59,7 +60,7 @@ export const resolveImports = (absolutePath, code, remappings, libs, sync = fals
 	if (typeof sync !== 'boolean') {
 		return die(`Type ${typeof sync} is not of type boolean`)
 	}
-	const imports =
+	const allImports =
 		/** @type Array<import("effect/Effect").Effect<import("./types.js").ResolvedImport, import("./utils/resolveImportPath.js").CouldNotResolveImportError, >> */ ([])
 	let foundImport = importRegEx.exec(code)
 	while (foundImport != null) {
@@ -67,7 +68,7 @@ export const resolveImports = (absolutePath, code, remappings, libs, sync = fals
 		if (!importPath) {
 			return fail(new ImportDoesNotExistError())
 		}
-		imports.push(
+		allImports.push(
 			resolveImportPath(absolutePath, importPath, remappings, libs, sync).pipe(
 				map((absolute) => ({
 					updated: absolute,
@@ -78,5 +79,5 @@ export const resolveImports = (absolutePath, code, remappings, libs, sync = fals
 		)
 		foundImport = importRegEx.exec(code)
 	}
-	return all(imports)
+	return all(allImports)
 }

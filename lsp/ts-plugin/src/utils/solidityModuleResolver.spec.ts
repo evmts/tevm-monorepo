@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module'
 import path from 'node:path'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { describe, expect, it, vi } from 'vitest'
@@ -73,6 +74,36 @@ describe('solidityModuleResolver', () => {
 		})
 
 		consoleSpy.mockRestore()
+	})
+
+	it('should handle @tevm/contract imports with compiler options', () => {
+		const mockResolvedModule = {
+			resolvedFileName: '/path/to/node_modules/@tevm/contract/index.d.ts',
+		}
+		const mockTs = createMockTs(mockResolvedModule)
+		const mockCreateInfo = {
+			project: {
+				getCompilerOptions: () => ({
+					baseUrl: '/custom/path',
+					paths: { '@tevm/*': ['./packages/*'] },
+				}),
+			},
+		}
+
+		const result = solidityModuleResolver('@tevm/contract', mockTs, mockCreateInfo as any, '/path/to/file.ts')
+
+		expect(mockTs.resolveModuleName).toHaveBeenCalledWith(
+			'@tevm/contract',
+			'/path/to/file.ts',
+			{ baseUrl: '/custom/path', paths: { '@tevm/*': ['./packages/*'] } },
+			mockCreateInfo.project,
+		)
+
+		expect(result).toEqual({
+			extension: typescript.Extension.Dts,
+			isExternalLibraryImport: true,
+			resolvedFileName: '/path/to/node_modules/@tevm/contract/index.d.ts',
+		})
 	})
 
 	it('should handle @tevm/contract/subpath imports', () => {

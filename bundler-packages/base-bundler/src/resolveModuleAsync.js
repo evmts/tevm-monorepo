@@ -119,7 +119,13 @@ export const resolveModuleAsync = async (
 			logger.error('there was an error writing to the cache. This may cause peformance issues')
 		})
 
-		return { solcInput, solcOutput, asts, modules, code }
+		return {
+			solcInput,
+			solcOutput,
+			asts,
+			modules,
+			code,
+		}
 	} catch (e) {
 		logger.error(`there was an error in tevm plugin resolving .${moduleType}`)
 		logger.error(/** @type any */ (e))

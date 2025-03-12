@@ -1,8 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { SimpleContract } from '@tevm/contract'
-import { type Hex } from '@tevm/utils'
+import { type Hex, parseEther } from 'viem'
+import { createClient } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import { createTevmTransport } from '../../createTevmTransport.js'
 
 let mc: MemoryClient
 let deployTxHash: Hex
@@ -10,13 +12,33 @@ let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
 
+// Test addresses
+const testAccount1 = `0x${'11'.repeat(20)}` as const
+const testAccount2 = `0x${'22'.repeat(20)}` as const
+
 beforeEach(async () => {
 	mc = createMemoryClient()
+	await mc.tevmReady()
+	
+	// Set up test accounts
+	await mc.tevmSetAccount({
+		address: testAccount1,
+		balance: parseEther('10'),
+	})
+	
+	await mc.tevmSetAccount({
+		address: testAccount2,
+		balance: parseEther('10'),
+	})
+	
 	const deployResult = await mc.tevmDeploy({
 		bytecode: SimpleContract.bytecode,
 		abi: SimpleContract.abi,
 		args: [420n],
+		createTransaction: true,
+		from: testAccount1,
 	})
+	
 	if (!deployResult.createdAddress) {
 		throw new Error('contract never deployed')
 	}
@@ -31,7 +53,176 @@ beforeEach(async () => {
 })
 
 describe('getTxpoolStatus', () => {
-	it.todo('should work as expected', () => {
-		expect(true).toBe(true)
+	it('should return empty txpool status when no transactions are pending', async () => {
+		// Ensure no transactions are pending
+		await mc.setAutomine({ enabled: true })
+		
+		// Get txpool status
+		const status = await mc.getTxpoolStatus()
+		
+		// Verify the status structure exists and counts are zero
+		expect(status).toBeDefined()
+		expect(status.pending).toBe(0)
+		expect(status.queued).toBe(0)
+	})
+	
+	it('should accurately count pending transactions', async () => {
+		// Disable automine to queue transactions
+		await mc.setAutomine({ enabled: false })
+		
+		// Get initial status
+		const initialStatus = await mc.getTxpoolStatus()
+		const initialPending = initialStatus.pending
+		
+		// Send multiple transactions
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		// Send three transactions
+		await c.simpleContract.write.setValue([111n], { account: testAccount1 })
+		await c.simpleContract.write.setValue([222n], { account: testAccount1 })
+		await c.simpleContract.write.setValue([333n], { account: testAccount1 })
+		
+		// Get updated status
+		const updatedStatus = await mc.getTxpoolStatus()
+		
+		// Should show 3 more pending transactions than before
+		expect(updatedStatus.pending).toBe(initialPending + 3)
+		
+		// Mine a block to clear pending transactions
+		await mc.mine({ blocks: 1 })
+		
+		// Check status after mining
+		const afterMiningStatus = await mc.getTxpoolStatus()
+		
+		// Pending should be back to initial value
+		expect(afterMiningStatus.pending).toBe(initialPending)
+	})
+	
+	it('should track both pending and queued transactions', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Get initial status
+		const initialStatus = await mc.getTxpoolStatus()
+		
+		// Send some transactions with gaps to create both pending and queued transactions
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		// Regular transactions go to pending
+		await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.1')
+		})
+		
+		await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.1')
+		})
+		
+		// Get current nonce
+		const currentNonce = await mc.getTransactionCount({ address: testAccount1 })
+		
+		// Create transactions with gaps in nonces (should go to queued)
+		await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.2'),
+			nonce: currentNonce + 2n // Skip a nonce to create a gap
+		})
+		
+		await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.3'),
+			nonce: currentNonce + 5n // Another gap
+		})
+		
+		// Get updated status
+		const updatedStatus = await mc.getTxpoolStatus()
+		
+		// Pending count should be higher than initial
+		expect(updatedStatus.pending).toBeGreaterThan(initialStatus.pending)
+		
+		// Queued count should be at least 2
+		expect(updatedStatus.queued).toBeGreaterThanOrEqual(2)
+		
+		// Total transactions should match what we sent
+		expect(updatedStatus.pending + updatedStatus.queued).toBeGreaterThanOrEqual(4)
+	})
+	
+	it('should work with traditional client API', async () => {
+		// Create a standard client
+		const client = createClient({
+			transport: createTevmTransport({}),
+		})
+		
+		// Set up accounts
+		await client.tevmSetAccount({
+			address: testAccount1,
+			balance: parseEther('10'),
+		})
+		
+		// Initial check with no transactions
+		const initialStatus = await client.getTxpoolStatus()
+		expect(initialStatus).toBeDefined()
+		expect(initialStatus.pending).toBeDefined()
+		expect(initialStatus.queued).toBeDefined()
+		
+		// Disable automine and add transactions
+		await client.setAutomine({ enabled: false })
+		await client.impersonateAccount({ address: testAccount1 })
+		
+		// Send a transaction
+		await client.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('1')
+		})
+		
+		// Get updated status
+		const updatedStatus = await client.getTxpoolStatus()
+		
+		// Should have at least one more pending transaction
+		expect(updatedStatus.pending).toBeGreaterThan(initialStatus.pending)
+	})
+	
+	it('should handle high transaction volume', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Initial status
+		const initialStatus = await mc.getTxpoolStatus()
+		
+		// Send a large number of transactions (10)
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		const txPromises = []
+		for (let i = 0; i < 10; i++) {
+			txPromises.push(mc.sendTransaction({
+				from: testAccount1,
+				to: testAccount2,
+				value: parseEther(String(0.01 * (i + 1)))
+			}))
+		}
+		
+		// Wait for all transactions to be sent
+		await Promise.all(txPromises)
+		
+		// Get status after sending many transactions
+		const highVolumeStatus = await mc.getTxpoolStatus()
+		
+		// Should show at least 10 more pending transactions
+		expect(highVolumeStatus.pending).toBeGreaterThanOrEqual(initialStatus.pending + 10)
+		
+		// Mine all transactions
+		await mc.mine({ blocks: 1 })
+		
+		// Check status after mining
+		const afterMiningStatus = await mc.getTxpoolStatus()
+		
+		// Should be back to approximately initial state (there might be other test transactions)
+		expect(afterMiningStatus.pending).toBeLessThanOrEqual(initialStatus.pending)
 	})
 })

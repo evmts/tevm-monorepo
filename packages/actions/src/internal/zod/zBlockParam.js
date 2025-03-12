@@ -8,5 +8,8 @@ export const zBlockParam = z.union([
 	z.literal('safe'),
 	z.literal('finalized'),
 	z.bigint(),
+	z
+		.number()
+		.transform((n) => BigInt(n)), // Add number support with transformation
 	zHex,
 ])

@@ -95,21 +95,70 @@ describe('ContractCache', () => {
 		expect(contractCache._checkpoints).toBe(1)
 	})
 
-	it('should call revert without error', () => {
+	it('should properly track and revert changes', () => {
 		const contractCache = new ContractCache()
-
-		// Create checkpoint
-		contractCache.checkpoint()
-
-		// Make changes
 		const address = createAddress('0x1234567890123456789012345678901234567890')
-		const code = new Uint8Array([1, 2, 3, 4])
-		contractCache.put(address, code)
+		const initialCode = new Uint8Array([1, 2, 3, 4])
+		const modifiedCode = new Uint8Array([5, 6, 7, 8])
 
-		// Revert
+		// Set initial state
+		contractCache.put(address, initialCode)
+
+		// Create a checkpoint
+		contractCache.checkpoint()
+		expect(contractCache._checkpoints).toBe(1)
+
+		// Modify the code
+		contractCache.put(address, modifiedCode)
+
+		// Verify the code is updated
+		expect(contractCache.get(address)).toEqual(modifiedCode)
+
+		// Revert to restore the original state
 		contractCache.revert()
 
-		// Checkpoint should be back to 0
+		// Checkpoint count should be back to 0
+		expect(contractCache._checkpoints).toBe(0)
+
+		// Code should be reverted to initial value
+		expect(contractCache.get(address)).toEqual(initialCode)
+	})
+
+	it('should handle nested checkpoints correctly', () => {
+		const contractCache = new ContractCache()
+		const address = createAddress('0x1234567890123456789012345678901234567890')
+		const code1 = new Uint8Array([1, 2, 3, 4])
+		const code2 = new Uint8Array([5, 6, 7, 8])
+		const code3 = new Uint8Array([9, 10, 11, 12])
+
+		// Initial state
+		contractCache.put(address, code1)
+
+		// First checkpoint
+		contractCache.checkpoint()
+
+		// Update in first checkpoint
+		contractCache.put(address, code2)
+		expect(contractCache.get(address)).toEqual(code2)
+
+		// Second checkpoint
+		contractCache.checkpoint()
+
+		// Update in second checkpoint
+		contractCache.put(address, code3)
+		expect(contractCache.get(address)).toEqual(code3)
+
+		// Revert second checkpoint
+		contractCache.revert()
+
+		// Should be back to first checkpoint state
+		expect(contractCache.get(address)).toEqual(code2)
+
+		// Commit first checkpoint
+		contractCache.commit()
+
+		// State should persist
+		expect(contractCache.get(address)).toEqual(code2)
 		expect(contractCache._checkpoints).toBe(0)
 	})
 

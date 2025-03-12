@@ -30,11 +30,15 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73],
-  [InvalidBlockError: Expected bigint, received number
+  [InvalidBlockError: Expected bigint, received boolean
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73],
-  [InvalidBlockError: Expected string, received number
+  [InvalidBlockError: Expected number, received boolean
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Expected string, received boolean
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73],

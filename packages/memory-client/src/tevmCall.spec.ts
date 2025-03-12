@@ -1,21 +1,27 @@
-import { optimism } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
-import { type Client, createClient } from 'viem'
+import { SimpleContract } from '@tevm/contract'
+import { type Client, createClient, encodeFunctionData } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmCall } from './tevmCall.js'
 import { tevmMine } from './tevmMine.js'
+import { tevmSetAccount } from './tevmSetAccount.js'
 
 let client: Client<TevmTransport>
+const contractAddress = '0x1234567890123456789012345678901234567890'
 
 beforeEach(async () => {
+	// Create a local-only transport (no forking)
 	client = createClient({
-		transport: createTevmTransport({
-			fork: { transport: transports.optimism },
-		}),
-		chain: optimism,
+		transport: createTevmTransport(),
 	})
+
+	// Deploy the SimpleContract bytecode directly
+	await tevmSetAccount(client, {
+		address: contractAddress,
+		deployedBytecode: SimpleContract.deployedBytecode,
+	})
+
 	await tevmMine(client, { blockCount: 1 })
 })
 
@@ -71,5 +77,50 @@ describe('tevmCall', () => {
 		})
 		expect(result).toBeDefined()
 		expect(result.rawData).toBe('0x')
+	})
+
+	it('should execute call to contract with function data and return decoded results', async () => {
+		// First set a value in the contract
+		const setValue = 42n
+
+		// Encode the data for the 'set' function
+		const setData = encodeFunctionData({
+			abi: SimpleContract.abi,
+			functionName: 'set',
+			args: [setValue],
+		})
+
+		// Call set function
+		await tevmCall(client, {
+			to: contractAddress,
+			data: setData,
+			createTransaction: true,
+		})
+
+		await tevmMine(client)
+
+		// Now encode the data for the 'get' function
+		const getData = encodeFunctionData({
+			abi: SimpleContract.abi,
+			functionName: 'get',
+		})
+
+		// Call get function
+		const result = await tevmCall(client, {
+			to: contractAddress,
+			data: getData,
+		})
+
+		// Verify we get the expected value
+		expect(result).toBeDefined()
+
+		// The SimpleContract.get() function returns a number as rawData
+		// Log it to check data structure
+		// Decode the hex result (rawData field)
+		const rawDataHex = result.rawData
+
+		// Verify the result contains the expected data
+		// The rawData should contain the encoded value we set (42)
+		expect(rawDataHex.toLowerCase()).toContain('2a') // 42 in hex is 0x2a
 	})
 })

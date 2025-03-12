@@ -26,37 +26,29 @@ describe('forkAndCacheBlock', () => {
 	})
 
 	// TODO this test broke for no reason
-	it.todo(
-		'should fork a block, execute transactions, and save the state root',
-		async () => {
-			const client = createTevmNode({
-				fork: { transport: transports.optimism },
-				miningConfig: { type: 'manual' },
-			})
-			const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+	it.todo('should fork a block, execute transactions, and save the state root', { timeout: 30_000 }, async () => {
+		const client = createTevmNode({
+			fork: { transport: transports.optimism },
+			miningConfig: { type: 'manual' },
+		})
+		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
-			const vm = await forkAndCacheBlock(client, block, true)
+		const vm = await forkAndCacheBlock(client, block, true)
 
-			const stateRoot = await vm.stateManager.getStateRoot()
-			expect(stateRoot).toEqual(block.header.stateRoot)
-		},
-		{ timeout: 30_000 },
-	)
+		const stateRoot = await vm.stateManager.getStateRoot()
+		expect(stateRoot).toEqual(block.header.stateRoot)
+	})
 
-	it(
-		'should process block transactions',
-		async () => {
-			const client = createTevmNode({
-				fork: { transport: transports.optimism },
-				miningConfig: { type: 'manual' },
-			})
-			const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+	it('should process block transactions', { timeout: 30_000 }, async () => {
+		const client = createTevmNode({
+			fork: { transport: transports.optimism },
+			miningConfig: { type: 'manual' },
+		})
+		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
-			const vm = await forkAndCacheBlock(client, block, false)
+		const vm = await forkAndCacheBlock(client, block, false)
 
-			expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
-			expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
-		},
-		{ timeout: 30_000 },
-	)
+		expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+		expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+	})
 })
