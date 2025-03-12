@@ -22,6 +22,7 @@ import { Card } from "../../components";
   An Ethereum Node built to run in Browser, Bun, Deno, and Node.js
 </HomePage.Description>
 
+
 {" "}
 
   <div className="code-snippet" style={{
@@ -38,6 +39,7 @@ import { Card } from "../../components";
     // Runs in browsers, Node.js, Deno, Bun and beyond
     // Zero native dependencies
     import { createMemoryClient } from "tevm";
+    // Direct Solidity imports with the Tevm Bundler
     import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
 
     const client = createMemoryClient();
@@ -92,7 +94,7 @@ import { Card } from "../../components";
 
     <Card title="Import Solidity Files Directly">
       <p className="mb-4">Use .sol files as native ES modules with full TypeScript type safety.</p>
-      <Button href="https://tevm.sh/bundler/direct-solidity-imports" variant="text" size="small">Bundler Integration →</Button>
+      <Button href="/reference/bundler" variant="text" size="small">Bundler Integration →</Button>
     </Card>
 
     <Card title="Fork Any Chain">
@@ -122,20 +124,76 @@ import { Card } from "../../components";
         </div>
       </blockquote>
     </div>
+  </div>
 
+  <div className="max-w-[800px] mx-auto my-20 text-center">
+    <h2 style={{ fontSize: "2.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Turn Solidity into TypeScript</h2>
+    <p className="mb-6 text-lg" style={{ fontSize: "1.25rem", maxWidth: "700px", margin: "0 auto 2rem auto", lineHeight: "1.6" }}>
+      The Tevm Bundler lets you import Solidity contracts directly into your JavaScript or TypeScript code. 
+      No more copying ABIs or managing contract artifacts manually—just import your .sol files and get 
+      full type safety, auto-completion, and easy contract interaction.
+    </p>
+    
+    <div className="code-snippet" style={{
+      maxWidth: '700px',
+      margin: '1.5rem auto',
+      backgroundColor: 'var(--vocs-color_background2)',
+      borderRadius: 'var(--vocs-borderRadius_4)',
+      padding: '1.2rem',
+      overflow: 'auto',
+      textAlign: 'left'
+    }}>
+      ```ts
+      // @noErrors
+      // Import Solidity contracts directly
+      import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
+      
+      // Use with full TypeScript support
+      const tokenContract = ERC20.withAddress('0x123...')
+      
+      // Type-safe contract methods
+      const balance = await client.readContract(
+        tokenContract.read.balanceOf('0x456...')
+      )
+      
+      // Coming soon: Import contracts directly from any chain
+      import { WETH } from 'caip10:eip155:1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+      
+      // Coming soon: Write Solidity inline
+      import { sol } from 'tevm'
+      
+      const { abi, bytecode } = sol`
+        pragma solidity ^0.8.19;
+        
+        contract Counter {
+          uint256 private count = 0;
+          
+          function increment() public {
+            count += 1;
+          }
+          
+          function getCount() public view returns (uint256) {
+            return count;
+          }
+        }
+      `
+      ```
+    </div>
+    
+    <div className="flex gap-4 justify-center flex-wrap mt-8">
+      <Button href="/getting-started/bundler" variant="accent">
+        Bundler Quickstart
+      </Button>
+      <Button href="/reference/bundler">Bundler Reference</Button>
+    </div>
   </div>
 
 {" "}
 
-<div className="max-w-[600px] mx-auto my-8 text-center">
-  <h2>Ready to get started?</h2>
-  <div className="flex gap-4 justify-center flex-wrap">
-    <Button href="/getting-started/overview" variant="accent">
-      Installation Guide
-    </Button>
-    <Button href="/examples/viem">Viem Integration</Button>
-    <Button href="/examples/ethers">Ethers Integration</Button>
-  </div>
+<div className="max-w-[600px] mx-auto my-16 text-center">
+  <Button href="/getting-started/overview" variant="accent" className="text-lg px-8 py-4" style={{ fontSize: "1.25rem", padding: "1rem 3rem" }}>
+    Ready to get started?
+  </Button>
 </div>
 
   <div className="mt-12 text-sm opacity-80">
