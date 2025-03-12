@@ -1,0 +1,1 @@
+import{j as a,f as c,c as r}from"./index-DFINhqRc.js";/* empty css                                */var e="vocs_Button_button",u="vocs_Button_button_accent";function l({children:t,className:n,href:o,variant:s}){return a.jsx(c,{className:r(n,e,s==="accent"&&u),href:o,variant:"styleless",children:t})}export{l as B};
