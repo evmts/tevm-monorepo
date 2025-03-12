@@ -1,0 +1,247 @@
+# Bundler Plugins
+
+Tevm provides integration with popular JavaScript bundlers through a suite of plugins. These plugins enable direct importing of Solidity files into your TypeScript/JavaScript code.
+
+## Available Plugins
+
+Tevm provides plugins for most popular JavaScript bundlers:
+
+| Bundler | Plugin Import Path | Repository |
+|---------|-------------------|------------|
+| Vite | `tevm/bundler/vite-plugin` | [@tevm/vite-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/vite) |
+| Webpack | `tevm/bundler/webpack-plugin` | [@tevm/webpack-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/webpack) |
+| Rollup | `tevm/bundler/rollup-plugin` | [@tevm/rollup-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/rollup) |
+| ESBuild | `tevm/bundler/esbuild-plugin` | [@tevm/esbuild-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/esbuild) |
+| Bun | `tevm/bundler/bun-plugin` | [@tevm/bun-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/bun) |
+| Rspack | `tevm/bundler/rspack-plugin` | [@tevm/rspack-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/rspack) |
+
+## Plugin Configuration
+
+All Tevm bundler plugins accept a similar configuration object:
+
+```ts
+type PluginOptions = {
+  // Optional solc compiler version
+  solc?: '0.8.19' | '0.8.20' | /* other supported versions */;
+}
+```
+
+## Bundler-Specific Setup
+
+### Vite
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { vitePluginTevm } from 'tevm/bundler/vite-plugin'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    vitePluginTevm({
+      solc: '0.8.20', // optional: specify solc version
+    }),
+  ],
+})
+```
+
+### Webpack
+
+```js
+// webpack.config.js
+const { webpackPluginTevm } = require('tevm/bundler/webpack-plugin')
+
+module.exports = {
+  // Other webpack config
+  plugins: [
+    // Other plugins
+    webpackPluginTevm({
+      solc: '0.8.20', // optional
+    }),
+  ],
+}
+```
+
+### Rollup
+
+```js
+// rollup.config.js
+import { rollupPluginTevm } from 'tevm/bundler/rollup-plugin'
+
+export default {
+  // Other rollup options
+  plugins: [
+    // Other plugins
+    rollupPluginTevm({
+      solc: '0.8.20', // optional
+    }),
+  ],
+}
+```
+
+### ESBuild
+
+```js
+// build.js
+const { build } = require('esbuild')
+const { esbuildPluginTevm } = require('tevm/bundler/esbuild-plugin')
+
+build({
+  entryPoints: ['src/index.js'],
+  outdir: 'dist',
+  bundle: true,
+  plugins: [
+    esbuildPluginTevm({
+      solc: '0.8.20', // optional
+    }),
+  ],
+})
+```
+
+### Bun
+
+```ts
+// plugins.ts
+import { plugin } from 'bun'
+import { tevmBunPlugin } from 'tevm/bundler/bun-plugin'
+
+plugin(tevmBunPlugin({
+  solc: '0.8.20', // optional
+}))
+```
+
+Then in your `bunfig.toml`:
+
+```toml
+preload = ["./plugins.ts"]
+
+[test]
+preload = ["./plugins.ts"]
+```
+
+### Rspack
+
+```js
+// rspack.config.js
+const { rspackPluginTevm } = require('tevm/bundler/rspack-plugin')
+
+module.exports = {
+  // Other rspack config
+  plugins: [
+    // Other plugins
+    rspackPluginTevm({
+      solc: '0.8.20', // optional
+    }),
+  ],
+}
+```
+
+## TypeScript Plugin
+
+For full TypeScript integration, you also need to configure the Tevm TypeScript plugin in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@tevm/ts-plugin"
+      }
+    ]
+  }
+}
+```
+
+The TypeScript plugin provides:
+
+- Type checking for Solidity imports
+- Go-to-definition navigation from TypeScript to Solidity
+- Hover information showing NatSpec documentation from Solidity
+- Auto-completion for contract methods and events
+
+## Technical Details
+
+### How Plugins Work
+
+All Tevm bundler plugins are built on top of the `@tevm/base-bundler` package, which provides the core functionality:
+
+1. **Import Resolution**: When a `.sol` file is imported, the bundler resolves all of its dependencies
+2. **Compilation**: Using the specified solc version, the bundler compiles the Solidity code
+3. **Code Generation**: The compiled artifacts are transformed into TypeScript code generating a Tevm Contract instance
+4. **Caching**: Compilation results are cached in the `.tevm` directory to improve build performance
+
+### Unplugin Implementation
+
+Most of the Tevm bundler plugins are implemented using [unplugin](https://github.com/unjs/unplugin), which allows for a unified implementation that works across multiple bundlers. This is why the configuration options are consistent across different bundlers.
+
+## Configuration with tevm.config.json
+
+In addition to plugin-specific configuration, you can create a `tevm.config.json` file in your project root to configure the bundler behavior:
+
+```json
+{
+  "foundryProject": true,
+  "libs": ["lib", "node_modules"],
+  "remappings": {
+    "foo": "vendored/foo"
+  },
+  "debug": false,
+  "cacheDir": ".tevm",
+  "jsonAsConst": ["**/abi.json"]
+}
+```
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `foundryProject` | `boolean \| string` | Enable Foundry integration or path to foundry.toml |
+| `libs` | `string[]` | Custom library paths for Solidity imports |
+| `remappings` | `Record<string, string>` | Custom import remappings |
+| `debug` | `boolean` | Enable debug logging |
+| `cacheDir` | `string` | Custom cache directory (defaults to `.tevm`) |
+| `jsonAsConst` | `string \| string[]` | Glob pattern(s) for JSON files to be treated as const |
+
+## Handling Different Module Formats
+
+Tevm bundler plugins generate different module formats depending on your bundler:
+
+- **ESM** modules for ESM-compatible bundlers (Vite, Rollup with ESM output)
+- **CommonJS** modules for CJS-compatible bundlers (Webpack, older Rollup configurations)
+
+## Troubleshooting
+
+If you're experiencing issues with the bundler plugins:
+
+### Missing TypeScript Types
+
+Ensure your editor is using the workspace version of TypeScript. In VS Code:
+
+1. Press `Ctrl+Shift+P` or `Cmd+Shift+P`
+2. Type "TypeScript: Select TypeScript Version"
+3. Choose "Use Workspace Version"
+
+### Bundling Errors
+
+- Verify you've installed the correct bundler plugin
+- Check your bundler configuration matches the examples
+- Ensure you're using a compatible Solidity version
+- Verify your module imports use the proper syntax
+
+### Cache Issues
+
+If you're experiencing unexpected behavior after changing Solidity files, try clearing the cache by deleting the `.tevm` directory.
+
+## Examples
+
+For complete working examples of Tevm bundler plugins in action, see the following examples in the Tevm monorepo:
+
+- [Vite Example](https://github.com/evmts/tevm-monorepo/tree/main/examples/vite)
+- [Next.js Example](https://github.com/evmts/tevm-monorepo/tree/main/examples/next)
+- [Bun Example](https://github.com/evmts/tevm-monorepo/tree/main/examples/bun)
+- [ESBuild Example](https://github.com/evmts/tevm-monorepo/tree/main/examples/esbuild)
+
+## Additional Resources
+
+- [Tevm Contract Documentation](/reference/contract)
+- [Direct Solidity Imports Guide](/reference/bundler)
+- [Tevm GitHub Repository](https://github.com/evmts/tevm-monorepo)

@@ -1,0 +1,299 @@
+# Tevm Contract Bundler
+
+The Tevm Contract Bundler allows you to import Solidity files directly into your TypeScript code, enabling a seamless development experience with type safety and IDE integration.
+
+## What is the Tevm Bundler?
+
+The Tevm bundler transforms Solidity `.sol` files into TypeScript modules at build time. When you import a contract, the bundler:
+
+1. Reads and compiles the Solidity source code
+2. Extracts the ABI, bytecode, and other contract information
+3. Generates a TypeScript module with a [Tevm Contract](/reference/contract) instance
+
+This means you can interact with your contracts in a fully type-safe way, with editor features like auto-completion, go-to-definition, and inline documentation.
+
+## Key Benefits
+
+- **Direct Imports**: Import Solidity files just like any other TypeScript module
+- **Type Safety**: Full TypeScript type checking for contract methods, arguments, and return values
+- **IDE Integration**: Go-to-definition, auto-completion, and hover documentation
+- **NatSpec Support**: Contract documentation appears in your editor
+- **Hot Module Reloading**: Changes to Solidity files update immediately during development
+- **Framework Integration**: Works with popular bundlers like Vite, Webpack, Next.js, Bun, and more
+
+## Quick Start
+
+You need to configure both your TypeScript environment and your build tool to use the Tevm bundler.
+
+### Step 1: Install Tevm
+
+```bash
+npm install tevm
+```
+
+### Step 2: Configure TypeScript
+
+Add the Tevm TypeScript plugin to your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "plugins": [
+      { "name": "@tevm/ts-plugin" }
+    ],
+    // Other TypeScript options...
+  }
+}
+```
+
+### Step 3: Configure Your Build Tool
+
+Below are configuration examples for popular build tools:
+
+<details>
+<summary>Vite</summary>
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { vitePluginTevm } from 'tevm/bundler/vite-plugin'
+
+export default defineConfig({
+  plugins: [
+    // Other plugins...
+    vitePluginTevm(),
+  ],
+})
+```
+</details>
+
+<details>
+<summary>Next.js</summary>
+
+```js
+// next.config.mjs
+const nextConfig = {
+  // Your Next.js config...
+}
+
+export default nextConfig
+```
+
+For Next.js, there's no specific plugin to add, but you may need to customize your webpack configuration if you encounter issues.
+</details>
+
+<details>
+<summary>Bun</summary>
+
+```ts
+// plugins.ts
+import { plugin } from 'bun'
+import { tevmBunPlugin } from 'tevm/bundler/bun-plugin'
+
+plugin(tevmBunPlugin({}))
+```
+
+Then in your `bunfig.toml`:
+
+```toml
+preload = ["./plugins.ts"]
+
+[test]
+preload = ["./plugins.ts"]
+```
+</details>
+
+### Step 4: Configure VS Code (Optional)
+
+If you're using VS Code, you need to ensure your editor uses the workspace version of TypeScript:
+
+1. Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P)
+2. Type "TypeScript: Select TypeScript Version"
+3. Select "Use Workspace Version"
+
+## Using Imported Contracts
+
+Once configured, you can import Solidity contracts directly:
+
+```ts
+// Import a contract directly from a .sol file
+import { Counter } from './Counter.sol'
+import { createMemoryClient } from 'tevm'
+
+// Create a client to interact with the contract
+const client = createMemoryClient()
+
+// Deploy the contract
+const deployed = await client.deployContract(Counter)
+
+// Call read methods
+const count = await deployed.read.count()
+
+// Call write methods
+const tx = await deployed.write.increment()
+await client.mine({ blocks: 1 })
+
+// Check the updated state
+const newCount = await deployed.read.count()
+```
+
+The imported `Counter` object is a [Tevm Contract](/reference/contract) instance that provides:
+
+- Type-safe access to all contract methods
+- Contract ABI and bytecode
+- Deployment helpers
+- Read and write method interfaces
+- Event filters
+
+## Importing Dependencies
+
+You can import contracts from:
+
+- Local `.sol` files in your project
+- npm packages like OpenZeppelin contracts
+- External libraries
+
+```ts
+// Local import
+import { MyToken } from './contracts/MyToken.sol'
+
+// npm package import
+import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
+```
+
+## Integration with Viem and Ethers
+
+Tevm contracts work seamlessly with popular Ethereum libraries:
+
+### Viem Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { MyToken } from './contracts/MyToken.sol'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+
+// Read methods
+const balance = await client.readContract({
+  ...MyToken.read.balanceOf('0x123...'),
+  address: '0x456...',
+})
+
+// Write methods
+const hash = await client.writeContract({
+  ...MyToken.write.transfer('0x789...', 1000n),
+  address: '0x456...',
+})
+```
+
+### Ethers Example
+
+```ts
+import { ethers } from 'ethers'
+import { MyToken } from './contracts/MyToken.sol'
+
+const provider = new ethers.BrowserProvider(window.ethereum)
+const signer = await provider.getSigner()
+
+// Create contract instance
+const tokenContract = new ethers.Contract(
+  '0x456...',
+  MyToken.abi,
+  signer
+)
+
+// Call methods
+const balance = await tokenContract.balanceOf('0x123...')
+const tx = await tokenContract.transfer('0x789...', 1000n)
+```
+
+## Configuration
+
+For advanced configuration, create a `tevm.config.json` file in your project root:
+
+```json
+{
+  "foundryProject": true,
+  "libs": ["lib", "node_modules"],
+  "remappings": {
+    "foo": "vendored/foo"
+  },
+  "debug": false,
+  "cacheDir": ".tevm"
+}
+```
+
+### Configuration Options
+
+- `foundryProject` - Enable Foundry integration (boolean or path to foundry.toml)
+- `libs` - Custom library paths for Solidity imports
+- `remappings` - Custom import remappings
+- `debug` - Enable debug logging
+- `cacheDir` - Custom cache directory (defaults to `.tevm`)
+
+## Coming Soon Features
+
+### Inline Solidity with `sol` Tag
+
+:::info
+This feature is coming soon and is not yet available in the current release.
+:::
+
+For quick prototyping or one-off contracts, you'll soon be able to use the `sol` tag to define Solidity code inline:
+
+```ts
+import { sol } from 'tevm'
+
+// Define contract inline
+const { bytecode, abi } = sol`
+  pragma solidity ^0.8.19;
+  
+  contract Counter {
+    uint256 private count = 0;
+    
+    function increment() public {
+      count += 1;
+    }
+    
+    function count() public view returns (uint256) {
+      return count;
+    }
+  }
+`
+
+// Use with client.readContract, writeContract, etc.
+```
+
+### CAIP-10 Contract Imports
+
+:::info
+This feature is coming soon and is not yet available in the current release.
+:::
+
+Tevm will soon support importing contracts based on the CAIP-10 Account ID Specification, which will allow you to import contracts from any chain using a standardized identifier format:
+
+```ts
+// Import a contract from Ethereum mainnet using a CAIP-10 identifier
+import { WETH } from 'caip10:eip155:1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+```
+
+## Learn More
+
+For more detailed information about the Tevm bundler system:
+
+- [Detailed Bundler Documentation](/bundler/direct-solidity-imports)
+- [Contract API Reference](/reference/contract)
+- [Bundler GitHub Repository](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages)
+
+## Troubleshooting
+
+If you encounter issues:
+
+- Make sure you've configured both the TypeScript plugin and your bundler
+- For VS Code, ensure you're using the workspace version of TypeScript
+- Try clearing the `.tevm` cache directory
+- Check the [Troubleshooting Guide](/bundler/direct-solidity-imports#troubleshooting)
