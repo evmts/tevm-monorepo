@@ -17,28 +17,6 @@ This page covers the internal architecture of Tevm and is intended for advanced 
 
 Tevm's architecture is designed to be modular, extensible, and compatible with the broader JavaScript ecosystem. This guide explains the core components and how they work together to create a complete Ethereum execution environment.
 
-```mermaid
-graph TD
-    A[Application] --> B[Tevm Client API]
-    B -->|High Level| C[Memory Client]
-    B -->|Tree-shakable| D[Actions]
-    C --> E[Tevm Node]
-    D --> E
-    E --> F[VM]
-    F --> G[EVM]
-    F --> H[State Manager]
-    F --> I[Blockchain]
-    E --> J[Transaction Pool]
-    E --> K[Receipt Manager]
-    H -->|Optional| L[Forking Provider]
-    
-    %% Add extra nodes for key components
-    E --> M[Custom Precompiles]
-    F --> N[EVM Events]
-    E --> O[JSON-RPC API]
-    J --> P[Mining Controller]
-```
-
 ## Design Philosophy: Objects and Actions
 
 At its core, Tevm follows a clear separation between **Objects** (stateful components) and **Actions** (pure functions that operate on those objects). This pattern, inspired by [viem](https://viem.sh/), enables tree-shaking and a composable API.
@@ -228,6 +206,12 @@ await stateManager.getContractStorage(address, key)
 await stateManager.checkpoint() // Create state snapshot
 await stateManager.revert(checkpointId) // Revert to snapshot
 ```
+
+<Callout type="info" title="State Storage Implementation">
+Unlike traditional Ethereum clients, Tevm uses simple key-value stores for state storage rather than a Merkle Patricia Trie. This design choice improves performance and simplifies the implementation, but it means Tevm doesn't support generating state proofs for newly mined blocks.
+
+If you need state proof functionality for your use case, please join our [Telegram community](https://t.me/+ANThR9bHDLAwMjUx) and share your requirements. We're open to adding this feature based on community needs.
+</Callout>
 
 ### Blockchain
 
@@ -679,25 +663,6 @@ await node.resetToSnapshot(snapshot)
 
 This extension model allows for powerful customizations while maintaining the core API.
 :::
-
-## Next Steps
-
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
-  <Button href="../core/create-tevm-node" className="h-auto p-4 flex flex-col items-start">
-    <div className="font-medium mb-2">Create a Tevm Node</div>
-    <div className="text-sm text-left">Learn how to create and configure a Tevm Node for your project.</div>
-  </Button>
-  
-  <Button href="../examples/viem" className="h-auto p-4 flex flex-col items-start">
-    <div className="font-medium mb-2">Viem Integration</div>
-    <div className="text-sm text-left">See how to use Tevm with viem for a complete Ethereum development experience.</div>
-  </Button>
-  
-  <Button href="../examples/local-testing" variant="accent" className="h-auto p-4 flex flex-col items-start">
-    <div className="font-medium mb-2">Practical Examples</div>
-    <div className="text-sm text-left">Explore real-world examples and use cases for Tevm Node.</div>
-  </Button>
-</div>
 
 ## Further Resources
 

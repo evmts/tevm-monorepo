@@ -15,7 +15,7 @@ Tevm Node is a **full Ethereum execution environment** that runs natively in Jav
 Conceptually, it works very similar to Anvil and Hardhat but with more powerful TypeScript native interop.
 
 :::tip[You might not need these docs?]
-If you already know how to use `viem` or `ethers`, you can start using Tevm Node right away with your existing knowledge! Tevm simply plugs into your library of choice.
+If you already know how to use [`viem`](https://viem.sh) or [`ethers`](https://docs.ethers.org), you can start using Tevm Node right away with your existing knowledge! Tevm simply plugs into your library of choice.
 :::
 
 ## What Makes Tevm Unique?
@@ -52,6 +52,14 @@ yarn add tevm
 
 ```bash [bun]
 bun add tevm
+```
+
+```ts [deno]
+// No installation needed - import directly from npm registry
+import { createMemoryClient } from "npm:tevm";
+
+// Then use as normal
+const client = createMemoryClient();
 ```
 
 :::

@@ -180,15 +180,21 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Contract (@tevm/contract)", link: "/reference/contract" },
-            { 
-              text: "Contract Bundler", 
+            {
+              text: "Contract Bundler",
               link: "/reference/bundler",
               items: [
                 { text: "Overview", link: "/reference/bundler/overview" },
                 { text: "Internals", link: "/reference/bundler/internals" },
-                { text: "Methods & Exports", link: "/reference/bundler/methods" },
-                { text: "Troubleshooting", link: "/reference/bundler/troubleshooting" },
-              ]
+                {
+                  text: "Methods & Exports",
+                  link: "/reference/bundler/methods",
+                },
+                {
+                  text: "Troubleshooting",
+                  link: "/reference/bundler/troubleshooting",
+                },
+              ],
             },
             {
               text: "Precompiles (@tevm/precompiles)",
@@ -260,11 +266,6 @@ export default defineConfig({
       icon: "x",
       link: "https://x.com/tevmtools",
       label: "Twitter",
-    },
-    {
-      icon: "discord",
-      link: "https://discord.gg/tevm",
-      label: "Discord",
     },
   ],
   // Configure code highlighting

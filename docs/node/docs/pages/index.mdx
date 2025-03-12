@@ -7,11 +7,17 @@ import { Card } from "../../components";
 
 <HomePage.Root>
   <div style={{ textAlign: 'center', margin: '0 auto', maxWidth: '200px' }}>
-    <img
-      src="/tevm-logo-dark.png"
-      alt="Tevm Logo"
-      style={{ width: '100%', height: 'auto' }}
-    />
+    <a href="/getting-started/overview">
+      <picture>
+        <source srcSet="/tevm-logo-dark.png" media="(prefers-color-scheme: dark)" />
+        <source srcSet="/tevm-logo-light.png" media="(prefers-color-scheme: light)" />
+        <img
+          src="/tevm-logo-light.png"
+          alt="Tevm Logo"
+          style={{ width: '100%', height: 'auto' }}
+        />
+      </picture>
+    </a>
   </div>
   <HomePage.Tagline>Ethereum Node for Viem</HomePage.Tagline>
   <HomePage.InstallPackage name="tevm" type="install" />
@@ -27,7 +33,8 @@ import { Card } from "../../components";
 
   <div className="code-snippet" style={{
     maxWidth: '600px',
-    margin: '1.5rem 0',
+    width: '100%',
+    margin: '1.5rem auto',
     backgroundColor: 'var(--vocs-color_background2)',
     borderRadius: 'var(--vocs-borderRadius_4)',
     padding: '1rem',
