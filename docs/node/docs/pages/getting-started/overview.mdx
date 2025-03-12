@@ -26,6 +26,7 @@ Unlike traditional development environments like [Hardhat](https://hardhat.org/)
 - **Fine-grained EVM Control** — Access the execution environment at any level of detail, from high-level transactions to individual EVM opcodes
 - **Enhanced User Experience** — Enable advanced features like instantaneous gas estimation, optimistic UI updates, and sophisticated transaction simulation
 - **Type-safe Interactions** — Full TypeScript support throughout the entire API surface
+- **Direct Solidity Imports** — Import Solidity files directly into TypeScript with the [Tevm Bundler](/getting-started/bundler)
 
 ## Getting Started
 
@@ -185,6 +186,7 @@ You're now ready to build with Tevm!
 // Zero native dependencies
 import { createMemoryClient } from "tevm";
 // Optionally import solidity contracts directly into typescript in a typesafe way
+// This requires the Tevm Bundler to be set up (see Bundler Quickstart)
 import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
 
 const client = createMemoryClient();
@@ -245,5 +247,6 @@ If you're new to Ethereum development, don't worry! Tevm serves as an excellent 
     Viem Quickstart →
   </Button>
   <Button href="./ethers">Ethers Quickstart →</Button>
+  <Button href="./bundler">Bundler Quickstart →</Button>
   <Button href="../introduction/what-is-tevm-node">What is Tevm Node? →</Button>
 </div>

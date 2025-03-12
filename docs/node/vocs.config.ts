@@ -66,6 +66,7 @@ export default defineConfig({
         },
         { text: "Viem Quickstart", link: "/getting-started/viem" },
         { text: "Ethers Quickstart", link: "/getting-started/ethers" },
+        { text: "Bundler Quickstart", link: "/getting-started/bundler" },
         { text: "What is Tevm Node?", link: "/introduction/what-is-tevm-node" },
         {
           text: "Architecture Overview",
@@ -175,7 +176,6 @@ export default defineConfig({
           items: [
             { text: "Contract (@tevm/contract)", link: "/reference/contract" },
             { text: "Contract Bundler", link: "/reference/bundler" },
-            { text: "Bundler Plugins", link: "/reference/bundler-plugins" },
             {
               text: "Precompiles (@tevm/precompiles)",
               link: "/advanced/custom-precompiles",

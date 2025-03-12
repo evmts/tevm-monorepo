@@ -2,6 +2,10 @@
 
 The Tevm Contract Bundler allows you to import Solidity files directly into your TypeScript code, enabling a seamless development experience with type safety and IDE integration.
 
+:::note
+Tevm Node is the primary product. Using the bundler is optional. You can also generate contract types with `npx tevm gen` (see [Codegen Approach](#codegen-approach)).
+:::
+
 ## What is the Tevm Bundler?
 
 The Tevm bundler transforms Solidity `.sol` files into TypeScript modules at build time. When you import a contract, the bundler:
@@ -21,6 +25,47 @@ This means you can interact with your contracts in a fully type-safe way, with e
 - **Hot Module Reloading**: Changes to Solidity files update immediately during development
 - **Framework Integration**: Works with popular bundlers like Vite, Webpack, Next.js, Bun, and more
 
+## Available Plugins
+
+Tevm provides plugins for most popular JavaScript bundlers:
+
+| Bundler | Plugin Import Path | Repository |
+|---------|-------------------|------------|
+| Vite | `tevm/bundler/vite-plugin` | [@tevm/vite-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/vite) |
+| Webpack | `tevm/bundler/webpack-plugin` | [@tevm/webpack-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/webpack) |
+| Rollup | `tevm/bundler/rollup-plugin` | [@tevm/rollup-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/rollup) |
+| ESBuild | `tevm/bundler/esbuild-plugin` | [@tevm/esbuild-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/esbuild) |
+| Bun | `tevm/bundler/bun-plugin` | [@tevm/bun-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/bun) |
+| Rspack | `tevm/bundler/rspack-plugin` | [@tevm/rspack-plugin](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/rspack) |
+
+All plugins share a similar usage pattern and a single configuration interface.
+
+## Prerequisites & Key Points
+
+### Optional Bundler
+
+You can compile contracts manually or use `npx tevm gen`. The plugins are purely optional if you prefer a different workflow.
+
+### TypeScript Integration
+
+For best results, add the Tevm TS plugin to your tsconfig.json. This allows your editor to resolve Solidity imports, provide NatSpec docs on hover, go-to-definition on solidity methods, and more.
+
+### .s.sol for Bytecode
+
+By default, Tevm only generates bytecode for Solidity files ending in `.s.sol`. Regular `.sol` files still compile for ABIs, but omit deployable bytecode. This helps differentiate purely interface-like contracts from ones you intend to deploy or call as scripts.
+
+### Tevm Cache
+
+Compiled artifacts and metadata are stored in a `.tevm` folder. It is strongly recommended to `.gitignore` this directory.
+
+### Foundry/Remappings
+
+If you have a Foundry setup or custom remappings, you can enable them in a `tevm.config.json`.
+
+### Next.js
+
+Next.js can conflict with the TS plugin's type-checking. If you wish to keep type-checking turned on for Next.js, consider the [Codegen Approach](#codegen-approach). Otherwise, you may disable type-checking in your Next config.
+
 ## Quick Start
 
 You need to configure both your TypeScript environment and your build tool to use the Tevm bundler.
@@ -32,6 +77,8 @@ npm install tevm
 ```
 
 ### Step 2: Configure TypeScript
+
+The TypeScript plugin configures your TypeScript Language Service (LSP) to be aware of Solidity imports during development. This enables editor features like code completion, type checking, and go-to-definition for Solidity contracts, but doesn't handle the actual compilation during build.
 
 Add the Tevm TypeScript plugin to your `tsconfig.json`:
 
@@ -48,49 +95,89 @@ Add the Tevm TypeScript plugin to your `tsconfig.json`:
 
 ### Step 3: Configure Your Build Tool
 
+The bundler plugin handles the actual compilation of Solidity files during your build process. This ensures your final JavaScript output will contain the compiled Solidity contract ABIs, bytecode, and TypeScript interfaces.
+
 Below are configuration examples for popular build tools:
 
-<details>
-<summary>Vite</summary>
+### Vite
 
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
 import { vitePluginTevm } from 'tevm/bundler/vite-plugin'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [
-    // Other plugins...
-    vitePluginTevm(),
+    react(),
+    vitePluginTevm({
+      solc: '0.8.20', // optional
+    }),
   ],
 })
 ```
-</details>
 
-<details>
-<summary>Next.js</summary>
+### Webpack
 
 ```js
-// next.config.mjs
-const nextConfig = {
-  // Your Next.js config...
-}
+// webpack.config.mjs
+import { webpackPluginTevm } from 'tevm/bundler/webpack-plugin'
 
-export default nextConfig
+export default {
+  // other config...
+  plugins: [
+    webpackPluginTevm({
+      solc: '0.8.20', // optional
+    }),
+  ],
+}
 ```
 
-For Next.js, there's no specific plugin to add, but you may need to customize your webpack configuration if you encounter issues.
-</details>
+### Rollup
 
-<details>
-<summary>Bun</summary>
+```js
+// rollup.config.mjs
+import { rollupPluginTevm } from 'tevm/bundler/rollup-plugin'
+
+export default {
+  // other Rollup options...
+  plugins: [
+    rollupPluginTevm({
+      solc: '0.8.20',
+    }),
+  ],
+}
+```
+
+### ESBuild
+
+```js
+// build.mjs
+import { build } from 'esbuild'
+import { esbuildPluginTevm } from 'tevm/bundler/esbuild-plugin'
+
+build({
+  entryPoints: ['src/index.js'],
+  outdir: 'dist',
+  bundle: true,
+  plugins: [
+    esbuildPluginTevm({
+      solc: '0.8.20',
+    }),
+  ],
+})
+```
+
+### Bun
 
 ```ts
 // plugins.ts
 import { plugin } from 'bun'
 import { tevmBunPlugin } from 'tevm/bundler/bun-plugin'
 
-plugin(tevmBunPlugin({}))
+plugin(tevmBunPlugin({
+  solc: '0.8.20',
+}))
 ```
 
 Then in your `bunfig.toml`:
@@ -101,15 +188,55 @@ preload = ["./plugins.ts"]
 [test]
 preload = ["./plugins.ts"]
 ```
-</details>
 
-### Step 4: Configure VS Code (Optional)
+### Rspack
 
-If you're using VS Code, you need to ensure your editor uses the workspace version of TypeScript:
+```js
+// rspack.config.mjs
+import { rspackPluginTevm } from 'tevm/bundler/rspack-plugin'
 
-1. Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P)
+export default {
+  // other Rspack config...
+  plugins: [
+    rspackPluginTevm({
+      solc: '0.8.20',
+    }),
+  ],
+}
+```
+
+### Next.js
+
+```js
+// next.config.mjs
+const nextConfig = {
+  // Your Next.js config...
+  typescript: {
+    // Optional: disable Next.js typechecking if you encounter issues
+    // ignoreBuildErrors: true,
+  }
+}
+
+export default nextConfig
+```
+
+For Next.js, there's no specific plugin to add, but you may need to disable typechecking if you encounter issues or use the [Codegen Approach](#codegen-approach).
+
+### Step 4: Configure Your Editor (Optional)
+
+#### VS Code and Cursor
+
+For VS Code and Cursor users, ensure you're using the workspace version of TypeScript:
+
+1. Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P in VS Code; ⌘+K or Ctrl+K in Cursor)
 2. Type "TypeScript: Select TypeScript Version"
 3. Select "Use Workspace Version"
+
+This step is crucial because the workspace TypeScript installation is what loads the @tevm/ts-plugin to provide Solidity import support.
+
+#### Vim, Neovim, and Other Editors
+
+For Vim, Neovim, and most other editors with TypeScript support, everything should work automatically without any additional configuration as long as they use the project's workspace version of TypeScript. This is crucial because the workspace TypeScript installation is what loads the @tevm/ts-plugin to provide Solidity import support.
 
 ## Using Imported Contracts
 
@@ -211,9 +338,43 @@ const balance = await tokenContract.balanceOf('0x123...')
 const tx = await tokenContract.transfer('0x789...', 1000n)
 ```
 
+## How the Bundler Works
+
+All Tevm bundler plugins share a unified core (`@tevm/base-bundler`):
+
+### Import Detection & Resolution
+
+- Scans for `.sol` imports; merges in tsconfig.json paths, foundry remappings, and your tevm.config.json.
+
+### Compilation
+
+- Uses solc to compile the full dependency graph.
+- If the file ends in `.s.sol`, bytecode is generated; otherwise only ABI is produced.
+
+### Code Generation
+
+- Creates a TypeScript module that exports a Tevm Contract instance (with `.read` and `.write` methods, abi, and optionally bytecode).
+
+### Caching
+
+- Stores results in `.tevm` to avoid unnecessary recompilation. Consider ignoring `.tevm` in your `.gitignore`.
+
+### LSP & TS Plugin
+
+- The `@tevm/ts-plugin` references bundler outputs, enabling advanced IDE features like contract-level auto-completion, hover docs, and go-to-definition directly into Solidity code.
+
 ## Configuration
 
-For advanced configuration, create a `tevm.config.json` file in your project root:
+All bundler plugins accept a similar configuration object:
+
+```ts
+type PluginOptions = {
+  // (Optional) solc compiler version
+  solc?: '0.8.19' | '0.8.20' | /* other supported solc versions */
+}
+```
+
+For more complex, global settings, create a `tevm.config.json` file in your project root:
 
 ```json
 {
@@ -223,17 +384,39 @@ For advanced configuration, create a `tevm.config.json` file in your project roo
     "foo": "vendored/foo"
   },
   "debug": false,
-  "cacheDir": ".tevm"
+  "cacheDir": ".tevm",
+  "jsonAsConst": ["**/*.abi.json"]
 }
 ```
 
 ### Configuration Options
 
-- `foundryProject` - Enable Foundry integration (boolean or path to foundry.toml)
-- `libs` - Custom library paths for Solidity imports
-- `remappings` - Custom import remappings
-- `debug` - Enable debug logging
-- `cacheDir` - Custom cache directory (defaults to `.tevm`)
+| Option | Type | Description |
+|--------|------|-------------|
+| `foundryProject` | `boolean \| string` | Enable Foundry integration (`true`) or path to foundry.toml |
+| `libs` | `string[]` | Library paths for Solidity imports (used alongside Foundry libs) |
+| `remappings` | `Record<string, string>` | Custom import remappings |
+| `debug` | `boolean` | Output extra debug logs and files in `.tevm` |
+| `cacheDir` | `string` | Location for compiled artifacts (default: `.tevm`) |
+| `jsonAsConst` | `string \| string[]` | Glob patterns for JSON files to be typed as const in TS |
+
+## Codegen Approach
+
+If you prefer not to rely on bundler-based transformations (for instance, if you're using Next.js with strict type-checking enabled), Tevm also supports an offline code generation approach:
+
+```bash
+npx tevm gen
+```
+
+- Generates `.ts` files next to each `.sol` file (or wherever configured).
+- You can commit these `.ts` files to source control.
+- The result is effectively the same as bundler output but doesn't require hooking into your build process.
+
+This is especially helpful when:
+
+- You have a framework that tightly controls its build pipeline (e.g., Next.js with enforced type-checking).
+- You prefer explicit, committed TypeScript artifacts for contracts.
+- You want a stable CI pipeline or want to avoid runtime resolution.
 
 ## Coming Soon Features
 
@@ -281,19 +464,35 @@ Tevm will soon support importing contracts based on the CAIP-10 Account ID Speci
 import { WETH } from 'caip10:eip155:1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 ```
 
-## Learn More
-
-For more detailed information about the Tevm bundler system:
-
-- [Detailed Bundler Documentation](/bundler/direct-solidity-imports)
-- [Contract API Reference](/reference/contract)
-- [Bundler GitHub Repository](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages)
-
 ## Troubleshooting
 
-If you encounter issues:
+### 1. Missing or Red Underlines in Editor
 
-- Make sure you've configured both the TypeScript plugin and your bundler
-- For VS Code, ensure you're using the workspace version of TypeScript
-- Try clearing the `.tevm` cache directory
-- Check the [Troubleshooting Guide](/bundler/direct-solidity-imports#troubleshooting)
+- Confirm you have `"plugins": [{ "name": "@tevm/ts-plugin" }]` in tsconfig.json.
+- In VSCode, switch to the "workspace version" of TypeScript.
+
+### 2. Type-check Errors with Next.js
+
+- Next's built-in type checker might not handle dynamic `.sol` imports well.
+- Either disable type-checking in next.config.mjs or use [Codegen Approach](#codegen-approach).
+
+### 3. "File Not Found" Errors
+
+- Check that your libraries or local imports are accounted for in libs or remappings.
+- If you're using Foundry, ensure `foundryProject: true` is set in tevm.config.json.
+
+### 4. Cache Stale Issues
+
+- If a contract's changes don't appear, remove the `.tevm` folder and rebuild.
+
+## Examples and Further Reading
+
+- [Examples in Monorepo](https://github.com/evmts/tevm-monorepo/tree/main/examples): Vite, Next, Bun, ESBuild
+- [Contract API Reference](/reference/contract): Usage docs for contract reads, writes, events 
+- [Wagmi + Tevm](https://github.com/evmts/tevm-monorepo/tree/main/examples): See WagmiReads.tsx and WagmiWrites.tsx examples for real usage
+- [Detailed Bundler Documentation](/bundler/direct-solidity-imports): More comprehensive documentation about direct Solidity imports
+- [Bundler GitHub Repository](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages): Source code for bundler packages
+
+:::tip
+Remember: Tevm's bundler is optional—it's there to make importing Solidity as straightforward as possible. If your project setup or environment constraints make the bundler difficult, consider the `tevm gen` codegen workflow or a purely manual approach to contract artifacts.
+:::
