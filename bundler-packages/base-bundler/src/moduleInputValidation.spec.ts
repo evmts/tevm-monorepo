@@ -46,7 +46,12 @@ describe('module resolvers input validation', () => {
 			compileCallback: vi.fn(),
 		},
 		compile: vi.fn(),
-		features: {},
+		features: {
+			legacySingleInput: true,
+			multipleInputs: true,
+			importCallback: true,
+			nativeStandardJSON: true,
+		},
 		loadRemoteVersion: vi.fn(),
 		setupMethods: vi.fn(),
 	}

@@ -8,10 +8,10 @@ import type { Node } from 'solidity-ast/node.js'
 
 export type BundlerResult = {
 	code: string
-	modules: Record<'string', ModuleInfo>
-	solcInput?: SolcInputDescription
-	solcOutput?: SolcOutput
-	asts?: Record<string, Node> | undefined
+	modules: Record<string, ModuleInfo>
+	solcInput: SolcInputDescription | undefined
+	solcOutput: SolcOutput | undefined
+	asts: Record<string, Node> | undefined
 }
 
 /**

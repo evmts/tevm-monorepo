@@ -84,6 +84,11 @@ export const getDefinitionServiceDecorator = (
 			return definition
 		}
 		const contractName = ContractPath.split('/').pop()?.split('.')[0] ?? 'Contract'
+		// Skip definitions that would require solcInput if it is not available
+		if (!solcInput) {
+			logger.error(`@tevm/ts-plugin: solcInput is undefined for ${ContractPath}`)
+			return definition
+		}
 		return [
 			...definitions.map(({ fileName, node }) =>
 				convertSolcAstToTsDefinitionInfo(node, fileName, contractName, solcInput, ts),

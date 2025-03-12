@@ -1,27 +1,30 @@
-import { generateRuntime } from '@tevm/runtime'
-import { runSync } from 'effect/Effect'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { readCacheSync } from './readCacheSync.js'
 import { resolveModuleSync } from './resolveModuleSync.js'
 
-// Mock dependencies
+// Setup all mocks first
 vi.mock('./readCacheSync.js', () => ({
 	readCacheSync: vi.fn(),
 }))
 
-vi.mock('@tevm/runtime', async () => {
-	return {
-		generateRuntime: vi.fn().mockReturnValue('// Mock code for runtime'),
-	}
-})
+vi.mock('@tevm/runtime', () => ({
+	generateRuntime: vi.fn().mockReturnValue('// Mock code for runtime'),
+}))
 
-vi.mock('effect/Effect', async () => {
-	return {
-		runSync: vi.fn().mockReturnValue('export const Contract = {...}'),
-	}
-})
+vi.mock('effect/Effect', () => ({
+	runSync: vi.fn().mockReturnValue('export const Contract = {...}'),
+}))
 
-// Define mock artifacts object
+vi.mock('@tevm/compiler', () => ({
+	resolveArtifactsSync: vi.fn(),
+}))
+
+// Define the mock functions after vi.mock calls
+const resolveArtifactsSyncMock = vi.mocked(await import('@tevm/compiler')).resolveArtifactsSync
+const generateRuntimeMock = vi.mocked(await import('@tevm/runtime')).generateRuntime
+const runSyncMock = vi.mocked(await import('effect/Effect')).runSync
+
+// Define mock artifacts object - after all vi.mock calls
 const mockArtifacts = {
 	solcInput: { sources: {} },
 	solcOutput: { contracts: {} },
@@ -35,12 +38,6 @@ const mockArtifacts = {
 	},
 	modules: {},
 }
-
-// Mock the @tevm/compiler module with a proper mock function that we can access
-const resolveArtifactsSyncMock = vi.fn().mockReturnValue(mockArtifacts)
-vi.mock('@tevm/compiler', () => ({
-	resolveArtifactsSync: resolveArtifactsSyncMock,
-}))
 
 describe('resolveModuleSync', () => {
 	// Test setup
@@ -65,17 +62,33 @@ describe('resolveModuleSync', () => {
 
 	const mockFao = {
 		readFile: vi.fn(),
+		readFileSync: vi.fn(),
+		writeFile: vi.fn(),
+		writeFileSync: vi.fn(),
 		exists: vi.fn().mockReturnValue(true),
 		existsSync: vi.fn().mockReturnValue(true),
+		statSync: vi.fn(),
+		stat: vi.fn(),
+		mkdirSync: vi.fn(),
+		mkdir: vi.fn(),
 	}
 
 	const mockSolc = {
 		version: '0.8.17',
 		semver: '0.8.17',
 		license: 'MIT',
-		lowlevel: {},
+		lowlevel: {
+			compileSingle: vi.fn(),
+			compileMulti: vi.fn(),
+			compileCallback: vi.fn(),
+		},
 		compile: vi.fn(),
-		features: {},
+		features: {
+			legacySingleInput: false,
+			multipleInputs: true,
+			importCallback: true,
+			nativeStandardJSON: true,
+		},
 		loadRemoteVersion: vi.fn(),
 		setupMethods: vi.fn(),
 	}
@@ -109,14 +122,21 @@ describe('resolveModuleSync', () => {
 		writeDtsSync: vi.fn(),
 		readMjsSync: vi.fn(),
 		writeMjsSync: vi.fn(),
+		// Add missing methods
+		readArtifacts: vi.fn(),
+		writeArtifacts: vi.fn(),
+		readDts: vi.fn(),
+		writeDts: vi.fn(),
+		readMjs: vi.fn(),
+		writeMjs: vi.fn(),
 	}
 
 	beforeEach(() => {
 		vi.clearAllMocks()
 		;(readCacheSync as any).mockReturnValue(undefined)
-		;(generateRuntime as any).mockReturnValue('// code generation result')
-		;(runSync as any).mockReturnValue('export const Contract = {...}')
-		resolveArtifactsSync.mockReturnValue(mockArtifacts)
+		generateRuntimeMock.mockReturnValue('// code generation result')
+		runSyncMock.mockReturnValue('export const Contract = {...}')
+		resolveArtifactsSyncMock.mockReturnValue(mockArtifacts)
 	})
 
 	it('should use cached result when available', () => {
@@ -144,8 +164,8 @@ describe('resolveModuleSync', () => {
 		)
 
 		// Should not call resolveArtifactsSync if cache hit
-		expect(resolveArtifactsSync).not.toHaveBeenCalled()
-		expect(generateRuntime).toHaveBeenCalled()
+		expect(resolveArtifactsSyncMock).not.toHaveBeenCalled()
+		expect(generateRuntimeMock).toHaveBeenCalled()
 		expect(result).toBeDefined()
 	})
 
@@ -167,7 +187,7 @@ describe('resolveModuleSync', () => {
 		)
 
 		// Should call resolveArtifactsSync if no cache
-		expect(resolveArtifactsSync).toHaveBeenCalledWith(
+		expect(resolveArtifactsSyncMock).toHaveBeenCalledWith(
 			modulePath,
 			basedir,
 			mockLogger,
@@ -177,13 +197,13 @@ describe('resolveModuleSync', () => {
 			mockFao,
 			mockSolc,
 		)
-		expect(generateRuntime).toHaveBeenCalled()
+		expect(generateRuntimeMock).toHaveBeenCalled()
 		expect(result).toBeDefined()
 	})
 
 	it('should handle the case when no artifacts are present', () => {
 		// Mock a case where artifacts are empty
-		resolveArtifactsSync.mockReturnValue({
+		resolveArtifactsSyncMock.mockReturnValue({
 			solcInput: { sources: {} },
 			solcOutput: { contracts: {} },
 			asts: {},
@@ -206,12 +226,12 @@ describe('resolveModuleSync', () => {
 		)
 
 		// Should still return a result, but with empty code or an error comment
-		expect(result).toContain('there were no artifacts')
+		expect(result.code).toContain('there were no artifacts')
 	})
 
 	it('should throw and log errors', () => {
 		const mockError = new Error('Compilation failed')
-		resolveArtifactsSync.mockImplementation(() => {
+		resolveArtifactsSyncMock.mockImplementation(() => {
 			throw mockError
 		})
 
@@ -239,7 +259,7 @@ describe('resolveModuleSync', () => {
 
 	it('should handle errors when generating runtime', () => {
 		const mockError = new Error('Runtime generation failed')
-		;(generateRuntime as any).mockImplementation(() => {
+		generateRuntimeMock.mockImplementation(() => {
 			throw mockError
 		})
 
@@ -268,7 +288,7 @@ describe('resolveModuleSync', () => {
 			;(readCacheSync as any).mockReturnValue(undefined)
 
 			// Mock artifacts for empty path to not throw an error
-			resolveArtifactsSync.mockReturnValue({
+			resolveArtifactsSyncMock.mockReturnValue({
 				solcInput: { sources: {} },
 				solcOutput: { contracts: {} },
 				asts: { 'Contract.sol': {} },
@@ -291,7 +311,7 @@ describe('resolveModuleSync', () => {
 				contractPackage,
 			)
 
-			expect(resolveArtifactsSync).toHaveBeenCalledWith(
+			expect(resolveArtifactsSyncMock).toHaveBeenCalledWith(
 				emptyModulePath,
 				basedir,
 				mockLogger,
@@ -309,6 +329,11 @@ describe('resolveModuleSync', () => {
 		it('should handle undefined module path', () => {
 			const undefinedModulePath = undefined
 
+			// Mock an error for this test case
+			resolveArtifactsSyncMock.mockImplementationOnce(() => {
+				throw new Error('Cannot resolve undefined module path')
+			})
+
 			expect(() =>
 				resolveModuleSync(
 					mockLogger,
@@ -323,7 +348,7 @@ describe('resolveModuleSync', () => {
 					cache,
 					contractPackage,
 				),
-			).toThrow() // Expect throw with undefined path
+			).toThrow('Cannot resolve undefined module path')
 
 			expect(mockLogger.error).toHaveBeenCalled()
 		})
@@ -338,7 +363,7 @@ describe('resolveModuleSync', () => {
 				modules: {},
 			}
 			;(readCacheSync as any).mockReturnValue(mockCachedResult)
-			;(runSync as any).mockReturnValue('export const Contract = {...}')
+			runSyncMock.mockReturnValue('export const Contract = {...}')
 
 			// Mock a warning function for invalid module type
 			mockLogger.warn.mockImplementation(() => {})
@@ -364,13 +389,13 @@ describe('resolveModuleSync', () => {
 		})
 
 		it('should handle errors during cache reading', () => {
-			const cacheError = new Error('Cache read error')
+			const cacheError = { message: 'Cache read error' }
 			;(readCacheSync as any).mockImplementation(() => {
 				throw cacheError
 			})
 
 			// Mock a successful resolve after cache error
-			resolveArtifactsSync.mockReturnValue(mockArtifacts)
+			resolveArtifactsSyncMock.mockReturnValue(mockArtifacts)
 
 			// Test should pass since the error is handled in the code
 			const result = resolveModuleSync(
@@ -397,7 +422,7 @@ describe('resolveModuleSync', () => {
 
 		it('should handle non-Error objects thrown from resolveArtifactsSync', () => {
 			const nonErrorObject = { message: 'This is not an Error instance' }
-			resolveArtifactsSync.mockImplementation(() => {
+			resolveArtifactsSyncMock.mockImplementation(() => {
 				throw nonErrorObject
 			})
 
@@ -422,7 +447,7 @@ describe('resolveModuleSync', () => {
 
 		it('should handle malformed artifacts structure', () => {
 			// Mock malformed artifacts that are missing key properties
-			resolveArtifactsSync.mockReturnValue({
+			resolveArtifactsSyncMock.mockReturnValue({
 				// Missing important fields
 				solcInput: { sources: {} },
 				// No solcOutput, artifacts, or asts
@@ -443,7 +468,7 @@ describe('resolveModuleSync', () => {
 			)
 
 			// Should still return a result, but likely with an error comment
-			expect(result).toContain('there were no artifacts')
+			expect(result.code).toContain('there were no artifacts')
 		})
 
 		it('should handle empty basedir', () => {
@@ -463,7 +488,7 @@ describe('resolveModuleSync', () => {
 				contractPackage,
 			)
 
-			expect(resolveArtifactsSync).toHaveBeenCalledWith(
+			expect(resolveArtifactsSyncMock).toHaveBeenCalledWith(
 				modulePath,
 				emptyBasedir,
 				mockLogger,

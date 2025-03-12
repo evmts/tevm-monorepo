@@ -120,8 +120,8 @@ export const resolveModuleAsync = async (
 		})
 
 		return {
-			solcInput: solcInput ?? undefined,
-			solcOutput: solcOutput ?? undefined,
+			solcInput,
+			solcOutput,
 			asts,
 			modules,
 			code,

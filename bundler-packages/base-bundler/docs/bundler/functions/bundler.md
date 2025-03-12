@@ -1,8 +1,8 @@
-[**@tevm/base-bundler**](../README.md)
+[**@tevm/base-bundler**](../../README.md)
 
 ***
 
-[@tevm/base-bundler](../globals.md) / bundler
+[@tevm/base-bundler](../../modules.md) / [bundler](../README.md) / bundler
 
 # Function: bundler()
 
@@ -32,13 +32,13 @@ The Tevm compiler configuration
 
 ### logger
 
-`Logger`
+[`Logger`](../../types/type-aliases/Logger.md)
 
 Logger for error and info reporting
 
 ### fao
 
-`FileAccessObject`
+[`FileAccessObject`](../../types/type-aliases/FileAccessObject.md)
 
 File system access object for reading/writing files
 
@@ -88,49 +88,49 @@ The name of the plugin.
 
 ### resolveCjsModule
 
-> **resolveCjsModule**: `AsyncBundlerResult`
+> **resolveCjsModule**: [`AsyncBundlerResult`](../../types/type-aliases/AsyncBundlerResult.md)
 
 Resolves cjs representation of the solidity module
 
 ### resolveCjsModuleSync
 
-> **resolveCjsModuleSync**: `SyncBundlerResult`
+> **resolveCjsModuleSync**: [`SyncBundlerResult`](../../types/type-aliases/SyncBundlerResult.md)
 
 Resolves cjs representation of the solidity module
 
 ### resolveDts
 
-> **resolveDts**: `AsyncBundlerResult`
+> **resolveDts**: [`AsyncBundlerResult`](../../types/type-aliases/AsyncBundlerResult.md)
 
 Resolves .d.ts representation of the solidity module
 
 ### resolveDtsSync
 
-> **resolveDtsSync**: `SyncBundlerResult`
+> **resolveDtsSync**: [`SyncBundlerResult`](../../types/type-aliases/SyncBundlerResult.md)
 
 Resolves .d.ts representation of the solidity module
 
 ### resolveEsmModule
 
-> **resolveEsmModule**: `AsyncBundlerResult`
+> **resolveEsmModule**: [`AsyncBundlerResult`](../../types/type-aliases/AsyncBundlerResult.md)
 
 Resolves the esm representation of the solidity module
 
 ### resolveEsmModuleSync
 
-> **resolveEsmModuleSync**: `SyncBundlerResult`
+> **resolveEsmModuleSync**: [`SyncBundlerResult`](../../types/type-aliases/SyncBundlerResult.md)
 
 Resolves the esm representation of the solidity module
 
 ### resolveTsModule
 
-> **resolveTsModule**: `AsyncBundlerResult`
+> **resolveTsModule**: [`AsyncBundlerResult`](../../types/type-aliases/AsyncBundlerResult.md)
 
 Resolves typescript representation of the solidity module
 
 ### resolveTsModuleSync
 
-> **resolveTsModuleSync**: `SyncBundlerResult`
+> **resolveTsModuleSync**: [`SyncBundlerResult`](../../types/type-aliases/SyncBundlerResult.md)
 
 Resolves typescript representation of the solidity module
 
