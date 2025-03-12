@@ -8,29 +8,39 @@ import defaultSolc from 'solc'
 import { bunFileAccesObject } from './bunFileAccessObject.js'
 
 /**
- * Bun plugin for tevm. Enables Solidity imports in JavaScript. Once enabled the code
- * will transform solidity contract imports into Tevm `Contract` instances.
- * @param {{solc?: import("@tevm/solc").SolcVersions}} SolcVersions - Which solc version to use
- * @returns {import("bun").BunPlugin} - A bun plugin
+ * Creates a Bun plugin for Tevm that enables direct Solidity imports in JavaScript and TypeScript.
  *
- * To configure add this plugin to your Bun config and add the ts-plugin to your tsconfig.json
+ * This plugin allows you to import Solidity contracts directly in your JavaScript/TypeScript code,
+ * where they are automatically compiled and transformed into Tevm `Contract` instances with
+ * fully typed interfaces. It integrates with the Bun build system to provide seamless handling
+ * of .sol files.
+ *
+ * @param {Object} options - Plugin configuration options
+ * @param {import("@tevm/solc").SolcVersions} [options.solc] - Solidity compiler version to use
+ * @returns {import("bun").BunPlugin} - A configured Bun plugin
+ *
  * @example
- * ```ts plugin.ts
- * // Configure plugin in a plugin.ts file
- * import { tevmPluginBun } from '@tevm/bun-plugin'
+ * #### Setup in a plugin.ts file
+ * ```typescript
+ * // plugins.ts
+ * import { bunPluginTevm } from '@tevm/bun'
  * import { plugin } from 'bun'
  *
- * plugin(tevmPluginBun())
+ * // Initialize with default options
+ * plugin(bunPluginTevm({}))
+ *
+ * // Or with a specific Solidity compiler version
+ * plugin(bunPluginTevm({ solc: '0.8.20' }))
  * ```
  *
- * // Add the plugin.ts to your bunfig.toml
- * ```ts bunfig.toml
+ * #### Configure in bunfig.toml
+ * ```toml
+ * # bunfig.toml
  * preload = ["./plugins.ts"]
  * ```
  *
- * For LSP so your editor recognizes the solidity imports correctly you must also configure tevm/ts-plugin in your tsconfig.json
- * The ts-plugin will provide type hints, code completion, and other features.
- * @example
+ * #### Configure TypeScript support in tsconfig.json
+ * For editor integration with LSP (code completion, type checking):
  * ```json
  * {
  *   "compilerOptions": {
@@ -39,25 +49,37 @@ import { bunFileAccesObject } from './bunFileAccessObject.js'
  * }
  * ```
  *
- * Once the esbuild plugin and the ts-plugin are configured, you can import Solidity files in JavaScript. The compiler will
- * turn them into Tevm `Contract` instances.
- * @example
+ * #### Using imported Solidity contracts
  * ```typescript
- * // Solidity imports are automaticlaly turned into Tevm Contract objects
+ * // Import Solidity contracts directly
  * import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
- * import { createTevm } from 'tevm'
+ * import { createMemoryClient } from 'tevm'
  *
- * console.log(ERC20.abi)
- * console.log(ERC20.humanReadableAbi)
- * console.log(ERC20.bytecode)
+ * // Access contract metadata
+ * console.log('ABI:', ERC20.abi)
+ * console.log('Human-readable ABI:', ERC20.humanReadableAbi)
+ * console.log('Bytecode:', ERC20.bytecode)
  *
- * tevm.contract(
- *   ERC20.withAddress(.read.balanceOf()
+ * // Deploy and interact with the contract
+ * const client = createMemoryClient()
+ *
+ * // Deploy the contract
+ * const deployed = await client.deployContract(ERC20)
+ *
+ * // Call contract methods
+ * const name = await deployed.read.name()
+ * const tx = await deployed.write.transfer(
+ *   "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+ *   1000n
  * )
  * ```
  *
- * Under the hood the esbuild plugin is creating a virtual file for ERC20.sol called ERC20.sol.cjs that looks like this
- * @example
+ * ### How it works
+ *
+ * Under the hood, the plugin processes Solidity files and generates JavaScript modules
+ * that create Tevm Contract instances. For example, importing ERC20.sol results in code
+ * like:
+ *
  * ```typescript
  * import { createContract } from '@tevm/contract'
  *
@@ -69,24 +91,32 @@ import { bunFileAccesObject } from './bunFileAccessObject.js'
  * })
  * ```
  *
- * For custom configuration of the Tevm compiler add a [tevm.config.json](https://todo.todo.todo) file to your project root.
- * @example
+ * ### Custom Configuration
+ *
+ * For custom configuration of the Tevm compiler, add a `tevm.config.json` file
+ * to your project root:
+ *
  * ```json
  * {
- *   foundryProject?: boolean | string | undefined,
- *   libs: ['lib'],
- *   remappings: {'foo': 'vendored/foo'},
- *   debug: true,
- *   cacheDir: '.tevm'
+ *   "foundryProject": true,       // Is this a Foundry project? (or path to project)
+ *   "libs": ["lib"],              // Library directories
+ *   "remappings": {               // Import remappings (like in Foundry)
+ *     "foo": "vendored/foo"
+ *   },
+ *   "debug": true,                // Enable debug logging
+ *   "cacheDir": ".tevm"           // Cache directory for compiled contracts
  * }
  * ```
  *
- * @see [Tevm esbuild example](https://todo.todo.todo)
+ * @throws {Error} If there's an issue loading or processing Solidity files
+ *
+ * @see {@link https://tevm.sh/learn/solidity-imports/ | Tevm Solidity Import Documentation}
  */
 export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 	return {
-		name: '@tevm/esbuild-plugin',
+		name: '@tevm/bun-plugin',
 		async setup(build) {
+			// Load configuration from tevm.config.json or use defaults
 			const config = runSync(
 				loadConfig(process.cwd()).pipe(
 					catchTag('FailedToReadConfigError', () =>
@@ -94,6 +124,8 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 					),
 				),
 			)
+
+			// Initialize cache and bundler
 			const solcCache = createCache(config.cacheDir, bunFileAccesObject, process.cwd())
 			const moduleResolver = bundler(
 				config,
@@ -102,11 +134,13 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 				solc === defaultSolc.version ? defaultSolc : await createSolc(solc),
 				solcCache,
 			)
+
 			/**
-			 * @tevm/contract is used to construct the tevm modules for solidity files
-			 * sometimes the solidity file might exist in the node_modules folder
-			 * or in a different package in a monorepo. We need to resolve it correctly
-			 * in all cases so we always resolve to the current package's @tevm/contract
+			 * Resolver for @tevm/contract imports
+			 *
+			 * This resolver ensures that @tevm/contract is correctly resolved
+			 * when imported from compiled Solidity files that might be in different
+			 * locations (node_modules, monorepo packages, etc.)
 			 */
 			build.onResolve({ filter: /^@tevm\/contract/ }, ({ path, importer }) => {
 				if (
@@ -124,11 +158,16 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 			})
 
 			/**
-			 * Load solidity files with @tevm/base-bundler
-			 * If a .ts .js file .mjs or .cjs file is pregenerated already (as will be case for external contracts)
-			 * go ahead and load that instead
+			 * Loader for Solidity (.sol) files
+			 *
+			 * This loader:
+			 * 1. Checks if pre-generated JavaScript/TypeScript files exist (.ts, .js, .mjs, .cjs)
+			 * 2. If they exist, uses those directly
+			 * 3. Otherwise, compiles the Solidity file using the bundler
+			 * 4. Sets up file watching for live reload
 			 */
 			build.onLoad({ filter: /\.sol$/ }, async ({ path }) => {
+				// Check for pre-generated files
 				const filePaths = [`${path}.ts`, `${path}.js`, `${path}.mjs`, `${path}.cjs`]
 				const existsArr = await Promise.all(filePaths.map((filePath) => bunFileAccesObject.exists(filePath)))
 				for (const [i, exists] of existsArr.entries()) {
@@ -140,15 +179,18 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 					}
 				}
 
+				// Determine if this is a script (.s.sol) file, which needs bytecode
 				const resolveBytecode = path.endsWith('.s.sol')
 
+				// Compile the Solidity file
 				const { code: contents, modules } = await moduleResolver.resolveEsmModule(
 					path,
 					process.cwd(),
-					false,
-					resolveBytecode,
+					false, // Don't include AST
+					resolveBytecode, // Include bytecode for script files
 				)
 
+				// Set up file watching for all non-node_modules dependencies
 				const watchFiles = Object.values(modules)
 					.filter(({ id }) => !id.includes('node_modules'))
 					.map(({ id }) => id)

@@ -1,30 +1,56 @@
 import { unplugin } from './unplugin.js'
 
+/**
+ * Internal implementation of the WebpackPlugin class.
+ * This class simply returns the webpack plugin created by unplugin.
+ */
 class WebpackPlugin {
 	/**
-	 * @param {Parameters<typeof unplugin.webpack>[0]} options
+	 * Creates a new Webpack plugin instance
+	 * @param {Parameters<typeof unplugin.webpack>[0]} options - Plugin options
 	 */
 	constructor(options) {
-		// biome-ignore lint/correctness/noConstructorReturn: <explanation>
+		// biome-ignore lint/correctness/noConstructorReturn: We intentionally return the plugin instance
 		return unplugin.webpack(options)
 	}
 }
 
 /**
- * Webpack plugin for tevm. Enables Solidity imports in JavaScript.
- * @type {import('./TevmWebpackConstructor.js').TevmWebpackPluginConstructor}
- * @example
- * ```typescript
- * import { WebpackPluginTevm } from '@tevm/webpack'
+ * Webpack plugin for Tevm that enables direct Solidity imports in JavaScript and TypeScript code.
  *
- * export default {
- *  plugins: [
- *    new WebpackPluginTevm()
- *  ]
+ * This plugin integrates with Webpack to transform imports of .sol files into JavaScript
+ * modules that export Tevm Contract instances. These instances include the contract's ABI,
+ * bytecode, and type information, allowing you to interact with Ethereum smart contracts
+ * in a type-safe way directly from your JavaScript/TypeScript code.
+ *
+ * @type {import('./TevmWebpackConstructor.js').TevmWebpackPluginConstructor}
+ *
+ * @example
+ * #### Basic Configuration
+ *
+ * Add the plugin to your webpack configuration:
+ *
+ * ```javascript
+ * // webpack.config.js
+ * const { WebpackPluginTevm } = require('@tevm/webpack')
+ *
+ * module.exports = {
+ *   entry: './src/index.js',
+ *   output: {
+ *     filename: 'bundle.js',
+ *     path: __dirname + '/dist',
+ *   },
+ *   plugins: [
+ *     new WebpackPluginTevm()
+ *   ]
+ * }
  * ```
  *
- * For LSP support you must also configure tevm/ts-plugin in your tsconfig.json
- * @example
+ * #### TypeScript Configuration
+ *
+ * For full TypeScript support including editor integration (code completion, type checking),
+ * add the Tevm TypeScript plugin to your tsconfig.json:
+ *
  * ```json
  * {
  *   "compilerOptions": {
@@ -33,46 +59,67 @@ class WebpackPlugin {
  * }
  * ```
  *
- * Once the vite plugin and the ts-plugin are configured, you can import Solidity files in JavaScript. The compiler will
- * turn them into Tevm `Contract` instances.
- * @example
+ * #### Using Imported Contracts
+ *
+ * Once configured, you can import Solidity files directly and use them with full type safety:
+ *
  * ```typescript
- * // Solidity imports are automaticlaly turned into Tevm Contract objects
+ * // Import a Solidity contract directly
  * import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
- * import { createTevm } from 'tevm'
+ * import { createMemoryClient } from 'tevm'
  *
- * console.log(ERC20.abi)
- * console.log(ERC20.humanReadableAbi)
- * console.log(ERC20.bytecode)
+ * // Access contract metadata
+ * console.log('ABI:', ERC20.abi)
+ * console.log('Human-readable ABI:', ERC20.humanReadableAbi)
+ * console.log('Bytecode:', ERC20.bytecode)
  *
- * tevm.contract(
- *   ERC20.withAddress(.read.balanceOf()
- * )
+ * // Create Tevm client and deploy the contract
+ * const client = createMemoryClient()
+ * const deployed = await client.deployContract(ERC20, ["WebpackDemo", "WDEMO"])
+ *
+ * // Interact with the contract
+ * const name = await deployed.read.name()
+ * console.log(`Token name: ${name}`)
  * ```
  *
- * Under the hood the vite plugin is creating a virtual file for ERC20.sol called ERC20.sol.cjs that looks like this
- * @example
- * ```typescript
+ * #### How It Works
+ *
+ * Under the hood, the plugin transforms Solidity imports into JavaScript modules
+ * that create Tevm Contract instances. For example, importing ERC20.sol generates code like:
+ *
+ * ```javascript
  * import { createContract } from '@tevm/contract'
  *
  * export const ERC20 = createContract({
  *   name: 'ERC20',
- *   humanReadableAbi: [ 'function balanceOf(address): uint256', ... ],
+ *   humanReadableAbi: [
+ *     'function name() view returns (string)',
+ *     'function symbol() view returns (string)',
+ *     'function decimals() view returns (uint8)',
+ *     // ... other functions
+ *   ],
  *   bytecode: '0x...',
  *   deployedBytecode: '0x...',
  * })
  * ```
  *
- * For custom configuration add a [tevm.config.json](https://todo.todo.todo) file to your project root.
- * @example
+ * #### Custom Configuration
+ *
+ * For custom configuration of the Tevm compiler, add a `tevm.config.json` file to your project root:
+ *
  * ```json
  * {
- *   foundryProject?: boolean | string | undefined,
- *   libs: ['lib'],
- *   remappings: {'foo': 'vendored/foo'},
- *   debug: true,
- *   cacheDir: '.tevm'
+ *   "foundryProject": true,       // Is this a Foundry project?
+ *   "libs": ["lib"],              // Library directories
+ *   "remappings": {               // Import remappings (like in Foundry)
+ *     "foo": "vendored/foo"
+ *   },
+ *   "debug": true,                // Enable debug logging
+ *   "cacheDir": ".tevm"           // Cache directory
  * }
  * ```
+ *
+ * @see {@link https://tevm.sh/learn/solidity-imports | Tevm Solidity Import Documentation}
+ * @see {@link https://webpack.js.org/concepts/plugins/ | Webpack Plugin System}
  */
 export const WebpackPluginTevm = /** @type any*/ (WebpackPlugin)

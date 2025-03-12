@@ -13,12 +13,24 @@ import { createLogger, decorateHost } from './factories/index.js'
 import { isSolidity } from './utils/index.js'
 
 /**
- * [Typescript plugin factory](https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin)
+ * TypeScript server plugin factory that enables Solidity support in TypeScript.
+ * This plugin allows direct importing of .sol files in TypeScript with proper
+ * type definitions, code navigation, and IDE support.
+ *
+ * The plugin works by decorating the TypeScript language service to handle
+ * Solidity files, compile them with solc, and provide TypeScript definitions.
+ *
+ * Add to your tsconfig.json:
  * @example
  * ```json
  * {
- *   "plugins": [{ "name": "tevm-ts-plugin"}]
+ *   "compilerOptions": {
+ *     "plugins": [{ "name": "tevm-ts-plugin" }]
+ *   }
  * }
+ * ```
+ *
+ * @see https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin
  * @see https://github.com/microsoft/TypeScript/wiki/Writing-a-Language-Service-Plugin#decorator-creation
  */
 export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {

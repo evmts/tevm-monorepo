@@ -56,39 +56,58 @@ describe('memoryTransport', () => {
 		{ timeout: 15_000 },
 	)
 
-	it.todo('can do tevm requests', async () => {
-		const tevm = createMemoryClient({
-			fork: {
-				transport: transports.optimism,
-			},
-		})
+	// Convert the todo test to a real test
+	it(
+		'can do tevm requests',
+		async () => {
+			const tevm = createMemoryClient({
+				fork: {
+					transport: transports.optimism,
+				},
+			})
 
-		const client = createPublicClient({
-			transport: tevmTransport(tevm, { name: 'test name', key: 'testkey' }),
-		})
+			const client = createPublicClient({
+				transport: tevmTransport(tevm, { name: 'test name', key: 'testkey' }),
+			})
 
-		expect(client.transport.name).toBe('test name')
-		expect(client.transport.key).toBe('testkey')
+			expect(client.transport.name).toBe('test name')
+			expect(client.transport.key).toBe('testkey')
 
-		expect(await client.getChainId()).toBe(10)
+			expect(await client.getChainId()).toBe(10)
 
-		expect(
+			// Test using default options
+			const defaultClient = createPublicClient({
+				transport: tevmTransport(tevm), // No options provided
+			})
+			expect(defaultClient.transport.name).toBe('Tevm transport')
+			expect(defaultClient.transport.key).toBe('tevm')
+
+			// Verify timeout options were applied correctly
+			const customTimeoutClient = createPublicClient({
+				transport: tevmTransport(tevm, { timeout: 5000, retryCount: 1, retryDelay: 100 }),
+			})
+			expect(customTimeoutClient.transport.timeout).toBe(5000)
+			expect(customTimeoutClient.transport.retryCount).toBe(1)
+			expect(customTimeoutClient.transport.retryDelay).toBe(100)
+
+			// Test that a custom request method works through the transport
+			const testAddress = `0x${'69'.repeat(20)}`
 			await client.request({
-				method: 'tevm_setAccount' as any,
-				params: {
-					address: `0x${'69'.repeat(20)}`,
-					balance: numberToHex(420n),
-					deployedBytecode: daiContract.deployedBytecode,
-				} as any,
-			}),
-		).toBe({} as any)
-		const result: any = await client.request({
-			method: 'tevm_getAccount' as any,
-			params: {
-				address: `0x${'69'.repeat(20)}`,
-			} as any,
-		})
-		expect(result.balance).toBe(numberToHex(420n))
-		expect(result.deployedBytecode).toBe(daiContract.deployedBytecode)
-	})
+				method: 'tevm_setAccount',
+				params: [
+					{
+						address: testAddress,
+						balance: numberToHex(420n),
+					},
+				],
+			})
+
+			// Verify the account was updated correctly
+			const balance = await client.getBalance({
+				address: testAddress,
+			})
+			expect(balance).toBe(420n)
+		},
+		{ timeout: 15_000 },
+	)
 })

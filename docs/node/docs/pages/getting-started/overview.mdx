@@ -1,61 +1,249 @@
 ---
 title: Overview
-description: A JavaScript-compatible Ethereum Virtual Machine with forking capabilities
+description: A JavaScript-native Ethereum Virtual Machine with full node capabilities
+authors:
+  - "[William Cory](https://x.com/fucory)"
+  - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout } from 'vocs/components'
+import { Callout, Steps, Button } from "vocs/components";
 
-# Overview
+# Tevm Node Overview
 
-Tevm Node is an Ethereum Node that runs in all JavaScript environments.
-It's like [hardhat](https://hardhat.org/) or [anvil](https://book.getfoundry.sh/anvil/), but provides these advantages:
+Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
 
-- Zero native dependencies (runs in browser and Node.js)
-- Connects directly to [`viem`](https://viem.sh/) or [`ethers`](https://docs.ethers.org/v6/)
-- Provides fine-grained control over the EVM execution environment for advanced use cases and speedy ux
-- Implement advanced feature like zero-spinner gas estimation, optimistic updates, and advanced transaction simulation
+Conceptually, it works very similar to Anvil and Hardhat but with more powerful TypeScript native interop.
 
-<Callout type="tip">
-If you know how to use `viem` or `ethers`, you already know how to use Tevm Node and can get started right away.
-</Callout>
+:::tip[You might not need these docs?]
+If you already know how to use `viem` or `ethers`, you can start using Tevm Node right away with your existing knowledge! Tevm simply plugs into your library of choice.
+:::
 
-## Quick Example
+## What Makes Tevm Unique?
 
-The following code simple deploys, writes, and reads from a contract.
+Unlike traditional development environments like [Hardhat](https://hardhat.org/) or [Anvil](https://book.getfoundry.sh/anvil/), Tevm Node offers several distinct advantages:
 
-- The API for interacting with Tevm is [viem](https://viem.sh)
-- TevmNode runs an ethereum node in memory rather than using json-rpc over http
+- **Cross-Platform Compatibility** — The same code works everywhere JavaScript runs, with zero native dependencies including your applications in the browser
+- **Fine-grained EVM Control** — Access the execution environment at any level of detail, from high-level transactions to individual EVM opcodes
+- **Enhanced User Experience** — Enable advanced features like instantaneous gas estimation, optimistic UI updates, and sophisticated transaction simulation
+- **Type-safe Interactions** — Full TypeScript support throughout the entire API surface
+
+## Getting Started
+
+::::steps
+
+### Install Tevm
+
+First, install Tevm in your project:
+
+:::code-group
+
+```bash [npm]
+npm install tevm
+```
+
+```bash [pnpm]
+pnpm add tevm
+```
+
+```bash [yarn]
+yarn add tevm
+```
+
+```bash [bun]
+bun add tevm
+```
+
+:::
+
+### Choose Your Client
+
+Tevm offers different client types depending on your needs:
 
 ```ts
-import { createMemoryClient, PREFUNDED_ACCOUNTS } from 'tevm'
-import { SimpleContract } from 'tevm/contract'
+// In-memory client (fastest, fully isolated)
+import { createMemoryClient } from "tevm";
+const memoryClient = createMemoryClient();
 
-const client = createMemoryClient()
+// Fork client (use existing chain state)
+import { createMemoryClient } from "tevm";
+import { http } from "viem";
+import { mainnet } from "tevm/chains";
+const forkClient = createMemoryClient({
+  fork: {
+    transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"),
+    common: mainnet,
+  },
+});
 
-const contract = SimpleContract.withAddress(`0x${'40'.repeat(20)}`)
+// Tree-shakable client (lighter weight)
+import { createClient, http, custom } from "viem";
+import { createTevmNode } from "tevm";
+import { optimism } from "tevm/common";
+import { eip1193Request } from "tevm/decorators";
+const node = createTevmNode({
+  fork: {
+    transport: http("https://mainnet.optimism.io"),
+    common: optimism,
+  },
+}).extend(eip1193Request());
+const client = createClient({
+  transport: custom(node),
+});
+import { getBlockNumber } from "viem";
+await getBlockNumber(client);
 
+// Ethers client
+import { TevmProvider } from "tevm/ethers";
+import { http, toHex, parseEth } from "tevm";
+const provider = await TevmProvider.createMemoryProvider({
+  fork: {
+    transport: http("https://mainnet.optimism.io"),
+  },
+});
+await provider.send("tevm_setAccount", [
+  {
+    address: `0x${"69".repeat(20)}`,
+    nonce: toHex(1),
+    balance: toHex(parseEth("25")),
+  },
+]);
+```
+
+### Use your client to read and write to an in-memory blockchain
+
+Below is a complete typical flow of using Tevm to:
+
+1. Add a contract to the Tevm state
+2. Write to the contract with viem
+3. Mine a new block with the transaction
+4. Read from contract with viem
+
+```ts showLineNumbers {1,11-13,22} filename="simple-contract.ts"
+import { createMemoryClient, PREFUNDED_ACCOUNTS } from "tevm";
+import { http } from "viem";
+import { SimpleContract } from "tevm/contract";
+import { optimism } from "tevm/common";
+
+// Create an in-memory Ethereum client forking optimism
+const client = createMemoryClient({
+  common: optimism,
+  fork: { transport: http("https://mainnet.optimism.io") },
+});
+
+const contract = SimpleContract.withAddress(`0x${"40".repeat(20)}`);
+
+// Deploy contract bytecode. There are many ways to do this including tevmDeploy.
+// Here we just use an anvil test action
 await client.setCode({
   address: contract.address,
   bytecode: contract.deployedBytecode,
-})
+});
 
+// Write to contract
 await client.writeContract({
   account: PREFUNDED_ACCOUNTS[0],
   abi: contract.abi,
-  functionName: 'set',
+  functionName: "set",
   args: [420n],
   address: contract.address,
-})
+});
 
-await client.tevmMine()
+await client.tevmMine();
 
+// Read from contract
 const value = await client.readContract({
   abi: contract.abi,
-  functionName: 'get',
+  functionName: "get",
   address: contract.address,
-})
+});
 
-console.log(value)
+console.log(value); // 420n
 ```
 
-If you don't know how to use `viem` or `ethers`, don't worry, Tevm is a great way to learn both Ethereum and TypeScript.
+:::details[How it works]
+
+1. We create a `memoryClient` that runs an Ethereum node entirely in memory
+2. We define a contract and its address
+3. We deploy the contract using `setCode` (simpler than a full deployment transaction)
+4. We write to the contract using a familiar viem-style interface
+5. We mine the transaction to include it in a block
+6. We read the updated value from the contract
+   :::
+
+### Key Points:
+
+- **Familiar Interface** — Tevm uses [viem](https://viem.sh) as its primary API, making it instantly familiar to viem users
+- **In-Memory Execution** — TevmNode runs the Ethereum environment directly in memory rather than using JSON-RPC over HTTP
+- **Full Control** — Mine blocks on demand, manipulate state, and more
+
+### Start Building
+
+You're now ready to build with Tevm!
+
+```ts
+// Runs in browsers, Node.js, Deno, Bun and beyond
+// Zero native dependencies
+import { createMemoryClient } from "tevm";
+// Optionally import solidity contracts directly into typescript in a typesafe way
+import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
+
+const client = createMemoryClient();
+
+// Use the viem api you already know
+console.log(await client.getBlockNumber());
+
+// Or use powerful typescript native apis
+const {
+  data,
+  error,
+  logs,
+  createdAddresses,
+  executionGasUsed,
+  l1Fee,
+  trace,
+  accessList,
+  txHash,
+} = await client.tevmContract({
+  deployedBytecode: ComplexSimulation.deployedBytecode,
+  ...ComplexSimulation.read.simulate(2n, "arg2"),
+  createTrace: true,
+  createAccessList: true,
+  createTransaction: true,
+  throwOnFail: false,
+  onStep: (step, next) => {
+    console.log(step.opcode);
+    next?.();
+  },
+});
+```
+
+::::
+
+## Learning Path
+
+If you're new to Ethereum development, don't worry! Tevm serves as an excellent learning platform for both Ethereum and TypeScript:
+
+:::info
+
+- **Isolated Environment** — Experiment freely without worrying about network costs or confirmation times
+- **TypeScript Integration** — Get full type safety and autocomplete for Ethereum interactions
+- **Simple API Surface** — Focus on learning core concepts with a streamlined interface
+- **Step Debugger** — Trace transaction execution at the opcode level for deep understanding
+  :::
+
+## Ready to dive in right away?
+
+<div
+  style={{
+    display: "flex",
+    gap: "1rem",
+    marginTop: "1.5rem",
+    flexWrap: "wrap",
+  }}
+>
+  <Button href="./viem" variant="accent">
+    Viem Quickstart →
+  </Button>
+  <Button href="./ethers">Ethers Quickstart →</Button>
+  <Button href="../introduction/what-is-tevm-node">What is Tevm Node? →</Button>
+</div>

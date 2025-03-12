@@ -3,11 +3,42 @@ import { defineConfig } from 'vocs'
 export default defineConfig({
   title: 'Tevm Node',
   description: "A lightweight, unopinionated, powerful EVM node that runs in the browser",
+  // Updated logo configuration
+  logoUrl: { 
+    light: '/tevm-logo-light.png', 
+    dark: '/tevm-logo-dark.png'
+  },
+  iconUrl: '/tevm-logo.webp',
+  // Configuring OG Image
+  ogImageUrl: 'https://vocs.dev/api/og?logo=%logo&title=%title&description=%description',
+  // Set default font
+  font: {
+    google: 'Inter'
+  },
+  // Enhance theme with accent color
+  theme: {
+    accentColor: '#0085FF',
+    colorScheme: 'system',
+  },
+  // Banner for important updates or announcements
+  banner: {
+    content: '🚀 Tevm Node is now production-ready! Join our [Discord community](https://discord.gg/tevm)',
+    dismissable: true,
+    backgroundColor: '#e6f7ff',
+  },
+  // Improved top navigation
   topNav: [
     { text: 'Docs', link: '/introduction/what-is-tevm-node', match: '/introduction' },
-    { text: 'Viem', link: 'https://viem.sh/' },
-    { text: 'Ethereumjs', link: 'https://github.com/ethereumjs/ethereumjs-monorepo' },
-    { text: 'Krome', link: 'https://github.com/evmts/krome' },
+    { text: 'Quick Start', link: '/getting-started/overview', match: '/getting-started' },
+    { text: 'Examples', link: '/examples/viem', match: '/examples' },
+    {
+      text: 'Ecosystem',
+      items: [
+        { text: 'Viem', link: 'https://viem.sh/' },
+        { text: 'Ethereumjs', link: 'https://github.com/ethereumjs/ethereumjs-monorepo' },
+        { text: 'Krome', link: 'https://github.com/evmts/krome' },
+      ]
+    },
   ],
   sidebar: [
     {
@@ -15,7 +46,7 @@ export default defineConfig({
       collapsed: false,
       items: [
         { text: 'Overview', link: '/getting-started/overview' },
-        { text: 'Testimonials', link: '/getting-started/testimonials' },
+        { text: 'Community & Testimonials', link: '/getting-started/testimonials' },
         { text: 'Viem Quickstart', link: '/getting-started/viem' },
         { text: 'Ethers Quickstart', link: '/getting-started/ethers' },
         { text: 'What is Tevm Node?', link: '/introduction/what-is-tevm-node' },
@@ -33,6 +64,7 @@ export default defineConfig({
         { text: 'TevmNode', link: '/core/tevm-node-interface' },
         { text: 'Forking & Reforking', link: '/core/forking' },
         { text: 'Managing State', link: '/core/managing-state' },
+        { text: 'Mining Modes', link: '/core/mining-modes' },
         { text: 'Custom Precompiles', link: '/advanced/custom-precompiles' },
       ],
     },
@@ -48,6 +80,17 @@ export default defineConfig({
         { text: 'Package Overview', link: '/api/packages' },
         { text: 'Call API', link: '/api/tevm-call' },
         { text: 'VM and Submodules', link: '/api/vm-and-submodules' },
+        { text: 'Decorators', link: '/api/decorators' },
+      ],
+    },
+    {
+      text: 'Advanced Features',
+      collapsed: true,
+      items: [
+        { text: 'Custom Precompiles', link: '/advanced/custom-precompiles' },
+        { text: 'Transaction Pool', link: '/advanced/txpool' },
+        { text: 'Receipts & Logs', link: '/advanced/receipts-and-logs' },
+        { text: 'Performance Profiler', link: '/advanced/performance-profiler' },
       ],
     },
     {
@@ -121,6 +164,16 @@ export default defineConfig({
   ],
   editLink: {
     pattern: 'https://github.com/evmts/tevm-monorepo/edit/main/docs/node/docs/pages/:path',
+    text: 'Edit this page on GitHub'
+  },
+  // Enable search with boosting for important pages
+  search: {
+    boostDocument(documentId) {
+      if (documentId.includes('getting-started') || documentId.includes('overview')) {
+        return 2;
+      }
+      return 1;
+    }
   },
   socials: [
     {
@@ -138,5 +191,19 @@ export default defineConfig({
       link: 'https://x.com/tevmtools',
       label: 'Twitter'
     },
+    {
+      icon: 'discord',
+      link: 'https://discord.gg/tevm',
+      label: 'Discord'
+    },
   ],
+  // Configure code highlighting
+  markdown: {
+    code: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      }
+    }
+  },
 })

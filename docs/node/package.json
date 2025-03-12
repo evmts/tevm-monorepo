@@ -5,24 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
-    "build": "vocs build",
+    "build": "bun build:app",
+    "build:app": "vocs build",
     "preview": "vocs preview",
     "test": "vitest"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.0.9",
+    "@tailwindcss/vite": "^4.0.12",
     "ethers": "^6.13.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.9",
     "tevm": "workspace:^",
-    "viem": "^2.23.5",
-    "vitest": "^3.0.7",
-    "vocs": "1.0.0-next.20250222T235036"
+    "viem": "^2.23.9",
+    "vitest": "^3.0.8",
+    "vocs": "1.0.5"
   },
   "devDependencies": {
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "peerDependencies": {
     "react": "^18.2.0",

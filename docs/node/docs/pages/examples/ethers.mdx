@@ -1,341 +1,207 @@
 ---
 title: Using with Ethers.js
-description: Connect Tevm Node to an Ethers.js provider
+description: Connect Tevm Node to an Ethers.js provider and leverage Ethers.js functionality
+authors:
+  - "[William Cory](https://x.com/fucory)"
+  - "[Tevm Team](https://github.com/evmts)"
 ---
 
-# Using with Ethers.js
+import { Callout, Steps, Step, Button } from 'vocs/components'
+import { Tab, TabGroup, Card, CardGrid } from '../../../components'
 
-This guide demonstrates how to use Tevm Node with Ethers.js, enabling seamless integration with the popular Ethereum development library.
+# Using with Ethers.js v6
 
-## Basic Setup
+<Callout type="info" emoji="⚡">
+  Tevm integrates seamlessly with <a href="https://docs.ethers.org/v6/" target="_blank">Ethers.js v6</a>, allowing you to use your favorite Ethereum library alongside Tevm's powerful in-memory EVM capabilities.
+</Callout>
+
+This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Ethereum applications with a familiar, developer-friendly API.
+
+## Setup
+
+<Steps>
+  <Step title="Install Dependencies">
+    First, install the required packages:
+
+    ```bash
+    npm install tevm ethers
+    ```
+
+    <details>
+      <summary>Using Yarn or pnpm?</summary>
+
+      ```bash
+      # Yarn
+      yarn add tevm ethers
+
+      # pnpm
+      pnpm add tevm ethers
+      ```
+    </details>
+  </Step>
+
+  <Step title="Create the Tevm Node">
+    Set up a Tevm node with EIP-1193 compatibility:
+
+    ```ts
+    import { createTevmNode } from 'tevm'
+    import { requestEip1193 } from 'tevm/decorators'
+
+    // Create a Tevm Node with optional configuration
+    const node = createTevmNode({
+      // Configure mining behavior (auto or interval)
+      miningConfig: {
+        type: 'interval',
+        interval: 2000 // Mine blocks every 2 seconds
+      }
+    })
+
+    // Add EIP-1193 compatibility layer for Ethers.js
+    const nodeWithEip1193 = node.extend(requestEip1193())
+
+    // Wait for the node to be ready
+    await node.ready()
+    ```
+
+    <Callout type="tip">
+      The <code>requestEip1193()</code> decorator is essential - it adds the standard Ethereum provider interface that Ethers.js requires.
+    </Callout>
+  </Step>
+
+  <Step title="Create an Ethers Provider">
+    Connect Ethers to your Tevm node:
+
+    <TabGroup>
+      <Tab label="BrowserProvider (Recommended)">
+        ```ts
+        import { BrowserProvider } from 'ethers'
+
+        // Create a provider using the EIP-1193 compatible node
+        const provider = new BrowserProvider(nodeWithEip1193)
+
+        // Test the connection
+        const blockNumber = await provider.getBlockNumber()
+        console.log(`Connected to block: ${blockNumber}`)
+        ```
+
+        <Callout type="success">
+          BrowserProvider is recommended for most applications - it's the modern Ethers.js provider and handles all async operations correctly.
+        </Callout>
+      </Tab>
+
+      <Tab label="JsonRpcProvider (Legacy)">
+        ```ts
+        import { JsonRpcProvider } from 'ethers'
+
+        // For legacy code bases that require JsonRpcProvider
+        const legacyProvider = new JsonRpcProvider(
+          // Pass the node as an endpoint
+          nodeWithEip1193
+        )
+
+        // Test the connection
+        const network = await legacyProvider.getNetwork()
+        console.log(`Connected to network: ${network.name} (${network.chainId})`)
+        ```
+      </Tab>
+    </TabGroup>
+  </Step>
+
+  <Step title="Set Up a Wallet">
+    Create a wallet for transactions:
+
+    ```ts
+    import { Wallet } from 'ethers'
+
+    // Generate a random wallet
+    const wallet = Wallet.createRandom()
+    console.log(`Generated wallet address: ${wallet.address}`)
+
+    // Connect the wallet to your provider
+    const signer = wallet.connect(provider)
+
+    // The default balance will be zero
+    const balance = await provider.getBalance(signer.address)
+    console.log(`Initial wallet balance: ${balance} wei (${balance === 0n ? 'empty' : balance})`)
+    ```
+  </Step>
+
+  <Step title="Fund the Account">
+    Use Tevm's state manipulation to fund your testing wallet:
+
+    ```ts
+    import { parseEther, formatEther } from 'ethers'
+
+    // Manipulate blockchain state directly with Tevm
+    await node.setAccount({
+      address: signer.address,
+      balance: parseEther('100') // Add 100 ETH
+    })
+
+    // Verify the new balance
+    const newBalance = await provider.getBalance(signer.address)
+    console.log(`New wallet balance: ${formatEther(newBalance)} ETH`)
+    ```
+
+    <Callout type="tip">
+      This direct state manipulation is one of Tevm's powerful features - it allows you to set up any testing scenario without complex transactions.
+    </Callout>
+  </Step>
+</Steps>
+
+## Core Functionality
+
+<CardGrid>
+  <Card title="Reading Contracts" href="#reading-from-contracts">
+    Query contract state using Ethers.js Contract objects
+  </Card>
+  <Card title="Writing to Contracts" href="#writing-to-contracts">
+    Execute transactions and modify blockchain state
+  </Card>
+  <Card title="Event Handling" href="#event-handling">
+    Listen for and query contract events
+  </Card>
+  <Card title="Contract Deployment" href="#contract-deployment">
+    Deploy new contracts to your local Tevm environment
+  </Card>
+</CardGrid>
+
+## Reading from Contracts
+
+<Callout type="tip" emoji="📚">
+  Ethers.js Contract objects work seamlessly with Tevm, allowing you to query on-chain data with a simple, type-safe API.
+</Callout>
 
 ```ts
-import { createTevmNode } from 'tevm'
-import { requestEip1193 } from 'tevm/decorators'
-import { BrowserProvider } from 'ethers'
-
-// Create Tevm Node with EIP-1193 support
-const node = createTevmNode().extend(requestEip1193())
-
-// Create Ethers provider
-const provider = new BrowserProvider(node)
-
-// Basic provider usage
-const block = await provider.getBlockNumber()
-const balance = await provider.getBalance('0x1234...')
-```
-
-## Contract Interaction
-
-### 1. Reading Contract State
-
-```ts
-import { Contract } from '@tevm/ethers'
+import { Contract } from 'ethers'
 import { parseAbi } from 'tevm'
+import { formatUnits } from 'ethers'
 
-// Contract setup
+// Define contract ABI
 const abi = parseAbi([
-  'function balanceOf(address) view returns (uint256)',
-  'function symbol() view returns (string)',
+  'function balanceOf(address owner) view returns (uint256)',
   'function decimals() view returns (uint8)',
+  'function symbol() view returns (string)',
+  'function name() view returns (string)'
 ])
 
-const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' // USDC
-const contract = new Contract(tokenAddress, abi, provider)
+// Create a contract instance (using USDC on mainnet for this example)
+const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+const usdc = new Contract(usdcAddress, abi, provider)
 
-// Read multiple values
-const [balance, symbol, decimals] = await Promise.all([
-  contract.balanceOf('0x1234...'),
-  contract.symbol(),
-  contract.decimals(),
+// Read multiple values concurrently for efficiency
+const [
+  balance,
+  decimals,
+  symbol,
+  name
+] = await Promise.all([
+  usdc.balanceOf('0x6B175474E89094C44Da98b954EedeAC495271d0F'), // DAI address
+  usdc.decimals(),
+  usdc.symbol(),
+  usdc.name()
 ])
 
-console.log(`${symbol} Balance: ${formatUnits(balance, decimals)}`)
-```
-
-### 2. Writing to Contracts
-
-```ts
-import { ContractTransactionResponse } from 'ethers'
-
-// Get signer
-const signer = await provider.getSigner()
-
-const abi = parseAbi([
-  'function transfer(address to, uint256 amount) returns (bool)',
-])
-
-const contract = new Contract(tokenAddress, abi, signer)
-
-// Send transaction
-const tx = await contract.transfer(
-  '0x5678...',
-  parseUnits('100', 6)
-) as ContractTransactionResponse
-
-// Wait for confirmation
-const receipt = await tx.wait()
-console.log('Transaction confirmed:', receipt.hash)
-```
-
-## Event Handling
-
-### 1. Listening for Events
-
-```ts
-const abi = parseAbi([
-  'event Transfer(address indexed from, address indexed to, uint256 value)',
-  'function transfer(address to, uint256 amount) returns (bool)',
-])
-
-const contract = new Contract(tokenAddress, abi, provider)
-
-// Type-safe event handling
-type TransferEvent = {
-  from: string
-  to: string
-  amount: bigint
-  event: any
-}
-
-const events: TransferEvent[] = []
-contract.on('Transfer', (from, to, amount, event) => {
-  events.push({ from, to, amount, event })
-})
-
-// Remove listener when done
-contract.off('Transfer')
-```
-
-### 2. Querying Past Events
-
-```ts
-const abi = parseAbi([
-  'event Transfer(address indexed from, address indexed to, uint256 value)',
-])
-
-const contract = new Contract(tokenAddress, abi, provider)
-
-// Create filter
-const filter = contract.filters.Transfer()
-
-// Get past events
-const events = await contract.queryFilter(filter, -1000, 'latest')
-
-for (const event of events) {
-  const { from, to, value } = event.args
-  console.log('Historical transfer:', {
-    from,
-    to,
-    value: formatUnits(value, 6),
-  })
-}
-```
-
-## Advanced Usage
-
-### 1. Contract Deployment
-
-```ts
-import { ContractFactory } from 'ethers'
-
-const abi = parseAbi([
-  'function getValue() view returns (uint256)',
-])
-
-// Get signer
-const signer = await provider.getSigner()
-
-// Create factory
-const factory = new ContractFactory(abi, bytecode, signer)
-
-// Deploy contract
-const contract = await factory.deploy()
-await contract.waitForDeployment()
-
-console.log('Contract deployed to:', await contract.getAddress())
-```
-
-### 2. Low-level Transaction Handling
-
-```ts
-// Create transaction
-const tx = {
-  to: '0x1234...',
-  value: parseEther('1'),
-  data: '0x',
-}
-
-// Sign transaction
-const signer = await provider.getSigner()
-const signedTx = await signer.signTransaction(tx)
-
-// Send raw transaction
-const hash = await provider.send('eth_sendRawTransaction', [signedTx])
-
-// Wait for confirmation
-const receipt = await provider.waitForTransaction(hash)
-```
-
-### 3. Interface Encoding/Decoding
-
-```ts
-import { Interface } from 'ethers'
-import { parseAbi } from 'tevm'
-
-// Create interface
-const abi = parseAbi([
-  'function transfer(address to, uint256 amount) returns (bool)',
-  'event Transfer(address indexed from, address indexed to, uint256 value)',
-])
-const iface = new Interface(abi)
-
-// Encode function data
-const data = iface.encodeFunctionData('transfer', [
-  '0x1234...',
-  parseUnits('100', 6),
-])
-
-// Decode event logs
-const log = receipt.logs[0]
-const decodedLog = iface.parseLog({
-  topics: log.topics,
-  data: log.data,
-})
-```
-
-## Testing with Ethers
-
-```ts
-import { expect } from 'chai'
-import { loadFixture } from '@nomicfoundation/hardhat-network-helpers'
-import { parseAbi } from 'tevm'
-
-describe('Token Contract', () => {
-  async function deployTokenFixture() {
-    // Setup Tevm Node
-    const node = createTevmNode()
-    const provider = new BrowserProvider(node)
-    const signer = await provider.getSigner()
-
-    const abi = parseAbi([
-      'function balanceOf(address) view returns (uint256)',
-      'function transfer(address to, uint256 amount) returns (bool)',
-    ])
-
-    // Deploy contract
-    const factory = new ContractFactory(abi, bytecode, signer)
-    const token = await factory.deploy()
-    await token.waitForDeployment()
-
-    return { token, signer, provider }
-  }
-
-  it('Should handle basic operations', async () => {
-    const { token, signer } = await loadFixture(deployTokenFixture)
-
-    // Test initial state
-    expect(await token.balanceOf(signer.address)).to.equal(initialSupply)
-
-    // Test transfer
-    await token.transfer('0x1234...', 100)
-    expect(await token.balanceOf('0x1234...')).to.equal(100)
-  })
-})
-```
-
-## Best Practices
-
-1. **Contract Initialization**:
-   ```ts
-   import { parseAbi } from 'tevm'
-   import { Contract } from '@tevm/ethers'
-
-   // Reuse contract instances
-   const contracts = new Map<string, Contract>()
-
-   function getContract(address: string): Contract {
-     let contract = contracts.get(address)
-     if (!contract) {
-       const abi = parseAbi([
-         'function balanceOf(address) view returns (uint256)',
-         'function transfer(address to, uint256 amount) returns (bool)',
-       ])
-       contract = new Contract(address, abi, provider)
-       contracts.set(address, contract)
-     }
-     return contract
-   }
-   ```
-
-2. **Error Handling**:
-   ```ts
-   const abi = parseAbi([
-     'function riskyFunction() returns (uint256)',
-   ])
-   const contract = new Contract(address, abi, provider)
-
-   try {
-     const tx = await contract.riskyFunction()
-     await tx.wait()
-   } catch (error) {
-     if (error.code === 'CALL_EXCEPTION') {
-       console.error('Contract call failed:', error.reason)
-     } else if (error.code === 'NETWORK_ERROR') {
-       console.error('Network error:', error.message)
-     }
-     throw error
-   }
-   ```
-
-3. **Gas Management**:
-   ```ts
-   const abi = parseAbi([
-     'function transfer(address to, uint256 amount) returns (bool)',
-   ])
-   const contract = new Contract(address, abi, provider)
-
-   // Estimate gas with buffer
-   const gasEstimate = await contract.transfer.estimateGas(
-     recipient,
-     amount
-   )
-
-   const tx = await contract.transfer(
-     recipient,
-     amount,
-     {
-       gasLimit: gasEstimate * 120n / 100n, // 20% buffer
-     }
-   )
-   ```
-
-4. **Event Management**:
-   ```ts
-   const abi = parseAbi([
-     'event Transfer(address indexed from, address indexed to, uint256 value)',
-   ])
-   const contract = new Contract(address, abi, provider)
-
-   // Clean up listeners
-   function setupEventListeners(contract: Contract) {
-     const handler = (...args) => {
-       // Handle event
-     }
-
-     contract.on('Transfer', handler)
-
-     return () => {
-       contract.off('Transfer', handler)
-     }
-   }
-
-   const cleanup = setupEventListeners(contract)
-   // Later...
-   cleanup()
-   ```
-
-## Related Topics
-- [JSON-RPC Support](../api/json-rpc)
-- [Local Testing](./local-testing)
-- [Forking Mainnet](./forking-mainnet)
+// Format the results
+console.log(`${name} (${symbol})`)
+console.log(`Balance: ${formatUnits(balance, decimals)} ${symbol}`)

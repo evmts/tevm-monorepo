@@ -1,0 +1,445 @@
+# Other Bundler Packages
+
+In addition to the bundler plugins, Tevm includes several supporting packages that provide the core functionality for Solidity compilation and integration. These packages are used internally by the bundler plugins but can also be used directly for custom integrations.
+
+## Key Related Package: Contract
+
+While not strictly a bundler package, the [@tevm/contract](https://tevm.sh/reference/contract) package is essential to understand, as it's the core type that Solidity files are compiled into. When you import a `.sol` file, the bundler plugins convert it into a Tevm Contract instance with type-safe methods.
+
+```bash
+npm install @tevm/contract
+```
+
+The contract package provides:
+- Type-safe contract interactions via read and write methods
+- Event filtering and subscription
+- Support for human-readable and JSON ABIs
+- Contract deployment utilities
+
+For detailed information on how to use Tevm Contracts, see the [Contract documentation](https://tevm.sh/reference/contract).
+
+## TypeScript Plugin (LSP)
+
+The TypeScript plugin provides Language Server Protocol (LSP) support for Solidity files, creating a seamless development experience.
+
+```bash
+npm install @tevm/ts-plugin
+```
+
+**Key Features:**
+- Type checking for Solidity imports
+- Autocomplete for contract methods
+- Go-to-definition from TypeScript to Solidity
+- Hover information showing NatSpec documentation
+
+**Configuration:**
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@tevm/ts-plugin"
+      }
+    ]
+  }
+}
+```
+
+After configuring, make sure your editor is using the workspace version of TypeScript:
+- **VS Code**: Use the command palette (`Ctrl+Shift+P`) and select "TypeScript: Select TypeScript Version" → "Use Workspace Version"
+- **Cursor**: Similar to VS Code, select the workspace TypeScript version
+- **Vim/Neovim with LSP**: Configure your LSP to use the workspace TypeScript version
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/lsp/ts-plugin/docs)
+
+## Core Packages
+
+### Base Bundler
+
+The base bundler provides the core functionality for resolving and compiling Solidity files. It's used by all the bundler plugins and can be used directly for custom integrations.
+
+```bash
+npm install @tevm/base-bundler
+```
+
+**Key Features:**
+- Core processing of Solidity files
+- Resolution of imports in Solidity files
+- Generation of TypeScript and JavaScript code
+- Support for both synchronous and asynchronous APIs
+
+**Example Usage:**
+
+```js
+// package.json: { "type": "module" }
+import { bundler } from '@tevm/base-bundler'
+import { createCache } from '@tevm/bundler-cache'
+import { loadConfig } from '@tevm/config'
+import { createSolc } from '@tevm/solc'
+import fs from 'node:fs/promises'
+import fsSync from 'node:fs'
+
+// Create file access object
+const fao = {
+  readFile: fs.readFile,
+  writeFile: fs.writeFile,
+  readFileSync: fsSync.readFileSync,
+  writeFileSync: fsSync.writeFileSync,
+  existsSync: fsSync.existsSync,
+}
+
+// Create bundler instance
+const tevmBundler = bundler(
+  await loadConfig(), // Load config
+  console,            // Logger
+  fao,                // File access object
+  await createSolc(), // Solidity compiler
+  createCache(),      // Cache
+)
+
+// Resolve a Solidity file to TypeScript
+const { code, modules } = await tevmBundler.resolveTsModule(
+  'path/to/Contract.sol', 
+  process.cwd(),
+  false, // include AST
+  true,  // include bytecode
+)
+```
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/base-bundler/docs)
+
+### Bundler Cache
+
+The bundler cache manages caching of compiled Solidity artifacts to improve build performance. By default, it stores cache at `.tevm` in your project directory.
+
+```bash
+npm install @tevm/bundler-cache
+```
+
+**Key Features:**
+- Caches compiled Solidity artifacts
+- Improves build performance for incremental builds
+- Supports both synchronous and asynchronous APIs
+
+**Example Usage:**
+
+```js
+// package.json: { "type": "module" }
+import { createCache } from '@tevm/bundler-cache'
+import fs from 'node:fs/promises'
+import fsSync from 'node:fs'
+
+// Create file access object
+const fao = {
+  readFile: fs.readFile,
+  writeFile: fs.writeFile,
+  readFileSync: fsSync.readFileSync,
+  writeFileSync: fsSync.writeFileSync,
+  existsSync: fsSync.existsSync,
+  mkdir: fs.mkdir,
+  mkdirSync: fsSync.mkdirSync,
+}
+
+// Create cache with custom location
+const cache = createCache('.tevm-cache', fao, process.cwd())
+
+// Read artifacts from cache
+const cachedArtifacts = await cache.readArtifacts('path/to/Contract.sol')
+
+// Write artifacts to cache
+await cache.writeArtifacts('path/to/Contract.sol', compiledContracts)
+```
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/bundler-cache/docs)
+
+### Compiler
+
+The compiler package provides a typesafe wrapper around the Solidity compiler, handling compilation of Solidity files to ABI and bytecode.
+
+```bash
+npm install @tevm/compiler
+```
+
+**Key Features:**
+- Resolution and compilation of Solidity contracts
+- Extraction of ABIs, bytecode, and source maps
+- Support for source locations for error reporting
+- Handling of complex import resolution
+
+**Example Usage:**
+
+```js
+// package.json: { "type": "module" }
+import { resolveArtifacts } from '@tevm/compiler'
+import { loadConfig } from '@tevm/config'
+import { createSolc } from '@tevm/solc'
+import fs from 'node:fs/promises'
+import fsSync from 'node:fs'
+
+// Create file access object
+const fao = {
+  readFile: fs.readFile,
+  writeFile: fs.writeFile,
+  readFileSync: fsSync.readFileSync,
+  writeFileSync: fsSync.writeFileSync,
+  existsSync: fsSync.existsSync,
+}
+
+// Compile a Solidity file
+const { artifacts, modules } = await resolveArtifacts(
+  'path/to/Contract.sol',    // Solidity file path
+  process.cwd(),             // Base directory
+  console,                   // Logger
+  await loadConfig(),        // Tevm config
+  true,                      // Include AST
+  true,                      // Include bytecode
+  fao,                       // File access object
+  await createSolc()         // Solidity compiler
+)
+
+// Use the artifacts
+console.log(artifacts.Contract.abi)
+console.log(artifacts.Contract.evm.bytecode.object)
+```
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/compiler/docs)
+
+### Config
+
+The config package defines how Tevm reads configuration from `tevm.config.json` or other sources. It handles loading and validating configuration for all Tevm packages.
+
+```bash
+npm install @tevm/config
+```
+
+**Key Features:**
+- Load configuration from tevm.config.json
+- Integrate with tsconfig.json
+- Support Foundry project configuration
+- Type-safe configuration validation
+
+**Example Usage:**
+
+```js
+// package.json: { "type": "module" }
+import { loadConfig, defineConfig } from '@tevm/config'
+import { runPromise } from 'effect/Effect'
+
+// Load configuration
+const config = await runPromise(loadConfig(process.cwd()))
+
+// Use the configuration
+console.log(config.cacheDir)
+console.log(config.libs)
+console.log(config.remappings)
+
+// Define a custom configuration
+const customConfig = defineConfig(() => ({
+  foundryProject: true,
+  libs: ['lib'],
+  remappings: {
+    'foo': 'vendored/foo'
+  },
+  debug: true,
+  cacheDir: '.tevm-cache'
+}))
+```
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/config/docs)
+
+### Resolutions
+
+The resolutions package handles resolving Solidity import graphs, supporting both local and npm-based imports.
+
+```bash
+npm install @tevm/resolutions
+```
+
+**Key Features:**
+- Resolution of Solidity import statements
+- Support for relative and absolute imports
+- Compatibility with npm package imports
+- Integration with Foundry-style remappings
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/resolutions/docs)
+
+### Runtime
+
+The runtime package transforms compiler outputs into TypeScript and JavaScript runtime code, providing the type-safe contract interfaces.
+
+```bash
+npm install @tevm/runtime
+```
+
+**Key Features:**
+- Transformation of compiled artifacts into runtime code
+- Generation of TypeScript type definitions
+- Creation of Contract instances from Solidity ABIs
+- Handling of module resolution and imports
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/runtime/docs)
+
+### Solc
+
+The solc package provides a typesafe wrapper around the Solidity compiler's API, simplifying interaction with the compiler.
+
+```bash
+npm install @tevm/solc
+```
+
+**Key Features:**
+- Type-safe wrapper around solc
+- Support for multiple solc versions
+- Asynchronous loading of compiler versions
+- Standard JSON interface support
+
+**Example Usage:**
+
+```js
+// package.json: { "type": "module" }
+import { createSolc, SolcVersions } from '@tevm/solc'
+
+// Create solc instance with specific version
+const solc = await createSolc(SolcVersions.V0_8_19)
+
+// Compile a simple contract
+const input = {
+  language: 'Solidity',
+  sources: {
+    'Contract.sol': {
+      content: 'pragma solidity 0.8.19; contract SimpleContract { uint public value; }'
+    }
+  },
+  settings: {
+    outputSelection: {
+      '*': {
+        '*': ['abi', 'evm.bytecode']
+      }
+    }
+  }
+}
+
+const output = JSON.parse(solc.compile(JSON.stringify(input)))
+```
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/solc/docs)
+
+## Effect Package
+
+The effect package provides Tevm-specific utilities for the [Effect](https://effect.website/) library, enabling functional programming patterns with Tevm.
+
+```bash
+npm install @tevm/effect
+```
+
+**Key Features:**
+- Type-safe error handling
+- Functional programming patterns
+- Seamless integration with Tevm's API
+- Composable asynchronous operations
+
+**Example Usage:**
+
+```ts
+// package.json: { "type": "module" }
+import { logAllErrors } from '@tevm/effect'
+import { runPromise, catchTag, flatMap } from 'effect/Effect'
+import { loadConfig } from '@tevm/config'
+
+// Use Effect for robust error handling
+const program = loadConfig(process.cwd()).pipe(
+  flatMap(config => {
+    // Use config safely
+    return Effect.succeed(config)
+  }),
+  catchTag('FailedToReadConfigError', (error) => {
+    // Handle specific error type
+    console.error('Failed to read config:', error.message)
+    return Effect.fail(error)
+  }),
+  logAllErrors
+)
+
+// Run the program
+runPromise(program)
+  .then(config => console.log('Config loaded:', config))
+  .catch(error => console.error('Failed to load config:', error))
+```
+
+**Reference:** [API Documentation](https://github.com/evmts/tevm-monorepo/tree/main/packages/effect/docs)
+
+## Advanced Usage
+
+These packages can be used together to create custom build pipelines or tooling. Here's a more complete example:
+
+```ts
+// package.json: { "type": "module" }
+import { bundler } from '@tevm/base-bundler'
+import { createCache } from '@tevm/bundler-cache'
+import { loadConfig } from '@tevm/config'
+import { createSolc } from '@tevm/solc'
+import fs from 'node:fs/promises'
+import fsSync from 'node:fs'
+
+// Create a custom build pipeline
+async function createCustomBuildPipeline() {
+  // Setup file access
+  const fao = {
+    readFile: fs.readFile,
+    writeFile: fs.writeFile,
+    readFileSync: fsSync.readFileSync,
+    writeFileSync: fsSync.writeFileSync,
+    existsSync: fsSync.existsSync,
+    mkdir: fs.mkdir,
+    mkdirSync: fsSync.mkdirSync,
+  }
+
+  // Load config from tevm.config.json
+  const config = await loadConfig(process.cwd())
+
+  // Create solidity compiler
+  const solc = await createSolc('0.8.19')
+
+  // Create cache
+  const cache = createCache(config.cacheDir, fao, process.cwd())
+
+  // Create bundler instance
+  const tevmBundler = bundler(config, console, fao, solc, cache)
+
+  return {
+    // Compile a Solidity file and get TypeScript output
+    async compileToTypeScript(solidityPath, includeBytecode = true) {
+      const result = await tevmBundler.resolveTsModule(
+        solidityPath,
+        process.cwd(),
+        false, // Include AST
+        includeBytecode,
+      )
+      return result.code
+    },
+
+    // Compile a Solidity file and get JavaScript output
+    async compileToJavaScript(solidityPath, includeBytecode = true) {
+      const result = await tevmBundler.resolveEsmModule(
+        solidityPath,
+        process.cwd(),
+        false, // Include AST
+        includeBytecode,
+      )
+      return result.code
+    }
+  }
+}
+
+// Usage example
+const pipeline = await createCustomBuildPipeline()
+const tsCode = await pipeline.compileToTypeScript('./contracts/MyToken.sol')
+const jsCode = await pipeline.compileToJavaScript('./contracts/MyToken.sol')
+
+console.log('Generated TypeScript:', tsCode)
+console.log('Generated JavaScript:', jsCode)
+```
+
+For more detailed API documentation, refer to the [API reference](https://github.com/evmts/tevm-monorepo/) for each package.

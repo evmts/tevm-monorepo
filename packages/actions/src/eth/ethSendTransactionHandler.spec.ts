@@ -3,7 +3,7 @@ import { createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { parseEther } from '@tevm/utils'
 import { encodeFunctionData } from 'viem'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -11,15 +11,9 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethSendTransactionHandler } from './ethSendTransactionHandler.js'
 
 describe('ethSendTransactionHandler', () => {
-	let client: ReturnType<typeof createTevmNode>
-	let handler: ReturnType<typeof ethSendTransactionHandler>
-
-	beforeEach(() => {
-		client = createTevmNode()
-		handler = ethSendTransactionHandler(client)
-	})
-
 	it('should send a simple transaction', async () => {
+		const client = createTevmNode()
+		const handler = ethSendTransactionHandler(client)
 		const from = createAddress('0x1234')
 		const to = createAddress('0x5678')
 		const value = parseEther('1')
@@ -44,6 +38,8 @@ describe('ethSendTransactionHandler', () => {
 	})
 
 	it('should handle contract interaction', async () => {
+		const client = createTevmNode()
+		const handler = ethSendTransactionHandler(client)
 		const from = createAddress('0x1234')
 		const contractAddress = createAddress('0x5678')
 

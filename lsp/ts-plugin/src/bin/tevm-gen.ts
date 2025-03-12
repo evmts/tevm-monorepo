@@ -30,14 +30,39 @@ const fao: FileAccessObject = {
 	},
 }
 
+/**
+ * Displays the help information for the tevm-gen CLI tool.
+ * Shows usage instructions and available command line options.
+ */
 const showHelp = () => {
 	console.log(`
-Usage: node script.js [cwd] [include]
+Usage: tevm-gen [cwd] [include]
+Description:
+  Generates TypeScript type definitions for Solidity contracts.
+
+Arguments:
+  cwd             Working directory (defaults to current directory)
+  include         Glob pattern(s) for Solidity files, comma-separated (defaults to 'src/**/*.sol')
+
 Options:
-  -h, --help    Show this help message and exit
+  -h, --help      Show this help message and exit
 `)
 }
 
+/**
+ * Generates TypeScript type definitions for Solidity contracts.
+ *
+ * This function:
+ * 1. Finds all Solidity files matching the include patterns
+ * 2. Loads the Tevm configuration from the working directory
+ * 3. Creates a bundler cache to speed up compilation
+ * 4. For each Solidity file, generates TypeScript type definitions
+ * 5. Writes the generated TypeScript files alongside the Solidity files
+ *
+ * @param {string} cwd - The working directory to use as the base for file resolution
+ * @param {string[]} include - Array of glob patterns to match Solidity files
+ * @throws {Error} If no matching files are found
+ */
 const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 	console.log('Generating types from contracts...', { dir: cwd, include })
 	const files = glob.sync(include, {
@@ -51,7 +76,7 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 		const fileDir = file.split('/').slice(0, -1).join('/')
 		const config = runSync(loadConfig(cwd))
 		const solcCache = createCache(config.cacheDir, fao, cwd)
-		const plugin = bundler(config, console, fao, solc, solcCache)
+		const plugin = bundler(config, console, fao, solc, solcCache, '@tevm/contract')
 		plugin
 			.resolveTsModule(`./${file}`, cwd, false, true)
 			.then((tsContent) => writeFile(path.join(fileDir, `${fileName}.ts`), tsContent.code))

@@ -25,7 +25,7 @@ describe('generateRuntime', () => {
 		expect(() =>
 			runSync(generateRuntime(artifacts, 'invalidType' as any, false, '@tevm/contract')),
 		).toThrowErrorMatchingInlineSnapshot(
-			'[(FiberFailure) Error: Unknown module type: invalidType. Valid module types include contract, script]',
+			`[(FiberFailure) Error: Unknown module type: invalidType. Valid module types include 'cjs', 'dts', 'ts', and 'mjs']`,
 		)
 	})
 

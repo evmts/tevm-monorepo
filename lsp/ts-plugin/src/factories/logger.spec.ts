@@ -33,15 +33,18 @@ describe(createLogger.name, () => {
 		const info = 'info'
 		const warn = 'warn'
 		const error = 'error'
+		const log = 'log'
 
 		logger.info(info)
 		logger.error(error)
 		logger.warn(warn)
+		logger.log(log)
 
 		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(`[tevm-ts-plugin] ${info}`)
 		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(`[tevm-ts-plugin] error: ${error}`)
 		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(
 			`[tevm-ts-plugin] warning: ${warn}`,
 		)
+		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(`[tevm-ts-plugin] log: ${log}`)
 	})
 })

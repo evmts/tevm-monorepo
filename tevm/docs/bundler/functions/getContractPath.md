@@ -6,7 +6,7 @@
 
 # Function: getContractPath()
 
-> **getContractPath**(`basePath`): `"@tevm/contract"` \| `"tevm/contract"`
+> **getContractPath**(`basePath`): `"tevm/contract"` \| `"@tevm/contract"`
 
 Defined in: bundler-packages/base-bundler/types/src/getContractPath.d.ts:1
 
@@ -18,4 +18,4 @@ Defined in: bundler-packages/base-bundler/types/src/getContractPath.d.ts:1
 
 ## Returns
 
-`"@tevm/contract"` \| `"tevm/contract"`
+`"tevm/contract"` \| `"@tevm/contract"`

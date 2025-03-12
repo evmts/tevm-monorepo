@@ -7,7 +7,11 @@ import { Callout, Steps, Step } from 'vocs/components'
 
 # Creating a Tevm Node
 
-`createTevmNode` is the main entry point for spinning up a local Tevm Node instance. It provides a flexible configuration API to customize your node's behavior for different use cases.
+<Callout type="info" emoji="🚀">
+  `createTevmNode` is the foundation of Tevm - a powerful function that bootstraps a complete Ethereum execution environment in JavaScript.
+</Callout>
+
+`createTevmNode` is the main entry point for spinning up a local Tevm Node instance. With a flexible configuration API, you can customize your node's behavior to fit various development, testing, and production scenarios.
 
 <Steps>
 <Step title="Install Dependencies">
@@ -16,48 +20,83 @@ First, install the required packages:
 ```bash
 npm install tevm
 ```
+
+<details>
+<summary>Using Yarn or pnpm?</summary>
+
+```bash
+# Yarn
+yarn add tevm
+
+# pnpm
+pnpm add tevm
+```
+</details>
 </Step>
 
-<Step title="Create Node Instance">
-Create a basic node instance:
+<Step title="Create a Basic Node">
+Instantiate a node with default configuration:
 
 ### TypeScript
 ```ts
 import { createTevmNode } from 'tevm'
 
+// Create the node instance
 const node = createTevmNode()
+
+// Always wait for the node to be ready before using it
 await node.ready()
+
+// Your node is now ready to use!
 ```
 
 ### JavaScript
 ```js
 const { createTevmNode } = require('tevm')
 
+// Create the node instance
 const node = createTevmNode()
+
+// Always wait for the node to be ready before using it
 await node.ready()
+
+// Your node is now ready to use!
 ```
 </Step>
 
-<Step title="Configure Options">
-Customize the node based on your needs:
+<Step title="Configure to Your Needs">
+Tailor the node with powerful configuration options:
 
 ```ts
+import { createTevmNode, http } from 'tevm'
+
 const node = createTevmNode({
+  // Fork from a live network
   fork: {
     transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
   },
+  // Configure automatic mining
   miningConfig: { type: 'auto' },
+  // Set logging verbosity
   loggingLevel: 'debug'
 })
+
+await node.ready()
 ```
 </Step>
 </Steps>
 
 ## Configuration Options
 
+Tevm Node offers extensive configuration options to adapt to different use cases. Here's a complete breakdown:
+
 ### Fork Configuration
 
-The `fork` option allows you to create a node that forks from an existing network:
+<Callout type="tip" emoji="🌍">
+  Forking allows you to create a local copy of any EVM chain for testing and development.
+</Callout>
+
+The `fork` option creates a node that connects to an existing network:
 
 ```ts
 import { createTevmNode, http } from 'tevm'
@@ -70,77 +109,120 @@ const node = createTevmNode({
     blockTag: 17_000_000n,
   },
 })
+
+await node.ready()
 ```
 
 <Callout type="info">
-When forking, state is fetched lazily from the remote provider and cached locally. This means your first access to any account or storage slot will be slower, but subsequent accesses will be fast.
+  When forking, state is fetched lazily from the remote provider and cached locally. This means your first access to any account or storage slot will be slower, but subsequent accesses will be fast.
 </Callout>
 
 ### Mining Configuration
 
-Control how and when blocks are produced:
+<Callout type="tip" emoji="⛏️">
+  Mining configuration determines how transactions are processed and blocks are produced.
+</Callout>
+
+Control how and when blocks are produced with various mining modes:
 
 ```ts
+// Auto-mining: Mine a block for every transaction
 const node = createTevmNode({
   miningConfig: {
-    type: 'auto', // Mine a block for every transaction
+    type: 'auto',
   },
 })
 
-// Or use interval-based mining
-const node2 = createTevmNode({
+// Interval-based mining: Mine at regular intervals
+const intervalNode = createTevmNode({
   miningConfig: {
     type: 'interval',
     interval: 12_000, // Mine every 12 seconds
   },
 })
+
+await node.ready()
+await intervalNode.ready()
 ```
 
 ### Chain Configuration
 
-Customize the chain parameters:
+<Callout type="tip" emoji="⛓️">
+  Chain configuration defines the rules and parameters of the blockchain.
+</Callout>
+
+Customize the chain parameters or use pre-configured chains:
 
 ```ts
+import { createTevmNode } from 'tevm'
 import { Common } from 'tevm/common'
 
-const node = createTevmNode({
+// Custom chain configuration
+const customNode = createTevmNode({
   common: Common.custom({
     chainId: 1337,
     networkId: 1337,
-    // ... other chain parameters
+    // Other chain parameters
   }),
 })
+
+await customNode.ready()
 ```
 
-Or if your network is a known network import it by name
+Or use one of the pre-configured chains:
 
 ```ts
-import { mainnet, base, arbitrum, optimism } from 'tevm/common'
+import { createTevmNode } from 'tevm'
+import { mainnet, optimism, arbitrum, base } from 'tevm/common'
+
+// Create a node with Optimism chain configuration
+const optimismNode = createTevmNode({
+  common: optimism,
+})
+
+await optimismNode.ready()
 ```
 
-If you want your network added you should first add it to `viem/chains` and open an issue to regenerate the commons in Tevm
+<details>
+<summary>Want to add your own network?</summary>
+If you need support for a network not included in Tevm, first add it to `viem/chains` and then open an issue on the Tevm repository to request the network to be added.
+</details>
 
 ### Logging Configuration
 
-Configure the internal logger:
+<Callout type="tip" emoji="📝">
+  Logging helps debug issues and understand what's happening inside your node.
+</Callout>
+
+Configure the internal logger to match your needs:
 
 ```ts
 const node = createTevmNode({
   loggingLevel: 'debug', // 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 })
 
-// Later use the logger
+// Later use the logger directly
 node.logger.debug('Detailed debugging information')
+node.logger.info('Informational message')
+node.logger.warn('Warning!')
+node.logger.error('Error encountered', { details: 'Something went wrong' })
+
+await node.ready()
 ```
 
 ### Custom Precompiles
 
-Add your own precompiled contracts:
+<Callout type="tip" emoji="🧩">
+  Custom precompiles allow you to extend the EVM with your own functions.
+</Callout>
+
+Add your own precompiled contracts to unlock powerful capabilities:
 
 ```ts
 import { definePrecompile, createContract, parseAbi } from 'tevm'
 
-const myPrecompile = definePrecompile({
+const calculatorPrecompile = definePrecompile({
+  // Define contract interface
   contract: createContract({
     abi: parseAbi([
       'function add(uint256 a, uint256 b) returns (uint256)',
@@ -148,32 +230,48 @@ const myPrecompile = definePrecompile({
     ]),
     address: '0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2'
   }),
+  // Implement the precompile logic
   call: async ({ data, gasLimit }) => {
-    // Your precompile logic here
+    // Precompile implementation goes here
+    console.log('Precompile called with data:', data, 'gas limit:', gasLimit)
+    
     return {
-      returnValue: new Uint8Array([0x01]),
+      returnValue: new Uint8Array([0x01]), // Example return value
       executionGasUsed: 200n,
     }
   },
 })
 
+// Register the precompile with the node
 const node = createTevmNode({
-  customPrecompiles: [myPrecompile.precompile()],
+  customPrecompiles: [calculatorPrecompile.precompile()],
 })
+
+await node.ready()
 ```
 
 ### Performance Profiling
 
-Enable the built-in profiler for performance analysis:
+<Callout type="tip" emoji="⏱️">
+  Performance profiling helps identify bottlenecks in your smart contracts.
+</Callout>
+
+Enable the built-in profiler for detailed execution metrics:
 
 ```ts
 const node = createTevmNode({
   profiler: true,
 })
 
-// Later access profiling data
+await node.ready()
+
+// Run a transaction or call
+// ...
+
+// Access profiling data
 const vm = await node.getVm()
-const logs = vm.evm.getPerformanceLogs()
+const performanceLogs = vm.evm.getPerformanceLogs()
+console.log('Performance data:', performanceLogs)
 ```
 
 ## Complete Configuration Reference
@@ -190,75 +288,112 @@ const logs = vm.evm.getPerformanceLogs()
 
 ## Best Practices
 
-1. **Always await node.ready()**
-   ```ts
-   const node = createTevmNode()
-   await node.ready() // Ensure node is fully initialized
-   ```
+<Callout type="warning" emoji="⚠️">
+  Following these best practices will help you avoid common pitfalls when working with Tevm Node.
+</Callout>
 
-2. **Use Appropriate Mining Config**
-   ```ts
-   // For testing - mine after each transaction
-   const testNode = createTevmNode({
-     miningConfig: { type: 'auto' }
-   })
+### Always await node.ready()
 
-   // For simulation - mine at intervals
-   const simNode = createTevmNode({
-     miningConfig: { type: 'interval', interval: 12_000 }
-   })
-   ```
+```ts
+const node = createTevmNode()
+await node.ready() // Essential: Ensures node is fully initialized
+// Now safe to use the node
+```
 
-3. **Handle Errors**
-   ```ts
-   try {
-     const node = createTevmNode()
-     await node.ready()
-   } catch (error) {
-     console.error('Node initialization failed:', error)
-   }
-   ```
+### Choose the Right Mining Configuration
 
-## Example Configurations
+```ts
+// For testing: Mine after each transaction
+const testNode = createTevmNode({
+  miningConfig: { type: 'auto' }
+})
+
+// For simulation: Mine at intervals to mimic real networks
+const simulationNode = createTevmNode({
+  miningConfig: { type: 'interval', interval: 12_000 } // 12 seconds like Ethereum
+})
+
+await testNode.ready()
+await simulationNode.ready()
+```
+
+### Handle Initialization Errors
+
+```ts
+try {
+  const node = createTevmNode()
+  await node.ready()
+  console.log('Node successfully initialized')
+} catch (error) {
+  console.error('Node initialization failed:', error)
+  // Implement proper error handling
+}
+```
+
+## Usage Scenarios
+
+- **Local Development**: Fast, auto-mining configuration with unlimited contract sizes for rapid local development
+- **Production Forking**: Realistic forked environment with precise error handling for production simulation
+- **Testing Environment**: Performance-focused configuration for CI/CD and test automation
 
 ### Local Development Node
 
 ```ts
+import { createTevmNode } from 'tevm'
+
 const devNode = createTevmNode({
   miningConfig: { type: 'auto' },
-  loggingLevel: 'debug',
-  allowUnlimitedContractSize: true, // Helpful during development
+  loggingLevel: 'debug',        // See detailed logs during development
+  allowUnlimitedContractSize: true, // No contract size limits during development
 })
+
 await devNode.ready()
+
+// Node is ready for local development
+console.log('Development node ready!')
 ```
 
 ### Production Forked Node
 
 ```ts
+import { createTevmNode, http } from 'tevm'
+
 const prodNode = createTevmNode({
   fork: {
     transport: http('https://mainnet.infura.io/v3/YOUR-KEY'),
-    blockTag: 'latest',
+    blockTag: 'latest',  // Always use the latest block
   },
-  miningConfig: { type: 'interval', interval: 12000 },
-  loggingLevel: 'error', // Less verbose in production
+  miningConfig: { 
+    type: 'interval', 
+    interval: 12000     // Mine every 12 seconds like Ethereum mainnet
+  },
+  loggingLevel: 'error', // Only show critical issues in production
 })
+
 await prodNode.ready()
+
+console.log('Production forked node ready!')
 ```
 
 ### Testing Node
 
 ```ts
+import { createTevmNode } from 'tevm'
+
 const testNode = createTevmNode({
-  miningConfig: { type: 'auto' },
-  profiler: true, // Enable profiling for performance testing
+  miningConfig: { type: 'auto' }, // Immediate mining for faster tests
+  profiler: true,                 // Enable profiling for performance testing
 })
+
 await testNode.ready()
+
+// Run your tests with profiling enabled
+console.log('Testing node with profiling ready!')
 ```
 
 ## Next Steps
 
-- Learn about the [Node Interface](./tevm-node-interface)
-- Explore [Forking](./forking)
-- Understand [State Management](./managing-state)
-- Learn about [Custom Precompiles](../advanced/custom-precompiles)
+- [Node Interface](./tevm-node-interface) - Explore the complete TevmNode interface and its capabilities
+- [Forking & Reforking](./forking) - Learn how to fork from live networks and efficiently manage forks
+- [State Management](./managing-state) - Understand how to manipulate blockchain state
+- [Custom Precompiles](../advanced/custom-precompiles) - Create your own precompiled contracts to extend EVM functionality

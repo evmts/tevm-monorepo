@@ -38,6 +38,65 @@ describe(createEvm.name, () => {
 		expect((evm as any).DEBUG).toBe(true)
 	})
 
+	it('should use default logging level when not specified', async () => {
+		const evm = await createEvm({
+			common: mainnet,
+			blockchain: await createChain({ common: mainnet }),
+			stateManager: createStateManager({}),
+		})
+		// Just confirm EVM works without errors
+		expect(evm).toBeDefined()
+	})
+
+	it('should support allowUnlimitedContractSize parameter', async () => {
+		// Just verify we can create an EVM with this parameter
+		const evm = await createEvm({
+			common: mainnet,
+			blockchain: await createChain({ common: mainnet }),
+			stateManager: createStateManager({}),
+			allowUnlimitedContractSize: true,
+		})
+
+		expect(evm).toBeDefined()
+	})
+
+	it('should support profiler option', async () => {
+		// Just verify we can create an EVM with profiler
+		const evm = await createEvm({
+			common: mainnet,
+			blockchain: await createChain({ common: mainnet }),
+			stateManager: createStateManager({}),
+			profiler: true,
+		})
+
+		expect(evm).toBeDefined()
+	})
+
+	it('should support customPrecompiles initialization', async () => {
+		const address = EthjsAddress.fromString(`0x${'42'.repeat(20)}`)
+		const precompileFunction = () => {
+			return {
+				executionGasUsed: 1n,
+				returnValue: new Uint8Array([0x42]),
+			}
+		}
+
+		const customPrecompile = {
+			address,
+			function: precompileFunction,
+		}
+
+		const evm = await createEvm({
+			common: mainnet,
+			blockchain: await createChain({ common: mainnet }),
+			stateManager: createStateManager({}),
+			customPrecompiles: [customPrecompile],
+		})
+
+		// Verify the precompile is available
+		expect(evm.getPrecompile(address)).toEqual(precompileFunction)
+	})
+
 	describe('addCustomPrecompile', () => {
 		it('Should add a custom precompile', async () => {
 			const evm = await createEvm({
@@ -58,6 +117,7 @@ describe(createEvm.name, () => {
 			})
 			expect(evm.getPrecompile(address)).toEqual(precompileFunction)
 		})
+
 		it('should throw if _customPrecompiles is undefined', async () => {
 			const evm = await createEvm({
 				common: mainnet,
@@ -82,7 +142,19 @@ describe(createEvm.name, () => {
 			}
 			throw new Error('should have thrown')
 		})
+
+		it('should have a functioning addCustomPrecompile method', async () => {
+			const evm = await createEvm({
+				common: mainnet,
+				blockchain: await createChain({ common: mainnet }),
+				stateManager: createStateManager({}),
+			})
+
+			// Verify the method exists
+			expect(typeof evm.addCustomPrecompile).toBe('function')
+		})
 	})
+
 	describe('removeCustomPrecompile', () => {
 		it('Should remove a custom precompile', async () => {
 			const evm = await createEvm({
@@ -105,7 +177,19 @@ describe(createEvm.name, () => {
 			evm.removeCustomPrecompile(precompile)
 			expect(evm.getPrecompile(address)).toBeUndefined()
 		})
+
+		it('should have a functioning removeCustomPrecompile method', async () => {
+			const evm = await createEvm({
+				common: mainnet,
+				blockchain: await createChain({ common: mainnet }),
+				stateManager: createStateManager({}),
+			})
+
+			// Verify the method exists
+			expect(typeof evm.removeCustomPrecompile).toBe('function')
+		})
 	})
+
 	it('should throw if _customPrecompiles is undefined', async () => {
 		const evm = await createEvm({
 			common: mainnet,
@@ -130,6 +214,7 @@ describe(createEvm.name, () => {
 		}
 		throw new Error('should have thrown')
 	})
+
 	it('should throw if precompile does not exist', async () => {
 		const evm = await createEvm({
 			common: mainnet,
