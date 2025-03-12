@@ -162,13 +162,11 @@ describe(createEvm.name, () => {
 				_customPrecompiles: [],
 				common: mainnet.ethjsCommon,
 				getPrecompile: () => undefined,
-			}
+			} as any
 
-			// Apply the binding logic from lines 69-70 in createEvm.js to the mock object
-			mockEvm.addCustomPrecompile =
-				mockEvm.addCustomPrecompile?.bind(mockEvm) ?? Evm.prototype.addCustomPrecompile.bind(mockEvm)
-			mockEvm.removeCustomPrecompile =
-				mockEvm.removeCustomPrecompile?.bind(mockEvm) ?? Evm.prototype.removeCustomPrecompile.bind(mockEvm)
+			// Apply the binding logic from lines 67-68 in Evm.js to the mock object
+			mockEvm.addCustomPrecompile = Evm.prototype.addCustomPrecompile.bind(mockEvm)
+			mockEvm.removeCustomPrecompile = Evm.prototype.removeCustomPrecompile.bind(mockEvm)
 
 			// Verify the methods are now bound functions
 			expect(typeof mockEvm.addCustomPrecompile).toBe('function')

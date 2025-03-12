@@ -4,7 +4,6 @@ import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getContractCode } from './getContractCode.js'
-import * as getForkClientModule from './getForkClient.js'
 import { putContractCode } from './putContractCode.js'
 
 const contract = SimpleContract.withAddress(`0x${'69'.repeat(20)}`)

@@ -6,10 +6,11 @@
 
 # Interface: PostByzantiumTxReceipt
 
-Defined in: [RecieptManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L34)
+Defined in: [ReceiptManager.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L42)
 
-Receipt type for Byzantium and beyond replacing the intermediary
-state root field with a status code field (EIP-658)
+Receipt type for Byzantium and beyond (EIP-658)
+Replaces the intermediary state root field with a status code field
+Introduced in the Byzantium hard fork
 
 ## Extends
 
@@ -25,9 +26,10 @@ state root field with a status code field (EIP-658)
 
 > **bitvector**: `Uint8Array`
 
-Defined in: [RecieptManager.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L24)
+Defined in: [ReceiptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L28)
 
-Bloom bitvector
+Bloom filter bitvector containing indexed log data
+Used for efficient searching of logs in the blockchain
 
 #### Inherited from
 
@@ -39,9 +41,10 @@ Bloom bitvector
 
 > **cumulativeBlockGasUsed**: `bigint`
 
-Defined in: [RecieptManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L20)
+Defined in: [ReceiptManager.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L22)
 
-Cumulative gas used in the block including this tx
+Cumulative gas used in the block including this transaction
+Represented as a bigint to handle large gas values accurately
 
 #### Inherited from
 
@@ -53,9 +56,10 @@ Cumulative gas used in the block including this tx
 
 > **logs**: `Log`[]
 
-Defined in: [RecieptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L28)
+Defined in: [ReceiptManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L34)
 
-Logs emitted
+Array of logs emitted during transaction execution
+Each log contains address, topics, and data fields
 
 #### Inherited from
 
@@ -67,6 +71,8 @@ Logs emitted
 
 > **status**: `0` \| `1`
 
-Defined in: [RecieptManager.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/RecieptManager.ts#L38)
+Defined in: [ReceiptManager.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L48)
 
-Status of transaction, `1` if successful, `0` if an exception occurred
+Status of transaction execution
+- `1` if successful
+- `0` if an exception occurred during execution

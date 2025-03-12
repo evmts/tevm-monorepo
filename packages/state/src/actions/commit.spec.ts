@@ -172,6 +172,7 @@ describe(commit.name, () => {
 			},
 		}
 
+		// @ts-expect-error - dumpCanonicalGenesis not on BaseState but added for testing
 		baseState.dumpCanonicalGenesis = vi.fn(() => () => mockState)
 
 		// Let's take a different approach that doesn't require spying on global functions
@@ -217,9 +218,11 @@ describe(commit.name, () => {
 		const localState = createBaseState({})
 
 		// Remove onCommit callback
+		// @ts-expect-error - Allow undefined here for testing
 		localState.options.onCommit = undefined
 
 		// Mock other necessary functions
+		// @ts-expect-error - Mock return type should be `0x${string}` but 'existingStateRoot' is used for testing
 		localState.getCurrentStateRoot = vi.fn(() => 'existingStateRoot')
 		localState.setCurrentStateRoot = vi.fn()
 		localState.logger.debug = vi.fn()

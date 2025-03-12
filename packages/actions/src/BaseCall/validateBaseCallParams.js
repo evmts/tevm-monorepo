@@ -16,9 +16,6 @@ import {
 	InvalidToError,
 	InvalidValueError,
 } from '@tevm/errors'
-import { zBaseCallParams } from './zBaseCallParams.js'
-
-// TODO we are missing some validation including stateOverrides
 
 /**
  * @typedef {InvalidParamsError| InvalidSkipBalanceError| InvalidGasRefundError| InvalidBlockError| InvalidGasPriceError| InvalidOriginError| InvalidCallerError| InvalidDepthError| InvalidBlobVersionedHashesError} ValidateBaseCallParamsError
@@ -26,7 +23,7 @@ import { zBaseCallParams } from './zBaseCallParams.js'
 
 /**
  * @internal can break on a minor release
- * Validates that the parameters are correct with zod
+ * Validates that the parameters are correct using manual validation
  * @param {import('../BaseCall/BaseCallParams.js').BaseCallParams} action
  */
 export const validateBaseCallParams = (action) => {
@@ -35,114 +32,149 @@ export const validateBaseCallParams = (action) => {
 	 */
 	const errors = []
 
-	const parsedParams = zBaseCallParams.safeParse(action)
-
-	if (parsedParams.success === false) {
-		const formattedErrors = parsedParams.error.format()
-
-		// Iterate over the general errors
-		formattedErrors._errors.forEach((error) => {
-			errors.push(new InvalidParamsError(error))
-		})
-
-		// Error handling for specific fields
-		if (formattedErrors.skipBalance) {
-			formattedErrors.skipBalance._errors.forEach((error) => {
-				errors.push(new InvalidSkipBalanceError(error))
-			})
+	try {
+		// Basic validation: check if the action is an object
+		if (action === null || typeof action !== 'object') {
+			errors.push(new InvalidParamsError('Parameters must be an object'))
+			return errors
 		}
 
-		if (formattedErrors.gasRefund) {
-			formattedErrors.gasRefund._errors.forEach((error) => {
-				errors.push(new InvalidGasRefundError(error))
-			})
+		// Validate specific fields
+		const {
+			skipBalance,
+			gasRefund,
+			blockTag,
+			gasPrice,
+			origin,
+			caller,
+			gas,
+			value,
+			depth,
+			selfdestruct,
+			to,
+			blobVersionedHashes,
+			maxFeePerGas,
+			maxPriorityFeePerGas,
+		} = action
+
+		// Boolean validations
+		if (skipBalance !== undefined && typeof skipBalance !== 'boolean') {
+			errors.push(new InvalidSkipBalanceError('skipBalance must be a boolean'))
 		}
 
-		if (formattedErrors.blockTag) {
-			formattedErrors.blockTag._errors.forEach((error) => {
-				errors.push(new InvalidBlockError(error))
-			})
+		// Bigint validations
+		if (gasRefund !== undefined) {
+			if (typeof gasRefund !== 'bigint') {
+				errors.push(new InvalidGasRefundError('gasRefund must be a bigint'))
+			} else if (gasRefund < 0n) {
+				errors.push(new InvalidGasRefundError('gasRefund must be non-negative'))
+			}
 		}
 
-		if (formattedErrors.gas) {
-			formattedErrors.gas._errors.forEach((error) => {
-				errors.push(new InvalidGasPriceError(error))
-			})
+		// Block parameter validation
+		if (blockTag !== undefined) {
+			const validBlockTags = ['latest', 'earliest', 'pending', 'safe', 'finalized']
+			if (
+				typeof blockTag !== 'string' &&
+				typeof blockTag !== 'bigint' &&
+				!(typeof blockTag === 'string' && /^0x[0-9a-fA-F]*$/.test(blockTag))
+			) {
+				errors.push(new InvalidBlockError('Invalid block parameter'))
+			} else if (
+				typeof blockTag === 'string' &&
+				!validBlockTags.includes(blockTag) &&
+				!/^0x[0-9a-fA-F]*$/.test(blockTag)
+			) {
+				errors.push(new InvalidBlockError('Invalid block tag'))
+			}
 		}
 
-		if (formattedErrors.origin) {
-			formattedErrors.origin._errors.forEach((error) => {
-				errors.push(new InvalidOriginError(error))
-			})
+		// Gas price validation
+		if (gasPrice !== undefined && typeof gasPrice !== 'bigint') {
+			errors.push(new InvalidGasPriceError('gasPrice must be a bigint'))
 		}
 
-		if (formattedErrors.caller) {
-			formattedErrors.caller._errors.forEach((error) => {
-				errors.push(new InvalidCallerError(error))
-			})
+		// Origin validation
+		if (origin !== undefined && (typeof origin !== 'string' || !/^0x[0-9a-fA-F]{40}$/.test(origin))) {
+			errors.push(new InvalidOriginError('origin must be a valid Ethereum address'))
 		}
 
-		if (formattedErrors.gas) {
-			formattedErrors.gas._errors.forEach((error) => {
-				errors.push(new InvalidGasPriceError(error))
-			})
+		// Caller validation
+		if (caller !== undefined && (typeof caller !== 'string' || !/^0x[0-9a-fA-F]{40}$/.test(caller))) {
+			errors.push(new InvalidCallerError('caller must be a valid Ethereum address'))
 		}
 
-		if (formattedErrors.value) {
-			formattedErrors.value._errors.forEach((error) => {
-				errors.push(new InvalidValueError(error))
-			})
+		// Gas validation
+		if (gas !== undefined) {
+			if (typeof gas !== 'bigint') {
+				errors.push(new InvalidGasPriceError('gas must be a bigint'))
+			} else if (gas < 0n) {
+				errors.push(new InvalidGasPriceError('gas must be non-negative'))
+			}
 		}
 
-		if (formattedErrors.depth) {
-			formattedErrors.depth._errors.forEach((error) => {
-				errors.push(new InvalidDepthError(error))
-			})
+		// Value validation
+		if (value !== undefined) {
+			if (typeof value !== 'bigint') {
+				errors.push(new InvalidValueError('value must be a bigint'))
+			} else if (value < 0n) {
+				errors.push(new InvalidValueError('value must be non-negative'))
+			}
 		}
 
-		if (formattedErrors.selfdestruct) {
-			formattedErrors.selfdestruct._errors.forEach((error) => {
-				errors.push(new InvalidSelfdestructError(error))
-			})
+		// Depth validation
+		if (depth !== undefined) {
+			if (typeof depth !== 'number') {
+				errors.push(new InvalidDepthError('depth must be a number'))
+			} else if (depth < 0 || !Number.isInteger(depth)) {
+				errors.push(new InvalidDepthError('depth must be a non-negative integer'))
+			}
 		}
 
-		if (formattedErrors.to) {
-			formattedErrors.to._errors.forEach((error) => {
-				errors.push(new InvalidToError(error))
-			})
-		}
-
-		if (formattedErrors.blobVersionedHashes) {
-			formattedErrors.blobVersionedHashes._errors.forEach((error) => {
-				errors.push(new InvalidBlobVersionedHashesError(error))
-			})
-			for (const [key, value] of Object.entries(formattedErrors.blobVersionedHashes)) {
-				if (key === '_errors') continue
-				if ('_errors' in value) {
-					value._errors.forEach((error) => {
-						errors.push(new InvalidBlobVersionedHashesError(error))
-					})
+		// Selfdestruct validation
+		if (selfdestruct !== undefined) {
+			if (!(selfdestruct instanceof Set)) {
+				errors.push(new InvalidSelfdestructError('selfdestruct must be a Set'))
+			} else {
+				for (const address of selfdestruct) {
+					if (typeof address !== 'string' || !/^0x[0-9a-fA-F]{40}$/.test(address)) {
+						errors.push(new InvalidSelfdestructError('All addresses in selfdestruct must be valid Ethereum addresses'))
+						break
+					}
 				}
 			}
 		}
 
-		if (formattedErrors.maxFeePerGas) {
-			formattedErrors.maxFeePerGas._errors.forEach((error) => {
-				errors.push(new InvalidMaxFeePerGasError(error))
-			})
+		// To address validation
+		if (to !== undefined && (typeof to !== 'string' || !/^0x[0-9a-fA-F]{40}$/.test(to))) {
+			errors.push(new InvalidToError('to must be a valid Ethereum address'))
 		}
 
-		if (formattedErrors.maxPriorityFeePerGas) {
-			formattedErrors.maxPriorityFeePerGas._errors.forEach((error) => {
-				errors.push(new InvalidMaxPriorityFeePerGasError(error))
-			})
+		// Blob versioned hashes validation
+		if (blobVersionedHashes !== undefined) {
+			if (!Array.isArray(blobVersionedHashes)) {
+				errors.push(new InvalidBlobVersionedHashesError('blobVersionedHashes must be an array'))
+			} else {
+				for (let i = 0; i < blobVersionedHashes.length; i++) {
+					const hash = blobVersionedHashes[i]
+					if (typeof hash !== 'string' || !/^0x[0-9a-fA-F]*$/.test(hash)) {
+						errors.push(new InvalidBlobVersionedHashesError(`Item at index ${i} is not a valid hex string`))
+					}
+				}
+			}
 		}
 
-		// if we missed an error let's make sure we handle it here
-		// THis is purely defensive
-		if (errors.length === 0 && parsedParams.success === false) {
-			errors.push(new InvalidParamsError(parsedParams.error.message))
+		// EIP-1559 fee validations
+		if (maxFeePerGas !== undefined && typeof maxFeePerGas !== 'bigint') {
+			errors.push(new InvalidMaxFeePerGasError('maxFeePerGas must be a bigint'))
 		}
+
+		if (maxPriorityFeePerGas !== undefined && typeof maxPriorityFeePerGas !== 'bigint') {
+			errors.push(new InvalidMaxPriorityFeePerGasError('maxPriorityFeePerGas must be a bigint'))
+		}
+	} catch (error) {
+		// Catch any unexpected errors and convert them to InvalidParamsError
+		errors.push(new InvalidParamsError(error.message || 'Unknown validation error'))
 	}
 
 	return errors

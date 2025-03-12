@@ -11,145 +11,256 @@ import type { MapDb } from './MapDb.js'
 
 // Some of these types are actually from the Vm package but they are better to live here imo
 /**
- * Abstract interface with common transaction receipt fields
+ * Abstract interface with common transaction receipt fields that all receipt types share
+ * This serves as the base for both pre and post-Byzantium transaction receipts
  */
 export interface BaseTxReceipt {
 	/**
-	 * Cumulative gas used in the block including this tx
+	 * Cumulative gas used in the block including this transaction
+	 * Represented as a bigint to handle large gas values accurately
 	 */
 	cumulativeBlockGasUsed: bigint
+
 	/**
-	 * Bloom bitvector
+	 * Bloom filter bitvector containing indexed log data
+	 * Used for efficient searching of logs in the blockchain
 	 */
 	bitvector: Uint8Array
+
 	/**
-	 * Logs emitted
+	 * Array of logs emitted during transaction execution
+	 * Each log contains address, topics, and data fields
 	 */
 	logs: EthjsLog[]
 }
+
 /**
- * Receipt type for Byzantium and beyond replacing the intermediary
- * state root field with a status code field (EIP-658)
+ * Receipt type for Byzantium and beyond (EIP-658)
+ * Replaces the intermediary state root field with a status code field
+ * Introduced in the Byzantium hard fork
  */
 export interface PostByzantiumTxReceipt extends BaseTxReceipt {
 	/**
-	 * Status of transaction, `1` if successful, `0` if an exception occurred
+	 * Status of transaction execution
+	 * - `1` if successful
+	 * - `0` if an exception occurred during execution
 	 */
 	status: 0 | 1
 }
+
 /**
- * Pre-Byzantium receipt type with a field
- * for the intermediary state root
+ * Pre-Byzantium receipt type used before the Byzantium hard fork
+ * Contains a state root field instead of the status code used in later versions
  */
 export interface PreByzantiumTxReceipt extends BaseTxReceipt {
 	/**
-	 * Intermediary state root
+	 * Intermediary state root after transaction execution
+	 * This is a 32-byte Merkle root of the state trie
 	 */
 	stateRoot: Uint8Array
 }
+
+/**
+ * Receipt type for EIP-4844 blob transactions
+ * Extends the post-Byzantium receipt with additional blob gas fields
+ */
 export interface EIP4844BlobTxReceipt extends PostByzantiumTxReceipt {
 	/**
-	 * blob gas consumed by a transaction
+	 * Amount of blob gas consumed by the transaction
 	 *
 	 * Note: This value is not included in the receiptRLP used for encoding the receiptsRoot in a block
 	 * and is only provided as part of receipt metadata.
 	 */
 	blobGasUsed: bigint
+
 	/**
-	 * blob gas price for block transaction was included in
+	 * Price of blob gas for the block the transaction was included in
 	 *
-	 * Note: This valus is not included in the `receiptRLP` used for encoding the `receiptsRoot` in a block
+	 * Note: This value is not included in the `receiptRLP` used for encoding the `receiptsRoot` in a block
 	 * and is only provided as part of receipt metadata.
 	 */
 	blobGasPrice: bigint
 }
-export type TxReceipt = PreByzantiumTxReceipt | PostByzantiumTxReceipt | EIP4844BlobTxReceipt
+
 /**
- * TxReceiptWithType extends TxReceipt to provide:
- *  - txType: byte prefix for serializing typed tx receipts
+ * Union type of all transaction receipt types
+ * Can be pre-Byzantium, post-Byzantium, or EIP-4844 blob receipt
+ */
+export type TxReceipt = PreByzantiumTxReceipt | PostByzantiumTxReceipt | EIP4844BlobTxReceipt
+
+/**
+ * TxReceiptWithType extends TxReceipt to provide transaction type information
+ * This is used when the receipt needs to include the transaction type (EIP-2718)
  */
 export type TxReceiptWithType = PreByzantiumTxReceiptWithType | PostByzantiumTxReceiptWithType
+
+/**
+ * Pre-Byzantium receipt type with transaction type information
+ * Extends the pre-Byzantium receipt with the EIP-2718 transaction type
+ */
 interface PreByzantiumTxReceiptWithType extends PreByzantiumTxReceipt {
-	/* EIP-2718 Typed Transaction Envelope type */
-	txType: TransactionType
-}
-interface PostByzantiumTxReceiptWithType extends PostByzantiumTxReceipt {
-	/* EIP-2718 Typed Transaction Envelope type */
+	/**
+	 * EIP-2718 Typed Transaction Envelope type
+	 * Indicates which transaction format was used
+	 */
 	txType: TransactionType
 }
 
 /**
- * Function return values
+ * Post-Byzantium receipt type with transaction type information
+ * Extends the post-Byzantium receipt with the EIP-2718 transaction type
+ */
+interface PostByzantiumTxReceiptWithType extends PostByzantiumTxReceipt {
+	/**
+	 * EIP-2718 Typed Transaction Envelope type
+	 * Indicates which transaction format was used
+	 */
+	txType: TransactionType
+}
+
+/**
+ * Return type for getReceiptByTxHash method containing the receipt and its metadata
+ * Used to format responses for RPC methods like eth_getTransactionReceipt
  */
 type GetReceiptByTxHashReturn = [receipt: TxReceipt, blockHash: Uint8Array, txIndex: number, logIndex: number]
+
+/**
+ * Return type for getLogs method containing log entries with their associated block and transaction data
+ * Used to format responses for RPC methods like eth_getLogs
+ */
 type GetLogsReturn = {
+	/** The log entry containing address, topics, and data */
 	log: EthjsLog
+	/** The block containing the transaction that produced this log */
 	block: Block
+	/** The transaction that produced this log */
 	tx: TypedTransaction
+	/** Index of the transaction within the block */
 	txIndex: number
+	/** Global index of the log within the block */
 	logIndex: number
 }[]
 
 /**
- * Indexes
+ * Index type for mapping transaction hashes to their block hash and position
+ * Used to efficiently look up receipts by transaction hash
  */
 type TxHashIndex = [blockHash: Uint8Array, txIndex: number]
 
+/**
+ * Enum defining the types of indexes that can be maintained
+ * Currently only supports transaction hash indexes
+ */
 enum IndexType {
+	/** Index for mapping transaction hashes to block hash and position */
 	TxHash = 0,
 }
+
+/**
+ * Enum defining operations that can be performed on indexes
+ */
 enum IndexOperation {
+	/** Create or update an index */
 	Save = 0,
+	/** Remove an index */
 	Delete = 1,
 }
 
 /**
- * Storage encodings
+ * Types for RLP encoding and decoding
  */
+
+/** Type alias for log entries in RLP format */
 type rlpLog = EthjsLog
+
+/** RLP format for receipt entries: [status/stateRoot, gasUsed, logs] */
 type rlpReceipt = [postStateOrStatus: Uint8Array, cumulativeGasUsed: Uint8Array, logs: rlpLog[]]
+
+/** RLP format for txHash index entries: [blockHash, txIndex] */
 type rlpTxHash = [blockHash: Uint8Array, txIndex: Uint8Array]
 
+/**
+ * Enum for RLP conversion operations
+ */
 enum RlpConvert {
+	/** Convert from JavaScript objects to RLP-encoded bytes */
 	Encode = 0,
+	/** Convert from RLP-encoded bytes to JavaScript objects */
 	Decode = 1,
 }
+
+/**
+ * Enum for RLP data types
+ */
 enum RlpType {
+	/** Transaction receipts for a block */
 	Receipts = 0,
+	/** Log entries */
 	Logs = 1,
+	/** Transaction hash index */
 	TxHash = 2,
 }
+
+/**
+ * Union type for data that can be RLP encoded or decoded
+ */
 type rlpOut = EthjsLog[] | TxReceipt[] | TxHashIndex
 
+/**
+ * Manages transaction receipts within the Ethereum virtual machine
+ * Provides methods for storing, retrieving, and searching transaction receipts and logs
+ */
 export class ReceiptsManager {
+	/**
+	 * Creates a new ReceiptsManager instance
+	 * @param mapDb - The database instance for storing receipts and indexes
+	 * @param chain - The blockchain instance for retrieving blocks
+	 */
 	constructor(
 		public readonly mapDb: MapDb,
 		public readonly chain: Chain,
 	) {}
+
 	/**
-	 * Limit of logs to return in getLogs
+	 * Maximum number of logs to return in getLogs
+	 * This prevents excessive memory usage and response size
 	 */
 	GET_LOGS_LIMIT = 10000
 
 	/**
-	 * Size limit for the getLogs response in megabytes
+	 * Maximum size of getLogs response in megabytes
+	 * This prevents excessive memory usage and response size
 	 */
 	GET_LOGS_LIMIT_MEGABYTES = 150
 
 	/**
-	 * Block range limit for getLogs
+	 * Maximum block range that can be queried in a single getLogs call
+	 * This prevents excessive computational load from large queries
 	 */
 	GET_LOGS_BLOCK_RANGE_LIMIT = 2500
 
+	/**
+	 * Creates a deep copy of this ReceiptsManager with a new chain reference
+	 * Useful for creating a snapshot of the current state
+	 *
+	 * @param chain - The new chain reference to use
+	 * @returns A new ReceiptsManager instance with copied state
+	 */
 	deepCopy(chain: Chain): ReceiptsManager {
 		return new ReceiptsManager(this.mapDb.deepCopy(), chain)
 	}
 
 	/**
-	 * Saves receipts to db. Also saves tx hash indexes if within txLookupLimit,
-	 * and removes tx hash indexes for one block past txLookupLimit.
-	 * @param block the block to save receipts for
-	 * @param receipts the receipts to save
+	 * Saves transaction receipts to the database for a given block
+	 * Also builds and saves transaction hash indexes for efficient lookups
+	 *
+	 * @param block - The block containing the transactions
+	 * @param receipts - The transaction receipts to save
+	 * @returns Promise that resolves when saving is complete
+	 *
+	 * @example
+	 * const block = await chain.getBlock(blockNumber)
+	 * await receiptManager.saveReceipts(block, txReceipts)
 	 */
 	async saveReceipts(block: Block, receipts: TxReceipt[]) {
 		const encoded = this.rlp(RlpConvert.Encode, RlpType.Receipts, receipts)
@@ -157,16 +268,37 @@ export class ReceiptsManager {
 		void this.updateIndex(IndexOperation.Save, IndexType.TxHash, block)
 	}
 
+	/**
+	 * Deletes transaction receipts and their indexes for a given block
+	 * Used when removing or replacing block data
+	 *
+	 * @param block - The block whose receipts should be deleted
+	 * @returns Promise that resolves when deletion is complete
+	 *
+	 * @example
+	 * const block = await chain.getBlock(blockNumber)
+	 * await receiptManager.deleteReceipts(block)
+	 */
 	async deleteReceipts(block: Block) {
 		await this.mapDb.delete('Receipts', block.hash())
 		void this.updateIndex(IndexOperation.Delete, IndexType.TxHash, block)
 	}
 
 	/**
-	 * Returns receipts for given blockHash
-	 * @param blockHash the block hash
-	 * @param calcBloom whether to calculate and return the logs bloom for each receipt (default: false)
-	 * @param includeTxType whether to include the tx type for each receipt (default: false)
+	 * Retrieves transaction receipts for a given block hash
+	 * Can optionally calculate bloom filters and include transaction types
+	 *
+	 * @param blockHash - The hash of the block to get receipts for
+	 * @param calcBloom - Whether to calculate and include bloom filters (default: false)
+	 * @param includeTxType - Whether to include transaction types in the receipts (default: false)
+	 * @returns Promise resolving to an array of transaction receipts
+	 *
+	 * @example
+	 * // Get basic receipts
+	 * const receipts = await receiptManager.getReceipts(blockHash)
+	 *
+	 * // Get receipts with bloom filters and transaction types
+	 * const receiptsWithDetails = await receiptManager.getReceipts(blockHash, true, true)
 	 */
 	async getReceipts(blockHash: Uint8Array, calcBloom?: boolean, includeTxType?: true): Promise<TxReceiptWithType[]>
 	async getReceipts(blockHash: Uint8Array, calcBloom?: boolean, includeTxType?: false): Promise<TxReceipt[]>
@@ -198,8 +330,18 @@ export class ReceiptsManager {
 	}
 
 	/**
-	 * Returns receipt by tx hash with additional metadata for the JSON RPC response, or null if not found
-	 * @param txHash the tx hash
+	 * Retrieves a transaction receipt by transaction hash
+	 * Also returns additional metadata needed for JSON-RPC responses
+	 *
+	 * @param txHash - The transaction hash to look up
+	 * @returns Promise resolving to receipt data or null if not found
+	 *
+	 * @example
+	 * const receiptData = await receiptManager.getReceiptByTxHash(txHash)
+	 * if (receiptData) {
+	 *   const [receipt, blockHash, txIndex, logIndex] = receiptData
+	 *   // Use receipt data
+	 * }
 	 */
 	async getReceiptByTxHash(txHash: Uint8Array): Promise<GetReceiptByTxHashReturn | null> {
 		const txHashIndex = await this.getIndex(IndexType.TxHash, txHash)
@@ -220,7 +362,25 @@ export class ReceiptsManager {
 	}
 
 	/**
-	 * Returns logs as specified by the eth_getLogs JSON RPC query parameters
+	 * Retrieves logs matching the specified criteria within a block range
+	 * Implements the core functionality of eth_getLogs JSON-RPC method
+	 * Enforces size and count limits to prevent excessive resource usage
+	 *
+	 * @param from - The starting block
+	 * @param to - The ending block
+	 * @param addresses - Optional array of addresses to filter logs by
+	 * @param topics - Optional array of topics to filter logs by, can include arrays and nulls
+	 * @returns Promise resolving to array of matching logs with metadata
+	 *
+	 * @example
+	 * // Get all logs between blocks 100 and 200
+	 * const logs = await receiptManager.getLogs(block100, block200)
+	 *
+	 * // Get logs from a specific contract
+	 * const logs = await receiptManager.getLogs(block100, block200, [contractAddress])
+	 *
+	 * // Get logs with specific topics
+	 * const logs = await receiptManager.getLogs(block100, block200, undefined, [eventTopic])
 	 */
 	async getLogs(
 		from: Block,
@@ -286,10 +446,14 @@ export class ReceiptsManager {
 	}
 
 	/**
-	 * Saves or deletes an index from the metaDB
-	 * @param operation the {@link IndexOperation}
-	 * @param type the {@link IndexType}
-	 * @param value for {@link IndexType.TxHash}, the block to save or delete the tx hash indexes for
+	 * Updates indexes in the database based on the operation type
+	 * Used internally to maintain transaction hash to receipt mappings
+	 *
+	 * @param operation - Whether to save or delete indexes
+	 * @param type - The type of index to update
+	 * @param value - The data used to update indexes (typically a block)
+	 * @returns Promise that resolves when the update is complete
+	 * @private
 	 */
 	private async updateIndex(operation: IndexOperation, type: IndexType.TxHash, value: Block): Promise<void>
 	private async updateIndex(operation: IndexOperation, type: IndexType, value: any): Promise<void> {
@@ -315,9 +479,13 @@ export class ReceiptsManager {
 	}
 
 	/**
-	 * Returns the value for an index or null if not found
-	 * @param type the {@link IndexType}
-	 * @param value for {@link IndexType.TxHash}, the txHash to get
+	 * Retrieves an index value from the database
+	 * Used internally to look up transaction hash mappings
+	 *
+	 * @param type - The type of index to retrieve
+	 * @param value - The key to look up (typically a transaction hash)
+	 * @returns Promise resolving to the index value or null if not found
+	 * @private
 	 */
 	private async getIndex(type: IndexType.TxHash, value: Uint8Array): Promise<TxHashIndex | null>
 	private async getIndex(type: IndexType, value: Uint8Array): Promise<any | null> {
@@ -333,10 +501,14 @@ export class ReceiptsManager {
 	}
 
 	/**
-	 * Rlp encodes or decodes the specified data type for storage or retrieval from the metaDB
-	 * @param conversion {@link RlpConvert.Encode} or {@link RlpConvert.Decode}
-	 * @param type one of {@link RlpType}
-	 * @param value the value to encode or decode
+	 * Encodes or decodes data using RLP serialization for database storage
+	 * Supports different data types and formats based on the parameters
+	 *
+	 * @param conversion - Whether to encode or decode
+	 * @param type - The type of data being processed
+	 * @param value - The data to encode or decode
+	 * @returns Encoded bytes or decoded data structures
+	 * @private
 	 */
 	private rlp(conversion: RlpConvert.Encode, type: RlpType, value: rlpOut): Uint8Array
 	private rlp(conversion: RlpConvert.Decode, type: RlpType.Receipts, values: Uint8Array): TxReceipt[]
@@ -397,8 +569,12 @@ export class ReceiptsManager {
 	}
 
 	/**
-	 * Returns the logs bloom for a receipt's logs
-	 * @param logs
+	 * Calculates a Bloom filter for a set of transaction logs
+	 * Used for efficient log filtering and lookups
+	 *
+	 * @param logs - The logs to include in the bloom filter
+	 * @returns A Bloom filter containing the log data
+	 * @private
 	 */
 	private logsBloom(logs: rlpLog[]) {
 		const bloom = new Bloom()

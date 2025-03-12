@@ -8,13 +8,15 @@
 
 > **createMapDb**(`__namedParameters`): [`MapDb`](../type-aliases/MapDb.md)
 
-Defined in: packages/receipt-manager/types/createMapDb.d.ts:10
+Defined in: packages/receipt-manager/types/createMapDb.d.ts:7
 
 ## Parameters
 
 ### \_\_namedParameters
 
-[`MetaDBManagerOptions`](../interfaces/MetaDBManagerOptions.md)
+#### cache
+
+`Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
 ## Returns
 

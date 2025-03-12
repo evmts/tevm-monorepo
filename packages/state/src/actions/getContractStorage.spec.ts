@@ -164,13 +164,6 @@ describe('getContractStorage forking', () => {
 		const testAddress = createAddress('0x9999999999999999999999999999999999999999')
 		const testKey = new Uint8Array(32).fill(42)
 
-		// Create a contract account
-		const contractAccount = EthjsAccount.fromAccountData({
-			balance: 0n,
-			nonce: 0n,
-			codeHash: new Uint8Array(32).fill(1), // Non-zero code hash makes isContract() return true
-		})
-
 		// Create a state with fork configuration
 		const testState = createBaseState({
 			fork: {
@@ -187,7 +180,7 @@ describe('getContractStorage forking', () => {
 
 		// Mock the getAccount module
 		const getAccountSpy = vi.spyOn(getAccountModule, 'getAccount')
-		getAccountSpy.mockImplementation(() => () => Promise.resolve(mockAccount))
+		getAccountSpy.mockImplementation(() => () => Promise.resolve(mockAccount) as any)
 
 		// Mock getForkClient to return a client that returns null from getStorageAt
 		const mockForkClient = {
@@ -195,7 +188,7 @@ describe('getContractStorage forking', () => {
 		}
 
 		const getForkClientSpy = vi.spyOn(getForkClientModule, 'getForkClient')
-		getForkClientSpy.mockReturnValue(mockForkClient)
+		getForkClientSpy.mockReturnValue(mockForkClient as any)
 
 		// Call getContractStorage - it should handle the null response
 		const result = await getContractStorage(testState)(testAddress, testKey)

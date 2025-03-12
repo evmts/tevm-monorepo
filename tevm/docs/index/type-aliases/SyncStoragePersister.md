@@ -8,36 +8,58 @@
 
 > **SyncStoragePersister**: `object`
 
-Defined in: packages/sync-storage-persister/types/SyncStoragePersister.d.ts:2
+Defined in: packages/sync-storage-persister/types/SyncStoragePersister.d.ts:5
+
+Storage persister for client state
 
 ## Type declaration
 
 ### persistTevmState()
 
-> **persistTevmState**: (`state`) => `void`
+> **persistTevmState**: (`state`, `onError`?) => `Error` \| `undefined`
+
+Persist serializable tevm state
 
 #### Parameters
 
 ##### state
 
-[`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
+State to be persisted
+
+[`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md) | `undefined`
+
+##### onError?
+
+(`error`) => `void`
+
+Called when state fails to persist
 
 #### Returns
 
-`void`
+`Error` \| `undefined`
+
+Error if one occurs during persistence
 
 ### removePersistedState()
 
-> **removePersistedState**: () => `void`
+> **removePersistedState**: () => `Error` \| `undefined`
+
+Removes persisted state
 
 #### Returns
 
-`void`
+`Error` \| `undefined`
+
+Error if one occurs during removal
 
 ### restoreState()
 
 > **restoreState**: () => [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md) \| `undefined`
 
+Restores persisted state
+
 #### Returns
 
 [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md) \| `undefined`
+
+The persisted state if it exists
