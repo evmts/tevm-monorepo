@@ -354,7 +354,7 @@ describe('getDefinitionServiceDecorator', () => {
 		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
 
 		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
-		
+
 		// Should still return converted Solidity definitions
 		expect(definitions).toBeDefined()
 		expect(definitions?.length).toBeGreaterThan(0)
@@ -492,7 +492,7 @@ describe('getDefinitionServiceDecorator', () => {
 		)
 
 		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
-		
+
 		// Should log the error and fall back to original definitions
 		expect(mockLogger.error).toHaveBeenCalledWith('@tevm/ts-plugin: unable to find definitions /bar/Contract.sol')
 		expect(definitions).toEqual([
@@ -798,12 +798,12 @@ describe('getDefinitionServiceDecorator', () => {
 
 		// Call and verify
 		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
-		
+
 		// Should include both the Solidity definitions and TypeScript definitions
 		expect(definitions).toBeDefined()
 		expect(definitions?.length).toBeGreaterThan(1)
-		
-		const fileNames = definitions?.map(d => d.fileName)
+
+		const fileNames = definitions?.map((d) => d.fileName)
 		expect(fileNames).toContain('converted.sol')
 		expect(fileNames).toContain('someFile.ts')
 	})

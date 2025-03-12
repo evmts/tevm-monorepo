@@ -128,11 +128,28 @@ describe(tsPlugin.name, () => {
 		`)
 	})
 
-	it('should handle a .sol file', () => {
+	it('should handle a .sol file with proper decoration', () => {
+		// Spy on the language service creation
+		const createLanguageServiceSpy = vi.spyOn(typescript, 'createLanguageService')
 		const decorator = tsPlugin({ typescript })
-		decorator.create(createInfo)
-		// TODO call resolveModuleNameLiterals
-		// TODO call getScriptSnapshot
+
+		// Create service
+		const service = decorator.create(createInfo)
+
+		// Ensure language service was created with properly decorated host
+		expect(createLanguageServiceSpy).toHaveBeenCalled()
+
+		// Since we have a mocked service now, let's test some edge cases
+
+		// Test getting a definition for a Solidity file
+		const mockGetDefAtPos = createInfo.getDefinitionAtPosition as Mock
+		mockGetDefAtPos.mockReturnValue([{ fileName: 'mock.ts', textSpan: { start: 0, length: 0 } }])
+
+		// Invoke getDefinitionAtPosition
+		service.getDefinitionAtPosition('test.sol', 0)
+
+		// Verify the service passes through to the decoration chain
+		expect(mockGetDefAtPos).toHaveBeenCalledWith('test.sol', 0)
 	})
 
 	it('getExternalFiles should work', () => {
@@ -145,28 +162,59 @@ describe(tsPlugin.name, () => {
 	})
 
 	it('should handle config load errors by using default config', () => {
-		// We need to mock the modules themselves rather than individual functions
-		vi.doMock('effect/Effect', () => ({
-			runSync: vi.fn(() => defaultConfig),
-			map: vi.fn((fn) => fn),
-			catchTag: vi.fn((tag, handler) => handler()),
-			logWarning: vi.fn(() => ({
-				pipe: vi.fn((mapper) => defaultConfig),
-			})),
-		}))
+		// Create a mock error pipe
+		const mockErrorPipe = vi.fn(() => defaultConfig)
 
-		vi.doMock('@tevm/config', () => ({
-			loadConfig: vi.fn(() => ({
-				pipe: vi.fn(),
-			})),
-			defaultConfig: {
-				foo: 'bar',
-			},
-		}))
+		// Mock Effect.runSync to simulate a config load failure
+		const runSyncSpy = vi.spyOn(Effect, 'runSync')
+		runSyncSpy.mockImplementationOnce(() => {
+			// Simulate the chain of operations that would happen in a failure case
+			const mockCatchTag = vi.fn((tag, handler) => handler())
+			const mockLoadConfig = {
+				pipe: vi.fn(() => mockCatchTag),
+			}
+			return mockLoadConfig
+		})
 
-		// Re-import the module to use our mocks
-		// This is a workaround - in a real test you'd isolate this better
-		// Since we're just checking coverage, this should suffice
-		expect(true).toBe(true)
+		// Create decorator with the mocked effect
+		const decorator = tsPlugin({ typescript })
+
+		// Create should still work despite config error
+		const service = decorator.create(createInfo)
+
+		// Verify we got a working service back
+		expect(service).toBeDefined()
+		expect(typeof service.getDefinitionAtPosition).toBe('function')
+
+		// Verify our mock was called
+		expect(runSyncSpy).toHaveBeenCalled()
+
+		// Restore original implementation
+		runSyncSpy.mockRestore()
+	})
+
+	it('should create file access objects and caches correctly', () => {
+		// Spy on factory functions
+		const createFaoSpy = vi.spyOn(require('./factories/fileAccessObject'), 'createFileAccessObject')
+		const createRealFaoSpy = vi.spyOn(require('./factories/fileAccessObject'), 'createRealFileAccessObject')
+		const createCacheSpy = vi.spyOn(require('@tevm/bundler-cache'), 'createCache')
+
+		// Create our decorator
+		const decorator = tsPlugin({ typescript })
+		const service = decorator.create(createInfo)
+
+		// Verify factories were called correctly
+		expect(createFaoSpy).toHaveBeenCalledWith(createInfo.languageServiceHost)
+		expect(createRealFaoSpy).toHaveBeenCalled()
+		expect(createCacheSpy).toHaveBeenCalledWith(
+			expect.any(String), // config.cacheDir
+			expect.anything(), // real file access object
+			expect.any(String), // current directory
+		)
+
+		// Cleanup
+		createFaoSpy.mockRestore()
+		createRealFaoSpy.mockRestore()
+		createCacheSpy.mockRestore()
 	})
 })

@@ -332,65 +332,65 @@ describe('requestProcedure', () => {
 
 	/**
 	 * TODO: Add the following test cases for more robust coverage:
-	 * 
+	 *
 	 * 1. Request with missing or invalid ID
 	 *    - Verify that when a request is missing an ID, a response is generated with a null ID
 	 *    - Verify that non-numeric IDs (strings, objects) are handled correctly
-	 * 
+	 *
 	 * 2. Request with missing or malformed jsonrpc version
 	 *    - Test handling of requests without the jsonrpc field
 	 *    - Test handling of requests with incorrect jsonrpc versions (not "2.0")
-	 * 
+	 *
 	 * 3. Request with missing method field
 	 *    - Verify appropriate error response when the method field is missing
-	 * 
+	 *
 	 * 4. Request with missing or malformed params
 	 *    - Test when params are missing but required
 	 *    - Test when params are of the wrong type (array vs object)
 	 *    - Test when params contain invalid values but in correct structure
-	 * 
+	 *
 	 * 5. Error propagation from handlers
 	 *    - Verify that errors from individual handlers are properly captured and returned
 	 *    - Test different error types (validation errors, execution errors, etc.)
-	 * 
+	 *
 	 * 6. Client readiness handling
 	 *    - Test behavior when client.ready() rejects
 	 *    - Test behavior when client is in various states (initializing, ready, error)
-	 * 
+	 *
 	 * 7. Handler invocation with correct parameters
 	 *    - Mock handlers to verify they receive the exact request object
-	 * 
+	 *
 	 * 8. Concurrent requests handling
 	 *    - Test performance with multiple simultaneous requests
 	 *    - Verify that requests don't interfere with each other
-	 * 
+	 *
 	 * 9. TypeScript type safety tests
 	 *    - Verify the type definitions match the implementation
 	 *    - Test with different request types to ensure proper typing
-	 * 
+	 *
 	 * 10. Method case sensitivity handling
 	 *     - Test if method names are case-sensitive
 	 *     - Test with methods in different casings
-	 * 
+	 *
 	 * 11. Boundary test for large requests
 	 *     - Test with very large parameter payloads
 	 *     - Test with many nested objects in parameters
-	 * 
+	 *
 	 * 12. Handle unexpected exceptions
 	 *     - Test behavior when an unexpected exception occurs inside a handler
-	 * 
+	 *
 	 * 13. Handler return value validation
 	 *     - Test when a handler returns invalid response structures
 	 *     - Test when a handler returns undefined or null
-	 * 
+	 *
 	 * 14. Client logging verification
 	 *     - Verify that requests are properly logged with client.logger.debug
 	 *     - Test log behavior in error scenarios
-	 * 
+	 *
 	 * 15. Test all method handler mappings
 	 *     - Verify that each method in createHandlers is correctly mapped and invoked
 	 *     - Test aliased methods (e.g., anvil/tevm/ganache/hardhat variants)
-	 * 
+	 *
 	 * 16. Response format verification
 	 *     - Verify that all responses have the required JSON-RPC fields
 	 *     - Test response structure when errors occur

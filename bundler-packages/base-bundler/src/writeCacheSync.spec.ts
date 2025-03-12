@@ -22,19 +22,19 @@ describe('writeCacheSync', () => {
 		readMjs: vi.fn(),
 		writeArtifacts: vi.fn(),
 		writeMjsSync: vi.fn(),
-		writeDtsSync: vi.fn()
+		writeDtsSync: vi.fn(),
 	} as any
 
 	const mockArtifacts = {
 		solcInput: { sources: {} },
 		solcOutput: { contracts: {} },
 		asts: { 'Contract.sol': {} },
-		artifacts: { 
-			Contract: { 
-				abi: [], 
+		artifacts: {
+			Contract: {
+				abi: [],
 				userdoc: { methods: {} },
-				evm: { deployedBytecode: { object: '0x123' } } 
-			} 
+				evm: { deployedBytecode: { object: '0x123' } },
+			},
 		},
 		modules: {},
 	} as any

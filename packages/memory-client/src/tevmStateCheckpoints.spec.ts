@@ -1,15 +1,15 @@
 import { SimpleContract } from '@tevm/contract'
-import { type Client, createClient, encodeFunctionData, decodeFunctionResult } from 'viem'
+import { type Client, createClient, decodeFunctionResult, encodeFunctionData } from 'viem'
 import { parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmCall } from './tevmCall.js'
 import { tevmDeploy } from './tevmDeploy.js'
-import { tevmMine } from './tevmMine.js'
-import { tevmSetAccount } from './tevmSetAccount.js'
 import { tevmDumpState } from './tevmDumpState.js'
 import { tevmLoadState } from './tevmLoadState.js'
+import { tevmMine } from './tevmMine.js'
+import { tevmSetAccount } from './tevmSetAccount.js'
 
 describe('Tevm State Management', () => {
 	let client: Client<TevmTransport>
@@ -173,7 +173,7 @@ describe('Tevm State Management', () => {
 			data: finalSetDataEncoded,
 			createTransaction: true,
 		})
-		
+
 		await tevmMine(client, { blockCount: 1 })
 
 		// 6. Verify the latest change

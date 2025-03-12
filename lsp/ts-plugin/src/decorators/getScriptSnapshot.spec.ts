@@ -73,10 +73,10 @@ describe(getScriptSnapshotDecorator.name, () => {
 			getScriptSnapshot: vi.fn(),
 		}
 		cache = createCache(tmpdir(), fao, tmpdir())
-		
+
 		// Reset mock implementations
 		vi.resetAllMocks()
-		
+
 		// Setup default mock for existsSync
 		vi.mocked(fao.existsSync).mockImplementation((path: string) => {
 			// For existing Solidity files
@@ -89,7 +89,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			}
 			return false
 		})
-		
+
 		// Default bundler mock
 		vi.mocked(bundler).mockReturnValue({
 			name: 'mock-bundler',
@@ -129,7 +129,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			if (path.endsWith('.sol.ts')) return true
 			return false
 		})
-		
+
 		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
@@ -143,14 +143,14 @@ describe(getScriptSnapshotDecorator.name, () => {
 			path.join(__dirname, '../test/fixtures/HelloWorld3.sol'),
 		)
 	})
-	
+
 	it('should return the .d.ts file if it exists', () => {
 		// Mock .d.ts file existing
 		vi.mocked(fao.existsSync).mockImplementation((path: string) => {
 			if (path.endsWith('.sol.d.ts')) return true
 			return false
 		})
-		
+
 		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
@@ -164,7 +164,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 			path.join(__dirname, '../test/fixtures/HelloWorld.sol'),
 		)
 	})
-	
+
 	it('should return a generated .d.ts file for solidity files', () => {
 		// Override the bundler mock for this test
 		vi.mocked(bundler).mockReturnValue({
@@ -179,7 +179,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 				solcInput: {},
 			}),
 		} as any)
-		
+
 		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
@@ -191,7 +191,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 		const result = decorator.getScriptSnapshot(fileName)
 		expect((result as any).text).toBe('export const HelloWorld = "mock"')
 	})
-	
+
 	it('should handle resolveDts throwing', () => {
 		// Set up bundler to throw error
 		vi.mocked(bundler).mockReturnValue({
@@ -204,7 +204,7 @@ describe(getScriptSnapshotDecorator.name, () => {
 				throw new Error('Compilation error')
 			}),
 		} as any)
-		
+
 		const decorator = getScriptSnapshotDecorator(cache)(
 			{ languageServiceHost, project } as any,
 			typescript,
@@ -214,10 +214,10 @@ describe(getScriptSnapshotDecorator.name, () => {
 		)
 		const fileName = path.join(__dirname, '../test/fixtures/BadCompile.sol')
 		const result = decorator.getScriptSnapshot(fileName)
-		
+
 		// Check that we return an empty export
 		expect((result as any).text).toBe('export {}')
-		
+
 		// Check that the error was logged
 		expect(logger.error).toHaveBeenCalledWith(
 			`@tevm/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${fileName}`,

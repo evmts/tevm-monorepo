@@ -1,8 +1,8 @@
 import { optimism } from '@tevm/common'
-import { type Address, type Client, createClient, http, parseEther } from 'viem'
+import { transports } from '@tevm/test-utils'
+import { http, type Address, type Client, createClient, parseEther } from 'viem'
 import { getBalance, getBlockNumber, getCode, sendTransaction } from 'viem/actions'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { transports } from '@tevm/test-utils'
 import type { TevmTransport } from './TevmTransport.js'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmMine } from './tevmMine.js'
@@ -93,7 +93,7 @@ describe('Tevm Forking Integration', () => {
 		})
 
 		expect(txHash).toBeDefined()
-		
+
 		// Mine to include the transaction
 		await tevmMine(client, { blockCount: 1 })
 

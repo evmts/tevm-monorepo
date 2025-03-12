@@ -11,7 +11,7 @@ import { tevmSetAccount } from './tevmSetAccount.js'
 
 describe('Tevm Mining Modes', () => {
 	const testAddress = '0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' as Address
-	
+
 	it('should mine blocks automatically in auto mode', async () => {
 		// Create a client with auto mining mode (default)
 		const client = createMemoryClient({
@@ -144,7 +144,7 @@ describe('Tevm Mining Modes', () => {
 			'0x3333333333333333333333333333333333333333',
 			'0x4444444444444444444444444444444444444444',
 			'0x5555555555555555555555555555555555555555',
-		].map(addr => addr as Address)
+		].map((addr) => addr as Address)
 
 		// Send transactions in sequence
 		for (const recipient of recipients) {
@@ -185,19 +185,19 @@ describe('Tevm Mining Modes', () => {
 
 		// Mine two blocks
 		await tevmMine(client, { blockCount: 2 })
-		
+
 		// Get the last block timestamp
 		const vm = await client.transport.tevm.getVm()
 		const latestBlock = await vm.blockchain.getLatestBlock()
 		const firstBlockTime = Number(latestBlock.header.timestamp)
-		
+
 		// Mine one more block
 		await tevmMine(client, { blockCount: 1 })
-		
+
 		// Get the new latest block timestamp
 		const newLatestBlock = await vm.blockchain.getLatestBlock()
 		const secondBlockTime = Number(newLatestBlock.header.timestamp)
-		
+
 		// The difference should be at least the mining interval
 		const timeDiff = secondBlockTime - firstBlockTime
 		expect(timeDiff).toBeGreaterThanOrEqual(miningInterval)

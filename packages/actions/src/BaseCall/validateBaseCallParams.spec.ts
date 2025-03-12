@@ -214,7 +214,7 @@ test('should match snapshot for invalid parameters', () => {
 
 /**
  * TODO: Add the following test cases for more robust coverage:
- * 
+ *
  * 1. Test for stateOverrideSet validation (all properties and invalid inputs)
  * 2. Test for conflicting gasPrice vs maxFeePerGas/maxPriorityFeePerGas
  * 3. Test for boundary values in numeric fields (max/min BigInt values)
@@ -240,9 +240,9 @@ test('should validate stateOverrideSet properties', () => {
 			},
 		},
 	} as any)
-	
+
 	expect(errors.length).toBeGreaterThan(0)
-	expect(errors.some(e => e.message.includes('stateOverrideSet'))).toBe(true)
+	expect(errors.some((e) => e.message.includes('stateOverrideSet'))).toBe(true)
 })
 
 test('should detect conflicting gas price parameters', () => {
@@ -251,9 +251,9 @@ test('should detect conflicting gas price parameters', () => {
 		maxFeePerGas: 200n,
 		maxPriorityFeePerGas: 50n,
 	})
-	
+
 	expect(errors.length).toBeGreaterThan(0)
-	expect(errors.some(e => e.message.includes('gasPrice') && e.message.includes('maxFeePerGas'))).toBe(true)
+	expect(errors.some((e) => e.message.includes('gasPrice') && e.message.includes('maxFeePerGas'))).toBe(true)
 })
 
 test('should validate boundary values in numeric fields', () => {
@@ -263,77 +263,77 @@ test('should validate boundary values in numeric fields', () => {
 		gas: maxBigInt,
 		value: maxBigInt,
 	})
-	
+
 	// These should pass validation as they're valid numbers
-	expect(errors.filter(e => e.message.includes('gas'))).toEqual([])
-	expect(errors.filter(e => e.message.includes('value'))).toEqual([])
+	expect(errors.filter((e) => e.message.includes('gas'))).toEqual([])
+	expect(errors.filter((e) => e.message.includes('value'))).toEqual([])
 })
 
 test('should validate createTransaction with each possible value', () => {
 	// Test each valid value
 	const validValues = ['on-success', 'always', 'never', true, false] as const
-	
-	validValues.forEach(value => {
+
+	validValues.forEach((value) => {
 		const errors = validateBaseCallParams({
 			createTransaction: value,
 		})
-		expect(errors.filter(e => e.message.includes('createTransaction'))).toEqual([])
+		expect(errors.filter((e) => e.message.includes('createTransaction'))).toEqual([])
 	})
-	
+
 	// Test invalid value
 	const errors = validateBaseCallParams({
 		createTransaction: 'invalid-value',
 	} as any)
-	
-	expect(errors.some(e => e.message.includes('createTransaction'))).toBe(true)
+
+	expect(errors.some((e) => e.message.includes('createTransaction'))).toBe(true)
 })
 
 test('should validate blockTag with safe/finalized and numeric block values', () => {
-	// Test valid blockTag values 
+	// Test valid blockTag values
 	const validTags = ['latest', 'earliest', 'pending'] as const
-	
-	validTags.forEach(tag => {
+
+	validTags.forEach((tag) => {
 		const errors = validateBaseCallParams({
 			blockTag: tag,
 		})
-		expect(errors.filter(e => e.message.includes('blockTag'))).toEqual([])
+		expect(errors.filter((e) => e.message.includes('blockTag'))).toEqual([])
 	})
-	
+
 	// Also test with hex block numbers
 	const hexErrors = validateBaseCallParams({
 		blockTag: '0x1',
 	} as any)
-	expect(hexErrors.filter(e => e.message.includes('blockTag'))).toEqual([])
-	
+	expect(hexErrors.filter((e) => e.message.includes('blockTag'))).toEqual([])
+
 	// Test invalid blockTag values
 	const invalidTags = [123, false, {}, []]
-	
-	invalidTags.forEach(tag => {
+
+	invalidTags.forEach((tag) => {
 		const errors = validateBaseCallParams({
 			blockTag: tag,
 		} as any)
-		expect(errors.some(e => e.message.includes('blockTag'))).toBe(true)
+		expect(errors.some((e) => e.message.includes('blockTag'))).toBe(true)
 	})
 })
 
 test('should validate very large blobVersionedHashes arrays', () => {
 	// Create a large array of valid blob hashes
 	const largeArray = Array(100).fill('0x1234567890123456789012345678901234567890123456789012345678901234')
-	
+
 	const errors = validateBaseCallParams({
 		blobVersionedHashes: largeArray,
 	})
-	
+
 	// Large array of valid hashes should pass validation
-	expect(errors.filter(e => e.message.includes('blobVersionedHashes'))).toEqual([])
-	
+	expect(errors.filter((e) => e.message.includes('blobVersionedHashes'))).toEqual([])
+
 	// Test with empty array
 	const emptyArrayErrors = validateBaseCallParams({
 		blobVersionedHashes: [],
 	})
-	
+
 	// Empty array should be valid
-	expect(emptyArrayErrors.filter(e => e.message.includes('blobVersionedHashes'))).toEqual([])
+	expect(emptyArrayErrors.filter((e) => e.message.includes('blobVersionedHashes'))).toEqual([])
 })
 
 test('should validate selfdestruct with edge cases', () => {
@@ -341,16 +341,16 @@ test('should validate selfdestruct with edge cases', () => {
 	const emptySetErrors = validateBaseCallParams({
 		selfdestruct: new Set(),
 	})
-	
+
 	// Empty set should be valid
-	expect(emptySetErrors.filter(e => e.message.includes('selfdestruct'))).toEqual([])
-	
+	expect(emptySetErrors.filter((e) => e.message.includes('selfdestruct'))).toEqual([])
+
 	// Test with invalid entries
 	const invalidEntries = validateBaseCallParams({
 		selfdestruct: new Set(['invalid-address']),
 	} as any)
-	
-	expect(invalidEntries.some(e => e.message.includes('selfdestruct'))).toBe(true)
+
+	expect(invalidEntries.some((e) => e.message.includes('selfdestruct'))).toBe(true)
 })
 
 test('should accept various combinations of optional parameters', () => {
@@ -366,7 +366,7 @@ test('should accept various combinations of optional parameters', () => {
 		to: '0x1234567890123456789012345678901234567890',
 		value: 100n,
 	})
-	
+
 	// Valid combination should pass
 	expect(errors).toEqual([])
 })
@@ -376,7 +376,7 @@ test('should validate when only required fields are provided', () => {
 	const errors = validateBaseCallParams({
 		// No required fields in BaseCallParams
 	})
-	
+
 	// Should be valid with no fields provided
 	expect(errors).toEqual([])
 })
@@ -390,7 +390,7 @@ test('should properly handle zero values in nonnegative fields', () => {
 		value: 0n,
 		depth: 0,
 	})
-	
+
 	// Zero values should be valid for these fields
 	expect(errors).toEqual([])
 })
@@ -402,7 +402,7 @@ test('should ignore unrecognized parameters', () => {
 		unknownField2: 123,
 		from: '0x1234567890123456789012345678901234567890',
 	} as any)
-	
+
 	// Should ignore unknown fields and validate the known ones
 	expect(errors).toEqual([])
 })

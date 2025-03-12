@@ -166,4 +166,102 @@ describe('compileContract', () => {
 
 		expect(result).toBeDefined()
 	})
+
+	it('should compile a contract with library imports correctly', async () => {
+		const config: ResolvedCompilerConfig = {
+			jsonAsConst: [],
+			cacheDir: '.tevm',
+			foundryProject: false,
+			libs: [],
+			remappings: {
+				mylib: 'lib/mylib',
+			},
+		}
+
+		const result = await compileContract(
+			'./Contract.sol',
+			join(__dirname, '..', 'fixtures', 'withlib'),
+			config,
+			false,
+			false,
+			fao,
+			mockLogger,
+			require('solc'),
+		)
+
+		expect(result.artifacts).toBeDefined()
+		const artifacts = result.artifacts || {}
+		expect(Object.keys(artifacts).length).toBeGreaterThan(0)
+
+		// Verify both contracts were compiled
+		expect(artifacts['DerivedContract']).toBeDefined()
+		expect(artifacts['BaseContract']).toBeDefined()
+
+		// Verify modules were processed correctly
+		expect(Object.keys(result.modules).length).toBeGreaterThan(1)
+	})
+
+	it('should use remappings from config correctly', async () => {
+		const config: ResolvedCompilerConfig = {
+			jsonAsConst: [],
+			cacheDir: '.tevm',
+			foundryProject: false,
+			libs: [],
+			remappings: {
+				mylib: 'lib/mylib',
+			},
+		}
+
+		const result = await compileContract(
+			'./Contract.sol',
+			join(__dirname, '..', 'fixtures', 'withremappings'),
+			config,
+			false,
+			false,
+			fao,
+			mockLogger,
+			require('solc'),
+		)
+
+		expect(result.artifacts).toBeDefined()
+		const artifacts = result.artifacts || {}
+		expect(Object.keys(artifacts).length).toBeGreaterThan(0)
+		expect(artifacts['DerivedContract']).toBeDefined()
+	})
+
+	it('should handle read errors appropriately', async () => {
+		const config: ResolvedCompilerConfig = {
+			jsonAsConst: [],
+			cacheDir: '.tevm',
+			foundryProject: false,
+			libs: [],
+			remappings: {},
+		}
+
+		// Create a custom fao that will fail on specific file reads
+		const failingFao: FileAccessObject = {
+			...fao,
+			readFile: async (file: string, encoding: BufferEncoding) => {
+				if (file.includes('NonExistentContract.sol')) {
+					throw new Error('File not found')
+				}
+				return fao.readFile(file, encoding)
+			},
+		}
+
+		await expect(
+			compileContract(
+				'./NonExistentContract.sol',
+				join(__dirname, '..', 'fixtures', 'basic'),
+				config,
+				false,
+				false,
+				failingFao,
+				mockLogger,
+				require('solc'),
+			),
+		).rejects.toThrow()
+
+		expect(mockLogger.error).toHaveBeenCalled()
+	})
 })

@@ -130,12 +130,15 @@ describe('executeCall', () => {
 	})
 
 	/**
-	 * TODO: Add the following test cases for more robust coverage:
-	 * 
-	 * 1. Test with createTrace=false - Verify no trace is created
-	 * 2. Test with createAccessList=false - Verify no accessList is created
-	 * 3. Test with custom maxFeePerGas and maxPriorityFeePerGas together
-	 * 4. Test with different block override values
+	 * The following test cases have been added for more robust coverage:
+	 *
+	 * ✅ 1. Test with createTrace=false - Verify no trace is created
+	 * ✅ 2. Test with createAccessList=false - Verify no accessList is created
+	 * ✅ 3. Test with custom maxFeePerGas and maxPriorityFeePerGas together
+	 * ✅ 4. Test with different block override values
+	 *
+	 * Additional test cases that would be valuable but would require more complex mocking:
+	 *
 	 * 5. Test error handling for evmInputToImpersonatedTx failures
 	 * 6. Test error handling for runCallWithTrace failures
 	 * 7. Test error handling for runTx failures
@@ -148,7 +151,7 @@ describe('executeCall', () => {
 	 * 14. Test for memory leaks with repeated calls and handlers
 	 * 15. Test behavior with invalid VM/client state
 	 */
-	
+
 	it('should execute a call with createTrace=false', async () => {
 		const client = createTevmNode()
 		expect(
@@ -222,7 +225,7 @@ describe('executeCall', () => {
 		expect(result.trace).toBeDefined()
 		expect(result.accessList).toBeUndefined()
 	})
-	
+
 	it('should execute with custom maxFeePerGas and maxPriorityFeePerGas', async () => {
 		const client = createTevmNode()
 		expect(
@@ -252,19 +255,19 @@ describe('executeCall', () => {
 		// Custom gas parameters
 		const customMaxFeePerGas = 1000000000n
 		const customMaxPriorityFeePerGas = 100000000n
-		
+
 		// Execute with custom gas parameters
 		const result = await executeCall(client, evmInput, {
 			createAccessList: true,
 			createTrace: true,
 			maxFeePerGas: customMaxFeePerGas,
-			maxPriorityFeePerGas: customMaxPriorityFeePerGas
+			maxPriorityFeePerGas: customMaxPriorityFeePerGas,
 		})
-		
+
 		if ('errors' in result) {
 			throw result.errors
 		}
-		
+
 		expect(result.runTxResult).toBeDefined()
 		// Transaction should have been created with our custom gas parameters
 		expect(result.runTxResult.execResult.executionGasUsed).toBe(2851n)
@@ -304,14 +307,14 @@ describe('executeCall', () => {
 				baseFee: 2000000000n,
 				gasLimit: 30000000n,
 				number: 123456n,
-				timestamp: 1234567890n
-			}
+				timestamp: 1234567890n,
+			},
 		})
-		
+
 		if ('errors' in result) {
 			throw result.errors
 		}
-		
+
 		expect(result.runTxResult).toBeDefined()
 		expect(result.runTxResult.execResult.executionGasUsed).toBe(2851n)
 	})

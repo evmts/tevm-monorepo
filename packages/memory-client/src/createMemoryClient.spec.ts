@@ -2,9 +2,9 @@
 // This only tests this specific unit the src/test folder has more e2e tests and examples
 import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
+import { parseEther } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
-import { parseEther } from 'viem'
 
 describe('createMemoryClient', () => {
 	it('should create a MemoryClient with default configuration', () => {
@@ -66,11 +66,11 @@ describe('createMemoryClient', () => {
 			},
 			common: optimism,
 		})
-		
+
 		expect(client).toBeDefined()
 		const ready = await client.tevmReady()
 		expect(ready).toBe(true)
-		
+
 		// Check that we can interact with the forked network
 		const blockNumber = await client.getBlockNumber()
 		expect(blockNumber).toBeGreaterThan(0n)
@@ -83,15 +83,15 @@ describe('createMemoryClient', () => {
 				type: 'auto',
 			},
 		})
-		
+
 		await client.tevmReady()
-		
+
 		// Set initial balance
 		await client.setBalance({
 			address: testAddress,
 			value: parseEther('1.0'),
 		})
-		
+
 		// In auto mining mode, the transaction should be mined automatically
 		// without needing to call client.mine()
 		await client.sendTransaction({
@@ -99,10 +99,10 @@ describe('createMemoryClient', () => {
 			to: '0x0000000000000000000000000000000000000000',
 			value: parseEther('0.1'),
 		})
-		
+
 		// Check if the balance was updated (transaction mined)
 		const balance = await client.getBalance({ address: testAddress })
-		
+
 		// Balance should be less than initial amount (1 ETH - 0.1 ETH - gas costs)
 		expect(balance).toBeLessThan(parseEther('0.9'))
 	})

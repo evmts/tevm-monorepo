@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/contract'
-import { type Client, createClient, encodeFunctionData, decodeFunctionResult } from 'viem'
+import { type Client, createClient, decodeFunctionResult, encodeFunctionData } from 'viem'
 import { parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { TevmTransport } from './TevmTransport.js'
@@ -23,7 +23,7 @@ describe('Tevm State Persistence', () => {
 		sourceClient = createClient({
 			transport: createTevmTransport(),
 		})
-		
+
 		targetClient = createClient({
 			transport: createTevmTransport(),
 		})
@@ -75,18 +75,18 @@ describe('Tevm State Persistence', () => {
 
 		// 3. Dump the entire state from sourceClient
 		const dumpedState = await tevmDumpState(sourceClient)
-		
+
 		// Verify dumped state has essential properties
 		expect(dumpedState).toHaveProperty('state')
 		// The state should have data structure from ethereumjs, which includes accounts
 		// but we don't want to be too strict about the exact structure
-		
+
 		// 4. Load state into the targetClient
 		await tevmLoadState(targetClient, dumpedState)
 
 		// 5. Verify state was transferred correctly
 		// Check account balance
-		const accountInfo = await tevmGetAccount(targetClient, { 
+		const accountInfo = await tevmGetAccount(targetClient, {
 			address: testAddress,
 		})
 		expect(accountInfo.balance).toBe(parseEther('10'))

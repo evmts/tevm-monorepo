@@ -4,7 +4,7 @@ This document summarizes existing tests and identifies areas for additional test
 
 ## Newly Added Tests
 
-The following tests have been implemented to demonstrate core state management features as described in the Tevm documentation:
+The following tests have been implemented to demonstrate core features as described in the Tevm documentation:
 
 ### 1. State Persistence (`tevmStatePersistence.spec.ts`)
 - **Implemented:** Saving and loading state between different clients
@@ -20,26 +20,76 @@ The following tests have been implemented to demonstrate core state management f
   - Restoring state to previous snapshots
   - Verifying contract state changes are properly tracked and restored
 
+### 3. Forking Integration (`tevmForkIntegration.spec.ts`)
+- **Implemented:** Network forking and state override functionality
+- **Demonstrates:**
+  - Creating forks from existing networks
+  - Modifying local state while preserving fork state
+  - Processing transactions on forked networks
+  - Chain configuration handling with forks
+
+### 4. Contract Interaction (`tevmContractIntegration.spec.ts`)
+- **Implemented:** Comprehensive contract testing using tevmContract
+- **Demonstrates:**
+  - Deploying contracts with constructor arguments
+  - Reading contract state with tevmContract
+  - Modifying contract state with transactions
+  - Value transfers to contracts
+  - Gas limit specification
+  - Sequential state changes
+
+### 5. Mining Modes (`tevmMiningModes.spec.ts`)
+- **Implemented:** Tests for different mining configurations
+- **Demonstrates:**
+  - Automatic mining behavior
+  - Manual mining control
+  - Transaction batching with manual mining
+  - Mining interval configuration
+
+### 6. Account Management (`tevmAccountManagement.spec.ts`)
+- **Implemented:** Tests for account state operations
+- **Demonstrates:**
+  - Setting and retrieving account balances and nonces
+  - Setting contract bytecode
+  - Setting and retrieving contract storage
+  - Managing multiple accounts
+  - Handling large storage structures
+
 ## Key Functionality Demonstrated
 
 These new tests showcase several important concepts from the documentation:
 
-1. **State Snapshots**
+1. **State Management**
    - Create complete snapshots of the EVM state
    - Restore from snapshots to reset state to previous points
+   - Create multiple snapshots during execution
+   - Selectively restore to different points in history
 
-2. **Contract Interaction**
+2. **Network Forking**
+   - Fork from existing networks
+   - Override fork state with local modifications
+   - Execute transactions on forked state
+   - Chain configuration with forks
+
+3. **Contract Interaction**
    - Deploy contracts with constructor arguments
    - Call contract functions and verify results
    - Modify contract state and observe changes
+   - Send value with contract interactions
+   - Specify gas limits for transactions
 
-3. **Account Management**
+4. **Account Management**
    - Create and modify account balances and nonces
-   - Verify account state is properly persisted
+   - Set contract bytecode
+   - Manage contract storage
+   - Handle multiple accounts simultaneously
+   - Work with large storage structures
 
-4. **Incremental State Management**
-   - Create multiple snapshots during execution
-   - Selectively restore to different points in history
+5. **Mining Control**
+   - Use automatic mining for convenience
+   - Use manual mining for precise control
+   - Batch multiple transactions in single blocks
+   - Configure mining intervals
 
 ## Existing Test Coverage TODOs
 

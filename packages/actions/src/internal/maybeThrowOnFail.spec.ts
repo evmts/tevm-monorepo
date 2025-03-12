@@ -56,26 +56,72 @@ describe('maybeThrowOnFail', () => {
 	// The important edge case is that it should work even with unusual objects or values
 	it('should handle objects with non-standard errors property correctly', () => {
 		// Test with an object that has a custom errors property that behaves strangely
-		const result = Object.create({}, {
-			errors: {
-				// Add a custom property descriptor
-				get: function() {
-					// Return an object with a length property but no other array-like behavior
-					return { length: 2 };
+		const result = Object.create(
+			{},
+			{
+				errors: {
+					// Add a custom property descriptor
+					get: () => {
+						// Return an object with a length property but no other array-like behavior
+						return { length: 2 }
+					},
+					enumerable: true,
+					configurable: true,
 				},
-				enumerable: true,
-				configurable: true
+				data: {
+					value: 'some data',
+					enumerable: true,
+				},
 			},
-			data: {
-				value: 'some data',
-				enumerable: true
-			}
-		});
-		
-		// This should not throw, even though errors.length > 1, 
+		)
+
+		// This should not throw, even though errors.length > 1,
 		// since the errors property is not a real array and the fallback should handle it
-		expect(() => maybeThrowOnFail(false, result)).not.toThrow();
-		
+		expect(() => maybeThrowOnFail(false, result)).not.toThrow()
+
 		// Other tests already cover the main code paths
+	})
+
+	it('should handle custom error objects correctly', () => {
+		class CustomError extends Error {
+			constructor(message) {
+				super(message)
+				this.name = 'CustomError'
+				this.customProperty = 'custom value'
+			}
+		}
+
+		const customError = new CustomError('Custom error message')
+		const result = { data: 'some data', errors: [customError] }
+
+		try {
+			maybeThrowOnFail(true, result)
+			// Should not reach here
+			expect(false).toBe(true)
+		} catch (e) {
+			expect(e).toBeInstanceOf(CustomError)
+			expect(e.name).toBe('CustomError')
+			expect(e.message).toBe('Custom error message')
+			expect(e.customProperty).toBe('custom value')
+		}
+	})
+
+	it('should handle error objects without Error class properties', () => {
+		// Object with error-like properties but not an instance of Error
+		const errorLikeObject = {
+			_tag: 'CustomErrorType',
+			message: 'This is not a real Error instance',
+		}
+		const result = { data: 'some data', errors: [errorLikeObject] }
+
+		try {
+			maybeThrowOnFail(true, result)
+			// Should not reach here
+			expect(false).toBe(true)
+		} catch (e) {
+			expect(e).toBe(errorLikeObject)
+			expect(e._tag).toBe('CustomErrorType')
+			expect(e.message).toBe('This is not a real Error instance')
+		}
 	})
 })

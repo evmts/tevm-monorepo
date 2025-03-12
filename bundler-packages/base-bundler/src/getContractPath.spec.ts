@@ -84,7 +84,7 @@ describe('getContractPath', () => {
 		})
 
 		getContractPath('/test/path')
-		
+
 		// Verify the first package tried is tevm/contract, followed by @tevm/contract
 		expect(callOrder[0]).toBe('tevm/contract')
 		expect(callOrder[1]).toBe('@tevm/contract')
@@ -116,7 +116,7 @@ describe('getContractPath', () => {
 		const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 		const result1 = getContractPath('/test/path')
 		expect(result1).toBe('tevm/contract') // Still falls back to default
-		
+
 		// Change error to be a non-Error object
 		mockRequire.resolve.mockImplementation(() => {
 			throw 'String error' as any
@@ -124,7 +124,7 @@ describe('getContractPath', () => {
 
 		const result2 = getContractPath('/test/path')
 		expect(result2).toBe('tevm/contract')
-		
+
 		consoleWarnSpy.mockRestore()
 	})
 })

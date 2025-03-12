@@ -43,30 +43,30 @@ describe('dumpState', () => {
 			transport: createTevmTransport({}),
 			chain: optimism,
 		})
-		
+
 		const stateDump = await tevmDumpState(client)
-		
+
 		// Basic structure checks
 		expect(stateDump).toBeDefined()
 		expect(stateDump.stateRoot).toBeDefined()
 		expect(typeof stateDump.stateRoot).toBe('string')
 		expect(stateDump.stateRoot.startsWith('0x')).toBe(true)
 	})
-	
+
 	it('should work with a memory client', async () => {
 		// Use the memory client
 		const stateDump = await mc.tevmDumpState()
-		
+
 		// Basic structure checks
 		expect(stateDump).toBeDefined()
 		expect(stateDump.stateRoot).toBeDefined()
 		expect(typeof stateDump.stateRoot).toBe('string')
 		expect(stateDump.stateRoot.startsWith('0x')).toBe(true)
 	})
-	
+
 	it('should contain blockchain state information', async () => {
 		const stateDump = await mc.tevmDumpState()
-		
+
 		// Check blockchain state properties
 		expect(stateDump.blockNumber).toBeDefined()
 		expect(typeof stateDump.blockNumber).toBe('bigint')

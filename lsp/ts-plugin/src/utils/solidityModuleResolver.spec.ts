@@ -33,6 +33,35 @@ describe('solidityModuleResolver', () => {
 		)
 	})
 
+	it('should handle module resolution in subdirectories', () => {
+		// Create a mock for createRequire
+		const mockResolve = vi.fn().mockReturnValue('/resolved/path/Contract.sol')
+		const mockCreateRequire = vi.fn(() => ({ resolve: mockResolve }))
+
+		// Save original and replace with mock
+		const origCreateRequire = require('node:module').createRequire
+		require('node:module').createRequire = mockCreateRequire
+
+		// Test resolution from a nested file
+		const result = solidityModuleResolver(
+			'some-package/Contract.sol',
+			typescript,
+			{} as any,
+			'/path/to/nested/dir/file.ts',
+		)
+
+		expect(mockCreateRequire).toHaveBeenCalledWith('/path/to/nested/dir')
+		expect(mockResolve).toHaveBeenCalledWith('some-package/Contract.sol')
+		expect(result).toEqual({
+			extension: typescript.Extension.Dts,
+			isExternalLibraryImport: false,
+			resolvedFileName: '/resolved/path/Contract.sol',
+		})
+
+		// Restore original
+		require('node:module').createRequire = origCreateRequire
+	})
+
 	it('should return undefined for non-solidity modules', () => {
 		const result = solidityModuleResolver('module.js', typescript, {} as any, '/path/to/file.js')
 		expect(result).toBeUndefined()
@@ -73,6 +102,36 @@ describe('solidityModuleResolver', () => {
 		})
 
 		consoleSpy.mockRestore()
+	})
+
+	it('should handle @tevm/contract imports with compiler options', () => {
+		const mockResolvedModule = {
+			resolvedFileName: '/path/to/node_modules/@tevm/contract/index.d.ts',
+		}
+		const mockTs = createMockTs(mockResolvedModule)
+		const mockCreateInfo = {
+			project: {
+				getCompilerOptions: () => ({
+					baseUrl: '/custom/path',
+					paths: { '@tevm/*': ['./packages/*'] },
+				}),
+			},
+		}
+
+		const result = solidityModuleResolver('@tevm/contract', mockTs, mockCreateInfo as any, '/path/to/file.ts')
+
+		expect(mockTs.resolveModuleName).toHaveBeenCalledWith(
+			'@tevm/contract',
+			'/path/to/file.ts',
+			{ baseUrl: '/custom/path', paths: { '@tevm/*': ['./packages/*'] } },
+			mockCreateInfo.project,
+		)
+
+		expect(result).toEqual({
+			extension: typescript.Extension.Dts,
+			isExternalLibraryImport: true,
+			resolvedFileName: '/path/to/node_modules/@tevm/contract/index.d.ts',
+		})
 	})
 
 	it('should handle @tevm/contract/subpath imports', () => {
