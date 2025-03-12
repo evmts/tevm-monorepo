@@ -136,4 +136,147 @@ describe('generateDtsBody', () => {
 			>;"
 		`)
 	})
+
+	it('should handle complex ABI correctly in declaration files', () => {
+		const complexArtifacts = {
+			ComplexContract: {
+				abi: [
+					{
+						type: 'function',
+						name: 'transfer',
+						inputs: [
+							{ name: 'to', type: 'address' },
+							{ name: 'amount', type: 'uint256' }
+						],
+						outputs: [{ type: 'bool' }],
+						stateMutability: 'nonpayable'
+					},
+					{
+						type: 'event',
+						name: 'Transfer',
+						inputs: [
+							{ name: 'from', type: 'address', indexed: true },
+							{ name: 'to', type: 'address', indexed: true },
+							{ name: 'amount', type: 'uint256', indexed: false }
+						],
+						anonymous: false
+					}
+				],
+				evm: {
+					bytecode: { object: 'complexBytecode' },
+					deployedBytecode: { object: 'complexDeployedBytecode' }
+				},
+				userdoc: {
+					kind: 'user',
+					version: 1,
+					notice: 'A complex ERC20-like contract',
+					methods: {
+						'transfer(address,uint256)': {
+							notice: 'Transfers tokens to the specified address'
+						}
+					}
+				}
+			}
+		}
+
+		const result = runSync(generateDtsBody(complexArtifacts, true))
+		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+		expect(result).toContain('const _abiComplexContract = [')
+		expect(result).toContain('"transfer(address,uint256) returns (bool)"')
+		expect(result).toContain('"event Transfer(address indexed,address indexed,uint256)"')
+		expect(result).toContain('* @notice A complex ERC20-like contract')
+		expect(result).toContain('* @property transfer(address,uint256) Transfers tokens to the specified address')
+	})
+
+	it('should handle artifacts with no userdoc property in declaration files', () => {
+		const noDocsArtifact = {
+			SimpleContract: {
+				abi: [
+					{
+						type: 'function',
+						name: 'getValue',
+						inputs: [],
+						outputs: [{ type: 'uint256' }],
+						stateMutability: 'view'
+					}
+				],
+				evm: {
+					bytecode: { object: 'simpleBytecode' },
+					deployedBytecode: { object: 'simpleDeployedBytecode' }
+				}
+				// No userdoc property
+			}
+		}
+
+		const result = runSync(generateDtsBody(noDocsArtifact, false))
+		expect(result).toContain('const _abiSimpleContract = [')
+		expect(result).toContain('"getValue() view returns (uint256)"')
+		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+		expect(result).not.toContain('* @notice')
+		expect(result).not.toContain('* @property')
+	})
+
+	it('should handle contracts with methods documentation but no method notice', () => {
+		const partialDocsArtifact = {
+			PartialDocsContract: {
+				abi: [
+					{
+						type: 'function',
+						name: 'setValue',
+						inputs: [{ name: 'newValue', type: 'uint256' }],
+						outputs: [],
+						stateMutability: 'nonpayable'
+					}
+				],
+				evm: {
+					bytecode: { object: 'partialBytecode' },
+					deployedBytecode: { object: 'partialDeployedBytecode' }
+				},
+				userdoc: {
+					kind: 'user',
+					version: 1,
+					notice: 'Contract with partial docs',
+					methods: {
+						// Method exists but has no notice property
+						'setValue(uint256)': {}
+					}
+				}
+			}
+		}
+
+		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
+		expect(result).toContain('* @notice Contract with partial docs')
+		// Should not have property docs for methods with missing notice
+		expect(result).not.toContain('* @property setValue(uint256)')
+	})
+
+	it('should handle contracts with empty ABI in declaration files', () => {
+		const emptyAbiArtifact = {
+			EmptyAbiContract: {
+				abi: [], // Empty ABI
+				evm: {
+					bytecode: { object: 'emptyBytecode' },
+					deployedBytecode: { object: 'emptyDeployedBytecode' }
+				},
+				userdoc: {
+					kind: 'user',
+					version: 1,
+					notice: 'A contract with no functions'
+				}
+			}
+		}
+
+		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
+		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+		expect(resultWithBytecode).toContain('`0x${string}`')
+
+		const resultWithoutBytecode = runSync(generateDtsBody(emptyAbiArtifact, false))
+		expect(resultWithoutBytecode).toContain('* EmptyAbiContract Contract (no bytecode)')
+		expect(resultWithoutBytecode).toContain('change file name or add file that ends in \'.s.sol\' extension')
+		expect(resultWithoutBytecode).toContain('undefined, undefined, undefined')
+	})
 })

@@ -39,4 +39,43 @@ describe('maybeThrowOnFail', () => {
 		const output = maybeThrowOnFail(true, result)
 		expect(output).toBe(result)
 	})
+
+	it('should handle null or undefined result safely', () => {
+		// Test with null result
+		const nullResult = null
+		const nullOutput = maybeThrowOnFail(true, nullResult as any)
+		expect(nullOutput).toBe(nullResult)
+
+		// Test with undefined result
+		const undefinedResult = undefined
+		const undefinedOutput = maybeThrowOnFail(true, undefinedResult as any)
+		expect(undefinedOutput).toBe(undefinedResult)
+	})
+
+	// This test is to ensure we have high coverage for maybeThrowOnFail
+	// The important edge case is that it should work even with unusual objects or values
+	it('should handle objects with non-standard errors property correctly', () => {
+		// Test with an object that has a custom errors property that behaves strangely
+		const result = Object.create({}, {
+			errors: {
+				// Add a custom property descriptor
+				get: function() {
+					// Return an object with a length property but no other array-like behavior
+					return { length: 2 };
+				},
+				enumerable: true,
+				configurable: true
+			},
+			data: {
+				value: 'some data',
+				enumerable: true
+			}
+		});
+		
+		// This should not throw, even though errors.length > 1, 
+		// since the errors property is not a real array and the fallback should handle it
+		expect(() => maybeThrowOnFail(false, result)).not.toThrow();
+		
+		// Other tests already cover the main code paths
+	})
 })

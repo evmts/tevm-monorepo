@@ -210,4 +210,147 @@ describe('generateTevmBody', () => {
 		expect(result).not.toContain('"bytecode":')
 		expect(result).not.toContain('"deployedBytecode":')
 	})
+
+	it('should handle complex ABIs correctly', () => {
+		const complexArtifacts = {
+			ComplexContract: {
+				abi: [
+					{
+						type: 'function',
+						name: 'transfer',
+						inputs: [
+							{ name: 'to', type: 'address' },
+							{ name: 'amount', type: 'uint256' }
+						],
+						outputs: [{ type: 'bool' }],
+						stateMutability: 'nonpayable'
+					},
+					{
+						type: 'event',
+						name: 'Transfer',
+						inputs: [
+							{ name: 'from', type: 'address', indexed: true },
+							{ name: 'to', type: 'address', indexed: true },
+							{ name: 'amount', type: 'uint256', indexed: false }
+						],
+						anonymous: false
+					},
+					{
+						type: 'constructor',
+						inputs: [
+							{ name: 'initialSupply', type: 'uint256' }
+						],
+						stateMutability: 'nonpayable'
+					},
+					{
+						type: 'error',
+						name: 'InsufficientBalance',
+						inputs: [
+							{ name: 'account', type: 'address' },
+							{ name: 'balance', type: 'uint256' },
+							{ name: 'required', type: 'uint256' }
+						]
+					}
+				],
+				evm: {
+					bytecode: { object: 'complexBytecode' },
+					deployedBytecode: { object: 'complexDeployedBytecode' }
+				},
+				userdoc: {
+					kind: 'user',
+					version: 1,
+					notice: 'A complex contract example',
+					methods: {
+						'transfer(address,uint256)': {
+							notice: 'Transfers tokens to the specified address'
+						}
+					}
+				}
+			}
+		}
+
+		// Test different module formats with complex ABI
+		const mjsResult = runSync(generateTevmBody(complexArtifacts, 'mjs', true))
+		expect(mjsResult).toContain('transfer(address,uint256)')
+		expect(mjsResult).toContain('Transfer(address indexed,address indexed,uint256)')
+		expect(mjsResult).toContain('constructor(uint256)')
+		expect(mjsResult).toContain('error InsufficientBalance(address,uint256,uint256)')
+		expect(mjsResult).toContain('* @property transfer(address,uint256) Transfers tokens to the specified address')
+		expect(mjsResult).toContain('"bytecode": "0xcomplexBytecode"')
+
+		// Test TS format
+		const tsResult = runSync(generateTevmBody(complexArtifacts, 'ts', true))
+		expect(tsResult).toContain('as const')
+		expect(tsResult).toContain('transfer(address,uint256)')
+
+		// Test DTS format
+		const dtsResult = runSync(generateTevmBody(complexArtifacts, 'dts', true))
+		expect(dtsResult).toContain('export const ComplexContract: Contract<')
+		expect(dtsResult).toContain('* @notice A complex contract example')
+	})
+
+	it('should handle artifacts with no userdoc property', () => {
+		const noDocsArtifact = {
+			SimpleContract: {
+				abi: [
+					{
+						type: 'function',
+						name: 'getValue',
+						inputs: [],
+						outputs: [{ type: 'uint256' }],
+						stateMutability: 'view'
+					}
+				],
+				evm: {
+					bytecode: { object: 'simpleBytecode' },
+					deployedBytecode: { object: 'simpleDeployedBytecode' }
+				}
+				// No userdoc property
+			}
+		}
+
+		const result = runSync(generateTevmBody(noDocsArtifact, 'mjs', true))
+		expect(result).toContain('"name": "SimpleContract"')
+		expect(result).toContain('"humanReadableAbi": [')
+		expect(result).toContain('"getValue() view returns (uint256)"')
+		expect(result).toContain('@see [contract docs]')
+		// Should not crash due to missing userdoc
+		expect(result).not.toContain('undefined')
+	})
+
+	it('should handle artifacts with userdoc.methods but no method notice', () => {
+		const incompleteDocsArtifact = {
+			PartialDocsContract: {
+				abi: [
+					{
+						type: 'function',
+						name: 'setValue',
+						inputs: [{ name: 'newValue', type: 'uint256' }],
+						outputs: [],
+						stateMutability: 'nonpayable'
+					}
+				],
+				evm: {
+					bytecode: { object: 'partialBytecode' },
+					deployedBytecode: { object: 'partialDeployedBytecode' }
+				},
+				userdoc: {
+					kind: 'user',
+					version: 1,
+					methods: {
+						// Method exists but has no notice property
+						'setValue(uint256)': {}
+					}
+				}
+			}
+		}
+
+		const result = runSync(generateTevmBody(incompleteDocsArtifact, 'ts', true))
+		// Should not crash due to missing notice
+		expect(result).toContain('"name": "PartialDocsContract"')
+		expect(result).toContain('"humanReadableAbi": [')
+		expect(result).toContain('"setValue(uint256)"')
+		// Should not have a property doc for the method with missing notice
+		expect(result).not.toContain('* @property setValue(uint256)')
+	})
 })
