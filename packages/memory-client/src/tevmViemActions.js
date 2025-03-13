@@ -91,7 +91,7 @@ export const tevmViemActions = () => {
 	 * @private
 	 */
 	const extension = (client) => {
-		const { call, contract, deploy, mine, loadState, dumpState, setAccount, getAccount, ready } =
+		const { call, contract, deploy, mine, loadState, dumpState, setAccount, getAccount, ready, simulateCall } =
 			client.transport.tevm.extend(tevmActions())
 		return {
 			tevmReady: ready,
@@ -103,6 +103,7 @@ export const tevmViemActions = () => {
 			tevmDumpState: dumpState,
 			tevmSetAccount: setAccount,
 			tevmGetAccount: getAccount,
+			tevmSimulateCall: simulateCall,
 		}
 	}
 	return extension
