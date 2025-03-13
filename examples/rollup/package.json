@@ -1,0 +1,34 @@
+{
+  "name": "@tevm/example-rollup",
+  "version": "0.0.1",
+  "private": true,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rm -rf node_modules && rm -rf public/build",
+    "dev": "rollup -c -w",
+    "start": "sirv public --no-clear"
+  },
+  "dependencies": {
+    "@tevm/contract": "workspace:^",
+    "viem": "^2.23.5"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^5.2.0",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@tevm/rollup-plugin": "workspace:^",
+    "@tevm/ts-plugin": "workspace:^",
+    "rollup": "^4.14.0",
+    "rollup-plugin-css-only": "^4.5.2",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^2.0.2",
+    "sirv-cli": "^2.0.2",
+    "solc": "0.8.28",
+    "typescript": "^5.7.3"
+  }
+}

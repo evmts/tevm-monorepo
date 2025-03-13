@@ -14,7 +14,7 @@ export const validateMineEvents = (events) => {
 
 	/** @type {Array<{path: string, message: string}>} */
 	const errors = []
-	const handlers = ['onBlock', 'onReceipt', 'onLog']
+	const handlers = ['onBlock', 'onReceipt', 'onLog', 'onTransactionHash', 'onSuccess', 'onError']
 
 	for (const handler of handlers) {
 		if (handler in events && /** @type {Record<string, unknown>} */ (events)[handler] !== undefined) {

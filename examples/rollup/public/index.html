@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tevm Rollup Example</title>
+    <link rel="stylesheet" href="build/bundle.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Tevm Rollup Example</h1>
+        <div class="token-info">
+            <h2>Token Info</h2>
+            <div class="info-item">
+                <span class="label">Name:</span>
+                <span id="token-name">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Symbol:</span>
+                <span id="token-symbol">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Decimals:</span>
+                <span id="token-decimals">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Total Supply:</span>
+                <span id="token-total-supply">Loading...</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Your Balance:</span>
+                <span id="token-balance">Loading...</span>
+            </div>
+        </div>
+        
+        <div class="token-actions">
+            <h2>Token Actions</h2>
+            <div class="action-group">
+                <h3>Transfer</h3>
+                <div class="form-group">
+                    <label for="transfer-to">To Address:</label>
+                    <input type="text" id="transfer-to" placeholder="0x...">
+                </div>
+                <div class="form-group">
+                    <label for="transfer-amount">Amount:</label>
+                    <input type="number" id="transfer-amount" placeholder="100">
+                </div>
+                <button id="transfer-button">Transfer</button>
+            </div>
+            
+            <div class="action-group">
+                <h3>Mint Tokens</h3>
+                <div class="form-group">
+                    <label for="mint-amount">Amount:</label>
+                    <input type="number" id="mint-amount" placeholder="1000">
+                </div>
+                <button id="mint-button">Mint</button>
+            </div>
+            
+            <div class="action-group">
+                <h3>Burn Tokens</h3>
+                <div class="form-group">
+                    <label for="burn-amount">Amount:</label>
+                    <input type="number" id="burn-amount" placeholder="100">
+                </div>
+                <button id="burn-button">Burn</button>
+            </div>
+        </div>
+        
+        <div class="logs">
+            <h2>Logs</h2>
+            <pre id="output"></pre>
+        </div>
+    </div>
+    
+    <script src="build/bundle.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .token-info, .token-actions, .logs {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .info-item {
+            margin-bottom: 10px;
+        }
+        
+        .label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .action-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 10px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input {
+            padding: 8px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-top: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        pre {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 3px;
+            overflow: auto;
+            height: 200px;
+            font-family: monospace;
+        }
+    </style>
+</body>
+</html>

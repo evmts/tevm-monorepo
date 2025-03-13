@@ -1,0 +1,29 @@
+{
+  "name": "@tevm/example-rspack",
+  "version": "0.0.1",
+  "private": true,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "rspack build",
+    "clean": "rm -rf node_modules && rm -rf dist && rm -rf .rspack-cache",
+    "dev": "rspack serve"
+  },
+  "dependencies": {
+    "@tevm/contract": "workspace:^",
+    "viem": "^2.23.5"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^5.2.0",
+    "@rspack/cli": "^0.5.8",
+    "@rspack/core": "^0.5.8",
+    "@rspack/dev-server": "^0.5.8",
+    "@rspack/plugin-html": "^0.5.8",
+    "@tevm/rspack-plugin": "workspace:^",
+    "@tevm/ts-plugin": "workspace:^",
+    "solc": "0.8.28",
+    "typescript": "^5.7.3"
+  }
+}
