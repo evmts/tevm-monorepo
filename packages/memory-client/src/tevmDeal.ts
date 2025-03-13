@@ -1,6 +1,5 @@
-import type { AnvilDealHandler, AnvilDealParams } from '@tevm/actions'
+import { type AnvilDealHandler, type AnvilDealParams, dealHandler } from '@tevm/actions'
 import type { TevmNode } from '@tevm/node'
-import { requestEip1193 } from '@tevm/decorators'
 
 /**
  * Creates a tevmDeal action for the client that lets you deal tokens to an account
@@ -33,17 +32,8 @@ import { requestEip1193 } from '@tevm/decorators'
  * ```
  */
 export const tevmDeal = (node: TevmNode): AnvilDealHandler => {
-	return async (params) => {
-		// Extend the node with the EIP-1193 request capability
-		const eip1193Node = node.extend(requestEip1193())
-		
-		const result = await eip1193Node.request({
-			method: 'anvil_deal',
-			params: [params],
-		})
-
-		return result as ReturnType<AnvilDealHandler>
-	}
+	// Use the dealHandler directly instead of going through JSON-RPC
+	return dealHandler(node)
 }
 
 export type TevmDealParameters = AnvilDealParams
