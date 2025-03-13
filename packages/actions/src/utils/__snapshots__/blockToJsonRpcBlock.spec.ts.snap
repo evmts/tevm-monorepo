@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`blockToJsonRpcBlock > should convert block to JSON-RPC block format with transactions 1`] = `
+exports[`blockToJsonRpcBlock should convert block to JSON-RPC block format with transactions 1`] = `
 {
   "baseFeePerGas": "0x836f9",
   "blobGasUsed": "0x0",
@@ -426,7 +426,7 @@ exports[`blockToJsonRpcBlock > should convert block to JSON-RPC block format wit
 }
 `;
 
-exports[`blockToJsonRpcBlock > should convert block to JSON-RPC block format without transactions 1`] = `
+exports[`blockToJsonRpcBlock should convert block to JSON-RPC block format without transactions 1`] = `
 {
   "baseFeePerGas": "0x836f9",
   "blobGasUsed": "0x0",

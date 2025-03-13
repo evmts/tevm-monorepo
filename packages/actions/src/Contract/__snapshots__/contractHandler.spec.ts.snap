@@ -1,16 +1,16 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`contractHandler > should handle error during EVM call 1`] = `
+exports[`contractHandler should handle errors returned during contract call 1`] = `
 [
-  {
-    "_tag": "InvalidRequestError",
-    "message": "Contract at address 0x3333333333333333333333333333333333333333 does not exist",
-    "name": "InvalidRequestError",
-  },
+  [_RevertError: revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`contractHandler > should handle error during transaction creation 1`] = `
+exports[`contractHandler should handle error during transaction creation 1`] = `
 [
   {
     "_tag": "UnexpectedError",
@@ -20,48 +20,20 @@ exports[`contractHandler > should handle error during transaction creation 1`] =
 ]
 `;
 
-exports[`contractHandler > should handle errors returned during contract call 1`] = `
-[
-  [RevertError: revert
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Details: {"error":"revert","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`contractHandler > should handle invalid function encoding 1`] = `
-[
-  [InvalidRequest: Function "nonExistentFunction" not found on ABI.
-Make sure you are using the correct ABI and that the function exists on it.
-
-Docs: https://viem.sh/docs/contract/encodeFunctionData
-Version: viem@2.23.5
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Details: Function "nonExistentFunction" not found on ABI.
-Make sure you are using the correct ABI and that the function exists on it.
-
-Docs: https://viem.sh/docs/contract/encodeFunctionData
-Version: viem@2.23.5
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`contractHandler > should handle invalid params 1`] = `
+exports[`contractHandler should handle invalid params 1`] = `
 [
   [InvalidToError: Invalid Address 0x123
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
 Version: 1.1.0.next-73],
-  [InvalidAddress: Invalid Address 0x123
+  [InvalidAddressError: Invalid Address 0x123
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`contractHandler > should handle missing contract 1`] = `
+exports[`contractHandler should handle missing contract 1`] = `
 [
   {
     "_tag": "InvalidRequestError",
@@ -71,9 +43,27 @@ exports[`contractHandler > should handle missing contract 1`] = `
 ]
 `;
 
-exports[`contractHandler > should handle revert errors during contract call 1`] = `
+exports[`contractHandler should handle invalid function encoding 1`] = `
 [
-  [RevertError: revert
+  [InvalidRequestError: Function "nonExistentFunction" not found on ABI.
+Make sure you are using the correct ABI and that the function exists on it.
+
+Docs: https://viem.sh/docs/contract/encodeFunctionData
+Version: viem@2.23.10
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
+Details: Function "nonExistentFunction" not found on ABI.
+Make sure you are using the correct ABI and that the function exists on it.
+
+Docs: https://viem.sh/docs/contract/encodeFunctionData
+Version: viem@2.23.10
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`contractHandler should handle revert errors during contract call 1`] = `
+[
+  [_RevertError: revert
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: {"error":"revert","errorType":"EvmError"}
@@ -81,24 +71,34 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`contractHandler > should handle unexpected errors during param conversion 1`] = `
+exports[`contractHandler should handle error during EVM call 1`] = `
 [
-  [InvalidGasPrice: Invalid input
+  {
+    "_tag": "InvalidRequestError",
+    "message": "Contract at address 0x3333333333333333333333333333333333333333 does not exist",
+    "name": "InvalidRequestError",
+  },
+]
+`;
+
+exports[`contractHandler should handle unexpected errors during param conversion 1`] = `
+[
+  [InvalidGasPriceError: Invalid input
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPriceError: Invalid input
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidParams: Must have either code or to
+  [_InvalidParamsError: Must have either code or to
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`contractHandler > should handle unexpected errors during script creation 1`] = `
+exports[`contractHandler should handle unexpected errors during script creation 1`] = `
 [
   [InvalidAbiError: Required
 

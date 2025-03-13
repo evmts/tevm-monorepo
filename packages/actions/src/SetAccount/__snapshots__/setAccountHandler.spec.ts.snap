@@ -1,20 +1,20 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setAccountHandler > should handle putAccount throwing 1`] = `
+exports[`setAccountHandler should validate params 1`] = `
 [
-  [InternalError: Unexpected error setting account
+  [InvalidAddressError: Required
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: I am some underlying error being thrown unexpecedly by state manager that likely indicates some very bad bug happened upstream in program
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`setAccountHandler > should validate params 1`] = `
+exports[`setAccountHandler should handle putAccount throwing 1`] = `
 [
-  [InvalidAddress: Required
+  [_InternalError: Unexpected error setting account
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: I am some underlying error being thrown unexpecedly by state manager that likely indicates some very bad bug happened upstream in program
 Version: 1.1.0.next-73],
 ]
 `;

@@ -1,27 +1,27 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getAccount > should handle getAccount unexpectedly throwing 1`] = `
+exports[`getAccount should validate params 1`] = `
 [
-  [InternalError: UnexpectedError in getAccountHandler
+  [InvalidAddressError: Invalid Address not an address
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: Unexpected error
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`getAccount > should return storage if requested 1`] = `
+exports[`getAccount should return storage if requested 1`] = `
 {
   "0x0000000000000000000000000000000000000000000000000000000000000000": "0x01a4",
   "0x0000000000000000000000000000000000000000000000000000000000000002": "0x01a4",
 }
 `;
 
-exports[`getAccount > should validate params 1`] = `
+exports[`getAccount should handle getAccount unexpectedly throwing 1`] = `
 [
-  [InvalidAddress: Invalid Address not an address
+  [_InternalError: UnexpectedError in getAccountHandler
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Unexpected error
 Version: 1.1.0.next-73],
 ]
 `;

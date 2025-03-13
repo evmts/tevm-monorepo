@@ -1,42 +1,50 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getAccountProcedure > should handle account not found 1`] = `
+exports[`getAccountProcedure should handle account not found 1`] = `
 {
   "code": -32001,
   "data": {
     "errors": [
-      "account 0x6969696969696969696969696969696969696969 not found
+      
+"account 0x6969696969696969696969696969696969696969 not found
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
-Version: 1.1.0.next-73",
+Version: 1.1.0.next-73"
+,
     ],
   },
-  "message": "account 0x6969696969696969696969696969696969696969 not found
+  "message": 
+"account 0x6969696969696969696969696969696969696969 not found
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
-Version: 1.1.0.next-73",
+Version: 1.1.0.next-73"
+,
 }
 `;
 
-exports[`getAccountProcedure > should handle errors from getAccountHandler 1`] = `
+exports[`getAccountProcedure should handle errors from getAccountHandler 1`] = `
 {
   "code": -32001,
   "data": {
     "errors": [
-      "account 0x6969696969696969696969696969696969696969 not found
+      
+"account 0x6969696969696969696969696969696969696969 not found
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
-Version: 1.1.0.next-73",
+Version: 1.1.0.next-73"
+,
     ],
   },
-  "message": "account 0x6969696969696969696969696969696969696969 not found
+  "message": 
+"account 0x6969696969696969696969696969696969696969 not found
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
-Version: 1.1.0.next-73",
+Version: 1.1.0.next-73"
+,
 }
 `;
 
-exports[`getAccountProcedure > should return storage if returnStorage is true 1`] = `
+exports[`getAccountProcedure should return storage if returnStorage is true 1`] = `
 {
   "address": "0x6969696969696969696969696969696969696969",
   "balance": "0x1a4",

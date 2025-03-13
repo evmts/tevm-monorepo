@@ -1,6 +1,6 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dumpStateProcedure > should dump the state successfully 1`] = `
+exports[`dumpStateProcedure should dump the state successfully 1`] = `
 {
   "state": {
     "0x0000000000000000000000000000000000000000": {
