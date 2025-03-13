@@ -211,5 +211,9 @@ export const createMemoryClient = (options) => {
 		.extend(publicActions)
 		.extend(walletActions)
 		.extend(testActions({ mode: 'anvil' }))
+	
+	// Add simulateCalls directly to the client
+	const { simulateCalls } = await import('./simulateCalls.js')
+	memoryClient.simulateCalls = (params) => simulateCalls(memoryClient, params)
 	return /** @type {any} */ (memoryClient)
 }
