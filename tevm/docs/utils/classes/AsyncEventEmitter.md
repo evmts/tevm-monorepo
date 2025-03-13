@@ -22,7 +22,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 > **new AsyncEventEmitter**\<`T`\>(`options`?): [`AsyncEventEmitter`](AsyncEventEmitter.md)\<`T`\>
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:134
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:134
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/ev
 
 > `static` **captureRejections**: `boolean`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:459
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:459
 
 Value: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type)
 
@@ -64,7 +64,7 @@ v13.4.0, v12.16.0
 
 > `readonly` `static` **captureRejectionSymbol**: *typeof* [`captureRejectionSymbol`](AsyncEventEmitter.md#capturerejectionsymbol)
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:452
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:452
 
 Value: `Symbol.for('nodejs.rejection')`
 
@@ -84,7 +84,7 @@ v13.4.0, v12.16.0
 
 > `static` **defaultMaxListeners**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:498
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:498
 
 By default, a maximum of `10` listeners can be registered for any single
 event. This limit can be changed for individual `EventEmitter` instances
@@ -136,7 +136,7 @@ v0.11.2
 
 > `readonly` `static` **errorMonitor**: *typeof* [`errorMonitor`](AsyncEventEmitter.md#errormonitor)
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:445
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:445
 
 This symbol shall be used to install a listener for only monitoring `'error'` events. Listeners installed using this symbol are called before the regular `'error'` listeners are called.
 
@@ -157,41 +157,7 @@ v13.6.0, v12.17.0
 
 > `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:136
-
-#### Type Parameters
-
-• **K**
-
-#### Parameters
-
-##### error
-
-`Error`
-
-##### event
-
-`string` | `symbol`
-
-##### args
-
-...`AnyRest`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-`EventEmitter.[captureRejectionSymbol]`
-
-***
-
-### \[captureRejectionSymbol\]()?
-
-> `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
-
-Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:592
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:136
 
 #### Type Parameters
 
@@ -547,71 +513,35 @@ v0.1.26
 
 ### off()
 
-#### Call Signature
-
-> **off**\<`K`\>(`eventName`, `listener`): `this`
-
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:747
-
-Alias for `emitter.removeListener()`.
-
-##### Type Parameters
-
-• **K**
-
-##### Parameters
-
-###### eventName
-
-`string` | `symbol`
-
-###### listener
-
-(...`args`) => `void`
-
-##### Returns
-
-`this`
-
-##### Since
-
-v10.0.0
-
-##### Inherited from
-
-`EventEmitter.off`
-
-#### Call Signature
-
 > **off**\<`K`\>(`eventName`, `listener`): `this`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:747
 
 Alias for `emitter.removeListener()`.
 
-##### Type Parameters
+#### Type Parameters
 
 • **K**
 
-##### Parameters
+#### Parameters
 
-###### eventName
+##### eventName
 
 `string` | `symbol`
 
-###### listener
+##### listener
 
 (...`args`) => `void`
 
-##### Returns
+#### Returns
 
 `this`
 
-##### Since
+#### Since
 
 v10.0.0
 
-##### Inherited from
+#### Inherited from
 
 `EventEmitter.off`
 
@@ -839,64 +769,6 @@ v6.0.0
 
 ### rawListeners()
 
-#### Call Signature
-
-> **rawListeners**\<`K`\>(`eventName`): `Function`[]
-
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:818
-
-Returns a copy of the array of listeners for the event named `eventName`,
-including any wrappers (such as those created by `.once()`).
-
-```js
-import { EventEmitter } from 'node:events';
-const emitter = new EventEmitter();
-emitter.once('log', () => console.log('log once'));
-
-// Returns a new Array with a function `onceWrapper` which has a property
-// `listener` which contains the original listener bound above
-const listeners = emitter.rawListeners('log');
-const logFnWrapper = listeners[0];
-
-// Logs "log once" to the console and does not unbind the `once` event
-logFnWrapper.listener();
-
-// Logs "log once" to the console and removes the listener
-logFnWrapper();
-
-emitter.on('log', () => console.log('log persistently'));
-// Will return a new Array with a single function bound by `.on()` above
-const newListeners = emitter.rawListeners('log');
-
-// Logs "log persistently" twice
-newListeners[0]();
-emitter.emit('log');
-```
-
-##### Type Parameters
-
-• **K**
-
-##### Parameters
-
-###### eventName
-
-`string` | `symbol`
-
-##### Returns
-
-`Function`[]
-
-##### Since
-
-v9.4.0
-
-##### Inherited from
-
-`EventEmitter.rawListeners`
-
-#### Call Signature
-
 > **rawListeners**\<`K`\>(`eventName`): `Function`[]
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:818
@@ -929,25 +801,25 @@ newListeners[0]();
 emitter.emit('log');
 ```
 
-##### Type Parameters
+#### Type Parameters
 
 • **K**
 
-##### Parameters
+#### Parameters
 
-###### eventName
+##### eventName
 
 `string` | `symbol`
 
-##### Returns
+#### Returns
 
 `Function`[]
 
-##### Since
+#### Since
 
 v9.4.0
 
-##### Inherited from
+#### Inherited from
 
 `EventEmitter.rawListeners`
 
@@ -1138,7 +1010,7 @@ v0.3.5
 
 > `static` **addAbortListener**(`signal`, `resource`): `Disposable`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:437
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:437
 
 **`Experimental`**
 
@@ -1202,7 +1074,7 @@ v20.5.0
 
 > `static` **getEventListeners**(`emitter`, `name`): `Function`[]
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:358
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:358
 
 Returns a copy of the array of listeners for the event named `eventName`.
 
@@ -1257,7 +1129,7 @@ v15.2.0, v14.17.0
 
 > `static` **getMaxListeners**(`emitter`): `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:387
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:387
 
 Returns the currently set max amount of listeners.
 
@@ -1309,7 +1181,7 @@ v19.9.0
 
 > `static` **listenerCount**(`emitter`, `eventName`): `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:330
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:330
 
 A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
 
@@ -1361,7 +1233,7 @@ Since v3.2.0 - Use `listenerCount` instead.
 
 > `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterator`\<`any`[]\>
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:303
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:303
 
 ```js
 import { on, EventEmitter } from 'node:events';
@@ -1472,7 +1344,7 @@ v13.6.0, v12.16.0
 
 > `static` **on**(`emitter`, `eventName`, `options`?): `AsyncIterator`\<`any`[]\>
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:308
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:308
 
 ```js
 import { on, EventEmitter } from 'node:events';
@@ -1587,7 +1459,7 @@ v13.6.0, v12.16.0
 
 > `static` **once**(`emitter`, `eventName`, `options`?): `Promise`\<`any`[]\>
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:217
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:217
 
 Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
 event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
@@ -1696,7 +1568,7 @@ v11.13.0, v10.16.0
 
 > `static` **once**(`emitter`, `eventName`, `options`?): `Promise`\<`any`[]\>
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:222
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:222
 
 Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
 event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
@@ -1807,7 +1679,7 @@ v11.13.0, v10.16.0
 
 > `static` **setMaxListeners**(`n`?, ...`eventTargets`?): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/events.d.ts:402
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:402
 
 ```js
 import { setMaxListeners, EventEmitter } from 'node:events';

@@ -19,9 +19,9 @@
     "build": "nx run-many --targets=build:dist,build:app,build:types",
     "build:app": "nx run-many --target=build:app",
     "build:dist": "nx run-many --target=build:dist",
-    "build:types": "nx run-many --targets=build:types,typecheck",
-    "build:rust:lib": "nx run-many --target=build --projects=my_rust_node_lib",
     "build:rust:app": "nx run-many --target=build --projects=my_rust_node_lib --configuration=production",
+    "build:rust:lib": "nx run-many --target=build --projects=my_rust_node_lib",
+    "build:types": "nx run-many --targets=build:types,typecheck",
     "clean": "nx reset && nx run-many --target=clean && rm -rf node_modules && rm -rf .nx",
     "e2e": "nx e2e e2e",
     "format:check": "biome format .",
@@ -40,6 +40,7 @@
     "test:run": "nx run-many --target=test:run",
     "up": "bun x npm-check-updates -ui -ws"
   },
+  "dependencies": {},
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.4",
     "@biomejs/biome": "^1.9.4",
@@ -73,6 +74,5 @@
   "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {}
+  }
 }

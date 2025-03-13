@@ -16,7 +16,7 @@ Defined in: [packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com
 
 #### request
 
-`EIP1193RequestFn`\<`undefined`\>
+`EIP1193RequestFn`\<`undefined`, `false`\>
 
 ## Returns
 

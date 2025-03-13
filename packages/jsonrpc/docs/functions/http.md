@@ -6,9 +6,15 @@
 
 # Function: http()
 
-> **http**(`url`?, `config`?): `HttpTransport`
+> **http**\<`rpcSchema`, `raw`\>(`url`?, `config`?): `HttpTransport`\<`rpcSchema`, `raw`\>
 
-Defined in: node\_modules/.pnpm/viem@2.23.5\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@6.0.5\_zod@3.24.2/node\_modules/viem/\_types/clients/transports/http.d.ts:46
+Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@5.0.10\_zod@3.24.2/node\_modules/viem/\_types/clients/transports/http.d.ts:51
+
+## Type Parameters
+
+• **rpcSchema** *extends* `undefined` \| `RpcSchema` = `undefined`
+
+• **raw** *extends* `boolean` = `false`
 
 ## Parameters
 
@@ -20,11 +26,11 @@ URL of the JSON-RPC API. Defaults to the chain's public RPC URL.
 
 ### config?
 
-`HttpTransportConfig`
+`HttpTransportConfig`\<`rpcSchema`, `raw`\>
 
 ## Returns
 
-`HttpTransport`
+`HttpTransport`\<`rpcSchema`, `raw`\>
 
 ## Description
 

@@ -1,6 +1,7 @@
 .env
 
 .vercel
+dist/
 
 /target/
 **/*.rs.bk

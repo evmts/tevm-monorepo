@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "main": "index.js",
   "types": "index.d.ts",
+  "engines": {
+    "node": ">= 10"
+  },
   "napi": {
     "binaryName": "my_rust_node_lib",
     "packageName": "@tevm/my-rust-node-lib",
@@ -18,8 +21,5 @@
       "i686-pc-windows-msvc",
       "wasm32-wasip1-threads"
     ]
-  },
-  "engines": {
-    "node": ">= 10"
   }
 }

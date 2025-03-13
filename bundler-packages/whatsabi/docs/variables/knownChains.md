@@ -1550,7 +1550,7 @@ Defined in: [bundler-packages/whatsabi/src/knownChains.js:6](https://github.com/
 
 #### 111188.rpcUrls.default.http
 
-> `readonly` **http**: readonly \[`"https://real.drpc.org"`\]
+> `readonly` **http**: readonly \[`"https://rpc.realforreal.gelato.digital"`\]
 
 #### 111188.serializers?
 
