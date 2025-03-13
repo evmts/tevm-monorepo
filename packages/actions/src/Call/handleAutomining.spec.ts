@@ -229,7 +229,7 @@ describe('handleAutomining', () => {
 		// Mock mineHandler to return successful result
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(
-			() => (params: any) =>
+			() => (_params: any) =>
 				Promise.resolve({
 					blockHashes: ['0xabc123'],
 				}),
@@ -244,22 +244,29 @@ describe('handleAutomining', () => {
 			expect.objectContaining({
 				blockHashes: ['0xabc123'],
 			}),
-			'Transaction successfully mined'
+			'Transaction successfully mined',
 		)
 
 		// Should log gas mining mode with limit
-		expect(debugSpy).toHaveBeenCalledWith(`Gas mining mode with limit ${client.miningConfig.limit}`)
+		// Since we know client.miningConfig.type === 'gas', we can safely access client.miningConfig.limit
+		// TypeScript doesn't understand the discriminated union here, so we need to assert
+		expect(debugSpy).toHaveBeenCalledWith(
+			`Gas mining mode with limit ${(client.miningConfig as { type: 'gas'; limit: BigInt }).limit}`,
+		)
 
-		// Should call mineHandler with throwOnFail: false and blocks: 1
+		// Should call mineHandler with throwOnFail: false and blockCount: 1
 		expect(mineHandlerMock).toHaveBeenCalledWith(client)
 		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
-		
+
 		// Verify parameters passed to mineHandler
-		const mineHandlerCall = mineHandlerMock.mock.results[0].value
-		expect(mineHandlerCall).toHaveBeenCalledWith(expect.objectContaining({
-			throwOnFail: false,
-			blocks: 1
-		}))
+		const mineHandlerCall = mineHandlerMock.mock.results[0]?.value || null
+		expect(mineHandlerCall).not.toBeNull() // Make sure it's defined
+		expect(mineHandlerCall).toHaveBeenCalledWith(
+			expect.objectContaining({
+				throwOnFail: false,
+				blockCount: 1,
+			}),
+		)
 
 		// Should return undefined when successful
 		expect(result).toBeUndefined()
@@ -283,7 +290,7 @@ describe('handleAutomining', () => {
 		// Mock mineHandler
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(
-			() => (params: any) =>
+			() => (_params: any) =>
 				Promise.resolve({
 					blockHashes: ['0xabc123'],
 				}),
