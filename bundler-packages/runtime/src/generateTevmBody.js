@@ -58,12 +58,8 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 						// Include bytecode if requested and available (checking for empty string for interfaces)
 						...(includeBytecode
 							? {
-									bytecode:
-										evm?.bytecode?.object && evm.bytecode.object !== '' ? `0x${evm.bytecode.object}` : undefined,
-									deployedBytecode:
-										evm?.deployedBytecode?.object && evm.deployedBytecode.object !== ''
-											? `0x${evm.deployedBytecode.object}`
-											: undefined,
+									bytecode: evm?.bytecode?.object && evm.bytecode.object !== '' ? `0x${evm.bytecode.object}` : undefined,
+									deployedBytecode: evm?.deployedBytecode?.object && evm.deployedBytecode.object !== '' ? `0x${evm.deployedBytecode.object}` : undefined,
 								}
 							: {}),
 					},

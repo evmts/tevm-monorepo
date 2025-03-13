@@ -509,19 +509,19 @@ describe('Advanced Code Generation Tests', () => {
 
 		// Test with includeBytecode=true (as it would be for .s.sol files)
 		const result = runSync(generateTevmBody(interfaceArtifact, 'ts', true))
-
+		
 		// Should include the interface functions
 		expect(result).toContain('function count() view returns (uint256)')
 		expect(result).toContain('function increment()')
-
+		
 		// Should not include bytecode when it's an empty string
 		expect(result).not.toContain('"bytecode": "0x"')
 		expect(result).not.toContain('"deployedBytecode": "0x"')
-
+		
 		// Should still include proper documentation
 		expect(result).toContain('@property increment() Increments the counter')
 		expect(result).toContain('@property count() Returns the current count')
-
+		
 		// Test the full runtime generation as well
 		const runtimeResult = runSync(generateRuntime(interfaceArtifact, 'ts', true, '@tevm/contract'))
 		expect(runtimeResult).toContain('function count() view returns (uint256)')
