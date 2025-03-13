@@ -106,7 +106,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:143
 
 Optional override for formatting stack traces
 
@@ -138,7 +138,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:145
 
 #### Inherited from
 
@@ -150,7 +150,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/gl
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

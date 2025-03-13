@@ -1,14 +1,39 @@
+import { createMemoryClient } from '@tevm/memory-client'
 import { createTevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
 import { type Address, EthjsAddress } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
+// Create a memory client with predefined state for testing
+async function createTestMemoryClient() {
+	const client = createMemoryClient({
+		miningConfig: { type: 'manual' },
+	})
+
+	// Setup basic account state
+	const testAddress = `0x${'34'.repeat(20)}`
+	await client.setAccount({
+		address: testAddress,
+		balance: 1000000000000000000n,
+		nonce: 5n,
+	})
+
+	// Mine a block to have block history
+	await client.mine({ blocks: 1 })
+
+	return client
+}
+
 describe('evmInputToImpersonatedTx', () => {
 	it('should create an impersonated transaction with the correct parameters', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 
@@ -27,8 +52,13 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should create an impersonated transaction with the correct nonce', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 
@@ -54,8 +84,13 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with the correct gas parameters', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 
@@ -82,8 +117,13 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should allow setting custom maxFeePerGas and maxPriorityFeePerGas', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 
@@ -103,8 +143,13 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with a default sender if origin and caller are not provided', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 
@@ -121,8 +166,13 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should use caller when origin is not provided', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 
@@ -138,8 +188,13 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should prioritize origin over caller when both are provided', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 
@@ -157,8 +212,13 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should handle undefined optional fields', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 
@@ -174,8 +234,13 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should respect zero values for maxFeePerGas and maxPriorityFeePerGas', async () => {
+		// Create memory client instead of using external RPC
+		const memClient = await createTestMemoryClient()
 		const client = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: {
+				transport: memClient.transport,
+				blockTag: 1n,
+			},
 			miningConfig: { type: 'manual' },
 		})
 

@@ -265,7 +265,7 @@ The error code for InternalError.
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:143
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:143
 
 Optional override for formatting stack traces
 
@@ -297,7 +297,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:145
+Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:145
 
 #### Inherited from
 
@@ -335,54 +335,26 @@ The first error that matches the function, or the original error.
 
 ### captureStackTrace()
 
-#### Call Signature
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Defined in: node\_modules/.pnpm/@types+node@22.13.8/node\_modules/@types/node/globals.d.ts:136
-
-Create .stack property on a target object
-
-##### Parameters
-
-###### targetObject
-
-`object`
-
-###### constructorOpt?
-
-`Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)
-
-#### Call Signature
-
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
-##### Parameters
+#### Parameters
 
-###### targetObject
+##### targetObject
 
 `object`
 
-###### constructorOpt?
+##### constructorOpt?
 
 `Function`
 
-##### Returns
+#### Returns
 
 `void`
 
-##### Inherited from
+#### Inherited from
 
 [`InternalError`](InternalError.md).[`captureStackTrace`](InternalError.md#capturestacktrace)

@@ -16,7 +16,7 @@ Defined in: packages/jsonrpc/types/createJsonRpcFetcher.d.ts:1
 
 #### request
 
-`EIP1193RequestFn`\<`undefined`\>
+`EIP1193RequestFn`\<`undefined`, `false`\>
 
 ## Returns
 
