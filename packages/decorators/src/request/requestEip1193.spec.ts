@@ -1,17 +1,28 @@
 import { describe, expect, it, vi } from 'vitest'
 import { requestEip1193 } from './requestEip1193.js'
 
-// Mock the external modules that are imported in requestEip1193.js
-vi.mock('@tevm/actions', () => ({
-	requestProcedure: vi.fn().mockImplementation(() => (request: any) => {
-		// If mocking for error test
-		if (request.method === 'error_method') {
-			return Promise.resolve({ error: { code: -32000, message: 'Error message' } })
-		}
-		// Return successful response with the request for verification
-		return Promise.resolve({ result: 'success', request })
-	}),
-}))
+// Mock the dynamic imports instead of the module itself
+vi.mock('./requestEip1193.js', async (importOriginal) => {
+	const actual = await importOriginal()
+
+	// Override the importRequestProcedure function to avoid circular dependency
+	const mockImportRequestProcedure = vi.fn().mockResolvedValue(
+		vi.fn().mockImplementation(() => (request: any) => {
+			// If mocking for error test
+			if (request.method === 'error_method') {
+				return Promise.resolve({ error: { code: -32000, message: 'Error message' } })
+			}
+			// Return successful response with the request for verification
+			return Promise.resolve({ result: 'success', request })
+		}),
+	)
+
+	// Return the original with our mock
+	return {
+		...actual,
+		importRequestProcedure: mockImportRequestProcedure,
+	}
+})
 
 vi.mock('viem', () => ({
 	withRetry: vi.fn().mockImplementation((fn, _options) => fn()),

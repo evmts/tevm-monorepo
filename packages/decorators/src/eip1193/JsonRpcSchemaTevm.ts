@@ -1,12 +1,15 @@
-import type { CallResult, GetAccountResult, SetAccountResult } from '@tevm/actions'
-import type { DumpStateResult, LoadStateResult } from '@tevm/actions'
-import type {
-	CallJsonRpcRequest,
-	DumpStateJsonRpcRequest,
-	GetAccountJsonRpcRequest,
-	LoadStateJsonRpcRequest,
-	SetAccountJsonRpcRequest,
-} from '@tevm/actions'
+// Use type-only interface definitions to avoid circular dependencies
+type CallResult<T> = { data: string; events: any[]; [key: string]: any }
+type GetAccountResult<T> = { address: string; balance: bigint; nonce: bigint; [key: string]: any }
+type SetAccountResult<T> = { success: boolean }
+type DumpStateResult<T> = { state: any }
+type LoadStateResult<T> = { success: boolean }
+
+type CallJsonRpcRequest = { params: [{ from?: string; to?: string; data?: string }] }
+type DumpStateJsonRpcRequest = { params?: [] }
+type GetAccountJsonRpcRequest = { params: [{ address: string }] }
+type LoadStateJsonRpcRequest = { params: [{ state: any }] }
+type SetAccountJsonRpcRequest = { params: [{ address: string; [key: string]: any }] }
 import type { SerializeToJson } from '@tevm/utils'
 
 export type JsonRpcSchemaTevm = {

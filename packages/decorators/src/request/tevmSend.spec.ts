@@ -1,14 +1,25 @@
 import { describe, expect, it, vi } from 'vitest'
 import { tevmSend } from './tevmSend.js'
 
-// Mocks need to be initialized before imports are processed
-vi.mock('@tevm/actions', () => {
-	const mockSendFn = vi.fn().mockResolvedValue({ result: 'send_result' })
-	const mockSendBulkFn = vi.fn().mockResolvedValue([{ result: 'bulk_result' }])
+// Use jest.spyOn instead of importing from @tevm/actions
+// This way we avoid circular dependencies during build
+const mockSendFn = vi.fn().mockResolvedValue({ result: 'send_result' })
+const mockSendBulkFn = vi.fn().mockResolvedValue([{ result: 'bulk_result' }])
 
-	return {
+// Mock the dynamic imports instead of the module itself
+vi.mock('./tevmSend.js', async (importOriginal) => {
+	const actual = await importOriginal()
+
+	// Override the importProcedures function
+	const mockImportProcedures = vi.fn().mockResolvedValue({
 		requestProcedure: vi.fn().mockReturnValue(mockSendFn),
 		requestBulkProcedure: vi.fn().mockReturnValue(mockSendBulkFn),
+	})
+
+	// Return the actual module with our mock added
+	return {
+		...actual,
+		importProcedures: mockImportProcedures,
 	}
 })
 

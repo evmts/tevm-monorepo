@@ -1,17 +1,22 @@
-import {
-	blockNumberHandler,
-	chainIdHandler,
-	ethCallHandler,
-	gasPriceHandler,
-	getBalanceHandler,
-	getCodeHandler,
-	getStorageAtHandler,
-} from '@tevm/actions'
+// Note: Using dynamic imports to avoid circular dependencies
+// The actual handlers are loaded at runtime, not during build
+export const importEthHandlers = async () => {
+	const actions = await import('@tevm/actions')
+	return {
+		blockNumberHandler: actions.blockNumberHandler,
+		chainIdHandler: actions.chainIdHandler,
+		ethCallHandler: actions.ethCallHandler,
+		gasPriceHandler: actions.gasPriceHandler,
+		getBalanceHandler: actions.getBalanceHandler,
+		getCodeHandler: actions.getCodeHandler,
+		getStorageAtHandler: actions.getStorageAtHandler,
+	}
+}
 
 /**
  * @returns {import('@tevm/node').Extension<import('./EthActionsApi.js').EthActionsApi>}
  */
-export const ethActions = () => (client) => {
+export const ethActions = () => async (client) => {
 	const wrappedEth = (() => {
 		if (!('eth' in client)) {
 			return {}
@@ -23,6 +28,17 @@ export const ethActions = () => (client) => {
 		}
 		return client.eth ?? {}
 	})()
+
+	const {
+		blockNumberHandler,
+		chainIdHandler,
+		ethCallHandler,
+		gasPriceHandler,
+		getBalanceHandler,
+		getCodeHandler,
+		getStorageAtHandler,
+	} = await importEthHandlers()
+
 	return {
 		eth: {
 			...wrappedEth,

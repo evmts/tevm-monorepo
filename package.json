@@ -15,7 +15,7 @@
     "all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app",
     "all:clean": "bun clean && pnpm i && bun allz",
     "all:slow": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app --parallel=1",
-    "allz": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,lint:package,lint:deps,lint,format,build:rust:lib",
+    "allz": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && bun scripts/build-all.ts",
     "build": "nx run-many --targets=build:dist,build:app,build:types",
     "build:app": "nx run-many --target=build:app",
     "build:dist": "nx run-many --target=build:dist",

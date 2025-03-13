@@ -1,23 +1,22 @@
-import type {
-	CallHandler,
-	ContractHandler,
-	DumpStateHandler,
-	// ForkHandler,
-	// DebugTraceCallHandler,
-	// DebugTraceTransactionHandler,
-	EthBlockNumberHandler,
-	EthCallHandler,
-	// EthCallHandler,
-	EthChainIdHandler,
-	EthGasPriceHandler,
-	EthGetBalanceHandler,
-	EthGetCodeHandler,
-	EthGetStorageAtHandler,
-	GetAccountHandler,
-	LoadStateHandler,
-	SetAccountHandler,
-} from '@tevm/actions'
-import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@tevm/actions'
+// Define handler types directly in this file to avoid circular dependencies
+type Handler<Params, Result> = (params: Params) => Promise<Result>
+
+type TevmJsonRpcBulkRequestHandler = any
+type TevmJsonRpcRequestHandler = any
+
+type CallHandler = Handler<any, any>
+type ContractHandler = Handler<any, any>
+type DumpStateHandler = Handler<any, any>
+type EthBlockNumberHandler = Handler<any, any>
+type EthCallHandler = Handler<any, any>
+type EthChainIdHandler = Handler<any, any>
+type EthGasPriceHandler = Handler<any, any>
+type EthGetBalanceHandler = Handler<any, any>
+type EthGetCodeHandler = Handler<any, any>
+type EthGetStorageAtHandler = Handler<any, any>
+type GetAccountHandler = Handler<any, any>
+type LoadStateHandler = Handler<any, any>
+type SetAccountHandler = Handler<any, any>
 import type { HDAccount } from '@tevm/utils'
 
 /**

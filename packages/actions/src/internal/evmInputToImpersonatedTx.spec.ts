@@ -1,75 +1,66 @@
-import { createMemoryClient } from '@tevm/memory-client'
 import { createTevmNode } from '@tevm/node'
 import { type Address, EthjsAddress } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
-// Create a memory client with predefined state for testing
-async function createTestMemoryClient() {
-	const client = createMemoryClient({
-		miningConfig: { type: 'manual' },
-	})
-
-	// Setup basic account state
-	const testAddress = `0x${'34'.repeat(20)}` as `0x${string}`
-	await client.tevmSetAccount({
-		address: testAddress,
-		balance: 1000000000000000000n,
-		nonce: 5n,
-	})
-
-	// Mine a block to have block history
-	await client.mine({ blocks: 1 })
-
-	return client
-}
-
 // Create a mock transport with eth_getProof support
 function createMockTransport() {
 	return {
-		request: vi.fn().mockImplementation(async ({ method }) => {
+		request: vi.fn().mockImplementation(async ({ method }: { method: string }) => {
 			if (method === 'eth_getProof') {
 				// Return a valid minimal eth_getProof response
 				return {
 					accountProof: [],
 					balance: '0x0',
 					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
-					nonce: '0x0',
+					nonce: '0x5', // Match the nonce used in tests
 					storageHash: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 					storageProof: [],
 				}
 			}
-			// For other methods, delegate to the memory client
+			// For other methods, throw an error
 			throw new Error(`Test not configured to handle method: ${method}`)
 		}),
 	}
 }
 
+// Helper to prepare a test node with proper configuration
+async function prepareTestNode() {
+	const mockTransport = createMockTransport()
+	const testAddress = `0x${'34'.repeat(20)}` as `0x${string}`
+
+	// Create a node with the mock transport
+	const client = createTevmNode({
+		fork: {
+			transport: mockTransport,
+			blockTag: 1n,
+		},
+		miningConfig: { type: 'manual' },
+	})
+
+	// Wait for node to be ready
+	await client.ready()
+
+	// Setup account state directly
+	const vm = await client.getVm()
+	await vm.stateManager.putAccount(EthjsAddress.fromString(testAddress), {
+		nonce: 5n,
+		balance: 1000000000000000000n,
+		storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+		codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+	})
+
+	// Mine a block to have block history
+	await client.mineBlock()
+
+	return { client, mockTransport }
+}
+
 describe('evmInputToImpersonatedTx', () => {
 	it('should create an impersonated transaction with the correct parameters', async () => {
-		// Create a hybrid transport that combines memory client with mock eth_getProof
-		const memClient = await createTestMemoryClient()
-		const mockTransport = createMockTransport()
-
-		// Create a composite transport that delegates to mockTransport for eth_getProof
-		// and to memClient.transport for everything else
-		const compositeTransport = {
-			request: async (args) => {
-				if (args.method === 'eth_getProof') {
-					return mockTransport.request(args)
-				}
-				return memClient.transport.request(args)
-			},
-		}
-
-		const client = createTevmNode({
-			fork: {
-				transport: compositeTransport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
@@ -86,15 +77,8 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should create an impersonated transaction with the correct nonce', async () => {
-		// Create memory client instead of using external RPC
-		const memClient = await createTestMemoryClient()
-		const client = createTevmNode({
-			fork: {
-				transport: memClient.transport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
@@ -118,15 +102,8 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with the correct gas parameters', async () => {
-		// Create memory client instead of using external RPC
-		const memClient = await createTestMemoryClient()
-		const client = createTevmNode({
-			fork: {
-				transport: memClient.transport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
@@ -151,15 +128,8 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should allow setting custom maxFeePerGas and maxPriorityFeePerGas', async () => {
-		// Create memory client instead of using external RPC
-		const memClient = await createTestMemoryClient()
-		const client = createTevmNode({
-			fork: {
-				transport: memClient.transport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
@@ -177,15 +147,8 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with a default sender if origin and caller are not provided', async () => {
-		// Create memory client instead of using external RPC
-		const memClient = await createTestMemoryClient()
-		const client = createTevmNode({
-			fork: {
-				transport: memClient.transport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
@@ -199,16 +162,9 @@ describe('evmInputToImpersonatedTx', () => {
 		expect(tx.getSenderAddress().toString()).toBe(defaultSender.toString())
 	})
 
-	it.skip('should use caller when origin is not provided', async () => {
-		// Create memory client instead of using external RPC
-		const memClient = await createTestMemoryClient()
-		const client = createTevmNode({
-			fork: {
-				transport: memClient.transport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+	it('should use caller when origin is not provided', async () => {
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
@@ -222,15 +178,8 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should prioritize origin over caller when both are provided', async () => {
-		// Create memory client instead of using external RPC
-		const memClient = await createTestMemoryClient()
-		const client = createTevmNode({
-			fork: {
-				transport: memClient.transport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),
@@ -245,16 +194,9 @@ describe('evmInputToImpersonatedTx', () => {
 		expect(tx.getSenderAddress().toString()).not.toBe(evmInput.caller.toString())
 	})
 
-	it.skip('should handle undefined optional fields', async () => {
-		// Create memory client instead of using external RPC
-		const memClient = await createTestMemoryClient()
-		const client = createTevmNode({
-			fork: {
-				transport: memClient.transport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+	it('should handle undefined optional fields', async () => {
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			origin: EthjsAddress.fromString(`0x${'34'.repeat(20)}`),
@@ -268,15 +210,8 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should respect zero values for maxFeePerGas and maxPriorityFeePerGas', async () => {
-		// Create memory client instead of using external RPC
-		const memClient = await createTestMemoryClient()
-		const client = createTevmNode({
-			fork: {
-				transport: memClient.transport,
-				blockTag: 1n,
-			},
-			miningConfig: { type: 'manual' },
-		})
+		// Use our test helper to prepare a node
+		const { client } = await prepareTestNode()
 
 		const evmInput = {
 			to: EthjsAddress.fromString(`0x${'12'.repeat(20)}`),

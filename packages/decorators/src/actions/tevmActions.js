@@ -1,20 +1,26 @@
-import {
-	callHandler,
-	contractHandler,
-	dealHandler,
-	deployHandler,
-	dumpStateHandler,
-	getAccountHandler,
-	loadStateHandler,
-	mineHandler,
-	setAccountHandler,
-} from '@tevm/actions'
+// Note: Using dynamic imports to avoid circular dependencies
+// The actual handlers are loaded at runtime, not during build
+export const importHandlers = async () => {
+	const actions = await import('@tevm/actions')
+	return {
+		callHandler: actions.callHandler,
+		contractHandler: actions.contractHandler,
+		dealHandler: actions.dealHandler,
+		deployHandler: actions.deployHandler,
+		dumpStateHandler: actions.dumpStateHandler,
+		getAccountHandler: actions.getAccountHandler,
+		loadStateHandler: actions.loadStateHandler,
+		mineHandler: actions.mineHandler,
+		setAccountHandler: actions.setAccountHandler,
+	}
+}
 
 /**
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'getAccount'>>}
  */
-const getAccountAction = () => (client) => {
+const getAccountAction = () => async (client) => {
+	const { getAccountHandler } = await importHandlers()
 	return {
 		getAccount: getAccountHandler(client),
 	}
@@ -23,7 +29,8 @@ const getAccountAction = () => (client) => {
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'setAccount'>>}
  */
-const setAccountAction = () => (client) => {
+const setAccountAction = () => async (client) => {
+	const { setAccountHandler } = await importHandlers()
 	return {
 		setAccount: setAccountHandler(client),
 	}
@@ -32,7 +39,8 @@ const setAccountAction = () => (client) => {
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'call'>>}
  */
-const callAction = () => (client) => {
+const callAction = () => async (client) => {
+	const { callHandler } = await importHandlers()
 	return {
 		call: callHandler(client),
 	}
@@ -41,7 +49,8 @@ const callAction = () => (client) => {
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'contract'>>}
  */
-const contractAction = () => (client) => {
+const contractAction = () => async (client) => {
+	const { contractHandler } = await importHandlers()
 	return {
 		contract: contractHandler(client),
 	}
@@ -50,7 +59,8 @@ const contractAction = () => (client) => {
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'dumpState'>>}
  */
-const dumpStateAction = () => (client) => {
+const dumpStateAction = () => async (client) => {
+	const { dumpStateHandler } = await importHandlers()
 	return {
 		dumpState: dumpStateHandler(client),
 	}
@@ -59,7 +69,8 @@ const dumpStateAction = () => (client) => {
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'loadState'>>}
  */
-const loadStateAction = () => (client) => {
+const loadStateAction = () => async (client) => {
+	const { loadStateHandler } = await importHandlers()
 	return {
 		loadState: loadStateHandler(client),
 	}
@@ -68,7 +79,8 @@ const loadStateAction = () => (client) => {
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'mine'>>}
  */
-const mineAction = () => (client) => {
+const mineAction = () => async (client) => {
+	const { mineHandler } = await importHandlers()
 	return {
 		mine: mineHandler(client),
 	}
@@ -77,7 +89,8 @@ const mineAction = () => (client) => {
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'deploy'>>}
  */
-const deployAction = () => (client) => {
+const deployAction = () => async (client) => {
+	const { deployHandler } = await importHandlers()
 	return {
 		deploy: deployHandler(client),
 	}
@@ -86,7 +99,8 @@ const deployAction = () => (client) => {
  * @internal
  * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'deal'>>}
  */
-const dealAction = () => (client) => {
+const dealAction = () => async (client) => {
+	const { dealHandler } = await importHandlers()
 	return {
 		deal: dealHandler(client),
 	}
@@ -95,7 +109,7 @@ const dealAction = () => (client) => {
 /**
  * @returns {import('@tevm/node').Extension<import('./TevmActionsApi.js').TevmActionsApi>}
  */
-export const tevmActions = () => (client) => {
+export const tevmActions = () => async (client) => {
 	return client
 		.extend(loadStateAction())
 		.extend(dumpStateAction())

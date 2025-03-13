@@ -1,4 +1,10 @@
-import { requestProcedure } from '@tevm/actions'
+// Note: Using dynamic imports to avoid circular dependencies
+// The actual handlers are loaded at runtime, not during build
+export const importRequestProcedure = async () => {
+	const actions = await import('@tevm/actions')
+	return actions.requestProcedure
+}
+
 // TODO this is too simple of a function to be using from an external library
 // Write this internally in @tevm/utils
 import { withRetry } from 'viem'
@@ -15,7 +21,9 @@ import { withRetry } from 'viem'
  * A decorator that adds the EIP-1193 request method to the client
  * @returns {import('@tevm/node').Extension<import('./Eip1193RequestProvider.js').Eip1193RequestProvider>}
  */
-export const requestEip1193 = () => (client) => {
+export const requestEip1193 = () => async (client) => {
+	const requestProcedure = await importRequestProcedure()
+
 	return {
 		request: async (args, options) => {
 			return withRetry(async () => {

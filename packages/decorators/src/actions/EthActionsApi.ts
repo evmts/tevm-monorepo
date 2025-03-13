@@ -1,12 +1,13 @@
-import type {
-	EthBlockNumberHandler,
-	EthCallHandler,
-	EthChainIdHandler,
-	EthGasPriceHandler,
-	EthGetBalanceHandler,
-	EthGetCodeHandler,
-	EthGetStorageAtHandler,
-} from '@tevm/actions'
+// Define handler types directly in this file to avoid circular dependencies
+type Handler<Params, Result> = (params: Params) => Promise<Result>
+
+type EthBlockNumberHandler = Handler<any, any>
+type EthCallHandler = Handler<any, any>
+type EthChainIdHandler = Handler<any, any>
+type EthGasPriceHandler = Handler<any, any>
+type EthGetBalanceHandler = Handler<any, any>
+type EthGetCodeHandler = Handler<any, any>
+type EthGetStorageAtHandler = Handler<any, any>
 
 /**
  * The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)

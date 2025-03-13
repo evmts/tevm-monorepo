@@ -1,14 +1,15 @@
-import type {
-	AnvilDealHandler,
-	CallHandler,
-	ContractHandler,
-	DeployHandler,
-	DumpStateHandler,
-	GetAccountHandler,
-	LoadStateHandler,
-	MineHandler,
-	SetAccountHandler,
-} from '@tevm/actions'
+// Define handler types directly in this file to avoid circular dependencies
+type Handler<Params, Result> = (params: Params) => Promise<Result>
+
+type CallHandler = Handler<any, any>
+type ContractHandler = Handler<any, any>
+type DeployHandler = Handler<any, any>
+type DumpStateHandler = Handler<any, any>
+type GetAccountHandler = Handler<any, any>
+type LoadStateHandler = Handler<any, any>
+type MineHandler = Handler<any, any>
+type SetAccountHandler = Handler<any, any>
+type AnvilDealHandler = Handler<any, any>
 
 /**
  * The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)

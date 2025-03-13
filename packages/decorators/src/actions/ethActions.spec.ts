@@ -1,8 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
 import { ethActions } from './ethActions.js'
 
-// Mock the handlers from @tevm/actions
-vi.mock('@tevm/actions', () => {
+// Mock the dynamic imports instead of the module itself
+vi.mock('./ethActions.js', async (importOriginal) => {
+	const actual = await importOriginal()
+
 	const createMockHandler = (name: string) => {
 		return vi.fn().mockImplementation(() => {
 			return function mockHandler() {
@@ -11,7 +13,8 @@ vi.mock('@tevm/actions', () => {
 		})
 	}
 
-	return {
+	// Create mock for the dynamic import function
+	const mockImportEthHandlers = vi.fn().mockResolvedValue({
 		blockNumberHandler: createMockHandler('blockNumber'),
 		ethCallHandler: createMockHandler('ethCall'),
 		chainIdHandler: createMockHandler('chainId'),
@@ -19,6 +22,12 @@ vi.mock('@tevm/actions', () => {
 		getBalanceHandler: createMockHandler('getBalance'),
 		getCodeHandler: createMockHandler('getCode'),
 		getStorageAtHandler: createMockHandler('getStorageAt'),
+	})
+
+	// Return the original module with our mock
+	return {
+		...actual,
+		importEthHandlers: mockImportEthHandlers,
 	}
 })
 

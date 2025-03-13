@@ -63,7 +63,6 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/actions": "workspace:^",
 		"@tevm/node": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
@@ -73,6 +72,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
+		"@tevm/actions": "workspace:^",
 		"viem": "^2.21.1"
 	},
 	"publishConfig": {
