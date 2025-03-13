@@ -10,6 +10,7 @@ var memoryClient = require('@tevm/memory-client');
 var viem = require('@tevm/viem');
 var precompiles = require('@tevm/precompiles');
 var syncStoragePersister = require('@tevm/sync-storage-persister');
+var inlineSol = require('@tevm/inline-sol');
 
 
 
@@ -272,6 +273,10 @@ Object.defineProperty(exports, "definePrecompile", {
 Object.defineProperty(exports, "createSyncStoragePersister", {
   enumerable: true,
   get: function () { return syncStoragePersister.createSyncStoragePersister; }
+});
+Object.defineProperty(exports, "sol", {
+  enumerable: true,
+  get: function () { return inlineSol.sol; }
 });
 Object.keys(memoryClient).forEach(function (k) {
   if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {

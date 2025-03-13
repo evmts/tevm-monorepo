@@ -57,6 +57,9 @@ importers:
       publint:
         specifier: ^0.3.7
         version: 0.3.7
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
       sort-package-json:
         specifier: ^2.15.1
         version: 2.15.1
@@ -256,6 +259,25 @@ importers:
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
+  bundler-packages/inline-sol:
+    dependencies:
+      '@tevm/compiler':
+        specifier: workspace:*
+        version: link:../compiler
+    devDependencies:
+      '@tevm/contract':
+        specifier: workspace:*
+        version: link:../../packages/contract
+      '@tevm/runtime':
+        specifier: workspace:*
+        version: link:../runtime
+      '@tevm/tsconfig':
+        specifier: workspace:*
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:*
         version: link:../../configs/tsupconfig
 
   bundler-packages/resolutions:
@@ -2107,6 +2129,9 @@ importers:
       '@tevm/http-client':
         specifier: workspace:^
         version: link:../packages/http-client
+      '@tevm/inline-sol':
+        specifier: workspace:^
+        version: link:../bundler-packages/inline-sol
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../packages/jsonrpc
@@ -6575,6 +6600,7 @@ packages:
 
   bun@1.2.4:
     resolution: {integrity: sha512-ZY0EZ/UKqheaLeAtMsfJA6jWoWvV9HAtfFaOJSmS3LrNpFKs1Sg5fZLSsczN1h3a+Dtheo4O3p3ZYWrf40kRGw==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -10762,6 +10788,11 @@ packages:
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     deprecated: Rimraf versions prior to v4 are no longer supported
+    hasBin: true
+
+  rimraf@6.0.1:
+    resolution: {integrity: sha512-9dkvaxAsk/xNXSJzMgFqqMCuFgt2+KsOFek3TMLfo8NCPfWpBmqwyNn5Y+NX56QUYfCtsyhF3ayiboEoUmJk/A==}
+    engines: {node: 20 || >=22}
     hasBin: true
 
   ripemd160@2.0.2:
@@ -23411,6 +23442,11 @@ snapshots:
   rimraf@3.0.2:
     dependencies:
       glob: 7.2.3
+
+  rimraf@6.0.1:
+    dependencies:
+      glob: 11.0.1
+      package-json-from-dist: 1.0.1
 
   ripemd160@2.0.2:
     dependencies:
