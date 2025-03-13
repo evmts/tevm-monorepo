@@ -81,6 +81,91 @@ describe('call', () => {
 			blockTag: 'pending',
 		})
 		
+		// Latest call should still have the old value
+		const latestResult = await client.call({
+			to: contractAddress,
+			data: callData,
+			blockTag: 'latest',
+		})
+		
 		expect(pendingResult.data).toBeDefined()
+		expect(latestResult.data).toBeDefined()
+		
+		// Verify that the pending call returns the updated value and latest call returns the original value
+		expect(pendingResult.data).not.toEqual(latestResult.data)
+	})
+	
+	it('should reflect multiple pending transactions', async () => {
+		// Create the call data for get function
+		const callData = encodeFunctionData({
+			abi: SimpleContract.abi,
+			functionName: 'get',
+		})
+		
+		// Initial value check
+		const initialResult = await client.call({
+			to: contractAddress,
+			data: callData,
+		})
+		
+		// Send first transaction but don't mine
+		const setCallData1 = encodeFunctionData({
+			abi: SimpleContract.abi,
+			functionName: 'set',
+			args: [888n],
+		})
+		
+		await client.sendTransaction({
+			to: contractAddress,
+			data: setCallData1,
+			account: '0x1234567890123456789012345678901234567890',
+		})
+		
+		// Check pending state after first transaction
+		const pendingResult1 = await client.call({
+			to: contractAddress,
+			data: callData,
+			blockTag: 'pending',
+		})
+		
+		// Send second transaction but don't mine
+		const setCallData2 = encodeFunctionData({
+			abi: SimpleContract.abi,
+			functionName: 'set',
+			args: [999n],
+		})
+		
+		await client.sendTransaction({
+			to: contractAddress,
+			data: setCallData2,
+			account: '0x1234567890123456789012345678901234567890',
+		})
+		
+		// Check pending state after second transaction
+		const pendingResult2 = await client.call({
+			to: contractAddress,
+			data: callData, 
+			blockTag: 'pending',
+		})
+		
+		// Mine the transactions
+		await client.tevmMine()
+		
+		// Check state after mining
+		const finalResult = await client.call({
+			to: contractAddress,
+			data: callData,
+		})
+		
+		// Verify the sequence of results
+		expect(initialResult.data).toBeDefined()
+		expect(pendingResult1.data).toBeDefined()
+		expect(pendingResult2.data).toBeDefined()
+		expect(finalResult.data).toBeDefined()
+		
+		// Second pending result should match final result
+		expect(pendingResult2.data).toEqual(finalResult.data)
+		// First pending result should differ from final result
+		expect(pendingResult1.data).not.toEqual(finalResult.data)
 	})
 })
