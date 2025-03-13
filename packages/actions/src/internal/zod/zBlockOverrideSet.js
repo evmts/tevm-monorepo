@@ -1,11 +1,14 @@
-import { z } from 'zod'
-import { zAddress } from './zAddress.js'
+import { validateBlockOverrideSet } from '../validators/validateBlockOverrideSet.js'
 
-export const zBlockOverrideSet = z.strictObject({
-	number: z.bigint().gte(0n).optional(),
-	time: z.bigint().gte(0n).optional(),
-	gasLimit: z.bigint().gte(0n).optional(),
-	coinbase: zAddress.optional(),
-	baseFee: z.bigint().gte(0n).optional(),
-	blobBaseFee: z.bigint().gte(0n).optional(),
-})
+export { validateBlockOverrideSet }
+
+// For backward compatibility
+export const zBlockOverrideSet = {
+	parse: (value) => {
+		const validation = validateBlockOverrideSet(value)
+		if (!validation.isValid) {
+			throw new Error(validation.errors[0]?.message || 'Invalid block override set')
+		}
+		return value
+	},
+}
