@@ -18,7 +18,8 @@ import { createAddress } from '@tevm/address'
  */
 
 /**
- * executeCall encapsalates the internal logic of running a call in the EVM
+ * executeCall encapsulates the internal logic of running a call in the EVM
+ * with optimized asynchronous storage prefetch
  * @internal
  * @param {import('@tevm/node').TevmNode} client
  * @param {import("@tevm/evm").EvmRunCallOpts} evmInput
@@ -37,13 +38,23 @@ export const executeCall = async (client, evmInput, params) => {
 	 */
 	let accessList = undefined
 	const vm = await client.getVm()
-		// as an optimization we want to attempt to fetch all storage up front
-		; (async () => {
+	// Create abort controller for cancelling prefetch if main execution finishes first
+	const prefetchController = new AbortController()
+	const signal = prefetchController.signal
+	
+	// Start asynchronous storage prefetch that can be cancelled
+	const prefetchPromise = (async () => {
+		try {
+			client.logger.debug('Starting asynchronous storage prefetch')
 			if (!client.forkTransport) return
+			
 			const blockTag = await client.getVm()
 				.then(vm => vm.blockchain.blocksByTag.get('forked'))
 				.then(block => block !== undefined ? numberToHex(block.header.number) : 'latest')
-			// TODO this is wrong we should use forkTransport.send but it doesn't exist yet
+			
+			// Request access list for transaction
+			if (signal.aborted) return
+			
 			/**
 			 * @type {import('../eth/EthJsonRpcResponse.js').EthCreateAccessListJsonRpcResponse}
 			 */
@@ -53,45 +64,97 @@ export const executeCall = async (client, evmInput, params) => {
 					{
 						to: evmInput.to,
 						gas: evmInput.gasLimit,
-						// gasPrice: evmInput.gasPrice, not necessary to set this
 						value: evmInput.value,
 						data: evmInput.data,
 					},
 					blockTag,
 				],
 			})
+			
+			if (signal.aborted) return
+			
 			if (accessListRes.error) {
 				client.logger.error('Unable to get an access list', accessListRes.error)
+				return
 			}
-			for (const contract of accessListRes.result?.accessList ?? []) {
+			
+			// Process each contract and storage key in the access list
+			const accessList = accessListRes.result?.accessList ?? []
+			const prefetchPromises = []
+			
+			for (const contract of accessList) {
+				if (signal.aborted) return
+				
 				for (const storageKey of contract.storageKeys) {
-					const getStorage = () => vm.stateManager._baseState.caches.storage.get(createAddress(contract.address), hexToBytes(storageKey, { size: 32 }))
+					if (signal.aborted) return
+					
+					const address = createAddress(contract.address)
+					const keyBytes = hexToBytes(storageKey, { size: 32 })
+					
+					// Check if storage is already available before making request
+					const getStorage = () => vm.stateManager._baseState.caches.storage.get(address, keyBytes)
 					if (getStorage()?.length) {
-						return
+						continue // Skip to next storage key
 					}
-					/**
-					 * @type {import('../eth/EthJsonRpcResponse.js').EthCreateAccessListJsonRpcResponse}
-					 */
-					client.forkTransport.request({
-						method: 'eth_getStorageAt',
-						params: [contract.address, storageKey, blockTag]
-					}).then(async storage => {
-						const vm = await client.getVm()
-						// THIS MUST BE SYNC TO INITIALLY SET STORAGE OR RACE CONDITIONS WILL EXIST!!!
-						// This can be cleaned up with a state lock later
-						if (getStorage()?.length) {
-							return
-						}
-						vm.stateManager._baseState.caches.storage
-							.put(
-								createAddress(contract.address),
-								hexToBytes(storageKey, { size: 32 }),
+					
+					// Create promise for fetching this storage slot
+					const storagePromise = (async () => {
+						if (signal.aborted) return
+						
+						try {
+							/**
+							 * @type {import('../eth/EthJsonRpcResponse.js').EthCreateAccessListJsonRpcResponse}
+							 */
+							const storage = await client.forkTransport.request({
+								method: 'eth_getStorageAt',
+								params: [contract.address, storageKey, blockTag]
+							})
+							
+							if (signal.aborted) return
+							
+							// Get latest VM instance to avoid stale references
+							const currentVm = await client.getVm()
+							
+							// Double-check storage isn't already set (race condition prevention)
+							if (getStorage()?.length) {
+								return
+							}
+							
+							// Store the fetched value in cache
+							currentVm.stateManager._baseState.caches.storage.put(
+								address,
+								keyBytes,
 								hexToBytes(/** @type {import('viem').Hex}*/(storage))
 							)
-					})
+						} catch (err) {
+							if (!signal.aborted) {
+								client.logger.debug({ err, address: contract.address, key: storageKey }, 
+									'Error prefetching storage slot')
+							}
+						}
+					})()
+					
+					prefetchPromises.push(storagePromise)
 				}
 			}
-		})()
+			
+			// Wait for all storage prefetch operations to complete
+			await Promise.allSettled(prefetchPromises)
+			
+			if (!signal.aborted) {
+				client.logger.debug(
+					{ contractCount: accessList.length, aborted: signal.aborted },
+					'Completed asynchronous storage prefetch'
+				)
+			}
+		} catch (err) {
+			if (!signal.aborted) {
+				client.logger.error({ err }, 'Error in storage prefetch')
+			}
+		}
+	})()
+	
+	// Don't await the prefetch promise, allowing the main execution to proceed
 	try {
 		const tx = await evmInputToImpersonatedTx({
 			...client,
@@ -120,6 +183,10 @@ export const executeCall = async (client, evmInput, params) => {
 			trace.returnValue = bytesToHex(runTxResult.execResult.returnValue)
 		}
 
+		// Main execution is complete, cancel the prefetch operation if it's still running
+		prefetchController.abort()
+		client.logger.debug('Main execution completed, cancelling any ongoing prefetch operations')
+
 		client.logger.debug(
 			{
 				returnValue: bytesToHex(runTxResult.execResult.returnValue),
@@ -145,10 +212,19 @@ export const executeCall = async (client, evmInput, params) => {
 				: {}),
 		}
 	} catch (e) {
+		// Make sure to cancel the prefetch operation on error
+		prefetchController.abort()
+		client.logger.debug('Main execution encountered an error, cancelling any ongoing prefetch operations')
+		
 		return {
 			trace,
 			accessList,
 			errors: [handleRunTxError(e)],
+		}
+	} finally {
+		// If somehow we get here without cancelling the prefetch, make sure it's cancelled
+		if (!prefetchController.signal.aborted) {
+			prefetchController.abort()
 		}
 	}
 }
