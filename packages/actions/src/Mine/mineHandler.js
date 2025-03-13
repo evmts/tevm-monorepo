@@ -142,7 +142,7 @@ export const mineHandler =
 			originalVm.evm.blockchain = vm.evm.blockchain
 			await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
 
-			emitEvents(client, newBlocks, newReceipts)
+			emitEvents(client, newBlocks, newReceipts, params)
 
 			return { blockHashes: newBlocks.map((b) => bytesToHex(b.hash())) }
 		} catch (e) {
