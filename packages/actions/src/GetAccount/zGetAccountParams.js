@@ -1,18 +1,78 @@
-import { z } from 'zod'
-import { zBaseParams } from '../BaseCall/zBaseParams.js'
-import { zAddress } from '../internal/zod/zAddress.js'
-import { zBlockParam } from '../internal/zod/zBlockParam.js'
+import { validateBaseParams } from '../BaseCall/validateBaseParams.js'
+import { validateAddress } from '../internal/validators/validateAddress.js'
+import { validateBlockParam } from '../internal/validators/validateBlockParam.js'
 
 /**
- * Zod validator for a valid getAccount action
+ * Validates if a value contains valid get account parameters
+ * @param {unknown} value - The value to validate
+ * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
  */
-export const zGetAccountParams = zBaseParams
-	.extend({
-		address: zAddress,
-		blockTag: zBlockParam.optional().describe('Block tag to execute call on. defaults to "latest"'),
-		returnStorage: z
-			.boolean()
-			.optional()
-			.describe('If true will return storage. Defaults to false. This can be expensive'),
-	})
-	.describe('Params to create an account or contract')
+export const validateGetAccountParams = (value) => {
+	// First validate it as base params
+	const baseValidation = validateBaseParams(value)
+	if (!baseValidation.isValid) {
+		return baseValidation
+	}
+
+	const errors = [...baseValidation.errors]
+
+	if (typeof value !== 'object' || value === null) {
+		return {
+			isValid: false,
+			errors: [{ path: '', message: 'Parameters must be an object' }],
+		}
+	}
+
+	// Validate required address field
+	if (!('address' in value) || value.address === undefined) {
+		errors.push({
+			path: 'address',
+			message: 'Missing required field: address',
+		})
+	} else {
+		const addressValidation = validateAddress(value.address)
+		if (!addressValidation.isValid) {
+			errors.push({
+				path: 'address',
+				message: addressValidation.message || 'Invalid address',
+			})
+		}
+	}
+
+	// Validate blockTag if present
+	if ('blockTag' in value && value.blockTag !== undefined) {
+		const blockTagValidation = validateBlockParam(value.blockTag)
+		if (!blockTagValidation.isValid) {
+			errors.push({
+				path: 'blockTag',
+				message: blockTagValidation.message || 'Invalid block tag',
+			})
+		}
+	}
+
+	// Validate returnStorage if present
+	if ('returnStorage' in value && value.returnStorage !== undefined) {
+		if (typeof value.returnStorage !== 'boolean') {
+			errors.push({
+				path: 'returnStorage',
+				message: 'returnStorage must be a boolean',
+			})
+		}
+	}
+
+	return {
+		isValid: errors.length === 0,
+		errors,
+	}
+}
+
+// For backward compatibility
+export const zGetAccountParams = {
+	parse: (value) => {
+		const validation = validateGetAccountParams(value)
+		if (!validation.isValid) {
+			throw new Error(validation.errors[0]?.message || 'Invalid get account parameters')
+		}
+		return value
+	},
+}

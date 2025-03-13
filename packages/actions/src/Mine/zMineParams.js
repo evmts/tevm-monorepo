@@ -1,13 +1,16 @@
-import { z } from 'zod'
-import { zBaseParams } from '../BaseCall/zBaseParams.js'
+import { validateMineParams } from "./validateMineParams.js";
 
 /**
- * Zod validator for a valid mine action invocation
+ * @param {unknown} value
+ * @returns {{ isValid: boolean, errors?: Array<import('@tevm/errors').BaseError> }}
  */
-export const zMineParams = zBaseParams.extend({
-	blockCount: z.number().int().gte(0).optional(),
-	interval: z.number().int().gte(0).optional(),
-	onBlock: z.function().optional(),
-	onReceipt: z.function().optional(),
-	onLog: z.function().optional(),
-})
+export const validateMineParamsObject = (value) => {
+	const errors = validateMineParams(value);
+	return {
+		isValid: errors.length === 0,
+		errors: errors.length > 0 ? errors : undefined,
+	};
+};
+
+// For backward compatibility
+export { validateMineParamsObject as zMineParams };

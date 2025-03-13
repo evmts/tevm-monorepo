@@ -1,15 +1,4 @@
-import { z } from 'zod'
+import { validateBaseParams } from './validateBaseParams.js'
 
-/**
- * Parameters shared across tevm actions
- */
-export const zBaseParams = z
-	.object({
-		throwOnFail: z
-			.boolean()
-			.optional()
-			.describe(
-				'If true the action handler will throw errors rather than returning errors an the `errors` property. Defaults to true.',
-			),
-	})
-	.describe('Properties shared across actions')
+// For backward compatibility
+export { validateBaseParams as zBaseParams }

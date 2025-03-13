@@ -26,7 +26,7 @@ export const handleAutomining = async (client, txHash, isGasMining = false) => {
 		// Mine the specified number of blocks
 		const mineRes = await mineHandler(client)({
 			throwOnFail: false,
-			blockCount: blocks,
+			blocks,
 		})
 
 		if (mineRes.errors?.length) {
