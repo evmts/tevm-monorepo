@@ -165,7 +165,7 @@ describe('bunPluginTevm', () => {
 
 		const [onLoadFilter, onLoadFn] = mockBuild.onLoad.mock.lastCall ?? []
 
-		expect(onLoadFilter.filter).toMatchInlineSnapshot('/\\\\\\.sol\\$/')
+		expect(onLoadFilter.filter).toMatchInlineSnapshot('/\\\\\\.\\(sol\\|js\\\\\\.sol\\|ts\\\\\\.sol\\)\\$/')
 
 		const result = await onLoadFn({ path: contractPath })
 

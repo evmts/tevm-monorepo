@@ -19,6 +19,6 @@
  * ```
  */
 export const isSolidity = (fileName: string) =>
-	(fileName.endsWith('.sol') || fileName.endsWith('.js.sol') || fileName.endsWith('.ts.sol')) && 
-    !fileName.endsWith('/.sol') && 
-    fileName !== '.sol'
+	(fileName.endsWith('.sol') || fileName.endsWith('.js.sol') || fileName.endsWith('.ts.sol')) &&
+	!fileName.endsWith('/.sol') &&
+	fileName !== '.sol'

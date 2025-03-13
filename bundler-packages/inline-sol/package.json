@@ -17,13 +17,6 @@
   },
   "license": "MIT",
   "sideEffects": false,
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -31,6 +24,13 @@
       "require": "./dist/index.cjs"
     }
   },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "pnpm run clean && pnpm run build:dist",
     "build:dist": "tsup",

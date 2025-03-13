@@ -77,7 +77,11 @@ export const tevmUnplugin = (options = {}) => {
 			moduleResolver = bundler(config, console, fao, versionedSolc, solcCache, contractPackage)
 		},
 		loadInclude: (id) => {
-			return (id.endsWith('.sol') || id.endsWith('.js.sol') || id.endsWith('.ts.sol')) && !fao.existsSync(`${id}.ts`) && !fao.existsSync(`${id}.d.ts`)
+			return (
+				(id.endsWith('.sol') || id.endsWith('.js.sol') || id.endsWith('.ts.sol')) &&
+				!fao.existsSync(`${id}.ts`) &&
+				!fao.existsSync(`${id}.d.ts`)
+			)
 		},
 		async resolveId(id, importer) {
 			// to handle the case where the import is coming from a node_module or a different workspace
