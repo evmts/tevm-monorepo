@@ -1,7 +1,7 @@
 import { createMemoryClient } from '@tevm/memory-client'
 import { createTevmNode } from '@tevm/node'
 import { type Address, EthjsAddress } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
@@ -25,13 +25,47 @@ async function createTestMemoryClient() {
 	return client
 }
 
+// Create a mock transport with eth_getProof support
+function createMockTransport() {
+	return {
+		request: vi.fn().mockImplementation(async ({ method }) => {
+			if (method === 'eth_getProof') {
+				// Return a valid minimal eth_getProof response
+				return {
+					accountProof: [],
+					balance: '0x0',
+					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+					nonce: '0x0',
+					storageHash: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+					storageProof: [],
+				}
+			}
+			// For other methods, delegate to the memory client
+			throw new Error(`Test not configured to handle method: ${method}`)
+		}),
+	}
+}
+
 describe('evmInputToImpersonatedTx', () => {
 	it('should create an impersonated transaction with the correct parameters', async () => {
-		// Create memory client instead of using external RPC
+		// Create a hybrid transport that combines memory client with mock eth_getProof
 		const memClient = await createTestMemoryClient()
+		const mockTransport = createMockTransport()
+
+		// Create a composite transport that delegates to mockTransport for eth_getProof
+		// and to memClient.transport for everything else
+		const compositeTransport = {
+			request: async (args) => {
+				if (args.method === 'eth_getProof') {
+					return mockTransport.request(args)
+				}
+				return memClient.transport.request(args)
+			},
+		}
+
 		const client = createTevmNode({
 			fork: {
-				transport: memClient.transport,
+				transport: compositeTransport,
 				blockTag: 1n,
 			},
 			miningConfig: { type: 'manual' },
