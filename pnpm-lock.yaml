@@ -1188,9 +1188,6 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
-      '@tevm/memory-client':
-        specifier: workspace:^
-        version: link:../memory-client
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1297,9 +1294,6 @@ importers:
         specifier: workspace:^
         version: link:../utils
     devDependencies:
-      '@tevm/actions':
-        specifier: workspace:^
-        version: link:../actions
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig

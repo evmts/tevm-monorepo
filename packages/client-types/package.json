@@ -66,9 +66,7 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
-	"peerDependencies": {
-		"@tevm/actions": "workspace:^"
-	},
+	"peerDependencies": {},
 	"publishConfig": {
 		"access": "public"
 	}
