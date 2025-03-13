@@ -4,9 +4,9 @@ exports[`callHandler > should create transaction when createTransaction is true 
 
 exports[`callHandler > should handle being unable to get options 1`] = `
 [
-  [UnknownBlock: Error cloning VM
+  [InvalidBlockError: Block tag must be a string or number
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73],
 ]
 `;
@@ -81,11 +81,7 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle unexpected errors during param conversion 1`] = `
 [
-  [InvalidGasPrice: Invalid input
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: gas must be a non-negative bigint
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],

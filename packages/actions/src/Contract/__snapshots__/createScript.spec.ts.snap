@@ -46,9 +46,9 @@ Version: 1.1.0.next-73],
 
 exports[`createScript > should return an error for invalid bytecode 1`] = `
 [
-  [InvalidDeployedBytecodeError: InvalidLength
+  [InvalidBytecodeError: Invalid EVM bytecode format
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeployedbytecodeerror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Version: 1.1.0.next-73],
 ]
 `;

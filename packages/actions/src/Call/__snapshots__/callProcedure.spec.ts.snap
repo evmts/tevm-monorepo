@@ -27,13 +27,13 @@ exports[`callProcedure > should handle errors from callHandler 1`] = `
   "code": -32602,
   "data": {
     "errors": [
-      "Invalid Address 0x$asdf
+      "value must be a hex string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
 Version: 1.1.0.next-73",
     ],
   },
-  "message": "Invalid Address 0x$asdf
+  "message": "value must be a hex string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
 Version: 1.1.0.next-73",

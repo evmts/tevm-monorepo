@@ -2,96 +2,64 @@
 
 exports[`should match snapshot for invalid parameters 1`] = `
 [
-  [InvalidSkipBalanceError: Expected boolean, received string
+  [InvalidSkipBalanceError: skipBalance must be a boolean
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidskipbalanceerror/
 Version: 1.1.0.next-73],
-  [InvalidGasRefundError: Expected bigint, received number
+  [InvalidGasRefundError: gasRefund must be a non-negative bigint
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgasrefunderror/
 Version: 1.1.0.next-73],
-  [InvalidBlockError: Invalid literal value, expected "latest"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-  [InvalidBlockError: Invalid literal value, expected "earliest"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-  [InvalidBlockError: Invalid literal value, expected "pending"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-  [InvalidBlockError: Invalid literal value, expected "safe"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-  [InvalidBlockError: Invalid literal value, expected "finalized"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-  [InvalidBlockError: Expected bigint, received boolean
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-  [InvalidBlockError: Expected number, received boolean
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-  [InvalidBlockError: Expected string, received boolean
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
-  [InvalidGasPrice: Expected bigint, received string
+  [InvalidGasPrice: gas must be a non-negative bigint
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidOriginError: Invalid Address invalid address
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidoriginerror/
-Version: 1.1.0.next-73],
-  [InvalidCallerError: Expected string, received number
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidcallererror/
-Version: 1.1.0.next-73],
-  [InvalidGasPrice: Expected bigint, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
-  [InvalidValueError: Expected bigint, received string
+  [InvalidValueError: value must be a non-negative bigint
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidvalueerror/
 Version: 1.1.0.next-73],
-  [InvalidDepthError: Number must be greater than or equal to 0
+  [InvalidDepthError: depth must be a non-negative integer
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeptherror/
 Version: 1.1.0.next-73],
-  [InvalidSelfdestructError: Expected set, received string
+  [InvalidMaxFeePerGasError: maxFeePerGas must be a non-negative bigint
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidselfdestructerror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxfeepergaserror/
 Version: 1.1.0.next-73],
-  [InvalidToError: Expected string, received number
+  [InvalidMaxPriorityFeePerGasError: maxPriorityFeePerGas must be a non-negative bigint
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/
+Version: 1.1.0.next-73],
+  [InvalidToError: value must be a string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
+Version: 1.1.0.next-73],
+  [InvalidCallerError: value must be a string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidcallererror/
+Version: 1.1.0.next-73],
+  [InvalidOriginError: value must be a hex string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidoriginerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Block tag must be a string or number
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73],
   [InvalidBlobVersionedHashesError: value must be a hex string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblobversionedhasheserror/
 Version: 1.1.0.next-73],
-  [InvalidMaxFeePerGasError: Expected bigint, received string
+  [InvalidSelfdestructError: selfdestruct must be a Set
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxfeepergaserror/
-Version: 1.1.0.next-73],
-  [InvalidMaxPriorityFeePerGasError: Expected bigint, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidselfdestructerror/
 Version: 1.1.0.next-73],
 ]
 `;
 
 exports[`should validate if top level is wrong 1`] = `
 [
-  [InvalidParams: Expected object, received string
+  [InvalidParams: Parameters must be an object
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Version: 1.1.0.next-73],

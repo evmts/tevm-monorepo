@@ -50,13 +50,20 @@ Version: 1.1.0.next-73],
 
 exports[`contractHandler > should handle invalid params 1`] = `
 [
-  [InvalidToError: Invalid Address 0x123
+  [InvalidToError: Address must be 40 hex characters long (with 0x prefix)
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
 Version: 1.1.0.next-73],
-  [InvalidAddress: Invalid Address 0x123
+  [InvalidParams: Address must be 40 hex characters long (with 0x prefix)
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
+Version: 1.1.0.next-73
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Version: 1.1.0.next-73],
+  [InvalidParams: Address must be 40 hex characters long (with 0x prefix)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Version: 1.1.0.next-73],
 ]
 `;
@@ -83,28 +90,31 @@ Version: 1.1.0.next-73],
 
 exports[`contractHandler > should handle unexpected errors during param conversion 1`] = `
 [
-  [InvalidGasPrice: Invalid input
+  [InvalidGasPrice: gas must be a non-negative bigint
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidGasPrice: Invalid input
+  [InvalidParams: gas must be a non-negative bigint
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
-  [InvalidParams: Must have either code or to
+Version: 1.1.0.next-73
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Must have either code, to, or deployedBytecode
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Version: 1.1.0.next-73],
 ]
 `;
 
 exports[`contractHandler > should handle unexpected errors during script creation 1`] = `
 [
-  [InvalidAbiError: Required
+  [InvalidAbiError: Missing required field: abi
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidabierror/
 Version: 1.1.0.next-73],
-  [InvalidFunctionNameError: Required
+  [InvalidFunctionNameError: Missing required field: functionName
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidfunctionnameerror/
 Version: 1.1.0.next-73],

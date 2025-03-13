@@ -166,29 +166,28 @@ export const zLoadStateParams = {
 		const validation = validateLoadStateParams(value)
 		if (validation.isValid) {
 			return { success: true, data: value }
-		} else {
-			return {
-				success: false,
-				error: {
-					format: () => {
-						const formatted = { _errors: [] }
-						validation.errors.forEach(err => {
-							if (err.path.startsWith('state.')) {
-								const pathParts = err.path.split('.')
-								if (pathParts.length > 1) {
-									if (!formatted.state) {
-										formatted.state = { _errors: [] }
-									}
-									formatted.state._errors.push(err.message)
-								}
-							} else {
-								formatted._errors.push(err.message)
-							}
-						})
-						return formatted
-					}
-				}
-			}
 		}
-	}
+		return {
+			success: false,
+			error: {
+				format: () => {
+					const formatted = { _errors: [] }
+					validation.errors.forEach((err) => {
+						if (err.path.startsWith('state.')) {
+							const pathParts = err.path.split('.')
+							if (pathParts.length > 1) {
+								if (!formatted.state) {
+									formatted.state = { _errors: [] }
+								}
+								formatted.state._errors.push(err.message)
+							}
+						} else {
+							formatted._errors.push(err.message)
+						}
+					})
+					return formatted
+				},
+			},
+		}
+	},
 }

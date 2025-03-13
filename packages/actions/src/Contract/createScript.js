@@ -46,10 +46,10 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 			errors: [new InternalError('Cannot create script without code or deployedBytecode')],
 		}
 	}
-	
+
 	// Log information about the code to help debugging
 	client.logger.debug('Creating script with code', { codeLength: code?.length, scriptAddress })
-	
+
 	// Check for known invalid bytecode pattern from the test
 	if (code === '0x6969696969') {
 		client.logger.debug('Detected test invalid bytecode')
@@ -110,9 +110,11 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 		if (res.execResult.exceptionError?.error) {
 			client.logger.error('Failed to create script because deployment of script bytecode failed')
 			return {
-				errors: [new InvalidBytecodeError(res.execResult.exceptionError.error, {
-					cause: /** @type {any}*/ (res.execResult.exceptionError),
-				})]
+				errors: [
+					new InvalidBytecodeError(res.execResult.exceptionError.error, {
+						cause: /** @type {any}*/ (res.execResult.exceptionError),
+					}),
+				],
 			}
 		}
 		const deployedAddress = res.createdAddress
@@ -150,7 +152,7 @@ export const createScript = async (client, code, deployedBytecode, to) => {
 	} catch (e) {
 		// Log the error to help debugging
 		client.logger.error('Error in createScript catch block', e)
-		
+
 		// Make sure we always return an array of errors
 		return {
 			errors: Array.isArray(e) ? e : [/** @type any*/ (e)],
