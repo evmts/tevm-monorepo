@@ -14,4 +14,44 @@ export const validateBaseCallParamsObject = (value) => {
 }
 
 // For backward compatibility
-export { validateBaseCallParamsObject as zBaseCallParams }
+export const zBaseCallParams = {
+	parse: (value) => {
+		const errors = validateBaseCallParams(value)
+		if (errors.length > 0) {
+			throw errors[0]
+		}
+		return value
+	},
+	safeParse: (value) => {
+		const errors = validateBaseCallParams(value)
+		if (errors.length === 0) {
+			return { success: true, data: value }
+		} else {
+			return {
+				success: false,
+				error: {
+					format: () => {
+						// Format errors into a structure similar to Zod errors
+						const formatted = { _errors: [] }
+						
+						errors.forEach(err => {
+							// Add to top-level errors
+							formatted._errors.push(err.message)
+							
+							// Extract field from error name
+							const errorType = err.name.replace('Invalid', '').replace('Error', '').toLowerCase()
+							if (errorType && errorType !== 'params') {
+								if (!formatted[errorType]) {
+									formatted[errorType] = { _errors: [] }
+								}
+								formatted[errorType]._errors.push(err.message)
+							}
+						})
+						
+						return formatted
+					}
+				}
+			}
+		}
+	}
+}

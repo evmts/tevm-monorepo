@@ -99,4 +99,56 @@ export const zContractParams = {
 		}
 		return value
 	},
+	safeParse: (value) => {
+		const validation = validateContractParams(value)
+		if (validation.isValid) {
+			return { success: true, data: value }
+		} else {
+			return {
+				success: false,
+				error: {
+					format: () => {
+						const formatted = { _errors: [] }
+						validation.errors.forEach(err => {
+							// Map errors to appropriate fields
+							if (err.message.includes('code')) {
+								if (!formatted.code) {
+									formatted.code = { _errors: [] }
+								}
+								formatted.code._errors.push(err.message)
+							} else if (err.message.includes('deployedBytecode')) {
+								if (!formatted.deployedBytecode) {
+									formatted.deployedBytecode = { _errors: [] }
+								}
+								formatted.deployedBytecode._errors.push(err.message)
+							} else if (err.message.includes('abi')) {
+								if (!formatted.abi) {
+									formatted.abi = { _errors: [] }
+								}
+								formatted.abi._errors.push(err.message)
+							} else if (err.message.includes('args')) {
+								if (!formatted.args) {
+									formatted.args = { _errors: [] }
+								}
+								formatted.args._errors.push(err.message)
+							} else if (err.message.includes('functionName')) {
+								if (!formatted.functionName) {
+									formatted.functionName = { _errors: [] }
+								}
+								formatted.functionName._errors.push(err.message)
+							} else if (err.message.includes('to address')) {
+								if (!formatted.to) {
+									formatted.to = { _errors: [] }
+								}
+								formatted.to._errors.push(err.message)
+							} else {
+								formatted._errors.push(err.message)
+							}
+						})
+						return formatted
+					}
+				}
+			}
+		}
+	}
 }

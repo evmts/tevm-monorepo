@@ -1,5 +1,5 @@
 import { InvalidRequestError } from '@tevm/errors'
-import { zLoadStateParams } from './zLoadStateParams.js'
+import { validateLoadStateParams as validateLoadState } from './zLoadStateParams.js'
 
 /**
  * Type for errors returned by validateLoadStateParams.
@@ -29,22 +29,14 @@ export const validateLoadStateParams = (action) => {
 	 */
 	const errors = []
 
-	const parsedParams = zLoadStateParams.safeParse(action)
+	const validation = validateLoadState(action)
 
-	if (parsedParams.success === false) {
-		const formattedErrors = parsedParams.error.format()
-
-		if (formattedErrors._errors) {
-			formattedErrors._errors.forEach((error) => {
-				errors.push(new InvalidRequestError(error))
-			})
-		}
-
-		if (formattedErrors.state?._errors) {
-			formattedErrors.state._errors.forEach((error) => {
-				errors.push(new InvalidRequestError(`Invalid state: ${error}`))
-			})
-		}
+	if (!validation.isValid) {
+		validation.errors.forEach((error) => {
+			const errorMessage = error.message || 'Invalid parameter'
+			errors.push(new InvalidRequestError(error.path ? `${error.path}: ${errorMessage}` : errorMessage))
+		})
 	}
+	
 	return errors
 }

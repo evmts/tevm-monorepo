@@ -7,7 +7,7 @@ import {
 	InvalidParamsError,
 } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
-import { zContractParams } from './zContractParams.js'
+import { validateContractParams as validateContract } from './zContractParams.js'
 
 /**
  * @typedef {InvalidAbiError| InvalidAddressError| InvalidArgsError| InvalidFunctionNameError | import('../BaseCall/validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateContractParamsError
@@ -23,45 +23,29 @@ export const validateContractParams = (action) => {
 	 */
 	const errors = validateBaseCallParams(action)
 
-	const parsedParams = zContractParams.safeParse(action)
+	const validation = validateContract(action)
 
-	if (parsedParams.success === false) {
-		const formattedErrors = parsedParams.error.format()
-		if (formattedErrors._errors) {
-			formattedErrors._errors.forEach((error) => {
-				errors.push(new InvalidParamsError(error))
-			})
-		}
-		if (formattedErrors.code) {
-			formattedErrors.code._errors.forEach((error) => {
-				errors.push(new InvalidBytecodeError(error))
-			})
-		}
-		if (formattedErrors.deployedBytecode) {
-			formattedErrors.deployedBytecode._errors.forEach((error) => {
-				errors.push(new InvalidBytecodeError(error))
-			})
-		}
-		if (formattedErrors.abi) {
-			formattedErrors.abi._errors.forEach((error) => {
-				errors.push(new InvalidAbiError(error))
-			})
-		}
-		if (formattedErrors.args) {
-			formattedErrors.args._errors.forEach((error) => {
-				errors.push(new InvalidArgsError(error))
-			})
-		}
-		if (formattedErrors.functionName) {
-			formattedErrors.functionName._errors.forEach((error) => {
-				errors.push(new InvalidFunctionNameError(error))
-			})
-		}
-		if (formattedErrors.to) {
-			formattedErrors.to._errors.forEach((error) => {
-				errors.push(new InvalidAddressError(error))
-			})
-		}
+	if (!validation.isValid) {
+		validation.errors.forEach((error) => {
+			const errorMessage = error.message || 'Invalid parameter'
+			
+			// Add appropriate error types based on the error message
+			if (errorMessage.includes('code')) {
+				errors.push(new InvalidBytecodeError(errorMessage))
+			} else if (errorMessage.includes('deployedBytecode')) {
+				errors.push(new InvalidBytecodeError(errorMessage))
+			} else if (errorMessage.includes('abi')) {
+				errors.push(new InvalidAbiError(errorMessage))
+			} else if (errorMessage.includes('args')) {
+				errors.push(new InvalidArgsError(errorMessage))
+			} else if (errorMessage.includes('functionName')) {
+				errors.push(new InvalidFunctionNameError(errorMessage))
+			} else if (errorMessage.includes('to address')) {
+				errors.push(new InvalidAddressError(errorMessage))
+			} else {
+				errors.push(new InvalidParamsError(errorMessage))
+			}
+		})
 	}
 
 	return errors
