@@ -12,8 +12,8 @@ async function createTestMemoryClient() {
 	})
 
 	// Setup basic account state
-	const testAddress = `0x${'34'.repeat(20)}`
-	await client.setAccount({
+	const testAddress = `0x${'34'.repeat(20)}` as `0x${string}`
+	await client.tevmSetAccount({
 		address: testAddress,
 		balance: 1000000000000000000n,
 		nonce: 5n,

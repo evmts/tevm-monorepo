@@ -1188,6 +1188,9 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../memory-client
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -6206,7 +6209,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
