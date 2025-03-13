@@ -192,4 +192,98 @@ export type TevmActions = {
 	 * ```
 	 */
 	tevmGetAccount: TevmActionsApi['getAccount']
+
+	/**
+	 * Simulates multiple calls in a single transaction, providing detailed results for each call.
+	 * This method allows for testing transactions with custom state parameters without modifying the blockchain.
+	 * @example
+	 * ```typescript
+	 * import { createMemoryClient } from 'tevm'
+	 * import { parseEther } from 'viem'
+	 * 
+	 * const client = createMemoryClient()
+	 * 
+	 * const { results } = await client.simulateCalls({
+	 *   account: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+	 *   calls: [
+	 *     // Call to get a value
+	 *     {
+	 *       to: contractAddress,
+	 *       data: '0x6d4ce63c', // get()
+	 *     },
+	 *     // Call to set a value
+	 *     {
+	 *       to: contractAddress,
+	 *       data: '0x60fe47b10000000000000000000000000000000000000000000000000000000000000042', // set(66)
+	 *     },
+	 *     // ETH transfer
+	 *     {
+	 *       to: '0x1234567890123456789012345678901234567890',
+	 *       value: parseEther('1'),
+	 *     }
+	 *   ],
+	 *   traceAssetChanges: true
+	 * })
+	 * ```
+	 */
+	simulateCalls: (params: {
+		account?: `0x${string}`
+		calls: Array<{
+			to?: `0x${string}`
+			from?: `0x${string}`
+			data?: `0x${string}`
+			value?: bigint
+			gas?: bigint
+			gasPrice?: bigint
+			maxFeePerGas?: bigint
+			maxPriorityFeePerGas?: bigint
+			nonce?: number
+			accessList?: Array<{address: `0x${string}`, storageKeys: `0x${string}`[]}>
+			abi?: any
+			functionName?: string
+			args?: any[]
+		}>
+		traceAssetChanges?: boolean
+		stateOverrides?: Array<{
+			address: `0x${string}`
+			balance?: bigint
+			nonce?: number
+			code?: `0x${string}`
+			storage?: Record<`0x${string}`, `0x${string}`>
+		}>
+		blockOverrides?: {
+			baseFeePerGas?: bigint
+			timestamp?: bigint
+			number?: bigint
+			difficulty?: bigint
+			gasLimit?: bigint
+			coinbase?: `0x${string}`
+		}
+		blockNumber?: bigint | 'latest' | 'earliest' | 'pending' | 'safe' | 'finalized' | `0x${string}`
+	}) => Promise<{
+		results: Array<{
+			status: 'success' | 'failure'
+			data: `0x${string}`
+			gasUsed: bigint
+			logs: Array<{
+				address: `0x${string}`
+				topics: `0x${string}`[]
+				data: `0x${string}`
+			}>
+			result?: any
+			error?: Error
+		}>
+		assetChanges?: Array<{
+			token: {
+				address: `0x${string}`
+				symbol: string
+				decimals: number
+			}
+			value: {
+				diff: bigint
+				start?: bigint
+				end?: bigint
+			}
+		}>
+	}>
 }
