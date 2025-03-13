@@ -15,11 +15,13 @@
     "all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app",
     "all:clean": "bun clean && pnpm i && bun allz",
     "all:slow": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app --parallel=1",
-    "allz": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,lint:package,lint:deps,lint,format",
+    "allz": "concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,lint:package,lint:deps,lint,format,build:rust:lib",
     "build": "nx run-many --targets=build:dist,build:app,build:types",
     "build:app": "nx run-many --target=build:app",
     "build:dist": "nx run-many --target=build:dist",
     "build:types": "nx run-many --targets=build:types,typecheck",
+    "build:rust:lib": "nx run-many --target=build --projects=my_rust_node_lib",
+    "build:rust:app": "nx run-many --target=build --projects=my_rust_node_lib --configuration=production",
     "clean": "nx reset && nx run-many --target=clean && rm -rf node_modules && rm -rf .nx",
     "e2e": "nx e2e e2e",
     "format:check": "biome format .",
@@ -38,21 +40,22 @@
     "test:run": "nx run-many --target=test:run",
     "up": "bun x npm-check-updates -ui -ws"
   },
-  "dependencies": {
-    "vocs": "1.0.1"
-  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.4",
     "@biomejs/biome": "^1.9.4",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.28.1",
     "@effect/codemod": "^0.0.16",
+    "@monodon/rust": "^2.1.0",
+    "@napi-rs/cli": "3.0.0-alpha.63",
+    "@napi-rs/wasm-runtime": "^0.2.4",
     "@vitest/coverage-v8": "^3.0.7",
     "@vitest/ui": "^3.0.7",
     "bun-types": "^1.2.4",
     "concurrently": "^9.1.2",
     "depcheck": "^1.4.7",
     "dotenv": "^16.4.7",
+    "emnapi": "^1.1.0",
     "gitmoji-cli": "^9.5.0",
     "jscodeshift": "^17.1.2",
     "nx": "20.4.6",
@@ -64,10 +67,12 @@
     "typedoc-plugin-markdown": "4.4.2",
     "typescript": "^5.8.2",
     "vite": "^6.2.0",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.7",
+    "vocs": "1.0.1"
   },
   "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
   "engines": {
     "node": ">=18"
-  }
+  },
+  "dependencies": {}
 }

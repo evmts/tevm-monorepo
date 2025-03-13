@@ -47,7 +47,11 @@
         // there is no angular in this repo!
         // but this is useful for running nx commands in vscode
         "nrwl.angular-console",
-        "antfu.vite"
+        "antfu.vite",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates",
+        "vadimcn.vscode-lldb"
       ],
       "settings": {
         "typescript.tsdk": "node_modules/typescript/lib",

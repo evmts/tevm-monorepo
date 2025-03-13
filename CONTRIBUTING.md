@@ -20,7 +20,13 @@ or run bun update if already installed
 bun update
 ```
 
-3. Update submodules
+3. Install Rust if working with Rust code
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+4. Update submodules
 
 ```bash
 git submodule update --init --recursive
@@ -56,6 +62,7 @@ This includes
 - generated docs
 - building all .d.ts types for all packages
 - building all cjs for all packages
+- building Rust libraries
 - running all tests
 - running all dev fixtures
 
@@ -98,6 +105,19 @@ For more information the [reference docs](https://tevm.sh) are a useful resource
 #### Runtime packages
 
 - [@tevm/contract](./core) is the main entry point for all runtime functionality.
+
+#### Rust packages
+
+- [packages/my_rust_node_lib](./packages/my_rust_node_lib) is a sample Rust library using napi-rs for Node.js bindings.
+- [lib/helios](./lib/helios) is a Rust-based Ethereum client embedded as a submodule.
+- [lib/revm](./lib/revm) is a Rust implementation of the Ethereum Virtual Machine.
+
+To build Rust packages, use:
+
+```bash
+bun build:rust:lib    # Development build
+bun build:rust:app    # Production build
+```
 
 #### Docs
 

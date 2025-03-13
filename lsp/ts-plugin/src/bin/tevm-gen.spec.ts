@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 describe('tevm-gen CLI', () => {
 	it('exposes a CLI', async () => {

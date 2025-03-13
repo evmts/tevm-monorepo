@@ -20,17 +20,13 @@ describe(mineHandler.name, () => {
 		expect(await getBlockNumber(client)).toBe(1n)
 	})
 
-	it(
-		'should work in forked mode too',
-		async () => {
-			const client = createTevmNode({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
-			const bn = await getBlockNumber(client)
-			expect(bn).toBeGreaterThan(119504797n)
-			await mineHandler(client)({})
-			expect(await getBlockNumber(client)).toBe(bn + 1n)
-		},
-		{ timeout: 20_000 },
-	)
+	it('should work in forked mode too', { timeout: 20_000 }, async () => {
+		const client = createTevmNode({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
+		const bn = await getBlockNumber(client)
+		expect(bn).toBeGreaterThan(119504797n)
+		await mineHandler(client)({})
+		expect(await getBlockNumber(client)).toBe(bn + 1n)
+	})
 
 	it('can be passed blockCount and interval props', async () => {
 		const client = createTevmNode()

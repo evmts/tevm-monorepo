@@ -5,10 +5,10 @@ import type { Node } from 'solidity-ast/node.js'
 
 export type ResolvedArtifacts = {
 	artifacts: Artifacts
-	modules: Record<'string', ModuleInfo>
+	modules: Record<string, ModuleInfo>
 	asts?: Record<string, Node> | undefined
-	solcInput: SolcInputDescription
-	solcOutput: SolcOutput
+	solcInput?: SolcInputDescription | undefined
+	solcOutput?: SolcOutput | undefined
 }
 
 export type ResolveArtifacts = (
@@ -47,14 +47,14 @@ export type Logger = {
 	log: (...message: string[]) => void
 }
 
-export type { ModuleInfo }
+export type { ModuleInfo, SolcInputDescription, SolcOutput, SolcContractOutput }
 
 export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
 	artifacts: SolcOutput['contracts'][string] | undefined
-	modules: Record<'string', ModuleInfo>
+	modules: Record<string, ModuleInfo>
 	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
-	solcInput: SolcInputDescription
-	solcOutput: SolcOutput
+	solcInput?: SolcInputDescription
+	solcOutput?: SolcOutput
 }
 
-export type Artifacts = Record<string, Pick<SolcContractOutput, 'abi' | 'userdoc' | 'evm'>>
+export type Artifacts = Record<string, Pick<SolcContractOutput, 'abi' | 'userdoc' | 'evm'> & { contractName: string }>

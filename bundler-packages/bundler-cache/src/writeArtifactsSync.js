@@ -70,7 +70,7 @@ export const writeArtifactsSync = (cwd, cacheDir, entryModuleId, resolvedArtifac
 
 				// File modification timestamps for dependency tracking
 				files: Object.fromEntries(
-					Object.keys(resolvedArtifacts.solcInput.sources).map((sourcePath) => {
+					Object.keys(resolvedArtifacts.solcInput?.sources || {}).map((sourcePath) => {
 						// For efficiency, only store the last modified timestamp of each file
 						return [sourcePath, fs.statSync(sourcePath).mtimeMs]
 					}),

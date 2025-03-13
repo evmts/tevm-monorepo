@@ -84,11 +84,11 @@ describe('resolvePromise', () => {
 		`)
 	})
 
-	it('should throw an error if exists throws', () => {
+	it('should throw an error if exists throws', async () => {
 		fao.exists = () => {
 			throw new Error('exists error')
 		}
-		expect(
+		await expect(
 			Effect.runPromise(resolveEffect('./resolvePromise.spec.ts', './src/utils', fao, logger)),
 		).rejects.toThrowErrorMatchingInlineSnapshot('[(FiberFailure) Error: exists error]')
 		expect((logger.error as Mock)?.mock?.calls?.[0]?.slice(0, 2)).toMatchInlineSnapshot(`

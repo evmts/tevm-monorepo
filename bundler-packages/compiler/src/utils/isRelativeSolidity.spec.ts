@@ -29,4 +29,38 @@ describe(isRelativeSolidity.name, () => {
 			expect(isRelativeSolidity(file)).toBe(false)
 		})
 	})
+
+	it('should handle Windows-style paths correctly', () => {
+		expect(isRelativeSolidity('.\\foo.sol')).toBe(false) // Windows path not starting with "./"
+		expect(isRelativeSolidity('.\\foo\\bar.sol')).toBe(false)
+		expect(isRelativeSolidity('..\\foo.sol')).toBe(false)
+
+		// Mixed path separators
+		expect(isRelativeSolidity('./foo\\bar.sol')).toBe(true) // Starts with "./" so it's true
+		expect(isRelativeSolidity('.\\foo/bar.sol')).toBe(false) // Doesn't start with "./"
+	})
+
+	it('should handle parent directory traversal correctly', () => {
+		expect(isRelativeSolidity('../foo.sol')).toBe(false) // Does not start with "./"
+		expect(isRelativeSolidity('../foo/bar.sol')).toBe(false)
+		expect(isRelativeSolidity('./foo/../bar.sol')).toBe(true) // Starts with "./" so it's true
+	})
+
+	it('should handle paths with special characters', () => {
+		expect(isRelativeSolidity('./path with spaces/contract.sol')).toBe(true)
+		expect(isRelativeSolidity('./path-with-dashes/contract.sol')).toBe(true)
+		expect(isRelativeSolidity('./path_with_underscores/contract.sol')).toBe(true)
+		expect(isRelativeSolidity('./path.with.dots/contract.sol')).toBe(true)
+		expect(isRelativeSolidity('./contract name with spaces.sol')).toBe(true)
+	})
+
+	it('should handle edge cases correctly', () => {
+		expect(isRelativeSolidity('./')).toBe(false) // No file specified
+		expect(isRelativeSolidity('./.')).toBe(false) // No .sol extension
+		expect(isRelativeSolidity('./..')).toBe(false) // No .sol extension
+		expect(isRelativeSolidity('./foo/.')).toBe(false) // No .sol extension
+		expect(isRelativeSolidity('./foo/.sol')).toBe(false) // .sol is not a valid file
+		expect(isRelativeSolidity('./foo.sol/')).toBe(false) // Has trailing slash
+		expect(isRelativeSolidity('./foo.sol?query=param')).toBe(false) // Current implementation doesn't support query params
+	})
 })

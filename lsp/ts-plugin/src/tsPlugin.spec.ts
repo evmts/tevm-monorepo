@@ -1,11 +1,9 @@
 import path from 'node:path'
 import type { CompilerConfig } from '@tevm/config'
 import { defaultConfig } from '@tevm/config'
-import * as Effect from 'effect/Effect'
 import typescript from 'typescript/lib/tsserverlibrary.js'
 import { type Mock, describe, expect, it, vi } from 'vitest'
 import tsPlugin from './index.js'
-import { tsPlugin as tsPluginDirect } from './tsPlugin.js'
 
 type TestAny = any
 
@@ -131,8 +129,7 @@ describe(tsPlugin.name, () => {
 	it('should handle a .sol file', () => {
 		const decorator = tsPlugin({ typescript })
 		decorator.create(createInfo)
-		// TODO call resolveModuleNameLiterals
-		// TODO call getScriptSnapshot
+		// Just check it doesn't throw
 	})
 
 	it('getExternalFiles should work', () => {
@@ -144,29 +141,13 @@ describe(tsPlugin.name, () => {
 		expect(decorator.getExternalFiles?.(mockProject as any, 0)).toEqual(['bar.sol'])
 	})
 
-	it('should handle config load errors by using default config', () => {
-		// We need to mock the modules themselves rather than individual functions
-		vi.doMock('effect/Effect', () => ({
-			runSync: vi.fn(() => defaultConfig),
-			map: vi.fn((fn) => fn),
-			catchTag: vi.fn((tag, handler) => handler()),
-			logWarning: vi.fn(() => ({
-				pipe: vi.fn((mapper) => defaultConfig),
-			})),
-		}))
+	it('should setup service with decorators', () => {
+		// Create a plugin and verify it has all expected methods
+		const decorator = tsPlugin({ typescript })
+		const service = decorator.create(createInfo)
 
-		vi.doMock('@tevm/config', () => ({
-			loadConfig: vi.fn(() => ({
-				pipe: vi.fn(),
-			})),
-			defaultConfig: {
-				foo: 'bar',
-			},
-		}))
-
-		// Re-import the module to use our mocks
-		// This is a workaround - in a real test you'd isolate this better
-		// Since we're just checking coverage, this should suffice
-		expect(true).toBe(true)
+		// Verify expected methods are present
+		expect(service.getDefinitionAtPosition).toBeDefined()
+		expect(service.getDefinitionAndBoundSpan).toBeDefined()
 	})
 })

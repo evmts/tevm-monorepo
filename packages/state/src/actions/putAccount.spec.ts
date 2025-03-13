@@ -45,4 +45,30 @@ describe(putAccount.name, () => {
 
 		expect(await getAccount(baseState)(address)).toBeUndefined()
 	})
+
+	it('should handle EthjsAccount properly', async () => {
+		const baseState = createBaseState({
+			loggingLevel: 'warn',
+		})
+
+		const address = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
+		const largeBalance = 2n ** 40n // Large but reasonable balance value
+		const largeNonce = 2n ** 10n // Large but reasonable nonce value
+
+		// Create account
+		const account = EthjsAccount.fromAccountData({
+			balance: largeBalance,
+			nonce: largeNonce,
+		})
+
+		// Put account into state
+		await putAccount(baseState)(address, account)
+
+		// Get account from state
+		const retrievedAccount = await getAccount(baseState)(address)
+
+		// Check that values match
+		expect(retrievedAccount?.balance).toBe(largeBalance)
+		expect(retrievedAccount?.nonce).toBe(largeNonce)
+	})
 })

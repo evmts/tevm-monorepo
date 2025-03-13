@@ -22,31 +22,27 @@ beforeEach(async () => {
 })
 
 describe('tevmDeploy', () => {
-	it(
-		'should deploy a contract and interact with it',
-		async () => {
-			// Deploy the contract
-			const deployResult = await tevmDeploy(client, {
-				bytecode: SimpleContract.bytecode,
-				abi: SimpleContract.abi,
-				args: [42n], // Constructor argument
-			})
+	it('should deploy a contract and interact with it', { timeout: 10_000 }, async () => {
+		// Deploy the contract
+		const deployResult = await tevmDeploy(client, {
+			bytecode: SimpleContract.bytecode,
+			abi: SimpleContract.abi,
+			args: [42n], // Constructor argument
+		})
 
-			// Verify the contract's deployment address
-			expect(deployResult.createdAddress).toBeDefined()
+		// Verify the contract's deployment address
+		expect(deployResult.createdAddress).toBeDefined()
 
-			// Mine a block to include the deployment transaction
-			await mineHandler(client.transport.tevm)({ blockCount: 1 })
+		// Mine a block to include the deployment transaction
+		await mineHandler(client.transport.tevm)({ blockCount: 1 })
 
-			// Interact with the deployed contract
-			const contract = SimpleContract.withAddress(deployResult.createdAddress as Address)
-			const result = await tevmContract(client, contract.read.get())
+		// Interact with the deployed contract
+		const contract = SimpleContract.withAddress(deployResult.createdAddress as Address)
+		const result = await tevmContract(client, contract.read.get())
 
-			// Verify the interaction result
-			expect(result.data).toBe(42n)
-		},
-		{ timeout: 10_000 },
-	)
+		// Verify the interaction result
+		expect(result.data).toBe(42n)
+	})
 
 	it('should handle errors gracefully during deployment', async () => {
 		try {

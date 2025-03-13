@@ -1,8 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { SimpleContract } from '@tevm/contract'
-import { type Hex } from '@tevm/utils'
+import { type Hex, parseEther } from 'viem'
+import { createClient } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import { createTevmTransport } from '../../createTevmTransport.js'
 
 let mc: MemoryClient
 let deployTxHash: Hex
@@ -10,13 +12,33 @@ let c = {
 	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
 }
 
+// Test addresses
+const testAccount1 = `0x${'11'.repeat(20)}` as const
+const testAccount2 = `0x${'22'.repeat(20)}` as const
+
 beforeEach(async () => {
 	mc = createMemoryClient()
+	await mc.tevmReady()
+	
+	// Set up test accounts
+	await mc.tevmSetAccount({
+		address: testAccount1,
+		balance: parseEther('10'),
+	})
+	
+	await mc.tevmSetAccount({
+		address: testAccount2,
+		balance: parseEther('10'),
+	})
+	
 	const deployResult = await mc.tevmDeploy({
 		bytecode: SimpleContract.bytecode,
 		abi: SimpleContract.abi,
 		args: [420n],
+		createTransaction: true,
+		from: testAccount1,
 	})
+	
 	if (!deployResult.createdAddress) {
 		throw new Error('contract never deployed')
 	}
@@ -31,7 +53,171 @@ beforeEach(async () => {
 })
 
 describe('getTxpoolContent', () => {
-	it.todo('should work as expected', () => {
-		expect(true).toBe(true)
+	it('should return pending and queued transactions in the tx pool', async () => {
+		// Disable automine to queue transactions
+		await mc.setAutomine({ enabled: false })
+		
+		// Send a few transactions
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		const tx1Hash = await c.simpleContract.write.setValue([111n], { 
+			account: testAccount1,
+		})
+		
+		const tx2Hash = await c.simpleContract.write.setValue([222n], { 
+			account: testAccount1,
+		})
+		
+		await mc.impersonateAccount({ address: testAccount2 })
+		
+		const tx3Hash = await c.simpleContract.write.setValue([333n], { 
+			account: testAccount2,
+		})
+		
+		// Get txpool content
+		const txpoolContent = await mc.getTxpoolContent()
+		
+		// Verify structure
+		expect(txpoolContent).toBeDefined()
+		expect(txpoolContent.pending).toBeDefined()
+		expect(txpoolContent.queued).toBeDefined()
+		
+		// Check if our transactions are in the pool
+		// Transactions from each account should be in the pending section under their address
+		expect(txpoolContent.pending[testAccount1.toLowerCase()]).toBeDefined()
+		
+		// There should be at least our two transactions from testAccount1
+		const account1Txs = txpoolContent.pending[testAccount1.toLowerCase()]
+		expect(Object.keys(account1Txs).length).toBeGreaterThanOrEqual(2)
+		
+		// Transaction nonce numbers should match the transaction count
+		const tx1 = await mc.getTransaction({ hash: tx1Hash })
+		expect(account1Txs[tx1.nonce.toString()]).toBeDefined()
+		
+		// testAccount2 should have at least one transaction
+		expect(txpoolContent.pending[testAccount2.toLowerCase()]).toBeDefined()
+		const account2Txs = txpoolContent.pending[testAccount2.toLowerCase()]
+		expect(Object.keys(account2Txs).length).toBeGreaterThanOrEqual(1)
+		
+		// Verify transaction data is included
+		const nonceKey = Object.keys(account1Txs)[0]
+		const pendingTx = account1Txs[nonceKey]
+		expect(pendingTx.hash).toBeDefined()
+		expect(pendingTx.from).toBeDefined()
+		expect(pendingTx.to).toBeDefined()
+		expect(pendingTx.gas).toBeDefined()
+		expect(pendingTx.gasPrice).toBeDefined()
+		expect(pendingTx.value).toBeDefined()
+		expect(pendingTx.input).toBeDefined()
+		expect(pendingTx.nonce).toBeDefined()
+		
+		// Mine the transactions to clear the pool
+		await mc.mine({ blocks: 1 })
+		
+		// Check tx pool is now empty (or at least our transactions aren't there)
+		const emptyTxpoolContent = await mc.getTxpoolContent()
+		
+		// After mining, the pending transactions should be gone
+		if (emptyTxpoolContent.pending[testAccount1.toLowerCase()]) {
+			const account1TxsAfterMine = emptyTxpoolContent.pending[testAccount1.toLowerCase()]
+			expect(Object.keys(account1TxsAfterMine).length).toBe(0)
+		}
+		
+		if (emptyTxpoolContent.pending[testAccount2.toLowerCase()]) {
+			const account2TxsAfterMine = emptyTxpoolContent.pending[testAccount2.toLowerCase()]
+			expect(Object.keys(account2TxsAfterMine).length).toBe(0)
+		}
+	})
+	
+	it('should return an empty structure when there are no pending transactions', async () => {
+		// Ensure automine is on to avoid any pending transactions
+		await mc.setAutomine({ enabled: true })
+		
+		// Get txpool content
+		const txpoolContent = await mc.getTxpoolContent()
+		
+		// Verify structure exists but is empty
+		expect(txpoolContent).toBeDefined()
+		expect(txpoolContent.pending).toBeDefined()
+		expect(txpoolContent.queued).toBeDefined()
+		
+		// Check if pending and queued are empty objects
+		expect(Object.keys(txpoolContent.pending).length).toBe(0)
+		expect(Object.keys(txpoolContent.queued).length).toBe(0)
+	})
+	
+	it('should work with traditional client API', async () => {
+		// Create a standard client
+		const client = createClient({
+			transport: createTevmTransport({}),
+		})
+		
+		// Set up accounts
+		await client.tevmSetAccount({
+			address: testAccount1,
+			balance: parseEther('10'),
+		})
+		
+		// Disable automine
+		await client.setAutomine({ enabled: false })
+		
+		// Send a transaction
+		await client.impersonateAccount({ address: testAccount1 })
+		await client.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('1')
+		})
+		
+		// Get txpool content
+		const txpoolContent = await client.getTxpoolContent()
+		
+		// Verify we have structure
+		expect(txpoolContent).toBeDefined()
+		expect(txpoolContent.pending).toBeDefined()
+		expect(txpoolContent.queued).toBeDefined()
+		
+		// We should have at least one transaction in pending
+		expect(Object.keys(txpoolContent.pending).length).toBeGreaterThan(0)
+	})
+	
+	it('should distinguish between pending and queued transactions', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Set up accounts with nonce gaps to create queued transactions
+		await mc.impersonateAccount({ address: testAccount1 })
+		
+		// Send a regular transaction that should go in pending
+		const pendingTxHash = await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.1')
+		})
+		
+		// Send a transaction with a future nonce that should go in queued
+		// First get current nonce
+		const currentNonce = await mc.getTransactionCount({ address: testAccount1 })
+		
+		// Create a transaction with a gap in nonce (should be queued)
+		await mc.sendTransaction({
+			from: testAccount1,
+			to: testAccount2,
+			value: parseEther('0.2'),
+			nonce: currentNonce + 2n // Skip a nonce to create a gap
+		})
+		
+		// Get txpool content
+		const txpoolContent = await mc.getTxpoolContent()
+		
+		// Check for pending transaction
+		expect(txpoolContent.pending[testAccount1.toLowerCase()]).toBeDefined()
+		
+		// Check for queued transaction
+		expect(txpoolContent.queued[testAccount1.toLowerCase()]).toBeDefined()
+		
+		// Verify we have at least one transaction in each category
+		expect(Object.keys(txpoolContent.pending[testAccount1.toLowerCase()]).length).toBeGreaterThan(0)
+		expect(Object.keys(txpoolContent.queued[testAccount1.toLowerCase()]).length).toBeGreaterThan(0)
 	})
 })

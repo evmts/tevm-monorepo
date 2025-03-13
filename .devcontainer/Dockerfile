@@ -10,7 +10,7 @@ ENV PATH="$PATH:/root/.foundry/bin"
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
   apt-get --yes upgrade && \
   apt-get --yes install --no-install-recommends \
-  curl sudo bash coreutils
+  curl sudo bash coreutils build-essential pkg-config libssl-dev clang
 
 # install foundry - https://getfoundry.sh/
 RUN curl --location https://foundry.paradigm.xyz | bash && \

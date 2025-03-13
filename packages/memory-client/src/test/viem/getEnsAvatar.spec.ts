@@ -23,23 +23,19 @@ beforeEach(async () => {
 })
 
 describe('getEnsAvatar', async () => {
-	it.todo(
-		'should work',
-		async () => {
-			const kzg = await loadKZG()
-			const mainnetClient = createMemoryClient({
-				common: Object.assign({ kzg }, mainnet),
-				fork: {
-					transport: transports.mainnet,
-					blockTag: 19804639n,
-				},
-			})
-			expect(
-				await mainnetClient.getEnsAvatar({
-					name: 'wevm.eth',
-				}),
-			).toBe('https://euc.li/wevm.eth')
-		},
-		{ timeout: 40_000 },
-	)
+	it.todo('should work', { timeout: 40_000 }, async () => {
+		const kzg = await loadKZG()
+		const mainnetClient = createMemoryClient({
+			common: Object.assign({ kzg }, mainnet),
+			fork: {
+				transport: transports.mainnet,
+				blockTag: 19804639n,
+			},
+		})
+		expect(
+			await mainnetClient.getEnsAvatar({
+				name: 'wevm.eth',
+			}),
+		).toBe('https://euc.li/wevm.eth')
+	})
 })

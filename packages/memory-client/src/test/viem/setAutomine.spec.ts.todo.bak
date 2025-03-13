@@ -1,0 +1,125 @@
+import { beforeEach, describe, expect, it } from 'vitest'
+import { SimpleContract } from '@tevm/contract'
+import { type Hex } from '@tevm/utils'
+import type { MemoryClient } from '../../MemoryClient.js'
+import { createMemoryClient } from '../../createMemoryClient.js'
+
+let mc: MemoryClient
+let deployTxHash: Hex
+let c = {
+	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
+}
+
+beforeEach(async () => {
+	mc = createMemoryClient()
+	await mc.tevmReady()
+	const deployResult = await mc.tevmDeploy({
+		bytecode: SimpleContract.bytecode,
+		abi: SimpleContract.abi,
+		args: [420n],
+	})
+	if (!deployResult.createdAddress) {
+		throw new Error('contract never deployed')
+	}
+	c = {
+		simpleContract: SimpleContract.withAddress(deployResult.createdAddress),
+	}
+	if (!deployResult.txHash) {
+		throw new Error('txHash not found')
+	}
+	deployTxHash = deployResult.txHash
+	await mc.tevmMine()
+})
+
+describe('setAutomine', () => {
+	it('should disable automine when set to false', async () => {
+		// First check that automine is on by default
+		const initialAutomine = await mc.getAutomine()
+		expect(initialAutomine).toBe(true)
+
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Verify automine is now disabled
+		const automine = await mc.getAutomine()
+		expect(automine).toBe(false)
+		
+		// Send a transaction that should not be immediately mined
+		const txHash = await c.simpleContract.write.setValue([999n])
+		
+		// Get the transaction, should be pending
+		const tx = await mc.getTransaction({ hash: txHash })
+		expect(tx.blockNumber).toBeNull()
+		
+		// Manually mine the transaction
+		await mc.mine({ blocks: 1 })
+		
+		// Verify transaction is now mined
+		const txAfterMine = await mc.getTransaction({ hash: txHash })
+		expect(txAfterMine.blockNumber).not.toBeNull()
+		
+		// Verify the state changed
+		const value = await c.simpleContract.read.getValue()
+		expect(value).toBe(999n)
+	})
+	
+	it('should re-enable automine when set to true', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Verify automine is disabled
+		let automine = await mc.getAutomine()
+		expect(automine).toBe(false)
+		
+		// Re-enable automine
+		await mc.setAutomine({ enabled: true })
+		
+		// Verify automine is now enabled
+		automine = await mc.getAutomine()
+		expect(automine).toBe(true)
+		
+		// Send a transaction that should be immediately mined
+		const txHash = await c.simpleContract.write.setValue([777n])
+		
+		// Get the transaction, should be mined
+		const tx = await mc.getTransaction({ hash: txHash })
+		expect(tx.blockNumber).not.toBeNull()
+		
+		// Verify the state changed without calling mine
+		const value = await c.simpleContract.read.getValue()
+		expect(value).toBe(777n)
+	})
+	
+	it('should handle multiple transactions correctly with automine off', async () => {
+		// Disable automine
+		await mc.setAutomine({ enabled: false })
+		
+		// Send multiple transactions that will be queued
+		const tx1Hash = await c.simpleContract.write.setValue([100n])
+		const tx2Hash = await c.simpleContract.write.setValue([200n])
+		const tx3Hash = await c.simpleContract.write.setValue([300n])
+		
+		// Verify none are mined yet
+		const tx1 = await mc.getTransaction({ hash: tx1Hash })
+		const tx2 = await mc.getTransaction({ hash: tx2Hash })
+		const tx3 = await mc.getTransaction({ hash: tx3Hash })
+		expect(tx1.blockNumber).toBeNull()
+		expect(tx2.blockNumber).toBeNull()
+		expect(tx3.blockNumber).toBeNull()
+		
+		// Mine all pending transactions
+		await mc.mine({ blocks: 1 })
+		
+		// Verify all transactions are now mined
+		const tx1AfterMine = await mc.getTransaction({ hash: tx1Hash })
+		const tx2AfterMine = await mc.getTransaction({ hash: tx2Hash })
+		const tx3AfterMine = await mc.getTransaction({ hash: tx3Hash })
+		expect(tx1AfterMine.blockNumber).not.toBeNull()
+		expect(tx2AfterMine.blockNumber).not.toBeNull()
+		expect(tx3AfterMine.blockNumber).not.toBeNull()
+		
+		// Verify final state reflects the last transaction
+		const value = await c.simpleContract.read.getValue()
+		expect(value).toBe(300n)
+	})
+})

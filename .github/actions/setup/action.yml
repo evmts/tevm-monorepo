@@ -21,6 +21,11 @@ runs:
       uses: foundry-rs/foundry-toolchain@v1
       with:
         version: nightly
+        
+    - name: Install Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: rustfmt, clippy
 
     - name: Install dependencies
       run: pnpm install --frozen-lockfile

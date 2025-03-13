@@ -18,3 +18,20 @@ export const updateImportPaths = (code, resolvedImports) => {
 		}),
 	)
 }
+
+/**
+ * Updates a specific import path in source code
+ * @param {string} source - Source code to update
+ * @param {string} oldPath - The original import path to replace
+ * @param {string} newPath - The new import path
+ * @returns {string} - Updated source code
+ */
+export const updateImportPath = (source, oldPath, newPath) => {
+	const solidityImportRegex = /(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)/gm
+	return source.replaceAll(solidityImportRegex, (match, p1, p2, p3) => {
+		if (p2 === oldPath) {
+			return `${p1}${newPath}${p3}`
+		}
+		return match
+	})
+}

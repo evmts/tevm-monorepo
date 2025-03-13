@@ -28,7 +28,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 		const pool = await client.getTxPool()
 
 		const accountAddress = evmInput.origin ?? createAddress(0)
-		const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount())
+		const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount(0n, 0n))
 		const hasEth = evmInput.skipBalance || (account?.balance ?? 0n) > 0n
 		if (!hasEth) {
 			return maybeThrowOnFail(throwOnFail, {

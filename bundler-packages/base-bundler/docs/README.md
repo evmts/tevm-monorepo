@@ -43,7 +43,7 @@ And all bundlers
 
 ## Usage
 
-See [docs](_media/bundler.md)
+See [docs](./docs/functions/bundler.md)
 
 ## License 📄
 
