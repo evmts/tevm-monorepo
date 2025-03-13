@@ -354,6 +354,16 @@
         "types": "./bundler/solc/index.d.cts",
         "default": "./bundler/solc/index.cjs"
       }
+    },
+    "./bundler/inline-sol": {
+      "import": {
+        "types": "./bundler/inline-sol/index.d.ts",
+        "default": "./bundler/inline-sol/index.js"
+      },
+      "require": {
+        "types": "./bundler/inline-sol/index.d.cts",
+        "default": "./bundler/inline-sol/index.cjs"
+      }
     }
   },
   "main": "index.cjs",
@@ -396,7 +406,8 @@
     "bundler/rspack-plugin",
     "bundler/vite-plugin",
     "bundler/webpack-plugin",
-    "bin"
+    "bin",
+    "bundler/inline-sol"
   ],
   "scripts": {
     "all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
@@ -431,6 +442,7 @@
     "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/evm": "workspace:^",
     "@tevm/http-client": "workspace:^",
+    "@tevm/inline-sol": "workspace:^",
     "@tevm/jsonrpc": "workspace:^",
     "@tevm/memory-client": "workspace:^",
     "@tevm/node": "workspace:^",

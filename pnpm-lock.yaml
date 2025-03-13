@@ -65,6 +65,9 @@ importers:
       publint:
         specifier: ^0.3.7
         version: 0.3.9
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
       sort-package-json:
         specifier: ^2.15.1
         version: 2.15.1
@@ -267,6 +270,25 @@ importers:
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
+  bundler-packages/inline-sol:
+    dependencies:
+      '@tevm/compiler':
+        specifier: workspace:*
+        version: link:../compiler
+    devDependencies:
+      '@tevm/contract':
+        specifier: workspace:*
+        version: link:../../packages/contract
+      '@tevm/runtime':
+        specifier: workspace:*
+        version: link:../runtime
+      '@tevm/tsconfig':
+        specifier: workspace:*
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:*
         version: link:../../configs/tsupconfig
 
   bundler-packages/resolutions:
@@ -2271,6 +2293,9 @@ importers:
       '@tevm/http-client':
         specifier: workspace:^
         version: link:../packages/http-client
+      '@tevm/inline-sol':
+        specifier: workspace:^
+        version: link:../bundler-packages/inline-sol
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../packages/jsonrpc
@@ -11799,6 +11824,11 @@ packages:
 
   rimraf@5.0.10:
     resolution: {integrity: sha512-l0OE8wL34P4nJH/H2ffoaniAokM2qSmrtXHmlpvYr5AVVX8msAyW0l8NVJFDxlSK4u3Uh/f41cQheDVdnYijwQ==}
+    hasBin: true
+
+  rimraf@6.0.1:
+    resolution: {integrity: sha512-9dkvaxAsk/xNXSJzMgFqqMCuFgt2+KsOFek3TMLfo8NCPfWpBmqwyNn5Y+NX56QUYfCtsyhF3ayiboEoUmJk/A==}
+    engines: {node: 20 || >=22}
     hasBin: true
 
   ripemd160@2.0.2:
@@ -25652,6 +25682,11 @@ snapshots:
   rimraf@5.0.10:
     dependencies:
       glob: 10.4.5
+
+  rimraf@6.0.1:
+    dependencies:
+      glob: 11.0.1
+      package-json-from-dist: 1.0.1
 
   ripemd160@2.0.2:
     dependencies:

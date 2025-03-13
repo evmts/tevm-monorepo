@@ -158,7 +158,7 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 			})
 
 			/**
-			 * Loader for Solidity (.sol) files
+			 * Loader for Solidity (.sol) files and inline Solidity (.js.sol, .ts.sol) files
 			 *
 			 * This loader:
 			 * 1. Checks if pre-generated JavaScript/TypeScript files exist (.ts, .js, .mjs, .cjs)
@@ -166,7 +166,7 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 			 * 3. Otherwise, compiles the Solidity file using the bundler
 			 * 4. Sets up file watching for live reload
 			 */
-			build.onLoad({ filter: /\.sol$/ }, async ({ path }) => {
+			build.onLoad({ filter: /\.(sol|js\.sol|ts\.sol)$/ }, async ({ path }) => {
 				// Check for pre-generated files
 				const filePaths = [`${path}.ts`, `${path}.js`, `${path}.mjs`, `${path}.cjs`]
 				const existsArr = await Promise.all(filePaths.map((filePath) => bunFileAccesObject.exists(filePath)))

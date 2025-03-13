@@ -1,0 +1,55 @@
+{
+  "name": "@tevm/inline-sol",
+  "version": "2.0.0-next.103",
+  "private": false,
+  "description": "Inline Solidity template literal for Tevm",
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "typescript",
+    "web3",
+    "tevm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "bundler-packages/inline-sol"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "pnpm run clean && pnpm run build:dist && pnpm run build:types",
+    "build:dist": "tsup",
+    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+    "clean": "rimraf dist",
+    "format": "biome format --write .",
+    "lint": "biome check --apply .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tevm/compiler": "workspace:*"
+  },
+  "devDependencies": {
+    "@tevm/contract": "workspace:*",
+    "@tevm/runtime": "workspace:*",
+    "@tevm/tsconfig": "workspace:*",
+    "@tevm/tsupconfig": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
