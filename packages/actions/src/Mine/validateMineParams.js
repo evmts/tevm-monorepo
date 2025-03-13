@@ -1,5 +1,6 @@
 import { InvalidAddressError, InvalidBalanceError, InvalidNonceError, InvalidRequestError } from '@tevm/errors'
-import { zMineParams } from './zMineParams.js'
+import { validateBaseParams } from '../BaseCall/validateBaseParams.js'
+import { validateMineEvents } from './validateMineEvents.js'
 
 /**
  * @typedef {InvalidAddressError| InvalidBalanceError| InvalidNonceError | InvalidRequestError} ValidateMineParamsError
@@ -15,28 +16,47 @@ export const validateMineParams = (action) => {
 	 */
 	const errors = []
 
-	const parsedParams = zMineParams.safeParse(action)
+	if (typeof action !== 'object' || action === null) {
+		errors.push(new InvalidRequestError('params must be an object'))
+		return errors
+	}
 
-	if (parsedParams.success === false) {
-		const formattedErrors = parsedParams.error.format()
-		formattedErrors._errors.forEach((error) => {
-			errors.push(new InvalidRequestError(error))
+	// Validate base params
+	const baseValidation = validateBaseParams(action)
+	if (!baseValidation.isValid) {
+		baseValidation.errors.forEach(error => {
+			if (error.path === 'throwOnFail') {
+				errors.push(new InvalidBalanceError(error.message))
+			} else {
+				errors.push(new InvalidRequestError(error.message))
+			}
 		})
-		if (formattedErrors.blockCount) {
-			formattedErrors.blockCount._errors.forEach((error) => {
-				errors.push(new InvalidAddressError(error))
-			})
+	}
+
+	// Validate blockCount if present
+	if ('blockCount' in action && action.blockCount !== undefined) {
+		if (typeof action.blockCount !== 'number' ||
+			!Number.isInteger(action.blockCount) ||
+			action.blockCount < 0) {
+			errors.push(new InvalidAddressError('blockCount must be a non-negative integer'))
 		}
-		if (formattedErrors.interval) {
-			formattedErrors.interval._errors.forEach((error) => {
-				errors.push(new InvalidNonceError(error))
-			})
+	}
+
+	// Validate interval if present
+	if ('interval' in action && action.interval !== undefined) {
+		if (typeof action.interval !== 'number' ||
+			!Number.isInteger(action.interval) ||
+			action.interval < 0) {
+			errors.push(new InvalidNonceError('interval must be a non-negative integer'))
 		}
-		if (formattedErrors.throwOnFail) {
-			formattedErrors.throwOnFail._errors.forEach((error) => {
-				errors.push(new InvalidBalanceError(error))
-			})
-		}
+	}
+	
+	// Validate event handlers
+	const eventsValidation = validateMineEvents(action)
+	if (!eventsValidation.isValid) {
+		eventsValidation.errors.forEach(error => {
+			errors.push(new InvalidRequestError(error.message))
+		})
 	}
 
 	return errors
