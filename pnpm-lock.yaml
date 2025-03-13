@@ -2047,6 +2047,9 @@ importers:
       '@ponder/utils':
         specifier: ^0.2.3
         version: 0.2.3(typescript@5.8.2)(viem@2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../../packages/common
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract

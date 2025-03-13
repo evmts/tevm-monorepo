@@ -2,8 +2,8 @@ import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
+import { createMemoryClient } from '../test/memoryClient.js'
 import { runCallWithTrace } from './runCallWithTrace.js'
 
 const ERC20_ADDRESS = `0x${'1'.repeat(40)}` as const
@@ -12,52 +12,45 @@ const ERC20_ABI = TestERC20.abi
 
 describe('runCallWithTrace', () => {
 	let client: ReturnType<typeof createTevmNode>
+	let memoryEnv: Awaited<ReturnType<typeof createMemoryClient>>
 
 	beforeEach(async () => {
+		// Create both a basic client and a memory client with predeployed contracts
 		client = createTevmNode()
 		await client.ready()
+
+		// Initialize memory client with predeployed contracts
+		memoryEnv = await createMemoryClient()
 	})
 
 	it('should execute a contract call with tracing', async () => {
-		expect(
-			(
-				await setAccountHandler(client)({
-					address: ERC20_ADDRESS,
-					deployedBytecode: ERC20_BYTECODE,
-				})
-			).errors,
-		).toBeUndefined()
-
-		expect(
-			await getAccountHandler(client)({
-				address: ERC20_ADDRESS,
-			}),
-		).toMatchObject({
-			address: ERC20_ADDRESS,
-			deployedBytecode: ERC20_BYTECODE,
-		})
+		// Use the predeployed ERC20 from memory client
+		const memoryClient = memoryEnv.client
+		const erc20Address = memoryEnv.contracts.erc20.address
+		const erc20Abi = memoryEnv.contracts.erc20.abi
+		const aliceAddress = memoryEnv.addresses.alice
 
 		// Call the contract with trace
-		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		const vm = await memoryClient.getVm().then((vm) => vm.deepCopy())
 		const head = await vm.blockchain.getCanonicalHeadBlock()
 		await vm.stateManager.setStateRoot(head.header.stateRoot)
 
 		const params = {
 			data: hexToBytes(
 				encodeFunctionData({
-					abi: ERC20_ABI,
+					abi: erc20Abi,
 					functionName: 'balanceOf',
-					args: [ERC20_ADDRESS],
+					args: [aliceAddress],
 				}),
 			),
 			gasLimit: 16784800n,
-			to: EthjsAddress.fromString(ERC20_ADDRESS),
+			to: EthjsAddress.fromString(erc20Address),
 			block: await vm.blockchain.getCanonicalHeadBlock(),
 			origin: EthjsAddress.zero(),
 			caller: EthjsAddress.zero(),
 		}
 
-		const result = await runCallWithTrace(vm, client.logger, params)
+		const result = await runCallWithTrace(vm, memoryClient.logger, params)
 
 		expect(result).toHaveProperty('trace')
 		expect(result.trace).toMatchObject({
@@ -75,6 +68,7 @@ describe('runCallWithTrace', () => {
 	})
 
 	it('should support lazy tracing mode', async () => {
+		// For the basic testing of lazy mode, we can use the standard client
 		await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,
@@ -116,7 +110,7 @@ describe('runCallWithTrace', () => {
 		expect(lazyResult.createdAddress).toBeUndefined()
 	})
 
-	it.skip('should trace contract calls that throw exceptions', async () => {
+	it('should trace contract calls that throw exceptions', async () => {
 		// Deploy a contract that will throw an exception
 		const INVALID_CONTRACT_ADDRESS = `0x${'2'.repeat(40)}` as const
 
@@ -124,12 +118,16 @@ describe('runCallWithTrace', () => {
 		const INVALID_CONTRACT_BYTECODE =
 			'0x6080604052348015600f57600080fd5b5060878061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063d10e73ab14602d575b600080fd5b60336035565b005b600080fdfe' as const
 
-		await setAccountHandler(client)({
+		// Use a fresh client to avoid interfering with other tests
+		const localClient = createTevmNode()
+		await localClient.ready()
+
+		await setAccountHandler(localClient)({
 			address: INVALID_CONTRACT_ADDRESS,
 			deployedBytecode: INVALID_CONTRACT_BYTECODE,
 		})
 
-		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		const vm = await localClient.getVm().then((vm) => vm.deepCopy())
 		const head = await vm.blockchain.getCanonicalHeadBlock()
 		await vm.stateManager.setStateRoot(head.header.stateRoot)
 
@@ -142,22 +140,21 @@ describe('runCallWithTrace', () => {
 			caller: EthjsAddress.zero(),
 		}
 
-		const result = await runCallWithTrace(vm, client.logger, params)
+		const result = await runCallWithTrace(vm, localClient.logger, params)
 
-		// This test is skipped because the exceptionError behavior is inconsistent
-		// The implementation is correct, but sometimes the test environment produces
-		// different results in the execResult
+		// Check for execution error
+		expect(result.execResult.exceptionError).toBeDefined()
 
-		// Check for error indicators in the trace
-		const hasErrorLog = result.trace.structLogs.some((log) => 'error' in log)
-		expect(hasErrorLog).toBe(true)
-
-		// Should have some struct logs
+		// Check for structs logs
 		expect(result.trace.structLogs.length).toBeGreaterThan(0)
 	})
 
 	it('should trace contract creation', async () => {
-		const vm = await client.getVm().then((vm) => vm.deepCopy())
+		// Use a fresh standalone client
+		const localClient = createTevmNode()
+		await localClient.ready()
+
+		const vm = await localClient.getVm().then((vm) => vm.deepCopy())
 		const head = await vm.blockchain.getCanonicalHeadBlock()
 		await vm.stateManager.setStateRoot(head.header.stateRoot)
 
@@ -172,7 +169,7 @@ describe('runCallWithTrace', () => {
 			caller: EthjsAddress.zero(),
 		}
 
-		const result = await runCallWithTrace(vm, client.logger, params)
+		const result = await runCallWithTrace(vm, localClient.logger, params)
 
 		// Should have created a contract address
 		expect(result.createdAddress).toBeDefined()
@@ -185,7 +182,7 @@ describe('runCallWithTrace', () => {
 	})
 
 	it('should handle dynamic gas costs in opcodes correctly', async () => {
-		// Deploy contract
+		// Use a fresh client with the ERC20 contract
 		await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
 			deployedBytecode: ERC20_BYTECODE,

@@ -72,6 +72,7 @@
   "dependencies": {
     "@openzeppelin/contracts": "5.2.0",
     "@ponder/utils": "^0.2.3",
+    "@tevm/common": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/ts-plugin": "workspace:^"
