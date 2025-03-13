@@ -28,4 +28,17 @@ describe('getLogs', () => {
 		const logs = await mc.getLogs(filter)
 		expect(logs).toHaveLength(0)
 	})
+
+	it('should work with blockTag pending', async () => {
+		// Create a filter with pending block tag
+		const filter = await mc.createEventFilter({
+			event: SimpleContract.abi[0],
+			fromBlock: 'pending',
+		})
+		
+		// Get logs with pending block
+		const logs = await mc.getLogs(filter)
+		expect(logs).toBeDefined()
+		expect(Array.isArray(logs)).toBe(true)
+	})
 })
