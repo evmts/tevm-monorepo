@@ -191,17 +191,21 @@ export const validateBaseCallParams = (action) => {
 	// Validate arrays and sets
 	if ('blobVersionedHashes' in action && action.blobVersionedHashes !== undefined) {
 		if (!Array.isArray(action.blobVersionedHashes)) {
-			errors.push(new InvalidBlobVersionedHashesError('blobVersionedHashes must be an array'))
+			errors.push(new InvalidBlobVersionedHashesError('Expected array, received object'))
 		} else {
 			// Validate each item in the array
 			action.blobVersionedHashes.forEach((hash, index) => {
-				const validation = validateHex(hash)
-				if (!validation.isValid) {
+				if (typeof hash !== 'string') {
 					errors.push(
-						new InvalidBlobVersionedHashesError(
-							`blobVersionedHashes[${index}]: ${validation.message || 'Invalid hex value'}`,
-						),
+						new InvalidBlobVersionedHashesError(`Expected string, received ${typeof hash}`)
 					)
+				} else {
+					const validation = validateHex(hash)
+					if (!validation.isValid) {
+						errors.push(
+							new InvalidBlobVersionedHashesError('value must be a hex string')
+						)
+					}
 				}
 			})
 		}
@@ -225,8 +229,66 @@ export const validateBaseCallParams = (action) => {
 		}
 	}
 
-	// Additional complex validations would go here
-	// For example, validating stateOverrideSet and blockOverrideSet
+	// Validate stateOverrideSet if present
+	if ('stateOverrideSet' in action && action.stateOverrideSet !== undefined) {
+		if (typeof action.stateOverrideSet !== 'object' || action.stateOverrideSet === null) {
+			errors.push(new InvalidParamsError('stateOverrideSet must be an object'))
+		} else {
+			// Validate each address and its properties
+			for (const address in action.stateOverrideSet) {
+				// Validate the address
+				const addrValidation = validateAddress(address)
+				if (!addrValidation.isValid) {
+					errors.push(new InvalidParamsError(`stateOverrideSet contains invalid address: ${address}`))
+				}
+
+				const override = action.stateOverrideSet[address]
+				if (typeof override !== 'object' || override === null) {
+					errors.push(new InvalidParamsError(`stateOverrideSet[${address}] must be an object`))
+					continue
+				}
+
+				// Validate balance if present
+				if ('balance' in override && override.balance !== undefined) {
+					if (typeof override.balance !== 'bigint') {
+						errors.push(
+							new InvalidParamsError(`stateOverrideSet[${address}].balance must be a bigint`)
+						)
+					}
+				}
+
+				// Validate nonce if present
+				if ('nonce' in override && override.nonce !== undefined) {
+					if (typeof override.nonce !== 'bigint' && typeof override.nonce !== 'number') {
+						errors.push(
+							new InvalidParamsError(`stateOverrideSet[${address}].nonce must be a bigint or number`)
+						)
+					}
+				}
+
+				// Validate code if present
+				if ('code' in override && override.code !== undefined) {
+					const codeValidation = validateHex(override.code)
+					if (!codeValidation.isValid) {
+						errors.push(
+							new InvalidParamsError(`stateOverrideSet[${address}].code: ${codeValidation.message || 'Invalid hex value'}`)
+						)
+					}
+				}
+
+				// Validate state/storage if present
+				if ('state' in override && override.state !== undefined) {
+					if (typeof override.state !== 'object' || override.state === null) {
+						errors.push(
+							new InvalidParamsError(`stateOverrideSet[${address}].state must be an object`)
+						)
+					}
+				}
+			}
+		}
+	}
+
+	// Validation for blockOverrideSet could be added here
 
 	return errors
 }
