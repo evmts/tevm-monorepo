@@ -196,3 +196,5 @@ export {
     type CreateSyncStoragePersisterOptions,
     type Storage,
 } from "@tevm/sync-storage-persister";
+
+export { sol } from "@tevm/inline-sol";
