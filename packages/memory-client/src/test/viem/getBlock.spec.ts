@@ -49,7 +49,7 @@ describe('getBlock', () => {
 		expect(transactions.map((tx) => ({ ...tx, blockHash: 'redacted' }))).toMatchSnapshot()
 		expect(result).toMatchSnapshot()
 	})
-	
+
 	it('should work with blockTag pending', async () => {
 		// Create a pending transaction
 		const setCallData = encodeFunctionData({
@@ -57,19 +57,19 @@ describe('getBlock', () => {
 			functionName: 'set',
 			args: [999n],
 		})
-		
+
 		await mc.sendTransaction({
 			to: contractAddress,
 			data: setCallData,
 			account: '0x1234567890123456789012345678901234567890',
 		})
-		
+
 		// Get the pending block
 		const { timestamp, hash, transactions, ...result } = await mc.getBlock({
 			blockTag: 'pending',
 			includeTransactions: true,
 		})
-		
+
 		expect(hash.startsWith('0x')).toBe(true)
 		expect(timestamp).toBeDefined()
 		expect(Array.isArray(transactions)).toBe(true)

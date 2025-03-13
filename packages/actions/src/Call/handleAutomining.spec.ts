@@ -281,6 +281,15 @@ describe("handleAutomining", () => {
       }),
     );
 
+    // Verify parameters passed to mineHandler
+    const mineHandlerCall = mineHandlerMock.mock.results[0].value;
+    expect(mineHandlerCall).toHaveBeenCalledWith(
+      expect.objectContaining({
+        throwOnFail: false,
+        blocks: 1,
+      }),
+    );
+
     // Should return undefined when successful
     expect(result).toBeUndefined();
   });

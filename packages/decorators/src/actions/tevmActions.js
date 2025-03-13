@@ -8,6 +8,7 @@ import {
 	loadStateHandler,
 	mineHandler,
 	setAccountHandler,
+	simulateCallHandler,
 } from '@tevm/actions'
 
 /**
@@ -93,6 +94,16 @@ const dealAction = () => (client) => {
 }
 
 /**
+ * @internal
+ * @returns {import('@tevm/node').Extension<Pick<import('./TevmActionsApi.js').TevmActionsApi, 'simulateCall'>>}
+ */
+const simulateCallAction = () => (client) => {
+	return {
+		simulateCall: simulateCallHandler(client),
+	}
+}
+
+/**
  * @returns {import('@tevm/node').Extension<import('./TevmActionsApi.js').TevmActionsApi>}
  */
 export const tevmActions = () => (client) => {
@@ -106,4 +117,5 @@ export const tevmActions = () => (client) => {
 		.extend(mineAction())
 		.extend(deployAction())
 		.extend(dealAction())
+		.extend(simulateCallAction())
 }
