@@ -422,4 +422,75 @@ describe('executeCall', () => {
 		// Results should reflect state with our overrides applied
 		expect(result.runTxResult.execResult.executionGasUsed).toBe(2851n)
 	})
+	
+	it('should always prefetch storage from access list even when createAccessList is false', async () => {
+		const client = createTevmNode()
+		
+		// Mock the stateManager.getContractStorage method to track calls
+		const vm = await client.getVm()
+		const originalGetContractStorage = vm.stateManager.getContractStorage
+		const getContractStorageSpy = vi.fn().mockImplementation(originalGetContractStorage)
+		vm.stateManager.getContractStorage = getContractStorageSpy
+		
+		// Set up ERC20 contract
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: ERC20_ADDRESS,
+					deployedBytecode: ERC20_BYTECODE,
+				})
+			).errors,
+		).toBeUndefined()
+		
+		// Set up account to check balance
+		const testAddr = `0x${'45'.repeat(20)}` as const
+		expect(
+			(
+				await setAccountHandler(client)({
+					address: testAddr,
+					balance: parseEther('1'),
+				})
+			).errors,
+		).toBeUndefined()
+
+		// Create a transaction that will access storage
+		const evmInput = {
+			data: hexToBytes(
+				encodeFunctionData({
+					abi: ERC20_ABI,
+					functionName: 'balanceOf', // Will access storage to check balance
+					args: [testAddr],
+				}),
+			),
+			gasLimit: 16784800n,
+			to: EthjsAddress.fromString(ERC20_ADDRESS),
+			origin: EthjsAddress.zero(),
+			caller: EthjsAddress.zero(),
+			block: await vm.blockchain.getCanonicalHeadBlock(),
+		}
+
+		// Run the call with createAccessList explicitly set to false
+		const result = await executeCall(client, evmInput, {
+			createAccessList: false, // Don't include access list in response
+			createTrace: false,
+		})
+
+		if ('errors' in result) {
+			throw result.errors
+		}
+
+		// Verify we successfully executed
+		expect(result.runTxResult).toBeDefined()
+		expect(result.runTxResult.execResult.executionGasUsed).toBeGreaterThan(0n)
+		
+		// We explicitly set createAccessList to false, so the access list should not be in the response
+		expect(result.accessList).toBeUndefined()
+		
+		// But storage prefetching should still have happened regardless
+		// The getContractStorage method should have been called at least once
+		expect(getContractStorageSpy).toHaveBeenCalled()
+		
+		// Restore the original getContractStorage method
+		vm.stateManager.getContractStorage = originalGetContractStorage
+	})
 })
