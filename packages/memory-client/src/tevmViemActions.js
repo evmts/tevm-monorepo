@@ -13,6 +13,7 @@ import { tevmActions } from '@tevm/decorators'
  * - Block mining (`tevmMine`)
  * - Account state management (`tevmGetAccount`, `tevmSetAccount`)
  * - State persistence (`tevmDumpState`, `tevmLoadState`)
+ * - Token manipulation (`tevmDeal` for ETH and ERC20 tokens)
  * - Direct VM access (`tevm` for advanced usage)
  *
  * The viem client must already have TEVM support via a `createTevmTransport` transport.
@@ -91,7 +92,7 @@ export const tevmViemActions = () => {
 	 * @private
 	 */
 	const extension = (client) => {
-		const { call, contract, deploy, mine, loadState, dumpState, setAccount, getAccount, ready } =
+		const { call, contract, deploy, mine, loadState, dumpState, setAccount, getAccount, ready, deal } =
 			client.transport.tevm.extend(tevmActions())
 		return {
 			tevmReady: ready,
@@ -103,6 +104,7 @@ export const tevmViemActions = () => {
 			tevmDumpState: dumpState,
 			tevmSetAccount: setAccount,
 			tevmGetAccount: getAccount,
+			tevmDeal: deal,
 		}
 	}
 	return extension
