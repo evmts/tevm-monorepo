@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { TestERC20 } from '@tevm/test-utils'
-import { encodeFunctionData, parseAbi } from 'viem'
+import { encodeFunctionData } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient'
 
@@ -41,22 +41,14 @@ describe('tevmDeal', () => {
 			amount,
 		})
 
-		// Verify the balance was updated
-		const data = await client.call({
+		// Verify the balance was updated using tevmContract
+		const result = await client.tevmContract({
 			to: erc20.address,
-			data: encodeFunctionData({
-				abi: erc20.abi,
-				functionName: 'balanceOf',
-				args: [account],
-			}),
+			abi: erc20.abi,
+			functionName: 'balanceOf',
+			args: [account],
 		})
 
-		// Use the ERC20 ABI to decode the result
-		const decodedData = client.transport.tevm.decodeCalldata({
-			abi: parseAbi(['function balanceOf(address) returns (uint256)']),
-			data: data,
-		})
-
-		expect(decodedData.data).toEqual(amount)
+		expect(result.data).toEqual(amount)
 	})
 })
