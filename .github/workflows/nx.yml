@@ -73,6 +73,7 @@ jobs:
           cmd8: bunx nx affected --target dev:run
           cmd9: bunx nx affected --target generate:docs
           cmd10: bunx nx affected --target build:app
+          cmd11: bunx nx run-many --target=build --projects=my_rust_node_lib
 
       - name: Stop agents
         run: bunx nx-cloud stop-all-agents

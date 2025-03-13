@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/my-rust-node-lib-win32-arm64-msvc",
+  "version": "0.0.0",
+  "cpu": [
+    "arm64"
+  ],
+  "main": "my_rust_node_lib.win32-arm64-msvc.node",
+  "files": [
+    "my_rust_node_lib.win32-arm64-msvc.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "win32"
+  ]
+}

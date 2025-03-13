@@ -1,0 +1,22 @@
+{
+  "name": "@tevm/my-rust-node-lib-wasm32-wasi",
+  "version": "0.0.0",
+  "cpu": [
+    "wasm32"
+  ],
+  "main": "my_rust_node_lib.wasi.cjs",
+  "files": [
+    "my_rust_node_lib.wasm32-wasi.wasm",
+    "my_rust_node_lib.wasi.cjs",
+    "my_rust_node_lib.wasi-browser.js",
+    "wasi-worker.mjs",
+    "wasi-worker-browser.mjs"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browser": "my_rust_node_lib.wasi-browser.js",
+  "dependencies": {
+    "@napi-rs/wasm-runtime": "^0.2.5"
+  }
+}
