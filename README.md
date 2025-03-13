@@ -1,7 +1,7 @@
 <a href="https://node.tevm.sh"><img src="https://github.com/user-attachments/assets/880d8f54-8063-4018-8777-98ba383433ee" width="400" alt="Tevm Logo" /></a>
 
 <p align="center">
-  A JavaScript-native Ethereum Virtual Machine with full node capabilities
+  A JavaScript-native Ethereum Virtual Machine
 </p>
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
