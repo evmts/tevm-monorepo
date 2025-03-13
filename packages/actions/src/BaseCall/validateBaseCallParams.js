@@ -196,15 +196,11 @@ export const validateBaseCallParams = (action) => {
 			// Validate each item in the array
 			action.blobVersionedHashes.forEach((hash, index) => {
 				if (typeof hash !== 'string') {
-					errors.push(
-						new InvalidBlobVersionedHashesError(`Expected string, received ${typeof hash}`)
-					)
+					errors.push(new InvalidBlobVersionedHashesError(`Expected string, received ${typeof hash}`))
 				} else {
 					const validation = validateHex(hash)
 					if (!validation.isValid) {
-						errors.push(
-							new InvalidBlobVersionedHashesError('value must be a hex string')
-						)
+						errors.push(new InvalidBlobVersionedHashesError('value must be a hex string'))
 					}
 				}
 			})
@@ -251,18 +247,14 @@ export const validateBaseCallParams = (action) => {
 				// Validate balance if present
 				if ('balance' in override && override.balance !== undefined) {
 					if (typeof override.balance !== 'bigint') {
-						errors.push(
-							new InvalidParamsError(`stateOverrideSet[${address}].balance must be a bigint`)
-						)
+						errors.push(new InvalidParamsError(`stateOverrideSet[${address}].balance must be a bigint`))
 					}
 				}
 
 				// Validate nonce if present
 				if ('nonce' in override && override.nonce !== undefined) {
 					if (typeof override.nonce !== 'bigint' && typeof override.nonce !== 'number') {
-						errors.push(
-							new InvalidParamsError(`stateOverrideSet[${address}].nonce must be a bigint or number`)
-						)
+						errors.push(new InvalidParamsError(`stateOverrideSet[${address}].nonce must be a bigint or number`))
 					}
 				}
 
@@ -271,7 +263,9 @@ export const validateBaseCallParams = (action) => {
 					const codeValidation = validateHex(override.code)
 					if (!codeValidation.isValid) {
 						errors.push(
-							new InvalidParamsError(`stateOverrideSet[${address}].code: ${codeValidation.message || 'Invalid hex value'}`)
+							new InvalidParamsError(
+								`stateOverrideSet[${address}].code: ${codeValidation.message || 'Invalid hex value'}`,
+							),
 						)
 					}
 				}
@@ -279,9 +273,7 @@ export const validateBaseCallParams = (action) => {
 				// Validate state/storage if present
 				if ('state' in override && override.state !== undefined) {
 					if (typeof override.state !== 'object' || override.state === null) {
-						errors.push(
-							new InvalidParamsError(`stateOverrideSet[${address}].state must be an object`)
-						)
+						errors.push(new InvalidParamsError(`stateOverrideSet[${address}].state must be an object`))
 					}
 				}
 			}

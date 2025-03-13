@@ -19,7 +19,7 @@ exports[`getAccount > should return storage if requested 1`] = `
 
 exports[`getAccount > should validate params 1`] = `
 [
-  [InvalidAddress: Invalid Address not an address
+  [InvalidAddress: value must be a hex string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],

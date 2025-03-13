@@ -80,7 +80,7 @@ export const zCallParams = {
 			// Format the error message based on specific conditions
 			if (params && 'code' in params && 'deployedBytecode' in params) {
 				throw new Error('Cannot have both code and deployedBytecode set')
-			} 
+			}
 			if (params && params.createTransaction === true) {
 				if ('stateOverrideSet' in params || 'blockOverrideSet' in params) {
 					throw new Error('Cannot have stateOverrideSet or blockOverrideSet for createTransaction')
@@ -95,31 +95,30 @@ export const zCallParams = {
 		const validation = validateCallParams(params)
 		if (validation.isValid) {
 			return { success: true, data: params }
-		} else {
-			return {
-				success: false, 
-				error: {
-					format: () => {
-						// Format errors into a structure similar to Zod errors
-						const formatted = { _errors: [] }
-						
-						validation.errors.forEach(err => {
-							// Add to top-level errors
-							formatted._errors.push(err.message)
-							
-							// Add to specific field errors
-							if (err.path) {
-								if (!formatted[err.path]) {
-									formatted[err.path] = { _errors: [] }
-								}
-								formatted[err.path]._errors.push(err.message)
-							}
-						})
-						
-						return formatted
-					}
-				}
-			}
 		}
-	}
+		return {
+			success: false,
+			error: {
+				format: () => {
+					// Format errors into a structure similar to Zod errors
+					const formatted = { _errors: [] }
+
+					validation.errors.forEach((err) => {
+						// Add to top-level errors
+						formatted._errors.push(err.message)
+
+						// Add to specific field errors
+						if (err.path) {
+							if (!formatted[err.path]) {
+								formatted[err.path] = { _errors: [] }
+							}
+							formatted[err.path]._errors.push(err.message)
+						}
+					})
+
+					return formatted
+				},
+			},
+		}
+	},
 }

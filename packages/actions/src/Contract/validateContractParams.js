@@ -28,7 +28,7 @@ export const validateContractParams = (action) => {
 	if (!validation.isValid) {
 		validation.errors.forEach((error) => {
 			const errorMessage = error.message || 'Invalid parameter'
-			
+
 			// Add appropriate error types based on the error message
 			if (errorMessage.includes('code')) {
 				errors.push(new InvalidBytecodeError(errorMessage))

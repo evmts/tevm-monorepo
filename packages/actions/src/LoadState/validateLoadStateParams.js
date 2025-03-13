@@ -37,6 +37,6 @@ export const validateLoadStateParams = (action) => {
 			errors.push(new InvalidRequestError(error.path ? `${error.path}: ${errorMessage}` : errorMessage))
 		})
 	}
-	
+
 	return errors
 }
