@@ -1,5 +1,6 @@
 import { createTransaction } from '../CreateTransaction/createTransaction.js'
 import { handleAutomining } from './handleAutomining.js'
+import { handleGasMining } from './handleGasMining.js'
 import { shouldCreateTransaction } from './shouldCreateTransaction.js'
 
 /**
@@ -23,7 +24,7 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 	const errors = []
 	if (shouldCreateTransaction(params, executedCall.runTxResult)) {
 		try {
-			// Use a try-catch to handle errors from createTransaction or handleAutomining
+			// Use a try-catch to handle errors from createTransaction or mining operations
 			const txRes = await createTransaction(client)({
 				throwOnFail: false,
 				evmOutput: executedCall.runTxResult,
@@ -33,11 +34,16 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 			
-			// Check if gas mining is enabled and should be triggered
-			const isGasMining = client.miningConfig.type === 'gas'
+			// Handle different mining modes based on configuration
+			let miningRes = {};
 			
-			// Handle automining or gas mining based on configuration
-			const miningRes = (await handleAutomining(client, txHash, isGasMining)) ?? {}
+			if (client.miningConfig.type === 'auto') {
+				// Handle auto-mining mode
+				miningRes = await handleAutomining(client, txHash) ?? {};
+			} else if (client.miningConfig.type === 'gas') {
+				// Handle gas-mining mode
+				miningRes = await handleGasMining(client, txHash) ?? {};
+			}
 
 			// Check for errors in the transaction creation and mining results
 			if ('errors' in txRes && txRes.errors) {
