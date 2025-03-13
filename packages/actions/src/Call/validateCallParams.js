@@ -1,6 +1,6 @@
 import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
-import { validateCallParams as validateCallParamsJS } from './zCallParams.js'
+import { validateCallParamsJS } from './zCallParams.js'
 
 /**
  * @internal
@@ -19,7 +19,7 @@ export const validateCallParams = (action) => {
 	const errors = validateBaseCallParams(action)
 
 	const validation = validateCallParamsJS(action)
-	
+
 	if (!validation.isValid) {
 		for (const error of validation.errors) {
 			switch (error.path) {

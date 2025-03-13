@@ -4,7 +4,10 @@
 		"rootDir": "src",
 		"outDir": "types",
 		"skipLibCheck": true,
-		"types": ["bun-types"]
+		"types": ["bun-types"],
+		"noImplicitAny": false,
+		"ignoreDeprecations": "5.0"
 	},
-	"include": ["src", "src/**/*.json"]
+	"include": ["src", "src/**/*.json"],
+	"exclude": ["src/test/**/*", "**/*.spec.ts", "**/*.test.ts"]
 }

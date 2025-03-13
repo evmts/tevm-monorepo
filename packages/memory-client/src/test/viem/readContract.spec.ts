@@ -64,4 +64,78 @@ describe('readContract', () => {
 			blockTag: 'pending',
 		})).toBe(999n)
 	})
+	
+	it('should handle multiple pending transactions in sequence', async () => {
+		// Initial value check
+		expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
+		
+		// First transaction - set to 500
+		await mc.writeContract(c.simpleContract.write.set([500n]))
+		
+		// Check pending state after first transaction
+		expect(await mc.readContract({
+			...c.simpleContract.read.get(),
+			blockTag: 'pending',
+		})).toBe(500n)
+		
+		// Second transaction - set to 600
+		await mc.writeContract(c.simpleContract.write.set([600n]))
+		
+		// Check pending state after second transaction
+		expect(await mc.readContract({
+			...c.simpleContract.read.get(),
+			blockTag: 'pending',
+		})).toBe(600n)
+		
+		// Latest block should still show original value
+		expect(await mc.readContract({
+			...c.simpleContract.read.get(),
+			blockTag: 'latest',
+		})).toBe(420n)
+		
+		// Mine the transactions
+		await mc.tevmMine()
+		
+		// After mining, latest block should show the final value
+		expect(await mc.readContract(c.simpleContract.read.get())).toBe(600n)
+	})
+	
+	it('should correctly revert to unmined state when a transaction fails', async () => {
+		// First read the current value
+		expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
+		
+		// Send a successful transaction but don't mine it
+		await mc.writeContract(c.simpleContract.write.set([777n]))
+		
+		// Pending state should reflect the new value
+		expect(await mc.readContract({
+			...c.simpleContract.read.get(),
+			blockTag: 'pending',
+		})).toBe(777n)
+		
+		try {
+			// Try to send a transaction that will fail (SimpleContract doesn't have a failing method, 
+			// so we'll simulate with an invalid function call)
+			await mc.call({
+				to: c.simpleContract.address,
+				data: '0xdeadbeef', // Invalid function selector
+				createTransaction: true,
+				account: '0x1234567890123456789012345678901234567890',
+			})
+		} catch (error) {
+			// Expected to fail
+		}
+		
+		// Pending state should still reflect the successful transaction's value
+		expect(await mc.readContract({
+			...c.simpleContract.read.get(),
+			blockTag: 'pending',
+		})).toBe(777n)
+		
+		// Latest should still be the original value
+		expect(await mc.readContract({
+			...c.simpleContract.read.get(),
+			blockTag: 'latest',
+		})).toBe(420n)
+	})
 })

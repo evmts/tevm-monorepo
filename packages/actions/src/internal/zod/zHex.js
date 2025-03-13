@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 export const hexRegex = /^0x[0-9a-fA-F]*$/
 
 /**
@@ -9,11 +11,11 @@ export const validateHex = (value) => {
 	if (typeof value !== 'string') {
 		return { isValid: false, message: 'value must be a string' }
 	}
-	
+
 	if (!hexRegex.test(value)) {
 		return { isValid: false, message: 'value must be a hex string' }
 	}
-	
+
 	return { isValid: true }
 }
 
@@ -25,3 +27,9 @@ export const validateHex = (value) => {
 export const transformHex = (value) => {
 	return /** @type {import('@tevm/utils').Hex}*/ (value)
 }
+
+/**
+ * Zod validator for a valid hex string
+ * @type {import('zod').ZodString}
+ */
+export const zHex = z.string().regex(hexRegex, 'Invalid hex string').describe('A valid hex string')
