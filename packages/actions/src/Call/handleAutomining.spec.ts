@@ -210,4 +210,99 @@ describe('handleAutomining', () => {
 		// Should return undefined
 		expect(result).toBeUndefined()
 	})
+
+	it('should mine transaction if isGasMining is true', async () => {
+		// Create client with gas mining configuration
+		client = createTevmNode({
+			fork: { transport: transports.optimism },
+			miningConfig: { type: 'gas', limit: BigInt(1000000) },
+		})
+
+		// Add debug logger if not present
+		if (!client.logger.debug) {
+			client.logger.debug = vi.fn()
+		}
+
+		// Spy on debug logger
+		const debugSpy = vi.spyOn(client.logger, 'debug')
+
+		// Mock mineHandler to return successful result
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(
+			() => (params: any) =>
+				Promise.resolve({
+					blockHashes: ['0xabc123'],
+				}),
+		)
+
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash, true)
+
+		// Should log the gas mining process
+		expect(debugSpy).toHaveBeenCalledWith(`Gas mining transaction ${txHash}...`)
+		expect(debugSpy).toHaveBeenCalledWith(
+			expect.objectContaining({
+				blockHashes: ['0xabc123'],
+			}),
+			'Transaction successfully mined'
+		)
+
+		// Should log gas mining mode with limit
+		expect(debugSpy).toHaveBeenCalledWith(`Gas mining mode with limit ${client.miningConfig.limit}`)
+
+		// Should call mineHandler with throwOnFail: false and blocks: 1
+		expect(mineHandlerMock).toHaveBeenCalledWith(client)
+		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
+		
+		// Verify parameters passed to mineHandler
+		const mineHandlerCall = mineHandlerMock.mock.results[0].value
+		expect(mineHandlerCall).toHaveBeenCalledWith(expect.objectContaining({
+			throwOnFail: false,
+			blocks: 1
+		}))
+
+		// Should return undefined when successful
+		expect(result).toBeUndefined()
+	})
+
+	it('should not mine transaction if isGasMining is true but mining type is not gas', async () => {
+		// Create client with manual mining
+		client = createTevmNode({
+			fork: { transport: transports.optimism },
+			miningConfig: { type: 'manual' },
+		})
+
+		// Add debug logger if not present
+		if (!client.logger.debug) {
+			client.logger.debug = vi.fn()
+		}
+
+		// Spy on debug logger
+		const debugSpy = vi.spyOn(client.logger, 'debug')
+
+		// Mock mineHandler
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(
+			() => (params: any) =>
+				Promise.resolve({
+					blockHashes: ['0xabc123'],
+				}),
+		)
+
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash, true)
+
+		// Should still log gas mining (based on isGasMining flag)
+		expect(debugSpy).toHaveBeenCalledWith(`Gas mining transaction ${txHash}...`)
+
+		// Should not log gas limit (since it's not gas mining type)
+		expect(debugSpy).not.toHaveBeenCalledWith(expect.stringContaining('Gas mining mode with limit'))
+
+		// Should still call mineHandler (based on isGasMining flag)
+		expect(mineHandlerMock).toHaveBeenCalledWith(client)
+		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
+
+		// Should return undefined when successful
+		expect(result).toBeUndefined()
+	})
 })
