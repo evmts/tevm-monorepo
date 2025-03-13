@@ -108,7 +108,7 @@ describe('generateDtsBody', () => {
 			  undefined,
 			  \`0x\${string}\`,
 			  \`0x\${string}\`,
-			  undefined,
+			  undefined
 			>;
 			const _nameAnotherContract = "AnotherContract" as const;
 			const _abiAnotherContract = [] as const;
@@ -123,7 +123,7 @@ describe('generateDtsBody', () => {
 			  undefined,
 			  \`0x\${string}\`,
 			  \`0x\${string}\`,
-			  undefined,
+			  undefined
 			>;
 			const _nameMissingContract = "MissingContract" as const;
 			const _abiMissingContract = [] as const;
@@ -139,7 +139,7 @@ describe('generateDtsBody', () => {
 			  undefined,
 			  \`0x\${string}\`,
 			  \`0x\${string}\`,
-			  undefined,
+			  undefined
 			>;"
 		`)
 	})

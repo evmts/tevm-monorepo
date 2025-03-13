@@ -74,7 +74,7 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 						'  undefined,', // Address placeholder
 						'  `0x${string}`,', // Bytecode
 						'  `0x${string}`,', // Deployed bytecode
-						'  undefined,', // Additional data
+						'  undefined', // Additional data - removed trailing comma
 						'>;',
 					].filter(Boolean)
 				}
