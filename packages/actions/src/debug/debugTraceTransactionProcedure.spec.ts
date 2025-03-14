@@ -37,17 +37,17 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 		})
 
 		expect(result).toMatchInlineSnapshot(`
-      {
-        "id": 1,
-        "jsonrpc": "2.0",
-        "method": "debug_traceTransaction",
-        "result": {
-          "failed": false,
-          "gas": "0x0",
-          "returnValue": "0x",
-          "structLogs": [],
-        },
-      }
-    `)
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceTransaction",
+  "result": {
+    "failed": false,
+    "gas": "0x0",
+    "returnValue": "0x",
+    "structLogs": [],
+  },
+}
+`)
 	})
 })

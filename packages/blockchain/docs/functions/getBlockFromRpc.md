@@ -24,11 +24,11 @@ Defined in: [packages/blockchain/src/utils/getBlockFromRpc.js:17](https://github
 
 #### transport
 
-\{ `request`: `EIP1193RequestFn`\<`undefined`\>; \}
+\{ `request`: `EIP1193RequestFn`\<`undefined`, `false`\>; \}
 
 #### transport.request
 
-`EIP1193RequestFn`\<`undefined`\>
+`EIP1193RequestFn`\<`undefined`, `false`\>
 
 ### common
 

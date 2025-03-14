@@ -146,37 +146,37 @@ describe('callProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('tevm_call')
 		expect(response.result?.logs).toMatchInlineSnapshot(`
-			[
-			  {
-			    "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-			    "data": "0x0000000000000000000000000000000000000000000000000000000000000064",
-			    "topics": [
-			      "0x012c78e2b84325878b1bd9d250d772cfe5bda7722d795f45036fa5e1e6e303fc",
-			    ],
-			  },
-			]
-		`)
+[
+  {
+    "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "data": "0x0000000000000000000000000000000000000000000000000000000000000064",
+    "topics": [
+      "0x012c78e2b84325878b1bd9d250d772cfe5bda7722d795f45036fa5e1e6e303fc",
+    ],
+  },
+]
+`)
 		expect(response.id).toBe(request.id as any)
 		expect(response.result?.trace).toBeDefined()
 		expect(response.result?.trace?.structLogs).toBeInstanceOf(Array)
 		expect(response.result?.trace?.structLogs?.length).toBeGreaterThan(0)
 		expect(response.result?.trace?.structLogs[0]).toMatchInlineSnapshot(`
-			{
-			  "depth": 0,
-			  "gas": "0x1c970ac",
-			  "gasCost": "0x6",
-			  "op": "PUSH1",
-			  "pc": 0,
-			  "stack": [],
-			}
-		`)
+{
+  "depth": 0,
+  "gas": "0x1c970ac",
+  "gasCost": "0x6",
+  "op": "PUSH1",
+  "pc": 0,
+  "stack": [],
+}
+`)
 		expect(response.result?.accessList).toMatchInlineSnapshot(`
-			{
-			  "0x5fbdb2315678afecb367f032d93f642f64180aa3": [
-			    "0x0000000000000000000000000000000000000000000000000000000000000000",
-			  ],
-			}
-		`)
+{
+  "0x5fbdb2315678afecb367f032d93f642f64180aa3": [
+    "0x0000000000000000000000000000000000000000000000000000000000000000",
+  ],
+}
+`)
 	})
 
 	it('should handle errors from callHandler', async () => {

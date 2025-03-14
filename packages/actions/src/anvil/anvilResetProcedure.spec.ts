@@ -37,17 +37,17 @@ describe('anvilResetJsonRpcProcedure', () => {
 		// Check if the blockchain was reset
 		expect(await vm.blockchain.getCanonicalHeadBlock()).toEqual(await vm.blockchain.getBlock(0n))
 		await expect(vm.blockchain.getBlock(block1.hash())).rejects.toThrowErrorMatchingInlineSnapshot(`
-      [UnknownBlock: Block with hash 0xc13e3e758cfce75830f0e2800937e1f172e0d8ab8f41508debc829168c4e535a does not exist
+			[UnknownBlock: Block with hash 0xc13e3e758cfce75830f0e2800937e1f172e0d8ab8f41508debc829168c4e535a does not exist
 
-      Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-      Version: 1.1.0.next-73]
-    `)
+			Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+			Version: 1.1.0.next-73]
+		`)
 		await expect(vm.blockchain.getBlock(block2.hash())).rejects.toThrowErrorMatchingInlineSnapshot(`
-      [UnknownBlock: Block with hash 0xc13e3e758cfce75830f0e2800937e1f172e0d8ab8f41508debc829168c4e535a does not exist
+			[UnknownBlock: Block with hash 0xc13e3e758cfce75830f0e2800937e1f172e0d8ab8f41508debc829168c4e535a does not exist
 
-      Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-      Version: 1.1.0.next-73]
-    `)
+			Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+			Version: 1.1.0.next-73]
+		`)
 
 		// Check if the state was reset
 		const resetAccount = await vm.stateManager.getAccount(testAddress)

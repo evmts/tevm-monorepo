@@ -18,3 +18,22 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
 ]
 `;
+
+exports[`setAccountHandler should handle putAccount throwing 1`] = `
+[
+  [_InternalError: Unexpected error setting account
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: I am some underlying error being thrown unexpecedly by state manager that likely indicates some very bad bug happened upstream in program
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`setAccountHandler should validate params 1`] = `
+[
+  [InvalidAddressError: Required
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73],
+]
+`;
