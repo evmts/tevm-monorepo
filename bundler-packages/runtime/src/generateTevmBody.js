@@ -55,11 +55,15 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					{
 						name: contractName,
 						humanReadableAbi: formatAbi(abi),
-						// Include bytecode if requested and available
+						// Include bytecode if requested and available (checking for empty string for interfaces)
 						...(includeBytecode
 							? {
-									bytecode: evm?.bytecode?.object && `0x${evm.bytecode.object}`,
-									deployedBytecode: evm?.deployedBytecode?.object && `0x${evm.deployedBytecode.object}`,
+									bytecode:
+										evm?.bytecode?.object && evm.bytecode.object !== '' ? `0x${evm.bytecode.object}` : undefined,
+									deployedBytecode:
+										evm?.deployedBytecode?.object && evm.deployedBytecode.object !== ''
+											? `0x${evm.deployedBytecode.object}`
+											: undefined,
 								}
 							: {}),
 					},

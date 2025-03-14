@@ -463,4 +463,70 @@ describe('Advanced Code Generation Tests', () => {
 		expect(result).toContain('* Contract with special chars in docs: * & < > " \'')
 		expect(result).toContain('* @property test() Method with special chars: * & < > " \'')
 	})
+
+	it('should handle interfaces with empty string bytecode correctly', () => {
+		// This test reproduces the bug where interfaces in .s.sol files produce empty string
+		// bytecode, which was not handled correctly by the runtime
+		const interfaceArtifact = createTestArtifacts({
+			ICounter: {
+				abi: [
+					{
+						type: 'function',
+						name: 'count',
+						inputs: [],
+						outputs: [{ type: 'uint256' }],
+						stateMutability: 'view',
+					},
+					{
+						type: 'function',
+						name: 'increment',
+						inputs: [],
+						outputs: [],
+						stateMutability: 'nonpayable',
+					},
+				],
+				evm: {
+					// Empty string bytecode (what happens with interfaces in .s.sol files)
+					bytecode: { object: '' },
+					deployedBytecode: { object: '' },
+				},
+				userdoc: {
+					kind: 'user',
+					version: 1,
+					notice: 'Counter Interface',
+					methods: {
+						'increment()': {
+							notice: 'Increments the counter',
+						},
+						'count()': {
+							notice: 'Returns the current count',
+						},
+					},
+				},
+				contractName: 'ICounter',
+			},
+		})
+
+		// Test with includeBytecode=true (as it would be for .s.sol files)
+		const result = runSync(generateTevmBody(interfaceArtifact, 'ts', true))
+
+		// Should include the interface functions
+		expect(result).toContain('function count() view returns (uint256)')
+		expect(result).toContain('function increment()')
+
+		// Should not include bytecode when it's an empty string
+		expect(result).not.toContain('"bytecode": "0x"')
+		expect(result).not.toContain('"deployedBytecode": "0x"')
+
+		// Should still include proper documentation
+		expect(result).toContain('@property increment() Increments the counter')
+		expect(result).toContain('@property count() Returns the current count')
+
+		// Test the full runtime generation as well
+		const runtimeResult = runSync(generateRuntime(interfaceArtifact, 'ts', true, '@tevm/contract'))
+		expect(runtimeResult).toContain('function count() view returns (uint256)')
+		expect(runtimeResult).toContain('function increment()')
+		expect(runtimeResult).not.toContain('"bytecode":')
+		expect(runtimeResult).not.toContain('"deployedBytecode":')
+	})
 })

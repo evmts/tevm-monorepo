@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`getRequestBody > should return a ReadRequestBodyError on request error 1`] = `
-[ReadRequestBodyError: Network error
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/readrequestbodyerror/
-Details: Network error
-Version: 1.1.0.next-73]
-`;
