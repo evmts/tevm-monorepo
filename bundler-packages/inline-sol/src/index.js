@@ -4,7 +4,7 @@
  */
 
 import { fileURLToPath } from 'node:url'
-import { compileContractSync } from '@tevm/compiler'
+import { compiler } from '@tevm/compiler'
 
 let inlineCounter = 0
 
@@ -40,7 +40,7 @@ let inlineCounter = 0
  *
  * @param {TemplateStringsArray} strings - The template literal strings
  * @param {...any} values - The template literal values
- * @returns {import('@tevm/contract').Contract} The compiled contract
+ * @returns {import('@tevm/contract').Contract<any,any,any,any>} The compiled contract
  */
 export const sol = (strings, ...values) => {
 	const source = strings.reduce((result, string, i) => {
@@ -63,18 +63,21 @@ export const sol = (strings, ...values) => {
 	const baseName = normalizedPath.split('/').pop() || 'inline'
 	const solFileName = `${baseName}_${index}.sol`
 
+	// Default compiler config
+	const config = {
+		remappings: {},
+		libs: [],
+		debug: false,
+	}
+
 	try {
 		// Since this is running in user code context, we use the sync API
 		// We deliberately use a temporary file that doesn't need to be written to disk
-		const { abi, bytecode, contract } = compileContractSync(
+		const result = compiler.compileContractSync(
 			source,
 			solFileName,
 			process.cwd(),
-			{
-				remappings: {},
-				libs: [],
-				debug: false,
-			},
+			config,
 			false, // includeAst
 			true, // includeBytecode
 			{
@@ -89,7 +92,7 @@ export const sol = (strings, ...values) => {
 			console, // logger
 		)
 
-		return contract
+		return result.contract
 	} catch (error) {
 		console.error('Error compiling inline Solidity:', error)
 		throw error

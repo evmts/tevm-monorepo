@@ -32,8 +32,9 @@
     "src"
   ],
   "scripts": {
-    "build": "pnpm run clean && pnpm run build:dist",
+    "build": "pnpm run clean && pnpm run build:dist && pnpm run build:types",
     "build:dist": "tsup",
+    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
     "clean": "rimraf dist",
     "format": "biome format --write .",
     "lint": "biome check --apply .",

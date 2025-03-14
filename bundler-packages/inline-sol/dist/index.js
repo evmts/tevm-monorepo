@@ -18,16 +18,17 @@ var sol = (strings, ...values) => {
   const index = inlineCounter++;
   const baseName = normalizedPath.split("/").pop() || "inline";
   const solFileName = `${baseName}_${index}.sol`;
+  const config = {
+    remappings: {},
+    libs: [],
+    debug: false
+  };
   try {
-    const { abi, bytecode, contract } = compiler.compileContractSync(
+    const result = compiler.compiler.compileContractSync(
       source,
       solFileName,
       process.cwd(),
-      {
-        remappings: {},
-        libs: [],
-        debug: false
-      },
+      config,
       false,
       // includeAst
       true,
@@ -45,7 +46,7 @@ var sol = (strings, ...values) => {
       console
       // logger
     );
-    return contract;
+    return result.contract;
   } catch (error2) {
     console.error("Error compiling inline Solidity:", error2);
     throw error2;
