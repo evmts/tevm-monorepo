@@ -9,8 +9,9 @@ import { statePersister } from './statePersister.js'
 
 // Polyfill for Promise.withResolvers
 function createWithResolvers<T = void>() {
-	let resolve: (value: T | PromiseLike<T>) => void
-	let reject: (reason?: any) => void
+	// Initialize with no-op functions to satisfy TypeScript
+	let resolve: (value: T | PromiseLike<T>) => void = () => {}
+	let reject: (reason?: any) => void = () => {}
 	const promise = new Promise<T>((res, rej) => {
 		resolve = res
 		reject = rej

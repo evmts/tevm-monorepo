@@ -6,11 +6,11 @@
 
 # Function: handleAutomining()
 
-> **handleAutomining**(`client`, `txHash`?): `Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
+> **handleAutomining**(`client`, `txHash`?, `isGasMining`?): `Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
 
-Defined in: [packages/actions/src/Call/handleAutomining.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleAutomining.js#L11)
+Defined in: [packages/actions/src/Call/handleAutomining.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleAutomining.js#L12)
 
-Runs the mining logic if the client is set to automine
+Runs the mining logic if the client is set to automine or gas mining threshold is reached
 
 ## Parameters
 
@@ -21,6 +21,12 @@ Runs the mining logic if the client is set to automine
 ### txHash?
 
 `` `0x${string}` ``
+
+### isGasMining?
+
+`boolean` = `false`
+
+Whether this is being triggered by gas mining
 
 ## Returns
 
