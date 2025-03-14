@@ -439,8 +439,8 @@ export const createTevmNode = (options = {}) => {
 
 			// Initialize the interval mining timer
 			const startIntervalMining = async () => {
-				// @ts-ignore - Ignoring the import error for now since we fixed it in another way
-				const { mineHandler } = await import('@tevm/actions')
+				// Using explicit path to avoid import error
+				const { mineHandler } = await import('@tevm/actions/src/Mine/mineHandler.js')
 				await mineHandler(baseClient)({ throwOnFail: false }).catch((/** @type {Error} */ error) => {
 					logger.error({ error }, 'Error in interval mining')
 				})
@@ -472,8 +472,8 @@ export const createTevmNode = (options = {}) => {
 				// Register handler for gas mining events
 				txPool.on('gasminingneeded', async (txHash) => {
 					logger.debug({ txHash, gasLimit: gaslimit }, 'Gas mining threshold reached, mining transaction')
-					// @ts-ignore - Ignoring the import error for now since we fixed it in another way
-					const { mineHandler } = await import('@tevm/actions')
+					// Using explicit path to avoid import error
+					const { mineHandler } = await import('@tevm/actions/src/Mine/mineHandler.js')
 					await mineHandler(baseClient)({ throwOnFail: false }).catch((/** @type {Error} */ error) => {
 						logger.error({ error }, 'Error in gas mining')
 					})

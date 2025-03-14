@@ -213,21 +213,21 @@ describe('createTevmNode', () => {
 			const originalClearInterval = global.clearInterval
 			global.setInterval = vi.fn().mockReturnValue(123)
 			global.clearInterval = vi.fn()
-			
+
 			try {
 				// Create a client with interval mining
 				const client = createTevmNode({
-					miningConfig: { type: 'interval', interval: 1000 } 
+					miningConfig: { type: 'interval', interval: 1000 },
 				})
-				
+
 				await client.ready()
-				
+
 				// Verify setInterval was called with the right interval
 				expect(global.setInterval).toHaveBeenCalledWith(expect.any(Function), 1000)
-				
+
 				// Cleanup client
 				client.cleanup()
-				
+
 				// Verify clearInterval was called
 				expect(global.clearInterval).toHaveBeenCalledWith(123)
 			} finally {
@@ -236,23 +236,23 @@ describe('createTevmNode', () => {
 				global.clearInterval = originalClearInterval
 			}
 		})
-		
+
 		it('Sets up gas mining when configured', async () => {
 			// Create a client with gas mining
 			const client = createTevmNode({
-				miningConfig: { type: 'gas', limit: 5000000n }
+				miningConfig: { type: 'gas', limit: 5000000n },
 			})
-			
+
 			await client.ready()
-			
+
 			// Get txPool and verify gas mining configuration
 			const txPool = await client.getTxPool()
 			expect(txPool.gasMiningConfig).toEqual({
 				enabled: true,
 				threshold: 5000000n,
-				blocks: 1
+				blocks: 1,
 			})
-			
+
 			// Cleanup to prevent memory leaks
 			client.cleanup()
 		})
