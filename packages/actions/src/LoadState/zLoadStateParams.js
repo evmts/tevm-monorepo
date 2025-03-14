@@ -1,193 +1,75 @@
-import { validateBaseParams } from '../BaseCall/validateBaseParams.js'
-import { validateHex } from '../internal/validators/validateHex.js'
+import { validateLoadStateParams as validateParamsWithErrors } from './validateLoadStateParams.js'
 
-/**
- * Validates account storage for load state
- * @param {unknown} value - The value to validate
- * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
- */
-const validateAccountStorage = (value, path = '') => {
-	const errors = []
-
-	if (typeof value !== 'object' || value === null) {
-		return {
-			isValid: false,
-			errors: [{ path, message: 'Account storage must be an object' }],
-		}
-	}
-
-	// Validate required fields
-	const requiredFields = ['nonce', 'balance', 'storageRoot', 'codeHash']
-	for (const field of requiredFields) {
-		if (!(field in value)) {
-			errors.push({
-				path: path ? `${path}.${field}` : field,
-				message: `Missing required field: ${field}`,
-			})
-		}
-	}
-
-	// Validate nonce and balance
-	if ('nonce' in value) {
-		if (typeof value.nonce !== 'bigint') {
-			errors.push({
-				path: path ? `${path}.nonce` : 'nonce',
-				message: 'nonce must be a bigint',
-			})
-		}
-	}
-
-	if ('balance' in value) {
-		if (typeof value.balance !== 'bigint') {
-			errors.push({
-				path: path ? `${path}.balance` : 'balance',
-				message: 'balance must be a bigint',
-			})
-		}
-	}
-
-	// Validate hex fields
-	if ('storageRoot' in value) {
-		const validation = validateHex(value.storageRoot)
-		if (!validation.isValid) {
-			errors.push({
-				path: path ? `${path}.storageRoot` : 'storageRoot',
-				message: validation.message || 'Invalid storage root',
-			})
-		}
-	}
-
-	if ('codeHash' in value) {
-		const validation = validateHex(value.codeHash)
-		if (!validation.isValid) {
-			errors.push({
-				path: path ? `${path}.codeHash` : 'codeHash',
-				message: validation.message || 'Invalid code hash',
-			})
-		}
-	}
-
-	// Validate storage if present
-	if ('storage' in value && value.storage !== undefined) {
-		if (typeof value.storage !== 'object' || value.storage === null) {
-			errors.push({
-				path: path ? `${path}.storage` : 'storage',
-				message: 'storage must be an object',
-			})
-		} else {
-			// Check that all keys and values are valid hex
-			for (const key in value.storage) {
-				const keyValidation = validateHex(key)
-				if (!keyValidation.isValid) {
-					errors.push({
-						path: path ? `${path}.storage.key` : 'storage.key',
-						message: `Invalid storage key: ${keyValidation.message}`,
-					})
-				}
-
-				const valueValidation = validateHex(value.storage[key])
-				if (!valueValidation.isValid) {
-					errors.push({
-						path: path ? `${path}.storage.value` : 'storage.value',
-						message: `Invalid storage value: ${valueValidation.message}`,
-					})
-				}
-			}
-		}
-	}
-
-	return {
-		isValid: errors.length === 0,
-		errors,
-	}
-}
-
-// For backward compatibility
-export const zAccountStorage = {
-	parse: (value) => {
-		const validation = validateAccountStorage(value)
-		if (!validation.isValid) {
-			throw new Error(validation.errors[0]?.message || 'Invalid account storage')
-		}
-		return value
-	},
-}
-
-/**
- * Validates if a value contains valid load state parameters
- * @param {unknown} value - The value to validate
- * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
- */
-export const validateLoadStateParams = (value) => {
-	if (typeof value !== 'object' || value === null) {
-		return {
-			isValid: false,
-			errors: [{ path: '', message: 'Parameters must be an object' }],
-		}
-	}
-
-	const errors = []
-
-	// Validate state field
-	if (!('state' in value) || value.state === undefined) {
-		errors.push({
-			path: 'state',
-			message: 'Missing required field: state',
-		})
-	} else if (typeof value.state !== 'object' || value.state === null) {
-		errors.push({
-			path: 'state',
-			message: 'state must be an object mapping addresses to account storage',
-		})
-	} else {
-		// Validate each account in the state
-		for (const address in value.state) {
-			const accountValidation = validateAccountStorage(value.state[address], `state.${address}`)
-			errors.push(...accountValidation.errors)
-		}
-	}
-
-	return {
-		isValid: errors.length === 0,
-		errors,
-	}
-}
-
-// For backward compatibility
+// For backward compatibility to mimic Zod interface
 export const zLoadStateParams = {
+	/**
+	 * Parse the load state parameters
+	 * @param {unknown} value - The value to parse
+	 * @returns {any} - The parsed value
+	 */
 	parse: (value) => {
-		const validation = validateLoadStateParams(value)
-		if (!validation.isValid) {
-			throw new Error(validation.errors[0]?.message || 'Invalid load state parameters')
+		const errors = validateParamsWithErrors(value)
+		if (errors.length > 0) {
+			throw new Error(errors[0]?.message || 'Invalid load state parameters')
 		}
 		return value
 	},
+
+	/**
+	 * Safely parse the load state parameters
+	 * @param {unknown} value - The value to parse
+	 * @returns {{ success: boolean, data?: any, error?: { format: () => {_errors: string[], state?: {_errors: string[]}} } }} - The parse result
+	 */
 	safeParse: (value) => {
-		const validation = validateLoadStateParams(value)
-		if (validation.isValid) {
+		const errors = validateParamsWithErrors(value)
+		if (errors.length === 0) {
 			return { success: true, data: value }
 		}
 		return {
 			success: false,
 			error: {
+				/**
+				 * Format the error messages
+				 * @returns {{ _errors: string[], state?: {_errors: string[]} }} - The formatted errors
+				 */
 				format: () => {
+					/** @type {{_errors: string[], state?: {_errors: string[]}}} */
 					const formatted = { _errors: [] }
-					validation.errors.forEach((err) => {
-						if (err.path.startsWith('state.')) {
-							const pathParts = err.path.split('.')
+					errors.forEach((err) => {
+						const message = err.message
+						if (message && typeof message === 'string' && message.startsWith('state.')) {
+							const pathParts = message.split('.')
 							if (pathParts.length > 1) {
 								if (!formatted.state) {
 									formatted.state = { _errors: [] }
 								}
-								formatted.state._errors.push(err.message)
+								formatted.state._errors.push(message)
 							}
-						} else {
-							formatted._errors.push(err.message)
+						} else if (message) {
+							formatted._errors.push(message)
 						}
 					})
 					return formatted
 				},
 			},
 		}
+	},
+}
+
+// For backward compatibility to mimic Zod interface
+export const zAccountStorage = {
+	/**
+	 * Parse the account storage
+	 * @param {unknown} value - The value to parse
+	 * @returns {any} - The parsed value
+	 */
+	parse: (value) => {
+		// We can now rely on validateLoadStateParams to validate individual account storage
+		// Create a fake state with a single account
+		const errors = validateParamsWithErrors({ state: { '0x0': value } })
+		if (errors.length > 0) {
+			throw new Error(errors[0]?.message || 'Invalid account storage')
+		}
+		return value
 	},
 }
