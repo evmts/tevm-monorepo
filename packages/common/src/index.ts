@@ -14,5 +14,5 @@ export {
 } from '@ethereumjs/common'
 export * from './presets/index.js'
 export { createMockKzg } from './createMockKzg.js'
-export { type ParamsDict } from './ParamsDict.js'
+export type { ParamsDict } from './ParamsDict.js'
 export { DEFAULT_GENESIS } from './DEFAULT_GENESIS.js'

@@ -68,10 +68,6 @@ Collection of contracts
 
 Custom chain data.
 
-### ethjsCommon
-
-> **ethjsCommon**: `Common`
-
 ### fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
@@ -133,3 +129,7 @@ Source Chain ID (ie. the L1 chain)
 > `optional` **testnet**: `boolean`
 
 Flag for test networks
+
+### vmConfig
+
+> **vmConfig**: `Common`

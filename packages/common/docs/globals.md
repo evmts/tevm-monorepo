@@ -23,7 +23,7 @@
 - [Common](type-aliases/Common.md)
 - [CommonOptions](type-aliases/CommonOptions.md)
 - [Hardfork](type-aliases/Hardfork.md)
-- [MockKzg](type-aliases/MockKzg.md)
+- [ParamsDict](type-aliases/ParamsDict.md)
 
 ## Variables
 
@@ -104,6 +104,7 @@
 - [darwinia](variables/darwinia.md)
 - [dchain](variables/dchain.md)
 - [dchainTestnet](variables/dchainTestnet.md)
+- [DEFAULT\_GENESIS](variables/DEFAULT_GENESIS.md)
 - [defichainEvm](variables/defichainEvm.md)
 - [defichainEvmTestnet](variables/defichainEvmTestnet.md)
 - [degen](variables/degen.md)

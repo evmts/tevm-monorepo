@@ -44,7 +44,6 @@ Additional parameters for the BaseError.
 - [`OutOfRangeError`](OutOfRangeError.md)
 - [`InvalidJumpError`](InvalidJumpError.md)
 - [`InvalidProofError`](InvalidProofError.md)
-- [`AuthCallUnsetError`](AuthCallUnsetError.md)
 - [`StackOverflowError`](StackOverflowError.md)
 - [`InvalidJumpSubError`](InvalidJumpSubError.md)
 - [`StackUnderflowError`](StackUnderflowError.md)
