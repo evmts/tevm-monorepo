@@ -200,9 +200,9 @@ export type TevmActions = {
 	 * ```typescript
 	 * import { createMemoryClient } from 'tevm'
 	 * import { parseEther } from 'viem'
-	 * 
+	 *
 	 * const client = createMemoryClient()
-	 * 
+	 *
 	 * const { results } = await client.simulateCalls({
 	 *   account: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
 	 *   calls: [
@@ -238,7 +238,7 @@ export type TevmActions = {
 			maxFeePerGas?: bigint
 			maxPriorityFeePerGas?: bigint
 			nonce?: number
-			accessList?: Array<{address: `0x${string}`, storageKeys: `0x${string}`[]}>
+			accessList?: Array<{ address: `0x${string}`; storageKeys: `0x${string}`[] }>
 			abi?: any
 			functionName?: string
 			args?: any[]

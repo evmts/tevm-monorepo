@@ -10,16 +10,16 @@ import { zSimulateParams } from '../internal/validators/zSimulateParams.js'
  * @returns {{isValid: boolean, errors?: Array<{path: string, message: string}>}}
  */
 export const validateSimulateParams = (params) => {
-  try {
-    zSimulateParams.parse(params)
-    return { isValid: true }
-  } catch (e) {
-    return {
-      isValid: false,
-      errors: e.errors.map((error) => ({
-        path: error.path.join('.'),
-        message: error.message,
-      })),
-    }
-  }
+	try {
+		zSimulateParams.parse(params)
+		return { isValid: true }
+	} catch (e) {
+		return {
+			isValid: false,
+			errors: e.errors.map((error) => ({
+				path: error.path.join('.'),
+				message: error.message,
+			})),
+		}
+	}
 }

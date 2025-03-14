@@ -33,16 +33,16 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 				maxFeePerGas: params.maxFeePerGas,
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
-			
+
 			// Handle different mining modes based on configuration
-			let miningRes = {};
-			
+			let miningRes = {}
+
 			if (client.miningConfig.type === 'auto') {
 				// Handle auto-mining mode
-				miningRes = await handleAutomining(client, txHash) ?? {};
+				miningRes = (await handleAutomining(client, txHash)) ?? {}
 			} else if (client.miningConfig.type === 'gas') {
 				// Handle gas-mining mode
-				miningRes = await handleGasMining(client, txHash) ?? {};
+				miningRes = (await handleGasMining(client, txHash)) ?? {}
 			}
 
 			// Check for errors in the transaction creation and mining results

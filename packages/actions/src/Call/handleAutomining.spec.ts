@@ -244,7 +244,7 @@ describe('handleAutomining', () => {
 			expect.objectContaining({
 				blockHashes: ['0xabc123'],
 			}),
-			'Transaction successfully mined'
+			'Transaction successfully mined',
 		)
 
 		// Should log gas mining mode with limit
@@ -253,13 +253,15 @@ describe('handleAutomining', () => {
 		// Should call mineHandler with throwOnFail: false and blocks: 1
 		expect(mineHandlerMock).toHaveBeenCalledWith(client)
 		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
-		
+
 		// Verify parameters passed to mineHandler
 		const mineHandlerCall = mineHandlerMock.mock.results[0].value
-		expect(mineHandlerCall).toHaveBeenCalledWith(expect.objectContaining({
-			throwOnFail: false,
-			blocks: 1
-		}))
+		expect(mineHandlerCall).toHaveBeenCalledWith(
+			expect.objectContaining({
+				throwOnFail: false,
+				blocks: 1,
+			}),
+		)
 
 		// Should return undefined when successful
 		expect(result).toBeUndefined()

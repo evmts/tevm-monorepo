@@ -8,8 +8,8 @@
   "type": "module",
   "scripts": {
     "build": "webpack --mode=production",
-    "dev": "webpack serve --mode=development",
-    "clean": "rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "dev": "webpack serve --mode=development"
   },
   "dependencies": {
     "@tevm/contract": "workspace:^",

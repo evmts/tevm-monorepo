@@ -42,7 +42,7 @@
  *   coinbase?: `0x${string}`
  * }} [params.blockOverrides] - Block overrides to apply.
  * @param {bigint | 'latest' | 'earliest' | 'pending' | 'safe' | 'finalized' | `0x${string}`} [params.blockNumber] - The block number to simulate at.
- * 
+ *
  * @returns {Promise<{
  *   results: Array<{
  *     status: 'success' | 'failure',
@@ -69,7 +69,7 @@
  *     }
  *   }>
  * }>} The simulation results and asset changes if requested.
- * 
+ *
  * @example
  * ```typescript
  * const { results } = await client.simulateCalls({
@@ -91,77 +91,83 @@
  * ```
  */
 export const simulateCalls = async (client, params) => {
-  const response = await client.request({
-    method: 'eth_simulateV1',
-    params: [
-      {
-        account: params.account,
-        blockStateCalls: params.calls.map(call => ({
-          from: call.from || params.account,
-          to: call.to,
-          data: call.data,
-          value: call.value !== undefined ? `0x${call.value.toString(16)}` : undefined,
-          gas: call.gas !== undefined ? `0x${call.gas.toString(16)}` : undefined,
-          gasPrice: call.gasPrice !== undefined ? `0x${call.gasPrice.toString(16)}` : undefined,
-          maxFeePerGas: call.maxFeePerGas !== undefined ? `0x${call.maxFeePerGas.toString(16)}` : undefined,
-          maxPriorityFeePerGas: call.maxPriorityFeePerGas !== undefined 
-            ? `0x${call.maxPriorityFeePerGas.toString(16)}` 
-            : undefined,
-          nonce: call.nonce !== undefined ? `0x${call.nonce.toString(16)}` : undefined,
-          accessList: call.accessList,
-        })),
-        blockNumber: params.blockNumber,
-        stateOverrides: params.stateOverrides?.map(override => ({
-          address: override.address,
-          balance: override.balance !== undefined ? `0x${override.balance.toString(16)}` : undefined,
-          nonce: override.nonce !== undefined ? `0x${override.nonce.toString(16)}` : undefined,
-          code: override.code,
-          storage: override.storage,
-        })),
-        blockOverrides: params.blockOverrides ? {
-          baseFeePerGas: params.blockOverrides.baseFeePerGas !== undefined 
-            ? `0x${params.blockOverrides.baseFeePerGas.toString(16)}` 
-            : undefined,
-          timestamp: params.blockOverrides.timestamp !== undefined 
-            ? `0x${params.blockOverrides.timestamp.toString(16)}` 
-            : undefined,
-          number: params.blockOverrides.number !== undefined 
-            ? `0x${params.blockOverrides.number.toString(16)}` 
-            : undefined,
-          difficulty: params.blockOverrides.difficulty !== undefined 
-            ? `0x${params.blockOverrides.difficulty.toString(16)}` 
-            : undefined,
-          gasLimit: params.blockOverrides.gasLimit !== undefined 
-            ? `0x${params.blockOverrides.gasLimit.toString(16)}` 
-            : undefined,
-          coinbase: params.blockOverrides.coinbase,
-        } : undefined,
-        traceAssetChanges: params.traceAssetChanges,
-      }
-    ]
-  })
+	const response = await client.request({
+		method: 'eth_simulateV1',
+		params: [
+			{
+				account: params.account,
+				blockStateCalls: params.calls.map((call) => ({
+					from: call.from || params.account,
+					to: call.to,
+					data: call.data,
+					value: call.value !== undefined ? `0x${call.value.toString(16)}` : undefined,
+					gas: call.gas !== undefined ? `0x${call.gas.toString(16)}` : undefined,
+					gasPrice: call.gasPrice !== undefined ? `0x${call.gasPrice.toString(16)}` : undefined,
+					maxFeePerGas: call.maxFeePerGas !== undefined ? `0x${call.maxFeePerGas.toString(16)}` : undefined,
+					maxPriorityFeePerGas:
+						call.maxPriorityFeePerGas !== undefined ? `0x${call.maxPriorityFeePerGas.toString(16)}` : undefined,
+					nonce: call.nonce !== undefined ? `0x${call.nonce.toString(16)}` : undefined,
+					accessList: call.accessList,
+				})),
+				blockNumber: params.blockNumber,
+				stateOverrides: params.stateOverrides?.map((override) => ({
+					address: override.address,
+					balance: override.balance !== undefined ? `0x${override.balance.toString(16)}` : undefined,
+					nonce: override.nonce !== undefined ? `0x${override.nonce.toString(16)}` : undefined,
+					code: override.code,
+					storage: override.storage,
+				})),
+				blockOverrides: params.blockOverrides
+					? {
+							baseFeePerGas:
+								params.blockOverrides.baseFeePerGas !== undefined
+									? `0x${params.blockOverrides.baseFeePerGas.toString(16)}`
+									: undefined,
+							timestamp:
+								params.blockOverrides.timestamp !== undefined
+									? `0x${params.blockOverrides.timestamp.toString(16)}`
+									: undefined,
+							number:
+								params.blockOverrides.number !== undefined
+									? `0x${params.blockOverrides.number.toString(16)}`
+									: undefined,
+							difficulty:
+								params.blockOverrides.difficulty !== undefined
+									? `0x${params.blockOverrides.difficulty.toString(16)}`
+									: undefined,
+							gasLimit:
+								params.blockOverrides.gasLimit !== undefined
+									? `0x${params.blockOverrides.gasLimit.toString(16)}`
+									: undefined,
+							coinbase: params.blockOverrides.coinbase,
+						}
+					: undefined,
+				traceAssetChanges: params.traceAssetChanges,
+			},
+		],
+	})
 
-  // Convert hex strings back to bigints in the results
-  const results = response.results.map(result => ({
-    ...result,
-    gasUsed: BigInt(result.gasUsed),
-  }))
+	// Convert hex strings back to bigints in the results
+	const results = response.results.map((result) => ({
+		...result,
+		gasUsed: BigInt(result.gasUsed),
+	}))
 
-  // Convert hex strings back to bigints in asset changes if present
-  let assetChanges
-  if (response.assetChanges) {
-    assetChanges = response.assetChanges.map(change => ({
-      ...change,
-      value: {
-        diff: BigInt(change.value.diff),
-        ...(change.value.start !== undefined ? { start: BigInt(change.value.start) } : {}),
-        ...(change.value.end !== undefined ? { end: BigInt(change.value.end) } : {})
-      }
-    }))
-  }
+	// Convert hex strings back to bigints in asset changes if present
+	let assetChanges
+	if (response.assetChanges) {
+		assetChanges = response.assetChanges.map((change) => ({
+			...change,
+			value: {
+				diff: BigInt(change.value.diff),
+				...(change.value.start !== undefined ? { start: BigInt(change.value.start) } : {}),
+				...(change.value.end !== undefined ? { end: BigInt(change.value.end) } : {}),
+			},
+		}))
+	}
 
-  return {
-    results,
-    ...(assetChanges ? { assetChanges } : {})
-  }
+	return {
+		results,
+		...(assetChanges ? { assetChanges } : {}),
+	}
 }

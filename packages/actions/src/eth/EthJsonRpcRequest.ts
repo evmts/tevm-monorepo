@@ -307,81 +307,81 @@ export type EthCreateAccessListJsonRpcRequest = JsonRpcRequest<
  * Represents a call to simulate
  */
 export type BlockStateCall = JsonRpcTransaction & {
-  /**
-   * The nonce to use in the transaction
-   */
-  nonce?: Hex
-  /**
-   * Access list for EIP-2930 transactions
-   */
-  accessList?: Array<{
-    address: Address
-    storageKeys: Hex[]
-  }>
-  /**
-   * Maximum fee per gas for EIP-1559 transactions
-   */
-  maxFeePerGas?: Hex
-  /**
-   * Maximum priority fee per gas for EIP-1559 transactions
-   */
-  maxPriorityFeePerGas?: Hex
+	/**
+	 * The nonce to use in the transaction
+	 */
+	nonce?: Hex
+	/**
+	 * Access list for EIP-2930 transactions
+	 */
+	accessList?: Array<{
+		address: Address
+		storageKeys: Hex[]
+	}>
+	/**
+	 * Maximum fee per gas for EIP-1559 transactions
+	 */
+	maxFeePerGas?: Hex
+	/**
+	 * Maximum priority fee per gas for EIP-1559 transactions
+	 */
+	maxPriorityFeePerGas?: Hex
 }
 
 /**
  * Represents a state override for a specific account
  */
 export type StateOverride = {
-  /**
-   * Address of the account to override
-   */
-  address: Address
-  /**
-   * Balance to set for the account
-   */
-  balance?: Hex
-  /**
-   * Nonce to set for the account
-   */
-  nonce?: Hex
-  /**
-   * Code to set for the account
-   */
-  code?: Hex
-  /**
-   * Storage values to set for the account
-   */
-  storage?: Record<Hex, Hex>
+	/**
+	 * Address of the account to override
+	 */
+	address: Address
+	/**
+	 * Balance to set for the account
+	 */
+	balance?: Hex
+	/**
+	 * Nonce to set for the account
+	 */
+	nonce?: Hex
+	/**
+	 * Code to set for the account
+	 */
+	code?: Hex
+	/**
+	 * Storage values to set for the account
+	 */
+	storage?: Record<Hex, Hex>
 }
 
 /**
  * Represents a block override
  */
 export type BlockOverride = {
-  /**
-   * Base fee per gas to use in the block
-   */
-  baseFeePerGas?: Hex
-  /**
-   * Block timestamp
-   */
-  timestamp?: Hex
-  /**
-   * Block number
-   */
-  number?: Hex
-  /**
-   * Block difficulty
-   */
-  difficulty?: Hex
-  /**
-   * Block gas limit
-   */
-  gasLimit?: Hex
-  /**
-   * Block coinbase address
-   */
-  coinbase?: Address
+	/**
+	 * Base fee per gas to use in the block
+	 */
+	baseFeePerGas?: Hex
+	/**
+	 * Block timestamp
+	 */
+	timestamp?: Hex
+	/**
+	 * Block number
+	 */
+	number?: Hex
+	/**
+	 * Block difficulty
+	 */
+	difficulty?: Hex
+	/**
+	 * Block gas limit
+	 */
+	gasLimit?: Hex
+	/**
+	 * Block coinbase address
+	 */
+	coinbase?: Address
 }
 
 /**
@@ -392,31 +392,31 @@ export type EthSimulateV1JsonRpcRequest = JsonRpcRequest<
 	'eth_simulateV1',
 	readonly [
 		{
-      /**
-       * Account to use as the default sender
-       */
-      account?: Address
-      /**
-       * Array of calls to simulate
-       */
-      blockStateCalls: BlockStateCall[]
-      /**
-       * Block number to simulate at
-       */
-      blockNumber?: BlockTag | Hex
-      /**
-       * State overrides to apply
-       */
-      stateOverrides?: StateOverride[]
-      /**
-       * Block overrides to apply
-       */
-      blockOverrides?: BlockOverride
-      /**
-       * Whether to trace asset changes
-       */
-      traceAssetChanges?: boolean
-    }
+			/**
+			 * Account to use as the default sender
+			 */
+			account?: Address
+			/**
+			 * Array of calls to simulate
+			 */
+			blockStateCalls: BlockStateCall[]
+			/**
+			 * Block number to simulate at
+			 */
+			blockNumber?: BlockTag | Hex
+			/**
+			 * State overrides to apply
+			 */
+			stateOverrides?: StateOverride[]
+			/**
+			 * Block overrides to apply
+			 */
+			blockOverrides?: BlockOverride
+			/**
+			 * Whether to trace asset changes
+			 */
+			traceAssetChanges?: boolean
+		},
 	]
 >
 

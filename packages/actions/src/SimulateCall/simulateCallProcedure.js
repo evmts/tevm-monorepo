@@ -37,30 +37,30 @@ import { simulateCallHandler } from './simulateCallHandler.js'
  * ```
  */
 export const simulateCallJsonRpcProcedure = (client) => {
-  const handler = simulateCallHandler(client)
-  
-  /**
-   * @type {import('../requestProcedure.js').JsonRpcRequestHandler}
-   */
-  return async (request) => {
-    try {
-      const result = await handler(request.params[0])
-      return {
-        result,
-        jsonrpc: '2.0',
-        method: request.method,
-        ...(request.id !== undefined ? { id: request.id } : {}),
-      }
-    } catch (error) {
-      return {
-        error: {
-          code: -32000,
-          message: error instanceof Error ? error.message : String(error),
-        },
-        jsonrpc: '2.0',
-        method: request.method,
-        ...(request.id !== undefined ? { id: request.id } : {}),
-      }
-    }
-  }
+	const handler = simulateCallHandler(client)
+
+	/**
+	 * @type {import('../requestProcedure.js').JsonRpcRequestHandler}
+	 */
+	return async (request) => {
+		try {
+			const result = await handler(request.params[0])
+			return {
+				result,
+				jsonrpc: '2.0',
+				method: request.method,
+				...(request.id !== undefined ? { id: request.id } : {}),
+			}
+		} catch (error) {
+			return {
+				error: {
+					code: -32000,
+					message: error instanceof Error ? error.message : String(error),
+				},
+				jsonrpc: '2.0',
+				method: request.method,
+				...(request.id !== undefined ? { id: request.id } : {}),
+			}
+		}
+	}
 }
