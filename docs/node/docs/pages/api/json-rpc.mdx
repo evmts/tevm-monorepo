@@ -69,6 +69,7 @@ Tevm also supports additional methods commonly found in development environments
   - [`anvil_setBalance`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetBalance.md) - Set account balance
   - [`anvil_setNonce`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetNonceProcedure.md) - Set account nonce
   - [`anvil_setStorageAt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetStorageAtProcedure.md) - Set storage value
+  - [`anvil_deal`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilDealHandler.md) - Add native ETH or ERC20 tokens to an account
   - [`anvil_impersonateAccount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilImpersonateAccount.md) - Impersonate account
   - [`anvil_stopImpersonatingAccount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilStopImpersonatingAccountProcedure.md) - Stop impersonating
 
@@ -180,7 +181,8 @@ import {
   tevmCall, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/callHandler.md
   tevmMine, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/mineHandler.md
   tevmGetAccount, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getAccountHandler.md
-  tevmSetAccount // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/setAccountHandler.md
+  tevmSetAccount, // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/setAccountHandler.md
+  tevmDeal // See: https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilDealHandler.md
 } from 'tevm/actions'
 import { createTevmNode } from 'tevm'
 
@@ -210,6 +212,20 @@ await tevmSetAccount(node, {
   nonce: 0n,
   deployedBytecode: '0x...'
 })
+
+// Deal tokens to an account
+// For native ETH:
+await tevmDeal(node, {
+  account: '0x...',
+  amount: 1000000000000000000n // 1 ETH
+})
+
+// For ERC20 tokens:
+await tevmDeal(node, {
+  erc20: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC on mainnet
+  account: '0x...',
+  amount: 1000000n // 1 USDC (6 decimals)
+})
 ```
 
 For detailed type information, see:
@@ -217,6 +233,7 @@ For detailed type information, see:
 - [`MineParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/MineParams.md)
 - [`GetAccountParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/GetAccountParams.md)
 - [`SetAccountParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/SetAccountParams.md)
+- [`AnvilDealParams`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/type-aliases/AnvilDealParams.md)
 
 Note: By default, tevm actions require manual mining via [`tevmMine()`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/mineHandler.md). If you want transactions to be automatically applied, you can either:
 

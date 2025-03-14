@@ -296,6 +296,20 @@ await client.tevmSetAccount({
     '0x1': '0x2'       // slot 1 -> value 2
   }
 })
+
+// Add tokens to an account
+// For native ETH:
+await client.tevmDeal({
+  account: '0x1234567890123456789012345678901234567890',
+  amount: parseEther('10')
+})
+
+// For ERC20 tokens:
+await client.tevmDeal({
+  erc20: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC on mainnet
+  account: '0x1234567890123456789012345678901234567890',
+  amount: 1000000n // 1 USDC (6 decimals)
+})
 ```
 
 ### State Management
@@ -472,6 +486,7 @@ This breakdown illustrates Tevm's key architectural components:
 - `tevmDeploy` - Deploy a contract with detailed results
 - `tevmGetAccount` - Get detailed account information
 - `tevmSetAccount` - Set up a complex account state
+- `tevmDeal` - Add native ETH or ERC20 tokens to an account
 - `tevmDumpState` - Export complete EVM state
 - `tevmLoadState` - Import complete EVM state
 - `tevmMine` - Mine blocks with additional options
