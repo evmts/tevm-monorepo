@@ -173,6 +173,50 @@ await node.setMiningConfig({ // [!code focus]
 }) // [!code focus]
 ```
 
+## Event Handlers
+
+Tevm provides event handlers for mining operations, allowing you to monitor blocks, receipts, and logs in real-time:
+
+```typescript showLineNumbers {8-25} filename="mine-with-events.ts"
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+// Mine with event handlers
+const result = await client.mine({
+  blockCount: 2,
+  // Monitor each block as it's mined
+  onBlock: (block, next) => {
+    console.log(`Block #${block.header.number} mined:`, {
+      hash: block.hash().toString('hex'),
+      timestamp: block.header.timestamp,
+      gasUsed: block.header.gasUsed
+    })
+    next?.() // Must call next to continue processing
+  },
+  // Monitor transaction receipts
+  onReceipt: (receipt, blockHash, next) => {
+    console.log(`Receipt for tx ${receipt.transactionHash}:`, {
+      blockHash,
+      gasUsed: receipt.gasUsed
+    })
+    next?.()
+  },
+  // Monitor logs from transactions
+  onLog: (log, receipt, next) => {
+    console.log(`Log from ${log.address}:`, {
+      topics: log.topics,
+      data: log.data
+    })
+    next?.()
+  }
+})
+```
+
+<Callout type="info">
+  Event handlers are called synchronously by default. Always call the `next()` function to continue processing, similar to middleware patterns.
+</Callout>
+
 ## Best Practices
 
 <Steps>
