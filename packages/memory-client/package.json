@@ -76,6 +76,7 @@
     "vitest": "^3.0.8"
   },
   "devDependencies": {
+    "@tevm/address": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"

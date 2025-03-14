@@ -8,7 +8,7 @@
 
 > **tevmViemActions**(): (`client`) => [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
 
-Defined in: [packages/memory-client/src/tevmViemActions.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmViemActions.js#L81)
+Defined in: [packages/memory-client/src/tevmViemActions.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmViemActions.js#L82)
 
 A viem extension that adds TEVM actions to a viem client.
 
@@ -22,6 +22,7 @@ Virtual Machine's capabilities, including:
 - Block mining (`tevmMine`)
 - Account state management (`tevmGetAccount`, `tevmSetAccount`)
 - State persistence (`tevmDumpState`, `tevmLoadState`)
+- Token manipulation (`tevmDeal` for ETH and ERC20 tokens)
 - Direct VM access (`tevm` for advanced usage)
 
 The viem client must already have TEVM support via a `createTevmTransport` transport.

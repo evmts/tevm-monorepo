@@ -24,6 +24,7 @@
 - [testActions](functions/testActions.md)
 - [tevmCall](functions/tevmCall.md)
 - [tevmContract](functions/tevmContract.md)
+- [tevmDeal](functions/tevmDeal.md)
 - [tevmDeploy](functions/tevmDeploy.md)
 - [tevmDumpState](functions/tevmDumpState.md)
 - [tevmGetAccount](functions/tevmGetAccount.md)

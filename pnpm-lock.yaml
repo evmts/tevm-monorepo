@@ -1559,6 +1559,9 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8(@types/debug@4.1.12)(@types/node@22.13.10)(@vitest/ui@3.0.8)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
     devDependencies:
+      '@tevm/address':
+        specifier: workspace:^
+        version: link:../address
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1795,9 +1798,6 @@ importers:
       '@tevm/logger':
         specifier: workspace:^
         version: link:../logger
-      '@tevm/test-utils':
-        specifier: workspace:^
-        version: link:../../test/test-utils
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1808,6 +1808,9 @@ importers:
         specifier: ^2.21.1
         version: 2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
     devDependencies:
+      '@tevm/test-utils':
+        specifier: workspace:^
+        version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -2044,6 +2047,9 @@ importers:
       '@ponder/utils':
         specifier: ^0.2.3
         version: 0.2.3(typescript@5.8.2)(viem@2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../../packages/common
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract
@@ -2057,12 +2063,18 @@ importers:
         specifier: ^2.21.1
         version: 2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
     devDependencies:
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../../packages/node
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       '@types/node':
         specifier: ^22.13.5
         version: 22.13.10
@@ -6206,7 +6218,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 

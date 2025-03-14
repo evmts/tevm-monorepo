@@ -81,6 +81,45 @@ In addition to making basic calls, you can also do advanced things like:
 - Send as a transaction with `createTransaction: true`
 For all options see [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/)
 
+### tevmDeal
+
+> **tevmDeal**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deal"`\]
+
+Sets the balance of an account to a specific amount of ETH or ERC20 tokens.
+A convenience method over tevmSetAccount for quickly adjusting account balances.
+
+#### See
+
+ - [DealParams](https://tevm.sh/reference/tevm/actions/type-aliases/dealparams/) for options reference.
+ - [DealResult](https://tevm.sh/reference/tevm/actions/type-aliases/dealresult/) for return values reference.
+
+#### Examples
+
+```typescript
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+// Set ETH balance
+await client.tevmDeal({
+  account: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+  amount: 1000000000000000000n // 1 ETH
+})
+```
+
+```typescript
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+// Set ERC20 token balance
+await client.tevmDeal({
+  erc20: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC address
+  account: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+  amount: 1000000n // 1 USDC (6 decimals)
+})
+```
+
 ### tevmDeploy
 
 > **tevmDeploy**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deploy"`\]
