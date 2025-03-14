@@ -300,14 +300,6 @@ export const createTevmNode = (options = {}) => {
 	}
 	const eventEmitter = createEventEmitter()
 
-	const readyPromise = (async () => {
-		await blockchainPromise.then((b) => b.ready())
-		await stateManagerPromise.then((b) => b.ready())
-		await vmPromise.then((vm) => vm.ready())
-		eventEmitter.emit('connect')
-		return /** @type {true}*/ (true)
-	})()
-
 	/**
 	 * @param {import('./TevmNode.js').TevmNode} baseClient
 	 * @returns {import('./TevmNode.js').TevmNode['deepCopy']}
@@ -370,6 +362,14 @@ export const createTevmNode = (options = {}) => {
 				newFilters.delete(filterId)
 			},
 			status: 'READY',
+			cleanup: () => {
+				// Cleanup method for copied client
+				if (copiedClient.intervalMiningId) {
+					clearInterval(copiedClient.intervalMiningId)
+					delete copiedClient.intervalMiningId
+					logger.debug('Cleaned up interval mining timer in copied client')
+				}
+			},
 		}
 		return copiedClient
 	}
@@ -417,7 +417,75 @@ export const createTevmNode = (options = {}) => {
 		},
 		status: 'INITIALIZING',
 		deepCopy: () => deepCopy(baseClient)(),
+		cleanup: () => {
+			// Clean up interval mining timer if it exists
+			if (baseClient.intervalMiningId) {
+				clearInterval(baseClient.intervalMiningId)
+				delete baseClient.intervalMiningId
+				logger.debug('Cleaned up interval mining timer')
+			}
+		},
 	}
+
+	const readyPromise = (async () => {
+		await blockchainPromise.then((b) => b.ready())
+		await stateManagerPromise.then((b) => b.ready())
+		await vmPromise.then((vm) => vm.ready())
+
+		// Set up interval mining if configured
+		if (options.miningConfig?.type === 'interval') {
+			const interval = options.miningConfig.interval
+			logger.debug({ interval }, 'Setting up interval mining')
+
+			// Initialize the interval mining timer
+			const startIntervalMining = async () => {
+				// Using explicit path to avoid import error
+				const { mineHandler } = await import('@tevm/actions/src/Mine/mineHandler.js')
+				await mineHandler(baseClient)({ throwOnFail: false }).catch((/** @type {Error} */ error) => {
+					logger.error({ error }, 'Error in interval mining')
+				})
+			}
+
+			// Store the interval ID in the client for cleanup
+			baseClient.intervalMiningId = setInterval(startIntervalMining, interval)
+
+			// Start mining immediately
+			startIntervalMining().catch((/** @type {Error} */ err) => {
+				logger.error({ err }, 'Error in initial interval mining')
+			})
+		}
+
+		// Set up gas mining if configured
+		if (options.miningConfig?.type === 'gas') {
+			const gaslimit = options.miningConfig.limit
+			logger.debug({ gaslimit }, 'Setting up gas mining')
+
+			// Configure TxPool to enable gas mining when ready
+			txPoolPromise.then((txPool) => {
+				// Enable gas mining in the transaction pool
+				txPool.configureGasMining({
+					enabled: true,
+					threshold: /** @type {bigint} */ (gaslimit),
+					blocks: 1,
+				})
+
+				// Register handler for gas mining events
+				txPool.on('gasminingneeded', async (txHash) => {
+					logger.debug({ txHash, gasLimit: gaslimit }, 'Gas mining threshold reached, mining transaction')
+					// Using explicit path to avoid import error
+					const { mineHandler } = await import('@tevm/actions/src/Mine/mineHandler.js')
+					await mineHandler(baseClient)({ throwOnFail: false }).catch((/** @type {Error} */ error) => {
+						logger.error({ error }, 'Error in gas mining')
+					})
+				})
+
+				logger.debug('Gas mining configuration complete')
+			})
+		}
+
+		eventEmitter.emit('connect')
+		return /** @type {true}*/ (true)
+	})()
 
 	eventEmitter.on('connect', () => {
 		if (baseClient.status !== 'INITIALIZING') {

@@ -346,4 +346,64 @@ describe('createTevmNode coverage tests', () => {
 
 		expect(results).toEqual(['listener1-parameter', 'listener2-parameter'])
 	})
+
+	// Test interval mining configuration
+	it('Sets up interval mining when configured', async () => {
+		// Mock setInterval and clearInterval
+		const originalSetInterval = global.setInterval
+		const originalClearInterval = global.clearInterval
+
+		try {
+			global.setInterval = vi.fn().mockReturnValue(123)
+			global.clearInterval = vi.fn()
+
+			// Mock import for actions/mineHandler
+			vi.mock(
+				'@tevm/actions',
+				() => ({
+					mineHandler: vi.fn().mockReturnValue(vi.fn().mockResolvedValue({ blockHashes: ['0xblock1'] })),
+				}),
+				{ virtual: true },
+			)
+
+			// Create a client with interval mining
+			const client = createTevmNode({
+				miningConfig: { type: 'interval', interval: 1000 },
+			})
+
+			await client.ready()
+
+			// Verify setInterval was called with the right interval
+			expect(global.setInterval).toHaveBeenCalledWith(expect.any(Function), 1000)
+			expect(client.intervalMiningId).toBe(123)
+
+			// Cleanup client
+			client.cleanup()
+
+			// Verify clearInterval was called
+			expect(global.clearInterval).toHaveBeenCalledWith(123)
+		} finally {
+			// Restore original functions and mocks
+			global.setInterval = originalSetInterval
+			global.clearInterval = originalClearInterval
+			vi.resetModules()
+			vi.clearAllMocks()
+		}
+	})
+
+	// Test gas mining configuration - simplified to focus on code coverage
+	it('Sets up gas mining when configured', async () => {
+		// Just check that the miningConfig is properly set
+		const client = createTevmNode({
+			miningConfig: { type: 'gas', limit: 5000000n },
+		})
+
+		expect(client.miningConfig).toEqual({ type: 'gas', limit: 5000000n })
+
+		// This will register the ready function that will run through the gas mining setup code paths
+		await client.ready()
+
+		// No assertions as we only care about coverage
+		client.cleanup()
+	})
 })

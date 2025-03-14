@@ -9,6 +9,7 @@ import type { CallParams } from './CallParams.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { executeCall } from './executeCall.js'
 import * as HandleAutominingModule from './handleAutomining.js'
+import * as HandleGasMiningModule from './handleGasMining.js'
 import { handleTransactionCreation } from './handleTransactionCreation.js'
 
 const contract = TestERC20.withAddress(createAddress(420420420420420).toString())
@@ -123,6 +124,7 @@ describe(handleTransactionCreation.name, async () => {
 
 		// Mock handleAutomining to return errors
 		const handleAutominingSpy = vi.spyOn(HandleAutominingModule, 'handleAutomining')
+		// Make it return an object with errors to match our API
 		handleAutominingSpy.mockResolvedValue({
 			errors: [
 				{
@@ -133,7 +135,10 @@ describe(handleTransactionCreation.name, async () => {
 		})
 
 		const result = (await handleTransactionCreation(
-			client,
+			{
+				...client,
+				miningConfig: { type: 'auto' }, // Set mining config to auto to trigger handleAutomining
+			},
 			{ createTransaction: true },
 			{
 				runTxResult: {
@@ -192,8 +197,7 @@ describe(handleTransactionCreation.name, async () => {
 
 		createTransactionSpy.mockRestore()
 	})
-
-	it('should call handleAutomining with isGasMining=true when client has gas mining config', async () => {
+	it('should call handleGasMining when client has gas mining config', async () => {
 		// Create client with gas mining config
 		const client = createTevmNode({
 			miningConfig: { type: 'gas', limit: BigInt(1000000) },
@@ -209,9 +213,9 @@ describe(handleTransactionCreation.name, async () => {
 			}
 		})
 
-		// Mock handleAutomining to track how it's called
-		const handleAutominingSpy = vi.spyOn(HandleAutominingModule, 'handleAutomining')
-		handleAutominingSpy.mockResolvedValue(undefined)
+		// Mock handleGasMining
+		const handleGasMiningSpy = vi.spyOn(HandleGasMiningModule, 'handleGasMining')
+		handleGasMiningSpy.mockResolvedValue(undefined)
 
 		await handleTransactionCreation(
 			client,
@@ -231,10 +235,10 @@ describe(handleTransactionCreation.name, async () => {
 			},
 		)
 
-		// Verify handleAutomining was called with isGasMining=true
-		expect(handleAutominingSpy).toHaveBeenCalledWith(client, '0x123456', true)
+		// Verify handleGasMining was called with the txHash
+		expect(handleGasMiningSpy).toHaveBeenCalledWith(client, '0x123456')
 
 		createTransactionSpy.mockRestore()
-		handleAutominingSpy.mockRestore()
+		handleGasMiningSpy.mockRestore()
 	})
 })

@@ -13,6 +13,11 @@ import type { MiningConfig } from './MiningConfig.js'
  */
 export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExtended = {}> = {
 	/**
+	 * @internal
+	 * Reference to the interval timer for interval mining (if enabled)
+	 */
+	intervalMiningId?: ReturnType<typeof setInterval>
+	/**
 	 * The logger instance
 	 */
 	readonly logger: Logger
@@ -111,5 +116,11 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * Copies the current client state into a new client
 	 */
 	readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
+	/**
+	 * Clean up resources used by the client.
+	 * This should be called when the client is no longer needed to prevent memory leaks.
+	 * It cleans up resources like interval timers for mining.
+	 */
+	readonly cleanup: () => void
 } & EIP1193EventEmitter &
 	TExtended

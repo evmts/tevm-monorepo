@@ -512,6 +512,7 @@
 - [getStorageAtHandler](functions/getStorageAtHandler.md)
 - [getStorageAtProcedure](functions/getStorageAtProcedure.md)
 - [handleAutomining](functions/handleAutomining.md)
+- [handleGasMining](functions/handleGasMining.md)
 - [handlePendingTransactionsWarning](functions/handlePendingTransactionsWarning.md)
 - [handleRunTxError](functions/handleRunTxError.md)
 - [handleTransactionCreation](functions/handleTransactionCreation.md)

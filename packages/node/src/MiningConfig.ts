@@ -10,6 +10,6 @@ export type AutoMining = {
 }
 export type GasMining = {
 	type: 'gas'
-	limit: BigInt
+	limit: bigint
 }
 export type MiningConfig = IntervalMining | ManualMining | AutoMining | GasMining
