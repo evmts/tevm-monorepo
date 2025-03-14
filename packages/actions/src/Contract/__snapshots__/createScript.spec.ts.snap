@@ -1,6 +1,50 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`createScript should return an error for invalid bytecode 1`] = `
+exports[`createScript > should handle script creation failure due to EVM error 1`] = `
+[
+  [Error: EVM error],
+]
+`;
+
+exports[`createScript > should handle setAccount failing unexpecdedly 1`] = `
+[
+  [InternalError: Unable to put storage
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Unexpected error
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`createScript > should handle the case where the code property did not produce any bytecode 1`] = `
+[
+  [InternalEvmError: Failed to create script
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`createScript > should handle the unlikely case we are unable to get the account after successful creation 1`] = `
+[
+  [AccountNotFoundError: account 0x0000000000000000000000000000003AcBAd8fAD not found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`createScript > should handle vm errors 1`] = `
+[
+  [InvalidBytecodeError: revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`createScript > should return an error for invalid bytecode 1`] = `
 [
   [InvalidDeployedBytecodeError: InvalidLength
 
@@ -9,9 +53,9 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`createScript should return an error when neither code nor deployed bytecode is provided 1`] = `
+exports[`createScript > should return an error when neither code nor deployed bytecode is provided 1`] = `
 [
-  [_InternalError: Cannot create script without code or deployedBytecode
+  [InternalError: Cannot create script without code or deployedBytecode
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Version: 1.1.0.next-73],
@@ -34,16 +78,6 @@ Version: 1.1.0.next-73],
 ]
 `;
 
-exports[`createScript should handle vm errors 1`] = `
-[
-  [InvalidBytecodeError: revert
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Details: {"error":"revert","errorType":"EvmError"}
-Version: 1.1.0.next-73],
-]
-`;
-
 exports[`createScript should handle the case where the code property did not produce any bytecode 1`] = `
 [
   [InternalEvmError: Failed to create script
@@ -58,6 +92,34 @@ exports[`createScript should handle the unlikely case we are unable to get the a
   [AccountNotFoundError: account 0x0000000000000000000000000000003AcBAd8fAD not found
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`createScript should handle vm errors 1`] = `
+[
+  [InvalidBytecodeError: revert
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Details: {"error":"revert","errorType":"EvmError"}
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`createScript should return an error for invalid bytecode 1`] = `
+[
+  [InvalidDeployedBytecodeError: InvalidLength
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeployedbytecodeerror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`createScript should return an error when neither code nor deployed bytecode is provided 1`] = `
+[
+  [_InternalError: Cannot create script without code or deployedBytecode
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Version: 1.1.0.next-73],
 ]
 `;

@@ -1,4 +1,42 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`setAccountProcedure > should handle errors correctly 1`] = `
+{
+  "code": -32013,
+  "data": {
+    "errors": [
+      "Invalid Address 0xInvalidAddress
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73",
+    ],
+  },
+  "message": "Invalid Address 0xInvalidAddress
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73",
+}
+`;
+
+exports[`setAccountProcedure > should return an error when stateManager fails 1`] = `
+{
+  "code": -32603,
+  "data": {
+    "errors": [
+      "Unexpected error setting account
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: unexpected error
+Version: 1.1.0.next-73",
+    ],
+  },
+  "message": "Unexpected error setting account
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: unexpected error
+Version: 1.1.0.next-73",
+}
+`;
 
 exports[`setAccountProcedure should handle errors correctly 1`] = `
 {

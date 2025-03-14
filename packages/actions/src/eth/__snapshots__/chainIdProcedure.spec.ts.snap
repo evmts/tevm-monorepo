@@ -3,3 +3,7 @@
 exports[`chainIdProcedure > should handle requests without an id 1`] = `"0x384"`;
 
 exports[`chainIdProcedure > should return the current chain ID 1`] = `"0x384"`;
+
+exports[`chainIdProcedure should handle requests without an id 1`] = `"0x384"`;
+
+exports[`chainIdProcedure should return the current chain ID 1`] = `"0x384"`;

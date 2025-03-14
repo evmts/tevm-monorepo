@@ -129,12 +129,12 @@ describe('handleRunTxError', () => {
 		expect(result).toBeInstanceOf(InsufficientBalanceError)
 		expect(result.cause).toBe(error)
 		expect(result.message).toMatchInlineSnapshot(`
-			"sender doesn't have enough funds to send tx. The upfront cost is 1000 wei
+"sender doesn't have enough funds to send tx. The upfront cost is 1000 wei
 
-			Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientbalanceerror/
-			Details: sender doesn't have enough funds to send tx. The upfront cost is 1000 wei
-			Version: 1.1.0.next-73"
-		`)
+Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientbalanceerror/
+Details: sender doesn't have enough funds to send tx. The upfront cost is 1000 wei
+Version: 1.1.0.next-73"
+`)
 	})
 
 	it('should handle unknown EvmError subclasses', () => {

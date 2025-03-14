@@ -1,13 +1,4 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`should validate if top level is wrong 1`] = `
-[
-  [_InvalidParamsError: Expected object, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73],
-]
-`;
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`should match snapshot for invalid parameters 1`] = `
 [
@@ -51,7 +42,7 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73],
-  [InvalidGasPriceError: Expected bigint, received string
+  [InvalidGasPrice: Expected bigint, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
@@ -63,7 +54,7 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidcallererror/
 Version: 1.1.0.next-73],
-  [InvalidGasPriceError: Expected bigint, received string
+  [InvalidGasPrice: Expected bigint, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
@@ -94,6 +85,15 @@ Version: 1.1.0.next-73],
   [InvalidMaxPriorityFeePerGasError: Expected bigint, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`should validate if top level is wrong 1`] = `
+[
+  [InvalidParams: Expected object, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Version: 1.1.0.next-73],
 ]
 `;

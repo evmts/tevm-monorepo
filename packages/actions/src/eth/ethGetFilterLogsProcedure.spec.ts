@@ -84,19 +84,19 @@ describe(ethGetFilterLogsProcedure.name, () => {
 		expect(isHex(blockHash)).toBe(true)
 		expect(blockHash).toHaveLength(66)
 		expect(deterministicResult).toMatchInlineSnapshot(`
-			{
-			  "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
-			  "blockNumber": "0x2",
-			  "data": "0x0000000000000000000000000000000000000000000000000000000000000045",
-			  "logIndex": "0x0",
-			  "removed": false,
-			  "topics": [
-			    "0x012c78e2b84325878b1bd9d250d772cfe5bda7722d795f45036fa5e1e6e303fc",
-			  ],
-			  "transactionHash": "0x26de6f137bcebaa05e276447f69158f66910b461e47afca6fe67360833698708",
-			  "transactionIndex": "0x0",
-			}
-		`)
+{
+  "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+  "blockNumber": "0x2",
+  "data": "0x0000000000000000000000000000000000000000000000000000000000000045",
+  "logIndex": "0x0",
+  "removed": false,
+  "topics": [
+    "0x012c78e2b84325878b1bd9d250d772cfe5bda7722d795f45036fa5e1e6e303fc",
+  ],
+  "transactionHash": "0x26de6f137bcebaa05e276447f69158f66910b461e47afca6fe67360833698708",
+  "transactionIndex": "0x0",
+}
+`)
 	})
 
 	it("should return logs with OR'ed topics", async () => {

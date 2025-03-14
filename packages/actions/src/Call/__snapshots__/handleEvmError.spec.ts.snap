@@ -1,10 +1,34 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`handleRunTxError should handle unknown error that is not an instance of Error 1`] = `
+exports[`handleRunTxError > should handle EvmError instances 1`] = `
+"invalid JUMP
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidjumperror/
+Details: {"error":"invalid JUMP","errorType":"EvmError"}
+Version: 1.1.0.next-73"
+`;
+
+exports[`handleRunTxError > should handle unknown EvmError subclasses 1`] = `
+"Unknown error: Unknown error occurred
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: {"error":"Unknown error occurred","errorType":"EvmError"}
+Version: 1.1.0.next-73"
+`;
+
+exports[`handleRunTxError > should handle unknown error that is not an instance of Error 1`] = `
 "Unknown error
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: unknown error
+Version: 1.1.0.next-73"
+`;
+
+exports[`handleRunTxError > should handle unknown unexpected errror 1`] = `
+"Unknown error occurred
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Unknown error occurred
 Version: 1.1.0.next-73"
 `;
 
@@ -21,6 +45,14 @@ exports[`handleRunTxError should handle unknown EvmError subclasses 1`] = `
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: {"error":"Unknown error occurred","errorType":"EvmError"}
+Version: 1.1.0.next-73"
+`;
+
+exports[`handleRunTxError should handle unknown error that is not an instance of Error 1`] = `
+"Unknown error
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: unknown error
 Version: 1.1.0.next-73"
 `;
 
