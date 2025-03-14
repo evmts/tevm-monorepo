@@ -24,4 +24,4 @@ import { type Prettify, type Chain as ViemChain } from 'viem/chains'
  * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  * @see [Tevm client docs](https://tevm.sh/learn/clients/)
  */
-export type Common = Prettify<ViemChain & { ethjsCommon: EthjsCommon; copy: () => Common }>
+export type Common = Prettify<ViemChain & { vmConfig: EthjsCommon; copy: () => Common }>

@@ -46,7 +46,7 @@ export const createEvm = async ({
 		customPrecompiles: customPrecompiles?.map((c) => c.address.toString()),
 	})
 	const evm = await Evm.create({
-		common: common.ethjsCommon,
+		common: common.vmConfig,
 		stateManager,
 		blockchain,
 		allowUnlimitedContractSize: allowUnlimitedContractSize ?? false,

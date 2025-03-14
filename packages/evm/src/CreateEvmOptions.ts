@@ -22,7 +22,7 @@ import type { CustomPrecompile } from './CustomPrecompile.js'
  * })
  *
  * const result = await evm.runCall({
- *   to: EthjsAddress.fromString(`0x${'0'.repeat(40)}`),
+ *   to: createAddress(`0x${'0'.repeat(40)}`),
  *   value: 420n,
  *   skipBalance: true,
  * })

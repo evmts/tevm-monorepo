@@ -7,7 +7,7 @@ import { dumpStateHandler } from './dumpStateHandler.js'
 
 test('should dump important account info and storage', async () => {
 	const accountAddress = '0x0420042004200420042004200420042004200420'
-	const account = EthjsAddress.fromString(accountAddress)
+	const account = createAddress(accountAddress)
 
 	const accountInstance = new EthjsAccount(0n, 100n)
 

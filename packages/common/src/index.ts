@@ -5,7 +5,7 @@ export type { Common } from './Common.js'
 export {
 	type CustomCrypto,
 	type StorageDump,
-	type EVMStateManagerInterface as EvmStateManagerInterface,
+	type StateManagerInterface,
 	type AccountFields,
 	type StorageRange,
 	ConsensusAlgorithm,
@@ -13,5 +13,6 @@ export {
 	ConsensusType,
 } from '@ethereumjs/common'
 export * from './presets/index.js'
-export type { MockKzg } from './MockKzg.js'
 export { createMockKzg } from './createMockKzg.js'
+export type { ParamsDict } from './ParamsDict.js'
+export { DEFAULT_GENESIS } from './DEFAULT_GENESIS.js'

@@ -21,14 +21,14 @@ describe('callHandlerOpts', () => {
 	it('should parse caller address correctly', async () => {
 		const params = { caller: `0x${'4'.repeat(40)}` } as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
+		expect(result.data?.caller).toEqual(createAddress(params.caller))
 	})
 
 	it('should set both origin and caller to from address if provided', async () => {
 		const params = { from: `0x${'4'.repeat(40)}` } as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.from))
-		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.from))
+		expect(result.data?.caller).toEqual(createAddress(params.from))
+		expect(result.data?.origin).toEqual(createAddress(params.from))
 	})
 
 	it('origin and caller take presidence over from', async () => {
@@ -38,8 +38,8 @@ describe('callHandlerOpts', () => {
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
+		expect(result.data?.caller).toEqual(createAddress(params.caller))
+		expect(result.data?.origin).toEqual(createAddress(params.origin))
 	})
 
 	it('origin and caller take presidence over from', async () => {
@@ -49,8 +49,8 @@ describe('callHandlerOpts', () => {
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
+		expect(result.data?.caller).toEqual(createAddress(params.caller))
+		expect(result.data?.origin).toEqual(createAddress(params.origin))
 	})
 
 	it('origin and caller take presidence over from', async () => {
@@ -60,8 +60,8 @@ describe('callHandlerOpts', () => {
 			caller: `0x${'6'.repeat(40)}`,
 		} as const
 		const result = await callHandlerOpts(client, params)
-		expect(result.data?.caller).toEqual(EthjsAddress.fromString(params.caller))
-		expect(result.data?.origin).toEqual(EthjsAddress.fromString(params.origin))
+		expect(result.data?.caller).toEqual(createAddress(params.caller))
+		expect(result.data?.origin).toEqual(createAddress(params.origin))
 	})
 
 	it('should parse transaction to address', async () => {
@@ -69,7 +69,7 @@ describe('callHandlerOpts', () => {
 		const result = await callHandlerOpts(client, {
 			to,
 		})
-		expect(result.data?.to).toEqual(EthjsAddress.fromString(to))
+		expect(result.data?.to).toEqual(createAddress(to))
 	})
 
 	it('should parse data to bytes', async () => {
@@ -197,7 +197,7 @@ describe('callHandlerOpts', () => {
 			blobBaseFee: 2000000000n,
 		}
 		const result = await callHandlerOpts(client, { blockOverrideSet })
-		expect(result.data?.block?.header.coinbase).toEqual(EthjsAddress.fromString(blockOverrideSet.coinbase))
+		expect(result.data?.block?.header.coinbase).toEqual(createAddress(blockOverrideSet.coinbase))
 		expect(result.data?.block?.header.number).toEqual(blockOverrideSet.number)
 		expect(result.data?.block?.header.gasLimit).toEqual(blockOverrideSet.gasLimit)
 		expect(result.data?.block?.header.timestamp).toEqual(blockOverrideSet.time)
@@ -215,7 +215,7 @@ describe('callHandlerOpts', () => {
 			baseFee: 1000000000n,
 		}
 		const result = await callHandlerOpts(client, { blockOverrideSet })
-		expect(result.data?.block?.header.coinbase).toEqual(EthjsAddress.fromString(blockOverrideSet.coinbase))
+		expect(result.data?.block?.header.coinbase).toEqual(createAddress(blockOverrideSet.coinbase))
 		expect(result.data?.block?.header.number).toEqual(blockOverrideSet.number)
 		expect(result.data?.block?.header.gasLimit).toEqual(blockOverrideSet.gasLimit)
 		expect(result.data?.block?.header.timestamp).toEqual(blockOverrideSet.time)

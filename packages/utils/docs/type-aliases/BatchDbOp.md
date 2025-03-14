@@ -8,7 +8,7 @@
 
 > **BatchDbOp**\<`TKey`, `TValue`\>: `PutBatch`\<`TKey`, `TValue`\> \| `DelBatch`\<`TKey`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:4
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0-alpha.1/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:4
 
 ## Type Parameters
 

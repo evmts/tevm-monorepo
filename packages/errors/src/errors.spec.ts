@@ -81,7 +81,7 @@ describe('Error Classes', () => {
 			'InternalEvmError',
 			'InvalidJumpError',
 			'InvalidProofError',
-			'AuthCallUnsetError',
+			// 'AuthCallUnsetError', // Removed in ethereumjs alpha.1 upgrade
 			'StackOverflowError',
 			'InvalidJumpSubError',
 			'StackUnderflowError',

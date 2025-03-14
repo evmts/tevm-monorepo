@@ -9,7 +9,7 @@ describe(clearContractStorage.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 		const slot = Uint8Array.from([69])
 		const value = Uint8Array.from([420])
 

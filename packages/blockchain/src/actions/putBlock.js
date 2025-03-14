@@ -5,7 +5,7 @@ import { bytesToHex } from 'viem'
  * @returns {import('../Chain.js').Chain['putBlock']}
  */
 export const putBlock = (baseChain) => (block) => {
-	if (block.common.ethjsCommon.chainId() !== baseChain.common.ethjsCommon.chainId()) {
+	if (block.common.vmConfig.chainId() !== baseChain.common.vmConfig.chainId()) {
 		throw new Error('Block does not match the chainId of common')
 	}
 	// skipping validating the blocks
