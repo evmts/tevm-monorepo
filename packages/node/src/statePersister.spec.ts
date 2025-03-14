@@ -8,13 +8,14 @@ import { createTevmNode } from './createTevmNode.js'
 import { statePersister } from './statePersister.js'
 
 // Polyfill for Promise.withResolvers
-function createWithResolvers() {
-  let resolve, reject
-  const promise = new Promise((res, rej) => {
-    resolve = res
-    reject = rej
-  })
-  return { promise, resolve, reject }
+function createWithResolvers<T = void>() {
+	let resolve: (value: T | PromiseLike<T>) => void
+	let reject: (reason?: any) => void
+	const promise = new Promise<T>((res, rej) => {
+		resolve = res
+		reject = rej
+	})
+	return { promise, resolve, reject }
 }
 
 describe(statePersister.name, () => {
