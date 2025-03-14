@@ -127,4 +127,28 @@ describe('getContractPath', () => {
 
 		consoleWarnSpy.mockRestore()
 	})
+
+	it('should handle symlinked paths correctly', () => {
+		// Mock path to simulate a symlinked directory structure
+		const symbolicPath = '/symlink/to/project'
+		const realPath = '/real/path/to/project'
+		
+		// Setup mocks to recognize both paths
+		mockRequire.resolve.mockImplementation((modulePath) => {
+			if (modulePath === 'tevm/contract') {
+				return `${realPath}/node_modules/tevm/contract/index.js`
+			}
+			throw new Error(`Cannot find module '${modulePath}'`)
+		})
+		
+		// Create require should use the symbolic path as provided
+		const result = getContractPath(symbolicPath)
+		
+		// Verify createRequire was called with the path as provided
+		expect(createRequire).toHaveBeenCalledWith(`${symbolicPath}/`)
+		expect(result).toBe('tevm/contract')
+		
+		// Even with a symlink, resolution should still work the same
+		expect(mockRequire.resolve).toHaveBeenCalledWith('tevm/contract')
+	})
 })

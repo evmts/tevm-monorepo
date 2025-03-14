@@ -103,4 +103,47 @@ describe('readCache', () => {
 		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
 		expect(mockLogger.error).toHaveBeenCalledTimes(2)
 	})
+
+	it('should handle checking bytecode in multiple contracts', async () => {
+		const mockArtifacts = {
+			artifacts: {
+				Contract1: { evm: { deployedBytecode: { object: '0x1234' } } },
+				Contract2: { evm: { deployedBytecode: { object: '' } } },  // Empty bytecode
+				Contract3: { evm: { deployedBytecode: { object: '0x5678' } } },
+				Contract4: {}, // No evm field at all
+			},
+		}
+		mockCache.readArtifacts.mockResolvedValueOnce(mockArtifacts)
+
+		const result = await readCache(mockLogger, mockCache, 'test/path', false, true)
+
+		// Should return undefined because not all contracts have bytecode
+		expect(result).toBeUndefined()
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockLogger.error).not.toHaveBeenCalled()
+	})
+
+	it('should handle case with nested deployedBytecode structure', async () => {
+		const mockArtifacts = {
+			artifacts: {
+				Contract1: { 
+					evm: { 
+						deployedBytecode: { 
+							object: '0x1234',
+							sourceMap: '0:100:0',
+							linkReferences: {},
+						} 
+					} 
+				},
+			},
+		}
+		mockCache.readArtifacts.mockResolvedValueOnce(mockArtifacts)
+
+		const result = await readCache(mockLogger, mockCache, 'test/path', false, true)
+
+		// Should successfully recognize the nested structure
+		expect(result).toBe(mockArtifacts)
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockLogger.error).not.toHaveBeenCalled()
+	})
 })

@@ -105,4 +105,20 @@ describe('readCacheSync', () => {
 		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
 		expect(mockLogger.error).toHaveBeenCalledTimes(2)
 	})
+
+	it('should return cached artifacts when both AST and bytecode are required and available', () => {
+		const mockArtifacts = {
+			artifacts: {
+				Contract1: { evm: { deployedBytecode: '0x1234' } },
+			},
+			asts: { 'test.sol': {} }
+		}
+		mockCache.readArtifactsSync.mockReturnValueOnce(mockArtifacts)
+
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', true, true)
+
+		expect(result).toBe(mockArtifacts)
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockLogger.error).not.toHaveBeenCalled()
+	})
 })

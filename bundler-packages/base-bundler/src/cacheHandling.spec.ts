@@ -266,5 +266,86 @@ describe('cache handling edge cases', () => {
 			expect(mockCache.writeArtifacts).toHaveBeenCalled()
 			expect(mockCache.writeDts).toHaveBeenCalled()
 		})
+
+		describe('cache invalidation scenarios', () => {
+			it('should overwrite existing cache with new artifacts', async () => {
+				// Setup mock cache with existing data
+				const existingArtifacts = {
+					...mockArtifacts,
+					artifacts: {
+						Contract: {
+							abi: [
+								{
+									name: 'oldMethod',
+									type: 'function',
+									inputs: [],
+									outputs: [],
+									stateMutability: 'nonpayable',
+								},
+							],
+							userdoc: { methods: {} },
+							evm: { deployedBytecode: { object: '0xOLD' } },
+						},
+					},
+				}
+
+				const newArtifacts = {
+					...mockArtifacts,
+					artifacts: {
+						Contract: {
+							abi: [
+								{
+									name: 'newMethod',
+									type: 'function',
+									inputs: [],
+									outputs: [],
+									stateMutability: 'nonpayable',
+								},
+							],
+							userdoc: { methods: {} },
+							evm: { deployedBytecode: { object: '0xNEW' } },
+						},
+					},
+				}
+
+				// Mock cache with read values from existing artifacts
+				const mockCache = {
+					readArtifacts: vi.fn().mockResolvedValue(existingArtifacts),
+					writeArtifacts: vi.fn().mockResolvedValue(undefined),
+					writeDts: vi.fn().mockResolvedValue(undefined),
+					// Other required methods
+					readArtifactsSync: vi.fn(),
+					writeArtifactsSync: vi.fn(),
+					readDtsSync: vi.fn(),
+					readDts: vi.fn(),
+					readMjsSync: vi.fn(),
+					readMjs: vi.fn(),
+					writeDtsSync: vi.fn(),
+					writeMjs: vi.fn(),
+					writeMjsSync: vi.fn(),
+				}
+
+				// Write new artifacts to cache
+				await writeCache(mockLogger, mockCache as any, newArtifacts, mockCode, modulePath, 'dts', true)
+
+				// Verify new artifacts are written, overwriting the old ones
+				expect(mockCache.writeArtifacts).toHaveBeenCalledWith(
+					modulePath,
+					expect.objectContaining({
+						artifacts: expect.objectContaining({
+							Contract: expect.objectContaining({
+								abi: expect.arrayContaining([
+									expect.objectContaining({
+										name: 'newMethod',
+									}),
+								]),
+							}),
+						}),
+					}),
+					expect.anything(),
+				)
+				expect(mockCache.writeDts).toHaveBeenCalled()
+			})
+		})
 	})
 })

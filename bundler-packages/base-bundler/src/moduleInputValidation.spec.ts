@@ -196,4 +196,86 @@ describe('module resolvers input validation', () => {
 			expect(result.code).toBeDefined()
 		})
 	})
+
+	// Test handling of null or undefined parameters
+	describe('null or undefined parameters', () => {
+		it('should handle undefined baseDir in resolveModuleAsync', async () => {
+			const result = await resolveModuleAsync(
+				mockLogger,
+				mockConfig,
+				mockFao,
+				mockSolc,
+				'contract.sol',
+				undefined as any, // Undefined baseDir
+				false,
+				false,
+				'dts',
+				mockCache,
+				contractPackage,
+			)
+
+			// Should still work with default value
+			expect(result).toBeDefined()
+			expect(result.code).toBeDefined()
+			// The function should use process.cwd() as the default baseDir
+		})
+
+		it('should handle null config in resolveModuleSync', () => {
+			const result = resolveModuleSync(
+				mockLogger,
+				null as any, // Null config
+				mockFao,
+				mockSolc,
+				'contract.sol',
+				'/basedir',
+				false,
+				false,
+				'dts',
+				mockCache,
+				contractPackage,
+			)
+
+			// Should still handle the null case gracefully
+			expect(result).toBeDefined()
+			expect(result.code).toBeDefined()
+		})
+
+		it('should handle undefined logger in both sync and async resolvers', async () => {
+			// Test async resolver
+			const asyncResult = await resolveModuleAsync(
+				undefined as any, // Undefined logger
+				mockConfig,
+				mockFao,
+				mockSolc,
+				'contract.sol',
+				'/basedir',
+				false,
+				false,
+				'dts',
+				mockCache,
+				contractPackage,
+			)
+
+			expect(asyncResult).toBeDefined()
+			expect(asyncResult.code).toBeDefined()
+
+			// Test sync resolver
+			const syncResult = resolveModuleSync(
+				undefined as any, // Undefined logger
+				mockConfig,
+				mockFao,
+				mockSolc,
+				'contract.sol',
+				'/basedir',
+				false,
+				false,
+				'dts',
+				mockCache,
+				contractPackage,
+			)
+
+			expect(syncResult).toBeDefined()
+			expect(syncResult.code).toBeDefined()
+		})
+	})
 })

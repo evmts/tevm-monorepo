@@ -515,6 +515,76 @@ describe(bundler.name, () => {
 				expect(result.code).toContain('const _nameImplementor = "Implementor"')
 				expect(result.code).toContain('const _nameMyLib = "MyLib"')
 			})
+			
+			it('should handle contracts with errors and custom types', async () => {
+				const abiWithErrors = [
+					{
+						inputs: [],
+						name: 'getValue',
+						outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+						stateMutability: 'view',
+						type: 'function',
+					},
+					{
+						inputs: [{ internalType: 'string', name: 'reason', type: 'string' }],
+						name: 'InvalidValue',
+						type: 'error',
+					},
+					{
+						inputs: [
+							{ internalType: 'address', name: 'sender', type: 'address' },
+							{ internalType: 'string', name: 'message', type: 'string' }
+						],
+						name: 'AccessDenied',
+						type: 'error',
+					},
+					{
+						type: 'function',
+						name: 'getStruct',
+						inputs: [],
+						outputs: [
+							{
+								components: [
+									{ internalType: 'uint256', name: 'id', type: 'uint256' },
+									{ internalType: 'string', name: 'name', type: 'string' },
+									{ internalType: 'bool', name: 'active', type: 'bool' }
+								],
+								internalType: 'struct AdvancedContract.UserInfo',
+								name: 'userInfo',
+								type: 'tuple'
+							}
+						],
+						stateMutability: 'view'
+					}
+				]
+
+				const artifacts = {
+					AdvancedContract: {
+						contractName: 'AdvancedContract',
+						abi: abiWithErrors,
+						userdoc: { methods: {} },
+						evm: { deployedBytecode: { object: '0x123456' } },
+					},
+				}
+
+				mockResolveArtifacts.mockResolvedValueOnce({
+					artifacts,
+					modules: mockModules,
+					asts: { 'AdvancedContract.sol': {} },
+					solcInput: { language: 'Solidity', settings: {}, sources: {} },
+					solcOutput: { contracts: {}, sources: {} },
+				})
+
+				const result = await resolver.resolveDts('module', 'basedir', false, true)
+
+				// Check that errors and structs are correctly included
+				expect(result.code).toContain('_nameAdvancedContract')
+				expect(result.code).toContain('function getValue()')
+				expect(result.code).toContain('error InvalidValue')
+				expect(result.code).toContain('error AccessDenied')
+				expect(result.code).toContain('function getStruct()') 
+				expect(result.code).toContain('UserInfo') // Check struct reference
+			})
 		})
 	})
 

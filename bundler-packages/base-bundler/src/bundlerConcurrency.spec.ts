@@ -310,4 +310,86 @@ contract TestContract {}`,
 		// Verify correct number of calls
 		expect(mockResolveArtifacts).toHaveBeenCalledTimes(numOperations)
 	})
+
+	it('should handle concurrent operations with delayed responses', async () => {
+		// Reset mock
+		mockResolveArtifacts.mockReset()
+
+		// Create artifacts with different delay times
+		const fastArtifacts = {
+			FastContract: {
+				contractName: 'FastContract',
+				abi: [
+					{
+						name: 'fastMethod',
+						type: 'function',
+						inputs: [],
+						outputs: [],
+						stateMutability: 'nonpayable',
+					},
+				],
+				userdoc: { methods: {} },
+				evm: { deployedBytecode: { object: '0xFAST' } },
+			},
+		}
+
+		const slowArtifacts = {
+			SlowContract: {
+				contractName: 'SlowContract',
+				abi: [
+					{
+						name: 'slowMethod',
+						type: 'function',
+						inputs: [],
+						outputs: [],
+						stateMutability: 'nonpayable',
+					},
+				],
+				userdoc: { methods: {} },
+				evm: { deployedBytecode: { object: '0xSLOW' } },
+			},
+		}
+
+		// Mock with different response times
+		mockResolveArtifacts.mockImplementationOnce(async () => {
+			// Fast response (10ms)
+			await new Promise(resolve => setTimeout(resolve, 10))
+			return {
+				artifacts: fastArtifacts,
+				modules: mockModules,
+				asts: { 'FastContract.sol': {} },
+				solcInput: { language: 'Solidity', settings: {}, sources: {} },
+				solcOutput: { contracts: {}, sources: {} },
+			}
+		})
+
+		mockResolveArtifacts.mockImplementationOnce(async () => {
+			// Slow response (50ms)
+			await new Promise(resolve => setTimeout(resolve, 50))
+			return {
+				artifacts: slowArtifacts,
+				modules: mockModules,
+				asts: { 'SlowContract.sol': {} },
+				solcInput: { language: 'Solidity', settings: {}, sources: {} },
+				solcOutput: { contracts: {}, sources: {} },
+			}
+		})
+
+		// Start concurrent operations
+		const fastPromise = resolver.resolveEsmModule('fast.sol', 'basedir', false, true)
+		const slowPromise = resolver.resolveEsmModule('slow.sol', 'basedir', false, true)
+
+		// Wait for both operations to complete
+		const [fastResult, slowResult] = await Promise.all([fastPromise, slowPromise])
+
+		// Verify results correspond to correct modules despite different timing
+		expect(fastResult.code).toContain('FastContract')
+		expect(fastResult.code).toContain('fastMethod')
+		expect(slowResult.code).toContain('SlowContract')
+		expect(slowResult.code).toContain('slowMethod')
+
+		// Verify correct order of calls to resolveArtifacts
+		expect(mockResolveArtifacts.mock.calls[0][0]).toBe('fast.sol')
+		expect(mockResolveArtifacts.mock.calls[1][0]).toBe('slow.sol')
+	})
 })
