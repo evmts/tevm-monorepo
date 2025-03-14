@@ -2,8 +2,6 @@
 
 exports[`ethEstimateGasJsonRpcProcedure > should estimate gas successfully 1`] = `"0x5208"`;
 
-exports[`ethEstimateGasJsonRpcProcedure > should handle block tag 1`] = `"0x5208"`;
-
 exports[`ethEstimateGasJsonRpcProcedure > should handle errors from callProcedure 1`] = `
 {
   "code": -32602,

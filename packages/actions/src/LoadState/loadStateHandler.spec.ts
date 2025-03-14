@@ -76,12 +76,7 @@ describe('loadStateHandler', () => {
 
 		expect(result.errors).toBeDefined()
 		expect(result.errors?.length).toBeGreaterThan(0)
-		expect(result.errors?.[0]?.message).toMatchInlineSnapshot(`
-"Invalid state: Expected object, received number
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73"
-`)
+		expect(result.errors?.[0]?.message).toMatchSnapshot()
 	})
 
 	test('should throw error for unsupported state manager', async () => {
@@ -90,7 +85,9 @@ Version: 1.1.0.next-73"
 		// @ts-ignore - Intentionally removing the method for testing
 		delete vm.stateManager.generateCanonicalGenesis
 
-		const handler = loadStateHandler({ getVm: () => Promise.resolve(vm) } as any)
+		const handler = loadStateHandler({
+			getVm: () => Promise.resolve(vm),
+		} as any)
 
 		const result = await handler({ state: {}, throwOnFail: false })
 		expect(result.errors?.[0]?.message).toMatchInlineSnapshot(`
@@ -109,7 +106,9 @@ Version: 1.1.0.next-73"
 			throw new Error('Genesis generation failed')
 		}
 
-		const handler = loadStateHandler({ getVm: () => Promise.resolve(vm) } as any)
+		const handler = loadStateHandler({
+			getVm: () => Promise.resolve(vm),
+		} as any)
 
 		const result = await handler({
 			state: {},

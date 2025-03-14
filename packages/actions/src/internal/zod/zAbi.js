@@ -1,6 +1,21 @@
-import { Abi } from 'abitype/zod'
+import { validateAbi } from '../validators/validateAbi.js'
+
+export { validateAbi }
 
 /**
- * Zod validator for a valid ABI
+ * For backward compatibility with Zod interface
+ * @type {{parse: (value: unknown) => any}}
  */
-export const zAbi = Abi.describe('A valid ABI')
+export const zAbi = {
+	/**
+	 * @param {unknown} value
+	 * @returns {any}
+	 */
+	parse: (value) => {
+		const validation = validateAbi(value)
+		if (!validation.isValid) {
+			throw new Error(validation.message)
+		}
+		return value
+	},
+}

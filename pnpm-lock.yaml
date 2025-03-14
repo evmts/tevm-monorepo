@@ -1184,9 +1184,6 @@ importers:
       viem:
         specifier: ^2.21.1
         version: 2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.2
     devDependencies:
       '@tevm/test-utils':
         specifier: workspace:^
@@ -1200,6 +1197,9 @@ importers:
       abitype:
         specifier: ^1.0.8
         version: 1.0.8(typescript@5.8.2)(zod@3.24.2)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
 
   packages/address:
     dependencies:
@@ -1746,9 +1746,6 @@ importers:
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.2
     devDependencies:
       '@tevm/actions':
         specifier: workspace:^

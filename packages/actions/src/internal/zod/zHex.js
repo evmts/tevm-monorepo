@@ -1,19 +1,23 @@
-import { z } from 'zod'
+// Import from validators directory
+import { hexRegex, transformHex, validateHex } from '../validators/validateHex.js'
 
-export const hexRegex = /^0x[0-9a-fA-F]*$/
+// Re-export for backward compatibility
+export { hexRegex, validateHex, transformHex }
 
 /**
- * Zod validator for a valid hex string
+ * For backward compatibility with Zod interface
+ * @type {{parse: (value: unknown) => `0x${string}`}}
  */
-export const zHex = z
-	.string()
-	.transform((value, ctx) => {
-		if (!hexRegex.test(value)) {
-			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
-				message: 'value must be a hex string',
-			})
+export const zHex = {
+	/**
+	 * @param {unknown} value
+	 * @returns {`0x${string}`}
+	 */
+	parse: (value) => {
+		const validation = validateHex(value)
+		if (!validation.isValid) {
+			throw new Error(validation.message)
 		}
-		return /** @type {import('@tevm/utils').Hex}*/ (value)
-	})
-	.describe('A hex string')
+		return transformHex(String(value))
+	},
+}

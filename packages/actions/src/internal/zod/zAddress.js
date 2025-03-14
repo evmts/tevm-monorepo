@@ -1,6 +1,24 @@
-import { Address } from 'abitype/zod'
+import { validateAddress } from '../validators/validateAddress.js'
 
 /**
- * Zod validator for a valid ethereum address
+ * Export the address validator
  */
-export const zAddress = Address.describe('A valid ethereum address')
+export { validateAddress }
+
+/**
+ * For backward compatibility with Zod interface
+ * @type {{parse: (value: unknown) => any}}
+ */
+export const zAddress = {
+	/**
+	 * @param {unknown} value
+	 * @returns {any}
+	 */
+	parse: (value) => {
+		const validation = validateAddress(value)
+		if (!validation.isValid) {
+			throw new Error(validation.message)
+		}
+		return value
+	},
+}

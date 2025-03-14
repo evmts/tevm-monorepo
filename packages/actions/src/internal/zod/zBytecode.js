@@ -1,18 +1,22 @@
-import { zHex } from './zHex.js'
+import { validateBytecode } from '../validators/validateBytecode.js'
+
+// Export the validator function
+export { validateBytecode }
 
 /**
- * @param {import('@tevm/utils').Hex} bytecode
- * @returns {boolean}
+ * For backward compatibility with Zod interface
+ * @type {{parse: (value: unknown) => any}}
  */
-const isValidEthereumBytecode = (bytecode) => {
-	const rawBytecode = bytecode.slice(2)
-	if (rawBytecode.length === 0 || rawBytecode.length % 2 !== 0) {
-		return false
-	}
-	return true
+export const zBytecode = {
+	/**
+	 * @param {unknown} value
+	 * @returns {any}
+	 */
+	parse: (value) => {
+		const validation = validateBytecode(value)
+		if (!validation.isValid) {
+			throw new Error(validation.message || 'Invalid bytecode')
+		}
+		return value
+	},
 }
-
-/**
- * Zod validator for valid Ethereum bytecode
- */
-export const zBytecode = zHex.refine(isValidEthereumBytecode, { message: 'InvalidLength' }).describe('Valid bytecode')

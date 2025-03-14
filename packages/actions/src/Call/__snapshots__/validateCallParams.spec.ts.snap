@@ -8,16 +8,7 @@ Version: 1.1.0.next-73]
 `;
 
 exports[`validateCallParams > createTransaction and stateOverrideSet 1`] = `
-[InvalidParams: [
-  {
-    "code": "custom",
-    "message": "Invalid Address 0x1234",
-    "path": [
-      "stateOverrideSet",
-      "0x1234"
-    ]
-  }
-]
+[InvalidParams: stateOverrideSet contains invalid address: 0x1234
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Version: 1.1.0.next-73]
