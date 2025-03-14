@@ -1,5 +1,4 @@
 import { createTevmNode } from '@tevm/node'
-import { bytesToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { mineHandler } from './mineHandler.js'
 
@@ -13,15 +12,15 @@ describe('Mine events', () => {
 
 	it('should call event handlers when mining', async () => {
 		// Mock the event handlers
-		const onBlock = vi.fn((block, next) => {
+		const onBlock = vi.fn((_block, next) => {
 			next?.()
 		})
 
-		const onReceipt = vi.fn((receipt, blockHash, next) => {
+		const onReceipt = vi.fn((_receipt, _blockHash, next) => {
 			next?.()
 		})
 
-		const onLog = vi.fn((log, receipt, next) => {
+		const onLog = vi.fn((_log, _receipt, next) => {
 			next?.()
 		})
 
@@ -35,7 +34,7 @@ describe('Mine events', () => {
 
 		// Verify the result
 		expect(result.blockHashes).toBeDefined()
-		expect(result.blockHashes.length).toBe(1)
+		expect(result.blockHashes?.length).toBe(1)
 
 		// Verify that the block handler was called
 		expect(onBlock).toHaveBeenCalledTimes(1)
@@ -96,6 +95,8 @@ describe('Mine events', () => {
 
 		// Create an async handler that updates a flag after a delay
 		const onBlock = vi.fn(async (block, next) => {
+			// Need to use block parameter to verify handler is called with actual data
+			expect(block).toBeDefined()
 			await new Promise((resolve) => setTimeout(resolve, 10))
 			blockHandled = true
 			next?.()
@@ -120,6 +121,6 @@ describe('Mine events', () => {
 
 		// Verify the operation completed successfully
 		expect(result.blockHashes).toBeDefined()
-		expect(result.blockHashes.length).toBe(1)
+		expect(result.blockHashes?.length).toBe(1)
 	})
 })

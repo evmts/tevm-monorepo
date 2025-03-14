@@ -405,6 +405,7 @@
 - [LoadStateParams](type-aliases/LoadStateParams.md)
 - [LoadStateResult](type-aliases/LoadStateResult.md)
 - [Log](type-aliases/Log.md)
+- [MineEvents](type-aliases/MineEvents.md)
 - [MineHandler](type-aliases/MineHandler.md)
 - [MineJsonRpcProcedure](type-aliases/MineJsonRpcProcedure.md)
 - [MineJsonRpcRequest](type-aliases/MineJsonRpcRequest.md)
@@ -564,6 +565,7 @@
 - [validateContractParams](functions/validateContractParams.md)
 - [validateGetAccountParams](functions/validateGetAccountParams.md)
 - [validateLoadStateParams](functions/validateLoadStateParams.md)
+- [validateMineEvents](functions/validateMineEvents.md)
 - [validateMineParams](functions/validateMineParams.md)
 - [validateSetAccountParams](functions/validateSetAccountParams.md)
 

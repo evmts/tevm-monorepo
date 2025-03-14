@@ -2,28 +2,40 @@ import { bytesToHex } from '@tevm/utils'
 
 /**
  * Helper function to call an event handler with a next callback
- * @template T, A
- * @param {((data: T, secondParam?: A, next?: () => void) => void) | undefined} handler - Event handler to call
+ * @template T
+ * @template A
+ * @param {((data: T, secondParam?: A, next?: () => void) => void | Promise<void>) | undefined} handler - Event handler to call
  * @param {T} data - Data to pass to the handler
- * @param {A} [secondParam] - Optional second parameter
- * @returns {void}
+ * @param {A | undefined} [secondParam] - Optional second parameter
+ * @returns {Promise<void>}
  */
-const callHandler = (handler, data, secondParam) => {
+const callHandler = async (handler, data, secondParam) => {
 	if (typeof handler === 'function') {
 		let hasCalledNext = false
 		const next = () => {
 			hasCalledNext = true
 		}
 
-		if (secondParam !== undefined) {
-			handler(data, secondParam, next)
-		} else {
-			handler(data, next)
-		}
+		try {
+			let result
+			if (secondParam !== undefined) {
+				result = handler(data, secondParam, next)
+			} else {
+				// @ts-ignore - We know handler is callable with just data and next
+				result = handler(data, next)
+			}
 
-		// If the handler doesn't call next, we consider it synchronous
-		if (!hasCalledNext) {
-			// Handler completed without calling next, which is fine
+			// Check if the handler returned a promise
+			if (result instanceof Promise) {
+				await result
+			}
+
+			// If the handler doesn't call next, we consider it synchronous
+			if (!hasCalledNext) {
+				// Handler completed without calling next, which is fine
+			}
+		} catch (error) {
+			console.error('Error in event handler:', error)
 		}
 	}
 }
@@ -35,18 +47,20 @@ const callHandler = (handler, data, secondParam) => {
  * @param {Array<import('@tevm/block').Block>} newBlocks
  * @param {Map<import('@tevm/utils').Hex,Array<import('@tevm/receipt-manager').TxReceipt>>} newReceipts
  * @param {import('./MineParams.js').MineParams} [params]
+ * @returns {Promise<void>}
  */
-export const emitEvents = (client, newBlocks, newReceipts, params = {}) => {
+export const emitEvents = async (client, newBlocks, newReceipts, params = {}) => {
 	// extract event handlers
 	const { onBlock, onReceipt, onLog } = params
 
 	// emit newBlock events
-	newBlocks.forEach((block) => {
+	for (const block of newBlocks) {
 		// Emit global events
 		client.emit('newBlock', block)
 
 		// Call handler if provided
-		callHandler(onBlock, block)
+		// @ts-ignore - Handler types are defined in MineEvents.ts
+		await callHandler(onBlock, block)
 
 		const blockHash = bytesToHex(block.hash())
 		const receipts = newReceipts.get(blockHash)
@@ -56,20 +70,22 @@ export const emitEvents = (client, newBlocks, newReceipts, params = {}) => {
 			)
 		}
 
-		receipts.forEach((receipt) => {
+		for (const receipt of receipts) {
 			// Emit global events
 			client.emit('newReceipt', receipt)
 
 			// Call handler if provided
-			callHandler(onReceipt, receipt, blockHash)
+			// @ts-ignore - Handler types are defined in MineEvents.ts
+			await callHandler(onReceipt, receipt, blockHash)
 
-			receipt.logs.forEach((log) => {
+			for (const log of receipt.logs) {
 				// Emit global events
 				client.emit('newLog', log)
 
 				// Call handler if provided
-				callHandler(onLog, log, receipt)
-			})
-		})
-	})
+				// @ts-ignore - Handler types are defined in MineEvents.ts
+				await callHandler(onLog, log, receipt)
+			}
+		}
+	}
 }

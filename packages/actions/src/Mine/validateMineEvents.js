@@ -12,12 +12,13 @@ export const validateMineEvents = (events) => {
 		}
 	}
 
+	/** @type {Array<{path: string, message: string}>} */
 	const errors = []
 	const handlers = ['onBlock', 'onReceipt', 'onLog']
 
 	for (const handler of handlers) {
-		if (handler in events && events[handler] !== undefined) {
-			if (typeof events[handler] !== 'function') {
+		if (handler in events && /** @type {Record<string, unknown>} */ (events)[handler] !== undefined) {
+			if (typeof (/** @type {Record<string, unknown>} */ (events)[handler]) !== 'function') {
 				errors.push({
 					path: handler,
 					message: `${handler} must be a function`,
