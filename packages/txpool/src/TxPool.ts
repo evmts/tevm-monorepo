@@ -91,14 +91,14 @@ export class TxPool {
 	/* global NodeJS */
 	private _cleanupInterval: Timer | undefined
 	private _logInterval: Timer | undefined
-	
+
 	/**
 	 * Gas mining configuration
 	 */
 	private gasMiningConfig: GasMiningConfig = {
 		enabled: false,
 		threshold: 0n,
-		blocks: 1
+		blocks: 1,
 	}
 
 	/**
@@ -367,7 +367,7 @@ export class TxPool {
 
 			// Fire txadded event
 			this.fireEvent('txadded', bytesToHex(tx.hash()))
-			
+
 			// Check gas mining threshold
 			if (this.gasMiningConfig.enabled && this.txsInPool >= this.gasMiningConfig.threshold) {
 				this.fireEvent('gasminingneeded', bytesToHex(tx.hash()))
@@ -868,7 +868,7 @@ export class TxPool {
 	_logPoolStats() {
 		this.logStats()
 	}
-	
+
 	/**
 	 * Configure gas mining settings
 	 * @param config Gas mining configuration

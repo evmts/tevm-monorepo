@@ -9,6 +9,7 @@ import type { CallParams } from './CallParams.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { executeCall } from './executeCall.js'
 import * as HandleAutominingModule from './handleAutomining.js'
+import * as HandleGasMiningModule from './handleGasMining.js'
 import { handleTransactionCreation } from './handleTransactionCreation.js'
 
 const contract = TestERC20.withAddress(createAddress(420420420420420).toString())
@@ -136,7 +137,7 @@ describe(handleTransactionCreation.name, async () => {
 		const result = (await handleTransactionCreation(
 			{
 				...client,
-				miningConfig: { type: 'auto' } // Set mining config to auto to trigger handleAutomining
+				miningConfig: { type: 'auto' }, // Set mining config to auto to trigger handleAutomining
 			},
 			{ createTransaction: true },
 			{
@@ -212,8 +213,7 @@ describe(handleTransactionCreation.name, async () => {
 			}
 		})
 
-		// Import and mock handleGasMining
-		import * as HandleGasMiningModule from './handleGasMining.js'
+		// Mock handleGasMining
 		const handleGasMiningSpy = vi.spyOn(HandleGasMiningModule, 'handleGasMining')
 		handleGasMiningSpy.mockResolvedValue(undefined)
 
