@@ -2,6 +2,7 @@
 
 .vercel
 dist/
+tree/
 
 /target/
 **/*.rs.bk
