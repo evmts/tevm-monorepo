@@ -1,5 +1,12 @@
 # tevm-run
 
+## 1.0.0-next.132
+
+### Patch Changes
+
+- Updated dependencies [5c1da73]
+  - tevm@1.0.0-next.132
+
 ## 1.0.0-next.131
 
 ### Patch Changes
