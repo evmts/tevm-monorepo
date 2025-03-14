@@ -1,6 +1,16 @@
 import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
-import { validateCallParams as validateCallParamsJS } from './zCallParams.js'
+import { zCallParams } from './zCallParams.js'
+
+// Use the parse method from zCallParams as a replacement for validateCallParamsJS
+const validateCallParamsJS = (params) => {
+	try {
+		zCallParams.parse(params)
+		return { isValid: true, errors: [] }
+	} catch (error) {
+		return { isValid: false, errors: [{ message: error.message }] }
+	}
+}
 
 /**
  * @internal

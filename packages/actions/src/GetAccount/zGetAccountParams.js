@@ -6,8 +6,9 @@ import { validateBlockParam } from '../internal/validators/validateBlockParam.js
  * Validates if a value contains valid get account parameters
  * @param {unknown} value - The value to validate
  * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
+ * @internal
  */
-export const validateGetAccountParams = (value) => {
+const validateGetAccountParamsInternal = (value) => {
 	// First validate it as base params
 	const baseValidation = validateBaseParams(value)
 	if (!baseValidation.isValid) {
@@ -69,7 +70,7 @@ export const validateGetAccountParams = (value) => {
 // For backward compatibility
 export const zGetAccountParams = {
 	parse: (value) => {
-		const validation = validateGetAccountParams(value)
+		const validation = validateGetAccountParamsInternal(value)
 		if (!validation.isValid) {
 			throw new Error(validation.errors[0]?.message || 'Invalid get account parameters')
 		}

@@ -7,7 +7,18 @@ import {
 	InvalidParamsError,
 } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
-import { validateContractParams as validateContract } from './zContractParams.js'
+import { zContractParams } from './zContractParams.js'
+
+// Use zContractParams.safeParse as a replacement for validateContract
+const validateContract = (params) => {
+	const result = zContractParams.safeParse(params)
+	if (result.success) {
+		return { isValid: true, errors: [] }
+	}
+	// Convert the error format to our expected format
+	const errors = result.error.format()._errors.map((message) => ({ message }))
+	return { isValid: false, errors }
+}
 
 /**
  * @typedef {InvalidAbiError| InvalidAddressError| InvalidArgsError| InvalidFunctionNameError | import('../BaseCall/validateBaseCallParams.js').ValidateBaseCallParamsError} ValidateContractParamsError
