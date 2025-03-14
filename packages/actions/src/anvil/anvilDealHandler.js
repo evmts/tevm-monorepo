@@ -45,6 +45,9 @@ export const dealHandler =
 			throw new Error('Failed to get access list')
 		}
 
+		// Track all storage slots we modify so we can reset them later if needed
+		const modifiedSlots = []
+
 		// Try each storage slot until we find the right one
 		for (const { address, storageKeys } of accessListResponse.result.accessList) {
 			for (const slot of storageKeys) {
@@ -63,6 +66,9 @@ export const dealHandler =
 					jsonrpc: '2.0',
 				})
 
+				// Track modified slot
+				modifiedSlots.push({ address, slot, oldValue })
+
 				// Check if balance updated correctly
 				const balanceResponse = await contractHandler(client)({
 					to: erc20,
@@ -72,18 +78,33 @@ export const dealHandler =
 				})
 
 				if (balanceResponse.data === hexToBigInt(value)) {
+					// Found correct slot, reset all other slots
+					for (const { address: resetAddr, slot: resetSlot, oldValue: resetValue } of modifiedSlots) {
+						// Skip the correct slot
+						if (resetAddr === address && resetSlot === slot) continue
+						
+						// Reset any other modified slot
+						await anvilSetStorageAtJsonRpcProcedure(client)({
+							method: 'anvil_setStorageAt',
+							params: [resetAddr, resetSlot, resetValue],
+							id: 1,
+							jsonrpc: '2.0',
+						})
+					}
 					// Found correct slot, return success
 					return {}
 				}
-
-				// Reset storage back to original value
-				await anvilSetStorageAtJsonRpcProcedure(client)({
-					method: 'anvil_setStorageAt',
-					params: [address, slot, oldValue],
-					id: 1,
-					jsonrpc: '2.0',
-				})
 			}
+		}
+
+		// No valid storage slot found, reset all slots
+		for (const { address, slot, oldValue } of modifiedSlots) {
+			await anvilSetStorageAtJsonRpcProcedure(client)({
+				method: 'anvil_setStorageAt',
+				params: [address, slot, oldValue],
+				id: 1,
+				jsonrpc: '2.0',
+			})
 		}
 
 		// No valid storage slot found
