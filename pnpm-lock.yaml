@@ -2063,12 +2063,18 @@ importers:
         specifier: ^2.21.1
         version: 2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
     devDependencies:
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../../packages/node
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       '@types/node':
         specifier: ^22.13.5
         version: 22.13.10

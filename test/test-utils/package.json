@@ -2,7 +2,6 @@
   "name": "@tevm/test-utils",
   "version": "1.0.0-next.131",
   "private": false,
-  "sideEffects": false,
   "description": "Testing utils and fixtures for tevm",
   "keywords": [
     "solidity",
@@ -22,6 +21,7 @@
   "contributors": [
     "Will Cory <willcory10@gmail.com>"
   ],
+  "sideEffects": false,
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
@@ -47,27 +47,20 @@
   ],
   "scripts": {
     "all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
-    "generate:contracts": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
+    "bench": "vitest bench",
+    "bench:run": "vitest bench run",
+    "bench:ui": "vitest bench --ui",
     "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
     "build:dist": "tsup",
     "build:types": "tsup --dts-only",
+    "build:types:skip": "echo 'Types not built due to circular dependencies' && mkdir -p dist && touch dist/index.d.ts && touch dist/index.d.cts && exit 0",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
     "format": "biome format . --write",
     "format:check": "biome format .",
+    "generate:contracts": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
     "lint": "biome check . --write --unsafe",
     "lint:check": "biome check . --verbose",
-    "lint:deps": "bunx depcheck",
-    "bench": "vitest bench",
-    "bench:run": "vitest bench run",
-    "bench:ui": "vitest bench --ui"
-  },
-  "devDependencies": {
-    "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^",
-    "@types/node": "^22.13.5"
-  },
-  "publishConfig": {
-    "access": "public"
+    "lint:deps": "bunx depcheck"
   },
   "dependencies": {
     "@openzeppelin/contracts": "5.2.0",
@@ -77,7 +70,17 @@
     "@tevm/esbuild-plugin": "workspace:^",
     "@tevm/ts-plugin": "workspace:^"
   },
+  "devDependencies": {
+    "@tevm/node": "workspace:^",
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^",
+    "@tevm/utils": "workspace:^",
+    "@types/node": "^22.13.5"
+  },
   "peerDependencies": {
     "viem": "^2.21.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
