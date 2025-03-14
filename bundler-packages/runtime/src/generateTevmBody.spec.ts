@@ -228,7 +228,7 @@ export const AnotherContract = createContract(_AnotherContract)"
 						inputs: [],
 						outputs: [{ type: 'bool' }],
 						stateMutability: 'view',
-					}
+					},
 				],
 				evm: {
 					bytecode: { object: '' }, // Empty string bytecode (for interface)

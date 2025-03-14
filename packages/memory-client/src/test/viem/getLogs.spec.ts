@@ -35,7 +35,7 @@ describe('getLogs', () => {
 			event: SimpleContract.abi[0],
 			fromBlock: 'pending',
 		})
-		
+
 		// Get logs with pending block
 		const logs = await mc.getLogs(filter)
 		expect(logs).toBeDefined()

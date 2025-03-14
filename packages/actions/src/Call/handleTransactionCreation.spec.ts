@@ -232,11 +232,7 @@ describe(handleTransactionCreation.name, async () => {
 		)
 
 		// Verify handleAutomining was called with isGasMining=true
-		expect(handleAutominingSpy).toHaveBeenCalledWith(
-			client,
-			'0x123456',
-			true
-		)
+		expect(handleAutominingSpy).toHaveBeenCalledWith(client, '0x123456', true)
 
 		createTransactionSpy.mockRestore()
 		handleAutominingSpy.mockRestore()
