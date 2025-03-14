@@ -23,4 +23,5 @@ export type TevmViemActionsApi = {
 	tevmDumpState: TevmActionsApi['dumpState']
 	tevmSetAccount: TevmActionsApi['setAccount']
 	tevmGetAccount: TevmActionsApi['getAccount']
+	tevmSimulateCall: TevmActionsApi['simulateCall']
 }
