@@ -43,7 +43,7 @@ describe('emitEvents', () => {
 		const newReceipts = new Map<Hex, TxReceipt[]>()
 
 		await expect(emitEvents(client as any, newBlocks, newReceipts)).rejects.toThrow(
-			'InternalError: Receipts not found for block hash 0x010203 in mineHandler'
+			'InternalError: Receipts not found for block hash 0x010203 in mineHandler',
 		)
 	})
 })
