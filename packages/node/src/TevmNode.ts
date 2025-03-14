@@ -13,6 +13,11 @@ import type { MiningConfig } from './MiningConfig.js'
  */
 export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExtended = {}> = {
 	/**
+	 * @internal
+	 * Reference to the interval timer for interval mining (if enabled)
+	 */
+	intervalMiningId?: ReturnType<typeof setInterval>
+	/**
 	 * The logger instance
 	 */
 	readonly logger: Logger

@@ -20,6 +20,24 @@ import {
 import type QHeap from 'qheap'
 import Heap from 'qheap'
 
+/**
+ * Gas mining configuration
+ */
+export interface GasMiningConfig {
+	/**
+	 * Whether gas mining is enabled
+	 */
+	enabled: boolean
+	/**
+	 * Threshold in gas units that triggers mining
+	 */
+	threshold: bigint
+	/**
+	 * Number of blocks to mine when triggered
+	 */
+	blocks: number
+}
+
 // Configuration constants
 const MIN_GAS_PRICE_BUMP_PERCENT = 10
 const MIN_GAS_PRICE = BigInt(100000000) // .1 GWei
@@ -73,6 +91,15 @@ export class TxPool {
 	/* global NodeJS */
 	private _cleanupInterval: Timer | undefined
 	private _logInterval: Timer | undefined
+	
+	/**
+	 * Gas mining configuration
+	 */
+	private gasMiningConfig: GasMiningConfig = {
+		enabled: false,
+		threshold: 0n,
+		blocks: 1
+	}
 
 	/**
 	 * The central pool dataset.
@@ -157,6 +184,7 @@ export class TxPool {
 		newTxPool.txsInNonceOrder = new Map(this.txsInNonceOrder)
 		newTxPool.opened = this.opened
 		newTxPool.running = this.running
+		newTxPool.gasMiningConfig = { ...this.gasMiningConfig }
 		return newTxPool
 	}
 
@@ -339,6 +367,11 @@ export class TxPool {
 
 			// Fire txadded event
 			this.fireEvent('txadded', bytesToHex(tx.hash()))
+			
+			// Check gas mining threshold
+			if (this.gasMiningConfig.enabled && this.txsInPool >= this.gasMiningConfig.threshold) {
+				this.fireEvent('gasminingneeded', bytesToHex(tx.hash()))
+			}
 
 			return { error: null, hash: bytesToHex(tx.hash()) }
 		} catch (e) {
@@ -606,6 +639,7 @@ export class TxPool {
 	private events: { [key: string]: Array<(hash: string) => void> } = {
 		txadded: [],
 		txremoved: [],
+		gasminingneeded: [],
 	}
 
 	/**
@@ -613,7 +647,7 @@ export class TxPool {
 	 * @param event Event name ('txadded' or 'txremoved')
 	 * @param callback Handler function
 	 */
-	on(event: 'txadded' | 'txremoved', callback: (hash: string) => void) {
+	on(event: 'txadded' | 'txremoved' | 'gasminingneeded', callback: (hash: string) => void) {
 		if (!this.events[event]) {
 			this.events[event] = []
 		}
@@ -625,7 +659,7 @@ export class TxPool {
 	 * @param event Event name
 	 * @param hash Transaction hash
 	 */
-	private fireEvent(event: 'txadded' | 'txremoved', hash: string) {
+	private fireEvent(event: 'txadded' | 'txremoved' | 'gasminingneeded', hash: string) {
 		if (this.events[event]) {
 			for (const callback of this.events[event]) {
 				callback(hash)
@@ -833,5 +867,13 @@ export class TxPool {
 	// For backward compatibility with tests
 	_logPoolStats() {
 		this.logStats()
+	}
+	
+	/**
+	 * Configure gas mining settings
+	 * @param config Gas mining configuration
+	 */
+	configureGasMining(config: GasMiningConfig) {
+		this.gasMiningConfig = config
 	}
 }
