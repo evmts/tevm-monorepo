@@ -8,12 +8,13 @@ import { tevmViemActions } from './tevmViemActions.js'
  * It comes batteries included with all wallet, test, public, and tevm actions.
  *
  * @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn}
+ * @async
  *
  * @example
  * ```typescript
  * import { createMemoryClient } from "tevm";
  *
- * const client = createMemoryClient({
+ * const client = await createMemoryClient({
  *   fork: {
  *     transport: http("https://mainnet.optimism.io")({}),
  *   },
@@ -186,7 +187,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  * console.log(balance); // 1n
  * ```
  */
-export const createMemoryClient = (options) => {
+export const createMemoryClient = async (options) => {
 	const common = (() => {
 		if (options?.common !== undefined) {
 			return options.common
@@ -211,7 +212,7 @@ export const createMemoryClient = (options) => {
 		.extend(publicActions)
 		.extend(walletActions)
 		.extend(testActions({ mode: 'anvil' }))
-	
+
 	// Add simulateCalls directly to the client
 	const { simulateCalls } = await import('./simulateCalls.js')
 	memoryClient.simulateCalls = (params) => simulateCalls(memoryClient, params)

@@ -26,7 +26,7 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  * @template TRpcSchema - The RPC schema type, defaults to `TevmRpcSchema`.
  *
  * @param {MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema>} [options] - The options to configure the MemoryClient.
- * @returns {MemoryClient<TCommon, TAccountOrAddress>} - A configured MemoryClient instance.
+ * @returns {Promise<MemoryClient<TCommon, TAccountOrAddress>>} - A Promise resolving to a configured MemoryClient instance.
  * @throws {Error} When configuration is invalid or initialization fails.
  *
  * @example
@@ -36,10 +36,10 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  * import { parseEther } from "viem";
  *
  * // Basic client with default settings
- * const basicClient = createMemoryClient();
+ * const basicClient = await createMemoryClient();
  *
  * // Advanced client with custom configuration
- * const client = createMemoryClient({
+ * const client = await createMemoryClient({
  *   // Fork from Optimism mainnet
  *   fork: {
  *     transport: http("https://mainnet.optimism.io")({}),
@@ -87,4 +87,4 @@ export type CreateMemoryClientFn = <
 	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
 >(
 	options?: MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema>,
-) => MemoryClient<TCommon, TAccountOrAddress>
+) => Promise<MemoryClient<TCommon, TAccountOrAddress>>
