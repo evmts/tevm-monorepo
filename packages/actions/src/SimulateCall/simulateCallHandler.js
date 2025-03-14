@@ -1,17 +1,16 @@
 import { TransactionFactory } from '@tevm/tx'
-import { hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { hexToBytes } from '@tevm/utils'
 import { runTx } from '@tevm/vm'
 import { callHandlerOpts } from '../Call/callHandlerOpts.js'
 import { callHandlerResult } from '../Call/callHandlerResult.js'
-import { cloneVmWithBlockTag } from '../Call/cloneVmWithBlock.js'
 import { executeCall } from '../Call/executeCall.js'
 import { handleStateOverrides } from '../Call/handleStateOverrides.js'
 import { handleTransactionCreation } from '../Call/handleTransactionCreation.js'
-import { traceCallHandler } from '../debug/traceCallHandler.js'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateSimulateCallParams } from '../internal/validators/validateSimulateCallParams.js'
 import { requestProcedure } from '../requestProcedure.js'
+import { TevmSimulateCallError } from './SimulateCallResult.js'
 
 /**
  * Simulates a call in the context of a specific block, with the option to simulate after
@@ -24,7 +23,7 @@ import { requestProcedure } from '../requestProcedure.js'
  * @param {object} [options] - Optional parameters.
  * @param {boolean} [options.throwOnFail=true] - Whether to throw an error on failure.
  * @returns {import('./SimulateCallHandlerType.js').SimulateCallHandler} The simulate handler function.
- * @throws {import('./SimulateCallResult.js').TevmSimulateCallError} If `throwOnFail` is true and simulation fails.
+ * @throws {TevmSimulateCallError} If `throwOnFail` is true and simulation fails.
  *
  * @example
  * ```typescript
@@ -62,7 +61,7 @@ export const simulateCallHandler =
 		if (!validationResult.isValid) {
 			client.logger.debug(validationResult.errors, 'Params do not pass validation')
 			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-				errors: validationResult.errors,
+				errors: validationResult.errors.map((err) => new TevmSimulateCallError({ message: err.message })),
 				executionGasUsed: 0n,
 				rawData: /** @type {`0x${string}`}*/ ('0x'),
 				blockNumber: 0n,
@@ -99,7 +98,7 @@ export const simulateCallHandler =
 				if ('error' in blockNumberResponse) {
 					client.logger.error(blockNumberResponse.error, 'Failed to get block number')
 					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-						errors: [new Error(blockNumberResponse.error.message)],
+						errors: [new TevmSimulateCallError({ message: blockNumberResponse.error.message })],
 						executionGasUsed: 0n,
 						rawData: /** @type {`0x${string}`}*/ ('0x'),
 						blockNumber: 0n,
@@ -112,8 +111,8 @@ export const simulateCallHandler =
 			} else if (params.blockTag === 'safe' || params.blockTag === 'finalized') {
 				// Get safe/finalized block
 				const blockResponse = await requestProcedure(client)({
-					method: `eth_get${params.blockTag.charAt(0).toUpperCase() + params.blockTag.slice(1)}Block`,
-					params: [],
+					method: 'eth_getBlockByNumber',
+					params: [params.blockTag, false],
 					jsonrpc: '2.0',
 					id: 1,
 				})
@@ -121,14 +120,24 @@ export const simulateCallHandler =
 				if ('error' in blockResponse) {
 					client.logger.error(blockResponse.error, 'Failed to get block')
 					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-						errors: [new Error(blockResponse.error.message)],
+						errors: [new TevmSimulateCallError({ message: blockResponse.error.message })],
 						executionGasUsed: 0n,
 						rawData: /** @type {`0x${string}`}*/ ('0x'),
 						blockNumber: 0n,
 					})
 				}
 
-				blockNumber = BigInt(blockResponse.result.number)
+				if (blockResponse.result && typeof blockResponse.result === 'object' && 'number' in blockResponse.result) {
+					blockNumber = BigInt(blockResponse.result.number)
+				} else {
+					client.logger.error('Invalid block response', blockResponse)
+					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
+						errors: [new TevmSimulateCallError({ message: 'Invalid block response' })],
+						executionGasUsed: 0n,
+						rawData: /** @type {`0x${string}`}*/ ('0x'),
+						blockNumber: 0n,
+					})
+				}
 			} else if (params.blockTag.startsWith('0x')) {
 				// Block hash
 				blockHash = params.blockTag
@@ -139,7 +148,7 @@ export const simulateCallHandler =
 				} catch (e) {
 					client.logger.error(e, 'Invalid block tag')
 					return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-						errors: [new Error(`Invalid block tag: ${params.blockTag}`)],
+						errors: [new TevmSimulateCallError({ message: `Invalid block tag: ${params.blockTag}` })],
 						executionGasUsed: 0n,
 						rawData: /** @type {`0x${string}`}*/ ('0x'),
 						blockNumber: 0n,
@@ -163,7 +172,7 @@ export const simulateCallHandler =
 			if ('error' in blockResponse) {
 				client.logger.error(blockResponse.error, 'Failed to get block by hash')
 				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-					errors: [new Error(blockResponse.error.message)],
+					errors: [new TevmSimulateCallError({ message: blockResponse.error.message })],
 					executionGasUsed: 0n,
 					rawData: /** @type {`0x${string}`}*/ ('0x'),
 					blockNumber: 0n,
@@ -187,7 +196,7 @@ export const simulateCallHandler =
 			if ('error' in blockResponse) {
 				client.logger.error(blockResponse.error, 'Failed to get block by number')
 				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-					errors: [new Error(blockResponse.error.message)],
+					errors: [new TevmSimulateCallError({ message: blockResponse.error.message })],
 					executionGasUsed: 0n,
 					rawData: /** @type {`0x${string}`}*/ ('0x'),
 					blockNumber: 0n,
@@ -199,7 +208,7 @@ export const simulateCallHandler =
 			// This shouldn't happen due to validation, but just in case
 			client.logger.error('No block specified')
 			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-				errors: [new Error('No block specified')],
+				errors: [new TevmSimulateCallError({ message: 'No block specified' })],
 				executionGasUsed: 0n,
 				rawData: /** @type {`0x${string}`}*/ ('0x'),
 				blockNumber: 0n,
@@ -219,10 +228,10 @@ export const simulateCallHandler =
 			if ('error' in txResponse) {
 				client.logger.error(txResponse.error, 'Failed to get transaction by hash')
 				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-					errors: [new Error(txResponse.error.message)],
+					errors: [new TevmSimulateCallError({ message: txResponse.error.message })],
 					executionGasUsed: 0n,
 					rawData: /** @type {`0x${string}`}*/ ('0x'),
-					blockNumber: blockNumber || 0n,
+					blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
 				})
 			}
 
@@ -232,10 +241,10 @@ export const simulateCallHandler =
 			if (transaction.blockHash !== block.hash) {
 				client.logger.error('Transaction not in specified block')
 				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-					errors: [new Error('Transaction not in specified block')],
+					errors: [new TevmSimulateCallError({ message: 'Transaction not in specified block' })],
 					executionGasUsed: 0n,
 					rawData: /** @type {`0x${string}`}*/ ('0x'),
-					blockNumber: blockNumber || 0n,
+					blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
 				})
 			}
 
@@ -260,10 +269,10 @@ export const simulateCallHandler =
 			if (txIndex >= block.transactions.length) {
 				client.logger.error('Transaction index out of bounds')
 				return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-					errors: [new Error('Transaction index out of bounds')],
+					errors: [new TevmSimulateCallError({ message: 'Transaction index out of bounds' })],
 					executionGasUsed: 0n,
 					rawData: /** @type {`0x${string}`}*/ ('0x'),
-					blockNumber: blockNumber || 0n,
+					blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
 				})
 			}
 
@@ -280,10 +289,10 @@ export const simulateCallHandler =
 			await forkAndCacheBlock(client, parentBlock)
 		} else if (!hasStateRoot) {
 			return maybeThrowOnFail(params.throwOnFail ?? defaultThrowOnFail, {
-				errors: [new Error('Parent block not found')],
+				errors: [new TevmSimulateCallError({ message: 'Parent block not found' })],
 				executionGasUsed: 0n,
 				rawData: /** @type {`0x${string}`}*/ ('0x'),
-				blockNumber: blockNumber || 0n,
+				blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
 			})
 		}
 
@@ -315,26 +324,28 @@ export const simulateCallHandler =
 			// Use the transaction's parameters as a base, then override with any provided params
 			_params.to = _params.to || transaction.to
 			_params.from = _params.from || transaction.from
-			_params.data = _params.data || transaction.input
-			_params.value =
-				_params.value !== undefined ? _params.value : transaction.value ? BigInt(transaction.value) : undefined
-			_params.gas = _params.gas !== undefined ? _params.gas : transaction.gas ? BigInt(transaction.gas) : undefined
-			_params.gasPrice =
-				_params.gasPrice !== undefined
-					? _params.gasPrice
-					: transaction.gasPrice
-						? BigInt(transaction.gasPrice)
-						: undefined
+			_params.data = _params.data || transaction.data
+			if (_params.value === undefined && transaction.value) {
+				_params.value = BigInt(transaction.value)
+			}
+			if (_params.gas === undefined && transaction.gas) {
+				_params.gas = BigInt(transaction.gas)
+			}
+			if (_params.gasPrice === undefined && transaction.gasPrice) {
+				_params.gasPrice = BigInt(transaction.gasPrice)
+			}
 		}
 
 		// Prepare EVM input for the call
 		const callHandlerRes = await callHandlerOpts(client, _params)
 		if (callHandlerRes.errors) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-				errors: callHandlerRes.errors,
+				errors: callHandlerRes.errors.map((err) =>
+					err instanceof TevmSimulateCallError ? err : new TevmSimulateCallError({ message: err.message, cause: err }),
+				),
 				executionGasUsed: 0n,
 				rawData: /** @type {`0x${string}`}*/ ('0x'),
-				blockNumber: blockNumber || 0n,
+				blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
 			})
 		}
 
@@ -350,10 +361,12 @@ export const simulateCallHandler =
 		)
 		if (stateOverrideResult.errors) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-				errors: stateOverrideResult.errors,
+				errors: stateOverrideResult.errors.map((err) =>
+					err instanceof TevmSimulateCallError ? err : new TevmSimulateCallError({ message: err.message, cause: err }),
+				),
 				executionGasUsed: 0n,
 				rawData: /** @type {`0x${string}`}*/ ('0x'),
-				blockNumber: blockNumber || 0n,
+				blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
 			})
 		}
 
@@ -376,10 +389,12 @@ export const simulateCallHandler =
 		// Handle errors in call execution
 		if ('errors' in executedCall) {
 			return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-				executionGasUsed: /** @type {any}*/ (executeCall).rawData ?? 0n,
-				rawData: /** @type {any}*/ (executedCall).rawData ?? '0x',
-				errors: executedCall.errors,
-				blockNumber: blockNumber || 0n,
+				executionGasUsed: 0n,
+				rawData: /** @type {`0x${string}`}*/ ('0x'),
+				errors: executedCall.errors.map((err) =>
+					err instanceof TevmSimulateCallError ? err : new TevmSimulateCallError({ message: err.message, cause: err }),
+				),
+				blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
 				...('runTxResult' in executedCall && executedCall.runTxResult !== undefined
 					? callHandlerResult(executedCall.runTxResult, undefined, executedCall.trace, executedCall.accessList)
 					: {}),
@@ -388,21 +403,33 @@ export const simulateCallHandler =
 		}
 
 		// Handle transaction creation if requested
-		let txResult = { hash: undefined, errors: undefined }
+		let txHash = undefined
 		if (_params.createTransaction) {
-			txResult = await handleTransactionCreation(client, _params, executedCall, evmInput)
-			if (txResult.errors) {
+			const transactionCreationResult = await handleTransactionCreation(client, _params, executedCall, evmInput)
+
+			if (transactionCreationResult.errors && transactionCreationResult.errors.length > 0) {
+				const simulateCallErrors = transactionCreationResult.errors.map((err) =>
+					err instanceof TevmSimulateCallError ? err : new TevmSimulateCallError({ message: err.message, cause: err }),
+				)
+
 				return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-					...callHandlerResult(executedCall.runTxResult, txResult.hash, executedCall.trace, executedCall.accessList),
-					errors: txResult.errors,
-					blockNumber: blockNumber || 0n,
+					...callHandlerResult(
+						executedCall.runTxResult,
+						transactionCreationResult.hash,
+						executedCall.trace,
+						executedCall.accessList,
+					),
+					errors: simulateCallErrors,
+					blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
 				})
 			}
+
+			txHash = transactionCreationResult.hash
 		}
 
 		// Return successful result
-		return maybeThrowOnFail(_params.throwOnFail ?? defaultThrowOnFail, {
-			...callHandlerResult(executedCall.runTxResult, txResult.hash, executedCall.trace, executedCall.accessList),
-			blockNumber: blockNumber || 0n,
-		})
+		return {
+			...callHandlerResult(executedCall.runTxResult, txHash, executedCall.trace, executedCall.accessList),
+			blockNumber: typeof blockNumber === 'bigint' ? blockNumber : blockNumber ? BigInt(blockNumber) : 0n,
+		}
 	}

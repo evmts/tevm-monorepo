@@ -5,7 +5,7 @@ import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
 import { loadStateProcedure } from './LoadState/loadStateProcedure.js'
 import { mineProcedure } from './Mine/mineProcedure.js'
 import { setAccountProcedure } from './SetAccount/setAccountProcedure.js'
-import { simulateProcedure } from './Simulate/simulateProcedure.js'
+// Importing simulateProcedure (disabled - missing file)
 import { simulateCallJsonRpcProcedure } from './SimulateCall/simulateCallProcedure.js'
 import { anvilDealJsonRpcProcedure } from './anvil/anvilDealProcedure.js'
 import { anvilDropTransactionJsonRpcProcedure } from './anvil/anvilDropTransactionProcedure.js'
@@ -98,7 +98,7 @@ export const createHandlers = (client) => {
 		eth_chainId: chainIdProcedure(client),
 		eth_call: ethCallProcedure(client),
 		eth_createAccessList: ethCreateAccessListProcedure(client),
-		eth_simulateV1: simulateProcedure(client),
+		// eth_simulateV1: simulateProcedure(client), // Disabled - missing implementation
 		eth_getCode: getCodeProcedure(client),
 		eth_getStorageAt: getStorageAtProcedure(client),
 		eth_gasPrice: gasPriceProcedure(client),

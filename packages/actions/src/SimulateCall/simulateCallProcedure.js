@@ -7,7 +7,7 @@ import { simulateCallHandler } from './simulateCallHandler.js'
  * with the option to simulate after specific transactions in the block.
  *
  * @param {import('@tevm/node').TevmNode} client - The TEVM node instance
- * @returns {import('../requestProcedure.js').JsonRpcRequestHandler} A handler function for tevm_simulateCall requests
+ * @returns {import('../tevm-request-handler/TevmJsonRpcRequestHandler.js').TevmJsonRpcRequestHandler} A handler function for tevm_simulateCall requests
  * @throws {Error} If simulation fails
  *
  * @example
@@ -40,11 +40,44 @@ export const simulateCallJsonRpcProcedure = (client) => {
 	const handler = simulateCallHandler(client)
 
 	/**
-	 * @type {import('../requestProcedure.js').JsonRpcRequestHandler}
+	 * @type {import('../tevm-request-handler/TevmJsonRpcRequestHandler.js').TevmJsonRpcRequestHandler}
 	 */
 	return async (request) => {
 		try {
-			const result = await handler(request.params[0])
+			// Ensure params exist and are well-formed
+			if (!request.params || !Array.isArray(request.params) || request.params.length === 0) {
+				return {
+					error: {
+						code: -32602,
+						message: 'Invalid params: Parameters are required and must be provided as an array',
+					},
+					jsonrpc: '2.0',
+					method: request.method,
+					...(request.id !== undefined ? { id: request.id } : {}),
+				}
+			}
+
+			// Extract and validate the parameters
+			const params = request.params[0]
+			if (typeof params !== 'object' || params === null) {
+				return {
+					error: {
+						code: -32602,
+						message: 'Invalid params: First parameter must be an object',
+					},
+					jsonrpc: '2.0',
+					method: request.method,
+					...(request.id !== undefined ? { id: request.id } : {}),
+				}
+			}
+
+			// Create a safe SimulateCallParams object with type assertion
+			/** @type {import('./SimulateCallParams.js').SimulateCallParams} */
+			const simulateCallParams = {
+				...(typeof params === 'object' && params !== null ? params : {}),
+			}
+
+			const result = await handler(simulateCallParams)
 			return {
 				result,
 				jsonrpc: '2.0',

@@ -8,11 +8,18 @@ export class TevmSimulateCallError extends BaseError {
 	/**
 	 * @param {{ message?: string, cause?: Error }} [opts]
 	 */
-	constructor(opts = {}) {
-		super({
-			shortMessage: opts.message || 'Simulate call failed',
-			cause: opts.cause,
-		})
+	constructor(opts: { message?: string; cause?: Error } = {}) {
+		super(
+			opts.message || 'Simulate call failed',
+			{
+				cause: opts.cause,
+				metaMessages: [],
+				details: '', // Use empty string instead of undefined
+				docsPath: '', // Use empty string instead of undefined
+			},
+			'TevmSimulateCallError',
+			-32000,
+		)
 	}
 }
 

@@ -30,6 +30,22 @@ export type SimulateCallParams = {
 	 */
 	transactionHash?: `0x${string}`
 	/**
+	 * Function to execute during the `step` event of the EVM
+	 */
+	onStep?: (data: any, next?: () => void) => void
+	/**
+	 * Function to execute when a new contract is created
+	 */
+	onNewContract?: (data: any, next?: () => void) => void
+	/**
+	 * Function to execute before a message is processed
+	 */
+	onBeforeMessage?: (data: any, next?: () => void) => void
+	/**
+	 * Function to execute after a message is processed
+	 */
+	onAfterMessage?: (data: any, next?: () => void) => void
+	/**
 	 * Transaction parameters for the simulation
 	 * Will be merged with transactionHash if provided
 	 */
