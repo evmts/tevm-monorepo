@@ -7,11 +7,21 @@ import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 import { statePersister } from './statePersister.js'
 
+// Polyfill for Promise.withResolvers
+function createWithResolvers() {
+  let resolve, reject
+  const promise = new Promise((res, rej) => {
+    resolve = res
+    reject = rej
+  })
+  return { promise, resolve, reject }
+}
+
 describe(statePersister.name, () => {
 	it('Persists the state', async () => {
 		const logger = createLogger({ name: 'test', level: 'warn' })
 		const storage = new Map()
-		let persistPromise = Promise.withResolvers()
+		let persistPromise = createWithResolvers()
 		const persist = statePersister(
 			createSyncStoragePersister({
 				key: 'testkey',
@@ -32,7 +42,7 @@ describe(statePersister.name, () => {
 
 		expect(storage.get('testkey')).toMatchSnapshot()
 
-		persistPromise = Promise.withResolvers()
+		persistPromise = createWithResolvers()
 
 		await vm.stateManager.putContractCode(createAddress(69), hexToBytes(TestERC20.deployedBytecode))
 
@@ -47,7 +57,7 @@ describe(statePersister.name, () => {
 		const logger = createLogger({ name: 'test', level: 'warn' })
 		const mockError = vi.fn()
 		logger.error = mockError
-		const setItemPromise = Promise.withResolvers()
+		const setItemPromise = createWithResolvers()
 		const persist = statePersister(
 			createSyncStoragePersister({
 				key: 'testkey',
