@@ -78,7 +78,8 @@
     "@tevm/state": "workspace:^",
     "@tevm/tx": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "@tevm/vm": "workspace:^"
+    "@tevm/vm": "workspace:^",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@tevm/test-utils": "workspace:^",

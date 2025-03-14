@@ -123,64 +123,64 @@ describe('tevmCall', () => {
 		// The rawData should contain the encoded value we set (42)
 		expect(rawDataHex.toLowerCase()).toContain('2a') // 42 in hex is 0x2a
 	})
-	
+
 	it('should work with blockTag pending', async () => {
 		// First set an initial value
 		const initialValue = 42n
-		
+
 		// Encode the data for the 'set' function
 		const setInitialData = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'set',
 			args: [initialValue],
 		})
-		
+
 		// Call set function and mine to commit the transaction
 		await tevmCall(client, {
 			to: contractAddress,
 			data: setInitialData,
 			createTransaction: true,
 		})
-		
+
 		await tevmMine(client)
-		
+
 		// Now set a new value but don't mine
 		const newValue = 999n
-		
+
 		// Encode the data for the 'set' function
 		const setNewData = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'set',
 			args: [newValue],
 		})
-		
+
 		// Call set function but don't mine
 		await tevmCall(client, {
 			to: contractAddress,
 			data: setNewData,
 			createTransaction: true,
 		})
-		
+
 		// Now encode the data for the 'get' function
 		const getData = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'get',
 		})
-		
+
 		// Call get function with latest block tag - should return initial value
 		const latestResult = await tevmCall(client, {
 			to: contractAddress,
 			data: getData,
 			blockTag: 'latest',
 		})
-		
+
 		// Call get function with pending block tag - should return new value
 		const pendingResult = await tevmCall(client, {
 			to: contractAddress,
 			data: getData,
 			blockTag: 'pending',
 		})
-		
+
 		// Verify results
 		expect(latestResult.rawData.toLowerCase()).toContain('2a') // 42 in hex is 0x2a
 		expect(pendingResult.rawData.toLowerCase()).toContain('3e7') // 999 in hex is 0x3e7

@@ -8,8 +8,8 @@
   "type": "module",
   "scripts": {
     "build": "rspack build",
-    "dev": "rspack serve",
-    "clean": "rm -rf node_modules && rm -rf dist && rm -rf .rspack-cache"
+    "clean": "rm -rf node_modules && rm -rf dist && rm -rf .rspack-cache",
+    "dev": "rspack serve"
   },
   "dependencies": {
     "@tevm/contract": "workspace:^",
@@ -17,10 +17,10 @@
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^5.2.0",
-    "@rspack/cli": "^0.6.1",
-    "@rspack/core": "^0.6.1",
-    "@rspack/dev-server": "^0.6.1",
-    "@rspack/plugin-html": "^0.6.1",
+    "@rspack/cli": "^0.5.8",
+    "@rspack/core": "^0.5.8",
+    "@rspack/dev-server": "^0.5.8",
+    "@rspack/plugin-html": "^0.5.8",
     "@tevm/rspack-plugin": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
     "solc": "0.8.28",
