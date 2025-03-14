@@ -68,11 +68,11 @@
     "@tevm/common": "workspace:^",
     "@tevm/errors": "workspace:^",
     "@tevm/logger": "workspace:^",
-    "@tevm/test-utils": "workspace:^",
     "@tevm/utils": "workspace:^",
     "ethereum-cryptography": "^3.1.0"
   },
   "devDependencies": {
+    "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
