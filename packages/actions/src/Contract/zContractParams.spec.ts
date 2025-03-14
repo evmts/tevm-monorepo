@@ -1,5 +1,4 @@
 import { expect, test } from 'vitest'
-import type { z } from 'zod'
 import type { ContractParams } from './ContractParams.js'
 import { zContractParams } from './zContractParams.js'
 
@@ -20,12 +19,12 @@ test('zContractParams', () => {
 				type: 'function',
 			},
 		],
-		blobVersionedHashes: ['0x0000000'],
+		blobVersionedHashes: ['0x0000000'] as `0x${string}`[],
 		functionName: 'name',
 		args: [],
 		to: `0x${'0'.repeat(40)}`,
 		throwOnFail: false,
-	} as const satisfies z.infer<typeof zContractParams> satisfies ContractParams
+	} as const satisfies ContractParams
 	expect(zContractParams.parse(contractParams)).toEqual(contractParams)
 	expect(() => zContractParams.parse('0x4')).toThrow()
 })

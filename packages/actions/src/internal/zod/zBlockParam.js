@@ -14,13 +14,20 @@ export const transformBlockParam = (value) => {
 
 export { validateBlockParam }
 
-// For backward compatibility
+/**
+ * For backward compatibility with Zod interface
+ * @type {{parse: (value: unknown) => string|bigint}}
+ */
 export const zBlockParam = {
+	/**
+	 * @param {unknown} value
+	 * @returns {string|bigint}
+	 */
 	parse: (value) => {
 		const validation = validateBlockParam(value)
 		if (!validation.isValid) {
 			throw new Error(validation.message || 'Invalid block parameter')
 		}
-		return transformBlockParam(value)
+		return transformBlockParam(/** @type {string|number|bigint} */ (value))
 	},
 }

@@ -2,8 +2,15 @@ import { validateBlockOverrideSet } from '../validators/validateBlockOverrideSet
 
 export { validateBlockOverrideSet }
 
-// For backward compatibility
+/**
+ * For backward compatibility with Zod interface
+ * @type {{parse: (value: unknown) => any}}
+ */
 export const zBlockOverrideSet = {
+	/**
+	 * @param {unknown} value
+	 * @returns {any}
+	 */
 	parse: (value) => {
 		const validation = validateBlockOverrideSet(value)
 		if (!validation.isValid) {

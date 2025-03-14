@@ -67,8 +67,15 @@ const validateGetAccountParamsInternal = (value) => {
 	}
 }
 
-// For backward compatibility
+/**
+ * For backward compatibility with Zod interface
+ * @type {{parse: (value: unknown) => any}}
+ */
 export const zGetAccountParams = {
+	/**
+	 * @param {unknown} value
+	 * @returns {any}
+	 */
 	parse: (value) => {
 		const validation = validateGetAccountParamsInternal(value)
 		if (!validation.isValid) {

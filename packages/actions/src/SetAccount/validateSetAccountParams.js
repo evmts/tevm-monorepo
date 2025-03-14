@@ -119,7 +119,7 @@ const validateSetAccountParamsRaw = (value) => {
 			return
 		}
 
-		/** @type {Record<string, unknown>} */
+		// @ts-ignore - We know it's an object
 		const stateObj = fieldValue
 		for (const key in stateObj) {
 			const keyValidation = validateHex(key)
@@ -130,12 +130,16 @@ const validateSetAccountParamsRaw = (value) => {
 				})
 			}
 
-			const valueValidation = validateHex(stateObj[key])
-			if (!valueValidation.isValid) {
-				errors.push({
-					path: `${field}.value`,
-					message: `Invalid value in ${field}: ${valueValidation.message}`,
-				})
+			// @ts-ignore - Index access
+			const value = stateObj[key]
+			if (value !== undefined) {
+				const valueValidation = validateHex(value)
+				if (!valueValidation.isValid) {
+					errors.push({
+						path: `${field}.value`,
+						message: `Invalid value in ${field}: ${valueValidation.message}`,
+					})
+				}
 			}
 		}
 	}
@@ -149,8 +153,8 @@ const validateSetAccountParamsRaw = (value) => {
 	}
 
 	// Cannot have both state and stateDiff
-	const objValue = /** @type {Record<string, unknown>} */ (value)
-	if (objValue['state'] && objValue['stateDiff']) {
+	// @ts-ignore - Type checking for object indexing
+	if (value['state'] && value['stateDiff']) {
 		errors.push({
 			path: '',
 			message: 'Cannot have both state and stateDiff',
