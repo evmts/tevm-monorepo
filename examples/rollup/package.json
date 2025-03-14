@@ -8,9 +8,9 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c",
+    "clean": "rm -rf node_modules && rm -rf public/build",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear",
-    "clean": "rm -rf node_modules && rm -rf public/build"
+    "start": "sirv public --no-clear"
   },
   "dependencies": {
     "@tevm/contract": "workspace:^",

@@ -3,7 +3,7 @@ import { simulateCallHandler } from '@tevm/actions'
 /**
  * A tree-shakeable version of the `tevmSimulateCall` action for viem.
  * Simulates transaction execution at a specific block in the transaction history.
- * 
+ *
  * It's similar to `debug_traceTransaction` but more flexible as it allows:
  * - Specifying a block and optionally a transaction within that block
  * - Overriding transaction parameters or creating a completely new transaction
@@ -32,14 +32,14 @@ import { simulateCallHandler } from '@tevm/actions'
  *     data: '0x123...',
  *     skipBalance: true,
  *   })
- *   
+ *
  *   // Simulate by overriding parameters of an existing transaction
  *   const res2 = await tevmSimulateCall(client, {
  *     blockHash: '0xabc...',
  *     transactionHash: '0x123...',
  *     value: 1000n, // override the value
  *   })
- *   
+ *
  *   console.log(res)
  * }
  * ```
@@ -53,5 +53,5 @@ import { simulateCallHandler } from '@tevm/actions'
  * @see [TEVM Actions Guide](https://tevm.sh/learn/actions/)
  */
 export const tevmSimulateCall = async (client, params) => {
-  return simulateCallHandler(client.transport.tevm)(params)
+	return simulateCallHandler(client.transport.tevm)(params)
 }

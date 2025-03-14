@@ -19,7 +19,7 @@ export const validateCallParams = (action) => {
 	const errors = validateBaseCallParams(action)
 
 	const validation = validateCallParamsJS(action)
-	
+
 	if (!validation.isValid) {
 		for (const error of validation.errors) {
 			switch (error.path) {

@@ -136,7 +136,7 @@ export type TevmActionsApi = {
 	/**
 	 * Simulates a call in the context of a specific block, with the option to simulate after
 	 * specific transactions in the block.
-	 * 
+	 *
 	 * This is similar to `debug_traceTransaction` but allows more flexibility in specifying
 	 * the target transaction and block, as well as customizing the transaction parameters.
 	 * @example
@@ -149,7 +149,7 @@ export type TevmActionsApi = {
 	 *   value: 420n,
 	 *   skipBalance: true,
 	 * })
-	 * 
+	 *
 	 * // Or override a specific transaction's parameters
 	 * const res2 = await tevm.simulateCall({
 	 *   blockHash: '0xabcdef...',

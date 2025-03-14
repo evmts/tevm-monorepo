@@ -12,9 +12,9 @@ import { zHex } from '../zod/zHex.js'
  * @type {import('zod').ZodSchema<import('../../../types/StateOverride.js').StateOverride>}
  */
 export const zStateOverride = z.object({
-  address: zAddress,
-  balance: z.bigint().optional(),
-  nonce: z.number().optional(),
-  code: zHex.optional(),
-  storage: z.record(zHex, zHex).optional(),
+	address: zAddress,
+	balance: z.bigint().optional(),
+	nonce: z.number().optional(),
+	code: zHex.optional(),
+	storage: z.record(zHex, zHex).optional(),
 })

@@ -15,36 +15,37 @@ import { zStateOverride } from './zStateOverride.js'
  * @type {import('zod').ZodSchema<import('../../../types/BlockOverride.js').BlockOverride>}
  */
 export const zBlockOverride = z.object({
-  baseFeePerGas: z.bigint().optional(),
-  timestamp: z.bigint().optional(),
-  number: z.bigint().optional(),
-  difficulty: z.bigint().optional(),
-  gasLimit: z.bigint().optional(),
-  coinbase: zAddress.optional(),
+	baseFeePerGas: z.bigint().optional(),
+	timestamp: z.bigint().optional(),
+	number: z.bigint().optional(),
+	difficulty: z.bigint().optional(),
+	gasLimit: z.bigint().optional(),
+	coinbase: zAddress.optional(),
 })
 
 /**
  * Zod schema for simulateCalls parameters
  * @type {import('zod').ZodSchema<import('../../../types/SimulateParams.js').SimulateParams>}
  */
-export const zSimulateParams = z.object({
-  account: zAddress.optional(),
-  calls: z.array(zSimulateCallItem),
-  blockNumber: zBlockTag.optional(),
-  stateOverrides: z.array(zStateOverride).optional(),
-  blockOverrides: zBlockOverride.optional(),
-  traceAssetChanges: z.boolean().optional(),
-})
-  .refine(
-    (data) => {
-      // If traceAssetChanges is true, account is required
-      if (data.traceAssetChanges && !data.account) {
-        return false
-      }
-      return true
-    },
-    {
-      message: '`account` is required when `traceAssetChanges` is true',
-      path: ['account'],
-    },
-  )
+export const zSimulateParams = z
+	.object({
+		account: zAddress.optional(),
+		calls: z.array(zSimulateCallItem),
+		blockNumber: zBlockTag.optional(),
+		stateOverrides: z.array(zStateOverride).optional(),
+		blockOverrides: zBlockOverride.optional(),
+		traceAssetChanges: z.boolean().optional(),
+	})
+	.refine(
+		(data) => {
+			// If traceAssetChanges is true, account is required
+			if (data.traceAssetChanges && !data.account) {
+				return false
+			}
+			return true
+		},
+		{
+			message: '`account` is required when `traceAssetChanges` is true',
+			path: ['account'],
+		},
+	)

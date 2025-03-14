@@ -87,4 +87,4 @@ export type CreateMemoryClientFn = <
 	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
 >(
 	options?: MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema>,
-) => MemoryClient<TCommon, TAccountOrAddress>
+) => Promise<MemoryClient<TCommon, TAccountOrAddress>>

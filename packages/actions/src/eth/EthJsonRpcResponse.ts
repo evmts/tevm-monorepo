@@ -345,66 +345,66 @@ export type EthCreateAccessListJsonRpcResponse = JsonRpcResponse<
  * Represents a single call result from simulate
  */
 export type SimulateCallResult = {
-  /**
-   * Call execution status ('success' or 'failure')
-   */
-  status: 'success' | 'failure'
-  /**
-   * Return data from the call
-   */
-  data: Hex
-  /**
-   * Gas used during execution
-   */
-  gasUsed: Hex
-  /**
-   * Event logs produced during execution
-   */
-  logs: Array<SerializeToJson<FilterLog>>
-  /**
-   * Error message if status is 'failure'
-   */
-  error?: string
+	/**
+	 * Call execution status ('success' or 'failure')
+	 */
+	status: 'success' | 'failure'
+	/**
+	 * Return data from the call
+	 */
+	data: Hex
+	/**
+	 * Gas used during execution
+	 */
+	gasUsed: Hex
+	/**
+	 * Event logs produced during execution
+	 */
+	logs: Array<SerializeToJson<FilterLog>>
+	/**
+	 * Error message if status is 'failure'
+	 */
+	error?: string
 }
 
 /**
  * Represents an asset change from simulate
  */
 export type AssetChange = {
-  /**
-   * Token information
-   */
-  token: {
-    /**
-     * Token address (0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee for native ETH)
-     */
-    address: Address
-    /**
-     * Token symbol
-     */
-    symbol: string
-    /**
-     * Token decimals
-     */
-    decimals: number
-  }
-  /**
-   * Value change information
-   */
-  value: {
-    /**
-     * Value difference (negative for outflow, positive for inflow)
-     */
-    diff: Hex
-    /**
-     * Starting value
-     */
-    start?: Hex
-    /**
-     * Ending value
-     */
-    end?: Hex
-  }
+	/**
+	 * Token information
+	 */
+	token: {
+		/**
+		 * Token address (0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee for native ETH)
+		 */
+		address: Address
+		/**
+		 * Token symbol
+		 */
+		symbol: string
+		/**
+		 * Token decimals
+		 */
+		decimals: number
+	}
+	/**
+	 * Value change information
+	 */
+	value: {
+		/**
+		 * Value difference (negative for outflow, positive for inflow)
+		 */
+		diff: Hex
+		/**
+		 * Starting value
+		 */
+		start?: Hex
+		/**
+		 * Ending value
+		 */
+		end?: Hex
+	}
 }
 
 /**
@@ -413,14 +413,14 @@ export type AssetChange = {
 export type EthSimulateV1JsonRpcResponse = JsonRpcResponse<
 	'eth_simulateV1',
 	{
-    /**
-     * Results for each call
-     */
-    results: SimulateCallResult[]
-    /**
-     * Asset changes if traceAssetChanges was enabled
-     */
-    assetChanges?: AssetChange[]
+		/**
+		 * Results for each call
+		 */
+		results: SimulateCallResult[]
+		/**
+		 * Asset changes if traceAssetChanges was enabled
+		 */
+		assetChanges?: AssetChange[]
 	},
 	string | number
 >

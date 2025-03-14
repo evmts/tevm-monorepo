@@ -21,9 +21,6 @@
   "contributors": [
     "Will Cory <willcory10@gmail.com>"
   ],
-  "bin": {
-    "tevm": "./node_modules/tevm-run/src/tevm-run.js"
-  },
   "sideEffects": false,
   "type": "module",
   "exports": {
@@ -362,6 +359,9 @@
   "main": "index.cjs",
   "module": "index.js",
   "types": "index.d.ts",
+  "bin": {
+    "tevm": "./bin/tevm.js"
+  },
   "files": [
     "index*",
     "actions",
@@ -448,7 +448,6 @@
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
-    "tevm-run": "workspace:^",
     "commander": "^13.1.0",
     "effect": "3.13.2",
     "glob": "^11.0.1",

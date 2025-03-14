@@ -25,11 +25,13 @@ export const validateGetAccountParams = (action) => {
 	// Validate base params
 	const baseValidation = validateBaseParams(action)
 	if (!baseValidation.isValid) {
-		baseValidation.errors.forEach(error => {
+		baseValidation.errors.forEach((error) => {
 			if (error.path === 'throwOnFail') {
-				errors.push(new InvalidRequestError(
-					`Invalid throwOnFail param. throwOnFail must be a boolean or not provided. ${error.message}`
-				))
+				errors.push(
+					new InvalidRequestError(
+						`Invalid throwOnFail param. throwOnFail must be a boolean or not provided. ${error.message}`,
+					),
+				)
 			} else {
 				errors.push(new InvalidRequestError(error.message))
 			}
@@ -49,9 +51,9 @@ export const validateGetAccountParams = (action) => {
 	// Validate returnStorage if present
 	if ('returnStorage' in action && action.returnStorage !== undefined) {
 		if (typeof action.returnStorage !== 'boolean') {
-			errors.push(new InvalidRequestError(
-				'Invalid returnStorage param. returnStorage must be a boolean or not provided.'
-			))
+			errors.push(
+				new InvalidRequestError('Invalid returnStorage param. returnStorage must be a boolean or not provided.'),
+			)
 		}
 	}
 

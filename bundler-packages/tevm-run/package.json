@@ -42,8 +42,7 @@
   "peerDependencies": {
     "@tevm/bun-plugin": "workspace:^",
     "bun": "*",
-    "bun-types": "*",
-    "tevm": "workspace:^"
+    "bun-types": "*"
   },
   "engines": {
     "bun-types": "latest",
