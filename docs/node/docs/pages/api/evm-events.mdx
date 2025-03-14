@@ -448,8 +448,54 @@ const result = await tevmCall(client, {
    }
    ```
 
+## Mining Events
+
+Tevm also provides event handlers for block mining operations. You can use these to monitor and respond to newly mined blocks, transaction receipts, and logs:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { mine } from 'tevm/actions'
+
+const client = createMemoryClient()
+
+// Mine blocks with event handlers
+const result = await client.mine({
+  blockCount: 1,
+  // Listen for new blocks
+  onBlock: (block, next) => {
+    console.log('New block mined:', {
+      number: block.header.number,
+      hash: block.hash().toString('hex'),
+      timestamp: block.header.timestamp
+    })
+    next?.()
+  },
+  // Listen for transaction receipts
+  onReceipt: (receipt, blockHash, next) => {
+    console.log('Transaction receipt:', {
+      txHash: receipt.transactionHash,
+      blockHash,
+      gasUsed: receipt.gasUsed
+    })
+    next?.()
+  },
+  // Listen for logs emitted
+  onLog: (log, receipt, next) => {
+    console.log('Log emitted:', {
+      address: log.address,
+      topics: log.topics,
+      data: log.data
+    })
+    next?.()
+  }
+})
+```
+
+These event handlers follow the same pattern as EVM execution events, requiring a `next()` call to continue processing.
+
 ## Related Topics
 - [Tevm Call API](../api/tevm-call)
 - [Methods](../api/methods)
+- [Mining Modes](../core/mining-modes)
 - [Performance Profiler](../advanced/performance-profiler)
 - [Gas Estimation](../api/methods)

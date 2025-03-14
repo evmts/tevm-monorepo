@@ -6,9 +6,9 @@
 
 # Type Alias: MineParams\<TThrowOnFail\>
 
-> **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+> **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](MineEvents.md) & `object`
 
-Defined in: [packages/actions/src/Mine/MineParams.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L15)
+Defined in: [packages/actions/src/Mine/MineParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L21)
 
 Tevm params to mine one or more blocks.
 
@@ -35,13 +35,9 @@ Interval between block timestamps. Defaults to 1.
 ```typescript
 const mineParams: import('@tevm/actions').MineParams = {
   blockCount: 5,
+  onBlock: (block, next) => {
+    console.log(`Block mined: ${block.header.number}`)
+    next()
+  }
 }
 ```
-
-## Param
-
-Number of blocks to mine. Defaults to 1.
-
-## Param
-
-Interval between block timestamps in seconds. Defaults to 1.
