@@ -82,7 +82,7 @@ export const dealHandler =
 					for (const { address: resetAddr, slot: resetSlot, oldValue: resetValue } of modifiedSlots) {
 						// Skip the correct slot
 						if (resetAddr === address && resetSlot === slot) continue
-						
+
 						// Reset any other modified slot
 						await anvilSetStorageAtJsonRpcProcedure(client)({
 							method: 'anvil_setStorageAt',
