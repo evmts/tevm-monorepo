@@ -1,6 +1,5 @@
 import { stringToHex } from 'viem'
 import { expect, test } from 'vitest'
-import type { z } from 'zod'
 import type { LoadStateParams } from './LoadStateParams.js'
 import { zLoadStateParams } from './zLoadStateParams.js'
 
@@ -17,7 +16,7 @@ test('zLoadStateParams', () => {
 
 	const loadStateParams = {
 		state: { '0x0420042004200420042004200420042004200420': AccountStorage },
-	} as const satisfies z.infer<typeof zLoadStateParams> satisfies LoadStateParams
+	} as const satisfies LoadStateParams
 
 	expect(zLoadStateParams.parse(loadStateParams)).toEqual(loadStateParams)
 	expect(() => zLoadStateParams.parse('0x4')).toThrow()
