@@ -1,50 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { BaseError } from '../BaseError.js'
-import { AuthCallUnsetError } from './AuthCallUnsetError.js'
 import { InternalEvmError } from './InternalEvmError.js'
 import { RefundExhaustedError } from './RefundExhausted.js'
 
-describe('AuthCallUnsetError', () => {
-	// Skip these tests until we can fix the formatting issues
-	it.skip('should use default docsPath when not provided', () => {
-		const error = new AuthCallUnsetError('Test error')
-
-		expect(error.message).toContain('Docs: https://tevm.sh/reference/tevm/errors/classes/authcallunseterror/')
-	})
-
-	it.skip('should use custom docsPath when provided', () => {
-		const error = new AuthCallUnsetError('Test error', {
-			docsPath: '/custom/path',
-		})
-
-		expect(error.message).toContain('Docs: https://tevm.sh/custom/path')
-	})
-
-	it.skip('should use custom docsBaseUrl when provided', () => {
-		const error = new AuthCallUnsetError('Test error', {
-			docsBaseUrl: 'https://custom.docs.com',
-		})
-
-		expect(error.message).toContain('Docs: https://custom.docs.com/reference/tevm/errors/classes/authcallunseterror/')
-	})
-
-	it('should include meta data when provided', () => {
-		const metaData = { address: '0x123', gasUsed: 50000 }
-		const error = new AuthCallUnsetError('Test error', {
-			meta: metaData,
-		})
-
-		expect(error.meta).toEqual(metaData)
-	})
-
-	// Create an alternative test to improve coverage
-	it('should create error with correct tag', () => {
-		const error = new AuthCallUnsetError()
-
-		expect(error.name).toBe('AuthCallUnsetError')
-		expect(error._tag).toBe('AuthCallUnsetError')
-	})
-})
+// Note: AuthCallUnsetError was removed in the ethereumjs alpha.1 upgrade
 
 describe('RefundExhaustedError', () => {
 	it('should create error with defaults', () => {

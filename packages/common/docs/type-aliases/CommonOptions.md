@@ -8,7 +8,7 @@
 
 > **CommonOptions**: `ViemChain` & `object`
 
-Defined in: [packages/common/src/CommonOptions.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L38)
+Defined in: [packages/common/src/CommonOptions.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/CommonOptions.ts#L39)
 
 ## Type declaration
 
@@ -39,6 +39,16 @@ const common = createCommon({
   },
 })
 ```
+Choices include:
+- keccak256
+- ecrecover
+- sha256
+- ecsign
+- ecdsaSign
+- ecdsaRecover
+- kzg
+
+Notably kzg is not included by default because of it's bundlesize import and instead replaced with a mock that always returns true
 
 ### eips?
 
@@ -52,6 +62,10 @@ Eips to enable. Defaults to `[1559, 4895]`
 [1559, 4895]
 ```
 
+### genesis?
+
+> `optional` **genesis**: `ChainConfig`\[`"genesis"`\]
+
 ### hardfork?
 
 > `optional` **hardfork**: [`Hardfork`](Hardfork.md)
@@ -64,6 +78,12 @@ Hardfork to use. Defaults to `shanghai`
 'cancun'
 ```
 
+### hardforkTransitionConfig?
+
+> `optional` **hardforkTransitionConfig**: readonly `HardforkTransitionConfig`[]
+
+A mapping of block heights to hardfork. This allows the evm to modify which hardfork it uses based on block height
+
 ### loggingLevel?
 
 > `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
@@ -75,6 +95,12 @@ Logging level of the Tevm logger instance
 ```ts
 'warn'
 ```
+
+### params?
+
+> `optional` **params**: [`ParamsDict`](ParamsDict.md)
+
+Optionally pass in an EIP params dictionary,
 
 ## Examples
 

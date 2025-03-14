@@ -8,7 +8,7 @@
 
 > **setLengthLeft**(`msg`, `length`): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:64
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0-alpha.1/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:55
 
 Left Pads a `Uint8Array` with leading zeros till it has `length` bytes.
 Or it truncates the beginning if it exceeds.

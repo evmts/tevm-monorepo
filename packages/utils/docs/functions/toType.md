@@ -10,7 +10,7 @@
 
 > **toType**\<`T`\>(`input`, `outputType`): `null`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:36
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0-alpha.1/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37
 
 Convert an input to a specified type.
 Input of null/undefined returns null/undefined regardless of the output type.
@@ -41,7 +41,7 @@ type to output
 
 > **toType**\<`T`\>(`input`, `outputType`): `undefined`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0-alpha.1/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:38
 
 Convert an input to a specified type.
 Input of null/undefined returns null/undefined regardless of the output type.
@@ -72,7 +72,7 @@ type to output
 
 > **toType**\<`T`\>(`input`, `outputType`): `TypeOutputReturnType`\[`T`\]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:38
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0-alpha.1/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:39
 
 Convert an input to a specified type.
 Input of null/undefined returns null/undefined regardless of the output type.

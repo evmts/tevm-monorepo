@@ -6,20 +6,22 @@
 
 # Function: zeros()
 
-> **zeros**(`bytes`): `Uint8Array`
+> **zeros**(`length`): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:56
+Defined in: [packages/utils/src/ethereumjs.js:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/ethereumjs.js#L29)
 
-Returns a Uint8Array filled with 0s.
+Returns a Uint8Array filled with zeros of the specified length.
 
 ## Parameters
 
-### bytes
+### length
 
 `number`
 
-the number of bytes of the Uint8Array
+The length of the Uint8Array to create.
 
 ## Returns
 
-`Uint8Array`
+`Uint8Array`\<`ArrayBufferLike`\>
+
+A new Uint8Array filled with zeros.

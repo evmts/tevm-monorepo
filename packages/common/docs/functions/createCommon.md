@@ -81,10 +81,6 @@ Collection of contracts
 
 Custom chain data.
 
-### ethjsCommon
-
-> **ethjsCommon**: `Common`
-
 ### fees?
 
 > `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
@@ -147,6 +143,10 @@ Source Chain ID (ie. the L1 chain)
 
 Flag for test networks
 
+### vmConfig
+
+> **vmConfig**: `Common`
+
 ## Throws
 
 only if invalid params are passed
@@ -156,7 +156,7 @@ only if invalid params are passed
 ```typescript
 import { createCommon } from 'tevm/common'
 
-const common = createCommon({
+const common = cre e ateCommon({
  customCrypto: {},
  loggingLevel: 'debug',
  hardfork: 'london',
@@ -175,7 +175,7 @@ const common = createCommon({ ... })
 const commonCopy = common.copy()
 ```
 
-To use with ethereumjs use the ethjsCommon property
+To use with ethereumjs use the vmConfig property
 
 ```typescript
 import { VM } from '@ethereumjs/vm'
@@ -184,7 +184,7 @@ import { createMemoryClient } from 'tevm'
 const common = createCommon({ ... })
 
 const vm = new VM({
-  common: common.ethjsCommon,
+  common: common.vmConfig,
 })
 ```
 

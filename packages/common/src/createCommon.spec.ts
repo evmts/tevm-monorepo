@@ -103,14 +103,14 @@ describe(createCommon.name, () => {
 		const common = createCommon({ ...optimism, eips: customEIPs })
 
 		// Check default EIPs are still activated
-		expect(common.ethjsCommon.isActivatedEIP(1559)).toBe(true)
-		expect(common.ethjsCommon.isActivatedEIP(4788)).toBe(true)
-		expect(common.ethjsCommon.isActivatedEIP(4844)).toBe(true)
-		expect(common.ethjsCommon.isActivatedEIP(4895)).toBe(true)
+		expect(common.vmConfig.isActivatedEIP(1559)).toBe(true)
+		expect(common.vmConfig.isActivatedEIP(4788)).toBe(true)
+		expect(common.vmConfig.isActivatedEIP(4844)).toBe(true)
+		expect(common.vmConfig.isActivatedEIP(4895)).toBe(true)
 
 		// Check custom EIPs are also activated
-		expect(common.ethjsCommon.isActivatedEIP(2537)).toBe(true)
-		expect(common.ethjsCommon.isActivatedEIP(3074)).toBe(true)
+		expect(common.vmConfig.isActivatedEIP(2537)).toBe(true)
+		expect(common.vmConfig.isActivatedEIP(3074)).toBe(true)
 	})
 
 	it('wraps errors in InvalidParamsError', () => {

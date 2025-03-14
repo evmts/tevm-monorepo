@@ -8,7 +8,7 @@
 
 > **CliqueConfig**: `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:9
+Defined in: node\_modules/.pnpm/@ethereumjs+common@5.0.0-alpha.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:9
 
 ## Type declaration
 

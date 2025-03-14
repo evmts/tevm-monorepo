@@ -8,7 +8,7 @@
 
 > `const` **Rlp**: `object`
 
-Defined in: index.d.ts:34
+Defined in: index.d.ts:37
 
 ## Type declaration
 

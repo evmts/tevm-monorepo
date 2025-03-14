@@ -5,12 +5,19 @@ export {
 	type TypedTransaction,
 	type TxOptions,
 	TransactionType,
-	LegacyTransaction,
+	Capability,
+	// Transaction classes
+	LegacyTx,
 	AccessList2930Transaction,
 	FeeMarket1559Tx,
-	BlobEIP4844Transaction,
-	TransactionFactory,
-	Capability,
+	Blob4844Tx,
+	// Transaction factory methods
+	createTx,
+	createTxFromBlockBodyData,
+	createTxFromJSONRPCProvider,
+	createTxFromRLP,
+	createTxFromRPC,
+	// Transaction type checks
 	isAccessList2930Tx,
 	isBlob4844Tx,
 	isFeeMarket1559Tx,

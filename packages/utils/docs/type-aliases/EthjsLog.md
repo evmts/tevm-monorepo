@@ -8,6 +8,6 @@
 
 > **EthjsLog**: \[`Uint8Array`, `Uint8Array`[], `Uint8Array`\]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:336
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@4.0.0-alpha.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:399
 
 Log that the contract emits.

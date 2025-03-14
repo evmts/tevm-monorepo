@@ -6,7 +6,7 @@
 
 # Enumeration: ConsensusType
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:42
+Defined in: node\_modules/.pnpm/@ethereumjs+common@5.0.0-alpha.1/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:42
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > **ProofOfAuthority**: `"poa"`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:45
+Defined in: node\_modules/.pnpm/@ethereumjs+common@5.0.0-alpha.1/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:45
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > **ProofOfStake**: `"pos"`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:43
+Defined in: node\_modules/.pnpm/@ethereumjs+common@5.0.0-alpha.1/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:43
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 > **ProofOfWork**: `"pow"`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:44
+Defined in: node\_modules/.pnpm/@ethereumjs+common@5.0.0-alpha.1/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:44

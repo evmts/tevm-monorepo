@@ -8,7 +8,7 @@
 
 > **randomBytes**(`length`): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:193
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0-alpha.1/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:184
 
 Generates a Uint8Array of random bytes of specified length.
 

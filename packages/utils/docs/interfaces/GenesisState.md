@@ -6,7 +6,7 @@
 
 # Interface: GenesisState
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/genesis.d.ts:33
+Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0-alpha.1/node\_modules/@ethereumjs/util/dist/esm/genesis.d.ts:33
 
 If you are using a custom chain Common, pass the genesis state.
 
