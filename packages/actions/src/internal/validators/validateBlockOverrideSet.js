@@ -13,19 +13,21 @@ export const validateBlockOverrideSet = (value) => {
 		}
 	}
 
+	/** @type {Array<{path: string, message: string}>} */
 	const errors = []
 
 	// Define the bigint fields that must be non-negative
 	const bigintFields = ['number', 'time', 'gasLimit', 'baseFee', 'blobBaseFee']
 
 	for (const field of bigintFields) {
-		if (field in value && value[field] !== undefined) {
-			if (typeof value[field] !== 'bigint') {
+		if (field in value && (/** @type {{[key: string]: any}} */ (value))[field] !== undefined) {
+			const fieldValue = (/** @type {{[key: string]: any}} */ (value))[field]
+			if (typeof fieldValue !== 'bigint') {
 				errors.push({
 					path: field,
 					message: `${field} must be a bigint`,
 				})
-			} else if (value[field] < 0n) {
+			} else if (fieldValue < 0n) {
 				errors.push({
 					path: field,
 					message: `${field} must be non-negative`,
@@ -35,8 +37,8 @@ export const validateBlockOverrideSet = (value) => {
 	}
 
 	// Validate coinbase if present
-	if ('coinbase' in value && value.coinbase !== undefined) {
-		const coinbaseValidation = validateAddress(value.coinbase)
+	if ('coinbase' in value && (/** @type {{coinbase?: unknown}} */ (value)).coinbase !== undefined) {
+		const coinbaseValidation = validateAddress((/** @type {{coinbase?: unknown}} */ (value)).coinbase)
 		if (!coinbaseValidation.isValid) {
 			errors.push({
 				path: 'coinbase',

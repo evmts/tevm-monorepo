@@ -2,6 +2,15 @@ import { validateAddress } from './validateAddress.js'
 import { validateHex } from './validateHex.js'
 
 /**
+ * @typedef {Object} StateOverrideEntry
+ * @property {bigint} [balance]
+ * @property {bigint} [nonce]
+ * @property {string} [code]
+ * @property {Object<string, string>} [state]
+ * @property {Object<string, string>} [stateDiff]
+ */
+
+/**
  * Validates if a value is a valid state override set
  * @param {unknown} value - The value to validate
  * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
@@ -14,6 +23,7 @@ export const validateStateOverrideSet = (value) => {
 		}
 	}
 
+	/** @type {Array<{path: string, message: string}>} */
 	const errors = []
 
 	// Check each address key
@@ -28,7 +38,7 @@ export const validateStateOverrideSet = (value) => {
 			continue // Skip validating this entry if address is invalid
 		}
 
-		const entry = value[addr]
+		const entry = (/** @type {Record<string, unknown>} */(value))[addr]
 
 		// Entry must be an object
 		if (typeof entry !== 'object' || entry === null) {
@@ -39,14 +49,17 @@ export const validateStateOverrideSet = (value) => {
 			continue
 		}
 
+		// Cast entry to expected type for validation
+		const typedEntry = /** @type {Record<string, unknown>} */(entry)
+
 		// Validate balance if present
-		if ('balance' in entry && entry.balance !== undefined) {
-			if (typeof entry.balance !== 'bigint') {
+		if ('balance' in typedEntry && typedEntry['balance'] !== undefined) {
+			if (typeof typedEntry['balance'] !== 'bigint') {
 				errors.push({
 					path: `${addr}.balance`,
 					message: 'balance must be a bigint',
 				})
-			} else if (entry.balance < 0n) {
+			} else if (typedEntry['balance'] < 0n) {
 				errors.push({
 					path: `${addr}.balance`,
 					message: 'balance must be non-negative',
@@ -55,13 +68,13 @@ export const validateStateOverrideSet = (value) => {
 		}
 
 		// Validate nonce if present
-		if ('nonce' in entry && entry.nonce !== undefined) {
-			if (typeof entry.nonce !== 'bigint') {
+		if ('nonce' in typedEntry && typedEntry['nonce'] !== undefined) {
+			if (typeof typedEntry['nonce'] !== 'bigint') {
 				errors.push({
 					path: `${addr}.nonce`,
 					message: 'nonce must be a bigint',
 				})
-			} else if (entry.nonce < 0n) {
+			} else if (typedEntry['nonce'] < 0n) {
 				errors.push({
 					path: `${addr}.nonce`,
 					message: 'nonce must be non-negative',
@@ -70,8 +83,8 @@ export const validateStateOverrideSet = (value) => {
 		}
 
 		// Validate code if present
-		if ('code' in entry && entry.code !== undefined) {
-			const codeValidation = validateHex(entry.code)
+		if ('code' in typedEntry && typedEntry['code'] !== undefined) {
+			const codeValidation = validateHex(typedEntry['code'])
 			if (!codeValidation.isValid) {
 				errors.push({
 					path: `${addr}.code`,
@@ -83,8 +96,8 @@ export const validateStateOverrideSet = (value) => {
 		// Validate state and stateDiff if present
 		const stateFields = ['state', 'stateDiff']
 		for (const field of stateFields) {
-			if (field in entry && entry[field] !== undefined) {
-				if (typeof entry[field] !== 'object' || entry[field] === null) {
+			if (field in typedEntry && typedEntry[field] !== undefined) {
+				if (typeof typedEntry[field] !== 'object' || typedEntry[field] === null) {
 					errors.push({
 						path: `${addr}.${field}`,
 						message: `${field} must be an object`,
@@ -93,7 +106,8 @@ export const validateStateOverrideSet = (value) => {
 				}
 
 				// Validate each key-value pair in state/stateDiff
-				for (const key in entry[field]) {
+				const stateObj = /** @type {Record<string, unknown>} */(typedEntry[field])
+				for (const key in stateObj) {
 					const keyValidation = validateHex(key)
 					if (!keyValidation.isValid) {
 						errors.push({
@@ -102,7 +116,7 @@ export const validateStateOverrideSet = (value) => {
 						})
 					}
 
-					const valueValidation = validateHex(entry[field][key])
+					const valueValidation = validateHex(stateObj[key])
 					if (!valueValidation.isValid) {
 						errors.push({
 							path: `${addr}.${field}.${key}`,

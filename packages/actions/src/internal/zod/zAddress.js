@@ -5,8 +5,15 @@ import { validateAddress } from '../validators/validateAddress.js'
  */
 export { validateAddress }
 
-// For backward compatibility
+/**
+ * For backward compatibility with Zod interface
+ * @type {{parse: (value: unknown) => any}}
+ */
 export const zAddress = {
+	/**
+	 * @param {unknown} value
+	 * @returns {any}
+	 */
 	parse: (value) => {
 		const validation = validateAddress(value)
 		if (!validation.isValid) {

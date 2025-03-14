@@ -1,6 +1,5 @@
 import type { Abi } from 'abitype'
 import { expect, test } from 'vitest'
-import type { z } from 'zod'
 import { zAbi } from './zAbi.js'
 
 test('zAbi', () => {
@@ -18,6 +17,6 @@ test('zAbi', () => {
 			stateMutability: 'pure',
 			type: 'function',
 		},
-	] as const satisfies z.infer<typeof zAbi> satisfies Abi
+	] as const satisfies Abi
 	expect(zAbi.parse(abi)).toEqual(abi)
 })
