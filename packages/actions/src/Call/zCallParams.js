@@ -2,11 +2,12 @@ import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { validateHex } from '../internal/zod/zHex.js'
 
 /**
- * Validates call parameters
+ * Validates call parameters - internal implementation used by zCallParams
  * @param {unknown} params - The parameters to validate
  * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
+ * @internal
  */
-export const validateCallParams = (params) => {
+const validateCallParamsInternal = (params) => {
 	if (typeof params !== 'object' || params === null) {
 		return {
 			isValid: false,
@@ -75,7 +76,7 @@ export const validateCallParams = (params) => {
 // For backward compatibility
 export const zCallParams = {
 	parse: (params) => {
-		const validation = validateCallParams(params)
+		const validation = validateCallParamsInternal(params)
 		if (!validation.isValid) {
 			// Format the error message based on specific conditions
 			if (params && 'code' in params && 'deployedBytecode' in params) {
@@ -92,7 +93,7 @@ export const zCallParams = {
 		return params
 	},
 	safeParse: (params) => {
-		const validation = validateCallParams(params)
+		const validation = validateCallParamsInternal(params)
 		if (validation.isValid) {
 			return { success: true, data: params }
 		}

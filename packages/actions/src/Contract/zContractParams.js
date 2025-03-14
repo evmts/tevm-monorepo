@@ -8,7 +8,7 @@ import { validateHex } from '../internal/validators/validateHex.js'
  * @param {unknown} value - The value to validate
  * @returns {{ isValid: boolean, errors: Array<Error> }} - Validation result
  */
-export const validateContractParams = (value) => {
+const validateContractParamsInternal = (value) => {
 	// First get base call params validation errors
 	const baseErrors = validateBaseCallParams(value)
 
@@ -93,14 +93,14 @@ export const validateContractParams = (value) => {
 // For backward compatibility
 export const zContractParams = {
 	parse: (value) => {
-		const validation = validateContractParams(value)
+		const validation = validateContractParamsInternal(value)
 		if (!validation.isValid) {
 			throw new Error(validation.errors[0]?.message || 'Invalid contract parameters')
 		}
 		return value
 	},
 	safeParse: (value) => {
-		const validation = validateContractParams(value)
+		const validation = validateContractParamsInternal(value)
 		if (validation.isValid) {
 			return { success: true, data: value }
 		}
