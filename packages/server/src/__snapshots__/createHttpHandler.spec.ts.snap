@@ -29,10 +29,10 @@ Version: 1.1.0.next-73",
 `;
 
 exports[`createHttpHandler > should return 400 for invalid JSON 1`] = `
-"Expected ',' or '}' after property value in JSON at position 57
+"Expected ',' or '}' after property value in JSON at position 57 (line 1 column 58)
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidjsonerror/
-Details: Expected ',' or '}' after property value in JSON at position 57
+Details: Expected ',' or '}' after property value in JSON at position 57 (line 1 column 58)
 Version: 1.1.0.next-73"
 `;
 

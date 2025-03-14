@@ -1,10 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`parseRequest > should return InvalidJsonError for invalid JSON 1`] = `
-"Expected ',' or '}' after property value in JSON at position 57
+"Expected ',' or '}' after property value in JSON at position 57 (line 1 column 58)
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidjsonerror/
-Details: Expected ',' or '}' after property value in JSON at position 57
+Details: Expected ',' or '}' after property value in JSON at position 57 (line 1 column 58)
 Version: 1.1.0.next-73"
 `;
 
