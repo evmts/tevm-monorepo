@@ -1,7 +1,7 @@
 'use strict';
 
-var compiler = require('@tevm/compiler');
 var url = require('url');
+var compiler = require('@tevm/compiler');
 
 // src/index.js
 var inlineCounter = 0;
@@ -47,7 +47,7 @@ var sol = (strings, ...values) => {
     );
     return contract;
   } catch (error2) {
-    console.error(`Error compiling inline Solidity:`, error2);
+    console.error("Error compiling inline Solidity:", error2);
     throw error2;
   }
 };
