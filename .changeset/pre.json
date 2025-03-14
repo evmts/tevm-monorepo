@@ -73,7 +73,8 @@
     "tevm-run": "0.0.1",
     "@tevm/whatsabi": "0.0.0-next.96",
     "@tevm/bundler-docs": "0.0.0",
-    "@tevm/node-docs": "0.0.0"
+    "@tevm/node-docs": "0.0.0",
+    "@tevm/my-rust-node-lib": "0.0.0"
   },
   "changesets": [
     "afraid-apples-turn",
@@ -206,6 +207,7 @@
     "forty-trees-refuse",
     "four-cheetahs-begin",
     "four-terms-beg",
+    "fresh-apples-reply",
     "fresh-lemons-decide",
     "friendly-mangos-beam",
     "funny-drinks-brush",
@@ -362,6 +364,7 @@
     "rare-comics-clap",
     "rare-dodos-melt",
     "rare-numbers-grin",
+    "real-chairs-search",
     "real-dots-bow",
     "real-drinks-report",
     "real-seahorses-fail",
@@ -459,6 +462,7 @@
     "tasty-toes-cough",
     "ten-apricots-sell",
     "ten-cherries-relax",
+    "ten-flies-dream",
     "ten-sloths-lick",
     "tender-buttons-hammer",
     "thick-falcons-type",
