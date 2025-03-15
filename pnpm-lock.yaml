@@ -473,9 +473,18 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../packages/actions
+      '@tevm/base-bundler':
+        specifier: workspace:^
+        version: link:../bundler-packages/base-bundler
+      '@tevm/bundler-cache':
+        specifier: workspace:^
+        version: link:../bundler-packages/bundler-cache
       '@tevm/common':
         specifier: workspace:^
         version: link:../packages/common
+      '@tevm/config':
+        specifier: workspace:^
+        version: link:../bundler-packages/config
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../packages/jsonrpc
@@ -488,12 +497,21 @@ importers:
       '@tevm/utils':
         specifier: workspace:^
         version: link:../packages/utils
+      '@types/glob':
+        specifier: ^8.1.0
+        version: 8.1.0
       '@types/json-bigint':
         specifier: ^1.0.4
         version: 1.0.4
+      effect:
+        specifier: 3.13.2
+        version: 3.13.2
       figures:
         specifier: ^6.1.0
         version: 6.1.0
+      glob:
+        specifier: ^11.0.1
+        version: 11.0.1
       ink:
         specifier: ^4.1.0
         version: 4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
@@ -521,6 +539,9 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.3.1
+      solc:
+        specifier: ^0.8.23
+        version: 0.8.28
       tiny-jsonc:
         specifier: ^1.0.2
         version: 1.0.2
@@ -5500,6 +5521,9 @@ packages:
   '@types/express@5.0.0':
     resolution: {integrity: sha512-DvZriSMehGHL1ZNLzi6MidnsDhUZM/x2pRdDIKdwbUNqqwHxMlRdkxtn6/EPKyqKpHqTl/4nRZsRNLpZxZRpPQ==}
 
+  '@types/glob@8.1.0':
+    resolution: {integrity: sha512-IO+MJPVhoqz+28h1qLAcBEH2+xHMK6MTyHJc7MTnnYb6wsoLR29POVGJ7LycmVXIqyy/4/2ShP5sUwTXuOwb/w==}
+
   '@types/gradient-string@1.1.6':
     resolution: {integrity: sha512-LkaYxluY4G5wR1M4AKQUal2q61Di1yVVCw42ImFTuaIoQVgmV0WP1xUaLB8zwb47mp82vWTpePI9JmrjEnJ7nQ==}
 
@@ -6525,6 +6549,7 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -17298,6 +17323,11 @@ snapshots:
       '@types/express-serve-static-core': 5.0.6
       '@types/qs': 6.9.18
       '@types/serve-static': 1.15.7
+
+  '@types/glob@8.1.0':
+    dependencies:
+      '@types/minimatch': 5.1.2
+      '@types/node': 22.13.10
 
   '@types/gradient-string@1.1.6':
     dependencies:
