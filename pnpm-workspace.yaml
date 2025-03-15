@@ -2,6 +2,7 @@ packages:
   - bundler-packages/*
   - bundler
   - configs/*
+  - cli
   - docs/*
   - examples/*
   - extensions/*
@@ -11,8 +12,8 @@ packages:
   - tevm
   - test/*
 onlyBuiltDependencies:
-  - '@biomejs/biome'
-  - '@swc/core'
+  - "@biomejs/biome"
+  - "@swc/core"
   - bufferutil
   - bun
   - esbuild

@@ -443,6 +443,7 @@
     "@tevm/solc": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/sync-storage-persister": "workspace:^",
+    "@tevm/cli": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
     "@tevm/tx": "workspace:^",
     "@tevm/txpool": "workspace:^",

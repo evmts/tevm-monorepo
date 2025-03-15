@@ -2,6 +2,7 @@ ignores: [
   "@tevm/bundler-cache",
   "commander",
   "effect",
+  "@tevm/ts-plugin",
   "glob",
   "solc"
 ]
