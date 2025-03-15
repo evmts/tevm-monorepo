@@ -94,6 +94,7 @@ type Props = {
 export default function Generate({ args, options }: Props) {
   const [type, name] = args;
   const [isGenerating, setIsGenerating] = useState(false);
+  const [currentTask, setCurrentTask] = useState<string>('');
   const [result, setResult] = useState<{
     success: boolean;
     files: string[];
@@ -134,6 +135,7 @@ export default function Generate({ args, options }: Props) {
         });
       } finally {
         setIsGenerating(false);
+        setCurrentTask('');
       }
     };
 
@@ -144,20 +146,36 @@ export default function Generate({ args, options }: Props) {
       const generatedFiles: string[] = [];
 
       if (options.verbose) {
-        console.log('Generating types from contracts...', { dir: cwd, include: includePatterns });
+        console.log('Generating types from contracts...', { dir: cwd, include: includePatterns, name });
       }
 
       try {
-        const files = glob.sync(includePatterns, { cwd });
+        setCurrentTask('Searching for Solidity files...');
+        let files = glob.sync(includePatterns, { cwd });
 
-        if (files.length === 0) {
-          throw new Error('No files found matching the provided patterns');
+        // Filter files by name if provided
+        if (name) {
+          const namePattern = name.includes('*') ? name : `*${name}*`;
+          const nameRegex = new RegExp(namePattern.replace(/\*/g, '.*'));
+          files = files.filter(file => {
+            const fileName = path.basename(file);
+            return nameRegex.test(fileName);
+          });
         }
 
+        if (files.length === 0) {
+          throw new Error(`No files found matching the provided patterns${name ? ` and name "${name}"` : ''}`);
+        }
+
+        setCurrentTask(`Found ${files.length} files. Starting type generation...`);
+
         // Process each file using the Tevm bundler
-        for (const file of files) {
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i]!; // Non-null assertion as we're iterating within bounds
+          setCurrentTask(`Processing file ${i + 1}/${files.length}: ${file}`);
+
           try {
-            const fileName = file.split('/').pop() as string;
+            const fileName = path.basename(file);
             const fileDir = path.dirname(file);
             const outputPath = options.output
               ? path.join(options.output, `${fileName}.ts`)
@@ -170,8 +188,13 @@ export default function Generate({ args, options }: Props) {
 
             // Actual implementation using Tevm bundler
             try {
+              setCurrentTask(`Loading config for ${fileName}...`);
               const config = runSync(loadConfig(cwd));
+
+              setCurrentTask(`Creating cache for ${fileName}...`);
               const solcCache = createCache(config.cacheDir, fao, cwd);
+
+              setCurrentTask(`Bundling ${fileName}...`);
               const plugin = bundler(config, console, fao, solc, solcCache, '@tevm/contract');
               const tsContent = await plugin.resolveTsModule(`./${file}`, cwd, false, true);
 
@@ -182,6 +205,7 @@ export default function Generate({ args, options }: Props) {
               }
 
               // Write the generated TypeScript file
+              setCurrentTask(`Writing types to ${outputPath}...`);
               await writeFile(outputPath, tsContent.code);
               generatedFiles.push(outputPath);
 
@@ -189,7 +213,12 @@ export default function Generate({ args, options }: Props) {
                 console.log(`Generated: ${outputPath}`);
               }
             } catch (bundlerError) {
-              errors.push(`Bundler error processing ${file}: ${bundlerError instanceof Error ? bundlerError.message : String(bundlerError)}`);
+              const errorMessage = bundlerError instanceof Error ? bundlerError.message : String(bundlerError);
+              errors.push(`Bundler error processing ${file}: ${errorMessage}`);
+              // Log the full error in verbose mode for debugging
+              if (options.verbose) {
+                console.error(`Detailed error for ${file}:`, bundlerError);
+              }
             }
           } catch (err) {
             errors.push(`Error processing ${file}: ${err instanceof Error ? err.message : String(err)}`);
@@ -222,6 +251,11 @@ export default function Generate({ args, options }: Props) {
           </Text>
           <Text> Generating {type} {name ? `"${name}"` : "files"}{options.force ? ' (force)' : ''}</Text>
         </Box>
+        {currentTask && (
+          <Box marginTop={1}>
+            <Text dimColor>{currentTask}</Text>
+          </Box>
+        )}
       </Box>
     );
   }
