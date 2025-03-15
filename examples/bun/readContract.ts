@@ -1,25 +1,44 @@
-import { http, createPublicClient } from 'viem'
-import { optimismGoerli } from 'viem/chains'
-import { ExampleContract } from './ExampleContract.sol'
+import { createMemoryClient } from 'tevm/memory-client'
+import { http } from 'tevm/jsonrpc'
+import { ERC20 } from 'tevm/contract'
 
-const addresses = {
-	'1': '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-	'420': '0x1df10ec981ac5871240be4a94f250dd238b77901',
-}
+// Default values that can be overridden
+const defaultAddress = '0x0000000000000000000000000000000000000000'
+const defaultAccount = '0x0000000000000000000000000000000000000000'
+const defaultRpcUrl = 'http://localhost:8545'
 
-export const publicClient = createPublicClient({
-	chain: optimismGoerli,
-	transport: http('https://goerli.optimism.io'),
+// Create a TEVM client with fork from specified RPC
+export const client = createMemoryClient({
+	fork: {
+		transport: http(process.env.RPC_URL || defaultRpcUrl)
+	}
 })
 
-const defaultOwner = '0x8f0ebdaa1cf7106be861753b0f9f5c0250fe0819'
-
-export const readContract = (owner = defaultOwner) =>
-	publicClient.readContract({
-		address: addresses[420],
-		...ExampleContract.read({ chainId: optimismGoerli.id }).balanceOf(owner),
+/**
+ * Read contract data using TEVM
+ * @param address - Contract address (defaults to zero address)
+ * @param account - Account to check balance for (defaults to zero address)
+ * @param abi - Contract ABI (defaults to ERC20 ABI)
+ * @param functionName - Function to call (defaults to 'balanceOf')
+ * @returns Promise with the contract call result
+ */
+export const readContract = async ({
+	address = defaultAddress,
+	account = defaultAccount,
+	abi = ERC20.abi,
+	functionName = 'balanceOf'
+} = {}) => {
+	return client.readContract({
+		address,
+		abi,
+		functionName,
+		args: [account]
 	})
+}
 
+// Execute if run directly
 if (import.meta.main) {
-	readContract().then(console.log)
+	readContract()
+		.then(result => console.log(JSON.stringify(result, null, 2)))
+		.catch(error => console.error('Error:', error))
 }

@@ -10,6 +10,7 @@ export interface CliActionProps {
   // Loading states
   isInteractiveLoading?: boolean
   isActionLoading?: boolean
+  isInstallingDeps?: boolean
 
   // Errors
   interactiveError?: Error | null
@@ -20,22 +21,40 @@ export interface CliActionProps {
   actionName?: string
   targetName?: string // Name of the target (address, contract, etc.)
   successMessage?: string
+
+  // Editor state
+  editorActive?: boolean // Add this new flag
 }
 
 export default function CliAction({
   formattedResult,
   isInteractiveLoading,
   isActionLoading,
+  isInstallingDeps,
   interactiveError,
   actionError,
   targetName,
   successMessage = 'Action executed successfully!',
+  editorActive = false, // Check for this flag
 }: CliActionProps) {
+  // If editor is active, render absolutely nothing
+  if (editorActive) {
+    return null;
+  }
+
+  // Regular rendering logic continues...
   // Show loading state for interactive mode
   if (isInteractiveLoading) {
     return (
       <Box>
         <Text>Opening parameters in your editor...</Text>
+        {isInstallingDeps && (
+          <Box marginTop={1}>
+            <Text>
+              <Spinner type="dots" /> Installing dependencies in the background...
+            </Text>
+          </Box>
+        )}
       </Box>
     )
   }
@@ -52,10 +71,17 @@ export default function CliAction({
   // Show loading state for action
   if (isActionLoading) {
     return (
-      <Box>
+      <Box flexDirection="column">
         <Text>
           <Spinner type="dots" /> {targetName ? `Processing ${targetName}...` : 'Executing...'}
         </Text>
+        {isInstallingDeps && (
+          <Box marginTop={1}>
+            <Text>
+              <Spinner type="dots" /> Installing dependencies...
+            </Text>
+          </Box>
+        )}
       </Box>
     )
   }

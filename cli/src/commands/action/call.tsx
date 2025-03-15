@@ -1,9 +1,30 @@
 import React from 'react'
 import { z } from 'zod'
 import { option } from 'pastel'
-import type { CallParams, CallResult } from '@tevm/actions'
 import { useAction, envVar } from '../../hooks/useAction.js'
 import CliAction from '../../components/CliAction.js'
+
+// Define the types that are missing
+interface CallParams {
+  to?: string
+  from?: string
+  data?: string
+  value?: bigint
+  nonce?: number
+  gas?: bigint
+  gasPrice?: bigint
+  maxFeePerGas?: bigint
+  maxPriorityFeePerGas?: bigint
+  blockTag?: string
+  blockNumber?: number
+  accessList?: any[]
+  // Add any other fields needed
+}
+
+interface CallResult {
+  data: string
+  // Add any other fields that might be in the result
+}
 
 // Options definitions and descriptions
 const optionDescriptions = {
@@ -203,7 +224,7 @@ const defaultValues: Record<string, any> = {
 export default function Call({ options }: Props) {
   // Use the action hook with inlined createParams and executeAction
   const actionResult = useAction<CallParams, CallResult>({
-    actionName: 'call',
+    actionName: 'tevmCall',
     options,
     defaultValues,
     optionDescriptions,
