@@ -73,8 +73,8 @@ export function useAction<TParams, TResult>({
 
         // Add all options to params object
         Object.entries(optionDescriptions).forEach(([key, _]) => {
-          // Skip interactive and formatJson which are UI-specific
-          if (key === 'interactive' || key === 'formatJson') return;
+          // Skip run and formatJson which are UI-specific
+          if (key === 'run' || key === 'formatJson') return;
 
           // Get the value, using the base option, default value, or null
           const value = (baseOptions as any)[key] ?? defaultValues[key] ?? null;
@@ -90,7 +90,7 @@ export function useAction<TParams, TResult>({
         throw new Error(`Failed to process parameters: ${error instanceof Error ? error.message : String(error)}`);
       }
     },
-    enabled: options['interactive'] === true,
+    enabled: options['run'] !== true,
     retry: false,
   })
 
@@ -125,7 +125,7 @@ export function useAction<TParams, TResult>({
 
       return result
     },
-    enabled: !options['interactive'] || isInteractiveSuccess,
+    enabled: options['run'] === true || isInteractiveSuccess,
     retry: false,
   })
 

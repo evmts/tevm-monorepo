@@ -28,11 +28,11 @@ export const options = z.object({
     })
   ),
 
-  // Interactive mode
-  interactive: z.boolean().default(false).describe(
+  // Interactive mode flag (run directly without interactive editor)
+  run: z.boolean().default(false).describe(
     option({
-      description: 'Open parameters in your editor before executing (env: TEVM_INTERACTIVE)',
-      alias: 'i',
+      description: 'Run directly without interactive parameter editing (env: TEVM_RUN)',
+      alias: 'r',
     })
   ),
 
