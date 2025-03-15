@@ -360,7 +360,7 @@
   "module": "index.js",
   "types": "index.d.ts",
   "bin": {
-    "tevm": "./bin/tevm.js",
+    "tevm": "./node_modules/@tevm/cli/dist/bin/tevm.js",
     "tevm-gen": "./node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js"
   },
   "files": [
