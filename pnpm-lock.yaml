@@ -467,22 +467,70 @@ importers:
 
   cli:
     dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.67.3
+        version: 5.67.3(react@18.3.1)
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../packages/actions
+      '@tevm/jsonrpc':
+        specifier: workspace:^
+        version: link:../packages/jsonrpc
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../packages/memory-client
+      '@types/json-bigint':
+        specifier: ^1.0.4
+        version: 1.0.4
+      figures:
+        specifier: ^6.1.0
+        version: 6.1.0
       ink:
         specifier: ^4.1.0
         version: 4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      ink-big-text:
+        specifier: ^2.0.0
+        version: 2.0.0(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
+      ink-gradient:
+        specifier: ^3.0.0
+        version: 3.0.0(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))
+      ink-select-input:
+        specifier: ^5.0.0
+        version: 5.0.0(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
+      ink-spinner:
+        specifier: ^5.0.0
+        version: 5.0.0(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
+      ink-text-input:
+        specifier: ^5.0.1
+        version: 5.0.1(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
+      json-bigint:
+        specifier: ^1.0.0
+        version: 1.0.0
       pastel:
         specifier: ^2.0.0
         version: 2.0.2(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(zod@3.24.2)
       react:
         specifier: ^18.2.0
         version: 18.3.1
+      tiny-jsonc:
+        specifier: ^1.0.2
+        version: 1.0.2
       zod:
         specifier: ^3.21.4
         version: 3.24.2
+      zustand:
+        specifier: ^4.5.6
+        version: 4.5.6(@types/react@18.3.18)(react@18.3.1)
     devDependencies:
       '@sindresorhus/tsconfig':
         specifier: ^3.0.1
         version: 3.0.1
+      '@types/ink-big-text':
+        specifier: ^1.2.4
+        version: 1.2.4
+      '@types/ink-gradient':
+        specifier: ^2.0.4
+        version: 2.0.4
       '@types/react':
         specifier: ^18.0.32
         version: 18.3.18
@@ -5443,17 +5491,29 @@ packages:
   '@types/express@5.0.0':
     resolution: {integrity: sha512-DvZriSMehGHL1ZNLzi6MidnsDhUZM/x2pRdDIKdwbUNqqwHxMlRdkxtn6/EPKyqKpHqTl/4nRZsRNLpZxZRpPQ==}
 
+  '@types/gradient-string@1.1.6':
+    resolution: {integrity: sha512-LkaYxluY4G5wR1M4AKQUal2q61Di1yVVCw42ImFTuaIoQVgmV0WP1xUaLB8zwb47mp82vWTpePI9JmrjEnJ7nQ==}
+
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
 
   '@types/http-errors@2.0.4':
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
 
+  '@types/ink-big-text@1.2.4':
+    resolution: {integrity: sha512-l2w9oY0imuafnJapYFcWwJezY2aOSm3dtFQipHzPUjLOxsW3kLODeyIzxM/6pdBdD68V+sc5xavEXRn3ZAUD3w==}
+
+  '@types/ink-gradient@2.0.4':
+    resolution: {integrity: sha512-cE89zTHJSYfqdSwmDuGQHVCmhpHHR6eciJ4hGYAA7HA+2d7NaTwGnrEGuAt6CFG83cxxa/D2/9IWFans5MneJw==}
+
   '@types/js-cookie@2.2.7':
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
 
   '@types/js-yaml@4.0.9':
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
+
+  '@types/json-bigint@1.0.4':
+    resolution: {integrity: sha512-ydHooXLbOmxBbubnA7Eh+RpBzuaIiQjh8WGJYQB50JFGFrdxW7JzVlyEV7fAXw0T2sqJ1ysTneJbiyNLqZRAag==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -5567,6 +5627,9 @@ packages:
 
   '@types/supertest@6.0.2':
     resolution: {integrity: sha512-137ypx2lk/wTQbW6An6safu9hXmajAifU/s7szAHLN/FeIm5w7yR0Wkl9fdJMRSHwOn4HLAI0DaB2TOORuhPDg==}
+
+  '@types/tinycolor2@1.4.6':
+    resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -6078,6 +6141,10 @@ packages:
     resolution: {integrity: sha512-L3hKV5R/p5o81R7O02IGnwpDmkp6E982XhtbuwSe3O4qOtMMMtodicASA1Cny2U+aCXcNpml+m4dPsvsJ3jatg==}
     engines: {node: '>=0.10.0'}
 
+  arr-rotate@1.0.0:
+    resolution: {integrity: sha512-yOzOZcR9Tn7enTF66bqKorGGH0F36vcPaSWg8fO0c0UYb3LX3VMXj5ZxEqQLNOecAhlRJ7wYZja5i4jTlnbIfQ==}
+    engines: {node: '>=4'}
+
   arr-union@3.1.0:
     resolution: {integrity: sha512-sKpyeERZ02v1FeCZT8lrfJq5u6goHCtpTAzPwJYe7c8SPFOboNjNg1vz2L4VTn9T4PQxEx13TbXLmYUcS6Ug7Q==}
     engines: {node: '>=0.10.0'}
@@ -6307,6 +6374,9 @@ packages:
     resolution: {integrity: sha512-jOTSb+drvEDxEq6OuUybOAv/xxoh3cuYRUIPyu8sSHQNKM303UQ2R1DAo45o1AkcIXw6fzbaFI1+xGGdaXs2lg==}
     engines: {node: '>=14.0.0'}
 
+  bignumber.js@9.1.2:
+    resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
+
   binary-extensions@1.13.1:
     resolution: {integrity: sha512-Un7MIEDdUC5gNpcGDV97op1Ywk748MpHcFTHoYs6qnj1Z3j7I53VG3nwZhKzoBZmbdRNnb6WRdFlwl7tSDuZGw==}
     engines: {node: '>=0.10.0'}
@@ -6446,6 +6516,7 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -6533,6 +6604,11 @@ packages:
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
+
+  cfonts@3.3.0:
+    resolution: {integrity: sha512-RlVxeEw2FXWI5Bs9LD0/Ef3bsQIc9m6lK/DINN20HIW0Y0YHUO2jjy88cot9YKZITiRTCdWzTfLmTyx47HeSLA==}
+    engines: {node: '>=10'}
+    hasBin: true
 
   chai@5.2.0:
     resolution: {integrity: sha512-mCuXncKXk5iCLhfhwTc0izo0gtEmpz5CtG2y8GiOINBlMVS6v8TMRc5TaLWKS6692m9+dVVfzgeVxR5UxWHTYw==}
@@ -8004,6 +8080,10 @@ packages:
     resolution: {integrity: sha512-ej8ksPF4x6e5wvK9yevct0UCXh8TTFlWGVLlgjZuoBH1HwjIfKE/IdL5mq89sFA7zELi1VhKpmtDnrs7zWyeyg==}
     engines: {node: '>=14'}
 
+  figures@6.1.0:
+    resolution: {integrity: sha512-d+l3qxjSesT4V7v2fh+QnmFnUWv9lSpjarhShNTgBOfA0ttejbQUAlHLitbjkoRiDulW0OPoQPYIGhIC8ohejg==}
+    engines: {node: '>=18'}
+
   file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
     engines: {node: ^10.12.0 || >=12.0.0}
@@ -8346,6 +8426,10 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  gradient-string@2.0.2:
+    resolution: {integrity: sha512-rEDCuqUQ4tbD78TpzsMtt5OIf0cBCSDWSJtUDaF6JsAh+k0v9r++NzxNEG87oDZx9ZwGhD8DaezR2L/yrw0Jdw==}
+    engines: {node: '>=10'}
+
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
@@ -8662,6 +8746,33 @@ packages:
     resolution: {integrity: sha512-QQnnxNyfvmHFIsj7gkPcYymR8Jdw/o7mp5ZFihxn6h8Ci6fh3Dx4E1gPjpQEpIuPo9XVNY/ZUwh4BPMjGyL01g==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
+  ink-big-text@2.0.0:
+    resolution: {integrity: sha512-Juzqv+rIOLGuhMJiE50VtS6dg6olWfzFdL7wsU/EARSL5Eaa5JNXMogMBm9AkjgzO2Y3UwWCOh87jbhSn8aNdw==}
+    engines: {node: '>=14.16'}
+    peerDependencies:
+      ink: '>=4'
+      react: '>=18'
+
+  ink-gradient@3.0.0:
+    resolution: {integrity: sha512-OVyPBovBxE1tFcBhSamb+P1puqDP6pG3xFe2W9NiLgwUZd9RbcjBeR7twLbliUT9navrUstEf1ZcPKKvx71BsQ==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      ink: '>=4'
+
+  ink-select-input@5.0.0:
+    resolution: {integrity: sha512-VkLEogN3KTgAc0W/u9xK3+44x8JyKfmBvPQyvniJ/Hj0ftg9vWa/YecvZirevNv2SAvgoA2GIlTLCQouzgPKDg==}
+    engines: {node: '>=14.16'}
+    peerDependencies:
+      ink: ^4.0.0
+      react: ^18.0.0
+
+  ink-spinner@5.0.0:
+    resolution: {integrity: sha512-EYEasbEjkqLGyPOUc8hBJZNuC5GvXGMLu0w5gdTNskPc7Izc5vO3tdQEYnzvshucyGCBXc86ig0ujXPMWaQCdA==}
+    engines: {node: '>=14.16'}
+    peerDependencies:
+      ink: '>=4.0.0'
+      react: '>=18.0.0'
+
   ink-testing-library@3.0.0:
     resolution: {integrity: sha512-ItyyoOmcm6yftb7c5mZI2HU22BWzue8PBbO3DStmY8B9xaqfKr7QJONiWOXcwVsOk/6HuVQ0v7N5xhPaR3jycA==}
     engines: {node: '>=14.16'}
@@ -8670,6 +8781,13 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  ink-text-input@5.0.1:
+    resolution: {integrity: sha512-crnsYJalG4EhneOFnr/q+Kzw1RgmXI2KsBaLFE6mpiIKxAtJLUnvygOF2IUKO8z4nwkSkveGRBMd81RoYdRSag==}
+    engines: {node: '>=14.16'}
+    peerDependencies:
+      ink: ^4.0.0
+      react: ^18.0.0
 
   ink@4.4.1:
     resolution: {integrity: sha512-rXckvqPBB0Krifk5rn/5LvQGmyXwCUpBfmTwbkQNBY9JY8RSl3b8OftBNEYxg4+SWUhEKcPifgope28uL9inlA==}
@@ -9209,6 +9327,9 @@ packages:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
     engines: {node: '>=6'}
     hasBin: true
+
+  json-bigint@1.0.0:
+    resolution: {integrity: sha512-SiPv/8VpZuWbvLSMtTDU8hEfrZWg/mH/nV/b4o0CYbSxu1UIQPLdwKOCIyLQX+VIPO5vrLX3i8qtqFyhdPSUSQ==}
 
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
@@ -12225,8 +12346,14 @@ packages:
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
 
+  tiny-jsonc@1.0.2:
+    resolution: {integrity: sha512-f5QDAfLq6zIVSyCZQZhhyl0QS6MvAyTxgz4X4x3+EoCktNWEYJ6PeoEA97fyb98njpBNNi88ybpD7m+BDFXaCw==}
+
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
+
+  tinycolor2@1.6.0:
+    resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
 
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
@@ -12234,6 +12361,9 @@ packages:
   tinyglobby@0.2.12:
     resolution: {integrity: sha512-qkf4trmKSIiMTs/E63cxH+ojC2unam7rJ0WrauAzpT3ECNTxGRMlaXxVbfxMUC/w0LaYk6jQ4y/nGR9uBO3tww==}
     engines: {node: '>=12.0.0'}
+
+  tinygradient@1.1.5:
+    resolution: {integrity: sha512-8nIfc2vgQ4TeLnk2lFj4tRLvvJwEfQuabdsmvDdQPT0xlk9TaNtpGd6nNRxXoK6vQhN6RSzj+Cnp5tTQmpxmbw==}
 
   tinypool@1.0.2:
     resolution: {integrity: sha512-al6n+QEANGFOMf/dmUMsuS5/r9B06uwlyNjZZql/zv8J7ybHCgoihBNORZCY2mzUuAnomQa2JdhyHKzZxPCrFA==}
@@ -13188,6 +13318,11 @@ packages:
     resolution: {integrity: sha512-c9bZp7b5YtRj2wOe6dlj32MK+Bx/M/d+9VB2SHM1OtsUHR0aV0tdP6DWh/iMt0kWi1t5g1Iudu6hQRNd1A4PVA==}
     engines: {node: '>=18'}
 
+  window-size@1.1.1:
+    resolution: {integrity: sha512-5D/9vujkmVQ7pSmc0SCBmHXbkv6eaHwXEx65MywhmUMsI8sGqJ972APq1lotfcwMKPFLuCFfL8xGHLIp7jaBmA==}
+    engines: {node: '>= 0.10.0'}
+    hasBin: true
+
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
@@ -13420,6 +13555,21 @@ packages:
 
   zod@3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
+
+  zustand@4.5.6:
+    resolution: {integrity: sha512-ibr/n1hBzLLj5Y+yUcU7dYw8p6WnIVzdJbnX+1YpaScvZVF2ziugqHs+LAmHw4lWO9c/zRj+K1ncgWDQuthEdQ==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0.6'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
 
   zustand@5.0.0:
     resolution: {integrity: sha512-LE+VcmbartOPM+auOjCCLQOsQ05zUTp8RkgwRzefUk+2jISdMMFnxvyTjA4YNWr5ZGXYbVsEMZosttuxUBkojQ==}
@@ -17001,6 +17151,11 @@ snapshots:
 
   '@tanstack/query-core@5.67.3': {}
 
+  '@tanstack/react-query@5.67.3(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.67.3
+      react: 18.3.1
+
   '@tanstack/react-query@5.67.3(react@19.0.0)':
     dependencies:
       '@tanstack/query-core': 5.67.3
@@ -17136,15 +17291,29 @@ snapshots:
       '@types/qs': 6.9.18
       '@types/serve-static': 1.15.7
 
+  '@types/gradient-string@1.1.6':
+    dependencies:
+      '@types/tinycolor2': 1.4.6
+
   '@types/hast@3.0.4':
     dependencies:
       '@types/unist': 3.0.3
 
   '@types/http-errors@2.0.4': {}
 
+  '@types/ink-big-text@1.2.4':
+    dependencies:
+      '@types/react': 19.0.10
+
+  '@types/ink-gradient@2.0.4':
+    dependencies:
+      '@types/react': 19.0.10
+
   '@types/js-cookie@2.2.7': {}
 
   '@types/js-yaml@4.0.9': {}
+
+  '@types/json-bigint@1.0.4': {}
 
   '@types/json-schema@7.0.15': {}
 
@@ -17262,6 +17431,8 @@ snapshots:
     dependencies:
       '@types/methods': 1.1.4
       '@types/superagent': 8.1.9
+
+  '@types/tinycolor2@1.4.6': {}
 
   '@types/trusted-types@2.0.7': {}
 
@@ -18227,6 +18398,8 @@ snapshots:
 
   arr-flatten@1.1.0: {}
 
+  arr-rotate@1.0.0: {}
+
   arr-union@3.1.0: {}
 
   array-buffer-byte-length@1.0.2:
@@ -18599,6 +18772,8 @@ snapshots:
 
   bigint-crypto-utils@3.3.0: {}
 
+  bignumber.js@9.1.2: {}
+
   binary-extensions@1.13.1: {}
 
   binary-extensions@2.3.0: {}
@@ -18904,6 +19079,11 @@ snapshots:
       nofilter: 3.1.0
 
   ccount@2.0.1: {}
+
+  cfonts@3.3.0:
+    dependencies:
+      supports-color: 8.1.1
+      window-size: 1.1.1
 
   chai@5.2.0:
     dependencies:
@@ -20729,6 +20909,10 @@ snapshots:
       escape-string-regexp: 5.0.0
       is-unicode-supported: 1.3.0
 
+  figures@6.1.0:
+    dependencies:
+      is-unicode-supported: 2.1.0
+
   file-entry-cache@6.0.1:
     dependencies:
       flat-cache: 3.2.0
@@ -21130,6 +21314,11 @@ snapshots:
   graceful-fs@4.2.10: {}
 
   graceful-fs@4.2.11: {}
+
+  gradient-string@2.0.2:
+    dependencies:
+      chalk: 4.1.2
+      tinygradient: 1.1.5
 
   graphemer@1.4.0: {}
 
@@ -21615,9 +21804,45 @@ snapshots:
 
   ini@4.1.1: {}
 
+  ink-big-text@2.0.0(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
+    dependencies:
+      cfonts: 3.3.0
+      ink: 4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      prop-types: 15.8.1
+      react: 18.3.1
+
+  ink-gradient@3.0.0(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)):
+    dependencies:
+      '@types/gradient-string': 1.1.6
+      gradient-string: 2.0.2
+      ink: 4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      prop-types: 15.8.1
+      strip-ansi: 7.1.0
+
+  ink-select-input@5.0.0(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
+    dependencies:
+      arr-rotate: 1.0.0
+      figures: 5.0.0
+      ink: 4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      lodash.isequal: 4.5.0
+      react: 18.3.1
+
+  ink-spinner@5.0.0(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
+    dependencies:
+      cli-spinners: 2.9.2
+      ink: 4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      react: 18.3.1
+
   ink-testing-library@3.0.0(@types/react@18.3.18):
     optionalDependencies:
       '@types/react': 18.3.18
+
+  ink-text-input@5.0.1(ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
+    dependencies:
+      chalk: 5.4.1
+      ink: 4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      react: 18.3.1
+      type-fest: 3.13.1
 
   ink@4.4.1(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10):
     dependencies:
@@ -22182,6 +22407,10 @@ snapshots:
   jsesc@0.5.0: {}
 
   jsesc@3.1.0: {}
+
+  json-bigint@1.0.0:
+    dependencies:
+      bignumber.js: 9.1.2
 
   json-buffer@3.0.1: {}
 
@@ -23683,7 +23912,7 @@ snapshots:
       bl: 4.1.0
       chalk: 4.1.2
       cli-cursor: 3.1.0
-      cli-spinners: 2.6.1
+      cli-spinners: 2.9.2
       is-interactive: 1.0.0
       log-symbols: 4.1.0
       strip-ansi: 6.0.1
@@ -25937,7 +26166,11 @@ snapshots:
 
   tiny-invariant@1.3.3: {}
 
+  tiny-jsonc@1.0.2: {}
+
   tinybench@2.9.0: {}
+
+  tinycolor2@1.6.0: {}
 
   tinyexec@0.3.2: {}
 
@@ -25945,6 +26178,11 @@ snapshots:
     dependencies:
       fdir: 6.4.3(picomatch@4.0.2)
       picomatch: 4.0.2
+
+  tinygradient@1.1.5:
+    dependencies:
+      '@types/tinycolor2': 1.4.6
+      tinycolor2: 1.6.0
 
   tinypool@1.0.2: {}
 
@@ -26411,6 +26649,10 @@ snapshots:
   use-sync-external-store@1.2.0(react@19.0.0):
     dependencies:
       react: 19.0.0
+
+  use-sync-external-store@1.4.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   use-sync-external-store@1.4.0(react@19.0.0):
     dependencies:
@@ -27115,6 +27357,11 @@ snapshots:
     dependencies:
       string-width: 7.2.0
 
+  window-size@1.1.1:
+    dependencies:
+      define-property: 1.0.0
+      is-number: 3.0.0
+
   word-wrap@1.2.5: {}
 
   workerpool@6.5.1: {}
@@ -27335,6 +27582,13 @@ snapshots:
       zod: 3.24.2
 
   zod@3.24.2: {}
+
+  zustand@4.5.6(@types/react@18.3.18)(react@18.3.1):
+    dependencies:
+      use-sync-external-store: 1.4.0(react@18.3.1)
+    optionalDependencies:
+      '@types/react': 18.3.18
+      react: 18.3.1
 
   zustand@5.0.0(@types/react@19.0.10)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0)):
     optionalDependencies:

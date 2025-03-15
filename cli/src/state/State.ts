@@ -5,9 +5,9 @@ export type State = {
   currentStep: number
   path: string
   nameInput: string
-  framework: string
-  useCase: string
-  packageManager: string
+  framework: 'hardhat' | 'foundry'
+  useCase: 'ui'
+  packageManager: 'npm' | 'pnpm' | 'yarn'
   noGit: boolean
   noInstall: boolean
   currentPage: Page

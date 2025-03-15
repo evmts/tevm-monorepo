@@ -1,6 +1,11 @@
 import { create } from 'zustand'
 import type { State } from './State.js'
 
+type SetState = (
+  partial: State | Partial<State> | ((state: State) => State | Partial<State>),
+  replace?: boolean | undefined
+) => void
+
 export type Store = State & {
   goToPreviousStep: (params: {}) => void
   setInput: (params: { input: 'nameInput' | 'walletConnectIdInput'; value: string }) => void
@@ -11,7 +16,7 @@ export type Store = State & {
   }) => void
 }
 
-export const useStore = create<Store>((set) => ({
+export const useStore = create<Store>((set: SetState) => ({
   name: '',
   currentStep: 0,
   path: '.',
@@ -25,17 +30,21 @@ export const useStore = create<Store>((set) => ({
   walletConnectProjectId: '',
 
   goToPreviousStep: () =>
-    set((state) => ({
+    set((state: State) => ({
       currentStep: Math.max(0, state.currentStep - 1),
     })),
 
-  setInput: ({ input, value }) =>
+  setInput: ({ input, value }: { input: 'nameInput' | 'walletConnectIdInput'; value: string }) =>
     set(() => ({
       [input]: value,
     })),
 
-  selectAndContinue: ({ name, value, nextPage }) =>
-    set((state) => ({
+  selectAndContinue: ({ name, value, nextPage }: {
+    name: keyof State
+    value: string | boolean
+    nextPage?: boolean
+  }) =>
+    set((state: State) => ({
       [name]: value,
       currentStep: state.currentStep + 1,
       currentPage: nextPage ? 'creating' : state.currentPage,
