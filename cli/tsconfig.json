@@ -5,5 +5,5 @@
 		"module": "Node16",
 		"outDir": "dist"
 	},
-	"include": ["source"]
+	"include": ["src"]
 }

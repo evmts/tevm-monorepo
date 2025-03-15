@@ -473,12 +473,21 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../packages/actions
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../packages/common
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../packages/jsonrpc
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../packages/memory-client
+      '@tevm/server':
+        specifier: workspace:^
+        version: link:../packages/server
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../packages/utils
       '@types/json-bigint':
         specifier: ^1.0.4
         version: 1.0.4
@@ -6516,7 +6525,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 

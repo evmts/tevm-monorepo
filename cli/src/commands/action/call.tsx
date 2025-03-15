@@ -2,8 +2,8 @@ import React from 'react'
 import { z } from 'zod'
 import { option } from 'pastel'
 import type { CallParams, CallResult } from '@tevm/actions'
-import { useAction, envVar } from '../hooks/useAction.js'
-import CliAction from '../components/CliAction.jsx'
+import { useAction, envVar } from '../../hooks/useAction.js'
+import CliAction from '../../components/CliAction.js'
 
 // Options definitions and descriptions
 const optionDescriptions = {
@@ -201,58 +201,56 @@ const defaultValues: Record<string, any> = {
 }
 
 export default function Call({ options }: Props) {
-  // Create parameters function
-  const createParams = (enhancedOptions: Record<string, any>): CallParams => {
-    const targetTo = enhancedOptions['to'] as `0x${string}`;
-
-    return {
-      to: targetTo,
-      // Basic parameters
-      data: enhancedOptions['data'] ?? undefined,
-      from: enhancedOptions['from'] ?? undefined,
-      value: enhancedOptions['value'] ? BigInt(enhancedOptions['value']) : undefined,
-
-      // Contract deployment options
-      code: enhancedOptions['code'] ?? undefined,
-      deployedBytecode: enhancedOptions['deployedBytecode'] ?? undefined,
-      salt: enhancedOptions['salt'] ?? undefined,
-
-      // Gas parameters
-      gas: enhancedOptions['gas'] ? BigInt(enhancedOptions['gas']) : undefined,
-      gasPrice: enhancedOptions['gasPrice'] ? BigInt(enhancedOptions['gasPrice']) : undefined,
-      maxFeePerGas: enhancedOptions['maxFeePerGas'] ? BigInt(enhancedOptions['maxFeePerGas']) : undefined,
-      maxPriorityFeePerGas: enhancedOptions['maxPriorityFeePerGas'] ? BigInt(enhancedOptions['maxPriorityFeePerGas']) : undefined,
-      gasRefund: enhancedOptions['gasRefund'] ? BigInt(enhancedOptions['gasRefund']) : undefined,
-
-      // Block options
-      blockTag: enhancedOptions['blockTag'] ?? undefined,
-
-      // Advanced options
-      caller: enhancedOptions['caller'] ?? undefined,
-      origin: enhancedOptions['origin'] ?? undefined,
-      depth: typeof enhancedOptions['depth'] === 'bigint' ? Number(enhancedOptions['depth']) : enhancedOptions['depth'],
-      skipBalance: enhancedOptions['skipBalance'] ?? undefined,
-
-      // Instrumentation options
-      createTrace: enhancedOptions['createTrace'] ?? undefined,
-      createAccessList: enhancedOptions['createAccessList'] ?? undefined,
-      createTransaction: enhancedOptions['createTransaction'] ?? undefined,
-    };
-  };
-
-  // Execute action function
-  const executeAction = async (client: any, params: CallParams): Promise<CallResult> => {
-    return await client.tevmCall(params);
-  };
-
-  // Use the action hook
+  // Use the action hook with inlined createParams and executeAction
   const actionResult = useAction<CallParams, CallResult>({
     actionName: 'call',
     options,
     defaultValues,
     optionDescriptions,
-    createParams,
-    executeAction,
+
+    // Inlined createParams function
+    createParams: (enhancedOptions: Record<string, any>): CallParams => {
+      const targetTo = enhancedOptions['to'] as `0x${string}`;
+
+      return {
+        to: targetTo,
+        // Basic parameters
+        data: enhancedOptions['data'] ?? undefined,
+        from: enhancedOptions['from'] ?? undefined,
+        value: enhancedOptions['value'] ? BigInt(enhancedOptions['value']) : undefined,
+
+        // Contract deployment options
+        code: enhancedOptions['code'] ?? undefined,
+        deployedBytecode: enhancedOptions['deployedBytecode'] ?? undefined,
+        salt: enhancedOptions['salt'] ?? undefined,
+
+        // Gas parameters
+        gas: enhancedOptions['gas'] ? BigInt(enhancedOptions['gas']) : undefined,
+        gasPrice: enhancedOptions['gasPrice'] ? BigInt(enhancedOptions['gasPrice']) : undefined,
+        maxFeePerGas: enhancedOptions['maxFeePerGas'] ? BigInt(enhancedOptions['maxFeePerGas']) : undefined,
+        maxPriorityFeePerGas: enhancedOptions['maxPriorityFeePerGas'] ? BigInt(enhancedOptions['maxPriorityFeePerGas']) : undefined,
+        gasRefund: enhancedOptions['gasRefund'] ? BigInt(enhancedOptions['gasRefund']) : undefined,
+
+        // Block options
+        blockTag: enhancedOptions['blockTag'] ?? undefined,
+
+        // Advanced options
+        caller: enhancedOptions['caller'] ?? undefined,
+        origin: enhancedOptions['origin'] ?? undefined,
+        depth: typeof enhancedOptions['depth'] === 'bigint' ? Number(enhancedOptions['depth']) : enhancedOptions['depth'],
+        skipBalance: enhancedOptions['skipBalance'] ?? undefined,
+
+        // Instrumentation options
+        createTrace: enhancedOptions['createTrace'] ?? undefined,
+        createAccessList: enhancedOptions['createAccessList'] ?? undefined,
+        createTransaction: enhancedOptions['createTransaction'] ?? undefined,
+      };
+    },
+
+    // Inlined executeAction function
+    executeAction: async (client: any, params: CallParams): Promise<CallResult> => {
+      return await client.tevmCall(params);
+    },
   });
 
   // Render the action UI

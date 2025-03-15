@@ -1,4 +1,4 @@
-import { generateRandomName } from '../utils/generateRandomName.js'
+import { generateRandomName } from './generateRandomName.js'
 import { z } from 'zod'
 import { argument } from 'pastel'
 

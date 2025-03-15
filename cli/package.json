@@ -9,7 +9,7 @@
 	},
 	"scripts": {
 		"build": "tsc",
-		"dev": "tsc --watch",
+		"dev": "tsx src/cli.tsx",
 		"test": "prettier --check . && xo && ava"
 	},
 	"files": [
@@ -18,8 +18,11 @@
 	"dependencies": {
 		"@tanstack/react-query": "^5.67.3",
 		"@tevm/actions": "workspace:^",
+		"@tevm/common": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
+		"@tevm/server": "workspace:^",
+		"@tevm/utils": "workspace:^",
 		"@types/json-bigint": "^1.0.4",
 		"figures": "^6.1.0",
 		"ink": "^4.1.0",
