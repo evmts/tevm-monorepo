@@ -14,6 +14,18 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ## Type declaration
 
+### cleanup()
+
+> `readonly` **cleanup**: () => `void`
+
+Clean up resources used by the client.
+This should be called when the client is no longer needed to prevent memory leaks.
+It cleans up resources like interval timers for mining.
+
+#### Returns
+
+`void`
+
 ### deepCopy()
 
 > `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](TevmNode.md)\<`TMode`, `TExtended`\>\>
@@ -112,6 +124,14 @@ on top of Tevm.
 #### Returns
 
 `Promise`\<[`Vm`](../../vm/type-aliases/Vm.md)\>
+
+### intervalMiningId?
+
+> `optional` **intervalMiningId**: `ReturnType`\<*typeof* `setInterval`\>
+
+**`Internal`**
+
+Reference to the interval timer for interval mining (if enabled)
 
 ### logger
 

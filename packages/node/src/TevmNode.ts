@@ -111,5 +111,16 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * Copies the current client state into a new client
 	 */
 	readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
+	/**
+	 * Clean up resources used by the client.
+	 * This should be called when the client is no longer needed to prevent memory leaks.
+	 * It cleans up resources like interval timers for mining.
+	 */
+	readonly cleanup?: () => void
+	/**
+	 * @internal
+	 * Reference to the interval timer for interval mining (if enabled)
+	 */
+	intervalMiningId?: NodeJS.Timeout
 } & EIP1193EventEmitter &
 	TExtended

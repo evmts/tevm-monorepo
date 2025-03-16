@@ -27,10 +27,17 @@ const TX_MAX_DATA_SIZE = 128 * 1024 // 128KB
 const MAX_POOL_SIZE = 5000
 const MAX_TXS_PER_ACCOUNT = 100
 
+export interface GasMiningConfig {
+	enabled: boolean
+	threshold: bigint
+	blocks: number
+}
+
 export interface TxPoolOptions {
 	vm: Vm
 	maxSize?: number
 	maxPerSender?: number
+	gasMiningConfig?: GasMiningConfig
 }
 
 type TxPoolObject = {
@@ -69,6 +76,7 @@ export class TxPool {
 	private maxPerSender: number
 	private opened: boolean
 	public running: boolean
+	public gasMiningConfig?: GasMiningConfig
 
 	/* global NodeJS */
 	private _cleanupInterval: Timer | undefined
@@ -132,7 +140,7 @@ export class TxPool {
 	 * Create new tx pool
 	 * @param options constructor parameters
 	 */
-	constructor({ vm, maxSize = MAX_POOL_SIZE, maxPerSender = MAX_TXS_PER_ACCOUNT }: TxPoolOptions) {
+	constructor({ vm, maxSize = MAX_POOL_SIZE, maxPerSender = MAX_TXS_PER_ACCOUNT, gasMiningConfig }: TxPoolOptions) {
 		this.vm = vm
 		this.maxSize = maxSize
 		this.maxPerSender = maxPerSender
@@ -142,6 +150,7 @@ export class TxPool {
 		this.txsByHash = new Map<UnprefixedHash, TypedTransaction>()
 		this.txsByNonce = new Map<UnprefixedAddress, Map<bigint, TypedTransaction>>()
 		this.txsInNonceOrder = new Map<UnprefixedAddress, TypedTransaction[]>()
+		this.gasMiningConfig = gasMiningConfig
 
 		this.opened = false
 		this.running = true
@@ -157,6 +166,7 @@ export class TxPool {
 		newTxPool.txsInNonceOrder = new Map(this.txsInNonceOrder)
 		newTxPool.opened = this.opened
 		newTxPool.running = this.running
+		newTxPool.gasMiningConfig = this.gasMiningConfig
 		return newTxPool
 	}
 

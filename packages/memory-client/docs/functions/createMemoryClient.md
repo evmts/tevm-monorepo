@@ -4116,6 +4116,18 @@ The RPC transport
 
 ###### Type declaration
 
+###### cleanup()
+
+> `readonly` **cleanup**: () => `void`
+
+Clean up resources used by the client.
+This should be called when the client is no longer needed to prevent memory leaks.
+It cleans up resources like interval timers for mining.
+
+###### Returns
+
+`void`
+
 ###### deepCopy()
 
 > `readonly` **deepCopy**: () => `Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>\>
@@ -4214,6 +4226,14 @@ on top of Tevm.
 ###### Returns
 
 `Promise`\<`Vm`\>
+
+###### intervalMiningId?
+
+> `optional` **intervalMiningId**: `Timer`
+
+**`Internal`**
+
+Reference to the interval timer for interval mining (if enabled)
 
 ###### logger
 

@@ -253,7 +253,19 @@ export const createTevmNode = (options = {}) => {
 		return vm
 	})
 
-	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
+	const txPoolPromise = vmPromise.then((vm) => {
+		// Configure gas mining if enabled
+		const gasMiningConfig =
+			options.miningConfig?.type === 'gas'
+				? {
+						enabled: true,
+						threshold: options.miningConfig.limit,
+						blocks: 1,
+					}
+				: undefined
+
+		return new TxPool({ vm, gasMiningConfig })
+	})
 	const receiptManagerPromise = vmPromise.then((vm) => {
 		logger.debug('initializing receipts manager...')
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
@@ -417,6 +429,14 @@ export const createTevmNode = (options = {}) => {
 		},
 		status: 'INITIALIZING',
 		deepCopy: () => deepCopy(baseClient)(),
+		cleanup: function () {
+			if (this.intervalMiningId) {
+				clearInterval(this.intervalMiningId)
+				this.intervalMiningId = undefined
+				logger.debug('Interval mining stopped')
+			}
+			this.status = 'STOPPED'
+		},
 	}
 
 	eventEmitter.on('connect', () => {
@@ -424,6 +444,28 @@ export const createTevmNode = (options = {}) => {
 			return
 		}
 		baseClient.status = 'READY'
+
+		// Setup interval mining if configured
+		if (baseClient.miningConfig.type === 'interval') {
+			// Dynamically import to avoid circular dependencies
+			const { mineHandler } = require('@tevm/actions')
+
+			// Setup mining handler
+			const mine = mineHandler(baseClient)
+
+			// Start interval mining
+			baseClient.intervalMiningId = setInterval(async () => {
+				try {
+					if (baseClient.status === 'READY') {
+						await mine()
+					}
+				} catch (error) {
+					logger.error({ error }, 'Error during interval mining')
+				}
+			}, baseClient.miningConfig.interval)
+
+			logger.debug({ interval: baseClient.miningConfig.interval }, 'Interval mining started')
+		}
 	})
 
 	return baseClient
