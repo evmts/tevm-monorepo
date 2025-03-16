@@ -93,4 +93,75 @@ describe('bunFile', () => {
 		expect(fileContent).toContain('text()')
 		expect(fileContent).toContain('write(')
 	})
+
+	it('should have comprehensive documentation with Bun API link', () => {
+		const filePath = path.resolve(__dirname, 'bunFile.js')
+		const fileContent = fs.readFileSync(filePath, 'utf8')
+
+		// Verify the API documentation link is included
+		expect(fileContent).toContain('https://bun.sh/docs/api/file-io')
+
+		// Check for comprehensive method documentation
+		expect(fileContent).toMatch(/file\('path\/to\/file\.txt'\)/)
+		expect(fileContent).toMatch(/await myFile\.exists\(\)/)
+		expect(fileContent).toMatch(/await myFile\.text\(\)/)
+		expect(fileContent).toMatch(/await myFile\.write\('Hello, world!'\)/)
+
+		// Verify doc structure with proper annotations
+		expect(fileContent).toContain('@example')
+		expect(fileContent).toContain('@type')
+		expect(fileContent).toContain('@see')
+	})
+
+	it('should handle exports correctly for bundling', () => {
+		// This test ensures the export pattern is consistent with how bundlers
+		// and TypeScript expect them to be structured
+
+		const filePath = path.resolve(__dirname, 'bunFile.js')
+		const fileContent = fs.readFileSync(filePath, 'utf8')
+
+		// Check export structure - should be a named export, not default
+		expect(fileContent).toMatch(/export const file =/)
+		expect(fileContent).not.toMatch(/export default/)
+
+		// Ensure the export is directly accessing Bun's file API without modifications
+		expect(fileContent).toMatch(/require\('bun'\)\.file/)
+		expect(fileContent.trim().split('\n').pop()).toMatch(/export const file = require\('bun'\)\.file/)
+
+		// Check if the export line is direct and properly structured
+		const exportStatement = fileContent.split('\n').find((line) => line.trim().startsWith('export const file ='))
+		expect(exportStatement).toBeTruthy()
+		expect(exportStatement).toContain("require('bun').file")
+	})
+
+	it('should verify that file API methods needed for the bundle system are documented', () => {
+		// This test ensures that the file documents all Bun file API methods
+		// that are essential for the bundling system to work correctly
+		const filePath = path.resolve(__dirname, 'bunFile.js')
+		const fileContent = fs.readFileSync(filePath, 'utf8')
+
+		// Required file system operations for bundling
+		const requiredOperations = [
+			'exists', // Checking if a file exists
+			'text', // Reading file content
+			'write', // Writing content to a file
+		]
+
+		// Check that example section covers all required operations
+		// Extract the example code block
+		const exampleMatch = fileContent.match(/```javascript\n([\s\S]*?)```/)
+		const exampleCode = exampleMatch ? exampleMatch[1] : ''
+
+		// Verify each required operation is shown in the example
+		for (const operation of requiredOperations) {
+			expect(exampleCode).toContain(operation)
+			expect(fileContent).toContain(operation)
+		}
+
+		// Validate that the JSDoc refers to the correct import pattern
+		expect(fileContent).toContain("import { file } from '@tevm/bun'")
+
+		// Check that type definition references Bun's type system
+		expect(fileContent).toContain("@type {typeof import('bun').file}")
+	})
 })

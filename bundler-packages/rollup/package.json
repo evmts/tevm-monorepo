@@ -43,9 +43,10 @@
 		"src"
 	],
 	"scripts": {
-		"//test": "vitest",
-		"//test:run": "vitest run",
-		"//test:ui": "vitest --ui",
+		"test": "vitest",
+		"test:run": "vitest run",
+		"test:coverage": "vitest run --coverage",
+		"test:ui": "vitest --ui",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/rollup-plugin ",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
@@ -63,7 +64,8 @@
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"vitest": "^3.0.0"
 	},
 	"publishConfig": {
 		"access": "public"

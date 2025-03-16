@@ -43,10 +43,10 @@
 		"src"
 	],
 	"scripts": {
-		"//test": "vitest --coverage",
-		"//test:coverage": "vitest run --coverage",
-		"//test:run": "vitest run",
-		"//test:ui": "vitest --ui",
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui",
 		"all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/solc ",
 		"build:dist": "tsup",
@@ -66,7 +66,8 @@
 	},
 	"devDependencies": {
 		"abitype": "^1.0.8",
-		"solc": "0.8.28"
+		"solc": "0.8.28",
+		"vitest": "^3.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
