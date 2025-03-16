@@ -321,7 +321,7 @@ describe('contractHandler', () => {
 		expect(result.errors.length).toBeGreaterThanOrEqual(1)
 		expect(result.errors[0].name).toBe('InvalidGasPrice')
 		// We should also have the bytecode error since to/code/deployedBytecode is missing
-		expect(result.errors.some(e => e.name === 'InvalidBytecodeError')).toBe(true)
+		expect(result.errors.some((e) => e.name === 'InvalidBytecodeError')).toBe(true)
 	})
 
 	it('should handle unexpected errors during script creation', async () => {
@@ -336,10 +336,10 @@ describe('contractHandler', () => {
 
 		const result = await contractHandler(client)(invalidScriptParams as any)
 		expect(result.errors).toBeDefined()
-		// With vanilla validation we now catch missing ABI and functionName errors 
+		// With vanilla validation we now catch missing ABI and functionName errors
 		// from the validation step before even attempting to create a script
-		expect(result.errors.some(e => e.name === 'InvalidAbiError')).toBe(true)
-		expect(result.errors.some(e => e.name === 'InvalidFunctionNameError')).toBe(true)
+		expect(result.errors.some((e) => e.name === 'InvalidAbiError')).toBe(true)
+		expect(result.errors.some((e) => e.name === 'InvalidFunctionNameError')).toBe(true)
 	})
 
 	it('should handle op stack info if forking', async () => {

@@ -117,7 +117,11 @@ export const validateContractParams = (action) => {
 			const errorMessage = error.message || 'Invalid parameter'
 
 			// Add appropriate error types based on the error message
-			if (errorMessage.includes('code') || errorMessage.includes('deployedBytecode') || errorMessage.includes('Must have either code')) {
+			if (
+				errorMessage.includes('code') ||
+				errorMessage.includes('deployedBytecode') ||
+				errorMessage.includes('Must have either code')
+			) {
 				errors.push(new InvalidBytecodeError(errorMessage))
 			} else if (errorMessage.includes('abi')) {
 				errors.push(new InvalidAbiError(errorMessage))
@@ -125,7 +129,10 @@ export const validateContractParams = (action) => {
 				errors.push(new InvalidArgsError(errorMessage))
 			} else if (errorMessage.includes('functionName')) {
 				errors.push(new InvalidFunctionNameError(errorMessage))
-			} else if (errorMessage.includes('to address') || (errorMessage.includes('to') && errorMessage.includes('a hex string'))) {
+			} else if (
+				errorMessage.includes('to address') ||
+				(errorMessage.includes('to') && errorMessage.includes('a hex string'))
+			) {
 				errors.push(new InvalidAddressError(errorMessage))
 			} else {
 				errors.push(new InvalidParamsError(errorMessage))
@@ -138,17 +145,17 @@ export const validateContractParams = (action) => {
 		if (!action.code && !action.to && !action.deployedBytecode) {
 			errors.push(new InvalidBytecodeError('Must have either code, to, or deployedBytecode'))
 		}
-		
+
 		// ABI validation
 		if (action.abi !== undefined && !Array.isArray(action.abi)) {
 			errors.push(new InvalidAbiError('ABI must be an array'))
 		}
-		
+
 		// Function name validation
 		if (action.functionName !== undefined && typeof action.functionName !== 'string') {
 			errors.push(new InvalidFunctionNameError('functionName must be a string'))
 		}
-		
+
 		// Args validation
 		if (action.args !== undefined && !Array.isArray(action.args)) {
 			errors.push(new InvalidArgsError('args must be an array'))

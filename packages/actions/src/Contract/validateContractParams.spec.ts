@@ -21,7 +21,7 @@ describe('validateContractParams', () => {
 			abi: [],
 			functionName: 'myFunction',
 		})
-		expect(errors.length).toBeGreaterThan(0) 
+		expect(errors.length).toBeGreaterThan(0)
 		// The error might be a different type now after the Zod replacement
 		console.log('Invalid code errors:', errors)
 	})
@@ -46,7 +46,7 @@ describe('validateContractParams', () => {
 		})
 		expect(errors.length).toBeGreaterThan(0)
 		// Check for ABI error message content instead of name
-		expect(errors.some(e => e.message && e.message.includes('ABI'))).toBe(true)
+		expect(errors.some((e) => e.message?.includes('ABI'))).toBe(true)
 	})
 
 	it('should return error for invalid args', () => {
@@ -58,7 +58,7 @@ describe('validateContractParams', () => {
 		})
 		expect(errors.length).toBeGreaterThan(0)
 		// Check for args error message content instead of name
-		expect(errors.some(e => e.message && e.message.includes('args'))).toBe(true)
+		expect(errors.some((e) => e.message?.includes('args'))).toBe(true)
 	})
 
 	it('should return error for invalid function name', () => {
@@ -69,7 +69,7 @@ describe('validateContractParams', () => {
 		})
 		expect(errors.length).toBeGreaterThan(0)
 		// Check for functionName error message content instead of name
-		expect(errors.some(e => e.message && e.message.includes('functionName'))).toBe(true)
+		expect(errors.some((e) => e.message?.includes('functionName'))).toBe(true)
 	})
 
 	it('should return error for invalid address', () => {
@@ -83,9 +83,9 @@ describe('validateContractParams', () => {
 		// Instead of relying on snapshots, check for specific error messages
 		expect(errors.length).toBeGreaterThan(0)
 		// There should be at least one address-related error
-		expect(errors.some(error => error.message && (
-			error.message.includes('to') || error.message.includes('address')
-		))).toBe(true)
+		expect(
+			errors.some((error) => error.message && (error.message.includes('to') || error.message.includes('address'))),
+		).toBe(true)
 	})
 
 	it('should return multiple errors for multiple invalid fields', () => {
@@ -102,10 +102,10 @@ describe('validateContractParams', () => {
 		// Instead of relying on snapshots, check for error message contents
 		expect(errors.length).toBeGreaterThan(1) // Should have multiple errors
 		// Check for multiple error types by message content
-		const errorMessages = errors.map(e => e.message || '')
-		const hasAbiError = errorMessages.some(msg => msg.includes('abi') || msg.includes('ABI'))
-		const hasFunctionNameError = errorMessages.some(msg => msg.includes('functionName'))
-		const hasAddressError = errorMessages.some(msg => msg.includes('address') || msg.includes('to'))
+		const errorMessages = errors.map((e) => e.message || '')
+		const hasAbiError = errorMessages.some((msg) => msg.includes('abi') || msg.includes('ABI'))
+		const hasFunctionNameError = errorMessages.some((msg) => msg.includes('functionName'))
+		const hasAddressError = errorMessages.some((msg) => msg.includes('address') || msg.includes('to'))
 
 		expect(hasAbiError || hasFunctionNameError || hasAddressError).toBe(true)
 		// Expect at least one error
@@ -128,10 +128,12 @@ describe('validateContractParams', () => {
 			functionName: 'myFunction',
 		})
 		expect(errors.length).toBeGreaterThan(0)
-		expect(errors.some(e => 
-			e.name === 'InvalidBytecodeError' && 
-			e.message.includes('Must have either code, to, or deployedBytecode')
-		)).toBe(true)
+		expect(
+			errors.some(
+				(e) =>
+					e.name === 'InvalidBytecodeError' && e.message.includes('Must have either code, to, or deployedBytecode'),
+			),
+		).toBe(true)
 	})
 
 	it('should validate that createTransaction and stateOverrideSet cannot be used together', () => {
@@ -145,13 +147,15 @@ describe('validateContractParams', () => {
 			abi: [],
 			functionName: 'myFunction',
 		})
-		
+
 		// Instead of using a snapshot, check that we have an InvalidParams error about stateOverrideSet
 		expect(errors.length).toBeGreaterThan(0)
-		expect(errors.some(e => 
-			e.name.includes('InvalidParams') && 
-			e.message.includes('Cannot have stateOverrideSet for createTransaction')
-		)).toBe(true)
+		expect(
+			errors.some(
+				(e) =>
+					e.name.includes('InvalidParams') && e.message.includes('Cannot have stateOverrideSet for createTransaction'),
+			),
+		).toBe(true)
 	})
 
 	it('should validate that createTransaction and blockOverrideSet cannot be used together', () => {
@@ -165,12 +169,14 @@ describe('validateContractParams', () => {
 			abi: [],
 			functionName: 'myFunction',
 		})
-		
+
 		// Instead of using a snapshot, check that we have an InvalidParams error about blockOverrideSet
 		expect(errors.length).toBeGreaterThan(0)
-		expect(errors.some(e => 
-			e.name.includes('InvalidParams') && 
-			e.message.includes('Cannot have blockOverrideSet for createTransaction')
-		)).toBe(true)
+		expect(
+			errors.some(
+				(e) =>
+					e.name.includes('InvalidParams') && e.message.includes('Cannot have blockOverrideSet for createTransaction'),
+			),
+		).toBe(true)
 	})
 })

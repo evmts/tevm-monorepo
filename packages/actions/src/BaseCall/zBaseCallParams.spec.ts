@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { zBaseCallParams } from './zBaseCallParams.js'
 import type { BaseCallParams } from './BaseCallParams.js'
+import { zBaseCallParams } from './zBaseCallParams.js'
 
 test('zBaseCallParams', () => {
 	const callParams: BaseCallParams = {

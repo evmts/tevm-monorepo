@@ -27,10 +27,10 @@ test('should dump important account info and storage', async () => {
 
 	// Simply verify that we have storage data
 	expect(accountData?.storage).toBeDefined()
-	
+
 	// Inspect the structure to understand what format is being used in the storage
 	// console.log("Storage:", JSON.stringify(accountData?.storage))
-	
+
 	// With the new validation, we need to adapt our expectations
 	const storage = accountData?.storage ?? {}
 	expect(Object.keys(storage).length).toBe(1)

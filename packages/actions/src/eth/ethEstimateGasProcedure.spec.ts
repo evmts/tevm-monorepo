@@ -32,7 +32,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.id).toBe(request.id as any)
 		expect(response.result || response.error).toMatchSnapshot()
 	})
-	
+
 	it('should handle block tag', async () => {
 		const latestBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 		const request: EthEstimateGasJsonRpcRequest = {
@@ -66,7 +66,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 				{
 					to: '0x0000000000000000000000000000000000000000',
 					from: '0x0000000000000000000000000000000000000000',
-					data: '0x0102',  // Use valid hex data
+					data: '0x0102', // Use valid hex data
 				},
 			],
 		}

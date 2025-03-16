@@ -81,11 +81,11 @@ export const callHandler =
 				const pendingClientAny = /** @type {any}*/ (minePending.pendingClient)
 				pendingClientAny.getTxPool = client.getTxPool
 			}
-			
+
 			if (!('pendingClient' in minePending)) {
 				throw new Error('No pending client available for call')
 			}
-			
+
 			return callHandler(minePending.pendingClient, { throwOnFail: defaultThrowOnFail })({
 				...(code !== undefined ? { code } : {}),
 				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
