@@ -32,16 +32,13 @@ const result = await client.tevmCall({
 
 ```ts
 import { tevmCall } from 'tevm/actions'
-import { createClient, custom } from 'viem'
+import { createTevmTransport } from 'tevm/memory-client'
 import { createTevmNode } from 'tevm/node'
 import { requestEip1193 } from 'tevm/decorators'
 
-// Create Tevm Node with EIP-1193 support
-const node = createTevmNode().extend(requestEip1193())
-
-// Create Viem client
+// Create Viem client with tevm transport
 const client = createClient({
-  transport: custom(node),
+  transport: createTevmTransport(),
 })
 
 // Use the tree-shakable action
@@ -261,8 +258,8 @@ const result = await client.tevmCall({
   },
   // Monitor messages (calls) before execution
   onBeforeMessage: (message, next) => {
-    console.log(`Call to: ${message.to?.toString()}`, 
-                `Value: ${message.value.toString()}`, 
+    console.log(`Call to: ${message.to?.toString()}`,
+                `Value: ${message.value.toString()}`,
                 `Gas limit: ${message.gasLimit.toString()}`)
     next?.()
   },

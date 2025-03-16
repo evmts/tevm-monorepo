@@ -36,7 +36,7 @@ The `step` event handler receives a detailed `InterpreterStep` object with the f
 interface InterpreterStep {
   // Program counter - current position in the bytecode
   pc: number
-  
+
   // Current opcode information
   opcode: {
     name: string        // Opcode name (e.g., 'SSTORE', 'CALL')
@@ -44,20 +44,20 @@ interface InterpreterStep {
     dynamicFee?: bigint // Additional dynamic gas fee (if applicable)
     isAsync: boolean    // Whether opcode is asynchronous
   }
-  
+
   // Gas information
   gasLeft: bigint    // Remaining gas
   gasRefund: bigint  // Gas refund accumulator
-  
+
   // EVM state
   stateManager: StateManager  // Reference to the StateManager instance
   stack: Uint8Array[]         // Current EVM stack contents
   returnStack: bigint[]       // Return stack for RETURNSUB operations
-  
+
   // Account information
   account: Account    // Account which owns the code running
   address: Address    // Address of the current account
-  
+
   // Execution context
   depth: number       // Current call depth (starts at 0 for top-level call)
   memory: Uint8Array  // Current EVM memory contents
@@ -94,22 +94,22 @@ interface Message {
   to?: Address            // Target address (undefined for contract creation)
   value: bigint           // Value sent with the call (in wei)
   caller: Address         // Address of the account that initiated this call
-  
+
   // Gas information
   gasLimit: bigint        // Gas limit for this call
-  
+
   // Data and code
   data: Uint8Array        // Input data to the call
   code?: Uint8Array       // Contract code for the call
   codeAddress?: Address   // Address of contract code
-  
+
   // Call type
   depth: number           // Call depth
   isStatic: boolean       // Whether the call is static (view)
   isCompiled: boolean     // Whether this is precompiled contract code
   delegatecall: boolean   // Whether this is a DELEGATECALL
   callcode: boolean       // Whether this is a CALLCODE
-  
+
   // Other
   salt?: Uint8Array       // Salt for CREATE2 calls
   authcallOrigin?: Address // Origin address for AUTH calls
@@ -127,19 +127,19 @@ interface EVMResult {
     returnValue: Uint8Array   // Return data from the call
     executionGasUsed: bigint  // Gas used in execution
     gasRefund?: bigint        // Gas refunded
-    
+
     // Error information
     exceptionError?: {        // Error encountered during execution
       error: string           // Error type (e.g., 'revert', 'out of gas')
       errorType?: string      // Additional error type information
     }
-    
+
     // State
     logs?: Log[]              // Logs emitted during execution
     selfdestruct?: Record<string, true>  // Self-destructed addresses
     gas?: bigint              // Remaining gas
   }
-  
+
   // Other information
   gasUsed: bigint             // Total gas used (including intrinsic costs)
   createdAddress?: Address    // Address of created contract (if any)
@@ -210,17 +210,17 @@ const result = await client.tevmCall({
 
 ```ts
 import { tevmCall } from 'tevm/actions'
-import { createClient, custom } from 'viem'
+import { createClient } from 'viem'
 import { createTevmNode } from 'tevm/node'
 import { requestEip1193 } from 'tevm/decorators'
 import { encodeFunctionData } from 'viem'
 
-// Create Tevm Node with EIP-1193 support
-const node = createTevmNode().extend(requestEip1193())
+// Create Tevm Node as a viem transport
+const tevmTransport = createTevmTransport()
 
 // Create Viem client
 const client = createClient({
-  transport: custom(node),
+  transport: tevmTransport,
 })
 
 // Listen for EVM steps and other events during execution
@@ -417,7 +417,7 @@ const result = await tevmCall(client, {
    // Important: Call next to continue execution
    onStep: (step, next) => {
      // Process step...
-     next?.() 
+     next?.()
    }
    ```
 

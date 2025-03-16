@@ -28,12 +28,18 @@ Tevm offers two integration approaches with viem to suit different development n
     import { createClient, custom } from 'viem'
 
     // Create Tevm Node with EIP-1193 support
-    const node = createTevmNode().extend(requestEip1193())
+    // const node = createTevmNode().extend(requestEip1193())
+
+    // create a viem transport from the eip-1193 node
+    // const tevmTransport = custom(node),
+
+    // Or as shorthand for above, use createTevmTransport
+    const tevmTransport = createTevmTransport()
 
     // Create Viem client
     const client = createClient({
       // Use Tevm node as the viem transport
-      transport: custom(node),
+      transport: tevmTransport,
     })
 
     // Import and use viem actions individually
