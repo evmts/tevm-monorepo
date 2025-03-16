@@ -5,13 +5,20 @@
 // to lock in these types independent of viem potentially making changes
 
 /**
- * [Description of what this type represents]
+ * Restrictions or conditions applied to a wallet permission.
+ * Used in the EIP-2255 wallet permissions system to add constraints to granted permissions.
  * @example
  * ```typescript
- * import { WalletPermissionCaveat } from '[package-path]'
+ * import { WalletPermissionCaveat } from '@tevm/decorators'
  *
- * const value: WalletPermissionCaveat = {
- *   // Initialize properties
+ * const addressCaveat: WalletPermissionCaveat = {
+ *   type: 'restrictReturnedAccounts',
+ *   value: ['0x1234567890123456789012345678901234567890']
+ * }
+ * 
+ * const expirationCaveat: WalletPermissionCaveat = {
+ *   type: 'expiresOn', 
+ *   value: 1720872662291 // Unix timestamp in milliseconds
  * }
  * ```
  */

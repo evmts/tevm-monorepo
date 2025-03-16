@@ -22,14 +22,25 @@ import type {
 import type { Hash, LogTopic } from './misc.js'
 
 /**
- * [Description of what this type represents]
+ * Type definitions for standard Ethereum JSON-RPC methods accessible to the public.
+ * Includes methods related to network info, blocks, transactions, and state queries.
  * @example
  * ```typescript
- * import { JsonRpcSchemaPublic } from '[package-path]'
- *
- * const value: JsonRpcSchemaPublic = {
- *   // Initialize properties
- * }
+ * import { JsonRpcSchemaPublic } from '@tevm/decorators'
+ * import { createTevmNode } from 'tevm'
+ * import { requestEip1193 } from '@tevm/decorators'
+ * 
+ * const node = createTevmNode().extend(requestEip1193())
+ * 
+ * // Call methods using their defined types
+ * const blockNumber = await node.request({
+ *   method: 'eth_blockNumber'
+ * })
+ * 
+ * const balance = await node.request({
+ *   method: 'eth_getBalance',
+ *   params: ['0x1234567890123456789012345678901234567890', 'latest']
+ * })
  * ```
  */
 export type JsonRpcSchemaPublic = {

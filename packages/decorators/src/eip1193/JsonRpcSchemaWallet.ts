@@ -12,14 +12,30 @@ import type { WatchAssetParams } from './WatchAssetParams.js'
 import type { Hash } from './misc.js'
 
 /**
- * [Description of what this type represents]
+ * Type definitions for Ethereum JSON-RPC methods that interact with wallets.
+ * Includes methods for account management, signing, transactions, and wallet-specific features.
  * @example
  * ```typescript
- * import { JsonRpcSchemaWallet } from '[package-path]'
- *
- * const value: JsonRpcSchemaWallet = {
- *   // Initialize properties
- * }
+ * import { JsonRpcSchemaWallet } from '@tevm/decorators'
+ * import { createTevmNode } from 'tevm'
+ * import { requestEip1193 } from '@tevm/decorators'
+ * 
+ * const node = createTevmNode().extend(requestEip1193())
+ * 
+ * // Request accounts access (triggers wallet popup)
+ * const accounts = await node.request({
+ *   method: 'eth_requestAccounts'
+ * })
+ * 
+ * // Send a transaction
+ * const txHash = await node.request({
+ *   method: 'eth_sendTransaction',
+ *   params: [{
+ *     from: accounts[0],
+ *     to: '0x1234567890123456789012345678901234567890',
+ *     value: '0xde0b6b3a7640000' // 1 ETH
+ *   }]
+ * })
  * ```
  */
 export type JsonRpcSchemaWallet = {
