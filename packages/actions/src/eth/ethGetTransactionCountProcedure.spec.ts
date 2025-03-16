@@ -55,8 +55,8 @@ describe(ethGetTransactionCountProcedure.name, () => {
 	})
 
 	it.skip('should work with past block tags', async () => {
-		// This test is skipped because it requires a specific historical block that 
-		// may not be available in all RPC providers. The error "distance to target block 
+		// This test is skipped because it requires a specific historical block that
+		// may not be available in all RPC providers. The error "distance to target block
 		// exceeds maximum proof window" occurs when the block is too old.
 		const node = createTevmNode({
 			fork: {
@@ -82,7 +82,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 	})
 
 	it.skip('should work with block hash', async () => {
-		// This test is skipped because it requires a specific historical block that 
+		// This test is skipped because it requires a specific historical block that
 		// may not be available in all RPC providers.
 		const node = createTevmNode({
 			fork: {
@@ -94,7 +94,8 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		// Get the block and its hash
 		const vm = await node.getVm()
 		const block = await vm.blockchain.getBlock(21996939n)
-		const blockHash = `0x${block.hash.toString('hex')}` as Hex
+		// Fix for TS2554: block.hash is already a getter, doesn't need arguments
+		const blockHash = `0x${block.hash}` as Hex
 
 		// Mock the blockchain.getBlock method to handle the block hash request properly
 		const originalGetBlock = vm.blockchain.getBlock
@@ -131,8 +132,8 @@ describe(ethGetTransactionCountProcedure.name, () => {
 	})
 
 	it.skip('should work with other valid tags', async () => {
-		// This test is skipped because it requires a specific historical block that 
-		// may not be available in all RPC providers. The error "distance to target block 
+		// This test is skipped because it requires a specific historical block that
+		// may not be available in all RPC providers. The error "distance to target block
 		// exceeds maximum proof window" occurs when the block is too old.
 		const node = createTevmNode({
 			fork: {
@@ -208,7 +209,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 	})
 
 	it.skip('should handle invalid block tag', async () => {
-		// This test is skipped because it requires a specific historical block that 
+		// This test is skipped because it requires a specific historical block that
 		// may not be available in all RPC providers.
 		const node = createTevmNode({
 			fork: {
@@ -366,7 +367,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 			value: parseEther('0.1'),
 			createTransaction: true,
 		})
-		
+
 		// Get current transaction count
 		const latestResponse = await ethGetTransactionCountProcedure(node)({
 			jsonrpc: '2.0',
@@ -374,14 +375,14 @@ describe(ethGetTransactionCountProcedure.name, () => {
 			method: 'eth_getTransactionCount',
 			params: [address, 'latest'],
 		})
-		
+
 		expect(latestResponse).toMatchObject({
 			id: 1,
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionCount',
 			result: expect.any(String),
 		})
-		
+
 		// Pending should be one more than latest
 		const pendingResponse = await ethGetTransactionCountProcedure(node)({
 			jsonrpc: '2.0',
@@ -389,22 +390,24 @@ describe(ethGetTransactionCountProcedure.name, () => {
 			method: 'eth_getTransactionCount',
 			params: [address, 'pending'],
 		})
-		
+
 		expect(pendingResponse).toMatchObject({
 			id: 1,
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionCount',
 			result: expect.any(String),
 		})
-		
+
 		// Check that pending count is exactly one more than latest
-		const latestCount = BigInt(latestResponse.result)
-		const pendingCount = BigInt(pendingResponse.result)
-		expect(pendingCount).toBe(latestCount + 1n)
+		if (latestResponse.result && pendingResponse.result) {
+			const latestCount = BigInt(latestResponse.result)
+			const pendingCount = BigInt(pendingResponse.result)
+			expect(pendingCount).toBe(latestCount + 1n)
+		}
 	})
 
 	it.skip('should handle requests without id', async () => {
-		// This test is skipped because it requires a specific historical block that 
+		// This test is skipped because it requires a specific historical block that
 		// may not be available in all RPC providers.
 		const node = createTevmNode({
 			fork: {
