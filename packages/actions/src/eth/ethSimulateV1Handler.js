@@ -35,17 +35,17 @@ export const NATIVE_TOKEN_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
 /**
  * Handler for the eth_simulateV1 method, which simulates a series of transactions
  * at a specific block height with optional state overrides
- * 
+ *
  * @type {import('./ethSimulateV1HandlerType.js').EthSimulateV1Handler}
  */
 export const ethSimulateV1Handler = (client) => {
-	return async ({ 
+	return async ({
 		account,
 		blockStateCalls,
 		blockNumber = 'latest',
 		stateOverrides = [],
 		blockOverrides,
-		traceAssetChanges = false 
+		traceAssetChanges = false,
 	}) => {
 		// Basic validation
 		if (!Array.isArray(blockStateCalls) || blockStateCalls.length === 0) {
@@ -60,7 +60,7 @@ export const ethSimulateV1Handler = (client) => {
 		// Apply state overrides
 		if (stateOverrides.length > 0) {
 			client.logger.debug({ stateOverrides }, 'Applying state overrides')
-			
+
 			for (const override of stateOverrides) {
 				await client.tevmSetAccount({
 					address: override.address,
@@ -82,7 +82,7 @@ export const ethSimulateV1Handler = (client) => {
 		const initialBalances = {}
 		if (traceAssetChanges && account) {
 			client.logger.debug({ account }, 'Initializing asset tracking')
-			
+
 			// Get initial ETH balance
 			const initialBalance = await client.getBalance({
 				address: account,
@@ -95,10 +95,10 @@ export const ethSimulateV1Handler = (client) => {
 		// Process each call
 		const results = []
 		const call = callHandler(client)
-		
+
 		for (const [index, callParams] of blockStateCalls.entries()) {
 			client.logger.debug({ index, callParams }, 'Processing call')
-			
+
 			try {
 				// Execute the call
 				const callResult = await call({
@@ -109,7 +109,8 @@ export const ethSimulateV1Handler = (client) => {
 					gas: callParams.gas !== undefined ? BigInt(callParams.gas) : undefined,
 					gasPrice: callParams.gasPrice !== undefined ? BigInt(callParams.gasPrice) : undefined,
 					maxFeePerGas: callParams.maxFeePerGas !== undefined ? BigInt(callParams.maxFeePerGas) : undefined,
-					maxPriorityFeePerGas: callParams.maxPriorityFeePerGas !== undefined ? BigInt(callParams.maxPriorityFeePerGas) : undefined,
+					maxPriorityFeePerGas:
+						callParams.maxPriorityFeePerGas !== undefined ? BigInt(callParams.maxPriorityFeePerGas) : undefined,
 					accessList: callParams.accessList,
 					blockTag,
 					createTrace: true, // Enable tracing to get detailed information
@@ -153,7 +154,7 @@ export const ethSimulateV1Handler = (client) => {
 		let assetChanges
 		if (traceAssetChanges && account) {
 			client.logger.debug({ account }, 'Tracking asset changes')
-			
+
 			const finalBalances = {}
 
 			// Get final ETH balance

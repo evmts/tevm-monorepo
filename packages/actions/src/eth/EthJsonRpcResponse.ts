@@ -362,13 +362,13 @@ export type EthSimulateV1JsonRpcResponse = JsonRpcResponse<
 				logIndex?: Hex
 			}>
 			error?: string
-		}>,
+		}>
 		assetChanges?: Array<{
 			token: {
 				address: Address
 				symbol?: string
 				decimals?: number
-			},
+			}
 			value: {
 				diff: Hex
 				start?: Hex
