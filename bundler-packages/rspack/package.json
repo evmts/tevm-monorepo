@@ -55,8 +55,8 @@
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
 		"test": "vitest",
-		"test:run": "vitest run",
 		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {

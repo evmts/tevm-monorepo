@@ -43,10 +43,6 @@
 		"src"
 	],
 	"scripts": {
-		"test": "vitest",
-		"test:run": "vitest run",
-		"test:coverage": "vitest run --coverage",
-		"test:ui": "vitest --ui",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/rollup-plugin ",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
@@ -57,7 +53,11 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack"
+		"lint:package": "bunx publint --strict && attw --pack",
+		"test": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
 		"@tevm/unplugin": "workspace:^"
