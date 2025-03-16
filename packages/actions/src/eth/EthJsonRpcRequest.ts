@@ -1,6 +1,6 @@
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, BlockTag, Hex } from '@tevm/utils'
-import type { AccessListItem } from 'viem'
+import type { AccessList } from 'viem'
 import type { BaseCallParams } from '../BaseCall/BaseCallParams.js'
 import type { FilterParams } from '../common/FilterParams.js'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
@@ -322,7 +322,7 @@ export type EthSimulateV1JsonRpcRequest = JsonRpcRequest<
 				maxPriorityFeePerGas?: Hex
 				value?: Hex
 				nonce?: Hex
-				accessList?: AccessListItem[]
+				accessList?: AccessList
 			}>
 			blockNumber?: BlockTag | Hex
 			stateOverrides?: Array<{

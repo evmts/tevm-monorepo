@@ -13,7 +13,7 @@
  * @property {bigint} [maxPriorityFeePerGas] - Maximum priority fee per gas for EIP-1559 transactions
  * @property {bigint} [value] - Value sent in wei
  * @property {number} [nonce] - Transaction nonce
- * @property {Array<import('viem').AccessListItem>} [accessList] - Access list
+ * @property {import('viem').AccessList} [accessList] - Access list
  */
 
 /**

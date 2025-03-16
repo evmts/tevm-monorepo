@@ -2,7 +2,7 @@
  * @module ethSimulateV1Procedure
  */
 
-import { bigIntToHex } from '@tevm/utils'
+import { numberToHex } from '@tevm/utils'
 import { ethSimulateV1Handler } from './ethSimulateV1Handler.js'
 
 /**
@@ -77,13 +77,13 @@ export const ethSimulateV1Procedure = (client) => {
 					results: result.results.map((callResult) => ({
 						status: callResult.status,
 						data: callResult.data,
-						gasUsed: bigIntToHex(callResult.gasUsed),
+						gasUsed: numberToHex(callResult.gasUsed),
 						logs: callResult.logs.map((log) => ({
 							...log,
 							// Convert any bigint fields to hex
-							logIndex: log.logIndex !== undefined ? bigIntToHex(log.logIndex) : undefined,
-							blockNumber: log.blockNumber !== undefined ? bigIntToHex(log.blockNumber) : undefined,
-							transactionIndex: log.transactionIndex !== undefined ? bigIntToHex(log.transactionIndex) : undefined,
+							logIndex: log.logIndex !== undefined ? numberToHex(log.logIndex) : undefined,
+							blockNumber: log.blockNumber !== undefined ? numberToHex(log.blockNumber) : undefined,
+							transactionIndex: log.transactionIndex !== undefined ? numberToHex(log.transactionIndex) : undefined,
 						})),
 						...(callResult.error ? { error: callResult.error } : {}),
 					})),
@@ -92,9 +92,9 @@ export const ethSimulateV1Procedure = (client) => {
 								assetChanges: result.assetChanges.map((change) => ({
 									token: change.token,
 									value: {
-										diff: bigIntToHex(change.value.diff),
-										...(change.value.start !== undefined ? { start: bigIntToHex(change.value.start) } : {}),
-										...(change.value.end !== undefined ? { end: bigIntToHex(change.value.end) } : {}),
+										diff: numberToHex(change.value.diff),
+										...(change.value.start !== undefined ? { start: numberToHex(change.value.start) } : {}),
+										...(change.value.end !== undefined ? { end: numberToHex(change.value.end) } : {}),
 									},
 								})),
 							}
