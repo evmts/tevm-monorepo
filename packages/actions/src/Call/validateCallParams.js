@@ -2,13 +2,24 @@ import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { zCallParams } from './zCallParams.js'
 
-// Use the parse method from zCallParams as a replacement for validateCallParamsJS
+/**
+ * Parses and validates call parameters using zCallParams
+ * @param {unknown} params - Parameters to validate
+ * @returns {{ isValid: boolean, errors: Array<{path?: string, message: string}> }} - Validation result
+ */
 const validateCallParamsJS = (params) => {
 	try {
 		zCallParams.parse(params)
 		return { isValid: true, errors: [] }
 	} catch (error) {
-		return { isValid: false, errors: [{ message: error.message }] }
+		// Handle Error objects consistently
+		return { 
+			isValid: false, 
+			errors: [{ 
+				path: '',
+				message: error instanceof Error ? error.message : String(error) 
+			}] 
+		}
 	}
 }
 
@@ -83,25 +94,42 @@ export const validateCallParams = (action) => {
 	// For non-test cases or anything not explicitly handled above
 	const validation = validateCallParamsJS(action)
 
-	if (!validation.isValid) {
+	if (!validation.isValid && validation.errors && Array.isArray(validation.errors)) {
 		for (const error of validation.errors) {
-			switch (error.path) {
+			if (!error || typeof error !== 'object') {
+				// Add a default error if the error structure is not as expected
+				errors.push(new InvalidDataError('Unknown validation error'));
+				continue;
+			}
+			
+			const message = 'message' in error && error.message !== undefined
+				? String(error.message) 
+				: 'Unknown validation error';
+			
+			const path = 'path' in error && error.path !== undefined
+				? String(error.path || '') 
+				: '';
+			
+			switch (path) {
 				case 'salt':
-					errors.push(new InvalidSaltError(error.message))
+					errors.push(new InvalidSaltError(message))
 					break
 				case 'data':
-					errors.push(new InvalidDataError(error.message))
+					errors.push(new InvalidDataError(message))
 					break
 				case 'code':
 				case 'deployedBytecode':
-					errors.push(new InvalidBytecodeError(error.message))
+					errors.push(new InvalidBytecodeError(message))
 					break
 				default:
 					// General errors or empty path
-					if (error.message.includes('code') || error.message.includes('bytecode')) {
-						errors.push(new InvalidBytecodeError(error.message))
-					} else if (error.message.includes('stateOverrideSet')) {
-						errors.push(new InvalidSaltError(error.message))
+					if (message.includes('code') || message.includes('bytecode')) {
+						errors.push(new InvalidBytecodeError(message))
+					} else if (message.includes('stateOverrideSet')) {
+						errors.push(new InvalidSaltError(message))
+					} else {
+						// Default to InvalidDataError for other cases
+						errors.push(new InvalidDataError(message))
 					}
 					break
 			}

@@ -4,7 +4,7 @@ import { hexToBytes } from '@tevm/utils'
 
 /**
  * @internal
- * @typedef {UnknownBlockError | UnknownBlockError | InvalidParamsError} CallHandlerOptsError
+ * @typedef {import('./CallHandlerOptsError.js').CallHandlerOptsError} CallHandlerOptsError
  */
 
 /**

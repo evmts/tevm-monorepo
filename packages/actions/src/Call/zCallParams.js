@@ -1,10 +1,16 @@
+import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { validateHex } from '../internal/zod/zHex.js'
 
 /**
+ * Represents an error in call parameters validation
+ * @typedef {{path?: string, message: string}} ValidationError
+ */
+
+/**
  * Validates call parameters - internal implementation used by zCallParams
  * @param {unknown} params - The parameters to validate
- * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
+ * @returns {{ isValid: boolean, errors: Array<ValidationError> }} - Validation result
  * @internal
  */
 const validateCallParamsInternal = (params) => {
@@ -15,12 +21,19 @@ const validateCallParamsInternal = (params) => {
 		}
 	}
 
+	/**
+	 * @type {Array<ValidationError>}
+	 */
 	const errors = []
 
 	// Validate base call params first
 	const baseValidation = validateBaseCallParams(params)
-	if (baseValidation.errors && baseValidation.errors.length > 0) {
-		errors.push(...baseValidation.errors)
+	if (baseValidation.length > 0) {
+		// Convert BaseErrors to ValidationErrors
+		errors.push(...baseValidation.map(error => ({
+			path: error.name.replace('Invalid', '').replace('Error', '').toLowerCase(),
+			message: error.message
+		})))
 	}
 
 	// Validate hex fields
@@ -73,6 +86,27 @@ const validateCallParamsInternal = (params) => {
 	}
 }
 
+/**
+ * Converts validation errors to TevmCallError instances
+ * @param {Array<ValidationError>} errors - Validation errors to convert
+ * @returns {Array<import('./TevmCallError').TevmCallError>} - Converted errors
+ */
+const convertToTevmCallErrors = (errors) => {
+	return errors.map(error => {
+		if (error.path === 'data') {
+			return new InvalidDataError(error.message)
+		}
+		if (error.path === 'salt') {
+			return new InvalidSaltError(error.message)
+		}
+		if (error.path === 'code' || error.path === 'deployedBytecode') {
+			return new InvalidBytecodeError(error.message)
+		}
+		// For errors without a specific error type, create a generic InvalidDataError
+		return new InvalidDataError(error.message)
+	})
+}
+
 // For backward compatibility
 export const zCallParams = {
 	parse: (params) => {
@@ -100,6 +134,7 @@ export const zCallParams = {
 		return {
 			success: false,
 			error: {
+				errors: convertToTevmCallErrors(validation.errors),
 				format: () => {
 					// Format errors into a structure similar to Zod errors
 					const formatted = { _errors: [] }

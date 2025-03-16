@@ -1,8 +1,18 @@
+import { Block } from '@tevm/block'
 import type { ExecutionError, InternalError, RevertError } from '@tevm/errors'
 import type { CallHandlerOptsError } from './callHandlerOpts.js'
 import type { ExecuteCallError } from './executeCall.js'
 import type { HandleRunTxError } from './handleEvmError.js'
 import type { ValidateCallParamsError } from './validateCallParams.js'
+
+/**
+ * Interface for common error properties that all error types must have
+ */
+export interface ErrorProperties {
+  name: string
+  message: string
+  code?: number
+}
 
 /**
  * All errors that can occur during a TEVM call.
@@ -59,7 +69,7 @@ import type { ValidateCallParamsError } from './validateCallParams.js'
  * }
  * ```
  */
-export type TevmCallError =
+export type TevmCallError = (
 	| ValidateCallParamsError
 	| CallHandlerOptsError
 	| InternalError
@@ -67,3 +77,5 @@ export type TevmCallError =
 	| RevertError
 	| HandleRunTxError
 	| ExecuteCallError
+	| Block
+) & ErrorProperties

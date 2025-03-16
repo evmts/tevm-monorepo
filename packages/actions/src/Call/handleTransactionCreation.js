@@ -41,14 +41,34 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 
 			// Check for errors in the transaction creation and mining results
 			if ('errors' in txRes && txRes.errors) {
-				errors.push(.../** @type {any} */ (txRes.errors))
+				// Convert errors to TevmCallError type
+				for (const err of txRes.errors) {
+					// Add correctly typed error to the errors array
+					errors.push(/** @type {import('./TevmCallError.js').TevmCallError} */(err));
+				}
 			}
-			if (miningRes.errors) {
-				errors.push(.../** @type {any} */ (miningRes.errors))
+			
+			// Check for mining errors
+			if (miningRes && typeof miningRes === 'object' && 'errors' in miningRes && Array.isArray(miningRes.errors)) {
+				// Convert errors to TevmCallError type
+				for (const err of miningRes.errors) {
+					// Add correctly typed error to the errors array
+					errors.push(/** @type {import('./TevmCallError.js').TevmCallError} */(err));
+				}
 			}
 		} catch (error) {
 			// Handle any unexpected errors during transaction creation
-			errors.push(/** @type {any} */ (error))
+			if (error instanceof Error) {
+				errors.push(/** @type {import('./TevmCallError.js').TevmCallError} */({
+					name: error.name || 'Error',
+					message: error.message || 'Unknown error during transaction creation'
+				}));
+			} else {
+				errors.push(/** @type {import('./TevmCallError.js').TevmCallError} */({
+					name: 'Error',
+					message: String(error)
+				}));
+			}
 		}
 	}
 	if (errors.length > 0) {

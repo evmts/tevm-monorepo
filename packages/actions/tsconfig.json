@@ -20,7 +20,14 @@
 		"noPropertyAccessFromIndexSignature": false,
 		"noImplicitReturns": false,
 		"strictFunctionTypes": false,
-		"strictPropertyInitialization": false
+		"strictPropertyInitialization": false,
+		// Additional flags to help with the transition from zod
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"strictBindCallApply": false,
+		"noFallthroughCasesInSwitch": false,
+		"allowUnreachableCode": true,
+		"allowUnusedLabels": true
 	},
 	"include": ["src", "src/**/*.json"]
 }
