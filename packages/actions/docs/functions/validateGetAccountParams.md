@@ -6,9 +6,9 @@
 
 # Function: validateGetAccountParams()
 
-> **validateGetAccountParams**(`action`): `InvalidRequestError`[]
+> **validateGetAccountParams**(`action`): [`ValidateGetAccountParamsError`](../type-aliases/ValidateGetAccountParamsError.md)[]
 
-Defined in: [packages/actions/src/GetAccount/validateGetAccountParams.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/validateGetAccountParams.js#L12)
+Defined in: [packages/actions/src/GetAccount/validateGetAccountParams.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/validateGetAccountParams.js#L60)
 
 ## Parameters
 
@@ -18,4 +18,4 @@ Defined in: [packages/actions/src/GetAccount/validateGetAccountParams.js:12](htt
 
 ## Returns
 
-`InvalidRequestError`[]
+[`ValidateGetAccountParamsError`](../type-aliases/ValidateGetAccountParamsError.md)[]

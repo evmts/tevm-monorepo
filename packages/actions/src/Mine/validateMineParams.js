@@ -1,5 +1,5 @@
 import { InvalidAddressError, InvalidBalanceError, InvalidNonceError, InvalidRequestError } from '@tevm/errors'
-import { validateBaseParams } from '../BaseCall/validateBaseParams.js'
+import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { validateMineEvents } from './validateMineEvents.js'
 
 /**
@@ -22,14 +22,10 @@ export const validateMineParams = (action) => {
 	}
 
 	// Validate base params
-	const baseValidation = validateBaseParams(action)
-	if (!baseValidation.isValid) {
-		baseValidation.errors.forEach((error) => {
-			if (error.path === 'throwOnFail') {
-				errors.push(new InvalidBalanceError(error.message))
-			} else {
-				errors.push(new InvalidRequestError(error.message))
-			}
+	const baseErrors = validateBaseCallParams(action)
+	if (baseErrors.length > 0) {
+		baseErrors.forEach((error) => {
+			errors.push(new InvalidRequestError(error.message))
 		})
 	}
 

@@ -47,3 +47,9 @@ exports[`handleError > should handle error without JSON-RPC request id 1`] = `
   ],
 }
 `;
+
+exports[`handleError should handle error with JSON-RPC request id 1`] = `[class Function]`;
+
+exports[`handleError should handle error without JSON-RPC request id 1`] = `[class Function]`;
+
+exports[`handleError should handle error with default method when JSON-RPC request is not provided 1`] = `[class Function]`;

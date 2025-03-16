@@ -5,15 +5,29 @@
  */
 export const ethCoinbaseJsonRpcProcedure = (client) => {
 	return async (request) => {
-		return {
-			...(request.id ? { id: request.id } : {}),
-			method: request.method,
-			jsonrpc: request.jsonrpc,
+		try {
 			// same default as hardhat
-			result: await client
+			const result = await client
 				.getVm()
 				.then((vm) => vm.blockchain.getCanonicalHeadBlock())
-				.then((block) => /** @type {import('@tevm/utils').Address}*/ (block.header.coinbase.toString())),
+				.then((block) => /** @type {import('@tevm/utils').Address}*/ (block.header.coinbase.toString()))
+
+			return {
+				...(request.id ? { id: request.id } : {}),
+				method: request.method,
+				jsonrpc: request.jsonrpc,
+				result,
+			}
+		} catch (error) {
+			return {
+				...(request.id ? { id: request.id } : {}),
+				jsonrpc: '2.0',
+				method: request.method,
+				error: {
+					code: -32000,
+					message: error instanceof Error ? error.message : String(error),
+				},
+			}
 		}
 	}
 }

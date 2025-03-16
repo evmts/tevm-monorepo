@@ -86,3 +86,96 @@ Version: 1.1.0.next-73",
   "method": "eth_invalidMethod",
 }
 `;
+
+exports[`handleBulkRequest should handle valid requests and return responses 1`] = `
+[
+  {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "method": "eth_chainId",
+    "result": "0xa",
+  },
+  {
+    "id": 2,
+    "jsonrpc": "2.0",
+    "method": "eth_blockNumber",
+    "result": "0x6dfbbb8",
+  },
+]
+`;
+
+exports[`handleBulkRequest should handle errors and return error responses 1`] = `
+{
+  "error": {
+    "code": -32601,
+    "message": 
+"UnsupportedMethodError: Unknown method eth_invalidMethod
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
+Version: 1.1.0.next-73"
+,
+  },
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "eth_invalidMethod",
+}
+`;
+
+exports[`handleBulkRequest should handle errors and return error responses 2`] = `
+{
+  "id": 2,
+  "jsonrpc": "2.0",
+  "method": "eth_blockNumber",
+  "result": "0x6dfbbb8",
+}
+`;
+
+exports[`handleBulkRequest should handle requests without IDs 1`] = `
+[
+  {
+    "jsonrpc": "2.0",
+    "method": "eth_chainId",
+    "result": "0xa",
+  },
+  {
+    "jsonrpc": "2.0",
+    "method": "eth_blockNumber",
+    "result": "0x6dfbbb8",
+  },
+]
+`;
+
+exports[`handleBulkRequest should log errors and return error responses for invalid requests 1`] = `
+{
+  "error": {
+    "code": -32601,
+    "message": 
+"UnsupportedMethodError: Unknown method eth_invalidMethod
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
+Version: 1.1.0.next-73"
+,
+  },
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "eth_invalidMethod",
+}
+`;
+
+exports[`handleBulkRequest should log errors and return error responses if underlying client throws 1`] = `
+{
+  "error": {
+    "code": -32603,
+    "message": 
+"eth_invalidMethod
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: test error
+Version: 1.1.0.next-73"
+,
+  },
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "eth_invalidMethod",
+}
+`;

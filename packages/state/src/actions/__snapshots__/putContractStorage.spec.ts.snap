@@ -13,3 +13,13 @@ exports[`putContractStorage > should throw an error if the key is not 32 bytes l
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Version: 1.1.0.next-73]
 `;
+
+exports[`putContractStorage should throw an error if the key is not 32 bytes long 1`] = `[_InternalError: Storage key must be 32 bytes long. Received 18,52
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;
+
+exports[`putContractStorage should throw an error if the account does not exist 1`] = `[_InternalError: cannot putContractStorage on non existing acccount! Consider checking if account exists first
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;

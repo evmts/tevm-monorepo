@@ -8,3 +8,10 @@ exports[`generateCanonicalGenesis > should throw if there are uncommitted checkp
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Version: 1.1.0.next-73]
 `;
+
+exports[`generateCanonicalGenesis should successfully generate canonical genesis 1`] = `{}`;
+
+exports[`generateCanonicalGenesis should throw if there are uncommitted checkpoints 1`] = `[_InternalError: Attempted to generateCanonicalGenesis state with uncommitted checkpoints
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;

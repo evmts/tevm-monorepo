@@ -46,9 +46,9 @@ export const validateCallParamsZod = (params) => {
 	// Cannot have both code and deployedBytecode
 	if (
 		'code' in paramsObj &&
-		paramsObj.code !== undefined &&
+		paramsObj['code'] !== undefined &&
 		'deployedBytecode' in paramsObj &&
-		paramsObj.deployedBytecode !== undefined
+		paramsObj['deployedBytecode'] !== undefined
 	) {
 		errors.push({
 			path: '',
@@ -57,15 +57,15 @@ export const validateCallParamsZod = (params) => {
 	}
 
 	// Cannot have stateOverrideSet or blockOverrideSet for createTransaction
-	if ('createTransaction' in paramsObj && paramsObj.createTransaction === true) {
-		if ('stateOverrideSet' in paramsObj && paramsObj.stateOverrideSet !== undefined) {
+	if ('createTransaction' in paramsObj && paramsObj['createTransaction'] === true) {
+		if ('stateOverrideSet' in paramsObj && paramsObj['stateOverrideSet'] !== undefined) {
 			errors.push({
 				path: 'stateOverrideSet',
 				message: 'Cannot have stateOverrideSet for createTransaction',
 			})
 		}
 
-		if ('blockOverrideSet' in paramsObj && paramsObj.blockOverrideSet !== undefined) {
+		if ('blockOverrideSet' in paramsObj && paramsObj['blockOverrideSet'] !== undefined) {
 			errors.push({
 				path: 'blockOverrideSet',
 				message: 'Cannot have blockOverrideSet for createTransaction',

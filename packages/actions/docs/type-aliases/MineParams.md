@@ -20,6 +20,12 @@ Tevm params to mine one or more blocks.
 
 Number of blocks to mine. Defaults to 1.
 
+### blocks?
+
+> `readonly` `optional` **blocks**: `number`
+
+Alias for blockCount. Number of blocks to mine. Defaults to 1.
+
 ### interval?
 
 > `readonly` `optional` **interval**: `number`
@@ -41,3 +47,15 @@ const mineParams: import('@tevm/actions').MineParams = {
   }
 }
 ```
+
+## Param
+
+Number of blocks to mine. Defaults to 1.
+
+## Param
+
+Alias for blockCount. Number of blocks to mine. Defaults to 1.
+
+## Param
+
+Interval between block timestamps in seconds. Defaults to 1.

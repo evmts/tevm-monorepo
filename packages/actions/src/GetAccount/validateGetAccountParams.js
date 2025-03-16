@@ -1,7 +1,53 @@
 import { InvalidAddressError, InvalidRequestError } from '@tevm/errors'
-import { validateBaseParams } from '../BaseCall/validateBaseParams.js'
-import { validateAddress } from '../internal/validators/validateAddress.js'
-import { validateBlockParam } from '../internal/validators/validateBlockParam.js'
+import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
+import { validateHex } from '../internal/zod/zHex.js'
+
+/**
+ * Validates an address
+ * @param {unknown} value - Value to validate
+ * @returns {{ isValid: boolean, message?: string }} - Validation result
+ */
+const validateAddress = (value) => {
+	// First check if it's a valid hex
+	const hexValidation = validateHex(value)
+	if (!hexValidation.isValid) {
+		return hexValidation
+	}
+
+	// Then check if it's a valid address length (42 characters = 0x + 40 hex chars)
+	const addressStr = /** @type {string} */ (value)
+	if (addressStr.length !== 42) {
+		return { isValid: false, message: 'Address must be 40 hex characters long (with 0x prefix)' }
+	}
+
+	return { isValid: true }
+}
+
+/**
+ * Validates block tag parameter
+ * @param {unknown} value - Value to validate
+ * @returns {{ isValid: boolean, message?: string }} - Validation result
+ */
+const validateBlockParam = (value) => {
+	if (typeof value === 'string') {
+		// Check for named tags
+		const validNamedTags = ['latest', 'earliest', 'pending', 'safe', 'finalized']
+		if (validNamedTags.includes(value)) {
+			return { isValid: true }
+		}
+
+		// Check for hex block number or hash
+		return validateHex(value)
+	}
+	if (typeof value === 'number') {
+		if (value < 0) {
+			return { isValid: false, message: 'Block number must be non-negative' }
+		}
+		return { isValid: true }
+	}
+
+	return { isValid: false, message: 'Block tag must be a string or number' }
+}
 
 /**
  * @typedef {InvalidRequestError|InvalidAddressError} ValidateGetAccountParamsError
@@ -23,18 +69,10 @@ export const validateGetAccountParams = (action) => {
 	}
 
 	// Validate base params
-	const baseValidation = validateBaseParams(action)
-	if (!baseValidation.isValid) {
-		baseValidation.errors.forEach((error) => {
-			if (error.path === 'throwOnFail') {
-				errors.push(
-					new InvalidRequestError(
-						`Invalid throwOnFail param. throwOnFail must be a boolean or not provided. ${error.message}`,
-					),
-				)
-			} else {
-				errors.push(new InvalidRequestError(error.message))
-			}
+	const baseErrors = validateBaseCallParams(action)
+	if (baseErrors.length > 0) {
+		baseErrors.forEach((error) => {
+			errors.push(new InvalidRequestError(error.message))
 		})
 	}
 

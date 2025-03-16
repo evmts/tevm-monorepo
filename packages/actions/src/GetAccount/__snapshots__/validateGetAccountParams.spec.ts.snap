@@ -11,7 +11,7 @@ Version: 1.1.0.next-73],
 
 exports[`validateGetAccountParams > should return InvalidAddressError for an invalid address 1`] = `
 [
-  [InvalidAddress: Invalid address param. Invalid Address invalidAddress
+  [InvalidAddress: Invalid address param. value must be a hex string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
@@ -20,88 +20,9 @@ Version: 1.1.0.next-73],
 
 exports[`validateGetAccountParams > should return InvalidRequestError for an invalid returnStorage parameter 1`] = `
 [
-  [InvalidRequest: Invalid returnStorage param. returnStorage must be a boolean or not provided. Expected boolean, received string
+  [InvalidRequest: Invalid returnStorage param. returnStorage must be a boolean or not provided.
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`validateGetAccountParams > should return InvalidRequestError for an invalid throwOnFail parameter 1`] = `
-[
-  [InvalidRequest: Invalid throwOnFail param. throwOnFail must be a boolean or not provided. Expected boolean, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`validateGetAccountParams > should return multiple errors for multiple invalid parameters 1`] = `
-[
-  [InvalidRequest: Invalid throwOnFail param. throwOnFail must be a boolean or not provided. Expected boolean, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-  [InvalidRequest: Invalid returnStorage param. returnStorage must be a boolean or not provided. Expected boolean, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-  [InvalidAddress: Invalid address param. Invalid Address invalidAddress
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`validateGetAccountParams should handle additional errors in the formattedErrors._errors array 1`] = `
-[
-  [InvalidRequestError: Test error
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`validateGetAccountParams should return InvalidAddressError for an invalid address 1`] = `
-[
-  [InvalidAddressError: Invalid address param. Invalid Address invalidAddress
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`validateGetAccountParams should return InvalidRequestError for an invalid returnStorage parameter 1`] = `
-[
-  [InvalidRequestError: Invalid returnStorage param. returnStorage must be a boolean or not provided. Expected boolean, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`validateGetAccountParams should return InvalidRequestError for an invalid throwOnFail parameter 1`] = `
-[
-  [InvalidRequestError: Invalid throwOnFail param. throwOnFail must be a boolean or not provided. Expected boolean, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-]
-`;
-
-exports[`validateGetAccountParams should return multiple errors for multiple invalid parameters 1`] = `
-[
-  [InvalidRequestError: Invalid throwOnFail param. throwOnFail must be a boolean or not provided. Expected boolean, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-  [InvalidRequestError: Invalid returnStorage param. returnStorage must be a boolean or not provided. Expected boolean, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
-  [InvalidAddressError: Invalid address param. Invalid Address invalidAddress
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
 ]
 `;

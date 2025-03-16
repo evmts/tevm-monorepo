@@ -77,3 +77,85 @@ exports[`getBlockFromRpc > should handle non-existing block number 1`] = `
 Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
 Version: 1.1.0.next-73]
 `;
+
+exports[`getBlockFromRpc should handle invalid block tag 1`] = `[_UnknownBlockError: No block found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]`;
+
+exports[`getBlockFromRpc should handle a fetch error 1`] = `
+{
+  "code": -1,
+  "message": 
+"An unknown RPC error occurred.
+
+Details: fetch error
+Version: viem@2.23.10"
+,
+}
+`;
+
+exports[`getBlockFromRpc should handle a fetch error 2`] = `
+{
+  "code": -1,
+  "message": 
+"An unknown RPC error occurred.
+
+Details: fetch error
+Version: viem@2.23.10"
+,
+}
+`;
+
+exports[`getBlockFromRpc should handle a fetch error 3`] = `
+{
+  "code": -1,
+  "message": 
+"An unknown RPC error occurred.
+
+Details: fetch error
+Version: viem@2.23.10"
+,
+}
+`;
+
+exports[`getBlockFromRpc should handle non-existing block number 1`] = `[_UnknownBlockError: No block found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]`;
+
+exports[`getBlockFromRpc should handle non-existing block hash 1`] = `[_UnknownBlockError: No block found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]`;
+
+exports[`getBlockFromRpc shoudl handle unlikely event of a non-existing named block tag 1`] = `[_UnknownBlockError: No block found
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
+Version: 1.1.0.next-73]`;
+
+exports[`getBlockFromRpc should handle Optimism deposit transactions filtering 1`] = `
+[
+  [
+    
+"Warning: Optimism and Arbitrum deposit transactions (type 0x7e and 0x6a) are currently not supported and will be filtered out of blocks until support is added
+filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35.
+Note: The block hash will be different because of the excluded txs"
+,
+  ],
+  [
+    
+"Warning: Optimism and Arbitrum deposit transactions (type 0x7e and 0x6a) are currently not supported and will be filtered out of blocks until support is added
+filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35.
+Note: The block hash will be different because of the excluded txs"
+,
+  ],
+  [
+    
+"Warning: Optimism and Arbitrum deposit transactions (type 0x7e and 0x6a) are currently not supported and will be filtered out of blocks until support is added
+filtering out tx 0x284db6dad8681a502b229691d72e890be7f8533cbf34f9d88fbe84db0ed1ff35.
+Note: The block hash will be different because of the excluded txs"
+,
+  ],
+]
+`;
