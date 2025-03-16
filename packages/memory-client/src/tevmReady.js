@@ -1,62 +1,116 @@
 /**
  * A tree-shakeable version of the `tevmReady` action for viem.
- * Checks if TEVM is ready and waits for initialization to complete.
+ * Waits for TEVM initialization to complete, which is especially important when forking.
  *
- * This function ensures that the TEVM is fully initialized and ready for operations.
- * It resolves to `true` if the TEVM is ready, and throws an error if the VM fails to initialize.
+ * This function ensures that the TEVM instance is fully initialized and ready for operations.
+ * It resolves to `true` when initialization is complete, and throws an error if initialization fails.
+ * 
+ * The initialization process handles:
+ * 
+ * - Setting up the EVM execution environment
+ * - Initializing blockchain state and storage structures
+ * - **For forked instances**: Establishing connection to the remote network and loading initial state
+ * - Setting up transaction pool and receipt management systems
+ * - Loading any persisted state (when using a persister)
+ * - Configuring mining modes and other operational parameters
  *
- * Important aspects of initialization include:
- * - Setting up the EVM and bytecode execution environment
- * - Initializing the blockchain state, accounts, and storage
- * - Establishing fork connections and synchronizing state if forking from a network
- * - Preparing the transaction pool and receipt management system
- * - Loading persisted state if a persister is configured
- *
- * Note: It is not necessary to explicitly call `tevmReady` because all actions implicitly wait for TEVM to be ready.
- * However, this can be useful if you want to isolate initialization from the action, for example, when running benchmark tests.
+ * **When to use this function:**
+ * 
+ * While all TEVM actions implicitly wait for initialization to complete, explicitly calling
+ * `tevmReady()` is recommended in these scenarios:
+ * 
+ * - **Forking environments**: To ensure network connection is established before proceeding
+ * - **UI applications**: To show loading indicators during initialization
+ * - **Testing**: To separate initialization time from operation time in benchmarks
+ * - **Error handling**: To catch initialization failures early with proper error handling
+ * - **Complex scripts**: To ensure initialization is complete before proceeding with multiple operations
  *
  * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
- * @returns {Promise<true>} Resolves when ready, rejects if VM fails to initialize.
- * @throws {Error} If the VM fails to initialize.
+ * @returns {Promise<true>} Resolves to `true` when ready, rejects if initialization fails.
+ * @throws {Error} If initialization fails, with details about the specific failure.
  *
  * @example
  * ```typescript
- * import { tevmReady } from 'tevm/actions'
- * import { createClient, http } from 'viem'
+ * import { createMemoryClient, http } from 'tevm'
  * import { optimism } from 'tevm/common'
- * import { createTevmTransport } from 'tevm'
  *
- * const client = createClient({
- *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
- *   }),
- *   chain: optimism,
- * })
+ * async function main() {
+ *   // Create a client that forks from Optimism mainnet
+ *   const client = createMemoryClient({
+ *     fork: {
+ *       transport: http('https://mainnet.optimism.io')({})
+ *     },
+ *     common: optimism,
+ *   })
  *
- * async function example() {
  *   try {
- *     await tevmReady(client)
- *     console.log('TEVM is ready')
+ *     // Show loading indicator in UI
+ *     showLoadingIndicator('Connecting to Optimism...')
+ *     
+ *     // Wait for fork to initialize
+ *     await client.tevmReady()
+ *     
+ *     // Hide loading indicator
+ *     hideLoadingIndicator()
+ *     
+ *     // Now it's safe to interact with the forked network
+ *     const blockNumber = await client.getBlockNumber()
+ *     console.log(`Connected to Optimism block ${blockNumber}`)
+ *     
+ *     // Continue with application logic...
  *   } catch (error) {
- *     // Handle the error appropriately, e.g., retry or use a fallback
- *     console.error('Failed to initialize TEVM:', error)
+ *     // Handle initialization errors gracefully
+ *     showErrorMessage(`Failed to connect: ${error.message}`)
+ *     console.error('TEVM initialization error:', error)
  *   }
  * }
- *
- * example()
  * ```
  *
  * @example
  * ```typescript
- * // Using with memory client for benchmark timing
+ * // Using with promise.race() for timeout handling
+ * import { createMemoryClient, http } from 'tevm'
+ * 
+ * async function initWithTimeout() {
+ *   const client = createMemoryClient({
+ *     fork: {
+ *       transport: http('https://mainnet.ethereum.org')({})
+ *     }
+ *   })
+ *   
+ *   // Create a timeout promise
+ *   const timeout = new Promise((_, reject) => {
+ *     setTimeout(() => reject(new Error('Fork initialization timed out')), 30000)
+ *   })
+ *   
+ *   try {
+ *     // Race initialization against timeout
+ *     await Promise.race([
+ *       client.tevmReady(),
+ *       timeout
+ *     ])
+ *     
+ *     console.log('TEVM initialized successfully')
+ *     return client
+ *   } catch (error) {
+ *     console.error('Initialization failed:', error)
+ *     throw error
+ *   }
+ * }
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // For performance benchmarking
  * import { createMemoryClient } from 'tevm'
- * import { parseEther } from 'viem'
+ * import { optimism } from 'tevm/common'
  *
  * async function benchmark() {
  *   const client = createMemoryClient({
  *     fork: {
- *       url: 'https://mainnet.optimism.io',
- *     }
+ *       transport: http('https://mainnet.optimism.io')({})
+ *     },
+ *     common: optimism
  *   })
  *
  *   // Measure initialization time separately
@@ -64,24 +118,20 @@
  *   await client.tevmReady()
  *   console.timeEnd('Initialization')
  *
- *   // Now measure operation time
+ *   // Now measure operation time separately
  *   console.time('Operations')
- *
- *   // Run your benchmark operations
  *   for (let i = 0; i < 100; i++) {
- *     const balance = await client.getBalance({
+ *     await client.getBalance({
  *       address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
  *     })
  *   }
- *
  *   console.timeEnd('Operations')
  * }
- *
- * benchmark()
  * ```
  *
- * @see [TEVM Actions Guide](https://tevm.sh/learn/actions/)
- * @see [Forking Guide](https://tevm.sh/learn/forking/) for more information about fork initialization.
+ * @see [TEVM Actions Guide](https://tevm.sh/learn/actions/) for information about all available actions.
+ * @see [Forking Guide](https://tevm.sh/learn/forking/) for details about fork initialization process.
+ * @see [createMemoryClient](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/) for client creation options.
  */
 export const tevmReady = async (client) => {
 	return client.transport.tevm.ready()

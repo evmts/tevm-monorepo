@@ -74,6 +74,45 @@ describe('createFileAccessObject', () => {
 		const result = await fileAccessObject.exists('test.ts')
 		expect(result).toBe(true)
 	})
+
+	it('should handle non-string encoding parameter during read operations', async () => {
+		const fileContent = 'file content here'
+		const lsHost = mockLsHost(fileContent)
+		const fileAccessObject = createFileAccessObject(lsHost)
+
+		// Test with undefined encoding
+		const result1 = await fileAccessObject.readFile('test.ts', undefined as unknown as string)
+		expect(result1).toBe(fileContent)
+		expect(lsHost.readFile).toHaveBeenCalledWith('test.ts', undefined)
+
+		// Test with object encoding (invalid but testing error handling)
+		const result2 = fileAccessObject.readFileSync('test.ts', { encoding: 'utf8' } as unknown as string)
+		expect(result2).toBe(fileContent)
+		expect(lsHost.readFile).toHaveBeenCalledWith('test.ts', { encoding: 'utf8' })
+	})
+
+	it('should handle paths with special characters', () => {
+		const fileContent = 'special file content'
+		const lsHost = mockLsHost(fileContent)
+		const fileAccessObject = createFileAccessObject(lsHost)
+		
+		// Test with path containing spaces and special characters
+		const specialPath = 'path/to/special file name with $#@!.ts'
+		
+		// Check file exists
+		const exists = fileAccessObject.existsSync(specialPath)
+		expect(exists).toBe(true)
+		expect(lsHost.fileExists).toHaveBeenCalledWith(specialPath)
+		
+		// Read file
+		const content = fileAccessObject.readFileSync(specialPath, 'utf8')
+		expect(content).toBe(fileContent)
+		expect(lsHost.readFile).toHaveBeenCalledWith(specialPath, 'utf8')
+		
+		// Write file
+		fileAccessObject.writeFileSync(specialPath, 'new content with $#@!')
+		expect(lsHost.writeFile).toHaveBeenCalledWith(specialPath, 'new content with $#@!')
+	})
 })
 
 describe('createRealFileAccessObject', () => {
@@ -121,5 +160,65 @@ describe('createRealFileAccessObject', () => {
 		const nonExistentPath = `${tempFilePath}.nonexistent`
 		const nonExists = await fao.exists(nonExistentPath)
 		expect(nonExists).toBe(false)
+	})
+
+	it('should properly create directories and write files to them', async () => {
+		const fao = createRealFileAccessObject()
+		
+		// Create a temporary directory path
+		const tempDir = path.join(os.tmpdir(), `tevm-test-dir-${Date.now()}`)
+		const nestedFilePath = path.join(tempDir, 'nested', 'file.txt')
+		
+		try {
+			// Create the nested directory structure
+			await fao.mkdir(path.join(tempDir, 'nested'), { recursive: true })
+			
+			// Write a file in the nested directory
+			await fao.writeFile(nestedFilePath, 'nested file content')
+			
+			// Verify the file exists
+			const exists = await fao.exists(nestedFilePath)
+			expect(exists).toBe(true)
+			
+			// Read the file content
+			const content = await fao.readFile(nestedFilePath, 'utf8')
+			expect(content).toBe('nested file content')
+		} finally {
+			// Clean up
+			try {
+				require('node:fs').rmSync(tempDir, { recursive: true, force: true })
+			} catch (e) {
+				// Ignore cleanup errors
+			}
+		}
+	})
+	
+	it('should handle binary file reading and writing', async () => {
+		const fao = createRealFileAccessObject()
+		
+		// Create a binary buffer with sample data
+		const binaryData = Buffer.from([0, 1, 2, 3, 4, 255, 254, 253, 252])
+		
+		// Write binary data to file
+		const binaryFilePath = path.join(os.tmpdir(), `binary-test-${Date.now()}`)
+		try {
+			await fao.writeFile(binaryFilePath, binaryData)
+			
+			// Read it back as binary
+			const readData = await fao.readFile(binaryFilePath)
+			
+			// Verify the binary content matches
+			expect(Buffer.isBuffer(readData)).toBe(true)
+			expect(readData).toEqual(binaryData)
+		} finally {
+			// Clean up
+			try {
+				if (existsSync(binaryFilePath)) {
+					require('node:fs').unlinkSync(binaryFilePath)
+				}
+			} catch (e) {
+				// Ignore cleanup errors
+			}
+		}
 	})
 })

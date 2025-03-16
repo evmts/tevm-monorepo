@@ -13,4 +13,28 @@ describe(blockNumberHandler.name, () => {
 		}
 		expect(await blockNumberHandler({ getVm: () => ({ blockchain }) } as any)()).toBe(420n)
 	})
+
+	it('should handle zero block number', async () => {
+		const blockchain = {
+			getCanonicalHeadBlock: () =>
+				Promise.resolve({
+					header: {
+						number: 0n,
+					},
+				}),
+		}
+		expect(await blockNumberHandler({ getVm: () => ({ blockchain }) } as any)()).toBe(0n)
+	})
+
+	it('should handle large block numbers', async () => {
+		const blockchain = {
+			getCanonicalHeadBlock: () =>
+				Promise.resolve({
+					header: {
+						number: 9999999999n,
+					},
+				}),
+		}
+		expect(await blockNumberHandler({ getVm: () => ({ blockchain }) } as any)()).toBe(9999999999n)
+	})
 })

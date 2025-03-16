@@ -184,4 +184,71 @@ describe('resolveJsonAsConst enhanced tests', () => {
 			expect(mockFao.readFileSync).toHaveBeenCalled()
 		}
 	})
+
+	it('should handle empty jsonAsConst config gracefully', () => {
+		// Setup a JSON file path
+		const jsonFilePath = '/path/to/another-file.json'
+		
+		// Empty array is safer than undefined
+		const emptyArrayConfig = {
+			jsonAsConst: [],
+		}
+		
+		// Setup mock host to return a specific snapshot
+		const hostSnapshot = {
+			getLength: () => 10,
+			getText: () => 'host text',
+			getChangeRange: () => null,
+		}
+		mockHost.getScriptSnapshot.mockReturnValue(hostSnapshot)
+		
+		// Call the function
+		const result = resolveJsonAsConst(emptyArrayConfig, jsonFilePath, mockFao, mockHost, mockTs)
+		
+		// Verify host.getScriptSnapshot was called
+		expect(mockHost.getScriptSnapshot).toHaveBeenCalledWith(jsonFilePath)
+		
+		// Verify result is host's snapshot since jsonAsConst is empty
+		expect(result).toBe(hostSnapshot)
+		
+		// Verify readFileSync was not called
+		expect(mockFao.readFileSync).not.toHaveBeenCalled()
+	})
+
+	it('should process large JSON files without issues', () => {
+		// Setup a JSON file path
+		const jsonFilePath = '/path/to/large.json'
+		
+		// Create a large JSON object
+		const largeObject = {
+			items: Array.from({ length: 500 }, (_, i) => ({ 
+				id: i, 
+				name: `Item ${i}`,
+				value: Math.random() * 1000,
+				active: i % 2 === 0,
+				tags: [`tag-${i % 10}`, `category-${i % 5}`]
+			})),
+			meta: {
+				version: "1.0.0",
+				generated: new Date().toISOString(),
+				info: "This is a large test JSON file"
+			}
+		}
+		const largeJsonContent = JSON.stringify(largeObject)
+		
+		// Mock the readFileSync to return the large JSON
+		mockFao.readFileSync.mockReturnValue(largeJsonContent)
+		
+		// Call the function
+		const result = resolveJsonAsConst(mockConfig, jsonFilePath, mockFao, mockHost, mockTs)
+		
+		// Verify readFileSync was called
+		expect(mockFao.readFileSync).toHaveBeenCalledWith(jsonFilePath, 'utf8')
+		
+		// Verify the result contains our large JSON data
+		expect(result?.text).toBe(`export default ${largeJsonContent} as const`)
+		
+		// Verify the text length is substantial
+		expect(result?.text.length).toBeGreaterThan(1000)
+	})
 })

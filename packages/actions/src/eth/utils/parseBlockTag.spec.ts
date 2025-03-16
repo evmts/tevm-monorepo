@@ -40,4 +40,16 @@ describe('parseBlockTag', () => {
 		const result = parseBlockTag(blockTag)
 		expect(result).toBe(blockTag)
 	})
+
+	it('should handle zero block tag correctly', () => {
+		const blockTag = '0x0'
+		const result = parseBlockTag(blockTag)
+		expect(result).toBe(0n)
+	})
+
+	it('should handle large block numbers correctly', () => {
+		const blockTag = '0xffffff'
+		const result = parseBlockTag(blockTag)
+		expect(result).toBe(16777215n)
+	})
 })
