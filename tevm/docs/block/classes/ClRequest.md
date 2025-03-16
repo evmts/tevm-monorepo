@@ -6,7 +6,20 @@
 
 # Class: ClRequest
 
-Defined in: packages/block/types/ClRequest.d.ts:11
+Defined in: packages/block/types/ClRequest.d.ts:61
+
+Base implementation of a consensus layer request.
+Used to create and serialize requests between the execution and consensus layers.
+
+## Example
+
+```typescript
+import { ClRequest } from '@tevm/block'
+
+// Create a request with type 1 and some payload data
+const instance = new ClRequest(1, new Uint8Array([0x01, 0x02, 0x03]))
+const serialized = instance.serialize() // Type byte followed by payload
+```
 
 ## Implements
 
@@ -18,7 +31,7 @@ Defined in: packages/block/types/ClRequest.d.ts:11
 
 > **new ClRequest**(`type`, `bytes`): [`ClRequest`](ClRequest.md)
 
-Defined in: packages/block/types/ClRequest.d.ts:14
+Defined in: packages/block/types/ClRequest.d.ts:64
 
 #### Parameters
 
@@ -40,7 +53,7 @@ Defined in: packages/block/types/ClRequest.d.ts:14
 
 > **bytes**: `Uint8Array`
 
-Defined in: packages/block/types/ClRequest.d.ts:13
+Defined in: packages/block/types/ClRequest.d.ts:63
 
 #### Implementation of
 
@@ -52,7 +65,7 @@ Defined in: packages/block/types/ClRequest.d.ts:13
 
 > **type**: `number`
 
-Defined in: packages/block/types/ClRequest.d.ts:12
+Defined in: packages/block/types/ClRequest.d.ts:62
 
 #### Implementation of
 
@@ -64,7 +77,7 @@ Defined in: packages/block/types/ClRequest.d.ts:12
 
 > **serialize**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/ClRequest.d.ts:15
+Defined in: packages/block/types/ClRequest.d.ts:65
 
 #### Returns
 

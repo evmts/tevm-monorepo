@@ -8,7 +8,10 @@
 
 > **JsonRpcSchemaPublic**: `object`
 
-Defined in: [eip1193/JsonRpcSchemaPublic.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L24)
+Defined in: [eip1193/JsonRpcSchemaPublic.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts#L46)
+
+Type definitions for standard Ethereum JSON-RPC methods accessible to the public.
+Includes methods related to network info, blocks, transactions, and state queries.
 
 ## Type declaration
 
@@ -1218,3 +1221,23 @@ provider.request({ method: 'web3_sha3', params: ['0x68656c6c6f20776f726c64'] })
 #### web3\_sha3.ReturnType
 
 > **ReturnType**: `string`
+
+## Example
+
+```typescript
+import { JsonRpcSchemaPublic } from '@tevm/decorators'
+import { createTevmNode } from 'tevm'
+import { requestEip1193 } from '@tevm/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+
+// Call methods using their defined types
+const blockNumber = await node.request({
+  method: 'eth_blockNumber'
+})
+
+const balance = await node.request({
+  method: 'eth_getBalance',
+  params: ['0x1234567890123456789012345678901234567890', 'latest']
+})
+```

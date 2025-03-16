@@ -6,18 +6,23 @@
 
 # Interface: AfterTxEvent
 
-Defined in: [packages/vm/src/utils/AfterTxEvent.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L15)
+Defined in: [packages/vm/src/utils/AfterTxEvent.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L20)
 
-[Description of what this interface represents]
+Event data emitted after a transaction has been executed.
+Extends RunTxResult with the transaction that triggered the event.
 
 ## Example
 
 ```typescript
-import { AfterTxEvent } from '[package-path]'
+import { AfterTxEvent } from '@tevm/vm'
+import { VM } from '@tevm/vm'
 
-const value: AfterTxEvent = {
-  // Initialize properties
-}
+// Access in VM event handlers
+const vm = new VM()
+vm.events.on('afterTx', (event: AfterTxEvent) => {
+  console.log('Transaction executed:', event.transaction)
+  console.log('Gas used:', event.gasUsed)
+})
 ```
 
 ## Extends
@@ -186,6 +191,6 @@ which consists of calldata cost, intrinsic cost and optionally the access list c
 
 > **transaction**: `TypedTransaction`
 
-Defined in: [packages/vm/src/utils/AfterTxEvent.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L19)
+Defined in: [packages/vm/src/utils/AfterTxEvent.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L24)
 
 The transaction which just got finished

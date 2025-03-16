@@ -6,7 +6,7 @@
 
 # Interface: HeaderData
 
-Defined in: packages/block/types/types.d.ts:105
+Defined in: packages/block/types/types.d.ts:159
 
 A block header's data.
 
@@ -16,7 +16,7 @@ A block header's data.
 
 > `optional` **baseFeePerGas**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:121
+Defined in: packages/block/types/types.d.ts:175
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: packages/block/types/types.d.ts:121
 
 > `optional` **blobGasUsed**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:123
+Defined in: packages/block/types/types.d.ts:177
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: packages/block/types/types.d.ts:123
 
 > `optional` **coinbase**: `string` \| [`EthjsAddress`](../../utils/classes/EthjsAddress.md) \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:108
+Defined in: packages/block/types/types.d.ts:162
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: packages/block/types/types.d.ts:108
 
 > `optional` **difficulty**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:113
+Defined in: packages/block/types/types.d.ts:167
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: packages/block/types/types.d.ts:113
 
 > `optional` **excessBlobGas**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:124
+Defined in: packages/block/types/types.d.ts:178
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: packages/block/types/types.d.ts:124
 
 > `optional` **extraData**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:118
+Defined in: packages/block/types/types.d.ts:172
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: packages/block/types/types.d.ts:118
 
 > `optional` **gasLimit**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:115
+Defined in: packages/block/types/types.d.ts:169
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: packages/block/types/types.d.ts:115
 
 > `optional` **gasUsed**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:116
+Defined in: packages/block/types/types.d.ts:170
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: packages/block/types/types.d.ts:116
 
 > `optional` **logsBloom**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:112
+Defined in: packages/block/types/types.d.ts:166
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: packages/block/types/types.d.ts:112
 
 > `optional` **mixHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:119
+Defined in: packages/block/types/types.d.ts:173
 
 ***
 
@@ -96,7 +96,7 @@ Defined in: packages/block/types/types.d.ts:119
 
 > `optional` **nonce**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:120
+Defined in: packages/block/types/types.d.ts:174
 
 ***
 
@@ -104,7 +104,7 @@ Defined in: packages/block/types/types.d.ts:120
 
 > `optional` **number**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:114
+Defined in: packages/block/types/types.d.ts:168
 
 ***
 
@@ -112,7 +112,7 @@ Defined in: packages/block/types/types.d.ts:114
 
 > `optional` **parentBeaconBlockRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:125
+Defined in: packages/block/types/types.d.ts:179
 
 ***
 
@@ -120,7 +120,7 @@ Defined in: packages/block/types/types.d.ts:125
 
 > `optional` **parentHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:106
+Defined in: packages/block/types/types.d.ts:160
 
 ***
 
@@ -128,7 +128,7 @@ Defined in: packages/block/types/types.d.ts:106
 
 > `optional` **receiptTrie**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:111
+Defined in: packages/block/types/types.d.ts:165
 
 ***
 
@@ -136,7 +136,7 @@ Defined in: packages/block/types/types.d.ts:111
 
 > `optional` **requestsRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:126
+Defined in: packages/block/types/types.d.ts:180
 
 ***
 
@@ -144,7 +144,7 @@ Defined in: packages/block/types/types.d.ts:126
 
 > `optional` **stateRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:109
+Defined in: packages/block/types/types.d.ts:163
 
 ***
 
@@ -152,7 +152,7 @@ Defined in: packages/block/types/types.d.ts:109
 
 > `optional` **timestamp**: `string` \| `number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:117
+Defined in: packages/block/types/types.d.ts:171
 
 ***
 
@@ -160,7 +160,7 @@ Defined in: packages/block/types/types.d.ts:117
 
 > `optional` **transactionsTrie**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:110
+Defined in: packages/block/types/types.d.ts:164
 
 ***
 
@@ -168,7 +168,7 @@ Defined in: packages/block/types/types.d.ts:110
 
 > `optional` **uncleHash**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:107
+Defined in: packages/block/types/types.d.ts:161
 
 ***
 
@@ -176,4 +176,4 @@ Defined in: packages/block/types/types.d.ts:107
 
 > `optional` **withdrawalsRoot**: `string` \| `number` \| `bigint` \| `number`[] \| `Uint8Array`\<`ArrayBufferLike`\> \| `TransformabletoBytes`
 
-Defined in: packages/block/types/types.d.ts:122
+Defined in: packages/block/types/types.d.ts:176

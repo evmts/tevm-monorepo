@@ -8,7 +8,7 @@
 
 > **CallResult**\<`TAbi`, `TFunctionName`\>: `object`
 
-Defined in: packages/precompiles/dist/index.d.ts:29
+Defined in: packages/precompiles/dist/index.d.ts:45
 
 A result of a precompile javascript call
 

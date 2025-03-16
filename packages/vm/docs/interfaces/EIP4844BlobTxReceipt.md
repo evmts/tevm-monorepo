@@ -6,17 +6,23 @@
 
 # Interface: EIP4844BlobTxReceipt
 
-Defined in: [packages/vm/src/utils/EIP4844BlobTxReceipt.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EIP4844BlobTxReceipt.ts#L14)
+Defined in: [packages/vm/src/utils/EIP4844BlobTxReceipt.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EIP4844BlobTxReceipt.ts#L20)
 
-[Description of what this interface represents]
+Transaction receipt format for EIP-4844 blob transactions.
+Extends PostByzantiumTxReceipt with additional blob gas information.
 
 ## Example
 
 ```typescript
-import { EIP4844BlobTxReceipt } from '[package-path]'
+import { EIP4844BlobTxReceipt } from '@tevm/vm'
 
-const value: EIP4844BlobTxReceipt = {
-  // Initialize properties
+const receipt: EIP4844BlobTxReceipt = {
+  status: 1n,
+  cumulativeBlockGasUsed: 100000n,
+  bitvector: new Uint8Array([]),
+  logs: [],
+  blobGasUsed: 131072n,
+  blobGasPrice: 10n
 }
 ```
 
@@ -44,7 +50,7 @@ Bloom bitvector
 
 > **blobGasPrice**: `bigint`
 
-Defined in: [packages/vm/src/utils/EIP4844BlobTxReceipt.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EIP4844BlobTxReceipt.ts#L28)
+Defined in: [packages/vm/src/utils/EIP4844BlobTxReceipt.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EIP4844BlobTxReceipt.ts#L34)
 
 blob gas price for block transaction was included in
 
@@ -57,7 +63,7 @@ and is only provided as part of receipt metadata.
 
 > **blobGasUsed**: `bigint`
 
-Defined in: [packages/vm/src/utils/EIP4844BlobTxReceipt.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EIP4844BlobTxReceipt.ts#L21)
+Defined in: [packages/vm/src/utils/EIP4844BlobTxReceipt.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EIP4844BlobTxReceipt.ts#L27)
 
 blob gas consumed by a transaction
 

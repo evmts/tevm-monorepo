@@ -30,7 +30,7 @@ export type Quantity = Hex
  *
  * const node = createTevmNode().extend(requestEip1193())
  * const syncStatus = await node.request({ method: 'eth_syncing' })
- * 
+ *
  * if (syncStatus !== false) {
  *   const networkSync: NetworkSync = syncStatus
  *   console.log(`Syncing: ${networkSync.currentBlock} of ${networkSync.highestBlock}`)

@@ -14,7 +14,7 @@ import type { RpcSchema } from './RpcSchema.js'
  * import { RpcSchemaOverride } from '@tevm/decorators'
  * import { createTevmNode } from 'tevm'
  * import { requestEip1193 } from '@tevm/decorators'
- * 
+ *
  * // Define custom parameter and return types for a method
  * type CustomGetBlockOverride = RpcSchemaOverride & {
  *   Parameters: [blockNumber: string, includeTransactions: boolean, includeOffchainData?: boolean]
@@ -26,7 +26,7 @@ import type { RpcSchema } from './RpcSchema.js'
  *     customData?: Record<string, any> // Extended field
  *   }
  * }
- * 
+ *
  * // The override can be used with the standard method name
  * const customMethod = {
  *   Method: 'eth_getBlockByNumber',

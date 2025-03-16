@@ -8,7 +8,7 @@
 
 > **putAccount**(`baseState`, `skipFetchingFromFork`?): (`address`, `account`?) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:363
+Defined in: packages/state/dist/index.d.ts:475
 
 Saves an account into state under the provided `address`.
 

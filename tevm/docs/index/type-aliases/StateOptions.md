@@ -8,7 +8,10 @@
 
 > **StateOptions**: `object`
 
-Defined in: packages/state/dist/index.d.ts:176
+Defined in: packages/state/dist/index.d.ts:288
+
+Configuration options for the Tevm state manager.
+Controls forking, initial state, caching, and event handling.
 
 ## Type declaration
 
@@ -67,3 +70,18 @@ Called when state manager commits state
 > `readonly` `optional` **storageCache**: [`StorageCache`](../../state/classes/StorageCache.md)
 
 Optionally configure and pass in your own StorageCache
+
+## Example
+
+```typescript
+import { StateOptions } from '@tevm/state'
+import { http } from 'viem'
+
+const value: StateOptions = {
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/your-api-key'),
+    blockTag: 'latest'
+  },
+  loggingLevel: 'debug'
+}
+```

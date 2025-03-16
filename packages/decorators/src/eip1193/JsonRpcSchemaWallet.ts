@@ -19,14 +19,14 @@ import type { Hash } from './misc.js'
  * import { JsonRpcSchemaWallet } from '@tevm/decorators'
  * import { createTevmNode } from 'tevm'
  * import { requestEip1193 } from '@tevm/decorators'
- * 
+ *
  * const node = createTevmNode().extend(requestEip1193())
- * 
+ *
  * // Request accounts access (triggers wallet popup)
  * const accounts = await node.request({
  *   method: 'eth_requestAccounts'
  * })
- * 
+ *
  * // Send a transaction
  * const txHash = await node.request({
  *   method: 'eth_sendTransaction',

@@ -8,7 +8,7 @@
 
 > **BaseState**: `object`
 
-Defined in: packages/state/dist/index.d.ts:110
+Defined in: packages/state/dist/index.d.ts:188
 
 **`Internal`**
 

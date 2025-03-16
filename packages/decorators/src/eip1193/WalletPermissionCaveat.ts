@@ -15,9 +15,9 @@
  *   type: 'restrictReturnedAccounts',
  *   value: ['0x1234567890123456789012345678901234567890']
  * }
- * 
+ *
  * const expirationCaveat: WalletPermissionCaveat = {
- *   type: 'expiresOn', 
+ *   type: 'expiresOn',
  *   value: 1720872662291 // Unix timestamp in milliseconds
  * }
  * ```

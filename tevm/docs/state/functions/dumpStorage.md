@@ -8,7 +8,7 @@
 
 > **dumpStorage**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<[`StorageDump`](../../common/interfaces/StorageDump.md)\>
 
-Defined in: packages/state/dist/index.d.ts:253
+Defined in: packages/state/dist/index.d.ts:365
 
 Dumps the RLP-encoded storage values for an `account` specified by `address`.
 Keys are the storage keys, values are the storage values as strings.

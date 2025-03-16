@@ -8,9 +8,10 @@
 
 > **EVMProfilerOpts**: `object`
 
-Defined in: [packages/vm/src/utils/EVMProfileOpts.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EVMProfileOpts.ts#L12)
+Defined in: [packages/vm/src/utils/EVMProfileOpts.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/EVMProfileOpts.ts#L13)
 
-[Description of what this type represents]
+Configuration options for EVM code execution profiling.
+Controls whether detailed execution metrics are collected.
 
 ## Type declaration
 
@@ -21,9 +22,9 @@ Defined in: [packages/vm/src/utils/EVMProfileOpts.ts:12](https://github.com/evmt
 ## Example
 
 ```typescript
-import { EVMProfilerOpts } from '[package-path]'
+import { EVMProfilerOpts } from '@tevm/vm'
 
 const value: EVMProfilerOpts = {
-  // Initialize properties
+  enabled: true // Enable EVM profiling to collect execution metrics
 }
 ```

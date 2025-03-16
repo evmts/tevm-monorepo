@@ -29,14 +29,14 @@ import type { Hash, LogTopic } from './misc.js'
  * import { JsonRpcSchemaPublic } from '@tevm/decorators'
  * import { createTevmNode } from 'tevm'
  * import { requestEip1193 } from '@tevm/decorators'
- * 
+ *
  * const node = createTevmNode().extend(requestEip1193())
- * 
+ *
  * // Call methods using their defined types
  * const blockNumber = await node.request({
  *   method: 'eth_blockNumber'
  * })
- * 
+ *
  * const balance = await node.request({
  *   method: 'eth_getBalance',
  *   params: ['0x1234567890123456789012345678901234567890', 'latest']

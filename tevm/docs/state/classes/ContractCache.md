@@ -6,7 +6,7 @@
 
 # Class: ContractCache
 
-Defined in: packages/state/dist/index.d.ts:52
+Defined in: packages/state/dist/index.d.ts:130
 
 Contract cache is a mapping of addresses to deployedBytecode
 It is implemented via extending StorageCache and hardcoding slot 0
@@ -17,7 +17,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 > **new ContractCache**(`storageCache`?): [`ContractCache`](ContractCache.md)
 
-Defined in: packages/state/dist/index.d.ts:53
+Defined in: packages/state/dist/index.d.ts:131
 
 #### Parameters
 
@@ -35,7 +35,7 @@ Defined in: packages/state/dist/index.d.ts:53
 
 > **storageCache**: [`StorageCache`](StorageCache.md)
 
-Defined in: packages/state/dist/index.d.ts:54
+Defined in: packages/state/dist/index.d.ts:132
 
 ## Accessors
 
@@ -45,7 +45,7 @@ Defined in: packages/state/dist/index.d.ts:54
 
 > **get** **\_checkpoints**(): `number`
 
-Defined in: packages/state/dist/index.d.ts:88
+Defined in: packages/state/dist/index.d.ts:166
 
 ##### Returns
 
@@ -57,7 +57,7 @@ Defined in: packages/state/dist/index.d.ts:88
 
 > **checkpoint**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:82
+Defined in: packages/state/dist/index.d.ts:160
 
 #### Returns
 
@@ -69,7 +69,7 @@ Defined in: packages/state/dist/index.d.ts:82
 
 > **clear**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:62
+Defined in: packages/state/dist/index.d.ts:140
 
 #### Returns
 
@@ -81,7 +81,7 @@ Defined in: packages/state/dist/index.d.ts:62
 
 > **commit**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:58
+Defined in: packages/state/dist/index.d.ts:136
 
 #### Returns
 
@@ -93,7 +93,7 @@ Defined in: packages/state/dist/index.d.ts:58
 
 > **del**(`address`): `void`
 
-Defined in: packages/state/dist/index.d.ts:78
+Defined in: packages/state/dist/index.d.ts:156
 
 #### Parameters
 
@@ -111,7 +111,7 @@ Defined in: packages/state/dist/index.d.ts:78
 
 > **get**(`address`): `undefined` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/state/dist/index.d.ts:67
+Defined in: packages/state/dist/index.d.ts:145
 
 #### Parameters
 
@@ -129,7 +129,7 @@ Defined in: packages/state/dist/index.d.ts:67
 
 > **has**(`address`): `boolean`
 
-Defined in: packages/state/dist/index.d.ts:87
+Defined in: packages/state/dist/index.d.ts:165
 
 #### Parameters
 
@@ -149,7 +149,7 @@ if the cache has the key
 
 > **put**(`address`, `bytecode`): `void`
 
-Defined in: packages/state/dist/index.d.ts:73
+Defined in: packages/state/dist/index.d.ts:151
 
 #### Parameters
 
@@ -171,7 +171,7 @@ Defined in: packages/state/dist/index.d.ts:73
 
 > **revert**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:93
+Defined in: packages/state/dist/index.d.ts:171
 
 #### Returns
 
@@ -183,7 +183,7 @@ Defined in: packages/state/dist/index.d.ts:93
 
 > **size**(): `number`
 
-Defined in: packages/state/dist/index.d.ts:89
+Defined in: packages/state/dist/index.d.ts:167
 
 #### Returns
 

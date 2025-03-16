@@ -8,9 +8,10 @@
 
 > **StateOptions**: `object`
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L21)
+Defined in: [packages/state/src/state-types/StateOptions.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L27)
 
-[Description of what this type represents]
+Configuration options for the Tevm state manager.
+Controls forking, initial state, caching, and event handling.
 
 ## Type declaration
 
@@ -73,9 +74,14 @@ Optionally configure and pass in your own StorageCache
 ## Example
 
 ```typescript
-import { StateOptions } from '[package-path]'
+import { StateOptions } from '@tevm/state'
+import { http } from 'viem'
 
 const value: StateOptions = {
-  // Initialize properties
+  fork: {
+    transport: http('https://mainnet.infura.io/v3/your-api-key'),
+    blockTag: 'latest'
+  },
+  loggingLevel: 'debug'
 }
 ```

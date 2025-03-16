@@ -8,7 +8,7 @@
 
 > **getStateRoot**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/state/dist/index.d.ts:343
+Defined in: packages/state/dist/index.d.ts:455
 
 Gets the current state root
 

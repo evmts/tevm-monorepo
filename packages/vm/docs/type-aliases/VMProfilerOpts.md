@@ -8,9 +8,10 @@
 
 > **VMProfilerOpts**: `object`
 
-Defined in: [packages/vm/src/utils/VMProfileOpts.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L12)
+Defined in: [packages/vm/src/utils/VMProfileOpts.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L14)
 
-[Description of what this type represents]
+Configuration options for VM profiling and performance reporting.
+Controls when and how profiling data is reported during VM execution.
 
 ## Type declaration
 
@@ -25,9 +26,10 @@ Defined in: [packages/vm/src/utils/VMProfileOpts.ts:12](https://github.com/evmts
 ## Example
 
 ```typescript
-import { VMProfilerOpts } from '[package-path]'
+import { VMProfilerOpts } from '@tevm/vm'
 
 const value: VMProfilerOpts = {
-  // Initialize properties
+  reportAfterTx: true,    // Generate reports after each transaction
+  reportAfterBlock: false // Don't generate reports after each block
 }
 ```

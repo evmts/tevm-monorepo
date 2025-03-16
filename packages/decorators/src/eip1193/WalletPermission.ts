@@ -15,12 +15,12 @@ import type { WalletPermissionCaveat } from './WalletPermissionCaveat.js'
  * import { requestEip1193 } from '@tevm/decorators'
  *
  * const node = createTevmNode().extend(requestEip1193())
- * 
+ *
  * // Request and display current wallet permissions
  * const permissions = await node.request({
  *   method: 'wallet_getPermissions'
  * })
- * 
+ *
  * const accountsPermission: WalletPermission = {
  *   id: 'ZcbZ7h80QuyOfK1im9OHbw',
  *   parentCapability: 'eth_accounts',

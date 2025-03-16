@@ -17,9 +17,9 @@ import type { SerializeToJson } from '@tevm/utils'
  * import { JsonRpcSchemaTevm } from '@tevm/decorators'
  * import { createTevmNode } from 'tevm'
  * import { requestEip1193 } from '@tevm/decorators'
- * 
+ *
  * const node = createTevmNode().extend(requestEip1193())
- * 
+ *
  * // Execute a call with detailed return data
  * const result = await node.request({
  *   method: 'tevm_call',
@@ -28,7 +28,7 @@ import type { SerializeToJson } from '@tevm/utils'
  *     data: '0xa9059cbb000000000000000000000000deadbeefdeadbeefdeadbeefdeadbeefdeadbeef0000000000000000000000000000000000000000000000000de0b6b3a7640000'
  *   }]
  * })
- * 
+ *
  * // Get the state of an account
  * const account = await node.request({
  *   method: 'tevm_getAccount',

@@ -8,7 +8,7 @@
 
 > **putContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`, `value`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:379
+Defined in: packages/state/dist/index.d.ts:491
 
 Adds value to the cache for the `account`
 corresponding to `address` at the provided `key`.

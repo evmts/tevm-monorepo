@@ -8,7 +8,10 @@
 
 > **EIP1193RequestOptions**: `object`
 
-Defined in: [eip1193/EIP1993RequestOptions.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestOptions.ts#L7)
+Defined in: [eip1193/EIP1993RequestOptions.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestOptions.ts#L29)
+
+Options for EIP-1193 compatible JSON-RPC requests.
+Controls retry behavior for network requests to Ethereum providers.
 
 ## Type declaration
 
@@ -19,3 +22,23 @@ Defined in: [eip1193/EIP1993RequestOptions.ts:7](https://github.com/evmts/tevm-m
 ### retryDelay?
 
 > `optional` **retryDelay**: `number`
+
+## Example
+
+```typescript
+import { EIP1193RequestOptions } from '@tevm/decorators'
+import { requestEip1193 } from '@tevm/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+
+// Add retry options to handle network instability
+const options: EIP1193RequestOptions = {
+  retryCount: 3,     // Retry failed requests up to 3 times
+  retryDelay: 1000   // Wait 1 second between retries
+}
+
+await node.request({
+  method: 'eth_getBalance',
+  params: ['0x1234...', 'latest']
+}, options)
+```

@@ -8,7 +8,7 @@
 
 > **WatchAssetParams**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1303
+Defined in: packages/decorators/dist/index.d.ts:1531
 
 Parameters for the `watchAsset` method.
 

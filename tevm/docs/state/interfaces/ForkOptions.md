@@ -6,7 +6,22 @@
 
 # Interface: ForkOptions
 
-Defined in: packages/state/dist/index.d.ts:19
+Defined in: packages/state/dist/index.d.ts:48
+
+Configuration options for forking from an existing blockchain network.
+Used to specify the RPC endpoint and block number to fork from.
+
+## Example
+
+```typescript
+import { ForkOptions } from '@tevm/state'
+import { http } from 'viem'
+
+const value: ForkOptions = {
+  transport: http('https://mainnet.infura.io/v3/your-api-key'),
+  blockTag: 'latest'
+}
+```
 
 ## Properties
 
@@ -14,7 +29,7 @@ Defined in: packages/state/dist/index.d.ts:19
 
 > `optional` **blockTag**: `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
-Defined in: packages/state/dist/index.d.ts:23
+Defined in: packages/state/dist/index.d.ts:52
 
 ***
 
@@ -22,4 +37,4 @@ Defined in: packages/state/dist/index.d.ts:23
 
 > **transport**: `Transport` \| \{ `request`: `EIP1193RequestFn`; \}
 
-Defined in: packages/state/dist/index.d.ts:20
+Defined in: packages/state/dist/index.d.ts:49

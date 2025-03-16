@@ -8,7 +8,7 @@
 
 > **getAppliedKey**(`baseState`, `skipFetchingFromFork`?): `undefined` \| (`address`) => `Uint8Array`
 
-Defined in: packages/state/dist/index.d.ts:293
+Defined in: packages/state/dist/index.d.ts:405
 
 ## Parameters
 

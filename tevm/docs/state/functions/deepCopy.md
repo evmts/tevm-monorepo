@@ -8,7 +8,7 @@
 
 > **deepCopy**(`baseState`): () => `Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
 
-Defined in: packages/state/dist/index.d.ts:233
+Defined in: packages/state/dist/index.d.ts:345
 
 ## Parameters
 

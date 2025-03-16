@@ -6,9 +6,24 @@
 
 # Interface: AfterBlockEvent
 
-Defined in: packages/vm/types/utils/AfterblockEvent.d.ts:3
+Defined in: packages/vm/types/utils/AfterblockEvent.d.ts:19
 
-Result of runBlock
+Event data emitted after a block has been processed.
+Extends RunBlockResult with the block that was processed.
+
+## Example
+
+```typescript
+import { AfterBlockEvent } from '@tevm/vm'
+import { VM } from '@tevm/vm'
+
+// Access in VM event handlers
+const vm = new VM()
+vm.events.on('afterBlock', (event: AfterBlockEvent) => {
+  console.log('Block processed:', event.block.header.number)
+  console.log('Receipts:', event.receipts)
+})
+```
 
 ## Extends
 
@@ -20,7 +35,7 @@ Result of runBlock
 
 > **block**: [`Block`](../../block/classes/Block.md)
 
-Defined in: packages/vm/types/utils/AfterblockEvent.d.ts:4
+Defined in: packages/vm/types/utils/AfterblockEvent.d.ts:20
 
 ***
 
