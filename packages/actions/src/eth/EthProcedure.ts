@@ -213,3 +213,8 @@ export type EthUninstallFilterJsonRpcProcedure = (
 export type EthCreateAccessListJsonRpcProcedure = (
 	request: EthCreateAccessListJsonRpcRequest,
 ) => Promise<EthCreateAccessListJsonRpcResponse>
+
+// eth_simulateV1
+export type EthSimulateV1JsonRpcProcedure = (
+	request: EthSimulateV1JsonRpcRequest,
+) => Promise<EthSimulateV1JsonRpcResponse>

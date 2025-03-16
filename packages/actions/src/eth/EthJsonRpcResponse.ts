@@ -339,3 +339,42 @@ export type EthCreateAccessListJsonRpcResponse = JsonRpcResponse<
 	},
 	string | number
 >
+
+// eth_simulateV1
+/**
+ * JSON-RPC response for `eth_simulateV1` procedure
+ */
+export type EthSimulateV1JsonRpcResponse = JsonRpcResponse<
+	'eth_simulateV1',
+	{
+		results: Array<{
+			status: 'success' | 'failure'
+			data: Hex
+			gasUsed: Hex
+			logs: Array<{
+				address: Address
+				topics: Hex[]
+				data: Hex
+				blockNumber?: Hex
+				transactionHash?: Hex
+				transactionIndex?: Hex
+				blockHash?: Hex
+				logIndex?: Hex
+			}>
+			error?: string
+		}>,
+		assetChanges?: Array<{
+			token: {
+				address: Address
+				symbol?: string
+				decimals?: number
+			},
+			value: {
+				diff: Hex
+				start?: Hex
+				end?: Hex
+			}
+		}>
+	},
+	string | number
+>
