@@ -92,7 +92,7 @@ describe(getScriptKindDecorator.name, () => {
 		// Test with different levels of parent directory navigation
 		expect(decorated.getScriptKind?.('../Contract.sol')).toBe(typescript.ScriptKind.TS)
 		expect(decorated.getScriptKind?.('../../deeper/path/Contract.sol')).toBe(typescript.ScriptKind.TS)
-		
+
 		// Ensure non-solidity files with parent paths are proxied
 		createInfo.languageServiceHost.getScriptKind.mockReturnValue(typescript.ScriptKind.JS)
 		expect(decorated.getScriptKind?.('../Contract.js')).toBe(typescript.ScriptKind.JS)
@@ -102,15 +102,15 @@ describe(getScriptKindDecorator.name, () => {
 	it('Should handle edge cases with invalid solidity paths', () => {
 		const decorated = getScriptKindDecorator(createInfo, typescript, logger, config, fao)
 		createInfo.languageServiceHost.getScriptKind.mockReturnValue(typescript.ScriptKind.Unknown)
-		
+
 		// These are not valid Solidity paths according to isSolidity implementation
 		const invalidSolidityPaths = ['.sol', '/.sol']
-		
-		invalidSolidityPaths.forEach(path => {
+
+		invalidSolidityPaths.forEach((path) => {
 			expect(decorated.getScriptKind?.(path)).toBe(typescript.ScriptKind.Unknown)
 			expect(createInfo.languageServiceHost.getScriptKind).toHaveBeenLastCalledWith(path)
 		})
-		
+
 		// Even if they're relative paths, they shouldn't be treated as Solidity files
 		expect(decorated.getScriptKind?.('./.sol')).toBe(typescript.ScriptKind.Unknown)
 		expect(createInfo.languageServiceHost.getScriptKind).toHaveBeenLastCalledWith('./.sol')
@@ -118,7 +118,7 @@ describe(getScriptKindDecorator.name, () => {
 
 	it('Should handle non-solidity files with query parameters', () => {
 		const decorated = getScriptKindDecorator(createInfo, typescript, logger, config, fao)
-		
+
 		// Non-solidity files with query params should be handled by the original implementation
 		createInfo.languageServiceHost.getScriptKind.mockReturnValue(typescript.ScriptKind.JS)
 		expect(decorated.getScriptKind?.('./index.js?raw')).toBe(typescript.ScriptKind.JS)
@@ -127,14 +127,14 @@ describe(getScriptKindDecorator.name, () => {
 
 	it('Should handle absolute paths to solidity files', () => {
 		const decorated = getScriptKindDecorator(createInfo, typescript, logger, config, fao)
-		
+
 		// Test with absolute paths on different platforms
 		// Windows-style absolute path
 		expect(decorated.getScriptKind?.('C:\\projects\\Contract.sol')).toBe(typescript.ScriptKind.External)
-		
+
 		// Unix-style absolute path
 		expect(decorated.getScriptKind?.('/home/user/projects/Contract.sol')).toBe(typescript.ScriptKind.External)
-		
+
 		// Make sure the original implementation is used for non-solidity files
 		createInfo.languageServiceHost.getScriptKind.mockReturnValue(typescript.ScriptKind.JS)
 		expect(decorated.getScriptKind?.('/home/user/projects/script.js')).toBe(typescript.ScriptKind.JS)

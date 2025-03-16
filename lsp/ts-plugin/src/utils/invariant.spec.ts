@@ -16,8 +16,8 @@ describe(invariant.name, () => {
 
 	it('should handle falsy values correctly', () => {
 		const falsyValues = [false, 0, '', null, undefined]
-		
-		falsyValues.forEach(value => {
+
+		falsyValues.forEach((value) => {
 			expect(() => invariant(value, 'falsy value')).toThrowError('falsy value')
 		})
 	})
@@ -25,16 +25,16 @@ describe(invariant.name, () => {
 	it('should narrow union types when condition is truthy', () => {
 		// Test with string | null
 		const maybeString = Math.random() > 0.5 ? 'hello' : null
-		
+
 		if (maybeString !== null) {
 			invariant(maybeString, 'String is null')
 			// After invariant, TypeScript should know maybeString is a string
 			expectTypeOf(maybeString).toBeString()
 		}
-		
+
 		// Test with number | undefined
 		const maybeNumber = Math.random() > 0.5 ? 42 : undefined
-		
+
 		if (maybeNumber !== undefined) {
 			invariant(maybeNumber, 'Number is undefined')
 			// After invariant, TypeScript should know maybeNumber is a number

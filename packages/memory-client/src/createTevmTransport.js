@@ -9,7 +9,7 @@ import { createTransport } from 'viem'
  * A Transport in viem is the intermediary layer responsible for executing outgoing JSON-RPC requests.
  * The TEVM Transport implementation replaces network requests with direct calls to an in-memory EVM,
  * providing several key advantages:
- * 
+ *
  * - **Local-first operation**: All EVM execution happens directly in the JavaScript runtime
  * - **Zero network latency**: No round-trips to remote nodes for operations
  * - **Deterministic execution**: Full control over the execution environment for testing
@@ -17,7 +17,7 @@ import { createTransport } from 'viem'
  * - **Forking capabilities**: Can lazily load state from remote networks as needed
  * - **Customizable state**: Direct manipulation of accounts, balances, storage, and more
  *
- * The transport can be used with any viem client (wallet, public, or test) and fully supports the 
+ * The transport can be used with any viem client (wallet, public, or test) and fully supports the
  * EIP-1193 provider interface, making it compatible with the broader Ethereum ecosystem.
  *
  * @param {import('@tevm/node').TevmNodeOptions} options - Configuration options for the underlying TEVM node.
@@ -32,7 +32,7 @@ import { createTransport } from 'viem'
  * // Create a client with TEVM transport that forks from Optimism mainnet
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { 
+ *     fork: {
  *       transport: http('https://mainnet.optimism.io')({}),
  *       blockTag: 'latest' // Optional: specify block number or hash
  *     },
@@ -47,10 +47,10 @@ import { createTransport } from 'viem'
  * async function example() {
  *   // Ready check ensures fork is initialized
  *   await client.transport.tevm.ready()
- *   
+ *
  *   const blockNumber = await client.getBlockNumber()
  *   console.log(`Connected to block ${blockNumber}`)
- *   
+ *
  *   // Access the underlying TEVM node for advanced operations
  *   const node = client.transport.tevm
  *   const vm = await node.getVm()
@@ -80,7 +80,7 @@ import { createTransport } from 'viem'
  * - `chain` (optional, Chain): Blockchain configuration. Defaults to the chain in `options` or TEVM default.
  *
  * ## Key Node Options
- * 
+ *
  * - `fork` (optional): Configuration for forking from an existing network
  *   - `transport`: An EIP-1193 compatible transport (e.g., from viem's http function)
  *   - `blockTag` (optional): Block number/hash to fork from (defaults to 'latest')

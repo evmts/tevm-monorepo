@@ -4,9 +4,9 @@
  *
  * This function ensures that the TEVM instance is fully initialized and ready for operations.
  * It resolves to `true` when initialization is complete, and throws an error if initialization fails.
- * 
+ *
  * The initialization process handles:
- * 
+ *
  * - Setting up the EVM execution environment
  * - Initializing blockchain state and storage structures
  * - **For forked instances**: Establishing connection to the remote network and loading initial state
@@ -15,10 +15,10 @@
  * - Configuring mining modes and other operational parameters
  *
  * **When to use this function:**
- * 
+ *
  * While all TEVM actions implicitly wait for initialization to complete, explicitly calling
  * `tevmReady()` is recommended in these scenarios:
- * 
+ *
  * - **Forking environments**: To ensure network connection is established before proceeding
  * - **UI applications**: To show loading indicators during initialization
  * - **Testing**: To separate initialization time from operation time in benchmarks
@@ -46,17 +46,17 @@
  *   try {
  *     // Show loading indicator in UI
  *     showLoadingIndicator('Connecting to Optimism...')
- *     
+ *
  *     // Wait for fork to initialize
  *     await client.tevmReady()
- *     
+ *
  *     // Hide loading indicator
  *     hideLoadingIndicator()
- *     
+ *
  *     // Now it's safe to interact with the forked network
  *     const blockNumber = await client.getBlockNumber()
  *     console.log(`Connected to Optimism block ${blockNumber}`)
- *     
+ *
  *     // Continue with application logic...
  *   } catch (error) {
  *     // Handle initialization errors gracefully
@@ -70,26 +70,26 @@
  * ```typescript
  * // Using with promise.race() for timeout handling
  * import { createMemoryClient, http } from 'tevm'
- * 
+ *
  * async function initWithTimeout() {
  *   const client = createMemoryClient({
  *     fork: {
  *       transport: http('https://mainnet.ethereum.org')({})
  *     }
  *   })
- *   
+ *
  *   // Create a timeout promise
  *   const timeout = new Promise((_, reject) => {
  *     setTimeout(() => reject(new Error('Fork initialization timed out')), 30000)
  *   })
- *   
+ *
  *   try {
  *     // Race initialization against timeout
  *     await Promise.race([
  *       client.tevmReady(),
  *       timeout
  *     ])
- *     
+ *
  *     console.log('TEVM initialized successfully')
  *     return client
  *   } catch (error) {

@@ -50,23 +50,23 @@ describe(createLogger.name, () => {
 
 	it('should handle complex objects by stringifying them', () => {
 		const logger = createLogger(pluginCreateInfo)
-		
-		const complexObject = { 
-			nested: { 
-				value: 42, 
-				array: [1, 2, 3] 
-			}, 
-			enabled: true 
+
+		const complexObject = {
+			nested: {
+				value: 42,
+				array: [1, 2, 3],
+			},
+			enabled: true,
 		}
-		
+
 		logger.info(JSON.stringify(complexObject))
 		logger.warn(JSON.stringify(complexObject))
-		
+
 		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(
-			`[tevm-ts-plugin] ${JSON.stringify(complexObject)}`
+			`[tevm-ts-plugin] ${JSON.stringify(complexObject)}`,
 		)
 		expect(pluginCreateInfo.project.projectService.logger.info).toHaveBeenCalledWith(
-			`[tevm-ts-plugin] warning: ${JSON.stringify(complexObject)}`
+			`[tevm-ts-plugin] warning: ${JSON.stringify(complexObject)}`,
 		)
 	})
 
@@ -82,18 +82,18 @@ describe(createLogger.name, () => {
 							if (mockedPluginInfo.project.projectService.logger.info.mock.calls.length > 1) {
 								throw new Error('Logger error')
 							}
-						})
-					}
-				}
-			}
+						}),
+					},
+				},
+			},
 		}
-		
+
 		const logger = createLogger(mockedPluginInfo as any)
-		
+
 		// First call should work
 		logger.info('This should work')
 		expect(mockedPluginInfo.project.projectService.logger.info).toHaveBeenCalledTimes(1)
-		
+
 		// If logger implementation throws, our wrapper should pass that through
 		expect(() => logger.info('This should throw')).toThrow('Logger error')
 	})

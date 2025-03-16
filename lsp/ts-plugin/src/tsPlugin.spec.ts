@@ -41,7 +41,7 @@ describe(tsPlugin.name, () => {
 	it.skip('should return a create decorator', () => {
 		// This test was causing issues with CI and has been skipped
 		const decorator = tsPlugin({ typescript })
-		
+
 		// Check basic structure exists without exact comparison
 		expect(decorator).toBeDefined()
 		expect(typeof decorator.create).toBe('function')
@@ -70,29 +70,23 @@ describe(tsPlugin.name, () => {
 		// Just check it exists
 		expect(decorator).toBeDefined()
 	})
-	
+
 	it('should filter non-Solidity files in getExternalFiles', () => {
 		const mockProject = {
-			getFileNames: () => [
-				'file.ts', 
-				'contract.sol', 
-				'readme.md', 
-				'invalid.sol.js', 
-				'nested/path/ERC20.sol'
-			],
+			getFileNames: () => ['file.ts', 'contract.sol', 'readme.md', 'invalid.sol.js', 'nested/path/ERC20.sol'],
 		}
 		const decorator = tsPlugin({ typescript })
 		const externalFiles = decorator.getExternalFiles?.(mockProject as any, 0)
-		
+
 		// Should only include valid .sol files
 		expect(externalFiles).toEqual(['contract.sol', 'nested/path/ERC20.sol'])
-		
+
 		// Should not include non-.sol or .sol.js files
 		expect(externalFiles).not.toContain('file.ts')
 		expect(externalFiles).not.toContain('readme.md')
 		expect(externalFiles).not.toContain('invalid.sol.js')
 	})
-	
+
 	it.skip('should handle custom config from createInfo', () => {
 		// This test was causing issues with CI and has been skipped
 		// Create a custom config in createInfo
@@ -100,9 +94,9 @@ describe(tsPlugin.name, () => {
 			...defaultConfig,
 			cacheDir: './custom-cache-dir',
 			debug: true,
-			jsonAsConst: ['**/*.json']
+			jsonAsConst: ['**/*.json'],
 		}
-		
+
 		// Just check things exist - implementation skipped
 		expect(customConfig).toBeDefined()
 		expect(createInfo).toBeDefined()

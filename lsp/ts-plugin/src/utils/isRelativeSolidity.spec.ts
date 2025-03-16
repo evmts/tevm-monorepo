@@ -52,7 +52,7 @@ describe(isRelativeSolidity.name, () => {
 			'./some/very/deep/path/with/../backtracking/contract.sol',
 			'../../../contract.sol',
 			'./../folder/contract.sol',
-			'./folder/.././contract.sol'
+			'./folder/.././contract.sol',
 		]
 		files.forEach((file) => {
 			expect(isRelativeSolidity(file)).toBe(true)
@@ -61,10 +61,10 @@ describe(isRelativeSolidity.name, () => {
 
 	it('should handle paths with dots that are not relative paths', () => {
 		const files = [
-			'.contract.sol',           // Starts with dot but not relative
+			'.contract.sol', // Starts with dot but not relative
 			'folder.with.dots/file.sol', // Has dots but not relative
-			'/absolute/path.sol',      // Absolute path
-			'dot.folder/./file.sol'    // Has ./ but not at start
+			'/absolute/path.sol', // Absolute path
+			'dot.folder/./file.sol', // Has ./ but not at start
 		]
 		files.forEach((file) => {
 			expect(isRelativeSolidity(file)).toBe(false)

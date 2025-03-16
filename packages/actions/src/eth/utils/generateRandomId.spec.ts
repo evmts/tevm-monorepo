@@ -21,7 +21,7 @@ describe('generateRandomId', () => {
 
 	it('should maintain consistent length across multiple generations', () => {
 		const ids = Array.from({ length: 5 }, () => generateRandomId())
-		ids.forEach(id => {
+		ids.forEach((id) => {
 			expect(id.length).toBe(34) // 0x + 32 chars
 		})
 	})

@@ -303,13 +303,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 			},
 		}
 
-		const host = resolveModuleNameLiteralsDecorator(
-			createInfo, 
-			typescript, 
-			logger, 
-			configWithNestedRemappings, 
-			fao
-		)
+		const host = resolveModuleNameLiteralsDecorator(createInfo, typescript, logger, configWithNestedRemappings, fao)
 
 		// Test with a module name that should use the more specific remapping
 		const moduleNames = [{ text: '@org/contracts/token/Token.sol' }]
@@ -325,7 +319,7 @@ describe(resolveModuleNameLiteralsDecorator.name, () => {
 
 		const result = host.resolveModuleNameLiterals?.(moduleNames as any, containingFile, ...rest)
 		expect(result?.[0]).toMatchObject({
-			resolvedModule: { resolvedModule: { nestedRemapped: true } }
+			resolvedModule: { resolvedModule: { nestedRemapped: true } },
 		})
 	})
 })

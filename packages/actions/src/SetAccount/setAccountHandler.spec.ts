@@ -73,21 +73,21 @@ describe('setAccountHandler', () => {
 	it('should update an existing account', async () => {
 		const client = createTevmNode()
 		const vm = await client.getVm()
-		
+
 		// First create the account
 		await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
 			balance: 100n,
 			nonce: 1n,
 		})
-		
+
 		// Then update it
 		const res = await setAccountHandler(client)({
 			address: ERC20_ADDRESS,
 			balance: 200n,
 			nonce: 2n,
 		})
-		
+
 		expect(res.errors).toBeUndefined()
 		const account = (await vm.stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))) as EthjsAccount
 		expect(account?.balance).toBe(200n)
@@ -102,7 +102,7 @@ describe('setAccountHandler', () => {
 			balance: 0n,
 			nonce: 0n,
 		})
-		
+
 		expect(res.errors).toBeUndefined()
 		const account = (await vm.stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))) as EthjsAccount
 		expect(account?.balance).toBe(0n)

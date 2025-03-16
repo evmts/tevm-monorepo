@@ -5,7 +5,7 @@ import { tevmViemActions } from './tevmViemActions.js'
 
 /**
  * Creates a {@link MemoryClient} - a fully-featured Ethereum development and testing environment.
- * 
+ *
  * The MemoryClient is an all-in-one solution that combines:
  * - A complete in-memory Ethereum Virtual Machine implementation
  * - Full support for viem's wallet, test, and public actions
@@ -59,28 +59,28 @@ import { tevmViemActions } from './tevmViemActions.js'
  * ```typescript
  * createMemoryClient({
  *   // Chain configuration (use tevm/common chains, not viem/chains)
- *   common: optimism, 
- *   
+ *   common: optimism,
+ *
  *   // Forking from an existing network
  *   fork: {
  *     transport: http("https://mainnet.optimism.io")({}),
  *     blockTag: 'latest', // or specific block number/hash
  *   },
- *   
+ *
  *   // Mining configuration
  *   mining: {
  *     auto: true,      // Auto-mine after each transaction
  *     interval: 5000,  // Mine blocks every 5 seconds (in ms)
  *   },
- *   
+ *
  *   // State persistence
  *   persister: createSyncPersister({
  *     storage: localStorage, // or any synchronous storage
  *   }),
- *   
+ *
  *   // Chain configuration
  *   hardfork: 'cancun', // Default and recommended
- *   
+ *
  *   // EVM execution logging
  *   logging: {
  *     logLevel: 'debug',
@@ -97,24 +97,24 @@ import { tevmViemActions } from './tevmViemActions.js'
  * // Account and state manipulation
  * await client.tevmSetAccount({ address: "0x123...", balance: 100n });
  * await client.tevmGetAccount({ address: "0x123..." });
- * 
+ *
  * // Contract interactions
  * await client.tevmContract({
  *   abi: [...],
  *   functionName: "transfer",
  *   args: ["0x456...", 1000n]
  * });
- * 
+ *
  * // Contract deployment
  * const result = await client.tevmDeploy({
  *   abi: [...],
  *   bytecode: "0x...",
  *   args: ["Constructor", "Args"]
  * });
- * 
+ *
  * // Mining control
  * await client.tevmMine({ blockCount: 5, interval: 10 });
- * 
+ *
  * // State persistence
  * const state = await client.tevmDumpState();
  * await client.tevmLoadState(state);
@@ -171,19 +171,19 @@ import { tevmViemActions } from './tevmViemActions.js'
  * ## Mining Modes
  *
  * TEVM supports three mining modes:
- * 
+ *
  * ```typescript
  * // 1. Manual mining (default)
  * const client = createMemoryClient({ mining: { auto: false } });
  * await client.sendTransaction(...);  // Transaction is pending
  * await client.tevmMine();            // Now transaction is processed
- * 
+ *
  * // 2. Auto-mining (mine after every transaction)
  * const autoClient = createMemoryClient({ mining: { auto: true } });
  * await autoClient.sendTransaction(...);  // Automatically mined
- * 
+ *
  * // 3. Interval mining (mine periodically)
- * const intervalClient = createMemoryClient({ 
+ * const intervalClient = createMemoryClient({
  *   mining: { interval: 5000 }  // Mine every 5 seconds
  * });
  * ```
@@ -267,9 +267,9 @@ import { tevmViemActions } from './tevmViemActions.js'
  *   ...nft.write.mint('0x123...', 1),
  *   from: '0x123...',
  * });
- * 
+ *
  * await client.tevmMine();
- * 
+ *
  * const balance = await client.tevmContract(nft.read.balanceOf('0x123...'));
  * console.log(balance); // 1n
  * ```
@@ -281,7 +281,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  * TEVM officially supports:
  * - Ethereum mainnet and testnets
  * - OP Stack chains (Optimism, Base, etc.)
- * 
+ *
  * Other EVM chains are likely to work but not officially tested. Chain configuration
  * is available through `tevm/common`.
  *
@@ -295,7 +295,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  * ## Optimizing Bundle Size
  *
- * For UI applications concerned with bundle size, use tree-shakeable actions with `createTevmNode()` 
+ * For UI applications concerned with bundle size, use tree-shakeable actions with `createTevmNode()`
  * and individual actions from `tevm/actions`. See the [actions API guide](https://tevm.sh/learn/actions/)
  * for details.
  */

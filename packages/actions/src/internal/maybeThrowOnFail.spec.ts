@@ -137,7 +137,7 @@ describe('maybeThrowOnFail', () => {
 	it('should handle result with undefined data but valid errors', () => {
 		const error = new Error('Error with undefined data')
 		const result = { data: undefined, errors: [error] }
-		
+
 		expect(() => maybeThrowOnFail(true, result)).toThrow(error)
 		// With throwOnFail false, it should return the result
 		expect(maybeThrowOnFail(false, result)).toBe(result)
@@ -145,14 +145,14 @@ describe('maybeThrowOnFail', () => {
 
 	it('should handle edge case where errors property exists but is not array-like', () => {
 		// Create a result with errors that is a non-array object
-		const result = { 
-			data: 'some data', 
-			errors: { 
-				isError: true, 
-				message: 'This is not an array of errors'
-			} 
+		const result = {
+			data: 'some data',
+			errors: {
+				isError: true,
+				message: 'This is not an array of errors',
+			},
 		}
-		
+
 		// This should not throw even with throwOnFail=true because errors isn't array-like
 		const output = maybeThrowOnFail(true, result as any)
 		expect(output).toBe(result)

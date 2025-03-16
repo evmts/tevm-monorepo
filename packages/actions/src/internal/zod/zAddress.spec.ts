@@ -1,5 +1,5 @@
 import type { Address } from 'abitype'
-import { expect, test, describe } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import type { z } from 'zod'
 import { zAddress } from './zAddress.js'
 
@@ -18,7 +18,7 @@ describe('zAddress', () => {
 	test('should reject an address with invalid length', () => {
 		const tooShort = `0x${'69'.repeat(19)}` as const
 		const tooLong = `0x${'69'.repeat(21)}` as const
-		
+
 		expect(() => zAddress.parse(tooShort)).toThrow()
 		expect(() => zAddress.parse(tooLong)).toThrow()
 	})

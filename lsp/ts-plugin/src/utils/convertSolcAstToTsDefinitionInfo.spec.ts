@@ -109,7 +109,7 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 		const astNode: Node = {
 			id: 1,
 			nodeType: 'FunctionDefinition',
-			src: '125:67',  // Starting at position 125 with length 67
+			src: '125:67', // Starting at position 125 with length 67
 			name: 'complexFunction',
 		} as any
 		const solcInput: SolcInput = {
@@ -119,7 +119,13 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 				},
 			},
 		}
-		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'ComplexContract.sol', 'ComplexContract', solcInput, ts)
+		const definitionInfo = convertSolcAstToTsDefinitionInfo(
+			astNode,
+			'ComplexContract.sol',
+			'ComplexContract',
+			solcInput,
+			ts,
+		)
 
 		expect(definitionInfo).toMatchObject({
 			containerKind: 'class',
@@ -147,7 +153,7 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 				},
 			},
 		}
-		
+
 		// Using a deeply nested container name like "Contract.Struct.NestedStruct"
 		const containerName = 'Contract.Struct.NestedStruct'
 		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'NestedStructs.sol', containerName, solcInput, ts)
@@ -168,7 +174,7 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 		const astNode: Node = {
 			id: 1,
 			nodeType: 'VariableDeclaration',
-			src: '42:0',  // Zero length
+			src: '42:0', // Zero length
 			name: 'emptyVar',
 		} as any
 		const solcInput: SolcInput = {
@@ -178,7 +184,7 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 				},
 			},
 		}
-		
+
 		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'EmptyRange.sol', 'EmptyContract', solcInput, ts)
 
 		expect(definitionInfo).toMatchObject({
@@ -197,7 +203,7 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 		const astNode: Node = {
 			id: 1,
 			nodeType: 'FunctionDefinition',
-			src: 'invalid:range',  // Invalid format that can't be parsed to numbers
+			src: 'invalid:range', // Invalid format that can't be parsed to numbers
 			name: 'malformedFunction',
 		} as any
 		const solcInput: SolcInput = {
@@ -207,8 +213,14 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 				},
 			},
 		}
-		
-		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'MalformedRange.sol', 'MalformedContract', solcInput, ts)
+
+		const definitionInfo = convertSolcAstToTsDefinitionInfo(
+			astNode,
+			'MalformedRange.sol',
+			'MalformedContract',
+			solcInput,
+			ts,
+		)
 
 		// Since 'invalid' will be NaN when parsed, expect some default behavior
 		expect(definitionInfo).toMatchObject({

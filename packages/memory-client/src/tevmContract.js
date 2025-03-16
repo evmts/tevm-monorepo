@@ -4,20 +4,20 @@ import { contractHandler } from '@tevm/actions'
  * A tree-shakeable version of the `tevmContract` action for viem.
  * Provides a high-level interface for contract interactions with automatic encoding/decoding and full type safety.
  *
- * While `tevmCall` offers a low-level interface for raw EVM execution, `tevmContract` provides a more convenient 
+ * While `tevmCall` offers a low-level interface for raw EVM execution, `tevmContract` provides a more convenient
  * developer experience for standard contract interactions by:
- * 
+ *
  * - Automatically encoding function parameters based on the ABI
  * - Automatically decoding return values to the appropriate JavaScript types
  * - Properly handling and decoding revert messages from failed calls
  * - Maintaining full type safety with TypeScript when using properly typed ABIs
  * - Simplifying complex contract interactions with a cleaner interface
  *
- * Internally, `tevmContract` wraps the lower-level `tevmCall` action, handling all the ABI encoding/decoding 
+ * Internally, `tevmContract` wraps the lower-level `tevmCall` action, handling all the ABI encoding/decoding
  * logic while providing access to the same advanced features like execution tracing and EVM customization.
  *
  * @type {import('./TevmContractType.js').TevmContract}
- * 
+ *
  * @example
  * ```typescript
  * import { tevmContract } from 'tevm/actions'
@@ -57,12 +57,12 @@ import { contractHandler } from '@tevm/actions'
  *     from: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', // Impersonate this address
  *     createTransaction: true, // Create actual transaction that needs mining
  *   })
- *   
+ *
  *   // Transaction needs to be mined to take effect
  *   await client.mine()
- *   
+ *
  *   console.log(`Transfer result: ${result}`) // true
- *   
+ *
  *   // Optional: With execution tracing
  *   const tracedResult = await tevmContract(client, {
  *     abi,
@@ -99,14 +99,14 @@ import { contractHandler } from '@tevm/actions'
  *   // Deploy the contract first
  *   const deployResult = await tevmDeploy(client, MyToken.deploy("My Token", "MTK"))
  *   await client.mine()
- *   
+ *
  *   // Now use tevmContract with the imported contract
  *   const result = await tevmContract(client, {
  *     ...MyToken.read.balanceOf(), // Spread the contract's read method
  *     args: ['0x1234567890123456789012345678901234567890'],
  *     address: deployResult.createdAddress,
  *   })
- *   
+ *
  *   console.log(`Balance: ${result}`)
  * }
  * ```

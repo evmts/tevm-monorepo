@@ -10,17 +10,17 @@ import { dumpStateHandler } from '@tevm/actions'
  * - Transaction receipts
  * - Block headers and history
  * - Current blockchain parameters (latest block, gas price, etc.)
- * 
+ *
  * The returned state object can be used for:
  * - Persisting state between application sessions
  * - Backing up blockchain state before running test scenarios
  * - Transferring state between different TEVM instances
  * - Creating reproducible environments for debugging
  * - Defining pre-configured test fixtures
- * 
- * This function works in conjunction with `tevmLoadState` to provide a complete state 
- * serialization and restoration system. The output is serializable using standard 
- * JSON.stringify() though you may need to handle BigInt conversion depending on your 
+ *
+ * This function works in conjunction with `tevmLoadState` to provide a complete state
+ * serialization and restoration system. The output is serializable using standard
+ * JSON.stringify() though you may need to handle BigInt conversion depending on your
  * platform (see the example below).
  *
  * @param {import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>} client - The viem client configured with TEVM transport.
@@ -48,21 +48,21 @@ import { dumpStateHandler } from '@tevm/actions'
  *     value: parseEther('100')
  *   })
  *   await client.mine() // Mine a block to update state
- *   
+ *
  *   // Dump the entire blockchain state
  *   const state = await tevmDumpState(client)
- *   
+ *
  *   // Serialize state to JSON (handling BigInt conversion)
- *   const serializedState = JSON.stringify(state, (_, value) => 
+ *   const serializedState = JSON.stringify(state, (_, value) =>
  *     typeof value === 'bigint' ? value.toString() : value
  *   )
- *   
+ *
  *   // Save to file
  *   await fs.writeFile('blockchain-snapshot.json', serializedState)
  *   console.log('State saved to blockchain-snapshot.json')
- *   
+ *
  *   // Later, in another session or process:
- *   
+ *
  *   // Read the state from file
  *   const savedState = JSON.parse(
  *     await fs.readFile('blockchain-snapshot.json', 'utf8'),
@@ -74,16 +74,16 @@ import { dumpStateHandler } from '@tevm/actions'
  *       return value
  *     }
  *   )
- *   
+ *
  *   // Create a new client with the saved state
  *   const newClient = createClient({
  *     transport: createTevmTransport(),
  *     chain: optimism,
  *   })
- *   
+ *
  *   // Load the saved state
  *   await tevmLoadState(newClient, savedState)
- *   
+ *
  *   // Verify the state was restored
  *   const balance = await newClient.getBalance({
  *     address: '0x1234567890123456789012345678901234567890'
@@ -91,19 +91,19 @@ import { dumpStateHandler } from '@tevm/actions'
  *   console.log('Restored balance:', balance) // Should be 100 ETH
  * }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * // Using with the SyncStoragePersister for automatic persistence
  * import { createMemoryClient, createSyncPersister } from 'tevm'
- * 
+ *
  * // Create a persister that saves to localStorage (in browser)
  * // or to a file (in Node.js)
  * const persister = createSyncPersister({
  *   storage: localStorage, // or use a file-based storage adapter
  *   key: 'tevm-state'      // storage key
  * })
- * 
+ *
  * // Create a client with automatic persistence
  * const client = createMemoryClient({
  *   persister,

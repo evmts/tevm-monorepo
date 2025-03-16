@@ -101,7 +101,7 @@ describe('findNode', () => {
 	it('should handle boundary positions correctly', () => {
 		const sourceFile = ts.createSourceFile(
 			'test.ts',
-			`const arr = [1, 2, 3];`,
+			'const arr = [1, 2, 3];',
 			ts.ScriptTarget.ES2015,
 			true,
 			ts.ScriptKind.TS,
@@ -152,7 +152,7 @@ describe('findNode', () => {
 		const valueNode = findNode(sourceFile, 30)
 		expect(valueNode?.getText()).toMatchInlineSnapshot('"value"')
 
-		// Position at the first character of the source file should be null 
+		// Position at the first character of the source file should be null
 		// since comments are not part of the AST
 		const commentNode = findNode(sourceFile, 0)
 		expect(commentNode).toBeNull()

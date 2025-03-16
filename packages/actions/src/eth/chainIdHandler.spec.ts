@@ -1,6 +1,6 @@
+import { ethereum, optimism, sepolia } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { ethereum, optimism, sepolia } from '@tevm/common'
 import { describe, expect, it } from 'vitest'
 import { chainIdHandler } from './chainIdHandler.js'
 

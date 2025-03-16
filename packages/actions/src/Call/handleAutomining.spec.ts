@@ -306,7 +306,7 @@ describe('handleAutomining', () => {
 		// Should return undefined when successful
 		expect(result).toBeUndefined()
 	})
-	
+
 	it('should handle mining errors without throwing', async () => {
 		// Create client with auto mining
 		client = createTevmNode({
@@ -326,7 +326,7 @@ describe('handleAutomining', () => {
 			() => () =>
 				Promise.resolve({
 					errors: [miningError],
-				})
+				}),
 		)
 
 		const txHash = '0x123456789abcdef'
@@ -340,7 +340,7 @@ describe('handleAutomining', () => {
 			expect(result.errors?.[0]).toEqual(miningError)
 		}
 	})
-	
+
 	it('should handle multiple errors in result', async () => {
 		// Create client with auto mining
 		client = createTevmNode({
@@ -356,9 +356,9 @@ describe('handleAutomining', () => {
 		// Multiple errors in the result
 		const errors = [
 			{ message: 'First error', name: 'Error1' },
-			{ message: 'Second error', name: 'Error2' }
+			{ message: 'Second error', name: 'Error2' },
 		]
-		
+
 		// Mock mineHandler to return multiple errors
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(

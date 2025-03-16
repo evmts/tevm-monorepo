@@ -2,11 +2,11 @@ import { callHandler } from '@tevm/actions'
 
 /**
  * A tree-shakeable version of the `tevmCall` action for viem.
- * Executes a low-level call against the Ethereum Virtual Machine (EVM). This function provides enhanced control over the 
+ * Executes a low-level call against the Ethereum Virtual Machine (EVM). This function provides enhanced control over the
  * execution environment compared to the standard `eth_call` JSON-RPC method.
  *
- * By default, this is a read-only operation that doesn't modify the blockchain state after execution completes. 
- * However, state modifications can be enabled with the `createTransaction` option, which will create and 
+ * By default, this is a read-only operation that doesn't modify the blockchain state after execution completes.
+ * However, state modifications can be enabled with the `createTransaction` option, which will create and
  * execute a transaction that must be mined to take effect (either through manual mining or auto-mining).
  *
  * The function supports advanced EVM features such as:
@@ -45,7 +45,7 @@ import { callHandler } from '@tevm/actions'
  *       next();
  *     }
  *   })
- *   
+ *
  *   console.log(res.data)         // Return data from the call
  *   console.log(res.executionGasUsed) // Actual gas used
  * }
