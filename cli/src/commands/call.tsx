@@ -4,9 +4,6 @@ import { option } from 'pastel'
 import { useAction, envVar } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
-// Add command description for help output
-export const description = "Execute a raw EVM call against a contract or address";
-
 // Define the types that are missing
 interface CallParams {
   to?: string
@@ -64,6 +61,9 @@ const optionDescriptions = {
   createAccessList: 'Return an access list mapping of addresses to storage keys (env: TEVM_CREATE_ACCESS_LIST)',
   createTransaction: 'Whether to update state (on-success, always, never) (env: TEVM_CREATE_TRANSACTION)',
 }
+
+// Add command description for help output
+export const description = "Execute a raw EVM call against a contract or address";
 
 // Empty args tuple since we're moving "to" to options
 export const args = z.tuple([])

@@ -112,10 +112,20 @@ The codegen approach generates `.ts` files from your `.sol` files ahead of time,
 
 ### Using Codegen
 
-To generate TypeScript files for your Solidity contracts:
+To generate TypeScript files for your Solidity contracts using the Tevm CLI:
 
 ```bash
-npx tevm gen
+# Generate TypeScript from all Solidity files
+tevm generate contract
+
+# Generate types for specific contracts
+tevm generate contract "ERC20Token" 
+
+# Customize input and output patterns
+tevm generate contract --include "contracts/**/*.sol" --output "types/"
+
+# Force overwrite existing files
+tevm generate contract --force
 ```
 
 This will:
@@ -127,7 +137,13 @@ These generated `.ts` files can be imported directly in your code:
 
 ```ts
 // Import the generated TypeScript file
-import { MyContract } from './contracts/MyContract.js'
+import { MyContract } from './contracts/MyContract.sol.ts'
+```
+
+For full details on the available options, run:
+
+```bash
+tevm generate contract --help
 ```
 
 ### When to Use Codegen
@@ -141,7 +157,7 @@ Codegen is especially helpful when:
 
 ### Codegen Configuration
 
-You can configure the codegen tool by adding options to your `tevm.config.json`:
+You can configure the codegen by using command-line options, or by adding options to your `tevm.config.json`:
 
 ```json
 {
@@ -151,6 +167,12 @@ You can configure the codegen tool by adding options to your `tevm.config.json`:
     "exclude": ["**/node_modules/**"]    // Which files to ignore
   }
 }
+```
+
+Alternatively, you can specify options directly on the command line:
+
+```bash
+tevm generate contract --include "contracts/**/*.sol" --output "./generated" --verbose
 ```
 
 ## Additional Resources

@@ -144,6 +144,12 @@ ${abiParam}${paramsStr}${onStepHandler}
 
   if (isViem) {
     // For Viem actions, use createPublicClient with direct http transport
+    let formattedViemParams = functionCall;
+
+    // Add special handling for numeric fields in Viem calls
+    formattedViemParams = formattedViemParams.replace(/"(value|gas|gasPrice|maxFeePerGas|maxPriorityFeePerGas)": "(\d+)"/g,
+      '"$1": BigInt("$2")');
+
     scriptTemplate = `import { createPublicClient, http } from 'viem'
 ${needsERC20 ? "import { ERC20 } from '@tevm/contract'" : ""}
 
@@ -151,7 +157,7 @@ const client = createPublicClient({
   transport: http('${options['rpc'] || 'http://localhost:8545'}')
 })
 
-client.${functionCall}
+client.${formattedViemParams}
   .then(console.log)
   .catch(console.error)
 `;

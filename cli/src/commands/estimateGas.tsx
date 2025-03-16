@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
+import { isAddress } from 'viem'
 
 // Add command description for help output
 export const description = "Estimate the gas required for a transaction to execute";
@@ -26,17 +27,27 @@ export const args = z.tuple([])
 
 export const options = z.object({
   // ALL PARAMETERS OPTIONAL
-  to: z.string().optional().describe(
-    option({
-      description: optionDescriptions.to,
+  to: z.string()
+    .optional()
+    .refine(addr => !addr || isAddress(addr), {
+      message: 'Must be a valid Ethereum address'
     })
-  ),
+    .describe(
+      option({
+        description: optionDescriptions.to,
+      })
+    ),
 
-  from: z.string().optional().describe(
-    option({
-      description: optionDescriptions.from,
+  from: z.string()
+    .optional()
+    .refine(addr => !addr || isAddress(addr), {
+      message: 'Must be a valid Ethereum address'
     })
-  ),
+    .describe(
+      option({
+        description: optionDescriptions.from,
+      })
+    ),
 
   data: z.string().optional().describe(
     option({
@@ -44,31 +55,31 @@ export const options = z.object({
     })
   ),
 
-  value: z.string().optional().describe(
+  value: z.bigint().optional().describe(
     option({
       description: optionDescriptions.value,
     })
   ),
 
-  gas: z.string().optional().describe(
+  gas: z.bigint().optional().describe(
     option({
       description: optionDescriptions.gas,
     })
   ),
 
-  gasPrice: z.string().optional().describe(
+  gasPrice: z.bigint().optional().describe(
     option({
       description: optionDescriptions.gasPrice,
     })
   ),
 
-  maxFeePerGas: z.string().optional().describe(
+  maxFeePerGas: z.bigint().optional().describe(
     option({
       description: optionDescriptions.maxFeePerGas,
     })
   ),
 
-  maxPriorityFeePerGas: z.string().optional().describe(
+  maxPriorityFeePerGas: z.bigint().optional().describe(
     option({
       description: optionDescriptions.maxPriorityFeePerGas,
     })
@@ -125,8 +136,10 @@ const defaultValues: Record<string, any> = {
 }
 
 // Helper function to parse BigInt values
-const safeBigInt = (value?: string): bigint | undefined => {
-  if (!value) return undefined;
+const safeBigInt = (value?: string | bigint): bigint | undefined => {
+  if (value === undefined) return undefined;
+  if (typeof value === 'bigint') return value;
+
   try {
     return BigInt(value);
   } catch (e) {
@@ -152,23 +165,23 @@ export default function EstimateGas({ options }: Props) {
       };
 
       // Convert numeric values to BigInt
-      if (enhancedOptions['value']) {
+      if (enhancedOptions['value'] !== undefined) {
         params['value'] = safeBigInt(enhancedOptions['value']);
       }
 
-      if (enhancedOptions['gas']) {
+      if (enhancedOptions['gas'] !== undefined) {
         params['gas'] = safeBigInt(enhancedOptions['gas']);
       }
 
-      if (enhancedOptions['gasPrice']) {
+      if (enhancedOptions['gasPrice'] !== undefined) {
         params['gasPrice'] = safeBigInt(enhancedOptions['gasPrice']);
       }
 
-      if (enhancedOptions['maxFeePerGas']) {
+      if (enhancedOptions['maxFeePerGas'] !== undefined) {
         params['maxFeePerGas'] = safeBigInt(enhancedOptions['maxFeePerGas']);
       }
 
-      if (enhancedOptions['maxPriorityFeePerGas']) {
+      if (enhancedOptions['maxPriorityFeePerGas'] !== undefined) {
         params['maxPriorityFeePerGas'] = safeBigInt(enhancedOptions['maxPriorityFeePerGas']);
       }
 

@@ -35,7 +35,18 @@ All plugins share a similar usage pattern and a single configuration interface. 
 
 ### Optional Bundler
 
-You can compile contracts manually or use `npx tevm gen`. The plugins are purely optional if you prefer a different workflow.
+You can compile contracts manually or use the `tevm generate contract` command. The plugins are purely optional if you prefer a different workflow.
+
+```bash
+# Generate TypeScript types from all Solidity files
+tevm generate contract
+
+# Generate types for specific contracts
+tevm generate contract "ERC20Token"
+
+# Specify custom include pattern and output directory
+tevm generate contract --include "contracts/**/*.sol" --output "types/"
+```
 
 ### TypeScript Integration
 

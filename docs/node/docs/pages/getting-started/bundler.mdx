@@ -523,18 +523,28 @@ This will provide the same type-safety and features as file-based imports, but w
   - Create a `tevm.config.json` with `"foundryProject": true`
   - Check that your remappings in `foundry.toml` are correct
   - Try adding explicit remappings in `tevm.config.json`
-- **Test runner issues**: Most test runners (Vitest, Jest) work out-of-the-box once the bundler plugin is configured. For Jest, you might need extra configuration or use the codegen approach with `npx tevm gen`
+- **Test runner issues**: Most test runners (Vitest, Jest) work out-of-the-box once the bundler plugin is configured. For Jest, you might need extra configuration or use the codegen approach with `tevm generate contract`
 
 ## Codegen Alternative to Bundler
 
 :::tip
-If your framework conflicts with the bundler approach or you prefer explicit type generation, try the codegen approach:
+If your framework conflicts with the bundler approach or you prefer explicit type generation, try the codegen approach using the Tevm CLI:
 
 ```bash
-npx tevm gen
+tevm generate contract
 ```
 
 This generates `.ts` files alongside your `.sol` files that can be imported directly, without requiring bundler integration. This is especially useful for Next.js or other frameworks with strict type-checking pipelines.
+
+For more control over the generation process, you can use additional options:
+
+```bash
+# Generate types for specific contracts only 
+tevm generate contract "ERC20Token"
+
+# Customize input patterns and output location
+tevm generate contract --include "contracts/**/*.sol" --output "types/"
+```
 :::
 
 ## Next Steps
