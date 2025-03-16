@@ -20,8 +20,8 @@ export const validateBlockOverrideSet = (value) => {
 	const bigintFields = ['number', 'time', 'gasLimit', 'baseFee', 'blobBaseFee']
 
 	for (const field of bigintFields) {
-		if (field in value && (/** @type {{[key: string]: any}} */ (value))[field] !== undefined) {
-			const fieldValue = (/** @type {{[key: string]: any}} */ (value))[field]
+		if (field in value && /** @type {{[key: string]: any}} */ (value)[field] !== undefined) {
+			const fieldValue = /** @type {{[key: string]: any}} */ (value)[field]
 			if (typeof fieldValue !== 'bigint') {
 				errors.push({
 					path: field,
@@ -37,8 +37,8 @@ export const validateBlockOverrideSet = (value) => {
 	}
 
 	// Validate coinbase if present
-	if ('coinbase' in value && (/** @type {{coinbase?: unknown}} */ (value)).coinbase !== undefined) {
-		const coinbaseValidation = validateAddress((/** @type {{coinbase?: unknown}} */ (value)).coinbase)
+	if ('coinbase' in value && /** @type {{coinbase?: unknown}} */ (value).coinbase !== undefined) {
+		const coinbaseValidation = validateAddress(/** @type {{coinbase?: unknown}} */ (value).coinbase)
 		if (!coinbaseValidation.isValid) {
 			errors.push({
 				path: 'coinbase',

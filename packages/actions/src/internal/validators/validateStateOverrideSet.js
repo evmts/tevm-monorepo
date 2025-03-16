@@ -38,7 +38,7 @@ export const validateStateOverrideSet = (value) => {
 			continue // Skip validating this entry if address is invalid
 		}
 
-		const entry = (/** @type {Record<string, unknown>} */(value))[addr]
+		const entry = /** @type {Record<string, unknown>} */ (value)[addr]
 
 		// Entry must be an object
 		if (typeof entry !== 'object' || entry === null) {
@@ -50,7 +50,7 @@ export const validateStateOverrideSet = (value) => {
 		}
 
 		// Cast entry to expected type for validation
-		const typedEntry = /** @type {Record<string, unknown>} */(entry)
+		const typedEntry = /** @type {Record<string, unknown>} */ (entry)
 
 		// Validate balance if present
 		if ('balance' in typedEntry && typedEntry['balance'] !== undefined) {
@@ -106,7 +106,7 @@ export const validateStateOverrideSet = (value) => {
 				}
 
 				// Validate each key-value pair in state/stateDiff
-				const stateObj = /** @type {Record<string, unknown>} */(typedEntry[field])
+				const stateObj = /** @type {Record<string, unknown>} */ (typedEntry[field])
 				for (const key in stateObj) {
 					const keyValidation = validateHex(key)
 					if (!keyValidation.isValid) {

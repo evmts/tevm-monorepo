@@ -50,7 +50,7 @@ export const validateBlock = (value) => {
 						path: field,
 						message: `${field} must be a bigint`,
 					})
-				} else if ((/** @type {bigint} */(typedValue[field])) < 0n) {
+				} else if (/** @type {bigint} */ (typedValue[field]) < 0n) {
 					errors.push({
 						path: field,
 						message: `${field} must be non-negative`,
@@ -61,8 +61,8 @@ export const validateBlock = (value) => {
 	}
 
 	// Validate coinbase address
-	if ('coinbase' in value && (/** @type {Record<string, unknown>} */ (value))['coinbase'] !== undefined) {
-		const coinbaseValidation = validateAddress((/** @type {Record<string, unknown>} */ (value))['coinbase'])
+	if ('coinbase' in value && /** @type {Record<string, unknown>} */ (value)['coinbase'] !== undefined) {
+		const coinbaseValidation = validateAddress(/** @type {Record<string, unknown>} */ (value)['coinbase'])
 		if (!coinbaseValidation.isValid) {
 			errors.push({
 				path: 'coinbase',
