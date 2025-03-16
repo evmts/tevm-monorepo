@@ -8,7 +8,10 @@
 
 > **AddEthereumChainParameter**: `object`
 
-Defined in: [eip1193/AddEthereumChainParameter.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L7)
+Defined in: [eip1193/AddEthereumChainParameter.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L27)
+
+Parameters for wallet_addEthereumChain RPC method (EIP-3085).
+Used to request that a wallet adds a specific blockchain network.
 
 ## Type declaration
 
@@ -53,3 +56,21 @@ Native currency for the chain.
 ### rpcUrls
 
 > **rpcUrls**: readonly `string`[]
+
+## Example
+
+```typescript
+import { AddEthereumChainParameter } from '@tevm/decorators'
+
+const optimismChain: AddEthereumChainParameter = {
+  chainId: '0xa',  // 10 in hex
+  chainName: 'Optimism',
+  nativeCurrency: {
+    name: 'Ether',
+    symbol: 'ETH',
+    decimals: 18
+  },
+  rpcUrls: ['https://mainnet.optimism.io'],
+  blockExplorerUrls: ['https://optimistic.etherscan.io']
+}
+```

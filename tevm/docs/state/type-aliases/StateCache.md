@@ -8,7 +8,7 @@
 
 > **StateCache**: `object`
 
-Defined in: packages/state/dist/index.d.ts:100
+Defined in: packages/state/dist/index.d.ts:178
 
 **`Internal`**
 

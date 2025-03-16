@@ -8,7 +8,7 @@
 
 > **hasStateRoot**(`baseState`, `skipFetchingFromFork`?): (`root`) => `Promise`\<`boolean`\>
 
-Defined in: packages/state/dist/index.d.ts:349
+Defined in: packages/state/dist/index.d.ts:461
 
 Returns true if state root exists
 

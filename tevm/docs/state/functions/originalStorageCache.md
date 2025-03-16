@@ -8,7 +8,7 @@
 
 > **originalStorageCache**(`baseState`, `skipFetchingFromFork`?): `object`
 
-Defined in: packages/state/dist/index.d.ts:401
+Defined in: packages/state/dist/index.d.ts:513
 
 Commits the current change-set to the instance since the
 last call to checkpoint.

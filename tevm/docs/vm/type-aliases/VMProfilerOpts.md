@@ -8,7 +8,10 @@
 
 > **VMProfilerOpts**: `object`
 
-Defined in: packages/vm/types/utils/VMProfileOpts.d.ts:1
+Defined in: packages/vm/types/utils/VMProfileOpts.d.ts:14
+
+Configuration options for VM profiling and performance reporting.
+Controls when and how profiling data is reported during VM execution.
 
 ## Type declaration
 
@@ -19,3 +22,14 @@ Defined in: packages/vm/types/utils/VMProfileOpts.d.ts:1
 ### reportAfterTx?
 
 > `optional` **reportAfterTx**: `boolean`
+
+## Example
+
+```typescript
+import { VMProfilerOpts } from '@tevm/vm'
+
+const value: VMProfilerOpts = {
+  reportAfterTx: true,    // Generate reports after each transaction
+  reportAfterBlock: false // Don't generate reports after each block
+}
+```

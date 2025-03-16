@@ -8,7 +8,7 @@
 
 > **modifyAccountFields**(`baseState`, `skipFetchingFromFork`?): (`address`, `accountFields`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:357
+Defined in: packages/state/dist/index.d.ts:469
 
 Gets the account associated with `address`, modifies the given account
 fields, then saves the account into state. Account fields can include

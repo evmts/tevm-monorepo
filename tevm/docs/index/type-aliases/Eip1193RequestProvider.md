@@ -8,7 +8,7 @@
 
 > **Eip1193RequestProvider**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1538
+Defined in: packages/decorators/dist/index.d.ts:1793
 
 The default EIP1193 compatable provider request method with enabled tevm methods.
 

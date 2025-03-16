@@ -4,6 +4,26 @@
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
 
+/**
+ * Parameters for wallet_addEthereumChain RPC method (EIP-3085).
+ * Used to request that a wallet adds a specific blockchain network.
+ * @example
+ * ```typescript
+ * import { AddEthereumChainParameter } from '@tevm/decorators'
+ *
+ * const optimismChain: AddEthereumChainParameter = {
+ *   chainId: '0xa',  // 10 in hex
+ *   chainName: 'Optimism',
+ *   nativeCurrency: {
+ *     name: 'Ether',
+ *     symbol: 'ETH',
+ *     decimals: 18
+ *   },
+ *   rpcUrls: ['https://mainnet.optimism.io'],
+ *   blockExplorerUrls: ['https://optimistic.etherscan.io']
+ * }
+ * ```
+ */
 export type AddEthereumChainParameter = {
 	/** A 0x-prefixed hexadecimal string */
 	chainId: string

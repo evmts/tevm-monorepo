@@ -6,9 +6,24 @@
 
 # Interface: AfterBlockEvent
 
-Defined in: [packages/vm/src/utils/AfterblockEvent.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L4)
+Defined in: [packages/vm/src/utils/AfterblockEvent.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L20)
 
-Result of runBlock
+Event data emitted after a block has been processed.
+Extends RunBlockResult with the block that was processed.
+
+## Example
+
+```typescript
+import { AfterBlockEvent } from '@tevm/vm'
+import { VM } from '@tevm/vm'
+
+// Access in VM event handlers
+const vm = new VM()
+vm.events.on('afterBlock', (event: AfterBlockEvent) => {
+  console.log('Block processed:', event.block.header.number)
+  console.log('Receipts:', event.receipts)
+})
+```
 
 ## Extends
 
@@ -20,7 +35,7 @@ Result of runBlock
 
 > **block**: `Block`
 
-Defined in: [packages/vm/src/utils/AfterblockEvent.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L6)
+Defined in: [packages/vm/src/utils/AfterblockEvent.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L22)
 
 ***
 

@@ -8,7 +8,7 @@
 
 > **StateAction**\<`T`\>: (`baseState`, `skipFetchingFromFork`?) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
 
-Defined in: packages/state/dist/index.d.ts:165
+Defined in: packages/state/dist/index.d.ts:243
 
 ## Type Parameters
 

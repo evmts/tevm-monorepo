@@ -8,7 +8,10 @@
 
 > **NetworkSync**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1278
+Defined in: packages/decorators/dist/index.d.ts:1460
+
+Information about the Ethereum client's sync status.
+Returned by the eth_syncing JSON-RPC method when synchronization is in progress.
 
 ## Type declaration
 
@@ -29,3 +32,22 @@ Number of latest block on the network
 > **startingBlock**: [`Quantity`](Quantity.md)
 
 Block number at which syncing started
+
+## Example
+
+```typescript
+import { NetworkSync } from '@tevm/decorators'
+import { createTevmNode } from 'tevm'
+import { requestEip1193 } from '@tevm/decorators'
+
+const node = createTevmNode().extend(requestEip1193())
+const syncStatus = await node.request({ method: 'eth_syncing' })
+
+if (syncStatus !== false) {
+  const networkSync: NetworkSync = syncStatus
+  console.log(`Syncing: ${networkSync.currentBlock} of ${networkSync.highestBlock}`)
+  console.log(`Progress: ${(parseInt(networkSync.currentBlock, 16) / parseInt(networkSync.highestBlock, 16) * 100).toFixed(2)}%`)
+} else {
+  console.log('Node is fully synced')
+}
+```

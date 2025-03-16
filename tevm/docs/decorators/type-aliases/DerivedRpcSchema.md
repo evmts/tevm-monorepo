@@ -8,7 +8,7 @@
 
 > **DerivedRpcSchema**\<`TRpcSchema`, `TRpcSchemaOverride`\>: `TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](RpcSchemaOverride.md) ? \[`TRpcSchemaOverride` & `object`\] : `TRpcSchema`
 
-Defined in: packages/decorators/dist/index.d.ts:243
+Defined in: packages/decorators/dist/index.d.ts:291
 
 ## Type Parameters
 

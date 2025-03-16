@@ -9,6 +9,33 @@ import type {
 } from '@tevm/actions'
 import type { SerializeToJson } from '@tevm/utils'
 
+/**
+ * Type definitions for Tevm-specific JSON-RPC methods.
+ * Includes methods for state manipulation, EVM calls, and account management.
+ * @example
+ * ```typescript
+ * import { JsonRpcSchemaTevm } from '@tevm/decorators'
+ * import { createTevmNode } from 'tevm'
+ * import { requestEip1193 } from '@tevm/decorators'
+ *
+ * const node = createTevmNode().extend(requestEip1193())
+ *
+ * // Execute a call with detailed return data
+ * const result = await node.request({
+ *   method: 'tevm_call',
+ *   params: [{
+ *     to: '0x1234567890123456789012345678901234567890',
+ *     data: '0xa9059cbb000000000000000000000000deadbeefdeadbeefdeadbeefdeadbeefdeadbeef0000000000000000000000000000000000000000000000000de0b6b3a7640000'
+ *   }]
+ * })
+ *
+ * // Get the state of an account
+ * const account = await node.request({
+ *   method: 'tevm_getAccount',
+ *   params: [{ address: '0x1234567890123456789012345678901234567890' }]
+ * })
+ * ```
+ */
 export type JsonRpcSchemaTevm = {
 	/**
 	 * @description A versatile way of executing an EVM call with many options and detailed return data

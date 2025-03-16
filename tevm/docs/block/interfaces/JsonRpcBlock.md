@@ -6,7 +6,7 @@
 
 # Interface: JsonRpcBlock
 
-Defined in: packages/block/types/types.d.ts:199
+Defined in: packages/block/types/types.d.ts:442
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: packages/block/types/types.d.ts:199
 
 > `optional` **baseFeePerGas**: `string`
 
-Defined in: packages/block/types/types.d.ts:220
+Defined in: packages/block/types/types.d.ts:463
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: packages/block/types/types.d.ts:220
 
 > `optional` **blobGasUsed**: `string`
 
-Defined in: packages/block/types/types.d.ts:223
+Defined in: packages/block/types/types.d.ts:466
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: packages/block/types/types.d.ts:223
 
 > **difficulty**: `string`
 
-Defined in: packages/block/types/types.d.ts:211
+Defined in: packages/block/types/types.d.ts:454
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: packages/block/types/types.d.ts:211
 
 > `optional` **excessBlobGas**: `string`
 
-Defined in: packages/block/types/types.d.ts:224
+Defined in: packages/block/types/types.d.ts:467
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: packages/block/types/types.d.ts:224
 
 > `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
-Defined in: packages/block/types/types.d.ts:226
+Defined in: packages/block/types/types.d.ts:469
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: packages/block/types/types.d.ts:226
 
 > **extraData**: `string`
 
-Defined in: packages/block/types/types.d.ts:213
+Defined in: packages/block/types/types.d.ts:456
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: packages/block/types/types.d.ts:213
 
 > **gasLimit**: `string`
 
-Defined in: packages/block/types/types.d.ts:215
+Defined in: packages/block/types/types.d.ts:458
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: packages/block/types/types.d.ts:215
 
 > **gasUsed**: `string`
 
-Defined in: packages/block/types/types.d.ts:216
+Defined in: packages/block/types/types.d.ts:459
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: packages/block/types/types.d.ts:216
 
 > **hash**: `string`
 
-Defined in: packages/block/types/types.d.ts:201
+Defined in: packages/block/types/types.d.ts:444
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: packages/block/types/types.d.ts:201
 
 > **logsBloom**: `string`
 
-Defined in: packages/block/types/types.d.ts:206
+Defined in: packages/block/types/types.d.ts:449
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: packages/block/types/types.d.ts:206
 
 > **miner**: `string`
 
-Defined in: packages/block/types/types.d.ts:210
+Defined in: packages/block/types/types.d.ts:453
 
 ***
 
@@ -102,7 +102,7 @@ Defined in: packages/block/types/types.d.ts:210
 
 > `optional` **mixHash**: `string`
 
-Defined in: packages/block/types/types.d.ts:203
+Defined in: packages/block/types/types.d.ts:446
 
 ***
 
@@ -110,7 +110,7 @@ Defined in: packages/block/types/types.d.ts:203
 
 > **nonce**: `string`
 
-Defined in: packages/block/types/types.d.ts:204
+Defined in: packages/block/types/types.d.ts:447
 
 ***
 
@@ -118,7 +118,7 @@ Defined in: packages/block/types/types.d.ts:204
 
 > **number**: `string`
 
-Defined in: packages/block/types/types.d.ts:200
+Defined in: packages/block/types/types.d.ts:443
 
 ***
 
@@ -126,7 +126,7 @@ Defined in: packages/block/types/types.d.ts:200
 
 > `optional` **parentBeaconBlockRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:225
+Defined in: packages/block/types/types.d.ts:468
 
 ***
 
@@ -134,7 +134,7 @@ Defined in: packages/block/types/types.d.ts:225
 
 > **parentHash**: `string`
 
-Defined in: packages/block/types/types.d.ts:202
+Defined in: packages/block/types/types.d.ts:445
 
 ***
 
@@ -142,7 +142,7 @@ Defined in: packages/block/types/types.d.ts:202
 
 > **receiptsRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:209
+Defined in: packages/block/types/types.d.ts:452
 
 ***
 
@@ -150,7 +150,7 @@ Defined in: packages/block/types/types.d.ts:209
 
 > `optional` **requests**: `string`[]
 
-Defined in: packages/block/types/types.d.ts:228
+Defined in: packages/block/types/types.d.ts:471
 
 ***
 
@@ -158,7 +158,7 @@ Defined in: packages/block/types/types.d.ts:228
 
 > `optional` **requestsRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:227
+Defined in: packages/block/types/types.d.ts:470
 
 ***
 
@@ -166,7 +166,7 @@ Defined in: packages/block/types/types.d.ts:227
 
 > **sha3Uncles**: `string`
 
-Defined in: packages/block/types/types.d.ts:205
+Defined in: packages/block/types/types.d.ts:448
 
 ***
 
@@ -174,7 +174,7 @@ Defined in: packages/block/types/types.d.ts:205
 
 > **size**: `string`
 
-Defined in: packages/block/types/types.d.ts:214
+Defined in: packages/block/types/types.d.ts:457
 
 ***
 
@@ -182,7 +182,7 @@ Defined in: packages/block/types/types.d.ts:214
 
 > **stateRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:208
+Defined in: packages/block/types/types.d.ts:451
 
 ***
 
@@ -190,7 +190,7 @@ Defined in: packages/block/types/types.d.ts:208
 
 > **timestamp**: `string`
 
-Defined in: packages/block/types/types.d.ts:217
+Defined in: packages/block/types/types.d.ts:460
 
 ***
 
@@ -198,7 +198,7 @@ Defined in: packages/block/types/types.d.ts:217
 
 > **totalDifficulty**: `string`
 
-Defined in: packages/block/types/types.d.ts:212
+Defined in: packages/block/types/types.d.ts:455
 
 ***
 
@@ -206,7 +206,7 @@ Defined in: packages/block/types/types.d.ts:212
 
 > **transactions**: (`string` \| [`JsonRpcTx`](../../tx/interfaces/JsonRpcTx.md))[]
 
-Defined in: packages/block/types/types.d.ts:218
+Defined in: packages/block/types/types.d.ts:461
 
 ***
 
@@ -214,7 +214,7 @@ Defined in: packages/block/types/types.d.ts:218
 
 > **transactionsRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:207
+Defined in: packages/block/types/types.d.ts:450
 
 ***
 
@@ -222,7 +222,7 @@ Defined in: packages/block/types/types.d.ts:207
 
 > **uncles**: `string`[] \| `` `0x${string}` ``[]
 
-Defined in: packages/block/types/types.d.ts:219
+Defined in: packages/block/types/types.d.ts:462
 
 ***
 
@@ -230,7 +230,7 @@ Defined in: packages/block/types/types.d.ts:219
 
 > `optional` **withdrawals**: [`JsonRpcWithdrawal`](../../utils/interfaces/JsonRpcWithdrawal.md)[]
 
-Defined in: packages/block/types/types.d.ts:221
+Defined in: packages/block/types/types.d.ts:464
 
 ***
 
@@ -238,4 +238,4 @@ Defined in: packages/block/types/types.d.ts:221
 
 > `optional` **withdrawalsRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:222
+Defined in: packages/block/types/types.d.ts:465

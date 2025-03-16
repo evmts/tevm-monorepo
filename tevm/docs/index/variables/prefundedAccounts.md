@@ -8,7 +8,7 @@
 
 > `const` **prefundedAccounts**: `ReadonlyArray`\<[`Address`](../type-aliases/Address.md)\>
 
-Defined in: packages/node/dist/index.d.ts:374
+Defined in: packages/node/dist/index.d.ts:445
 
 These are the same accounts hardhat and anvil start with 10000 eth
 Also including zero address

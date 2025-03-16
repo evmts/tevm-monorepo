@@ -1,5 +1,19 @@
 import type { Abi } from '@tevm/utils'
 
+/**
+ * Example ABI used for testing the contract functionality.
+ * Contains a mix of write/read functions with different signatures and an event.
+ * @example
+ * ```typescript
+ * import { dummyAbi } from '@tevm/contract/test'
+ *
+ * // Use in tests to create a contract instance
+ * const contract = createContract({
+ *   abi: dummyAbi,
+ *   address: '0x1234567890123456789012345678901234567890'
+ * })
+ * ```
+ */
 export const dummyAbi = [
 	{
 		type: 'function',

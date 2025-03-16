@@ -8,7 +8,7 @@
 
 > **tevmSend**(): [`Extension`](../../index/type-aliases/Extension.md)\<[`TevmSendApi`](../type-aliases/TevmSendApi.md)\>
 
-Defined in: packages/decorators/dist/index.d.ts:1557
+Defined in: packages/decorators/dist/index.d.ts:1839
 
 ## Returns
 

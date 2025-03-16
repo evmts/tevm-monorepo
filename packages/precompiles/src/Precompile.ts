@@ -6,22 +6,23 @@ import { type Address, EthjsAddress, type Hex, toHex } from '@tevm/utils'
  * A precompile is a contract that is deployed at a specific address but runs JavaScript code instead of EVM code.
  * It is constructed via a Tevm {@link Contract} and a JavaScript function that implements the precompile.
  * @example
+ * ```typescript
  * import { defineCall, definePrecompile } from '@tevm/precompiles'
  * import { Fs } from './Fs.s.sol'
  *
- * export const fsPrecompile = definePrecompile({
- * 	contract:
- * 		Fs.withAddress(
- * 			`0x${'f2'.repeat(20)}`,
- * 		'),
- * 	call: defineCall(Fs.abi, {
- * 		readFile: async ({ args }) => {
- * 			return {
- * 				returnValue: await fs.readFile(...args, 'utf8'),
- * 				executionGasUsed: 0n,
- * 			}
- * 		},
+ * // Define a precompile
+ * const fsPrecompile = definePrecompile({
+ *   contract: Fs.withAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2'),
+ *   call: defineCall(Fs.abi, {
+ *     readFile: async ({ args }) => {
+ *       return {
+ *         returnValue: await fs.readFile(...args, 'utf8'),
+ *         executionGasUsed: 0n,
+ *       }
+ *     }
+ *   })
  * })
+ * ```
  */
 export class Precompile<
 	TContract extends Contract<string, ReadonlyArray<string>, Address, any, any> = Contract<

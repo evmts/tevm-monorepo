@@ -8,7 +8,7 @@
 
 > **LogOptions**: `object`
 
-Defined in: [LogOptions.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/LogOptions.ts#L8)
+Defined in: [LogOptions.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/logger/src/LogOptions.ts#L32)
 
 Options for logger
 

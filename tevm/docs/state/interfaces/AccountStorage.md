@@ -6,7 +6,23 @@
 
 # Interface: AccountStorage
 
-Defined in: packages/state/dist/index.d.ts:10
+Defined in: packages/state/dist/index.d.ts:25
+
+Represents an Ethereum account storage with native bigint values.
+Used for internal state management and account manipulation.
+
+## Example
+
+```typescript
+import { AccountStorage } from '@tevm/state'
+
+const value: AccountStorage = {
+  nonce: 0n,
+  balance: 10000000000000000000n, // 10 ETH
+  storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+  codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+}
+```
 
 ## Properties
 
@@ -14,7 +30,7 @@ Defined in: packages/state/dist/index.d.ts:10
 
 > **balance**: `bigint`
 
-Defined in: packages/state/dist/index.d.ts:12
+Defined in: packages/state/dist/index.d.ts:27
 
 ***
 
@@ -22,7 +38,7 @@ Defined in: packages/state/dist/index.d.ts:12
 
 > **codeHash**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:14
+Defined in: packages/state/dist/index.d.ts:29
 
 ***
 
@@ -30,7 +46,7 @@ Defined in: packages/state/dist/index.d.ts:14
 
 > `optional` **deployedBytecode**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:15
+Defined in: packages/state/dist/index.d.ts:30
 
 ***
 
@@ -38,7 +54,7 @@ Defined in: packages/state/dist/index.d.ts:15
 
 > **nonce**: `bigint`
 
-Defined in: packages/state/dist/index.d.ts:11
+Defined in: packages/state/dist/index.d.ts:26
 
 ***
 
@@ -46,7 +62,7 @@ Defined in: packages/state/dist/index.d.ts:11
 
 > `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-Defined in: packages/state/dist/index.d.ts:16
+Defined in: packages/state/dist/index.d.ts:31
 
 ***
 
@@ -54,4 +70,4 @@ Defined in: packages/state/dist/index.d.ts:16
 
 > **storageRoot**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:13
+Defined in: packages/state/dist/index.d.ts:28

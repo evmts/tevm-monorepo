@@ -6,7 +6,7 @@
 
 # Interface: BlockData
 
-Defined in: packages/block/types/types.d.ts:131
+Defined in: packages/block/types/types.d.ts:185
 
 A block's data.
 
@@ -16,7 +16,7 @@ A block's data.
 
 > `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
 
-Defined in: packages/block/types/types.d.ts:143
+Defined in: packages/block/types/types.d.ts:197
 
 EIP-6800: Verkle Proof Data (experimental)
 
@@ -26,7 +26,7 @@ EIP-6800: Verkle Proof Data (experimental)
 
 > `optional` **header**: [`HeaderData`](HeaderData.md)
 
-Defined in: packages/block/types/types.d.ts:135
+Defined in: packages/block/types/types.d.ts:189
 
 Header data for the block
 
@@ -36,7 +36,7 @@ Header data for the block
 
 > `optional` **requests**: [`ClRequest`](../classes/ClRequest.md)[]
 
-Defined in: packages/block/types/types.d.ts:139
+Defined in: packages/block/types/types.d.ts:193
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: packages/block/types/types.d.ts:139
 
 > `optional` **transactions**: (`LegacyTxData` \| `AccessListEIP2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| `EOACodeEIP7702TxData`)[]
 
-Defined in: packages/block/types/types.d.ts:136
+Defined in: packages/block/types/types.d.ts:190
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: packages/block/types/types.d.ts:136
 
 > `optional` **uncleHeaders**: [`HeaderData`](HeaderData.md)[]
 
-Defined in: packages/block/types/types.d.ts:137
+Defined in: packages/block/types/types.d.ts:191
 
 ***
 
@@ -60,4 +60,4 @@ Defined in: packages/block/types/types.d.ts:137
 
 > `optional` **withdrawals**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
 
-Defined in: packages/block/types/types.d.ts:138
+Defined in: packages/block/types/types.d.ts:192

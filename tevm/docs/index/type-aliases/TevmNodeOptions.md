@@ -8,7 +8,7 @@
 
 > **TevmNodeOptions**\<`TCommon`\>: [`StateOptions`](StateOptions.md) & `object`
 
-Defined in: packages/node/dist/index.d.ts:239
+Defined in: packages/node/dist/index.d.ts:310
 
 Options for creating an Tevm MemoryClient instance
 

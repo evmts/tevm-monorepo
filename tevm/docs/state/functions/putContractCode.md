@@ -8,7 +8,7 @@
 
 > **putContractCode**(`baseState`, `skipFetchingFromFork`?): (`address`, `value`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:370
+Defined in: packages/state/dist/index.d.ts:482
 
 Adds `value` to the state trie as code, and sets `codeHash` on the account
 corresponding to `address` to reference this.

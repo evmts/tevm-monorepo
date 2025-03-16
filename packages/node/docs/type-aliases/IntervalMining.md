@@ -8,7 +8,9 @@
 
 > **IntervalMining**: `object`
 
-Defined in: [packages/node/src/MiningConfig.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L1)
+Defined in: [packages/node/src/MiningConfig.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L13)
+
+Mining configuration that creates blocks at fixed time intervals.
 
 ## Type declaration
 
@@ -19,3 +21,14 @@ Defined in: [packages/node/src/MiningConfig.ts:1](https://github.com/evmts/tevm-
 ### type
 
 > **type**: `"interval"`
+
+## Example
+
+```typescript
+import { IntervalMining } from '@tevm/node'
+
+const value: IntervalMining = {
+  type: 'interval',
+  interval: 5000 // Mine blocks every 5 seconds
+}
+```

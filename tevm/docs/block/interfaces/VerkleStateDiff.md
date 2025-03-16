@@ -6,7 +6,41 @@
 
 # Interface: VerkleStateDiff
 
-Defined in: packages/block/types/types.d.ts:77
+Defined in: packages/block/types/types.d.ts:131
+
+Represents the state differences in a Verkle tree between two states
+
+Used to describe state changes between blocks in a more efficient way than
+recording the entire state. Contains a mapping of stems (path prefixes) to
+their corresponding state changes, along with proofs to verify these changes.
+
+Part of Ethereum's statelessness roadmap, enabling clients to validate blocks
+without storing the entire state.
+
+## Example
+
+```typescript
+import { VerkleStateDiff } from '@tevm/block'
+
+// Example of applying state changes from a diff
+function applyStateDiff(currentState: Map<string, Hex>, diff: VerkleStateDiff): Map<string, Hex> {
+  const updatedState = new Map(currentState)
+
+  // Apply each change from the state diff
+  for (const [stem, changes] of Object.entries(diff.stateDiff)) {
+    for (const [key, value] of Object.entries(changes)) {
+      const fullKey = stem + key
+      if (value === null) {
+        updatedState.delete(fullKey)
+      } else {
+        updatedState.set(fullKey, value)
+      }
+    }
+  }
+
+  return updatedState
+}
+```
 
 ## Properties
 
@@ -14,7 +48,7 @@ Defined in: packages/block/types/types.d.ts:77
 
 > **stem**: `` `0x${string}` ``
 
-Defined in: packages/block/types/types.d.ts:78
+Defined in: packages/block/types/types.d.ts:132
 
 ***
 
@@ -22,7 +56,7 @@ Defined in: packages/block/types/types.d.ts:78
 
 > **suffixDiffs**: `object`[]
 
-Defined in: packages/block/types/types.d.ts:79
+Defined in: packages/block/types/types.d.ts:133
 
 #### currentValue
 

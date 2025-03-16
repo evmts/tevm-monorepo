@@ -8,7 +8,7 @@
 
 > **TevmNode**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
 
-Defined in: packages/node/dist/index.d.ts:125
+Defined in: packages/node/dist/index.d.ts:196
 
 The base client used by Tevm. Add extensions to add additional functionality
 

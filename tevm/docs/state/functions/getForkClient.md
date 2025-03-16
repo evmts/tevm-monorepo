@@ -8,7 +8,7 @@
 
 > **getForkClient**(`__namedParameters`): `object`
 
-Defined in: packages/state/dist/index.d.ts:331
+Defined in: packages/state/dist/index.d.ts:443
 
 ## Parameters
 

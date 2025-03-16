@@ -8,7 +8,7 @@
 
 > **getContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/state/dist/index.d.ts:323
+Defined in: packages/state/dist/index.d.ts:435
 
 Gets the storage value associated with the provided `address` and `key`. This method returns
 the shortest representation of the stored value.
