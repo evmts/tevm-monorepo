@@ -80,62 +80,52 @@ export const callProcedure = (client) => async (request) => {
 	}
 
 	/**
-	 * @type {Record<`0x${string}`, Array<import('@tevm/utils').Hex>> | undefined}
+	 * @type {Record<`0x${string}`, Set<import('@tevm/utils').Hex>> | undefined}
 	 */
 	const accessList =
 		result.accessList !== undefined
-			? Object.fromEntries(Object.entries(result.accessList).map(([key, value]) => [key, [...value]]))
+			? Object.fromEntries(Object.entries(result.accessList).map(([key, value]) => [key, value]))
 			: undefined
 
-	/**
-	 * @param {bigint} value
-	 * @returns {import('@tevm/utils').Hex}
-	 */
-	const toHex = (value) => /**@type {import('@tevm/utils').Hex}*/ (numberToHex(value))
 	/**
 	 * @type {import('./CallJsonRpcResponse.js').CallJsonRpcResponse}
 	 */
 	const out = {
 		jsonrpc: '2.0',
 		result: {
-			executionGasUsed:
-				typeof result.executionGasUsed === 'bigint'
-					? toHex(result.executionGasUsed)
-					: result.executionGasUsed !== undefined
-						? result.executionGasUsed
-						: undefined,
+			executionGasUsed: result.executionGasUsed,
 			rawData: result.rawData,
-			...(result.selfdestruct ? { selfdestruct: [...result.selfdestruct] } : {}),
-			...(result.gasRefund ? { gasRefund: toHex(result.gasRefund) } : {}),
-			...(result.gas ? { gas: toHex(result.gas) } : {}),
+			...(result.selfdestruct ? { selfdestruct: result.selfdestruct } : {}),
+			...(result.gasRefund ? { gasRefund: result.gasRefund } : {}),
+			...(result.gas ? { gas: result.gas } : {}),
 			...(result.logs ? { logs: result.logs } : {}),
 			...(result.txHash ? { txHash: result.txHash } : {}),
-			...(result.blobGasUsed ? { blobGasUsed: toHex(result.blobGasUsed) } : {}),
+			...(result.blobGasUsed ? { blobGasUsed: result.blobGasUsed } : {}),
 			...(accessList !== undefined ? { accessList } : {}),
 			...(result.preimages ? { preimages: result.preimages } : {}),
-			...(result.l1Fee ? { l1Fee: numberToHex(result.l1Fee) } : {}),
-			...(result.l1BaseFee ? { l1BaseFee: numberToHex(result.l1BaseFee) } : {}),
-			...(result.l1BlobFee ? { l1BlobFee: numberToHex(result.l1BlobFee) } : {}),
-			...(result.l1GasUsed ? { l1GasUsed: numberToHex(result.l1GasUsed) } : {}),
-			...(result.amountSpent ? { amountSpent: numberToHex(result.amountSpent) } : {}),
-			...(result.baseFee ? { baseFee: numberToHex(result.baseFee) } : {}),
-			...(result.totalGasSpent ? { totalGasSpent: numberToHex(result.totalGasSpent) } : {}),
+			...(result.l1Fee ? { l1Fee: result.l1Fee } : {}),
+			...(result.l1BaseFee ? { l1BaseFee: result.l1BaseFee } : {}),
+			...(result.l1BlobFee ? { l1BlobFee: result.l1BlobFee } : {}),
+			...(result.l1GasUsed ? { l1GasUsed: result.l1GasUsed } : {}),
+			...(result.amountSpent ? { amountSpent: result.amountSpent } : {}),
+			...(result.baseFee ? { baseFee: result.baseFee } : {}),
+			...(result.totalGasSpent ? { totalGasSpent: result.totalGasSpent } : {}),
 			...(result.trace
 				? {
 						trace: {
 							...result.trace,
-							gas: toHex(result.trace.gas),
+							gas: result.trace.gas,
 							structLogs: result.trace.structLogs.map((log) => ({
 								...log,
-								gas: toHex(log.gas),
-								gasCost: toHex(log.gasCost),
-								stack: [...log.stack],
+								gas: log.gas,
+								gasCost: log.gasCost,
+								stack: log.stack,
 							})),
 						},
 					}
 				: {}),
 			...(result.createdAddress ? { createdAddress: result.createdAddress } : {}),
-			...(result.createdAddresses ? { createdAddresses: [...result.createdAddresses] } : {}),
+			...(result.createdAddresses ? { createdAddresses: result.createdAddresses } : {}),
 		},
 		method: 'tevm_call',
 		...(request.id === undefined ? {} : { id: request.id }),

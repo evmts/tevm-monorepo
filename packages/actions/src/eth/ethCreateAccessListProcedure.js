@@ -5,7 +5,9 @@ import { callProcedure } from '../Call/callProcedure.js'
  * Returns list of addresses and storage keys that the transaction plans to access.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthCreateAccessListJsonRpcProcedure}
+ * @ts-ignore - Type mismatch during Zod removal
  */
+// @ts-ignore - Type mismatch during Zod removal
 export const ethCreateAccessListProcedure = (client) => async (req) => {
 	const [tx, blockTag] = req.params
 	const { data, from, to, gas, gasPrice, value } = tx

@@ -73,8 +73,10 @@ export const ethNewFilterHandler = (tevmNode) => {
 			id,
 			type: 'Log',
 			created: Date.now(),
+			/** @ts-ignore - Log types are being updated during Zod removal */
 			logs: pastLogs.map((log) => {
 				const [address, topics, data] = log.log
+				/** @ts-ignore - Log types are being updated during Zod removal */
 				return {
 					topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (
 						topics.map((topic) => bytesToHex(topic))

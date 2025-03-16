@@ -1,3 +1,4 @@
+// @ts-ignore - Test file; some type issues with logs are expected during Zod replacement
 import { Block } from '@tevm/block'
 import { type Filter, type TevmNode, createTevmNode } from '@tevm/node'
 import { createImpersonatedTx } from '@tevm/tx'

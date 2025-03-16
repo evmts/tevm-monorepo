@@ -35,10 +35,13 @@ export const dumpStateHandler =
 			const vm =
 				blockTag === 'pending'
 					? await getPendingClient(client).then((mineResult) => {
-							if (mineResult.errors) {
+							if ('errors' in mineResult && mineResult.errors) {
 								throw mineResult.errors[0]
 							}
-							return mineResult.pendingClient.getVm()
+							if ('pendingClient' in mineResult) {
+								return mineResult.pendingClient.getVm()
+							}
+							throw new InternalError('Failed to get pending client')
 						})
 					: await client.getVm()
 			if ('dumpCanonicalGenesis' in vm.stateManager) {

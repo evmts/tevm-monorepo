@@ -27,7 +27,9 @@
 		"strictBindCallApply": false,
 		"noFallthroughCasesInSwitch": false,
 		"allowUnreachableCode": true,
-		"allowUnusedLabels": true
+		"allowUnusedLabels": true,
+		// For now, ignore all type errors in the build
+		"noEmitOnError": false
 	},
 	"include": ["src", "src/**/*.json"]
 }

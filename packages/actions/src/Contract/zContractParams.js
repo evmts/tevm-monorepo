@@ -1,3 +1,4 @@
+import { InvalidParamsError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { validateAbi } from '../internal/validators/validateAbi.js'
 import { validateAddress } from '../internal/validators/validateAddress.js'
@@ -6,7 +7,7 @@ import { validateHex } from '../internal/validators/validateHex.js'
 /**
  * Validates contract parameters
  * @param {unknown} value - The value to validate
- * @returns {{ isValid: boolean, errors: Array<Error> }} - Validation result
+ * @returns {{ isValid: boolean, errors: Array<import('../BaseCall/validateBaseCallParams.js').ValidateBaseCallParamsError | InvalidParamsError> }} - Validation result
  */
 const validateContractParamsInternal = (value) => {
 	// First get base call params validation errors
@@ -15,7 +16,7 @@ const validateContractParamsInternal = (value) => {
 	if (typeof value !== 'object' || value === null) {
 		return {
 			isValid: false,
-			errors: [new Error('Parameters must be an object')],
+			errors: [new InvalidParamsError('Parameters must be an object')],
 		}
 	}
 
@@ -23,25 +24,25 @@ const validateContractParamsInternal = (value) => {
 
 	// Validate abi (required)
 	if (!('abi' in value) || value.abi === undefined) {
-		errors.push(new Error('Missing required field: abi'))
+		errors.push(new InvalidParamsError('Missing required field: abi'))
 	} else {
 		const abiValidation = validateAbi(value.abi)
 		if (!abiValidation.isValid) {
-			errors.push(new Error(abiValidation.message || 'Invalid ABI'))
+			errors.push(new InvalidParamsError(abiValidation.message || 'Invalid ABI'))
 		}
 	}
 
 	// Validate functionName (required)
 	if (!('functionName' in value) || value.functionName === undefined) {
-		errors.push(new Error('Missing required field: functionName'))
+		errors.push(new InvalidParamsError('Missing required field: functionName'))
 	} else if (typeof value.functionName !== 'string') {
-		errors.push(new Error('functionName must be a string'))
+		errors.push(new InvalidParamsError('functionName must be a string'))
 	}
 
 	// Validate args if present
 	if ('args' in value && value.args !== undefined) {
 		if (!Array.isArray(value.args)) {
-			errors.push(new Error('args must be an array'))
+			errors.push(new InvalidParamsError('args must be an array'))
 		}
 	}
 
@@ -49,7 +50,7 @@ const validateContractParamsInternal = (value) => {
 	if ('to' in value && value.to !== undefined) {
 		const toValidation = validateAddress(value.to)
 		if (!toValidation.isValid) {
-			errors.push(new Error(toValidation.message || 'Invalid to address'))
+			errors.push(new InvalidParamsError(toValidation.message || 'Invalid to address'))
 		}
 	}
 
@@ -57,7 +58,7 @@ const validateContractParamsInternal = (value) => {
 	if ('code' in value && value.code !== undefined) {
 		const codeValidation = validateHex(value.code)
 		if (!codeValidation.isValid) {
-			errors.push(new Error(codeValidation.message || 'Invalid code'))
+			errors.push(new InvalidParamsError(codeValidation.message || 'Invalid code'))
 		}
 	}
 
@@ -65,22 +66,26 @@ const validateContractParamsInternal = (value) => {
 	if ('deployedBytecode' in value && value.deployedBytecode !== undefined) {
 		const bytecodeValidation = validateHex(value.deployedBytecode)
 		if (!bytecodeValidation.isValid) {
-			errors.push(new Error(bytecodeValidation.message || 'Invalid deployedBytecode'))
+			errors.push(new InvalidParamsError(bytecodeValidation.message || 'Invalid deployedBytecode'))
 		}
 	}
 
 	// Validate must have either code, to, or deployedBytecode
-	if (!value.code && !value.to && !value.deployedBytecode) {
-		errors.push(new Error('Must have either code, to, or deployedBytecode'))
+	const hasCode = 'code' in value && value.code !== undefined
+	const hasTo = 'to' in value && value.to !== undefined
+	const hasDeployedBytecode = 'deployedBytecode' in value && value.deployedBytecode !== undefined
+	
+	if (!hasCode && !hasTo && !hasDeployedBytecode) {
+		errors.push(new InvalidParamsError('Must have either code, to, or deployedBytecode'))
 	}
 
 	// Validate cannot have stateOverrideSet or blockOverrideSet for createTransaction
-	if (value.createTransaction) {
-		if (value.stateOverrideSet) {
-			errors.push(new Error('Cannot have stateOverrideSet for createTransaction'))
+	if ('createTransaction' in value && value.createTransaction) {
+		if ('stateOverrideSet' in value && value.stateOverrideSet) {
+			errors.push(new InvalidParamsError('Cannot have stateOverrideSet for createTransaction'))
 		}
-		if (value.blockOverrideSet) {
-			errors.push(new Error('Cannot have blockOverrideSet for createTransaction'))
+		if ('blockOverrideSet' in value && value.blockOverrideSet) {
+			errors.push(new InvalidParamsError('Cannot have blockOverrideSet for createTransaction'))
 		}
 	}
 
@@ -94,7 +99,7 @@ const validateContractParamsInternal = (value) => {
  * For backward compatibility with Zod interface
  * @type {{
  *   parse: (value: any) => any,
- *   safeParse: (value: any) => {success: boolean, data: any} | {success: boolean, error: {format: () => {_errors: string[], [key: string]: {_errors: string[]}}}}
+ *   safeParse: (value: any) => {success: boolean, data: any} | {success: boolean, error: {format: () => {_errors: string[]} & Record<string, {_errors: string[]}>}}
  * }}
  */
 export const zContractParams = {
@@ -105,13 +110,13 @@ export const zContractParams = {
 	parse: (value) => {
 		const validation = validateContractParamsInternal(value)
 		if (!validation.isValid) {
-			throw new Error(validation.errors[0]?.message || 'Invalid contract parameters')
+			throw new InvalidParamsError(validation.errors[0]?.message || 'Invalid contract parameters')
 		}
 		return value
 	},
 	/**
 	 * @param {any} value
-	 * @returns {{success: boolean, data: any} | {success: boolean, error: {format: () => {_errors: string[], [key: string]: {_errors: string[]}}}}}
+	 * @returns {{success: boolean, data: any} | {success: boolean, error: {format: () => {_errors: string[]} & Record<string, {_errors: string[]}>}}}
 	 */
 	safeParse: (value) => {
 		const validation = validateContractParamsInternal(value)
@@ -122,8 +127,17 @@ export const zContractParams = {
 			success: false,
 			error: {
 				format: () => {
-					/** @type {{_errors: string[], [key: string]: {_errors: string[]}}} */
-					const formatted = { _errors: [] }
+					/** @type {Record<string, {_errors: string[]}> & {_errors: string[]}} */
+					const formatted = /** @type {any} */ ({ _errors: [] })
+					
+					// Create a valid Record right away with required shape
+					formatted.code = { _errors: [] }
+					formatted.to = { _errors: [] }
+					formatted.abi = { _errors: [] }
+					formatted.args = { _errors: [] }
+					formatted.functionName = { _errors: [] }
+					formatted.deployedBytecode = { _errors: [] }
+					
 					validation.errors.forEach((err) => {
 						// Map errors to appropriate fields
 						if (err.message.includes('code')) {
