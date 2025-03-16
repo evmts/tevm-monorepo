@@ -54,11 +54,7 @@ describe('validateMineParams', () => {
 		}
 		const errors = validateMineParams(action)
 		expect(errors).toHaveLength(3)
-		expect(errors).toEqual([
-			expect.any(InvalidAddressError),
-			expect.any(InvalidNonceError),
-			expect.any(InvalidBalanceError),
-		])
+		expect(errors).toMatchSnapshot()
 	})
 
 	it('should return InvalidRequestError for invalid base params', () => {

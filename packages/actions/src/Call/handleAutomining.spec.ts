@@ -65,13 +65,11 @@ describe("handleAutomining", () => {
 		const debugSpy = vi.spyOn(client.logger, "debug");
 
 		// Mock mineHandler to return successful result
+		const innerMock = vi.fn().mockResolvedValue({
+			blockHashes: ['0xabc123'],
+		})
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(
-			() => () =>
-				Promise.resolve({
-					blockHashes: ["0xabc123"],
-				}),
-		);
+		mineHandlerMock.mockImplementation(() => innerMock);
 
 		const txHash = "0x123456789abcdef";
 		const result = await handleAutomining(client, txHash);
@@ -106,13 +104,11 @@ describe("handleAutomining", () => {
 			message: "Failed to mine transaction",
 		};
 
+		const innerMock = vi.fn().mockResolvedValue({
+			errors: [mineError],
+		})
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(
-			() => () =>
-				Promise.resolve({
-					errors: [mineError],
-				}),
-		);
+		mineHandlerMock.mockImplementation(() => innerMock);
 
 		const txHash = "0x123456789abcdef";
 		const result = await handleAutomining(client, txHash);
@@ -146,13 +142,11 @@ describe("handleAutomining", () => {
 		const debugSpy = vi.spyOn(client.logger, "debug");
 
 		// Mock mineHandler to return empty errors array
+		const innerMock = vi.fn().mockResolvedValue({
+			errors: [], // Empty errors array
+		})
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(
-			() => () =>
-				Promise.resolve({
-					errors: [], // Empty errors array
-				}),
-		);
+		mineHandlerMock.mockImplementation(() => innerMock);
 
 		const txHash = "0x123456789abcdef";
 		const result = await handleAutomining(client, txHash);
@@ -177,13 +171,11 @@ describe("handleAutomining", () => {
 		const debugSpy = vi.spyOn(client.logger, "debug");
 
 		// Mock mineHandler to return successful result
+		const innerMock = vi.fn().mockResolvedValue({
+			blockHashes: ["0xabc123"],
+		})
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(
-			() => () =>
-				Promise.resolve({
-					blockHashes: ["0xabc123"],
-				}),
-		);
+		mineHandlerMock.mockImplementation(() => innerMock);
 
 		// Call without a txHash
 		const result = await handleAutomining(client);
@@ -240,14 +232,12 @@ describe("handleAutomining", () => {
 		// Spy on debug logger
 		const debugSpy = vi.spyOn(client.logger, "debug");
 
-		// Mock mineHandler to return successful result
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(
-			() => (params: any) =>
-				Promise.resolve({
-					blockHashes: ["0xabc123"],
-				}),
-		);
+		// Mock mineHandler with inner function mock
+		const innerMock = vi.fn().mockResolvedValue({
+			blockHashes: ['0xabc123'],
+		})
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(() => innerMock)
 
 		const txHash = "0x123456789abcdef";
 		const result = await handleAutomining(client, txHash, true);
@@ -268,13 +258,12 @@ describe("handleAutomining", () => {
 			`Gas mining mode with limit ${client.miningConfig.limit}`,
 		);
 
-		// Should call mineHandler with throwOnFail: false and blocks: 1
-		expect(mineHandlerMock).toHaveBeenCalledWith(client);
-		expect(mineHandlerMock).toHaveBeenCalledTimes(1);
+		// Should call mineHandler with client
+		expect(mineHandlerMock).toHaveBeenCalledWith(client)
+		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
 
-		// Verify parameters passed to mineHandler
-		const mineHandlerCall = mineHandlerMock.mock.results[0].value;
-		expect(mineHandlerCall).toHaveBeenCalledWith(
+		// Verify parameters passed to inner function
+		expect(innerMock).toHaveBeenCalledWith(
 			expect.objectContaining({
 				throwOnFail: false,
 				blocks: 1,
@@ -301,13 +290,11 @@ describe("handleAutomining", () => {
 		const debugSpy = vi.spyOn(client.logger, "debug");
 
 		// Mock mineHandler
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(
-			() => (params: any) =>
-				Promise.resolve({
-					blockHashes: ["0xabc123"],
-				}),
-		);
+		const innerMock = vi.fn().mockResolvedValue({
+			blockHashes: ['0xabc123'],
+		})
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(() => innerMock)
 
 		const txHash = "0x123456789abcdef";
 		const result = await handleAutomining(client, txHash, true);
@@ -347,13 +334,11 @@ describe("handleAutomining", () => {
 			name: "MiningError",
 			message: "Failed to mine transaction",
 		};
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(
-			() => () =>
-				Promise.resolve({
-					errors: [miningError],
-				}),
-		);
+		const innerMock = vi.fn().mockResolvedValue({
+			errors: [miningError],
+		})
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(() => innerMock);
 
 		const txHash = "0x123456789abcdef";
 		const result = await handleAutomining(client, txHash);
@@ -386,13 +371,11 @@ describe("handleAutomining", () => {
 		];
 
 		// Mock mineHandler to return multiple errors
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(
-			() => () =>
-				Promise.resolve({
-					errors,
-				}),
-		);
+		const innerMock = vi.fn().mockResolvedValue({
+			errors,
+		})
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(() => innerMock);
 
 		const txHash = "0x123456789abcdef";
 		const result = await handleAutomining(client, txHash);

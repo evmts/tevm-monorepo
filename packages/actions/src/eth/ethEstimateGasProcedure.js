@@ -22,9 +22,8 @@ export const ethEstimateGasJsonRpcProcedure = (client) => {
 			]
 			if (blockOverrides !== undefined) {
 				params.push(stateOverrides ?? {}, blockOverrides)
-			}
-			if (stateOverrides !== undefined) {
-				params.push(...params, stateOverrides)
+			} else if (stateOverrides !== undefined) {
+				params.push(stateOverrides)
 			}
 			return params
 		}
