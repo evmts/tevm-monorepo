@@ -46,7 +46,11 @@ export const createHttpHandler = (client) => {
 			return handleError(client, body, res)
 		}
 
-		const parsedRequest = parseRequest(body)
+		const parsedRequest =
+			/**
+			 * @type {import('@tevm/jsonrpc').JsonRpcRequest<string, any>}
+			 */
+			(parseRequest(body))
 		if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
 			return handleError(client, parsedRequest, res)
 		}

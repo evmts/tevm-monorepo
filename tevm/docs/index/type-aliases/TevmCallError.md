@@ -6,7 +6,7 @@
 
 # Type Alias: TevmCallError
 
-> **TevmCallError**: [`ValidateCallParamsError`](../../actions/type-aliases/ValidateCallParamsError.md) \| [`CallHandlerOptsError`](../../actions/type-aliases/CallHandlerOptsError.md) \| [`InternalError`](../../errors/classes/InternalError.md) \| [`ExecutionError`](../../errors/classes/ExecutionError.md) \| [`RevertError`](../../errors/classes/RevertError.md) \| [`HandleRunTxError`](../../actions/type-aliases/HandleRunTxError.md) \| [`ExecuteCallError`](../../actions/type-aliases/ExecuteCallError.md)
+> **TevmCallError**: `ValidateCallParamsError` \| [`CallHandlerOptsError`](../../actions/type-aliases/CallHandlerOptsError.md) \| [`InternalError`](../../errors/classes/InternalError.md) \| [`ExecutionError`](../../errors/classes/ExecutionError.md) \| [`RevertError`](../../errors/classes/RevertError.md) \| [`HandleRunTxError`](../../actions/type-aliases/HandleRunTxError.md) \| [`ExecuteCallError`](../../actions/type-aliases/ExecuteCallError.md)
 
 Defined in: packages/actions/types/Call/TevmCallError.d.ts:61
 

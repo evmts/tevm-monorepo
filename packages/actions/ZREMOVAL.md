@@ -6,7 +6,7 @@ This document tracks the progress of removing Zod from the @tevm/actions package
 
 The package is currently undergoing a transition from Zod-based validation to vanilla JavaScript validation.
 
-During this transition, TypeScript type checking has been temporarily disabled to allow the build to succeed.
+TypeScript type checking has been re-enabled. We've fixed several type issues in Call/callHandlerOpts.js and other files, but there are still remaining type errors to be addressed.
 
 ## Changes Made So Far
 

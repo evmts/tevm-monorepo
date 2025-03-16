@@ -62,7 +62,7 @@
     "test": "vitest --watch",
     "test:coverage": "vitest --coverage --run",
     "test:run": "vitest",
-    "typecheck": "echo \"Typecheck temporarily disabled during zod removal\" || tsc --noEmit --skipLibCheck"
+    "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@tevm/address": "workspace:^",

@@ -84,9 +84,9 @@ export const ethNewFilterHandler = (tevmNode) => {
 					blockNumber: log.block.header.number,
 					transactionHash: bytesToHex(log.tx.hash()),
 					removed: false,
-					logIndex: log.logIndex,
+					logIndex: BigInt(log.logIndex),
 					blockHash: bytesToHex(log.block.hash()),
-					transactionIndex: log.txIndex,
+					transactionIndex: BigInt(log.txIndex),
 				}
 			}),
 			tx: [],

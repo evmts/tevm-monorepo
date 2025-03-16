@@ -38,7 +38,7 @@ describe('getPendingClient', () => {
 
 		const mineResult = await getPendingClient(client)
 
-		if (mineResult.errors) {
+		if ('errors' in mineResult) {
 			throw mineResult.errors[0]
 		}
 

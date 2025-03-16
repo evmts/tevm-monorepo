@@ -16,20 +16,3 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
 Version: 1.1.0.next-73],
 ]
 `;
-
-exports[`validateMineParams should return multiple errors for multiple invalid fields 1`] = `
-[
-  [InvalidBalanceError: throwOnFail must be a boolean
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbalanceerror/
-Version: 1.1.0.next-73],
-  [InvalidAddressError: blockCount must be a non-negative integer
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73],
-  [InvalidNonceError: interval must be a non-negative integer
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
-Version: 1.1.0.next-73],
-]
-`;

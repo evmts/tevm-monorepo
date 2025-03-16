@@ -6,8 +6,24 @@
 
 # Variable: zStorageRoot
 
-> `const` **zStorageRoot**: `z.ZodEffects`\<`z.ZodString`, `string`, `string`\>
+> `const` **zStorageRoot**: `object`
 
-Defined in: packages/actions/types/internal/zod/zStorageRoot.d.ts:4
+Defined in: packages/actions/types/internal/zod/zStorageRoot.d.ts:6
 
-Zod validator for valid ethereum storage root
+For backward compatibility with Zod interface
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `any`
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+#### Returns
+
+`any`

@@ -6,8 +6,24 @@
 
 # Variable: zBytecode
 
-> `const` **zBytecode**: `ZodEffects`
+> `const` **zBytecode**: `object`
 
-Defined in: packages/actions/types/internal/zod/zBytecode.d.ts:4
+Defined in: packages/actions/types/internal/zod/zBytecode.d.ts:6
 
-Zod validator for valid Ethereum bytecode
+For backward compatibility with Zod interface
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `any`
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+#### Returns
+
+`any`

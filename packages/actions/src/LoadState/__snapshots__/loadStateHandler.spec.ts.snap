@@ -6,10 +6,3 @@ exports[`loadStateHandler > should return errors for invalid params 1`] = `
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73"
 `;
-
-exports[`loadStateHandler should return errors for invalid params 1`] = `
-"state: state must be an object mapping addresses to account storage
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73"
-`;

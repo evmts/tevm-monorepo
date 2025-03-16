@@ -6,8 +6,24 @@
 
 # Variable: zAbi
 
-> `const` **zAbi**: `ZodReadonly`
+> `const` **zAbi**: `object`
 
-Defined in: packages/actions/types/internal/zod/zAbi.d.ts:4
+Defined in: packages/actions/types/internal/zod/zAbi.d.ts:6
 
-Zod validator for a valid ABI
+For backward compatibility with Zod interface
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `any`
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+#### Returns
+
+`any`

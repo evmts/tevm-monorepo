@@ -18,7 +18,7 @@ export const ethGetLogsHandler = (client) => async (params) => {
 
 	if (params.filterParams.toBlock === 'pending') {
 		const mineResult = await getPendingClient(client)
-		if (mineResult.errors) {
+		if ('errors' in mineResult) {
 			throw mineResult.errors[0]
 		}
 		return ethGetLogsHandler(mineResult.pendingClient)({

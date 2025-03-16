@@ -9,9 +9,9 @@ import type { ValidateCallParamsError } from './validateCallParams.js'
  * Interface for common error properties that all error types must have
  */
 export interface ErrorProperties {
-  name: string
-  message: string
-  code?: number
+	name: string
+	message: string
+	code?: number
 }
 
 /**
@@ -78,4 +78,5 @@ export type TevmCallError = (
 	| HandleRunTxError
 	| ExecuteCallError
 	| Block
-) & ErrorProperties
+) &
+	ErrorProperties

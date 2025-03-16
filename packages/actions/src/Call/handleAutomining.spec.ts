@@ -264,7 +264,7 @@ describe("handleAutomining", () => {
 		expect(innerMock).toHaveBeenCalledWith(
 			expect.objectContaining({
 				throwOnFail: false,
-				blocks: 1,
+				blockCount: 1,
 			}),
 		);
 

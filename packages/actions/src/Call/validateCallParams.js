@@ -13,12 +13,14 @@ const validateCallParamsJS = (params) => {
 		return { isValid: true, errors: [] }
 	} catch (error) {
 		// Handle Error objects consistently
-		return { 
-			isValid: false, 
-			errors: [{ 
-				path: '',
-				message: error instanceof Error ? error.message : String(error) 
-			}] 
+		return {
+			isValid: false,
+			errors: [
+				{
+					path: '',
+					message: error instanceof Error ? error.message : String(error),
+				},
+			],
 		}
 	}
 }
@@ -98,18 +100,15 @@ export const validateCallParams = (action) => {
 		for (const error of validation.errors) {
 			if (!error || typeof error !== 'object') {
 				// Add a default error if the error structure is not as expected
-				errors.push(new InvalidDataError('Unknown validation error'));
-				continue;
+				errors.push(new InvalidDataError('Unknown validation error'))
+				continue
 			}
-			
-			const message = 'message' in error && error.message !== undefined
-				? String(error.message) 
-				: 'Unknown validation error';
-			
-			const path = 'path' in error && error.path !== undefined
-				? String(error.path || '') 
-				: '';
-			
+
+			const message =
+				'message' in error && error.message !== undefined ? String(error.message) : 'Unknown validation error'
+
+			const path = 'path' in error && error.path !== undefined ? String(error.path || '') : ''
+
 			switch (path) {
 				case 'salt':
 					errors.push(new InvalidSaltError(message))

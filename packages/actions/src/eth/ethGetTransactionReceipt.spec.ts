@@ -79,7 +79,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 			blockHash: expect.stringMatching(/^0x[a-fA-F0-9]{64}$/),
 			blockNumber: BigInt(1),
 			transactionHash: callResult.txHash,
-			transactionIndex: 0,
+			transactionIndex: BigInt(0),
 			from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
 			to: '0x6969696969696969696969696969696969696969',
 			cumulativeGasUsed: expect.any(BigInt),

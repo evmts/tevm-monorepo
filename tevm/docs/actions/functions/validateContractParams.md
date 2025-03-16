@@ -6,7 +6,7 @@
 
 # Function: validateContractParams()
 
-> **validateContractParams**(`action`): [`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
+> **validateContractParams**(`action`): `ValidateContractParamsError`[]
 
 Defined in: packages/actions/types/Contract/validateContractParams.d.ts:1
 
@@ -18,4 +18,4 @@ Defined in: packages/actions/types/Contract/validateContractParams.d.ts:1
 
 ## Returns
 
-[`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
+`ValidateContractParamsError`[]

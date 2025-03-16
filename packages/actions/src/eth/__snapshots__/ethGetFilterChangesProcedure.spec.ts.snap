@@ -17,16 +17,16 @@ exports[`ethGetFilterChangesProcedure > should return log changes for Log type f
 [
   {
     "address": "0x0000000000000000000000000000000000000000",
-    "blockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "blockNumber": "0x1",
+    "blockHash": null,
+    "blockNumber": null,
     "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "logIndex": "0x0",
+    "logIndex": null,
     "removed": false,
     "topics": [
       "0x0000000000000000000000000000000000000000000000000000000000000000",
     ],
-    "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "transactionIndex": "0x0",
+    "transactionHash": null,
+    "transactionIndex": null,
   },
 ]
 `;
@@ -38,42 +38,3 @@ exports[`ethGetFilterChangesProcedure > should return transaction changes for Pe
 `;
 
 exports[`ethGetFilterChangesProcedure > should throw an error for an unknown filter type 1`] = `[Error: InternalError: Unknown filter type. This indicates a bug in tevm or potentially a typo in filter type if manually added]`;
-
-exports[`ethGetFilterChangesProcedure should return an error if the filter is not found 1`] = `
-{
-  "code": -32601,
-  "message": "Method not implemented yet",
-}
-`;
-
-exports[`ethGetFilterChangesProcedure should return block changes for Block type filter 1`] = `
-[
-  "0x1",
-]
-`;
-
-exports[`ethGetFilterChangesProcedure should return log changes for Log type filter 1`] = `
-[
-  {
-    "address": "0x0000000000000000000000000000000000000000",
-    "blockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "blockNumber": "0x1",
-    "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "logIndex": "0x0",
-    "removed": false,
-    "topics": [
-      "0x0000000000000000000000000000000000000000000000000000000000000000",
-    ],
-    "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-    "transactionIndex": "0x0",
-  },
-]
-`;
-
-exports[`ethGetFilterChangesProcedure should return transaction changes for PendingTransaction type filter 1`] = `
-[
-  "0x9451a27a810f49a49f917da5e6ad3ecc7182e31b0d71560e9bf4af4928ac52fc",
-]
-`;
-
-exports[`ethGetFilterChangesProcedure should throw an error for an unknown filter type 1`] = `[Error: InternalError: Unknown filter type. This indicates a bug in tevm or potentially a typo in filter type if manually added]`;

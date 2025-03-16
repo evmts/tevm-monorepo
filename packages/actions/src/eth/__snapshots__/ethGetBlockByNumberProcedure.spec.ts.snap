@@ -12,16 +12,3 @@ exports[`ethGetBlockByNumberJsonRpcProcedure > should handle requests without an
 exports[`ethGetBlockByNumberJsonRpcProcedure > should include transactions if requested 1`] = `Promise {}`;
 
 exports[`ethGetBlockByNumberJsonRpcProcedure > should return block details by number 1`] = `Promise {}`;
-
-exports[`ethGetBlockByNumberJsonRpcProcedure should handle invalid block tag 1`] = `
-{
-  "code": -32602,
-  "message": "Invalid block tag invalidTag",
-}
-`;
-
-exports[`ethGetBlockByNumberJsonRpcProcedure should handle requests without an id 1`] = `Promise {}`;
-
-exports[`ethGetBlockByNumberJsonRpcProcedure should include transactions if requested 1`] = `Promise {}`;
-
-exports[`ethGetBlockByNumberJsonRpcProcedure should return block details by number 1`] = `Promise {}`;

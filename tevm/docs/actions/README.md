@@ -6,6 +6,14 @@
 
 # actions
 
+## Namespaces
+
+- [zAccountStorage](namespaces/zAccountStorage/README.md)
+- [zBaseCallParams](namespaces/zBaseCallParams/README.md)
+- [zCallParams](namespaces/zCallParams/README.md)
+- [zLoadStateParams](namespaces/zLoadStateParams/README.md)
+- [zSetAccountParams](namespaces/zSetAccountParams/README.md)
+
 ## Classes
 
 - [BlobGasLimitExceededError](classes/BlobGasLimitExceededError.md)
@@ -407,9 +415,6 @@
 - [TevmReturnType](type-aliases/TevmReturnType.md)
 - [TraceType](type-aliases/TraceType.md)
 - [TransactionReceiptResult](type-aliases/TransactionReceiptResult.md)
-- [ValidateCallParamsError](type-aliases/ValidateCallParamsError.md)
-- [ValidateContractParamsError](type-aliases/ValidateContractParamsError.md)
-- [ValidateGetAccountParamsError](type-aliases/ValidateGetAccountParamsError.md)
 - [ValidateLoadStateParamsError](type-aliases/ValidateLoadStateParamsError.md)
 - [ValidateMineParamsError](type-aliases/ValidateMineParamsError.md)
 - [ValidateSetAccountParamsError](type-aliases/ValidateSetAccountParamsError.md)
@@ -418,18 +423,14 @@
 
 - [zAbi](variables/zAbi.md)
 - [zAddress](variables/zAddress.md)
-- [zBaseCallParams](variables/zBaseCallParams.md)
 - [zBlock](variables/zBlock.md)
 - [zBlockOverrideSet](variables/zBlockOverrideSet.md)
 - [zBlockParam](variables/zBlockParam.md)
 - [zBytecode](variables/zBytecode.md)
-- [zCallParams](variables/zCallParams.md)
 - [zContractParams](variables/zContractParams.md)
 - [zGetAccountParams](variables/zGetAccountParams.md)
 - [zHex](variables/zHex.md)
-- [zLoadStateParams](variables/zLoadStateParams.md)
 - [zMineParams](variables/zMineParams.md)
-- [zSetAccountParams](variables/zSetAccountParams.md)
 - [zStateOverrideSet](variables/zStateOverrideSet.md)
 - [zStorageRoot](variables/zStorageRoot.md)
 
@@ -526,12 +527,14 @@
 - [shouldCreateTransaction](functions/shouldCreateTransaction.md)
 - [traceCallHandler](functions/traceCallHandler.md)
 - [validateBaseCallParams](functions/validateBaseCallParams.md)
+- [validateBaseCallParamsObject](functions/validateBaseCallParamsObject.md)
+- [validateBaseParams](functions/validateBaseParams.md)
 - [validateCallParams](functions/validateCallParams.md)
 - [validateContractParams](functions/validateContractParams.md)
 - [validateGetAccountParams](functions/validateGetAccountParams.md)
 - [validateLoadStateParams](functions/validateLoadStateParams.md)
-- [validateMineEvents](functions/validateMineEvents.md)
 - [validateMineParams](functions/validateMineParams.md)
+- [validateMineParamsObject](functions/validateMineParamsObject.md)
 - [validateSetAccountParams](functions/validateSetAccountParams.md)
 
 ## References

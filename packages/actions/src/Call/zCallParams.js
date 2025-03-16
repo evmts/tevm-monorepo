@@ -30,10 +30,12 @@ const validateCallParamsInternal = (params) => {
 	const baseValidation = validateBaseCallParams(params)
 	if (baseValidation.length > 0) {
 		// Convert BaseErrors to ValidationErrors
-		errors.push(...baseValidation.map(error => ({
-			path: error.name.replace('Invalid', '').replace('Error', '').toLowerCase(),
-			message: error.message
-		})))
+		errors.push(
+			...baseValidation.map((error) => ({
+				path: error.name.replace('Invalid', '').replace('Error', '').toLowerCase(),
+				message: error.message,
+			})),
+		)
 	}
 
 	// Validate hex fields
@@ -89,10 +91,10 @@ const validateCallParamsInternal = (params) => {
 /**
  * Converts validation errors to TevmCallError instances
  * @param {Array<ValidationError>} errors - Validation errors to convert
- * @returns {Array<import('./TevmCallError').TevmCallError>} - Converted errors
+ * @returns {Array<import('./TevmCallError.js').TevmCallError>} - Converted errors
  */
 const convertToTevmCallErrors = (errors) => {
-	return errors.map(error => {
+	return errors.map((error) => {
 		if (error.path === 'data') {
 			return new InvalidDataError(error.message)
 		}

@@ -98,7 +98,12 @@ export const callProcedure = (client) => async (request) => {
 	const out = {
 		jsonrpc: '2.0',
 		result: {
-			executionGasUsed: toHex(result.executionGasUsed),
+			executionGasUsed:
+				typeof result.executionGasUsed === 'bigint'
+					? toHex(result.executionGasUsed)
+					: result.executionGasUsed !== undefined
+						? result.executionGasUsed
+						: undefined,
 			rawData: result.rawData,
 			...(result.selfdestruct ? { selfdestruct: [...result.selfdestruct] } : {}),
 			...(result.gasRefund ? { gasRefund: toHex(result.gasRefund) } : {}),

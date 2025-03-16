@@ -6,8 +6,24 @@
 
 # Variable: zMineParams
 
-> `const` **zMineParams**: `z.ZodObject`\<`z.objectUtil.extendShape`\<\{ `throwOnFail`: `z.ZodOptional`\<`z.ZodBoolean`\>; \}, \{ `blockCount`: `z.ZodOptional`\<`z.ZodNumber`\>; `interval`: `z.ZodOptional`\<`z.ZodNumber`\>; `onBlock`: `z.ZodOptional`\<`z.ZodFunction`\<`z.ZodTuple`\<\[\], `z.ZodUnknown`\>, `z.ZodUnknown`\>\>; `onLog`: `z.ZodOptional`\<`z.ZodFunction`\<`z.ZodTuple`\<\[\], `z.ZodUnknown`\>, `z.ZodUnknown`\>\>; `onReceipt`: `z.ZodOptional`\<`z.ZodFunction`\<`z.ZodTuple`\<\[\], `z.ZodUnknown`\>, `z.ZodUnknown`\>\>; \}\>, `"strip"`, `z.ZodTypeAny`, \{ `blockCount`: `number`; `interval`: `number`; `onBlock`: (...`args`) => `unknown`; `onLog`: (...`args`) => `unknown`; `onReceipt`: (...`args`) => `unknown`; `throwOnFail`: `boolean`; \}, \{ `blockCount`: `number`; `interval`: `number`; `onBlock`: (...`args`) => `unknown`; `onLog`: (...`args`) => `unknown`; `onReceipt`: (...`args`) => `unknown`; `throwOnFail`: `boolean`; \}\>
+> `const` **zMineParams**: `object`
 
-Defined in: packages/actions/types/Mine/zMineParams.d.ts:4
+Defined in: packages/actions/types/Mine/zMineParams.d.ts:9
 
-Zod validator for a valid mine action invocation
+For backward compatibility to mimic Zod interface
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `any`
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+#### Returns
+
+`any`

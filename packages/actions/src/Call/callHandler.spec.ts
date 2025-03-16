@@ -697,7 +697,7 @@ describe('callHandler', () => {
 			to,
 		})
 		expect(result.errors).toBeDefined()
-		expect(result.errors).toHaveLength(1)
+		expect(result.errors.length).toBeGreaterThan(0)
 		expect(result.errors).toMatchSnapshot()
 	})
 

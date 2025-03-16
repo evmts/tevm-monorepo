@@ -11,6 +11,13 @@ exports[`ethEstimateGasJsonRpcProcedure > should handle block tag 1`] = `
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73",
+      "Block tag must be a string or number
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddataerror/
+Version: 1.1.0.next-73",
     ],
   },
   "message": "Block tag must be a string or number
@@ -51,63 +58,3 @@ Version: 1.1.0.next-73",
 exports[`ethEstimateGasJsonRpcProcedure > should handle errors from callProcedure 1`] = `"0x5228"`;
 
 exports[`ethEstimateGasJsonRpcProcedure > should handle requests without an id 1`] = `"0x5208"`;
-
-exports[`ethEstimateGasJsonRpcProcedure should estimate gas successfully 1`] = `"0x5208"`;
-
-exports[`ethEstimateGasJsonRpcProcedure should handle block tag 1`] = `
-{
-  "code": -32602,
-  "data": {
-    "errors": [
-      
-"Block tag must be a string or number
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73"
-,
-    ],
-  },
-  "message": 
-"Block tag must be a string or number
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73"
-,
-}
-`;
-
-exports[`ethEstimateGasJsonRpcProcedure should handle errors from callProcedure 1`] = `"0x5228"`;
-
-exports[`ethEstimateGasJsonRpcProcedure should handle requests without an id 1`] = `"0x5208"`;
-
-exports[`ethEstimateGasJsonRpcProcedure should handle error responses when using stateOverrides 1`] = `"0x5208"`;
-
-exports[`ethEstimateGasJsonRpcProcedure should handle error responses when using stateOverrides and blockOverrides 1`] = `
-{
-  "code": -32012,
-  "data": {
-    "errors": [
-      
-"Transaction's maxFeePerGas (7) is less than the block's baseFeePerGas (4096) -> block -> tx type=2 hash=0x5c089520ed2abfd912cea45d1c4493ceaf4ed8c3170226b9f1fc8c7f78a662e4 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Details: /reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73"
-,
-    ],
-  },
-  "message": 
-"Transaction's maxFeePerGas (7) is less than the block's baseFeePerGas (4096) -> block -> tx type=2 hash=0x5c089520ed2abfd912cea45d1c4493ceaf4ed8c3170226b9f1fc8c7f78a662e4 nonce=0 value=0 signed=true hf=cancun maxFeePerGas=7 maxPriorityFeePerGas=0)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Details: /reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73"
-,
-}
-`;

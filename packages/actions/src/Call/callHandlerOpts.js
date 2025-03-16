@@ -42,7 +42,9 @@ export const callHandlerOpts = async (client, params) => {
 				params.blockTag === 'earliest' ||
 				params.blockTag === 'finalized'
 			) {
-				return vm.blockchain.blocksByTag.get(/** */ params.blockTag)
+				return vm.blockchain.blocksByTag.get(
+					/** @type {'latest' | 'safe' | 'pending' | 'earliest' | 'finalized'} */ (params.blockTag),
+				)
 			}
 			return new InvalidBlockError(`Unknown blocktag ${params.blockTag}`)
 		} catch (e) {
@@ -81,7 +83,7 @@ export const callHandlerOpts = async (client, params) => {
 				baseFeePerGas:
 					params.blockOverrideSet.baseFee !== undefined
 						? BigInt(params.blockOverrideSet.baseFee)
-						: (header.baseFeePerGas ?? BigInt(0)),
+						: header.baseFeePerGas || BigInt(0),
 				cliqueSigner() {
 					return header.cliqueSigner()
 				},
@@ -89,7 +91,9 @@ export const callHandlerOpts = async (client, params) => {
 					if (params.blockOverrideSet?.blobBaseFee !== undefined) {
 						return BigInt(params.blockOverrideSet.blobBaseFee)
 					}
-					return header.getBlobGasPrice()
+					// Handle case where header.getBlobGasPrice might be undefined
+					const blobGasPrice = header.getBlobGasPrice()
+					return typeof blobGasPrice === 'undefined' ? BigInt(1) : blobGasPrice
 				},
 			},
 		}
