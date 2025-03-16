@@ -1,10 +1,7 @@
 import * as fs from 'node:fs'
 import * as fsPromises from 'node:fs/promises'
 import { describe, expect, it } from 'vitest'
-import type {
-	FileAccessObject,
-	Logger,
-} from './types.js'
+import type { FileAccessObject, Logger } from './types.js'
 import * as Types from './types.js'
 
 describe('types.ts', () => {
@@ -54,7 +51,7 @@ describe('types.ts', () => {
 		// For types-only tests, we just verify the module has exported these types
 		// We can't directly test TypeScript types, but we can verify structure
 		expect(typeof Types).toBe('object')
-		expect(Types).toMatchObject({})  // Empty object since it only exports types
+		expect(Types).toMatchObject({}) // Empty object since it only exports types
 	})
 
 	it('should verify function types for resolving artifacts', () => {

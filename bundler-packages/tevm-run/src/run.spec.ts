@@ -41,18 +41,20 @@ describe(run.name, () => {
 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
 
 		// Verify error details are captured
-		expect(sourceCode).toContain('`Error executing the script: ${err instanceof Error ? err.message : err.stderr.toString()}`')
+		expect(sourceCode).toContain(
+			'`Error executing the script: ${err instanceof Error ? err.message : err.stderr.toString()}`',
+		)
 		expect(sourceCode).toContain('cause: err')
 	})
-	
+
 	it('should have consistent catch parameter naming', () => {
 		// Read the actual source code of the run.js file
 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
-		
+
 		// Verify that we use the same parameter name in the catch clause as in the error handling
 		expect(sourceCode).toContain('catch (err)')
 		expect(sourceCode).not.toContain('catch (error)')
-		
+
 		// Verify the parameter 'err' is used consistently
 		expect(sourceCode).toContain('err.stdout')
 		expect(sourceCode).toContain('err.stderr')

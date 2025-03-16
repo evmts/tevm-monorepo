@@ -112,7 +112,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 				method: 'eth_getTransactionCount',
 				params: [address, blockHash],
 			})
-			
+
 			expect(result).toMatchObject({
 				id: 1,
 				jsonrpc: '2.0',
@@ -136,7 +136,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		// Setup the blockchain to have the correct block tags
 		const vm = await node.getVm()
 		const latestBlock = await vm.blockchain.getBlock(21996939n)
-		
+
 		// Mock the blocksByTag map
 		const originalGet = vm.blockchain.blocksByTag.get
 		vm.blockchain.blocksByTag.get = vi.fn((tag) => {
@@ -156,7 +156,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 				method: 'eth_getTransactionCount',
 				params: [address, 'earliest'],
 			})
-			
+
 			expect(earliestResult).toMatchObject({
 				id: 1,
 				jsonrpc: '2.0',
@@ -171,7 +171,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 				method: 'eth_getTransactionCount',
 				params: [address, 'safe'],
 			})
-			
+
 			expect(safeResult).toMatchObject({
 				id: 1,
 				jsonrpc: '2.0',
@@ -186,7 +186,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 				method: 'eth_getTransactionCount',
 				params: [address, 'finalized'],
 			})
-			
+
 			expect(finalizedResult).toMatchObject({
 				id: 1,
 				jsonrpc: '2.0',

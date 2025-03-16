@@ -13,7 +13,8 @@ export const run = async ([scriptPath, ...positionals] = parseArgs(process.argv)
 		const command = `[tevm-run] bun run --bun --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`
 		console.log(command)
 		return $`bun run --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`
-	} catch (err) { // Changed 'error' to 'err' to match usage below
+	} catch (err) {
+		// Changed 'error' to 'err' to match usage below
 		console.log('error')
 		console.log(err.stdout.toString())
 		console.error(`Failed with code ${err.exitCode}`)

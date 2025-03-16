@@ -2,12 +2,7 @@ import { Effect } from 'effect'
 import { describe, expect, it } from 'vitest'
 
 // Import the types for testing
-import type {
-	CompilerConfig,
-	ConfigFactory,
-	DefineConfig,
-	ResolvedCompilerConfig,
-} from './types.js'
+import type { CompilerConfig, ConfigFactory, DefineConfig, ResolvedCompilerConfig } from './types.js'
 
 describe('Types', () => {
 	it('should validate CompilerConfig structure', () => {
@@ -53,7 +48,7 @@ describe('Types', () => {
 		expect(resolvedConfig).toHaveProperty('libs')
 		expect(resolvedConfig).toHaveProperty('remappings')
 		expect(resolvedConfig).toHaveProperty('cacheDir')
-		
+
 		// Optional fields
 		expect(resolvedConfig).toHaveProperty('debug')
 	})
@@ -91,11 +86,11 @@ describe('Types', () => {
 		// Test the mock implementation with a dummy factory
 		const dummyFactory: ConfigFactory = () => ({ foundryProject: true })
 		const result = mockDefineConfig(dummyFactory)
-		
+
 		// Verify the structure is correct
 		expect(result).toHaveProperty('configFn')
 		expect(typeof result.configFn).toBe('function')
-		
+
 		// Verify the Effect returns properly
 		expect(Effect.runSync(result.configFn('test-path'))).toEqual({
 			jsonAsConst: ['*.json'],
