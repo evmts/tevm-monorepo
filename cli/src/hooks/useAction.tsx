@@ -22,7 +22,7 @@ export const envVar = (name: string, prefix = 'TEVM_') => process.env[`${prefix}
 // Helper to determine if an action is a Viem action
 function isViemAction(actionName: string): boolean {
   const viemActions = [
-    'call', 'readContract', 'estimateGas', 'getBalance', 'getBlock',
+    'readContract', 'estimateGas', 'getBalance', 'getBlock',
     'getBlockNumber', 'getChainId', 'getGasPrice', 'getTransaction',
     'getTransactionCount', 'getTransactionReceipt', 'sendTransaction'
   ];
@@ -70,15 +70,41 @@ async function createTsProject(
     .filter(Boolean as any) // Type assertion to avoid filter callback issues
     .join(',\n');
 
-  // Handle ABI parameter specially for readContract
+  // Handle ABI parameter specially for readContract and other contract actions
   let abiParam = '';
+
+  // Determine if this action needs an ABI (like readContract, multicall)
+  const needsAbi = actionName === 'readContract' ||
+                  actionName === 'multicall' ||
+                  actionName === 'simulateCalls';
+
+  // Determine if we need to import ERC20
+  const needsERC20 = needsAbi && (!options['abi'] || options['abi'] === '');
+
   if (options['abi']) {
     try {
       const parsedAbi = JSON.parse(options['abi']);
       abiParam = `    abi: ${JSON.stringify(parsedAbi)},\n`;
     } catch (e) {
-      abiParam = '    abi: ERC20.abi,\n';
+      // If parsing fails, we'll use ERC20.abi if we're importing it
+      if (needsERC20) {
+        abiParam = '    abi: ERC20.abi,\n';
+      }
     }
+  } else if (needsERC20) {
+    // If no ABI provided but we need one, use ERC20.abi
+    abiParam = '    abi: ERC20.abi,\n';
+  }
+
+  // Add onStep handler for the tevmCall action
+  let onStepHandler = '';
+  if (actionName === 'call' || actionName === 'tevmCall') {
+    onStepHandler = `
+    // Uncomment this onStep handler to inspect EVM execution step by step
+    // onStep: (data, next) => {
+    //   console.log(data.opcode.name); // Log the current opcode name
+    //   next?.(); // Continue to the next step
+    // },`;
   }
 
   // Determine if this is a TEVM-specific action or a Viem action
@@ -88,18 +114,30 @@ async function createTsProject(
   let functionCall;
   if (isViem) {
     // For Viem actions, use the native method name
-    functionCall = `${actionName}({
+    // If this is a contract-related action but without explicit ABI, make sure to include ERC20.abi
+    if (needsAbi && needsERC20 && !abiParam) {
+      functionCall = `${actionName}({
+    abi: ERC20.abi,
+${paramsStr}
+})`;
+    } else {
+      functionCall = `${actionName}({
 ${abiParam}${paramsStr}
 })`;
+    }
   } else {
     // For TEVM actions, prefix with 'tevm'
-    functionCall = `${actionName}({
-${abiParam}${paramsStr}
+    if (needsAbi && needsERC20 && !abiParam) {
+      functionCall = `${actionName}({
+    abi: ERC20.abi,
+${paramsStr}${onStepHandler}
 })`;
+    } else {
+      functionCall = `${actionName}({
+${abiParam}${paramsStr}${onStepHandler}
+})`;
+    }
   }
-
-  // Determine if we need to import ERC20
-  const needsERC20 = actionName === 'readContract' && (!options['abi'] || options['abi'] === '');
 
   // Create the proper template based on action type
   let scriptTemplate;
@@ -114,12 +152,8 @@ const client = createPublicClient({
 })
 
 client.${functionCall}
-  .then(result => {
-    console.log(JSON.stringify(result, null, 2))
-  })
-  .catch(error => {
-    console.error('Error executing ${actionName}:', error)
-  })
+  .then(console.log)
+  .catch(console.error)
 `;
   } else {
     // For TEVM actions, use the TEVM memory client
@@ -132,12 +166,8 @@ const client = createMemoryClient({
 })
 
 client.${functionCall}
-  .then(result => {
-    console.log(JSON.stringify(result, null, 2))
-  })
-  .catch(error => {
-    console.error('Error executing ${actionName}:', error)
-  })
+  .then(console.log)
+  .catch(console.error)
 `;
   }
 

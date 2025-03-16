@@ -1,8 +1,8 @@
 import React from 'react'
 import { z } from 'zod'
 import { option } from 'pastel'
-import { useAction, envVar } from '../../hooks/useAction.js'
-import CliAction from '../../components/CliAction.js'
+import { useAction, envVar } from '../hooks/useAction.js'
+import CliAction from '../components/CliAction.js'
 
 // Define the types that are missing
 interface CallParams {
@@ -18,6 +18,17 @@ interface CallParams {
   blockTag?: string
   blockNumber?: number
   accessList?: any[]
+  code?: string
+  deployedBytecode?: string
+  salt?: string
+  gasRefund?: bigint
+  caller?: string
+  origin?: string
+  depth?: number
+  skipBalance?: boolean
+  createTrace?: boolean
+  createAccessList?: boolean
+  createTransaction?: boolean
   // Add any other fields needed
 }
 
@@ -231,41 +242,37 @@ export default function Call({ options }: Props) {
 
     // Inlined createParams function
     createParams: (enhancedOptions: Record<string, any>): CallParams => {
-      const targetTo = enhancedOptions['to'] as `0x${string}`;
-
-      return {
-        to: targetTo,
-        // Basic parameters
+      const params: Partial<CallParams> = {
         data: enhancedOptions['data'] ?? undefined,
-        from: enhancedOptions['from'] ?? undefined,
-        value: enhancedOptions['value'] ? BigInt(enhancedOptions['value']) : undefined,
-
-        // Contract deployment options
+        to: enhancedOptions['to'] ?? undefined,
         code: enhancedOptions['code'] ?? undefined,
         deployedBytecode: enhancedOptions['deployedBytecode'] ?? undefined,
-        salt: enhancedOptions['salt'] ?? undefined,
-
-        // Gas parameters
+        gasRefund: enhancedOptions['gasRefund'] ? BigInt(enhancedOptions['gasRefund']) : undefined,
+        value: enhancedOptions['value'] ? BigInt(enhancedOptions['value']) : undefined,
         gas: enhancedOptions['gas'] ? BigInt(enhancedOptions['gas']) : undefined,
         gasPrice: enhancedOptions['gasPrice'] ? BigInt(enhancedOptions['gasPrice']) : undefined,
         maxFeePerGas: enhancedOptions['maxFeePerGas'] ? BigInt(enhancedOptions['maxFeePerGas']) : undefined,
         maxPriorityFeePerGas: enhancedOptions['maxPriorityFeePerGas'] ? BigInt(enhancedOptions['maxPriorityFeePerGas']) : undefined,
-        gasRefund: enhancedOptions['gasRefund'] ? BigInt(enhancedOptions['gasRefund']) : undefined,
-
-        // Block options
         blockTag: enhancedOptions['blockTag'] ?? undefined,
-
-        // Advanced options
         caller: enhancedOptions['caller'] ?? undefined,
         origin: enhancedOptions['origin'] ?? undefined,
         depth: typeof enhancedOptions['depth'] === 'bigint' ? Number(enhancedOptions['depth']) : enhancedOptions['depth'],
         skipBalance: enhancedOptions['skipBalance'] ?? undefined,
-
-        // Instrumentation options
         createTrace: enhancedOptions['createTrace'] ?? undefined,
         createAccessList: enhancedOptions['createAccessList'] ?? undefined,
         createTransaction: enhancedOptions['createTransaction'] ?? undefined,
+
+        // Uncomment this onStep handler to debug EVM execution step by step
+        // onStep: (data, next) => {
+        //   console.log(data.opcode.name); // Log the current opcode name
+        //   next?.(); // Continue to the next step
+        // },
       };
+
+      // Filter out undefined values if needed
+      return Object.fromEntries(
+        Object.entries(params).filter(([_, v]) => v !== undefined)
+      ) as CallParams;
     },
 
     // Inlined executeAction function

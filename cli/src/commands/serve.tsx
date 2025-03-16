@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import Spinner from 'ink-spinner';
 
 // Import action components
-import Call from './action/call.js';
-import GetAccount from './action/getAccount.js';
-import SetAccount from './action/setAccount.js';
+import Call from './call.js';
+import GetAccount from './getAccount.js';
+import SetAccount from './setAccount.js';
 
 // Import refactored components
 import ActionTab from '../components/ActionTab.js';

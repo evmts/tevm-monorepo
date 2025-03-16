@@ -2,8 +2,8 @@ import React from 'react'
 import { z } from 'zod'
 import { option } from 'pastel'
 import type { SetAccountParams, SetAccountResult } from '@tevm/actions'
-import { useAction, envVar } from '../../hooks/useAction.js'
-import CliAction from '../../components/CliAction.js'
+import { useAction, envVar } from '../hooks/useAction.js'
+import CliAction from '../components/CliAction.js'
 
 // Options definitions and descriptions
 const optionDescriptions = {

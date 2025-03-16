@@ -1,8 +1,8 @@
 import React from 'react'
 import { z } from 'zod'
 import { option } from 'pastel'
-import { useAction, envVar } from '../../hooks/useAction.js'
-import CliAction from '../../components/CliAction.js'
+import { useAction } from '../hooks/useAction.js'
+import CliAction from '../components/CliAction.js'
 
 // Options definitions and descriptions
 const optionDescriptions = {
@@ -99,32 +99,45 @@ const defaultValues: Record<string, any> = {
   formatJson: true,
 }
 
-// Helper function to parse args
-const parseArgs = (argsString?: string) => {
-  if (!argsString) return [];
-
+// Helper function to safely parse block number
+const parseBlockNumber = (blockNumber?: string): bigint | undefined => {
+  if (!blockNumber) return undefined;
   try {
-    return JSON.parse(argsString);
+    return BigInt(blockNumber);
   } catch (e) {
-    console.warn('Warning: Args is not valid JSON, using empty array');
-    return [];
+    console.warn(`Could not convert "${blockNumber}" to BigInt`);
+    return undefined;
   }
 };
 
-// Option 1: Define a stub ERC20 ABI
-const ERC20_ABI = [
+// Define a fallback ERC20 ABI to use when the import fails
+const fallbackERC20Abi = [
   {
-    "inputs": [
-      { "name": "account", "type": "address" }
-    ],
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
     "name": "balanceOf",
-    "outputs": [
-      { "name": "", "type": "uint256" }
-    ],
+    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
     "stateMutability": "view",
     "type": "function"
   }
 ];
+
+// Use fallback ERC20 ABI directly
+const getErc20Abi = async () => {
+  try {
+    // Just return the fallback ABI directly instead of trying to import
+    return fallbackERC20Abi;
+  } catch (e) {
+    console.warn('Failed to load ERC20 ABI, using fallback');
+    return fallbackERC20Abi;
+  }
+};
 
 export default function ReadContract({ options }: Props) {
   // Use the action hook for readContract
@@ -135,31 +148,29 @@ export default function ReadContract({ options }: Props) {
     optionDescriptions,
 
     // Create params for readContract - this is used for direct API calls (run flag)
-    createParams: (enhancedOptions: Record<string, any>) => {
-      // Start with base params
+    createParams: async (enhancedOptions: Record<string, any>) => {
+      // Get ERC20 ABI (from module or fallback)
+      let abi;
+      try {
+        // Just use the fallback ABI directly
+        abi = fallbackERC20Abi;
+      } catch (e) {
+        console.warn('Failed to load ERC20 ABI, using fallback');
+        abi = fallbackERC20Abi;
+      }
+
       const params: Record<string, any> = {
         address: enhancedOptions['address'] || defaultValues['address'],
         functionName: enhancedOptions['functionName'] || defaultValues['functionName'],
+        abi: enhancedOptions['abi'] || abi, // Make sure abi is included
+        args: enhancedOptions['args'] || defaultValues['args'],
       };
 
-      // Parse args or use default
-      if (enhancedOptions['args']) {
-        params['args'] = parseArgs(enhancedOptions['args']);
-      } else {
-        params['args'] = ['0x0000000000000000000000000000000000000000'];
-      }
-
-      // Add optional parameters if they exist
-      if (enhancedOptions['blockTag']) params['blockTag'] = enhancedOptions['blockTag'];
-      if (enhancedOptions['blockNumber'] !== undefined) params['blockNumber'] = enhancedOptions['blockNumber'];
-
-      // Handle ABI
-      if (enhancedOptions['abi']) {
-        try {
-          params['abi'] = JSON.parse(enhancedOptions['abi']);
-        } catch (e) {
-          console.warn('Invalid ABI JSON, will use default ERC20 ABI');
-        }
+      // Add block identifier if specified
+      if (enhancedOptions['blockNumber']) {
+        params['blockNumber'] = parseBlockNumber(enhancedOptions['blockNumber']);
+      } else if (enhancedOptions['blockTag']) {
+        params['blockTag'] = enhancedOptions['blockTag'];
       }
 
       return params;
@@ -171,14 +182,7 @@ export default function ReadContract({ options }: Props) {
       if (!params['abi']) {
         try {
           // Try to dynamically import, but have a fallback
-          let abi;
-          try {
-            const module = await import('@tevm/contract');
-            abi = module.ERC20.abi;
-          } catch (e) {
-            console.warn('Could not import @tevm/contract, using stub ERC20 ABI');
-            abi = ERC20_ABI;
-          }
+          const abi = await getErc20Abi();
           params['abi'] = abi;
         } catch (e) {
           console.error('Failed to set ERC20 ABI:', e);
