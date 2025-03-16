@@ -6,7 +6,7 @@
 import { mainnet } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20, TestERC721 } from '@tevm/test-utils'
-import { PREFUNDED_ACCOUNTS, encodeFunctionData, parseEther } from '@tevm/utils'
+import { PREFUNDED_ACCOUNTS, parseEther } from '@tevm/utils'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
@@ -52,11 +52,13 @@ export const createMemoryClient = async (options = {}) => {
 	// First set balances for each account
 	for (let i = 0; i < PREFUNDED_ACCOUNTS.length; i++) {
 		const account = PREFUNDED_ACCOUNTS[i]
-		await setAccHandler({
-			address: account.address,
-			balance: parseEther('10'), // 10 ETH for each account
-			nonce: BigInt(i),
-		})
+		if (account) {
+			await setAccHandler({
+				address: account.address,
+				balance: parseEther('10'), // 10 ETH for each account
+				nonce: BigInt(i),
+			})
+		}
 	}
 
 	// Now we'll mint some tokens for a few accounts
@@ -66,7 +68,7 @@ export const createMemoryClient = async (options = {}) => {
 	await contractInterface({
 		to: CONTRACT_ADDRESSES.erc20 as `0x${string}`,
 		abi: TestERC20.abi,
-		functionName: 'mint',
+		functionName: 'mint' as any,
 		args: [PREFUNDED_ACCOUNTS[0].address, parseEther('1000')],
 	}).catch(() => {
 		// If mint fails, it's likely not available on this contract version
@@ -77,7 +79,7 @@ export const createMemoryClient = async (options = {}) => {
 	await contractInterface({
 		to: CONTRACT_ADDRESSES.erc20 as `0x${string}`,
 		abi: TestERC20.abi,
-		functionName: 'mint',
+		functionName: 'mint' as any,
 		args: [PREFUNDED_ACCOUNTS[1].address, parseEther('2000')],
 	}).catch(() => {
 		// Silently handle failure
@@ -87,7 +89,7 @@ export const createMemoryClient = async (options = {}) => {
 	await contractInterface({
 		to: CONTRACT_ADDRESSES.erc20 as `0x${string}`,
 		abi: TestERC20.abi,
-		functionName: 'mint',
+		functionName: 'mint' as any,
 		args: [PREFUNDED_ACCOUNTS[2].address, parseEther('3000')],
 	}).catch(() => {
 		// Silently handle failure
