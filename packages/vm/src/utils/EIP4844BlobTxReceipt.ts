@@ -1,13 +1,19 @@
 import type { PostByzantiumTxReceipt } from './PostByzantiumTxReceipt.js'
 
 /**
- * [Description of what this interface represents]
+ * Transaction receipt format for EIP-4844 blob transactions.
+ * Extends PostByzantiumTxReceipt with additional blob gas information.
  * @example
  * ```typescript
- * import { EIP4844BlobTxReceipt } from '[package-path]'
- * 
- * const value: EIP4844BlobTxReceipt = {
- *   // Initialize properties
+ * import { EIP4844BlobTxReceipt } from '@tevm/vm'
+ *
+ * const receipt: EIP4844BlobTxReceipt = {
+ *   status: 1n,
+ *   cumulativeBlockGasUsed: 100000n,
+ *   bitvector: new Uint8Array([]),
+ *   logs: [],
+ *   blobGasUsed: 131072n,
+ *   blobGasPrice: 10n
  * }
  * ```
  */

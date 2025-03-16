@@ -14,7 +14,7 @@ import type { SerializeToJson } from '@tevm/utils'
  * @example
  * ```typescript
  * import { JsonRpcSchemaTevm } from '[package-path]'
- * 
+ *
  * const value: JsonRpcSchemaTevm = {
  *   // Initialize properties
  * }

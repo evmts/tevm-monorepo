@@ -10,7 +10,7 @@ import type { WalletPermissionCaveat } from './WalletPermissionCaveat.js'
  * @example
  * ```typescript
  * import { WalletPermission } from '[package-path]'
- * 
+ *
  * const value: WalletPermission = {
  *   // Initialize properties
  * }

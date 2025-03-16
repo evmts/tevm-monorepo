@@ -28,7 +28,7 @@ export const numberToHex = (input?: string): Hex | undefined => {
  * @example
  * ```typescript
  * import { valuesArrayToHeaderData } from '@tevm/block'
- * 
+ *
  * // Convert raw header bytes to a structured HeaderData object
  * const headerData = valuesArrayToHeaderData(blockHeaderBytes)
  * console.log(headerData.parentHash, headerData.stateRoot)
@@ -98,7 +98,7 @@ export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
  * @example
  * ```typescript
  * import { getDifficulty } from '@tevm/block'
- * 
+ *
  * // Get the difficulty from a block header
  * const difficulty = getDifficulty(blockHeader)
  * if (difficulty !== null) {
@@ -122,7 +122,7 @@ export function getDifficulty(headerData: HeaderData): bigint | null {
  * @example
  * ```typescript
  * import { getNumBlobs } from '@tevm/block'
- * 
+ *
  * // Count blobs in a block's transactions
  * const blobCount = getNumBlobs(block.transactions)
  * console.log(`Block contains ${blobCount} blobs`)

@@ -8,7 +8,9 @@
 
 > **VMEvents**: `object`
 
-Defined in: [packages/vm/src/utils/VMEvents.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L6)
+Defined in: [packages/vm/src/utils/VMEvents.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts#L17)
+
+[Description of what this type represents]
 
 ## Type declaration
 
@@ -83,3 +85,13 @@ Defined in: [packages/vm/src/utils/VMEvents.ts:6](https://github.com/evmts/tevm-
 #### Returns
 
 `void`
+
+## Example
+
+```typescript
+import { VMEvents } from '[package-path]'
+
+const value: VMEvents = {
+  // Initialize properties
+}
+```

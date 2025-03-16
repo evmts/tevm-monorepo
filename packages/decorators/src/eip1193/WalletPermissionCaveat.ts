@@ -9,7 +9,7 @@
  * @example
  * ```typescript
  * import { WalletPermissionCaveat } from '[package-path]'
- * 
+ *
  * const value: WalletPermissionCaveat = {
  *   // Initialize properties
  * }

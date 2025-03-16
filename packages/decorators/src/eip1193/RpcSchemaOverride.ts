@@ -11,7 +11,7 @@ import type { RpcSchema } from './RpcSchema.js'
  * @example
  * ```typescript
  * import { RpcSchemaOverride } from '[package-path]'
- * 
+ *
  * const value: RpcSchemaOverride = {
  *   // Initialize properties
  * }

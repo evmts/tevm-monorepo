@@ -26,7 +26,7 @@ import type { Hash, LogTopic } from './misc.js'
  * @example
  * ```typescript
  * import { JsonRpcSchemaPublic } from '[package-path]'
- * 
+ *
  * const value: JsonRpcSchemaPublic = {
  *   // Initialize properties
  * }

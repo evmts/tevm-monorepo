@@ -5,11 +5,11 @@
  * - First CLIQUE_EXTRA_VANITY (32) bytes: vanity data (can be anything)
  * - Followed by signer addresses
  * - Last CLIQUE_EXTRA_SEAL (65) bytes: the signer's signature
- * 
+ *
  * @example
  * ```typescript
  * import { CLIQUE_EXTRA_VANITY } from '@tevm/block'
- * 
+ *
  * // Extract vanity data from extraData
  * const vanityData = extraData.slice(0, CLIQUE_EXTRA_VANITY)
  * ```
@@ -22,14 +22,14 @@ export const CLIQUE_EXTRA_VANITY = 32
  * - First CLIQUE_EXTRA_VANITY (32) bytes: vanity data
  * - Followed by signer addresses
  * - Last CLIQUE_EXTRA_SEAL (65) bytes: the signer's signature (secp256k1 signature)
- * 
+ *
  * @example
  * ```typescript
  * import { CLIQUE_EXTRA_SEAL, CLIQUE_EXTRA_VANITY } from '@tevm/block'
- * 
+ *
  * // Extract the signature from extraData
  * const signature = extraData.slice(extraData.length - CLIQUE_EXTRA_SEAL)
- * 
+ *
  * // Extract the list of signers from extraData (between vanity and seal)
  * const signersData = extraData.slice(CLIQUE_EXTRA_VANITY, extraData.length - CLIQUE_EXTRA_SEAL)
  * ```

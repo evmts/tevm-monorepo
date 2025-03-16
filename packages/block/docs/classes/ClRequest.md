@@ -6,7 +6,17 @@
 
 # Class: ClRequest
 
-Defined in: [packages/block/src/ClRequest.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L18)
+Defined in: [packages/block/src/ClRequest.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L60)
+
+[Description of what ClRequest represents]
+
+## Example
+
+```typescript
+import { ClRequest } from '[package-path]'
+
+const instance = new ClRequest()
+```
 
 ## Implements
 
@@ -18,7 +28,7 @@ Defined in: [packages/block/src/ClRequest.ts:18](https://github.com/evmts/tevm-m
 
 > **new ClRequest**(`type`, `bytes`): [`ClRequest`](ClRequest.md)
 
-Defined in: [packages/block/src/ClRequest.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L21)
+Defined in: [packages/block/src/ClRequest.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L63)
 
 #### Parameters
 
@@ -40,7 +50,7 @@ Defined in: [packages/block/src/ClRequest.ts:21](https://github.com/evmts/tevm-m
 
 > **bytes**: `Uint8Array`
 
-Defined in: [packages/block/src/ClRequest.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L20)
+Defined in: [packages/block/src/ClRequest.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L62)
 
 #### Implementation of
 
@@ -52,7 +62,7 @@ Defined in: [packages/block/src/ClRequest.ts:20](https://github.com/evmts/tevm-m
 
 > **type**: `number`
 
-Defined in: [packages/block/src/ClRequest.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L19)
+Defined in: [packages/block/src/ClRequest.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L61)
 
 #### Implementation of
 
@@ -64,7 +74,7 @@ Defined in: [packages/block/src/ClRequest.ts:19](https://github.com/evmts/tevm-m
 
 > **serialize**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/block/src/ClRequest.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L27)
+Defined in: [packages/block/src/ClRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L69)
 
 #### Returns
 

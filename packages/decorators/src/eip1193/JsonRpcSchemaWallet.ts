@@ -16,7 +16,7 @@ import type { Hash } from './misc.js'
  * @example
  * ```typescript
  * import { JsonRpcSchemaWallet } from '[package-path]'
- * 
+ *
  * const value: JsonRpcSchemaWallet = {
  *   // Initialize properties
  * }

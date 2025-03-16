@@ -13,14 +13,14 @@
  * @example
  * ```typescript
  * import { Level } from '@tevm/logger'
- * 
+ *
  * // Using as a type
  * const logLevel: Level = 'info'
- * 
+ *
  * // Creating logger with specific level
- * const logger = createLogger({ 
+ * const logger = createLogger({
  *   name: 'my-module',
- *   level: 'debug' // Show all logs at debug level and above 
+ *   level: 'debug' // Show all logs at debug level and above
  * })
  * ```
  */

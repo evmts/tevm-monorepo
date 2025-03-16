@@ -9,7 +9,7 @@
  * @example
  * ```typescript
  * import { AddEthereumChainParameter } from '[package-path]'
- * 
+ *
  * const value: AddEthereumChainParameter = {
  *   // Initialize properties
  * }

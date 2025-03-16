@@ -6,9 +6,19 @@
 
 # Interface: AfterTxEvent
 
-Defined in: [packages/vm/src/utils/AfterTxEvent.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L4)
+Defined in: [packages/vm/src/utils/AfterTxEvent.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L15)
 
-Execution result of a transaction
+[Description of what this interface represents]
+
+## Example
+
+```typescript
+import { AfterTxEvent } from '[package-path]'
+
+const value: AfterTxEvent = {
+  // Initialize properties
+}
+```
 
 ## Extends
 
@@ -176,6 +186,6 @@ which consists of calldata cost, intrinsic cost and optionally the access list c
 
 > **transaction**: `TypedTransaction`
 
-Defined in: [packages/vm/src/utils/AfterTxEvent.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L8)
+Defined in: [packages/vm/src/utils/AfterTxEvent.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterTxEvent.ts#L19)
 
 The transaction which just got finished

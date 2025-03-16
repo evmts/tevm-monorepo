@@ -4,9 +4,9 @@
  * @example
  * ```typescript
  * import { TypedError } from '@tevm/precompiles'
- * 
+ *
  * type MyCustomError = TypedError<'MyCustomError'>
- * 
+ *
  * const error: MyCustomError = {
  *   _tag: 'MyCustomError',
  *   name: 'MyCustomError',

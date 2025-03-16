@@ -3,23 +3,23 @@ import type { TevmJsonRpcBulkRequestHandler, TevmJsonRpcRequestHandler } from '@
 /**
  * API interface for sending JSON-RPC requests to Tevm
  * Provides methods for both single and bulk requests
- * 
+ *
  * @example
  * ```typescript
  * import { TevmSendApi } from '@tevm/decorators'
- * 
+ *
  * // Example usage with a Tevm client
  * const client: TevmSendApi = {
- *   send: async (request) => { /* implementation */ },
- *   sendBulk: async (requests) => { /* implementation */ }
+ *   send: async (request) => { return null }, // implementation
+ *   sendBulk: async (requests) => { return [] } // implementation
  * }
- * 
+ *
  * // Send a single request
  * await client.send({
  *   method: 'eth_blockNumber',
  *   params: []
  * })
- * 
+ *
  * // Send multiple requests in bulk
  * await client.sendBulk([
  *   { method: 'eth_blockNumber', params: [] },

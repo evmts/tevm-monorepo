@@ -1,11 +1,13 @@
 /**
- * [Description of what this type represents]
+ * Configuration options for VM profiling and performance reporting.
+ * Controls when and how profiling data is reported during VM execution.
  * @example
  * ```typescript
- * import { VMProfilerOpts } from '[package-path]'
- * 
+ * import { VMProfilerOpts } from '@tevm/vm'
+ *
  * const value: VMProfilerOpts = {
- *   // Initialize properties
+ *   reportAfterTx: true,    // Generate reports after each transaction
+ *   reportAfterBlock: false // Don't generate reports after each block
  * }
  * ```
  */

@@ -6,7 +6,29 @@
 
 # Interface: VerkleProof
 
-Defined in: [packages/block/src/types.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L69)
+Defined in: [packages/block/src/types.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L89)
+
+Represents a Verkle proof used for state verification
+
+Verkle trees are an upgrade to Merkle Patricia trees that use vector commitments
+instead of hash-based commitments, resulting in smaller proof sizes.
+This interface contains the elements needed for Verkle proof verification.
+
+## See
+
+https://eips.ethereum.org/EIPS/eip-6800 for more details on Verkle trees in Ethereum
+
+## Example
+
+```typescript
+import { VerkleProof } from '@tevm/block'
+
+// Example of verifying a Verkle proof
+function verifyProof(proof: VerkleProof, key: Hex, value: Hex, commitment: Hex): boolean {
+  // Verkle proof verification implementation would go here
+  return true
+}
+```
 
 ## Properties
 
@@ -14,7 +36,7 @@ Defined in: [packages/block/src/types.ts:69](https://github.com/evmts/tevm-monor
 
 > **commitmentsByPath**: `` `0x${string}` ``[]
 
-Defined in: [packages/block/src/types.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L70)
+Defined in: [packages/block/src/types.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L90)
 
 ***
 
@@ -22,7 +44,7 @@ Defined in: [packages/block/src/types.ts:70](https://github.com/evmts/tevm-monor
 
 > **d**: `` `0x${string}` ``
 
-Defined in: [packages/block/src/types.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L71)
+Defined in: [packages/block/src/types.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L91)
 
 ***
 
@@ -30,7 +52,7 @@ Defined in: [packages/block/src/types.ts:71](https://github.com/evmts/tevm-monor
 
 > **depthExtensionPresent**: `` `0x${string}` ``
 
-Defined in: [packages/block/src/types.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L72)
+Defined in: [packages/block/src/types.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L92)
 
 ***
 
@@ -38,7 +60,7 @@ Defined in: [packages/block/src/types.ts:72](https://github.com/evmts/tevm-monor
 
 > **ipaProof**: `object`
 
-Defined in: [packages/block/src/types.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L73)
+Defined in: [packages/block/src/types.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L93)
 
 #### cl
 
@@ -58,4 +80,4 @@ Defined in: [packages/block/src/types.ts:73](https://github.com/evmts/tevm-monor
 
 > **otherStems**: `` `0x${string}` ``[]
 
-Defined in: [packages/block/src/types.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L78)
+Defined in: [packages/block/src/types.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L98)

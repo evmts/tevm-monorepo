@@ -5,7 +5,7 @@ import type { Abi } from '@tevm/utils'
  * @example
  * ```typescript
  * import { dummyAbi } from '[package-path]'
- * 
+ *
  * // Example usage
  * ```
  */

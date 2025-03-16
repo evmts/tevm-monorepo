@@ -1,11 +1,12 @@
 /**
- * [Description of what this type represents]
+ * Mining configuration that creates blocks at fixed time intervals.
  * @example
  * ```typescript
- * import { IntervalMining } from '[package-path]'
- * 
+ * import { IntervalMining } from '@tevm/node'
+ *
  * const value: IntervalMining = {
- *   // Initialize properties
+ *   type: 'interval',
+ *   interval: 5000 // Mine blocks every 5 seconds
  * }
  * ```
  */
@@ -14,27 +15,32 @@ export type IntervalMining = {
 	interval: number
 }
 /**
- * [Description of what this type represents]
+ * Mining configuration where blocks are only created when explicitly requested.
+ * Transactions remain in the mempool until manually mined.
  * @example
  * ```typescript
- * import { ManualMining } from '[package-path]'
- * 
+ * import { ManualMining } from '@tevm/node'
+ *
  * const value: ManualMining = {
- *   // Initialize properties
+ *   type: 'manual'
  * }
+ *
+ * // Later blocks can be mined manually:
+ * // await client.mine({ blocks: 1 })
  * ```
  */
 export type ManualMining = {
 	type: 'manual'
 }
 /**
- * [Description of what this type represents]
+ * Mining configuration that automatically mines blocks for every transaction.
+ * Each transaction is immediately included in its own block.
  * @example
  * ```typescript
- * import { AutoMining } from '[package-path]'
- * 
+ * import { AutoMining } from '@tevm/node'
+ *
  * const value: AutoMining = {
- *   // Initialize properties
+ *   type: 'auto'
  * }
  * ```
  */
@@ -42,13 +48,15 @@ export type AutoMining = {
 	type: 'auto'
 }
 /**
- * [Description of what this type represents]
+ * Mining configuration that mines blocks when accumulated gas usage exceeds a threshold.
+ * Useful for simulating realistic block filling behavior.
  * @example
  * ```typescript
- * import { GasMining } from '[package-path]'
- * 
+ * import { GasMining } from '@tevm/node'
+ *
  * const value: GasMining = {
- *   // Initialize properties
+ *   type: 'gas',
+ *   limit: 15000000n // Mine when gas used exceeds 15M
  * }
  * ```
  */
@@ -57,14 +65,22 @@ export type GasMining = {
 	limit: BigInt
 }
 /**
- * [Description of what this type represents]
+ * Configuration options for controlling block mining behavior.
+ * Union of all mining strategy types.
  * @example
  * ```typescript
- * import { MiningConfig } from '[package-path]'
- * 
- * const value: MiningConfig = {
- *   // Initialize properties
+ * import { MiningConfig } from '@tevm/node'
+ * import { createMemoryClient } from 'tevm'
+ *
+ * // Choose one of the mining strategies
+ * const miningConfig: MiningConfig = {
+ *   type: 'interval',
+ *   interval: 2000 // Mine every 2 seconds
  * }
+ *
+ * const client = createMemoryClient({
+ *   mining: miningConfig
+ * })
  * ```
  */
 export type MiningConfig = IntervalMining | ManualMining | AutoMining | GasMining

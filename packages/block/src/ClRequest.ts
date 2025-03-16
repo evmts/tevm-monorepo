@@ -3,26 +3,27 @@ import { InternalError } from '@tevm/errors'
 import { concatBytes } from '@tevm/utils'
 
 /**
- * [Description of what this type represents]
+ * Raw bytes representation of a consensus layer request.
+ * Used for serializing and deserializing consensus layer requests.
  * @example
  * ```typescript
- * import { RequestBytes } from '[package-path]'
- * 
- * const value: RequestBytes = {
- *   // Initialize properties
- * }
+ * import { RequestBytes } from '@tevm/block'
+ *
+ * const value: RequestBytes = new Uint8Array([0x01, 0x02, 0x03])
  * ```
  */
 export type RequestBytes = Uint8Array
 
 /**
- * [Description of what this interface represents]
+ * Structured data for a consensus layer request.
+ * Contains the request type and associated binary data.
  * @example
  * ```typescript
- * import { RequestData } from '[package-path]'
- * 
+ * import { RequestData } from '@tevm/block'
+ *
  * const value: RequestData = {
- *   // Initialize properties
+ *   type: 1, // Request type identifier
+ *   data: new Uint8Array([0x01, 0x02, 0x03]) // Request payload
  * }
  * ```
  */
@@ -32,13 +33,17 @@ export interface RequestData {
 }
 
 /**
- * [Description of what this interface represents]
+ * Interface for consensus layer request types.
+ * Defines the common structure for different types of consensus layer requests.
  * @example
  * ```typescript
- * import { CLRequestType } from '[package-path]'
- * 
+ * import { CLRequestType } from '@tevm/block'
+ *
+ * // Usually implemented by specific request classes
  * const value: CLRequestType = {
- *   // Initialize properties
+ *   type: 1,
+ *   bytes: new Uint8Array([0x01, 0x02, 0x03]),
+ *   serialize: () => new Uint8Array([0x01, 0x01, 0x02, 0x03])
  * }
  * ```
  */
@@ -49,12 +54,15 @@ export interface CLRequestType {
 }
 
 /**
- * [Description of what ClRequest represents]
+ * Base implementation of a consensus layer request.
+ * Used to create and serialize requests between the execution and consensus layers.
  * @example
  * ```typescript
- * import { ClRequest } from '[package-path]'
- * 
- * const instance = new ClRequest()
+ * import { ClRequest } from '@tevm/block'
+ *
+ * // Create a request with type 1 and some payload data
+ * const instance = new ClRequest(1, new Uint8Array([0x01, 0x02, 0x03]))
+ * const serialized = instance.serialize() // Type byte followed by payload
  * ```
  */
 export class ClRequest implements CLRequestType {

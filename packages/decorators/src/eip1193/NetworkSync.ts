@@ -11,7 +11,7 @@ import type { Hex } from '@tevm/utils'
  * @example
  * ```typescript
  * import { Quantity } from '[package-path]'
- * 
+ *
  * const value: Quantity = {
  *   // Initialize properties
  * }
@@ -24,7 +24,7 @@ export type Quantity = Hex
  * @example
  * ```typescript
  * import { NetworkSync } from '[package-path]'
- * 
+ *
  * const value: NetworkSync = {
  *   // Initialize properties
  * }

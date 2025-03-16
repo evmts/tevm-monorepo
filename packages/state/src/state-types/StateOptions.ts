@@ -8,13 +8,19 @@ import type { StateRoots } from './StateRoots.js'
 import type { TevmState } from './TevmState.js'
 
 /**
- * [Description of what this type represents]
+ * Configuration options for the Tevm state manager.
+ * Controls forking, initial state, caching, and event handling.
  * @example
  * ```typescript
- * import { StateOptions } from '[package-path]'
- * 
+ * import { StateOptions } from '@tevm/state'
+ * import { http } from 'viem'
+ *
  * const value: StateOptions = {
- *   // Initialize properties
+ *   fork: {
+ *     transport: http('https://mainnet.infura.io/v3/your-api-key'),
+ *     blockTag: 'latest'
+ *   },
+ *   loggingLevel: 'debug'
  * }
  * ```
  */

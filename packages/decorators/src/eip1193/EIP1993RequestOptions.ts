@@ -9,7 +9,7 @@
  * @example
  * ```typescript
  * import { EIP1193RequestOptions } from '[package-path]'
- * 
+ *
  * const value: EIP1193RequestOptions = {
  *   // Initialize properties
  * }

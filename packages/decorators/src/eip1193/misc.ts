@@ -11,7 +11,7 @@ import type { Hex } from '@tevm/utils'
  * @example
  * ```typescript
  * import { Hash } from '[package-path]'
- * 
+ *
  * const value: Hash = {
  *   // Initialize properties
  * }
@@ -23,7 +23,7 @@ export type Hash = `0x${string}`
  * @example
  * ```typescript
  * import { LogTopic } from '[package-path]'
- * 
+ *
  * const value: LogTopic = {
  *   // Initialize properties
  * }

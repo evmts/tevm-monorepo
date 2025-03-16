@@ -1,11 +1,12 @@
 /**
- * [Description of what this type represents]
+ * Configuration options for EVM code execution profiling.
+ * Controls whether detailed execution metrics are collected.
  * @example
  * ```typescript
- * import { EVMProfilerOpts } from '[package-path]'
- * 
+ * import { EVMProfilerOpts } from '@tevm/vm'
+ *
  * const value: EVMProfilerOpts = {
- *   // Initialize properties
+ *   enabled: true // Enable EVM profiling to collect execution metrics
  * }
  * ```
  */

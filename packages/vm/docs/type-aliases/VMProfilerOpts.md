@@ -8,7 +8,9 @@
 
 > **VMProfilerOpts**: `object`
 
-Defined in: [packages/vm/src/utils/VMProfileOpts.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L1)
+Defined in: [packages/vm/src/utils/VMProfileOpts.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMProfileOpts.ts#L12)
+
+[Description of what this type represents]
 
 ## Type declaration
 
@@ -19,3 +21,13 @@ Defined in: [packages/vm/src/utils/VMProfileOpts.ts:1](https://github.com/evmts/
 ### reportAfterTx?
 
 > `optional` **reportAfterTx**: `boolean`
+
+## Example
+
+```typescript
+import { VMProfilerOpts } from '[package-path]'
+
+const value: VMProfilerOpts = {
+  // Initialize properties
+}
+```

@@ -8,7 +8,9 @@
 
 > **StateOptions**: `object`
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L10)
+Defined in: [packages/state/src/state-types/StateOptions.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L21)
+
+[Description of what this type represents]
 
 ## Type declaration
 
@@ -67,3 +69,13 @@ Called when state manager commits state
 > `readonly` `optional` **storageCache**: [`StorageCache`](../classes/StorageCache.md)
 
 Optionally configure and pass in your own StorageCache
+
+## Example
+
+```typescript
+import { StateOptions } from '[package-path]'
+
+const value: StateOptions = {
+  // Initialize properties
+}
+```

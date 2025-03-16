@@ -6,9 +6,19 @@
 
 # Interface: AfterBlockEvent
 
-Defined in: [packages/vm/src/utils/AfterblockEvent.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L4)
+Defined in: [packages/vm/src/utils/AfterblockEvent.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L15)
 
-Result of runBlock
+[Description of what this interface represents]
+
+## Example
+
+```typescript
+import { AfterBlockEvent } from '[package-path]'
+
+const value: AfterBlockEvent = {
+  // Initialize properties
+}
+```
 
 ## Extends
 
@@ -20,7 +30,7 @@ Result of runBlock
 
 > **block**: `Block`
 
-Defined in: [packages/vm/src/utils/AfterblockEvent.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L6)
+Defined in: [packages/vm/src/utils/AfterblockEvent.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/AfterblockEvent.ts#L17)
 
 ***
 

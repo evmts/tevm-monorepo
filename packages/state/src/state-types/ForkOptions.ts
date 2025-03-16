@@ -2,13 +2,16 @@ import { type BlockTag } from '@tevm/utils'
 import { type EIP1193RequestFn, type Transport } from 'viem'
 
 /**
- * [Description of what this interface represents]
+ * Configuration options for forking from an existing blockchain network.
+ * Used to specify the RPC endpoint and block number to fork from.
  * @example
  * ```typescript
- * import { ForkOptions } from '[package-path]'
- * 
+ * import { ForkOptions } from '@tevm/state'
+ * import { http } from 'viem'
+ *
  * const value: ForkOptions = {
- *   // Initialize properties
+ *   transport: http('https://mainnet.infura.io/v3/your-api-key'),
+ *   blockTag: 'latest'
  * }
  * ```
  */
