@@ -390,8 +390,10 @@ describe('runCallWithTrace', () => {
 		expect(result.trace.structLogs.length).toBeGreaterThan(0)
 
 		// Just verify we have a trace with opcodes
+		expect(result.trace.structLogs).toBeDefined()
+		expect(result.trace.structLogs.length).toBeGreaterThan(0)
 		expect(result.trace.structLogs[0]).toHaveProperty('op')
-		expect(typeof result.trace.structLogs[0].op).toBe('string')
+		expect(typeof result.trace.structLogs[0]?.op).toBe('string')
 
 		// Verify there's some variety of opcodes
 		const uniqueOpcodes = new Set(result.trace.structLogs.map((log) => log.op))

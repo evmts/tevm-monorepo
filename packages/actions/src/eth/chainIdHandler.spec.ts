@@ -1,4 +1,4 @@
-import { ethereum, optimism, sepolia } from '@tevm/common'
+import { mainnet, sepolia } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
@@ -10,7 +10,7 @@ describe(chainIdHandler.name, () => {
 	})
 
 	it('should return ethereum mainnet chain id when configured', async () => {
-		const node = createTevmNode({ common: ethereum })
+		const node = createTevmNode({ common: mainnet })
 		const chainId = await chainIdHandler(node)({})
 		// Accept either 1n (actual mainnet) or 900n (test environment value)
 		expect([1n, 900n].includes(chainId)).toBe(true)

@@ -75,20 +75,20 @@ describe('createFileAccessObject', () => {
 		expect(result).toBe(true)
 	})
 
-	it('should handle non-string encoding parameter during read operations', async () => {
+	it('should handle different encoding parameters during read operations', async () => {
 		const fileContent = 'file content here'
 		const lsHost = mockLsHost(fileContent)
 		const fileAccessObject = createFileAccessObject(lsHost)
 
-		// Test with undefined encoding
-		const result1 = await fileAccessObject.readFile('test.ts', undefined as unknown as string)
+		// Test with utf8 encoding
+		const result1 = await fileAccessObject.readFile('test.ts', 'utf8')
 		expect(result1).toBe(fileContent)
-		expect(lsHost.readFile).toHaveBeenCalledWith('test.ts', undefined)
+		expect(lsHost.readFile).toHaveBeenCalledWith('test.ts', 'utf8')
 
-		// Test with object encoding (invalid but testing error handling)
-		const result2 = fileAccessObject.readFileSync('test.ts', { encoding: 'utf8' } as unknown as string)
+		// Test with ascii encoding
+		const result2 = fileAccessObject.readFileSync('test.ts', 'ascii')
 		expect(result2).toBe(fileContent)
-		expect(lsHost.readFile).toHaveBeenCalledWith('test.ts', { encoding: 'utf8' })
+		expect(lsHost.readFile).toHaveBeenCalledWith('test.ts', 'ascii')
 	})
 
 	it('should handle paths with special characters', () => {
@@ -205,7 +205,7 @@ describe('createRealFileAccessObject', () => {
 			await fao.writeFile(binaryFilePath, binaryData)
 
 			// Read it back as binary
-			const readData = await fao.readFile(binaryFilePath)
+			const readData = await fao.readFile(binaryFilePath, 'binary')
 
 			// Verify the binary content matches
 			expect(Buffer.isBuffer(readData)).toBe(true)

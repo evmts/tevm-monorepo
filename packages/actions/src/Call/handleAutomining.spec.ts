@@ -317,7 +317,7 @@ describe('handleAutomining', () => {
 		// Setup debug logger
 		client.logger.debug = vi.fn()
 		client.logger.error = vi.fn()
-		const errorSpy = vi.spyOn(client.logger, 'error')
+		// Setup error spy, but we don't need to check it in this test
 
 		// Instead of throwing an error, return a result with errors
 		const miningError = { name: 'MiningError', message: 'Failed to mine transaction' }
