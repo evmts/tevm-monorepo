@@ -277,6 +277,9 @@ importers:
       '@tevm/compiler':
         specifier: workspace:*
         version: link:../compiler
+      '@tevm/config':
+        specifier: workspace:*
+        version: link:../config
     devDependencies:
       '@tevm/contract':
         specifier: workspace:*

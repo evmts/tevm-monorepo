@@ -4,7 +4,7 @@
  */
 
 import { fileURLToPath } from 'node:url'
-import { compiler } from '@tevm/compiler'
+import * as compilerModule from '@tevm/compiler'
 
 let inlineCounter = 0
 
@@ -64,32 +64,61 @@ export const sol = (strings, ...values) => {
 	const solFileName = `${baseName}_${index}.sol`
 
 	// Default compiler config
+	/** @type {import('@tevm/config').ResolvedCompilerConfig} */
 	const config = {
 		remappings: {},
 		libs: [],
 		debug: false,
+		jsonAsConst: [],
+		foundryProject: false,
+		cacheDir: `${process.cwd()}/.tevm`,
 	}
 
 	try {
+		// Create a simple in-memory file system
+		/** @type {import('@tevm/compiler').FileAccessObject} */
+		const fakeFs = {
+			/**
+			 * @param {string} file - File path
+			 * @param {BufferEncoding} encoding - File encoding
+			 * @returns {string}
+			 */
+			readFileSync: (file, encoding) => {
+				if (file === solFileName) return source
+				throw new Error(`File not found: ${file}`)
+			},
+			/**
+			 * @param {string} file - File path
+			 * @param {BufferEncoding} encoding - File encoding
+			 * @returns {Promise<string>}
+			 */
+			readFile: (file, encoding) => {
+				if (file === solFileName) return Promise.resolve(source)
+				return Promise.reject(new Error(`File not found: ${file}`))
+			},
+			/**
+			 * @param {string} file - File path
+			 * @returns {boolean}
+			 */
+			existsSync: (file) => file === solFileName,
+			/**
+			 * @param {string} file - File path
+			 * @returns {Promise<boolean>}
+			 */
+			exists: (file) => Promise.resolve(file === solFileName),
+		}
+
 		// Since this is running in user code context, we use the sync API
 		// We deliberately use a temporary file that doesn't need to be written to disk
-		const result = compiler.compileContractSync(
-			source,
-			solFileName,
-			process.cwd(),
-			config,
+		const result = compilerModule.compiler.compileContractSync(
+			solFileName, // filePath
+			process.cwd(), // basedir
+			/** @type {any} */ (config), // config
 			false, // includeAst
 			true, // includeBytecode
-			{
-				// Simple in-memory file system for the compiler
-				readFileSync: (file) => {
-					if (file === solFileName) return source
-					throw new Error(`File not found: ${file}`)
-				},
-				existsSync: (file) => file === solFileName,
-				writeFileSync: () => {},
-			},
+			fakeFs, // fao
 			console, // logger
+			undefined, // solc - use default
 		)
 
 		return result.contract

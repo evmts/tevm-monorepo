@@ -41,7 +41,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@tevm/compiler": "workspace:*"
+    "@tevm/compiler": "workspace:*",
+    "@tevm/config": "workspace:*"
   },
   "devDependencies": {
     "@tevm/contract": "workspace:*",

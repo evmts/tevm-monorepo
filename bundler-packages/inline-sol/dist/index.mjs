@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'node:url';
-import { compiler } from '@tevm/compiler';
+import * as compilerModule from '@tevm/compiler';
 
 // src/index.js
 var inlineCounter = 0;
@@ -19,30 +19,60 @@ var sol = (strings, ...values) => {
   const config = {
     remappings: {},
     libs: [],
-    debug: false
+    debug: false,
+    jsonAsConst: [],
+    foundryProject: false,
+    cacheDir: `${process.cwd()}/.tevm`
   };
   try {
-    const result = compiler.compileContractSync(
-      source,
+    const fakeFs = {
+      /**
+       * @param {string} file - File path
+       * @param {BufferEncoding} encoding - File encoding
+       * @returns {string}
+       */
+      readFileSync: (file, encoding) => {
+        if (file === solFileName) return source;
+        throw new Error(`File not found: ${file}`);
+      },
+      /**
+       * @param {string} file - File path
+       * @param {BufferEncoding} encoding - File encoding
+       * @returns {Promise<string>}
+       */
+      readFile: (file, encoding) => {
+        if (file === solFileName) return Promise.resolve(source);
+        return Promise.reject(new Error(`File not found: ${file}`));
+      },
+      /**
+       * @param {string} file - File path
+       * @returns {boolean}
+       */
+      existsSync: (file) => file === solFileName,
+      /**
+       * @param {string} file - File path
+       * @returns {Promise<boolean>}
+       */
+      exists: (file) => Promise.resolve(file === solFileName)
+    };
+    const result = compilerModule.compiler.compileContractSync(
       solFileName,
+      // filePath
       process.cwd(),
+      // basedir
+      /** @type {any} */
       config,
+      // config
       false,
       // includeAst
       true,
       // includeBytecode
-      {
-        // Simple in-memory file system for the compiler
-        readFileSync: (file) => {
-          if (file === solFileName) return source;
-          throw new Error(`File not found: ${file}`);
-        },
-        existsSync: (file) => file === solFileName,
-        writeFileSync: () => {
-        }
-      },
-      console
+      fakeFs,
+      // fao
+      console,
       // logger
+      void 0
+      // solc - use default
     );
     return result.contract;
   } catch (error2) {

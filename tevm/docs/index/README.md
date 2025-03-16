@@ -194,6 +194,7 @@
 - [parseGwei](functions/parseGwei.md)
 - [publicActions](functions/publicActions.md)
 - [rateLimit](functions/rateLimit.md)
+- [sol](functions/sol.md)
 - [stringToHex](functions/stringToHex.md)
 - [testActions](functions/testActions.md)
 - [tevmCall](functions/tevmCall.md)

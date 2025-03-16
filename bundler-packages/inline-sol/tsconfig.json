@@ -7,6 +7,10 @@
 		"checkJs": true,
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
-		"rootDir": "."
+		"rootDir": ".",
+		"verbatimModuleSyntax": false,
+		"skipLibCheck": true,
+		"noUnusedParameters": false,
+		"noUnusedLocals": false
 	}
 }

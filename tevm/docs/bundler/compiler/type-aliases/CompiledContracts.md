@@ -8,6 +8,6 @@
 
 > **CompiledContracts**: `CompiledContracts`
 
-Defined in: bundler-packages/compiler/types/src/index.d.ts:10
+Defined in: bundler-packages/compiler/types/src/index.d.ts:11
 
 ./types.ts

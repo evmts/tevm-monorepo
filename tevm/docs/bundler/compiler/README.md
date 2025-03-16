@@ -6,6 +6,10 @@
 
 # bundler/compiler
 
+## Namespaces
+
+- [compiler](namespaces/compiler/README.md)
+
 ## Type Aliases
 
 - [Artifacts](type-aliases/Artifacts.md)
