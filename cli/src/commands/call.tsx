@@ -1,284 +1,102 @@
 import React from 'react'
 import { z } from 'zod'
-import { option } from 'pastel'
-import { useAction, envVar } from '../hooks/useAction.js'
+import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
-
-// Define the types that are missing
-interface CallParams {
-  to?: string
-  from?: string
-  data?: string
-  value?: bigint
-  nonce?: number
-  gas?: bigint
-  gasPrice?: bigint
-  maxFeePerGas?: bigint
-  maxPriorityFeePerGas?: bigint
-  blockTag?: string
-  blockNumber?: number
-  accessList?: any[]
-  code?: string
-  deployedBytecode?: string
-  salt?: string
-  gasRefund?: bigint
-  caller?: string
-  origin?: string
-  depth?: number
-  skipBalance?: boolean
-  createTrace?: boolean
-  createAccessList?: boolean
-  createTransaction?: boolean
-  // Add any other fields needed
-}
-
-interface CallResult {
-  data: string
-  // Add any other fields that might be in the result
-}
-
-// Options definitions and descriptions
-const optionDescriptions = {
-  to: 'Contract address to call (env: TEVM_TO)',
-  rpc: 'RPC endpoint (env: TEVM_RPC)',
-  data: 'Transaction data (hex encoded) (env: TEVM_DATA)',
-  from: 'Address to send the transaction from (env: TEVM_FROM)',
-  value: 'ETH value to send in wei (env: TEVM_VALUE)',
-  code: 'The encoded code to deploy (with constructor args) (env: TEVM_CODE)',
-  deployedBytecode: 'Deployed bytecode to put in state before call (env: TEVM_DEPLOYED_BYTECODE)',
-  salt: 'CREATE2 salt (hex encoded) (env: TEVM_SALT)',
-  gas: 'Gas limit for the transaction (env: TEVM_GAS)',
-  gasPrice: 'Gas price in wei (env: TEVM_GAS_PRICE)',
-  maxFeePerGas: 'Maximum fee per gas (EIP-1559) (env: TEVM_MAX_FEE_PER_GAS)',
-  maxPriorityFeePerGas: 'Maximum priority fee per gas (EIP-1559) (env: TEVM_MAX_PRIORITY_FEE_PER_GAS)',
-  gasRefund: 'Gas refund counter (env: TEVM_GAS_REFUND)',
-  blockTag: 'Block tag (latest, pending, etc.) or number (env: TEVM_BLOCK_TAG)',
-  caller: 'Address that ran this code (msg.sender) (env: TEVM_CALLER)',
-  origin: 'Address where the call originated from (env: TEVM_ORIGIN)',
-  depth: 'Depth of EVM call stack (env: TEVM_DEPTH)',
-  skipBalance: 'Skip balance check (env: TEVM_SKIP_BALANCE)',
-  createTrace: 'Return a complete trace with the call (env: TEVM_CREATE_TRACE)',
-  createAccessList: 'Return an access list mapping of addresses to storage keys (env: TEVM_CREATE_ACCESS_LIST)',
-  createTransaction: 'Whether to update state (on-success, always, never) (env: TEVM_CREATE_TRANSACTION)',
-}
+import { createCallOptions } from '../utils/options.js'
+import { CallParams, CallResult } from '../utils/action-types.js'
 
 // Add command description for help output
 export const description = "Execute a raw EVM call against a contract or address";
 
-// Empty args tuple since we're moving "to" to options
+// Empty args tuple since we're using options for all parameters
 export const args = z.tuple([])
 
-export const options = z.object({
-  // Contract address
-  to: z.string().default(envVar('to') || '0x0000000000000000000000000000000000000000').describe(
-    option({
-      description: optionDescriptions.to,
-      defaultValueDescription: '0x0000000000000000000000000000000000000000',
-    })
-  ),
-
-  // Interactive mode flag (run directly without interactive editor)
-  run: z.boolean().default(false).describe(
-    option({
-      description: 'Run directly without interactive parameter editing (env: TEVM_RUN)',
-      alias: 'r',
-    })
-  ),
-
-  // Transport options
-  rpc: z.string().default(envVar('rpc') || 'http://localhost:8545').describe(
-    option({
-      description: optionDescriptions.rpc,
-      defaultValueDescription: 'http://localhost:8545',
-    })
-  ),
-
-  // Basic call parameters
-  data: z.string().optional().describe(
-    option({
-      description: optionDescriptions.data,
-    })
-  ),
-  from: z.string().default(envVar('from') || '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266').describe(
-    option({
-      description: optionDescriptions.from,
-      defaultValueDescription: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-    })
-  ),
-  value: z.string().optional().describe(
-    option({
-      description: optionDescriptions.value,
-    })
-  ),
-
-  // Contract deployment options
-  code: z.string().optional().describe(
-    option({
-      description: optionDescriptions.code,
-    })
-  ),
-  deployedBytecode: z.string().optional().describe(
-    option({
-      description: optionDescriptions.deployedBytecode,
-    })
-  ),
-  salt: z.string().optional().describe(
-    option({
-      description: optionDescriptions.salt,
-    })
-  ),
-
-  // Gas parameters
-  gas: z.string().optional().describe(
-    option({
-      description: optionDescriptions.gas,
-    })
-  ),
-  gasPrice: z.string().optional().describe(
-    option({
-      description: optionDescriptions.gasPrice,
-    })
-  ),
-  maxFeePerGas: z.string().optional().describe(
-    option({
-      description: optionDescriptions.maxFeePerGas,
-    })
-  ),
-  maxPriorityFeePerGas: z.string().optional().describe(
-    option({
-      description: optionDescriptions.maxPriorityFeePerGas,
-    })
-  ),
-  gasRefund: z.string().optional().describe(
-    option({
-      description: optionDescriptions.gasRefund,
-    })
-  ),
-
-  // Block options
-  blockTag: z.string().optional().describe(
-    option({
-      description: optionDescriptions.blockTag,
-    })
-  ),
-
-  // Advanced options
-  caller: z.string().optional().describe(
-    option({
-      description: optionDescriptions.caller,
-    })
-  ),
-  origin: z.string().optional().describe(
-    option({
-      description: optionDescriptions.origin,
-    })
-  ),
-  depth: z.number().optional().describe(
-    option({
-      description: optionDescriptions.depth,
-    })
-  ),
-  skipBalance: z.boolean().optional().describe(
-    option({
-      description: optionDescriptions.skipBalance,
-    })
-  ),
-
-  // Instrumentation options
-  createTrace: z.boolean().default(false).describe(
-    option({
-      description: optionDescriptions.createTrace,
-    })
-  ),
-  createAccessList: z.boolean().default(false).describe(
-    option({
-      description: optionDescriptions.createAccessList,
-    })
-  ),
-  createTransaction: z.enum(['on-success', 'always', 'never']).default('never').describe(
-    option({
-      description: optionDescriptions.createTransaction,
-    })
-  ),
-
-  // Output formatting
-  formatJson: z.boolean().default(envVar('format_json') !== 'false').describe(
-    option({
-      description: 'Format output as JSON (env: TEVM_FORMAT_JSON)',
-      defaultValueDescription: 'true',
-    })
-  ),
-})
+// Define command options using our utility function
+export const options = z.object(createCallOptions())
 
 type Props = {
   args: z.infer<typeof args>
   options: z.infer<typeof options>
 }
 
-// Default values for all parameters - now using BigInt for numeric values
-const defaultValues: Record<string, any> = {
-  to: '0x0000000000000000000000000000000000000000',
-  from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-  data: '0x',
-  depth: 0,
-  gas: BigInt(10000000),         // 10 million gas
-  gasPrice: BigInt(1000000000),  // 1 gwei
-  maxFeePerGas: BigInt(2000000000),  // 2 gwei
-  maxPriorityFeePerGas: BigInt(1000000000),  // 1 gwei
-  gasRefund: BigInt(0),
-  createTrace: false,
-  createAccessList: false,
-  skipBalance: false,
-  createTransaction: 'never',
-  rpc: 'http://localhost:8545',
-  value: BigInt(0),              // 0 ETH
-  blockTag: 'latest',            // Latest block
-}
-
 export default function Call({ options }: Props) {
-  // Use the action hook with inlined createParams and executeAction
+  // Use the action hook to handle all the complexity
   const actionResult = useAction<CallParams, CallResult>({
     actionName: 'tevmCall',
     options,
-    defaultValues,
-    optionDescriptions,
+    defaultValues: {
+      to: '0x0000000000000000000000000000000000000000',
+      from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+      data: '0x',
+      gas: BigInt(10000000),
+      gasPrice: BigInt(1000000000),
+      value: BigInt(0),
+      blockTag: 'latest',
+    },
+    optionDescriptions: {
+      to: 'Contract address to call',
+      data: 'Transaction data (hex encoded)',
+      from: 'Address to send the transaction from',
+      value: 'ETH value to send in wei',
+      code: 'The encoded code to deploy (with constructor args)',
+      deployedBytecode: 'Deployed bytecode to put in state before call',
+      gas: 'Gas limit for the transaction',
+      gasPrice: 'Gas price in wei',
+      blockTag: 'Block tag (latest, pending, etc.) or number',
+    },
 
-    // Inlined createParams function
+    // Convert options to call parameters
     createParams: (enhancedOptions: Record<string, any>): CallParams => {
       const params: Partial<CallParams> = {
-        data: enhancedOptions['data'] ?? undefined,
-        to: enhancedOptions['to'] ?? undefined,
-        code: enhancedOptions['code'] ?? undefined,
-        deployedBytecode: enhancedOptions['deployedBytecode'] ?? undefined,
-        gasRefund: enhancedOptions['gasRefund'] ? BigInt(enhancedOptions['gasRefund']) : undefined,
-        value: enhancedOptions['value'] ? BigInt(enhancedOptions['value']) : undefined,
-        gas: enhancedOptions['gas'] ? BigInt(enhancedOptions['gas']) : undefined,
-        gasPrice: enhancedOptions['gasPrice'] ? BigInt(enhancedOptions['gasPrice']) : undefined,
-        maxFeePerGas: enhancedOptions['maxFeePerGas'] ? BigInt(enhancedOptions['maxFeePerGas']) : undefined,
-        maxPriorityFeePerGas: enhancedOptions['maxPriorityFeePerGas'] ? BigInt(enhancedOptions['maxPriorityFeePerGas']) : undefined,
-        blockTag: enhancedOptions['blockTag'] ?? undefined,
-        caller: enhancedOptions['caller'] ?? undefined,
-        origin: enhancedOptions['origin'] ?? undefined,
-        depth: typeof enhancedOptions['depth'] === 'bigint' ? Number(enhancedOptions['depth']) : enhancedOptions['depth'],
-        skipBalance: enhancedOptions['skipBalance'] ?? undefined,
-        createTrace: enhancedOptions['createTrace'] ?? undefined,
-        createAccessList: enhancedOptions['createAccessList'] ?? undefined,
-        createTransaction: enhancedOptions['createTransaction'] ?? undefined,
-
-        // Uncomment this onStep handler to debug EVM execution step by step
-        // onStep: (data, next) => {
-        //   console.log(data.opcode.name); // Log the current opcode name
-        //   next?.(); // Continue to the next step
-        // },
+        to: enhancedOptions['to'],
+        from: enhancedOptions['from'],
+        data: enhancedOptions['data'],
+        code: enhancedOptions['code'],
+        deployedBytecode: enhancedOptions['deployedBytecode'],
+        blockTag: enhancedOptions['blockTag'],
       };
 
-      // Filter out undefined values if needed
+      // Convert string values to BigInt where needed
+      if (enhancedOptions['value']) {
+        params.value = BigInt(enhancedOptions['value']);
+      }
+      if (enhancedOptions['gas']) {
+        params.gas = BigInt(enhancedOptions['gas']);
+      }
+      if (enhancedOptions['gasPrice']) {
+        params.gasPrice = BigInt(enhancedOptions['gasPrice']);
+      }
+      if (enhancedOptions['gasRefund']) {
+        params.gasRefund = BigInt(enhancedOptions['gasRefund']);
+      }
+      if (enhancedOptions['maxFeePerGas']) {
+        params.maxFeePerGas = BigInt(enhancedOptions['maxFeePerGas']);
+      }
+      if (enhancedOptions['maxPriorityFeePerGas']) {
+        params.maxPriorityFeePerGas = BigInt(enhancedOptions['maxPriorityFeePerGas']);
+      }
+
+      // Boolean flags
+      if (enhancedOptions['createTrace']) {
+        params.createTrace = true;
+      }
+      if (enhancedOptions['createAccessList']) {
+        params.createAccessList = true;
+      }
+      if (enhancedOptions['skipBalance']) {
+        params.skipBalance = true;
+      }
+      if (enhancedOptions['createTransaction']) {
+        params.createTransaction = enhancedOptions['createTransaction'];
+      }
+
+      // Filter out undefined values
       return Object.fromEntries(
         Object.entries(params).filter(([_, v]) => v !== undefined)
       ) as CallParams;
     },
 
-    // Inlined executeAction function
+    // Execute the call against the client
     executeAction: async (client: any, params: CallParams): Promise<CallResult> => {
       return await client.tevmCall(params);
     },
