@@ -1342,9 +1342,6 @@ importers:
       abitype:
         specifier: ^1.0.8
         version: 1.0.8(typescript@5.8.2)(zod@3.24.2)
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.2
 
   packages/address:
     dependencies:
@@ -6702,7 +6699,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 

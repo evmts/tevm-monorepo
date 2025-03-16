@@ -84,8 +84,7 @@
     "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "abitype": "^1.0.8",
-    "zod": "^3.24.2"
+    "abitype": "^1.0.8"
   },
   "peerDependencies": {
     "viem": "^2.21.1"
