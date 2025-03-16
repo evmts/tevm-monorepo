@@ -3,6 +3,7 @@ ignores: [
   "commander",
   "effect",
   "@tevm/ts-plugin",
+  "@tevm/cli",
   "glob",
   "solc"
 ]

@@ -4,6 +4,19 @@
 	"license": "MIT",
 	"bin": "dist/cli.js",
 	"type": "module",
+	"main": "dist/cli.js",
+	"module": "dist/cli.js",
+	"sideEffects": true,
+	"types": "dist/cli.d.ts",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/cli.d.ts",
+				"default": "./dist/cli.js"
+			}
+		},
+		"./package.json": "./package.json"
+	},
 	"engines": {
 		"node": ">=16"
 	},

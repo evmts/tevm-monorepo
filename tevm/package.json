@@ -360,8 +360,7 @@
   "module": "index.js",
   "types": "index.d.ts",
   "bin": {
-    "tevm": "./node_modules/@tevm/cli/dist/bin/tevm.js",
-    "tevm-gen": "./node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js"
+    "tevm": "./cli.js"
   },
   "files": [
     "index*",
@@ -414,6 +413,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@clack/core": "^0.4.1",
+    "@clack/prompts": "^0.7.0",
     "@tevm/actions": "workspace:^",
     "@tevm/address": "workspace:^",
     "@tevm/base-bundler": "workspace:^",
@@ -455,6 +456,7 @@
     "commander": "^13.1.0",
     "effect": "3.13.2",
     "glob": "^11.0.1",
+    "picocolors": "^1.0.0",
     "solc": "^0.8.28"
   },
   "devDependencies": {
