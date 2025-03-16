@@ -104,4 +104,65 @@ describe('convertSolcAstToTsDefinitionInfo', () => {
 			},
 		})
 	})
+
+	it('should handle complex source positions correctly', () => {
+		const astNode: Node = {
+			id: 1,
+			nodeType: 'FunctionDefinition',
+			src: '125:67',  // Starting at position 125 with length 67
+			name: 'complexFunction',
+		} as any
+		const solcInput: SolcInput = {
+			sources: {
+				'ComplexContract.sol': {
+					content: 'contract with complex source mapping',
+				},
+			},
+		}
+		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'ComplexContract.sol', 'ComplexContract', solcInput, ts)
+
+		expect(definitionInfo).toMatchObject({
+			containerKind: 'class',
+			containerName: 'ComplexContract',
+			fileName: 'ComplexContract.sol',
+			kind: 'function',
+			name: 'complexFunction',
+			textSpan: {
+				length: 67,
+				start: 140,  // 125 + (inputLength - actualLength) which is mocked at 15
+			},
+		})
+	})
+
+	it('should handle different container names for nested contexts', () => {
+		const astNode: Node = {
+			id: 1,
+			nodeType: 'VariableDeclaration',
+			src: '5:10',
+			name: 'nestedVar',
+		} as any
+		const solcInput: SolcInput = {
+			sources: {
+				'NestedStructs.sol': {
+					content: 'nested struct content',
+				},
+			},
+		}
+		
+		// Using a deeply nested container name like "Contract.Struct.NestedStruct"
+		const containerName = 'Contract.Struct.NestedStruct'
+		const definitionInfo = convertSolcAstToTsDefinitionInfo(astNode, 'NestedStructs.sol', containerName, solcInput, ts)
+
+		expect(definitionInfo).toMatchObject({
+			containerKind: 'class',
+			containerName: containerName,
+			fileName: 'NestedStructs.sol',
+			kind: 'var',
+			name: 'nestedVar',
+			textSpan: {
+				length: 10,
+				start: 20,  // 5 + (inputLength - actualLength) which is mocked at 15
+			},
+		})
+	})
 })

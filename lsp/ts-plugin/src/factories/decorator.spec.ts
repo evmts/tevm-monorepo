@@ -146,4 +146,83 @@ describe(decorateHost.name, () => {
 		// Check that the non-languageServiceHost property 'isCreateInfo' has been preserved
 		expect((decoratedCreateInfo as TestAny).createInfo.isCreateInfo).toBe(true)
 	})
+
+	it('should allow multiple decorators to modify the same property in sequence', () => {
+		// Create decorators that each append to a value
+		const decorator1: HostDecorator = (createInfo) => {
+			return createProxy(createInfo.languageServiceHost, {
+				transformedValue: 'step1',
+			} as TestAny)
+		}
+		
+		const decorator2: HostDecorator = (createInfo) => {
+			const value = (createInfo.languageServiceHost as TestAny).transformedValue || ''
+			return createProxy(createInfo.languageServiceHost, {
+				transformedValue: `${value}-step2`,
+			} as TestAny)
+		}
+		
+		const decorator3: HostDecorator = (createInfo) => {
+			const value = (createInfo.languageServiceHost as TestAny).transformedValue || ''
+			return createProxy(createInfo.languageServiceHost, {
+				transformedValue: `${value}-step3`,
+			} as TestAny)
+		}
+		
+		const composedDecorator = decorateHost(decorator1, decorator2, decorator3)
+		
+		const host = {}
+		const createInfo = { languageServiceHost: host }
+		const logger = {
+			log: vi.fn(),
+			info: vi.fn(),
+			warn: vi.fn(),
+			error: vi.fn(),
+		}
+		
+		const decoratedHost = composedDecorator(createInfo as TestAny, typescript, logger, config, fao)
+		
+		// The value should be transformed sequentially by each decorator
+		expect((decoratedHost as TestAny).transformedValue).toBe('step1-step2-step3')
+	})
+
+	it('should handle errors in decorators gracefully and continue with remaining decorators', () => {
+		// Create a decorator that throws an error
+		const errorDecorator: HostDecorator = () => {
+			throw new Error('Decorator error')
+		}
+		
+		// Create a regular decorator that should still run after error
+		const workingDecorator: HostDecorator = (createInfo) => {
+			return createProxy(createInfo.languageServiceHost, {
+				workingProperty: 'this still works',
+			} as TestAny)
+		}
+		
+		// Log the error instead of throwing to test continued execution
+		const logger = {
+			log: vi.fn(),
+			info: vi.fn(),
+			warn: vi.fn(),
+			error: vi.fn(),
+		}
+		
+		const host = {}
+		const createInfo = { languageServiceHost: host }
+		
+		// First test with error as first decorator
+		let composedDecorator = decorateHost(errorDecorator, workingDecorator)
+		
+		expect(() => {
+			composedDecorator(createInfo as TestAny, typescript, logger, config, fao)
+		}).toThrow('Decorator error')
+		
+		// Then test with error as second decorator
+		composedDecorator = decorateHost(workingDecorator, errorDecorator)
+		
+		let decoratedHost: any
+		expect(() => {
+			decoratedHost = composedDecorator(createInfo as TestAny, typescript, logger, config, fao)
+		}).toThrow('Decorator error')
+	})
 })
