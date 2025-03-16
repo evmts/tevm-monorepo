@@ -1320,6 +1320,9 @@ importers:
       viem:
         specifier: ^2.21.1
         version: 2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
     devDependencies:
       '@tevm/test-utils':
         specifier: workspace:^
@@ -1879,6 +1882,9 @@ importers:
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
     devDependencies:
       '@tevm/actions':
         specifier: workspace:^
@@ -6530,7 +6536,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
