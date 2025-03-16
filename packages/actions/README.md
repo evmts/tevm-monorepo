@@ -11,27 +11,6 @@
 
 Actions add functionality to the [base client](https://github.com/evmts/tevm-monorepo/tree/main/packages/node)
 
-## Zod Replacement
-
-This package is currently undergoing a transition from Zod-based schema validation to vanilla JavaScript validation. During this transition, some of the TypeScript settings have been temporarily relaxed in the tsconfig.json file to allow the build to succeed.
-
-### Current Status
-
-- All Zod schemas have been replaced with vanilla JavaScript validation functions
-- For backward compatibility, the zXXX.js files still exist, but they now use the new validation functions internally
-- The test files have been updated to work without relying on Zod types
-
-### Next Steps
-
-1. Fix remaining type errors in the codebase after removing Zod
-2. Re-enable strict type checking in tsconfig.json
-3. Consider removing the z*.js files entirely and updating all imports to use the new validation functions directly
-
-### Files Structure
-
-- `src/internal/validators/`: Contains the new validation functions
-- `src/internal/zod/`: Contains the backward compatibility layer for Zod schemas
-
 ## Installation
 
 Action handlers can be imported from `tevm/actions` or `@tevm/actions`
