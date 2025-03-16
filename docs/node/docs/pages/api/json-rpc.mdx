@@ -80,15 +80,15 @@ Tevm also supports additional methods commonly found in development environments
 For more information, see the [Viem Documentation](https://viem.sh/docs/clients/custom.html).
 
 ```ts
-import { createTevmNode } from 'tevm'
+import { createTevmTransport } from 'tevm/memory-client'
 import { createPublicClient, custom } from 'viem'
 import { requestEip1193 } from 'tevm/decorators'
 
-const node = createTevmNode().extend(requestEip1193())
+const tevmTransport = createTevmTransport()
 
 const client = createPublicClient({
   chain: mainnet,
-  transport: custom(node.request),
+  transport: tevmTransport,
 })
 ```
 

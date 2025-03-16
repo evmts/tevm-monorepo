@@ -77,18 +77,15 @@ const forkClient = createMemoryClient({
 });
 
 // Tree-shakable client (lighter weight)
-import { createClient, http, custom } from "viem";
-import { createTevmNode } from "tevm";
+import { createClient, http } from "viem";
+import { createTevmTransport } from "tevm/memory-client";
 import { optimism } from "tevm/common";
-import { eip1193Request } from "tevm/decorators";
-const node = createTevmNode({
-  fork: {
-    transport: http("https://mainnet.optimism.io"),
-    common: optimism,
-  },
-}).extend(eip1193Request());
+
 const client = createClient({
-  transport: custom(node),
+  transport: createTevmTransport({
+    fork: {transport: http('https://mainnet.optimism.io')},
+    common: optimism
+  }),
 });
 import { getBlockNumber } from "viem";
 await getBlockNumber(client);
