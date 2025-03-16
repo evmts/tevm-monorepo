@@ -514,28 +514,28 @@ importers:
         version: 11.0.1
       ink:
         specifier: ^5.2.0
-        version: 5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+        version: 5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
       ink-big-text:
         specifier: ^2.0.0
-        version: 2.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
+        version: 2.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
       ink-gradient:
         specifier: ^3.0.0
-        version: 3.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))
+        version: 3.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))
       ink-select-input:
         specifier: ^6.0.0
-        version: 6.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
+        version: 6.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
       ink-spinner:
         specifier: ^5.0.0
-        version: 5.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
+        version: 5.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
       ink-text-input:
         specifier: ^6.0.0
-        version: 6.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
+        version: 6.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
       json-bigint:
         specifier: ^1.0.0
         version: 1.0.0
       pastel:
         specifier: ^3.0.0
-        version: 3.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(zod@3.24.2)
+        version: 3.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(zod@3.24.2)
       react:
         specifier: ^18.0.0
         version: 18.3.1
@@ -553,7 +553,7 @@ importers:
         version: 3.24.2
       zustand:
         specifier: ^5.0.3
-        version: 5.0.3(@types/react@19.0.10)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
+        version: 5.0.3(@types/react@18.3.18)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
     devDependencies:
       '@sindresorhus/tsconfig':
         specifier: ^7.0.0
@@ -565,8 +565,8 @@ importers:
         specifier: ^2.0.4
         version: 2.0.4
       '@types/react':
-        specifier: ^19.0.10
-        version: 19.0.10
+        specifier: ^18.0.0
+        version: 18.3.18
       '@vdemedes/prettier-config':
         specifier: ^2.0.1
         version: 2.0.1
@@ -587,7 +587,7 @@ importers:
         version: 5.2.0(eslint@8.57.1)
       ink-testing-library:
         specifier: ^4.0.0
-        version: 4.0.0(@types/react@19.0.10)
+        version: 4.0.0(@types/react@18.3.18)
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -2205,12 +2205,6 @@ importers:
 
   tevm:
     dependencies:
-      '@clack/core':
-        specifier: ^0.4.1
-        version: 0.4.1
-      '@clack/prompts':
-        specifier: ^0.7.0
-        version: 0.7.0
       '@tevm/actions':
         specifier: workspace:^
         version: link:../packages/actions
@@ -2334,9 +2328,6 @@ importers:
       glob:
         specifier: ^11.0.1
         version: 11.0.1
-      picocolors:
-        specifier: ^1.0.0
-        version: 1.1.1
       solc:
         specifier: ^0.8.28
         version: 0.8.28
@@ -2725,9 +2716,6 @@ packages:
 
   '@clack/core@0.3.5':
     resolution: {integrity: sha512-5cfhQNH+1VQ2xLQlmzXMqUoiaH0lRBq9/CLW9lTyMbuKLC3+xEK01tHVvyut++mLOn5urSHmkm6I0Lg9MaJSTQ==}
-
-  '@clack/core@0.4.1':
-    resolution: {integrity: sha512-Pxhij4UXg8KSr7rPek6Zowm+5M22rbd2g1nfojHJkxp5YkFqiZ2+YLEM/XGVIzvGOcM0nqjIFxrpDwWRZYWYjA==}
 
   '@clack/prompts@0.7.0':
     resolution: {integrity: sha512-0MhX9/B4iL6Re04jPrttDm+BsP8y6mS7byuv0BvXgdXhbV5PdlsHt55dvNsuBCPZ7xq1oTAOOuotR9NFbQyMSA==}
@@ -5713,6 +5701,9 @@ packages:
   '@types/prismjs@1.26.5':
     resolution: {integrity: sha512-AUZTa7hQ2KY5L7AmtSiqxlhWxb4ina0yd8hNbl4TWuqnv/pFP0nDMb3YrfSBf4hJVGLh2YEIBfKaBW/9UEl6IQ==}
 
+  '@types/prop-types@15.7.14':
+    resolution: {integrity: sha512-gNMvNH49DJ7OJYv+KAKn0Xp45p8PLl6zo2YnvDIbTd4J6MER2BmWN49TG7n9LvkyihINxeKW8+3bfS2yDC9dzQ==}
+
   '@types/qs@6.9.18':
     resolution: {integrity: sha512-kK7dgTYDyGqS+e2Q4aK9X3D7q234CIZ1Bv0q/7Z5IwRDoADNU81xXJK/YVyLbLTZCoIwUoDoffFeF+p/eIklAA==}
 
@@ -5723,6 +5714,9 @@ packages:
     resolution: {integrity: sha512-4fSQ8vWFkg+TGhePfUzVmat3eC14TXYSsiiDSLI0dVLsrm9gZFABjPy/Qu6TKgl1tq1Bu1yDsuQgY3A3DOjCcg==}
     peerDependencies:
       '@types/react': ^19.0.0
+
+  '@types/react@18.3.18':
+    resolution: {integrity: sha512-t4yC+vtgnkYjNSKlFx1jkAhH8LgTo2N/7Qvi83kdEaUtMDiwpbLAktKDaAMlRcJ5eSxZkH74eEGt1ky31d7kfQ==}
 
   '@types/react@19.0.10':
     resolution: {integrity: sha512-JuRQ9KXLEjaUNjTWpzuR231Z2WpIwczOkBEIvbHNCzQefFIT0L8IqE6NV6ULLyC1SI/i234JnDoMkfg+RjQj2g==}
@@ -6699,6 +6693,7 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -14492,11 +14487,6 @@ snapshots:
       picocolors: 1.1.1
       sisteransi: 1.0.5
 
-  '@clack/core@0.4.1':
-    dependencies:
-      picocolors: 1.1.1
-      sisteransi: 1.0.5
-
   '@clack/prompts@0.7.0':
     dependencies:
       '@clack/core': 0.3.5
@@ -15428,13 +15418,13 @@ snapshots:
   '@img/sharp-win32-x64@0.33.5':
     optional: true
 
-  '@inkjs/ui@2.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))':
+  '@inkjs/ui@2.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))':
     dependencies:
       chalk: 5.4.1
       cli-spinners: 3.2.0
       deepmerge: 4.3.1
       figures: 6.1.0
-      ink: 5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      ink: 5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
 
   '@inquirer/checkbox@3.0.1':
     dependencies:
@@ -17661,11 +17651,11 @@ snapshots:
 
   '@types/ink-big-text@1.2.4':
     dependencies:
-      '@types/react': 19.0.10
+      '@types/react': 18.3.18
 
   '@types/ink-gradient@2.0.4':
     dependencies:
-      '@types/react': 19.0.10
+      '@types/react': 18.3.18
 
   '@types/js-cookie@2.2.7': {}
 
@@ -17731,6 +17721,8 @@ snapshots:
 
   '@types/prismjs@1.26.5': {}
 
+  '@types/prop-types@15.7.14': {}
+
   '@types/qs@6.9.18': {}
 
   '@types/range-parser@1.2.7': {}
@@ -17738,6 +17730,11 @@ snapshots:
   '@types/react-dom@19.0.4(@types/react@19.0.10)':
     dependencies:
       '@types/react': 19.0.10
+
+  '@types/react@18.3.18':
+    dependencies:
+      '@types/prop-types': 15.7.14
+      csstype: 3.1.3
 
   '@types/react@19.0.10':
     dependencies:
@@ -22301,47 +22298,47 @@ snapshots:
 
   ini@4.1.1: {}
 
-  ink-big-text@2.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
+  ink-big-text@2.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
     dependencies:
       cfonts: 3.3.0
-      ink: 5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      ink: 5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
       prop-types: 15.8.1
       react: 18.3.1
 
-  ink-gradient@3.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)):
+  ink-gradient@3.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)):
     dependencies:
       '@types/gradient-string': 1.1.6
       gradient-string: 2.0.2
-      ink: 5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      ink: 5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
       prop-types: 15.8.1
       strip-ansi: 7.1.0
 
-  ink-select-input@6.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
+  ink-select-input@6.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
     dependencies:
       figures: 6.1.0
-      ink: 5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      ink: 5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
       lodash.isequal: 4.5.0
       react: 18.3.1
       to-rotated: 1.0.0
 
-  ink-spinner@5.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
+  ink-spinner@5.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
     dependencies:
       cli-spinners: 2.9.2
-      ink: 5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      ink: 5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
       react: 18.3.1
 
-  ink-testing-library@4.0.0(@types/react@19.0.10):
+  ink-testing-library@4.0.0(@types/react@18.3.18):
     optionalDependencies:
-      '@types/react': 19.0.10
+      '@types/react': 18.3.18
 
-  ink-text-input@6.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
+  ink-text-input@6.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1):
     dependencies:
       chalk: 5.4.1
-      ink: 5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      ink: 5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
       react: 18.3.1
       type-fest: 4.37.0
 
-  ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10):
+  ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10):
     dependencies:
       '@alcalzone/ansi-tokenize': 0.1.3
       ansi-escapes: 7.0.0
@@ -22369,7 +22366,7 @@ snapshots:
       ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       yoga-layout: 3.2.1
     optionalDependencies:
-      '@types/react': 19.0.10
+      '@types/react': 18.3.18
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -24700,12 +24697,12 @@ snapshots:
 
   pascalcase@0.1.1: {}
 
-  pastel@3.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(zod@3.24.2):
+  pastel@3.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(zod@3.24.2):
     dependencies:
-      '@inkjs/ui': 2.0.0(ink@5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))
+      '@inkjs/ui': 2.0.0(ink@5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))
       commander: 12.1.0
       decamelize: 6.0.0
-      ink: 5.2.0(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
+      ink: 5.2.0(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)
       plur: 5.1.0
       react: 18.3.1
       read-package-up: 11.0.0
@@ -28187,9 +28184,9 @@ snapshots:
       react: 19.0.0
       use-sync-external-store: 1.4.0(react@19.0.0)
 
-  zustand@5.0.3(@types/react@19.0.10)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1)):
+  zustand@5.0.3(@types/react@18.3.18)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1)):
     optionalDependencies:
-      '@types/react': 19.0.10
+      '@types/react': 18.3.18
       react: 18.3.1
       use-sync-external-store: 1.4.0(react@18.3.1)
 

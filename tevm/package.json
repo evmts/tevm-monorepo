@@ -413,8 +413,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@clack/core": "^0.4.1",
-    "@clack/prompts": "^0.7.0",
     "@tevm/actions": "workspace:^",
     "@tevm/address": "workspace:^",
     "@tevm/base-bundler": "workspace:^",
@@ -422,6 +420,7 @@
     "@tevm/blockchain": "workspace:^",
     "@tevm/bun-plugin": "workspace:^",
     "@tevm/bundler-cache": "workspace:^",
+    "@tevm/cli": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/compiler": "workspace:^",
@@ -444,7 +443,6 @@
     "@tevm/solc": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/sync-storage-persister": "workspace:^",
-    "@tevm/cli": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
     "@tevm/tx": "workspace:^",
     "@tevm/txpool": "workspace:^",
@@ -456,7 +454,6 @@
     "commander": "^13.1.0",
     "effect": "3.13.2",
     "glob": "^11.0.1",
-    "picocolors": "^1.0.0",
     "solc": "^0.8.28"
   },
   "devDependencies": {
