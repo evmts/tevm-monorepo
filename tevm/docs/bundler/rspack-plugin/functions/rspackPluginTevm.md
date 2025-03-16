@@ -6,7 +6,7 @@
 
 # Function: rspackPluginTevm()
 
-> **rspackPluginTevm**(`options`?): `any`
+> **rspackPluginTevm**(`options`?): `RspackPluginInstance`
 
 Defined in: bundler-packages/rspack/types/rspackPluginTevm.d.ts:140
 
@@ -33,7 +33,7 @@ Solidity compiler version to use
 
 ## Returns
 
-`any`
+`RspackPluginInstance`
 
 - An Rspack plugin instance
 
