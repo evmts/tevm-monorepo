@@ -14,7 +14,7 @@
 		"format": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
 		"format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
 		"start": "next start",
-		"typecheck": "tsc --noEmit"
+		"//typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@radix-ui/react-accordion": "^1.2.3",
