@@ -13,7 +13,7 @@ export const getStorageAtHandler = (client) => async (params) => {
 	const tag = params.blockTag ?? 'latest'
 	if (tag === 'pending') {
 		const mineResult = await getPendingClient(client)
-		if (mineResult.errors) {
+		if ('errors' in mineResult) {
 			throw mineResult.errors[0]
 		}
 		return getStorageAtHandler(mineResult.pendingClient)({ ...params, blockTag: 'latest' })

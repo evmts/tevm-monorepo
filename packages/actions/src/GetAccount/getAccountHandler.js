@@ -48,7 +48,7 @@ export const getAccountHandler =
 		try {
 			if (params.blockTag === 'pending') {
 				const mineResult = await getPendingClient(client)
-				if (mineResult.errors) {
+				if ('errors' in mineResult) {
 					return maybeThrowOnFail(throwOnFail, {
 						errors: mineResult.errors,
 						address: params.address,

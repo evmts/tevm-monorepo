@@ -254,9 +254,7 @@ describe("handleAutomining", () => {
 		);
 
 		// Should log gas mining mode with limit
-		expect(debugSpy).toHaveBeenCalledWith(
-			`Gas mining mode with limit ${client.miningConfig.limit}`,
-		);
+		expect(debugSpy).toHaveBeenCalledWith(`Gas mining mode with limit ${(client.miningConfig as any).limit}`);
 
 		// Should call mineHandler with client
 		expect(mineHandlerMock).toHaveBeenCalledWith(client)

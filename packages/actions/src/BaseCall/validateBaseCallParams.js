@@ -194,7 +194,7 @@ export const validateBaseCallParams = (action) => {
 			errors.push(new InvalidBlobVersionedHashesError('Expected array, received object'))
 		} else {
 			// Validate each item in the array
-			action.blobVersionedHashes.forEach((hash, index) => {
+			action.blobVersionedHashes.forEach((hash) => {
 				if (typeof hash !== 'string') {
 					errors.push(new InvalidBlobVersionedHashesError(`Expected string, received ${typeof hash}`))
 				} else {

@@ -77,10 +77,15 @@ export const callHandler =
 				})
 			}
 			// if we are creating a transaction we want to use the real txpool so the tx gets properly added
-			if (_params.createTransaction) {
+			if (_params.createTransaction && 'pendingClient' in minePending) {
 				const pendingClientAny = /** @type {any}*/ (minePending.pendingClient)
 				pendingClientAny.getTxPool = client.getTxPool
 			}
+			
+			if (!('pendingClient' in minePending)) {
+				throw new Error('No pending client available for call')
+			}
+			
 			return callHandler(minePending.pendingClient, { throwOnFail: defaultThrowOnFail })({
 				...(code !== undefined ? { code } : {}),
 				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),

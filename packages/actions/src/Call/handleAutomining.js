@@ -6,7 +6,7 @@ import { mineHandler } from '../Mine/mineHandler.js'
  * @param {import("@tevm/node").TevmNode} client
  * @param {import("viem").Hex} [txHash]
  * @param {boolean} [isGasMining] Whether this is being triggered by gas mining
- * @returns {Promise<{blockHashes?: undefined, errors?: import('../Mine/TevmMineError.js').TevmMineError[]} | undefined>} undefined if noop, errors if automining fails, blockHashes if automining succeeds
+ * @returns {Promise<import('../Mine/MineResult.js').MineResult | undefined>} undefined if noop, errors if automining fails, blockHashes if automining succeeds
  * @throws {never} returns errors as values
  */
 export const handleAutomining = async (client, txHash, isGasMining = false) => {
@@ -26,7 +26,7 @@ export const handleAutomining = async (client, txHash, isGasMining = false) => {
 		// Mine the specified number of blocks
 		const mineRes = await mineHandler(client)({
 			throwOnFail: false,
-			blocks,
+			blockCount: blocks,
 		})
 
 		if (mineRes.errors?.length) {

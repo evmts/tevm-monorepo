@@ -30,7 +30,7 @@ export const getBalanceHandler =
 		}
 		if (blockTag === 'pending') {
 			const mineResult = await getPendingClient(baseClient)
-			if (mineResult.errors) {
+			if ('errors' in mineResult) {
 				throw mineResult.errors[0]
 			}
 			return getBalanceHandler(mineResult.pendingClient)({ address, blockTag: 'latest' })
