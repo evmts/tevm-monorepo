@@ -7,6 +7,17 @@ import type { ForkOptions } from './ForkOptions.js'
 import type { StateRoots } from './StateRoots.js'
 import type { TevmState } from './TevmState.js'
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { StateOptions } from '[package-path]'
+ * 
+ * const value: StateOptions = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type StateOptions = {
 	fork?: ForkOptions
 	genesisState?: TevmState

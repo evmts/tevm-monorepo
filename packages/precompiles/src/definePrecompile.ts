@@ -3,6 +3,15 @@ import type { ExecResult } from '@tevm/evm'
 import type { Address, Hex } from '@tevm/utils'
 import { Precompile } from './Precompile.js'
 
+/**
+ * [Description of definePrecompile]
+ * @example
+ * ```typescript
+ * import { definePrecompile } from '[package-path]'
+ * 
+ * // Example usage
+ * ```
+ */
 export const definePrecompile = <
 	TContract extends Contract<any, any, Address, any, any, any> = Contract<
 		string,

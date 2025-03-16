@@ -6,4 +6,15 @@
 
 import type { RpcSchema } from './RpcSchema.js'
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { RpcSchemaOverride } from '[package-path]'
+ * 
+ * const value: RpcSchemaOverride = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type RpcSchemaOverride = Omit<RpcSchema[number], 'Method'>

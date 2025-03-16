@@ -1,5 +1,14 @@
 import type { Abi } from '@tevm/utils'
 
+/**
+ * [Description of dummyAbi]
+ * @example
+ * ```typescript
+ * import { dummyAbi } from '[package-path]'
+ * 
+ * // Example usage
+ * ```
+ */
 export const dummyAbi = [
 	{
 		type: 'function',

@@ -11,6 +11,17 @@ import type { WalletPermission } from './WalletPermission.js'
 import type { WatchAssetParams } from './WatchAssetParams.js'
 import type { Hash } from './misc.js'
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { JsonRpcSchemaWallet } from '[package-path]'
+ * 
+ * const value: JsonRpcSchemaWallet = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type JsonRpcSchemaWallet = {
 	/**
 	 * @description Returns a list of addresses owned by this client

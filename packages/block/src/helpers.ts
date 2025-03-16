@@ -21,6 +21,19 @@ export const numberToHex = (input?: string): Hex | undefined => {
 	return input
 }
 
+/**
+ * Converts a BlockHeaderBytes array to a HeaderData object
+ * @param {BlockHeaderBytes} values - Array of raw header bytes containing block header fields
+ * @returns {HeaderData} The converted header data object with named properties
+ * @example
+ * ```typescript
+ * import { valuesArrayToHeaderData } from '@tevm/block'
+ * 
+ * // Convert raw header bytes to a structured HeaderData object
+ * const headerData = valuesArrayToHeaderData(blockHeaderBytes)
+ * console.log(headerData.parentHash, headerData.stateRoot)
+ * ```
+ */
 export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
 	const [
 		parentHash,
@@ -78,6 +91,21 @@ export function valuesArrayToHeaderData(values: BlockHeaderBytes): HeaderData {
 	}
 }
 
+/**
+ * Extracts the difficulty value from block header data
+ * @param {HeaderData} headerData - The header data object to extract difficulty from
+ * @returns {bigint | null} The difficulty as a bigint, or null if not present
+ * @example
+ * ```typescript
+ * import { getDifficulty } from '@tevm/block'
+ * 
+ * // Get the difficulty from a block header
+ * const difficulty = getDifficulty(blockHeader)
+ * if (difficulty !== null) {
+ *   console.log(`Block difficulty: ${difficulty}`)
+ * }
+ * ```
+ */
 export function getDifficulty(headerData: HeaderData): bigint | null {
 	const { difficulty } = headerData
 	if (difficulty !== undefined) {
@@ -86,6 +114,20 @@ export function getDifficulty(headerData: HeaderData): bigint | null {
 	return null
 }
 
+/**
+ * Counts the total number of blobs in a list of transactions
+ * Only EIP-4844 blob transactions contribute to this count
+ * @param {TypedTransaction[]} transactions - Array of transactions to analyze
+ * @returns {number} The total count of blobs across all blob transactions
+ * @example
+ * ```typescript
+ * import { getNumBlobs } from '@tevm/block'
+ * 
+ * // Count blobs in a block's transactions
+ * const blobCount = getNumBlobs(block.transactions)
+ * console.log(`Block contains ${blobCount} blobs`)
+ * ```
+ */
 export const getNumBlobs = (transactions: TypedTransaction[]) => {
 	let numBlobs = 0
 	for (const tx of transactions) {

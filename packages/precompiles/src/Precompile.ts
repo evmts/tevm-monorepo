@@ -9,6 +9,15 @@ import { type Address, EthjsAddress, type Hex, toHex } from '@tevm/utils'
  * import { defineCall, definePrecompile } from '@tevm/precompiles'
  * import { Fs } from './Fs.s.sol'
  *
+ /**
+  * [Description of fsPrecompile]
+  * @example
+  * ```typescript
+  * import { fsPrecompile } from '[package-path]'
+  * 
+  * // Example usage
+  * ```
+  */
  * export const fsPrecompile = definePrecompile({
  * 	contract:
  * 		Fs.withAddress(

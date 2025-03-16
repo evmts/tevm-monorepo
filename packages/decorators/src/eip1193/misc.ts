@@ -6,5 +6,27 @@
 // import type { Address } from 'abitype'
 import type { Hex } from '@tevm/utils'
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { Hash } from '[package-path]'
+ * 
+ * const value: Hash = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type Hash = `0x${string}`
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { LogTopic } from '[package-path]'
+ * 
+ * const value: LogTopic = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type LogTopic = Hex | Hex[] | null

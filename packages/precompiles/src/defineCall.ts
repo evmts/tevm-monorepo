@@ -16,6 +16,15 @@ type Handler<TAbi extends Abi, TFunctionName extends ExtractAbiFunctionNames<TAb
 	args: AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>['inputs']>
 }) => Promise<CallResult<TAbi, TFunctionName>>
 
+/**
+ * [Description of defineCall]
+ * @example
+ * ```typescript
+ * import { defineCall } from '[package-path]'
+ * 
+ * // Example usage
+ * ```
+ */
 export const defineCall = <TAbi extends Abi>(
 	abi: TAbi,
 	handlers: {

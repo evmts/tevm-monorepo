@@ -6,8 +6,30 @@
 // import type { Address } from 'abitype'
 import type { Hex } from '@tevm/utils'
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { Quantity } from '[package-path]'
+ * 
+ * const value: Quantity = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type Quantity = Hex
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { NetworkSync } from '[package-path]'
+ * 
+ * const value: NetworkSync = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type NetworkSync = {
 	/** The current block number */
 	currentBlock: Quantity

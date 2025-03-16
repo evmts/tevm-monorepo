@@ -4,6 +4,17 @@
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { AddEthereumChainParameter } from '[package-path]'
+ * 
+ * const value: AddEthereumChainParameter = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type AddEthereumChainParameter = {
 	/** A 0x-prefixed hexadecimal string */
 	chainId: string

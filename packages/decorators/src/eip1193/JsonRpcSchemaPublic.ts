@@ -21,6 +21,17 @@ import type {
 } from 'viem'
 import type { Hash, LogTopic } from './misc.js'
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { JsonRpcSchemaPublic } from '[package-path]'
+ * 
+ * const value: JsonRpcSchemaPublic = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type JsonRpcSchemaPublic = {
 	/**
 	 * @description Returns the version of the current client

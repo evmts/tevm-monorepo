@@ -5,6 +5,17 @@
 // to lock in these types independent of viem potentially making changes
 import type { WalletPermissionCaveat } from './WalletPermissionCaveat.js'
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { WalletPermission } from '[package-path]'
+ * 
+ * const value: WalletPermission = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type WalletPermission = {
 	caveats: WalletPermissionCaveat[]
 	date: number

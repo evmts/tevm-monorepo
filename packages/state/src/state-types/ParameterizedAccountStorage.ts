@@ -2,6 +2,17 @@
 import type { StorageDump } from '@tevm/common'
 import type { Hex } from 'viem'
 
+/**
+ * [Description of what this interface represents]
+ * @example
+ * ```typescript
+ * import { ParameterizedAccountStorage } from '[package-path]'
+ * 
+ * const value: ParameterizedAccountStorage = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export interface ParameterizedAccountStorage {
 	nonce: Hex
 	balance: Hex

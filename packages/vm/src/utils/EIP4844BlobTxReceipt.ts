@@ -1,5 +1,16 @@
 import type { PostByzantiumTxReceipt } from './PostByzantiumTxReceipt.js'
 
+/**
+ * [Description of what this interface represents]
+ * @example
+ * ```typescript
+ * import { EIP4844BlobTxReceipt } from '[package-path]'
+ * 
+ * const value: EIP4844BlobTxReceipt = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export interface EIP4844BlobTxReceipt extends PostByzantiumTxReceipt {
 	/**
 	 * blob gas consumed by a transaction

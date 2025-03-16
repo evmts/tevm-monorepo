@@ -9,6 +9,17 @@ import type {
 } from '@tevm/actions'
 import type { SerializeToJson } from '@tevm/utils'
 
+/**
+ * [Description of what this type represents]
+ * @example
+ * ```typescript
+ * import { JsonRpcSchemaTevm } from '[package-path]'
+ * 
+ * const value: JsonRpcSchemaTevm = {
+ *   // Initialize properties
+ * }
+ * ```
+ */
 export type JsonRpcSchemaTevm = {
 	/**
 	 * @description A versatile way of executing an EVM call with many options and detailed return data
