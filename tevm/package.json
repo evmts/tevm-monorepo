@@ -359,6 +359,9 @@
   "main": "index.cjs",
   "module": "index.js",
   "types": "index.d.ts",
+  "bin": {
+    "tevm": "./cli.js"
+  },
   "files": [
     "index*",
     "actions",
@@ -392,7 +395,8 @@
     "bundler/rollup-plugin",
     "bundler/rspack-plugin",
     "bundler/vite-plugin",
-    "bundler/webpack-plugin"
+    "bundler/webpack-plugin",
+    "bin"
   ],
   "scripts": {
     "all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
@@ -416,6 +420,7 @@
     "@tevm/blockchain": "workspace:^",
     "@tevm/bun-plugin": "workspace:^",
     "@tevm/bundler-cache": "workspace:^",
+    "@tevm/cli": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/compiler": "workspace:^",
@@ -438,6 +443,7 @@
     "@tevm/solc": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/sync-storage-persister": "workspace:^",
+    "@tevm/ts-plugin": "workspace:^",
     "@tevm/tx": "workspace:^",
     "@tevm/txpool": "workspace:^",
     "@tevm/utils": "workspace:^",

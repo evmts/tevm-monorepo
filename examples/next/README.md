@@ -1,5 +1,9 @@
 # next-example
 
+Typescript build is currently broke (though app still runs) because this example project got deprioritized March 16th. We will update this example with working build, new features, and tevm bundler support in future.
+
+Reach out if you are interested in contributing
+
 ## Table of contents
 
 - [Overview](#overview)

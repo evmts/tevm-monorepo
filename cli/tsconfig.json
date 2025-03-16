@@ -1,0 +1,10 @@
+{
+	"extends": "@sindresorhus/tsconfig",
+	"compilerOptions": {
+		"moduleResolution": "node16",
+		"module": "Node16",
+		"checkJs": true,
+		"outDir": "dist"
+	},
+	"include": ["src"]
+}
