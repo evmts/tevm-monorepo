@@ -1661,6 +1661,9 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../actions
+      '@tevm/address':
+        specifier: workspace:^
+        version: link:../address
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
@@ -6693,7 +6696,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 

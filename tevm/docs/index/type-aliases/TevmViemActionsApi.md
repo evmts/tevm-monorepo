@@ -24,6 +24,10 @@ To add these actions use the `extend` method on a TevmClient with the tevmViemAc
 
 > **tevmContract**: [`TevmActionsApi`](TevmActionsApi.md)\[`"contract"`\]
 
+### tevmDeal
+
+> **tevmDeal**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deal"`\]
+
 ### tevmDeploy
 
 > **tevmDeploy**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deploy"`\]
