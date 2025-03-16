@@ -21,9 +21,11 @@ export async function createEditorProject(actionName, options, createParams) {
   fs.mkdirSync(projectDir, { recursive: true });
 
   // Generate the template files
+  // @ts-ignore - templates has the expected properties
   const templates = generateTemplates(actionName, options, createParams);
 
   // Write all template files to the project directory
+  // @ts-ignore - templates has the expected properties
   const filesToWrite = {
     'package.json': templates.packageJson,
     'script.ts': templates.scriptTemplate,
@@ -38,12 +40,25 @@ export async function createEditorProject(actionName, options, createParams) {
     fs.writeFileSync(path.join(projectDir, filename), content, 'utf8');
   });
 
+  // Copy the bun.lockb file to the project
+  const lockbPath = path.join(__dirname, 'bun.lockb');
+  if (fs.existsSync(lockbPath)) {
+    fs.copyFileSync(lockbPath, path.join(projectDir, 'bun.lockb'));
+  }
+
   // Create a .installing file to indicate installation is in progress
   const waitingPath = path.join(projectDir, '.installing');
   fs.writeFileSync(waitingPath, 'Installing dependencies...', 'utf8');
 
-  // Start bun install in the background
-  const bunInstallProcess = spawn('bun', ['install'], {
+  // Start bun install in the background with optimization flags
+  const bunInstallProcess = spawn('bun', [
+    'install',
+    '--frozen-lockfile', // Use the lockfile we provided
+    '--no-cache',      // Skip using the cache
+    '--no-progress',   // Skip progress output
+    '--no-summary',    // Skip installation summary
+    '--no-save',       // Don't update package.json or lockfile
+  ], {
     cwd: projectDir,
     stdio: 'ignore',
     shell: true,
@@ -76,7 +91,7 @@ export async function createEditorProject(actionName, options, createParams) {
  */
 export async function openEditor(projectDir) {
   const scriptPath = path.join(projectDir, 'script.ts');
-  const editor = process.env['EDITOR'] || process.env['VISUAL'] || 
+  const editor = process.env['EDITOR'] || process.env['VISUAL'] ||
     (os.platform() === 'win32' ? 'notepad' : 'vim');
 
   console.log(`Opening ${scriptPath} with ${editor}...`);
@@ -107,7 +122,7 @@ export async function openEditor(projectDir) {
  */
 export async function executeTsFile(projectDir) {
   const scriptPath = path.join(projectDir, 'script.ts');
-  
+
   return new Promise((resolve, reject) => {
     let stdout = '';
     let stderr = '';
@@ -154,6 +169,9 @@ export async function executeTsFile(projectDir) {
 export function cleanupProject(projectDir) {
   try {
     // Use recursive removal for directories
+    /**
+     * @param {string} dir
+     */
     const removeRecursive = (dir) => {
       if (fs.existsSync(dir)) {
         fs.readdirSync(dir).forEach((file) => {

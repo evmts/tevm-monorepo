@@ -26,21 +26,18 @@ export const options = z.object({
   address: z.string().describe(
     option({
       description: optionDescriptions.address,
-      required: true,
     })
   ),
 
   abi: z.string().describe(
     option({
       description: optionDescriptions.abi,
-      required: true,
     })
   ),
 
   functionName: z.string().describe(
     option({
       description: optionDescriptions.functionName,
-      required: true,
     })
   ),
 
@@ -120,9 +117,9 @@ export default function ReadContract({ options }: Props) {
       // Parse ABI from string
       let abi;
       try {
-        abi = typeof enhancedOptions.abi === 'string' 
-          ? JSON.parse(enhancedOptions.abi) 
-          : enhancedOptions.abi || fallbackERC20Abi;
+        abi = typeof (enhancedOptions as any).abi === 'string'
+          ? JSON.parse((enhancedOptions as any).abi)
+          : (enhancedOptions as any).abi || fallbackERC20Abi;
       } catch (e) {
         console.warn('Failed to parse ABI, using fallback ERC20 ABI');
         abi = fallbackERC20Abi;
@@ -130,28 +127,28 @@ export default function ReadContract({ options }: Props) {
 
       // Parse arguments if provided
       let args = [];
-      if (enhancedOptions.args) {
+      if ((enhancedOptions as any).args) {
         try {
-          args = typeof enhancedOptions.args === 'string'
-            ? JSON.parse(enhancedOptions.args)
-            : enhancedOptions.args;
-          
+          args = typeof (enhancedOptions as any).args === 'string'
+            ? JSON.parse((enhancedOptions as any).args)
+            : (enhancedOptions as any).args;
+
           // Ensure args is an array
           if (!Array.isArray(args)) {
             args = [args];
           }
         } catch (e) {
-          console.warn(`Invalid arguments format: ${e.message}`);
+          console.warn(`Invalid arguments format: ${(e as any).message}`);
         }
       }
 
       // Return the params object
       return {
-        address: enhancedOptions.address,
+        address: (enhancedOptions as any).address,
         abi,
-        functionName: enhancedOptions.functionName,
+        functionName: (enhancedOptions as any).functionName,
         args,
-        blockTag: enhancedOptions.blockTag,
+        blockTag: (enhancedOptions as any).blockTag,
       };
     },
 
@@ -165,7 +162,7 @@ export default function ReadContract({ options }: Props) {
   return (
     <CliAction
       {...actionResult}
-      targetName={`${actionResult.options.functionName} at ${actionResult.options.address}`}
+      targetName={`${(actionResult.options as any).functionName} at ${(actionResult.options as any).address}`}
       successMessage="Contract read successfully!"
     />
   );

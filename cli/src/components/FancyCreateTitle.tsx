@@ -1,6 +1,6 @@
 import React from 'react'
-import BigText from 'ink-big-text'
 import Gradient from 'ink-gradient'
+import BigText from 'ink-big-text'
 import { useCounter } from '../hooks/useCounter.js'
 
 const titleText = 'Tevm Create'
@@ -20,4 +20,4 @@ export const FancyCreateTitle: React.FC<Props> = ({ loading }) => {
       <BigText font='tiny' text={text} />
     </Gradient>
   )
-} 
+}

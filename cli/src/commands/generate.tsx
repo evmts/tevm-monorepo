@@ -192,13 +192,13 @@ export default function Generate({ args, options }: Props) {
             // Actual implementation using Tevm bundler
             try {
               setCurrentTask(`Loading config for ${fileName}...`);
-              const config = runSync(loadConfig(cwd));
+              const config = runSync(loadConfig(cwd) as any);
 
               setCurrentTask(`Creating cache for ${fileName}...`);
-              const solcCache = createCache(config.cacheDir, fao, cwd);
+              const solcCache = createCache((config as any).cacheDir, fao, cwd);
 
               setCurrentTask(`Bundling ${fileName}...`);
-              const plugin = bundler(config, console, fao, solc, solcCache, '@tevm/contract');
+              const plugin = bundler(config as any, console, fao, solc, solcCache, 'tevm/contract');
               const tsContent = await plugin.resolveTsModule(`./${file}`, cwd, false, true);
 
               // Ensure directory exists

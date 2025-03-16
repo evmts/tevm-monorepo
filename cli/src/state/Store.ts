@@ -1,10 +1,5 @@
-import { create } from 'zustand'
+import { create} from 'zustand'
 import type { State } from './State.js'
-
-type SetState = (
-  partial: State | Partial<State> | ((state: State) => State | Partial<State>),
-  replace?: boolean | undefined
-) => void
 
 export type Store = State & {
   goToPreviousStep: (params: {}) => void
@@ -16,7 +11,7 @@ export type Store = State & {
   }) => void
 }
 
-export const useStore = create<Store>((set: SetState) => ({
+export const useStore = create<Store>((set) => ({
   name: '',
   currentStep: 0,
   path: '.',
@@ -49,4 +44,4 @@ export const useStore = create<Store>((set: SetState) => ({
       currentStep: state.currentStep + 1,
       currentPage: nextPage ? 'creating' : state.currentPage,
     })),
-})) 
+}))
