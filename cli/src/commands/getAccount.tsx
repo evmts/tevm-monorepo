@@ -5,6 +5,9 @@ import type { GetAccountParams, GetAccountResult } from '@tevm/actions'
 import { useAction, envVar } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Get account information including balance and nonce";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   address: 'Ethereum address of the account to get (env: TEVM_ADDRESS)',

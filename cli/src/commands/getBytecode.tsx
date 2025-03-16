@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Get the deployed bytecode from a contract address";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   address: 'Contract address to get bytecode for (env: TEVM_ADDRESS)',

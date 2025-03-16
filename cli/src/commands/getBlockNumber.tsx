@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Get the current block number of the blockchain";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   rpc: 'RPC endpoint (env: TEVM_RPC)',

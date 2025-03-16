@@ -14,6 +14,9 @@ type Props = {
   args: z.infer<typeof args>
 }
 
+// Add command description for help output
+export const description = "Create a new Ethereum account or smart contract";
+
 export default function Create({ options, args: [defaultName] }: Props) {
   // Initialize store with default values
   React.useEffect(() => {

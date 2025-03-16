@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Estimate the fee per gas for a transaction (EIP-1559 compatible)";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   rpc: 'RPC endpoint (env: TEVM_RPC)',

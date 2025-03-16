@@ -3,6 +3,9 @@ import {Text} from 'ink';
 import zod from 'zod';
 import {option} from 'pastel';
 
+// Add command description for help output
+export const description = "Compile Solidity smart contracts to bytecode and ABI";
+
 export const options = zod.object({
   watch: zod.boolean().describe(
     option({
@@ -34,4 +37,4 @@ export default function Compile({options}: Props) {
       Compiling with target={options.target}, optimize={String(options.optimize)}, watch={String(options.watch)}
     </Text>
   );
-} 
+}

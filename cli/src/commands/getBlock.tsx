@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Get information about a specific block from the blockchain";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   blockHash: 'Block hash to get information for (env: TEVM_BLOCK_HASH)',

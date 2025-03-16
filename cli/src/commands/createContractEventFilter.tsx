@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Create a filter for contract events to monitor blockchain activity";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   abi: 'Contract ABI as JSON string (env: TEVM_ABI)',

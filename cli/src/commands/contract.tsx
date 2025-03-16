@@ -5,6 +5,9 @@ import type { ContractParams, ContractResult } from '@tevm/actions'
 import { useAction, envVar } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Call a contract function with ABI and arguments";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   to: 'Contract address to call (env: TEVM_TO)',

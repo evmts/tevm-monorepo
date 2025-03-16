@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Get transaction details by transaction hash";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   hash: 'Transaction hash to get information for (env: TEVM_HASH)',

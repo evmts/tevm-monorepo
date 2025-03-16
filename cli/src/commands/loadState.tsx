@@ -5,6 +5,9 @@ import type { LoadStateParams, LoadStateResult } from '@tevm/actions'
 import { useAction, envVar } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Load a saved blockchain state from a file into the current node";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   rpc: 'RPC endpoint (env: TEVM_RPC)',

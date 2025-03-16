@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../../hooks/useAction.js'
 import CliAction from '../../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Send a signed raw transaction to the blockchain";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   serializedTransaction: 'The signed serialized transaction (env: TEVM_SERIALIZED_TRANSACTION)',

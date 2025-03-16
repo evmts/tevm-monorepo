@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Resolve an ENS name to its corresponding Ethereum address";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   name: 'ENS name to resolve (env: TEVM_NAME)',

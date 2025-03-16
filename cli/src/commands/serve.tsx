@@ -16,6 +16,9 @@ import LogViewer from '../components/LogViewer.js';
 import HomeTab from '../components/HomeTab.js';
 import { initializeServer } from '../utils/server.js';
 
+// Add command description for help output
+export const description = "Start an Ethereum JSON-RPC server with TEVM features";
+
 export const options = zod.object({
 	port: zod.number().default(8545).describe(
 		option({

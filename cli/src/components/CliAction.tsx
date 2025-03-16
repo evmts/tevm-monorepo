@@ -23,7 +23,7 @@ export interface CliActionProps {
   successMessage?: string
 
   // Editor state
-  editorActive?: boolean // Add this new flag
+  editorActive?: boolean
 }
 
 export default function CliAction({
@@ -34,72 +34,54 @@ export default function CliAction({
   interactiveError,
   actionError,
   targetName,
-  successMessage = 'Action executed successfully!',
-  editorActive = false, // Check for this flag
+  editorActive = false,
 }: CliActionProps) {
   // If editor is active, render absolutely nothing
   if (editorActive) {
     return null;
   }
 
-  // Regular rendering logic continues...
-  // Show loading state for interactive mode
-  if (isInteractiveLoading) {
+  // Priority 1: Show dependency installation
+  if (isInstallingDeps) {
     return (
       <Box>
-        <Text>Opening parameters in your editor...</Text>
-        {isInstallingDeps && (
-          <Box marginTop={1}>
-            <Text>
-              <Spinner type="dots" /> Installing dependencies in the background...
-            </Text>
-          </Box>
-        )}
-      </Box>
-    )
-  }
-
-  // Show interactive mode errors
-  if (interactiveError) {
-    return (
-      <Box>
-        <Text color="red">Error: {(interactiveError as Error).message || 'Failed to process edited parameters'}</Text>
-      </Box>
-    )
-  }
-
-  // Show loading state for action
-  if (isActionLoading) {
-    return (
-      <Box flexDirection="column">
         <Text>
-          <Spinner type="dots" /> {targetName ? `Processing ${targetName}...` : 'Executing...'}
+          <Spinner type="dots" /> Installing dependencies...
         </Text>
-        {isInstallingDeps && (
-          <Box marginTop={1}>
-            <Text>
-              <Spinner type="dots" /> Installing dependencies...
-            </Text>
-          </Box>
-        )}
       </Box>
     )
   }
 
-  // Show action errors
-  if (actionError) {
-    console.error(actionError)
+  // Priority 2: Show loading state
+  if (isInteractiveLoading || isActionLoading) {
     return (
       <Box>
-        <Text color="red">Error: {(actionError as Error).message || 'Unknown error occurred'}</Text>
+        <Text>
+          <Spinner type="dots" /> {isActionLoading && targetName ? `Processing ${targetName}...` : 'Processing...'}
+        </Text>
       </Box>
     )
   }
 
-  return (
-    <Box flexDirection="column">
-      <Text>{successMessage}</Text>
-      {formattedResult && <Text>{formattedResult}</Text>}
-    </Box>
-  )
+  // Priority 3: Show errors if present
+  if (interactiveError || actionError) {
+    const error = interactiveError || actionError;
+    return (
+      <Box>
+        <Text color="red">{(error as Error).message || 'An error occurred'}</Text>
+      </Box>
+    )
+  }
+
+  // Priority 4: Show just the result
+  if (formattedResult) {
+    return (
+      <Box>
+        <Text>{formattedResult}</Text>
+      </Box>
+    )
+  }
+
+  // Fallback (should rarely happen)
+  return null;
 }

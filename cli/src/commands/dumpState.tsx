@@ -5,6 +5,9 @@ import type { DumpStateParams, DumpStateResult } from '@tevm/actions'
 import { useAction, envVar } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Dump the current state of the blockchain to a file";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   rpc: 'RPC endpoint (env: TEVM_RPC)',

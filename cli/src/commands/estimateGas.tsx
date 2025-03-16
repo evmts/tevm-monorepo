@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Estimate the gas required for a transaction to execute";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   to: 'Target contract address (env: TEVM_TO)',

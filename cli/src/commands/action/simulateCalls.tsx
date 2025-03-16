@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../../hooks/useAction.js'
 import CliAction from '../../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Simulate multiple contract calls without committing them to the blockchain";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   account: 'Account to simulate calls from (env: TEVM_ACCOUNT)',

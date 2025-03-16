@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction, envVar } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Execute a raw EVM call against a contract or address";
+
 // Define the types that are missing
 interface CallParams {
   to?: string

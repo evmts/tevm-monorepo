@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Lookup the ENS name for a given Ethereum address";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   address: 'Ethereum address to lookup (env: TEVM_ADDRESS)',

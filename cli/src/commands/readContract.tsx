@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Read data from a contract by calling a read-only function";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   address: 'Contract address (env: TEVM_ADDRESS)',

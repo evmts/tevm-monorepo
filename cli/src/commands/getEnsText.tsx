@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Get the text record associated with an ENS name";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   name: 'ENS name to lookup (env: TEVM_NAME)',

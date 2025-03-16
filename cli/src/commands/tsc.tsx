@@ -3,6 +3,9 @@ import {Text} from 'ink';
 import zod from 'zod';
 import {option} from 'pastel';
 
+// Add command description for help output
+export const description = "Compile TypeScript files with TEVM's TypeScript plugin";
+
 export const options = zod.object({
   watch: zod.boolean().describe(
     option({
@@ -36,4 +39,4 @@ export default function Tsc({options}: Props) {
       {options.noEmit ? ' (no emit)' : ''}
     </Text>
   );
-} 
+}

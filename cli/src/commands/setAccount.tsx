@@ -5,6 +5,9 @@ import type { SetAccountParams, SetAccountResult } from '@tevm/actions'
 import { useAction, envVar } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Set account properties including balance and nonce";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   address: 'Ethereum address of the account to set (env: TEVM_ADDRESS)',

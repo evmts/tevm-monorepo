@@ -5,6 +5,9 @@ import type { DeployParams, DeployResult } from '@tevm/actions'
 import { useAction, envVar } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Deploy a smart contract to the blockchain";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   rpc: 'RPC endpoint (env: TEVM_RPC)',

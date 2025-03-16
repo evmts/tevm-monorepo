@@ -38,6 +38,9 @@ const fao: FileAccessObject = {
   },
 };
 
+// Add command description for help output
+export const description = "Generate strongly typed TypeScript files from solidity contracts";
+
 export const args = zod.tuple([
   zod.enum(['contract', 'test', 'script', 'all']).describe(
     argument({

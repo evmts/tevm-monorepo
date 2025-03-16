@@ -4,6 +4,9 @@ import { option } from 'pastel'
 import { useAction } from '../hooks/useAction.js'
 import CliAction from '../components/CliAction.js'
 
+// Add command description for help output
+export const description = "Execute multiple contract calls in a single RPC request";
+
 // Options definitions and descriptions
 const optionDescriptions = {
   contracts: 'Array of contract calls in JSON format (env: TEVM_CONTRACTS)',
