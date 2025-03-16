@@ -35,105 +35,121 @@ describe('getStorageAt', () => {
 			numberToHex(420, { size: 2 }),
 		)
 	})
-	
+
 	it('should work with blockTag pending', async () => {
 		// First check current storage value
-		expect(await mc.getStorageAt({ 
-			address: c.simpleContract.address, 
-			slot: numberToHex(0) 
-		})).toBe(numberToHex(420, { size: 2 }))
-		
+		expect(
+			await mc.getStorageAt({
+				address: c.simpleContract.address,
+				slot: numberToHex(0),
+			}),
+		).toBe(numberToHex(420, { size: 2 }))
+
 		// Send a transaction to update storage but don't mine it
 		const setCallData = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'set',
 			args: [999n],
 		})
-		
+
 		await mc.sendTransaction({
 			to: c.simpleContract.address,
 			data: setCallData,
 			account: '0x1234567890123456789012345678901234567890',
 		})
-		
+
 		// Get storage at latest block - should still be old value
-		expect(await mc.getStorageAt({ 
-			address: c.simpleContract.address, 
-			slot: numberToHex(0) 
-		})).toBe(numberToHex(420, { size: 2 }))
-		
+		expect(
+			await mc.getStorageAt({
+				address: c.simpleContract.address,
+				slot: numberToHex(0),
+			}),
+		).toBe(numberToHex(420, { size: 2 }))
+
 		// Get storage at pending block - should be new value
-		expect(await mc.getStorageAt({ 
-			address: c.simpleContract.address, 
-			slot: numberToHex(0),
-			blockTag: 'pending'
-		})).toBe(numberToHex(999, { size: 2 }))
+		expect(
+			await mc.getStorageAt({
+				address: c.simpleContract.address,
+				slot: numberToHex(0),
+				blockTag: 'pending',
+			}),
+		).toBe(numberToHex(999, { size: 2 }))
 	})
-	
+
 	it('should reflect multiple sequential pending storage updates', async () => {
 		// Initial value check
-		expect(await mc.getStorageAt({ 
-			address: c.simpleContract.address, 
-			slot: numberToHex(0) 
-		})).toBe(numberToHex(420, { size: 2 }))
-		
+		expect(
+			await mc.getStorageAt({
+				address: c.simpleContract.address,
+				slot: numberToHex(0),
+			}),
+		).toBe(numberToHex(420, { size: 2 }))
+
 		// First update
 		const setCallData1 = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'set',
 			args: [555n],
 		})
-		
+
 		await mc.sendTransaction({
 			to: c.simpleContract.address,
 			data: setCallData1,
 			account: '0x1234567890123456789012345678901234567890',
 		})
-		
+
 		// Check first pending update
-		expect(await mc.getStorageAt({ 
-			address: c.simpleContract.address, 
-			slot: numberToHex(0),
-			blockTag: 'pending'
-		})).toBe(numberToHex(555, { size: 2 }))
-		
+		expect(
+			await mc.getStorageAt({
+				address: c.simpleContract.address,
+				slot: numberToHex(0),
+				blockTag: 'pending',
+			}),
+		).toBe(numberToHex(555, { size: 2 }))
+
 		// Second update
 		const setCallData2 = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'set',
 			args: [777n],
 		})
-		
+
 		await mc.sendTransaction({
 			to: c.simpleContract.address,
 			data: setCallData2,
 			account: '0x1234567890123456789012345678901234567890',
 		})
-		
+
 		// Check second pending update
-		expect(await mc.getStorageAt({ 
-			address: c.simpleContract.address, 
-			slot: numberToHex(0),
-			blockTag: 'pending'
-		})).toBe(numberToHex(777, { size: 2 }))
-		
+		expect(
+			await mc.getStorageAt({
+				address: c.simpleContract.address,
+				slot: numberToHex(0),
+				blockTag: 'pending',
+			}),
+		).toBe(numberToHex(777, { size: 2 }))
+
 		// Latest block still has original value
-		expect(await mc.getStorageAt({ 
-			address: c.simpleContract.address, 
-			slot: numberToHex(0),
-			blockTag: 'latest'
-		})).toBe(numberToHex(420, { size: 2 }))
-		
+		expect(
+			await mc.getStorageAt({
+				address: c.simpleContract.address,
+				slot: numberToHex(0),
+				blockTag: 'latest',
+			}),
+		).toBe(numberToHex(420, { size: 2 }))
+
 		// Mine the blocks
 		await mc.tevmMine()
-		
+
 		// Now latest has the final value
-		expect(await mc.getStorageAt({ 
-			address: c.simpleContract.address, 
-			slot: numberToHex(0)
-		})).toBe(numberToHex(777, { size: 2 }))
+		expect(
+			await mc.getStorageAt({
+				address: c.simpleContract.address,
+				slot: numberToHex(0),
+			}),
+		).toBe(numberToHex(777, { size: 2 }))
 	})
-	
+
 	it('should handle pending storage changes for newly created contracts', async () => {
 		// Deploy a new contract but don't mine
 		const deployResult = await mc.tevmDeploy({
@@ -141,58 +157,64 @@ describe('getStorageAt', () => {
 			abi: SimpleContract.abi,
 			args: [123n],
 		})
-		
+
 		if (!deployResult.createdAddress) {
 			throw new Error('contract never deployed')
 		}
-		
+
 		const newContractAddress = deployResult.createdAddress
-		
+
 		// Check storage in pending block - should have initial value
-		expect(await mc.getStorageAt({ 
-			address: newContractAddress, 
-			slot: numberToHex(0),
-			blockTag: 'pending'
-		})).toBe(numberToHex(123, { size: 2 }))
-		
+		expect(
+			await mc.getStorageAt({
+				address: newContractAddress,
+				slot: numberToHex(0),
+				blockTag: 'pending',
+			}),
+		).toBe(numberToHex(123, { size: 2 }))
+
 		// Latest block shouldn't have the contract yet
 		try {
 			// This might fail if the contract doesn't exist in the latest block
-			await mc.getStorageAt({ 
-				address: newContractAddress, 
-				slot: numberToHex(0)
+			await mc.getStorageAt({
+				address: newContractAddress,
+				slot: numberToHex(0),
 			})
 		} catch (error) {
 			// Expected
 		}
-		
+
 		// Update the new contract's storage
 		const setCallData = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'set',
 			args: [456n],
 		})
-		
+
 		await mc.sendTransaction({
 			to: newContractAddress,
 			data: setCallData,
 			account: '0x1234567890123456789012345678901234567890',
 		})
-		
+
 		// Check updated storage in pending block
-		expect(await mc.getStorageAt({ 
-			address: newContractAddress, 
-			slot: numberToHex(0),
-			blockTag: 'pending'
-		})).toBe(numberToHex(456, { size: 2 }))
-		
+		expect(
+			await mc.getStorageAt({
+				address: newContractAddress,
+				slot: numberToHex(0),
+				blockTag: 'pending',
+			}),
+		).toBe(numberToHex(456, { size: 2 }))
+
 		// Mine the blocks
 		await mc.tevmMine()
-		
+
 		// Now latest block should have the contract with final value
-		expect(await mc.getStorageAt({ 
-			address: newContractAddress, 
-			slot: numberToHex(0)
-		})).toBe(numberToHex(456, { size: 2 }))
+		expect(
+			await mc.getStorageAt({
+				address: newContractAddress,
+				slot: numberToHex(0),
+			}),
+		).toBe(numberToHex(456, { size: 2 }))
 	})
 })

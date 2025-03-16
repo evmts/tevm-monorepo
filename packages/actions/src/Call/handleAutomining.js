@@ -12,10 +12,8 @@ import { mineHandler } from '../Mine/mineHandler.js'
 export const handleAutomining = async (client, txHash, isGasMining = false) => {
 	// Check if auto mining is enabled or if this is a gas mining request
 	if (client.miningConfig.type === 'auto' || isGasMining) {
-		client.logger.debug(
-			`${client.miningConfig.type === 'auto' ? 'Automining' : 'Gas mining'} transaction ${txHash}...`
-		)
-		
+		client.logger.debug(`${client.miningConfig.type === 'auto' ? 'Automining' : 'Gas mining'} transaction ${txHash}...`)
+
 		// For gas mining mode, determine number of blocks to mine
 		const blocks = 1
 		if (isGasMining && client.miningConfig.type === 'gas' && client.miningConfig.limit) {
@@ -24,13 +22,13 @@ export const handleAutomining = async (client, txHash, isGasMining = false) => {
 			// For simplicity, we're mining just one block here, but this could be extended to use the limit
 			client.logger.debug(`Gas mining mode with limit ${client.miningConfig.limit}`)
 		}
-		
+
 		// Mine the specified number of blocks
 		const mineRes = await mineHandler(client)({
 			throwOnFail: false,
-			blockCount: blocks,
+			blocks,
 		})
-		
+
 		if (mineRes.errors?.length) {
 			return mineRes
 		}

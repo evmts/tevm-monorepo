@@ -9,11 +9,11 @@ export const validateHex = (value) => {
 	if (typeof value !== 'string') {
 		return { isValid: false, message: 'value must be a string' }
 	}
-	
+
 	if (!hexRegex.test(value)) {
 		return { isValid: false, message: 'value must be a hex string' }
 	}
-	
+
 	return { isValid: true }
 }
 
