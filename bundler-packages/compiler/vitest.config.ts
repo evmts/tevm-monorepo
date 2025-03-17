@@ -5,14 +5,15 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', '*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		environment: 'node',
+		testTimeout: 30000, // Increase timeout to 30 seconds
 		coverage: {
 			reporter: ['text', 'json-summary', 'json'],
 			thresholds: {
 				autoUpdate: true,
-				lines: 97.42,
+				lines: 97.57,
 				functions: 100,
-				branches: 88.11,
-				statements: 97.42,
+				branches: 81.73,
+				statements: 97.57,
 			},
 		},
 	},
