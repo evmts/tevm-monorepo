@@ -1,5 +1,4 @@
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthEstimateGasJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethEstimateGasJsonRpcProcedure } from './ethEstimateGasProcedure.js'

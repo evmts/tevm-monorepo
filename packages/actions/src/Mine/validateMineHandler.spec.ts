@@ -1,4 +1,4 @@
-import { InvalidAddressError, InvalidBalanceError, InvalidNonceError, InvalidRequestError } from '@tevm/errors'
+import { InvalidAddressError, InvalidNonceError, InvalidRequestError } from '@tevm/errors'
 import { describe, expect, it } from 'vitest'
 import { validateMineParams } from './validateMineParams.js'
 
