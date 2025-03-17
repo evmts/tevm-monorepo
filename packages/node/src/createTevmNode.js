@@ -258,7 +258,7 @@ export const createTevmNode = (options = {}) => {
 	const txPoolPromise = vmPromise.then((vm) => {
 		// Configure gas mining if enabled
 		const opts = { vm }
-		
+
 		if (options.miningConfig?.type === 'gas') {
 			opts.gasMiningConfig = /** @type {import('@tevm/txpool').GasMiningConfig} */ ({
 				enabled: true,
@@ -452,7 +452,7 @@ export const createTevmNode = (options = {}) => {
 		// Setup interval mining if configured
 		if (baseClient.miningConfig.type === 'interval') {
 			// Import the actions module using dynamic import to avoid circular dependencies
-			import('@tevm/actions').then(actionsModule => {
+			import('@tevm/actions').then((actionsModule) => {
 				const mineHandler = actionsModule.mineHandler
 
 				// Setup mining handler
@@ -460,22 +460,28 @@ export const createTevmNode = (options = {}) => {
 
 				// Start interval mining
 				// Cast to any to avoid TypeScript errors with the setInterval return type
-				const intervalId = setInterval(async () => {
-					try {
-						if (baseClient.status === 'READY') {
-							await mine()
+				const intervalId = setInterval(
+					async () => {
+						try {
+							if (baseClient.status === 'READY') {
+								await mine()
+							}
+						} catch (error) {
+							logger.error({ error }, 'Error during interval mining')
 						}
-					} catch (error) {
-						logger.error({ error }, 'Error during interval mining')
-					}
-				}, /** @type {import('./MiningConfig.js').IntervalMining} */(baseClient.miningConfig).interval)
-				
+					},
+					/** @type {import('./MiningConfig.js').IntervalMining} */ (baseClient.miningConfig).interval,
+				)
+
 				// @ts-ignore - We're ignoring Symbol.dispose missing error
 				baseClient.intervalMiningId = intervalId
-				
-				logger.debug({ 
-					interval: /** @type {import('./MiningConfig.js').IntervalMining} */(baseClient.miningConfig).interval 
-				}, 'Interval mining started')
+
+				logger.debug(
+					{
+						interval: /** @type {import('./MiningConfig.js').IntervalMining} */ (baseClient.miningConfig).interval,
+					},
+					'Interval mining started',
+				)
 			})
 		}
 	})
