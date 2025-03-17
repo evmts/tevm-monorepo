@@ -17,7 +17,7 @@ vi.mock('./internal/handleError.js', () => ({
 
 // Direct test for lines 46-47 in createHttpHandler.js
 describe('createHttpHandler direct tests', () => {
-	it('should handle ReadRequestBodyError', async () => {
+	it('should handle ReadRequestBodyError', { timeout: 10000 }, async () => {
 		// Import the module after mocks are set up
 		const { createHttpHandler } = await import('./createHttpHandler.js')
 

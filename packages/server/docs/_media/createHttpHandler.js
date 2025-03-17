@@ -70,7 +70,7 @@ export const createHttpHandler = (client) => {
 			.extend(tevmSend())
 			.send(/** @type any*/ (parsedRequest))
 			.catch((e) => {
-				console.log('e', e)
+				// No debug logs in production
 				return 'code' in e ? e : new InternalError('Unexpeced error', { cause: e })
 			})
 
@@ -84,7 +84,7 @@ export const createHttpHandler = (client) => {
 			return handleError(client, response.error, res, parsedRequest)
 		}
 
-		console.log('response', response)
+		// No debug logs in production
 		res.writeHead(200, { 'Content-Type': 'application/json' })
 		// Handle BigInt serialization before stringifying
 		const stringified = JSON.stringify(response, (_, value) => (typeof value === 'bigint' ? value.toString() : value))

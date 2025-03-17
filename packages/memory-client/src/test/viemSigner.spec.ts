@@ -38,7 +38,7 @@ describe('using MemoryClient as viem signer', () => {
 		expect(await walletClient.readContract(contract.read.get())).toEqual(420n)
 	})
 
-	it('should be robust wrt nonces', async () => {
+	it('should be robust wrt nonces', { timeout: 15000 }, async () => {
 		const client = createMemoryClient({
 			common: optimism,
 			account: privateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),

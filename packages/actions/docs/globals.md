@@ -446,7 +446,6 @@
 - [ValidateLoadStateParamsError](type-aliases/ValidateLoadStateParamsError.md)
 - [ValidateMineParamsError](type-aliases/ValidateMineParamsError.md)
 - [ValidateSetAccountParamsError](type-aliases/ValidateSetAccountParamsError.md)
-- [ValidationError](type-aliases/ValidationError.md)
 
 ## Variables
 

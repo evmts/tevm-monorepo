@@ -8,7 +8,7 @@
 
 > **validateCallParams**(`action`): `ValidateCallParamsError`[]
 
-Defined in: [packages/actions/src/Call/validateCallParams.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/validateCallParams.js#L38)
+Defined in: [packages/actions/src/Call/validateCallParams.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/validateCallParams.js#L15)
 
 ## Parameters
 

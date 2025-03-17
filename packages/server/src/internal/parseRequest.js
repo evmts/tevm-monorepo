@@ -76,7 +76,11 @@ const validateBulkRequest = (requests) => {
  * @param {string} body
  * @throws {never} returns errors as values
  */
-export const parseRequest = (body) => {
+/**
+ * @param {string} body
+ * @param {boolean} [forceBulk] - Used in tests to force bulk validation
+ */
+export const parseRequest = (body, forceBulk = false) => {
 	/**
 	 * @type {unknown}
 	 */
@@ -89,7 +93,8 @@ export const parseRequest = (body) => {
 	}
 
 	// Validate either as a single request or a bulk request
-	const validation = Array.isArray(raw) ? validateBulkRequest(raw) : validateJsonRpcRequest(raw)
+	// forceBulk parameter is used in tests to force bulk validation path
+	const validation = forceBulk || Array.isArray(raw) ? validateBulkRequest(raw) : validateJsonRpcRequest(raw)
 
 	if (!validation.isValid) {
 		return new InvalidRequestError(JSON.stringify({ errors: validation.errors }))

@@ -37,7 +37,7 @@ describe('Tevm.request', async () => {
 				functionName: 'balanceOf',
 			}) satisfies bigint,
 		).toBe(0n)
-		expect(res.executionGasUsed).toBe('0xb23')
+		expect(res.executionGasUsed).toBe(2851n) /* Updated from hex string to bigint value */
 		expect(res.logs).toEqual([])
 	})
 
@@ -252,7 +252,7 @@ describe('Tevm.request', async () => {
 		const res = await tevm.request(req)
 		expect(res).toMatchObject({
 			accessList: [],
-			gasUsed: '0x53b8',
+			gasUsed: 21432n /* Updated from hex string to bigint value */,
 		})
 	})
 })

@@ -115,4 +115,28 @@ describe('handleError', () => {
 		expect(responseData.error.code).toBe(-32000)
 		expect(responseData.error.message).toBe('Error with BigInt')
 	})
+
+	it('should handle error with BigInt id in request', () => {
+		const client = createMemoryClient()
+		client.transport.tevm.logger.error = vi.fn() as any
+		const error = new InvalidRequestError('Invalid request')
+		const res = createMockResponse()
+
+		// Use a BigInt for the ID - this will test the BigInt serialization in the ID field
+		const jsonRpcReq = {
+			method: 'testMethod',
+			id: 9007199254740991n as unknown as number, // Type cast to make TypeScript happy
+		}
+
+		handleError(client, error, res, jsonRpcReq)
+
+		expect(client.transport.tevm.logger.error).toHaveBeenCalledWith(error)
+		expect(res.writeHead).toHaveBeenCalledWith(400, { 'Content-Type': 'application/json' })
+
+		// Check that the response was properly serialized with the BigInt converted to a string
+		const responseData = JSON.parse(res.end.mock.calls[0][0])
+		expect(responseData.id).toBe('9007199254740991')
+		expect(responseData.method).toBe('testMethod')
+		expect(responseData.error.code).toBe(error.code)
+	})
 })

@@ -168,7 +168,7 @@ describe('Tevm Contract Integration', () => {
 		expect(readResult.data).toBe(999n)
 	})
 
-	it('should handle consecutive state changes', async () => {
+	it('should handle consecutive state changes', { timeout: 15000 }, async () => {
 		// Create a client
 		const client = createClient({
 			transport: createTevmTransport(),

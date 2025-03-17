@@ -95,9 +95,11 @@ describe('parseRequest', () => {
 		expect(result).toEqual(validNullId)
 	})
 
-	// Skip this test since we can't easily test private functions
-	it.skip('should validate that bulk request is an array', () => {
-		// We can't test this directly without modifying the code structure
-		// The validateBulkRequest function is not exported
+	it('should validate that bulk request is an array', () => {
+		// Simulate a non-array bulk request by sending a non-array with isBulk=true
+		// This will test the bulk request validation path in parseRequest
+		const result = parseRequest(JSON.stringify({ foo: 'bar' }), true)
+		expect(result).toBeInstanceOf(InvalidRequestError)
+		expect((result as InvalidRequestError).message).toContain('Bulk request must be an array')
 	})
 })

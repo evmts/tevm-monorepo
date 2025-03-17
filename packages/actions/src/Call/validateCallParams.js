@@ -1,29 +1,6 @@
 import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
-import { zCallParams } from './zCallParams.js'
-
-/**
- * Parses and validates call parameters using zCallParams
- * @param {unknown} params - Parameters to validate
- * @returns {{ isValid: boolean, errors: Array<{path?: string, message: string}> }} - Validation result
- */
-const validateCallParamsJS = (params) => {
-	try {
-		zCallParams.parse(params)
-		return { isValid: true, errors: [] }
-	} catch (error) {
-		// Handle Error objects consistently
-		return {
-			isValid: false,
-			errors: [
-				{
-					path: '',
-					message: error instanceof Error ? error.message : String(error),
-				},
-			],
-		}
-	}
-}
+import { validateCallParamsInternal } from './validateCallParamsInternal.js'
 
 /**
  * @internal
@@ -94,7 +71,7 @@ export const validateCallParams = (action) => {
 	}
 
 	// For non-test cases or anything not explicitly handled above
-	const validation = validateCallParamsJS(action)
+	const validation = validateCallParamsInternal(action)
 
 	if (!validation.isValid && validation.errors && Array.isArray(validation.errors)) {
 		for (const error of validation.errors) {

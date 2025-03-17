@@ -8,7 +8,7 @@
 
 > `const` **zCallParams**: `object`
 
-Defined in: [packages/actions/src/Call/zCallParams.js:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/zCallParams.js#L113)
+Defined in: [packages/actions/src/Call/zCallParams.js:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/zCallParams.js#L4)
 
 ## Type declaration
 
