@@ -8,7 +8,7 @@
 
 > **EIP1193RequestOptions**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:330
+Defined in: packages/decorators/dist/index.d.ts:356
 
 Options for EIP-1193 compatible JSON-RPC requests.
 Controls retry behavior for network requests to Ethereum providers.

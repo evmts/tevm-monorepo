@@ -20,6 +20,16 @@ Tevm params to mine one or more blocks.
 
 Number of blocks to mine. Defaults to 1.
 
+### ~~blocks?~~
+
+> `readonly` `optional` **blocks**: `number`
+
+Alias for blockCount, used for backward compatibility.
+
+#### Deprecated
+
+Use blockCount instead
+
 ### interval?
 
 > `readonly` `optional` **interval**: `number`

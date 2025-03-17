@@ -8,7 +8,7 @@
 
 > **JsonRpcSchemaWallet**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1573
+Defined in: packages/decorators/dist/index.d.ts:1599
 
 Type definitions for Ethereum JSON-RPC methods that interact with wallets.
 Includes methods for account management, signing, transactions, and wallet-specific features.

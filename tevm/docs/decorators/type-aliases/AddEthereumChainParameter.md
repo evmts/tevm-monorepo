@@ -8,7 +8,7 @@
 
 > **AddEthereumChainParameter**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:235
+Defined in: packages/decorators/dist/index.d.ts:261
 
 Parameters for wallet_addEthereumChain RPC method (EIP-3085).
 Used to request that a wallet adds a specific blockchain network.

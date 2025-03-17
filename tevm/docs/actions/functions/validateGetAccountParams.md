@@ -6,7 +6,7 @@
 
 # Function: validateGetAccountParams()
 
-> **validateGetAccountParams**(`action`): [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
+> **validateGetAccountParams**(`action`): [`ValidateGetAccountParamsError`](../type-aliases/ValidateGetAccountParamsError.md)[]
 
 Defined in: packages/actions/types/GetAccount/validateGetAccountParams.d.ts:1
 
@@ -18,4 +18,4 @@ Defined in: packages/actions/types/GetAccount/validateGetAccountParams.d.ts:1
 
 ## Returns
 
-[`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
+[`ValidateGetAccountParamsError`](../type-aliases/ValidateGetAccountParamsError.md)[]

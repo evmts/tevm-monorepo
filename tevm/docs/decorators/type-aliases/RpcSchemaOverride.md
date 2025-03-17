@@ -8,7 +8,7 @@
 
 > **RpcSchemaOverride**: `Omit`\<[`RpcSchema`](RpcSchema.md)\[`number`\], `"Method"`\>
 
-Defined in: packages/decorators/dist/index.d.ts:289
+Defined in: packages/decorators/dist/index.d.ts:315
 
 Type for overriding parameters and return types of existing JSON-RPC methods.
 Used to modify or extend the behavior of standard RPC methods in a type-safe way.

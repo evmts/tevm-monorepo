@@ -6,8 +6,8 @@
 
 # Variable: zHex
 
-> `const` **zHex**: `z.ZodEffects`\<`z.ZodString`, `` `0x${string}` ``, `string`\>
+> `const` **zHex**: `z.ZodEffects`\<`z.ZodString`, [`Hex`](../../index/type-aliases/Hex.md), `string`\>
 
-Defined in: packages/actions/types/internal/zod/zHex.d.ts:5
+Defined in: packages/actions/types/internal/zod/zHex.d.ts:11
 
-Zod validator for a valid hex string
+Zod schema for hex strings

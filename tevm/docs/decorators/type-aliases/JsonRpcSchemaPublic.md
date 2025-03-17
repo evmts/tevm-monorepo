@@ -8,7 +8,7 @@
 
 > **JsonRpcSchemaPublic**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:876
+Defined in: packages/decorators/dist/index.d.ts:902
 
 Type definitions for standard Ethereum JSON-RPC methods accessible to the public.
 Includes methods related to network info, blocks, transactions, and state queries.

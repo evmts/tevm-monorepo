@@ -19,6 +19,7 @@ This class is abstract and should be extended by other error classes.
 
 ## Extended by
 
+- [`TevmSimulateCallError`](../../actions/classes/TevmSimulateCallError.md)
 - [`NoForkTransportSetError`](NoForkTransportSetError.md)
 - [`ForkError`](ForkError.md)
 - [`ParseError`](ParseError.md)

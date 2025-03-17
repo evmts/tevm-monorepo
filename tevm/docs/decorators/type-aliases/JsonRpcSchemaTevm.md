@@ -8,7 +8,7 @@
 
 > **JsonRpcSchemaTevm**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:366
+Defined in: packages/decorators/dist/index.d.ts:392
 
 Type definitions for Tevm-specific JSON-RPC methods.
 Includes methods for state manipulation, EVM calls, and account management.

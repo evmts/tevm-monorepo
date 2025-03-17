@@ -8,7 +8,7 @@
 
 > **Quantity**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/decorators/dist/index.d.ts:1438
+Defined in: packages/decorators/dist/index.d.ts:1464
 
 Hexadecimal string representation of an Ethereum quantity (number).
 Used throughout the Ethereum JSON-RPC API for numerical values.

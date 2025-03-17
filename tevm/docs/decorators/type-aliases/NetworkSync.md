@@ -8,7 +8,7 @@
 
 > **NetworkSync**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1460
+Defined in: packages/decorators/dist/index.d.ts:1486
 
 Information about the Ethereum client's sync status.
 Returned by the eth_syncing JSON-RPC method when synchronization is in progress.
