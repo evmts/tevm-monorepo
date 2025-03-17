@@ -6,7 +6,7 @@
 
 # Class: StopError
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/StopErrorError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StopErrorError.js#L49)
+Defined in: packages/errors/src/ethereum/ethereumjs/StopError.js:49
 
 Represents a contract/bytecode error that occurs when a STOP operation is executed.
 
@@ -49,7 +49,7 @@ Additional parameters for the BaseError.
 
 > **new StopError**(`message`?, `args`?, `tag`?): [`StopError`](StopError.md)
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/StopErrorError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StopErrorError.js#L67)
+Defined in: packages/errors/src/ethereum/ethereumjs/StopError.js:67
 
 Constructs a StopError.
 Represents a contract/bytecode error that occurs when a STOP operation is executed.
@@ -251,7 +251,7 @@ Error code, analogous to the code in JSON RPC error.
 
 > `static` **EVMErrorMessage**: `ERROR` = `EVMErrorMessage.STOP`
 
-Defined in: [packages/errors/src/ethereum/ethereumjs/StopErrorError.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StopErrorError.js#L50)
+Defined in: packages/errors/src/ethereum/ethereumjs/StopError.js:50
 
 ***
 

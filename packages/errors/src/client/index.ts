@@ -1,1 +1,1 @@
-export * from './MisconfiguredClient.js'
+export * from './MisconfiguredClientError.js'

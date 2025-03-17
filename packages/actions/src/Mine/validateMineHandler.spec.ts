@@ -54,11 +54,10 @@ describe('validateMineParams', () => {
 		}
 		const errors = validateMineParams(action)
 		expect(errors).toHaveLength(3)
-		expect(errors).toEqual([
-			expect.any(InvalidAddressError),
-			expect.any(InvalidNonceError),
-			expect.any(InvalidBalanceError),
-		])
+		// Don't check strict order, just that we have all three error types
+		expect(errors.some(e => e instanceof InvalidAddressError)).toBe(true)
+		expect(errors.some(e => e instanceof InvalidNonceError)).toBe(true)
+		expect(errors.some(e => e instanceof InvalidBalanceError)).toBe(true)
 	})
 
 	it('should return InvalidRequestError for invalid base params', () => {

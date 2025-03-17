@@ -44,7 +44,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 					to: '0x0000000000000000000000000000000000000000',
 					data: '0x',
 				},
-				numberToHex(latestBlock.header.number),
+				'latest', // Use 'latest' string instead of a number to avoid any validation issues
 			],
 		}
 

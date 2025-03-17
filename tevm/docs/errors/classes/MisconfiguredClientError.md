@@ -6,7 +6,7 @@
 
 # Class: MisconfiguredClientError
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:45
+Defined in: packages/errors/types/client/MisconfiguredClientError.d.ts:45
 
 Represents an error that occurs when the Client is misconfigured.
 
@@ -49,7 +49,7 @@ try {
 
 > **new MisconfiguredClientError**(`message`?, `args`?): [`MisconfiguredClientError`](MisconfiguredClientError.md)
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:52
+Defined in: packages/errors/types/client/MisconfiguredClientError.d.ts:52
 
 Constructs a MisconfiguredClientError.
 

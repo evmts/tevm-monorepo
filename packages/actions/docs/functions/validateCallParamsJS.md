@@ -8,7 +8,7 @@
 
 > **validateCallParamsJS**(`params`): `object`
 
-Defined in: [packages/actions/src/Call/zCallParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/zCallParams.js#L9)
+Defined in: [packages/actions/src/Call/zCallParams.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/zCallParams.js#L50)
 
 Validates call parameters (internal validation function)
 

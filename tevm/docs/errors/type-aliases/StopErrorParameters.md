@@ -8,7 +8,7 @@
 
 > **StopErrorParameters**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:68
+Defined in: packages/errors/types/ethereum/ethereumjs/StopError.d.ts:68
 
 Parameters for constructing a [StopError](../classes/StopError.md).
 

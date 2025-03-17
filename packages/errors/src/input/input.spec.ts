@@ -8,9 +8,10 @@ import { InvalidFunctionNameError } from './InvalidFunctionNameError.js'
 import { InvalidGasLimitError } from './InvalidGasLimitError.js'
 import { InvalidGasRefundError } from './InvalidGasRefundError.js'
 import { InvalidMaxFeePerGasError } from './InvalidMaxFeePerGasError.js'
-import { InvalidMaxPriorityFeePerGasError } from './InvalidMaxPriorityFeePerGas.js'
+import { InvalidMaxPriorityFeePerGasError } from './InvalidMaxPriorityFeePerGasError.js'
 import { InvalidSelfdestructError } from './InvalidSelfdestructError.js'
 import { InvalidSkipBalanceError } from './InvalidSkipBalanceError.js'
+import { InvalidStateOverrideError } from './InvalidStateOverrideError.js'
 import { InvalidStorageRootError } from './InvalidStorageRootError.js'
 import { InvalidToError } from './InvalidToError.js'
 import { InvalidUrlError } from './InvalidUrlError.js'
@@ -234,6 +235,23 @@ describe('Input errors', () => {
 
 		it('should create with custom docs parameters', () => {
 			const error = new InvalidStorageRootError('Invalid root', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidStateOverrideError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidStateOverrideError('Invalid state override')
+			expect(error.message).toContain('Invalid state override')
+			expect(error.name).toBe('InvalidStateOverrideError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidStateOverrideError('Invalid state override', {
 				docsBaseUrl: 'https://custom.docs',
 				docsPath: '/custom/path',
 			})

@@ -6,7 +6,7 @@
 
 # Class: MisconfiguredClientError
 
-Defined in: [packages/errors/src/client/MisconfiguredClient.js:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L48)
+Defined in: packages/errors/src/client/MisconfiguredClientError.js:48
 
 Represents an error that occurs when the Client is misconfigured.
 
@@ -49,7 +49,7 @@ try {
 
 > **new MisconfiguredClientError**(`message`?, `args`?): [`MisconfiguredClientError`](MisconfiguredClientError.md)
 
-Defined in: [packages/errors/src/client/MisconfiguredClient.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/client/MisconfiguredClient.js#L55)
+Defined in: packages/errors/src/client/MisconfiguredClientError.js:55
 
 Constructs a MisconfiguredClientError.
 

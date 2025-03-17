@@ -8,7 +8,7 @@
 
 > **RefundExhaustedErrorParameters**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:70
+Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhaustedError.d.ts:70
 
 Parameters for constructing a [RefundExhaustedError](../classes/RefundExhaustedError.md).
 

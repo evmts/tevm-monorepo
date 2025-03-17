@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { BaseError } from '../BaseError.js'
 import { AuthCallUnsetError } from './AuthCallUnsetError.js'
 import { InternalEvmError } from './InternalEvmError.js'
-import { RefundExhaustedError } from './RefundExhausted.js'
+import { RefundExhaustedError } from './RefundExhaustedError.js'
 
 describe('AuthCallUnsetError', () => {
 	// Skip these tests until we can fix the formatting issues

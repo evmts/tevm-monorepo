@@ -6,7 +6,7 @@
 
 # Class: StopError
 
-Defined in: packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:45
+Defined in: packages/errors/types/ethereum/ethereumjs/StopError.d.ts:45
 
 Represents a contract/bytecode error that occurs when a STOP operation is executed.
 
@@ -49,7 +49,7 @@ Additional parameters for the BaseError.
 
 > **new StopError**(`message`?, `args`?, `tag`?): [`StopError`](StopError.md)
 
-Defined in: packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:63
+Defined in: packages/errors/types/ethereum/ethereumjs/StopError.d.ts:63
 
 Constructs a StopError.
 Represents a contract/bytecode error that occurs when a STOP operation is executed.
@@ -251,7 +251,7 @@ Error code, analogous to the code in JSON RPC error.
 
 > `static` **EVMErrorMessage**: [`EvmErrorMessage`](../../evm/enumerations/EvmErrorMessage.md)
 
-Defined in: packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:46
+Defined in: packages/errors/types/ethereum/ethereumjs/StopError.d.ts:46
 
 ***
 

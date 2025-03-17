@@ -6,7 +6,7 @@
 
 # Class: RefundExhaustedError
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:46
+Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhaustedError.d.ts:46
 
 Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.
 EVM transaction execution metadata level error
@@ -50,7 +50,7 @@ Additional parameters for the BaseError.
 
 > **new RefundExhaustedError**(`message`?, `args`?, `tag`?): [`RefundExhaustedError`](RefundExhaustedError.md)
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:65
+Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhaustedError.d.ts:65
 
 Constructs a RefundExhaustedError.
 Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.
@@ -253,7 +253,7 @@ Error code, analogous to the code in JSON RPC error.
 
 > `static` **EVMErrorMessage**: [`EvmErrorMessage`](../../evm/enumerations/EvmErrorMessage.md)
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:47
+Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhaustedError.d.ts:47
 
 ***
 

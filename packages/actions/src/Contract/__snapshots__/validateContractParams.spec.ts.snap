@@ -94,6 +94,10 @@ Version: 1.1.0.next-73],
 
 exports[`validateContractParams > should validate that createTransaction and stateOverrideSet cannot be used together 1`] = `
 [
+  [InvalidParams: Invalid address key in stateOverrideSet: Address must be 40 hex characters long (with 0x prefix)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Version: 1.1.0.next-73],
   [InvalidParams: Cannot have stateOverrideSet or blockOverrideSet for createTransaction
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/

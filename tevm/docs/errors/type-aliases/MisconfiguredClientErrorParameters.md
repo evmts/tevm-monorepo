@@ -8,7 +8,7 @@
 
 > **MisconfiguredClientErrorParameters**: `object`
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:57
+Defined in: packages/errors/types/client/MisconfiguredClientError.d.ts:57
 
 Parameters for constructing a [MisconfiguredClientError](../classes/MisconfiguredClientError.md).
 

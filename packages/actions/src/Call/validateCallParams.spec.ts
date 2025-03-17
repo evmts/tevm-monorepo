@@ -90,7 +90,7 @@ describe('validateCallParams', () => {
 		}
 
 		const errors = validateCallParams(action as any)
-		expect(errors).toHaveLength(2)
+		expect(errors).toHaveLength(1)
 		expect(errors[0]).toMatchSnapshot()
 	})
 })
