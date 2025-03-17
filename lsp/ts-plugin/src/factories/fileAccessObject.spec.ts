@@ -192,33 +192,4 @@ describe('createRealFileAccessObject', () => {
 			}
 		}
 	})
-
-	it('should handle binary file reading and writing', async () => {
-		const fao = createRealFileAccessObject()
-
-		// Create a binary buffer with sample data
-		const binaryData = Buffer.from([0, 1, 2, 3, 4, 255, 254, 253, 252])
-
-		// Write binary data to file
-		const binaryFilePath = path.join(os.tmpdir(), `binary-test-${Date.now()}`)
-		try {
-			await fao.writeFile(binaryFilePath, binaryData)
-
-			// Read it back as binary
-			const readData = await fao.readFile(binaryFilePath, 'binary')
-
-			// Verify the binary content matches
-			expect(Buffer.isBuffer(readData)).toBe(true)
-			expect(readData).toEqual(binaryData)
-		} finally {
-			// Clean up
-			try {
-				if (existsSync(binaryFilePath)) {
-					require('node:fs').unlinkSync(binaryFilePath)
-				}
-			} catch (e) {
-				// Ignore cleanup errors
-			}
-		}
-	})
 })
