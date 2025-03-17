@@ -9,11 +9,21 @@
 - [BlobGasLimitExceededError](classes/BlobGasLimitExceededError.md)
 - [MissingAccountError](classes/MissingAccountError.md)
 - [NoForkUrlSetError](classes/NoForkUrlSetError.md)
+- [SimulateError](classes/SimulateError.md)
 
 ## Interfaces
 
+- [AssetChange](interfaces/AssetChange.md)
+- [AssetValueChange](interfaces/AssetValueChange.md)
+- [BlockOverride](interfaces/BlockOverride.md)
 - [Message](interfaces/Message.md)
 - [NewContractEvent](interfaces/NewContractEvent.md)
+- [SimulateCallItem](interfaces/SimulateCallItem.md)
+- [SimulateCallResult](interfaces/SimulateCallResult.md)
+- [SimulateParams](interfaces/SimulateParams.md)
+- [SimulateResult](interfaces/SimulateResult.md)
+- [StateOverride](interfaces/StateOverride.md)
+- [TokenInfo](interfaces/TokenInfo.md)
 
 ## Type Aliases
 
@@ -371,6 +381,10 @@
 - [EthSignTransactionJsonRpcResponse](type-aliases/EthSignTransactionJsonRpcResponse.md)
 - [EthSignTransactionParams](type-aliases/EthSignTransactionParams.md)
 - [EthSignTransactionResult](type-aliases/EthSignTransactionResult.md)
+- [EthSimulateV1Handler](type-aliases/EthSimulateV1Handler.md)
+- [EthSimulateV1JsonRpcProcedure](type-aliases/EthSimulateV1JsonRpcProcedure.md)
+- [EthSimulateV1JsonRpcRequest](type-aliases/EthSimulateV1JsonRpcRequest.md)
+- [EthSimulateV1JsonRpcResponse](type-aliases/EthSimulateV1JsonRpcResponse.md)
 - [EthSyncingHandler](type-aliases/EthSyncingHandler.md)
 - [EthSyncingJsonRpcProcedure](type-aliases/EthSyncingJsonRpcProcedure.md)
 - [EthSyncingJsonRpcRequest](type-aliases/EthSyncingJsonRpcRequest.md)
@@ -451,6 +465,7 @@
 
 ## Variables
 
+- [NATIVE\_TOKEN\_ADDRESS](variables/NATIVE_TOKEN_ADDRESS.md)
 - [zAbi](variables/zAbi.md)
 - [zAddress](variables/zAddress.md)
 - [zBaseCallParams](variables/zBaseCallParams.md)
@@ -533,6 +548,8 @@
 - [ethSignProcedure](functions/ethSignProcedure.md)
 - [ethSignTransactionHandler](functions/ethSignTransactionHandler.md)
 - [ethSignTransactionProcedure](functions/ethSignTransactionProcedure.md)
+- [ethSimulateV1Handler](functions/ethSimulateV1Handler.md)
+- [ethSimulateV1Procedure](functions/ethSimulateV1Procedure.md)
 - [ethUninstallFilterJsonRpcProcedure](functions/ethUninstallFilterJsonRpcProcedure.md)
 - [executeCall](functions/executeCall.md)
 - [forkAndCacheBlock](functions/forkAndCacheBlock.md)

@@ -128,7 +128,7 @@ export const ethSimulateV1Handler = (client) => {
 				// Execute the call with all required properties
 				const callResult = await call({
 					from: fromAddress,
-					to: callParams.to,
+					...(callParams.to ? { to: callParams.to } : {}),
 					data: callParams.data || '0x',
 					value: callParams.value !== undefined ? BigInt(callParams.value) : 0n,
 					gas: callParams.gas !== undefined ? BigInt(callParams.gas) : 1000000n, // 1M gas default

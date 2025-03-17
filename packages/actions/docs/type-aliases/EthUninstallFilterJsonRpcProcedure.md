@@ -8,7 +8,7 @@
 
 > **EthUninstallFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
 
-Defined in: [packages/actions/src/eth/EthProcedure.ts:209](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L209)
+Defined in: [packages/actions/src/eth/EthProcedure.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L211)
 
 ## Parameters
 

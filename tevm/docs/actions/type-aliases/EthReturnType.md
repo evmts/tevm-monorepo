@@ -162,6 +162,10 @@ A mapping of `eth_*` method names to their return type
 
 > **eth\_signTransaction**: [`EthSignTransactionJsonRpcResponse`](EthSignTransactionJsonRpcResponse.md)
 
+### eth\_simulateV1
+
+> **eth\_simulateV1**: [`EthSimulateV1JsonRpcResponse`](EthSimulateV1JsonRpcResponse.md)
+
 ### eth\_syncing
 
 > **eth\_syncing**: [`EthSyncingJsonRpcResponse`](EthSyncingJsonRpcResponse.md)

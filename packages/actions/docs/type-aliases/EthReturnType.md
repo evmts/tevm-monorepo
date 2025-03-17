@@ -8,7 +8,7 @@
 
 > **EthReturnType**: `object`
 
-Defined in: [packages/actions/src/tevm-request-handler/EthReturnType.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthReturnType.ts#L46)
+Defined in: [packages/actions/src/tevm-request-handler/EthReturnType.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/EthReturnType.ts#L47)
 
 A mapping of `eth_*` method names to their return type
 
@@ -161,6 +161,10 @@ A mapping of `eth_*` method names to their return type
 ### eth\_signTransaction
 
 > **eth\_signTransaction**: [`EthSignTransactionJsonRpcResponse`](EthSignTransactionJsonRpcResponse.md)
+
+### eth\_simulateV1
+
+> **eth\_simulateV1**: [`EthSimulateV1JsonRpcResponse`](EthSimulateV1JsonRpcResponse.md)
 
 ### eth\_syncing
 

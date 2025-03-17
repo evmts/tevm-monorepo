@@ -8,6 +8,6 @@
 
 > **EthSendTransactionJsonRpcRequest**: `JsonRpcRequest`\<`"eth_sendTransaction"`, readonly \[[`JsonRpcTransaction`](JsonRpcTransaction.md)\]\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L243)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:244](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L244)
 
 JSON-RPC request for `eth_sendTransaction` procedure
