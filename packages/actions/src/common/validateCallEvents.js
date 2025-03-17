@@ -12,9 +12,9 @@ export const validateCallEvents = (events) => {
 			errors: [{ path: '', message: 'Events must be an object' }],
 		}
 	}
-	
+
 	/** @type {EventHandlers} */
-	const validEvents = events;
+	const validEvents = events
 
 	const errors = []
 	const handlers = ['onStep', 'onNewContract', 'onBeforeMessage', 'onAfterMessage']

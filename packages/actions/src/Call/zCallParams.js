@@ -14,9 +14,9 @@ export const validateCallParamsZod = (params) => {
 			errors: [{ path: '', message: 'params must be an object' }],
 		}
 	}
-	
+
 	/** @type {CallParams} */
-	const validParams = params;
+	const validParams = params
 
 	const errors = []
 
@@ -62,15 +62,24 @@ export const validateCallParamsZod = (params) => {
 	}
 
 	// Cannot have stateOverrideSet or blockOverrideSet for createTransaction
-	if (Object.prototype.hasOwnProperty.call(validParams, 'createTransaction') && validParams['createTransaction'] === true) {
-		if (Object.prototype.hasOwnProperty.call(validParams, 'stateOverrideSet') && validParams['stateOverrideSet'] !== undefined) {
+	if (
+		Object.prototype.hasOwnProperty.call(validParams, 'createTransaction') &&
+		validParams['createTransaction'] === true
+	) {
+		if (
+			Object.prototype.hasOwnProperty.call(validParams, 'stateOverrideSet') &&
+			validParams['stateOverrideSet'] !== undefined
+		) {
 			errors.push({
 				path: 'stateOverrideSet',
 				message: 'Cannot have stateOverrideSet for createTransaction',
 			})
 		}
 
-		if (Object.prototype.hasOwnProperty.call(validParams, 'blockOverrideSet') && validParams['blockOverrideSet'] !== undefined) {
+		if (
+			Object.prototype.hasOwnProperty.call(validParams, 'blockOverrideSet') &&
+			validParams['blockOverrideSet'] !== undefined
+		) {
 			errors.push({
 				path: 'blockOverrideSet',
 				message: 'Cannot have blockOverrideSet for createTransaction',

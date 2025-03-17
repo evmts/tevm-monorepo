@@ -8,7 +8,7 @@
 
 > **TevmActionsApi**: `object`
 
-Defined in: [actions/TevmActionsApi.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L17)
+Defined in: [actions/TevmActionsApi.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/TevmActionsApi.ts#L18)
 
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 
@@ -165,6 +165,36 @@ await tevm.setAccount({
  address: '0x123...',
  deployedBytecode: '0x6080604...',
  balance: parseEther('1.0')
+})
+```
+
+### simulateCall
+
+> **simulateCall**: `SimulateCallHandler`
+
+Simulates a call in the context of a specific block, with the option to simulate after
+specific transactions in the block.
+
+This is similar to `debug_traceTransaction` but allows more flexibility in specifying
+the target transaction and block, as well as customizing the transaction parameters.
+
+#### Example
+
+```typescript
+// Simulate a call on a specific block after a specific transaction
+const res = await tevm.simulateCall({
+  blockNumber: 1000000n,
+  transactionIndex: 2, // simulate after 3rd transaction (0-indexed)
+  to: '0x123...',
+  value: 420n,
+  skipBalance: true,
+})
+
+// Or override a specific transaction's parameters
+const res2 = await tevm.simulateCall({
+  blockHash: '0xabcdef...',
+  transactionHash: '0x123456...',
+  value: 1000n, // override the original transaction's value
 })
 ```
 

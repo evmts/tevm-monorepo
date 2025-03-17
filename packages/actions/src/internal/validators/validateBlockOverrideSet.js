@@ -13,9 +13,9 @@ export const validateBlockOverrideSet = (value) => {
 			errors: [{ path: '', message: 'Block override set must be an object' }],
 		}
 	}
-	
+
 	/** @type {BlockOverrideSet} */
-	const blockOverrides = value;
+	const blockOverrides = value
 
 	const errors = []
 

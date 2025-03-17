@@ -56,6 +56,10 @@ To add these actions use the `extend` method on a TevmClient with the tevmViemAc
 
 > **tevmSetAccount**: `TevmActionsApi`\[`"setAccount"`\]
 
+### tevmSimulateCall
+
+> **tevmSimulateCall**: `TevmActionsApi`\[`"simulateCall"`\]
+
 ## Example
 
 ```typescript

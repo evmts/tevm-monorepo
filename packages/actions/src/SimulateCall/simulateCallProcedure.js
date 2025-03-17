@@ -54,7 +54,7 @@ export const simulateCallJsonRpcProcedure = (client) => {
 					error: {
 						code: -32602,
 						message: 'Invalid params: Parameters are required and must be provided as an array',
-					}
+					},
 				}
 			}
 
@@ -69,7 +69,7 @@ export const simulateCallJsonRpcProcedure = (client) => {
 					error: {
 						code: -32602,
 						message: 'Invalid params: First parameter must be an object',
-					}
+					},
 				}
 			}
 
@@ -96,7 +96,7 @@ export const simulateCallJsonRpcProcedure = (client) => {
 				error: {
 					code: -32000,
 					message: error instanceof Error ? error.message : String(error),
-				}
+				},
 			}
 		}
 	}
