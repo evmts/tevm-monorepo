@@ -1,8 +1,8 @@
-import { createAddress } from '@tevm/address'
 import { runTx } from '@tevm/vm'
-import { bytesToHex, hexToBytes } from 'viem'
+import { bytesToHex } from 'viem'
 import { evmInputToImpersonatedTx } from '../internal/evmInputToImpersonatedTx.js'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
+import { setupPrefetchProxy } from '../internal/setupPrefetchProxy.js'
 import { handleRunTxError } from './handleEvmError.js'
 
 /**
@@ -16,59 +16,6 @@ import { handleRunTxError } from './handleEvmError.js'
  * @internal
  * @typedef {{runTxResult: import("@tevm/vm").RunTxResult, trace: import('../debug/DebugResult.js').DebugTraceCallResult | undefined, accessList: undefined | Map<string, Set<string>>}} ExecuteCallResult
  */
-
-/**
- * Prefetches storage for all storage slots in the access list
- *
- * @internal
- * @param {import('@tevm/node').TevmNode} client
- * @param {Map<string, Set<string>> | undefined} accessList
- * @returns {Promise<void>}
- */
-const prefetchStorageFromAccessList = async (client, accessList) => {
-	if (!accessList || accessList.size === 0) return
-
-	const vm = await client.getVm()
-	const stateManager = vm.stateManager
-
-	// Prefetch all storage slots in parallel
-	const prefetchPromises = []
-
-	for (const [address, storageKeys] of accessList.entries()) {
-		if (storageKeys.size === 0) continue
-
-		// Create address object once per address
-		const addressObj = createAddress(address.startsWith('0x') ? address : `0x${address}`)
-
-		for (const storageKey of storageKeys) {
-			// Convert storage key to bytes with proper padding to 32 bytes
-			const hexKey = /** @type {`0x${string}`} */ (storageKey.startsWith('0x') ? storageKey : `0x${storageKey}`)
-			const keyBytes = hexToBytes(hexKey, { size: 32 })
-
-			// Queue up storage fetch
-			prefetchPromises.push(
-				stateManager.getContractStorage(addressObj, keyBytes).catch((error) => {
-					client.logger.debug(
-						{
-							error,
-							address: address.startsWith('0x') ? address : `0x${address}`,
-							storageKey: storageKey.startsWith('0x') ? storageKey : `0x${storageKey}`,
-						},
-						'Error prefetching storage slot from access list',
-					)
-				}),
-			)
-		}
-	}
-
-	// Wait for all prefetch operations to complete
-	await Promise.all(prefetchPromises)
-
-	client.logger.debug(
-		{ accessListSize: accessList.size, totalStorageSlotsPreloaded: prefetchPromises.length },
-		'Prefetched storage slots from access list',
-	)
-}
 
 /**
  * executeCall encapsalates the internal logic of running a call in the EVM
@@ -146,9 +93,8 @@ export const executeCall = async (client, evmInput, params, events) => {
 				}),
 			)
 
-			// Prefetch storage for future calls using the access list
-			// Only include in response if explicitly requested
-			await prefetchStorageFromAccessList(client, accessList)
+			// Instead of immediate prefetching, set up the proxy to detect storage requests
+			await setupPrefetchProxy(client, accessList)
 
 			// If not explicitly requested, don't include access list in the response
 			if (!params.createAccessList) {

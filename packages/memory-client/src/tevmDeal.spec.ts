@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
-import { TestERC20 } from '@tevm/test-utils'
-import { encodeFunctionData } from 'viem'
+import { mainnet } from '@tevm/common'
+import { TestERC20, transports } from '@tevm/test-utils'
+import { erc20Abi } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient'
 
@@ -50,5 +51,59 @@ describe('tevmDeal', () => {
 		})
 
 		expect(result.data).toEqual(amount)
+	})
+})
+
+describe('bug repro march 17th', () => {
+	const client = createMemoryClient({
+		common: mainnet,
+		fork: {
+			transport: transports.mainnet,
+		},
+	})
+	const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
+	const amount = BigInt(1000000)
+	describe('tevmDeal', () => {
+		it('should deal WETH to an account', async () => {
+			const token = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' // WETH
+
+			// Deal tokens to the account
+			await client.tevmDeal({
+				erc20: token,
+				account,
+				amount,
+			})
+
+			// Verify the balance was updated using tevmContract
+			const result = await client.tevmContract({
+				to: token,
+				abi: erc20Abi,
+				functionName: 'balanceOf',
+				args: [account],
+			})
+
+			expect(result.data).toEqual(amount)
+		})
+
+		it('should deal a Proxy token to an account', async () => {
+			const token = '0xE95A203B1a91a908F9B9CE46459d101078c2c3cb' // PROXY
+
+			// Deal tokens to the account
+			await client.tevmDeal({
+				erc20: token,
+				account,
+				amount,
+			})
+
+			// Verify the balance was updated using tevmContract
+			const result = await client.tevmContract({
+				to: token,
+				abi: erc20Abi,
+				functionName: 'balanceOf',
+				args: [account],
+			})
+
+			expect(result.data).toEqual(amount)
+		})
 	})
 })

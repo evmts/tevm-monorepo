@@ -142,9 +142,15 @@ export const contractHandler =
 			)
 		} catch (e) {
 			if (result.rawData === '0x') {
-				throw new Error(
-					'0x data returned from EVM with no error message. This indicates a the contract was missing or bug in Tevm if no other errors were thrown',
-				)
+				return maybeThrowOnFail(params.throwOnFail ?? throwOnFailDefault, {
+					errors: [
+						new Error(
+							'0x data returned from EVM with no error message. This indicates a the contract was missing or bug in Tevm if no other errors were thrown',
+						),
+					],
+					rawData: '0x',
+					executionGasUsed: 0n,
+				})
 			}
 			client.logger.debug(e, 'contractHandler: Error decoding returned call data with provided abi and functionName')
 			const cause = /** @type {Error}*/ (e)

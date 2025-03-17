@@ -9,14 +9,14 @@ import { anvilSetStorageAtJsonRpcProcedure } from './anvilSetStorageAtProcedure.
 
 /**
  * Deals ERC20 tokens to an account by overriding the storage of balanceOf(account)
- * @param {import('@tevm/node').TevmNode} client
+ * @param {import('@tevm/node').TevmNode} node
  * @returns {import('./AnvilHandler.js').AnvilDealHandler}
  */
 export const dealHandler =
-	(client) =>
+	(node) =>
 	async ({ erc20, account, amount }) => {
 		if (!erc20) {
-			return setAccountHandler(client)({
+			return setAccountHandler(node)({
 				address: account,
 				balance: amount,
 			})
@@ -25,7 +25,7 @@ export const dealHandler =
 		const value = numberToHex(amount, { size: 32 })
 
 		// Get storage slots accessed by balanceOf
-		const accessListResponse = await ethCreateAccessListProcedure(client)({
+		const accessListResponse = await ethCreateAccessListProcedure(node)({
 			method: 'eth_createAccessList',
 			params: [
 				{
@@ -52,14 +52,14 @@ export const dealHandler =
 		for (const { address, storageKeys } of accessListResponse.result.accessList) {
 			for (const slot of storageKeys) {
 				// Get existing storage value
-				const oldValue = await getStorageAtHandler(client)({
+				const oldValue = await getStorageAtHandler(node)({
 					address,
 					position: slot,
 					blockTag: 'latest',
 				})
 
 				// Set new value
-				await anvilSetStorageAtJsonRpcProcedure(client)({
+				await anvilSetStorageAtJsonRpcProcedure(node)({
 					method: 'anvil_setStorageAt',
 					params: [address, slot, value],
 					id: 1,
@@ -69,22 +69,24 @@ export const dealHandler =
 				// Track modified slot
 				modifiedSlots.push({ address, slot, oldValue })
 
-				// Check if balance updated correctly
-				const balanceResponse = await contractHandler(client)({
+				// Check if balance updated correctly - with throwOnFail: false to handle errors
+				const balanceResponse = await contractHandler(node)({
 					to: erc20,
 					abi: ERC20.abi,
 					functionName: 'balanceOf',
 					args: [account],
+					throwOnFail: false,
 				})
 
-				if (balanceResponse.data === hexToBigInt(value)) {
+				// Check if the balance call succeeded and matches expected value
+				if (!balanceResponse.errors && balanceResponse.data === hexToBigInt(value)) {
 					// Found correct slot, reset all other slots
 					for (const { address: resetAddr, slot: resetSlot, oldValue: resetValue } of modifiedSlots) {
 						// Skip the correct slot
 						if (resetAddr === address && resetSlot === slot) continue
 
 						// Reset any other modified slot
-						await anvilSetStorageAtJsonRpcProcedure(client)({
+						await anvilSetStorageAtJsonRpcProcedure(node)({
 							method: 'anvil_setStorageAt',
 							params: [resetAddr, resetSlot, resetValue],
 							id: 1,
@@ -94,20 +96,21 @@ export const dealHandler =
 					// Found correct slot, return success
 					return {}
 				}
+
+				// This slot didn't work, revert it immediately
+				await anvilSetStorageAtJsonRpcProcedure(node)({
+					method: 'anvil_setStorageAt',
+					params: [address, slot, oldValue],
+					id: 1,
+					jsonrpc: '2.0',
+				})
+
+				// Also remove it from modifiedSlots since we've already reset it
+				modifiedSlots.pop()
 			}
 		}
 
-		// No valid storage slot found, reset all slots
-		for (const { address, slot, oldValue } of modifiedSlots) {
-			await anvilSetStorageAtJsonRpcProcedure(client)({
-				method: 'anvil_setStorageAt',
-				params: [address, slot, oldValue],
-				id: 1,
-				jsonrpc: '2.0',
-			})
-		}
-
-		// No valid storage slot found
+		// No valid storage slot found, but all slots should already be reset
 		return {
 			errors: [
 				{
