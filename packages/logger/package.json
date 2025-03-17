@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/logger",
-	"version": "1.0.0-next.131",
+	"version": "1.0.0-next.132",
 	"private": false,
 	"description": "A logger used by tevm",
 	"keywords": [

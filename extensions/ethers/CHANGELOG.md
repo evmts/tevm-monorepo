@@ -1,5 +1,20 @@
 # @tevm/ethers
 
+## 1.0.0-next.132
+
+### Patch Changes
+
+- Updated dependencies [bda9ff4]
+- Updated dependencies [5c1da73]
+- Updated dependencies [b6d85c8]
+- Updated dependencies [7ceb0c5]
+- Updated dependencies [3461670]
+  - @tevm/actions@1.0.0-next.132
+  - @tevm/decorators@1.0.0-next.132
+  - @tevm/contract@1.0.0-next.132
+  - @tevm/node@1.0.0-next.132
+  - @tevm/client-types@1.0.0-next.131
+
 ## 1.0.0-next.131
 
 ### Patch Changes
