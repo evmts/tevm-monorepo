@@ -2,11 +2,11 @@ import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { validateHex } from '../internal/zod/zHex.js'
 
 /**
- * Validates call parameters
+ * Validates call parameters using Zod
  * @param {unknown} params - The parameters to validate
  * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
  */
-export const validateCallParams = (params) => {
+export const validateCallParamsZod = (params) => {
 	if (typeof params !== 'object' || params === null) {
 		return {
 			isValid: false,

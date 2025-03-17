@@ -33,10 +33,17 @@ export const validateMineParams = (action) => {
 		})
 	}
 
-	// Validate blockCount if present
+	// Validate blockCount if present (support both blockCount and blocks for backwards compatibility)
 	if ('blockCount' in action && action.blockCount !== undefined) {
 		if (typeof action.blockCount !== 'number' || !Number.isInteger(action.blockCount) || action.blockCount < 0) {
 			errors.push(new InvalidAddressError('blockCount must be a non-negative integer'))
+		}
+	}
+
+	// Support 'blocks' parameter for backwards compatibility
+	if ('blocks' in action && action.blocks !== undefined) {
+		if (typeof action.blocks !== 'number' || !Number.isInteger(action.blocks) || action.blocks < 0) {
+			errors.push(new InvalidAddressError('blocks must be a non-negative integer'))
 		}
 	}
 

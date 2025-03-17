@@ -1,9 +1,8 @@
 import { expect, test } from 'vitest'
-import type { z } from 'zod'
 import type { CallParams } from './CallParams.js'
-import { zCallParams } from './zCallParams.js'
+import { validateCallParamsZod } from './zCallParams.js'
 
-test('zCallParams', () => {
+test('validateCallParamsZod should validate correct params', () => {
 	const callParams: CallParams = {
 		blobVersionedHashes: ['0x0000000'],
 		blockTag: 'safe',
@@ -11,9 +10,16 @@ test('zCallParams', () => {
 		gas: 0x420n,
 		caller: `0x${'69'.repeat(20)}`,
 		code: `0x${'69'.repeat(32)}`,
-	} as const satisfies z.infer<typeof zCallParams> satisfies CallParams
-	expect(zCallParams.parse(callParams)).toEqual(callParams)
-	expect(() => zCallParams.parse('0x4')).toThrow()
+	}
+	const result = validateCallParamsZod(callParams)
+	expect(result.isValid).toBe(true)
+})
+
+test('validateCallParamsZod should invalidate non-object params', () => {
+	const result = validateCallParamsZod('0x4')
+	expect(result.isValid).toBe(false)
+	expect(result.errors).toHaveLength(1)
+	expect(result.errors[0].message).toContain('must be an object')
 })
 
 test('should not allow both code and deployedBytecode', () => {
@@ -21,7 +27,9 @@ test('should not allow both code and deployedBytecode', () => {
 		code: '0x1234',
 		deployedBytecode: '0x5678',
 	}
-	expect(() => zCallParams.parse(params)).toThrow('Cannot have both code and deployedBytecode set')
+	const result = validateCallParamsZod(params)
+	expect(result.isValid).toBe(false)
+	expect(result.errors.some((e) => e.message.includes('Cannot have both code and deployedBytecode'))).toBe(true)
 })
 
 test('should not allow createTransaction with stateOverrideSet', () => {
@@ -29,9 +37,9 @@ test('should not allow createTransaction with stateOverrideSet', () => {
 		createTransaction: true,
 		stateOverrideSet: {},
 	}
-	expect(() => zCallParams.parse(params)).toThrow(
-		'Cannot have stateOverrideSet or blockOverrideSet for createTransaction',
-	)
+	const result = validateCallParamsZod(params)
+	expect(result.isValid).toBe(false)
+	expect(result.errors.some((e) => e.message.includes('Cannot have stateOverrideSet'))).toBe(true)
 })
 
 test('should not allow createTransaction with blockOverrideSet', () => {
@@ -39,7 +47,7 @@ test('should not allow createTransaction with blockOverrideSet', () => {
 		createTransaction: true,
 		blockOverrideSet: {},
 	}
-	expect(() => zCallParams.parse(params)).toThrow(
-		'Cannot have stateOverrideSet or blockOverrideSet for createTransaction',
-	)
+	const result = validateCallParamsZod(params)
+	expect(result.isValid).toBe(false)
+	expect(result.errors.some((e) => e.message.includes('Cannot have blockOverrideSet'))).toBe(true)
 })

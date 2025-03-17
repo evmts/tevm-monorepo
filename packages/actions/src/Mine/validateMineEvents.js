@@ -28,8 +28,11 @@ export const validateMineEvents = (events) => {
 	}
 
 	// Check for any keys that aren't in our list of valid handlers
+	// Skip known parameter properties that aren't event handlers
+	const ignoredProps = ['blockCount', 'blocks', 'interval', 'throwOnFail']
+
 	for (const key in events) {
-		if (!handlers.includes(key)) {
+		if (!handlers.includes(key) && !ignoredProps.includes(key)) {
 			errors.push({
 				path: key,
 				message: `Unknown event handler: ${key}`,
