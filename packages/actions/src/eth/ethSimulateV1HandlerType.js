@@ -37,7 +37,7 @@
 
 /**
  * @typedef {object} SimulateParams
- * @property {`0x${string}`} [account] - The account to use as the default transaction sender and for asset tracking
+ * @property {`0x${string}` | undefined} [account] - The account to use as the default transaction sender and for asset tracking
  * @property {SimulateCallItem[]} blockStateCalls - Array of call items to execute
  * @property {`0x${string}` | 'earliest' | 'latest' | 'pending' | 'safe' | 'finalized'} [blockNumber='latest'] - Block to execute against
  * @property {StateOverride[]} [stateOverrides=[]] - Array of state overrides to apply
@@ -83,8 +83,8 @@
 /**
  * Handler for simulating a series of transactions with optional state overrides
  * @callback EthSimulateV1Handler
- * @param {SimulateParams} params - Simulation parameters
- * @returns {Promise<SimulateResult>} - The simulation results
+ * @param {import('@tevm/node').TevmNode} client - Tevm node client
+ * @returns {(params: SimulateParams) => Promise<SimulateResult>}
  */
 
 export {}

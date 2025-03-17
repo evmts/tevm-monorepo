@@ -2,16 +2,17 @@
  * @module ethSimulateV1Handler
  */
 
+import { createAddress } from '@tevm/address'
 import { BaseError } from '@tevm/errors'
 import { callHandler } from '../Call/callHandler.js'
 import { formatLog } from '../internal/formatLog.js'
 import { parseBlockTag } from '../utils/parseBlockTag.js'
-import { toHex } from '../utils/toHex.js'
 
 /**
  * Error thrown when simulate operation fails
  */
 export class SimulateError extends BaseError {
+	/** @override */
 	name = 'SimulateError'
 	/**
 	 * @param {object} options - Error options
@@ -19,10 +20,7 @@ export class SimulateError extends BaseError {
 	 * @param {Error} [options.cause] - The underlying error that caused this error
 	 */
 	constructor({ message, cause }) {
-		super({
-			shortMessage: message,
-			cause,
-		})
+		super(message, { cause }, 'SimulateError')
 	}
 }
 
@@ -62,13 +60,35 @@ export const ethSimulateV1Handler = (client) => {
 			client.logger.debug({ stateOverrides }, 'Applying state overrides')
 
 			for (const override of stateOverrides) {
-				await client.tevmSetAccount({
-					address: override.address,
-					...(override.balance !== undefined ? { balance: BigInt(override.balance) } : {}),
-					...(override.nonce !== undefined ? { nonce: Number(override.nonce) } : {}),
-					...(override.code !== undefined ? { code: override.code } : {}),
-					...(override.storage !== undefined ? { storageOverrides: override.storage } : {}),
-				})
+				// Use direct state manager access
+				const vm = await client.getVm()
+				if (override.balance !== undefined || override.nonce !== undefined || override.code !== undefined) {
+					const addressObj = createAddress(override.address)
+					const account = await vm.stateManager.getAccount(addressObj)
+					if (account) {
+						if (override.balance !== undefined) {
+							account.balance = BigInt(override.balance)
+						}
+						if (override.nonce !== undefined) {
+							account.nonce = BigInt(Number(override.nonce))
+						}
+						await vm.stateManager.putAccount(addressObj, account)
+					}
+
+					if (override.code !== undefined) {
+						await vm.stateManager.putContractCode(addressObj, Buffer.from(override.code.slice(2), 'hex'))
+					}
+				}
+
+				if (override.storage && Object.keys(override.storage).length > 0) {
+					for (const [key, value] of Object.entries(override.storage)) {
+						await vm.stateManager.putContractStorage(
+							createAddress(override.address),
+							Buffer.from(key.slice(2), 'hex'),
+							Buffer.from(value.slice(2), 'hex'),
+						)
+					}
+				}
 			}
 		}
 
@@ -79,20 +99,22 @@ export const ethSimulateV1Handler = (client) => {
 		}
 
 		// Initialize asset tracking if needed
+		/** @type {Record<string, bigint>} */
 		const initialBalances = {}
 		if (traceAssetChanges && account) {
 			client.logger.debug({ account }, 'Initializing asset tracking')
 
-			// Get initial ETH balance
-			const initialBalance = await client.getBalance({
-				address: account,
-				blockTag: blockNumber,
-			})
-
-			initialBalances[NATIVE_TOKEN_ADDRESS] = initialBalance
+			// Use low-level methods to get balance
+			const vm = await client.getVm()
+			const addressObj = createAddress(account)
+			const ethAccount = await vm.stateManager.getAccount(addressObj)
+			if (ethAccount) {
+				initialBalances[NATIVE_TOKEN_ADDRESS] = ethAccount.balance
+			}
 		}
 
 		// Process each call
+		/** @type {import('./ethSimulateV1HandlerType.js').SimulateCallResult[]} */
 		const results = []
 		const call = callHandler(client)
 
@@ -100,18 +122,20 @@ export const ethSimulateV1Handler = (client) => {
 			client.logger.debug({ index, callParams }, 'Processing call')
 
 			try {
-				// Execute the call
+				// Use a default sender address
+				const fromAddress = callParams.from || account || '0x0000000000000000000000000000000000000000'
+
+				// Execute the call with all required properties
 				const callResult = await call({
-					from: callParams.from || account,
+					from: fromAddress,
 					to: callParams.to,
 					data: callParams.data || '0x',
-					value: callParams.value !== undefined ? BigInt(callParams.value) : undefined,
-					gas: callParams.gas !== undefined ? BigInt(callParams.gas) : undefined,
-					gasPrice: callParams.gasPrice !== undefined ? BigInt(callParams.gasPrice) : undefined,
-					maxFeePerGas: callParams.maxFeePerGas !== undefined ? BigInt(callParams.maxFeePerGas) : undefined,
+					value: callParams.value !== undefined ? BigInt(callParams.value) : 0n,
+					gas: callParams.gas !== undefined ? BigInt(callParams.gas) : 1000000n, // 1M gas default
+					gasPrice: callParams.gasPrice !== undefined ? BigInt(callParams.gasPrice) : 0n,
+					maxFeePerGas: callParams.maxFeePerGas !== undefined ? BigInt(callParams.maxFeePerGas) : 0n,
 					maxPriorityFeePerGas:
-						callParams.maxPriorityFeePerGas !== undefined ? BigInt(callParams.maxPriorityFeePerGas) : undefined,
-					accessList: callParams.accessList,
+						callParams.maxPriorityFeePerGas !== undefined ? BigInt(callParams.maxPriorityFeePerGas) : 0n,
 					blockTag,
 					createTrace: true, // Enable tracing to get detailed information
 					throwOnFail: false, // Don't throw on failure, just return error details
@@ -126,7 +150,7 @@ export const ethSimulateV1Handler = (client) => {
 						data: callResult.rawData || '0x',
 						gasUsed: callResult.executionGasUsed || 0n,
 						logs: callResult.logs ? callResult.logs.map(formatLog) : [],
-						error: error.message || 'Execution failed',
+						error: error?.message || 'Execution failed',
 					})
 				} else {
 					// Handle successful call
@@ -145,30 +169,32 @@ export const ethSimulateV1Handler = (client) => {
 					data: '0x',
 					gasUsed: 0n,
 					logs: [],
-					error: error.message || 'Unexpected error during execution',
+					error: error instanceof Error ? error.message : 'Unexpected error during execution',
 				})
 			}
 		}
 
 		// Track asset changes if requested
-		let assetChanges
+		/** @type {import('./ethSimulateV1HandlerType.js').AssetChange[]} */
+		let assetChanges = []
 		if (traceAssetChanges && account) {
 			client.logger.debug({ account }, 'Tracking asset changes')
 
+			/** @type {Record<string, bigint>} */
 			const finalBalances = {}
 
-			// Get final ETH balance
-			const finalBalance = await client.getBalance({
-				address: account,
-				blockTag: blockNumber,
-			})
-
-			finalBalances[NATIVE_TOKEN_ADDRESS] = finalBalance
+			// Get final ETH balance using low-level methods
+			const vm = await client.getVm()
+			const addressObj = createAddress(account)
+			const ethAccount = await vm.stateManager.getAccount(addressObj)
+			if (ethAccount) {
+				finalBalances[NATIVE_TOKEN_ADDRESS] = ethAccount.balance
+			}
 
 			// Calculate asset changes
 			assetChanges = Object.entries(initialBalances)
 				.map(([address, initialBalance]) => {
-					const finalBalance = finalBalances[address] || 0n
+					const finalBalance = finalBalances[address] ?? 0n
 					const diff = finalBalance - initialBalance
 
 					// Only include if there's a change
@@ -192,13 +218,20 @@ export const ethSimulateV1Handler = (client) => {
 					// Could handle ERC20 tokens here if needed
 					return null
 				})
-				.filter(Boolean)
+				.filter(
+					/**
+					 * @template T
+					 * @param {T | null} x
+					 * @returns {x is T}
+					 */
+					(x) => x !== null,
+				)
 		}
 
 		// Return the formatted result
 		return {
 			results,
-			...(assetChanges ? { assetChanges } : {}),
+			...(assetChanges.length > 0 ? { assetChanges } : {}),
 		}
 	}
 }

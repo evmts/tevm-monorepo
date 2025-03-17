@@ -218,5 +218,5 @@ export type EthCreateAccessListJsonRpcProcedure = (
 
 // eth_simulateV1
 export type EthSimulateV1JsonRpcProcedure = (
-	request: EthSimulateV1JsonRpcRequest,
-) => Promise<EthSimulateV1JsonRpcResponse>
+	client: any,
+) => (request: EthSimulateV1JsonRpcRequest) => Promise<EthSimulateV1JsonRpcResponse>

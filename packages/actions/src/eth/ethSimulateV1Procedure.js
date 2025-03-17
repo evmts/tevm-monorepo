@@ -12,36 +12,53 @@ import { ethSimulateV1Handler } from './ethSimulateV1Handler.js'
 export const ethSimulateV1Procedure = (client) => {
 	const handler = ethSimulateV1Handler(client)
 
+	/**
+	 * @param {import('./EthJsonRpcRequest.js').EthSimulateV1JsonRpcRequest} req
+	 * @returns {Promise<import('./EthJsonRpcResponse.js').EthSimulateV1JsonRpcResponse>}
+	 */
 	return async (req) => {
 		try {
 			// Extract parameters from the request
 			const params = req.params[0] || {}
 
 			// Convert parameters from JSON-RPC format
+			/** @type {import('./ethSimulateV1HandlerType.js').SimulateParams} */
 			const simulateParams = {
-				account: params.account,
-				blockStateCalls: (params.blockStateCalls || []).map((call) => ({
-					...(call.from !== undefined ? { from: call.from } : {}),
-					...(call.to !== undefined ? { to: call.to } : {}),
-					...(call.data !== undefined ? { data: call.data } : {}),
-					...(call.gas !== undefined ? { gas: BigInt(call.gas) } : {}),
-					...(call.gasPrice !== undefined ? { gasPrice: BigInt(call.gasPrice) } : {}),
-					...(call.maxFeePerGas !== undefined ? { maxFeePerGas: BigInt(call.maxFeePerGas) } : {}),
-					...(call.maxPriorityFeePerGas !== undefined
-						? { maxPriorityFeePerGas: BigInt(call.maxPriorityFeePerGas) }
-						: {}),
-					...(call.value !== undefined ? { value: BigInt(call.value) } : {}),
-					...(call.nonce !== undefined ? { nonce: Number(call.nonce) } : {}),
-					...(call.accessList !== undefined ? { accessList: call.accessList } : {}),
-				})),
-				blockNumber: params.blockNumber,
-				stateOverrides: (params.stateOverrides || []).map((override) => ({
-					address: override.address,
-					...(override.balance !== undefined ? { balance: BigInt(override.balance) } : {}),
-					...(override.nonce !== undefined ? { nonce: Number(override.nonce) } : {}),
-					...(override.code !== undefined ? { code: override.code } : {}),
-					...(override.storage !== undefined ? { storage: override.storage } : {}),
-				})),
+				account: params.account || undefined,
+				blockStateCalls: (params.blockStateCalls || []).map(
+					/**
+					 * @param {any} call
+					 * @returns {import('./ethSimulateV1HandlerType.js').SimulateCallItem}
+					 */
+					(call) => ({
+						...(call.from !== undefined ? { from: call.from } : {}),
+						...(call.to !== undefined ? { to: call.to } : {}),
+						...(call.data !== undefined ? { data: call.data } : {}),
+						...(call.gas !== undefined ? { gas: BigInt(call.gas) } : {}),
+						...(call.gasPrice !== undefined ? { gasPrice: BigInt(call.gasPrice) } : {}),
+						...(call.maxFeePerGas !== undefined ? { maxFeePerGas: BigInt(call.maxFeePerGas) } : {}),
+						...(call.maxPriorityFeePerGas !== undefined
+							? { maxPriorityFeePerGas: BigInt(call.maxPriorityFeePerGas) }
+							: {}),
+						...(call.value !== undefined ? { value: BigInt(call.value) } : {}),
+						...(call.nonce !== undefined ? { nonce: Number(call.nonce) } : {}),
+						...(call.accessList !== undefined ? { accessList: call.accessList } : {}),
+					}),
+				),
+				blockNumber: params.blockNumber || 'latest',
+				stateOverrides: (params.stateOverrides || []).map(
+					/**
+					 * @param {any} override
+					 * @returns {import('./ethSimulateV1HandlerType.js').StateOverride}
+					 */
+					(override) => ({
+						address: override.address,
+						...(override.balance !== undefined ? { balance: BigInt(override.balance) } : {}),
+						...(override.nonce !== undefined ? { nonce: Number(override.nonce) } : {}),
+						...(override.code !== undefined ? { code: override.code } : {}),
+						...(override.storage !== undefined ? { storage: override.storage } : {}),
+					}),
+				),
 				...(params.blockOverrides
 					? {
 							blockOverrides: {
@@ -70,43 +87,63 @@ export const ethSimulateV1Procedure = (client) => {
 
 			// Format the result to JSON-RPC format
 			return {
-				jsonrpc: req.jsonrpc,
-				id: req.id,
+				jsonrpc: req.jsonrpc || '2.0',
+				id: req.id || null,
 				method: 'eth_simulateV1',
 				result: {
-					results: result.results.map((callResult) => ({
-						status: callResult.status,
-						data: callResult.data,
-						gasUsed: numberToHex(callResult.gasUsed),
-						logs: callResult.logs.map((log) => ({
-							...log,
-							// Convert any bigint fields to hex
-							logIndex: log.logIndex !== undefined ? numberToHex(log.logIndex) : undefined,
-							blockNumber: log.blockNumber !== undefined ? numberToHex(log.blockNumber) : undefined,
-							transactionIndex: log.transactionIndex !== undefined ? numberToHex(log.transactionIndex) : undefined,
-						})),
-						...(callResult.error ? { error: callResult.error } : {}),
-					})),
-					...(result.assetChanges
+					results: result.results.map(
+						/**
+						 * @param {import('./ethSimulateV1HandlerType.js').SimulateCallResult} callResult
+						 */
+						(callResult) => ({
+							status: callResult.status,
+							data: callResult.data,
+							gasUsed: numberToHex(callResult.gasUsed),
+							logs: callResult.logs.map(
+								/**
+								 * @param {import('../common/FilterLog.js').FilterLog} log
+								 */
+								(log) => ({
+									address: log.address,
+									topics: /** @type {`0x${string}`[]} */ (log.topics),
+									data: log.data,
+									blockNumber: log.blockNumber ? numberToHex(log.blockNumber) : undefined,
+									transactionHash: log.transactionHash,
+									transactionIndex: log.transactionIndex ? numberToHex(log.transactionIndex) : undefined,
+									blockHash: log.blockHash,
+									logIndex: log.logIndex ? numberToHex(log.logIndex) : undefined,
+								}),
+							),
+							...(callResult.error ? { error: callResult.error } : {}),
+						}),
+					),
+					...(result.assetChanges && result.assetChanges.length > 0
 						? {
-								assetChanges: result.assetChanges.map((change) => ({
-									token: change.token,
-									value: {
-										diff: numberToHex(change.value.diff),
-										...(change.value.start !== undefined ? { start: numberToHex(change.value.start) } : {}),
-										...(change.value.end !== undefined ? { end: numberToHex(change.value.end) } : {}),
-									},
-								})),
+								assetChanges: result.assetChanges.map(
+									/**
+									 * @param {import('./ethSimulateV1HandlerType.js').AssetChange} change
+									 */
+									(change) => ({
+										token: change.token,
+										value: {
+											diff: numberToHex(change.value.diff),
+											...(change.value.start !== undefined ? { start: numberToHex(change.value.start) } : {}),
+											...(change.value.end !== undefined ? { end: numberToHex(change.value.end) } : {}),
+										},
+									}),
+								),
 							}
 						: {}),
 				},
 			}
 		} catch (error) {
 			// Return error in JSON-RPC format
-			client.logger.error(error, 'Error in eth_simulateV1')
+			if (client.logger) {
+				client.logger.error(error, 'Error in eth_simulateV1')
+			}
 			return {
-				jsonrpc: req.jsonrpc,
-				id: req.id,
+				jsonrpc: req.jsonrpc || '2.0',
+				id: req.id || null,
 				method: 'eth_simulateV1',
 				error: {
 					code: -32000,
