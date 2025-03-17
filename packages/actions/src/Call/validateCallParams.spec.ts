@@ -41,9 +41,9 @@ describe('validateCallParams', () => {
 		const errors = validateCallParams(action as any)
 		expect(errors).toHaveLength(3)
 		// Just check that we have all the expected types of errors, without requiring a specific order
-		expect(errors.some(e => e instanceof InvalidSaltError)).toBe(true)
-		expect(errors.some(e => e instanceof InvalidDataError)).toBe(true)
-		expect(errors.some(e => e instanceof InvalidBytecodeError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidSaltError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidDataError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidBytecodeError)).toBe(true)
 	})
 
 	it('should return errors from validateBaseCallParams', () => {
@@ -60,16 +60,16 @@ describe('validateCallParams', () => {
 
 		const errors = validateCallParams(action as any)
 		expect(errors).toHaveLength(baseErrors.length + 3)
-		
+
 		// Check that all baseErrors are present in the combined errors
-		baseErrors.forEach(baseError => {
-			expect(errors.some(e => e.message === baseError.message && e.constructor === baseError.constructor)).toBe(true)
+		baseErrors.forEach((baseError) => {
+			expect(errors.some((e) => e.message === baseError.message && e.constructor === baseError.constructor)).toBe(true)
 		})
-		
+
 		// Check that all necessary error types are present
-		expect(errors.some(e => e instanceof InvalidSaltError)).toBe(true)
-		expect(errors.some(e => e instanceof InvalidDataError)).toBe(true)
-		expect(errors.some(e => e instanceof InvalidBytecodeError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidSaltError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidDataError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidBytecodeError)).toBe(true)
 	})
 
 	it('code and deployedbytecode', () => {

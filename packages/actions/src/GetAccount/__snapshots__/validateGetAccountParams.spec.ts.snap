@@ -26,3 +26,29 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73],
 ]
 `;
+
+exports[`validateGetAccountParams > should return InvalidRequestError for an invalid throwOnFail parameter 1`] = `
+[
+  [InvalidRequest: Invalid throwOnFail param. throwOnFail must be a boolean or not provided.
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
+Version: 1.1.0.next-73],
+]
+`;
+
+exports[`validateGetAccountParams > should return multiple errors for multiple invalid parameters 1`] = `
+[
+  [InvalidAddress: Invalid address param. value must be a hex string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73],
+  [InvalidRequest: Invalid throwOnFail param. throwOnFail must be a boolean or not provided.
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
+Version: 1.1.0.next-73],
+  [InvalidRequest: Invalid returnStorage param. returnStorage must be a boolean or not provided.
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
+Version: 1.1.0.next-73],
+]
+`;

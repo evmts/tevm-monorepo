@@ -246,20 +246,22 @@ export const validateBaseCallParams = (action) => {
 							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].balance must be a bigint or hex string`))
 						}
 					}
-					
+
 					if ('nonce' in accountState && accountState.nonce !== undefined) {
 						if (typeof accountState.nonce !== 'bigint' && typeof accountState.nonce !== 'number') {
 							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].nonce must be a bigint or number`))
 						}
 					}
-					
+
 					if ('code' in accountState && accountState.code !== undefined) {
 						const codeValidation = validateHex(accountState.code)
 						if (!codeValidation.isValid) {
-							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].code ${codeValidation.message || 'is invalid'}`))
+							errors.push(
+								new InvalidParamsError(`stateOverrideSet[${address}].code ${codeValidation.message || 'is invalid'}`),
+							)
 						}
 					}
-					
+
 					if ('state' in accountState && accountState.state !== undefined) {
 						if (typeof accountState.state !== 'object' || accountState.state === null) {
 							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].state must be an object`))

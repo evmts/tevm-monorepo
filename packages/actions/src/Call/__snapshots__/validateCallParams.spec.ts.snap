@@ -6,3 +6,10 @@ exports[`validateCallParams > code and deployedbytecode 1`] = `
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Version: 1.1.0.next-73]
 `;
+
+exports[`validateCallParams > createTransaction and stateOverrideSet 1`] = `
+[InvalidParams: stateOverrideSet address Address must be 40 hex characters long (with 0x prefix)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
+Version: 1.1.0.next-73]
+`;
