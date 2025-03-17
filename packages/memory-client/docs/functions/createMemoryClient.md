@@ -4229,7 +4229,7 @@ on top of Tevm.
 
 ###### intervalMiningId?
 
-> `optional` **intervalMiningId**: `Timeout`
+> `optional` **intervalMiningId**: `null` \| `Timeout`
 
 **`Internal`**
 

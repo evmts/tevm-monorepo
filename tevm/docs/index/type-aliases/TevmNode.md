@@ -127,7 +127,7 @@ on top of Tevm.
 
 ### intervalMiningId?
 
-> `optional` **intervalMiningId**: `NodeJS.Timeout`
+> `optional` **intervalMiningId**: `NodeJS.Timeout` \| `null`
 
 **`Internal`**
 

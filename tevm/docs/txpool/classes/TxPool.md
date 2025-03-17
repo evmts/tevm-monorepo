@@ -55,7 +55,7 @@ tx pool preparation (sorting out included txs)
 
 ### gasMiningConfig?
 
-> `optional` **gasMiningConfig**: `GasMiningConfig`
+> `optional` **gasMiningConfig**: [`GasMiningConfig`](../interfaces/GasMiningConfig.md)
 
 Defined in: packages/txpool/types/TxPool.d.ts:38
 
