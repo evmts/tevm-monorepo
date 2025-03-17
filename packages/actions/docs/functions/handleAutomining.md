@@ -6,7 +6,7 @@
 
 # Function: handleAutomining()
 
-> **handleAutomining**(`client`, `txHash`?, `isGasMining`?): `Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
+> **handleAutomining**(`client`, `txHash`?, `isGasMining`?): `Promise`\<[`MineResult`](../type-aliases/MineResult.md)\>
 
 Defined in: [packages/actions/src/Call/handleAutomining.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleAutomining.js#L12)
 
@@ -30,7 +30,7 @@ Whether this is being triggered by gas mining
 
 ## Returns
 
-`Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
+`Promise`\<[`MineResult`](../type-aliases/MineResult.md)\>
 
 undefined if noop, errors if automining fails, blockHashes if automining succeeds
 

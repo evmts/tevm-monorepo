@@ -115,7 +115,7 @@ Whether the call is static (view)
 
 ### salt?
 
-> `optional` **salt**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **salt**: `Uint8Array`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L40)
 

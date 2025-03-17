@@ -8,7 +8,7 @@
 
 > **ethCreateAccessListProcedure**(`client`): [`EthCreateAccessListJsonRpcProcedure`](../type-aliases/EthCreateAccessListJsonRpcProcedure.md)
 
-Defined in: [packages/actions/src/eth/ethCreateAccessListProcedure.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethCreateAccessListProcedure.js#L9)
+Defined in: [packages/actions/src/eth/ethCreateAccessListProcedure.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethCreateAccessListProcedure.js#L11)
 
 Creates an access list for a transaction.
 Returns list of addresses and storage keys that the transaction plans to access.
@@ -22,3 +22,5 @@ Returns list of addresses and storage keys that the transaction plans to access.
 ## Returns
 
 [`EthCreateAccessListJsonRpcProcedure`](../type-aliases/EthCreateAccessListJsonRpcProcedure.md)
+
+@ts-ignore - Type mismatch during Zod removal

@@ -12,6 +12,7 @@
 
 ## Interfaces
 
+- [ErrorProperties](interfaces/ErrorProperties.md)
 - [Message](interfaces/Message.md)
 - [NewContractEvent](interfaces/NewContractEvent.md)
 
@@ -442,16 +443,15 @@
 - [TransactionParams](type-aliases/TransactionParams.md)
 - [TransactionReceiptResult](type-aliases/TransactionReceiptResult.md)
 - [TransactionResult](type-aliases/TransactionResult.md)
-- [ValidateCallParamsError](type-aliases/ValidateCallParamsError.md)
-- [ValidateContractParamsError](type-aliases/ValidateContractParamsError.md)
-- [ValidateGetAccountParamsError](type-aliases/ValidateGetAccountParamsError.md)
 - [ValidateLoadStateParamsError](type-aliases/ValidateLoadStateParamsError.md)
 - [ValidateMineParamsError](type-aliases/ValidateMineParamsError.md)
 - [ValidateSetAccountParamsError](type-aliases/ValidateSetAccountParamsError.md)
+- [ValidationError](type-aliases/ValidationError.md)
 
 ## Variables
 
 - [zAbi](variables/zAbi.md)
+- [zAccountStorage](variables/zAccountStorage.md)
 - [zAddress](variables/zAddress.md)
 - [zBaseCallParams](variables/zBaseCallParams.md)
 - [zBlock](variables/zBlock.md)
@@ -561,12 +561,14 @@
 - [shouldCreateTransaction](functions/shouldCreateTransaction.md)
 - [traceCallHandler](functions/traceCallHandler.md)
 - [validateBaseCallParams](functions/validateBaseCallParams.md)
+- [validateBaseCallParamsObject](functions/validateBaseCallParamsObject.md)
+- [validateBaseParams](functions/validateBaseParams.md)
 - [validateCallParams](functions/validateCallParams.md)
 - [validateContractParams](functions/validateContractParams.md)
 - [validateGetAccountParams](functions/validateGetAccountParams.md)
 - [validateLoadStateParams](functions/validateLoadStateParams.md)
-- [validateMineEvents](functions/validateMineEvents.md)
 - [validateMineParams](functions/validateMineParams.md)
+- [validateMineParamsObject](functions/validateMineParamsObject.md)
 - [validateSetAccountParams](functions/validateSetAccountParams.md)
 
 ## References

@@ -8,7 +8,7 @@
 
 > **validateSetAccountParams**(`action`): [`ValidateSetAccountParamsError`](../type-aliases/ValidateSetAccountParamsError.md)[]
 
-Defined in: [packages/actions/src/SetAccount/validateSetAccountParams.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/validateSetAccountParams.js#L19)
+Defined in: [packages/actions/src/SetAccount/validateSetAccountParams.js:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/validateSetAccountParams.js#L174)
 
 ## Parameters
 

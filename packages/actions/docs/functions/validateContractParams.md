@@ -6,9 +6,9 @@
 
 # Function: validateContractParams()
 
-> **validateContractParams**(`action`): [`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
+> **validateContractParams**(`action`): `ValidateContractParamsError`[]
 
-Defined in: [packages/actions/src/Contract/validateContractParams.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L20)
+Defined in: [packages/actions/src/Contract/validateContractParams.js:106](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/validateContractParams.js#L106)
 
 ## Parameters
 
@@ -18,4 +18,4 @@ Defined in: [packages/actions/src/Contract/validateContractParams.js:20](https:/
 
 ## Returns
 
-[`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
+`ValidateContractParamsError`[]

@@ -6,6 +6,80 @@
 
 # Variable: zLoadStateParams
 
-> `const` **zLoadStateParams**: `ZodObject`\<\{ `state`: `ZodRecord`\<`ZodString`, `ZodObject`\<`extendShape`\<\{ `throwOnFail`: `ZodOptional`\<`ZodBoolean`\>; \}, \{ `balance`: `ZodBigInt`; `codeHash`: `ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>; `nonce`: `ZodBigInt`; `storage`: `ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>\>\>; `storageRoot`: `ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>; \}\>, `"strip"`, `ZodTypeAny`, \{ `balance`: `bigint`; `codeHash`: `` `0x${string}` ``; `nonce`: `bigint`; `storage`: `Record`\<`string`, `` `0x${string}` ``\>; `storageRoot`: `` `0x${string}` ``; `throwOnFail`: `boolean`; \}, \{ `balance`: `bigint`; `codeHash`: `string`; `nonce`: `bigint`; `storage`: `Record`\<`string`, `string`\>; `storageRoot`: `string`; `throwOnFail`: `boolean`; \}\>\>; \}, `"strip"`, `ZodTypeAny`, \{ `state`: `Record`\<`string`, \{ `balance`: `bigint`; `codeHash`: `` `0x${string}` ``; `nonce`: `bigint`; `storage`: `Record`\<`string`, `` `0x${string}` ``\>; `storageRoot`: `` `0x${string}` ``; `throwOnFail`: `boolean`; \}\>; \}, \{ `state`: `Record`\<`string`, \{ `balance`: `bigint`; `codeHash`: `string`; `nonce`: `bigint`; `storage`: `Record`\<`string`, `string`\>; `storageRoot`: `string`; `throwOnFail`: `boolean`; \}\>; \}\>
+> `const` **zLoadStateParams**: `object`
 
-Defined in: [packages/actions/src/LoadState/zLoadStateParams.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/zLoadStateParams.js#L15)
+Defined in: [packages/actions/src/LoadState/zLoadStateParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/zLoadStateParams.js#L9)
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `any`
+
+Parse the load state parameters
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+The value to parse
+
+#### Returns
+
+`any`
+
+- The parsed value
+
+### safeParse()
+
+> **safeParse**: (`value`) => `object`
+
+Safely parse the load state parameters
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+The value to parse
+
+#### Returns
+
+`object`
+
+- The parse result
+
+##### data?
+
+> `optional` **data**: `any`
+
+##### error?
+
+> `optional` **error**: `object`
+
+###### error.format()
+
+> **format**: () => `object`
+
+###### Returns
+
+`object`
+
+###### \_errors
+
+> **\_errors**: `string`[]
+
+###### state?
+
+> `optional` **state**: `object`
+
+###### state.\_errors
+
+> **\_errors**: `string`[]
+
+##### success
+
+> **success**: `boolean`

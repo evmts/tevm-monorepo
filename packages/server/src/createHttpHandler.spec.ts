@@ -184,15 +184,16 @@ describe('createHttpHandler', () => {
 
 		// Mock a response with BigInt values
 		;(tevm as any).transport.tevm.extend = () => ({
-			send: () => Promise.resolve({
-				jsonrpc: '2.0',
-				id: 1,
-				method: 'test_method',
-				result: {
-					value: 123456789123456789123456789n,
-					nestedValue: { deepBigInt: 987654321987654321n }
-				}
-			}),
+			send: () =>
+				Promise.resolve({
+					jsonrpc: '2.0',
+					id: 1,
+					method: 'test_method',
+					result: {
+						value: 123456789123456789123456789n,
+						nestedValue: { deepBigInt: 987654321987654321n },
+					},
+				}),
 		})
 
 		const req = {
@@ -223,48 +224,15 @@ describe('createHttpHandler', () => {
 				id: 2,
 			},
 		]
-		
-		// Create a custom client that returns BigInt values
-		const customClient = {
-			transport: {
-				tevm: {
-					extend: () => ({
-						send: (req: any) => {
-							if (req.method === 'test_method1') {
-								return Promise.resolve({
-									jsonrpc: '2.0',
-									id: req.id,
-									method: req.method,
-									result: {
-										value: 123456789123456789123456789n,
-										nestedValue: { deepBigInt: 987654321987654321n }
-									}
-								});
-							} else {
-								return Promise.resolve({
-									jsonrpc: '2.0',
-									id: req.id,
-									method: req.method,
-									result: {
-										bigIntArray: [1n, 2n, 3n]
-									}
-								});
-							}
-						}
-					}),
-					logger: {
-						error: () => {}
-					}
-				}
-			}
-		};
-		
+
+		// Not using a custom client for this test as we're directly handling the response
+
 		// We'll create our own http handler that calls our custom handleBulkRequest function directly
-		const server = require('node:http').createServer((req, res) => {
+		const server = require('node:http').createServer((_req: any, res: any) => {
 			// This bypasses the normal flow and directly tests the BigInt serialization
 			// for bulk responses in createHttpHandler.js
-			res.writeHead(200, { 'Content-Type': 'application/json' });
-			
+			res.writeHead(200, { 'Content-Type': 'application/json' })
+
 			// Create responses with BigInt values
 			const responses = [
 				{
@@ -273,32 +241,32 @@ describe('createHttpHandler', () => {
 					method: 'test_method1',
 					result: {
 						value: 123456789123456789123456789n,
-						nestedValue: { deepBigInt: 987654321987654321n }
-					}
+						nestedValue: { deepBigInt: 987654321987654321n },
+					},
 				},
 				{
 					jsonrpc: '2.0',
 					id: 2,
 					method: 'test_method2',
 					result: {
-						bigIntArray: [1n, 2n, 3n]
-					}
-				}
-			];
-			
+						bigIntArray: [1n, 2n, 3n],
+					},
+				},
+			]
+
 			// This directly tests the BigInt serialization in createHttpHandler.js
-			const stringified = JSON.stringify(responses, (_, value) => 
-				typeof value === 'bigint' ? value.toString() : value
-			);
-			res.end(stringified);
-		});
-		
-		const res = await supertest(server).post('/').send(requests).expect(200).expect('Content-Type', /json/);
-		
+			const stringified = JSON.stringify(responses, (_, value) =>
+				typeof value === 'bigint' ? value.toString() : value,
+			)
+			res.end(stringified)
+		})
+
+		const res = await supertest(server).post('/').send(requests).expect(200).expect('Content-Type', /json/)
+
 		// Verify the response includes the serialized BigInt values
-		expect(res.body[0].result.value).toBe('123456789123456789123456789');
-		expect(res.body[0].result.nestedValue.deepBigInt).toBe('987654321987654321');
-		expect(res.body[1].result.bigIntArray).toEqual(['1', '2', '3']);
+		expect(res.body[0].result.value).toBe('123456789123456789123456789')
+		expect(res.body[0].result.nestedValue.deepBigInt).toBe('987654321987654321')
+		expect(res.body[1].result.bigIntArray).toEqual(['1', '2', '3'])
 	})
 
 	it('should correctly serialize BigInt values in error responses', async () => {
@@ -307,38 +275,31 @@ describe('createHttpHandler', () => {
 			code = -32000
 			bigIntValue = 9007199254740991n // Max safe integer + 1
 			details = { moreBigInts: [123456789123456789n, 987654321987654321n] }
-			
+
 			constructor(message: string) {
 				super(message)
 				this.name = 'CustomError'
 			}
 		}
-		
+
 		const req = {
 			jsonrpc: '2.0',
 			method: 'test_method',
 			params: [],
 			id: 1,
 		}
-		
-		// Create client with a mock that throws our custom error
-		const customClient = {
-			transport: {
-				tevm: {
-					extend: () => ({
-						send: () => Promise.reject(new CustomError('Error with BigInt values'))
-					}),
-					logger: {
-						error: () => {}
-					}
-				}
-			}
-		}
-		
-		const server = require('node:http').createServer(createHttpHandler(customClient))
-		
+
+		// Create a memory client instance and mock its behavior
+		const client = createMemoryClient()
+		// Override with mock implementation
+		;(client.transport.tevm as any).extend = () => ({
+			send: () => Promise.reject(new CustomError('Error with BigInt values')),
+		})
+
+		const server = require('node:http').createServer(createHttpHandler(client))
+
 		const res = await supertest(server).post('/').send(req).expect(400).expect('Content-Type', /json/)
-		
+
 		// Check that the response contains the error
 		expect(res.body.error).toBeDefined()
 		expect(res.body.error.code).toBe(-32000)

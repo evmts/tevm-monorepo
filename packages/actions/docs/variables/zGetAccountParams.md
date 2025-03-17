@@ -6,8 +6,24 @@
 
 # Variable: zGetAccountParams
 
-> `const` **zGetAccountParams**: `ZodObject`\<`extendShape`\<\{ `throwOnFail`: `ZodOptional`\<`ZodBoolean`\>; \}, \{ `address`: `ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>; `blockTag`: `ZodOptional`\<`ZodUnion`\<\[`ZodLiteral`\<`"latest"`\>, `ZodLiteral`\<`"earliest"`\>, `ZodLiteral`\<`"pending"`\>, `ZodLiteral`\<`"safe"`\>, `ZodLiteral`\<`"finalized"`\>, `ZodBigInt`, `ZodEffects`\<`ZodNumber`, `bigint`, `number`\>, `ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>\]\>\>; `returnStorage`: `ZodOptional`\<`ZodBoolean`\>; \}\>, `"strip"`, `ZodTypeAny`, \{ `address`: `` `0x${string}` ``; `blockTag`: `bigint` \| `` `0x${string}` `` \| `"latest"` \| `"earliest"` \| `"pending"` \| `"safe"` \| `"finalized"`; `returnStorage`: `boolean`; `throwOnFail`: `boolean`; \}, \{ `address`: `string`; `blockTag`: `string` \| `number` \| `bigint`; `returnStorage`: `boolean`; `throwOnFail`: `boolean`; \}\>
+> `const` **zGetAccountParams**: `object`
 
-Defined in: [packages/actions/src/GetAccount/zGetAccountParams.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/zGetAccountParams.js#L9)
+Defined in: [packages/actions/src/GetAccount/zGetAccountParams.js:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/zGetAccountParams.js#L74)
 
-Zod validator for a valid getAccount action
+For backward compatibility with Zod interface
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `any`
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+#### Returns
+
+`any`

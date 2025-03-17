@@ -6,8 +6,24 @@
 
 # Variable: zBytecode
 
-> `const` **zBytecode**: `ZodEffects`\<`ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>, `` `0x${string}` ``, `string`\>
+> `const` **zBytecode**: `object`
 
-Defined in: [packages/actions/src/internal/zod/zBytecode.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zBytecode.js#L18)
+Defined in: [packages/actions/src/internal/zod/zBytecode.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zBytecode.js#L10)
 
-Zod validator for valid Ethereum bytecode
+For backward compatibility with Zod interface
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `any`
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+#### Returns
+
+`any`

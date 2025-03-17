@@ -6,8 +6,24 @@
 
 # Variable: zAbi
 
-> `const` **zAbi**: `ZodReadonly`\<`ZodArray`\<`ZodUnion`\<\[`ZodObject`\<\{ `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiParameter`, `ZodTypeDef`, `AbiParameter`\>, `"many"`\>\>; `name`: `ZodString`; `type`: `ZodLiteral`\<`"error"`\>; \}, `"strip"`, `ZodTypeAny`, \{ `inputs`: readonly `AbiParameter`[]; `name`: `string`; `type`: `"error"`; \}, \{ `inputs`: readonly `AbiParameter`[]; `name`: `string`; `type`: `"error"`; \}\>, `ZodObject`\<\{ `anonymous`: `ZodOptional`\<`ZodBoolean`\>; `inputs`: `ZodReadonly`\<`ZodArray`\<`ZodType`\<`AbiEventParameter`, `ZodTypeDef`, `AbiEventParameter`\>, `"many"`\>\>; `name`: `ZodString`; `type`: `ZodLiteral`\<`"event"`\>; \}, `"strip"`, `ZodTypeAny`, \{ `anonymous`: `boolean`; `inputs`: readonly `AbiEventParameter`[]; `name`: `string`; `type`: `"event"`; \}, \{ `anonymous`: `boolean`; `inputs`: readonly `AbiEventParameter`[]; `name`: `string`; `type`: `"event"`; \}\>, `ZodEffects`\<`ZodIntersection`\<`ZodObject`\<\{ `constant`: `ZodOptional`\<`ZodBoolean`\>; `gas`: `ZodOptional`\<`ZodNumber`\>; `payable`: `ZodOptional`\<`ZodBoolean`\>; \}, `"strip"`, `ZodTypeAny`, \{ `constant`: `boolean`; `gas`: `number`; `payable`: `boolean`; \}, \{ `constant`: `boolean`; `gas`: `number`; `payable`: `boolean`; \}\>, `ZodDiscriminatedUnion`\<`"type"`, \[`ZodObject`\<\{ `inputs`: `ZodReadonly`\<...\>; `name`: `ZodString`; `outputs`: `ZodReadonly`\<...\>; `stateMutability`: `ZodUnion`\<...\>; `type`: `ZodLiteral`\<...\>; \}, `"strip"`, `ZodTypeAny`, \{ `inputs`: readonly ...[]; `name`: `string`; `outputs`: readonly ...[]; `stateMutability`: ... \| ... \| ... \| ...; `type`: `"function"`; \}, \{ `inputs`: readonly ...[]; `name`: `string`; `outputs`: readonly ...[]; `stateMutability`: ... \| ... \| ... \| ...; `type`: `"function"`; \}\>, `ZodObject`\<\{ `inputs`: `ZodReadonly`\<...\>; `stateMutability`: `ZodUnion`\<...\>; `type`: `ZodLiteral`\<...\>; \}, `"strip"`, `ZodTypeAny`, \{ `inputs`: readonly ...[]; `stateMutability`: ... \| ...; `type`: `"constructor"`; \}, \{ `inputs`: readonly ...[]; `stateMutability`: ... \| ...; `type`: `"constructor"`; \}\>, `ZodObject`\<\{ `inputs`: `ZodOptional`\<...\>; `stateMutability`: `ZodUnion`\<...\>; `type`: `ZodLiteral`\<...\>; \}, `"strip"`, `ZodTypeAny`, \{ `inputs`: ... \| ...; `stateMutability`: ... \| ...; `type`: `"fallback"`; \}, \{ `inputs`: ... \| ...; `stateMutability`: ... \| ...; `type`: `"fallback"`; \}\>, `ZodObject`\<\{ `stateMutability`: `ZodLiteral`\<...\>; `type`: `ZodLiteral`\<...\>; \}, `"strip"`, `ZodTypeAny`, \{ `stateMutability`: `"payable"`; `type`: `"receive"`; \}, \{ `stateMutability`: `"payable"`; `type`: `"receive"`; \}\>\]\>\>, `object` & \{ `inputs`: readonly `AbiParameter`[]; `name`: `string`; `outputs`: readonly `AbiParameter`[]; `stateMutability`: `"pure"` \| `"view"` \| `"nonpayable"` \| `"payable"`; `type`: `"function"`; \} \| \{ `inputs`: readonly `AbiParameter`[]; `stateMutability`: `"nonpayable"` \| `"payable"`; `type`: `"constructor"`; \} \| \{ `inputs`: \[\]; `stateMutability`: `"nonpayable"` \| `"payable"`; `type`: `"fallback"`; \} \| \{ `stateMutability`: `"payable"`; `type`: `"receive"`; \}, `unknown`\>\]\>, `"many"`\>\>
+> `const` **zAbi**: `object`
 
-Defined in: [packages/actions/src/internal/zod/zAbi.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zAbi.js#L6)
+Defined in: [packages/actions/src/internal/zod/zAbi.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zAbi.js#L9)
 
-Zod validator for a valid ABI
+For backward compatibility with Zod interface
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `any`
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+#### Returns
+
+`any`

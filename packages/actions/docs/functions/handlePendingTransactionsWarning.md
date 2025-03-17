@@ -28,15 +28,15 @@ The call parameters.
 
 ### code
 
-The code to execute.
+`string`
 
-`undefined` | `string`
+The code to execute.
 
 ### deployedBytecode
 
-The deployed bytecode to use.
+`string`
 
-`undefined` | `string`
+The deployed bytecode to use.
 
 ## Returns
 

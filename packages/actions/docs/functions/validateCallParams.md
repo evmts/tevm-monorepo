@@ -6,11 +6,9 @@
 
 # Function: validateCallParams()
 
-> **validateCallParams**(`action`): [`ValidateCallParamsError`](../type-aliases/ValidateCallParamsError.md)[]
+> **validateCallParams**(`action`): `ValidateCallParamsError`[]
 
-Defined in: [packages/actions/src/Call/validateCallParams.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/validateCallParams.js#L14)
-
-**`Internal`**
+Defined in: [packages/actions/src/Call/validateCallParams.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/validateCallParams.js#L38)
 
 ## Parameters
 
@@ -20,4 +18,4 @@ Defined in: [packages/actions/src/Call/validateCallParams.js:14](https://github.
 
 ## Returns
 
-[`ValidateCallParamsError`](../type-aliases/ValidateCallParamsError.md)[]
+`ValidateCallParamsError`[]

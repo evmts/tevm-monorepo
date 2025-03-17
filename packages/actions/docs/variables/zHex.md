@@ -6,8 +6,24 @@
 
 # Variable: zHex
 
-> `const` **zHex**: `ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>
+> `const` **zHex**: `object`
 
-Defined in: [packages/actions/src/internal/zod/zHex.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zHex.js#L8)
+Defined in: [packages/actions/src/internal/zod/zHex.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zHex.js#L11)
 
-Zod validator for a valid hex string
+For backward compatibility with Zod interface
+
+## Type declaration
+
+### parse()
+
+> **parse**: (`value`) => `` `0x${string}` ``
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+#### Returns
+
+`` `0x${string}` ``
