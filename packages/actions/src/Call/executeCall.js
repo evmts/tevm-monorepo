@@ -19,6 +19,7 @@ import { handleRunTxError } from './handleEvmError.js'
 
 /**
  * Prefetches storage for all storage slots in the access list
+ * Only triggered after the first storage request to the fork transport
  *
  * @internal
  * @param {import('@tevm/node').TevmNode} client
@@ -68,6 +69,43 @@ const prefetchStorageFromAccessList = async (client, accessList) => {
 		{ accessListSize: accessList.size, totalStorageSlotsPreloaded: prefetchPromises.length },
 		'Prefetched storage slots from access list',
 	)
+}
+
+/**
+ * Sets up a proxy around the fork transport to detect storage-related requests
+ * and trigger prefetching after the first uncached request
+ *
+ * @internal
+ * @param {import('@tevm/node').TevmNode} client
+ * @param {Map<string, Set<string>> | undefined} accessList
+ * @returns {Promise<void>}
+ */
+const setupPrefetchProxy = async (client, accessList) => {
+	if (!client.forkTransport || !accessList || accessList.size === 0) return
+
+	let hasPrefetched = false
+
+	// Store the original request function
+	const originalRequest = client.forkTransport.request.bind(client.forkTransport)
+
+	// Replace with proxy function
+	client.forkTransport.request = async (request) => {
+		// Check if this is a storage-related request
+		if (!hasPrefetched && (request.method === 'eth_getStorageAt' || request.method === 'eth_getProof')) {
+			client.logger.debug({ method: request.method }, 'First storage request detected, triggering prefetch')
+
+			// Mark as prefetched to avoid doing it again
+			hasPrefetched = true
+
+			// Trigger prefetching in the background
+			prefetchStorageFromAccessList(client, accessList).catch((error) => {
+				client.logger.error({ error }, 'Error during storage prefetching after first storage request')
+			})
+		}
+
+		// Forward the request to the original implementation
+		return originalRequest(request)
+	}
 }
 
 /**
@@ -146,9 +184,8 @@ export const executeCall = async (client, evmInput, params, events) => {
 				}),
 			)
 
-			// Prefetch storage for future calls using the access list
-			// Only include in response if explicitly requested
-			await prefetchStorageFromAccessList(client, accessList)
+			// Instead of immediate prefetching, set up the proxy to detect storage requests
+			await setupPrefetchProxy(client, accessList)
 
 			// If not explicitly requested, don't include access list in the response
 			if (!params.createAccessList) {
