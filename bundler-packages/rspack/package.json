@@ -55,6 +55,7 @@
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
 		"test": "vitest",
+		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui"
 	},
@@ -63,7 +64,8 @@
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"vitest": "^3.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
