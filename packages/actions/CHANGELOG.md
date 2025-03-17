@@ -1,5 +1,33 @@
 # @tevm/contract
 
+## 1.0.0-next.132
+
+### Minor Changes
+
+- 5c1da73: Add event handlers to TevmMine similar to TevmCall. This enables real-time monitoring of mining operations with:
+
+  - `onBlock`: Monitor each newly mined block
+  - `onReceipt`: Monitor transaction receipts generated during mining
+  - `onLog`: Monitor logs emitted by transactions
+
+  This enhances the observability of the mining process, making it easier to build debugging tools and monitor transaction processing.
+
+### Patch Changes
+
+- bda9ff4: Add `deal` action to TevmActionsApi and `tevmDeal` to MemoryClient for dealing ETH and ERC20 tokens to accounts. Improved test coverage and documentation for the feature.
+- b6d85c8: Fixed bug in anvilDeal to reset storage slot if more than one is found
+- 3461670: Optimized all call methods to prefetch storage whenever possible via using an accesslist
+- Updated dependencies [7ceb0c5]
+  - @tevm/blockchain@1.0.0-next.132
+  - @tevm/contract@1.0.0-next.132
+  - @tevm/block@1.0.0-next.132
+  - @tevm/state@1.0.0-next.132
+  - @tevm/node@1.0.0-next.132
+  - @tevm/vm@1.0.0-next.132
+  - @tevm/evm@1.0.0-next.132
+  - @tevm/receipt-manager@1.0.0-next.132
+  - @tevm/common@1.0.0-next.132
+
 ## 1.0.0-next.131
 
 ### Patch Changes

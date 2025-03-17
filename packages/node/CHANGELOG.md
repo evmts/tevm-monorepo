@@ -1,5 +1,23 @@
 # @tevm/client
 
+## 1.0.0-next.132
+
+### Patch Changes
+
+- 7ceb0c5: Added missing jsdoc to all packages
+- Updated dependencies [7ceb0c5]
+  - @tevm/sync-storage-persister@1.0.0-next.132
+  - @tevm/blockchain@1.0.0-next.132
+  - @tevm/logger@1.0.0-next.132
+  - @tevm/block@1.0.0-next.132
+  - @tevm/state@1.0.0-next.132
+  - @tevm/vm@1.0.0-next.132
+  - @tevm/evm@1.0.0-next.132
+  - @tevm/receipt-manager@1.0.0-next.132
+  - @tevm/txpool@1.0.0-next.132
+  - @tevm/predeploys@1.0.0-next.132
+  - @tevm/common@1.0.0-next.132
+
 ## 1.0.0-next.131
 
 ### Patch Changes

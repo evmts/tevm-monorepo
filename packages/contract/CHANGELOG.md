@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.132
+
+### Patch Changes
+
+- 7ceb0c5: Added missing jsdoc to all packages
+
 ## 1.0.0-next.131
 
 ### Patch Changes

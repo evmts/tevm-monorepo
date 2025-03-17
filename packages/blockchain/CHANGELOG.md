@@ -1,5 +1,15 @@
 # @tevm/state
 
+## 1.0.0-next.132
+
+### Patch Changes
+
+- 7ceb0c5: Added missing jsdoc to all packages
+- Updated dependencies [7ceb0c5]
+  - @tevm/logger@1.0.0-next.132
+  - @tevm/block@1.0.0-next.132
+  - @tevm/common@1.0.0-next.132
+
 ## 1.0.0-next.131
 
 ### Patch Changes

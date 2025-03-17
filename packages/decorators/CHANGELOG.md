@@ -1,5 +1,18 @@
 # @tevm/client
 
+## 1.0.0-next.132
+
+### Patch Changes
+
+- 7ceb0c5: Added missing jsdoc to all packages
+- Updated dependencies [bda9ff4]
+- Updated dependencies [5c1da73]
+- Updated dependencies [b6d85c8]
+- Updated dependencies [7ceb0c5]
+- Updated dependencies [3461670]
+  - @tevm/actions@1.0.0-next.132
+  - @tevm/node@1.0.0-next.132
+
 ## 1.0.0-next.131
 
 ### Patch Changes

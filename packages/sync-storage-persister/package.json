@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/sync-storage-persister",
-	"version": "1.0.0-next.131",
+	"version": "1.0.0-next.132",
 	"private": false,
 	"description": "A package for persisting the state of the EVM to a sync storage",
 	"keywords": [
