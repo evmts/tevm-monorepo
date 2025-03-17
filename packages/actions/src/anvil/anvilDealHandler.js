@@ -25,7 +25,6 @@ export const dealHandler =
 		const value = numberToHex(amount, { size: 32 })
 
 		// Get storage slots accessed by balanceOf
-		console.log('creating access list')
 		const accessListResponse = await ethCreateAccessListProcedure(node)({
 			method: 'eth_createAccessList',
 			params: [
@@ -41,7 +40,6 @@ export const dealHandler =
 			id: 1,
 			jsonrpc: '2.0',
 		})
-		console.log('created access list')
 
 		if (!accessListResponse.result?.accessList) {
 			throw new Error('Failed to get access list')
@@ -71,7 +69,6 @@ export const dealHandler =
 				// Track modified slot
 				modifiedSlots.push({ address, slot, oldValue })
 
-				console.log('checking balance', slot)
 				// Check if balance updated correctly - with throwOnFail: false to handle errors
 				const balanceResponse = await contractHandler(node)({
 					to: erc20,
@@ -80,7 +77,6 @@ export const dealHandler =
 					args: [account],
 					throwOnFail: false,
 				})
-				console.log('checked', balanceResponse.errors, balanceResponse.data)
 
 				// Check if the balance call succeeded and matches expected value
 				if (!balanceResponse.errors && balanceResponse.data === hexToBigInt(value)) {
