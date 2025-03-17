@@ -11,6 +11,14 @@ let c = {
 
 beforeEach(async () => {
 	mc = createMemoryClient()
+	
+	// Setup a test account with balance for transactions
+	const testAccount = '0x1234567890123456789012345678901234567890'
+	await mc.setBalance({
+		address: testAccount,
+		value: 1000000000000000000n // 1 ETH
+	})
+	
 	const deployResult = await mc.tevmDeploy({
 		bytecode: SimpleContract.bytecode,
 		abi: SimpleContract.abi,
@@ -53,7 +61,10 @@ describe('readContract', () => {
 		expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
 
 		// Now set a new value but don't mine the block
-		await mc.writeContract(c.simpleContract.write.set([999n]))
+		await mc.writeContract({
+			...c.simpleContract.write.set([999n]),
+			account: '0x1234567890123456789012345678901234567890'
+		})
 
 		// Read with latest block tag - should still be the old value
 		expect(await mc.readContract(c.simpleContract.read.get())).toBe(420n)
