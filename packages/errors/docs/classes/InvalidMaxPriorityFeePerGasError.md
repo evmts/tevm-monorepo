@@ -6,7 +6,7 @@
 
 # Class: InvalidMaxPriorityFeePerGasError
 
-Defined in: [packages/errors/src/input/InvalidMaxPriorityFeePerGas.js:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxPriorityFeePerGas.js#L43)
+Defined in: [packages/errors/src/input/InvalidMaxPriorityFeePerGasError.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxPriorityFeePerGasError.js#L36)
 
 Represents an error that occurs when the max priority fee per gas is invalid.
 
@@ -36,7 +36,7 @@ try {
 
 ## Extends
 
-- [`InvalidParamsError`](InvalidParamsError.md)
+- [`BaseError`](BaseError.md)
 
 ## Constructors
 
@@ -44,7 +44,7 @@ try {
 
 > **new InvalidMaxPriorityFeePerGasError**(`message`, `args`?): [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
 
-Defined in: [packages/errors/src/input/InvalidMaxPriorityFeePerGas.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxPriorityFeePerGas.js#L50)
+Defined in: [packages/errors/src/input/InvalidMaxPriorityFeePerGasError.js:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxPriorityFeePerGasError.js#L43)
 
 Constructs an InvalidMaxPriorityFeePerGasError.
 
@@ -58,7 +58,7 @@ Human-readable error message.
 
 ##### args?
 
-[`InvalidMaxPriorityFeePerGasErrorParameters`](../interfaces/InvalidMaxPriorityFeePerGasErrorParameters.md) = `{}`
+[`InvalidMaxFeePerGasErrorParameters`](../interfaces/InvalidMaxFeePerGasErrorParameters.md) = `{}`
 
 Additional parameters for the InvalidMaxPriorityFeePerGasError.
 
@@ -68,7 +68,7 @@ Additional parameters for the InvalidMaxPriorityFeePerGasError.
 
 #### Overrides
 
-[`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructors)
+[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
 
 ## Properties
 
@@ -76,13 +76,11 @@ Additional parameters for the InvalidMaxPriorityFeePerGasError.
 
 > **\_tag**: `string`
 
-Defined in: [packages/errors/src/input/InvalidMaxPriorityFeePerGas.js:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxPriorityFeePerGas.js#L62)
-
-Same as name, used internally.
+Defined in: [packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`_tag`](InvalidParamsError.md#_tag)
+[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag-1)
 
 ***
 
@@ -94,7 +92,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/e
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`cause`](InvalidParamsError.md#cause)
+[`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
 
 ***
 
@@ -106,7 +104,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code)
+[`BaseError`](BaseError.md).[`code`](BaseError.md#code-1)
 
 ***
 
@@ -118,7 +116,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`details`](InvalidParamsError.md#details)
+[`BaseError`](BaseError.md).[`details`](BaseError.md#details)
 
 ***
 
@@ -130,7 +128,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/ev
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath)
+[`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
 
 ***
 
@@ -140,11 +138,9 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/ev
 
 Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
-Human-readable error message.
-
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message-1)
+[`BaseError`](BaseError.md).[`message`](BaseError.md#message)
 
 ***
 
@@ -156,7 +152,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/e
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages)
+[`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
 
 ***
 
@@ -164,13 +160,11 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/e
 
 > **name**: `string`
 
-Defined in: [packages/errors/src/input/InvalidMaxPriorityFeePerGas.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxPriorityFeePerGas.js#L61)
-
-The name of the error, used to discriminate errors.
+Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`name`](InvalidParamsError.md#name)
+[`BaseError`](BaseError.md).[`name`](BaseError.md#name)
 
 ***
 
@@ -182,7 +176,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/e
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`shortMessage`](InvalidParamsError.md#shortmessage)
+[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage-1)
 
 ***
 
@@ -194,7 +188,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`stack`](InvalidParamsError.md#stack)
+[`BaseError`](BaseError.md).[`stack`](BaseError.md#stack)
 
 ***
 
@@ -206,21 +200,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/e
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`version`](InvalidParamsError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number` = `-32602`
-
-Defined in: [packages/errors/src/ethereum/InvalidParamsError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L46)
-
-The error code for InvalidParamsError.
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code-1)
+[`BaseError`](BaseError.md).[`version`](BaseError.md#version)
 
 ***
 
@@ -252,7 +232,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`prepareStackTrace`](InvalidParamsError.md#preparestacktrace)
+[`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)
 
 ***
 
@@ -264,7 +244,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`stackTraceLimit`](InvalidParamsError.md#stacktracelimit)
+[`BaseError`](BaseError.md).[`stackTraceLimit`](BaseError.md#stacktracelimit)
 
 ## Methods
 
@@ -292,7 +272,7 @@ The first error that matches the function, or the original error.
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`walk`](InvalidParamsError.md#walk)
+[`BaseError`](BaseError.md).[`walk`](BaseError.md#walk)
 
 ***
 
@@ -322,7 +302,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
 
 #### Call Signature
 
@@ -348,4 +328,4 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)

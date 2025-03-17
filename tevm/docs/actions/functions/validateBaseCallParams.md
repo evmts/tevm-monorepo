@@ -6,7 +6,7 @@
 
 # Function: validateBaseCallParams()
 
-> **validateBaseCallParams**(`action`): `any`[]
+> **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
 
 Defined in: packages/actions/dist/index.d.ts:622
 
@@ -18,4 +18,4 @@ Defined in: packages/actions/dist/index.d.ts:622
 
 ## Returns
 
-`any`[]
+`ValidateBaseCallParamsError`[]

@@ -6,7 +6,7 @@
 
 # Class: InvalidMaxFeePerGasError
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:40
+Defined in: packages/errors/types/input/InvalidMaxFeePerGasError.d.ts:33
 
 Represents an error that occurs when the max fee per gas is invalid.
 
@@ -36,7 +36,7 @@ try {
 
 ## Extends
 
-- [`InvalidParamsError`](InvalidParamsError.md)
+- [`BaseError`](BaseError.md)
 
 ## Constructors
 
@@ -44,7 +44,7 @@ try {
 
 > **new InvalidMaxFeePerGasError**(`message`, `args`?): [`InvalidMaxFeePerGasError`](InvalidMaxFeePerGasError.md)
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:47
+Defined in: packages/errors/types/input/InvalidMaxFeePerGasError.d.ts:40
 
 Constructs an InvalidMaxFeePerGasError.
 
@@ -58,7 +58,7 @@ Human-readable error message.
 
 ##### args?
 
-[`InvalidMaxFeePerGasErrorParameters`](../type-aliases/InvalidMaxFeePerGasErrorParameters.md)
+[`BaseErrorParameters`](../type-aliases/BaseErrorParameters.md)
 
 Additional parameters for the InvalidMaxFeePerGasError.
 
@@ -68,7 +68,7 @@ Additional parameters for the InvalidMaxFeePerGasError.
 
 #### Overrides
 
-[`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructors)
+[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
 
 ## Properties
 
@@ -80,7 +80,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:40
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`_tag`](InvalidParamsError.md#_tag)
+[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag-1)
 
 ***
 
@@ -92,7 +92,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:65
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`cause`](InvalidParamsError.md#cause)
+[`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
 
 ***
 
@@ -104,7 +104,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:64
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code)
+[`BaseError`](BaseError.md).[`code`](BaseError.md#code-1)
 
 ***
 
@@ -116,7 +116,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:44
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`details`](InvalidParamsError.md#details)
+[`BaseError`](BaseError.md).[`details`](BaseError.md#details)
 
 ***
 
@@ -128,7 +128,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:48
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath)
+[`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
 
 ***
 
@@ -138,11 +138,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:48
 
 Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
-Human-readable error message.
-
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message-1)
+[`BaseError`](BaseError.md).[`message`](BaseError.md#message)
 
 ***
 
@@ -154,7 +152,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:52
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages)
+[`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
 
 ***
 
@@ -164,11 +162,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:52
 
 Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
-The name of the error, used to discriminate errors.
-
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`name`](InvalidParamsError.md#name)
+[`BaseError`](BaseError.md).[`name`](BaseError.md#name)
 
 ***
 
@@ -180,7 +176,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`shortMessage`](InvalidParamsError.md#shortmessage)
+[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage-1)
 
 ***
 
@@ -192,7 +188,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`stack`](InvalidParamsError.md#stack)
+[`BaseError`](BaseError.md).[`stack`](BaseError.md#stack)
 
 ***
 
@@ -204,21 +200,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`version`](InvalidParamsError.md#version)
-
-***
-
-### code
-
-> `static` **code**: `number`
-
-Defined in: packages/errors/types/ethereum/InvalidParamsError.d.ts:42
-
-The error code for InvalidParamsError.
-
-#### Inherited from
-
-[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code-1)
+[`BaseError`](BaseError.md).[`version`](BaseError.md#version)
 
 ***
 
@@ -250,7 +232,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`prepareStackTrace`](InvalidParamsError.md#preparestacktrace)
+[`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)
 
 ***
 
@@ -262,7 +244,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`stackTraceLimit`](InvalidParamsError.md#stacktracelimit)
+[`BaseError`](BaseError.md).[`stackTraceLimit`](BaseError.md#stacktracelimit)
 
 ## Methods
 
@@ -290,7 +272,7 @@ The first error that matches the function, or the original error.
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`walk`](InvalidParamsError.md#walk)
+[`BaseError`](BaseError.md).[`walk`](BaseError.md#walk)
 
 ***
 
@@ -318,4 +300,4 @@ Create .stack property on a target object
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)

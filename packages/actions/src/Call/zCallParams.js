@@ -1,5 +1,43 @@
+import { z } from 'zod'
+import { zBaseCallParams } from '../BaseCall/zBaseCallParams.js'
+import { zHex } from '../internal/zod/zHex.js'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
 import { validateHex } from '../internal/zod/zHex.js'
+
+// Create a Zod schema for call parameters
+export const zCallParams = zBaseCallParams.extend({
+  data: zHex.optional(),
+  salt: zHex.optional(),
+  code: zHex.optional(),
+  deployedBytecode: zHex.optional(),
+}).refine(
+  (data) => {
+    // Cannot have both code and deployedBytecode
+    return !(data.code !== undefined && data.deployedBytecode !== undefined)
+  },
+  {
+    message: 'Cannot have both code and deployedBytecode set',
+    path: ['code', 'deployedBytecode'],
+  }
+).refine(
+  (data) => {
+    // Cannot have stateOverrideSet with createTransaction
+    return !(data.createTransaction === true && data.stateOverrideSet !== undefined)
+  },
+  {
+    message: 'Cannot have stateOverrideSet or blockOverrideSet for createTransaction',
+    path: ['stateOverrideSet'],
+  }
+).refine(
+  (data) => {
+    // Cannot have blockOverrideSet with createTransaction
+    return !(data.createTransaction === true && data.blockOverrideSet !== undefined)
+  },
+  {
+    message: 'Cannot have stateOverrideSet or blockOverrideSet for createTransaction',
+    path: ['blockOverrideSet'],
+  }
+)
 
 /**
  * Validates call parameters (internal validation function)

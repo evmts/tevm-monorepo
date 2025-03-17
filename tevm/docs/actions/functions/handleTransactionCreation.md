@@ -6,7 +6,7 @@
 
 # Function: handleTransactionCreation()
 
-> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: `any`[]; `hash`: `undefined`; \}\>
+> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../../index/type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
 
 Defined in: packages/actions/dist/index.d.ts:1292
 
@@ -30,4 +30,4 @@ Defined in: packages/actions/dist/index.d.ts:1292
 
 ## Returns
 
-`Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: `any`[]; `hash`: `undefined`; \}\>
+`Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../../index/type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>

@@ -6,7 +6,7 @@
 
 # Function: validateCallParams()
 
-> **validateCallParams**(`action`): `any`[]
+> **validateCallParams**(`action`): [`ValidateCallParamsError`](../type-aliases/ValidateCallParamsError.md)[]
 
 Defined in: packages/actions/dist/index.d.ts:956
 
@@ -18,4 +18,4 @@ Defined in: packages/actions/dist/index.d.ts:956
 
 ## Returns
 
-`any`[]
+[`ValidateCallParamsError`](../type-aliases/ValidateCallParamsError.md)[]

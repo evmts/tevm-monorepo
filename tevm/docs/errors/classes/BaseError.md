@@ -19,6 +19,8 @@ This class is abstract and should be extended by other error classes.
 
 ## Extended by
 
+- [`InvalidMaxFeePerGasError`](InvalidMaxFeePerGasError.md)
+- [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
 - [`NoForkTransportSetError`](NoForkTransportSetError.md)
 - [`ForkError`](ForkError.md)
 - [`ParseError`](ParseError.md)

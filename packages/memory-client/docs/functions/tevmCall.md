@@ -6,7 +6,7 @@
 
 # Function: tevmCall()
 
-> **tevmCall**(`client`, `params`): `Promise`\<`CallResult`\<`any`\>\>
+> **tevmCall**(`client`, `params`): `Promise`\<`CallResult`\<`TevmCallError`\>\>
 
 Defined in: [packages/memory-client/src/tevmCall.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmCall.js#L67)
 
@@ -41,7 +41,7 @@ Parameters for the call, including the target address, call data, sender address
 
 ## Returns
 
-`Promise`\<`CallResult`\<`any`\>\>
+`Promise`\<`CallResult`\<`TevmCallError`\>\>
 
 The result of the call, including execution results, gas used, and any traces.
 

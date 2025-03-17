@@ -126,7 +126,6 @@
 
 - [AccountLockedErrorParameters](interfaces/AccountLockedErrorParameters.md)
 - [AuthCallUnsetErrorParameters](interfaces/AuthCallUnsetErrorParameters.md)
-- [BaseErrorParameters](interfaces/BaseErrorParameters.md)
 - [BlockGasLimitExceededErrorParameters](interfaces/BlockGasLimitExceededErrorParameters.md)
 - [BLS12381FpNotInFieldErrorParameters](interfaces/BLS12381FpNotInFieldErrorParameters.md)
 - [BLS12381InputEmptyErrorParameters](interfaces/BLS12381InputEmptyErrorParameters.md)
@@ -175,7 +174,6 @@
 - [InvalidJumpSubErrorParameters](interfaces/InvalidJumpSubErrorParameters.md)
 - [InvalidKzgInputsErrorParameters](interfaces/InvalidKzgInputsErrorParameters.md)
 - [InvalidMaxFeePerGasErrorParameters](interfaces/InvalidMaxFeePerGasErrorParameters.md)
-- [InvalidMaxPriorityFeePerGasErrorParameters](interfaces/InvalidMaxPriorityFeePerGasErrorParameters.md)
 - [InvalidNonceErrorParameters](interfaces/InvalidNonceErrorParameters.md)
 - [InvalidOpcodeErrorParameters](interfaces/InvalidOpcodeErrorParameters.md)
 - [InvalidOriginErrorParameters](interfaces/InvalidOriginErrorParameters.md)
@@ -228,3 +226,15 @@
 ## Variables
 
 - [rpcErrorCodeToMessage](variables/rpcErrorCodeToMessage.md)
+
+## References
+
+### BaseErrorParameters
+
+Renames and re-exports [InvalidMaxFeePerGasErrorParameters](interfaces/InvalidMaxFeePerGasErrorParameters.md)
+
+***
+
+### InvalidMaxPriorityFeePerGasErrorParameters
+
+Renames and re-exports [InvalidMaxFeePerGasErrorParameters](interfaces/InvalidMaxFeePerGasErrorParameters.md)

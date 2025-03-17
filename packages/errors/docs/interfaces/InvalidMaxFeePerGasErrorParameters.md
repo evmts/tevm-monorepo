@@ -6,15 +6,15 @@
 
 # Interface: InvalidMaxFeePerGasErrorParameters
 
-Defined in: [packages/errors/src/input/InvalidMaxFeePerGaserror.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L5)
+Defined in: [packages/errors/src/ethereum/BaseError.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L9)
 
 ## Properties
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause**: `unknown`
 
-Defined in: [packages/errors/src/input/InvalidMaxFeePerGaserror.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L10)
+Defined in: [packages/errors/src/ethereum/BaseError.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L14)
 
 The cause of the error.
 
@@ -24,7 +24,7 @@ The cause of the error.
 
 > `optional` **details**: `string`
 
-Defined in: [packages/errors/src/input/InvalidMaxFeePerGaserror.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L11)
+Defined in: [packages/errors/src/ethereum/BaseError.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L15)
 
 Details of the error.
 
@@ -34,7 +34,7 @@ Details of the error.
 
 > `optional` **docsBaseUrl**: `string`
 
-Defined in: [packages/errors/src/input/InvalidMaxFeePerGaserror.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L6)
+Defined in: [packages/errors/src/ethereum/BaseError.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L10)
 
 Base URL for the documentation.
 
@@ -44,7 +44,7 @@ Base URL for the documentation.
 
 > `optional` **docsPath**: `string`
 
-Defined in: [packages/errors/src/input/InvalidMaxFeePerGaserror.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L7)
+Defined in: [packages/errors/src/ethereum/BaseError.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L11)
 
 Path to the documentation.
 
@@ -54,19 +54,9 @@ Path to the documentation.
 
 > `optional` **docsSlug**: `string`
 
-Defined in: [packages/errors/src/input/InvalidMaxFeePerGaserror.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L8)
+Defined in: [packages/errors/src/ethereum/BaseError.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L12)
 
 Slug for the documentation.
-
-***
-
-### meta?
-
-> `optional` **meta**: `object`
-
-Defined in: [packages/errors/src/input/InvalidMaxFeePerGaserror.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L12)
-
-Optional object containing additional information about the error.
 
 ***
 
@@ -74,6 +64,6 @@ Optional object containing additional information about the error.
 
 > `optional` **metaMessages**: `string`[]
 
-Defined in: [packages/errors/src/input/InvalidMaxFeePerGaserror.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidMaxFeePerGaserror.js#L9)
+Defined in: [packages/errors/src/ethereum/BaseError.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L13)
 
 Additional meta messages.

@@ -61,8 +61,6 @@ Additional parameters for the BaseError.
 - [`InvalidSelfdestructError`](InvalidSelfdestructError.md)
 - [`InvalidDeployedBytecodeError`](InvalidDeployedBytecodeError.md)
 - [`InvalidBlobVersionedHashesError`](InvalidBlobVersionedHashesError.md)
-- [`InvalidMaxFeePerGasError`](InvalidMaxFeePerGasError.md)
-- [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
 - [`DecodeFunctionDataError`](DecodeFunctionDataError.md)
 - [`EncodeFunctionReturnDataError`](EncodeFunctionReturnDataError.md)
 
