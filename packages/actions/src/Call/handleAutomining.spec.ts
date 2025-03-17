@@ -243,7 +243,7 @@ describe("handleAutomining", () => {
     // Mock mineHandler to return successful result
     const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
     mineHandlerMock.mockImplementation(
-      () => (params: any) =>
+      () => () =>
         Promise.resolve({
           blockHashes: ["0xabc123"],
         }),
@@ -265,7 +265,7 @@ describe("handleAutomining", () => {
 
     // Should log gas mining mode with limit
     expect(debugSpy).toHaveBeenCalledWith(
-      `Gas mining mode with limit ${client.miningConfig.limit}`,
+      `Gas mining mode with limit ${(client.miningConfig as { type: "gas"; limit: bigint }).limit}`,
     );
 
     // Should call mineHandler with throwOnFail: false and blocks: 1
@@ -273,16 +273,7 @@ describe("handleAutomining", () => {
     expect(mineHandlerMock).toHaveBeenCalledTimes(1);
 
     // Verify parameters passed to mineHandler
-    const mineHandlerCall = mineHandlerMock.mock.results[0].value;
-    expect(mineHandlerCall).toHaveBeenCalledWith(
-      expect.objectContaining({
-        throwOnFail: false,
-        blocks: 1,
-      }),
-    );
-
-    // Verify parameters passed to mineHandler
-    const mineHandlerCall = mineHandlerMock.mock.results[0].value;
+    const mineHandlerCall = mineHandlerMock.mock.results[0]?.value;
     expect(mineHandlerCall).toHaveBeenCalledWith(
       expect.objectContaining({
         throwOnFail: false,
@@ -306,8 +297,14 @@ describe("handleAutomining", () => {
       client.logger.debug = vi.fn();
     }
 
-    // Spy on debug logger
-    const debugSpy = vi.spyOn(client.logger, "debug");
+    // Mock mineHandler
+    const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
+    mineHandlerMock.mockImplementation(
+      () => () =>
+        Promise.resolve({
+          blockHashes: ["0xabc123"],
+        }),
+    );
 
     // Mock mineHandler
     const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;

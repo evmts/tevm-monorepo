@@ -19,7 +19,7 @@ test('validateCallParamsZod should invalidate non-object params', () => {
 	const result = validateCallParamsZod('0x4')
 	expect(result.isValid).toBe(false)
 	expect(result.errors).toHaveLength(1)
-	expect(result.errors[0].message).toContain('must be an object')
+	expect(result.errors?.[0]?.message).toContain('must be an object')
 })
 
 test('should not allow both code and deployedBytecode', () => {

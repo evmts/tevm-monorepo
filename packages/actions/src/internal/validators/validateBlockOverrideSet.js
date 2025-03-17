@@ -4,6 +4,7 @@ import { validateAddress } from './validateAddress.js'
  * Validates if a value is a valid block override set
  * @param {unknown} value - The value to validate
  * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
+ * @typedef {Record<string, any>} BlockOverrideSet
  */
 export const validateBlockOverrideSet = (value) => {
 	if (typeof value !== 'object' || value === null) {
@@ -12,6 +13,9 @@ export const validateBlockOverrideSet = (value) => {
 			errors: [{ path: '', message: 'Block override set must be an object' }],
 		}
 	}
+	
+	/** @type {BlockOverrideSet} */
+	const blockOverrides = value;
 
 	const errors = []
 
@@ -19,13 +23,14 @@ export const validateBlockOverrideSet = (value) => {
 	const bigintFields = ['number', 'time', 'gasLimit', 'baseFee', 'blobBaseFee']
 
 	for (const field of bigintFields) {
-		if (field in value && value[field] !== undefined) {
-			if (typeof value[field] !== 'bigint') {
+		if (Object.prototype.hasOwnProperty.call(blockOverrides, field) && blockOverrides[field] !== undefined) {
+			const fieldValue = blockOverrides[field]
+			if (typeof fieldValue !== 'bigint') {
 				errors.push({
 					path: field,
 					message: `${field} must be a bigint`,
 				})
-			} else if (value[field] < 0n) {
+			} else if (fieldValue < 0n) {
 				errors.push({
 					path: field,
 					message: `${field} must be non-negative`,
@@ -35,8 +40,8 @@ export const validateBlockOverrideSet = (value) => {
 	}
 
 	// Validate coinbase if present
-	if ('coinbase' in value && value.coinbase !== undefined) {
-		const coinbaseValidation = validateAddress(value.coinbase)
+	if (Object.prototype.hasOwnProperty.call(blockOverrides, 'coinbase') && blockOverrides['coinbase'] !== undefined) {
+		const coinbaseValidation = validateAddress(blockOverrides['coinbase'])
 		if (!coinbaseValidation.isValid) {
 			errors.push({
 				path: 'coinbase',
@@ -47,7 +52,7 @@ export const validateBlockOverrideSet = (value) => {
 
 	// Check for unknown properties
 	const validProperties = [...bigintFields, 'coinbase']
-	for (const key in value) {
+	for (const key in blockOverrides) {
 		if (!validProperties.includes(key)) {
 			errors.push({
 				path: key,

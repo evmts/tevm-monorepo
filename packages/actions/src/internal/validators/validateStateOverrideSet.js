@@ -5,6 +5,7 @@ import { validateHex } from './validateHex.js'
  * Validates if a value is a valid state override set
  * @param {unknown} value - The value to validate
  * @returns {{ isValid: boolean, errors: Array<{path: string, message: string}> }} - Validation result
+ * @typedef {Record<string, any>} StateOverrideSet
  */
 export const validateStateOverrideSet = (value) => {
 	if (typeof value !== 'object' || value === null) {
@@ -13,11 +14,18 @@ export const validateStateOverrideSet = (value) => {
 			errors: [{ path: '', message: 'State override set must be an object' }],
 		}
 	}
+	
+	/** @type {StateOverrideSet} */
+	const stateOverrides = value;
 
 	const errors = []
 
 	// Check each address key
-	for (const addr in value) {
+	// We have to handle this differently because of TypeScript's indexing restrictions
+	// First, we'll check all the keys in the object
+	for (const addr in stateOverrides) {
+		if (!Object.prototype.hasOwnProperty.call(stateOverrides, addr)) continue
+
 		// Validate address key
 		const addressValidation = validateAddress(addr)
 		if (!addressValidation.isValid) {
@@ -28,7 +36,7 @@ export const validateStateOverrideSet = (value) => {
 			continue // Skip validating this entry if address is invalid
 		}
 
-		const entry = value[addr]
+		const entry = stateOverrides[addr]
 
 		// Entry must be an object
 		if (typeof entry !== 'object' || entry === null) {
@@ -40,7 +48,7 @@ export const validateStateOverrideSet = (value) => {
 		}
 
 		// Validate balance if present
-		if ('balance' in entry && entry.balance !== undefined) {
+		if (Object.prototype.hasOwnProperty.call(entry, 'balance') && entry.balance !== undefined) {
 			if (typeof entry.balance !== 'bigint') {
 				errors.push({
 					path: `${addr}.balance`,
@@ -55,7 +63,7 @@ export const validateStateOverrideSet = (value) => {
 		}
 
 		// Validate nonce if present
-		if ('nonce' in entry && entry.nonce !== undefined) {
+		if (Object.prototype.hasOwnProperty.call(entry, 'nonce') && entry.nonce !== undefined) {
 			if (typeof entry.nonce !== 'bigint') {
 				errors.push({
 					path: `${addr}.nonce`,
@@ -70,7 +78,7 @@ export const validateStateOverrideSet = (value) => {
 		}
 
 		// Validate code if present
-		if ('code' in entry && entry.code !== undefined) {
+		if (Object.prototype.hasOwnProperty.call(entry, 'code') && entry.code !== undefined) {
 			const codeValidation = validateHex(entry.code)
 			if (!codeValidation.isValid) {
 				errors.push({
@@ -83,8 +91,10 @@ export const validateStateOverrideSet = (value) => {
 		// Validate state and stateDiff if present
 		const stateFields = ['state', 'stateDiff']
 		for (const field of stateFields) {
-			if (field in entry && entry[field] !== undefined) {
-				if (typeof entry[field] !== 'object' || entry[field] === null) {
+			if (Object.prototype.hasOwnProperty.call(entry, field) && entry[field] !== undefined) {
+				const fieldValue = entry[field]
+
+				if (typeof fieldValue !== 'object' || fieldValue === null) {
 					errors.push({
 						path: `${addr}.${field}`,
 						message: `${field} must be an object`,
@@ -93,7 +103,9 @@ export const validateStateOverrideSet = (value) => {
 				}
 
 				// Validate each key-value pair in state/stateDiff
-				for (const key in entry[field]) {
+				for (const key in fieldValue) {
+					if (!Object.prototype.hasOwnProperty.call(fieldValue, key)) continue
+
 					const keyValidation = validateHex(key)
 					if (!keyValidation.isValid) {
 						errors.push({
@@ -102,7 +114,8 @@ export const validateStateOverrideSet = (value) => {
 						})
 					}
 
-					const valueValidation = validateHex(entry[field][key])
+					const stateValue = fieldValue[key]
+					const valueValidation = validateHex(stateValue)
 					if (!valueValidation.isValid) {
 						errors.push({
 							path: `${addr}.${field}.${key}`,
