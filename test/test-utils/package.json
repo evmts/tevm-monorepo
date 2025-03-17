@@ -77,6 +77,6 @@
     "@tevm/ts-plugin": "workspace:^"
   },
   "peerDependencies": {
-    "viem": "^2.21.1"
+    "viem": "^2.23.11"
   }
 }

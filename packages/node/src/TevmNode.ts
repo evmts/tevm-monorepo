@@ -121,6 +121,6 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * @internal
 	 * Reference to the interval timer for interval mining (if enabled)
 	 */
-	intervalMiningId?: NodeJS.Timeout
+	intervalMiningId?: NodeJS.Timeout | null
 } & EIP1193EventEmitter &
 	TExtended
