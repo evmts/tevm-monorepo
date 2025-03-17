@@ -15,4 +15,18 @@ describe(isSolidity.name, () => {
 			expect(isSolidity(file)).toBe(false)
 		})
 	})
+
+	it('should handle paths with multiple file extensions correctly', () => {
+		const files = ['foo.sol.backup', 'foo.sol.txt', 'contract.sol.1', 'backup.sol.bak']
+		files.forEach((file) => {
+			expect(isSolidity(file)).toBe(false)
+		})
+	})
+
+	it('should handle uppercase or mixed case .sol extensions', () => {
+		const files = ['foo.SOL', 'bar.Sol', 'Contract.SoL']
+		files.forEach((file) => {
+			expect(isSolidity(file)).toBe(false) // Current implementation is case-sensitive
+		})
+	})
 })

@@ -88,4 +88,26 @@ describe('createEvmError', () => {
 		const result = createEvmError(baseError as any)
 		expect(result).toBe(baseError)
 	})
+
+	it('should handle error with additional data', () => {
+		const error = {
+			error: EvmErrorMessage.REVERT,
+			data: '0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a4e6f7420656e6f75676820657468657220746f2077697468647261770000000000',
+		}
+		const result = createEvmError(error as any)
+		expect(result).toBeInstanceOf(RevertError)
+		expect(result.message.includes(EvmErrorMessage.REVERT)).toBe(true)
+	})
+
+	it('should handle error with null or undefined error property', () => {
+		// With null error
+		const nullError = { error: null }
+		const nullResult = createEvmError(nullError as any)
+		expect(nullResult).toBeInstanceOf(InternalError)
+
+		// With undefined error
+		const undefinedError = { error: undefined }
+		const undefinedResult = createEvmError(undefinedError as any)
+		expect(undefinedResult).toBeInstanceOf(InternalError)
+	})
 })

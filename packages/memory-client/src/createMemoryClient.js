@@ -4,105 +4,207 @@ import { createTevmTransport } from './createTevmTransport.js'
 import { tevmViemActions } from './tevmViemActions.js'
 
 /**
- * Creates a {@link MemoryClient} which is a viem client with an in-memory Ethereum client as its transport.
- * It comes batteries included with all wallet, test, public, and tevm actions.
+ * Creates a {@link MemoryClient} - a fully-featured Ethereum development and testing environment.
+ *
+ * The MemoryClient is an all-in-one solution that combines:
+ * - A complete in-memory Ethereum Virtual Machine implementation
+ * - Full support for viem's wallet, test, and public actions
+ * - TEVM-specific actions for advanced state manipulation and tracing
+ * - Automatic handling of JSON-RPC requests through viem's client interface
+ *
+ * This provides an integrated environment for local Ethereum development with capabilities like:
+ * - Executing and debugging smart contracts without deploying to a testnet
+ * - Forking from existing networks with state caching for realistic testing
+ * - Direct manipulation of blockchain state for complex test scenarios
+ * - Complete control over mining and transaction processing
+ * - Compatibility with standard Ethereum tooling and libraries
  *
  * @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn}
  *
  * @example
  * ```typescript
- * import { createMemoryClient } from "tevm";
+ * import { createMemoryClient, http } from "tevm";
+ * import { optimism } from "tevm/common";
  *
+ * // Create a memory client that forks from Optimism mainnet
  * const client = createMemoryClient({
  *   fork: {
  *     transport: http("https://mainnet.optimism.io")({}),
  *   },
+ *   common: optimism,
+ *   mining: { auto: true }, // Automatically mine blocks after transactions
  * });
  *
+ * // Wait for fork initialization to complete
+ * await client.tevmReady();
+ *
+ * // Use standard viem actions
  * const blockNumber = await client.getBlockNumber();
- * console.log(blockNumber);
+ * console.log(`Connected to Optimism block ${blockNumber}`);
+ *
+ * // Use TEVM-specific actions
+ * await client.tevmSetAccount({
+ *   address: "0x123...",
+ *   balance: 10000000000000000000n // 10 ETH
+ * });
  * ```
  *
  * @see [Client Guide](https://tevm.sh/learn/clients/)
  * @see [Actions Guide](https://tevm.sh/learn/actions/)
  * @see [Reference Docs](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)
- * @see For more information on viem clients, see the [viem client docs](https://viem.sh/docs/clients/introduction)
+ * @see [Viem client docs](https://viem.sh/docs/clients/introduction)
+ *
+ * ## Key Configuration Options
+ *
+ * ```typescript
+ * createMemoryClient({
+ *   // Chain configuration (use tevm/common chains, not viem/chains)
+ *   common: optimism,
+ *
+ *   // Forking from an existing network
+ *   fork: {
+ *     transport: http("https://mainnet.optimism.io")({}),
+ *     blockTag: 'latest', // or specific block number/hash
+ *   },
+ *
+ *   // Mining configuration
+ *   mining: {
+ *     auto: true,      // Auto-mine after each transaction
+ *     interval: 5000,  // Mine blocks every 5 seconds (in ms)
+ *   },
+ *
+ *   // State persistence
+ *   persister: createSyncPersister({
+ *     storage: localStorage, // or any synchronous storage
+ *   }),
+ *
+ *   // Chain configuration
+ *   hardfork: 'cancun', // Default and recommended
+ *
+ *   // EVM execution logging
+ *   logging: {
+ *     logLevel: 'debug',
+ *   },
+ * })
+ * ```
  *
  * ## Actions API
  *
- * MemoryClient supports the following viem actions:
+ * MemoryClient combines multiple action types in a single interface:
  *
- * - [TEVM actions API](https://tevm.sh/reference/tevm/memory-client/type-aliases/tevmactions/)
+ * ### 1. TEVM-specific actions
  * ```typescript
- * import { createMemoryClient } from "tevm";
+ * // Account and state manipulation
+ * await client.tevmSetAccount({ address: "0x123...", balance: 100n });
+ * await client.tevmGetAccount({ address: "0x123..." });
  *
- * const tevm = createMemoryClient();
- * await tevm.setAccount({ address: `0x${'01'.repeat(20)}`, balance: 100n });
+ * // Contract interactions
+ * await client.tevmContract({
+ *   abi: [...],
+ *   functionName: "transfer",
+ *   args: ["0x456...", 1000n]
+ * });
+ *
+ * // Contract deployment
+ * const result = await client.tevmDeploy({
+ *   abi: [...],
+ *   bytecode: "0x...",
+ *   args: ["Constructor", "Args"]
+ * });
+ *
+ * // Mining control
+ * await client.tevmMine({ blockCount: 5, interval: 10 });
+ *
+ * // State persistence
+ * const state = await client.tevmDumpState();
+ * await client.tevmLoadState(state);
  * ```
- * - [Viem public actions API](https://viem.sh/docs/actions/public/introduction) such as [getBlockNumber](https://viem.sh/docs/actions/public/getBlockNumber)
+ *
+ * ### 2. Viem public actions
  * ```typescript
- * import { createMemoryClient } from "tevm";
- *
- * const tevm = createMemoryClient();
- * const bn = await tevm.getBlockNumber();
+ * const balance = await client.getBalance({ address: "0x123..." });
+ * const blockNumber = await client.getBlockNumber();
+ * const code = await client.getCode({ address: "0x123..." });
+ * const logs = await client.getLogs({ address: "0x123..." });
  * ```
- * - [Test actions](https://viem.sh/docs/actions/test/introduction) are included by default.
+ *
+ * ### 3. Viem test actions
  * ```typescript
- * import { createMemoryClient } from "tevm";
- *
- * const tevm = createMemoryClient();
- * await tevm.setBalance({ address: `0x${'01'.repeat(20)}`, balance: 100n });
+ * await client.setBalance({ address: "0x123...", value: 100n });
+ * await client.impersonateAccount({ address: "0x123..." });
+ * await client.mine({ blocks: 1 });
+ * await client.setStorageAt({ address, index, value });
  * ```
  *
- * ## Forking
+ * ### 4. Viem wallet actions
+ * ```typescript
+ * const hash = await client.sendTransaction({
+ *   from: "0x123...",
+ *   to: "0x456...",
+ *   value: 1000n
+ * });
+ * ```
  *
- * To fork an existing network, pass an EIP-1193 transport to the `fork.transport` option with an optional block tag.
- * When you fork, TEVM will pin the block tag and lazily cache state from the fork transport.
- * It's highly recommended to pass in a `common` object that matches the chain. This will increase the performance of forking with known values.
+ * ## Forking Networks
+ *
+ * The MemoryClient can fork from any EVM-compatible network, creating a local copy that
+ * lazily loads state from the remote network as needed:
  *
  * ```typescript
  * import { createMemoryClient, http } from "tevm";
  * import { optimism } from "tevm/common";
  *
  * const forkedClient = createMemoryClient({
+ *   // Fork specification
  *   fork: {
  *     transport: http("https://mainnet.optimism.io")({}),
  *     blockTag: '0xa6a63cd70fbbe396321ca6fe79e1b6735760c03538208b50d7e3a5dac5226435',
  *   },
+ *   // Always specify chain configuration for optimal performance
  *   common: optimism,
  * });
  * ```
  *
- * The `common` object extends the viem chain interface with EVM-specific information. When using TEVM, you should also use `tevm/common` rather than `viem/chains` or use `createCommon` and pass in a viem chain.
- *
- * Viem clients, including MemoryClient, are themselves EIP-1193 transports. This means you can fork a client with another client.
+ * The `common` object extends the viem chain interface with EVM-specific information.
+ * Always use `tevm/common` chains rather than `viem/chains` when working with TEVM.
  *
  * ## Mining Modes
  *
- * TEVM supports two mining modes:
- * - Manual: Using `tevm.mine()`
- * - Auto: Automatically mines a block after every transaction.
+ * TEVM supports three mining modes:
  *
- * TEVM state does not update until blocks are mined.
+ * ```typescript
+ * // 1. Manual mining (default)
+ * const client = createMemoryClient({ mining: { auto: false } });
+ * await client.sendTransaction(...);  // Transaction is pending
+ * await client.tevmMine();            // Now transaction is processed
  *
- * ## Using TEVM over HTTP
+ * // 2. Auto-mining (mine after every transaction)
+ * const autoClient = createMemoryClient({ mining: { auto: true } });
+ * await autoClient.sendTransaction(...);  // Automatically mined
  *
- * TEVM can be run as an HTTP server using `@tevm/server` to handle JSON-RPC requests.
+ * // 3. Interval mining (mine periodically)
+ * const intervalClient = createMemoryClient({
+ *   mining: { interval: 5000 }  // Mine every 5 seconds
+ * });
+ * ```
+ *
+ * ## Server Mode
+ *
+ * TEVM can be exposed as an HTTP JSON-RPC server with `@tevm/server`:
  *
  * ```typescript
  * import { createServer } from "tevm/server";
  * import { createMemoryClient } from "tevm";
  *
  * const memoryClient = createMemoryClient();
- *
  * const server = createServer({
  *   request: memoryClient.request,
  * });
  *
- * server.listen(8545, () => console.log("listening on 8545"));
+ * server.listen(8545, () => console.log("TEVM running on port 8545"));
  * ```
  *
- * This allows you to use any Ethereum client to communicate with it, including a viem public client.
+ * This allows any Ethereum tool or library to connect to your TEVM instance:
  *
  * ```typescript
  * import { createPublicClient, http } from "viem";
@@ -110,81 +212,92 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  * const publicClient = createPublicClient({
  *   chain: mainnet,
- *   transport: http("https://localhost:8545"),
+ *   transport: http("http://localhost:8545"),
  * });
  *
  * console.log(await publicClient.getChainId());
  * ```
  *
- * ## State Persistence (Experimental)
+ * ## State Persistence
  *
- * It is possible to persist the TEVM client to a synchronous source using the `persister` option.
+ * TEVM state can be persisted between sessions with the `persister` option:
  *
  * ```typescript
- * import { createMemoryClient, createSyncPersister } from "tevm";
- * import { createMemoryClient } from "tevm/sync-storage-persister";
+ * import { createMemoryClient } from "tevm";
+ * import { createSyncPersister } from "tevm/sync-storage-persister";
  *
- * // Client state will be hydrated and persisted from/to local storage
- * const clientWithLocalStoragePersistence = createMemoryClient({
+ * // Browser example with localStorage
+ * const browserClient = createMemoryClient({
  *   persister: createSyncPersister({
  *     storage: localStorage,
+ *     key: 'my-tevm-state'
+ *   }),
+ * });
+ *
+ * // Node.js example with file system
+ * import { FileStorage } from "tevm/sync-storage-persister/node";
+ * const nodeClient = createMemoryClient({
+ *   persister: createSyncPersister({
+ *     storage: new FileStorage('./tevm-state.json'),
  *   }),
  * });
  * ```
  *
- * ## Network Support
+ * ## Direct Solidity Imports
  *
- * TEVM guarantees support for the following networks:
- * - Ethereum mainnet
- * - Standard OP Stack chains
- *
- * Other EVM chains are likely to work but do not officially carry support. More official chain support will be added in the near future.
- *
- * Note: Optimism deposit transactions are not currently supported but will be in a future release. TEVM filters out these transactions from blocks.
- *
- * ## Network and Hardfork Support
- *
- * TEVM supports enabling and disabling different EIPs, but the following EIPs are always turned on:
- * - 1559
- * - 4895
- * - 4844
- * - 4788
- *
- * Currently, only EIP-1559 Fee Market transactions are supported.
- *
- * ## Tree Shakeable Actions
- *
- * TEVM supports tree-shakeable actions using `createTevmNode()` and the `tevm/actions` package. If you are building a UI, you should use tree-shakeable actions to optimize bundle size. These are described in detail in the [actions API guide](https://tevm.sh/learn/actions/).
- *
- * ## Composing with TEVM Contracts and Bundler
- *
- * MemoryClient can compose with TEVM contracts and the TEVM bundler. For more information, see the [TEVM contracts guide](https://tevm.sh/learn/contracts/) and the [TEVM Solidity imports guide](https://tevm.sh/learn/solidity-imports/).
+ * When used with the TEVM bundler plugins, you can import Solidity files directly:
  *
  * ```typescript
  * import { createMemoryClient } from "tevm";
  * import { MyERC721 } from './MyERC721.sol';
  *
- * const tevm = createMemoryClient({
- *   fork: {
- *     transport: http("https://mainnet.optimism.io")({}),
- *   },
+ * const client = createMemoryClient();
+ *
+ * // Deploy the contract
+ * const deployed = await client.tevmDeploy(
+ *   MyERC721.deploy("My NFT", "NFT")
+ * );
+ * await client.tevmMine();
+ *
+ * // Create contract instance with the deployed address
+ * const nft = MyERC721.withAddress(deployed.createdAddress);
+ *
+ * // Call contract methods
+ * await client.tevmContract({
+ *   ...nft.write.mint('0x123...', 1),
+ *   from: '0x123...',
  * });
  *
- * const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+ * await client.tevmMine();
  *
- * await tevm.runContractCall(
- *   MyERC721.write.mint({
- *     caller: address,
- *   }),
- * );
- *
- * const balance = await tevm.runContractCall(
- *   MyERC721.read.balanceOf({
- *     caller: address,
- *   }),
- * );
+ * const balance = await client.tevmContract(nft.read.balanceOf('0x123...'));
  * console.log(balance); // 1n
  * ```
+ *
+ * This requires setting up one of the TEVM bundler plugins (vite, webpack, esbuild, etc.).
+ *
+ * ## Network Support
+ *
+ * TEVM officially supports:
+ * - Ethereum mainnet and testnets
+ * - OP Stack chains (Optimism, Base, etc.)
+ *
+ * Other EVM chains are likely to work but not officially tested. Chain configuration
+ * is available through `tevm/common`.
+ *
+ * ## Advanced EVM Features
+ *
+ * TEVM includes advanced EVM features, with the following enabled by default:
+ * - EIP-1559 Fee Market
+ * - EIP-4895 (Beacon chain withdrawals)
+ * - EIP-4844 (Blob transactions)
+ * - EIP-4788 (Beacon root in EVM)
+ *
+ * ## Optimizing Bundle Size
+ *
+ * For UI applications concerned with bundle size, use tree-shakeable actions with `createTevmNode()`
+ * and individual actions from `tevm/actions`. See the [actions API guide](https://tevm.sh/learn/actions/)
+ * for details.
  */
 export const createMemoryClient = (options) => {
 	const common = (() => {

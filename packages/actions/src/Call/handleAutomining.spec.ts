@@ -306,4 +306,77 @@ describe('handleAutomining', () => {
 		// Should return undefined when successful
 		expect(result).toBeUndefined()
 	})
+
+	it('should handle mining errors without throwing', async () => {
+		// Create client with auto mining
+		client = createTevmNode({
+			fork: { transport: transports.optimism },
+			miningConfig: { type: 'auto' },
+		})
+
+		// Setup debug logger
+		client.logger.debug = vi.fn()
+		client.logger.error = vi.fn()
+		// Setup error spy, but we don't need to check it in this test
+
+		// Instead of throwing an error, return a result with errors
+		const miningError = { name: 'MiningError', message: 'Failed to mine transaction' }
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(
+			() => () =>
+				Promise.resolve({
+					errors: [miningError],
+				}),
+		)
+
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash)
+
+		// Should return result with the error
+		expect(result).toBeDefined()
+		if (result) {
+			expect(result.errors).toBeDefined()
+			expect(result.errors).toHaveLength(1)
+			expect(result.errors?.[0]).toEqual(miningError)
+		}
+	})
+
+	it('should handle multiple errors in result', async () => {
+		// Create client with auto mining
+		client = createTevmNode({
+			fork: { transport: transports.optimism },
+			miningConfig: { type: 'auto' },
+		})
+
+		// Add debug logger if not present
+		if (!client.logger.debug) {
+			client.logger.debug = vi.fn()
+		}
+
+		// Multiple errors in the result
+		const errors = [
+			{ message: 'First error', name: 'Error1' },
+			{ message: 'Second error', name: 'Error2' },
+		]
+
+		// Mock mineHandler to return multiple errors
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(
+			() => () =>
+				Promise.resolve({
+					errors,
+				}),
+		)
+
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash)
+
+		// Should return result with multiple errors
+		expect(result).toBeDefined()
+		if (result) {
+			expect(result.errors).toBeDefined()
+			expect(result.errors).toHaveLength(2)
+			expect(result.errors).toEqual(errors)
+		}
+	})
 })

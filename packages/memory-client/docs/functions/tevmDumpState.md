@@ -8,13 +8,29 @@
 
 > **tevmDumpState**(`client`): `Promise`\<`DumpStateResult`\<`TevmDumpStateError`\>\>
 
-Defined in: [packages/memory-client/src/tevmDumpState.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmDumpState.js#L41)
+Defined in: [packages/memory-client/src/tevmDumpState.js:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmDumpState.js#L120)
 
 A tree-shakeable version of the `tevmDumpState` action for viem.
-Dumps the state of TEVM into a plain JavaScript object that can later be used to restore state
-using the `tevmLoadState` action.
+Exports the entire blockchain state from TEVM into a serializable JavaScript object.
 
-This action is useful for persisting and restoring the state between different sessions or processes.
+This function captures a complete snapshot of the current blockchain state, including:
+- All account balances, nonces, and storage
+- Smart contract bytecode
+- Transaction receipts
+- Block headers and history
+- Current blockchain parameters (latest block, gas price, etc.)
+
+The returned state object can be used for:
+- Persisting state between application sessions
+- Backing up blockchain state before running test scenarios
+- Transferring state between different TEVM instances
+- Creating reproducible environments for debugging
+- Defining pre-configured test fixtures
+
+This function works in conjunction with `tevmLoadState` to provide a complete state
+serialization and restoration system. The output is serializable using standard
+JSON.stringify() though you may need to handle BigInt conversion depending on your
+platform (see the example below).
 
 ## Parameters
 
@@ -28,16 +44,16 @@ The viem client configured with TEVM transport.
 
 `Promise`\<`DumpStateResult`\<`TevmDumpStateError`\>\>
 
-The dump of the TEVM state.
+A serializable object containing the complete blockchain state.
 
-## Example
+## Examples
 
 ```typescript
-import { tevmDumpState } from 'tevm/actions'
-import { createClient, http } from 'viem'
+import { tevmDumpState, tevmLoadState } from 'tevm/actions'
+import { createClient, http, parseEther } from 'viem'
 import { optimism } from 'tevm/common'
 import { createTevmTransport } from 'tevm'
-import fs from 'fs'
+import fs from 'fs/promises'
 
 const client = createClient({
   transport: createTevmTransport({
@@ -46,17 +62,79 @@ const client = createClient({
   chain: optimism,
 })
 
-async function example() {
-  const state = await tevmDumpState(client)
-  fs.writeFileSync('state.json', JSON.stringify(state))
-  console.log('State dumped to state.json')
-}
+async function saveAndRestoreState() {
+  // Set up initial state
+  await client.setBalance({
+    address: '0x1234567890123456789012345678901234567890',
+    value: parseEther('100')
+  })
+  await client.mine() // Mine a block to update state
 
-example()
+  // Dump the entire blockchain state
+  const state = await tevmDumpState(client)
+
+  // Serialize state to JSON (handling BigInt conversion)
+  const serializedState = JSON.stringify(state, (_, value) =>
+    typeof value === 'bigint' ? value.toString() : value
+  )
+
+  // Save to file
+  await fs.writeFile('blockchain-snapshot.json', serializedState)
+  console.log('State saved to blockchain-snapshot.json')
+
+  // Later, in another session or process:
+
+  // Read the state from file
+  const savedState = JSON.parse(
+    await fs.readFile('blockchain-snapshot.json', 'utf8'),
+    (_, value) => {
+      // Restore BigInt values
+      if (typeof value === 'string' && /^\d+n$/.test(value)) {
+        return BigInt(value.slice(0, -1))
+      }
+      return value
+    }
+  )
+
+  // Create a new client with the saved state
+  const newClient = createClient({
+    transport: createTevmTransport(),
+    chain: optimism,
+  })
+
+  // Load the saved state
+  await tevmLoadState(newClient, savedState)
+
+  // Verify the state was restored
+  const balance = await newClient.getBalance({
+    address: '0x1234567890123456789012345678901234567890'
+  })
+  console.log('Restored balance:', balance) // Should be 100 ETH
+}
+```
+
+```typescript
+// Using with the SyncStoragePersister for automatic persistence
+import { createMemoryClient, createSyncPersister } from 'tevm'
+
+// Create a persister that saves to localStorage (in browser)
+// or to a file (in Node.js)
+const persister = createSyncPersister({
+  storage: localStorage, // or use a file-based storage adapter
+  key: 'tevm-state'      // storage key
+})
+
+// Create a client with automatic persistence
+const client = createMemoryClient({
+  persister,
+  // State will be automatically loaded from storage on startup
+  // and saved to storage periodically and on shutdown
+})
 ```
 
 ## See
 
- - [DumpStateResult](https://tevm.sh/reference/tevm/actions/type-aliases/dumpstateresult/) for return values reference.
+ - [DumpStateResult](https://tevm.sh/reference/tevm/actions/type-aliases/dumpstateresult/) for return value structure.
  - [TEVM Actions Guide](https://tevm.sh/learn/actions/)
- - [tevmLoadState](https://tevm.sh/reference/tevm/actions/functions/tevmLoadState/) for restoring the state.
+ - [tevmLoadState](https://tevm.sh/reference/tevm/actions/functions/tevmloadstate/) for restoring the state.
+ - [SyncStoragePersister](https://tevm.sh/reference/tevm/sync-storage-persister/functions/createsyncpersister/) for automatic state persistence.
