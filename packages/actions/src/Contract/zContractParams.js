@@ -74,7 +74,7 @@ const validateContractParamsInternal = (value) => {
 	const hasCode = 'code' in value && value.code !== undefined
 	const hasTo = 'to' in value && value.to !== undefined
 	const hasDeployedBytecode = 'deployedBytecode' in value && value.deployedBytecode !== undefined
-	
+
 	if (!hasCode && !hasTo && !hasDeployedBytecode) {
 		errors.push(new InvalidParamsError('Must have either code, to, or deployedBytecode'))
 	}
@@ -129,7 +129,7 @@ export const zContractParams = {
 				format: () => {
 					/** @type {Record<string, {_errors: string[]}> & {_errors: string[]}} */
 					const formatted = /** @type {any} */ ({ _errors: [] })
-					
+
 					// Create a valid Record right away with required shape
 					formatted.code = { _errors: [] }
 					formatted.to = { _errors: [] }
@@ -137,7 +137,7 @@ export const zContractParams = {
 					formatted.args = { _errors: [] }
 					formatted.functionName = { _errors: [] }
 					formatted.deployedBytecode = { _errors: [] }
-					
+
 					validation.errors.forEach((err) => {
 						// Map errors to appropriate fields
 						if (err.message.includes('code')) {

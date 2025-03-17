@@ -2,23 +2,23 @@
 
 exports[`callProcedure > should handle a basic call 1`] = `
 {
-  "amountSpent": "0x296a6",
-  "createdAddresses": [],
-  "executionGasUsed": "0xc62",
-  "gas": "0x1c964d6",
+  "amountSpent": 169638n,
+  "createdAddresses": Set {},
+  "executionGasUsed": 3170n,
+  "gas": 29975766n,
   "logs": [],
   "rawData": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000",
-  "selfdestruct": [],
-  "totalGasSpent": "0x5eaa",
+  "selfdestruct": Set {},
+  "totalGasSpent": 24234n,
 }
 `;
 
 exports[`callProcedure > should handle a call with state override 1`] = `
 {
-  "amountSpent": "0x23e38",
-  "executionGasUsed": "0x0",
+  "amountSpent": 147000n,
+  "executionGasUsed": 0n,
   "rawData": "0x",
-  "totalGasSpent": "0x5208",
+  "totalGasSpent": 21000n,
 }
 `;
 

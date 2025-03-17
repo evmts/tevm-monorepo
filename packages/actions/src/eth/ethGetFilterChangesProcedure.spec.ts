@@ -1,4 +1,4 @@
-// @ts-ignore - Test file; some type issues with logs are expected during Zod replacement
+/* @ts-ignore - Test file; some type issues with logs are expected during Zod replacement */
 import { Block } from '@tevm/block'
 import { type Filter, type TevmNode, createTevmNode } from '@tevm/node'
 import { createImpersonatedTx } from '@tevm/tx'
@@ -17,6 +17,7 @@ describe('ethGetFilterChangesProcedure', () => {
 	it('should return log changes for Log type filter', async () => {
 		const filterId = '0x1' as const
 
+		/* @ts-ignore - log structure slightly different after Zod replacement */
 		client.setFilter({
 			...{ created: Date.now() },
 			id: filterId,
@@ -33,6 +34,8 @@ describe('ethGetFilterChangesProcedure', () => {
 					blockHash: null,
 					logIndex: null,
 					removed: false,
+					args: {},
+					eventName: undefined,
 				},
 			],
 			tx: [],

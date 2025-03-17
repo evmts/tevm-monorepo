@@ -1,12 +1,11 @@
+import { toHex } from '@tevm/utils'
 import { callProcedure } from '../Call/callProcedure.js'
 
 /**
  * Request handler for eth_estimateGas JSON-RPC requests.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthProcedure.js').EthEstimateGasJsonRpcProcedure}
- * @ts-ignore - Type mismatch during Zod removal
  */
-// @ts-ignore - Type mismatch during Zod removal
 export const ethEstimateGasJsonRpcProcedure = (client) => {
 	return async (request) => {
 		const estimateGasRequest = /** @type {import('./EthJsonRpcRequest.js').EthEstimateGasJsonRpcRequest}*/ (request)
@@ -35,17 +34,45 @@ export const ethEstimateGasJsonRpcProcedure = (client) => {
 			params: getParams(),
 			method: 'tevm_call',
 		})
-		if (callResult.error || !callResult.result) {
-			return {
-				...callResult,
-				method: estimateGasRequest.method,
+
+		try {
+			// Let's directly cast the result to the expected format
+			// @ts-ignore - We'll handle the type properly in this implementation
+			if (!callResult.error && callResult.result) {
+				const gasUsed = callResult.result.totalGasSpent ?? callResult.result.executionGasUsed
+				/** @type {import('./EthJsonRpcResponse.js').EthEstimateGasJsonRpcResponse} */
+				const successResult = {
+					jsonrpc: '2.0',
+					method: 'eth_estimateGas',
+					result: toHex(gasUsed), // Convert BigInt to hex format
+					...(estimateGasRequest.id ? { id: estimateGasRequest.id } : {}),
+				}
+				return successResult
 			}
-		}
-		return {
-			method: estimateGasRequest.method,
-			result: callResult.result.totalGasSpent ?? callResult.result.executionGasUsed,
-			jsonrpc: '2.0',
-			...(estimateGasRequest.id ? { id: estimateGasRequest.id } : {}),
+
+			/** @type {import('./EthJsonRpcResponse.js').EthEstimateGasJsonRpcResponse} */
+			const errorResult = {
+				jsonrpc: '2.0',
+				method: 'eth_estimateGas',
+				error: callResult.error ?? {
+					code: -32000,
+					message: 'Execution error',
+				},
+				...(estimateGasRequest.id ? { id: estimateGasRequest.id } : {}),
+			}
+			return errorResult
+		} catch (e) {
+			/** @type {import('./EthJsonRpcResponse.js').EthEstimateGasJsonRpcResponse} */
+			const fallbackResult = {
+				jsonrpc: '2.0',
+				method: 'eth_estimateGas',
+				error: {
+					code: -32603,
+					message: 'Internal error',
+				},
+				...(estimateGasRequest.id ? { id: estimateGasRequest.id } : {}),
+			}
+			return fallbackResult
 		}
 	}
 }

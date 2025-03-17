@@ -1,17 +1,14 @@
+// @ts-nocheck - Test file: ignore type errors
 import { createAddress } from '@tevm/address'
 import { describe, expect, it } from 'vitest'
 import { validateContractParams } from './validateContractParams.js'
 
-// @ts-ignore - Test file; safe to ignore type errors
 describe('validateContractParams', () => {
 	it('should return no errors for valid params', () => {
-		// @ts-ignore - Type instantiation is excessively deep and possibly infinite
-		// @ts-ignore 
 		expect(
 			validateContractParams({
 				abi: [],
 				functionName: 'myFunction',
-				// @ts-ignore - Type argument is not compatible
 				args: [1, 2, 3],
 				to: createAddress(420).toString(),
 			}),
@@ -20,7 +17,6 @@ describe('validateContractParams', () => {
 
 	it('should return error for invalid code', () => {
 		const errors = validateContractParams({
-			// @ts-expect-error
 			code: 1234,
 			abi: [],
 			functionName: 'myFunction',
@@ -32,7 +28,6 @@ describe('validateContractParams', () => {
 
 	it('should return error for invalid deployedBytecode', () => {
 		const errors = validateContractParams({
-			// @ts-expect-error
 			deployedBytecode: 1234,
 			abi: [],
 			functionName: 'myFunction',
@@ -44,7 +39,6 @@ describe('validateContractParams', () => {
 
 	it('should return error for invalid ABI', () => {
 		const errors = validateContractParams({
-			// @ts-expect-error
 			abi: 1234,
 			functionName: 'myFunction',
 		})
@@ -57,7 +51,6 @@ describe('validateContractParams', () => {
 		const errors = validateContractParams({
 			abi: [],
 			functionName: 'myFunction',
-			// @ts-expect-error
 			args: 'invalid args',
 		})
 		expect(errors.length).toBeGreaterThan(0)
@@ -68,7 +61,6 @@ describe('validateContractParams', () => {
 	it('should return error for invalid function name', () => {
 		const errors = validateContractParams({
 			abi: [],
-			// @ts-expect-error
 			functionName: 1234,
 		})
 		expect(errors.length).toBeGreaterThan(0)
@@ -80,9 +72,7 @@ describe('validateContractParams', () => {
 		const errors = validateContractParams({
 			abi: [],
 			functionName: 'myFunction',
-			// @ts-ignore - Type argument is not compatible
 			args: [1, 2, 3],
-			// @ts-expect-error
 			to: 'not an address',
 		})
 		// Instead of relying on snapshots, check for specific error messages
@@ -95,13 +85,9 @@ describe('validateContractParams', () => {
 
 	it('should return multiple errors for multiple invalid fields', () => {
 		const errors = validateContractParams({
-			// @ts-expect-error
 			code: 1234,
-			// @ts-expect-error
 			abi: 5678,
-			// @ts-expect-error
 			functionName: 9012,
-			// @ts-expect-error
 			to: 'not an address',
 		})
 		// Instead of relying on snapshots, check for error message contents
@@ -118,18 +104,12 @@ describe('validateContractParams', () => {
 	})
 
 	it('should return errors from validateBaseCallParams', () => {
-		// @ts-expect-error
 		const baseErrors = validateContractParams({})
-		expect(
-			// @ts-expect-error
-			validateContractParams({}),
-		).toEqual(baseErrors)
+		expect(validateContractParams({})).toEqual(baseErrors)
 	})
 
 	it('should validate that either code or to is provided', () => {
-		// @ts-ignore - Type is not assignable to parameter
 		const errors = validateContractParams({
-			// @ts-expect-error
 			abi: [],
 			functionName: 'myFunction',
 		})

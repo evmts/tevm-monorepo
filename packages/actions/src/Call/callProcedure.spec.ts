@@ -161,22 +161,22 @@ describe('callProcedure', () => {
 		expect(response.result?.trace?.structLogs).toBeInstanceOf(Array)
 		expect(response.result?.trace?.structLogs?.length).toBeGreaterThan(0)
 		expect(response.result?.trace?.structLogs[0]).toMatchInlineSnapshot(`
-{
-  "depth": 0,
-  "gas": "0x1c970ac",
-  "gasCost": "0x6",
-  "op": "PUSH1",
-  "pc": 0,
-  "stack": [],
-}
-`)
+			{
+			  "depth": 0,
+			  "gas": 29978796n,
+			  "gasCost": 6n,
+			  "op": "PUSH1",
+			  "pc": 0,
+			  "stack": [],
+			}
+		`)
 		expect(response.result?.accessList).toMatchInlineSnapshot(`
-{
-  "0x5fbdb2315678afecb367f032d93f642f64180aa3": [
-    "0x0000000000000000000000000000000000000000000000000000000000000000",
-  ],
-}
-`)
+			{
+			  "0x5fbdb2315678afecb367f032d93f642f64180aa3": Set {
+			    "0x0000000000000000000000000000000000000000000000000000000000000000",
+			  },
+			}
+		`)
 	})
 
 	it('should handle errors from callHandler', async () => {

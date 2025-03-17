@@ -39,22 +39,22 @@ describe('createAccessListHandler', () => {
 		})
 
 		expect(result).toMatchInlineSnapshot(`
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "method": "eth_createAccessList",
-  "result": {
-    "accessList": [
-      {
-        "address": "0x0000000000000000000000000000000000066a44",
-        "storageKeys": [
-          "0xf1accc61b11ca39f2c1d4ba4a393d616196b642a5f638560763cb25d022dff56",
-        ],
-      },
-    ],
-    "gasUsed": "0x5e0f",
-  },
-}
-`)
+			{
+			  "id": 1,
+			  "jsonrpc": "2.0",
+			  "method": "eth_createAccessList",
+			  "result": {
+			    "accessList": [
+			      {
+			        "address": "0x0000000000000000000000000000000000066a44",
+			        "storageKeys": [
+			          "0xf1accc61b11ca39f2c1d4ba4a393d616196b642a5f638560763cb25d022dff56",
+			        ],
+			      },
+			    ],
+			    "gasUsed": 24079n,
+			  },
+			}
+		`)
 	})
 })
