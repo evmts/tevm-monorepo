@@ -58,7 +58,11 @@ export const createHttpHandler = (client) => {
 		if (Array.isArray(parsedRequest)) {
 			const responses = await handleBulkRequest(client, /** @type {any}*/ (parsedRequest))
 			res.writeHead(200, { 'Content-Type': 'application/json' })
-			res.end(JSON.stringify(responses))
+			// Handle BigInt serialization for bulk responses
+			const stringified = JSON.stringify(responses, (_, value) => 
+				typeof value === 'bigint' ? value.toString() : value
+			)
+			res.end(stringified)
 			return
 		}
 
@@ -82,7 +86,11 @@ export const createHttpHandler = (client) => {
 
 		console.log('response', response)
 		res.writeHead(200, { 'Content-Type': 'application/json' })
-		res.end(JSON.stringify(response))
+		// Handle BigInt serialization before stringifying
+		const stringified = JSON.stringify(response, (_, value) => 
+			typeof value === 'bigint' ? value.toString() : value
+		)
+		res.end(stringified)
 		return
 	}
 }

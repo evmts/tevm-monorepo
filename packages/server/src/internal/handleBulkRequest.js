@@ -30,6 +30,7 @@ export const handleBulkRequest = async (client, requests) => {
 				},
 			}
 		}
+		// No need to handle BigInt serialization here as it's handled in createHttpHandler.js
 		return response.value
 	})
 }

@@ -83,4 +83,36 @@ describe('handleError', () => {
 		)
 		expect(res.end).toMatchSnapshot()
 	})
+
+	it('should handle error with BigInt values', () => {
+		const client = createMemoryClient()
+		client.transport.tevm.logger.error = vi.fn() as any
+		
+		// Create an error with BigInt properties
+		class CustomError extends Error {
+			code = -32000
+			bigIntValue = 9007199254740991n
+			
+			constructor(message: string) {
+				super(message)
+				this.name = 'CustomError'
+			}
+		}
+		
+		const error = new CustomError('Error with BigInt') as any
+		const res = createMockResponse()
+		const jsonRpcReq = { method: 'testMethod', id: 123n } // BigInt ID
+
+		handleError(client, error, res, jsonRpcReq)
+
+		expect(client.transport.tevm.logger.error).toHaveBeenCalledWith(error)
+		expect(res.writeHead).toHaveBeenCalledWith(400, { 'Content-Type': 'application/json' })
+		
+		// Check that the response was properly serialized
+		const responseData = JSON.parse(res.end.mock.calls[0][0])
+		expect(responseData.id).toBe('123') // BigInt should be converted to string
+		expect(responseData.method).toBe('testMethod')
+		expect(responseData.error.code).toBe(-32000)
+		expect(responseData.error.message).toBe('Error with BigInt')
+	})
 })
