@@ -82,21 +82,14 @@ const validateAccountStorage = (value, path = '') => {
 				message: 'storage must be an object',
 			})
 		} else {
-			// Check that all keys and values are valid hex
+			// Check that all values are valid hex (but not the keys, which can be non-hex)
+			// When using JSON.stringify and Maps, numeric keys remain as strings without 0x prefix
 			const storage = /** @type {Record<string, unknown>} */ (value.storage)
 			for (const key in storage) {
-				const keyValidation = validateHex(key)
-				if (!keyValidation.isValid) {
-					errors.push({
-						path: path ? `${path}.storage.key` : 'storage.key',
-						message: `Invalid storage key: ${keyValidation.message}`,
-					})
-				}
-
 				const valueValidation = validateHex(storage[key])
 				if (!valueValidation.isValid) {
 					errors.push({
-						path: path ? `${path}.storage.value` : 'storage.value',
+						path: path ? `${path}.storage['${key}']` : `storage['${key}']`,
 						message: `Invalid storage value: ${valueValidation.message}`,
 					})
 				}
