@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.133
+
+### Patch Changes
+
+- 7134c77: Fixed bug with dealHandler not handling proxy contracts
+
 ## 1.0.0-next.132
 
 ### Minor Changes
