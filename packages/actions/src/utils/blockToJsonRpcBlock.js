@@ -1,5 +1,5 @@
 import { bytesToHex, numberToHex, toBytes } from '@tevm/utils'
-import { txToJSONRPCTx } from './txToJSONRPCTx.js'
+import { txToJSONRPCTx } from './txToJsonRpcTx.js'
 
 /**
  * @param {import('@tevm/block').Block} block

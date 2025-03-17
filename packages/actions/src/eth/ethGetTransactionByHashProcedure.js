@@ -1,6 +1,6 @@
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBytes } from '@tevm/utils'
-import { txToJSONRPCTx } from '../utils/txToJSONRPCTx.js'
+import { txToJSONRPCTx } from '../utils/txToJsonRpcTx.js'
 
 /**
  * Request handler for eth_getTransactionByHash JSON-RPC requests.

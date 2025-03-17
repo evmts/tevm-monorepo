@@ -1,5 +1,5 @@
 import { hexToBytes, hexToNumber } from '@tevm/utils'
-import { txToJSONRPCTx } from '../utils/txToJSONRPCTx.js'
+import { txToJSONRPCTx } from '../utils/txToJsonRpcTx.js'
 
 /**
  * Request handler for eth_getTransactionByBlockHashAndIndex JSON-RPC requests.
