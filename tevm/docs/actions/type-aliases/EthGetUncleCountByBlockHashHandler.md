@@ -8,7 +8,7 @@
 
 > **EthGetUncleCountByBlockHashHandler**: (`request`) => `Promise`\<[`EthGetUncleCountByBlockHashResult`](EthGetUncleCountByBlockHashResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:22
+Defined in: packages/actions/dist/index.d.ts:3696
 
 ## Parameters
 

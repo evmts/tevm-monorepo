@@ -8,7 +8,7 @@
 
 > **EthGetBlockByNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:13
+Defined in: packages/actions/dist/index.d.ts:4112
 
 ## Parameters
 

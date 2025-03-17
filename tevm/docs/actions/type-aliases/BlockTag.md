@@ -8,4 +8,4 @@
 
 > **BlockTag**: `"latest"` \| `"earliest"` \| `"pending"` \| `"safe"` \| `"finalized"`
 
-Defined in: packages/actions/types/common/BlockTag.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:74

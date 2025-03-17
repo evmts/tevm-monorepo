@@ -8,13 +8,13 @@
 
 > **ethGetTransactionReceiptJsonRpcProcedure**(`client`): [`EthGetTransactionReceiptJsonRpcProcedure`](../type-aliases/EthGetTransactionReceiptJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetTransactionReceiptProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4192
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

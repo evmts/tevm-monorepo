@@ -8,13 +8,13 @@
 
 > **anvilSetChainIdJsonRpcProcedure**(`client`): [`AnvilSetChainIdProcedure`](../type-aliases/AnvilSetChainIdProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetChainIdProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:3165
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

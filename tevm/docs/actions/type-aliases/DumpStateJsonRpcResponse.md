@@ -8,6 +8,6 @@
 
 > **DumpStateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_dumpState"`, `SerializeToJson`\<\{ `state`: [`ParameterizedTevmState`](../../state/type-aliases/ParameterizedTevmState.md); \}\>, [`TevmDumpStateError`](../../index/type-aliases/TevmDumpStateError.md)\[`"code"`\]\>
 
-Defined in: packages/actions/types/DumpState/DumpStateJsonRpcResponse.d.ts:8
+Defined in: packages/actions/dist/index.d.ts:2084
 
 The response to the `tevm_dumpState` JSON-RPC request.

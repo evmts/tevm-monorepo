@@ -8,7 +8,7 @@
 
 > **MineEvents**: `object`
 
-Defined in: packages/actions/types/Mine/MineEvents.d.ts:22
+Defined in: packages/actions/dist/index.d.ts:2617
 
 Event handlers for mining operations
 

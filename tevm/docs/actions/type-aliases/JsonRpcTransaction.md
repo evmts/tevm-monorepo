@@ -8,7 +8,7 @@
 
 > **JsonRpcTransaction**: `object`
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:9
+Defined in: packages/actions/dist/index.d.ts:3719
 
 the transaction call object for methods like `eth_call`
 

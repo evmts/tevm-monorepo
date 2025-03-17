@@ -8,7 +8,7 @@
 
 > **validateMineEvents**(`events`): `object`
 
-Defined in: packages/actions/types/Mine/validateMineEvents.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2720
 
 ## Parameters
 

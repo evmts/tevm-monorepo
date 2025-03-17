@@ -8,4 +8,4 @@
 
 > **DebugTraceTransactionResult**: [`TraceResult`](../../index/type-aliases/TraceResult.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:15
+Defined in: packages/actions/dist/index.d.ts:910

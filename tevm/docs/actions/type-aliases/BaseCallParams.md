@@ -8,7 +8,7 @@
 
 > **BaseCallParams**\<`TThrowOnFail`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: packages/actions/types/BaseCall/BaseCallParams.d.ts:36
+Defined in: packages/actions/dist/index.d.ts:461
 
 Properties shared across call-like params.
 This type is used as the base for various call-like parameter types:

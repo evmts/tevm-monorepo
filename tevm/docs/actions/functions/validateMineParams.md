@@ -8,13 +8,13 @@
 
 > **validateMineParams**(`action`): [`ValidateMineParamsError`](../type-aliases/ValidateMineParamsError.md)[]
 
-Defined in: packages/actions/types/Mine/validateMineParams.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2717
 
 ## Parameters
 
 ### action
 
-[`MineParams`](../../index/type-aliases/MineParams.md)\<`boolean`\>
+[`MineParams`](../../index/type-aliases/MineParams.md)
 
 ## Returns
 

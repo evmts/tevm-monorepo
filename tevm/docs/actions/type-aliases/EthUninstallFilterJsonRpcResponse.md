@@ -8,6 +8,6 @@
 
 > **EthUninstallFilterJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_uninstallFilter"`, `boolean`, `string` \| `number`\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:175
+Defined in: packages/actions/dist/index.d.ts:4090
 
 JSON-RPC response for `eth_uninstallFilter` procedure

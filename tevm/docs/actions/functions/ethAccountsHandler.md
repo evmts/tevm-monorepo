@@ -8,7 +8,7 @@
 
 > **ethAccountsHandler**(`__namedParameters`): [`EthAccountsHandler`](../type-aliases/EthAccountsHandler.md)
 
-Defined in: packages/actions/types/eth/ethAccountsHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4150
 
 ## Parameters
 
@@ -16,7 +16,7 @@ Defined in: packages/actions/types/eth/ethAccountsHandler.d.ts:1
 
 #### accounts
 
-readonly [`Account`](../../index/type-aliases/Account.md)\<`` `0x${string}` ``\>[]
+readonly [`Account`](../../index/type-aliases/Account.md)[]
 
 ## Returns
 

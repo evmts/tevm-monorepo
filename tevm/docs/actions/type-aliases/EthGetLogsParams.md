@@ -8,7 +8,7 @@
 
 > **EthGetLogsParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:129
+Defined in: packages/actions/dist/index.d.ts:3307
 
 Based on the JSON-RPC request for `eth_getLogs` procedure
 

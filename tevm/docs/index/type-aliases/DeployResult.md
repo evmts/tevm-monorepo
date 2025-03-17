@@ -8,7 +8,7 @@
 
 > **DeployResult**: [`CallResult`](CallResult.md)
 
-Defined in: packages/actions/types/Deploy/DeployResult.d.ts:37
+Defined in: packages/actions/dist/index.d.ts:1952
 
 Represents the result of a contract deployment on TEVM.
 This type extends the CallResult type, which includes properties like gas usage, logs, and errors.

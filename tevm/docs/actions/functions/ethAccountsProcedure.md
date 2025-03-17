@@ -8,13 +8,13 @@
 
 > **ethAccountsProcedure**(`accounts`): [`EthAccountsJsonRpcProcedure`](../type-aliases/EthAccountsJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethAccountsProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4154
 
 ## Parameters
 
 ### accounts
 
-readonly [`Account`](../../index/type-aliases/Account.md)\<`` `0x${string}` ``\>[]
+readonly [`Account`](../../index/type-aliases/Account.md)[]
 
 ## Returns
 

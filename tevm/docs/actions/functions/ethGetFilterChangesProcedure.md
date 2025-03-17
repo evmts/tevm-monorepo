@@ -8,13 +8,13 @@
 
 > **ethGetFilterChangesProcedure**(`client`): [`EthGetFilterChangesJsonRpcProcedure`](../type-aliases/EthGetFilterChangesJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetFilterChangesProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4174
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

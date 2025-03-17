@@ -8,4 +8,4 @@
 
 > **TevmSetAccountError**: [`ValidateSetAccountParamsError`](../../actions/type-aliases/ValidateSetAccountParamsError.md) \| [`InternalError`](../../errors/classes/InternalError.md)
 
-Defined in: packages/actions/types/SetAccount/TevmSetAccountError.d.ts:3
+Defined in: packages/actions/dist/index.d.ts:2294

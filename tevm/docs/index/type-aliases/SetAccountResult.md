@@ -8,7 +8,7 @@
 
 > **SetAccountResult**\<`ErrorType`\>: `object`
 
-Defined in: packages/actions/types/SetAccount/SetAccountResult.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:2299
 
 Result of SetAccount Action
 

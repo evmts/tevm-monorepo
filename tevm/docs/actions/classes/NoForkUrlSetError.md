@@ -6,7 +6,7 @@
 
 # Class: NoForkUrlSetError
 
-Defined in: packages/actions/types/eth/getBalanceHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4258
 
 ## Extends
 
@@ -64,7 +64,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **\_tag**: `"NoForkUrlSetError"`
 
-Defined in: packages/actions/types/eth/getBalanceHandler.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:4262
 
 ***
 
@@ -96,7 +96,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **name**: `"NoForkUrlSetError"`
 
-Defined in: packages/actions/types/eth/getBalanceHandler.d.ts:10
+Defined in: packages/actions/dist/index.d.ts:4267
 
 #### Overrides
 

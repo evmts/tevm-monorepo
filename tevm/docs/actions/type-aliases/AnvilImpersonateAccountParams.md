@@ -8,7 +8,7 @@
 
 > **AnvilImpersonateAccountParams**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:8
+Defined in: packages/actions/dist/index.d.ts:2779
 
 Params fro `anvil_impersonateAccount` handler
 

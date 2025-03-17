@@ -8,13 +8,13 @@
 
 > **forkAndCacheBlock**(`client`, `block`, `executeBlock`?): `Promise`\<[`Vm`](../../vm/type-aliases/Vm.md)\>
 
-Defined in: packages/actions/types/internal/forkAndCacheBlock.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4283
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### block
 

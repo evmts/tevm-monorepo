@@ -8,7 +8,7 @@
 
 > **ContractResult**\<`TAbi`, `TFunctionName`, `ErrorType`\>: `Omit`\<[`CallResult`](CallResult.md), `"errors"`\> & `object` \| [`CallResult`](CallResult.md)\<`ErrorType`\> & `object`
 
-Defined in: packages/actions/types/Contract/ContractResult.d.ts:45
+Defined in: packages/actions/dist/index.d.ts:1468
 
 The result type for a TEVM contract call.
 

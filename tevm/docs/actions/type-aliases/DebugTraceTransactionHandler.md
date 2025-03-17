@@ -8,7 +8,7 @@
 
 > **DebugTraceTransactionHandler**: (`params`) => `Promise`\<[`DebugTraceTransactionResult`](DebugTraceTransactionResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:3
+Defined in: packages/actions/dist/index.d.ts:3501
 
 ## Parameters
 

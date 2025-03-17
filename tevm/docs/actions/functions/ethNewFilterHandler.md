@@ -8,13 +8,13 @@
 
 > **ethNewFilterHandler**(`tevmNode`): [`EthNewFilterHandler`](../type-aliases/EthNewFilterHandler.md)
 
-Defined in: packages/actions/types/eth/ethNewFilterHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4196
 
 ## Parameters
 
 ### tevmNode
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

@@ -8,4 +8,4 @@
 
 > **TraceType**: `"CALL"` \| `"DELEGATECALL"` \| `"STATICCALL"` \| `"CREATE"` \| `"CREATE2"` \| `"SELFDESTRUCT"` \| `"REWARD"`
 
-Defined in: packages/actions/types/common/TraceType.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:299

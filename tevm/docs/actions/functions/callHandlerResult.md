@@ -6,9 +6,9 @@
 
 # Function: callHandlerResult()
 
-> **callHandlerResult**(`evmResult`, `txHash`, `trace`, `accessList`): [`CallResult`](../../index/type-aliases/CallResult.md)\<[`TevmCallError`](../../index/type-aliases/TevmCallError.md)\>
+> **callHandlerResult**(`evmResult`, `txHash`, `trace`, `accessList`): [`CallResult`](../../index/type-aliases/CallResult.md)
 
-Defined in: packages/actions/types/Call/callHandlerResult.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:1277
 
 ## Parameters
 
@@ -30,4 +30,4 @@ Defined in: packages/actions/types/Call/callHandlerResult.d.ts:1
 
 ## Returns
 
-[`CallResult`](../../index/type-aliases/CallResult.md)\<[`TevmCallError`](../../index/type-aliases/TevmCallError.md)\>
+[`CallResult`](../../index/type-aliases/CallResult.md)

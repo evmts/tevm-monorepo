@@ -8,7 +8,7 @@
 
 > **AnvilMineParams**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:34
+Defined in: packages/actions/dist/index.d.ts:2805
 
 Params for `anvil_mine` handler
 

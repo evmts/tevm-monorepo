@@ -6,16 +6,16 @@
 
 # Function: validateBaseCallParams()
 
-> **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
+> **validateBaseCallParams**(`action`): `any`[]
 
-Defined in: packages/actions/types/BaseCall/validateBaseCallParams.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:622
 
 ## Parameters
 
 ### action
 
-[`BaseCallParams`](../type-aliases/BaseCallParams.md)\<`boolean`\>
+[`BaseCallParams`](../type-aliases/BaseCallParams.md)
 
 ## Returns
 
-`ValidateBaseCallParamsError`[]
+`any`[]

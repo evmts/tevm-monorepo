@@ -8,7 +8,7 @@
 
 > **TransactionReceiptResult**: `object`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:282
 
 Transaction receipt result type for eth JSON-RPC procedures
 

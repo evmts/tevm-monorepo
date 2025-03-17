@@ -8,7 +8,7 @@
 
 > **TevmCallError**: [`ValidateCallParamsError`](../../actions/type-aliases/ValidateCallParamsError.md) \| [`CallHandlerOptsError`](../../actions/type-aliases/CallHandlerOptsError.md) \| [`InternalError`](../../errors/classes/InternalError.md) \| [`ExecutionError`](../../errors/classes/ExecutionError.md) \| [`RevertError`](../../errors/classes/RevertError.md) \| [`HandleRunTxError`](../../actions/type-aliases/HandleRunTxError.md) \| [`ExecuteCallError`](../../actions/type-aliases/ExecuteCallError.md)
 
-Defined in: packages/actions/types/Call/TevmCallError.d.ts:61
+Defined in: packages/actions/dist/index.d.ts:1014
 
 All errors that can occur during a TEVM call.
 This type is strongly typed if using `throwOnFail: false`.

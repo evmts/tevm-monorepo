@@ -8,13 +8,13 @@
 
 > **anvilResetJsonRpcProcedure**(`node`): [`AnvilResetProcedure`](../type-aliases/AnvilResetProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilResetProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:3161
 
 ## Parameters
 
 ### node
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

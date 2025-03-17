@@ -8,13 +8,13 @@
 
 > **getBalanceProcedure**(`baseClient`): [`EthGetBalanceJsonRpcProcedure`](../type-aliases/EthGetBalanceJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/getBalanceProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4271
 
 ## Parameters
 
 ### baseClient
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

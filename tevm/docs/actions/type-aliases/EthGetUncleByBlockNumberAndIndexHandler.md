@@ -8,7 +8,7 @@
 
 > **EthGetUncleByBlockNumberAndIndexHandler**: (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](EthGetUncleByBlockNumberAndIndexResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:29
+Defined in: packages/actions/dist/index.d.ts:3703
 
 ## Parameters
 

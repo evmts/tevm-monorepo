@@ -8,6 +8,6 @@
 
 > **AnvilGetAutomineJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_getAutomine"`, \[`SerializeToJson`\<[`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)\>\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:21
+Defined in: packages/actions/dist/index.d.ts:2962
 
 JSON-RPC request for `anvil_getAutomine` method

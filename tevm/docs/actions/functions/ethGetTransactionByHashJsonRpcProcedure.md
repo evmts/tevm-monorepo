@@ -8,13 +8,13 @@
 
 > **ethGetTransactionByHashJsonRpcProcedure**(`client`): [`EthGetTransactionByHashJsonRpcProcedure`](../type-aliases/EthGetTransactionByHashJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetTransactionByHashProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4186
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

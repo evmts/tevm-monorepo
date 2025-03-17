@@ -8,13 +8,13 @@
 
 > **gasPriceProcedure**(`__namedParameters`): [`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/gasPriceProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4256
 
 ## Parameters
 
 ### \_\_namedParameters
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

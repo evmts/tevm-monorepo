@@ -8,7 +8,7 @@
 
 > **EthAccountsHandler**: (`request`?) => `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:3
+Defined in: packages/actions/dist/index.d.ts:3677
 
 ## Parameters
 

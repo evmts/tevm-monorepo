@@ -10,8 +10,8 @@
 
 Defined in: [packages/actions/src/Mine/validateMineEvents.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/validateMineEvents.js#L7)
 
-Validates mining event handlers
-These are not part of the JSON-RPC interface but are used internally for mining operations
+Validates Mine event handlers
+These are not part of the JSON-RPC interface but are used internally for mine handling
 
 ## Parameters
 

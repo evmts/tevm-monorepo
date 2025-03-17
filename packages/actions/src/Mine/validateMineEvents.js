@@ -21,9 +21,18 @@ export const validateMineEvents = (events) => {
 
 	/** @type {Array<{path: string, message: string}>} */
 	const errors = []
-	const handlers = ['onBlock', 'onReceipt', 'onLog']
 
-	for (const handler of handlers) {
+	// Event handlers that should be functions
+	const eventHandlers = ['onBlock', 'onReceipt', 'onLog']
+
+	// Valid non-handler properties that are part of MineParams
+	const validProps = ['blockCount', 'blocks', 'interval', 'throwOnFail']
+
+	// All valid keys
+	const validKeys = [...eventHandlers, ...validProps]
+
+	// Validate that event handlers are functions
+	for (const handler of eventHandlers) {
 		if (handler in events && /** @type {Record<string, unknown>} */ (events)[handler] !== undefined) {
 			if (typeof (/** @type {Record<string, unknown>} */ (events)[handler]) !== 'function') {
 				errors.push({
@@ -34,9 +43,9 @@ export const validateMineEvents = (events) => {
 		}
 	}
 
-	// Check for any keys that aren't in our list of valid handlers
+	// Check for any keys that aren't in our list of valid properties
 	for (const key in events) {
-		if (!handlers.includes(key)) {
+		if (!validKeys.includes(key)) {
 			errors.push({
 				path: key,
 				message: `Unknown event handler: ${key}`,

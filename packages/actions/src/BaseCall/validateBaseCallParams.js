@@ -70,6 +70,97 @@ const validateBlockTag = (value) => {
 }
 
 /**
+ * Validates a state override entry
+ * @param {unknown} entry - The state override entry to validate
+ * @param {string} address - The address this entry is for (used in error messages)
+ * @returns {Array<{message: string}>} - Array of error messages
+ */
+const validateStateOverrideEntry = (entry, address) => {
+	const errors = []
+
+	if (typeof entry !== 'object' || entry === null) {
+		errors.push({ message: `State override entry for ${address} must be an object` })
+		return errors
+	}
+
+	// Validate balance if present
+	if ('balance' in entry && entry.balance !== undefined) {
+		if (typeof entry.balance !== 'bigint' && typeof entry.balance !== 'string') {
+			errors.push({ message: `balance for ${address} must be a bigint or hex string` })
+		} else if (typeof entry.balance === 'bigint' && entry.balance < 0n) {
+			errors.push({ message: `balance for ${address} must be non-negative` })
+		} else if (typeof entry.balance === 'string') {
+			const hexValidation = validateHex(entry.balance)
+			if (!hexValidation.isValid) {
+				errors.push({ message: `balance for ${address}: ${hexValidation.message}` })
+			}
+		}
+	}
+
+	// Validate nonce if present
+	if ('nonce' in entry && entry.nonce !== undefined) {
+		if (typeof entry.nonce !== 'bigint' && typeof entry.nonce !== 'number') {
+			errors.push({ message: `nonce for ${address} must be a bigint or number` })
+		} else if (
+			(typeof entry.nonce === 'bigint' && entry.nonce < 0n) ||
+			(typeof entry.nonce === 'number' && (entry.nonce < 0 || !Number.isInteger(entry.nonce)))
+		) {
+			errors.push({ message: `nonce for ${address} must be a non-negative integer` })
+		}
+	}
+
+	// Validate code if present
+	if ('code' in entry && entry.code !== undefined) {
+		const codeValidation = validateHex(entry.code)
+		if (!codeValidation.isValid) {
+			errors.push({ message: `code for ${address}: ${codeValidation.message || 'Invalid code'}` })
+		}
+	}
+
+	// Validate state if present
+	if ('state' in entry && entry.state !== undefined) {
+		if (typeof entry.state !== 'object' || entry.state === null) {
+			errors.push({ message: `state for ${address} must be an object` })
+		} else {
+			// Validate each key-value pair in state
+			for (const key in entry.state) {
+				const keyValidation = validateHex(key)
+				if (!keyValidation.isValid) {
+					errors.push({ message: `Invalid storage key in state for ${address}: ${keyValidation.message}` })
+				}
+
+				const valueValidation = validateHex(entry.state[key])
+				if (!valueValidation.isValid) {
+					errors.push({ message: `Invalid storage value in state for ${address}: ${valueValidation.message}` })
+				}
+			}
+		}
+	}
+
+	// Validate stateDiff if present
+	if ('stateDiff' in entry && entry.stateDiff !== undefined) {
+		if (typeof entry.stateDiff !== 'object' || entry.stateDiff === null) {
+			errors.push({ message: `stateDiff for ${address} must be an object` })
+		} else {
+			// Validate each key-value pair in stateDiff
+			for (const key in entry.stateDiff) {
+				const keyValidation = validateHex(key)
+				if (!keyValidation.isValid) {
+					errors.push({ message: `Invalid storage key in stateDiff for ${address}: ${keyValidation.message}` })
+				}
+
+				const valueValidation = validateHex(entry.stateDiff[key])
+				if (!valueValidation.isValid) {
+					errors.push({ message: `Invalid storage value in stateDiff for ${address}: ${valueValidation.message}` })
+				}
+			}
+		}
+	}
+
+	return errors
+}
+
+/**
  * @internal can break on a minor release
  * Validates call parameters using vanilla JS
  * @param {import('../BaseCall/BaseCallParams.js').BaseCallParams} action
@@ -225,8 +316,32 @@ export const validateBaseCallParams = (action) => {
 		}
 	}
 
-	// Additional complex validations would go here
-	// For example, validating stateOverrideSet and blockOverrideSet
+	// Validate stateOverrideSet if present
+	if ('stateOverrideSet' in action && action.stateOverrideSet !== undefined) {
+		if (typeof action.stateOverrideSet !== 'object' || action.stateOverrideSet === null) {
+			errors.push(new InvalidParamsError('stateOverrideSet must be an object'))
+		} else {
+			// Validate each address key and its entry
+			for (const addr in action.stateOverrideSet) {
+				// Validate address key
+				const addressValidation = validateAddress(addr)
+				if (!addressValidation.isValid) {
+					errors.push(
+						new InvalidParamsError(
+							`Invalid address key in stateOverrideSet: ${addressValidation.message || 'Invalid address'}`,
+						),
+					)
+					continue // Skip validating this entry if address is invalid
+				}
+
+				// Validate the entry for this address
+				const entryErrors = validateStateOverrideEntry(action.stateOverrideSet[addr], addr)
+				entryErrors.forEach((err) => {
+					errors.push(new InvalidParamsError(err.message))
+				})
+			}
+		}
+	}
 
 	return errors
 }

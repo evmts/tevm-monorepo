@@ -8,13 +8,13 @@
 
 > **ethEstimateGasJsonRpcProcedure**(`client`): [`EthEstimateGasJsonRpcProcedure`](../type-aliases/EthEstimateGasJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethEstimateGasProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4164
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

@@ -8,4 +8,4 @@
 
 > **AnvilImpersonateAccountResult**: `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:2
+Defined in: packages/actions/dist/index.d.ts:2915

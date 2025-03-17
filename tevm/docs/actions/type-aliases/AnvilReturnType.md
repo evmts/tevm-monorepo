@@ -8,7 +8,7 @@
 
 > **AnvilReturnType**: `object`
 
-Defined in: packages/actions/types/tevm-request-handler/AnvilReturnType.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:4408
 
 A mapping of `anvil_*` method names to their return type
 

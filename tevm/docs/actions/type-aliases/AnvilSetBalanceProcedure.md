@@ -8,7 +8,7 @@
 
 > **AnvilSetBalanceProcedure**: (`request`) => `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](AnvilSetBalanceJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:35
+Defined in: packages/actions/dist/index.d.ts:3120
 
 JSON-RPC procedure for `anvil_setBalance`
 

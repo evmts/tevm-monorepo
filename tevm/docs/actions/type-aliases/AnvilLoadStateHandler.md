@@ -8,7 +8,7 @@
 
 > **AnvilLoadStateHandler**: (`params`) => `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:15
+Defined in: packages/actions/dist/index.d.ts:2944
 
 ## Parameters
 

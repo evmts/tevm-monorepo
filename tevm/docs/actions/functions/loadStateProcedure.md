@@ -8,13 +8,13 @@
 
 > **loadStateProcedure**(`client`): [`LoadStateJsonRpcProcedure`](../type-aliases/LoadStateJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/LoadState/loadStateProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2597
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

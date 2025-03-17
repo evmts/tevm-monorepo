@@ -1,0 +1,54 @@
+
+> @tevm/memory-client@1.0.0-next.131 test:coverage /Users/williamcory/tevm-monorepo/tree/pending_block_tag_test/packages/memory-client
+> vitest --coverage --run -t createMemoryClient auto-mine transactions when miningMode is set to auto
+
+
+[1m[7m[36m RUN [39m[27m[22m [36mv3.0.8 [39m[90m/Users/williamcory/tevm-monorepo/tree/pending_block_tag_test/packages/memory-client[39m
+      [2mCoverage enabled with [22m[33mv8[39m
+
+ [2m[90m↓[39m[22m src/test/viem/setCode.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/tevmMiningModes.spec.ts [2m([22m[2m4 tests[22m[2m | [22m[33m4 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/watchPendingTransactions.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/getStorageAt.spec.ts [2m([22m[2m4 tests[22m[2m | [22m[33m4 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/setAutomine.spec.ts [2m([22m[2m3 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/setBlockTimestampInterval.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/getFeeHistory.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/getAutomine.spec.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/increaseTime.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/miningModes.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/stopImpersonatingAccount.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/setRpcUrl.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/setStorageAt.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/tevmSetAccount.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/tevmStatePersistence.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/setBalance.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/setCoinbase.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/setNonce.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/test/viem/setNextBlockTimestamp.spec.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+
+[2m Test Files [22m [33m19 skipped[39m[90m (19)[39m
+[2m      Tests [22m [33m28 skipped[39m[90m (28)[39m
+[2m   Start at [22m 16:01:29
+[2m   Duration [22m 2.02s[2m (transform 675ms, setup 0ms, collect 16.48s, tests 0ms, environment 2ms, prepare 1.45s)[22m
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+[33;1mAll files         [0m | [33;1m  74.16[0m | [31;1m       0[0m | [31;1m      0[0m | [33;1m  74.16[0m | [31;1m                 [0m 
+[31;1m createClient.js  [0m | [31;1m      0[0m | [31;1m       0[0m | [31;1m      0[0m | [31;1m      0[0m | [31;1m1                [0m 
+[32;1m ...emoryClient.js[0m | [32;1m  87.85[0m | [32;1m     100[0m | [31;1m      0[0m | [32;1m  87.85[0m | [31;1m190-215          [0m 
+[33;1m ...vmTransport.js[0m | [33;1m  58.16[0m | [32;1m     100[0m | [31;1m      0[0m | [33;1m  58.16[0m | [31;1m59-101           [0m 
+[31;1m index.js         [0m | [31;1m      0[0m | [31;1m       0[0m | [31;1m      0[0m | [31;1m      0[0m | [31;1m1-13             [0m 
+[32;1m tevmCall.js      [0m | [32;1m  95.83[0m | [32;1m     100[0m | [31;1m      0[0m | [32;1m  95.83[0m | [31;1m48-49            [0m 
+[31;1m tevmContract.js  [0m | [31;1m      0[0m | [31;1m       0[0m | [31;1m      0[0m | [31;1m      0[0m | [31;1m1-44             [0m 
+[32;1m tevmDeploy.js    [0m | [32;1m  97.72[0m | [32;1m     100[0m | [31;1m      0[0m | [32;1m  97.72[0m | [31;1m88-89            [0m 
+[32;1m tevmDumpState.js [0m | [32;1m  95.23[0m | [32;1m     100[0m | [31;1m      0[0m | [32;1m  95.23[0m | [31;1m42-43            [0m 
+[32;1m tevmGetAccount.js[0m | [32;1m  95.65[0m | [32;1m     100[0m | [31;1m      0[0m | [32;1m  95.65[0m | [31;1m46-47            [0m 
+[32;1m tevmLoadState.js [0m | [32;1m  95.34[0m | [32;1m     100[0m | [31;1m      0[0m | [32;1m  95.34[0m | [31;1m43-44            [0m 
+[32;1m tevmMine.js      [0m | [32;1m     96[0m | [32;1m     100[0m | [31;1m      0[0m | [32;1m     96[0m | [31;1m50-51            [0m 
+[31;1m tevmReady.js     [0m | [31;1m      0[0m | [31;1m       0[0m | [31;1m      0[0m | [31;1m      0[0m | [31;1m1-88             [0m 
+[32;1m tevmSetAccount.js[0m | [32;1m  98.05[0m | [32;1m     100[0m | [31;1m      0[0m | [32;1m  98.05[0m | [31;1m103-104          [0m 
+[33;1m ...ViemActions.js[0m | [33;1m  73.63[0m | [32;1m     100[0m | [31;1m      0[0m | [33;1m  73.63[0m | [31;1m83-111           [0m 
+-------------------|---------|----------|---------|---------|-------------------
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m

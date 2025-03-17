@@ -8,13 +8,13 @@
 
 > **ethGetBlockTransactionCountByNumberJsonRpcProcedure**(`client`): [`EthGetBlockTransactionCountByNumberJsonRpcProcedure`](../type-aliases/EthGetBlockTransactionCountByNumberJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetBlockTransactionCountByNumberProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4172
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

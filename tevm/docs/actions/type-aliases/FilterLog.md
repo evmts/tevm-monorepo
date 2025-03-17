@@ -8,7 +8,7 @@
 
 > **FilterLog**: `object`
 
-Defined in: packages/actions/types/common/FilterLog.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:236
 
 FilterLog type for eth JSON-RPC procedures
 

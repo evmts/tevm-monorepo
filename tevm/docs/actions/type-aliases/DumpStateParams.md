@@ -8,7 +8,7 @@
 
 > **DumpStateParams**\<`TThrowOnFail`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: packages/actions/types/DumpState/DumpStateParams.d.ts:3
+Defined in: packages/actions/dist/index.d.ts:2003
 
 ## Type declaration
 

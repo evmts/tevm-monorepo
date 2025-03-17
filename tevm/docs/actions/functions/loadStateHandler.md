@@ -8,13 +8,13 @@
 
 > **loadStateHandler**(`client`, `options`?): [`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
 
-Defined in: packages/actions/types/LoadState/loadStateHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2512
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### options?
 

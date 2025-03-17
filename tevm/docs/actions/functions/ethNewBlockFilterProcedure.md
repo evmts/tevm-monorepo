@@ -8,13 +8,13 @@
 
 > **ethNewBlockFilterProcedure**(`client`): [`EthNewBlockFilterJsonRpcProcedure`](../type-aliases/EthNewBlockFilterJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethNewBlockFilterProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4194
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

@@ -8,12 +8,10 @@
 
 > **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
 
-Defined in: [packages/actions/src/BaseCall/validateBaseCallParams.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L32)
-
-**`Internal`**
+Defined in: [packages/actions/src/BaseCall/validateBaseCallParams.js:169](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L169)
 
 can break on a minor release
-Validates that the parameters are correct with zod
+Validates call parameters using vanilla JS
 
 ## Parameters
 

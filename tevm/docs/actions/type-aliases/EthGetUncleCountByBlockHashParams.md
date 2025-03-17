@@ -8,7 +8,7 @@
 
 > **EthGetUncleCountByBlockHashParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:150
+Defined in: packages/actions/dist/index.d.ts:3328
 
 Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 

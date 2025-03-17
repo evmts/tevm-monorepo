@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByBlockNumberAndIndexHandler**: (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexResult`](EthGetTransactionByBlockNumberAndIndexResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:26
+Defined in: packages/actions/dist/index.d.ts:3700
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **EthSendRawTransactionParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:211
+Defined in: packages/actions/dist/index.d.ts:3389
 
 Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
 This type is a placeholder

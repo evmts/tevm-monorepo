@@ -8,13 +8,13 @@
 
 > **traceCallHandler**(`__namedParameters`): [`DebugTraceCallHandler`](../type-aliases/DebugTraceCallHandler.md)
 
-Defined in: packages/actions/types/debug/traceCallHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:3504
 
 ## Parameters
 
 ### \_\_namedParameters
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

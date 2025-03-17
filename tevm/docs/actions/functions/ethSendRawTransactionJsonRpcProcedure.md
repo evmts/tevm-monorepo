@@ -8,13 +8,13 @@
 
 > **ethSendRawTransactionJsonRpcProcedure**(`client`): [`EthSendRawTransactionJsonRpcProcedure`](../type-aliases/EthSendRawTransactionJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethSendRawTransactionProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4222
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

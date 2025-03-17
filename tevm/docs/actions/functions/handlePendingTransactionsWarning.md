@@ -8,17 +8,17 @@
 
 > **handlePendingTransactionsWarning**(`client`, `params`, `code`, `deployedBytecode`): `Promise`\<`void`\>
 
-Defined in: packages/actions/types/Call/handlePendingTransactionsWarning.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:1290
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../../index/type-aliases/CallParams.md)
 
 ### code
 

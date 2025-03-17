@@ -6,16 +6,16 @@
 
 # Function: validateContractParams()
 
-> **validateContractParams**(`action`): [`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
+> **validateContractParams**(`action`): `any`[]
 
-Defined in: packages/actions/types/Contract/validateContractParams.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:1528
 
 ## Parameters
 
 ### action
 
-[`ContractParams`](../../index/type-aliases/ContractParams.md)\<[`Abi`](../../index/type-aliases/Abi.md), `string`, `boolean`\>
+[`ContractParams`](../../index/type-aliases/ContractParams.md)
 
 ## Returns
 
-[`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
+`any`[]

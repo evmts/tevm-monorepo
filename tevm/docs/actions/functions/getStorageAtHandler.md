@@ -8,13 +8,13 @@
 
 > **getStorageAtHandler**(`client`): [`EthGetStorageAtHandler`](../type-aliases/EthGetStorageAtHandler.md)
 
-Defined in: packages/actions/types/eth/getStorageAtHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4277
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

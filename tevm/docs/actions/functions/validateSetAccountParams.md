@@ -8,13 +8,13 @@
 
 > **validateSetAccountParams**(`action`): [`ValidateSetAccountParamsError`](../type-aliases/ValidateSetAccountParamsError.md)[]
 
-Defined in: packages/actions/types/SetAccount/validateSetAccountParams.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2291
 
 ## Parameters
 
 ### action
 
-[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\<`boolean`\>
+[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)
 
 ## Returns
 

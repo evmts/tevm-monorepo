@@ -8,7 +8,7 @@
 
 > **AnvilLoadStateParams**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:129
+Defined in: packages/actions/dist/index.d.ts:2900
 
 Params for `anvil_loadState` handler
 

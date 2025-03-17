@@ -8,7 +8,7 @@
 
 > **TraceParams**: `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:3471
 
 Config params for trace calls
 

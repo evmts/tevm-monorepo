@@ -8,7 +8,7 @@
 
 > **AnvilRequestType**: `object`
 
-Defined in: packages/actions/types/tevm-request-handler/AnvilRequestType.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:4698
 
 A mapping of `anvil_*` method names to their request type
 

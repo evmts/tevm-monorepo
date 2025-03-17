@@ -8,7 +8,7 @@
 
 > **TransactionResult**: `object`
 
-Defined in: packages/actions/types/common/TransactionResult.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:262
 
 The type returned by transaction related
 json rpc procedures

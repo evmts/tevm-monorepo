@@ -8,6 +8,6 @@
 
 > **EthBlockNumberResult**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:15
+Defined in: packages/actions/dist/index.d.ts:3516
 
 JSON-RPC response for `eth_blockNumber` procedure

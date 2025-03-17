@@ -8,6 +8,6 @@
 
 > **ExecuteCallError**: [`HandleRunTxError`](HandleRunTxError.md)
 
-Defined in: packages/actions/types/Call/executeCall.d.ts:9
+Defined in: packages/actions/dist/index.d.ts:946
 
 The error returned by executeCall

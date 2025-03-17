@@ -8,7 +8,7 @@
 
 > **CallJsonRpcProcedure**: (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/Call/CallJsonRpcProcedure.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:1271
 
 Call JSON-RPC procedure executes a call against the tevm EVM
 

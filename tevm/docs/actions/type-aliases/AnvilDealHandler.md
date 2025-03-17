@@ -8,7 +8,7 @@
 
 > **AnvilDealHandler**: (`params`) => `Promise`\<[`AnvilDealResult`](AnvilDealResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:16
+Defined in: packages/actions/dist/index.d.ts:2945
 
 ## Parameters
 

@@ -8,13 +8,13 @@
 
 > **shouldCreateTransaction**(`params`, `runTxResult`): `boolean`
 
-Defined in: packages/actions/types/Call/shouldCreateTransaction.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:1300
 
 ## Parameters
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../../index/type-aliases/CallParams.md)
 
 ### runTxResult
 

@@ -8,13 +8,13 @@
 
 > **gasPriceHandler**(`__namedParameters`): [`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
 
-Defined in: packages/actions/types/eth/gasPriceHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4254
 
 ## Parameters
 
 ### \_\_namedParameters
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

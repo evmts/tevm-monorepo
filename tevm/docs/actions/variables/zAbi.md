@@ -6,8 +6,8 @@
 
 # Variable: zAbi
 
-> `const` **zAbi**: `ZodReadonly`
+> `const` **zAbi**: `zod.ZodType`
 
-Defined in: packages/actions/types/internal/zod/zAbi.d.ts:4
+Defined in: packages/actions/dist/index.d.ts:4289
 
 Zod validator for a valid ABI

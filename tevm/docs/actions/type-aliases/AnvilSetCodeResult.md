@@ -8,4 +8,4 @@
 
 > **AnvilSetCodeResult**: `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:9
+Defined in: packages/actions/dist/index.d.ts:2922

@@ -8,7 +8,7 @@
 
 > **TransactionParams**: `object`
 
-Defined in: packages/actions/types/common/TransactionParams.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:186
 
 A transaction request object
 

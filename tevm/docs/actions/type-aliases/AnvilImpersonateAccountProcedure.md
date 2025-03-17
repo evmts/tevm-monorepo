@@ -8,7 +8,7 @@
 
 > **AnvilImpersonateAccountProcedure**: (`request`) => `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](AnvilImpersonateAccountJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:3092
 
 JSON-RPC procedure for `anvil_impersonateAccount`
 

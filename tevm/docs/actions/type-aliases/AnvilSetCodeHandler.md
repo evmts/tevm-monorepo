@@ -8,7 +8,7 @@
 
 > **AnvilSetCodeHandler**: (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:10
+Defined in: packages/actions/dist/index.d.ts:2939
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](../../actions/type-aliases/MineEvents.md) & `object`
 
-Defined in: packages/actions/types/Mine/MineParams.d.ts:20
+Defined in: packages/actions/dist/index.d.ts:2658
 
 Tevm params to mine one or more blocks.
 
@@ -19,6 +19,12 @@ Tevm params to mine one or more blocks.
 > `readonly` `optional` **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1.
+
+### blocks?
+
+> `readonly` `optional` **blocks**: `number`
+
+Alias for blockCount (deprecated). Number of blocks to mine. Defaults to 1.
 
 ### interval?
 

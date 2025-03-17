@@ -8,6 +8,6 @@
 
 > **EthGetFilterChangesJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getFilterChanges"`, \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:104
+Defined in: packages/actions/dist/index.d.ts:3814
 
 JSON-RPC request for `eth_getFilterChanges` procedure

@@ -8,13 +8,13 @@
 
 > **getStorageAtProcedure**(`client`): [`EthGetStorageAtJsonRpcProcedure`](../type-aliases/EthGetStorageAtJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/getStorageAtProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4279
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

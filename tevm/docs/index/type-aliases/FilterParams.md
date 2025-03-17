@@ -8,7 +8,7 @@
 
 > **FilterParams**: `object`
 
-Defined in: packages/actions/types/common/FilterParams.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:251
 
 An event filter options object
 

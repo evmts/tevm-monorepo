@@ -8,7 +8,7 @@
 
 > **Hex**: `` `0x${string}` ``
 
-Defined in: packages/actions/types/common/Hex.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:170
 
 A hex string
 

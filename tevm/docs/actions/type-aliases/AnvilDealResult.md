@@ -8,7 +8,7 @@
 
 > **AnvilDealResult**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:15
+Defined in: packages/actions/dist/index.d.ts:2928
 
 ## Type declaration
 

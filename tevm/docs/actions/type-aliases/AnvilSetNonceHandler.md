@@ -8,7 +8,7 @@
 
 > **AnvilSetNonceHandler**: (`params`) => `Promise`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:11
+Defined in: packages/actions/dist/index.d.ts:2940
 
 ## Parameters
 

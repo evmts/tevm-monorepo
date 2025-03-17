@@ -8,7 +8,7 @@
 
 > **EthGasPriceHandler**: (`request`?) => `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:10
+Defined in: packages/actions/dist/index.d.ts:3684
 
 ## Parameters
 

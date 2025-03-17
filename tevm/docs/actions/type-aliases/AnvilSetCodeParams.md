@@ -8,7 +8,7 @@
 
 > **AnvilSetCodeParams**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:73
+Defined in: packages/actions/dist/index.d.ts:2844
 
 Params for `anvil_setCode` handler
 

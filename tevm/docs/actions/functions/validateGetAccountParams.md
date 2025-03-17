@@ -6,16 +6,16 @@
 
 # Function: validateGetAccountParams()
 
-> **validateGetAccountParams**(`action`): [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
+> **validateGetAccountParams**(`action`): [`ValidateGetAccountParamsError`](../type-aliases/ValidateGetAccountParamsError.md)[]
 
-Defined in: packages/actions/types/GetAccount/validateGetAccountParams.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2133
 
 ## Parameters
 
 ### action
 
-[`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)\<`boolean`\>
+[`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)
 
 ## Returns
 
-[`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
+[`ValidateGetAccountParamsError`](../type-aliases/ValidateGetAccountParamsError.md)[]

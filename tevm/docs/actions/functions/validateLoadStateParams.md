@@ -8,13 +8,13 @@
 
 > **validateLoadStateParams**(`action`): [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
 
-Defined in: packages/actions/types/LoadState/validateLoadStateParams.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2516
 
 ## Parameters
 
 ### action
 
-[`LoadStateParams`](../type-aliases/LoadStateParams.md)\<`boolean`\>
+[`LoadStateParams`](../type-aliases/LoadStateParams.md)
 
 ## Returns
 

@@ -8,13 +8,13 @@
 
 > **anvilDropTransactionJsonRpcProcedure**(`client`): [`AnvilDropTransactionProcedure`](../type-aliases/AnvilDropTransactionProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilDropTransactionProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:3151
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

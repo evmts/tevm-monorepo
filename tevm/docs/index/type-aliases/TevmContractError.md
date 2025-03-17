@@ -8,7 +8,7 @@
 
 > **TevmContractError**: [`TevmCallError`](TevmCallError.md)
 
-Defined in: packages/actions/types/Contract/TevmContractError.d.ts:37
+Defined in: packages/actions/dist/index.d.ts:1426
 
 TEVM Contract Error type.
 

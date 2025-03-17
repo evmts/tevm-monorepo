@@ -53,7 +53,7 @@ export class InvalidMaxPriorityFeePerGasError extends InvalidParamsError {
 			{
 				...args,
 				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
-				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/invalidmaxpriorityfee/',
 			},
 			'InvalidMaxPriorityFeePerGasError',
 		)

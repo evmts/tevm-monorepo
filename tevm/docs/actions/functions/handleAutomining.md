@@ -8,13 +8,13 @@
 
 > **handleAutomining**(`client`, `txHash`?, `isGasMining`?): `Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../../index/type-aliases/TevmMineError.md)[]; \}\>
 
-Defined in: packages/actions/types/Call/handleAutomining.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:1285
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### txHash?
 

@@ -8,6 +8,6 @@
 
 > **EthGetFilterChangesResult**: [`FilterLog`](FilterLog.md)[]
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:67
+Defined in: packages/actions/dist/index.d.ts:3568
 
 JSON-RPC response for `eth_getFilterChanges` procedure

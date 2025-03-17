@@ -8,7 +8,7 @@
 
 > **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: [`EncodeFunctionDataParameters`](EncodeFunctionDataParameters.md)\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](../../actions/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & \{ `code`: [`Hex`](Hex.md); `deployedBytecode`: [`Hex`](Hex.md); `to`: [`Address`](../../actions/type-aliases/Address.md); \} \| \{ `code`: [`Hex`](Hex.md); `deployedBytecode`: [`Hex`](Hex.md); `to`: [`Address`](../../actions/type-aliases/Address.md); \} \| \{ `code`: [`Hex`](Hex.md); `deployedBytecode`: [`Hex`](Hex.md); `to`: [`Address`](../../actions/type-aliases/Address.md); \}
 
-Defined in: packages/actions/types/Contract/ContractParams.d.ts:41
+Defined in: packages/actions/dist/index.d.ts:1347
 
 Parameters to execute a call on a contract with TEVM.
 

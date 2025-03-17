@@ -8,7 +8,7 @@
 
 > **TevmRequestType**: `object`
 
-Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:10
+Defined in: packages/actions/dist/index.d.ts:4770
 
 A mapping of `tevm_*` method names to their request type
 

@@ -8,6 +8,6 @@
 
 > **EthSignTransactionResult**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:139
+Defined in: packages/actions/dist/index.d.ts:3640
 
 JSON-RPC response for `eth_signTransaction` procedure

@@ -8,7 +8,7 @@
 
 > **CallEvents**: `object`
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:63
+Defined in: packages/actions/dist/index.d.ts:138
 
 Event handlers for EVM execution during a call
 

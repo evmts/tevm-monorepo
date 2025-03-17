@@ -8,7 +8,7 @@
 
 > **DebugTraceTransactionParams**\<`TThrowOnError`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnError`\> & [`TraceParams`](../../index/type-aliases/TraceParams.md) & `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:26
+Defined in: packages/actions/dist/index.d.ts:3490
 
 Params taken by `debug_traceTransaction` handler
 

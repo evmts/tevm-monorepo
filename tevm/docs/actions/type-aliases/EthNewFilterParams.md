@@ -8,6 +8,6 @@
 
 > **EthNewFilterParams**: [`FilterParams`](../../index/type-aliases/FilterParams.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:273
+Defined in: packages/actions/dist/index.d.ts:3451
 
 Based on the JSON-RPC request for `eth_newFilter` procedure

@@ -6,8 +6,8 @@
 
 # Variable: zBytecode
 
-> `const` **zBytecode**: `ZodEffects`
+> `const` **zBytecode**: `zod.ZodEffects`\<`zod.ZodString`, `string`, `string`\>
 
-Defined in: packages/actions/types/internal/zod/zBytecode.d.ts:4
+Defined in: packages/actions/dist/index.d.ts:4329
 
 Zod validator for valid Ethereum bytecode

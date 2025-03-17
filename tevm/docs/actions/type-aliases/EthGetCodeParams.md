@@ -8,7 +8,7 @@
 
 > **EthGetCodeParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:110
+Defined in: packages/actions/dist/index.d.ts:3288
 
 Based on the JSON-RPC request for `eth_getCode` procedure
 

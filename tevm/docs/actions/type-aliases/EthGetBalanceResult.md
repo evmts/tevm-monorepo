@@ -8,6 +8,6 @@
 
 > **EthGetBalanceResult**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:43
+Defined in: packages/actions/dist/index.d.ts:3544
 
 JSON-RPC response for `eth_getBalance` procedure

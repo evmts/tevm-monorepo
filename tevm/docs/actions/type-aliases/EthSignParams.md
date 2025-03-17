@@ -8,7 +8,7 @@
 
 > **EthSignParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:224
+Defined in: packages/actions/dist/index.d.ts:3402
 
 **`Experimental`**
 

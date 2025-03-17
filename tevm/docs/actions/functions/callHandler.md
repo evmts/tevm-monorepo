@@ -8,13 +8,13 @@
 
 > **callHandler**(`client`, `__namedParameters`?): [`CallHandler`](../type-aliases/CallHandler.md)
 
-Defined in: packages/actions/types/Call/callHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:1273
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### \_\_namedParameters?
 

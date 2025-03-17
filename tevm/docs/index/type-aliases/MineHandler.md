@@ -8,7 +8,7 @@
 
 > **MineHandler**: (`params`?) => `Promise`\<[`MineResult`](MineResult.md)\>
 
-Defined in: packages/actions/types/Mine/MineHandlerType.d.ts:18
+Defined in: packages/actions/dist/index.d.ts:2711
 
 Mines a block including all transactions in the mempool.
 

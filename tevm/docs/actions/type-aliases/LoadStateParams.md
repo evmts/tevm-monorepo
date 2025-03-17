@@ -8,7 +8,7 @@
 
 > **LoadStateParams**\<`TThrowOnFail`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: packages/actions/types/LoadState/LoadStateParams.d.ts:24
+Defined in: packages/actions/dist/index.d.ts:2412
 
 Parameters for the `tevmLoadState` method.
 

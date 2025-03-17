@@ -8,7 +8,7 @@
 
 > **AnvilDropTransactionHandler**: (`params`) => `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:8
+Defined in: packages/actions/dist/index.d.ts:2937
 
 ## Parameters
 

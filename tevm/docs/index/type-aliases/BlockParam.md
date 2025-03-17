@@ -8,4 +8,4 @@
 
 > **BlockParam**: [`BlockTag`](../../actions/type-aliases/BlockTag.md) \| [`Hex`](Hex.md) \| `bigint`
 
-Defined in: packages/actions/types/common/BlockParam.d.ts:3
+Defined in: packages/actions/dist/index.d.ts:76

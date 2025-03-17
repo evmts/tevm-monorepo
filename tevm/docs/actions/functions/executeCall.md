@@ -8,13 +8,13 @@
 
 > **executeCall**(`client`, `evmInput`, `params`, `events`?): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`HandleRunTxError`](../type-aliases/HandleRunTxError.md)\]; \}\>
 
-Defined in: packages/actions/types/Call/executeCall.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:938
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### evmInput
 
@@ -22,7 +22,7 @@ Defined in: packages/actions/types/Call/executeCall.d.ts:1
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../../index/type-aliases/CallParams.md)
 
 ### events?
 

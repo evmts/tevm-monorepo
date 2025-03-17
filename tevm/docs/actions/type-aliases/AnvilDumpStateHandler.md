@@ -8,7 +8,7 @@
 
 > **AnvilDumpStateHandler**: (`params`) => `Promise`\<[`AnvilDumpStateResult`](AnvilDumpStateResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:14
+Defined in: packages/actions/dist/index.d.ts:2943
 
 ## Parameters
 

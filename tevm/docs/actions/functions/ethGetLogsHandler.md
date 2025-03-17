@@ -8,13 +8,13 @@
 
 > **ethGetLogsHandler**(`client`): [`EthGetLogsHandler`](../type-aliases/EthGetLogsHandler.md)
 
-Defined in: packages/actions/types/eth/ethGetLogsHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4178
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

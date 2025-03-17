@@ -8,6 +8,6 @@
 
 > **EthCoinbaseResult**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:27
+Defined in: packages/actions/dist/index.d.ts:3528
 
 JSON-RPC response for `eth_coinbase` procedure

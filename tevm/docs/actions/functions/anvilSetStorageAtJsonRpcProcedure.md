@@ -8,13 +8,13 @@
 
 > **anvilSetStorageAtJsonRpcProcedure**(`client`): [`AnvilSetStorageAtProcedure`](../type-aliases/AnvilSetStorageAtProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetStorageAtProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:3173
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

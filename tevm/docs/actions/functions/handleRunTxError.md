@@ -8,7 +8,7 @@
 
 > **handleRunTxError**(`e`): [`HandleRunTxError`](../type-aliases/HandleRunTxError.md)
 
-Defined in: packages/actions/types/Call/handleEvmError.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:927
 
 ## Parameters
 

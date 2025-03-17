@@ -8,6 +8,6 @@
 
 > **SetAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_setAccount"`, \[`SerializeToJson`\<[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\>\]\>
 
-Defined in: packages/actions/types/SetAccount/SetAccountJsonRpcRequest.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:2377
 
 JSON-RPC request for `tevm_setAccount` method

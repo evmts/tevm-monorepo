@@ -8,13 +8,13 @@
 
 > **ethGetTransactionCountProcedure**(`node`): [`EthGetTransactionCountJsonRpcProcedure`](../type-aliases/EthGetTransactionCountJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetTransactionCountProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4188
 
 ## Parameters
 
 ### node
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

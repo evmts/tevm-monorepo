@@ -8,7 +8,7 @@
 
 > **EthRequestType**: `object`
 
-Defined in: packages/actions/types/tevm-request-handler/EthRequestType.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:4726
 
 A mapping of `eth_*` method names to their request type
 

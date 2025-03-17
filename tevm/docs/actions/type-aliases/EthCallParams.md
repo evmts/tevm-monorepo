@@ -8,7 +8,7 @@
 
 > **EthCallParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:14
+Defined in: packages/actions/dist/index.d.ts:3192
 
 Based on the JSON-RPC request for `eth_call` procedure
 

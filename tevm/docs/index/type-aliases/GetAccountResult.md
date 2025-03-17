@@ -8,7 +8,7 @@
 
 > **GetAccountResult**\<`ErrorType`\>: `object`
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:2141
 
 Result of GetAccount Action
 

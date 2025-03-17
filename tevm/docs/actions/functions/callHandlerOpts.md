@@ -8,17 +8,17 @@
 
 > **callHandlerOpts**(`client`, `params`): `Promise`\<\{ `data`: [`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md); `errors`: `undefined`; \} \| \{ `data`: `undefined`; `errors`: [`CallHandlerOptsError`](../type-aliases/CallHandlerOptsError.md)[]; \}\>
 
-Defined in: packages/actions/types/Call/callHandlerOpts.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:918
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../../index/type-aliases/CallParams.md)
 
 ## Returns
 

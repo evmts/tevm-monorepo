@@ -8,13 +8,13 @@
 
 > **anvilGetAutomineJsonRpcProcedure**(`client`): [`AnvilGetAutomineProcedure`](../type-aliases/AnvilGetAutomineProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilGetAutomineProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:3155
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

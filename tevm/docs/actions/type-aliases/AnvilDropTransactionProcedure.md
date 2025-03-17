@@ -8,7 +8,7 @@
 
 > **AnvilDropTransactionProcedure**: (`request`) => `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](AnvilDropTransactionJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:31
+Defined in: packages/actions/dist/index.d.ts:3116
 
 JSON-RPC procedure for `anvil_dropTransaction`
 

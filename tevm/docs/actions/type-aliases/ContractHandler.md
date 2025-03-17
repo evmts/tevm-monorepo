@@ -8,7 +8,7 @@
 
 > **ContractHandler**: \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](../../index/type-aliases/ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-Defined in: packages/actions/types/Contract/ContractHandlerType.d.ts:50
+Defined in: packages/actions/dist/index.d.ts:1522
 
 Handler for executing contract interactions with the TEVM.
 

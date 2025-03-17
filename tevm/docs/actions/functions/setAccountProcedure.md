@@ -8,13 +8,13 @@
 
 > **setAccountProcedure**(`client`): [`SetAccountJsonRpcProcedure`](../type-aliases/SetAccountJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/SetAccount/setAccountProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2389
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

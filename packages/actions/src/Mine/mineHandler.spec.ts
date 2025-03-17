@@ -87,7 +87,7 @@ describe(mineHandler.name, () => {
 	it('should throw an error for invalid params', async () => {
 		const client = createTevmNode()
 		await expect(mineHandler(client)({ interval: 'invalid' as any })).rejects.toThrowErrorMatchingInlineSnapshot(`
-			[InternalError: Expected number, received string
+			[InternalError: interval must be a non-negative integer
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
 			Version: 1.1.0.next-73

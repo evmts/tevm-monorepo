@@ -18,8 +18,8 @@ export const validateCallParamsJS = (params) => {
 
 	// Validate base call params first
 	const baseValidation = validateBaseCallParams(params)
-	if (baseValidation.errors && baseValidation.errors.length > 0) {
-		errors.push(...baseValidation.errors)
+	if (baseValidation.length > 0) {
+		errors.push(...baseValidation.map((err) => ({ path: err.name, message: err.message })))
 	}
 
 	// Validate hex fields

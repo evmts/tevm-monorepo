@@ -8,7 +8,7 @@
 
 > **EthGetBalanceParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:77
+Defined in: packages/actions/dist/index.d.ts:3255
 
 Based on the  JSON-RPC request for `eth_getBalance` procedure
 

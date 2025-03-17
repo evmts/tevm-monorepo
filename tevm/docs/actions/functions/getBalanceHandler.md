@@ -8,13 +8,13 @@
 
 > **getBalanceHandler**(`baseClient`): [`EthGetBalanceHandler`](../type-aliases/EthGetBalanceHandler.md)
 
-Defined in: packages/actions/types/eth/getBalanceHandler.d.ts:12
+Defined in: packages/actions/dist/index.d.ts:4269
 
 ## Parameters
 
 ### baseClient
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

@@ -8,13 +8,13 @@
 
 > **ethGetLogsProcedure**(`client`): [`EthGetLogsJsonRpcProcedure`](../type-aliases/EthGetLogsJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetLogsProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4180
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

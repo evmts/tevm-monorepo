@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByHashHandler**: (`request`) => `Promise`\<[`EthGetTransactionByHashResult`](EthGetTransactionByHashResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:24
+Defined in: packages/actions/dist/index.d.ts:3698
 
 ## Parameters
 

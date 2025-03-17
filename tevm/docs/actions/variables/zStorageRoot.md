@@ -8,6 +8,6 @@
 
 > `const` **zStorageRoot**: `z.ZodEffects`\<`z.ZodString`, `string`, `string`\>
 
-Defined in: packages/actions/types/internal/zod/zStorageRoot.d.ts:4
+Defined in: packages/actions/dist/index.d.ts:4340
 
 Zod validator for valid ethereum storage root

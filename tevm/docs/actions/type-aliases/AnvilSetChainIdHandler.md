@@ -8,7 +8,7 @@
 
 > **AnvilSetChainIdHandler**: (`params`) => `Promise`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:13
+Defined in: packages/actions/dist/index.d.ts:2942
 
 ## Parameters
 

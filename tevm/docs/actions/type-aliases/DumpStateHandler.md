@@ -8,7 +8,7 @@
 
 > **DumpStateHandler**: (`params`?) => `Promise`\<[`DumpStateResult`](../../index/type-aliases/DumpStateResult.md)\>
 
-Defined in: packages/actions/types/DumpState/DumpStateHandlerType.d.ts:28
+Defined in: packages/actions/dist/index.d.ts:2070
 
 Dumps the current state of the VM into a JSON-serializable object.
 

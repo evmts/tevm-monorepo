@@ -8,7 +8,7 @@
 
 > **SetAccountParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: packages/actions/types/SetAccount/SetAccountParams.d.ts:16
+Defined in: packages/actions/dist/index.d.ts:2260
 
 Tevm params to set an account in the vm state
 all fields are optional except address

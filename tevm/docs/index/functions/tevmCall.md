@@ -6,7 +6,7 @@
 
 # Function: tevmCall()
 
-> **tevmCall**(`client`, `params`): `Promise`\<[`CallResult`](../type-aliases/CallResult.md)\<[`TevmCallError`](../type-aliases/TevmCallError.md)\>\>
+> **tevmCall**(`client`, `params`): `Promise`\<[`CallResult`](../type-aliases/CallResult.md)\<`any`\>\>
 
 Defined in: packages/memory-client/types/tevmCall.d.ts:1
 
@@ -22,4 +22,4 @@ Defined in: packages/memory-client/types/tevmCall.d.ts:1
 
 ## Returns
 
-`Promise`\<[`CallResult`](../type-aliases/CallResult.md)\<[`TevmCallError`](../type-aliases/TevmCallError.md)\>\>
+`Promise`\<[`CallResult`](../type-aliases/CallResult.md)\<`any`\>\>

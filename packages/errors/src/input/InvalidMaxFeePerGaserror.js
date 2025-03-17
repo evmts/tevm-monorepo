@@ -1,15 +1,8 @@
-import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
+import { BaseError } from '../ethereum/BaseError.js'
 
 /**
  * Parameters for constructing an InvalidMaxFeePerGasError.
- * @typedef {Object} InvalidMaxFeePerGasErrorParameters
- * @property {string} [docsBaseUrl] - Base URL for the documentation.
- * @property {string} [docsPath] - Path to the documentation.
- * @property {string} [docsSlug] - Slug for the documentation.
- * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {import('../ethereum/BaseError.js').BaseError|Error} [cause] - The cause of the error.
- * @property {string} [details] - Details of the error.
- * @property {object} [meta] - Optional object containing additional information about the error.
+ * @typedef {import('../ethereum/BaseError.js').BaseErrorParameters} InvalidMaxFeePerGasErrorParameters
  */
 
 /**
@@ -38,9 +31,9 @@ import { InvalidParamsError } from '../ethereum/InvalidParamsError.js'
  * }
  * ```
  *
- * @extends {InvalidParamsError}
+ * @extends {BaseError}
  */
-export class InvalidMaxFeePerGasError extends InvalidParamsError {
+export class InvalidMaxFeePerGasError extends BaseError {
 	/**
 	 * Constructs an InvalidMaxFeePerGasError.
 	 *
@@ -57,8 +50,5 @@ export class InvalidMaxFeePerGasError extends InvalidParamsError {
 			},
 			'InvalidMaxFeePerGasError',
 		)
-
-		this.name = 'InvalidMaxFeePerGasError'
-		this._tag = 'InvalidMaxFeePerGasError'
 	}
 }

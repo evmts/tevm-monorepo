@@ -8,7 +8,7 @@
 
 > **ExecuteCallResult**: `object`
 
-Defined in: packages/actions/types/Call/executeCall.d.ts:13
+Defined in: packages/actions/dist/index.d.ts:950
 
 The return value of executeCall
 

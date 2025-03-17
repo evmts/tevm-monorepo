@@ -8,13 +8,13 @@
 
 > **requestBulkProcedure**(`client`): [`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
 
-Defined in: packages/actions/types/requestBulkProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4594
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

@@ -8,7 +8,7 @@
 
 > **AnvilSetChainIdParams**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:116
+Defined in: packages/actions/dist/index.d.ts:2887
 
 Params for `anvil_setChainId` handler
 

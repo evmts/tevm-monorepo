@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByBlockHashAndIndexParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:168
+Defined in: packages/actions/dist/index.d.ts:3346
 
 Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 

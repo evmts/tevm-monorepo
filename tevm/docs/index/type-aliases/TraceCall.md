@@ -8,7 +8,7 @@
 
 > **TraceCall**: `object`
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:4
+Defined in: packages/actions/dist/index.d.ts:301
 
 ## Type declaration
 

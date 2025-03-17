@@ -8,6 +8,6 @@
 
 > **LoadStateJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_loadState"`, \[[`SerializedParams`](SerializedParams.md)\]\>
 
-Defined in: packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:13
+Defined in: packages/actions/dist/index.d.ts:2575
 
 The JSON-RPC request for the `tevm_loadState` method

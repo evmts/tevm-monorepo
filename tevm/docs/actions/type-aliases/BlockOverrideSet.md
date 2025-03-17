@@ -8,7 +8,7 @@
 
 > **BlockOverrideSet**: `object`
 
-Defined in: packages/actions/types/common/BlockOverrideSet.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:344
 
 The fields of this optional object customize the block as part of which the call is simulated. The object contains the following fields:
 This option cannot be used when `createTransaction` is set to `true`

@@ -8,7 +8,7 @@
 
 > **BaseParams**\<`TThrowOnFail`\>: `object`
 
-Defined in: packages/actions/types/common/BaseParams.d.ts:4
+Defined in: packages/actions/dist/index.d.ts:21
 
 The base parameters shared across all actions
 

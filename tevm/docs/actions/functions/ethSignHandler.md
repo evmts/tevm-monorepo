@@ -8,7 +8,7 @@
 
 > **ethSignHandler**(`__namedParameters`): [`EthSignHandler`](../type-aliases/EthSignHandler.md)
 
-Defined in: packages/actions/types/eth/ethSignHandler.d.ts:12
+Defined in: packages/actions/dist/index.d.ts:4239
 
 ## Parameters
 

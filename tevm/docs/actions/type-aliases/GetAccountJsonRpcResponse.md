@@ -8,6 +8,6 @@
 
 > **GetAccountJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_getAccount"`, `SerializeToJson`\<[`GetAccountResult`](../../index/type-aliases/GetAccountResult.md)\>, [`TevmGetAccountError`](../../index/type-aliases/TevmGetAccountError.md)\[`"code"`\]\>
 
-Defined in: packages/actions/types/GetAccount/GetAccountJsonRpcResponse.d.ts:8
+Defined in: packages/actions/dist/index.d.ts:2239
 
 JSON-RPC response for `tevm_getAccount` method

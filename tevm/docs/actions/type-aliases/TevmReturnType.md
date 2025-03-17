@@ -8,7 +8,7 @@
 
 > **TevmReturnType**: `object`
 
-Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:10
+Defined in: packages/actions/dist/index.d.ts:4492
 
 A mapping of `tevm_*` method names to their return type
 

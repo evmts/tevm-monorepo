@@ -8,13 +8,13 @@
 
 > **mineProcedure**(`client`): [`MineJsonRpcProcedure`](../type-aliases/MineJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/Mine/mineProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2770
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

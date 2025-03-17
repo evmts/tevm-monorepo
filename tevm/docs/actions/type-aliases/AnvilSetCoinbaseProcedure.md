@@ -8,7 +8,7 @@
 
 > **AnvilSetCoinbaseProcedure**: (`request`) => `Promise`\<[`AnvilSetCoinbaseJsonRpcResponse`](AnvilSetCoinbaseJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:3
+Defined in: packages/actions/dist/index.d.ts:3088
 
 ## Parameters
 

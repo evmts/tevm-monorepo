@@ -8,7 +8,7 @@
 
 > **Log**: `object`
 
-Defined in: packages/actions/types/common/Log.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:177
 
 Generic log information
 

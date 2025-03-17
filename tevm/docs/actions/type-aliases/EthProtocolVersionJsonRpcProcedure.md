@@ -8,7 +8,7 @@
 
 > **EthProtocolVersionJsonRpcProcedure**: (`request`) => `Promise`\<[`EthProtocolVersionJsonRpcResponse`](EthProtocolVersionJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:31
+Defined in: packages/actions/dist/index.d.ts:4130
 
 ## Parameters
 

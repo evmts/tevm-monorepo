@@ -8,13 +8,13 @@
 
 > **ethSendTransactionHandler**(`client`): [`EthSendTransactionHandler`](../type-aliases/EthSendTransactionHandler.md)
 
-Defined in: packages/actions/types/eth/ethSendTransactionHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4224
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

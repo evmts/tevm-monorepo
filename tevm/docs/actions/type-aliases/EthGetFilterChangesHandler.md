@@ -8,7 +8,7 @@
 
 > **EthGetFilterChangesHandler**: (`request`) => `Promise`\<[`EthGetFilterChangesResult`](EthGetFilterChangesResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:17
+Defined in: packages/actions/dist/index.d.ts:3691
 
 ## Parameters
 

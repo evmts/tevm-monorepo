@@ -8,7 +8,7 @@
 
 > **LoadStateJsonRpcProcedure**: (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/LoadState/LoadStateJsonRpcProcedure.d.ts:16
+Defined in: packages/actions/dist/index.d.ts:2595
 
 Procedure for handling script JSON-RPC requests
 Procedure for handling tevm_loadState JSON-RPC requests

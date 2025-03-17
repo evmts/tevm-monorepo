@@ -8,7 +8,7 @@
 
 > **SetAccountHandler**: (`params`) => `Promise`\<[`SetAccountResult`](../../index/type-aliases/SetAccountResult.md)\>
 
-Defined in: packages/actions/types/SetAccount/SetAccountHandlerType.d.ts:14
+Defined in: packages/actions/dist/index.d.ts:2317
 
 Sets the state of a specific ethereum address
 

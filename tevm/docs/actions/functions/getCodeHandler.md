@@ -8,13 +8,13 @@
 
 > **getCodeHandler**(`baseClient`): [`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
 
-Defined in: packages/actions/types/eth/getCodeHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4273
 
 ## Parameters
 
 ### baseClient
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

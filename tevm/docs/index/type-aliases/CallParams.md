@@ -8,7 +8,7 @@
 
 > **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](../../actions/type-aliases/BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: packages/actions/types/Call/CallParams.d.ts:30
+Defined in: packages/actions/dist/index.d.ts:795
 
 TEVM parameters to execute a call on the VM.
 `Call` is the lowest level method to interact with the VM, and other methods such as `contract` and `script` use `call` under the hood.

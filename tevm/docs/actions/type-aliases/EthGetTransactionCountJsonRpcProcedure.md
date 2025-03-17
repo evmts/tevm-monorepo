@@ -8,7 +8,7 @@
 
 > **EthGetTransactionCountJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionCountJsonRpcResponse`](EthGetTransactionCountJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:21
+Defined in: packages/actions/dist/index.d.ts:4120
 
 ## Parameters
 

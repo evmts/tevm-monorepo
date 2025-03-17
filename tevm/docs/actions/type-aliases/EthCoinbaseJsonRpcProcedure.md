@@ -8,7 +8,7 @@
 
 > **EthCoinbaseJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:4106
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **ethProtocolVersionJsonRpcProcedure**(): [`EthProtocolVersionJsonRpcProcedure`](../type-aliases/EthProtocolVersionJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethProtocolVersionProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4203
 
 ## Returns
 

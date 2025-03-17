@@ -8,7 +8,7 @@
 
 > **EthReturnType**: `object`
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:4447
 
 A mapping of `eth_*` method names to their return type
 

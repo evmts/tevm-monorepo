@@ -40,11 +40,11 @@ describe('validateCallParams', () => {
 
 		const errors = validateCallParams(action as any)
 		expect(errors).toHaveLength(3)
-		expect(errors).toEqual([
-			expect.any(InvalidSaltError),
-			expect.any(InvalidDataError),
-			expect.any(InvalidBytecodeError),
-		])
+
+		// Check that we have all the expected error types, without being strict about order
+		expect(errors.some((e) => e instanceof InvalidSaltError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidDataError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidBytecodeError)).toBe(true)
 	})
 
 	it('should return errors from validateBaseCallParams', () => {
@@ -61,12 +61,16 @@ describe('validateCallParams', () => {
 
 		const errors = validateCallParams(action as any)
 		expect(errors).toHaveLength(baseErrors.length + 3)
-		expect(errors).toEqual([
-			...baseErrors,
-			expect.any(InvalidSaltError),
-			expect.any(InvalidDataError),
-			expect.any(InvalidBytecodeError),
-		])
+
+		// Check that all base errors are included
+		baseErrors.forEach((baseError) => {
+			expect(errors.some((e) => e.constructor === baseError.constructor && e.message === baseError.message)).toBe(true)
+		})
+
+		// Check that we have all the expected zod error types
+		expect(errors.some((e) => e instanceof InvalidSaltError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidDataError)).toBe(true)
+		expect(errors.some((e) => e instanceof InvalidBytecodeError)).toBe(true)
 	})
 
 	it('code and deployedbytecode', () => {

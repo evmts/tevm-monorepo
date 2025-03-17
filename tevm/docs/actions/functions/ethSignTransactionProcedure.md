@@ -8,7 +8,7 @@
 
 > **ethSignTransactionProcedure**(`options`): [`EthSignTransactionJsonRpcProcedure`](../type-aliases/EthSignTransactionJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethSignTransactionProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4250
 
 ## Parameters
 

@@ -8,13 +8,13 @@
 
 > **requestProcedure**(`client`): [`TevmJsonRpcRequestHandler`](../../index/type-aliases/TevmJsonRpcRequestHandler.md)
 
-Defined in: packages/actions/types/requestProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4693
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

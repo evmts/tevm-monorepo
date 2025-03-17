@@ -8,6 +8,6 @@
 
 > **EthAccountsParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:3184
 
 Params taken by `eth_accounts` handler (no params)

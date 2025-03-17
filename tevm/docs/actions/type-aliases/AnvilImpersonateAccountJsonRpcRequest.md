@@ -8,6 +8,6 @@
 
 > **AnvilImpersonateAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_impersonateAccount"`, readonly \[[`Address`](../../index/type-aliases/Address.md)\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:9
+Defined in: packages/actions/dist/index.d.ts:2950
 
 JSON-RPC request for `anvil_impersonateAccount` method

@@ -8,7 +8,7 @@
 
 > **AnvilStopImpersonatingAccountParams**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:17
+Defined in: packages/actions/dist/index.d.ts:2788
 
 Params for `anvil_stopImpersonatingAccount` handler
 

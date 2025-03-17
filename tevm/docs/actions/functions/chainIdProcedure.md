@@ -8,13 +8,13 @@
 
 > **chainIdProcedure**(`baseClient`): [`EthChainIdJsonRpcProcedure`](../type-aliases/EthChainIdJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/chainIdProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4148
 
 ## Parameters
 
 ### baseClient
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

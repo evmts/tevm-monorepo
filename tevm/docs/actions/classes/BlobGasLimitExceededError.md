@@ -6,7 +6,7 @@
 
 # Class: BlobGasLimitExceededError
 
-Defined in: packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:4
+Defined in: packages/actions/dist/index.d.ts:4208
 
 Error thrown when blob gas limit is exceeded
 
@@ -20,7 +20,7 @@ Error thrown when blob gas limit is exceeded
 
 > **new BlobGasLimitExceededError**(): [`BlobGasLimitExceededError`](BlobGasLimitExceededError.md)
 
-Defined in: packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:4209
 
 #### Returns
 
@@ -36,7 +36,7 @@ Defined in: packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:5
 
 > **\_tag**: `"BlobGasLimitExceededError"`
 
-Defined in: packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:9
+Defined in: packages/actions/dist/index.d.ts:4213
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **name**: `"BlobGasLimitExceededError"`
 
-Defined in: packages/actions/types/eth/ethSendRawTransactionHandler.d.ts:14
+Defined in: packages/actions/dist/index.d.ts:4218
 
 #### Overrides
 

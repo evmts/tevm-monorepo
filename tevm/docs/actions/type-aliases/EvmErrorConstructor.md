@@ -8,4 +8,4 @@
 
 > **EvmErrorConstructor**: *typeof* `evmErrors`\[`number`\]
 
-Defined in: packages/actions/types/Call/handleEvmError.d.ts:2
+Defined in: packages/actions/dist/index.d.ts:928

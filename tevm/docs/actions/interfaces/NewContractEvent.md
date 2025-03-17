@@ -6,7 +6,7 @@
 
 # Interface: NewContractEvent
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:81
 
 Event emitted when a new contract is created
 
@@ -16,7 +16,7 @@ Event emitted when a new contract is created
 
 > **address**: [`Address`](../../address/classes/Address.md)
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:8
+Defined in: packages/actions/dist/index.d.ts:83
 
 Address of the newly created contract
 
@@ -26,6 +26,6 @@ Address of the newly created contract
 
 > **code**: `Uint8Array`
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:10
+Defined in: packages/actions/dist/index.d.ts:85
 
 Deployed contract bytecode

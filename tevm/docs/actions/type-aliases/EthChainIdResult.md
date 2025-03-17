@@ -8,6 +8,6 @@
 
 > **EthChainIdResult**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:23
+Defined in: packages/actions/dist/index.d.ts:3524
 
 JSON-RPC response for `eth_chainId` procedure

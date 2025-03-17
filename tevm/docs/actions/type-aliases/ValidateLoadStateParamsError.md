@@ -8,6 +8,6 @@
 
 > **ValidateLoadStateParamsError**: [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
 
-Defined in: packages/actions/types/LoadState/validateLoadStateParams.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:2520
 
 Type for errors returned by validateLoadStateParams.

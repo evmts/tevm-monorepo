@@ -6,19 +6,19 @@
 
 # Function: handleTransactionCreation()
 
-> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../../index/type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
+> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: `any`[]; `hash`: `undefined`; \}\>
 
-Defined in: packages/actions/types/Call/handleTransactionCreation.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:1292
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../../index/type-aliases/CallParams.md)
 
 ### executedCall
 
@@ -30,4 +30,4 @@ Defined in: packages/actions/types/Call/handleTransactionCreation.d.ts:1
 
 ## Returns
 
-`Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../../index/type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
+`Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: `any`[]; `hash`: `undefined`; \}\>

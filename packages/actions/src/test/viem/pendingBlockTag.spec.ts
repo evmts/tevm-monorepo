@@ -4,14 +4,14 @@ import { bytesToHex, decodeFunctionResult, encodeFunctionData, parseEther } from
 import { beforeEach, describe, expect, it } from 'vitest'
 import { callHandler } from '../../Call/callHandler.js'
 import { mineHandler } from '../../Mine/mineHandler.js'
-import { sendTransactionHandler } from '../../SendTransaction/sendTransactionHandler.js'
 import { setAccountHandler } from '../../SetAccount/setAccountHandler.js'
 import { ethCallProcedure } from '../../eth/ethCallProcedure.js'
-import { ethGetBalanceHandler } from '../../eth/ethGetBalanceHandler.js'
-import { ethGetBlockByNumberHandler } from '../../eth/ethGetBlockByNumberHandler.js'
-import { ethGetCodeHandler } from '../../eth/ethGetCodeHandler.js'
+import { ethGetBlockByNumberProcedure } from '../../eth/ethGetBlockByNumberProcedure.js'
 import { ethGetLogsHandler } from '../../eth/ethGetLogsHandler.js'
-import { ethGetStorageAtHandler } from '../../eth/ethGetStorageAtHandler.js'
+import { ethSendTransactionHandler } from '../../eth/ethSendTransactionHandler.js'
+import { getBalanceHandler } from '../../eth/getBalanceHandler.js'
+import { getCodeHandler } from '../../eth/getCodeHandler.js'
+import { getStorageAtHandler } from '../../eth/getStorageAtHandler.js'
 
 describe('Pending Block Tag Tests', () => {
 	const account = `0x${'1'.repeat(40)}` as Address
@@ -92,7 +92,7 @@ describe('Pending Block Tag Tests', () => {
 				args: [999n],
 			})
 
-			await sendTransactionHandler(client)({
+			await ethSendTransactionHandler(client)({
 				from: account,
 				to: contractAddress,
 				data: setCallData,
@@ -146,7 +146,7 @@ describe('Pending Block Tag Tests', () => {
 				args: [111n],
 			})
 
-			await sendTransactionHandler(client)({
+			await ethSendTransactionHandler(client)({
 				from: account,
 				to: contractAddress,
 				data: setCallData1,
@@ -176,7 +176,7 @@ describe('Pending Block Tag Tests', () => {
 				args: [222n],
 			})
 
-			await sendTransactionHandler(client)({
+			await ethSendTransactionHandler(client)({
 				from: account,
 				to: contractAddress,
 				data: setCallData2,
@@ -243,7 +243,7 @@ describe('Pending Block Tag Tests', () => {
 			// Get initial storage at slot 0 (where the SimpleContract value is stored)
 			const storageSlot = '0x0000000000000000000000000000000000000000000000000000000000000000'
 
-			const initialStorage = await ethGetStorageAtHandler(client)({
+			const initialStorage = await getStorageAtHandler(client)({
 				address: contractAddress,
 				position: storageSlot,
 				blockParam: 'latest',
@@ -259,14 +259,14 @@ describe('Pending Block Tag Tests', () => {
 				args: [888n],
 			})
 
-			await sendTransactionHandler(client)({
+			await ethSendTransactionHandler(client)({
 				from: account,
 				to: contractAddress,
 				data: setCallData,
 			})
 
 			// Get storage at latest block - should still be 42
-			const latestStorage = await ethGetStorageAtHandler(client)({
+			const latestStorage = await getStorageAtHandler(client)({
 				address: contractAddress,
 				position: storageSlot,
 				blockParam: 'latest',
@@ -275,7 +275,7 @@ describe('Pending Block Tag Tests', () => {
 			expect(latestStorage).toContain('2a')
 
 			// Get storage at pending block - should be 888 (0x378)
-			const pendingStorage = await ethGetStorageAtHandler(client)({
+			const pendingStorage = await getStorageAtHandler(client)({
 				address: contractAddress,
 				position: storageSlot,
 				blockParam: 'pending',
@@ -302,7 +302,7 @@ describe('Pending Block Tag Tests', () => {
 			const newContractAddress = deployResult.createResult.address
 
 			// Get code at latest block - should be empty
-			const latestCode = await ethGetCodeHandler(client)({
+			const latestCode = await getCodeHandler(client)({
 				address: newContractAddress,
 				blockParam: 'latest',
 			})
@@ -310,7 +310,7 @@ describe('Pending Block Tag Tests', () => {
 			expect(latestCode).toBe('0x')
 
 			// Get code at pending block - should have the contract bytecode
-			const pendingCode = await ethGetCodeHandler(client)({
+			const pendingCode = await getCodeHandler(client)({
 				address: newContractAddress,
 				blockParam: 'pending',
 			})
@@ -322,7 +322,7 @@ describe('Pending Block Tag Tests', () => {
 			await mineHandler(client)({})
 
 			// Now latest should have the code
-			const finalCode = await ethGetCodeHandler(client)({
+			const finalCode = await getCodeHandler(client)({
 				address: newContractAddress,
 				blockParam: 'latest',
 			})
@@ -340,14 +340,14 @@ describe('Pending Block Tag Tests', () => {
 				args: [123n],
 			})
 
-			const txResult = await sendTransactionHandler(client)({
+			const txResult = await ethSendTransactionHandler(client)({
 				from: account,
 				to: contractAddress,
 				data: setCallData,
 			})
 
 			// Get pending block with transactions
-			const pendingBlock = await ethGetBlockByNumberHandler(client)({
+			const pendingBlock = await ethGetBlockByNumberProcedure(client)({
 				blockParam: 'pending',
 				fullTransactionObjects: true,
 			})
@@ -365,7 +365,7 @@ describe('Pending Block Tag Tests', () => {
 			expect(pendingTx).toBeDefined()
 
 			// Get latest block
-			const latestBlock = await ethGetBlockByNumberHandler(client)({
+			const latestBlock = await ethGetBlockByNumberProcedure(client)({
 				blockParam: 'latest',
 				fullTransactionObjects: true,
 			})
@@ -382,30 +382,30 @@ describe('Pending Block Tag Tests', () => {
 	describe('eth_getBalance with pending block tag', () => {
 		it('should reflect pending balance changes', async () => {
 			// Get initial balances
-			const initialSenderBalance = await ethGetBalanceHandler(client)({
+			const initialSenderBalance = await getBalanceHandler(client)({
 				address: account,
 				blockParam: 'latest',
 			})
 
-			const initialReceiverBalance = await ethGetBalanceHandler(client)({
+			const initialReceiverBalance = await getBalanceHandler(client)({
 				address: receiver,
 				blockParam: 'latest',
 			})
 
 			// Send transaction to transfer 1 ETH but don't mine
-			await sendTransactionHandler(client)({
+			await ethSendTransactionHandler(client)({
 				from: account,
 				to: receiver,
 				value: parseEther('1'),
 			})
 
 			// Get balances at latest block - should be unchanged
-			const latestSenderBalance = await ethGetBalanceHandler(client)({
+			const latestSenderBalance = await getBalanceHandler(client)({
 				address: account,
 				blockParam: 'latest',
 			})
 
-			const latestReceiverBalance = await ethGetBalanceHandler(client)({
+			const latestReceiverBalance = await getBalanceHandler(client)({
 				address: receiver,
 				blockParam: 'latest',
 			})
@@ -414,12 +414,12 @@ describe('Pending Block Tag Tests', () => {
 			expect(latestReceiverBalance).toBe(initialReceiverBalance)
 
 			// Get balances at pending block - should reflect transfer
-			const pendingSenderBalance = await ethGetBalanceHandler(client)({
+			const pendingSenderBalance = await getBalanceHandler(client)({
 				address: account,
 				blockParam: 'pending',
 			})
 
-			const pendingReceiverBalance = await ethGetBalanceHandler(client)({
+			const pendingReceiverBalance = await getBalanceHandler(client)({
 				address: receiver,
 				blockParam: 'pending',
 			})
@@ -449,7 +449,7 @@ describe('Pending Block Tag Tests', () => {
 				args: [456n],
 			})
 
-			await sendTransactionHandler(client)({
+			await ethSendTransactionHandler(client)({
 				from: account,
 				to: contractAddress,
 				data: setCallData,

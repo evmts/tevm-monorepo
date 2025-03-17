@@ -8,6 +8,6 @@
 
 > **EthGetUncleCountByBlockHashResult**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:87
+Defined in: packages/actions/dist/index.d.ts:3588
 
 JSON-RPC response for `eth_getUncleCountByBlockHash` procedure

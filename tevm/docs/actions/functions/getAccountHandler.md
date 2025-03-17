@@ -8,13 +8,13 @@
 
 > **getAccountHandler**(`client`, `options`?): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
 
-Defined in: packages/actions/types/GetAccount/getAccountHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2206
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### options?
 

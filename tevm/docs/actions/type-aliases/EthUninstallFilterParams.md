@@ -8,7 +8,7 @@
 
 > **EthUninstallFilterParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:285
+Defined in: packages/actions/dist/index.d.ts:3463
 
 Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 

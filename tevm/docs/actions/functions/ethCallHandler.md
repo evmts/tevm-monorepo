@@ -8,13 +8,13 @@
 
 > **ethCallHandler**(`client`): [`EthCallHandler`](../type-aliases/EthCallHandler.md)
 
-Defined in: packages/actions/types/eth/ethCallHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4158
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

@@ -8,6 +8,6 @@
 
 > **EthCallResult**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:19
+Defined in: packages/actions/dist/index.d.ts:3520
 
 JSON-RPC response for `eth_call` procedure

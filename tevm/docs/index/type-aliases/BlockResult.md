@@ -8,7 +8,7 @@
 
 > **BlockResult**\<`TIncludeTransactions`\>: `object`
 
-Defined in: packages/actions/types/common/BlockResult.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:200
 
 The type returned by block related
 json rpc procedures

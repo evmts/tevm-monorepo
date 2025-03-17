@@ -8,7 +8,7 @@
 
 > **LoadStateHandler**: (`params`) => `Promise`\<[`LoadStateResult`](../../index/type-aliases/LoadStateResult.md)\>
 
-Defined in: packages/actions/types/LoadState/LoadStateHandlerType.d.ts:39
+Defined in: packages/actions/dist/index.d.ts:2510
 
 Loads a previously dumped state into the VM.
 

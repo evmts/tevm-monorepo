@@ -8,7 +8,7 @@
 
 > **AnvilResetHandler**: (`params`) => `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:2936
 
 ## Parameters
 

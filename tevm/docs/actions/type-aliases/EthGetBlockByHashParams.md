@@ -8,7 +8,7 @@
 
 > **EthGetBlockByHashParams**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:84
+Defined in: packages/actions/dist/index.d.ts:3262
 
 Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 

@@ -8,7 +8,7 @@
 
 > **CallHandlerParams**: [`CallParams`](../../index/type-aliases/CallParams.md) & [`CallEvents`](CallEvents.md)
 
-Defined in: packages/actions/types/Call/CallHandlerType.d.ts:8
+Defined in: packages/actions/dist/index.d.ts:1193
 
 Parameters for the call handler, extending CallParams with event handlers
 These event handlers are not JSON-serializable, so they are kept separate from the base CallParams

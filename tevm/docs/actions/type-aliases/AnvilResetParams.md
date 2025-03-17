@@ -8,6 +8,6 @@
 
 > **AnvilResetParams**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:47
+Defined in: packages/actions/dist/index.d.ts:2818
 
 Params for `anvil_reset` handler

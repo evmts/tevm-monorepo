@@ -8,7 +8,7 @@
 
 > **LoadStateResult**\<`ErrorType`\>: `object`
 
-Defined in: packages/actions/types/LoadState/LoadStateResult.d.ts:25
+Defined in: packages/actions/dist/index.d.ts:2467
 
 Result of the `tevmLoadState` method.
 

@@ -8,7 +8,7 @@
 
 > **MineJsonRpcProcedure**: (`request`) => `Promise`\<[`MineJsonRpcResponse`](MineJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/Mine/MineJsonRpcProcedure.d.ts:6
+Defined in: packages/actions/dist/index.d.ts:2768
 
 Mine JSON-RPC tevm procedure mines 1 or more blocks
 

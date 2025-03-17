@@ -8,6 +8,6 @@
 
 > **EthGetBlockByHashJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getBlockByHash"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md), `boolean`\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:84
+Defined in: packages/actions/dist/index.d.ts:3794
 
 JSON-RPC request for `eth_getBlockByHash` procedure

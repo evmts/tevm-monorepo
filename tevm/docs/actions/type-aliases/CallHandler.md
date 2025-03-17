@@ -8,7 +8,7 @@
 
 > **CallHandler**: (`action`) => `Promise`\<[`CallResult`](../../index/type-aliases/CallResult.md)\>
 
-Defined in: packages/actions/types/Call/CallHandlerType.d.ts:48
+Defined in: packages/actions/dist/index.d.ts:1233
 
 Executes a call against the VM, similar to `eth_call` but with more options for controlling the execution environment.
 

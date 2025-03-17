@@ -8,13 +8,13 @@
 
 > **cloneVmWithBlockTag**(`client`, `block`): `Promise`\<[`InternalError`](../../errors/classes/InternalError.md) \| [`Vm`](../../vm/type-aliases/Vm.md) \| [`ForkError`](../../errors/classes/ForkError.md)\>
 
-Defined in: packages/actions/types/Call/cloneVmWithBlock.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:1281
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### block
 

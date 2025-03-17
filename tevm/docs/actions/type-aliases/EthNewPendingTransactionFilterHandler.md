@@ -8,7 +8,7 @@
 
 > **EthNewPendingTransactionFilterHandler**: (`request`) => `Promise`\<[`EthNewPendingTransactionFilterResult`](EthNewPendingTransactionFilterResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:39
+Defined in: packages/actions/dist/index.d.ts:3713
 
 ## Parameters
 

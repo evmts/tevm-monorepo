@@ -8,7 +8,7 @@
 
 > **AnvilStopImpersonatingAccountHandler**: (`params`) => `Promise`\<[`AnvilStopImpersonatingAccountResult`](AnvilStopImpersonatingAccountResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:4
+Defined in: packages/actions/dist/index.d.ts:2933
 
 ## Parameters
 

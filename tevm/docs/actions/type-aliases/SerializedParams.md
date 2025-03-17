@@ -8,7 +8,7 @@
 
 > **SerializedParams**: `object`
 
-Defined in: packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:7
+Defined in: packages/actions/dist/index.d.ts:2569
 
 The parameters for the `tevm_loadState` method
 

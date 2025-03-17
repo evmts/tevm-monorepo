@@ -8,7 +8,7 @@
 
 > **GetAccountParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: packages/actions/types/GetAccount/GetAccountParams.d.ts:10
+Defined in: packages/actions/dist/index.d.ts:2111
 
 Tevm params to get an account
 

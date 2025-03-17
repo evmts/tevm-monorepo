@@ -8,13 +8,13 @@
 
 > **ethGetTransactionByBlockHashAndIndexJsonRpcProcedure**(`client`): [`EthGetTransactionByBlockHashAndIndexJsonRpcProcedure`](../type-aliases/EthGetTransactionByBlockHashAndIndexJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetTransactionByBlockHashAndIndexProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4182
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

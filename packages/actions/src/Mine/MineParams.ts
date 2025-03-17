@@ -14,6 +14,7 @@ import type { MineEvents } from './MineEvents.js'
  * }
  * ```
  * @property {number} [blockCount=1] - Number of blocks to mine. Defaults to 1.
+ * @property {number} [blocks=1] - Alias for blockCount (deprecated). Number of blocks to mine. Defaults to 1.
  * @property {number} [interval=1] - Interval between block timestamps in seconds. Defaults to 1.
  * @extends {BaseParams}
  * @extends {MineEvents}
@@ -24,6 +25,10 @@ export type MineParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThr
 		 * Number of blocks to mine. Defaults to 1.
 		 */
 		readonly blockCount?: number
+		/**
+		 * Alias for blockCount (deprecated). Number of blocks to mine. Defaults to 1.
+		 */
+		readonly blocks?: number
 		/**
 		 * Interval between block timestamps. Defaults to 1.
 		 */

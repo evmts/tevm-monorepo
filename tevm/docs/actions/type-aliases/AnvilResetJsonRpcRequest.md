@@ -8,6 +8,6 @@
 
 > **AnvilResetJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_reset"`, readonly \[\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:36
+Defined in: packages/actions/dist/index.d.ts:2977
 
 JSON-RPC request for `anvil_reset` method

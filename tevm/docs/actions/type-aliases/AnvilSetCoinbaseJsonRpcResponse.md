@@ -8,6 +8,6 @@
 
 > **AnvilSetCoinbaseJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setCoinbase"`, [`Address`](../../index/type-aliases/Address.md), `AnvilError`\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:17
+Defined in: packages/actions/dist/index.d.ts:3034
 
 JSON-RPC response for `anvil_setCoinbase` procedure

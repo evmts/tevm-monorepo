@@ -8,4 +8,4 @@
 
 > **AnvilMineResult**: `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:2918

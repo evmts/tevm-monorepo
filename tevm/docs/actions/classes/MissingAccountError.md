@@ -6,7 +6,7 @@
 
 # Class: MissingAccountError
 
-Defined in: packages/actions/types/eth/ethSignHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4228
 
 ## Extends
 
@@ -64,7 +64,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **\_tag**: `"MissingAccountError"`
 
-Defined in: packages/actions/types/eth/ethSignHandler.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:4232
 
 ***
 
@@ -96,7 +96,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **name**: `"MissingAccountError"`
 
-Defined in: packages/actions/types/eth/ethSignHandler.d.ts:10
+Defined in: packages/actions/dist/index.d.ts:4237
 
 #### Overrides
 

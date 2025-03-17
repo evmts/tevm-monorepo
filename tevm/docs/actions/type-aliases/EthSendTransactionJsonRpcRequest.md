@@ -8,6 +8,6 @@
 
 > **EthSendTransactionJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_sendTransaction"`, readonly \[[`JsonRpcTransaction`](JsonRpcTransaction.md)\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:168
+Defined in: packages/actions/dist/index.d.ts:3878
 
 JSON-RPC request for `eth_sendTransaction` procedure

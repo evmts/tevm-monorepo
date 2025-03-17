@@ -8,7 +8,7 @@
 
 > **AnvilSetNonceParams**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:86
+Defined in: packages/actions/dist/index.d.ts:2857
 
 Params for `anvil_setNonce` handler
 

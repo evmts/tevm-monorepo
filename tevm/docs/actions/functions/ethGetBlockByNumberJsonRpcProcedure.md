@@ -8,13 +8,13 @@
 
 > **ethGetBlockByNumberJsonRpcProcedure**(`client`): [`EthGetBlockByNumberJsonRpcProcedure`](../type-aliases/EthGetBlockByNumberJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetBlockByNumberProcedure.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:4168
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

@@ -8,7 +8,7 @@
 
 > **NetworkConfig**: `object`
 
-Defined in: packages/actions/types/common/NetworkConfig.d.ts:5
+Defined in: packages/actions/dist/index.d.ts:328
 
 Represents a configuration for a forked or proxied network
 

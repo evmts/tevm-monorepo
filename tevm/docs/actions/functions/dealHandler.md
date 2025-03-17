@@ -8,13 +8,13 @@
 
 > **dealHandler**(`client`): [`AnvilDealHandler`](../type-aliases/AnvilDealHandler.md)
 
-Defined in: packages/actions/types/anvil/anvilDealHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:3177
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ## Returns
 

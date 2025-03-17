@@ -8,13 +8,13 @@
 
 > **setAccountHandler**(`client`, `options`?): [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
 
-Defined in: packages/actions/types/SetAccount/setAccountHandler.d.ts:1
+Defined in: packages/actions/dist/index.d.ts:2319
 
 ## Parameters
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)
 
 ### options?
 

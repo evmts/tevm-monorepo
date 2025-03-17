@@ -67,13 +67,23 @@ export const createHttpHandler = (client) => {
 			})
 
 		if ('code' in response && 'message' in response) {
-			return handleError(client, response, res, parsedRequest)
+			return handleError(
+				client,
+				response,
+				res,
+				/** @type {{method: string, id?: string | undefined | null | number}} */ (parsedRequest),
+			)
 		}
 		if (
 			response.error?.code === UnsupportedProviderMethodError.code ||
 			response.error?.code === MethodNotFoundError.code
 		) {
-			return handleError(client, response.error, res, parsedRequest)
+			return handleError(
+				client,
+				response.error,
+				res,
+				/** @type {{method: string, id?: string | undefined | null | number}} */ (parsedRequest),
+			)
 		}
 
 		console.log('response', response)
