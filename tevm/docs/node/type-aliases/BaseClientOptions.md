@@ -8,7 +8,7 @@
 
 > **BaseClientOptions**: [`TevmNodeOptions`](../../index/type-aliases/TevmNodeOptions.md)
 
-Defined in: packages/node/dist/index.d.ts:371
+Defined in: packages/node/dist/index.d.ts:442
 
 ## Deprecated
 

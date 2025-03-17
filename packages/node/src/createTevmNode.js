@@ -264,7 +264,7 @@ export const createTevmNode = (options = {}) => {
 					}
 				: undefined
 
-		return new TxPool({ vm, gasMiningConfig })
+		return new TxPool({ vm, gasMiningConfig: gasMiningConfig === undefined ? undefined : gasMiningConfig })
 	})
 	const receiptManagerPromise = vmPromise.then((vm) => {
 		logger.debug('initializing receipts manager...')
@@ -448,12 +448,15 @@ export const createTevmNode = (options = {}) => {
 		// Setup interval mining if configured
 		if (baseClient.miningConfig.type === 'interval') {
 			// Dynamically import to avoid circular dependencies
-			const { mineHandler } = require('@tevm/actions')
+			// Using a more generic approach to avoid TypeScript errors
+			const actionsModule = /** @type {any} */ (require('@tevm/actions'))
+			const mineHandler = actionsModule.mineHandler
 
 			// Setup mining handler
 			const mine = mineHandler(baseClient)
 
 			// Start interval mining
+			/** @type {NodeJS.Timeout} */
 			baseClient.intervalMiningId = setInterval(async () => {
 				try {
 					if (baseClient.status === 'READY') {

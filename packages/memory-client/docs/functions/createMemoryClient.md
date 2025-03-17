@@ -4116,9 +4116,9 @@ The RPC transport
 
 ###### Type declaration
 
-###### cleanup()
+###### cleanup()?
 
-> `readonly` **cleanup**: () => `void`
+> `readonly` `optional` **cleanup**: () => `void`
 
 Clean up resources used by the client.
 This should be called when the client is no longer needed to prevent memory leaks.
@@ -4229,7 +4229,7 @@ on top of Tevm.
 
 ###### intervalMiningId?
 
-> `optional` **intervalMiningId**: `Timer`
+> `optional` **intervalMiningId**: `Timeout`
 
 **`Internal`**
 

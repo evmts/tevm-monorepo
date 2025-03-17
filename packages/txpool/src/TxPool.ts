@@ -76,7 +76,7 @@ export class TxPool {
 	private maxPerSender: number
 	private opened: boolean
 	public running: boolean
-	public gasMiningConfig?: GasMiningConfig
+	public gasMiningConfig?: GasMiningConfig | undefined
 
 	/* global NodeJS */
 	private _cleanupInterval: Timer | undefined
@@ -166,7 +166,7 @@ export class TxPool {
 		newTxPool.txsInNonceOrder = new Map(this.txsInNonceOrder)
 		newTxPool.opened = this.opened
 		newTxPool.running = this.running
-		newTxPool.gasMiningConfig = this.gasMiningConfig
+		newTxPool.gasMiningConfig = this.gasMiningConfig === undefined ? undefined : this.gasMiningConfig
 		return newTxPool
 	}
 

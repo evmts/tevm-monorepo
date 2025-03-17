@@ -8,7 +8,7 @@
 
 > **Extension**\<`TExtended`\>: (`client`) => `TExtended`
 
-Defined in: packages/node/dist/index.d.ts:373
+Defined in: packages/node/dist/index.d.ts:444
 
 ## Type Parameters
 
