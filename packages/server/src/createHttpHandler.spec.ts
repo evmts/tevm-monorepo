@@ -18,7 +18,7 @@ describe('createHttpHandler', () => {
 				common: optimism,
 				fork: {
 					transport: transports.optimism,
-					blockTag: 115325880n,
+					blockTag: 133287738n,
 				},
 			})
 
@@ -51,7 +51,7 @@ describe('createHttpHandler', () => {
 			expect(res.body.id).toBe(req.id)
 			expect(res.body.jsonrpc).toBe(req.jsonrpc)
 		},
-		{ timeout: 10_000 },
+		{ timeout: 20_000 },
 	)
 
 	it('should return 400 for invalid JSON', async () => {
@@ -85,7 +85,12 @@ describe('createHttpHandler', () => {
 
 		const server = require('node:http').createServer(createHttpHandler(tevm))
 
-		const invalidRpcRequest = { jsonrpc: '2.0', method: 'invalid_method', params: 'invalid_params', id: 1 }
+		const invalidRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'invalid_method',
+			params: 'invalid_params',
+			id: 1,
+		}
 
 		const res = await supertest(server).post('/').send(invalidRpcRequest).expect(400).expect('Content-Type', /json/)
 
@@ -134,7 +139,9 @@ describe('createHttpHandler', () => {
 
 		// Simulate unexpected error by mocking the send method
 		const err = new NonceTooLowError('nonce is too low ooops')
-		;(tevm as any).transport.tevm.extend = () => ({ send: () => Promise.reject(err) })
+		;(tevm as any).transport.tevm.extend = () => ({
+			send: () => Promise.reject(err),
+		})
 
 		const res = await supertest(server).post('/').send(req).expect(400).expect('Content-Type', /json/)
 
@@ -159,7 +166,9 @@ describe('createHttpHandler', () => {
 		const server = require('node:http').createServer(createHttpHandler(tevm))
 
 		// Simulate unexpected error by mocking the send method
-		;(tevm as any).transport.tevm.extend = () => ({ send: () => Promise.reject(new Error('oops')) })
+		;(tevm as any).transport.tevm.extend = () => ({
+			send: () => Promise.reject(new Error('oops')),
+		})
 
 		const res = await supertest(server).post('/').send(req).expect(400).expect('Content-Type', /json/)
 
