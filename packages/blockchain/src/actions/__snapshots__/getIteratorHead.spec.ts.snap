@@ -14,12 +14,12 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73]
 `;
 
-exports[`getIteratorHead should throw an error if the iterator head block does not exist 1`] = `[InvalidBlockError: No block with tag nonExistentTag exists. Current tags include latest
+exports[`getIteratorHead should include current tags in error message if the iterator head block does not exist 1`] = `[InvalidBlockError: No block with tag nonExistentTag exists. Current tags include latest,someTag
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73]`;
 
-exports[`getIteratorHead should include current tags in error message if the iterator head block does not exist 1`] = `[InvalidBlockError: No block with tag nonExistentTag exists. Current tags include latest,someTag
+exports[`getIteratorHead should throw an error if the iterator head block does not exist 1`] = `[InvalidBlockError: No block with tag nonExistentTag exists. Current tags include latest
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73]`;

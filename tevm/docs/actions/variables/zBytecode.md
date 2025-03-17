@@ -6,7 +6,7 @@
 
 # Variable: zBytecode
 
-> `const` **zBytecode**: `ZodEffects`
+> `const` **zBytecode**: `any`
 
 Defined in: packages/actions/types/internal/zod/zBytecode.d.ts:4
 

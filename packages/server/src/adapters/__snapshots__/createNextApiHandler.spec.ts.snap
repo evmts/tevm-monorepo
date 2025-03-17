@@ -14,18 +14,3 @@ exports[`createNextApiHandler > should return 400 for invalid JSON-RPC request 1
 Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
 Version: 1.1.0.next-73"
 `;
-
-exports[`createNextApiHandler should return 400 for invalid JSON 1`] = `
-"JSON Parse error: Expected '}'
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidjsonerror/
-Details: JSON Parse error: Expected '}'
-Version: 1.1.0.next-73"
-`;
-
-exports[`createNextApiHandler should return 400 for invalid JSON-RPC request 1`] = `
-"UnsupportedMethodError: Unknown method invalid_method
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
-Version: 1.1.0.next-73"
-`;

@@ -225,8 +225,58 @@ export const validateBaseCallParams = (action) => {
 		}
 	}
 
-	// Additional complex validations would go here
-	// For example, validating stateOverrideSet and blockOverrideSet
+	// Validate stateOverrideSet if present
+	if ('stateOverrideSet' in action && action.stateOverrideSet !== undefined) {
+		if (typeof action.stateOverrideSet !== 'object' || action.stateOverrideSet === null) {
+			errors.push(new InvalidParamsError('stateOverrideSet must be an object'))
+		} else {
+			// Validate each address and its properties in stateOverrideSet
+			Object.entries(action.stateOverrideSet).forEach(([address, accountState]) => {
+				const addressValidation = validateAddress(address)
+				if (!addressValidation.isValid) {
+					errors.push(new InvalidParamsError(`stateOverrideSet address ${addressValidation.message || 'is invalid'}`))
+				}
+
+				if (typeof accountState !== 'object' || accountState === null) {
+					errors.push(new InvalidParamsError(`stateOverrideSet[${address}] must be an object`))
+				} else {
+					// Validate accountState properties
+					if ('balance' in accountState && accountState.balance !== undefined) {
+						if (typeof accountState.balance !== 'bigint' && typeof accountState.balance !== 'string') {
+							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].balance must be a bigint or hex string`))
+						}
+					}
+					
+					if ('nonce' in accountState && accountState.nonce !== undefined) {
+						if (typeof accountState.nonce !== 'bigint' && typeof accountState.nonce !== 'number') {
+							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].nonce must be a bigint or number`))
+						}
+					}
+					
+					if ('code' in accountState && accountState.code !== undefined) {
+						const codeValidation = validateHex(accountState.code)
+						if (!codeValidation.isValid) {
+							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].code ${codeValidation.message || 'is invalid'}`))
+						}
+					}
+					
+					if ('state' in accountState && accountState.state !== undefined) {
+						if (typeof accountState.state !== 'object' || accountState.state === null) {
+							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].state must be an object`))
+						}
+					}
+				}
+			})
+		}
+	}
+
+	// Validate blockOverrideSet if present
+	if ('blockOverrideSet' in action && action.blockOverrideSet !== undefined) {
+		if (typeof action.blockOverrideSet !== 'object' || action.blockOverrideSet === null) {
+			errors.push(new InvalidParamsError('blockOverrideSet must be an object'))
+		}
+		// Additional block override validation could be added here
+	}
 
 	return errors
 }

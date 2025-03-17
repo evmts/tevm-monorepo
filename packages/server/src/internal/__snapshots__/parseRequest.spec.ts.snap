@@ -9,35 +9,13 @@ Version: 1.1.0.next-73"
 `;
 
 exports[`parseRequest > should return InvalidRequestError for invalid JSON-RPC request 1`] = `
-"{"_errors":[],"method":{"_errors":["Required"]}}
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73"
-`;
-
-exports[`parseRequest > should return InvalidRequestError for invalid bulk JSON-RPC request 1`] = `
-"{"1":{"_errors":[],"method":{"_errors":["Required"]}},"_errors":[]}
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73"
-`;
-
-exports[`parseRequest should return InvalidJsonError for invalid JSON 1`] = `
-"JSON Parse error: Expected '}'
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidjsonerror/
-Details: JSON Parse error: Expected '}'
-Version: 1.1.0.next-73"
-`;
-
-exports[`parseRequest should return InvalidRequestError for invalid JSON-RPC request 1`] = `
 "{"errors":["method is required and must be a string"]}
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73"
 `;
 
-exports[`parseRequest should return InvalidRequestError for invalid bulk JSON-RPC request 1`] = `
+exports[`parseRequest > should return InvalidRequestError for invalid bulk JSON-RPC request 1`] = `
 "{"errors":["Request at index 1 is invalid: method is required and must be a string"]}
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/

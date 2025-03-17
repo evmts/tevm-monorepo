@@ -86,6 +86,15 @@ export const validateGetAccountParams = (action) => {
 		}
 	}
 
+	// Validate throwOnFail if present
+	if ('throwOnFail' in action && action.throwOnFail !== undefined) {
+		if (typeof action.throwOnFail !== 'boolean') {
+			errors.push(
+				new InvalidRequestError('Invalid throwOnFail param. throwOnFail must be a boolean or not provided.'),
+			)
+		}
+	}
+
 	// Validate returnStorage if present
 	if ('returnStorage' in action && action.returnStorage !== undefined) {
 		if (typeof action.returnStorage !== 'boolean') {

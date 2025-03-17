@@ -6,8 +6,8 @@
 
 # Variable: zAddress
 
-> `const` **zAddress**: `ZodEffects`
+> `const` **zAddress**: `any`
 
-Defined in: packages/actions/types/internal/zod/zAddress.d.ts:4
+Defined in: packages/actions/types/internal/zod/zAddress.d.ts:5
 
-Zod validator for a valid ethereum address
+Validator for a valid ethereum address

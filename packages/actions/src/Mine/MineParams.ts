@@ -19,17 +19,18 @@ import type { MineEvents } from './MineEvents.js'
  * @extends {BaseParams}
  * @extends {MineEvents}
  */
-export type MineParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & MineEvents & {
-	/**
-	 * Number of blocks to mine. Defaults to 1.
-	 */
-	readonly blockCount?: number
-	/**
-	 * Alias for blockCount. Number of blocks to mine. Defaults to 1.
-	 */
-	readonly blocks?: number
-	/**
-	 * Interval between block timestamps. Defaults to 1.
-	 */
-	readonly interval?: number
-}
+export type MineParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> &
+	MineEvents & {
+		/**
+		 * Number of blocks to mine. Defaults to 1.
+		 */
+		readonly blockCount?: number
+		/**
+		 * Alias for blockCount. Number of blocks to mine. Defaults to 1.
+		 */
+		readonly blocks?: number
+		/**
+		 * Interval between block timestamps. Defaults to 1.
+		 */
+		readonly interval?: number
+	}

@@ -36,6 +36,13 @@ export const validateMineParams = (action) => {
 		}
 	}
 
+	// Validate blocks if present (alias for blockCount)
+	if ('blocks' in action && action.blocks !== undefined) {
+		if (typeof action.blocks !== 'number' || !Number.isInteger(action.blocks) || action.blocks < 0) {
+			errors.push(new InvalidAddressError('blocks must be a non-negative integer'))
+		}
+	}
+
 	// Validate interval if present
 	if ('interval' in action && action.interval !== undefined) {
 		if (typeof action.interval !== 'number' || !Number.isInteger(action.interval) || action.interval < 0) {

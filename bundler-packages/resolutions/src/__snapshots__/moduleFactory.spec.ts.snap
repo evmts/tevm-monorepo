@@ -234,55 +234,55 @@ exports[`moduleFactory should resolve correctly for case basic 4`] = `
 }"
 `;
 
-exports[`moduleFactory should resolve correctly for case withlib 1`] = `{}`;
+exports[`moduleFactory should resolve correctly for case differentpragma 1`] = `{}`;
 
-exports[`moduleFactory should resolve correctly for case withlib 2`] = `
+exports[`moduleFactory should resolve correctly for case differentpragma 2`] = `
 "{
-  "id": "/bundler-packages/resolutions/src/fixtures/withlib/Contract.sol",
-  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity >0.8.0;\\n\\nimport {BaseContract} from \\"mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n",
+  "id": "/bundler-packages/resolutions/src/fixtures/differentpragma/Contract.sol",
+  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}",
   "importedIds": [
-    "/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol"
+    "/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol"
   ],
-  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport {BaseContract} from \\"/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n"
+  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}"
 }"
 `;
 
-exports[`moduleFactory should resolve correctly for case withlib 3`] = `{}`;
+exports[`moduleFactory should resolve correctly for case differentpragma 3`] = `{}`;
 
-exports[`moduleFactory should resolve correctly for case withlib 4`] = `
+exports[`moduleFactory should resolve correctly for case differentpragma 4`] = `
 "{
-  "id": "/bundler-packages/resolutions/src/fixtures/withlib/Contract.sol",
-  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity >0.8.0;\\n\\nimport {BaseContract} from \\"mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n",
+  "id": "/bundler-packages/resolutions/src/fixtures/differentpragma/Contract.sol",
+  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}",
   "importedIds": [
-    "/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol"
+    "/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol"
   ],
-  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport {BaseContract} from \\"/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n"
+  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}"
 }"
 `;
 
-exports[`moduleFactory should resolve correctly for case withremappings 1`] = `{}`;
+exports[`moduleFactory should resolve correctly for case multilevel 1`] = `{}`;
 
-exports[`moduleFactory should resolve correctly for case withremappings 2`] = `
+exports[`moduleFactory should resolve correctly for case multilevel 2`] = `
 "{
-  "id": "/bundler-packages/resolutions/src/fixtures/withremappings/Contract.sol",
-  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity >0.8.0;\\n\\nimport {BaseContract} from \\"mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n",
+  "id": "/bundler-packages/resolutions/src/fixtures/multilevel/Contract.sol",
+  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}",
   "importedIds": [
-    "/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol"
+    "/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol"
   ],
-  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport {BaseContract} from \\"/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n"
+  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}"
 }"
 `;
 
-exports[`moduleFactory should resolve correctly for case withremappings 3`] = `{}`;
+exports[`moduleFactory should resolve correctly for case multilevel 3`] = `{}`;
 
-exports[`moduleFactory should resolve correctly for case withremappings 4`] = `
+exports[`moduleFactory should resolve correctly for case multilevel 4`] = `
 "{
-  "id": "/bundler-packages/resolutions/src/fixtures/withremappings/Contract.sol",
-  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity >0.8.0;\\n\\nimport {BaseContract} from \\"mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n",
+  "id": "/bundler-packages/resolutions/src/fixtures/multilevel/Contract.sol",
+  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}",
   "importedIds": [
-    "/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol"
+    "/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol"
   ],
-  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport {BaseContract} from \\"/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n"
+  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}"
 }"
 `;
 
@@ -334,32 +334,6 @@ exports[`moduleFactory should resolve correctly for case unusualpaths 4`] = `
 }"
 `;
 
-exports[`moduleFactory should resolve correctly for case multilevel 1`] = `{}`;
-
-exports[`moduleFactory should resolve correctly for case multilevel 2`] = `
-"{
-  "id": "/bundler-packages/resolutions/src/fixtures/multilevel/Contract.sol",
-  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}",
-  "importedIds": [
-    "/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol"
-  ],
-  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}"
-}"
-`;
-
-exports[`moduleFactory should resolve correctly for case multilevel 3`] = `{}`;
-
-exports[`moduleFactory should resolve correctly for case multilevel 4`] = `
-"{
-  "id": "/bundler-packages/resolutions/src/fixtures/multilevel/Contract.sol",
-  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}",
-  "importedIds": [
-    "/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol"
-  ],
-  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}"
-}"
-`;
-
 exports[`moduleFactory should resolve correctly for case withcomments 1`] = `{}`;
 
 exports[`moduleFactory should resolve correctly for case withcomments 2`] = `
@@ -386,28 +360,54 @@ exports[`moduleFactory should resolve correctly for case withcomments 4`] = `
 }"
 `;
 
-exports[`moduleFactory should resolve correctly for case differentpragma 1`] = `{}`;
+exports[`moduleFactory should resolve correctly for case withlib 1`] = `{}`;
 
-exports[`moduleFactory should resolve correctly for case differentpragma 2`] = `
+exports[`moduleFactory should resolve correctly for case withlib 2`] = `
 "{
-  "id": "/bundler-packages/resolutions/src/fixtures/differentpragma/Contract.sol",
-  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}",
+  "id": "/bundler-packages/resolutions/src/fixtures/withlib/Contract.sol",
+  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity >0.8.0;\\n\\nimport {BaseContract} from \\"mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n",
   "importedIds": [
-    "/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol"
+    "/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol"
   ],
-  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}"
+  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport {BaseContract} from \\"/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n"
 }"
 `;
 
-exports[`moduleFactory should resolve correctly for case differentpragma 3`] = `{}`;
+exports[`moduleFactory should resolve correctly for case withlib 3`] = `{}`;
 
-exports[`moduleFactory should resolve correctly for case differentpragma 4`] = `
+exports[`moduleFactory should resolve correctly for case withlib 4`] = `
 "{
-  "id": "/bundler-packages/resolutions/src/fixtures/differentpragma/Contract.sol",
-  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}",
+  "id": "/bundler-packages/resolutions/src/fixtures/withlib/Contract.sol",
+  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity >0.8.0;\\n\\nimport {BaseContract} from \\"mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n",
   "importedIds": [
-    "/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol"
+    "/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol"
   ],
-  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}"
+  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport {BaseContract} from \\"/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n"
+}"
+`;
+
+exports[`moduleFactory should resolve correctly for case withremappings 1`] = `{}`;
+
+exports[`moduleFactory should resolve correctly for case withremappings 2`] = `
+"{
+  "id": "/bundler-packages/resolutions/src/fixtures/withremappings/Contract.sol",
+  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity >0.8.0;\\n\\nimport {BaseContract} from \\"mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n",
+  "importedIds": [
+    "/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol"
+  ],
+  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport {BaseContract} from \\"/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n"
+}"
+`;
+
+exports[`moduleFactory should resolve correctly for case withremappings 3`] = `{}`;
+
+exports[`moduleFactory should resolve correctly for case withremappings 4`] = `
+"{
+  "id": "/bundler-packages/resolutions/src/fixtures/withremappings/Contract.sol",
+  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity >0.8.0;\\n\\nimport {BaseContract} from \\"mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n",
+  "importedIds": [
+    "/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol"
+  ],
+  "code": "// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport {BaseContract} from \\"/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol\\"\\n\\n// Derived contract that inherits from BaseContract\\ncontract DerivedContract is BaseContract {\\n\\n    // This variable is additional to the one in the BaseContract\\n    string public name;\\n\\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\\n        name = _name;\\n    }\\n\\n    function setName(string memory _name) public {\\n        name = _name;\\n    }\\n}\\n\\n"
 }"
 `;

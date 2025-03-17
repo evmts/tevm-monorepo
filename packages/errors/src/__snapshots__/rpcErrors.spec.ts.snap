@@ -134,25 +134,6 @@ exports[`RPC Error Classes > should have a valid rpcErrorCodeToMessage mapping >
 }
 `;
 
-exports[`RPC Error Classes should have a valid rpcErrorCodeToMessage mapping: rpcErrorCodeToMessage 1`] = `
-{
-  "-1": "Unknwon error",
-  "-32000": "Invalid input",
-  "-32001": "Resource not found",
-  "-32002": "Resource unavailable",
-  "-32003": "Transaction rejected",
-  "-32004": "Method not supported",
-  "-32005": "Limit exceeded",
-  "-32006": "JSON-RPC version not supported",
-  "-32042": "Method not found",
-  "-32600": "Invalid request",
-  "-32601": "Method not found",
-  "-32602": "Invalid params",
-  "-32603": "Internal error",
-  "-32700": "Parse error",
-}
-`;
-
 exports[`RPC Error Classes should create proper instances of RPC errors: InternalRpcError 1`] = `[InternalRpcError: An internal error was received.
 
 Details: Internal error occurred
@@ -214,6 +195,14 @@ exports[`RPC Error Classes should create proper instances of RPC errors: Resourc
 Details: Resource unavailable
 Version: viem@2.23.10]`;
 
+exports[`RPC Error Classes should create proper instances of RPC errors: TimeoutError 1`] = `[TimeoutError: The request took too long to respond.
+
+URL: https://example.com
+Request body: {}
+
+Details: The request timed out.
+Version: viem@2.23.10]`;
+
 exports[`RPC Error Classes should create proper instances of RPC errors: UnknownRpcError 1`] = `[UnknownRpcError: An unknown RPC error occurred.
 
 Details: Unknown error
@@ -228,10 +217,21 @@ exports[`RPC Error Classes should create proper instances of RPC errors: UserRej
 Details: User rejected request
 Version: viem@2.23.10]`;
 
-exports[`RPC Error Classes should create proper instances of RPC errors: TimeoutError 1`] = `[TimeoutError: The request took too long to respond.
-
-URL: https://example.com
-Request body: {}
-
-Details: The request timed out.
-Version: viem@2.23.10]`;
+exports[`RPC Error Classes should have a valid rpcErrorCodeToMessage mapping: rpcErrorCodeToMessage 1`] = `
+{
+  "-1": "Unknwon error",
+  "-32000": "Invalid input",
+  "-32001": "Resource not found",
+  "-32002": "Resource unavailable",
+  "-32003": "Transaction rejected",
+  "-32004": "Method not supported",
+  "-32005": "Limit exceeded",
+  "-32006": "JSON-RPC version not supported",
+  "-32042": "Method not found",
+  "-32600": "Invalid request",
+  "-32601": "Method not found",
+  "-32602": "Invalid params",
+  "-32603": "Internal error",
+  "-32700": "Parse error",
+}
+`;

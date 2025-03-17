@@ -27,9 +27,11 @@ export const validateMineEvents = (events) => {
 		}
 	}
 
-	// Check for any keys that aren't in our list of valid handlers
+	// Check for any keys that aren't in our list of valid handlers or MineParams properties
+	// Skip validation for these parameter keys: 'blocks', 'blockCount', 'interval', 'throwOnFail'
+	const paramKeys = ['blocks', 'blockCount', 'interval', 'throwOnFail']
 	for (const key in events) {
-		if (!handlers.includes(key)) {
+		if (!handlers.includes(key) && !paramKeys.includes(key)) {
 			errors.push({
 				path: key,
 				message: `Unknown event handler: ${key}`,

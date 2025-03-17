@@ -959,7 +959,212 @@ Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]
 `;
 
-exports[`Error Classes should have all error classes available with expected shape: InvalidToError 1`] = `[InvalidToError: Test error message
+exports[`Error Classes should create a ForkError instance with required cause object: ForkError 1`] = `[ForkError: Fork error occurred
+Underlying cause message
+
+Fork Meta message
+
+Docs: https://tevm.sh/errors/fork-error
+Details: Underlying cause message
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: AccountLockedError 1`] = `[AccountLockedError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/accountlockederror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: AccountNotFoundError 1`] = `[AccountNotFoundError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: AuthCallUnsetError 1`] = `[AuthCallUnsetError: Test error message]`;
+
+exports[`Error Classes should have all error classes available with expected shape: BLS12381FpNotInFieldError 1`] = `[BLS12381FpNotInFieldError: Test error message]`;
+
+exports[`Error Classes should have all error classes available with expected shape: BLS12381InputEmptyError 1`] = `[BLS12381InputEmptyError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: BLS12381InvalidInputLengthError 1`] = `[BLS12381InvalidInputLengthError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: BLS12381PointNotOnCurveError 1`] = `[BLS12381PointNotOnCurveError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: BlockGasLimitExceededError 1`] = `[BlockGasLimitExceededError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/blockgaslimitexceedederror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: ChainIdMismatchError 1`] = `[ChainIdMismatchError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/chainidmismatcherror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: CodeSizeExceedsMaximumError 1`] = `[CodeSizeExceedsMaximumError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: CodeStoreOutOfGasError 1`] = `[CodeStoreOutOfGasError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: CommonMismatchError 1`] = `[CommonMismatchError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: ContractExecutionFailedError 1`] = `[ContractExecutionFailedError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/contractexecutionfailederror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: CreateCollisionError 1`] = `[CreateCollisionError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: DecodeFunctionDataError 1`] = `[DecodeFunctionDataError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: DefensiveNullCheckError 1`] = `[DefensiveNullCheckError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: EipNotEnabledError 1`] = `[EipNotEnabledError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: EncodeFunctionReturnDataError 1`] = `[EncodeFunctionReturnDataError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: EvmRevertError 1`] = `[EvmRevertError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: ExecutionError 1`] = `[ExecutionError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: GasLimitExceededError 1`] = `[GasLimitExceededError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InitcodeSizeViolationError 1`] = `[InitcodeSizeViolationError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InsufficientBalanceError 1`] = `[InsufficientBalanceError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InsufficientFundsError 1`] = `[InsufficientFundsError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InsufficientPermissionsError 1`] = `[InsufficientPermissionsError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientpermissionserror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InternalError 1`] = `[InternalError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InternalEvmError 1`] = `[InternalEvmError: Test error message
 
 Meta message 1
 Meta message 2
@@ -975,7 +1180,15 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: InvalidUrlError 1`] = `[InvalidUrlError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidAddressError 1`] = `[InvalidAddressError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidArgsError 1`] = `[InvalidArgsError: Test error message
 
 Meta message 1
 Meta message 2
@@ -983,7 +1196,68 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: InvalidArgsError 1`] = `[InvalidArgsError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidBalanceError 1`] = `[InvalidBalanceError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidBeginSubError 1`] = `[InvalidBeginSubError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidBlobVersionedHashesError 1`] = `[InvalidBlobVersionedHashesError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidBlockError 1`] = `[InvalidBlockError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidBytecodeError 1`] = `[InvalidBytecodeError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidBytecodeResultError 1`] = `[InvalidBytecodeResultError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidBytesSizeError 1`] = `[InvalidBytesSizeError: Invalid bytes size. Expected [object Object], received Test error message
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidCallerError 1`] = `[InvalidCallerError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidcallererror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidCommitmentError 1`] = `[InvalidCommitmentError: Test error message
 
 Meta message 1
 Meta message 2
@@ -999,20 +1273,12 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: InvalidSaltError 1`] = `[InvalidSaltError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidDeployedBytecodeError 1`] = `[InvalidDeployedBytecodeError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidsalterror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidBlockError 1`] = `[InvalidBlockError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
 exports[`Error Classes should have all error classes available with expected shape: InvalidDepthError 1`] = `[InvalidDepthError: Test error message
@@ -1023,79 +1289,7 @@ Meta message 2
 Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeptherror/
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: InvalidNonceError 1`] = `[InvalidNonceError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidValueError 1`] = `[InvalidValueError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidvalueerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidCallerError 1`] = `[InvalidCallerError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidcallererror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidOriginError 1`] = `[InvalidOriginError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidoriginerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidBalanceError 1`] = `[InvalidBalanceError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidBytecodeError 1`] = `[InvalidBytecodeError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidGasLimitError 1`] = `[InvalidGasLimitError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidGasRefundError 1`] = `[InvalidGasRefundError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidSkipBalanceError 1`] = `[InvalidSkipBalanceError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidStorageRootError 1`] = `[InvalidStorageRootError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidEofFormatError 1`] = `[InvalidEofFormatError: Test error message
 
 Meta message 1
 Meta message 2
@@ -1111,7 +1305,7 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: InvalidSelfdestructError 1`] = `[InvalidSelfdestructError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidGasLimitError 1`] = `[InvalidGasLimitError: Test error message
 
 Meta message 1
 Meta message 2
@@ -1119,7 +1313,15 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: InvalidDeployedBytecodeError 1`] = `[InvalidDeployedBytecodeError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidGasPriceError 1`] = `[InvalidGasPriceError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidGasRefundError 1`] = `[InvalidGasRefundError: Test error message
 
 Meta message 1
 Meta message 2
@@ -1127,7 +1329,31 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: InvalidBlobVersionedHashesError 1`] = `[InvalidBlobVersionedHashesError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidInputLengthError 1`] = `[InvalidInputLengthError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidJumpError 1`] = `[InvalidJumpError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidJumpSubError 1`] = `[InvalidJumpSubError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidKzgInputsError 1`] = `[InvalidKzgInputsError: Test error message
 
 Meta message 1
 Meta message 2
@@ -1151,100 +1377,12 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: DecodeFunctionDataError 1`] = `[DecodeFunctionDataError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidNonceError 1`] = `[InvalidNonceError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: EncodeFunctionReturnDataError 1`] = `[EncodeFunctionReturnDataError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: NoForkTransportSetError 1`] = `[NoForkTransportSetError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: ParseError 1`] = `[ParseError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/parseerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: RevertError 1`] = `[RevertError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InternalError 1`] = `[InternalError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: OutOfGasError 1`] = `[OutOfGasError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: ExecutionError 1`] = `[ExecutionError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: NonceTooLowError 1`] = `[NonceTooLowError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/noncetoolowerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: NonceTooHighError 1`] = `[NonceTooHighError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/noncetoohigherror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: UnknownBlockError 1`] = `[UnknownBlockError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: AccountLockedError 1`] = `[AccountLockedError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/accountlockederror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
 Version: 1.1.0.next-73]`;
 
 exports[`Error Classes should have all error classes available with expected shape: InvalidOpcodeError 1`] = `[InvalidOpcodeError: Test error message
@@ -1255,6 +1393,14 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
+exports[`Error Classes should have all error classes available with expected shape: InvalidOriginError 1`] = `[InvalidOriginError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidoriginerror/
+Version: 1.1.0.next-73]`;
+
 exports[`Error Classes should have all error classes available with expected shape: InvalidParamsError 1`] = `[InvalidParamsError: Test error message
 
 Meta message 1
@@ -1263,20 +1409,12 @@ Meta message 2
 Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: LimitExceededError 1`] = `[LimitExceededError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidProofError 1`] = `[InvalidProofError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/limitexceedederror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidAddressError 1`] = `[InvalidAddressError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
 exports[`Error Classes should have all error classes available with expected shape: InvalidRequestError 1`] = `[InvalidRequestError: Test error message
@@ -1287,39 +1425,23 @@ Meta message 2
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: MethodNotFoundError 1`] = `[MethodNotFoundError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidReturnSubError 1`] = `[InvalidReturnSubError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
+Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: AccountNotFoundError 1`] = `[AccountNotFoundError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidSaltError 1`] = `[InvalidSaltError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidsalterror/
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: ChainIdMismatchError 1`] = `[ChainIdMismatchError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/chainidmismatcherror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidGasPriceError 1`] = `[InvalidGasPriceError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: GasLimitExceededError 1`] = `[GasLimitExceededError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidSelfdestructError 1`] = `[InvalidSelfdestructError: Test error message
 
 Meta message 1
 Meta message 2
@@ -1335,44 +1457,28 @@ Meta message 2
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidsignatureerror/
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: NonceAlreadyUsedError 1`] = `[NonceAlreadyUsedError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidSkipBalanceError 1`] = `[InvalidSkipBalanceError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/noncealreadyusederror/
+Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: ResourceNotFoundError 1`] = `[ResourceNotFoundError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidStorageRootError 1`] = `[InvalidStorageRootError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: UnsupportedChainError 1`] = `[UnsupportedChainError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: InvalidToError 1`] = `[InvalidToError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/unsupportedchainerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InsufficientFundsError 1`] = `[InsufficientFundsError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: RateLimitExceededError 1`] = `[RateLimitExceededError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/ratelimitexceedederror/
+Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
 exports[`Error Classes should have all error classes available with expected shape: InvalidTransactionError 1`] = `[InvalidTransactionError: Test error message
@@ -1383,6 +1489,38 @@ Meta message 2
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtransactionerror/
 Version: 1.1.0.next-73]`;
 
+exports[`Error Classes should have all error classes available with expected shape: InvalidUrlError 1`] = `[InvalidUrlError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: InvalidValueError 1`] = `[InvalidValueError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidvalueerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: LimitExceededError 1`] = `[LimitExceededError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/limitexceedederror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: MethodNotFoundError 1`] = `[MethodNotFoundError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
+Version: 1.1.0.next-73]`;
+
 exports[`Error Classes should have all error classes available with expected shape: MethodNotSupportedError 1`] = `[MethodNotSupportedError: Test error message
 
 Meta message 1
@@ -1391,12 +1529,148 @@ Meta message 2
 Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotsupportederror/
 Version: 1.1.0.next-73]`;
 
+exports[`Error Classes should have all error classes available with expected shape: MisconfiguredClientError 1`] = `[MisconfiguredClientError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: NoForkTransportSetError 1`] = `[NoForkTransportSetError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: NonceAlreadyUsedError 1`] = `[NonceAlreadyUsedError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/noncealreadyusederror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: NonceTooHighError 1`] = `[NonceTooHighError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/noncetoohigherror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: NonceTooLowError 1`] = `[NonceTooLowError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/noncetoolowerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: OutOfGasError 1`] = `[OutOfGasError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: OutOfRangeError 1`] = `[OutOfRangeError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: ParseError 1`] = `[ParseError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/parseerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: PendingTransactionTimeoutError 1`] = `[PendingTransactionTimeoutError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/pendingtransactiontimeouterror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: RateLimitExceededError 1`] = `[RateLimitExceededError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/ratelimitexceedederror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: RefundExhaustedError 1`] = `[RefundExhaustedError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: ResourceNotFoundError 1`] = `[ResourceNotFoundError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Version: 1.1.0.next-73]`;
+
 exports[`Error Classes should have all error classes available with expected shape: ResourceUnavailableError 1`] = `[ResourceUnavailableError: Test error message
 
 Meta message 1
 Meta message 2
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/resourceunavailableerror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: RevertError 1`] = `[RevertError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: StackOverflowError 1`] = `[StackOverflowError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: StackUnderflowError 1`] = `[StackUnderflowError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: StaticStateChangeError 1`] = `[StaticStateChangeError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
+Version: 1.1.0.next-73]`;
+
+exports[`Error Classes should have all error classes available with expected shape: StopError 1`] = `[StopError: Test error message
+
+Meta message 1
+Meta message 2
+
+Docs: https://tevm.sh/errors/test-error
 Version: 1.1.0.next-73]`;
 
 exports[`Error Classes should have all error classes available with expected shape: TransactionRejectedError 1`] = `[TransactionRejectedError: Test error message
@@ -1415,14 +1689,6 @@ Meta message 2
 Docs: https://tevm.sh/reference/tevm/errors/classes/transactiontoolargeerror/
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: BlockGasLimitExceededError 1`] = `[BlockGasLimitExceededError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/blockgaslimitexceedederror/
-Version: 1.1.0.next-73]`;
-
 exports[`Error Classes should have all error classes available with expected shape: TransactionUnderpricedError 1`] = `[TransactionUnderpricedError: Test error message
 
 Meta message 1
@@ -1431,240 +1697,25 @@ Meta message 2
 Docs: https://tevm.sh/reference/tevm/errors/classes/transactionunderpricederror/
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: ContractExecutionFailedError 1`] = `[ContractExecutionFailedError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: UnknownBlockError 1`] = `[UnknownBlockError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/contractexecutionfailederror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: InsufficientPermissionsError 1`] = `[InsufficientPermissionsError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: UnreachableCodeError 1`] = `[UnreachableCodeError: [object Object]
 
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientpermissionserror/
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Version: 1.1.0.next-73]`;
 
-exports[`Error Classes should have all error classes available with expected shape: PendingTransactionTimeoutError 1`] = `[PendingTransactionTimeoutError: Test error message
+exports[`Error Classes should have all error classes available with expected shape: UnsupportedChainError 1`] = `[UnsupportedChainError: Test error message
 
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/pendingtransactiontimeouterror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: StopError 1`] = `[StopError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: EvmRevertError 1`] = `[EvmRevertError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: OutOfRangeError 1`] = `[OutOfRangeError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InternalEvmError 1`] = `[InternalEvmError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidJumpError 1`] = `[InvalidJumpError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidProofError 1`] = `[InvalidProofError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: AuthCallUnsetError 1`] = `[AuthCallUnsetError: Test error message]`;
-
-exports[`Error Classes should have all error classes available with expected shape: StackOverflowError 1`] = `[StackOverflowError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidJumpSubError 1`] = `[InvalidJumpSubError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: StackUnderflowError 1`] = `[StackUnderflowError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: CreateCollisionError 1`] = `[CreateCollisionError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidBeginSubError 1`] = `[InvalidBeginSubError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: RefundExhaustedError 1`] = `[RefundExhaustedError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidEofFormatError 1`] = `[InvalidEofFormatError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidKzgInputsError 1`] = `[InvalidKzgInputsError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidReturnSubError 1`] = `[InvalidReturnSubError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: CodeStoreOutOfGasError 1`] = `[CodeStoreOutOfGasError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidCommitmentError 1`] = `[InvalidCommitmentError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: StaticStateChangeError 1`] = `[StaticStateChangeError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: BLS12381InputEmptyError 1`] = `[BLS12381InputEmptyError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidInputLengthError 1`] = `[InvalidInputLengthError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InsufficientBalanceError 1`] = `[InsufficientBalanceError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: BLS12381FpNotInFieldError 1`] = `[BLS12381FpNotInFieldError: Test error message]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InitcodeSizeViolationError 1`] = `[InitcodeSizeViolationError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidBytecodeResultError 1`] = `[InvalidBytecodeResultError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: CodeSizeExceedsMaximumError 1`] = `[CodeSizeExceedsMaximumError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: BLS12381PointNotOnCurveError 1`] = `[BLS12381PointNotOnCurveError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: BLS12381InvalidInputLengthError 1`] = `[BLS12381InvalidInputLengthError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
+Docs: https://tevm.sh/reference/tevm/errors/classes/unsupportedchainerror/
 Version: 1.1.0.next-73]`;
 
 exports[`Error Classes should have all error classes available with expected shape: ValueOverflowError 1`] = `[ValueOverflowError: Test error message
@@ -1673,55 +1724,4 @@ Meta message 1
 Meta message 2
 
 Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: CommonMismatchError 1`] = `[CommonMismatchError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: EipNotEnabledError 1`] = `[EipNotEnabledError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/errors/test-error
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: MisconfiguredClientError 1`] = `[MisconfiguredClientError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: DefensiveNullCheckError 1`] = `[DefensiveNullCheckError: Test error message
-
-Meta message 1
-Meta message 2
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: UnreachableCodeError 1`] = `[UnreachableCodeError: [object Object]
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should have all error classes available with expected shape: InvalidBytesSizeError 1`] = `[InvalidBytesSizeError: Invalid bytes size. Expected [object Object], received Test error message
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73]`;
-
-exports[`Error Classes should create a ForkError instance with required cause object: ForkError 1`] = `[ForkError: Fork error occurred
-Underlying cause message
-
-Fork Meta message
-
-Docs: https://tevm.sh/errors/fork-error
-Details: Underlying cause message
 Version: 1.1.0.next-73]`;
