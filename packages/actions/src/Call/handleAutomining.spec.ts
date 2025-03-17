@@ -1,236 +1,222 @@
-import { createTevmNode } from "@tevm/node";
-import { transports } from "@tevm/test-utils";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { mineHandler } from "../Mine/mineHandler.js";
-import { handleAutomining } from "./handleAutomining.js";
+import { createTevmNode } from '@tevm/node'
+import { transports } from '@tevm/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { mineHandler } from '../Mine/mineHandler.js'
+import { handleAutomining } from './handleAutomining.js'
 
 // Mock mineHandler module
-vi.mock("../Mine/mineHandler.js", () => ({
+vi.mock('../Mine/mineHandler.js', () => ({
 	mineHandler: vi.fn(),
-}));
+}))
 
-describe("handleAutomining", () => {
-	let client: ReturnType<typeof createTevmNode>;
+describe('handleAutomining', () => {
+	let client: ReturnType<typeof createTevmNode>
 
 	beforeEach(() => {
 		// Reset mocks
-		vi.resetAllMocks();
+		vi.resetAllMocks()
 
 		// Create a default client
 		client = createTevmNode({
 			fork: { transport: transports.optimism },
-			miningConfig: { type: "auto" }, // Default to auto mining
-		});
+			miningConfig: { type: 'auto' }, // Default to auto mining
+		})
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
-			client.logger.debug = vi.fn();
+			client.logger.debug = vi.fn()
 		}
-	});
+	})
 
 	afterEach(() => {
-		vi.resetAllMocks();
-	});
+		vi.resetAllMocks()
+	})
 
-	it("should return undefined if mining type is not auto", async () => {
+	it('should return undefined if mining type is not auto', async () => {
 		// Override with a manual mining client
 		client = createTevmNode({
 			fork: { transport: transports.optimism },
-			miningConfig: { type: "manual" },
-		});
+			miningConfig: { type: 'manual' },
+		})
 
 		// Mock debug logger
-		client.logger.debug = vi.fn();
+		client.logger.debug = vi.fn()
 
 		// Should not call mineHandler
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(() => {
-			throw new Error("This should not be called");
-		});
+			throw new Error('This should not be called')
+		})
 
-		const result = await handleAutomining(client);
+		const result = await handleAutomining(client)
 
 		// Should not log anything
-		expect(client.logger.debug).not.toHaveBeenCalled();
+		expect(client.logger.debug).not.toHaveBeenCalled()
 
 		// Should not call mineHandler
-		expect(mineHandlerMock).not.toHaveBeenCalled();
+		expect(mineHandlerMock).not.toHaveBeenCalled()
 
 		// Should return undefined
-		expect(result).toBeUndefined();
-	});
+		expect(result).toBeUndefined()
+	})
 
-	it("should mine transaction if mining type is auto", async () => {
+	it('should mine transaction if mining type is auto', async () => {
 		// Spy on debug logger
-		const debugSpy = vi.spyOn(client.logger, "debug");
+		const debugSpy = vi.spyOn(client.logger, 'debug')
 
 		// Mock mineHandler to return successful result
 		const innerMock = vi.fn().mockResolvedValue({
 			blockHashes: ['0xabc123'],
 		})
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(() => innerMock);
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(() => innerMock)
 
-		const txHash = "0x123456789abcdef";
-		const result = await handleAutomining(client, txHash);
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash)
 
 		// Should log the mining process
-		expect(debugSpy).toHaveBeenCalledWith(
-			`Automining transaction ${txHash}...`,
-		);
+		expect(debugSpy).toHaveBeenCalledWith(`Automining transaction ${txHash}...`)
 		expect(debugSpy).toHaveBeenCalledWith(
 			expect.objectContaining({
-				blockHashes: ["0xabc123"],
+				blockHashes: ['0xabc123'],
 			}),
-			"Transaction successfully mined",
-		);
+			'Transaction successfully mined',
+		)
 
 		// Should call mineHandler with throwOnFail: false
-		expect(mineHandlerMock).toHaveBeenCalledWith(client);
-		expect(mineHandlerMock).toHaveBeenCalledTimes(1);
+		expect(mineHandlerMock).toHaveBeenCalledWith(client)
+		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
 
 		// Should return undefined when successful
-		expect(result).toBeUndefined();
-	});
+		expect(result).toBeUndefined()
+	})
 
-	it("should return mineHandler result if there are errors", async () => {
+	it('should return mineHandler result if there are errors', async () => {
 		// Spy on debug logger
-		const debugSpy = vi.spyOn(client.logger, "debug");
+		const debugSpy = vi.spyOn(client.logger, 'debug')
 
 		// Mock mineHandler to return error result
 		const mineError = {
-			_tag: "TevmMineError",
-			name: "MiningError",
-			message: "Failed to mine transaction",
-		};
+			_tag: 'TevmMineError',
+			name: 'MiningError',
+			message: 'Failed to mine transaction',
+		}
 
 		const innerMock = vi.fn().mockResolvedValue({
 			errors: [mineError],
 		})
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(() => innerMock);
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(() => innerMock)
 
-		const txHash = "0x123456789abcdef";
-		const result = await handleAutomining(client, txHash);
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash)
 
 		// Should log the mining process start
-		expect(debugSpy).toHaveBeenCalledWith(
-			`Automining transaction ${txHash}...`,
-		);
+		expect(debugSpy).toHaveBeenCalledWith(`Automining transaction ${txHash}...`)
 
 		// Should not log success
-		expect(debugSpy).not.toHaveBeenCalledWith(
-			expect.anything(),
-			"Transaction successfully mined",
-		);
+		expect(debugSpy).not.toHaveBeenCalledWith(expect.anything(), 'Transaction successfully mined')
 
 		// Should call mineHandler with throwOnFail: false
-		expect(mineHandlerMock).toHaveBeenCalledWith(client);
-		expect(mineHandlerMock).toHaveBeenCalledTimes(1);
+		expect(mineHandlerMock).toHaveBeenCalledWith(client)
+		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
 
 		// Should return error result
-		expect(result).toBeDefined();
+		expect(result).toBeDefined()
 		if (result) {
-			expect(result.errors).toBeDefined();
-			expect(result.errors).toHaveLength(1);
-			expect(result.errors?.[0]).toEqual(mineError);
+			expect(result.errors).toBeDefined()
+			expect(result.errors).toHaveLength(1)
+			expect(result.errors?.[0]).toEqual(mineError)
 		}
-	});
+	})
 
-	it("should work with empty errors array", async () => {
+	it('should work with empty errors array', async () => {
 		// Spy on debug logger
-		const debugSpy = vi.spyOn(client.logger, "debug");
+		const debugSpy = vi.spyOn(client.logger, 'debug')
 
 		// Mock mineHandler to return empty errors array
 		const innerMock = vi.fn().mockResolvedValue({
 			errors: [], // Empty errors array
 		})
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(() => innerMock);
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(() => innerMock)
 
-		const txHash = "0x123456789abcdef";
-		const result = await handleAutomining(client, txHash);
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash)
 
 		// Should log the mining process
-		expect(debugSpy).toHaveBeenCalledWith(
-			`Automining transaction ${txHash}...`,
-		);
+		expect(debugSpy).toHaveBeenCalledWith(`Automining transaction ${txHash}...`)
 
 		// Should log success (since errors array is empty)
-		expect(debugSpy).toHaveBeenCalledWith(
-			expect.objectContaining({ errors: [] }),
-			"Transaction successfully mined",
-		);
+		expect(debugSpy).toHaveBeenCalledWith(expect.objectContaining({ errors: [] }), 'Transaction successfully mined')
 
 		// Should return undefined (successful case)
-		expect(result).toBeUndefined();
-	});
+		expect(result).toBeUndefined()
+	})
 
-	it("should handle undefined txHash gracefully", async () => {
+	it('should handle undefined txHash gracefully', async () => {
 		// Spy on debug logger
-		const debugSpy = vi.spyOn(client.logger, "debug");
+		const debugSpy = vi.spyOn(client.logger, 'debug')
 
 		// Mock mineHandler to return successful result
 		const innerMock = vi.fn().mockResolvedValue({
-			blockHashes: ["0xabc123"],
+			blockHashes: ['0xabc123'],
 		})
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
-		mineHandlerMock.mockImplementation(() => innerMock);
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
+		mineHandlerMock.mockImplementation(() => innerMock)
 
 		// Call without a txHash
-		const result = await handleAutomining(client);
+		const result = await handleAutomining(client)
 
 		// Should log with undefined txHash
-		expect(debugSpy).toHaveBeenCalledWith(
-			`Automining transaction ${undefined}...`,
-		);
+		expect(debugSpy).toHaveBeenCalledWith(`Automining transaction ${undefined}...`)
 
 		// Rest of the function should work normally
-		expect(mineHandlerMock).toHaveBeenCalledWith(client);
-		expect(result).toBeUndefined();
-	});
+		expect(mineHandlerMock).toHaveBeenCalledWith(client)
+		expect(result).toBeUndefined()
+	})
 
-	it("should work with interval mining type", async () => {
+	it('should work with interval mining type', async () => {
 		// Create client with interval mining
 		client = createTevmNode({
 			fork: { transport: transports.optimism },
-			miningConfig: { type: "interval", interval: 1000 },
-		});
+			miningConfig: { type: 'interval', interval: 1000 },
+		})
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
-			client.logger.debug = vi.fn();
+			client.logger.debug = vi.fn()
 		}
 
 		// Mock mineHandler
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>;
+		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(() => {
-			throw new Error("This should not be called");
-		});
+			throw new Error('This should not be called')
+		})
 
-		const result = await handleAutomining(client, "0x123");
+		const result = await handleAutomining(client, '0x123')
 
 		// Should not call mineHandler for interval type
-		expect(mineHandlerMock).not.toHaveBeenCalled();
+		expect(mineHandlerMock).not.toHaveBeenCalled()
 
 		// Should return undefined
-		expect(result).toBeUndefined();
-	});
+		expect(result).toBeUndefined()
+	})
 
-	it("should mine transaction if isGasMining is true", async () => {
+	it('should mine transaction if isGasMining is true', async () => {
 		// Create client with gas mining configuration
 		client = createTevmNode({
 			fork: { transport: transports.optimism },
-			miningConfig: { type: "gas", limit: BigInt(1000000) },
-		});
+			miningConfig: { type: 'gas', limit: BigInt(1000000) },
+		})
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
-			client.logger.debug = vi.fn();
+			client.logger.debug = vi.fn()
 		}
 
 		// Spy on debug logger
-		const debugSpy = vi.spyOn(client.logger, "debug");
+		const debugSpy = vi.spyOn(client.logger, 'debug')
 
 		// Mock mineHandler with inner function mock
 		const innerMock = vi.fn().mockResolvedValue({
@@ -239,22 +225,20 @@ describe("handleAutomining", () => {
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(() => innerMock)
 
-		const txHash = "0x123456789abcdef";
-		const result = await handleAutomining(client, txHash, true);
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash, true)
 
 		// Should log the gas mining process
-		expect(debugSpy).toHaveBeenCalledWith(
-			`Gas mining transaction ${txHash}...`,
-		);
+		expect(debugSpy).toHaveBeenCalledWith(`Gas mining transaction ${txHash}...`)
 		expect(debugSpy).toHaveBeenCalledWith(
 			expect.objectContaining({
-				blockHashes: ["0xabc123"],
+				blockHashes: ['0xabc123'],
 			}),
-			"Transaction successfully mined",
-		);
+			'Transaction successfully mined',
+		)
 
 		// Should log gas mining mode with limit
-		expect(debugSpy).toHaveBeenCalledWith(`Gas mining mode with limit ${(client.miningConfig as any).limit}`);
+		expect(debugSpy).toHaveBeenCalledWith(`Gas mining mode with limit ${(client.miningConfig as any).limit}`)
 
 		// Should call mineHandler with client
 		expect(mineHandlerMock).toHaveBeenCalledWith(client)
@@ -266,26 +250,26 @@ describe("handleAutomining", () => {
 				throwOnFail: false,
 				blockCount: 1,
 			}),
-		);
+		)
 
 		// Should return undefined when successful
-		expect(result).toBeUndefined();
-	});
+		expect(result).toBeUndefined()
+	})
 
-	it("should not mine transaction if isGasMining is true but mining type is not gas", async () => {
+	it('should not mine transaction if isGasMining is true but mining type is not gas', async () => {
 		// Create client with manual mining
 		client = createTevmNode({
 			fork: { transport: transports.optimism },
-			miningConfig: { type: "manual" },
-		});
+			miningConfig: { type: 'manual' },
+		})
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
-			client.logger.debug = vi.fn();
+			client.logger.debug = vi.fn()
 		}
 
 		// Spy on debug logger
-		const debugSpy = vi.spyOn(client.logger, "debug");
+		const debugSpy = vi.spyOn(client.logger, 'debug')
 
 		// Mock mineHandler
 		const innerMock = vi.fn().mockResolvedValue({
@@ -294,96 +278,92 @@ describe("handleAutomining", () => {
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(() => innerMock)
 
-		const txHash = "0x123456789abcdef";
-		const result = await handleAutomining(client, txHash, true);
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash, true)
 
 		// Should still log gas mining (based on isGasMining flag)
-		expect(debugSpy).toHaveBeenCalledWith(
-			`Gas mining transaction ${txHash}...`,
-		);
+		expect(debugSpy).toHaveBeenCalledWith(`Gas mining transaction ${txHash}...`)
 
 		// Should not log gas limit (since it's not gas mining type)
-		expect(debugSpy).not.toHaveBeenCalledWith(
-			expect.stringContaining("Gas mining mode with limit"),
-		);
+		expect(debugSpy).not.toHaveBeenCalledWith(expect.stringContaining('Gas mining mode with limit'))
 
 		// Should still call mineHandler (based on isGasMining flag)
-		expect(mineHandlerMock).toHaveBeenCalledWith(client);
-		expect(mineHandlerMock).toHaveBeenCalledTimes(1);
+		expect(mineHandlerMock).toHaveBeenCalledWith(client)
+		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
 
 		// Should return undefined when successful
-		expect(result).toBeUndefined();
-	});
+		expect(result).toBeUndefined()
+	})
 
-	it("should handle mining errors without throwing", async () => {
+	it('should handle mining errors without throwing', async () => {
 		// Create client with auto mining
 		client = createTevmNode({
 			fork: { transport: transports.optimism },
-			miningConfig: { type: "auto" },
-		});
+			miningConfig: { type: 'auto' },
+		})
 
 		// Setup debug logger
-		client.logger.debug = vi.fn();
-		client.logger.error = vi.fn();
+		client.logger.debug = vi.fn()
+		client.logger.error = vi.fn()
 		// Setup error spy, but we don't need to check it in this test
 
 		// Instead of throwing an error, return a result with errors
 		const miningError = {
-			name: "MiningError",
-			message: "Failed to mine transaction",
-		};
+			name: 'MiningError',
+			message: 'Failed to mine transaction',
+		}
 		const innerMock = vi.fn().mockResolvedValue({
 			errors: [miningError],
 		})
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
-		mineHandlerMock.mockImplementation(() => innerMock);
+		mineHandlerMock.mockImplementation(() => innerMock)
 
-		const txHash = "0x123456789abcdef";
-		const result = await handleAutomining(client, txHash);
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash)
 
 		// Should return result with the error
-		expect(result).toBeDefined();
+		expect(result).toBeDefined()
 		if (result) {
-			expect(result.errors).toBeDefined();
-			expect(result.errors).toHaveLength(1);
-			expect(result.errors?.[0]).toEqual(miningError);
+			expect(result.errors).toBeDefined()
+			expect(result.errors).toHaveLength(1)
+			expect(result.errors?.[0]).toEqual(miningError)
 		}
-	});
+	})
 
-	it("should handle multiple errors in result", async () => {
+	it('should handle multiple errors in result', async () => {
 		// Create client with auto mining
 		client = createTevmNode({
 			fork: { transport: transports.optimism },
-			miningConfig: { type: "auto" },
-		});
+			miningConfig: { type: 'auto' },
+		})
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
-			client.logger.debug = vi.fn();
+			client.logger.debug = vi.fn()
 		}
 
 		// Multiple errors in the result
 		const errors = [
-			{ message: "First error", name: "Error1" },
-			{ message: "Second error", name: "Error2" },
-		];
+			{ message: 'First error', name: 'Error1' },
+			{ message: 'Second error', name: 'Error2' },
+		]
 
 		// Mock mineHandler to return multiple errors
 		const innerMock = vi.fn().mockResolvedValue({
 			errors,
 		})
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
-		mineHandlerMock.mockImplementation(() => innerMock);
+		mineHandlerMock.mockImplementation(() => innerMock)
 
-		const txHash = "0x123456789abcdef";
-		const result = await handleAutomining(client, txHash);
+		const txHash = '0x123456789abcdef'
+		const result = await handleAutomining(client, txHash)
 
 		// Should return result with multiple errors
-		expect(result).toBeDefined();
+		expect(result).toBeDefined()
 		if (result) {
-			expect(result.errors).toBeDefined();
-			expect(result.errors).toHaveLength(2);
-			expect(result.errors).toEqual(errors);
+			expect(result.errors).toBeDefined()
+			expect(result.errors).toHaveLength(2)
+			expect(result.errors).toEqual(errors)
 		}
-	});
-});
+	})
+})

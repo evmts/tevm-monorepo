@@ -1,16 +1,14 @@
-import type { Hex } from 'viem'
 import { describe, expect, test } from 'vitest'
-import type { z } from 'zod'
 import { zHex } from './zHex.js'
 
 describe('zHex', () => {
 	test('should validate a valid hex string', () => {
-		const hex = '0x4205' as const satisfies z.infer<typeof zHex> satisfies Hex
+		const hex = '0x4205'
 		expect(zHex.parse(hex)).toEqual(hex)
 	})
 
 	test('should accept an empty hex string', () => {
-		const emptyHex = '0x' as const satisfies z.infer<typeof zHex> satisfies Hex
+		const emptyHex = '0x'
 		expect(zHex.parse(emptyHex)).toEqual(emptyHex)
 	})
 

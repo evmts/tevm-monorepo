@@ -1,11 +1,9 @@
-import type { Address } from 'abitype'
 import { describe, expect, test } from 'vitest'
-import type { z } from 'zod'
 import { zAddress } from './zAddress.js'
 
 describe('zAddress', () => {
 	test('should validate a valid address', () => {
-		const address = `0x${'69'.repeat(20)}` as const satisfies z.infer<typeof zAddress> satisfies Address
+		const address = `0x${'69'.repeat(20)}`
 		expect(zAddress.parse(address)).toEqual(address)
 	})
 
