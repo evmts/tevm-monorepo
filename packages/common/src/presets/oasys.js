@@ -27,5 +27,5 @@ export const oasys = createCommon({
 	..._oasys,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const shapeSepolia = createCommon({
 	..._shapeSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

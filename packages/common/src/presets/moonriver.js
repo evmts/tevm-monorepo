@@ -27,5 +27,5 @@ export const moonriver = createCommon({
 	..._moonriver,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

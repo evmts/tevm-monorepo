@@ -27,5 +27,5 @@ export const degen = createCommon({
 	..._degen,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

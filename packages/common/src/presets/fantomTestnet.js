@@ -27,5 +27,5 @@ export const fantomTestnet = createCommon({
 	..._fantomTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

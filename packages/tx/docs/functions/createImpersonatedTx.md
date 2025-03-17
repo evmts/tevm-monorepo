@@ -10,7 +10,7 @@
 
 Defined in: [packages/tx/src/createImpersonatedTx.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L21)
 
-Creates an impersonated tx that wraps [FeeMarketEIP1559Transaction](../classes/FeeMarketEIP1559Transaction.md).
+Creates an impersonated tx that wraps [FeeMarket1559Tx](../classes/FeeMarket1559Tx.md).
 Wraps following methods
 - 'isImpersonated'
 - 'hash'
@@ -33,4 +33,4 @@ Wraps following methods
 
 ## Throws
 
-Error if the constructor for [FeeMarketEIP1559Transaction](../classes/FeeMarketEIP1559Transaction.md) throws
+Error if the constructor for [FeeMarket1559Tx](../classes/FeeMarket1559Tx.md) throws

@@ -27,5 +27,5 @@ export const dreyerxMainnet = createCommon({
 	..._dreyerxMainnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

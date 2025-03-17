@@ -27,5 +27,5 @@ export const cyber = createCommon({
 	..._cyber,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

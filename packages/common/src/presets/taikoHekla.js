@@ -27,5 +27,5 @@ export const taikoHekla = createCommon({
 	..._taikoHekla,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

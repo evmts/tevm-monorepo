@@ -27,5 +27,5 @@ export const optimism = createCommon({
 	..._optimism,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

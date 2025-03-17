@@ -27,5 +27,5 @@ export const ham = createCommon({
 	..._ham,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

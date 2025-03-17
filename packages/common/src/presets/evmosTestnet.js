@@ -27,5 +27,5 @@ export const evmosTestnet = createCommon({
 	..._evmosTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

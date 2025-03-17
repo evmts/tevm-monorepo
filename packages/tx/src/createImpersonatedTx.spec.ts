@@ -1,5 +1,5 @@
-import { FeeMarket1559Tx } from '@ethereumjs/tx'
 import { Common } from '@ethereumjs/common'
+import { FeeMarket1559Tx } from '@ethereumjs/tx'
 import { createAddress } from '@tevm/address'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { type MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
@@ -61,14 +61,14 @@ describe(createImpersonatedTx.name, () => {
 		const impersonatedAddress = createAddress(`0x${'42'.repeat(20)}`)
 		const tx = createImpersonatedTx({ impersonatedAddress })
 		const keys = Object.keys(tx)
-		
+
 		// Check for presence of important keys, not their order
 		expect(keys).toContain('common')
 		expect(keys).toContain('data')
 		expect(keys).toContain('gasLimit')
 		expect(keys).toContain('maxFeePerGas')
 		expect(keys).toContain('maxPriorityFeePerGas')
-		
+
 		// isImpersonated is a getter, so it won't show up in Object.keys
 		// but it should still be accessible as a property
 		expect(tx.isImpersonated).toBe(true)
@@ -82,12 +82,12 @@ describe(createImpersonatedTx.name, () => {
 				}
 				return true
 			},
-			copy: () => mockCommon
-		} as unknown as Common;
-		
+			copy: () => mockCommon,
+		} as unknown as Common
+
 		const impersonatedAddress = createAddress(`0x${'42'.repeat(20)}`)
 		const data = '0x5234'
-		
+
 		// Test that it throws any InternalError without checking exact message
 		expect(() => createImpersonatedTx({ impersonatedAddress, data }, { common: mockCommon })).toThrow(InternalError)
 	})

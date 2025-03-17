@@ -27,5 +27,5 @@ export const skaleTitan = createCommon({
 	..._skaleTitan,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

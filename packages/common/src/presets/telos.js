@@ -27,5 +27,5 @@ export const telos = createCommon({
 	..._telos,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

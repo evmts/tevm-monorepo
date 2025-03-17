@@ -27,5 +27,5 @@ export const mevTestnet = createCommon({
 	..._mevTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

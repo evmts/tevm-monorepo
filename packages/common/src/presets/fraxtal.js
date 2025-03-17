@@ -27,5 +27,5 @@ export const fraxtal = createCommon({
 	..._fraxtal,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

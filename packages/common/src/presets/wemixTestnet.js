@@ -27,5 +27,5 @@ export const wemixTestnet = createCommon({
 	..._wemixTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

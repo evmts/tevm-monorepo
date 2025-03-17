@@ -27,5 +27,5 @@ export const moonbaseAlpha = createCommon({
 	..._moonbaseAlpha,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const skaleNebula = createCommon({
 	..._skaleNebula,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

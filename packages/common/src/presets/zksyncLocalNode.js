@@ -27,5 +27,5 @@ export const zksyncLocalNode = createCommon({
 	..._zksyncLocalNode,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

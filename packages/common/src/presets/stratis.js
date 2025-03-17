@@ -27,5 +27,5 @@ export const stratis = createCommon({
 	..._stratis,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

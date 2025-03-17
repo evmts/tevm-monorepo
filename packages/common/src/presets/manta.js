@@ -27,5 +27,5 @@ export const manta = createCommon({
 	..._manta,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

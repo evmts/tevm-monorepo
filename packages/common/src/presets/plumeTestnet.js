@@ -27,5 +27,5 @@ export const plumeTestnet = createCommon({
 	..._plumeTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

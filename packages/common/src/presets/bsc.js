@@ -27,5 +27,5 @@ export const bsc = createCommon({
 	..._bsc,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

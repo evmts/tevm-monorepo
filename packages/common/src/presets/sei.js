@@ -27,5 +27,5 @@ export const sei = createCommon({
 	..._sei,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

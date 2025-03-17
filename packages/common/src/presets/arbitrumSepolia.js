@@ -27,5 +27,5 @@ export const arbitrumSepolia = createCommon({
 	..._arbitrumSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

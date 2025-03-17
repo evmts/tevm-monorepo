@@ -27,5 +27,5 @@ export const haqqMainnet = createCommon({
 	..._haqqMainnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

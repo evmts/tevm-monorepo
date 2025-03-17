@@ -27,5 +27,5 @@ export const zilliqaTestnet = createCommon({
 	..._zilliqaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

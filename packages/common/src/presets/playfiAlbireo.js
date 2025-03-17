@@ -27,5 +27,5 @@ export const playfiAlbireo = createCommon({
 	..._playfiAlbireo,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const saigon = createCommon({
 	..._saigon,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

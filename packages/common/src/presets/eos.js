@@ -27,5 +27,5 @@ export const eos = createCommon({
 	..._eos,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

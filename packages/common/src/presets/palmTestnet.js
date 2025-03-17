@@ -27,5 +27,5 @@ export const palmTestnet = createCommon({
 	..._palmTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

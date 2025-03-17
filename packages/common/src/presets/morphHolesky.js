@@ -27,5 +27,5 @@ export const morphHolesky = createCommon({
 	..._morphHolesky,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

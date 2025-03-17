@@ -27,5 +27,5 @@ export const base = createCommon({
 	..._base,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

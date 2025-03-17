@@ -27,5 +27,5 @@ export const astarZkEVM = createCommon({
 	..._astarZkEVM,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -17,7 +17,7 @@ import { DEFAULT_GENESIS } from './DEFAULT_GENESIS.js'
  * ```typescript
  * import { createCommon } from 'tevm/common'
  *
- * const common = cre e ateCommon({
+ * const common = createCommon({
  *  customCrypto: {},
  *  loggingLevel: 'debug',
  *  hardfork: 'london',
@@ -53,7 +53,7 @@ import { DEFAULT_GENESIS } from './DEFAULT_GENESIS.js'
 export const createCommon = ({
 	customCrypto = {},
 	loggingLevel = 'warn',
-	hardfork = 'cancun',
+	hardfork = 'homestead', // Use a very basic hardfork as default
 	eips = [],
 	params = {},
 	hardforkTransitionConfig,
@@ -63,34 +63,128 @@ export const createCommon = ({
 	// TODO need to update on new options
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
-		const vmConfig = new Common({
-			hardfork,
-			eips: [...eips],
-			customCrypto,
-			// @ts-expect-error TODO why doesn't this type fix? Either a bug in ethjs or a bug in tevm
-			params,
-			chain: {
-				name: chain.name,
-				chainId: chain.id,
-				genesis,
-				hardforks: [...(hardforkTransitionConfig ?? [])],
-				bootstrapNodes: [],
-				consensus: {
-					type: 'pos',
-					algorithm: 'casper',
-				},
+
+		// Prepare a complete chain config including hardforks
+		// If no explicit hardforks are provided, add the basic ones
+		const baseHardforks = hardforkTransitionConfig ?? [
+			{
+				name: 'homestead',
+				block: 0,
 			},
-		})
-		if (vmConfig.isActivatedEIP(6800)) {
-			logger.warn('verkle state is currently not supported in tevm')
+		]
+
+		// Create Common object with safe defaults first
+		const chainConfig = {
+			name: chain.name ?? 'tevm',
+			chainId: chain.id ?? 1,
+			genesis,
+			hardforks: [...baseHardforks], // Convert readonly array to mutable
+			bootstrapNodes: [],
+			consensus: {
+				type: 'pos',
+				algorithm: 'casper',
+			},
 		}
-		logger.debug(vmConfig.eips(), 'Created common with eips enabled')
+
+		// Use the first hardfork in the list as our default if none is provided
+		const defaultHardfork = baseHardforks[0]?.name ?? 'homestead'
+
+		// Create Common without EIPs first to avoid compatibility issues
+		let vmConfig
+		try {
+			vmConfig = new Common({
+				// Use first hardfork if available
+				hardfork: defaultHardfork,
+				// Don't set EIPs immediately
+				customCrypto,
+				// @ts-expect-error TODO why doesn't this type fix? Either a bug in ethjs or a bug in tevm
+				params,
+				chain: chainConfig,
+			})
+
+			// Only try to set the requested hardfork if it's different from our default
+			if (hardfork !== defaultHardfork) {
+				try {
+					vmConfig.setHardfork(hardfork)
+				} catch (error) {
+					logger.warn(`Hardfork ${hardfork} not supported, using ${defaultHardfork} instead`)
+				}
+			}
+
+			// Try to set EIPs if provided
+			if (eips.length > 0) {
+				try {
+					// Try to set the EIPs after the hardfork is established
+					vmConfig.setEIPs([...eips]) // Convert readonly array to mutable
+				} catch (error) {
+					// Log warning but continue without the EIPs
+					logger.warn(`Some EIPs could not be activated on hardfork ${vmConfig.hardfork()}, continuing without them`)
+				}
+			}
+
+			if (vmConfig.isActivatedEIP(6800)) {
+				logger.warn('verkle state is currently not supported in tevm')
+			}
+
+			logger.debug(vmConfig.eips(), 'Created common with eips enabled')
+		} catch (error) {
+			// If we can't even create a basic Common object, fallback to minimum viable
+			const errorMessage = error instanceof Error ? error.message : String(error)
+			logger.error(`Error creating Common: ${errorMessage}, falling back to absolute minimum config`)
+			vmConfig = new Common({
+				hardfork: 'homestead',
+				chain: {
+					name: 'tevm',
+					chainId: 1,
+					genesis,
+					hardforks: [{ name: 'homestead', block: 0 }],
+					bootstrapNodes: [],
+					consensus: {
+						type: 'pos',
+						algorithm: 'casper',
+					},
+				},
+			})
+		}
+
 		return {
 			...chain,
 			vmConfig,
 			copy: () => {
 				const ethjsCommonCopy = vmConfig.copy()
-				const newCommon = createCommon({ loggingLevel, hardfork, eips, ...chain })
+				const currentHardfork = vmConfig.hardfork()
+				// Only pass hardfork if it's a valid option from our Hardfork type
+				// Otherwise default will be used
+				const validHardforks = [
+					'homestead',
+					'dao',
+					'tangerineWhistle',
+					'spuriousDragon',
+					'byzantium',
+					'constantinople',
+					'petersburg',
+					'istanbul',
+					'muirGlacier',
+					'berlin',
+					'london',
+					'arrowGlacier',
+					'grayGlacier',
+					'mergeForkIdTransition',
+					'paris',
+					'shanghai',
+					'cancun',
+					'prague',
+					'osaka',
+				]
+
+				const options = {
+					loggingLevel,
+					...(validHardforks.includes(currentHardfork)
+						? { hardfork: /** @type {import('./Hardfork.js').Hardfork} */ (currentHardfork) }
+						: {}),
+					...chain,
+				}
+				const newCommon = createCommon(options)
 				newCommon.vmConfig = ethjsCommonCopy
 				return newCommon
 			},

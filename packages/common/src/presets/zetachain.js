@@ -27,5 +27,5 @@ export const zetachain = createCommon({
 	..._zetachain,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

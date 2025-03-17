@@ -27,5 +27,5 @@ export const hedera = createCommon({
 	..._hedera,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

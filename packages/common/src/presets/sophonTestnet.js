@@ -27,5 +27,5 @@ export const sophonTestnet = createCommon({
 	..._sophonTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

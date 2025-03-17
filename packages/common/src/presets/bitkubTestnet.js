@@ -27,5 +27,5 @@ export const bitkubTestnet = createCommon({
 	..._bitkubTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

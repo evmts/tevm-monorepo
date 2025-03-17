@@ -27,5 +27,5 @@ export const berachainTestnet = createCommon({
 	..._berachainTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

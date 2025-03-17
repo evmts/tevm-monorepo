@@ -27,5 +27,5 @@ export const filecoinHyperspace = createCommon({
 	..._filecoinHyperspace,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

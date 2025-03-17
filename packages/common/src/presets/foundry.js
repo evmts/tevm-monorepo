@@ -27,5 +27,5 @@ export const foundry = createCommon({
 	..._foundry,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

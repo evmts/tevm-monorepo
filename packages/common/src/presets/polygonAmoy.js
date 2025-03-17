@@ -27,5 +27,5 @@ export const polygonAmoy = createCommon({
 	..._polygonAmoy,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

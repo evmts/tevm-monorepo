@@ -6,9 +6,9 @@
 
 # Function: isLegacyTx()
 
-> **isLegacyTx**(`tx`): `tx is LegacyTransaction`
+> **isLegacyTx**(`tx`): `tx is LegacyTx`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:103
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:119
 
 ## Parameters
 
@@ -18,4 +18,4 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 ## Returns
 
-`tx is LegacyTransaction`
+`tx is LegacyTx`

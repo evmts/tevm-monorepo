@@ -27,5 +27,5 @@ export const rootstock = createCommon({
 	..._rootstock,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

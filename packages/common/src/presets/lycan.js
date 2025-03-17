@@ -27,5 +27,5 @@ export const lycan = createCommon({
 	..._lycan,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

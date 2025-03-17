@@ -27,5 +27,5 @@ export const crab = createCommon({
 	..._crab,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

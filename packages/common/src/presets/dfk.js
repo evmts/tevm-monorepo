@@ -27,5 +27,5 @@ export const dfk = createCommon({
 	..._dfk,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

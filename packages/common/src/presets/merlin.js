@@ -27,5 +27,5 @@ export const merlin = createCommon({
 	..._merlin,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

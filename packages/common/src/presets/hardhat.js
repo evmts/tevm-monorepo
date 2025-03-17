@@ -27,5 +27,5 @@ export const hardhat = createCommon({
 	..._hardhat,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

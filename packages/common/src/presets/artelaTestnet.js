@@ -27,5 +27,5 @@ export const artelaTestnet = createCommon({
 	..._artelaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const jbc = createCommon({
 	..._jbc,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const skaleCryptoBlades = createCommon({
 	..._skaleCryptoBlades,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

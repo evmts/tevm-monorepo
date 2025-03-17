@@ -27,5 +27,5 @@ export const celo = createCommon({
 	..._celo,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

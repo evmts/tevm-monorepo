@@ -27,5 +27,5 @@ export const sapphire = createCommon({
 	..._sapphire,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

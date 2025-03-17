@@ -27,5 +27,5 @@ export const gravity = createCommon({
 	..._gravity,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

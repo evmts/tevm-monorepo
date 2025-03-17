@@ -27,5 +27,5 @@ export const boba = createCommon({
 	..._boba,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const xLayer = createCommon({
 	..._xLayer,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

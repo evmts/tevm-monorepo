@@ -27,5 +27,5 @@ export const skaleHumanProtocol = createCommon({
 	..._skaleHumanProtocol,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

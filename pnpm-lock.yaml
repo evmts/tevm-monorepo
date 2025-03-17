@@ -2003,9 +2003,6 @@ importers:
       '@tevm/address':
         specifier: workspace:^
         version: link:../address
-      '@tevm/common':
-        specifier: workspace:^
-        version: link:../common
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors

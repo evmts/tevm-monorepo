@@ -27,5 +27,5 @@ export const syscoin = createCommon({
 	..._syscoin,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

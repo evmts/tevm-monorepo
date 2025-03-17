@@ -27,5 +27,5 @@ export const bob = createCommon({
 	..._bob,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const edgewareTestnet = createCommon({
 	..._edgewareTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

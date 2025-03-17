@@ -27,5 +27,5 @@ export const immutableZkEvmTestnet = createCommon({
 	..._immutableZkEvmTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

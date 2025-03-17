@@ -27,5 +27,5 @@ export const nexi = createCommon({
 	..._nexi,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

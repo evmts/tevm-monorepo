@@ -27,5 +27,5 @@ export const bearNetworkChainMainnet = createCommon({
 	..._bearNetworkChainMainnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

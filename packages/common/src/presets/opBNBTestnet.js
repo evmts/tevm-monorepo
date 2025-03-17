@@ -27,5 +27,5 @@ export const opBNBTestnet = createCommon({
 	..._opBNBTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })
