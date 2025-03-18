@@ -1,6 +1,7 @@
 import { createAddress } from "@tevm/address";
 import { bytesToHex, numberToHex } from "viem";
 import { prefetchStorageFromAccessList } from "./prefetchStorageFromAccessList.js";
+import { ethCreateAccessListProcedure } from "../eth/ethCreateAccessListProcedure.js";
 
 /**
  * Sets up a proxy around the fork transport to detect storage-related requests
@@ -32,54 +33,71 @@ export const setupPrefetchProxy = (client, evmInput, params) => {
     client.logger.debug(
       "First storage request detected, triggering prefetch",
     );
-    /**
-     * @type {import("../eth/EthJsonRpcResponse.js").EthCreateAccessListJsonRpcResponse['result']}
-     */
-    const accessList = await originalRequest({
+
+    const blockTag = await (async () => {
+      const vm = await client.getVm();
+      const forkedBlock = vm.blockchain.blocksByTag.get("forked");
+
+      if (!forkedBlock) {
+        client.logger.error("Unexpected no fork block");
+        return "latest";
+      }
+      if (!params.blockTag) {
+        return numberToHex(forkedBlock.header.number);
+      }
+      const requestedBlock = await vm.blockchain.getBlockByTag(
+        params.blockTag,
+      );
+      if (requestedBlock.header.number >= forkedBlock.header.number) {
+        return numberToHex(forkedBlock.header.number);
+      }
+      return numberToHex(requestedBlock.header.number);
+    })();
+
+    const from = (
+      evmInput.caller ??
+      evmInput.origin ??
+      createAddress(0)
+    ).toString();
+
+    const to = evmInput.to?.toString() ?? params.to;
+    const gas = evmInput.gasLimit ? numberToHex(evmInput.gasLimit) : undefined;
+    const gasPrice = evmInput.gasPrice ? numberToHex(evmInput.gasPrice) : undefined;
+    const value = evmInput.value ? numberToHex(evmInput.value) : undefined;
+    const data = evmInput.data ? bytesToHex(evmInput.data) : undefined;
+
+    // Skip if we don't have a 'to' address
+    if (!to) {
+      client.logger.error("Cannot create access list without a 'to' address");
+      return;
+    }
+
+    const createAccessListFn = ethCreateAccessListProcedure(client);
+    const response = await createAccessListFn({
+      jsonrpc: "2.0",
       method: "eth_createAccessList",
       params: [
         {
-          from: (
-            evmInput.caller ??
-            evmInput.origin ??
-            createAddress(0)
-          ).toString(),
-          ...(evmInput.to ? { to: evmInput.to.toString() } : {}),
-          ...(evmInput.gasLimit ? { gas: numberToHex(evmInput.gasLimit) } : {}),
-          ...(evmInput.gasPrice
-            ? { gasPrice: numberToHex(evmInput.gasPrice) }
-            : {}),
-          ...(evmInput.value ? { value: numberToHex(evmInput.value) } : {}),
-          ...(evmInput.data ? { data: bytesToHex(evmInput.data) } : {}),
+          from,
+          to, // Now this is guaranteed to be defined
+          ...(gas ? { gas } : {}),
+          ...(gasPrice ? { gasPrice } : {}),
+          ...(value ? { value } : {}),
+          ...(data ? { data } : {})
         },
-        await (async () => {
-          const vm = await client.getVm();
-          const forkedBlock = vm.blockchain.blocksByTag.get("forked");
-
-          if (!forkedBlock) {
-            client.logger.error("Unexpected no fork block");
-            return "latest";
-          }
-          if (!params.blockTag) {
-            return forkedBlock.header.number;
-          }
-          const requestedBlock = await vm.blockchain.getBlockByTag(
-            params.blockTag,
-          );
-          if (requestedBlock.header.number >= forkedBlock.header.number) {
-            return forkedBlock.header.number;
-          }
-          return requestedBlock.header.number;
-        })(),
+        blockTag
       ],
+      id: 1
     });
-    if (!accessList) {
+
+    if (!response.result) {
       client.logger.error(
         "Unexpected no access list returned from eth_createAccessList"
       );
       return;
     }
-    prefetchStorageFromAccessList(client, accessList).catch((error) => {
+
+    prefetchStorageFromAccessList(client, response.result).catch((error) => {
       client.logger.error(
         { error },
         "Error during storage prefetching after first storage request",
