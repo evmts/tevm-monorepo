@@ -1,6 +1,6 @@
 import { createAddress } from "@tevm/address";
-import { prefetchStorageFromAccessList } from "./prefetchStorageFromAccessList.js";
 import { bytesToHex, numberToHex } from "viem";
+import { prefetchStorageFromAccessList } from "./prefetchStorageFromAccessList.js";
 
 /**
  * Sets up a proxy around the fork transport to detect storage-related requests
@@ -14,14 +14,24 @@ import { bytesToHex, numberToHex } from "viem";
 export const setupPrefetchProxy = (client, evmInput, params) => {
   if (!client.forkTransport) return client;
   const forkTransport = client.forkTransport;
-
-  let hasPrefetched = false;
-  // Store the original request function
   const originalRequest = forkTransport.request.bind(forkTransport);
 
-  const doPrefetch = async () => {
-    if (hasPrefetched) return;
+  let hasPrefetched = false;
+  forkTransport.request = async (request) => {
+    if (!hasPrefetched && ['eth_getStorageAt', 'eth_getProof'].includes(request.method)) {
+      doPrefetch();// don't await on purpose
+    }
+    return originalRequest(request)
+  };
+
+  return client;
+
+  async function doPrefetch() {
+    if (hasPrefetched) throw new Error('Tried to prefetch twice!')
     hasPrefetched = true;
+    client.logger.debug(
+      "First storage request detected, triggering prefetch",
+    );
     /**
      * @type {import("../eth/EthJsonRpcResponse.js").EthCreateAccessListJsonRpcResponse['result']}
      */
@@ -45,6 +55,7 @@ export const setupPrefetchProxy = (client, evmInput, params) => {
         await (async () => {
           const vm = await client.getVm();
           const forkedBlock = vm.blockchain.blocksByTag.get("forked");
+
           if (!forkedBlock) {
             client.logger.error("Unexpected no fork block");
             return "latest";
@@ -72,23 +83,4 @@ export const setupPrefetchProxy = (client, evmInput, params) => {
       );
     });
   };
-
-  forkTransport.request = async (request) => {
-    // Check if this is a storage-related request
-    if (
-      request.method === "eth_getStorageAt" ||
-      request.method === "eth_getProof"
-    ) {
-      client.logger.debug(
-        { method: request.method },
-        "First storage request detected, triggering prefetch",
-      );
-      doPrefetch();
-    }
-
-    // Forward the request to the original implementation
-    return originalRequest(request);
-  };
-
-  return client;
 };
