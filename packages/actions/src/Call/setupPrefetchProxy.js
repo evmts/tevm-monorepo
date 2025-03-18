@@ -74,7 +74,10 @@ export const setupPrefetchProxy = (client, evmInput, params) => {
       ],
     });
     if (!accessList) {
-      return Promise.reject("Unexpected no access list returned");
+      client.logger.error(
+        "Unexpected no access list returned from eth_createAccessList"
+      );
+      return;
     }
     prefetchStorageFromAccessList(client, accessList).catch((error) => {
       client.logger.error(
