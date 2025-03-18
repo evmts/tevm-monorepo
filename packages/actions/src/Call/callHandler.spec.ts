@@ -11,6 +11,7 @@ import {
 	encodeDeployData,
 	encodeFunctionData,
 	hexToBytes,
+	parseAbi,
 	parseEther,
 } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
@@ -919,4 +920,41 @@ describe('callHandler', () => {
 		expect(errors?.[0]).toBeInstanceOf(MisconfiguredClientError)
 		expect(errors).toMatchSnapshot()
 	})
+
+	it('should execute a contract call with access list', async () => {
+		// Set up a contract address and bytecode
+		const contractAddress = ERC20_ADDRESS
+		
+		// Deploy the contract just like in the first test
+		const client = createTevmNode()
+		const result = await setAccountHandler(client)({
+			address: contractAddress,
+			deployedBytecode: ERC20_BYTECODE,
+		})
+		expect(result.errors).toBeUndefined()
+		
+		// Call the contract with createAccessList option enabled
+		const callResult = await callHandler(client)({
+			to: contractAddress,
+			createAccessList: true,
+			data: encodeFunctionData({
+				abi: ERC20_ABI,
+				functionName: 'balanceOf',
+				args: [contractAddress],
+			}),
+		})
+		
+		// Verify the access list is present in the result
+		expect(callResult.accessList).toBeDefined()
+		expect(Object.keys(callResult.accessList || {}).length).toBeGreaterThan(0)
+		
+		// Log the access list for inspection
+		console.log('Access list contains storage slots for these addresses:')
+		for (const [address, slots] of Object.entries(callResult.accessList || {})) {
+			console.log(`Address ${address} has storage slots: ${Array.from(slots).join(', ')}`)
+		}
+		
+		// The contract address should be in the access list
+		expect(callResult.accessList?.[contractAddress.toLowerCase()]).toBeDefined()
+	}
 })
