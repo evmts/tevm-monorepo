@@ -26,7 +26,7 @@ client.tevmContract({
   onStep: async (info, next) => {
     const pc = info.pc;
     // Get the deployed bytecode source map for the contract
-    const sourceMapStr = solcOutput.contracts["empty.s.sol"]["EmptyRunner"].evm.deployedBytecode.sourceMap;
+    const sourceMapStr = artifacts[EmptyRunner.name!].evm.deployedBytecode.sourceMap;
 
     // Parse the source map (this is a simplified example)
     const entries = sourceMapStr.split(',').map(entry => {

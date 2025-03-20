@@ -353,4 +353,96 @@ describe(getScriptSnapshotDecorator.name, () => {
 		// Verify logger was called
 		expect(logger.info).toHaveBeenCalled()
 	})
+
+	it('should handle query parameters in Solidity file paths', () => {
+		// Setup bundler mock with tracking for parameter values
+		const resolveDtsSyncMock = vi.fn().mockReturnValue({
+			code: 'export const Contract = { /* generated code */ }',
+			asts: {},
+			solcInput: {}
+		});
+
+		vi.mocked(bundler).mockReturnValue({
+			name: 'mock-bundler',
+			config: {} as any,
+			resolveDts: vi.fn(),
+			resolveTsModule: vi.fn(),
+			resolveTsModuleSync: vi.fn(),
+			resolveCjsModule: vi.fn(),
+			resolveCjsModuleSync: vi.fn(),
+			resolveEsmModule: vi.fn(),
+			resolveEsmModuleSync: vi.fn(),
+			resolveDtsSync: resolveDtsSyncMock,
+		} as any);
+
+		const decorator = getScriptSnapshotDecorator(cache)(
+			{ languageServiceHost, project } as any,
+			typescript,
+			logger,
+			config,
+			fao
+		);
+
+		// Test case 1: With both parameters set to true
+		const filePath1 = path.join(__dirname, '../test/fixtures/Contract.sol?includeBytecode=true&includeAst=true');
+		decorator.getScriptSnapshot(filePath1);
+
+		// Check that resolveDtsSync was called with correct parameters
+		expect(resolveDtsSyncMock).toHaveBeenCalledWith(
+			path.join(__dirname, '../test/fixtures/Contract.sol'),
+			expect.any(String),
+			true,
+			true
+		);
+
+		resolveDtsSyncMock.mockClear();
+
+		// Test case 2: With includeAst true, includeBytecode false
+		const filePath2 = path.join(__dirname, '../test/fixtures/Contract.sol?includeAst=true&includeBytecode=false');
+		decorator.getScriptSnapshot(filePath2);
+
+		expect(resolveDtsSyncMock).toHaveBeenCalledWith(
+			path.join(__dirname, '../test/fixtures/Contract.sol'),
+			expect.any(String),
+			true,
+			false
+		);
+
+		resolveDtsSyncMock.mockClear();
+
+		// Test case 3: With includeAst false, includeBytecode true
+		const filePath3 = path.join(__dirname, '../test/fixtures/Contract.sol?includeAst=false&includeBytecode=true');
+		decorator.getScriptSnapshot(filePath3);
+
+		expect(resolveDtsSyncMock).toHaveBeenCalledWith(
+			path.join(__dirname, '../test/fixtures/Contract.sol'),
+			expect.any(String),
+			false,
+			true
+		);
+
+		resolveDtsSyncMock.mockClear();
+
+		// Test case 4: With both parameters false
+		const filePath4 = path.join(__dirname, '../test/fixtures/Contract.sol?includeAst=false&includeBytecode=false');
+		decorator.getScriptSnapshot(filePath4);
+
+		expect(resolveDtsSyncMock).toHaveBeenCalledWith(
+			path.join(__dirname, '../test/fixtures/Contract.sol'),
+			expect.any(String),
+			false,
+			false
+		);
+
+		// Test case 5: With .s.sol AND includeBytecode=false (naming convention should be overridden by query param)
+		const filePath5 = path.join(__dirname, '../test/fixtures/Contract.s.sol?includeBytecode=false');
+		decorator.getScriptSnapshot(filePath5);
+
+		expect(resolveDtsSyncMock).toHaveBeenCalledWith(
+			path.join(__dirname, '../test/fixtures/Contract.s.sol'),
+			expect.any(String),
+			false,
+			false
+		);
+	});
 })

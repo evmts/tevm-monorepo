@@ -53,6 +53,8 @@ import { bunFileAccesObject } from './bunFileAccessObject.js'
  * ```typescript
  * // Import Solidity contracts directly
  * import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
+ * // Import with query parameters for bytecode and AST
+ * import { MyContract } from './MyContract.sol?includeBytecode=true&includeAst=true'
  * import { createMemoryClient } from 'tevm'
  *
  * // Access contract metadata
@@ -167,8 +169,23 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 			 * 4. Sets up file watching for live reload
 			 */
 			build.onLoad({ filter: /\.sol$/ }, async ({ path }) => {
+				// Parse file path to extract query parameters
+				const { filePath, queryParams } = (() => {
+					const [filePath, queryString] = path.split('?')
+					if (!filePath) throw new Error('expectedFilePath')
+					return {
+						filePath,
+						queryParams: new URLSearchParams(queryString ?? '')
+					}
+				})()
+
 				// Check for pre-generated files
-				const filePaths = [`${path}.ts`, `${path}.js`, `${path}.mjs`, `${path}.cjs`]
+				const filePaths = [
+					`${filePath}.ts`,
+					`${filePath}.js`,
+					`${filePath}.mjs`,
+					`${filePath}.cjs`
+				]
 				const existsArr = await Promise.all(filePaths.map((filePath) => bunFileAccesObject.exists(filePath)))
 				for (const [i, exists] of existsArr.entries()) {
 					if (exists) {
@@ -179,15 +196,16 @@ export const bunPluginTevm = ({ solc = defaultSolc.version }) => {
 					}
 				}
 
-				// Determine if this is a script (.s.sol) file, which needs bytecode
-				const resolveBytecode = path.endsWith('.s.sol')
+				// Determine compilation options from query params or file extension
+				const includeBytecode = queryParams.get('includeBytecode') === 'true' || filePath.endsWith('.s.sol')
+				const includeAst = queryParams.get('includeAst') === 'true'
 
 				// Compile the Solidity file
 				const { code: contents, modules } = await moduleResolver.resolveEsmModule(
-					path,
+					filePath,
 					process.cwd(),
-					false, // Don't include AST
-					resolveBytecode, // Include bytecode for script files
+					includeAst,
+					includeBytecode,
 				)
 
 				// Set up file watching for all non-node_modules dependencies

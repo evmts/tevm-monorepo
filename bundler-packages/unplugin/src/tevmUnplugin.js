@@ -77,7 +77,9 @@ export const tevmUnplugin = (options = {}) => {
 			moduleResolver = bundler(config, console, fao, versionedSolc, solcCache, contractPackage)
 		},
 		loadInclude: (id) => {
-			return id.endsWith('.sol') && !fao.existsSync(`${id}.ts`) && !fao.existsSync(`${id}.d.ts`)
+			// Extract base path without query parameters
+			const basePath = id.includes('.sol') ? /** @type {string}*/(id.split('?')[0]) : id
+			return basePath.endsWith('.sol') && !fao.existsSync(`${basePath}.ts`) && !fao.existsSync(`${basePath}.d.ts`)
 		},
 		async resolveId(id, importer) {
 			// to handle the case where the import is coming from a node_module or a different workspace
@@ -92,9 +94,27 @@ export const tevmUnplugin = (options = {}) => {
 			return null
 		},
 		async load(id) {
-			const resolveBytecode = id.endsWith('.s.sol')
+			// Parse file path to extract query parameters
+			const { filePath, queryParams } = (() => {
+				const [filePath, queryString] = id.split('?')
+				if (!filePath) throw new Error('expectedFilePath')
+				return {
+					filePath,
+					queryParams: new URLSearchParams(queryString ?? '')
+				}
+			})()
 
-			const { code, modules } = await moduleResolver.resolveEsmModule(id, process.cwd(), false, resolveBytecode)
+			// Determine compilation options from query params or file extension
+			const includeBytecode = queryParams.get('includeBytecode') !== null ? queryParams.get('includeBytecode') === 'true' : filePath.endsWith('.s.sol')
+			const includeAst = queryParams.get('includeAst') === 'true'
+
+			const { code, modules } = await moduleResolver.resolveEsmModule(
+				filePath,
+				process.cwd(),
+				includeAst,
+				includeBytecode
+			)
+
 			Object.values(modules).forEach((module) => {
 				if (module.id.includes('node_modules')) {
 					return

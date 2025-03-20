@@ -16,7 +16,7 @@
   },
   "files.eol": "\n",
   "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "editorconfig.generateAuto": false,
   "files.trimTrailingWhitespace": true,

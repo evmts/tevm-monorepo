@@ -20,27 +20,43 @@ export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 				if (filePath.endsWith('.json')) {
 					return resolveJsonAsConst(config, filePath, fao, languageServiceHost, ts)
 				}
+
+				// Parse file path to extract query parameters
+				const { fileName, queryParams } = (() => {
+					if (isSolidity(filePath.split('?')[0])) {
+						const [fileName, queryString] = filePath.split('?')
+						return { fileName, queryParams: new URLSearchParams(queryString ?? '') }
+					}
+					return { fileName: filePath, queryParams: new URLSearchParams('') }
+				})()
+
 				if (
-					!isSolidity(filePath) ||
-					!existsSync(filePath) ||
-					existsSync(`${filePath}.d.ts`) ||
-					existsSync(`${filePath}.ts`)
+					!isSolidity(fileName) ||
+					!existsSync(fileName) ||
+					existsSync(`${fileName}.d.ts`) ||
+					existsSync(`${fileName}.ts`)
 				) {
 					return languageServiceHost.getScriptSnapshot(filePath)
 				}
+
 				try {
 					const plugin = bundler(config, logger as any, fao, solc, solcCache)
-					const resolveBytecode = filePath.endsWith('.s.sol')
-					const snapshot = plugin.resolveDtsSync(filePath, process.cwd(), false, resolveBytecode)
+
+					// Check for explicit query parameters or fall back to naming convention
+					const includeBytecode = queryParams.get('includeBytecode') === 'true' || fileName.endsWith('.s.sol')
+					const includeAst = queryParams.get('includeAst') === 'true'
+
+					const snapshot = plugin.resolveDtsSync(fileName, process.cwd(), includeAst, includeBytecode)
+
 					if (config.debug) {
 						writeFileSync(
-							`${filePath}.debug.d.ts`,
-							`// Debug: the following snapshot is what tevm resolves ${filePath} to\n${snapshot.code}`,
+							`${fileName}.debug.d.ts`,
+							`// Debug: the following snapshot is what tevm resolves ${fileName} to\n${snapshot.code}`,
 						)
 					}
 					return ts.ScriptSnapshot.fromString(snapshot.code)
 				} catch (e) {
-					logger.error(`@tevm/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${filePath}`)
+					logger.error(`@tevm/ts-plugin: getScriptSnapshotDecorator was unable to resolve dts for ${fileName}`)
 					logger.error(e as any)
 					return ts.ScriptSnapshot.fromString('export {}')
 				}
