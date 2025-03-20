@@ -470,7 +470,7 @@ export type SolcStorageLayoutItem<T extends SolcStorageLayoutTypes = SolcStorage
 	 */
 	slot: string
 	/**
-	 * The identifier used as a key the to variable's type information in the {@link SolcStorageLayoutTypes} record
+	 * The identifier used as a key to the variable's type information in the {@link SolcStorageLayoutTypes} record
 	 */
 	type: keyof T
 }
@@ -501,7 +501,7 @@ export interface SolcStorageLayoutTypeBase {
 	 */
 	encoding: 'inplace' | 'mapping' | 'dynamic_array' | 'bytes'
 	/**
-	 * The cononical type name
+	 * The canonical type name
 	 */
 	label: string
 	/**
