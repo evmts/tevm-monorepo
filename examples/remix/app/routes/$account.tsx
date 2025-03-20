@@ -5,6 +5,10 @@ import { toast } from 'sonner';
 
 import { useConfigStore } from '../lib/store/use-config';
 import { useProviderStore } from '../lib/store/use-provider';
+import { formatUnits } from '../lib/utils';
+import { Heading } from '../components/common/typography';
+import ShrinkedAddress from '../components/common/shrinked-address';
+import Interact from '../components/core/interact';
 
 export default function AccountPage() {
   const params = useParams();
@@ -55,33 +59,51 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Account: {accountState.address}</h1>
+    <div className="space-y-8">
+      <div className="flex flex-col items-start gap-2">
+        <Heading level={1} className="flex items-center gap-2">
+          <span>{accountState.isContract ? 'Contract' : 'Account'}</span>
+          <ShrinkedAddress address={accountState.address} className="font-mono text-muted-foreground" />
+        </Heading>
+        <p className="text-sm text-muted-foreground">
+          On {chain.name} ({chain.id})
+        </p>
+      </div>
       
-      <div className="rounded-lg border p-4">
-        <div className="grid grid-cols-2 gap-4">
+      <div className="rounded-lg border p-6">
+        <Heading level={2} className="mb-4">Account Details</Heading>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           <div>
-            <h3 className="font-medium">Balance</h3>
-            <p>{accountState.balance.toString()} wei</p>
+            <h3 className="text-sm font-medium text-muted-foreground">Balance</h3>
+            <p className="mt-1 font-medium">
+              {formatUnits(accountState.balance)} ETH
+            </p>
           </div>
           <div>
-            <h3 className="font-medium">Nonce</h3>
-            <p>{accountState.nonce.toString()}</p>
+            <h3 className="text-sm font-medium text-muted-foreground">Nonce</h3>
+            <p className="mt-1 font-medium">{accountState.nonce.toString()}</p>
           </div>
           <div>
-            <h3 className="font-medium">Type</h3>
-            <p>{accountState.isContract ? 'Contract' : 'EOA'}</p>
+            <h3 className="text-sm font-medium text-muted-foreground">Type</h3>
+            <p className="mt-1 font-medium">
+              {accountState.isContract ? 'Contract' : 'Externally Owned Account'}
+            </p>
           </div>
           {accountState.isContract && abi && (
             <div>
-              <h3 className="font-medium">Functions</h3>
-              <p>{abi.length} found</p>
+              <h3 className="text-sm font-medium text-muted-foreground">Functions</h3>
+              <p className="mt-1 font-medium">{abi.length} found</p>
             </div>
           )}
         </div>
       </div>
 
-      {/* TODO: Add the contract interaction components here */}
+      {accountState.isContract && (
+        <div className="rounded-lg border p-6">
+          <Heading level={2} className="mb-4">Contract Interaction</Heading>
+          <Interact />
+        </div>
+      )}
     </div>
   );
 }

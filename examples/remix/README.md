@@ -56,6 +56,22 @@ There are a few issues/pitfalls to be aware of:
 - WhatsABI might struggle with proxies, currently the app doesn't support redirecting to the implementation contract.
 - Currently, to use Tevm on the browser, we need to expose the API keys to the browser (for RPC queries). This is definitely not ideal, but the only way to be able to use Tevm clients synced with local storage.
 
+### Implementation Status
+
+This Remix implementation is a work in progress with the following features:
+
+- ✅ Basic UI components and layout
+- ✅ Chain selection and forking
+- ✅ Contract and account state display
+- ✅ Contract ABI fetching and detection
+- ✅ Caller selection and impersonation
+- ✅ Skip balance toggle
+- ✅ Contract read function interface
+- 🚧 Contract write function interface (coming soon)
+- 🚧 Arbitrary call interface (coming soon)
+- 🚧 Transaction history tracking (coming soon)
+- 🚧 ChainID validation and network switching (coming soon)
+
 ## Architecture
 
 ```ml
@@ -104,10 +120,12 @@ See the following sections for the code specific to the libraries, state managem
   - **account state**: [account-state](./app/components/core/account-state.tsx)
 - Interact
   - **caller selection**: [caller](./app/components/core/selection/caller.tsx)
-  - **arbitrary call**: [arbitrary-call](./app/components/core/arbitrary-call.tsx)
+  - **skip balance selection**: [skip-balance](./app/components/core/selection/skip-balance.tsx)
   - **contract interface**: [interface](./app/components/core/interface/index.tsx)
+    - **read functions**: [read-functions](./app/components/core/interface/read-functions.tsx)
+    - **result display**: [result](./app/components/core/interface/result.tsx)
 - History
-  - **tx history**: [tx-history](./app/components/core/tx-history/index.tsx)
+  - **tx history**: [tx-history](./app/components/core/tx-history/index.tsx) (Coming soon)
 
 ## Getting started
 

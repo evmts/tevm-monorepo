@@ -2,6 +2,7 @@ import { ABI, ABIFunction } from '@shazow/whatsabi/lib.types/abi';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { getAddress, Hex, isHex } from 'tevm/utils';
+import { formatUnits as vFormatUnits } from 'viem';
 
 import { ExpectedType } from './types/tx';
 
@@ -171,4 +172,33 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     console.error('Failed to copy text: ', error);
     return false;
   }
+}
+
+/**
+ * @notice Format wei (or other unit) value to a human-readable ETH value
+ * @param value The value in wei to format
+ * @param decimals The number of decimals (18 for ETH)
+ * @returns Formatted string with ETH value and up to 6 decimal places
+ */
+export function formatUnits(
+  value: bigint | string | number,
+  decimals = 18
+): string {
+  const formatted = vFormatUnits(BigInt(value.toString()), decimals);
+  
+  // If the value is a whole number, return without decimals
+  if (formatted.endsWith('.0')) {
+    return formatted.slice(0, -2);
+  }
+  
+  // Trim trailing zeros and the decimal point if needed
+  const trimmed = formatted.replace(/\.?0+$/, '');
+  
+  // Limit to 6 decimal places for readability
+  const parts = trimmed.split('.');
+  if (parts.length === 2 && parts[1].length > 6) {
+    return `${parts[0]}.${parts[1].slice(0, 6)}`;
+  }
+  
+  return trimmed;
 }
