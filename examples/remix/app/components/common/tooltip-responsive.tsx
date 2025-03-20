@@ -1,20 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
 
 type TooltipResponsiveProps = {
-  children: React.ReactNode;
-  content: React.ReactNode;
-  side?: 'top' | 'right' | 'bottom' | 'left';
-  align?: 'start' | 'center' | 'end';
-  disabled?: boolean;
-  className?: string;
-};
+	children: React.ReactNode
+	content: React.ReactNode
+	side?: 'top' | 'right' | 'bottom' | 'left'
+	align?: 'start' | 'center' | 'end'
+	disabled?: boolean
+	className?: string
+}
 
 /**
  * @notice A tooltip component that can be conditionally disabled
@@ -27,27 +22,27 @@ type TooltipResponsiveProps = {
  * @returns A component that displays a tooltip when hovering over the trigger
  */
 const TooltipResponsive = ({
-  children,
-  content,
-  side = 'top',
-  align = 'center',
-  disabled = false,
-  className,
+	children,
+	content,
+	side = 'top',
+	align = 'center',
+	disabled = false,
+	className,
 }: TooltipResponsiveProps) => {
-  if (disabled) {
-    return <>{children}</>;
-  }
+	if (disabled) {
+		return <>{children}</>
+	}
 
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent side={side} align={align} className={className}>
-          {content}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-};
+	return (
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger asChild>{children}</TooltipTrigger>
+				<TooltipContent side={side} align={align} className={className}>
+					{content}
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
+	)
+}
 
-export default TooltipResponsive;
+export default TooltipResponsive

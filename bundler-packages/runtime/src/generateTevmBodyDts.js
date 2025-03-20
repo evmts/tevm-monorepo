@@ -93,7 +93,6 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 					' * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation',
 					...natspec,
 					' */',
-
 				].filter(Boolean)
 			})
 			.join('\n')}

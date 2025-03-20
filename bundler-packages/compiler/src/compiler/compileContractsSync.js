@@ -87,13 +87,18 @@ export function compileContractSync(filePath, basedir, config, includeAst, inclu
 		settings: {
 			outputSelection: {
 				'*': {
-					'*': ['abi', 'userdoc', ...(includeBytecode ? evmBytecode : []),    ...(includeAst
-            ? /** @type {['evm.deployedBytecode.sourceMap', 'evm.bytecode.sourceMap', 'metadata']}*/([
-                'evm.deployedBytecode.sourceMap', // Source map for deployed code
-                'evm.bytecode.sourceMap',         // Source map for creation code
-                'metadata'                        // Additional metadata for debugging
-              ])
-            : [])],
+					'*': [
+						'abi',
+						'userdoc',
+						...(includeBytecode ? evmBytecode : []),
+						...(includeAst
+							? /** @type {['evm.deployedBytecode.sourceMap', 'evm.bytecode.sourceMap', 'metadata']}*/ ([
+									'evm.deployedBytecode.sourceMap', // Source map for deployed code
+									'evm.bytecode.sourceMap', // Source map for creation code
+									'metadata', // Additional metadata for debugging
+								])
+							: []),
+					],
 					...(includeAst ? { '': ['ast'] } : {}),
 				},
 			},
