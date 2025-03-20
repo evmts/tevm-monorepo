@@ -7,6 +7,12 @@
 ## Interfaces
 
 - [Solc](interfaces/Solc.md)
+- [SolcStorageLayoutBytesType](interfaces/SolcStorageLayoutBytesType.md)
+- [SolcStorageLayoutDynamicArrayType](interfaces/SolcStorageLayoutDynamicArrayType.md)
+- [SolcStorageLayoutInplaceType](interfaces/SolcStorageLayoutInplaceType.md)
+- [SolcStorageLayoutMappingType](interfaces/SolcStorageLayoutMappingType.md)
+- [SolcStorageLayoutStructType](interfaces/SolcStorageLayoutStructType.md)
+- [SolcStorageLayoutTypeBase](interfaces/SolcStorageLayoutTypeBase.md)
 
 ## Type Aliases
 
@@ -38,6 +44,10 @@
 - [SolcSettings](type-aliases/SolcSettings.md)
 - [SolcSourceEntry](type-aliases/SolcSourceEntry.md)
 - [SolcSourceLocation](type-aliases/SolcSourceLocation.md)
+- [SolcStorageLayout](type-aliases/SolcStorageLayout.md)
+- [SolcStorageLayoutItem](type-aliases/SolcStorageLayoutItem.md)
+- [SolcStorageLayoutOutput](type-aliases/SolcStorageLayoutOutput.md)
+- [SolcStorageLayoutTypes](type-aliases/SolcStorageLayoutTypes.md)
 - [SolcVersions](type-aliases/SolcVersions.md)
 - [SolcYulDetails](type-aliases/SolcYulDetails.md)
 

@@ -8,7 +8,7 @@
 
 > **SolcDeployedBytecodeOutput**: `object`
 
-Defined in: [solcTypes.ts:477](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L477)
+Defined in: [solcTypes.ts:613](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L613)
 
 ## Type declaration
 

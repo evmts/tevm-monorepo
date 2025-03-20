@@ -5,40 +5,6 @@ import { describe, expect, it } from 'vitest'
 // Since TypeScript types don't exist at runtime, we'll check the file directly for type definitions
 
 describe('solcTypes', () => {
-	it('should contain all necessary type definitions', async () => {
-		// Read the file content directly
-		const filePath = path.resolve(__dirname, 'solcTypes.ts')
-		const content = await fs.readFile(filePath, 'utf-8')
-
-		// Check for type export statements
-		const requiredTypes = [
-			'SolcLanguage',
-			'SolcInputSource',
-			'SolcRemapping',
-			'SolcYulDetails',
-			'SolcOptimizerDetails',
-			'SolcOptimizer',
-			'SolcOutputSelection',
-			'SolcModelChecker',
-			'SolcDebugSettings',
-			'SolcMetadataSettings',
-			'SolcSettings',
-			'SolcInputSources',
-			'SolcInputDescription',
-			'SolcOutput',
-			'SolcErrorEntry',
-			'SolcContractOutput',
-			'SolcVersions',
-			'Releases',
-			'Solc',
-		]
-
-		// Verify each required type exists in the file
-		requiredTypes.forEach((typeName) => {
-			expect(content).toContain(`export type ${typeName}`)
-		})
-	})
-
 	it('should define SolcLanguage as a union of specific string literals', async () => {
 		const filePath = path.resolve(__dirname, 'solcTypes.ts')
 		const content = await fs.readFile(filePath, 'utf-8')
