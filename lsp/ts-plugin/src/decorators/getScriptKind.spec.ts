@@ -140,29 +140,4 @@ describe(getScriptKindDecorator.name, () => {
 		expect(decorated.getScriptKind?.('/home/user/projects/script.js')).toBe(typescript.ScriptKind.JS)
 		expect(createInfo.languageServiceHost.getScriptKind).toHaveBeenLastCalledWith('/home/user/projects/script.js')
 	})
-
-	it('Should correctly handle Solidity files with query parameters', () => {
-		const decorated = getScriptKindDecorator(createInfo, typescript, logger, config, fao);
-
-		// Test relative Solidity paths with query parameters
-		expect(decorated.getScriptKind?.('./Contract.sol?includeBytecode=true&includeAst=true')).toBe(typescript.ScriptKind.TS);
-		expect(decorated.getScriptKind?.('../Contract.sol?includeBytecode=false')).toBe(typescript.ScriptKind.TS);
-		expect(decorated.getScriptKind?.('./nested/Contract.sol?includeAst=true')).toBe(typescript.ScriptKind.TS);
-
-		// Test non-relative Solidity paths with query parameters
-		expect(decorated.getScriptKind?.('Contract.sol?includeBytecode=true')).toBe(typescript.ScriptKind.External);
-		expect(decorated.getScriptKind?.('/absolute/path/Contract.sol?includeAst=true')).toBe(typescript.ScriptKind.External);
-		expect(decorated.getScriptKind?.('C:\\projects\\Contract.sol?includeBytecode=true')).toBe(typescript.ScriptKind.External);
-
-		// Make sure non-Solidity files are still handled by the original implementation
-		createInfo.languageServiceHost.getScriptKind.mockReturnValue(typescript.ScriptKind.JS);
-		expect(decorated.getScriptKind?.('./script.js?raw=true')).toBe(typescript.ScriptKind.JS);
-		expect(createInfo.languageServiceHost.getScriptKind).toHaveBeenLastCalledWith('./script.js?raw=true');
-
-		// Confirm that the original implementation is called with the full path including query parameters
-		const tsFilePath = './module.ts?query=param';
-		createInfo.languageServiceHost.getScriptKind.mockReturnValue(typescript.ScriptKind.TS);
-		expect(decorated.getScriptKind?.(tsFilePath)).toBe(typescript.ScriptKind.TS);
-		expect(createInfo.languageServiceHost.getScriptKind).toHaveBeenLastCalledWith(tsFilePath);
-	});
 })

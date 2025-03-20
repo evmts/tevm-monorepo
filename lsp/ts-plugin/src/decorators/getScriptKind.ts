@@ -7,10 +7,7 @@ import { isRelativeSolidity, isSolidity } from '../utils/index.js'
  */
 export const getScriptKindDecorator = createHostDecorator((createInfo, ts, logger, config) => {
 	return {
-		getScriptKind: (filePath) => {
-			// Extract the base filename without query parameters
-			const fileName = filePath.includes('.sol') ? filePath.split('?')[0] : filePath
-
+		getScriptKind: (fileName) => {
 			// TODO we should check if it is using ts baseUrl or paths in future
 			if (isRelativeSolidity(fileName)) {
 				return ts.ScriptKind.TS
@@ -21,7 +18,7 @@ export const getScriptKindDecorator = createHostDecorator((createInfo, ts, logge
 			if (!createInfo.languageServiceHost.getScriptKind) {
 				return ts.ScriptKind.Unknown
 			}
-			return createInfo.languageServiceHost.getScriptKind(filePath)
+			return createInfo.languageServiceHost.getScriptKind(fileName)
 		},
 	}
 })

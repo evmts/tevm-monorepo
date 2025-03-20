@@ -333,7 +333,7 @@ describe('getDefinitionServiceDecorator', () => {
 				return mockGenerator()
 			}
 			// Empty generator for other types
-			return (function* () { })()
+			return (function* () {})()
 		})
 
 		const mockBundlerInstance: MockBundler = {
@@ -422,7 +422,7 @@ describe('getDefinitionServiceDecorator', () => {
 		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
 
 		// Mock findAll to return generator that yields nothing
-		vi.mocked(findAll).mockReturnValue((function* () { })())
+		vi.mocked(findAll).mockReturnValue((function* () {})())
 
 		const decoratedService = getDefinitionServiceDecorator(
 			mockLanguageService,
@@ -534,7 +534,7 @@ describe('getDefinitionServiceDecorator', () => {
 				return mockGenerator()
 			}
 			// Empty generator for other types
-			return (function* () { })()
+			return (function* () {})()
 		})
 
 		// Create a service and manually mock its method
@@ -586,7 +586,7 @@ describe('getDefinitionServiceDecorator', () => {
 				return mockGenerator()
 			}
 			// Empty generator for other types
-			return (function* () { })()
+			return (function* () {})()
 		})
 
 		// Create a decorated service with a mock language service
@@ -716,7 +716,7 @@ describe('getDefinitionServiceDecorator', () => {
 				return mockGenerator()
 			}
 			// Empty generator for other types
-			return (function* () { })()
+			return (function* () {})()
 		})
 
 		// Return null for findNode to test that code path
@@ -771,7 +771,7 @@ describe('getDefinitionServiceDecorator', () => {
 					yield { name: 'targetFunction' } as unknown as Node
 				})()
 			}
-			return (function* () { })()
+			return (function* () {})()
 		})
 
 		// Original TS definitions
@@ -828,68 +828,5 @@ describe('getDefinitionServiceDecorator', () => {
 		// Call the method through the proxy and verify it was called correctly
 		decoratedService.getReferencesAtPosition?.('someFile.ts', 42)
 		expect(mockGetReferences).toHaveBeenCalledWith('someFile.ts', 42)
-	})
-
-	it('should parse query parameters from Solidity file paths', () => {
-		// Setup the bundler mock
-		const mockResolveDtsSync = vi.fn().mockReturnValue({
-			asts: { file1: {} },
-			solcInput: {},
-		})
-
-		const mockBundlerInstance: MockBundler = {
-			name: 'mock-bundler',
-			config: {} as ResolvedCompilerConfig,
-			resolveDts: vi.fn(),
-			resolveTsModule: vi.fn(),
-			resolveTsModuleSync: vi.fn(),
-			resolveCjsModule: vi.fn(),
-			resolveCjsModuleSync: vi.fn(),
-			resolveEsmModule: vi.fn(),
-			resolveEsmModuleSync: vi.fn(),
-			resolveDtsSync: mockResolveDtsSync,
-		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
-
-		// Mock function to return matching definition
-		vi.mocked(findAll).mockImplementation((type) => {
-			if (type === 'FunctionDefinition') {
-				return (function* () {
-					yield { name: 'some text' } as unknown as Node
-				})()
-			}
-			return (function* () { })()
-		})
-
-		const decoratedService = getDefinitionServiceDecorator(
-			mockLanguageService,
-			{} as any,
-			mockLogger as any,
-			typescript,
-			fao,
-			createCache(tmpdir(), fao, tmpdir()),
-		)
-
-		// Test case 1: With both parameters set to true
-		decoratedService.getDefinitionAtPosition('Contract.sol?includeBytecode=true&includeAst=true', 42)
-		expect(mockResolveDtsSync).toHaveBeenCalledWith('/bar/Contract.sol', process.cwd(), true, true)
-
-		vi.clearAllMocks()
-
-		// Test case 2: With both parameters set to false
-		decoratedService.getDefinitionAtPosition('Contract.sol?includeBytecode=false&includeAst=false', 42)
-		expect(mockResolveDtsSync).toHaveBeenCalledWith('/bar/Contract.sol', process.cwd(), false, false)
-
-		vi.clearAllMocks()
-
-		// Test case 3: With only includeAst parameter
-		decoratedService.getDefinitionAtPosition('Contract.sol?includeAst=true', 42)
-		expect(mockResolveDtsSync).toHaveBeenCalledWith('/bar/Contract.sol', process.cwd(), true, true)
-
-		vi.clearAllMocks()
-
-		// Test case 4: Without any parameters (default values should be used)
-		decoratedService.getDefinitionAtPosition('Contract.sol', 42)
-		expect(mockResolveDtsSync).toHaveBeenCalledWith('/bar/Contract.sol', process.cwd(), true, true)
 	})
 })

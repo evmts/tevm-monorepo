@@ -8,7 +8,7 @@ import type { SolcInput } from 'solidity-ast/solc.js'
 import { findAll } from 'solidity-ast/utils.js'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
 import type { Logger } from '../factories/logger.js'
-import { findNode, isSolidity } from '../utils/index.js'
+import { findNode } from '../utils/index.js'
 import { convertSolcAstToTsDefinitionInfo, findContractDefinitionFileNameFromTevmNode } from '../utils/index.js'
 
 /**
@@ -42,14 +42,7 @@ export const getDefinitionServiceDecorator = (
 	fao: FileAccessObject,
 	solcCache: Cache,
 ): typescript.LanguageService => {
-	const getDefinitionAtPosition: typeof service.getDefinitionAtPosition = (filePath, position) => {
-		const { fileName, queryParams } = (() => {
-			if (isSolidity(filePath.split('?')[0])) {
-				const [fileName, queryString] = filePath.split('?')
-				return { fileName, queryParams: new URLSearchParams(queryString ?? '') }
-			}
-			return { fileName: filePath, queryParams: new URLSearchParams('') }
-		})()
+	const getDefinitionAtPosition: typeof service.getDefinitionAtPosition = (fileName, position) => {
 		const definition = service.getDefinitionAtPosition(fileName, position)
 		const sourceFile = service.getProgram()?.getSourceFile(fileName)
 		const node = sourceFile && findNode(sourceFile, position)
@@ -58,9 +51,8 @@ export const getDefinitionServiceDecorator = (
 			return definition
 		}
 		const plugin = bundler(config, logger as any, fao, solc, solcCache)
-		const includeAst = queryParams.get('includeAst') === null ? true : queryParams.get('includeAst') === 'true'
-		const includeBytecode = queryParams.get('includeBytecode') === null ? true : queryParams.get('includeBytecode') === 'true'
-		const { asts, solcInput } = plugin.resolveDtsSync(ContractPath, process.cwd(), includeAst, includeBytecode)
+		const includedAst = true
+		const { asts, solcInput } = plugin.resolveDtsSync(ContractPath, process.cwd(), includedAst, false)
 		if (!asts) {
 			logger.error(`@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${ContractPath}`)
 			return definition
