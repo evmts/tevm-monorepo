@@ -8,7 +8,7 @@
 
 > **SolcFunctionDebugData**: `object`
 
-Defined in: [solcTypes.ts:484](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L484)
+Defined in: [solcTypes.ts:620](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L620)
 
 ## Type declaration
 

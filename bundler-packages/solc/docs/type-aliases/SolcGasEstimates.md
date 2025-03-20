@@ -8,7 +8,7 @@
 
 > **SolcGasEstimates**: `object`
 
-Defined in: [solcTypes.ts:504](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L504)
+Defined in: [solcTypes.ts:640](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L640)
 
 ## Type declaration
 

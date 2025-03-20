@@ -8,7 +8,7 @@
 
 > **Releases**: `object`
 
-Defined in: [solcTypes.ts:638](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L638)
+Defined in: [solcTypes.ts:774](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L774)
 
 ## Type declaration
 
