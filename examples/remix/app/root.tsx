@@ -6,8 +6,29 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google";
+
+import { METADATA_BASE } from "./lib/constants/site";
+import { cn } from "./lib/utils";
+import { Toaster } from "./components/ui/sonner";
+import { TooltipProvider } from "./components/ui/tooltip";
+import { ThemeProvider } from "./components/config/theme-provider";
+import { ThemeSwitcher } from "./components/config/theme-switcher";
+import BaseLayout from "./components/layouts/base";
+import ContainerLayout from "./components/layouts/container";
 
 import "./tailwind.css";
+
+/* ---------------------------------- FONTS --------------------------------- */
+export const fontSans = FontSans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+});
+
+export const fontMono = FontMono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+});
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,15 +45,34 @@ export const links: LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={METADATA_BASE.description} />
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className={cn(
+        "bg-background flex min-h-screen flex-col font-sans antialiased",
+        fontSans.variable,
+        fontMono.variable,
+      )}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>
+            {children}
+            <ThemeSwitcher />
+          </TooltipProvider>
+          <Toaster
+            position="bottom-left"
+            closeButton
+          />
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -41,5 +81,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <BaseLayout>
+      <ContainerLayout>
+        <Outlet />
+      </ContainerLayout>
+    </BaseLayout>
+  );
 }
