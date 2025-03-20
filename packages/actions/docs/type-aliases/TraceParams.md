@@ -38,3 +38,16 @@ Currently only callTracer supported
 > `readonly` `optional` **tracerConfig**: `object`
 
 object to specify configurations for the tracer
+
+#### tracerConfig.diffMode?
+
+> `readonly` `optional` **diffMode**: `boolean`
+
+boolean When set to true, diff mode returns the differences between the transaction's pre and post-state.
+The result object will contain a pre and a post object.
+
+#### tracerConfig.onlyTopCall?
+
+> `readonly` `optional` **onlyTopCall**: `boolean`
+
+boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason).

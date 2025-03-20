@@ -14,6 +14,10 @@ A mapping of `debug_*` method names to their return type
 
 ## Type declaration
 
+### debug\_traceBlock
+
+> **debug\_traceBlock**: `DebugTraceBlockJsonRpcResponse`
+
 ### debug\_traceCall
 
 > **debug\_traceCall**: `DebugTraceCallJsonRpcResponse`

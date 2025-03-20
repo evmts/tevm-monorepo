@@ -8,6 +8,6 @@
 
 > **DebugTraceCallParams**: [`TraceParams`](../../index/type-aliases/TraceParams.md) & [`EthCallParams`](EthCallParams.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:35
+Defined in: packages/actions/types/debug/DebugParams.d.ts:54
 
 Params taken by `debug_traceCall` handler
