@@ -1,4 +1,5 @@
 export { traceCallHandler } from './traceCallHandler.js'
+export { debugTraceBlockJsonRpcProcedure } from './traceBlockJsonRpcProcedure.js'
 export * from './DebugParams.js'
 export * from './DebugResult.js'
 export * from './DebugHandler.js'

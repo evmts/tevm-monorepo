@@ -1,7 +1,7 @@
-const title = 'Tevm - Remix example';
-const description = 'Remix example using Tevm';
-const authorUrl = 'https://twitter.com/0xpolarzero';
-const websiteUrl = 'https://tevm.sh';
+const title = "Tevm - Remix example";
+const description = "Remix example using Tevm";
+const authorUrl = "https://twitter.com/0xpolarzero";
+const websiteUrl = "https://tevm.sh";
 
 /* -------------------------------------------------------------------------- */
 /*                                  METADATA                                  */
@@ -14,7 +14,7 @@ export const METADATA_BASE = {
   title: title,
   description: description,
   applicationName: title,
-  authors: [{ url: authorUrl, name: 'polarzero' }],
+  authors: [{ url: authorUrl, name: "polarzero" }],
   keywords: [],
 };
 
@@ -23,6 +23,6 @@ export const METADATA_BASE = {
  */
 export const METADATA_EXTRA = {
   links: {
-    github: 'https://github.com/evmts/tevm-monorepo/tree/main/examples/remix',
+    github: "https://github.com/evmts/tevm-monorepo/tree/main/examples/remix",
   },
 };

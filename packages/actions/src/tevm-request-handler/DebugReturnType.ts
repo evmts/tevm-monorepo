@@ -1,4 +1,5 @@
 import type {
+	DebugTraceBlockJsonRpcResponse,
 	DebugTraceCallJsonRpcResponse,
 	DebugTraceTransactionJsonRpcResponse,
 } from '../debug/DebugJsonRpcResponse.js'
@@ -9,4 +10,5 @@ import type {
 export type DebugReturnType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcResponse
 	debug_traceCall: DebugTraceCallJsonRpcResponse
+	debug_traceBlock: DebugTraceBlockJsonRpcResponse
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export interface LogEntry {
   pc: number;
@@ -45,25 +45,158 @@ const useDebugger = (sourceCode: string) => {
   // Mock execution steps for demonstration
   const executionSteps: ExecutionStep[] = [
     { pc: 0, line: 3, opcode: 'PUSH1', stack: [], memory: {}, gas: 1000000 },
-    { pc: 2, line: 5, opcode: 'MSTORE', stack: ['0x80', '0x40'], memory: { '0x40': '0x80' }, gas: 999997 },
-    { pc: 3, line: 7, opcode: 'CALLVALUE', stack: [], memory: { '0x40': '0x80' }, gas: 999994 },
-    { pc: 4, line: 7, opcode: 'DUP1', stack: ['0x0'], memory: { '0x40': '0x80' }, gas: 999992 },
-    { pc: 5, line: 8, opcode: 'ISZERO', stack: ['0x0', '0x0'], memory: { '0x40': '0x80' }, gas: 999989 },
-    { pc: 6, line: 8, opcode: 'PUSH2', stack: ['0x1'], memory: { '0x40': '0x80' }, gas: 999986 },
-    { pc: 9, line: 8, opcode: 'JUMPI', stack: ['0x1', '0x010c'], memory: { '0x40': '0x80' }, gas: 999983 },
-    { pc: 10, line: 9, opcode: 'PUSH1', stack: [], memory: { '0x40': '0x80' }, gas: 999980 },
-    { pc: 12, line: 9, opcode: 'DUP1', stack: ['0x0'], memory: { '0x40': '0x80' }, gas: 999977 },
-    { pc: 13, line: 9, opcode: 'REVERT', stack: ['0x0', '0x0'], memory: { '0x40': '0x80' }, gas: 999974 },
-    { pc: 268, line: 12, opcode: 'JUMPDEST', stack: [], memory: { '0x40': '0x80' }, gas: 999971 },
-    { pc: 269, line: 13, opcode: 'PUSH1', stack: [], memory: { '0x40': '0x80' }, gas: 999968 },
-    { pc: 271, line: 13, opcode: 'PUSH1', stack: ['0x0'], memory: { '0x40': '0x80' }, gas: 999965 },
-    { pc: 273, line: 13, opcode: 'MLOAD', stack: ['0x0', '0x40'], memory: { '0x40': '0x80' }, gas: 999962 },
-    { pc: 274, line: 14, opcode: 'SWAP1', stack: ['0x0', '0x80'], memory: { '0x40': '0x80' }, gas: 999959 },
-    { pc: 275, line: 14, opcode: 'POP', stack: ['0x80', '0x0'], memory: { '0x40': '0x80' }, gas: 999956 },
-    { pc: 276, line: 15, opcode: 'PUSH1', stack: ['0x80'], memory: { '0x40': '0x80' }, gas: 999953 },
-    { pc: 278, line: 15, opcode: 'MSTORE', stack: ['0x80', '0x40'], memory: { '0x40': '0x80' }, gas: 999950 },
-    { pc: 279, line: 17, opcode: 'CALLVALUE', stack: [], memory: { '0x40': '0x80' }, gas: 999947 },
-    { pc: 280, line: 17, opcode: 'DUP1', stack: ['0x0'], memory: { '0x40': '0x80' }, gas: 999944 },
+    {
+      pc: 2,
+      line: 5,
+      opcode: 'MSTORE',
+      stack: ['0x80', '0x40'],
+      memory: { '0x40': '0x80' },
+      gas: 999997,
+    },
+    {
+      pc: 3,
+      line: 7,
+      opcode: 'CALLVALUE',
+      stack: [],
+      memory: { '0x40': '0x80' },
+      gas: 999994,
+    },
+    {
+      pc: 4,
+      line: 7,
+      opcode: 'DUP1',
+      stack: ['0x0'],
+      memory: { '0x40': '0x80' },
+      gas: 999992,
+    },
+    {
+      pc: 5,
+      line: 8,
+      opcode: 'ISZERO',
+      stack: ['0x0', '0x0'],
+      memory: { '0x40': '0x80' },
+      gas: 999989,
+    },
+    {
+      pc: 6,
+      line: 8,
+      opcode: 'PUSH2',
+      stack: ['0x1'],
+      memory: { '0x40': '0x80' },
+      gas: 999986,
+    },
+    {
+      pc: 9,
+      line: 8,
+      opcode: 'JUMPI',
+      stack: ['0x1', '0x010c'],
+      memory: { '0x40': '0x80' },
+      gas: 999983,
+    },
+    {
+      pc: 10,
+      line: 9,
+      opcode: 'PUSH1',
+      stack: [],
+      memory: { '0x40': '0x80' },
+      gas: 999980,
+    },
+    {
+      pc: 12,
+      line: 9,
+      opcode: 'DUP1',
+      stack: ['0x0'],
+      memory: { '0x40': '0x80' },
+      gas: 999977,
+    },
+    {
+      pc: 13,
+      line: 9,
+      opcode: 'REVERT',
+      stack: ['0x0', '0x0'],
+      memory: { '0x40': '0x80' },
+      gas: 999974,
+    },
+    {
+      pc: 268,
+      line: 12,
+      opcode: 'JUMPDEST',
+      stack: [],
+      memory: { '0x40': '0x80' },
+      gas: 999971,
+    },
+    {
+      pc: 269,
+      line: 13,
+      opcode: 'PUSH1',
+      stack: [],
+      memory: { '0x40': '0x80' },
+      gas: 999968,
+    },
+    {
+      pc: 271,
+      line: 13,
+      opcode: 'PUSH1',
+      stack: ['0x0'],
+      memory: { '0x40': '0x80' },
+      gas: 999965,
+    },
+    {
+      pc: 273,
+      line: 13,
+      opcode: 'MLOAD',
+      stack: ['0x0', '0x40'],
+      memory: { '0x40': '0x80' },
+      gas: 999962,
+    },
+    {
+      pc: 274,
+      line: 14,
+      opcode: 'SWAP1',
+      stack: ['0x0', '0x80'],
+      memory: { '0x40': '0x80' },
+      gas: 999959,
+    },
+    {
+      pc: 275,
+      line: 14,
+      opcode: 'POP',
+      stack: ['0x80', '0x0'],
+      memory: { '0x40': '0x80' },
+      gas: 999956,
+    },
+    {
+      pc: 276,
+      line: 15,
+      opcode: 'PUSH1',
+      stack: ['0x80'],
+      memory: { '0x40': '0x80' },
+      gas: 999953,
+    },
+    {
+      pc: 278,
+      line: 15,
+      opcode: 'MSTORE',
+      stack: ['0x80', '0x40'],
+      memory: { '0x40': '0x80' },
+      gas: 999950,
+    },
+    {
+      pc: 279,
+      line: 17,
+      opcode: 'CALLVALUE',
+      stack: [],
+      memory: { '0x40': '0x80' },
+      gas: 999947,
+    },
+    {
+      pc: 280,
+      line: 17,
+      opcode: 'DUP1',
+      stack: ['0x0'],
+      memory: { '0x40': '0x80' },
+      gas: 999944,
+    },
   ];
 
   const [currentStepIndex, setCurrentStepIndex] = useState(-1);
@@ -138,8 +271,8 @@ const useDebugger = (sourceCode: string) => {
           [`0x${Math.floor(Math.random() * 1000)
             .toString(16)
             .padStart(4, '0')}`]: `0x${Math.floor(Math.random() * 1000000)
-              .toString(16)
-              .padStart(8, '0')}`,
+            .toString(16)
+            .padStart(8, '0')}`,
         }));
       }
 

@@ -1,14 +1,14 @@
-import { ABI } from '@shazow/whatsabi/lib.types/abi';
-import { toast } from 'sonner';
-import { GetAccountResult } from 'tevm';
-import { Address } from 'tevm/utils';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { ABI } from "@shazow/whatsabi/lib.types/abi";
+import { toast } from "sonner";
+import { GetAccountResult } from "tevm";
+import { Address } from "tevm/utils";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-import { UpdateAccountOptions } from '../types/config';
-import { DEFAULT_CALLER } from '../constants/defaults';
-import { TEVM_PREFIX } from '../local-storage';
-import { fetchAbi } from '../whatsabi';
+import { UpdateAccountOptions } from "../types/config";
+import { DEFAULT_CALLER } from "../constants/defaults";
+import { TEVM_PREFIX } from "../local-storage";
+import { fetchAbi } from "../whatsabi";
 
 /* ---------------------------------- TYPES --------------------------------- */
 type ConfigInitialState = {
@@ -68,22 +68,22 @@ export const useConfigStore = create<ConfigStore>()(
         // If we can't be sure if it's a contract, we can attempt to fetch the abi anyway
         if (updateAbi && account.isContract) {
           // TODO maybe it's bad practice to manage the toast here—i.e. in a zuistand store?
-          const toastId = toast.loading('Fetching ABI');
+          const toastId = toast.loading("Fetching ABI");
 
           const { success, data: abi } = await fetchAbi(account.address, chain);
 
           // Set the abi in the store if it's successful
           if (success && abi && abi.length > 0) {
             set({ abi });
-            toast.success('ABI fetched', {
+            toast.success("ABI fetched", {
               id: toastId,
             });
           } else {
             set({ abi: null });
-            toast.error('Failed to retrieve the ABI', {
+            toast.error("Failed to retrieve the ABI", {
               id: toastId,
               description:
-                'Please make sure this contract is deployed on the selected chain.',
+                "Please make sure this contract is deployed on the selected chain.",
             });
           }
         } else {
@@ -112,7 +112,7 @@ export const useConfigStore = create<ConfigStore>()(
         skipBalance: state.skipBalance,
       }),
       onRehydrateStorage: () => async (state, error) => {
-        if (error) console.error('Failed to rehydrate config store:', error);
+        if (error) console.error("Failed to rehydrate config store:", error);
         if (!state) return;
 
         const { hydrate } = state;

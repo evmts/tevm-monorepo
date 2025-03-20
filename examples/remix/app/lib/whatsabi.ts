@@ -1,7 +1,7 @@
-import { ABI } from '@shazow/whatsabi/lib.types/abi';
-import { Address } from 'tevm/utils';
+import { ABI } from "@shazow/whatsabi/lib.types/abi";
+import { Address } from "tevm/utils";
 
-import { Chain } from './types/providers';
+import { Chain } from "./types/providers";
 
 /* ---------------------------------- TYPES --------------------------------- */
 /**
@@ -27,7 +27,7 @@ type FetchAbi = (
 
 // Make sure to get a name for any function, so we can call it with Tevm
 export const getFunctionName = (funcOrEvent: ABI[number], index: number) => {
-  return funcOrEvent.type === 'event'
+  return funcOrEvent.type === "event"
     ? funcOrEvent.name
     : funcOrEvent.name ||
         funcOrEvent.sig ||
@@ -45,11 +45,11 @@ export const fetchAbi: FetchAbi = async (contractAddress, chain) => {
   // Get the default api url for the chain (if it exists)
   const apiUrl = chain.blockExplorers?.default.apiUrl;
 
-  const response = await fetch('/api/abi', {
+  const response = await fetch("/api/abi", {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       chainId: chain.id,
       contractAddress,
@@ -58,7 +58,7 @@ export const fetchAbi: FetchAbi = async (contractAddress, chain) => {
   });
 
   if (!response.ok) {
-    console.error('Failed to fetch abi:', response);
+    console.error("Failed to fetch abi:", response);
     return { success: false, data: null };
   }
 

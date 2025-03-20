@@ -1,8 +1,8 @@
+import { useConfigStore } from '@/lib/store/use-config';
 import ArbitraryCall from '@/components/core/arbitrary-call';
+import DebuggerToggle from '@/components/core/debugger';
 import Interface from '@/components/core/interface';
 import CallerSelection from '@/components/core/selection/caller';
-import DebuggerToggle from '@/components/core/debugger';
-import { useConfigStore } from '@/lib/store/use-config';
 
 /**
  * @notice The main interaction component, where the user can select a caller, call a method

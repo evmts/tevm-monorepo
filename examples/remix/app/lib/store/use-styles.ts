@@ -1,9 +1,9 @@
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type Config = {
-  style: 'new-york';
-  theme: 'neutral';
+  style: "new-york";
+  theme: "neutral";
   radius: number;
 };
 
@@ -16,12 +16,12 @@ type Config = {
 export const useStylesStore = create(
   persist<Config>(
     () => ({
-      style: 'new-york',
-      theme: 'neutral',
+      style: "new-york",
+      theme: "neutral",
       radius: 0.5,
     }),
     {
-      name: 'shadcn-styles',
+      name: "shadcn-styles",
       storage: createJSONStorage(() => localStorage),
     },
   ),

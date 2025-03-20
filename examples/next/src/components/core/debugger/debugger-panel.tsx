@@ -1,28 +1,33 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ChevronDown,
   ChevronUp,
-  Play,
-  Pause,
-  StepForward,
-  SkipForward,
   CornerUpLeft,
-  RotateCcw
+  Pause,
+  Play,
+  RotateCcw,
+  SkipForward,
+  StepForward,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
+import useDebugger from '@/lib/hooks/use-debugger';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+import LogsPanel from './logs-panel';
+import MemoryPanel from './memory-panel';
 import SourceCodeViewer from './source-code-viewer';
 import StackPanel from './stack-panel';
-import MemoryPanel from './memory-panel';
 import StoragePanel from './storage-panel';
-import LogsPanel from './logs-panel';
-import useDebugger from '@/lib/hooks/use-debugger';
 
 interface DebuggerPanelProps {
   contractAddress: string;
@@ -59,11 +64,13 @@ const DebuggerPanel = ({
     step,
     continue: continueExecution,
     pause,
-    reset
+    reset,
   } = useDebugger(sourceCode);
 
   // Mock source code if none provided
-  const displaySourceCode = sourceCode || `// SPDX-License-Identifier: MIT
+  const displaySourceCode =
+    sourceCode ||
+    `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract SimpleStorage {
@@ -87,32 +94,41 @@ contract SimpleStorage {
 }`;
 
   return (
-    <Card className="border border-border bg-background overflow-hidden">
+    <Card className="border-border bg-background overflow-hidden border">
       <div
-        className="flex items-center justify-between p-3 border-b border-border cursor-pointer"
+        className="border-border flex cursor-pointer items-center justify-between border-b p-3"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center gap-2">
           <h3 className="text-sm font-medium">Solidity Debugger</h3>
           <Badge variant="outline" className="text-xs">
-            {contractAddress.substring(0, 10)}...{contractAddress.substring(contractAddress.length - 8)}
+            {contractAddress.substring(0, 10)}...
+            {contractAddress.substring(contractAddress.length - 8)}
           </Badge>
         </div>
         <div className="flex items-center gap-2">
-          {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          {isExpanded ? (
+            <ChevronUp className="h-4 w-4" />
+          ) : (
+            <ChevronDown className="h-4 w-4" />
+          )}
         </div>
       </div>
 
       {isExpanded && (
         <>
-          <div className="flex items-center gap-2 p-2 border-b border-border bg-muted/30">
+          <div className="border-border bg-muted/30 flex items-center gap-2 border-b p-2">
             <Button
               variant="ghost"
               size="icon"
               onClick={isPaused ? continueExecution : pause}
               title={isPaused ? 'Continue' : 'Pause'}
             >
-              {isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+              {isPaused ? (
+                <Play className="h-4 w-4" />
+              ) : (
+                <Pause className="h-4 w-4" />
+              )}
             </Button>
             <Button
               variant="ghost"
@@ -146,7 +162,7 @@ contract SimpleStorage {
             >
               <RotateCcw className="h-4 w-4" />
             </Button>
-            <div className="flex items-center gap-2 ml-4 text-xs">
+            <div className="ml-4 flex items-center gap-2 text-xs">
               <span className="text-muted-foreground">PC:</span>
               <span className="font-mono">{pc}</span>
               <span className="text-muted-foreground ml-2">Opcode:</span>
@@ -156,8 +172,8 @@ contract SimpleStorage {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-b border-border">
-            <div className="border-r border-border h-[400px] overflow-auto">
+          <div className="border-border grid grid-cols-1 gap-0 border-b md:grid-cols-2">
+            <div className="border-border h-[400px] overflow-auto border-r">
               <SourceCodeViewer
                 sourceCode={displaySourceCode}
                 currentLine={currentLine}
@@ -167,22 +183,25 @@ contract SimpleStorage {
             </div>
             <div className="h-[400px]">
               <Tabs defaultValue="stack" className="h-full">
-                <TabsList className="w-full grid grid-cols-4 bg-muted/30 rounded-none">
+                <TabsList className="bg-muted/30 grid w-full grid-cols-4 rounded-none">
                   <TabsTrigger value="stack">Stack</TabsTrigger>
                   <TabsTrigger value="memory">Memory</TabsTrigger>
                   <TabsTrigger value="storage">Storage</TabsTrigger>
                   <TabsTrigger value="logs">Logs</TabsTrigger>
                 </TabsList>
-                <TabsContent value="stack" className="h-[calc(100%-40px)] m-0">
+                <TabsContent value="stack" className="m-0 h-[calc(100%-40px)]">
                   <StackPanel stack={stack} currentOpcode={opcode} pc={pc} />
                 </TabsContent>
-                <TabsContent value="memory" className="h-[calc(100%-40px)] m-0">
+                <TabsContent value="memory" className="m-0 h-[calc(100%-40px)]">
                   <MemoryPanel memory={memory} />
                 </TabsContent>
-                <TabsContent value="storage" className="h-[calc(100%-40px)] m-0">
+                <TabsContent
+                  value="storage"
+                  className="m-0 h-[calc(100%-40px)]"
+                >
                   <StoragePanel storage={storage} />
                 </TabsContent>
-                <TabsContent value="logs" className="h-[calc(100%-40px)] m-0">
+                <TabsContent value="logs" className="m-0 h-[calc(100%-40px)]">
                   <LogsPanel logs={logs} />
                 </TabsContent>
               </Tabs>

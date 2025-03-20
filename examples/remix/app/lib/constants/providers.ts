@@ -1,4 +1,4 @@
-import { createPublicClient, http, Chain as ViemChain } from 'viem';
+import { createPublicClient, http, Chain as ViemChain } from "viem";
 import {
   arbitrum,
   base,
@@ -8,14 +8,14 @@ import {
   polygon,
   sepolia,
   zora,
-} from 'viem/chains';
+} from "viem/chains";
 
-import { Chain } from '../types/providers';
+import { Chain } from "../types/providers";
 
 // TODO Create client here when top-level await is solved
 
 export const ALCHEMY_API_KEY =
-  process.env.ALCHEMY_API_KEY || '_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC';
+  process.env.ALCHEMY_API_KEY || "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
 
 // Chains that don't need an API key
 export const STANDALONE_RPC_CHAINS = [
@@ -44,73 +44,73 @@ export const CHAINS: Chain[] = [
   {
     ...arbitrum,
     custom: {
-      rpcUrl: 'https://arb-mainnet.g.alchemy.com/v2/',
+      rpcUrl: "https://arb-mainnet.g.alchemy.com/v2/",
       provider: createProvider(
         arbitrum,
-        'https://arb-mainnet.g.alchemy.com/v2/',
+        "https://arb-mainnet.g.alchemy.com/v2/",
       ),
     },
   },
   {
     ...base,
     custom: {
-      rpcUrl: 'https://base-mainnet.g.alchemy.com/v2/',
-      provider: createProvider(base, 'https://base-mainnet.g.alchemy.com/v2/'),
+      rpcUrl: "https://base-mainnet.g.alchemy.com/v2/",
+      provider: createProvider(base, "https://base-mainnet.g.alchemy.com/v2/"),
     },
   },
   {
     ...foundry,
     custom: {
-      rpcUrl: 'http://localhost:8545',
-      provider: createProvider(foundry, 'http://localhost:8545'),
+      rpcUrl: "http://localhost:8545",
+      provider: createProvider(foundry, "http://localhost:8545"),
     },
-    name: 'Local (Foundry/Hardhat)',
+    name: "Local (Foundry/Hardhat)",
   },
   {
     ...mainnet,
     custom: {
-      rpcUrl: 'https://eth-mainnet.g.alchemy.com/v2/',
+      rpcUrl: "https://eth-mainnet.g.alchemy.com/v2/",
       provider: createProvider(
         mainnet,
-        'https://eth-mainnet.g.alchemy.com/v2/',
+        "https://eth-mainnet.g.alchemy.com/v2/",
       ),
     },
   },
   {
     ...optimism,
     custom: {
-      rpcUrl: 'https://opt-mainnet.g.alchemy.com/v2/',
+      rpcUrl: "https://opt-mainnet.g.alchemy.com/v2/",
       provider: createProvider(
         optimism,
-        'https://opt-mainnet.g.alchemy.com/v2/',
+        "https://opt-mainnet.g.alchemy.com/v2/",
       ),
     },
   },
   {
     ...polygon,
     custom: {
-      rpcUrl: 'https://polygon-mainnet.g.alchemy.com/v2/',
+      rpcUrl: "https://polygon-mainnet.g.alchemy.com/v2/",
       provider: createProvider(
         polygon,
-        'https://polygon-mainnet.g.alchemy.com/v2/',
+        "https://polygon-mainnet.g.alchemy.com/v2/",
       ),
     },
   },
   {
     ...sepolia,
     custom: {
-      rpcUrl: 'https://eth-sepolia.g.alchemy.com/v2/',
+      rpcUrl: "https://eth-sepolia.g.alchemy.com/v2/",
       provider: createProvider(
         sepolia,
-        'https://eth-sepolia.g.alchemy.com/v2/',
+        "https://eth-sepolia.g.alchemy.com/v2/",
       ),
     },
   },
   {
     ...zora,
     custom: {
-      rpcUrl: 'https://rpc.zora.energy/',
-      provider: createProvider(zora, 'https://rpc.zora.energy/'),
+      rpcUrl: "https://rpc.zora.energy/",
+      provider: createProvider(zora, "https://rpc.zora.energy/"),
     },
   },
 ];

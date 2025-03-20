@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Circle } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 
 interface SourceCodeViewerProps {
@@ -33,7 +34,8 @@ const SourceCodeViewer = ({
         const lineHeight = lineElement.clientHeight;
 
         // Center the line in the viewport if possible
-        containerRef.current.scrollTop = lineTop - containerHeight / 2 + lineHeight;
+        containerRef.current.scrollTop =
+          lineTop - containerHeight / 2 + lineHeight;
       }
     }
   }, [currentLine]);
@@ -44,7 +46,7 @@ const SourceCodeViewer = ({
     return line
       .replace(
         /(pragma|contract|function|address|uint|int|bool|string|bytes|mapping|struct|event|require|emit|private|public|external|internal|view|pure|payable|returns|return)/g,
-        '<span style="color: #9d86e9;">$1</span>'
+        '<span style="color: #9d86e9;">$1</span>',
       )
       .replace(/(\/\/.*)/g, '<span style="color: #6c757d;">$1</span>')
       .replace(/(".*?")/g, '<span style="color: #f1fa8c;">$1</span>');
@@ -64,23 +66,25 @@ const SourceCodeViewer = ({
               key={lineNumber}
               className={cn(
                 'flex items-start hover:bg-gray-900',
-                isCurrentLine && 'bg-yellow-500/10'
+                isCurrentLine && 'bg-yellow-500/10',
               )}
             >
               <div
-                className="w-10 text-right pr-2 select-none text-gray-500 flex items-center justify-end cursor-pointer"
+                className="flex w-10 cursor-pointer items-center justify-end pr-2 text-right text-gray-500 select-none"
                 onClick={() => onToggleBreakpoint(lineNumber)}
               >
                 {hasBreakpoint ? (
-                  <Circle className="h-3 w-3 fill-red-500 stroke-red-500 mr-1" />
+                  <Circle className="mr-1 h-3 w-3 fill-red-500 stroke-red-500" />
                 ) : (
-                  <span className="w-3 h-3 mr-1" /> // Placeholder for spacing
+                  <span className="mr-1 h-3 w-3" /> // Placeholder for spacing
                 )}
                 {lineNumber}
               </div>
               <div
-                className={cn('flex-1 overflow-x-auto font-mono text-sm py-0.5',
-                  isCurrentLine && 'font-semibold')}
+                className={cn(
+                  'flex-1 overflow-x-auto py-0.5 font-mono text-sm',
+                  isCurrentLine && 'font-semibold',
+                )}
                 dangerouslySetInnerHTML={{
                   __html: highlightSolidity(line || ' '),
                 }}

@@ -1,25 +1,25 @@
-import { MemoryClient } from 'tevm';
-import { Address, getAddress } from 'tevm/utils';
-import { extractChain, http } from 'viem';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { MemoryClient } from "tevm";
+import { Address, getAddress } from "tevm/utils";
+import { extractChain, http } from "viem";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-import { Chain } from '../types/providers';
-import { DEFAULT_CHAIN } from '../constants/defaults';
+import { Chain } from "../types/providers";
+import { DEFAULT_CHAIN } from "../constants/defaults";
 import {
   ALCHEMY_API_KEY,
   CHAINS,
   STANDALONE_RPC_CHAINS,
-} from '../constants/providers';
-import { TEVM_PREFIX } from '../local-storage';
-import { useConfigStore } from './use-config';
+} from "../constants/providers";
+import { TEVM_PREFIX } from "../local-storage";
+import { useConfigStore } from "./use-config";
 
 /* ---------------------------------- TYPES --------------------------------- */
 type ProviderInitialState = {
   chain: Chain;
-  chainId: Chain['id']; // synced with local storage
+  chainId: Chain["id"]; // synced with local storage
   client: MemoryClient | null;
-  forkTime: Record<Chain['id'], number>; // synced with local storage
+  forkTime: Record<Chain["id"], number>; // synced with local storage
   initializedClients: MemoryClient[] | [];
   initializing: boolean;
 
@@ -31,7 +31,7 @@ type ProviderSetState = {
     chain: Chain,
     address: Address | undefined,
   ) => Promise<MemoryClient | null>;
-  setForkTime: (chainId: Chain['id'], status?: 'loading' | 'update') => void;
+  setForkTime: (chainId: Chain["id"], status?: "loading" | "update") => void;
 
   hydrate: () => void;
 };
@@ -101,9 +101,9 @@ export const useProviderStore = create<ProviderStore>()(
           // 3. If not found, initialize a new client
           if (!client) {
             // TODO TEMP await because of lazy import
-            const { createMemoryClient } = await import('tevm');
+            const { createMemoryClient } = await import("tevm");
             const { createSyncStoragePersister } = await import(
-              'tevm/sync-storage-persister'
+              "tevm/sync-storage-persister"
             );
 
             const forkUrl = chain.custom.rpcUrl;
@@ -146,19 +146,19 @@ export const useProviderStore = create<ProviderStore>()(
 
           return client;
         } catch (err) {
-          console.error('Failed to set provider:', err);
+          console.error("Failed to set provider:", err);
           set({ initializing: false });
           return null;
         }
       },
 
       // Set the fork time for a given chain
-      setForkTime: (chainId, status = 'update') => {
+      setForkTime: (chainId, status = "update") => {
         set((state) => ({
           forkTime: {
             ...state.forkTime,
             // 0 means loading, otherwise it's the timestamp
-            [chainId]: status === 'update' ? Date.now() : 0,
+            [chainId]: status === "update" ? Date.now() : 0,
           },
         }));
       },
@@ -174,7 +174,7 @@ export const useProviderStore = create<ProviderStore>()(
         forkTime: state.forkTime,
       }),
       onRehydrateStorage: () => async (state, error) => {
-        if (error) console.error('Failed to rehydrate provider store:', error);
+        if (error) console.error("Failed to rehydrate provider store:", error);
         if (!state) return;
 
         // Retrieve the full chain object from the id
@@ -182,7 +182,7 @@ export const useProviderStore = create<ProviderStore>()(
         const chain = extractChain({ chains: CHAINS, id: chainId });
 
         // In case the user is directly landing on an address page (or refreshing)
-        const addressInSearch = window.location.pathname.split('/').pop();
+        const addressInSearch = window.location.pathname.split("/").pop();
         const address = addressInSearch
           ? getAddress(addressInSearch)
           : undefined;

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Search } from 'lucide-react';
+
 import { Input } from '@/components/ui/input';
 
 interface StoragePanelProps {
@@ -15,18 +16,20 @@ const StoragePanel = ({ storage }: StoragePanelProps) => {
   const [storageFilter, setStorageFilter] = useState('');
 
   const filteredStorage = Object.entries(storage).filter(([key]) =>
-    storageFilter ? key.toLowerCase().includes(storageFilter.toLowerCase()) : true
+    storageFilter
+      ? key.toLowerCase().includes(storageFilter.toLowerCase())
+      : true,
   );
 
   return (
-    <div className="h-full p-2 overflow-auto bg-black">
-      <div className="flex items-center justify-between mb-2">
-        <div className="text-xs text-muted-foreground">Contract Storage</div>
+    <div className="h-full overflow-auto bg-black p-2">
+      <div className="mb-2 flex items-center justify-between">
+        <div className="text-muted-foreground text-xs">Contract Storage</div>
         <div className="relative w-32">
-          <Search className="absolute left-2 top-2.5 h-3 w-3 text-muted-foreground" />
+          <Search className="text-muted-foreground absolute top-2.5 left-2 h-3 w-3" />
           <Input
             placeholder="Filter..."
-            className="pl-7 h-7 text-xs"
+            className="h-7 pl-7 text-xs"
             value={storageFilter}
             onChange={(e) => setStorageFilter(e.target.value)}
           />
@@ -34,7 +37,7 @@ const StoragePanel = ({ storage }: StoragePanelProps) => {
       </div>
 
       {filteredStorage.length === 0 ? (
-        <div className="text-xs text-muted-foreground p-2 italic">
+        <div className="text-muted-foreground p-2 text-xs italic">
           {Object.keys(storage).length === 0
             ? 'Storage is empty'
             : 'No storage keys match filter'}
@@ -42,16 +45,19 @@ const StoragePanel = ({ storage }: StoragePanelProps) => {
       ) : (
         <div className="space-y-2">
           {filteredStorage.map(([key, value]) => (
-            <div key={key} className="p-2 border border-gray-800 rounded-md">
+            <div key={key} className="rounded-md border border-gray-800 p-2">
               <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">Key:</span>
-                <span className="font-mono truncate max-w-[200px]" title={key}>
+                <span className="max-w-[200px] truncate font-mono" title={key}>
                   {key}
                 </span>
               </div>
-              <div className="flex justify-between text-xs mt-1">
+              <div className="mt-1 flex justify-between text-xs">
                 <span className="text-muted-foreground">Value:</span>
-                <span className="font-mono truncate max-w-[200px]" title={value}>
+                <span
+                  className="max-w-[200px] truncate font-mono"
+                  title={value}
+                >
                   {value}
                 </span>
               </div>

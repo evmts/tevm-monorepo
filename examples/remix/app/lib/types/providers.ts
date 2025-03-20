@@ -1,4 +1,4 @@
-import { Chain as BaseChain, PublicClient } from 'viem';
+import { Chain as BaseChain, PublicClient } from "viem";
 
 /**
  * @type {Chain}

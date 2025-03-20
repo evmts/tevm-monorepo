@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import { Bug } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
+
 import DebuggerPanel from './debugger-panel';
 
 interface DebuggerToggleProps {

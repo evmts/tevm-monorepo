@@ -1,6 +1,6 @@
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { DebugTraceCallParams, DebugTraceTransactionParams } from './DebugParams.js'
+import type { DebugTraceBlockParams, DebugTraceCallParams, DebugTraceTransactionParams } from './DebugParams.js'
 
 // debug_traceTransaction
 /**
@@ -16,4 +16,17 @@ export type DebugTraceTransactionJsonRpcRequest = JsonRpcRequest<
  */
 export type DebugTraceCallJsonRpcRequest = JsonRpcRequest<'debug_traceCall', [SerializeToJson<DebugTraceCallParams>]>
 
-export type DebugJsonRpcRequest = DebugTraceTransactionJsonRpcRequest | DebugTraceCallJsonRpcRequest
+// debug_traceBlock
+/**
+ * JSON-RPC request for `debug_traceBlock` method
+ * @see https://docs.quicknode.com/api/ethereum/debug_traceblock
+ */
+export type DebugTraceBlockJsonRpcRequest = JsonRpcRequest<
+	'debug_traceBlock',
+	[SerializeToJson<DebugTraceBlockParams['block']>, SerializeToJson<DebugTraceBlockParams['traceConfig']>]
+>
+
+export type DebugJsonRpcRequest =
+	| DebugTraceTransactionJsonRpcRequest
+	| DebugTraceCallJsonRpcRequest
+	| DebugTraceBlockJsonRpcRequest

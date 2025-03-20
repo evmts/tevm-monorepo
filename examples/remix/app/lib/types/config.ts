@@ -1,6 +1,6 @@
-import { MemoryClient } from 'tevm';
+import { MemoryClient } from "tevm";
 
-import { Chain } from './providers';
+import { Chain } from "./providers";
 
 /**
  * @type {Object} UpdateAccountOptions

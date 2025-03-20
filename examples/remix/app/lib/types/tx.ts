@@ -1,6 +1,6 @@
-import { CallResult, ContractResult, GetAccountResult } from 'tevm';
-import { Log } from 'tevm/actions';
-import { Address } from 'tevm/utils';
+import { CallResult, ContractResult, GetAccountResult } from "tevm";
+import { Log } from "tevm/actions";
+import { Address } from "tevm/utils";
 
 /* ---------------------------------- UTILS --------------------------------- */
 // A type expected either as returned data by Tevm, or to be passed as input data
@@ -100,7 +100,7 @@ export type TxEntry = {
   // Output
   data: string | string[];
   decoded: boolean;
-  status: 'success' | 'revert' | 'failure';
+  status: "success" | "revert" | "failure";
   logs: Log[] | null;
   errors: TxError[] | null;
   gasUsed: string;
@@ -112,7 +112,7 @@ export type TxEntry = {
  * @type {Function} SaveTx
  * @param {TxEntry} entry The transaction to save along with its context
  */
-export type SaveTx = (entry: Omit<TxEntry, 'id'>) => void;
+export type SaveTx = (entry: Omit<TxEntry, "id">) => void;
 
 /**
  * @type {Function} FormatTx
@@ -123,4 +123,4 @@ export type SaveTx = (entry: Omit<TxEntry, 'id'>) => void;
 export type FormatTx = (
   tx: TxResponse,
   context: TxContext,
-) => Omit<TxEntry, 'id'>;
+) => Omit<TxEntry, "id">;

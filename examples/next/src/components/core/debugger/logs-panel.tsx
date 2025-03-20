@@ -16,17 +16,19 @@ interface LogsPanelProps {
  */
 const LogsPanel = ({ logs }: LogsPanelProps) => {
   return (
-    <div className="h-full p-2 overflow-auto bg-black">
-      <div className="text-xs text-muted-foreground mb-2">Console Output</div>
+    <div className="h-full overflow-auto bg-black p-2">
+      <div className="text-muted-foreground mb-2 text-xs">Console Output</div>
 
       {logs.length === 0 ? (
-        <div className="text-xs text-muted-foreground p-2 italic">No logs to display</div>
+        <div className="text-muted-foreground p-2 text-xs italic">
+          No logs to display
+        </div>
       ) : (
         <div className="space-y-1">
           {logs.map((log, index) => (
             <div
               key={index}
-              className={`text-xs font-mono border-l-2 pl-2 py-1 ${
+              className={`border-l-2 py-1 pl-2 font-mono text-xs ${
                 log.type === 'error'
                   ? 'border-red-500 text-red-400'
                   : log.type === 'warning'
@@ -34,7 +36,7 @@ const LogsPanel = ({ logs }: LogsPanelProps) => {
                     : 'border-gray-700'
               }`}
             >
-              <div className="flex justify-between text-xs text-muted-foreground mb-0.5">
+              <div className="text-muted-foreground mb-0.5 flex justify-between text-xs">
                 <span>PC: {log.pc}</span>
                 <span>{log.timestamp}</span>
               </div>

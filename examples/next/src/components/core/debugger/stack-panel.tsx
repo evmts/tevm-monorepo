@@ -1,7 +1,7 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface StackPanelProps {
   stack: string[];
@@ -22,19 +22,21 @@ const StackPanel = ({ stack, currentOpcode, pc }: StackPanelProps) => {
   ];
 
   return (
-    <div className="space-y-4 p-2 h-full overflow-auto">
+    <div className="h-full space-y-4 overflow-auto p-2">
       <Card className="bg-background border-border">
         <CardHeader className="py-2">
           <CardTitle className="text-xs font-medium">Current Opcode</CardTitle>
         </CardHeader>
         <CardContent className="py-1">
-          <div className="font-mono bg-black p-2 rounded-md text-xs">
+          <div className="rounded-md bg-black p-2 font-mono text-xs">
             <div className="font-semibold text-white">
               {pc}: {currentOpcode}
             </div>
-            <div className="text-xs text-muted-foreground mt-2">Next opcodes:</div>
+            <div className="text-muted-foreground mt-2 text-xs">
+              Next opcodes:
+            </div>
             {nextOpcodes.map((next, i) => (
-              <div key={i} className="text-xs text-muted-foreground">
+              <div key={i} className="text-muted-foreground text-xs">
                 {next.pc}: {next.op} {next.arg || ''}
               </div>
             ))}
@@ -48,7 +50,9 @@ const StackPanel = ({ stack, currentOpcode, pc }: StackPanelProps) => {
         </CardHeader>
         <CardContent className="py-1">
           {stack.length === 0 ? (
-            <div className="text-xs text-muted-foreground p-2">Stack is empty</div>
+            <div className="text-muted-foreground p-2 text-xs">
+              Stack is empty
+            </div>
           ) : (
             <div className="font-mono text-xs">
               {stack
@@ -58,14 +62,14 @@ const StackPanel = ({ stack, currentOpcode, pc }: StackPanelProps) => {
                   <div
                     key={index}
                     className={cn(
-                      'p-2 border-b last:border-0 flex justify-between',
-                      index === 0 && 'bg-muted/50' // highlight top of stack
+                      'flex justify-between border-b p-2 last:border-0',
+                      index === 0 && 'bg-muted/50', // highlight top of stack
                     )}
                   >
                     <span className="text-muted-foreground">
                       {stack.length - 1 - index}:
                     </span>
-                    <span className="truncate max-w-[200px]" title={item}>
+                    <span className="max-w-[200px] truncate" title={item}>
                       {item}
                     </span>
                   </div>

@@ -1,11 +1,11 @@
-import { ABIFunction } from '@shazow/whatsabi/lib.types/abi';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { ABIFunction } from "@shazow/whatsabi/lib.types/abi";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-import { TxEntry } from '../types/tx';
-import { TEVM_PREFIX } from '../local-storage';
+import { TxEntry } from "../types/tx";
+import { TEVM_PREFIX } from "../local-storage";
 
-import { getFunctionId } from '../utils';
+import { getFunctionId } from "../utils";
 
 /* ---------------------------------- TYPES --------------------------------- */
 // Input values
@@ -27,7 +27,7 @@ type TxInitialState = {
 
 type TxSetState = {
   // Tx history
-  saveTx: (chainId: number, tx: Omit<TxEntry, 'id'>) => void;
+  saveTx: (chainId: number, tx: Omit<TxEntry, "id">) => void;
   resetTxs: (chainId: number) => void;
   getTxs: (chainId: number) => TxEntry[];
   // Tx processing
@@ -74,7 +74,7 @@ export const useTxStore = create<TxStore>()(
 
       /* ------------------------------- PROCESSING ------------------------------- */
       // The current transaction being processed (function id or empty string for none)
-      processing: '',
+      processing: "",
       setProcessing: (value) => set({ processing: value }),
 
       /* --------------------------------- INPUTS --------------------------------- */
@@ -104,7 +104,7 @@ export const useTxStore = create<TxStore>()(
                 ...state.inputValues[id]?.args,
                 [index]: value,
               },
-              value: state.inputValues[id]?.value ?? '',
+              value: state.inputValues[id]?.value ?? "",
             },
           },
         }));
@@ -120,9 +120,9 @@ export const useTxStore = create<TxStore>()(
               ...acc,
               [id]: {
                 args: Object.fromEntries(
-                  func.inputs?.map((_, i) => [i, '']) ?? [],
+                  func.inputs?.map((_, i) => [i, ""]) ?? [],
                 ),
-                value: '',
+                value: "",
               },
             };
           }, {}),
@@ -160,7 +160,7 @@ export const useTxStore = create<TxStore>()(
         ),
       }),
       onRehydrateStorage: () => async (state, error) => {
-        if (error) console.error('Failed to rehydrate tx store:', error);
+        if (error) console.error("Failed to rehydrate tx store:", error);
         if (!state) return;
 
         const { hydrate } = state;
