@@ -31,6 +31,16 @@ describe('solcTypes', () => {
 			'SolcVersions',
 			'Releases',
 			'Solc',
+			'SolcStorageLayoutOutput',
+			'SolcStorageLayout',
+			'SolcStorageLayoutItem',
+			'SolcStorageLayoutTypes',
+			'SolcStorageLayoutTypeBase',
+			'SolcStorageLayoutInplaceType',
+			'SolcStorageLayoutBytesType',
+			'SolcStorageLayoutMappingType',
+			'SolcStorageLayoutDynamicArrayType',
+			'SolcStorageLayoutStructType',
 		]
 
 		// Verify each required type exists in the file
