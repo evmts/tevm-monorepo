@@ -1,82 +1,84 @@
 {
-	"name": "@tevm/bench",
-	"version": "0.0.0-next.39",
-	"private": true,
-	"description": "A typesafe library for writing forge scripts in typescript",
-	"keywords": [
-		"solidity",
-		"forge",
-		"foundry",
-		"sol",
-		"typescript",
-		"web3",
-		"blockchain"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "packages/bench"
-	},
-	"license": "MIT",
-	"contributors": [
-		"Will Cory <willcory10@gmail.com>"
-	],
-	"type": "module",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": {
-				"types": "./types/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			}
-		}
-	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"files": [
-		"dist",
-		"src",
-		"!src/**/*.spec.ts",
-		"types"
-	],
-	"scripts": {
-		"all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
-		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
-		"build:dist": "tsup",
-		"//build:types": "tsup --dts-only",
-		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
-		"format": "biome format . --write",
-		"format:check": "biome format .",
-		"lint": "biome check . --write --unsafe",
-		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck",
-		"bench": "vitest bench",
-		"bench:run": "vitest bench run",
-		"bench:ui": "vitest bench --ui"
-	},
-	"dependencies": {
-		"@tevm/contract": "workspace:^",
-		"@tevm/test-utils": "workspace:^",
-		"@tevm/ts-plugin": "workspace:^",
-		"@tevm/viem": "workspace:^",
-		"tevm": "workspace:^",
-		"typescript": "^5.7.3",
-		"wagmi": "^2.14.12"
-	},
-	"devDependencies": {
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^22.13.5"
-	},
-	"peerDependencies": {
-		"viem": "^2.21.1"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@tevm/bench",
+  "version": "0.0.0-next.39",
+  "private": true,
+  "description": "A typesafe library for writing forge scripts in typescript",
+  "keywords": [
+    "solidity",
+    "forge",
+    "foundry",
+    "sol",
+    "typescript",
+    "web3",
+    "blockchain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "packages/bench"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.spec.ts",
+    "types"
+  ],
+  "scripts": {
+    "all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
+    "build:dist": "tsup",
+    "//build:types": "tsup --dts-only",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "format": "biome format . --write",
+    "format:check": "biome format .",
+    "lint": "biome check . --write --unsafe",
+    "lint:check": "biome check . --verbose",
+    "lint:deps": "bunx depcheck",
+    "bench": "vitest bench",
+    "bench:run": "vitest bench run",
+    "bench:ui": "vitest bench --ui"
+  },
+  "dependencies": {
+    "@tevm/contract": "workspace:^",
+    "@tevm/precompiles": "workspace:^",
+    "@tevm/test-utils": "workspace:^",
+    "@tevm/ts-plugin": "workspace:^",
+    "@tevm/viem": "workspace:^",
+    "tevm": "workspace:^",
+    "typescript": "^5.7.3",
+    "wagmi": "^2.14.12"
+  },
+  "devDependencies": {
+    "@tevm/bun-plugin": "workspace:^",
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^",
+    "@types/node": "^22.13.5"
+  },
+  "peerDependencies": {
+    "viem": "^2.21.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
