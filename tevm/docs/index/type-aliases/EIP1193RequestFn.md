@@ -8,7 +8,7 @@
 
 > **EIP1193RequestFn**\<`TRpcSchema`\>: \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options`?) => `Promise`\<`_ReturnType`\>
 
-Defined in: packages/decorators/dist/index.d.ts:335
+Defined in: packages/decorators/dist/index.d.ts:361
 
 ## Type Parameters
 

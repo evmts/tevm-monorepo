@@ -28,4 +28,9 @@ export type MineParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThr
 		 * Interval between block timestamps. Defaults to 1.
 		 */
 		readonly interval?: number
+		/**
+		 * Alias for blockCount, used for backward compatibility.
+		 * @deprecated Use blockCount instead
+		 */
+		readonly blocks?: number
 	}

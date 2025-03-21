@@ -1,6 +1,6 @@
 import { InvalidBytecodeError, InvalidDataError, InvalidSaltError } from '@tevm/errors'
 import { validateBaseCallParams } from '../BaseCall/validateBaseCallParams.js'
-import { zCallParams } from './zCallParams.js'
+import { validateCallParamsZod } from './zCallParams.js'
 
 /**
  * @internal
@@ -10,6 +10,7 @@ import { zCallParams } from './zCallParams.js'
 /**
  * @internal
  * @param {import('../Call/CallParams.js').CallParams} action
+ * @returns {Array<ValidateCallParamsError>}
  */
 export const validateCallParams = (action) => {
 	/**
@@ -17,30 +18,28 @@ export const validateCallParams = (action) => {
 	 */
 	const errors = validateBaseCallParams(action)
 
-	const parsedParams = zCallParams.safeParse(action)
+	const validation = validateCallParamsZod(action)
 
-	if (parsedParams.success === false) {
-		const formattedErrors = parsedParams.error.format()
-
-		if (formattedErrors.salt) {
-			formattedErrors.salt._errors.forEach((error) => {
-				errors.push(new InvalidSaltError(error))
-			})
-		}
-		if (formattedErrors.data) {
-			formattedErrors.data._errors.forEach((error) => {
-				errors.push(new InvalidDataError(error))
-			})
-		}
-		if (formattedErrors.code) {
-			formattedErrors.code._errors.forEach((error) => {
-				errors.push(new InvalidBytecodeError(error))
-			})
-		}
-		if (formattedErrors._errors) {
-			formattedErrors._errors.forEach((error) => {
-				errors.push(new InvalidBytecodeError(error))
-			})
+	if (!validation.isValid) {
+		for (const error of validation.errors) {
+			switch (error.path) {
+				case 'salt':
+					errors.push(new InvalidSaltError(error.message))
+					break
+				case 'data':
+					errors.push(new InvalidDataError(error.message))
+					break
+				case 'code':
+				case 'deployedBytecode':
+					errors.push(new InvalidBytecodeError(error.message))
+					break
+				default:
+					// General errors or empty path
+					if (error.message.includes('code') || error.message.includes('bytecode')) {
+						errors.push(new InvalidBytecodeError(error.message))
+					}
+					break
+			}
 		}
 	}
 

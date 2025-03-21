@@ -8,7 +8,7 @@
 
 > **WalletPermissionCaveat**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1487
+Defined in: packages/decorators/dist/index.d.ts:1513
 
 Restrictions or conditions applied to a wallet permission.
 Used in the EIP-2255 wallet permissions system to add constraints to granted permissions.

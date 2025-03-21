@@ -8,7 +8,7 @@
 
 > **TevmSendApi**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1834
+Defined in: packages/decorators/dist/index.d.ts:1860
 
 API interface for sending JSON-RPC requests to Tevm
 Provides methods for both single and bulk requests

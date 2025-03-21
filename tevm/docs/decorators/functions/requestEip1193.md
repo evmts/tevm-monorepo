@@ -8,7 +8,7 @@
 
 > **requestEip1193**(): [`Extension`](../../index/type-aliases/Extension.md)\<[`Eip1193RequestProvider`](../../index/type-aliases/Eip1193RequestProvider.md)\>
 
-Defined in: packages/decorators/dist/index.d.ts:1805
+Defined in: packages/decorators/dist/index.d.ts:1831
 
 ## Returns
 

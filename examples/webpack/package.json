@@ -1,0 +1,29 @@
+{
+  "name": "@tevm/example-webpack",
+  "version": "0.0.1",
+  "private": true,
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "dev": "webpack serve --mode=development"
+  },
+  "dependencies": {
+    "@tevm/contract": "workspace:^",
+    "viem": "^2.23.5"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^5.2.0",
+    "@tevm/ts-plugin": "workspace:^",
+    "@tevm/webpack-plugin": "workspace:^",
+    "html-webpack-plugin": "^5.6.0",
+    "solc": "0.8.28",
+    "typescript": "^5.7.3",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}

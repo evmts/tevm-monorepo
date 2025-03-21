@@ -9,6 +9,7 @@
 - [BlobGasLimitExceededError](classes/BlobGasLimitExceededError.md)
 - [MissingAccountError](classes/MissingAccountError.md)
 - [NoForkUrlSetError](classes/NoForkUrlSetError.md)
+- [TevmSimulateCallError](classes/TevmSimulateCallError.md)
 
 ## Interfaces
 
@@ -419,6 +420,9 @@
 - [SetAccountJsonRpcRequest](type-aliases/SetAccountJsonRpcRequest.md)
 - [SetAccountParams](type-aliases/SetAccountParams.md)
 - [SetAccountResult](type-aliases/SetAccountResult.md)
+- [SimulateCallHandler](type-aliases/SimulateCallHandler.md)
+- [SimulateCallParams](type-aliases/SimulateCallParams.md)
+- [SimulateCallResult](type-aliases/SimulateCallResult.md)
 - [StateOverrideSet](type-aliases/StateOverrideSet.md)
 - [StructLog](type-aliases/StructLog.md)
 - [TevmCallError](type-aliases/TevmCallError.md)
@@ -458,7 +462,6 @@
 - [zBlockOverrideSet](variables/zBlockOverrideSet.md)
 - [zBlockParam](variables/zBlockParam.md)
 - [zBytecode](variables/zBytecode.md)
-- [zCallParams](variables/zCallParams.md)
 - [zContractParams](variables/zContractParams.md)
 - [zGetAccountParams](variables/zGetAccountParams.md)
 - [zHex](variables/zHex.md)
@@ -559,9 +562,11 @@
 - [setAccountHandler](functions/setAccountHandler.md)
 - [setAccountProcedure](functions/setAccountProcedure.md)
 - [shouldCreateTransaction](functions/shouldCreateTransaction.md)
+- [simulateCallHandler](functions/simulateCallHandler.md)
 - [traceCallHandler](functions/traceCallHandler.md)
 - [validateBaseCallParams](functions/validateBaseCallParams.md)
 - [validateCallParams](functions/validateCallParams.md)
+- [validateCallParamsZod](functions/validateCallParamsZod.md)
 - [validateContractParams](functions/validateContractParams.md)
 - [validateGetAccountParams](functions/validateGetAccountParams.md)
 - [validateLoadStateParams](functions/validateLoadStateParams.md)

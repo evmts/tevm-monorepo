@@ -67,13 +67,23 @@ export const createHttpHandler = (client) => {
 			})
 
 		if ('code' in response && 'message' in response) {
-			return handleError(client, response, res, parsedRequest)
+			// Type check and assert parsedRequest for handleError
+			const jsonRpcReq =
+				typeof parsedRequest === 'object' && parsedRequest !== null && 'method' in parsedRequest
+					? /** @type {{method: string, id?: string | number | null | undefined}} */ (parsedRequest)
+					: { method: 'unknown' }
+			return handleError(client, response, res, jsonRpcReq)
 		}
 		if (
 			response.error?.code === UnsupportedProviderMethodError.code ||
 			response.error?.code === MethodNotFoundError.code
 		) {
-			return handleError(client, response.error, res, parsedRequest)
+			// Type check and assert parsedRequest for handleError
+			const jsonRpcReq =
+				typeof parsedRequest === 'object' && parsedRequest !== null && 'method' in parsedRequest
+					? /** @type {{method: string, id?: string | number | null | undefined}} */ (parsedRequest)
+					: { method: 'unknown' }
+			return handleError(client, response.error, res, jsonRpcReq)
 		}
 
 		console.log('response', response)
