@@ -19,7 +19,7 @@
 		"node": ">=16"
 	},
 	"scripts": {
-		"build": "pnpm run build:dist",
+		"build": "pnpm run build:app",
 		"build:app": "tsc --skipLibCheck && mkdir -p dist/utils && cp src/utils/bun.lockb dist/utils/",
 		"dev": "tsx src/cli.tsx",
 		"test": "prettier --check . && xo && ava"
