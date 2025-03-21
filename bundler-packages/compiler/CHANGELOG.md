@@ -1,5 +1,16 @@
 # @tevm/contract
 
+## 1.0.0-next.134
+
+### Minor Changes
+
+- 4652ef4: feat: add source maps and metadata to compiler output for improved debugging
+
+### Patch Changes
+
+- Updated dependencies [802368f]
+  - @tevm/solc@1.0.0-next.134
+
 ## 1.0.0-next.131
 
 ### Patch Changes

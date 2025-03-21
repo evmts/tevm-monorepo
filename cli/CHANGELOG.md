@@ -1,5 +1,19 @@
 # @tevm/cli
 
+## 1.0.0-next.134
+
+### Minor Changes
+
+- 9c7ec0e: Add serve command
+
+### Patch Changes
+
+- @tevm/base-bundler@1.0.0-next.134
+- @tevm/bundler-cache@1.0.0-next.134
+- @tevm/actions@1.0.0-next.134
+- @tevm/memory-client@1.0.0-next.134
+- @tevm/server@1.0.0-next.134
+
 ## 1.0.0-next.133
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.134
+
+### Minor Changes
+
+- 802368f: Introduced comprehensive types for the storage layout output with `SolcStorageLayoutOutput`.
+
 ## 1.0.0-next.131
 
 ### Patch Changes

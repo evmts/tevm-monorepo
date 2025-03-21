@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.0.0-next.134
+
+### Patch Changes
+
+- @tevm/blockchain@1.0.0-next.132
+- @tevm/node@1.0.0-next.134
+- @tevm/state@1.0.0-next.134
+- @tevm/evm@1.0.0-next.134
+- @tevm/vm@1.0.0-next.134
+
 ## 1.0.0-next.133
 
 ### Patch Changes
