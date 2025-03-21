@@ -1,5 +1,11 @@
 # @tevm/cli
 
+## 1.0.0-next.136
+
+### Patch Changes
+
+- 4181dc3: Fix bad publish
+
 ## 1.0.0-next.135
 
 ### Patch Changes
