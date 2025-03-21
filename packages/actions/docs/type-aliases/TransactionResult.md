@@ -15,6 +15,14 @@ json rpc procedures
 
 ## Type declaration
 
+### accessList?
+
+> `readonly` `optional` **accessList**: `ReadonlyArray`\<\{ `address`: [`Hex`](Hex.md); `storageKeys`: `ReadonlyArray`\<[`Hex`](Hex.md)\>; \}\>
+
+### blobVersionedHashes?
+
+> `readonly` `optional` **blobVersionedHashes**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
+
 ### blockHash
 
 > `readonly` **blockHash**: [`Hex`](Hex.md)
@@ -23,9 +31,9 @@ json rpc procedures
 
 > `readonly` **blockNumber**: [`Hex`](Hex.md)
 
-### data
+### chainId?
 
-> `readonly` **data**: [`Hex`](Hex.md)
+> `readonly` `optional` **chainId**: [`Hex`](Hex.md)
 
 ### from
 
@@ -42,6 +50,26 @@ json rpc procedures
 ### hash
 
 > `readonly` **hash**: [`Hex`](Hex.md)
+
+### input
+
+> `readonly` **input**: [`Hex`](Hex.md)
+
+### isImpersonated?
+
+> `readonly` `optional` **isImpersonated**: `boolean`
+
+### maxFeePerBlobGas?
+
+> `readonly` `optional` **maxFeePerBlobGas**: [`Hex`](Hex.md)
+
+### maxFeePerGas?
+
+> `readonly` `optional` **maxFeePerGas**: [`Hex`](Hex.md)
+
+### maxPriorityFeePerGas?
+
+> `readonly` `optional` **maxPriorityFeePerGas**: [`Hex`](Hex.md)
 
 ### nonce
 
@@ -62,6 +90,10 @@ json rpc procedures
 ### transactionIndex
 
 > `readonly` **transactionIndex**: [`Hex`](Hex.md)
+
+### type?
+
+> `readonly` `optional` **type**: [`Hex`](Hex.md)
 
 ### v
 
