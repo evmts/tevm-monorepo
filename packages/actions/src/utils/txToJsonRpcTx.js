@@ -23,16 +23,21 @@ export const txToJsonRpcTx = (tx, block, txIndex) => {
 		...{ type: numberToHex(tx.type) },
 		...(txJSON.accessList !== undefined ? { accessList: txJSON.accessList } : {}),
 		hash: bytesToHex(tx.hash()),
-		data: /** @type {import('@tevm/utils').Hex} */ (txJSON.data),
-		nonce: /** @type {import('@tevm/utils').Hex}*/ (txJSON.nonce),
+		input: txJSON.data,
+		nonce: txJSON.nonce,
 		// these toString existed in ethereumjs but I don't think are necessary
 		...(txJSON.to !== undefined ? { to: /** @type {import('@tevm/utils').Address} */ (txJSON.to.toString()) } : {}),
 		...(txIndex !== undefined ? { transactionIndex: numberToHex(txIndex) } : {}),
-		...(txJSON.value !== undefined ? { value: txJSON.value } : {}),
+		...(txJSON.value !== undefined
+			? { value: typeof txJSON.value === 'string' ? txJSON.value : numberToHex(txJSON.value) }
+			: {}),
 		...('isImpersonated' in tx ? { isImpersonated: tx.isImpersonated } : {}),
 		...(txJSON.v !== undefined ? { v: txJSON.v } : {}),
 		...(txJSON.r !== undefined ? { r: txJSON.r } : {}),
 		...(txJSON.s !== undefined ? { s: txJSON.s } : {}),
+		...(txJSON.chainId !== undefined
+			? { chainId: typeof txJSON.chainId === 'string' ? txJSON.chainId : numberToHex(txJSON.chainId) }
+			: {}),
 		// TODO add this to the type
 		...{ maxFeePerBlobGas: txJSON.maxFeePerBlobGas },
 		// TODO add this to the type
