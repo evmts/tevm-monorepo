@@ -7,6 +7,8 @@ import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
 import { KECCAK256_RLP, bytesToHex, getAddress, hexToBigInt, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
+// We'll avoid direct import of @tevm/actions to prevent circular dependency
+// import { mineHandler } from '@tevm/actions'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
 import { getBlockNumber } from './getBlockNumber.js'
@@ -253,7 +255,21 @@ export const createTevmNode = (options = {}) => {
 		return vm
 	})
 
-	const txPoolPromise = vmPromise.then((vm) => new TxPool({ vm }))
+	const txPoolPromise = vmPromise.then((vm) => {
+		// Configure gas mining if enabled
+		const opts = { vm }
+
+		if (options.miningConfig?.type === 'gas') {
+			opts.gasMiningConfig = /** @type {import('@tevm/txpool').GasMiningConfig} */ ({
+				enabled: true,
+				threshold: options.miningConfig.limit,
+				blocks: 1,
+			})
+		}
+
+		// @ts-ignore: Type error workaround for exactOptionalPropertyTypes
+		return new TxPool(opts)
+	})
 	const receiptManagerPromise = vmPromise.then((vm) => {
 		logger.debug('initializing receipts manager...')
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
@@ -417,6 +433,14 @@ export const createTevmNode = (options = {}) => {
 		},
 		status: 'INITIALIZING',
 		deepCopy: () => deepCopy(baseClient)(),
+		cleanup: function () {
+			if (this.intervalMiningId) {
+				clearInterval(this.intervalMiningId)
+				this.intervalMiningId = null
+				logger.debug('Interval mining stopped')
+			}
+			this.status = 'STOPPED'
+		},
 	}
 
 	eventEmitter.on('connect', () => {
@@ -424,6 +448,42 @@ export const createTevmNode = (options = {}) => {
 			return
 		}
 		baseClient.status = 'READY'
+
+		// Setup interval mining if configured
+		if (baseClient.miningConfig.type === 'interval') {
+			// Import the actions module using dynamic import to avoid circular dependencies
+			import('@tevm/actions').then((actionsModule) => {
+				const mineHandler = actionsModule.mineHandler
+
+				// Setup mining handler
+				const mine = mineHandler(baseClient)
+
+				// Start interval mining
+				// Cast to any to avoid TypeScript errors with the setInterval return type
+				const intervalId = setInterval(
+					async () => {
+						try {
+							if (baseClient.status === 'READY') {
+								await mine()
+							}
+						} catch (error) {
+							logger.error({ error }, 'Error during interval mining')
+						}
+					},
+					/** @type {import('./MiningConfig.js').IntervalMining} */ (baseClient.miningConfig).interval,
+				)
+
+				// @ts-ignore - We're ignoring Symbol.dispose missing error
+				baseClient.intervalMiningId = intervalId
+
+				logger.debug(
+					{
+						interval: /** @type {import('./MiningConfig.js').IntervalMining} */ (baseClient.miningConfig).interval,
+					},
+					'Interval mining started',
+				)
+			})
+		}
 	})
 
 	return baseClient
