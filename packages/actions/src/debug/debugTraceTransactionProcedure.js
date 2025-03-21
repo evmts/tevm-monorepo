@@ -134,7 +134,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			...(transactionByHashResponse.result.value !== undefined
 				? { value: hexToBigInt(transactionByHashResponse.result.value) }
 				: {}),
-			...(transactionByHashResponse.result.data !== undefined ? { data: transactionByHashResponse.result.data } : {}),
+			...(transactionByHashResponse.result.input !== undefined ? { data: transactionByHashResponse.result.input } : {}),
 			...(transactionByHashResponse.result.blockHash !== undefined
 				? { blockTag: transactionByHashResponse.result.blockHash }
 				: {}),

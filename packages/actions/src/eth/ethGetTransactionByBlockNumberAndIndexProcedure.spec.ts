@@ -44,7 +44,7 @@ describe('ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure', () => {
 				blobVersionedHashes: undefined,
 				blockHash: expect.stringMatching(/^0x[a-fA-F0-9]{64}$/),
 				blockNumber: blockNumber,
-				data: '0x',
+				input: '0x',
 				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
 				gas: '0x5a3c',
 				gasPrice: '0x7',
