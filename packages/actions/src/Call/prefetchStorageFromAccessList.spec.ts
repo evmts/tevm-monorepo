@@ -4,6 +4,9 @@ import { hexToBytes } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
 import { prefetchStorageFromAccessList } from './prefetchStorageFromAccessList.js'
 
+// Type for 0x-prefixed strings
+type HexString = `0x${string}`;
+
 describe('prefetchStorageFromAccessList', () => {
 	it('should handle empty or undefined accessList', async () => {
 		const client = createTevmNode()
@@ -17,7 +20,7 @@ describe('prefetchStorageFromAccessList', () => {
 		expect(getContractStorageSpy).not.toHaveBeenCalled()
 
 		// Test with empty accessList
-		await prefetchStorageFromAccessList(client, new Map())
+		await prefetchStorageFromAccessList(client, { accessList: [], gasUsed: "0x0" as HexString })
 		expect(getContractStorageSpy).not.toHaveBeenCalled()
 
 		getContractStorageSpy.mockRestore()
@@ -33,19 +36,22 @@ describe('prefetchStorageFromAccessList', () => {
 			.mockResolvedValue(Buffer.from('test value'))
 
 		// Create a test access list
-		const accessList = new Map([
-			[
-				'0x1111111111111111111111111111111111111111',
-				new Set(['0x0000000000000000000000000000000000000000000000000000000000000001']),
+		const accessList = {
+			accessList: [
+				{
+					address: '0x1111111111111111111111111111111111111111' as HexString,
+					storageKeys: ['0x0000000000000000000000000000000000000000000000000000000000000001' as HexString]
+				},
+				{
+					address: '0x2222222222222222222222222222222222222222' as HexString,
+					storageKeys: [
+						'0x0000000000000000000000000000000000000000000000000000000000000002' as HexString,
+						'0x0000000000000000000000000000000000000000000000000000000000000003' as HexString
+					]
+				}
 			],
-			[
-				'0x2222222222222222222222222222222222222222',
-				new Set([
-					'0x0000000000000000000000000000000000000000000000000000000000000002',
-					'0x0000000000000000000000000000000000000000000000000000000000000003',
-				]),
-			],
-		])
+			gasUsed: "0x0" as HexString
+		}
 
 		await prefetchStorageFromAccessList(client, accessList)
 
@@ -85,12 +91,15 @@ describe('prefetchStorageFromAccessList', () => {
 			.mockRejectedValue(new Error('Storage fetch error'))
 
 		// Create a test access list with one entry
-		const accessList = new Map([
-			[
-				'0x1111111111111111111111111111111111111111',
-				new Set(['0x0000000000000000000000000000000000000000000000000000000000000001']),
+		const accessList = {
+			accessList: [
+				{
+					address: '0x1111111111111111111111111111111111111111' as HexString,
+					storageKeys: ['0x0000000000000000000000000000000000000000000000000000000000000001' as HexString]
+				}
 			],
-		])
+			gasUsed: "0x0" as HexString
+		}
 
 		// Should not throw even though fetching fails
 		await prefetchStorageFromAccessList(client, accessList)
@@ -100,18 +109,18 @@ describe('prefetchStorageFromAccessList', () => {
 			expect.objectContaining({
 				error: expect.any(Error),
 				address: '0x1111111111111111111111111111111111111111',
-				storageKey: '0x0000000000000000000000000000000000000000000000000000000000000001',
+				slot: '0x0000000000000000000000000000000000000000000000000000000000000001'
 			}),
-			'Error prefetching storage slot from access list',
+			'Error prefetching storage slot'
 		)
 
 		// Should log completion info
 		expect(debugSpy).toHaveBeenCalledWith(
 			expect.objectContaining({
-				accessListSize: 1,
-				totalStorageSlotsPreloaded: 1,
+				addressCount: 1,
+				slotCount: 1
 			}),
-			'Prefetched storage slots from access list',
+			'Completed prefetching storage slots'
 		)
 
 		debugSpy.mockRestore()
@@ -128,22 +137,24 @@ describe('prefetchStorageFromAccessList', () => {
 			.mockResolvedValue(Buffer.from('test value'))
 
 		// Create a test access list with mixed prefixes
-		const accessList = new Map([
-			[
-				'0x1111111111111111111111111111111111111111',
-				new Set([
-					'0x0000000000000000000000000000000000000000000000000000000000000001', // with 0x
-					'0000000000000000000000000000000000000000000000000000000000000002', // without 0x
-				]),
+		const accessList = {
+			accessList: [
+				{
+					address: '0x1111111111111111111111111111111111111111' as HexString,
+					storageKeys: [
+						'0x0000000000000000000000000000000000000000000000000000000000000001' as HexString, // with 0x
+						'0x0000000000000000000000000000000000000000000000000000000000000002' as HexString // Fixed: add 0x prefix
+					]
+				},
+				{
+					address: '0x2222222222222222222222222222222222222222' as HexString, // Fixed: add 0x prefix
+					storageKeys: [
+						'0x0000000000000000000000000000000000000000000000000000000000000003' as HexString
+					]
+				}
 			],
-			[
-				'2222222222222222222222222222222222222222',
-				new Set([
-					// address without 0x
-					'0x0000000000000000000000000000000000000000000000000000000000000003',
-				]),
-			],
-		])
+			gasUsed: "0x0" as HexString
+		}
 
 		await prefetchStorageFromAccessList(client, accessList)
 
