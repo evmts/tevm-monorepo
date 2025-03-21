@@ -1,5 +1,6 @@
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { Address, BlockTag, Hex } from '@tevm/utils'
+import type { AccessList } from 'viem'
 import type { BaseCallParams } from '../BaseCall/BaseCallParams.js'
 import type { FilterParams } from '../common/FilterParams.js'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
@@ -302,6 +303,48 @@ export type EthCreateAccessListJsonRpcRequest = JsonRpcRequest<
 	readonly [tx: JsonRpcTransaction, tag?: BlockTag | Hex]
 >
 
+/**
+ * JSON-RPC request for the `eth_simulateV1` procedure
+ * Simulates a series of transactions at a specific block height with optional state overrides
+ */
+export type EthSimulateV1JsonRpcRequest = JsonRpcRequest<
+	'eth_simulateV1',
+	readonly [
+		{
+			account?: Address
+			blockStateCalls: Array<{
+				from?: Address
+				to?: Address
+				data?: Hex
+				gas?: Hex
+				gasPrice?: Hex
+				maxFeePerGas?: Hex
+				maxPriorityFeePerGas?: Hex
+				value?: Hex
+				nonce?: Hex
+				accessList?: AccessList
+			}>
+			blockNumber?: BlockTag | Hex
+			stateOverrides?: Array<{
+				address: Address
+				balance?: Hex
+				nonce?: Hex
+				code?: Hex
+				storage?: Record<Hex, Hex>
+			}>
+			blockOverrides?: {
+				baseFeePerGas?: Hex
+				timestamp?: Hex
+				number?: Hex
+				difficulty?: Hex
+				gasLimit?: Hex
+				coinbase?: Address
+			}
+			traceAssetChanges?: boolean
+		},
+	]
+>
+
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
 	| EthAccountsJsonRpcRequest
@@ -343,3 +386,4 @@ export type EthJsonRpcRequest =
 	| EthNewPendingTransactionFilterJsonRpcRequest
 	| EthUninstallFilterJsonRpcRequest
 	| EthCreateAccessListJsonRpcRequest
+	| EthSimulateV1JsonRpcRequest

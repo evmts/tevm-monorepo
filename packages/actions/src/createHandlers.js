@@ -46,6 +46,7 @@ import { ethNewPendingTransactionFilterProcedure } from './eth/ethNewPendingTran
 import { ethProtocolVersionJsonRpcProcedure } from './eth/ethProtocolVersionProcedure.js'
 import { ethSendRawTransactionJsonRpcProcedure } from './eth/ethSendRawTransactionProcedure.js'
 import { ethSendTransactionJsonRpcProcedure } from './eth/ethSendTransactionProcedure.js'
+import { ethSimulateV1Procedure } from './eth/ethSimulateV1Procedure.js'
 import { ethUninstallFilterJsonRpcProcedure } from './eth/ethUninstallFilterProcedure.js'
 import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
 import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
@@ -145,6 +146,7 @@ export const createHandlers = (client) => {
 		eth_getFilterChanges: ethGetFilterChangesProcedure(client),
 		eth_newPendingTransactionFilter: ethNewPendingTransactionFilterProcedure(client),
 		eth_blobBaseFee: ethBlobBaseFeeJsonRpcProcedure(client),
+		eth_simulateV1: ethSimulateV1Procedure(client),
 	}
 
 	const anvilHandlers = {
