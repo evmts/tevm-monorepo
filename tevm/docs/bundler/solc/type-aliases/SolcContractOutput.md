@@ -38,15 +38,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:126
 
 ### storageLayout
 
-> **storageLayout**: `object`
-
-#### storageLayout.storage
-
-> **storage**: `any`[]
-
-#### storageLayout.types
-
-> **types**: `any`
+> **storageLayout**: [`SolcStorageLayoutOutput`](SolcStorageLayoutOutput.md)
 
 ### userdoc
 

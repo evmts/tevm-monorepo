@@ -567,14 +567,23 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import type { Contract } from '@tevm/contract'
-				const _abiTestContract = [] as const;
+
+						const _abiTestContract = [] as const;
 				const _nameTestContract = "TestContract" as const;
 				/**
 				 * TestContract Contract (no bytecode)
 				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
 				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
-				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;",
+				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;
+				// solc artifacts of compilation
+				export const artifacts = {
+				  "TestContract": {
+				    "contractName": "TestContract",
+				    "abi": []
+				  }
+				};
+				",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -654,14 +663,23 @@ describe(bundler.name, () => {
 				    },
 				  },
 				  "code": "import type { Contract } from '@tevm/contract'
-				const _abiTestContract = [] as const;
+
+						const _abiTestContract = [] as const;
 				const _nameTestContract = "TestContract" as const;
 				/**
 				 * TestContract Contract (no bytecode)
 				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
 				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
-				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;",
+				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;
+				// solc artifacts of compilation
+				export const artifacts = {
+				  "TestContract": {
+				    "contractName": "TestContract",
+				    "abi": []
+				  }
+				};
+				",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -747,7 +765,13 @@ describe(bundler.name, () => {
 				/**
 				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
-				export const TestContract = createContract(_TestContract)",
+				export const TestContract = createContract(_TestContract);
+				export const artifacts = {
+				  "TestContract": {
+				    "contractName": "TestContract",
+				    "abi": []
+				  }
+				};",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -833,7 +857,13 @@ describe(bundler.name, () => {
 				/**
 				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
-				export const TestContract = createContract(_TestContract)",
+				export const TestContract = createContract(_TestContract);
+				export const artifacts = {
+				  "TestContract": {
+				    "contractName": "TestContract",
+				    "abi": []
+				  }
+				};",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -915,11 +945,17 @@ describe(bundler.name, () => {
 				const _TestContract = {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
-				}
+				};
 				/**
 				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
-				module.exports.TestContract = createContract(_TestContract)",
+				module.exports.TestContract = createContract(_TestContract);
+				module.exports.artifacts = {
+				  "TestContract": {
+				    "contractName": "TestContract",
+				    "abi": []
+				  }
+				};",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -1001,11 +1037,17 @@ describe(bundler.name, () => {
 				const _TestContract = {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
-				}
+				};
 				/**
 				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
-				module.exports.TestContract = createContract(_TestContract)",
+				module.exports.TestContract = createContract(_TestContract);
+				module.exports.artifacts = {
+				  "TestContract": {
+				    "contractName": "TestContract",
+				    "abi": []
+				  }
+				};",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -1087,11 +1129,17 @@ describe(bundler.name, () => {
 				const _TestContract = {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
-				}
+				};
 				/**
 				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
-				export const TestContract = createContract(_TestContract)",
+				export const TestContract = createContract(_TestContract);
+				export const artifacts = {
+				  "TestContract": {
+				    "contractName": "TestContract",
+				    "abi": []
+				  }
+				};",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'
@@ -1173,11 +1221,17 @@ describe(bundler.name, () => {
 				const _TestContract = {
 				  "name": "TestContract",
 				  "humanReadableAbi": []
-				}
+				};
 				/**
 				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 				 */
-				export const TestContract = createContract(_TestContract)",
+				export const TestContract = createContract(_TestContract);
+				export const artifacts = {
+				  "TestContract": {
+				    "contractName": "TestContract",
+				    "abi": []
+				  }
+				};",
 				  "modules": {
 				    "module1": {
 				      "code": "import { TestContract } from 'module2'

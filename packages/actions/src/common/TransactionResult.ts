@@ -11,7 +11,7 @@ export type TransactionResult = {
 	readonly gas: Hex
 	readonly gasPrice: Hex
 	readonly hash: Hex
-	readonly data: Hex
+	readonly input: Hex
 	readonly nonce: Hex
 	readonly to: Hex
 	readonly transactionIndex: Hex
@@ -19,4 +19,15 @@ export type TransactionResult = {
 	readonly v: Hex
 	readonly r: Hex
 	readonly s: Hex
+	readonly chainId?: Hex
+	readonly maxFeePerGas?: Hex
+	readonly maxPriorityFeePerGas?: Hex
+	readonly type?: Hex
+	readonly accessList?: ReadonlyArray<{
+		readonly address: Hex
+		readonly storageKeys: ReadonlyArray<Hex>
+	}>
+	readonly maxFeePerBlobGas?: Hex
+	readonly blobVersionedHashes?: ReadonlyArray<Hex>
+	readonly isImpersonated?: boolean
 }

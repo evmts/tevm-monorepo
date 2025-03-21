@@ -8,7 +8,7 @@
 
 > **Releases**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:212
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:331
 
 ## Type declaration
 
