@@ -1,0 +1,16 @@
+{
+	"extends": "@tevm/tsconfig/base.json",
+	"include": ["src"],
+	"exclude": ["node_modules"],
+	"compilerOptions": {
+		"outDir": "types",
+		"checkJs": true,
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"rootDir": ".",
+		"verbatimModuleSyntax": false,
+		"skipLibCheck": true,
+		"noUnusedParameters": false,
+		"noUnusedLocals": false
+	}
+}

@@ -8,6 +8,6 @@
 
 > **ResolvedArtifacts**: `ResolvedArtifacts`
 
-Defined in: bundler-packages/compiler/types/src/index.d.ts:26
+Defined in: bundler-packages/compiler/types/src/index.d.ts:27
 
 ./types.ts

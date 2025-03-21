@@ -8,6 +8,6 @@
 
 > **ModuleInfo**: `ModuleInfo`
 
-Defined in: bundler-packages/compiler/types/src/index.d.ts:22
+Defined in: bundler-packages/compiler/types/src/index.d.ts:23
 
 ./types.ts

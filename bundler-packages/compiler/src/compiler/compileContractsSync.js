@@ -5,24 +5,35 @@ import resolve from 'resolve'
 import { invariant } from '../utils/invariant.js'
 
 /**
+ * @typedef {Object} CompileContractSyncResult
+ * @property {any} abi - The ABI of the contract
+ * @property {string} bytecode - The bytecode of the contract
+ * @property {any} contract - The compiled contract
+ * @property {import('../types.js').CompiledContracts["artifacts"]} artifacts - The compiled contract artifacts
+ * @property {import('../types.js').CompiledContracts["modules"]} modules - The modules
+ * @property {import('../types.js').CompiledContracts["asts"]} asts - The ASTs
+ * @property {import('../types.js').CompiledContracts["solcInput"]} solcInput - The solc input
+ * @property {import('../types.js').CompiledContracts["solcOutput"]} solcOutput - The solc output
+ */
+
+/**
  * Compile the Solidity contract and return its ABI.
  *
- * @template TIncludeAsts
- * @template TIncludeBytecode
  * @param {string} filePath
  * @param {string} basedir
  * @param {import('@tevm/config').ResolvedCompilerConfig} config
- * @param {TIncludeAsts} includeAst
- * @param {TIncludeBytecode} includeBytecode
+ * @param {boolean} includeAst
+ * @param {boolean} includeBytecode
  * @param {import('../types.js').FileAccessObject} fao
  * @param {import('../types.js').Logger} logger
  * @param {any} solc
- * @returns {import('../types.js').CompiledContracts}
+ * @returns {CompileContractSyncResult}
  * @example
  * const { artifacts, modules } = compileContractSync(
  *  './contracts/MyContract.sol',
  *  __dirname,
  *  config,
+ *  true,
  *  true,
  *  await import('fs'),
  *  logger,
@@ -116,7 +127,17 @@ export function compileContractSync(filePath, basedir, config, includeAst, inclu
 				return [id, source.ast]
 			}),
 		)
+		const artifacts = solcOutput.contracts[entryModule.id]
+		// Get the first contract (usually there's just one in a file)
+		const contractName = Object.keys(artifacts || {})[0] || ''
+		const contract = artifacts?.[contractName] || null
+		const abi = contract?.abi || null
+		const bytecode = contract?.evm?.bytecode?.object || ''
+
 		return {
+			abi,
+			bytecode,
+			contract,
 			artifacts: solcOutput.contracts[entryModule.id],
 			modules,
 			asts,
@@ -124,7 +145,18 @@ export function compileContractSync(filePath, basedir, config, includeAst, inclu
 			solcOutput: solcOutput,
 		}
 	}
+
+	const artifacts = solcOutput.contracts[entryModule.id]
+	// Get the first contract (usually there's just one in a file)
+	const contractName = Object.keys(artifacts || {})[0] || ''
+	const contract = artifacts?.[contractName] || null
+	const abi = contract?.abi || null
+	const bytecode = contract?.evm?.bytecode?.object || ''
+
 	return {
+		abi,
+		bytecode,
+		contract,
 		artifacts: solcOutput.contracts[entryModule.id],
 		modules,
 		asts: undefined,

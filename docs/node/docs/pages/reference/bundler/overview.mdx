@@ -196,21 +196,18 @@ For complex projects, create a `tevm.config.json` file in your project root:
 | `cacheDir` | `string` | Location for compiled artifacts (default: `.tevm`) |
 | `jsonAsConst` | `string \| string[]` | Glob patterns for JSON files to be typed as const in TS |
 
-## Coming Soon Features
+## Additional Features
 
 ### Inline Solidity with `sol` Tag
 
-:::info
-This feature is coming soon and is not yet available in the current release.
-:::
-
-For quick prototyping or one-off contracts, you'll soon be able to use the `sol` tag to define Solidity code inline:
+For quick prototyping or one-off contracts, you can use the `sol` tag to define Solidity code inline:
 
 ```ts
 import { sol } from 'tevm'
+import { createMemoryClient } from 'tevm'
 
 // Define contract inline
-const { bytecode, abi } = sol`
+const Counter = sol`
   pragma solidity ^0.8.19;
   
   contract Counter {
@@ -226,7 +223,21 @@ const { bytecode, abi } = sol`
   }
 `
 
-// Use with client.readContract, writeContract, etc.
+// Create a client to interact with the contract
+const client = createMemoryClient()
+
+// Deploy the contract
+const deployed = await client.deployContract(Counter)
+
+// Call read methods
+const count = await deployed.read.count()
+
+// Call write methods
+const tx = await deployed.write.increment()
+await client.mine({ blocks: 1 })
+
+// Check the updated state
+const newCount = await deployed.read.count()
 ```
 
 ### CAIP-10 Contract Imports

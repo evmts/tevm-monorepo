@@ -8,6 +8,6 @@
 
 > **Artifacts**: `Artifacts`
 
-Defined in: bundler-packages/compiler/types/src/index.d.ts:6
+Defined in: bundler-packages/compiler/types/src/index.d.ts:7
 
 ./types.ts
