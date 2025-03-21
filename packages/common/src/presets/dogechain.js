@@ -27,5 +27,5 @@ export const dogechain = createCommon({
 	..._dogechain,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const cronoszkEVM = createCommon({
 	..._cronoszkEVM,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const zora = createCommon({
 	..._zora,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

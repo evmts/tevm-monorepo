@@ -27,5 +27,5 @@ export const cronos = createCommon({
 	..._cronos,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

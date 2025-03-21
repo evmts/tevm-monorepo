@@ -6,7 +6,7 @@ import { create2ContractAddress } from './create2ContractAddress.js'
 
 describe('create2ContractAddress', () => {
 	it('should create a valid contract address using CREATE2', () => {
-		const from = EthjsAddress.fromString(`0x${'11'.repeat(20)}`)
+		const from = new EthjsAddress(hexToBytes(`0x${'11'.repeat(20)}`))
 		const salt = `0x${'00'.repeat(32)}` as const
 		const code = `0x${'60'.repeat(10)}` as const
 		const expectedAddress = keccak256(
@@ -21,7 +21,7 @@ describe('create2ContractAddress', () => {
 	})
 
 	it('should throw InvalidSaltError if salt is not 32 bytes', () => {
-		const from = EthjsAddress.fromString(`0x${'11'.repeat(20)}`)
+		const from = new EthjsAddress(hexToBytes(`0x${'11'.repeat(20)}`))
 		const invalidSalt = `0x${'00'.repeat(16)}` as const
 		const code = `0x${'60'.repeat(10)}` as const
 

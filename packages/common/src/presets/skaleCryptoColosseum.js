@@ -27,5 +27,5 @@ export const skaleCryptoColosseum = createCommon({
 	..._skaleCryptoColosseum,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

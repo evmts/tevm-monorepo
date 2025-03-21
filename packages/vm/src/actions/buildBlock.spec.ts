@@ -3,7 +3,7 @@ import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { FeeMarketEIP1559Transaction } from '@tevm/tx'
+import { FeeMarket1559Tx } from '@tevm/tx'
 import {
 	type Address,
 	EthjsAccount,
@@ -80,8 +80,8 @@ describe(buildBlock.name, () => {
 			},
 		})
 
-		const contractAddress = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
-		const fromAddress = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
+		const contractAddress = createAddress(`0x${'01'.repeat(20)}`)
+		const fromAddress = createAddress(`0x${'02'.repeat(20)}`)
 
 		// add contract
 		await stateManager.putContractCode(contractAddress, hexToBytes(MOCKERC20_BYTECODE))
@@ -89,7 +89,7 @@ describe(buildBlock.name, () => {
 		await stateManager.checkpoint()
 		await stateManager.commit()
 
-		const tx = FeeMarketEIP1559Transaction.fromTxData({
+		const tx = FeeMarket1559Tx.fromTxData({
 			data: hexToBytes(
 				encodeFunctionData({
 					abi: MOCKERC20_ABI,

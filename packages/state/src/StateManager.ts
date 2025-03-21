@@ -1,9 +1,9 @@
-import type { EvmStateManagerInterface } from '@tevm/common'
+import type { StateManagerInterface } from '@tevm/common'
 import type { Address } from 'viem'
 import type { BaseState } from './BaseState.js'
 import type { TevmState } from './state-types/index.js'
 
-export interface StateManager extends EvmStateManagerInterface {
+export interface StateManager extends StateManagerInterface {
 	/**
 	 * The internal state representation
 	 */

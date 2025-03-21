@@ -27,5 +27,5 @@ export const zksyncInMemoryNode = createCommon({
 	..._zksyncInMemoryNode,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

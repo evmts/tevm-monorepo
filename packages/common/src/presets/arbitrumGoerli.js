@@ -27,5 +27,5 @@ export const arbitrumGoerli = createCommon({
 	..._arbitrumGoerli,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

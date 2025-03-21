@@ -27,5 +27,5 @@ export const bobSepolia = createCommon({
 	..._bobSepolia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

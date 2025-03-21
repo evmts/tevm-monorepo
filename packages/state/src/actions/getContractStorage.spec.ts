@@ -51,7 +51,7 @@ describe('getContractStorage', () => {
 	})
 
 	it('should return empty Uint8Array if the account is not a contract', async () => {
-		const newAddress = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
+		const newAddress = createAddress(`0x${'02'.repeat(20)}`)
 		await putAccount(baseState)(newAddress, EthjsAccount.fromAccountData({ balance: 100n, nonce: 1n }))
 		expect(await getContractStorage(baseState)(newAddress, key)).toEqual(Uint8Array.from([0]))
 	})
@@ -98,7 +98,7 @@ describe('getContractStorage forking', () => {
 		})
 
 		// Known L2StandardBridge contract on Optimism
-		knownContractAddress = EthjsAddress.fromString('0x4200000000000000000000000000000000000010')
+		knownContractAddress = createAddress('0x4200000000000000000000000000000000000010')
 		// Storage slot 0 should have a consistent value at this block
 		knownStorageKey = toBytes(0, { size: 32 })
 	})

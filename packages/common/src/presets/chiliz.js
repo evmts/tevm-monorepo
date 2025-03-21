@@ -27,5 +27,5 @@ export const chiliz = createCommon({
 	..._chiliz,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

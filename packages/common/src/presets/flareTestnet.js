@@ -27,5 +27,5 @@ export const flareTestnet = createCommon({
 	..._flareTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

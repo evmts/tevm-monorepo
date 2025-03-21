@@ -27,5 +27,5 @@ export const kroma = createCommon({
 	..._kroma,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

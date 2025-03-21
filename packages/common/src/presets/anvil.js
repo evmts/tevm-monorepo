@@ -27,5 +27,5 @@ export const anvil = createCommon({
 	..._anvil,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

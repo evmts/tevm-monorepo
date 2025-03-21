@@ -27,5 +27,5 @@ export const btrTestnet = createCommon({
 	..._btrTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

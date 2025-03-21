@@ -63,7 +63,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ethereumjs/statemanager": "^2.4.0",
+    "@ethereumjs/statemanager": "3.0.0-alpha.1",
     "@tevm/address": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/errors": "workspace:^",

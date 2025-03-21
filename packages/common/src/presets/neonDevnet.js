@@ -27,5 +27,5 @@ export const neonDevnet = createCommon({
 	..._neonDevnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

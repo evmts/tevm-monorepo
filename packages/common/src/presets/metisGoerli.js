@@ -27,5 +27,5 @@ export const metisGoerli = createCommon({
 	..._metisGoerli,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })
