@@ -1,5 +1,11 @@
 # @tevm/cli
 
+## 1.0.0-next.138
+
+### Patch Changes
+
+- 37d9d8f: Fix \_\_dirname error
+
 ## 1.0.0-next.137
 
 ### Patch Changes
