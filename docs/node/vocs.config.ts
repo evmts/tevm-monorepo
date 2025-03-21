@@ -29,7 +29,6 @@ export default defineConfig({
     dismissable: true,
     backgroundColor: "#e6f7ff",
   },
-  // Improved top navigation
   topNav: [
     {
       text: "Docs",
@@ -41,7 +40,7 @@ export default defineConfig({
       link: "/getting-started/overview",
       match: "/getting-started",
     },
-    { text: "Examples", link: "/examples/viem", match: "/examples" },
+    { text: "Viem", link: "/examples/viem", match: "/examples" },
     {
       text: "Ecosystem",
       items: [
@@ -80,20 +79,6 @@ export default defineConfig({
       ],
     },
     {
-      text: "Core Concepts",
-      collapsed: false,
-      items: [
-        { text: "Creating a Node", link: "/core/create-tevm-node" },
-        { text: "Using with Viem", link: "/examples/viem" },
-        { text: "Using with Ethers", link: "/examples/ethers" },
-        { text: "TevmNode", link: "/core/tevm-node-interface" },
-        { text: "Forking & Reforking", link: "/core/forking" },
-        { text: "Managing State", link: "/core/managing-state" },
-        { text: "Mining Modes", link: "/core/mining-modes" },
-        { text: "Custom Precompiles", link: "/advanced/custom-precompiles" },
-      ],
-    },
-    {
       text: "API Documentation",
       collapsed: true,
       items: [
@@ -106,6 +91,20 @@ export default defineConfig({
         { text: "Call API", link: "/api/tevm-call" },
         { text: "VM and Submodules", link: "/api/vm-and-submodules" },
         { text: "Decorators", link: "/api/decorators" },
+      ],
+    },
+    {
+      text: "Guides",
+      collapsed: false,
+      items: [
+        { text: "Creating a Node", link: "/core/create-tevm-node" },
+        { text: "Using with Viem", link: "/examples/viem" },
+        { text: "Using with Ethers", link: "/examples/ethers" },
+        { text: "TevmNode", link: "/core/tevm-node-interface" },
+        { text: "Forking & Reforking", link: "/core/forking" },
+        { text: "Managing State", link: "/core/managing-state" },
+        { text: "Mining Modes", link: "/core/mining-modes" },
+        { text: "Custom Precompiles", link: "/advanced/custom-precompiles" },
       ],
     },
     {
@@ -180,15 +179,21 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Contract (@tevm/contract)", link: "/reference/contract" },
-            { 
-              text: "Contract Bundler", 
+            {
+              text: "Contract Bundler",
               link: "/reference/bundler",
               items: [
                 { text: "Overview", link: "/reference/bundler/overview" },
                 { text: "Internals", link: "/reference/bundler/internals" },
-                { text: "Methods & Exports", link: "/reference/bundler/methods" },
-                { text: "Troubleshooting", link: "/reference/bundler/troubleshooting" },
-              ]
+                {
+                  text: "Methods & Exports",
+                  link: "/reference/bundler/methods",
+                },
+                {
+                  text: "Troubleshooting",
+                  link: "/reference/bundler/troubleshooting",
+                },
+              ],
             },
             {
               text: "Precompiles (@tevm/precompiles)",
