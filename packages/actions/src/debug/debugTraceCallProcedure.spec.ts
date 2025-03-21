@@ -217,6 +217,73 @@ describe('debugTraceCallJsonRpcProcedure', () => {
 		expect(result).not.toHaveProperty('id')
 	})
 
+	it('should handle prestateTracer tracer type', async () => {
+		// Mock prestateTracer result
+		const mockPrestateResult = {
+			pre: {
+				"0x4200000000000000000000000000000000000011": {
+					balance: "0xcb14256436473d124",
+					code: "0x60806040526004361061005e5760003560e01c",
+				},
+				"0xd2e286c3caa5dcfa12066cf52dd0102542a59200": {
+					balance: "0x67d880ab2fdc18",
+					nonce: 4908,
+				}
+			},
+			post: {
+				"0x4200000000000000000000000000000000000011": {
+					balance: "0xcb142564364a39f9e",
+				},
+				"0xd2e286c3caa5dcfa12066cf52dd0102542a59200": {
+					balance: "0x67d8439911139c",
+					nonce: 4909,
+				}
+			}
+		}
+
+		mockTraceCallHandlerFn.mockResolvedValue(mockPrestateResult)
+
+		const request = {
+			jsonrpc: '2.0',
+			method: 'debug_traceCall',
+			params: [
+				{
+					to: '0xeb0329ac1833221883a8644de6765ccec678f312',
+					from: '0xd2e286c3caa5dcfa12066cf52dd0102542a59200',
+					tracer: 'prestateTracer',
+					tracerConfig: {
+						diffMode: true
+					}
+				},
+			],
+			id: 3,
+		}
+
+		const procedure = debugTraceCallJsonRpcProcedure(mockClient)
+		const result = await procedure(request)
+
+		// Verify traceCallHandler was called with the right parameters
+		expect(mockTraceCallHandlerFn).toHaveBeenCalledWith({
+			to: '0xeb0329ac1833221883a8644de6765ccec678f312',
+			from: '0xd2e286c3caa5dcfa12066cf52dd0102542a59200',
+			tracer: 'prestateTracer',
+			tracerConfig: {
+				diffMode: true
+			}
+		})
+
+		// Check the result format - prestateTracer should return unmodified result
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			method: 'debug_traceCall',
+			id: 3,
+			result: mockPrestateResult
+		})
+
+		// Verify that numberToHex was not called for prestateTracer
+		expect(numberToHex).not.toHaveBeenCalled()
+	})
+
 	it('should handle missing optional parameters', async () => {
 		// Mock trace result
 		const mockTraceResult = {

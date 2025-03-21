@@ -120,7 +120,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			})
 		}
 
-		// now execute an debug_traceCall
+		// now execute debug_traceCall
 		const traceResult = await traceCallHandler(client)({
 			tracer,
 			...(transactionByHashResponse.result.to !== undefined ? { to: transactionByHashResponse.result.to } : {}),
@@ -141,27 +141,40 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			...(timeout !== undefined ? { timeout } : {}),
 			...(tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
-		return {
-			method: request.method,
-			// TODO the typescript type for this return type is completely wrong because of copy pasta
-			// This return value is correct shape
-			result: /** @type any*/ ({
-				gas: numberToHex(traceResult.gas),
-				failed: traceResult.failed,
-				returnValue: traceResult.returnValue,
-				structLogs: traceResult.structLogs.map((log) => {
-					return {
-						gas: numberToHex(log.gas),
-						gasCost: numberToHex(log.gasCost),
-						op: log.op,
-						pc: log.pc,
-						stack: log.stack,
-						depth: log.depth,
-					}
+
+		// Handle different tracer types
+		if (tracer === 'prestateTracer') {
+			// For prestateTracer, the result format is different
+			return {
+				method: request.method,
+				result: traceResult,
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		} else {
+			// Default case for callTracer
+			return {
+				method: request.method,
+				// TODO the typescript type for this return type is completely wrong because of copy pasta
+				// This return value is correct shape
+				result: /** @type any*/ ({
+					gas: numberToHex(traceResult.gas),
+					failed: traceResult.failed,
+					returnValue: traceResult.returnValue,
+					structLogs: traceResult.structLogs.map((log) => {
+						return {
+							gas: numberToHex(log.gas),
+							gasCost: numberToHex(log.gasCost),
+							op: log.op,
+							pc: log.pc,
+							stack: log.stack,
+							depth: log.depth,
+						}
+					}),
 				}),
-			}),
-			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
 		}
 	}
 }
