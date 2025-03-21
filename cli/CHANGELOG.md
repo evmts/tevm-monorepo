@@ -1,5 +1,11 @@
 # @tevm/cli
 
+## 1.0.0-next.137
+
+### Patch Changes
+
+- f928ce1: Fix broken typescript build of cli
+
 ## 1.0.0-next.136
 
 ### Patch Changes
