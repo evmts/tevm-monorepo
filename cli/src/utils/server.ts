@@ -20,8 +20,9 @@ import {
 } from '@tevm/common';
 import {createServer} from '@tevm/server';
 import {createLoggingRequestProxy} from '../stores/logStore.js';
-import {createMemoryClient} from '@tevm/memory-client';
+import {createMemoryClient, MemoryClient} from '@tevm/memory-client';
 import {http} from '@tevm/jsonrpc';
+import {Server} from 'node:http';
 
 export async function initializeServer({
 	port,
@@ -37,7 +38,7 @@ export async function initializeServer({
 	forkBlockNumber: string;
 	loggingLevel: string;
 	verbose: boolean;
-}) {
+}): Promise<{client: MemoryClient; server: Server}> {
 	const chains: Record<number, any> = {
 		[base.id]: base,
 		[mainnet.id]: mainnet,
