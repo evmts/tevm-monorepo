@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/rollup-plugin",
-	"version": "1.0.0-next.131",
+	"version": "1.0.0-next.134",
 	"private": false,
 	"description": "A generic plugin that can be used in esbuild, webpack, vite, and rollup",
 	"keywords": [

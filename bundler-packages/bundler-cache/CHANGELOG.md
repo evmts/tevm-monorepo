@@ -1,5 +1,12 @@
 # @tevm/base
 
+## 1.0.0-next.134
+
+### Patch Changes
+
+- Updated dependencies [4652ef4]
+  - @tevm/compiler@1.0.0-next.134
+
 ## 1.0.0-next.131
 
 ### Patch Changes

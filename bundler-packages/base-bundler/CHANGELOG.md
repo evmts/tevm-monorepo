@@ -1,5 +1,16 @@
 # @tevm/base
 
+## 1.0.0-next.134
+
+### Patch Changes
+
+- Updated dependencies [802368f]
+- Updated dependencies [4652ef4]
+  - @tevm/solc@1.0.0-next.134
+  - @tevm/compiler@1.0.0-next.134
+  - @tevm/bundler-cache@1.0.0-next.134
+  - @tevm/runtime@1.0.0-next.131
+
 ## 1.0.0-next.131
 
 ### Patch Changes
