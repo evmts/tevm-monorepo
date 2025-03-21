@@ -1,0 +1,168 @@
+---
+title: Tevm Contracts API
+description: A comprehensive reference for interacting with Tevm contracts, including type‑safe read, write, event, deployment, and storage operations.
+---
+
+import { Button, Callout } from 'vocs/components'
+
+# Tevm Contracts API
+
+Tevm Contracts provide a **JavaScript‑native**, type‑safe abstraction for working with Ethereum smart contracts. By importing from `tevm/contract`, you get a single contract object that bundles:
+
+- **ABI & Bytecode** – Both human‑readable and parsed JSON ABIs, plus deployable code.
+- **Read & Write Actions** – Type‑safe interfaces for calling view/pure and payable/non‑payable functions.
+- **Event Filters** – Convenient, strongly typed event action creators.
+- **Deployment Helpers** – Simplified deployment parameters generation.
+- **Storage API** – A new, optional extension for inspecting and computing storage layouts.
+
+Contracts seamlessly integrate with popular libraries like [viem](https://viem.sh) and [ethers.js](https://docs.ethers.org) and work in any JavaScript runtime.
+
+---
+
+## Creating a Contract
+
+To create a contract instance, use the `createContract` function:
+
+```ts
+import { createContract } from 'tevm/contract'
+
+const ERC20 = createContract({
+  name: 'ERC20',
+  humanReadableAbi: [
+    'function balanceOf(address account) view returns (uint256)',
+    'function transfer(address to, uint256 amount) returns (bool)',
+    'event Transfer(address indexed from, address indexed to, uint256 value)',
+  ],
+  address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+})
+```
+
+If you have a JSON ABI, pass it instead (Tevm will format it into a human‑readable ABI automatically). Existing contracts can be extended with methods like `withAddress` and `withCode` to update deployment data without breaking type safety.
+
+---
+
+## Interacting with the Contract
+
+Once created, your contract object exposes several namespaces:
+
+### Read Operations
+
+Use the `read` property to build actions for view and pure functions.
+
+```ts
+const balanceAction = ERC20.read.balanceOf('0x1234...')
+const balance = await tevm.contract(balanceAction)
+```
+
+### Write Operations
+
+Use the `write` property for payable and non‑payable functions.
+
+```ts
+const transferAction = ERC20.write.transfer('0x5678...', 1000n)
+const result = await tevm.contract(transferAction)
+```
+
+### Event Filters
+
+Create event filters using the `events` namespace.
+
+```ts
+const transferFilter = ERC20.events.Transfer({
+  fromBlock: 'latest',
+  args: { from: '0x1234...' },
+})
+const logs = await tevm.eth.getLogs(transferFilter)
+```
+
+### Deployment
+
+Generate deployment parameters with the `deploy` method. Note that the contract must include bytecode.
+
+```ts
+const deployParams = ERC20.deploy('ConstructorArg1', 'ConstructorArg2')
+// deployParams includes the bytecode, ABI, and arguments.
+```
+
+---
+
+## Storage API
+
+Tevm now supports a new **Storage API** that makes working with a contract’s storage layout safe and intuitive. This feature is entirely metadata‑driven and lets you calculate storage slots, offsets, and inspect variable types without interacting with a chain directly.
+
+### Key Features
+
+- **State Variable Metadata**: Each state variable is represented with its `slot`, `offset`, and `typeIdentifier`.
+- **Mapping Helpers**: For mappings, use the `getStorageSlot(key)` method to compute the storage slot (via keccak‑256 hash of the key plus base slot).
+- **Dynamic Arrays & Structs**: Access array lengths and individual element slots via `lengthSlot` and `at(index)`, and inspect struct members with a `members` object.
+- **Type Safety**: The API is fully generic so that the storage layout is inferred from your Solc output. This minimizes low‑level errors when inspecting on‑chain storage.
+
+### Attaching Storage Layout
+
+Attach a storage layout to your contract using the `withStorageLayout` method. This returns a new contract instance that includes a strongly typed `.storage` property.
+
+```ts
+import { createContract } from 'tevm/contract'
+
+const MyToken = createContract({
+  name: 'MyToken',
+  humanReadableAbi: [
+    // Contract methods…
+    'mapping(address => uint256) balances',
+    'function transfer(address to, uint256 amount) returns (bool)',
+  ],
+  address: '0x1234567890123456789012345678901234567890',
+})
+
+// Example storage layout generated from solc output:
+const storageLayout = {
+  balances: {
+    label: 'balances',
+    slot: '0x0',
+    offset: 0,
+    encoding: 'mapping',
+    keyType: 'address',
+    valueType: 'uint256',
+    getStorageSlot: (key: string) => {
+      // Compute keccak256(key + slot) (implementation-specific)
+      return '0x...'
+    },
+  },
+}
+
+const MyTokenWithStorage = MyToken.withStorageLayout(storageLayout)
+
+// Calculate a mapping slot for a specific key:
+const slotForUser = MyTokenWithStorage.storage?.balances.getStorageSlot('0xabcdef...')
+console.log('Storage slot for user:', slotForUser)
+```
+
+The Storage API lets you inspect simple variables, mappings, dynamic arrays, and structs with intuitive methods and full TypeScript support.
+
+---
+
+## How Contracts Fit into Tevm
+
+Contracts are a central part of Tevm’s ecosystem—they integrate with the client (whether an in‑memory node, a fork, or a production‑like provider) and with Ethereum libraries like viem and ethers. Tevm contracts:
+
+- **Directly Import Solidity Files**: Use the Tevm Bundler to import Solidity contracts as native ES modules.
+- **Provide Full TypeScript Integration**: Enjoy auto‑completion, go‑to‑definition, and NatSpec documentation in your editor.
+- **Compose with Other Tevm APIs**: Interact with blockchain state (accounts, block mining, etc.) using Tevm’s robust client APIs.
+- **Enhance Debugging**: With advanced features like EVM execution hooks and storage inspection, you can trace transactions down to the opcode level.
+
+---
+
+## Further Reading
+
+- [Bundler Overview](/getting-started/bundler) – Import Solidity files directly with full type safety.
+- [Viem Quickstart](/getting-started/viem) – Integrate Tevm with viem for a familiar Ethereum interface.
+- [Ethers Integration](/getting-started/ethers) – Use Tevm contracts with ethers.js.
+- [EVM Execution Hooks](/api/evm-events) – Dive deep into contract execution with step‑by‑step tracing.
+
+---
+
+<div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+  <Button href="/getting-started/overview" variant="accent">Get Started</Button>
+  <Button href="/examples/viem">Viem Guide</Button>
+  <Button href="/introduction/what-is-tevm-node">Learn More</Button>
+</div>
