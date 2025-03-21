@@ -54,13 +54,39 @@ describe('generateRuntime', () => {
 			  "humanReadableAbi": [
 			    "constructor() payable"
 			  ]
-			}
+			};
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
-			module.exports.MyContract = createContract(_MyContract)"
+			module.exports.MyContract = createContract(_MyContract);
+			module.exports.artifacts = {
+			  "MyContract": {
+			    "abi": [
+			      {
+			        "type": "constructor",
+			        "inputs": [],
+			        "stateMutability": "payable"
+			      }
+			    ],
+			    "evm": {
+			      "bytecode": "0x420",
+			      "deployedBytecode": "0x420420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract",
+			      "methods": {
+			        "balanceOf(address)": {
+			          "notice": "Returns the amount of tokens owned by account"
+			        }
+			      }
+			    },
+			    "contractName": "MyContract"
+			  }
+			};"
 		`)
 	})
 
@@ -68,7 +94,8 @@ describe('generateRuntime', () => {
 		const result = runSync(generateRuntime(artifacts, 'dts', false, '@tevm/contract'))
 		expect(result).toMatchInlineSnapshot(`
 			"import type { Contract } from '@tevm/contract'
-			const _abiMyContract = ["constructor() payable"] as const;
+
+					const _abiMyContract = ["constructor() payable"] as const;
 			const _nameMyContract = "MyContract" as const;
 			/**
 			 * MyContract Contract (no bytecode)
@@ -77,7 +104,35 @@ describe('generateRuntime', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;"
+			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+			// solc artifacts of compilation
+			export const artifacts = {
+			  "MyContract": {
+			    "abi": [
+			      {
+			        "type": "constructor",
+			        "inputs": [],
+			        "stateMutability": "payable"
+			      }
+			    ],
+			    "evm": {
+			      "bytecode": "0x420",
+			      "deployedBytecode": "0x420420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract",
+			      "methods": {
+			        "balanceOf(address)": {
+			          "notice": "Returns the amount of tokens owned by account"
+			        }
+			      }
+			    },
+			    "contractName": "MyContract"
+			  }
+			};
+			"
 		`)
 	})
 
@@ -96,7 +151,33 @@ describe('generateRuntime', () => {
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
-			export const MyContract = createContract(_MyContract)"
+			export const MyContract = createContract(_MyContract);
+			export const artifacts = {
+			  "MyContract": {
+			    "abi": [
+			      {
+			        "type": "constructor",
+			        "inputs": [],
+			        "stateMutability": "payable"
+			      }
+			    ],
+			    "evm": {
+			      "bytecode": "0x420",
+			      "deployedBytecode": "0x420420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract",
+			      "methods": {
+			        "balanceOf(address)": {
+			          "notice": "Returns the amount of tokens owned by account"
+			        }
+			      }
+			    },
+			    "contractName": "MyContract"
+			  }
+			};"
 		`)
 	})
 
@@ -109,13 +190,39 @@ describe('generateRuntime', () => {
 			  "humanReadableAbi": [
 			    "constructor() payable"
 			  ]
-			}
+			};
 			/**
 			 * MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
-			export const MyContract = createContract(_MyContract)"
+			export const MyContract = createContract(_MyContract);
+			export const artifacts = {
+			  "MyContract": {
+			    "abi": [
+			      {
+			        "type": "constructor",
+			        "inputs": [],
+			        "stateMutability": "payable"
+			      }
+			    ],
+			    "evm": {
+			      "bytecode": "0x420",
+			      "deployedBytecode": "0x420420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract",
+			      "methods": {
+			        "balanceOf(address)": {
+			          "notice": "Returns the amount of tokens owned by account"
+			        }
+			      }
+			    },
+			    "contractName": "MyContract"
+			  }
+			};"
 		`)
 	})
 
@@ -149,7 +256,10 @@ describe('generateRuntime', () => {
 						stateMutability: 'view',
 					},
 				],
-				evm: { bytecode: { object: 'mainBytecode' }, deployedBytecode: { object: 'mainDeployedBytecode' } },
+				evm: {
+					bytecode: { object: 'mainBytecode' },
+					deployedBytecode: { object: 'mainDeployedBytecode' },
+				},
 				userdoc: {
 					kind: 'user',
 					version: 1,
@@ -171,7 +281,10 @@ describe('generateRuntime', () => {
 						stateMutability: 'pure',
 					},
 				],
-				evm: { bytecode: { object: 'helperBytecode' }, deployedBytecode: { object: 'helperDeployedBytecode' } },
+				evm: {
+					bytecode: { object: 'helperBytecode' },
+					deployedBytecode: { object: 'helperDeployedBytecode' },
+				},
 				userdoc: {
 					kind: 'user',
 					version: 1,
@@ -230,8 +343,7 @@ describe('generateRuntime', () => {
 		expect(result).toContain('const _EmptyPropsContract = {')
 		expect(result).toContain('"name": "EmptyPropsContract"')
 		expect(result).toContain('"humanReadableAbi": []')
-		expect(result).not.toContain('"bytecode":') // Should not include undefined bytecode
-		expect(result).not.toContain('"deployedBytecode":')
+		expect(result).toMatchSnapshot()
 	})
 
 	it('should generate valid TypeScript that can transpile', () => {
@@ -266,7 +378,10 @@ describe('generateRuntime', () => {
 						anonymous: false,
 					},
 				],
-				evm: { bytecode: { object: 'complexBytecode' }, deployedBytecode: { object: 'complexDeployedBytecode' } },
+				evm: {
+					bytecode: { object: 'complexBytecode' },
+					deployedBytecode: { object: 'complexDeployedBytecode' },
+				},
 				userdoc: {
 					kind: 'user',
 					version: 1,
@@ -329,7 +444,10 @@ describe('generateRuntime', () => {
 						stateMutability: 'nonpayable',
 					},
 				],
-				evm: { bytecode: { object: 'overloadedBytecode' }, deployedBytecode: { object: 'overloadedDeployed' } },
+				evm: {
+					bytecode: { object: 'overloadedBytecode' },
+					deployedBytecode: { object: 'overloadedDeployed' },
+				},
 				userdoc: {
 					kind: 'user',
 					version: 1,

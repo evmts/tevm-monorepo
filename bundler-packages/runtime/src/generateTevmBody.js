@@ -49,7 +49,7 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 	// Generate JavaScript/TypeScript code for the contracts
 	return succeed(
 		Object.entries(artifacts)
-			.flatMap(([contractName, { abi, userdoc = {}, evm }]) => {
+			.flatMap(([contractName, { abi, userdoc = {}, evm }], i) => {
 				// Create the contract configuration object
 				const contract = JSON.stringify(
 					{
@@ -89,9 +89,10 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 				// Generate CommonJS format
 				if (moduleType === 'cjs') {
 					return [
-						`const _${contractName} = ${contract}`,
+						`const _${contractName} = ${contract};`,
 						...natspec,
-						`module.exports.${contractName} = createContract(_${contractName})`,
+						`module.exports.${contractName} = createContract(_${contractName});`,
+						i === 0 ? `module.exports.artifacts = ${JSON.stringify(artifacts, null, 2)};` : '',
 					]
 				}
 
@@ -100,15 +101,17 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					return [
 						`const _${contractName} = ${contract} as const`,
 						...natspec,
-						`export const ${contractName} = createContract(_${contractName})`,
+						`export const ${contractName} = createContract(_${contractName});`,
+						i === 0 ? `export const artifacts = ${JSON.stringify(artifacts, null, 2)};` : '',
 					]
 				}
 
 				// Generate ES module format
 				return [
-					`const _${contractName} = ${contract}`,
+					`const _${contractName} = ${contract};`,
 					...natspec,
-					`export const ${contractName} = createContract(_${contractName})`,
+					`export const ${contractName} = createContract(_${contractName});`,
+					i === 0 ? `export const artifacts = ${JSON.stringify(artifacts, null, 2)};` : '',
 				]
 			})
 			.join('\n'),

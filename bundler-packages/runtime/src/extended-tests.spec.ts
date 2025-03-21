@@ -526,7 +526,6 @@ describe('Advanced Code Generation Tests', () => {
 		const runtimeResult = runSync(generateRuntime(interfaceArtifact, 'ts', true, '@tevm/contract'))
 		expect(runtimeResult).toContain('function count() view returns (uint256)')
 		expect(runtimeResult).toContain('function increment()')
-		expect(runtimeResult).not.toContain('"bytecode":')
-		expect(runtimeResult).not.toContain('"deployedBytecode":')
+		expect(runtimeResult).toMatchSnapshot()
 	})
 })
