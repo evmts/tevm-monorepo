@@ -6,6 +6,11 @@ import path from 'node:path'
 import os from 'node:os'
 import { spawn } from 'node:child_process'
 import { generateTemplates } from './templates.js'
+import { fileURLToPath } from 'node:url'
+
+// ESM replacement for __dirname
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 /**
  * Creates a TypeScript project for interactive editing
@@ -91,7 +96,7 @@ export async function createEditorProject(actionName, options, createParams) {
  */
 export async function openEditor(projectDir) {
   const scriptPath = path.join(projectDir, 'script.ts');
-  const editor = process.env['EDITOR'] || process.env['VISUAL'] ||
+  const editor = import.meta.env?.['EDITOR'] || import.meta.env?.['VISUAL'] || process.env['EDITOR'] || process.env['VISUAL'] ||
     (os.platform() === 'win32' ? 'notepad' : 'vim');
 
   console.log(`Opening ${scriptPath} with ${editor}...`);

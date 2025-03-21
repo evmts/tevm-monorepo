@@ -29,8 +29,11 @@ const JSON_BIG = JSONBig({
  * @param {string} prefix - The prefix to use (default: TEVM_)
  * @returns {string|undefined} - The value from the environment variable or undefined if not set
  */
-export const envVar = (name: string, prefix = 'TEVM_'): string | undefined => 
-  process.env[`${prefix}${name.toUpperCase()}`]
+export const envVar = (name: string, prefix = 'TEVM_'): string | undefined => {
+  // Check import.meta.env first (for browser environments), then fall back to process.env
+  const importMetaEnv = import.meta.env as Record<string, string | undefined>
+  return importMetaEnv?.[`${prefix}${name.toUpperCase()}`] || process.env[`${prefix}${name.toUpperCase()}`]
+}
 
 /**
  * Options for the useAction hook

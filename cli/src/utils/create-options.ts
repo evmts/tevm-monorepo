@@ -2,7 +2,11 @@ import { z } from 'zod'
 import { option } from 'pastel'
 
 // Helper function to load options from environment variables
-const envVar = (name: string, prefix = 'TEVM_') => process.env[`${prefix}${name.toUpperCase()}`]
+const envVar = (name: string, prefix = 'TEVM_') => {
+  // Check import.meta.env first (for browser environments), then fall back to process.env
+  const importMetaEnv = import.meta.env as Record<string, string | undefined>
+  return importMetaEnv?.[`${prefix}${name.toUpperCase()}`] || process.env[`${prefix}${name.toUpperCase()}`]
+}
 
 export const options = z.object({
   skipPrompts: z.boolean().default(envVar('skip_prompts') === 'true' || false).describe(
