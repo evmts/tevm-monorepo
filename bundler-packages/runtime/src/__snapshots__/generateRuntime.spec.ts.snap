@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generateRuntime > should handle artifacts with empty object properties gracefully 1`] = `
+"const { createContract } = require('@tevm/contract')
+const _EmptyPropsContract = {
+  "name": "EmptyPropsContract",
+  "humanReadableAbi": []
+};
+/**
+ * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+ */
+module.exports.EmptyPropsContract = createContract(_EmptyPropsContract);
+module.exports.artifacts = {
+  "EmptyPropsContract": {
+    "abi": [],
+    "evm": {
+      "bytecode": {},
+      "deployedBytecode": {}
+    },
+    "userdoc": {
+      "kind": "user",
+      "version": 1
+    }
+  }
+};"
+`;

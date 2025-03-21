@@ -35,7 +35,8 @@ import { succeed } from 'effect/Effect'
  */
 export const generateDtsBody = (artifacts, includeBytecode) => {
 	return succeed(
-		Object.entries(artifacts)
+		`
+		${Object.entries(artifacts)
 			.flatMap(([contractName, { abi, userdoc = {} }]) => {
 				// Create contract metadata
 				const contract = {
@@ -97,6 +98,9 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 					`export const ${contractName}: Contract<typeof _name${contractName}, typeof _abi${contractName}, undefined, undefined, undefined, undefined>;`,
 				].filter(Boolean)
 			})
-			.join('\n'),
+			.join('\n')}
+// solc artifacts of compilation
+export const artifacts = ${JSON.stringify(artifacts, null, 2)};
+`,
 	)
 }

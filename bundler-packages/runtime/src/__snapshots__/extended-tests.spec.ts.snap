@@ -1,0 +1,65 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Advanced Code Generation Tests > should handle interfaces with empty string bytecode correctly 1`] = `
+"import { createContract } from '@tevm/contract'
+const _ICounter = {
+  "name": "ICounter",
+  "humanReadableAbi": [
+    "function count() view returns (uint256)",
+    "function increment()"
+  ]
+} as const
+/**
+ * Counter Interface
+ * @property increment() Increments the counter
+ * @property count() Returns the current count
+ * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+ */
+export const ICounter = createContract(_ICounter);
+export const artifacts = {
+  "ICounter": {
+    "abi": [
+      {
+        "type": "function",
+        "name": "count",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "increment",
+        "inputs": [],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+      }
+    ],
+    "evm": {
+      "bytecode": {
+        "object": ""
+      },
+      "deployedBytecode": {
+        "object": ""
+      }
+    },
+    "userdoc": {
+      "kind": "user",
+      "version": 1,
+      "notice": "Counter Interface",
+      "methods": {
+        "increment()": {
+          "notice": "Increments the counter"
+        },
+        "count()": {
+          "notice": "Returns the current count"
+        }
+      }
+    },
+    "contractName": "ICounter"
+  }
+};"
+`;

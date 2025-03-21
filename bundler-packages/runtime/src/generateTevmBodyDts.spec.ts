@@ -58,7 +58,8 @@ describe('generateDtsBody', () => {
 
 	it('should generate correct body without bytecode', () => {
 		expect(runSync(generateDtsBody(artifacts, false))).toMatchInlineSnapshot(`
-			"const _abiMyContract = ["constructor() payable"] as const;
+			"
+					const _abiMyContract = ["constructor() payable"] as const;
 			const _nameMyContract = "MyContract" as const;
 			/**
 			 * MyContract Contract (no bytecode)
@@ -86,13 +87,70 @@ describe('generateDtsBody', () => {
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
-			export const MissingContract: Contract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined, undefined, undefined>;"
+			export const MissingContract: Contract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined, undefined, undefined>;
+			// solc artifacts of compilation
+			export const artifacts = {
+			  "MyContract": {
+			    "abi": [
+			      {
+			        "type": "constructor",
+			        "inputs": [],
+			        "stateMutability": "payable"
+			      }
+			    ],
+			    "evm": {
+			      "bytecode": "0x420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract",
+			      "methods": {
+			        "balanceOf(address)": {
+			          "notice": "Returns the amount of tokens owned by account"
+			        }
+			      }
+			    },
+			    "contractName": "MyContract"
+			  },
+			  "AnotherContract": {
+			    "abi": [],
+			    "evm": {
+			      "bytecode": "0x420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract"
+			    },
+			    "contractName": "AnotherContract"
+			  },
+			  "MissingContract": {
+			    "abi": [],
+			    "evm": {
+			      "bytecode": "0x420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract",
+			      "methods": {
+			        "balanceOf(address)": {
+			          "notice": "Returns the amount of tokens owned by account"
+			        }
+			      }
+			    },
+			    "contractName": "MissingContract"
+			  }
+			};
+			"
 		`)
 	})
 
 	it('should generate correct body with bytecode', () => {
 		expect(runSync(generateDtsBody(artifacts, true))).toMatchInlineSnapshot(`
-			"const _nameMyContract = "MyContract" as const;
+			"
+					const _nameMyContract = "MyContract" as const;
 			const _abiMyContract = [
 			  "constructor() payable"
 			] as const;
@@ -140,7 +198,63 @@ describe('generateDtsBody', () => {
 			  \`0x\${string}\`,
 			  \`0x\${string}\`,
 			  undefined
-			>;"
+			>;
+			// solc artifacts of compilation
+			export const artifacts = {
+			  "MyContract": {
+			    "abi": [
+			      {
+			        "type": "constructor",
+			        "inputs": [],
+			        "stateMutability": "payable"
+			      }
+			    ],
+			    "evm": {
+			      "bytecode": "0x420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract",
+			      "methods": {
+			        "balanceOf(address)": {
+			          "notice": "Returns the amount of tokens owned by account"
+			        }
+			      }
+			    },
+			    "contractName": "MyContract"
+			  },
+			  "AnotherContract": {
+			    "abi": [],
+			    "evm": {
+			      "bytecode": "0x420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract"
+			    },
+			    "contractName": "AnotherContract"
+			  },
+			  "MissingContract": {
+			    "abi": [],
+			    "evm": {
+			      "bytecode": "0x420"
+			    },
+			    "userdoc": {
+			      "kind": "user",
+			      "version": 1,
+			      "notice": "MyContract",
+			      "methods": {
+			        "balanceOf(address)": {
+			          "notice": "Returns the amount of tokens owned by account"
+			        }
+			      }
+			    },
+			    "contractName": "MissingContract"
+			  }
+			};
+			"
 		`)
 	})
 
