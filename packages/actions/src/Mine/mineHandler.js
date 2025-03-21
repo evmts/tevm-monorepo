@@ -48,7 +48,8 @@ export const mineHandler =
 			if (errors.length > 0) {
 				return maybeThrowOnFail(throwOnFail, { errors })
 			}
-			const { interval = 1, blockCount = 1 } = params
+			// Use blocks as an alias for blockCount if provided
+			const { interval = 1, blockCount = params.blocks ?? 1 } = params
 
 			/**
 			 * @type {Array<import('@tevm/block').Block>}

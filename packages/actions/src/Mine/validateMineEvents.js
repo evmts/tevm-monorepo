@@ -14,7 +14,7 @@ export const validateMineEvents = (events) => {
 
 	/** @type {Array<{path: string, message: string}>} */
 	const errors = []
-	const handlers = ['onBlock', 'onReceipt', 'onLog']
+	const handlers = ['onBlock', 'onReceipt', 'onLog', 'onTransactionHash', 'onSuccess', 'onError']
 
 	for (const handler of handlers) {
 		if (handler in events && /** @type {Record<string, unknown>} */ (events)[handler] !== undefined) {
@@ -27,9 +27,11 @@ export const validateMineEvents = (events) => {
 		}
 	}
 
-	// Check for any keys that aren't in our list of valid handlers
+	// Check for any keys that aren't in our list of valid handlers or MineParams properties
+	// Skip validation for these parameter keys: 'blocks', 'blockCount', 'interval', 'throwOnFail'
+	const paramKeys = ['blocks', 'blockCount', 'interval', 'throwOnFail']
 	for (const key in events) {
-		if (!handlers.includes(key)) {
+		if (!handlers.includes(key) && !paramKeys.includes(key)) {
 			errors.push({
 				path: key,
 				message: `Unknown event handler: ${key}`,

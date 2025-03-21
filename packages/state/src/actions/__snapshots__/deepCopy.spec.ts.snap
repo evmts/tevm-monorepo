@@ -6,3 +6,8 @@ exports[`deepCopy > should throw if uncommitted state 1`] = `
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Version: 1.1.0.next-73]
 `;
+
+exports[`deepCopy should throw if uncommitted state 1`] = `[_InternalError: Attempted to deepCopy state with uncommitted checkpoints
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;

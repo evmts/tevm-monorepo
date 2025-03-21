@@ -56,3 +56,60 @@ exports[`validateUserConfig > should throw an InvalidConfigError if the config i
 └─ ["unknownProperty"]
    └─ is unexpected, expected: "name" | "foundryProject" | "libs" | "remappings" | "debug" | "cacheDir" | "jsonAsConst"]
 `;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 1`] = `"Expected { readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }, actual "foo""`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 2`] = `"Expected { readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }, actual true"`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 3`] = `"Expected { readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }, actual false"`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 4`] = `"Expected { readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }, actual undefined"`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 5`] = `"Expected { readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }, actual null"`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 6`] = `
+"{ readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }
+└─ ["foundryProject"]
+   └─ boolean | string | undefined | undefined
+      ├─ boolean | string | undefined
+      │  ├─ Expected boolean, actual 5
+      │  ├─ Expected string, actual 5
+      │  └─ Expected undefined, actual 5
+      └─ Expected undefined, actual 5"
+`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 7`] = `
+"{ readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }
+└─ ["remappings"]
+   └─ { readonly [x: string]: string } | undefined | undefined
+      ├─ { readonly [x: string]: string } | undefined
+      │  ├─ Expected { readonly [x: string]: string }, actual "{foo: \\"bar\\"}"
+      │  └─ Expected undefined, actual "{foo: \\"bar\\"}"
+      └─ Expected undefined, actual "{foo: \\"bar\\"}""
+`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 8`] = `
+"{ readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }
+└─ ["remappings"]
+   └─ { readonly [x: string]: string } | undefined | undefined
+      ├─ { readonly [x: string]: string } | undefined
+      │  ├─ Expected { readonly [x: string]: string }, actual []
+      │  └─ Expected undefined, actual []
+      └─ Expected undefined, actual []"
+`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 9`] = `
+"{ readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }
+└─ ["libs"]
+   └─ ReadonlyArray<string> | undefined | undefined
+      ├─ ReadonlyArray<string> | undefined
+      │  ├─ Expected ReadonlyArray<string>, actual {"lib":"lib1"}
+      │  └─ Expected undefined, actual {"lib":"lib1"}
+      └─ Expected undefined, actual {"lib":"lib1"}"
+`;
+
+exports[`validateUserConfig should throw an InvalidConfigError if the config is invalid 10`] = `
+"{ readonly name?: "@tevm/ts-plugin" | undefined | undefined; readonly foundryProject?: boolean | string | undefined | undefined; readonly libs?: ReadonlyArray<string> | undefined | undefined; readonly remappings?: { readonly [x: string]: string } | undefined | undefined; readonly debug?: boolean | undefined | undefined; readonly cacheDir?: string | undefined | undefined; readonly jsonAsConst?: string | ReadonlyArray<string> | undefined | undefined }
+└─ ["unknownProperty"]
+   └─ is unexpected, expected: "name" | "foundryProject" | "libs" | "remappings" | "debug" | "cacheDir" | "jsonAsConst""
+`;

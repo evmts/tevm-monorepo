@@ -16,18 +16,64 @@ import {
 	InvalidToError,
 	InvalidValueError,
 } from '@tevm/errors'
-import { zBaseCallParams } from './zBaseCallParams.js'
-
-// TODO we are missing some validation including stateOverrides
+import { validateHex } from '../internal/zod/zHex.js'
 
 /**
- * @typedef {InvalidParamsError| InvalidSkipBalanceError| InvalidGasRefundError| InvalidBlockError| InvalidGasPriceError| InvalidOriginError| InvalidCallerError| InvalidDepthError| InvalidBlobVersionedHashesError} ValidateBaseCallParamsError
+ * @typedef {InvalidParamsError| InvalidSkipBalanceError| InvalidGasRefundError| InvalidBlockError| InvalidGasPriceError| InvalidOriginError| InvalidCallerError| InvalidDepthError| InvalidBlobVersionedHashesError| InvalidMaxFeePerGasError| InvalidMaxPriorityFeePerGasError| InvalidSelfdestructError| InvalidToError| InvalidValueError} ValidateBaseCallParamsError
  */
 
 /**
+ * Validates an address
+ * @param {unknown} value - Value to validate
+ * @returns {{ isValid: boolean, message?: string }} - Validation result
+ */
+const validateAddress = (value) => {
+	// First check if it's a valid hex
+	const hexValidation = validateHex(value)
+	if (!hexValidation.isValid) {
+		return hexValidation
+	}
+
+	// Then check if it's a valid address length (42 characters = 0x + 40 hex chars)
+	const addressStr = /** @type {string} */ (value)
+	if (addressStr.length !== 42) {
+		return { isValid: false, message: 'Address must be 40 hex characters long (with 0x prefix)' }
+	}
+
+	return { isValid: true }
+}
+
+/**
+ * Validates block tag parameter
+ * @param {unknown} value - Value to validate
+ * @returns {{ isValid: boolean, message?: string }} - Validation result
+ */
+const validateBlockTag = (value) => {
+	if (typeof value === 'string') {
+		// Check for named tags
+		const validNamedTags = ['latest', 'earliest', 'pending', 'safe', 'finalized']
+		if (validNamedTags.includes(value)) {
+			return { isValid: true }
+		}
+
+		// Check for hex block number or hash
+		return validateHex(value)
+	}
+	if (typeof value === 'number') {
+		if (value < 0) {
+			return { isValid: false, message: 'Block number must be non-negative' }
+		}
+		return { isValid: true }
+	}
+
+	return { isValid: false, message: 'Block tag must be a string or number' }
+}
+
+/**
  * @internal can break on a minor release
- * Validates that the parameters are correct with zod
+ * Validates call parameters using vanilla JS
  * @param {import('../BaseCall/BaseCallParams.js').BaseCallParams} action
+ * @returns {Array<ValidateBaseCallParamsError>}
  */
 export const validateBaseCallParams = (action) => {
 	/**
@@ -35,114 +81,203 @@ export const validateBaseCallParams = (action) => {
 	 */
 	const errors = []
 
-	const parsedParams = zBaseCallParams.safeParse(action)
+	if (typeof action !== 'object' || action === null) {
+		errors.push(new InvalidParamsError('Parameters must be an object'))
+		return errors
+	}
 
-	if (parsedParams.success === false) {
-		const formattedErrors = parsedParams.error.format()
+	// Validate boolean fields
+	if ('skipBalance' in action && action.skipBalance !== undefined && typeof action.skipBalance !== 'boolean') {
+		errors.push(new InvalidSkipBalanceError('skipBalance must be a boolean'))
+	}
 
-		// Iterate over the general errors
-		formattedErrors._errors.forEach((error) => {
-			errors.push(new InvalidParamsError(error))
-		})
+	if ('createTrace' in action && action.createTrace !== undefined && typeof action.createTrace !== 'boolean') {
+		errors.push(new InvalidParamsError('createTrace must be a boolean'))
+	}
 
-		// Error handling for specific fields
-		if (formattedErrors.skipBalance) {
-			formattedErrors.skipBalance._errors.forEach((error) => {
-				errors.push(new InvalidSkipBalanceError(error))
-			})
+	if (
+		'createAccessList' in action &&
+		action.createAccessList !== undefined &&
+		typeof action.createAccessList !== 'boolean'
+	) {
+		errors.push(new InvalidParamsError('createAccessList must be a boolean'))
+	}
+
+	// Validate createTransaction field
+	if ('createTransaction' in action && action.createTransaction !== undefined) {
+		if (
+			typeof action.createTransaction !== 'boolean' &&
+			!['on-success', 'always', 'never'].includes(action.createTransaction)
+		) {
+			errors.push(
+				new InvalidParamsError('createTransaction must be a boolean or one of: "on-success", "always", "never"'),
+			)
 		}
+	}
 
-		if (formattedErrors.gasRefund) {
-			formattedErrors.gasRefund._errors.forEach((error) => {
-				errors.push(new InvalidGasRefundError(error))
-			})
+	// Validate numeric fields
+	if ('gasRefund' in action && action.gasRefund !== undefined) {
+		if (typeof action.gasRefund !== 'bigint' || action.gasRefund < 0n) {
+			errors.push(new InvalidGasRefundError('gasRefund must be a non-negative bigint'))
 		}
+	}
 
-		if (formattedErrors.blockTag) {
-			formattedErrors.blockTag._errors.forEach((error) => {
-				errors.push(new InvalidBlockError(error))
-			})
+	if ('gas' in action && action.gas !== undefined) {
+		if (typeof action.gas !== 'bigint' || action.gas < 0n) {
+			errors.push(new InvalidGasPriceError('gas must be a non-negative bigint'))
 		}
+	}
 
-		if (formattedErrors.gas) {
-			formattedErrors.gas._errors.forEach((error) => {
-				errors.push(new InvalidGasPriceError(error))
-			})
+	if ('value' in action && action.value !== undefined) {
+		if (typeof action.value !== 'bigint' || action.value < 0n) {
+			errors.push(new InvalidValueError('value must be a non-negative bigint'))
 		}
+	}
 
-		if (formattedErrors.origin) {
-			formattedErrors.origin._errors.forEach((error) => {
-				errors.push(new InvalidOriginError(error))
-			})
+	if ('depth' in action && action.depth !== undefined) {
+		if (typeof action.depth !== 'number' || action.depth < 0 || !Number.isInteger(action.depth)) {
+			errors.push(new InvalidDepthError('depth must be a non-negative integer'))
 		}
+	}
 
-		if (formattedErrors.caller) {
-			formattedErrors.caller._errors.forEach((error) => {
-				errors.push(new InvalidCallerError(error))
-			})
+	if ('gasPrice' in action && action.gasPrice !== undefined) {
+		if (typeof action.gasPrice !== 'bigint' || action.gasPrice < 0n) {
+			errors.push(new InvalidGasPriceError('gasPrice must be a non-negative bigint'))
 		}
+	}
 
-		if (formattedErrors.gas) {
-			formattedErrors.gas._errors.forEach((error) => {
-				errors.push(new InvalidGasPriceError(error))
-			})
+	if ('maxFeePerGas' in action && action.maxFeePerGas !== undefined) {
+		if (typeof action.maxFeePerGas !== 'bigint' || action.maxFeePerGas < 0n) {
+			errors.push(new InvalidMaxFeePerGasError('maxFeePerGas must be a non-negative bigint'))
 		}
+	}
 
-		if (formattedErrors.value) {
-			formattedErrors.value._errors.forEach((error) => {
-				errors.push(new InvalidValueError(error))
-			})
+	if ('maxPriorityFeePerGas' in action && action.maxPriorityFeePerGas !== undefined) {
+		if (typeof action.maxPriorityFeePerGas !== 'bigint' || action.maxPriorityFeePerGas < 0n) {
+			errors.push(new InvalidMaxPriorityFeePerGasError('maxPriorityFeePerGas must be a non-negative bigint'))
 		}
+	}
 
-		if (formattedErrors.depth) {
-			formattedErrors.depth._errors.forEach((error) => {
-				errors.push(new InvalidDepthError(error))
-			})
+	// Validate address fields
+	if ('to' in action && action.to !== undefined) {
+		const validation = validateAddress(action.to)
+		if (!validation.isValid) {
+			errors.push(new InvalidToError(validation.message || 'Invalid to address'))
 		}
+	}
 
-		if (formattedErrors.selfdestruct) {
-			formattedErrors.selfdestruct._errors.forEach((error) => {
-				errors.push(new InvalidSelfdestructError(error))
-			})
+	if ('caller' in action && action.caller !== undefined) {
+		const validation = validateAddress(action.caller)
+		if (!validation.isValid) {
+			errors.push(new InvalidCallerError(validation.message || 'Invalid caller address'))
 		}
+	}
 
-		if (formattedErrors.to) {
-			formattedErrors.to._errors.forEach((error) => {
-				errors.push(new InvalidToError(error))
-			})
+	if ('origin' in action && action.origin !== undefined) {
+		const validation = validateAddress(action.origin)
+		if (!validation.isValid) {
+			errors.push(new InvalidOriginError(validation.message || 'Invalid origin address'))
 		}
+	}
 
-		if (formattedErrors.blobVersionedHashes) {
-			formattedErrors.blobVersionedHashes._errors.forEach((error) => {
-				errors.push(new InvalidBlobVersionedHashesError(error))
-			})
-			for (const [key, value] of Object.entries(formattedErrors.blobVersionedHashes)) {
-				if (key === '_errors') continue
-				if ('_errors' in value) {
-					value._errors.forEach((error) => {
-						errors.push(new InvalidBlobVersionedHashesError(error))
-					})
+	// Validate blockTag
+	if ('blockTag' in action && action.blockTag !== undefined) {
+		const validation = validateBlockTag(action.blockTag)
+		if (!validation.isValid) {
+			errors.push(new InvalidBlockError(validation.message || 'Invalid block tag'))
+		}
+	}
+
+	// Validate arrays and sets
+	if ('blobVersionedHashes' in action && action.blobVersionedHashes !== undefined) {
+		if (!Array.isArray(action.blobVersionedHashes)) {
+			errors.push(new InvalidBlobVersionedHashesError('blobVersionedHashes must be an array'))
+		} else {
+			// Validate each item in the array
+			action.blobVersionedHashes.forEach((hash, index) => {
+				const validation = validateHex(hash)
+				if (!validation.isValid) {
+					errors.push(
+						new InvalidBlobVersionedHashesError(
+							`blobVersionedHashes[${index}]: ${validation.message || 'Invalid hex value'}`,
+						),
+					)
 				}
-			}
-		}
-
-		if (formattedErrors.maxFeePerGas) {
-			formattedErrors.maxFeePerGas._errors.forEach((error) => {
-				errors.push(new InvalidMaxFeePerGasError(error))
 			})
 		}
+	}
 
-		if (formattedErrors.maxPriorityFeePerGas) {
-			formattedErrors.maxPriorityFeePerGas._errors.forEach((error) => {
-				errors.push(new InvalidMaxPriorityFeePerGasError(error))
+	if ('selfdestruct' in action && action.selfdestruct !== undefined) {
+		if (!(action.selfdestruct instanceof Set)) {
+			errors.push(new InvalidSelfdestructError('selfdestruct must be a Set'))
+		} else {
+			// Validate each item in the set
+			action.selfdestruct.forEach((address) => {
+				const validation = validateAddress(address)
+				if (!validation.isValid) {
+					errors.push(
+						new InvalidSelfdestructError(
+							`selfdestruct contains invalid address: ${validation.message || 'Invalid address'}`,
+						),
+					)
+				}
 			})
 		}
+	}
 
-		// if we missed an error let's make sure we handle it here
-		// THis is purely defensive
-		if (errors.length === 0 && parsedParams.success === false) {
-			errors.push(new InvalidParamsError(parsedParams.error.message))
+	// Validate stateOverrideSet if present
+	if ('stateOverrideSet' in action && action.stateOverrideSet !== undefined) {
+		if (typeof action.stateOverrideSet !== 'object' || action.stateOverrideSet === null) {
+			errors.push(new InvalidParamsError('stateOverrideSet must be an object'))
+		} else {
+			// Validate each address and its properties in stateOverrideSet
+			Object.entries(action.stateOverrideSet).forEach(([address, accountState]) => {
+				const addressValidation = validateAddress(address)
+				if (!addressValidation.isValid) {
+					errors.push(new InvalidParamsError(`stateOverrideSet address ${addressValidation.message || 'is invalid'}`))
+				}
+
+				if (typeof accountState !== 'object' || accountState === null) {
+					errors.push(new InvalidParamsError(`stateOverrideSet[${address}] must be an object`))
+				} else {
+					// Validate accountState properties
+					if ('balance' in accountState && accountState.balance !== undefined) {
+						if (typeof accountState.balance !== 'bigint' && typeof accountState.balance !== 'string') {
+							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].balance must be a bigint or hex string`))
+						}
+					}
+
+					if ('nonce' in accountState && accountState.nonce !== undefined) {
+						if (typeof accountState.nonce !== 'bigint' && typeof accountState.nonce !== 'number') {
+							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].nonce must be a bigint or number`))
+						}
+					}
+
+					if ('code' in accountState && accountState.code !== undefined) {
+						const codeValidation = validateHex(accountState.code)
+						if (!codeValidation.isValid) {
+							errors.push(
+								new InvalidParamsError(`stateOverrideSet[${address}].code ${codeValidation.message || 'is invalid'}`),
+							)
+						}
+					}
+
+					if ('state' in accountState && accountState.state !== undefined) {
+						if (typeof accountState.state !== 'object' || accountState.state === null) {
+							errors.push(new InvalidParamsError(`stateOverrideSet[${address}].state must be an object`))
+						}
+					}
+				}
+			})
 		}
+	}
+
+	// Validate blockOverrideSet if present
+	if ('blockOverrideSet' in action && action.blockOverrideSet !== undefined) {
+		if (typeof action.blockOverrideSet !== 'object' || action.blockOverrideSet === null) {
+			errors.push(new InvalidParamsError('blockOverrideSet must be an object'))
+		}
+		// Additional block override validation could be added here
 	}
 
 	return errors
