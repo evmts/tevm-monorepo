@@ -1,5 +1,12 @@
 # @tevm/client
 
+## 1.0.0-next.139
+
+### Patch Changes
+
+- @tevm/actions@1.0.0-next.139
+- @tevm/node@1.0.0-next.139
+
 ## 1.0.0-next.134
 
 ### Patch Changes

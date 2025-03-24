@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/ts-plugin",
-	"version": "1.0.0-next.134",
+	"version": "1.0.0-next.139",
 	"private": false,
 	"sideEffects": false,
 	"description": "A typescript plugin for tevm",

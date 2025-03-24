@@ -1,5 +1,12 @@
 # tevm-run
 
+## 1.0.0-next.139
+
+### Patch Changes
+
+- @tevm/bun-plugin@1.0.0-next.139
+- tevm@1.0.0-next.139
+
 ## 1.0.0-next.138
 
 ### Patch Changes

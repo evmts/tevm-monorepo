@@ -1,5 +1,15 @@
 # @tevm/cli
 
+## 1.0.0-next.139
+
+### Patch Changes
+
+- @tevm/base-bundler@1.0.0-next.139
+- @tevm/bundler-cache@1.0.0-next.139
+- @tevm/actions@1.0.0-next.139
+- @tevm/memory-client@1.0.0-next.139
+- @tevm/server@1.0.0-next.139
+
 ## 1.0.0-next.138
 
 ### Patch Changes
