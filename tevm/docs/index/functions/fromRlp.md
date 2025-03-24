@@ -12,7 +12,9 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 ## Type Parameters
 
-• **to** *extends* `To` = `"hex"`
+### to
+
+`to` *extends* `To` = `"hex"`
 
 ## Parameters
 

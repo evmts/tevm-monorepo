@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewFilterJsonRpcRequest
 
-> **EthNewFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_newFilter"`, readonly \[`SerializeToJson`\<[`FilterParams`](../../index/type-aliases/FilterParams.md)\>\]\>
+> **EthNewFilterJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_newFilter"`, readonly \[`SerializeToJson`\<[`FilterParams`](../../index/type-aliases/FilterParams.md)\>\]\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:195
 

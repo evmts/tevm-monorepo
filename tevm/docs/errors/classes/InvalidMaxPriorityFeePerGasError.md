@@ -42,7 +42,7 @@ try {
 
 ### new InvalidMaxPriorityFeePerGasError()
 
-> **new InvalidMaxPriorityFeePerGasError**(`message`, `args`?): [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
+> **new InvalidMaxPriorityFeePerGasError**(`message`, `args`?): `InvalidMaxPriorityFeePerGasError`
 
 Defined in: packages/errors/types/input/InvalidMaxPriorityFeePerGas.d.ts:47
 
@@ -64,11 +64,11 @@ Additional parameters for the InvalidMaxPriorityFeePerGasError.
 
 #### Returns
 
-[`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
+`InvalidMaxPriorityFeePerGasError`
 
 #### Overrides
 
-[`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructors)
+[`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructor)
 
 ## Properties
 
@@ -142,7 +142,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message-1)
+[`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message)
 
 ***
 
@@ -296,26 +296,54 @@ The first error that matches the function, or the original error.
 
 ### captureStackTrace()
 
+#### Call Signature
+
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-##### targetObject
+###### targetObject
 
 `object`
 
-##### constructorOpt?
+###### constructorOpt?
 
 `Function`
 
-#### Returns
+##### Returns
 
 `void`
 
-#### Inherited from
+##### Inherited from
+
+[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
 
 [`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)

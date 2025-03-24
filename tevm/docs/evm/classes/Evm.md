@@ -16,7 +16,7 @@ Defined in: packages/evm/dist/index.d.ts:70
 
 ### new Evm()
 
-> `protected` **new Evm**(`opts`, `bn128`): [`Evm`](Evm.md)
+> `protected` **new Evm**(`opts`, `bn128`): `Evm`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:78
 
@@ -38,7 +38,7 @@ Initialized bn128 WASM object for precompile usage (internal)
 
 #### Returns
 
-[`Evm`](Evm.md)
+`Evm`
 
 #### Deprecated
 
@@ -771,7 +771,7 @@ EVM
 
 ### create()
 
-> `static` **create**(`options`?): `Promise`\<[`Evm`](Evm.md)\>
+> `static` **create**(`options`?): `Promise`\<`Evm`\>
 
 Defined in: packages/evm/dist/index.d.ts:75
 
@@ -786,7 +786,7 @@ of an EVM object
 
 #### Returns
 
-`Promise`\<[`Evm`](Evm.md)\>
+`Promise`\<`Evm`\>
 
 A new EVM
 

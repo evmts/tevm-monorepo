@@ -6,7 +6,7 @@
 
 # Type Alias: TransactionsBytes
 
-> **TransactionsBytes**: `Uint8Array`[][] \| `Uint8Array`[]
+> **TransactionsBytes** = `Uint8Array`[][] \| `Uint8Array`[]
 
 Defined in: [packages/block/src/types.ts:387](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L387)
 

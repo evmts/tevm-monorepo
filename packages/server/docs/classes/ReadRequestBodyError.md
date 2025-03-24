@@ -28,7 +28,7 @@ Additional parameters for the ReadRequestBodyError.
 
 ### new ReadRequestBodyError()
 
-> **new ReadRequestBodyError**(`message`, `args`?): [`ReadRequestBodyError`](ReadRequestBodyError.md)
+> **new ReadRequestBodyError**(`message`, `args`?): `ReadRequestBodyError`
 
 Defined in: [packages/server/src/errors/ReadRequestBodyError.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/ReadRequestBodyError.js#L36)
 
@@ -50,7 +50,7 @@ Additional parameters for the ReadRequestBodyError.
 
 #### Returns
 
-[`ReadRequestBodyError`](ReadRequestBodyError.md)
+`ReadRequestBodyError`
 
 #### Overrides
 
@@ -281,6 +281,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`BaseError.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

@@ -6,7 +6,7 @@
 
 # Type Alias: MineParams\<TThrowOnFail\>
 
-> **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](MineEvents.md) & `object`
+> **MineParams**\<`TThrowOnFail`\> = [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](MineEvents.md) & `object`
 
 Defined in: [packages/actions/src/Mine/MineParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L21)
 
@@ -28,7 +28,9 @@ Interval between block timestamps. Defaults to 1.
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 ## Example
 

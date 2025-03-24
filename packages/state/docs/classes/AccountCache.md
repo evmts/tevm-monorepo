@@ -16,7 +16,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 ### new AccountCache()
 
-> **new AccountCache**(`opts`): [`AccountCache`](AccountCache.md)
+> **new AccountCache**(`opts`): `AccountCache`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:27
 
@@ -28,7 +28,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 #### Returns
 
-[`AccountCache`](AccountCache.md)
+`AccountCache`
 
 #### Overrides
 

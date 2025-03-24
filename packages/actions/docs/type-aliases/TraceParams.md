@@ -6,17 +6,19 @@
 
 # Type Alias: TraceParams
 
-> **TraceParams**: `object`
+> **TraceParams** = `object`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L8)
 
 Config params for trace calls
 
-## Type declaration
+## Properties
 
 ### timeout?
 
 > `readonly` `optional` **timeout**: `string`
+
+Defined in: [packages/actions/src/debug/DebugParams.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L18)
 
 A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms".
 
@@ -26,15 +28,23 @@ A duration string of decimal numbers that overrides the default timeout of 5 sec
 "10s"
 ```
 
+***
+
 ### tracer
 
 > `readonly` **tracer**: `"callTracer"` \| `"prestateTracer"`
 
+Defined in: [packages/actions/src/debug/DebugParams.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L13)
+
 The type of tracer
 Currently only callTracer supported
+
+***
 
 ### tracerConfig?
 
 > `readonly` `optional` **tracerConfig**: `object`
+
+Defined in: [packages/actions/src/debug/DebugParams.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L22)
 
 object to specify configurations for the tracer

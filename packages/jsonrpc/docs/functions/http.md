@@ -12,9 +12,13 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 ## Type Parameters
 
-• **rpcSchema** *extends* `undefined` \| `RpcSchema` = `undefined`
+### rpcSchema
 
-• **raw** *extends* `boolean` = `false`
+`rpcSchema` *extends* `undefined` \| `RpcSchema` = `undefined`
+
+### raw
+
+`raw` *extends* `boolean` = `false`
 
 ## Parameters
 

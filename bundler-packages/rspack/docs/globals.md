@@ -31,6 +31,6 @@ import { Counter } from './contracts/Counter.sol'
 console.log(Counter.abi)
 ```
 
-## Functions
+## Variables
 
-- [rspackPluginTevm](functions/rspackPluginTevm.md)
+- [rspackPluginTevm](variables/rspackPluginTevm.md)

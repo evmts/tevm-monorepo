@@ -6,7 +6,7 @@
 
 # Type Alias: ModuleInfo
 
-> **ModuleInfo**: `ModuleInfo`
+> **ModuleInfo** = `ModuleInfo`
 
 Defined in: bundler-packages/compiler/types/src/index.d.ts:22
 

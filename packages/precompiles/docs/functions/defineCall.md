@@ -18,7 +18,9 @@ that will be encoded according to the ABI.
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi`
+### TAbi
+
+`TAbi` *extends* `Abi`
 
 ## Parameters
 

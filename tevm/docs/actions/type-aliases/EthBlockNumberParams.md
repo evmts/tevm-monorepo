@@ -6,7 +6,7 @@
 
 # Type Alias: EthBlockNumberParams
 
-> **EthBlockNumberParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthBlockNumberParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:10
 

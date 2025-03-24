@@ -10,6 +10,8 @@
 
 Defined in: [packages/actions/src/Call/handleAutomining.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleAutomining.js#L12)
 
+**`Internal`**
+
 Runs the mining logic if the client is set to automine or gas mining threshold is reached
 
 ## Parameters

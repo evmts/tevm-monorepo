@@ -6,6 +6,6 @@
 
 # Type Alias: EthAccountsResult
 
-> **EthAccountsResult**: [`Address`](Address.md)[]
+> **EthAccountsResult** = [`Address`](Address.md)[]
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:11

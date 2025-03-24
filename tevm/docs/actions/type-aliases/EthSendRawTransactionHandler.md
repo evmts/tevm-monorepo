@@ -6,7 +6,7 @@
 
 # Type Alias: EthSendRawTransactionHandler()
 
-> **EthSendRawTransactionHandler**: (`request`) => `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
+> **EthSendRawTransactionHandler** = (`request`) => `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:32
 

@@ -6,14 +6,16 @@
 
 # Type Alias: EthGetBlockTransactionCountByHashParams
 
-> **EthGetBlockTransactionCountByHashParams**: `object`
+> **EthGetBlockTransactionCountByHashParams** = `object`
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:98
 
 Based on the JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
-## Type declaration
+## Properties
 
 ### hash
 
 > **hash**: [`Hex`](Hex.md)
+
+Defined in: packages/actions/types/eth/EthParams.d.ts:99

@@ -6,7 +6,7 @@
 
 # Type Alias: ValidateLoadStateParamsError
 
-> **ValidateLoadStateParamsError**: [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
+> **ValidateLoadStateParamsError** = [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
 
 Defined in: packages/actions/types/LoadState/validateLoadStateParams.d.ts:5
 

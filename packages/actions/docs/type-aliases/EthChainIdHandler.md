@@ -6,7 +6,7 @@
 
 # Type Alias: EthChainIdHandler()
 
-> **EthChainIdHandler**: (`request`?) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
+> **EthChainIdHandler** = (`request`?) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
 
 Defined in: [packages/actions/src/eth/EthHandler.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L89)
 

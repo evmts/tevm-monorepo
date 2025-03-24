@@ -20,7 +20,7 @@ Error thrown when the tsconfig.json file is not valid json
 
 ### new ParseJsonError()
 
-> **new ParseJsonError**(`options`?): [`ParseJsonError`](ParseJsonError.md)
+> **new ParseJsonError**(`options`?): `ParseJsonError`
 
 Defined in: [packages/effect/src/parseJson.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/parseJson.js#L17)
 
@@ -34,7 +34,7 @@ Defined in: [packages/effect/src/parseJson.js:17](https://github.com/evmts/tevm-
 
 #### Returns
 
-[`ParseJsonError`](ParseJsonError.md)
+`ParseJsonError`
 
 #### Overrides
 

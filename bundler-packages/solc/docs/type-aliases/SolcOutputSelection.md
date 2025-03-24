@@ -6,7 +6,7 @@
 
 # Type Alias: SolcOutputSelection
 
-> **SolcOutputSelection**: `object`
+> **SolcOutputSelection** = `object`
 
 Defined in: [solcTypes.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L121)
 

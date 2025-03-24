@@ -6,7 +6,7 @@
 
 # Type Alias: LoadStateJsonRpcProcedure()
 
-> **LoadStateJsonRpcProcedure**: (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
+> **LoadStateJsonRpcProcedure** = (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/LoadState/LoadStateJsonRpcProcedure.d.ts:16
 

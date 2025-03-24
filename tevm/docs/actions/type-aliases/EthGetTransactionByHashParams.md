@@ -6,14 +6,16 @@
 
 # Type Alias: EthGetTransactionByHashParams
 
-> **EthGetTransactionByHashParams**: `object`
+> **EthGetTransactionByHashParams** = `object`
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:162
 
 Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
-## Type declaration
+## Properties
 
 ### data
 
 > `readonly` **data**: [`Hex`](Hex.md)
+
+Defined in: packages/actions/types/eth/EthParams.d.ts:163

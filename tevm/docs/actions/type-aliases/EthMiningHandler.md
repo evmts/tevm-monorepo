@@ -6,7 +6,7 @@
 
 # Type Alias: EthMiningHandler()
 
-> **EthMiningHandler**: (`request`) => `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
+> **EthMiningHandler** = (`request`) => `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:30
 

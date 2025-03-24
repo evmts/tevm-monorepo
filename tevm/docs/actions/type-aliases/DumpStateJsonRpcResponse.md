@@ -6,7 +6,7 @@
 
 # Type Alias: DumpStateJsonRpcResponse
 
-> **DumpStateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_dumpState"`, `SerializeToJson`\<\{ `state`: [`ParameterizedTevmState`](../../state/type-aliases/ParameterizedTevmState.md); \}\>, [`TevmDumpStateError`](../../index/type-aliases/TevmDumpStateError.md)\[`"code"`\]\>
+> **DumpStateJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_dumpState"`, `SerializeToJson`\<\{ `state`: [`ParameterizedTevmState`](../../state/type-aliases/ParameterizedTevmState.md); \}\>, [`TevmDumpStateError`](TevmDumpStateError.md)\[`"code"`\]\>
 
 Defined in: packages/actions/types/DumpState/DumpStateJsonRpcResponse.d.ts:8
 

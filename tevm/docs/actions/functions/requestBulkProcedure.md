@@ -6,7 +6,7 @@
 
 # Function: requestBulkProcedure()
 
-> **requestBulkProcedure**(`client`): [`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
+> **requestBulkProcedure**(`client`): [`TevmJsonRpcBulkRequestHandler`](../type-aliases/TevmJsonRpcBulkRequestHandler.md)
 
 Defined in: packages/actions/types/requestBulkProcedure.d.ts:1
 
@@ -18,4 +18,4 @@ Defined in: packages/actions/types/requestBulkProcedure.d.ts:1
 
 ## Returns
 
-[`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
+[`TevmJsonRpcBulkRequestHandler`](../type-aliases/TevmJsonRpcBulkRequestHandler.md)

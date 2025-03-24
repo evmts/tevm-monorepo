@@ -6,23 +6,35 @@
 
 # Type Alias: ~~ViemTevmOptimisticClient\<TChain, TAccount\>~~
 
-> **ViemTevmOptimisticClient**\<`TChain`, `TAccount`\>: `object`
+> **ViemTevmOptimisticClient**\<`TChain`, `TAccount`\> = `object`
 
 Defined in: [extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L11)
 
 **`Experimental`**
 
+## Deprecated
+
+in favor of the viem transport
+
+The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`
+
 ## Type Parameters
 
-• **TChain** *extends* `Chain` \| `undefined` = `Chain`
+### TChain
 
-• **TAccount** *extends* `Account` \| `undefined` = `Account` \| `undefined`
+`TChain` *extends* `Chain` \| `undefined` = `Chain`
 
-## Type declaration
+### TAccount
+
+`TAccount` *extends* `Account` \| `undefined` = `Account` \| `undefined`
+
+## Properties
 
 ### ~~tevm~~
 
 > **tevm**: `Omit`\<`TevmClient`, `"request"`\> & `object`
+
+Defined in: [extensions/viem/src/ViemTevmOptimisticClient.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClient.ts#L15)
 
 #### Type declaration
 
@@ -30,13 +42,21 @@ Defined in: [extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.
 
 ###### Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+###### TAbi
 
-• **TFunctionName** *extends* `string` = `ContractFunctionName`\<`TAbi`\>
+`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
-• **TArgs** *extends* `unknown` = `ContractFunctionArgs`\<`TAbi`, `"nonpayable"` \| `"payable"`, `TFunctionName`\>
+###### TFunctionName
 
-• **TChainOverride** *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
+`TFunctionName` *extends* `string` = `ContractFunctionName`\<`TAbi`\>
+
+###### TArgs
+
+`TArgs` *extends* `unknown` = `ContractFunctionArgs`\<`TAbi`, `"nonpayable"` \| `"payable"`, `TFunctionName`\>
+
+###### TChainOverride
+
+`TChainOverride` *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
 
 ###### Parameters
 
@@ -47,9 +67,3 @@ Defined in: [extensions/viem/src/ViemTevmOptimisticClient.ts:11](https://github.
 ###### Returns
 
 `AsyncGenerator`\<[`OptimisticResult`](OptimisticResult.md)\<`TAbi`, `TFunctionName`, `TChain`\>\>
-
-## Deprecated
-
-in favor of the viem transport
-
-The decorated methods added to a viem wallet client by `tevmViemExtensionOptimistic`

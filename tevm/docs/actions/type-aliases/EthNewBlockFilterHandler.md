@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewBlockFilterHandler()
 
-> **EthNewBlockFilterHandler**: (`request`) => `Promise`\<[`EthNewBlockFilterResult`](EthNewBlockFilterResult.md)\>
+> **EthNewBlockFilterHandler** = (`request`) => `Promise`\<[`EthNewBlockFilterResult`](EthNewBlockFilterResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:38
 

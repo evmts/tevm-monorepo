@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetUncleCountByBlockHashResult
 
-> **EthGetUncleCountByBlockHashResult**: [`Hex`](Hex.md)
+> **EthGetUncleCountByBlockHashResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:87
 

@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetStorageAtJsonRpcRequest
 
-> **AnvilSetStorageAtJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setStorageAt"`, \[[`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
+> **AnvilSetStorageAtJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setStorageAt"`, \[[`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:58
 

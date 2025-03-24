@@ -6,7 +6,7 @@
 
 # Type Alias: ExecutionPayload
 
-> **ExecutionPayload**: `object`
+> **ExecutionPayload** = `object`
 
 Defined in: packages/block/types/types.d.ts:548
 
@@ -21,88 +21,6 @@ The structure has evolved over time with various Ethereum upgrades:
 - Shanghai: Added withdrawals field
 - Cancun: Added blobGasUsed, excessBlobGas, parentBeaconBlockRoot
 - Prague (planned): Will add verkle-related fields
-
-## Type declaration
-
-### baseFeePerGas
-
-> **baseFeePerGas**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### blobGasUsed?
-
-> `optional` **blobGasUsed**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### blockHash
-
-> **blockHash**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### blockNumber
-
-> **blockNumber**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### excessBlobGas?
-
-> `optional` **excessBlobGas**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### executionWitness?
-
-> `optional` **executionWitness**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
-
-### extraData
-
-> **extraData**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### feeRecipient
-
-> **feeRecipient**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### gasLimit
-
-> **gasLimit**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### gasUsed
-
-> **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### logsBloom
-
-> **logsBloom**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### parentBeaconBlockRoot?
-
-> `optional` **parentBeaconBlockRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### parentHash
-
-> **parentHash**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### prevRandao
-
-> **prevRandao**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### receiptsRoot
-
-> **receiptsRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### requestsRoot?
-
-> `optional` **requestsRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string` \| `null`
-
-### stateRoot
-
-> **stateRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### timestamp
-
-> **timestamp**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
-
-### transactions
-
-> **transactions**: [`Hex`](../../index/type-aliases/Hex.md)[] \| `string`[]
-
-### withdrawals?
-
-> `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
 
 ## See
 
@@ -133,3 +51,163 @@ async function handleNewPayload(payload: ExecutionPayload): Promise<{status: str
   }
 }
 ```
+
+## Properties
+
+### baseFeePerGas
+
+> **baseFeePerGas**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:560
+
+***
+
+### blobGasUsed?
+
+> `optional` **blobGasUsed**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:564
+
+***
+
+### blockHash
+
+> **blockHash**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:561
+
+***
+
+### blockNumber
+
+> **blockNumber**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:555
+
+***
+
+### excessBlobGas?
+
+> `optional` **excessBlobGas**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:565
+
+***
+
+### executionWitness?
+
+> `optional` **executionWitness**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
+
+Defined in: packages/block/types/types.d.ts:567
+
+***
+
+### extraData
+
+> **extraData**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:559
+
+***
+
+### feeRecipient
+
+> **feeRecipient**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:550
+
+***
+
+### gasLimit
+
+> **gasLimit**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:556
+
+***
+
+### gasUsed
+
+> **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:557
+
+***
+
+### logsBloom
+
+> **logsBloom**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:553
+
+***
+
+### parentBeaconBlockRoot?
+
+> `optional` **parentBeaconBlockRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:566
+
+***
+
+### parentHash
+
+> **parentHash**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:549
+
+***
+
+### prevRandao
+
+> **prevRandao**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:554
+
+***
+
+### receiptsRoot
+
+> **receiptsRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:552
+
+***
+
+### requestsRoot?
+
+> `optional` **requestsRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string` \| `null`
+
+Defined in: packages/block/types/types.d.ts:568
+
+***
+
+### stateRoot
+
+> **stateRoot**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:551
+
+***
+
+### timestamp
+
+> **timestamp**: [`Hex`](../../index/type-aliases/Hex.md) \| `string`
+
+Defined in: packages/block/types/types.d.ts:558
+
+***
+
+### transactions
+
+> **transactions**: [`Hex`](../../index/type-aliases/Hex.md)[] \| `string`[]
+
+Defined in: packages/block/types/types.d.ts:562
+
+***
+
+### withdrawals?
+
+> `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
+
+Defined in: packages/block/types/types.d.ts:563

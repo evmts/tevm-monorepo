@@ -18,7 +18,7 @@ Error class for [defineConfig](../functions/defineConfig.md)
 
 ### new DefineConfigError()
 
-> **new DefineConfigError**(`configFilePath`, `underlyingError`): [`DefineConfigError`](DefineConfigError.md)
+> **new DefineConfigError**(`configFilePath`, `underlyingError`): `DefineConfigError`
 
 Defined in: [bundler-packages/config/src/defineConfig.js:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L22)
 
@@ -34,7 +34,7 @@ Defined in: [bundler-packages/config/src/defineConfig.js:22](https://github.com/
 
 #### Returns
 
-[`DefineConfigError`](DefineConfigError.md)
+`DefineConfigError`
 
 #### Overrides
 

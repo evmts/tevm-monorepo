@@ -6,7 +6,7 @@
 
 # Type Alias: DebugTraceTransactionParams\<TThrowOnError\>
 
-> **DebugTraceTransactionParams**\<`TThrowOnError`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnError`\> & [`TraceParams`](../../index/type-aliases/TraceParams.md) & `object`
+> **DebugTraceTransactionParams**\<`TThrowOnError`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnError`\> & [`TraceParams`](TraceParams.md) & `object`
 
 Defined in: packages/actions/types/debug/DebugParams.d.ts:26
 
@@ -22,4 +22,6 @@ The transaction hash
 
 ## Type Parameters
 
-• **TThrowOnError** *extends* `boolean` = `boolean`
+### TThrowOnError
+
+`TThrowOnError` *extends* `boolean` = `boolean`

@@ -15,7 +15,7 @@ Provides methods for storing, retrieving, and searching transaction receipts and
 
 ### new ReceiptsManager()
 
-> **new ReceiptsManager**(`mapDb`, `chain`): [`ReceiptsManager`](ReceiptsManager.md)
+> **new ReceiptsManager**(`mapDb`, `chain`): `ReceiptsManager`
 
 Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:136
 
@@ -37,7 +37,7 @@ The blockchain instance for retrieving blocks
 
 #### Returns
 
-[`ReceiptsManager`](ReceiptsManager.md)
+`ReceiptsManager`
 
 ## Properties
 
@@ -92,7 +92,7 @@ Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:129
 
 ### deepCopy()
 
-> **deepCopy**(`chain`): [`ReceiptsManager`](ReceiptsManager.md)
+> **deepCopy**(`chain`): `ReceiptsManager`
 
 Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:159
 
@@ -109,7 +109,7 @@ The new chain reference to use
 
 #### Returns
 
-[`ReceiptsManager`](ReceiptsManager.md)
+`ReceiptsManager`
 
 A new ReceiptsManager instance with copied state
 

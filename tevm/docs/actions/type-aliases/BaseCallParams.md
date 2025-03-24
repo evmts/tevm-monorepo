@@ -6,7 +6,7 @@
 
 # Type Alias: BaseCallParams\<TThrowOnFail\>
 
-> **BaseCallParams**\<`TThrowOnFail`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
+> **BaseCallParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Defined in: packages/actions/types/BaseCall/BaseCallParams.d.ts:36
 
@@ -226,7 +226,9 @@ The value in ether that is being sent to the `to` address. Defaults to `0`.
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 ## Example
 

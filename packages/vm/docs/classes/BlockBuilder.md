@@ -12,7 +12,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:44](https://github.com/evmt
 
 ### new BlockBuilder()
 
-> **new BlockBuilder**(`vm`, `opts`): [`BlockBuilder`](BlockBuilder.md)
+> **new BlockBuilder**(`vm`, `opts`): `BlockBuilder`
 
 Defined in: [packages/vm/src/actions/BlockBuilder.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts#L76)
 
@@ -28,7 +28,7 @@ Defined in: [packages/vm/src/actions/BlockBuilder.ts:76](https://github.com/evmt
 
 #### Returns
 
-[`BlockBuilder`](BlockBuilder.md)
+`BlockBuilder`
 
 ## Properties
 

@@ -6,7 +6,7 @@
 
 # Type Alias: CallHandler()
 
-> **CallHandler**: (`action`) => `Promise`\<[`CallResult`](../../index/type-aliases/CallResult.md)\>
+> **CallHandler** = (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
 
 Defined in: packages/actions/types/Call/CallHandlerType.d.ts:48
 
@@ -24,7 +24,7 @@ The parameters for the call, including optional event handlers.
 
 ## Returns
 
-`Promise`\<[`CallResult`](../../index/type-aliases/CallResult.md)\>
+`Promise`\<[`CallResult`](CallResult.md)\>
 
 The result of the call, including execution details and any returned data.
 
@@ -62,5 +62,5 @@ console.log(res)
 ## See
 
  - [tevmCall](https://tevm.sh/reference/tevm/memory-client/functions/tevmCall)
- - [CallParams](../../index/type-aliases/CallParams.md)
- - [CallResult](../../index/type-aliases/CallResult.md)
+ - [CallParams](CallParams.md)
+ - [CallResult](CallResult.md)

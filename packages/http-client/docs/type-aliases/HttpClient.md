@@ -6,7 +6,7 @@
 
 # Type Alias: ~~HttpClient~~
 
-> **HttpClient**: `TevmClient` & `object`
+> **HttpClient** = `TevmClient` & `object`
 
 Defined in: [HttpClient.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClient.ts#L6)
 

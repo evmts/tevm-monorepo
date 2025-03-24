@@ -6,18 +6,24 @@
 
 # Type Alias: DebugReturnType
 
-> **DebugReturnType**: `object`
+> **DebugReturnType** = `object`
 
 Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:5
 
 A mapping of `debug_*` method names to their return type
 
-## Type declaration
+## Properties
 
 ### debug\_traceCall
 
 > **debug\_traceCall**: `DebugTraceCallJsonRpcResponse`
 
+Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:7
+
+***
+
 ### debug\_traceTransaction
 
 > **debug\_traceTransaction**: `DebugTraceTransactionJsonRpcResponse`
+
+Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:6

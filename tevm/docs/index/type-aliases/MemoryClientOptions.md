@@ -6,7 +6,7 @@
 
 # Type Alias: MemoryClientOptions\<TCommon, TAccountOrAddress, TRpcSchema\>
 
-> **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>: [`TevmNodeOptions`](TevmNodeOptions.md)\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\>
+> **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\> = [`TevmNodeOptions`](TevmNodeOptions.md)\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\>
 
 Defined in: packages/memory-client/types/MemoryClientOptions.d.ts:78
 
@@ -18,15 +18,21 @@ a comprehensive set of parameters to customize the behavior of the in-memory Eth
 
 ## Type Parameters
 
-• **TCommon** *extends* [`Common`](../../common/type-aliases/Common.md) & `Chain` = [`Common`](../../common/type-aliases/Common.md) & `Chain`
+### TCommon
+
+`TCommon` *extends* [`Common`](../../common/type-aliases/Common.md) & `Chain` = [`Common`](../../common/type-aliases/Common.md) & `Chain`
 
 The common chain configuration, extending both `Common` and `Chain`.
 
-• **TAccountOrAddress** *extends* [`Account`](Account.md) \| [`Address`](Address.md) \| `undefined` = `undefined`
+### TAccountOrAddress
+
+`TAccountOrAddress` *extends* [`Account`](Account.md) \| [`Address`](Address.md) \| `undefined` = `undefined`
 
 The account or address type for the client.
 
-• **TRpcSchema** *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](TevmRpcSchema.md)
+### TRpcSchema
+
+`TRpcSchema` *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](TevmRpcSchema.md)
 
 The RPC schema type, defaults to `TevmRpcSchema`.
 

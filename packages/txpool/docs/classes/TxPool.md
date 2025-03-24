@@ -20,7 +20,7 @@ module:service
 
 ### new TxPool()
 
-> **new TxPool**(`options`): [`TxPool`](TxPool.md)
+> **new TxPool**(`options`): `TxPool`
 
 Defined in: [TxPool.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L135)
 
@@ -36,7 +36,7 @@ constructor parameters
 
 #### Returns
 
-[`TxPool`](TxPool.md)
+`TxPool`
 
 ## Properties
 
@@ -260,7 +260,7 @@ Defined in: [TxPool.ts:790](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 ### deepCopy()
 
-> **deepCopy**(`opt`): [`TxPool`](TxPool.md)
+> **deepCopy**(`opt`): `TxPool`
 
 Defined in: [TxPool.ts:150](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L150)
 
@@ -274,7 +274,7 @@ Defined in: [TxPool.ts:150](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 #### Returns
 
-[`TxPool`](TxPool.md)
+`TxPool`
 
 ***
 

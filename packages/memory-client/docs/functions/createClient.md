@@ -12,13 +12,21 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 ## Type Parameters
 
-• **transport** *extends* `Transport`
+### transport
 
-• **chain** *extends* `undefined` \| `Chain` = `undefined`
+`transport` *extends* `Transport`
 
-• **accountOrAddress** *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+### chain
 
-• **rpcSchema** *extends* `undefined` \| `RpcSchema` = `undefined`
+`chain` *extends* `undefined` \| `Chain` = `undefined`
+
+### accountOrAddress
+
+`accountOrAddress` *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+
+### rpcSchema
+
+`rpcSchema` *extends* `undefined` \| `RpcSchema` = `undefined`
 
 ## Parameters
 
@@ -84,7 +92,9 @@ Chain for the client.
 
 #### Type Parameters
 
-• **client** *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`transport`, `chain`, `accountOrAddress` *extends* `` `0x${string}` `` ? `object` : `accountOrAddress`\>\>
+##### client
+
+`client` *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`transport`, `chain`, `accountOrAddress` *extends* `` `0x${string}` `` ? `object` : `accountOrAddress`\>\>
 
 #### Parameters
 

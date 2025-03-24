@@ -14,13 +14,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 ## Type Parameters
 
-• **T** *extends* `EventMap`
+### T
+
+`T` *extends* `EventMap`
 
 ## Constructors
 
 ### new AsyncEventEmitter()
 
-> **new AsyncEventEmitter**\<`T`\>(`options`?): [`AsyncEventEmitter`](AsyncEventEmitter.md)\<`T`\>
+> **new AsyncEventEmitter**\<`T`\>(`options`?): `AsyncEventEmitter`\<`T`\>
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:134
 
@@ -32,7 +34,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/e
 
 #### Returns
 
-[`AsyncEventEmitter`](AsyncEventEmitter.md)\<`T`\>
+`AsyncEventEmitter`\<`T`\>
 
 #### Inherited from
 
@@ -62,7 +64,7 @@ v13.4.0, v12.16.0
 
 ### captureRejectionSymbol
 
-> `readonly` `static` **captureRejectionSymbol**: *typeof* [`captureRejectionSymbol`](AsyncEventEmitter.md#capturerejectionsymbol)
+> `readonly` `static` **captureRejectionSymbol**: *typeof* [`captureRejectionSymbol`](#capturerejectionsymbol)
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:452
 
@@ -134,7 +136,7 @@ v0.11.2
 
 ### errorMonitor
 
-> `readonly` `static` **errorMonitor**: *typeof* [`errorMonitor`](AsyncEventEmitter.md#errormonitor)
+> `readonly` `static` **errorMonitor**: *typeof* [`errorMonitor`](#errormonitor)
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:445
 
@@ -161,7 +163,45 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/e
 
 #### Type Parameters
 
-• **K**
+##### K
+
+`K`
+
+#### Parameters
+
+##### error
+
+`Error`
+
+##### event
+
+`string` | `symbol`
+
+##### args
+
+...`AnyRest`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`EventEmitter.[captureRejectionSymbol]`
+
+***
+
+### \[captureRejectionSymbol\]()?
+
+> `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/events.d.ts:592
+
+#### Type Parameters
+
+##### K
+
+`K`
 
 #### Parameters
 
@@ -197,7 +237,9 @@ Alias for `emitter.on(eventName, listener)`.
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -231,7 +273,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -261,7 +305,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -329,7 +375,9 @@ myEmitter.emit('event', 1, 2, 3, 4, 5);
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -400,7 +448,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -425,7 +475,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/asyncEventEmitter.d.ts:31
 
 Returns the current max listener value for the `EventEmitter` which is either
-set by `emitter.setMaxListeners(n)` or defaults to [EventEmitter.defaultMaxListeners](AsyncEventEmitter.md#defaultmaxlisteners).
+set by `emitter.setMaxListeners(n)` or defaults to [EventEmitter.defaultMaxListeners](#defaultmaxlisteners).
 
 #### Returns
 
@@ -489,7 +539,9 @@ console.log(util.inspect(server.listeners('connection')));
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -513,35 +565,75 @@ v0.1.26
 
 ### off()
 
+#### Call Signature
+
 > **off**\<`K`\>(`eventName`, `listener`): `this`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/events.d.ts:747
 
 Alias for `emitter.removeListener()`.
 
-#### Type Parameters
+##### Type Parameters
 
-• **K**
+###### K
 
-#### Parameters
+`K`
 
-##### eventName
+##### Parameters
+
+###### eventName
 
 `string` | `symbol`
 
-##### listener
+###### listener
 
 (...`args`) => `void`
 
-#### Returns
+##### Returns
 
 `this`
 
-#### Since
+##### Since
 
 v10.0.0
 
-#### Inherited from
+##### Inherited from
+
+`EventEmitter.off`
+
+#### Call Signature
+
+> **off**\<`K`\>(`eventName`, `listener`): `this`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/events.d.ts:747
+
+Alias for `emitter.removeListener()`.
+
+##### Type Parameters
+
+###### K
+
+`K`
+
+##### Parameters
+
+###### eventName
+
+`string` | `symbol`
+
+###### listener
+
+(...`args`) => `void`
+
+##### Returns
+
+`this`
+
+##### Since
+
+v10.0.0
+
+##### Inherited from
 
 `EventEmitter.off`
 
@@ -582,7 +674,9 @@ myEE.emit('foo');
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -643,7 +737,9 @@ myEE.emit('foo');
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -692,7 +788,9 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -739,7 +837,9 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 
@@ -768,6 +868,8 @@ v6.0.0
 ***
 
 ### rawListeners()
+
+#### Call Signature
 
 > **rawListeners**\<`K`\>(`eventName`): `Function`[]
 
@@ -801,25 +903,85 @@ newListeners[0]();
 emitter.emit('log');
 ```
 
-#### Type Parameters
+##### Type Parameters
 
-• **K**
+###### K
 
-#### Parameters
+`K`
 
-##### eventName
+##### Parameters
+
+###### eventName
 
 `string` | `symbol`
 
-#### Returns
+##### Returns
 
 `Function`[]
 
-#### Since
+##### Since
 
 v9.4.0
 
-#### Inherited from
+##### Inherited from
+
+`EventEmitter.rawListeners`
+
+#### Call Signature
+
+> **rawListeners**\<`K`\>(`eventName`): `Function`[]
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/events.d.ts:818
+
+Returns a copy of the array of listeners for the event named `eventName`,
+including any wrappers (such as those created by `.once()`).
+
+```js
+import { EventEmitter } from 'node:events';
+const emitter = new EventEmitter();
+emitter.once('log', () => console.log('log once'));
+
+// Returns a new Array with a function `onceWrapper` which has a property
+// `listener` which contains the original listener bound above
+const listeners = emitter.rawListeners('log');
+const logFnWrapper = listeners[0];
+
+// Logs "log once" to the console and does not unbind the `once` event
+logFnWrapper.listener();
+
+// Logs "log once" to the console and removes the listener
+logFnWrapper();
+
+emitter.on('log', () => console.log('log persistently'));
+// Will return a new Array with a single function bound by `.on()` above
+const newListeners = emitter.rawListeners('log');
+
+// Logs "log persistently" twice
+newListeners[0]();
+emitter.emit('log');
+```
+
+##### Type Parameters
+
+###### K
+
+`K`
+
+##### Parameters
+
+###### eventName
+
+`string` | `symbol`
+
+##### Returns
+
+`Function`[]
+
+##### Since
+
+v9.4.0
+
+##### Inherited from
 
 `EventEmitter.rawListeners`
 
@@ -947,7 +1109,9 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Type Parameters
 
-• **E** *extends* `string` \| `number` \| `symbol`
+##### E
+
+`E` *extends* `string` \| `number` \| `symbol`
 
 #### Parameters
 

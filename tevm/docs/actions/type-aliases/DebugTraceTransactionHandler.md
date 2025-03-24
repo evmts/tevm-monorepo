@@ -6,7 +6,7 @@
 
 # Type Alias: DebugTraceTransactionHandler()
 
-> **DebugTraceTransactionHandler**: (`params`) => `Promise`\<[`DebugTraceTransactionResult`](DebugTraceTransactionResult.md)\>
+> **DebugTraceTransactionHandler** = (`params`) => `Promise`\<[`DebugTraceTransactionResult`](DebugTraceTransactionResult.md)\>
 
 Defined in: packages/actions/types/debug/DebugHandler.d.ts:3
 

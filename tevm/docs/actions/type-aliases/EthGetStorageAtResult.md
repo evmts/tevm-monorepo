@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetStorageAtResult
 
-> **EthGetStorageAtResult**: [`Hex`](Hex.md)
+> **EthGetStorageAtResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:79
 

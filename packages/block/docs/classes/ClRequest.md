@@ -29,7 +29,7 @@ const serialized = instance.serialize() // Type byte followed by payload
 
 ### new ClRequest()
 
-> **new ClRequest**(`type`, `bytes`): [`ClRequest`](ClRequest.md)
+> **new ClRequest**(`type`, `bytes`): `ClRequest`
 
 Defined in: [packages/block/src/ClRequest.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/ClRequest.ts#L71)
 
@@ -45,7 +45,7 @@ Defined in: [packages/block/src/ClRequest.ts:71](https://github.com/evmts/tevm-m
 
 #### Returns
 
-[`ClRequest`](ClRequest.md)
+`ClRequest`
 
 ## Properties
 

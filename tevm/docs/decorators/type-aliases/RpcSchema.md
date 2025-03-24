@@ -6,7 +6,7 @@
 
 # Type Alias: RpcSchema
 
-> **RpcSchema**: readonly `object`[]
+> **RpcSchema** = readonly `object`[]
 
 Defined in: packages/decorators/dist/index.d.ts:255
 

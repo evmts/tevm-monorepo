@@ -6,7 +6,7 @@
 
 # Type Alias: TevmNodeOptions\<TCommon\>
 
-> **TevmNodeOptions**\<`TCommon`\>: [`StateOptions`](StateOptions.md) & `object`
+> **TevmNodeOptions**\<`TCommon`\> = [`StateOptions`](StateOptions.md) & `object`
 
 Defined in: packages/node/dist/index.d.ts:310
 
@@ -154,4 +154,6 @@ Enable profiler. Defaults to false.
 
 ## Type Parameters
 
-• **TCommon** *extends* [`Common`](../../common/type-aliases/Common.md) = [`Common`](../../common/type-aliases/Common.md)
+### TCommon
+
+`TCommon` *extends* [`Common`](../../common/type-aliases/Common.md) = [`Common`](../../common/type-aliases/Common.md)

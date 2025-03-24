@@ -10,6 +10,8 @@
 
 Defined in: [packages/actions/src/Call/callHandlerOpts.js:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerOpts.js#L18)
 
+**`Internal`**
+
 Parses user provided params into ethereumjs options to pass into the EVM
 
 ## Parameters

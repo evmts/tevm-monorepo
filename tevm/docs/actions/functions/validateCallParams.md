@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Call/validateCallParams.d.ts:1
 
 ### action
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 
 ## Returns
 

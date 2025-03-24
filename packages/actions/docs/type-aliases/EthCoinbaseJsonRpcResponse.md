@@ -6,7 +6,7 @@
 
 # Type Alias: EthCoinbaseJsonRpcResponse
 
-> **EthCoinbaseJsonRpcResponse**: `JsonRpcResponse`\<`"eth_coinbase"`, `Hex`, `string` \| `number`\>
+> **EthCoinbaseJsonRpcResponse** = `JsonRpcResponse`\<`"eth_coinbase"`, `Hex`, `string` \| `number`\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L42)
 

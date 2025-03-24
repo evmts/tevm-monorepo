@@ -6,7 +6,7 @@
 
 # Type Alias: HeadersInit
 
-> **HeadersInit**: `string`[][] \| `Record`\<`string`, `string` \| `ReadonlyArray`\<`string`\>\> \| `Headers`
+> **HeadersInit** = `string`[][] \| `Record`\<`string`, `string` \| `ReadonlyArray`\<`string`\>\> \| `Headers`
 
 Defined in: packages/jsonrpc/types/HeadersInit.d.ts:4
 

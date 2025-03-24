@@ -54,7 +54,7 @@ Additional parameters for the BaseError.
 
 ### new RevertError()
 
-> **new RevertError**(`message`, `args`?, `tag`?): [`RevertError`](RevertError.md)
+> **new RevertError**(`message`, `args`?, `tag`?): `RevertError`
 
 Defined in: [packages/errors/src/ethereum/RevertError.js:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/RevertError.js#L63)
 
@@ -82,11 +82,11 @@ The tag for the error.
 
 #### Returns
 
-[`RevertError`](RevertError.md)
+`RevertError`
 
 #### Overrides
 
-[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
+[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructor)
 
 ## Properties
 
@@ -100,7 +100,7 @@ Same as name, used internally.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag-1)
+[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 ***
 
@@ -124,7 +124,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code-1)
+[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
 ***
 
@@ -204,7 +204,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage-1)
+[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
 
 ***
 
@@ -321,6 +321,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

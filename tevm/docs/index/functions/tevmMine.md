@@ -6,7 +6,7 @@
 
 # Function: tevmMine()
 
-> **tevmMine**(`client`, `params`?): `Promise`\<[`MineResult`](../type-aliases/MineResult.md)\>
+> **tevmMine**(`client`, `params`?): `Promise`\<[`MineResult`](../../actions/type-aliases/MineResult.md)\>
 
 Defined in: packages/memory-client/types/tevmMine.d.ts:1
 
@@ -18,8 +18,8 @@ Defined in: packages/memory-client/types/tevmMine.d.ts:1
 
 ### params?
 
-[`MineParams`](../type-aliases/MineParams.md)\<`boolean`\>
+[`MineParams`](../../actions/type-aliases/MineParams.md)\<`boolean`\>
 
 ## Returns
 
-`Promise`\<[`MineResult`](../type-aliases/MineResult.md)\>
+`Promise`\<[`MineResult`](../../actions/type-aliases/MineResult.md)\>

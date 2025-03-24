@@ -12,7 +12,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:9
 
 ### new BlockBuilder()
 
-> **new BlockBuilder**(`vm`, `opts`): [`BlockBuilder`](BlockBuilder.md)
+> **new BlockBuilder**(`vm`, `opts`): `BlockBuilder`
 
 Defined in: packages/vm/types/actions/BlockBuilder.d.ts:33
 
@@ -28,7 +28,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:33
 
 #### Returns
 
-[`BlockBuilder`](BlockBuilder.md)
+`BlockBuilder`
 
 ## Properties
 

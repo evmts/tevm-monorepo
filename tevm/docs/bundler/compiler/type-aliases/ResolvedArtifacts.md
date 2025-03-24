@@ -6,7 +6,7 @@
 
 # Type Alias: ResolvedArtifacts
 
-> **ResolvedArtifacts**: `ResolvedArtifacts`
+> **ResolvedArtifacts** = `ResolvedArtifacts`
 
 Defined in: bundler-packages/compiler/types/src/index.d.ts:26
 

@@ -15,7 +15,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 ### new ContractCache()
 
-> **new ContractCache**(`storageCache`): [`ContractCache`](ContractCache.md)
+> **new ContractCache**(`storageCache`): `ContractCache`
 
 Defined in: [packages/state/src/ContractCache.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/ContractCache.js#L11)
 
@@ -27,7 +27,7 @@ Defined in: [packages/state/src/ContractCache.js:11](https://github.com/evmts/te
 
 #### Returns
 
-[`ContractCache`](ContractCache.md)
+`ContractCache`
 
 ## Properties
 

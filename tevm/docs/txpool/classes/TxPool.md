@@ -20,7 +20,7 @@ module:service
 
 ### new TxPool()
 
-> **new TxPool**(`options`): [`TxPool`](TxPool.md)
+> **new TxPool**(`options`): `TxPool`
 
 Defined in: packages/txpool/types/TxPool.d.ts:83
 
@@ -36,7 +36,7 @@ constructor parameters
 
 #### Returns
 
-[`TxPool`](TxPool.md)
+`TxPool`
 
 ## Properties
 
@@ -260,7 +260,7 @@ Defined in: packages/txpool/types/TxPool.d.ts:231
 
 ### deepCopy()
 
-> **deepCopy**(`opt`): [`TxPool`](TxPool.md)
+> **deepCopy**(`opt`): `TxPool`
 
 Defined in: packages/txpool/types/TxPool.d.ts:84
 
@@ -274,7 +274,7 @@ Defined in: packages/txpool/types/TxPool.d.ts:84
 
 #### Returns
 
-[`TxPool`](TxPool.md)
+`TxPool`
 
 ***
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetUncleCountByBlockHashHandler()
 
-> **EthGetUncleCountByBlockHashHandler**: (`request`) => `Promise`\<[`EthGetUncleCountByBlockHashResult`](EthGetUncleCountByBlockHashResult.md)\>
+> **EthGetUncleCountByBlockHashHandler** = (`request`) => `Promise`\<[`EthGetUncleCountByBlockHashResult`](EthGetUncleCountByBlockHashResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:22
 

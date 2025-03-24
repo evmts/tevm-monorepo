@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilResetProcedure()
 
-> **AnvilResetProcedure**: (`request`) => `Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
+> **AnvilResetProcedure** = (`request`) => `Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:27
 

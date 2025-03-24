@@ -14,7 +14,7 @@ A simple Bloom filter implementation originally from ethereumjs
 
 ### new Bloom()
 
-> **new Bloom**(`bitvector`?): [`Bloom`](Bloom.md)
+> **new Bloom**(`bitvector`?): `Bloom`
 
 Defined in: [packages/utils/src/Bloom.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L21)
 
@@ -28,7 +28,7 @@ Represents a Bloom filter.
 
 #### Returns
 
-[`Bloom`](Bloom.md)
+`Bloom`
 
 #### Throws
 
@@ -128,7 +128,7 @@ Bitwise or blooms together.
 
 ##### bloom
 
-[`Bloom`](Bloom.md)
+`Bloom`
 
 #### Returns
 

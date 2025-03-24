@@ -6,19 +6,27 @@
 
 # Type Alias: JsonRpcProcedure()\<TMethod, TParams, TResult, TErrorCode\>
 
-> **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\>: (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
+> **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\> = (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
 
 Defined in: packages/jsonrpc/types/JsonRpcProcedure.d.ts:3
 
 ## Type Parameters
 
-• **TMethod** *extends* `string`
+### TMethod
 
-• **TParams**
+`TMethod` *extends* `string`
 
-• **TResult**
+### TParams
 
-• **TErrorCode** *extends* `string` \| `number`
+`TParams`
+
+### TResult
+
+`TResult`
+
+### TErrorCode
+
+`TErrorCode` *extends* `string` \| `number`
 
 ## Parameters
 

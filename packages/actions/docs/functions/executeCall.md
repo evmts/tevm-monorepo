@@ -8,7 +8,9 @@
 
 > **executeCall**(`client`, `evmInput`, `params`, `events`?): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`ExecuteCallError`](../type-aliases/ExecuteCallError.md)\]; \}\>
 
-Defined in: [packages/actions/src/Call/executeCall.js:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/executeCall.js#L83)
+Defined in: [packages/actions/src/Call/executeCall.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/executeCall.js#L30)
+
+**`Internal`**
 
 executeCall encapsalates the internal logic of running a call in the EVM
 

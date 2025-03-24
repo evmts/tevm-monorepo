@@ -6,7 +6,7 @@
 
 # Type Alias: EthHashrateHandler()
 
-> **EthHashrateHandler**: (`request`?) => `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
+> **EthHashrateHandler** = (`request`?) => `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:9
 

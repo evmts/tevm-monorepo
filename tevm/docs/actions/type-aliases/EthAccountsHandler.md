@@ -6,7 +6,7 @@
 
 # Type Alias: EthAccountsHandler()
 
-> **EthAccountsHandler**: (`request`?) => `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
+> **EthAccountsHandler** = (`request`?) => `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:3
 

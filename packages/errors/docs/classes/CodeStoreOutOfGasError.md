@@ -56,7 +56,7 @@ Additional parameters for the BaseError.
 
 ### new CodeStoreOutOfGasError()
 
-> **new CodeStoreOutOfGasError**(`message`?, `args`?, `tag`?): [`CodeStoreOutOfGasError`](CodeStoreOutOfGasError.md)
+> **new CodeStoreOutOfGasError**(`message`?, `args`?, `tag`?): `CodeStoreOutOfGasError`
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeStoreOutOfGasError.js#L77)
 
@@ -94,11 +94,11 @@ The tag for the error.
 
 #### Returns
 
-[`CodeStoreOutOfGasError`](CodeStoreOutOfGasError.md)
+`CodeStoreOutOfGasError`
 
 #### Overrides
 
-[`GasLimitExceededError`](GasLimitExceededError.md).[`constructor`](GasLimitExceededError.md#constructors)
+[`GasLimitExceededError`](GasLimitExceededError.md).[`constructor`](GasLimitExceededError.md#constructor)
 
 ## Properties
 
@@ -178,7 +178,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message-1)
+[`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message)
 
 ***
 
@@ -333,6 +333,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`GasLimitExceededError`](GasLimitExceededError.md).[`captureStackTrace`](GasLimitExceededError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBalanceResult
 
-> **EthGetBalanceResult**: `bigint`
+> **EthGetBalanceResult** = `bigint`
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:43
 

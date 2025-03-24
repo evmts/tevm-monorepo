@@ -6,7 +6,7 @@
 
 # Type Alias: DebugTraceCallHandler()
 
-> **DebugTraceCallHandler**: (`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
+> **DebugTraceCallHandler** = (`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
 
 Defined in: [packages/actions/src/debug/DebugHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugHandler.ts#L11)
 

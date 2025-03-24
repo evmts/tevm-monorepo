@@ -6,7 +6,7 @@
 
 # Type Alias: CreateEventFilterParameters\<abiEvent, abiEvents, strict, fromBlock, toBlock, _eventName, _args\>
 
-> **CreateEventFilterParameters**\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_eventName`, `_args`\>: `object` & `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> *extends* infer eventFilterArgs ? \{ `args`: `eventFilterArgs` \| `_args` *extends* `eventFilterArgs` ? `_args` : `never`; `event`: `abiEvent`; `events`: `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `abiEvent`; `events`: `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `undefined`; `events`: `abiEvents` \| `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `undefined`; `events`: `undefined`; `strict`: `undefined`; \} : `object`
+> **CreateEventFilterParameters**\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_eventName`, `_args`\> = `object` & `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> *extends* infer eventFilterArgs ? \{ `args`: `eventFilterArgs` \| `_args` *extends* `eventFilterArgs` ? `_args` : `never`; `event`: `abiEvent`; `events`: `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `abiEvent`; `events`: `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `undefined`; `events`: `abiEvents` \| `undefined`; `strict`: `strict`; \} \| \{ `args`: `undefined`; `event`: `undefined`; `events`: `undefined`; `strict`: `undefined`; \} : `object`
 
 Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@5.0.10\_zod@3.24.2/node\_modules/viem/\_types/actions/public/createEventFilter.d.ts:13
 
@@ -26,16 +26,30 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 ## Type Parameters
 
-• **abiEvent** *extends* [`AbiEvent`](AbiEvent.md) \| `undefined` = `undefined`
+### abiEvent
 
-• **abiEvents** *extends* readonly [`AbiEvent`](AbiEvent.md)[] \| readonly `unknown`[] \| `undefined` = `abiEvent` *extends* [`AbiEvent`](AbiEvent.md) ? \[`abiEvent`\] : `undefined`
+`abiEvent` *extends* [`AbiEvent`](AbiEvent.md) \| `undefined` = `undefined`
 
-• **strict** *extends* `boolean` \| `undefined` = `undefined`
+### abiEvents
 
-• **fromBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+`abiEvents` *extends* readonly [`AbiEvent`](AbiEvent.md)[] \| readonly `unknown`[] \| `undefined` = `abiEvent` *extends* [`AbiEvent`](AbiEvent.md) ? \[`abiEvent`\] : `undefined`
 
-• **toBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+### strict
 
-• **_eventName** *extends* `string` \| `undefined` = `MaybeAbiEventName`\<`abiEvent`\>
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
-• **_args** *extends* `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> \| `undefined` = `undefined`
+### fromBlock
+
+`fromBlock` *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+
+### toBlock
+
+`toBlock` *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+
+### _eventName
+
+`_eventName` *extends* `string` \| `undefined` = `MaybeAbiEventName`\<`abiEvent`\>
+
+### _args
+
+`_args` *extends* `MaybeExtractEventArgsFromAbi`\<`abiEvents`, `_eventName`\> \| `undefined` = `undefined`

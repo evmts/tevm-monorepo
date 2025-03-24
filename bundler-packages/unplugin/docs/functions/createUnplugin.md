@@ -12,9 +12,13 @@ Defined in: node\_modules/.pnpm/unplugin@2.2.0/node\_modules/unplugin/dist/index
 
 ## Type Parameters
 
-• **UserOptions**
+### UserOptions
 
-• **Nested** *extends* `boolean` = `boolean`
+`UserOptions`
+
+### Nested
+
+`Nested` *extends* `boolean` = `boolean`
 
 ## Parameters
 

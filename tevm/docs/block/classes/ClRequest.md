@@ -29,7 +29,7 @@ const serialized = instance.serialize() // Type byte followed by payload
 
 ### new ClRequest()
 
-> **new ClRequest**(`type`, `bytes`): [`ClRequest`](ClRequest.md)
+> **new ClRequest**(`type`, `bytes`): `ClRequest`
 
 Defined in: packages/block/types/ClRequest.d.ts:64
 
@@ -45,7 +45,7 @@ Defined in: packages/block/types/ClRequest.d.ts:64
 
 #### Returns
 
-[`ClRequest`](ClRequest.md)
+`ClRequest`
 
 ## Properties
 

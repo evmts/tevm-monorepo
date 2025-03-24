@@ -6,7 +6,7 @@
 
 # Type Alias: EthBlockNumberResult
 
-> **EthBlockNumberResult**: `bigint`
+> **EthBlockNumberResult** = `bigint`
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:15
 

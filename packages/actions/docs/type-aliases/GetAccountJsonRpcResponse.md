@@ -6,7 +6,7 @@
 
 # Type Alias: GetAccountJsonRpcResponse
 
-> **GetAccountJsonRpcResponse**: `JsonRpcResponse`\<`"tevm_getAccount"`, `SerializeToJson`\<[`GetAccountResult`](GetAccountResult.md)\>, [`TevmGetAccountError`](TevmGetAccountError.md)\[`"code"`\]\>
+> **GetAccountJsonRpcResponse** = `JsonRpcResponse`\<`"tevm_getAccount"`, `SerializeToJson`\<[`GetAccountResult`](GetAccountResult.md)\>, [`TevmGetAccountError`](TevmGetAccountError.md)\[`"code"`\]\>
 
 Defined in: [packages/actions/src/GetAccount/GetAccountJsonRpcResponse.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountJsonRpcResponse.ts#L9)
 

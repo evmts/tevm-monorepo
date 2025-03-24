@@ -17,7 +17,9 @@ Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
 
 ## Type Parameters
 
-• **to** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
+### to
+
+`to` *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"hex"`
 
 ## Parameters
 

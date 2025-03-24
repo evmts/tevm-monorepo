@@ -39,6 +39,8 @@ Additional parameters for the BaseError.
 
 ## Extended by
 
+- [`CommonMismatchError`](CommonMismatchError.md)
+- [`EipNotEnabledError`](EipNotEnabledError.md)
 - [`InvalidOpcodeError`](InvalidOpcodeError.md)
 - [`StopError`](StopError.md)
 - [`OutOfRangeError`](OutOfRangeError.md)
@@ -65,14 +67,12 @@ Additional parameters for the BaseError.
 - [`BLS12381PointNotOnCurveError`](BLS12381PointNotOnCurveError.md)
 - [`BLS12381InvalidInputLengthError`](BLS12381InvalidInputLengthError.md)
 - [`ValueOverflowError`](ValueOverflowError.md)
-- [`CommonMismatchError`](CommonMismatchError.md)
-- [`EipNotEnabledError`](EipNotEnabledError.md)
 
 ## Constructors
 
 ### new ExecutionError()
 
-> **new ExecutionError**(`message`, `args`?, `tag`?): [`ExecutionError`](ExecutionError.md)
+> **new ExecutionError**(`message`, `args`?, `tag`?): `ExecutionError`
 
 Defined in: [packages/errors/src/ethereum/ExecutionErrorError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ExecutionErrorError.js#L55)
 
@@ -100,11 +100,11 @@ Internal name/tag for the error.
 
 #### Returns
 
-[`ExecutionError`](ExecutionError.md)
+`ExecutionError`
 
 #### Overrides
 
-[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
+[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructor)
 
 ## Properties
 
@@ -118,7 +118,7 @@ More discriminated version of name. Can be used to discriminate between errors w
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag-1)
+[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 ***
 
@@ -142,7 +142,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code-1)
+[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
 ***
 
@@ -222,7 +222,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage-1)
+[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
 
 ***
 
@@ -339,6 +339,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

@@ -6,7 +6,7 @@
 
 # Type Alias: RpcSchemaOverride
 
-> **RpcSchemaOverride**: `Omit`\<[`RpcSchema`](RpcSchema.md)\[`number`\], `"Method"`\>
+> **RpcSchemaOverride** = `Omit`\<[`RpcSchema`](RpcSchema.md)\[`number`\], `"Method"`\>
 
 Defined in: [eip1193/RpcSchemaOverride.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/RpcSchemaOverride.ts#L37)
 

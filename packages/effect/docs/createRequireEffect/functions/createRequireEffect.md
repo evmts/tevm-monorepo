@@ -10,6 +10,8 @@
 
 Defined in: [packages/effect/src/createRequireEffect.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L50)
 
+**`Internal`**
+
 An [Effect](https://www.effect.website/docs/introduction) wrapper around createRequire
 createRequire is used to use the node.js `require` function in esm modules and cjs modules
 in a way that is compatible with both. It also wraps them with Effect for better error handling

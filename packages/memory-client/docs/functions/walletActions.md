@@ -12,11 +12,17 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 ## Type Parameters
 
-• **transport** *extends* `Transport`
+### transport
 
-• **chain** *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
+`transport` *extends* `Transport`
 
-• **account** *extends* `undefined` \| `Account` = `undefined` \| `Account`
+### chain
+
+`chain` *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
+
+### account
+
+`account` *extends* `undefined` \| `Account` = `undefined` \| `Account`
 
 ## Parameters
 

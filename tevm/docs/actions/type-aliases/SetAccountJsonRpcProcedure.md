@@ -6,7 +6,7 @@
 
 # Type Alias: SetAccountJsonRpcProcedure()
 
-> **SetAccountJsonRpcProcedure**: (`request`) => `Promise`\<`SetAccountJsonRpcResponse`\>
+> **SetAccountJsonRpcProcedure** = (`request`) => `Promise`\<`SetAccountJsonRpcResponse`\>
 
 Defined in: packages/actions/types/SetAccount/SetAccountJsonRpcProcedure.d.ts:6
 

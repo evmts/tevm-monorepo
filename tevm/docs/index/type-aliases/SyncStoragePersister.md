@@ -6,17 +6,19 @@
 
 # Type Alias: SyncStoragePersister
 
-> **SyncStoragePersister**: `object`
+> **SyncStoragePersister** = `object`
 
 Defined in: packages/sync-storage-persister/types/SyncStoragePersister.d.ts:5
 
 Storage persister for client state
 
-## Type declaration
+## Properties
 
 ### persistTevmState()
 
 > **persistTevmState**: (`state`, `onError`?) => `Error` \| `undefined`
+
+Defined in: packages/sync-storage-persister/types/SyncStoragePersister.d.ts:12
 
 Persist serializable tevm state
 
@@ -40,9 +42,13 @@ Called when state fails to persist
 
 Error if one occurs during persistence
 
+***
+
 ### removePersistedState()
 
 > **removePersistedState**: () => `Error` \| `undefined`
+
+Defined in: packages/sync-storage-persister/types/SyncStoragePersister.d.ts:22
 
 Removes persisted state
 
@@ -52,9 +58,13 @@ Removes persisted state
 
 Error if one occurs during removal
 
+***
+
 ### restoreState()
 
 > **restoreState**: () => [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md) \| `undefined`
+
+Defined in: packages/sync-storage-persister/types/SyncStoragePersister.d.ts:17
 
 Restores persisted state
 

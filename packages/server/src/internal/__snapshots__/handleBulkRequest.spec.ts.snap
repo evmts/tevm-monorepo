@@ -71,6 +71,22 @@ Version: 1.1.0.next-73",
 }
 `;
 
+exports[`handleBulkRequest > should log errors and return error responses for invalid requests 2`] = `
+{
+  "error": {
+    "code": -32603,
+    "message": "eth_invalidMethod
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: Unknown error in jsonrpc request
+Version: 1.1.0.next-73",
+  },
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "eth_invalidMethod",
+}
+`;
+
 exports[`handleBulkRequest > should log errors and return error responses if underlying client throws 1`] = `
 {
   "error": {

@@ -6,32 +6,12 @@
 
 # Type Alias: NetworkSync
 
-> **NetworkSync**: `object`
+> **NetworkSync** = `object`
 
 Defined in: packages/decorators/dist/index.d.ts:1460
 
 Information about the Ethereum client's sync status.
 Returned by the eth_syncing JSON-RPC method when synchronization is in progress.
-
-## Type declaration
-
-### currentBlock
-
-> **currentBlock**: [`Quantity`](Quantity.md)
-
-The current block number
-
-### highestBlock
-
-> **highestBlock**: [`Quantity`](Quantity.md)
-
-Number of latest block on the network
-
-### startingBlock
-
-> **startingBlock**: [`Quantity`](Quantity.md)
-
-Block number at which syncing started
 
 ## Example
 
@@ -51,3 +31,33 @@ if (syncStatus !== false) {
   console.log('Node is fully synced')
 }
 ```
+
+## Properties
+
+### currentBlock
+
+> **currentBlock**: [`Quantity`](Quantity.md)
+
+Defined in: packages/decorators/dist/index.d.ts:1462
+
+The current block number
+
+***
+
+### highestBlock
+
+> **highestBlock**: [`Quantity`](Quantity.md)
+
+Defined in: packages/decorators/dist/index.d.ts:1464
+
+Number of latest block on the network
+
+***
+
+### startingBlock
+
+> **startingBlock**: [`Quantity`](Quantity.md)
+
+Defined in: packages/decorators/dist/index.d.ts:1466
+
+Block number at which syncing started

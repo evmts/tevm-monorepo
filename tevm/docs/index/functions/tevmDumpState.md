@@ -6,7 +6,7 @@
 
 # Function: tevmDumpState()
 
-> **tevmDumpState**(`client`): `Promise`\<[`DumpStateResult`](../type-aliases/DumpStateResult.md)\<[`TevmDumpStateError`](../type-aliases/TevmDumpStateError.md)\>\>
+> **tevmDumpState**(`client`): `Promise`\<[`DumpStateResult`](../../actions/type-aliases/DumpStateResult.md)\<[`TevmDumpStateError`](../../actions/type-aliases/TevmDumpStateError.md)\>\>
 
 Defined in: packages/memory-client/types/tevmDumpState.d.ts:1
 
@@ -18,4 +18,4 @@ Defined in: packages/memory-client/types/tevmDumpState.d.ts:1
 
 ## Returns
 
-`Promise`\<[`DumpStateResult`](../type-aliases/DumpStateResult.md)\<[`TevmDumpStateError`](../type-aliases/TevmDumpStateError.md)\>\>
+`Promise`\<[`DumpStateResult`](../../actions/type-aliases/DumpStateResult.md)\<[`TevmDumpStateError`](../../actions/type-aliases/TevmDumpStateError.md)\>\>

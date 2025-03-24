@@ -6,7 +6,7 @@
 
 # Type Alias: SolcInputSource
 
-> **SolcInputSource**: `object` & \{ `urls`: `string`[]; \} \| \{ `content`: `string`; \}
+> **SolcInputSource** = `object` & \{ `urls`: `string`[]; \} \| \{ `content`: `string`; \}
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:5
 

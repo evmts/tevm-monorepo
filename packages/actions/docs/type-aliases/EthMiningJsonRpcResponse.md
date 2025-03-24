@@ -6,7 +6,7 @@
 
 # Type Alias: EthMiningJsonRpcResponse
 
-> **EthMiningJsonRpcResponse**: `JsonRpcResponse`\<`"eth_mining"`, `boolean`, `string` \| `number`\>
+> **EthMiningJsonRpcResponse** = `JsonRpcResponse`\<`"eth_mining"`, `boolean`, `string` \| `number`\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:232](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L232)
 

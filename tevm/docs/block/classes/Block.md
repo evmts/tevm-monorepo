@@ -14,7 +14,7 @@ An object that represents the block.
 
 ### new Block()
 
-> **new Block**(`opts`, `header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `requests`?, `executionWitness`?): [`Block`](Block.md)
+> **new Block**(`opts`, `header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `requests`?, `executionWitness`?): `Block`
 
 Defined in: packages/block/types/block.d.ts:89
 
@@ -53,7 +53,7 @@ Use the static factory methods to assist in creating a Block object from varying
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 ## Properties
 
@@ -301,7 +301,7 @@ Returns the canonical difficulty for this block.
 
 ##### parentBlock
 
-[`Block`](Block.md)
+`Block`
 
 the parent of this `Block`
 
@@ -554,7 +554,7 @@ Throws if invalid
 
 ##### parentBlock
 
-[`Block`](Block.md)
+`Block`
 
 the parent of this `Block`
 
@@ -602,7 +602,7 @@ true if the withdrawals trie root is valid, false otherwise
 
 ### fromBeaconPayloadJson()
 
-> `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
+> `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<`Block`\>
 
 Defined in: packages/block/types/block.d.ts:84
 
@@ -624,7 +624,7 @@ json of a beacon beacon fetched from beacon apis
 
 #### Returns
 
-`Promise`\<[`Block`](Block.md)\>
+`Promise`\<`Block`\>
 
 the block constructed block
 
@@ -632,7 +632,7 @@ the block constructed block
 
 ### fromBlockData()
 
-> `static` **fromBlockData**(`blockData`, `opts`): [`Block`](Block.md)
+> `static` **fromBlockData**(`blockData`, `opts`): `Block`
 
 Defined in: packages/block/types/block.d.ts:56
 
@@ -650,13 +650,13 @@ Static constructor to create a block from a block data dictionary
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 ***
 
 ### fromExecutionPayload()
 
-> `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
+> `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<`Block`\>
 
 Defined in: packages/block/types/block.d.ts:77
 
@@ -676,7 +676,7 @@ Method to retrieve a block from an execution payload
 
 #### Returns
 
-`Promise`\<[`Block`](Block.md)\>
+`Promise`\<`Block`\>
 
 the block constructed block
 
@@ -684,7 +684,7 @@ the block constructed block
 
 ### fromRLPSerializedBlock()
 
-> `static` **fromRLPSerializedBlock**(`serialized`, `opts`): [`Block`](Block.md)
+> `static` **fromRLPSerializedBlock**(`serialized`, `opts`): `Block`
 
 Defined in: packages/block/types/block.d.ts:63
 
@@ -702,13 +702,13 @@ Static constructor to create a block from a RLP-serialized block
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 ***
 
 ### fromValuesArray()
 
-> `static` **fromValuesArray**(`values`, `opts`): [`Block`](Block.md)
+> `static` **fromValuesArray**(`values`, `opts`): `Block`
 
 Defined in: packages/block/types/block.d.ts:70
 
@@ -726,7 +726,7 @@ Static constructor to create a block from an array of Bytes values
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 ***
 

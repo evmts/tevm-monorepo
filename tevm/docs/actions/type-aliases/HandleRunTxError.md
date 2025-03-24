@@ -6,6 +6,6 @@
 
 # Type Alias: HandleRunTxError
 
-> **HandleRunTxError**: [`TevmEvmError`](TevmEvmError.md) \| [`InvalidGasPriceError`](../../errors/classes/InvalidGasPriceError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md) \| [`InvalidGasLimitError`](../../errors/classes/InvalidGasLimitError.md)
+> **HandleRunTxError** = [`TevmEvmError`](TevmEvmError.md) \| [`InvalidGasPriceError`](../../errors/classes/InvalidGasPriceError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md) \| [`InvalidGasLimitError`](../../errors/classes/InvalidGasLimitError.md)
 
 Defined in: packages/actions/types/Call/handleEvmError.d.ts:4

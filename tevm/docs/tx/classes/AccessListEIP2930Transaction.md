@@ -21,7 +21,7 @@ Typed transaction with optional access lists
 
 ### new AccessListEIP2930Transaction()
 
-> **new AccessListEIP2930Transaction**(`txData`, `opts`?): [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+> **new AccessListEIP2930Transaction**(`txData`, `opts`?): `AccessListEIP2930Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip2930Transaction.d.ts:51
 
@@ -43,7 +43,7 @@ varying data types.
 
 #### Returns
 
-[`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+`AccessListEIP2930Transaction`
 
 #### Overrides
 
@@ -322,7 +322,7 @@ Pass true if the number also cannot equal one less the maximum value
 
 ### addSignature()
 
-> **addSignature**(`v`, `r`, `s`, `convertV`?): [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+> **addSignature**(`v`, `r`, `s`, `convertV`?): `AccessListEIP2930Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip2930Transaction.d.ts:121
 
@@ -358,7 +358,7 @@ Set this to `true` if the raw output of `ecsign` is used. If this is `false` (de
 
 #### Returns
 
-[`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+`AccessListEIP2930Transaction`
 
 #### Overrides
 
@@ -596,7 +596,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 Computes a sha3-256 hash of the serialized tx.
 
 This method can only be used for signed txs (it throws otherwise).
-Use [AccessListEIP2930Transaction.getMessageToSign](AccessListEIP2930Transaction.md#getmessagetosign) to get a tx hash for the purpose of signing.
+Use [AccessListEIP2930Transaction.getMessageToSign](#getmessagetosign) to get a tx hash for the purpose of signing.
 
 #### Returns
 
@@ -655,12 +655,12 @@ Returns a Uint8Array Array of the raw Bytes of the EIP-2930 transaction, in orde
 Format: `[chainId, nonce, gasPrice, gasLimit, to, value, data, accessList,
 signatureYParity (v), signatureR (r), signatureS (s)]`
 
-Use [AccessListEIP2930Transaction.serialize](AccessListEIP2930Transaction.md#serialize) to add a transaction to a block
+Use [AccessListEIP2930Transaction.serialize](#serialize) to add a transaction to a block
 with Block.fromValuesArray.
 
 For an unsigned tx this method uses the empty Bytes values for the
 signature parameters `v`, `r` and `s` for encoding. For an EIP-155 compliant
-representation for external signing use [AccessListEIP2930Transaction.getMessageToSign](AccessListEIP2930Transaction.md#getmessagetosign).
+representation for external signing use [AccessListEIP2930Transaction.getMessageToSign](#getmessagetosign).
 
 #### Returns
 
@@ -699,7 +699,7 @@ the RLP encoding of the values.
 
 ### sign()
 
-> **sign**(`privateKey`): [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+> **sign**(`privateKey`): `AccessListEIP2930Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:138
 
@@ -719,7 +719,7 @@ const signedTx = tx.sign(privateKey)
 
 #### Returns
 
-[`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+`AccessListEIP2930Transaction`
 
 #### Inherited from
 
@@ -840,7 +840,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 ### fromSerializedTx()
 
-> `static` **fromSerializedTx**(`serialized`, `opts`?): [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+> `static` **fromSerializedTx**(`serialized`, `opts`?): `AccessListEIP2930Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip2930Transaction.d.ts:36
 
@@ -861,13 +861,13 @@ signatureYParity (v), signatureR (r), signatureS (s)])`
 
 #### Returns
 
-[`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+`AccessListEIP2930Transaction`
 
 ***
 
 ### fromTxData()
 
-> `static` **fromTxData**(`txData`, `opts`?): [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+> `static` **fromTxData**(`txData`, `opts`?): `AccessListEIP2930Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip2930Transaction.d.ts:29
 
@@ -892,13 +892,13 @@ Notes:
 
 #### Returns
 
-[`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+`AccessListEIP2930Transaction`
 
 ***
 
 ### fromValuesArray()
 
-> `static` **fromValuesArray**(`values`, `opts`?): [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+> `static` **fromValuesArray**(`values`, `opts`?): `AccessListEIP2930Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip2930Transaction.d.ts:43
 
@@ -919,4 +919,4 @@ signatureYParity (v), signatureR (r), signatureS (s)]`
 
 #### Returns
 
-[`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md)
+`AccessListEIP2930Transaction`

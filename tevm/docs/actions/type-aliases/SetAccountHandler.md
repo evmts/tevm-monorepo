@@ -6,7 +6,7 @@
 
 # Type Alias: SetAccountHandler()
 
-> **SetAccountHandler**: (`params`) => `Promise`\<[`SetAccountResult`](../../index/type-aliases/SetAccountResult.md)\>
+> **SetAccountHandler** = (`params`) => `Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
 Defined in: packages/actions/types/SetAccount/SetAccountHandlerType.d.ts:14
 
@@ -16,11 +16,11 @@ Sets the state of a specific ethereum address
 
 ### params
 
-[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)
+[`SetAccountParams`](SetAccountParams.md)
 
 ## Returns
 
-`Promise`\<[`SetAccountResult`](../../index/type-aliases/SetAccountResult.md)\>
+`Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
 ## Example
 

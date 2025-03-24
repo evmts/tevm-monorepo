@@ -6,16 +6,18 @@
 
 # Type Alias: AnvilSetChainIdParams
 
-> **AnvilSetChainIdParams**: `object`
+> **AnvilSetChainIdParams** = `object`
 
 Defined in: packages/actions/types/anvil/AnvilParams.d.ts:116
 
 Params for `anvil_setChainId` handler
 
-## Type declaration
+## Properties
 
 ### chainId
 
 > `readonly` **chainId**: `number`
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:120
 
 The chain id to set

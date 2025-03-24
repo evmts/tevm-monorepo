@@ -6,7 +6,7 @@
 
 # Type Alias: EthGasPriceParams
 
-> **EthGasPriceParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthGasPriceParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:73
 

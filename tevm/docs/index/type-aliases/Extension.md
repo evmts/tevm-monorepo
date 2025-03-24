@@ -6,13 +6,15 @@
 
 # Type Alias: Extension()\<TExtended\>
 
-> **Extension**\<`TExtended`\>: (`client`) => `TExtended`
+> **Extension**\<`TExtended`\> = (`client`) => `TExtended`
 
 Defined in: packages/node/dist/index.d.ts:433
 
 ## Type Parameters
 
-• **TExtended**
+### TExtended
+
+`TExtended`
 
 ## Parameters
 

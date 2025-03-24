@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilStopImpersonatingAccountResult
 
-> **AnvilStopImpersonatingAccountResult**: `null`
+> **AnvilStopImpersonatingAccountResult** = `null`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:3

@@ -6,7 +6,7 @@
 
 # Type Alias: EthCoinbaseParams
 
-> **EthCoinbaseParams**: [`EmptyParams`](EmptyParams.md)
+> **EthCoinbaseParams** = [`EmptyParams`](EmptyParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:76](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L76)
 

@@ -6,7 +6,7 @@
 
 # Type Alias: Chain
 
-> **Chain**: `object` & `BaseChain` & `object`
+> **Chain** = `object` & `BaseChain` & `object`
 
 Defined in: [packages/blockchain/src/Chain.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L16)
 
@@ -20,11 +20,11 @@ Blockchain
 
 ### deepCopy()
 
-> **deepCopy**: () => `Promise`\<[`Chain`](Chain.md)\>
+> **deepCopy**: () => `Promise`\<`Chain`\>
 
 #### Returns
 
-`Promise`\<[`Chain`](Chain.md)\>
+`Promise`\<`Chain`\>
 
 ### events?
 
@@ -34,13 +34,13 @@ Optional events emitter
 
 ### shallowCopy()
 
-> **shallowCopy**: () => [`Chain`](Chain.md)
+> **shallowCopy**: () => `Chain`
 
 Returns a shallow copy of the blockchain that may share state with the original
 
 #### Returns
 
-[`Chain`](Chain.md)
+`Chain`
 
 ### delBlock()
 

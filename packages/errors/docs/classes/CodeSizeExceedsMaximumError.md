@@ -58,7 +58,7 @@ Additional parameters for the BaseError.
 
 ### new CodeSizeExceedsMaximumError()
 
-> **new CodeSizeExceedsMaximumError**(`message`?, `args`?, `tag`?): [`CodeSizeExceedsMaximumError`](CodeSizeExceedsMaximumError.md)
+> **new CodeSizeExceedsMaximumError**(`message`?, `args`?, `tag`?): `CodeSizeExceedsMaximumError`
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/CodeSizeExceedsMaximumError.js:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/CodeSizeExceedsMaximumError.js#L89)
 
@@ -105,11 +105,11 @@ The tag for the error.
 
 #### Returns
 
-[`CodeSizeExceedsMaximumError`](CodeSizeExceedsMaximumError.md)
+`CodeSizeExceedsMaximumError`
 
 #### Overrides
 
-[`GasLimitExceededError`](GasLimitExceededError.md).[`constructor`](GasLimitExceededError.md#constructors)
+[`GasLimitExceededError`](GasLimitExceededError.md).[`constructor`](GasLimitExceededError.md#constructor)
 
 ## Properties
 
@@ -189,7 +189,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message-1)
+[`GasLimitExceededError`](GasLimitExceededError.md).[`message`](GasLimitExceededError.md#message)
 
 ***
 
@@ -344,6 +344,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`GasLimitExceededError`](GasLimitExceededError.md).[`captureStackTrace`](GasLimitExceededError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

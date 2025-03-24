@@ -6,7 +6,7 @@
 
 # Type Alias: EthUninstallFilterHandler()
 
-> **EthUninstallFilterHandler**: (`request`) => `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
+> **EthUninstallFilterHandler** = (`request`) => `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
 
 Defined in: [packages/actions/src/eth/EthHandler.ts:183](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L183)
 

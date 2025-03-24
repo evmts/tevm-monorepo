@@ -6,7 +6,7 @@
 
 # Type Alias: JsonSerializableObject
 
-> **JsonSerializableObject**: `object`
+> **JsonSerializableObject** = `object`
 
 Defined in: [packages/utils/src/SerializeToJson.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/SerializeToJson.ts#L24)
 

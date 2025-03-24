@@ -18,7 +18,7 @@ An Ethereum non-typed (legacy) transaction
 
 ### new LegacyTransaction()
 
-> **new LegacyTransaction**(`txData`, `opts`?): [`LegacyTransaction`](LegacyTransaction.md)
+> **new LegacyTransaction**(`txData`, `opts`?): `LegacyTransaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:42
 
@@ -40,7 +40,7 @@ varying data types.
 
 #### Returns
 
-[`LegacyTransaction`](LegacyTransaction.md)
+`LegacyTransaction`
 
 #### Overrides
 
@@ -319,7 +319,7 @@ Validates tx's `v` value
 
 ### addSignature()
 
-> **addSignature**(`v`, `r`, `s`, `convertV`?): [`LegacyTransaction`](LegacyTransaction.md)
+> **addSignature**(`v`, `r`, `s`, `convertV`?): `LegacyTransaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:110
 
@@ -355,7 +355,7 @@ Set this to `true` if the raw output of `ecsign` is used. If this is `false` (de
 
 #### Returns
 
-[`LegacyTransaction`](LegacyTransaction.md)
+`LegacyTransaction`
 
 #### Overrides
 
@@ -694,7 +694,7 @@ representation for external signing use Transaction.getMessageToSign.
 
 ### sign()
 
-> **sign**(`privateKey`): [`LegacyTransaction`](LegacyTransaction.md)
+> **sign**(`privateKey`): `LegacyTransaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:138
 
@@ -714,7 +714,7 @@ const signedTx = tx.sign(privateKey)
 
 #### Returns
 
-[`LegacyTransaction`](LegacyTransaction.md)
+`LegacyTransaction`
 
 #### Inherited from
 
@@ -835,7 +835,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 ### fromSerializedTx()
 
-> `static` **fromSerializedTx**(`serialized`, `opts`?): [`LegacyTransaction`](LegacyTransaction.md)
+> `static` **fromSerializedTx**(`serialized`, `opts`?): `LegacyTransaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:28
 
@@ -855,13 +855,13 @@ Format: `rlp([nonce, gasPrice, gasLimit, to, value, data, v, r, s])`
 
 #### Returns
 
-[`LegacyTransaction`](LegacyTransaction.md)
+`LegacyTransaction`
 
 ***
 
 ### fromTxData()
 
-> `static` **fromTxData**(`txData`, `opts`?): [`LegacyTransaction`](LegacyTransaction.md)
+> `static` **fromTxData**(`txData`, `opts`?): `LegacyTransaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:22
 
@@ -884,13 +884,13 @@ Notes:
 
 #### Returns
 
-[`LegacyTransaction`](LegacyTransaction.md)
+`LegacyTransaction`
 
 ***
 
 ### fromValuesArray()
 
-> `static` **fromValuesArray**(`values`, `opts`?): [`LegacyTransaction`](LegacyTransaction.md)
+> `static` **fromValuesArray**(`values`, `opts`?): `LegacyTransaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/legacyTransaction.d.ts:34
 
@@ -910,4 +910,4 @@ Format: `[nonce, gasPrice, gasLimit, to, value, data, v, r, s]`
 
 #### Returns
 
-[`LegacyTransaction`](LegacyTransaction.md)
+`LegacyTransaction`

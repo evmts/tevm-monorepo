@@ -48,7 +48,7 @@ Additional parameters for the BaseError.
 
 ### new InvalidJumpSubError()
 
-> **new InvalidJumpSubError**(`message`?, `args`?, `tag`?): [`InvalidJumpSubError`](InvalidJumpSubError.md)
+> **new InvalidJumpSubError**(`message`?, `args`?, `tag`?): `InvalidJumpSubError`
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/InvalidJumpSubError.js:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/InvalidJumpSubError.js#L81)
 
@@ -85,7 +85,7 @@ The tag for the error.}
 
 #### Returns
 
-[`InvalidJumpSubError`](InvalidJumpSubError.md)
+`InvalidJumpSubError`
 
 #### Example
 
@@ -103,7 +103,7 @@ try {
 
 #### Overrides
 
-[`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructors)
+[`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructor)
 
 ## Properties
 
@@ -181,7 +181,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message-1)
+[`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message)
 
 ***
 
@@ -350,6 +350,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
