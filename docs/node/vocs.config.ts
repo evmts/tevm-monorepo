@@ -106,6 +106,7 @@ export default defineConfig({
         { text: "Call API", link: "/api/tevm-call" },
         { text: "VM and Submodules", link: "/api/vm-and-submodules" },
         { text: "Decorators", link: "/api/decorators" },
+        { text: "WhatsABI Integration", link: "/api/whatsabi-integration" },
       ],
     },
     {
