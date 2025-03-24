@@ -229,18 +229,43 @@ const { bytecode, abi } = sol`
 // Use with client.readContract, writeContract, etc.
 ```
 
-### CAIP-10 Contract Imports
+### Network Imports via Macros
 
 :::info
 This feature is coming soon and is not yet available in the current release.
 :::
 
-Tevm will soon support importing contracts based on the CAIP-10 Account ID Specification, which will allow you to import contracts from any chain using a standardized identifier format:
+Tevm will soon support importing contract ABIs from any blockchain network using macros. This build-time solution offers several advantages over runtime imports, including stronger type safety and better performance:
 
 ```ts
-// Import a contract from Ethereum mainnet using a CAIP-10 identifier
-import { WETH } from 'caip10:eip155:1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+// Create a contract macro function
+// contract-macros.js
+import { createClient } from 'tevm'
+import { http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { whatsabi } from 'tevm'
+
+// Export a function that returns a contract - one function per contract
+export async function wethContract() {
+  // Uses WhatsABI to fetch and analyze contract data
+  const result = await whatsabi(client, {
+    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+    followProxies: true
+  })
+  
+  return {
+    abi: result.abi,
+    address: result.address,
+    name: 'WETH'
+  }
+}
+
+// Import the contract with import attributes
+// app.js
+import { wethContract } from './contract-macros.js' with { type: 'macro' }
 ```
+
+For complete documentation about this feature, see the [WhatsABI Integration](/api/whatsabi-integration#network-imports-via-macros) guide.
 
 ## Further Reading
 

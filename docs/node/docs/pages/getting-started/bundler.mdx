@@ -442,28 +442,82 @@ const myToken = await client.deployContract(
 
 Tevm is actively developing exciting new features to make working with contracts even easier:
 
-#### Network Imports with CAIP-10
+#### Network Imports with Macros
 
 :::info
-The CAIP-10 network import feature is coming soon and is not yet available in the current release.
+The macros-based network import feature is coming soon and is not yet available in the current release.
 :::
 
-In an upcoming version, Tevm will support importing contracts directly from any EVM network using CAIP-10 identifiers. This will let you interact with deployed contracts by simply importing them:
+In an upcoming version, Tevm will support importing contracts from any EVM network using build-time macros. This provides better performance and stronger type safety by resolving contracts during your build process instead of at runtime:
 
 ```ts
-// Import WETH from Ethereum mainnet using CAIP-10 identifier
-import { WETH } from 'caip10:eip155:1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+// First, create a file with contract macro functions
+// contract-macros.js
+import { createClient } from 'tevm'
+import { http } from 'viem'
+import { mainnet, optimism } from 'viem/chains'
+import { whatsabi } from 'tevm'
 
-// Import USDC from Optimism
-import { USDC } from 'caip10:eip155:10:0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85'
+// Set up clients for different networks
+const mainnetClient = createClient({
+  chain: mainnet,
+  transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY')
+})
 
-// Use these contracts directly
-const balance = await client.readContract(
-  WETH.read.balanceOf('0x123...')
-)
+const optimismClient = createClient({
+  chain: optimism,
+  transport: http('https://mainnet.optimism.io')
+})
+
+// Create macro function for WETH on Ethereum
+export async function wethContract() {
+  const result = await whatsabi(mainnetClient, {
+    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+    followProxies: true
+  })
+  
+  return {
+    abi: result.abi,
+    address: result.address,
+    name: 'WETH'
+  }
+}
+
+// Create macro function for USDC on Optimism
+export async function usdcContract() {
+  const result = await whatsabi(optimismClient, {
+    address: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
+    followProxies: true
+  })
+  
+  return {
+    abi: result.abi,
+    address: result.address,
+    name: 'USDC'
+  }
+}
 ```
 
-This will automatically fetch the ABI from the network and create a type-safe contract interface.
+Then import the contracts using the `with {type: 'macro'}` attribute syntax:
+
+```ts
+// Import contracts using macros
+import { wethContract } from './contract-macros.js' with { type: 'macro' }
+import { usdcContract } from './contract-macros.js' with { type: 'macro' }
+
+// Use these contracts directly with full type safety
+const wethBalance = await client.readContract({
+  ...wethContract.read.balanceOf('0x123...'),
+  address: wethContract.address
+})
+
+const usdcDecimals = await client.readContract({
+  ...usdcContract.read.decimals(),
+  address: usdcContract.address
+})
+```
+
+This approach automatically resolves ABIs at build time and creates fully type-safe contract interfaces. For more details, see the [WhatsABI Integration](/api/whatsabi-integration#network-imports-via-macros) documentation.
 
 #### Inline Solidity with Template Literals
 

@@ -92,6 +92,117 @@ import { TabGroup } from '../../../components'
   </div>
 </TabGroup>
 
+## Network Imports via Macros
+
+One of the most powerful features of WhatsABI integration in Tevm is the ability to import contracts from any network at build time using macros.
+
+<Callout type="info" emoji="🔧">
+  Build-time macros provide better performance and stronger type safety compared to runtime imports, as they avoid network requests during application execution.
+</Callout>
+
+### Creating Contract Macros
+
+First, create a file that exports functions using WhatsABI to resolve contract data:
+
+```ts showLineNumbers filename="contract-macros.js"
+import { createClient } from 'tevm'
+import { http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { whatsabi } from 'tevm'
+
+// Create client for the network
+const client = createClient({
+  chain: mainnet,
+  transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY')
+})
+
+// Export a function that returns a single contract
+export async function usdcContract() {
+  const result = await whatsabi(client, {
+    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC on Ethereum
+    followProxies: true
+  })
+  
+  return {
+    abi: result.abi,
+    address: result.address,
+    name: 'USDC'
+  }
+}
+
+// Export a different contract (one macro function per contract)
+export async function wethContract() {
+  const result = await whatsabi(client, {
+    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH on Ethereum
+    followProxies: true
+  })
+  
+  return {
+    abi: result.abi,
+    address: result.address,
+    name: 'WETH'
+  }
+}
+```
+
+### Using Contract Macros
+
+Then import the contracts with `with {type: 'macro'}` attribute:
+
+```ts showLineNumbers filename="app.js"
+// Import contracts using macros
+import { usdcContract } from './contract-macros.js' with { type: 'macro' }
+import { wethContract } from './contract-macros.js' with { type: 'macro' }
+import { createMemoryClient } from 'tevm'
+
+// Create client for local interaction
+const client = createMemoryClient()
+
+// Use the contracts with full type safety
+const usdcBalance = await client.readContract({
+  ...usdcContract.read.balanceOf('0x123...'),
+  address: usdcContract.address
+})
+
+// WETH contract methods are fully typed
+const wethDeposit = await client.writeContract({
+  ...wethContract.write.deposit(),
+  value: 1000000000000000000n
+})
+```
+
+<Callout type="warning">
+  For security reasons, macros in third-party packages (node_modules) are blocked. Package authors should pre-build their contracts before publishing.
+</Callout>
+
+### How Macros Work
+
+<Steps>
+### 1. Build-Time Execution
+
+When your bundler encounters an import with `type: 'macro'`, it executes the imported function during the build process.
+
+### 2. Contract Resolution
+
+The function uses WhatsABI to fetch and analyze the contract from the blockchain, resolving ABIs and following any proxies.
+
+### 3. Static Code Generation
+
+The bundler replaces the import with statically generated code that includes the full contract ABI and metadata.
+
+### 4. Type Generation
+
+TypeScript types are generated for all contract methods, events, and properties, ensuring full type safety.
+</Steps>
+
+### Benefits of Macros
+
+- **Build-time resolution** - No network requests during application runtime
+- **Full type safety** - Complete TypeScript types for all contract methods
+- **Proxy resolution** - Automatically resolves and follows proxy implementations
+- **Works with unverified contracts** - Uses bytecode analysis when sources aren't available
+- **IDE integration** - Autocompletion and hover documentation for contract methods
+
 ## How It Works
 
 <Steps>
@@ -187,6 +298,57 @@ console.log('Discovered function selectors:')
 result.abi
   .filter(item => item.type === 'function')
   .forEach(func => console.log(`- ${func.selector}: ${func.name || 'Unknown'}`))
+```
+
+### Creating a Contract Macro
+
+```ts showLineNumbers filename="aave-macro.js"
+import { createClient } from 'tevm'
+import { http } from 'viem'
+import { optimism } from 'viem/chains'
+import { whatsabi } from 'tevm'
+
+// Client for the Optimism network
+const client = createClient({
+  chain: optimism,
+  transport: http('https://mainnet.optimism.io')
+})
+
+// Export a single contract as a macro function
+export async function aaveV3Pool() {
+  const result = await whatsabi(client, {
+    address: '0x794a61358D6845594F94dc1DB02A252b5b4814aD', // Aave V3 Pool on Optimism
+    followProxies: true,
+    loadContractResult: true
+  })
+  
+  return {
+    abi: result.abi,
+    address: result.address,
+    name: result.contractResult?.name || 'AaveV3Pool',
+    chainId: optimism.id
+  }
+}
+```
+
+```ts showLineNumbers filename="app.js"
+// Import with macro attribute
+import { aaveV3Pool } from './aave-macro.js' with { type: 'macro' }
+import { createPublicClient, http } from 'viem'
+import { optimism } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: optimism,
+  transport: http()
+})
+
+// All methods are strongly typed
+const reserves = await client.readContract({
+  ...aaveV3Pool.read.getReservesList(),
+  address: aaveV3Pool.address
+})
+
+console.log(`Aave has ${reserves.length} reserves on Optimism`)
 ```
 
 ### Loading Full Contract Metadata
