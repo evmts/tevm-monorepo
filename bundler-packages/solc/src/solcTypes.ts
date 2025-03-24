@@ -414,7 +414,7 @@ export type SolcContractOutput = {
 	ir: string
 
 	// The storage layout output for all contracts provided as sources
-	storageLayout: SolcStorageLayoutOutput
+	storageLayout: SolcStorageLayout
 
 	// EVM-related outputs
 	evm: SolcEVMOutput
@@ -422,11 +422,6 @@ export type SolcContractOutput = {
 	// Ewasm related outputs
 	ewasm: SolcEwasmOutput
 }
-
-/**
- * The storage layout for each contract provided as sources.
- */
-export type SolcStorageLayoutOutput = Array<SolcStorageLayout>
 
 /**
  * The storage layout for a contract.
