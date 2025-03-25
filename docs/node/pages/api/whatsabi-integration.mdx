@@ -3,17 +3,21 @@ title: Contract Loader
 description: Access contract ABIs and bytecode from on-chain contracts through Tevm's Contract Loader functionality
 ---
 
-import { Callout, Steps } from 'vocs/components'
-import { TabGroup } from '../../../components'
+import { Callout, Steps } from "vocs/components";
+import { TabGroup } from "../../../components";
 
 # Contract Loader
 
 <Callout type="warning" emoji="🚧">
-  **Coming Soon**: The Contract Loader is currently under development and not yet available in the latest released version. This documentation outlines the planned API design for the upcoming feature.
+  **Coming Soon**: The Contract Loader is currently under development and not
+  yet available in the latest released version. This documentation outlines the
+  planned API design for the upcoming feature.
 </Callout>
 
 <Callout type="info" emoji="🔍">
-  The Contract Loader will provide a convenient way to analyze contract bytecode, discover function selectors, and resolve proxy contracts - all through the familiar Tevm API.
+  The Contract Loader will provide a convenient way to analyze contract
+  bytecode, discover function selectors, and resolve proxy contracts - all
+  through the familiar Tevm API.
 </Callout>
 
 ## Overview
@@ -25,20 +29,51 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 - Automatically resolve proxy contracts
 - Access verified contract ABIs from Sourcify, Etherscan, and other sources
 
-<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem', margin: '1rem 0'}}>
-  <div style={{border: '1px solid var(--vocs-border-color)', borderRadius: '8px', padding: '1rem'}}>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+    gap: "1rem",
+    margin: "1rem 0",
+  }}
+>
+  <div
+    style={{
+      border: "1px solid var(--vocs-border-color)",
+      borderRadius: "8px",
+      padding: "1rem",
+    }}
+  >
     <h3>🧩 Works with Unverified Contracts</h3>
     <p>Extract function selectors directly from bytecode</p>
   </div>
-  <div style={{border: '1px solid var(--vocs-border-color)', borderRadius: '8px', padding: '1rem'}}>
+  <div
+    style={{
+      border: "1px solid var(--vocs-border-color)",
+      borderRadius: "8px",
+      padding: "1rem",
+    }}
+  >
     <h3>🔄 Resolves Proxy Implementations</h3>
     <p>Automatically detects and follows proxy patterns</p>
   </div>
-  <div style={{border: '1px solid var(--vocs-border-color)', borderRadius: '8px', padding: '1rem'}}>
+  <div
+    style={{
+      border: "1px solid var(--vocs-border-color)",
+      borderRadius: "8px",
+      padding: "1rem",
+    }}
+  >
     <h3>📚 Uses Multiple Sources</h3>
     <p>Combines Sourcify, Etherscan and bytecode analysis</p>
   </div>
-  <div style={{border: '1px solid var(--vocs-border-color)', borderRadius: '8px', padding: '1rem'}}>
+  <div
+    style={{
+      border: "1px solid var(--vocs-border-color)",
+      borderRadius: "8px",
+      padding: "1rem",
+    }}
+  >
     <h3>🛠️ Fully Typed API</h3>
     <p>Complete TypeScript support for parameters and results</p>
   </div>
@@ -47,7 +82,8 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 ## Usage
 
 <Callout type="warning" emoji="⚠️">
-  For security reasons, contract macros are disabled by default. To enable them, add `"macros": true` to your `tevm.config.json` file.
+  For security reasons, contract macros are disabled by default. To enable them,
+  add `"macros": true` to your `tevm.config.json` file.
 </Callout>
 
 <TabGroup items={['Tree-shakable API', 'Client Extension API']}>
@@ -133,7 +169,12 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 One of the most powerful features of Contract Loader in Tevm is the ability to import contracts from any network at build time using macros.
 
 <Callout type="info" emoji="🔧">
-  Build-time macros provide better performance and stronger type safety compared to runtime imports, as they avoid network requests during application execution. Tevm's macro system is modeled after [Bun's macros](https://bun.sh/docs/bundler/macros) but works with all bundlers supported by [Tevm's bundler plugins](/reference/bundler), including Webpack, Rollup, Vite, ESBuild, and more.
+  Build-time macros provide better performance and stronger type safety compared
+  to runtime imports, as they avoid network requests during application
+  execution. Tevm's macro system is modeled after [Bun's
+  macros](https://bun.sh/docs/bundler/macros) but works with all bundlers
+  supported by [Tevm's bundler plugins](/reference/bundler), including Webpack,
+  Rollup, Vite, ESBuild, and more.
 </Callout>
 
 <Callout type="warning">
@@ -145,44 +186,44 @@ One of the most powerful features of Contract Loader in Tevm is the ability to i
 First, create a file that exports functions using loadContract to resolve contract data:
 
 ```ts showLineNumbers filename="contract-macros.js"
-import { createClient, createMemoryClient } from 'tevm'
-import { http } from 'viem'
-import { mainnet } from 'viem/chains'
-import { loadContract } from 'tevm'
-import { EtherscanABILoader, SourcifyABILoader } from 'tevm/contract-loaders'
+import { createClient, createMemoryClient } from "tevm";
+import { http } from "viem";
+import { mainnet } from "viem/chains";
+import { loadContract } from "tevm";
+import { EtherscanABILoader, SourcifyABILoader } from "tevm/contract-loaders";
 
 // For hermetic builds, use a memory client with a fork at specific block
 // This ensures deterministic builds with reproducible contract data
 const client = createMemoryClient({
   fork: {
-    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY'),
+    transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"),
     // Pinning a block height ensures your builds are reproducible
-    blockNumber: 19000000n
-  }
-})
+    blockNumber: 19000000n,
+  },
+});
 
 // Configure loaders
 const loaders = [
   new SourcifyABILoader(),
-  new EtherscanABILoader({ apiKey: 'YOUR_ETHERSCAN_KEY' })
-]
+  new EtherscanABILoader({ apiKey: "YOUR_ETHERSCAN_KEY" }),
+];
 
 // Export a function that returns a single contract
 export async function usdcContract() {
   return loadContract(client, {
-    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC on Ethereum
+    address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", // USDC on Ethereum
     followProxies: true,
-    loaders
-  })
+    loaders,
+  });
 }
 
 // Export a different contract (one macro function per contract)
 export async function wethContract() {
   return loadContract(client, {
-    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH on Ethereum
+    address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", // WETH on Ethereum
     followProxies: true,
-    loaders
-  })
+    loaders,
+  });
 }
 ```
 
@@ -192,28 +233,29 @@ Then import the contracts with `with {type: 'macro'}` attribute:
 
 ```ts showLineNumbers filename="app.js"
 // Import contracts using macros
-import { usdcContract } from './contract-macros.js' with { type: 'macro' }
-import { wethContract } from './contract-macros.js' with { type: 'macro' }
-import { createMemoryClient } from 'tevm'
+import { usdcContract } from "./contract-macros.js" with { type: "macro" };
+import { wethContract } from "./contract-macros.js" with { type: "macro" };
+import { createMemoryClient } from "tevm";
 
 // Create client for local interaction
-const client = createMemoryClient()
+const client = createMemoryClient();
 
 // Use the contracts with full type safety
 const usdcBalance = await client.readContract({
-  ...usdcContract.read.balanceOf('0x123...'),
-  address: usdcContract.address
-})
+  ...usdcContract.read.balanceOf("0x123..."),
+  address: usdcContract.address,
+});
 
 // WETH contract methods are fully typed
 const wethDeposit = await client.writeContract({
   ...wethContract.write.deposit(),
-  value: 1000000000000000000n
-})
+  value: 1000000000000000000n,
+});
 ```
 
 <Callout type="warning">
-  For security reasons, macros in third-party packages (node_modules) are blocked. Package authors should pre-build their contracts before publishing.
+  For security reasons, macros in third-party packages (node_modules) are
+  blocked. Package authors should pre-build their contracts before publishing.
 </Callout>
 
 ### How Macros Work
@@ -234,6 +276,7 @@ The bundler replaces the import with statically generated code that includes the
 ### 4. Type Generation
 
 TypeScript types are generated for all contract methods, events, and properties, ensuring full type safety.
+
 </Steps>
 
 ### Benefits of Macros
@@ -262,36 +305,37 @@ WhatsABI checks for common proxy patterns (ERC-1967, Transparent, Beacon, etc.) 
 ### 4. On-chain Source Verification
 
 WhatsABI attempts to find verified contract sources from Sourcify, Etherscan, and other sources based on the client's chain ID.
+
 </Steps>
 
 ## Parameters
 
 The `loadContract` action accepts the following parameters:
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `address` | `Address` | **Required**. The contract address to analyze |
-| `followProxies` | `boolean` | Whether to automatically follow proxy contracts. Default: `false` |
-| `loaders` | `ABILoader[]` | Array of ABI loaders to use for resolving contract ABIs. See [Available Loaders](#available-loaders) |
-| `enableExperimentalMetadata` | `boolean` | Whether to include experimental metadata like event topics. Default: `false` |
-| `signatureLookup` | `SignatureLookup \| false` | Custom signature lookup or `false` to disable. Default: uses WhatsABI's default lookup |
-| `onProgress` | `(phase: string, ...args: any[]) => void` | Progress callback |
-| `onError` | `(phase: string, error: Error) => boolean \| void` | Error callback |
+| Parameter                    | Type                                               | Description                                                                                          |
+| ---------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `address`                    | `Address`                                          | **Required**. The contract address to analyze                                                        |
+| `followProxies`              | `boolean`                                          | Whether to automatically follow proxy contracts. Default: `false`                                    |
+| `loaders`                    | `ABILoader[]`                                      | Array of ABI loaders to use for resolving contract ABIs. See [Available Loaders](#available-loaders) |
+| `enableExperimentalMetadata` | `boolean`                                          | Whether to include experimental metadata like event topics. Default: `false`                         |
+| `signatureLookup`            | `SignatureLookup \| false`                         | Custom signature lookup or `false` to disable. Default: uses WhatsABI's default lookup               |
+| `onProgress`                 | `(phase: string, ...args: any[]) => void`          | Progress callback                                                                                    |
+| `onError`                    | `(phase: string, error: Error) => boolean \| void` | Error callback                                                                                       |
 
 ## Return Value
 
 The action returns a full [Tevm Contract](/reference/contract) instance with the following properties:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `abi` | `Abi` | The resolved ABI from bytecode or verified sources |
-| `address` | `Address` | The contract address (may be different if proxies were followed) |
-| `read` | `Object` | Type-safe read methods for view/pure functions |
-| `write` | `Object` | Type-safe write methods for state-changing functions |
-| `events` | `Object` | Type-safe event filters for subscription |
-| `withAddress` | `Function` | Method to create a new instance with a different address |
-| `abiLoadedFrom` | `{name: string, url?: string}` | Information about where the ABI was loaded from |
-| `proxyDetails` | `Array<{name: string, implementation?: Address, selector?: string}>` | If the contract is a proxy, details about the proxy implementation |
+| Property        | Type                                                                 | Description                                                        |
+| --------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `abi`           | `Abi`                                                                | The resolved ABI from bytecode or verified sources                 |
+| `address`       | `Address`                                                            | The contract address (may be different if proxies were followed)   |
+| `read`          | `Object`                                                             | Type-safe read methods for view/pure functions                     |
+| `write`         | `Object`                                                             | Type-safe write methods for state-changing functions               |
+| `events`        | `Object`                                                             | Type-safe event filters for subscription                           |
+| `withAddress`   | `Function`                                                           | Method to create a new instance with a different address           |
+| `abiLoadedFrom` | `{name: string, url?: string}`                                       | Information about where the ABI was loaded from                    |
+| `proxyDetails`  | `Array<{name: string, implementation?: Address, selector?: string}>` | If the contract is a proxy, details about the proxy implementation |
 
 ## Available Loaders
 
@@ -302,19 +346,19 @@ You can import various ABI loaders from `tevm/contract-loaders`:
 Tries multiple ABI loaders until a result is found.
 
 ```ts
-import { MultiABILoader } from 'tevm/contract-loaders'
+import { MultiABILoader } from "tevm/contract-loaders";
 
 // Create loader that tries multiple sources in order
 const loader = new MultiABILoader([
   new SourcifyABILoader(),
-  new EtherscanABILoader({ apiKey: 'YOUR_ETHERSCAN_KEY' })
-])
+  new EtherscanABILoader({ apiKey: "YOUR_ETHERSCAN_KEY" }),
+]);
 
 // Use with loadContract
 const contract = await loadContract(client, {
-  address: '0x123...',
-  loaders: [loader]
-})
+  address: "0x123...",
+  loaders: [loader],
+});
 ```
 
 ### EtherscanABILoader
@@ -322,18 +366,18 @@ const contract = await loadContract(client, {
 Loads contract ABIs from Etherscan and similar explorers.
 
 ```ts
-import { EtherscanABILoader } from 'tevm/contract-loaders'
+import { EtherscanABILoader } from "tevm/contract-loaders";
 
 // For Etherscan on Ethereum mainnet
 const etherscan = new EtherscanABILoader({
-  apiKey: 'YOUR_ETHERSCAN_KEY'
-})
+  apiKey: "YOUR_ETHERSCAN_KEY",
+});
 
 // For Polygonscan
 const polygonscan = new EtherscanABILoader({
-  apiKey: 'YOUR_POLYGONSCAN_KEY',
-  baseUrl: 'https://api.polygonscan.com/api'
-})
+  apiKey: "YOUR_POLYGONSCAN_KEY",
+  baseUrl: "https://api.polygonscan.com/api",
+});
 ```
 
 ### SourcifyABILoader
@@ -341,15 +385,15 @@ const polygonscan = new EtherscanABILoader({
 Loads contract ABIs from Sourcify's decentralized repository.
 
 ```ts
-import { SourcifyABILoader } from 'tevm/contract-loaders'
+import { SourcifyABILoader } from "tevm/contract-loaders";
 
 // Default configuration uses public Sourcify endpoint
-const sourcify = new SourcifyABILoader()
+const sourcify = new SourcifyABILoader();
 
 // Custom Sourcify server
 const customSourcify = new SourcifyABILoader({
-  baseUrl: 'https://your-sourcify-server.com'
-})
+  baseUrl: "https://your-sourcify-server.com",
+});
 ```
 
 ### BlockscoutABILoader
@@ -357,17 +401,17 @@ const customSourcify = new SourcifyABILoader({
 Loads contract ABIs from Blockscout explorers.
 
 ```ts
-import { BlockscoutABILoader } from 'tevm/contract-loaders'
+import { BlockscoutABILoader } from "tevm/contract-loaders";
 
 // For default Blockscout
 const blockscout = new BlockscoutABILoader({
-  apiKey: 'YOUR_BLOCKSCOUT_KEY' // optional
-})
+  apiKey: "YOUR_BLOCKSCOUT_KEY", // optional
+});
 
 // For custom Blockscout instance
 const customBlockscout = new BlockscoutABILoader({
-  baseUrl: 'https://your-blockscout-instance.com'
-})
+  baseUrl: "https://your-blockscout-instance.com",
+});
 ```
 
 ## Examples
@@ -375,170 +419,181 @@ const customBlockscout = new BlockscoutABILoader({
 ### Resolving a Proxy Contract
 
 ```ts showLineNumbers {1-2,4,6-11,13-15} filename="proxy-resolution.ts"
-import { loadContract, createMemoryClient } from 'tevm'
-import { http } from 'viem'
-import { SourcifyABILoader, EtherscanABILoader } from 'tevm/contract-loaders'
+import { loadContract, createMemoryClient } from "tevm";
+import { http } from "viem";
+import { SourcifyABILoader, EtherscanABILoader } from "tevm/contract-loaders";
 
-const client = createMemoryClient({ fork: { transport: http('https://mainnet.infura.io/v3/YOUR-KEY') } })
+const client = createMemoryClient({
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY") },
+});
 
 // Analyze a proxy contract (e.g., a typical ERC-1967 proxy)
 const contract = await loadContract(client, {
-  address: '0x4f8AD938eBA0CD19155a835f617317a6E788c868',
+  address: "0x4f8AD938eBA0CD19155a835f617317a6E788c868",
   followProxies: true,
-  loaders: [new SourcifyABILoader(), new EtherscanABILoader({ apiKey: 'YOUR_KEY' })]
-})
+  loaders: [
+    new SourcifyABILoader(),
+    new EtherscanABILoader({ apiKey: "YOUR_KEY" }),
+  ],
+});
 
-console.log(`Original address: 0x4f8AD938eBA0CD19155a835f617317a6E788c868`)
-console.log(`Implementation address: ${contract.address}`)
-console.log(`Detected proxies: ${contract.proxyDetails.length}`)
+console.log(`Original address: 0x4f8AD938eBA0CD19155a835f617317a6E788c868`);
+console.log(`Implementation address: ${contract.address}`);
+console.log(`Detected proxies: ${contract.proxyDetails.length}`);
 ```
 
 <Callout type="note">
-  In this example, if the contract at 0x4f8AD... is a proxy, the Contract Loader will detect it and automatically follow the implementation. The returned `address` will be the implementation address, not the proxy address.
+  In this example, if the contract at 0x4f8AD... is a proxy, the Contract Loader
+  will detect it and automatically follow the implementation. The returned
+  `address` will be the implementation address, not the proxy address.
 </Callout>
 
 ### Working with Unverified Contracts
 
 ```ts showLineNumbers {1-2,4,6-10,12-15} filename="unverified-contract.ts"
-import { loadContract, createMemoryClient } from 'tevm'
-import { http } from 'viem'
+import { loadContract, createMemoryClient } from "tevm";
+import { http } from "viem";
 
-const client = createMemoryClient({ fork: { transport: http('https://mainnet.infura.io/v3/YOUR-KEY') } })
+const client = createMemoryClient({
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY") },
+});
 
 // Analyze an unverified contract to extract its interface
 const contract = await loadContract(client, {
-  address: '0xUnverifiedContractAddress',
+  address: "0xUnverifiedContractAddress",
   // No loaders - will use bytecode analysis only
-  loaders: []
-})
+  loaders: [],
+});
 
 // The resulting ABI will contain entries discovered through bytecode analysis
-console.log('Discovered functions:')
+console.log("Discovered functions:");
 contract.abi
-  .filter(item => item.type === 'function')
-  .forEach(func => console.log(`- ${func.name || 'Unknown'}`))
+  .filter((item) => item.type === "function")
+  .forEach((func) => console.log(`- ${func.name || "Unknown"}`));
 ```
 
 ### Creating a Contract Macro
 
 ```ts showLineNumbers filename="aave-macro.js"
-import { createClient } from 'tevm'
-import { http } from 'viem'
-import { optimism } from 'viem/chains'
-import { loadContract } from 'tevm'
-import { SourcifyABILoader, EtherscanABILoader } from 'tevm/contract-loaders'
+import { createClient } from "tevm";
+import { http } from "viem";
+import { optimism } from "viem/chains";
+import { loadContract } from "tevm";
+import { SourcifyABILoader, EtherscanABILoader } from "tevm/contract-loaders";
 
 // Client for the Optimism network
 const client = createClient({
   chain: optimism,
-  transport: http('https://mainnet.optimism.io')
-})
+  transport: http("https://mainnet.optimism.io"),
+});
 
 // Configure loaders
 const loaders = [
   new SourcifyABILoader(),
-  new EtherscanABILoader({ 
-    apiKey: 'YOUR_ETHERSCAN_KEY',
-    baseUrl: 'https://api-optimistic.etherscan.io/api'
-  })
-]
+  new EtherscanABILoader({
+    apiKey: "YOUR_ETHERSCAN_KEY",
+    baseUrl: "https://api-optimistic.etherscan.io/api",
+  }),
+];
 
 // Export a single contract as a macro function
 export async function aaveV3Pool() {
   return loadContract(client, {
-    address: '0x794a61358D6845594F94dc1DB02A252b5b4814aD', // Aave V3 Pool on Optimism
+    address: "0x794a61358D6845594F94dc1DB02A252b5b4814aD", // Aave V3 Pool on Optimism
     followProxies: true,
-    loaders
-  })
+    loaders,
+  });
 }
 ```
 
 ```ts showLineNumbers filename="app.js"
 // Import with macro attribute
-import { aaveV3Pool } from './aave-macro.js' with { type: 'macro' }
-import { createPublicClient, http } from 'viem'
-import { optimism } from 'viem/chains'
+import { aaveV3Pool } from "./aave-macro.js" with { type: "macro" };
+import { createPublicClient, http } from "viem";
+import { optimism } from "viem/chains";
 
 const client = createPublicClient({
   chain: optimism,
-  transport: http()
-})
+  transport: http(),
+});
 
 // All methods are strongly typed
 const reserves = await client.readContract({
   ...aaveV3Pool.read.getReservesList(),
-  address: aaveV3Pool.address
-})
+  address: aaveV3Pool.address,
+});
 
-console.log(`Aave has ${reserves.length} reserves on Optimism`)
+console.log(`Aave has ${reserves.length} reserves on Optimism`);
 ```
 
 ### Using Multiple Loaders
 
 ```ts showLineNumbers filename="multi-loader.ts"
-import { loadContract, createMemoryClient } from 'tevm'
-import { http } from 'viem'
-import { 
+import { loadContract, createMemoryClient } from "tevm";
+import { http } from "viem";
+import {
   MultiABILoader,
-  SourcifyABILoader, 
+  SourcifyABILoader,
   EtherscanABILoader,
-  BlockscoutABILoader 
-} from 'tevm/contract-loaders'
+  BlockscoutABILoader,
+} from "tevm/contract-loaders";
 
-const client = createMemoryClient({ fork: { transport: http('https://mainnet.infura.io/v3/YOUR-KEY') } })
+const client = createMemoryClient({
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY") },
+});
 
 // Create a multi-loader that tries different sources in order
 const multiLoader = new MultiABILoader([
   new SourcifyABILoader(),
-  new EtherscanABILoader({ apiKey: 'YOUR_ETHERSCAN_KEY' }),
-  new BlockscoutABILoader({ apiKey: 'YOUR_BLOCKSCOUT_KEY' })
-])
+  new EtherscanABILoader({ apiKey: "YOUR_ETHERSCAN_KEY" }),
+  new BlockscoutABILoader({ apiKey: "YOUR_BLOCKSCOUT_KEY" }),
+]);
 
 // Load a contract with comprehensive ABI resolution
 const contract = await loadContract(client, {
-  address: '0xVerifiedContractAddress',
+  address: "0xVerifiedContractAddress",
   followProxies: true,
   loaders: [multiLoader],
-  onProgress: (phase) => console.log(`Phase: ${phase}`)
-})
+  onProgress: (phase) => console.log(`Phase: ${phase}`),
+});
 
 // Use the contract directly with the client
 const name = await client.readContract({
   ...contract.read.name(),
-  address: contract.address
-})
+  address: contract.address,
+});
 
-console.log(`Contract name: ${name}`)
+console.log(`Contract name: ${name}`);
 ```
 
 ### Progress Tracking for Large Contracts
 
 ```ts showLineNumbers {5-14,17-22} filename="progress-tracking.ts"
-import { loadContract, createMemoryClient } from 'tevm'
-import { http } from 'viem'
-import { SourcifyABILoader } from 'tevm/contract-loaders'
+import { loadContract, createMemoryClient } from "tevm";
+import { http } from "viem";
+import { SourcifyABILoader } from "tevm/contract-loaders";
 
 // Custom progress tracker
 const progressTracker = (phase, ...args) => {
   switch (phase) {
-    case 'bytecode':
-      console.log('Analyzing bytecode...')
-      break
-    case 'proxy':
-      console.log('Checking for proxy patterns...')
-      break
-    case 'abi':
-      console.log('Loading ABI information...')
-      break
+    case "bytecode":
+      console.log("Analyzing bytecode...");
+      break;
+    case "proxy":
+      console.log("Checking for proxy patterns...");
+      break;
+    case "abi":
+      console.log("Loading ABI information...");
+      break;
   }
-}
+};
 
 const contract = await loadContract(client, {
-  address: '0xLargeContractAddress',
+  address: "0xLargeContractAddress",
   followProxies: true,
   loaders: [new SourcifyABILoader()],
-  onProgress: progressTracker
-})
+  onProgress: progressTracker,
+});
 ```
 
 ## When to Use Contract Loader vs Direct Solidity Imports
@@ -560,34 +615,72 @@ const contract = await loadContract(client, {
 - **Need complete control over ABI generation**: Custom ABI transformations or optimizations
 
 <Callout type="tip">
-  Contract Loader is perfect for building exploratory tools, frontends that can work with any contract, or for debugging contract interactions. It enables "magic" experiences where users can interact with contracts without needing to know their interface details. As a macro, it validates your contracts are up-to-date at build time while providing excellent developer experience with full type safety.
+  Contract Loader is perfect for building exploratory tools, frontends that can
+  work with any contract, or for debugging contract interactions. It enables
+  "magic" experiences where users can interact with contracts without needing to
+  know their interface details. As a macro, it validates your contracts are
+  up-to-date at build time while providing excellent developer experience with
+  full type safety.
 </Callout>
 
 ### Ensuring Hermetic Builds
 
-For production applications that need deterministic builds while using Contract Loader:
+By default, since we are using a macro to fetch the abi at buildtime, and abis can change your prodouction build will not be `hermetic`. This means it is possible that your build output today will be different tomorrow because the contract abi changed for an upgradable contract. This behavior may be desired if you want to guarantee your build is always in sync. But if this behavior is not desired and you need deterministic builds you have a few options:
+
+For production applications that need hermetic/deterministic builds while using Contract Loader:
 
 1. **Pin block heights**: Use `createMemoryClient` with a specific `blockNumber` in the fork config:
+
 ```ts
 const client = createMemoryClient({
   fork: {
-    transport: http('https://mainnet.infura.io'),
-    blockNumber: 19000000n // Pin to a specific block
-  }
-})
+    transport: http("https://mainnet.infura.io"),
+    blockNumber: 19000000n, // Pin to a specific block
+  },
+});
 ```
 
 2. **Generate and commit contracts**: Use the CLI to generate static contract files:
+
 ```bash
 tevm generate contract-loader --address 0x123... --output ./src/contracts
 ```
 
 3. **Use npm packages**: If available, use published contracts from official packages:
+
 ```bash
 npm install @uniswap/v3-core
 ```
 
-<div style={{marginTop: '2rem', padding: '1rem', border: '1px solid var(--vocs-color_primary)', borderRadius: '8px', backgroundColor: 'var(--vocs-color_background2)'}}>
-  <h2 style={{marginTop: 0}}>Feedback Welcome</h2>
-  <p>This API design is currently in the planning phase. If you have suggestions, feature requests, or other feedback about the proposed Contract Loader integration, please share your thoughts in our <a href="https://github.com/evmts/tevm-monorepo/issues/new?labels=enhancement&template=feature_request.md&title=%5BFeature%5D%3A+Contract+Loader+Feedback" target="_blank" rel="noopener noreferrer">GitHub repository</a> or <a href="https://t.me/+ANThR9bHDLAwMjUx" target="_blank" rel="noopener noreferrer">Telegram community</a>.</p>
+<div
+  style={{
+    marginTop: "2rem",
+    padding: "1rem",
+    border: "1px solid var(--vocs-color_primary)",
+    borderRadius: "8px",
+    backgroundColor: "var(--vocs-color_background2)",
+  }}
+>
+  <h2 style={{ marginTop: 0 }}>Feedback Welcome</h2>
+  <p>
+    This API design is currently in the planning phase. If you have suggestions,
+    feature requests, or other feedback about the proposed Contract Loader
+    integration, please share your thoughts in our{" "}
+    <a
+      href="https://github.com/evmts/tevm-monorepo/issues/new?labels=enhancement&template=feature_request.md&title=%5BFeature%5D%3A+Contract+Loader+Feedback"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      GitHub repository
+    </a>{" "}
+    or{" "}
+    <a
+      href="https://t.me/+ANThR9bHDLAwMjUx"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Telegram community
+    </a>
+    .
+  </p>
 </div>
