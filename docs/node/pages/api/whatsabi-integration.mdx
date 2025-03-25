@@ -215,12 +215,16 @@ const loaders = [
 export const usdc = await loadContract(client, {
   address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", // USDC on Ethereum
   followProxies: true,
+  includeBytecode: true,
+  includeSourceCode: true,
   loaders,
 });
 
 export const weth = await loadContract(client, {
   address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", // WETH on Ethereum
   followProxies: true,
+  includeBytecode: true,
+  includeSourceCode: true,
   loaders,
 });
 ```
@@ -273,7 +277,7 @@ const wethDeposit = await client.writeContract({
 <Steps>
 ### 1. Build-Time Execution
 
-When your bundler encounters an import with `type: 'macro'`, it executes the imported function during the build process.
+When your bundler encounters an import with `type: 'tevm'`, it executes the imported function during the build process.
 
 ### 2. Contract Resolution
 
@@ -327,6 +331,8 @@ The `loadContract` action accepts the following parameters:
 | ---------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `address`                    | `Address`                                          | **Required**. The contract address to analyze                                                        |
 | `followProxies`              | `boolean`                                          | Whether to automatically follow proxy contracts. Default: `false`                                    |
+| `includeBytecode`            | `boolean`                                          | Whether to include contract bytecode in the returned contract. Default: `false`                       |
+| `includeSourceCode`          | `boolean`                                          | Whether to include contract source code as [SolcInputSources](https://github.com/evmts/tevm-monorepo/blob/00e1397cf07f637a93b7eaf51178bda50f5c5d6e/bundler-packages/solc/src/solcTypes.ts#L319). Default: `false` |
 | `loaders`                    | `ABILoader[]`                                      | Array of ABI loaders to use for resolving contract ABIs. See [Available Loaders](#available-loaders) |
 | `enableExperimentalMetadata` | `boolean`                                          | Whether to include experimental metadata like event topics. Default: `false`                         |
 | `signatureLookup`            | `SignatureLookup \| false`                         | Custom signature lookup or `false` to disable. Default: uses WhatsABI's default lookup               |
@@ -347,6 +353,7 @@ The action returns a full [Tevm Contract](/reference/contract) instance with the
 | `withAddress`   | `Function`                                                           | Method to create a new instance with a different address           |
 | `abiLoadedFrom` | `{name: string, url?: string}`                                       | Information about where the ABI was loaded from                    |
 | `proxyDetails`  | `Array<{name: string, implementation?: Address, selector?: string}>` | If the contract is a proxy, details about the proxy implementation |
+| `sources`      | `SolcInputSources`                                              | If `includeSourceCode` is `true`, contains the contract source code files |
 
 ## Available Loaders
 
@@ -511,6 +518,8 @@ const loaders = [
 export const aaveV3Pool = await loadContract(client, {
   address: "0x794a61358D6845594F94dc1DB02A252b5b4814aD", // Aave V3 Pool on Optimism
   followProxies: true,
+  includeBytecode: true,
+  includeSourceCode: true,
   loaders,
 });
 ```
@@ -573,6 +582,53 @@ const name = await client.readContract({
 });
 
 console.log(`Contract name: ${name}`);
+```
+
+### Working with Source Code
+
+```ts showLineNumbers filename="source-code-example.ts"
+import { loadContract, createMemoryClient } from "tevm";
+import { http } from "viem";
+import { SourcifyABILoader, EtherscanABILoader } from "tevm/contract-loaders";
+
+const client = createMemoryClient({
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY") },
+});
+
+// Load a contract with source code included
+const contract = await loadContract(client, {
+  address: "0xVerifiedContractAddress",
+  followProxies: true,
+  includeBytecode: true,
+  includeSourceCode: true,
+  loaders: [
+    new SourcifyABILoader(),
+    new EtherscanABILoader({ apiKey: "YOUR_ETHERSCAN_KEY" }),
+  ],
+});
+
+// Check if source code was retrieved
+if (contract.sources) {
+  console.log("Source files available:");
+  // Log the names of the source files
+  Object.keys(contract.sources).forEach((fileName) => {
+    console.log(`- ${fileName}`);
+
+    // Access the source content
+    const sourceContent = contract.sources[fileName].content;
+    console.log(`First 100 chars: ${sourceContent.substring(0, 100)}...`);
+  });
+
+  // Use the source code for integration with tools, compilation, etc.
+  // For example, you could write it to a file for local development
+  // Or use it for analysis, documentation generation, etc.
+}
+
+// You can still use the contract for interactions as usual
+const balance = await client.readContract({
+  ...contract.read.balanceOf("0x123..."),
+  address: contract.address,
+});
 ```
 
 ### Progress Tracking for Large Contracts
