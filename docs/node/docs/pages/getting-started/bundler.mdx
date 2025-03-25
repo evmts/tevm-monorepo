@@ -456,7 +456,8 @@ In an upcoming version, Tevm will support importing contracts from any EVM netwo
 import { createClient } from 'tevm'
 import { http } from 'viem'
 import { mainnet, optimism } from 'viem/chains'
-import { whatsabi } from 'tevm'
+import { loadContract } from 'tevm'
+import { SourcifyABILoader, EtherscanABILoader } from 'tevm/contract-loaders'
 
 // Set up clients for different networks
 const mainnetClient = createClient({
@@ -469,32 +470,36 @@ const optimismClient = createClient({
   transport: http('https://mainnet.optimism.io')
 })
 
+// Configure loaders for each network
+const mainnetLoaders = [
+  new SourcifyABILoader(),
+  new EtherscanABILoader({ apiKey: 'YOUR_ETHERSCAN_KEY' })
+]
+
+const optimismLoaders = [
+  new SourcifyABILoader(),
+  new EtherscanABILoader({ 
+    apiKey: 'YOUR_ETHERSCAN_KEY',
+    baseUrl: 'https://api-optimistic.etherscan.io/api'
+  })
+]
+
 // Create macro function for WETH on Ethereum
 export async function wethContract() {
-  const result = await whatsabi(mainnetClient, {
+  return loadContract(mainnetClient, {
     address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-    followProxies: true
+    followProxies: true,
+    loaders: mainnetLoaders
   })
-  
-  return {
-    abi: result.abi,
-    address: result.address,
-    name: 'WETH'
-  }
 }
 
 // Create macro function for USDC on Optimism
 export async function usdcContract() {
-  const result = await whatsabi(optimismClient, {
+  return loadContract(optimismClient, {
     address: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
-    followProxies: true
+    followProxies: true,
+    loaders: optimismLoaders
   })
-  
-  return {
-    abi: result.abi,
-    address: result.address,
-    name: 'USDC'
-  }
 }
 ```
 
@@ -517,7 +522,7 @@ const usdcDecimals = await client.readContract({
 })
 ```
 
-This approach automatically resolves ABIs at build time and creates fully type-safe contract interfaces. For more details, see the [WhatsABI Integration](/api/whatsabi-integration#network-imports-via-macros) documentation.
+This approach automatically resolves ABIs at build time and creates fully type-safe contract interfaces. For more details, see the [Contract Loader](/api/whatsabi-integration#network-imports-via-macros) documentation.
 
 #### Inline Solidity with Template Literals
 

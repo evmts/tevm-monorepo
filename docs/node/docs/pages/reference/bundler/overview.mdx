@@ -243,21 +243,20 @@ Tevm will soon support importing contract ABIs from any blockchain network using
 import { createClient } from 'tevm'
 import { http } from 'viem'
 import { mainnet } from 'viem/chains'
-import { whatsabi } from 'tevm'
+import { loadContract } from 'tevm'
+import { SourcifyABILoader, EtherscanABILoader } from 'tevm/contract-loaders'
 
 // Export a function that returns a contract - one function per contract
 export async function wethContract() {
-  // Uses WhatsABI to fetch and analyze contract data
-  const result = await whatsabi(client, {
+  // Uses Contract Loader to fetch and analyze contract data
+  return loadContract(client, {
     address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-    followProxies: true
+    followProxies: true,
+    loaders: [
+      new SourcifyABILoader(),
+      new EtherscanABILoader({ apiKey: 'YOUR_ETHERSCAN_KEY' })
+    ]
   })
-  
-  return {
-    abi: result.abi,
-    address: result.address,
-    name: 'WETH'
-  }
 }
 
 // Import the contract with import attributes
@@ -265,7 +264,7 @@ export async function wethContract() {
 import { wethContract } from './contract-macros.js' with { type: 'macro' }
 ```
 
-For complete documentation about this feature, see the [WhatsABI Integration](/api/whatsabi-integration#network-imports-via-macros) guide.
+For complete documentation about this feature, see the [Contract Loader](/api/whatsabi-integration#network-imports-via-macros) guide.
 
 ## Further Reading
 
