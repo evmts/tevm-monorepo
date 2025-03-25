@@ -230,3 +230,46 @@ If you ever have a `wtf` moment, consider doing a clean build. It will remove no
 ```
 pnpm all:clean
 ```
+
+## Claude Commands
+
+This repository includes several helpful Claude commands in the `.claude/commands/` directory that can automate common tasks. Here's how to use them:
+
+### Commit (`/commit`)
+
+Creates well-formatted commits with conventional commit messages and emoji:
+- Runs pre-commit checks (lint, build, generate docs)
+- Helps analyze and format changes with appropriate commit types and emojis
+- Suggests splitting large changes into atomic commits
+- Options: `--no-verify` to skip pre-commit checks
+
+### Add Gitmoji Hook (`/.claude/commands/add-gitmoji.md`)
+
+Installs the gitmoji commit hook to select emoji for commits using an interactive prompt:
+- Creates the hooks directory if needed
+- Sets up the prepare-commit-msg hook
+- Makes the hook executable
+
+### Git Worktrees (`/.claude/commands/create-worktrees.md`)
+
+Helps manage git worktrees for better workflow:
+- Create worktrees for all open PRs
+- Create a new branch and worktree
+- Clean up stale worktrees
+
+### Husky Pre-commit Checks (`/.claude/commands/husky.md`)
+
+Verifies the repo is in a working state by running:
+- Dependency installation (`pnpm i`)
+- Linting (`pnpm lint`)
+- Type checking and builds (`pnpm nx run-many --targets=build:types,build:dist...`)
+- Tests (`pnpm nx run-many --target=test:coverage`)
+- Package.json sorting
+- Package linting
+
+### Update Solidity Versions (`/.claude/commands/update-solidity.md`)
+
+Helps update Solidity compiler version support in the @tevm/solc package:
+- Checks for new Solidity releases
+- Uses the version script to get version hashes
+- Updates appropriate files with new versions
