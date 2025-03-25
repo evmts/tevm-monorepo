@@ -46,9 +46,13 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 
 ## Usage
 
+<Callout type="warning" emoji="⚠️">
+  For security reasons, contract macros are disabled by default. To enable them, add `"macros": true` to your `tevm.config.json` file.
+</Callout>
+
 <TabGroup items={['Tree-shakable API', 'Client Extension API']}>
   <div data-title="Tree-shakable API">
-    ```ts showLineNumbers {1,3-4,7-10,12-13} filename="contract-loader-example.ts"
+    ```ts showLineNumbers {1,3-4,7-10,12-13,24-28} filename="contract-loader-example.ts"
     import { loadContract, createMemoryClient, http } from 'tevm'
     import { MultiABILoader, EtherscanABILoader, SourcifyABILoader } from 'tevm/contract-loaders'
     
@@ -71,6 +75,11 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
     console.log(`Contract address: ${contract.address}`) // [!code focus]
     console.log(`Contract has ${contract.abi.length} ABI entries`) // [!code focus]
     
+    // Access additional properties
+    console.log(`Human readable ABI: ${contract.humanReadableAbi}`)
+    console.log(`Deployed bytecode available: ${Boolean(contract.deployedBytecode)}`)
+    console.log(`Implementation address (if proxy): ${contract.proxyDetails?.[0]?.implementation || 'Not a proxy'}`)
+    
     // Use the contract for type-safe interactions
     const owner = await client.readContract({
       ...contract.read.owner(),
@@ -80,22 +89,26 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
   </div>
   
   <div data-title="Client Extension API">
-    ```ts showLineNumbers {1-2,4-6,9-14,16-21} filename="contract-loader-extension.ts"
+    ```ts showLineNumbers {1-2,4-10,13-14,17-22} filename="contract-loader-extension.ts"
     import { createClient, contractLoaderExtension } from 'tevm' // [!code focus]
     import { http } from 'viem' // [!code focus]
-    import { BlockscoutABILoader } from 'tevm/contract-loaders' // [!code focus]
+    import { BlockscoutABILoader, SourcifyABILoader } from 'tevm/contract-loaders' // [!code focus]
     
+    // Configure loaders and other options in the extension // [!code focus]
     const client = createClient({ // [!code focus]
       transport: http('https://mainnet.optimism.io') // [!code focus]
-    }).extend(contractLoaderExtension()) // [!code focus]
-    
-    // Now available as a method on the client // [!code focus]
-    const contract = await client.loadContract({ // [!code focus]
-      address: '0x00000000006c3852cbEf3e08E8dF289169EdE581', // [!code focus]
+    }).extend(contractLoaderExtension({ // [!code focus]
+      // Default options used for all contract loading // [!code focus]
       followProxies: true, // [!code focus]
-      loaders: [new BlockscoutABILoader({ // [!code focus]
-        apiKey: 'YOUR_BLOCKSCOUT_KEY', // [!code focus]
-      })] // [!code focus]
+      loaders: [ // [!code focus]
+        new SourcifyABILoader(), // [!code focus]
+        new BlockscoutABILoader({ apiKey: 'YOUR_BLOCKSCOUT_KEY' }) // [!code focus]
+      ] // [!code focus]
+    })) // [!code focus]
+    
+    // Now you can load contracts by just providing the address // [!code focus]
+    const contract = await client.loadContract({ // [!code focus]
+      address: '0x00000000006c3852cbEf3e08E8dF289169EdE581' // [!code focus]
     }) // [!code focus]
     
     // Contract is a Tevm Contract instance // [!code focus]
@@ -104,6 +117,13 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
       ...contract.read.balanceOf('0x123...'), // [!code focus]
       address: contract.address // [!code focus]
     }) // [!code focus]
+    
+    // Override default options when needed
+    const anotherContract = await client.loadContract({
+      address: '0x456...',
+      // Override default options
+      followProxies: false
+    })
     ```
   </div>
 </TabGroup>
@@ -113,7 +133,11 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 One of the most powerful features of Contract Loader in Tevm is the ability to import contracts from any network at build time using macros.
 
 <Callout type="info" emoji="🔧">
-  Build-time macros provide better performance and stronger type safety compared to runtime imports, as they avoid network requests during application execution.
+  Build-time macros provide better performance and stronger type safety compared to runtime imports, as they avoid network requests during application execution. Tevm's macro system is modeled after [Bun's macros](https://bun.sh/docs/bundler/macros) but works with all bundlers supported by [Tevm's bundler plugins](/reference/bundler), including Webpack, Rollup, Vite, ESBuild, and more.
+</Callout>
+
+<Callout type="warning">
+  Macros use the [Import Attributes syntax](https://github.com/tc39/proposal-import-attributes), a Stage 3 TC39 proposal that lets you attach metadata to import statements (`with {type: 'macro'}`). For security reasons, macros are disabled by default and must be enabled by adding `"macros": true` to your `tevm.config.json` file.
 </Callout>
 
 ### Creating Contract Macros
@@ -121,16 +145,20 @@ One of the most powerful features of Contract Loader in Tevm is the ability to i
 First, create a file that exports functions using loadContract to resolve contract data:
 
 ```ts showLineNumbers filename="contract-macros.js"
-import { createClient } from 'tevm'
+import { createClient, createMemoryClient } from 'tevm'
 import { http } from 'viem'
 import { mainnet } from 'viem/chains'
 import { loadContract } from 'tevm'
 import { EtherscanABILoader, SourcifyABILoader } from 'tevm/contract-loaders'
 
-// Create client for the network
-const client = createClient({
-  chain: mainnet,
-  transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY')
+// For hermetic builds, use a memory client with a fork at specific block
+// This ensures deterministic builds with reproducible contract data
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY'),
+    // Pinning a block height ensures your builds are reproducible
+    blockNumber: 19000000n
+  }
 })
 
 // Configure loaders
@@ -513,31 +541,51 @@ const contract = await loadContract(client, {
 })
 ```
 
-## When to Use Contract Loader
+## When to Use Contract Loader vs Direct Solidity Imports
 
-- When working with unverified contracts
-- When you need to automatically resolve proxy implementations
-- When building tools that need to interact with arbitrary contracts
-- For analyzing contract interfaces without source code
-- For identifying proxy patterns in contracts
-- For bundling network contracts at build time via macros
+### Use Contract Loader When:
 
-<div style={{border: '1px solid var(--vocs-border-color)', borderRadius: '8px', padding: '1.5rem', backgroundColor: 'var(--vocs-color_background2)', margin: '1.5rem 0'}}>
-  <h3 style={{marginTop: 0}}>Common Use Cases</h3>
-  
-  <ul style={{paddingLeft: '1.5rem'}}>
-    <li><strong>DApp Browsers</strong> - Interact with contracts without prior knowledge of their ABI</li>
-    <li><strong>Smart Contract Explorers</strong> - Analyze and display contract information on-the-fly</li>
-    <li><strong>Development Tools</strong> - Automatically handle proxies during testing and debugging</li>
-    <li><strong>Chain Explorers</strong> - Enhanced contract interaction capabilities</li>
-    <li><strong>Wallet Interfaces</strong> - Better UX when interacting with arbitrary contracts</li>
-    <li><strong>SDK Development</strong> - Use macros to compile strong types for known protocol contracts</li>
-  </ul>
-</div>
+- **Working with third-party contracts**: The source of truth is managed by another team
+- **Needing the latest contract implementation**: Always stay up-to-date with the latest contract state
+- **Dealing with unverified contracts**: Extract function selectors from bytecode directly
+- **Interacting with proxy contracts**: Automatically resolve and follow proxy implementations
+- **Building exploratory tools**: Analyze and interact with arbitrary contracts
+- **Creating SDKs for protocols**: Use macros to generate type-safe interfaces at build time
+
+### Use Direct Solidity Imports When:
+
+- **You own the contract code**: You control the source of truth
+- **Need fully hermetic builds**: Direct imports ensure deterministic, reproducible builds
+- **Working with fixed contract versions**: Import exact versions from npm or git submodules
+- **Need complete control over ABI generation**: Custom ABI transformations or optimizations
 
 <Callout type="tip">
-  Contract Loader is perfect for building exploratory tools, frontends that can work with any contract, or for debugging contract interactions. It enables "magic" experiences where users can interact with contracts without needing to know their interface details.
+  Contract Loader is perfect for building exploratory tools, frontends that can work with any contract, or for debugging contract interactions. It enables "magic" experiences where users can interact with contracts without needing to know their interface details. As a macro, it validates your contracts are up-to-date at build time while providing excellent developer experience with full type safety.
 </Callout>
+
+### Ensuring Hermetic Builds
+
+For production applications that need deterministic builds while using Contract Loader:
+
+1. **Pin block heights**: Use `createMemoryClient` with a specific `blockNumber` in the fork config:
+```ts
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.infura.io'),
+    blockNumber: 19000000n // Pin to a specific block
+  }
+})
+```
+
+2. **Generate and commit contracts**: Use the CLI to generate static contract files:
+```bash
+tevm generate contract-loader --address 0x123... --output ./src/contracts
+```
+
+3. **Use npm packages**: If available, use published contracts from official packages:
+```bash
+npm install @uniswap/v3-core
+```
 
 <div style={{marginTop: '2rem', padding: '1rem', border: '1px solid var(--vocs-color_primary)', borderRadius: '8px', backgroundColor: 'var(--vocs-color_background2)'}}>
   <h2 style={{marginTop: 0}}>Feedback Welcome</h2>
