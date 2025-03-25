@@ -1,0 +1,219 @@
+---
+title: Package Reference
+description: Complete reference of all Tevm Node packages and modules
+---
+
+# Package Reference
+
+Tevm Node is built as a collection of modular packages. You can install the complete suite with `npm install tevm` or individual packages based on your needs.
+
+## Installation Options
+
+### Complete Package
+```bash
+npm install tevm
+```
+
+```typescript
+// Import from the main package
+import { createTevmNode } from 'tevm'
+import { callHandler } from 'tevm/actions'
+import { http } from 'tevm/transport'
+```
+
+### Individual Packages
+```bash
+npm install @tevm/node @tevm/actions
+```
+
+```typescript
+// Import directly from packages
+import { createTevmNode } from '@tevm/node'
+import { callHandler } from '@tevm/actions'
+```
+
+## Core Packages
+
+### Node & Client
+- **@tevm/node** - Core node implementation and management
+  - Main entry point for creating and managing Tevm nodes
+  - Blockchain and state management
+  - Mining and block production
+
+- **@tevm/memory-client** - In-memory Ethereum client
+  - Viem-compatible client interface
+  - Local state management
+  - Transaction handling
+
+### EVM & Execution
+- **@tevm/vm** - Virtual Machine implementation
+  - EVM execution environment
+  - Opcode handling
+  - State transitions
+
+- **@tevm/evm** - Low-level EVM operations
+  - Bytecode execution
+  - Gas calculation
+  - Stack management
+
+### State & Storage
+- **@tevm/state** - State management
+  - Account state handling
+  - Storage manipulation
+  - State transitions
+
+- **@tevm/blockchain** - Blockchain implementation
+  - Block management
+  - Chain reorganization
+  - Header validation
+
+## Transaction Handling
+
+### Transaction Processing
+- **@tevm/tx** - Transaction utilities
+  - Transaction signing
+  - Gas estimation
+  - Receipt generation
+
+- **@tevm/txpool** - Transaction pool management
+  - Pending transaction queue
+  - Transaction ordering
+  - Replacement handling
+
+### Block & Receipt Management
+- **@tevm/block** - Block utilities
+  - Block creation
+  - Block validation
+  - Chain management
+
+- **@tevm/receipt-manager** - Transaction receipts
+  - Receipt storage
+  - Event logging
+  - Gas usage tracking
+
+## Client Integration
+
+### Communication
+- **@tevm/jsonrpc** - JSON-RPC implementation
+  - Standard Ethereum methods
+  - Custom Tevm methods
+  - Error handling
+
+- **@tevm/http-client** - HTTP client
+  - Remote node communication
+  - Request batching
+  - Error handling
+
+### Actions & Procedures
+- **@tevm/actions** - High-level actions
+  - Contract interaction
+  - Account management
+  - State queries
+
+- **@tevm/procedures** - Common operations
+  - State manipulation
+  - Chain operations
+  - Utility functions
+
+## Smart Contract Tools
+
+### Contract Interaction
+- **@tevm/contract** - Contract utilities
+  - ABI handling
+  - Function encoding
+  - Event parsing
+
+- **@tevm/precompiles** - Precompiled contracts
+  - Standard precompiles
+  - Custom implementations
+  - Gas calculation
+
+### Contract Management
+- **@tevm/predeploys** - Pre-deployed contracts
+  - Standard contracts
+  - Network-specific contracts
+  - Contract deployment
+
+## Utilities & Helpers
+
+### Core Utilities
+- **@tevm/utils** - Common utilities
+  - Address handling
+  - Data encoding
+  - Type conversion
+
+- **@tevm/common** - Shared constants
+  - Chain configurations
+  - Network parameters
+  - Common types
+
+### Development Tools
+- **@tevm/decorators** - Function decorators
+  - Method extension
+  - Behavior modification
+  - Utility wrappers
+
+- **@tevm/errors** - Error handling
+  - Error types
+  - Error messages
+  - Stack traces
+
+### Data Structures
+- **@tevm/rlp** - RLP encoding/decoding
+  - Data serialization
+  - Network protocol
+  - Storage format
+
+- **@tevm/trie** - Merkle Patricia Tree
+  - State storage
+  - Proof verification
+  - Tree manipulation
+
+## Development & Debugging
+
+### Logging & Debugging
+- **@tevm/logger** - Logging system
+  - Configurable levels
+  - Output formatting
+  - Debug information
+
+- **@tevm/effect** - Effect system
+  - Side effect handling
+  - Async operations
+  - Error recovery
+
+### Storage & Types
+- **@tevm/sync-storage-persister** - Storage persistence
+  - State synchronization
+  - Data persistence
+  - Cache management
+
+- **@tevm/client-types** - Type definitions
+  - Interface definitions
+  - Type exports
+  - API documentation
+
+## Best Practices
+
+1. **Start Simple**
+   - Begin with the complete `tevm` package
+   - Only split into individual packages if you need to optimize bundle size
+
+2. **Bundle Optimization**
+   - Import from specific subpaths: `tevm/actions` instead of `@tevm/actions`
+   - Use tree-shaking friendly imports
+
+3. **Version Management**
+   - Keep all @tevm/* packages on the same version
+   - Update packages together to avoid compatibility issues
+
+4. **Development Workflow**
+   - Use TypeScript for better type safety
+   - Leverage provided type definitions
+   - Follow the documentation for each package
+
+## Related Topics
+
+- [Architecture Overview](../introduction/architecture-overview)
+- [API Reference](./methods)
+- [GitHub Repository](https://github.com/evmts/tevm-monorepo)

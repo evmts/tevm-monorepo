@@ -1,0 +1,249 @@
+---
+title: VM & Submodules
+description: Overview of the internal EVM, blockchain, state, receipts, and more
+
+# VM & Submodules
+
+[Tevm Node](https://github.com/evmts/tevm-monorepo) is built on a modular architecture that separates concerns into distinct submodules. This guide covers the internal components and their APIs.
+
+## Overview
+
+The main submodules are:
+
+1. **EVM (Ethereum Virtual Machine)** - Core [execution engine](https://ethereum.org/en/developers/docs/evm/)
+2. **Blockchain** - [Block and chain state](https://ethereum.org/en/developers/docs/blocks/) management
+3. **StateManager** - [Account and storage state](https://ethereum.org/en/developers/docs/accounts/) management
+4. **TxPool** - [Transaction mempool](https://ethereum.org/en/developers/docs/transactions/)
+5. **ReceiptsManager** - [Transaction receipts and logs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt)
+
+## EVM Module
+
+The EVM module handles bytecode execution and state transitions. It is based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm).
+
+```ts
+const vm = await node.getVm()
+const evm = await vm.evm
+
+// Direct EVM execution
+const result = await evm.runCall({
+  to: '0x...',
+  data: '0x...',
+  value: 0n,
+  caller: '0x...',
+})
+
+// Full transaction execution (recommended)
+const txResult = await vm.runTx({
+  tx: transaction,
+  block: block,
+})
+```
+
+### Key Features
+
+- **State Management**: Handles [account state](https://ethereum.org/en/developers/docs/accounts/), storage, and code execution
+- **Gas Metering**: Tracks [gas consumption](https://ethereum.org/en/developers/docs/gas/) during execution
+- **Precompiles**: [Built-in contract implementations](https://www.evm.codes/precompiled)
+- **EIP Support**: Implements various [Ethereum Improvement Proposals](https://eips.ethereum.org/)
+
+### Common Operations
+
+```ts
+// Check execution result
+if (result.execResult.exceptionError) {
+  console.error('Execution failed:', result.execResult.exceptionError)
+} else {
+  console.log('Return value:', result.execResult.returnValue)
+  console.log('Gas used:', result.execResult.executionGasUsed)
+}
+
+// Access logs from execution
+for (const log of result.execResult.logs) {
+  console.log('Event:', {
+    address: log.address,
+    topics: log.topics,
+    data: log.data
+  })
+}
+```
+
+## Blockchain Module
+
+The blockchain module manages blocks and chain state. It is based on [`@ethereumjs/blockchain`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/blockchain).
+
+```ts
+const chain = (await node.getVm()).blockchain
+
+// Get block by number or hash
+const block = await chain.getBlock('latest')
+const blockByHash = await chain.getBlock(blockHash)
+
+// Add new block
+await chain.putBlock(block)
+
+// Delete block
+await chain.delBlock(blockHash)
+
+// Get block details
+console.log({
+  number: block.header.number,
+  hash: block.hash(),
+  parentHash: block.header.parentHash,
+  stateRoot: block.header.stateRoot
+})
+```
+
+### Fork Support
+
+```ts
+// When forking, blocks are fetched from the parent chain
+const forkedBlock = await chain.getBlock(blockNumber)
+
+// Local blocks override forked blocks
+await chain.putBlock(localBlock)
+```
+
+## StateManager
+
+The StateManager handles account state and storage. It is based on [`@ethereumjs/statemanager`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/statemanager).
+
+```ts
+const state = (await node.getVm()).stateManager
+
+// Account operations
+const account = await state.getAccount(address)
+await state.putAccount(address, account)
+
+// Contract operations
+await state.putContractCode(address, bytecode)
+const code = await state.getContractCode(address)
+
+// Storage operations
+await state.putContractStorage(address, key, value)
+const value = await state.getContractStorage(address, key)
+
+// State snapshots
+const snapshot = await state.dumpCanonicalGenesis()
+await state.commit()
+await state.revert()
+```
+
+### Working with Accounts
+
+```ts
+// Create or update account
+const account = {
+  nonce: 1n,
+  balance: 100n,
+  storageRoot: EMPTY_ROOT,
+  codeHash: EMPTY_HASH
+}
+await state.putAccount(address, account)
+
+// Delete account
+await state.deleteAccount(address)
+```
+
+## Transaction Pool
+
+The TxPool manages pending transactions. It is based on [`@ethereumjs/tx-pool`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/tx-pool).
+
+```ts
+const pool = await node.getTxPool()
+
+// Add transaction
+await pool.add(transaction)
+
+// Get pending transactions
+const pending = await pool.getPendingTransactions()
+
+// Remove transaction
+await pool.removeByHash(txHash)
+
+// Get transactions ordered by price
+const ordered = await pool.txsByPriceAndNonce({
+  baseFee: 10n
+})
+```
+
+### Transaction Validation
+
+```ts
+// Validate transaction before adding
+try {
+  await pool.validateTx(transaction)
+  await pool.add(transaction)
+} catch (error) {
+  console.error('Invalid transaction:', error)
+}
+```
+
+## ReceiptsManager
+
+The ReceiptsManager handles [transaction receipts](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt) and event logs.
+
+```ts
+const receipts = await node.getReceiptsManager()
+
+// Get receipts for block
+const blockReceipts = await receipts.getReceipts(blockHash)
+
+// Get receipt by transaction hash
+const txReceipt = await receipts.getReceiptByTxHash(txHash)
+
+// Query logs
+const logs = await receipts.getLogs({
+  fromBlock: 0n,
+  toBlock: 'latest',
+  address: contractAddress,
+  topics: [eventSignature]
+})
+```
+
+### Working with Logs
+
+```ts
+// Process event logs
+for (const log of logs) {
+  console.log({
+    address: log.address,
+    topics: log.topics,
+    data: log.data,
+    blockNumber: log.blockNumber,
+    transactionHash: log.transactionHash,
+    logIndex: log.logIndex
+  })
+}
+```
+
+## Best Practices
+
+1. **Use High-Level APIs**: Prefer `vm.runTx()` over direct EVM execution for full transaction support.
+
+2. **State Management**: 
+   - Use checkpoints for atomic operations
+   - Clean up state after tests
+   - Handle reverts properly
+
+3. **Gas Optimization**:
+   - [Estimate gas](https://ethereum.org/en/developers/docs/gas/#why-are-gas-fees-necessary) before execution
+   - Monitor gas usage in hot paths
+   - Use appropriate gas limits
+
+4. **Error Handling**:
+   - Check execution results
+   - Handle exceptions gracefully
+   - Validate inputs
+
+## Related Topics
+- [JSON-RPC Support](./json-rpc)
+- [Managing State](../core/managing-state)
+- [Transaction Pool](../advanced/txpool)
+- [Receipts & Logs](../advanced/receipts-and-logs)
+- [EVM Opcodes Reference](https://www.evm.codes/)
+- [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
+- [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
+
+**Up Next**  
+- [JSON-RPC Guide](./json-rpc)
+- [Advanced Usage](../advanced/txpool) 

@@ -1,0 +1,501 @@
+---
+title: EVM Events
+description: Listen to internal EVM events during execution
+---
+
+# EVM Events
+
+Tevm Node provides access to low-level EVM events, allowing you to monitor and debug contract execution at a granular level.
+
+## Available Events
+
+```ts
+type EVMEvent = {
+  // Emitted when a new contract is created
+  newContract: (data: {
+    address: Address, // Contract address
+    code: Uint8Array  // Contract bytecode
+  }, next?: () => void) => void
+
+  // Emitted before a message (call) is processed
+  beforeMessage: (data: Message, next?: () => void) => void
+
+  // Emitted after a message (call) is processed
+  afterMessage: (data: EVMResult, next?: () => void) => void
+
+  // Emitted on each EVM step (instruction execution)
+  step: (data: InterpreterStep, next?: () => void) => void
+}
+```
+
+### The InterpreterStep Object
+
+The `step` event handler receives a detailed `InterpreterStep` object with the following properties:
+
+```ts
+interface InterpreterStep {
+  // Program counter - current position in the bytecode
+  pc: number
+
+  // Current opcode information
+  opcode: {
+    name: string        // Opcode name (e.g., 'SSTORE', 'CALL')
+    fee: number         // Base gas fee of the opcode
+    dynamicFee?: bigint // Additional dynamic gas fee (if applicable)
+    isAsync: boolean    // Whether opcode is asynchronous
+  }
+
+  // Gas information
+  gasLeft: bigint    // Remaining gas
+  gasRefund: bigint  // Gas refund accumulator
+
+  // EVM state
+  stateManager: StateManager  // Reference to the StateManager instance
+  stack: Uint8Array[]         // Current EVM stack contents
+  returnStack: bigint[]       // Return stack for RETURNSUB operations
+
+  // Account information
+  account: Account    // Account which owns the code running
+  address: Address    // Address of the current account
+
+  // Execution context
+  depth: number       // Current call depth (starts at 0 for top-level call)
+  memory: Uint8Array  // Current EVM memory contents
+  memoryWordCount: bigint  // Current size of memory in words (32 bytes)
+  codeAddress: Address     // Address of the code being executed
+                          // (differs from address in DELEGATECALL/CALLCODE)
+}
+```
+
+Where:
+- [`Address`](/reference/address) is Tevm's address type (from `tevm/address`)
+- [`StateManager`](/reference/state) is the state manager interface (from `tevm/state`)
+- [`Account`](/reference/node) is Tevm's account representation
+
+### The NewContractEvent Object
+
+The `onNewContract` event handler receives a `NewContractEvent` object with the following properties:
+
+```ts
+interface NewContractEvent {
+  // Contract information
+  address: Address      // Address of the newly created contract
+  code: Uint8Array      // Deployed contract bytecode
+}
+```
+
+### The Message Object
+
+The `beforeMessage` event handler receives a `Message` object with the following properties:
+
+```ts
+interface Message {
+  // Call information
+  to?: Address            // Target address (undefined for contract creation)
+  value: bigint           // Value sent with the call (in wei)
+  caller: Address         // Address of the account that initiated this call
+
+  // Gas information
+  gasLimit: bigint        // Gas limit for this call
+
+  // Data and code
+  data: Uint8Array        // Input data to the call
+  code?: Uint8Array       // Contract code for the call
+  codeAddress?: Address   // Address of contract code
+
+  // Call type
+  depth: number           // Call depth
+  isStatic: boolean       // Whether the call is static (view)
+  isCompiled: boolean     // Whether this is precompiled contract code
+  delegatecall: boolean   // Whether this is a DELEGATECALL
+  callcode: boolean       // Whether this is a CALLCODE
+
+  // Other
+  salt?: Uint8Array       // Salt for CREATE2 calls
+  authcallOrigin?: Address // Origin address for AUTH calls
+}
+```
+
+### The EVMResult Object
+
+The `afterMessage` event handler receives an `EVMResult` object with the following properties:
+
+```ts
+interface EVMResult {
+  execResult: {
+    // Return information
+    returnValue: Uint8Array   // Return data from the call
+    executionGasUsed: bigint  // Gas used in execution
+    gasRefund?: bigint        // Gas refunded
+
+    // Error information
+    exceptionError?: {        // Error encountered during execution
+      error: string           // Error type (e.g., 'revert', 'out of gas')
+      errorType?: string      // Additional error type information
+    }
+
+    // State
+    logs?: Log[]              // Logs emitted during execution
+    selfdestruct?: Record<string, true>  // Self-destructed addresses
+    gas?: bigint              // Remaining gas
+  }
+
+  // Other information
+  gasUsed: bigint             // Total gas used (including intrinsic costs)
+  createdAddress?: Address    // Address of created contract (if any)
+  gasRefund?: bigint          // Total gas refunded
+}
+```
+
+## Using with tevmCall Family
+
+The recommended way to access EVM events is through the tevmCall family of methods. Tevm offers two API styles for this:
+
+### Client-based API (batteries included)
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { encodeFunctionData } from 'viem'
+
+const client = createMemoryClient()
+
+// Listen for EVM steps and other events during execution
+const result = await client.tevmCall({
+  to: contractAddress,
+  data: encodeFunctionData({
+    abi,
+    functionName: 'myFunction',
+    args: [arg1, arg2]
+  }),
+  // Listen for EVM steps
+  onStep: (step, next) => {
+    console.log('EVM Step:', {
+      pc: step.pc,           // Program counter
+      opcode: step.opcode,   // Current opcode
+      gasLeft: step.gasLeft, // Remaining gas
+      stack: step.stack,     // Stack contents
+      depth: step.depth,     // Call depth
+    })
+    next?.()
+  },
+  // Listen for contract creation
+  onNewContract: (data, next) => {
+    console.log('New contract deployed:', {
+      address: data.address.toString(),
+      codeSize: data.code.length,
+    })
+    next?.()
+  },
+  // Listen for message execution
+  onBeforeMessage: (message, next) => {
+    console.log('Executing message:', {
+      to: message.to?.toString(),
+      value: message.value.toString(),
+      delegatecall: message.delegatecall,
+    })
+    next?.()
+  },
+  onAfterMessage: (result, next) => {
+    console.log('Message result:', {
+      gasUsed: result.execResult.executionGasUsed.toString(),
+      returnValue: result.execResult.returnValue.toString('hex'),
+      error: result.execResult.exceptionError?.error,
+    })
+    next?.()
+  }
+})
+```
+
+### Tree-shakable API
+
+```ts
+import { tevmCall } from 'tevm/actions'
+import { createClient } from 'viem'
+import { createTevmNode } from 'tevm/node'
+import { requestEip1193 } from 'tevm/decorators'
+import { encodeFunctionData } from 'viem'
+
+// Create Tevm Node as a viem transport
+const tevmTransport = createTevmTransport()
+
+// Create Viem client
+const client = createClient({
+  transport: tevmTransport,
+})
+
+// Listen for EVM steps and other events during execution
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: encodeFunctionData({
+    abi,
+    functionName: 'myFunction',
+    args: [arg1, arg2]
+  }),
+  // Event handlers work the same way with both API styles
+  onStep: (step, next) => {
+    console.log('EVM Step:', {
+      pc: step.pc,
+      opcode: step.opcode,
+      gasLeft: step.gasLeft,
+      stack: step.stack,
+      depth: step.depth,
+    })
+    next?.()
+  },
+  onNewContract: (data, next) => {
+    console.log('New contract deployed:', {
+      address: data.address.toString(),
+      codeSize: data.code.length,
+    })
+    next?.()
+  },
+  onBeforeMessage: (message, next) => {
+    console.log('Executing message:', {
+      to: message.to?.toString(),
+      value: message.value.toString(),
+      delegatecall: message.delegatecall,
+    })
+    next?.()
+  },
+  onAfterMessage: (result, next) => {
+    console.log('Message result:', {
+      gasUsed: result.execResult.executionGasUsed.toString(),
+      returnValue: result.execResult.returnValue.toString('hex'),
+      error: result.execResult.exceptionError?.error,
+    })
+    next?.()
+  }
+})
+```
+
+## Advanced Examples
+
+### Debugging
+
+You can create a debug tracer to collect comprehensive execution data:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { tevmCall } from 'tevm/actions'
+
+const client = createMemoryClient()
+
+// Create a debug tracer
+const trace = {
+  steps: [],
+  contracts: new Set(),
+  errors: [],
+}
+
+// Execute with tracing
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: '0x...',
+  // Track each EVM step
+  onStep: (step, next) => {
+    trace.steps.push({
+      pc: step.pc,
+      opcode: step.opcode.name,
+      gasCost: step.opcode.fee,
+      stack: step.stack.map(item => item.toString(16)),
+    })
+    next?.()
+  },
+  // Track contract creation
+  onNewContract: (data, next) => {
+    trace.contracts.add(data.address.toString())
+    next?.()
+  },
+  // Track errors
+  onAfterMessage: (result, next) => {
+    if (result.execResult.exceptionError) {
+      trace.errors.push({
+        error: result.execResult.exceptionError.error,
+        returnData: result.execResult.returnValue.toString('hex'),
+      })
+    }
+    next?.()
+  }
+})
+
+console.log('Execution trace:', {
+  stepCount: trace.steps.length,
+  contracts: Array.from(trace.contracts),
+  errors: trace.errors,
+})
+```
+
+### Gas Profiling
+
+Create a gas profiler to analyze opcode costs:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { tevmCall } from 'tevm/actions'
+
+const client = createMemoryClient()
+
+// Create a gas profiler
+const profile = {
+  opcodes: new Map(),
+  totalGas: 0n,
+}
+
+// Execute with profiling
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: '0x...',
+  onStep: (step, next) => {
+    const opName = step.opcode.name
+    const gasCost = BigInt(step.opcode.fee)
+
+    const stats = profile.opcodes.get(opName) || {
+      count: 0,
+      totalGas: 0n
+    }
+
+    stats.count++
+    stats.totalGas += gasCost
+    profile.totalGas += gasCost
+    profile.opcodes.set(opName, stats)
+
+    next?.()
+  }
+})
+
+// Get gas usage by opcode
+for (const [opcode, stats] of profile.opcodes) {
+  console.log(`${opcode}:`, {
+    count: stats.count,
+    totalGas: stats.totalGas.toString(),
+    percentageOfTotal: Number(stats.totalGas * 100n / profile.totalGas),
+  })
+}
+```
+
+### Error Handling
+
+Handle errors in execution:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { tevmCall } from 'tevm/actions'
+
+const client = createMemoryClient()
+
+const result = await tevmCall(client, {
+  to: contractAddress,
+  data: '0x...',
+  onAfterMessage: (result, next) => {
+    if (result.execResult.exceptionError) {
+      const error = result.execResult.exceptionError
+
+      switch (error.error) {
+        case 'out of gas':
+          console.error('Transaction ran out of gas')
+          break
+        case 'revert':
+          console.error('Transaction reverted:',
+            result.execResult.returnValue.toString('hex'))
+          break
+        case 'invalid opcode':
+          console.error('Invalid opcode encountered')
+          break
+        default:
+          console.error('Unknown error:', error)
+      }
+    }
+    next?.()
+  }
+})
+```
+
+## Best Practices
+
+1. **Always Call Next**
+   ```ts
+   // Important: Call next to continue execution
+   onStep: (step, next) => {
+     // Process step...
+     next?.()
+   }
+   ```
+
+2. **Handle Errors Gracefully**
+   ```ts
+   onStep: (step, next) => {
+     try {
+       // Process step...
+     } catch (error) {
+       console.error('Error processing step:', error)
+     }
+     next?.()
+   }
+   ```
+
+3. **Be Efficient**
+   ```ts
+   // Focus on information you need
+   onStep: (step, next) => {
+     // Only log SSTORE operations
+     if (step.opcode.name === 'SSTORE') {
+       console.log('Storage write:', {
+         key: step.stack[step.stack.length - 1].toString(16),
+         value: step.stack[step.stack.length - 2].toString(16)
+       })
+     }
+     next?.()
+   }
+   ```
+
+## Mining Events
+
+Tevm also provides event handlers for block mining operations. You can use these to monitor and respond to newly mined blocks, transaction receipts, and logs:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { mine } from 'tevm/actions'
+
+const client = createMemoryClient()
+
+// Mine blocks with event handlers
+const result = await client.mine({
+  blockCount: 1,
+  // Listen for new blocks
+  onBlock: (block, next) => {
+    console.log('New block mined:', {
+      number: block.header.number,
+      hash: block.hash().toString('hex'),
+      timestamp: block.header.timestamp
+    })
+    next?.()
+  },
+  // Listen for transaction receipts
+  onReceipt: (receipt, blockHash, next) => {
+    console.log('Transaction receipt:', {
+      txHash: receipt.transactionHash,
+      blockHash,
+      gasUsed: receipt.gasUsed
+    })
+    next?.()
+  },
+  // Listen for logs emitted
+  onLog: (log, receipt, next) => {
+    console.log('Log emitted:', {
+      address: log.address,
+      topics: log.topics,
+      data: log.data
+    })
+    next?.()
+  }
+})
+```
+
+These event handlers follow the same pattern as EVM execution events, requiring a `next()` call to continue processing.
+
+## Related Topics
+- [Tevm Call API](../api/tevm-call)
+- [Methods](../api/methods)
+- [Mining Modes](../core/mining-modes)
+- [Performance Profiler](../advanced/performance-profiler)
+- [Gas Estimation](../api/methods)

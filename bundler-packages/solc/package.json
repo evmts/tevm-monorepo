@@ -58,7 +58,8 @@
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
-		"test:ui": "vitest --ui"
+		"test:ui": "vitest --ui",
+		"solc:version": "node scripts/version/index.cjs"
 	},
 	"dependencies": {
 		"@tevm/tsconfig": "workspace:^",
@@ -66,7 +67,7 @@
 	},
 	"devDependencies": {
 		"abitype": "^1.0.8",
-		"solc": "0.8.28",
+		"solc": "0.8.29",
 		"vitest": "^3.0.0"
 	},
 	"publishConfig": {

@@ -2,6 +2,11 @@ import { defineConfig } from "vocs";
 
 export default defineConfig({
   title: "Tevm Node",
+  titleTemplate: '%s · Tevm',
+  baseUrl:
+    process.env.VERCEL_ENV === 'production'
+      ? 'https://node.tevm.sh'
+      : process.env.VERCEL_URL,
   description:
     "A lightweight, unopinionated, powerful EVM node that runs in the browser",
   // Updated logo configuration
@@ -106,6 +111,7 @@ export default defineConfig({
         { text: "Call API", link: "/api/tevm-call" },
         { text: "VM and Submodules", link: "/api/vm-and-submodules" },
         { text: "Decorators", link: "/api/decorators" },
+        { text: "Contract Loader", link: "/api/whatsabi-integration" },
       ],
     },
     {

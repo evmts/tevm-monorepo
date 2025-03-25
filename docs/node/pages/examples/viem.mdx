@@ -1,0 +1,516 @@
+---
+title: Using with Viem
+description: Connect Tevm Node to Viem as a custom transport
+---
+
+import { Callout } from 'vocs/components'
+import { Tab, TabGroup, Card, CardGrid } from '../../../components'
+
+# Using with Viem
+
+<Callout type="info" emoji="🔌">
+  Tevm integrates seamlessly with <a href="https://viem.sh" target="_blank">viem</a>, providing a powerful local Ethereum environment with viem's familiar API surface.
+</Callout>
+
+This guide demonstrates how to use Tevm with viem, enabling you to leverage viem's type-safe, modular Ethereum development tools alongside Tevm's in-memory EVM capabilities.
+
+## Integration Options
+
+Tevm offers two integration approaches with viem to suit different development needs:
+
+<TabGroup>
+  <Tab label="Tree-shakable API (Recommended)">
+    The recommended approach for production applications that need to minimize bundle size:
+
+    ```ts
+    import { createTevmNode } from 'tevm/node'
+    import { requestEip1193 } from 'tevm/decorators'
+    import { createClient, custom } from 'viem'
+
+    // Create Tevm Node with EIP-1193 support
+    // const node = createTevmNode().extend(requestEip1193())
+
+    // create a viem transport from the eip-1193 node
+    // const tevmTransport = custom(node),
+
+    // Or as shorthand for above, use createTevmTransport
+    const tevmTransport = createTevmTransport()
+
+    // Create Viem client
+    const client = createClient({
+      // Use Tevm node as the viem transport
+      transport: tevmTransport,
+    })
+
+    // Import and use viem actions individually
+    import { getBlockNumber } from 'viem/actions'
+    await getBlockNumber(client)
+
+    // Import and use tevm actions
+    import { tevmDumpState } from 'tevm'
+    await tevmDumpState(client)
+    ```
+
+    <Callout type="success">
+      This approach enables tree-shaking, resulting in smaller bundle sizes as only the actions you import are included in your final build.
+    </Callout>
+  </Tab>
+
+  <Tab label="Batteries-included API">
+    A more convenient approach when bundle size isn't a primary concern:
+
+    ```ts
+    import { createMemoryClient } from 'tevm'
+
+    // Create a fully-loaded client with all actions attached
+    const client = createMemoryClient()
+
+    // Use viem actions directly from the client
+    await client.getBlockNumber()
+
+    // Use tevm-specific actions
+    await client.tevmDumpState()
+    ```
+
+    <Callout type="tip">
+      This approach provides a more convenient developer experience with all actions available directly on the client object, ideal for rapid development and testing.
+    </Callout>
+  </Tab>
+</TabGroup>
+
+## Core Functionality
+
+<CardGrid>
+  <Card title="Public Actions" icon="🔍">
+    <a href="#public-actions">Read blockchain state, query contracts, and estimate gas</a>
+  </Card>
+  <Card title="Wallet Actions" icon="💼">
+    <a href="#wallet-actions">Send transactions, sign messages, and interact with accounts</a>
+  </Card>
+  <Card title="Test Actions" icon="🧪">
+    <a href="#test-actions">Manipulate blockchain state for testing and development</a>
+  </Card>
+  <Card title="Tevm Actions" icon="⚡">
+    <a href="#tevm-actions">Tevm-specific extensions for enhanced EVM capabilities</a>
+  </Card>
+</CardGrid>
+
+## Public Actions
+
+<Callout type="tip" emoji="📚">
+  Public actions allow you to read data from the blockchain and interact with smart contracts in a read-only fashion.
+</Callout>
+
+Use [viem's public actions](https://viem.sh/docs/actions/public/introduction) to query your local Tevm environment:
+
+```ts
+// Get the latest block
+const block = await client.getBlock()
+console.log(`Block number: ${block.number}`)
+
+// Get an account's balance
+const balance = await client.getBalance({
+  address: '0x1234567890123456789012345678901234567890',
+})
+console.log(`Balance: ${balance} wei`)
+
+// Get transaction count (nonce)
+const nonce = await client.getTransactionCount({
+  address: '0x1234567890123456789012345678901234567890',
+})
+console.log(`Transaction count: ${nonce}`)
+
+// Read from a contract
+const result = await client.readContract({
+  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC on mainnet
+  abi: parseAbi(['function balanceOf(address) view returns (uint256)']),
+  functionName: 'balanceOf',
+  args: ['0x1234567890123456789012345678901234567890'],
+})
+console.log(`Contract result: ${result}`)
+```
+
+## Wallet Actions
+
+<Callout type="tip" emoji="👛">
+  Wallet actions enable you to simulate transactions, sign messages, and interact with accounts and contracts in a write capacity.
+</Callout>
+
+Tevm supports all of [viem's wallet actions](https://viem.sh/docs/actions/wallet/introduction) with built-in prefunded accounts:
+
+```ts
+import { createMemoryClient, PREFUNDED_ACCOUNTS } from 'tevm'
+import { parseEther } from 'viem'
+
+// Create a client with one of Tevm's prefunded accounts
+const client = createMemoryClient({
+  account: PREFUNDED_ACCOUNTS[0], // First prefunded account with 10000 ETH
+})
+
+// Send ETH to another address
+const hash = await client.sendTransaction({
+  to: '0x1234567890123456789012345678901234567890',
+  value: parseEther('1'), // Send 1 ETH
+})
+console.log(`Transaction sent: ${hash}`)
+
+// Wait for the transaction to be mined
+const receipt = await client.waitForTransactionReceipt({ hash })
+console.log(`Transaction mined in block: ${receipt.blockNumber}`)
+
+// Deploy a contract
+const { contractAddress } = await client.deployContract({
+  abi: parseAbi([
+    'function greet() view returns (string)',
+    'function setGreeting(string) returns ()'
+  ]),
+  bytecode: '0x608060405234801561...',  // Contract bytecode
+})
+console.log(`Contract deployed at: ${contractAddress}`)
+```
+
+<details>
+<summary>Working with Custom Accounts</summary>
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { privateKeyToAccount } from 'viem/accounts'
+
+// Create an account from a private key
+const account = privateKeyToAccount('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80')
+
+// Use that account with the client
+const client = createMemoryClient({ account })
+
+// First set some balance for the account
+await client.setBalance({
+  address: account.address,
+  value: parseEther('10')
+})
+
+// Now use the account to send transactions
+const hash = await client.sendTransaction({
+  to: '0x1234567890123456789012345678901234567890',
+  value: parseEther('1')
+})
+```
+</details>
+
+## Test Actions
+
+<Callout type="tip" emoji="🧪">
+  Test actions allow you to manipulate the blockchain state for testing purposes, similar to using Anvil or Hardhat.
+</Callout>
+
+All of [viem's test actions](https://viem.sh/docs/actions/test/introduction) are supported for comprehensive testing capabilities:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { parseEther } from 'viem'
+
+const client = createMemoryClient()
+
+// Mine additional blocks
+await client.mine({ blocks: 5 })
+console.log(`New block number: ${await client.getBlockNumber()}`)
+
+// Set an account's balance
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: parseEther('100')
+})
+
+// Set block timestamp for time-dependent tests
+await client.setNextBlockTimestamp(1695311333n) // Set timestamp for next block
+await client.mine({ blocks: 1 }) // Mine the block with that timestamp
+
+// Snapshot and revert state
+const snapshotId = await client.snapshot()
+console.log(`Created snapshot: ${snapshotId}`)
+
+// Make some changes...
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: parseEther('999')
+})
+
+// Revert to the snapshot
+await client.revert({ id: snapshotId })
+console.log('Reverted to previous state')
+
+// Check balance is back to previous value
+const balance = await client.getBalance({
+  address: '0x1234567890123456789012345678901234567890'
+})
+console.log(`Balance after revert: ${balance}`)
+```
+
+## Tevm Actions
+
+<Callout type="tip" emoji="⚙️">
+  Tevm provides additional actions beyond standard viem functionality to give you enhanced control over the EVM environment.
+</Callout>
+
+### Contract Interactions
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { parseAbi } from 'viem'
+
+const client = createMemoryClient()
+
+// Using the tevmContract action for contract interaction
+const result = await client.tevmContract({
+  abi: parseAbi(['function balanceOf(address) view returns (uint256)']),
+  address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC on mainnet
+  functionName: 'balanceOf',
+  args: ['0x1234567890123456789012345678901234567890'],
+})
+console.log(`Contract result: ${result}`)
+
+// Low-level EVM call with tevmCall
+const callResult = await client.tevmCall({
+  to: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+  data: '0x70a08231000000000000000000000000' + '1234567890123456789012345678901234567890'.slice(2),
+})
+console.log(`Raw call result: ${callResult.data}`)
+```
+
+### Account Management
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { parseEther } from 'viem'
+
+const client = createMemoryClient()
+
+// Get account state with all details
+const account = await client.tevmGetAccount({
+  address: '0x1234567890123456789012345678901234567890',
+})
+console.log('Account state:', account)
+
+// Set up a complex account state (EOA or contract)
+await client.tevmSetAccount({
+  address: '0xabcdef1234567890abcdef1234567890abcdef12',
+  balance: parseEther('100'),
+  nonce: 5n,
+  // For contracts:
+  code: '0x608060405234801...',  // Contract bytecode
+  storage: {           // Storage slots
+    '0x0': '0x1',      // slot 0 -> value 1
+    '0x1': '0x2'       // slot 1 -> value 2
+  }
+})
+
+// Add tokens to an account
+// For native ETH:
+await client.tevmDeal({
+  account: '0x1234567890123456789012345678901234567890',
+  amount: parseEther('10')
+})
+
+// For ERC20 tokens:
+await client.tevmDeal({
+  erc20: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC on mainnet
+  account: '0x1234567890123456789012345678901234567890',
+  amount: 1000000n // 1 USDC (6 decimals)
+})
+```
+
+### State Management
+
+```ts
+import { createMemoryClient } from 'tevm'
+
+const client = createMemoryClient()
+
+// Dump the entire EVM state
+const state = await client.tevmDumpState()
+console.log('Current state:', state)
+
+// Save state to local variable
+const savedState = await client.tevmDumpState()
+
+// Make changes
+await client.setBalance({
+  address: '0x1234567890123456789012345678901234567890',
+  value: 123456789n
+})
+
+// Restore previous state
+await client.tevmLoadState({
+  state: savedState
+})
+
+// Mine blocks with Tevm action
+await client.tevmMine({
+  blocks: 5
+})
+```
+
+<Callout type="warning">
+  The `tevmDumpState` and `tevmLoadState` actions are more powerful than regular snapshots, as they capture the complete VM state, including the fork cache.
+</Callout>
+
+## Inside the Memory Client
+
+<Callout type="info" emoji="🔍">
+  Understanding how a MemoryClient is constructed helps you grasp Tevm's architecture and integration capabilities.
+</Callout>
+
+A MemoryClient is essentially a viem client with Tevm's functionality added. Here's how you could build one from scratch:
+
+```ts
+// Step 1: Create a fork transport (for connecting to an existing network)
+import { http } from 'viem'
+const forkTransport = http('https://mainnet.optimism.io')
+
+// Step 2: Create a Tevm Node and make it EIP-1193 compatible
+import { createTevmNode } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+
+const node = createTevmNode({
+  fork: {
+    transport: forkTransport
+  }
+}).extend(requestEip1193())
+
+// Step 3: Create a viem client with Tevm extensions
+import { custom, createClient, publicActions, testActions, walletActions } from 'viem'
+import { tevmViemActions } from 'tevm/memory-client'
+
+const memoryClient = createClient({
+  transport: custom(node),
+})
+  // Add Tevm-specific actions
+  .extend(tevmViemActions())
+  // Add viem standard actions
+  .extend(publicActions)
+  .extend(walletActions)
+  .extend(testActions({ mode: 'anvil' }))
+
+// Now you have a fully functional memoryClient
+```
+
+This breakdown illustrates Tevm's key architectural components:
+
+1. **EIP-1193 Compatibility Layer**: Tevm implements the standard Ethereum provider interface
+2. **In-Memory EVM**: Tevm runs a complete Ethereum Virtual Machine locally
+3. **Viem Integration**: Tevm extends viem's functionality with EVM-specific capabilities
+
+## Complete Action Reference
+
+<details>
+<summary><strong>Public Actions</strong> - Read blockchain state</summary>
+
+#### Contract Interactions
+- [`call`](https://viem.sh/docs/actions/public/call) - Call a contract method without sending a transaction
+- [`readContract`](https://viem.sh/docs/contract/readContract) - Read a contract's constant/view method
+- [`simulateContract`](https://viem.sh/docs/contract/simulateContract) - Simulate a contract write without executing
+- [`estimateContractGas`](https://viem.sh/docs/contract/estimateContractGas) - Estimate gas for a contract call
+- [`estimateGas`](https://viem.sh/docs/actions/public/estimateGas) - Estimate gas for a transaction
+- [`getBytecode`](https://viem.sh/docs/contract/getBytecode) - Get a contract's bytecode
+
+#### Block & Transaction
+- [`getBlock`](https://viem.sh/docs/actions/public/getBlock) - Get a block by number or hash
+- [`getBlockNumber`](https://viem.sh/docs/actions/public/getBlockNumber) - Get the latest block number
+- [`getBlockTransactionCount`](https://viem.sh/docs/actions/public/getBlockTransactionCount) - Get the transaction count for a block
+- [`getTransaction`](https://viem.sh/docs/actions/public/getTransaction) - Get transaction details by hash
+- [`getTransactionCount`](https://viem.sh/docs/actions/public/getTransactionCount) - Get the transaction count (nonce) for an address
+- [`getTransactionReceipt`](https://viem.sh/docs/actions/public/getTransactionReceipt) - Get a transaction receipt by hash
+- [`waitForTransactionReceipt`](https://viem.sh/docs/actions/public/waitForTransactionReceipt) - Wait for a transaction to be mined
+
+#### Account & Chain
+- [`getBalance`](https://viem.sh/docs/actions/public/getBalance) - Get the balance of an address
+- [`getChainId`](https://viem.sh/docs/actions/public/getChainId) - Get the chain ID
+- [`getGasPrice`](https://viem.sh/docs/actions/public/getGasPrice) - Get the current gas price
+- [`estimateFeesPerGas`](https://viem.sh/docs/actions/public/estimateFeesPerGas) - Estimate fees per gas unit
+- [`getStorageAt`](https://viem.sh/docs/actions/public/getStorageAt) - Get the value from a storage slot
+</details>
+
+<details>
+<summary><strong>Test Actions</strong> - Manipulate blockchain state</summary>
+
+#### Block & Mining
+- [`mine`](https://viem.sh/docs/actions/test/mine) - Mine a number of blocks
+- [`setAutomine`](https://viem.sh/docs/actions/test/setAutomine) - Enable/disable automatic mining
+- [`setIntervalMining`](https://viem.sh/docs/actions/test/setIntervalMining) - Set mining to occur at intervals
+- [`setBlockGasLimit`](https://viem.sh/docs/actions/test/setBlockGasLimit) - Set the block gas limit
+- [`setBlockTimestampInterval`](https://viem.sh/docs/actions/test/setBlockTimestampInterval) - Set increment for timestamps
+- [`setNextBlockBaseFeePerGas`](https://viem.sh/docs/actions/test/setNextBlockBaseFeePerGas) - Set the base fee for the next block
+- [`setNextBlockTimestamp`](https://viem.sh/docs/actions/test/setNextBlockTimestamp) - Set the timestamp for the next block
+
+#### Account & State
+- [`setBalance`](https://viem.sh/docs/actions/test/setBalance) - Set an address's balance
+- [`setCode`](https://viem.sh/docs/actions/test/setCode) - Set contract bytecode at an address
+- [`setNonce`](https://viem.sh/docs/actions/test/setNonce) - Set the nonce for an address
+- [`setStorageAt`](https://viem.sh/docs/actions/test/setStorageAt) - Set a storage slot's value
+- [`setCoinbase`](https://viem.sh/docs/actions/test/setCoinbase) - Set the block miner address
+- [`setMinGasPrice`](https://viem.sh/docs/actions/test/setMinGasPrice) - Set the minimum gas price
+
+#### State Management
+- [`snapshot`](https://viem.sh/docs/actions/test/snapshot) - Create a snapshot of the current state
+- [`revert`](https://viem.sh/docs/actions/test/revert) - Revert to a previous snapshot
+- [`reset`](https://viem.sh/docs/actions/test/reset) - Reset the fork to a fresh state
+- [`dumpState`](https://viem.sh/docs/actions/test/dumpState) - Export the current state
+- [`loadState`](https://viem.sh/docs/actions/test/loadState) - Import a previously exported state
+</details>
+
+<details>
+<summary><strong>Wallet Actions</strong> - Send transactions and interact with accounts</summary>
+
+#### Account Management
+- [`getAddresses`](https://viem.sh/docs/actions/wallet/getAddresses) - Get available addresses
+- [`requestAddresses`](https://viem.sh/docs/actions/wallet/requestAddresses) - Request permission to view addresses
+
+#### Transaction Operations
+- [`prepareTransactionRequest`](https://viem.sh/docs/actions/wallet/prepareTransactionRequest) - Prepare a transaction
+- [`sendTransaction`](https://viem.sh/docs/actions/wallet/sendTransaction) - Send a transaction
+- [`sendRawTransaction`](https://viem.sh/docs/actions/wallet/sendRawTransaction) - Send a signed transaction
+- [`signTransaction`](https://viem.sh/docs/actions/wallet/signTransaction) - Sign a transaction
+
+#### Signing Operations
+- [`signMessage`](https://viem.sh/docs/actions/wallet/signMessage) - Sign a message
+- [`signTypedData`](https://viem.sh/docs/actions/wallet/signTypedData) - Sign typed data (EIP-712)
+
+#### Chain Management
+- [`addChain`](https://viem.sh/docs/actions/wallet/addChain) - Add a chain to the wallet
+- [`switchChain`](https://viem.sh/docs/actions/wallet/switchChain) - Switch to a different chain
+
+#### Permissions & Assets
+- [`getPermissions`](https://viem.sh/docs/actions/wallet/getPermissions) - Get wallet permissions
+- [`requestPermissions`](https://viem.sh/docs/actions/wallet/requestPermissions) - Request wallet permissions
+- [`watchAsset`](https://viem.sh/docs/actions/wallet/watchAsset) - Add a token to the wallet
+</details>
+
+<details>
+<summary><strong>Tevm Actions</strong> - Enhanced EVM capabilities</summary>
+
+- `tevmCall` - Low-level EVM call
+- `tevmContract` - Call a contract method with detailed EVM info
+- `tevmDeploy` - Deploy a contract with detailed results
+- `tevmGetAccount` - Get detailed account information
+- `tevmSetAccount` - Set up a complex account state
+- `tevmDeal` - Add native ETH or ERC20 tokens to an account
+- `tevmDumpState` - Export complete EVM state
+- `tevmLoadState` - Import complete EVM state
+- `tevmMine` - Mine blocks with additional options
+</details>
+
+## Next Steps
+
+<CardGrid>
+  <Card title="Using with Ethers.js" href="/examples/ethers">
+    Learn how to integrate Tevm with ethers.js
+  </Card>
+  <Card title="Forking Mainnet" href="/examples/forking-mainnet">
+    Create a local fork of mainnet for testing
+  </Card>
+  <Card title="Local Testing" href="/examples/local-testing">
+    Set up a comprehensive local testing environment
+  </Card>
+  <Card title="TevmNode Interface" href="/core/tevm-node-interface">
+    Explore the low-level node interface
+  </Card>
+</CardGrid>

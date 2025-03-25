@@ -1,0 +1,273 @@
+---
+title: Why run Ethereum in JS?
+description: Motivations for in-browser & local EVM execution and the advantages over traditional RPC execution
+authors:
+  - "[William Cory](https://x.com/fucory)"
+  - "[Tevm Team](https://github.com/evmts)"
+---
+
+import { Callout, Steps, Button } from "vocs/components";
+import { Card, TabGroup, FileTree } from "../../../components";
+
+# Why Run Ethereum in JavaScript?
+
+JavaScript has emerged as an ideal environment for running Ethereum, offering unique advantages for both developers and end-users. Here's why running an Ethereum node in JavaScript unlocks powerful new capabilities.
+
+## Performance & Efficiency
+
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+  <Card title="⚡ Zero Network Latency">
+    <p>
+      Running the EVM locally eliminates round-trip delays to remote nodes,
+      enabling near-instantaneous transaction simulations and gas estimations.
+    </p>
+  </Card>
+
+  <Card title="🔄 Powerful JS interop">
+    <p>
+      Simulate multiple transactions plugging directly into the evm with JS or
+      even writing custom contracts in JS.
+    </p>
+  </Card>
+</div>
+
+### Real-World Performance Benefits
+
+<Callout type="info" title="Performance Comparison">
+  Tevm's local execution provides instantanious gas estimation!
+</Callout>
+
+```typescript showLineNumbers {1-4,8-11} filename="performance-comparison.ts"
+const gasEstimate0 = await provider.estimateGas({ ... }) // ~200ms as it fetches state
+const gasEstimate0 = await provider.estimateGas({ ... }) // ~Instant on future estimations with cache saved
+const gasEstimate0 = await provider.estimateGas({ ... }) // ~Instant on future estimations with cache saved
+```
+
+## Enhanced User Experiences
+
+JavaScript-based EVM execution enables entirely new categories of dApp features:
+
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
+  <Card title="📱 Offline Capabilities">
+    <p>
+      Enable local-first applications that work without constant network
+      connectivity.
+    </p>
+  </Card>
+
+{" "}
+
+<Card title="⚡ Optimistic UI">
+  <p>
+    Show users the likely outcome of transactions before they're mined on-chain.
+  </p>
+</Card>
+
+{" "}
+
+<Card title="🛡️ Improved Reliability">
+  <p>
+    Reduce dependency on external infrastructure, making dApps more resilient.
+  </p>
+</Card>
+
+{" "}
+
+<Card title="🧮 Transaction Simulation">
+  <p>
+    Simulate complex interactions and preview results before sending
+    transactions.
+  </p>
+</Card>
+
+  <Card title="🔐 Enhanced Privacy">
+    <p>
+      Process sensitive data locally without sending it to external services.
+    </p>
+  </Card>
+</div>
+
+## Developer Experience Advantages
+
+<Steps>
+   ### Advanced Debugging 🔬
+  
+  Step through EVM execution opcode by opcode, inspect memory and stack, and see exactly what happens in your contracts.
+  
+  ```typescript filename="debug-example.ts"
+  // Listen to every EVM instruction
+  vm.evm.events.on('step', (data, next) => {
+    console.log(
+      `${data.pc.toString().padStart(5)}:`,
+      `${data.opcode.name.padEnd(10)}`,
+      `gas: ${data.gasLeft.toString().padStart(8)}`,
+      `stack: ${data.stack.join(', ')}`
+    )
+    next()
+  })
+  ```
+
+### Deterministic Testing 🧪
+
+Create fully reproducible environments for testing with complete control over blockchain state, time, and mining.
+
+```typescript filename="testing-example.ts"
+// Create a snapshot before test
+const snapshotId = await client.tevmSnapshot()
+
+// Run the test
+await client.setBalance({ address: testAccount, value: parseEther("100") })
+await client.sendTransaction({ ... })
+await client.mine({ blocks: 1 })
+const result = await client.call({ ... })
+
+// Restore state after test
+await client.tevmRevert({ snapshotId })
+```
+
+### Portable Environment 💼
+
+The same Ethereum environment works across Node.js, browsers, serverless functions, and other JavaScript runtimes.
+
+  <TabGroup items={['Browser', 'Node.js', 'Serverless']}>
+    <div data-title="Browser">
+      ```ts
+      import { createMemoryClient } from 'tevm'
+      
+      // Create an in-browser Ethereum node
+      const client = createMemoryClient()
+      
+      document.querySelector('#button').addEventListener('click', async () => {
+        const balance = await client.getBalance({
+          address: '0x...'
+        })
+        console.log(`Balance: ${formatEther(balance)} ETH`)
+      })
+      ```
+    </div>
+    <div data-title="Node.js">
+      ```ts
+      import { createMemoryClient } from 'tevm'
+      
+      // Create a Node.js Ethereum node
+      const client = createMemoryClient()
+      
+      async function main() {
+        const balance = await client.getBalance({
+          address: '0x...'
+        })
+        console.log(`Balance: ${formatEther(balance)} ETH`)
+      }
+      
+      main().catch(console.error)
+      ```
+    </div>
+    <div data-title="Serverless">
+      ```ts
+      import { createMemoryClient } from 'tevm'
+      
+      export async function handler(event) {
+        // Create a serverless Ethereum node
+        const client = createMemoryClient()
+        
+        const balance = await client.getBalance({
+          address: event.address
+        })
+        
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ balance: balance.toString() })
+        }
+      }
+      ```
+    </div>
+  </TabGroup>
+</Steps>
+
+## Solidity Imports
+
+Tevm Bundler (optional feature) creates the best devx for working with solidity files in TypeScript
+
+```typescript
+// Import solidity files directly into TS files
+import { MyContract } from "./MyContract.sol";
+```
+
+The devx is optimized in following ways:
+
+- Natspec on hover
+- Typesafe contract
+- TRPC like experience. You will see red underlines before you even save a solidity file
+- No need to set up external build tools. Plugs directly into your existing js pipeline
+
+## JavaScript Ecosystem Integration
+
+<Callout type="note" title="Seamless Integration">
+  Running Ethereum in JavaScript means you can leverage the entire JavaScript
+  ecosystem effortlessly.
+</Callout>
+
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-6">
+  <Card title="🔤 TypeScript">
+    <p>Type-safe contract interactions with full IntelliSense support</p>
+  </Card>
+
+{" "}
+
+<Card title="⚛️ UI Frameworks">
+  <p>React, Vue, Svelte and other frontend libraries</p>
+</Card>
+
+{" "}
+
+<Card title="🏗️ Build Tools">
+  <p>Vite, Webpack, ESBuild and other bundlers</p>
+</Card>
+
+{" "}
+
+<Card title="🧪 Testing">
+  <p>Vitest support via Vite</p>
+</Card>
+
+{" "}
+
+<Card title="🔄 Runtimes">
+  <p>Node.js, browsers, Electron, serverless functions</p>
+</Card>
+
+{" "}
+
+<Card title="📦 NPM Ecosystem">
+  <p>Access to millions of packages and libraries in the npm registry</p>
+</Card>
+
+  <Card title="🌐 Web APIs">
+    <p>
+      Integration with browser storage, WebSockets, service workers, and more
+    </p>
+  </Card>
+</div>
+
+## Ready to Get Started?
+
+<FileTree>
+  <FileTree.Folder name="Getting Started Guide" defaultOpen>
+    <FileTree.File name="Install Tevm" url="../getting-started/overview" />
+    <FileTree.File
+      name="Configure Your Environment"
+      url="../core/create-tevm-node"
+    />
+    <FileTree.File name="Run Your First Code" url="../examples/viem" />
+  </FileTree.Folder>
+</FileTree>
+
+<div className="flex flex-wrap gap-4 mt-8">
+  <Button href="../getting-started/overview" variant="accent" size="large">
+    Install Tevm →
+  </Button>
+  <Button href="../examples/viem">View Examples</Button>
+  <Button href="https://github.com/evmts/tevm-monorepo" variant="outline">
+    GitHub Repo
+  </Button>
+</div>

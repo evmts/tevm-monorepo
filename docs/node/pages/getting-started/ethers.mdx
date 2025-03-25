@@ -1,0 +1,531 @@
+---
+title: Getting Started with Ethers
+description: Get started with Tevm Node using the ethers.js library for familiar Ethereum development
+authors:
+  - "[William Cory](https://x.com/fucory)"
+  - "[Tevm Team](https://github.com/evmts)"
+---
+
+import { Callout, Steps, Button } from 'vocs/components'
+import { TabGroup } from '../../../components'
+
+# Getting Started with Ethers.js
+
+<Callout type="info">
+While Tevm is built with viem as its primary API, it provides **full compatibility** with [ethers.js](https://docs.ethers.org/v6/) through its EIP-1193 provider interface! This makes Tevm a perfect fit for existing ethers.js projects.
+</Callout>
+
+This guide shows you how to use Tevm Node with ethers.js, allowing you to leverage Tevm's powerful features with the ethers library you already know.
+
+## Installation
+
+<Steps>
+### Install Dependencies
+
+First, install Tevm and ethers as dependencies:
+
+<TabGroup items={['npm', 'pnpm', 'yarn', 'bun']}>
+  <div data-title="npm">
+  ```bash
+  npm install tevm ethers@latest
+  ```
+  </div>
+  <div data-title="pnpm">
+  ```bash
+  pnpm add tevm ethers@latest
+  ```
+  </div>
+  <div data-title="yarn">
+  ```bash
+  yarn add tevm ethers@latest
+  ```
+  </div>
+  <div data-title="bun">
+  ```bash
+  bun add tevm ethers@latest
+  ```
+  </div>
+</TabGroup>
+
+### Create Tevm Client
+
+Set up your Tevm client and enable the EIP-1193 interface:
+
+```ts
+import { createMemoryClient, http } from 'tevm'
+import { optimism } from 'tevm/chains'
+import { requestEip1193 } from 'tevm/decorators'
+
+// Create a client (optionally forking from a network)
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+    common: optimism
+  },
+})
+
+// Enable EIP-1193 compatibility for ethers
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
+```
+
+### Connect Ethers
+
+Create an ethers provider that uses your Tevm node:
+
+```ts
+import { BrowserProvider, Wallet } from 'ethers'
+
+// Create ethers provider using the Tevm node
+const provider = new BrowserProvider(client.transport.tevm)
+
+// Create a new wallet or connect an existing one
+const signer = Wallet.createRandom().connect(provider)
+
+// Fund the wallet using Tevm's direct state modification
+await client.setBalance({
+  address: signer.address,
+  value: 1000000000000000000n // 1 ETH
+})
+```
+
+### Start Using Ethers
+
+You're now ready to use ethers.js with Tevm's local environment:
+
+```ts
+// Check the current block
+const blockNumber = await provider.getBlockNumber()
+console.log(`Current block: ${blockNumber}`)
+
+// Check your wallet balance
+const balance = await provider.getBalance(signer.address)
+console.log(`Wallet balance: ${balance.toString()}`)
+```
+</Steps>
+
+## Complete Example
+
+The following example demonstrates how to use ethers.js with Tevm to interact with a contract:
+
+```ts showLineNumbers {3,12-13,27-28,47-48,66} filename="ethers-with-tevm.ts" 
+import { createMemoryClient, http, parseAbi } from 'tevm'
+import { optimism } from 'tevm/chains'
+import { requestEip1193 } from 'tevm/decorators' // [!code focus]
+import { BrowserProvider, Wallet, Contract, formatEther } from 'ethers'
+import { parseUnits } from 'ethers/utils'
+
+// Step 1: Create a memory client forking from Optimism
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+    common: optimism
+  },
+})
+
+// Step 2: Enable EIP-1193 compatibility for ethers // [!code focus]
+client.transport.tevm.extend(requestEip1193()) // [!code focus]
+await client.tevmReady()
+
+// Step 3: Set up ethers provider and wallet
+const provider = new BrowserProvider(client.transport.tevm)
+const signer = Wallet.createRandom().connect(provider)
+
+// Verify connectivity by getting the block number
+const blockNumber = await provider.getBlockNumber()
+console.log(`Current block number: ${blockNumber}`)
+
+// Step 4: Set up contract interaction // [!code focus]
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748" // [!code focus]
+const greeterAbi = parseAbi([
+  'function greet() view returns (string)',
+  'function setGreeting(string memory _greeting) public',
+])
+const greeter = new Contract(greeterContractAddress, greeterAbi, signer)
+
+// Helper functions for cleaner interaction
+const getGreeting = async () => await greeter.greet()
+const setGreeting = async (newGreeting) => {
+  const tx = await greeter.setGreeting(newGreeting)
+  return tx.hash
+}
+
+// Step 5: Fund our wallet (using Tevm's test actions)
+await client.setBalance({
+  address: signer.address,
+  value: parseUnits("1.0", "ether")
+})
+console.log(`Wallet funded with: ${formatEther(await provider.getBalance(signer.address))} ETH`)
+
+// Step 6: Read current greeting
+console.log(`Original greeting: ${await getGreeting()}`)
+
+// Step 7: Update the greeting // [!code focus]
+const txHash = await setGreeting("Hello from ethers.js and Tevm!") // [!code focus]
+console.log(`Transaction sent: ${txHash}`)
+
+// Step 8: Mine the block to include our transaction
+await client.mine({ blocks: 1 })
+
+// Step 9: Verify the updated greeting
+console.log(`Updated greeting: ${await getGreeting()}`)
+```
+
+<Callout type="warning">
+Unlike real networks, Tevm requires you to manually mine blocks after sending transactions. Don't forget to call `client.mine()` after each transaction!
+</Callout>
+
+<details>
+<summary>Understanding the Code</summary>
+
+The integration between Tevm and ethers.js happens through these key components:
+
+### EIP-1193 Decorator
+
+```ts
+// Enable EIP-1193 standard provider interface
+client.transport.tevm.extend(requestEip1193())
+```
+
+The `requestEip1193()` decorator transforms Tevm's internal interface into the standard provider interface that ethers.js expects. This crucial bridge allows the two libraries to communicate seamlessly.
+
+### Provider Creation
+
+```ts
+// Create ethers provider using the Tevm node
+const provider = new BrowserProvider(client.transport.tevm)
+```
+
+Ethers accepts the decorated Tevm node as a standard Ethereum provider, allowing all ethers functionality to work as expected.
+
+### Hybrid API Approach
+
+The example demonstrates a hybrid approach:
+- **Ethers API** for contract interaction (`Contract`, `provider`, `signer`)
+- **Tevm API** for blockchain control (`client.setBalance()`, `client.mine()`)
+
+This gives you the best of both worlds - familiar ethers.js contract interaction with Tevm's powerful state control.
+
+### Mining Control
+
+```ts
+// Mine the block to include our transaction
+await client.mine({ blocks: 1 })
+```
+
+Unlike when using real networks with ethers, you need to explicitly mine blocks with Tevm to include transactions. This gives you precise control over transaction execution timing.
+</details>
+
+## Common Patterns
+
+### Contract Deployment
+
+Here's how to deploy a new contract using ethers.js with Tevm:
+
+```ts showLineNumbers
+import { createMemoryClient } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider, Wallet, ContractFactory, formatEther } from 'ethers'
+
+// Set up Tevm and ethers
+const client = createMemoryClient()
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
+
+const provider = new BrowserProvider(client.transport.tevm)
+const signer = Wallet.createRandom().connect(provider)
+
+// Fund the signer
+await client.setBalance({
+  address: signer.address,
+  value: 10000000000000000000n // 10 ETH
+})
+console.log(`Wallet funded with: ${formatEther(await provider.getBalance(signer.address))} ETH`)
+
+// Contract ABI and bytecode
+const counterAbi = [
+  'function count() view returns (uint256)',
+  'function increment() public'
+]
+const counterBytecode = '0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
+
+// Deploy contract
+const counterFactory = new ContractFactory(counterAbi, counterBytecode, signer)
+const counterDeploy = await counterFactory.deploy()
+console.log(`Deployment transaction: ${counterDeploy.deploymentTransaction().hash}`)
+
+// Mine to include the deployment transaction
+await client.mine({ blocks: 1 })
+
+// Get contract at deployed address
+const counter = await counterDeploy.waitForDeployment()
+const counterAddress = await counter.getAddress()
+console.log(`Counter deployed at: ${counterAddress}`)
+
+// Use the contract
+console.log(`Initial count: ${await counter.count()}`)
+const tx = await counter.increment()
+console.log(`Increment transaction: ${tx.hash}`)
+await client.mine({ blocks: 1 })
+console.log(`New count: ${await counter.count()}`)
+```
+
+### Reading and Writing Contract Data
+
+Interact with an existing contract using ethers.js:
+
+```ts
+import { createMemoryClient, http, parseAbi } from 'tevm'
+import { mainnet } from 'tevm/chains'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider, Wallet, Contract, formatEther, formatUnits } from 'ethers'
+
+// Setup client with a mainnet fork
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY'),
+    common: mainnet
+  }
+})
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
+
+// Setup provider and wallet
+const provider = new BrowserProvider(client.transport.tevm)
+const signer = Wallet.createRandom().connect(provider)
+
+// Fund the wallet
+await client.setBalance({
+  address: signer.address,
+  value: 100000000000000000000n // 100 ETH
+})
+
+// Connect to USDC contract
+const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+const usdcAbi = parseAbi([
+  'function name() view returns (string)',
+  'function symbol() view returns (string)',
+  'function decimals() view returns (uint8)',
+  'function totalSupply() view returns (uint256)',
+  'function balanceOf(address owner) view returns (uint256)'
+])
+
+const usdc = new Contract(usdcAddress, usdcAbi, provider)
+
+// Read-only operation
+const [name, symbol, decimals, totalSupply] = await Promise.all([
+  usdc.name(),
+  usdc.symbol(),
+  usdc.decimals(),
+  usdc.totalSupply()
+])
+
+console.log(`Contract: ${name} (${symbol})`)
+console.log(`Decimals: ${decimals}`)
+console.log(`Total Supply: ${formatUnits(totalSupply, decimals)} ${symbol}`)
+
+// Check DAI's USDC balance
+const daiAddress = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+const daiUsdcBalance = await usdc.balanceOf(daiAddress)
+console.log(`DAI contract's USDC balance: ${formatUnits(daiUsdcBalance, decimals)} ${symbol}`)
+```
+
+### Working with Events
+
+Listen for and query contract events:
+
+```ts
+import { createMemoryClient } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider, Wallet, Contract, formatUnits } from 'ethers'
+import { parseAbi } from 'tevm'
+
+// Setup
+const client = createMemoryClient()
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
+
+const provider = new BrowserProvider(client.transport.tevm)
+const signer = Wallet.createRandom().connect(provider)
+
+// Fund account
+await client.setBalance({
+  address: signer.address,
+  value: 10000000000000000000n
+})
+
+// Deploy a simple ERC20 token
+const tokenAbi = parseAbi([
+  'constructor(string name, string symbol, uint8 decimals)',
+  'function transfer(address to, uint256 amount) returns (bool)',
+  'function balanceOf(address owner) view returns (uint256)',
+  'event Transfer(address indexed from, address indexed to, uint256 value)'
+])
+
+const tokenBytecode = '0x608060405234801561001057600080fd5b506040516107fa3803806107fa83398101604081905261002f91610215565b600380546001600160a01b031916331790558151610052906004906020850190610076565b5081516100669060059060208401906100fd565b506006805460ff191660ff929092169190911790555061030c565b828054610082906102c8565b90600052602060002090601f0160209004810192826100a4576000855561010a565b82601f106100bd57805160ff19168380011785556100ea565b828001600101855582156100ea579182015b828111156100ea5782518255916020019190600101906100cf565b506100f69291506100f6565b5090565b5b808211156100f657600081556001016100f7565b828054610109906102c8565b90600052602060002090601f01602090048101928261012b5760008552610167565b82601f1061014457805160ff1916838001178555610171565b82800160010185558215610171579182015b82811115610171578251825591602001919060010190610156565b5061017d9291506101bd565b5090565b5b8082111561017d576000815560010161017e565b6000602082840312156101a657600080fd5b81516001600160a01b03811681146101bd57600080fd5b9392505050565b5b8082111561017d57600081556001016101be565b80516001600160a01b03811681146101eb57600080fd5b919050565b600080600060608486031215610205578283fd5b833590925060208401359160408401359050509250925092565b60008060006060848603121561022a578081fd5b835160208501516040860151919450919290910181111581146102ad57634e487b7160e01b600052601160045260246000fd5b809150509250925092565b634e487b7160e01b600052602260045260246000fd5b600181811c908216806102dc57607f821691505b6020821081036102fc57634e487b7160e01b600052602260045260246000fd5b50919050565b6104df8061031b6000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806370a082311461004657806395d89b4114610079578063a9059cbb14610081575b600080fd5b610066610054366004610356565b6001600160a01b031660009081526001602052604090205490565b60405190815260200160405180910390f35b61007b610094565b005b61007b61008f366004610379565b610121565b6005805461009f906104a0565b80601f01602080910402602001604051908101604052809291908181526020018280546100cb906104a0565b80156101185780601f106100ed57610100808354040283529160200191610118565b820191906000526020600020905b8154815290600101906020018083116100fb57829003601f168201915b505050505081565b6001600160a01b03821660009081526001602052604081205461014a908363ffffffff61022916565b6001600160a01b038416600090815260016020526040812091909155610177908263ffffffff61024116565b6001600160a01b0383166000908152600160205260409020556101d0816040518060600160405280602381526020016104876023913960405180604001604052806029815260200161045e60299139600090339161025a565b816001600160a01b0316836001600160a01b03167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef83604051610216918252602082015260400190565b60405180910390a35050565b600081831061023857506000610239565b5b92915050565b6000828201610239825b8351602g2b6020600020905b905090565b60408051808201909152602d8152600080516020610457833981519152602082015290565b9050919050565b841515610297576001600160e01b031916600052601160045260246000fd5b5063ffffffff1690565b6000602082840312156102b357600080fd5b81356001600160a01b03811681146102ca57600080fd5b9392505050565b6000602082840312156102e357600080fd5b813560fc81168114t12870be52600052602260045260246000d5b602082108a5734e487b7160q0b600052602260045260246000fd5b50919050565b6004f3fe68747470733a2f2f6769646c6572732e696f2f6a616d657368756768657369o97365722f7468696e67736e6f626f6479656c7365686173a2646970667358221220f3acb75fca24514561f12a53c4a92042a9a6c524895dc1b01f3c3d2cda5d8ff364736f6c634300080a0033'
+
+const tokenFactory = new ContractFactory(tokenAbi, tokenBytecode, signer)
+const token = await tokenFactory.deploy('Test Token', 'TST', 18)
+await client.mine({ blocks: 1 })
+
+const tokenAddress = await token.getAddress()
+console.log(`Token deployed at: ${tokenAddress}`)
+
+// Set up event listener
+token.on('Transfer', (from, to, value, event) => {
+  console.log(`Transfer detected in block ${event.blockNumber}:`)
+  console.log(`  From: ${from}`)
+  console.log(`  To:   ${to}`)
+  console.log(`  Value: ${formatUnits(value, 18)} TST`)
+})
+
+// Send a transfer transaction
+const recipient = Wallet.createRandom().address
+const tx = await token.transfer(recipient, 1000000000000000000n) // 1 TST
+console.log(`Transfer transaction: ${tx.hash}`)
+
+// Mine to include transaction
+await client.mine({ blocks: 1 })
+
+// Check balance
+const balance = await token.balanceOf(recipient)
+console.log(`Recipient balance: ${formatUnits(balance, 18)} TST`)
+
+// Clean up event listener
+token.removeAllListeners()
+```
+
+## Key Differences from Standard Ethers Usage
+
+When using ethers.js with Tevm, keep these key differences in mind:
+
+<Callout type="warning">
+**Mining is manual!** Transactions won't be automatically mined - you need to call `client.mine()` to process them.
+</Callout>
+
+1. **Transaction Flow**
+   - **Real Network**: Transactions are mined by the network automatically
+   - **Tevm**: You must manually call `client.mine()` to process transactions
+   
+2. **Account Management**
+   - **Real Network**: Accounts have real funds and nonces
+   - **Tevm**: Create and fund accounts on demand with `client.setBalance()`
+   
+3. **Environment Control**
+   - **Real Network**: Limited ability to manipulate state, block time, etc.
+   - **Tevm**: Complete control over all aspects of the environment
+
+4. **Performance**
+   - **Real Network**: Operations require network calls and confirmations
+   - **Tevm**: All operations happen locally with near-instant execution
+   
+5. **Debugging Capabilities**
+   - **Real Network**: Limited visibility into transaction execution
+   - **Tevm**: Step-by-step EVM tracing and execution insights
+
+6. **Determinism**
+   - **Real Network**: Network conditions can affect execution
+   - **Tevm**: 100% deterministic execution for reliable testing
+
+## Advanced Features
+
+<Steps>
+### EVM State Control
+
+Take advantage of Tevm's state manipulation with ethers:
+
+```ts
+// Fund an account
+await client.setBalance({
+  address: '0x123...',
+  value: parseUnits('1000', 'ether')
+})
+
+// Set storage directly
+await client.setStorageAt({
+  address: contractAddress,
+  index: 0, // Storage slot
+  value: '0x1234...'
+})
+
+// Adjust block timestamp
+await client.setNextBlockTimestamp(Date.now())
+```
+
+### Contract Debugging
+
+Debug ethers transactions with Tevm's EVM hooks:
+
+```ts
+// Get underlying Tevm node for advanced operations
+const tevmNode = await client.getTevmNode()
+const vm = await tevmNode.getVm()
+
+// Listen to EVM execution steps
+vm.evm.events.on('step', (data, next) => {
+  console.log(`EVM Step: ${data.opcode.name}`)
+  next()
+})
+
+// Now run a transaction with ethers as normal
+// You'll see detailed logs of each EVM step
+```
+
+### Fork Management
+
+Work with mainnet contracts in your test environment:
+
+```ts
+// Reset to a clean fork state
+await client.reset({
+  fork: {
+    blockNumber: 42069n,
+    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY')
+  }
+})
+
+// After reset, your ethers provider still works
+// but with the newly reset chain state
+```
+</Steps>
+
+## Next Steps
+
+Now that you know how to use ethers.js with Tevm, you can:
+
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Explore More Features</h3>
+    <ul>
+      <li><a href="../examples/ethers">Complete Ethers.js integration guide</a></li>
+      <li><a href="../core/forking">Powerful forking capabilities</a></li>
+      <li><a href="../core/managing-state">EVM state management</a></li>
+      <li><a href="./bundler">Direct Solidity imports</a></li>
+    </ul>
+  </div>
+  
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Learn Core Concepts</h3>
+    <ul>
+      <li><a href="../introduction/what-is-tevm-node">What is Tevm Node?</a></li>
+      <li><a href="../core/create-tevm-node">Creating a Tevm Node</a></li>
+      <li><a href="../api/json-rpc">JSON-RPC interface</a></li>
+      <li><a href="../reference/bundler">Contract Bundler</a></li>
+    </ul>
+  </div>
+  
+  <div className="border border-solid border-gray-200 dark:border-gray-800 rounded-lg p-4">
+    <h3 className="mt-0">Try Advanced Use Cases</h3>
+    <ul>
+      <li><a href="../examples/forking-mainnet">Forking from mainnet</a></li>
+      <li><a href="../advanced/custom-precompiles">Custom precompiles</a></li>
+      <li><a href="../examples/debugger-ui">Building a debugger UI</a></li>
+    </ul>
+  </div>
+</div>
+
+<div className="flex gap-4 mt-8">
+  <Button href="./viem" variant="accent">← Viem Integration</Button>
+  <Button href="./bundler">Bundler Quickstart →</Button>
+  <Button href="../examples/ethers">Using with Ethers.js →</Button>
+</div>

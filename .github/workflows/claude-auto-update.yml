@@ -1,0 +1,92 @@
+name: Daily Claude Auto-Updates
+on:
+  schedule:
+    # Run daily at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allow manual triggering
+    
+env:
+  NODE_OPTIONS: "--max_old_space_size=4096"
+  TEVM_RPC_URLS_MAINNET: ${{ secrets.TEVM_RPC_URLS_MAINNET }}
+  TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  update:
+    name: Run Claude Updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup
+        uses: ./.github/actions/setup
+      
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+        shell: bash
+      
+      - name: Create new branch for updates
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          BRANCH_NAME="auto-update-${DATE}"
+          git checkout -b ${BRANCH_NAME}
+        shell: bash
+      
+      - name: Run Claude Code on update files
+        id: claude
+        run: |
+          # Set up flag to track if any changes were made
+          CHANGES_MADE=0
+          
+          # Find all update-* files in the .claude/commands directory
+          UPDATE_FILES=$(find .claude/commands -name "update-*")
+          
+          # Process each update file
+          for file in $UPDATE_FILES; do
+            echo "Processing $file..."
+            
+            # Run Claude Code with the update file
+            claude code --print "$file"
+            
+            # Check if changes were made
+            if [ -n "$(git status --porcelain)" ]; then
+              CHANGES_MADE=1
+              
+              # Run the commit command using Claude
+              claude code --print .claude/commands/commit.md
+            else
+              echo "No changes from processing $file"
+            fi
+          done
+          
+          # Set output for use in later steps
+          echo "CHANGES_MADE=$CHANGES_MADE" >> $GITHUB_OUTPUT
+        shell: bash
+      
+      - name: Create PR if changes were made
+        if: steps.claude.outputs.CHANGES_MADE == '1'
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          BRANCH_NAME="auto-update-${DATE}"
+          
+          # Push the branch
+          git push -u origin ${BRANCH_NAME}
+          
+          # Create PR
+          gh pr create \
+            --title "Auto Update: ${DATE}" \
+            --body "This PR contains automatic updates applied by Claude Code on ${DATE}" \
+            --base main \
+            --head ${BRANCH_NAME}
+        shell: bash
+      
+      - name: Cleanup if no changes
+        if: steps.claude.outputs.CHANGES_MADE == '0'
+        run: |
+          git checkout main
+          DATE=$(date +%Y-%m-%d)
+          BRANCH_NAME="auto-update-${DATE}"
+          git branch -D ${BRANCH_NAME}
+          echo "No changes were made, branch deleted"
+        shell: bash
