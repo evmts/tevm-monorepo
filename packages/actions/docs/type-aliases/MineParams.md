@@ -8,7 +8,7 @@
 
 > **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](MineEvents.md) & `object`
 
-Defined in: [packages/actions/src/Mine/MineParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L21)
+Defined in: [packages/actions/src/Mine/MineParams.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L22)
 
 Tevm params to mine one or more blocks.
 
@@ -19,6 +19,12 @@ Tevm params to mine one or more blocks.
 > `readonly` `optional` **blockCount**: `number`
 
 Number of blocks to mine. Defaults to 1.
+
+### blocks?
+
+> `readonly` `optional` **blocks**: `number`
+
+Alias for blockCount. Number of blocks to mine. Defaults to 1.
 
 ### interval?
 
@@ -41,3 +47,15 @@ const mineParams: import('@tevm/actions').MineParams = {
   }
 }
 ```
+
+## Param
+
+Number of blocks to mine. Defaults to 1.
+
+## Param
+
+Alias for blockCount. Number of blocks to mine. Defaults to 1.
+
+## Param
+
+Interval between block timestamps in seconds. Defaults to 1.

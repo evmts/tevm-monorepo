@@ -43,7 +43,9 @@
     "test:run": "nx run-many --target=test:run",
     "up": "bun x npm-check-updates -ui -ws"
   },
-  "dependencies": {},
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.4",
     "@biomejs/biome": "^1.9.4",

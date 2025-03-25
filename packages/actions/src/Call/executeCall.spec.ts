@@ -90,13 +90,15 @@ describe('executeCall', () => {
 			throw 'should have errors'
 		}
 		expect(result.errors).toBeDefined()
-		expect(result.errors[0].message).toBe(
-			'revert\n\nDocs: https://tevm.sh/reference/tevm/errors/classes/reverterror/\nDetails: {"error":"revert","errorType":"EvmError"}\nVersion: 1.1.0.next-73',
-		)
-		expect(result.errors[0]).toBeInstanceOf(EvmRevertError)
-		expect(result.errors[0]).toBeInstanceOf(RevertError)
-		expect(result.errors[0].code).toBe(-32000)
-		expect(result.errors[0].name).toBe('RevertError')
+		if (result.errors) {
+			expect(result.errors[0].message).toBe(
+				'revert\n\nDocs: https://tevm.sh/reference/tevm/errors/classes/reverterror/\nDetails: {"error":"revert","errorType":"EvmError"}\nVersion: 1.1.0.next-73',
+			)
+			expect(result.errors[0]).toBeInstanceOf(EvmRevertError)
+			expect(result.errors[0]).toBeInstanceOf(RevertError)
+			expect(result.errors[0].code).toBe(-32000)
+			expect(result.errors[0].name).toBe('RevertError')
+		}
 	})
 
 	it('should handle gas price too low error', async () => {
@@ -123,10 +125,12 @@ describe('executeCall', () => {
 			throw 'should have errors'
 		}
 		expect(result.errors).toBeDefined()
-		expect(result.errors[0]).toBeInstanceOf(InvalidGasPriceError)
-		expect(result.errors[0].name).toBe('InvalidGasPrice')
-		expect(result.errors[0].code).toBe(-32012)
-		expect(result.errors[0].message).toMatchSnapshot()
+		if (result.errors) {
+			expect(result.errors[0]).toBeInstanceOf(InvalidGasPriceError)
+			expect(result.errors[0].name).toBe('InvalidGasPrice')
+			expect(result.errors[0].code).toBe(-32012)
+			expect(result.errors[0].message).toMatchSnapshot()
+		}
 	})
 
 	/**

@@ -169,17 +169,17 @@ test('should work for invalid blobVersionedHashes', () => {
 		validateBaseCallParams({
 			blobVersionedHashes: { not: 'an array' } as any,
 		}),
-	).toEqual([new InvalidBlobVersionedHashesError('Expected array, received object')])
+	).toEqual([new InvalidBlobVersionedHashesError('blobVersionedHashes must be an array')])
 	expect(
 		validateBaseCallParams({
 			blobVersionedHashes: [5] as any,
 		}),
-	).toEqual([new InvalidBlobVersionedHashesError('Expected string, received number')])
+	).toEqual([new InvalidBlobVersionedHashesError('blobVersionedHashes[0]: value must be a string')])
 	expect(
 		validateBaseCallParams({
 			blobVersionedHashes: ['invalid hash'] as any,
 		}),
-	).toEqual([new InvalidBlobVersionedHashesError('value must be a hex string')])
+	).toEqual([new InvalidBlobVersionedHashesError('blobVersionedHashes[0]: value must be a hex string')])
 })
 
 test('should return errors for invalid parameters', () => {

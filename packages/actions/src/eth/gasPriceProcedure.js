@@ -7,10 +7,25 @@ import { gasPriceHandler } from './gasPriceHandler.js'
  */
 export const gasPriceProcedure =
 	({ getVm, forkTransport }) =>
-	async (req) => ({
-		...(req.id ? { id: req.id } : {}),
-		jsonrpc: '2.0',
-		method: req.method,
-		// TODO pass in a client instead
-		result: await gasPriceHandler(/** @type any*/ ({ getVm, forkTransport }))({}).then(numberToHex),
-	})
+	async (req) => {
+		try {
+			// TODO pass in a client instead
+			const result = await gasPriceHandler(/** @type any*/ ({ getVm, forkTransport }))({}).then(numberToHex)
+			return {
+				...(req.id ? { id: req.id } : {}),
+				jsonrpc: '2.0',
+				method: req.method,
+				result,
+			}
+		} catch (error) {
+			return {
+				...(req.id ? { id: req.id } : {}),
+				jsonrpc: '2.0',
+				method: req.method,
+				error: {
+					code: -32000,
+					message: error instanceof Error ? error.message : String(error),
+				},
+			}
+		}
+	}

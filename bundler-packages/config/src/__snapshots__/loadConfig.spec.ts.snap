@@ -4,3 +4,8 @@ exports[`loadConfig > should throw an error if tsconfig.json does not exist 1`] 
 [(FiberFailure) FailedToReadConfigError: FailedToReadConfigError: Unable load config from nonexistentpath
 Failed to find tevm.config.json nonexistentpath]
 `;
+
+exports[`loadConfig should throw an error if tsconfig.json does not exist 1`] = `
+"FailedToReadConfigError: Unable load config from nonexistentpath
+Failed to find tevm.config.json nonexistentpath"
+`;

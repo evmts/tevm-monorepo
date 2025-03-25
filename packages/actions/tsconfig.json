@@ -4,7 +4,8 @@
 		"rootDir": "src",
 		"outDir": "types",
 		"skipLibCheck": true,
-		"types": ["bun-types"]
+		"types": ["bun-types"],
+		"exactOptionalPropertyTypes": false
 	},
 	"include": ["src", "src/**/*.json"]
 }

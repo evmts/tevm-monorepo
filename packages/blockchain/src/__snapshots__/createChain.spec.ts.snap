@@ -1,3 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`createChain > should throw an error for invalid block header validation 1`] = `"header.isGenesis is not a function"`;
+
+exports[`createChain should throw an error for invalid block header validation 1`] = `"header.isGenesis is not a function. (In 'header.isGenesis()', 'header.isGenesis' is undefined)"`;

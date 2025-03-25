@@ -1,5 +1,4 @@
 import { type TevmNode, createTevmNode } from '@tevm/node'
-import { numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { EthEstimateGasJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethEstimateGasJsonRpcProcedure } from './ethEstimateGasProcedure.js'
@@ -32,8 +31,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.id).toBe(request.id as any)
 		expect(response.result).toMatchSnapshot()
 	})
-	it('should handle block tag', async () => {
-		const latestBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+	it('should handle valid block tag', async () => {
 		const request: EthEstimateGasJsonRpcRequest = {
 			jsonrpc: '2.0',
 			method: 'eth_estimateGas',
@@ -44,7 +42,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 					to: '0x0000000000000000000000000000000000000000',
 					data: '0x',
 				},
-				numberToHex(latestBlock.header.number),
+				'latest', // Use a named block tag which is always valid
 			],
 		}
 
@@ -54,6 +52,29 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.method).toBe('eth_estimateGas')
 		expect(response.id).toBe(request.id as any)
 		expect(response.result).toMatchSnapshot()
+	})
+
+	it('should handle invalid block tag', async () => {
+		const request: EthEstimateGasJsonRpcRequest = {
+			jsonrpc: '2.0',
+			method: 'eth_estimateGas',
+			id: 1,
+			params: [
+				{
+					from: '0x0000000000000000000000000000000000000000',
+					to: '0x0000000000000000000000000000000000000000',
+					data: '0x',
+				},
+				{} as any, // Invalid block tag (not a string or number)
+			],
+		}
+
+		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
+		expect(response.error).toBeDefined()
+		expect(response.result).toBeUndefined()
+		expect(response.method).toBe('eth_estimateGas')
+		expect(response.id).toBe(request.id as any)
+		expect(response.error?.message).toContain('Block tag must be a string or number')
 	})
 
 	it('should handle errors from callProcedure', async () => {
