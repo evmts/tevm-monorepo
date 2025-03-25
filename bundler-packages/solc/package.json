@@ -59,7 +59,7 @@
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
 		"test:ui": "vitest --ui",
-		"solc:version": "./scripts/version/solc-version.sh"
+		"solc:version": "echo 'Use the manual process described in scripts/version/README.md to get the solc version hash'"
 	},
 	"dependencies": {
 		"@tevm/tsconfig": "workspace:^",
