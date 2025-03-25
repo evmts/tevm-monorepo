@@ -1,0 +1,155 @@
+# @tevm/vm
+
+The `@tevm/vm` package provides a high-performance Ethereum Virtual Machine (EVM) implementation specifically designed for Tevm. It extends the functionality of the base EVM with additional features for testing, debugging, and development purposes.
+
+## Installation
+
+```bash
+npm install @tevm/vm
+```
+
+## Overview
+
+The VM package is a core component of Tevm that handles the execution of EVM bytecode, transaction processing, and block building. It provides a robust set of tools for:
+
+- Executing EVM bytecode and smart contracts
+- Processing transactions and blocks
+- Managing state transitions
+- Supporting various hardforks and EIPs
+- Debugging and profiling execution
+
+## API Reference
+
+### Core Types
+
+#### Vm
+The main VM type that extends the base VM with Tevm-specific functionality:
+- [`Vm`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/Vm.ts#L6) - Core VM type with methods for block building, transaction execution, and state management
+
+#### Block Building
+- [`BlockBuilder`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BlockBuilder.ts) - Class for building and managing blocks
+- [`BuildBlock`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/buildBlock.ts#L5) - Function type for block building operations
+- [`BuildBlockOpts`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BuildBlockOpts.ts) - Options for block building
+- [`BuildStatus`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/BuildStatus.ts) - Enumeration of block building states
+
+#### Transaction Processing
+- [`RunTx`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/runTx.ts) - Function type for transaction execution
+- [`RunTxOpts`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/RunTxOpts.ts) - Options for transaction execution
+- [`RunTxResult`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/RunTxResult.ts) - Result of transaction execution
+
+#### Block Processing
+- [`RunBlock`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/runBlock.ts) - Function type for block execution
+- [`RunBlockOpts`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/RunBlockOpts.ts) - Options for block execution
+- [`RunBlockResult`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/RunBlockResult.ts) - Result of block execution
+
+#### Events
+- [`AfterTxEvent`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/events/AfterTxEvent.ts) - Event emitted after transaction execution
+- [`AfterBlockEvent`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/events/AfterBlockEvent.ts) - Event emitted after block execution
+- [`VMEvents`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/VMEvents.ts) - VM event types and handlers
+
+### Core Functions
+
+#### VM Creation and Management
+- [`createVm`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/createVm.js#L11) - Creates a new VM instance
+- [`deepCopy`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/deepCopy.js#L20) - Creates a deep copy of a VM instance
+
+#### Block Operations
+- [`applyBlock`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/applyBlock.ts#L24) - Applies a block to the current state
+- [`buildBlock`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/buildBlock.ts#L8) - Creates a new block builder instance
+- [`genTxTrie`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/genTxTrie.ts#L6) - Generates transaction trie for a block
+
+#### Transaction Operations
+- [`validateRunTx`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/validateRunTx.js#L10) - Validates transaction parameters before execution
+
+#### State Management
+- [`applyDAOHardfork`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/applyDAOHardfork.js) - Applies the DAO hardfork state changes
+- [`execHardfork`](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/execHardfork.js#L14) - Executes hardfork-specific operations
+
+## Usage Examples
+
+### Creating a VM Instance
+
+```typescript
+import { createVm } from '@tevm/vm'
+import { Common } from '@tevm/common'
+
+const common = new Common({ chain: 'mainnet' })
+const vm = createVm({ common })
+```
+
+### Building and Executing a Block
+
+```typescript
+import { createVm, BlockBuilder } from '@tevm/vm'
+
+const vm = createVm({ /* options */ })
+const blockBuilder = await vm.buildBlock({
+  parentBlock: block,
+  blockOpts: { /* options */ }
+})
+
+// Add transactions to the block
+await blockBuilder.addTransaction(tx)
+
+// Build and execute the block
+const block = await blockBuilder.build()
+const result = await vm.runBlock({ block })
+```
+
+### Executing a Transaction
+
+```typescript
+import { createVm } from '@tevm/vm'
+
+const vm = createVm({ /* options */ })
+const txResult = await vm.runTx({ tx })
+
+console.log('Gas used:', txResult.gasUsed.toString())
+console.log('Return value:', txResult.execResult.returnValue)
+```
+
+## Error Handling
+
+The VM package throws specific error types for different failure scenarios:
+
+- Transaction execution errors (invalid nonce, insufficient balance, etc.)
+- Block validation errors (invalid state root, gas limit, etc.)
+- VM execution errors (out of gas, invalid opcode, etc.)
+
+Example error handling:
+
+```typescript
+try {
+  await vm.runTx({ tx })
+} catch (error) {
+  if (error.code === 'INVALID_OPCODE') {
+    console.error('Invalid operation in contract code')
+  } else if (error.code === 'OUT_OF_GAS') {
+    console.error('Transaction ran out of gas')
+  }
+}
+```
+
+## Configuration
+
+The VM can be configured with various options through the `VMOpts` interface:
+
+```typescript
+const vm = createVm({
+  common, // Chain configuration
+  stateManager, // Custom state manager
+  blockchain, // Custom blockchain
+  activatePrecompiles: true, // Activate precompiled contracts
+  // ... other options
+})
+```
+
+## Related Packages
+
+- [@tevm/state](./state) - State management for the VM
+- [@tevm/common](./common) - Chain configuration and utilities
+- [@tevm/blockchain](./blockchain) - Blockchain management
+
+## License
+
+MIT

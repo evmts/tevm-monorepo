@@ -1,0 +1,244 @@
+# @tevm/blockchain
+
+The `@tevm/blockchain` package provides a custom implementation of the Ethereum blockchain, extending the functionality of `ethereumjs/blockchain`. It's responsible for managing blocks, handling chain reorganizations, and maintaining the blockchain state.
+
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/blockchain/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/blockchain/docs) folder.
+
+## Installation
+
+```bash
+npm install @tevm/blockchain
+```
+
+## Overview
+
+The blockchain package provides:
+- Block management and validation
+- Chain reorganization handling
+- Support for forking from live networks
+- Block iteration and traversal
+- Chain state management
+
+## API Reference
+
+### Core Types
+
+#### `Chain`
+
+The main blockchain interface that provides methods for interacting with the blockchain.
+
+```typescript
+import { createChain } from '@tevm/blockchain'
+import { createCommon } from '@tevm/common'
+
+const chain = await createChain({
+  common: createCommon({ /* chain config */ }),
+})
+```
+
+**Methods:**
+
+- `putBlock(block: Block)`: Adds a block to the blockchain
+- `delBlock(blockHash: Uint8Array)`: Deletes a block and its children
+- `getBlock(blockId: number | bigint | Uint8Array)`: Gets a block by hash or number
+- `getBlockByTag(blockTag: BlockTag)`: Gets a block by tag (latest, earliest, etc.)
+- `getCanonicalHeadBlock()`: Gets the latest block in the canonical chain
+- `validateHeader(header: BlockHeader)`: Validates a block header
+- `iterator(name: string, onBlock: OnBlock)`: Iterates through blocks
+- `deepCopy()`: Creates a deep copy of the blockchain
+- `shallowCopy()`: Creates a shallow copy sharing state with original
+
+#### `ChainOptions`
+
+Configuration options for creating a blockchain instance.
+
+```typescript
+type ChainOptions = {
+  common: Common                    // Chain configuration
+  loggingLevel?: LogLevel          // Logging configuration
+  genesisBlock?: Block             // Custom genesis block
+  genesisStateRoot?: Uint8Array    // Custom genesis state
+  fork?: {                         // Fork configuration
+    transport: { request: EIP1193RequestFn }
+    blockTag?: BlockTag | bigint | `0x${string}`
+  }
+}
+```
+
+### Functions
+
+#### `createChain(options: ChainOptions): Promise<Chain>`
+
+Creates a new blockchain instance.
+
+```typescript
+import { createChain } from '@tevm/blockchain'
+import { createCommon } from '@tevm/common'
+import { mainnet } from '@tevm/common'
+
+const chain = await createChain({
+  common: createCommon({ ...mainnet }),
+  loggingLevel: 'debug',
+  fork: {
+    transport: { request: /* EIP-1193 provider */ },
+    blockTag: 'latest'
+  }
+})
+```
+
+#### `createBaseChain(options: ChainOptions): BaseChain`
+
+Creates the internal blockchain implementation used by `createChain`.
+
+### Block Operations
+
+#### Getting Blocks
+
+```typescript
+// Get by number
+const block = await chain.getBlock(1234n)
+
+// Get by hash
+const block = await chain.getBlock(blockHash)
+
+// Get by tag
+const latest = await chain.getBlockByTag('latest')
+const pending = await chain.getBlockByTag('pending')
+```
+
+#### Adding & Removing Blocks
+
+```typescript
+// Add a block
+await chain.putBlock(block)
+
+// Delete a block and its children
+await chain.delBlock(blockHash)
+```
+
+#### Block Validation
+
+```typescript
+// Validate a block header
+await chain.validateHeader(header)
+```
+
+### Chain Traversal
+
+#### Block Iterator
+
+```typescript
+// Iterate through blocks
+await chain.iterator('vm', async (block, reorg) => {
+  // Process each block
+  console.log(block.header.number)
+}, maxBlocks)
+```
+
+#### Iterator Head Management
+
+```typescript
+// Get iterator head
+const head = await chain.getIteratorHead('vm')
+
+// Set iterator head
+await chain.setIteratorHead('vm', blockHash)
+```
+
+### Forking
+
+The blockchain can be forked from a live network:
+
+```typescript
+import { createChain } from '@tevm/blockchain'
+import { http } from 'viem'
+
+const chain = await createChain({
+  common: createCommon({ /* chain config */ }),
+  fork: {
+    transport: {
+      request: http('https://mainnet.infura.io/v3/YOUR-KEY')
+    },
+    blockTag: 'latest' // or specific block number/hash
+  }
+})
+```
+
+### Error Handling
+
+The package throws specific error types for different scenarios:
+
+- `BlockNotFoundError`: When a requested block doesn't exist
+- `InvalidBlockError`: When block validation fails
+- `InvalidHeaderError`: When header validation fails
+- `InvalidChainError`: When chain configuration is invalid
+
+## Examples
+
+### Basic Chain Management
+
+```typescript
+import { createChain } from '@tevm/blockchain'
+import { createCommon } from '@tevm/common'
+import { Block } from '@tevm/block'
+
+// Create chain
+const chain = await createChain({
+  common: createCommon({ /* chain config */ })
+})
+
+// Add blocks
+await chain.putBlock(block1)
+await chain.putBlock(block2)
+
+// Get latest block
+const head = await chain.getCanonicalHeadBlock()
+
+// Validate headers
+await chain.validateHeader(newBlock.header)
+```
+
+### Chain Forking
+
+```typescript
+import { createChain } from '@tevm/blockchain'
+import { http } from 'viem'
+
+const chain = await createChain({
+  common: createCommon({ /* chain config */ }),
+  fork: {
+    transport: {
+      request: http('https://mainnet.infura.io/v3/YOUR-KEY')
+    },
+    blockTag: 15000000n // Fork from specific block
+  }
+})
+
+// Work with forked chain
+const block = await chain.getBlock(15000000n)
+```
+
+### Chain Iteration
+
+```typescript
+import { createChain } from '@tevm/blockchain'
+
+const chain = await createChain({ /* options */ })
+
+// Process blocks sequentially
+await chain.iterator('vm', async (block, reorg) => {
+  if (reorg) {
+    console.log('Chain reorganization detected')
+  }
+
+  // Process block
+  console.log(`Processing block ${block.header.number}`)
+}, 1000) // Process up to 1000 blocks
+```
+
+## See Also
+
+- [EthereumJS Blockchain Documentation](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/blockchain)
+- [Block Package Documentation](https://tevm.sh/reference/tevm/block/)
+- [Common Package Documentation](https://tevm.sh/reference/tevm/common/)
+- [Full API Reference](https://github.com/evmts/tevm-monorepo/tree/main/packages/blockchain/docs/globals.md)

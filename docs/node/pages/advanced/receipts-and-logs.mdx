@@ -1,0 +1,473 @@
+---
+title: Receipts & Logs
+description: Handling receipts, logs, and filters
+---
+
+import { Callout, Steps, Step, Button } from 'vocs/components'
+import { Card, CardGrid, Tab, TabGroup } from '../../../components'
+
+# Receipts & Logs
+
+<Callout type="info" title="Event Management">
+  Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.
+</Callout>
+
+Transaction receipts and event logs are essential for tracking state changes and application events in Ethereum. Tevm's ReceiptsManager gives you powerful tools to work with them, enabling features like event listening, transaction status tracking, and log filtering.
+
+## Quick Start
+
+<TabGroup>
+  <Tab label="Basic Usage">
+    ```typescript showLineNumbers {1-4,6-7,10-16,19-20,23-31} filename="basic-receipt-usage.ts"
+    import { createTevmNode } from 'tevm'
+    import { createImpersonatedTx } from 'tevm/tx'
+    import { runTx } from 'tevm/vm'
+    import { createAddress } from 'tevm/utils'
+
+    const node = createTevmNode() // [!code focus]
+    const receiptsManager = await node.getReceiptsManager() // [!code focus]
+
+    // Execute a transaction
+    const vm = await node.getVm() // [!code focus]
+    const tx = createImpersonatedTx({ // [!code focus]
+      impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'), // [!code focus]
+      to: createAddress('0x2345678901234567890123456789012345678901'), // [!code focus]
+      value: 1000000000000000000n, // 1 ETH // [!code focus]
+      gasLimit: 21000n, // [!code focus]
+    }) // [!code focus]
+
+    // Run the transaction
+    const result = await runTx(vm)({ tx }) // [!code focus]
+    const txHash = tx.hash() // [!code focus]
+
+    // Get the receipt
+    const receiptResult = await receiptsManager.getReceiptByTxHash(txHash) // [!code focus]
+
+    if (receiptResult) { // [!code focus]
+      const [receipt, blockHash, txIndex, logIndex] = receiptResult // [!code focus]
+      // Access receipt data
+      console.log({ // [!code focus]
+        status: 'status' in receipt ? receipt.status : undefined, // [!code focus]
+        gasUsed: receipt.cumulativeBlockGasUsed, // [!code focus]
+        logs: receipt.logs // [!code focus]
+      }) // [!code focus]
+    } // [!code focus]
+    ```
+  </Tab>
+
+  <Tab label="Log Filtering">
+    ```typescript showLineNumbers {1-4,6-7,10-14,17-23,26-32} filename="log-filtering.ts"
+    import { createTevmNode } from 'tevm'
+    import { createImpersonatedTx } from 'tevm/tx'
+    import { runTx } from 'tevm/vm'
+    import { createAddress, hexToBytes } from 'tevm/utils'
+
+    const node = createTevmNode() // [!code focus]
+    const receiptsManager = await node.getReceiptsManager() // [!code focus]
+
+    // Get blocks for filtering
+    const vm = await node.getVm() // [!code focus]
+    const fromBlock = await vm.blockchain.getBlockByTag('earliest') // [!code focus]
+    const toBlock = await vm.blockchain.getBlockByTag('latest') // [!code focus]
+    const contractAddress = createAddress('0x1234567890123456789012345678901234567890') // [!code focus]
+
+    // Filter by contract address
+    const addressLogs = await receiptsManager.getLogs( // [!code focus]
+      fromBlock, // [!code focus]
+      toBlock, // [!code focus]
+      [contractAddress.toBytes()], // Filter by this address // [!code focus]
+      undefined // No topic filter // [!code focus]
+    ) // [!code focus]
+
+    // Filter by event topic (event signature hash)
+    const eventTopic = hexToBytes('0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') // Transfer event // [!code focus]
+    const topicLogs = await receiptsManager.getLogs( // [!code focus]
+      fromBlock, // [!code focus]
+      toBlock, // [!code focus]
+      undefined, // Any address // [!code focus]
+      [eventTopic] // Filter by this topic // [!code focus]
+    ) // [!code focus]
+
+    // Print results
+    console.log(`Found ${addressLogs.length} logs from the contract`)
+    console.log(`Found ${topicLogs.length} Transfer events`)
+    ```
+  </Tab>
+</TabGroup>
+
+## Receipt Types
+
+<Callout type="info" title="Ethereum Hard Fork Support">
+  Tevm supports different receipt types across all Ethereum hard forks.
+</Callout>
+
+<CardGrid>
+  <Card title="Pre-Byzantium" icon="🏺">
+    Uses state root for transaction results
+  </Card>
+  <Card title="Post-Byzantium" icon="✅">
+    Uses status codes (success/failure)
+  </Card>
+  <Card title="EIP-4844" icon="🫧">
+    Includes blob gas information
+  </Card>
+</CardGrid>
+
+<TabGroup>
+  <Tab label="Type Definitions">
+    ```typescript showLineNumbers {1-6,8-12,14-17} filename="receipt-types.ts"
+    interface PreByzantiumReceipt {
+      stateRoot: Uint8Array        // Merkle root after transaction
+      cumulativeBlockGasUsed: bigint
+      logs: Log[]                  // Event logs
+      // No status field
+    }
+
+    interface PostByzantiumReceipt {
+      status: number               // 1 for success, 0 for failure
+      cumulativeBlockGasUsed: bigint
+      logs: Log[]                  // Event logs
+    }
+
+    interface EIP4844Receipt extends PostByzantiumReceipt {
+      blobGasUsed: bigint          // Gas used for blob data
+      blobGasPrice: bigint         // Price paid for blob data
+    }
+    ```
+  </Tab>
+
+  <Tab label="Working with Receipts">
+    ```typescript showLineNumbers {1-12} filename="receipt-handling.ts"
+    // Function to handle different receipt types
+    function processReceipt(receiptResult) {
+      if (!receiptResult) return 'Receipt not found'
+
+      const [receipt] = receiptResult
+
+      if ('status' in receipt) {
+        // Post-Byzantium receipt
+        return `Transaction ${receipt.status === 1 ? 'succeeded' : 'failed'}`
+      } else {
+        // Pre-Byzantium receipt
+        return `Transaction included with state root: 0x${Buffer.from(receipt.stateRoot).toString('hex')}`
+      }
+    }
+    ```
+
+    <Callout type="tip" title="Type Detection">
+      Always check the receipt structure before accessing properties, as the type depends on the Ethereum hard fork configuration.
+    </Callout>
+  </Tab>
+</TabGroup>
+
+## Working with Event Logs
+
+<Steps>
+  ### Contract Deployment
+
+  First, deploy a contract that emits events:
+
+  ```typescript showLineNumbers {1-14} filename="deploy-contract.ts"
+  // Deploy a contract that emits events
+  const deployTx = createImpersonatedTx({
+    impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+    data: CONTRACT_BYTECODE, // Your contract bytecode
+    gasLimit: 1000000n,
+  })
+
+  const vm = await node.getVm()
+  const deployResult = await runTx(vm)({ tx: deployTx })
+
+  // Check deployment success
+  const contractAddress = deployResult.createdAddress
+  if (!contractAddress) {
+    throw new Error('Contract deployment failed')
+  }
+  ```
+
+  ### Emit Events
+
+  Next, interact with the contract to emit events:
+
+  ```typescript showLineNumbers {1-10} filename="emit-events.ts"
+  // Call a function that emits events
+  const interactTx = createImpersonatedTx({
+    impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+    to: contractAddress,
+    // Function selector + parameters (e.g., transfer function on an ERC-20)
+    data: '0xa9059cbb000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000008ac7230489e80000',
+    gasLimit: 100000n,
+  })
+
+  await runTx(vm)({ tx: interactTx })
+  ```
+
+  ### Query Logs
+
+  Then, query the logs using various filters:
+
+  ```typescript showLineNumbers {1-25} filename="query-logs.ts"
+  // Get the block range for filtering
+  const fromBlock = await vm.blockchain.getBlockByTag('earliest')
+  const toBlock = await vm.blockchain.getBlockByTag('latest')
+
+  // 1. Get all logs from the contract
+  const contractLogs = await receiptsManager.getLogs(
+    fromBlock,
+    toBlock,
+    [contractAddress.toBytes()],
+    undefined
+  )
+
+  // 2. Get logs for a specific event (e.g., Transfer event)
+  const transferEventSignature = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+  const transferLogs = await receiptsManager.getLogs(
+    fromBlock,
+    toBlock,
+    [contractAddress.toBytes()],
+    [hexToBytes(transferEventSignature)]
+  )
+
+  // 3. Get logs with specific parameters (e.g., transfers to a specific address)
+  const receiverAddress = '0x1234567890123456789012345678901234567890'
+  const paddedAddress = '0x000000000000000000000000' + receiverAddress.slice(2)
+  const topicForReceiver = hexToBytes(paddedAddress)
+
+  const transfersToReceiver = await receiptsManager.getLogs(
+    fromBlock,
+    toBlock,
+    [contractAddress.toBytes()],
+    [hexToBytes(transferEventSignature), undefined, topicForReceiver]
+  )
+  ```
+
+  ### Process Log Data
+
+  Finally, decode and process the log data:
+
+  ```typescript showLineNumbers {1-19} filename="decode-logs.ts"
+  // Process Transfer event logs
+  for (const log of transferLogs) {
+    // A Transfer event typically has this structure:
+    // topic[0]: event signature
+    // topic[1]: from address (padded to 32 bytes)
+    // topic[2]: to address (padded to 32 bytes)
+    // data: amount (as a 32-byte value)
+
+    const from = '0x' + Buffer.from(log.topics[1]).toString('hex').slice(24)
+    const to = '0x' + Buffer.from(log.topics[2]).toString('hex').slice(24)
+
+    // Convert the data to a BigInt (amount)
+    const amount = BigInt('0x' + Buffer.from(log.data).toString('hex'))
+
+    console.log(`Transfer: ${from} → ${to}: ${amount} tokens`)
+
+    // You can also access other metadata
+    console.log(`Block: ${log.blockNumber}, TxIndex: ${log.txIndex}, LogIndex: ${log.logIndex}`)
+  }
+  ```
+</Steps>
+
+## Advanced Features
+
+<TabGroup>
+  <Tab label="Complex Filtering">
+    <Callout type="tip" title="Multi-Topic Filtering">
+      Ethereum logs support filtering on up to 4 topics, allowing for complex queries.
+    </Callout>
+
+    ```typescript showLineNumbers {1-22} filename="complex-filtering.ts"
+    // Get logs with complex filters:
+    // 1. From a specific contract
+    // 2. With Transfer event signature
+    // 3. From a specific sender
+    // 4. To a specific receiver
+
+    const fromAddress = '0x1234567890123456789012345678901234567890'
+    const toAddress = '0x2345678901234567890123456789012345678901'
+
+    // Event topics with wildcards (undefined means "any value")
+    const topics = [
+      hexToBytes('0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'), // Transfer event
+      hexToBytes('0x000000000000000000000000' + fromAddress.slice(2)),                   // From address (padded)
+      hexToBytes('0x000000000000000000000000' + toAddress.slice(2))                      // To address (padded)
+    ]
+
+    const filteredLogs = await receiptsManager.getLogs(
+      fromBlock,
+      toBlock,
+      [contractAddress.toBytes()], // Contract address
+      topics                        // Topic filters
+    )
+    ```
+  </Tab>
+
+  <Tab label="Multiple Addresses">
+    <Callout type="tip" title="Filter Multiple Contracts">
+      Filter logs from multiple contracts at once.
+    </Callout>
+
+    ```typescript showLineNumbers {1-21} filename="multi-contract-filtering.ts"
+    // Track events across multiple contracts (e.g., a token and a marketplace)
+    const tokenAddress = createAddress('0x1234567890123456789012345678901234567890')
+    const marketplaceAddress = createAddress('0x2345678901234567890123456789012345678901')
+
+    // Get Transfer events from either contract
+    const transferEvent = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+
+    const transfers = await receiptsManager.getLogs(
+      fromBlock,
+      toBlock,
+      [tokenAddress.toBytes(), marketplaceAddress.toBytes()], // Multiple addresses
+      [hexToBytes(transferEvent)]
+    )
+
+    console.log('Events by contract:')
+    const tokenEvents = transfers.filter(log =>
+      Buffer.from(log.address).toString('hex') ===
+      Buffer.from(tokenAddress.toBytes()).toString('hex')
+    )
+    const marketplaceEvents = transfers.filter(log =>
+      Buffer.from(log.address).toString('hex') ===
+      Buffer.from(marketplaceAddress.toBytes()).toString('hex')
+    )
+    ```
+  </Tab>
+
+  <Tab label="Receipt Indexing">
+    <Callout type="note" title="Internal Indexing">
+      ReceiptsManager maintains indexes for efficient queries.
+    </Callout>
+
+    ```typescript showLineNumbers {1-24} filename="receipt-indexing.ts"
+    // The ReceiptsManager maintains indexes for:
+    // 1. Transaction hash → receipt
+    // 2. Block hash → receipts
+    // 3. Address → logs
+    // 4. Topics → logs
+
+    // You can directly get a receipt by transaction hash
+    const receipt = await receiptsManager.getReceiptByTxHash(txHash)
+
+    // Or get all receipts in a block
+    const block = await vm.blockchain.getLatestBlock()
+    const blockHash = block.hash()
+    const receipts = await receiptsManager.getBlockReceipts(blockHash)
+
+    // Performance considerations:
+    // - Receipt storage grows with blockchain size
+    // - ReceiptsManager implements limits to prevent excessive resource usage
+
+    // Built-in limits
+    const GET_LOGS_LIMIT = 10000          // Maximum number of logs returned
+    const GET_LOGS_LIMIT_MEGABYTES = 150  // Maximum response size
+    const GET_LOGS_BLOCK_RANGE_LIMIT = 2500 // Maximum block range for queries
+
+    // For large-scale applications, implement pagination or additional filtering
+    ```
+  </Tab>
+</TabGroup>
+
+## Best Practices
+
+<CardGrid>
+  <Card title="Efficient Queries" icon="🔍">
+    Use specific filters and limit block ranges for better performance
+  </Card>
+  <Card title="Handle Null Results" icon="⚠️">
+    Always check for null/undefined results when working with receipts
+  </Card>
+  <Card title="Type Safety" icon="🛡️">
+    Check receipt types before accessing properties
+  </Card>
+  <Card title="Pagination" icon="📄">
+    Implement pagination for large log queries
+  </Card>
+</CardGrid>
+
+<Steps>
+  ### Efficient Log Queries
+
+  ```typescript showLineNumbers {1-12} filename="efficient-queries.ts"
+  // Instead of querying the entire chain
+  // Focus on specific block ranges when possible
+  const latestBlock = await vm.blockchain.getLatestBlock()
+  const blockNumber = latestBlock.header.number
+
+  // Get logs from the last 100 blocks
+  const fromBlock = await vm.blockchain.getBlock(blockNumber - 100n > 0n ? blockNumber - 100n : 0n)
+
+  // Use specific filters (address + topics)
+  const logs = await receiptsManager.getLogs(
+    fromBlock, latestBlock, [contractAddress.toBytes()], [eventTopic]
+  )
+  ```
+
+  ### Proper Error Handling
+
+  ```typescript showLineNumbers {1-18} filename="error-handling.ts"
+  // Handle missing receipts gracefully
+  async function safeGetReceipt(txHash) {
+    try {
+      const receiptResult = await receiptsManager.getReceiptByTxHash(txHash)
+
+      if (receiptResult === null) {
+        console.log('Receipt not found - transaction may be pending or not exist')
+        return null
+      }
+
+      const [receipt] = receiptResult
+      return receipt
+    } catch (error) {
+      console.error('Error retrieving receipt:', error.message)
+      // Handle specific error types if needed
+      return null
+    }
+  }
+  ```
+
+  ### Working with Receipt Types
+
+  ```typescript showLineNumbers {1-18} filename="type-safety.ts"
+  // Safely work with different receipt types
+  function getTransactionStatus(receipt) {
+    if (!receipt) return 'Unknown'
+
+    if ('status' in receipt) {
+      // Post-Byzantium receipt
+      return receipt.status === 1 ? 'Success' : 'Failed'
+    } else if ('stateRoot' in receipt) {
+      // Pre-Byzantium receipt - check if it's the empty root
+      const emptyRoot = '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+      const actualRoot = '0x' + Buffer.from(receipt.stateRoot).toString('hex')
+      return actualRoot === emptyRoot ? 'Likely Failed' : 'Likely Success'
+    }
+
+    return 'Unknown Format'
+  }
+  ```
+</Steps>
+
+## Related Resources
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
+  <Button href="../api/json-rpc" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>JSON-RPC Support</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Log and receipt APIs via JSON-RPC</div>
+  </Button>
+
+  <Button href="../api/vm-and-submodules" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>VM & Submodules</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Low-level access to the EVM</div>
+  </Button>
+
+  <Button href="./txpool" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Transaction Pool</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Managing pending transactions</div>
+  </Button>
+
+  <Button href="https://docs.soliditylang.org/en/latest/contracts.html#events" variant="accent" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Solidity Events</div>
+    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Learn about events in Solidity</div>
+  </Button>
+</div>
