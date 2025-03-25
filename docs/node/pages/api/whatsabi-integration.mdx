@@ -81,17 +81,13 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 
 ## Usage
 
-<Callout type="warning" emoji="⚠️">
-  For security reasons, contract macros are disabled by default. To enable them,
-  add `"macros": true` to your `tevm.config.json` file.
-</Callout>
-
 <TabGroup items={['Tree-shakable API', 'Client Extension API']}>
   <div data-title="Tree-shakable API">
     ```ts showLineNumbers {1,3-4,7-10,12-13,24-28} filename="contract-loader-example.ts"
     import { loadContract, createMemoryClient, http } from 'tevm'
     import { MultiABILoader, EtherscanABILoader, SourcifyABILoader } from 'tevm/contract-loaders'
     
+    // You can also use viem's createClient here
     const client = createMemoryClient({ // [!code focus]
       fork: { transport: http('https://mainnet.optimism.io') } // [!code focus]
     })
@@ -166,6 +162,11 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 
 ## Network Imports via Macros
 
+<Callout type="warning" emoji="⚠️">
+  For security reasons, contract macros are disabled by default. To enable them,
+  add `"macros": true` to your `tevm.config.json` file.
+</Callout>
+
 One of the most powerful features of Contract Loader in Tevm is the ability to import contracts from any network at build time using macros.
 
 <Callout type="info" emoji="🔧">
@@ -178,12 +179,12 @@ One of the most powerful features of Contract Loader in Tevm is the ability to i
 </Callout>
 
 <Callout type="warning">
-  Macros use the [Import Attributes syntax](https://github.com/tc39/proposal-import-attributes), a Stage 3 TC39 proposal that lets you attach metadata to import statements (`with {type: 'macro'}`). For security reasons, macros are disabled by default and must be enabled by adding `"macros": true` to your `tevm.config.json` file.
+  Macros use the [Import Attributes syntax](https://github.com/tc39/proposal-import-attributes), a Stage 3 TC39 proposal that lets you attach metadata to import statements (`with {type: 'tevm'}`). For security reasons, macros are disabled by default and must be enabled by adding `"macros": true` to your `tevm.config.json` file.
 </Callout>
 
 ### Creating Contract Macros
 
-First, create a file that exports functions using loadContract to resolve contract data:
+First, create a file that directly exports contract instances using top-level await with loadContract:
 
 ```ts showLineNumbers filename="contract-macros.js"
 import { createClient, createMemoryClient } from "tevm";
@@ -208,33 +209,30 @@ const loaders = [
   new EtherscanABILoader({ apiKey: "YOUR_ETHERSCAN_KEY" }),
 ];
 
-// Export a function that returns a single contract
-export async function usdcContract() {
-  return loadContract(client, {
-    address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", // USDC on Ethereum
-    followProxies: true,
-    loaders,
-  });
-}
+// Using top-level await to pre-load contracts
+// Note: This requires Node.js 14.8+ or setting "module": "esnext" in tsconfig
+// Directly export the contract instances
+export const usdc = await loadContract(client, {
+  address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", // USDC on Ethereum
+  followProxies: true,
+  loaders,
+});
 
-// Export a different contract (one macro function per contract)
-export async function wethContract() {
-  return loadContract(client, {
-    address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", // WETH on Ethereum
-    followProxies: true,
-    loaders,
-  });
-}
+export const weth = await loadContract(client, {
+  address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", // WETH on Ethereum
+  followProxies: true,
+  loaders,
+});
 ```
 
 ### Using Contract Macros
 
-Then import the contracts with `with {type: 'macro'}` attribute:
+Then import the contracts with `with { type: "tevm" }` attribute:
 
 ```ts showLineNumbers filename="app.js"
 // Import contracts using macros
-import { usdcContract } from "./contract-macros.js" with { type: "macro" };
-import { wethContract } from "./contract-macros.js" with { type: "macro" };
+import { usdc } from "./contract-macros.js" with { type: "tevm" };
+import { weth } from "./contract-macros.js" with { type: "tevm" };
 import { createMemoryClient } from "tevm";
 
 // Create client for local interaction
@@ -242,13 +240,13 @@ const client = createMemoryClient();
 
 // Use the contracts with full type safety
 const usdcBalance = await client.readContract({
-  ...usdcContract.read.balanceOf("0x123..."),
-  address: usdcContract.address,
+  ...usdc.read.balanceOf("0x123..."),
+  address: usdc.address,
 });
 
 // WETH contract methods are fully typed
 const wethDeposit = await client.writeContract({
-  ...wethContract.write.deposit(),
+  ...weth.write.deposit(),
   value: 1000000000000000000n,
 });
 ```
@@ -256,6 +254,18 @@ const wethDeposit = await client.writeContract({
 <Callout type="warning">
   For security reasons, macros in third-party packages (node_modules) are
   blocked. Package authors should pre-build their contracts before publishing.
+</Callout>
+
+<Callout type="info">
+  To use top-level await in your macro files as shown in the example, you'll need to:
+  
+  1. Use a modern version of Node.js that supports top-level await (14.8+ or later)
+  2. Configure your TypeScript project by setting `"module": "esnext"` in your tsconfig.json
+  3. For bundlers, ensure they are configured to handle top-level await (most modern bundlers support this)
+</Callout>
+
+<Callout type="warning">
+  When using the `with { type: "tevm" }` import attribute, you can only export items of type [Contract](/reference/contract). Other types of exports are not supported by the tevm macro system.
 </Callout>
 
 ### How Macros Work
@@ -286,6 +296,7 @@ TypeScript types are generated for all contract methods, events, and properties,
 - **Proxy resolution** - Automatically resolves and follows proxy implementations
 - **Works with unverified contracts** - Uses bytecode analysis when sources aren't available
 - **IDE integration** - Autocompletion and hover documentation for contract methods
+- **Simple configuration** - Makes configuring typesafe contract configs that are up to date very simple, avoiding the need to manually copy/paste
 
 ## How It Works
 
@@ -339,7 +350,7 @@ The action returns a full [Tevm Contract](/reference/contract) instance with the
 
 ## Available Loaders
 
-You can import various ABI loaders from `tevm/contract-loaders`:
+These are [WhatsABI loaders](https://github.com/shazow/whatsabi) that are re-exported from Tevm for convenience:
 
 ### MultiABILoader
 
@@ -496,19 +507,17 @@ const loaders = [
   }),
 ];
 
-// Export a single contract as a macro function
-export async function aaveV3Pool() {
-  return loadContract(client, {
-    address: "0x794a61358D6845594F94dc1DB02A252b5b4814aD", // Aave V3 Pool on Optimism
-    followProxies: true,
-    loaders,
-  });
-}
+// Directly export the contract instance using top-level await
+export const aaveV3Pool = await loadContract(client, {
+  address: "0x794a61358D6845594F94dc1DB02A252b5b4814aD", // Aave V3 Pool on Optimism
+  followProxies: true,
+  loaders,
+});
 ```
 
 ```ts showLineNumbers filename="app.js"
-// Import with macro attribute
-import { aaveV3Pool } from "./aave-macro.js" with { type: "macro" };
+// Import with tevm attribute
+import { aaveV3Pool } from "./aave-macro.js" with { type: "tevm" };
 import { createPublicClient, http } from "viem";
 import { optimism } from "viem/chains";
 
