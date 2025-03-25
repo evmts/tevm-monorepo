@@ -88,7 +88,7 @@
     "abitype": "^1.0.8"
   },
   "peerDependencies": {
-    "viem": "^2.21.1"
+    "viem": "^2.23.11"
   },
   "publishConfig": {
     "access": "public"
