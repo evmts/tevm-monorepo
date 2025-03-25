@@ -1,10 +1,11 @@
 import { SimpleContract } from '@tevm/test-utils'
-import { bytesToHex } from 'viem'
+import { bytesToHex, encodeFunctionData } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient<any, any>
+let contractAddress: string
 
 beforeEach(async () => {
 	mc = createMemoryClient()
@@ -16,6 +17,7 @@ beforeEach(async () => {
 	if (!deployResult.createdAddress) {
 		throw new Error('contract never deployed')
 	}
+	contractAddress = deployResult.createdAddress
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
@@ -46,5 +48,32 @@ describe('getBlock', () => {
 		expect(timestamp).toBeDefined()
 		expect(transactions.map((tx) => ({ ...tx, blockHash: 'redacted' }))).toMatchSnapshot()
 		expect(result).toMatchSnapshot()
+	})
+
+	it('should work with blockTag pending', async () => {
+		// Create a pending transaction
+		const setCallData = encodeFunctionData({
+			abi: SimpleContract.abi,
+			functionName: 'set',
+			args: [999n],
+		})
+
+		await mc.sendTransaction({
+			to: contractAddress,
+			data: setCallData,
+			account: '0x1234567890123456789012345678901234567890',
+		})
+
+		// Get the pending block
+		const { timestamp, hash, transactions, ...result } = await mc.getBlock({
+			blockTag: 'pending',
+			includeTransactions: true,
+		})
+
+		expect(hash.startsWith('0x')).toBe(true)
+		expect(timestamp).toBeDefined()
+		expect(Array.isArray(transactions)).toBe(true)
+		expect(transactions.length).toBeGreaterThan(0)
+		expect(result).toBeDefined()
 	})
 })

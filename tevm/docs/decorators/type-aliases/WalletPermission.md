@@ -8,7 +8,7 @@
 
 > **WalletPermission**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1520
+Defined in: packages/decorators/dist/index.d.ts:1546
 
 Permission granted to a website or application by a wallet.
 Defined in EIP-2255 for the wallet permissions management system.

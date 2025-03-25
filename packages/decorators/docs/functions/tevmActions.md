@@ -8,7 +8,7 @@
 
 > **tevmActions**(): `Extension`\<[`TevmActionsApi`](../type-aliases/TevmActionsApi.md)\>
 
-Defined in: [actions/tevmActions.js:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/tevmActions.js#L98)
+Defined in: [actions/tevmActions.js:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/tevmActions.js#L109)
 
 ## Returns
 

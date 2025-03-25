@@ -229,7 +229,7 @@ describe('handleAutomining', () => {
 		// Mock mineHandler to return successful result
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(
-			() => (_params: any) =>
+			() => () =>
 				Promise.resolve({
 					blockHashes: ['0xabc123'],
 				}),
@@ -248,19 +248,22 @@ describe('handleAutomining', () => {
 		)
 
 		// Should log gas mining mode with limit
-		// Since we know client.miningConfig.type === 'gas', we can safely access client.miningConfig.limit
-		// TypeScript doesn't understand the discriminated union here, so we need to assert
 		expect(debugSpy).toHaveBeenCalledWith(
-			`Gas mining mode with limit ${(client.miningConfig as { type: 'gas'; limit: BigInt }).limit}`,
+			`Gas mining mode with limit ${(client.miningConfig as { type: 'gas'; limit: bigint }).limit}`,
 		)
 
-		// Should call mineHandler with throwOnFail: false and blockCount: 1
+		// Should call mineHandler with throwOnFail: false and blocks: 1
 		expect(mineHandlerMock).toHaveBeenCalledWith(client)
 		expect(mineHandlerMock).toHaveBeenCalledTimes(1)
 
-		// Since mineHandler returns a function that we then call with parameters,
-		// we can't directly verify those parameters with the mock system this way.
-		// We've already verified that mineHandler was called with the client above
+		// Verify parameters passed to mineHandler
+		const mineHandlerCall = mineHandlerMock.mock.results[0]?.value
+		expect(mineHandlerCall).toHaveBeenCalledWith(
+			expect.objectContaining({
+				throwOnFail: false,
+				blocks: 1,
+			}),
+		)
 
 		// Should return undefined when successful
 		expect(result).toBeUndefined()
@@ -278,9 +281,6 @@ describe('handleAutomining', () => {
 			client.logger.debug = vi.fn()
 		}
 
-		// Spy on debug logger
-		const debugSpy = vi.spyOn(client.logger, 'debug')
-
 		// Mock mineHandler
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(
@@ -292,6 +292,9 @@ describe('handleAutomining', () => {
 
 		const txHash = '0x123456789abcdef'
 		const result = await handleAutomining(client, txHash, true)
+
+		// Spy on debug logger
+		const debugSpy = vi.spyOn(client.logger, 'debug')
 
 		// Should still log gas mining (based on isGasMining flag)
 		expect(debugSpy).toHaveBeenCalledWith(`Gas mining transaction ${txHash}...`)
@@ -320,7 +323,10 @@ describe('handleAutomining', () => {
 		// Setup error spy, but we don't need to check it in this test
 
 		// Instead of throwing an error, return a result with errors
-		const miningError = { name: 'MiningError', message: 'Failed to mine transaction' }
+		const miningError = {
+			name: 'MiningError',
+			message: 'Failed to mine transaction',
+		}
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(
 			() => () =>

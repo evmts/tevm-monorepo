@@ -21,6 +21,7 @@ vi.mock('@tevm/actions', () => {
 		mineHandler: createMockHandler('mine'),
 		deployHandler: createMockHandler('deploy'),
 		dealHandler: createMockHandler('deal'),
+		simulateCallHandler: createMockHandler('simulateCall'),
 	}
 })
 
@@ -51,6 +52,7 @@ describe('tevmActions', () => {
 		expect(extended).toHaveProperty('mine')
 		expect(extended).toHaveProperty('deploy')
 		expect(extended).toHaveProperty('deal')
+		expect(extended).toHaveProperty('simulateCall')
 	})
 
 	it('should chain extensions correctly', () => {
@@ -88,6 +90,7 @@ describe('tevmActions', () => {
 			'mine',
 			'deploy',
 			'deal',
+			'simulateCall',
 		])
 	})
 

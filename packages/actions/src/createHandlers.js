@@ -5,6 +5,8 @@ import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
 import { loadStateProcedure } from './LoadState/loadStateProcedure.js'
 import { mineProcedure } from './Mine/mineProcedure.js'
 import { setAccountProcedure } from './SetAccount/setAccountProcedure.js'
+// Importing simulateProcedure (disabled - missing file)
+import { simulateCallJsonRpcProcedure } from './SimulateCall/simulateCallProcedure.js'
 import { anvilDealJsonRpcProcedure } from './anvil/anvilDealProcedure.js'
 import { anvilDropTransactionJsonRpcProcedure } from './anvil/anvilDropTransactionProcedure.js'
 import { anvilDumpStateJsonRpcProcedure } from './anvil/anvilDumpStateProcedure.js'
@@ -88,6 +90,7 @@ export const createHandlers = (client) => {
 		tevm_dumpState: dumpStateProcedure(client),
 		tevm_loadState: loadStateProcedure(client),
 		tevm_miner: mineProcedure(client),
+		tevm_simulateCall: simulateCallJsonRpcProcedure(client),
 	}
 
 	const ethHandlers = {
@@ -95,6 +98,7 @@ export const createHandlers = (client) => {
 		eth_chainId: chainIdProcedure(client),
 		eth_call: ethCallProcedure(client),
 		eth_createAccessList: ethCreateAccessListProcedure(client),
+		// eth_simulateV1: simulateProcedure(client), // Disabled - missing implementation
 		eth_getCode: getCodeProcedure(client),
 		eth_getStorageAt: getStorageAtProcedure(client),
 		eth_gasPrice: gasPriceProcedure(client),
