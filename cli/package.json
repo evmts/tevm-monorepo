@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/cli",
-	"version": "1.0.0-next.138",
+	"version": "1.0.0-next.139",
 	"license": "MIT",
 	"bin": "dist/cli.js",
 	"type": "module",

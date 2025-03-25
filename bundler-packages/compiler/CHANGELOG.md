@@ -1,5 +1,12 @@
 # @tevm/contract
 
+## 1.0.0-next.139
+
+### Patch Changes
+
+- Updated dependencies [55e4a0d]
+  - @tevm/solc@1.0.0-next.139
+
 ## 1.0.0-next.134
 
 ### Minor Changes

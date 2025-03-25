@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.139
+
+### Minor Changes
+
+- 55e4a0d: Fix "storageLayout" output type, previously specified as an array of "StorageLayout", which was incorrect as it is a single object.
+
 ## 1.0.0-next.134
 
 ### Minor Changes

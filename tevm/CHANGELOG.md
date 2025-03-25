@@ -1,5 +1,38 @@
 # @tevm/contract
 
+## 1.0.0-next.139
+
+### Patch Changes
+
+- Updated dependencies [55e4a0d]
+  - @tevm/solc@1.0.0-next.139
+  - @tevm/base-bundler@1.0.0-next.139
+  - @tevm/bun-plugin@1.0.0-next.139
+  - @tevm/compiler@1.0.0-next.139
+  - @tevm/cli@1.0.0-next.139
+  - @tevm/ts-plugin@1.0.0-next.139
+  - @tevm/precompiles@1.0.0-next.139
+  - @tevm/bundler-cache@1.0.0-next.139
+  - @tevm/esbuild-plugin@1.0.0-next.139
+  - @tevm/rollup-plugin@1.0.0-next.139
+  - @tevm/rspack-plugin@1.0.0-next.139
+  - @tevm/vite-plugin@1.0.0-next.139
+  - @tevm/webpack-plugin@1.0.0-next.139
+  - @tevm/viem@1.0.0-next.139
+  - @tevm/actions@1.0.0-next.139
+  - @tevm/blockchain@1.0.0-next.132
+  - @tevm/http-client@1.0.0-next.139
+  - @tevm/memory-client@1.0.0-next.139
+  - @tevm/node@1.0.0-next.139
+  - @tevm/server@1.0.0-next.139
+  - @tevm/state@1.0.0-next.139
+  - @tevm/evm@1.0.0-next.139
+  - @tevm/sync-storage-persister@1.0.0-next.139
+  - @tevm/txpool@1.0.0-next.139
+  - @tevm/vm@1.0.0-next.139
+  - @tevm/client-types@1.0.0-next.131
+  - @tevm/decorators@1.0.0-next.139
+
 ## 1.0.0-next.138
 
 ### Patch Changes
