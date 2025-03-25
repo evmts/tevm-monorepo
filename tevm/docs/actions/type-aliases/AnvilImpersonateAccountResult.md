@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilImpersonateAccountResult
 
-> **AnvilImpersonateAccountResult**: `null`
+> **AnvilImpersonateAccountResult** = `null`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:2

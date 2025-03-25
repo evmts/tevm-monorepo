@@ -28,7 +28,7 @@ Re-exports [Contract](../index/type-aliases/Contract.md)
 
 ### createContract
 
-Re-exports [createContract](../index/functions/createContract.md)
+Re-exports [createContract](../index/variables/createContract.md)
 
 ***
 

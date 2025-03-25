@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewFilterResult
 
-> **EthNewFilterResult**: [`Hex`](Hex.md)
+> **EthNewFilterResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:162
 

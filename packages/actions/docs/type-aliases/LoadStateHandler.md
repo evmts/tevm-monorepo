@@ -6,7 +6,7 @@
 
 # Type Alias: LoadStateHandler()
 
-> **LoadStateHandler**: (`params`) => `Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
+> **LoadStateHandler** = (`params`) => `Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
 
 Defined in: [packages/actions/src/LoadState/LoadStateHandlerType.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateHandlerType.ts#L40)
 

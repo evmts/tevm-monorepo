@@ -16,19 +16,33 @@ allowing for type-safe and easy-to-use contract interfaces.
 
 ## Type Parameters
 
-• **TName** *extends* `string`
+### TName
 
-• **TAbi** *extends* `Abi` \| readonly `string`[]
+`TName` *extends* `string`
 
-• **TAddress** *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+### TAbi
 
-• **TBytecode** *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+`TAbi` *extends* `Abi` \| readonly `string`[]
 
-• **TDeployedBytecode** *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+### TAddress
 
-• **TCode** *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+`TAddress` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
 
-• **THumanReadableAbi** *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\<`TAbi`\>\> : `never`
+### TBytecode
+
+`TBytecode` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+
+### TDeployedBytecode
+
+`TDeployedBytecode` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+
+### TCode
+
+`TCode` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+
+### THumanReadableAbi
+
+`THumanReadableAbi` *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\<`TAbi`\>\> : `never`
 
 ## Parameters
 

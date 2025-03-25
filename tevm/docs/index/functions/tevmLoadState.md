@@ -6,7 +6,7 @@
 
 # Function: tevmLoadState()
 
-> **tevmLoadState**(`client`, `params`): `Promise`\<[`LoadStateResult`](../type-aliases/LoadStateResult.md)\<[`InternalError`](../../errors/classes/InternalError.md)\>\>
+> **tevmLoadState**(`client`, `params`): `Promise`\<[`LoadStateResult`](../../actions/type-aliases/LoadStateResult.md)\<[`InternalError`](../../errors/classes/InternalError.md)\>\>
 
 Defined in: packages/memory-client/types/tevmLoadState.d.ts:1
 
@@ -22,4 +22,4 @@ Defined in: packages/memory-client/types/tevmLoadState.d.ts:1
 
 ## Returns
 
-`Promise`\<[`LoadStateResult`](../type-aliases/LoadStateResult.md)\<[`InternalError`](../../errors/classes/InternalError.md)\>\>
+`Promise`\<[`LoadStateResult`](../../actions/type-aliases/LoadStateResult.md)\<[`InternalError`](../../errors/classes/InternalError.md)\>\>

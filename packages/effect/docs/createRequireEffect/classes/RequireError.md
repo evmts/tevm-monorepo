@@ -16,7 +16,7 @@ Defined in: [packages/effect/src/createRequireEffect.js:22](https://github.com/e
 
 ### new RequireError()
 
-> **new RequireError**(`url`, `options`): [`RequireError`](RequireError.md)
+> **new RequireError**(`url`, `options`): `RequireError`
 
 Defined in: [packages/effect/src/createRequireEffect.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/createRequireEffect.js#L30)
 
@@ -32,7 +32,7 @@ Defined in: [packages/effect/src/createRequireEffect.js:30](https://github.com/e
 
 #### Returns
 
-[`RequireError`](RequireError.md)
+`RequireError`
 
 #### Overrides
 

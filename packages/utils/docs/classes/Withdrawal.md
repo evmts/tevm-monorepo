@@ -14,7 +14,7 @@ Representation of EIP-4895 withdrawal data
 
 ### new Withdrawal()
 
-> **new Withdrawal**(`index`, `validatorIndex`, `address`, `amount`): [`Withdrawal`](Withdrawal.md)
+> **new Withdrawal**(`index`, `validatorIndex`, `address`, `amount`): `Withdrawal`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:40
 
@@ -44,7 +44,7 @@ withdrawal amount in Gwei to match the CL repesentation and eventually ssz withd
 
 #### Returns
 
-[`Withdrawal`](Withdrawal.md)
+`Withdrawal`
 
 ## Properties
 
@@ -152,7 +152,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 ### fromValuesArray()
 
-> `static` **fromValuesArray**(`withdrawalArray`): [`Withdrawal`](Withdrawal.md)
+> `static` **fromValuesArray**(`withdrawalArray`): `Withdrawal`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:46
 
@@ -164,13 +164,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Returns
 
-[`Withdrawal`](Withdrawal.md)
+`Withdrawal`
 
 ***
 
 ### fromWithdrawalData()
 
-> `static` **fromWithdrawalData**(`withdrawalData`): [`Withdrawal`](Withdrawal.md)
+> `static` **fromWithdrawalData**(`withdrawalData`): `Withdrawal`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:45
 
@@ -182,7 +182,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Returns
 
-[`Withdrawal`](Withdrawal.md)
+`Withdrawal`
 
 ***
 
@@ -200,7 +200,7 @@ Convert a withdrawal to a buffer array
 
 the withdrawal to convert
 
-[`Withdrawal`](Withdrawal.md) | [`WithdrawalData`](../type-aliases/WithdrawalData.md)
+`Withdrawal` | [`WithdrawalData`](../type-aliases/WithdrawalData.md)
 
 #### Returns
 

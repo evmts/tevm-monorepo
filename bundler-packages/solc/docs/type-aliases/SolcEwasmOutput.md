@@ -6,16 +6,22 @@
 
 # Type Alias: SolcEwasmOutput
 
-> **SolcEwasmOutput**: `object`
+> **SolcEwasmOutput** = `object`
 
 Defined in: [solcTypes.ts:654](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L654)
 
-## Type declaration
+## Properties
 
 ### wasm
 
 > **wasm**: `string`
 
+Defined in: [solcTypes.ts:658](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L658)
+
+***
+
 ### wast
 
 > **wast**: `string`
+
+Defined in: [solcTypes.ts:656](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L656)

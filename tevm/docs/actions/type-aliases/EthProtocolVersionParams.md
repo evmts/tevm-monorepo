@@ -6,7 +6,7 @@
 
 # Type Alias: EthProtocolVersionParams
 
-> **EthProtocolVersionParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthProtocolVersionParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:206
 

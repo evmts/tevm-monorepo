@@ -6,7 +6,7 @@
 
 # Type Alias: ModuleType
 
-> **ModuleType**: `"cjs"` \| `"dts"` \| `"ts"` \| `"mjs"`
+> **ModuleType** = `"cjs"` \| `"dts"` \| `"ts"` \| `"mjs"`
 
 Defined in: [types.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/runtime/src/types.ts#L20)
 

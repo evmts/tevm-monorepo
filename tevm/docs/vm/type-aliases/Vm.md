@@ -6,7 +6,7 @@
 
 # Type Alias: Vm
 
-> **Vm**: `BaseVm` & `object`
+> **Vm** = `BaseVm` & `object`
 
 Defined in: packages/vm/types/Vm.d.ts:5
 
@@ -18,11 +18,11 @@ Defined in: packages/vm/types/Vm.d.ts:5
 
 ### deepCopy()
 
-> **deepCopy**: () => `Promise`\<[`Vm`](Vm.md)\>
+> **deepCopy**: () => `Promise`\<`Vm`\>
 
 #### Returns
 
-`Promise`\<[`Vm`](Vm.md)\>
+`Promise`\<`Vm`\>
 
 ### runBlock
 

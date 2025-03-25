@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetFilterChangesHandler()
 
-> **EthGetFilterChangesHandler**: (`request`) => `Promise`\<[`EthGetFilterChangesResult`](EthGetFilterChangesResult.md)\>
+> **EthGetFilterChangesHandler** = (`request`) => `Promise`\<[`EthGetFilterChangesResult`](EthGetFilterChangesResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:17
 

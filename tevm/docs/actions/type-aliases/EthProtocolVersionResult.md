@@ -6,7 +6,7 @@
 
 # Type Alias: EthProtocolVersionResult
 
-> **EthProtocolVersionResult**: [`Hex`](Hex.md)
+> **EthProtocolVersionResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:123
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthMiningJsonRpcResponse
 
-> **EthMiningJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_mining"`, `boolean`, `string` \| `number`\>
+> **EthMiningJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_mining"`, `boolean`, `string` \| `number`\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:120
 

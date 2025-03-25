@@ -16,7 +16,7 @@ Re-exports [createClient](../index/functions/createClient.md)
 
 ### createMemoryClient
 
-Re-exports [createMemoryClient](../index/functions/createMemoryClient.md)
+Re-exports [createMemoryClient](../index/variables/createMemoryClient.md)
 
 ***
 
@@ -70,7 +70,7 @@ Re-exports [tevmCall](../index/functions/tevmCall.md)
 
 ### tevmContract
 
-Re-exports [tevmContract](../index/functions/tevmContract.md)
+Re-exports [tevmContract](../index/variables/tevmContract.md)
 
 ***
 

@@ -6,20 +6,30 @@
 
 # Type Alias: SolcSourceLocation
 
-> **SolcSourceLocation**: `object`
+> **SolcSourceLocation** = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:114
 
-## Type declaration
+## Properties
 
 ### end
 
 > **end**: `number`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:117
+
+***
+
 ### file
 
 > **file**: `string`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:115
+
+***
+
 ### start
 
 > **start**: `number`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:116

@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilSetBalanceResult
 
-> **AnvilSetBalanceResult**: `null`
+> **AnvilSetBalanceResult** = `null`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:8

@@ -6,7 +6,7 @@
 
 # Type Alias: ContractHandler()
 
-> **ContractHandler**: \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](../../index/type-aliases/ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
+> **ContractHandler** = \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
 Defined in: packages/actions/types/Contract/ContractHandlerType.d.ts:50
 
@@ -17,11 +17,15 @@ It encodes the ABI, function name, and arguments to perform the contract call.
 
 ## Type Parameters
 
-• **TAbi** *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
+### TAbi
+
+`TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
 
 The ABI type.
 
-• **TFunctionName** *extends* [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
+### TFunctionName
+
+`TFunctionName` *extends* [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\> = [`ContractFunctionName`](../../index/type-aliases/ContractFunctionName.md)\<`TAbi`\>
 
 The function name type from the ABI.
 
@@ -29,13 +33,13 @@ The function name type from the ABI.
 
 ### action
 
-[`ContractParams`](../../index/type-aliases/ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](CallEvents.md)
+[`ContractParams`](ContractParams.md)\<`TAbi`, `TFunctionName`\> & [`CallEvents`](CallEvents.md)
 
 The parameters for the contract call, including ABI, function name, and arguments, with optional event handlers.
 
 ## Returns
 
-`Promise`\<[`ContractResult`](../../index/type-aliases/ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
+`Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
 The result of the contract call, including execution details and any returned data.
 
@@ -75,5 +79,5 @@ console.log(res)
 ## See
 
  - [tevmContract](https://tevm.sh/reference/tevm/memory-client/functions/tevmContract)
- - [ContractParams](../../index/type-aliases/ContractParams.md)
- - [ContractResult](../../index/type-aliases/ContractResult.md)
+ - [ContractParams](ContractParams.md)
+ - [ContractResult](ContractResult.md)

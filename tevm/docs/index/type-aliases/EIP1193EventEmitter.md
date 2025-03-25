@@ -6,7 +6,7 @@
 
 # Type Alias: EIP1193EventEmitter
 
-> **EIP1193EventEmitter**: [`EIP1193Events`](EIP1193Events.md) & `object`
+> **EIP1193EventEmitter** = [`EIP1193Events`](EIP1193Events.md) & `object`
 
 Defined in: packages/node/dist/index.d.ts:47
 

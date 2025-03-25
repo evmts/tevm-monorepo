@@ -6,7 +6,7 @@
 
 # Type Alias: CommonOptions
 
-> **CommonOptions**: `ViemChain` & `object`
+> **CommonOptions** = `ViemChain` & `object`
 
 Defined in: packages/common/types/CommonOptions.d.ts:37
 

@@ -6,7 +6,7 @@
 
 # Type Alias: CompiledContracts
 
-> **CompiledContracts**: `CompiledContracts`
+> **CompiledContracts** = `CompiledContracts`
 
 Defined in: bundler-packages/compiler/types/src/index.d.ts:10
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthUninstallFilterJsonRpcRequest
 
-> **EthUninstallFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_uninstallFilter"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
+> **EthUninstallFilterJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_uninstallFilter"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:207
 

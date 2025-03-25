@@ -6,34 +6,12 @@
 
 # Type Alias: WalletPermission
 
-> **WalletPermission**: `object`
+> **WalletPermission** = `object`
 
 Defined in: packages/decorators/dist/index.d.ts:1520
 
 Permission granted to a website or application by a wallet.
 Defined in EIP-2255 for the wallet permissions management system.
-
-## Type declaration
-
-### caveats
-
-> **caveats**: [`WalletPermissionCaveat`](WalletPermissionCaveat.md)[]
-
-### date
-
-> **date**: `number`
-
-### id
-
-> **id**: `string`
-
-### invoker
-
-> **invoker**: `` `http://${string}` `` \| `` `https://${string}` ``
-
-### parentCapability
-
-> **parentCapability**: `"eth_accounts"` \| `string`
 
 ## Example
 
@@ -60,3 +38,43 @@ const accountsPermission: WalletPermission = {
   }]
 }
 ```
+
+## Properties
+
+### caveats
+
+> **caveats**: [`WalletPermissionCaveat`](WalletPermissionCaveat.md)[]
+
+Defined in: packages/decorators/dist/index.d.ts:1521
+
+***
+
+### date
+
+> **date**: `number`
+
+Defined in: packages/decorators/dist/index.d.ts:1522
+
+***
+
+### id
+
+> **id**: `string`
+
+Defined in: packages/decorators/dist/index.d.ts:1523
+
+***
+
+### invoker
+
+> **invoker**: `` `http://${string}` `` \| `` `https://${string}` ``
+
+Defined in: packages/decorators/dist/index.d.ts:1524
+
+***
+
+### parentCapability
+
+> **parentCapability**: `"eth_accounts"` \| `string`
+
+Defined in: packages/decorators/dist/index.d.ts:1525

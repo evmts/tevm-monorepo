@@ -41,7 +41,7 @@ Additional parameters for the InvalidJsonError.
 
 ### new InvalidJsonError()
 
-> **new InvalidJsonError**(`message`, `args`?): [`InvalidJsonError`](InvalidJsonError.md)
+> **new InvalidJsonError**(`message`, `args`?): `InvalidJsonError`
 
 Defined in: packages/server/types/errors/InvalidJsonError.d.ts:44
 
@@ -63,11 +63,11 @@ Additional parameters for the InvalidJsonError.
 
 #### Returns
 
-[`InvalidJsonError`](InvalidJsonError.md)
+`InvalidJsonError`
 
 #### Overrides
 
-[`BaseError`](../../errors/classes/BaseError.md).[`constructor`](../../errors/classes/BaseError.md#constructors)
+[`BaseError`](../../errors/classes/BaseError.md).[`constructor`](../../errors/classes/BaseError.md#constructor)
 
 ## Properties
 
@@ -81,7 +81,7 @@ Same as name, used internally.
 
 #### Inherited from
 
-[`BaseError`](../../errors/classes/BaseError.md).[`_tag`](../../errors/classes/BaseError.md#_tag-1)
+[`BaseError`](../../errors/classes/BaseError.md).[`_tag`](../../errors/classes/BaseError.md#_tag)
 
 ***
 
@@ -107,7 +107,7 @@ Error code, analogous to the code in JSON RPC error.
 
 #### Inherited from
 
-[`BaseError`](../../errors/classes/BaseError.md).[`code`](../../errors/classes/BaseError.md#code-1)
+[`BaseError`](../../errors/classes/BaseError.md).[`code`](../../errors/classes/BaseError.md#code)
 
 ***
 
@@ -187,7 +187,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
 
 #### Inherited from
 
-[`BaseError`](../../errors/classes/BaseError.md).[`shortMessage`](../../errors/classes/BaseError.md#shortmessage-1)
+[`BaseError`](../../errors/classes/BaseError.md).[`shortMessage`](../../errors/classes/BaseError.md#shortmessage)
 
 ***
 
@@ -289,26 +289,54 @@ The first error that matches the function, or the original error.
 
 ### captureStackTrace()
 
+#### Call Signature
+
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-##### targetObject
+###### targetObject
 
 `object`
 
-##### constructorOpt?
+###### constructorOpt?
 
 `Function`
 
-#### Returns
+##### Returns
 
 `void`
 
-#### Inherited from
+##### Inherited from
+
+[`BaseError`](../../errors/classes/BaseError.md).[`captureStackTrace`](../../errors/classes/BaseError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
 
 [`BaseError`](../../errors/classes/BaseError.md).[`captureStackTrace`](../../errors/classes/BaseError.md#capturestacktrace)

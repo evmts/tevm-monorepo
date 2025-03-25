@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetStorageAtJsonRpcResponse
 
-> **EthGetStorageAtJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getStorageAt"`, `Hex`, `string` \| `number`\>
+> **EthGetStorageAtJsonRpcResponse** = `JsonRpcResponse`\<`"eth_getStorageAt"`, `Hex`, `string` \| `number`\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:140](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L140)
 

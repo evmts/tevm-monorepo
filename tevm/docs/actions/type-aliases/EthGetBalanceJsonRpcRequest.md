@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBalanceJsonRpcRequest
 
-> **EthGetBalanceJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getBalance"`, \[[`Address`](../../index/type-aliases/Address.md), [`BlockTag`](../../index/type-aliases/BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md)\]\>
+> **EthGetBalanceJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getBalance"`, \[[`Address`](../../index/type-aliases/Address.md), [`BlockTag`](../../index/type-aliases/BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md)\]\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:80
 

@@ -6,16 +6,18 @@
 
 # Type Alias: Client
 
-> **Client**: `object`
+> **Client** = `object`
 
 Defined in: packages/server/types/Client.d.ts:3
 
-## Type declaration
+## Properties
 
 ### transport
 
 > **transport**: `object`
 
-#### transport.tevm
+Defined in: packages/server/types/Client.d.ts:4
+
+#### tevm
 
 > **tevm**: [`MemoryClient`](../../index/type-aliases/MemoryClient.md)\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]

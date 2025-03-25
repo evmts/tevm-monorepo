@@ -6,7 +6,7 @@
 
 # Type Alias: TevmDumpStateError
 
-> **TevmDumpStateError**: `InternalError` \| `InvalidAddressError` \| `InvalidParamsError`
+> **TevmDumpStateError** = `InternalError` \| `InvalidAddressError` \| `InvalidParamsError`
 
 Defined in: [packages/actions/src/DumpState/TevmDumpStateError.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/TevmDumpStateError.ts#L10)
 

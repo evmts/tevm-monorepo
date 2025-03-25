@@ -16,7 +16,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:21](https://github.co
 
 ### new ProviderRpcError()
 
-> **new ProviderRpcError**(`code`, `message`): [`ProviderRpcError`](ProviderRpcError.md)
+> **new ProviderRpcError**(`code`, `message`): `ProviderRpcError`
 
 Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L25)
 
@@ -32,7 +32,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:25](https://github.co
 
 #### Returns
 
-[`ProviderRpcError`](ProviderRpcError.md)
+`ProviderRpcError`
 
 #### Overrides
 
@@ -155,6 +155,32 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`Error.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

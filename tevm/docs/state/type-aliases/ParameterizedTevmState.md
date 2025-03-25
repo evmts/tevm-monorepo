@@ -6,7 +6,7 @@
 
 # Type Alias: ParameterizedTevmState
 
-> **ParameterizedTevmState**: `object`
+> **ParameterizedTevmState** = `object`
 
 Defined in: packages/state/dist/index.d.ts:95
 

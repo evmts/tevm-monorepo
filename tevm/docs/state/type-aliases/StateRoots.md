@@ -6,7 +6,7 @@
 
 # Type Alias: StateRoots
 
-> **StateRoots**: `Map`\<[`Hex`](../../index/type-aliases/Hex.md), [`TevmState`](../../index/type-aliases/TevmState.md)\>
+> **StateRoots** = `Map`\<[`Hex`](../../index/type-aliases/Hex.md), [`TevmState`](../../index/type-aliases/TevmState.md)\>
 
 Defined in: packages/state/dist/index.d.ts:269
 

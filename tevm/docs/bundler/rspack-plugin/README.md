@@ -6,6 +6,6 @@
 
 # bundler/rspack-plugin
 
-## Functions
+## Variables
 
-- [rspackPluginTevm](functions/rspackPluginTevm.md)
+- [rspackPluginTevm](variables/rspackPluginTevm.md)

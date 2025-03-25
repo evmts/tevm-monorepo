@@ -6,7 +6,7 @@
 
 # Type Alias: AsyncBundlerResult
 
-> **AsyncBundlerResult**: `AsyncBundlerResult`
+> **AsyncBundlerResult** = `AsyncBundlerResult`
 
 Defined in: bundler-packages/base-bundler/types/src/index.d.ts:6
 

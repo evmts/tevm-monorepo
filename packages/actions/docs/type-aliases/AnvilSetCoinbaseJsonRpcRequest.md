@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetCoinbaseJsonRpcRequest
 
-> **AnvilSetCoinbaseJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_setCoinbase"`, readonly \[`Address`\]\>
+> **AnvilSetCoinbaseJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_setCoinbase"`, readonly \[`Address`\]\>
 
 Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L44)
 

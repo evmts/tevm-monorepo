@@ -6,7 +6,7 @@
 
 # Type Alias: EthMiningResult
 
-> **EthMiningResult**: `boolean`
+> **EthMiningResult** = `boolean`
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:119
 

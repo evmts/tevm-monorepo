@@ -6,7 +6,7 @@
 
 # Type Alias: EthCallJsonRpcProcedure()
 
-> **EthCallJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCallJsonRpcResponse`](EthCallJsonRpcResponse.md)\>
+> **EthCallJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCallJsonRpcResponse`](EthCallJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/eth/EthProcedure.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L91)
 

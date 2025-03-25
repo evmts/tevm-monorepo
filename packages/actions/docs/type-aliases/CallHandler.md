@@ -6,7 +6,7 @@
 
 # Type Alias: CallHandler()
 
-> **CallHandler**: (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
+> **CallHandler** = (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
 
 Defined in: [packages/actions/src/Call/CallHandlerType.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallHandlerType.ts#L50)
 

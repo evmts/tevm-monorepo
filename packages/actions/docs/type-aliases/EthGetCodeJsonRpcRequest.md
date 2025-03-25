@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetCodeJsonRpcRequest
 
-> **EthGetCodeJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getCode"`, readonly \[`Address`, `BlockTag` \| `Hex`\]\>
+> **EthGetCodeJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getCode"`, readonly \[`Address`, `BlockTag` \| `Hex`\]\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:134](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L134)
 

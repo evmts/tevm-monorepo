@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilDumpStateProcedure()
 
-> **AnvilDumpStateProcedure**: (`request`) => `Promise`\<[`AnvilDumpStateJsonRpcResponse`](AnvilDumpStateJsonRpcResponse.md)\>
+> **AnvilDumpStateProcedure** = (`request`) => `Promise`\<[`AnvilDumpStateJsonRpcResponse`](AnvilDumpStateJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:55
 

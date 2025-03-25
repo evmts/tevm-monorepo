@@ -10,6 +10,8 @@
 
 Defined in: [packages/actions/src/Call/handleEvmError.js:105](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleEvmError.js#L105)
 
+**`Internal`**
+
 Takes an unknown error that is suspected of coming from EVM and returns a strongly typed error
 
 ## Parameters

@@ -29,6 +29,6 @@ console.log(Counter.abi)
 console.log(Counter.bytecode)
 ```
 
-## Functions
+## Variables
 
-- [esbuildPluginTevm](functions/esbuildPluginTevm.md)
+- [esbuildPluginTevm](variables/esbuildPluginTevm.md)

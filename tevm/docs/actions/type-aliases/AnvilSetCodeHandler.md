@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetCodeHandler()
 
-> **AnvilSetCodeHandler**: (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
+> **AnvilSetCodeHandler** = (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:10
 

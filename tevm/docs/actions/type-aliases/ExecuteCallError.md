@@ -6,7 +6,7 @@
 
 # Type Alias: ExecuteCallError
 
-> **ExecuteCallError**: [`HandleRunTxError`](HandleRunTxError.md)
+> **ExecuteCallError** = [`HandleRunTxError`](HandleRunTxError.md)
 
 Defined in: packages/actions/types/Call/executeCall.d.ts:9
 

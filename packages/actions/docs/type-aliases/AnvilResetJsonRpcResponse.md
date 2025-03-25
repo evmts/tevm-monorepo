@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilResetJsonRpcResponse
 
-> **AnvilResetJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_reset"`, `SerializeToJson`\<[`AnvilResetResult`](AnvilResetResult.md)\>, `AnvilError`\>
+> **AnvilResetJsonRpcResponse** = `JsonRpcResponse`\<`"anvil_reset"`, `SerializeToJson`\<[`AnvilResetResult`](AnvilResetResult.md)\>, `AnvilError`\>
 
 Defined in: [packages/actions/src/anvil/AnvilJsonRpcResponse.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L73)
 

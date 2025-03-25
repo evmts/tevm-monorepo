@@ -538,7 +538,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### shallowCopy()
 
-> **shallowCopy**(`downlevelCaches`?): [`EvmStateManagerInterface`](EvmStateManagerInterface.md)
+> **shallowCopy**(`downlevelCaches`?): `EVMStateManagerInterface`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:144
 
@@ -550,7 +550,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Returns
 
-[`EvmStateManagerInterface`](EvmStateManagerInterface.md)
+`EVMStateManagerInterface`
 
 #### Overrides
 

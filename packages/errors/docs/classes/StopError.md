@@ -47,7 +47,7 @@ Additional parameters for the BaseError.
 
 ### new StopError()
 
-> **new StopError**(`message`?, `args`?, `tag`?): [`StopError`](StopError.md)
+> **new StopError**(`message`?, `args`?, `tag`?): `StopError`
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/StopErrorError.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/StopErrorError.js#L67)
 
@@ -83,11 +83,11 @@ The tag for the error.
 
 #### Returns
 
-[`StopError`](StopError.md)
+`StopError`
 
 #### Overrides
 
-[`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructors)
+[`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructor)
 
 ## Properties
 
@@ -165,7 +165,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message-1)
+[`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message)
 
 ***
 
@@ -334,6 +334,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

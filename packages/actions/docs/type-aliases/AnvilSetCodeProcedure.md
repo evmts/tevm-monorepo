@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetCodeProcedure()
 
-> **AnvilSetCodeProcedure**: (`request`) => `Promise`\<[`AnvilSetCodeJsonRpcResponse`](AnvilSetCodeJsonRpcResponse.md)\>
+> **AnvilSetCodeProcedure** = (`request`) => `Promise`\<[`AnvilSetCodeJsonRpcResponse`](AnvilSetCodeJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L93)
 

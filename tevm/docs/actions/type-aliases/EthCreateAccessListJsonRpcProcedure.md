@@ -6,7 +6,7 @@
 
 # Type Alias: EthCreateAccessListJsonRpcProcedure()
 
-> **EthCreateAccessListJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
+> **EthCreateAccessListJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:41
 

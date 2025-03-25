@@ -6,7 +6,7 @@
 
 # Type Alias: BlockHeaderBytes
 
-> **BlockHeaderBytes**: `Uint8Array`[]
+> **BlockHeaderBytes** = `Uint8Array`[]
 
 Defined in: packages/block/types/types.d.ts:325
 

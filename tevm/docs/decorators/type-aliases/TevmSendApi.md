@@ -6,22 +6,12 @@
 
 # Type Alias: TevmSendApi
 
-> **TevmSendApi**: `object`
+> **TevmSendApi** = `object`
 
 Defined in: packages/decorators/dist/index.d.ts:1834
 
 API interface for sending JSON-RPC requests to Tevm
 Provides methods for both single and bulk requests
-
-## Type declaration
-
-### send
-
-> **send**: [`TevmJsonRpcRequestHandler`](../../index/type-aliases/TevmJsonRpcRequestHandler.md)
-
-### sendBulk
-
-> **sendBulk**: [`TevmJsonRpcBulkRequestHandler`](../../index/type-aliases/TevmJsonRpcBulkRequestHandler.md)
 
 ## Example
 
@@ -46,3 +36,19 @@ await client.sendBulk([
   { method: 'eth_getBalance', params: ['0x...', 'latest'] }
 ])
 ```
+
+## Properties
+
+### send
+
+> **send**: [`TevmJsonRpcRequestHandler`](../../actions/type-aliases/TevmJsonRpcRequestHandler.md)
+
+Defined in: packages/decorators/dist/index.d.ts:1835
+
+***
+
+### sendBulk
+
+> **sendBulk**: [`TevmJsonRpcBulkRequestHandler`](../../actions/type-aliases/TevmJsonRpcBulkRequestHandler.md)
+
+Defined in: packages/decorators/dist/index.d.ts:1836

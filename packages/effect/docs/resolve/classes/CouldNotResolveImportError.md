@@ -18,7 +18,7 @@ Error thrown when 'node:resolve' throws
 
 ### new CouldNotResolveImportError()
 
-> **new CouldNotResolveImportError**(`importPath`, `absolutePath`, `cause`): [`CouldNotResolveImportError`](CouldNotResolveImportError.md)
+> **new CouldNotResolveImportError**(`importPath`, `absolutePath`, `cause`): `CouldNotResolveImportError`
 
 Defined in: [packages/effect/src/resolve.js:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/resolve.js#L26)
 
@@ -38,7 +38,7 @@ Defined in: [packages/effect/src/resolve.js:26](https://github.com/evmts/tevm-mo
 
 #### Returns
 
-[`CouldNotResolveImportError`](CouldNotResolveImportError.md)
+`CouldNotResolveImportError`
 
 #### Overrides
 

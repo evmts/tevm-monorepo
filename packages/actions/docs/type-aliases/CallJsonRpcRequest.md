@@ -6,7 +6,7 @@
 
 # Type Alias: CallJsonRpcRequest
 
-> **CallJsonRpcRequest**: `JsonRpcRequest`\<`"tevm_call"`, \[`SerializeToJson`\<`Omit`\<[`CallParams`](CallParams.md), `"stateOverrideSet"` \| `"blockOverrideSet"`\>\>, `SerializeToJson`\<[`CallParams`](CallParams.md)\[`"stateOverrideSet"`\]\>, `SerializeToJson`\<[`CallParams`](CallParams.md)\[`"blockOverrideSet"`\]\>\]\>
+> **CallJsonRpcRequest** = `JsonRpcRequest`\<`"tevm_call"`, \[`SerializeToJson`\<`Omit`\<[`CallParams`](CallParams.md), `"stateOverrideSet"` \| `"blockOverrideSet"`\>\>, `SerializeToJson`\<[`CallParams`](CallParams.md)\[`"stateOverrideSet"`\]\>, `SerializeToJson`\<[`CallParams`](CallParams.md)\[`"blockOverrideSet"`\]\>\]\>
 
 Defined in: [packages/actions/src/Call/CallJsonRpcRequest.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallJsonRpcRequest.ts#L8)
 

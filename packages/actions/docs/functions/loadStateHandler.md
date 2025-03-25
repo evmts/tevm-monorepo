@@ -10,6 +10,8 @@
 
 Defined in: [packages/actions/src/LoadState/loadStateHandler.js:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/loadStateHandler.js#L35)
 
+**`Internal`**
+
 Creates a handler for loading a previously dumped state into the VM.
 
 ## Parameters

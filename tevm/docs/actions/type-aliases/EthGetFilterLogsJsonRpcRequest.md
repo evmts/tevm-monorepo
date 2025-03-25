@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetFilterLogsJsonRpcRequest
 
-> **EthGetFilterLogsJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getFilterLogs"`, \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
+> **EthGetFilterLogsJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getFilterLogs"`, \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:108
 

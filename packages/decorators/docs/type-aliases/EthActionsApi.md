@@ -6,26 +6,28 @@
 
 # Type Alias: EthActionsApi
 
-> **EthActionsApi**: `object`
+> **EthActionsApi** = `object`
 
 Defined in: [actions/EthActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/EthActionsApi.ts#L16)
 
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 These actions correspond 1:1 eith the public ethereum JSON-RPC api
 
-## Type declaration
+## See
+
+[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
+
+## Properties
 
 ### eth
 
 > **eth**: `object`
 
+Defined in: [actions/EthActionsApi.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/actions/EthActionsApi.ts#L21)
+
 Standard JSON-RPC methods for interacting with the VM
 
-#### See
-
-[JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
-
-#### eth.blockNumber
+#### blockNumber
 
 > **blockNumber**: `EthBlockNumberHandler`
 
@@ -44,7 +46,7 @@ const blockNumber = await tevm.eth.blockNumber()
 console.log(blockNumber) // 0n
 ```
 
-#### eth.call
+#### call
 
 > **call**: `EthCallHandler`
 
@@ -63,7 +65,7 @@ const res = await tevm.eth.call({to: '0x123...', data: '0x123...'})
 console.log(res) // "0x..."
 ```
 
-#### eth.chainId
+#### chainId
 
 > **chainId**: `EthChainIdHandler`
 
@@ -82,7 +84,7 @@ const chainId = await tevm.eth.chainId()
 console.log(chainId) // 10n
 ```
 
-#### eth.gasPrice
+#### gasPrice
 
 > **gasPrice**: `EthGasPriceHandler`
 
@@ -101,7 +103,7 @@ const gasPrice = await tevm.eth.gasPrice()
 console.log(gasPrice) // 0n
 ```
 
-#### eth.getBalance
+#### getBalance
 
 > **getBalance**: `EthGetBalanceHandler`
 
@@ -120,7 +122,7 @@ const balance = await tevm.eth.getBalance({address: '0x123...', tag: 'pending'})
 console.log(gasPrice) // 0n
 ```
 
-#### eth.getCode
+#### getCode
 
 > **getCode**: `EthGetCodeHandler`
 
@@ -138,7 +140,7 @@ Block tag defaults to 'pending' tag which is the optimistic state of the VM
 const code = await tevm.eth.getCode({address: '0x123...'})
 ```
 
-#### eth.getStorageAt
+#### getStorageAt
 
 > **getStorageAt**: `EthGetStorageAtHandler`
 
@@ -156,6 +158,6 @@ Block tag defaults to 'pending' tag which is the optimistic state of the VM
 const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position: 0})
 ```
 
-## See
+#### See
 
-[https://tevm.sh/learn/actions/](https://tevm.sh/learn/actions/)
+[JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)

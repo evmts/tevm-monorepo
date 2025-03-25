@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetBalanceProcedure()
 
-> **AnvilSetBalanceProcedure**: (`request`) => `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](AnvilSetBalanceJsonRpcResponse.md)\>
+> **AnvilSetBalanceProcedure** = (`request`) => `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](AnvilSetBalanceJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:35
 

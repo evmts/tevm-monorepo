@@ -6,7 +6,7 @@
 
 # Type Alias: EthCreateAccessListJsonRpcProcedure()
 
-> **EthCreateAccessListJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
+> **EthCreateAccessListJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/eth/EthProcedure.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L213)
 

@@ -16,7 +16,7 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 ### new LimitExceededRpcError()
 
-> **new LimitExceededRpcError**(`cause`): [`LimitExceededRpcError`](LimitExceededRpcError.md)
+> **new LimitExceededRpcError**(`cause`): `LimitExceededRpcError`
 
 Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2\_utf-8-validate@5.0.10\_zod@3.24.2/node\_modules/viem/\_types/errors/rpc.d.ts:184
 
@@ -28,7 +28,7 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 #### Returns
 
-[`LimitExceededRpcError`](LimitExceededRpcError.md)
+`LimitExceededRpcError`
 
 #### Overrides
 
@@ -253,6 +253,32 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`RpcError.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

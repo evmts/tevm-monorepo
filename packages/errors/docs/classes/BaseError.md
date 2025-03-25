@@ -59,7 +59,7 @@ This class is abstract and should be extended by other error classes.
 
 ### new BaseError()
 
-> **new BaseError**(`shortMessage`, `args`, `_tag`, `code`?): [`BaseError`](BaseError.md)
+> **new BaseError**(`shortMessage`, `args`, `_tag`, `code`?): `BaseError`
 
 Defined in: [packages/errors/src/ethereum/BaseError.js:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L45)
 
@@ -89,7 +89,7 @@ Error code analogous to the code in JSON RPC error.
 
 #### Returns
 
-[`BaseError`](BaseError.md)
+`BaseError`
 
 #### Overrides
 
@@ -276,6 +276,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`Error.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

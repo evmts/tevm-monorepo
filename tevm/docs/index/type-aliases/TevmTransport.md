@@ -6,7 +6,7 @@
 
 # Type Alias: TevmTransport()\<TName\>
 
-> **TevmTransport**\<`TName`\>: \<`TChain`\>(`{ chain, pollingInterval, retryCount, timeout, }`) => `object`
+> **TevmTransport**\<`TName`\> = \<`TChain`\>(`{ chain, pollingInterval, retryCount, timeout, }`) => `object`
 
 Defined in: packages/memory-client/types/TevmTransport.d.ts:17
 
@@ -14,13 +14,17 @@ A type representing a custom TEVM Transport for viem.
 
 ## Type Parameters
 
-• **TName** *extends* `string` = `string`
+### TName
+
+`TName` *extends* `string` = `string`
 
 The name of the transport.
 
 ## Type Parameters
 
-• **TChain** *extends* `Chain` \| `undefined` = `Chain`
+### TChain
+
+`TChain` *extends* `Chain` \| `undefined` = `Chain`
 
 The blockchain configuration.
 

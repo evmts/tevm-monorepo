@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByBlockNumberAndIndexResult
 
-> **EthGetTransactionByBlockNumberAndIndexResult**: [`TransactionResult`](../../index/type-aliases/TransactionResult.md)
+> **EthGetTransactionByBlockNumberAndIndexResult** = [`TransactionResult`](../../index/type-aliases/TransactionResult.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:103
 

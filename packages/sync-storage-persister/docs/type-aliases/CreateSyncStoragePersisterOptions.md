@@ -6,17 +6,19 @@
 
 # Type Alias: CreateSyncStoragePersisterOptions
 
-> **CreateSyncStoragePersisterOptions**: `object`
+> **CreateSyncStoragePersisterOptions** = `object`
 
 Defined in: [CreateSyncStoragePersisterOptions.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L7)
 
 Options for creating a sync storage persister.
 
-## Type declaration
+## Properties
 
 ### deserialize()?
 
 > `optional` **deserialize**: (`cachedString`) => `SerializableTevmState`
+
+Defined in: [CreateSyncStoragePersisterOptions.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L26)
 
 How to deserialize the data from storage.
 
@@ -34,15 +36,23 @@ How to deserialize the data from storage.
 
 `JSON.parse`
 
+***
+
 ### key?
 
 > `optional` **key**: `string`
 
+Defined in: [CreateSyncStoragePersisterOptions.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L14)
+
 The key to use when storing the cache
+
+***
 
 ### serialize()?
 
 > `optional` **serialize**: (`client`) => `string`
+
+Defined in: [CreateSyncStoragePersisterOptions.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L21)
 
 How to serialize the data to storage.
 
@@ -60,16 +70,24 @@ How to serialize the data to storage.
 
 `JSON.stringify`
 
+***
+
 ### storage
 
 > **storage**: [`Storage`](../interfaces/Storage.md)
+
+Defined in: [CreateSyncStoragePersisterOptions.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L12)
 
 The storage client used for setting and retrieving items from cache.
 For SSR pass in `undefined`. Note that window.localStorage can be
 `null` in Android WebViews depending on how they are configured.
 
+***
+
 ### throttleTime?
 
 > `optional` **throttleTime**: `number`
+
+Defined in: [CreateSyncStoragePersisterOptions.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L16)
 
 To avoid spamming, pass a time in ms to throttle saving the cache to disk

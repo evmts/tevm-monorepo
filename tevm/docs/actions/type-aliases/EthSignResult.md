@@ -6,7 +6,7 @@
 
 # Type Alias: EthSignResult
 
-> **EthSignResult**: [`Hex`](Hex.md)
+> **EthSignResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:135
 

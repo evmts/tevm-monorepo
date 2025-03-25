@@ -6,32 +6,12 @@
 
 # Type Alias: NetworkSync
 
-> **NetworkSync**: `object`
+> **NetworkSync** = `object`
 
 Defined in: [eip1193/NetworkSync.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L43)
 
 Information about the Ethereum client's sync status.
 Returned by the eth_syncing JSON-RPC method when synchronization is in progress.
-
-## Type declaration
-
-### currentBlock
-
-> **currentBlock**: [`Quantity`](Quantity.md)
-
-The current block number
-
-### highestBlock
-
-> **highestBlock**: [`Quantity`](Quantity.md)
-
-Number of latest block on the network
-
-### startingBlock
-
-> **startingBlock**: [`Quantity`](Quantity.md)
-
-Block number at which syncing started
 
 ## Example
 
@@ -51,3 +31,33 @@ if (syncStatus !== false) {
   console.log('Node is fully synced')
 }
 ```
+
+## Properties
+
+### currentBlock
+
+> **currentBlock**: [`Quantity`](Quantity.md)
+
+Defined in: [eip1193/NetworkSync.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L45)
+
+The current block number
+
+***
+
+### highestBlock
+
+> **highestBlock**: [`Quantity`](Quantity.md)
+
+Defined in: [eip1193/NetworkSync.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L47)
+
+Number of latest block on the network
+
+***
+
+### startingBlock
+
+> **startingBlock**: [`Quantity`](Quantity.md)
+
+Defined in: [eip1193/NetworkSync.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L49)
+
+Block number at which syncing started

@@ -6,7 +6,7 @@
 
 # Type Alias: ValueOf\<T\>
 
-> **ValueOf**\<`T`\>: `T`\[keyof `T`\]
+> **ValueOf**\<`T`\> = `T`\[keyof `T`\]
 
 Defined in: packages/contract/types/event/EventActionCreator.d.ts:12
 
@@ -14,6 +14,8 @@ Utility type to get the value type of an object.
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 The object type.

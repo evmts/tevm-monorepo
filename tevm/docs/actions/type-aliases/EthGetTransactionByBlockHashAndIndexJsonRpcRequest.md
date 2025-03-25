@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByBlockHashAndIndexJsonRpcRequest
 
-> **EthGetTransactionByBlockHashAndIndexJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionByBlockHashAndIndex"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
+> **EthGetTransactionByBlockHashAndIndexJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getTransactionByBlockHashAndIndex"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:136
 

@@ -18,7 +18,7 @@ Error class for [loadConfig](../functions/loadConfig.md)
 
 ### new LoadConfigError()
 
-> **new LoadConfigError**(`configFilePath`, `underlyingError`): [`LoadConfigError`](LoadConfigError.md)
+> **new LoadConfigError**(`configFilePath`, `underlyingError`): `LoadConfigError`
 
 Defined in: [bundler-packages/config/src/loadConfig.js:30](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L30)
 
@@ -34,7 +34,7 @@ Defined in: [bundler-packages/config/src/loadConfig.js:30](https://github.com/ev
 
 #### Returns
 
-[`LoadConfigError`](LoadConfigError.md)
+`LoadConfigError`
 
 #### Overrides
 

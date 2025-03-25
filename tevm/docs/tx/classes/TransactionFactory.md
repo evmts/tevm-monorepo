@@ -88,7 +88,9 @@ Note that this normalizes some of the parameters
 
 #### Type Parameters
 
-• **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
+##### T
+
+`T` *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
 #### Parameters
 
@@ -120,7 +122,9 @@ This method tries to decode serialized data.
 
 #### Type Parameters
 
-• **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
+##### T
+
+`T` *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
 #### Parameters
 
@@ -152,7 +156,9 @@ Create a transaction from a `txData` object
 
 #### Type Parameters
 
-• **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
+##### T
+
+`T` *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
 #### Parameters
 

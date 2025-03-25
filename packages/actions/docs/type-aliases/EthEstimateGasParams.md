@@ -6,7 +6,7 @@
 
 # Type Alias: EthEstimateGasParams
 
-> **EthEstimateGasParams**: [`CallParams`](CallParams.md)
+> **EthEstimateGasParams** = [`CallParams`](CallParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L82)
 

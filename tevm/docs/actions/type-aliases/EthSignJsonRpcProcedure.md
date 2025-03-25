@@ -6,7 +6,7 @@
 
 # Type Alias: EthSignJsonRpcProcedure()
 
-> **EthSignJsonRpcProcedure**: (`request`) => `Promise`\<[`EthSignJsonRpcResponse`](EthSignJsonRpcResponse.md)\>
+> **EthSignJsonRpcProcedure** = (`request`) => `Promise`\<[`EthSignJsonRpcResponse`](EthSignJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:34
 

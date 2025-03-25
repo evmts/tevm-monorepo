@@ -46,7 +46,7 @@ try {
 
 ### new EipNotEnabledError()
 
-> **new EipNotEnabledError**(`message`?, `args`?): [`EipNotEnabledError`](EipNotEnabledError.md)
+> **new EipNotEnabledError**(`message`?, `args`?): `EipNotEnabledError`
 
 Defined in: [packages/errors/src/common/EipNotEnabledError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/common/EipNotEnabledError.js#L54)
 
@@ -68,11 +68,11 @@ Additional parameters for the error.
 
 #### Returns
 
-[`EipNotEnabledError`](EipNotEnabledError.md)
+`EipNotEnabledError`
 
 #### Overrides
 
-[`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructors)
+[`ExecutionError`](ExecutionError.md).[`constructor`](ExecutionError.md#constructor)
 
 ## Properties
 
@@ -148,7 +148,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message-1)
+[`ExecutionError`](ExecutionError.md).[`message`](ExecutionError.md#message)
 
 ***
 
@@ -307,6 +307,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`ExecutionError`](ExecutionError.md).[`captureStackTrace`](ExecutionError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

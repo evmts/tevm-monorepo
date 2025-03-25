@@ -6,7 +6,7 @@
 
 # Type Alias: LoadStateHandler()
 
-> **LoadStateHandler**: (`params`) => `Promise`\<[`LoadStateResult`](../../index/type-aliases/LoadStateResult.md)\>
+> **LoadStateHandler** = (`params`) => `Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
 
 Defined in: packages/actions/types/LoadState/LoadStateHandlerType.d.ts:39
 
@@ -24,7 +24,7 @@ The parameters for loading the state.
 
 ## Returns
 
-`Promise`\<[`LoadStateResult`](../../index/type-aliases/LoadStateResult.md)\>
+`Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
 
 The result of the load state operation.
 

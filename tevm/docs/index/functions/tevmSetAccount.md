@@ -6,7 +6,7 @@
 
 # Function: tevmSetAccount()
 
-> **tevmSetAccount**(`client`, `params`): `Promise`\<[`SetAccountResult`](../type-aliases/SetAccountResult.md)\<[`TevmSetAccountError`](../type-aliases/TevmSetAccountError.md)\>\>
+> **tevmSetAccount**(`client`, `params`): `Promise`\<[`SetAccountResult`](../../actions/type-aliases/SetAccountResult.md)\<[`TevmSetAccountError`](../../actions/type-aliases/TevmSetAccountError.md)\>\>
 
 Defined in: packages/memory-client/types/tevmSetAccount.d.ts:1
 
@@ -18,8 +18,8 @@ Defined in: packages/memory-client/types/tevmSetAccount.d.ts:1
 
 ### params
 
-[`SetAccountParams`](../type-aliases/SetAccountParams.md)\<`boolean`\>
+[`SetAccountParams`](../../actions/type-aliases/SetAccountParams.md)\<`boolean`\>
 
 ## Returns
 
-`Promise`\<[`SetAccountResult`](../type-aliases/SetAccountResult.md)\<[`TevmSetAccountError`](../type-aliases/TevmSetAccountError.md)\>\>
+`Promise`\<[`SetAccountResult`](../../actions/type-aliases/SetAccountResult.md)\<[`TevmSetAccountError`](../../actions/type-aliases/TevmSetAccountError.md)\>\>

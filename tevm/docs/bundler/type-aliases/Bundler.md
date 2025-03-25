@@ -6,7 +6,7 @@
 
 # Type Alias: Bundler
 
-> **Bundler**: `Bundler`
+> **Bundler** = `Bundler`
 
 Defined in: bundler-packages/base-bundler/types/src/index.d.ts:10
 

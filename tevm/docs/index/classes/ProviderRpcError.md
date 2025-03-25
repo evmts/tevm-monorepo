@@ -16,7 +16,7 @@ Defined in: packages/node/dist/index.d.ts:24
 
 ### new ProviderRpcError()
 
-> **new ProviderRpcError**(`code`, `message`): [`ProviderRpcError`](ProviderRpcError.md)
+> **new ProviderRpcError**(`code`, `message`): `ProviderRpcError`
 
 Defined in: packages/node/dist/index.d.ts:27
 
@@ -32,7 +32,7 @@ Defined in: packages/node/dist/index.d.ts:27
 
 #### Returns
 
-[`ProviderRpcError`](ProviderRpcError.md)
+`ProviderRpcError`
 
 #### Overrides
 
@@ -150,26 +150,54 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 ### captureStackTrace()
 
+#### Call Signature
+
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-##### targetObject
+###### targetObject
 
 `object`
 
-##### constructorOpt?
+###### constructorOpt?
 
 `Function`
 
-#### Returns
+##### Returns
 
 `void`
 
-#### Inherited from
+##### Inherited from
+
+`Error.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
 
 `Error.captureStackTrace`

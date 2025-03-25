@@ -6,7 +6,7 @@
 
 # Type Alias: TevmContract()
 
-> **TevmContract**: \<`TAbi`, `TFunctionName`\>(`client`, `params`) => `Promise`\<`ContractResult`\<`TAbi`, `TFunctionName`\>\>
+> **TevmContract** = \<`TAbi`, `TFunctionName`\>(`client`, `params`) => `Promise`\<`ContractResult`\<`TAbi`, `TFunctionName`\>\>
 
 Defined in: [packages/memory-client/src/TevmContractType.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmContractType.ts#L50)
 
@@ -16,11 +16,15 @@ This type reuses the viem `contractRead`/`contractWrite` API to encode ABI, func
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+### TAbi
+
+`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
 The ABI of the contract.
 
-• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+### TFunctionName
+
+`TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
 
 The name of the contract function.
 

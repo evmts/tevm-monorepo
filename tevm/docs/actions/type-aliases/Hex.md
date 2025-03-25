@@ -6,7 +6,7 @@
 
 # Type Alias: Hex
 
-> **Hex**: `` `0x${string}` ``
+> **Hex** = `` `0x${string}` ``
 
 Defined in: packages/actions/types/common/Hex.d.ts:6
 

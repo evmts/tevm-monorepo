@@ -6,7 +6,7 @@
 
 # Type Alias: DeployHandler()
 
-> **DeployHandler**: \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](../../index/type-aliases/DeployResult.md)\>
+> **DeployHandler** = \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](DeployResult.md)\>
 
 Defined in: packages/actions/types/Deploy/DeployHandlerType.d.ts:44
 
@@ -15,19 +15,27 @@ This handler is used to deploy a contract by specifying the deployment parameter
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 Indicates whether to throw an error on failure.
 
-• **TAbi** *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
+### TAbi
+
+`TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] = [`Abi`](../../index/type-aliases/Abi.md)
 
 The ABI type of the contract.
 
-• **THasConstructor** = `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`Abi`](../../index/type-aliases/Abi.md) *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
+### THasConstructor
+
+`THasConstructor` = `TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) ? [`Abi`](../../index/type-aliases/Abi.md) *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
 
 Indicates whether the contract has a constructor.
 
-• **TAllArgs** = [`ContractConstructorArgs`](../../utils/type-aliases/ContractConstructorArgs.md)\<`TAbi`\>
+### TAllArgs
+
+`TAllArgs` = [`ContractConstructorArgs`](../../utils/type-aliases/ContractConstructorArgs.md)\<`TAbi`\>
 
 The types of the constructor arguments.
 
@@ -35,13 +43,13 @@ The types of the constructor arguments.
 
 ### action
 
-[`DeployParams`](../../index/type-aliases/DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> & [`CallEvents`](CallEvents.md)
+[`DeployParams`](DeployParams.md)\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> & [`CallEvents`](CallEvents.md)
 
 The deployment parameters and optional event handlers.
 
 ## Returns
 
-`Promise`\<[`DeployResult`](../../index/type-aliases/DeployResult.md)\>
+`Promise`\<[`DeployResult`](DeployResult.md)\>
 
 The result of the deployment.
 

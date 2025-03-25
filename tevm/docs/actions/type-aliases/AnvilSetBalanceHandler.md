@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetBalanceHandler()
 
-> **AnvilSetBalanceHandler**: (`params`) => `Promise`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>
+> **AnvilSetBalanceHandler** = (`params`) => `Promise`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:9
 

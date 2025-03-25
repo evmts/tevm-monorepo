@@ -6,7 +6,7 @@
 
 # Type Alias: EthSignTransactionHandler()
 
-> **EthSignTransactionHandler**: (`request`) => `Promise`\<[`EthSignTransactionResult`](EthSignTransactionResult.md)\>
+> **EthSignTransactionHandler** = (`request`) => `Promise`\<[`EthSignTransactionResult`](EthSignTransactionResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:35
 

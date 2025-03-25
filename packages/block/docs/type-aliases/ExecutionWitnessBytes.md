@@ -6,7 +6,7 @@
 
 # Type Alias: ExecutionWitnessBytes
 
-> **ExecutionWitnessBytes**: `Uint8Array`
+> **ExecutionWitnessBytes** = `Uint8Array`
 
 Defined in: [packages/block/src/types.ts:286](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L286)
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByBlockHashAndIndexResult
 
-> **EthGetTransactionByBlockHashAndIndexResult**: [`TransactionResult`](TransactionResult.md)
+> **EthGetTransactionByBlockHashAndIndexResult** = [`TransactionResult`](TransactionResult.md)
 
 Defined in: [packages/actions/src/eth/EthResult.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L143)
 

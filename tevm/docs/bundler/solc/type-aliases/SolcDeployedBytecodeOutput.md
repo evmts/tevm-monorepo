@@ -6,15 +6,17 @@
 
 # Type Alias: SolcDeployedBytecodeOutput
 
-> **SolcDeployedBytecodeOutput**: `object`
+> **SolcDeployedBytecodeOutput** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:173
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:292
 
-## Type declaration
+## Properties
 
 ### immutableReferences
 
 > **immutableReferences**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:293
 
 #### Index Signature
 

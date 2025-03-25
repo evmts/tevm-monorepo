@@ -6,6 +6,6 @@
 
 # bundler/rollup-plugin
 
-## Functions
+## Variables
 
-- [rollupPluginTevm](functions/rollupPluginTevm.md)
+- [rollupPluginTevm](variables/rollupPluginTevm.md)

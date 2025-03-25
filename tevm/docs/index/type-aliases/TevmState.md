@@ -6,7 +6,7 @@
 
 # Type Alias: TevmState
 
-> **TevmState**: `object`
+> **TevmState** = `object`
 
 Defined in: packages/state/dist/index.d.ts:262
 

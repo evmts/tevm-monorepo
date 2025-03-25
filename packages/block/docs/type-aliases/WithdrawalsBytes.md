@@ -6,7 +6,7 @@
 
 # Type Alias: WithdrawalsBytes
 
-> **WithdrawalsBytes**: `Uint8Array`[]
+> **WithdrawalsBytes** = `Uint8Array`[]
 
 Defined in: [packages/block/src/types.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L233)
 

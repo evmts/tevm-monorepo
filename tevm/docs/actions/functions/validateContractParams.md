@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Contract/validateContractParams.d.ts:1
 
 ### action
 
-[`ContractParams`](../../index/type-aliases/ContractParams.md)\<[`Abi`](../../index/type-aliases/Abi.md), `string`, `boolean`\>
+[`ContractParams`](../type-aliases/ContractParams.md)\<[`Abi`](../../index/type-aliases/Abi.md), `string`, `boolean`\>
 
 ## Returns
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByHashJsonRpcProcedure()
 
-> **EthGetTransactionByHashJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
+> **EthGetTransactionByHashJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:24
 

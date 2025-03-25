@@ -6,7 +6,7 @@
 
 # Type Alias: UncleHeadersBytes
 
-> **UncleHeadersBytes**: `Uint8Array`[][]
+> **UncleHeadersBytes** = `Uint8Array`[][]
 
 Defined in: [packages/block/src/types.ts:416](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L416)
 

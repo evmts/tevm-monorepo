@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewPendingTransactionFilterParams
 
-> **EthNewPendingTransactionFilterParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthNewPendingTransactionFilterParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:281
 

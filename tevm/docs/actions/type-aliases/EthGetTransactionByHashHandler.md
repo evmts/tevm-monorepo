@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByHashHandler()
 
-> **EthGetTransactionByHashHandler**: (`request`) => `Promise`\<[`EthGetTransactionByHashResult`](EthGetTransactionByHashResult.md)\>
+> **EthGetTransactionByHashHandler** = (`request`) => `Promise`\<[`EthGetTransactionByHashResult`](EthGetTransactionByHashResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:24
 

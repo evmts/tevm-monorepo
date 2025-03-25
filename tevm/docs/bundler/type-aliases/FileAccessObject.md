@@ -6,7 +6,7 @@
 
 # Type Alias: FileAccessObject
 
-> **FileAccessObject**: `FileAccessObject`
+> **FileAccessObject** = `FileAccessObject`
 
 Defined in: bundler-packages/base-bundler/types/src/index.d.ts:18
 

@@ -6,16 +6,22 @@
 
 # Type Alias: SolcDebugSettings
 
-> **SolcDebugSettings**: `object`
+> **SolcDebugSettings** = `object`
 
 Defined in: [solcTypes.ts:204](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L204)
 
-## Type declaration
+## Properties
 
 ### debugInfo?
 
 > `optional` **debugInfo**: (`"location"` \| `"snippet"` \| `"*"`)[]
 
+Defined in: [solcTypes.ts:222](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L222)
+
+***
+
 ### revertStrings?
 
 > `optional` **revertStrings**: `"default"` \| `"strip"` \| `"debug"` \| `"verboseDebug"`
+
+Defined in: [solcTypes.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L211)

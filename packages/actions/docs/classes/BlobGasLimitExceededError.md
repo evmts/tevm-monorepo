@@ -18,13 +18,13 @@ Error thrown when blob gas limit is exceeded
 
 ### new BlobGasLimitExceededError()
 
-> **new BlobGasLimitExceededError**(): [`BlobGasLimitExceededError`](BlobGasLimitExceededError.md)
+> **new BlobGasLimitExceededError**(): `BlobGasLimitExceededError`
 
 Defined in: [packages/actions/src/eth/ethSendRawTransactionHandler.js:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/ethSendRawTransactionHandler.js#L34)
 
 #### Returns
 
-[`BlobGasLimitExceededError`](BlobGasLimitExceededError.md)
+`BlobGasLimitExceededError`
 
 #### Overrides
 
@@ -139,6 +139,32 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`Error.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

@@ -194,7 +194,7 @@ This api is not stable
 
 ### deepCopy()
 
-> **deepCopy**(): `Promise`\<[`StateManager`](StateManager.md)\>
+> **deepCopy**(): `Promise`\<`StateManager`\>
 
 Defined in: [packages/state/src/StateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L19)
 
@@ -202,7 +202,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Returns
 
-`Promise`\<[`StateManager`](StateManager.md)\>
+`Promise`\<`StateManager`\>
 
 ***
 

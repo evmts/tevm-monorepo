@@ -6,14 +6,16 @@
 
 # Type Alias: EthGetLogsParams
 
-> **EthGetLogsParams**: `object`
+> **EthGetLogsParams** = `object`
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:129
 
 Based on the JSON-RPC request for `eth_getLogs` procedure
 
-## Type declaration
+## Properties
 
 ### filterParams
 
 > `readonly` **filterParams**: [`FilterParams`](../../index/type-aliases/FilterParams.md)
+
+Defined in: packages/actions/types/eth/EthParams.d.ts:130

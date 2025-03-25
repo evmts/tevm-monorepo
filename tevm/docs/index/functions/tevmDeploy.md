@@ -6,7 +6,7 @@
 
 # Function: tevmDeploy()
 
-> **tevmDeploy**(`client`, `params`): `Promise`\<[`DeployResult`](../type-aliases/DeployResult.md)\>
+> **tevmDeploy**(`client`, `params`): `Promise`\<[`DeployResult`](../../actions/type-aliases/DeployResult.md)\>
 
 Defined in: packages/memory-client/types/tevmDeploy.d.ts:1
 
@@ -22,4 +22,4 @@ Defined in: packages/memory-client/types/tevmDeploy.d.ts:1
 
 ## Returns
 
-`Promise`\<[`DeployResult`](../type-aliases/DeployResult.md)\>
+`Promise`\<[`DeployResult`](../../actions/type-aliases/DeployResult.md)\>

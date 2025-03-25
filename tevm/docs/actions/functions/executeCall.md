@@ -22,7 +22,7 @@ Defined in: packages/actions/types/Call/executeCall.d.ts:1
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 
 ### events?
 

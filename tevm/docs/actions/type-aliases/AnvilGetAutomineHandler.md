@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilGetAutomineHandler()
 
-> **AnvilGetAutomineHandler**: (`params`) => `Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
+> **AnvilGetAutomineHandler** = (`params`) => `Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:5
 

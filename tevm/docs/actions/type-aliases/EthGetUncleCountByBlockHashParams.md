@@ -6,14 +6,16 @@
 
 # Type Alias: EthGetUncleCountByBlockHashParams
 
-> **EthGetUncleCountByBlockHashParams**: `object`
+> **EthGetUncleCountByBlockHashParams** = `object`
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:150
 
 Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
-## Type declaration
+## Properties
 
 ### hash
 
 > `readonly` **hash**: [`Hex`](Hex.md)
+
+Defined in: packages/actions/types/eth/EthParams.d.ts:151

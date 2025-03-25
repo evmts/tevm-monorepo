@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetStorageAtResult
 
-> **EthGetStorageAtResult**: [`Hex`](Hex.md)
+> **EthGetStorageAtResult** = [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/eth/EthResult.ts:113](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L113)
 

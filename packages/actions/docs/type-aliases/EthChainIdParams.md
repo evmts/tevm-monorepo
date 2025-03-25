@@ -6,7 +6,7 @@
 
 # Type Alias: EthChainIdParams
 
-> **EthChainIdParams**: [`EmptyParams`](EmptyParams.md)
+> **EthChainIdParams** = [`EmptyParams`](EmptyParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L71)
 

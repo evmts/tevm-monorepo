@@ -6,7 +6,7 @@
 
 # Type Alias: EthProtocolVersionParams
 
-> **EthProtocolVersionParams**: [`EmptyParams`](EmptyParams.md)
+> **EthProtocolVersionParams** = [`EmptyParams`](EmptyParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:224](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L224)
 

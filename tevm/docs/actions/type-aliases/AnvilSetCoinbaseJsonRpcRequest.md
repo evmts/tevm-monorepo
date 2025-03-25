@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetCoinbaseJsonRpcRequest
 
-> **AnvilSetCoinbaseJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setCoinbase"`, readonly \[[`Address`](../../index/type-aliases/Address.md)\]\>
+> **AnvilSetCoinbaseJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setCoinbase"`, readonly \[[`Address`](../../index/type-aliases/Address.md)\]\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:28
 

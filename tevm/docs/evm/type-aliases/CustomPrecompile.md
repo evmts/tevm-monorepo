@@ -6,7 +6,7 @@
 
 # Type Alias: CustomPrecompile
 
-> **CustomPrecompile**: `Exclude`\<`Exclude`\<`Parameters`\<*typeof* [`Evm`](../classes/Evm.md)\[`"create"`\]\>\[`0`\], `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
+> **CustomPrecompile** = `Exclude`\<`Exclude`\<`Parameters`\<*typeof* [`Evm`](../classes/Evm.md)\[`"create"`\]\>\[`0`\], `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
 
 Defined in: packages/evm/dist/index.d.ts:48
 

@@ -14,7 +14,7 @@ Defined in: packages/actions/types/GetAccount/validateGetAccountParams.d.ts:1
 
 ### action
 
-[`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)\<`boolean`\>
+[`GetAccountParams`](../type-aliases/GetAccountParams.md)\<`boolean`\>
 
 ## Returns
 

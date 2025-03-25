@@ -6,7 +6,7 @@
 
 # Type Alias: EthSendTransactionResult
 
-> **EthSendTransactionResult**: [`Hex`](Hex.md)
+> **EthSendTransactionResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:131
 

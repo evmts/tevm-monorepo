@@ -12,10 +12,13 @@
 - [JsonRpcRequest](type-aliases/JsonRpcRequest.md)
 - [JsonRpcResponse](type-aliases/JsonRpcResponse.md)
 
+## Variables
+
+- [loadBalance](variables/loadBalance.md)
+- [rateLimit](variables/rateLimit.md)
+
 ## Functions
 
 - [~~createJsonRpcFetcher~~](functions/createJsonRpcFetcher.md)
 - [http](functions/http.md)
-- [loadBalance](functions/loadBalance.md)
-- [rateLimit](functions/rateLimit.md)
 - [webSocket](functions/webSocket.md)

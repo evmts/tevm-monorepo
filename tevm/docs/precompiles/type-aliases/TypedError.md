@@ -6,31 +6,11 @@
 
 # Type Alias: TypedError\<TName\>
 
-> **TypedError**\<`TName`\>: `object`
+> **TypedError**\<`TName`\> = `object`
 
 Defined in: packages/precompiles/dist/index.d.ts:32
 
 Represents a typed error with a tag for identification
-
-## Type Parameters
-
-• **TName** *extends* `string`
-
-The string literal type that identifies this error
-
-## Type declaration
-
-### \_tag
-
-> **\_tag**: `TName`
-
-### message
-
-> **message**: `string`
-
-### name
-
-> **name**: `TName`
 
 ## Example
 
@@ -45,3 +25,35 @@ const error: MyCustomError = {
   message: 'Something went wrong'
 }
 ```
+
+## Type Parameters
+
+### TName
+
+`TName` *extends* `string`
+
+The string literal type that identifies this error
+
+## Properties
+
+### \_tag
+
+> **\_tag**: `TName`
+
+Defined in: packages/precompiles/dist/index.d.ts:33
+
+***
+
+### message
+
+> **message**: `string`
+
+Defined in: packages/precompiles/dist/index.d.ts:35
+
+***
+
+### name
+
+> **name**: `TName`
+
+Defined in: packages/precompiles/dist/index.d.ts:34

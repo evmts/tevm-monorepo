@@ -6,7 +6,7 @@
 
 # Type Alias: TransactionsBytes
 
-> **TransactionsBytes**: `Uint8Array`[][] \| `Uint8Array`[]
+> **TransactionsBytes** = `Uint8Array`[][] \| `Uint8Array`[]
 
 Defined in: packages/block/types/types.d.ts:372
 

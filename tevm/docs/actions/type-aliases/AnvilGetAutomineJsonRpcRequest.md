@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilGetAutomineJsonRpcRequest
 
-> **AnvilGetAutomineJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_getAutomine"`, \[`SerializeToJson`\<[`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)\>\]\>
+> **AnvilGetAutomineJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_getAutomine"`, \[`SerializeToJson`\<[`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)\>\]\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:21
 

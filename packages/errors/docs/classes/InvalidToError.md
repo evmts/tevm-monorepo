@@ -42,7 +42,7 @@ try {
 
 ### new InvalidToError()
 
-> **new InvalidToError**(`message`, `args`?): [`InvalidToError`](InvalidToError.md)
+> **new InvalidToError**(`message`, `args`?): `InvalidToError`
 
 Defined in: [packages/errors/src/input/InvalidToError.js:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidToError.js#L50)
 
@@ -64,11 +64,11 @@ Additional parameters for the InvalidToError.
 
 #### Returns
 
-[`InvalidToError`](InvalidToError.md)
+`InvalidToError`
 
 #### Overrides
 
-[`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructors)
+[`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructor)
 
 ## Properties
 
@@ -144,7 +144,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message-1)
+[`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message)
 
 ***
 
@@ -303,6 +303,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

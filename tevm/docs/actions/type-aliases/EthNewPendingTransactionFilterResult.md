@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewPendingTransactionFilterResult
 
-> **EthNewPendingTransactionFilterResult**: [`Hex`](Hex.md)
+> **EthNewPendingTransactionFilterResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:170
 

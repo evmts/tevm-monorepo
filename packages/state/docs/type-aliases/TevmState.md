@@ -6,7 +6,7 @@
 
 # Type Alias: TevmState
 
-> **TevmState**: `object`
+> **TevmState** = `object`
 
 Defined in: [packages/state/src/state-types/TevmState.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/TevmState.ts#L21)
 

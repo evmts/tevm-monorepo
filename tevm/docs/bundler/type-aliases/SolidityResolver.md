@@ -6,7 +6,7 @@
 
 # Type Alias: SolidityResolver
 
-> **SolidityResolver**: `SolidityResolver`
+> **SolidityResolver** = `SolidityResolver`
 
 Defined in: bundler-packages/base-bundler/types/src/index.d.ts:26
 

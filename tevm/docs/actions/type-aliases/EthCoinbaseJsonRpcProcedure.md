@@ -6,7 +6,7 @@
 
 # Type Alias: EthCoinbaseJsonRpcProcedure()
 
-> **EthCoinbaseJsonRpcProcedure**: (`request`) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
+> **EthCoinbaseJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:7
 

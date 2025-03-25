@@ -6,7 +6,7 @@
 
 # Type Alias: SolcOutputSelection
 
-> **SolcOutputSelection**: `object`
+> **SolcOutputSelection** = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:35
 

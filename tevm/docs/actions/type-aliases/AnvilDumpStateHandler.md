@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilDumpStateHandler()
 
-> **AnvilDumpStateHandler**: (`params`) => `Promise`\<[`AnvilDumpStateResult`](AnvilDumpStateResult.md)\>
+> **AnvilDumpStateHandler** = (`params`) => `Promise`\<[`AnvilDumpStateResult`](AnvilDumpStateResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:14
 

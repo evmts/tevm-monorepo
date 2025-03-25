@@ -6,7 +6,7 @@
 
 # Type Alias: EthHashrateJsonRpcProcedure()
 
-> **EthHashrateJsonRpcProcedure**: (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
+> **EthHashrateJsonRpcProcedure** = (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:9
 

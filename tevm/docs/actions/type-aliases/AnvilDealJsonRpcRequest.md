@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilDealJsonRpcRequest
 
-> **AnvilDealJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_deal"`, \[`SerializeToJson`\<[`AnvilDealParams`](AnvilDealParams.md)\>\]\>
+> **AnvilDealJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_deal"`, \[`SerializeToJson`\<[`AnvilDealParams`](AnvilDealParams.md)\>\]\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:78
 

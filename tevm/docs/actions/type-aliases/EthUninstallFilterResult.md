@@ -6,7 +6,7 @@
 
 # Type Alias: EthUninstallFilterResult
 
-> **EthUninstallFilterResult**: `boolean`
+> **EthUninstallFilterResult** = `boolean`
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:174
 

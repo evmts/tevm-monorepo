@@ -14,7 +14,7 @@ The basic trie interface, use with `import { Trie } from '@ethereumjs/trie'`.
 
 ### new Trie()
 
-> **new Trie**(`opts`?): [`Trie`](Trie.md)
+> **new Trie**(`opts`?): `Trie`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:30
 
@@ -28,11 +28,11 @@ Creates a new trie.
 
 Options for instantiating the trie
 
-Note: in most cases, the static [Trie.create](Trie.md#create) constructor should be used.  It uses the same API but provides sensible defaults
+Note: in most cases, the static [Trie.create](#create) constructor should be used.  It uses the same API but provides sensible defaults
 
 #### Returns
 
-[`Trie`](Trie.md)
+`Trie`
 
 ## Properties
 
@@ -277,7 +277,7 @@ If not during a checkpoint phase
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:93
 
-Creates a proof from a trie and key that can be verified using [Trie.verifyProof](Trie.md#verifyproof-2). An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains
+Creates a proof from a trie and key that can be verified using [Trie.verifyProof](#verifyproof-2). An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains
 the encoded trie nodes from the root node to the leaf node storing state data. The returned proof will be in the format of an array that contains Uint8Arrays of
 serialized branch, extension, and/or leaf nodes.
 
@@ -636,7 +636,7 @@ a stack of levelup operations to commit at the end of this function
 
 ### shallowCopy()
 
-> **shallowCopy**(`includeCheckpoints`?, `opts`?): [`Trie`](Trie.md)
+> **shallowCopy**(`includeCheckpoints`?, `opts`?): `Trie`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:260
 
@@ -664,7 +664,7 @@ If true and during a checkpoint, the copy will contain the checkpointing metadat
 
 #### Returns
 
-[`Trie`](Trie.md)
+`Trie`
 
 ***
 
@@ -674,7 +674,7 @@ If true and during a checkpoint, the copy will contain the checkpointing metadat
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:102
 
-Updates a trie from a proof by putting all the nodes in the proof into the trie. If a trie is being updated with multiple proofs, {@param shouldVerifyRoot} can
+Updates a trie from a proof by putting all the nodes in the proof into the trie. If a trie is being updated with multiple proofs, shouldVerifyRoot can
 be passed as false in order to not immediately throw on an unexpected root, so that root verification can happen after all proofs and their nodes have been added.
 An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encoded trie nodes from the root node to the leaf node storing state data.
 
@@ -761,7 +761,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs
 
 A range proof is a proof that includes the encoded trie nodes from the root node to leaf node for one or more branches of a trie,
 allowing an entire range of leaf nodes to be validated. This is useful in applications such as snap sync where contiguous ranges
-of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](Trie.md#verifyrangeproof-2). A static
+of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](#verifyrangeproof-2). A static
 version of this function also exists.
 
 #### Parameters
@@ -888,7 +888,7 @@ Resolves when finished walking trie.
 
 ### create()
 
-> `static` **create**(`opts`?): `Promise`\<[`Trie`](Trie.md)\>
+> `static` **create**(`opts`?): `Promise`\<`Trie`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:121
 
@@ -900,13 +900,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs
 
 #### Returns
 
-`Promise`\<[`Trie`](Trie.md)\>
+`Promise`\<`Trie`\>
 
 ***
 
 ### createFromProof()
 
-> `static` **createFromProof**(`proof`, `trieOpts`?, `shouldVerifyRoot`?): `Promise`\<[`Trie`](Trie.md)\>
+> `static` **createFromProof**(`proof`, `trieOpts`?, `shouldVerifyRoot`?): `Promise`\<`Trie`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:39
 
@@ -935,7 +935,7 @@ If `true`, verifies that the root key of the proof matches the trie root. Throws
 
 #### Returns
 
-`Promise`\<[`Trie`](Trie.md)\>
+`Promise`\<`Trie`\>
 
 new trie created from given proof
 
@@ -943,7 +943,7 @@ new trie created from given proof
 
 ### ~~fromProof()~~
 
-> `static` **fromProof**(`proof`, `opts`?): `Promise`\<[`Trie`](Trie.md)\>
+> `static` **fromProof**(`proof`, `opts`?): `Promise`\<`Trie`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:72
 
@@ -964,7 +964,7 @@ An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains the encode
 
 #### Returns
 
-`Promise`\<[`Trie`](Trie.md)\>
+`Promise`\<`Trie`\>
 
 #### Deprecated
 
@@ -1021,7 +1021,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs
 
 A range proof is a proof that includes the encoded trie nodes from the root node to leaf node for one or more branches of a trie,
 allowing an entire range of leaf nodes to be validated. This is useful in applications such as snap sync where contiguous ranges
-of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](Trie.md#verifyrangeproof-2). A static
+of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](#verifyrangeproof-2). A static
 version of this function also exists.
 
 #### Parameters

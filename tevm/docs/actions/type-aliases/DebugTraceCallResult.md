@@ -6,24 +6,38 @@
 
 # Type Alias: DebugTraceCallResult
 
-> **DebugTraceCallResult**: `object`
+> **DebugTraceCallResult** = `object`
 
 Defined in: packages/actions/types/debug/DebugResult.d.ts:16
 
-## Type declaration
+## Properties
 
 ### failed
 
 > **failed**: `boolean`
 
+Defined in: packages/actions/types/debug/DebugResult.d.ts:17
+
+***
+
 ### gas
 
 > **gas**: `bigint`
+
+Defined in: packages/actions/types/debug/DebugResult.d.ts:18
+
+***
 
 ### returnValue
 
 > **returnValue**: [`Hex`](Hex.md)
 
+Defined in: packages/actions/types/debug/DebugResult.d.ts:19
+
+***
+
 ### structLogs
 
 > **structLogs**: [`StructLog`](StructLog.md)[]
+
+Defined in: packages/actions/types/debug/DebugResult.d.ts:20

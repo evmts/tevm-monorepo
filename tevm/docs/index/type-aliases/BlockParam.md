@@ -6,6 +6,6 @@
 
 # Type Alias: BlockParam
 
-> **BlockParam**: [`BlockTag`](../../actions/type-aliases/BlockTag.md) \| [`Hex`](Hex.md) \| `bigint`
+> **BlockParam** = [`BlockTag`](../../actions/type-aliases/BlockTag.md) \| [`Hex`](Hex.md) \| `bigint`
 
 Defined in: packages/actions/types/common/BlockParam.d.ts:3

@@ -12,7 +12,9 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 ## Type Parameters
 
-• **params** *extends* readonly `unknown`[] \| readonly `AbiParameter`[]
+### params
+
+`params` *extends* readonly `unknown`[] \| readonly `AbiParameter`[]
 
 a set of ABI Parameters (params), that can be in the shape of the inputs or outputs attribute of an ABI Item.
 

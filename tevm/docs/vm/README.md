@@ -50,26 +50,26 @@
 
 ## Variables
 
+- [accumulateParentBeaconBlockRoot](variables/accumulateParentBeaconBlockRoot.md)
+- [accumulateParentBlockHash](variables/accumulateParentBlockHash.md)
+- [applyBlock](variables/applyBlock.md)
+- [applyTransactions](variables/applyTransactions.md)
+- [assignBlockRewards](variables/assignBlockRewards.md)
+- [assignWithdrawals](variables/assignWithdrawals.md)
+- [buildBlock](variables/buildBlock.md)
 - [DAOConfig](variables/DAOConfig.md)
+- [generateTxReceipt](variables/generateTxReceipt.md)
 - [KECCAK256\_NULL](variables/KECCAK256_NULL.md)
 - [parentBeaconBlockRootAddress](variables/parentBeaconBlockRootAddress.md)
 
 ## Functions
 
-- [accumulateParentBeaconBlockRoot](functions/accumulateParentBeaconBlockRoot.md)
-- [accumulateParentBlockHash](functions/accumulateParentBlockHash.md)
-- [applyBlock](functions/applyBlock.md)
 - [applyDAOHardfork](functions/applyDAOHardfork.md)
-- [applyTransactions](functions/applyTransactions.md)
-- [assignBlockRewards](functions/assignBlockRewards.md)
-- [assignWithdrawals](functions/assignWithdrawals.md)
-- [buildBlock](functions/buildBlock.md)
 - [calculateMinerReward](functions/calculateMinerReward.md)
 - [calculateOmmerReward](functions/calculateOmmerReward.md)
 - [createVm](functions/createVm.md)
 - [deepCopy](functions/deepCopy.md)
 - [execHardfork](functions/execHardfork.md)
-- [generateTxReceipt](functions/generateTxReceipt.md)
 - [genTxTrie](functions/genTxTrie.md)
 - [rewardAccount](functions/rewardAccount.md)
 - [txLogsBloom](functions/txLogsBloom.md)

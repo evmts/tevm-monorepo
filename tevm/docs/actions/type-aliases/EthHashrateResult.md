@@ -6,7 +6,7 @@
 
 # Type Alias: EthHashrateResult
 
-> **EthHashrateResult**: [`Hex`](Hex.md)
+> **EthHashrateResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:35
 

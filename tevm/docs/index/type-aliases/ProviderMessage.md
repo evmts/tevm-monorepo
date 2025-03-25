@@ -6,16 +6,22 @@
 
 # Type Alias: ProviderMessage
 
-> **ProviderMessage**: `object`
+> **ProviderMessage** = `object`
 
 Defined in: packages/node/dist/index.d.ts:20
 
-## Type declaration
+## Properties
 
 ### data
 
 > **data**: `unknown`
 
+Defined in: packages/node/dist/index.d.ts:22
+
+***
+
 ### type
 
 > **type**: `string`
+
+Defined in: packages/node/dist/index.d.ts:21

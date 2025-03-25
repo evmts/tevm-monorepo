@@ -6,13 +6,15 @@
 
 # Type Alias: Extension()\<TExtended\>
 
-> **Extension**\<`TExtended`\>: (`client`) => `TExtended`
+> **Extension**\<`TExtended`\> = (`client`) => `TExtended`
 
 Defined in: [packages/node/src/Extension.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Extension.ts#L3)
 
 ## Type Parameters
 
-• **TExtended**
+### TExtended
+
+`TExtended`
 
 ## Parameters
 

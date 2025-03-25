@@ -6,7 +6,7 @@
 
 # Type Alias: JsonSerializableArray
 
-> **JsonSerializableArray**: `ReadonlyArray`\<[`JsonSerializable`](JsonSerializable.md)\>
+> **JsonSerializableArray** = `ReadonlyArray`\<[`JsonSerializable`](JsonSerializable.md)\>
 
 Defined in: packages/utils/types/SerializeToJson.d.ts:9
 

@@ -6,7 +6,7 @@
 
 # Type Alias: DebugTraceTransactionParams\<TThrowOnError\>
 
-> **DebugTraceTransactionParams**\<`TThrowOnError`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnError`\> & [`TraceParams`](TraceParams.md) & `object`
+> **DebugTraceTransactionParams**\<`TThrowOnError`\> = [`BaseParams`](BaseParams.md)\<`TThrowOnError`\> & [`TraceParams`](TraceParams.md) & `object`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L46)
 
@@ -22,4 +22,6 @@ The transaction hash
 
 ## Type Parameters
 
-• **TThrowOnError** *extends* `boolean` = `boolean`
+### TThrowOnError
+
+`TThrowOnError` *extends* `boolean` = `boolean`

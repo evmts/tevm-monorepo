@@ -6,7 +6,7 @@
 
 # Function: requestProcedure()
 
-> **requestProcedure**(`client`): [`TevmJsonRpcRequestHandler`](../../index/type-aliases/TevmJsonRpcRequestHandler.md)
+> **requestProcedure**(`client`): [`TevmJsonRpcRequestHandler`](../type-aliases/TevmJsonRpcRequestHandler.md)
 
 Defined in: packages/actions/types/requestProcedure.d.ts:1
 
@@ -18,4 +18,4 @@ Defined in: packages/actions/types/requestProcedure.d.ts:1
 
 ## Returns
 
-[`TevmJsonRpcRequestHandler`](../../index/type-aliases/TevmJsonRpcRequestHandler.md)
+[`TevmJsonRpcRequestHandler`](../type-aliases/TevmJsonRpcRequestHandler.md)

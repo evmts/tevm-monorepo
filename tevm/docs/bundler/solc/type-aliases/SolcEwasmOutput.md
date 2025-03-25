@@ -6,16 +6,22 @@
 
 # Type Alias: SolcEwasmOutput
 
-> **SolcEwasmOutput**: `object`
+> **SolcEwasmOutput** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:207
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:326
 
-## Type declaration
+## Properties
 
 ### wasm
 
 > **wasm**: `string`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:328
+
+***
+
 ### wast
 
 > **wast**: `string`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:327

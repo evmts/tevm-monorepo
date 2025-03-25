@@ -6,7 +6,7 @@
 
 # Type Alias: EthChainIdResult
 
-> **EthChainIdResult**: `bigint`
+> **EthChainIdResult** = `bigint`
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:23
 

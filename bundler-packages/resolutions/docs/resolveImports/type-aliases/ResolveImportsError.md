@@ -6,7 +6,7 @@
 
 # Type Alias: ResolveImportsError
 
-> **ResolveImportsError**\<\>: `ImportDoesNotExistError` \| `CouldNotResolveImportError`
+> **ResolveImportsError**\<\> = `ImportDoesNotExistError` \| `CouldNotResolveImportError`
 
 Defined in: [resolveImports.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/resolutions/src/resolveImports.js#L20)
 

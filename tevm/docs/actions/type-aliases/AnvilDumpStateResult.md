@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilDumpStateResult
 
-> **AnvilDumpStateResult**: [`Hex`](Hex.md)
+> **AnvilDumpStateResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:13

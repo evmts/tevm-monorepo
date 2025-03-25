@@ -6,7 +6,7 @@
 
 # Type Alias: EthProtocolVersionHandler()
 
-> **EthProtocolVersionHandler**: (`request`) => `Promise`\<[`EthProtocolVersionResult`](EthProtocolVersionResult.md)\>
+> **EthProtocolVersionHandler** = (`request`) => `Promise`\<[`EthProtocolVersionResult`](EthProtocolVersionResult.md)\>
 
 Defined in: [packages/actions/src/eth/EthHandler.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L161)
 

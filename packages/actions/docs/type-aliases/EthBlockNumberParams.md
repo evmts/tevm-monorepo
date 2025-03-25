@@ -6,7 +6,7 @@
 
 # Type Alias: EthBlockNumberParams
 
-> **EthBlockNumberParams**: [`EmptyParams`](EmptyParams.md)
+> **EthBlockNumberParams** = [`EmptyParams`](EmptyParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L21)
 

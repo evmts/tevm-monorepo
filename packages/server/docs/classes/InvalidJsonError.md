@@ -41,7 +41,7 @@ Additional parameters for the InvalidJsonError.
 
 ### new InvalidJsonError()
 
-> **new InvalidJsonError**(`message`, `args`?): [`InvalidJsonError`](InvalidJsonError.md)
+> **new InvalidJsonError**(`message`, `args`?): `InvalidJsonError`
 
 Defined in: [packages/server/src/errors/InvalidJsonError.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/InvalidJsonError.js#L47)
 
@@ -63,7 +63,7 @@ Additional parameters for the InvalidJsonError.
 
 #### Returns
 
-[`InvalidJsonError`](InvalidJsonError.md)
+`InvalidJsonError`
 
 #### Overrides
 
@@ -294,6 +294,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`BaseError.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

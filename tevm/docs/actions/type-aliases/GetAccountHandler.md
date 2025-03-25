@@ -6,7 +6,7 @@
 
 # Type Alias: GetAccountHandler()
 
-> **GetAccountHandler**: (`params`) => `Promise`\<[`GetAccountResult`](../../index/type-aliases/GetAccountResult.md)\>
+> **GetAccountHandler** = (`params`) => `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 
 Defined in: packages/actions/types/GetAccount/GetAccountHandlerType.d.ts:20
 
@@ -17,11 +17,11 @@ This handler is for use with a low-level TEVM `TevmNode`, unlike `tevmGetAccount
 
 ### params
 
-[`GetAccountParams`](../../index/type-aliases/GetAccountParams.md)
+[`GetAccountParams`](GetAccountParams.md)
 
 ## Returns
 
-`Promise`\<[`GetAccountResult`](../../index/type-aliases/GetAccountResult.md)\>
+`Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 
 ## Example
 

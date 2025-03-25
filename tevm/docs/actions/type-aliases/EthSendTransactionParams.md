@@ -6,7 +6,7 @@
 
 # Type Alias: EthSendTransactionParams
 
-> **EthSendTransactionParams**: [`CallParams`](../../index/type-aliases/CallParams.md)
+> **EthSendTransactionParams** = [`CallParams`](CallParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:219
 

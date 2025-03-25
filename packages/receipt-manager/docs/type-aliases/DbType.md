@@ -6,7 +6,7 @@
 
 # Type Alias: DbType
 
-> **DbType**: `"Receipts"` \| `"TxHash"` \| `"SkeletonBlock"` \| `"SkeletonBlockHashToNumber"` \| `"SkeletonStatus"` \| `"SkeletonUnfinalizedBlockByHash"` \| `"Preimage"`
+> **DbType** = `"Receipts"` \| `"TxHash"` \| `"SkeletonBlock"` \| `"SkeletonBlockHashToNumber"` \| `"SkeletonStatus"` \| `"SkeletonUnfinalizedBlockByHash"` \| `"Preimage"`
 
 Defined in: [MapDb.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/MapDb.ts#L7)
 

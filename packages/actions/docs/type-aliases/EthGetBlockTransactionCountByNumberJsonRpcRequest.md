@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBlockTransactionCountByNumberJsonRpcRequest
 
-> **EthGetBlockTransactionCountByNumberJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getBlockTransactionCountByNumber"`, readonly \[`BlockTag` \| `Hex`\]\>
+> **EthGetBlockTransactionCountByNumberJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getBlockTransactionCountByNumber"`, readonly \[`BlockTag` \| `Hex`\]\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L126)
 

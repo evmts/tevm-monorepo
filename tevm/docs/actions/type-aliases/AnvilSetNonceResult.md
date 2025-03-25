@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilSetNonceResult
 
-> **AnvilSetNonceResult**: `null`
+> **AnvilSetNonceResult** = `null`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:10

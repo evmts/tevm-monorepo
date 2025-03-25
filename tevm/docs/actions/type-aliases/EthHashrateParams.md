@@ -6,7 +6,7 @@
 
 # Type Alias: EthHashrateParams
 
-> **EthHashrateParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthHashrateParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:69
 

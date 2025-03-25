@@ -6,7 +6,7 @@
 
 # Type Alias: ~~ViemTevmOptimisticExtension()~~
 
-> **ViemTevmOptimisticExtension**: () => [`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
+> **ViemTevmOptimisticExtension** = () => [`ViemTevmOptimisticClientDecorator`](ViemTevmOptimisticClientDecorator.md)
 
 Defined in: [extensions/viem/src/ViemTevmOptimisticExtension.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticExtension.ts#L22)
 

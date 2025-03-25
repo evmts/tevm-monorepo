@@ -6,7 +6,7 @@
 
 # Type Alias: StateCache
 
-> **StateCache**: `object`
+> **StateCache** = `object`
 
 Defined in: packages/state/dist/index.d.ts:178
 
@@ -14,16 +14,26 @@ Defined in: packages/state/dist/index.d.ts:178
 
 The shape of the internal cache
 
-## Type declaration
+## Properties
 
 ### accounts
 
 > **accounts**: [`AccountCache`](../classes/AccountCache.md)
 
+Defined in: packages/state/dist/index.d.ts:179
+
+***
+
 ### contracts
 
 > **contracts**: [`ContractCache`](../classes/ContractCache.md)
 
+Defined in: packages/state/dist/index.d.ts:181
+
+***
+
 ### storage
 
 > **storage**: [`StorageCache`](../classes/StorageCache.md)
+
+Defined in: packages/state/dist/index.d.ts:180

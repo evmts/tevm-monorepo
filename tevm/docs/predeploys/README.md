@@ -14,7 +14,7 @@
 
 ### definePredeploy
 
-Re-exports [definePredeploy](../index/functions/definePredeploy.md)
+Re-exports [definePredeploy](../index/variables/definePredeploy.md)
 
 ***
 

@@ -6,6 +6,6 @@
 
 # bundler/esbuild-plugin
 
-## Functions
+## Variables
 
-- [esbuildPluginTevm](functions/esbuildPluginTevm.md)
+- [esbuildPluginTevm](variables/esbuildPluginTevm.md)

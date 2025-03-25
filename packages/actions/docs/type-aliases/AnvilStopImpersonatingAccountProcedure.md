@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilStopImpersonatingAccountProcedure()
 
-> **AnvilStopImpersonatingAccountProcedure**: (`request`) => `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](AnvilStopImpersonatingAccountJsonRpcResponse.md)\>
+> **AnvilStopImpersonatingAccountProcedure** = (`request`) => `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](AnvilStopImpersonatingAccountJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L50)
 

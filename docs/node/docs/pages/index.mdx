@@ -6,197 +6,289 @@ import { Button, HomePage } from "vocs/components";
 import { Card } from "../../components";
 
 <HomePage.Root>
-  <div style={{ textAlign: 'center', margin: '0 auto', maxWidth: '200px' }}>
+  <div className="animate-fade-in-down" style={{ textAlign: 'center', margin: '0 auto 2rem', maxWidth: '200px' }}>
     <img
       src="/tevm-logo-dark.png"
       alt="Tevm Logo"
+      className="transform transition-transform hover:scale-105 duration-300"
       style={{ width: '100%', height: 'auto' }}
     />
   </div>
-  <HomePage.Tagline>Ethereum Node for Viem</HomePage.Tagline>
-  <HomePage.InstallPackage name="tevm" type="install" />
-
-{" "}
-
-<HomePage.Description>
-  An Ethereum Node built to run in Browser, Bun, Deno, and Node.js
-</HomePage.Description>
-
-
-{" "}
-
-  <div className="code-snippet" style={{
-    maxWidth: '600px',
-    margin: '1.5rem 0',
-    backgroundColor: 'var(--vocs-color_background2)',
-    borderRadius: 'var(--vocs-borderRadius_4)',
-    padding: '1rem',
-    overflow: 'auto',
-    textAlign: 'left'
-  }}>
-    ```ts
-    // @noErrors
-    // Runs in browsers, Node.js, Deno, Bun and beyond
-    // Zero native dependencies
-    import { createMemoryClient } from "tevm";
-    // Direct Solidity imports with the Tevm Bundler
-    import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
-
-    const client = createMemoryClient();
-
-    // Use powerful TypeScript native APIs or use the viem APIs you already know
-    const {
-      data,
-      error,
-      logs,
-      createdAddresses,
-      executionGasUsed,
-      l1Fee,
-      trace,
-      accessList,
-      txHash,
-    } = await client.tevmContract({
-      deployedBytecode: ComplexSimulation.deployedBytecode,
-      ...ComplexSimulation.read.simulate(2n, "arg2"),
-      createTrace: true,
-      createAccessList: true,
-      createTransaction: true,
-      throwOnFail: false,
-      onStep: (step, next) => {
-        console.log(step.opcode);
-        next?.();
-      },
-    });
-    ```
-
+  <div className="space-y-4 mb-8">
+    <HomePage.Tagline className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Ethereum Node for Viem</HomePage.Tagline>
+    <HomePage.InstallPackage name="tevm" type="install" className="shadow-sm hover:shadow-md transition-shadow duration-300" />
+    <HomePage.Description className="text-xl mt-4">
+      An Ethereum Node built to run in the Browser
+    </HomePage.Description>
   </div>
 
-<HomePage.Buttons>
-  <HomePage.Button href="/getting-started/overview" variant="accent">
-    Get started
-  </HomePage.Button>
-  <HomePage.Button href="/examples/viem">Viem Guide</HomePage.Button>
-  <HomePage.Button href="/introduction/what-is-tevm-node">
-    Learn More
-  </HomePage.Button>
-</HomePage.Buttons>
+  <div className="code-block max-w-[600px] mx-auto my-10 bg-gray-50 dark:bg-gray-900 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-800">
+    <div className="flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex space-x-2">
+        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+      </div>
+      <div className="ml-4 text-xs text-gray-500 dark:text-gray-400">example.ts</div>
+    </div>
+    <div className="p-5 overflow-auto" style={{ textAlign: 'left' }}>
+      ```ts
+      import { createMemoryClient } from "tevm";
+      // Import solidity contracts directly into TypeScript files
+      import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[900px] mx-auto my-12">
-    <Card title="JavaScript-Native EVM">
-      <p className="mb-4">Run an Ethereum environment anywhere JavaScript runs.</p>
-      <Button href="/introduction/why-run-ethereum-in-js" variant="text" size="small">Why JavaScript? →</Button>
+      // Create an in-memory ethereum node similar to anvil
+      const client = createMemoryClient();
+
+      // Use powerful TypeScript native APIs or use the viem APIs you already know
+      const {
+        data,
+        error,
+        logs,
+        createdAddresses,
+        executionGasUsed,
+        l1Fee,
+        trace,
+        accessList,
+        txHash,
+      } = await client.tevmContract({
+        deployedBytecode: ComplexSimulation.deployedBytecode,
+        // Fully typesafe API via ABIType
+        ...ComplexSimulation.read.simulate(2n, "arg2"),
+        createTrace: true,
+        createAccessList: true,
+        createTransaction: true,
+        throwOnFail: false,
+        // run a callback every step the evm takes
+        onStep: (step, next) => {
+          console.log(step.opcode);
+          next?.();
+        },
+      });
+      ```
+    </div>
+  </div>
+
+  <div className="my-8">
+    <HomePage.Buttons>
+      <HomePage.Button href="/getting-started/overview" variant="accent" className="transform transition-all hover:scale-105 hover:shadow-md">
+        Get started
+      </HomePage.Button>
+      <HomePage.Button href="/examples/viem" className="transform transition-all hover:scale-105 hover:shadow-md">Viem Guide</HomePage.Button>
+      <HomePage.Button href="/introduction/what-is-tevm-node" className="transform transition-all hover:scale-105 hover:shadow-md">
+        Learn More
+      </HomePage.Button>
+    </HomePage.Buttons>
+  </div>
+
+  <div className="relative py-6 my-10">
+    <div className="absolute inset-0 flex items-center">
+      <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
+    </div>
+    <div className="relative flex justify-center">
+      <span className="px-4 bg-white dark:bg-gray-950 text-sm text-gray-500 dark:text-gray-400">FEATURES</span>
+    </div>
+  </div>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-[900px] mx-auto mb-16">
+    <Card title="JavaScript-Native EVM" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
+      <p className="mb-4">Run an Ethereum environment anywhere JavaScript runs including Deno, Node.js, Bun and the Browser.</p>
+      <Button href="/introduction/why-run-ethereum-in-js" variant="text" size="small" className="transition-all hover:translate-x-1">Why JavaScript? →</Button>
     </Card>
 
-    <Card title="Up to 10x Faster Than Remote Calls">
+    <Card title="Up to 10x Faster Than Remote Calls" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
       <p className="mb-4">Execute transactions locally without network roundtrips. Instant gas estimates for responsive dApps.</p>
-      <Button href="/introduction/why-run-ethereum-in-js#performance--efficiency" variant="text" size="small">Performance Benefits →</Button>
+      <Button href="/introduction/why-run-ethereum-in-js#performance--efficiency" variant="text" size="small" className="transition-all hover:translate-x-1">Performance Benefits →</Button>
     </Card>
 
-    <Card title="Import Solidity Files Directly">
-      <p className="mb-4">Use .sol files as native ES modules with full TypeScript type safety.</p>
-      <Button href="/reference/bundler" variant="text" size="small">Bundler Integration →</Button>
+    <Card title="Powerful CLI" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
+      <p className="mb-4">Use Tevm and Viem in the command line via it's powerful CLI.</p>
+      <Button href="/getting-started/cli" variant="text" size="small" className="transition-all hover:translate-x-1">CLI Getting Started →</Button>
     </Card>
 
-    <Card title="Fork Any Chain">
-      <p className="mb-4">Create instant local copies of Ethereum, Optimism, or any EVM chain. Use against real contracts and state without external tools like Anvil or Hardhat.</p>
-      <Button href="/core/forking" variant="text" size="small">Forking Guide →</Button>
+    <Card title="Fully typesafe" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
+      <p className="mb-4">All Tevm APIs are fully typesafe via ABIType.</p>
+      <Button href="/examples/viem" variant="text" size="small" className="transition-all hover:translate-x-1">Viem Guide →</Button>
     </Card>
 
-    <Card title="EVM Execution Hooks">
+    <Card title="EVM Execution Hooks" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
       <p className="mb-4">Plug into EVM execution at the opcode level. Build advanced tools like debuggers, tracers, or custom gas profilers.</p>
-      <Button href="/api/evm-events" variant="text" size="small">EVM Hooks Guide →</Button>
+      <Button href="/api/evm-events" variant="text" size="small" className="transition-all hover:translate-x-1">EVM Hooks Guide →</Button>
     </Card>
 
-    <Card title="Works With Tools You Know">
+    <Card title="Works With Tools You Know" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
       <p className="mb-4">Native integration with viem and full compatibility with ethers.js, wagmi, and any EIP-1193 library.</p>
-      <Button href="/introduction/what-is-tevm-node#library-compatibility" variant="text" size="small">Library Support →</Button>
+      <Button href="/introduction/what-is-tevm-node#library-compatibility" variant="text" size="small" className="transition-all hover:translate-x-1">Library Support →</Button>
     </Card>
-
   </div>
 
-  <div className="max-w-[800px] mx-auto my-12 p-8 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+  <div className="max-w-[800px] mx-auto mb-16 p-8 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-md transition-all hover:shadow-lg relative">
+    <div className="absolute -top-5 -left-2 text-6xl text-blue-400 opacity-50">"</div>
     <div className="grid grid-cols-1">
-      <blockquote className="m-0 text-base border-l-4 border-blue-500 pl-4">
-        "If you're building a blockchain application on the web, I'm almost certain there is a use case for Tevm. It might change everything, and at worst it would most likely improve your devX."
-        <div className="mt-3 font-medium">
+      <blockquote className="m-0 text-base pl-4 italic">
+        If you're building a blockchain application on the web, I'm almost certain there is a use case for Tevm. It might change everything, and at worst it would most likely improve your devX.
+        <div className="mt-3 font-medium not-italic">
           polarzero
-          <a href="https://twitter.com/0xpolarzero" className="text-sm text-blue-500 ml-2">@0xpolarzero</a>
+          <a href="https://twitter.com/0xpolarzero" className="text-sm text-blue-500 ml-2 hover:underline">@0xpolarzero</a>
         </div>
       </blockquote>
     </div>
   </div>
 
-  <div className="max-w-[800px] mx-auto my-20 text-center">
-    <h2 style={{ fontSize: "2.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Turn Solidity into TypeScript</h2>
-    <p className="mb-6 text-lg" style={{ fontSize: "1.25rem", maxWidth: "700px", margin: "0 auto 2rem auto", lineHeight: "1.6" }}>
-      The Tevm Bundler lets you import Solidity contracts directly into your JavaScript or TypeScript code. 
-      No more copying ABIs or managing contract artifacts manually—just import your .sol files and get 
-      full type safety, auto-completion, and easy contract interaction.
-    </p>
-    
-    <div className="code-snippet" style={{
-      maxWidth: '700px',
-      margin: '1.5rem auto',
-      backgroundColor: 'var(--vocs-color_background2)',
-      borderRadius: 'var(--vocs-borderRadius_4)',
-      padding: '1.2rem',
-      overflow: 'auto',
-      textAlign: 'left'
-    }}>
-      ```ts
-      // @noErrors
-      // Import Solidity contracts directly
-      import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
-      
-      // Use with full TypeScript support
-      const tokenContract = ERC20.withAddress('0x123...')
-      
-      // Type-safe contract methods
-      const balance = await client.readContract(
-        tokenContract.read.balanceOf('0x456...')
-      )
-      
-      // Coming soon: Import contracts directly from any chain
-      import { WETH } from 'caip10:eip155:1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
-      
-      // Coming soon: Write Solidity inline
-      import { sol } from 'tevm'
-      
-      const { abi, bytecode } = sol`
-        pragma solidity ^0.8.19;
-        
-        contract Counter {
-          uint256 private count = 0;
-          
-          function increment() public {
-            count += 1;
-          }
-          
-          function getCount() public view returns (uint256) {
-            return count;
-          }
-        }
-      `
-      ```
+  <div className="relative py-6 my-10">
+    <div className="absolute inset-0 flex items-center">
+      <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
     </div>
-    
-    <div className="flex gap-4 justify-center flex-wrap mt-8">
-      <Button href="/getting-started/bundler" variant="accent">
-        Bundler Quickstart
-      </Button>
-      <Button href="/reference/bundler">Bundler Reference</Button>
+    <div className="relative flex justify-center">
+      <span className="px-4 bg-white dark:bg-gray-950 text-sm text-gray-500 dark:text-gray-400">BUNDLER</span>
     </div>
   </div>
 
-{" "}
+  {/* Break out of the container and span full viewport width */}
+  <div className="relative -mx-[calc(50vw-50%)] w-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-y border-blue-100 dark:border-blue-900/30 overflow-hidden">
+    {/* Decorative elements */}
+    <div className="absolute top-0 right-1/4 w-64 h-64 bg-blue-400/10 dark:bg-blue-400/5 rounded-full -mt-32"></div>
+    <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-indigo-400/10 dark:bg-indigo-400/5 rounded-full -mb-40"></div>
+    <div className="absolute top-1/3 right-10 w-20 h-20 bg-purple-400/10 dark:bg-purple-400/5 rounded-full"></div>
 
-<div className="max-w-[600px] mx-auto my-16 text-center">
-  <Button href="/getting-started/overview" variant="accent" className="text-lg px-8 py-4" style={{ fontSize: "1.25rem", padding: "1rem 3rem" }}>
-    Ready to get started?
-  </Button>
-</div>
+    {/* Content container with max-width - but within the full-width section */}
+    <div className="max-w-[900px] mx-auto px-6 py-16 relative z-10">
+      {/* Main title */}
+      <div className="text-center mb-6">
+        <h2 className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent leading-tight">JavaScript Bundler for Ethereum Contracts</h2>
+      </div>
 
-  <div className="mt-12 text-sm opacity-80">
-    Here's our <a href="https://node.tevm.sh/llms-full.txt">documentation as plain text</a> for providing context to LLM systems
+      {/* Installation command - updated to use two separate components */}
+      <div className="text-center mb-12">
+        <div className="max-w-[700px] mx-auto space-y-3">
+          <HomePage.InstallPackage name="tevm" type="install" className="shadow-sm hover:shadow-md transition-shadow duration-300" />
+          <HomePage.InstallPackage name="-D @tevm/ts-plugin" type="install" className="shadow-sm hover:shadow-md transition-shadow duration-300" />
+        </div>
+      </div>
+
+      {/* Subtitle */}
+      <div className="text-center mb-12">
+        <h3 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">Turn Solidity into TypeScript</h3>
+        <p className="mb-8 text-lg max-w-[700px] mx-auto leading-relaxed">
+          The Tevm Bundler lets you import Solidity contracts directly into your JavaScript or TypeScript code.
+        </p>
+      </div>
+
+      {/* Code sample - moved above feature cards */}
+      <div className="code-block max-w-[700px] mx-auto mb-16 bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-800">
+        <div className="flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex space-x-2">
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <div className="ml-4 text-xs text-gray-500 dark:text-gray-400">solidity-import.ts</div>
+        </div>
+        <div className="p-5 overflow-auto" style={{ textAlign: 'left' }}>
+          ```ts
+          // Import Solidity contracts directly
+          import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
+
+          // Use with full TypeScript support
+          const tokenContract = ERC20.withAddress('0x123...')
+
+          // Type-safe contract methods
+          const balance = await client.readContract(
+            tokenContract.read.balanceOf('0x456...')
+          )
+          ```
+        </div>
+      </div>
+
+      {/* Feature cards - converted from bullet points */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-[900px] mx-auto mb-16">
+        <Card title="No Copy-Pasting ABIs" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
+          <p className="mb-4">Import Solidity files directly into your TypeScript code without manually copying ABIs or writing deployment scripts.</p>
+        </Card>
+
+        <Card title="Full TypeSafety" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
+          <p className="mb-4">Full typesafety and autocompletion is baked directly into the TypeScript LSP with proper type inference.</p>
+        </Card>
+
+        <Card title="Real-Time Updates" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
+          <p className="mb-4">Your TypeScript code will update before you even save your Solidity file, providing instant feedback.</p>
+        </Card>
+
+        <Card title="IDE Integration" className="transition-all duration-300 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-700">
+          <p className="mb-4">Go-to-definition on a contract method will take you straight to the Solidity file it was defined in.</p>
+        </Card>
+      </div>
+
+      {/* Coming soon section */}
+      <div className="bg-white/50 dark:bg-gray-900/30 rounded-xl p-8 mb-10 border border-blue-100 dark:border-blue-900/30">
+        <h4 className="text-xl font-bold mb-4 text-center">Coming Soon</h4>
+        <p className="text-center mb-6">Write solidity directly in TS files</p>
+
+        <div className="code-block max-w-[700px] mx-auto bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-800">
+          <div className="flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <div className="ml-4 text-xs text-gray-500 dark:text-gray-400">future-features.ts</div>
+          </div>
+          <div className="p-5 overflow-auto" style={{ textAlign: 'left' }}>
+            ```ts
+            // Coming soon: Import contracts directly from any chain
+            import { WETH } from 'caip10:eip155:1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+
+            // Coming soon: Write Solidity inline
+            import { sol } from 'tevm'
+
+            const { abi, bytecode } = sol`
+              pragma solidity ^0.8.19;
+
+              contract Counter {
+                uint256 private count = 0;
+
+                function increment() public {
+                  count += 1;
+                }
+
+                function getCount() public view returns (uint256) {
+                  return count;
+                }
+              }
+            `
+            ```
+          </div>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="flex gap-4 justify-center flex-wrap mt-12 text-center">
+        <Button href="/getting-started/bundler" variant="accent" className="shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 bg-blue-600 hover:bg-blue-700">
+          Bundler Quickstart
+        </Button>
+        <Button href="/reference/bundler" className="shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">Bundler Reference</Button>
+      </div>
+    </div>
+  </div>
+
+  <div className="max-w-[700px] mx-auto my-16 text-center bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-900 py-10 px-6 rounded-2xl">
+    <h3 className="text-2xl md:text-3xl font-bold mb-8">Ready to transform your Ethereum development?</h3>
+    <div className="flex justify-center mt-8">
+      <Button
+        href="/getting-started/overview"
+        variant="accent"
+        className="text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 transform"
+        style={{ fontSize: "1.25rem", padding: "1rem 3rem" }}
+      >
+        Get started now →
+      </Button>
+    </div>
+  </div>
+
+  <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 flex items-center justify-center gap-3 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
+    <span role="img" aria-label="robot" className="text-xl animate-pulse">🤖</span>
+    <span>
+      Here's our <a href="https://node.tevm.sh/llms-full.txt" className="underline hover:text-blue-500 transition-colors font-medium">documentation as plain text</a> for providing context to LLM systems
+    </span>
   </div>
 </HomePage.Root>

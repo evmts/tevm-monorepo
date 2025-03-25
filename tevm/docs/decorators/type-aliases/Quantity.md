@@ -6,7 +6,7 @@
 
 # Type Alias: Quantity
 
-> **Quantity**: [`Hex`](../../index/type-aliases/Hex.md)
+> **Quantity** = [`Hex`](../../index/type-aliases/Hex.md)
 
 Defined in: packages/decorators/dist/index.d.ts:1438
 

@@ -15,7 +15,10 @@
 - [CompilerConfig](type-aliases/CompilerConfig.md)
 - [ResolvedCompilerConfig](type-aliases/ResolvedCompilerConfig.md)
 
+## Variables
+
+- [defineConfig](variables/defineConfig.md)
+
 ## Functions
 
-- [defineConfig](functions/defineConfig.md)
 - [loadConfig](functions/loadConfig.md)

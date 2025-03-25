@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetLogsJsonRpcProcedure()
 
-> **EthGetLogsJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetLogsJsonRpcResponse`](EthGetLogsJsonRpcResponse.md)\>
+> **EthGetLogsJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetLogsJsonRpcResponse`](EthGetLogsJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:19
 

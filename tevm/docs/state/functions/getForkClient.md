@@ -183,17 +183,29 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+##### abi
 
-• **eventName** *extends* `undefined` \| `string`
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
-• **args** *extends* `undefined` \| readonly `unknown`[] \| `Record`\<`string`, `unknown`\>
+##### eventName
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+`eventName` *extends* `undefined` \| `string`
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+##### args
 
-• **toBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+`args` *extends* `undefined` \| readonly `unknown`[] \| `Record`\<`string`, `unknown`\>
+
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 #### Parameters
 
@@ -235,19 +247,33 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 #### Type Parameters
 
-• **abiEvent** *extends* `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
+##### abiEvent
 
-• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvent` *extends* `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### abiEvents
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+##### strict
 
-• **_EventName** *extends* `undefined` \| `string` = `MaybeAbiEventName`\<`abiEvent`\>
+`strict` *extends* `undefined` \| `boolean` = `undefined`
 
-• **_Args** *extends* `undefined` \| readonly `unknown`[] \| `Record`\<`string`, `unknown`\> = `undefined`
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+
+##### _EventName
+
+`_EventName` *extends* `undefined` \| `string` = `MaybeAbiEventName`\<`abiEvent`\>
+
+##### _Args
+
+`_Args` *extends* `undefined` \| readonly `unknown`[] \| `Record`\<`string`, `unknown`\> = `undefined`
 
 #### Parameters
 
@@ -317,13 +343,21 @@ Estimates the gas required to successfully execute a contract write function cal
 
 #### Type Parameters
 
-• **chain** *extends* `undefined` \| `Chain`
+##### chain
 
-• **abi** *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+`chain` *extends* `undefined` \| `Chain`
 
-• **functionName** *extends* `string`
+##### abi
 
-• **args** *extends* `unknown`
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+
+##### functionName
+
+`functionName` *extends* `string`
+
+##### args
+
+`args` *extends* `unknown`
 
 #### Parameters
 
@@ -372,9 +406,13 @@ in the next block.
 
 #### Type Parameters
 
-• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
+##### chainOverride
 
-• **type** *extends* `FeeValuesType` = `"eip1559"`
+`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
+
+##### type
+
+`type` *extends* `FeeValuesType` = `"eip1559"`
 
 #### Parameters
 
@@ -453,7 +491,9 @@ to be included in the next block.
 
 #### Type Parameters
 
-• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
+##### chainOverride
+
+`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
 
 #### Parameters
 
@@ -489,7 +529,9 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 
 #### Type Parameters
 
-• **client** *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`Transport`, `undefined` \| `Chain`, `undefined`\>\>
+##### client
+
+`client` *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`Transport`, `undefined` \| `Chain`, `undefined`\>\>
 
 #### Parameters
 
@@ -596,9 +638,13 @@ Returns information about a block at a block number, hash, or tag.
 
 #### Type Parameters
 
-• **includeTransactions** *extends* `boolean` = `false`
+##### includeTransactions
 
-• **blockTag** *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
+`includeTransactions` *extends* `boolean` = `false`
+
+##### blockTag
+
+`blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
 
 #### Parameters
 
@@ -799,15 +845,25 @@ Returns a list of event logs emitted by a contract.
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+##### abi
 
-• **eventName** *extends* `undefined` \| `string` = `undefined`
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### eventName
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+`eventName` *extends* `undefined` \| `string` = `undefined`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 #### Parameters
 
@@ -1367,17 +1423,29 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 
 #### Type Parameters
 
-• **filterType** *extends* `FilterType`
+##### filterType
 
-• **abi** *extends* `undefined` \| [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+`filterType` *extends* `FilterType`
 
-• **eventName** *extends* `undefined` \| `string`
+##### abi
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+`abi` *extends* `undefined` \| [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+##### eventName
 
-• **toBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+`eventName` *extends* `undefined` \| `string`
+
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 #### Parameters
 
@@ -1480,15 +1548,25 @@ Returns a list of event logs since the filter was created.
 
 #### Type Parameters
 
-• **abi** *extends* `undefined` \| [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+##### abi
 
-• **eventName** *extends* `undefined` \| `string`
+`abi` *extends* `undefined` \| [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### eventName
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+`eventName` *extends* `undefined` \| `string`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 #### Parameters
 
@@ -1565,15 +1643,25 @@ Returns a list of event logs matching the provided parameters.
 
 #### Type Parameters
 
-• **abiEvent** *extends* `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
+##### abiEvent
 
-• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvent` *extends* `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### abiEvents
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md) = `undefined`
 
 #### Parameters
 
@@ -1692,7 +1780,9 @@ Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#tr
 
 #### Type Parameters
 
-• **blockTag** *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
+##### blockTag
+
+`blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
 
 #### Parameters
 
@@ -1855,9 +1945,13 @@ Similar to [`readContract`](https://viem.sh/docs/contract/readContract), but bat
 
 #### Type Parameters
 
-• **contracts** *extends* readonly `unknown`[]
+##### contracts
 
-• **allowFailure** *extends* `boolean` = `true`
+`contracts` *extends* readonly `unknown`[]
+
+##### allowFailure
+
+`allowFailure` *extends* `boolean` = `true`
 
 #### Parameters
 
@@ -1919,7 +2013,7 @@ Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 millis
 
 ### prepareTransactionRequest()
 
-> **prepareTransactionRequest**: \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & \{ chainId?: number \}, ParameterTypeToParameters\<request\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "nonce" \| "gas" \| "blobVersionedHashes" \| "type" \| "chainId" \| "fees"\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\>
+> **prepareTransactionRequest**: \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & \{ chainId?: number \}, ParameterTypeToParameters\<request\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "gas" \| "blobVersionedHashes" \| "nonce" \| "type" \| "chainId" \| "fees"\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\>
 
 Prepares a transaction request for signing.
 
@@ -1927,11 +2021,17 @@ Prepares a transaction request for signing.
 
 #### Type Parameters
 
-• **request** *extends* `Omit`\<\{ `accessList`: `undefined`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"legacy"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip2930"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip1559"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `Kzg`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip4844"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `AuthorizationList`\<`number`, `boolean`\>; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip7702"`; `value`: `bigint`; \}, `"from"`\> & `object` & `object`
+##### request
 
-• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
+`request` *extends* `Omit`\<\{ `accessList`: `undefined`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"legacy"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip2930"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip1559"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `Kzg`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip4844"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `AuthorizationList`\<`number`, `boolean`\>; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip7702"`; `value`: `bigint`; \}, `"from"`\> & `object` & `object`
 
-• **accountOverride** *extends* `undefined` \| `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) = `undefined`
+##### chainOverride
+
+`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
+
+##### accountOverride
+
+`accountOverride` *extends* `undefined` \| `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) = `undefined`
 
 #### Parameters
 
@@ -1943,7 +2043,7 @@ PrepareTransactionRequestParameters
 
 #### Returns
 
-`Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & \{ chainId?: number \}, ParameterTypeToParameters\<request\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "nonce" \| "gas" \| "blobVersionedHashes" \| "type" \| "chainId" \| "fees"\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\>
+`Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<UnionOmit\<(...), (...)\> & ((...) extends (...) ? (...) : (...)) & ((...) extends (...) ? (...) : (...)), IsNever\<(...)\> extends true ? unknown : ExactPartial\<(...)\>\> & \{ chainId?: number \}, ParameterTypeToParameters\<request\["parameters"\] extends readonly PrepareTransactionRequestParameterType\[\] ? any\[any\]\[number\] : "gas" \| "blobVersionedHashes" \| "nonce" \| "type" \| "chainId" \| "fees"\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\>
 
 The transaction request. PrepareTransactionRequestReturnType
 
@@ -1992,11 +2092,17 @@ Calls a read-only function on a contract, and returns the response.
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+##### abi
 
-• **functionName** *extends* `string`
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
-• **args** *extends* `unknown`
+##### functionName
+
+`functionName` *extends* `string`
+
+##### args
+
+`args` *extends* `unknown`
 
 #### Parameters
 
@@ -2088,7 +2194,9 @@ const hash = await client.sendRawTransaction({
 
 #### Type Parameters
 
-• **calls** *extends* readonly `unknown`[]
+##### calls
+
+`calls` *extends* readonly `unknown`[]
 
 #### Parameters
 
@@ -2112,7 +2220,9 @@ Simulates a set of calls on block(s) with optional block and state overrides.
 
 #### Type Parameters
 
-• **calls** *extends* readonly `unknown`[]
+##### calls
+
+`calls` *extends* readonly `unknown`[]
 
 #### Parameters
 
@@ -2170,7 +2280,9 @@ Simulates a set of calls.
 
 #### Type Parameters
 
-• **calls** *extends* readonly `unknown`[]
+##### calls
+
+`calls` *extends* readonly `unknown`[]
 
 #### Parameters
 
@@ -2221,15 +2333,25 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+##### abi
 
-• **functionName** *extends* `string`
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
-• **args** *extends* `unknown`
+##### functionName
 
-• **chainOverride** *extends* `undefined` \| `Chain`
+`functionName` *extends* `string`
 
-• **accountOverride** *extends* `undefined` \| `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) = `undefined`
+##### args
+
+`args` *extends* `unknown`
+
+##### chainOverride
+
+`chainOverride` *extends* `undefined` \| `Chain`
+
+##### accountOverride
+
+`accountOverride` *extends* `undefined` \| `` `0x${string}` `` \| [`Account`](../../index/type-aliases/Account.md) = `undefined`
 
 #### Parameters
 
@@ -2381,7 +2503,7 @@ The message to be verified.
 
 ###### signature
 
-`` `0x${string}` `` \| `ByteArray` \| `Signature`
+`` `0x${string}` `` \| `Signature` \| `ByteArray`
 
 The signature that was generated by signing the message with the address's private key.
 
@@ -2612,9 +2734,13 @@ Watches and returns information for incoming blocks.
 
 #### Type Parameters
 
-• **includeTransactions** *extends* `boolean` = `false`
+##### includeTransactions
 
-• **blockTag** *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
+`includeTransactions` *extends* `boolean` = `false`
+
+##### blockTag
+
+`blockTag` *extends* [`BlockTag`](../../index/type-aliases/BlockTag.md) = `"latest"`
 
 #### Parameters
 
@@ -2655,11 +2781,17 @@ Watches and returns emitted contract event logs.
 
 #### Type Parameters
 
-• **abi** *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
+##### abi
 
-• **eventName** *extends* `string`
+`abi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[]
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### eventName
+
+`eventName` *extends* `string`
+
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
 
 #### Parameters
 
@@ -2716,11 +2848,17 @@ Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#eve
 
 #### Type Parameters
 
-• **abiEvent** *extends* `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
+##### abiEvent
 
-• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvent` *extends* `undefined` \| [`AbiEvent`](../../index/type-aliases/AbiEvent.md) = `undefined`
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### abiEvents
+
+`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly [`AbiEvent`](../../index/type-aliases/AbiEvent.md)[] = `abiEvent` *extends* [`AbiEvent`](../../index/type-aliases/AbiEvent.md) ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
 
 #### Parameters
 

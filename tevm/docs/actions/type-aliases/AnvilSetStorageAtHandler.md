@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetStorageAtHandler()
 
-> **AnvilSetStorageAtHandler**: (`params`) => `Promise`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>
+> **AnvilSetStorageAtHandler** = (`params`) => `Promise`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:12
 

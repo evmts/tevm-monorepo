@@ -14,9 +14,13 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Type Parameters
 
-• **TName** *extends* `string`
+### TName
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+`TName` *extends* `string`
+
+### THumanReadableAbi
+
+`THumanReadableAbi` *extends* readonly `string`[]
 
 ## Parameters
 

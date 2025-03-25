@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilImpersonateAccountProcedure()
 
-> **AnvilImpersonateAccountProcedure**: (`request`) => `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](AnvilImpersonateAccountJsonRpcResponse.md)\>
+> **AnvilImpersonateAccountProcedure** = (`request`) => `Promise`\<[`AnvilImpersonateAccountJsonRpcResponse`](AnvilImpersonateAccountJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:7
 

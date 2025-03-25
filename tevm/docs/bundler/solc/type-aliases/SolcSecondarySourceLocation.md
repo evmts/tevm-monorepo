@@ -6,7 +6,7 @@
 
 # Type Alias: SolcSecondarySourceLocation
 
-> **SolcSecondarySourceLocation**: [`SolcSourceLocation`](SolcSourceLocation.md) & `object`
+> **SolcSecondarySourceLocation** = [`SolcSourceLocation`](SolcSourceLocation.md) & `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:119
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetCodeHandler()
 
-> **EthGetCodeHandler**: (`request`) => `Promise`\<[`EthGetCodeResult`](EthGetCodeResult.md)\>
+> **EthGetCodeHandler** = (`request`) => `Promise`\<[`EthGetCodeResult`](EthGetCodeResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:16
 

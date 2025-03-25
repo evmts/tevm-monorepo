@@ -6,7 +6,7 @@
 
 # Type Alias: CallParams\<TThrowOnFail\>
 
-> **CallParams**\<`TThrowOnFail`\>: [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
+> **CallParams**\<`TThrowOnFail`\> = [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
 Defined in: [packages/actions/src/Call/CallParams.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallParams.ts#L31)
 
@@ -129,7 +129,9 @@ await tevmCall(client, callParams)
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 ## Example
 

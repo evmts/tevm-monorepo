@@ -53,7 +53,7 @@ Additional parameters for the BaseError.
 
 ### new EvmRevertError()
 
-> **new EvmRevertError**(`message`?, `args`?, `tag`?): [`EvmRevertError`](EvmRevertError.md)
+> **new EvmRevertError**(`message`?, `args`?, `tag`?): `EvmRevertError`
 
 Defined in: [packages/errors/src/ethereum/ethereumjs/EvmRevertError.js:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/ethereumjs/EvmRevertError.js#L78)
 
@@ -95,11 +95,11 @@ The tag for the error.
 
 #### Returns
 
-[`EvmRevertError`](EvmRevertError.md)
+`EvmRevertError`
 
 #### Overrides
 
-[`RevertError`](RevertError.md).[`constructor`](RevertError.md#constructors)
+[`RevertError`](RevertError.md).[`constructor`](RevertError.md#constructor)
 
 ## Properties
 
@@ -177,7 +177,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`RevertError`](RevertError.md).[`message`](RevertError.md#message-1)
+[`RevertError`](RevertError.md).[`message`](RevertError.md#message)
 
 ***
 
@@ -346,6 +346,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`RevertError`](RevertError.md).[`captureStackTrace`](RevertError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

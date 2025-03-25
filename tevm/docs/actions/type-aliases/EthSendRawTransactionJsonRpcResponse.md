@@ -6,7 +6,7 @@
 
 # Type Alias: EthSendRawTransactionJsonRpcResponse
 
-> **EthSendRawTransactionJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_sendRawTransaction"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
+> **EthSendRawTransactionJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_sendRawTransaction"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:128
 

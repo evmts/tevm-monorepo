@@ -6,7 +6,7 @@
 
 # Type Alias: EthEstimateGasHandler()
 
-> **EthEstimateGasHandler**: (`request`) => `Promise`\<[`EthEstimateGasResult`](EthEstimateGasResult.md)\>
+> **EthEstimateGasHandler** = (`request`) => `Promise`\<[`EthEstimateGasResult`](EthEstimateGasResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:8
 

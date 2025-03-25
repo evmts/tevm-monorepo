@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetNonceHandler()
 
-> **AnvilSetNonceHandler**: (`params`) => `Promise`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>
+> **AnvilSetNonceHandler** = (`params`) => `Promise`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:11
 

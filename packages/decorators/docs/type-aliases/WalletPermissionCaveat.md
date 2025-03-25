@@ -6,22 +6,12 @@
 
 # Type Alias: WalletPermissionCaveat
 
-> **WalletPermissionCaveat**: `object`
+> **WalletPermissionCaveat** = `object`
 
 Defined in: [eip1193/WalletPermissionCaveat.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermissionCaveat.ts#L25)
 
 Restrictions or conditions applied to a wallet permission.
 Used in the EIP-2255 wallet permissions system to add constraints to granted permissions.
-
-## Type declaration
-
-### type
-
-> **type**: `string`
-
-### value
-
-> **value**: `any`
 
 ## Example
 
@@ -38,3 +28,19 @@ const expirationCaveat: WalletPermissionCaveat = {
   value: 1720872662291 // Unix timestamp in milliseconds
 }
 ```
+
+## Properties
+
+### type
+
+> **type**: `string`
+
+Defined in: [eip1193/WalletPermissionCaveat.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermissionCaveat.ts#L26)
+
+***
+
+### value
+
+> **value**: `any`
+
+Defined in: [eip1193/WalletPermissionCaveat.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/WalletPermissionCaveat.ts#L27)

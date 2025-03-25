@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetLogsResult
 
-> **EthGetLogsResult**: [`FilterLog`](FilterLog.md)[]
+> **EthGetLogsResult** = [`FilterLog`](FilterLog.md)[]
 
 Defined in: [packages/actions/src/eth/EthResult.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L107)
 

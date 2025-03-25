@@ -44,7 +44,7 @@ try {
 
 ### new ForkError()
 
-> **new ForkError**(`message`, `args`): [`ForkError`](ForkError.md)
+> **new ForkError**(`message`, `args`): `ForkError`
 
 Defined in: [packages/errors/src/fork/ForkError.js:54](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/fork/ForkError.js#L54)
 
@@ -66,11 +66,11 @@ Additional parameters for the error.
 
 #### Returns
 
-[`ForkError`](ForkError.md)
+`ForkError`
 
 #### Overrides
 
-[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
+[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructor)
 
 ## Properties
 
@@ -82,7 +82,7 @@ Defined in: [packages/errors/src/fork/ForkError.js:73](https://github.com/evmts/
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag-1)
+[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 ***
 
@@ -106,7 +106,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code-1)
+[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
 ***
 
@@ -178,7 +178,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage-1)
+[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
 
 ***
 
@@ -285,6 +285,32 @@ The first error that matches the function, or the original error.
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

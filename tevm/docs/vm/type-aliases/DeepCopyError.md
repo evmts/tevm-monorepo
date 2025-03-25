@@ -6,6 +6,6 @@
 
 # Type Alias: DeepCopyError
 
-> **DeepCopyError**: [`MisconfiguredClientError`](../../errors/classes/MisconfiguredClientError.md)
+> **DeepCopyError** = [`MisconfiguredClientError`](../../errors/classes/MisconfiguredClientError.md)
 
 Defined in: packages/vm/types/actions/deepCopy.d.ts:2

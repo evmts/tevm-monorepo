@@ -6,25 +6,35 @@
 
 # Type Alias: MapDb
 
-> **MapDb**: `object`
+> **MapDb** = `object`
 
 Defined in: packages/receipt-manager/types/MapDb.d.ts:18
 
 Helper class to access the metaDB with methods for managing receipts and transaction data
 
-## Type declaration
+## Methods
 
 ### deepCopy()
+
+> **deepCopy**(): `MapDb`
+
+Defined in: packages/receipt-manager/types/MapDb.d.ts:43
 
 Create a deep copy of the MapDb instance
 
 #### Returns
 
-[`MapDb`](MapDb.md)
+`MapDb`
 
 A new MapDb instance with a copy of the data
 
+***
+
 ### delete()
+
+> **delete**(`type`, `hash`): `Promise`\<`void`\>
+
+Defined in: packages/receipt-manager/types/MapDb.d.ts:38
 
 Delete a value from the database
 
@@ -46,7 +56,13 @@ The hash key for the data to delete
 
 `Promise`\<`void`\>
 
+***
+
 ### get()
+
+> **get**(`type`, `hash`): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+
+Defined in: packages/receipt-manager/types/MapDb.d.ts:32
 
 Retrieve a value from the database
 
@@ -70,7 +86,13 @@ The hash key for the data
 
 The stored value or null if not found
 
+***
+
 ### put()
+
+> **put**(`type`, `hash`, `value`): `Promise`\<`void`\>
+
+Defined in: packages/receipt-manager/types/MapDb.d.ts:25
 
 Store a value in the database
 

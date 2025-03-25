@@ -6,7 +6,7 @@
 
 # Type Alias: ExecuteCallResult
 
-> **ExecuteCallResult**\<\>: `object`
+> **ExecuteCallResult**\<\> = `object`
 
 Defined in: [packages/actions/src/Call/executeCall.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/executeCall.js#L17)
 

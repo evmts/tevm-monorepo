@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 
-> **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getTransactionByBlockNumberAndIndex"`, [`TransactionResult`](../../index/type-aliases/TransactionResult.md), `string` \| `number`\>
+> **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getTransactionByBlockNumberAndIndex"`, [`TransactionResult`](../../index/type-aliases/TransactionResult.md), `string` \| `number`\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:104
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBlockByHashResult
 
-> **EthGetBlockByHashResult**: [`BlockResult`](../../index/type-aliases/BlockResult.md)
+> **EthGetBlockByHashResult** = [`BlockResult`](../../index/type-aliases/BlockResult.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:47
 

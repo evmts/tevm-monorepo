@@ -6,7 +6,7 @@
 
 # Type Alias: EthAccountsJsonRpcResponse
 
-> **EthAccountsJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_accounts"`, [`Address`](../../index/type-aliases/Address.md)[], `string` \| `number`\>
+> **EthAccountsJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_accounts"`, [`Address`](../../index/type-aliases/Address.md)[], `string` \| `number`\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:12
 

@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetChainIdJsonRpcResponse
 
-> **AnvilSetChainIdJsonRpcResponse**: `JsonRpcResponse`\<`"anvil_setChainId"`, `SerializeToJson`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>, `AnvilError`\>
+> **AnvilSetChainIdJsonRpcResponse** = `JsonRpcResponse`\<`"anvil_setChainId"`, `SerializeToJson`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>, `AnvilError`\>
 
 Defined in: [packages/actions/src/anvil/AnvilJsonRpcResponse.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L123)
 

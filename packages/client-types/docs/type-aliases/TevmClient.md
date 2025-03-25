@@ -6,15 +6,73 @@
 
 # Type Alias: ~~TevmClient~~
 
-> **TevmClient**: `object`
+> **TevmClient** = `object`
 
 Defined in: [TevmClient.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L131)
 
-## Type declaration
+## Deprecated
+
+This type has been superseded by Provider types from `@tevm/decorators` package
+The docs have not been updated to reflect this change if you are looking at this
+
+A local EVM instance running in the browser, Bun, or Node.js. Akin to anvil or ganache. The TevmClient interface
+is a unified interface that all Clients implement. This provides a consistent developer experience no matter how you are
+using Tevm.
+
+## See
+
+[TevmClient guide](https://tevm.sh/learn/clients/) for more documentation on clients
+
+#### JSON-RPC
+
+Tevm exposes a JSON-RPC interface for interacting with the EVM via the [TevmClient.request](#request)
+
+## Examples
+
+```typescript
+import {createMemoryClient, type Tevm} from 'tevm'
+
+const tevm: Tevm = createMemoryClient()
+
+await tevm.request({
+  method: 'eth_blockNumber',
+  params: [],
+  id: 1,
+  jsonrpc: '2.0',
+}) // 0n
+```
+
+#### Actions
+
+TevmClient exposes a higher level `actions` based api similar to [viem](https://viem.sh) for interacting with TevmClient in a typesasafe
+ergonomic way.
+
+```typescript
+// same as eth_blockNumber example
+const account = await tevm.account({address: `0x${'0'.repeat(40)}`})
+console.log(account.balance) // 0n
+```
+
+#### Ethereum actions
+
+Ethereum actions are namespaced under [TevmClient.eth](#eth)
+
+```typescript
+const blockNumber = await tevm.eth.blockNumber()
+console.log(blockNumber) // 0n
+```
+
+#### Anvil hardhat and ganache compatibility
+
+Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
+
+## Properties
 
 ### ~~call~~
 
 > **call**: `CallHandler`
+
+Defined in: [TevmClient.ts:275](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L275)
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -34,9 +92,13 @@ const res = tevm.call({
 }
 ```
 
+***
+
 ### ~~contract~~
 
 > **contract**: `ContractHandler`
+
+Defined in: [TevmClient.ts:297](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L297)
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -61,9 +123,13 @@ const res = await tevm.contract({
 console.log(res.data) // "hello"
 ```
 
+***
+
 ### ~~dumpState~~
 
 > **dumpState**: `DumpStateHandler`
+
+Defined in: [TevmClient.ts:315](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L315)
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -83,17 +149,17 @@ const state = JSON.parse(fs.readFileSync('state.json'))
 await tevm.loadState({state})
 ```
 
+***
+
 ### ~~eth~~
 
 > **eth**: `object`
 
+Defined in: [TevmClient.ts:357](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L357)
+
 Standard JSON-RPC methods for interacting with the VM
 
-#### See
-
-[JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
-
-#### eth.blockNumber
+#### ~~blockNumber~~
 
 > **blockNumber**: `EthBlockNumberHandler`
 
@@ -112,7 +178,7 @@ const blockNumber = await tevm.eth.blockNumber()
 console.log(blockNumber) // 0n
 ```
 
-#### eth.call
+#### ~~call~~
 
 > **call**: `EthCallHandler`
 
@@ -131,7 +197,7 @@ const res = await tevm.eth.call({to: '0x123...', data: '0x123...'})
 console.log(res) // "0x..."
 ```
 
-#### eth.chainId
+#### ~~chainId~~
 
 > **chainId**: `EthChainIdHandler`
 
@@ -150,7 +216,7 @@ const chainId = await tevm.eth.chainId()
 console.log(chainId) // 10n
 ```
 
-#### eth.gasPrice
+#### ~~gasPrice~~
 
 > **gasPrice**: `EthGasPriceHandler`
 
@@ -169,7 +235,7 @@ const gasPrice = await tevm.eth.gasPrice()
 console.log(gasPrice) // 0n
 ```
 
-#### eth.getBalance
+#### ~~getBalance~~
 
 > **getBalance**: `EthGetBalanceHandler`
 
@@ -188,7 +254,7 @@ const balance = await tevm.eth.getBalance({address: '0x123...', tag: 'pending'})
 console.log(gasPrice) // 0n
 ```
 
-#### eth.getCode
+#### ~~getCode~~
 
 > **getCode**: `EthGetCodeHandler`
 
@@ -206,7 +272,7 @@ Block tag defaults to 'pending' tag which is the optimistic state of the VM
 const code = await tevm.eth.getCode({address: '0x123...'})
 ```
 
-#### eth.getStorageAt
+#### ~~getStorageAt~~
 
 > **getStorageAt**: `EthGetStorageAtHandler`
 
@@ -224,9 +290,17 @@ Block tag defaults to 'pending' tag which is the optimistic state of the VM
 const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position: 0})
 ```
 
+#### See
+
+[JSON-RPC](https://ethereum.github.io/execution-apis/api-documentation/)
+
+***
+
 ### ~~getAccount~~
 
 > **getAccount**: `GetAccountHandler`
+
+Defined in: [TevmClient.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L258)
 
 Gets the state of a specific ethereum address
 
@@ -239,9 +313,13 @@ console.log(res.nonce)
 console.log(res.balance)
 ```
 
+***
+
 ### ~~loadState~~
 
 > **loadState**: `LoadStateHandler`
+
+Defined in: [TevmClient.ts:333](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L333)
 
 Loads a previously dumped state into the VM
 
@@ -261,9 +339,13 @@ const state = JSON.parse(fs.readFileSync('state.json'))
 await tevm.loadState({state})
 ```
 
+***
+
 ### ~~request~~
 
 > **request**: `TevmJsonRpcRequestHandler`
+
+Defined in: [TevmClient.ts:236](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L236)
 
 Request handler for JSON-RPC requests. Most users will want to use the [`actions` api](https://tevm.sh/learn/actions/)
 instead of this method directly
@@ -285,9 +367,13 @@ const accountResponse = await tevm.request({
 })
 ```
 
+***
+
 ### ~~requestBulk~~
 
 > **requestBulk**: `TevmJsonRpcBulkRequestHandler`
+
+Defined in: [TevmClient.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L216)
 
 **`Experimental`**
 
@@ -375,9 +461,13 @@ response - EthGasPriceJsonRpcResponse
 request - EthGetBalanceJsonRpcRequest
 response - EthGetBalanceJsonRpcResponse
 
+***
+
 ### ~~setAccount~~
 
 > **setAccount**: `SetAccountHandler`
+
+Defined in: [TevmClient.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L249)
 
 Sets the state of a specific ethereum address
 
@@ -392,59 +482,3 @@ await tevm.setAccount({
  balance: parseEther('1.0')
 })
 ```
-
-## Deprecated
-
-This type has been superseded by Provider types from `@tevm/decorators` package
-The docs have not been updated to reflect this change if you are looking at this
-
-A local EVM instance running in the browser, Bun, or Node.js. Akin to anvil or ganache. The TevmClient interface
-is a unified interface that all Clients implement. This provides a consistent developer experience no matter how you are
-using Tevm.
-
-## See
-
-[TevmClient guide](https://tevm.sh/learn/clients/) for more documentation on clients
-
-#### JSON-RPC
-
-Tevm exposes a JSON-RPC interface for interacting with the EVM via the [TevmClient.request](TevmClient.md#request)
-
-## Examples
-
-```typescript
-import {createMemoryClient, type Tevm} from 'tevm'
-
-const tevm: Tevm = createMemoryClient()
-
-await tevm.request({
-  method: 'eth_blockNumber',
-  params: [],
-  id: 1,
-  jsonrpc: '2.0',
-}) // 0n
-```
-
-#### Actions
-
-TevmClient exposes a higher level `actions` based api similar to [viem](https://viem.sh) for interacting with TevmClient in a typesasafe
-ergonomic way.
-
-```typescript
-// same as eth_blockNumber example
-const account = await tevm.account({address: `0x${'0'.repeat(40)}`})
-console.log(account.balance) // 0n
-```
-
-#### Ethereum actions
-
-Ethereum actions are namespaced under [TevmClient.eth](TevmClient.md#eth)
-
-```typescript
-const blockNumber = await tevm.eth.blockNumber()
-console.log(blockNumber) // 0n
-```
-
-#### Anvil hardhat and ganache compatibility
-
-Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions

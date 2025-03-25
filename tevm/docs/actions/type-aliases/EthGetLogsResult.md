@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetLogsResult
 
-> **EthGetLogsResult**: [`FilterLog`](FilterLog.md)[]
+> **EthGetLogsResult** = [`FilterLog`](FilterLog.md)[]
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:75
 

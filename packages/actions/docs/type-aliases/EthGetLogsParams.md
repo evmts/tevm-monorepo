@@ -6,14 +6,16 @@
 
 # Type Alias: EthGetLogsParams
 
-> **EthGetLogsParams**: `object`
+> **EthGetLogsParams** = `object`
 
 Defined in: [packages/actions/src/eth/EthParams.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L145)
 
 Based on the JSON-RPC request for `eth_getLogs` procedure
 
-## Type declaration
+## Properties
 
 ### filterParams
 
 > `readonly` **filterParams**: [`FilterParams`](FilterParams.md)
+
+Defined in: [packages/actions/src/eth/EthParams.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L145)

@@ -6,7 +6,7 @@
 
 # Type Alias: LoadStateParams\<TThrowOnFail\>
 
-> **LoadStateParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+> **LoadStateParams**\<`TThrowOnFail`\> = [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Defined in: [packages/actions/src/LoadState/LoadStateParams.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateParams.ts#L25)
 
@@ -24,7 +24,9 @@ The TEVM state object to load.
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 Optional parameter to throw an error on failure.
 

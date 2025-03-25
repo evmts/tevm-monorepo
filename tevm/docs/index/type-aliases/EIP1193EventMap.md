@@ -6,13 +6,17 @@
 
 # Type Alias: EIP1193EventMap
 
-> **EIP1193EventMap**: `object`
+> **EIP1193EventMap** = `object`
 
 Defined in: packages/node/dist/index.d.ts:29
 
-## Type declaration
+## Methods
 
 ### accountsChanged()
+
+> **accountsChanged**(`accounts`): `void`
+
+Defined in: packages/node/dist/index.d.ts:30
 
 #### Parameters
 
@@ -24,7 +28,13 @@ Defined in: packages/node/dist/index.d.ts:29
 
 `void`
 
+***
+
 ### chainChanged()
+
+> **chainChanged**(`chainId`): `void`
+
+Defined in: packages/node/dist/index.d.ts:31
 
 #### Parameters
 
@@ -36,7 +46,13 @@ Defined in: packages/node/dist/index.d.ts:29
 
 `void`
 
+***
+
 ### connect()
+
+> **connect**(`connectInfo`): `void`
+
+Defined in: packages/node/dist/index.d.ts:32
 
 #### Parameters
 
@@ -48,7 +64,13 @@ Defined in: packages/node/dist/index.d.ts:29
 
 `void`
 
+***
+
 ### disconnect()
+
+> **disconnect**(`error`): `void`
+
+Defined in: packages/node/dist/index.d.ts:33
 
 #### Parameters
 
@@ -60,7 +82,13 @@ Defined in: packages/node/dist/index.d.ts:29
 
 `void`
 
+***
+
 ### message()
+
+> **message**(`message`): `void`
+
+Defined in: packages/node/dist/index.d.ts:34
 
 #### Parameters
 
@@ -72,7 +100,13 @@ Defined in: packages/node/dist/index.d.ts:29
 
 `void`
 
+***
+
 ### newBlock()
+
+> **newBlock**(`block`): `void`
+
+Defined in: packages/node/dist/index.d.ts:37
 
 #### Parameters
 
@@ -84,7 +118,13 @@ Defined in: packages/node/dist/index.d.ts:29
 
 `void`
 
+***
+
 ### newLog()
+
+> **newLog**(`log`): `void`
+
+Defined in: packages/node/dist/index.d.ts:38
 
 #### Parameters
 
@@ -96,7 +136,13 @@ Defined in: packages/node/dist/index.d.ts:29
 
 `void`
 
+***
+
 ### newPendingTransaction()
+
+> **newPendingTransaction**(`tx`): `void`
+
+Defined in: packages/node/dist/index.d.ts:35
 
 #### Parameters
 
@@ -108,7 +154,13 @@ Defined in: packages/node/dist/index.d.ts:29
 
 `void`
 
+***
+
 ### newReceipt()
+
+> **newReceipt**(`receipt`): `void`
+
+Defined in: packages/node/dist/index.d.ts:36
 
 #### Parameters
 

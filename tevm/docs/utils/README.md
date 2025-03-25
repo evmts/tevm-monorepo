@@ -49,26 +49,30 @@
 
 ## Variables
 
+- [~~bytesToUnprefixedHex~~](variables/bytesToUnprefixedHex.md)
+- [concatBytes](variables/concatBytes.md)
+- [ecrecover](variables/ecrecover.md)
+- [fetchFromProvider](variables/fetchFromProvider.md)
+- [getProvider](variables/getProvider.md)
 - [GWEI\_TO\_WEI](variables/GWEI_TO_WEI.md)
 - [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
 - [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
+- [PREFUNDED\_ACCOUNTS](variables/PREFUNDED_ACCOUNTS.md)
+- [PREFUNDED\_PRIVATE\_KEYS](variables/PREFUNDED_PRIVATE_KEYS.md)
+- [PREFUNDED\_PUBLIC\_KEYS](variables/PREFUNDED_PUBLIC_KEYS.md)
+- [PREFUNDED\_SEED](variables/PREFUNDED_SEED.md)
+- [randomBytes](variables/randomBytes.md)
+- [setLengthLeft](variables/setLengthLeft.md)
+- [zeros](variables/zeros.md)
 
 ## Functions
 
-- [~~bytesToUnprefixedHex~~](functions/bytesToUnprefixedHex.md)
 - [bytesToUtf8](functions/bytesToUtf8.md)
-- [concatBytes](functions/concatBytes.md)
-- [ecrecover](functions/ecrecover.md)
 - [ecsign](functions/ecsign.md)
 - [equalsBytes](functions/equalsBytes.md)
-- [fetchFromProvider](functions/fetchFromProvider.md)
-- [getProvider](functions/getProvider.md)
 - [invariant](functions/invariant.md)
-- [randomBytes](functions/randomBytes.md)
 - [serializeTransaction](functions/serializeTransaction.md)
-- [setLengthLeft](functions/setLengthLeft.md)
 - [toType](functions/toType.md)
-- [zeros](functions/zeros.md)
 
 ## References
 
@@ -188,7 +192,7 @@ Re-exports [CreateEventFilterParameters](../index/type-aliases/CreateEventFilter
 
 ### createMemoryDb
 
-Re-exports [createMemoryDb](../index/functions/createMemoryDb.md)
+Re-exports [createMemoryDb](../index/variables/createMemoryDb.md)
 
 ***
 
@@ -483,30 +487,6 @@ Re-exports [parseEther](../index/functions/parseEther.md)
 ### parseGwei
 
 Re-exports [parseGwei](../index/functions/parseGwei.md)
-
-***
-
-### PREFUNDED\_ACCOUNTS
-
-Re-exports [PREFUNDED_ACCOUNTS](../index/variables/PREFUNDED_ACCOUNTS.md)
-
-***
-
-### PREFUNDED\_PRIVATE\_KEYS
-
-Re-exports [PREFUNDED_PRIVATE_KEYS](../index/variables/PREFUNDED_PRIVATE_KEYS.md)
-
-***
-
-### PREFUNDED\_PUBLIC\_KEYS
-
-Re-exports [PREFUNDED_PUBLIC_KEYS](../index/variables/PREFUNDED_PUBLIC_KEYS.md)
-
-***
-
-### PREFUNDED\_SEED
-
-Re-exports [PREFUNDED_SEED](../index/variables/PREFUNDED_SEED.md)
 
 ***
 

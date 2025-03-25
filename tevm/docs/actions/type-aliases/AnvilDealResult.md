@@ -6,12 +6,14 @@
 
 # Type Alias: AnvilDealResult
 
-> **AnvilDealResult**: `object`
+> **AnvilDealResult** = `object`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:15
 
-## Type declaration
+## Properties
 
 ### errors?
 
 > `optional` **errors**: `Error`[]
+
+Defined in: packages/actions/types/anvil/AnvilResult.d.ts:16

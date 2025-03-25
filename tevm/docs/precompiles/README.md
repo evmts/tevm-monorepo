@@ -22,10 +22,10 @@ Re-exports [ConstructorArgument](../index/type-aliases/ConstructorArgument.md)
 
 ### defineCall
 
-Re-exports [defineCall](../index/functions/defineCall.md)
+Re-exports [defineCall](../index/variables/defineCall.md)
 
 ***
 
 ### definePrecompile
 
-Re-exports [definePrecompile](../index/functions/definePrecompile.md)
+Re-exports [definePrecompile](../index/variables/definePrecompile.md)

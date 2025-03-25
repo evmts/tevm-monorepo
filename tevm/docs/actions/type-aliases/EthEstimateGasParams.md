@@ -6,7 +6,7 @@
 
 # Type Alias: EthEstimateGasParams
 
-> **EthEstimateGasParams**: [`CallParams`](../../index/type-aliases/CallParams.md)
+> **EthEstimateGasParams** = [`CallParams`](CallParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:65
 

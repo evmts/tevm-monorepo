@@ -6,7 +6,7 @@
 
 # Type Alias: SolcInputSource
 
-> **SolcInputSource**: `object` & \{ `urls`: `string`[]; \} \| \{ `content`: `string`; \}
+> **SolcInputSource** = `object` & \{ `urls`: `string`[]; \} \| \{ `content`: `string`; \}
 
 Defined in: [solcTypes.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L15)
 

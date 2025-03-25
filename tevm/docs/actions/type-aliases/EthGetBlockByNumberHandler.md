@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBlockByNumberHandler()
 
-> **EthGetBlockByNumberHandler**: (`request`) => `Promise`\<[`EthGetBlockByNumberResult`](EthGetBlockByNumberResult.md)\>
+> **EthGetBlockByNumberHandler** = (`request`) => `Promise`\<[`EthGetBlockByNumberResult`](EthGetBlockByNumberResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:13
 

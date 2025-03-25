@@ -6,7 +6,7 @@
 
 # Type Alias: EthMiningParams
 
-> **EthMiningParams**: [`EmptyParams`](EmptyParams.md)
+> **EthMiningParams** = [`EmptyParams`](EmptyParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L219)
 

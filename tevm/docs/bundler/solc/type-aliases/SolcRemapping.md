@@ -6,6 +6,6 @@
 
 # Type Alias: SolcRemapping
 
-> **SolcRemapping**: `` `${string}=${string}` ``[]
+> **SolcRemapping** = `` `${string}=${string}` ``[]
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:13

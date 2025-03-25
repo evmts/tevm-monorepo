@@ -6,21 +6,29 @@
 
 # Type Alias: EIP1193RequestFn()\<TRpcSchema\>
 
-> **EIP1193RequestFn**\<`TRpcSchema`\>: \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options`?) => `Promise`\<`_ReturnType`\>
+> **EIP1193RequestFn**\<`TRpcSchema`\> = \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options`?) => `Promise`\<`_ReturnType`\>
 
 Defined in: packages/decorators/dist/index.d.ts:335
 
 ## Type Parameters
 
-• **TRpcSchema** *extends* [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) \| `undefined` = `undefined`
+### TRpcSchema
+
+`TRpcSchema` *extends* [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) \| `undefined` = `undefined`
 
 ## Type Parameters
 
-• **TRpcSchemaOverride** *extends* [`RpcSchemaOverride`](../../decorators/type-aliases/RpcSchemaOverride.md) \| `undefined` = `undefined`
+### TRpcSchemaOverride
 
-• **TParameters** *extends* [`EIP1193Parameters`](../../decorators/type-aliases/EIP1193Parameters.md)\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> = [`EIP1193Parameters`](../../decorators/type-aliases/EIP1193Parameters.md)\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\>
+`TRpcSchemaOverride` *extends* [`RpcSchemaOverride`](../../decorators/type-aliases/RpcSchemaOverride.md) \| `undefined` = `undefined`
 
-• **_ReturnType** = [`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\> *extends* [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) ? `Extract`\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\[`number`\], \{ `Method`: `TParameters`\[`"method"`\]; \}\>\[`"ReturnType"`\] : `unknown`
+### TParameters
+
+`TParameters` *extends* [`EIP1193Parameters`](../../decorators/type-aliases/EIP1193Parameters.md)\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\> = [`EIP1193Parameters`](../../decorators/type-aliases/EIP1193Parameters.md)\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\>
+
+### _ReturnType
+
+`_ReturnType` = [`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\> *extends* [`RpcSchema`](../../decorators/type-aliases/RpcSchema.md) ? `Extract`\<[`DerivedRpcSchema`](../../decorators/type-aliases/DerivedRpcSchema.md)\<`TRpcSchema`, `TRpcSchemaOverride`\>\[`number`\], \{ `Method`: `TParameters`\[`"method"`\]; \}\>\[`"ReturnType"`\] : `unknown`
 
 ## Parameters
 

@@ -41,7 +41,7 @@ Additional parameters for the ResourceNotFoundError.
 
 ### new AccountNotFoundError()
 
-> **new AccountNotFoundError**(`message`, `args`?, `tag`?): [`AccountNotFoundError`](AccountNotFoundError.md)
+> **new AccountNotFoundError**(`message`, `args`?, `tag`?): `AccountNotFoundError`
 
 Defined in: packages/errors/types/ethereum/ResourceNotFoundError.d.ts:45
 
@@ -69,11 +69,11 @@ The tag for the error.
 
 #### Returns
 
-[`AccountNotFoundError`](AccountNotFoundError.md)
+`AccountNotFoundError`
 
 #### Inherited from
 
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`constructor`](ResourceNotFoundError.md#constructors)
+[`ResourceNotFoundError`](ResourceNotFoundError.md).[`constructor`](ResourceNotFoundError.md#constructor)
 
 ## Properties
 
@@ -153,7 +153,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`ResourceNotFoundError`](ResourceNotFoundError.md).[`message`](ResourceNotFoundError.md#message-1)
+[`ResourceNotFoundError`](ResourceNotFoundError.md).[`message`](ResourceNotFoundError.md#message)
 
 ***
 
@@ -295,26 +295,54 @@ The first error that matches the function, or the original error.
 
 ### captureStackTrace()
 
+#### Call Signature
+
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-##### targetObject
+###### targetObject
 
 `object`
 
-##### constructorOpt?
+###### constructorOpt?
 
 `Function`
 
-#### Returns
+##### Returns
 
 `void`
 
-#### Inherited from
+##### Inherited from
+
+[`ResourceNotFoundError`](ResourceNotFoundError.md).[`captureStackTrace`](ResourceNotFoundError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
 
 [`ResourceNotFoundError`](ResourceNotFoundError.md).[`captureStackTrace`](ResourceNotFoundError.md#capturestacktrace)

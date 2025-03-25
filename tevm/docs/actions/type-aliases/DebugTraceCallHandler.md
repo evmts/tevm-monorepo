@@ -6,7 +6,7 @@
 
 # Type Alias: DebugTraceCallHandler()
 
-> **DebugTraceCallHandler**: (`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
+> **DebugTraceCallHandler** = (`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
 
 Defined in: packages/actions/types/debug/DebugHandler.d.ts:4
 

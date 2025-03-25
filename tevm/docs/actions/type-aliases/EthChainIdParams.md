@@ -6,7 +6,7 @@
 
 # Type Alias: EthChainIdParams
 
-> **EthChainIdParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthChainIdParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:56
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthCoinbaseResult
 
-> **EthCoinbaseResult**: [`Address`](Address.md)
+> **EthCoinbaseResult** = [`Address`](Address.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:27
 

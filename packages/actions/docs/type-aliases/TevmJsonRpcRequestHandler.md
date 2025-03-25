@@ -6,7 +6,7 @@
 
 # Type Alias: TevmJsonRpcRequestHandler()
 
-> **TevmJsonRpcRequestHandler**: \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
+> **TevmJsonRpcRequestHandler** = \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
 
 Defined in: [packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts#L102)
 
@@ -15,7 +15,9 @@ and more feature-rich `actions` api
 
 ## Type Parameters
 
-• **TRequest** *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`
+### TRequest
+
+`TRequest` *extends* [`TevmJsonRpcRequest`](TevmJsonRpcRequest.md) \| [`EthJsonRpcRequest`](EthJsonRpcRequest.md) \| [`AnvilJsonRpcRequest`](AnvilJsonRpcRequest.md) \| `DebugJsonRpcRequest`
 
 ## Parameters
 

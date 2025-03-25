@@ -6,7 +6,7 @@
 
 # Type Alias: Artifacts
 
-> **Artifacts**: `Artifacts`
+> **Artifacts** = `Artifacts`
 
 Defined in: bundler-packages/compiler/types/src/index.d.ts:6
 

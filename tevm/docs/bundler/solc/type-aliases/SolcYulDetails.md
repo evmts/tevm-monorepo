@@ -6,16 +6,22 @@
 
 # Type Alias: SolcYulDetails
 
-> **SolcYulDetails**: `object`
+> **SolcYulDetails** = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:14
 
-## Type declaration
+## Properties
 
 ### optimizerSteps
 
 > **optimizerSteps**: `string`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:16
+
+***
+
 ### stackAllocation?
 
 > `optional` **stackAllocation**: `boolean`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:15

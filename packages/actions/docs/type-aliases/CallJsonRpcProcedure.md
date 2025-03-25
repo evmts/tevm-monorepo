@@ -6,7 +6,7 @@
 
 # Type Alias: CallJsonRpcProcedure()
 
-> **CallJsonRpcProcedure**: (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
+> **CallJsonRpcProcedure** = (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/Call/CallJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallJsonRpcProcedure.ts#L7)
 

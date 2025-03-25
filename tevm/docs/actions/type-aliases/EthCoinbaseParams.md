@@ -6,7 +6,7 @@
 
 # Type Alias: EthCoinbaseParams
 
-> **EthCoinbaseParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthCoinbaseParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:60
 

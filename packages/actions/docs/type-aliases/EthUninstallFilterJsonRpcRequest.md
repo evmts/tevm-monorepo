@@ -6,7 +6,7 @@
 
 # Type Alias: EthUninstallFilterJsonRpcRequest
 
-> **EthUninstallFilterJsonRpcRequest**: `JsonRpcRequest`\<`"eth_uninstallFilter"`, readonly \[`Hex`\]\>
+> **EthUninstallFilterJsonRpcRequest** = `JsonRpcRequest`\<`"eth_uninstallFilter"`, readonly \[`Hex`\]\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:295](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L295)
 

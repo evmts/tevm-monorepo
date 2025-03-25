@@ -29,6 +29,6 @@ function App() {
 }
 ```
 
-## Functions
+## Variables
 
-- [vitePluginTevm](functions/vitePluginTevm.md)
+- [vitePluginTevm](variables/vitePluginTevm.md)

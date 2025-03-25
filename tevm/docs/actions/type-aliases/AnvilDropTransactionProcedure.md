@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilDropTransactionProcedure()
 
-> **AnvilDropTransactionProcedure**: (`request`) => `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](AnvilDropTransactionJsonRpcResponse.md)\>
+> **AnvilDropTransactionProcedure** = (`request`) => `Promise`\<[`AnvilDropTransactionJsonRpcResponse`](AnvilDropTransactionJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:31
 

@@ -16,7 +16,7 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:7](https://gith
 
 ### new UnknownChainError()
 
-> **new UnknownChainError**(`chainId`): [`UnknownChainError`](UnknownChainError.md)
+> **new UnknownChainError**(`chainId`): `UnknownChainError`
 
 Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L20)
 
@@ -28,7 +28,7 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:20](https://git
 
 #### Returns
 
-[`UnknownChainError`](UnknownChainError.md)
+`UnknownChainError`
 
 #### Overrides
 

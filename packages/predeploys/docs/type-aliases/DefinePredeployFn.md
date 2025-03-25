@@ -6,7 +6,7 @@
 
 # Type Alias: DefinePredeployFn()
 
-> **DefinePredeployFn**: \<`TName`, `THumanReadableAbi`\>(`contract`) => [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
+> **DefinePredeployFn** = \<`TName`, `THumanReadableAbi`\>(`contract`) => [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
 Defined in: [DefinePredeployFn.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/predeploys/src/DefinePredeployFn.ts#L28)
 
@@ -14,9 +14,13 @@ Defines a predeploy contract to use in the tevm vm
 
 ## Type Parameters
 
-• **TName** *extends* `string`
+### TName
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+`TName` *extends* `string`
+
+### THumanReadableAbi
+
+`THumanReadableAbi` *extends* readonly `string`[]
 
 ## Parameters
 

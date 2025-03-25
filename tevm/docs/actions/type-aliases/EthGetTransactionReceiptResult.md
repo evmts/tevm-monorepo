@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionReceiptResult
 
-> **EthGetTransactionReceiptResult**: [`TransactionReceiptResult`](TransactionReceiptResult.md) \| `null`
+> **EthGetTransactionReceiptResult** = [`TransactionReceiptResult`](TransactionReceiptResult.md) \| `null`
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:107
 

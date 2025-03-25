@@ -74,6 +74,11 @@
 
 ## Variables
 
+- [~~bytesToUnprefixedHex~~](variables/bytesToUnprefixedHex.md)
+- [concatBytes](variables/concatBytes.md)
+- [ecrecover](variables/ecrecover.md)
+- [fetchFromProvider](variables/fetchFromProvider.md)
+- [getProvider](variables/getProvider.md)
 - [GWEI\_TO\_WEI](variables/GWEI_TO_WEI.md)
 - [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
 - [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
@@ -81,6 +86,9 @@
 - [PREFUNDED\_PRIVATE\_KEYS](variables/PREFUNDED_PRIVATE_KEYS.md)
 - [PREFUNDED\_PUBLIC\_KEYS](variables/PREFUNDED_PUBLIC_KEYS.md)
 - [PREFUNDED\_SEED](variables/PREFUNDED_SEED.md)
+- [randomBytes](variables/randomBytes.md)
+- [setLengthLeft](variables/setLengthLeft.md)
+- [zeros](variables/zeros.md)
 
 ## Functions
 
@@ -90,16 +98,13 @@
 - [bytesToBool](functions/bytesToBool.md)
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
-- [~~bytesToUnprefixedHex~~](functions/bytesToUnprefixedHex.md)
 - [bytesToUtf8](functions/bytesToUtf8.md)
-- [concatBytes](functions/concatBytes.md)
 - [createMemoryDb](functions/createMemoryDb.md)
 - [decodeAbiParameters](functions/decodeAbiParameters.md)
 - [decodeErrorResult](functions/decodeErrorResult.md)
 - [decodeEventLog](functions/decodeEventLog.md)
 - [decodeFunctionData](functions/decodeFunctionData.md)
 - [decodeFunctionResult](functions/decodeFunctionResult.md)
-- [ecrecover](functions/ecrecover.md)
 - [ecsign](functions/ecsign.md)
 - [encodeAbiParameters](functions/encodeAbiParameters.md)
 - [encodeDeployData](functions/encodeDeployData.md)
@@ -109,7 +114,6 @@
 - [encodeFunctionResult](functions/encodeFunctionResult.md)
 - [encodePacked](functions/encodePacked.md)
 - [equalsBytes](functions/equalsBytes.md)
-- [fetchFromProvider](functions/fetchFromProvider.md)
 - [formatAbi](functions/formatAbi.md)
 - [formatEther](functions/formatEther.md)
 - [formatGwei](functions/formatGwei.md)
@@ -118,7 +122,6 @@
 - [fromHex](functions/fromHex.md)
 - [fromRlp](functions/fromRlp.md)
 - [getAddress](functions/getAddress.md)
-- [getProvider](functions/getProvider.md)
 - [hexToBigInt](functions/hexToBigInt.md)
 - [hexToBool](functions/hexToBool.md)
 - [hexToBytes](functions/hexToBytes.md)
@@ -134,15 +137,12 @@
 - [parseAbi](functions/parseAbi.md)
 - [parseEther](functions/parseEther.md)
 - [parseGwei](functions/parseGwei.md)
-- [randomBytes](functions/randomBytes.md)
 - [serializeTransaction](functions/serializeTransaction.md)
-- [setLengthLeft](functions/setLengthLeft.md)
 - [stringToHex](functions/stringToHex.md)
 - [toBytes](functions/toBytes.md)
 - [toHex](functions/toHex.md)
 - [toRlp](functions/toRlp.md)
 - [toType](functions/toType.md)
-- [zeros](functions/zeros.md)
 
 ## References
 

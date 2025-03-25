@@ -6,7 +6,7 @@
 
 # Type Alias: SolcInputSources
 
-> **SolcInputSources**: `object`
+> **SolcInputSources** = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:83
 

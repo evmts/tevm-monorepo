@@ -6,7 +6,7 @@
 
 # Type Alias: MineJsonRpcProcedure()
 
-> **MineJsonRpcProcedure**: (`request`) => `Promise`\<[`MineJsonRpcResponse`](MineJsonRpcResponse.md)\>
+> **MineJsonRpcProcedure** = (`request`) => `Promise`\<[`MineJsonRpcResponse`](MineJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/Mine/MineJsonRpcProcedure.d.ts:6
 

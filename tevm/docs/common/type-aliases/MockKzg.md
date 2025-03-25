@@ -6,7 +6,7 @@
 
 # Type Alias: MockKzg
 
-> **MockKzg**: `object`
+> **MockKzg** = `object`
 
 Defined in: packages/common/types/MockKzg.d.ts:21
 
@@ -14,11 +14,33 @@ The interface of the custom crypto for kzg implemented by `createMockKzg``
 The real kzg commitmenet is over 500kb added to bundle size
 so this is useful alternative for smaller bundles and the default
 
-## Type declaration
+## Example
+
+```typescript
+import { createCommon, createMockKzg, mainnet, type MockKzg } from 'tevm/common'
+
+const kzg: MockKzg = createMockKzg()
+
+const common = createCommon({
+  ...mainnet,
+  customCrypto: {
+    kzg:,
+  },
+})
+```
+
+## See
+
+ - [createMockKzg](https://tevm.sh/reference/tevm/common/functions/createmockkzg/)
+ - [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
+
+## Properties
 
 ### blobToKzgCommitment()
 
 > **blobToKzgCommitment**: (`blob`) => `Uint8Array`
+
+Defined in: packages/common/types/MockKzg.d.ts:24
 
 #### Parameters
 
@@ -30,9 +52,13 @@ so this is useful alternative for smaller bundles and the default
 
 `Uint8Array`
 
+***
+
 ### computeBlobKzgProof()
 
 > **computeBlobKzgProof**: (`blob`, `commitment`) => `Uint8Array`
+
+Defined in: packages/common/types/MockKzg.d.ts:25
 
 #### Parameters
 
@@ -48,17 +74,25 @@ so this is useful alternative for smaller bundles and the default
 
 `Uint8Array`
 
+***
+
 ### freeTrustedSetup()
 
 > **freeTrustedSetup**: () => `void`
+
+Defined in: packages/common/types/MockKzg.d.ts:23
 
 #### Returns
 
 `void`
 
+***
+
 ### loadTrustedSetup()
 
 > **loadTrustedSetup**: (`trustedSetup`?) => `number`
+
+Defined in: packages/common/types/MockKzg.d.ts:22
 
 #### Parameters
 
@@ -70,9 +104,13 @@ so this is useful alternative for smaller bundles and the default
 
 `number`
 
+***
+
 ### verifyBlobKzgProof()
 
 > **verifyBlobKzgProof**: (`blob`, `commitment`, `proof`) => `boolean`
+
+Defined in: packages/common/types/MockKzg.d.ts:28
 
 #### Parameters
 
@@ -92,9 +130,13 @@ so this is useful alternative for smaller bundles and the default
 
 `boolean`
 
+***
+
 ### verifyBlobKzgProofBatch()
 
 > **verifyBlobKzgProofBatch**: (`blobs`, `commitments`, `proofs`) => `boolean`
+
+Defined in: packages/common/types/MockKzg.d.ts:26
 
 #### Parameters
 
@@ -114,9 +156,13 @@ so this is useful alternative for smaller bundles and the default
 
 `boolean`
 
+***
+
 ### verifyKzgProof()
 
 > **verifyKzgProof**: (`commitment`, `z`, `y`, `proof`) => `boolean`
+
+Defined in: packages/common/types/MockKzg.d.ts:27
 
 #### Parameters
 
@@ -139,23 +185,3 @@ so this is useful alternative for smaller bundles and the default
 #### Returns
 
 `boolean`
-
-## Example
-
-```typescript
-import { createCommon, createMockKzg, mainnet, type MockKzg } from 'tevm/common'
-
-const kzg: MockKzg = createMockKzg()
-
-const common = createCommon({
-  ...mainnet,
-  customCrypto: {
-    kzg:,
-  },
-})
-```
-
-## See
-
- - [createMockKzg](https://tevm.sh/reference/tevm/common/functions/createmockkzg/)
- - [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)

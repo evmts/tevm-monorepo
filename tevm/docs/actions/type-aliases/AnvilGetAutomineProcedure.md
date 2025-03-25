@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilGetAutomineProcedure()
 
-> **AnvilGetAutomineProcedure**: (`request`) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
+> **AnvilGetAutomineProcedure** = (`request`) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:19
 

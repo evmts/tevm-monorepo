@@ -6,16 +6,22 @@
 
 # Type Alias: SolcInputSourcesDestructibleSettings
 
-> **SolcInputSourcesDestructibleSettings**: `object`
+> **SolcInputSourcesDestructibleSettings** = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:79
 
-## Type declaration
+## Properties
 
 ### content
 
 > **content**: `string`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:81
+
+***
+
 ### keccak256?
 
 > `optional` **keccak256**: `HexNumber`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:80

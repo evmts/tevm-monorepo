@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetNonceJsonRpcResponse
 
-> **AnvilSetNonceJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setNonce"`, `SerializeToJson`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>, `AnvilError`\>
+> **AnvilSetNonceJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setNonce"`, `SerializeToJson`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>, `AnvilError`\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:49
 

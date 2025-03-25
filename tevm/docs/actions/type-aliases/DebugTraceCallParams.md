@@ -6,7 +6,7 @@
 
 # Type Alias: DebugTraceCallParams
 
-> **DebugTraceCallParams**: [`TraceParams`](../../index/type-aliases/TraceParams.md) & [`EthCallParams`](EthCallParams.md)
+> **DebugTraceCallParams** = [`TraceParams`](TraceParams.md) & [`EthCallParams`](EthCallParams.md)
 
 Defined in: packages/actions/types/debug/DebugParams.d.ts:35
 

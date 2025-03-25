@@ -6,7 +6,7 @@
 
 # Type Alias: MiningConfig
 
-> **MiningConfig**: [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| `GasMining`
+> **MiningConfig** = [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| `GasMining`
 
 Defined in: [packages/node/src/MiningConfig.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L86)
 

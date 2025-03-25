@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewPendingTransactionFilterJsonRpcProcedure()
 
-> **EthNewPendingTransactionFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
+> **EthNewPendingTransactionFilterJsonRpcProcedure** = (`request`) => `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:39
 

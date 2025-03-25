@@ -6,44 +6,50 @@
 
 # Type Alias: WatchAssetParams
 
-> **WatchAssetParams**: `object`
+> **WatchAssetParams** = `object`
 
 Defined in: packages/decorators/dist/index.d.ts:1531
 
 Parameters for the `watchAsset` method.
 
-## Type declaration
+## Properties
 
 ### options
 
 > **options**: `object`
 
-#### options.address
+Defined in: packages/decorators/dist/index.d.ts:1534
+
+#### address
 
 > **address**: `string`
 
 The address of the token contract
 
-#### options.decimals
+#### decimals
 
 > **decimals**: `number`
 
 The number of token decimals
 
-#### options.image?
+#### image?
 
 > `optional` **image**: `string`
 
 A string url of the token logo
 
-#### options.symbol
+#### symbol
 
 > **symbol**: `string`
 
 A ticker symbol or shorthand, up to 11 characters
 
+***
+
 ### type
 
 > **type**: `"ERC20"`
+
+Defined in: packages/decorators/dist/index.d.ts:1533
 
 Token type.

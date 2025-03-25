@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetChainIdJsonRpcRequest
 
-> **AnvilSetChainIdJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setChainId"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
+> **AnvilSetChainIdJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setChainId"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:66
 

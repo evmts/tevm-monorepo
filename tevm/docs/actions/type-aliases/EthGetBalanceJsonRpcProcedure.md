@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBalanceJsonRpcProcedure()
 
-> **EthGetBalanceJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
+> **EthGetBalanceJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:11
 

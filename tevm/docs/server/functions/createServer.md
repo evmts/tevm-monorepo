@@ -2637,7 +2637,7 @@ await client.tevmLoadState(state)
 
 #### tevmMine
 
-[`MineHandler`](../../index/type-aliases/MineHandler.md)
+[`MineHandler`](../../actions/type-aliases/MineHandler.md)
 
 Mines a new block with all pending transactions. In `manual` mode you must call this manually before the canonical head state is updated.
 

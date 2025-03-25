@@ -6,7 +6,7 @@
 
 # Type Alias: SetAccountJsonRpcRequest
 
-> **SetAccountJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_setAccount"`, \[`SerializeToJson`\<[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\>\]\>
+> **SetAccountJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_setAccount"`, \[`SerializeToJson`\<[`SetAccountParams`](SetAccountParams.md)\>\]\>
 
 Defined in: packages/actions/types/SetAccount/SetAccountJsonRpcRequest.d.ts:7
 

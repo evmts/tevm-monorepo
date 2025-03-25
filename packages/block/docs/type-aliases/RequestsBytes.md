@@ -6,7 +6,7 @@
 
 # Type Alias: RequestsBytes
 
-> **RequestsBytes**: `Uint8Array`[]
+> **RequestsBytes** = `Uint8Array`[]
 
 Defined in: [packages/block/src/types.ts:259](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L259)
 

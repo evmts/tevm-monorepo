@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBlockTransactionCountByNumberResult
 
-> **EthGetBlockTransactionCountByNumberResult**: [`Hex`](Hex.md)
+> **EthGetBlockTransactionCountByNumberResult** = [`Hex`](Hex.md)
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:59
 

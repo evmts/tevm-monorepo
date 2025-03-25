@@ -6,7 +6,7 @@
 
 # Type Alias: Hash
 
-> **Hash**: `` `0x${string}` ``
+> **Hash** = `` `0x${string}` ``
 
 Defined in: [eip1193/misc.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/misc.ts#L20)
 

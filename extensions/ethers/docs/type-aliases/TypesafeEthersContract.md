@@ -6,7 +6,7 @@
 
 # Type Alias: TypesafeEthersContract\<TAbi\>
 
-> **TypesafeEthersContract**\<`TAbi`\>: `BaseContract` & \{ \[TFunctionName in ExtractAbiFunctionNames\<TAbi, "pure" \| "view"\>\]: BaseContractMethod\<AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["inputs"\]\> & any\[\], AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["outputs"\]\>\[0\], AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["outputs"\]\>\[0\]\> \} & \{ \[TFunctionName in ExtractAbiFunctionNames\<TAbi, "nonpayable" \| "payable"\>\]: BaseContractMethod\<AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["inputs"\]\> & any\[\], AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["outputs"\]\>\[0\], ContractTransactionResponse\> \} & `object`
+> **TypesafeEthersContract**\<`TAbi`\> = `BaseContract` & \{ \[TFunctionName in ExtractAbiFunctionNames\<TAbi, "pure" \| "view"\>\]: BaseContractMethod\<AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["inputs"\]\> & any\[\], AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["outputs"\]\>\[0\], AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["outputs"\]\>\[0\]\> \} & \{ \[TFunctionName in ExtractAbiFunctionNames\<TAbi, "nonpayable" \| "payable"\>\]: BaseContractMethod\<AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["inputs"\]\> & any\[\], AbiParametersToPrimitiveTypes\<ExtractAbiFunction\<TAbi, TFunctionName\>\["outputs"\]\>\[0\], ContractTransactionResponse\> \} & `object`
 
 Defined in: [extensions/ethers/src/contract/TypesafeEthersContract.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/TypesafeEthersContract.ts#L15)
 
@@ -18,7 +18,9 @@ Defined in: [extensions/ethers/src/contract/TypesafeEthersContract.ts:15](https:
 
 #### Type Parameters
 
-• **TContractEventName** *extends* `Omit`\<`ContractEventName`, `ExtractAbiEventNames`\<`TAbi`\>\> \| `ExtractAbiEventNames`\<`TAbi`\>
+##### TContractEventName
+
+`TContractEventName` *extends* `Omit`\<`ContractEventName`, `ExtractAbiEventNames`\<`TAbi`\>\> \| `ExtractAbiEventNames`\<`TAbi`\>
 
 #### Parameters
 
@@ -40,4 +42,6 @@ Defined in: [extensions/ethers/src/contract/TypesafeEthersContract.ts:15](https:
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi`
+### TAbi
+
+`TAbi` *extends* `Abi`

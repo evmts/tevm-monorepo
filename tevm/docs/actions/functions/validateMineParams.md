@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Mine/validateMineParams.d.ts:1
 
 ### action
 
-[`MineParams`](../../index/type-aliases/MineParams.md)\<`boolean`\>
+[`MineParams`](../type-aliases/MineParams.md)\<`boolean`\>
 
 ## Returns
 

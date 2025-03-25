@@ -15,7 +15,7 @@ Provides methods for storing, retrieving, and searching transaction receipts and
 
 ### new ReceiptsManager()
 
-> **new ReceiptsManager**(`mapDb`, `chain`): [`ReceiptsManager`](ReceiptsManager.md)
+> **new ReceiptsManager**(`mapDb`, `chain`): `ReceiptsManager`
 
 Defined in: [ReceiptManager.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L219)
 
@@ -37,7 +37,7 @@ The blockchain instance for retrieving blocks
 
 #### Returns
 
-[`ReceiptsManager`](ReceiptsManager.md)
+`ReceiptsManager`
 
 ## Properties
 
@@ -96,7 +96,7 @@ The database instance for storing receipts and indexes
 
 ### deepCopy()
 
-> **deepCopy**(`chain`): [`ReceiptsManager`](ReceiptsManager.md)
+> **deepCopy**(`chain`): `ReceiptsManager`
 
 Defined in: [ReceiptManager.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L249)
 
@@ -113,7 +113,7 @@ The new chain reference to use
 
 #### Returns
 
-[`ReceiptsManager`](ReceiptsManager.md)
+`ReceiptsManager`
 
 A new ReceiptsManager instance with copied state
 

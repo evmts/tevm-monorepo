@@ -6,7 +6,7 @@
 
 # Type Alias: Quantity
 
-> **Quantity**: `Hex`
+> **Quantity** = `Hex`
 
 Defined in: [eip1193/NetworkSync.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/NetworkSync.ts#L20)
 

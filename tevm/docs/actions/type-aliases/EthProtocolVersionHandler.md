@@ -6,7 +6,7 @@
 
 # Type Alias: EthProtocolVersionHandler()
 
-> **EthProtocolVersionHandler**: (`request`) => `Promise`\<[`EthProtocolVersionResult`](EthProtocolVersionResult.md)\>
+> **EthProtocolVersionHandler** = (`request`) => `Promise`\<[`EthProtocolVersionResult`](EthProtocolVersionResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:31
 

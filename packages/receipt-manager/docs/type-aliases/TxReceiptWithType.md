@@ -6,7 +6,7 @@
 
 # Type Alias: TxReceiptWithType
 
-> **TxReceiptWithType**: `PreByzantiumTxReceiptWithType` \| `PostByzantiumTxReceiptWithType`
+> **TxReceiptWithType** = `PreByzantiumTxReceiptWithType` \| `PostByzantiumTxReceiptWithType`
 
 Defined in: [ReceiptManager.ts:95](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L95)
 

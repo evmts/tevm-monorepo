@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewBlockFilterParams
 
-> **EthNewBlockFilterParams**: [`EmptyParams`](EmptyParams.md)
+> **EthNewBlockFilterParams** = [`EmptyParams`](EmptyParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:298](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L298)
 

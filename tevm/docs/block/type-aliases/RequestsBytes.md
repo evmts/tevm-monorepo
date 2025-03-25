@@ -6,7 +6,7 @@
 
 # Type Alias: RequestsBytes
 
-> **RequestsBytes**: `Uint8Array`[]
+> **RequestsBytes** = `Uint8Array`[]
 
 Defined in: packages/block/types/types.d.ts:250
 

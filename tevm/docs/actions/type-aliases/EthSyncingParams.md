@@ -6,7 +6,7 @@
 
 # Type Alias: EthSyncingParams
 
-> **EthSyncingParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthSyncingParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:269
 

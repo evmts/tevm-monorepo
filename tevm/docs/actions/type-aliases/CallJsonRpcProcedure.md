@@ -6,7 +6,7 @@
 
 # Type Alias: CallJsonRpcProcedure()
 
-> **CallJsonRpcProcedure**: (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
+> **CallJsonRpcProcedure** = (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/Call/CallJsonRpcProcedure.d.ts:6
 

@@ -6,7 +6,7 @@
 
 # Type Alias: SetAccountHandler()
 
-> **SetAccountHandler**: (`params`) => `Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
+> **SetAccountHandler** = (`params`) => `Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
 Defined in: [packages/actions/src/SetAccount/SetAccountHandlerType.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountHandlerType.ts#L15)
 

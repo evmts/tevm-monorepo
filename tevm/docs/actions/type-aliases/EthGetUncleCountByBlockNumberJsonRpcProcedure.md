@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetUncleCountByBlockNumberJsonRpcProcedure()
 
-> **EthGetUncleCountByBlockNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](EthGetUncleCountByBlockNumberJsonRpcResponse.md)\>
+> **EthGetUncleCountByBlockNumberJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetUncleCountByBlockNumberJsonRpcResponse`](EthGetUncleCountByBlockNumberJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:23
 

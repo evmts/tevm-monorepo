@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBlockByNumberJsonRpcProcedure()
 
-> **EthGetBlockByNumberJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
+> **EthGetBlockByNumberJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:13
 

@@ -17,7 +17,9 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 ### Type Parameters
 
-• **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
+#### T
+
+`T` *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
 ### Parameters
 
@@ -48,7 +50,9 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 ### Type Parameters
 
-• **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
+#### T
+
+`T` *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
 ### Parameters
 
@@ -79,7 +83,9 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 ### Type Parameters
 
-• **T** *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
+#### T
+
+`T` *extends* [`TypeOutput`](../enumerations/TypeOutput.md)
 
 ### Parameters
 

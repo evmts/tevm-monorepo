@@ -6,7 +6,7 @@
 
 # Type Alias: GetAccountJsonRpcProcedure()
 
-> **GetAccountJsonRpcProcedure**: (`request`) => `Promise`\<[`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)\>
+> **GetAccountJsonRpcProcedure** = (`request`) => `Promise`\<[`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/GetAccount/GetAccountJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountJsonRpcProcedure.ts#L7)
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthBlockNumberResult
 
-> **EthBlockNumberResult**: `bigint`
+> **EthBlockNumberResult** = `bigint`
 
 Defined in: [packages/actions/src/eth/EthResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L18)
 

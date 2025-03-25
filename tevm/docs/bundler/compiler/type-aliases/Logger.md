@@ -6,7 +6,7 @@
 
 # Type Alias: Logger
 
-> **Logger**: `Logger`
+> **Logger** = `Logger`
 
 Defined in: bundler-packages/compiler/types/src/index.d.ts:18
 

@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilMineJsonRpcRequest
 
-> **AnvilMineJsonRpcRequest**: `JsonRpcRequest`\<`"anvil_mine"`, readonly \[`Hex`, `Hex`\]\>
+> **AnvilMineJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_mine"`, readonly \[`Hex`, `Hex`\]\>
 
 Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L49)
 

@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilDealHandler()
 
-> **AnvilDealHandler**: (`params`) => `Promise`\<[`AnvilDealResult`](AnvilDealResult.md)\>
+> **AnvilDealHandler** = (`params`) => `Promise`\<[`AnvilDealResult`](AnvilDealResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:16
 

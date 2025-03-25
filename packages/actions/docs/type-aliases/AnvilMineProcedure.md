@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilMineProcedure()
 
-> **AnvilMineProcedure**: (`request`) => `Promise`\<[`AnvilMineJsonRpcResponse`](AnvilMineJsonRpcResponse.md)\>
+> **AnvilMineProcedure** = (`request`) => `Promise`\<[`AnvilMineJsonRpcResponse`](AnvilMineJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L69)
 

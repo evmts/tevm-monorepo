@@ -6,7 +6,7 @@
 
 # Type Alias: GetAccountHandler()
 
-> **GetAccountHandler**: (`params`) => `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
+> **GetAccountHandler** = (`params`) => `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 
 Defined in: [packages/actions/src/GetAccount/GetAccountHandlerType.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountHandlerType.ts#L21)
 

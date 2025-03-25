@@ -6,7 +6,7 @@
 
 # Type Alias: TevmTransport()\<TName\>
 
-> **TevmTransport**\<`TName`\>: \<`TChain`\>(`{
+> **TevmTransport**\<`TName`\> = \<`TChain`\>(`{
 	chain,
 	pollingInterval,
 	retryCount,
@@ -19,13 +19,17 @@ A type representing a custom TEVM Transport for viem.
 
 ## Type Parameters
 
-• **TName** *extends* `string` = `string`
+### TName
+
+`TName` *extends* `string` = `string`
 
 The name of the transport.
 
 ## Type Parameters
 
-• **TChain** *extends* `Chain` \| `undefined` = `Chain`
+### TChain
+
+`TChain` *extends* `Chain` \| `undefined` = `Chain`
 
 The blockchain configuration.
 

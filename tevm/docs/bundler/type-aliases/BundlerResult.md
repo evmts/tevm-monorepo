@@ -6,7 +6,7 @@
 
 # Type Alias: BundlerResult
 
-> **BundlerResult**: `BundlerResult`
+> **BundlerResult** = `BundlerResult`
 
 Defined in: bundler-packages/base-bundler/types/src/index.d.ts:14
 

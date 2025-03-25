@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilDealProcedure()
 
-> **AnvilDealProcedure**: (`request`) => `Promise`\<[`AnvilDealJsonRpcResponse`](AnvilDealJsonRpcResponse.md)\>
+> **AnvilDealProcedure** = (`request`) => `Promise`\<[`AnvilDealJsonRpcResponse`](AnvilDealJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:63
 

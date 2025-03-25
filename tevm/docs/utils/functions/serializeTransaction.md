@@ -12,9 +12,13 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.2
 
 ## Type Parameters
 
-• **transaction** *extends* `TransactionSerializable`
+### transaction
 
-• **_transactionType** *extends* `TransactionType` = `GetTransactionType`\<`transaction`\>
+`transaction` *extends* `TransactionSerializable`
+
+### _transactionType
+
+`_transactionType` *extends* `TransactionType` = `GetTransactionType`\<`transaction`\>
 
 ## Parameters
 

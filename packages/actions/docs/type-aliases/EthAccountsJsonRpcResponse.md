@@ -6,7 +6,7 @@
 
 # Type Alias: EthAccountsJsonRpcResponse
 
-> **EthAccountsJsonRpcResponse**: `JsonRpcResponse`\<`"eth_accounts"`, `Address`[], `string` \| `number`\>
+> **EthAccountsJsonRpcResponse** = `JsonRpcResponse`\<`"eth_accounts"`, `Address`[], `string` \| `number`\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L14)
 

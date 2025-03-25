@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetStorageAtProcedure()
 
-> **AnvilSetStorageAtProcedure**: (`request`) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
+> **AnvilSetStorageAtProcedure** = (`request`) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:47
 

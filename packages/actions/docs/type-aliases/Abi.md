@@ -6,7 +6,7 @@
 
 # Type Alias: Abi
 
-> **Abi**: `_Abi`
+> **Abi** = `_Abi`
 
 Defined in: [packages/actions/src/common/Abi.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Abi.ts#L6)
 

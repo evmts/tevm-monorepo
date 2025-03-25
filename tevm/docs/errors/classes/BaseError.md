@@ -19,6 +19,8 @@ This class is abstract and should be extended by other error classes.
 
 ## Extended by
 
+- [`InvalidJsonError`](../../server/classes/InvalidJsonError.md)
+- [`ReadRequestBodyError`](../../server/classes/ReadRequestBodyError.md)
 - [`NoForkTransportSetError`](NoForkTransportSetError.md)
 - [`ForkError`](ForkError.md)
 - [`ParseError`](ParseError.md)
@@ -54,8 +56,6 @@ This class is abstract and should be extended by other error classes.
 - [`InsufficientPermissionsError`](InsufficientPermissionsError.md)
 - [`PendingTransactionTimeoutError`](PendingTransactionTimeoutError.md)
 - [`InternalEvmError`](InternalEvmError.md)
-- [`InvalidJsonError`](../../server/classes/InvalidJsonError.md)
-- [`ReadRequestBodyError`](../../server/classes/ReadRequestBodyError.md)
 
 ## Implements
 
@@ -65,7 +65,7 @@ This class is abstract and should be extended by other error classes.
 
 ### new BaseError()
 
-> **new BaseError**(`shortMessage`, `args`, `_tag`, `code`?): [`BaseError`](BaseError.md)
+> **new BaseError**(`shortMessage`, `args`, `_tag`, `code`?): `BaseError`
 
 Defined in: packages/errors/types/ethereum/BaseError.d.ts:36
 
@@ -95,7 +95,7 @@ Error code analogous to the code in JSON RPC error.
 
 #### Returns
 
-[`BaseError`](BaseError.md)
+`BaseError`
 
 #### Overrides
 
@@ -313,26 +313,54 @@ The first error that matches the function, or the original error.
 
 ### captureStackTrace()
 
+#### Call Signature
+
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
-#### Parameters
+##### Parameters
 
-##### targetObject
+###### targetObject
 
 `object`
 
-##### constructorOpt?
+###### constructorOpt?
 
 `Function`
 
-#### Returns
+##### Returns
 
 `void`
 
-#### Inherited from
+##### Inherited from
+
+`Error.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
+Defined in: node\_modules/.pnpm/@types+node@22.13.11/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
 
 `Error.captureStackTrace`

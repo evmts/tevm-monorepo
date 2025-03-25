@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilResetHandler()
 
-> **AnvilResetHandler**: (`params`) => `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
+> **AnvilResetHandler** = (`params`) => `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:7
 

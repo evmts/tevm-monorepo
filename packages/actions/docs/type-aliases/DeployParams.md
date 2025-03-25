@@ -6,7 +6,7 @@
 
 # Type Alias: DeployParams\<TThrowOnFail, TAbi, THasConstructor, TAllArgs\>
 
-> **DeployParams**\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>: `Omit`\<[`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\>, `"to"`\> & `object` & `EncodeDeployDataParameters`\<`TAbi`, `THasConstructor`, `TAllArgs`\>
+> **DeployParams**\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> = `Omit`\<[`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\>, `"to"`\> & `object` & `EncodeDeployDataParameters`\<`TAbi`, `THasConstructor`, `TAllArgs`\>
 
 Defined in: [packages/actions/src/Deploy/DeployParams.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployParams.ts#L47)
 
@@ -27,19 +27,27 @@ An optional CREATE2 salt, if deploying with CREATE2 for a predictable contract a
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 Indicates whether the function should throw on failure.
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+### TAbi
+
+`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
 The ABI type, typically including constructor definitions.
 
-• **THasConstructor** = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
+### THasConstructor
+
+`THasConstructor` = `TAbi` *extends* `Abi` ? `Abi` *extends* `TAbi` ? `true` : \[`Extract`\<`TAbi`\[`number`\], \{ `type`: `"constructor"`; \}\>\] *extends* \[`never`\] ? `false` : `true` : `true`
 
 Determines whether the ABI includes a constructor.
 
-• **TAllArgs** = `ContractConstructorArgs`\<`TAbi`\>
+### TAllArgs
+
+`TAllArgs` = `ContractConstructorArgs`\<`TAbi`\>
 
 Types of the constructor arguments for the deployment.
 
