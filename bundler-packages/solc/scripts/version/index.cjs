@@ -70,5 +70,38 @@ try {
   console.log(`\nCleaning up temporary directory...`);
   process.chdir(path.dirname(tempDir)); // Move out of the directory before deleting it
   fs.rmSync(tempDir, { recursive: true, force: true });
+  
+  // Create a changeset for @tevm/solc
+  console.log('\nCreating changeset...');
+  try {
+    // Go back to the root of the project
+    const projectRoot = path.resolve(__dirname, '../../../..');
+    
+    // Generate a random changeset filename
+    const adjectives = ['happy', 'brave', 'clever', 'shiny', 'swift', 'kind', 'proud', 'calm', 'wise', 'neat'];
+    const nouns = ['lions', 'eagles', 'dolphins', 'tigers', 'pandas', 'foxes', 'wolves', 'bears', 'hawks', 'owls'];
+    const verbs = ['jump', 'fly', 'swim', 'run', 'dance', 'sing', 'laugh', 'dream', 'smile', 'play'];
+    
+    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+    
+    const changesetFilename = `${randomAdjective}-${randomNoun}-${randomVerb}.md`;
+    const changesetPath = path.join(projectRoot, '.changeset', changesetFilename);
+    
+    // Create the changeset content
+    const changesetContent = `---
+"@tevm/solc": patch
+---
+
+Add support for Solidity version ${versionNumber}`;
+
+    // Write the changeset file
+    fs.writeFileSync(changesetPath, changesetContent);
+    console.log(`Changeset created at: ${changesetPath}`);
+  } catch (error) {
+    console.error('Error creating changeset:', error.message);
+  }
+  
   console.log('Done.');
 }
