@@ -35,6 +35,8 @@
     "lint:package": "nx run-many --target=lint:package",
     "release:check": "changeset status --verbose --since=origin/main",
     "release:publish": "pnpm install && nx run-many --target=build:app,build:dist,build:types --skip-nx-cache && changeset publish",
+    "release:publish:jsr": "node scripts/publish-jsr.js",
+    "release:publish:jsr:dry-run": "node scripts/publish-jsr.js --dry-run",
     "release:version": "changeset version && pnpm install --lockfile-only",
     "sort-package-json": "sort-package-json package.json apps/*/package.json bundler-packages/*/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json tevm/package.json",
     "sort-package-json:check": "sort-package-json package.json docs/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json && git diff --exit-code tevm/package.json",
