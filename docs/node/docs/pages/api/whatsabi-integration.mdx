@@ -54,7 +54,7 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
   <div data-title="Tree-shakable API">
     ```ts showLineNumbers {1,3-4,7-10,12-13,24-28} filename="contract-loader-example.ts"
     import { loadContract, createMemoryClient, http } from 'tevm'
-    import { MultiABILoader, EtherscanABILoader, SourcifyABILoader } from 'tevm/contract-loaders'
+    import { MultiABILoader, EtherscanABILoader, SourcifyABILoader } from 'tevm/whatsabi'
     
     const client = createMemoryClient({ // [!code focus]
       fork: { transport: http('https://mainnet.optimism.io') } // [!code focus]
@@ -92,7 +92,7 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
     ```ts showLineNumbers {1-2,4-10,13-14,17-22} filename="contract-loader-extension.ts"
     import { createClient, contractLoaderExtension } from 'tevm' // [!code focus]
     import { http } from 'viem' // [!code focus]
-    import { BlockscoutABILoader, SourcifyABILoader } from 'tevm/contract-loaders' // [!code focus]
+    import { BlockscoutABILoader, SourcifyABILoader } from 'tevm/whatsabi' // [!code focus]
     
     // Configure loaders and other options in the extension // [!code focus]
     const client = createClient({ // [!code focus]
@@ -149,7 +149,7 @@ import { createClient, createMemoryClient } from 'tevm'
 import { http } from 'viem'
 import { mainnet } from 'viem/chains'
 import { loadContract } from 'tevm'
-import { EtherscanABILoader, SourcifyABILoader } from 'tevm/contract-loaders'
+import { EtherscanABILoader, SourcifyABILoader } from 'tevm/whatsabi'
 
 // For hermetic builds, use a memory client with a fork at specific block
 // This ensures deterministic builds with reproducible contract data
@@ -299,14 +299,14 @@ The action returns a full [Tevm Contract](/reference/contract) instance with the
 
 ## Available Loaders
 
-You can import various ABI loaders from `tevm/contract-loaders`:
+You can import various ABI loaders from `tevm/whatsabi`:
 
 ### MultiABILoader
 
 Tries multiple ABI loaders until a result is found.
 
 ```ts
-import { MultiABILoader } from 'tevm/contract-loaders'
+import { MultiABILoader } from 'tevm/whatsabi'
 
 // Create loader that tries multiple sources in order
 const loader = new MultiABILoader([
@@ -326,7 +326,7 @@ const contract = await loadContract(client, {
 Loads contract ABIs from Etherscan and similar explorers.
 
 ```ts
-import { EtherscanABILoader } from 'tevm/contract-loaders'
+import { EtherscanABILoader } from 'tevm/whatsabi'
 
 // For Etherscan on Ethereum mainnet
 const etherscan = new EtherscanABILoader({
@@ -345,7 +345,7 @@ const polygonscan = new EtherscanABILoader({
 Loads contract ABIs from Sourcify's decentralized repository.
 
 ```ts
-import { SourcifyABILoader } from 'tevm/contract-loaders'
+import { SourcifyABILoader } from 'tevm/whatsabi'
 
 // Default configuration uses public Sourcify endpoint
 const sourcify = new SourcifyABILoader()
@@ -361,7 +361,7 @@ const customSourcify = new SourcifyABILoader({
 Loads contract ABIs from Blockscout explorers.
 
 ```ts
-import { BlockscoutABILoader } from 'tevm/contract-loaders'
+import { BlockscoutABILoader } from 'tevm/whatsabi'
 
 // For default Blockscout
 const blockscout = new BlockscoutABILoader({
@@ -381,7 +381,7 @@ const customBlockscout = new BlockscoutABILoader({
 ```ts showLineNumbers {1-2,4,6-11,13-15} filename="proxy-resolution.ts"
 import { loadContract, createMemoryClient } from 'tevm'
 import { http } from 'viem'
-import { SourcifyABILoader, EtherscanABILoader } from 'tevm/contract-loaders'
+import { SourcifyABILoader, EtherscanABILoader } from 'tevm/whatsabi'
 
 const client = createMemoryClient({ fork: { transport: http('https://mainnet.infura.io/v3/YOUR-KEY') } })
 
@@ -430,7 +430,7 @@ import { createClient } from 'tevm'
 import { http } from 'viem'
 import { optimism } from 'viem/chains'
 import { loadContract } from 'tevm'
-import { SourcifyABILoader, EtherscanABILoader } from 'tevm/contract-loaders'
+import { SourcifyABILoader, EtherscanABILoader } from 'tevm/whatsabi'
 
 // Client for the Optimism network
 const client = createClient({
@@ -487,7 +487,7 @@ import {
   SourcifyABILoader, 
   EtherscanABILoader,
   BlockscoutABILoader 
-} from 'tevm/contract-loaders'
+} from 'tevm/whatsabi'
 
 const client = createMemoryClient({ fork: { transport: http('https://mainnet.infura.io/v3/YOUR-KEY') } })
 
@@ -520,7 +520,7 @@ console.log(`Contract name: ${name}`)
 ```ts showLineNumbers filename="source-code-example.ts"
 import { loadContract, createMemoryClient } from 'tevm'
 import { http } from 'viem'
-import { SourcifyABILoader, EtherscanABILoader } from 'tevm/contract-loaders'
+import { SourcifyABILoader, EtherscanABILoader } from 'tevm/whatsabi'
 
 const client = createMemoryClient({ fork: { transport: http('https://mainnet.infura.io/v3/YOUR-KEY') } })
 
@@ -565,7 +565,7 @@ const balance = await client.readContract({
 ```ts showLineNumbers {5-14,17-22} filename="progress-tracking.ts"
 import { loadContract, createMemoryClient } from 'tevm'
 import { http } from 'viem'
-import { SourcifyABILoader } from 'tevm/contract-loaders'
+import { SourcifyABILoader } from 'tevm/whatsabi'
 
 // Custom progress tracker
 const progressTracker = (phase, ...args) => {
