@@ -46,8 +46,8 @@ jobs:
         run: |
           # Extract the tevm version from package.json
           VERSION=$(node -p "require('./tevm/package.json').version")
-          # Update the version in jsr.json
-          node -e "const fs = require('fs'); const config = JSON.parse(fs.readFileSync('jsr.json', 'utf8')); config.version = '${VERSION}'; fs.writeFileSync('jsr.json', JSON.stringify(config, null, 2));"
+          # Update the version in tevm/jsr.json
+          node -e "const fs = require('fs'); const config = JSON.parse(fs.readFileSync('./tevm/jsr.json', 'utf8')); config.version = '${VERSION}'; fs.writeFileSync('./tevm/jsr.json', JSON.stringify(config, null, 2));"
           echo "Updated JSR config to version ${VERSION}"
 
       # Publish to JSR (with dry-run if requested)
@@ -55,7 +55,7 @@ jobs:
         run: |
           if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
             echo "Running in dry-run mode..."
-            jsr publish --dry-run
+            pnpm release:publish:jsr:dry-run
           else
-            jsr publish
+            pnpm release:publish:jsr
           fi

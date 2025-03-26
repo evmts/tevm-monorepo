@@ -39,10 +39,10 @@ function runCommand(command, options = {}) {
 async function publishToJSR() {
   console.log('Publishing to JSR...');
   
-  // Check if jsr.json exists
-  const jsrConfigPath = resolve(rootDir, 'jsr.json');
+  // Check if jsr.json exists in the tevm package directory
+  const jsrConfigPath = resolve(rootDir, 'tevm', 'jsr.json');
   if (!existsSync(jsrConfigPath)) {
-    console.error('Error: jsr.json not found in the root directory.');
+    console.error('Error: jsr.json not found in the tevm directory.');
     process.exit(1);
   }
 
@@ -69,9 +69,13 @@ async function publishToJSR() {
     runCommand('npm install -g jsr');
   }
 
+  // Change to the tevm directory before publishing
+  process.chdir(resolve(rootDir, 'tevm'));
+  console.log('Changed to directory:', process.cwd());
+
   // Publish to JSR
   try {
-    const publishCommand = `jsr publish${isDryRun ? ' --dry-run' : ''}`;
+    const publishCommand = `jsr publish${isDryRun ? ' --dry-run' : ''} --allow-slow-types`;
     runCommand(publishCommand);
     console.log('JSR publish completed successfully!');
   } catch (error) {

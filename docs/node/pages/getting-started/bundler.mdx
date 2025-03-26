@@ -25,10 +25,32 @@ Tevm bundler enables a seamless integration between Solidity and TypeScript, let
 
 First, install Tevm and the TypeScript plugin in your project:
 
-```bash
+:::code-group
+```bash [npm]
 npm install tevm
 npm install -D @tevm/ts-plugin
 ```
+
+```bash [pnpm]
+pnpm add tevm
+pnpm add -D @tevm/ts-plugin
+```
+
+```bash [yarn]
+yarn add tevm
+yarn add -D @tevm/ts-plugin
+```
+
+```bash [bun]
+bun add tevm
+bun add -D @tevm/ts-plugin
+```
+
+```bash [jsr]
+jsr add @tevm/tevm
+npm install -D @tevm/ts-plugin
+```
+:::
 
 ## Step 2: Configure Your Bundler
 
@@ -46,7 +68,8 @@ The bundler creates a `.tevm` cache directory. Consider adding it to your `.giti
 
 ### For Vite (recommended)
 
-```ts
+:::code-group
+```ts [npm]
 // vite.config.ts
 import { defineConfig } from 'vite'
 import { vitePluginTevm } from 'tevm/bundler/vite-plugin'
@@ -59,6 +82,21 @@ export default defineConfig({
   ],
 })
 ```
+
+```ts [jsr]
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { vitePluginTevm } from '@tevm/tevm/bundler/vite-plugin'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    vitePluginTevm(),
+  ],
+})
+```
+:::
 
 ### For Other Bundlers
 
@@ -260,7 +298,8 @@ Regular `.sol` files only generate ABIs (useful for interacting with existing co
 
 Now you can import the contract directly in your TypeScript code:
 
-```tsx
+:::code-group
+```tsx [npm]
 // src/App.tsx or any other file
 import { Counter } from './Counter.s.sol'
 import { createMemoryClient } from 'tevm'
@@ -314,6 +353,62 @@ function App() {
 
 export default App
 ```
+
+```tsx [jsr]
+// src/App.tsx or any other file
+import { Counter } from './Counter.s.sol'
+import { createMemoryClient } from '@tevm/tevm'
+import { useState, useEffect } from 'react'
+
+function App() {
+  const [count, setCount] = useState<bigint>(0n)
+  const [client] = useState(() => createMemoryClient())
+  const [deployedAddress, setDeployedAddress] = useState<string>('')
+  
+  useEffect(() => {
+    const deploy = async () => {
+      // Deploy the contract - need to call .deploy() and pass any constructor args
+      // (Counter doesn't have constructor args in this example)
+      const deployed = await client.deployContract(Counter.deploy())
+      setDeployedAddress(deployed.address)
+      
+      // Get initial count
+      const initialCount = await deployed.read.getCount()
+      setCount(initialCount)
+    }
+    
+    deploy()
+  }, [client])
+  
+  const handleIncrement = async () => {
+    if (!deployedAddress) return
+    
+    // Get contract with address
+    const contract = Counter.withAddress(deployedAddress)
+    
+    // Call increment method
+    await client.writeContract(contract.write.increment())
+    
+    // Mine a block to include the transaction
+    await client.mine({ blocks: 1 })
+    
+    // Get updated count
+    const newCount = await client.readContract(contract.read.getCount())
+    setCount(newCount)
+  }
+  
+  return (
+    <div>
+      <h1>Tevm Counter Example</h1>
+      <p>Count: {count.toString()}</p>
+      <button onClick={handleIncrement}>Increment</button>
+    </div>
+  )
+}
+
+export default App
+```
+:::
 
 ### Example of Type-Safe Method Calls
 

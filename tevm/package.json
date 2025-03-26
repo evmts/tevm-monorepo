@@ -396,7 +396,9 @@
     "bundler/rspack-plugin",
     "bundler/vite-plugin",
     "bundler/webpack-plugin",
-    "bin"
+    "bin",
+    "JSR.md",
+    "jsr.json"
   ],
   "scripts": {
     "all": "bun run generate && bun run generate:docs && bun run lint:deps && bun run lint:package",
@@ -410,7 +412,9 @@
     "generate:types": "tsup --dts-only",
     "lint:deps": "bunx depcheck",
     "lint:package": "bunx publint --strict && attw --pack",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "publish:jsr": "jsr publish --allow-slow-types",
+    "publish:jsr:dry": "jsr publish --dry-run --allow-slow-types"
   },
   "dependencies": {
     "@tevm/actions": "workspace:^",
