@@ -8,7 +8,7 @@
 
 > **SolcEVMOutput**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:146
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:265
 
 ## Type declaration
 

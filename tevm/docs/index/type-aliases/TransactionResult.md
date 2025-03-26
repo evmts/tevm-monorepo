@@ -15,6 +15,14 @@ json rpc procedures
 
 ## Type declaration
 
+### accessList?
+
+> `readonly` `optional` **accessList**: `ReadonlyArray`\<\{ `address`: [`Hex`](../../actions/type-aliases/Hex.md); `storageKeys`: `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>; \}\>
+
+### blobVersionedHashes?
+
+> `readonly` `optional` **blobVersionedHashes**: `ReadonlyArray`\<[`Hex`](../../actions/type-aliases/Hex.md)\>
+
 ### blockHash
 
 > `readonly` **blockHash**: [`Hex`](../../actions/type-aliases/Hex.md)
@@ -23,9 +31,9 @@ json rpc procedures
 
 > `readonly` **blockNumber**: [`Hex`](../../actions/type-aliases/Hex.md)
 
-### data
+### chainId?
 
-> `readonly` **data**: [`Hex`](../../actions/type-aliases/Hex.md)
+> `readonly` `optional` **chainId**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### from
 
@@ -42,6 +50,26 @@ json rpc procedures
 ### hash
 
 > `readonly` **hash**: [`Hex`](../../actions/type-aliases/Hex.md)
+
+### input
+
+> `readonly` **input**: [`Hex`](../../actions/type-aliases/Hex.md)
+
+### isImpersonated?
+
+> `readonly` `optional` **isImpersonated**: `boolean`
+
+### maxFeePerBlobGas?
+
+> `readonly` `optional` **maxFeePerBlobGas**: [`Hex`](../../actions/type-aliases/Hex.md)
+
+### maxFeePerGas?
+
+> `readonly` `optional` **maxFeePerGas**: [`Hex`](../../actions/type-aliases/Hex.md)
+
+### maxPriorityFeePerGas?
+
+> `readonly` `optional` **maxPriorityFeePerGas**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### nonce
 
@@ -62,6 +90,10 @@ json rpc procedures
 ### transactionIndex
 
 > `readonly` **transactionIndex**: [`Hex`](../../actions/type-aliases/Hex.md)
+
+### type?
+
+> `readonly` `optional` **type**: [`Hex`](../../actions/type-aliases/Hex.md)
 
 ### v
 

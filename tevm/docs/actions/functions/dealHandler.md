@@ -6,13 +6,13 @@
 
 # Function: dealHandler()
 
-> **dealHandler**(`client`): [`AnvilDealHandler`](../type-aliases/AnvilDealHandler.md)
+> **dealHandler**(`node`): [`AnvilDealHandler`](../type-aliases/AnvilDealHandler.md)
 
 Defined in: packages/actions/types/anvil/anvilDealHandler.d.ts:1
 
 ## Parameters
 
-### client
+### node
 
 [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 
