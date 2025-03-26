@@ -1,0 +1,17 @@
+{
+  "name": "resolutions-test",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Tests for comparing TypeScript and Go implementations of resolutions",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tevm/resolutions": "file:../bundler-packages/resolutions",
+    "ts-go-test": "file:../ts-go-test"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vitest": "^0.34.0"
+  }
+}
