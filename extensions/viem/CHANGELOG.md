@@ -1,5 +1,12 @@
 # @tevm/viem
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- @tevm/decorators@1.0.0-next.140
+- @tevm/node@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes

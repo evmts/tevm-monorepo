@@ -1,5 +1,42 @@
 # @tevm/contract
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- 8645f66: Add support for publishing to JSR (jsr.io)
+- 3e2bead: Fixed bug with json-rpc tx type being wrong. data should be named input
+- Updated dependencies [3e2bead]
+- Updated dependencies [31ddbc4]
+- Updated dependencies [7751df4]
+  - @tevm/memory-client@1.0.0-next.140
+  - @tevm/actions@1.0.0-next.140
+  - @tevm/solc@1.0.0-next.140
+  - @tevm/cli@1.0.0-next.140
+  - @tevm/viem@1.0.0-next.140
+  - @tevm/http-client@1.0.0-next.140
+  - @tevm/server@1.0.0-next.140
+  - @tevm/client-types@1.0.0-next.131
+  - @tevm/decorators@1.0.0-next.140
+  - @tevm/base-bundler@1.0.0-next.140
+  - @tevm/bun-plugin@1.0.0-next.140
+  - @tevm/compiler@1.0.0-next.140
+  - @tevm/ts-plugin@1.0.0-next.140
+  - @tevm/precompiles@1.0.0-next.140
+  - @tevm/bundler-cache@1.0.0-next.140
+  - @tevm/esbuild-plugin@1.0.0-next.140
+  - @tevm/rollup-plugin@1.0.0-next.140
+  - @tevm/rspack-plugin@1.0.0-next.140
+  - @tevm/vite-plugin@1.0.0-next.140
+  - @tevm/webpack-plugin@1.0.0-next.140
+  - @tevm/blockchain@1.0.0-next.132
+  - @tevm/node@1.0.0-next.140
+  - @tevm/state@1.0.0-next.140
+  - @tevm/evm@1.0.0-next.140
+  - @tevm/sync-storage-persister@1.0.0-next.140
+  - @tevm/txpool@1.0.0-next.140
+  - @tevm/vm@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes

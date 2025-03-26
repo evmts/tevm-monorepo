@@ -1,5 +1,14 @@
 # @tevm/unplugin
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- Updated dependencies [31ddbc4]
+  - @tevm/solc@1.0.0-next.140
+  - @tevm/base-bundler@1.0.0-next.140
+  - @tevm/bundler-cache@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes

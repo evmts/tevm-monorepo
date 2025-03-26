@@ -1,5 +1,11 @@
 # @tevm/base
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- @tevm/compiler@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes
