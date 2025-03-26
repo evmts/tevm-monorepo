@@ -1,0 +1,61 @@
+name: Publish to JSR 📦
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode without publishing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish-jsr:
+    name: Publish to JSR
+    if: |
+      github.repository == 'evmts/tevm-monorepo' &&
+      (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Install JSR CLI
+        run: npm install -g jsr
+
+      - name: Build packages
+        run: pnpm run build
+
+      # Configure JSR (only needed in workflow_run trigger)
+      - name: Configure JSR
+        if: github.event_name == 'workflow_run'
+        run: |
+          # Extract the tevm version from package.json
+          VERSION=$(node -p "require('./tevm/package.json').version")
+          # Update the version in tevm/jsr.json
+          node -e "const fs = require('fs'); const config = JSON.parse(fs.readFileSync('./tevm/jsr.json', 'utf8')); config.version = '${VERSION}'; fs.writeFileSync('./tevm/jsr.json', JSON.stringify(config, null, 2));"
+          echo "Updated JSR config to version ${VERSION}"
+
+      # Publish to JSR (with dry-run if requested)
+      - name: Publish to JSR
+        run: |
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            echo "Running in dry-run mode..."
+            pnpm release:publish:jsr:dry-run
+          else
+            pnpm release:publish:jsr
+          fi

@@ -39,21 +39,36 @@ yarn add tevm viem@latest
 ```bash [bun]
 bun add tevm viem@latest
 ```
+
+```bash [jsr]
+jsr add @tevm/tevm
+# Also install viem from npm
+npm install viem@latest
+```
 :::
 
 ### Create Your Client
 
 For the quickest start, create a memory client:
 
-```ts
+:::code-group
+```ts [npm]
 import { createMemoryClient } from 'tevm'
 
 const client = createMemoryClient()
 ```
 
+```ts [jsr]
+import { createMemoryClient } from '@tevm/tevm'
+
+const client = createMemoryClient()
+```
+:::
+
 Or, to fork from an existing chain:
 
-```ts
+:::code-group
+```ts [npm]
 import { createMemoryClient, http } from 'tevm'
 import { optimism } from 'tevm/chains'
 
@@ -67,6 +82,22 @@ const client = createMemoryClient({
 // Wait for the node to be ready before using it
 await client.tevmReady()
 ```
+
+```ts [jsr]
+import { createMemoryClient, http } from '@tevm/tevm'
+import { optimism } from '@tevm/tevm/chains'
+
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+    common: optimism,
+  },
+})
+
+// Wait for the node to be ready before using it
+await client.tevmReady()
+```
+:::
 
 ### You're Ready!
 
@@ -84,9 +115,77 @@ console.log(`Current block: ${blockNumber}`)
 The following example demonstrates the key capabilities of Tevm with viem:
 
 :::code-group
-```ts [Forking Example] showLineNumbers {1-3,8-12,25-29,40,52}
+```ts [npm] showLineNumbers {1-3,8-12,25-29,40,52}
 import { createMemoryClient, http } from 'tevm' // [!code focus]
 import { optimism } from 'tevm/common' // [!code focus]
+import { parseAbi, parseEther } from 'viem' // [!code focus]
+
+// 1. Create a memory client forked from Optimism mainnet
+const client = createMemoryClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'), // [!code focus]
+    common: optimism, // [!code focus]
+  }, // [!code focus]
+}) // [!code focus]
+
+// Wait for the node to be ready
+await client.tevmReady()
+
+// 2. Get current block number (from the fork point)
+const blockNumber = await client.getBlockNumber()
+console.log(`Current block number: ${blockNumber}`)
+
+// Setup addresses and contract interfaces
+const account = `0x${"baD60A7".padStart(40, "0")}` as const
+const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
+
+// Define contract interfaces with parseAbi
+const greeterAbi = parseAbi([
+  'function greet() view returns (string)', // [!code focus]
+  'function setGreeting(string memory _greeting) public' // [!code focus]
+]) // [!code focus]
+
+// 3. Modify blockchain state with test actions
+// Fund our test account with 1 ETH
+await client.setBalance({
+  address: account,
+  value: parseEther("1")
+})
+
+// Read the current greeting using viem's readContract
+const currentGreeting = await client.readContract({
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: 'greet',
+})
+console.log(`Current greeting: ${currentGreeting}`)
+
+// Update the greeting with writeContract
+const txHash = await client.writeContract({ // [!code focus]
+  account,
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: 'setGreeting',
+  args: ["Hello from Tevm!"],
+  chain: optimism,
+})
+console.log(`Transaction sent: ${txHash}`)
+
+// 4. Mine a new block to include our transaction
+await client.mine({ blocks: 1 }) // [!code focus]
+
+// Verify the greeting was updated
+const updatedGreeting = await client.readContract({
+  address: greeterContractAddress,
+  abi: greeterAbi,
+  functionName: 'greet',
+})
+console.log(`Updated greeting: ${updatedGreeting}`)
+```
+
+```ts [jsr] showLineNumbers {1-3,8-12,25-29,40,52}
+import { createMemoryClient, http } from '@tevm/tevm' // [!code focus]
+import { optimism } from '@tevm/tevm/common' // [!code focus]
 import { parseAbi, parseEther } from 'viem' // [!code focus]
 
 // 1. Create a memory client forked from Optimism mainnet
@@ -331,7 +430,8 @@ await client.tevmContract({
 
 For production applications, especially in browser environments, you may want to use Tevm's tree-shakeable API to minimize bundle size:
 
-```ts showLineNumbers {1-3,6-11}
+:::code-group
+```ts [npm] showLineNumbers {1-3,6-11}
 import { createClient, http } from 'viem'
 import { createTevmTransport } from 'tevm/transport' // [!code focus]
 import { tevmCall, tevmDumpState } from 'tevm/actions' // [!code focus]
@@ -348,6 +448,25 @@ const client = createClient({
 // Import only the actions you need
 await tevmDumpState(client)
 ```
+
+```ts [jsr] showLineNumbers {1-3,6-11}
+import { createClient, http } from 'viem'
+import { createTevmTransport } from '@tevm/tevm/transport' // [!code focus]
+import { tevmCall, tevmDumpState } from '@tevm/tevm/actions' // [!code focus]
+
+// Create a standard viem client with Tevm transport
+const client = createClient({
+  transport: createTevmTransport({ // [!code focus]
+    fork: { // [!code focus]
+      transport: http('https://mainnet.optimism.io') // [!code focus]
+    } // [!code focus]
+  }) // [!code focus]
+})
+
+// Import only the actions you need
+await tevmDumpState(client)
+```
+:::
 
 :::tip[Tree-Shaking Benefit]
 Using the tree-shakeable API can significantly reduce your bundle size when you're using only a subset of Tevm's features.
@@ -449,4 +568,3 @@ Master the Tevm API for more sophisticated applications:
   <Button href="./overview" variant="accent">← Back to Overview</Button>
   <Button href="./ethers">Ethers Integration →</Button>
 </div>
-
