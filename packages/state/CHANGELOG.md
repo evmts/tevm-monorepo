@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- @tevm/test-utils@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes

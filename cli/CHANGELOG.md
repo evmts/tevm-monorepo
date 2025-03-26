@@ -1,5 +1,17 @@
 # @tevm/cli
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- Updated dependencies [3e2bead]
+- Updated dependencies [7751df4]
+  - @tevm/memory-client@1.0.0-next.140
+  - @tevm/actions@1.0.0-next.140
+  - @tevm/server@1.0.0-next.140
+  - @tevm/base-bundler@1.0.0-next.140
+  - @tevm/bundler-cache@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes

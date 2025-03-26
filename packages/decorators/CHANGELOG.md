@@ -1,5 +1,14 @@
 # @tevm/client
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- Updated dependencies [3e2bead]
+- Updated dependencies [7751df4]
+  - @tevm/actions@1.0.0-next.140
+  - @tevm/node@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes

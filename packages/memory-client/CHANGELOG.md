@@ -1,5 +1,17 @@
 # @tevm/client
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- 3e2bead: Fixed bug with json-rpc tx type being wrong. data should be named input
+- Updated dependencies [3e2bead]
+- Updated dependencies [7751df4]
+  - @tevm/actions@1.0.0-next.140
+  - @tevm/decorators@1.0.0-next.140
+  - @tevm/node@1.0.0-next.140
+  - @tevm/evm@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes

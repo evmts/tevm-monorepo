@@ -1,5 +1,11 @@
 # @tevm/contract
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- 31ddbc4: Fixed solc issue
+
 ## 1.0.0-next.139
 
 ### Minor Changes

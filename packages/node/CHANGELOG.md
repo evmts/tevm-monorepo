@@ -1,5 +1,16 @@
 # @tevm/client
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- @tevm/blockchain@1.0.0-next.132
+- @tevm/state@1.0.0-next.140
+- @tevm/evm@1.0.0-next.140
+- @tevm/sync-storage-persister@1.0.0-next.140
+- @tevm/txpool@1.0.0-next.140
+- @tevm/vm@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes

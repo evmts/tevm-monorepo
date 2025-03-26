@@ -1,5 +1,13 @@
 # @tevm/server
 
+## 1.0.0-next.140
+
+### Patch Changes
+
+- Updated dependencies [3e2bead]
+  - @tevm/memory-client@1.0.0-next.140
+  - @tevm/decorators@1.0.0-next.140
+
 ## 1.0.0-next.139
 
 ### Patch Changes
