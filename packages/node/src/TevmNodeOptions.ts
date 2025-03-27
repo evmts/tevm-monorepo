@@ -123,4 +123,18 @@ export type TevmNodeOptions<TCommon extends Common = Common> = StateOptions & {
 	 * ```
 	 */
 	readonly persister?: SyncStoragePersister
+	/**
+	 * Optional override for the chain ID.
+	 * When set, this value will be used instead of the chain's actual ID for all EVM operations.
+	 * This allows testing contracts against different chain IDs while maintaining the same chain state.
+	 * @example
+	 * ```typescript
+	 * import { createMemoryClient } from 'tevm'
+	 * 
+	 * // Create a client with a custom chain ID
+	 * const client = createMemoryClient({ _chainIdOverride: 1337 })
+	 * const chainId = await client.getChainId() // Returns 1337
+	 * ```
+	 */
+	readonly _chainIdOverride?: number
 }
