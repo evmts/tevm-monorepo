@@ -89,6 +89,11 @@ export const createTevmNode = (options = {}) => {
 	}
 
 	const chainIdPromise = (async () => {
+		// If _chainIdOverride is provided, use it
+		if (options?._chainIdOverride !== undefined) {
+			return options._chainIdOverride
+		}
+		// Otherwise follow the regular chain ID resolution path
 		if (options?.common) {
 			return options?.common.id
 		}
@@ -402,6 +407,7 @@ export const createTevmNode = (options = {}) => {
 					forkTransport: transport,
 				}
 			: {}),
+		...(options._chainIdOverride !== undefined ? { _chainIdOverride: options._chainIdOverride } : {}),
 		extend: (extension) => extend(baseClient)(extension),
 		ready: () => readyPromise,
 		getImpersonatedAccount() {
