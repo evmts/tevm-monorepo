@@ -87,8 +87,6 @@ func handleResolveImports(inputData []byte) {
 		fmt.Fprintf(os.Stderr, "Error parsing input: %v\n", err)
 		os.Exit(1)
 	}
-
-	vfs := &VirtualFileSystem{Files: params.Files}
 	
 	result, err := resolutions.ResolveImports(
 		params.AbsolutePath,

@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 # First build the CLI
-./scripts/build-cli.sh
+sh ./scripts/build-cli.sh
 
 # Then run the tests
 npm run test

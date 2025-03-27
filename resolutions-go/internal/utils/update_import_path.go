@@ -3,13 +3,13 @@ package utils
 import (
 	"regexp"
 
-	"github.com/williamcory/tevm/go-claude/resolutions-go"
+	"github.com/williamcory/tevm/go-claude/resolutions-go/internal/common"
 )
 
 var solidityImportRegex = regexp.MustCompile(`(^\s?import\s+[^'"]*['"])(.*)(['"]\s*)`)
 
 // UpdateImportPaths updates all the import paths that match the resolvedImports
-func UpdateImportPaths(code string, resolvedImports []resolutions.ResolvedImport) string {
+func UpdateImportPaths(code string, resolvedImports []common.ResolvedImport) string {
 	return solidityImportRegex.ReplaceAllStringFunc(code, func(match string) string {
 		submatches := solidityImportRegex.FindStringSubmatch(match)
 		if len(submatches) < 4 {

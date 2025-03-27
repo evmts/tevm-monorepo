@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/williamcory/tevm/go-claude/resolutions-go"
+	"github.com/williamcory/tevm/go-claude/resolutions-go/internal/common"
 )
 
 var pragmaPattern = regexp.MustCompile(`pragma\s+solidity\s+((\^|~|>|>=|<|<=)?\s*(\d+\.\d+\.\d+)\s*);`)
@@ -32,5 +32,5 @@ func UpdatePragma(solidityCode string, version string) (string, error) {
 		return pragmaPatternWithBounds.ReplaceAllString(solidityCode, newPragma), nil
 	}
 
-	return "", resolutions.NoPragmaFoundError{Message: "No valid pragma statement found."}
+	return "", common.NoPragmaFoundError{Message: "No valid pragma statement found."}
 }

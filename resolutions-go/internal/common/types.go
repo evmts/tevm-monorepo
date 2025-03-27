@@ -1,4 +1,4 @@
-package resolutions
+package common
 
 // FileAccessObject provides an interface for file system operations
 type FileAccessObject interface {
@@ -20,17 +20,17 @@ type Logger interface {
 	Log(messages ...string)
 }
 
+// ResolvedImport represents a resolved import statement
+type ResolvedImport struct {
+	Original string // The original import path as it appears in the source
+	Absolute string // The absolute path to the imported file
+	Updated  string // The updated import path (usually same as Absolute)
+}
+
 // ModuleInfo represents information about a Solidity module
 type ModuleInfo struct {
 	ID         string   // The ID of the module (absolute path)
 	RawCode    string   // The source code of the module
 	Code       string   // The code after transformations (resolving imports)
 	ImportedIDs []string // The module IDs statically imported by this module
-}
-
-// ResolvedImport represents a resolved import statement
-type ResolvedImport struct {
-	Original string // The original import path as it appears in the source
-	Absolute string // The absolute path to the imported file
-	Updated  string // The updated import path (usually same as Absolute)
 }

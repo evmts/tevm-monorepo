@@ -1,13 +1,12 @@
 package resolutions
 
 import (
-	"github.com/williamcory/tevm/go-claude/resolutions-go/utils"
+	"github.com/williamcory/tevm/go-claude/resolutions-go/internal/common"
+	"github.com/williamcory/tevm/go-claude/resolutions-go/internal/utils"
 )
 
 // ModuleFactory creates a module from the given module information
-func ModuleFactory(absolutePath, rawCode string, remappings map[string]string, libs []string, fao FileAccessObject, sync bool) (map[string]ModuleInfo, error) {
-	safeFao := utils.NewSafeFao(fao)
-	
+func ModuleFactory(absolutePath, rawCode string, remappings map[string]string, libs []string, fao common.FileAccessObject, sync bool) (map[string]common.ModuleInfo, error) {
 	// Create a stack to process modules
 	type stackItem struct {
 		AbsolutePath string
@@ -15,7 +14,7 @@ func ModuleFactory(absolutePath, rawCode string, remappings map[string]string, l
 	}
 	
 	stack := []stackItem{{AbsolutePath: absolutePath, RawCode: rawCode}}
-	modules := make(map[string]ModuleInfo)
+	modules := make(map[string]common.ModuleInfo)
 
 	for len(stack) > 0 {
 		// Pop next item from stack
@@ -51,7 +50,7 @@ func ModuleFactory(absolutePath, rawCode string, remappings map[string]string, l
 		}
 		
 		// Add module to the map
-		modules[nextItem.AbsolutePath] = ModuleInfo{
+		modules[nextItem.AbsolutePath] = common.ModuleInfo{
 			ID:          nextItem.AbsolutePath,
 			RawCode:     nextItem.RawCode,
 			Code:        updatedCodeWithPragma,
@@ -64,9 +63,9 @@ func ModuleFactory(absolutePath, rawCode string, remappings map[string]string, l
 			var err error
 			
 			if sync {
-				depRawCode, err = safeFao.ReadFileSync(resolvedImport.Absolute)
+				depRawCode, err = fao.ReadFileSync(resolvedImport.Absolute)
 			} else {
-				depRawCode, err = safeFao.ReadFile(resolvedImport.Absolute)
+				depRawCode, err = fao.ReadFile(resolvedImport.Absolute)
 			}
 			
 			if err != nil {

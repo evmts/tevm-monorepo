@@ -1,16 +1,16 @@
 package utils
 
 import (
-	"github.com/williamcory/tevm/go-claude/resolutions-go"
+	"github.com/williamcory/tevm/go-claude/resolutions-go/internal/common"
 )
 
 // SafeFao wraps a FileAccessObject to provide error handling
 type SafeFao struct {
-	Fao resolutions.FileAccessObject
+	Fao common.FileAccessObject
 }
 
 // NewSafeFao creates a new SafeFao
-func NewSafeFao(fao resolutions.FileAccessObject) *SafeFao {
+func NewSafeFao(fao common.FileAccessObject) *SafeFao {
 	return &SafeFao{
 		Fao: fao,
 	}
@@ -20,7 +20,7 @@ func NewSafeFao(fao resolutions.FileAccessObject) *SafeFao {
 func (s *SafeFao) ReadFile(path string) (string, error) {
 	content, err := s.Fao.ReadFile(path)
 	if err != nil {
-		return "", resolutions.ReadFileError{Cause: err}
+		return "", common.ReadFileError{Cause: err}
 	}
 	return content, nil
 }
@@ -29,7 +29,7 @@ func (s *SafeFao) ReadFile(path string) (string, error) {
 func (s *SafeFao) ReadFileSync(path string) (string, error) {
 	content, err := s.Fao.ReadFileSync(path)
 	if err != nil {
-		return "", resolutions.ReadFileError{Cause: err}
+		return "", common.ReadFileError{Cause: err}
 	}
 	return content, nil
 }
@@ -38,7 +38,7 @@ func (s *SafeFao) ReadFileSync(path string) (string, error) {
 func (s *SafeFao) Exists(path string) (bool, error) {
 	exists, err := s.Fao.Exists(path)
 	if err != nil {
-		return false, resolutions.ExistsError{Cause: err}
+		return false, common.ExistsError{Cause: err}
 	}
 	return exists, nil
 }
@@ -47,7 +47,7 @@ func (s *SafeFao) Exists(path string) (bool, error) {
 func (s *SafeFao) ExistsSync(path string) (bool, error) {
 	exists, err := s.Fao.ExistsSync(path)
 	if err != nil {
-		return false, resolutions.ExistsError{Cause: err}
+		return false, common.ExistsError{Cause: err}
 	}
 	return exists, nil
 }
