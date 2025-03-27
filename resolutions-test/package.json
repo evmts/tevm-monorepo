@@ -4,7 +4,9 @@
   "type": "module",
   "description": "Tests for comparing TypeScript and Go implementations of resolutions",
   "scripts": {
-    "test": "vitest run"
+    "build:cli": "./scripts/build-cli.sh",
+    "test": "vitest run",
+    "test:with-cli": "./scripts/run-tests.sh"
   },
   "dependencies": {
     "@tevm/resolutions": "file:../bundler-packages/resolutions",

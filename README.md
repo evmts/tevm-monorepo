@@ -47,20 +47,42 @@ We're using a JSON-RPC bridge approach to test our Go implementation against the
 3. **Parallel Testing**: Run the same inputs through both implementations and compare outputs
 4. **Integration with Vitest**: Seamlessly integrate with the existing test suite
 
-## Building and Testing
+## Getting Started
 
-### Building the Go CLI
+### Prerequisites
+
+- Go 1.19 or later
+- Node.js 18 or later
+- npm or pnpm
+- Docker (optional, for containerized testing)
+
+### Building and Testing
+
+You can build and test the projects using the provided Makefile:
 
 ```bash
-cd resolutions-go
-go build -o bin/cli cmd/cli/main.go
+# Build the Go CLI
+make build-go
+
+# Run tests
+make test
+
+# Build and test in Docker
+make test-docker
+
+# Setup all packages
+make build-all
 ```
 
-### Running the Tests
+Alternatively, you can run the commands manually:
 
 ```bash
-cd resolutions-test
-npm install
+# Build the Go CLI
+cd resolutions-go
+go build -o bin/cli cmd/cli/main.go
+
+# Run tests
+cd ../resolutions-test
 npm test
 ```
 
@@ -70,6 +92,15 @@ npm test
 2. Create a CLI for the Go implementation
 3. Use the `ts-go-test` harness to test against the TypeScript implementation
 4. Once tests pass, move on to the next package
+
+## Contributing
+
+When contributing to this project, please follow these guidelines:
+
+1. **Match TypeScript behavior**: The Go implementation should behave exactly like the TypeScript implementation
+2. **Write tests**: All functionality should be covered by tests
+3. **Follow Go conventions**: Use idiomatic Go code and follow standard Go practices
+4. **Document code**: Add comments and documentation to your code
 
 ## Planned Packages
 

@@ -15,8 +15,8 @@ beforeAll(async () => {
 });
 
 describe('resolveImports', () => {
-  // Go comparison test
-  it('Go implementation should match TypeScript implementation for basic contract', async () => {
+  // Test with basic contract
+  it('should match TypeScript implementation for basic contract', async () => {
     const fao = harness.getFileAccessObject();
     const contractPath = path.resolve(__dirname, '../../bundler-packages/resolutions/src/fixtures/basic/Contract.sol');
     const code = await fao.readFile(contractPath, 'utf-8');
@@ -42,13 +42,100 @@ describe('resolveImports', () => {
     }
   });
   
-  it('Go implementation should match TypeScript implementation for contract with imports', async () => {
+  // Test with imports
+  it('should match TypeScript implementation for contract with imports', async () => {
     const fao = harness.getFileAccessObject();
     const contractPath = path.resolve(__dirname, '../../bundler-packages/resolutions/src/fixtures/withlib/Contract.sol');
     const code = await fao.readFile(contractPath, 'utf-8');
     
     const result = await harness.compareImplementations(
       'resolveImports - contract with imports',
+      resolveImports,
+      'resolveImports',
+      [contractPath, code, {}, [], false],
+      (params, files) => ({
+        absolutePath: params[0],
+        code: params[1],
+        remappings: params[2],
+        libs: params[3],
+        sync: params[4],
+        files
+      })
+    );
+    
+    expect(result.success).toBe(true);
+    if (!result.success) {
+      console.error(result.details || result.error);
+    }
+  });
+  
+  // Test with remappings
+  it('should match TypeScript implementation for contract with remappings', async () => {
+    const fao = harness.getFileAccessObject();
+    const contractPath = path.resolve(__dirname, '../../bundler-packages/resolutions/src/fixtures/withremappings/Contract.sol');
+    const code = await fao.readFile(contractPath, 'utf-8');
+    
+    // Read remappings.json to get remappings
+    const remappingsPath = path.resolve(__dirname, '../../bundler-packages/resolutions/src/fixtures/withremappings/remappings.json');
+    const remappingsContent = await fao.readFile(remappingsPath, 'utf-8');
+    const remappings = JSON.parse(remappingsContent);
+    
+    const result = await harness.compareImplementations(
+      'resolveImports - contract with remappings',
+      resolveImports,
+      'resolveImports',
+      [contractPath, code, remappings, [], false],
+      (params, files) => ({
+        absolutePath: params[0],
+        code: params[1],
+        remappings: params[2],
+        libs: params[3],
+        sync: params[4],
+        files
+      })
+    );
+    
+    expect(result.success).toBe(true);
+    if (!result.success) {
+      console.error(result.details || result.error);
+    }
+  });
+
+  // Test with multi-level imports
+  it('should match TypeScript implementation for contract with multilevel imports', async () => {
+    const fao = harness.getFileAccessObject();
+    const contractPath = path.resolve(__dirname, '../../bundler-packages/resolutions/src/fixtures/multilevel/Contract.sol');
+    const code = await fao.readFile(contractPath, 'utf-8');
+    
+    const result = await harness.compareImplementations(
+      'resolveImports - contract with multilevel imports',
+      resolveImports,
+      'resolveImports',
+      [contractPath, code, {}, [], false],
+      (params, files) => ({
+        absolutePath: params[0],
+        code: params[1],
+        remappings: params[2],
+        libs: params[3],
+        sync: params[4],
+        files
+      })
+    );
+    
+    expect(result.success).toBe(true);
+    if (!result.success) {
+      console.error(result.details || result.error);
+    }
+  });
+  
+  // Test with circular imports
+  it('should match TypeScript implementation for contract with circular imports', async () => {
+    const fao = harness.getFileAccessObject();
+    const contractPath = path.resolve(__dirname, '../../bundler-packages/resolutions/src/fixtures/circular/ContractA.sol');
+    const code = await fao.readFile(contractPath, 'utf-8');
+    
+    const result = await harness.compareImplementations(
+      'resolveImports - contract with circular imports',
       resolveImports,
       'resolveImports',
       [contractPath, code, {}, [], false],
