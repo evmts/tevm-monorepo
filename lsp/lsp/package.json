@@ -1,53 +1,58 @@
 {
-	"name": "@tevm/lsp",
-	"version": "1.0.0-next.131",
-	"private": false,
-	"sideEffects": false,
-	"description": "The language server for Tevm",
-	"type": "module",
-	"main": "dist/index.js",
-	"license": "MIT",
-	"keywords": [
-		"typescript",
-		"plugin",
-		"solidity",
-		"sol",
-		"tevm"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/evmts/tevm-monorepo.git",
-		"directory": "lsp/lsp"
-	},
-	"files": [
-		"dist/**/*.js",
-		"types/**/*.d.ts"
-	],
-	"bin": {
-		"tevm-lsp": "./bin/tevm-lsp.cjs"
-	},
-	"dependencies": {
-		"@tevm/config": "workspace:^",
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@volar/language-core": "~2.4.11",
-		"@volar/language-server": "~2.4.11",
-		"@volar/language-service": "~2.4.11",
-		"effect": "3.13.2",
-		"solc": "0.8.28",
-		"volar-service-css": "0.0.62",
-		"volar-service-emmet": "0.0.62",
-		"volar-service-html": "0.0.62",
-		"volar-service-typescript": "^0.0.62",
-		"vscode-html-languageservice": "^5.3.1",
-		"zod": "^3.24.2"
-	},
-	"devDependencies": {
-		"@tevm/base-bundler": "workspace:^",
-		"tsup": "^8.4.0",
-		"typedoc": "^0.27.9",
-		"typedoc-plugin-markdown": "^4.4.2",
-		"typescript": "^5.7.3",
-		"vitest": "^3.0.7"
-	}
+  "name": "@tevm/lsp",
+  "version": "1.0.0-next.131",
+  "private": false,
+  "sideEffects": false,
+  "description": "Volar-powered language server for Tevm",
+  "type": "module",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "plugin",
+    "solidity",
+    "sol",
+    "tevm",
+    "volar",
+    "language-server"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "lsp/lsp"
+  },
+  "files": [
+    "dist/**/*.js",
+    "bin/**/*.cjs",
+    "README.md"
+  ],
+  "bin": {
+    "tevm-lsp": "./bin/tevm-lsp.cjs"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/plugin.ts src/language.ts src/SolidityFile.js src/service/solidityService.js --format esm,cjs --dts",
+    "dev": "tsup src/index.ts src/plugin.ts src/language.ts src/SolidityFile.js src/service/solidityService.js --format esm,cjs --watch",
+    "lint": "biome check src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tevm/base-bundler": "workspace:^",
+    "@tevm/bundler-cache": "workspace:^",
+    "@tevm/config": "workspace:^",
+    "@volar/language-core": "~2.4.11",
+    "@volar/language-server": "~2.4.11",
+    "@volar/language-service": "~2.4.11",
+    "effect": "3.13.2",
+    "solc": "0.8.28",
+    "solidity-ast": "^0.4.55",
+    "volar-service-typescript": "^0.0.62"
+  },
+  "devDependencies": {
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^",
+    "biome": "^1.6.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  }
 }
