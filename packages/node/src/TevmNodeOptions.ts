@@ -130,7 +130,7 @@ export type TevmNodeOptions<TCommon extends Common = Common> = StateOptions & {
 	 * @example
 	 * ```typescript
 	 * import { createMemoryClient } from 'tevm'
-	 * 
+	 *
 	 * // Create a client with a custom chain ID
 	 * const client = createMemoryClient({ _chainIdOverride: 1337 })
 	 * const chainId = await client.getChainId() // Returns 1337
