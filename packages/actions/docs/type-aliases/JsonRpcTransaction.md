@@ -8,7 +8,7 @@
 
 > **JsonRpcTransaction**: `object`
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L10)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L11)
 
 the transaction call object for methods like `eth_call`
 
