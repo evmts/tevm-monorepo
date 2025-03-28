@@ -27,5 +27,5 @@ export const metachain = createCommon({
 	..._metachain,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const wanchain = createCommon({
 	..._wanchain,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const pgn = createCommon({
 	..._pgn,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

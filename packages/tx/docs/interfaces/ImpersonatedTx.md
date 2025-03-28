@@ -15,7 +15,7 @@ Typed transaction with a new gas fee market mechanism
 
 ## Extends
 
-- [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
+- [`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md)
 
 ## Properties
 
@@ -23,11 +23,11 @@ Typed transaction with a new gas fee market mechanism
 
 > `protected` `readonly` **\_type**: [`TransactionType`](../enumerations/TransactionType.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:14
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:13
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`_type`](../classes/FeeMarketEIP1559Transaction.md#_type)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`_type`](../classes/FeeMarket1559Tx.md#_type)
 
 ***
 
@@ -35,11 +35,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **accessList**: `AccessListBytes`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:15
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:15
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`accessList`](../classes/FeeMarketEIP1559Transaction.md#accesslist)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`accessList`](../classes/FeeMarket1559Tx.md#accesslist)
 
 ***
 
@@ -47,11 +47,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **AccessListJSON**: [`AccessList`](../type-aliases/AccessList.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:16
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:16
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`AccessListJSON`](../classes/FeeMarketEIP1559Transaction.md#accesslistjson)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`AccessListJSON`](../classes/FeeMarket1559Tx.md#accesslistjson)
 
 ***
 
@@ -59,15 +59,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `protected` **activeCapabilities**: `number`[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:31
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:30
 
 List of tx type defining EIPs,
 e.g. 1559 (fee market) and 2930 (access lists)
-for FeeMarketEIP1559Transaction objects
+for FeeMarket1559Tx objects
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`activeCapabilities`](../classes/FeeMarketEIP1559Transaction.md#activecapabilities)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`activeCapabilities`](../classes/FeeMarket1559Tx.md#activecapabilities)
 
 ***
 
@@ -75,11 +75,11 @@ for FeeMarketEIP1559Transaction objects
 
 > **cache**: `TransactionCache`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:24
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:23
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`cache`](../classes/FeeMarketEIP1559Transaction.md#cache)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`cache`](../classes/FeeMarket1559Tx.md#cache)
 
 ***
 
@@ -87,11 +87,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **chainId**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:14
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:14
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`chainId`](../classes/FeeMarketEIP1559Transaction.md#chainid)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`chainId`](../classes/FeeMarket1559Tx.md#chainid)
 
 ***
 
@@ -99,11 +99,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **common**: `Common`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:19
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:19
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`common`](../classes/FeeMarketEIP1559Transaction.md#common)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`common`](../classes/FeeMarket1559Tx.md#common)
 
 ***
 
@@ -111,11 +111,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **data**: `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:19
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:18
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`data`](../classes/FeeMarketEIP1559Transaction.md#data)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`data`](../classes/FeeMarket1559Tx.md#data)
 
 ***
 
@@ -123,11 +123,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **gasLimit**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:16
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:15
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`gasLimit`](../classes/FeeMarketEIP1559Transaction.md#gaslimit)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`gasLimit`](../classes/FeeMarket1559Tx.md#gaslimit)
 
 ***
 
@@ -143,11 +143,11 @@ Defined in: [packages/tx/src/ImpersonatedTx.ts:4](https://github.com/evmts/tevm-
 
 > `readonly` **maxFeePerGas**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:18
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:18
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`maxFeePerGas`](../classes/FeeMarketEIP1559Transaction.md#maxfeepergas)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`maxFeePerGas`](../classes/FeeMarket1559Tx.md#maxfeepergas)
 
 ***
 
@@ -155,11 +155,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **maxPriorityFeePerGas**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:17
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:17
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`maxPriorityFeePerGas`](../classes/FeeMarketEIP1559Transaction.md#maxpriorityfeepergas)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`maxPriorityFeePerGas`](../classes/FeeMarket1559Tx.md#maxpriorityfeepergas)
 
 ***
 
@@ -167,11 +167,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **nonce**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:15
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:14
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`nonce`](../classes/FeeMarketEIP1559Transaction.md#nonce)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`nonce`](../classes/FeeMarket1559Tx.md#nonce)
 
 ***
 
@@ -179,11 +179,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` `optional` **r**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:21
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:20
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`r`](../classes/FeeMarketEIP1559Transaction.md#r)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`r`](../classes/FeeMarket1559Tx.md#r)
 
 ***
 
@@ -191,11 +191,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` `optional` **s**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:22
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:21
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`s`](../classes/FeeMarketEIP1559Transaction.md#s)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`s`](../classes/FeeMarket1559Tx.md#s)
 
 ***
 
@@ -203,11 +203,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` `optional` **to**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:17
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:16
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`to`](../classes/FeeMarketEIP1559Transaction.md#to)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`to`](../classes/FeeMarket1559Tx.md#to)
 
 ***
 
@@ -215,11 +215,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `protected` `readonly` **txOptions**: [`TxOptions`](TxOptions.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:25
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:24
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`txOptions`](../classes/FeeMarketEIP1559Transaction.md#txoptions)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`txOptions`](../classes/FeeMarket1559Tx.md#txoptions)
 
 ***
 
@@ -227,11 +227,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` `optional` **v**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:20
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:19
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`v`](../classes/FeeMarketEIP1559Transaction.md#v)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`v`](../classes/FeeMarket1559Tx.md#v)
 
 ***
 
@@ -239,11 +239,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > `readonly` **value**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:18
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:17
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`value`](../classes/FeeMarketEIP1559Transaction.md#value)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`value`](../classes/FeeMarket1559Tx.md#value)
 
 ## Accessors
 
@@ -253,7 +253,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > **get** **type**(): [`TransactionType`](../enumerations/TransactionType.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:47
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:46
 
 Returns the transaction type.
 
@@ -265,7 +265,7 @@ Note: legacy txs will return tx type `0`.
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`type`](../classes/FeeMarketEIP1559Transaction.md#type)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`type`](../classes/FeeMarket1559Tx.md#type)
 
 ## Methods
 
@@ -273,7 +273,7 @@ Note: legacy txs will return tx type `0`.
 
 > `protected` **\_getSharedErrorPostfix**(): `string`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:189
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:179
 
 Returns the shared error postfix part for _error() method
 tx type implementations.
@@ -284,7 +284,7 @@ tx type implementations.
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`_getSharedErrorPostfix`](../classes/FeeMarketEIP1559Transaction.md#_getsharederrorpostfix)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`_getSharedErrorPostfix`](../classes/FeeMarket1559Tx.md#_getsharederrorpostfix)
 
 ***
 
@@ -292,7 +292,7 @@ tx type implementations.
 
 > `protected` **\_validateCannotExceedMaxInteger**(`values`, `bits`?, `cannotEqual`?): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:168
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:161
 
 Validates that an object with BigInt values cannot exceed the specified bit limit.
 
@@ -320,15 +320,15 @@ Pass true if the number also cannot equal one less the maximum value
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`_validateCannotExceedMaxInteger`](../classes/FeeMarketEIP1559Transaction.md#_validatecannotexceedmaxinteger)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`_validateCannotExceedMaxInteger`](../classes/FeeMarket1559Tx.md#_validatecannotexceedmaxinteger)
 
 ***
 
 ### addSignature()
 
-> **addSignature**(`v`, `r`, `s`, `convertV`?): [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
+> **addSignature**(`v`, `r`, `s`, `convertV`?): [`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:127
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:102
 
 Returns a new transaction with the same data fields as the current, but now signed
 
@@ -362,11 +362,11 @@ Set this to `true` if the raw output of `ecsign` is used. If this is `false` (de
 
 #### Returns
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md)
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`addSignature`](../classes/FeeMarketEIP1559Transaction.md#addsignature)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`addSignature`](../classes/FeeMarket1559Tx.md#addsignature)
 
 ***
 
@@ -374,7 +374,7 @@ Set this to `true` if the raw output of `ecsign` is used. If this is `false` (de
 
 > **errorStr**(): `string`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:135
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:110
 
 Return a compact error string representation of the object
 
@@ -384,33 +384,15 @@ Return a compact error string representation of the object
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`errorStr`](../classes/FeeMarketEIP1559Transaction.md#errorstr)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`errorStr`](../classes/FeeMarket1559Tx.md#errorstr)
 
 ***
 
-### getBaseFee()
+### getDataGas()
 
-> **getBaseFee**(): `bigint`
+> **getDataGas**(): `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:78
-
-The minimum amount of gas the tx must have (DataFee + TxFee + Creation Fee)
-
-#### Returns
-
-`bigint`
-
-#### Inherited from
-
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getBaseFee`](../classes/FeeMarketEIP1559Transaction.md#getbasefee)
-
-***
-
-### getDataFee()
-
-> **getDataFee**(): `bigint`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:56
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:31
 
 The amount of gas paid for the data in this tx
 
@@ -420,7 +402,7 @@ The amount of gas paid for the data in this tx
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getDataFee`](../classes/FeeMarketEIP1559Transaction.md#getdatafee)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getDataGas`](../classes/FeeMarket1559Tx.md#getdatagas)
 
 ***
 
@@ -428,7 +410,7 @@ The amount of gas paid for the data in this tx
 
 > **getEffectivePriorityFee**(`baseFee`): `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:61
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:36
 
 Returns the minimum of calculated priority fee (from maxFeePerGas and baseFee) and maxPriorityFeePerGas
 
@@ -446,7 +428,7 @@ Base fee retrieved from block
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getEffectivePriorityFee`](../classes/FeeMarketEIP1559Transaction.md#geteffectivepriorityfee)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getEffectivePriorityFee`](../classes/FeeMarket1559Tx.md#geteffectivepriorityfee)
 
 ***
 
@@ -454,7 +436,7 @@ Base fee retrieved from block
 
 > **getHashedMessageToSign**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:111
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:86
 
 Returns the hashed serialized unsigned tx, which can be used
 to sign the transaction (e.g. for sending to a hardware wallet).
@@ -468,7 +450,28 @@ serialized and doesn't need to be RLP encoded any more.
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getHashedMessageToSign`](../classes/FeeMarketEIP1559Transaction.md#gethashedmessagetosign)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getHashedMessageToSign`](../classes/FeeMarket1559Tx.md#gethashedmessagetosign)
+
+***
+
+### getIntrinsicGas()
+
+> **getIntrinsicGas**(): `bigint`
+
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:80
+
+The minimum gas limit which the tx to have to be valid.
+This covers costs as the standard fee (21000 gas), the data fee (paid for each calldata byte),
+the optional creation fee (if the transaction creates a contract), and if relevant the gas
+to be paid for access lists (EIP-2930) and authority lists (EIP-7702).
+
+#### Returns
+
+`bigint`
+
+#### Inherited from
+
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getIntrinsicGas`](../classes/FeeMarket1559Tx.md#getintrinsicgas)
 
 ***
 
@@ -476,7 +479,7 @@ serialized and doesn't need to be RLP encoded any more.
 
 > **getMessageToSign**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:103
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:78
 
 Returns the raw serialized unsigned tx, which can be used
 to sign the transaction (e.g. for sending to a hardware wallet).
@@ -494,7 +497,7 @@ const serializedMessage = tx.getMessageToSign() // use this for the HW wallet in
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getMessageToSign`](../classes/FeeMarketEIP1559Transaction.md#getmessagetosign)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getMessageToSign`](../classes/FeeMarket1559Tx.md#getmessagetosign)
 
 ***
 
@@ -502,7 +505,7 @@ const serializedMessage = tx.getMessageToSign() // use this for the HW wallet in
 
 > **getMessageToVerifySignature**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:122
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:97
 
 Computes a sha3-256 hash which can be used to verify the signature
 
@@ -512,7 +515,7 @@ Computes a sha3-256 hash which can be used to verify the signature
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getMessageToVerifySignature`](../classes/FeeMarketEIP1559Transaction.md#getmessagetoverifysignature)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getMessageToVerifySignature`](../classes/FeeMarket1559Tx.md#getmessagetoverifysignature)
 
 ***
 
@@ -520,7 +523,7 @@ Computes a sha3-256 hash which can be used to verify the signature
 
 > **getSenderAddress**(): `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:124
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:126
 
 Returns the sender's address
 
@@ -530,7 +533,7 @@ Returns the sender's address
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getSenderAddress`](../classes/FeeMarketEIP1559Transaction.md#getsenderaddress)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getSenderAddress`](../classes/FeeMarket1559Tx.md#getsenderaddress)
 
 ***
 
@@ -538,7 +541,7 @@ Returns the sender's address
 
 > **getSenderPublicKey**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:126
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:101
 
 Returns the public key of the sender
 
@@ -548,7 +551,7 @@ Returns the public key of the sender
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getSenderPublicKey`](../classes/FeeMarketEIP1559Transaction.md#getsenderpublickey)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getSenderPublicKey`](../classes/FeeMarket1559Tx.md#getsenderpublickey)
 
 ***
 
@@ -556,7 +559,7 @@ Returns the public key of the sender
 
 > **getUpfrontCost**(`baseFee`?): `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:66
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:41
 
 The up front amount that an account must have for this transaction to be valid
 
@@ -574,7 +577,7 @@ The base fee of the block (will be set to 0 if not provided)
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getUpfrontCost`](../classes/FeeMarketEIP1559Transaction.md#getupfrontcost)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getUpfrontCost`](../classes/FeeMarket1559Tx.md#getupfrontcost)
 
 ***
 
@@ -582,7 +585,7 @@ The base fee of the block (will be set to 0 if not provided)
 
 > **getValidationErrors**(): `string`[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:69
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:68
 
 Validates the transaction signature and minimum gas requirements.
 
@@ -594,7 +597,7 @@ an array of error strings
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`getValidationErrors`](../classes/FeeMarketEIP1559Transaction.md#getvalidationerrors)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`getValidationErrors`](../classes/FeeMarket1559Tx.md#getvalidationerrors)
 
 ***
 
@@ -602,12 +605,12 @@ an array of error strings
 
 > **hash**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:118
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:93
 
 Computes a sha3-256 hash of the serialized tx.
 
 This method can only be used for signed txs (it throws otherwise).
-Use [FeeMarketEIP1559Transaction.getMessageToSign](../classes/FeeMarketEIP1559Transaction.md#getmessagetosign) to get a tx hash for the purpose of signing.
+Use [FeeMarket1559Tx.getMessageToSign](../classes/FeeMarket1559Tx.md#getmessagetosign) to get a tx hash for the purpose of signing.
 
 #### Returns
 
@@ -615,7 +618,7 @@ Use [FeeMarketEIP1559Transaction.getMessageToSign](../classes/FeeMarketEIP1559Tr
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`hash`](../classes/FeeMarketEIP1559Transaction.md#hash)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`hash`](../classes/FeeMarket1559Tx.md#hash)
 
 ***
 
@@ -623,7 +626,7 @@ Use [FeeMarketEIP1559Transaction.getMessageToSign](../classes/FeeMarketEIP1559Tr
 
 > **isSigned**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:116
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:118
 
 #### Returns
 
@@ -631,7 +634,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`isSigned`](../classes/FeeMarketEIP1559Transaction.md#issigned)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`isSigned`](../classes/FeeMarket1559Tx.md#issigned)
 
 ***
 
@@ -639,7 +642,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 > **isValid**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:74
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:73
 
 Validates the transaction signature and minimum gas requirements.
 
@@ -651,7 +654,7 @@ true if the transaction is valid, false otherwise
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`isValid`](../classes/FeeMarketEIP1559Transaction.md#isvalid)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`isValid`](../classes/FeeMarket1559Tx.md#isvalid)
 
 ***
 
@@ -659,19 +662,19 @@ true if the transaction is valid, false otherwise
 
 > **raw**(): `FeeMarketEIP1559TxValuesArray`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:80
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:55
 
 Returns a Uint8Array Array of the raw Bytes of the EIP-1559 transaction, in order.
 
 Format: `[chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
 accessList, signatureYParity, signatureR, signatureS]`
 
-Use [FeeMarketEIP1559Transaction.serialize](../classes/FeeMarketEIP1559Transaction.md#serialize) to add a transaction to a block
-with Block.fromValuesArray.
+Use [FeeMarket1559Tx.serialize](../classes/FeeMarket1559Tx.md#serialize) to add a transaction to a block
+with createBlockFromBytesArray.
 
 For an unsigned tx this method uses the empty Bytes values for the
 signature parameters `v`, `r` and `s` for encoding. For an EIP-155 compliant
-representation for external signing use [FeeMarketEIP1559Transaction.getMessageToSign](../classes/FeeMarketEIP1559Transaction.md#getmessagetosign).
+representation for external signing use [FeeMarket1559Tx.getMessageToSign](../classes/FeeMarket1559Tx.md#getmessagetosign).
 
 #### Returns
 
@@ -679,7 +682,7 @@ representation for external signing use [FeeMarketEIP1559Transaction.getMessageT
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`raw`](../classes/FeeMarketEIP1559Transaction.md#raw)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`raw`](../classes/FeeMarket1559Tx.md#raw)
 
 ***
 
@@ -687,7 +690,7 @@ representation for external signing use [FeeMarketEIP1559Transaction.getMessageT
 
 > **serialize**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:91
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:66
 
 Returns the serialized encoding of the EIP-1559 transaction.
 
@@ -704,15 +707,15 @@ the RLP encoding of the values.
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`serialize`](../classes/FeeMarketEIP1559Transaction.md#serialize)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`serialize`](../classes/FeeMarket1559Tx.md#serialize)
 
 ***
 
 ### sign()
 
-> **sign**(`privateKey`): [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
+> **sign**(`privateKey`): [`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:138
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:140
 
 Signs a transaction.
 
@@ -730,11 +733,11 @@ const signedTx = tx.sign(privateKey)
 
 #### Returns
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md)
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`sign`](../classes/FeeMarketEIP1559Transaction.md#sign)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`sign`](../classes/FeeMarket1559Tx.md#sign)
 
 ***
 
@@ -742,7 +745,7 @@ const signedTx = tx.sign(privateKey)
 
 > **supports**(`capability`): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:64
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:63
 
 Checks if a tx type defining capability is active
 on a tx, for example the EIP-1559 fee market mechanism
@@ -771,7 +774,7 @@ on all supported capabilities.
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`supports`](../classes/FeeMarketEIP1559Transaction.md#supports)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`supports`](../classes/FeeMarket1559Tx.md#supports)
 
 ***
 
@@ -779,7 +782,7 @@ on all supported capabilities.
 
 > **toCreationAddress**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:96
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:98
 
 If the tx's `to` is to the creation address
 
@@ -789,25 +792,25 @@ If the tx's `to` is to the creation address
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`toCreationAddress`](../classes/FeeMarketEIP1559Transaction.md#tocreationaddress)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`toCreationAddress`](../classes/FeeMarket1559Tx.md#tocreationaddress)
 
 ***
 
 ### toJSON()
 
-> **toJSON**(): [`JsonTx`](JsonTx.md)
+> **toJSON**(): [`JSONTx`](JSONTx.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:131
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:106
 
 Returns an object with the JSON representation of the transaction
 
 #### Returns
 
-[`JsonTx`](JsonTx.md)
+[`JSONTx`](JSONTx.md)
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`toJSON`](../classes/FeeMarketEIP1559Transaction.md#tojson)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`toJSON`](../classes/FeeMarket1559Tx.md#tojson)
 
 ***
 
@@ -815,7 +818,7 @@ Returns an object with the JSON representation of the transaction
 
 > **verifySignature**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:120
+Defined in: node\_modules/.pnpm/@ethereumjs+tx@6.0.0-alpha.1/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:122
 
 Determines if the signature is valid
 
@@ -825,4 +828,4 @@ Determines if the signature is valid
 
 #### Inherited from
 
-[`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`verifySignature`](../classes/FeeMarketEIP1559Transaction.md#verifysignature)
+[`FeeMarket1559Tx`](../classes/FeeMarket1559Tx.md).[`verifySignature`](../classes/FeeMarket1559Tx.md#verifysignature)

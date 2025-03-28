@@ -27,5 +27,5 @@ export const phoenix = createCommon({
 	..._phoenix,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

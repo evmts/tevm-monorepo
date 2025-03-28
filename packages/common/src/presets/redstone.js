@@ -27,5 +27,5 @@ export const redstone = createCommon({
 	..._redstone,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

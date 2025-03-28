@@ -27,5 +27,5 @@ export const skaleBlockBrawlers = createCommon({
 	..._skaleBlockBrawlers,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

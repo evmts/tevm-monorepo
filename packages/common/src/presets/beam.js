@@ -27,5 +27,5 @@ export const beam = createCommon({
 	..._beam,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

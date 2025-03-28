@@ -27,5 +27,5 @@ export const metachainIstanbul = createCommon({
 	..._metachainIstanbul,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

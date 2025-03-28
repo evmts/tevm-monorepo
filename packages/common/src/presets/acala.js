@@ -27,5 +27,5 @@ export const acala = createCommon({
 	..._acala,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

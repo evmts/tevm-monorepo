@@ -27,5 +27,5 @@ export const holesky = createCommon({
 	..._holesky,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

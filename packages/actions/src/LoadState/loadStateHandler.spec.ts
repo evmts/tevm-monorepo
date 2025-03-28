@@ -9,7 +9,7 @@ import { loadStateHandler } from './loadStateHandler.js'
 test('should load state into the state manager', async () => {
 	const stateManager = createStateManager({})
 
-	const address = EthjsAddress.fromString('0x0420042004200420042004200420042004200420')
+	const address = createAddress('0x0420042004200420042004200420042004200420')
 
 	let accountData = await stateManager.getAccount(address)
 

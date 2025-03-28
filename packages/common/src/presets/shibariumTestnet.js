@@ -27,5 +27,5 @@ export const shibariumTestnet = createCommon({
 	..._shibariumTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

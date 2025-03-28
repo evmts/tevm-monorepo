@@ -10,7 +10,7 @@ Defined in: packages/state/dist/index.d.ts:202
 
 ## Extends
 
-- [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
+- [`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md)
 
 ## Properties
 
@@ -68,7 +68,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`originalStorageCache`](../../common/interfaces/EvmStateManagerInterface.md#originalstoragecache)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`originalStorageCache`](../../common/interfaces/StateManagerInterface.md#originalstoragecache)
 
 ***
 
@@ -106,7 +106,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`checkChunkWitnessPresent`](../../common/interfaces/EvmStateManagerInterface.md#checkchunkwitnesspresent)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`checkChunkWitnessPresent`](../../common/interfaces/StateManagerInterface.md#checkchunkwitnesspresent)
 
 ***
 
@@ -122,7 +122,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`checkpoint`](../../common/interfaces/EvmStateManagerInterface.md#checkpoint)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`checkpoint`](../../common/interfaces/StateManagerInterface.md#checkpoint)
 
 ***
 
@@ -158,7 +158,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`clearContractStorage`](../../common/interfaces/EvmStateManagerInterface.md#clearcontractstorage)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`clearContractStorage`](../../common/interfaces/StateManagerInterface.md#clearcontractstorage)
 
 ***
 
@@ -188,7 +188,7 @@ This api is not stable
 
 #### Overrides
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`commit`](../../common/interfaces/EvmStateManagerInterface.md#commit)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`commit`](../../common/interfaces/StateManagerInterface.md#commit)
 
 ***
 
@@ -224,7 +224,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`deleteAccount`](../../common/interfaces/EvmStateManagerInterface.md#deleteaccount)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`deleteAccount`](../../common/interfaces/StateManagerInterface.md#deleteaccount)
 
 ***
 
@@ -260,7 +260,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`dumpStorage`](../../common/interfaces/EvmStateManagerInterface.md#dumpstorage)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`dumpStorage`](../../common/interfaces/StateManagerInterface.md#dumpstorage)
 
 ***
 
@@ -290,7 +290,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`dumpStorageRange`](../../common/interfaces/EvmStateManagerInterface.md#dumpstoragerange)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`dumpStorageRange`](../../common/interfaces/StateManagerInterface.md#dumpstoragerange)
 
 ***
 
@@ -312,7 +312,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`generateCanonicalGenesis`](../../common/interfaces/EvmStateManagerInterface.md#generatecanonicalgenesis)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`generateCanonicalGenesis`](../../common/interfaces/StateManagerInterface.md#generatecanonicalgenesis)
 
 ***
 
@@ -334,7 +334,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getAccount`](../../common/interfaces/EvmStateManagerInterface.md#getaccount)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`getAccount`](../../common/interfaces/StateManagerInterface.md#getaccount)
 
 ***
 
@@ -356,7 +356,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getAppliedKey`](../../common/interfaces/EvmStateManagerInterface.md#getappliedkey)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`getAppliedKey`](../../common/interfaces/StateManagerInterface.md#getappliedkey)
 
 ***
 
@@ -378,7 +378,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getContractCode`](../../common/interfaces/EvmStateManagerInterface.md#getcontractcode)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`getContractCode`](../../common/interfaces/StateManagerInterface.md#getcontractcode)
 
 ***
 
@@ -400,7 +400,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getContractCodeSize`](../../common/interfaces/EvmStateManagerInterface.md#getcontractcodesize)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`getContractCodeSize`](../../common/interfaces/StateManagerInterface.md#getcontractcodesize)
 
 ***
 
@@ -426,7 +426,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getContractStorage`](../../common/interfaces/EvmStateManagerInterface.md#getcontractstorage)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`getContractStorage`](../../common/interfaces/StateManagerInterface.md#getcontractstorage)
 
 ***
 
@@ -452,7 +452,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getProof`](../../common/interfaces/EvmStateManagerInterface.md#getproof)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`getProof`](../../common/interfaces/StateManagerInterface.md#getproof)
 
 ***
 
@@ -468,7 +468,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`getStateRoot`](../../common/interfaces/EvmStateManagerInterface.md#getstateroot)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`getStateRoot`](../../common/interfaces/StateManagerInterface.md#getstateroot)
 
 ***
 
@@ -490,7 +490,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`hasStateRoot`](../../common/interfaces/EvmStateManagerInterface.md#hasstateroot)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`hasStateRoot`](../../common/interfaces/StateManagerInterface.md#hasstateroot)
 
 ***
 
@@ -516,7 +516,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`modifyAccountFields`](../../common/interfaces/EvmStateManagerInterface.md#modifyaccountfields)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`modifyAccountFields`](../../common/interfaces/StateManagerInterface.md#modifyaccountfields)
 
 ***
 
@@ -542,7 +542,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`putAccount`](../../common/interfaces/EvmStateManagerInterface.md#putaccount)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`putAccount`](../../common/interfaces/StateManagerInterface.md#putaccount)
 
 ***
 
@@ -568,7 +568,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`putContractCode`](../../common/interfaces/EvmStateManagerInterface.md#putcontractcode)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`putContractCode`](../../common/interfaces/StateManagerInterface.md#putcontractcode)
 
 ***
 
@@ -598,7 +598,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`putContractStorage`](../../common/interfaces/EvmStateManagerInterface.md#putcontractstorage)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`putContractStorage`](../../common/interfaces/StateManagerInterface.md#putcontractstorage)
 
 ***
 
@@ -614,7 +614,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`revert`](../../common/interfaces/EvmStateManagerInterface.md#revert)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`revert`](../../common/interfaces/StateManagerInterface.md#revert)
 
 ***
 
@@ -667,13 +667,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`setStateRoot`](../../common/interfaces/EvmStateManagerInterface.md#setstateroot)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`setStateRoot`](../../common/interfaces/StateManagerInterface.md#setstateroot)
 
 ***
 
 ### shallowCopy()
 
-> **shallowCopy**(`downlevelCaches`?): [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
+> **shallowCopy**(`downlevelCaches`?): [`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md)
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:144
 
@@ -685,8 +685,12 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Returns
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md)
 
 #### Inherited from
 
-[`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md).[`shallowCopy`](../../common/interfaces/EvmStateManagerInterface.md#shallowcopy)
+[`StateManagerInterface`](../../common/interfaces/StateManagerInterface.md).[`shallowCopy`](../../common/interfaces/StateManagerInterface.md#shallowcopy)
+
+#### Defined in
+
+node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:144

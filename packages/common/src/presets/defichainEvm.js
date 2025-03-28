@@ -27,5 +27,5 @@ export const defichainEvm = createCommon({
 	..._defichainEvm,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -19,7 +19,7 @@ describe('putContractStorage', () => {
 			loggingLevel: 'warn',
 		})
 
-		address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		address = createAddress(`0x${'01'.repeat(20)}`)
 		key = hexToBytes(`0x${'02'.repeat(32)}`)
 		value = hexToBytes('0x1234')
 		account = EthjsAccount.fromAccountData({
@@ -50,7 +50,7 @@ describe('putContractStorage', () => {
 	})
 
 	it('should throw an error if the account does not exist', async () => {
-		const newAddress = EthjsAddress.fromString(`0x${'02'.repeat(20)}`)
+		const newAddress = createAddress(`0x${'02'.repeat(20)}`)
 		const err = await putContractStorage(baseState)(newAddress, key, value).catch((e) => e)
 		expect(err).toBeInstanceOf(InternalError)
 		expect(err).toMatchSnapshot()

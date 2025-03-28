@@ -27,5 +27,5 @@ export const mintSepoliaTestnet = createCommon({
 	..._mintSepoliaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })
