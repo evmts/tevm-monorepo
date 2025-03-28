@@ -8,26 +8,6 @@ authors:
 
 import { Callout, Steps, Button } from "vocs/components";
 
-# Tevm Node Overview
-
-Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
-
-Conceptually, it works very similar to Anvil and Hardhat but with more powerful TypeScript native interop.
-
-:::tip[You might already know most of the Tevm API!]
-If you already know how to use `viem` or `ethers`, you can start using Tevm Node right away with your existing knowledge! Tevm extends your library of choice.
-:::
-
-## What Makes Tevm Unique?
-
-Unlike traditional development environments like [Hardhat](https://hardhat.org/) or [Anvil](https://book.getfoundry.sh/anvil/), Tevm Node offers several distinct advantages:
-
-- **Cross-Platform Compatibility** — The same code works everywhere JavaScript runs, with zero native dependencies including your applications in the browser
-- **Fine-grained EVM Control** — Access the execution environment at any level of detail, from high-level transactions to individual EVM opcodes
-- **Enhanced User Experience** — Enable advanced features like instantaneous gas estimation, optimistic UI updates, and sophisticated transaction simulation
-- **Type-safe Interactions** — Full TypeScript support throughout the entire API surface powered by `abitype`
-- **Direct Solidity Imports** — The powerful ability to write solidity code that interops with your TypeScript code in a typesafe way via the [Tevm Bundler](/getting-started/bundler)
-
 ## Getting Started
 
 ::::steps

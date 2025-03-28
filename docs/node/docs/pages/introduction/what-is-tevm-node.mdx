@@ -6,340 +6,277 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Steps, Button } from 'vocs/components'
+import { Callout, Steps, Button } from "vocs/components";
 
-# What is Tevm Node?
+## What is Tevm Node?
 
 :::tip[Ethereum in JavaScript]
 Tevm Node is a complete Ethereum execution environment implemented entirely in JavaScript, providing full EVM functionality without any native dependencies. It brings the entire Ethereum stack to any JavaScript environment.
 :::
 
+:::tip[Ethereum in JavaScript]
+Tevm Node also includes powerful buildtime tooling for importing evm contracts into TypeScript
+:::
+
+Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
+
+Conceptually, it works very similar to Anvil and Hardhat but with more powerful TypeScript native interop.
+
+:::tip[You might already know most of the Tevm API!]
+If you already know how to use `viem` or `ethers`, you can start using Tevm Node right away with your existing knowledge! Tevm extends your library of choice.
+:::
+
+## What Makes Tevm Unique?
+
+Unlike traditional development environments like [Hardhat](https://hardhat.org/) or [Anvil](https://book.getfoundry.sh/anvil/), Tevm Node offers several distinct advantages:
+
+- **Cross-Platform Compatibility** — The same code works everywhere JavaScript runs, with zero native dependencies including your applications in the browser
+- **Fine-grained EVM Control** — Access the execution environment at any level of detail, from high-level transactions to individual EVM opcodes
+- **Enhanced User Experience** — Enable advanced features like instantaneous gas estimation, optimistic UI updates, and sophisticated transaction simulation
+- **Type-safe Interactions** — Full TypeScript support throughout the entire API surface powered by `abitype`
+- **Direct Solidity Imports** — The powerful ability to write solidity code that interops with your TypeScript code in a typesafe way via the [Tevm Bundler](/getting-started/bundler)
+
 ## Universal JavaScript Compatibility
 
 Tevm's key innovation is bringing the Ethereum execution environment to **every JavaScript runtime**:
 
-<div style={{ 
-  display: 'grid', 
-  gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', 
-  gap: '1rem', 
-  margin: '1.5rem 0' 
-}}>
-  <div style={{ 
-    border: '1px solid var(--vocs-color_border)', 
-    borderRadius: 'var(--vocs-borderRadius_4)', 
-    padding: '1.25rem',
-    backgroundColor: 'var(--vocs-color_background2)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  }}>
-    <div style={{ fontSize: 'var(--vocs-fontSize_20)', fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Node.js</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'center' }}>For local development, testing, and CI/CD pipelines</div>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+    gap: "1rem",
+    margin: "1.5rem 0",
+  }}
+>
+  <div
+    style={{
+      border: "1px solid var(--vocs-color_border)",
+      borderRadius: "var(--vocs-borderRadius_4)",
+      padding: "1.25rem",
+      backgroundColor: "var(--vocs-color_background2)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    }}
+  >
+    <div
+      style={{
+        fontSize: "var(--vocs-fontSize_20)",
+        fontWeight: "var(--vocs-fontWeight_medium)",
+        marginBottom: "0.5rem",
+      }}
+    >
+      Node.js
+    </div>
+    <div style={{ fontSize: "var(--vocs-fontSize_14)", textAlign: "center" }}>
+      For local development, testing, and CI/CD pipelines
+    </div>
   </div>
-  
-  <div style={{ 
-    border: '1px solid var(--vocs-color_border)', 
-    borderRadius: 'var(--vocs-borderRadius_4)', 
-    padding: '1.25rem',
-    backgroundColor: 'var(--vocs-color_background2)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center' 
-  }}>
-    <div style={{ fontSize: 'var(--vocs-fontSize_20)', fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Browser</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'center' }}>For advanced dApps with offline capability and real-time simulation</div>
+
+<div
+  style={{
+    border: "1px solid var(--vocs-color_border)",
+    borderRadius: "var(--vocs-borderRadius_4)",
+    padding: "1.25rem",
+    backgroundColor: "var(--vocs-color_background2)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  }}
+>
+  <div
+    style={{
+      fontSize: "var(--vocs-fontSize_20)",
+      fontWeight: "var(--vocs-fontWeight_medium)",
+      marginBottom: "0.5rem",
+    }}
+  >
+    Browser
   </div>
-  
-  <div style={{ 
-    border: '1px solid var(--vocs-color_border)', 
-    borderRadius: 'var(--vocs-borderRadius_4)', 
-    padding: '1.25rem',
-    backgroundColor: 'var(--vocs-color_background2)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center' 
-  }}>
-    <div style={{ fontSize: 'var(--vocs-fontSize_20)', fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Any JS Runtime</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'center' }}>Works in Deno, Bun, Edge Functions, or any modern JavaScript environment</div>
+  <div style={{ fontSize: "var(--vocs-fontSize_14)", textAlign: "center" }}>
+    For advanced dApps with offline capability and real-time simulation
   </div>
 </div>
 
-## Core Features
-
-::::steps
-### Network Forking
-
-Create a local sandbox with the state of any EVM-compatible network:
-
-```ts
-import { createMemoryClient, http } from 'tevm'
-import { optimism } from 'tevm/chains'
-
-// Fork from Optimism mainnet
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    common: optimism
-  }
-})
-
-// Access any contract or account state from the forked network
-const balance = await client.getBalance({ 
-  address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' // vitalik.eth
-})
-```
-
-Tevm's forking implementation uses:
-- **Lazy-loading** - Only loads the state you actually access
-- **Efficient caching** - Keeps accessed state in memory for fast subsequent access
-- **Latest EVM version** - Supports the most recent Ethereum upgrades
-
-### Transaction Pool Management
-
-Complete control over transaction submission and processing:
-
-```ts
-// Submit a transaction to the mempool
-const hash = await client.sendTransaction({
-  account: '0x...',
-  to: '0x...',
-  value: 1000000000000000000n // 1 ETH
-})
-
-// View pending transactions
-const pool = await client.getTxPool()
-const pendingTxs = pool.getContent()
-
-// Mine blocks to process transactions
-await client.mine({ blocks: 1 })
-```
-
-Tevm gives you full control over:
-- **Transaction priority** - Based on gas price, nonce, etc.
-- **Validation rules** - Customize how transactions are validated
-- **Processing timing** - Mine exactly when you want
-
-### Flexible Mining Control
-
-Choose your block production model based on your needs:
-
-```ts
-// Manual mining (default)
-await client.sendTransaction({ ... })
-await client.mine({ blocks: 1 }) // Explicitly mine when ready
-
-// Auto-mining
-client.setMining({ mode: 'auto' }) // Mine on each transaction
-
-// Interval mining
-client.setMining({ 
-  mode: 'interval',
-  interval: 5000 // Mine every 5 seconds
-})
-```
-
-### Advanced Extensibility
-
-Customize every aspect of the EVM environment:
-
-```ts
-import { createTevmNode } from 'tevm'
-
-// Create a custom node with specialized components
-const node = await createTevmNode({
-  evm: {
-    // Customize EVM execution
-    enableRuntimeTransform: true,
-    allowUnlimitedContractSize: true
-  },
-  precompiles: [
-    // Add custom precompiles
-    {
-      address: '0x0000000000000000000000000000000000000123',
-      execute: async (input, gas) => {
-        // Custom logic
-        return { executionGasUsed: 0n, returnValue: '0x123' }
-      }
-    }
-  ]
-})
-```
-::::
+  <div
+    style={{
+      border: "1px solid var(--vocs-color_border)",
+      borderRadius: "var(--vocs-borderRadius_4)",
+      padding: "1.25rem",
+      backgroundColor: "var(--vocs-color_background2)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    }}
+  >
+    <div
+      style={{
+        fontSize: "var(--vocs-fontSize_20)",
+        fontWeight: "var(--vocs-fontWeight_medium)",
+        marginBottom: "0.5rem",
+      }}
+    >
+      Any JS Runtime
+    </div>
+    <div style={{ fontSize: "var(--vocs-fontSize_14)", textAlign: "center" }}>
+      Works in Deno, Bun, Edge Functions, or any modern JavaScript environment
+    </div>
+  </div>
+</div>
 
 ## Integration With Popular Libraries
 
-Tevm works with the libraries you already know and love:
+Tevm works with the libraries you already know and love including `viem` `wagmi` and `ethers`:
 
 :::code-group
-```ts [viem]
-import { createMemoryClient, http } from 'tevm'
 
-const client = createMemoryClient()
+```ts [viem]
+import { createMemoryClient, http } from "tevm";
+
+const client = createMemoryClient();
 
 // Use standard viem actions
-const balance = await client.getBalance({ address: '0x...' })
-const blockNumber = await client.getBlockNumber()
+const balance = await client.getBalance({ address: "0x..." });
+const blockNumber = await client.getBlockNumber();
 
 // Plus Tevm-specific actions
-await client.tevmMine({ blocks: 1 })
-await client.tevmSetAccount({ 
-  address: '0x...',
-  balance: 100000000000000000n // 0.1 ETH
-})
+await client.tevmMine({ blocks: 1 });
+await client.tevmSetAccount({
+  address: "0x...",
+  balance: 100000000000000000n, // 0.1 ETH
+});
 ```
 
 ```ts [ethers]
-import { createMemoryClient } from 'tevm'
-import { requestEip1193 } from 'tevm/decorators'
-import { BrowserProvider, Wallet } from 'ethers'
+import { createMemoryClient } from "tevm";
+import { requestEip1193 } from "tevm/decorators";
+import { BrowserProvider, Wallet } from "ethers";
 
 // Create client and enable EIP-1193 provider interface
-const client = createMemoryClient()
-client.transport.tevm.extend(requestEip1193())
+const client = createMemoryClient();
+client.transport.tevm.extend(requestEip1193());
 
 // Use with ethers.js
-const provider = new BrowserProvider(client.transport.tevm)
-const signer = Wallet.createRandom().connect(provider)
+const provider = new BrowserProvider(client.transport.tevm);
+const signer = Wallet.createRandom().connect(provider);
 
 // Read chain data
-const blockNumber = await provider.getBlockNumber()
+const blockNumber = await provider.getBlockNumber();
 
 // Don't forget to mine after transactions
-await client.mine({ blocks: 1 })
+await client.mine({ blocks: 1 });
 ```
+
 :::
 
 ## How Tevm Compares
 
-| Feature | Tevm | Anvil | Hardhat | Ganache |
-|---------|------|-------|---------|---------|
-| **Language** | JavaScript | Rust | JavaScript/Solidity | JavaScript |
-| **Browser Compatible** | ✅ | ❌ | ❌ | ❌ |
-| **Zero Dependencies** | ✅ | ❌ | ❌ | ❌ |
-| **Mainnet Forking** | ✅ | ✅ | ✅ | ✅ |
-| **EVM Event Hooks** | ✅ | ❌ | Partial | ❌ |
-| **Custom Precompiles** | ✅ | ✅ | ❌ | ❌ |
-| **viem Integration** | Native | Basic | Basic | Basic |
-| **ethers Integration** | Native | Basic | Basic | Basic |
-| **Debugging** | Advanced | Basic | Advanced | Basic |
-| **TypeScript Support** | Full | Limited | Full | Limited |
-| **Serverless Compatible** | ✅ | ❌ | ❌ | ❌ |
-
-## Why Choose Tevm?
-
-<div style={{ 
-  display: 'grid', 
-  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
-  gap: '1rem', 
-  margin: '1.5rem 0' 
-}}>
-  <div style={{ 
-    border: '1px solid var(--vocs-color_borderAccent)', 
-    borderRadius: 'var(--vocs-borderRadius_4)', 
-    padding: '1.25rem',
-    backgroundColor: 'var(--vocs-color_backgroundBlueTint)',
-  }}>
-    <h3 style={{ 
-      fontSize: 'var(--vocs-fontSize_18)', 
-      fontWeight: 'var(--vocs-fontWeight_medium)', 
-      marginTop: 0,
-      marginBottom: '0.75rem',
-      color: 'var(--vocs-color_textBlue)'
-    }}>🚀 Enhanced Performance</h3>
-    <p style={{ 
-      margin: 0, 
-      fontSize: 'var(--vocs-fontSize_14)'
-    }}>Execute transactions locally with near-zero latency for gas estimation, transaction simulation, and debugging.</p>
-  </div>
-  
-  <div style={{ 
-    border: '1px solid var(--vocs-color_borderAccent)', 
-    borderRadius: 'var(--vocs-borderRadius_4)', 
-    padding: '1.25rem',
-    backgroundColor: 'var(--vocs-color_backgroundBlueTint)',
-  }}>
-    <h3 style={{ 
-      fontSize: 'var(--vocs-fontSize_18)', 
-      fontWeight: 'var(--vocs-fontWeight_medium)', 
-      marginTop: 0,
-      marginBottom: '0.75rem',
-      color: 'var(--vocs-color_textBlue)'
-    }}>💻 Browser Compatibility</h3>
-    <p style={{ 
-      margin: 0, 
-      fontSize: 'var(--vocs-fontSize_14)'
-    }}>Enable sophisticated dApp features like offline capabilities, optimistic UI updates, and real-time simulations.</p>
-  </div>
-  
-  <div style={{ 
-    border: '1px solid var(--vocs-color_borderAccent)', 
-    borderRadius: 'var(--vocs-borderRadius_4)', 
-    padding: '1.25rem',
-    backgroundColor: 'var(--vocs-color_backgroundBlueTint)',
-  }}>
-    <h3 style={{ 
-      fontSize: 'var(--vocs-fontSize_18)', 
-      fontWeight: 'var(--vocs-fontWeight_medium)', 
-      marginTop: 0,
-      marginBottom: '0.75rem',
-      color: 'var(--vocs-color_textBlue)'
-    }}>🔍 Debug Superpowers</h3>
-    <p style={{ 
-      margin: 0, 
-      fontSize: 'var(--vocs-fontSize_14)'
-    }}>Step through EVM execution opcode by opcode to understand exactly what's happening in your smart contracts.</p>
-  </div>
-  
-  <div style={{ 
-    border: '1px solid var(--vocs-color_borderAccent)', 
-    borderRadius: 'var(--vocs-borderRadius_4)', 
-    padding: '1.25rem',
-    backgroundColor: 'var(--vocs-color_backgroundBlueTint)',
-  }}>
-    <h3 style={{ 
-      fontSize: 'var(--vocs-fontSize_18)', 
-      fontWeight: 'var(--vocs-fontWeight_medium)', 
-      marginTop: 0,
-      marginBottom: '0.75rem',
-      color: 'var(--vocs-color_textBlue)'
-    }}>🛠️ Familiar Developer Experience</h3>
-    <p style={{ 
-      margin: 0, 
-      fontSize: 'var(--vocs-fontSize_14)'
-    }}>Works seamlessly with the libraries you already know - viem, ethers, or any EIP-1193 compatible tool.</p>
-  </div>
-</div>
-
-:::info[Did you know?]
-Tevm Node is part of a larger ecosystem that also includes [Tevm Bundler](https://tevm.sh/bundler), which allows for direct Solidity imports into JavaScript/TypeScript.
-:::
+| Feature                           | Tevm            | Anvil    | Hardhat         | Ganache    |
+| --------------------------------- | --------------- | -------- | --------------- | ---------- |
+| **Language**                      | JavaScript/Wasm | Rust     | JavaScript/Rust | JavaScript |
+| **Browser Compatible**            | ✅              | ❌       | ❌              | ❌         |
+| **Minimal Dependencies**          | ✅              | ✅       | ❌              | ❌         |
+| **Mainnet Forking**               | ✅              | ✅       | ✅              | ✅         |
+| **EVM Event Hooks**               | ✅              | ❌       | ❌              | ❌         |
+| **Custom Precompiles**            | ✅              | ✅       | ❌              | ❌         |
+| **viem Integration**              | Native          | Some     | Minimal         | Minimal    |
+| **ethers Integration**            | Native          | Minimal  | Minimal         | Some       |
+| **Debugging**                     | Advanced        | Advanced | Advanced        | Basic      |
+| **TypeScript Support**            | Full            | Limited  | Full            | Full       |
+| **Serverless Compatible**         | ✅              | ❌       | ❌              | ✅         |
+| **Optimized forking performance** | ✅              | ❌       | ❌              | ❌         |
 
 ## Library Compatibility
 
-| Library | Support Level | Notes |
-|---------|--------------|-------|
-| [**viem**](../getting-started/viem.mdx) | First-class | Native integration with all viem features |
-| [**ethers.js**](../getting-started/ethers.mdx) | Full | Both v5 and v6 via EIP-1193 provider |
-| [**web3.js**](https://github.com/web3/web3.js) | Full | Via EIP-1193 provider |
-| [**wagmi**](https://wagmi.sh/) | Full | Works as a wagmi connector |
-| [**thirdweb**](https://thirdweb.com/) | Full | Compatible with thirdweb's SDK |
-| Any EIP-1193 library | Full | Standard provider interface |
+| Library                                                             | Support Level | Notes                                                                                         |
+| ------------------------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------- |
+| [**viem**](../getting-started/viem.mdx)                             | Native        | First-class native integration with all viem features                                         |
+| [**ethers.js**](../getting-started/ethers.mdx)                      | Full          | Both v5 and v6 via EIP-1193 provider                                                          |
+| [**web3.js**](https://github.com/web3/web3.js)                      | Full          | Via EIP-1193 provider                                                                         |
+| [**wagmi**](https://wagmi.sh/)                                      | Full          | Works as a wagmi connector                                                                    |
+| [**thirdweb**](https://thirdweb.com/)                               | Full          | Compatible with thirdweb's SDK                                                                |
+| [**Ponder**](https://ponder.sh/)                                    | Full          | Can be used to do advanced tracing in ponder handlers and import contracts into ponder config |
+| [**ethereumjs**](https://github.com/ethereumjs/ethereumjs-monorepo) | Native        | Implements the same interfaces as Ethereumjs                                                  |
+| Any EIP-1193 library                                                | Full          | Standard provider interface                                                                   |
 
 ## Next Steps
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
-  <Button href="./why-run-ethereum-in-js" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Why JavaScript for Ethereum?</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Understand the unique advantages of running Ethereum in JavaScript environments</div>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: "1rem",
+    margin: "1.5rem 0",
+  }}
+>
+  <Button
+    href="./why-run-ethereum-in-js"
+    style={{
+      height: "auto",
+      padding: "1rem",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+    }}
+  >
+    <div
+      style={{
+        fontWeight: "var(--vocs-fontWeight_medium)",
+        marginBottom: "0.5rem",
+      }}
+    >
+      Why JavaScript for Ethereum?
+    </div>
+    <div style={{ fontSize: "var(--vocs-fontSize_14)", textAlign: "left" }}>
+      Understand the unique advantages of running Ethereum in JavaScript
+      environments
+    </div>
   </Button>
-  
-  <Button href="./architecture-overview" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Architecture Overview</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Dive into Tevm's technical design and component structure</div>
-  </Button>
-  
-  <Button href="../core/create-tevm-node" variant="accent" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Create a Tevm Node</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Get started building with Tevm in your own applications</div>
+
+<Button
+  href="./architecture-overview"
+  style={{
+    height: "auto",
+    padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  }}
+>
+  <div
+    style={{
+      fontWeight: "var(--vocs-fontWeight_medium)",
+      marginBottom: "0.5rem",
+    }}
+  >
+    Architecture Overview
+  </div>
+  <div style={{ fontSize: "var(--vocs-fontSize_14)", textAlign: "left" }}>
+    Dive into Tevm's technical design and component structure
+  </div>
+</Button>
+
+  <Button
+    href="../core/create-tevm-node"
+    variant="accent"
+    style={{
+      height: "auto",
+      padding: "1rem",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+    }}
+  >
+    <div
+      style={{
+        fontWeight: "var(--vocs-fontWeight_medium)",
+        marginBottom: "0.5rem",
+      }}
+    >
+      Create a Tevm Node
+    </div>
+    <div style={{ fontSize: "var(--vocs-fontSize_14)", textAlign: "left" }}>
+      Get started building with Tevm in your own applications
+    </div>
   </Button>
 </div>
