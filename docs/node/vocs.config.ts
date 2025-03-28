@@ -69,8 +69,11 @@ export default defineConfig({
           text: "Why Run Ethereum in JS?",
           link: "/introduction/why-run-ethereum-in-js",
         },
-        { text: "Viem Quickstart", link: "/getting-started/viem" },
-        { text: "Ethers Quickstart", link: "/getting-started/ethers" },
+        { text: "Getting started with Viem", link: "/getting-started/viem" },
+        {
+          text: "Getting started with Ethers",
+          link: "/getting-started/ethers",
+        },
         { text: "Bundler Quickstart", link: "/getting-started/bundler" },
         { text: "CLI Quickstart", link: "/getting-started/cli" },
         { text: "What is Tevm Node?", link: "/introduction/what-is-tevm-node" },
