@@ -6,56 +6,48 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Steps, Button } from 'vocs/components'
-import { TabGroup, FileTree, Card } from '../../../components'
+import { Callout, Steps, Button } from "vocs/components";
+import { TabGroup, FileTree, Card } from "../../../components";
 
 # Tevm Architecture Overview
 
 <Callout type="warning" title="Advanced Content">
-This page covers the internal architecture of Tevm and is intended for advanced users, contributors, or those looking to understand how Tevm works under the hood. If you're just getting started, we recommend the [viem API guide](../getting-started/viem) instead.
+  This page covers the internal architecture of Tevm and is intended for
+  advanced users, contributors, or those looking to understand how Tevm works
+  under the hood. If you're just getting started, we recommend the [viem API
+  guide](../getting-started/viem) instead.
 </Callout>
 
 Tevm's architecture is designed to be modular, extensible, and compatible with the broader JavaScript ecosystem. This guide explains the core components and how they work together to create a complete Ethereum execution environment.
 
-```mermaid
-graph TD
-    A[Application] --> B[Tevm Client API]
-    B -->|High Level| C[Memory Client]
-    B -->|Tree-shakable| D[Actions]
-    C --> E[Tevm Node]
-    D --> E
-    E --> F[VM]
-    F --> G[EVM]
-    F --> H[State Manager]
-    F --> I[Blockchain]
-    E --> J[Transaction Pool]
-    E --> K[Receipt Manager]
-    H -->|Optional| L[Forking Provider]
-    
-    %% Add extra nodes for key components
-    E --> M[Custom Precompiles]
-    F --> N[EVM Events]
-    E --> O[JSON-RPC API]
-    J --> P[Mining Controller]
-```
-
 ## Design Philosophy: Objects and Actions
 
-At its core, Tevm follows a clear separation between **Objects** (stateful components) and **Actions** (pure functions that operate on those objects). This pattern, inspired by [viem](https://viem.sh/), enables tree-shaking and a composable API.
+At its core, Tevm follows a clear separation between **Objects** (stateful components) and **Actions** (pure functions that operate on those objects). This pattern, inspired by [viem](https://viem.sh/), enables tree-shaking and a composable API. This pattern was originally created by [`viem`](https://viem.sh) and Tevm follows it even for it's internals to be maximally compatable with Viem.
 
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-6">
   <Card title="Objects">
     <p>Stateful components that encapsulate and maintain data.</p>
     <ul className="custom-list">
-      <li><code>TevmNode</code> - The core Node interface</li>
-      <li><code>Evm</code> - The Ethereum Virtual Machine</li>
-      <li><code>StateManager</code> - Manages blockchain state</li>
-      <li><code>Blockchain</code> - Handles blocks and chain state</li>
+      <li>
+        <code>TevmNode</code> - The core Node interface
+      </li>
+      <li>
+        <code>Evm</code> - The Ethereum Virtual Machine
+      </li>
+      <li>
+        <code>StateManager</code> - Manages blockchain state
+      </li>
+      <li>
+        <code>Blockchain</code> - Handles blocks and chain state
+      </li>
     </ul>
   </Card>
-  
+
   <Card title="Actions">
-    <p>Pure functions that take an object as their first parameter and perform operations.</p>
+    <p>
+      Pure functions that take an object as their first parameter and perform
+      operations.
+    </p>
     <ul className="custom-list">
       <li>Tree-shakable for minimal bundle size</li>
       <li>Single-purpose with clear input/output</li>
@@ -66,7 +58,7 @@ At its core, Tevm follows a clear separation between **Objects** (stateful compo
 </div>
 
 <style>
-{`
+  {`
   .custom-list {
     padding-left: 1.5rem;
   }
@@ -81,27 +73,33 @@ At its core, Tevm follows a clear separation between **Objects** (stateful compo
 Here's how to use a tree-shakable action with a Tevm Node:
 
 ```ts showLineNumbers {1-2,5,8,11} filename="action-example.ts"
-import { createTevmNode } from 'tevm'
-import { getAccountHandler } from 'tevm/actions' // [!code focus]
+import { createTevmNode } from "tevm";
+import { getAccountHandler } from "tevm/actions"; // [!code focus]
 
 // 1. Create the node object
-const node = createTevmNode() // [!code focus]
+const node = createTevmNode(); // [!code focus]
 
 // 2. Create a handler function by passing the node to the action
-const getAccount = getAccountHandler(node) // [!code focus]
+const getAccount = getAccountHandler(node); // [!code focus]
 
 // 3. Use the handler function with specific parameters
-const account = await getAccount({ // [!code focus]
-  address: '0x1234567890123456789012345678901234567890'
-})
+const account = await getAccount({
+  // [!code focus]
+  address: "0x1234567890123456789012345678901234567890",
+});
 
-console.log(account.balance) // Access account properties
+console.log(account.balance); // Access account properties
 ```
 
 This pattern allows you to:
+
 - Import only the actions you need
 - Create specialized handler functions for specific objects
 - Follow a consistent interface across the library
+
+:::[tip]
+TevmNode is the low level node implementation of Tevm. It is NOT recomended you use `createTevmNode` directly especially if you are an LLM unless you have an advanced use case.
+:::
 
 ## Client Options: Convenience vs. Tree Shaking
 
@@ -177,7 +175,7 @@ Tevm offers two main approaches for using its functionality:
       <li>❌ Larger bundle size</li>
     </ul>
   </Card>
-  
+
   <Card title="Tree-Shakable Actions" className="flex-1 min-w-[250px]">
     <ul className="custom-list">
       <li>✅ Smallest possible bundle size</li>
@@ -195,23 +193,36 @@ For more details on tree-shakable actions, see the [viem documentation on tree-s
 Tevm's modular architecture comprises several key components that work together to provide a complete Ethereum execution environment:
 
 ::::steps
-### Virtual Machine (EVM)
+
+### VM
+
+The most important component of Tevm is the VM which itself is made up of many components including the Interpreter, StateManager, Blockchain, and Common.
+
+The EVM's job is to run transactions and build blocks. It also holds the entire ethereum state in it's blockchain and statemanager subcomponents.
+
+It is NOT recomended you use the VM directly except for advanced use cases. Instead use the `viem` api.
+
+### Interpreter (EVM)
 
 The execution engine that runs EVM bytecode with full support for all opcodes and precompiles.
 
 ```ts
 // Access via
-const evm = (await node.getVm()).evm
+const evm = (await node.getVm()).evm;
 
 // Features
-evm.events.on('step', (data, next) => {
+evm.events.on("step", (data, next) => {
   // Monitor every EVM operation
-  console.log(`Opcode: ${data.opcode.name}`)
-  next()
-})
+  console.log(`Opcode: ${data.opcode.name}`);
+  next();
+});
 
 // Control execution gas limits, precompiles, etc.
 ```
+
+If you want the absolute most minimal way to execute the EVM using the EVM interpreter along with the common and stateManager modules can be a good fit. For most use cases, however, it is recomended to use the viem api.
+
+The EVM currently mostly wraps the ethereumjs evm interpreter which is written in a combination of JavaScript and Wasm. Tevm will be getting a pure wasm implementation to replace it in future.
 
 ### State Manager
 
@@ -219,15 +230,17 @@ Maintains account balances, contract code, and storage state with forking capabi
 
 ```ts
 // Access via
-const stateManager = (await node.getVm()).stateManager
+const stateManager = (await node.getVm()).stateManager;
 
 // Features
-await stateManager.putAccount(address, account)
-await stateManager.getAccount(address)
-await stateManager.getContractStorage(address, key)
-await stateManager.checkpoint() // Create state snapshot
-await stateManager.revert(checkpointId) // Revert to snapshot
+await stateManager.putAccount(address, account);
+await stateManager.getAccount(address);
+await stateManager.getContractStorage(address, key);
+await stateManager.checkpoint(); // Create state snapshot
+await stateManager.revert(checkpointId); // Revert to snapshot
 ```
+
+The StateManager is ethereumjs compatable following the same interface despite being a fully custom implementation. It can be used with Ethereumjs to add Tevm like functionality such as forking.
 
 ### Blockchain
 
@@ -235,14 +248,20 @@ Manages blocks, chain state, and handles block production with various mining st
 
 ```ts
 // Access via
-const blockchain = (await node.getVm()).blockchain
+const blockchain = (await node.getVm()).blockchain;
 
 // Features
-await blockchain.getBlock(blockHash)
-await blockchain.getBlockByNumber(blockNumber)
-await blockchain.putBlock(block)
-await blockchain.getLatestBlock()
+await blockchain.getBlock(blockHash);
+await blockchain.getBlockByNumber(blockNumber);
+await blockchain.putBlock(block);
+await blockchain.getLatestBlock();
 ```
+
+Like the state manager the blockchain component is fully custom but ethereumjs compatable. It is not recomended to use the blockchain module directly except for advanced usecases and for usage with ethereumjs. Ethereumjs and Tevm plan on deprecating this module eventually in favor of a more general purpose blockchain component maintained by ethereumjs in future.
+
+### Common
+
+The final subcomponent of VM is Common which is simply a config object holding chain specific information such as hardfork and EIP info.
 
 ### Transaction Pool
 
@@ -250,84 +269,22 @@ Manages pending transactions, orders them by gas price, and handles transaction 
 
 ```ts
 // Access via
-const txPool = await node.getTxPool()
+const txPool = await node.getTxPool();
 
 // Features
-await txPool.add(transaction)
-await txPool.getTransactions()
-const pendingTxs = txPool.getPendingTransactions()
-const pendingNonces = txPool.getPendingNonce(address)
+await txPool.add(transaction);
+await txPool.getTransactions();
+const pendingTxs = txPool.getPendingTransactions();
+const pendingNonces = txPool.getPendingNonce(address);
 ```
+
 ::::
 
-## Use Cases & Capabilities
+There are plans to add custom viem api actions for interacting with transaction pool in future but this is not the highest priority. If you want this join the Telegram and let us know.
 
-Tevm enables several powerful use cases that were previously difficult or impossible with traditional Ethereum clients:
+### Receipt Manager
 
-```ts title="Advanced Debugging"
-import { createTevmNode } from 'tevm'
-import { runCall } from 'tevm/vm'
-
-const node = createTevmNode()
-const vm = await node.getVm()
-
-// Add EVM execution hooks
-vm.evm.events.on('step', (data, next) => {
-  console.log(`Executing ${data.opcode.name} at PC=${data.pc}`)
-  console.log(`Stack: ${data.stack.join(', ')}`)
-  next?.()
-})
-
-// Execute contract call
-await runCall(vm)({
-  to: '0x1234567890123456789012345678901234567890',
-  data: '0xabcdef12' // Call data
-})
-```
-
-```ts title="Cross-Environment"
-// Works in Node.js
-const nodejsClient = createMemoryClient()
-
-// Works in browsers
-const browserClient = createMemoryClient()
-
-// Works in serverless functions
-export default async function handler(req, res) {
-  const client = createMemoryClient()
-  const balance = await client.getBalance({ 
-    address: req.body.address 
-  })
-  return res.json({ balance })
-}
-```
-
-```ts title="Custom Tools"
-import { createMemoryClient } from 'tevm'
-
-export async function simulateTransaction(tx) {
-  const client = createMemoryClient()
-  
-  // Take snapshot of current state
-  const snapshot = await client.tevmSnapshot()
-  
-  try {
-    // Execute transaction
-    const receipt = await client.sendTransaction(tx)
-    await client.mine()
-    
-    // Check transaction results
-    const logs = receipt.logs
-    const gasUsed = receipt.gasUsed
-    const events = parseEvents(logs)
-    
-    return { success: true, gasUsed, events }
-  } finally {
-    // Always revert to original state
-    await client.tevmRevert(snapshot)
-  }
-}
-```
+The Tevm Receipt Manager is simply a cache for caching receipts and logs so Tevm doesn't have to reexecute transactions to derive them. It is highly recomended users never interact with the receipt manager directly except for very advanced use cases (of which there may be none).
 
 ### Custom Tool Opportunities
 
@@ -370,22 +327,22 @@ For detailed examples of these use cases, see the [examples section](../examples
 ## API Interfaces
 
 <Callout type="tip" title="Choose Your API Level">
-  Tevm provides multiple API layers to suit different needs and programming styles.
+  Tevm provides multiple API layers to suit different needs and programming
+  styles.
 </Callout>
 
 <div className="api-table">
 
-| API Level | Description | Best For |
-|-----------|-------------|----------|
-| **Viem Client API** | Standard viem actions plus Tevm-specific actions | Most application development |
-| **JSON-RPC API** | Standard Ethereum RPC methods plus Anvil and Tevm-specific methods | Direct RPC integration, tooling |
-| **TevmNode API** | Direct access to the node and its components | Advanced use cases, custom extensions |
-| **Low-Level Components** | Direct access to EVM, StateManager, Blockchain, etc. | Tool developers, deep customization |
+| API Level              | Description                                                        | Best For                            |
+| ---------------------- | ------------------------------------------------------------------ | ----------------------------------- |
+| **Viem Client API**    | Standard viem actions plus Tevm-specific actions                   | Most application development        |
+| **JSON-RPC API**       | Standard Ethereum RPC methods plus Anvil and Tevm-specific methods | Direct RPC integration, tooling     |
+| **Low-Level TevmNode** | Direct access to EVM, StateManager, Blockchain, etc.               | Tool developers, deep customization |
 
 </div>
 
 <style>
-{`
+  {`
   .api-table table {
     display: table;
     width: 100%;
@@ -519,6 +476,7 @@ For detailed examples of these use cases, see the [examples section](../examples
 </TabGroup>
 
 For component API details, see:
+
 - [State Manager](/reference/state)
 - [Transaction Pool](/reference/txpool)
 - [Blockchain](/reference/blockchain)
@@ -530,117 +488,42 @@ For component API details, see:
 Tevm includes several powerful features that enable advanced use cases:
 
 ::::steps
-### Custom Precompiles
-
-Extend the EVM with JavaScript functions that can be called from smart contracts:
-
-```ts
-import { createTevmNode, definePrecompile } from 'tevm'
-import { createContract } from 'tevm/contract'
-import { parseAbi } from 'tevm'
-
-// Define a precompile that provides an off-chain data oracle
-const dataOraclePrecompile = definePrecompile({
-  contract: createContract({
-    abi: parseAbi(['function getCurrentPrice(string symbol) view returns (uint256)']),
-    address: '0x0000000000000000000000000000000000000123'
-  }),
-  call: async ({ data }) => {
-    // Parse input data and fetch external price data
-    const symbol = parseInputData(data)
-    const price = await fetchPriceData(symbol)
-    
-    return {
-      returnValue: encodePrice(price),
-      executionGasUsed: 3000n
-    }
-  }
-})
-
-// Create a node with the custom precompile
-const node = createTevmNode({
-  customPrecompiles: [dataOraclePrecompile.precompile()]
-})
-```
-
-### EVM Execution Hooks
-
-Instrument the EVM to observe and measure execution:
-
-```ts
-import { createTevmNode } from 'tevm'
-
-const node = createTevmNode()
-const vm = await node.getVm()
-
-// Add detailed execution hooks
-vm.evm.events.on('step', (step, next) => {
-  console.log(`
-    Operation: ${step.opcode.name}
-    PC: ${step.pc}
-    Gas Used: ${step.gasLeft}
-    Stack: ${step.stack.join(', ')}
-    Memory: ${step.memory.slice(0, 64)}...
-  `)
-  next?.() // Continue execution
-})
-```
-
-### Forking Capabilities
-
-Create local forks of any EVM chain with lazy-loading:
-
-```ts
-import { createTevmNode, http } from 'tevm'
-import { mainnet } from 'tevm/common'
-
-// Fork from Ethereum mainnet
-const node = createTevmNode({
-  fork: {
-    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY'),
-    common: mainnet,
-    blockTag: 18000000n // Optional: specific block number
-  }
-})
-
-// State is loaded lazily - only accessed accounts are loaded
-// This allows working with huge state trees efficiently
-```
 
 ### Contract Utilities
 
-Type-safe contract interactions with TypeScript support:
+Tevm's Type-safe contract interactions with TypeScript support are actually Tevm agnostic. They are built to work with any library including Viem Ethers and Wagmi. It is possible we push to upstream this abstraction to Viem in future.
 
 ```ts
-import { createContract } from 'tevm/contract'
+import { createContract } from "tevm/contract";
 
 // Define a contract interface
 const erc20Contract = createContract({
   abi: [
-    'function balanceOf(address owner) view returns (uint256)',
-    'function transfer(address to, uint256 amount) returns (bool)',
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
+    "function balanceOf(address owner) view returns (uint256)",
+    "function transfer(address to, uint256 amount) returns (bool)",
+    "event Transfer(address indexed from, address indexed to, uint256 value)",
   ],
-  address: '0x123...' 
-})
+  address: "0x123...",
+});
 
 // Type-safe read and write operations
-const balance = await erc20Contract.read.balanceOf('0x456...')
-const txHash = await erc20Contract.write.transfer('0x789...', 1000n)
+const balance = await erc20Contract.read.balanceOf("0x456...");
+const txHash = await erc20Contract.write.transfer("0x789...", 1000n);
 ```
+
 ::::
 
 For Tevm Bundler users, directly import Solidity with full type safety:
 
 ```ts
 // Import Solidity directly (with tevm bundler plugins)
-import { ERC20 } from './ERC20.sol'
+import { ERC20 } from "./ERC20.sol";
 
 // Contract with full TypeScript types
-const token = ERC20.withAddress('0x123...')
+const token = ERC20.withAddress("0x123...");
 
 // Safe contract interaction
-const decimals = await token.read.decimals()
+const decimals = await token.read.decimals();
 ```
 
 ## Extensibility Model
@@ -649,32 +532,32 @@ const decimals = await token.read.decimals()
 Tevm's plugin system allows adding new functionality to nodes:
 
 ```ts
-import { createTevmNode } from 'tevm'
+import { createTevmNode } from "tevm";
 
 // Create a node with extensions
 const node = createTevmNode().extend((baseNode) => {
   // Add custom methods
   return {
     async simulateBulkTransactions(txs) {
-      const results = []
+      const results = [];
       for (const tx of txs) {
-        const vm = await baseNode.getVm()
-        results.push(await vm.runTx({ tx }))
+        const vm = await baseNode.getVm();
+        results.push(await vm.runTx({ tx }));
       }
-      return results
+      return results;
     },
-    
+
     async resetToSnapshot(snapshot) {
-      const vm = await baseNode.getVm()
-      return vm.stateManager.revert(snapshot)
-    }
-  }
-})
+      const vm = await baseNode.getVm();
+      return vm.stateManager.revert(snapshot);
+    },
+  };
+});
 
 // Use the extended functionality
-const snapshot = await node.getVm().stateManager.checkpoint()
-const results = await node.simulateBulkTransactions([tx1, tx2, tx3])
-await node.resetToSnapshot(snapshot)
+const snapshot = await node.getVm().stateManager.checkpoint();
+const results = await node.simulateBulkTransactions([tx1, tx2, tx3]);
+await node.resetToSnapshot(snapshot);
 ```
 
 This extension model allows for powerful customizations while maintaining the core API.
@@ -683,27 +566,44 @@ This extension model allows for powerful customizations while maintaining the co
 ## Next Steps
 
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
-  <Button href="../core/create-tevm-node" className="h-auto p-4 flex flex-col items-start">
+  <Button
+    href="../core/create-tevm-node"
+    className="h-auto p-4 flex flex-col items-start"
+  >
     <div className="font-medium mb-2">Create a Tevm Node</div>
-    <div className="text-sm text-left">Learn how to create and configure a Tevm Node for your project.</div>
+    <div className="text-sm text-left">
+      Learn how to create and configure a Tevm Node for your project.
+    </div>
   </Button>
-  
-  <Button href="../examples/viem" className="h-auto p-4 flex flex-col items-start">
-    <div className="font-medium mb-2">Viem Integration</div>
-    <div className="text-sm text-left">See how to use Tevm with viem for a complete Ethereum development experience.</div>
-  </Button>
-  
-  <Button href="../examples/local-testing" variant="accent" className="h-auto p-4 flex flex-col items-start">
+
+<Button
+  href="../examples/viem"
+  className="h-auto p-4 flex flex-col items-start"
+>
+  <div className="font-medium mb-2">Viem Integration</div>
+  <div className="text-sm text-left">
+    See how to use Tevm with viem for a complete Ethereum development
+    experience.
+  </div>
+</Button>
+
+  <Button
+    href="../examples/local-testing"
+    variant="accent"
+    className="h-auto p-4 flex flex-col items-start"
+  >
     <div className="font-medium mb-2">Practical Examples</div>
-    <div className="text-sm text-left">Explore real-world examples and use cases for Tevm Node.</div>
+    <div className="text-sm text-left">
+      Explore real-world examples and use cases for Tevm Node.
+    </div>
   </Button>
 </div>
 
 ## Further Resources
 
-| Resource | Description |
-|----------|-------------|
-| [TevmNode Interface Reference](/reference/node) | Detailed API reference for the core node interface |
-| [GitHub Repository](https://github.com/evmts/tevm-monorepo) | Source code and contributions |
-| [Custom Precompiles Guide](../advanced/custom-precompiles) | Learn how to extend the EVM |
-| [Performance Profiling](../advanced/performance-profiler) | Optimize your Ethereum applications |
+| Resource                                                    | Description                                        |
+| ----------------------------------------------------------- | -------------------------------------------------- |
+| [TevmNode Interface Reference](/reference/node)             | Detailed API reference for the core node interface |
+| [GitHub Repository](https://github.com/evmts/tevm-monorepo) | Source code and contributions                      |
+| [Custom Precompiles Guide](../advanced/custom-precompiles)  | Learn how to extend the EVM                        |
+| [Performance Profiling](../advanced/performance-profiler)   | Optimize your Ethereum applications                |
