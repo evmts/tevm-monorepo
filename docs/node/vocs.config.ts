@@ -2,10 +2,10 @@ import { defineConfig } from "vocs";
 
 export default defineConfig({
   title: "Tevm Node",
-  titleTemplate: '%s · Tevm',
+  titleTemplate: "%s · Tevm",
   baseUrl:
-    process.env.VERCEL_ENV === 'production'
-      ? 'https://node.tevm.sh'
+    process.env.VERCEL_ENV === "production"
+      ? "https://node.tevm.sh"
       : process.env.VERCEL_URL,
   description:
     "A lightweight, unopinionated, powerful EVM node that runs in the browser",
@@ -61,13 +61,13 @@ export default defineConfig({
   ],
   sidebar: [
     {
-      text: "Quick Start",
+      text: "Getting started",
       collapsed: false,
       items: [
         { text: "Overview", link: "/getting-started/overview" },
         {
-          text: "Community & Testimonials",
-          link: "/getting-started/testimonials",
+          text: "Why Run Ethereum in JS?",
+          link: "/introduction/why-run-ethereum-in-js",
         },
         { text: "Viem Quickstart", link: "/getting-started/viem" },
         { text: "Ethers Quickstart", link: "/getting-started/ethers" },
@@ -79,52 +79,34 @@ export default defineConfig({
           link: "/introduction/architecture-overview",
         },
         {
-          text: "Why run Ethereum in JS?",
-          link: "/introduction/why-run-ethereum-in-js",
+          text: "Community & Testimonials",
+          link: "/getting-started/testimonials",
         },
       ],
     },
     {
-      text: "Core Concepts",
-      collapsed: false,
+      text: "Tevm guides",
+      collapsed: true,
       items: [
         { text: "Creating a Node", link: "/core/create-tevm-node" },
         { text: "Using with Viem", link: "/examples/viem" },
         { text: "Using with Ethers", link: "/examples/ethers" },
-        { text: "TevmNode", link: "/core/tevm-node-interface" },
         { text: "Forking & Reforking", link: "/core/forking" },
         { text: "Managing State", link: "/core/managing-state" },
         { text: "Mining Modes", link: "/core/mining-modes" },
-        { text: "Custom Precompiles", link: "/advanced/custom-precompiles" },
-      ],
-    },
-    {
-      text: "API Documentation",
-      collapsed: true,
-      items: [
         { text: "Account Management", link: "/api/account-management" },
         { text: "EVM Events", link: "/api/evm-events" },
-        { text: "TevmNode", link: "/core/tevm-node-interface" },
         { text: "JSON-RPC", link: "/api/json-rpc" },
         { text: "Methods Overview", link: "/api/methods" },
         { text: "Package Overview", link: "/api/packages" },
         { text: "Call API", link: "/api/tevm-call" },
         { text: "VM and Submodules", link: "/api/vm-and-submodules" },
         { text: "Decorators", link: "/api/decorators" },
-        { text: "Contract Loader", link: "/api/whatsabi-integration" },
-      ],
-    },
-    {
-      text: "Advanced Features",
-      collapsed: true,
-      items: [
-        { text: "Custom Precompiles", link: "/advanced/custom-precompiles" },
-        { text: "Transaction Pool", link: "/advanced/txpool" },
-        { text: "Receipts & Logs", link: "/advanced/receipts-and-logs" },
         {
-          text: "Performance Profiler",
-          link: "/advanced/performance-profiler",
+          text: "Custom Precompiles (advanced)",
+          link: "/advanced/custom-precompiles",
         },
+        { text: "TevmNode (advanced)", link: "/core/tevm-node-interface" },
       ],
     },
     {
@@ -186,15 +168,22 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "Contract (@tevm/contract)", link: "/reference/contract" },
-            { 
-              text: "Contract Bundler", 
+            {
+              text: "Contract Bundler",
               link: "/reference/bundler",
               items: [
                 { text: "Overview", link: "/reference/bundler/overview" },
                 { text: "Internals", link: "/reference/bundler/internals" },
-                { text: "Methods & Exports", link: "/reference/bundler/methods" },
-                { text: "Troubleshooting", link: "/reference/bundler/troubleshooting" },
-              ]
+                {
+                  text: "Methods & Exports",
+                  link: "/reference/bundler/methods",
+                },
+                {
+                  text: "Troubleshooting",
+                  link: "/reference/bundler/troubleshooting",
+                },
+                { text: "Contract Loader", link: "/api/whatsabi-integration" },
+              ],
             },
             {
               text: "Precompiles (@tevm/precompiles)",
