@@ -34,126 +34,8 @@ This reference documents the main API methods available on a Tevm Node instance.
   </div>
 </div>
 
-:::code-group
-```ts [Initialization] showLineNumbers {1,3-7,9} filename="node-initialization.ts"
-import { createTevmNode, http } from 'tevm'
-
-const node = createTevmNode({ // [!code focus]
-  fork: { // [!code focus]
-    transport: http('https://mainnet.infura.io/v3/YOUR-KEY') // [!code focus]
-  } // [!code focus]
-}) // [!code focus]
-
-await node.ready() // Wait for initialization // [!code focus]
-```
-
-<div data-title="Initialization Tips">
-  <Callout type="warning" title="Important">
-    Always wait for the node to be ready before using it. The <code>ready()</code> method returns a promise that resolves when the node is fully initialized.
-  </Callout>
-</div>
-
-```ts [Virtual Machine] showLineNumbers {1-3,5,8,11-19,22-27,30-33} filename="vm-access.ts"
-import { createImpersonatedTx } from 'tevm/tx'
-import { Block } from 'tevm/block'
-import { createAddress } from 'tevm/address'
-
-const vm = await node.getVm() // [!code focus]
-
-// Create a block for the transaction
-const block = new Block()
-
-// Create an impersonated transaction
-const tx = createImpersonatedTx({ // [!code focus]
-  impersonatedAddress: createAddress('0x1234...'), // [!code focus]
-  nonce: 0n, // [!code focus]
-  gasLimit: 21064n, // [!code focus]
-  maxFeePerGas: 8n, // [!code focus]
-  maxPriorityFeePerGas: 1n, // [!code focus]
-  to: createAddress('0x5678...'), // [!code focus]
-  value: 1000000000000000000n, // 1 ETH // [!code focus]
-}) // [!code focus]
-
-// Execute the transaction
-const result = await vm.runTx({ // [!code focus]
-  tx, // [!code focus]
-  block, // [!code focus]
-  skipNonce: true,  // Skip nonce check // [!code focus]
-  skipBalance: true, // Skip balance check // [!code focus]
-}) // [!code focus]
-
-// Check execution result
-if (!result.execResult.exceptionError) { // [!code focus]
-  console.log('Transaction successful') // [!code focus]
-  console.log('Gas used:', result.totalGasSpent) // [!code focus]
-} // [!code focus]
-```
-
-<div data-title="VM Info">
-  <Callout type="note" title="VM Direct Access">
-    The VM interface provides the lowest level of control, allowing you to execute transactions with precise parameters and inspect every aspect of execution.
-  </Callout>
-</div>
-
-```ts [Transaction Pool] showLineNumbers {1,4-9,12} filename="txpool-management.ts"
-const txPool = await node.getTxPool() // [!code focus]
-
-// Add a transaction
-await txPool.add({ // [!code focus]
-  from: '0x1234...', // [!code focus]
-  to: '0x5678...', // [!code focus]
-  value: 1000000000000000000n, // [!code focus]
-}) // [!code focus]
-
-// Get pending transactions
-// Sorted by gas price and nonce
-const pending = await txPool.txsByPriceAndNonce() // [!code focus]
-
-// Get all pending transactions (raw access)
-const allPending = txPool.getPendingTransactions()
-
-// Get pending nonce for an address
-const nextNonce = txPool.getPendingNonce('0x1234...')
-```
-
-<div data-title="Transaction Pool Info">
-  <Callout type="tip" title="Transaction Lifecycle">
-    Transactions added to the pool remain pending until they are mined into a block. The mining behavior depends on your node's mining configuration.
-  </Callout>
-</div>
-
-```ts [Receipts & Logs] showLineNumbers {1,4,7-12} filename="receipts-and-logs.ts"
-const receipts = await node.getReceiptsManager() // [!code focus]
-
-// Get receipt for a transaction
-const receipt = await receipts.getReceiptByTxHash('0x1234...') // [!code focus]
-
-// Query logs with filtering
-const logs = await receipts.getLogs({ // [!code focus]
-  fromBlock: 0n, // [!code focus]
-  toBlock: 'latest', // [!code focus]
-  address: '0x1234...', // Contract address (optional) // [!code focus]
-  topics: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'] // Optional topic filters // [!code focus]
-}) // [!code focus]
-
-// Create a subscription for future logs
-const subscription = receipts.createLogSubscription({
-  address: '0x1234...',
-  topics: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef']
-})
-
-// Handle new logs
-subscription.on('log', (log) => {
-  console.log('New log:', log)
-})
-```
-
-<div data-title="Logs Info">
-  <Callout type="info" title="Log Filtering">
-    The logs API follows the same pattern as Ethereum's JSON-RPC, allowing you to filter by address, topics, and block range.
-  </Callout>
-</div>
-:::
+<Tabs>
+</Tabs>
 
 ## State Management
 
@@ -168,59 +50,8 @@ subscription.on('log', (log) => {
   </div>
 </div>
 
-:::code-group
-```ts [Account Impersonation] showLineNumbers {2,5,8} filename="account-impersonation.ts"
-// Impersonate an account (fork mode only)
-node.setImpersonatedAccount('0x1234...') // [!code focus]
-
-// Get current impersonated account
-const impersonated = node.getImpersonatedAccount() // [!code focus]
-
-// Stop impersonating
-node.setImpersonatedAccount(undefined) // [!code focus]
-
-// Now you can send transactions as this account
-// without having its private key
-```
-
-<div data-title="Impersonation Info">
-  <Callout type="warning" title="Fork Mode Only">
-    Account impersonation primarily affects the JSON-RPC layer, enabling methods like <code>eth_sendRawTransaction</code> to execute as the impersonated account. It works best in fork mode.
-  </Callout>
-</div>
-
-```ts [Event Filtering] showLineNumbers {2-10,13,16} filename="event-filtering.ts"
-// Create a filter for Transfer events
-node.setFilter({ // [!code focus]
-  id: '0x1', // [!code focus]
-  fromBlock: 0n, // [!code focus]
-  toBlock: 'latest', // [!code focus]
-  address: '0x1234...', // [!code focus]
-  topics: [ // [!code focus]
-    '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef', // Transfer event signature // [!code focus]
-  ], // [!code focus]
-}) // [!code focus]
-
-// Get all filters
-const filters = node.getFilters() // [!code focus]
-
-// Remove a filter
-node.removeFilter('0x1') // [!code focus]
-
-// Use filters with eth_getLogs and eth_getFilterChanges
-const logs = await node.request({
-  method: 'eth_getFilterChanges',
-  params: ['0x1']
-})
-```
-
-<div data-title="Events Info">
-  <Callout type="info" title="ERC-20 Transfer Event">
-    <p>The topic <code>0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef</code> is the keccak256 hash of the Transfer event signature:</p>
-    <p><code>Transfer(address,address,uint256)</code></p>
-  </Callout>
-</div>
-:::
+<Tabs>
+</Tabs>
 
 ## Node Properties
 
@@ -304,6 +135,8 @@ const logs = await node.request({
 {`
   .properties-grid {
     display: grid;
+import { Tabs, Tab, Steps, Step } from "vocs/components";
+
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-top: 1.5rem;
@@ -476,48 +309,8 @@ const logs = await node.request({
 
 ## Extensibility
 
-:::code-group
-```ts [Custom Methods] showLineNumbers {1-7,10} filename="custom-methods.ts"
-const enhancedNode = node.extend((baseNode) => ({
-  async getBalance(address: string) {
-    const vm = await baseNode.getVm()
-    const account = await vm.stateManager.getAccount(address)
-    return account.balance
-  },
-}))
-
-// Use the new method
-const balance = await enhancedNode.getBalance('0x1234...')
-```
-
-<div data-title="Plugin Info">
-  <Callout type="tip" title="Plugin Architecture">
-    Tevm's extension system allows you to add custom methods to the node instance. These methods have full access to the base node's functionality.
-  </Callout>
-</div>
-
-```ts [State Cloning] showLineNumbers {2,5-7} filename="state-copying.ts"
-// Create a deep copy with independent state
-const nodeCopy = await node.deepCopy() // [!code focus]
-
-// Fork from another node
-const forkedNode = createTevmNode({ // [!code focus]
-  fork: { transport: node } // [!code focus]
-}) // [!code focus]
-
-// Now you can experiment with different states
-await nodeCopy.sendTransaction({ ... })
-
-// Original node state remains unchanged
-console.log('Original state intact')
-```
-
-<div data-title="Cloning Info">
-  <Callout type="note" title="Use Cases">
-    State copying is useful for creating test scenarios, simulating alternative execution paths, or creating snapshots of state for later comparison.
-  </Callout>
-</div>
-:::
+<Tabs>
+</Tabs>
 
 ## JSON-RPC Support
 
@@ -525,54 +318,8 @@ console.log('Original state intact')
   Tevm Node implements standard Ethereum JSON-RPC methods, making it compatible with existing Ethereum tools and libraries.
 </Callout>
 
-:::code-group
-```ts [EIP-1193 Interface] showLineNumbers {1,3,6-9} filename="eip1193.ts"
-import { requestEip1193 } from 'tevm/decorators'
-
-const node = createTevmNode().extend(requestEip1193())
-
-// Standard JSON-RPC calls
-const blockNumber = await node.request({ // [!code focus]
-  method: 'eth_blockNumber', // [!code focus]
-  params: [] // [!code focus]
-}) // [!code focus]
-
-// Get balance
-const balance = await node.request({
-  method: 'eth_getBalance',
-  params: ['0x1234...', 'latest']
-})
-```
-
-<div data-title="Provider Info">
-  <Callout type="info" title="Provider Interface">
-    The EIP-1193 interface makes Tevm Node compatible with libraries like Ethers.js that expect a standard Ethereum provider.
-  </Callout>
-</div>
-
-```ts [Action Methods] showLineNumbers {1,3,6-7} filename="eth-actions.ts"
-import { ethActions } from 'tevm/decorators'
-
-const node = createTevmNode().extend(ethActions())
-
-// Using action methods
-const blockNumber = await node.eth.getBlockNumber() // [!code focus]
-const balance = await node.eth.getBalance('0x1234...') // [!code focus]
-
-// Send transaction
-const hash = await node.eth.sendTransaction({
-  from: '0x1234...',
-  to: '0x5678...',
-  value: 1000000000000000000n
-})
-```
-
-<div data-title="Actions Info">
-  <Callout type="tip" title="Developer Experience">
-    Action methods provide a more ergonomic API than raw JSON-RPC calls, with proper TypeScript typing and simpler parameter handling.
-  </Callout>
-</div>
-:::
+<Tabs>
+</Tabs>
 
 ### Supported Methods
 

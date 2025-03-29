@@ -6,6 +6,8 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
+import { Steps, Step } from "vocs/components";
+
 import { Callout, Steps, Button } from 'vocs/components'
 import { TabGroup } from '../../../components'
 
@@ -57,8 +59,9 @@ First, install Tevm and ethers as dependencies:
 
 Set up your Tevm client and enable the EIP-1193 interface:
 
-:::code-group
-```ts [npm]
+<Tabs>
+<Tab title="npm">
+```ts
 import { createMemoryClient, http } from 'tevm'
 import { optimism } from 'tevm/chains'
 import { requestEip1193 } from 'tevm/decorators'
@@ -75,8 +78,10 @@ const client = createMemoryClient({
 client.transport.tevm.extend(requestEip1193())
 await client.tevmReady()
 ```
+</Tab>
 
-```ts [jsr]
+<Tab title="jsr">
+```ts
 import { createMemoryClient, http } from '@tevm/tevm'
 import { optimism } from '@tevm/tevm/chains'
 import { requestEip1193 } from '@tevm/tevm/decorators'
@@ -93,7 +98,9 @@ const client = createMemoryClient({
 client.transport.tevm.extend(requestEip1193())
 await client.tevmReady()
 ```
-:::
+</Tab>
+
+</Tabs>
 
 ### Connect Ethers
 
@@ -134,133 +141,8 @@ console.log(`Wallet balance: ${balance.toString()}`)
 
 The following example demonstrates how to use ethers.js with Tevm to interact with a contract:
 
-:::code-group
-```ts [npm] showLineNumbers {3,12-13,27-28,47-48,66} filename="ethers-with-tevm.ts" 
-import { createMemoryClient, http, parseAbi } from 'tevm'
-import { optimism } from 'tevm/chains'
-import { requestEip1193 } from 'tevm/decorators' // [!code focus]
-import { BrowserProvider, Wallet, Contract, formatEther } from 'ethers'
-import { parseUnits } from 'ethers/utils'
-
-// Step 1: Create a memory client forking from Optimism
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    common: optimism
-  },
-})
-
-// Step 2: Enable EIP-1193 compatibility for ethers // [!code focus]
-client.transport.tevm.extend(requestEip1193()) // [!code focus]
-await client.tevmReady()
-
-// Step 3: Set up ethers provider and wallet
-const provider = new BrowserProvider(client.transport.tevm)
-const signer = Wallet.createRandom().connect(provider)
-
-// Verify connectivity by getting the block number
-const blockNumber = await provider.getBlockNumber()
-console.log(`Current block number: ${blockNumber}`)
-
-// Step 4: Set up contract interaction // [!code focus]
-const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748" // [!code focus]
-const greeterAbi = parseAbi([
-  'function greet() view returns (string)',
-  'function setGreeting(string memory _greeting) public',
-])
-const greeter = new Contract(greeterContractAddress, greeterAbi, signer)
-
-// Helper functions for cleaner interaction
-const getGreeting = async () => await greeter.greet()
-const setGreeting = async (newGreeting) => {
-  const tx = await greeter.setGreeting(newGreeting)
-  return tx.hash
-}
-
-// Step 5: Fund our wallet (using Tevm's test actions)
-await client.setBalance({
-  address: signer.address,
-  value: parseUnits("1.0", "ether")
-})
-console.log(`Wallet funded with: ${formatEther(await provider.getBalance(signer.address))} ETH`)
-
-// Step 6: Read current greeting
-console.log(`Original greeting: ${await getGreeting()}`)
-
-// Step 7: Update the greeting // [!code focus]
-const txHash = await setGreeting("Hello from ethers.js and Tevm!") // [!code focus]
-console.log(`Transaction sent: ${txHash}`)
-
-// Step 8: Mine the block to include our transaction
-await client.mine({ blocks: 1 })
-
-// Step 9: Verify the updated greeting
-console.log(`Updated greeting: ${await getGreeting()}`)
-```
-
-```ts [jsr] showLineNumbers {3,12-13,27-28,47-48,66} filename="ethers-with-tevm.ts" 
-import { createMemoryClient, http, parseAbi } from '@tevm/tevm'
-import { optimism } from '@tevm/tevm/chains'
-import { requestEip1193 } from '@tevm/tevm/decorators' // [!code focus]
-import { BrowserProvider, Wallet, Contract, formatEther } from 'ethers'
-import { parseUnits } from 'ethers/utils'
-
-// Step 1: Create a memory client forking from Optimism
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    common: optimism
-  },
-})
-
-// Step 2: Enable EIP-1193 compatibility for ethers // [!code focus]
-client.transport.tevm.extend(requestEip1193()) // [!code focus]
-await client.tevmReady()
-
-// Step 3: Set up ethers provider and wallet
-const provider = new BrowserProvider(client.transport.tevm)
-const signer = Wallet.createRandom().connect(provider)
-
-// Verify connectivity by getting the block number
-const blockNumber = await provider.getBlockNumber()
-console.log(`Current block number: ${blockNumber}`)
-
-// Step 4: Set up contract interaction // [!code focus]
-const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748" // [!code focus]
-const greeterAbi = parseAbi([
-  'function greet() view returns (string)',
-  'function setGreeting(string memory _greeting) public',
-])
-const greeter = new Contract(greeterContractAddress, greeterAbi, signer)
-
-// Helper functions for cleaner interaction
-const getGreeting = async () => await greeter.greet()
-const setGreeting = async (newGreeting) => {
-  const tx = await greeter.setGreeting(newGreeting)
-  return tx.hash
-}
-
-// Step 5: Fund our wallet (using Tevm's test actions)
-await client.setBalance({
-  address: signer.address,
-  value: parseUnits("1.0", "ether")
-})
-console.log(`Wallet funded with: ${formatEther(await provider.getBalance(signer.address))} ETH`)
-
-// Step 6: Read current greeting
-console.log(`Original greeting: ${await getGreeting()}`)
-
-// Step 7: Update the greeting // [!code focus]
-const txHash = await setGreeting("Hello from ethers.js and Tevm!") // [!code focus]
-console.log(`Transaction sent: ${txHash}`)
-
-// Step 8: Mine the block to include our transaction
-await client.mine({ blocks: 1 })
-
-// Step 9: Verify the updated greeting
-console.log(`Updated greeting: ${await getGreeting()}`)
-```
-:::
+<Tabs>
+</Tabs>
 
 <Callout type="warning">
 Unlike real networks, Tevm requires you to manually mine blocks after sending transactions. Don't forget to call `client.mine()` after each transaction!
