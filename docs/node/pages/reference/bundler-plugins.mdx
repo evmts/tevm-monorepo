@@ -1,10 +1,11 @@
+import { Callout } from "vocs/components";
 # Bundler Plugins
 
 Tevm provides optional integration with popular JavaScript bundlers through a suite of plugins. These plugins enable direct importing of Solidity files into your TypeScript/JavaScript code, automatically compiling those contracts into type-safe Tevm contract instances.
 
-:::note
+<Callout type="note">
 Tevm Node is the primary product. Using the bundler is optional. You can also generate contract types with `npx tevm gen` (see [Codegen Approach](#codegen-approach)).
-:::
+</Callout>
 
 ## Available Plugins
 
@@ -282,6 +283,6 @@ This is especially helpful when:
 - [Inline Solidity (Coming Soon)](#): `` sol`` `` inline code snippet approach
 - [Globals.md](https://github.com/evmts/tevm-monorepo/tree/main/bundler-packages/base-bundler/docs/globals.md): Core reference for bundler internals
 
-:::tip
+<Callout type="tip">
 Remember: Tevm's bundler is optional—it's there to make importing Solidity as straightforward as possible. If your project setup or environment constraints make the bundler difficult, consider the `tevm gen` codegen workflow or a purely manual approach to contract artifacts.
-:::
+</Callout>

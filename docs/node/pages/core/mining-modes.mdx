@@ -3,6 +3,8 @@ title: Mining Modes
 description: Configure block production in Tevm Node
 ---
 
+import { Tabs, Tab, Steps, Step } from "vocs/components";
+
 import { Callout, Steps, Button } from 'vocs/components'
 import { Card, CardGrid, FileTree } from '../../../components'
 
@@ -31,128 +33,8 @@ Mining modes determine when transactions are included in blocks and confirmed. B
   </Card>
 </CardGrid>
 
-:::code-group
-```typescript [Auto Mining] showLineNumbers {2-4} filename="auto-mining.ts"
-const node = createTevmNode({
-  miningConfig: { // [!code focus]
-    type: 'auto' // [!code focus]
-  } // [!code focus]
-})
-
-// Send a transaction - it will be mined immediately
-const txHash = await node.sendTransaction({
-  // transaction details
-})
-
-// Transaction is already confirmed in a block
-const receipt = await node.getTransactionReceipt({ hash: txHash })
-console.log('Block number:', receipt.blockNumber)
-```
-
-<div data-title="Auto Mining">
-  <p>Automatically mines a new block after each transaction.</p>
-
-  <Callout type="tip" title="Best For">
-    <ul>
-      <li>Quick testing and development</li>
-      <li>Immediate transaction confirmation</li>
-      <li>Simulating instant finality</li>
-    </ul>
-  </Callout>
-</div>
-
-```typescript [Interval Mining] showLineNumbers {2-5} filename="interval-mining.ts"
-const node = createTevmNode({
-  miningConfig: { // [!code focus]
-    type: 'interval', // [!code focus]
-    interval: 12000 // 12 seconds, similar to Ethereum // [!code focus]
-  } // [!code focus]
-})
-
-// Transaction will remain pending until the next mining interval
-const txHash = await node.sendTransaction({
-  // transaction details
-})
-
-// Wait for the next interval (or use a Promise to be notified)
-setTimeout(async () => {
-  const receipt = await node.getTransactionReceipt({ hash: txHash })
-  console.log('Block number:', receipt.blockNumber)
-}, 12000)
-```
-
-<div data-title="Interval Mining">
-  <p>Mines blocks at fixed time intervals, simulating real network block times.</p>
-
-  <Callout type="tip" title="Best For">
-    <ul>
-      <li>Testing time-dependent logic</li>
-      <li>Simulating realistic network conditions</li>
-      <li>Handling pending transaction queues</li>
-    </ul>
-  </Callout>
-</div>
-
-```typescript [Manual Mining] showLineNumbers {2-4,10} filename="manual-mining.ts"
-const node = createTevmNode({
-  miningConfig: { // [!code focus]
-    type: 'manual' // [!code focus]
-  } // [!code focus]
-})
-
-// Transaction will remain pending until you manually mine
-const txHash = await node.sendTransaction({/* transaction details */})
-
-// Later, mine blocks manually
-await node.mine() // [!code focus]
-
-// Now the transaction is confirmed
-const receipt = await node.getTransactionReceipt({ hash: txHash })
-console.log('Block number:', receipt.blockNumber)
-```
-
-<div data-title="Manual Mining">
-  <p>Only mines blocks when explicitly requested, giving you complete control over block production.</p>
-
-  <Callout type="tip" title="Best For">
-    <ul>
-      <li>Complex test scenarios</li>
-      <li>Precise control over block timing</li>
-      <li>Testing mempool behavior</li>
-    </ul>
-  </Callout>
-</div>
-
-```typescript [Gas-Based Mining] showLineNumbers {2-5} filename="gas-based-mining.ts"
-const node = createTevmNode({
-  miningConfig: { // [!code focus]
-    type: 'gas', // [!code focus]
-    gasLimit: 15000000 // Similar to Ethereum block gas limit // [!code focus]
-  } // [!code focus]
-})
-
-// Transactions accumulate in the mempool until gas threshold is reached
-// A block is mined when total gas exceeds gasLimit
-
-// Small transaction (won't trigger mining by itself)
-await node.sendTransaction({/* details for small tx */})
-
-// Large transaction that pushes total over threshold will trigger mining
-await node.sendTransaction({/* details for large tx */})
-```
-
-<div data-title="Gas-Based Mining">
-  <p>Mines a new block when the accumulated gas usage reaches a specified threshold.</p>
-
-  <Callout type="tip" title="Best For">
-    <ul>
-      <li>Testing gas-dependent behavior</li>
-      <li>Simulating block fullness scenarios</li>
-      <li>Performance testing with varying load</li>
-    </ul>
-  </Callout>
-</div>
-:::
+<Tabs>
+</Tabs>
 
 ## Changing Mining Modes
 
@@ -269,75 +151,8 @@ const result = await client.mine({
 
 ## Example: Testing Different Mining Modes
 
-:::code-group
-```typescript [Comparative Example] showLineNumbers {4-6,9-13,16-18,21-24} filename="mining-mode-comparison.ts"
-import { createTevmNode } from 'tevm'
-
-// Auto mining for quick tests
-const autoNode = createTevmNode({ // [!code focus]
-  miningConfig: { type: 'auto' } // [!code focus]
-}) // [!code focus]
-
-// Interval mining for realistic scenarios
-const intervalNode = createTevmNode({ // [!code focus]
-  miningConfig: { // [!code focus]
-    type: 'interval', // [!code focus]
-    interval: 12000 // [!code focus]
-  } // [!code focus]
-})
-
-// Manual mining for controlled tests
-const manualNode = createTevmNode({ // [!code focus]
-  miningConfig: { type: 'manual' } // [!code focus]
-}) // [!code focus]
-
-// Test transaction processing
-await autoNode.sendTransaction({...}) // Mines immediately // [!code focus]
-await intervalNode.sendTransaction({...}) // Mines after interval // [!code focus]
-await manualNode.sendTransaction({...}) // Stays pending until manual mine // [!code focus]
-await manualNode.mine() // Now the transaction is mined // [!code focus]
-```
-
-```typescript [Real-world Simulation] filename="real-world-simulation.ts"
-import { createTevmNode, http } from 'tevm'
-import { mainnet } from 'tevm/chains'
-
-// Create a node that simulates mainnet conditions
-const node = createTevmNode({
-  // Fork from mainnet
-  fork: {
-    transport: http('https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY'),
-    common: mainnet
-  },
-  // Use Ethereum's ~12 second block time
-  miningConfig: {
-    type: 'interval',
-    interval: 12000
-  }
-})
-
-// Transaction will stay in mempool until next block
-const txHash = await node.sendTransaction({
-  from: '0x123...',
-  to: '0x456...',
-  value: 1000000000000000000n
-})
-
-console.log('Transaction is pending in the mempool...')
-
-// You can monitor pending transactions
-const pending = await node.getTxPoolContent()
-console.log('Pending transactions:', pending)
-
-// Wait for the block to be mined
-setTimeout(async () => {
-  const receipt = await node.getTransactionReceipt({
-    hash: txHash
-  })
-  console.log('Transaction mined in block:', receipt.blockNumber)
-}, 12000)
-```
-:::
+<Tabs>
+</Tabs>
 
 ## Related Resources
 

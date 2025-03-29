@@ -69,6 +69,8 @@ At its core, Tevm follows a clear separation between **Objects** (stateful compo
 {`
   .custom-list {
     padding-left: 1.5rem;
+import { Steps, Step } from "vocs/components";
+
   }
   .custom-list li {
     margin-bottom: 0.5rem;
@@ -194,8 +196,8 @@ For more details on tree-shakable actions, see the [viem documentation on tree-s
 
 Tevm's modular architecture comprises several key components that work together to provide a complete Ethereum execution environment:
 
-::::steps
-### Virtual Machine (EVM)
+<Steps>
+<Step title="Virtual Machine (EVM)">
 
 The execution engine that runs EVM bytecode with full support for all opcodes and precompiles.
 
@@ -213,7 +215,9 @@ evm.events.on('step', (data, next) => {
 // Control execution gas limits, precompiles, etc.
 ```
 
-### State Manager
+</Step>
+
+<Step title="State Manager">
 
 Maintains account balances, contract code, and storage state with forking capability from live networks.
 
@@ -229,7 +233,9 @@ await stateManager.checkpoint() // Create state snapshot
 await stateManager.revert(checkpointId) // Revert to snapshot
 ```
 
-### Blockchain
+</Step>
+
+<Step title="Blockchain">
 
 Manages blocks, chain state, and handles block production with various mining strategies.
 
@@ -244,7 +250,9 @@ await blockchain.putBlock(block)
 await blockchain.getLatestBlock()
 ```
 
-### Transaction Pool
+</Step>
+
+<Step title="Transaction Pool">
 
 Manages pending transactions, orders them by gas price, and handles transaction validation.
 
@@ -258,7 +266,9 @@ await txPool.getTransactions()
 const pendingTxs = txPool.getPendingTransactions()
 const pendingNonces = txPool.getPendingNonce(address)
 ```
-::::
+</Step>
+
+</Steps>
 
 ## Use Cases & Capabilities
 
@@ -529,8 +539,8 @@ For component API details, see:
 
 Tevm includes several powerful features that enable advanced use cases:
 
-::::steps
-### Custom Precompiles
+<Steps>
+<Step title="Custom Precompiles">
 
 Extend the EVM with JavaScript functions that can be called from smart contracts:
 
@@ -563,7 +573,9 @@ const node = createTevmNode({
 })
 ```
 
-### EVM Execution Hooks
+</Step>
+
+<Step title="EVM Execution Hooks">
 
 Instrument the EVM to observe and measure execution:
 
@@ -586,7 +598,9 @@ vm.evm.events.on('step', (step, next) => {
 })
 ```
 
-### Forking Capabilities
+</Step>
+
+<Step title="Forking Capabilities">
 
 Create local forks of any EVM chain with lazy-loading:
 
@@ -607,7 +621,9 @@ const node = createTevmNode({
 // This allows working with huge state trees efficiently
 ```
 
-### Contract Utilities
+</Step>
+
+<Step title="Contract Utilities">
 
 Type-safe contract interactions with TypeScript support:
 
@@ -628,7 +644,9 @@ const erc20Contract = createContract({
 const balance = await erc20Contract.read.balanceOf('0x456...')
 const txHash = await erc20Contract.write.transfer('0x789...', 1000n)
 ```
-::::
+</Step>
+
+</Steps>
 
 For Tevm Bundler users, directly import Solidity with full type safety:
 
@@ -645,8 +663,9 @@ const decimals = await token.read.decimals()
 
 ## Extensibility Model
 
-:::details[Node Extension API]
-Tevm's plugin system allows adding new functionality to nodes:
+<details>
+  <summary>Node Extension API</summary>
+  Tevm's plugin system allows adding new functionality to nodes:
 
 ```ts
 import { createTevmNode } from 'tevm'
@@ -678,7 +697,8 @@ await node.resetToSnapshot(snapshot)
 ```
 
 This extension model allows for powerful customizations while maintaining the core API.
-:::
+
+</details>
 
 ## Next Steps
 

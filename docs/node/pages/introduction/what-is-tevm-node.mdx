@@ -6,13 +6,15 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
+import { Tabs, Tab, Steps, Step } from "vocs/components";
+
 import { Callout, Steps, Button } from 'vocs/components'
 
 # What is Tevm Node?
 
-:::tip[Ethereum in JavaScript]
+<Callout type="tip" title="Ethereum in JavaScript">
 Tevm Node is a complete Ethereum execution environment implemented entirely in JavaScript, providing full EVM functionality without any native dependencies. It brings the entire Ethereum stack to any JavaScript environment.
-:::
+</Callout>
 
 ## Universal JavaScript Compatibility
 
@@ -66,8 +68,8 @@ Tevm's key innovation is bringing the Ethereum execution environment to **every 
 
 ## Core Features
 
-::::steps
-### Network Forking
+<Steps>
+<Step title="Network Forking">
 
 Create a local sandbox with the state of any EVM-compatible network:
 
@@ -94,7 +96,9 @@ Tevm's forking implementation uses:
 - **Efficient caching** - Keeps accessed state in memory for fast subsequent access
 - **Latest EVM version** - Supports the most recent Ethereum upgrades
 
-### Transaction Pool Management
+</Step>
+
+<Step title="Transaction Pool Management">
 
 Complete control over transaction submission and processing:
 
@@ -119,7 +123,9 @@ Tevm gives you full control over:
 - **Validation rules** - Customize how transactions are validated
 - **Processing timing** - Mine exactly when you want
 
-### Flexible Mining Control
+</Step>
+
+<Step title="Flexible Mining Control">
 
 Choose your block production model based on your needs:
 
@@ -138,7 +144,9 @@ client.setMining({
 })
 ```
 
-### Advanced Extensibility
+</Step>
+
+<Step title="Advanced Extensibility">
 
 Customize every aspect of the EVM environment:
 
@@ -164,14 +172,17 @@ const node = await createTevmNode({
   ]
 })
 ```
-::::
+</Step>
+
+</Steps>
 
 ## Integration With Popular Libraries
 
 Tevm works with the libraries you already know and love:
 
-:::code-group
-```ts [viem]
+<Tabs>
+<Tab title="viem">
+```ts
 import { createMemoryClient, http } from 'tevm'
 
 const client = createMemoryClient()
@@ -187,8 +198,10 @@ await client.tevmSetAccount({
   balance: 100000000000000000n // 0.1 ETH
 })
 ```
+</Tab>
 
-```ts [ethers]
+<Tab title="ethers">
+```ts
 import { createMemoryClient } from 'tevm'
 import { requestEip1193 } from 'tevm/decorators'
 import { BrowserProvider, Wallet } from 'ethers'
@@ -207,7 +220,9 @@ const blockNumber = await provider.getBlockNumber()
 // Don't forget to mine after transactions
 await client.mine({ blocks: 1 })
 ```
-:::
+</Tab>
+
+</Tabs>
 
 ## How Tevm Compares
 
@@ -310,9 +325,9 @@ await client.mine({ blocks: 1 })
   </div>
 </div>
 
-:::info[Did you know?]
+<Callout type="info" title="Did you know?">
 Tevm Node is part of a larger ecosystem that also includes [Tevm Bundler](https://tevm.sh/bundler), which allows for direct Solidity imports into JavaScript/TypeScript.
-:::
+</Callout>
 
 ## Library Compatibility
 

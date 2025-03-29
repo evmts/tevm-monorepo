@@ -6,69 +6,90 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
+import { Tabs, Tab, Steps, Step } from "vocs/components";
+
 import { Callout, Steps, Button } from 'vocs/components'
 
 # Getting Started with Viem
 
-:::tip[Perfect for Viem Users]
+<Callout type="tip" title="Perfect for Viem Users">
 If you're already familiar with [viem](https://viem.sh), Tevm works seamlessly with your existing knowledge, providing a nearly identical API.
-:::
+</Callout>
 
 This guide will help you integrate Tevm with [viem](https://viem.sh), the modern TypeScript interface for Ethereum. By the end, you'll have a working setup with Tevm Node and understand how to leverage viem's actions with Tevm.
 
 ## Installation
 
-::::steps
-### Install Dependencies
+<Steps>
+<Step title="Install Dependencies">
 
 First, install Tevm along with viem as a peer dependency:
 
-:::code-group
-```bash [npm]
+<Tabs>
+<Tab title="npm">
+```bash
 npm install tevm viem@latest
 ```
+</Tab>
 
-```bash [pnpm]
+<Tab title="pnpm">
+```bash
 pnpm add tevm viem@latest
 ```
+</Tab>
 
-```bash [yarn]
+<Tab title="yarn">
+```bash
 yarn add tevm viem@latest
 ```
+</Tab>
 
-```bash [bun]
+<Tab title="bun">
+```bash
 bun add tevm viem@latest
 ```
+</Tab>
 
-```bash [jsr]
+<Tab title="jsr">
+```bash
 jsr add @tevm/tevm
 # Also install viem from npm
 npm install viem@latest
 ```
-:::
+</Tab>
 
-### Create Your Client
+</Tabs>
+
+</Step>
+
+<Step title="Create Your Client">
 
 For the quickest start, create a memory client:
 
-:::code-group
-```ts [npm]
+<Tabs>
+<Tab title="npm">
+```ts
 import { createMemoryClient } from 'tevm'
 
 const client = createMemoryClient()
 ```
+</Tab>
 
-```ts [jsr]
+<Tab title="jsr">
+```ts
 import { createMemoryClient } from '@tevm/tevm'
 
 const client = createMemoryClient()
 ```
-:::
+</Tab>
+
+</Tabs>
 
 Or, to fork from an existing chain:
 
-:::code-group
-```ts [npm]
+<Tabs>
+<Tab title="npm">
+```ts
 import { createMemoryClient, http } from 'tevm'
 import { optimism } from 'tevm/chains'
 
@@ -82,8 +103,10 @@ const client = createMemoryClient({
 // Wait for the node to be ready before using it
 await client.tevmReady()
 ```
+</Tab>
 
-```ts [jsr]
+<Tab title="jsr">
+```ts
 import { createMemoryClient, http } from '@tevm/tevm'
 import { optimism } from '@tevm/tevm/chains'
 
@@ -97,9 +120,13 @@ const client = createMemoryClient({
 // Wait for the node to be ready before using it
 await client.tevmReady()
 ```
-:::
+</Tab>
 
-### You're Ready!
+</Tabs>
+
+</Step>
+
+<Step title="You're Ready!">
 
 Start using your client with familiar viem actions:
 
@@ -108,220 +135,20 @@ Start using your client with familiar viem actions:
 const blockNumber = await client.getBlockNumber()
 console.log(`Current block: ${blockNumber}`)
 ```
-::::
+</Step>
+
+</Steps>
 
 ## Complete Example
 
 The following example demonstrates the key capabilities of Tevm with viem:
 
-:::code-group
-```ts [npm] showLineNumbers {1-3,8-12,25-29,40,52}
-import { createMemoryClient, http } from 'tevm' // [!code focus]
-import { optimism } from 'tevm/common' // [!code focus]
-import { parseAbi, parseEther } from 'viem' // [!code focus]
+<Tabs>
+</Tabs>
 
-// 1. Create a memory client forked from Optimism mainnet
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'), // [!code focus]
-    common: optimism, // [!code focus]
-  }, // [!code focus]
-}) // [!code focus]
-
-// Wait for the node to be ready
-await client.tevmReady()
-
-// 2. Get current block number (from the fork point)
-const blockNumber = await client.getBlockNumber()
-console.log(`Current block number: ${blockNumber}`)
-
-// Setup addresses and contract interfaces
-const account = `0x${"baD60A7".padStart(40, "0")}` as const
-const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
-
-// Define contract interfaces with parseAbi
-const greeterAbi = parseAbi([
-  'function greet() view returns (string)', // [!code focus]
-  'function setGreeting(string memory _greeting) public' // [!code focus]
-]) // [!code focus]
-
-// 3. Modify blockchain state with test actions
-// Fund our test account with 1 ETH
-await client.setBalance({
-  address: account,
-  value: parseEther("1")
-})
-
-// Read the current greeting using viem's readContract
-const currentGreeting = await client.readContract({
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'greet',
-})
-console.log(`Current greeting: ${currentGreeting}`)
-
-// Update the greeting with writeContract
-const txHash = await client.writeContract({ // [!code focus]
-  account,
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'setGreeting',
-  args: ["Hello from Tevm!"],
-  chain: optimism,
-})
-console.log(`Transaction sent: ${txHash}`)
-
-// 4. Mine a new block to include our transaction
-await client.mine({ blocks: 1 }) // [!code focus]
-
-// Verify the greeting was updated
-const updatedGreeting = await client.readContract({
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'greet',
-})
-console.log(`Updated greeting: ${updatedGreeting}`)
-```
-
-```ts [jsr] showLineNumbers {1-3,8-12,25-29,40,52}
-import { createMemoryClient, http } from '@tevm/tevm' // [!code focus]
-import { optimism } from '@tevm/tevm/common' // [!code focus]
-import { parseAbi, parseEther } from 'viem' // [!code focus]
-
-// 1. Create a memory client forked from Optimism mainnet
-const client = createMemoryClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'), // [!code focus]
-    common: optimism, // [!code focus]
-  }, // [!code focus]
-}) // [!code focus]
-
-// Wait for the node to be ready
-await client.tevmReady()
-
-// 2. Get current block number (from the fork point)
-const blockNumber = await client.getBlockNumber()
-console.log(`Current block number: ${blockNumber}`)
-
-// Setup addresses and contract interfaces
-const account = `0x${"baD60A7".padStart(40, "0")}` as const
-const greeterContractAddress = "0x10ed0b176048c34d69ffc0712de06CbE95730748"
-
-// Define contract interfaces with parseAbi
-const greeterAbi = parseAbi([
-  'function greet() view returns (string)', // [!code focus]
-  'function setGreeting(string memory _greeting) public' // [!code focus]
-]) // [!code focus]
-
-// 3. Modify blockchain state with test actions
-// Fund our test account with 1 ETH
-await client.setBalance({
-  address: account,
-  value: parseEther("1")
-})
-
-// Read the current greeting using viem's readContract
-const currentGreeting = await client.readContract({
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'greet',
-})
-console.log(`Current greeting: ${currentGreeting}`)
-
-// Update the greeting with writeContract
-const txHash = await client.writeContract({ // [!code focus]
-  account,
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'setGreeting',
-  args: ["Hello from Tevm!"],
-  chain: optimism,
-})
-console.log(`Transaction sent: ${txHash}`)
-
-// 4. Mine a new block to include our transaction
-await client.mine({ blocks: 1 }) // [!code focus]
-
-// Verify the greeting was updated
-const updatedGreeting = await client.readContract({
-  address: greeterContractAddress,
-  abi: greeterAbi,
-  functionName: 'greet',
-})
-console.log(`Updated greeting: ${updatedGreeting}`)
-```
-
-```ts [Contract Deployment] showLineNumbers
-import { createMemoryClient } from 'tevm'
-import { parseAbi, parseEther, encodeAbiParameters } from 'viem'
-
-// Create a memory client (isolated environment)
-const client = createMemoryClient()
-
-// 1. Create a test account with funds
-const deployerAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
-await client.setBalance({
-  address: deployerAddress,
-  value: parseEther('10')
-})
-
-// 2. Define a simple contract
-const counterAbi = parseAbi([
-  'function increment() public',
-  'function count() view returns (uint256)'
-])
-
-// Counter contract bytecode (pre-compiled)
-const counterBytecode = '0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
-
-// 3. Deploy the contract
-const deployHash = await client.sendTransaction({
-  account: deployerAddress,
-  to: undefined, // Contract creation
-  data: counterBytecode
-})
-
-// Mine to include the deployment
-await client.mine()
-
-// 4. Get the deployment receipt to find contract address
-const receipt = await client.getTransactionReceipt({
-  hash: deployHash
-})
-const contractAddress = receipt.contractAddress
-console.log(`Contract deployed at: ${contractAddress}`)
-
-// 5. Use the contract
-const initialCount = await client.readContract({
-  address: contractAddress,
-  abi: counterAbi,
-  functionName: 'count'
-})
-console.log(`Initial count: ${initialCount}`)
-
-// Increment the counter
-await client.writeContract({
-  account: deployerAddress,
-  address: contractAddress,
-  abi: counterAbi,
-  functionName: 'increment'
-})
-
-// Mine the transaction
-await client.mine()
-
-// Read the new count
-const newCount = await client.readContract({
-  address: contractAddress,
-  abi: counterAbi,
-  functionName: 'count'
-})
-console.log(`New count: ${newCount}`)
-```
-:::
-
-:::details[Code Walkthrough]
-### 1. Imports & Client Creation
+<details>
+  <summary>Code Walkthrough</summary>
+  ### 1. Imports & Client Creation
 
 ```ts
 import { createMemoryClient, http } from 'tevm'
@@ -381,14 +208,16 @@ await client.mine({ blocks: 1 })
 
 - Unlike real networks, you control exactly when blocks are mined
 - This gives you complete determinism for testing and development
-:::
+
+</details>
 
 ## Key Viem-Compatible Features
 
 Tevm's viem client implements the full viem API, maintaining compatibility while adding powerful features:
 
-:::code-group
-```ts [Standard viem API]
+<Tabs>
+<Tab title="Standard viem API">
+```ts
 // These standard viem actions work exactly as expected
 await client.getBalance({ address: '0x...' })
 await client.getBlockNumber()
@@ -398,8 +227,10 @@ await client.estimateGas({ ... })
 await client.sendTransaction({ ... })
 // And all other viem actions
 ```
+</Tab>
 
-```ts [Tevm Extensions]
+<Tab title="Tevm Extensions">
+```ts
 // Tevm adds powerful extensions
 await client.tevmReady() // Wait for fork initialization
 await client.setBalance({ address: '0x...', value: 100n })
@@ -408,8 +239,10 @@ await client.mine({ blocks: 1 })
 await client.reset() // Reset to initial state
 await client.impersonateAccount({ address: '0x...' })
 ```
+</Tab>
 
-```ts [EVM Debugging]
+<Tab title="EVM Debugging">
+```ts
 // Advanced EVM debugging and inspection
 await client.tevmContract({
   address: '0x...',
@@ -424,53 +257,20 @@ await client.tevmContract({
   }
 })
 ```
-:::
+</Tab>
+
+</Tabs>
 
 ## Tree-Shakeable API
 
 For production applications, especially in browser environments, you may want to use Tevm's tree-shakeable API to minimize bundle size:
 
-:::code-group
-```ts [npm] showLineNumbers {1-3,6-11}
-import { createClient, http } from 'viem'
-import { createTevmTransport } from 'tevm/transport' // [!code focus]
-import { tevmCall, tevmDumpState } from 'tevm/actions' // [!code focus]
+<Tabs>
+</Tabs>
 
-// Create a standard viem client with Tevm transport
-const client = createClient({
-  transport: createTevmTransport({ // [!code focus]
-    fork: { // [!code focus]
-      transport: http('https://mainnet.optimism.io') // [!code focus]
-    } // [!code focus]
-  }) // [!code focus]
-})
-
-// Import only the actions you need
-await tevmDumpState(client)
-```
-
-```ts [jsr] showLineNumbers {1-3,6-11}
-import { createClient, http } from 'viem'
-import { createTevmTransport } from '@tevm/tevm/transport' // [!code focus]
-import { tevmCall, tevmDumpState } from '@tevm/tevm/actions' // [!code focus]
-
-// Create a standard viem client with Tevm transport
-const client = createClient({
-  transport: createTevmTransport({ // [!code focus]
-    fork: { // [!code focus]
-      transport: http('https://mainnet.optimism.io') // [!code focus]
-    } // [!code focus]
-  }) // [!code focus]
-})
-
-// Import only the actions you need
-await tevmDumpState(client)
-```
-:::
-
-:::tip[Tree-Shaking Benefit]
+<Callout type="tip" title="Tree-Shaking Benefit">
 Using the tree-shakeable API can significantly reduce your bundle size when you're using only a subset of Tevm's features.
-:::
+</Callout>
 
 ## EVM Execution Hooks
 
@@ -528,16 +328,16 @@ Tevm extends viem with specialized actions that provide enhanced capabilities:
 | `tevmEnableTracing` | Enable detailed execution tracing | Capture full execution traces |
 | `tevmReset` | Reset node to initial state | Start fresh for new test scenarios |
 
-:::info
+<Callout type="info">
 All tevm-specific actions are also available as individual imports from `tevm/actions` for tree-shaking.
-:::
+</Callout>
 
 ## Next Steps
 
 Now that you're familiar with using Tevm with viem, you can:
 
-::::steps
-### Explore More Tevm Features
+<Steps>
+<Step title="Explore More Tevm Features">
 
 Dive deeper into Tevm's powerful capabilities:
 
@@ -546,7 +346,9 @@ Dive deeper into Tevm's powerful capabilities:
 - [Mining modes](/core/mining-modes) for controlling transaction inclusion
 - [Direct Solidity imports](/getting-started/bundler) with the Tevm Bundler
 
-### Check Out Examples
+</Step>
+
+<Step title="Check Out Examples">
 
 See how Tevm solves real-world problems:
 
@@ -554,7 +356,9 @@ See how Tevm solves real-world problems:
 - [Building a debugger UI](/examples/debugger-ui) with EVM insights
 - [Local testing flows](/examples/local-testing) for development
 
-### Advanced API Usage
+</Step>
+
+<Step title="Advanced API Usage">
 
 Master the Tevm API for more sophisticated applications:
 
@@ -562,7 +366,9 @@ Master the Tevm API for more sophisticated applications:
 - [Custom precompiles](/advanced/custom-precompiles) for extending the EVM
 - [Transaction pool management](/advanced/txpool) for pending transaction control
 - [Contract Bundler](/reference/bundler) for importing Solidity files directly
-::::
+</Step>
+
+</Steps>
 
 <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
   <Button href="./overview" variant="accent">← Back to Overview</Button>
