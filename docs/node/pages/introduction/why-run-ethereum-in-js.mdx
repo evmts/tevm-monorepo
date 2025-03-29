@@ -37,7 +37,7 @@ JavaScript has emerged as an ideal environment for running Ethereum, offering un
   Tevm's local execution provides instantanious gas estimation!
 </Callout>
 
-```typescript showLineNumbers {1-4,8-11} filename="performance-comparison.ts"
+```typescript showLineNumbers filename="performance-comparison.ts"
 const gasEstimate0 = await provider.estimateGas({ ... }) // ~200ms as it fetches state
 const gasEstimate0 = await provider.estimateGas({ ... }) // ~Instant on future estimations with cache saved
 const gasEstimate0 = await provider.estimateGas({ ... }) // ~Instant on future estimations with cache saved
@@ -55,23 +55,17 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
     </p>
   </Card>
 
-{" "}
-
 <Card title="⚡ Optimistic UI">
   <p>
     Show users the likely outcome of transactions before they're mined on-chain.
   </p>
 </Card>
 
-{" "}
-
 <Card title="🛡️ Improved Reliability">
   <p>
     Reduce dependency on external infrastructure, making dApps more resilient.
   </p>
 </Card>
-
-{" "}
 
 <Card title="🧮 Transaction Simulation">
   <p>
@@ -212,31 +206,21 @@ The devx is optimized in following ways:
     <p>Type-safe contract interactions with full IntelliSense support</p>
   </Card>
 
-{" "}
-
 <Card title="⚛️ UI Frameworks">
   <p>React, Vue, Svelte and other frontend libraries</p>
 </Card>
-
-{" "}
 
 <Card title="🏗️ Build Tools">
   <p>Vite, Webpack, ESBuild and other bundlers</p>
 </Card>
 
-{" "}
-
 <Card title="🧪 Testing">
   <p>Vitest support via Vite</p>
 </Card>
 
-{" "}
-
 <Card title="🔄 Runtimes">
   <p>Node.js, browsers, Electron, serverless functions</p>
 </Card>
-
-{" "}
 
 <Card title="📦 NPM Ecosystem">
   <p>Access to millions of packages and libraries in the npm registry</p>
