@@ -6,7 +6,7 @@
 
 [![CI](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml/badge.svg)](https://github.com/evmts/tevm-monorepo/actions/workflows/nx.yml)
 [![NPM Version](https://img.shields.io/npm/v/tevm)](https://www.npmjs.com/package/tevm)
-[![Tevm Downloads](https://img.shields.io/npm/dm/@tevm/memory-client.svg)](https://www.npmjs.com/package/@tevm/memory-client)
+[![Tevm Downloads](https://img.shields.io/npm/dm/tevm.svg)](https://www.npmjs.com/package/tevm)
 [![Tevm Bundler Downloads](https://img.shields.io/npm/dm/@tevm/base-bundler.svg)](https://www.npmjs.com/package/@tevm/base-bundler)
 [![Minzipped Size](https://badgen.net/bundlephobia/minzip/tevm)](https://bundlephobia.com/package/tevm@latest)
 
