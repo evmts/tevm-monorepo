@@ -3,8 +3,6 @@ title: TevmNode Interface
 description: Detailed look at the main node interface and its capabilities
 ---
 
-import { Tabs, Tab } from "vocs/components";
-
 import { Callout } from 'vocs/components'
 import { Card, CardGrid } from '../../../components'
 
@@ -471,9 +469,8 @@ console.log('Scenario balance:', modifiedAccount.balance) // 200 ETH
 
 ## Practical Examples
 
-<Tabs>
-<Tab title="Contract Deployment">
-```ts
+:::code-group
+```ts [Contract Deployment]
 import { createTevmNode } from 'tevm'
 import { hexToBytes } from 'viem'
 
@@ -513,10 +510,8 @@ const callResult = await vm.runTx({
 
 console.log('Call result:', callResult.execResult.returnValue)
 ```
-</Tab>
 
-<Tab title="Contract Debugging">
-```ts
+```ts [Contract Debugging]
 import { createTevmNode } from 'tevm'
 import { hexToBytes } from 'viem'
 
@@ -574,10 +569,8 @@ console.log('PUSH operations:', stackChanges.length)
 // Clean up
 vm.evm.events.removeAllListeners('step')
 ```
-</Tab>
 
-<Tab title="Chain Simulation">
-```ts
+```ts [Chain Simulation]
 import { createTevmNode } from 'tevm'
 import { parseEther } from 'viem'
 
@@ -650,9 +643,7 @@ async function simulateICO() {
 // Run the simulation
 simulateICO().catch(console.error)
 ```
-</Tab>
-
-</Tabs>
+:::
 
 ## Best Practices
 

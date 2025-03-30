@@ -7,6 +7,7 @@ export default defineConfig({
     process.env.VERCEL_ENV === "production"
       ? "https://node.tevm.sh"
       : process.env.VERCEL_URL,
+  rootDir: ".",
   description:
     "A lightweight, unopinionated, powerful EVM node that runs in the browser",
   // Updated logo configuration
@@ -272,6 +273,6 @@ export default defineConfig({
         light: "github-light",
         dark: "github-dark",
       },
-    }
+    },
   },
 });

@@ -3,8 +3,6 @@ title: Bundler Overview
 description: Key benefits and features of the Tevm bundler
 ---
 
-import { Callout } from "vocs/components";
-
 # Bundler Overview
 
 ## Key Benefits
@@ -202,9 +200,9 @@ For complex projects, create a `tevm.config.json` file in your project root:
 
 ### Inline Solidity with `sol` Tag
 
-<Callout type="info">
+:::info
 This feature is coming soon and is not yet available in the current release.
-</Callout>
+:::
 
 For quick prototyping or one-off contracts, you'll soon be able to use the `sol` tag to define Solidity code inline:
 
@@ -233,9 +231,9 @@ const { bytecode, abi } = sol`
 
 ### Network Imports via Macros
 
-<Callout type="info">
+:::info
 This feature is coming soon and is not yet available in the current release.
-</Callout>
+:::
 
 Tevm will soon support importing contract ABIs from any blockchain network using macros. This build-time solution offers several advantages over runtime imports, including stronger type safety and better performance:
 
