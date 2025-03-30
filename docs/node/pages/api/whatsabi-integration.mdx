@@ -3,8 +3,8 @@ title: Contract Loader
 description: Access contract ABIs and bytecode from on-chain contracts through Tevm's Contract Loader functionality
 ---
 
-import { Callout, Steps, Step } from "vocs/components";
-import { TabGroup } from "../../../components";
+import { Callout, Steps } from "vocs/components";
+import { TabGroup } from "../../components";
 
 # Contract Loader
 
@@ -81,13 +81,17 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 
 ## Usage
 
+<Callout type="warning" emoji="⚠️">
+  For security reasons, contract macros are disabled by default. To enable them,
+  add `"macros": true` to your `tevm.config.json` file.
+</Callout>
+
 <TabGroup items={['Tree-shakable API', 'Client Extension API']}>
   <div data-title="Tree-shakable API">
     ```ts showLineNumbers {1,3-4,7-10,12-13,24-28} filename="contract-loader-example.ts"
     import { loadContract, createMemoryClient, http } from 'tevm'
     import { MultiABILoader, EtherscanABILoader, SourcifyABILoader } from 'tevm/whatsabi'
     
-    // You can also use viem's createClient here
     const client = createMemoryClient({ // [!code focus]
       fork: { transport: http('https://mainnet.optimism.io') } // [!code focus]
     })
@@ -162,11 +166,6 @@ Contract Loaders are powerful [actions](/reference/actions) that can extract ABI
 
 ## Network Imports via Macros
 
-<Callout type="warning" emoji="⚠️">
-  For security reasons, contract macros are disabled by default. To enable them,
-  add `"macros": true` to your `tevm.config.json` file.
-</Callout>
-
 One of the most powerful features of Contract Loader in Tevm is the ability to import contracts from any network at build time using macros.
 
 <Callout type="info" emoji="🔧">
@@ -184,7 +183,7 @@ One of the most powerful features of Contract Loader in Tevm is the ability to i
 
 ### Creating Contract Macros
 
-First, create a file that directly exports contract instances using top-level await with loadContract:
+First, create a file that exports functions using loadContract to resolve contract data:
 
 ```ts showLineNumbers filename="contract-macros.js"
 import { createClient, createMemoryClient } from "tevm";
@@ -231,7 +230,7 @@ export const weth = await loadContract(client, {
 
 ### Using Contract Macros
 
-Then import the contracts with `with { type: "tevm" }` attribute:
+Then import the contracts with `with { type: 'tevm' }` attribute:
 
 ```ts showLineNumbers filename="app.js"
 // Import contracts using macros
@@ -260,24 +259,12 @@ const wethDeposit = await client.writeContract({
   blocked. Package authors should pre-build their contracts before publishing.
 </Callout>
 
-<Callout type="info">
-  To use top-level await in your macro files as shown in the example, you'll need to:
-  
-  1. Use a modern version of Node.js that supports top-level await (14.8+ or later)
-  2. Configure your TypeScript project by setting `"module": "esnext"` in your tsconfig.json
-  3. For bundlers, ensure they are configured to handle top-level await (most modern bundlers support this)
-</Callout>
-
-<Callout type="warning">
-  When using the `with { type: "tevm" }` import attribute, you can only export items of type [Contract](/reference/contract). Other types of exports are not supported by the tevm macro system.
-</Callout>
-
 ### How Macros Work
 
 <Steps>
 ### 1. Build-Time Execution
 
-When your bundler encounters an import with `type: 'tevm'`, it executes the imported function during the build process.
+When your bundler encounters an import with `type: 'macro'`, it executes the imported function during the build process.
 
 ### 2. Contract Resolution
 
@@ -300,7 +287,6 @@ TypeScript types are generated for all contract methods, events, and properties,
 - **Proxy resolution** - Automatically resolves and follows proxy implementations
 - **Works with unverified contracts** - Uses bytecode analysis when sources aren't available
 - **IDE integration** - Autocompletion and hover documentation for contract methods
-- **Simple configuration** - Makes configuring typesafe contract configs that are up to date very simple, avoiding the need to manually copy/paste
 
 ## How It Works
 
@@ -327,37 +313,37 @@ WhatsABI attempts to find verified contract sources from Sourcify, Etherscan, an
 
 The `loadContract` action accepts the following parameters:
 
-| Parameter                    | Type                                               | Description                                                                                          |
-| ---------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `address`                    | `Address`                                          | **Required**. The contract address to analyze                                                        |
-| `followProxies`              | `boolean`                                          | Whether to automatically follow proxy contracts. Default: `false`                                    |
-| `includeBytecode`            | `boolean`                                          | Whether to include contract bytecode in the returned contract. Default: `false`                       |
+| Parameter                    | Type                                               | Description                                                                                                                                                                                                       |
+| ---------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `address`                    | `Address`                                          | **Required**. The contract address to analyze                                                                                                                                                                     |
+| `followProxies`              | `boolean`                                          | Whether to automatically follow proxy contracts. Default: `false`                                                                                                                                                 |
+| `includeBytecode`            | `boolean`                                          | Whether to include contract bytecode in the returned contract. Default: `false`                                                                                                                                   |
 | `includeSourceCode`          | `boolean`                                          | Whether to include contract source code as [SolcInputSources](https://github.com/evmts/tevm-monorepo/blob/00e1397cf07f637a93b7eaf51178bda50f5c5d6e/bundler-packages/solc/src/solcTypes.ts#L319). Default: `false` |
-| `loaders`                    | `ABILoader[]`                                      | Array of ABI loaders to use for resolving contract ABIs. See [Available Loaders](#available-loaders) |
-| `enableExperimentalMetadata` | `boolean`                                          | Whether to include experimental metadata like event topics. Default: `false`                         |
-| `signatureLookup`            | `SignatureLookup \| false`                         | Custom signature lookup or `false` to disable. Default: uses WhatsABI's default lookup               |
-| `onProgress`                 | `(phase: string, ...args: any[]) => void`          | Progress callback                                                                                    |
-| `onError`                    | `(phase: string, error: Error) => boolean \| void` | Error callback                                                                                       |
+| `loaders`                    | `ABILoader[]`                                      | Array of ABI loaders to use for resolving contract ABIs. See [Available Loaders](#available-loaders)                                                                                                              |
+| `enableExperimentalMetadata` | `boolean`                                          | Whether to include experimental metadata like event topics. Default: `false`                                                                                                                                      |
+| `signatureLookup`            | `SignatureLookup \| false`                         | Custom signature lookup or `false` to disable. Default: uses WhatsABI's default lookup                                                                                                                            |
+| `onProgress`                 | `(phase: string, ...args: any[]) => void`          | Progress callback                                                                                                                                                                                                 |
+| `onError`                    | `(phase: string, error: Error) => boolean \| void` | Error callback                                                                                                                                                                                                    |
 
 ## Return Value
 
 The action returns a full [Tevm Contract](/reference/contract) instance with the following properties:
 
-| Property        | Type                                                                 | Description                                                        |
-| --------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| `abi`           | `Abi`                                                                | The resolved ABI from bytecode or verified sources                 |
-| `address`       | `Address`                                                            | The contract address (may be different if proxies were followed)   |
-| `read`          | `Object`                                                             | Type-safe read methods for view/pure functions                     |
-| `write`         | `Object`                                                             | Type-safe write methods for state-changing functions               |
-| `events`        | `Object`                                                             | Type-safe event filters for subscription                           |
-| `withAddress`   | `Function`                                                           | Method to create a new instance with a different address           |
-| `abiLoadedFrom` | `{name: string, url?: string}`                                       | Information about where the ABI was loaded from                    |
-| `proxyDetails`  | `Array<{name: string, implementation?: Address, selector?: string}>` | If the contract is a proxy, details about the proxy implementation |
-| `sources`      | `SolcInputSources`                                              | If `includeSourceCode` is `true`, contains the contract source code files |
+| Property        | Type                                                                 | Description                                                               |
+| --------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `abi`           | `Abi`                                                                | The resolved ABI from bytecode or verified sources                        |
+| `address`       | `Address`                                                            | The contract address (may be different if proxies were followed)          |
+| `read`          | `Object`                                                             | Type-safe read methods for view/pure functions                            |
+| `write`         | `Object`                                                             | Type-safe write methods for state-changing functions                      |
+| `events`        | `Object`                                                             | Type-safe event filters for subscription                                  |
+| `withAddress`   | `Function`                                                           | Method to create a new instance with a different address                  |
+| `abiLoadedFrom` | `{name: string, url?: string}`                                       | Information about where the ABI was loaded from                           |
+| `proxyDetails`  | `Array<{name: string, implementation?: Address, selector?: string}>` | If the contract is a proxy, details about the proxy implementation        |
+| `sources`       | `SolcInputSources`                                                   | If `includeSourceCode` is `true`, contains the contract source code files |
 
 ## Available Loaders
 
-These are [WhatsABI loaders](https://github.com/shazow/whatsabi) that are re-exported from Tevm for convenience:
+You can import various ABI loaders from `tevm/whatsabi`:
 
 ### MultiABILoader
 
@@ -690,9 +676,7 @@ const contract = await loadContract(client, {
 
 ### Ensuring Hermetic Builds
 
-By default, since we are using a macro to fetch the abi at buildtime, and abis can change your prodouction build will not be `hermetic`. This means it is possible that your build output today will be different tomorrow because the contract abi changed for an upgradable contract. This behavior may be desired if you want to guarantee your build is always in sync. But if this behavior is not desired and you need deterministic builds you have a few options:
-
-For production applications that need hermetic/deterministic builds while using Contract Loader:
+For production applications that need deterministic builds while using Contract Loader:
 
 1. **Pin block heights**: Use `createMemoryClient` with a specific `blockNumber` in the fork config:
 

@@ -3,15 +3,14 @@ title: Receipts & Logs
 description: Handling receipts, logs, and filters
 ---
 
-import { Tabs, Tab, Steps, Step } from "vocs/components";
-
-import { Callout, Steps, Step, Button } from 'vocs/components'
-import { Card, CardGrid, Tab, TabGroup } from '../../../components'
+import { Callout, Steps, Step, Button } from "vocs/components";
+import { Card, CardGrid, Tab, TabGroup } from "../../components";
 
 # Receipts & Logs
 
 <Callout type="info" title="Event Management">
-  Tevm Node provides robust support for managing transaction receipts and event logs through the ReceiptsManager module and filter system.
+  Tevm Node provides robust support for managing transaction receipts and event
+  logs through the ReceiptsManager module and filter system.
 </Callout>
 
 Transaction receipts and event logs are essential for tracking state changes and application events in Ethereum. Tevm's ReceiptsManager gives you powerful tools to work with them, enabling features like event listening, transaction status tracking, and log filtering.
@@ -55,6 +54,7 @@ Transaction receipts and event logs are essential for tracking state changes and
       }) // [!code focus]
     } // [!code focus]
     ```
+
   </Tab>
 
   <Tab label="Log Filtering">
@@ -94,6 +94,7 @@ Transaction receipts and event logs are essential for tracking state changes and
     console.log(`Found ${addressLogs.length} logs from the contract`)
     console.log(`Found ${topicLogs.length} Transfer events`)
     ```
+
   </Tab>
 </TabGroup>
 
@@ -136,6 +137,7 @@ Transaction receipts and event logs are essential for tracking state changes and
       blobGasPrice: bigint         // Price paid for blob data
     }
     ```
+
   </Tab>
 
   <Tab label="Working with Receipts">
@@ -159,6 +161,7 @@ Transaction receipts and event logs are essential for tracking state changes and
     <Callout type="tip" title="Type Detection">
       Always check the receipt structure before accessing properties, as the type depends on the Ethereum hard fork configuration.
     </Callout>
+
   </Tab>
 </TabGroup>
 
@@ -167,107 +170,115 @@ Transaction receipts and event logs are essential for tracking state changes and
 <Steps>
   ### Contract Deployment
 
-  First, deploy a contract that emits events:
+First, deploy a contract that emits events:
 
-  ```typescript showLineNumbers {1-14} filename="deploy-contract.ts"
-  // Deploy a contract that emits events
-  const deployTx = createImpersonatedTx({
-    impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-    data: CONTRACT_BYTECODE, // Your contract bytecode
-    gasLimit: 1000000n,
-  })
+```typescript showLineNumbers {1-14} filename="deploy-contract.ts"
+// Deploy a contract that emits events
+const deployTx = createImpersonatedTx({
+  impersonatedAddress: createAddress(
+    "0x1234567890123456789012345678901234567890",
+  ),
+  data: CONTRACT_BYTECODE, // Your contract bytecode
+  gasLimit: 1000000n,
+});
 
-  const vm = await node.getVm()
-  const deployResult = await runTx(vm)({ tx: deployTx })
+const vm = await node.getVm();
+const deployResult = await runTx(vm)({ tx: deployTx });
 
-  // Check deployment success
-  const contractAddress = deployResult.createdAddress
-  if (!contractAddress) {
-    throw new Error('Contract deployment failed')
-  }
-  ```
+// Check deployment success
+const contractAddress = deployResult.createdAddress;
+if (!contractAddress) {
+  throw new Error("Contract deployment failed");
+}
+```
 
-  ### Emit Events
+### Emit Events
 
-  Next, interact with the contract to emit events:
+Next, interact with the contract to emit events:
 
-  ```typescript showLineNumbers {1-10} filename="emit-events.ts"
-  // Call a function that emits events
-  const interactTx = createImpersonatedTx({
-    impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-    to: contractAddress,
-    // Function selector + parameters (e.g., transfer function on an ERC-20)
-    data: '0xa9059cbb000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000008ac7230489e80000',
-    gasLimit: 100000n,
-  })
+```typescript showLineNumbers {1-10} filename="emit-events.ts"
+// Call a function that emits events
+const interactTx = createImpersonatedTx({
+  impersonatedAddress: createAddress(
+    "0x1234567890123456789012345678901234567890",
+  ),
+  to: contractAddress,
+  // Function selector + parameters (e.g., transfer function on an ERC-20)
+  data: "0xa9059cbb000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000008ac7230489e80000",
+  gasLimit: 100000n,
+});
 
-  await runTx(vm)({ tx: interactTx })
-  ```
+await runTx(vm)({ tx: interactTx });
+```
 
-  ### Query Logs
+### Query Logs
 
-  Then, query the logs using various filters:
+Then, query the logs using various filters:
 
-  ```typescript showLineNumbers {1-25} filename="query-logs.ts"
-  // Get the block range for filtering
-  const fromBlock = await vm.blockchain.getBlockByTag('earliest')
-  const toBlock = await vm.blockchain.getBlockByTag('latest')
+```typescript showLineNumbers {1-25} filename="query-logs.ts"
+// Get the block range for filtering
+const fromBlock = await vm.blockchain.getBlockByTag("earliest");
+const toBlock = await vm.blockchain.getBlockByTag("latest");
 
-  // 1. Get all logs from the contract
-  const contractLogs = await receiptsManager.getLogs(
-    fromBlock,
-    toBlock,
-    [contractAddress.toBytes()],
-    undefined
-  )
+// 1. Get all logs from the contract
+const contractLogs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  [contractAddress.toBytes()],
+  undefined,
+);
 
-  // 2. Get logs for a specific event (e.g., Transfer event)
-  const transferEventSignature = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
-  const transferLogs = await receiptsManager.getLogs(
-    fromBlock,
-    toBlock,
-    [contractAddress.toBytes()],
-    [hexToBytes(transferEventSignature)]
-  )
+// 2. Get logs for a specific event (e.g., Transfer event)
+const transferEventSignature =
+  "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
+const transferLogs = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  [contractAddress.toBytes()],
+  [hexToBytes(transferEventSignature)],
+);
 
-  // 3. Get logs with specific parameters (e.g., transfers to a specific address)
-  const receiverAddress = '0x1234567890123456789012345678901234567890'
-  const paddedAddress = '0x000000000000000000000000' + receiverAddress.slice(2)
-  const topicForReceiver = hexToBytes(paddedAddress)
+// 3. Get logs with specific parameters (e.g., transfers to a specific address)
+const receiverAddress = "0x1234567890123456789012345678901234567890";
+const paddedAddress = "0x000000000000000000000000" + receiverAddress.slice(2);
+const topicForReceiver = hexToBytes(paddedAddress);
 
-  const transfersToReceiver = await receiptsManager.getLogs(
-    fromBlock,
-    toBlock,
-    [contractAddress.toBytes()],
-    [hexToBytes(transferEventSignature), undefined, topicForReceiver]
-  )
-  ```
+const transfersToReceiver = await receiptsManager.getLogs(
+  fromBlock,
+  toBlock,
+  [contractAddress.toBytes()],
+  [hexToBytes(transferEventSignature), undefined, topicForReceiver],
+);
+```
 
-  ### Process Log Data
+### Process Log Data
 
-  Finally, decode and process the log data:
+Finally, decode and process the log data:
 
-  ```typescript showLineNumbers {1-19} filename="decode-logs.ts"
-  // Process Transfer event logs
-  for (const log of transferLogs) {
-    // A Transfer event typically has this structure:
-    // topic[0]: event signature
-    // topic[1]: from address (padded to 32 bytes)
-    // topic[2]: to address (padded to 32 bytes)
-    // data: amount (as a 32-byte value)
+```typescript showLineNumbers {1-19} filename="decode-logs.ts"
+// Process Transfer event logs
+for (const log of transferLogs) {
+  // A Transfer event typically has this structure:
+  // topic[0]: event signature
+  // topic[1]: from address (padded to 32 bytes)
+  // topic[2]: to address (padded to 32 bytes)
+  // data: amount (as a 32-byte value)
 
-    const from = '0x' + Buffer.from(log.topics[1]).toString('hex').slice(24)
-    const to = '0x' + Buffer.from(log.topics[2]).toString('hex').slice(24)
+  const from = "0x" + Buffer.from(log.topics[1]).toString("hex").slice(24);
+  const to = "0x" + Buffer.from(log.topics[2]).toString("hex").slice(24);
 
-    // Convert the data to a BigInt (amount)
-    const amount = BigInt('0x' + Buffer.from(log.data).toString('hex'))
+  // Convert the data to a BigInt (amount)
+  const amount = BigInt("0x" + Buffer.from(log.data).toString("hex"));
 
-    console.log(`Transfer: ${from} → ${to}: ${amount} tokens`)
+  console.log(`Transfer: ${from} → ${to}: ${amount} tokens`);
 
-    // You can also access other metadata
-    console.log(`Block: ${log.blockNumber}, TxIndex: ${log.txIndex}, LogIndex: ${log.logIndex}`)
-  }
-  ```
+  // You can also access other metadata
+  console.log(
+    `Block: ${log.blockNumber}, TxIndex: ${log.txIndex}, LogIndex: ${log.logIndex}`,
+  );
+}
+```
+
 </Steps>
 
 ## Advanced Features
@@ -302,6 +313,7 @@ Transaction receipts and event logs are essential for tracking state changes and
       topics                        // Topic filters
     )
     ```
+
   </Tab>
 
   <Tab label="Multiple Addresses">
@@ -334,6 +346,7 @@ Transaction receipts and event logs are essential for tracking state changes and
       Buffer.from(marketplaceAddress.toBytes()).toString('hex')
     )
     ```
+
   </Tab>
 
   <Tab label="Receipt Indexing">
@@ -367,6 +380,7 @@ Transaction receipts and event logs are essential for tracking state changes and
 
     // For large-scale applications, implement pagination or additional filtering
     ```
+
   </Tab>
 </TabGroup>
 
@@ -390,64 +404,73 @@ Transaction receipts and event logs are essential for tracking state changes and
 <Steps>
   ### Efficient Log Queries
 
-  ```typescript showLineNumbers {1-12} filename="efficient-queries.ts"
-  // Instead of querying the entire chain
-  // Focus on specific block ranges when possible
-  const latestBlock = await vm.blockchain.getLatestBlock()
-  const blockNumber = latestBlock.header.number
+```typescript showLineNumbers {1-12} filename="efficient-queries.ts"
+// Instead of querying the entire chain
+// Focus on specific block ranges when possible
+const latestBlock = await vm.blockchain.getLatestBlock();
+const blockNumber = latestBlock.header.number;
 
-  // Get logs from the last 100 blocks
-  const fromBlock = await vm.blockchain.getBlock(blockNumber - 100n > 0n ? blockNumber - 100n : 0n)
+// Get logs from the last 100 blocks
+const fromBlock = await vm.blockchain.getBlock(
+  blockNumber - 100n > 0n ? blockNumber - 100n : 0n,
+);
 
-  // Use specific filters (address + topics)
-  const logs = await receiptsManager.getLogs(
-    fromBlock, latestBlock, [contractAddress.toBytes()], [eventTopic]
-  )
-  ```
+// Use specific filters (address + topics)
+const logs = await receiptsManager.getLogs(
+  fromBlock,
+  latestBlock,
+  [contractAddress.toBytes()],
+  [eventTopic],
+);
+```
 
-  ### Proper Error Handling
+### Proper Error Handling
 
-  ```typescript showLineNumbers {1-18} filename="error-handling.ts"
-  // Handle missing receipts gracefully
-  async function safeGetReceipt(txHash) {
-    try {
-      const receiptResult = await receiptsManager.getReceiptByTxHash(txHash)
+```typescript showLineNumbers {1-18} filename="error-handling.ts"
+// Handle missing receipts gracefully
+async function safeGetReceipt(txHash) {
+  try {
+    const receiptResult = await receiptsManager.getReceiptByTxHash(txHash);
 
-      if (receiptResult === null) {
-        console.log('Receipt not found - transaction may be pending or not exist')
-        return null
-      }
-
-      const [receipt] = receiptResult
-      return receipt
-    } catch (error) {
-      console.error('Error retrieving receipt:', error.message)
-      // Handle specific error types if needed
-      return null
-    }
-  }
-  ```
-
-  ### Working with Receipt Types
-
-  ```typescript showLineNumbers {1-18} filename="type-safety.ts"
-  // Safely work with different receipt types
-  function getTransactionStatus(receipt) {
-    if (!receipt) return 'Unknown'
-
-    if ('status' in receipt) {
-      // Post-Byzantium receipt
-      return receipt.status === 1 ? 'Success' : 'Failed'
-    } else if ('stateRoot' in receipt) {
-      // Pre-Byzantium receipt - check if it's the empty root
-      const emptyRoot = '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-      const actualRoot = '0x' + Buffer.from(receipt.stateRoot).toString('hex')
-      return actualRoot === emptyRoot ? 'Likely Failed' : 'Likely Success'
+    if (receiptResult === null) {
+      console.log(
+        "Receipt not found - transaction may be pending or not exist",
+      );
+      return null;
     }
 
-    return 'Unknown Format'
+    const [receipt] = receiptResult;
+    return receipt;
+  } catch (error) {
+    console.error("Error retrieving receipt:", error.message);
+    // Handle specific error types if needed
+    return null;
   }
-  ```
+}
+```
+
+### Working with Receipt Types
+
+```typescript showLineNumbers {1-18} filename="type-safety.ts"
+// Safely work with different receipt types
+function getTransactionStatus(receipt) {
+  if (!receipt) return "Unknown";
+
+  if ("status" in receipt) {
+    // Post-Byzantium receipt
+    return receipt.status === 1 ? "Success" : "Failed";
+  } else if ("stateRoot" in receipt) {
+    // Pre-Byzantium receipt - check if it's the empty root
+    const emptyRoot =
+      "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421";
+    const actualRoot = "0x" + Buffer.from(receipt.stateRoot).toString("hex");
+    return actualRoot === emptyRoot ? "Likely Failed" : "Likely Success";
+  }
+
+  return "Unknown Format";
+}
+```
+
 </Steps>
 
 ## Related Resources
@@ -458,15 +481,51 @@ Transaction receipts and event logs are essential for tracking state changes and
     <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Log and receipt APIs via JSON-RPC</div>
   </Button>
 
-  <Button href="../api/vm-and-submodules" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>VM & Submodules</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Low-level access to the EVM</div>
-  </Button>
+<Button
+  href="../api/vm-and-submodules"
+  style={{
+    height: "auto",
+    padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  }}
+>
+  <div
+    style={{
+      fontWeight: "var(--vocs-fontWeight_medium)",
+      marginBottom: "0.5rem",
+    }}
+  >
+    VM & Submodules
+  </div>
+  <div style={{ fontSize: "var(--vocs-fontSize_14)", textAlign: "left" }}>
+    Low-level access to the EVM
+  </div>
+</Button>
 
-  <Button href="./txpool" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-    <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Transaction Pool</div>
-    <div style={{ fontSize: 'var(--vocs-fontSize_14)', textAlign: 'left' }}>Managing pending transactions</div>
-  </Button>
+<Button
+  href="./txpool"
+  style={{
+    height: "auto",
+    padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  }}
+>
+  <div
+    style={{
+      fontWeight: "var(--vocs-fontWeight_medium)",
+      marginBottom: "0.5rem",
+    }}
+  >
+    Transaction Pool
+  </div>
+  <div style={{ fontSize: "var(--vocs-fontSize_14)", textAlign: "left" }}>
+    Managing pending transactions
+  </div>
+</Button>
 
   <Button href="https://docs.soliditylang.org/en/latest/contracts.html#events" variant="accent" style={{ height: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
     <div style={{ fontWeight: 'var(--vocs-fontWeight_medium)', marginBottom: '0.5rem' }}>Solidity Events</div>

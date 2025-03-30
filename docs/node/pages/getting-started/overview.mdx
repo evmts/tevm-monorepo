@@ -6,233 +6,290 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Steps, Button, Step } from "vocs/components";
-
-# Tevm Node Overview
-
-Tevm Node is a **full Ethereum execution environment** that runs natively in JavaScript. It provides the complete functionality of an Ethereum node without requiring any blockchain client installation.
-
-Conceptually, it works very similar to Anvil and Hardhat but with more powerful TypeScript native interop.
-
-<Callout type="info" title="You might not need these docs?">
-If you already know how to use `viem` or `ethers`, you can start using Tevm Node right away with your existing knowledge! Tevm simply plugs into your library of choice.
-</Callout>
-
-## What Makes Tevm Unique?
-
-Unlike traditional development environments like [Hardhat](https://hardhat.org/) or [Anvil](https://book.getfoundry.sh/anvil/), Tevm Node offers several distinct advantages:
-
-- **Cross-Platform Compatibility** — The same code works everywhere JavaScript runs, with zero native dependencies including your applications in the browser
-- **Fine-grained EVM Control** — Access the execution environment at any level of detail, from high-level transactions to individual EVM opcodes
-- **Enhanced User Experience** — Enable advanced features like instantaneous gas estimation, optimistic UI updates, and sophisticated transaction simulation
-- **Type-safe Interactions** — Full TypeScript support throughout the entire API surface
-- **Direct Solidity Imports** — Import Solidity files directly into TypeScript with the [Tevm Bundler](/getting-started/bundler)
+import { Callout, Steps, Button } from "vocs/components";
 
 ## Getting Started
 
-<Steps>
-  <Step title="Install Tevm">
-    First, install Tevm in your project:
-    
-    <div className="code-group">
-      <div data-title="npm">
-        ```bash
-        npm install tevm
-        ```
-      </div>
-      <div data-title="pnpm">
-        ```bash
-        pnpm add tevm
-        ```
-      </div>
-      <div data-title="yarn">
-        ```bash
-        yarn add tevm
-        ```
-      </div>
-      <div data-title="bun">
-        ```bash
-        bun add tevm
-        ```
-      </div>
-      <div data-title="jsr">
-        ```bash
-        jsr add @tevm/tevm
-        ```
-      </div>
-    </div>
-  </Step>
+::::steps
 
-  <Step title="Choose Your Client">
-    Tevm offers different client types depending on your needs:
-    
-    ```ts
-    // In-memory client (fastest, fully isolated)
-    import { createMemoryClient } from "tevm";
-    const memoryClient = createMemoryClient();
-    
-    // Fork client (use existing chain state)
-    import { createMemoryClient } from "tevm";
-    import { http } from "viem";
-    import { mainnet } from "tevm/chains";
-    const forkClient = createMemoryClient({
-      fork: {
-        transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"),
-        common: mainnet,
-      },
-    });
-    
-    // Tree-shakable client (lighter weight)
-    import { createClient, http } from "viem";
-    import { createTevmTransport } from "tevm/memory-client";
-    import { optimism } from "tevm/common";
-    
-    const client = createClient({
-      transport: createTevmTransport({
-        fork: {transport: http('https://mainnet.optimism.io')},
-        common: optimism
-      }),
-    });
-    import { getBlockNumber } from "viem";
-    await getBlockNumber(client);
-    
-    // Ethers client
-    import { TevmProvider } from "tevm/ethers";
-    import { http, toHex, parseEth } from "tevm";
-    const provider = await TevmProvider.createMemoryProvider({
-      fork: {
-        transport: http("https://mainnet.optimism.io"),
-      },
-    });
-    await provider.send("tevm_setAccount", [
-      {
-        address: `0x${"69".repeat(20)}`,
-        nonce: toHex(1),
-        balance: toHex(parseEth("25")),
-      },
-    ]);
-    ```
-  </Step>
+### Install Tevm
 
-  <Step title="Use your client to read and write to an in-memory blockchain">
-    Below is a complete typical flow of using Tevm to:
-    
-    1. Add a contract to the Tevm state
-    2. Write to the contract with viem
-    3. Mine a new block with the transaction
-    4. Read from contract with viem
-    
-    ```ts showLineNumbers {1,11-13,22} filename="simple-contract.ts"
-    import { createMemoryClient, PREFUNDED_ACCOUNTS } from "tevm";
-    import { http } from "viem";
-    import { SimpleContract } from "tevm/contract";
-    import { optimism } from "tevm/common";
-    
-    // Create an in-memory Ethereum client forking optimism
-    const client = createMemoryClient({
-      common: optimism,
-      fork: { transport: http("https://mainnet.optimism.io") },
-    });
-    
-    const contract = SimpleContract.withAddress(`0x${"40".repeat(20)}`);
-    
-    // Deploy contract bytecode. There are many ways to do this including tevmDeploy.
-    // Here we just use an anvil test action
-    await client.setCode({
-      address: contract.address,
-      bytecode: contract.deployedBytecode,
-    });
-    
-    // Write to contract
-    await client.writeContract({
-      account: PREFUNDED_ACCOUNTS[0],
-      abi: contract.abi,
-      functionName: "set",
-      args: [420n],
-      address: contract.address,
-    });
-    
-    await client.tevmMine();
-    
-    // Read from contract
-    const value = await client.readContract({
-      abi: contract.abi,
-      functionName: "get",
-      address: contract.address,
-    });
-    
-    console.log(value); // 420n
-    ```
-    
-    <Callout type="info" title="How it works">
-      1. We create a `memoryClient` that runs an Ethereum node entirely in memory
-      2. We define a contract and its address
-      3. We deploy the contract using `setCode` (simpler than a full deployment transaction)
-      4. We write to the contract using a familiar viem-style interface
-      5. We mine the transaction to include it in a block
-      6. We read the updated value from the contract
-    </Callout>
-  </Step>
-  
-  <Step title="Key Points">
-    - **Familiar Interface** — Tevm uses [viem](https://viem.sh) as its primary API, making it instantly familiar to viem users
-    - **In-Memory Execution** — TevmNode runs the Ethereum environment directly in memory rather than using JSON-RPC over HTTP
-    - **Full Control** — Mine blocks on demand, manipulate state, and more
-  </Step>
-  
-  <Step title="Start Building">
-    You're now ready to build with Tevm!
-    
-    ```ts
-    // Runs in browsers, Node.js, Deno, Bun and beyond
-    // Zero native dependencies
-    import { createMemoryClient } from "tevm";
-    // Optionally import solidity contracts directly into typescript in a typesafe way
-    // This requires the Tevm Bundler to be set up (see Bundler Quickstart)
-    import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
-    
-    const client = createMemoryClient();
-    
-    // Use the viem api you already know
-    console.log(await client.getBlockNumber());
-    
-    // Or use powerful typescript native apis
-    const {
-      data,
-      error,
-      logs,
-      createdAddresses,
-      executionGasUsed,
-      l1Fee,
-      trace,
-      accessList,
-      txHash,
-    } = await client.tevmContract({
-      deployedBytecode: ComplexSimulation.deployedBytecode,
-      ...ComplexSimulation.read.simulate(2n, "arg2"),
-      createTrace: true,
-      createAccessList: true,
-      createTransaction: true,
-      throwOnFail: false,
-      onStep: (step, next) => {
-        console.log(step.opcode);
-        next?.();
-      },
-    });
-    ```
-  </Step>
-</Steps>
+First, install Tevm in your project:
 
-## Learning Path
+:::code-group
+
+```bash [npm]
+npm install tevm
+```
+
+```bash [pnpm]
+pnpm add tevm
+```
+
+```bash [yarn]
+yarn add tevm
+```
+
+```bash [bun]
+bun add tevm
+```
+
+:::
+
+### Choose Your Client
+
+Tevm offers different client types depending on your needs
+
+#### In-memory client
+
+You can spin up an empty ethereum node
+
+```ts
+import { createMemoryClient } from "tevm";
+
+const memoryClient = createMemoryClient();
+const blockNumber = await memoryClient.getBlockNumber();
+```
+
+:::details[How it works]
+
+1. We create a `memoryClient` that runs an Ethereum node entirely in memory built with TypeScript and Wasm
+2. We use the [`viem` api](https://viem.sh) to query it.
+   :::
+
+#### Fork client
+
+You can fork an existing chain similar to Anvil and Hardhat.
+
+```typescript
+import { createMemoryClient } from "tevm";
+import { http } from "viem"; // http is available in tevm package as well for convenience
+import { mainnet } from "tevm/chains";
+
+const forkClient = createMemoryClient({
+  fork: {
+    transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"),
+    common: mainnet,
+  },
+});
+```
+
+(coming soon) You can give this client out a try right now using the Tevm CLI
+
+```bash
+bunx tevm tevmCall --rpc=https://mainnet.optimism.io
+```
+
+:::details[How it works]
+
+1. We create a `memoryClient` like before but this time we pass in a transport
+2. Tevm will fetch the latest block upon creation
+3. As Tevm executes it will lazily fetch state from the fork url
+4. Tevm has optimizations that make it more efficient at fetching state than alternatives like Anvil or Hardhat
+   :::
+
+#### Rebasing client (coming soon)
+
+This powerful client will not only fork an existing chain but it will also listen for new blocks. As new blocks come in it will rebase it's state on the existing chain.
+
+```typescript
+import { createMemoryClient } from "tevm";
+import { http } from "viem";
+import { mainnet } from "tevm/chains";
+
+const forkClient = createMemoryClient({
+  fork: {
+    transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"),
+    common: mainnet,
+    rebase: true,
+  },
+});
+```
+
+:::details[How it works]
+
+1. We create a `memoryClient` like our forked client but this time we pass in `rebase: true`
+2. Tevm will fork just like before
+3. Tevm will update it's fork as "latest" tag changes on the forked chain making sure to efficiently invalidate any state it needs to.
+   :::
+
+#### Tree-shakable client
+
+In addition to using `createMemoryClient` Tevm supports the Viem tree-shakable api.
+
+```typescript
+import { createClient, http } from "viem";
+import { createTevmTransport } from "tevm/memory-client";
+import { optimism } from "tevm/common";
+
+const client = createClient({
+  transport: createTevmTransport({
+    fork: { transport: http("https://mainnet.optimism.io") },
+    common: optimism,
+  }),
+});
+
+// Import actions from viem
+import { getBlockNumber } from "viem";
+
+await getBlockNumber(client);
+```
+
+The tree-shakable API will not include any viem or tevm actions you aren't using. For apps running in the browser the tree-shakable client is recomended to keep bundle size minimal.
+
+#### Ethers client
+
+In addition to viem support Tevm plugs into Ethers as well as any other library that supports the `EIP-1193 Provider` standard.
+
+```typescript
+import { TevmProvider } from "tevm/ethers";
+import { http, toHex, parseEth } from "tevm";
+const provider = await TevmProvider.createMemoryProvider({
+  fork: {
+    transport: http("https://mainnet.optimism.io"),
+  },
+});
+await provider.send("tevm_setAccount", [
+  {
+    address: `0x${"69".repeat(20)}`,
+    nonce: toHex(1),
+    balance: toHex(parseEth("25")),
+  },
+]);
+```
+
+### Use your client to read and write to an in-memory blockchain
+
+Below is a complete typical flow of using Tevm to:
+
+1. Add a contract to the Tevm state
+2. Write to the contract with viem
+3. Mine a new block with the transaction
+4. Read from contract with viem
+
+```ts showLineNumbers {1,11-13,22} filename="simple-contract.ts"
+import { createMemoryClient, PREFUNDED_ACCOUNTS } from "tevm";
+import { http } from "viem";
+import { SimpleContract } from "tevm/contract";
+import { optimism } from "tevm/common";
+
+// Create an in-memory Ethereum client forking optimism
+const client = createMemoryClient({
+  common: optimism,
+  fork: { transport: http("https://mainnet.optimism.io") },
+});
+
+const contract = SimpleContract.withAddress(`0x${"40".repeat(20)}`);
+
+// Deploy contract bytecode. There are many ways to do this including tevmDeploy.
+// Here we just use an anvil test action
+await client.setCode({
+  address: contract.address,
+  bytecode: contract.deployedBytecode,
+});
+
+// Write to contract
+await client.writeContract({
+  account: PREFUNDED_ACCOUNTS[0],
+  abi: contract.abi,
+  functionName: "set",
+  args: [420n],
+  address: contract.address,
+});
+
+await client.tevmMine();
+
+// Read from contract
+const value = await client.readContract({
+  abi: contract.abi,
+  functionName: "get",
+  address: contract.address,
+});
+
+console.log(value); // 420n
+```
+
+:::details[How it works]
+
+1. We create a `memoryClient` that runs an Ethereum node entirely in memory
+2. We define a contract and its address
+3. We deploy the contract using `setCode` (simpler than a full deployment transaction)
+4. We write to the contract using a familiar viem-style interface
+5. We mine the transaction to include it in a block
+6. We read the updated value from the contract
+   :::
+
+### Key Points:
+
+- **Familiar Interface** — Tevm uses [viem](https://viem.sh) as its primary API, making it instantly familiar to viem users
+- **Ethers Support** - Tevm also supports `ethers.js` as via the `EIP-1193 provider` standard
+- **In-Memory Execution** — TevmNode runs the Ethereum environment directly in memory rather than using JSON-RPC over HTTP
+- **Full Control** — Mine blocks on demand, manipulate state, and more
+- **Cross platform** - Run your ethereum node in the browser
+- **Powerful** - Comes with many advantages over an `Anvil`, `Ganache`, or `Hardhat` node
+
+### Start Building
+
+You're now ready to build with Tevm!
+
+```ts
+// Runs in browsers, Node.js, Deno, Bun and beyond
+// Zero native dependencies
+import { createMemoryClient } from "tevm";
+// Optionally import solidity contracts directly into typescript in a typesafe way
+// This requires the Tevm Bundler to be set up (see Bundler Quickstart)
+import { ComplexSimulation } from "../contracts/ComplexSimulation.s.sol";
+
+const client = createMemoryClient();
+
+// Use the viem api you already know
+console.log(await client.getBlockNumber());
+
+// Or use powerful typescript native apis
+const {
+  data,
+  error,
+  logs,
+  createdAddresses,
+  executionGasUsed,
+  l1Fee,
+  trace,
+  accessList,
+  txHash,
+} = await client.tevmContract({
+  deployedBytecode: ComplexSimulation.deployedBytecode,
+  ...ComplexSimulation.read.simulate(2n, "arg2"),
+  createTrace: true,
+  createAccessList: true,
+  createTransaction: true,
+  throwOnFail: false,
+  onStep: (step, next) => {
+    console.log(step.opcode);
+    next?.();
+  },
+});
+```
+
+::::
+
+## Essential viem concepts
 
 If you're new to Ethereum development, don't worry! Tevm serves as an excellent learning platform for both Ethereum and TypeScript:
 
-<Callout type="info">
+:::info
+
 - **Isolated Environment** — Experiment freely without worrying about network costs or confirmation times
 - **TypeScript Integration** — Get full type safety and autocomplete for Ethereum interactions
 - **Simple API Surface** — Focus on learning core concepts with a streamlined interface
 - **Step Debugger** — Trace transaction execution at the opcode level for deep understanding
-</Callout>
+  :::
+
+For users new to viem it is recomended you at least become [familiar with viem](https://viem.sh). But as a short introduction of the essential concepts you need to know:
+
+- `Clients` are made with `createClient`, `createPublicClient`, `createWalletClient`, `createTestClient`, and `createMemoryClient` and are the main abstraction you interact with.
+- `Actions` such as `getBlockNumber`, `call`, `readContract`, `estimateGas`, and `tevmSetAccount` are how you interact with `viem` and `tevm`
+- `Transports` such as `http` and `createTevmTransport` are EIP-1193 compatable providers used to resolve JSON-RPC requests. Both `viem` and `tevm` use transports such as the `http()` transport to fetch remotely over http
+- `TevmNode` itself is a transport that plugs an in-memory ethereum node into viem to resolve JSON-RPC requests
 
 ## Ready to dive in right away?
 

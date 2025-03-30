@@ -3,7 +3,7 @@ layout: landing
 ---
 
 import { Button, HomePage } from "vocs/components";
-import { Card } from "../../components";
+import { Card } from "../components";
 
 <HomePage.Root>
   <div style={{ textAlign: 'center', margin: '0 auto', maxWidth: '200px' }}>
@@ -16,9 +16,13 @@ import { Card } from "../../components";
   <HomePage.Tagline>Ethereum Node for Viem</HomePage.Tagline>
   <HomePage.InstallPackage name="tevm" type="install" />
 
+{" "}
+
 <HomePage.Description>
   An Ethereum Node built to run in Browser, Bun, Deno, and Node.js
 </HomePage.Description>
+
+{" "}
 
   <div className="code-snippet" style={{
     maxWidth: '600px',
@@ -109,17 +113,24 @@ import { Card } from "../../components";
 
   </div>
 
-  <div className="max-w-[800px] mx-auto my-12 p-8 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-    <div className="grid grid-cols-1">
-      <blockquote className="m-0 text-base border-l-4 border-blue-500 pl-4">
-        "If you're building a blockchain application on the web, I'm almost certain there is a use case for Tevm. It might change everything, and at worst it would most likely improve your devX."
-        <div className="mt-3 font-medium">
-          polarzero
-          <a href="https://twitter.com/0xpolarzero" className="text-sm text-blue-500 ml-2">@0xpolarzero</a>
-        </div>
-      </blockquote>
-    </div>
+<div className="max-w-[800px] mx-auto my-12 p-8 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+  <div className="grid grid-cols-1">
+    <blockquote className="m-0 text-base border-l-4 border-blue-500 pl-4">
+      "If you're building a blockchain application on the web, I'm almost
+      certain there is a use case for Tevm. It might change everything, and at
+      worst it would most likely improve your devX."
+      <div className="mt-3 font-medium">
+        polarzero
+        <a
+          href="https://twitter.com/0xpolarzero"
+          className="text-sm text-blue-500 ml-2"
+        >
+          @0xpolarzero
+        </a>
+      </div>
+    </blockquote>
   </div>
+</div>
 
   <div className="max-w-[800px] mx-auto my-20 text-center">
     <h2 style={{ fontSize: "2.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Turn Solidity into TypeScript</h2>
@@ -183,9 +194,15 @@ import { Card } from "../../components";
     </div>
   </div>
 
+{" "}
 
 <div className="max-w-[600px] mx-auto my-16 text-center">
-  <Button href="/getting-started/overview" variant="accent" className="text-lg px-8 py-4" style={{ fontSize: "1.25rem", padding: "1rem 3rem" }}>
+  <Button
+    href="/getting-started/overview"
+    variant="accent"
+    className="text-lg px-8 py-4"
+    style={{ fontSize: "1.25rem", padding: "1rem 3rem" }}
+  >
     Ready to get started?
   </Button>
 </div>

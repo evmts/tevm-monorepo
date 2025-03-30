@@ -6,15 +6,18 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Steps, Step } from "vocs/components";
-
-import { Callout, Steps, Step, Button } from 'vocs/components'
-import { Tab, TabGroup, Card, CardGrid } from '../../../components'
+import { Callout, Steps, Step, Button } from "vocs/components";
+import { Tab, TabGroup, Card, CardGrid } from "../../components";
 
 # Using with Ethers.js v6
 
 <Callout type="info" emoji="⚡">
-  Tevm integrates seamlessly with <a href="https://docs.ethers.org/v6/" target="_blank">Ethers.js v6</a>, allowing you to use your favorite Ethereum library alongside Tevm's powerful in-memory EVM capabilities.
+  Tevm integrates seamlessly with{" "}
+  <a href="https://docs.ethers.org/v6/" target="_blank">
+    Ethers.js v6
+  </a>
+  , allowing you to use your favorite Ethereum library alongside Tevm's powerful
+  in-memory EVM capabilities.
 </Callout>
 
 This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Ethereum applications with a familiar, developer-friendly API.
@@ -40,6 +43,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
       pnpm add tevm ethers
       ```
     </details>
+
   </Step>
 
   <Step title="Create the Tevm Node">
@@ -68,6 +72,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
     <Callout type="tip">
       The <code>requestEip1193()</code> decorator is essential - it adds the standard Ethereum provider interface that Ethers.js requires.
     </Callout>
+
   </Step>
 
   <Step title="Create an Ethers Provider">
@@ -107,6 +112,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
         ```
       </Tab>
     </TabGroup>
+
   </Step>
 
   <Step title="Set Up a Wallet">
@@ -126,6 +132,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
     const balance = await provider.getBalance(signer.address)
     console.log(`Initial wallet balance: ${balance} wei (${balance === 0n ? 'empty' : balance})`)
     ```
+
   </Step>
 
   <Step title="Fund the Account">
@@ -148,6 +155,7 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
     <Callout type="tip">
       This direct state manipulation is one of Tevm's powerful features - it allows you to set up any testing scenario without complex transactions.
     </Callout>
+
   </Step>
 </Steps>
 
@@ -171,39 +179,36 @@ This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Et
 ## Reading from Contracts
 
 <Callout type="tip" emoji="📚">
-  Ethers.js Contract objects work seamlessly with Tevm, allowing you to query on-chain data with a simple, type-safe API.
+  Ethers.js Contract objects work seamlessly with Tevm, allowing you to query
+  on-chain data with a simple, type-safe API.
 </Callout>
 
 ```ts
-import { Contract } from 'ethers'
-import { parseAbi } from 'tevm'
-import { formatUnits } from 'ethers'
+import { Contract } from "ethers";
+import { parseAbi } from "tevm";
+import { formatUnits } from "ethers";
 
 // Define contract ABI
 const abi = parseAbi([
-  'function balanceOf(address owner) view returns (uint256)',
-  'function decimals() view returns (uint8)',
-  'function symbol() view returns (string)',
-  'function name() view returns (string)'
-])
+  "function balanceOf(address owner) view returns (uint256)",
+  "function decimals() view returns (uint8)",
+  "function symbol() view returns (string)",
+  "function name() view returns (string)",
+]);
 
 // Create a contract instance (using USDC on mainnet for this example)
-const usdcAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-const usdc = new Contract(usdcAddress, abi, provider)
+const usdcAddress = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
+const usdc = new Contract(usdcAddress, abi, provider);
 
 // Read multiple values concurrently for efficiency
-const [
-  balance,
-  decimals,
-  symbol,
-  name
-] = await Promise.all([
-  usdc.balanceOf('0x6B175474E89094C44Da98b954EedeAC495271d0F'), // DAI address
+const [balance, decimals, symbol, name] = await Promise.all([
+  usdc.balanceOf("0x6B175474E89094C44Da98b954EedeAC495271d0F"), // DAI address
   usdc.decimals(),
   usdc.symbol(),
-  usdc.name()
-])
+  usdc.name(),
+]);
 
 // Format the results
-console.log(`${name} (${symbol})`)
-console.log(`Balance: ${formatUnits(balance, decimals)} ${symbol}`)
+console.log(`${name} (${symbol})`);
+console.log(`Balance: ${formatUnits(balance, decimals)} ${symbol}`);
+```

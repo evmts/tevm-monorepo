@@ -6,22 +6,172 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Steps, Button, Tabs, Tab, Step } from "vocs/components";
-import { Card, TabGroup, FileTree } from "../../../components";
+import { Callout, Steps, Button } from "vocs/components";
+import { Card, TabGroup, FileTree } from "../../components";
 
-# Why Run Ethereum in JavaScript?
+# Why Run An Ethereum Node in JavaScript?
 
-JavaScript has emerged as an ideal environment for running Ethereum, offering unique advantages for both developers and end-users. Here's why running an Ethereum node in JavaScript unlocks powerful new capabilities.
+> You know what would make solving all these problems trivially easy? If we just were able to use Foundry in the browser
+
+This is what [Fucory](https://x.com/fucory) thought the day he started building Tevm. Fucory created Tevm to solve all UX and Devx issues blocking the delivery of great blockchain apps. The original idea was to put the foundry API in the browser and the library evolved from there. Because of Tevm's wide ambitious scope Tevm's use case is simply TypeScript+EVM. If you are building on the EVM and you are using TypeScript Tevm will help you. And here is why.
+
+> We believe every TypeScript user of the EVM who installs Viem will also install Tevm alongside it in the future
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+    gap: "1rem",
+    margin: "1.5rem 0",
+  }}
+>
+  <div
+    style={{
+      border: "1px solid var(--vocs-color_borderAccent)",
+      borderRadius: "var(--vocs-borderRadius_4)",
+      padding: "1.25rem",
+      backgroundColor: "var(--vocs-color_backgroundBlueTint)",
+    }}
+  >
+    <h3
+      style={{
+        fontSize: "var(--vocs-fontSize_18)",
+        fontWeight: "var(--vocs-fontWeight_medium)",
+        marginTop: 0,
+        marginBottom: "0.75rem",
+        color: "var(--vocs-color_textBlue)",
+      }}
+    >
+      🚀 Enhanced Performance
+    </h3>
+    <p
+      style={{
+        margin: 0,
+        fontSize: "var(--vocs-fontSize_14)",
+      }}
+    >
+      Execute transactions locally with near-zero latency for gas estimation,
+      transaction simulation, and debugging.
+    </p>
+  </div>
+
+<div
+  style={{
+    border: "1px solid var(--vocs-color_borderAccent)",
+    borderRadius: "var(--vocs-borderRadius_4)",
+    padding: "1.25rem",
+    backgroundColor: "var(--vocs-color_backgroundBlueTint)",
+  }}
+>
+  <h3
+    style={{
+      fontSize: "var(--vocs-fontSize_18)",
+      fontWeight: "var(--vocs-fontWeight_medium)",
+      marginTop: 0,
+      marginBottom: "0.75rem",
+      color: "var(--vocs-color_textBlue)",
+    }}
+  >
+    💻 Browser Compatibility
+  </h3>
+  <p
+    style={{
+      margin: 0,
+      fontSize: "var(--vocs-fontSize_14)",
+    }}
+  >
+    Enable sophisticated dApp features like offline capabilities, optimistic UI
+    updates, and real-time simulations.
+  </p>
+</div>
+
+<div
+  style={{
+    border: "1px solid var(--vocs-color_borderAccent)",
+    borderRadius: "var(--vocs-borderRadius_4)",
+    padding: "1.25rem",
+    backgroundColor: "var(--vocs-color_backgroundBlueTint)",
+  }}
+>
+  <h3
+    style={{
+      fontSize: "var(--vocs-fontSize_18)",
+      fontWeight: "var(--vocs-fontWeight_medium)",
+      marginTop: 0,
+      marginBottom: "0.75rem",
+      color: "var(--vocs-color_textBlue)",
+    }}
+  >
+    🔍 Debug Superpowers
+  </h3>
+  <p
+    style={{
+      margin: 0,
+      fontSize: "var(--vocs-fontSize_14)",
+    }}
+  >
+    Step through EVM execution opcode by opcode to understand exactly what's
+    happening in your smart contracts.
+  </p>
+</div>
+
+  <div
+    style={{
+      border: "1px solid var(--vocs-color_borderAccent)",
+      borderRadius: "var(--vocs-borderRadius_4)",
+      padding: "1.25rem",
+      backgroundColor: "var(--vocs-color_backgroundBlueTint)",
+    }}
+  >
+    <h3
+      style={{
+        fontSize: "var(--vocs-fontSize_18)",
+        fontWeight: "var(--vocs-fontWeight_medium)",
+        marginTop: 0,
+        marginBottom: "0.75rem",
+        color: "var(--vocs-color_textBlue)",
+      }}
+    >
+      🛠️ Familiar Developer Experience
+    </h3>
+    <p
+      style={{
+        margin: 0,
+        fontSize: "var(--vocs-fontSize_14)",
+      }}
+    >
+      Works seamlessly with the libraries you already know - viem, ethers, or
+      any EIP-1193 compatible tool.
+    </p>
+  </div>
+</div>
+
+:::info[Did you know?]
+Tevm Node is part of a larger ecosystem that also includes [Tevm Bundler](https://tevm.sh/bundler), which allows for direct Solidity imports into JavaScript/TypeScript.
+:::
 
 ## Performance & Efficiency
 
 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
-  <Card title="⚡ Zero Network Latency">
+  <Card title="⚡ An optimized fork mode">
     <p>
-      Running the EVM locally eliminates round-trip delays to remote nodes,
-      enabling near-instantaneous transaction simulations and gas estimations.
+      Tevm is benchmarked to perform better than even Anvil at executing calls in `forked` mode. This is possible via more efficient storage slot retrieval.
     </p>
   </Card>
+
+<Card title="⚡ Zero Network Latency">
+  <p>
+    Running the EVM locally eliminates round-trip delays to remote nodes,
+    enabling near-instantaneous transaction simulations and gas estimations.
+  </p>
+</Card>
+
+<Card title="Local-first gas estimation">
+  <p>
+    Imagine not having to show a user a loading spinner when estimating gas
+    while saving on RPC credits.
+  </p>
+</Card>
 
   <Card title="🔄 Powerful JS interop">
     <p>
@@ -31,29 +181,64 @@ JavaScript has emerged as an ideal environment for running Ethereum, offering un
   </Card>
 </div>
 
+## Optimistic updates
+
+Oftentimes you want to show the user what the state of their account is expected to be. Possibly we want to show them the expected state changes from their transaction or series of transactions before they submit. Or maybe we are trying to build snappy UI so we want to show them the updated state right away with a pending icon. Tevm makes implementing optimistic state simple.
+
+```typescript
+// create a client in rebase mode so it updates optimistic state as new blocks come in
+const client = createMemoryClient({
+  fork: {
+    transport: http("https://mainnet.optimism.io"),
+    rebase: true,
+  },
+  common: optimism,
+});
+
+// When we send a transaction to the network send it to Tevm too
+// We do not mine the transaction as we want it to just be in our mempool
+const txHash = await client.sendRawTransaction(tx);
+
+client.waitForTransactionReceipt({ hash: txHash }).then(() => {
+  // remove the tx from optimistic state after it is included in chain
+  const mempool = await client.transport.tevm.getTxPool();
+  await mempool.removeTxByHash(txHash);
+});
+
+// continue to query the latest state by default
+await client.getBalance({ address, blockTag: "latest" });
+// or query optimistic state with 'pending' block tag
+await client.getBalance({ address, blockTag: "pending" });
+```
+
 ### Real-World Performance Benefits
+
+The `estimate_gas` example is the easiest example to illustrate this.
 
 <Callout type="info" title="Performance Comparison">
   Tevm's local execution provides instantanious gas estimation!
 </Callout>
 
-```typescript showLineNumbers filename="performance-comparison.ts"
-const gasEstimate0 = await provider.estimateGas({ ... }) // ~200ms as it fetches state
-const gasEstimate0 = await provider.estimateGas({ ... }) // ~Instant on future estimations with cache saved
-const gasEstimate0 = await provider.estimateGas({ ... }) // ~Instant on future estimations with cache saved
+```typescript showLineNumbers {1-4,8-11} filename="performance-comparison.ts"
+const gasEstimate0 = await client.estimateGas({ ... }) // ~200ms as it fetches state (unless you prewarmed the cache)
+const gasEstimate0 = await client.estimateGas({ ... }) // ~Instant on future estimations with cache saved
+const gasEstimate0 = await client.estimateGas({ ... }) // ~Instant on future estimations with cache saved
 ```
+
+Note: because Tevm can plug directly into wagmi this works as well via `useGasEstimate`
 
 ## Enhanced User Experiences
 
 JavaScript-based EVM execution enables entirely new categories of dApp features:
 
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
-  <Card title="📱 Offline Capabilities">
+  <Card title="Maximally hackable">
     <p>
-      Enable local-first applications that work without constant network
-      connectivity.
+      Tevm gives you complete control including it's deep internals in a way no other node does. Almost all use cases can be supported.
     </p>
   </Card>
+
+{" "}
 
 <Card title="⚡ Optimistic UI">
   <p>
@@ -61,11 +246,16 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
   </p>
 </Card>
 
-<Card title="🛡️ Improved Reliability">
+{" "}
+
+<Card title="🛡️ Reliable">
   <p>
-    Reduce dependency on external infrastructure, making dApps more resilient.
+    Tevm has near 100% test coverage and a history of fixing most reported bugs
+    in under 24 hours.
   </p>
 </Card>
+
+{" "}
 
 <Card title="🧮 Transaction Simulation">
   <p>
@@ -81,102 +271,121 @@ JavaScript-based EVM execution enables entirely new categories of dApp features:
   </Card>
 </div>
 
-## Developer Experience Advantages
+## Top Tier Devx
 
-<Steps>
-   ### Advanced Debugging 🔬
-  
-  Step through EVM execution opcode by opcode, inspect memory and stack, and see exactly what happens in your contracts.
-  
-  ```typescript filename="debug-example.ts"
-  // Listen to every EVM instruction
-  vm.evm.events.on('step', (data, next) => {
-    console.log(
-      `${data.pc.toString().padStart(5)}:`,
-      `${data.opcode.name.padEnd(10)}`,
-      `gas: ${data.gasLeft.toString().padStart(8)}`,
-      `stack: ${data.stack.join(', ')}`
-    )
-    next()
-  })
-  ```
+### Use the tools you already know
+
+Tevm users report the library having great devx. A lot of this is owed to it's abilility to plug directly into the tools you are already using like `wagmi`, `viem`, and `ethers`.
+
+### Interop with contracts effortlessly
+
+We cannot talk about developer experience in Tevm without bringing up the `Tevm Bundler`.
+
+The Tevm Bundler is an optional addon to Tevm that makes TypeScript aware of how to process and compile Solidity. It is a tool in the same category as the `Wagmi CLI` or `Typechain` but even more powerful and ergonomic.
+
+The devx using the bundler is optimized in following ways:
+
+- Natspec on hover
+- Typesafe contract
+- TRPC like experience. You will see red underlines before you even save a solidity file
+- No need to set up external build tools. Plugs directly into your existing js pipeline
+- Supports reading foundry config for remappings and lib
+
+#### Import solidity directly
+
+The Tevm Bundler doesn't require compiling your contracts as it has a compiler built in. You can import solidity directly.
+
+```typescript
+import { MyContract } from "./MyContract.sol";
+
+console.log(MyContract.abi);
+```
+
+You can also import from node_modules or foundry projects. Tevm supports remappings, lib, and other advanced options. Unlike Foundry Tevm supports node_module resolution by default.
+
+#### Use contracts via address
+
+If you know your contract address and it's already deployed you don't need to manually specify anything. You can simply reference it by address and Tevm will pull the ABI at build time. This even works for unverified contracts.
+
+```typescript
+// create a macro file for your contracts
+import { client } from "./clients.js";
+
+export const MyContract = await client.whatsabi(`0x...`);
+```
+
+```typescript
+// import your macro using tevm and Tevm will fetch your contracts at buildtime
+import {MyContract} from './MyContract.js' as {type: 'tevm'}
+```
+
+### Low level control of the EVM
+
+Most tools like `anvil` run in a seperate process and you communicate over HTTP. Tevm runs in memory and gives you access directly to the node. This allows for powerful programmability not possible with any other tool.
+
+#### Run callbacks on every EVM step 🔬
+
+Step through EVM execution opcode by opcode, inspect memory and stack, and see exactly what happens in your contracts.
+
+```typescript filename="debug-example.ts"
+// Listen to every EVM instruction
+vm.evm.events.on("step", (data, next) => {
+  console.log(
+    `${data.pc.toString().padStart(5)}:`,
+    `${data.opcode.name.padEnd(10)}`,
+    `gas: ${data.gasLeft.toString().padStart(8)}`,
+    `stack: ${data.stack.join(", ")}`,
+  );
+  next();
+});
+```
+
+You can even modify what the EVM is doing as it executes if you choose to.
+
+#### Mock EVM contracts with JavaScript contracts
+
+Tevm offers the advanced ability to write a contract in JavaScript which can be powerful in advanced use cases.
+
+Precompiles are similar to foundry cheat codes but rather than a standard library of cheat codes Tevm lets you write arbitrary JavaScript to do whatever you need to do.
+
+It works very nicely with the Tevm Bundler
+
+```typescript
+import {
+  defineCall,
+  definePrecompile,
+  createContract,
+  createMemoryClient,
+} from "tevm";
+import { readFile } from "fs/promises";
+
+const contract = createContract({
+  address: `0x${"1234".repeat(10)}`,
+  humanReadableAbi: ["function readFile(string fileName) returns string"],
+});
+
+const { precompile } = definePrecompile({
+  contract,
+  call: defineCall(contract.abi, {
+    readFile: ({ args }) => {
+      return {
+        data: await readFile(args.fileName, "utf8"),
+        gasUsed: 0n,
+      };
+    },
+  }),
+});
+
+// then add your precompile to the evm
+const memoryClient = createMemoryClient({
+  precompiles: [precompile()],
+});
+```
 
 ### Deterministic Testing 🧪
 
+While tevm is primarily built for applicaiton development it just so happens to be great at testing too.
 Create fully reproducible environments for testing with complete control over blockchain state, time, and mining.
-
-```typescript filename="testing-example.ts"
-// Create a snapshot before test
-const snapshotId = await client.tevmSnapshot()
-
-// Run the test
-await client.setBalance({ address: testAccount, value: parseEther("100") })
-await client.sendTransaction({ ... })
-await client.mine({ blocks: 1 })
-const result = await client.call({ ... })
-
-// Restore state after test
-await client.tevmRevert({ snapshotId })
-```
-
-### Portable Environment 💼
-
-The same Ethereum environment works across Node.js, browsers, serverless functions, and other JavaScript runtimes.
-
-  <TabGroup items={['Browser', 'Node.js', 'Serverless']}>
-    <div data-title="Browser">
-      ```ts
-      import { createMemoryClient } from 'tevm'
-      
-      // Create an in-browser Ethereum node
-      const client = createMemoryClient()
-      
-      document.querySelector('#button').addEventListener('click', async () => {
-        const balance = await client.getBalance({
-          address: '0x...'
-        })
-        console.log(`Balance: ${formatEther(balance)} ETH`)
-      })
-      ```
-    </div>
-    <div data-title="Node.js">
-      ```ts
-      import { createMemoryClient } from 'tevm'
-      
-      // Create a Node.js Ethereum node
-      const client = createMemoryClient()
-      
-      async function main() {
-        const balance = await client.getBalance({
-          address: '0x...'
-        })
-        console.log(`Balance: ${formatEther(balance)} ETH`)
-      }
-      
-      main().catch(console.error)
-      ```
-    </div>
-    <div data-title="Serverless">
-      ```ts
-      import { createMemoryClient } from 'tevm'
-      
-      export async function handler(event) {
-        // Create a serverless Ethereum node
-        const client = createMemoryClient()
-        
-        const balance = await client.getBalance({
-          address: event.address
-        })
-        
-        return {
-          statusCode: 200,
-          body: JSON.stringify({ balance: balance.toString() })
-        }
-      }
-      ```
-    </div>
-  </TabGroup>
-</Steps>
 
 ## Solidity Imports
 
@@ -186,13 +395,6 @@ Tevm Bundler (optional feature) creates the best devx for working with solidity 
 // Import solidity files directly into TS files
 import { MyContract } from "./MyContract.sol";
 ```
-
-The devx is optimized in following ways:
-
-- Natspec on hover
-- Typesafe contract
-- TRPC like experience. You will see red underlines before you even save a solidity file
-- No need to set up external build tools. Plugs directly into your existing js pipeline
 
 ## JavaScript Ecosystem Integration
 
@@ -206,21 +408,31 @@ The devx is optimized in following ways:
     <p>Type-safe contract interactions with full IntelliSense support</p>
   </Card>
 
+{" "}
+
 <Card title="⚛️ UI Frameworks">
   <p>React, Vue, Svelte and other frontend libraries</p>
 </Card>
+
+{" "}
 
 <Card title="🏗️ Build Tools">
   <p>Vite, Webpack, ESBuild and other bundlers</p>
 </Card>
 
+{" "}
+
 <Card title="🧪 Testing">
   <p>Vitest support via Vite</p>
 </Card>
 
+{" "}
+
 <Card title="🔄 Runtimes">
   <p>Node.js, browsers, Electron, serverless functions</p>
 </Card>
+
+{" "}
 
 <Card title="📦 NPM Ecosystem">
   <p>Access to millions of packages and libraries in the npm registry</p>
