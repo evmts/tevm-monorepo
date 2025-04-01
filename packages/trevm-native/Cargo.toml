@@ -1,0 +1,22 @@
+[package]
+name = "tevm_trevm_native"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Native Node.js bindings for trevm Ethereum VM"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = { version = "2.12.2", features = ["async"] }
+napi-derive = "2.12.2"
+trevm = { path = "../../lib/trevm" }
+serde = { version = "1.0.188", features = ["derive"] }
+serde_json = "1.0.107"
+tokio = { version = "1.32.0", features = ["full"] }
+alloy-primitives = "0.5.3"
+hex = "0.4.3"
+
+[build-dependencies]
+napi-build = "2.0.1"
