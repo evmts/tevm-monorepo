@@ -6,209 +6,131 @@ authors:
   - "[Tevm Team](https://github.com/evmts)"
 ---
 
-import { Callout, Steps, Step, Button } from "vocs/components";
-import { Tab, TabGroup, Card, CardGrid } from "../../components";
-
 # Using with Ethers.js v6
 
-<Callout type="info" emoji="⚡">
-  Tevm integrates seamlessly with{" "}
-  <a href="https://docs.ethers.org/v6/" target="_blank">
-    Ethers.js v6
-  </a>
-  , allowing you to use your favorite Ethereum library alongside Tevm's powerful
-  in-memory EVM capabilities.
-</Callout>
+> **Info:** Tevm integrates seamlessly with [Ethers.js v6](https://docs.ethers.org/v6/) allowing you to use your favorite Ethereum library alongside Tevm's powerful in-memory EVM capabilities.
 
 This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Ethereum applications with a familiar, developer-friendly API.
 
 ## Setup
 
-<Steps>
-  <Step title="Install Dependencies">
-    First, install the required packages:
+### 1. Install Dependencies
 
-    ```bash
-    npm install tevm ethers
-    ```
+First, install the required packages:
 
-    <details>
-      <summary>Using Yarn or pnpm?</summary>
+```bash
+npm install tevm ethers
+```
 
-      ```bash
-      # Yarn
-      yarn add tevm ethers
+**Using Yarn or pnpm?**
+```bash
+# Yarn
+yarn add tevm ethers
 
-      # pnpm
-      pnpm add tevm ethers
-      ```
-    </details>
+# pnpm
+pnpm add tevm ethers
+```
 
-  </Step>
+### 2. Create the Tevm Node
 
-  <Step title="Create the Tevm Node">
-    Set up a Tevm node with EIP-1193 compatibility:
+Set up a Tevm node with EIP-1193 compatibility:
 
-    ```ts
-    import { createTevmNode } from 'tevm'
-    import { requestEip1193 } from 'tevm/decorators'
+```ts
+import { createTevmNode } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
 
-    // Create a Tevm Node with optional configuration
-    const node = createTevmNode({
-      // Configure mining behavior (auto or interval)
-      miningConfig: {
-        type: 'interval',
-        interval: 2000 // Mine blocks every 2 seconds
-      }
-    })
+// Create a Tevm Node with optional configuration
+const node = createTevmNode({
+  // Configure mining behavior (auto or interval)
+  miningConfig: {
+    type: 'interval',
+    interval: 2000 // Mine blocks every 2 seconds
+  }
+})
 
-    // Add EIP-1193 compatibility layer for Ethers.js
-    const nodeWithEip1193 = node.extend(requestEip1193())
+// Add EIP-1193 compatibility layer for Ethers.js
+const nodeWithEip1193 = node.extend(requestEip1193())
 
-    // Wait for the node to be ready
-    await node.ready()
-    ```
+// Wait for the node to be ready
+await node.ready()
+```
 
-    <Callout type="tip">
-      The <code>requestEip1193()</code> decorator is essential - it adds the standard Ethereum provider interface that Ethers.js requires.
-    </Callout>
+> **Tip:** The `requestEip1193()` decorator is essential - it adds the standard Ethereum provider interface that Ethers.js requires.
 
-  </Step>
+### 3. Create an Ethers Provider
 
-  <Step title="Create an Ethers Provider">
-    Connect Ethers to your Tevm node:
+Connect Ethers to your Tevm node:
 
-    <TabGroup>
-      <Tab label="BrowserProvider (Recommended)">
-        ```ts
-        import { BrowserProvider } from 'ethers'
+#### BrowserProvider (Recommended)
 
-        // Create a provider using the EIP-1193 compatible node
-        const provider = new BrowserProvider(nodeWithEip1193)
+```ts
+import { BrowserProvider } from 'ethers'
 
-        // Test the connection
-        const blockNumber = await provider.getBlockNumber()
-        console.log(`Connected to block: ${blockNumber}`)
-        ```
+// Create a provider using the EIP-1193 compatible node
+const provider = new BrowserProvider(nodeWithEip1193)
 
-        <Callout type="success">
-          BrowserProvider is recommended for most applications - it's the modern Ethers.js provider and handles all async operations correctly.
-        </Callout>
-      </Tab>
+// Test the connection
+const blockNumber = await provider.getBlockNumber()
+console.log(`Connected to block: ${blockNumber}`)
+```
 
-      <Tab label="JsonRpcProvider (Legacy)">
-        ```ts
-        import { JsonRpcProvider } from 'ethers'
+> **Success:** BrowserProvider is recommended for most applications - it's the modern Ethers.js provider and handles all async operations correctly.
 
-        // For legacy code bases that require JsonRpcProvider
-        const legacyProvider = new JsonRpcProvider(
-          // Pass the node as an endpoint
-          nodeWithEip1193
-        )
+#### JsonRpcProvider (Legacy)
 
-        // Test the connection
-        const network = await legacyProvider.getNetwork()
-        console.log(`Connected to network: ${network.name} (${network.chainId})`)
-        ```
-      </Tab>
-    </TabGroup>
+```ts
+import { JsonRpcProvider } from 'ethers'
 
-  </Step>
+// For legacy code bases that require JsonRpcProvider
+const legacyProvider = new JsonRpcProvider(
+  // Pass the node as an endpoint
+  nodeWithEip1193
+)
 
-  <Step title="Set Up a Wallet">
-    Create a wallet for transactions:
+// Test the connection
+const network = await legacyProvider.getNetwork()
+console.log(`Connected to network: ${network.name} (${network.chainId})`)
+```
 
-    ```ts
-    import { Wallet } from 'ethers'
+### 4. Set Up a Wallet
 
-    // Generate a random wallet
-    const wallet = Wallet.createRandom()
-    console.log(`Generated wallet address: ${wallet.address}`)
+Create a wallet for transactions:
 
-    // Connect the wallet to your provider
-    const signer = wallet.connect(provider)
+```ts
+import { Wallet } from 'ethers'
 
-    // The default balance will be zero
-    const balance = await provider.getBalance(signer.address)
-    console.log(`Initial wallet balance: ${balance} wei (${balance === 0n ? 'empty' : balance})`)
-    ```
+// Generate a random wallet
+const wallet = Wallet.createRandom()
+console.log(`Generated wallet address: ${wallet.address}`)
 
-  </Step>
+// Connect the wallet to your provider
+const signer = wallet.connect(provider)
 
-  <Step title="Fund the Account">
-    Use Tevm's state manipulation to fund your testing wallet:
+// The default balance will be zero
+const balance = await provider.getBalance(signer.address)
+console.log(`Initial wallet balance: ${balance} wei (${balance === 0n ? 'empty' : balance})`)
+```
 
-    ```ts
-    import { parseEther, formatEther } from 'ethers'
+### 5. Fund the Account
 
-    // Manipulate blockchain state directly with Tevm
-    await node.setAccount({
-      address: signer.address,
-      balance: parseEther('100') // Add 100 ETH
-    })
+Use Tevm's state manipulation to fund your testing wallet:
 
-    // Verify the new balance
-    const newBalance = await provider.getBalance(signer.address)
-    console.log(`New wallet balance: ${formatEther(newBalance)} ETH`)
-    ```
+```ts
+import { parseEther, formatEther } from 'ethers'
 
-    <Callout type="tip">
-      This direct state manipulation is one of Tevm's powerful features - it allows you to set up any testing scenario without complex transactions.
-    </Callout>
+// Manipulate blockchain state directly with Tevm
+await node.setAccount({
+  address: signer.address,
+  balance: parseEther('100') // Add 100 ETH
+})
 
-  </Step>
-</Steps>
+// Verify the new balance
+const newBalance = await provider.getBalance(signer.address)
+console.log(`New wallet balance: ${formatEther(newBalance)} ETH`)
+```
+
+> **Tip:** This direct state manipulation is one of Tevm's powerful features - it allows you to set up any testing scenario without complex transactions.
 
 ## Core Functionality
 
-<CardGrid>
-  <Card title="Reading Contracts" href="#reading-from-contracts">
-    Query contract state using Ethers.js Contract objects
-  </Card>
-  <Card title="Writing to Contracts" href="#writing-to-contracts">
-    Execute transactions and modify blockchain state
-  </Card>
-  <Card title="Event Handling" href="#event-handling">
-    Listen for and query contract events
-  </Card>
-  <Card title="Contract Deployment" href="#contract-deployment">
-    Deploy new contracts to your local Tevm environment
-  </Card>
-</CardGrid>
-
-## Reading from Contracts
-
-<Callout type="tip" emoji="📚">
-  Ethers.js Contract objects work seamlessly with Tevm, allowing you to query
-  on-chain data with a simple, type-safe API.
-</Callout>
-
-```ts
-import { Contract } from "ethers";
-import { parseAbi } from "tevm";
-import { formatUnits } from "ethers";
-
-// Define contract ABI
-const abi = parseAbi([
-  "function balanceOf(address owner) view returns (uint256)",
-  "function decimals() view returns (uint8)",
-  "function symbol() view returns (string)",
-  "function name() view returns (string)",
-]);
-
-// Create a contract instance (using USDC on mainnet for this example)
-const usdcAddress = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
-const usdc = new Contract(usdcAddress, abi, provider);
-
-// Read multiple values concurrently for efficiency
-const [balance, decimals, symbol, name] = await Promise.all([
-  usdc.balanceOf("0x6B175474E89094C44Da98b954EedeAC495271d0F"), // DAI address
-  usdc.decimals(),
-  usdc.symbol(),
-  usdc.name(),
-]);
-
-// Format the results
-console.log(`${name} (${symbol})`);
-console.log(`Balance: ${formatUnits(balance, decimals)} ${symbol}`);
-```
+- **Reading Contracts** -
