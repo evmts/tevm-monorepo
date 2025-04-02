@@ -79,12 +79,14 @@ npm install tevm tevm/contract
     errors = []
 
     try {
-      await vm.runTx({
-        tx: {
-          to: '0x1234...',
-          data: '0x...',  // Your transaction data
-        }
+      import { createImpersonatedTx } from 'tevm/tx'
+      
+      const tx = createImpersonatedTx({
+        to: '0x1234...',
+        data: '0x...',  // Your transaction data
       })
+      
+      await vm.runTx({ tx })
     } catch (error) {
       errors = [...errors, error.message]
     }
@@ -400,20 +402,20 @@ npm run dev
 3. Use the debugger:
 ```ts
 // Example contract deployment
+import { createImpersonatedTx } from 'tevm/tx'
+
 const bytecode = '0x...' // Your contract bytecode
-await vm.runTx({
-  tx: {
-    data: bytecode
-  }
+const deployTx = createImpersonatedTx({
+  data: bytecode
 })
+await vm.runTx({ tx: deployTx })
 
 // Example contract interaction
-await vm.runTx({
-  tx: {
-    to: '0x...',    // Contract address
-    data: '0x...',  // Encoded function call
-  }
+const callTx = createImpersonatedTx({
+  to: '0x...',    // Contract address
+  data: '0x...',  // Encoded function call
 })
+await vm.runTx({ tx: callTx })
 ```
 
 ## Customization

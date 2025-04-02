@@ -14,7 +14,7 @@ describe('Receipt Manager', () => {
         gasPrice: 20000000000n,
       }
 
-      const result = await node.runTx(tx)
+      const result = await node.getVm().then(vm => vm.runTx({ tx }))
       const receipt = await node.getReceipt(result.hash)
 
       expect(receipt).toBeDefined()
@@ -41,7 +41,8 @@ describe('Receipt Manager', () => {
         },
       ]
 
-      const results = await Promise.all(txs.map(tx => node.runTx(tx)))
+      const vm = await node.getVm()
+      const results = await Promise.all(txs.map(tx => vm.runTx({ tx })))
       const receipts = await Promise.all(
         results.map(result => node.getReceipt(result.hash))
       )
@@ -65,7 +66,8 @@ describe('Receipt Manager', () => {
         gasPrice: 20000000000n,
       }
 
-      const deployResult = await node.runTx(deployTx)
+      const vm = await node.getVm()
+      const deployResult = await vm.runTx({ tx: deployTx })
       const deployReceipt = await node.getReceipt(deployResult.hash)
 
       expect(deployReceipt.logs).toBeDefined()
@@ -99,7 +101,8 @@ describe('Receipt Manager', () => {
         gasPrice: 20000000000n,
       }
 
-      const result = await node1.runTx(tx)
+      const vm = await node1.getVm()
+      const result = await vm.runTx({ tx })
       const receipt1 = await node1.getReceipt(result.hash)
 
       // Create new node instance with same client
@@ -120,7 +123,8 @@ describe('Receipt Manager', () => {
         gasPrice: 20000000000n,
       }))
 
-      const results = await Promise.all(txs.map(tx => node.runTx(tx)))
+      const vm = await node.getVm()
+      const results = await Promise.all(txs.map(tx => vm.runTx({ tx })))
 
       // Simulate block progression to trigger pruning
       for (let i = 0; i < 1000; i++) {
@@ -160,7 +164,8 @@ describe('Receipt Manager', () => {
         gasPrice: 20000000000n,
       }
 
-      const result = await node.runTx(tx)
+      const vm = await node.getVm()
+      const result = await vm.runTx({ tx })
       const receipt = await node.getReceipt(result.hash)
 
       expect(receipt.status).toBe(0)

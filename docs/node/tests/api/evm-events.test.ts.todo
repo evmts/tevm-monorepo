@@ -20,7 +20,8 @@ describe('EVM Events', () => {
         gasPrice: 20000000000n,
       }
 
-      await node.runTx(tx)
+      const vm = await node.getVm()
+      await vm.runTx({ tx })
       expect(events.length).toBe(1)
       expect(events[0].transaction).toBeDefined()
     })
@@ -56,7 +57,8 @@ describe('EVM Events', () => {
         gasPrice: 20000000000n,
       }
 
-      await node.runTx(deployTx)
+      const vm = await node.getVm()
+      await vm.runTx({ tx: deployTx })
       expect(events.length).toBe(1)
       expect(events[0].address).toBeDefined()
     })
@@ -78,7 +80,8 @@ describe('EVM Events', () => {
         gasPrice: 20000000000n,
       }
 
-      const deployResult = await node.runTx(deployTx)
+      const vm = await node.getVm()
+      const deployResult = await vm.runTx({ tx: deployTx })
       const contractAddress = deployResult.contractAddress
 
       const interactTx = {
@@ -89,7 +92,7 @@ describe('EVM Events', () => {
         gasPrice: 20000000000n,
       }
 
-      await node.runTx(interactTx)
+      await vm.runTx({ tx: interactTx })
       expect(events.length).toBeGreaterThan(0)
       expect(events[0].topics).toBeDefined()
     })
@@ -113,7 +116,8 @@ describe('EVM Events', () => {
       }
 
       try {
-        await node.runTx(invalidTx)
+        const vm = await node.getVm()
+        await vm.runTx({ tx: invalidTx })
       } catch (error) {
         // Expected error
       }
@@ -139,7 +143,8 @@ describe('EVM Events', () => {
       }
 
       try {
-        await node.runTx(deployTx)
+        const vm = await node.getVm()
+        await vm.runTx({ tx: deployTx })
       } catch (error) {
         // Expected error
       }
@@ -170,7 +175,8 @@ describe('EVM Events', () => {
         gasPrice: 20000000000n,
       }
 
-      await node.runTx(deployTx)
+      const vm = await node.getVm()
+      await vm.runTx({ tx: deployTx })
       expect(events.every(event => event.address === targetAddress)).toBe(true)
     })
 
@@ -194,7 +200,8 @@ describe('EVM Events', () => {
         gasPrice: 20000000000n,
       }
 
-      await node.runTx(deployTx)
+      const vm = await node.getVm()
+      await vm.runTx({ tx: deployTx })
       expect(events.every(event => event.topics[0] === targetTopic)).toBe(true)
     })
   })
@@ -217,7 +224,8 @@ describe('EVM Events', () => {
         gasPrice: 20000000000n,
       }
 
-      await node1.runTx(tx)
+      const vm = await node1.getVm()
+      await vm.runTx({ tx })
 
       // Create new node instance with same client
       const node2 = createTevmNode({ client })

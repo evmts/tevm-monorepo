@@ -319,6 +319,7 @@ await node.setAccount({
 })
 
 // Now run the target transaction
+// Note: These are transactions from the block, so we don't need createImpersonatedTx
 const result = await node.getVm().runTx({
   tx: block.transactions[receipt.transactionIndex]
 })
@@ -337,28 +338,30 @@ const node = createTevmNode()
 const vm = await node.getVm()
 
 // First approve the token
-const approveTx = {
+import { createImpersonatedTx } from 'tevm/tx'
+
+const approveTx = createImpersonatedTx({
   to: tokenAddress,
   data: encodeFunctionData({
     abi: erc20ABI,
     functionName: 'approve',
     args: [spenderAddress, amount]
   })
-}
+})
 
 // Estimate gas by running the tx
 const result = await vm.runTx({ tx: approveTx })
 console.log('Gas used:', result.execResult.executionGasUsed)
 
 // Now we can estimate transferFrom
-const transferFromTx = {
+const transferFromTx = createImpersonatedTx({
   to: tokenAddress,
   data: encodeFunctionData({
     abi: erc20ABI,
     functionName: 'transferFrom',
     args: [ownerAddress, recipientAddress, amount]
   })
-}
+})
 
 const transferResult = await vm.runTx({ tx: transferFromTx })
 console.log('TransferFrom gas:', transferResult.execResult.executionGasUsed)
