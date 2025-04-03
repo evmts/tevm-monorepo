@@ -394,14 +394,16 @@ console.log(`New balance: ${formatEther(updatedAccount.balance)} ETH`);
 node.setImpersonatedAccount("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"); // Vitalik
 
 // Now you can send transactions as this account
-const txResult = await vm.runTx({
-  tx: {
-    from: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
-    to: testAddress,
-    value: parseEther("1"),
-    gasLimit: 21000n,
-  },
+import { createImpersonatedTx } from "tevm/tx";
+
+const tx = createImpersonatedTx({
+  from: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+  to: testAddress,
+  value: parseEther("1"),
+  gasLimit: 21000n,
 });
+
+const txResult = await vm.runTx({ tx });
 
 console.log(`Transaction success: ${!txResult.execResult.exceptionError}`);
 console.log(`Gas used: ${txResult.gasUsed}`);
@@ -469,14 +471,16 @@ async function simulateFlashLoan() {
   const flashLoanCalldata = hexToBytes("0xab9c4b5d...");
 
   // Execute the flash loan
-  const result = await vm.runTx({
-    tx: {
-      from: trader,
-      to: aaveLendingPool,
-      data: flashLoanCalldata,
-      gasLimit: 5000000n,
-    },
+  import { createImpersonatedTx } from "tevm/tx";
+  
+  const tx = createImpersonatedTx({
+    from: trader,
+    to: aaveLendingPool,
+    data: flashLoanCalldata,
+    gasLimit: 5000000n,
   });
+  
+  const result = await vm.runTx({ tx });
 
   console.log("Flash loan simulation result:");
   console.log(`Success: ${!result.execResult.exceptionError}`);

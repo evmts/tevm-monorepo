@@ -138,15 +138,17 @@ await node.ready();
 const vm = await node.getVm();
 
 // Execute a transaction directly
-const txResult = await vm.runTx({
-  tx: {
-    to: createAddress("0x1234567890123456789012345678901234567890"),
-    value: 1000000000000000000n, // 1 ETH
-    nonce: 0n,
-    gasLimit: 21000n,
-    gasPrice: 10000000000n,
-  },
+import { createImpersonatedTx } from "tevm/tx";
+
+const tx = createImpersonatedTx({
+  to: "0x1234567890123456789012345678901234567890",
+  value: 1000000000000000000n, // 1 ETH
+  nonce: 0n,
+  gasLimit: 21000n,
+  gasPrice: 10000000000n,
 });
+
+const txResult = await vm.runTx({ tx });
 
 console.log(
   "Transaction executed:",
@@ -292,14 +294,16 @@ node.setImpersonatedAccount("0x28C6c06298d514Db089934071355E5743bf21d60"); // Ex
 const vm = await node.getVm();
 
 // Send a transaction as the impersonated account
-const txResult = await vm.runTx({
-  tx: {
-    from: "0x28C6c06298d514Db089934071355E5743bf21d60", // Impersonated address
-    to: "0x1234567890123456789012345678901234567890",
-    value: parseEther("10"),
-    gasLimit: 21000n,
-  },
+import { createImpersonatedTx } from "tevm/tx";
+
+const tx = createImpersonatedTx({
+  from: "0x28C6c06298d514Db089934071355E5743bf21d60", // Impersonated address
+  to: "0x1234567890123456789012345678901234567890",
+  value: parseEther("10"),
+  gasLimit: 21000n,
 });
+
+const txResult = await vm.runTx({ tx });
 
 console.log("Transaction result:", txResult.execResult);
 
@@ -396,16 +400,18 @@ const enhancedNode = node.extend((baseNode) => ({
   // Add a method to transfer ETH between accounts
   async transferETH(from, to, amount) {
     const vm = await baseNode.getVm();
+    import { createImpersonatedTx } from "tevm/tx";
+
+    // Create the impersonated transaction
+    const tx = createImpersonatedTx({
+      from,
+      to,
+      value: amount,
+      gasLimit: 21000n,
+    });
 
     // Execute the transfer
-    const result = await vm.runTx({
-      tx: {
-        from,
-        to,
-        value: amount,
-        gasLimit: 21000n,
-      },
-    });
+    const result = await vm.runTx({ tx });
 
     return {
       success: !result.execResult.exceptionError,
