@@ -27,5 +27,5 @@ export const kaia = createCommon({
 	..._kaia,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -20,7 +20,7 @@ import { createBaseVm } from '../createBaseVm.js'
 export const deepCopy = (baseVm) => async () => {
 	await baseVm.ready()
 	const common = baseVm.common.copy()
-	common.ethjsCommon.setHardfork(baseVm.common.ethjsCommon.hardfork())
+	common.vmConfig.setHardfork(baseVm.common.vmConfig.hardfork())
 	const blockchain = await baseVm.blockchain.deepCopy()
 	if (!('deepCopy' in baseVm.stateManager)) {
 		throw new MisconfiguredClientError('StateManager does not support deepCopy. Was a Tevm state manager used?')

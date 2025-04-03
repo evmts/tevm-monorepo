@@ -27,5 +27,5 @@ export const zkLinkNova = createCommon({
 	..._zkLinkNova,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

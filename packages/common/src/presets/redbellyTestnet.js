@@ -27,5 +27,5 @@ export const redbellyTestnet = createCommon({
 	..._redbellyTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

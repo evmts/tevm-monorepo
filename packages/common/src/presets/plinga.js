@@ -27,5 +27,5 @@ export const plinga = createCommon({
 	..._plinga,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

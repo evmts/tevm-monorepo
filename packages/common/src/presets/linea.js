@@ -27,5 +27,5 @@ export const linea = createCommon({
 	..._linea,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

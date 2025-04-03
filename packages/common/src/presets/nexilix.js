@@ -27,5 +27,5 @@ export const nexilix = createCommon({
 	..._nexilix,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

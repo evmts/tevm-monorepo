@@ -44,7 +44,7 @@ export class Precompile<
 		}) => Promise<ExecResult>,
 	) {}
 
-	protected readonly ethjsAddress = () => EthjsAddress.fromString(this.contract.address)
+	protected readonly ethjsAddress = () => createAddress(this.contract.address)
 
 	public readonly precompile = () => ({
 		address: this.ethjsAddress(),

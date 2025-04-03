@@ -27,5 +27,5 @@ export const zilliqa = createCommon({
 	..._zilliqa,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

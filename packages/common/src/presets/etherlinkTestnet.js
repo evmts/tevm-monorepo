@@ -27,5 +27,5 @@ export const etherlinkTestnet = createCommon({
 	..._etherlinkTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

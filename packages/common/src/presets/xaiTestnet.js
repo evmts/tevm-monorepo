@@ -27,5 +27,5 @@ export const xaiTestnet = createCommon({
 	..._xaiTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -76,7 +76,7 @@ describe('requestProcedure', () => {
 			expect(res.error).toBeUndefined()
 			const account = (await (
 				await client.getVm()
-			).stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))) as EthjsAccount
+			).stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
 			expect(account?.balance).toBe(420n)
 			expect(account?.nonce).toBe(69n)
 			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20.deployedBytecode))

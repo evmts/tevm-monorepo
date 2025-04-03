@@ -27,5 +27,5 @@ export const skaleEuropa = createCommon({
 	..._skaleEuropa,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

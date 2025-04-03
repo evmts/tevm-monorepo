@@ -27,5 +27,5 @@ export const skaleCalypso = createCommon({
 	..._skaleCalypso,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

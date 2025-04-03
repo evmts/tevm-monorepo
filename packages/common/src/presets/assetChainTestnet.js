@@ -27,5 +27,5 @@ export const assetChainTestnet = createCommon({
 	..._assetChainTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

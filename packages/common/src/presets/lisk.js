@@ -27,5 +27,5 @@ export const lisk = createCommon({
 	..._lisk,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

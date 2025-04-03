@@ -27,5 +27,5 @@ export const fluenceStage = createCommon({
 	..._fluenceStage,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

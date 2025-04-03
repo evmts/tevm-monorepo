@@ -27,5 +27,5 @@ export const satoshiVM = createCommon({
 	..._satoshiVM,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

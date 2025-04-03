@@ -27,5 +27,5 @@ export const apexTestnet = createCommon({
 	..._apexTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

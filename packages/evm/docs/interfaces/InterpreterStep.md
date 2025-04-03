@@ -116,6 +116,6 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/
 
 ### stateManager
 
-> **stateManager**: `EVMStateManagerInterface`
+> **stateManager**: `StateManagerInterface`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:81

@@ -27,5 +27,5 @@ export const oortMainnetDev = createCommon({
 	..._oortMainnetDev,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })
