@@ -8,6 +8,6 @@
 
 > **EthSyncingJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_syncing"`, readonly \[\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:191
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:192
 
 JSON-RPC request for `eth_syncing` procedure
