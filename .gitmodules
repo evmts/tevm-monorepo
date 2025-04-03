@@ -7,3 +7,6 @@
 [submodule "lib/helios"]
 	path = lib/helios
 	url = git@github.com:evmts/helios.git
+[submodule "lib/trevm"]
+	path = lib/trevm
+	url = https://github.com/init4tech/trevm
