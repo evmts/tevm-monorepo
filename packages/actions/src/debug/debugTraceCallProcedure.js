@@ -25,25 +25,38 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 			...(timeout !== undefined ? { timeout } : {}),
 			...(tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
-		return {
-			method: debugTraceCallRequest.method,
-			result: {
-				gas: numberToHex(traceResult.gas),
-				failed: traceResult.failed,
-				returnValue: traceResult.returnValue,
-				structLogs: traceResult.structLogs.map((log) => {
-					return {
-						gas: numberToHex(log.gas),
-						gasCost: numberToHex(log.gasCost),
-						op: log.op,
-						pc: log.pc,
-						stack: log.stack,
-						depth: log.depth,
-					}
-				}),
-			},
-			jsonrpc: '2.0',
-			...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
+
+		// Handle different tracer types
+		if (tracer === 'prestateTracer') {
+			// For prestateTracer, return the result directly
+			return {
+				method: debugTraceCallRequest.method,
+				result: traceResult,
+				jsonrpc: '2.0',
+				...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
+			}
+		} else {
+			// Default case for callTracer and other tracers
+			return {
+				method: debugTraceCallRequest.method,
+				result: {
+					gas: numberToHex(traceResult.gas),
+					failed: traceResult.failed,
+					returnValue: traceResult.returnValue,
+					structLogs: traceResult.structLogs.map((log) => {
+						return {
+							gas: numberToHex(log.gas),
+							gasCost: numberToHex(log.gasCost),
+							op: log.op,
+							pc: log.pc,
+							stack: log.stack,
+							depth: log.depth,
+						}
+					}),
+				},
+				jsonrpc: '2.0',
+				...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
+			}
 		}
 	}
 }

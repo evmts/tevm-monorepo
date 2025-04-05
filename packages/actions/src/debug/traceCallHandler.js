@@ -27,8 +27,11 @@ export const traceCallHandler =
 			...(params.value ? { value: params.value } : {}),
 		}
 
+		const tracer = params.tracer || 'callTracer'
+		const tracerConfig = params.tracerConfig || {}
+
 		return getVm()
 			.then((vm) => vm.deepCopy())
-			.then((vm) => runCallWithTrace(vm, logger, callParams))
+			.then((vm) => runCallWithTrace(vm, logger, callParams, false, tracer, tracerConfig))
 			.then((res) => res.trace)
 	}
