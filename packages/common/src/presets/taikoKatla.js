@@ -27,5 +27,5 @@ export const taikoKatla = createCommon({
 	..._taikoKatla,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const celoAlfajores = createCommon({
 	..._celoAlfajores,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

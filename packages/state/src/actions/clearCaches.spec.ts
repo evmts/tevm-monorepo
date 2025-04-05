@@ -9,13 +9,9 @@ describe(clearCaches.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		baseState.caches.accounts.put(EthjsAddress.fromString(`0x${'01'.repeat(20)}`), new EthjsAccount())
-		baseState.caches.contracts.put(EthjsAddress.fromString(`0x${'01'.repeat(20)}`), Uint8Array.from([420]))
-		baseState.caches.storage.put(
-			EthjsAddress.fromString(`0x${'01'.repeat(20)}`),
-			Uint8Array.from([69]),
-			Uint8Array.from([420]),
-		)
+		baseState.caches.accounts.put(createAddress(`0x${'01'.repeat(20)}`), new EthjsAccount())
+		baseState.caches.contracts.put(createAddress(`0x${'01'.repeat(20)}`), Uint8Array.from([420]))
+		baseState.caches.storage.put(createAddress(`0x${'01'.repeat(20)}`), Uint8Array.from([69]), Uint8Array.from([420]))
 
 		expect(baseState.caches.accounts.size()).toBe(1)
 		expect(baseState.caches.contracts.size()).toBe(1)

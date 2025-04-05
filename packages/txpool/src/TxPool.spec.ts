@@ -7,6 +7,7 @@
 // See https://github.com/tevm/tevm/pull/your-pr-number for more information about the changes.
 //
 
+import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
@@ -40,7 +41,7 @@ describe.skip(TxPool.name, () => {
 		const stateManager = createStateManager({})
 		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
-			senderAddress,
+			createAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'),
 			EthjsAccount.fromAccountData({
 				balance: parseEther('100'),
 			}),

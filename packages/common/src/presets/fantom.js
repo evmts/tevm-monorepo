@@ -27,5 +27,5 @@ export const fantom = createCommon({
 	..._fantom,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

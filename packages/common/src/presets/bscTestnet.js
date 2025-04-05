@@ -27,5 +27,5 @@ export const bscTestnet = createCommon({
 	..._bscTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

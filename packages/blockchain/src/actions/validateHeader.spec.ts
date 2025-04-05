@@ -178,10 +178,7 @@ describe(validateHeader.name, async () => {
 			errorStr: () => 'Invalid consensus header',
 			common: {
 				...blocks[1].header.common,
-				ethjsCommon: {
-					...blocks[1].header.common.ethjsCommon,
-					consensusType: () => 'pow',
-				},
+				vmConfig: { ...blocks[1].header.common.vmConfig, consensusType: () => 'pow' },
 			},
 		}
 

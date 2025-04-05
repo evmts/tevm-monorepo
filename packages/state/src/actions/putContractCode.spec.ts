@@ -15,7 +15,7 @@ describe(putContractCode.name, () => {
 			loggingLevel: 'warn',
 		})
 
-		const address = EthjsAddress.fromString(`0x${'01'.repeat(20)}`)
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 
 		await putAccount(baseState)(
 			address,

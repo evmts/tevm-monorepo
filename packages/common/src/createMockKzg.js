@@ -4,7 +4,7 @@ import { keccak256 } from '@tevm/utils'
  * Returns a mock kzg object that always trusts never verifies
  * The real kzg commitmenet is over 500kb added to bundle size
  * so this is useful alternative for smaller bundles and the default
- * @returns {import("./MockKzg.js").MockKzg}
+ * @returns {Required<import("@ethereumjs/common").CustomCrypto>['kzg']}
  * @throws {never}
  * @example
  * ```typescript
@@ -21,12 +21,9 @@ import { keccak256 } from '@tevm/utils'
  */
 export const createMockKzg = () => {
 	return {
-		loadTrustedSetup: () => 69,
-		verifyKzgProof: () => true,
-		freeTrustedSetup: () => {},
-		verifyBlobKzgProof: () => true,
-		blobToKzgCommitment: () => keccak256('0x69', 'bytes'),
-		computeBlobKzgProof: () => keccak256('0x69', 'bytes'),
-		verifyBlobKzgProofBatch: () => true,
+		verifyProof: () => true,
+		blobToKzgCommitment: () => keccak256('0x69'),
+		computeBlobProof: () => keccak256('0x69'),
+		verifyBlobProofBatch: () => true,
 	}
 }

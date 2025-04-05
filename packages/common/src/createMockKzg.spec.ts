@@ -5,35 +5,16 @@ describe('createMockKzg', () => {
 	it('should return an object with the correct methods', () => {
 		const mockKzg = createMockKzg()
 
-		expect(mockKzg).toHaveProperty('loadTrustedSetup')
-		expect(mockKzg).toHaveProperty('verifyKzgProof')
-		expect(mockKzg).toHaveProperty('freeTrustedSetup')
-		expect(mockKzg).toHaveProperty('verifyBlobKzgProof')
+		expect(mockKzg).toHaveProperty('verifyProof')
 		expect(mockKzg).toHaveProperty('blobToKzgCommitment')
-		expect(mockKzg).toHaveProperty('computeBlobKzgProof')
-		expect(mockKzg).toHaveProperty('verifyBlobKzgProofBatch')
+		expect(mockKzg).toHaveProperty('computeBlobProof')
+		expect(mockKzg).toHaveProperty('verifyBlobProofBatch')
 	})
 
-	it('should return 69 from loadTrustedSetup', () => {
-		const mockKzg = createMockKzg()
-		expect(mockKzg.loadTrustedSetup()).toMatchSnapshot()
-	})
-
-	it('should return true from verifyKzgProof', () => {
+	it('should return true from verifyProof', () => {
 		const mockKzg = createMockKzg()
 		// @ts-expect-error
-		expect(mockKzg.verifyKzgProof()).toBe(true)
-	})
-
-	it('should not throw from freeTrustedSetup', () => {
-		const mockKzg = createMockKzg()
-		expect(() => mockKzg.freeTrustedSetup()).not.toThrow()
-	})
-
-	it('should return true from verifyBlobKzgProof', () => {
-		const mockKzg = createMockKzg()
-		// @ts-expect-error
-		expect(mockKzg.verifyBlobKzgProof()).toBe(true)
+		expect(mockKzg.verifyProof()).toBe(true)
 	})
 
 	it('should return keccak256 hash from blobToKzgCommitment', () => {
@@ -42,15 +23,15 @@ describe('createMockKzg', () => {
 		expect(mockKzg.blobToKzgCommitment()).toMatchSnapshot()
 	})
 
-	it('should return keccak256 hash from computeBlobKzgProof', () => {
+	it('should return keccak256 hash from computeBlobProof', () => {
 		const mockKzg = createMockKzg()
 		// @ts-expect-error
-		expect(mockKzg.computeBlobKzgProof()).toMatchSnapshot()
+		expect(mockKzg.computeBlobProof()).toMatchSnapshot()
 	})
 
-	it('should return true from verifyBlobKzgProofBatch', () => {
+	it('should return true from verifyBlobProofBatch', () => {
 		const mockKzg = createMockKzg()
 		// @ts-expect-error
-		expect(mockKzg.verifyBlobKzgProofBatch()).toBe(true)
+		expect(mockKzg.verifyBlobProofBatch()).toBe(true)
 	})
 })

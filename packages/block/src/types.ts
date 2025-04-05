@@ -1,5 +1,5 @@
 import type { Common } from '@tevm/common'
-import type { JsonRpcTx, JsonTx, TransactionType, TxData } from '@tevm/tx'
+import type { JSONRPCTx, JSONTx, TransactionType, TxData } from '@tevm/tx'
 import type { AddressLike, BigIntLike, BytesLike, Hex, JsonRpcWithdrawal, WithdrawalData } from '@tevm/utils'
 import type { ClRequest } from './ClRequest.js'
 import type { BlockHeader } from './header.js'
@@ -423,7 +423,7 @@ export interface JsonBlock {
 	 * Header data for the block
 	 */
 	header?: JsonHeader
-	transactions?: JsonTx[]
+	transactions?: JSONTx[]
 	uncleHeaders?: JsonHeader[]
 	withdrawals?: JsonRpcWithdrawal[]
 	requests?: Hex[] | null
@@ -481,7 +481,7 @@ export interface JsonRpcBlock {
 	gasLimit: Hex | string // the maximum gas allowed in this block.
 	gasUsed: Hex | string // the total used gas by all transactions in this block.
 	timestamp: Hex | string // the unix timestamp for when the block was collated.
-	transactions: Array<JsonRpcTx | Hex | string> // Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
+	transactions: Array<JSONRPCTx | Hex | string> // Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
 	uncles: Hex[] | string[] // Array of uncle hashes
 	baseFeePerGas?: Hex | string // If EIP-1559 is enabled for this block, returns the base fee per gas
 	withdrawals?: Array<JsonRpcWithdrawal> // If EIP-4895 is enabled for this block, array of withdrawals

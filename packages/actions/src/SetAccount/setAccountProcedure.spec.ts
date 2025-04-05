@@ -30,7 +30,7 @@ describe('setAccountProcedure', () => {
 		const response = await setAccountProcedure(client)(request)
 		expect(response.error).toBeUndefined()
 
-		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))
+		const account = await (await client.getVm()).stateManager.getAccount(createAddress(ERC20_ADDRESS))
 
 		if (!account) throw new Error('Account not found')
 
@@ -75,7 +75,7 @@ describe('setAccountProcedure', () => {
 		const response = await setAccountProcedure(client)(request)
 		expect(response.error).toBeUndefined()
 
-		const account = await (await client.getVm()).stateManager.getAccount(EthjsAddress.fromString(ERC20_ADDRESS))
+		const account = await (await client.getVm()).stateManager.getAccount(createAddress(ERC20_ADDRESS))
 
 		if (!account) throw new Error('Account not found')
 

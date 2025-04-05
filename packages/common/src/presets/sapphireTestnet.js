@@ -27,5 +27,5 @@ export const sapphireTestnet = createCommon({
 	..._sapphireTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

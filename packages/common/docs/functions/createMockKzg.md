@@ -6,7 +6,7 @@
 
 # Function: createMockKzg()
 
-> **createMockKzg**(): [`MockKzg`](../type-aliases/MockKzg.md)
+> **createMockKzg**(): `KZG`
 
 Defined in: [packages/common/src/createMockKzg.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createMockKzg.js#L22)
 
@@ -16,7 +16,7 @@ so this is useful alternative for smaller bundles and the default
 
 ## Returns
 
-[`MockKzg`](../type-aliases/MockKzg.md)
+`KZG`
 
 ## Throws
 

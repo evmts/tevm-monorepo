@@ -27,5 +27,5 @@ export const songbirdTestnet = createCommon({
 	..._songbirdTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

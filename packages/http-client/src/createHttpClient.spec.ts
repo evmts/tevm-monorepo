@@ -1,9 +1,9 @@
 import { type Server, createServer } from 'node:http'
+import { createAddress } from '@tevm/address'
 import type { TevmClient } from '@tevm/client-types'
 import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { transports } from '@tevm/test-utils'
-import { EthjsAddress } from '@tevm/utils'
 import { bytesToHex, keccak256 } from 'viem'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createHttpClient } from './createHttpClient.js'
@@ -73,7 +73,7 @@ describe.skip(createHttpClient.name, () => {
 				expect(errors).toBeUndefined()
 
 				const resultAccount = await (await tevm.transport.tevm.getVm()).stateManager.getAccount(
-					EthjsAddress.fromString(account.address),
+					createAddress(account.address),
 				)
 				if (!resultAccount) throw new Error('Account not found')
 				expect(bytesToHex(resultAccount.codeHash)).toEqual(keccak256(account.deployedBytecode))

@@ -27,5 +27,5 @@ export const coreDao = createCommon({
 	..._coreDao,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

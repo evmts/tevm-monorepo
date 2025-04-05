@@ -112,7 +112,7 @@ describe('ethGetFilterChangesProcedure', () => {
 		const filterId = '0x3' as const
 		const tx = [
 			createImpersonatedTx({
-				impersonatedAddress: EthjsAddress.fromString(`0x${'23'.repeat(20)}`),
+				impersonatedAddress: createAddress(`0x${'23'.repeat(20)}`),
 				to: `0x${'0'.repeat(40)}`,
 				data: `0x${'0'.repeat(40)}`,
 			}),

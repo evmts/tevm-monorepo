@@ -27,5 +27,5 @@ export const zksync = createCommon({
 	..._zksync,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

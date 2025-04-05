@@ -8,7 +8,6 @@
 
 - [AccountLockedError](classes/AccountLockedError.md)
 - [AccountNotFoundError](classes/AccountNotFoundError.md)
-- [AuthCallUnsetError](classes/AuthCallUnsetError.md)
 - [BaseError](classes/BaseError.md)
 - [BlockGasLimitExceededError](classes/BlockGasLimitExceededError.md)
 - [BLS12381FpNotInFieldError](classes/BLS12381FpNotInFieldError.md)
@@ -125,7 +124,6 @@
 ## Interfaces
 
 - [AccountLockedErrorParameters](interfaces/AccountLockedErrorParameters.md)
-- [AuthCallUnsetErrorParameters](interfaces/AuthCallUnsetErrorParameters.md)
 - [BaseErrorParameters](interfaces/BaseErrorParameters.md)
 - [BlockGasLimitExceededErrorParameters](interfaces/BlockGasLimitExceededErrorParameters.md)
 - [BLS12381FpNotInFieldErrorParameters](interfaces/BLS12381FpNotInFieldErrorParameters.md)

@@ -30,7 +30,7 @@ describe('ethSendRawTransactionHandler', () => {
 				data: '0x',
 				type: 2,
 			},
-			{ common: tevmDefault.ethjsCommon },
+			{ common: tevmDefault.vmConfig },
 		)
 
 		const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
@@ -62,7 +62,7 @@ describe('ethSendRawTransactionHandler', () => {
 				data: '0x',
 				type: 0,
 			},
-			{ common: tevmDefault.ethjsCommon },
+			{ common: tevmDefault.vmConfig },
 		)
 
 		const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
@@ -94,7 +94,7 @@ describe('ethSendRawTransactionHandler', () => {
 				data: '0x',
 				type: 2,
 			},
-			{ common: tevmDefault.ethjsCommon },
+			{ common: tevmDefault.vmConfig },
 		)
 
 		const serializedTx = tx.serialize()
@@ -141,7 +141,7 @@ describe('ethSendRawTransactionHandler', () => {
 				kzgCommitments: [mockKZGCommitment1, mockKZGCommitment2],
 				kzgProofs: [new Uint8Array(48).fill(1), new Uint8Array(48).fill(2)],
 			},
-			{ common: tevmDefault.ethjsCommon },
+			{ common: tevmDefault.vmConfig },
 		)
 
 		const signedTx = blobTx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))

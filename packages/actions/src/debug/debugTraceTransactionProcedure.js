@@ -114,7 +114,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				skipBlockGasLimitValidation: true,
 				tx: await TransactionFactory.fromRPC(tx, {
 					freeze: false,
-					common: vmClone.common.ethjsCommon,
+					common: vmClone.common.vmConfig,
 					allowUnlimitedInitCodeSize: true,
 				}),
 			})

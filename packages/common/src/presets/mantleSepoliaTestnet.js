@@ -27,5 +27,5 @@ export const mantleSepoliaTestnet = createCommon({
 	..._mantleSepoliaTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

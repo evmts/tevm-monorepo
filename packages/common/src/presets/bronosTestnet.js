@@ -27,5 +27,5 @@ export const bronosTestnet = createCommon({
 	..._bronosTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

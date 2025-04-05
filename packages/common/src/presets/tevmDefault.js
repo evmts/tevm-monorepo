@@ -25,5 +25,5 @@ export const tevmDefault = createCommon({
 	}),
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })
