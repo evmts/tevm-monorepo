@@ -4,6 +4,7 @@ layout: landing
 
 import { Button, HomePage } from "vocs/components";
 import { Card } from "../components";
+import "../styles/index.css";
 
 <HomePage.Root>
   <div style={{ textAlign: 'center', margin: '0 auto', maxWidth: '200px' }}>
@@ -25,7 +26,7 @@ import { Card } from "../components";
 {" "}
 
   <div className="code-snippet" style={{
-    maxWidth: '600px',
+    maxWidth: '800px',
     margin: '1.5rem 0',
     backgroundColor: 'var(--vocs-color_background2)',
     borderRadius: 'var(--vocs-borderRadius_4)',
@@ -80,7 +81,7 @@ import { Card } from "../components";
   </HomePage.Button>
 </HomePage.Buttons>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[900px] mx-auto my-12">
+  <div className="card-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[900px] mx-auto my-12">
     <Card title="JavaScript-Native EVM">
       <p className="mb-4">Run an Ethereum environment anywhere JavaScript runs.</p>
       <Button href="/introduction/why-run-ethereum-in-js" variant="text" size="small">Why JavaScript? →</Button>
@@ -135,13 +136,13 @@ import { Card } from "../components";
   <div className="max-w-[800px] mx-auto my-20 text-center">
     <h2 style={{ fontSize: "2.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Turn Solidity into TypeScript</h2>
     <p className="mb-6 text-lg" style={{ fontSize: "1.25rem", maxWidth: "700px", margin: "0 auto 2rem auto", lineHeight: "1.6" }}>
-      The Tevm Bundler lets you import Solidity contracts directly into your JavaScript or TypeScript code. 
-      No more copying ABIs or managing contract artifacts manually—just import your .sol files and get 
+      The Tevm Bundler lets you import Solidity contracts directly into your JavaScript or TypeScript code.
+      No more copying ABIs or managing contract artifacts manually—just import your .sol files and get
       full type safety, auto-completion, and easy contract interaction.
     </p>
-    
+
     <div className="code-snippet" style={{
-      maxWidth: '700px',
+      maxWidth: '800px',
       margin: '1.5rem auto',
       backgroundColor: 'var(--vocs-color_background2)',
       borderRadius: 'var(--vocs-borderRadius_4)',
@@ -153,31 +154,31 @@ import { Card } from "../components";
       // @noErrors
       // Import Solidity contracts directly
       import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol'
-      
+
       // Use with full TypeScript support
       const tokenContract = ERC20.withAddress('0x123...')
-      
+
       // Type-safe contract methods
       const balance = await client.readContract(
         tokenContract.read.balanceOf('0x456...')
       )
-      
+
       // Coming soon: Import contracts directly from any chain
       import { WETH } from 'caip10:eip155:1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
-      
+
       // Coming soon: Write Solidity inline
       import { sol } from 'tevm'
-      
+
       const { abi, bytecode } = sol`
         pragma solidity ^0.8.19;
-        
+
         contract Counter {
           uint256 private count = 0;
-          
+
           function increment() public {
             count += 1;
           }
-          
+
           function getCount() public view returns (uint256) {
             return count;
           }
@@ -185,8 +186,8 @@ import { Card } from "../components";
       `
       ```
     </div>
-    
-    <div className="flex gap-4 justify-center flex-wrap mt-8">
+
+    <div className="button-group flex gap-4 justify-center flex-wrap mt-8">
       <Button href="/getting-started/bundler" variant="accent">
         Bundler Quickstart
       </Button>
