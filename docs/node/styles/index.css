@@ -1,0 +1,33 @@
+
+.card-group{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 20px;
+  gap: 24px;
+}
+
+.card-group > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+}
+
+.card-group > div > h3 {
+  font-weight: 700;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+@media (max-width: 830px) {
+  .code-snippet {
+    max-width: calc(100vw - 30px) !important;
+  }
+}
