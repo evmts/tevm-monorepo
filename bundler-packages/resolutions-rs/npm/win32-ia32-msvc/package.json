@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/_tevm-bundler-packages-rs-win32-ia32-msvc",
+  "version": "0.0.0",
+  "cpu": [
+    "ia32"
+  ],
+  "main": "_tevm_bundler_packages_rs.win32-ia32-msvc.node",
+  "files": [
+    "_tevm_bundler_packages_rs.win32-ia32-msvc.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "win32"
+  ]
+}

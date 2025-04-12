@@ -1,0 +1,20 @@
+{
+  "name": "@tevm/_tevm-bundler-packages-rs-linux-arm64-musl",
+  "version": "0.0.0",
+  "cpu": [
+    "arm64"
+  ],
+  "main": "_tevm_bundler_packages_rs.linux-arm64-musl.node",
+  "files": [
+    "_tevm_bundler_packages_rs.linux-arm64-musl.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "linux"
+  ],
+  "libc": [
+    "musl"
+  ]
+}

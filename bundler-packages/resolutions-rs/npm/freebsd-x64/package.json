@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/_tevm-bundler-packages-rs-freebsd-x64",
+  "version": "0.0.0",
+  "cpu": [
+    "x64"
+  ],
+  "main": "_tevm_bundler_packages_rs.freebsd-x64.node",
+  "files": [
+    "_tevm_bundler_packages_rs.freebsd-x64.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "freebsd"
+  ]
+}

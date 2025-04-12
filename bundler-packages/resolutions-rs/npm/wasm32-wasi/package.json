@@ -1,0 +1,22 @@
+{
+  "name": "@tevm/_tevm-bundler-packages-rs-wasm32-wasi",
+  "version": "0.0.0",
+  "cpu": [
+    "wasm32"
+  ],
+  "main": "_tevm_bundler_packages_rs.wasi.cjs",
+  "files": [
+    "_tevm_bundler_packages_rs.wasm32-wasi.wasm",
+    "_tevm_bundler_packages_rs.wasi.cjs",
+    "_tevm_bundler_packages_rs.wasi-browser.js",
+    "wasi-worker.mjs",
+    "wasi-worker-browser.mjs"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browser": "_tevm_bundler_packages_rs.wasi-browser.js",
+  "dependencies": {
+    "@napi-rs/wasm-runtime": "^0.2.8"
+  }
+}

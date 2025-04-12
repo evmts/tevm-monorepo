@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/_tevm-bundler-packages-rs-linux-arm-gnueabihf",
+  "version": "0.0.0",
+  "cpu": [
+    "arm"
+  ],
+  "main": "_tevm_bundler_packages_rs.linux-arm-gnueabihf.node",
+  "files": [
+    "_tevm_bundler_packages_rs.linux-arm-gnueabihf.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "linux"
+  ]
+}
