@@ -27,5 +27,5 @@ export const otimDevnet = createCommon({
 	..._otimDevnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

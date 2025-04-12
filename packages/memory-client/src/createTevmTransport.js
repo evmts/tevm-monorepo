@@ -110,7 +110,7 @@ export const createTevmTransport = (options = {}) => {
 	 */
 	return ({ timeout = 20_000, retryCount = 3, chain }) => {
 		const dynamicChain =
-			chain && 'ethjsCommon' in chain
+			chain && 'vmConfig' in chain
 				? /** @type {import('@tevm/common').Common} */ (chain)
 				: chain !== undefined
 					? // if user passed in chain instead of common create a common from it with cancun and default eips

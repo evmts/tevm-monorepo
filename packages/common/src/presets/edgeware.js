@@ -27,5 +27,5 @@ export const edgeware = createCommon({
 	..._edgeware,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const avalancheFuji = createCommon({
 	..._avalancheFuji,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

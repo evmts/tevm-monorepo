@@ -27,5 +27,5 @@ export const cronoszkEVMTestnet = createCommon({
 	..._cronoszkEVMTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

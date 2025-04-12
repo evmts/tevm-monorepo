@@ -27,5 +27,5 @@ export const astarZkyoto = createCommon({
 	..._astarZkyoto,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

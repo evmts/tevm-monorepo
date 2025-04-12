@@ -27,5 +27,5 @@ export const bitTorrent = createCommon({
 	..._bitTorrent,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

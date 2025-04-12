@@ -27,5 +27,5 @@ export const palm = createCommon({
 	..._palm,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

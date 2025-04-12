@@ -27,5 +27,5 @@ export const skaleRazor = createCommon({
 	..._skaleRazor,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

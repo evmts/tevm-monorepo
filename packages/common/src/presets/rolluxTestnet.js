@@ -27,5 +27,5 @@ export const rolluxTestnet = createCommon({
 	..._rolluxTestnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

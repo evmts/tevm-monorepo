@@ -27,5 +27,5 @@ export const bronos = createCommon({
 	..._bronos,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

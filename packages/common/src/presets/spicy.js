@@ -27,5 +27,5 @@ export const spicy = createCommon({
 	..._spicy,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

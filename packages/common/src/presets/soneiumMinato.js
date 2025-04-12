@@ -27,5 +27,5 @@ export const soneiumMinato = createCommon({
 	..._soneiumMinato,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

@@ -27,5 +27,5 @@ export const qMainnet = createCommon({
 	..._qMainnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

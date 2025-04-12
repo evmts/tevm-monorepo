@@ -27,5 +27,5 @@ export const pulsechain = createCommon({
 	..._pulsechain,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

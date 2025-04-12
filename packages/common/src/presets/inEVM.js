@@ -27,5 +27,5 @@ export const inEVM = createCommon({
 	..._inEVM,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })

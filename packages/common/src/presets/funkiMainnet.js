@@ -27,5 +27,5 @@ export const funkiMainnet = createCommon({
 	..._funkiMainnet,
 	loggingLevel: 'warn',
 	eips: [],
-	hardfork: 'cancun',
+	hardfork: 'homestead',
 })
