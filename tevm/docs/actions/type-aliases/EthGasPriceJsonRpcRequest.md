@@ -8,6 +8,6 @@
 
 > **EthGasPriceJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_gasPrice"`, readonly \[\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:76
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:77
 
 JSON-RPC request for `eth_gasPrice` procedure
