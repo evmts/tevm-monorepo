@@ -1,6 +1,6 @@
 use regex::Regex;
+use std::collections::HashMap;
 use std::path::{Path, PathBuf};
-use std::{collections::HashMap, io};
 
 // #[macro_use]
 extern crate napi_derive;
@@ -23,8 +23,6 @@ struct ModuleInfo {
     imported_ids: Vec<String>,
 }
 
-type ModuleMap = HashMap<String, ModuleInfo>;
-
 struct ResolvedImport {
     original: String,
     absolute: String,
@@ -34,8 +32,8 @@ struct ResolvedImport {
 fn resolve_import_path(
     absolute_path: &str,
     import_path: &str,
-    remappings: HashMap<&str, &str>,
-    libs: Vec<&str>,
+    remappings: &HashMap<&str, &str>,
+    libs: &Vec<&str>,
 ) -> PathBuf {
     let dirpath = match Path::new(absolute_path).parent() {
         Some(dirpath) => dirpath,
@@ -55,23 +53,32 @@ fn resolve_import_path(
 fn resolve_imports(
     absolute_path: &str,
     code: &str,
-    remappings: HashMap<&str, &str>,
-    libs: Vec<&str>,
-) -> Result<Vec<ResolvedImport>, io::Error> {
+    remappings: &HashMap<&str, &str>,
+    libs: &Vec<&str>,
+) -> Vec<PathBuf> {
     let import_regex = Regex::new(r#"^\s?import\s+[^'"]*['"](.*)['"]\s*"#).unwrap();
 
+    let mut all_imports = vec![];
+
     for caps in import_regex.captures_iter(&code) {
-        if let Some(import_path) = caps.get(0) {};
+        if let Some(import_path) = caps.get(0) {
+            all_imports.push(resolve_import_path(
+                absolute_path,
+                import_path.as_str(),
+                &remappings,
+                &libs,
+            ))
+        };
     }
 
-    Err(io::Error::new(io::ErrorKind::Other, "placeholder"))
+    all_imports
 }
 pub fn module_factory(
     absolute_path: &str,
     raw_code: &str,
     remappings: HashMap<&str, &str>,
     libs: Vec<&str>,
-) -> ModuleMap {
+) -> HashMap<String, ModuleInfo> {
     let mut unprocessed_module = vec![UnprocessedModule {
         absolute_path,
         raw_code,
@@ -82,6 +89,21 @@ pub fn module_factory(
         if module_map.contains_key(next_module.absolute_path) {
             continue;
         }
+
+        let resolved_imports = resolve_imports(
+            next_module.absolute_path,
+            next_module.raw_code,
+            &remappings,
+            &libs,
+        );
+
+        module_map.insert(
+            next_module.absolute_path,
+            ModuleInfo {
+                raw_code: next_module.raw_code,
+                id: next_module.absolute_path,
+            },
+        )
     }
 
     module_map
