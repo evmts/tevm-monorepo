@@ -9,6 +9,7 @@ napi = { version = '2.10.2', default-features = false, features = [
 	'napi4',
 ] }
 napi-derive = '2.9.3'
+regex = "1.11.1"
 
 [lib]
 crate-type = [
