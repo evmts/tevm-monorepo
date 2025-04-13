@@ -14,13 +14,13 @@ struct UnprocessedModule<'a> {
 
 struct ModuleInfo {
     /// the id of the module, for convenience
-    id: String,
+    id: &String,
     /// the source code of the module, `None` if external or not yet available
-    raw_code: Option<String>,
+    raw_code: &Option<String>,
     /// the code after transformed to correctly resolve remappings and node_module imports
-    code: String,
+    code: &String,
     /// the module ids statically imported by this module
-    imported_ids: Vec<String>,
+    imported_ids: &Vec<PathBuf>,
 }
 
 struct ResolvedImport {
@@ -100,10 +100,18 @@ pub fn module_factory(
         module_map.insert(
             next_module.absolute_path,
             ModuleInfo {
-                raw_code: next_module.raw_code,
+                raw_code: Some(next_module.raw_code),
                 id: next_module.absolute_path,
+                // TODO we need to do the update pragma hack
+                code: next_module.raw_code,
+                imported_ids: &resolve_imports(
+                    absolute_path,
+                    next_module.raw_code,
+                    &remappings,
+                    &libs,
+                ),
             },
-        )
+        );
     }
 
     module_map
