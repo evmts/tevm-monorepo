@@ -1,19 +1,19 @@
-import { all, die, fail, map } from 'effect/Effect'
-import { resolveImportPath } from './utils/resolveImportPath.js'
+import { all, die, fail, map } from "effect/Effect";
+import { resolveImportPath } from "./utils/resolveImportPath.js";
 
 class ImportDoesNotExistError extends Error {
-	/**
-	 * @type {'ImportDoesNotExistError'}
-	 */
-	_tag = 'ImportDoesNotExistError'
-	/**
-	 * @type {'ImportDoesNotExistError'}
-	 * @override
-	 */
-	name = 'ImportDoesNotExistError'
-	constructor() {
-		super('Import does not exist')
-	}
+  /**
+   * @type {'ImportDoesNotExistError'}
+   */
+  _tag = "ImportDoesNotExistError";
+  /**
+   * @type {'ImportDoesNotExistError'}
+   * @override
+   */
+  name = "ImportDoesNotExistError";
+  constructor() {
+    super("Import does not exist");
+  }
 }
 
 /**
@@ -49,35 +49,26 @@ class ImportDoesNotExistError extends Error {
  * ```
  */
 export const resolveImports = (absolutePath, code, remappings, libs, sync) => {
-	const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm
+  const importRegEx = /^\s?import\s+[^'"]*['"](.*)['"]\s*/gm;
 
-	if (typeof absolutePath !== 'string') {
-		return die(`Type ${typeof absolutePath} is not of type string`)
-	}
-	if (typeof code !== 'string') {
-		return die(`Type ${typeof code} is not of type string`)
-	}
-	if (typeof sync !== 'boolean') {
-		return die(`Type ${typeof sync} is not of type boolean`)
-	}
-	const allImports =
-		/** @type Array<import("effect/Effect").Effect<import("./types.js").ResolvedImport, import("./utils/resolveImportPath.js").CouldNotResolveImportError, >> */ ([])
-	let foundImport = importRegEx.exec(code)
-	while (foundImport != null) {
-		const importPath = foundImport[1]
-		if (!importPath) {
-			return fail(new ImportDoesNotExistError())
-		}
-		allImports.push(
-			resolveImportPath(absolutePath, importPath, remappings, libs, sync).pipe(
-				map((absolute) => ({
-					updated: absolute,
-					absolute,
-					original: importPath,
-				})),
-			),
-		)
-		foundImport = importRegEx.exec(code)
-	}
-	return all(allImports)
-}
+  const allImports =
+    /** @type Array<import("effect/Effect").Effect<import("./types.js").ResolvedImport, import("./utils/resolveImportPath.js").CouldNotResolveImportError, >> */ ([]);
+  let foundImport = importRegEx.exec(code);
+  while (foundImport != null) {
+    const importPath = foundImport[1];
+    if (!importPath) {
+      return fail(new ImportDoesNotExistError());
+    }
+    allImports.push(
+      resolveImportPath(absolutePath, importPath, remappings, libs, sync).pipe(
+        map((absolute) => ({
+          updated: absolute,
+          absolute,
+          original: importPath,
+        })),
+      ),
+    );
+    foundImport = importRegEx.exec(code);
+  }
+  return all(allImports);
+};
