@@ -8,7 +8,7 @@
     "build": {
       "cache": true,
       "outputs": ["{workspaceRoot}/bundler-packages/resolutions-rs"],
-      "executor": "@monodon/rust:napi",
+      "executor": "@monodon/rust",
       "options": {
         "dist": "bundler-packages/resolutions-rs",
         "jsFile": "index.js"
