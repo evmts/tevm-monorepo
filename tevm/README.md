@@ -18,7 +18,7 @@
 Tevm is an ethereum development toolkit that offers
 
 - Arbitrary EVM execution and forking akin to [anvil](https://github.com/foundry-rs/foundry/tree/master/crates/anvil)
-- A powerful solidity scripting environment akin to [foundry scripts](https://book.getfoundry.sh/tutorials/solidity-scripting)
+- A powerful solidity scripting environment akin to [foundry scripts](https://book.getfoundry.sh/guides/scripting-with-solidity)
 - Build tooling to create a smooth interface between your Solidity scripts and TypeScript code
 
 ```typescript
