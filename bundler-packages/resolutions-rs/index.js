@@ -1,26 +1,29 @@
-const { existsSync, readFileSync } = require("fs");
-const { join } = require("path");
+import { existsSync, readFileSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+import { createRequire } from "module";
+import { platform, arch, report } from "process";
 
-const { platform, arch } = process;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
 
 let nativeBinding = null;
 let localFileExisted = false;
 let loadError = null;
 
-function isMusl() {
+async function isMusl() {
   // For Node 10
-  if (!process.report || typeof process.report.getReport !== "function") {
+  if (!report || typeof report.getReport !== "function") {
     try {
-      const lddPath = require("child_process")
-        .execSync("which ldd")
-        .toString()
-        .trim();
+      const { execSync } = await import("child_process");
+      const lddPath = execSync("which ldd").toString().trim();
       return readFileSync(lddPath, "utf8").includes("musl");
     } catch (e) {
       return true;
     }
   } else {
-    const { glibcVersionRuntime } = process.report.getReport().header;
+    const { glibcVersionRuntime } = report.getReport().header;
     return !glibcVersionRuntime;
   }
 }
@@ -259,6 +262,7 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`);
 }
 
-const { sum } = nativeBinding;
+const { resolve_imports, module_factory } = nativeBinding;
 
-module.exports.sum = sum;
+export { resolve_imports, module_factory };
+export default nativeBinding;
