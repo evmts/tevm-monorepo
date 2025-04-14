@@ -1,3 +1,4 @@
+
 [package]
 name = '_tevm_bundler_packages_rs'
 version = '0.1.0'
@@ -8,8 +9,6 @@ node-resolve = "2.2.0"
 once_cell = "1.21.3"
 regex = "1.11.1"
 serde_json = "1.0.140"
-tokio = { version = "1.36.0", features = ["full"] }
-futures = "0.3.30"
 
 [lib]
 crate-type = [

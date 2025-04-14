@@ -1,34 +1,13 @@
 use crate::models::ModuleInfo;
 use crate::resolve_imports::resolve_imports;
-use futures::future::join_all;
 use node_resolve::ResolutionError;
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
-use tokio::fs::read_to_string;
+use std::fs::read_to_string;
 
 #[derive(Debug)]
 pub enum ModuleResolutionError {
     Resolution(ResolutionError),
     CannotReadFile(std::io::Error),
-    InvalidPath(String),
-}
-
-// Manual implementation of Clone for ModuleResolutionError
-impl Clone for ModuleResolutionError {
-    fn clone(&self) -> Self {
-        match self {
-            // Convert non-clonable errors to InvalidPath with descriptive messages
-            ModuleResolutionError::Resolution(_) => {
-                ModuleResolutionError::InvalidPath("Resolution error".to_string())
-            },
-            ModuleResolutionError::CannotReadFile(_) => {
-                ModuleResolutionError::InvalidPath("File read error".to_string())
-            },
-            ModuleResolutionError::InvalidPath(msg) => {
-                ModuleResolutionError::InvalidPath(msg.clone())
-            },
-        }
-    }
 }
 
 impl From<ResolutionError> for ModuleResolutionError {
@@ -54,40 +33,18 @@ pub fn module_factory(
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<HashMap<String, ModuleInfo>, Vec<ModuleResolutionError>> {
-    // Use tokio's runtime to run the async function and block until it completes
-    tokio::runtime::Runtime::new()
-        .unwrap()
-        .block_on(module_factory_async(absolute_path, raw_code, remappings, libs))
-}
-
-/// Asynchronous version of module_factory that leverages Tokio for concurrent I/O
-async fn module_factory_async(
-    absolute_path: &str,
-    raw_code: &str,
-    remappings: &HashMap<String, String>,
-    libs: &[String],
-) -> Result<HashMap<String, ModuleInfo>, Vec<ModuleResolutionError>> {
-    let initial_module = UnprocessedModule {
+    let mut unprocessed_module = vec![UnprocessedModule {
         absolute_path: absolute_path.to_string(),
         raw_code: raw_code.to_string(),
-    };
+    }];
+    let mut module_map: HashMap<String, ModuleInfo> = HashMap::new();
+    let mut errors: Vec<ModuleResolutionError> = vec![];
 
-    // Use Arc and Mutex for shared mutable state
-    let module_map: Arc<Mutex<HashMap<String, ModuleInfo>>> = Arc::new(Mutex::new(HashMap::new()));
-    let errors: Arc<Mutex<Vec<ModuleResolutionError>>> = Arc::new(Mutex::new(Vec::new()));
-    let unprocessed_modules: Arc<Mutex<Vec<UnprocessedModule>>> = Arc::new(Mutex::new(vec![initial_module]));
-
-    // Process modules until there are no more unprocessed modules
-    'outer: while let Some(next_module) = {
-        let mut modules = unprocessed_modules.lock().unwrap();
-        modules.pop()
-    } {
-        // Skip if already processed
-        if module_map.lock().unwrap().contains_key(&next_module.absolute_path) {
-            continue 'outer;
+    while let Some(next_module) = unprocessed_module.pop() {
+        if module_map.contains_key(&next_module.absolute_path) {
+            continue;
         }
 
-        // Resolve imports for the current module
         match resolve_imports(
             &next_module.absolute_path,
             &next_module.raw_code,
@@ -95,85 +52,44 @@ async fn module_factory_async(
             libs,
         ) {
             Ok(imported_paths) => {
-                // Process all imported paths concurrently
-                let path_tasks = imported_paths.iter().map(|path| {
-                    let path_clone = path.clone();
-                    let unprocessed_clone = Arc::clone(&unprocessed_modules);
-                    let errors_clone = Arc::clone(&errors);
-
-                    tokio::spawn(async move {
-                        match read_to_string(&path_clone).await {
-                            Ok(code) => {
-                                let absolute_path = match path_clone.to_str() {
-                                    Some(path_str) => path_str.to_owned(),
-                                    None => {
-                                        errors_clone.lock().unwrap().push(
-                                            ModuleResolutionError::InvalidPath(
-                                                "Non-UTF8 path encountered".to_string()
-                                            )
-                                        );
-                                        return;
-                                    }
-                                };
-
-                                unprocessed_clone.lock().unwrap().push(UnprocessedModule {
-                                    raw_code: code,
-                                    absolute_path,
-                                });
-                            }
-                            Err(err) => {
-                                errors_clone.lock().unwrap().push(err.into());
-                            }
+                for imported_path in &imported_paths {
+                    match read_to_string(&imported_path) {
+                        Ok(code) => {
+                            let absolute_path: String = imported_path
+                                .to_str()
+                                .expect("Tevm only supports utf8 files")
+                                .to_owned();
+                            unprocessed_module.push(UnprocessedModule {
+                                raw_code: code,
+                                absolute_path,
+                            });
                         }
-                    })
-                });
-
-                // Wait for all file reading operations to complete
-                join_all(path_tasks).await;
-
-                // Add the processed module to the module map
-                module_map.lock().unwrap().insert(
-                    next_module.absolute_path.clone(),
+                        Err(err) => errors.push(err.into()),
+                    }
+                }
+                module_map.insert(
+                    next_module.absolute_path.to_string(),
                     ModuleInfo {
-                        code: next_module.raw_code,
+                        code: next_module.raw_code.to_string(),
                         imported_ids: imported_paths,
                     },
                 );
             }
             Err(errs) => {
-                // Handle resolve_imports errors
-                module_map.lock().unwrap().insert(
-                    next_module.absolute_path,
+                module_map.insert(
+                    next_module.absolute_path.to_string(),
                     ModuleInfo {
-                        code: next_module.raw_code,
+                        code: next_module.raw_code.to_string(),
                         imported_ids: vec![],
                     },
                 );
-
-                errors.lock().unwrap().append(
-                    &mut errs.into_iter().map(Into::into).collect()
-                );
+                errors.append(&mut errs.into_iter().map(Into::into).collect());
             }
         }
     }
 
-    // Check if there were any errors
-    let final_errors = {
-        let errors_guard = errors.lock().unwrap();
-        if errors_guard.is_empty() {
-            Vec::new()
-        } else {
-            errors_guard.clone()
-        }
-    };
-
-    if !final_errors.is_empty() {
-        return Err(final_errors);
+    if !errors.is_empty() {
+        return Err(errors);
     }
-
-    // Return the final module map
-    Ok(Arc::try_unwrap(module_map)
-        .expect("There should be no more references to the module map")
-        .into_inner()
-        .unwrap())
+    Ok(module_map)
 }
