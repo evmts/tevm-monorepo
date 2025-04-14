@@ -1,7 +1,7 @@
 use node_resolve::{resolve_from, ResolutionError};
 use std::collections::HashMap;
 use std::iter::once;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 pub fn resolve_import_path(
     absolute_path: &str,
@@ -9,17 +9,15 @@ pub fn resolve_import_path(
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<PathBuf, Vec<ResolutionError>> {
-    let dirpath = match Path::new(absolute_path).parent() {
-        Some(dirpath) => dirpath,
-        None => panic!("expected dirpath"),
-    };
     for (val, key) in remappings {
         if import_path.starts_with(key) {
-            return Ok(dirpath.join(import_path.replace(key, val)));
+            return resolve_import_path(
+                absolute_path,
+                &import_path.replace(key, val),
+                &HashMap::new(),
+                libs,
+            );
         }
-    }
-    if import_path.starts_with('.') {
-        return Ok(dirpath.join(import_path));
     }
     let mut errors: Vec<ResolutionError> = vec![];
     for lib in once(absolute_path).chain(libs.iter().map(String::as_str)) {
