@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/resolutions-rs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rust implementation of solidity resolution",
+  "type": "module",
+  "scripts": {
+    "benchmark": "vitest bench"
+  },
+  "dependencies": {
+    "@tevm/resolutions": "workspace:^",
+    "effect": "^3.14.10"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0"
+  }
+}

@@ -9,6 +9,7 @@ dependencies = [
  "node-resolve",
  "once_cell",
  "regex",
+ "serde",
  "serde_json",
  "tempfile",
 ]
