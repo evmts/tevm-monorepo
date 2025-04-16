@@ -8,7 +8,7 @@
 
 > **SolcStorageLayoutItem**\<`T`\>: `object`
 
-Defined in: [solcTypes.ts:451](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L451)
+Defined in: [solcTypes.ts:446](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L446)
 
 An item present in the contract's storage
 

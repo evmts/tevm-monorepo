@@ -2,81 +2,50 @@
 
 ***
 
-[@tevm/errors](../globals.md) / InvalidParamsError
+[@tevm/errors](../globals.md) / InvalidAddToBlockchainError
 
-# Class: InvalidParamsError
+# Class: InvalidAddToBlockchainError
 
-Defined in: [packages/errors/src/ethereum/InvalidParamsError.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L41)
+Defined in: packages/errors/src/input/InvalidAddToBlockchainError.js:42
 
-Represents an error that occurs when invalid method parameters are provided.
+Represents an error that occurs when the addToBlockchain parameter is invalid.
 
-This error is typically encountered when a JSON-RPC request is made with parameters that are not valid or do not match the expected types.
+This error is typically encountered when a transaction specifies an invalid addToBlockchain value.
 
 ## Example
 
-```ts
+```javascript
+import { InvalidAddToBlockchainError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+
+const client = createMemoryClient()
+
 try {
-  // Some operation that can throw an InvalidParamsError
+  await client.call({
+    to: '0x0987654321098765432109876543210987654321',
+    data: '0x',
+    addToBlockchain: 'invalid', // Should be boolean
+  })
 } catch (error) {
-  if (error instanceof InvalidParamsError) {
-    console.error(error.message);
-    // Handle the invalid params error
+  if (error instanceof InvalidAddToBlockchainError) {
+    console.error('Invalid addToBlockchain parameter:', error.message)
   }
 }
 ```
 
-## Param
-
-A human-readable error message.
-
-## Param
-
-Additional parameters for the BaseError.
-
 ## Extends
 
-- [`BaseError`](BaseError.md)
-
-## Extended by
-
-- [`InvalidToError`](InvalidToError.md)
-- [`InvalidAbiError`](InvalidAbiError.md)
-- [`InvalidUrlError`](InvalidUrlError.md)
-- [`InvalidArgsError`](InvalidArgsError.md)
-- [`InvalidDataError`](InvalidDataError.md)
-- [`InvalidSaltError`](InvalidSaltError.md)
-- [`InvalidBlockError`](InvalidBlockError.md)
-- [`InvalidDepthError`](InvalidDepthError.md)
-- [`InvalidNonceError`](InvalidNonceError.md)
-- [`InvalidValueError`](InvalidValueError.md)
-- [`InvalidCallerError`](InvalidCallerError.md)
-- [`InvalidOriginError`](InvalidOriginError.md)
-- [`InvalidBalanceError`](InvalidBalanceError.md)
-- [`InvalidBytecodeError`](InvalidBytecodeError.md)
-- [`InvalidGasLimitError`](InvalidGasLimitError.md)
-- [`InvalidGasRefundError`](InvalidGasRefundError.md)
-- [`InvalidSkipBalanceError`](InvalidSkipBalanceError.md)
-- [`InvalidStorageRootError`](InvalidStorageRootError.md)
-- [`InvalidFunctionNameError`](InvalidFunctionNameError.md)
-- [`InvalidSelfdestructError`](InvalidSelfdestructError.md)
-- [`InvalidDeployedBytecodeError`](InvalidDeployedBytecodeError.md)
-- [`InvalidBlobVersionedHashesError`](InvalidBlobVersionedHashesError.md)
-- [`InvalidMaxFeePerGasError`](InvalidMaxFeePerGasError.md)
-- [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
-- [`InvalidAddToMempoolError`](InvalidAddToMempoolError.md)
-- [`InvalidAddToBlockchainError`](InvalidAddToBlockchainError.md)
-- [`DecodeFunctionDataError`](DecodeFunctionDataError.md)
-- [`EncodeFunctionReturnDataError`](EncodeFunctionReturnDataError.md)
+- [`InvalidParamsError`](InvalidParamsError.md)
 
 ## Constructors
 
-### new InvalidParamsError()
+### new InvalidAddToBlockchainError()
 
-> **new InvalidParamsError**(`message`, `args`?, `tag`?): [`InvalidParamsError`](InvalidParamsError.md)
+> **new InvalidAddToBlockchainError**(`message`, `args`?): [`InvalidAddToBlockchainError`](InvalidAddToBlockchainError.md)
 
-Defined in: [packages/errors/src/ethereum/InvalidParamsError.js:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L55)
+Defined in: packages/errors/src/input/InvalidAddToBlockchainError.js:49
 
-Constructs an InvalidParamsError.
+Constructs an InvalidAddToBlockchainError.
 
 #### Parameters
 
@@ -88,23 +57,17 @@ Human-readable error message.
 
 ##### args?
 
-[`InvalidParamsErrorParameters`](../interfaces/InvalidParamsErrorParameters.md) = `{}`
+[`InvalidAddToBlockchainErrorParameters`](../interfaces/InvalidAddToBlockchainErrorParameters.md) = `{}`
 
-Additional parameters for the BaseError.
-
-##### tag?
-
-`string` = `'InvalidParams'`
-
-The tag for the error.
+Additional parameters for the InvalidAddToBlockchainError.
 
 #### Returns
 
-[`InvalidParamsError`](InvalidParamsError.md)
+[`InvalidAddToBlockchainError`](InvalidAddToBlockchainError.md)
 
 #### Overrides
 
-[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
+[`InvalidParamsError`](InvalidParamsError.md).[`constructor`](InvalidParamsError.md#constructors)
 
 ## Properties
 
@@ -112,13 +75,13 @@ The tag for the error.
 
 > **\_tag**: `string`
 
-Defined in: [packages/errors/src/ethereum/BaseError.js:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L82)
+Defined in: packages/errors/src/input/InvalidAddToBlockchainError.js:61
 
 Same as name, used internally.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag-1)
+[`InvalidParamsError`](InvalidParamsError.md).[`_tag`](InvalidParamsError.md#_tag)
 
 ***
 
@@ -130,7 +93,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:114](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`cause`](BaseError.md#cause)
+[`InvalidParamsError`](InvalidParamsError.md).[`cause`](InvalidParamsError.md#cause)
 
 ***
 
@@ -142,7 +105,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code-1)
+[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code)
 
 ***
 
@@ -154,7 +117,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`details`](BaseError.md#details)
+[`InvalidParamsError`](InvalidParamsError.md).[`details`](InvalidParamsError.md#details)
 
 ***
 
@@ -164,11 +127,9 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:91](https://github.com/ev
 
 Defined in: [packages/errors/src/ethereum/BaseError.js:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L96)
 
-Path to the documentation for this error.
-
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`docsPath`](BaseError.md#docspath)
+[`InvalidParamsError`](InvalidParamsError.md).[`docsPath`](InvalidParamsError.md#docspath)
 
 ***
 
@@ -182,7 +143,7 @@ Human-readable error message.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`message`](BaseError.md#message)
+[`InvalidParamsError`](InvalidParamsError.md).[`message`](InvalidParamsError.md#message-1)
 
 ***
 
@@ -192,11 +153,9 @@ Human-readable error message.
 
 Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L100)
 
-Additional meta messages for more context.
-
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`metaMessages`](BaseError.md#metamessages)
+[`InvalidParamsError`](InvalidParamsError.md).[`metaMessages`](InvalidParamsError.md#metamessages)
 
 ***
 
@@ -204,13 +163,13 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
+Defined in: packages/errors/src/input/InvalidAddToBlockchainError.js:60
 
 The name of the error, used to discriminate errors.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`name`](BaseError.md#name)
+[`InvalidParamsError`](InvalidParamsError.md).[`name`](InvalidParamsError.md#name)
 
 ***
 
@@ -222,7 +181,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage-1)
+[`InvalidParamsError`](InvalidParamsError.md).[`shortMessage`](InvalidParamsError.md#shortmessage)
 
 ***
 
@@ -234,7 +193,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`stack`](BaseError.md#stack)
+[`InvalidParamsError`](InvalidParamsError.md).[`stack`](InvalidParamsError.md#stack)
 
 ***
 
@@ -246,7 +205,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`version`](BaseError.md#version)
+[`InvalidParamsError`](InvalidParamsError.md).[`version`](InvalidParamsError.md#version)
 
 ***
 
@@ -256,7 +215,11 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:108](https://github.com/e
 
 Defined in: [packages/errors/src/ethereum/InvalidParamsError.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InvalidParamsError.js#L46)
 
-Error code, analogous to the code in JSON RPC error.
+The error code for InvalidParamsError.
+
+#### Inherited from
+
+[`InvalidParamsError`](InvalidParamsError.md).[`code`](InvalidParamsError.md#code-1)
 
 ***
 
@@ -288,7 +251,7 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`prepareStackTrace`](BaseError.md#preparestacktrace)
+[`InvalidParamsError`](InvalidParamsError.md).[`prepareStackTrace`](InvalidParamsError.md#preparestacktrace)
 
 ***
 
@@ -300,7 +263,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`stackTraceLimit`](BaseError.md#stacktracelimit)
+[`InvalidParamsError`](InvalidParamsError.md).[`stackTraceLimit`](InvalidParamsError.md#stacktracelimit)
 
 ## Methods
 
@@ -328,7 +291,7 @@ The first error that matches the function, or the original error.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`walk`](BaseError.md#walk)
+[`InvalidParamsError`](InvalidParamsError.md).[`walk`](InvalidParamsError.md#walk)
 
 ***
 
@@ -358,7 +321,7 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)
 
 #### Call Signature
 
@@ -384,4 +347,4 @@ Create .stack property on a target object
 
 ##### Inherited from
 
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+[`InvalidParamsError`](InvalidParamsError.md).[`captureStackTrace`](InvalidParamsError.md#capturestacktrace)

@@ -1,3 +1,5 @@
+// Imported but not used in the code directly
+// @ts-ignore
 import { z } from 'zod'
 import { zBaseCallParams } from '../BaseCall/zBaseCallParams.js'
 import { zAbi } from '../internal/zod/zAbi.js'
@@ -7,7 +9,7 @@ import { zHex } from '../internal/zod/zHex.js'
 /**
  * Zod validator for a valid contract action
  */
-export const zContractParams = zBaseCallParams
+export const zContractParams = /** @type {any} */ (zBaseCallParams)
 	.extend({
 		to: zAddress.optional().describe('The required address of the contract to call'),
 		abi: zAbi.describe('The abi of the contract'),
@@ -19,7 +21,7 @@ export const zContractParams = zBaseCallParams
 			.describe('deployed bytecode to put into state for contract. If you want to run a constructor use code instead'),
 	})
 	.refine(
-		(params) => {
+		(/** @type {any} */ params) => {
 			if (!params.code && !params.to && !params.deployedBytecode) {
 				return false
 			}
@@ -30,7 +32,7 @@ export const zContractParams = zBaseCallParams
 		},
 	)
 	.refine(
-		(params) => {
+		(/** @type {any} */ params) => {
 			if (params.createTransaction && params.stateOverrideSet) {
 				return false
 			}

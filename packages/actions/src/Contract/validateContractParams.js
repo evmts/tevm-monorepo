@@ -28,37 +28,37 @@ export const validateContractParams = (action) => {
 	if (parsedParams.success === false) {
 		const formattedErrors = parsedParams.error.format()
 		if (formattedErrors._errors) {
-			formattedErrors._errors.forEach((error) => {
+			formattedErrors._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidParamsError(error))
 			})
 		}
 		if (formattedErrors.code) {
-			formattedErrors.code._errors.forEach((error) => {
+			formattedErrors.code._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidBytecodeError(error))
 			})
 		}
 		if (formattedErrors.deployedBytecode) {
-			formattedErrors.deployedBytecode._errors.forEach((error) => {
+			formattedErrors.deployedBytecode._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidBytecodeError(error))
 			})
 		}
 		if (formattedErrors.abi) {
-			formattedErrors.abi._errors.forEach((error) => {
+			formattedErrors.abi._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidAbiError(error))
 			})
 		}
 		if (formattedErrors.args) {
-			formattedErrors.args._errors.forEach((error) => {
+			formattedErrors.args._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidArgsError(error))
 			})
 		}
 		if (formattedErrors.functionName) {
-			formattedErrors.functionName._errors.forEach((error) => {
+			formattedErrors.functionName._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidFunctionNameError(error))
 			})
 		}
 		if (formattedErrors.to) {
-			formattedErrors.to._errors.forEach((error) => {
+			formattedErrors.to._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidAddressError(error))
 			})
 		}

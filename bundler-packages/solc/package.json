@@ -55,11 +55,11 @@
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && attw --pack",
+		"solc:version": "node scripts/version/index.cjs",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
-		"test:ui": "vitest --ui",
-		"solc:version": "node scripts/version/index.cjs"
+		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
 		"@tevm/tsconfig": "workspace:^",

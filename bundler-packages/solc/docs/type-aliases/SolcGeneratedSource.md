@@ -8,7 +8,7 @@
 
 > **SolcGeneratedSource**: `object`
 
-Defined in: [solcTypes.ts:627](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L627)
+Defined in: [solcTypes.ts:622](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L622)
 
 ## Type declaration
 

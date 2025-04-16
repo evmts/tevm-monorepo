@@ -38,7 +38,7 @@ Defined in: [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### storageLayout
 
-> **storageLayout**: [`SolcStorageLayoutOutput`](SolcStorageLayoutOutput.md)
+> **storageLayout**: [`SolcStorageLayout`](SolcStorageLayout.md)
 
 ### userdoc
 
