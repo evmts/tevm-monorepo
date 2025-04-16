@@ -19,6 +19,10 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
+  [InvalidAddress: Invalid Address not an address
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73],
 ]
 `;
 
@@ -75,6 +79,10 @@ Version: 1.1.0.next-73],
   [InvalidFunctionNameError: Expected string, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidfunctionnameerror/
+Version: 1.1.0.next-73],
+  [InvalidAddress: Invalid Address not an address
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
   [InvalidAddress: Invalid Address not an address
 

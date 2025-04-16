@@ -99,6 +99,11 @@ describe('tevmCall', () => {
 		expect(result.rawData).toBe('0x')
 		expect(result.txHash).toBeDefined()
 
+		await client.request({
+			method: 'tevm_mine',
+			params: [],
+		})
+
 		// Transaction should be mined automatically - check balance updated
 		const getAccountAfter = await client.request({
 			method: 'tevm_getAccount',
