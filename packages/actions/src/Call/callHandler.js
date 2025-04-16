@@ -35,8 +35,18 @@ import { validateCallParams } from './validateCallParams.js'
  *
  * const call = callHandler(client)
  *
+ * // Add transaction to mempool (requires mining later)
  * const res = await call({
- *   createTransaction: true,
+ *   addToMempool: true,
+ *   to: `0x${'69'.repeat(20)}`,
+ *   value: 420n,
+ *   skipBalance: true,
+ * })
+ * await client.tevmMine()
+ *
+ * // Or add transaction to blockchain directly (automatically mines)
+ * const autoMinedRes = await call({
+ *   addToBlockchain: true,
  *   to: `0x${'69'.repeat(20)}`,
  *   value: 420n,
  *   skipBalance: true,

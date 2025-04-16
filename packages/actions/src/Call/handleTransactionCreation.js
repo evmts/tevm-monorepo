@@ -1,6 +1,6 @@
 import { createTransaction } from '../CreateTransaction/createTransaction.js'
 import { handleAutomining } from './handleAutomining.js'
-import { shouldCreateTransaction } from './shouldCreateTransaction.js'
+import { shouldAddToBlockchain, shouldCreateTransaction } from './shouldCreateTransaction.js'
 
 /**
  * Handles the creation of a transaction based on the call parameters and execution result.
@@ -21,7 +21,22 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 	 * @type {Array<import('./TevmCallError.js').TevmCallError>}
 	 */
 	const errors = []
-	if (shouldCreateTransaction(params, executedCall.runTxResult)) {
+
+	// Log deprecation warning if createTransaction is used
+	if (
+		params.createTransaction !== undefined &&
+		params.addToMempool === undefined &&
+		params.addToBlockchain === undefined
+	) {
+		client.logger.warn(
+			'The createTransaction parameter is deprecated. Please use addToMempool or addToBlockchain instead.',
+		)
+	}
+
+	const shouldCreateTx = shouldCreateTransaction(params, executedCall.runTxResult)
+	const shouldAddToChain = shouldAddToBlockchain(params, executedCall.runTxResult)
+
+	if (shouldCreateTx || shouldAddToChain) {
 		try {
 			// Use a try-catch to handle errors from createTransaction or handleAutomining
 			const txRes = await createTransaction(client)({
@@ -36,15 +51,32 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 			// Check if gas mining is enabled and should be triggered
 			const isGasMining = client.miningConfig.type === 'gas'
 
-			// Handle automining or gas mining based on configuration
-			const miningRes = (await handleAutomining(client, txHash, isGasMining)) ?? {}
+			// Handle immediate mining if addToBlockchain is true
+			if (shouldAddToChain && txHash) {
+				// We need to mine the transaction with auto mode
+				// For type safety, we'll continue to use the existing client
+				// but tell handleAutomining to force mining regardless of config
 
-			// Check for errors in the transaction creation and mining results
+				// Use true for isGasMining to force mining regardless of client mining mode
+				const autoMiningResult = await handleAutomining(client, txHash, true)
+
+				// Handle any errors from mining
+				if (autoMiningResult?.errors) {
+					errors.push(.../** @type {any} */ (autoMiningResult.errors))
+				}
+			} else {
+				// Handle regular automining based on configuration
+				const regularMiningResult = await handleAutomining(client, txHash, isGasMining)
+
+				// Handle any errors from mining
+				if (regularMiningResult?.errors) {
+					errors.push(.../** @type {any} */ (regularMiningResult.errors))
+				}
+			}
+
+			// Check for errors in the transaction creation
 			if ('errors' in txRes && txRes.errors) {
 				errors.push(.../** @type {any} */ (txRes.errors))
-			}
-			if (miningRes.errors) {
-				errors.push(.../** @type {any} */ (miningRes.errors))
 			}
 		} catch (error) {
 			// Handle any unexpected errors during transaction creation
