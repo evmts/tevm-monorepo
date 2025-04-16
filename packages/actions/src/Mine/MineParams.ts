@@ -1,4 +1,5 @@
 import type { BaseParams } from '../common/BaseParams.js'
+import type { Hex } from '../common/Hex.js'
 import type { MineEvents } from './MineEvents.js'
 
 /**
@@ -20,6 +21,10 @@ import type { MineEvents } from './MineEvents.js'
  */
 export type MineParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> &
 	MineEvents & {
+		/**
+		 * The txHash to mine if only mining one tx
+		 */
+		readonly tx?: Hex
 		/**
 		 * Number of blocks to mine. Defaults to 1.
 		 */

@@ -9,7 +9,7 @@ import { mineHandler } from '../Mine/mineHandler.js'
  * @returns {Promise<{blockHashes?: undefined, errors?: import('../Mine/TevmMineError.js').TevmMineError[]} | undefined>} undefined if noop, errors if automining fails, blockHashes if automining succeeds
  * @throws {never} returns errors as values
  */
-export const handleAutomining = async (client, txHash, isGasMining = false) => {
+export const handleAutomining = async (client, txHash, isGasMining = false, mineAllTx = true) => {
 	// Check if auto mining is enabled or if this is a gas mining request
 	if (client.miningConfig.type === 'auto' || isGasMining) {
 		client.logger.debug(`${client.miningConfig.type === 'auto' ? 'Automining' : 'Gas mining'} transaction ${txHash}...`)
@@ -25,6 +25,7 @@ export const handleAutomining = async (client, txHash, isGasMining = false) => {
 
 		// Mine the specified number of blocks
 		const mineRes = await mineHandler(client)({
+			...(mineAllTx || txHash === undefined ? {} : { tx: txHash }),
 			throwOnFail: false,
 			blockCount: blocks,
 		})

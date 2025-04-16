@@ -53,8 +53,12 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 				// For type safety, we'll continue to use the existing client
 				// but tell handleAutomining to force mining regardless of config
 
-				// Use true for isGasMining to force mining regardless of client mining mode
-				const autoMiningResult = await handleAutomining(client, txHash, true)
+				const autoMiningResult = await handleAutomining(
+					client,
+					txHash,
+					isGasMining,
+					client.miningConfig.type === 'auto',
+				)
 
 				// Handle any errors from mining
 				if (autoMiningResult?.errors) {
