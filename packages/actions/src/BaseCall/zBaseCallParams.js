@@ -21,6 +21,18 @@ export const zBaseCallParams = zBaseParams
 			z.literal('always'),
 			z.literal('never'),
 		]),
+		addToMempool: z.union([
+			z.boolean().optional().describe('If true, this call adds the transaction to the mempool. Defaults to false.'),
+			z.literal('on-success'),
+			z.literal('always'),
+			z.literal('never'),
+		]),
+		addToBlockchain: z.union([
+			z.boolean().optional().describe('If true, this call adds the transaction to the blockchain. Defaults to false.'),
+			z.literal('on-success'),
+			z.literal('always'),
+			z.literal('never'),
+		]),
 		skipBalance: z.boolean().optional().describe('Set caller to msg.value of less than msg.value Defaults to false.'),
 		gasRefund: z.bigint().nonnegative().optional().describe('Refund counter. Defaults to 0'),
 		blockTag: zBlockParam
@@ -62,4 +74,16 @@ export const zBaseCallParams = zBaseParams
 			.optional()
 			.describe('The maximum priority fee per gas for the call for an EIP-1559 tx.'),
 	})
+	.refine(
+		(params) => {
+			// Validate that addToMempool and addToBlockchain are not both set
+			if (params.addToMempool !== undefined && params.addToBlockchain !== undefined) {
+				return false
+			}
+			return true
+		},
+		{
+			message: 'Cannot set both addToMempool and addToBlockchain simultaneously. Use one or the other.',
+		}
+	)
 	.describe('Properties shared across call-like actions')

@@ -206,9 +206,7 @@ describe('callHandler', () => {
 		).toEqual(420n)
 	})
 
-	// Skipping this test until we can better understand the transactions behavior
-	// Our focus is on making addToMempool and addToBlockchain work
-	it.skip('should not mine existing transactions when using addToBlockchain', async () => {
+	it('should not mine existing transactions when using addToBlockchain', async () => {
 		const client = createTevmNode()
 		const to1 = `0x${'69'.repeat(20)}` as const
 		const to2 = `0x${'42'.repeat(20)}` as const
@@ -242,7 +240,7 @@ describe('callHandler', () => {
 			skipBalance: true,
 		})
 
-		// Second account should be updated
+		// Second account should be updated because addToBlockchain mines the transaction
 		expect(
 			(
 				await getAccountHandler(client)({
@@ -251,20 +249,26 @@ describe('callHandler', () => {
 			).balance,
 		).toEqual(200n) // Mined
 
-		// First account should not be updated
-		const to1Account = await getAccountHandler(client)({
-			address: to1,
-		})
-		console.log('To1 balance:', to1Account.balance)
+		// First account should NOT be updated because addToBlockchain only mines its own transaction
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to1,
+				})
+			).balance,
+		).toEqual(0n) // Not mined yet
 
 		// Now mine everything
 		await mineHandler(client)()
 
-		// First balance should now be updated
-		const to1AccountAfter = await getAccountHandler(client)({
-			address: to1,
-		})
-		console.log('To1 balance after mining:', to1AccountAfter.balance)
+		// First balance should now be updated after mining
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to1,
+				})
+			).balance,
+		).toEqual(100n) // Now mined
 	})
 	it('should handle errors returned during contract call', async () => {
 		const client = createTevmNode()

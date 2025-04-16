@@ -23,11 +23,7 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 	const errors = []
 
 	// Log deprecation warning if createTransaction is used
-	if (
-		params.createTransaction !== undefined &&
-		params.addToMempool === undefined &&
-		params.addToBlockchain === undefined
-	) {
+	if (params.createTransaction !== undefined) {
 		client.logger.warn(
 			'The createTransaction parameter is deprecated. Please use addToMempool or addToBlockchain instead.',
 		)
@@ -64,8 +60,10 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 				if (autoMiningResult?.errors) {
 					errors.push(.../** @type {any} */ (autoMiningResult.errors))
 				}
-			} else {
-				// Handle regular automining based on configuration
+			}
+			
+			// Handle regular automining based on configuration (for transactions not added via addToBlockchain)
+			if (!shouldAddToChain && txHash) {
 				const regularMiningResult = await handleAutomining(client, txHash, isGasMining)
 
 				// Handle any errors from mining

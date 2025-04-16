@@ -12,7 +12,11 @@ export const shouldCreateTransaction = (params, runTxResult) => {
 	if (paramToUse === undefined) {
 		return false
 	}
-	if (paramToUse === true || paramToUse === 'always') {
+	if (paramToUse === 'always') {
+		return true
+	}
+	// true is now an alias for 'always', not 'on-success'
+	if (paramToUse === true) {
 		return true
 	}
 	if (paramToUse === false || paramToUse === 'never') {
@@ -39,7 +43,11 @@ export const shouldAddToBlockchain = (params, runTxResult) => {
 	if (params.addToBlockchain === undefined) {
 		return false
 	}
-	if (params.addToBlockchain === true || params.addToBlockchain === 'always') {
+	if (params.addToBlockchain === 'always') {
+		return true
+	}
+	// true is now an alias for 'always', not 'on-success'
+	if (params.addToBlockchain === true) {
 		return true
 	}
 	if (params.addToBlockchain === false || params.addToBlockchain === 'never') {
