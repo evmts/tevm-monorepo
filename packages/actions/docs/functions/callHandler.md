@@ -8,7 +8,7 @@
 
 > **callHandler**(`client`, `options`?): [`CallHandler`](../type-aliases/CallHandler.md)
 
-Defined in: [packages/actions/src/Call/callHandler.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandler.js#L47)
+Defined in: [packages/actions/src/Call/callHandler.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandler.js#L57)
 
 Creates a tree-shakable instance of [`client.tevmCall`](https://tevm.sh/reference/tevm/decorators/type-aliases/tevmactionsapi/#call) action.
 This function is designed for use with TevmNode and the internal instance of TEVM,
@@ -54,8 +54,18 @@ const client = createTevmNode()
 
 const call = callHandler(client)
 
+// Add transaction to mempool (requires mining later)
 const res = await call({
-  createTransaction: true,
+  addToMempool: true,
+  to: `0x${'69'.repeat(20)}`,
+  value: 420n,
+  skipBalance: true,
+})
+await client.tevmMine()
+
+// Or add transaction to blockchain directly (automatically mines)
+const autoMinedRes = await call({
+  addToBlockchain: true,
   to: `0x${'69'.repeat(20)}`,
   value: 420n,
   skipBalance: true,

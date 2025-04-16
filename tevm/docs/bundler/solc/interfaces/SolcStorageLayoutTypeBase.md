@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutTypeBase
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:199
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:195
 
 The base type for all storage layout types.
 
@@ -23,7 +23,7 @@ The base type for all storage layout types.
 
 > **encoding**: `"bytes"` \| `"inplace"` \| `"mapping"` \| `"dynamic_array"`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:208
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:204
 
 How the data is encoded in storage
 
@@ -38,7 +38,7 @@ How the data is encoded in storage
 
 > **label**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:212
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:208
 
 The canonical type name
 
@@ -48,7 +48,7 @@ The canonical type name
 
 > **numberOfBytes**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:218
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:214
 
 The number of used bytes (as a decimal string)
 

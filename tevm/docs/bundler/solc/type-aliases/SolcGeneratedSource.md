@@ -8,7 +8,7 @@
 
 > **SolcGeneratedSource**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:306
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:302
 
 ## Type declaration
 

@@ -9,17 +9,22 @@ import { zHex } from '../internal/zod/zHex.js'
 /**
  * Zod validator for a valid contract action
  */
-export const zContractParams = /** @type {any} */ (zBaseCallParams)
-	.extend({
-		to: zAddress.optional().describe('The required address of the contract to call'),
-		abi: zAbi.describe('The abi of the contract'),
-		args: z.array(z.any()).optional().describe('The arguments to pass to the function'),
-		functionName: z.string().describe('The name of the function to call'),
-		code: zHex.optional().describe('the encoded bytecode to use for the call'),
-		deployedBytecode: zHex
-			.optional()
-			.describe('deployed bytecode to put into state for contract. If you want to run a constructor use code instead'),
-	})
+export const zContractParams = z
+	.intersection(
+		zBaseCallParams,
+		z.object({
+			to: zAddress.optional().describe('The required address of the contract to call'),
+			abi: zAbi.describe('The abi of the contract'),
+			args: z.array(z.any()).optional().describe('The arguments to pass to the function'),
+			functionName: z.string().describe('The name of the function to call'),
+			code: zHex.optional().describe('the encoded bytecode to use for the call'),
+			deployedBytecode: zHex
+				.optional()
+				.describe(
+					'deployed bytecode to put into state for contract. If you want to run a constructor use code instead',
+				),
+		}),
+	)
 	.refine(
 		(/** @type {any} */ params) => {
 			if (!params.code && !params.to && !params.deployedBytecode) {

@@ -8,15 +8,18 @@ import { zHex } from '../internal/zod/zHex.js'
  * @internal
  * Zod validator for a valid call action
  */
-export const zCallParams = /** @type {any} */ (zBaseCallParams)
-	.extend({
-		data: zHex.optional().describe('the data to send'),
-		salt: zHex.optional().describe('the salt to use for the call'),
-		code: zHex.optional().describe('the encoded deployment code to use for the call'),
-		deployedBytecode: zHex
-			.optional()
-			.describe('the deployed bytecode to put into state. Use code if you want to encode the deployment code'),
-	})
+export const zCallParams = z
+	.intersection(
+		zBaseCallParams,
+		z.object({
+			data: zHex.optional().describe('the data to send'),
+			salt: zHex.optional().describe('the salt to use for the call'),
+			code: zHex.optional().describe('the encoded deployment code to use for the call'),
+			deployedBytecode: zHex
+				.optional()
+				.describe('the deployed bytecode to put into state. Use code if you want to encode the deployment code'),
+		}),
+	)
 	.refine(
 		(/** @type {any} */ params) => {
 			if (params.code && params.deployedBytecode) {

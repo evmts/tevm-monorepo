@@ -8,7 +8,7 @@
 
 > **SolcStorageLayout**\<`T`\>: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:150
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:146
 
 The storage layout for a contract.
 

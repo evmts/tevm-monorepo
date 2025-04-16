@@ -8,7 +8,7 @@
 
 > **SolcStorageLayoutItem**\<`T`\>: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:166
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:162
 
 An item present in the contract's storage
 

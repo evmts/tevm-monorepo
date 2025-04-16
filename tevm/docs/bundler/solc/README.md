@@ -48,7 +48,6 @@
 - [SolcSourceLocation](type-aliases/SolcSourceLocation.md)
 - [SolcStorageLayout](type-aliases/SolcStorageLayout.md)
 - [SolcStorageLayoutItem](type-aliases/SolcStorageLayoutItem.md)
-- [SolcStorageLayoutOutput](type-aliases/SolcStorageLayoutOutput.md)
 - [SolcStorageLayoutTypes](type-aliases/SolcStorageLayoutTypes.md)
 - [SolcVersions](type-aliases/SolcVersions.md)
 - [SolcYulDetails](type-aliases/SolcYulDetails.md)

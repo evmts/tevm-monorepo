@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutMappingType
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:235
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:231
 
 A storage layout type that is laid out in a keccak-256 hash-based method.
 
@@ -20,7 +20,7 @@ A storage layout type that is laid out in a keccak-256 hash-based method.
 
 > **encoding**: `"mapping"`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:236
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:232
 
 How the data is encoded in storage
 
@@ -39,7 +39,7 @@ How the data is encoded in storage
 
 > **key**: `` `t_${string}` ``
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:240
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:236
 
 The associated type for the mapping key
 
@@ -49,7 +49,7 @@ The associated type for the mapping key
 
 > **label**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:212
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:208
 
 The canonical type name
 
@@ -63,7 +63,7 @@ The canonical type name
 
 > **numberOfBytes**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:218
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:214
 
 The number of used bytes (as a decimal string)
 
@@ -79,6 +79,6 @@ Note: if numberOfBytes > 32 this means that more than one slot is used
 
 > **value**: `` `t_${string}` ``
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:244
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:240
 
 The associated type for the mapping value

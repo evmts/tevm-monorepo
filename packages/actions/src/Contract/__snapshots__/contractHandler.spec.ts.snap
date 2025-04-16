@@ -58,6 +58,10 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
 Version: 1.1.0.next-73],
+  [InvalidAddress: Invalid Address 0x123
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
+Version: 1.1.0.next-73],
 ]
 `;
 

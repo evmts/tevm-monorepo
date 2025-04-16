@@ -8,7 +8,7 @@
 
 > **SolcFunctionDebugData**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:300
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:296
 
 ## Type declaration
 

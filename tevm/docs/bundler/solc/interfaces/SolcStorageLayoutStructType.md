@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutStructType
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:259
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:255
 
 A storage layout type that is a struct.
 
@@ -20,7 +20,7 @@ A storage layout type that is a struct.
 
 > **encoding**: `"inplace"`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:224
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:220
 
 How the data is encoded in storage
 
@@ -39,7 +39,7 @@ How the data is encoded in storage
 
 > **label**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:212
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:208
 
 The canonical type name
 
@@ -53,7 +53,7 @@ The canonical type name
 
 > **members**: [`SolcStorageLayoutItem`](../type-aliases/SolcStorageLayoutItem.md)\<[`SolcStorageLayoutTypes`](../type-aliases/SolcStorageLayoutTypes.md)\>[]
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:263
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:259
 
 The members of the struct in the same format as a [SolcStorageLayoutItem](../type-aliases/SolcStorageLayoutItem.md)
 
@@ -63,7 +63,7 @@ The members of the struct in the same format as a [SolcStorageLayoutItem](../typ
 
 > **numberOfBytes**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:218
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:214
 
 The number of used bytes (as a decimal string)
 

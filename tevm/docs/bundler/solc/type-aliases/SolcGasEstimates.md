@@ -8,7 +8,7 @@
 
 > **SolcGasEstimates**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:313
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:309
 
 ## Type declaration
 

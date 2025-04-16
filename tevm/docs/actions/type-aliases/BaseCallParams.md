@@ -19,6 +19,49 @@ This type is used as the base for various call-like parameter types:
 
 ## Type declaration
 
+### addToBlockchain?
+
+> `readonly` `optional` **addToBlockchain**: `"on-success"` \| `"always"` \| `"never"` \| `boolean`
+
+Whether to add the transaction to the blockchain (mine it immediately). Defaults to `false`.
+- `on-success`: Only add the transaction to the blockchain if the call is successful.
+- `always`: Always add the transaction to the blockchain even if it reverts.
+- `never`: Never add the transaction to the blockchain.
+- `true`: Alias for `on-success`.
+- `false`: Alias for `never`.
+
+This automatically adds the transaction to the mempool AND mines it.
+It only mines the current transaction, not any other transactions in the mempool.
+
+#### Example
+
+```typescript
+const { txHash } = await client.call({ address: '0x1234', data: '0x1234', addToBlockchain: true })
+const receipt = await client.getTransactionReceipt({ hash: txHash })
+```
+
+### addToMempool?
+
+> `readonly` `optional` **addToMempool**: `"on-success"` \| `"always"` \| `"never"` \| `boolean`
+
+Whether to add the transaction to the mempool. Defaults to `false`.
+- `on-success`: Only add the transaction to the mempool if the call is successful.
+- `always`: Always add the transaction to the mempool even if it reverts.
+- `never`: Never add the transaction to the mempool.
+- `true`: Alias for `on-success`.
+- `false`: Alias for `never`.
+
+This does NOT automatically mine the transaction. To include the transaction in a block,
+you must call `client.mine()` afterward or use `addToBlockchain: true`.
+
+#### Example
+
+```typescript
+const { txHash } = await client.call({ address: '0x1234', data: '0x1234', addToMempool: true })
+await client.mine()
+const receipt = await client.getTransactionReceipt({ hash: txHash })
+```
+
 ### blobVersionedHashes?
 
 > `readonly` `optional` **blobVersionedHashes**: [`Hex`](Hex.md)[]
@@ -104,10 +147,13 @@ const { trace } = await client.call({ address: '0x1234', data: '0x1234', createT
 trace.structLogs.forEach(console.log)
 ```
 
-### createTransaction?
+### ~~createTransaction?~~
 
 > `readonly` `optional` **createTransaction**: `"on-success"` \| `"always"` \| `"never"` \| `boolean`
 
+#### Deprecated
+
+Use `addToMempool` or `addToBlockchain` instead.
 Whether or not to update the state or run the call in a dry-run. Defaults to `never`.
 - `on-success`: Only update the state if the call is successful.
 - `always`: Always include the transaction even if it reverts.
@@ -118,8 +164,18 @@ Whether or not to update the state or run the call in a dry-run. Defaults to `ne
 #### Example
 
 ```typescript
+// Deprecated approach
 const { txHash } = await client.call({ address: '0x1234', data: '0x1234', createTransaction: 'on-success' })
 await client.mine()
+const receipt = await client.getTransactionReceipt({ hash: txHash })
+
+// New approach
+const { txHash } = await client.call({ address: '0x1234', data: '0x1234', addToMempool: true })
+await client.mine()
+const receipt = await client.getTransactionReceipt({ hash: txHash })
+
+// Or automatically mine the transaction
+const { txHash } = await client.call({ address: '0x1234', data: '0x1234', addToBlockchain: true })
 const receipt = await client.getTransactionReceipt({ hash: txHash })
 ```
 

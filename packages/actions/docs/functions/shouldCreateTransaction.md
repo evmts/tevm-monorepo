@@ -12,7 +12,7 @@ Defined in: [packages/actions/src/Call/shouldCreateTransaction.js:8](https://git
 
 **`Internal`**
 
-Determines if a transaction should be created based on the `createTransaction` parameter
+Determines if a transaction should be created based on the parameters
 
 ## Parameters
 
@@ -30,4 +30,4 @@ Determines if a transaction should be created based on the `createTransaction` p
 
 ## Throws
 
-only if the `createTransaction` parameter is invalid based on ts type
+only if the parameter is invalid based on ts type

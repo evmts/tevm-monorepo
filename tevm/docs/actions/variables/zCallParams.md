@@ -6,7 +6,7 @@
 
 # Variable: zCallParams
 
-> `const` **zCallParams**: `ZodEffects`
+> `const` **zCallParams**: `any`
 
 Defined in: packages/actions/types/Call/zCallParams.d.ts:5
 
