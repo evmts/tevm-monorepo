@@ -61,7 +61,7 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 					errors.push(.../** @type {any} */ (autoMiningResult.errors))
 				}
 			}
-			
+
 			// Handle regular automining based on configuration (for transactions not added via addToBlockchain)
 			if (!shouldAddToChain && txHash) {
 				const regularMiningResult = await handleAutomining(client, txHash, isGasMining)

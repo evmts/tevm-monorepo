@@ -84,6 +84,6 @@ export const zBaseCallParams = zBaseParams
 		},
 		{
 			message: 'Cannot set both addToMempool and addToBlockchain simultaneously. Use one or the other.',
-		}
+		},
 	)
 	.describe('Properties shared across call-like actions')
