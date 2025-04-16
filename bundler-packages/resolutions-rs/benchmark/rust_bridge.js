@@ -7,28 +7,53 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Import the native module - dynamically to handle ESM
+let nativeBinding;
+
 /**
- * Ensures the Rust library and binary are built in release mode
+ * Ensures the Rust library is built with napi-rs
  */
 function ensureRustLibraryBuilt() {
+  // Check if the library should be built
   const cargoTomlPath = path.join(__dirname, '..', 'Cargo.toml');
+  const indexPath = path.join(__dirname, '..', 'index.js');
   
   // Check if Cargo.toml exists
   if (!fs.existsSync(cargoTomlPath)) {
     throw new Error(`Cargo.toml not found at ${cargoTomlPath}`);
   }
   
-  // Build the Rust library in release mode
+  // Check if the library needs to be built
+  if (!fs.existsSync(indexPath)) {
+    console.log("Building Rust FFI library with napi-rs...");
+    try {
+      execSync('npm run build', {
+        cwd: path.join(__dirname, '..'),
+        stdio: 'inherit'
+      });
+      console.log("Rust FFI library built successfully.");
+    } catch (error) {
+      console.error("Failed to build Rust FFI library:", error);
+      throw error;
+    }
+  }
+  
+  // Dynamically import the native binding
   try {
-    console.log("Building Rust library in release mode...");
-    execSync('cargo build --release', {
-      cwd: path.join(__dirname, '..'),
-      stdio: 'inherit'
-    });
-    console.log("Rust library built successfully.");
-  } catch (error) {
-    console.error("Failed to build Rust library:", error);
-    throw error;
+    // First try to load using the path directly
+    const indexJsPath = path.join(__dirname, '..', 'index.js');
+    
+    if (fs.existsSync(indexJsPath)) {
+      const module = await import(indexJsPath);
+      nativeBinding = module;
+      console.log("Loaded native binding from index.js");
+    } else {
+      console.error("Cannot find the napi-rs binding at:", indexJsPath);
+      throw new Error(`Native binding not found at ${indexJsPath}`);
+    }
+  } catch (err) {
+    console.error("Failed to load native binding:", err);
+    throw err;
   }
 }
 
@@ -41,7 +66,7 @@ function ensureRustLibraryBuilt() {
  * @param {string[]} libs - A list of library paths
  * @returns {Object} The module info or an error
  */
-export function run(
+export async function run(
   absolutePath,
   rawCode, 
   remappings,
@@ -49,88 +74,26 @@ export function run(
 ) {
   try {
     // Ensure the library is built
-    ensureRustLibraryBuilt();
+    await ensureRustLibraryBuilt();
     
-    // Create temporary input and output files
-    const inputFile = path.join(__dirname, 'temp_input.json');
-    const outputFile = path.join(__dirname, 'temp_output.json');
+    // Call the native function directly
+    const result = nativeBinding.module_factory_ffi(
+      absolutePath,
+      rawCode,
+      remappings || {},
+      libs || []
+    );
     
-    // Create input JSON
-    const input = {
-      absolute_path: absolutePath,
-      raw_code: rawCode,
-      remappings: remappings || {},
-      libs: libs || [],
-    };
-    
-    // Write input to file
-    fs.writeFileSync(inputFile, JSON.stringify(input, null, 2));
-    
-    // Run the benchmark helper binary
-    // Check multiple possible locations for the binary
-    const possiblePaths = [
-      path.join(__dirname, '..', 'target', 'release', 'benchmark_helper'),
-      path.join(__dirname, '..', '..', '..', 'dist', 'target', 'release', 'benchmark_helper'),
-      path.join(__dirname, '..', '..', '..', 'target', 'release', 'benchmark_helper'),
-    ];
-    
-    let binaryPath = null;
-    for (const p of possiblePaths) {
-      if (fs.existsSync(p)) {
-        binaryPath = p;
-        console.log(`Found benchmark helper binary at: ${binaryPath}`);
-        break;
-      } else {
-        console.log(`Benchmark helper binary not found at: ${p}`);
-      }
+    // Convert result to the same format as the JSON approach for backwards compatibility
+    const formattedResult = {};
+    for (const [path, moduleInfo] of Object.entries(result)) {
+      formattedResult[path] = {
+        code: moduleInfo.code,
+        path: moduleInfo.path || path
+      };
     }
     
-    if (!binaryPath) {
-      // Let's try to find the binary using a more exhaustive search
-      console.log("Searching for benchmark_helper binary...");
-      try {
-        // Try using 'find' to locate the binary
-        const findOutput = execSync('find /Users/williamcory/tevm/main -name benchmark_helper -type f', { encoding: 'utf8' });
-        const lines = findOutput.trim().split('\n');
-        if (lines.length > 0 && lines[0]) {
-          binaryPath = lines[0];
-          console.log(`Found benchmark_helper using search: ${binaryPath}`);
-        } else {
-          binaryPath = path.join(__dirname, '..', '..', '..', 'dist', 'target', 'release', 'benchmark_helper');
-          console.log(`No binary found with search, using default path: ${binaryPath}`);
-        }
-      } catch (e) {
-        console.error("Failed to search for binary:", e);
-        binaryPath = path.join(__dirname, '..', '..', '..', 'dist', 'target', 'release', 'benchmark_helper');
-        console.log(`Using default binary path: ${binaryPath}`);
-      }
-    }
-    
-    if (!fs.existsSync(binaryPath)) {
-      console.error(`Benchmark helper binary not found at ${binaryPath}`);
-      throw new Error(`Binary not found: ${binaryPath}`);
-    }
-    
-    try {
-      execSync(`"${binaryPath}" "${inputFile}" "${outputFile}"`);
-    } catch (error) {
-      console.error(`Failed to execute benchmark helper: ${error.message}`);
-      throw error;
-    }
-    
-    // Read and parse the output
-    const outputJson = fs.readFileSync(outputFile, 'utf8');
-    const result = JSON.parse(outputJson);
-    
-    // Clean up temporary files
-    try {
-      fs.unlinkSync(inputFile);
-      fs.unlinkSync(outputFile);
-    } catch (e) {
-      console.warn("Failed to clean up temporary files:", e);
-    }
-    
-    return result;
+    return formattedResult;
   } catch (error) {
     console.error('Error running Rust module_factory:', error);
     return {

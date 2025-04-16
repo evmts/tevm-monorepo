@@ -4,14 +4,34 @@
   "private": true,
   "description": "Rust implementation of solidity resolution",
   "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "benchmark": "vitest bench"
+    "benchmark": "vitest bench",
+    "build": "napi build --release",
+    "build:debug": "napi build",
+    "prepublishOnly": "napi prepublish -t npm"
+  },
+  "napi": {
+    "binaryName": "tevm_resolutions_rs",
+    "packageName": "@tevm/resolutions-rs",
+    "targets": [
+      "aarch64-apple-darwin",
+      "aarch64-unknown-linux-gnu",
+      "aarch64-unknown-linux-musl",
+      "aarch64-pc-windows-msvc",
+      "x86_64-unknown-linux-musl",
+      "x86_64-apple-darwin",
+      "i686-pc-windows-msvc",
+      "wasm32-wasip1-threads"
+    ]
   },
   "dependencies": {
     "@tevm/resolutions": "workspace:^",
     "effect": "3.13.2"
   },
   "devDependencies": {
+    "@napi-rs/cli": "^2.18.0",
     "vitest": "^1.0.0"
   }
 }

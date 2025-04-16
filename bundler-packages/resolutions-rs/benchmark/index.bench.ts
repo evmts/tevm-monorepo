@@ -66,8 +66,6 @@ describe('Resolutions Implementation Benchmark', () => {
   // Setup benchmarks 
   // Create wrapper functions to make implementation compatible with both JS and Rust
   
-  // Removing the wrappedJsModuleFactory since we're not using the real JS implementation
-
   // Create remappings for both implementations  
   const remappings: Record<string, string> = {
     'lib/': path.join(FIXTURES_DIR, 'lib/'),
@@ -141,20 +139,22 @@ describe('Resolutions Implementation Benchmark', () => {
 
   try {
     console.log('Running Rust module factory...');
-    const rustModules = runRustModuleFactory(
+    runRustModuleFactory(
       ENTRY_POINT,
       entryPointContent,
       remappings,
       libs
-    );
-    
-    if (rustModules) {
-      rustModuleCount = countModules(rustModules);
-      rustTotalSize = getTotalSize(rustModules);
-      console.log('Rust modules processed successfully:', rustModuleCount);
-    } else {
-      console.error('Rust module factory returned no results');
-    }
+    ).then(rustModules => {
+      if (rustModules) {
+        rustModuleCount = countModules(rustModules);
+        rustTotalSize = getTotalSize(rustModules);
+        console.log('Rust modules processed successfully:', rustModuleCount);
+      } else {
+        console.error('Rust module factory returned no results');
+      }
+    }).catch(error => {
+      console.error('Failed to run Rust module factory:', error);
+    });
   } catch (error) {
     console.error('Failed to run Rust module factory:', error);
   }
@@ -187,7 +187,7 @@ describe('Resolutions Implementation Benchmark', () => {
   console.log(`Rust: ${rustModuleCount} modules, ${rustTotalSize} bytes total`);
 
   // Use the mocked JS implementation for the JavaScript benchmark
-  bench('JavaScript (mocked) resolutions', () => {
+  bench('JavaScript (mocked) resolutions', async () => {
     return mockedJsModuleFactory(
       ENTRY_POINT,
       entryPointContent,
@@ -199,9 +199,9 @@ describe('Resolutions Implementation Benchmark', () => {
   });
 
   // Rust implementation benchmark
-  bench('Rust resolutions', () => {
+  bench('Rust resolutions', async () => {
     try {
-      return runRustModuleFactory(
+      return await runRustModuleFactory(
         ENTRY_POINT,
         entryPointContent,
         remappings,
