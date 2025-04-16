@@ -2,8 +2,7 @@ import { bench, describe } from 'vitest';
 import path from 'node:path';
 import fs from 'node:fs';
 import { runSync } from 'effect/Effect';
-import { moduleFactory as jsModuleFactory } from '../../resolutions/src/moduleFactory.js';
-import { safeFao } from '../../resolutions/src/utils/safeFao.js';
+// We're only using the mocked JS implementation
 import { run as runRustModuleFactory } from './rust_bridge.js';
 import { mockedJsModuleFactory } from './mocked-js-impl.js';
 
@@ -67,48 +66,7 @@ describe('Resolutions Implementation Benchmark', () => {
   // Setup benchmarks 
   // Create wrapper functions to make implementation compatible with both JS and Rust
   
-  // Create a modified version of moduleFactory that handles the parameter type checking
-  const wrappedJsModuleFactory = (
-    absolutePath: string,
-    rawCode: string,
-    remappings: Record<string, string>,
-    libs: string[],
-    fao: any,
-    sync: boolean
-  ) => {
-    console.log("wrappedJsModuleFactory called with:", { 
-      absolutePath: typeof absolutePath, 
-      rawCode: typeof rawCode,
-      remappingEntries: Object.entries(remappings).length,
-      libsLength: libs.length,
-      fao: !!fao,
-      sync
-    });
-    
-    // JS implementation requires these params, but has strict type checking
-    try {
-      // Ensure all parameters are of the correct type
-      const path = String(absolutePath);
-      const code = String(rawCode);
-      const mappings = remappings || {};
-      const libraries = Array.isArray(libs) ? libs.map(String) : [];
-      const fileAccess = safeFao(fao);
-      const syncMode = !!sync;
-      
-      // Call the moduleFactory with appropriate parameters
-      return jsModuleFactory(
-        path,
-        code,
-        mappings,
-        libraries,
-        fileAccess,
-        syncMode
-      );
-    } catch (error) {
-      console.error("Error in wrappedJsModuleFactory:", error);
-      throw error;
-    }
-  };
+  // Removing the wrappedJsModuleFactory since we're not using the real JS implementation
 
   // Create remappings for both implementations  
   const remappings: Record<string, string> = {
@@ -151,15 +109,15 @@ describe('Resolutions Implementation Benchmark', () => {
     
     try {
       // Debug the JavaScript factory call step by step using our wrapper
-      console.log('1. Calling runSync with wrappedJsModuleFactory');
-      const jsModules = runSync(wrappedJsModuleFactory(
+      console.log('1. Calling mockedJsModuleFactory');
+      const jsModules = mockedJsModuleFactory(
         ENTRY_POINT, 
         entryPointContent, 
         remappings, 
         libs, 
-        safeFao(fao),
+        fao,
         true
-      ));
+      );
       
       console.log('2. Success! JS moduleFactory returned result');
       console.log('Result type:', typeof jsModules);
@@ -212,7 +170,7 @@ describe('Resolutions Implementation Benchmark', () => {
       entryPointContent,
       remappings,
       libs,
-      safeFao(fao),
+      fao,
       true
     );
     
@@ -228,27 +186,14 @@ describe('Resolutions Implementation Benchmark', () => {
   console.log(`Mocked JavaScript: ${mockedJsModuleCount} modules, ${mockedJsTotalSize} bytes total`);
   console.log(`Rust: ${rustModuleCount} modules, ${rustTotalSize} bytes total`);
 
-  // JavaScript implementation benchmark - we'll directly use the mocked implementation
-  // since we have version compatibility issues with the real JS implementation
-  bench('JavaScript resolutions', () => {
+  // Use the mocked JS implementation for the JavaScript benchmark
+  bench('JavaScript (mocked) resolutions', () => {
     return mockedJsModuleFactory(
       ENTRY_POINT,
       entryPointContent,
       remappings,
       libs,
-      safeFao(fao),
-      true
-    );
-  });
-
-  // Mocked JavaScript implementation benchmark
-  bench('Mocked JavaScript resolutions', () => {
-    return mockedJsModuleFactory(
-      ENTRY_POINT,
-      entryPointContent,
-      remappings,
-      libs,
-      safeFao(fao),
+      fao,
       true
     );
   });
@@ -264,7 +209,7 @@ describe('Resolutions Implementation Benchmark', () => {
       );
     } catch (error) {
       console.error('Error in Rust benchmark:', error);
-      return {}; // Return empty object on error
+      throw error; // Let the benchmark fail if there's an error
     }
   });
 });

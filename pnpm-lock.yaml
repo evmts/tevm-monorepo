@@ -303,12 +303,12 @@ importers:
         specifier: workspace:^
         version: link:../resolutions
       effect:
-        specifier: ^3.14.10
-        version: 3.14.10
+        specifier: 3.13.2
+        version: 3.13.2
     devDependencies:
       vitest:
         specifier: ^1.0.0
-        version: 1.6.1(@types/node@22.13.10)(@vitest/ui@3.0.8)(lightningcss@1.29.2)(terser@5.39.0)
+        version: 1.6.1(@types/node@22.13.10)(@vitest/ui@3.0.8(vitest@3.0.8))(lightningcss@1.29.2)(terser@5.39.0)
 
   bundler-packages/rollup:
     dependencies:
@@ -6945,7 +6945,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -7919,9 +7918,6 @@ packages:
 
   effect@3.13.2:
     resolution: {integrity: sha512-/w+CPqHDJ33Wq7xC4YKAchrEEPtjvxh563xH9kDTZp99seNYBoBs87vl8DJwartEjj+KLQLP8PzoDne+XmGT2A==}
-
-  effect@3.14.10:
-    resolution: {integrity: sha512-qmqq8eqQlavxtOvDRtizbW5/Z2rSJA1U7vhrF5h+8gcCRVqYXj5nTyySUyHdMMEFPBjsgVeJ1aVKMXZGjaGoAg==}
 
   ejs@3.1.10:
     resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
@@ -21933,11 +21929,6 @@ snapshots:
       '@standard-schema/spec': 1.0.0
       fast-check: 3.23.2
 
-  effect@3.14.10:
-    dependencies:
-      '@standard-schema/spec': 1.0.0
-      fast-check: 3.23.2
-
   ejs@3.1.10:
     dependencies:
       jake: 10.9.2
@@ -29274,7 +29265,7 @@ snapshots:
     optionalDependencies:
       vite: 6.2.2(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
 
-  vitest@1.6.1(@types/node@22.13.10)(@vitest/ui@3.0.8)(lightningcss@1.29.2)(terser@5.39.0):
+  vitest@1.6.1(@types/node@22.13.10)(@vitest/ui@3.0.8(vitest@3.0.8))(lightningcss@1.29.2)(terser@5.39.0):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
