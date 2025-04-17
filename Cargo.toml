@@ -4,6 +4,7 @@ resolver = '2'
 members = [
 	'packages/my_rust_node_lib',
 	'bundler-packages/resolutions-rs',
+	'bundler-packages/solc-rs',
 ]
 
 [profile.release]
