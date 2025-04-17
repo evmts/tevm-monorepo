@@ -3,18 +3,6 @@
 version = 3
 
 [[package]]
-name = "_tevm_bundler_packages_rs"
-version = "0.1.0"
-dependencies = [
- "node-resolve",
- "once_cell",
- "regex",
- "serde",
- "serde_json",
- "tempfile",
-]
-
-[[package]]
 name = "aho-corasick"
 version = "1.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -336,6 +324,18 @@ dependencies = [
  "once_cell",
  "rustix",
  "windows-sys",
+]
+
+[[package]]
+name = "tevm_resolutions_rs"
+version = "0.1.0"
+dependencies = [
+ "node-resolve",
+ "once_cell",
+ "regex",
+ "serde",
+ "serde_json",
+ "tempfile",
 ]
 
 [[package]]
