@@ -6,9 +6,6 @@ version = 3
 name = "_tevm_bundler_packages_rs"
 version = "0.1.0"
 dependencies = [
- "napi",
- "napi-build",
- "napi-derive",
  "node-resolve",
  "once_cell",
  "regex",

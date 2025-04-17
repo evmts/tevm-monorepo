@@ -34,18 +34,21 @@ mod tests {
         let code = "console.log('Hello, world!');".to_string();
         let imported_ids = vec![
             PathBuf::from("/path/to/module1.js"),
-            PathBuf::from("/path/to/module2.js")
+            PathBuf::from("/path/to/module2.js"),
         ];
 
-        let module_info = ModuleInfo {
-            code,
-            imported_ids,
-        };
+        let module_info = ModuleInfo { code, imported_ids };
 
         assert_eq!(module_info.code, "console.log('Hello, world!');");
         assert_eq!(module_info.imported_ids.len(), 2);
-        assert_eq!(module_info.imported_ids[0], Path::new("/path/to/module1.js"));
-        assert_eq!(module_info.imported_ids[1], Path::new("/path/to/module2.js"));
+        assert_eq!(
+            module_info.imported_ids[0],
+            Path::new("/path/to/module1.js")
+        );
+        assert_eq!(
+            module_info.imported_ids[1],
+            Path::new("/path/to/module2.js")
+        );
     }
 
     #[test]
@@ -61,7 +64,10 @@ mod tests {
         };
 
         assert_eq!(resolved_import.original, "./utils/helper.js");
-        assert_eq!(resolved_import.absolute, "/absolute/path/to/utils/helper.js");
+        assert_eq!(
+            resolved_import.absolute,
+            "/absolute/path/to/utils/helper.js"
+        );
         assert_eq!(resolved_import.updated, "../utils/helper.js");
     }
 
