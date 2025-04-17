@@ -11,7 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.0.15", 
+    "@tailwindcss/vite": "^4.0.15",
     "ethers": "^6.13.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

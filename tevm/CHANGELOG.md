@@ -1,5 +1,31 @@
 # @tevm/contract
 
+## 1.0.0-next.141
+
+### Minor Changes
+
+- 2e20a42: feat(actions): Deprecate `createTransaction` parameter and add `addToMempool` and `addToBlockchain` parameters.
+
+  This change makes the API more intuitive when working with transactions:
+
+  - Added `addToMempool`: Add the transaction to mempool (requires manual mining later)
+  - Added `addToBlockchain`: Add the transaction to mempool and automatically mine it
+  - Deprecated `createTransaction`: Still works but shows warning, use `addToMempool` instead
+
+  This helps address a common issue where users forget to mine transactions after creating them. The `addToBlockchain` parameter automatically forces mining mode to "auto" temporarily to ensure the transaction is immediately included in a block.
+
+### Patch Changes
+
+- Updated dependencies [2e20a42]
+  - @tevm/actions@1.0.0-next.141
+  - @tevm/memory-client@1.0.0-next.141
+  - @tevm/cli@1.0.0-next.141
+  - @tevm/viem@1.0.0-next.141
+  - @tevm/client-types@1.0.0-next.131
+  - @tevm/decorators@1.0.0-next.141
+  - @tevm/server@1.0.0-next.141
+  - @tevm/http-client@1.0.0-next.141
+
 ## 1.0.0-next.140
 
 ### Patch Changes
