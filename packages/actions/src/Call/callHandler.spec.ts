@@ -211,36 +211,30 @@ describe('callHandler', () => {
 		const to1 = `0x${'69'.repeat(20)}` as const
 		const to2 = `0x${'42'.repeat(20)}` as const
 
-		// Initialize accounts with 0 balance
 		await setAccountHandler(client)({
-			address: to1,
-			balance: 0n,
+			address: createAddress(1234).toString(),
+			balance: parseEther('25'),
 		})
 
 		await setAccountHandler(client)({
-			address: to2,
-			balance: 0n,
+			address: createAddress(4321).toString(),
+			balance: parseEther('25'),
 		})
 
-		// Add a transaction to the mempool but don't mine it
 		await callHandler(client)({
 			addToMempool: true,
-			from: '0x0000000000000000000000000000000000000001',
+			from: createAddress(1234).toString(),
 			to: to1,
 			value: 100n,
-			skipBalance: true,
 		})
 
-		// Now send a transaction with addToBlockchain
 		await callHandler(client)({
 			addToBlockchain: true,
-			from: '0x0000000000000000000000000000000000000002',
+			from: createAddress(4321).toString(),
 			to: to2,
 			value: 200n,
-			skipBalance: true,
 		})
 
-		// Second account should be updated because addToBlockchain mines the transaction
 		expect(
 			(
 				await getAccountHandler(client)({
@@ -887,9 +881,13 @@ describe('callHandler', () => {
 			}),
 		})
 
-		expect(decodeFunctionResult({ functionName: 'get', abi: simpleContract.abi, data: getResult.rawData })).toBe(
-			setValue,
-		)
+		expect(
+			decodeFunctionResult({
+				functionName: 'get',
+				abi: simpleContract.abi,
+				data: getResult.rawData,
+			}),
+		).toBe(setValue)
 
 		// Mine the transaction and verify the state change
 		await mineHandler(client)()

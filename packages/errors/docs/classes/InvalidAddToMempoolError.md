@@ -6,7 +6,7 @@
 
 # Class: InvalidAddToMempoolError
 
-Defined in: packages/errors/src/input/InvalidAddToMempoolError.js:42
+Defined in: [packages/errors/src/input/InvalidAddToMempoolError.js:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidAddToMempoolError.js#L42)
 
 Represents an error that occurs when the addToMempool parameter is invalid.
 
@@ -43,7 +43,7 @@ try {
 
 > **new InvalidAddToMempoolError**(`message`, `args`?): [`InvalidAddToMempoolError`](InvalidAddToMempoolError.md)
 
-Defined in: packages/errors/src/input/InvalidAddToMempoolError.js:49
+Defined in: [packages/errors/src/input/InvalidAddToMempoolError.js:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidAddToMempoolError.js#L49)
 
 Constructs an InvalidAddToMempoolError.
 
@@ -75,7 +75,7 @@ Additional parameters for the InvalidAddToMempoolError.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/src/input/InvalidAddToMempoolError.js:61
+Defined in: [packages/errors/src/input/InvalidAddToMempoolError.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidAddToMempoolError.js#L61)
 
 Same as name, used internally.
 
@@ -163,7 +163,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:100](https://github.com/e
 
 > **name**: `string`
 
-Defined in: packages/errors/src/input/InvalidAddToMempoolError.js:60
+Defined in: [packages/errors/src/input/InvalidAddToMempoolError.js:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/input/InvalidAddToMempoolError.js#L60)
 
 The name of the error, used to discriminate errors.
 

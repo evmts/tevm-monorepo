@@ -42,6 +42,7 @@ export const dealHandler =
 		})
 
 		if (!accessListResponse.result?.accessList) {
+			console.error(accessListResponse.error)
 			throw new Error('Failed to get access list')
 		}
 
