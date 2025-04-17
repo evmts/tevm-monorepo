@@ -27,3 +27,12 @@ crate-type = [
     'rlib',
 ]
 
+[features]
+default = []
+examples = []
+
+[[example]]
+name = "basic_usage"
+path = "src/examples/basic_usage.rs"
+required-features = ["examples"]
+

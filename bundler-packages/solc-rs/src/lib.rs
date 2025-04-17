@@ -1,6 +1,8 @@
 pub mod models;
 pub mod solc;
 pub mod error;
+#[cfg(feature = "examples")]
+pub mod examples;
 
 // Re-export the main functions and types for easier access
 pub use models::{
