@@ -8,7 +8,7 @@
 
 > **shouldAddToBlockchain**(`params`, `runTxResult`): `boolean`
 
-Defined in: [packages/actions/src/Call/shouldCreateTransaction.js:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/shouldCreateTransaction.js#L42)
+Defined in: [packages/actions/src/Call/shouldCreateTransaction.js:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/shouldCreateTransaction.js#L41)
 
 **`Internal`**
 
