@@ -8,15 +8,20 @@
 
 > **tevmCall**(`client`, `params`): `Promise`\<`CallResult`\<`TevmCallError`\>\>
 
-Defined in: [packages/memory-client/src/tevmCall.js:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmCall.js#L67)
+Defined in: [packages/memory-client/src/tevmCall.js:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmCall.js#L90)
 
 A tree-shakeable version of the `tevmCall` action for viem.
 Executes a low-level call against the Ethereum Virtual Machine (EVM). This function provides enhanced control over the
 execution environment compared to the standard `eth_call` JSON-RPC method.
 
 By default, this is a read-only operation that doesn't modify the blockchain state after execution completes.
-However, state modifications can be enabled with the `createTransaction` option, which will create and
-execute a transaction that must be mined to take effect (either through manual mining or auto-mining).
+However, state modifications can be enabled with the following options:
+- `addToMempool`: Add the transaction to the mempool (must be manually mined later)
+- `addToBlockchain`: Add the transaction to the mempool AND automatically mine it
+- `createTransaction`: [DEPRECATED] Use addToMempool instead
+
+Important: Tevm defaults to a manual mining mode, which means transactions are not included in the blockchain
+until you explicitly mine them. Use `addToBlockchain: true` if you want transactions to be immediately mined.
 
 The function supports advanced EVM features such as:
 - Account impersonation (executing as any address without requiring private keys)
@@ -62,22 +67,40 @@ const client = createClient({
 
 async function example() {
   // Execute a read-only call to a contract
-  const res = await tevmCall(client, {
+  const readResult = await tevmCall(client, {
     to: '0x123...',             // Target contract address
     data: '0x123...',           // Encoded function call (e.g. from encodeFunctionData)
     from: '0x123...',           // Sender address (can be any address when impersonating)
     gas: 1000000,               // Gas limit for the call
     gasPrice: 1n,               // Gas price in wei
     skipBalance: true,          // Skip balance checks (useful for testing)
-    createTransaction: false,   // Default: doesn't create a transaction
     onStep: (step, next) => {   // Optional: trace EVM execution steps
       console.log(`Executing ${step.opcode.name} at PC=${step.pc}`);
       next();
     }
   })
 
-  console.log(res.data)         // Return data from the call
-  console.log(res.executionGasUsed) // Actual gas used
+  // Submit a transaction to the mempool (requires manual mining)
+  const txResult = await tevmCall(client, {
+    to: '0x456...',
+    data: '0x456...',
+    value: 1000000000000000000n, // 1 ETH
+    addToMempool: true,        // Add to mempool but don't mine
+  })
+
+  // Mine the transaction
+  await client.tevmMine()
+
+  // Or submit and mine in one step
+  const autoMinedResult = await tevmCall(client, {
+    to: '0x789...',
+    data: '0x789...',
+    addToBlockchain: true,      // Add to mempool AND automatically mine
+  })
+
+  console.log(readResult.rawData)       // Return data from the call
+  console.log(txResult.txHash)          // Transaction hash
+  console.log(readResult.executionGasUsed) // Actual gas used
 }
 
 example()

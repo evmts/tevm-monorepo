@@ -8,7 +8,7 @@
 
 > **SolcEVMOutput**: `object`
 
-Defined in: [solcTypes.ts:565](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L565)
+Defined in: [solcTypes.ts:560](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L560)
 
 ## Type declaration
 

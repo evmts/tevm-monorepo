@@ -1,6 +1,6 @@
 import { createTransaction } from '../CreateTransaction/createTransaction.js'
 import { handleAutomining } from './handleAutomining.js'
-import { shouldCreateTransaction } from './shouldCreateTransaction.js'
+import { shouldAddToBlockchain, shouldCreateTransaction } from './shouldCreateTransaction.js'
 
 /**
  * Handles the creation of a transaction based on the call parameters and execution result.
@@ -21,9 +21,21 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 	 * @type {Array<import('./TevmCallError.js').TevmCallError>}
 	 */
 	const errors = []
-	if (shouldCreateTransaction(params, executedCall.runTxResult)) {
+
+	// Log deprecation warning if createTransaction is used
+	if (params.createTransaction !== undefined) {
+		client.logger.warn(
+			'The createTransaction parameter is deprecated. Please use addToMempool or addToBlockchain instead.',
+		)
+	}
+
+	const shouldAddToChain =
+		client.miningConfig.type === 'auto' || shouldAddToBlockchain(params, executedCall.runTxResult)
+	const shouldCreateTx = shouldAddToChain || shouldCreateTransaction(params, executedCall.runTxResult)
+
+	console.log({ shouldAddToChain, shouldCreateTx })
+	if (shouldCreateTx) {
 		try {
-			// Use a try-catch to handle errors from createTransaction or handleAutomining
 			const txRes = await createTransaction(client)({
 				throwOnFail: false,
 				evmOutput: executedCall.runTxResult,
@@ -33,21 +45,20 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 
-			// Check if gas mining is enabled and should be triggered
 			const isGasMining = client.miningConfig.type === 'gas'
 
-			// Handle automining or gas mining based on configuration
-			const miningRes = (await handleAutomining(client, txHash, isGasMining)) ?? {}
+			if (shouldAddToChain && txHash) {
+				const autoMiningResult = await handleAutomining(client, txHash, isGasMining, false)
 
-			// Check for errors in the transaction creation and mining results
+				if (autoMiningResult?.errors) {
+					errors.push(.../** @type {any} */ (autoMiningResult.errors))
+				}
+			}
+
 			if ('errors' in txRes && txRes.errors) {
 				errors.push(.../** @type {any} */ (txRes.errors))
 			}
-			if (miningRes.errors) {
-				errors.push(.../** @type {any} */ (miningRes.errors))
-			}
 		} catch (error) {
-			// Handle any unexpected errors during transaction creation
 			errors.push(/** @type {any} */ (error))
 		}
 	}

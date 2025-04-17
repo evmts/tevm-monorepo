@@ -1,18 +1,18 @@
 import {
+	InvalidAddToBlockchainError,
+	InvalidAddToMempoolError,
 	InvalidBlobVersionedHashesError,
 	InvalidBlockError,
 	InvalidCallerError,
 	InvalidDepthError,
 	InvalidGasPriceError,
 	InvalidGasRefundError,
-	InvalidOriginError,
-	InvalidParamsError,
-	InvalidSkipBalanceError,
-} from '@tevm/errors'
-import {
 	InvalidMaxFeePerGasError,
 	InvalidMaxPriorityFeePerGasError,
+	InvalidOriginError,
+	InvalidParamsError,
 	InvalidSelfdestructError,
+	InvalidSkipBalanceError,
 	InvalidToError,
 	InvalidValueError,
 } from '@tevm/errors'
@@ -21,7 +21,7 @@ import { zBaseCallParams } from './zBaseCallParams.js'
 // TODO we are missing some validation including stateOverrides
 
 /**
- * @typedef {InvalidParamsError| InvalidSkipBalanceError| InvalidGasRefundError| InvalidBlockError| InvalidGasPriceError| InvalidOriginError| InvalidCallerError| InvalidDepthError| InvalidBlobVersionedHashesError} ValidateBaseCallParamsError
+ * @typedef {InvalidParamsError| InvalidSkipBalanceError| InvalidGasRefundError| InvalidBlockError| InvalidGasPriceError| InvalidOriginError| InvalidCallerError| InvalidDepthError| InvalidBlobVersionedHashesError| InvalidAddToMempoolError| InvalidAddToBlockchainError} ValidateBaseCallParamsError
  */
 
 /**
@@ -135,6 +135,18 @@ export const validateBaseCallParams = (action) => {
 		if (formattedErrors.maxPriorityFeePerGas) {
 			formattedErrors.maxPriorityFeePerGas._errors.forEach((error) => {
 				errors.push(new InvalidMaxPriorityFeePerGasError(error))
+			})
+		}
+
+		if (formattedErrors.addToMempool) {
+			formattedErrors.addToMempool._errors.forEach((error) => {
+				errors.push(new InvalidAddToMempoolError(error))
+			})
+		}
+
+		if (formattedErrors.addToBlockchain) {
+			formattedErrors.addToBlockchain._errors.forEach((error) => {
+				errors.push(new InvalidAddToBlockchainError(error))
 			})
 		}
 

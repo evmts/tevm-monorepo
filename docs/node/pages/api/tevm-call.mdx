@@ -9,6 +9,14 @@ import { Callout } from 'vocs/components'
 
 The Call API is one of the most important APIs in Tevm, covering 90% of use cases along with mining. It provides a powerful interface for executing EVM calls with extensive configuration options.
 
+<Callout type="warning" title="Transaction Inclusion">
+  Remember that Tevm defaults to manual mining mode, which means:
+  
+  - When using `addToMempool: true` (or the deprecated `createTransaction: true`), you must manually call `client.tevmMine()` to include the transaction in a block
+  - Use `addToBlockchain: true` for immediate transaction inclusion (automatically mines the transaction)
+  - You cannot use both `addToMempool` and `addToBlockchain` simultaneously
+</Callout>
+
 ## Basic Usage
 
 Tevm offers two API styles for using the Call API:
@@ -65,8 +73,12 @@ type CallParams = {
   gas?: bigint
   // Block tag to execute against
   blockTag?: 'latest' | 'pending' | 'earliest' | number
-  // Whether to create a transaction
+  // DEPRECATED: Whether to create a transaction
   createTransaction?: 'on-success' | 'always' | 'never' | boolean
+  // Whether to add transaction to the mempool (requires mining)
+  addToMempool?: 'on-success' | 'always' | 'never' | boolean
+  // Whether to add transaction to the blockchain (auto-mines)
+  addToBlockchain?: 'on-success' | 'always' | 'never' | boolean
   // Whether to skip balance checks
   skipBalance?: boolean
   // Whether to create an access list
@@ -166,7 +178,7 @@ const client = createMemoryClient()
 const result = await client.tevmCall({
   from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
   data: bytecode,
-  createTransaction: true
+  addToBlockchain: true // Automatically adds to mempool and mines
 })
 
 console.log('Contract deployed at:', result.createdAddress)

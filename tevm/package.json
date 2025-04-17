@@ -412,9 +412,9 @@
     "generate:types": "tsup --dts-only",
     "lint:deps": "bunx depcheck",
     "lint:package": "bunx publint --strict && attw --pack",
-    "typecheck": "tsc --noEmit",
     "publish:jsr": "jsr publish --allow-slow-types",
-    "publish:jsr:dry": "jsr publish --dry-run --allow-slow-types"
+    "publish:jsr:dry": "jsr publish --dry-run --allow-slow-types",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@tevm/actions": "workspace:^",

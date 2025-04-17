@@ -6,7 +6,7 @@
 
 # Function: handleAutomining()
 
-> **handleAutomining**(`client`, `txHash`?, `isGasMining`?): `Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../../index/type-aliases/TevmMineError.md)[]; \}\>
+> **handleAutomining**(`client`, `txHash`?, `isGasMining`?, `mineAllTx`?): `Promise`\<`undefined` \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](../../index/type-aliases/TevmMineError.md)[]; \}\>
 
 Defined in: packages/actions/types/Call/handleAutomining.d.ts:1
 
@@ -21,6 +21,10 @@ Defined in: packages/actions/types/Call/handleAutomining.d.ts:1
 `` `0x${string}` ``
 
 ### isGasMining?
+
+`boolean`
+
+### mineAllTx?
 
 `boolean`
 

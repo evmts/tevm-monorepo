@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutBytesType
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:229
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:225
 
 A storage layout type that is laid out in a single slot or keccak-256 hash-based depending on the data size.
 
@@ -20,7 +20,7 @@ A storage layout type that is laid out in a single slot or keccak-256 hash-based
 
 > **encoding**: `"bytes"`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:230
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:226
 
 How the data is encoded in storage
 
@@ -39,7 +39,7 @@ How the data is encoded in storage
 
 > **label**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:212
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:208
 
 The canonical type name
 
@@ -53,7 +53,7 @@ The canonical type name
 
 > **numberOfBytes**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:218
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:214
 
 The number of used bytes (as a decimal string)
 

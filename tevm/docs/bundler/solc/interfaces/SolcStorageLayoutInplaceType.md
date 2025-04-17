@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutInplaceType
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:223
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:219
 
 A storage layout type that is laid out contiguously in storage.
 
@@ -24,7 +24,7 @@ A storage layout type that is laid out contiguously in storage.
 
 > **encoding**: `"inplace"`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:224
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:220
 
 How the data is encoded in storage
 
@@ -43,7 +43,7 @@ How the data is encoded in storage
 
 > **label**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:212
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:208
 
 The canonical type name
 
@@ -57,7 +57,7 @@ The canonical type name
 
 > **numberOfBytes**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:218
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:214
 
 The number of used bytes (as a decimal string)
 

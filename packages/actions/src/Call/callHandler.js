@@ -35,8 +35,18 @@ import { validateCallParams } from './validateCallParams.js'
  *
  * const call = callHandler(client)
  *
+ * // Add transaction to mempool (requires mining later)
  * const res = await call({
- *   createTransaction: true,
+ *   addToMempool: true,
+ *   to: `0x${'69'.repeat(20)}`,
+ *   value: 420n,
+ *   skipBalance: true,
+ * })
+ * await client.tevmMine()
+ *
+ * // Or add transaction to blockchain directly (automatically mines)
+ * const autoMinedRes = await call({
+ *   addToBlockchain: true,
  *   to: `0x${'69'.repeat(20)}`,
  *   value: 420n,
  *   skipBalance: true,
@@ -77,11 +87,18 @@ export const callHandler =
 				})
 			}
 			// if we are creating a transaction we want to use the real txpool so the tx gets properly added
-			if (_params.createTransaction) {
+			if (
+				_params.createTransaction ||
+				_params.addToMempool ||
+				_params.addToBlockchain ||
+				client.miningConfig.type === 'auto'
+			) {
 				const pendingClientAny = /** @type {any}*/ (minePending.pendingClient)
 				pendingClientAny.getTxPool = client.getTxPool
 			}
-			return callHandler(minePending.pendingClient, { throwOnFail: defaultThrowOnFail })({
+			return callHandler(minePending.pendingClient, {
+				throwOnFail: defaultThrowOnFail,
+			})({
 				...(code !== undefined ? { code } : {}),
 				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
 				..._params,

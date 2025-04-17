@@ -14,7 +14,7 @@ import { validateMineParams } from './validateMineParams.js'
  */
 export const mineHandler =
 	(client, options = {}) =>
-	async ({ throwOnFail = options.throwOnFail ?? true, ...params } = {}) => {
+	async ({ throwOnFail = options.throwOnFail ?? true, tx, ...params } = {}) => {
 		switch (client.status) {
 			case 'MINING': {
 				const err = new MisconfiguredClientError('Mining is already in progress')
@@ -96,7 +96,18 @@ export const mineHandler =
 					},
 				})
 				// TODO create a Log manager
-				const orderedTx = await pool.txsByPriceAndNonce({ baseFee: parentBlock.header.calcNextBaseFee() })
+				const orderedTx =
+					tx !== undefined
+						? [
+								(() => {
+									const mempoolTx = pool.getByHash(tx)
+									pool.removeByHash(tx)
+									return mempoolTx
+								})(),
+							]
+						: await pool.txsByPriceAndNonce({
+								baseFee: parentBlock.header.calcNextBaseFee(),
+							})
 
 				let index = 0
 				// TODO we need to actually handle this

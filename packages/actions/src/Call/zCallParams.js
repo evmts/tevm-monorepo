@@ -1,3 +1,6 @@
+// Imported but not used in the code directly
+// @ts-ignore
+import { z } from 'zod'
 import { zBaseCallParams } from '../BaseCall/zBaseCallParams.js'
 import { zHex } from '../internal/zod/zHex.js'
 
@@ -5,17 +8,20 @@ import { zHex } from '../internal/zod/zHex.js'
  * @internal
  * Zod validator for a valid call action
  */
-export const zCallParams = zBaseCallParams
-	.extend({
-		data: zHex.optional().describe('the data to send'),
-		salt: zHex.optional().describe('the salt to use for the call'),
-		code: zHex.optional().describe('the encoded deployment code to use for the call'),
-		deployedBytecode: zHex
-			.optional()
-			.describe('the deployed bytecode to put into state. Use code if you want to encode the deployment code'),
-	})
+export const zCallParams = z
+	.intersection(
+		zBaseCallParams,
+		z.object({
+			data: zHex.optional().describe('the data to send'),
+			salt: zHex.optional().describe('the salt to use for the call'),
+			code: zHex.optional().describe('the encoded deployment code to use for the call'),
+			deployedBytecode: zHex
+				.optional()
+				.describe('the deployed bytecode to put into state. Use code if you want to encode the deployment code'),
+		}),
+	)
 	.refine(
-		(params) => {
+		(/** @type {any} */ params) => {
 			if (params.code && params.deployedBytecode) {
 				return false
 			}
@@ -24,7 +30,7 @@ export const zCallParams = zBaseCallParams
 		{ message: 'Cannot have both code and deployedBytecode set' },
 	)
 	.refine(
-		(params) => {
+		(/** @type {any} */ params) => {
 			if (params.createTransaction && params.stateOverrideSet) {
 				return false
 			}

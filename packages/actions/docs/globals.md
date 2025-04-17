@@ -558,6 +558,7 @@
 - [requestProcedure](functions/requestProcedure.md)
 - [setAccountHandler](functions/setAccountHandler.md)
 - [setAccountProcedure](functions/setAccountProcedure.md)
+- [shouldAddToBlockchain](functions/shouldAddToBlockchain.md)
 - [shouldCreateTransaction](functions/shouldCreateTransaction.md)
 - [traceCallHandler](functions/traceCallHandler.md)
 - [validateBaseCallParams](functions/validateBaseCallParams.md)

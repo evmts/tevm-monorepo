@@ -8,7 +8,7 @@
 
 > **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](MineEvents.md) & `object`
 
-Defined in: [packages/actions/src/Mine/MineParams.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L21)
+Defined in: [packages/actions/src/Mine/MineParams.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L22)
 
 Tevm params to mine one or more blocks.
 
@@ -25,6 +25,12 @@ Number of blocks to mine. Defaults to 1.
 > `readonly` `optional` **interval**: `number`
 
 Interval between block timestamps. Defaults to 1.
+
+### tx?
+
+> `readonly` `optional` **tx**: [`Hex`](Hex.md)
+
+The txHash to mine if only mining one tx
 
 ## Type Parameters
 

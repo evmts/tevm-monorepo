@@ -8,7 +8,7 @@
 
 > **SolcBytecodeOutput**: `object` & `Omit`\<[`SolcDeployedBytecodeOutput`](SolcDeployedBytecodeOutput.md), `"immutableReferences"`\>
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:275
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:271
 
 ## Type declaration
 

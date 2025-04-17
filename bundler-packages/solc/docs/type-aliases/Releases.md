@@ -8,7 +8,7 @@
 
 > **Releases**: `object`
 
-Defined in: [solcTypes.ts:774](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L774)
+Defined in: [solcTypes.ts:770](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L770)
 
 ## Type declaration
 
@@ -427,6 +427,10 @@ Defined in: [solcTypes.ts:774](https://github.com/evmts/tevm-monorepo/blob/main/
 #### 0.8.28
 
 > **28**: `"v0.8.28+commit.c33e5a8c.js"`
+
+#### 0.8.29
+
+> **29**: `"v0.8.29+commit.ab55807c.js"`
 
 #### 0.8.3
 

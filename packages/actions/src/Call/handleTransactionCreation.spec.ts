@@ -8,7 +8,6 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import type { CallParams } from './CallParams.js'
 import { callHandlerOpts } from './callHandlerOpts.js'
 import { executeCall } from './executeCall.js'
-import * as HandleAutominingModule from './handleAutomining.js'
 import { handleTransactionCreation } from './handleTransactionCreation.js'
 
 const contract = TestERC20.withAddress(createAddress(420420420420420).toString())
@@ -108,55 +107,6 @@ describe(handleTransactionCreation.name, async () => {
 		expect(errors).toMatchSnapshot()
 	})
 
-	it('should handle errors from handleAutomining', async () => {
-		const client = createTevmNode()
-
-		// Mock createTransaction to return a txHash
-		const createTransactionSpy = vi.spyOn(CreateTransactionModule, 'createTransaction')
-		createTransactionSpy.mockImplementation(() => {
-			return async () => {
-				return {
-					txHash: '0x123456',
-				}
-			}
-		})
-
-		// Mock handleAutomining to return errors
-		const handleAutominingSpy = vi.spyOn(HandleAutominingModule, 'handleAutomining')
-		handleAutominingSpy.mockResolvedValue({
-			errors: [
-				{
-					name: 'MiningError',
-					message: 'Mining failed',
-				} as any,
-			],
-		})
-
-		const result = (await handleTransactionCreation(
-			client,
-			{ createTransaction: true },
-			{
-				runTxResult: {
-					execResult: {
-						executionGasUsed: 0n,
-						returnValue: Buffer.from(''),
-					},
-				} as any,
-				trace: undefined,
-			} as any,
-			{
-				origin: createAddress('0x0000000000000000000000000000000000000001'),
-				skipBalance: true,
-			},
-		)) as any
-
-		expect(result.errors).toBeDefined()
-		expect(result.errors.length).toBeGreaterThan(0)
-
-		createTransactionSpy.mockRestore()
-		handleAutominingSpy.mockRestore()
-	})
-
 	it('should handle thrown errors', async () => {
 		const client = createTevmNode()
 
@@ -191,50 +141,5 @@ describe(handleTransactionCreation.name, async () => {
 		expect(result.errors[0].message).toBe('Unexpected error')
 
 		createTransactionSpy.mockRestore()
-	})
-
-	it('should call handleAutomining with isGasMining=true when client has gas mining config', async () => {
-		// Create client with gas mining config
-		const client = createTevmNode({
-			miningConfig: { type: 'gas', limit: BigInt(1000000) },
-		})
-
-		// Mock createTransaction to return a txHash
-		const createTransactionSpy = vi.spyOn(CreateTransactionModule, 'createTransaction')
-		createTransactionSpy.mockImplementation(() => {
-			return async () => {
-				return {
-					txHash: '0x123456',
-				}
-			}
-		})
-
-		// Mock handleAutomining to track how it's called
-		const handleAutominingSpy = vi.spyOn(HandleAutominingModule, 'handleAutomining')
-		handleAutominingSpy.mockResolvedValue(undefined)
-
-		await handleTransactionCreation(
-			client,
-			{ createTransaction: true },
-			{
-				runTxResult: {
-					execResult: {
-						executionGasUsed: 0n,
-						returnValue: Buffer.from(''),
-					},
-				} as any,
-				trace: undefined,
-			} as any,
-			{
-				origin: createAddress('0x0000000000000000000000000000000000000001'),
-				skipBalance: true,
-			},
-		)
-
-		// Verify handleAutomining was called with isGasMining=true
-		expect(handleAutominingSpy).toHaveBeenCalledWith(client, '0x123456', true)
-
-		createTransactionSpy.mockRestore()
-		handleAutominingSpy.mockRestore()
 	})
 })

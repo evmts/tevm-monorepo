@@ -8,7 +8,7 @@
 
 > **Releases**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:331
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:327
 
 ## Type declaration
 
@@ -427,6 +427,10 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:331
 #### 0.8.28
 
 > **28**: `"v0.8.28+commit.c33e5a8c.js"`
+
+#### 0.8.29
+
+> **29**: `"v0.8.29+commit.ab55807c.js"`
 
 #### 0.8.3
 

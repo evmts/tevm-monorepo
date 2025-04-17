@@ -6,7 +6,7 @@
 
 # Interface: SolcStorageLayoutDynamicArrayType
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:249
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:245
 
 A storage layout type that is laid out in a keccak-256 hash-based method.
 
@@ -20,7 +20,7 @@ A storage layout type that is laid out in a keccak-256 hash-based method.
 
 > **base**: `` `t_${string}` ``
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:254
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:250
 
 The base type of the dynamic array
 
@@ -30,7 +30,7 @@ The base type of the dynamic array
 
 > **encoding**: `"dynamic_array"`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:250
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:246
 
 How the data is encoded in storage
 
@@ -49,7 +49,7 @@ How the data is encoded in storage
 
 > **label**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:212
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:208
 
 The canonical type name
 
@@ -63,7 +63,7 @@ The canonical type name
 
 > **numberOfBytes**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:218
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:214
 
 The number of used bytes (as a decimal string)
 

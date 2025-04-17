@@ -8,7 +8,7 @@
 
 > **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](../../actions/type-aliases/MineEvents.md) & `object`
 
-Defined in: packages/actions/types/Mine/MineParams.d.ts:20
+Defined in: packages/actions/types/Mine/MineParams.d.ts:21
 
 Tevm params to mine one or more blocks.
 
@@ -25,6 +25,12 @@ Number of blocks to mine. Defaults to 1.
 > `readonly` `optional` **interval**: `number`
 
 Interval between block timestamps. Defaults to 1.
+
+### tx?
+
+> `readonly` `optional` **tx**: [`Hex`](../../actions/type-aliases/Hex.md)
+
+The txHash to mine if only mining one tx
 
 ## Type Parameters
 

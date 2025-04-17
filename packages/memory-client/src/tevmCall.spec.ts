@@ -46,7 +46,7 @@ describe('tevmCall', () => {
 		expect(result.rawData).toBe('0x')
 	})
 
-	it('should handle call with createTransaction option', async () => {
+	it('should handle call with deprecated createTransaction option', async () => {
 		const result = await tevmCall(client, {
 			to: '0x0000000000000000000000000000000000000000',
 			data: '0x',
@@ -55,6 +55,64 @@ describe('tevmCall', () => {
 		expect(result).toBeDefined()
 		expect(result.rawData).toBe('0x')
 		await tevmMine(client)
+	})
+
+	it('should handle call with addToMempool option', async () => {
+		const result = await tevmCall(client, {
+			to: '0x0000000000000000000000000000000000000000',
+			data: '0x',
+			addToMempool: true,
+		})
+		expect(result).toBeDefined()
+		expect(result.rawData).toBe('0x')
+		expect(result.txHash).toBeDefined()
+		// Transaction should be in mempool but not mined yet
+		await tevmMine(client)
+	})
+
+	it('should handle call with addToBlockchain option', async () => {
+		const toAddress = '0x1000000000000000000000000000000000000000'
+
+		// First create the account with zero balance
+		await client.request({
+			method: 'tevm_setAccount',
+			params: [{ address: toAddress, balance: 0n }],
+		})
+
+		// Verify account has zero balance before test
+		const getAccount = await client.request({
+			method: 'tevm_getAccount',
+			params: [{ address: toAddress }],
+		})
+		// Convert hex to bigint if needed (API returns hex string)
+		const initialBalance = typeof getAccount.balance === 'string' ? BigInt(getAccount.balance) : getAccount.balance
+		expect(initialBalance).toBe(0n)
+
+		// Send value with addToBlockchain
+		const result = await tevmCall(client, {
+			to: toAddress,
+			data: '0x',
+			value: 100n,
+			addToBlockchain: true,
+		})
+		expect(result).toBeDefined()
+		expect(result.rawData).toBe('0x')
+		expect(result.txHash).toBeDefined()
+
+		await client.request({
+			method: 'tevm_mine',
+			params: [],
+		})
+
+		// Transaction should be mined automatically - check balance updated
+		const getAccountAfter = await client.request({
+			method: 'tevm_getAccount',
+			params: [{ address: toAddress }],
+		})
+		// Convert hex to bigint if needed (API returns hex string)
+		const finalBalance =
+			typeof getAccountAfter.balance === 'string' ? BigInt(getAccountAfter.balance) : getAccountAfter.balance
+		expect(finalBalance).toBe(100n)
 	})
 
 	it('should handle errors gracefully', async () => {

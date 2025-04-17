@@ -63,6 +63,8 @@ Additional parameters for the BaseError.
 - [`InvalidBlobVersionedHashesError`](InvalidBlobVersionedHashesError.md)
 - [`InvalidMaxFeePerGasError`](InvalidMaxFeePerGasError.md)
 - [`InvalidMaxPriorityFeePerGasError`](InvalidMaxPriorityFeePerGasError.md)
+- [`InvalidAddToMempoolError`](InvalidAddToMempoolError.md)
+- [`InvalidAddToBlockchainError`](InvalidAddToBlockchainError.md)
 - [`DecodeFunctionDataError`](DecodeFunctionDataError.md)
 - [`EncodeFunctionReturnDataError`](EncodeFunctionReturnDataError.md)
 

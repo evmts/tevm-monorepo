@@ -64,6 +64,8 @@ describe('shouldCreateTransaction', () => {
 		const params = { createTransaction: 'invalid-value' } as any as CallParams
 		const runTxResult = {} as RunTxResult
 
-		expect(() => shouldCreateTransaction(params, runTxResult)).toThrow('Invalid createTransaction value: invalid-value')
+		expect(() => shouldCreateTransaction(params, runTxResult)).toThrow(
+			'Invalid value for addToMempool/createTransaction: invalid-value',
+		)
 	})
 })

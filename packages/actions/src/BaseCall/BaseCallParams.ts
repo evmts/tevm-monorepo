@@ -67,6 +67,7 @@ export type BaseCallParams<TThrowOnFail extends boolean = boolean> = BaseParams<
 	 */
 	readonly createAccessList?: boolean
 	/**
+	 * @deprecated Use `addToMempool` or `addToBlockchain` instead.
 	 * Whether or not to update the state or run the call in a dry-run. Defaults to `never`.
 	 * - `on-success`: Only update the state if the call is successful.
 	 * - `always`: Always include the transaction even if it reverts.
@@ -76,12 +77,61 @@ export type BaseCallParams<TThrowOnFail extends boolean = boolean> = BaseParams<
 	 *
 	 * @example
 	 * ```typescript
+	 * // Deprecated approach
 	 * const { txHash } = await client.call({ address: '0x1234', data: '0x1234', createTransaction: 'on-success' })
 	 * await client.mine()
+	 * const receipt = await client.getTransactionReceipt({ hash: txHash })
+	 *
+	 * // New approach
+	 * const { txHash } = await client.call({ address: '0x1234', data: '0x1234', addToMempool: true })
+	 * await client.mine()
+	 * const receipt = await client.getTransactionReceipt({ hash: txHash })
+	 *
+	 * // Or automatically mine the transaction
+	 * const { txHash } = await client.call({ address: '0x1234', data: '0x1234', addToBlockchain: true })
 	 * const receipt = await client.getTransactionReceipt({ hash: txHash })
 	 * ```
 	 */
 	readonly createTransaction?: 'on-success' | 'always' | 'never' | boolean
+
+	/**
+	 * Whether to add the transaction to the mempool. Defaults to `false`.
+	 * - `on-success`: Only add the transaction to the mempool if the call is successful.
+	 * - `always`: Always add the transaction to the mempool even if it reverts.
+	 * - `never`: Never add the transaction to the mempool.
+	 * - `true`: Alias for `on-success`.
+	 * - `false`: Alias for `never`.
+	 *
+	 * This does NOT automatically mine the transaction. To include the transaction in a block,
+	 * you must call `client.mine()` afterward or use `addToBlockchain: true`.
+	 *
+	 * @example
+	 * ```typescript
+	 * const { txHash } = await client.call({ address: '0x1234', data: '0x1234', addToMempool: true })
+	 * await client.mine()
+	 * const receipt = await client.getTransactionReceipt({ hash: txHash })
+	 * ```
+	 */
+	readonly addToMempool?: 'on-success' | 'always' | 'never' | boolean
+
+	/**
+	 * Whether to add the transaction to the blockchain (mine it immediately). Defaults to `false`.
+	 * - `on-success`: Only add the transaction to the blockchain if the call is successful.
+	 * - `always`: Always add the transaction to the blockchain even if it reverts.
+	 * - `never`: Never add the transaction to the blockchain.
+	 * - `true`: Alias for `on-success`.
+	 * - `false`: Alias for `never`.
+	 *
+	 * This automatically adds the transaction to the mempool AND mines it.
+	 * It only mines the current transaction, not any other transactions in the mempool.
+	 *
+	 * @example
+	 * ```typescript
+	 * const { txHash } = await client.call({ address: '0x1234', data: '0x1234', addToBlockchain: true })
+	 * const receipt = await client.getTransactionReceipt({ hash: txHash })
+	 * ```
+	 */
+	readonly addToBlockchain?: 'on-success' | 'always' | 'never' | boolean
 	/**
 	 * The block number or block tag to execute the call at. Defaults to `latest`.
 	 * - `bigint`: The block number to execute the call at.

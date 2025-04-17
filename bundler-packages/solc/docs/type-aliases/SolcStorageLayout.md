@@ -8,7 +8,7 @@
 
 > **SolcStorageLayout**\<`T`\>: `object`
 
-Defined in: [solcTypes.ts:434](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L434)
+Defined in: [solcTypes.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L429)
 
 The storage layout for a contract.
 

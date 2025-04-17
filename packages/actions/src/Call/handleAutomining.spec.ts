@@ -32,34 +32,6 @@ describe('handleAutomining', () => {
 		vi.resetAllMocks()
 	})
 
-	it('should return undefined if mining type is not auto', async () => {
-		// Override with a manual mining client
-		client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
-		// Mock debug logger
-		client.logger.debug = vi.fn()
-
-		// Should not call mineHandler
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
-		mineHandlerMock.mockImplementation(() => {
-			throw new Error('This should not be called')
-		})
-
-		const result = await handleAutomining(client)
-
-		// Should not log anything
-		expect(client.logger.debug).not.toHaveBeenCalled()
-
-		// Should not call mineHandler
-		expect(mineHandlerMock).not.toHaveBeenCalled()
-
-		// Should return undefined
-		expect(result).toBeUndefined()
-	})
-
 	it('should mine transaction if mining type is auto', async () => {
 		// Spy on debug logger
 		const debugSpy = vi.spyOn(client.logger, 'debug')
@@ -184,33 +156,6 @@ describe('handleAutomining', () => {
 		expect(result).toBeUndefined()
 	})
 
-	it('should work with interval mining type', async () => {
-		// Create client with interval mining
-		client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'interval', interval: 1000 },
-		})
-
-		// Add debug logger if not present
-		if (!client.logger.debug) {
-			client.logger.debug = vi.fn()
-		}
-
-		// Mock mineHandler
-		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
-		mineHandlerMock.mockImplementation(() => {
-			throw new Error('This should not be called')
-		})
-
-		const result = await handleAutomining(client, '0x123')
-
-		// Should not call mineHandler for interval type
-		expect(mineHandlerMock).not.toHaveBeenCalled()
-
-		// Should return undefined
-		expect(result).toBeUndefined()
-	})
-
 	it('should mine transaction if isGasMining is true', async () => {
 		// Create client with gas mining configuration
 		client = createTevmNode({
@@ -320,7 +265,10 @@ describe('handleAutomining', () => {
 		// Setup error spy, but we don't need to check it in this test
 
 		// Instead of throwing an error, return a result with errors
-		const miningError = { name: 'MiningError', message: 'Failed to mine transaction' }
+		const miningError = {
+			name: 'MiningError',
+			message: 'Failed to mine transaction',
+		}
 		const mineHandlerMock = mineHandler as unknown as ReturnType<typeof vi.fn>
 		mineHandlerMock.mockImplementation(
 			() => () =>

@@ -8,6 +8,14 @@ authors:
 
 import { Callout, Steps, Button } from "vocs/components";
 
+<Callout type="warning" title="Important: Default Manual Mining Mode">
+  Tevm defaults to **manual mining mode**, which means transactions are added to the mempool but not automatically included in blocks.
+  
+  - When using `client.sendTransaction()` or `tevmCall` with `addToMempool: true`, you must explicitly call `client.tevmMine()` to include the transaction in a block
+  - Use `addToBlockchain: true` for immediate transaction inclusion (automatically mines)
+  - See [Mining Modes](../core/mining-modes) for more details on mining configuration
+</Callout>
+
 ## Getting Started
 
 ::::steps

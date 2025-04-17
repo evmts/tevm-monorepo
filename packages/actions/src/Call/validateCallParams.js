@@ -23,22 +23,22 @@ export const validateCallParams = (action) => {
 		const formattedErrors = parsedParams.error.format()
 
 		if (formattedErrors.salt) {
-			formattedErrors.salt._errors.forEach((error) => {
+			formattedErrors.salt._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidSaltError(error))
 			})
 		}
 		if (formattedErrors.data) {
-			formattedErrors.data._errors.forEach((error) => {
+			formattedErrors.data._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidDataError(error))
 			})
 		}
 		if (formattedErrors.code) {
-			formattedErrors.code._errors.forEach((error) => {
+			formattedErrors.code._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidBytecodeError(error))
 			})
 		}
 		if (formattedErrors._errors) {
-			formattedErrors._errors.forEach((error) => {
+			formattedErrors._errors.forEach((/** @type {string} */ error) => {
 				errors.push(new InvalidBytecodeError(error))
 			})
 		}

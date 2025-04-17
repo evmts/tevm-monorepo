@@ -113,13 +113,13 @@ describe('callHandler', () => {
 		})
 	})
 
-	it('should be able to send value', async () => {
+	it('should be able to send value with addToMempool', async () => {
 		const client = createTevmNode()
 		const to = `0x${'69'.repeat(20)}` as const
-		// send value
+		// send value using addToMempool
 		expect(
 			await callHandler(client)({
-				createTransaction: true,
+				addToMempool: true,
 				to,
 				value: 420n,
 				skipBalance: true,
@@ -139,6 +139,138 @@ describe('callHandler', () => {
 				})
 			).balance,
 		).toEqual(420n)
+	})
+
+	it('should be able to send value with addToBlockchain', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+		// send value using addToBlockchain (auto-mines)
+		expect(
+			await callHandler(client)({
+				addToBlockchain: true,
+				to,
+				value: 420n,
+			}),
+		).toEqual({
+			executionGasUsed: 0n,
+			rawData: '0x',
+			txHash: '0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80',
+			amountSpent: 147000n,
+			totalGasSpent: 21000n,
+		})
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to,
+				})
+			).balance,
+		).toEqual(420n)
+	})
+
+	it('should be able to send value with deprecated createTransaction', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+		// Mock logger to check for deprecation warning
+		const warnSpy = vi.spyOn(client.logger, 'warn')
+
+		// send value using createTransaction (deprecated)
+		expect(
+			await callHandler(client)({
+				createTransaction: true,
+				to,
+				value: 420n,
+				skipBalance: true,
+			}),
+		).toEqual({
+			executionGasUsed: 0n,
+			rawData: '0x',
+			txHash: '0x5e5b342fae6b13548e62c3038078915397ebd2406a8c67afd276e8dc84ebba80',
+			amountSpent: 147000n,
+			totalGasSpent: 21000n,
+		})
+
+		// Check that deprecation warning was logged
+		expect(warnSpy).toHaveBeenCalledWith(
+			'The createTransaction parameter is deprecated. Please use addToMempool or addToBlockchain instead.',
+		)
+
+		await mineHandler(client)()
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to,
+				})
+			).balance,
+		).toEqual(420n)
+	})
+
+	it('should not mine existing transactions when using addToBlockchain', async () => {
+		const client = createTevmNode()
+		const to1 = `0x${'69'.repeat(20)}` as const
+		const to2 = `0x${'42'.repeat(20)}` as const
+
+		await setAccountHandler(client)({
+			address: to1,
+			nonce: 2n,
+		})
+
+		await setAccountHandler(client)({
+			address: to2,
+			nonce: 2n,
+		})
+
+		await setAccountHandler(client)({
+			address: createAddress(1234).toString(),
+			balance: parseEther('25'),
+		})
+
+		await setAccountHandler(client)({
+			address: createAddress(4321).toString(),
+			balance: parseEther('25'),
+		})
+
+		await callHandler(client)({
+			addToMempool: true,
+			from: createAddress(1234).toString(),
+			to: to1,
+			value: 100n,
+		})
+
+		await callHandler(client)({
+			addToBlockchain: true,
+			from: createAddress(4321).toString(),
+			to: to2,
+			value: 200n,
+		})
+
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to2,
+				})
+			).balance,
+		).toEqual(200n)
+
+		// First account should NOT be updated because addToBlockchain only mines its own transaction
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to1,
+				})
+			).balance,
+		).toEqual(0n) // Not mined yet
+
+		// Now mine everything
+		await mineHandler(client)()
+
+		// First balance should now be updated after mining
+		expect(
+			(
+				await getAccountHandler(client)({
+					address: to1,
+				})
+			).balance,
+		).toEqual(100n) // Now mined
 	})
 	it('should handle errors returned during contract call', async () => {
 		const client = createTevmNode()
@@ -592,17 +724,24 @@ describe('callHandler', () => {
 				},
 			},
 		})
+		const originalWarn = client.logger.warn
 		const mockWarn = vi.fn()
 		client.logger.warn = mockWarn
+
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(client)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 		})
 		expect(errors).toBeUndefined()
+
+		// Reset the mock before our test to avoid counting previous warnings
+		mockWarn.mockReset()
+
 		const result = await callHandler(client)({
 			throwOnFail: false,
-			createTransaction: true,
+			// Use addToMempool instead of createTransaction to avoid deprecation warning
+			addToMempool: true,
 			data: encodeFunctionData({
 				abi: ERC20_ABI,
 				functionName: 'balanceOf',
@@ -610,6 +749,10 @@ describe('callHandler', () => {
 			}),
 			to,
 		})
+
+		// Restore original warn function
+		client.logger.warn = originalWarn
+
 		expect(mockWarn.mock.calls).toHaveLength(1)
 		expect(result.errors).toBeUndefined()
 		expect(result.l1Fee).toBeUndefined()
@@ -746,9 +889,13 @@ describe('callHandler', () => {
 			}),
 		})
 
-		expect(decodeFunctionResult({ functionName: 'get', abi: simpleContract.abi, data: getResult.rawData })).toBe(
-			setValue,
-		)
+		expect(
+			decodeFunctionResult({
+				functionName: 'get',
+				abi: simpleContract.abi,
+				data: getResult.rawData,
+			}),
+		).toBe(setValue)
 
 		// Mine the transaction and verify the state change
 		await mineHandler(client)()

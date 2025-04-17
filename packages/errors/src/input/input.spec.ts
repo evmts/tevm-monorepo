@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { InvalidAbiError } from './InvalidAbiError.js'
+import { InvalidAddToBlockchainError } from './InvalidAddToBlockchainError.js'
+import { InvalidAddToMempoolError } from './InvalidAddToMempoolError.js'
 import { InvalidArgsError } from './InvalidArgsError.js'
 import { InvalidBalanceError } from './InvalidBalanceError.js'
 import { InvalidBlobVersionedHashesError } from './InvalidBlobVersionedHashesError.js'
@@ -268,6 +270,42 @@ describe('Input errors', () => {
 
 		it('should create with custom docs parameters', () => {
 			const error = new InvalidUrlError('Invalid URL', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidAddToMempoolError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidAddToMempoolError('Invalid addToMempool value')
+			expect(error.message).toContain('Invalid addToMempool value')
+			expect(error.name).toBe('InvalidAddToMempoolError')
+			expect(error._tag).toBe('InvalidAddToMempoolError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidAddToMempoolError('Invalid addToMempool', {
+				docsBaseUrl: 'https://custom.docs',
+				docsPath: '/custom/path',
+			})
+			expect(error.message).toContain('https://custom.docs')
+			expect(error.message).toContain('/custom/path')
+		})
+	})
+
+	describe('InvalidAddToBlockchainError', () => {
+		it('should create with a custom message', () => {
+			const error = new InvalidAddToBlockchainError('Invalid addToBlockchain value')
+			expect(error.message).toContain('Invalid addToBlockchain value')
+			expect(error.name).toBe('InvalidAddToBlockchainError')
+			expect(error._tag).toBe('InvalidAddToBlockchainError')
+		})
+
+		it('should create with custom docs parameters', () => {
+			const error = new InvalidAddToBlockchainError('Invalid addToBlockchain', {
 				docsBaseUrl: 'https://custom.docs',
 				docsPath: '/custom/path',
 			})
