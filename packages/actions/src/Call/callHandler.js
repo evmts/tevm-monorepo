@@ -87,11 +87,18 @@ export const callHandler =
 				})
 			}
 			// if we are creating a transaction we want to use the real txpool so the tx gets properly added
-			if (_params.createTransaction) {
+			if (
+				_params.createTransaction ||
+				_params.addToMempool ||
+				_params.addToBlockchain ||
+				client.miningConfig.type === 'auto'
+			) {
 				const pendingClientAny = /** @type {any}*/ (minePending.pendingClient)
 				pendingClientAny.getTxPool = client.getTxPool
 			}
-			return callHandler(minePending.pendingClient, { throwOnFail: defaultThrowOnFail })({
+			return callHandler(minePending.pendingClient, {
+				throwOnFail: defaultThrowOnFail,
+			})({
 				...(code !== undefined ? { code } : {}),
 				...(deployedBytecode !== undefined ? { deployedBytecode } : {}),
 				..._params,

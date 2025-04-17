@@ -29,12 +29,13 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 		)
 	}
 
-	const shouldCreateTx = shouldCreateTransaction(params, executedCall.runTxResult)
-	const shouldAddToChain = shouldAddToBlockchain(params, executedCall.runTxResult)
+	const shouldAddToChain =
+		client.miningConfig.type === 'auto' || shouldAddToBlockchain(params, executedCall.runTxResult)
+	const shouldCreateTx = shouldAddToChain || shouldCreateTransaction(params, executedCall.runTxResult)
 
-	if (shouldCreateTx || shouldAddToChain) {
+	console.log({ shouldAddToChain, shouldCreateTx })
+	if (shouldCreateTx) {
 		try {
-			// Use a try-catch to handle errors from createTransaction or handleAutomining
 			const txRes = await createTransaction(client)({
 				throwOnFail: false,
 				evmOutput: executedCall.runTxResult,
@@ -44,44 +45,20 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 
-			// Check if gas mining is enabled and should be triggered
 			const isGasMining = client.miningConfig.type === 'gas'
 
-			// Handle immediate mining if addToBlockchain is true
 			if (shouldAddToChain && txHash) {
-				// We need to mine the transaction with auto mode
-				// For type safety, we'll continue to use the existing client
-				// but tell handleAutomining to force mining regardless of config
+				const autoMiningResult = await handleAutomining(client, txHash, isGasMining, false)
 
-				const autoMiningResult = await handleAutomining(
-					client,
-					txHash,
-					isGasMining,
-					client.miningConfig.type === 'auto',
-				)
-
-				// Handle any errors from mining
 				if (autoMiningResult?.errors) {
 					errors.push(.../** @type {any} */ (autoMiningResult.errors))
 				}
 			}
 
-			// Handle regular automining based on configuration (for transactions not added via addToBlockchain)
-			if (!shouldAddToChain && txHash) {
-				const regularMiningResult = await handleAutomining(client, txHash, isGasMining)
-
-				// Handle any errors from mining
-				if (regularMiningResult?.errors) {
-					errors.push(.../** @type {any} */ (regularMiningResult.errors))
-				}
-			}
-
-			// Check for errors in the transaction creation
 			if ('errors' in txRes && txRes.errors) {
 				errors.push(.../** @type {any} */ (txRes.errors))
 			}
 		} catch (error) {
-			// Handle any unexpected errors during transaction creation
 			errors.push(/** @type {any} */ (error))
 		}
 	}

@@ -6,8 +6,7 @@
  * @throws {never} only if the parameter is invalid based on ts type
  */
 export const shouldCreateTransaction = (params, runTxResult) => {
-	// First check addToMempool, then fall back to createTransaction
-	const paramToUse = params.addToMempool !== undefined ? params.addToMempool : params.createTransaction
+	const paramToUse = params.addToMempool ?? params.addToBlockchain ?? params.createTransaction
 
 	if (paramToUse === undefined) {
 		return false

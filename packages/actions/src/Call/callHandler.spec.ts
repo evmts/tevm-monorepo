@@ -150,7 +150,6 @@ describe('callHandler', () => {
 				addToBlockchain: true,
 				to,
 				value: 420n,
-				skipBalance: true,
 			}),
 		).toEqual({
 			executionGasUsed: 0n,
@@ -159,7 +158,6 @@ describe('callHandler', () => {
 			amountSpent: 147000n,
 			totalGasSpent: 21000n,
 		})
-		// No need to call mine - transaction should already be mined
 		expect(
 			(
 				await getAccountHandler(client)({
@@ -251,7 +249,7 @@ describe('callHandler', () => {
 					address: to2,
 				})
 			).balance,
-		).toEqual(200n) // Mined
+		).toEqual(200n)
 
 		// First account should NOT be updated because addToBlockchain only mines its own transaction
 		expect(
