@@ -212,6 +212,16 @@ describe('callHandler', () => {
 		const to2 = `0x${'42'.repeat(20)}` as const
 
 		await setAccountHandler(client)({
+			address: to1,
+			nonce: 2n,
+		})
+
+		await setAccountHandler(client)({
+			address: to2,
+			nonce: 2n,
+		})
+
+		await setAccountHandler(client)({
 			address: createAddress(1234).toString(),
 			balance: parseEther('25'),
 		})
