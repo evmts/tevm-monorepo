@@ -1,5 +1,5 @@
 {
-  "name": "@tevm/solc-rs",
+  "name": "tevm_solc_rs",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "bundler-packages/solc-rs/src",
@@ -8,11 +8,7 @@
     "build:rust": {
       "cache": true,
       "outputs": ["{workspaceRoot}/bundler-packages/solc-rs"],
-      "executor": "@monodon/rust",
-      "options": {
-        "dist": "bundler-packages/solc-rs",
-        "jsFile": "index.js"
-      },
+      "executor": "@monodon/rust:build",
       "configurations": {
         "production": {
           "dist": "dist/solc-rs",
@@ -25,7 +21,8 @@
       "executor": "@monodon/rust:test",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/solc-rs"
+        "target-dir": "dist/target/solc-rs",
+        "crate": "tevm_solc_rs"
       },
       "configurations": {
         "production": {
@@ -38,7 +35,8 @@
       "executor": "@monodon/rust:lint",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/solc-rs"
+        "target-dir": "dist/target/solc-rs",
+        "crate": "tevm_solc_rs"
       }
     }
   }
