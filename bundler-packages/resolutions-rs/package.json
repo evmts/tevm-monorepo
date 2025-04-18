@@ -6,12 +6,6 @@
   "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
-  "scripts": {
-    "benchmark": "vitest bench",
-    "build": "napi build --release",
-    "build:debug": "napi build",
-    "prepublishOnly": "napi prepublish -t npm"
-  },
   "napi": {
     "binaryName": "tevm_resolutions_rs",
     "packageName": "@tevm/resolutions-rs",
@@ -25,13 +19,5 @@
       "i686-pc-windows-msvc",
       "wasm32-wasip1-threads"
     ]
-  },
-  "dependencies": {
-    "@tevm/resolutions": "workspace:^",
-    "effect": "3.13.2"
-  },
-  "devDependencies": {
-    "@napi-rs/cli": "^2.18.0",
-    "vitest": "^1.0.0"
   }
 }
