@@ -2,6 +2,12 @@
 	"defaultProject": "@tevm/example-vite",
 	"cacheDirectory": ".nx",
 	"targetDefaults": {
+		"build:rust": {
+			"inputs": ["default"],
+			"outputs": ["{projectRoot}/dist/**/*"],
+			"dependsOn": [],
+			"cache": true
+		},
 		"lint:check": {
 			"inputs": ["default"],
 			"cache": true
@@ -91,6 +97,8 @@
 			"{projectRoot}/*.json",
 			"{projectRoot}/*.js",
 			"{projectRoot}/*.ts",
+			"{projectRoot}/*.rs",
+			"{projectRoot}/Cargo.toml",
 			"{projectRoot}/src/**/*",
 			"sharedGlobals"
 		],
@@ -98,10 +106,13 @@
 		"sharedGlobals": [
 			"{workspaceRoot}/nx.json",
 			"{workspaceRoot}/bun.lockb",
+			"{workspaceRoot}/pnpm-lock.yaml",
+			"{workspaceRoot}/Cargo.lock",
+			"{workspaceRoot}/Cargo.toml",
 			"{workspaceRoot}/configs/**/*",
 			"{workspaceRoot}/lib/**/*"
 		],
-		"productionSrc": ["{projectRoot}/src/**/*", "!{projectRoot}/src/**/*.spec.ts"],
+		"productionSrc": ["{projectRoot}/src/**/*", "!{projectRoot}/src/**/*.spec.ts", "!{projectRoot}/src/**/*.spec.rs"],
 		"productionContracts": ["{projectRoot}/contracts/**/*"],
 		"production": ["default", "buildConfigs", "sharedGlobals", "productionSrc", "productionContracts"],
 		"outputsDist": [
