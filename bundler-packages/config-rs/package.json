@@ -1,0 +1,7 @@
+{
+  "name": "@tevm/config-rs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rust implementation of tevm config package",
+  "type": "module"
+}
