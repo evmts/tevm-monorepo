@@ -63,7 +63,7 @@ jobs:
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v1.0
         with:
-          cmd1: bunx nx run-many --target=build --projects=my_rust_node_lib && bunx nx affected --target build:dist
+          cmd1: bunx nx affected --targets build:dist,build:rust
           cmd2: bunx nx affected --target build:types
           cmd3: bunx nx affected --target typecheck
           cmd4: bunx nx affected --target test:coverage

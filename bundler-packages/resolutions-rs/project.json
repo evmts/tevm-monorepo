@@ -1,5 +1,5 @@
 {
-  "name": "@tevm/resolutions-rs",
+  "name": "tevm_resolutions_rs",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "bundler-packages/resolutions-rs/src",
@@ -8,11 +8,7 @@
     "build:rust": {
       "cache": true,
       "outputs": ["{workspaceRoot}/bundler-packages/resolutions-rs"],
-      "executor": "@monodon/rust",
-      "options": {
-        "dist": "bundler-packages/resolutions-rs",
-        "jsFile": "index.js"
-      },
+      "executor": "@monodon/rust:build",
       "configurations": {
         "production": {
           "dist": "dist/resolutions-rs",
