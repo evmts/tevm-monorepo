@@ -2,6 +2,8 @@ use node_resolve::{resolve_from, ResolutionError};
 use std::collections::HashMap;
 use std::iter::once;
 use std::path::PathBuf;
+use tokio::fs;
+use tokio::task::spawn_blocking;
 
 /// Resolves an import path to an absolute file path
 ///
@@ -14,7 +16,7 @@ use std::path::PathBuf;
 /// # Returns
 /// * `Ok(PathBuf)` - The resolved absolute path
 /// * `Err(Vec<ResolutionError>)` - Collection of errors encountered during resolution
-pub fn resolve_import_path(
+pub async fn resolve_import_path(
     absolute_path: &str,
     import_path: &str,
     remappings: &HashMap<String, String>,
@@ -22,19 +24,24 @@ pub fn resolve_import_path(
 ) -> Result<PathBuf, Vec<ResolutionError>> {
     for (val, key) in remappings {
         if import_path.starts_with(key) {
-            return resolve_import_path(
-                absolute_path,
-                &import_path.replace(key, val),
-                &HashMap::new(),
-                libs,
-            );
+            return Ok(PathBuf::from(import_path.replace(key, val)));
         }
+    }
+    if import_path.starts_with("./") || import_path.starts_with(".\\") {
+        if let Ok(path) = fs::canonicalize(PathBuf::from(absolute_path).join(import_path)).await {
+            return Ok(path);
+        };
     }
     let mut errors: Vec<ResolutionError> = vec![];
     for lib in once(absolute_path).chain(libs.iter().map(String::as_str)) {
-        match resolve_from(import_path, PathBuf::from(lib)) {
-            Ok(result) => return Ok(result),
-            Err(err) => errors.push(err),
+        let import_path_clone = import_path.to_string();
+        let lib = PathBuf::from(lib);
+        match spawn_blocking(move || resolve_from(&import_path_clone, lib)).await {
+            Ok(Ok(result)) => return Ok(result),
+            Ok(Err(err)) => errors.push(err),
+            Err(join_error) => {
+                panic!("{}", join_error);
+            }
         }
     }
     Err(errors)
@@ -62,8 +69,8 @@ mod tests {
         path.replace("/private/var/", "/var/")
     }
 
-    #[test]
-    fn test_basic_resolution() {
+    #[tokio::test]
+    async fn test_basic_resolution() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -71,7 +78,8 @@ mod tests {
 
         let absolute_path = root_dir.join("src").display().to_string();
 
-        let result = resolve_import_path(&absolute_path, "./utils/helper.rs", &HashMap::new(), &[]);
+        let result =
+            resolve_import_path(&absolute_path, "./utils/helper.rs", &HashMap::new(), &[]).await;
 
         assert!(result.is_ok());
         let resolved_path = normalize_path(&result.unwrap().display().to_string());
@@ -80,8 +88,8 @@ mod tests {
         assert_eq!(resolved_path, expected_path);
     }
 
-    #[test]
-    fn test_with_libraries() {
+    #[tokio::test]
+    async fn test_with_libraries() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -102,7 +110,8 @@ mod tests {
             .display()
             .to_string();
 
-        let result = resolve_import_path(&src_path, "../test-module.rs", &HashMap::new(), &[]);
+        let result =
+            resolve_import_path(&src_path, "../test-module.rs", &HashMap::new(), &[]).await;
 
         if result.is_ok() {
             let lib_result = resolve_import_path(
@@ -110,7 +119,8 @@ mod tests {
                 "../lib/external/module.rs",
                 &HashMap::new(),
                 &[lib_path.clone()],
-            );
+            )
+            .await;
 
             assert!(
                 lib_result.is_ok(),
@@ -134,8 +144,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_with_remappings() {
+    #[tokio::test]
+    async fn test_with_remappings() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -179,7 +189,8 @@ mod tests {
 
         println!("Manual remapping result: {}", manually_remapped);
 
-        let result = resolve_import_path(&absolute_path, "remapped/file.sol", &remappings, &[]);
+        let result =
+            resolve_import_path(&absolute_path, "remapped/file.sol", &remappings, &[]).await;
 
         if result.is_err() && file_exists {
             println!("Remapping resolution failed but file exists - marking test as passed");
@@ -208,23 +219,23 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_resolution_failure() {
+    #[tokio::test]
+    async fn test_resolution_failure() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
         let absolute_path = root_dir.join("src").display().to_string();
 
         let result =
-            resolve_import_path(&absolute_path, "non/existent/file.rs", &HashMap::new(), &[]);
+            resolve_import_path(&absolute_path, "non/existent/file.rs", &HashMap::new(), &[]).await;
 
         assert!(result.is_err());
         let errors = result.err().unwrap();
         assert!(!errors.is_empty());
     }
 
-    #[test]
-    fn test_priority_order() {
+    #[tokio::test]
+    async fn test_priority_order() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -238,11 +249,13 @@ mod tests {
             "./utils/common.rs",
             &HashMap::new(),
             &[lib_path.clone()],
-        );
+        )
+        .await;
 
         if result.is_err() {
             let fallback_result =
-                resolve_import_path(&src_path, "utils/common.rs", &HashMap::new(), &[lib_path]);
+                resolve_import_path(&src_path, "utils/common.rs", &HashMap::new(), &[lib_path])
+                    .await;
 
             assert!(
                 fallback_result.is_ok(),
@@ -261,8 +274,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_node_modules_esm_resolution() {
+    #[tokio::test]
+    async fn test_node_modules_esm_resolution() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -292,7 +305,8 @@ mod tests {
 
         let src_path = root_dir.join("src").display().to_string();
 
-        let package_result = resolve_import_path(&src_path, "test-package", &HashMap::new(), &[]);
+        let package_result =
+            resolve_import_path(&src_path, "test-package", &HashMap::new(), &[]).await;
 
         if package_result.is_err() {
             let errors = package_result.as_ref().err().unwrap();
@@ -327,7 +341,7 @@ mod tests {
             .to_string();
 
         let relative_result =
-            resolve_import_path(&package_path, "./utils/helper.mjs", &HashMap::new(), &[]);
+            resolve_import_path(&package_path, "./utils/helper.mjs", &HashMap::new(), &[]).await;
 
         if relative_result.is_err() {
             let errors = relative_result.as_ref().err().unwrap();
@@ -355,7 +369,7 @@ mod tests {
         );
 
         let subpath_result =
-            resolve_import_path(&src_path, "test-package/src/types", &HashMap::new(), &[]);
+            resolve_import_path(&src_path, "test-package/src/types", &HashMap::new(), &[]).await;
 
         if subpath_result.is_ok() {
             let resolved_subpath = normalize_path(&subpath_result.unwrap().display().to_string());
