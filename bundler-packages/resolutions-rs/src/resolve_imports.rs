@@ -1,22 +1,9 @@
 use futures::future::join_all;
 use node_resolve::ResolutionError;
-use once_cell::sync::Lazy;
-use regex::Regex;
 use std::collections::HashMap;
 use std::path::PathBuf;
 
 use crate::resolve_import_path::resolve_import_path;
-
-/// Regular expression to match import statements in JavaScript/TypeScript/Solidity code
-/// This pattern matches various import statement formats:
-/// - import 'module-name';
-/// - import './relative/path';
-/// - import DefaultExport from 'module-name';
-/// - import { Export1, Export2 } from 'module-name';
-/// - import * as Name from 'module-name';
-static IMPORT_REGEX: Lazy<Regex> = Lazy::new(|| {
-    Regex::new(r#"(?m)^\s*import(?:["'\s]*([\w*${}\n\r\t, ]+)\s*from\s*)?["'\s]*([^"';\s]+)["'\s]*(?:$|;)"#).unwrap()
-});
 
 /// Resolves all import paths found in the given code
 ///
@@ -38,78 +25,155 @@ pub async fn resolve_imports(
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<Vec<PathBuf>, Vec<ResolutionError>> {
-    let mut import_futures = vec![];
-    let mut is_in_multiline_comment = false;
-    let mut processed_code = String::new();
+    let mut imports = extract_imports(code);
+    if imports.is_empty() {
+        return Ok(Vec::new());
+    }
+
+    // Deduplicate imports to avoid unnecessary processing
+    imports.sort();
+    imports.dedup();
+
+    // Create a future for each import path
+    let futures = imports.into_iter().map(|import_path| {
+        let absolute_path = absolute_path.to_string();
+        let remappings = remappings.clone();
+        let libs = libs.to_vec();  // Convert to Vec<String>
+        
+        async move {
+            resolve_import_path(&absolute_path, &import_path, &remappings, &libs).await
+        }
+    });
+
+    // Execute all futures concurrently
+    let results = join_all(futures).await;
     
-    let lines: Vec<&str> = code.lines().collect();
+    // Separate successes from errors
+    let (oks, errs): (Vec<_>, Vec<_>) = results.into_iter().partition(Result::is_ok);
+    
+    let resolved_paths = oks.into_iter().map(Result::unwrap).collect::<Vec<_>>();
+    let errors = errs.into_iter().map(Result::unwrap_err).flatten().collect::<Vec<_>>();
 
-    for line in lines {
-        let trimmed = line.trim();
+    if errors.is_empty() {
+        Ok(resolved_paths)
+    } else {
+        Err(errors)
+    }
+}
 
-        if trimmed.is_empty() {
-            processed_code.push_str("\n");
+/// Extracts all import paths from the given code
+fn extract_imports(code: &str) -> Vec<String> {
+    let mut imports = Vec::new();
+    let mut lines = code.lines();
+    
+    // Parser state
+    let mut in_block_comment = false;
+    let mut accumulating = false;
+    let mut stmt = String::new();
+
+    while let Some(raw) = lines.next() {
+        // Process the line by stripping comments
+        let line = process_line(raw, &mut in_block_comment);
+        if line.is_empty() {
             continue;
         }
 
-        if is_in_multiline_comment {
-            if trimmed.contains("*/") {
-                let comment_end = trimmed.find("*/").unwrap() + 2;
-                if comment_end < trimmed.len() {
-                    processed_code.push_str(&trimmed[comment_end..]);
+        // Handle multi-line import statements
+        if accumulating {
+            stmt.push_str(&line);
+            if line.contains(';') {
+                // Statement is complete, extract the import path
+                if let Some(path) = extract_import_path(&stmt) {
+                    imports.push(path);
                 }
-                is_in_multiline_comment = false;
+                accumulating = false;
+                stmt.clear();
             }
-            processed_code.push('\n');
             continue;
         }
 
-        if trimmed.starts_with("//") {
-            processed_code.push('\n');
-            continue;
-        }
-
-        if trimmed.contains("/*") {
-            let comment_start = trimmed.find("/*").unwrap();
-            processed_code.push_str(&trimmed[..comment_start]);
-
-            if trimmed.contains("*/") {
-                let comment_end = trimmed.find("*/").unwrap() + 2;
-                if comment_end < trimmed.len() {
-                    processed_code.push_str(&trimmed[comment_end..]);
+        // Detect new import statement
+        if line.trim_start().starts_with("import") {
+            if line.contains(';') {
+                // Single-line import
+                if let Some(path) = extract_import_path(&line) {
+                    imports.push(path);
                 }
             } else {
-                is_in_multiline_comment = true;
-            }
-            processed_code.push('\n');
-            continue;
-        }
-
-        for caps in IMPORT_REGEX.captures_iter(trimmed) {
-            if let Some(import_path) = caps.get(2) {
-                import_futures.push(resolve_import_path(
-                    absolute_path,
-                    import_path.as_str(),
-                    remappings,
-                    libs,
-                ))
+                // Start of multi-line import
+                stmt = line;
+                accumulating = true;
             }
         }
     }
 
-    let results = join_all(import_futures).await;
-    let mut all_imports = Vec::new();
-    let mut errors = Vec::new();
-    for res in results {
-        match res {
-            Ok(path) => all_imports.push(path),
-            Err(mut errs) => errors.append(&mut errs),
+    // Handle any unprocessed multi-line import at EOF
+    if accumulating && !stmt.is_empty() {
+        if let Some(path) = extract_import_path(&stmt) {
+            imports.push(path);
         }
     }
-    if !errors.is_empty() {
-        return Err(errors);
+
+    imports
+}
+
+/// Processes a line by removing comments and returning the sanitized content
+fn process_line(line: &str, in_block_comment: &mut bool) -> String {
+    let mut result = String::with_capacity(line.len());
+    let mut i = 0;
+    
+    while i < line.len() {
+        if *in_block_comment {
+            // Look for the end of block comment
+            if let Some(pos) = line[i..].find("*/") {
+                i += pos + 2; // Skip past the end of comment
+                *in_block_comment = false;
+            } else {
+                break; // Comment continues to next line
+            }
+        } else if line[i..].starts_with("//") {
+            break; // Line comment - ignore rest of line
+        } else if line[i..].starts_with("/*") {
+            // Start of block comment
+            *in_block_comment = true;
+            i += 2; // Skip past the start of comment
+        } else {
+            // Regular code - add character to result
+            if let Some(c) = line[i..].chars().next() {
+                result.push(c);
+                i += c.len_utf8();
+            } else {
+                break;
+            }
+        }
     }
-    Ok(all_imports)
+
+    result.trim().to_string()
+}
+
+/// Extracts the import path from a complete import statement
+fn extract_import_path(stmt: &str) -> Option<String> {
+    // Find the quoted path in the import statement
+    let mut in_quote = false;
+    let mut quote_char = '\0';
+    let mut path = String::new();
+    
+    for c in stmt.chars() {
+        if in_quote {
+            if c == quote_char {
+                // End of quoted string - we have our path
+                return Some(path);
+            } else {
+                path.push(c);
+            }
+        } else if c == '"' || c == '\'' {
+            // Start of quoted string
+            in_quote = true;
+            quote_char = c;
+        }
+    }
+    
+    None // No valid import path found
 }
 
 #[cfg(test)]
@@ -327,13 +391,11 @@ mod tests {
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
-        assert_eq!(resolved_imports.len(), 4);
+        assert_eq!(resolved_imports.len(), 1, "Should deduplicate imports");
 
-        for path in resolved_imports {
-            let resolved_path = normalize_path(&path.display().to_string());
-            let expected_path = normalize_path(&root_dir.join("src/util.js").display().to_string());
-            assert_eq!(resolved_path, expected_path);
-        }
+        let resolved_path = normalize_path(&resolved_imports[0].display().to_string());
+        let expected_path = normalize_path(&root_dir.join("src/util.js").display().to_string());
+        assert_eq!(resolved_path, expected_path);
     }
 
     #[tokio::test]
@@ -378,14 +440,12 @@ mod tests {
         assert!(result.is_ok());
         
         let resolved_imports = result.unwrap();
-        assert_eq!(resolved_imports.len(), 5);
+        assert_eq!(resolved_imports.len(), 1, "Should deduplicate imports");
 
-        for path in resolved_imports {
-            let resolved_path = normalize_path(&path.display().to_string());
-            let expected_path =
-                normalize_path(&root_dir.join("src/lib/Contract.sol").display().to_string());
-            assert_eq!(resolved_path, expected_path);
-        }
+        let resolved_path = normalize_path(&resolved_imports[0].display().to_string());
+        let expected_path =
+            normalize_path(&root_dir.join("src/lib/Contract.sol").display().to_string());
+        assert_eq!(resolved_path, expected_path);
     }
 
     #[tokio::test]
@@ -437,61 +497,10 @@ mod tests {
             }
         "#;
 
-        let lines: Vec<&str> = code.lines().collect();
-        let mut is_in_multiline_comment = false;
-        let mut processed_code = String::new();
-        let mut matches_count = 0;
-
-        for line in lines {
-            let trimmed = line.trim();
-            if trimmed.is_empty() {
-                continue;
-            }
-
-            if is_in_multiline_comment {
-                if trimmed.contains("*/") {
-                    is_in_multiline_comment = false;
-                }
-                continue;
-            }
-
-            if trimmed.starts_with("//") {
-                println!("Skipping comment line: {}", trimmed);
-                continue;
-            }
-
-            if trimmed.contains("/*") {
-                let comment_start = trimmed.find("/*").unwrap();
-                if trimmed.contains("*/") {
-                    println!("Skipping inline comment: {}", &trimmed[comment_start..]);
-                } else {
-                    is_in_multiline_comment = true;
-                    println!(
-                        "Entering multiline comment at: {}",
-                        &trimmed[comment_start..]
-                    );
-                }
-                continue;
-            }
-
-            if trimmed.starts_with("import") {
-                println!("Found import: {}", trimmed);
-                matches_count += 1;
-                processed_code.push_str(trimmed);
-                processed_code.push('\n');
-            }
-        }
-        println!("Total valid import matches: {}", matches_count);
-
         let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
-        println!("Resolved imports: {:?}", resolved_imports.len());
-        for path in &resolved_imports {
-            println!("  - {}", path.display());
-        }
-
         assert_eq!(
             resolved_imports.len(),
             1,
