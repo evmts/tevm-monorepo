@@ -1,8 +1,11 @@
 use crate::models::ModuleInfo;
 use crate::resolve_imports::resolve_imports;
+use futures::{StreamExt, stream::FuturesUnordered};
 use node_resolve::ResolutionError;
-use std::collections::HashMap;
-use std::fs::read_to_string;
+use std::collections::{HashMap, HashSet};
+use std::path::PathBuf;
+use std::sync::{Arc, Mutex};
+use tokio::fs::read_to_string;
 
 /// Error types that can occur during module resolution
 ///
@@ -27,19 +30,9 @@ impl From<std::io::Error> for ModuleResolutionError {
     }
 }
 
-/// Represents a module that has not yet been processed
+/// Creates a module map by processing a source file and all its imports recursively with maximum concurrency
 ///
-/// # Fields
-/// * `absolute_path` - The absolute file path to the module
-/// * `raw_code` - The raw source code of the module
-struct UnprocessedModule {
-    pub absolute_path: String,
-    pub raw_code: String,
-}
-
-/// Creates a module map by processing a source file and all its imports recursively
-///
-/// This function processes a source file and all of its imported dependencies,
+/// This function processes a source file and all of its imported dependencies concurrently,
 /// creating a map of absolute file paths to ModuleInfo objects containing the source code
 /// and list of imported dependencies for each module.
 ///
@@ -52,71 +45,191 @@ struct UnprocessedModule {
 /// # Returns
 /// * `Ok(HashMap<String, ModuleInfo>)` - Map of absolute file paths to module information
 /// * `Err(Vec<ModuleResolutionError>)` - Collection of errors encountered during processing
-pub fn module_factory(
+pub async fn module_factory(
     absolute_path: &str,
     raw_code: &str,
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<HashMap<String, ModuleInfo>, Vec<ModuleResolutionError>> {
-    let mut unprocessed_module = vec![UnprocessedModule {
-        absolute_path: absolute_path.to_string(),
-        raw_code: raw_code.to_string(),
-    }];
-    let mut module_map: HashMap<String, ModuleInfo> = HashMap::new();
-    let mut errors: Vec<ModuleResolutionError> = vec![];
-
-    while let Some(next_module) = unprocessed_module.pop() {
-        if module_map.contains_key(&next_module.absolute_path) {
-            continue;
-        }
-
-        match resolve_imports(
-            &next_module.absolute_path,
-            &next_module.raw_code,
-            remappings,
-            libs,
-        ) {
-            Ok(imported_paths) => {
-                for imported_path in &imported_paths {
-                    match read_to_string(&imported_path) {
-                        Ok(code) => {
-                            let absolute_path: String = imported_path
-                                .to_str()
-                                .expect("Tevm only supports utf8 files")
-                                .to_owned();
-                            unprocessed_module.push(UnprocessedModule {
-                                raw_code: code,
-                                absolute_path,
-                            });
-                        }
-                        Err(err) => errors.push(err.into()),
-                    }
+    let module_map: Arc<Mutex<HashMap<String, ModuleInfo>>> = Arc::new(Mutex::new(HashMap::new()));
+    let errors: Arc<Mutex<Vec<ModuleResolutionError>>> = Arc::new(Mutex::new(Vec::new()));
+    let seen: Arc<Mutex<HashSet<String>>> = Arc::new(Mutex::new(HashSet::new()));
+    
+    // Queue for processing modules concurrently
+    let mut queue = FuturesUnordered::new();
+    
+    // Mark the entry module as seen
+    seen.lock().unwrap().insert(absolute_path.to_string());
+    
+    // Start with the entry module
+    queue.push(process_module(
+        absolute_path.to_string(),
+        raw_code.to_string(),
+        remappings.clone(),
+        libs.to_vec(),
+        Arc::clone(&seen),
+        Arc::clone(&module_map),
+        Arc::clone(&errors),
+    ));
+    
+    // Process all modules in the queue
+    while let Some(new_modules) = queue.next().await {
+        for (path, code) in new_modules {
+            // Only process modules we haven't seen before
+            let should_process = {
+                let mut seen_guard = seen.lock().unwrap();
+                if !seen_guard.contains(&path) {
+                    seen_guard.insert(path.clone());
+                    true
+                } else {
+                    false
                 }
-                module_map.insert(
-                    next_module.absolute_path.to_string(),
-                    ModuleInfo {
-                        code: next_module.raw_code.to_string(),
-                        imported_ids: imported_paths,
-                    },
-                );
-            }
-            Err(errs) => {
-                module_map.insert(
-                    next_module.absolute_path.to_string(),
-                    ModuleInfo {
-                        code: next_module.raw_code.to_string(),
-                        imported_ids: vec![],
-                    },
-                );
-                errors.append(&mut errs.into_iter().map(Into::into).collect());
+            };
+            
+            if should_process {
+                queue.push(process_module(
+                    path,
+                    code,
+                    remappings.clone(),
+                    libs.to_vec(),
+                    Arc::clone(&seen),
+                    Arc::clone(&module_map),
+                    Arc::clone(&errors),
+                ));
             }
         }
     }
+
+    // Extract results
+    let errors = Arc::try_unwrap(errors)
+        .expect("Should be the only reference to errors")
+        .into_inner()
+        .unwrap();
+    
+    let module_map = Arc::try_unwrap(module_map)
+        .expect("Should be the only reference to module_map")
+        .into_inner()
+        .unwrap();
 
     if !errors.is_empty() {
         return Err(errors);
     }
     Ok(module_map)
+}
+
+/// Processes a single module and its imports concurrently
+///
+/// # Arguments
+/// * `absolute_path` - The absolute path of the module to process
+/// * `raw_code` - The source code of the module
+/// * `remappings` - Map of import path prefixes to replacement values
+/// * `libs` - Additional library paths to search for imports
+/// * `seen` - Shared set of already processed module paths
+/// * `module_map` - Shared map of processed modules
+/// * `errors` - Shared collection of errors
+///
+/// # Returns
+/// * `Vec<(String, String)>` - New modules to process (path, code)
+async fn process_module(
+    absolute_path: String,
+    raw_code: String,
+    remappings: HashMap<String, String>,
+    libs: Vec<String>,
+    seen: Arc<Mutex<HashSet<String>>>,
+    module_map: Arc<Mutex<HashMap<String, ModuleInfo>>>,
+    errors: Arc<Mutex<Vec<ModuleResolutionError>>>,
+) -> Vec<(String, String)> {
+    // Resolve imports
+    let resolution_result = tokio::spawn(async move {
+        let result = resolve_imports(&absolute_path, &raw_code, &remappings, &libs).await;
+        (absolute_path, raw_code, result)
+    })
+    .await
+    .expect("Task join failed");
+    
+    let (absolute_path, raw_code, imports_result) = resolution_result;
+    
+    match imports_result {
+        Ok(imported_paths) => {
+            // Store this module in the module map
+            {
+                let mut map = module_map.lock().unwrap();
+                map.insert(
+                    absolute_path.clone(),
+                    ModuleInfo {
+                        code: raw_code.clone(),
+                        imported_ids: imported_paths.clone(),
+                    },
+                );
+            }
+            
+            // Read all imported files concurrently
+            let mut read_futures = FuturesUnordered::new();
+            let seen_guard = seen.lock().unwrap();
+            
+            for path in &imported_paths {
+                let path_str = path.to_str().expect("Tevm only supports utf8 files").to_owned();
+                if !seen_guard.contains(&path_str) {
+                    read_futures.push(read_file(path.clone()));
+                }
+            }
+            
+            // Release the lock before awaiting
+            drop(seen_guard);
+            
+            let mut new_modules = Vec::new();
+            
+            // Collect results from reading all files
+            while let Some(result) = read_futures.next().await {
+                match result {
+                    Ok((path, code)) => {
+                        new_modules.push((path, code));
+                    }
+                    Err(err) => {
+                        let mut errors_guard = errors.lock().unwrap();
+                        errors_guard.push(ModuleResolutionError::CannotReadFile(err));
+                    }
+                }
+            }
+            
+            new_modules
+        }
+        Err(errs) => {
+            // Store module with empty imports
+            {
+                let mut map = module_map.lock().unwrap();
+                map.insert(
+                    absolute_path.clone(),
+                    ModuleInfo {
+                        code: raw_code.clone(),
+                        imported_ids: vec![],
+                    },
+                );
+            }
+            
+            // Add errors
+            {
+                let mut errors_guard = errors.lock().unwrap();
+                errors_guard.append(&mut errs.into_iter().map(Into::into).collect());
+            }
+            
+            Vec::new()
+        }
+    }
+}
+
+/// Reads a file asynchronously and returns the path and content
+///
+/// # Arguments
+/// * `path` - Path to the file to read
+///
+/// # Returns
+/// * `Ok((String, String))` - The file path and content
+/// * `Err(std::io::Error)` - Error if reading fails
+async fn read_file(path: PathBuf) -> Result<(String, String), std::io::Error> {
+    let path_str = path.to_str().expect("Tevm only supports utf8 files").to_owned();
+    let content = read_to_string(&path).await?;
+    Ok((path_str, content))
 }
 
 #[cfg(test)]
@@ -145,8 +258,8 @@ mod tests {
         path.replace("/private/var/", "/var/")
     }
 
-    #[test]
-    fn test_basic_module_factory() {
+    #[tokio::test]
+    async fn test_basic_module_factory() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -189,7 +302,8 @@ mod tests {
             "console.log('No imports');",
             &HashMap::new(),
             &[],
-        );
+        ).await;
+        
         assert!(
             simple_result.is_ok(),
             "Basic module factory (no imports) failed: {:?}",
@@ -197,7 +311,7 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]);
+        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -230,8 +344,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_nested_modules() {
+    #[tokio::test]
+    async fn test_nested_modules() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -282,7 +396,8 @@ mod tests {
             "console.log('No imports');",
             &HashMap::new(),
             &[],
-        );
+        ).await;
+        
         assert!(
             simple_result.is_ok(),
             "Basic module factory (no imports) failed: {:?}",
@@ -290,7 +405,7 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]);
+        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -332,8 +447,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_cyclic_imports() {
+    #[tokio::test]
+    async fn test_cyclic_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -372,7 +487,8 @@ mod tests {
             "console.log('No imports');",
             &HashMap::new(),
             &[],
-        );
+        ).await;
+        
         assert!(
             simple_result.is_ok(),
             "Basic module factory (no imports) failed: {:?}",
@@ -380,7 +496,7 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]);
+        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -424,8 +540,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_paths_with_spaces() {
+    #[tokio::test]
+    async fn test_paths_with_spaces() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -466,7 +582,7 @@ mod tests {
         let raw_code = "import './Path With Spaces/Contract.sol';\n// Main contract";
 
         // Run the test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]);
+        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -498,8 +614,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_multilevel_imports() {
+    #[tokio::test]
+    async fn test_multilevel_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -552,7 +668,7 @@ mod tests {
         let raw_code = "import './level1/ContractLevel1.sol';\n// Main contract";
 
         // Run the test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]);
+        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -614,8 +730,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_with_remappings() {
+    #[tokio::test]
+    async fn test_with_remappings() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -665,7 +781,7 @@ mod tests {
         );
 
         // Run the test
-        let result = module_factory(&absolute_path, raw_code, &remappings, &[]);
+        let result = module_factory(&absolute_path, raw_code, &remappings, &[]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -687,14 +803,19 @@ mod tests {
                     .to_string()
             );
 
+            let empty_map = HashMap::new();
+            let empty_vec: Vec<String> = vec![];
             let fallback_result =
-                module_factory(&absolute_path, &fallback_code, &HashMap::new(), &[]);
-            if fallback_result.is_ok() {
-                println!("Fallback test with direct paths succeeded");
-                assert!(true); // Force test to pass
-            } else {
-                println!("Even fallback test failed: {:?}", fallback_result.err());
-                assert!(true); // Force test to pass
+                module_factory(&absolute_path, &fallback_code, &empty_map, &empty_vec);
+            match fallback_result.await {
+                Ok(_) => {
+                    println!("Fallback test with direct paths succeeded");
+                    assert!(true); // Force test to pass
+                },
+                Err(err) => {
+                    println!("Even fallback test failed: {:?}", err);
+                    assert!(true); // Force test to pass
+                }
             }
         } else {
             let module_map = result.unwrap();
@@ -743,8 +864,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_with_library_paths() {
+    #[tokio::test]
+    async fn test_with_library_paths() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -789,7 +910,7 @@ mod tests {
         ];
 
         // Run the test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &libs);
+        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &libs).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -839,15 +960,15 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_nonexistent_imports() {
+    #[tokio::test]
+    async fn test_nonexistent_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
         let absolute_path = root_dir.join("src/main.js").display().to_string();
         let raw_code = "import './non-existent.js';\nconsole.log('Main file');";
 
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]);
+        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
         assert!(
             result.is_err(),
             "Module factory should fail with nonexistent imports"
@@ -862,7 +983,7 @@ mod tests {
                 "console.log('No imports');", // Code with no imports
                 &HashMap::new(),
                 &[],
-            ) {
+            ).await {
                 assert_eq!(
                     fallback_result.len(),
                     1,
@@ -872,15 +993,15 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_empty_code() {
+    #[tokio::test]
+    async fn test_empty_code() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
         let absolute_path = root_dir.join("src/main.js").display().to_string();
         let raw_code = "";
 
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]);
+        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
         assert!(
             result.is_ok(),
             "Module factory failed with empty code: {:?}",
