@@ -8491,12 +8491,14 @@ dependencies = [
 name = "tevm_resolutions_rs"
 version = "0.1.0"
 dependencies = [
+ "futures",
  "node-resolve",
  "once_cell",
  "regex",
  "serde",
  "serde_json",
  "tempfile",
+ "tokio",
 ]
 
 [[package]]
