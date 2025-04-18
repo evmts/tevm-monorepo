@@ -1,0 +1,33 @@
+[package]
+name = 'tevm_solc_rs'
+version = '0.1.0'
+edition = '2021'
+description = 'A typesafe Rust wrapper for the Solidity compiler (solc)'
+authors = ["TEVM Contributors"]
+license = "MIT"
+repository = "https://github.com/evmts/tevm-monorepo"
+readme = "README.md"
+keywords = ["solidity", "compiler", "ethereum", "solc", "tevm"]
+
+[dependencies]
+serde = { version = "1.0.197", features = ["derive"] }
+serde_json = "1.0.140"
+tempfile = "3.19.1"
+thiserror = "1.0.57"
+hex = "0.4.3"
+
+[lib]
+crate-type = [
+    'cdylib',
+    'rlib',
+]
+
+[features]
+default = []
+examples = []
+
+[[example]]
+name = "basic_usage"
+path = "src/examples/basic_usage.rs"
+required-features = ["examples"]
+
