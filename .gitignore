@@ -74,3 +74,5 @@ debug/
 *.dylib
 *.dll
 *.rlib
+
+*.node
