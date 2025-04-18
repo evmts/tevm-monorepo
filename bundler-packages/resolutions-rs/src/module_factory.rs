@@ -1,34 +1,9 @@
 use crate::models::ModuleInfo;
-use crate::resolve_imports::resolve_imports;
+use crate::module_resolution_error::ModuleResolutionError;
+use crate::process_module::process_module;
 use futures::{StreamExt, stream::FuturesUnordered};
-use node_resolve::ResolutionError;
 use std::collections::{HashMap, HashSet};
-use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
-use tokio::fs::read_to_string;
-
-/// Error types that can occur during module resolution
-///
-/// # Variants
-/// * `Resolution` - Error that occurred during import path resolution
-/// * `CannotReadFile` - Error that occurred when trying to read a file
-#[derive(Debug)]
-pub enum ModuleResolutionError {
-    Resolution(ResolutionError),
-    CannotReadFile(std::io::Error),
-}
-
-impl From<ResolutionError> for ModuleResolutionError {
-    fn from(err: ResolutionError) -> Self {
-        ModuleResolutionError::Resolution(err)
-    }
-}
-
-impl From<std::io::Error> for ModuleResolutionError {
-    fn from(err: std::io::Error) -> Self {
-        ModuleResolutionError::CannotReadFile(err)
-    }
-}
 
 /// Creates a module map by processing a source file and all its imports recursively with maximum concurrency
 ///
@@ -115,121 +90,6 @@ pub async fn module_factory(
         return Err(errors);
     }
     Ok(module_map)
-}
-
-/// Processes a single module and its imports concurrently
-///
-/// # Arguments
-/// * `absolute_path` - The absolute path of the module to process
-/// * `raw_code` - The source code of the module
-/// * `remappings` - Map of import path prefixes to replacement values
-/// * `libs` - Additional library paths to search for imports
-/// * `seen` - Shared set of already processed module paths
-/// * `module_map` - Shared map of processed modules
-/// * `errors` - Shared collection of errors
-///
-/// # Returns
-/// * `Vec<(String, String)>` - New modules to process (path, code)
-async fn process_module(
-    absolute_path: String,
-    raw_code: String,
-    remappings: HashMap<String, String>,
-    libs: Vec<String>,
-    seen: Arc<Mutex<HashSet<String>>>,
-    module_map: Arc<Mutex<HashMap<String, ModuleInfo>>>,
-    errors: Arc<Mutex<Vec<ModuleResolutionError>>>,
-) -> Vec<(String, String)> {
-    // Resolve imports
-    let resolution_result = tokio::spawn(async move {
-        let result = resolve_imports(&absolute_path, &raw_code, &remappings, &libs).await;
-        (absolute_path, raw_code, result)
-    })
-    .await
-    .expect("Task join failed");
-    
-    let (absolute_path, raw_code, imports_result) = resolution_result;
-    
-    match imports_result {
-        Ok(imported_paths) => {
-            // Store this module in the module map
-            {
-                let mut map = module_map.lock().unwrap();
-                map.insert(
-                    absolute_path.clone(),
-                    ModuleInfo {
-                        code: raw_code.clone(),
-                        imported_ids: imported_paths.clone(),
-                    },
-                );
-            }
-            
-            // Read all imported files concurrently
-            let mut read_futures = FuturesUnordered::new();
-            let seen_guard = seen.lock().unwrap();
-            
-            for path in &imported_paths {
-                let path_str = path.to_str().expect("Tevm only supports utf8 files").to_owned();
-                if !seen_guard.contains(&path_str) {
-                    read_futures.push(read_file(path.clone()));
-                }
-            }
-            
-            // Release the lock before awaiting
-            drop(seen_guard);
-            
-            let mut new_modules = Vec::new();
-            
-            // Collect results from reading all files
-            while let Some(result) = read_futures.next().await {
-                match result {
-                    Ok((path, code)) => {
-                        new_modules.push((path, code));
-                    }
-                    Err(err) => {
-                        let mut errors_guard = errors.lock().unwrap();
-                        errors_guard.push(ModuleResolutionError::CannotReadFile(err));
-                    }
-                }
-            }
-            
-            new_modules
-        }
-        Err(errs) => {
-            // Store module with empty imports
-            {
-                let mut map = module_map.lock().unwrap();
-                map.insert(
-                    absolute_path.clone(),
-                    ModuleInfo {
-                        code: raw_code.clone(),
-                        imported_ids: vec![],
-                    },
-                );
-            }
-            
-            // Add errors
-            {
-                let mut errors_guard = errors.lock().unwrap();
-                errors_guard.append(&mut errs.into_iter().map(Into::into).collect());
-            }
-            
-            Vec::new()
-        }
-    }
-}
-
-/// Reads a file asynchronously and returns the path and content
-///
-/// # Arguments
-/// * `path` - Path to the file to read
-///
-/// # Returns
-/// * `Ok((String, String))` - The file path and content
-/// * `Err(std::io::Error)` - Error if reading fails
-async fn read_file(path: PathBuf) -> Result<(String, String), std::io::Error> {
-    let path_str = path.to_str().expect("Tevm only supports utf8 files").to_owned();
-    let content = read_to_string(&path).await?;
-    Ok((path_str, content))
 }
 
 #[cfg(test)]
