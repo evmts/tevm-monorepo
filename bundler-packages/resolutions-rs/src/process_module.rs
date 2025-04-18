@@ -4,7 +4,6 @@ use crate::read_file::read_file;
 use crate::resolve_imports::resolve_imports;
 use futures::{StreamExt, stream::FuturesUnordered};
 use std::collections::{HashMap, HashSet};
-use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
 /// Processes a single module and its imports concurrently
