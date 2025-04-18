@@ -1,3 +1,0 @@
-# `@tevm/my-rust-node-lib-linux-arm64-musl`
-
-This is the **aarch64-unknown-linux-musl** binary for `@tevm/my-rust-node-lib`
