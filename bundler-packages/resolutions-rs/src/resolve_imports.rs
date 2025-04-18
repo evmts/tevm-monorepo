@@ -41,6 +41,8 @@ pub async fn resolve_imports(
     let mut import_futures = vec![];
     let mut is_in_multiline_comment = false;
     let mut processed_code = String::new();
+    
+    let lines: Vec<&str> = code.lines().collect();
 
     for line in lines {
         let trimmed = line.trim();
@@ -373,11 +375,8 @@ mod tests {
         "#;
 
         let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
-        if let Err(err) = result {
-            panic!("Error: {:?}", err);
-        } else if let Ok(resolved_imports) = result {
-            assert_eq!(resolved_imports.len(), 5);
-
+        assert!(result.is_ok());
+        
         let resolved_imports = result.unwrap();
         assert_eq!(resolved_imports.len(), 5);
 
