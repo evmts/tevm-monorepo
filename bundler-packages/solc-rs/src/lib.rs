@@ -8,7 +8,6 @@ pub mod examples;
 pub use models::{
     SolcInputDescription, SolcOutput, SolcLanguage, SolcInputSource, SolcInputSources,
     SolcSettings, SolcOptimizer, SolcOutputSelection, SolcErrorEntry, SolcContractOutput,
-    Releases, SolcVersions,
 };
-pub use solc::{Solc, create_solc, solc_compile};
+pub use solc::{Solc, solc_compile};
 pub use error::SolcError;
