@@ -30,6 +30,16 @@ pub fn resolve_import_path(
             );
         }
     }
+    if import_path.starts_with("./") || import_path.starts_with(".\\") {
+        match PathBuf::from(absolute_path)
+            .join(import_path)
+            .canonicalize()
+        {
+            Ok(path) => return Ok(path),
+            // try to use node res if it doesn't work for some reason
+            Err(_) => {}
+        };
+    }
     let mut errors: Vec<ResolutionError> = vec![];
     for lib in once(absolute_path).chain(libs.iter().map(String::as_str)) {
         match resolve_from(import_path, PathBuf::from(lib)) {

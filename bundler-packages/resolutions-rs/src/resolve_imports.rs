@@ -40,15 +40,12 @@ pub fn resolve_imports(
     let mut all_imports = vec![];
     let mut errors = vec![];
 
-    let lines: Vec<&str> = code.lines().collect();
     let mut is_in_multiline_comment = false;
-    let mut processed_code = String::new();
 
-    for line in lines {
-        let trimmed = line.trim();
+    for line in code.lines() {
+        let mut trimmed: &str = line.trim();
 
         if trimmed.is_empty() {
-            processed_code.push_str("\n");
             continue;
         }
 
@@ -56,44 +53,35 @@ pub fn resolve_imports(
             if trimmed.contains("*/") {
                 let comment_end = trimmed.find("*/").unwrap() + 2;
                 if comment_end < trimmed.len() {
-                    processed_code.push_str(&trimmed[comment_end..]);
+                    trimmed = &trimmed[comment_end..];
                 }
                 is_in_multiline_comment = false;
+            } else {
+                continue;
             }
-            processed_code.push('\n');
-            continue;
         }
 
         if trimmed.starts_with("//") {
-            processed_code.push('\n');
             continue;
         }
 
         if trimmed.contains("/*") {
-            let comment_start = trimmed.find("/*").unwrap();
-            processed_code.push_str(&trimmed[..comment_start]);
-
             if trimmed.contains("*/") {
                 let comment_end = trimmed.find("*/").unwrap() + 2;
                 if comment_end < trimmed.len() {
-                    processed_code.push_str(&trimmed[comment_end..]);
+                    trimmed = &trimmed[comment_end..];
                 }
             } else {
                 is_in_multiline_comment = true;
             }
-            processed_code.push('\n');
-            continue;
         }
 
-        processed_code.push_str(line);
-        processed_code.push('\n');
-    }
-
-    for caps in IMPORT_REGEX.captures_iter(&processed_code) {
-        if let Some(import_path) = caps.get(2) {
-            match resolve_import_path(absolute_path, import_path.as_str(), remappings, libs) {
-                Ok(import_path) => all_imports.push(import_path),
-                Err(mut res_errors) => errors.append(&mut res_errors),
+        for caps in IMPORT_REGEX.captures_iter(trimmed) {
+            if let Some(import_path) = caps.get(2) {
+                match resolve_import_path(absolute_path, import_path.as_str(), remappings, libs) {
+                    Ok(import_path) => all_imports.push(import_path),
+                    Err(mut res_errors) => errors.append(&mut res_errors),
+                }
             }
         }
     }
@@ -367,16 +355,17 @@ mod tests {
         "#;
 
         let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
-        assert!(result.is_ok());
+        if let Err(err) = result {
+            panic!("Error: {:?}", err);
+        } else if let Ok(resolved_imports) = result {
+            assert_eq!(resolved_imports.len(), 5);
 
-        let resolved_imports = result.unwrap();
-        assert_eq!(resolved_imports.len(), 5);
-
-        for path in resolved_imports {
-            let resolved_path = normalize_path(&path.display().to_string());
-            let expected_path =
-                normalize_path(&root_dir.join("src/lib/Contract.sol").display().to_string());
-            assert_eq!(resolved_path, expected_path);
+            for path in resolved_imports {
+                let resolved_path = normalize_path(&path.display().to_string());
+                let expected_path =
+                    normalize_path(&root_dir.join("src/lib/Contract.sol").display().to_string());
+                assert_eq!(resolved_path, expected_path);
+            }
         }
     }
 
