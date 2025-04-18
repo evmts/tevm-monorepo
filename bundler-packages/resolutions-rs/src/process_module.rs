@@ -2,7 +2,7 @@ use crate::models::ModuleInfo;
 use crate::module_resolution_error::ModuleResolutionError;
 use crate::read_file::read_file;
 use crate::resolve_imports::resolve_imports;
-use futures::{StreamExt, stream::FuturesUnordered};
+use futures::{stream::FuturesUnordered, StreamExt};
 use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex};
 
@@ -28,17 +28,9 @@ pub async fn process_module(
     module_map: Arc<Mutex<HashMap<String, ModuleInfo>>>,
     errors: Arc<Mutex<Vec<ModuleResolutionError>>>,
 ) -> Vec<(String, String)> {
-    // Resolve imports
-    let resolution_result = tokio::spawn(async move {
-        let result = resolve_imports(&absolute_path, &raw_code, &remappings, &libs).await;
-        (absolute_path, raw_code, result)
-    })
-    .await
-    .expect("Task join failed");
-    
-    let (absolute_path, raw_code, imports_result) = resolution_result;
-    
-    match imports_result {
+    let result = resolve_imports(&absolute_path, &raw_code, &remappings, &libs).await;
+
+    match result {
         Ok(imported_paths) => {
             // Store this module in the module map
             {
@@ -51,23 +43,26 @@ pub async fn process_module(
                     },
                 );
             }
-            
+
             // Read all imported files concurrently
             let mut read_futures = FuturesUnordered::new();
             let seen_guard = seen.lock().unwrap();
-            
+
             for path in &imported_paths {
-                let path_str = path.to_str().expect("Tevm only supports utf8 files").to_owned();
+                let path_str = path
+                    .to_str()
+                    .expect("Tevm only supports utf8 files")
+                    .to_owned();
                 if !seen_guard.contains(&path_str) {
                     read_futures.push(read_file(path.clone()));
                 }
             }
-            
+
             // Release the lock before awaiting
             drop(seen_guard);
-            
+
             let mut new_modules = Vec::new();
-            
+
             // Collect results from reading all files
             while let Some(result) = read_futures.next().await {
                 match result {
@@ -80,7 +75,7 @@ pub async fn process_module(
                     }
                 }
             }
-            
+
             new_modules
         }
         Err(errs) => {
@@ -95,13 +90,13 @@ pub async fn process_module(
                     },
                 );
             }
-            
+
             // Add errors
             {
                 let mut errors_guard = errors.lock().unwrap();
                 errors_guard.append(&mut errs.into_iter().map(Into::into).collect());
             }
-            
+
             Vec::new()
         }
     }

@@ -1,9 +1,13 @@
+use crate::resolve_import_path::resolve_import_path;
 use futures::future::join_all;
 use node_resolve::ResolutionError;
+use solar::{
+    ast::{self, SourceUnit},
+    interface::{source_map::FileName, Session},
+    parse::Parser,
+};
 use std::collections::HashMap;
-use std::path::PathBuf;
-
-use crate::resolve_import_path::resolve_import_path;
+use std::path::{Path, PathBuf};
 
 /// Resolves all import paths found in the given code
 ///
@@ -25,34 +29,67 @@ pub async fn resolve_imports(
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<Vec<PathBuf>, Vec<ResolutionError>> {
-    let mut imports = extract_imports(code);
-    if imports.is_empty() {
+    let path = Path::new(absolute_path);
+
+    let sess = Session::builder()
+        .with_buffer_emitter(solar::interface::ColorChoice::Auto)
+        .build();
+
+    let arena = ast::Arena::new();
+    let mut imports = vec![];
+
+    let parse_result = sess.enter(|| -> solar::interface::Result<SourceUnit<'_>> {
+        match Parser::from_source_code(
+            &sess,
+            &arena,
+            FileName::Real(path.to_path_buf()),
+            code.to_string(),
+        ) {
+            Ok(mut parser) => {
+                let ast = parser.parse_file().map_err(|e| e.emit())?;
+                return Ok(ast);
+            }
+            Err(err) => {
+                println!("An error occured parsing from file {err:?}");
+                return Err(err);
+            }
+        }
+    });
+    match parse_result {
+        Ok(ast) => {
+            println!("{ast:?}");
+
+            for item in ast.items.iter() {
+                if let ast::ItemKind::Import(import_dir) = &item.kind {
+                    imports.push(import_dir.path.value.to_string());
+                }
+            }
+        }
+        Err(err) => return Err(vec![err]),
+    }
+
+    if !imports.is_empty() {
         return Ok(Vec::new());
     }
 
-    // Deduplicate imports to avoid unnecessary processing
-    imports.sort();
-    imports.dedup();
-
-    // Create a future for each import path
     let futures = imports.into_iter().map(|import_path| {
         let absolute_path = absolute_path.to_string();
         let remappings = remappings.clone();
-        let libs = libs.to_vec();  // Convert to Vec<String>
-        
-        async move {
-            resolve_import_path(&absolute_path, &import_path, &remappings, &libs).await
-        }
+        let libs = libs.to_vec(); // Convert to Vec<String>
+
+        async move { resolve_import_path(&absolute_path, &import_path, &remappings, &libs).await }
     });
 
-    // Execute all futures concurrently
     let results = join_all(futures).await;
-    
-    // Separate successes from errors
+
     let (oks, errs): (Vec<_>, Vec<_>) = results.into_iter().partition(Result::is_ok);
-    
+
     let resolved_paths = oks.into_iter().map(Result::unwrap).collect::<Vec<_>>();
-    let errors = errs.into_iter().map(Result::unwrap_err).flatten().collect::<Vec<_>>();
+    let errors = errs
+        .into_iter()
+        .map(Result::unwrap_err)
+        .flatten()
+        .collect::<Vec<_>>();
 
     if errors.is_empty() {
         Ok(resolved_paths)
@@ -65,7 +102,7 @@ pub async fn resolve_imports(
 fn extract_imports(code: &str) -> Vec<String> {
     let mut imports = Vec::new();
     let mut lines = code.lines();
-    
+
     // Parser state
     let mut in_block_comment = false;
     let mut accumulating = false;
@@ -121,7 +158,7 @@ fn extract_imports(code: &str) -> Vec<String> {
 fn process_line(line: &str, in_block_comment: &mut bool) -> String {
     let mut result = String::with_capacity(line.len());
     let mut i = 0;
-    
+
     while i < line.len() {
         if *in_block_comment {
             // Look for the end of block comment
@@ -157,7 +194,7 @@ fn extract_import_path(stmt: &str) -> Option<String> {
     let mut in_quote = false;
     let mut quote_char = '\0';
     let mut path = String::new();
-    
+
     for c in stmt.chars() {
         if in_quote {
             if c == quote_char {
@@ -172,7 +209,7 @@ fn extract_import_path(stmt: &str) -> Option<String> {
             quote_char = c;
         }
     }
-    
+
     None // No valid import path found
 }
 
@@ -438,7 +475,7 @@ mod tests {
 
         let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
-        
+
         let resolved_imports = result.unwrap();
         assert_eq!(resolved_imports.len(), 1, "Should deduplicate imports");
 
@@ -522,3 +559,4 @@ mod tests {
         }
     }
 }
+
