@@ -1,3 +1,4 @@
+use futures::future::join_all;
 use node_resolve::ResolutionError;
 use once_cell::sync::Lazy;
 use regex::Regex;
@@ -31,16 +32,13 @@ static IMPORT_REGEX: Lazy<Regex> = Lazy::new(|| {
 /// # Returns
 /// * `Ok(Vec<PathBuf>)` - List of resolved absolute paths for all imports
 /// * `Err(Vec<ResolutionError>)` - Collection of errors encountered during resolution
-pub fn resolve_imports(
+pub async fn resolve_imports(
     absolute_path: &str,
     code: &str,
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<Vec<PathBuf>, Vec<ResolutionError>> {
-    let mut all_imports = vec![];
-    let mut errors = vec![];
-
-    let lines: Vec<&str> = code.lines().collect();
+    let mut import_futures = vec![];
     let mut is_in_multiline_comment = false;
     let mut processed_code = String::new();
 
@@ -85,19 +83,27 @@ pub fn resolve_imports(
             continue;
         }
 
-        processed_code.push_str(line);
-        processed_code.push('\n');
-    }
-
-    for caps in IMPORT_REGEX.captures_iter(&processed_code) {
-        if let Some(import_path) = caps.get(2) {
-            match resolve_import_path(absolute_path, import_path.as_str(), remappings, libs) {
-                Ok(import_path) => all_imports.push(import_path),
-                Err(mut res_errors) => errors.append(&mut res_errors),
+        for caps in IMPORT_REGEX.captures_iter(trimmed) {
+            if let Some(import_path) = caps.get(2) {
+                import_futures.push(resolve_import_path(
+                    absolute_path,
+                    import_path.as_str(),
+                    remappings,
+                    libs,
+                ))
             }
         }
     }
 
+    let results = join_all(import_futures).await;
+    let mut all_imports = Vec::new();
+    let mut errors = Vec::new();
+    for res in results {
+        match res {
+            Ok(path) => all_imports.push(path),
+            Err(mut errs) => errors.append(&mut errs),
+        }
+    }
     if !errors.is_empty() {
         return Err(errors);
     }
@@ -126,8 +132,8 @@ mod tests {
         path.replace("/private/var/", "/var/")
     }
 
-    #[test]
-    fn test_basic_import_resolution() {
+    #[tokio::test]
+    async fn test_basic_import_resolution() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -148,7 +154,7 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -160,8 +166,8 @@ mod tests {
         assert_eq!(resolved_path, expected_path);
     }
 
-    #[test]
-    fn test_multiple_imports() {
+    #[tokio::test]
+    async fn test_multiple_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -186,7 +192,7 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -204,8 +210,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_import_with_remappings() {
+    #[tokio::test]
+    async fn test_import_with_remappings() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -233,7 +239,7 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &remappings, &[]);
+        let result = resolve_imports(&absolute_path, code, &remappings, &[]).await;
 
         if result.is_ok() {
             let resolved_imports = result.unwrap();
@@ -255,8 +261,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_no_imports() {
+    #[tokio::test]
+    async fn test_no_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -266,15 +272,15 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
         assert_eq!(resolved_imports.len(), 0);
     }
 
-    #[test]
-    fn test_import_not_found() {
+    #[tokio::test]
+    async fn test_import_not_found() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -286,12 +292,12 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_err());
     }
 
-    #[test]
-    fn test_different_import_formats() {
+    #[tokio::test]
+    async fn test_different_import_formats() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -315,7 +321,7 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -328,8 +334,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_advanced_import_formats() {
+    #[tokio::test]
+    async fn test_advanced_import_formats() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -366,8 +372,11 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
-        assert!(result.is_ok());
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
+        if let Err(err) = result {
+            panic!("Error: {:?}", err);
+        } else if let Ok(resolved_imports) = result {
+            assert_eq!(resolved_imports.len(), 5);
 
         let resolved_imports = result.unwrap();
         assert_eq!(resolved_imports.len(), 5);
@@ -380,8 +389,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_commented_imports() {
+    #[tokio::test]
+    async fn test_commented_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -475,7 +484,7 @@ mod tests {
         }
         println!("Total valid import matches: {}", matches_count);
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
