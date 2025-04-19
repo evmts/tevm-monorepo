@@ -371,4 +371,8 @@ module.exports.resolveImports = function resolveImports(filePath, code, remappin
 
 module.exports.moduleFactory = function moduleFactory(filePath, code, remappings = {}, libs = []) {
   return nativeBinding.moduleFactoryJs(filePath, code, remappings, libs)
+    .then(moduleMap => {
+      // Convert the HashMap to a JavaScript Map
+      return new Map(Object.entries(moduleMap));
+    })
 }

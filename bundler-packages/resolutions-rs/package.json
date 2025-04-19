@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "description": "Rust implementation of solidity resolution",
-  "type": "module",
-  "main": "index.js",
+  "type": "commonjs",
+  "main": "index.mjs",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
@@ -38,12 +38,14 @@
       "i686-pc-windows-msvc",
       "wasm32-wasip1-threads"
     ],
-    "features": ["napi"]
+    "features": [
+      "napi"
+    ]
   },
   "files": [
-    "index.js",
+    "index.mjs",
     "index.d.ts",
     "README.md",
-    "bindings"
+    "tevm_resolutions_rs.darwin-arm64.node"
   ]
 }
