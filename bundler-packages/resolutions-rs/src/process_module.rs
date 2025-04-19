@@ -94,7 +94,11 @@ pub async fn process_module(
             // Add errors
             {
                 let mut errors_guard = errors.lock().unwrap();
-                errors_guard.append(&mut errs.into_iter().map(Into::into).collect());
+                let module_errors: Vec<ModuleResolutionError> = errs
+                    .into_iter()
+                    .map(|e| ModuleResolutionError::from(e))
+                    .collect();
+                errors_guard.extend(module_errors);
             }
 
             Vec::new()
