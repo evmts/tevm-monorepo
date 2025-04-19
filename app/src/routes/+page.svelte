@@ -61,6 +61,13 @@ $effect(() => {
   <section class="welcome">
     <h2>Welcome to Tevm Desktop</h2>
     <p>Ethereum virtual machine in JavaScript, now in a desktop app</p>
+    
+    <div class="action-buttons">
+      <a href="/playground" class="action-button playground-button">
+        <span class="icon">💻</span>
+        <span>Try Code Playground</span>
+      </a>
+    </div>
   </section>
 
   <section class="fork-panel">
@@ -128,7 +135,35 @@ $effect(() => {
 
   .welcome {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+  .action-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #0070f3;
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .action-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 112, 243, 0.4);
+  }
+  
+  .action-button .icon {
+    font-size: 1.2rem;
   }
 
   h2 {
