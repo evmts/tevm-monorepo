@@ -361,17 +361,12 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-module.exports.processModuleJs = nativeBinding.processModuleJs
 module.exports.resolveImportsJs = nativeBinding.resolveImportsJs
 module.exports.moduleFactoryJs = nativeBinding.moduleFactoryJs
 
 // Provide friendly JavaScript API
 module.exports.resolveImports = function resolveImports(filePath, code, remappings = {}, libs = []) {
   return nativeBinding.resolveImportsJs(filePath, code, remappings, libs)
-}
-
-module.exports.processModule = function processModule(filePath, code, remappings = {}, libs = []) {
-  return nativeBinding.processModuleJs(filePath, code, remappings, libs)
 }
 
 module.exports.moduleFactory = function moduleFactory(filePath, code, remappings = {}, libs = []) {
