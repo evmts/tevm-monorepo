@@ -44,6 +44,10 @@ contract Counter {
   let statusMessage = '';
   let opcodesOutput = '';
   let stackOutput = '';
+  let sourceMapInfo = '';
+  
+  // Source mapping related data
+  import { generateMockSourceMap, createDebugFormatter } from '../lib/source-mapper';
   
   // For direct interaction with the contract
   let callFunction = 'increment';
@@ -126,6 +130,7 @@ contract Counter {
       currentStep = null;
       opcodesOutput = '';
       stackOutput = '';
+      sourceMapInfo = '';
       currentSolidityLine = -1;
       
       // Create a test account with ETH
@@ -134,6 +139,14 @@ contract Counter {
         address: testAccount,
         value: client.parseEther("10")
       });
+      
+      // Generate mock source map for our contract
+      const mockCompilerOutput = generateMockSourceMap(contractCode);
+      const debugFormatter = createDebugFormatter(
+        mockCompilerOutput.bytecode,
+        mockCompilerOutput.sourceMap,
+        mockCompilerOutput.sources
+      );
       
       // Using Tevm's API to compile and deploy
       try {
@@ -147,22 +160,26 @@ contract Counter {
         // For demo, we'll pretend it worked and fake the contract
         deployedContract = {
           address: testAccount,
+          // Store the debug formatter in the contract for later use
+          debugFormatter,
+          // Store the source map data
+          sourceMap: mockCompilerOutput.sourceMap,
           write: {
             increment: async () => {
               // Simulate stepping through code
-              simulateExecution('increment');
+              simulateExecution('increment', debugFormatter);
               return { hash: '0x123' };
             },
             decrement: async () => {
               // Simulate stepping through code
-              simulateExecution('decrement');
+              simulateExecution('decrement', debugFormatter);
               return { hash: '0x456' };
             }
           },
           read: {
             getCount: async () => {
               // Simulate stepping through code
-              simulateExecution('getCount');
+              simulateExecution('getCount', debugFormatter);
               return 42n;
             }
           }
@@ -208,7 +225,7 @@ contract Counter {
   }
   
   // Simulate execution for demonstration
-  function simulateExecution(functionName) {
+  function simulateExecution(functionName, debugFormatter) {
     // Start stepping
     stepping = true;
     paused = true;
@@ -223,17 +240,23 @@ contract Counter {
     // Create a sequence of fake execution steps
     const simulatedSteps = [];
     
-    // Add some opcodes for the function
+    // PC values for different function parts
+    let pc = 0;
+    
+    // Get line for function header
+    pc = functionLine * 10; // Multiply by 10 to ensure each line has a unique PC range
     simulatedSteps.push({
-      pc: 0,
+      pc,
       opcode: { name: 'JUMPDEST', fee: 1 },
       gasLeft: 1000000n,
       depth: 1,
       stack: [123n, 456n]
     });
     
+    // Get line for reading storage
+    pc += 10;
     simulatedSteps.push({
-      pc: 1,
+      pc,
       opcode: { name: 'SLOAD', fee: 100 },
       gasLeft: 999900n,
       depth: 1,
@@ -241,9 +264,10 @@ contract Counter {
     });
     
     if (functionName === 'decrement') {
-      // Add a JUMPI for the require statement
+      // Add a JUMPI for the require statement at the require line
+      pc = requireLine * 10;
       simulatedSteps.push({
-        pc: 2,
+        pc,
         opcode: { name: 'JUMPI', fee: 10 },
         gasLeft: 999890n,
         depth: 1,
@@ -251,28 +275,36 @@ contract Counter {
       });
     }
     
+    // Get line for modifying storage
+    pc = functionLine * 10 + 30;
     simulatedSteps.push({
-      pc: 3,
+      pc,
       opcode: { name: 'SSTORE', fee: 5000 },
       gasLeft: 994890n,
       depth: 1,
       stack: [123n, 456n, 789n]
     });
     
+    // Get line for returning
+    if (functionName === 'getCount') {
+      pc = functionLine * 10 + 40;
+    } else {
+      pc = functionLine * 10 + 40;
+    }
     simulatedSteps.push({
-      pc: 4,
+      pc,
       opcode: { name: 'RETURN', fee: 0 },
       gasLeft: 994890n,
       depth: 1,
       stack: [123n]
     });
     
-    // Start simulation
-    simulateSteps(simulatedSteps, functionName, functionLine, requireLine);
+    // Start simulation with the debug formatter
+    simulateSteps(simulatedSteps, functionName, functionLine, requireLine, debugFormatter);
   }
   
   // Simulate stepping through code
-  function simulateSteps(simulatedSteps, functionName, functionLine, requireLine) {
+  function simulateSteps(simulatedSteps, functionName, functionLine, requireLine, debugFormatter) {
     let stepIndex = 0;
     
     // Create a named function for stepping
@@ -288,15 +320,19 @@ contract Counter {
           ? step.stack.map((item, i) => `[${i}]: 0x${item.toString(16)}`).join('\n')
           : 'Empty';
         
-        // Map to source code line
-        if (step.opcode.name === 'JUMPI' && functionName === 'decrement') {
+        // Use the debug formatter to get source mapping information
+        if (debugFormatter) {
+          sourceMapInfo = debugFormatter(step.pc);
+        }
+        
+        // Map to source code line based on PC
+        if (step.pc === requireLine * 10) {
+          // If we're at the require line PC
           currentSolidityLine = requireLine;
-        } else if (step.opcode.name === 'SSTORE' || step.opcode.name === 'SLOAD') {
-          currentSolidityLine = functionLine;
-        } else if (step.opcode.name === 'RETURN') {
-          currentSolidityLine = functionLine;
         } else {
-          currentSolidityLine = functionLine;
+          // Extract the line from the PC by dividing by 10
+          // This reverses our multiplication from simulateExecution
+          currentSolidityLine = Math.floor(step.pc / 10);
         }
         
         // Setup for the next step
@@ -504,6 +540,11 @@ contract Counter {
         <div class="stack">
           <h4>Stack</h4>
           <pre>{stackOutput || 'No stack data'}</pre>
+        </div>
+        
+        <div class="source-mapping">
+          <h4>Source Mapping</h4>
+          <pre>{sourceMapInfo || 'No source mapping available'}</pre>
         </div>
       </div>
     </div>
