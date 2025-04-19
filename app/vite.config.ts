@@ -13,6 +13,23 @@ export default defineConfig(async () => ({
       }
     })
   ],
+  
+  resolve: {
+    alias: {
+      '$lib': '/Users/williamcory/tevm/main/app/src/lib',
+      '$components': '/Users/williamcory/tevm/main/app/src/components'
+    }
+  },
+  
+  optimizeDeps: {
+    include: ['monaco-editor']
+  },
+
+  build: {
+    commonjsOptions: {
+      transformMixedEsModules: true
+    }
+  },
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

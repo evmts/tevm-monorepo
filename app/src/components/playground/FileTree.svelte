@@ -61,7 +61,10 @@
         <div class="file-item">
             <div 
                 class="file-label {activeFile === file.path ? 'active' : ''}" 
-                on:click={() => handleFileClick(file)}
+                role="button"
+                tabindex="0"
+                onkeydown={e => e.key === 'Enter' && handleFileClick(file)}
+                onclick={() => handleFileClick(file)}
             >
                 <span class="icon">
                     {file.isFolder ? getFolderIcon(file.expanded || false) : getFileIcon(file.type)}
@@ -74,7 +77,10 @@
                     {#each file.children as child}
                         <div 
                             class="file-item child-item {activeFile === child.path ? 'active' : ''}"
-                            on:click|stopPropagation={() => handleFileClick(child)}
+                            role="button"
+                            tabindex="0"
+                            onkeydown={e => e.key === 'Enter' && handleFileClick(child)}
+                            onclick={e => { e.stopPropagation(); handleFileClick(child); }}
                         >
                             <span class="icon">
                                 {child.isFolder ? getFolderIcon(child.expanded || false) : getFileIcon(child.type)}
@@ -87,7 +93,10 @@
                                 {#each child.children as grandchild}
                                     <div 
                                         class="file-item grandchild-item {activeFile === grandchild.path ? 'active' : ''}"
-                                        on:click|stopPropagation={() => handleFileClick(grandchild)}
+                                        role="button"
+                                        tabindex="0"
+                                        onkeydown={e => e.key === 'Enter' && handleFileClick(grandchild)}
+                                        onclick={e => { e.stopPropagation(); handleFileClick(grandchild); }}
                                     >
                                         <span class="icon">
                                             {grandchild.isFolder ? getFolderIcon(grandchild.expanded || false) : getFileIcon(grandchild.type)}
