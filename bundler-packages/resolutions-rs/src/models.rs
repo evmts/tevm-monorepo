@@ -5,6 +5,7 @@ use std::path::PathBuf;
 /// # Fields
 /// * `code` - The code content after transforming to correctly resolve remappings and node_module imports
 /// * `imported_ids` - List of absolute file paths to modules that are statically imported by this module
+#[derive(Debug)]
 pub struct ModuleInfo {
     /// The code after transformed to correctly resolve remappings and node_module imports
     pub code: String,

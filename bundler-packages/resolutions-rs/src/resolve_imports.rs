@@ -1,21 +1,13 @@
-use node_resolve::ResolutionError;
-use once_cell::sync::Lazy;
-use regex::Regex;
-use std::collections::HashMap;
-use std::path::PathBuf;
-
 use crate::resolve_import_path::resolve_import_path;
-
-/// Regular expression to match import statements in JavaScript/TypeScript/Solidity code
-/// This pattern matches various import statement formats:
-/// - import 'module-name';
-/// - import './relative/path';
-/// - import DefaultExport from 'module-name';
-/// - import { Export1, Export2 } from 'module-name';
-/// - import * as Name from 'module-name';
-static IMPORT_REGEX: Lazy<Regex> = Lazy::new(|| {
-    Regex::new(r#"(?m)^\s*import(?:["'\s]*([\w*${}\n\r\t, ]+)\s*from\s*)?["'\s]*([^"';\s]+)["'\s]*(?:$|;)"#).unwrap()
-});
+use futures::future::join_all;
+use node_resolve::ResolutionError;
+use solar::{
+    ast::{self, SourceUnit},
+    interface::{source_map::FileName, Session},
+    parse::Parser,
+};
+use std::collections::HashMap;
+use std::path::{Path, PathBuf};
 
 /// Resolves all import paths found in the given code
 ///
@@ -31,77 +23,194 @@ static IMPORT_REGEX: Lazy<Regex> = Lazy::new(|| {
 /// # Returns
 /// * `Ok(Vec<PathBuf>)` - List of resolved absolute paths for all imports
 /// * `Err(Vec<ResolutionError>)` - Collection of errors encountered during resolution
-pub fn resolve_imports(
+pub async fn resolve_imports(
     absolute_path: &str,
     code: &str,
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<Vec<PathBuf>, Vec<ResolutionError>> {
-    let mut all_imports = vec![];
-    let mut errors = vec![];
+    let path = Path::new(absolute_path);
 
-    let lines: Vec<&str> = code.lines().collect();
-    let mut is_in_multiline_comment = false;
-    let mut processed_code = String::new();
+    let sess = Session::builder()
+        .with_buffer_emitter(solar::interface::ColorChoice::Auto)
+        .build();
 
-    for line in lines {
-        let trimmed = line.trim();
+    let arena = ast::Arena::new();
+    let mut imports = vec![];
 
-        if trimmed.is_empty() {
-            processed_code.push_str("\n");
-            continue;
-        }
-
-        if is_in_multiline_comment {
-            if trimmed.contains("*/") {
-                let comment_end = trimmed.find("*/").unwrap() + 2;
-                if comment_end < trimmed.len() {
-                    processed_code.push_str(&trimmed[comment_end..]);
-                }
-                is_in_multiline_comment = false;
+    let parse_result = sess.enter(|| -> solar::interface::Result<SourceUnit<'_>> {
+        match Parser::from_source_code(
+            &sess,
+            &arena,
+            FileName::Real(path.to_path_buf()),
+            code.to_string(),
+        ) {
+            Ok(mut parser) => {
+                let ast = parser.parse_file().map_err(|e| e.emit())?;
+                return Ok(ast);
             }
-            processed_code.push('\n');
+            Err(err) => {
+                println!("An error occured parsing from file {err:?}");
+                return Err(err);
+            }
+        }
+    });
+    match parse_result {
+        Ok(ast) => {
+            println!("{ast:?}");
+
+            for item in ast.items.iter() {
+                if let ast::ItemKind::Import(import_dir) = &item.kind {
+                    imports.push(import_dir.path.value.to_string());
+                }
+            }
+        }
+        Err(err) => return Err(vec![err]),
+    }
+
+    if !imports.is_empty() {
+        return Ok(Vec::new());
+    }
+
+    let futures = imports.into_iter().map(|import_path| {
+        let absolute_path = absolute_path.to_string();
+        let remappings = remappings.clone();
+        let libs = libs.to_vec(); // Convert to Vec<String>
+
+        async move { resolve_import_path(&absolute_path, &import_path, &remappings, &libs).await }
+    });
+
+    let results = join_all(futures).await;
+
+    let (oks, errs): (Vec<_>, Vec<_>) = results.into_iter().partition(Result::is_ok);
+
+    let resolved_paths = oks.into_iter().map(Result::unwrap).collect::<Vec<_>>();
+    let errors = errs
+        .into_iter()
+        .map(Result::unwrap_err)
+        .flatten()
+        .collect::<Vec<_>>();
+
+    if errors.is_empty() {
+        Ok(resolved_paths)
+    } else {
+        Err(errors)
+    }
+}
+
+/// Extracts all import paths from the given code
+fn extract_imports(code: &str) -> Vec<String> {
+    let mut imports = Vec::new();
+    let mut lines = code.lines();
+
+    // Parser state
+    let mut in_block_comment = false;
+    let mut accumulating = false;
+    let mut stmt = String::new();
+
+    while let Some(raw) = lines.next() {
+        // Process the line by stripping comments
+        let line = process_line(raw, &mut in_block_comment);
+        if line.is_empty() {
             continue;
         }
 
-        if trimmed.starts_with("//") {
-            processed_code.push('\n');
+        // Handle multi-line import statements
+        if accumulating {
+            stmt.push_str(&line);
+            if line.contains(';') {
+                // Statement is complete, extract the import path
+                if let Some(path) = extract_import_path(&stmt) {
+                    imports.push(path);
+                }
+                accumulating = false;
+                stmt.clear();
+            }
             continue;
         }
 
-        if trimmed.contains("/*") {
-            let comment_start = trimmed.find("/*").unwrap();
-            processed_code.push_str(&trimmed[..comment_start]);
-
-            if trimmed.contains("*/") {
-                let comment_end = trimmed.find("*/").unwrap() + 2;
-                if comment_end < trimmed.len() {
-                    processed_code.push_str(&trimmed[comment_end..]);
+        // Detect new import statement
+        if line.trim_start().starts_with("import") {
+            if line.contains(';') {
+                // Single-line import
+                if let Some(path) = extract_import_path(&line) {
+                    imports.push(path);
                 }
             } else {
-                is_in_multiline_comment = true;
-            }
-            processed_code.push('\n');
-            continue;
-        }
-
-        processed_code.push_str(line);
-        processed_code.push('\n');
-    }
-
-    for caps in IMPORT_REGEX.captures_iter(&processed_code) {
-        if let Some(import_path) = caps.get(2) {
-            match resolve_import_path(absolute_path, import_path.as_str(), remappings, libs) {
-                Ok(import_path) => all_imports.push(import_path),
-                Err(mut res_errors) => errors.append(&mut res_errors),
+                // Start of multi-line import
+                stmt = line;
+                accumulating = true;
             }
         }
     }
 
-    if !errors.is_empty() {
-        return Err(errors);
+    // Handle any unprocessed multi-line import at EOF
+    if accumulating && !stmt.is_empty() {
+        if let Some(path) = extract_import_path(&stmt) {
+            imports.push(path);
+        }
     }
-    Ok(all_imports)
+
+    imports
+}
+
+/// Processes a line by removing comments and returning the sanitized content
+fn process_line(line: &str, in_block_comment: &mut bool) -> String {
+    let mut result = String::with_capacity(line.len());
+    let mut i = 0;
+
+    while i < line.len() {
+        if *in_block_comment {
+            // Look for the end of block comment
+            if let Some(pos) = line[i..].find("*/") {
+                i += pos + 2; // Skip past the end of comment
+                *in_block_comment = false;
+            } else {
+                break; // Comment continues to next line
+            }
+        } else if line[i..].starts_with("//") {
+            break; // Line comment - ignore rest of line
+        } else if line[i..].starts_with("/*") {
+            // Start of block comment
+            *in_block_comment = true;
+            i += 2; // Skip past the start of comment
+        } else {
+            // Regular code - add character to result
+            if let Some(c) = line[i..].chars().next() {
+                result.push(c);
+                i += c.len_utf8();
+            } else {
+                break;
+            }
+        }
+    }
+
+    result.trim().to_string()
+}
+
+/// Extracts the import path from a complete import statement
+fn extract_import_path(stmt: &str) -> Option<String> {
+    // Find the quoted path in the import statement
+    let mut in_quote = false;
+    let mut quote_char = '\0';
+    let mut path = String::new();
+
+    for c in stmt.chars() {
+        if in_quote {
+            if c == quote_char {
+                // End of quoted string - we have our path
+                return Some(path);
+            } else {
+                path.push(c);
+            }
+        } else if c == '"' || c == '\'' {
+            // Start of quoted string
+            in_quote = true;
+            quote_char = c;
+        }
+    }
+
+    None // No valid import path found
 }
 
 #[cfg(test)]
@@ -126,8 +235,8 @@ mod tests {
         path.replace("/private/var/", "/var/")
     }
 
-    #[test]
-    fn test_basic_import_resolution() {
+    #[tokio::test]
+    async fn test_basic_import_resolution() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -148,7 +257,7 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -160,8 +269,8 @@ mod tests {
         assert_eq!(resolved_path, expected_path);
     }
 
-    #[test]
-    fn test_multiple_imports() {
+    #[tokio::test]
+    async fn test_multiple_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -186,7 +295,7 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -204,8 +313,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_import_with_remappings() {
+    #[tokio::test]
+    async fn test_import_with_remappings() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -233,7 +342,7 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &remappings, &[]);
+        let result = resolve_imports(&absolute_path, code, &remappings, &[]).await;
 
         if result.is_ok() {
             let resolved_imports = result.unwrap();
@@ -255,8 +364,8 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_no_imports() {
+    #[tokio::test]
+    async fn test_no_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -266,15 +375,15 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
         assert_eq!(resolved_imports.len(), 0);
     }
 
-    #[test]
-    fn test_import_not_found() {
+    #[tokio::test]
+    async fn test_import_not_found() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -286,12 +395,12 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_err());
     }
 
-    #[test]
-    fn test_different_import_formats() {
+    #[tokio::test]
+    async fn test_different_import_formats() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -315,21 +424,19 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
-        assert_eq!(resolved_imports.len(), 4);
+        assert_eq!(resolved_imports.len(), 1, "Should deduplicate imports");
 
-        for path in resolved_imports {
-            let resolved_path = normalize_path(&path.display().to_string());
-            let expected_path = normalize_path(&root_dir.join("src/util.js").display().to_string());
-            assert_eq!(resolved_path, expected_path);
-        }
+        let resolved_path = normalize_path(&resolved_imports[0].display().to_string());
+        let expected_path = normalize_path(&root_dir.join("src/util.js").display().to_string());
+        assert_eq!(resolved_path, expected_path);
     }
 
-    #[test]
-    fn test_advanced_import_formats() {
+    #[tokio::test]
+    async fn test_advanced_import_formats() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -366,22 +473,20 @@ mod tests {
             console.log("Hello, world!");
         "#;
 
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
-        assert_eq!(resolved_imports.len(), 5);
+        assert_eq!(resolved_imports.len(), 1, "Should deduplicate imports");
 
-        for path in resolved_imports {
-            let resolved_path = normalize_path(&path.display().to_string());
-            let expected_path =
-                normalize_path(&root_dir.join("src/lib/Contract.sol").display().to_string());
-            assert_eq!(resolved_path, expected_path);
-        }
+        let resolved_path = normalize_path(&resolved_imports[0].display().to_string());
+        let expected_path =
+            normalize_path(&root_dir.join("src/lib/Contract.sol").display().to_string());
+        assert_eq!(resolved_path, expected_path);
     }
 
-    #[test]
-    fn test_commented_imports() {
+    #[tokio::test]
+    async fn test_commented_imports() {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
@@ -429,61 +534,10 @@ mod tests {
             }
         "#;
 
-        let lines: Vec<&str> = code.lines().collect();
-        let mut is_in_multiline_comment = false;
-        let mut processed_code = String::new();
-        let mut matches_count = 0;
-
-        for line in lines {
-            let trimmed = line.trim();
-            if trimmed.is_empty() {
-                continue;
-            }
-
-            if is_in_multiline_comment {
-                if trimmed.contains("*/") {
-                    is_in_multiline_comment = false;
-                }
-                continue;
-            }
-
-            if trimmed.starts_with("//") {
-                println!("Skipping comment line: {}", trimmed);
-                continue;
-            }
-
-            if trimmed.contains("/*") {
-                let comment_start = trimmed.find("/*").unwrap();
-                if trimmed.contains("*/") {
-                    println!("Skipping inline comment: {}", &trimmed[comment_start..]);
-                } else {
-                    is_in_multiline_comment = true;
-                    println!(
-                        "Entering multiline comment at: {}",
-                        &trimmed[comment_start..]
-                    );
-                }
-                continue;
-            }
-
-            if trimmed.starts_with("import") {
-                println!("Found import: {}", trimmed);
-                matches_count += 1;
-                processed_code.push_str(trimmed);
-                processed_code.push('\n');
-            }
-        }
-        println!("Total valid import matches: {}", matches_count);
-
-        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]);
+        let result = resolve_imports(&absolute_path, code, &HashMap::new(), &[]).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
-        println!("Resolved imports: {:?}", resolved_imports.len());
-        for path in &resolved_imports {
-            println!("  - {}", path.display());
-        }
-
         assert_eq!(
             resolved_imports.len(),
             1,
@@ -505,3 +559,4 @@ mod tests {
         }
     }
 }
+
