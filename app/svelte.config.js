@@ -19,7 +19,23 @@ const config = {
     alias: {
       '$components': './src/components',
       '$lib': './src/lib'
-    }
+    },
+    
+    // Prevent server-side rendering completely
+    csp: {
+      mode: 'auto',
+      directives: {
+        'script-src': ['self']
+      }
+    },
+    
+    // Ensure all pages are treated as endpoints, not SSR routes
+    prerender: {
+      handleMissingId: 'ignore'
+    },
+    
+    // Disable server-side rendering
+    ssr: false
   },
   
   // Enable Svelte 5 runes

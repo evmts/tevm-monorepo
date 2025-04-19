@@ -10,6 +10,14 @@ export default defineConfig(async () => ({
     svelte({
       compilerOptions: {
         runes: true
+      },
+      // Force client-side only rendering
+      kit: {
+        ssr: false,
+        browser: {
+          hydrate: true,
+          router: true
+        }
       }
     })
   ],
