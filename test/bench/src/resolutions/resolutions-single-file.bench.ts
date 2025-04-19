@@ -3,7 +3,7 @@ import path from "path";
 import { promises as fsPromises } from "fs";
 import { runPromise } from "effect/Effect";
 import { resolveImports } from "@tevm/resolutions";
-import { resolveImportsJs } from "@tevm/resolutions-rs";
+import { resolveImports as resolveImportsJs } from "@tevm/resolutions-rs";
 
 // Paths to our test fixtures
 const FIXTURE_DIR = path.join(__dirname);

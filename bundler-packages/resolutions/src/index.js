@@ -6,10 +6,6 @@
  *
  * ./moduleFactory.js
  * @typedef {import('./moduleFactory.js').ModuleFactoryError} ModuleFactoryError
- *
- * ./resolveImports.js
- * @typedef {import('./resolveImports.js').ResolveImportsError} ResolveImportsError
  */
 
 export { moduleFactory } from './moduleFactory.js'
-export { resolveImports } from './resolveImports.js'
