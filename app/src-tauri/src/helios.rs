@@ -4,7 +4,7 @@ use tauri::{AppHandle, State};
 
 use helios::ethereum::EthereumClient;
 use helios::ethereum::database::FileDB;
-use helios::core::types::BlockTag;
+use helios::common::types::BlockTag;
 use helios::ethereum::{
     config::networks::Network,
     EthereumClientBuilder,
@@ -14,10 +14,8 @@ use helios::ethereum::{
 pub struct HeliosState(pub Mutex<Option<EthereumClient<FileDB>>>);
 
 fn get_network(chain_id: u64) -> Result<Network, String> {
-    match chain_id {
-        1 => Ok(Network::Mainnet),
-        _ => Err(format!("Unsupported chain ID: {}", chain_id)),
-    }
+    Network::from_chain_id(chain_id)
+        .map_err(|e| format!("Unsupported chain ID: {}: {}", chain_id, e))
 }
 
 #[tauri::command]
