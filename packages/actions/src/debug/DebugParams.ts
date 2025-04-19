@@ -8,7 +8,7 @@ import type { EthCallParams } from '../eth/EthParams.js'
 export type TraceParams = {
 	/**
 	 * The type of tracer
-	 * Currently only callTracer supported
+	 * Supported values are 'callTracer' and 'prestateTracer'
 	 */
 	readonly tracer: 'callTracer' | 'prestateTracer'
 	/**
@@ -23,19 +23,23 @@ export type TraceParams = {
 		/**
 		 * boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason).
 		 */
-		// readonly onlyTopCall?: boolean
+		readonly onlyTopCall?: boolean
 		/**
 		 * boolean Setting this to true will disable storage capture. This avoids extra processing for each call frame if storage is not required.
 		 */
-		// readonly disableStorage?: boolean
+		readonly disableStorage?: boolean
 		/**
-		 *
+		 * boolean Setting this to true will enable memory capture.
 		 */
-		// readonly enableMemory?: boolean
+		readonly enableMemory?: boolean
 		/**
 		 * boolean Setting this to true will disable stack capture. This avoids extra processing for each call frame if stack is not required.
 		 */
-		// readonly disableStack?: boolean
+		readonly disableStack?: boolean
+		/**
+		 * boolean For prestateTracer only - Setting this to true will enable diff mode, which only returns the state changes between pre and post states.
+		 */
+		readonly diffMode?: boolean
 	}
 }
 
