@@ -52,6 +52,7 @@ async function connectWallet() {
       <a href="/fork">Fork Explorer</a>
       <a href="/transactions">Transactions</a>
       <a href="/addresses">Addresses</a>
+      <a href="/playground">Playground</a>
     </nav>
 
     <div class="content">
