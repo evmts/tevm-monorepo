@@ -127,6 +127,54 @@ impl Task for ProcessModuleTask {
   }
 }
 
+struct ModuleFactoryTask {
+  file_path: String,
+  code: String,
+  remappings: HashMap<String, String>,
+  libs: Vec<String>,
+}
+
+#[napi]
+impl Task for ModuleFactoryTask {
+  type Output = HashMap<String, JsModuleInfo>;
+  type JsValue = HashMap<String, JsModuleInfo>;
+
+  fn compute(&mut self) -> Result<Self::Output> {
+    // Use tokio runtime to run the async function
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    
+    let result = rt.block_on(module_factory::module_factory(
+      &self.file_path,
+      &self.code,
+      &self.remappings,
+      &self.libs,
+    ));
+
+    match result {
+      Ok(module_map) => {
+        let mut result_map = HashMap::new();
+        
+        for (path, module_info) in module_map {
+          result_map.insert(path, JsModuleInfo {
+            code: module_info.code,
+            imported_ids: module_info.imported_ids,
+          });
+        }
+        
+        Ok(result_map)
+      }
+      Err(err) => Err(Error::new(
+        Status::GenericFailure,
+        format!("Failed to create module factory: {:?}", err),
+      )),
+    }
+  }
+
+  fn resolve(&mut self, env: Env, output: Self::Output) -> Result<Self::JsValue> {
+    Ok(output)
+  }
+}
+
 #[napi]
 pub fn resolve_imports_js(
   file_path: String,
@@ -150,6 +198,21 @@ pub fn process_module_js(
   libs: Option<Vec<String>>,
 ) -> AsyncTask<ProcessModuleTask> {
   AsyncTask::new(ProcessModuleTask {
+    file_path,
+    code,
+    remappings: remappings.unwrap_or_default(),
+    libs: libs.unwrap_or_default(),
+  })
+}
+
+#[napi]
+pub fn module_factory_js(
+  file_path: String,
+  code: String,
+  remappings: Option<HashMap<String, String>>,
+  libs: Option<Vec<String>>,
+) -> AsyncTask<ModuleFactoryTask> {
+  AsyncTask::new(ModuleFactoryTask {
     file_path,
     code,
     remappings: remappings.unwrap_or_default(),

@@ -1,6 +1,7 @@
 import { bench, describe, expect } from "vitest";
 import path from "path";
-import { promises as fs } from "fs";
+import fs from "fs";
+import { promises as fsPromises } from "fs";
 import { runPromise } from "effect/Effect";
 import { moduleFactory, resolveImports } from "@tevm/resolutions";
 import { resolutionsRsFfi, isUsingNativeModule } from "./resolutions-rs-ffi.js";
@@ -31,7 +32,7 @@ async function rustResolution(filePath: string, code: string) {
  */
 async function jsModuleFactory(filePath: string, code: string) {
   const fao = {
-    readFile: fs.readFile,
+    readFile: fsPromises.readFile,
     readFileSync: (path: string, encoding: string) => fs.readFileSync(path, encoding),
     existsSync: (path: string) => fs.existsSync(path)
   };
@@ -53,7 +54,7 @@ async function loadAllFiles(
   dir: string,
   fileList: string[] = [],
 ): Promise<string[]> {
-  const items = await fs.readdir(dir, { withFileTypes: true });
+  const items = await fsPromises.readdir(dir, { withFileTypes: true });
 
   for (const item of items) {
     const fullPath = path.join(dir, item.name);
@@ -72,7 +73,7 @@ async function loadAllFiles(
  * Validates that both implementations resolve imports correctly
  */
 async function validateImportResolution(filePath: string) {
-  const code = await fs.readFile(filePath, "utf-8");
+  const code = await fsPromises.readFile(filePath, "utf-8");
 
   // Run both implementations
   const jsResults = await jsResolution(filePath, code);
@@ -92,7 +93,7 @@ async function validateImportResolution(filePath: string) {
  * Validates that both implementations build complete module graphs correctly
  */
 async function validateModuleFactory(filePath: string) {
-  const code = await fs.readFile(filePath, "utf-8");
+  const code = await fsPromises.readFile(filePath, "utf-8");
 
   // Run both implementations
   const jsModuleMap = await jsModuleFactory(filePath, code);
@@ -107,7 +108,7 @@ async function validateModuleFactory(filePath: string) {
 
 // Pre-load our main contract code and validate implementations
 async function setup() {
-  mainContractCode = await fs.readFile(MAIN_CONTRACT, "utf-8");
+  mainContractCode = await fsPromises.readFile(MAIN_CONTRACT, "utf-8");
 
   // Verify import resolution for validation
   console.log("Validating import resolution...");
