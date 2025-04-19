@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/tevm-resolutions-rs-template-win32-ia32-msvc",
+  "version": "0.0.0",
+  "cpu": [
+    "ia32"
+  ],
+  "main": "tevm_resolutions_rs_template.win32-ia32-msvc.node",
+  "files": [
+    "tevm_resolutions_rs_template.win32-ia32-msvc.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "win32"
+  ]
+}

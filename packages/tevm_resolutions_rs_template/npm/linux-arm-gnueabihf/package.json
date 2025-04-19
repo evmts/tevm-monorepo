@@ -1,0 +1,17 @@
+{
+  "name": "@tevm/tevm-resolutions-rs-template-linux-arm-gnueabihf",
+  "version": "0.0.0",
+  "cpu": [
+    "arm"
+  ],
+  "main": "tevm_resolutions_rs_template.linux-arm-gnueabihf.node",
+  "files": [
+    "tevm_resolutions_rs_template.linux-arm-gnueabihf.node"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "os": [
+    "linux"
+  ]
+}

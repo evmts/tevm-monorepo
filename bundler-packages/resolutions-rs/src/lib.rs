@@ -12,7 +12,6 @@ pub mod resolve_imports;
 pub use models::{ModuleInfo, ResolvedImport};
 pub use module_factory::module_factory;
 pub use module_resolution_error::ModuleResolutionError;
-pub use process_module::process_module;
 pub use read_file::read_file;
 pub use resolve_import_path::resolve_import_path;
 pub use resolve_imports::resolve_imports;
@@ -80,7 +79,7 @@ impl Task for ResolveImportsTask {
     }
   }
 
-  fn resolve(&mut self, env: Env, output: Self::Output) -> Result<Self::JsValue> {
+  fn resolve(&mut self, _env: Env, output: Self::Output) -> Result<Self::JsValue> {
     Ok(output)
   }
 }
@@ -122,9 +121,17 @@ impl Task for ProcessModuleTask {
     }
   }
 
-  fn resolve(&mut self, env: Env, output: Self::Output) -> Result<Self::JsValue> {
+  fn resolve(&mut self, _env: Env, output: Self::Output) -> Result<Self::JsValue> {
     Ok(output)
   }
+}
+
+#[napi(object)]
+pub struct JsModule {
+  pub id: String,
+  pub code: String,
+  pub raw_code: String,
+  pub imported_ids: Vec<String>,
 }
 
 struct ModuleFactoryTask {
@@ -136,8 +143,8 @@ struct ModuleFactoryTask {
 
 #[napi]
 impl Task for ModuleFactoryTask {
-  type Output = HashMap<String, JsModuleInfo>;
-  type JsValue = HashMap<String, JsModuleInfo>;
+  type Output = HashMap<String, JsModule>;
+  type JsValue = HashMap<String, JsModule>;
 
   fn compute(&mut self) -> Result<Self::Output> {
     // Use tokio runtime to run the async function
@@ -155,9 +162,17 @@ impl Task for ModuleFactoryTask {
         let mut result_map = HashMap::new();
         
         for (path, module_info) in module_map {
-          result_map.insert(path, JsModuleInfo {
-            code: module_info.code,
-            imported_ids: module_info.imported_ids,
+          // Convert PathBuf values to String values
+          let imported_paths: Vec<String> = module_info.imported_ids
+            .iter()
+            .map(|path| path.to_string_lossy().to_string())
+            .collect();
+          
+          result_map.insert(path.clone(), JsModule {
+            id: path,
+            code: module_info.code.clone(),
+            raw_code: module_info.code,
+            imported_ids: imported_paths,
           });
         }
         
@@ -170,7 +185,7 @@ impl Task for ModuleFactoryTask {
     }
   }
 
-  fn resolve(&mut self, env: Env, output: Self::Output) -> Result<Self::JsValue> {
+  fn resolve(&mut self, _env: Env, output: Self::Output) -> Result<Self::JsValue> {
     Ok(output)
   }
 }

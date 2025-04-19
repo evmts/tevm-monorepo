@@ -1988,6 +1988,8 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/tevm_resolutions_rs_template: {}
+
   packages/trie:
     dependencies:
       '@ethereumjs/trie':
