@@ -177,3 +177,13 @@ textarea {
     padding: 0.5rem;
   }
 }
+
+/* Playground specific styles */
+[data-sveltekit-page="/playground"] main {
+  padding: 0;
+}
+
+[data-sveltekit-page="/playground"] .playground-container {
+  height: calc(100vh - 3.5rem); /* Subtract header height */
+  overflow: hidden;
+}
