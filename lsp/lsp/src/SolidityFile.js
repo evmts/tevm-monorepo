@@ -18,32 +18,35 @@ import type ts from 'typescript/lib/tsserverlibrary.js'
  */
 export class SolidityFile implements VirtualFile {
   // Define file kind as text file
-  kind: VirtualFile['kind'] = FileKind.TextFile
+  kind = FileKind.TextFile
   
   // Full capabilities including diagnostics, formatting, code actions, etc.
-  capabilities: VirtualFile['capabilities'] = FileCapabilities.full
+  capabilities = FileCapabilities.full
   
   // Source map information for code generation
-  codegenStacks: VirtualFile['codegenStacks'] = []
+  codegenStacks = []
   
   // Mappings between Solidity and TypeScript
-  mappings: VirtualFile['mappings'] = []
+  mappings = []
   
   // Embedded TypeScript files
-  embeddedFiles: VirtualFile['embeddedFiles'] = []
+  embeddedFiles = []
   
   // Real file access object for file system operations
-  private readonly fileAccessObject: FileAccessObject
+  fileAccessObject
 
   /**
    * Create a new Solidity file
-   * @param fileName The file name
-   * @param snapshot The file snapshot
+   * @param {string} fileName - The file name
+   * @param {ts.IScriptSnapshot} snapshot - The file snapshot
    */
   constructor(
-    public readonly fileName: VirtualFile['fileName'],
-    public snapshot: ts.IScriptSnapshot,
+    fileName,
+    snapshot,
   ) {
+    this.fileName = fileName
+    this.snapshot = snapshot
+    
     // Create real file access object
     this.fileAccessObject = {
       existsSync,
@@ -57,9 +60,9 @@ export class SolidityFile implements VirtualFile {
 
   /**
    * Update the file with a new snapshot
-   * @param newSnapshot The new snapshot
+   * @param {ts.IScriptSnapshot} newSnapshot - The new snapshot
    */
-  public update(newSnapshot: ts.IScriptSnapshot) {
+  update(newSnapshot) {
     this.snapshot = newSnapshot
     
     try {
@@ -155,8 +158,10 @@ export class SolidityFile implements VirtualFile {
    * 
    * This is a placeholder implementation. In a complete implementation,
    * we would need to parse the Solidity AST and map source locations.
+   * @param {string} tsCode - The generated TypeScript code
+   * @returns {Array} The source mappings
    */
-  private createSourceMappings(tsCode: string) {
+  createSourceMappings(tsCode) {
     // TODO: Implement proper source mappings using the Solidity AST
     // This would require parsing the Solidity file and matching function/event positions
     // See https://github.com/evmts/tevm-monorepo/issues/731
