@@ -1,0 +1,20 @@
+# Rust specific
+/target
+/Cargo.lock
+/Cargo.toml
+/build.rs
+/src
+**/*.rs
+
+# Development specific
+/.github
+/examples
+/test
+/node_modules
+
+# IDE related
+/.vscode
+/.idea
+/.vs
+/*.iml
+/*.log

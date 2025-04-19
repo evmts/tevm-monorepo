@@ -1,3 +1,5 @@
+#![deny(clippy::all)]
+
 pub mod models;
 pub mod module_factory;
 pub mod module_resolution_error;
@@ -14,3 +16,143 @@ pub use process_module::process_module;
 pub use read_file::read_file;
 pub use resolve_import_path::resolve_import_path;
 pub use resolve_imports::resolve_imports;
+
+use std::collections::HashMap;
+use napi_derive::napi;
+use napi::bindgen_prelude::*;
+
+#[napi(object)]
+pub struct JsResolvedImport {
+  pub original: String,
+  pub absolute: String,
+  pub updated: String,
+}
+
+#[napi(object)]
+pub struct JsModuleInfo {
+  pub code: String,
+  pub imported_ids: Vec<String>,
+}
+
+struct ResolveImportsTask {
+  file_path: String,
+  code: String,
+  remappings: HashMap<String, String>,
+  libs: Vec<String>,
+}
+
+#[napi]
+impl Task for ResolveImportsTask {
+  type Output = Vec<JsResolvedImport>;
+  type JsValue = Vec<JsResolvedImport>;
+
+  fn compute(&mut self) -> Result<Self::Output> {
+    // Use tokio runtime to run the async function
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    
+    let result = rt.block_on(resolve_imports::resolve_imports(
+      &self.file_path,
+      &self.code,
+      &self.remappings,
+      &self.libs,
+    ));
+
+    match result {
+      Ok(paths) => {
+        let imports = paths
+          .into_iter()
+          .map(|path| {
+            let path_str = path.to_string_lossy().to_string();
+            JsResolvedImport {
+              original: path_str.clone(),
+              absolute: path_str.clone(),
+              updated: path_str,
+            }
+          })
+          .collect();
+
+        Ok(imports)
+      }
+      Err(err) => Err(Error::new(
+        Status::GenericFailure,
+        format!("Failed to resolve imports: {:?}", err),
+      )),
+    }
+  }
+
+  fn resolve(&mut self, env: Env, output: Self::Output) -> Result<Self::JsValue> {
+    Ok(output)
+  }
+}
+
+struct ProcessModuleTask {
+  file_path: String,
+  code: String,
+  remappings: HashMap<String, String>,
+  libs: Vec<String>,
+}
+
+#[napi]
+impl Task for ProcessModuleTask {
+  type Output = JsModuleInfo;
+  type JsValue = JsModuleInfo;
+
+  fn compute(&mut self) -> Result<Self::Output> {
+    // Use tokio runtime to run the async function
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    
+    let result = rt.block_on(resolve_imports::resolve_imports(
+      &self.file_path,
+      &self.code,
+      &self.remappings,
+      &self.libs,
+    ));
+
+    match result {
+      Ok(paths) => {
+        Ok(JsModuleInfo {
+          code: self.code.clone(),
+          imported_ids: paths.iter().map(|p| p.to_string_lossy().to_string()).collect(),
+        })
+      }
+      Err(err) => Err(Error::new(
+        Status::GenericFailure,
+        format!("Failed to process module: {:?}", err),
+      )),
+    }
+  }
+
+  fn resolve(&mut self, env: Env, output: Self::Output) -> Result<Self::JsValue> {
+    Ok(output)
+  }
+}
+
+#[napi]
+pub fn resolve_imports_js(
+  file_path: String,
+  code: String,
+  remappings: Option<HashMap<String, String>>,
+  libs: Option<Vec<String>>,
+) -> AsyncTask<ResolveImportsTask> {
+  AsyncTask::new(ResolveImportsTask {
+    file_path,
+    code,
+    remappings: remappings.unwrap_or_default(),
+    libs: libs.unwrap_or_default(),
+  })
+}
+
+#[napi]
+pub fn process_module_js(
+  file_path: String,
+  code: String,
+  remappings: Option<HashMap<String, String>>,
+  libs: Option<Vec<String>>,
+) -> AsyncTask<ProcessModuleTask> {
+  AsyncTask::new(ProcessModuleTask {
+    file_path,
+    code,
+    remappings: remappings.unwrap_or_default(),
+    libs: libs.unwrap_or_default(),
+  })
+}
