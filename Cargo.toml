@@ -4,6 +4,7 @@ resolver = '2'
 members = [
 	'bundler-packages/resolutions-rs',
 	'bundler-packages/solc-rs',
+	'app/src-tauri',
 ]
 
 [profile.release]
