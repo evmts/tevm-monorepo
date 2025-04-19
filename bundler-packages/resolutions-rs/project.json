@@ -5,10 +5,14 @@
   "sourceRoot": "bundler-packages/resolutions-rs/src",
   "tags": [],
   "targets": {
-    "build:rust": {
+    "build": {
       "cache": true,
       "outputs": ["{workspaceRoot}/bundler-packages/resolutions-rs"],
-      "executor": "@monodon/rust:build",
+      "executor": "@monodon/rust:napi",
+      "options": {
+        "dist": "bundler-packages/resolutions-rs",
+        "jsFile": "index.js"
+      },
       "configurations": {
         "production": {
           "dist": "dist/resolutions-rs",

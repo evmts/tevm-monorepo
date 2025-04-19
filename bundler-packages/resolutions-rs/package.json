@@ -4,7 +4,7 @@
   "private": true,
   "description": "Rust implementation of solidity resolution",
   "type": "commonjs",
-  "main": "index.mjs",
+  "main": "index.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
@@ -37,15 +37,12 @@
       "x86_64-apple-darwin",
       "i686-pc-windows-msvc",
       "wasm32-wasip1-threads"
-    ],
-    "features": [
-      "napi"
     ]
   },
   "files": [
-    "index.mjs",
+    "index.js",
     "index.d.ts",
-    "README.md",
-    "tevm_resolutions_rs.darwin-arm64.node"
+    "browser.js",
+    "README.md"
   ]
 }

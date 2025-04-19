@@ -28,10 +28,9 @@ serde_json = "1.0.140"
 solar = { version = "0.1.2", package = "solar-compiler" }
 tempfile = "3.19.1"
 
-# NAPI bindings 
+# NAPI bindings
 napi = { version = "2.12.2", default-features = false, features = ["napi4", "tokio_rt", "serde-json", "compat-mode"] }
 napi-derive = "2.12.2"
 
 [build-dependencies]
 napi-build = "2.0.1"
-
