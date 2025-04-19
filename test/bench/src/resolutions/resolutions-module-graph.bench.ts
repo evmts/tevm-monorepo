@@ -42,11 +42,23 @@ describe("Solidity Full Module Graph Resolution Benchmark", async () => {
 
   // JavaScript implementation benchmark
   bench("JavaScript - Full Module Graph Resolution", async () => {
-    await runPromise(jsModuleFactory(MAIN_CONTRACT, mainContractCode, {}, [], fao, false));
+    await runPromise(jsModuleFactory(
+      MAIN_CONTRACT, 
+      mainContractCode, 
+      {}, // remappings
+      [], // libs
+      fao, 
+      false
+    ));
   });
 
-  // Rust implementation benchmark - directly using the imported function
+  // Rust implementation benchmark
   bench("Rust - Full Module Graph Resolution", async () => {
-    await rustModuleFactory(MAIN_CONTRACT, mainContractCode, {}, []);
+    await rustModuleFactory(
+      MAIN_CONTRACT, 
+      mainContractCode, 
+      {}, // remappings
+      [] // libs
+    );
   });
 });

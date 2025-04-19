@@ -35,13 +35,24 @@ describe("Solidity Single File Import Resolution Benchmark", async () => {
   // Initialize before running benchmarks
   await setup();
   
-  // JavaScript implementation benchmark - directly call the imported function
+  // JavaScript implementation benchmark
   bench("JavaScript - Single File Import Resolution", async () => {
-    await runPromise(jsResolveImports(MAIN_CONTRACT, mainContractCode, {}, [], false));
+    await runPromise(jsResolveImports(
+      MAIN_CONTRACT, 
+      mainContractCode, 
+      {}, // remappings
+      [], // libs
+      false // debug
+    ));
   });
   
-  // Rust implementation benchmark - directly call the imported function
+  // Rust implementation benchmark
   bench("Rust - Single File Import Resolution", async () => {
-    await rustResolveImports(MAIN_CONTRACT, mainContractCode, {}, []);
+    await rustResolveImports(
+      MAIN_CONTRACT, 
+      mainContractCode, 
+      {}, // remappings
+      [] // libs
+    );
   });
 });
