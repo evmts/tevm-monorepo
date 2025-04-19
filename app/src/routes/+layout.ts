@@ -1,10 +1,10 @@
-// This marks all pages as prerendered (static)
+// Force static site generation - no SSR
 export const prerender = true;
 
-// This disables SSR for this app
+// Disable server-side rendering entirely
 export const ssr = false;
 
-// This enables SPA mode
+// Enable client-side routing
 export const router = true;
 
 // Disable trailing slashes
