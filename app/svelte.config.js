@@ -9,6 +9,12 @@ const config = {
   preprocess: vitePreprocess(),
   kit: {
     adapter: adapter(),
+    prerender: {
+      handleMissingId: 'warn'
+    },
+    // Enable SPA mode to make client-side components work properly
+    csr: true,
+    ssr: false
   },
 };
 
