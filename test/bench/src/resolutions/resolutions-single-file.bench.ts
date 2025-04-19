@@ -2,8 +2,8 @@ import { bench, describe, expect } from "vitest";
 import path from "path";
 import { promises as fsPromises } from "fs";
 import { runPromise } from "effect/Effect";
-import { resolveImports as jsResolveImports } from "@tevm/resolutions";
-import { resolveImports as rustResolveImports } from "@tevm/resolutions-rs";
+import { resolveImports } from "@tevm/resolutions";
+import { resolveImportsJs } from "@tevm/resolutions-rs";
 
 // Paths to our test fixtures
 const FIXTURE_DIR = path.join(__dirname);
@@ -20,8 +20,8 @@ async function setup() {
   const code = mainContractCode;
   
   // Execute both implementations
-  const jsResults = await runPromise(jsResolveImports(MAIN_CONTRACT, code, {}, [], false));
-  const rustResults = await rustResolveImports(MAIN_CONTRACT, code, {}, []);
+  const jsResults = await runPromise(resolveImports(MAIN_CONTRACT, code, {}, [], false));
+  const rustResults = await resolveImportsJs(MAIN_CONTRACT, code, {}, []);
   
   // Verify results match
   expect(jsResults.length).toBe(rustResults.length);
@@ -37,7 +37,7 @@ describe("Solidity Single File Import Resolution Benchmark", async () => {
   
   // JavaScript implementation benchmark
   bench("JavaScript - Single File Import Resolution", async () => {
-    await runPromise(jsResolveImports(
+    await runPromise(resolveImports(
       MAIN_CONTRACT, 
       mainContractCode, 
       {}, // remappings
@@ -48,7 +48,7 @@ describe("Solidity Single File Import Resolution Benchmark", async () => {
   
   // Rust implementation benchmark
   bench("Rust - Single File Import Resolution", async () => {
-    await rustResolveImports(
+    await resolveImportsJs(
       MAIN_CONTRACT, 
       mainContractCode, 
       {}, // remappings

@@ -1,10 +1,10 @@
 import { bench, describe } from "vitest";
-import { moduleFactory as rustModuleFactory } from "@tevm/resolutions-rs";
+import { moduleFactoryJs } from "@tevm/resolutions-rs";
 import path from "path";
 import fs from "fs";
 import { promises as fsPromises } from "fs";
 import { runPromise } from "effect/Effect";
-import { moduleFactory as jsModuleFactory } from "@tevm/resolutions";
+import { moduleFactory } from "@tevm/resolutions";
 
 // Paths to our test fixtures
 const FIXTURE_DIR = path.join(__dirname);
@@ -28,8 +28,8 @@ async function setup() {
   const code = mainContractCode;
   
   // Execute both implementations
-  const jsModuleMap = await runPromise(jsModuleFactory(MAIN_CONTRACT, code, {}, [], fao, false));
-  const rustModuleMap = await rustModuleFactory(MAIN_CONTRACT, code, {}, []);
+  const jsModuleMap = await runPromise(moduleFactory(MAIN_CONTRACT, code, {}, [], fao, false));
+  const rustModuleMap = await moduleFactoryJs(MAIN_CONTRACT, code, {}, []);
   
   // Log results to verify correct operation
   console.log(`JavaScript Module Graph: ${jsModuleMap.size} modules`);
@@ -42,7 +42,7 @@ describe("Solidity Full Module Graph Resolution Benchmark", async () => {
 
   // JavaScript implementation benchmark
   bench("JavaScript - Full Module Graph Resolution", async () => {
-    await runPromise(jsModuleFactory(
+    await runPromise(moduleFactory(
       MAIN_CONTRACT, 
       mainContractCode, 
       {}, // remappings
@@ -54,7 +54,7 @@ describe("Solidity Full Module Graph Resolution Benchmark", async () => {
 
   // Rust implementation benchmark
   bench("Rust - Full Module Graph Resolution", async () => {
-    await rustModuleFactory(
+    await moduleFactoryJs(
       MAIN_CONTRACT, 
       mainContractCode, 
       {}, // remappings
