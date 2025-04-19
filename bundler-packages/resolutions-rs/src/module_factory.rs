@@ -125,10 +125,13 @@ mod tests {
             &root_dir,
             &[
                 (
-                    "src/main.js",
-                    "import './utils/helper.js';\nconsole.log('Main file');",
+                    "src/Main.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './utils/Helper.sol';\n\ncontract Main {}\n",
                 ),
-                ("src/utils/helper.js", "console.log('Helper file');"),
+                (
+                    "src/utils/Helper.sol", 
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Helper {}\n"
+                ),
             ],
         )
         .unwrap();
@@ -137,24 +140,24 @@ mod tests {
         println!("Root directory: {}", root_dir.display());
         println!(
             "Main file exists: {}",
-            root_dir.join("src/main.js").exists()
+            root_dir.join("src/Main.sol").exists()
         );
         println!(
             "Helper file exists: {}",
-            root_dir.join("src/utils/helper.js").exists()
+            root_dir.join("src/utils/Helper.sol").exists()
         );
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.js"))
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol"))
             .unwrap()
             .display()
             .to_string();
-        let raw_code = "import './utils/helper.js';\nconsole.log('Main file');";
+        let raw_code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './utils/Helper.sol';\n\ncontract Main {}\n";
 
         // Run with simple code first to test the environment
         let simple_result = module_factory(
             &absolute_path,
-            "console.log('No imports');",
+            "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
             &HashMap::new(),
             &[],
         )
@@ -212,14 +215,17 @@ mod tests {
             &root_dir,
             &[
                 (
-                    "src/main.js",
-                    "import './utils/helper.js';\nconsole.log('Main file');",
+                    "src/Main.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './utils/Helper.sol';\n\ncontract Main {}\n",
                 ),
                 (
-                    "src/utils/helper.js",
-                    "import './util2.js';\nconsole.log('Helper file');",
+                    "src/utils/Helper.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './Util2.sol';\n\ncontract Helper {}\n",
                 ),
-                ("src/utils/util2.js", "console.log('Util2 file');"),
+                (
+                    "src/utils/Util2.sol", 
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Util2 {}\n"
+                ),
             ],
         )
         .unwrap();
@@ -228,28 +234,28 @@ mod tests {
         println!("Root directory: {}", root_dir.display());
         println!(
             "Main file exists: {}",
-            root_dir.join("src/main.js").exists()
+            root_dir.join("src/Main.sol").exists()
         );
         println!(
             "Helper file exists: {}",
-            root_dir.join("src/utils/helper.js").exists()
+            root_dir.join("src/utils/Helper.sol").exists()
         );
         println!(
             "Util2 file exists: {}",
-            root_dir.join("src/utils/util2.js").exists()
+            root_dir.join("src/utils/Util2.sol").exists()
         );
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.js"))
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol"))
             .unwrap()
             .display()
             .to_string();
-        let raw_code = "import './utils/helper.js';\nconsole.log('Main file');";
+        let raw_code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './utils/Helper.sol';\n\ncontract Main {}\n";
 
         // Run with simple code first to test the environment
         let simple_result = module_factory(
             &absolute_path,
-            "console.log('No imports');",
+            "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
             &HashMap::new(),
             &[],
         )
@@ -315,9 +321,18 @@ mod tests {
         setup_test_files(
             &root_dir,
             &[
-                ("src/main.js", "import './a.js';\nconsole.log('Main file');"),
-                ("src/a.js", "import './b.js';\nconsole.log('A file');"),
-                ("src/b.js", "import './a.js';\nconsole.log('B file');"), // Cyclic import
+                (
+                    "src/Main.sol", 
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './A.sol';\n\ncontract Main {}\n"
+                ),
+                (
+                    "src/A.sol", 
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './B.sol';\n\ncontract A {}\n"
+                ),
+                (
+                    "src/B.sol", 
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './A.sol';\n\ncontract B {}\n"
+                ), // Cyclic import
             ],
         )
         .unwrap();
@@ -326,22 +341,22 @@ mod tests {
         println!("Root directory: {}", root_dir.display());
         println!(
             "Main file exists: {}",
-            root_dir.join("src/main.js").exists()
+            root_dir.join("src/Main.sol").exists()
         );
-        println!("A file exists: {}", root_dir.join("src/a.js").exists());
-        println!("B file exists: {}", root_dir.join("src/b.js").exists());
+        println!("A file exists: {}", root_dir.join("src/A.sol").exists());
+        println!("B file exists: {}", root_dir.join("src/B.sol").exists());
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.js"))
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol"))
             .unwrap()
             .display()
             .to_string();
-        let raw_code = "import './a.js';\nconsole.log('Main file');";
+        let raw_code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './A.sol';\n\ncontract Main {}\n";
 
         // Run with simple code first to test the environment
         let simple_result = module_factory(
             &absolute_path,
-            "console.log('No imports');",
+            "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
             &HashMap::new(),
             &[],
         )
