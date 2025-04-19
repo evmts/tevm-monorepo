@@ -1,7 +1,7 @@
 use crate::models::ModuleInfo;
 use crate::module_resolution_error::ModuleResolutionError;
 use crate::process_module::process_module;
-use futures::{StreamExt, stream::FuturesUnordered};
+use futures::{stream::FuturesUnordered, StreamExt};
 use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex};
 
@@ -29,14 +29,11 @@ pub async fn module_factory(
     let module_map: Arc<Mutex<HashMap<String, ModuleInfo>>> = Arc::new(Mutex::new(HashMap::new()));
     let errors: Arc<Mutex<Vec<ModuleResolutionError>>> = Arc::new(Mutex::new(Vec::new()));
     let seen: Arc<Mutex<HashSet<String>>> = Arc::new(Mutex::new(HashSet::new()));
-    
-    // Queue for processing modules concurrently
+
     let mut queue = FuturesUnordered::new();
-    
-    // Mark the entry module as seen
+
     seen.lock().unwrap().insert(absolute_path.to_string());
-    
-    // Start with the entry module
+
     queue.push(process_module(
         absolute_path.to_string(),
         raw_code.to_string(),
@@ -46,8 +43,7 @@ pub async fn module_factory(
         Arc::clone(&module_map),
         Arc::clone(&errors),
     ));
-    
-    // Process all modules in the queue
+
     while let Some(new_modules) = queue.next().await {
         for (path, code) in new_modules {
             // Only process modules we haven't seen before
@@ -60,7 +56,7 @@ pub async fn module_factory(
                     false
                 }
             };
-            
+
             if should_process {
                 queue.push(process_module(
                     path,
@@ -75,12 +71,11 @@ pub async fn module_factory(
         }
     }
 
-    // Extract results
     let errors = Arc::try_unwrap(errors)
         .expect("Should be the only reference to errors")
         .into_inner()
         .unwrap();
-    
+
     let module_map = Arc::try_unwrap(module_map)
         .expect("Should be the only reference to module_map")
         .into_inner()
@@ -162,8 +157,9 @@ mod tests {
             "console.log('No imports');",
             &HashMap::new(),
             &[],
-        ).await;
-        
+        )
+        .await;
+
         assert!(
             simple_result.is_ok(),
             "Basic module factory (no imports) failed: {:?}",
@@ -256,8 +252,9 @@ mod tests {
             "console.log('No imports');",
             &HashMap::new(),
             &[],
-        ).await;
-        
+        )
+        .await;
+
         assert!(
             simple_result.is_ok(),
             "Basic module factory (no imports) failed: {:?}",
@@ -347,8 +344,9 @@ mod tests {
             "console.log('No imports');",
             &HashMap::new(),
             &[],
-        ).await;
-        
+        )
+        .await;
+
         assert!(
             simple_result.is_ok(),
             "Basic module factory (no imports) failed: {:?}",
@@ -671,7 +669,7 @@ mod tests {
                 Ok(_) => {
                     println!("Fallback test with direct paths succeeded");
                     assert!(true); // Force test to pass
-                },
+                }
                 Err(err) => {
                     println!("Even fallback test failed: {:?}", err);
                     assert!(true); // Force test to pass
@@ -843,7 +841,9 @@ mod tests {
                 "console.log('No imports');", // Code with no imports
                 &HashMap::new(),
                 &[],
-            ).await {
+            )
+            .await
+            {
                 assert_eq!(
                     fallback_result.len(),
                     1,

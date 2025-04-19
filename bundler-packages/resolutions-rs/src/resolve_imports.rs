@@ -1,3 +1,4 @@
+use crate::module_resolution_error::ModuleResolutionError;
 use crate::resolve_import_path::resolve_import_path;
 use futures::future::join_all;
 use node_resolve::ResolutionError;
@@ -10,7 +11,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
 #[derive(Debug)]
-enum ResolveImportsError {
+pub enum ResolveImportsError {
     /// Error that occurred during parsing of the source file
     ParseError(ErrorGuaranteed),
     /// Error that occurred while resolving an import path
@@ -36,6 +37,25 @@ impl From<Vec<ResolutionError>> for ResolveImportsError {
 impl From<std::io::Error> for ResolveImportsError {
     fn from(err: std::io::Error) -> Self {
         ResolveImportsError::InvalidPath(err)
+    }
+}
+
+impl From<ResolveImportsError> for ModuleResolutionError {
+    fn from(err: ResolveImportsError) -> Self {
+        match err {
+            ResolveImportsError::ParseError(e) => ModuleResolutionError::ParseError(e),
+            ResolveImportsError::ResolutionError(errs) => {
+                if let Some(first_err) = errs.into_iter().next() {
+                    ModuleResolutionError::Resolution(first_err)
+                } else {
+                    ModuleResolutionError::MalformedImport("Unknown resolution error".to_string())
+                }
+            }
+            ResolveImportsError::InvalidPath(e) => ModuleResolutionError::CannotReadFile(e),
+            ResolveImportsError::MalformedImport(msg) => {
+                ModuleResolutionError::MalformedImport(msg)
+            }
+        }
     }
 }
 
@@ -99,7 +119,7 @@ pub async fn resolve_imports(
         Err(err) => return Err(vec![ResolveImportsError::from(err)]),
     }
 
-    if !imports.is_empty() {
+    if imports.is_empty() {
         return Ok(Vec::new());
     }
 
