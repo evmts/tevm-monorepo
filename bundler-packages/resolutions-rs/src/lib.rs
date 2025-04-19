@@ -1,4 +1,4 @@
-#![deny(clippy::all)]
+extern crate napi_derive;
 
 pub mod models;
 pub mod module_factory;
@@ -17,8 +17,8 @@ pub use resolve_import_path::resolve_import_path;
 pub use resolve_imports::resolve_imports;
 
 use std::collections::HashMap;
+use napi::{bindgen_prelude::*, Task};
 use napi_derive::napi;
-use napi::bindgen_prelude::*;
 
 #[napi(object)]
 pub struct JsResolvedImport {
@@ -33,7 +33,15 @@ pub struct JsModuleInfo {
   pub imported_ids: Vec<String>,
 }
 
-struct ResolveImportsTask {
+#[napi(object)]
+pub struct JsModule {
+  pub id: String,
+  pub code: String,
+  pub raw_code: String,
+  pub imported_ids: Vec<String>,
+}
+
+pub struct ResolveImportsTask {
   file_path: String,
   code: String,
   remappings: HashMap<String, String>,
@@ -84,57 +92,7 @@ impl Task for ResolveImportsTask {
   }
 }
 
-struct ProcessModuleTask {
-  file_path: String,
-  code: String,
-  remappings: HashMap<String, String>,
-  libs: Vec<String>,
-}
-
-#[napi]
-impl Task for ProcessModuleTask {
-  type Output = JsModuleInfo;
-  type JsValue = JsModuleInfo;
-
-  fn compute(&mut self) -> Result<Self::Output> {
-    // Use tokio runtime to run the async function
-    let rt = tokio::runtime::Runtime::new().unwrap();
-    
-    let result = rt.block_on(resolve_imports::resolve_imports(
-      &self.file_path,
-      &self.code,
-      &self.remappings,
-      &self.libs,
-    ));
-
-    match result {
-      Ok(paths) => {
-        Ok(JsModuleInfo {
-          code: self.code.clone(),
-          imported_ids: paths.iter().map(|p| p.to_string_lossy().to_string()).collect(),
-        })
-      }
-      Err(err) => Err(Error::new(
-        Status::GenericFailure,
-        format!("Failed to process module: {:?}", err),
-      )),
-    }
-  }
-
-  fn resolve(&mut self, _env: Env, output: Self::Output) -> Result<Self::JsValue> {
-    Ok(output)
-  }
-}
-
-#[napi(object)]
-pub struct JsModule {
-  pub id: String,
-  pub code: String,
-  pub raw_code: String,
-  pub imported_ids: Vec<String>,
-}
-
-struct ModuleFactoryTask {
+pub struct ModuleFactoryTask {
   file_path: String,
   code: String,
   remappings: HashMap<String, String>,
@@ -198,21 +156,6 @@ pub fn resolve_imports_js(
   libs: Option<Vec<String>>,
 ) -> AsyncTask<ResolveImportsTask> {
   AsyncTask::new(ResolveImportsTask {
-    file_path,
-    code,
-    remappings: remappings.unwrap_or_default(),
-    libs: libs.unwrap_or_default(),
-  })
-}
-
-#[napi]
-pub fn process_module_js(
-  file_path: String,
-  code: String,
-  remappings: Option<HashMap<String, String>>,
-  libs: Option<Vec<String>>,
-) -> AsyncTask<ProcessModuleTask> {
-  AsyncTask::new(ProcessModuleTask {
     file_path,
     code,
     remappings: remappings.unwrap_or_default(),
