@@ -1,31 +1,41 @@
 {
-  "name": "app",
-  "private": true,
+  "name": "krome",
   "version": "0.1.0",
+  "description": "",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "tauri": "tauri",
-    "check": "svelte-check"
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "tauri": "tauri"
   },
+  "license": "MIT",
   "dependencies": {
-    "@tanstack/svelte-query": "^5.17.1",
-    "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2",
-    "monaco-editor": "^0.47.0",
-    "svelte": "^5.0.0-next.81",
+    "@rainbow-me/rainbowkit": "^2.2.4",
+    "@tanstack/react-query": "^5.66.9",
+    "@tanstack/svelte-query": "^5.66.9",
+    "@tauri-apps/api": "^2.2.0",
+    "@tauri-apps/plugin-opener": "^2.2.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "tevm": "workspace:^",
-    "viem": "^2.27.2"
+    "viem": "^2.23.4",
+    "wagmi": "^2.14.11"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "^3.0.1",
-    "@sveltejs/kit": "^2.5.0",
-    "@sveltejs/vite-plugin-svelte": "^3.0.0",
-    "@tauri-apps/cli": "^2",
-    "svelte-check": "^3.6.6",
-    "typescript": "~5.6.2",
-    "vite": "^6.0.3"
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.17.2",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tauri-apps/cli": "^2.2.7",
+    "@tevm/ts-plugin": "workspace:^",
+    "svelte": "^5.20.1",
+    "svelte-check": "^4.1.4",
+    "typescript": "~5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.6"
   }
 }

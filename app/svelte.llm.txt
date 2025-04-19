@@ -1,1 +1,0 @@
-https://github.com/evmts/krome/blob/main/src/svelte.llm.txt
