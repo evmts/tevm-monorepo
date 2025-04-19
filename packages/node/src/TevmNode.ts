@@ -111,5 +111,12 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * Copies the current client state into a new client
 	 */
 	readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
+	/**
+	 * Optional override for the chain ID.
+	 * When set, this value will be used instead of the chain's actual ID for all EVM operations.
+	 * This allows testing contracts against different chain IDs while maintaining the same chain state.
+	 * @internal This is primarily used for testing and debugging purposes.
+	 */
+	readonly _chainIdOverride?: number
 } & EIP1193EventEmitter &
 	TExtended
