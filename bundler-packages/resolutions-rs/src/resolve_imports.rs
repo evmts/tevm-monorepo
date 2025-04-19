@@ -3,11 +3,41 @@ use futures::future::join_all;
 use node_resolve::ResolutionError;
 use solar::{
     ast::{self, SourceUnit},
-    interface::{source_map::FileName, Session},
+    interface::{diagnostics::ErrorGuaranteed, source_map::FileName, Session},
     parse::Parser,
 };
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+
+#[derive(Debug)]
+enum ResolveImportsError {
+    /// Error that occurred during parsing of the source file
+    ParseError(ErrorGuaranteed),
+    /// Error that occurred while resolving an import path
+    ResolutionError(Vec<ResolutionError>),
+    /// Error when the file path is invalid or cannot be accessed
+    InvalidPath(std::io::Error),
+    /// Error when the import statement is malformed
+    MalformedImport(String),
+}
+
+impl From<ErrorGuaranteed> for ResolveImportsError {
+    fn from(err: ErrorGuaranteed) -> Self {
+        ResolveImportsError::ParseError(err)
+    }
+}
+
+impl From<Vec<ResolutionError>> for ResolveImportsError {
+    fn from(errs: Vec<ResolutionError>) -> Self {
+        ResolveImportsError::ResolutionError(errs)
+    }
+}
+
+impl From<std::io::Error> for ResolveImportsError {
+    fn from(err: std::io::Error) -> Self {
+        ResolveImportsError::InvalidPath(err)
+    }
+}
 
 /// Resolves all import paths found in the given code
 ///
@@ -28,7 +58,7 @@ pub async fn resolve_imports(
     code: &str,
     remappings: &HashMap<String, String>,
     libs: &[String],
-) -> Result<Vec<PathBuf>, Vec<ResolutionError>> {
+) -> Result<Vec<PathBuf>, Vec<ResolveImportsError>> {
     let path = Path::new(absolute_path);
 
     let sess = Session::builder()
@@ -55,6 +85,7 @@ pub async fn resolve_imports(
             }
         }
     });
+
     match parse_result {
         Ok(ast) => {
             println!("{ast:?}");
@@ -65,7 +96,7 @@ pub async fn resolve_imports(
                 }
             }
         }
-        Err(err) => return Err(vec![err]),
+        Err(err) => return Err(vec![ResolveImportsError::from(err)]),
     }
 
     if !imports.is_empty() {
@@ -81,136 +112,19 @@ pub async fn resolve_imports(
     });
 
     let results = join_all(futures).await;
-
-    let (oks, errs): (Vec<_>, Vec<_>) = results.into_iter().partition(Result::is_ok);
-
-    let resolved_paths = oks.into_iter().map(Result::unwrap).collect::<Vec<_>>();
-    let errors = errs
-        .into_iter()
-        .map(Result::unwrap_err)
-        .flatten()
-        .collect::<Vec<_>>();
-
-    if errors.is_empty() {
-        Ok(resolved_paths)
-    } else {
-        Err(errors)
-    }
-}
-
-/// Extracts all import paths from the given code
-fn extract_imports(code: &str) -> Vec<String> {
-    let mut imports = Vec::new();
-    let mut lines = code.lines();
-
-    // Parser state
-    let mut in_block_comment = false;
-    let mut accumulating = false;
-    let mut stmt = String::new();
-
-    while let Some(raw) = lines.next() {
-        // Process the line by stripping comments
-        let line = process_line(raw, &mut in_block_comment);
-        if line.is_empty() {
-            continue;
-        }
-
-        // Handle multi-line import statements
-        if accumulating {
-            stmt.push_str(&line);
-            if line.contains(';') {
-                // Statement is complete, extract the import path
-                if let Some(path) = extract_import_path(&stmt) {
-                    imports.push(path);
-                }
-                accumulating = false;
-                stmt.clear();
-            }
-            continue;
-        }
-
-        // Detect new import statement
-        if line.trim_start().starts_with("import") {
-            if line.contains(';') {
-                // Single-line import
-                if let Some(path) = extract_import_path(&line) {
-                    imports.push(path);
-                }
-            } else {
-                // Start of multi-line import
-                stmt = line;
-                accumulating = true;
-            }
+    let mut path_bufs: Vec<PathBuf> = vec![];
+    let mut errors: Vec<ResolveImportsError> = vec![];
+    for result in results {
+        match result {
+            Ok(path_buf) => path_bufs.push(path_buf),
+            Err(err) => errors.push(ResolveImportsError::from(err)),
         }
     }
 
-    // Handle any unprocessed multi-line import at EOF
-    if accumulating && !stmt.is_empty() {
-        if let Some(path) = extract_import_path(&stmt) {
-            imports.push(path);
-        }
+    if !errors.is_empty() {
+        return Err(errors);
     }
-
-    imports
-}
-
-/// Processes a line by removing comments and returning the sanitized content
-fn process_line(line: &str, in_block_comment: &mut bool) -> String {
-    let mut result = String::with_capacity(line.len());
-    let mut i = 0;
-
-    while i < line.len() {
-        if *in_block_comment {
-            // Look for the end of block comment
-            if let Some(pos) = line[i..].find("*/") {
-                i += pos + 2; // Skip past the end of comment
-                *in_block_comment = false;
-            } else {
-                break; // Comment continues to next line
-            }
-        } else if line[i..].starts_with("//") {
-            break; // Line comment - ignore rest of line
-        } else if line[i..].starts_with("/*") {
-            // Start of block comment
-            *in_block_comment = true;
-            i += 2; // Skip past the start of comment
-        } else {
-            // Regular code - add character to result
-            if let Some(c) = line[i..].chars().next() {
-                result.push(c);
-                i += c.len_utf8();
-            } else {
-                break;
-            }
-        }
-    }
-
-    result.trim().to_string()
-}
-
-/// Extracts the import path from a complete import statement
-fn extract_import_path(stmt: &str) -> Option<String> {
-    // Find the quoted path in the import statement
-    let mut in_quote = false;
-    let mut quote_char = '\0';
-    let mut path = String::new();
-
-    for c in stmt.chars() {
-        if in_quote {
-            if c == quote_char {
-                // End of quoted string - we have our path
-                return Some(path);
-            } else {
-                path.push(c);
-            }
-        } else if c == '"' || c == '\'' {
-            // Start of quoted string
-            in_quote = true;
-            quote_char = c;
-        }
-    }
-
-    None // No valid import path found
+    Ok(path_bufs)
 }
 
 #[cfg(test)]
@@ -559,4 +473,3 @@ mod tests {
         }
     }
 }
-
