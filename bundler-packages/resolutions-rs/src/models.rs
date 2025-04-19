@@ -19,6 +19,7 @@ pub struct ModuleInfo {
 /// * `original` - The original import path as it appears in the source code
 /// * `absolute` - The absolute file system path to the imported module
 /// * `updated` - The updated import path (may be different from original if remappings were applied)
+#[derive(Debug, Clone)]
 pub struct ResolvedImport {
     pub original: String,
     pub absolute: String,

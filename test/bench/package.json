@@ -61,9 +61,12 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:^",
+		"@tevm/resolutions": "workspace:^",
+		"@tevm/resolutions-rs": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/viem": "workspace:^",
+		"effect": "3.13.2",
 		"tevm": "workspace:^",
 		"typescript": "^5.7.3",
 		"wagmi": "^2.14.12"
