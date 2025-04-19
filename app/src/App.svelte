@@ -1,5 +1,10 @@
 <script lang="ts">
 import { createMemoryClient } from 'tevm';
+import { onMount } from 'svelte';
+
+// Import the pages we need
+import HomePage from './routes/+page.svelte';
+import PlaygroundPage from './routes/playground/+page.svelte';
 
 // Create a Tevm client
 let tevmClient = $state(createMemoryClient());
@@ -19,6 +24,30 @@ let connectedAddress = $state<string | null>(null);
 
 // Track chain state
 let chainId = $state<number>(1); // Default to mainnet
+
+// Track current route
+let currentRoute = $state(window.location.pathname);
+
+// Reference to the slot container
+let slotContainer: HTMLDivElement;
+
+// Simple router to update the current route
+function navigateTo(path: string, event?: MouseEvent) {
+  if (event) {
+    event.preventDefault();
+  }
+  
+  // Update URL without full page reload
+  window.history.pushState(null, '', path);
+  currentRoute = path;
+}
+
+// Listen for browser back/forward navigation
+onMount(() => {
+  window.addEventListener('popstate', () => {
+    currentRoute = window.location.pathname;
+  });
+});
 
 // Handle connection
 async function connectWallet() {
@@ -48,15 +77,31 @@ async function connectWallet() {
     </header>
 
     <nav>
-      <a href="/" class="active">Home</a>
-      <a href="/fork">Fork Explorer</a>
-      <a href="/transactions">Transactions</a>
-      <a href="/addresses">Addresses</a>
-      <a href="/playground">Playground</a>
+      <a href="/" 
+        class={currentRoute === '/' ? 'active' : ''} 
+        onclick={(e) => navigateTo('/', e)}>Home</a>
+      <a href="/fork" 
+        class={currentRoute === '/fork' ? 'active' : ''} 
+        onclick={(e) => navigateTo('/fork', e)}>Fork Explorer</a>
+      <a href="/transactions" 
+        class={currentRoute === '/transactions' ? 'active' : ''} 
+        onclick={(e) => navigateTo('/transactions', e)}>Transactions</a>
+      <a href="/addresses" 
+        class={currentRoute === '/addresses' ? 'active' : ''} 
+        onclick={(e) => navigateTo('/addresses', e)}>Addresses</a>
+      <a href="/playground" 
+        class={currentRoute === '/playground' ? 'active' : ''} 
+        onclick={(e) => navigateTo('/playground', e)}>Playground</a>
     </nav>
 
     <div class="content">
-      <div id="slot-container"></div>
+      {#if currentRoute === '/' || currentRoute === ''}
+        <HomePage />
+      {:else if currentRoute === '/playground'}
+        <PlaygroundPage />
+      {:else}
+        <div>Page not implemented yet</div>
+      {/if}
     </div>
 
     <footer>

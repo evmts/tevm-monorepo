@@ -2,11 +2,11 @@
     import FileTree from '../../components/playground/FileTree.svelte';
     import CodeEditor from '../../components/playground/CodeEditor.svelte';
     
-    import { code as jsCode } from '$lib/code/js_code';
-    import { code as tsCode } from '$lib/code/ts_code';
-    import { code as solidityCode } from '$lib/code/solidity_code';
-    import { code as jsonCode } from '$lib/code/json_code';
-    import { code as htmlCode } from '$lib/code/html_code';
+    import { code as jsCode } from '../../lib/code/js_code';
+    import { code as tsCode } from '../../lib/code/ts_code';
+    import { code as solidityCode } from '../../lib/code/solidity_code';
+    import { code as jsonCode } from '../../lib/code/json_code';
+    import { code as htmlCode } from '../../lib/code/html_code';
 
     type FileType = 'js' | 'ts' | 'sol' | 'json' | 'html';
 
@@ -128,7 +128,7 @@
         <FileTree 
             files={files} 
             activeFile={activeFile} 
-            fileClick={handleFileClick}
+            on:fileClick={e => handleFileClick(e.detail)}
         />
     </div>
     

@@ -15,8 +15,9 @@
         activeFile: string | null;
     }>();
     
-    // Using the Svelte 5 event dispatcher
-    const fileClick = $event<{ path: string; type: FileType }>();
+    // Using the Svelte event dispatcher
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher<{ fileClick: { path: string; type: FileType } }>();
 
     function toggleFolder(file: FileItem) {
         file.expanded = !file.expanded;
@@ -29,7 +30,7 @@
             toggleFolder(file);
         } else {
             activeFile = file.path;
-            fileClick({ path: file.path, type: file.type });
+            dispatch('fileClick', { path: file.path, type: file.type });
         }
     }
 
