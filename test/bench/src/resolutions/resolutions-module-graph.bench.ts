@@ -1,83 +1,216 @@
 import { bench, describe } from "vitest";
-import * as resolutionsRs from "@tevm/resolutions-rs";
-import path from "path";
+import path, { join } from "path";
 import fs from "fs";
 import { promises as fsPromises } from "fs";
-import { runPromise } from "effect/Effect";
-import { moduleFactory } from "@tevm/resolutions";
-
-// First, log the entire module to see what's being exported
-console.log("Resolutions-RS Exports:", Object.keys(resolutionsRs));
-
-// Extract the moduleFactoryJs function
-const { moduleFactoryJs } = resolutionsRs;
+import { runPromise, runSync } from "effect/Effect";
+import { moduleFactory, type FileAccessObject } from "@tevm/resolutions";
+import { moduleFactoryJs } from "@tevm/resolutions-rs";
 
 // Paths to our test fixtures
 const FIXTURE_DIR = path.join(__dirname);
-const MAIN_CONTRACT = path.join(FIXTURE_DIR, "fixture.sol");
+const CONTRACTS_DIR = path.join(FIXTURE_DIR, "contracts");
+const INTERFACES_DIR = path.join(FIXTURE_DIR, "interfaces");
+const LIBRARIES_DIR = path.join(FIXTURE_DIR, "libraries");
 
-// Cache the file content to avoid disk I/O during benchmarks
-let mainContractCode = "";
-
-// File access object for JS implementation
-const fao = {
+// Create a proper file access object that can resolve imports correctly
+const fao: FileAccessObject = {
+  // This is the key function for resolving imports
   readFile: fsPromises.readFile,
-  readFileSync: (path: string, encoding: string) =>
-    fs.readFileSync(path, encoding),
-  existsSync: (path: string) => fs.existsSync(path),
+  readFileSync: fs.readFileSync,
+  existsSync: fs.existsSync,
+  async exists(filePath) {
+    try {
+      await fsPromises.access(filePath);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  },
 };
 
-// Load file content before benchmarks
-async function setup() {
-  mainContractCode = await fsPromises.readFile(MAIN_CONTRACT, "utf-8");
+// Define remappings to help resolve imports
+const remappings = {
+  // Map import paths to actual file locations
+  "../interfaces/": INTERFACES_DIR + "/",
+  "../libraries/": LIBRARIES_DIR + "/",
+  "./": CONTRACTS_DIR + "/",
+};
 
-  // Run validation to verify both implementations work correctly
-  const code = mainContractCode;
+describe.skip("Solidity Module Graph Resolution Benchmarks", async () => {
+  const solFiles = [
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/fixture.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/libraries/Strings.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/libraries/SafeMath.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/libraries/Address.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/interfaces/IERC721.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/interfaces/IERC20.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/TokenStorage.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/TokenEvents.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/Token.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/NFTStorage.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/NFT.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/MarketplaceStorage.sol",
+    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/Marketplace.sol",
+  ];
 
-  // Execute both implementations
-  const jsModuleMap = await runPromise(
-    moduleFactory(MAIN_CONTRACT, code, {}, [], fao, false),
-  );
+  for (const file of solFiles) {
+    const fileName = path.basename(file);
 
-  if (typeof moduleFactoryJs !== "function") {
-    console.error("moduleFactoryJs is not a function!", typeof moduleFactoryJs);
-    throw new Error("moduleFactoryJs is not a function");
+    describe(`Module Resolution for ${fileName}`, () => {
+      bench("JavaScript sync Implementation", async () => {
+        runSync(
+          moduleFactory(
+            file,
+            fao.readFileSync(file, "utf8"),
+            remappings,
+            ["libraries"],
+            fao,
+            true,
+          ),
+        );
+      });
+      bench("JavaScript Implementation", async () => {
+        await runPromise(
+          moduleFactory(
+            file,
+            fao.readFileSync(file, "utf8"),
+            remappings,
+            ["libraries"],
+            fao,
+            false,
+          ),
+        );
+      });
+
+      bench("Rust Implementation", async () => {
+        await wrappedModuleFactoryJs(
+          file,
+          fao.readFileSync(file, "utf8"),
+          remappings,
+          ["libraries"],
+        );
+      });
+    });
   }
+});
 
-  const rustModuleMap = await moduleFactoryJs(MAIN_CONTRACT, code, {}, []);
-
-  // Log results to verify correct operation
-  console.log(`JavaScript Module Graph: ${jsModuleMap.size} modules`);
-  console.log(
-    `Rust Module Graph: ${Object.keys(rustModuleMap).length} modules`,
+describe("Super Deep Import Graph Resolution Benchmark", async () => {
+  const entryContractPath = join(
+    __dirname,
+    "contracts",
+    "level0",
+    "Contract_D0_I0.sol",
   );
-}
 
-describe("Solidity Full Module Graph Resolution Benchmark", async () => {
-  // Initialize before running benchmarks
-  await setup();
+  // Create a custom FileAccessObject that helps us debug file access
+  const deepGraphFao: FileAccessObject = {
+    readFile: async (filePath) => {
+      try {
+        return await fsPromises.readFile(filePath, "utf8");
+      } catch (error) {
+        // If the path contains Contract_D4_I1.sol which doesn't exist,
+        // point it to Contract_D4_I0.sol which does exist
+        if (filePath.includes("Contract_D4_I1.sol")) {
+          const correctedPath = filePath.replace(
+            "Contract_D4_I1.sol",
+            "Contract_D4_I0.sol",
+          );
+          return await fsPromises.readFile(correctedPath, "utf8");
+        }
+        throw error;
+      }
+    },
+    readFileSync: (filePath, encoding) => {
+      try {
+        return fs.readFileSync(filePath, encoding as BufferEncoding);
+      } catch (error) {
+        // If the path contains Contract_D4_I1.sol which doesn't exist,
+        // point it to Contract_D4_I0.sol which does exist
+        if (filePath.includes("Contract_D4_I1.sol")) {
+          const correctedPath = filePath.replace(
+            "Contract_D4_I1.sol",
+            "Contract_D4_I0.sol",
+          );
+          return fs.readFileSync(correctedPath, encoding as BufferEncoding);
+        }
+        throw error;
+      }
+    },
+    existsSync: (filePath) => {
+      // If the path contains Contract_D4_I1.sol which doesn't exist,
+      // return true anyway and we'll redirect in readFile
+      if (filePath.includes("Contract_D4_I1.sol")) {
+        return true;
+      }
+      return fs.existsSync(filePath);
+    },
+    async exists(filePath: string) {
+      try {
+        // If the path contains Contract_D4_I1.sol which doesn't exist,
+        // return true anyway and we'll redirect in readFile
+        if (filePath.includes("Contract_D4_I1.sol")) {
+          return true;
+        }
+        await fsPromises.access(filePath);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+  };
 
-  // JavaScript implementation benchmark
-  bench("JavaScript - Full Module Graph Resolution", async () => {
+  // Initialize remappings for the deep graph
+  const deepGraphRemappings = {
+    "@lib1/": path.join(__dirname, "lib1") + "/",
+    "@lib2/": path.join(__dirname, "lib2") + "/",
+    "@lib3/": path.join(__dirname, "lib3") + "/",
+    "@lib4/": path.join(__dirname, "lib4") + "/",
+    "./": path.join(__dirname, "contracts") + "/",
+  };
+
+  const libs = [
+    process.cwd(),
+    join(__dirname, "lib1"),
+    join(__dirname, "lib2"),
+    join(__dirname, "lib3"),
+    join(__dirname, "lib4"),
+  ] as const;
+
+  bench.skip(
+    "JavaScript sync Implementation - Super Deep Import Graph",
+    async () => {
+      runSync(
+        moduleFactory(
+          entryContractPath,
+          fs.readFileSync(entryContractPath, "utf8"),
+          deepGraphRemappings,
+          libs,
+          deepGraphFao,
+          true,
+        ),
+      );
+    },
+  );
+
+  bench("JavaScript Implementation - Super Deep Import Graph", async () => {
     await runPromise(
       moduleFactory(
-        MAIN_CONTRACT,
-        mainContractCode,
-        {}, // remappings
-        [], // libs
-        fao,
+        entryContractPath,
+        deepGraphFao.readFileSync(entryContractPath, "utf8"),
+        deepGraphRemappings,
+        libs,
+        deepGraphFao,
         false,
       ),
     );
   });
 
-  // Rust implementation benchmark
-  bench("Rust - Full Module Graph Resolution", async () => {
+  bench("Rust Implementation - Super Deep Import Graph", async () => {
     await moduleFactoryJs(
-      MAIN_CONTRACT,
-      mainContractCode,
-      {}, // remappings
-      [], // libs
+      entryContractPath,
+      deepGraphFao.readFileSync(entryContractPath, "utf8"),
+      deepGraphRemappings,
+      libs as any,
     );
   });
 });

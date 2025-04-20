@@ -5,7 +5,7 @@
   "sourceRoot": "bundler-packages/resolutions-rs/src",
   "tags": [],
   "targets": {
-    "build": {
+    "build:rust": {
       "cache": true,
       "outputs": ["{workspaceRoot}/bundler-packages/resolutions-rs"],
       "executor": "@monodon/rust:napi",
