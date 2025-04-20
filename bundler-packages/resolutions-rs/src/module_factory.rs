@@ -1,9 +1,10 @@
 use crate::models::ModuleInfo;
 use crate::module_resolution_error::ModuleResolutionError;
 use crate::process_module::process_module;
+use dashmap::{DashMap, DashSet};
 use futures::{stream::FuturesUnordered, StreamExt};
-use std::collections::{HashMap, HashSet};
-use std::sync::{Arc, Mutex};
+use std::collections::HashMap;
+use std::sync::Arc;
 
 /// Creates a module map by processing a source file and all its imports recursively with maximum concurrency
 ///
@@ -26,65 +27,105 @@ pub async fn module_factory(
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<HashMap<String, ModuleInfo>, Vec<ModuleResolutionError>> {
-    let module_map: Arc<Mutex<HashMap<String, ModuleInfo>>> = Arc::new(Mutex::new(HashMap::new()));
-    let errors: Arc<Mutex<Vec<ModuleResolutionError>>> = Arc::new(Mutex::new(Vec::new()));
-    let seen: Arc<Mutex<HashSet<String>>> = Arc::new(Mutex::new(HashSet::new()));
+    let module_map: Arc<DashMap<String, ModuleInfo>> = Arc::new(DashMap::new());
+    let errors: Arc<DashMap<usize, ModuleResolutionError>> = Arc::new(DashMap::new());
+    let seen: Arc<DashSet<String>> = Arc::new(DashSet::new());
 
     let mut queue = FuturesUnordered::new();
 
-    seen.lock().unwrap().insert(absolute_path.to_string());
+    // Wrap remappings and libs in Arc to avoid cloning the entire structure
+    let remappings_arc = Arc::new(remappings.clone());
+    let libs_arc = Arc::new(libs.to_vec());
+
+    seen.insert(absolute_path.to_string());
 
     queue.push(process_module(
         absolute_path.to_string(),
         raw_code.to_string(),
-        remappings.clone(),
-        libs.to_vec(),
+        Arc::clone(&remappings_arc),
+        Arc::clone(&libs_arc),
         Arc::clone(&seen),
         Arc::clone(&module_map),
         Arc::clone(&errors),
     ));
 
+    // Limit number of concurrent tasks with buffer_unordered
+    const MAX_CONCURRENT_TASKS: usize = 16;
+
     while let Some(new_modules) = queue.next().await {
         for (path, code) in new_modules {
-            // Only process modules we haven't seen before
-            let should_process = {
-                let mut seen_guard = seen.lock().unwrap();
-                if !seen_guard.contains(&path) {
-                    seen_guard.insert(path.clone());
-                    true
-                } else {
-                    false
-                }
-            };
-
-            if should_process {
+            // Only process modules we haven't seen before - no lock needed with DashSet
+            if !seen.contains(&path) {
+                seen.insert(path.clone());
                 queue.push(process_module(
                     path,
                     code,
-                    remappings.clone(),
-                    libs.to_vec(),
+                    Arc::clone(&remappings_arc),
+                    Arc::clone(&libs_arc),
                     Arc::clone(&seen),
                     Arc::clone(&module_map),
                     Arc::clone(&errors),
                 ));
             }
         }
+
+        // Limit concurrency
+        if queue.len() > MAX_CONCURRENT_TASKS {
+            // Process at most MAX_CONCURRENT_TASKS at once
+            while queue.len() > MAX_CONCURRENT_TASKS {
+                if let Some(new_modules) = queue.next().await {
+                    for (path, code) in new_modules {
+                        if !seen.contains(&path) {
+                            seen.insert(path.clone());
+                            queue.push(process_module(
+                                path,
+                                code,
+                                Arc::clone(&remappings_arc),
+                                Arc::clone(&libs_arc),
+                                Arc::clone(&seen),
+                                Arc::clone(&module_map),
+                                Arc::clone(&errors),
+                            ));
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    let errors = Arc::try_unwrap(errors)
-        .expect("Should be the only reference to errors")
-        .into_inner()
-        .unwrap();
-
-    let module_map = Arc::try_unwrap(module_map)
-        .expect("Should be the only reference to module_map")
-        .into_inner()
-        .unwrap();
-
-    if !errors.is_empty() {
-        return Err(errors);
+    // Convert DashMap to HashMap for returning
+    let mut module_map_result = HashMap::new();
+    for entry in module_map.iter() {
+        // We don't need to clone the Arc values - just clone the ModuleInfo which is now cheap
+        let value = entry.value().clone();
+        module_map_result.insert(entry.key().clone(), value);
     }
-    Ok(module_map)
+
+    // Convert errors DashMap to Vec
+    let mut errors_vec = Vec::new();
+    for entry in errors.iter() {
+        // Create new error based on the type
+        let err = match entry.value() {
+            ModuleResolutionError::Resolution(_) => {
+                ModuleResolutionError::MalformedImport("Resolution error".to_string())
+            }
+            ModuleResolutionError::CannotReadFile(io_err) => {
+                ModuleResolutionError::MalformedImport(format!("I/O error: {}", io_err))
+            }
+            ModuleResolutionError::ParseError(_) => {
+                ModuleResolutionError::MalformedImport("Parse error".to_string())
+            }
+            ModuleResolutionError::MalformedImport(msg) => {
+                ModuleResolutionError::MalformedImport(msg.clone())
+            }
+        };
+        errors_vec.push(err);
+    }
+
+    if !errors_vec.is_empty() {
+        return Err(errors_vec);
+    }
+    Ok(module_map_result)
 }
 
 #[cfg(test)]
@@ -187,14 +228,14 @@ mod tests {
             // Check that main module is processed
             assert!(module_map.contains_key(&absolute_path));
             let main_module = &module_map[&absolute_path];
-            assert_eq!(main_module.code, raw_code);
+            assert_eq!(*main_module.code, raw_code);
 
             // If helper module was processed (environment-dependent), check it
             let helper_path = root_dir.join("src/utils/helper.js").display().to_string();
             // Skip the canonicalization check since our implementation change might have affected this
             if module_map.contains_key(&helper_path) {
                 let helper_module = &module_map[&helper_path];
-                assert_eq!(helper_module.code, "console.log('Helper file');");
+                assert_eq!(*helper_module.code, "console.log('Helper file');");
             } else {
                 println!("Helper module not processed - this may be due to testing environment limitations");
             }
@@ -874,7 +915,7 @@ mod tests {
         let module_map = result.unwrap();
         assert_eq!(module_map.len(), 1, "Should have processed 1 module");
         assert!(module_map.contains_key(&absolute_path));
-        assert_eq!(module_map[&absolute_path].code, "");
+        assert_eq!(*module_map[&absolute_path].code, "");
         assert_eq!(module_map[&absolute_path].imported_ids.len(), 0);
     }
 
@@ -886,12 +927,12 @@ mod tests {
         // Get the path to the fixtures directory
         let current_dir = env::current_dir().unwrap();
         let fixtures_dir = Path::new(&current_dir).join("fixtures");
-        
+
         // Debug info to verify paths
         println!("Current directory: {}", current_dir.display());
         println!("Fixtures directory: {}", fixtures_dir.display());
         println!("Fixtures directory exists: {}", fixtures_dir.exists());
-        
+
         // List contents of fixtures dir if it exists
         if fixtures_dir.exists() {
             if let Ok(entries) = std::fs::read_dir(&fixtures_dir) {
@@ -903,81 +944,109 @@ mod tests {
                 }
             }
         }
-        
+
         // Check specific subdirectories and files that will be imported
         println!("\nChecking import paths:");
-        
+
         // Check existing directory structure without adding any fallbacks or workarounds
-        
+
         // Define standard directories
         let lib1_dir = fixtures_dir.join("lib1");
         let lib4_dir = fixtures_dir.join("lib4");
         let contracts_dir = fixtures_dir.join("contracts");
-        
+
         // Check directory structure for diagnostics
         println!("lib1 directory exists: {}", lib1_dir.exists());
         println!("lib4 directory exists: {}", lib4_dir.exists());
         println!("contracts directory exists: {}", contracts_dir.exists());
-        
+
         // Check level4 directories that the benchmark uses
         let lib4_level4_dir = lib4_dir.join("level4");
         let contract_d4_i0_path = lib4_level4_dir.join("Contract_D4_I0.sol");
         let contract_d4_i1_path = lib4_level4_dir.join("Contract_D4_I1.sol");
-        
+
         println!("lib4/level4 directory exists: {}", lib4_level4_dir.exists());
-        
+
         if lib4_level4_dir.exists() {
-            println!("Contract_D4_I0.sol exists: {}", contract_d4_i0_path.exists());
-            println!("Contract_D4_I1.sol exists: {}", contract_d4_i1_path.exists());
+            println!(
+                "Contract_D4_I0.sol exists: {}",
+                contract_d4_i0_path.exists()
+            );
+            println!(
+                "Contract_D4_I1.sol exists: {}",
+                contract_d4_i1_path.exists()
+            );
         }
-        
+
         // Check level1 directories that are needed by imports
         let lib1_level1_dir = lib1_dir.join("level1");
         let lib4_level1_dir = lib4_dir.join("level1");
         let contracts_level1_dir = contracts_dir.join("level1");
-        
+
         println!("lib1/level1 directory exists: {}", lib1_level1_dir.exists());
         println!("lib4/level1 directory exists: {}", lib4_level1_dir.exists());
-        println!("contracts/level1 directory exists: {}", contracts_level1_dir.exists());
-        
+        println!(
+            "contracts/level1 directory exists: {}",
+            contracts_level1_dir.exists()
+        );
+
         // Define paths to test files
-        let entry_contract_path = fixtures_dir.join("contracts").join("level0").join("Contract_D0_I0.sol");
+        let entry_contract_path = fixtures_dir
+            .join("contracts")
+            .join("level0")
+            .join("Contract_D0_I0.sol");
         let entry_path_str = entry_contract_path.to_str().unwrap();
-        
+
         println!("Entry contract path: {}", entry_contract_path.display());
         println!("Entry contract exists: {}", entry_contract_path.exists());
-        
+
         // Read the contract content
         let raw_code = match std::fs::read_to_string(&entry_contract_path) {
             Ok(content) => {
-                println!("Successfully read entry contract content ({} bytes)", content.len());
+                println!(
+                    "Successfully read entry contract content ({} bytes)",
+                    content.len()
+                );
                 content
-            },
+            }
             Err(e) => {
                 panic!("Failed to read entry contract at {}: {}", entry_path_str, e);
             }
         };
-        
+
         // Extract imports from the raw code
-        let import_lines: Vec<&str> = raw_code.lines()
+        let import_lines: Vec<&str> = raw_code
+            .lines()
             .filter(|line| line.trim().starts_with("import"))
             .collect();
         println!("Entry contract imports:");
         for import in &import_lines {
             println!("  {}", import);
         }
-        
+
         // Set up remappings similar to the JS benchmark
         let mut remappings = HashMap::new();
         let lib1_path = fixtures_dir.join("lib1");
         let lib4_path = fixtures_dir.join("lib4");
         let contracts_path = fixtures_dir.join("contracts");
-        
+
         // Debug info for remapping paths
-        println!("lib1 path: {} (exists: {})", lib1_path.display(), lib1_path.exists());
-        println!("lib4 path: {} (exists: {})", lib4_path.display(), lib4_path.exists());
-        println!("contracts path: {} (exists: {})", contracts_path.display(), contracts_path.exists());
-        
+        println!(
+            "lib1 path: {} (exists: {})",
+            lib1_path.display(),
+            lib1_path.exists()
+        );
+        println!(
+            "lib4 path: {} (exists: {})",
+            lib4_path.display(),
+            lib4_path.exists()
+        );
+        println!(
+            "contracts path: {} (exists: {})",
+            contracts_path.display(),
+            contracts_path.exists()
+        );
+
         remappings.insert(
             "@lib1/".to_string(),
             lib1_path.to_str().unwrap().to_string() + "/",
@@ -990,111 +1059,177 @@ mod tests {
             "./".to_string(),
             contracts_path.to_str().unwrap().to_string() + "/",
         );
-        
+
         // Debug remappings
         println!("Remappings:");
         for (key, value) in &remappings {
             println!("  {} -> {}", key, value);
         }
-        
+
         // Define library paths similar to the JS benchmark
         let libs = vec![
             current_dir.to_str().unwrap().to_string(),
             lib1_path.to_str().unwrap().to_string(),
             lib4_path.to_str().unwrap().to_string(),
         ];
-        
+
         println!("Library paths:");
         for lib in &libs {
             println!("  {}", lib);
         }
-        
+
         // Run the module factory with the fixture files
         println!("Running module factory...");
         let result = module_factory(entry_path_str, &raw_code, &remappings, &libs).await;
-        
+
         // Assert on the result
         match result {
             Ok(module_map) => {
                 println!("Successfully processed {} modules", module_map.len());
-                assert!(module_map.len() >= 1, "Should have processed at least the entry module");
-                assert!(module_map.contains_key(entry_path_str), "Entry module should be in the map");
-                
+                assert!(
+                    module_map.len() >= 1,
+                    "Should have processed at least the entry module"
+                );
+                assert!(
+                    module_map.contains_key(entry_path_str),
+                    "Entry module should be in the map"
+                );
+
                 println!("Processed modules:");
                 for (path, _) in &module_map {
                     println!("  {}", path);
                 }
-                
+
                 // Check if lib1 modules were processed
-                let lib1_module_path = fixtures_dir.join("lib1").join("level1").join("Lib1_D1_I0.sol");
+                let lib1_module_path = fixtures_dir
+                    .join("lib1")
+                    .join("level1")
+                    .join("Lib1_D1_I0.sol");
                 let lib1_path_str = lib1_module_path.to_str().unwrap();
-                println!("Checking for lib1 module: {} (exists: {})", lib1_module_path.display(), lib1_module_path.exists());
+                println!(
+                    "Checking for lib1 module: {} (exists: {})",
+                    lib1_module_path.display(),
+                    lib1_module_path.exists()
+                );
                 if module_map.contains_key(lib1_path_str) {
                     println!("Successfully processed lib1 module");
                 } else {
                     println!("Note: lib1 module was not processed");
                 }
-                
+
                 // Check if lib4 modules were processed
-                let lib4_module_path = fixtures_dir.join("lib4").join("level1").join("Lib4_D1_I1.sol");
+                let lib4_module_path = fixtures_dir
+                    .join("lib4")
+                    .join("level1")
+                    .join("Lib4_D1_I1.sol");
                 let lib4_path_str = lib4_module_path.to_str().unwrap();
-                println!("Checking for lib4 module: {} (exists: {})", lib4_module_path.display(), lib4_module_path.exists());
+                println!(
+                    "Checking for lib4 module: {} (exists: {})",
+                    lib4_module_path.display(),
+                    lib4_module_path.exists()
+                );
                 if module_map.contains_key(lib4_path_str) {
                     println!("Successfully processed lib4 module");
                 } else {
                     println!("Note: lib4 module was not processed");
                 }
-                
+
                 // Check if level1 modules were processed
-                let level1_module_path = fixtures_dir.join("contracts").join("level1").join("Contract_D1_I2.sol");
+                let level1_module_path = fixtures_dir
+                    .join("contracts")
+                    .join("level1")
+                    .join("Contract_D1_I2.sol");
                 let level1_path_str = level1_module_path.to_str().unwrap();
-                println!("Checking for level1 module: {} (exists: {})", level1_module_path.display(), level1_module_path.exists());
+                println!(
+                    "Checking for level1 module: {} (exists: {})",
+                    level1_module_path.display(),
+                    level1_module_path.exists()
+                );
                 if module_map.contains_key(level1_path_str) {
                     println!("Successfully processed level1 module");
                 } else {
                     println!("Note: level1 module was not processed");
                 }
-            },
+            }
             Err(errors) => {
                 // Enhanced error reporting
                 let mut error_msg = String::from("Failed to process the module graph:\n");
-                
+
                 // Create more detailed error messages
                 for (i, error) in errors.iter().enumerate() {
-                    error_msg.push_str(&format!("Error {}: {:?}\n", i+1, error));
+                    error_msg.push_str(&format!("Error {}: {:?}\n", i + 1, error));
                 }
-                
+
                 // Add debugging information about the fixture paths
                 error_msg.push_str("\nDebugging information:\n");
-                error_msg.push_str(&format!("Entry contract path: {} (exists: {})\n", 
-                    entry_contract_path.display(), entry_contract_path.exists()));
-                
+                error_msg.push_str(&format!(
+                    "Entry contract path: {} (exists: {})\n",
+                    entry_contract_path.display(),
+                    entry_contract_path.exists()
+                ));
+
                 // Add detailed information about directory structure
                 error_msg.push_str("\nDirectory structure:\n");
-                error_msg.push_str(&format!("lib1 directory: {} (exists: {})\n", lib1_dir.display(), lib1_dir.exists()));
-                error_msg.push_str(&format!("lib4 directory: {} (exists: {})\n", lib4_dir.display(), lib4_dir.exists()));
-                error_msg.push_str(&format!("contracts directory: {} (exists: {})\n", contracts_dir.display(), contracts_dir.exists()));
-                
+                error_msg.push_str(&format!(
+                    "lib1 directory: {} (exists: {})\n",
+                    lib1_dir.display(),
+                    lib1_dir.exists()
+                ));
+                error_msg.push_str(&format!(
+                    "lib4 directory: {} (exists: {})\n",
+                    lib4_dir.display(),
+                    lib4_dir.exists()
+                ));
+                error_msg.push_str(&format!(
+                    "contracts directory: {} (exists: {})\n",
+                    contracts_dir.display(),
+                    contracts_dir.exists()
+                ));
+
                 // Add information about level directories
                 error_msg.push_str("\nLevel directories:\n");
-                error_msg.push_str(&format!("lib1/level1: {} (exists: {})\n", lib1_level1_dir.display(), lib1_level1_dir.exists()));
-                error_msg.push_str(&format!("lib4/level1: {} (exists: {})\n", lib4_level1_dir.display(), lib4_level1_dir.exists()));
-                error_msg.push_str(&format!("lib4/level4: {} (exists: {})\n", lib4_level4_dir.display(), lib4_level4_dir.exists()));
-                error_msg.push_str(&format!("contracts/level1: {} (exists: {})\n", contracts_level1_dir.display(), contracts_level1_dir.exists()));
-                
+                error_msg.push_str(&format!(
+                    "lib1/level1: {} (exists: {})\n",
+                    lib1_level1_dir.display(),
+                    lib1_level1_dir.exists()
+                ));
+                error_msg.push_str(&format!(
+                    "lib4/level1: {} (exists: {})\n",
+                    lib4_level1_dir.display(),
+                    lib4_level1_dir.exists()
+                ));
+                error_msg.push_str(&format!(
+                    "lib4/level4: {} (exists: {})\n",
+                    lib4_level4_dir.display(),
+                    lib4_level4_dir.exists()
+                ));
+                error_msg.push_str(&format!(
+                    "contracts/level1: {} (exists: {})\n",
+                    contracts_level1_dir.display(),
+                    contracts_level1_dir.exists()
+                ));
+
                 // Add information about specific files
                 if lib4_level4_dir.exists() {
                     error_msg.push_str("\nSpecific files:\n");
-                    error_msg.push_str(&format!("Contract_D4_I0.sol: {} (exists: {})\n", contract_d4_i0_path.display(), contract_d4_i0_path.exists()));
-                    error_msg.push_str(&format!("Contract_D4_I1.sol: {} (exists: {})\n", contract_d4_i1_path.display(), contract_d4_i1_path.exists()));
+                    error_msg.push_str(&format!(
+                        "Contract_D4_I0.sol: {} (exists: {})\n",
+                        contract_d4_i0_path.display(),
+                        contract_d4_i0_path.exists()
+                    ));
+                    error_msg.push_str(&format!(
+                        "Contract_D4_I1.sol: {} (exists: {})\n",
+                        contract_d4_i1_path.display(),
+                        contract_d4_i1_path.exists()
+                    ));
                 }
-                
+
                 // Add the import paths from the entry contract that should be resolved
                 error_msg.push_str("\nImports to resolve:\n");
                 for import in import_lines {
                     error_msg.push_str(&format!("  {}\n", import));
                 }
-                
+
                 panic!("{}", error_msg);
             }
         }

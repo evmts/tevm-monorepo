@@ -1,14 +1,27 @@
 use crate::module_resolution_error::ModuleResolutionError;
 use crate::resolve_import_path::resolve_import_path;
-use futures::future::join_all;
+use futures::StreamExt;
 use node_resolve::ResolutionError;
 use solar::{
     ast::{self},
     interface::{diagnostics::ErrorGuaranteed, source_map::FileName, Session},
     parse::Parser,
 };
+
+// Thread-local Solar Session factory - created on demand to avoid issues with thread destruction
+fn get_solar_session() -> Session {
+    Session::builder()
+        .with_silent_emitter(None)
+        .build()
+}
+
+// Function to get a new Arena - created on demand to avoid TLS issues
+fn get_solar_arena() -> ast::Arena {
+    ast::Arena::new()
+}
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 
 #[derive(Debug)]
 pub enum ResolveImportsError {
@@ -81,47 +94,46 @@ pub async fn resolve_imports(
 ) -> Result<Vec<PathBuf>, Vec<ResolveImportsError>> {
     let path = Path::new(absolute_path);
     let mut imports = Vec::new();
-
-    // We only support Solidity files, so use the Solar parser
-        let sess = Session::builder()
-            .with_buffer_emitter(solar::interface::ColorChoice::Auto)
-            .build();
-
-        let arena = ast::Arena::new();
-
-        // IMPORTANT: Process everything inside sess.enter() to maintain thread-local context
-        // This is the key fix - we extract the imports within the session context
-        let parse_result = sess.enter(|| {
-            match Parser::from_source_code(
-                &sess,
-                &arena,
-                FileName::Real(path.to_path_buf()),
-                code.to_string(),
-            ) {
-                Ok(mut parser) => {
-                    match parser.parse_file() {
-                        Ok(ast) => {
-                            // Extract imports within the session context
-                            for item in ast.items.iter() {
-                                if let ast::ItemKind::Import(import_dir) = &item.kind {
-                                    imports.push(import_dir.path.value.to_string());
-                                }
+    
+    // Create a new session and arena for parsing - avoiding thread_local issues
+    let mut parse_error = None;
+    let session = get_solar_session();
+    let arena = get_solar_arena();
+    
+    // We're using a silent emitter, so no need to configure diagnostics further
+    if let Err(err) = session.enter(|| {
+        match Parser::from_source_code(
+            &session,
+            &arena,
+            FileName::Real(path.to_path_buf()),
+            code.to_string(),
+        ) {
+            Ok(mut parser) => {
+                match parser.parse_file() {
+                    Ok(ast) => {
+                        // Extract imports within the session context
+                        for item in ast.items.iter() {
+                            if let ast::ItemKind::Import(import_dir) = &item.kind {
+                                imports.push(import_dir.path.value.to_string());
                             }
-                            Ok(())
-                        },
-                        Err(e) => Err(e.emit()),
+                        }
+                        Ok(())
                     }
-                }
-                Err(err) => {
-                    println!("Error parsing Solidity file: {err:?}");
-                    Err(err)
+                    Err(e) => Err(e.emit()),
                 }
             }
-        });
-
-        if let Err(err) = parse_result {
-            return Err(vec![ResolveImportsError::from(err)]);
+            Err(err) => {
+                // Don't print errors, just return them
+                Err(err)
+            }
         }
+    }) {
+        parse_error = Some(err);
+    }
+    
+    if let Some(err) = parse_error {
+        return Err(vec![ResolveImportsError::from(err)]);
+    }
     
     // Deduplicate imports
     imports.sort();
@@ -131,17 +143,29 @@ pub async fn resolve_imports(
         return Ok(Vec::new());
     }
 
-    let futures = imports.into_iter().map(|import_path| {
-        let absolute_path = absolute_path.to_string();
-        let remappings = remappings.clone();
-        let libs = libs.to_vec(); // Convert to Vec<String>
+    // Use Arc to avoid cloning large structures
+    let remappings_arc = Arc::new(remappings.clone());
+    let libs_arc = Arc::new(libs.to_vec());
+    let base_path = absolute_path.to_string();
 
-        async move { resolve_import_path(&absolute_path, &import_path, &remappings, &libs).await }
-    });
+    // Use buffer_unordered to limit concurrency
+    const MAX_CONCURRENT: usize = 16;
 
-    let results = join_all(futures).await;
+    let stream = futures::stream::iter(imports.into_iter().map(|import_path| {
+        let rem = Arc::clone(&remappings_arc);
+        let libs = Arc::clone(&libs_arc);
+        let base = base_path.clone();
+
+        async move { resolve_import_path(&base, &import_path, &rem, &libs).await }
+    }))
+    .buffer_unordered(MAX_CONCURRENT);
+
     let mut path_bufs: Vec<PathBuf> = vec![];
     let mut errors: Vec<ResolveImportsError> = vec![];
+
+    // Process results one by one
+    let results: Vec<_> = stream.collect().await;
+
     for result in results {
         match result {
             Ok(path_buf) => path_bufs.push(path_buf),
@@ -210,20 +234,26 @@ mod tests {
             .unwrap()
             .display()
             .to_string();
-            
+
         let code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './utils/helper.sol';\n\ncontract Main {}\n";
 
         println!("Resolving imports in: {}", main_file_path);
         println!("Main file directory: {}", main_file_dir);
-        println!("Helper file path: {}", std::fs::canonicalize(root_dir.join("src/utils/helper.sol")).unwrap().display().to_string());
-        
+        println!(
+            "Helper file path: {}",
+            std::fs::canonicalize(root_dir.join("src/utils/helper.sol"))
+                .unwrap()
+                .display()
+                .to_string()
+        );
+
         // Use the parent directory of the file for resolution
         let result = resolve_imports(&main_file_dir, code, &HashMap::new(), &[]).await;
-        
+
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
         }
-        
+
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -244,20 +274,20 @@ mod tests {
             &root_dir,
             &[
                 (
-                    "src/main.sol", 
-                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Main contract"
+                    "src/main.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Main contract",
                 ),
                 (
-                    "src/utils/helper1.sol", 
-                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Helper 1"
+                    "src/utils/helper1.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Helper 1",
                 ),
                 (
-                    "src/utils/helper2.sol", 
-                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Helper 2"
+                    "src/utils/helper2.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Helper 2",
                 ),
                 (
-                    "src/utils/helper3.sol", 
-                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Helper 3"
+                    "src/utils/helper3.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Helper 3",
                 ),
             ],
         )
@@ -272,7 +302,7 @@ mod tests {
             .unwrap()
             .display()
             .to_string();
-            
+
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -304,7 +334,7 @@ contract Main {
             .map(|p| normalize_path(&p.display().to_string()))
             .collect();
         sorted_resolved_paths.sort();
-        
+
         let mut sorted_expected_paths = expected_paths.to_vec();
         sorted_expected_paths.sort();
 
@@ -322,12 +352,12 @@ contract Main {
             &root_dir,
             &[
                 (
-                    "src/main.sol", 
-                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Main contract"
+                    "src/main.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Main contract",
                 ),
                 (
-                    "lib/external/module.sol", 
-                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// External module"
+                    "lib/external/module.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// External module",
                 ),
             ],
         )
@@ -397,15 +427,15 @@ contract Main {
 
         // Use the actual file path
         let file_absolute_path = file_path.display().to_string();
-        
+
         println!("Resolving imports in: {}", file_absolute_path);
-        
+
         let result = resolve_imports(&file_absolute_path, code, &HashMap::new(), &[]).await;
-        
+
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
         }
-        
+
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -420,7 +450,7 @@ contract Main {
         // Create a solidity file with an import that doesn't exist
         let file_path = root_dir.join("src/main.sol");
         std::fs::create_dir_all(file_path.parent().unwrap()).unwrap();
-        
+
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -431,7 +461,7 @@ contract Main {
 }
 "#;
         std::fs::write(&file_path, code).unwrap();
-        
+
         let file_absolute_path = file_path.display().to_string();
 
         let result = resolve_imports(&file_absolute_path, code, &HashMap::new(), &[]).await;
@@ -447,12 +477,12 @@ contract Main {
             &root_dir,
             &[
                 (
-                    "src/main.sol", 
-                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Main contract"
+                    "src/main.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Main contract",
                 ),
                 (
-                    "src/util.sol", 
-                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Util contract"
+                    "src/util.sol",
+                    "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n// Util contract",
                 ),
             ],
         )
@@ -467,7 +497,7 @@ contract Main {
             .unwrap()
             .display()
             .to_string();
-            
+
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -516,7 +546,7 @@ contract Main {
             .unwrap()
             .display()
             .to_string();
-            
+
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -592,7 +622,7 @@ contract Main {
             .unwrap()
             .display()
             .to_string();
-        
+
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -621,36 +651,52 @@ contract TestContract {
 
         println!("Resolving imports in: {}", main_file_path);
         println!("Main file directory: {}", main_file_dir);
-        println!("RealImport file path: {}", std::fs::canonicalize(root_dir.join("src/lib/RealImport.sol")).unwrap().display().to_string());
-        
+        println!(
+            "RealImport file path: {}",
+            std::fs::canonicalize(root_dir.join("src/lib/RealImport.sol"))
+                .unwrap()
+                .display()
+                .to_string()
+        );
+
         // Use the parent directory of the file for resolution
         let result = resolve_imports(&main_file_dir, code, &HashMap::new(), &[]).await;
-        
+
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
         }
-        
+
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
-        println!("Found {} imports: {:?}", resolved_imports.len(), 
-            resolved_imports.iter().map(|p| p.display().to_string()).collect::<Vec<_>>());
-        
+        println!(
+            "Found {} imports: {:?}",
+            resolved_imports.len(),
+            resolved_imports
+                .iter()
+                .map(|p| p.display().to_string())
+                .collect::<Vec<_>>()
+        );
+
         // We may get more than one import with our regex-based approach, so just verify we found the real one
         let real_import_path = std::fs::canonicalize(root_dir.join("src/lib/RealImport.sol"))
             .unwrap()
             .display()
             .to_string();
-            
-        let found_real_import = resolved_imports.iter()
+
+        let found_real_import = resolved_imports
+            .iter()
             .any(|p| normalize_path(&p.display().to_string()) == normalize_path(&real_import_path));
-            
+
         assert!(found_real_import, "Should have found the real import");
 
         // Since we've already verified the real import exists in our collection,
         // we don't need to check the exact ordering of results
-        assert!(!resolved_imports.is_empty(), "Should have at least one resolved import");
-        
+        assert!(
+            !resolved_imports.is_empty(),
+            "Should have at least one resolved import"
+        );
+
         // We already verified that we found the real import above, so this test passes
         // The RealImport.sol file might not be the first one in the array depending on
         // how the regex matches, and that's okay as long as it's included
