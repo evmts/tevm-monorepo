@@ -5,6 +5,8 @@ import "@lib1/level1/Lib1_D1_I0.sol";
 import "@lib4/level1/Lib4_D1_I1.sol";
 import "../level1/Contract_D1_I2.sol";
 import "../level1/Contract_D1_I3.sol";
+import "./deep-import-0-0/deep-import-0-0.sol";
+import "./deep-import-0-1/deep-import-0-1.sol";
 
 /**
  * @title Contract_D0_I0
