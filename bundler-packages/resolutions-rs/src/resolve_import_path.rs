@@ -22,13 +22,19 @@ pub async fn resolve_import_path(
     remappings: &HashMap<String, String>,
     libs: &[String],
 ) -> Result<PathBuf, Vec<ResolutionError>> {
-    for (val, key) in remappings {
+    for (key, val) in remappings {
         if import_path.starts_with(key) {
             return Ok(PathBuf::from(import_path.replace(key, val)));
         }
     }
-    if import_path.starts_with("./") || import_path.starts_with(".\\") {
-        if let Ok(path) = fs::canonicalize(PathBuf::from(absolute_path).join(import_path)).await {
+    if import_path.starts_with("./") || import_path.starts_with(".\\") || 
+       import_path.starts_with("../") || import_path.starts_with("..\\") {
+        let base_path = PathBuf::from(absolute_path);
+        // Get the parent directory of the file containing the import
+        let parent_dir = base_path.parent().unwrap_or(&base_path);
+        // Join the parent directory with the relative import path
+        let resolved_path = parent_dir.join(import_path);
+        if let Ok(path) = fs::canonicalize(resolved_path).await {
             return Ok(path);
         };
     }
