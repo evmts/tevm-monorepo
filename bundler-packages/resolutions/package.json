@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/resolutions",
-	"version": "1.0.0-next.131",
+	"version": "1.0.0-next.142",
 	"private": false,
 	"description": "Module for resolving and import graph for solidity files",
 	"keywords": [

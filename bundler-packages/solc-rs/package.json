@@ -1,6 +1,6 @@
 {
   "name": "@tevm/solc-rs",
-  "version": "0.1.0",
+  "version": "1.0.0-next.142",
   "private": true,
   "description": "Rust wrapper for the Solidity compiler (solc)",
   "type": "module"

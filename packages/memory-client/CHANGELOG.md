@@ -1,5 +1,22 @@
 # @tevm/client
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/actions@1.0.0-next.142
+  - @tevm/address@1.0.0-next.142
+  - @tevm/common@1.0.0-next.142
+  - @tevm/contract@1.0.0-next.142
+  - @tevm/decorators@1.0.0-next.142
+  - @tevm/errors@1.0.0-next.142
+  - @tevm/evm@1.0.0-next.142
+  - @tevm/node@1.0.0-next.142
+  - @tevm/predeploys@1.0.0-next.142
+  - @tevm/utils@1.0.0-next.142
+
 ## 1.0.0-next.141
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @tevm/unplugin
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/base-bundler@1.0.0-next.142
+  - @tevm/bundler-cache@1.0.0-next.142
+  - @tevm/config@1.0.0-next.142
+  - @tevm/solc@1.0.0-next.142
+
 ## 1.0.0-next.140
 
 ### Patch Changes

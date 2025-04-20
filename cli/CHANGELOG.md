@@ -1,5 +1,21 @@
 # @tevm/cli
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/base-bundler@1.0.0-next.142
+  - @tevm/bundler-cache@1.0.0-next.142
+  - @tevm/config@1.0.0-next.142
+  - @tevm/actions@1.0.0-next.142
+  - @tevm/common@1.0.0-next.142
+  - @tevm/jsonrpc@1.0.0-next.142
+  - @tevm/memory-client@1.0.0-next.142
+  - @tevm/server@1.0.0-next.142
+  - @tevm/utils@1.0.0-next.142
+
 ## 1.0.0-next.141
 
 ### Patch Changes
