@@ -1,5 +1,27 @@
 # @tevm/client
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/address@1.0.0-next.142
+  - @tevm/block@1.0.0-next.142
+  - @tevm/blockchain@1.0.0-next.142
+  - @tevm/common@1.0.0-next.142
+  - @tevm/evm@1.0.0-next.142
+  - @tevm/jsonrpc@1.0.0-next.142
+  - @tevm/logger@1.0.0-next.142
+  - @tevm/predeploys@1.0.0-next.142
+  - @tevm/receipt-manager@1.0.0-next.142
+  - @tevm/state@1.0.0-next.142
+  - @tevm/sync-storage-persister@1.0.0-next.142
+  - @tevm/tx@1.0.0-next.142
+  - @tevm/txpool@1.0.0-next.142
+  - @tevm/utils@1.0.0-next.142
+  - @tevm/vm@1.0.0-next.142
+
 ## 1.0.0-next.140
 
 ### Patch Changes

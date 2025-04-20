@@ -1,5 +1,14 @@
 # tevm-run
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/bun-plugin@1.0.0-next.142
+  - tevm@1.0.0-next.142
+
 ## 1.0.0-next.141
 
 ### Patch Changes

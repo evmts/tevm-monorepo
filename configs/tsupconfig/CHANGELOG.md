@@ -1,5 +1,13 @@
 # @tevm/tsupconfig
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/tsconfig@1.0.0-next.142
+
 ## 1.0.0-next.131
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @tevm/test-utils
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/esbuild-plugin@1.0.0-next.142
+  - @tevm/ts-plugin@1.0.0-next.142
+  - @tevm/contract@1.0.0-next.142
+
 ## 1.0.0-next.140
 
 ### Patch Changes

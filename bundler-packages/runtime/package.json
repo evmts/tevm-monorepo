@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/runtime",
-	"version": "1.0.0-next.131",
+	"version": "1.0.0-next.142",
 	"private": false,
 	"description": "Tools for generating the Tevm contract runtime",
 	"keywords": [
