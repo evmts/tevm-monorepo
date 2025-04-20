@@ -54,10 +54,8 @@ function __napi_rs_initialize_modules(__napiInstance) {
   __napiInstance.exports['__napi_register__JsResolvedImport_struct_0']?.()
   __napiInstance.exports['__napi_register__JsModuleInfo_struct_1']?.()
   __napiInstance.exports['__napi_register__JsModule_struct_2']?.()
-  __napiInstance.exports['__napi_register__ResolveImportsTask_impl_3']?.()
-  __napiInstance.exports['__napi_register__ModuleFactoryTask_impl_4']?.()
-  __napiInstance.exports['__napi_register__resolve_imports_js_5']?.()
-  __napiInstance.exports['__napi_register__module_factory_js_6']?.()
+  __napiInstance.exports['__napi_register__resolve_imports_js_3']?.()
+  __napiInstance.exports['__napi_register__module_factory_js_4']?.()
 }
 export const moduleFactoryJs = __napiModule.exports.moduleFactoryJs
 export const resolveImportsJs = __napiModule.exports.resolveImportsJs
