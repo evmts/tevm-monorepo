@@ -1,15 +1,10 @@
 use crate::context::ModuleContext;
 use crate::models::ModuleInfo;
-use crate::module_resolution_error::ModuleResolutionError;
 use crate::process_module::process_module;
-use crate::resolve_imports;
-use dashmap::{DashMap, DashSet};
+use crate::resolve_imports::ResolveImportsError;
 use futures::{stream::FuturesUnordered, StreamExt};
 use std::collections::HashMap;
-use std::iter::{once, Once};
 use std::path::PathBuf;
-use std::str::FromStr;
-use std::sync::Arc;
 use tokio::task;
 
 fn get_max_concurrent_reads() -> usize {
@@ -57,15 +52,58 @@ pub async fn module_factory(
     raw_code: &str,
     remappings: Vec<(String, String)>,
     libs: Vec<PathBuf>,
-) -> Result<HashMap<String, ModuleInfo>, Vec<ModuleResolutionError>> {
-    let ctx = ModuleContext::new(
-        get_max_concurrent_reads(),
-        remappings,
-        libs,
-        Some(once(entrypoint_path.to_string_lossy().to_string()).collect()),
+) -> Result<HashMap<String, ModuleInfo>, Vec<ResolveImportsError>> {
+    let ctx = ModuleContext::new(get_max_concurrent_reads(), remappings, libs);
+    let permit = ctx.sem.clone().acquire_owned().await.unwrap();
+    process_module(
+        entrypoint_path.to_path_buf(),
+        Some(raw_code.to_string()),
+        ctx.clone(),
+        permit,
     );
 
-    let entrypoint_imports = resolve_imports(&entrypoint_path, raw_code, remappings, libs);
+    let entrypoint_imports = ctx
+        .graph
+        .lock()
+        .await
+        .get(&entrypoint_path.to_string_lossy().to_string())
+        .unwrap()
+        .imported_ids
+        .clone();
+
+    if entrypoint_imports.is_empty() {
+        return Ok(ctx.graph.lock().await.clone());
+    }
+
+    let mut in_flight = FuturesUnordered::new();
+
+    for entrypoint_import in entrypoint_imports {
+        let permit = ctx.sem.clone().acquire_owned().await.unwrap();
+        let ctx2 = ctx.clone();
+        in_flight.push(task::spawn(async move {
+            process_module(entrypoint_import, None, ctx2, permit).await
+        }));
+    }
+
+    // let mut failures = vec![];
+    while let Some(joined) = in_flight.next().await {
+        match joined {
+            Ok(Ok(imports)) => {
+                for imp in imports {
+                    let ctx2 = ctx.clone();
+                    let permit = ctx2.sem.clone().acquire_owned().await.unwrap();
+                    in_flight.push(task::spawn(async move {
+                        process_module(imp, None, ctx2, permit).await
+                    }))
+                }
+            }
+            _ => {
+                panic!("TODO handle")
+            }
+        }
+    }
+
+    Ok(HashMap::new())
 }
 
 #[cfg(test)]

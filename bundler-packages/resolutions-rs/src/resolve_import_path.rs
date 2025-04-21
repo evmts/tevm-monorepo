@@ -1,5 +1,4 @@
 use node_resolve::{resolve_from, ResolutionError as NodeResolutionError};
-use std::collections::HashMap;
 use std::io;
 use std::path::{Component, Path, PathBuf};
 
@@ -32,7 +31,7 @@ pub enum ResolveImportPathError {
 pub fn resolve_import_path(
     context_path: PathBuf,
     import_path: &str,
-    ctx: ModuleContext,
+    ctx: &ModuleContext,
 ) -> Result<PathBuf, ResolveImportPathError> {
     // Try resolving relative path
     let imp_path = Path::new(import_path);

@@ -44,7 +44,7 @@ pub enum ResolveImportsError {
 pub fn resolve_imports(
     context_path: &Path,
     code: &str,
-    ctx: ModuleContext,
+    ctx: &ModuleContext,
 ) -> Result<Vec<PathBuf>, Vec<ResolveImportsError>> {
     let mut imports = vec![];
     let mut errors = vec![];
@@ -65,7 +65,7 @@ pub fn resolve_imports(
                     match resolve_import_path(
                         context_path.to_path_buf(),
                         import_dir.path.value.as_str(),
-                        ctx.clone(),
+                        ctx,
                     ) {
                         Ok(p) => imports.push(p),
                         Err(cause) => errors.push(ResolveImportsError::PathResolutionError {
