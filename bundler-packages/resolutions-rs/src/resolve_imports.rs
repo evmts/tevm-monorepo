@@ -154,7 +154,7 @@ mod tests {
         let ctx = create_test_context(vec![], vec![]);
         
         // Use the file path for resolution
-        let result = resolve_imports(&main_file_path, code, &ctx).await;
+        let result = resolve_imports(&main_file_path, code, &ctx);
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
@@ -218,7 +218,7 @@ contract Main {
         // Create context with empty remappings and libs
         let ctx = create_test_context(vec![], vec![]);
         
-        let result = resolve_imports(&main_file_path, code, &ctx).await;
+        let result = resolve_imports(&main_file_path, code, &ctx);
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -287,7 +287,7 @@ contract Main {
         // Create context with remappings
         let ctx = create_test_context(remappings, vec![]);
         
-        let result = resolve_imports(&main_file_path, code, &ctx).await;
+        let result = resolve_imports(&main_file_path, code, &ctx);
 
         if result.is_ok() {
             let resolved_imports = result.unwrap();
@@ -327,7 +327,7 @@ contract Main {
 
         println!("Resolving imports in: {}", file_path.display());
 
-        let result = resolve_imports(&file_path, code, &ctx).await;
+        let result = resolve_imports(&file_path, code, &ctx);
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
@@ -362,7 +362,7 @@ contract Main {
         // Create context with empty remappings and libs
         let ctx = create_test_context(vec![], vec![]);
 
-        let result = resolve_imports(&file_path, code, &ctx).await;
+        let result = resolve_imports(&file_path, code, &ctx);
         assert!(result.is_err());
     }
 
@@ -406,7 +406,7 @@ contract Main {
         // Create context with empty remappings and libs
         let ctx = create_test_context(vec![], vec![]);
         
-        let result = resolve_imports(&main_file_path, code, &ctx).await;
+        let result = resolve_imports(&main_file_path, code, &ctx);
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -464,7 +464,7 @@ contract Main {
         // Create context with empty remappings and libs
         let ctx = create_test_context(vec![], vec![]);
         
-        let result = resolve_imports(&main_file_path, code, &ctx).await;
+        let result = resolve_imports(&main_file_path, code, &ctx);
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -544,7 +544,7 @@ contract TestContract {
         let ctx = create_test_context(vec![], vec![]);
         
         // Use the file path for resolution
-        let result = resolve_imports(&main_file_path, code, &ctx).await;
+        let result = resolve_imports(&main_file_path, code, &ctx);
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);

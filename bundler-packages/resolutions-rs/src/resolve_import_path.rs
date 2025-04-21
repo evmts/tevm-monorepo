@@ -121,11 +121,13 @@ mod tests {
 
         let absolute_path = root_dir.join("src").display().to_string();
 
+        // Create a ModuleContext for testing
+        let ctx = crate::context::ModuleContext::new(4, vec![], vec![]);
+        
         let result = resolve_import_path(
-            Path::new(&absolute_path),
+            PathBuf::from(&absolute_path),
             "./utils/helper.rs",
-            &HashMap::<String, String>::new(),
-            &Vec::<PathBuf>::new(),
+            &ctx,
         );
 
         assert!(result.is_ok());
@@ -157,19 +159,26 @@ mod tests {
             .display()
             .to_string();
 
+        // Create a ModuleContext for testing
+        let ctx = crate::context::ModuleContext::new(4, vec![], vec![]);
+        
         let result = resolve_import_path(
-            Path::new(&src_path),
+            PathBuf::from(&src_path),
             "../test-module.rs",
-            &HashMap::<String, String>::new(),
-            &Vec::<PathBuf>::new(),
+            &ctx,
         );
 
         if result.is_ok() {
+            let ctx_with_libs = crate::context::ModuleContext::new(
+                4, 
+                vec![], 
+                vec![PathBuf::from(&lib_path)]
+            );
+            
             let lib_result = resolve_import_path(
-                Path::new(&src_path),
+                PathBuf::from(&src_path),
                 "../lib/external/module.rs",
-                &HashMap::<String, String>::new(),
-                &[PathBuf::from(&lib_path)],
+                &ctx_with_libs,
             );
 
             assert!(
@@ -239,11 +248,18 @@ mod tests {
 
         println!("Manual remapping result: {}", manually_remapped);
 
+        // Create context with remappings
+        let remappings_vec: Vec<(String, String)> = remappings.iter().map(|(k, v)| (k.clone(), v.clone())).collect();
+        let ctx = crate::context::ModuleContext::new(
+            4, 
+            remappings_vec,
+            vec![]
+        );
+        
         let result = resolve_import_path(
-            Path::new(&absolute_path),
+            PathBuf::from(&absolute_path),
             "remapped/file.sol",
-            &remappings,
-            &Vec::<PathBuf>::new(),
+            &ctx,
         );
 
         if result.is_err() && file_exists {
@@ -280,11 +296,13 @@ mod tests {
 
         let absolute_path = root_dir.join("src").display().to_string();
 
+        // Create a context with default values
+        let ctx = crate::context::ModuleContext::new(4, vec![], vec![]);
+        
         let result = resolve_import_path(
-            Path::new(&absolute_path),
+            PathBuf::from(&absolute_path),
             "non/existent/file.rs",
-            &HashMap::<String, String>::new(),
-            &Vec::<PathBuf>::new(),
+            &ctx,
         );
 
         assert!(result.is_err());
@@ -306,19 +324,24 @@ mod tests {
         let src_path = root_dir.join("src").display().to_string();
         let lib_path = root_dir.join("lib").display().to_string();
 
+        // Create context with libs
+        let ctx_with_libs = crate::context::ModuleContext::new(
+            4, 
+            vec![], 
+            vec![PathBuf::from(&lib_path)]
+        );
+        
         let result = resolve_import_path(
-            Path::new(&src_path),
+            PathBuf::from(&src_path),
             "./utils/common.rs",
-            &HashMap::<String, String>::new(),
-            &[PathBuf::from(&lib_path)],
+            &ctx_with_libs,
         );
 
         if result.is_err() {
             let fallback_result = resolve_import_path(
-                Path::new(&src_path),
+                PathBuf::from(&src_path),
                 "utils/common.rs",
-                &HashMap::<String, String>::new(),
-                &[PathBuf::from(&lib_path)],
+                &ctx_with_libs,
             );
 
             assert!(
@@ -369,11 +392,13 @@ mod tests {
 
         let src_path = root_dir.join("src").display().to_string();
 
+        // Create a ModuleContext for testing
+        let ctx = crate::context::ModuleContext::new(4, vec![], vec![]);
+        
         let package_result = resolve_import_path(
-            Path::new(&src_path),
+            PathBuf::from(&src_path),
             "test-package",
-            &HashMap::<String, String>::new(),
-            &Vec::<PathBuf>::new(),
+            &ctx,
         );
 
         if package_result.is_err() {
@@ -409,10 +434,9 @@ mod tests {
             .to_string();
 
         let relative_result = resolve_import_path(
-            Path::new(&package_path),
+            PathBuf::from(&package_path),
             "./utils/helper.mjs",
-            &HashMap::<String, String>::new(),
-            &Vec::<PathBuf>::new(),
+            &ctx,
         );
 
         if relative_result.is_err() {
@@ -441,10 +465,9 @@ mod tests {
         );
 
         let subpath_result = resolve_import_path(
-            Path::new(&src_path),
+            PathBuf::from(&src_path),
             "test-package/src/types",
-            &HashMap::<String, String>::new(),
-            &Vec::<PathBuf>::new(),
+            &ctx,
         );
 
         if subpath_result.is_ok() {

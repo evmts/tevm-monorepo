@@ -134,7 +134,6 @@ pub async fn module_factory(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::context::ModuleContext;
     use std::fs::{create_dir_all, File};
     use std::io::Write;
     use std::path::PathBuf;
@@ -292,18 +291,15 @@ mod tests {
         );
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol")).unwrap();
         let raw_code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './utils/Helper.sol';\n\ncontract Main {}\n";
 
         // Run with simple code first to test the environment
         let simple_result = module_factory(
-            &absolute_path,
+            absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            &HashMap::new(),
-            &[],
+            vec![],
+            vec![],
         )
         .await;
 
@@ -314,7 +310,7 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
+        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -329,7 +325,8 @@ mod tests {
             );
 
             // Check that main module is processed
-            assert!(module_map.contains_key(&absolute_path));
+            let abs_path_str = absolute_path.to_string_lossy().to_string();
+            assert!(module_map.contains_key(&abs_path_str));
 
             // If nested modules were processed (environment-dependent), check them
             let helper_path = root_dir.join("src/utils/helper.js").display().to_string();
@@ -388,18 +385,15 @@ mod tests {
         println!("B file exists: {}", root_dir.join("src/B.sol").exists());
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol")).unwrap();
         let raw_code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './A.sol';\n\ncontract Main {}\n";
 
         // Run with simple code first to test the environment
         let simple_result = module_factory(
-            &absolute_path,
+            absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            &HashMap::new(),
-            &[],
+            vec![],
+            vec![],
         )
         .await;
 
@@ -410,7 +404,7 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
+        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -425,7 +419,8 @@ mod tests {
             );
 
             // Check that main module is processed
-            assert!(module_map.contains_key(&absolute_path));
+            let abs_path_str = absolute_path.to_string_lossy().to_string();
+            assert!(module_map.contains_key(&abs_path_str));
 
             // If cyclic modules were processed (environment-dependent), check them
             let a_path = root_dir.join("src/a.js").display().to_string();
@@ -484,14 +479,11 @@ mod tests {
         );
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
         let raw_code = "import './Path With Spaces/Contract.sol';\n// Main contract";
 
         // Run the test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
+        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -506,7 +498,8 @@ mod tests {
             );
 
             // Check that main module is processed
-            assert!(module_map.contains_key(&absolute_path));
+            let abs_path_str = absolute_path.to_string_lossy().to_string();
+            assert!(module_map.contains_key(&abs_path_str));
 
             // Check if module with spaces in path was processed
             let space_path =
@@ -570,14 +563,11 @@ mod tests {
         );
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
         let raw_code = "import './level1/ContractLevel1.sol';\n// Main contract";
 
         // Run the test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
+        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -592,7 +582,8 @@ mod tests {
             );
 
             // Check that main module is processed
-            assert!(module_map.contains_key(&absolute_path));
+            let abs_path_str = absolute_path.to_string_lossy().to_string();
+            assert!(module_map.contains_key(&abs_path_str));
 
             // Get paths for each level
             let level1_path = std::fs::canonicalize(root_dir.join("src/level1/ContractLevel1.sol"))
@@ -671,10 +662,7 @@ mod tests {
         );
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
         let raw_code =
             "import 'remapped/module.sol';\nimport 'mylib/BaseContract.sol';\n// Main contract";
 
@@ -690,7 +678,7 @@ mod tests {
         );
 
         // Run the test
-        let result = module_factory(&absolute_path, raw_code, &remappings, &[]).await;
+        let result = module_factory(absolute_path.clone(), raw_code, remappings.into_iter().map(|(k, v)| (k.clone(), v.clone())).collect(), vec![]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -712,10 +700,8 @@ mod tests {
                     .to_string()
             );
 
-            let empty_map = HashMap::new();
-            let empty_vec: Vec<String> = vec![];
             let fallback_result =
-                module_factory(&absolute_path, &fallback_code, &empty_map, &empty_vec);
+                module_factory(absolute_path.clone(), &fallback_code, vec![], vec![]);
             match fallback_result.await {
                 Ok(_) => {
                     println!("Fallback test with direct paths succeeded");
@@ -734,7 +720,8 @@ mod tests {
             );
 
             // Check that main module is processed
-            assert!(module_map.contains_key(&absolute_path));
+            let abs_path_str = absolute_path.to_string_lossy().to_string();
+            assert!(module_map.contains_key(&abs_path_str));
 
             // Get paths for remapped modules
             let external_path = std::fs::canonicalize(root_dir.join("lib/external/module.sol"))
@@ -805,10 +792,7 @@ mod tests {
         );
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
         let raw_code =
             "import 'external-lib/module.sol';\nimport 'package/Contract.sol';\n// Main contract";
 
@@ -819,7 +803,7 @@ mod tests {
         ];
 
         // Run the test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &libs).await;
+        let result = module_factory(absolute_path.clone(), raw_code, vec![], libs.iter().map(|s| PathBuf::from(s)).collect()).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -834,7 +818,8 @@ mod tests {
             );
 
             // Check that main module is processed
-            assert!(module_map.contains_key(&absolute_path));
+            let abs_path_str = absolute_path.to_string_lossy().to_string();
+            assert!(module_map.contains_key(&abs_path_str));
 
             // Get paths for external modules
             let external_path = std::fs::canonicalize(root_dir.join("lib/external/module.sol"))
@@ -874,10 +859,10 @@ mod tests {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
-        let absolute_path = root_dir.join("src/main.js").display().to_string();
+        let absolute_path = root_dir.join("src/main.js");
         let raw_code = "import './non-existent.js';\nconsole.log('Main file');";
 
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
+        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
         assert!(
             result.is_err(),
             "Module factory should fail with nonexistent imports"
@@ -888,10 +873,10 @@ mod tests {
 
             // Check that main module is still processed despite errors
             if let Ok(fallback_result) = module_factory(
-                &absolute_path,
+                absolute_path.clone(),
                 "console.log('No imports');", // Code with no imports
-                &HashMap::new(),
-                &[],
+                vec![],
+                vec![],
             )
             .await
             {
@@ -909,10 +894,10 @@ mod tests {
         let temp_dir = tempdir().unwrap();
         let root_dir = temp_dir.path().to_path_buf();
 
-        let absolute_path = root_dir.join("src/main.js").display().to_string();
+        let absolute_path = root_dir.join("src/main.js");
         let raw_code = "";
 
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
+        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
         assert!(
             result.is_ok(),
             "Module factory failed with empty code: {:?}",
@@ -921,9 +906,10 @@ mod tests {
 
         let module_map = result.unwrap();
         assert_eq!(module_map.len(), 1, "Should have processed 1 module");
-        assert!(module_map.contains_key(&absolute_path));
-        assert_eq!(*module_map[&absolute_path].code, "");
-        assert_eq!(module_map[&absolute_path].imported_ids.len(), 0);
+        let abs_path_str = absolute_path.to_string_lossy().to_string();
+        assert!(module_map.contains_key(&abs_path_str));
+        assert_eq!(module_map[&abs_path_str].code, "");
+        assert_eq!(module_map[&abs_path_str].imported_ids.len(), 0);
     }
 
     #[tokio::test]
@@ -1087,7 +1073,7 @@ mod tests {
 
         // Run the module factory with the fixture files
         println!("Running module factory...");
-        let result = module_factory(entry_path_str, &raw_code, &remappings, &libs).await;
+        let result = module_factory(PathBuf::from(entry_path_str), &raw_code, remappings.into_iter().map(|(k, v)| (k.clone(), v.clone())).collect(), libs.iter().map(|s| PathBuf::from(s)).collect()).await;
 
         // Assert on the result
         match result {
