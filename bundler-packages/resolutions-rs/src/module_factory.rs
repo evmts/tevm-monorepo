@@ -1,7 +1,8 @@
-use crate::context::ModuleContext;
 use crate::models::ModuleInfo;
 use crate::process_module::process_module;
 use crate::resolve_imports::ResolveImportsError;
+use crate::state::State;
+use crate::Config;
 use futures::{stream::FuturesUnordered, StreamExt};
 use std::collections::HashMap;
 use std::path::PathBuf;
@@ -50,85 +51,85 @@ fn get_max_concurrent_reads() -> usize {
 pub async fn module_factory(
     entrypoint_path: PathBuf,
     raw_code: &str,
-    remappings: Vec<(String, String)>,
-    libs: Vec<PathBuf>,
+    cfg: Config,
 ) -> Result<HashMap<String, ModuleInfo>, Vec<ResolveImportsError>> {
-    let ctx = ModuleContext::new(get_max_concurrent_reads(), remappings, libs);
-    let permit = ctx.sem.clone().acquire_owned().await.unwrap();
-    let mut seen = ctx.seen.lock().await;
-    seen.insert(entrypoint_path.to_string_lossy().to_string());
-    drop(seen);
-    let entrypoint_imports = process_module(
+    let state = State::new(get_max_concurrent_reads());
+
+    let entrypoint_id = process_module(
         entrypoint_path.to_path_buf(),
         Some(raw_code.to_string()),
-        ctx.clone(),
-        permit,
+        &cfg,
+        state.clone(),
+        state.sem.clone().acquire_owned().await.unwrap(),
     )
-    .await
-    .unwrap();
+    .await?;
 
-    if entrypoint_imports.is_empty() {
-        let graph = ctx.graph.lock().await.clone();
+    let entrypoint = state.graph.lock().await.get(&entrypoint_id).expect(
+        "UnexpectedError: The entrypoint never got inserted. This indicates a bug in the program.",
+    );
+
+    if entrypoint.imported_ids.is_empty() {
+        let graph = state.graph.lock().await.clone();
         return Ok(graph);
     }
 
     let mut in_flight = FuturesUnordered::new();
 
-    for entrypoint_import in entrypoint_imports {
-        let mut seen = ctx.seen.lock().await;
-        if !seen.insert(entrypoint_import.to_string_lossy().to_string()) {
-            continue;
-        }
-        drop(seen);
-        let permit = ctx.sem.clone().acquire_owned().await.unwrap();
-        let ctx2 = ctx.clone();
+    for entrypoint_import in entrypoint.imported_ids {
+        let permit = state.sem.clone().acquire_owned().await.unwrap();
+        let state2 = state.clone();
+        let cfg2 = cfg.clone();
         in_flight.push(task::spawn(async move {
-            process_module(entrypoint_import, None, ctx2, permit).await
+            process_module(entrypoint_import, None, &cfg2, state2, permit).await
         }));
     }
 
     while let Some(joined) = in_flight.next().await {
         match joined {
             Ok(Ok(imports)) => {
-                for imp in imports {
-                    let mut seen = ctx.seen.lock().await;
+                let next_module = state.graph.lock().await.get(&entrypoint_id).expect(
+        "UnexpectedError: The entrypoint never got inserted. This indicates a bug in the program.",
+    );
+
+                for imp in next_module.imported_ids {
+                    let mut seen = state.seen.lock().await;
                     if !seen.insert(imp.to_string_lossy().to_string()) {
                         continue;
                     }
                     drop(seen);
-                    let ctx2 = ctx.clone();
-                    let permit = ctx2.sem.clone().acquire_owned().await.unwrap();
+                    let state2 = state.clone();
+                    let cfg2 = cfg.clone();
+                    let permit = state2.sem.clone().acquire_owned().await.unwrap();
                     in_flight.push(task::spawn(async move {
-                        process_module(imp, None, ctx2, permit).await
+                        process_module(imp, None, &cfg2, state2, permit).await
                     }))
                 }
             }
             Ok(Err(err)) => {
-                // Convert ModuleResolutionError to ResolveImportsError
-                return Err(vec![ResolveImportsError::PathResolutionError { 
+                return Err(vec![ResolveImportsError::PathResolutionError {
                     context_path: PathBuf::from("Unknown path"),
-                    cause: crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath { 
-                        import_path: format!("Process module error: {:?}", err),
-                        causes: vec![]
-                    }
+                    cause:
+                        crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath {
+                            import_path: format!("Process module error: {:?}", err),
+                            causes: vec![],
+                        },
                 }]);
             }
             Err(err) => {
-                // Handle tokio task JoinError
-                return Err(vec![ResolveImportsError::PathResolutionError { 
+                return Err(vec![ResolveImportsError::PathResolutionError {
                     context_path: PathBuf::from("Unknown path"),
-                    cause: crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath { 
-                        import_path: format!("Task join error: {:?}", err),
-                        causes: vec![]
-                    }
+                    cause:
+                        crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath {
+                            import_path: format!("Task join error: {:?}", err),
+                            causes: vec![],
+                        },
                 }]);
             }
         }
     }
 
-    // Return the module graph that has been built
-    let graph = ctx.graph.lock().await.clone();
-    Ok(graph)
+    let out = state.graph.lock().await.clone();
+    Ok(out)
 }
 
 #[cfg(test)]
@@ -211,12 +212,7 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(
-            absolute_path.clone(),
-            raw_code,
-            vec![],
-            vec![],
-        ).await;
+        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -678,7 +674,16 @@ mod tests {
         );
 
         // Run the test
-        let result = module_factory(absolute_path.clone(), raw_code, remappings.into_iter().map(|(k, v)| (k.clone(), v.clone())).collect(), vec![]).await;
+        let result = module_factory(
+            absolute_path.clone(),
+            raw_code,
+            remappings
+                .into_iter()
+                .map(|(k, v)| (k.clone(), v.clone()))
+                .collect(),
+            vec![],
+        )
+        .await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -803,7 +808,13 @@ mod tests {
         ];
 
         // Run the test
-        let result = module_factory(absolute_path.clone(), raw_code, vec![], libs.iter().map(|s| PathBuf::from(s)).collect()).await;
+        let result = module_factory(
+            absolute_path.clone(),
+            raw_code,
+            vec![],
+            libs.iter().map(|s| PathBuf::from(s)).collect(),
+        )
+        .await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -1073,7 +1084,16 @@ mod tests {
 
         // Run the module factory with the fixture files
         println!("Running module factory...");
-        let result = module_factory(PathBuf::from(entry_path_str), &raw_code, remappings.into_iter().map(|(k, v)| (k.clone(), v.clone())).collect(), libs.iter().map(|s| PathBuf::from(s)).collect()).await;
+        let result = module_factory(
+            PathBuf::from(entry_path_str),
+            &raw_code,
+            remappings
+                .into_iter()
+                .map(|(k, v)| (k.clone(), v.clone()))
+                .collect(),
+            libs.iter().map(|s| PathBuf::from(s)).collect(),
+        )
+        .await;
 
         // Assert on the result
         match result {

@@ -1,6 +1,6 @@
 extern crate napi_derive;
 
-pub mod context;
+pub mod config;
 pub mod models;
 pub mod module_factory;
 pub mod module_resolution_error;
@@ -8,8 +8,9 @@ pub mod process_module;
 pub mod read_file;
 pub mod resolve_import_path;
 pub mod resolve_imports;
+pub mod state;
 
-// Re-export the main functions and types for easier access
+pub use config::Config;
 pub use models::{ModuleInfo, ResolvedImport};
 pub use module_factory::module_factory;
 pub use module_resolution_error::ModuleResolutionError;
@@ -23,7 +24,6 @@ use num_cpus;
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
 use std::path::PathBuf;
-use crate::context::ModuleContext;
 
 // Global tokio runtime optimized for file system operations
 pub static TOKIO: Lazy<tokio::runtime::Runtime> = Lazy::new(|| {
@@ -62,44 +62,20 @@ pub struct JsModule {
 pub async fn resolve_imports_js(
     file_path: String,
     code: String,
-    remappings: Option<HashMap<String, String>>,
+    remappings: Option<Vec<(String, String)>>,
     libs: Option<Vec<String>>,
 ) -> Result<Vec<JsResolvedImport>> {
-    // Convert remappings from HashMap to Vec of tuples
-    let remappings_vec: Vec<(String, String)> = remappings
-        .unwrap_or_default()
-        .into_iter()
-        .collect();
-    
-    // Convert libs strings to PathBufs
-    let libs_pathbuf: Vec<PathBuf> = libs
-        .unwrap_or_default()
-        .into_iter()
-        .map(PathBuf::from)
-        .collect();
-    
-    // Create context for resolve_imports
-    let context = ModuleContext::new(
-        num_cpus::get(), // Use CPU count for concurrent read limit
-        remappings_vec,
-        libs_pathbuf,
-    );
-    
-    // Direct call to the sync resolve_imports function
-    let paths = resolve_imports::resolve_imports(
-        &PathBuf::from(&file_path),
-        &code,
-        &context,
-    )
-    .map_err(|err| {
-        Error::new(
-            Status::GenericFailure,
-            format!("Failed to resolve imports: {:?}", err),
-        )
-    })?;
+    let config = Config::from((libs, remappings));
 
-    // Convert paths to JsResolvedImport objects
-    let imports = paths
+    let paths = resolve_imports::resolve_imports(&PathBuf::from(&file_path), &code, &config)
+        .map_err(|err| {
+            Error::new(
+                Status::GenericFailure,
+                format!("Failed to resolve imports: {:?}", err),
+            )
+        })?;
+
+    Ok(paths
         .into_iter()
         .map(|path| {
             let path_str = path.to_string_lossy().to_string();
@@ -109,37 +85,20 @@ pub async fn resolve_imports_js(
                 updated: path_str,
             }
         })
-        .collect();
-
-    Ok(imports)
+        .collect())
 }
 
 #[napi]
 pub async fn module_factory_js(
     file_path: String,
     code: String,
-    remappings: Option<HashMap<String, String>>,
+    remappings: Option<Vec<(String, String)>>,
     libs: Option<Vec<String>>,
 ) -> Result<HashMap<String, JsModule>> {
-    // Convert remappings from HashMap to Vec of tuples
-    let remappings_vec: Vec<(String, String)> = remappings
-        .unwrap_or_default()
-        .into_iter()
-        .collect();
-    
-    // Convert libs strings to PathBufs
-    let libs_pathbuf: Vec<PathBuf> = libs
-        .unwrap_or_default()
-        .into_iter()
-        .map(PathBuf::from)
-        .collect();
-    
-    // Direct async call without block_on - no AsyncTask overhead
     let module_map = module_factory::module_factory(
         PathBuf::from(&file_path),
         &code,
-        remappings_vec,
-        libs_pathbuf,
+        Config::from((libs, remappings)),
     )
     .await
     .map_err(|err| {
@@ -149,7 +108,6 @@ pub async fn module_factory_js(
         )
     })?;
 
-    // Convert module_map to JS-friendly format
     let mut result_map = HashMap::new();
 
     for (path, module_info) in module_map {
@@ -173,4 +131,3 @@ pub async fn module_factory_js(
 
     Ok(result_map)
 }
-
