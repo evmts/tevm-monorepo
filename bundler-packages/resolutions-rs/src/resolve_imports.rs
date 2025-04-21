@@ -6,9 +6,7 @@ use solar::{
     interface::{diagnostics::ErrorGuaranteed, source_map::FileName, Session},
     parse::Parser,
 };
-use std::collections::HashMap;
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
 
 static SOLAR_SESSION: Lazy<Session> = Lazy::new(|| {
     Session::builder()
@@ -51,7 +49,7 @@ pub fn resolve_imports(
 
     let arena = solar::ast::Arena::new();
 
-    SOLAR_SESSION
+    let _ = SOLAR_SESSION
         .enter(|| -> Result<_, ErrorGuaranteed> {
             let mut parser = Parser::from_source_code(
                 &SOLAR_SESSION,
@@ -93,6 +91,7 @@ pub fn resolve_imports(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::context::ModuleContext;
     use std::fs::{create_dir_all, File};
     use std::io::Write;
     use tempfile::tempdir;
@@ -110,6 +109,10 @@ mod tests {
 
     fn normalize_path(path: &str) -> String {
         path.replace("/private/var/", "/var/")
+    }
+    
+    fn create_test_context(remappings: Vec<(String, String)>, libs: Vec<PathBuf>) -> ModuleContext {
+        ModuleContext::new(4, remappings, libs)
     }
 
     #[tokio::test]
@@ -135,21 +138,10 @@ mod tests {
         )
         .unwrap();
 
-        let _file_path = std::fs::canonicalize(root_dir.join("src")).unwrap();
-        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
-        let main_file_dir = std::path::Path::new(&main_file_path)
-            .parent()
-            .unwrap()
-            .display()
-            .to_string();
-
+        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
         let code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './utils/helper.sol';\n\ncontract Main {}\n";
 
-        println!("Resolving imports in: {}", main_file_path);
-        println!("Main file directory: {}", main_file_dir);
+        println!("Resolving imports in: {}", main_file_path.display());
         println!(
             "Helper file path: {}",
             std::fs::canonicalize(root_dir.join("src/utils/helper.sol"))
@@ -158,8 +150,11 @@ mod tests {
                 .to_string()
         );
 
-        // Use the parent directory of the file for resolution
-        let result = resolve_imports(&main_file_dir, code, &HashMap::new(), &[]).await;
+        // Create context with empty remappings and libs
+        let ctx = create_test_context(vec![], vec![]);
+        
+        // Use the file path for resolution
+        let result = resolve_imports(&main_file_path, code, &ctx).await;
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
@@ -204,15 +199,7 @@ mod tests {
         )
         .unwrap();
 
-        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
-        let main_file_dir = std::path::Path::new(&main_file_path)
-            .parent()
-            .unwrap()
-            .display()
-            .to_string();
+        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
 
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -227,7 +214,11 @@ contract Main {
 "#;
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
-        let result = resolve_imports(&main_file_dir, code, &HashMap::new(), &[]).await;
+        
+        // Create context with empty remappings and libs
+        let ctx = create_test_context(vec![], vec![]);
+        
+        let result = resolve_imports(&main_file_path, code, &ctx).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -274,21 +265,12 @@ contract Main {
         )
         .unwrap();
 
-        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
-        let main_file_dir = std::path::Path::new(&main_file_path)
-            .parent()
-            .unwrap()
-            .display()
-            .to_string();
+        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
 
-        let mut remappings = HashMap::new();
-        remappings.insert(
+        let remappings = vec![(
             "external/".to_string(),
             root_dir.join("lib/external/").display().to_string(),
-        );
+        )];
 
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -301,7 +283,11 @@ contract Main {
 "#;
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
-        let result = resolve_imports(&main_file_dir, code, &remappings, &[]).await;
+        
+        // Create context with remappings
+        let ctx = create_test_context(remappings, vec![]);
+        
+        let result = resolve_imports(&main_file_path, code, &ctx).await;
 
         if result.is_ok() {
             let resolved_imports = result.unwrap();
@@ -336,12 +322,12 @@ contract Main {
         let code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract NoImports {\n    // No imports here\n    function hello() public pure returns (string memory) {\n        return 'Hello, world!';\n    }\n}";
         std::fs::write(&file_path, code).unwrap();
 
-        // Use the actual file path
-        let file_absolute_path = file_path.display().to_string();
+        // Create context with empty remappings and libs
+        let ctx = create_test_context(vec![], vec![]);
 
-        println!("Resolving imports in: {}", file_absolute_path);
+        println!("Resolving imports in: {}", file_path.display());
 
-        let result = resolve_imports(&file_absolute_path, code, &HashMap::new(), &[]).await;
+        let result = resolve_imports(&file_path, code, &ctx).await;
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
@@ -372,10 +358,11 @@ contract Main {
 }
 "#;
         std::fs::write(&file_path, code).unwrap();
+        
+        // Create context with empty remappings and libs
+        let ctx = create_test_context(vec![], vec![]);
 
-        let file_absolute_path = file_path.display().to_string();
-
-        let result = resolve_imports(&file_absolute_path, code, &HashMap::new(), &[]).await;
+        let result = resolve_imports(&file_path, code, &ctx).await;
         assert!(result.is_err());
     }
 
@@ -399,15 +386,7 @@ contract Main {
         )
         .unwrap();
 
-        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
-        let main_file_dir = std::path::Path::new(&main_file_path)
-            .parent()
-            .unwrap()
-            .display()
-            .to_string();
+        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
 
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -423,7 +402,11 @@ contract Main {
 "#;
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
-        let result = resolve_imports(&main_file_dir, code, &HashMap::new(), &[]).await;
+        
+        // Create context with empty remappings and libs
+        let ctx = create_test_context(vec![], vec![]);
+        
+        let result = resolve_imports(&main_file_path, code, &ctx).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -448,15 +431,7 @@ contract Main {
         )
         .unwrap();
 
-        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
-        let main_file_dir = std::path::Path::new(&main_file_path)
-            .parent()
-            .unwrap()
-            .display()
-            .to_string();
+        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
 
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -485,7 +460,11 @@ contract Main {
 "#;
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
-        let result = resolve_imports(&main_file_dir, code, &HashMap::new(), &[]).await;
+        
+        // Create context with empty remappings and libs
+        let ctx = create_test_context(vec![], vec![]);
+        
+        let result = resolve_imports(&main_file_path, code, &ctx).await;
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -523,16 +502,8 @@ contract Main {
         )
         .unwrap();
 
-        // Get the main file path and its parent directory
-        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
-        let main_file_dir = std::path::Path::new(&main_file_path)
-            .parent()
-            .unwrap()
-            .display()
-            .to_string();
+        // Get the main file path
+        let main_file_path = std::fs::canonicalize(root_dir.join("src/main.sol")).unwrap();
 
         let code = r#"// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -560,8 +531,7 @@ contract TestContract {
     }
 }"#;
 
-        println!("Resolving imports in: {}", main_file_path);
-        println!("Main file directory: {}", main_file_dir);
+        println!("Resolving imports in: {}", main_file_path.display());
         println!(
             "RealImport file path: {}",
             std::fs::canonicalize(root_dir.join("src/lib/RealImport.sol"))
@@ -570,8 +540,11 @@ contract TestContract {
                 .to_string()
         );
 
-        // Use the parent directory of the file for resolution
-        let result = resolve_imports(&main_file_dir, code, &HashMap::new(), &[]).await;
+        // Create context with empty remappings and libs
+        let ctx = create_test_context(vec![], vec![]);
+        
+        // Use the file path for resolution
+        let result = resolve_imports(&main_file_path, code, &ctx).await;
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);

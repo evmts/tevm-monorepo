@@ -22,6 +22,8 @@ use napi_derive::napi;
 use num_cpus;
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
+use std::path::PathBuf;
+use crate::context::ModuleContext;
 
 // Global tokio runtime optimized for file system operations
 pub static TOKIO: Lazy<tokio::runtime::Runtime> = Lazy::new(|| {
@@ -63,14 +65,32 @@ pub async fn resolve_imports_js(
     remappings: Option<HashMap<String, String>>,
     libs: Option<Vec<String>>,
 ) -> Result<Vec<JsResolvedImport>> {
-    // Direct async call without block_on - no AsyncTask overhead
+    // Convert remappings from HashMap to Vec of tuples
+    let remappings_vec: Vec<(String, String)> = remappings
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+    
+    // Convert libs strings to PathBufs
+    let libs_pathbuf: Vec<PathBuf> = libs
+        .unwrap_or_default()
+        .into_iter()
+        .map(PathBuf::from)
+        .collect();
+    
+    // Create context for resolve_imports
+    let context = ModuleContext::new(
+        num_cpus::get(), // Use CPU count for concurrent read limit
+        remappings_vec,
+        libs_pathbuf,
+    );
+    
+    // Direct call to the sync resolve_imports function
     let paths = resolve_imports::resolve_imports(
-        &file_path,
+        &PathBuf::from(&file_path),
         &code,
-        &remappings.unwrap_or_default(),
-        &libs.unwrap_or_default(),
+        &context,
     )
-    .await
     .map_err(|err| {
         Error::new(
             Status::GenericFailure,
@@ -101,12 +121,25 @@ pub async fn module_factory_js(
     remappings: Option<HashMap<String, String>>,
     libs: Option<Vec<String>>,
 ) -> Result<HashMap<String, JsModule>> {
+    // Convert remappings from HashMap to Vec of tuples
+    let remappings_vec: Vec<(String, String)> = remappings
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+    
+    // Convert libs strings to PathBufs
+    let libs_pathbuf: Vec<PathBuf> = libs
+        .unwrap_or_default()
+        .into_iter()
+        .map(PathBuf::from)
+        .collect();
+    
     // Direct async call without block_on - no AsyncTask overhead
     let module_map = module_factory::module_factory(
-        &file_path,
+        PathBuf::from(&file_path),
         &code,
-        &remappings.unwrap_or_default(),
-        &libs.unwrap_or_default(),
+        remappings_vec,
+        libs_pathbuf,
     )
     .await
     .map_err(|err| {
@@ -120,22 +153,19 @@ pub async fn module_factory_js(
     let mut result_map = HashMap::new();
 
     for (path, module_info) in module_map {
-        // Convert Arc<PathBuf> values to String values
+        // Convert PathBuf values to String values
         let imported_paths: Vec<String> = module_info
             .imported_ids
             .iter()
             .map(|path| path.to_string_lossy().to_string())
             .collect();
 
-        // Get a reference to the code without cloning
-        let code = (*module_info.code).clone();
-
         result_map.insert(
             path.clone(),
             JsModule {
                 id: path,
-                code: code.clone(),
-                raw_code: code, // Reuse the same string instead of cloning again
+                code: module_info.code.clone(),
+                raw_code: module_info.code, // Reuse the same string instead of cloning again
                 imported_ids: imported_paths,
             },
         );
