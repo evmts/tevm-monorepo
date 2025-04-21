@@ -1,122 +1,235 @@
-import { bench, describe } from "vitest";
-import path, { join } from "path";
+import { bench, describe, afterAll } from "vitest";
+import path from "path";
 import fs from "fs";
 import { promises as fsPromises } from "fs";
 import { runPromise, runSync } from "effect/Effect";
 import { moduleFactory, type FileAccessObject } from "@tevm/resolutions";
 import { moduleFactoryJs } from "@tevm/resolutions-rs";
+import os from "os";
+import crypto from "crypto";
 
-// Paths to our test fixtures
-const FIXTURE_DIR = path.join(__dirname);
-const CONTRACTS_DIR = path.join(FIXTURE_DIR, "contracts");
-const INTERFACES_DIR = path.join(FIXTURE_DIR, "interfaces");
-const LIBRARIES_DIR = path.join(FIXTURE_DIR, "libraries");
+/**
+ * Benchmark that generates a deep module graph with 1000+ Solidity files
+ * and benchmarks different module resolution implementations.
+ * 
+ * This benchmark:
+ * 1. Creates a temporary directory with a generated deep module graph
+ * 2. Each module has a realistic number of imports
+ * 3. Tests JavaScript sync, JavaScript async, and Rust implementations
+ * 4. Cleans up the temporary files after the benchmark
+ */
 
-// Create a proper file access object that can resolve imports correctly
-const fao: FileAccessObject = {
-  // This is the key function for resolving imports
-  readFile: fsPromises.readFile,
-  readFileSync: fs.readFileSync,
-  existsSync: fs.existsSync,
-  async exists(filePath) {
-    try {
-      await fsPromises.access(filePath);
-      return true;
-    } catch (error) {
-      return false;
+// Constants for the benchmark
+const NUM_MODULES = 100; // Target number of modules to generate
+const IMPORTS_PER_MODULE_MIN = 1;
+const IMPORTS_PER_MODULE_MAX = 3;
+const MODULE_DEPTH_MAX = 10; // Maximum directory depth
+const MAX_MODULES_PER_DIR = 50;
+
+/**
+ * Generate a realistic Solidity contract template
+ */
+function generateSolidityContract(contractName: string, imports: string[]) {
+  const importStatements = imports.map(imp => `import "${imp}";`).join("\n");
+  
+  return `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+${importStatements}
+
+/**
+ * @title ${contractName}
+ * @dev This is an auto-generated contract for benchmarking
+ */
+contract ${contractName} {
+    // State variables
+    uint256 private _value;
+    address private _owner;
+    mapping(address => uint256) private _balances;
+    
+    // Events
+    event ValueChanged(uint256 newValue);
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    
+    // Constructor
+    constructor() {
+        _owner = msg.sender;
+        _value = 100;
     }
-  },
-};
+    
+    // Modifiers
+    modifier onlyOwner() {
+        require(msg.sender == _owner, "Not owner");
+        _;
+    }
+    
+    // External functions
+    function setValue(uint256 newValue) external onlyOwner {
+        _value = newValue;
+        emit ValueChanged(newValue);
+    }
+    
+    function getValue() external view returns (uint256) {
+        return _value;
+    }
+    
+    function transfer(address to, uint256 amount) external returns (bool) {
+        require(_balances[msg.sender] >= amount, "Insufficient balance");
+        
+        _balances[msg.sender] -= amount;
+        _balances[to] += amount;
+        
+        emit Transfer(msg.sender, to, amount);
+        return true;
+    }
+    
+    // Internal functions
+    function _mint(address account, uint256 amount) internal {
+        require(account != address(0), "Mint to zero address");
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+    }
+}`;
+}
 
-// Define remappings to help resolve imports
-const remappings = {
-  // Map import paths to actual file locations
-  "../interfaces/": INTERFACES_DIR + "/",
-  "../libraries/": LIBRARIES_DIR + "/",
-  "./": CONTRACTS_DIR + "/",
-};
-
-describe.skip("Solidity Module Graph Resolution Benchmarks", async () => {
-  const solFiles = [
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/fixture.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/libraries/Strings.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/libraries/SafeMath.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/libraries/Address.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/interfaces/IERC721.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/interfaces/IERC20.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/TokenStorage.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/TokenEvents.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/Token.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/NFTStorage.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/NFT.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/MarketplaceStorage.sol",
-    "/Users/williamcory/tevm/main/test/bench/src/resolutions/contracts/Marketplace.sol",
-  ];
-
-  for (const file of solFiles) {
-    const fileName = path.basename(file);
-
-    describe(`Module Resolution for ${fileName}`, () => {
-      bench("JavaScript sync Implementation", async () => {
-        runSync(
-          moduleFactory(
-            file,
-            fao.readFileSync(file, "utf8"),
-            remappings,
-            ["libraries"],
-            fao,
-            true,
-          ),
-        );
-      });
-      bench("JavaScript Implementation", async () => {
-        await runPromise(
-          moduleFactory(
-            file,
-            fao.readFileSync(file, "utf8"),
-            remappings,
-            ["libraries"],
-            fao,
-            false,
-          ),
-        );
-      });
-
-      bench("Rust Implementation", async () => {
-        await wrappedModuleFactoryJs(
-          file,
-          fao.readFileSync(file, "utf8"),
-          remappings,
-          ["libraries"],
-        );
-      });
+/**
+ * Create a temporary directory structure with specified module count and depth
+ */
+async function createModuleGraph() {
+  // Create a unique temporary directory
+  const tempDir = path.join(
+    os.tmpdir(),
+    `tevm-benchmark-${crypto.randomBytes(8).toString("hex")}`
+  );
+  
+  console.log(`Creating module graph in: ${tempDir}`);
+  await fsPromises.mkdir(tempDir, { recursive: true });
+  
+  // Setup directory structure
+  const directories: string[] = [];
+  const moduleFiles: {
+    path: string;
+    relativePath: string;
+    name: string;
+    imports: string[];
+  }[] = [];
+  
+  // Create directories for different depths
+  for (let depth = 0; depth <= MODULE_DEPTH_MAX; depth++) {
+    for (let dirIdx = 0; dirIdx < Math.min(5, depth + 1); dirIdx++) {
+      const dirPath = path.join(tempDir, `depth${depth}_dir${dirIdx}`);
+      directories.push(dirPath);
+      await fsPromises.mkdir(dirPath, { recursive: true });
+    }
+  }
+  
+  // Create modules with proper directory distribution
+  for (let moduleIdx = 0; moduleIdx < NUM_MODULES; moduleIdx++) {
+    const dirIndex = Math.floor(Math.random() * directories.length);
+    const dirPath = directories[dirIndex];
+    
+    // Ensure we don't put too many modules in one directory
+    const filesInDir = moduleFiles.filter(
+      (f) => path.dirname(f.path) === dirPath
+    ).length;
+    
+    if (filesInDir >= MAX_MODULES_PER_DIR) {
+      // Skip this directory and try with different one next time
+      moduleIdx--;
+      continue;
+    }
+    
+    const contractName = `Contract_${moduleIdx}`;
+    const fileName = `${contractName}.sol`;
+    const filePath = path.join(dirPath, fileName);
+    const relativeFilePath = path.relative(tempDir, filePath);
+    
+    moduleFiles.push({
+      path: filePath,
+      relativePath: relativeFilePath.replace(/\\/g, "/"), // Normalize for cross-platform
+      name: contractName,
+      imports: [], // We'll populate this later
     });
   }
-});
-
-describe("Super Deep Import Graph Resolution Benchmark", async () => {
-  const entryContractPath = join(
-    __dirname,
-    "contracts",
-    "level0",
-    "Contract_D0_I0.sol",
+  
+  // Set up the imports (needs to be done after creating all files to prevent circular issues)
+  for (let moduleIdx = 0; moduleIdx < moduleFiles.length; moduleIdx++) {
+    const module = moduleFiles[moduleIdx];
+    
+    // Determine number of imports for this module
+    const numImports = Math.floor(
+      Math.random() * 
+      (IMPORTS_PER_MODULE_MAX - IMPORTS_PER_MODULE_MIN + 1) + 
+      IMPORTS_PER_MODULE_MIN
+    );
+    
+    // Avoid importing itself
+    const availableModules = moduleFiles.filter(
+      (m) => m.path !== module.path
+    );
+    
+    // Randomly select modules to import
+    for (let importIdx = 0; importIdx < numImports; importIdx++) {
+      if (availableModules.length === 0) break;
+      
+      const randomIndex = Math.floor(Math.random() * availableModules.length);
+      const importModule = availableModules[randomIndex];
+      
+      // Calculate relative import path
+      let relativePath = path.relative(
+        path.dirname(module.path),
+        path.dirname(importModule.path)
+      );
+      
+      // Handle same directory case (turn empty string into current dir)
+      if (relativePath === "") {
+        relativePath = ".";
+      }
+      
+      const importPath = `${relativePath}/${path.basename(importModule.path)}`.replace(/\\/g, "/");
+      module.imports.push(importPath);
+      
+      // Remove from available modules to prevent duplicate imports
+      availableModules.splice(randomIndex, 1);
+    }
+  }
+  
+  // Actually write the files
+  console.log(`Writing ${moduleFiles.length} Solidity contract files...`);
+  
+  for (const module of moduleFiles) {
+    const code = generateSolidityContract(module.name, module.imports);
+    await fsPromises.writeFile(module.path, code);
+  }
+  
+  // Create an entry point file that imports a subset of modules
+  const entryPointFile = path.join(tempDir, "EntryPoint.sol");
+  const rootImports = moduleFiles
+    .slice(0, Math.min(5, moduleFiles.length))
+    .map((m) => `./${m.relativePath}`);
+  
+  await fsPromises.writeFile(
+    entryPointFile,
+    generateSolidityContract("EntryPoint", rootImports)
   );
+  
+  return {
+    tempDir,
+    entryPointFile,
+    moduleCount: moduleFiles.length,
+  };
+}
 
-  // Create a custom FileAccessObject that helps us debug file access
-  const deepGraphFao: FileAccessObject = {
+/**
+ * Create a file access object for the benchmark
+ */
+function createFileAccessObject(): FileAccessObject {
+  return {
     readFile: async (filePath) => {
       try {
         return await fsPromises.readFile(filePath, "utf8");
       } catch (error) {
-        // If the path contains Contract_D4_I1.sol which doesn't exist,
-        // point it to Contract_D4_I0.sol which does exist
-        if (filePath.includes("Contract_D4_I1.sol")) {
-          const correctedPath = filePath.replace(
-            "Contract_D4_I1.sol",
-            "Contract_D4_I0.sol",
-          );
-          return await fsPromises.readFile(correctedPath, "utf8");
-        }
+        console.error(`Error reading file: ${filePath}`, error);
         throw error;
       }
     },
@@ -124,97 +237,95 @@ describe("Super Deep Import Graph Resolution Benchmark", async () => {
       try {
         return fs.readFileSync(filePath, encoding as BufferEncoding);
       } catch (error) {
-        // If the path contains Contract_D4_I1.sol which doesn't exist,
-        // point it to Contract_D4_I0.sol which does exist
-        if (filePath.includes("Contract_D4_I1.sol")) {
-          const correctedPath = filePath.replace(
-            "Contract_D4_I1.sol",
-            "Contract_D4_I0.sol",
-          );
-          return fs.readFileSync(correctedPath, encoding as BufferEncoding);
-        }
+        console.error(`Error reading file sync: ${filePath}`, error);
         throw error;
       }
     },
     existsSync: (filePath) => {
-      // If the path contains Contract_D4_I1.sol which doesn't exist,
-      // return true anyway and we'll redirect in readFile
-      if (filePath.includes("Contract_D4_I1.sol")) {
-        return true;
-      }
       return fs.existsSync(filePath);
     },
-    async exists(filePath: string) {
+    async exists(filePath) {
       try {
-        // If the path contains Contract_D4_I1.sol which doesn't exist,
-        // return true anyway and we'll redirect in readFile
-        if (filePath.includes("Contract_D4_I1.sol")) {
-          return true;
-        }
         await fsPromises.access(filePath);
         return true;
-      } catch (error) {
+      } catch {
         return false;
       }
     },
   };
+}
 
-  // Initialize remappings for the deep graph
-  const deepGraphRemappings = {
-    "@lib1/": path.join(__dirname, "lib1") + "/",
-    "@lib2/": path.join(__dirname, "lib2") + "/",
-    "@lib3/": path.join(__dirname, "lib3") + "/",
-    "@lib4/": path.join(__dirname, "lib4") + "/",
-    "./": path.join(__dirname, "contracts") + "/",
-  };
 
-  const libs = [
-    process.cwd(),
-    join(__dirname, "lib1"),
-    join(__dirname, "lib2"),
-    join(__dirname, "lib3"),
-    join(__dirname, "lib4"),
-  ] as const;
-
-  bench.skip(
-    "JavaScript sync Implementation - Super Deep Import Graph",
-    async () => {
-      runSync(
-        moduleFactory(
-          entryContractPath,
-          fs.readFileSync(entryContractPath, "utf8"),
-          deepGraphRemappings,
-          libs,
-          deepGraphFao,
-          true,
-        ),
-      );
-    },
-  );
-
-  bench("JavaScript Implementation - Super Deep Import Graph", async () => {
-    await runPromise(
+describe("Solidity Module Graph Resolution Benchmarks", async () => {
+  // Generate the module graph before running the benchmark
+  const { tempDir, entryPointFile, moduleCount } = await createModuleGraph();
+  console.log(`Created module graph with ${moduleCount} modules`);
+  console.log(`Entry point: ${entryPointFile}`);
+  
+  // Create the file access object
+  const fao = createFileAccessObject();
+  
+  // Read the entry point file content
+  const entryPointContent = await fsPromises.readFile(entryPointFile, "utf8");
+  
+  // We don't need remappings for this benchmark as all imports are relative
+  const remappings = {};
+  const libs: string[] = [];
+  
+  // Set up cleanup after all tests
+  afterAll(async () => {
+    try {
+      await fsPromises.rm(tempDir, { recursive: true, force: true });
+      console.log(`Cleaned up temporary directory: ${tempDir}`);
+    } catch (error) {
+      console.error(`Error cleaning up temporary directory: ${tempDir}`, error);
+    }
+  });
+  
+  // Run the benchmarks
+  bench("JavaScript sync Implementation", async () => {
+    runSync(
       moduleFactory(
-        entryContractPath,
-        deepGraphFao.readFileSync(entryContractPath, "utf8"),
-        deepGraphRemappings,
+        entryPointFile,
+        entryPointContent,
+        remappings,
         libs,
-        deepGraphFao,
-        false,
+        fao,
+        true, // true = sync mode
       ),
     );
   });
-
-  bench("Rust Implementation - Super Deep Import Graph", async () => {
-    // Convert remappings and libs to array format
-    const remappingsArray = Object.entries(deepGraphRemappings);
-    const libsArray = Array.isArray(libs) ? libs.map(p => String(p)) : [];
-    
-    await moduleFactoryJs(
-      entryContractPath,
-      deepGraphFao.readFileSync(entryContractPath, "utf8"),
-      remappingsArray,
-      libsArray,
+  
+  bench("JavaScript async Implementation", async () => {
+    await runPromise(
+      moduleFactory(
+        entryPointFile,
+        entryPointContent,
+        remappings,
+        libs,
+        fao,
+        false, // false = async mode
+      ),
     );
+  });
+  
+  bench("Rust Implementation", async () => {
+    // Save original console.warn
+    const originalWarn = console.warn;
+    
+    // Silence warnings during the benchmark
+    console.warn = () => {}; 
+    
+    try {
+      await moduleFactoryJs(
+        entryPointFile,
+        entryPointContent,
+        Object.entries(remappings),
+        libs.map(lib => String(lib))
+      );
+    } finally {
+      // Restore original console.warn
+      console.warn = originalWarn;
+    }
   });
 });
