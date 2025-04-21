@@ -28,10 +28,9 @@ impl ModuleContext {
         max_concurrent_reads: usize,
         remappings: impl IntoIterator<Item = (String, String)>,
         libs: impl IntoIterator<Item = PathBuf>,
-        seen: Option<HashSet<String>>,
     ) -> Self {
         ModuleContext {
-            seen: Arc::new(Mutex::new(seen.unwrap_or_else(|| HashSet::new()))),
+            seen: Arc::new(Mutex::new(HashSet::new())),
             graph: Arc::new(Mutex::new(HashMap::new())),
             sem: Arc::new(Semaphore::new(max_concurrent_reads)),
             remappings: Arc::new(remappings.into_iter().collect()),
