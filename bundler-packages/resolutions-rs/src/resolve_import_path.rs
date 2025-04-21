@@ -1,8 +1,9 @@
 use node_resolve::{resolve_from, ResolutionError as NodeResolutionError};
 use std::io;
+use std::iter::once;
 use std::path::{Component, Path, PathBuf};
 
-use crate::context::ModuleContext;
+use crate::Config;
 
 #[derive(Debug)]
 pub enum ResolveImportPathError {
@@ -31,7 +32,7 @@ pub enum ResolveImportPathError {
 pub fn resolve_import_path(
     context_path: PathBuf,
     import_path: &str,
-    ctx: &ModuleContext,
+    cfg: &Config,
 ) -> Result<PathBuf, ResolveImportPathError> {
     // Try resolving relative path
     let imp_path = Path::new(import_path);
@@ -61,22 +62,15 @@ pub fn resolve_import_path(
     }
 
     // Try resolving remappings
-    for (k, v) in ctx.remappings.iter() {
+    for (k, v) in cfg.remappings.iter() {
         if let Some(rest) = import_path.strip_prefix(k) {
             return Ok(PathBuf::from(v).join(rest));
         }
     }
 
-    let mut causes = Vec::with_capacity(ctx.libs.len());
+    let mut causes = Vec::with_capacity(cfg.libs.len() + 1);
 
-    // Try resolving from context of file
-    match resolve_from(import_path, context_path) {
-        Ok(res) => return Ok(res),
-        Err(err) => causes.push(err),
-    };
-
-    // Try resolving lib
-    for lib in ctx.libs.to_vec() {
+    for lib in once(context_path).chain(cfg.libs.to_vec()) {
         match resolve_from(import_path, lib) {
             Ok(res) => return Ok(res),
             Err(err) => causes.push(err),
@@ -123,12 +117,8 @@ mod tests {
 
         // Create a ModuleContext for testing
         let ctx = crate::context::ModuleContext::new(4, vec![], vec![]);
-        
-        let result = resolve_import_path(
-            PathBuf::from(&absolute_path),
-            "./utils/helper.rs",
-            &ctx,
-        );
+
+        let result = resolve_import_path(PathBuf::from(&absolute_path), "./utils/helper.rs", &ctx);
 
         assert!(result.is_ok());
         let resolved_path = normalize_path(&result.unwrap().display().to_string());
@@ -161,20 +151,13 @@ mod tests {
 
         // Create a ModuleContext for testing
         let ctx = crate::context::ModuleContext::new(4, vec![], vec![]);
-        
-        let result = resolve_import_path(
-            PathBuf::from(&src_path),
-            "../test-module.rs",
-            &ctx,
-        );
+
+        let result = resolve_import_path(PathBuf::from(&src_path), "../test-module.rs", &ctx);
 
         if result.is_ok() {
-            let ctx_with_libs = crate::context::ModuleContext::new(
-                4, 
-                vec![], 
-                vec![PathBuf::from(&lib_path)]
-            );
-            
+            let ctx_with_libs =
+                crate::context::ModuleContext::new(4, vec![], vec![PathBuf::from(&lib_path)]);
+
             let lib_result = resolve_import_path(
                 PathBuf::from(&src_path),
                 "../lib/external/module.rs",
@@ -249,18 +232,13 @@ mod tests {
         println!("Manual remapping result: {}", manually_remapped);
 
         // Create context with remappings
-        let remappings_vec: Vec<(String, String)> = remappings.iter().map(|(k, v)| (k.clone(), v.clone())).collect();
-        let ctx = crate::context::ModuleContext::new(
-            4, 
-            remappings_vec,
-            vec![]
-        );
-        
-        let result = resolve_import_path(
-            PathBuf::from(&absolute_path),
-            "remapped/file.sol",
-            &ctx,
-        );
+        let remappings_vec: Vec<(String, String)> = remappings
+            .iter()
+            .map(|(k, v)| (k.clone(), v.clone()))
+            .collect();
+        let ctx = crate::context::ModuleContext::new(4, remappings_vec, vec![]);
+
+        let result = resolve_import_path(PathBuf::from(&absolute_path), "remapped/file.sol", &ctx);
 
         if result.is_err() && file_exists {
             println!("Remapping resolution failed but file exists - marking test as passed");
@@ -298,12 +276,9 @@ mod tests {
 
         // Create a context with default values
         let ctx = crate::context::ModuleContext::new(4, vec![], vec![]);
-        
-        let result = resolve_import_path(
-            PathBuf::from(&absolute_path),
-            "non/existent/file.rs",
-            &ctx,
-        );
+
+        let result =
+            resolve_import_path(PathBuf::from(&absolute_path), "non/existent/file.rs", &ctx);
 
         assert!(result.is_err());
         match result.err().unwrap() {
@@ -325,12 +300,9 @@ mod tests {
         let lib_path = root_dir.join("lib").display().to_string();
 
         // Create context with libs
-        let ctx_with_libs = crate::context::ModuleContext::new(
-            4, 
-            vec![], 
-            vec![PathBuf::from(&lib_path)]
-        );
-        
+        let ctx_with_libs =
+            crate::context::ModuleContext::new(4, vec![], vec![PathBuf::from(&lib_path)]);
+
         let result = resolve_import_path(
             PathBuf::from(&src_path),
             "./utils/common.rs",
@@ -338,11 +310,8 @@ mod tests {
         );
 
         if result.is_err() {
-            let fallback_result = resolve_import_path(
-                PathBuf::from(&src_path),
-                "utils/common.rs",
-                &ctx_with_libs,
-            );
+            let fallback_result =
+                resolve_import_path(PathBuf::from(&src_path), "utils/common.rs", &ctx_with_libs);
 
             assert!(
                 fallback_result.is_ok(),
@@ -394,12 +363,8 @@ mod tests {
 
         // Create a ModuleContext for testing
         let ctx = crate::context::ModuleContext::new(4, vec![], vec![]);
-        
-        let package_result = resolve_import_path(
-            PathBuf::from(&src_path),
-            "test-package",
-            &ctx,
-        );
+
+        let package_result = resolve_import_path(PathBuf::from(&src_path), "test-package", &ctx);
 
         if package_result.is_err() {
             let error = package_result.as_ref().err().unwrap();
@@ -433,11 +398,8 @@ mod tests {
             .display()
             .to_string();
 
-        let relative_result = resolve_import_path(
-            PathBuf::from(&package_path),
-            "./utils/helper.mjs",
-            &ctx,
-        );
+        let relative_result =
+            resolve_import_path(PathBuf::from(&package_path), "./utils/helper.mjs", &ctx);
 
         if relative_result.is_err() {
             let error = relative_result.as_ref().err().unwrap();
@@ -464,11 +426,8 @@ mod tests {
             "Relative import resolution path mismatch"
         );
 
-        let subpath_result = resolve_import_path(
-            PathBuf::from(&src_path),
-            "test-package/src/types",
-            &ctx,
-        );
+        let subpath_result =
+            resolve_import_path(PathBuf::from(&src_path), "test-package/src/types", &ctx);
 
         if subpath_result.is_ok() {
             let resolved_subpath = normalize_path(&subpath_result.unwrap().display().to_string());

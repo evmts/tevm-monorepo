@@ -1,6 +1,7 @@
 use crate::context::ModuleContext;
 use crate::resolve_import_path::resolve_import_path;
 use crate::resolve_import_path::ResolveImportPathError;
+use crate::Config;
 use once_cell::sync::Lazy;
 use solar::{
     interface::{diagnostics::ErrorGuaranteed, source_map::FileName, Session},
@@ -42,7 +43,7 @@ pub enum ResolveImportsError {
 pub fn resolve_imports(
     context_path: &Path,
     code: &str,
-    ctx: &ModuleContext,
+    cfg: &Config,
 ) -> Result<Vec<PathBuf>, Vec<ResolveImportsError>> {
     let mut imports = vec![];
     let mut errors = vec![];
@@ -63,7 +64,7 @@ pub fn resolve_imports(
                     match resolve_import_path(
                         context_path.to_path_buf(),
                         import_dir.path.value.as_str(),
-                        ctx,
+                        cfg,
                     ) {
                         Ok(p) => imports.push(p),
                         Err(cause) => errors.push(ResolveImportsError::PathResolutionError {
@@ -110,7 +111,7 @@ mod tests {
     fn normalize_path(path: &str) -> String {
         path.replace("/private/var/", "/var/")
     }
-    
+
     fn create_test_context(remappings: Vec<(String, String)>, libs: Vec<PathBuf>) -> ModuleContext {
         ModuleContext::new(4, remappings, libs)
     }
@@ -151,10 +152,10 @@ mod tests {
         );
 
         // Create context with empty remappings and libs
-        let ctx = create_test_context(vec![], vec![]);
-        
+        let cfg = create_test_context(vec![], vec![]);
+
         // Use the file path for resolution
-        let result = resolve_imports(&main_file_path, code, &ctx);
+        let result = resolve_imports(&main_file_path, code, &cfg);
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
@@ -214,11 +215,11 @@ contract Main {
 "#;
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
-        
+
         // Create context with empty remappings and libs
-        let ctx = create_test_context(vec![], vec![]);
-        
-        let result = resolve_imports(&main_file_path, code, &ctx);
+        let cfg = create_test_context(vec![], vec![]);
+
+        let result = resolve_imports(&main_file_path, code, &cfg);
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -283,11 +284,11 @@ contract Main {
 "#;
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
-        
+
         // Create context with remappings
-        let ctx = create_test_context(remappings, vec![]);
-        
-        let result = resolve_imports(&main_file_path, code, &ctx);
+        let cfg = create_test_context(remappings, vec![]);
+
+        let result = resolve_imports(&main_file_path, code, &cfg);
 
         if result.is_ok() {
             let resolved_imports = result.unwrap();
@@ -323,11 +324,11 @@ contract Main {
         std::fs::write(&file_path, code).unwrap();
 
         // Create context with empty remappings and libs
-        let ctx = create_test_context(vec![], vec![]);
+        let cfg = create_test_context(vec![], vec![]);
 
         println!("Resolving imports in: {}", file_path.display());
 
-        let result = resolve_imports(&file_path, code, &ctx);
+        let result = resolve_imports(&file_path, code, &cfg);
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
@@ -358,11 +359,11 @@ contract Main {
 }
 "#;
         std::fs::write(&file_path, code).unwrap();
-        
-        // Create context with empty remappings and libs
-        let ctx = create_test_context(vec![], vec![]);
 
-        let result = resolve_imports(&file_path, code, &ctx);
+        // Create context with empty remappings and libs
+        let cfg = create_test_context(vec![], vec![]);
+
+        let result = resolve_imports(&file_path, code, &cfg);
         assert!(result.is_err());
     }
 
@@ -402,11 +403,11 @@ contract Main {
 "#;
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
-        
+
         // Create context with empty remappings and libs
-        let ctx = create_test_context(vec![], vec![]);
-        
-        let result = resolve_imports(&main_file_path, code, &ctx);
+        let cfg = create_test_context(vec![], vec![]);
+
+        let result = resolve_imports(&main_file_path, code, &cfg);
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -460,11 +461,11 @@ contract Main {
 "#;
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
-        
+
         // Create context with empty remappings and libs
-        let ctx = create_test_context(vec![], vec![]);
-        
-        let result = resolve_imports(&main_file_path, code, &ctx);
+        let cfg = create_test_context(vec![], vec![]);
+
+        let result = resolve_imports(&main_file_path, code, &cfg);
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -541,10 +542,10 @@ contract TestContract {
         );
 
         // Create context with empty remappings and libs
-        let ctx = create_test_context(vec![], vec![]);
-        
+        let cfg = create_test_context(vec![], vec![]);
+
         // Use the file path for resolution
-        let result = resolve_imports(&main_file_path, code, &ctx);
+        let result = resolve_imports(&main_file_path, code, &cfg);
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);

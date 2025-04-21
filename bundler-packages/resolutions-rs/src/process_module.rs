@@ -1,7 +1,8 @@
 use std::path::PathBuf;
 
-use crate::context::ModuleContext;
-use crate::{resolve_imports, ModuleInfo, ModuleResolutionError};
+use crate::resolve_imports::ResolveImportsError;
+use crate::state::State;
+use crate::{resolve_imports, Config, ModuleInfo};
 use tokio::fs;
 use tokio::sync::OwnedSemaphorePermit;
 
@@ -10,27 +11,28 @@ use tokio::sync::OwnedSemaphorePermit;
 pub async fn process_module(
     path: PathBuf,
     code_opt: Option<String>,
-    ctx: ModuleContext,
+    cfg: &Config,
+    state: State,
     _permit: OwnedSemaphorePermit,
-) -> Result<Vec<PathBuf>, ModuleResolutionError> {
+) -> Result<String, Vec<ResolveImportsError>> {
+    let id = path.to_string_lossy().to_string();
+    let mut seen = state.seen.lock().await;
+    if !seen.insert(id.clone()) {
+        return Ok(id);
+    };
+    drop(seen);
     let code = if let Some(c) = code_opt {
         c
     } else {
         fs::read_to_string(&path).await.unwrap()
     };
 
-    let imports = resolve_imports(&path, &code, &ctx).unwrap();
-
-    {
-        let mut graph = ctx.graph.lock().await;
-        graph.insert(
-            path.to_string_lossy().into_owned(),
-            ModuleInfo {
-                code,
-                imported_ids: imports.clone(),
-            },
-        );
-    }
-
-    Ok(imports)
+    state.graph.lock().await.insert(
+        path.to_string_lossy().into_owned(),
+        ModuleInfo {
+            imported_ids: resolve_imports(&path, &code, cfg)?,
+            code,
+        },
+    );
+    Ok(id)
 }
