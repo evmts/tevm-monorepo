@@ -9,7 +9,7 @@ use tokio::sync::OwnedSemaphorePermit;
 /// Read a module (or use provided code), resolve its imports, insert into `ctx.graph`,
 /// and return the list of child imports.
 pub async fn process_module(
-    path: PathBuf,
+    path: &PathBuf,
     code_opt: Option<String>,
     cfg: &Config,
     state: State,

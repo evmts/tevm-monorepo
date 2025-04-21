@@ -56,7 +56,7 @@ pub async fn module_factory(
     let state = State::new(get_max_concurrent_reads());
 
     let entrypoint_id = process_module(
-        entrypoint_path.to_path_buf(),
+        &entrypoint_path.to_path_buf(),
         Some(raw_code.to_string()),
         &cfg,
         state.clone(),
@@ -64,36 +64,35 @@ pub async fn module_factory(
     )
     .await?;
 
-    let entrypoint = state.graph.lock().await.get(&entrypoint_id).expect(
+    if state.graph.lock().await.get(&entrypoint_id).expect(
         "UnexpectedError: The entrypoint never got inserted. This indicates a bug in the program.",
-    );
-
-    if entrypoint.imported_ids.is_empty() {
+    ).imported_ids.is_empty() {
         let graph = state.graph.lock().await.clone();
         return Ok(graph);
     }
 
     let mut in_flight = FuturesUnordered::new();
 
-    for entrypoint_import in entrypoint.imported_ids {
-        let permit = state.sem.clone().acquire_owned().await.unwrap();
+    for entrypoint_import in state.graph.lock().await.get(&entrypoint_id).expect(
+        "UnexpectedError: The entrypoint never got inserted. This indicates a bug in the program.",
+    ).imported_ids.iter() {
         let state2 = state.clone();
+        let permit = state2.sem.clone().acquire_owned().await.unwrap();
         let cfg2 = cfg.clone();
+        let entrypoint_import2 = entrypoint_import.to_path_buf();
         in_flight.push(task::spawn(async move {
-            process_module(entrypoint_import, None, &cfg2, state2, permit).await
+            process_module(&entrypoint_import2, None, &cfg2, state2.clone(), permit).await
         }));
     }
 
     while let Some(joined) = in_flight.next().await {
         match joined {
-            Ok(Ok(imports)) => {
-                let next_module = state.graph.lock().await.get(&entrypoint_id).expect(
-        "UnexpectedError: The entrypoint never got inserted. This indicates a bug in the program.",
-    );
-
-                for imp in next_module.imported_ids {
+            Ok(Ok(next_module_id)) => {
+                for imp in state.clone().graph.lock().await.get(&next_module_id).expect(
+        "UnexpectedError: The module {} never got inserted. This indicates a bug in the program.").imported_ids.iter() {
+                    let imp2 = imp.to_path_buf();
                     let mut seen = state.seen.lock().await;
-                    if !seen.insert(imp.to_string_lossy().to_string()) {
+                    if !seen.insert(imp2.to_string_lossy().to_string()) {
                         continue;
                     }
                     drop(seen);
@@ -101,7 +100,7 @@ pub async fn module_factory(
                     let cfg2 = cfg.clone();
                     let permit = state2.sem.clone().acquire_owned().await.unwrap();
                     in_flight.push(task::spawn(async move {
-                        process_module(imp, None, &cfg2, state2, permit).await
+                        process_module(&imp2, None, &cfg2, state2, permit).await
                     }))
                 }
             }
