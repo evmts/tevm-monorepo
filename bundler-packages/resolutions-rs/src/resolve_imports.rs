@@ -1,4 +1,3 @@
-use crate::context::ModuleContext;
 use crate::resolve_import_path::resolve_import_path;
 use crate::resolve_import_path::ResolveImportPathError;
 use crate::Config;
@@ -92,9 +91,9 @@ pub fn resolve_imports(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::context::ModuleContext;
     use std::fs::{create_dir_all, File};
     use std::io::Write;
+    use std::collections::HashMap;
     use tempfile::tempdir;
 
     fn setup_test_files(dir: &PathBuf, files: &[(&str, &str)]) -> Result<(), std::io::Error> {
@@ -112,8 +111,9 @@ mod tests {
         path.replace("/private/var/", "/var/")
     }
 
-    fn create_test_context(remappings: Vec<(String, String)>, libs: Vec<PathBuf>) -> ModuleContext {
-        ModuleContext::new(4, remappings, libs)
+    fn create_test_config(remappings: Vec<(String, String)>, libs: Vec<PathBuf>) -> Config {
+        Config::from((Some(libs.into_iter().map(|p| p.to_string_lossy().to_string()).collect()), 
+                      Some(remappings)))
     }
 
     #[tokio::test]
@@ -151,8 +151,8 @@ mod tests {
                 .to_string()
         );
 
-        // Create context with empty remappings and libs
-        let cfg = create_test_context(vec![], vec![]);
+        // Create config with empty remappings and libs
+        let cfg = create_test_config(vec![], vec![]);
 
         // Use the file path for resolution
         let result = resolve_imports(&main_file_path, code, &cfg);
@@ -216,8 +216,8 @@ contract Main {
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
 
-        // Create context with empty remappings and libs
-        let cfg = create_test_context(vec![], vec![]);
+        // Create config with empty remappings and libs
+        let cfg = create_test_config(vec![], vec![]);
 
         let result = resolve_imports(&main_file_path, code, &cfg);
         assert!(result.is_ok());
@@ -285,8 +285,8 @@ contract Main {
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
 
-        // Create context with remappings
-        let cfg = create_test_context(remappings, vec![]);
+        // Create config with remappings
+        let cfg = create_test_config(remappings, vec![]);
 
         let result = resolve_imports(&main_file_path, code, &cfg);
 
@@ -323,8 +323,8 @@ contract Main {
         let code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract NoImports {\n    // No imports here\n    function hello() public pure returns (string memory) {\n        return 'Hello, world!';\n    }\n}";
         std::fs::write(&file_path, code).unwrap();
 
-        // Create context with empty remappings and libs
-        let cfg = create_test_context(vec![], vec![]);
+        // Create config with empty remappings and libs
+        let cfg = create_test_config(vec![], vec![]);
 
         println!("Resolving imports in: {}", file_path.display());
 
@@ -360,8 +360,8 @@ contract Main {
 "#;
         std::fs::write(&file_path, code).unwrap();
 
-        // Create context with empty remappings and libs
-        let cfg = create_test_context(vec![], vec![]);
+        // Create config with empty remappings and libs
+        let cfg = create_test_config(vec![], vec![]);
 
         let result = resolve_imports(&file_path, code, &cfg);
         assert!(result.is_err());
@@ -404,8 +404,8 @@ contract Main {
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
 
-        // Create context with empty remappings and libs
-        let cfg = create_test_context(vec![], vec![]);
+        // Create config with empty remappings and libs
+        let cfg = create_test_config(vec![], vec![]);
 
         let result = resolve_imports(&main_file_path, code, &cfg);
         assert!(result.is_ok());
@@ -462,8 +462,8 @@ contract Main {
 
         std::fs::write(root_dir.join("src/main.sol"), code).unwrap();
 
-        // Create context with empty remappings and libs
-        let cfg = create_test_context(vec![], vec![]);
+        // Create config with empty remappings and libs
+        let cfg = create_test_config(vec![], vec![]);
 
         let result = resolve_imports(&main_file_path, code, &cfg);
         assert!(result.is_ok());
@@ -541,8 +541,8 @@ contract TestContract {
                 .to_string()
         );
 
-        // Create context with empty remappings and libs
-        let cfg = create_test_context(vec![], vec![]);
+        // Create config with empty remappings and libs
+        let cfg = create_test_config(vec![], vec![]);
 
         // Use the file path for resolution
         let result = resolve_imports(&main_file_path, code, &cfg);
