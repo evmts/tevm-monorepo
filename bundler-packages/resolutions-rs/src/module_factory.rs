@@ -55,21 +55,17 @@ pub async fn module_factory(
 ) -> Result<HashMap<String, ModuleInfo>, Vec<ResolveImportsError>> {
     let ctx = ModuleContext::new(get_max_concurrent_reads(), remappings, libs);
     let permit = ctx.sem.clone().acquire_owned().await.unwrap();
-    process_module(
+    let mut seen = ctx.seen.lock().await;
+    seen.insert(entrypoint_path.to_string_lossy().to_string());
+    drop(seen);
+    let entrypoint_imports = process_module(
         entrypoint_path.to_path_buf(),
         Some(raw_code.to_string()),
         ctx.clone(),
         permit,
-    );
-
-    let entrypoint_imports = ctx
-        .graph
-        .lock()
-        .await
-        .get(&entrypoint_path.to_string_lossy().to_string())
-        .unwrap()
-        .imported_ids
-        .clone();
+    )
+    .await
+    .unwrap();
 
     if entrypoint_imports.is_empty() {
         return Ok(ctx.graph.lock().await.clone());
@@ -78,6 +74,11 @@ pub async fn module_factory(
     let mut in_flight = FuturesUnordered::new();
 
     for entrypoint_import in entrypoint_imports {
+        let mut seen = ctx.seen.lock().await;
+        if !seen.insert(entrypoint_import.to_string_lossy().to_string()) {
+            continue;
+        }
+        drop(seen);
         let permit = ctx.sem.clone().acquire_owned().await.unwrap();
         let ctx2 = ctx.clone();
         in_flight.push(task::spawn(async move {
@@ -85,11 +86,15 @@ pub async fn module_factory(
         }));
     }
 
-    // let mut failures = vec![];
     while let Some(joined) = in_flight.next().await {
         match joined {
             Ok(Ok(imports)) => {
                 for imp in imports {
+                    let mut seen = ctx.seen.lock().await;
+                    if !seen.insert(imp.to_string_lossy().to_string()) {
+                        continue;
+                    }
+                    drop(seen);
                     let ctx2 = ctx.clone();
                     let permit = ctx2.sem.clone().acquire_owned().await.unwrap();
                     in_flight.push(task::spawn(async move {
