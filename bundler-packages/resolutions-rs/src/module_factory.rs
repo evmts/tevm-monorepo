@@ -1,10 +1,41 @@
+use crate::context::ModuleContext;
 use crate::models::ModuleInfo;
 use crate::module_resolution_error::ModuleResolutionError;
 use crate::process_module::process_module;
+use crate::resolve_imports;
 use dashmap::{DashMap, DashSet};
 use futures::{stream::FuturesUnordered, StreamExt};
 use std::collections::HashMap;
+use std::iter::{once, Once};
+use std::path::PathBuf;
+use std::str::FromStr;
 use std::sync::Arc;
+use tokio::task;
+
+fn get_max_concurrent_reads() -> usize {
+    // 1) Base it on CPU count
+    let cores = num_cpus::get();
+
+    // 2) On Unix, also factor in the file descriptor limit
+    #[cfg(unix)]
+    {
+        // Safety: calling libc getrlimit is safe if arguments are valid
+        unsafe {
+            let mut lim = libc::rlimit {
+                rlim_cur: 0,
+                rlim_max: 0,
+            };
+            if libc::getrlimit(libc::RLIMIT_NOFILE, &mut lim) == 0 {
+                let fd_limit = lim.rlim_cur as usize;
+                // compute 2×cores, cap at fd_limit/4, ensure at least 2
+                return std::cmp::min(cores * 2, fd_limit / 4).max(2);
+            }
+        }
+    }
+
+    // 3) Fallback for Unix if getrlimit failed, or non-Unix platforms
+    (cores * 2).max(2)
+}
 
 /// Creates a module map by processing a source file and all its imports recursively with maximum concurrency
 ///
@@ -22,110 +53,19 @@ use std::sync::Arc;
 /// * `Ok(HashMap<String, ModuleInfo>)` - Map of absolute file paths to module information
 /// * `Err(Vec<ModuleResolutionError>)` - Collection of errors encountered during processing
 pub async fn module_factory(
-    absolute_path: &str,
+    entrypoint_path: PathBuf,
     raw_code: &str,
-    remappings: &HashMap<String, String>,
-    libs: &[String],
+    remappings: Vec<(String, String)>,
+    libs: Vec<PathBuf>,
 ) -> Result<HashMap<String, ModuleInfo>, Vec<ModuleResolutionError>> {
-    let module_map: Arc<DashMap<String, ModuleInfo>> = Arc::new(DashMap::new());
-    let errors: Arc<DashMap<usize, ModuleResolutionError>> = Arc::new(DashMap::new());
-    let seen: Arc<DashSet<String>> = Arc::new(DashSet::new());
+    let ctx = ModuleContext::new(
+        get_max_concurrent_reads(),
+        remappings,
+        libs,
+        Some(once(entrypoint_path.to_string_lossy().to_string()).collect()),
+    );
 
-    let mut queue = FuturesUnordered::new();
-
-    // Wrap remappings and libs in Arc to avoid cloning the entire structure
-    let remappings_arc = Arc::new(remappings.clone());
-    let libs_arc = Arc::new(libs.to_vec());
-
-    seen.insert(absolute_path.to_string());
-
-    queue.push(process_module(
-        absolute_path.to_string(),
-        raw_code.to_string(),
-        Arc::clone(&remappings_arc),
-        Arc::clone(&libs_arc),
-        Arc::clone(&seen),
-        Arc::clone(&module_map),
-        Arc::clone(&errors),
-    ));
-
-    // Limit number of concurrent tasks with buffer_unordered
-    const MAX_CONCURRENT_TASKS: usize = 16;
-
-    while let Some(new_modules) = queue.next().await {
-        for (path, code) in new_modules {
-            // Only process modules we haven't seen before - no lock needed with DashSet
-            if !seen.contains(&path) {
-                seen.insert(path.clone());
-                queue.push(process_module(
-                    path,
-                    code,
-                    Arc::clone(&remappings_arc),
-                    Arc::clone(&libs_arc),
-                    Arc::clone(&seen),
-                    Arc::clone(&module_map),
-                    Arc::clone(&errors),
-                ));
-            }
-        }
-
-        // Limit concurrency
-        if queue.len() > MAX_CONCURRENT_TASKS {
-            // Process at most MAX_CONCURRENT_TASKS at once
-            while queue.len() > MAX_CONCURRENT_TASKS {
-                if let Some(new_modules) = queue.next().await {
-                    for (path, code) in new_modules {
-                        if !seen.contains(&path) {
-                            seen.insert(path.clone());
-                            queue.push(process_module(
-                                path,
-                                code,
-                                Arc::clone(&remappings_arc),
-                                Arc::clone(&libs_arc),
-                                Arc::clone(&seen),
-                                Arc::clone(&module_map),
-                                Arc::clone(&errors),
-                            ));
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // Convert DashMap to HashMap for returning
-    let mut module_map_result = HashMap::new();
-    for entry in module_map.iter() {
-        // We don't need to clone the Arc values - just clone the ModuleInfo which is now cheap
-        let value = entry.value().clone();
-        module_map_result.insert(entry.key().clone(), value);
-    }
-
-    // Convert errors DashMap to Vec
-    let mut errors_vec = Vec::new();
-    for entry in errors.iter() {
-        // Create new error based on the type
-        let err = match entry.value() {
-            ModuleResolutionError::Resolution(_) => {
-                ModuleResolutionError::MalformedImport("Resolution error".to_string())
-            }
-            ModuleResolutionError::CannotReadFile(io_err) => {
-                ModuleResolutionError::MalformedImport(format!("I/O error: {}", io_err))
-            }
-            ModuleResolutionError::ParseError(_) => {
-                ModuleResolutionError::MalformedImport("Parse error".to_string())
-            }
-            ModuleResolutionError::MalformedImport(msg) => {
-                ModuleResolutionError::MalformedImport(msg.clone())
-            }
-        };
-        errors_vec.push(err);
-    }
-
-    if !errors_vec.is_empty() {
-        return Err(errors_vec);
-    }
-    Ok(module_map_result)
+    let entrypoint_imports = resolve_imports(&entrypoint_path, raw_code, remappings, libs);
 }
 
 #[cfg(test)]
