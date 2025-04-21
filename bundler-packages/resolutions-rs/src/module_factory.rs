@@ -68,7 +68,8 @@ pub async fn module_factory(
     .unwrap();
 
     if entrypoint_imports.is_empty() {
-        return Ok(ctx.graph.lock().await.clone());
+        let graph = ctx.graph.lock().await.clone();
+        return Ok(graph);
     }
 
     let mut in_flight = FuturesUnordered::new();
@@ -102,18 +103,38 @@ pub async fn module_factory(
                     }))
                 }
             }
-            _ => {
-                panic!("TODO handle")
+            Ok(Err(err)) => {
+                // Convert ModuleResolutionError to ResolveImportsError
+                return Err(vec![ResolveImportsError::PathResolutionError { 
+                    context_path: PathBuf::from("Unknown path"),
+                    cause: crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath { 
+                        import_path: format!("Process module error: {:?}", err),
+                        causes: vec![]
+                    }
+                }]);
+            }
+            Err(err) => {
+                // Handle tokio task JoinError
+                return Err(vec![ResolveImportsError::PathResolutionError { 
+                    context_path: PathBuf::from("Unknown path"),
+                    cause: crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath { 
+                        import_path: format!("Task join error: {:?}", err),
+                        causes: vec![]
+                    }
+                }]);
             }
         }
     }
 
-    Ok(HashMap::new())
+    // Return the module graph that has been built
+    let graph = ctx.graph.lock().await.clone();
+    Ok(graph)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::context::ModuleContext;
     use std::fs::{create_dir_all, File};
     use std::io::Write;
     use std::path::PathBuf;
@@ -172,18 +193,15 @@ mod tests {
         );
 
         // Read absolute path with canonical form
-        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol"))
-            .unwrap()
-            .display()
-            .to_string();
+        let absolute_path = std::fs::canonicalize(root_dir.join("src/Main.sol")).unwrap();
         let raw_code = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\nimport './utils/Helper.sol';\n\ncontract Main {}\n";
 
         // Run with simple code first to test the environment
         let simple_result = module_factory(
-            &absolute_path,
+            absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            &HashMap::new(),
-            &[],
+            vec![],
+            vec![],
         )
         .await;
 
@@ -194,7 +212,12 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(&absolute_path, raw_code, &HashMap::new(), &[]).await;
+        let result = module_factory(
+            absolute_path.clone(),
+            raw_code,
+            vec![],
+            vec![],
+        ).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -209,16 +232,17 @@ mod tests {
             );
 
             // Check that main module is processed
-            assert!(module_map.contains_key(&absolute_path));
-            let main_module = &module_map[&absolute_path];
-            assert_eq!(*main_module.code, raw_code);
+            let abs_path_str = absolute_path.to_string_lossy().to_string();
+            assert!(module_map.contains_key(&abs_path_str));
+            let main_module = &module_map[&abs_path_str];
+            assert_eq!(main_module.code, raw_code);
 
             // If helper module was processed (environment-dependent), check it
             let helper_path = root_dir.join("src/utils/helper.js").display().to_string();
             // Skip the canonicalization check since our implementation change might have affected this
             if module_map.contains_key(&helper_path) {
                 let helper_module = &module_map[&helper_path];
-                assert_eq!(*helper_module.code, "console.log('Helper file');");
+                assert_eq!(helper_module.code, "console.log('Helper file');");
             } else {
                 println!("Helper module not processed - this may be due to testing environment limitations");
             }
