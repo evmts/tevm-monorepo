@@ -21,24 +21,30 @@ pub enum ResolveImportPathError {
 /// Resolves an import path to an absolute file path
 ///
 /// # Arguments
-/// * `context_path` - The absolute path of the folder containing the file containing the import
+/// * `context_path` - The absolute path of the file containing the import
 /// * `import_path` - The raw import path to resolve
-/// * `remappings` - Map of import path prefixes to replacement values
-/// * `libs` - Additional library paths to search for imports
+/// * `cfg` - Configuration containing remappings and library paths
 ///
 /// # Returns
 /// * `Ok(PathBuf)` - The resolved absolute path
-/// * `Err(Vec<ResolutionError>)` - Collection of errors encountered during resolution
+/// * `Err(ResolveImportPathError)` - Error encountered during resolution
 pub fn resolve_import_path(
     context_path: PathBuf,
     import_path: &str,
     cfg: &Config,
 ) -> Result<PathBuf, ResolveImportPathError> {
+    // Extract the directory from the file path
+    let dir_path = if context_path.is_file() || !context_path.exists() {
+        context_path.parent().unwrap_or(&context_path).to_path_buf()
+    } else {
+        context_path.clone()
+    };
+    
     // Try resolving relative path
     let imp_path = Path::new(import_path);
     if let Some(c) = imp_path.components().next() {
         if matches!(c, Component::CurDir | Component::ParentDir) {
-            let joined = context_path.join(&imp_path);
+            let joined = dir_path.join(&imp_path);
             let mut normalized = PathBuf::new();
             for comp in joined.components() {
                 match comp {
@@ -70,7 +76,7 @@ pub fn resolve_import_path(
 
     let mut causes = Vec::with_capacity(cfg.libs.len() + 1);
 
-    for lib in once(context_path).chain(cfg.libs.to_vec()) {
+    for lib in once(dir_path).chain(cfg.libs.to_vec()) {
         match resolve_from(import_path, lib) {
             Ok(res) => return Ok(res),
             Err(err) => causes.push(err),
@@ -116,7 +122,7 @@ mod tests {
         let absolute_path = root_dir.join("src").display().to_string();
 
         // Create a Config for testing
-        let cfg = Config::from((Some(vec![]), Some(vec![])));
+        let cfg = Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())));
 
         let result = resolve_import_path(PathBuf::from(&absolute_path), "./utils/helper.rs", &cfg);
 
@@ -150,14 +156,14 @@ mod tests {
             .to_string();
 
         // Create a Config for testing
-        let cfg = Config::from((Some(vec![]), Some(vec![])));
+        let cfg = Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())));
 
         let result = resolve_import_path(PathBuf::from(&src_path), "../test-module.rs", &cfg);
 
         if result.is_ok() {
             let cfg_with_libs = Config::from((
                 Some(vec![lib_path.clone()]), 
-                Some(vec![])
+                Some(Vec::<(String, String)>::new())
             ));
 
             let lib_result = resolve_import_path(
@@ -277,7 +283,7 @@ mod tests {
         let absolute_path = root_dir.join("src").display().to_string();
 
         // Create a config with default values
-        let cfg = Config::from((Some(vec![]), Some(vec![])));
+        let cfg = Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())));
 
         let result =
             resolve_import_path(PathBuf::from(&absolute_path), "non/existent/file.rs", &cfg);
@@ -366,7 +372,7 @@ mod tests {
         let src_path = root_dir.join("src").display().to_string();
 
         // Create a Config for testing
-        let cfg = Config::from((Some(vec![]), Some(vec![])));
+        let cfg = Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())));
 
         let package_result = resolve_import_path(PathBuf::from(&src_path), "test-package", &cfg);
 

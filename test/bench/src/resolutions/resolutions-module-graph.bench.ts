@@ -206,11 +206,15 @@ describe("Super Deep Import Graph Resolution Benchmark", async () => {
   });
 
   bench("Rust Implementation - Super Deep Import Graph", async () => {
+    // Convert remappings and libs to array format
+    const remappingsArray = Object.entries(deepGraphRemappings);
+    const libsArray = Array.isArray(libs) ? libs.map(p => String(p)) : [];
+    
     await moduleFactoryJs(
       entryContractPath,
       deepGraphFao.readFileSync(entryContractPath, "utf8"),
-      deepGraphRemappings,
-      libs as any,
+      remappingsArray,
+      libsArray,
     );
   });
 });

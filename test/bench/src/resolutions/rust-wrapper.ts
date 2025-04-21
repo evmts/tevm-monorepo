@@ -15,9 +15,22 @@ export const wrappedModuleFactoryJs = async (
   remappings: Record<string, string>,
   includePaths: readonly string[],
 ): Promise<any> => {
+  // Convert remappings from Record to array of tuples
+  const remappingsArray = Object.entries(remappings);
+  
+  // Convert includePaths to array of strings
+  const libs = Array.isArray(includePaths) 
+    ? includePaths.map(p => String(p))
+    : [];
+  
   // Try the original function first
   try {
-    return await originalModuleFactoryJs(entryPoint, source, remappings, includePaths);
+    return await originalModuleFactoryJs(
+      entryPoint, 
+      source, 
+      remappingsArray, 
+      libs
+    );
   } catch (error) {
     // If it's not a resolution error, or doesn't mention Contract_D4_I1.sol, rethrow
     const errorStr = String(error);
@@ -48,7 +61,12 @@ export const wrappedModuleFactoryJs = async (
     
     // Try again with the temp file in place
     try {
-      const result = await originalModuleFactoryJs(entryPoint, source, remappings, includePaths);
+      const result = await originalModuleFactoryJs(
+        entryPoint, 
+        source, 
+        remappingsArray, 
+        libs
+      );
       
       // Clean up the temp file
       fs.unlinkSync(tempPath);
