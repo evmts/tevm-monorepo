@@ -18,6 +18,6 @@ export interface JsResolvedImport {
   updated: string
 }
 
-export declare export declare function moduleFactoryJs(filePath: string, code: string, remappings?: Record<string, string> | undefined | null, libs?: Array<string> | undefined | null): Promise<Record<string, JsModule>>
+export declare export declare function moduleFactoryJs(filePath: string, code: string, remappings?: Array<[string, string]> | undefined | null, libs?: Array<string> | undefined | null): Promise<Record<string, JsModule>>
 
-export declare export declare function resolveImportsJs(filePath: string, code: string, remappings?: Record<string, string> | undefined | null, libs?: Array<string> | undefined | null): Promise<Array<JsResolvedImport>>
+export declare export declare function resolveImportsJs(filePath: string, code: string, remappings?: Array<[string, string]> | undefined | null, libs?: Array<string> | undefined | null): Promise<Array<JsResolvedImport>>

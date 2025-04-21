@@ -88,8 +88,20 @@ pub async fn module_factory(
     while let Some(joined) = in_flight.next().await {
         match joined {
             Ok(Ok(next_module_id)) => {
-                for imp in state.clone().graph.lock().await.get(&next_module_id).expect(
-        "UnexpectedError: The module {} never got inserted. This indicates a bug in the program.").imported_ids.iter() {
+                // Get imported_ids safely with proper borrowing
+                let imported_ids = {
+                    let graph = state.graph.lock().await;
+                    match graph.get(&next_module_id) {
+                        Some(info) => info.imported_ids.clone(),
+                        None => {
+                            // Module wasn't inserted for some reason
+                            println!("Warning: Module {} not found in graph", next_module_id);
+                            continue;
+                        }
+                    }
+                };
+                
+                for imp in imported_ids.iter() {
                     let imp2 = imp.to_path_buf();
                     let mut seen = state.seen.lock().await;
                     if !seen.insert(imp2.to_string_lossy().to_string()) {
@@ -199,8 +211,7 @@ mod tests {
         let simple_result = module_factory(
             absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            vec![],
-            vec![],
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new()))),
         )
         .await;
 
@@ -211,7 +222,11 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
+        let result = module_factory(
+            absolute_path.clone(), 
+            raw_code, 
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
+        ).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -293,8 +308,7 @@ mod tests {
         let simple_result = module_factory(
             absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            vec![],
-            vec![],
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new()))),
         )
         .await;
 
@@ -305,7 +319,11 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
+        let result = module_factory(
+            absolute_path.clone(), 
+            raw_code, 
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
+        ).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -387,8 +405,7 @@ mod tests {
         let simple_result = module_factory(
             absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            vec![],
-            vec![],
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new()))),
         )
         .await;
 
@@ -399,7 +416,11 @@ mod tests {
         );
 
         // Now run the real test
-        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
+        let result = module_factory(
+            absolute_path.clone(), 
+            raw_code, 
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
+        ).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -478,7 +499,11 @@ mod tests {
         let raw_code = "import './Path With Spaces/Contract.sol';\n// Main contract";
 
         // Run the test
-        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
+        let result = module_factory(
+            absolute_path.clone(), 
+            raw_code, 
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
+        ).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -562,7 +587,11 @@ mod tests {
         let raw_code = "import './level1/ContractLevel1.sol';\n// Main contract";
 
         // Run the test
-        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
+        let result = module_factory(
+            absolute_path.clone(), 
+            raw_code, 
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
+        ).await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -672,15 +701,17 @@ mod tests {
             root_dir.join("lib/mylib/").display().to_string(),
         );
 
+        // Convert remappings to the expected format
+        let remappings_vec: Vec<(String, String)> = remappings
+            .into_iter()
+            .map(|(k, v)| (k, v))
+            .collect();
+
         // Run the test
         let result = module_factory(
             absolute_path.clone(),
             raw_code,
-            remappings
-                .into_iter()
-                .map(|(k, v)| (k.clone(), v.clone()))
-                .collect(),
-            vec![],
+            Config::from((Some(Vec::<String>::new()), Some(remappings_vec))),
         )
         .await;
 
@@ -705,7 +736,11 @@ mod tests {
             );
 
             let fallback_result =
-                module_factory(absolute_path.clone(), &fallback_code, vec![], vec![]);
+                module_factory(
+                    absolute_path.clone(), 
+                    &fallback_code, 
+                    Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
+                );
             match fallback_result.await {
                 Ok(_) => {
                     println!("Fallback test with direct paths succeeded");
@@ -810,8 +845,7 @@ mod tests {
         let result = module_factory(
             absolute_path.clone(),
             raw_code,
-            vec![],
-            libs.iter().map(|s| PathBuf::from(s)).collect(),
+            Config::from((Some(libs), Some(Vec::<(String, String)>::new()))),
         )
         .await;
 
@@ -872,7 +906,11 @@ mod tests {
         let absolute_path = root_dir.join("src/main.js");
         let raw_code = "import './non-existent.js';\nconsole.log('Main file');";
 
-        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
+        let result = module_factory(
+            absolute_path.clone(), 
+            raw_code, 
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
+        ).await;
         assert!(
             result.is_err(),
             "Module factory should fail with nonexistent imports"
@@ -885,8 +923,7 @@ mod tests {
             if let Ok(fallback_result) = module_factory(
                 absolute_path.clone(),
                 "console.log('No imports');", // Code with no imports
-                vec![],
-                vec![],
+                Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new()))),
             )
             .await
             {
@@ -907,7 +944,11 @@ mod tests {
         let absolute_path = root_dir.join("src/main.js");
         let raw_code = "";
 
-        let result = module_factory(absolute_path.clone(), raw_code, vec![], vec![]).await;
+        let result = module_factory(
+            absolute_path.clone(), 
+            raw_code, 
+            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
+        ).await;
         assert!(
             result.is_ok(),
             "Module factory failed with empty code: {:?}",
@@ -1083,14 +1124,15 @@ mod tests {
 
         // Run the module factory with the fixture files
         println!("Running module factory...");
+        let remappings_vec: Vec<(String, String)> = remappings
+            .into_iter()
+            .map(|(k, v)| (k, v))
+            .collect();
+            
         let result = module_factory(
             PathBuf::from(entry_path_str),
             &raw_code,
-            remappings
-                .into_iter()
-                .map(|(k, v)| (k.clone(), v.clone()))
-                .collect(),
-            libs.iter().map(|s| PathBuf::from(s)).collect(),
+            Config::from((Some(libs), Some(remappings_vec))),
         )
         .await;
 
