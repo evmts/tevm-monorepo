@@ -1,3 +1,4 @@
+use crate::context::ModuleContext;
 use crate::resolve_import_path::resolve_import_path;
 use crate::resolve_import_path::ResolveImportPathError;
 use once_cell::sync::Lazy;
@@ -7,6 +8,7 @@ use solar::{
 };
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 
 static SOLAR_SESSION: Lazy<Session> = Lazy::new(|| {
     Session::builder()
@@ -23,7 +25,7 @@ pub enum ResolveImportsError {
     },
     PathResolutionError {
         context_path: PathBuf,
-        causes: Vec<ResolveImportPathError>,
+        cause: ResolveImportPathError,
     },
 }
 
@@ -42,46 +44,48 @@ pub enum ResolveImportsError {
 pub fn resolve_imports(
     context_path: &Path,
     code: &str,
-    remappings: &HashMap<String, String>,
-    libs: &[PathBuf],
-) -> Result<Vec<PathBuf>, ResolveImportsError> {
-    let ast = SOLAR_SESSION
-        .enter(|| -> Result<_, ErrorGuaranteed> {
-            let mut parser = Parser::from_source_code(
-                &SOLAR_SESSION,
-                &solar::ast::Arena::new(),
-                FileName::Real(context_path.to_path_buf()),
-                code.to_string(),
-            )?;
-            parser.parse_file()
-        })
-        .map_err(|cause| ResolveImportsError::ParseError {
-            context_path: context_path.to_path_buf(),
-            cause,
-        })?;
-
+    ctx: ModuleContext,
+) -> Result<Vec<PathBuf>, Vec<ResolveImportsError>> {
     let mut imports = vec![];
     let mut errors = vec![];
 
-    for item in ast.items.iter() {
-        if let solar::ast::ItemKind::Import(import_dir) = &item.kind {
-            match resolve_import_path(
-                context_path,
-                import_dir.path.value.as_str(),
-                remappings,
-                libs,
-            ) {
-                Ok(p) => imports.push(p),
-                Err(err) => errors.push(err),
-            };
-        }
-    }
+    let arena = solar::ast::Arena::new();
+
+    SOLAR_SESSION
+        .enter(|| -> Result<_, ErrorGuaranteed> {
+            let mut parser = Parser::from_source_code(
+                &SOLAR_SESSION,
+                &arena,
+                FileName::Real(context_path.to_path_buf()),
+                code.to_string(),
+            )?;
+            let ast = parser.parse_file().map_err(|err| err.emit())?;
+            for item in ast.items.iter() {
+                if let solar::ast::ItemKind::Import(import_dir) = &item.kind {
+                    match resolve_import_path(
+                        context_path.to_path_buf(),
+                        import_dir.path.value.as_str(),
+                        ctx.clone(),
+                    ) {
+                        Ok(p) => imports.push(p),
+                        Err(cause) => errors.push(ResolveImportsError::PathResolutionError {
+                            context_path: context_path.to_path_buf(),
+                            cause,
+                        }),
+                    };
+                }
+            }
+            Ok(())
+        })
+        .map_err(|cause| {
+            errors.push(ResolveImportsError::ParseError {
+                context_path: context_path.to_path_buf(),
+                cause,
+            })
+        });
 
     if !errors.is_empty() {
-        return Err(ResolveImportsError::PathResolutionError {
-            context_path: context_path.to_path_buf(),
-            causes: errors,
-        });
+        return Err(errors);
     }
     Ok(imports)
 }

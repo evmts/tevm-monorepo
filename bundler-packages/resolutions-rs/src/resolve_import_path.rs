@@ -3,6 +3,8 @@ use std::collections::HashMap;
 use std::io;
 use std::path::{Component, Path, PathBuf};
 
+use crate::context::ModuleContext;
+
 #[derive(Debug)]
 pub enum ResolveImportPathError {
     InvalidRelativePath {
@@ -28,10 +30,9 @@ pub enum ResolveImportPathError {
 /// * `Ok(PathBuf)` - The resolved absolute path
 /// * `Err(Vec<ResolutionError>)` - Collection of errors encountered during resolution
 pub fn resolve_import_path(
-    context_path: &Path,
+    context_path: PathBuf,
     import_path: &str,
-    remappings: &HashMap<String, String>,
-    libs: &[PathBuf],
+    ctx: ModuleContext,
 ) -> Result<PathBuf, ResolveImportPathError> {
     // Try resolving relative path
     let imp_path = Path::new(import_path);
@@ -61,13 +62,13 @@ pub fn resolve_import_path(
     }
 
     // Try resolving remappings
-    for (k, v) in remappings {
+    for (k, v) in ctx.remappings.iter() {
         if let Some(rest) = import_path.strip_prefix(k) {
             return Ok(PathBuf::from(v).join(rest));
         }
     }
 
-    let mut causes = Vec::with_capacity(libs.len());
+    let mut causes = Vec::with_capacity(ctx.libs.len());
 
     // Try resolving from context of file
     match resolve_from(import_path, context_path) {
@@ -76,7 +77,7 @@ pub fn resolve_import_path(
     };
 
     // Try resolving lib
-    for lib in libs.to_vec() {
+    for lib in ctx.libs.to_vec() {
         match resolve_from(import_path, lib) {
             Ok(res) => return Ok(res),
             Err(err) => causes.push(err),

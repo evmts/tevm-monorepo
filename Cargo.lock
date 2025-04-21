@@ -8933,6 +8933,7 @@ version = "0.1.0"
 dependencies = [
  "dashmap 5.5.3",
  "futures",
+ "libc",
  "napi",
  "napi-build",
  "napi-derive",
