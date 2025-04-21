@@ -1,79 +1,32 @@
-use crate::module_resolution_error::ModuleResolutionError;
 use crate::resolve_import_path::resolve_import_path;
-use futures::StreamExt;
-use node_resolve::ResolutionError;
+use crate::resolve_import_path::ResolveImportPathError;
+use once_cell::sync::Lazy;
 use solar::{
-    ast::{self},
     interface::{diagnostics::ErrorGuaranteed, source_map::FileName, Session},
     parse::Parser,
 };
-
-// Thread-local Solar Session factory - created on demand to avoid issues with thread destruction
-fn get_solar_session() -> Session {
-    Session::builder()
-        .with_silent_emitter(None)
-        .build()
-}
-
-// Function to get a new Arena - created on demand to avoid TLS issues
-fn get_solar_arena() -> ast::Arena {
-    ast::Arena::new()
-}
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
+
+static SOLAR_SESSION: Lazy<Session> = Lazy::new(|| {
+    Session::builder()
+        .with_buffer_emitter(solar::interface::ColorChoice::Auto)
+        .build()
+});
 
 #[derive(Debug)]
 pub enum ResolveImportsError {
     /// Error that occurred during parsing of the source file
-    ParseError(ErrorGuaranteed),
-    /// Error that occurred while resolving an import path
-    ResolutionError(Vec<ResolutionError>),
-    /// Error when the file path is invalid or cannot be accessed
-    InvalidPath(std::io::Error),
-    /// Error when the import statement is malformed
-    MalformedImport(String),
+    ParseError {
+        context_path: PathBuf,
+        cause: ErrorGuaranteed,
+    },
+    PathResolutionError {
+        context_path: PathBuf,
+        causes: Vec<ResolveImportPathError>,
+    },
 }
 
-impl From<ErrorGuaranteed> for ResolveImportsError {
-    fn from(err: ErrorGuaranteed) -> Self {
-        ResolveImportsError::ParseError(err)
-    }
-}
-
-impl From<Vec<ResolutionError>> for ResolveImportsError {
-    fn from(errs: Vec<ResolutionError>) -> Self {
-        ResolveImportsError::ResolutionError(errs)
-    }
-}
-
-impl From<std::io::Error> for ResolveImportsError {
-    fn from(err: std::io::Error) -> Self {
-        ResolveImportsError::InvalidPath(err)
-    }
-}
-
-impl From<ResolveImportsError> for ModuleResolutionError {
-    fn from(err: ResolveImportsError) -> Self {
-        match err {
-            ResolveImportsError::ParseError(e) => ModuleResolutionError::ParseError(e),
-            ResolveImportsError::ResolutionError(errs) => {
-                if let Some(first_err) = errs.into_iter().next() {
-                    ModuleResolutionError::Resolution(first_err)
-                } else {
-                    ModuleResolutionError::MalformedImport("Unknown resolution error".to_string())
-                }
-            }
-            ResolveImportsError::InvalidPath(e) => ModuleResolutionError::CannotReadFile(e),
-            ResolveImportsError::MalformedImport(msg) => {
-                ModuleResolutionError::MalformedImport(msg)
-            }
-        }
-    }
-}
-
-/// Resolves all import paths found in the given code
-///
 /// This function scans the provided code for import statements and resolves each import
 /// path to an absolute file path, taking into account remappings and library paths.
 ///
@@ -84,99 +37,53 @@ impl From<ResolveImportsError> for ModuleResolutionError {
 /// * `libs` - Additional library paths to search for imports
 ///
 /// # Returns
-/// * `Ok(Vec<PathBuf>)` - List of resolved absolute paths for all imports
-/// * `Err(Vec<ResolutionError>)` - Collection of errors encountered during resolution
-pub async fn resolve_imports(
-    absolute_path: &str,
+/// * `Ok(Vec<PathBuf>)` - all imports
+/// * `Err(ResolveImportsError)` - either a parse failure or aggregation of resolution errors
+pub fn resolve_imports(
+    context_path: &Path,
     code: &str,
     remappings: &HashMap<String, String>,
-    libs: &[String],
-) -> Result<Vec<PathBuf>, Vec<ResolveImportsError>> {
-    let path = Path::new(absolute_path);
-    let mut imports = Vec::new();
-    
-    // Create a new session and arena for parsing - avoiding thread_local issues
-    let mut parse_error = None;
-    let session = get_solar_session();
-    let arena = get_solar_arena();
-    
-    // We're using a silent emitter, so no need to configure diagnostics further
-    if let Err(err) = session.enter(|| {
-        match Parser::from_source_code(
-            &session,
-            &arena,
-            FileName::Real(path.to_path_buf()),
-            code.to_string(),
-        ) {
-            Ok(mut parser) => {
-                match parser.parse_file() {
-                    Ok(ast) => {
-                        // Extract imports within the session context
-                        for item in ast.items.iter() {
-                            if let ast::ItemKind::Import(import_dir) = &item.kind {
-                                imports.push(import_dir.path.value.to_string());
-                            }
-                        }
-                        Ok(())
-                    }
-                    Err(e) => Err(e.emit()),
-                }
-            }
-            Err(err) => {
-                // Don't print errors, just return them
-                Err(err)
-            }
-        }
-    }) {
-        parse_error = Some(err);
-    }
-    
-    if let Some(err) = parse_error {
-        return Err(vec![ResolveImportsError::from(err)]);
-    }
-    
-    // Deduplicate imports
-    imports.sort();
-    imports.dedup();
+    libs: &[PathBuf],
+) -> Result<Vec<PathBuf>, ResolveImportsError> {
+    let ast = SOLAR_SESSION
+        .enter(|| -> Result<_, ErrorGuaranteed> {
+            let mut parser = Parser::from_source_code(
+                &SOLAR_SESSION,
+                &solar::ast::Arena::new(),
+                FileName::Real(context_path.to_path_buf()),
+                code.to_string(),
+            )?;
+            parser.parse_file()
+        })
+        .map_err(|cause| ResolveImportsError::ParseError {
+            context_path: context_path.to_path_buf(),
+            cause,
+        })?;
 
-    if imports.is_empty() {
-        return Ok(Vec::new());
-    }
+    let mut imports = vec![];
+    let mut errors = vec![];
 
-    // Use Arc to avoid cloning large structures
-    let remappings_arc = Arc::new(remappings.clone());
-    let libs_arc = Arc::new(libs.to_vec());
-    let base_path = absolute_path.to_string();
-
-    // Use buffer_unordered to limit concurrency
-    const MAX_CONCURRENT: usize = 16;
-
-    let stream = futures::stream::iter(imports.into_iter().map(|import_path| {
-        let rem = Arc::clone(&remappings_arc);
-        let libs = Arc::clone(&libs_arc);
-        let base = base_path.clone();
-
-        async move { resolve_import_path(&base, &import_path, &rem, &libs).await }
-    }))
-    .buffer_unordered(MAX_CONCURRENT);
-
-    let mut path_bufs: Vec<PathBuf> = vec![];
-    let mut errors: Vec<ResolveImportsError> = vec![];
-
-    // Process results one by one
-    let results: Vec<_> = stream.collect().await;
-
-    for result in results {
-        match result {
-            Ok(path_buf) => path_bufs.push(path_buf),
-            Err(err) => errors.push(ResolveImportsError::from(err)),
+    for item in ast.items.iter() {
+        if let solar::ast::ItemKind::Import(import_dir) = &item.kind {
+            match resolve_import_path(
+                context_path,
+                import_dir.path.value.as_str(),
+                remappings,
+                libs,
+            ) {
+                Ok(p) => imports.push(p),
+                Err(err) => errors.push(err),
+            };
         }
     }
 
     if !errors.is_empty() {
-        return Err(errors);
+        return Err(ResolveImportsError::PathResolutionError {
+            context_path: context_path.to_path_buf(),
+            causes: errors,
+        });
     }
-    Ok(path_bufs)
+    Ok(imports)
 }
 
 #[cfg(test)]
