@@ -1,13 +1,13 @@
 <script>
-  // Props
-  export let stack = [];
-  
-  // Event handlers
-  function jumpToSource(frame) {
-    // Jump to the source code for this frame
-    console.log(`Jump to ${frame.sourceFile}:${frame.line}`);
-    // In a real implementation, this would communicate with the EditorPane
-  }
+// Props
+export const stack = []
+
+// Event handlers
+function jumpToSource(frame) {
+	// Jump to the source code for this frame
+	console.log(`Jump to ${frame.sourceFile}:${frame.line}`)
+	// In a real implementation, this would communicate with the EditorPane
+}
 </script>
 
 <div class="callstack-view">

@@ -1,47 +1,52 @@
 <script>
-  // Props
-  export let variables = [];
-  
-  // State
-  let expandedItems = new Set();
-  let searchQuery = '';
-  
-  // Toggle expansion of an item with children
-  function toggleExpand(variable) {
-    if (!variable.children) return;
-    
-    if (expandedItems.has(variable.name)) {
-      expandedItems.delete(variable.name);
-    } else {
-      expandedItems.add(variable.name);
-    }
-    
-    expandedItems = expandedItems; // Trigger reactivity
-  }
-  
-  // Filter variables based on search query
-  $: filteredVariables = searchQuery
-    ? variables.filter(v => 
-        v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        v.value.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
-        v.type.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : variables;
-    
-  // Get badge class based on variable scope
-  function getScopeBadgeClass(scope) {
-    switch (scope) {
-      case 'local': return 'badge-blue';
-      case 'state': return 'badge-purple';
-      case 'global': return 'badge-orange';
-      default: return 'badge-gray';
-    }
-  }
-  
-  // Determine if a variable has children
-  function hasChildren(variable) {
-    return variable.children && variable.children.length > 0;
-  }
+// Props
+export const variables = []
+
+// State
+let expandedItems = new Set()
+const searchQuery = ''
+
+// Toggle expansion of an item with children
+function toggleExpand(variable) {
+	if (!variable.children) return
+
+	if (expandedItems.has(variable.name)) {
+		expandedItems.delete(variable.name)
+	} else {
+		expandedItems.add(variable.name)
+	}
+
+	expandedItems = expandedItems // Trigger reactivity
+}
+
+// Filter variables based on search query
+$: filteredVariables = searchQuery
+	? variables.filter(
+			(v) =>
+				v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				v.value.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
+				v.type.toLowerCase().includes(searchQuery.toLowerCase()),
+		)
+	: variables
+
+// Get badge class based on variable scope
+function getScopeBadgeClass(scope) {
+	switch (scope) {
+		case 'local':
+			return 'badge-blue'
+		case 'state':
+			return 'badge-purple'
+		case 'global':
+			return 'badge-orange'
+		default:
+			return 'badge-gray'
+	}
+}
+
+// Determine if a variable has children
+function hasChildren(variable) {
+	return variable.children && variable.children.length > 0
+}
 </script>
 
 <div class="variables-view">

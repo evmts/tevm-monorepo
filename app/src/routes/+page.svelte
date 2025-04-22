@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { browser } from "$app/environment";
-  import ReactWrapper from "../react/ReactWrapper.svelte";
-  import { RainbowKitButton } from "../react/RainbowKitWrapper";
-  import { createElement } from "react";
-  import { useQueryClient } from "@tanstack/svelte-query";
-  import { http } from "viem";
-  import { mainnet, optimism, base } from "wagmi/chains";
-  import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-  
-  // Import our components
-  import HeaderBar from "../components/HeaderBar.svelte";
-  import Sidebar from "../components/Sidebar.svelte";
-  import MainArea from "../components/MainArea.svelte";
-  import InspectorDrawer from "../components/InspectorDrawer.svelte";
-  import CommandPalette from "../components/CommandPalette.svelte";
-  
-  // Import default contract code
-  const defaultContract = `// SPDX-License-Identifier: MIT
+import { browser } from '$app/environment'
+import { getDefaultConfig } from '@rainbow-me/rainbowkit'
+import { useQueryClient } from '@tanstack/svelte-query'
+import { createElement } from 'react'
+import { onMount } from 'svelte'
+import { http } from 'viem'
+import { base, mainnet, optimism } from 'wagmi/chains'
+import { RainbowKitButton } from '../react/RainbowKitWrapper'
+import ReactWrapper from '../react/ReactWrapper.svelte'
+
+import CommandPalette from '../components/CommandPalette.svelte'
+// Import our components
+import HeaderBar from '../components/HeaderBar.svelte'
+import InspectorDrawer from '../components/InspectorDrawer.svelte'
+import MainArea from '../components/MainArea.svelte'
+import Sidebar from '../components/Sidebar.svelte'
+
+// Import default contract code
+const defaultContract = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract Token {
@@ -50,137 +50,125 @@ contract Token {
         
         emit Transfer(from, to, amount);
     }
-}`;
+}`
 
-  // State using traditional Svelte reactive variables
-  let code = defaultContract;
-  let currentLine = 15;
-  let isRunning = false;
-  let isPaused = true;
-  let showCommandPalette = false;
-  let sidebarWidth = 250;
-  let inspectorOpen = true;
-  let inspectorWidth = 300;
-  
-  // Mock logs
-  let logs = [
-    { level: 'info', message: 'Tevm debugger initialized', timestamp: Date.now() },
-    { level: 'info', message: 'Contract compiled successfully', timestamp: Date.now() },
-    { level: 'debug', message: 'Deploying contract...', timestamp: Date.now() },
-    { level: 'info', message: 'Contract deployed at 0x7C3AED...', timestamp: Date.now() },
-    { level: 'debug', message: 'Calling transfer()...', timestamp: Date.now() },
-    { level: 'event', message: 'Transfer(0x7C3AED..., 0x916BEA..., 1000)', timestamp: Date.now() }
-  ];
-  
-  // Create Wagmi config
-  const queryClient = useQueryClient();
-  const wagmiConfig = $state(
-    getDefaultConfig({
-      appName: "Tevm Solidity Debugger",
-      projectId: "898f836c53a18d0661340823973f0cb4",
-      chains: [mainnet, optimism, base],
-      ssr: false,
-      appDescription: "A Solidity debugger powered by Tevm",
-      transports: {
-        [mainnet.id]: http("https://rpc.ankr.com/eth"),
-      }
-    }),
-  );
-  
-  // Event handlers
-  function handleRunClick() {
-    isRunning = true;
-    isPaused = false;
-    logs = [
-      ...logs,
-      { level: 'debug', message: 'Executing contract...', timestamp: Date.now() }
-    ];
-    // In a real implementation, this would connect to Tevm and execute the contract
-  }
-  
-  function handleStepClick() {
-    if (isRunning && isPaused) {
-      // Simulate stepping to the next line
-      currentLine = Math.min(currentLine + 1, 27);
-      logs = [
-        ...logs,
-        { level: 'debug', message: `Stepped to line ${currentLine+1}`, timestamp: Date.now() }
-      ];
-    }
-  }
-  
-  function handlePauseClick() {
-    isPaused = true;
-    logs = [
-      ...logs,
-      { level: 'info', message: 'Execution paused', timestamp: Date.now() }
-    ];
-  }
-  
-  function handleStopClick() {
-    isRunning = false;
-    isPaused = true;
-    logs = [
-      ...logs,
-      { level: 'info', message: 'Execution stopped', timestamp: Date.now() }
-    ];
-  }
-  
-  function handleCommandPaletteOpen() {
-    showCommandPalette = true;
-  }
-  
-  function handleCommandPaletteClose() {
-    showCommandPalette = false;
-  }
-  
-  function handleCommandExecute(event: CustomEvent<{commandId: string}>) {
-    const commandId = event.detail.commandId;
-    console.log(`Execute command: ${commandId}`);
-    
-    // Handle commands
-    switch (commandId) {
-      case 'run':
-        handleRunClick();
-        break;
-      case 'step-over':
-        handleStepClick();
-        break;
-      case 'toggle-inspector':
-        inspectorOpen = !inspectorOpen;
-        break;
-      // Add more command handlers as needed
-    }
-  }
-  
-  function handleSidebarWidthChange(width: number) {
-    sidebarWidth = width;
-  }
-  
-  function handleInspectorWidthChange(width: number) {
-    inspectorWidth = width;
-  }
-  
-  // Keyboard shortcuts
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
-      event.preventDefault();
-      showCommandPalette = true;
-    }
-  }
-  
-  // Lifecycle
-  onMount(() => {
-    if (browser) {
-      document.addEventListener('keydown', handleKeydown);
-    }
-    
-    return () => {
-      if (browser) {
-        document.removeEventListener('keydown', handleKeydown);
-      }
-    };
-  });
+// State using traditional Svelte reactive variables
+const code = defaultContract
+let currentLine = 15
+let isRunning = false
+let isPaused = true
+let showCommandPalette = false
+let sidebarWidth = 250
+let inspectorOpen = true
+let inspectorWidth = 300
+
+// Mock logs
+let logs = [
+	{ level: 'info', message: 'Tevm debugger initialized', timestamp: Date.now() },
+	{ level: 'info', message: 'Contract compiled successfully', timestamp: Date.now() },
+	{ level: 'debug', message: 'Deploying contract...', timestamp: Date.now() },
+	{ level: 'info', message: 'Contract deployed at 0x7C3AED...', timestamp: Date.now() },
+	{ level: 'debug', message: 'Calling transfer()...', timestamp: Date.now() },
+	{ level: 'event', message: 'Transfer(0x7C3AED..., 0x916BEA..., 1000)', timestamp: Date.now() },
+]
+
+// Create Wagmi config
+const queryClient = useQueryClient()
+const wagmiConfig = $state(
+	getDefaultConfig({
+		appName: 'Tevm Solidity Debugger',
+		projectId: '898f836c53a18d0661340823973f0cb4',
+		chains: [mainnet, optimism, base],
+		ssr: false,
+		appDescription: 'A Solidity debugger powered by Tevm',
+		transports: {
+			[mainnet.id]: http('https://rpc.ankr.com/eth'),
+		},
+	}),
+)
+
+// Event handlers
+function handleRunClick() {
+	isRunning = true
+	isPaused = false
+	logs = [...logs, { level: 'debug', message: 'Executing contract...', timestamp: Date.now() }]
+	// In a real implementation, this would connect to Tevm and execute the contract
+}
+
+function handleStepClick() {
+	if (isRunning && isPaused) {
+		// Simulate stepping to the next line
+		currentLine = Math.min(currentLine + 1, 27)
+		logs = [...logs, { level: 'debug', message: `Stepped to line ${currentLine + 1}`, timestamp: Date.now() }]
+	}
+}
+
+function handlePauseClick() {
+	isPaused = true
+	logs = [...logs, { level: 'info', message: 'Execution paused', timestamp: Date.now() }]
+}
+
+function handleStopClick() {
+	isRunning = false
+	isPaused = true
+	logs = [...logs, { level: 'info', message: 'Execution stopped', timestamp: Date.now() }]
+}
+
+function handleCommandPaletteOpen() {
+	showCommandPalette = true
+}
+
+function handleCommandPaletteClose() {
+	showCommandPalette = false
+}
+
+function handleCommandExecute(event: CustomEvent<{ commandId: string }>) {
+	const commandId = event.detail.commandId
+	console.log(`Execute command: ${commandId}`)
+
+	// Handle commands
+	switch (commandId) {
+		case 'run':
+			handleRunClick()
+			break
+		case 'step-over':
+			handleStepClick()
+			break
+		case 'toggle-inspector':
+			inspectorOpen = !inspectorOpen
+			break
+		// Add more command handlers as needed
+	}
+}
+
+function handleSidebarWidthChange(width: number) {
+	sidebarWidth = width
+}
+
+function handleInspectorWidthChange(width: number) {
+	inspectorWidth = width
+}
+
+// Keyboard shortcuts
+function handleKeydown(event: KeyboardEvent) {
+	if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+		event.preventDefault()
+		showCommandPalette = true
+	}
+}
+
+// Lifecycle
+onMount(() => {
+	if (browser) {
+		document.addEventListener('keydown', handleKeydown)
+	}
+
+	return () => {
+		if (browser) {
+			document.removeEventListener('keydown', handleKeydown)
+		}
+	}
+})
 </script>
 
 <div class="debugger-app">

@@ -1,60 +1,60 @@
 <script>
-  import { onMount } from 'svelte';
-  import EditorPane from './EditorPane.svelte';
-  import ConsolePane from './ConsolePane.svelte';
-  
-  // Props
-  export let sidebarWidth = 250;
-  export let inspectorOpen = true;
-  export let inspectorWidth = 300;
-  export let code = ''; // Contract code
-  export let currentLine = -1; // Current execution line
-  export let logs = []; // Console logs
-  
-  // State
-  let containerElement;
-  let editorHeight = 70; // Percentage
-  let isResizing = false;
-  
-  // Event handlers
-  function startResize(event) {
-    isResizing = true;
-    event.preventDefault();
-    
-    const startY = event.clientY;
-    const containerHeight = containerElement.clientHeight;
-    const startPercent = editorHeight;
-    
-    function handleMouseMove(e) {
-      const deltaY = e.clientY - startY;
-      const deltaPercent = (deltaY / containerHeight) * 100;
-      const newPercent = Math.max(20, Math.min(80, startPercent + deltaPercent));
-      
-      editorHeight = newPercent;
-    }
-    
-    function handleMouseUp() {
-      isResizing = false;
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    }
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-  }
-  
-  function handleEditorReady(event) {
-    // Can do initialization if needed
-  }
-  
-  function handleCodeChange(event) {
-    code = event.detail.code;
-  }
-  
-  // Lifecycle
-  onMount(() => {
-    // Any initialization needed
-  });
+import { onMount } from 'svelte'
+import ConsolePane from './ConsolePane.svelte'
+import EditorPane from './EditorPane.svelte'
+
+// Props
+export const sidebarWidth = 250
+export const inspectorOpen = true
+export const inspectorWidth = 300
+export let code = '' // Contract code
+export const currentLine = -1 // Current execution line
+export const logs = [] // Console logs
+
+// State
+let containerElement
+let editorHeight = 70 // Percentage
+let isResizing = false
+
+// Event handlers
+function startResize(event) {
+	isResizing = true
+	event.preventDefault()
+
+	const startY = event.clientY
+	const containerHeight = containerElement.clientHeight
+	const startPercent = editorHeight
+
+	function handleMouseMove(e) {
+		const deltaY = e.clientY - startY
+		const deltaPercent = (deltaY / containerHeight) * 100
+		const newPercent = Math.max(20, Math.min(80, startPercent + deltaPercent))
+
+		editorHeight = newPercent
+	}
+
+	function handleMouseUp() {
+		isResizing = false
+		window.removeEventListener('mousemove', handleMouseMove)
+		window.removeEventListener('mouseup', handleMouseUp)
+	}
+
+	window.addEventListener('mousemove', handleMouseMove)
+	window.addEventListener('mouseup', handleMouseUp)
+}
+
+function handleEditorReady(event) {
+	// Can do initialization if needed
+}
+
+function handleCodeChange(event) {
+	code = event.detail.code
+}
+
+// Lifecycle
+onMount(() => {
+	// Any initialization needed
+})
 </script>
 
 <main 

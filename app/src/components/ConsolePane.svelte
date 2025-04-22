@@ -1,80 +1,86 @@
 <script>
-  import { onMount, afterUpdate } from 'svelte';
-  
-  // Props
-  export let logs = [];
-  
-  // Internal state
-  let activeTab = 'all';
-  let consolePaneElement;
-  let consoleContentElement;
-  let autoScroll = true;
-  let userScrolled = false;
-  
-  // Filter logs based on active tab
-  $: filteredLogs = filterLogs(logs, activeTab);
-  
-  function filterLogs(logs, tab) {
-    if (tab === 'all') return logs;
-    return logs.filter(log => log.level === tab);
-  }
-  
-  // Set the active tab
-  function setActiveTab(tab) {
-    activeTab = tab;
-  }
-  
-  // Clear all logs
-  function clearLogs() {
-    logs = [];
-  }
-  
-  // Handle manual scrolling
-  function handleScroll() {
-    if (!consoleContentElement) return;
-    
-    const { scrollTop, scrollHeight, clientHeight } = consoleContentElement;
-    const atBottom = Math.abs(scrollHeight - scrollTop - clientHeight) < 10;
-    
-    userScrolled = !atBottom;
-    autoScroll = atBottom;
-  }
-  
-  // Scroll to the bottom of the console when new logs are added
-  afterUpdate(() => {
-    if (autoScroll && consoleContentElement) {
-      consoleContentElement.scrollTop = consoleContentElement.scrollHeight;
-    }
-  });
-  
-  // Format a timestamp (for display)
-  function formatTime(timestamp) {
-    if (!timestamp) return '';
-    
-    if (typeof timestamp === 'string') {
-      return timestamp;
-    }
-    
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  }
-  
-  // Icon for log level
-  function getLevelIcon(level) {
-    switch (level) {
-      case 'info': return 'ℹ️';
-      case 'warn': return '⚠️';
-      case 'error': return '❌';
-      case 'debug': return '🔍';
-      case 'event': return '🔔';
-      default: return '📝';
-    }
-  }
-  
-  // Lifecycle hooks
-  onMount(() => {
-    // Initialize auto-scroll
-  });
+import { afterUpdate, onMount } from 'svelte'
+
+// Props
+export let logs = []
+
+// Internal state
+let activeTab = 'all'
+let consolePaneElement
+let consoleContentElement
+let autoScroll = true
+let userScrolled = false
+
+// Filter logs based on active tab
+$: filteredLogs = filterLogs(logs, activeTab)
+
+function filterLogs(logs, tab) {
+	if (tab === 'all') return logs
+	return logs.filter((log) => log.level === tab)
+}
+
+// Set the active tab
+function setActiveTab(tab) {
+	activeTab = tab
+}
+
+// Clear all logs
+function clearLogs() {
+	logs = []
+}
+
+// Handle manual scrolling
+function handleScroll() {
+	if (!consoleContentElement) return
+
+	const { scrollTop, scrollHeight, clientHeight } = consoleContentElement
+	const atBottom = Math.abs(scrollHeight - scrollTop - clientHeight) < 10
+
+	userScrolled = !atBottom
+	autoScroll = atBottom
+}
+
+// Scroll to the bottom of the console when new logs are added
+afterUpdate(() => {
+	if (autoScroll && consoleContentElement) {
+		consoleContentElement.scrollTop = consoleContentElement.scrollHeight
+	}
+})
+
+// Format a timestamp (for display)
+function formatTime(timestamp) {
+	if (!timestamp) return ''
+
+	if (typeof timestamp === 'string') {
+		return timestamp
+	}
+
+	const date = new Date(timestamp)
+	return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+}
+
+// Icon for log level
+function getLevelIcon(level) {
+	switch (level) {
+		case 'info':
+			return 'ℹ️'
+		case 'warn':
+			return '⚠️'
+		case 'error':
+			return '❌'
+		case 'debug':
+			return '🔍'
+		case 'event':
+			return '🔔'
+		default:
+			return '📝'
+	}
+}
+
+// Lifecycle hooks
+onMount(() => {
+	// Initialize auto-scroll
+})
 </script>
 
 <div class="console-pane" bind:this={consolePaneElement}>

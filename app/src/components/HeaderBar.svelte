@@ -1,23 +1,23 @@
 <script>
-  // Props
-  export let onRunClick = () => {};
-  export let onStepClick = () => {};
-  export let onPauseClick = () => {};
-  export let onStopClick = () => {};
-  export let onCommandPaletteOpen = () => {};
-  
-  // Reactive state
-  let isRunning = false;
-  let isPaused = false;
-  
-  // Update state based on debugger
-  export function setRunningState(running) {
-    isRunning = running;
-  }
-  
-  export function setPausedState(paused) {
-    isPaused = paused;
-  }
+// Props
+export const onRunClick = () => {}
+export const onStepClick = () => {}
+export const onPauseClick = () => {}
+export const onStopClick = () => {}
+export const onCommandPaletteOpen = () => {}
+
+// Reactive state
+let isRunning = false
+let isPaused = false
+
+// Update state based on debugger
+export function setRunningState(running) {
+	isRunning = running
+}
+
+export function setPausedState(paused) {
+	isPaused = paused
+}
 </script>
 
 <header class="header-bar">

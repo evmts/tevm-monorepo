@@ -1,101 +1,113 @@
 <script>
-  import { onMount } from 'svelte';
-  import VariablesView from './inspector/VariablesView.svelte';
-  import StorageView from './inspector/StorageView.svelte';
-  import CallStackView from './inspector/CallStackView.svelte';
-  import WatchView from './inspector/WatchView.svelte';
-  
-  // Props
-  export let open = true;
-  export let width = 300;
-  export let minWidth = 250;
-  export let maxWidth = 500;
-  export let onWidthChange = (width) => {}; // Callback for width changes
-  
-  // State
-  let activeTab = 'variables';
-  let isResizing = false;
-  let drawerElement;
-  
-  // Mock data for inspector
-  const variables = [
-    { name: 'owner', type: 'address', value: '0x7c3aed...5a80', scope: 'local' },
-    { name: 'amount', type: 'uint256', value: '1000', scope: 'local' },
-    { name: 'fromBalance', type: 'uint256', value: '5000', scope: 'local' },
-    { name: '_balances', type: 'mapping(address => uint256)', value: '{...}', scope: 'state', 
-      children: [
-        { name: '0x7c3aed...5a80', type: 'uint256', value: '5000' },
-        { name: '0x916bea...f171', type: 'uint256', value: '3000' }
-      ] 
-    },
-    { name: '_totalSupply', type: 'uint256', value: '10000', scope: 'state' },
-    { name: 'msg', type: 'object', value: '{...}', scope: 'global',
-      children: [
-        { name: 'sender', type: 'address', value: '0x7c3aed...5a80' },
-        { name: 'value', type: 'uint256', value: '0' },
-        { name: 'data', type: 'bytes', value: '0x' }
-      ]
-    },
-    { name: 'block', type: 'object', value: '{...}', scope: 'global',
-      children: [
-        { name: 'number', type: 'uint256', value: '123456' },
-        { name: 'timestamp', type: 'uint256', value: '1645000000' }
-      ]
-    },
-  ];
-  
-  const storage = [
-    { slot: '0x0', key: '_totalSupply', type: 'uint256', value: '10000', changed: false },
-    { slot: '0x1', key: '_balances[0x7c3aed...5a80]', type: 'uint256', value: '5000', changed: true },
-    { slot: '0x2', key: '_balances[0x916bea...f171]', type: 'uint256', value: '3000', changed: false },
-  ];
-  
-  const callStack = [
-    { name: 'transfer', sourceFile: 'Token.sol', line: 15, gas: 5000, address: '0x7c3aed...5a80' },
-    { name: '_transfer', sourceFile: 'Token.sol', line: 22, gas: 4000, address: '0x7c3aed...5a80' },
-  ];
-  
-  const watches = [
-    { expression: 'balanceOf(msg.sender)', value: '5000', type: 'uint256' },
-    { expression: '_totalSupply', value: '10000', type: 'uint256' },
-  ];
-  
-  // Event handlers
-  function setActiveTab(tab) {
-    activeTab = tab;
-  }
-  
-  function startResize(event) {
-    isResizing = true;
-    
-    const startX = event.clientX;
-    const startWidth = width;
-    
-    function handleMouseMove(e) {
-      const deltaX = startX - e.clientX;
-      const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
-      width = newWidth;
-      onWidthChange(newWidth);
-    }
-    
-    function handleMouseUp() {
-      isResizing = false;
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    }
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-  }
-  
-  function toggleDrawer() {
-    open = !open;
-  }
-  
-  // Lifecycle hooks
-  onMount(() => {
-    // Any initialization if needed
-  });
+import { onMount } from 'svelte'
+import CallStackView from './inspector/CallStackView.svelte'
+import StorageView from './inspector/StorageView.svelte'
+import VariablesView from './inspector/VariablesView.svelte'
+import WatchView from './inspector/WatchView.svelte'
+
+// Props
+export let open = true
+export let width = 300
+export const minWidth = 250
+export const maxWidth = 500
+export const onWidthChange = (width) => {} // Callback for width changes
+
+// State
+let activeTab = 'variables'
+let isResizing = false
+let drawerElement
+
+// Mock data for inspector
+const variables = [
+	{ name: 'owner', type: 'address', value: '0x7c3aed...5a80', scope: 'local' },
+	{ name: 'amount', type: 'uint256', value: '1000', scope: 'local' },
+	{ name: 'fromBalance', type: 'uint256', value: '5000', scope: 'local' },
+	{
+		name: '_balances',
+		type: 'mapping(address => uint256)',
+		value: '{...}',
+		scope: 'state',
+		children: [
+			{ name: '0x7c3aed...5a80', type: 'uint256', value: '5000' },
+			{ name: '0x916bea...f171', type: 'uint256', value: '3000' },
+		],
+	},
+	{ name: '_totalSupply', type: 'uint256', value: '10000', scope: 'state' },
+	{
+		name: 'msg',
+		type: 'object',
+		value: '{...}',
+		scope: 'global',
+		children: [
+			{ name: 'sender', type: 'address', value: '0x7c3aed...5a80' },
+			{ name: 'value', type: 'uint256', value: '0' },
+			{ name: 'data', type: 'bytes', value: '0x' },
+		],
+	},
+	{
+		name: 'block',
+		type: 'object',
+		value: '{...}',
+		scope: 'global',
+		children: [
+			{ name: 'number', type: 'uint256', value: '123456' },
+			{ name: 'timestamp', type: 'uint256', value: '1645000000' },
+		],
+	},
+]
+
+const storage = [
+	{ slot: '0x0', key: '_totalSupply', type: 'uint256', value: '10000', changed: false },
+	{ slot: '0x1', key: '_balances[0x7c3aed...5a80]', type: 'uint256', value: '5000', changed: true },
+	{ slot: '0x2', key: '_balances[0x916bea...f171]', type: 'uint256', value: '3000', changed: false },
+]
+
+const callStack = [
+	{ name: 'transfer', sourceFile: 'Token.sol', line: 15, gas: 5000, address: '0x7c3aed...5a80' },
+	{ name: '_transfer', sourceFile: 'Token.sol', line: 22, gas: 4000, address: '0x7c3aed...5a80' },
+]
+
+const watches = [
+	{ expression: 'balanceOf(msg.sender)', value: '5000', type: 'uint256' },
+	{ expression: '_totalSupply', value: '10000', type: 'uint256' },
+]
+
+// Event handlers
+function setActiveTab(tab) {
+	activeTab = tab
+}
+
+function startResize(event) {
+	isResizing = true
+
+	const startX = event.clientX
+	const startWidth = width
+
+	function handleMouseMove(e) {
+		const deltaX = startX - e.clientX
+		const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX))
+		width = newWidth
+		onWidthChange(newWidth)
+	}
+
+	function handleMouseUp() {
+		isResizing = false
+		window.removeEventListener('mousemove', handleMouseMove)
+		window.removeEventListener('mouseup', handleMouseUp)
+	}
+
+	window.addEventListener('mousemove', handleMouseMove)
+	window.addEventListener('mouseup', handleMouseUp)
+}
+
+function toggleDrawer() {
+	open = !open
+}
+
+// Lifecycle hooks
+onMount(() => {
+	// Any initialization if needed
+})
 </script>
 
 <aside 

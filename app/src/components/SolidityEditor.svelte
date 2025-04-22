@@ -1,60 +1,60 @@
 <script lang="ts">
-  import { onMount, createEventDispatcher } from 'svelte';
-  import { browser } from '$app/environment';
-  import MonacoEditor from './MonacoEditor.svelte';
+import { browser } from '$app/environment'
+import { createEventDispatcher, onMount } from 'svelte'
+import MonacoEditor from './MonacoEditor.svelte'
 
-  export let code = '';
-  export let currentLine = -1;
+export let code = ''
+export const currentLine = -1
 
-  const dispatch = createEventDispatcher();
-  
-  let editor;
-  let editorContainer;
-  let decorations = [];
+const dispatch = createEventDispatcher()
 
-  function handleEditorReady(event) {
-    editor = event.detail.editor;
-    
-    // Set initial highlight if needed
-    if (currentLine >= 0) {
-      highlightLine(currentLine);
-    }
-    
-    dispatch('ready', event.detail);
-  }
+let editor
+let editorContainer
+let decorations = []
 
-  function handleEditorChange(event) {
-    code = event.detail.value;
-    dispatch('change', { code: event.detail.value });
-  }
-  
-  function handleTextareaInput(event) {
-    code = event.target.value;
-    dispatch('change', { code });
-  }
-  
-  function highlightLine(line) {
-    if (!editor) return;
-    
-    // Clear previous decorations if any
-    if (decorations.length) {
-      editor.deltaDecorations(decorations, []);
-    }
-    
-    // Set new decoration
-    if (line >= 0) {
-      try {
-        decorations = editor.highlightLine(line + 1); // Monaco is 1-based
-      } catch (err) {
-        console.error('Failed to highlight line:', err);
-      }
-    }
-  }
+function handleEditorReady(event) {
+	editor = event.detail.editor
 
-  // Watch for changes to currentLine prop
-  $: if (editor && currentLine !== undefined) {
-    highlightLine(currentLine);
-  }
+	// Set initial highlight if needed
+	if (currentLine >= 0) {
+		highlightLine(currentLine)
+	}
+
+	dispatch('ready', event.detail)
+}
+
+function handleEditorChange(event) {
+	code = event.detail.value
+	dispatch('change', { code: event.detail.value })
+}
+
+function handleTextareaInput(event) {
+	code = event.target.value
+	dispatch('change', { code })
+}
+
+function highlightLine(line) {
+	if (!editor) return
+
+	// Clear previous decorations if any
+	if (decorations.length) {
+		editor.deltaDecorations(decorations, [])
+	}
+
+	// Set new decoration
+	if (line >= 0) {
+		try {
+			decorations = editor.highlightLine(line + 1) // Monaco is 1-based
+		} catch (err) {
+			console.error('Failed to highlight line:', err)
+		}
+	}
+}
+
+// Watch for changes to currentLine prop
+$: if (editor && currentLine !== undefined) {
+	highlightLine(currentLine)
+}
 </script>
 
 <div class="editor-container" bind:this={editorContainer}>
