@@ -1,5 +1,18 @@
 # @tevm/server
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/common@1.0.0-next.142
+  - @tevm/decorators@1.0.0-next.142
+  - @tevm/errors@1.0.0-next.142
+  - @tevm/jsonrpc@1.0.0-next.142
+  - @tevm/memory-client@1.0.0-next.142
+  - @tevm/utils@1.0.0-next.142
+
 ## 1.0.0-next.141
 
 ### Patch Changes

@@ -250,11 +250,6 @@ var vocs_config_default = defineConfig({
       link: "https://x.com/tevmtools",
       label: "Twitter"
     },
-    {
-      icon: "discord",
-      link: "https://discord.gg/tevm",
-      label: "Discord"
-    }
   ],
   // Configure code highlighting
   markdown: {

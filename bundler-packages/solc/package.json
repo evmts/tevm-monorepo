@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/solc",
-	"version": "1.0.0-next.140",
+	"version": "1.0.0-next.142",
 	"private": false,
 	"description": "Utilities around solc",
 	"keywords": [

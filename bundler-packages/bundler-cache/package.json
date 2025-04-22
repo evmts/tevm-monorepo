@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/bundler-cache",
-	"version": "1.0.0-next.140",
+	"version": "1.0.0-next.142",
 	"private": false,
 	"description": "Cache for tevm bundler",
 	"keywords": [

@@ -74,7 +74,9 @@
     "@tevm/whatsabi": "0.0.0-next.96",
     "@tevm/bundler-docs": "0.0.0",
     "@tevm/node-docs": "0.0.0",
-    "@tevm/my-rust-node-lib": "0.0.0"
+    "@tevm/my-rust-node-lib": "0.0.0",
+    "@tevm/resolutions-rs": "0.1.0",
+    "@tevm/solc-rs": "0.1.0"
   },
   "changesets": [
     "add-deal-action",
@@ -298,6 +300,7 @@
     "lucky-taxis-approve",
     "many-donkeys-tease",
     "mean-beds-provide",
+    "mean-boxes-talk",
     "mean-ghosts-wave",
     "mean-tomatoes-shave",
     "metal-colts-tie",

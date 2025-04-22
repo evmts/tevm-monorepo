@@ -1,5 +1,15 @@
 # @tevm/viem
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/decorators@1.0.0-next.142
+  - @tevm/jsonrpc@1.0.0-next.142
+  - @tevm/node@1.0.0-next.142
+
 ## 1.0.0-next.141
 
 ### Patch Changes

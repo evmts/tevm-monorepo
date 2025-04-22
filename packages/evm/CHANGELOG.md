@@ -1,5 +1,19 @@
 # @tevm/state
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/blockchain@1.0.0-next.142
+  - @tevm/common@1.0.0-next.142
+  - @tevm/errors@1.0.0-next.142
+  - @tevm/logger@1.0.0-next.142
+  - @tevm/predeploys@1.0.0-next.142
+  - @tevm/state@1.0.0-next.142
+  - @tevm/utils@1.0.0-next.142
+
 ## 1.0.0-next.140
 
 ### Patch Changes

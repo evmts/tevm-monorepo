@@ -33,7 +33,7 @@ This guide addresses common issues that may arise when using the Tevm bundler.
   export default {
     typescript: {
       // Typechecking will only be available after the LSP is migrated to volar
-      // Until then typechecking will work in editor but not during a next.js build 
+      // Until then typechecking will work in editor but not during a next.js build
       ignoreBuildErrors: true,
     }
   }
@@ -86,7 +86,7 @@ This guide addresses common issues that may arise when using the Tevm bundler.
   ```ts
   // Incorrect (when contract has constructor args)
   const deployed = await client.deployContract(MyToken)
-  
+
   // Correct
   const deployed = await client.deployContract(
     MyToken.deploy("TokenName", "TKN", 18)
@@ -119,7 +119,7 @@ To generate TypeScript files for your Solidity contracts using the Tevm CLI:
 tevm generate contract
 
 # Generate types for specific contracts
-tevm generate contract "ERC20Token" 
+tevm generate contract "ERC20Token"
 
 # Customize input and output patterns
 tevm generate contract --include "contracts/**/*.sol" --output "types/"
@@ -181,7 +181,6 @@ If you're still experiencing issues:
 
 - Check the [GitHub Issues](https://github.com/evmts/tevm-monorepo/issues) for similar problems and solutions
 - Look at the [Examples](https://github.com/evmts/tevm-monorepo/tree/main/examples) for working configurations
-- Join the Tevm community on [Discord](https://discord.gg/tevm) for direct assistance
 - For Next.js specific issues, see the [Next.js example](https://github.com/evmts/tevm-monorepo/tree/main/examples/next) in the Tevm repository
 
 ## Further Reading

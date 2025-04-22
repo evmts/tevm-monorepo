@@ -1,5 +1,50 @@
 # @tevm/contract
 
+## 1.0.0-next.142
+
+### Patch Changes
+
+- 407646e: BUmp every package
+- Updated dependencies [407646e]
+  - @tevm/base-bundler@1.0.0-next.142
+  - @tevm/bun-plugin@1.0.0-next.142
+  - @tevm/bundler-cache@1.0.0-next.142
+  - @tevm/compiler@1.0.0-next.142
+  - @tevm/config@1.0.0-next.142
+  - @tevm/esbuild-plugin@1.0.0-next.142
+  - @tevm/rollup-plugin@1.0.0-next.142
+  - @tevm/rspack-plugin@1.0.0-next.142
+  - @tevm/solc@1.0.0-next.142
+  - @tevm/vite-plugin@1.0.0-next.142
+  - @tevm/webpack-plugin@1.0.0-next.142
+  - @tevm/cli@1.0.0-next.142
+  - @tevm/viem@1.0.0-next.142
+  - @tevm/ts-plugin@1.0.0-next.142
+  - @tevm/actions@1.0.0-next.142
+  - @tevm/address@1.0.0-next.142
+  - @tevm/block@1.0.0-next.142
+  - @tevm/blockchain@1.0.0-next.142
+  - @tevm/client-types@1.0.0-next.142
+  - @tevm/common@1.0.0-next.142
+  - @tevm/contract@1.0.0-next.142
+  - @tevm/decorators@1.0.0-next.142
+  - @tevm/errors@1.0.0-next.142
+  - @tevm/evm@1.0.0-next.142
+  - @tevm/http-client@1.0.0-next.142
+  - @tevm/jsonrpc@1.0.0-next.142
+  - @tevm/memory-client@1.0.0-next.142
+  - @tevm/node@1.0.0-next.142
+  - @tevm/precompiles@1.0.0-next.142
+  - @tevm/predeploys@1.0.0-next.142
+  - @tevm/receipt-manager@1.0.0-next.142
+  - @tevm/server@1.0.0-next.142
+  - @tevm/state@1.0.0-next.142
+  - @tevm/sync-storage-persister@1.0.0-next.142
+  - @tevm/tx@1.0.0-next.142
+  - @tevm/txpool@1.0.0-next.142
+  - @tevm/utils@1.0.0-next.142
+  - @tevm/vm@1.0.0-next.142
+
 ## 1.0.0-next.141
 
 ### Minor Changes

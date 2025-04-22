@@ -192,7 +192,7 @@ importers:
         version: 6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
       vitest:
         specifier: ^3.1.2
-        version: 3.1.2(@types/debug@4.1.12)(@types/node@22.14.1)(@vitest/ui@3.0.8)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
+        version: 3.1.2(@types/debug@4.1.12)(@types/node@22.14.1)(@vitest/ui@3.0.8(vitest@3.0.8))(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
 
   bundler-packages/base-bundler:
     dependencies:
@@ -707,7 +707,7 @@ importers:
         version: 3.5.3
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)
+        version: 10.9.2(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.14.1)(typescript@5.8.2)
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
@@ -7660,7 +7660,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -11585,6 +11584,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-emoji@2.2.0:
     resolution: {integrity: sha512-Z3lTE9pLaJF47NyMhd4ww1yFTAP8YhYI8SleJiHzM46Fgpm5cnNzSl9XfzFNqbaz+VlJrIj3fXQ4DeN1Rjm6cw==}
@@ -20377,7 +20377,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.14.1
 
   '@types/secp256k1@4.0.6':
     dependencies:
@@ -24229,7 +24229,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.31.0)(webpack@5.98.0(@swc/core@1.11.9(@swc/helpers@0.5.15))(esbuild@0.25.1)):
+  eslint-import-resolver-webpack@0.13.10(eslint-plugin-import@2.31.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1))(webpack@5.98.0(@swc/core@1.11.9(@swc/helpers@0.5.15))(esbuild@0.25.1)):
     dependencies:
       debug: 3.2.7
       enhanced-resolve: 0.9.1
@@ -24253,7 +24253,7 @@ snapshots:
       '@typescript-eslint/parser': 7.18.0(eslint@8.57.1)(typescript@5.8.2)
       eslint: 8.57.1
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-webpack: 0.13.10(eslint-plugin-import@2.31.0)(webpack@5.98.0(@swc/core@1.11.9(@swc/helpers@0.5.15))(esbuild@0.25.1))
+      eslint-import-resolver-webpack: 0.13.10(eslint-plugin-import@2.31.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1))(webpack@5.98.0(@swc/core@1.11.9(@swc/helpers@0.5.15))(esbuild@0.25.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -30730,6 +30730,7 @@ snapshots:
       yn: 3.1.1
     optionalDependencies:
       '@swc/core': 1.11.9(@swc/helpers@0.5.15)
+    optional: true
 
   ts-node@10.9.2(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.14.1)(typescript@5.8.2):
     dependencies:
@@ -30750,7 +30751,6 @@ snapshots:
       yn: 3.1.1
     optionalDependencies:
       '@swc/core': 1.11.9(@swc/helpers@0.5.15)
-    optional: true
 
   tsconfck@3.1.5(typescript@5.8.2):
     optionalDependencies:
@@ -31839,7 +31839,7 @@ snapshots:
       - tsx
       - yaml
 
-  vitest@3.1.2(@types/debug@4.1.12)(@types/node@22.14.1)(@vitest/ui@3.0.8)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0):
+  vitest@3.1.2(@types/debug@4.1.12)(@types/node@22.14.1)(@vitest/ui@3.0.8(vitest@3.0.8))(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0):
     dependencies:
       '@vitest/expect': 3.1.2
       '@vitest/mocker': 3.1.2(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
@@ -32527,7 +32527,7 @@ snapshots:
       eslint-config-xo: 0.45.0(eslint@8.57.1)
       eslint-config-xo-typescript: 5.0.0(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2))(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)
       eslint-formatter-pretty: 6.0.1
-      eslint-import-resolver-webpack: 0.13.10(eslint-plugin-import@2.31.0)(webpack@5.98.0(@swc/core@1.11.9(@swc/helpers@0.5.15))(esbuild@0.25.1))
+      eslint-import-resolver-webpack: 0.13.10(eslint-plugin-import@2.31.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1))(webpack@5.98.0(@swc/core@1.11.9(@swc/helpers@0.5.15))(esbuild@0.25.1))
       eslint-plugin-ava: 14.0.0(eslint@8.57.1)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.57.1)
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint-import-resolver-webpack@0.13.10)(eslint@8.57.1)
