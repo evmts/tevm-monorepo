@@ -1,3 +1,7 @@
+// This file includes the regex-based import resolution functionality.
+// It parses Solidity files to find "import" statements and resolves those import paths
+// to actual file paths based on remappings and additional library paths.
+
 use crate::resolve_import_path::resolve_import_path;
 use crate::resolve_import_path::ResolveImportPathError;
 use crate::Config;
@@ -180,7 +184,7 @@ mod tests {
         let cfg = create_test_config(vec![], vec![]);
 
         // Use the file path for resolution
-        let result = resolve_imports(&main_file_path, code, &cfg);
+        let result = resolve_imports(&main_file_path, code, cfg.clone());
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
@@ -244,7 +248,7 @@ contract Main {
         // Create config with empty remappings and libs
         let cfg = create_test_config(vec![], vec![]);
 
-        let result = resolve_imports(&main_file_path, code, &cfg);
+        let result = resolve_imports(&main_file_path, code, cfg.clone());
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -313,7 +317,7 @@ contract Main {
         // Create config with remappings
         let cfg = create_test_config(remappings, vec![]);
 
-        let result = resolve_imports(&main_file_path, code, &cfg);
+        let result = resolve_imports(&main_file_path, code, cfg.clone());
 
         if result.is_ok() {
             let resolved_imports = result.unwrap();
@@ -353,7 +357,7 @@ contract Main {
 
         println!("Resolving imports in: {}", file_path.display());
 
-        let result = resolve_imports(&file_path, code, &cfg);
+        let result = resolve_imports(&file_path, code, cfg.clone());
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);
@@ -390,7 +394,7 @@ contract Main {
         // Create config with empty remappings and libs
         let cfg = create_test_config(vec![], vec![]);
 
-        let result = resolve_imports(&file_path, code, &cfg);
+        let result = resolve_imports(&file_path, code, cfg.clone());
         println!("Result: {:?}", result);
         // The test should still fail but for a different reason now
         assert!(
@@ -439,7 +443,7 @@ contract Main {
         // Create config with empty remappings and libs
         let cfg = create_test_config(vec![], vec![]);
 
-        let result = resolve_imports(&main_file_path, code, &cfg);
+        let result = resolve_imports(&main_file_path, code, cfg.clone());
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -497,7 +501,7 @@ contract Main {
         // Create config with empty remappings and libs
         let cfg = create_test_config(vec![], vec![]);
 
-        let result = resolve_imports(&main_file_path, code, &cfg);
+        let result = resolve_imports(&main_file_path, code, cfg.clone());
         assert!(result.is_ok());
 
         let resolved_imports = result.unwrap();
@@ -577,7 +581,7 @@ contract TestContract {
         let cfg = create_test_config(vec![], vec![]);
 
         // Use the file path for resolution
-        let result = resolve_imports(&main_file_path, code, &cfg);
+        let result = resolve_imports(&main_file_path, code, cfg.clone());
 
         if let Err(ref errors) = result {
             println!("Error: {:?}", errors);

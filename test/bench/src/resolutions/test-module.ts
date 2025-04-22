@@ -34,13 +34,18 @@ contract Test {
     const jsResult = await runPromise(moduleFactory(temp_file, code, {}, [], fao, false));
     console.log("JavaScript result:", jsResult.size);
     
-    console.log("\nTesting Rust moduleFactory...");
+    console.log("\nTesting Rust moduleFactoryJs...");
     console.log("Available exports:", Object.keys(resolutionsRs));
     try {
-      const rustResult = await resolutionsRs.moduleFactory(temp_file, code, {}, []);
-      console.log("Rust result:", rustResult.size);
+      const rustResult = await resolutionsRs.moduleFactoryJs(
+        temp_file, 
+        code, 
+        [], // remappings as array of tuples
+        [] // libs as array of strings
+      );
+      console.log("Rust result:", Object.keys(rustResult).length);
     } catch (e) {
-      console.error("Error with Rust moduleFactory:", e);
+      console.error("Error with Rust moduleFactoryJs:", e);
     }
     
     console.log("\nTest completed successfully!");

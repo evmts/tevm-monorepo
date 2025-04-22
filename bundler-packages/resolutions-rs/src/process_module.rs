@@ -30,7 +30,7 @@ pub async fn process_module(
     state.graph.lock().await.insert(
         path.to_string_lossy().into_owned(),
         ModuleInfo {
-            imported_ids: resolve_imports(&path, &code, cfg)?,
+            imported_ids: resolve_imports(&path, &code, cfg.clone())?,
             code,
         },
     );

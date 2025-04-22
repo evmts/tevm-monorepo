@@ -1,5 +1,5 @@
 // Example usage of @tevm/resolutions-rs
-import { resolveImports, processModule } from '@tevm/resolutions-rs';
+import { resolveImportsJs, moduleFactoryJs } from '@tevm/resolutions-rs';
 import path from 'path';
 import { promises as fs } from 'fs';
 
@@ -33,10 +33,10 @@ async function run() {
     await fs.writeFile(dep1File, '// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Dep1 {}');
     await fs.writeFile(utilFile, '// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nlibrary Util {}');
     
-    // Define remappings similar to Solidity's remappings
-    const remappings = {
-      '@openzeppelin/': path.join(process.cwd(), 'node_modules', '@openzeppelin'),
-    };
+    // Define remappings similar to Solidity's remappings (as array of tuples)
+    const remappingsArray = [
+      ['@openzeppelin/', path.join(process.cwd(), 'node_modules', '@openzeppelin')]
+    ];
     
     // Define library paths
     const libs = [
@@ -47,19 +47,20 @@ async function run() {
     console.time('resolveImports');
     
     // Resolve imports using the Rust implementation
-    const imports = await resolveImports(mainFile, code, remappings, libs);
+    const imports = await resolveImportsJs(mainFile, code, remappingsArray, libs);
     
     console.timeEnd('resolveImports');
     console.log('Resolved imports:', imports);
     
     console.log('\nProcessing module using Rust implementation...');
-    console.time('processModule');
+    console.time('moduleFactory');
     
-    // Process the module
-    const moduleInfo = await processModule(mainFile, code, remappings, libs);
+    // Process the module using moduleFactoryJs instead of processModule
+    const moduleMap = await moduleFactoryJs(mainFile, code, remappingsArray, libs);
     
-    console.timeEnd('processModule');
-    console.log('Module info:', moduleInfo);
+    console.timeEnd('moduleFactory');
+    console.log('Module count:', Object.keys(moduleMap).length);
+    console.log('Entry module info:', moduleMap[mainFile]);
     
     // Clean up
     await fs.rm(tempDir, { recursive: true, force: true });
