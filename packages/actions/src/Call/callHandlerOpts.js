@@ -133,6 +133,7 @@ export const callHandlerOpts = async (client, params) => {
 	const origin =
 		params.origin ||
 		params.from ||
+		params.caller ||
 		(params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
 	if (origin) {
 		if (params.skipBalance !== undefined) {
