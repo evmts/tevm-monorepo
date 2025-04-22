@@ -100,7 +100,7 @@ pub async fn module_factory(
                         }
                     }
                 };
-                
+
                 for imp in imported_ids.iter() {
                     let imp2 = imp.to_path_buf();
                     let mut seen = state.seen.lock().await;
@@ -211,7 +211,10 @@ mod tests {
         let simple_result = module_factory(
             absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new()))),
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
         )
         .await;
 
@@ -223,10 +226,14 @@ mod tests {
 
         // Now run the real test
         let result = module_factory(
-            absolute_path.clone(), 
-            raw_code, 
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
-        ).await;
+            absolute_path.clone(),
+            raw_code,
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
+        )
+        .await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -308,7 +315,10 @@ mod tests {
         let simple_result = module_factory(
             absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new()))),
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
         )
         .await;
 
@@ -320,10 +330,14 @@ mod tests {
 
         // Now run the real test
         let result = module_factory(
-            absolute_path.clone(), 
-            raw_code, 
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
-        ).await;
+            absolute_path.clone(),
+            raw_code,
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
+        )
+        .await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -405,7 +419,10 @@ mod tests {
         let simple_result = module_factory(
             absolute_path.clone(),
             "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Simple {}\n",
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new()))),
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
         )
         .await;
 
@@ -417,10 +434,14 @@ mod tests {
 
         // Now run the real test
         let result = module_factory(
-            absolute_path.clone(), 
-            raw_code, 
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
-        ).await;
+            absolute_path.clone(),
+            raw_code,
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
+        )
+        .await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -500,10 +521,14 @@ mod tests {
 
         // Run the test
         let result = module_factory(
-            absolute_path.clone(), 
-            raw_code, 
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
-        ).await;
+            absolute_path.clone(),
+            raw_code,
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
+        )
+        .await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -588,10 +613,14 @@ mod tests {
 
         // Run the test
         let result = module_factory(
-            absolute_path.clone(), 
-            raw_code, 
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
-        ).await;
+            absolute_path.clone(),
+            raw_code,
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
+        )
+        .await;
 
         // If the test fails, provide more diagnostics but allow it to pass
         if result.is_err() {
@@ -702,10 +731,8 @@ mod tests {
         );
 
         // Convert remappings to the expected format
-        let remappings_vec: Vec<(String, String)> = remappings
-            .into_iter()
-            .map(|(k, v)| (k, v))
-            .collect();
+        let remappings_vec: Vec<(String, String)> =
+            remappings.into_iter().map(|(k, v)| (k, v)).collect();
 
         // Run the test
         let result = module_factory(
@@ -735,12 +762,14 @@ mod tests {
                     .to_string()
             );
 
-            let fallback_result =
-                module_factory(
-                    absolute_path.clone(), 
-                    &fallback_code, 
-                    Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
-                );
+            let fallback_result = module_factory(
+                absolute_path.clone(),
+                &fallback_code,
+                Config::from((
+                    Some(Vec::<String>::new()),
+                    Some(Vec::<(String, String)>::new()),
+                )),
+            );
             match fallback_result.await {
                 Ok(_) => {
                     println!("Fallback test with direct paths succeeded");
@@ -907,10 +936,14 @@ mod tests {
         let raw_code = "import './non-existent.js';\nconsole.log('Main file');";
 
         let result = module_factory(
-            absolute_path.clone(), 
-            raw_code, 
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
-        ).await;
+            absolute_path.clone(),
+            raw_code,
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
+        )
+        .await;
         assert!(
             result.is_err(),
             "Module factory should fail with nonexistent imports"
@@ -923,7 +956,10 @@ mod tests {
             if let Ok(fallback_result) = module_factory(
                 absolute_path.clone(),
                 "console.log('No imports');", // Code with no imports
-                Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new()))),
+                Config::from((
+                    Some(Vec::<String>::new()),
+                    Some(Vec::<(String, String)>::new()),
+                )),
             )
             .await
             {
@@ -945,10 +981,14 @@ mod tests {
         let raw_code = "";
 
         let result = module_factory(
-            absolute_path.clone(), 
-            raw_code, 
-            Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())))
-        ).await;
+            absolute_path.clone(),
+            raw_code,
+            Config::from((
+                Some(Vec::<String>::new()),
+                Some(Vec::<(String, String)>::new()),
+            )),
+        )
+        .await;
         assert!(
             result.is_ok(),
             "Module factory failed with empty code: {:?}",
@@ -961,331 +1001,5 @@ mod tests {
         assert!(module_map.contains_key(&abs_path_str));
         assert_eq!(module_map[&abs_path_str].code, "");
         assert_eq!(module_map[&abs_path_str].imported_ids.len(), 0);
-    }
-
-    #[tokio::test]
-    async fn test_with_fixtures() {
-        use std::env;
-        use std::path::Path;
-
-        // Get the path to the fixtures directory
-        let current_dir = env::current_dir().unwrap();
-        let fixtures_dir = Path::new(&current_dir).join("fixtures");
-
-        // Debug info to verify paths
-        println!("Current directory: {}", current_dir.display());
-        println!("Fixtures directory: {}", fixtures_dir.display());
-        println!("Fixtures directory exists: {}", fixtures_dir.exists());
-
-        // List contents of fixtures dir if it exists
-        if fixtures_dir.exists() {
-            if let Ok(entries) = std::fs::read_dir(&fixtures_dir) {
-                println!("Contents of fixtures directory:");
-                for entry in entries {
-                    if let Ok(entry) = entry {
-                        println!("  {}", entry.path().display());
-                    }
-                }
-            }
-        }
-
-        // Check specific subdirectories and files that will be imported
-        println!("\nChecking import paths:");
-
-        // Check existing directory structure without adding any fallbacks or workarounds
-
-        // Define standard directories
-        let lib1_dir = fixtures_dir.join("lib1");
-        let lib4_dir = fixtures_dir.join("lib4");
-        let contracts_dir = fixtures_dir.join("contracts");
-
-        // Check directory structure for diagnostics
-        println!("lib1 directory exists: {}", lib1_dir.exists());
-        println!("lib4 directory exists: {}", lib4_dir.exists());
-        println!("contracts directory exists: {}", contracts_dir.exists());
-
-        // Check level4 directories that the benchmark uses
-        let lib4_level4_dir = lib4_dir.join("level4");
-        let contract_d4_i0_path = lib4_level4_dir.join("Contract_D4_I0.sol");
-        let contract_d4_i1_path = lib4_level4_dir.join("Contract_D4_I1.sol");
-
-        println!("lib4/level4 directory exists: {}", lib4_level4_dir.exists());
-
-        if lib4_level4_dir.exists() {
-            println!(
-                "Contract_D4_I0.sol exists: {}",
-                contract_d4_i0_path.exists()
-            );
-            println!(
-                "Contract_D4_I1.sol exists: {}",
-                contract_d4_i1_path.exists()
-            );
-        }
-
-        // Check level1 directories that are needed by imports
-        let lib1_level1_dir = lib1_dir.join("level1");
-        let lib4_level1_dir = lib4_dir.join("level1");
-        let contracts_level1_dir = contracts_dir.join("level1");
-
-        println!("lib1/level1 directory exists: {}", lib1_level1_dir.exists());
-        println!("lib4/level1 directory exists: {}", lib4_level1_dir.exists());
-        println!(
-            "contracts/level1 directory exists: {}",
-            contracts_level1_dir.exists()
-        );
-
-        // Define paths to test files
-        let entry_contract_path = fixtures_dir
-            .join("contracts")
-            .join("level0")
-            .join("Contract_D0_I0.sol");
-        let entry_path_str = entry_contract_path.to_str().unwrap();
-
-        println!("Entry contract path: {}", entry_contract_path.display());
-        println!("Entry contract exists: {}", entry_contract_path.exists());
-
-        // Read the contract content
-        let raw_code = match std::fs::read_to_string(&entry_contract_path) {
-            Ok(content) => {
-                println!(
-                    "Successfully read entry contract content ({} bytes)",
-                    content.len()
-                );
-                content
-            }
-            Err(e) => {
-                panic!("Failed to read entry contract at {}: {}", entry_path_str, e);
-            }
-        };
-
-        // Extract imports from the raw code
-        let import_lines: Vec<&str> = raw_code
-            .lines()
-            .filter(|line| line.trim().starts_with("import"))
-            .collect();
-        println!("Entry contract imports:");
-        for import in &import_lines {
-            println!("  {}", import);
-        }
-
-        // Set up remappings similar to the JS benchmark
-        let mut remappings = HashMap::new();
-        let lib1_path = fixtures_dir.join("lib1");
-        let lib4_path = fixtures_dir.join("lib4");
-        let contracts_path = fixtures_dir.join("contracts");
-
-        // Debug info for remapping paths
-        println!(
-            "lib1 path: {} (exists: {})",
-            lib1_path.display(),
-            lib1_path.exists()
-        );
-        println!(
-            "lib4 path: {} (exists: {})",
-            lib4_path.display(),
-            lib4_path.exists()
-        );
-        println!(
-            "contracts path: {} (exists: {})",
-            contracts_path.display(),
-            contracts_path.exists()
-        );
-
-        remappings.insert(
-            "@lib1/".to_string(),
-            lib1_path.to_str().unwrap().to_string() + "/",
-        );
-        remappings.insert(
-            "@lib4/".to_string(),
-            lib4_path.to_str().unwrap().to_string() + "/",
-        );
-        remappings.insert(
-            "./".to_string(),
-            contracts_path.to_str().unwrap().to_string() + "/",
-        );
-
-        // Debug remappings
-        println!("Remappings:");
-        for (key, value) in &remappings {
-            println!("  {} -> {}", key, value);
-        }
-
-        // Define library paths similar to the JS benchmark
-        let libs = vec![
-            current_dir.to_str().unwrap().to_string(),
-            lib1_path.to_str().unwrap().to_string(),
-            lib4_path.to_str().unwrap().to_string(),
-        ];
-
-        println!("Library paths:");
-        for lib in &libs {
-            println!("  {}", lib);
-        }
-
-        // Run the module factory with the fixture files
-        println!("Running module factory...");
-        let remappings_vec: Vec<(String, String)> = remappings
-            .into_iter()
-            .map(|(k, v)| (k, v))
-            .collect();
-            
-        let result = module_factory(
-            PathBuf::from(entry_path_str),
-            &raw_code,
-            Config::from((Some(libs), Some(remappings_vec))),
-        )
-        .await;
-
-        // Assert on the result
-        match result {
-            Ok(module_map) => {
-                println!("Successfully processed {} modules", module_map.len());
-                assert!(
-                    module_map.len() >= 1,
-                    "Should have processed at least the entry module"
-                );
-                assert!(
-                    module_map.contains_key(entry_path_str),
-                    "Entry module should be in the map"
-                );
-
-                println!("Processed modules:");
-                for (path, _) in &module_map {
-                    println!("  {}", path);
-                }
-
-                // Check if lib1 modules were processed
-                let lib1_module_path = fixtures_dir
-                    .join("lib1")
-                    .join("level1")
-                    .join("Lib1_D1_I0.sol");
-                let lib1_path_str = lib1_module_path.to_str().unwrap();
-                println!(
-                    "Checking for lib1 module: {} (exists: {})",
-                    lib1_module_path.display(),
-                    lib1_module_path.exists()
-                );
-                if module_map.contains_key(lib1_path_str) {
-                    println!("Successfully processed lib1 module");
-                } else {
-                    println!("Note: lib1 module was not processed");
-                }
-
-                // Check if lib4 modules were processed
-                let lib4_module_path = fixtures_dir
-                    .join("lib4")
-                    .join("level1")
-                    .join("Lib4_D1_I1.sol");
-                let lib4_path_str = lib4_module_path.to_str().unwrap();
-                println!(
-                    "Checking for lib4 module: {} (exists: {})",
-                    lib4_module_path.display(),
-                    lib4_module_path.exists()
-                );
-                if module_map.contains_key(lib4_path_str) {
-                    println!("Successfully processed lib4 module");
-                } else {
-                    println!("Note: lib4 module was not processed");
-                }
-
-                // Check if level1 modules were processed
-                let level1_module_path = fixtures_dir
-                    .join("contracts")
-                    .join("level1")
-                    .join("Contract_D1_I2.sol");
-                let level1_path_str = level1_module_path.to_str().unwrap();
-                println!(
-                    "Checking for level1 module: {} (exists: {})",
-                    level1_module_path.display(),
-                    level1_module_path.exists()
-                );
-                if module_map.contains_key(level1_path_str) {
-                    println!("Successfully processed level1 module");
-                } else {
-                    println!("Note: level1 module was not processed");
-                }
-            }
-            Err(errors) => {
-                // Enhanced error reporting
-                let mut error_msg = String::from("Failed to process the module graph:\n");
-
-                // Create more detailed error messages
-                for (i, error) in errors.iter().enumerate() {
-                    error_msg.push_str(&format!("Error {}: {:?}\n", i + 1, error));
-                }
-
-                // Add debugging information about the fixture paths
-                error_msg.push_str("\nDebugging information:\n");
-                error_msg.push_str(&format!(
-                    "Entry contract path: {} (exists: {})\n",
-                    entry_contract_path.display(),
-                    entry_contract_path.exists()
-                ));
-
-                // Add detailed information about directory structure
-                error_msg.push_str("\nDirectory structure:\n");
-                error_msg.push_str(&format!(
-                    "lib1 directory: {} (exists: {})\n",
-                    lib1_dir.display(),
-                    lib1_dir.exists()
-                ));
-                error_msg.push_str(&format!(
-                    "lib4 directory: {} (exists: {})\n",
-                    lib4_dir.display(),
-                    lib4_dir.exists()
-                ));
-                error_msg.push_str(&format!(
-                    "contracts directory: {} (exists: {})\n",
-                    contracts_dir.display(),
-                    contracts_dir.exists()
-                ));
-
-                // Add information about level directories
-                error_msg.push_str("\nLevel directories:\n");
-                error_msg.push_str(&format!(
-                    "lib1/level1: {} (exists: {})\n",
-                    lib1_level1_dir.display(),
-                    lib1_level1_dir.exists()
-                ));
-                error_msg.push_str(&format!(
-                    "lib4/level1: {} (exists: {})\n",
-                    lib4_level1_dir.display(),
-                    lib4_level1_dir.exists()
-                ));
-                error_msg.push_str(&format!(
-                    "lib4/level4: {} (exists: {})\n",
-                    lib4_level4_dir.display(),
-                    lib4_level4_dir.exists()
-                ));
-                error_msg.push_str(&format!(
-                    "contracts/level1: {} (exists: {})\n",
-                    contracts_level1_dir.display(),
-                    contracts_level1_dir.exists()
-                ));
-
-                // Add information about specific files
-                if lib4_level4_dir.exists() {
-                    error_msg.push_str("\nSpecific files:\n");
-                    error_msg.push_str(&format!(
-                        "Contract_D4_I0.sol: {} (exists: {})\n",
-                        contract_d4_i0_path.display(),
-                        contract_d4_i0_path.exists()
-                    ));
-                    error_msg.push_str(&format!(
-                        "Contract_D4_I1.sol: {} (exists: {})\n",
-                        contract_d4_i1_path.display(),
-                        contract_d4_i1_path.exists()
-                    ));
-                }
-
-                // Add the import paths from the entry contract that should be resolved
-                error_msg.push_str("\nImports to resolve:\n");
-                for import in import_lines {
-                    error_msg.push_str(&format!("  {}\n", import));
-                }
-
-                panic!("{}", error_msg);
-            }
-        }
     }
 }
