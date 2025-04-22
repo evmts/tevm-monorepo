@@ -16,7 +16,7 @@ function toggleExpand(variable) {
 		expandedItems.add(variable.name)
 	}
 
-	expandedItems = expandedItems // Trigger reactivity
+	expandedItems = new Set(expandedItems) // Create a new Set to trigger reactivity
 }
 
 // Filter variables based on search query

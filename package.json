@@ -45,6 +45,15 @@
     "test:run": "nx run-many --target=test:run",
     "up": "bun x npm-check-updates -ui -ws"
   },
+  "dependencies": {
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.20.7",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tanstack/svelte-query": "^5.74.4",
+    "app": "^0.1.0",
+    "svelte": "^5.0.0-next.81",
+    "svelte-check": "^4.1.6"
+  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.4",
     "@biomejs/biome": "^1.9.4",
@@ -79,14 +88,5 @@
   "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {
-    "@sveltejs/adapter-static": "^3.0.8",
-    "@sveltejs/kit": "^2.20.7",
-    "@sveltejs/vite-plugin-svelte": "^5.0.3",
-    "@tanstack/svelte-query": "^5.74.4",
-    "app": "^0.1.0",
-    "svelte": "^5.0.0-next.81",
-    "svelte-check": "^4.1.6"
   }
 }
