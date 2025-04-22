@@ -42,7 +42,7 @@ pub enum ResolveImportsError {
 pub fn resolve_imports(
     context_path: &Path,
     code: &str,
-    cfg: &Config,
+    cfg: Config,
 ) -> Result<Vec<PathBuf>, Vec<ResolveImportsError>> {
     let mut imports = Vec::new();
     let mut unique_imports = std::collections::HashSet::new();
@@ -64,7 +64,7 @@ pub fn resolve_imports(
                     match resolve_import_path(
                         context_path.to_path_buf(),
                         import_dir.path.value.as_str(),
-                        cfg,
+                        &cfg,
                     ) {
                         Ok(p) => {
                             // Only add the import if it hasn't been seen before
@@ -72,7 +72,7 @@ pub fn resolve_imports(
                             if unique_imports.insert(path_str) {
                                 imports.push(p);
                             }
-                        },
+                        }
                         Err(cause) => errors.push(ResolveImportsError::PathResolutionError {
                             context_path: context_path.to_path_buf(),
                             cause,
@@ -132,8 +132,12 @@ mod tests {
 
     fn create_test_config(remappings: Vec<(String, String)>, libs: Vec<PathBuf>) -> Config {
         Config::from((
-            Some(libs.into_iter().map(|p| p.to_string_lossy().to_string()).collect::<Vec<String>>()), 
-            Some(remappings)
+            Some(
+                libs.into_iter()
+                    .map(|p| p.to_string_lossy().to_string())
+                    .collect::<Vec<String>>(),
+            ),
+            Some(remappings),
         ))
     }
 
@@ -389,7 +393,10 @@ contract Main {
         let result = resolve_imports(&file_path, code, &cfg);
         println!("Result: {:?}", result);
         // The test should still fail but for a different reason now
-        assert!(result.is_err(), "Invalid import paths should result in an error");
+        assert!(
+            result.is_err(),
+            "Invalid import paths should result in an error"
+        );
     }
 
     #[tokio::test]

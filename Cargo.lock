@@ -2393,6 +2393,7 @@ dependencies = [
  "solar-compiler",
  "tempfile",
  "tokio",
+ "tokio-stream",
 ]
 
 [[package]]
@@ -2538,6 +2539,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.87",
+]
+
+[[package]]
+name = "tokio-stream"
+version = "0.1.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eca58d7bba4a75707817a2c44174253f9236b2d5fbd055602e9d5c07c139a047"
+dependencies = [
+ "futures-core",
+ "pin-project-lite",
+ "tokio",
 ]
 
 [[package]]

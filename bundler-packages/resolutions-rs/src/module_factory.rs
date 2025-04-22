@@ -3,10 +3,15 @@ use crate::process_module::process_module;
 use crate::resolve_imports::ResolveImportsError;
 use crate::state::State;
 use crate::Config;
-use futures::{stream::FuturesUnordered, StreamExt};
+use futures::future::FutureExt;
+use futures::stream::FuturesUnordered;
+use futures::StreamExt;
 use std::collections::HashMap;
+use std::future::Future;
 use std::path::PathBuf;
-use tokio::task;
+use std::pin::Pin;
+
+type ModuleFuture = Pin<Box<dyn Future<Output = Result<String, Vec<ResolveImportsError>>> + Send>>;
 
 fn get_max_concurrent_reads() -> usize {
     // 1) Base it on CPU count
@@ -56,91 +61,72 @@ pub async fn module_factory(
     let state = State::new(get_max_concurrent_reads());
 
     let entrypoint_id = process_module(
-        &entrypoint_path.to_path_buf(),
+        entrypoint_path.to_path_buf(),
         Some(raw_code.to_string()),
-        &cfg,
+        cfg.clone(),
         state.clone(),
         state.sem.clone().acquire_owned().await.unwrap(),
     )
     .await?;
 
-    if state.graph.lock().await.get(&entrypoint_id).expect(
-        "UnexpectedError: The entrypoint never got inserted. This indicates a bug in the program.",
-    ).imported_ids.is_empty() {
+    let initial_imports = {
+        let graph = state.graph.lock().await;
+        graph
+            .get(&entrypoint_id)
+            .expect("UnexpectedError: The entrypoint never got inserted. This indicates a bug in the program.")
+            .imported_ids
+            .clone()
+    };
+
+    if initial_imports.is_empty() {
         let graph = state.graph.lock().await.clone();
         return Ok(graph);
     }
 
     let mut in_flight = FuturesUnordered::new();
 
-    for entrypoint_import in state.graph.lock().await.get(&entrypoint_id).expect(
-        "UnexpectedError: The entrypoint never got inserted. This indicates a bug in the program.",
-    ).imported_ids.iter() {
-        let state2 = state.clone();
-        let permit = state2.sem.clone().acquire_owned().await.unwrap();
-        let cfg2 = cfg.clone();
-        let entrypoint_import2 = entrypoint_import.to_path_buf();
-        in_flight.push(task::spawn(async move {
-            process_module(&entrypoint_import2, None, &cfg2, state2.clone(), permit).await
-        }));
-    }
+    let permit = state.sem.clone().acquire_owned().await.unwrap();
+    let cfg2 = cfg.clone();
+    let state2 = state.clone();
+    in_flight.push(
+        async move {
+            process_module(
+                entrypoint_path,
+                Some(raw_code.to_string()),
+                cfg2,
+                state2,
+                permit,
+            )
+            .await
+        }
+        .boxed(),
+    );
 
-    while let Some(joined) = in_flight.next().await {
-        match joined {
-            Ok(Ok(next_module_id)) => {
-                // Get imported_ids safely with proper borrowing
-                let imported_ids = {
-                    let graph = state.graph.lock().await;
-                    match graph.get(&next_module_id) {
-                        Some(info) => info.imported_ids.clone(),
-                        None => {
-                            // Module wasn't inserted for some reason
-                            println!("Warning: Module {} not found in graph", next_module_id);
-                            continue;
-                        }
-                    }
-                };
+    while let Some(res) = in_flight.next().await {
+        let module_id = res?;
 
-                for imp in imported_ids.iter() {
-                    let imp2 = imp.to_path_buf();
-                    let mut seen = state.seen.lock().await;
-                    if !seen.insert(imp2.to_string_lossy().to_string()) {
-                        continue;
-                    }
-                    drop(seen);
-                    let state2 = state.clone();
-                    let cfg2 = cfg.clone();
-                    let permit = state2.sem.clone().acquire_owned().await.unwrap();
-                    in_flight.push(task::spawn(async move {
-                        process_module(&imp2, None, &cfg2, state2, permit).await
-                    }))
-                }
-            }
-            Ok(Err(err)) => {
-                return Err(vec![ResolveImportsError::PathResolutionError {
-                    context_path: PathBuf::from("Unknown path"),
-                    cause:
-                        crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath {
-                            import_path: format!("Process module error: {:?}", err),
-                            causes: vec![],
-                        },
-                }]);
-            }
-            Err(err) => {
-                return Err(vec![ResolveImportsError::PathResolutionError {
-                    context_path: PathBuf::from("Unknown path"),
-                    cause:
-                        crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath {
-                            import_path: format!("Task join error: {:?}", err),
-                            causes: vec![],
-                        },
-                }]);
-            }
+        let children = {
+            let graph = state.graph.lock().await;
+            graph
+                .get(&module_id)
+                .expect("Process_module always inserted")
+                .imported_ids
+                .clone()
+        };
+
+        for child in children {
+            let permit = state.sem.clone().acquire_owned().await.unwrap();
+            let cfg2 = cfg.clone();
+            let state2 = state.clone();
+
+            in_flight.push(
+                async move { process_module(child, None, cfg2, state2, permit).await }.boxed(),
+            )
         }
     }
 
-    let out = state.graph.lock().await.clone();
-    Ok(out)
+    let graph = state.graph.lock().await.clone();
+    Ok(graph)
 }
 
 #[cfg(test)]

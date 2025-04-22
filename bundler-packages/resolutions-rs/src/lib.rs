@@ -67,7 +67,7 @@ pub async fn resolve_imports_js(
 ) -> Result<Vec<JsResolvedImport>> {
     let config = Config::from((libs, remappings));
 
-    let paths = resolve_imports::resolve_imports(&PathBuf::from(&file_path), &code, &config)
+    let paths = resolve_imports::resolve_imports(&PathBuf::from(&file_path), &code, config)
         .map_err(|err| {
             Error::new(
                 Status::GenericFailure,
