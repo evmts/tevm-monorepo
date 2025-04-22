@@ -39,7 +39,7 @@ pub fn resolve_import_path(
     } else {
         context_path.clone()
     };
-    
+
     // Try resolving relative path
     let imp_path = Path::new(import_path);
     if let Some(c) = imp_path.components().next() {
@@ -74,12 +74,13 @@ pub fn resolve_import_path(
         }
     }
 
+    // Finally try using node.js resolution
     let mut causes = Vec::with_capacity(cfg.libs.len() + 1);
-
     for lib in once(dir_path).chain(cfg.libs.to_vec()) {
         match resolve_from(import_path, lib) {
             Ok(res) => return Ok(res),
             Err(err) => causes.push(err),
+            // Finally try using node.js resolution
         };
     }
 
@@ -122,7 +123,10 @@ mod tests {
         let absolute_path = root_dir.join("src").display().to_string();
 
         // Create a Config for testing
-        let cfg = Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())));
+        let cfg = Config::from((
+            Some(Vec::<String>::new()),
+            Some(Vec::<(String, String)>::new()),
+        ));
 
         let result = resolve_import_path(PathBuf::from(&absolute_path), "./utils/helper.rs", &cfg);
 
@@ -156,14 +160,17 @@ mod tests {
             .to_string();
 
         // Create a Config for testing
-        let cfg = Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())));
+        let cfg = Config::from((
+            Some(Vec::<String>::new()),
+            Some(Vec::<(String, String)>::new()),
+        ));
 
         let result = resolve_import_path(PathBuf::from(&src_path), "../test-module.rs", &cfg);
 
         if result.is_ok() {
             let cfg_with_libs = Config::from((
-                Some(vec![lib_path.clone()]), 
-                Some(Vec::<(String, String)>::new())
+                Some(vec![lib_path.clone()]),
+                Some(Vec::<(String, String)>::new()),
             ));
 
             let lib_result = resolve_import_path(
@@ -283,7 +290,10 @@ mod tests {
         let absolute_path = root_dir.join("src").display().to_string();
 
         // Create a config with default values
-        let cfg = Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())));
+        let cfg = Config::from((
+            Some(Vec::<String>::new()),
+            Some(Vec::<(String, String)>::new()),
+        ));
 
         let result =
             resolve_import_path(PathBuf::from(&absolute_path), "non/existent/file.rs", &cfg);
@@ -308,10 +318,7 @@ mod tests {
         let lib_path = root_dir.join("lib").display().to_string();
 
         // Create config with libs
-        let cfg_with_libs = Config::from((
-            Some(vec![lib_path.clone()]), 
-            Some(vec![])
-        ));
+        let cfg_with_libs = Config::from((Some(vec![lib_path.clone()]), Some(vec![])));
 
         let result = resolve_import_path(
             PathBuf::from(&src_path),
@@ -372,7 +379,10 @@ mod tests {
         let src_path = root_dir.join("src").display().to_string();
 
         // Create a Config for testing
-        let cfg = Config::from((Some(Vec::<String>::new()), Some(Vec::<(String, String)>::new())));
+        let cfg = Config::from((
+            Some(Vec::<String>::new()),
+            Some(Vec::<(String, String)>::new()),
+        ));
 
         let package_result = resolve_import_path(PathBuf::from(&src_path), "test-package", &cfg);
 
