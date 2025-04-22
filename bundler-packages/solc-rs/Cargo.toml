@@ -10,10 +10,10 @@ readme = "README.md"
 keywords = ["solidity", "compiler", "ethereum", "solc", "tevm"]
 
 [dependencies]
-serde = { version = "1.0.197", features = ["derive"] }
+serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
 tempfile = "3.19.1"
-thiserror = "1.0.57"
+thiserror = "2.0.12"
 hex = "0.4.3"
 
 [lib]
