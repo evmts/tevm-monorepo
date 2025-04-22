@@ -347,6 +347,32 @@ Create .stack property on a target object
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
 
+Defined in: node\_modules/.pnpm/@types+node@22.14.1/node\_modules/@types/node/globals.d.ts:136
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+
 Defined in: node\_modules/.pnpm/bun-types@1.2.5/node\_modules/bun-types/globals.d.ts:1441
 
 Create .stack property on a target object

@@ -1,45 +1,42 @@
 <script>
-  // Props
-  export let storage = [];
-  
-  // State
-  let displayFormat = 'hex'; // 'hex' or 'decimal'
-  
-  // Toggle display format
-  function toggleFormat() {
-    displayFormat = displayFormat === 'hex' ? 'decimal' : 'hex';
-  }
-  
-  // Format value based on current display format
-  function formatValue(value, type) {
-    if (!value) return '';
-    
-    // If it's already in the correct format or not a number, return as is
-    if (
-      (displayFormat === 'hex' && value.toString().startsWith('0x')) ||
-      (displayFormat === 'decimal' && !value.toString().startsWith('0x')) ||
-      type !== 'uint256'
-    ) {
-      return value;
-    }
-    
-    try {
-      // Convert between formats
-      if (displayFormat === 'hex') {
-        // To hex
-        return '0x' + BigInt(value).toString(16);
-      } else {
-        // To decimal
-        return value.startsWith('0x')
-          ? BigInt(value).toString()
-          : value;
-      }
-    } catch (e) {
-      // If conversion fails, return original
-      console.error('Value conversion error:', e);
-      return value;
-    }
-  }
+// Props
+export const storage = []
+
+// State
+let displayFormat = 'hex' // 'hex' or 'decimal'
+
+// Toggle display format
+function toggleFormat() {
+	displayFormat = displayFormat === 'hex' ? 'decimal' : 'hex'
+}
+
+// Format value based on current display format
+function formatValue(value, type) {
+	if (!value) return ''
+
+	// If it's already in the correct format or not a number, return as is
+	if (
+		(displayFormat === 'hex' && value.toString().startsWith('0x')) ||
+		(displayFormat === 'decimal' && !value.toString().startsWith('0x')) ||
+		type !== 'uint256'
+	) {
+		return value
+	}
+
+	try {
+		// Convert between formats
+		if (displayFormat === 'hex') {
+			// To hex
+			return `0x${BigInt(value).toString(16)}`
+		}
+		// To decimal
+		return value.startsWith('0x') ? BigInt(value).toString() : value
+	} catch (e) {
+		// If conversion fails, return original
+		console.error('Value conversion error:', e)
+		return value
+	}
+}
 </script>
 
 <div class="storage-view">

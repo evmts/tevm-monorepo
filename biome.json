@@ -31,6 +31,8 @@
 			".changeset",
 			".devcontainer",
 			"examples/svelte-ethers/.svelte-kit",
+			"app/.svelte-kit",
+			"**/.svelte-kit",
 			"examples/next",
 			"cli",
 			"bundler-packages/config/src/fixtures",
@@ -49,7 +51,8 @@
 		"rules": {
 			"recommended": true,
 			"style": {
-				"useImportType": "off"
+				"useImportType": "off",
+				"noNonNullAssertion": "off"
 			},
 			"performance": {
 				"noDelete": "off",
@@ -66,7 +69,19 @@
 				"noArrayIndexKey": "off",
 				"noConfusingVoidType": "off",
 				"noAssignInExpressions": "off",
-				"noRedeclare": "off"
+				"noRedeclare": "off",
+				"noImplicitAnyLet": "off"
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off",
+				"useSemanticElements": "off",
+				"useFocusableInteractive": "off"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "off"
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "off"
 			}
 		}
 	},

@@ -1,88 +1,88 @@
 <script>
-  import { onMount } from 'svelte';
-  
-  // Props
-  export let watches = [];
-  
-  // State
-  let newExpression = '';
-  let editIndex = -1;
-  let editValue = '';
-  
-  // Add a new watch expression
-  function addWatch() {
-    if (!newExpression.trim()) return;
-    
-    // In a real implementation, you would evaluate the expression and get its value
-    const newWatch = {
-      expression: newExpression,
-      value: 'undefined', // This would be dynamically evaluated
-      type: 'unknown'     // This would be dynamically determined
-    };
-    
-    watches = [...watches, newWatch];
-    newExpression = '';
-  }
-  
-  // Remove a watch expression
-  function removeWatch(index) {
-    watches = watches.filter((_, i) => i !== index);
-    
-    // If we were editing this watch, cancel the edit
-    if (editIndex === index) {
-      cancelEdit();
-    }
-  }
-  
-  // Start editing a watch expression
-  function startEdit(index) {
-    editIndex = index;
-    editValue = watches[index].expression;
-  }
-  
-  // Save the edited expression
-  function saveEdit() {
-    if (editIndex === -1 || !editValue.trim()) return;
-    
-    // Create a new array to trigger reactivity
-    watches = watches.map((watch, index) => {
-      if (index === editIndex) {
-        return {
-          ...watch,
-          expression: editValue,
-          // In a real implementation, you would re-evaluate the expression here
-        };
-      }
-      return watch;
-    });
-    
-    cancelEdit();
-  }
-  
-  // Cancel editing
-  function cancelEdit() {
-    editIndex = -1;
-    editValue = '';
-  }
-  
-  // Handle keydown in edit input
-  function handleEditKeydown(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      saveEdit();
-    } else if (event.key === 'Escape') {
-      event.preventDefault();
-      cancelEdit();
-    }
-  }
-  
-  // Handle keydown in new expression input
-  function handleNewExpressionKeydown(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      addWatch();
-    }
-  }
+import { onMount } from 'svelte'
+
+// Props
+export let watches = []
+
+// State
+let newExpression = ''
+let editIndex = -1
+let editValue = ''
+
+// Add a new watch expression
+function addWatch() {
+	if (!newExpression.trim()) return
+
+	// In a real implementation, you would evaluate the expression and get its value
+	const newWatch = {
+		expression: newExpression,
+		value: 'undefined', // This would be dynamically evaluated
+		type: 'unknown', // This would be dynamically determined
+	}
+
+	watches = [...watches, newWatch]
+	newExpression = ''
+}
+
+// Remove a watch expression
+function removeWatch(index) {
+	watches = watches.filter((_, i) => i !== index)
+
+	// If we were editing this watch, cancel the edit
+	if (editIndex === index) {
+		cancelEdit()
+	}
+}
+
+// Start editing a watch expression
+function startEdit(index) {
+	editIndex = index
+	editValue = watches[index].expression
+}
+
+// Save the edited expression
+function saveEdit() {
+	if (editIndex === -1 || !editValue.trim()) return
+
+	// Create a new array to trigger reactivity
+	watches = watches.map((watch, index) => {
+		if (index === editIndex) {
+			return {
+				...watch,
+				expression: editValue,
+				// In a real implementation, you would re-evaluate the expression here
+			}
+		}
+		return watch
+	})
+
+	cancelEdit()
+}
+
+// Cancel editing
+function cancelEdit() {
+	editIndex = -1
+	editValue = ''
+}
+
+// Handle keydown in edit input
+function handleEditKeydown(event) {
+	if (event.key === 'Enter') {
+		event.preventDefault()
+		saveEdit()
+	} else if (event.key === 'Escape') {
+		event.preventDefault()
+		cancelEdit()
+	}
+}
+
+// Handle keydown in new expression input
+function handleNewExpressionKeydown(event) {
+	if (event.key === 'Enter') {
+		event.preventDefault()
+		addWatch()
+	}
+}
 </script>
 
 <div class="watch-view">

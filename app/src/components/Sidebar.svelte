@@ -1,97 +1,111 @@
 <script>
-  import { onMount } from 'svelte';
-  
-  // Props
-  export let width = 250; // Default width
-  export let minWidth = 180;
-  export let maxWidth = 400;
-  export let onWidthChange = (width) => {}; // Callback for width changes
-  
-  // State
-  let activeView = 'files'; // 'files' or 'outline'
-  let isResizing = false;
-  let sidebarElement;
-  
-  // Mock data for file tree
-  const fileTree = [
-    { id: 'contracts', name: 'contracts', type: 'folder', expanded: true, children: [
-      { id: 'contracts/Token.sol', name: 'Token.sol', type: 'file', active: true },
-      { id: 'contracts/Vault.sol', name: 'Vault.sol', type: 'file' },
-    ]},
-    { id: 'scripts', name: 'scripts', type: 'folder', expanded: false, children: [
-      { id: 'scripts/deploy.ts', name: 'deploy.ts', type: 'file' },
-    ]},
-    { id: 'test', name: 'test', type: 'folder', expanded: false, children: [
-      { id: 'test/Token.test.ts', name: 'Token.test.ts', type: 'file' },
-    ]},
-    { id: 'README.md', name: 'README.md', type: 'file' },
-  ];
-  
-  // Mock data for contract outline
-  const outline = [
-    { id: 'contract-Token', name: 'Token', type: 'contract', line: 5 },
-    { id: 'state-balances', name: 'balances', type: 'state', line: 6 },
-    { id: 'state-totalSupply', name: 'totalSupply', type: 'state', line: 7 },
-    { id: 'event-Transfer', name: 'Transfer', type: 'event', line: 9 },
-    { id: 'function-balanceOf', name: 'balanceOf', type: 'function', line: 11 },
-    { id: 'function-transfer', name: 'transfer', type: 'function', line: 15 },
-    { id: 'function-_transfer', name: 'transfer (internal)', type: 'function', line: 22 },
-  ];
-  
-  // Event handlers
-  function switchView(view) {
-    activeView = view;
-  }
-  
-  function startResize(event) {
-    isResizing = true;
-    
-    const startX = event.clientX;
-    const startWidth = width;
-    
-    function handleMouseMove(e) {
-      const deltaX = e.clientX - startX;
-      const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
-      width = newWidth;
-      onWidthChange(newWidth);
-    }
-    
-    function handleMouseUp() {
-      isResizing = false;
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    }
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-  }
-  
-  function toggleFolder(folder) {
-    folder.expanded = !folder.expanded;
-  }
-  
-  function selectFile(file) {
-    // Reset all active states
-    function resetActive(items) {
-      items.forEach(item => {
-        item.active = false;
-        if (item.children) resetActive(item.children);
-      });
-    }
-    
-    resetActive(fileTree);
-    file.active = true;
-  }
-  
-  function jumpToLine(item) {
-    console.log(`Jump to line ${item.line}: ${item.name}`);
-    // Implement line navigation logic
-  }
-  
-  // Lifecycle
-  onMount(() => {
-    // Any initialization if needed
-  });
+import { onMount } from 'svelte'
+
+// Props
+export let width = 250 // Default width
+export const minWidth = 180
+export const maxWidth = 400
+export const onWidthChange = (width) => {} // Callback for width changes
+
+// State
+let activeView = 'files' // 'files' or 'outline'
+let isResizing = false
+let sidebarElement
+
+// Mock data for file tree
+const fileTree = [
+	{
+		id: 'contracts',
+		name: 'contracts',
+		type: 'folder',
+		expanded: true,
+		children: [
+			{ id: 'contracts/Token.sol', name: 'Token.sol', type: 'file', active: true },
+			{ id: 'contracts/Vault.sol', name: 'Vault.sol', type: 'file' },
+		],
+	},
+	{
+		id: 'scripts',
+		name: 'scripts',
+		type: 'folder',
+		expanded: false,
+		children: [{ id: 'scripts/deploy.ts', name: 'deploy.ts', type: 'file' }],
+	},
+	{
+		id: 'test',
+		name: 'test',
+		type: 'folder',
+		expanded: false,
+		children: [{ id: 'test/Token.test.ts', name: 'Token.test.ts', type: 'file' }],
+	},
+	{ id: 'README.md', name: 'README.md', type: 'file' },
+]
+
+// Mock data for contract outline
+const outline = [
+	{ id: 'contract-Token', name: 'Token', type: 'contract', line: 5 },
+	{ id: 'state-balances', name: 'balances', type: 'state', line: 6 },
+	{ id: 'state-totalSupply', name: 'totalSupply', type: 'state', line: 7 },
+	{ id: 'event-Transfer', name: 'Transfer', type: 'event', line: 9 },
+	{ id: 'function-balanceOf', name: 'balanceOf', type: 'function', line: 11 },
+	{ id: 'function-transfer', name: 'transfer', type: 'function', line: 15 },
+	{ id: 'function-_transfer', name: 'transfer (internal)', type: 'function', line: 22 },
+]
+
+// Event handlers
+function switchView(view) {
+	activeView = view
+}
+
+function startResize(event) {
+	isResizing = true
+
+	const startX = event.clientX
+	const startWidth = width
+
+	function handleMouseMove(e) {
+		const deltaX = e.clientX - startX
+		const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX))
+		width = newWidth
+		onWidthChange(newWidth)
+	}
+
+	function handleMouseUp() {
+		isResizing = false
+		window.removeEventListener('mousemove', handleMouseMove)
+		window.removeEventListener('mouseup', handleMouseUp)
+	}
+
+	window.addEventListener('mousemove', handleMouseMove)
+	window.addEventListener('mouseup', handleMouseUp)
+}
+
+function toggleFolder(folder) {
+	folder.expanded = !folder.expanded
+}
+
+function selectFile(file) {
+	// Reset all active states
+	function resetActive(items) {
+		items.forEach((item) => {
+			item.active = false
+			if (item.children) resetActive(item.children)
+		})
+	}
+
+	resetActive(fileTree)
+	file.active = true
+}
+
+function jumpToLine(item) {
+	console.log(`Jump to line ${item.line}: ${item.name}`)
+	// Implement line navigation logic
+}
+
+// Lifecycle
+onMount(() => {
+	// Any initialization if needed
+})
 </script>
 
 <aside 

@@ -1,121 +1,126 @@
 <script>
-  import { onMount, createEventDispatcher } from 'svelte';
-  import MonacoEditor from './MonacoEditor.svelte';
-  
-  // Props
-  export let code = '';
-  export let currentLine = -1;
-  export let breakpoints = [];
-  
-  // Editor
-  let editor;
-  let monaco;
-  let lineDecorations = [];
-  let breakpointDecorations = [];
-  
-  const dispatch = createEventDispatcher();
-  
-  // Handle editor ready event
-  function handleEditorReady(event) {
-    editor = event.detail.editor;
-    monaco = event.detail.monaco;
-    
-    // Update decorations if needed
-    highlightCurrentLine();
-    updateBreakpoints();
-    
-    // Pass the ready event up
-    dispatch('ready', event.detail);
-  }
-  
-  // Handle editor text changes
-  function handleEditorChange(event) {
-    code = event.detail.value;
-    dispatch('change', { code });
-  }
-  
-  // Toggle breakpoint at line
-  function toggleBreakpoint(line) {
-    const index = breakpoints.indexOf(line);
-    
-    if (index !== -1) {
-      // Remove existing breakpoint
-      breakpoints = breakpoints.filter(bp => bp !== line);
-    } else {
-      // Add new breakpoint
-      breakpoints = [...breakpoints, line];
-    }
-    
-    updateBreakpoints();
-    dispatch('breakpointsChange', { breakpoints });
-  }
-  
-  // Highlight current execution line
-  function highlightCurrentLine() {
-    if (!editor || !monaco || currentLine < 0) return;
-    
-    // Clear previous line decorations
-    if (lineDecorations.length) {
-      editor.deltaDecorations(lineDecorations, []);
-    }
-    
-    // Add new decoration
-    lineDecorations = editor.deltaDecorations([], [{
-      range: new monaco.Range(currentLine + 1, 1, currentLine + 1, 1),
-      options: {
-        isWholeLine: true,
-        className: 'current-execution-line',
-        glyphMarginClassName: 'execution-indicator',
-        overviewRuler: {
-          color: 'var(--accent)',
-          position: monaco.editor.OverviewRulerLane.Center
-        }
-      }
-    }]);
-    
-    // Scroll the line into view
-    editor.revealLineInCenter(currentLine + 1);
-  }
-  
-  // Update breakpoint decorations
-  function updateBreakpoints() {
-    if (!editor || !monaco) return;
-    
-    // Clear previous breakpoint decorations
-    if (breakpointDecorations.length) {
-      editor.deltaDecorations(breakpointDecorations, []);
-    }
-    
-    // Add new decorations
-    const decorations = breakpoints.map(line => ({
-      range: new monaco.Range(line + 1, 1, line + 1, 1),
-      options: {
-        isWholeLine: false,
-        glyphMarginClassName: 'breakpoint-indicator',
-        overviewRuler: {
-          color: 'var(--warn)',
-          position: monaco.editor.OverviewRulerLane.Left
-        }
-      }
-    }));
-    
-    breakpointDecorations = editor.deltaDecorations([], decorations);
-  }
-  
-  // React to current line changes
-  $: if (editor && monaco && currentLine !== undefined) {
-    highlightCurrentLine();
-  }
-  
-  // React to breakpoints changes
-  $: if (editor && monaco && breakpoints) {
-    updateBreakpoints();
-  }
-  
-  // Lifecycle
-  onMount(() => {
-    // Initial setup if needed
-  });
+import { createEventDispatcher, onMount } from 'svelte'
+import MonacoEditor from './MonacoEditor.svelte'
+
+// Props
+export let code = ''
+export const currentLine = -1
+export let breakpoints = []
+
+// Editor
+let editor
+let monaco
+let lineDecorations = []
+let breakpointDecorations = []
+
+const dispatch = createEventDispatcher()
+
+// Handle editor ready event
+function handleEditorReady(event) {
+	editor = event.detail.editor
+	monaco = event.detail.monaco
+
+	// Update decorations if needed
+	highlightCurrentLine()
+	updateBreakpoints()
+
+	// Pass the ready event up
+	dispatch('ready', event.detail)
+}
+
+// Handle editor text changes
+function handleEditorChange(event) {
+	code = event.detail.value
+	dispatch('change', { code })
+}
+
+// Toggle breakpoint at line
+function toggleBreakpoint(line) {
+	const index = breakpoints.indexOf(line)
+
+	if (index !== -1) {
+		// Remove existing breakpoint
+		breakpoints = breakpoints.filter((bp) => bp !== line)
+	} else {
+		// Add new breakpoint
+		breakpoints = [...breakpoints, line]
+	}
+
+	updateBreakpoints()
+	dispatch('breakpointsChange', { breakpoints })
+}
+
+// Highlight current execution line
+function highlightCurrentLine() {
+	if (!editor || !monaco || currentLine < 0) return
+
+	// Clear previous line decorations
+	if (lineDecorations.length) {
+		editor.deltaDecorations(lineDecorations, [])
+	}
+
+	// Add new decoration
+	lineDecorations = editor.deltaDecorations(
+		[],
+		[
+			{
+				range: new monaco.Range(currentLine + 1, 1, currentLine + 1, 1),
+				options: {
+					isWholeLine: true,
+					className: 'current-execution-line',
+					glyphMarginClassName: 'execution-indicator',
+					overviewRuler: {
+						color: 'var(--accent)',
+						position: monaco.editor.OverviewRulerLane.Center,
+					},
+				},
+			},
+		],
+	)
+
+	// Scroll the line into view
+	editor.revealLineInCenter(currentLine + 1)
+}
+
+// Update breakpoint decorations
+function updateBreakpoints() {
+	if (!editor || !monaco) return
+
+	// Clear previous breakpoint decorations
+	if (breakpointDecorations.length) {
+		editor.deltaDecorations(breakpointDecorations, [])
+	}
+
+	// Add new decorations
+	const decorations = breakpoints.map((line) => ({
+		range: new monaco.Range(line + 1, 1, line + 1, 1),
+		options: {
+			isWholeLine: false,
+			glyphMarginClassName: 'breakpoint-indicator',
+			overviewRuler: {
+				color: 'var(--warn)',
+				position: monaco.editor.OverviewRulerLane.Left,
+			},
+		},
+	}))
+
+	breakpointDecorations = editor.deltaDecorations([], decorations)
+}
+
+// React to current line changes
+$: if (editor && monaco && currentLine !== undefined) {
+	highlightCurrentLine()
+}
+
+// React to breakpoints changes
+$: if (editor && monaco && breakpoints) {
+	updateBreakpoints()
+}
+
+// Lifecycle
+onMount(() => {
+	// Initial setup if needed
+})
 </script>
 
 <div class="editor-pane">
