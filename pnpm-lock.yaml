@@ -482,6 +482,8 @@ importers:
         specifier: ^1.0.8
         version: 1.0.8(typescript@5.8.3)(zod@3.24.3)
 
+  bundler-packages/runtime-rs: {}
+
   bundler-packages/solc:
     dependencies:
       '@tevm/tsconfig':

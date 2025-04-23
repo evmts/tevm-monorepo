@@ -1,0 +1,20 @@
+[package]
+name = 'tevm_resolutions_rs'
+version = '0.1.0'
+edition = '2021'
+
+[dependencies]
+node-resolve = "2.2.0"
+once_cell = "1.21.3"
+regex = "1.11.1"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+tempfile = "3.19.1"
+tevm_solc_rs = { path = "../solc-rs" }
+
+[lib]
+crate-type = [
+    'cdylib',
+    'rlib',
+]
+
