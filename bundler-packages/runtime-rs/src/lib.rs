@@ -1,8 +1,9 @@
 use alloy_primitives::Bytes;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use strum_macros::{Display, EnumString};
-use tevm_solc_rs::{solccontractoutput, solcoutput};
+use strum::EnumString;
+use strum_macros::Display;
+use tevm_solc_rs::SolcOutput;
 
 #[derive(Debug, EnumString, Display)]
 #[strum(serialize_all = "lowercase")]
@@ -27,6 +28,7 @@ impl ContractPackage {
         }
     }
 
+    #[allow(dead_code)]
     fn from_str(s: &str) -> Option<Self> {
         match s {
             "tevm/contract" => Some(ContractPackage::TevmContract),
@@ -68,7 +70,7 @@ pub fn generate_runtime(
     // Prepare contract data from solc output
     let mut contracts = HashMap::new();
     if let Some(contract_files) = &solc_output.contracts {
-        for (file, file_contracts) in contract_files {
+        for (_file, file_contracts) in contract_files {
             for (name, contract) in file_contracts {
                 // Convert SolcContractOutput to TevmContract
                 let tevm_contract = TevmContract {
