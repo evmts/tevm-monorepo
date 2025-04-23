@@ -417,6 +417,26 @@ export const createTevmNode = (options = {}) => {
 		},
 		status: 'INITIALIZING',
 		deepCopy: () => deepCopy(baseClient)(),
+		debug: async () => {
+			const txPool = await txPoolPromise
+			const vm = await vmPromise
+			return {
+				chainName: vm.common.name,
+				status: baseClient.status,
+				mode: baseClient.mode,
+				miningConfig: baseClient.miningConfig,
+				registeredFilters: baseClient.getFilters(),
+				blocks: {
+					latest: vm.blockchain.blocksByTag.get('latest')?.header.toJSON(),
+					forked: vm.blockchain.blocksByTag.get('forked')?.header.toJSON(),
+				},
+				txsInMempool: txPool.txsInPool,
+				state: await vm.stateManager.dumpCanonicalGenesis(),
+				hardfork: vm.common.ethjsCommon.hardfork(),
+				eips: vm.common.ethjsCommon.eips(),
+				chainId: vm.common.id,
+			}
+		},
 	}
 
 	eventEmitter.on('connect', () => {

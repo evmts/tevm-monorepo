@@ -1,5 +1,7 @@
+import type { JsonHeader } from '@tevm/block'
 import type { Logger } from '@tevm/logger'
 import type { ReceiptsManager } from '@tevm/receipt-manager'
+import type { TevmState } from '@tevm/state'
 import type { TxPool } from '@tevm/txpool'
 import type { Address, Hex } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
@@ -111,5 +113,26 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * Copies the current client state into a new client
 	 */
 	readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
+	/**
+	 * Returns debug information about the current node state
+	 * including chain details, status, mode, mining config, filters,
+	 * blocks, mempool transactions, and state
+	 */
+	readonly debug?: () => Promise<{
+		chainName: string
+		status: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
+		mode: TMode
+		miningConfig: MiningConfig
+		registeredFilters: Map<Hex, Filter>
+		blocks: {
+			latest?: JsonHeader | undefined
+			forked?: JsonHeader | undefined
+		}
+		txsInMempool: number
+		state: TevmState
+		hardfork: string
+		eips: number[]
+		chainId: number
+	}>
 } & EIP1193EventEmitter &
 	TExtended
