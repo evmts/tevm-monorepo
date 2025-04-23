@@ -8151,7 +8151,7 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c0a583a12e73099d1f54bfe7c8a30d7af5ff3591c61ee51cce91045ee5496d86"
 dependencies = [
- "alloy-primitives",
+ "alloy-primitives 0.8.25",
  "bumpalo",
  "derive_more 2.0.1",
  "either",
@@ -8171,7 +8171,7 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42bb46d14646ebee7c96ec306ff88cc21217ca7b80f5fc617dd43e02082ea6f1"
 dependencies = [
- "alloy-primitives",
+ "alloy-primitives 0.8.25",
  "cfg-if",
  "clap",
  "libc",
@@ -8189,7 +8189,7 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1bf7542084d02031ea9624a5843992afeb47c4098e68492c22947ed25fee7f49"
 dependencies = [
- "alloy-primitives",
+ "alloy-primitives 0.8.25",
  "solar-ast",
  "solar-cli",
  "solar-config",
@@ -8274,7 +8274,7 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e1bc1d0253b0f7f2c7cd25ed7bc5d5e8cac43e717d002398250e0e66e43278b"
 dependencies = [
- "alloy-primitives",
+ "alloy-primitives 0.8.25",
  "bitflags 2.6.0",
  "bumpalo",
  "itertools 0.13.0",
@@ -8296,7 +8296,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ded4b26fb85a0ae2f3277377236af0884c82f38965a2c51046a53016c8b5f332"
 dependencies = [
  "alloy-json-abi",
- "alloy-primitives",
+ "alloy-primitives 0.8.25",
  "bitflags 2.6.0",
  "bumpalo",
  "derive_more 2.0.1",
@@ -8981,6 +8981,10 @@ name = "tevm_runtime_rs"
 version = "0.1.0"
 dependencies = [
  "alloy-primitives 0.7.7",
+ "libc",
+ "napi",
+ "napi-build",
+ "napi-derive",
  "node-resolve",
  "once_cell",
  "regex",

@@ -63,6 +63,7 @@
 		"@tevm/contract": "workspace:^",
 		"@tevm/resolutions": "workspace:^",
 		"@tevm/resolutions-rs": "workspace:^",
+		"@tevm/runtime-rs": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/viem": "workspace:^",

@@ -1,0 +1,21 @@
+{
+  "name": "@tevm/runtime-rs-linux-x64-musl",
+  "version": "0.1.0",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "tevm_runtime_rs.linux-x64-musl.node",
+  "files": [
+    "tevm_runtime_rs.linux-x64-musl.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14"
+  },
+  "libc": [
+    "musl"
+  ]
+}

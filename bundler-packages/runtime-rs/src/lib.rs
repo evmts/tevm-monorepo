@@ -1,4 +1,5 @@
 use alloy_primitives::Bytes;
+use napi_derive::napi;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use strum::EnumString;
@@ -567,4 +568,41 @@ mod tests {
         assert_eq!(ContractPackage::from_str("@tevm/contract"), Some(ContractPackage::TevmContractScoped));
         assert_eq!(ContractPackage::from_str("invalid"), None);
     }
+}
+
+// NAPI bindings for JS/TS interop
+
+/// Generate the JavaScript runtime code for a Solidity contract
+#[napi]
+pub fn generate_runtime_js(
+    solc_output_json: String,
+    module_type: String,
+    use_scoped_package: bool,
+) -> napi::Result<String> {
+    // Parse solc output from JSON
+    let solc_output: SolcOutput = serde_json::from_str(&solc_output_json)?;
+    
+    // Parse module type
+    let module_type = match module_type.to_lowercase().as_str() {
+        "ts" => ModuleType::Ts,
+        "cjs" => ModuleType::Cjs,
+        "mjs" => ModuleType::Mjs,
+        "dts" => ModuleType::Dts,
+        _ => return Err(napi::Error::new(
+            napi::Status::InvalidArg,
+            format!("Invalid module type: {}", module_type),
+        )),
+    };
+    
+    // Determine package type
+    let contract_package = if use_scoped_package {
+        ContractPackage::TevmContractScoped
+    } else {
+        ContractPackage::TevmContract
+    };
+    
+    // Generate the runtime code
+    let result = generate_runtime(&solc_output, module_type, contract_package);
+    
+    Ok(result)
 }

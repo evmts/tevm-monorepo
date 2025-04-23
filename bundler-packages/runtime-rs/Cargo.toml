@@ -3,6 +3,9 @@ name = 'tevm_runtime_rs'
 version = '0.1.0'
 edition = '2021'
 
+[lib]
+crate-type = ["cdylib", "rlib"]
+
 [dependencies]
 alloy-primitives = { version = "0.7.0", features = ["serde"] }
 node-resolve = "2.2.0"
@@ -15,9 +18,11 @@ strum_macros = "0.26.1"
 tempfile = "3.19.1"
 tevm_solc_rs = { path = "../solc-rs" }
 
-[lib]
-crate-type = [
-    'cdylib',
-    'rlib',
-]
+# NAPI bindings
+napi = { version = "2.16.0", default-features = false, features = ["napi4", "tokio_rt", "serde-json", "compat-mode", "async", "napi8"] }
+napi-derive = "2.16.0"
+libc = "0.2.172"
+
+[build-dependencies]
+napi-build = "2.0.1"
 
