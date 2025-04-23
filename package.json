@@ -34,7 +34,7 @@
     "lint:deps": "bunx depcheck && nx run-many --target=lint:deps",
     "lint:package": "nx run-many --target=lint:package",
     "release:check": "changeset status --verbose --since=origin/main",
-    "release:publish": "pnpm install && nx run-many --target=build:app,build:dist,build:types --skip-nx-cache && changeset publish",
+    "release:publish": "pnpm install && nx run-many --target=build:app,build:dist,build:types --skip-nx-cache && cd bundler-packages/resolutions-rs && bun run build:release && cd ../../ && changeset publish",
     "release:publish:jsr": "cd tevm && pnpm publish:jsr",
     "release:publish:jsr:dry-run": "cd tevm && pnpm publish:jsr:dry",
     "release:version": "changeset version && pnpm install --lockfile-only",

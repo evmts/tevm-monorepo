@@ -1,6 +1,7 @@
 packages:
   - app
   - bundler-packages/*
+  - bundler-packages/resolutions-rs/npm/*
   - bundler
   - configs/*
   - cli
