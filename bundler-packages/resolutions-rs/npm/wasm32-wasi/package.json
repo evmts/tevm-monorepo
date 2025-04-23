@@ -1,0 +1,22 @@
+{
+  "name": "@tevm/resolutions-rs-wasm32-wasi",
+  "version": "0.0.0",
+  "cpu": [
+    "wasm32"
+  ],
+  "main": "tevm_resolutions_rs.wasi.cjs",
+  "files": [
+    "tevm_resolutions_rs.wasm32-wasi.wasm",
+    "tevm_resolutions_rs.wasi.cjs",
+    "tevm_resolutions_rs.wasi-browser.js",
+    "wasi-worker.mjs",
+    "wasi-worker-browser.mjs"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browser": "tevm_resolutions_rs.wasi-browser.js",
+  "dependencies": {
+    "@napi-rs/wasm-runtime": "^0.2.9"
+  }
+}

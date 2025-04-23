@@ -1,48 +1,99 @@
-use node_resolve::{resolve_from, ResolutionError};
-use std::collections::HashMap;
+use node_resolve::{resolve_from, ResolutionError as NodeResolutionError};
+use std::io;
 use std::iter::once;
-use std::path::PathBuf;
+use std::path::{Component, Path, PathBuf};
+
+use crate::Config;
+
+#[derive(Debug)]
+pub enum ResolveImportPathError {
+    InvalidRelativePath {
+        context_path: String,
+        import_path: String,
+        err: io::Error,
+    },
+    NotFoundAbsolutePath {
+        import_path: String,
+        causes: Vec<NodeResolutionError>,
+    },
+}
 
 /// Resolves an import path to an absolute file path
 ///
 /// # Arguments
-/// * `absolute_path` - The absolute path of the file containing the import
+/// * `context_path` - The absolute path of the file containing the import
 /// * `import_path` - The raw import path to resolve
-/// * `remappings` - Map of import path prefixes to replacement values
-/// * `libs` - Additional library paths to search for imports
+/// * `cfg` - Configuration containing remappings and library paths
 ///
 /// # Returns
 /// * `Ok(PathBuf)` - The resolved absolute path
-/// * `Err(Vec<ResolutionError>)` - Collection of errors encountered during resolution
+/// * `Err(ResolveImportPathError)` - Error encountered during resolution
 pub fn resolve_import_path(
-    absolute_path: &str,
+    context_path: PathBuf,
     import_path: &str,
-    remappings: &HashMap<String, String>,
-    libs: &[String],
-) -> Result<PathBuf, Vec<ResolutionError>> {
-    for (val, key) in remappings {
-        if import_path.starts_with(key) {
-            return resolve_import_path(
-                absolute_path,
-                &import_path.replace(key, val),
-                &HashMap::new(),
-                libs,
-            );
+    cfg: &Config,
+) -> Result<PathBuf, ResolveImportPathError> {
+    // Extract the directory from the file path
+    let dir_path = if context_path.is_file() || !context_path.exists() {
+        context_path.parent().unwrap_or(&context_path).to_path_buf()
+    } else {
+        context_path.clone()
+    };
+
+    // Try resolving relative path
+    let imp_path = Path::new(import_path);
+    if let Some(c) = imp_path.components().next() {
+        if matches!(c, Component::CurDir | Component::ParentDir) {
+            let joined = dir_path.join(&imp_path);
+            let mut normalized = PathBuf::new();
+            for comp in joined.components() {
+                match comp {
+                    Component::CurDir => { /* skip `.` */ }
+                    Component::ParentDir => {
+                        normalized.pop();
+                    }
+                    Component::RootDir => {
+                        normalized.push(PathBuf::from(std::path::MAIN_SEPARATOR.to_string()));
+                    }
+                    Component::Prefix(prefix) => {
+                        normalized.push(prefix.as_os_str());
+                    }
+                    Component::Normal(os_str) => {
+                        normalized.push(os_str);
+                    }
+                }
+            }
+            return Ok(normalized);
         }
     }
-    let mut errors: Vec<ResolutionError> = vec![];
-    for lib in once(absolute_path).chain(libs.iter().map(String::as_str)) {
-        match resolve_from(import_path, PathBuf::from(lib)) {
-            Ok(result) => return Ok(result),
-            Err(err) => errors.push(err),
+
+    // Try resolving remappings
+    for (k, v) in cfg.remappings.iter() {
+        if let Some(rest) = import_path.strip_prefix(k) {
+            return Ok(PathBuf::from(v).join(rest));
         }
     }
-    Err(errors)
+
+    // Finally try using node.js resolution
+    let mut causes = Vec::with_capacity(cfg.libs.len() + 1);
+    for lib in once(dir_path).chain(cfg.libs.to_vec()) {
+        match resolve_from(import_path, lib) {
+            Ok(res) => return Ok(res),
+            Err(err) => causes.push(err),
+            // Finally try using node.js resolution
+        };
+    }
+
+    Err(ResolveImportPathError::NotFoundAbsolutePath {
+        import_path: import_path.to_string(),
+        causes,
+    })
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashMap;
     use std::fs::{create_dir_all, File};
     use std::io::Write;
     use tempfile::tempdir;
@@ -71,7 +122,13 @@ mod tests {
 
         let absolute_path = root_dir.join("src").display().to_string();
 
-        let result = resolve_import_path(&absolute_path, "./utils/helper.rs", &HashMap::new(), &[]);
+        // Create a Config for testing
+        let cfg = Config::from((
+            Some(Vec::<String>::new()),
+            Some(Vec::<(String, String)>::new()),
+        ));
+
+        let result = resolve_import_path(PathBuf::from(&absolute_path), "./utils/helper.rs", &cfg);
 
         assert!(result.is_ok());
         let resolved_path = normalize_path(&result.unwrap().display().to_string());
@@ -102,14 +159,24 @@ mod tests {
             .display()
             .to_string();
 
-        let result = resolve_import_path(&src_path, "../test-module.rs", &HashMap::new(), &[]);
+        // Create a Config for testing
+        let cfg = Config::from((
+            Some(Vec::<String>::new()),
+            Some(Vec::<(String, String)>::new()),
+        ));
+
+        let result = resolve_import_path(PathBuf::from(&src_path), "../test-module.rs", &cfg);
 
         if result.is_ok() {
+            let cfg_with_libs = Config::from((
+                Some(vec![lib_path.clone()]),
+                Some(Vec::<(String, String)>::new()),
+            ));
+
             let lib_result = resolve_import_path(
-                &src_path,
+                PathBuf::from(&src_path),
                 "../lib/external/module.rs",
-                &HashMap::new(),
-                &[lib_path.clone()],
+                &cfg_with_libs,
             );
 
             assert!(
@@ -179,7 +246,14 @@ mod tests {
 
         println!("Manual remapping result: {}", manually_remapped);
 
-        let result = resolve_import_path(&absolute_path, "remapped/file.sol", &remappings, &[]);
+        // Create config with remappings
+        let remappings_vec: Vec<(String, String)> = remappings
+            .iter()
+            .map(|(k, v)| (k.clone(), v.clone()))
+            .collect();
+        let cfg = Config::from((Some(vec![]), Some(remappings_vec)));
+
+        let result = resolve_import_path(PathBuf::from(&absolute_path), "remapped/file.sol", &cfg);
 
         if result.is_err() && file_exists {
             println!("Remapping resolution failed but file exists - marking test as passed");
@@ -215,12 +289,22 @@ mod tests {
 
         let absolute_path = root_dir.join("src").display().to_string();
 
+        // Create a config with default values
+        let cfg = Config::from((
+            Some(Vec::<String>::new()),
+            Some(Vec::<(String, String)>::new()),
+        ));
+
         let result =
-            resolve_import_path(&absolute_path, "non/existent/file.rs", &HashMap::new(), &[]);
+            resolve_import_path(PathBuf::from(&absolute_path), "non/existent/file.rs", &cfg);
 
         assert!(result.is_err());
-        let errors = result.err().unwrap();
-        assert!(!errors.is_empty());
+        match result.err().unwrap() {
+            ResolveImportPathError::NotFoundAbsolutePath { causes, .. } => {
+                assert!(!causes.is_empty());
+            }
+            _ => panic!("Expected NotFoundAbsolutePath error"),
+        }
     }
 
     #[test]
@@ -233,16 +317,18 @@ mod tests {
         let src_path = root_dir.join("src").display().to_string();
         let lib_path = root_dir.join("lib").display().to_string();
 
+        // Create config with libs
+        let cfg_with_libs = Config::from((Some(vec![lib_path.clone()]), Some(vec![])));
+
         let result = resolve_import_path(
-            &src_path,
+            PathBuf::from(&src_path),
             "./utils/common.rs",
-            &HashMap::new(),
-            &[lib_path.clone()],
+            &cfg_with_libs,
         );
 
         if result.is_err() {
             let fallback_result =
-                resolve_import_path(&src_path, "utils/common.rs", &HashMap::new(), &[lib_path]);
+                resolve_import_path(PathBuf::from(&src_path), "utils/common.rs", &cfg_with_libs);
 
             assert!(
                 fallback_result.is_ok(),
@@ -292,11 +378,17 @@ mod tests {
 
         let src_path = root_dir.join("src").display().to_string();
 
-        let package_result = resolve_import_path(&src_path, "test-package", &HashMap::new(), &[]);
+        // Create a Config for testing
+        let cfg = Config::from((
+            Some(Vec::<String>::new()),
+            Some(Vec::<(String, String)>::new()),
+        ));
+
+        let package_result = resolve_import_path(PathBuf::from(&src_path), "test-package", &cfg);
 
         if package_result.is_err() {
-            let errors = package_result.as_ref().err().unwrap();
-            println!("Package resolution error: {:?}", errors);
+            let error = package_result.as_ref().err().unwrap();
+            println!("Package resolution error: {:?}", error);
             println!("Package.json exists: {}", package_json_path.exists());
         }
 
@@ -327,11 +419,11 @@ mod tests {
             .to_string();
 
         let relative_result =
-            resolve_import_path(&package_path, "./utils/helper.mjs", &HashMap::new(), &[]);
+            resolve_import_path(PathBuf::from(&package_path), "./utils/helper.mjs", &cfg);
 
         if relative_result.is_err() {
-            let errors = relative_result.as_ref().err().unwrap();
-            println!("Relative import resolution error: {:?}", errors);
+            let error = relative_result.as_ref().err().unwrap();
+            println!("Relative import resolution error: {:?}", error);
             println!(
                 "Target file exists: {}",
                 root_dir
@@ -355,7 +447,7 @@ mod tests {
         );
 
         let subpath_result =
-            resolve_import_path(&src_path, "test-package/src/types", &HashMap::new(), &[]);
+            resolve_import_path(PathBuf::from(&src_path), "test-package/src/types", &cfg);
 
         if subpath_result.is_ok() {
             let resolved_subpath = normalize_path(&subpath_result.unwrap().display().to_string());

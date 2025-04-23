@@ -9,5 +9,5 @@
  * ```
  */
 export const isImportLocal = (importPath) => {
-	return importPath.startsWith('.')
-}
+	return importPath.startsWith(".") || importPath.startsWith("..");
+};
