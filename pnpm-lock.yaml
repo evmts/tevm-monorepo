@@ -482,6 +482,32 @@ importers:
         specifier: ^1.0.8
         version: 1.0.8(typescript@5.8.3)(zod@3.24.3)
 
+  bundler-packages/runtime-rs:
+    devDependencies:
+      '@napi-rs/cli':
+        specifier: ^2.15.2
+        version: 2.18.4
+
+  bundler-packages/runtime-rs/npm/darwin-arm64: {}
+
+  bundler-packages/runtime-rs/npm/darwin-x64: {}
+
+  bundler-packages/runtime-rs/npm/freebsd-x64: {}
+
+  bundler-packages/runtime-rs/npm/linux-arm-gnueabihf: {}
+
+  bundler-packages/runtime-rs/npm/linux-arm64-gnu: {}
+
+  bundler-packages/runtime-rs/npm/linux-arm64-musl: {}
+
+  bundler-packages/runtime-rs/npm/linux-x64-musl: {}
+
+  bundler-packages/runtime-rs/npm/wasm32-wasi: {}
+
+  bundler-packages/runtime-rs/npm/win32-arm64-msvc: {}
+
+  bundler-packages/runtime-rs/npm/win32-ia32-msvc: {}
+
   bundler-packages/solc:
     dependencies:
       '@tevm/tsconfig':
@@ -2279,6 +2305,9 @@ importers:
       '@tevm/resolutions-rs':
         specifier: workspace:^
         version: link:../../bundler-packages/resolutions-rs
+      '@tevm/runtime-rs':
+        specifier: workspace:^
+        version: link:../../bundler-packages/runtime-rs
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../test-utils
