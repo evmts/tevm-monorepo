@@ -1,5 +1,5 @@
 {
-  "name": "@tevm/resolutions-rs",
+  "name": "@tevm/runtime-rs",
   "version": "0.1.0",
   "private": true,
   "description": "Rust implementation of solidity resolution",
@@ -7,8 +7,8 @@
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
-    "binaryName": "tevm_resolutions_rs",
-    "packageName": "@tevm/resolutions-rs",
+    "binaryName": "tevm_runtime_rs",
+    "packageName": "@tevm/runtime-rs",
     "targets": [
       "aarch64-apple-darwin",
       "aarch64-unknown-linux-gnu",

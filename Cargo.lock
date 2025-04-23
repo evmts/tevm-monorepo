@@ -8949,6 +8949,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "tevm_runtime_rs"
+version = "0.1.0"
+dependencies = [
+ "node-resolve",
+ "once_cell",
+ "regex",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tevm_solc_rs",
+]
+
+[[package]]
 name = "tevm_solc_rs"
 version = "0.1.0"
 dependencies = [
