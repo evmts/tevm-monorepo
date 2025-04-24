@@ -1,0 +1,971 @@
+---
+title: 3.2 Contract Deployment and Interaction
+description: Detailed guide about 3.2 contract deployment and interaction in REVM (Rust Ethereum Virtual Machine)
+---
+
+# 3.2 Contract Deployment and Interaction
+
+This example demonstrates how to deploy smart contracts and interact with them using REVM. We'll cover creating deployment transactions, executing contract functions, and handling different return types.
+
+## Overview
+
+Smart contract deployment and interaction are core use cases for an Ethereum Virtual Machine implementation. In this example, we'll demonstrate:
+
+1. Deploying a contract with and without constructor arguments
+2. Interacting with deployed contracts via function calls
+3. Handling different contract return types
+4. Managing contract errors and reverts
+
+This example builds on the basic transaction processing concepts from Example 3.1.
+
+## Prerequisites
+
+To run this example, you'll need:
+
+- Rust and Cargo installed
+- Basic knowledge of Solidity and Ethereum smart contracts
+- The REVM crate added to your project
+
+Add the following dependencies to your `Cargo.toml`:
+
+```toml
+[dependencies]
+revm = "4.0.0"
+primitive-types = "0.12.1"
+hex = "0.4.3"
+ethabi = "18.0.0" # For encoding/decoding contract calls
+```
+
+## Example 1: Simple Contract Deployment
+
+Let's start by deploying a simple counter contract without constructor arguments:
+
+```rust
+use primitive_types::{H160, H256, U256};
+use revm::{
+    db::{CacheDB, EmptyDB, InMemoryDB}, 
+    primitives::{
+        AccountInfo, Address, Bytecode, Bytes, ExecutionResult, Log, Output,
+        SpecId, TransactTo, TxEnv, U256 as rU256,
+    },
+    EVM, EvmBuilder,
+};
+use std::str::FromStr;
+
+// The bytecode for a simple Counter contract
+// contract Counter {
+//     uint256 public count;
+//     
+//     function increment() public {
+//         count += 1;
+//     }
+// }
+const COUNTER_BYTECODE: &str = "608060405234801561001057600080fd5b5060b28061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806306661abd146037578063d09de08a146051575b600080fd5b603d6059565b6040516048919060a2565b60405180910390f35b6057605f565b005b60005481565b60016000808282546071919060bb565b92505081905550565b6000819050919050565b609c81607f565b82525050565b600060208201905060b5600083018460a1565b92915050565b600060b58260b7565b9190505600a264697066735822122032db577b146795a0c7cb6b2f4e6fb1814b1ccdfc1234be5d10d2e56348a2fb8b64736f6c63430008110033";
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Create an address for the deployer
+    let deployer = H160::from_str("0x1000000000000000000000000000000000000000").unwrap();
+    
+    // Create an in-memory database
+    let mut db = CacheDB::new(EmptyDB::default());
+    
+    // Set up deployer account with some ETH
+    let deployer_account = AccountInfo {
+        balance: rU256::from(10_000_000_000_000_000_000u64), // 10 ETH
+        nonce: rU256::ZERO,
+        code_hash: H256::zero(),
+        code: None,
+    };
+    db.insert_account_info(deployer, deployer_account);
+    
+    // Create an EVM instance
+    let mut evm = EvmBuilder::default()
+        .with_db(db)
+        .with_spec_id(SpecId::LONDON)
+        .build();
+    
+    // Set up the deployment transaction
+    let bytecode = hex::decode(COUNTER_BYTECODE).unwrap();
+    let tx = TxEnv {
+        caller: deployer,
+        gas_limit: 1_000_000, // Gas limit for deployment
+        gas_price: rU256::from(1_000_000_000u64), // 1 gwei
+        transact_to: TransactTo::Create(Bytes::default()), // Contract creation
+        value: rU256::ZERO,  // No ETH sent with deployment
+        data: bytecode.into(), // Contract bytecode
+        chain_id: None,
+        nonce: None,
+        gas_priority_fee: None,
+        access_list: Vec::new(),
+    };
+    
+    // Set the transaction in the EVM
+    evm.env.tx = tx;
+    
+    // Execute the deployment transaction
+    let result = evm.transact_commit()?;
+    
+    // Check the result and extract the contract address
+    let contract_address = match result {
+        ExecutionResult::Success { output, .. } => {
+            match output {
+                Output::Create(buffer, Some(address)) => {
+                    println!("Contract deployed successfully at: 0x{}", hex::encode(address.as_bytes()));
+                    println!("Initialization output: 0x{}", hex::encode(&buffer));
+                    address
+                },
+                _ => {
+                    println!("Unexpected output type for contract creation");
+                    return Ok(());
+                }
+            }
+        },
+        ExecutionResult::Revert { output, .. } => {
+            println!("Contract deployment reverted");
+            println!("Output: 0x{}", hex::encode(&output));
+            return Ok(());
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            println!("Contract deployment halted: {:?}", reason);
+            return Ok(());
+        },
+    };
+    
+    // Verify the deployed contract by checking its code
+    let db = evm.db().unwrap();
+    if let Some(account_info) = db.basic(contract_address)? {
+        if let Some(code) = account_info.code {
+            println!("Deployed contract code size: {} bytes", code.len());
+        } else {
+            println!("No code found at contract address (unexpected)");
+        }
+    } else {
+        println!("Contract account not found (unexpected)");
+    }
+    
+    Ok(())
+}
+```
+
+This example deploys a simple Counter contract by:
+
+1. Setting up an EVM with an in-memory database
+2. Creating a transaction with the contract's bytecode as data
+3. Setting the transaction type to `TransactTo::Create`
+4. Executing the transaction to deploy the contract
+5. Extracting the new contract's address from the execution result
+6. Verifying that the contract was deployed by checking its code
+
+When run, this example should output something like:
+
+```
+Contract deployed successfully at: 0x5fbdb2315678afecb367f032d93f642f64180aa3
+Initialization output: 0x
+Deployed contract code size: 178 bytes
+```
+
+## Example 2: Contract Deployment with Constructor Arguments
+
+Let's deploy a contract that requires constructor arguments:
+
+```rust
+use primitive_types::{H160, H256, U256};
+use revm::{
+    db::{CacheDB, EmptyDB}, 
+    primitives::{
+        AccountInfo, Bytecode, Bytes, ExecutionResult, Output,
+        SpecId, TransactTo, TxEnv, U256 as rU256,
+    },
+    EVM, EvmBuilder,
+};
+use std::str::FromStr;
+use ethabi::{Token, encode};
+
+// Bytecode for a Token contract with a constructor that takes a name and initial supply
+// contract Token {
+//     string public name;
+//     uint256 public totalSupply;
+//     mapping(address => uint256) public balances;
+//     
+//     constructor(string memory _name, uint256 _initialSupply) {
+//         name = _name;
+//         totalSupply = _initialSupply;
+//         balances[msg.sender] = _initialSupply;
+//     }
+// }
+const TOKEN_BYTECODE: &str = "608060405234801561001057600080fd5b506040516105863803806105868339818101604052810190610032919061015f565b81600090816100419190610380565b50806001819055508060026000336001600160a01b03166001600160a01b0316815260200190815260200160002081905550505061044b565b634e487b7160e01b600052604160045260246000fd5b60005b8381101561009f578181015183820152602001610087565b50506000910152565b600082601f8301126100b757600080fd5b81516001600160401b03808211156100d1576100d1610062565b604051601f8301601f19908116603f011681019082821181831017156100f9576100f9610062565b8160405283815286602085880101111561011257600080fd5b83601f8301126101225761012281610447565b83815260209383019390935060405193845250929092019190565b805180151581146101275761014d565b600080fd5b61015a81610440565b8114610158575f80fd5b50565b6000806040838503121561017257600080fd5b825167ffffffffffffffff8082111561018a57600080fd5b818501915085601f83011261019e57600080fd5b8151818111156101b2576101b2610062565b6101bf84610078565b6000828401820191508735825286602085015260208583019450602085810191506101eb85610440565b8060408701910152848152838301945050505b508093505050508051610158816101e2565b600181811c9082168061022357607f821691505b60208210810361024357634e487b7160e01b600052602260045260246000fd5b50919050565b601f82111561029d57600081815260208120601f850160051c810160208610156102295750805b601f850160051c820191505b818110156102975782815560010161027f565b5050505b505050565b815167ffffffffffffffff8111156102bc576102bc610062565b6102d0816102ca845461020f565b84610249565b602080601f831160018114610305576000841561028d5750858301515b600019600386901b1c1916600185901b17855561029d565b6000858152602081207fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe08616915b8281101561035257888601518255948401946001909101908401610333565b508582101561037057878501518680839303018252610356565b8484111561036c57600191505b509594505050505056fe8381101561044f576000855260208686010152601f801984870101905061029d565b50505050565b91508201828411156102905760001991909101906102975661012d806100836000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c80637a28215d1460375780937a0c6f3d146056575b600080fd5b603f6072565b604051604a91906093565b60405180910390f35b605c6072565b6040516082919060a8565b565b60005481565b60006020825260605b5050565b60ff60dc565b5f90565b600060eb565b9190505600a26469706673582212202a5ca28d2ca8c5b27e53c8d8f9e1c89a75c36e3c61f04b10d70fa04addfdf19964736f6c63430008110033";
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Create an address for the deployer
+    let deployer = H160::from_str("0x1000000000000000000000000000000000000000").unwrap();
+    
+    // Create an in-memory database
+    let mut db = CacheDB::new(EmptyDB::default());
+    
+    // Set up deployer account with some ETH
+    let deployer_account = AccountInfo {
+        balance: rU256::from(10_000_000_000_000_000_000u64), // 10 ETH
+        nonce: rU256::ZERO,
+        code_hash: H256::zero(),
+        code: None,
+    };
+    db.insert_account_info(deployer, deployer_account);
+    
+    // Create an EVM instance
+    let mut evm = EvmBuilder::default()
+        .with_db(db)
+        .with_spec_id(SpecId::LONDON)
+        .build();
+    
+    // Encode constructor arguments
+    let name = "MyToken";
+    let initial_supply = rU256::from(1_000_000_000_000_000_000_000_000u128); // 1 million tokens with 18 decimals
+    
+    let encoded_args = encode(&[
+        Token::String(name.to_string()),
+        Token::Uint(initial_supply.into()),
+    ]);
+    
+    // Combine bytecode with encoded constructor arguments
+    let bytecode = hex::decode(TOKEN_BYTECODE).unwrap();
+    let deployment_data = [&bytecode[..], &encoded_args[..]].concat();
+    
+    // Set up the deployment transaction
+    let tx = TxEnv {
+        caller: deployer,
+        gas_limit: 3_000_000, // Higher gas limit for complex deployment
+        gas_price: rU256::from(1_000_000_000u64), // 1 gwei
+        transact_to: TransactTo::Create(Bytes::default()),
+        value: rU256::ZERO,
+        data: deployment_data.into(),
+        chain_id: None,
+        nonce: None,
+        gas_priority_fee: None,
+        access_list: Vec::new(),
+    };
+    
+    // Set the transaction in the EVM
+    evm.env.tx = tx;
+    
+    // Execute the deployment transaction
+    let result = evm.transact_commit()?;
+    
+    // Check the result and extract the contract address
+    let contract_address = match result {
+        ExecutionResult::Success { output, gas_used, .. } => {
+            match output {
+                Output::Create(buffer, Some(address)) => {
+                    println!("Token contract deployed successfully at: 0x{}", hex::encode(address.as_bytes()));
+                    println!("Gas used: {}", gas_used);
+                    address
+                },
+                _ => {
+                    println!("Unexpected output type for contract creation");
+                    return Ok(());
+                }
+            }
+        },
+        ExecutionResult::Revert { output, .. } => {
+            println!("Contract deployment reverted");
+            println!("Output: 0x{}", hex::encode(&output));
+            return Ok(());
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            println!("Contract deployment halted: {:?}", reason);
+            return Ok(());
+        },
+    };
+    
+    // Now let's verify that constructor arguments were correctly applied
+    // Call the 'name()' function to retrieve the token name
+    let name_function_selector = hex::decode("06fdde03").unwrap(); // keccak256("name()")[0:4]
+    
+    let tx = TxEnv {
+        caller: deployer,
+        gas_limit: 100_000,
+        gas_price: rU256::from(1_000_000_000u64),
+        transact_to: TransactTo::Call(contract_address),
+        value: rU256::ZERO,
+        data: name_function_selector.into(),
+        chain_id: None,
+        nonce: None,
+        gas_priority_fee: None,
+        access_list: Vec::new(),
+    };
+    
+    evm.env.tx = tx;
+    
+    let result = evm.transact_commit()?;
+    
+    // Check the result and decode the token name
+    match result {
+        ExecutionResult::Success { output, .. } => {
+            match output {
+                Output::Call(data) => {
+                    // ABI decoding would normally be used here
+                    // For simplicity, we'll just print the raw bytes
+                    println!("Token name raw data: 0x{}", hex::encode(&data));
+                    
+                    // Decode the string (simplified)
+                    if data.len() >= 96 {
+                        // String data in Solidity starts with offset (32 bytes), length (32 bytes), and then data
+                        let offset = U256::from_big_endian(&data[0..32]);
+                        let length = U256::from_big_endian(&data[32..64]);
+                        
+                        if length <= U256::from(32) {
+                            let name_bytes = &data[64..64 + length.as_usize()];
+                            let name = String::from_utf8_lossy(name_bytes);
+                            println!("Token name: {}", name);
+                        }
+                    }
+                },
+                _ => println!("Unexpected output type for function call"),
+            }
+        },
+        ExecutionResult::Revert { output, .. } => {
+            println!("Function call reverted");
+            println!("Output: 0x{}", hex::encode(&output));
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            println!("Function call halted: {:?}", reason);
+        },
+    }
+    
+    // Call the 'totalSupply()' function to verify initial supply
+    let total_supply_selector = hex::decode("18160ddd").unwrap(); // keccak256("totalSupply()")[0:4]
+    
+    let tx = TxEnv {
+        caller: deployer,
+        gas_limit: 100_000,
+        gas_price: rU256::from(1_000_000_000u64),
+        transact_to: TransactTo::Call(contract_address),
+        value: rU256::ZERO,
+        data: total_supply_selector.into(),
+        chain_id: None,
+        nonce: None,
+        gas_priority_fee: None,
+        access_list: Vec::new(),
+    };
+    
+    evm.env.tx = tx;
+    
+    let result = evm.transact_commit()?;
+    
+    // Check the result and decode the total supply
+    match result {
+        ExecutionResult::Success { output, .. } => {
+            match output {
+                Output::Call(data) => {
+                    if data.len() >= 32 {
+                        let total_supply = U256::from_big_endian(&data[0..32]);
+                        println!("Total supply: {}", total_supply);
+                    }
+                },
+                _ => println!("Unexpected output type for function call"),
+            }
+        },
+        _ => println!("Function call failed"),
+    }
+    
+    Ok(())
+}
+```
+
+This example demonstrates:
+
+1. Encoding constructor arguments using the ethabi crate
+2. Combining the contract bytecode with encoded arguments
+3. Deploying the contract with these arguments
+4. Verifying the constructor execution by calling getter functions
+5. Decoding the returned data from these functions
+
+## Example 3: Interacting with Contract Functions
+
+Now let's interact with a contract by calling its functions:
+
+```rust
+use primitive_types::{H160, H256, U256};
+use revm::{
+    db::{CacheDB, EmptyDB}, 
+    primitives::{
+        AccountInfo, Bytecode, Bytes, ExecutionResult, Output,
+        SpecId, TransactTo, TxEnv, U256 as rU256,
+    },
+    EVM, EvmBuilder,
+};
+use std::str::FromStr;
+use ethabi::{Token, encode};
+
+// The function we'll call - increment() in the Counter contract
+// Returns nothing (void)
+fn call_increment(
+    evm: &mut EVM<CacheDB<EmptyDB>>, 
+    caller: H160, 
+    contract_address: H160
+) -> Result<(), Box<dyn std::error::Error>> {
+    // Function selector for increment()
+    let increment_selector = hex::decode("d09de08a").unwrap(); // keccak256("increment()")[0:4]
+    
+    let tx = TxEnv {
+        caller,
+        gas_limit: 100_000,
+        gas_price: rU256::from(1_000_000_000u64),
+        transact_to: TransactTo::Call(contract_address),
+        value: rU256::ZERO,
+        data: increment_selector.into(),
+        chain_id: None,
+        nonce: None,
+        gas_priority_fee: None,
+        access_list: Vec::new(),
+    };
+    
+    evm.env.tx = tx;
+    
+    let result = evm.transact_commit()?;
+    
+    match result {
+        ExecutionResult::Success { .. } => {
+            println!("Successfully called increment()");
+            Ok(())
+        },
+        ExecutionResult::Revert { output, .. } => {
+            println!("Function call reverted");
+            println!("Output: 0x{}", hex::encode(&output));
+            Err("Function reverted".into())
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            println!("Function call halted: {:?}", reason);
+            Err("Function halted".into())
+        },
+    }
+}
+
+// Function to read the count value from the Counter contract
+// Returns a u256 value
+fn read_count(
+    evm: &mut EVM<CacheDB<EmptyDB>>, 
+    caller: H160, 
+    contract_address: H160
+) -> Result<U256, Box<dyn std::error::Error>> {
+    // Function selector for count()
+    let count_selector = hex::decode("06661abd").unwrap(); // keccak256("count()")[0:4]
+    
+    let tx = TxEnv {
+        caller,
+        gas_limit: 100_000,
+        gas_price: rU256::from(1_000_000_000u64),
+        transact_to: TransactTo::Call(contract_address),
+        value: rU256::ZERO,
+        data: count_selector.into(),
+        chain_id: None,
+        nonce: None,
+        gas_priority_fee: None,
+        access_list: Vec::new(),
+    };
+    
+    evm.env.tx = tx;
+    
+    let result = evm.transact_commit()?;
+    
+    match result {
+        ExecutionResult::Success { output, .. } => {
+            match output {
+                Output::Call(data) => {
+                    if data.len() >= 32 {
+                        let count = U256::from_big_endian(&data[0..32]);
+                        Ok(count)
+                    } else {
+                        Err("Unexpected data length".into())
+                    }
+                },
+                _ => Err("Unexpected output type".into()),
+            }
+        },
+        ExecutionResult::Revert { output, .. } => {
+            println!("Function call reverted");
+            println!("Output: 0x{}", hex::encode(&output));
+            Err("Function reverted".into())
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            println!("Function call halted: {:?}", reason);
+            Err("Function halted".into())
+        },
+    }
+}
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Create addresses
+    let deployer = H160::from_str("0x1000000000000000000000000000000000000000").unwrap();
+    
+    // Create an in-memory database
+    let mut db = CacheDB::new(EmptyDB::default());
+    
+    // Set up accounts
+    let deployer_account = AccountInfo {
+        balance: rU256::from(10_000_000_000_000_000_000u64), // 10 ETH
+        nonce: rU256::ZERO,
+        code_hash: H256::zero(),
+        code: None,
+    };
+    db.insert_account_info(deployer, deployer_account);
+    
+    // Create EVM and deploy the Counter contract (code from Example 1)
+    // ... deployment code ...
+    
+    // For this example, let's assume the contract is already deployed at this address
+    let contract_address = H160::from_str("0x5fbdb2315678afecb367f032d93f642f64180aa3").unwrap();
+    
+    // Create an EVM instance
+    let mut evm = EvmBuilder::default()
+        .with_db(db)
+        .with_spec_id(SpecId::LONDON)
+        .build();
+    
+    // Read the initial count
+    let count = read_count(&mut evm, deployer, contract_address)?;
+    println!("Initial count: {}", count);
+    
+    // Call increment multiple times
+    for i in 0..5 {
+        call_increment(&mut evm, deployer, contract_address)?;
+        
+        // Read the updated count
+        let count = read_count(&mut evm, deployer, contract_address)?;
+        println!("Count after increment #{}: {}", i+1, count);
+    }
+    
+    Ok(())
+}
+```
+
+This example demonstrates:
+
+1. Creating reusable functions for common contract interactions
+2. Calling a contract function that modifies state (increment)
+3. Reading state from a contract (count)
+4. Handling different function return types
+5. Processing the execution results
+
+## Example 4: Handling Different Return Types
+
+Contracts can return various data types. Let's see how to handle them:
+
+```rust
+use primitive_types::{H160, H256, U256};
+use revm::{
+    db::{CacheDB, EmptyDB}, 
+    primitives::{
+        AccountInfo, Bytecode, Bytes, ExecutionResult, Output,
+        SpecId, TransactTo, TxEnv, U256 as rU256,
+    },
+    EVM, EvmBuilder,
+};
+use std::str::FromStr;
+use ethabi::{Token, encode, decode, ParamType};
+
+// Function to call a contract method and decode the result using ethabi
+fn call_contract_function<T>(
+    evm: &mut EVM<CacheDB<EmptyDB>>,
+    caller: H160,
+    contract_address: H160,
+    function_signature: &str,
+    args: Vec<Token>,
+    return_types: Vec<ParamType>
+) -> Result<Vec<Token>, Box<dyn std::error::Error>> {
+    // Calculate the function selector
+    use tiny_keccak::{Hasher, Keccak};
+    let mut hasher = Keccak::v256();
+    hasher.update(function_signature.as_bytes());
+    let mut selector = [0u8; 32];
+    hasher.finalize(&mut selector);
+    
+    // Take the first 4 bytes for the selector
+    let selector = &selector[0..4];
+    
+    // Encode arguments
+    let encoded_args = encode(&args);
+    
+    // Combine selector with encoded arguments
+    let call_data = [selector, &encoded_args[..]].concat();
+    
+    // Set up transaction
+    let tx = TxEnv {
+        caller,
+        gas_limit: 500_000,
+        gas_price: rU256::from(1_000_000_000u64),
+        transact_to: TransactTo::Call(contract_address),
+        value: rU256::ZERO,
+        data: call_data.into(),
+        chain_id: None,
+        nonce: None,
+        gas_priority_fee: None,
+        access_list: Vec::new(),
+    };
+    
+    evm.env.tx = tx;
+    
+    // Execute the call
+    let result = evm.transact_commit()?;
+    
+    // Process the result
+    match result {
+        ExecutionResult::Success { output, .. } => {
+            match output {
+                Output::Call(data) => {
+                    // Decode the return data using ethabi
+                    let decoded = decode(&return_types, &data)?;
+                    Ok(decoded)
+                },
+                _ => Err("Unexpected output type".into()),
+            }
+        },
+        ExecutionResult::Revert { output, .. } => {
+            // Try to decode revert reason
+            if output.len() >= 4 && output[0..4] == [0x08, 0xc3, 0x79, 0xa0] {
+                // This is the Error(string) signature
+                if output.len() >= 68 {
+                    let error_msg_encoded = &output[4..];
+                    let error_msg = decode(
+                        &[ParamType::String],
+                        error_msg_encoded
+                    ).map_err(|_| "Failed to decode error message")?;
+                    
+                    if let Some(Token::String(msg)) = error_msg.first() {
+                        return Err(format!("Contract reverted: {}", msg).into());
+                    }
+                }
+            }
+            
+            Err(format!("Function reverted: 0x{}", hex::encode(&output)).into())
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            Err(format!("Function halted: {:?}", reason).into())
+        },
+    }
+}
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Set up EVM and deploy contracts as in previous examples
+    
+    // Example 1: Call a function that returns a uint256
+    let result = call_contract_function(
+        &mut evm,
+        caller,
+        contract_address,
+        "balanceOf(address)",
+        vec![Token::Address(owner.into())],
+        vec![ParamType::Uint(256)]
+    )?;
+    
+    if let Some(Token::Uint(balance)) = result.first() {
+        println!("Balance: {}", balance);
+    }
+    
+    // Example 2: Call a function that returns multiple values
+    let result = call_contract_function(
+        &mut evm,
+        caller,
+        pair_contract,
+        "getReserves()",
+        vec![],
+        vec![
+            ParamType::Uint(112), // reserve0
+            ParamType::Uint(112), // reserve1
+            ParamType::Uint(32),  // blockTimestampLast
+        ]
+    )?;
+    
+    if result.len() >= 3 {
+        if let (Some(Token::Uint(reserve0)), Some(Token::Uint(reserve1)), Some(Token::Uint(timestamp))) =
+            (result.get(0), result.get(1), result.get(2)) {
+            println!("Reserve0: {}", reserve0);
+            println!("Reserve1: {}", reserve1);
+            println!("Timestamp: {}", timestamp);
+        }
+    }
+    
+    // Example 3: Call a function that returns a string
+    let result = call_contract_function(
+        &mut evm,
+        caller,
+        token_contract,
+        "name()",
+        vec![],
+        vec![ParamType::String]
+    )?;
+    
+    if let Some(Token::String(name)) = result.first() {
+        println!("Token name: {}", name);
+    }
+    
+    // Example 4: Call a function that returns a bool
+    let result = call_contract_function(
+        &mut evm,
+        caller,
+        token_contract,
+        "transfer(address,uint256)",
+        vec![
+            Token::Address(recipient.into()),
+            Token::Uint(U256::from(1000).into()),
+        ],
+        vec![ParamType::Bool]
+    )?;
+    
+    if let Some(Token::Bool(success)) = result.first() {
+        println!("Transfer successful: {}", success);
+    }
+    
+    // Example 5: Call a function that returns an array
+    let result = call_contract_function(
+        &mut evm,
+        caller,
+        registry_contract,
+        "getAddresses()",
+        vec![],
+        vec![ParamType::Array(Box::new(ParamType::Address))]
+    )?;
+    
+    if let Some(Token::Array(addresses)) = result.first() {
+        println!("Found {} addresses:", addresses.len());
+        for (i, addr) in addresses.iter().enumerate() {
+            if let Token::Address(address) = addr {
+                println!("  {}: 0x{}", i, hex::encode(address.as_bytes()));
+            }
+        }
+    }
+    
+    Ok(())
+}
+```
+
+This example demonstrates a flexible function for calling contract methods and handling various return types:
+
+1. Calculating function selectors using keccak256
+2. Encoding function arguments for different types
+3. Decoding return values of various types
+4. Handling multiple return values
+5. Error decoding for revert reasons
+
+## Contract Deployment Tools
+
+For real-world applications, you might want to create helper functions for common contract operations:
+
+```rust
+// Helper function to deploy a contract
+fn deploy_contract(
+    evm: &mut EVM<CacheDB<EmptyDB>>,
+    deployer: H160,
+    bytecode: Vec<u8>,
+    constructor_args: Vec<u8>,
+    value: U256
+) -> Result<H160, Box<dyn std::error::Error>> {
+    // Combine bytecode and constructor args
+    let deployment_data = [&bytecode[..], &constructor_args[..]].concat();
+    
+    // Set up deployment transaction
+    let tx = TxEnv {
+        caller: deployer,
+        gas_limit: 5_000_000,
+        gas_price: rU256::from(1_000_000_000u64),
+        transact_to: TransactTo::Create(Bytes::default()),
+        value,
+        data: deployment_data.into(),
+        chain_id: None,
+        nonce: None,
+        gas_priority_fee: None,
+        access_list: Vec::new(),
+    };
+    
+    evm.env.tx = tx;
+    
+    // Execute the deployment
+    let result = evm.transact_commit()?;
+    
+    // Extract the contract address
+    match result {
+        ExecutionResult::Success { output, gas_used, .. } => {
+            match output {
+                Output::Create(_, Some(address)) => {
+                    println!("Contract deployed at 0x{}", hex::encode(address.as_bytes()));
+                    println!("Gas used: {}", gas_used);
+                    Ok(address)
+                },
+                _ => Err("Contract creation failed".into()),
+            }
+        },
+        ExecutionResult::Revert { output, .. } => {
+            println!("Contract deployment reverted");
+            println!("Output: 0x{}", hex::encode(&output));
+            Err("Deployment reverted".into())
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            println!("Contract deployment halted: {:?}", reason);
+            Err("Deployment halted".into())
+        },
+    }
+}
+
+// A contract interface for easier interaction
+struct Contract {
+    address: H160,
+    abi: ethabi::Contract,
+}
+
+impl Contract {
+    fn new(address: H160, abi_json: &str) -> Result<Self, Box<dyn std::error::Error>> {
+        let abi = ethabi::Contract::load(abi_json.as_bytes())?;
+        Ok(Self { address, abi })
+    }
+    
+    fn encode_function_call(&self, function_name: &str, args: Vec<Token>) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
+        let function = self.abi.function(function_name)?;
+        Ok(function.encode_input(&args)?)
+    }
+    
+    fn decode_function_output(&self, function_name: &str, data: &[u8]) -> Result<Vec<Token>, Box<dyn std::error::Error>> {
+        let function = self.abi.function(function_name)?;
+        Ok(function.decode_output(data)?)
+    }
+    
+    fn call(&self, 
+        evm: &mut EVM<CacheDB<EmptyDB>>,
+        caller: H160,
+        function_name: &str,
+        args: Vec<Token>
+    ) -> Result<Vec<Token>, Box<dyn std::error::Error>> {
+        let call_data = self.encode_function_call(function_name, args)?;
+        
+        let tx = TxEnv {
+            caller,
+            gas_limit: 500_000,
+            gas_price: rU256::from(1_000_000_000u64),
+            transact_to: TransactTo::Call(self.address),
+            value: rU256::ZERO,
+            data: call_data.into(),
+            chain_id: None,
+            nonce: None,
+            gas_priority_fee: None,
+            access_list: Vec::new(),
+        };
+        
+        evm.env.tx = tx;
+        
+        let result = evm.transact_commit()?;
+        
+        match result {
+            ExecutionResult::Success { output, .. } => {
+                match output {
+                    Output::Call(data) => {
+                        self.decode_function_output(function_name, &data)
+                    },
+                    _ => Err("Unexpected output type".into()),
+                }
+            },
+            ExecutionResult::Revert { output, .. } => {
+                Err(format!("Function reverted: 0x{}", hex::encode(&output)).into())
+            },
+            ExecutionResult::Halt { reason, .. } => {
+                Err(format!("Function halted: {:?}", reason).into())
+            },
+        }
+    }
+}
+
+// Example usage
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Deploy token contract
+    let token_address = deploy_contract(
+        &mut evm,
+        deployer,
+        hex::decode(TOKEN_BYTECODE).unwrap(),
+        encode(&[
+            Token::String("MyToken".to_string()),
+            Token::Uint(U256::from(1_000_000).into()),
+        ]),
+        rU256::ZERO
+    )?;
+    
+    // Create contract interface
+    let token = Contract::new(token_address, TOKEN_ABI)?;
+    
+    // Call balanceOf
+    let result = token.call(
+        &mut evm,
+        deployer,
+        "balanceOf",
+        vec![Token::Address(deployer.into())]
+    )?;
+    
+    if let Some(Token::Uint(balance)) = result.first() {
+        println!("Deployer balance: {}", balance);
+    }
+    
+    // Transfer tokens
+    let recipient = H160::from_str("0x3000000000000000000000000000000000000000").unwrap();
+    
+    let result = token.call(
+        &mut evm,
+        deployer,
+        "transfer",
+        vec![
+            Token::Address(recipient.into()),
+            Token::Uint(U256::from(1000).into()),
+        ]
+    )?;
+    
+    if let Some(Token::Bool(success)) = result.first() {
+        println!("Transfer successful: {}", success);
+    }
+    
+    // Check recipient balance
+    let result = token.call(
+        &mut evm,
+        deployer,
+        "balanceOf",
+        vec![Token::Address(recipient.into())]
+    )?;
+    
+    if let Some(Token::Uint(balance)) = result.first() {
+        println!("Recipient balance: {}", balance);
+    }
+    
+    Ok(())
+}
+```
+
+This implementation provides:
+
+1. A reusable contract deployment function
+2. A high-level Contract abstraction for interacting with contracts
+3. ABI-based encoding and decoding for contract interactions
+4. Simplified calling of contract functions
+
+## Best Practices
+
+When working with smart contracts in REVM, follow these best practices:
+
+1. **Use a Proper ABI Library**: Ethabi or similar libraries make encoding/decoding easier
+2. **Abstract Common Operations**: Create helper functions for deployment and contract interaction
+3. **Validate Deployment Success**: Always check that contracts are successfully deployed and have code
+4. **Handle Errors Properly**: Decode revert messages to provide better error information
+5. **Gas Management**: Set appropriate gas limits, especially for complex contract deployments
+6. **Test Various Edge Cases**: Try different input types and error conditions
+7. **Use Database Snapshots**: Create snapshots before state-changing operations for easier testing
+
+## Conclusion
+
+This example has demonstrated how to deploy and interact with smart contracts using REVM, including:
+
+1. Deploying contracts with and without constructor arguments
+2. Calling contract functions to modify state
+3. Reading various data types from contracts
+4. Handling different return types and error cases
+5. Creating abstractions for easier contract interaction
+
+These techniques form the foundation for building more complex applications with REVM, such as decentralized finance simulators, testing frameworks, and blockchain explorers.
+
+## Next Steps
+
+- Explore [EVM State Manipulation](/examples/3.3-state-manipulation) to learn more about state management
+- Learn about [Gas Profiling and Optimization](/examples/3.4-gas-profiling) to optimize contract execution
+- Try out [Custom Tracing and Debugging](/examples/3.5-tracing-debugging) for detailed execution analysis

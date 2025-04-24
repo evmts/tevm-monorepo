@@ -1,0 +1,578 @@
+---
+title: 4.3 Context Components
+description: Detailed guide about 4.3 context components in REVM (Rust Ethereum Virtual Machine)
+---
+
+# 4.3 Context Components
+
+This document provides a detailed reference for REVM's context components, which define the execution environment for EVM operations. These components include block properties, transaction data, configuration options, and journaling mechanisms.
+
+## Env Structure
+
+The `Env` structure is the central container for all context components. It combines the configuration, block environment, and transaction environment into a single structure.
+
+```rust
+pub struct Env {
+    /// Configuration environment
+    pub cfg: CfgEnv,
+    /// Block environment
+    pub block: BlockEnv,
+    /// Transaction environment
+    pub tx: TxEnv,
+}
+```
+
+The `Env` structure is used throughout REVM to provide access to the execution context. It's passed to the EVM instance and accessed via the `env()` and `env_mut()` methods.
+
+## Block Environment
+
+The `BlockEnv` structure represents the block context for transaction execution.
+
+```rust
+pub struct BlockEnv {
+    /// Number of the current block
+    pub number: U256,
+    /// Coinbase (miner) address
+    pub coinbase: Address,
+    /// Block timestamp
+    pub timestamp: U256,
+    /// Block gas limit
+    pub gas_limit: U256,
+    /// Base fee per gas (EIP-1559)
+    pub basefee: U256,
+    /// Block difficulty (pre-merge)
+    pub difficulty: U256,
+    /// PREVRANDAO value (post-merge)
+    pub prevrandao: B256,
+    /// Blob gas price (EIP-4844)
+    pub blob_gas_price: Option<U256>,
+}
+```
+
+### Block Number
+
+The `number` field represents the current block number. It's used for:
+
+- Checking EIP activation conditions based on block number
+- Block hash lookups (`BLOCKHASH` opcode)
+- Contextual information for applications
+
+### Coinbase
+
+The `coinbase` field contains the address of the miner (or validator post-merge) who will receive transaction fees. It's accessible via the `COINBASE` opcode.
+
+### Timestamp
+
+The `timestamp` field contains the block's timestamp (in Unix time). It's used for:
+
+- Time-based logic in smart contracts (`TIMESTAMP` opcode)
+- Random number generation seed in contracts
+- Time-locked functionality
+
+### Gas Limit
+
+The `gas_limit` field represents the maximum amount of gas that can be used in the block. It's used for:
+
+- Limiting the total gas consumption of transactions in a block
+- Validating that transactions don't exceed the block gas limit
+
+### Base Fee
+
+The `basefee` field (introduced in EIP-1559) represents the base fee per gas unit. It's used for:
+
+- Fee calculation in EIP-1559 transactions
+- The `BASEFEE` opcode
+
+### Difficulty and PREVRANDAO
+
+Prior to the Ethereum merge, `difficulty` represented the block's mining difficulty. Post-merge, this field has been repurposed as `prevrandao`, which provides randomness from the beacon chain. It's accessible via the `DIFFICULTY` opcode (renamed to `PREVRANDAO` post-merge).
+
+### Blob Gas Price
+
+The `blob_gas_price` field (introduced in EIP-4844) represents the current price for blob gas. It's used for blob transactions and is accessible via the `BLOBBASEFEE` opcode.
+
+## Transaction Environment
+
+The `TxEnv` structure represents the transaction context for execution.
+
+```rust
+pub struct TxEnv {
+    /// Transaction caller (sender)
+    pub caller: Address,
+    /// Call value (amount of ETH transferred)
+    pub value: U256,
+    /// Transaction/call data
+    pub data: Bytes,
+    /// Gas limit for the transaction
+    pub gas_limit: u64,
+    /// Gas price (pre-EIP-1559) or max fee per gas (EIP-1559)
+    pub gas_price: U256,
+    /// Transaction destination or contract creation
+    pub transact_to: TransactTo,
+    /// Chain ID (EIP-155)
+    pub chain_id: Option<u64>,
+    /// Transaction nonce
+    pub nonce: Option<u64>,
+    /// Max priority fee per gas (EIP-1559)
+    pub gas_priority_fee: Option<U256>,
+    /// Blob versioned hashes (EIP-4844)
+    pub blob_hashes: Vec<B256>,
+    /// Max fee per blob gas (EIP-4844)
+    pub max_fee_per_blob_gas: Option<U256>,
+    /// Access list (EIP-2930)
+    pub access_list: Vec<(Address, Vec<U256>)>,
+}
+```
+
+### Caller
+
+The `caller` field contains the address of the transaction sender. It's used for:
+
+- Permission checks (`msg.sender` in Solidity)
+- Fee payment
+- Call context information
+
+### Value
+
+The `value` field represents the amount of Ether transferred with the transaction. It's used for:
+
+- ETH transfers
+- Call value in contracts (`msg.value` in Solidity)
+- Contract creation funding
+
+### Data
+
+The `data` field contains the transaction's calldata. It's used for:
+
+- Function selectors and parameters for contract calls
+- Contract initialization code for contract creation
+- Raw data transfers
+
+### Gas Limit
+
+The `gas_limit` field represents the maximum amount of gas that can be used by the transaction. It's used for:
+
+- Limiting computation and storage usage
+- Fee calculation
+
+### Gas Price and Priority Fee
+
+The `gas_price` field represents the price per unit of gas the sender is willing to pay. In EIP-1559 transactions, this represents the max fee per gas.
+
+The `gas_priority_fee` field (introduced in EIP-1559) represents the max priority fee per gas, which is a tip to validators.
+
+### Transaction Destination
+
+The `transact_to` field specifies the transaction's target, which can be either a call to an existing contract/account or a contract creation.
+
+```rust
+pub enum TransactTo {
+    /// Call to an existing account
+    Call(Address),
+    /// Create a new contract
+    Create(CreateScheme),
+}
+
+pub enum CreateScheme {
+    /// Regular contract creation (CREATE opcode)
+    Create,
+    /// CREATE2 contract creation (CREATE2 opcode)
+    Create2 { salt: B256 },
+}
+```
+
+### Chain ID
+
+The `chain_id` field (introduced in EIP-155) contains the chain identifier, used for replay protection.
+
+### Nonce
+
+The `nonce` field contains the transaction's nonce, used for:
+
+- Transaction ordering
+- Replay protection
+- Contract address calculation in CREATE operations
+
+### Blob Transaction Fields
+
+The `blob_hashes` and `max_fee_per_blob_gas` fields (introduced in EIP-4844) are used for blob transactions.
+
+### Access List
+
+The `access_list` field (introduced in EIP-2930) contains a list of addresses and storage keys that will be accessed during transaction execution. It's used for gas optimization by pre-declaring accessed state.
+
+## Configuration Environment
+
+The `CfgEnv` structure contains configuration options for the EVM.
+
+```rust
+pub struct CfgEnv {
+    /// Chain ID
+    pub chain_id: u64,
+    /// EVM spec version
+    pub spec_id: SpecId,
+    /// Whether the context is static (disallows state modification)
+    pub is_static: bool,
+    /// Optional maximum gas for nested calls
+    pub call_gas_limit: Option<u64>,
+    /// Performance analyzer sampling rate
+    pub perf_analyzer_rate: Option<usize>,
+    /// Memory configuration
+    pub memory: MemConfig,
+    /// Additional EVM spec options
+    pub extras: HashMap<SpecId, bool>,
+}
+```
+
+### Chain ID
+
+The `chain_id` field specifies the chain identifier, used for:
+
+- EIP-155 transaction signature validation
+- Contract logic that depends on the chain ID
+
+### Spec ID
+
+The `spec_id` field specifies the EVM version to use. REVM supports multiple Ethereum protocol upgrades through the `SpecId` enum:
+
+```rust
+pub enum SpecId {
+    FRONTIER,
+    FRONTIER_THAWING,
+    HOMESTEAD,
+    DAO_FORK,
+    TANGERINE,
+    SPURIOUS_DRAGON,
+    BYZANTIUM,
+    CONSTANTINOPLE,
+    PETERSBURG,
+    ISTANBUL,
+    MUIR_GLACIER,
+    BERLIN,
+    LONDON,
+    ARROW_GLACIER,
+    GRAY_GLACIER,
+    MERGE,
+    SHANGHAI,
+    CANCUN,
+    PRAGUE,
+    LATEST, // Always points to the latest spec
+}
+```
+
+### Static Context
+
+The `is_static` field indicates whether the execution context is static, which disallows state modifications. It's used for:
+
+- `STATICCALL` operations
+- Read-only contract interactions
+
+### Call Gas Limit
+
+The `call_gas_limit` field provides an optional maximum gas limit for nested call operations. This can be used to override the standard EIP-150 rules for call gas.
+
+### Memory Configuration
+
+The `memory` field contains configuration options for EVM memory management:
+
+```rust
+pub struct MemConfig {
+    /// Stack limit (1024 by default)
+    pub stack_limit: usize,
+    /// Memory limit in bytes (128MB by default)
+    pub memory_limit: usize,
+}
+```
+
+### Extra Features
+
+The `extras` field allows enabling or disabling specific EVM features or EIPs individually, regardless of the selected spec ID.
+
+## Journal and State Management
+
+REVM uses a journaling system to track state changes and enable efficient snapshot and revert operations.
+
+### JournaledState
+
+The `JournaledState` structure manages the state changes during execution.
+
+```rust
+pub struct JournaledState {
+    /// Current state of accounts
+    accounts: HashMap<Address, Account>,
+    /// Snapshots for revert operations
+    snapshots: HashMap<u64, StateSnapshot>,
+    /// Logs generated during execution
+    logs: Vec<Log>,
+    /// Next snapshot ID
+    next_snapshot_id: u64,
+    /// Depth of current execution
+    depth: usize,
+    /// IDs of touched accounts
+    touched: HashSet<Address>,
+    /// Access list for EIP-2929
+    access_list: AccessList,
+}
+```
+
+#### Account Structure
+
+The `Account` structure represents the state of an Ethereum account:
+
+```rust
+pub struct Account {
+    /// Account information
+    pub info: Option<AccountInfo>,
+    /// Storage changes
+    pub storage: Option<BTreeMap<U256, StorageValue>>,
+    /// Original storage root
+    pub storage_root: Option<B256>,
+}
+
+pub struct AccountInfo {
+    /// Account balance
+    pub balance: U256,
+    /// Account nonce
+    pub nonce: u64,
+    /// Code hash
+    pub code_hash: B256,
+    /// Code (if available)
+    pub code: Option<Bytecode>,
+}
+
+pub struct StorageValue {
+    /// Present value (current value)
+    pub present_value: U256,
+    /// Original value (value before changes)
+    pub original_value: U256,
+}
+```
+
+#### State Snapshots
+
+State snapshots are used to capture the state at a point in time and enable reverting to that state.
+
+```rust
+pub struct StateSnapshot {
+    /// Accounts state at the snapshot point
+    pub accounts: HashMap<Address, AccountSnapshot>,
+    /// Logs at the snapshot point
+    pub logs_index: usize,
+    /// Touched accounts at the snapshot point
+    pub touched: HashSet<Address>,
+}
+
+pub struct AccountSnapshot {
+    /// Account info at the snapshot point
+    pub info: Option<AccountInfo>,
+    /// Storage changes at the snapshot point
+    pub storage: Option<BTreeMap<U256, StorageValue>>,
+}
+```
+
+#### Journal Operations
+
+The `JournaledState` provides methods for state management:
+
+- `account_mut`: Get a mutable reference to an account, loading it if necessary
+- `load_account`: Load an account from the database
+- `load_code`: Load code for an account
+- `load_storage`: Load a storage value
+- `checkpoint`: Create a snapshot of the current state
+- `revert`: Revert to a previous snapshot
+- `commit`: Commit changes to the underlying database
+
+### AccessList
+
+The `AccessList` structure manages the EIP-2929 access list, which tracks which addresses and storage slots have been accessed.
+
+```rust
+pub struct AccessList {
+    /// Addresses that have been accessed (warm)
+    pub addresses: HashSet<Address>,
+    /// Storage slots that have been accessed (warm)
+    pub storage_keys: HashSet<(Address, U256)>,
+}
+```
+
+This is used to implement the EIP-2929 gas cost changes, which reduce the gas cost for accessing previously accessed addresses and storage slots.
+
+## Usage Examples
+
+### Setting Up a Basic Execution Environment
+
+```rust
+// Create a new environment with default settings
+let mut env = Env::default();
+
+// Configure the chain ID
+env.cfg.chain_id = 1; // Ethereum mainnet
+
+// Configure the spec ID
+env.cfg.spec_id = SpecId::SHANGHAI;
+
+// Configure block properties
+env.block.number = U256::from(12_345_678);
+env.block.timestamp = U256::from(1636329600); // 2021-11-08T00:00:00Z
+env.block.gas_limit = U256::from(30_000_000);
+env.block.basefee = U256::from(1_000_000_000); // 1 gwei
+
+// Configure transaction properties
+env.tx.caller = address!("0x1234567890123456789012345678901234567890");
+env.tx.gas_limit = 1_000_000;
+env.tx.gas_price = U256::from(2_000_000_000); // 2 gwei
+env.tx.transact_to = TransactTo::Call(address!("0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"));
+env.tx.value = U256::from(1_000_000_000_000_000_000u64); // 1 ETH
+env.tx.data = Bytes::from(hex::decode("a9059cbb000000000000000000000000deadbeefdeadbeefdeadbeefdeadbeefdeadbeef0000000000000000000000000000000000000000000000000de0b6b3a7640000").unwrap());
+```
+
+### Creating a Fork Environment
+
+```rust
+// Create a fork of mainnet at a specific block
+let fork_block = 16_000_000;
+
+// Configure block properties from the fork
+env.block.number = U256::from(fork_block);
+env.block.timestamp = U256::from(1672531200); // 2023-01-01T00:00:00Z
+env.block.gas_limit = U256::from(30_000_000);
+env.block.basefee = U256::from(15_000_000_000); // 15 gwei
+
+// Create a database that fetches state from the fork
+let fork_db = ForkDatabase::new(
+    "https://mainnet.infura.io/v3/YOUR_API_KEY",
+    Some(fork_block),
+);
+
+// Create an EVM instance with the fork environment and database
+let mut evm = Evm::new();
+evm.env = env;
+evm.database(fork_db);
+```
+
+### Configuring for Different EIPs
+
+```rust
+// Enable EIP-1559 (fee market)
+env.cfg.spec_id = SpecId::LONDON;
+
+// Configure an EIP-1559 transaction
+env.tx.gas_price = U256::from(30_000_000_000); // 30 gwei max fee
+env.tx.gas_priority_fee = Some(U256::from(2_000_000_000)); // 2 gwei priority fee
+
+// Enable EIP-4844 (blob transactions) - Cancun upgrade
+env.cfg.spec_id = SpecId::CANCUN;
+env.block.blob_gas_price = Some(U256::from(1_000_000)); // 1M blob gas price
+
+// Configure a blob transaction
+env.tx.blob_hashes = vec![
+    B256::from([1u8; 32]),
+    B256::from([2u8; 32]),
+];
+env.tx.max_fee_per_blob_gas = Some(U256::from(2_000_000)); // 2M max blob gas price
+```
+
+### Using Access Lists (EIP-2930)
+
+```rust
+// Enable Berlin or later for access lists
+env.cfg.spec_id = SpecId::BERLIN;
+
+// Configure transaction with an access list
+env.tx.access_list = vec![
+    // Address and storage keys that will be accessed
+    (
+        address!("0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"),
+        vec![
+            U256::from(1),
+            U256::from(2),
+            U256::from(3),
+        ]
+    ),
+    (
+        address!("0x1234567890123456789012345678901234567890"),
+        vec![]
+    ),
+];
+```
+
+### Static Calls
+
+```rust
+// Configure static call
+env.cfg.is_static = true;
+
+// This prevents state modifications during execution
+// Following operations will fail:
+// - SSTORE
+// - CREATE/CREATE2
+// - SELFDESTRUCT
+// - CALL with value transfer
+```
+
+### Snapshot and Revert
+
+```rust
+// Create a journaled state
+let mut journaled_state = JournaledState::new();
+
+// Create a snapshot
+let snapshot_id = journaled_state.checkpoint();
+
+// Make some state changes
+let address = address!("0x1234567890123456789012345678901234567890");
+let account = journaled_state.account_mut(address, &mut db).unwrap();
+account.info.as_mut().unwrap().balance += U256::from(1_000_000);
+
+// Revert to the snapshot
+journaled_state.revert(snapshot_id);
+
+// The balance change should be undone
+let account = journaled_state.account(address).unwrap();
+// balance should be back to original value
+```
+
+## Best Practices
+
+### Block Environment
+
+1. **Keep gas limit realistic**: Set the block gas limit to a value that's realistic for the target network (e.g., ~30M for mainnet).
+
+2. **Set accurate timestamps**: For deterministic replay, use accurate timestamps matching the block being replayed.
+
+3. **Use correct base fee**: For EIP-1559 transactions, set an appropriate base fee to realistically model gas pricing.
+
+### Transaction Environment
+
+1. **Set appropriate gas limits**: Avoid setting excessively high gas limits, as this can lead to inefficient execution or unrealistic results.
+
+2. **Use chain-specific configurations**: Set the appropriate chain ID and spec ID for the target network.
+
+3. **Pre-populate access lists**: For gas optimization, include addresses and storage slots that will be accessed in the access list.
+
+### Configuration
+
+1. **Choose the right spec ID**: Select the appropriate Ethereum protocol version (spec ID) for your use case. Use `SpecId::LATEST` for the most recent supported version.
+
+2. **Consider memory limits**: For resource-constrained environments, adjust memory limits to prevent excessive memory usage.
+
+3. **Enable required EIPs**: Enable specific EIPs in the `extras` map if needed for your application.
+
+### Journaling
+
+1. **Manage snapshots efficiently**: Create snapshots only when needed, and release them promptly when no longer required.
+
+2. **Be cautious with deep nesting**: Deeply nested snapshots can consume substantial memory.
+
+3. **Commit changes strategically**: Commit changes to the database at appropriate points to balance persistence and performance.
+
+## Conclusion
+
+REVM's context components provide a flexible and powerful system for configuring the EVM environment. By understanding and properly configuring these components, you can:
+
+- Create realistic execution environments for testing and simulation
+- Support various Ethereum protocol versions and EIPs
+- Implement efficient state management with journaling
+- Create specialized environments for specific use cases
+
+The context components are central to REVM's operation and provide the foundation for executing Ethereum transactions in any context, from local development to forking production networks.

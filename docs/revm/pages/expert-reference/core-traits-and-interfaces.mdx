@@ -1,0 +1,875 @@
+---
+title: 4.2 Core Traits and Interfaces
+description: Detailed guide about 4.2 core traits and interfaces in REVM (Rust Ethereum Virtual Machine)
+---
+
+# 4.2 Core Traits and Interfaces
+
+This document provides a detailed exploration of REVM's core traits and interfaces, explaining their purpose, relationships, implementation requirements, and usage patterns. These traits form the foundation of REVM's architecture and provide the extension points for customization.
+
+## EvmTrait
+
+The `EvmTrait` is the central trait that defines the core capabilities of the EVM implementation.
+
+### Definition
+
+```rust
+pub trait EvmTrait<DB: Database>: Send + Sync {
+    /// Return a reference to the EVM environment
+    fn env(&self) -> &Env;
+    
+    /// Return a mutable reference to the EVM environment
+    fn env_mut(&mut self) -> &mut Env;
+    
+    /// Return a reference to the database or None if not present
+    fn db(&self) -> Option<&DB>;
+    
+    /// Return a mutable reference to the database or None if not present
+    fn db_mut(&mut self) -> Option<&mut DB>;
+    
+    /// Take ownership of the database from the EVM
+    fn take_db(&mut self) -> Option<DB>;
+    
+    /// Execute the transaction with state modifications
+    fn transact(&mut self) -> Result<ExecutionResult, EVMError<DB::Error>>;
+    
+    /// Execute the transaction without state modifications (read-only)
+    fn transact_ref(&mut self) -> Result<ExecutionResult, EVMError<DB::Error>>;
+    
+    /// Execute the transaction with optional state commit
+    fn transact_commit(
+        &mut self,
+        commit: bool
+    ) -> Result<ExecutionResult, EVMError<DB::Error>>;
+}
+```
+
+### Purpose
+
+The `EvmTrait` establishes the contract for any EVM implementation in REVM. It provides:
+
+1. Access to the execution environment
+2. Database access for state operations
+3. Transaction execution methods with different state modification behaviors
+
+### Usage
+
+Implementors of this trait must:
+
+- Provide access to the environment configuration
+- Handle database operations correctly
+- Implement all transaction execution methods
+- Properly resolve the relationship between the read-only and state-modifying execution paths
+
+When implementing custom EVM variants based on REVM, you'll generally implement this trait to provide your specific execution logic.
+
+```rust
+impl<DB: Database> EvmTrait<DB> for MyCustomEvm<DB> {
+    fn env(&self) -> &Env {
+        &self.environment
+    }
+    
+    fn env_mut(&mut self) -> &mut Env {
+        &mut self.environment
+    }
+    
+    fn db(&self) -> Option<&DB> {
+        self.database.as_ref()
+    }
+    
+    fn db_mut(&mut self) -> Option<&mut DB> {
+        self.database.as_mut()
+    }
+    
+    fn take_db(&mut self) -> Option<DB> {
+        self.database.take()
+    }
+    
+    fn transact(&mut self) -> Result<ExecutionResult, EVMError<DB::Error>> {
+        // Custom transaction execution logic
+        // ...
+    }
+    
+    // implement other methods
+}
+```
+
+## ContextTrait
+
+The `ContextTrait` provides access to the execution context, including block information, transaction data, and other environmental aspects.
+
+### Definition
+
+```rust
+pub trait ContextTrait {
+    /// Return a reference to the block environment
+    fn block(&self) -> &BlockEnv;
+    
+    /// Return a mutable reference to the block environment
+    fn block_mut(&mut self) -> &mut BlockEnv;
+    
+    /// Return a reference to the transaction environment
+    fn tx(&self) -> &TxEnv;
+    
+    /// Return a mutable reference to the transaction environment
+    fn tx_mut(&mut self) -> &mut TxEnv;
+    
+    /// Return a reference to the EVM configuration
+    fn cfg(&self) -> &CfgEnv;
+    
+    /// Return a mutable reference to the EVM configuration
+    fn cfg_mut(&mut self) -> &mut CfgEnv;
+    
+    /// Get the EVM specification ID
+    fn spec_id(&self) -> SpecId;
+    
+    /// Check if a specific EIP/feature is enabled
+    fn is_feature_enabled(&self, feature: SpecId) -> bool;
+}
+```
+
+### Purpose
+
+The `ContextTrait` separates the access to execution context from the EVM implementation details. It provides:
+
+1. Access to block-level information like number, timestamp, etc.
+2. Access to transaction data including gas, sender, value, etc.
+3. Access to configuration settings
+4. Methods to check for feature/EIP activation
+
+### Usage
+
+Implementors of this trait typically wrap the `Env` structure to provide access to the execution context. When customizing context behavior, you might implement this trait to provide specialized access or validations.
+
+```rust
+impl ContextTrait for MyContext {
+    fn block(&self) -> &BlockEnv {
+        &self.env.block
+    }
+    
+    fn block_mut(&mut self) -> &mut BlockEnv {
+        &mut self.env.block
+    }
+    
+    // Other implementations...
+    
+    fn is_feature_enabled(&self, feature: SpecId) -> bool {
+        match feature {
+            // Special handling for specific features
+            SpecId::LONDON => self.london_enabled && self.cfg().chain_id != 1,
+            _ => self.env.cfg.extras.get(&feature).copied().unwrap_or(false)
+        }
+    }
+}
+```
+
+## Inspector Trait
+
+The `Inspector` trait enables monitoring and potentially modifying the execution flow of the EVM.
+
+### Definition
+
+```rust
+pub trait Inspector<DB: Database>: Send {
+    /// Called at the start of execution
+    fn initialize_interp(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        is_static: bool
+    ) -> Eval { Eval::Continue }
+    
+    /// Called before each opcode executes
+    fn step(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        is_static: bool
+    ) -> Eval { Eval::Continue }
+    
+    /// Called after each opcode executes
+    fn step_end(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        is_static: bool
+    ) -> Eval { Eval::Continue }
+    
+    /// Called before CALL, STATICCALL, DELEGATECALL, CALLCODE
+    fn call(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        inputs: &CallInputs,
+        is_static: bool
+    ) -> (Eval, Gas) {
+        (Eval::Continue, Gas::new(inputs.gas_limit))
+    }
+    
+    /// Called after CALL, STATICCALL, DELEGATECALL, CALLCODE
+    fn call_end(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        inputs: &CallInputs,
+        remaining_gas: Gas,
+        ret: InterpreterResult,
+        is_static: bool
+    ) -> (Eval, Gas) {
+        (Eval::Continue, remaining_gas)
+    }
+    
+    /// Called before CREATE, CREATE2
+    fn create(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        inputs: &CreateInputs
+    ) -> (Eval, Gas) {
+        (Eval::Continue, Gas::new(inputs.gas_limit))
+    }
+    
+    /// Called after CREATE, CREATE2
+    fn create_end(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        inputs: &CreateInputs,
+        remaining_gas: Gas,
+        ret: InterpreterResult
+    ) -> (Eval, Gas) {
+        (Eval::Continue, remaining_gas)
+    }
+    
+    /// Called when a self-destruct opcode is encountered
+    fn selfdestruct(
+        &mut self,
+        contract: Address,
+        target: Address,
+        value: U256
+    ) -> bool {
+        true
+    }
+}
+```
+
+### Purpose
+
+The `Inspector` trait provides hooks into the EVM execution process for:
+
+1. Monitoring execution state
+2. Collecting statistics and traces
+3. Modifying execution behavior
+4. Implementing debugging tools
+5. Custom gas accounting
+6. Security analysis
+
+### Usage
+
+Implementing the `Inspector` trait allows you to observe or modify the execution flow at various points. All methods have default implementations that continue execution normally, so you only need to implement the methods you're interested in.
+
+For custom gas accounting:
+
+```rust
+pub struct GasInspector {
+    gas_used: u64,
+    opcode_costs: HashMap<u8, u64>,
+}
+
+impl<DB: Database> Inspector<DB> for GasInspector {
+    fn step(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        _is_static: bool
+    ) -> Eval {
+        let pc = data.interp.program_counter();
+        let opcode = data.interp.contract.bytecode.bytecode()[pc];
+        self.current_opcode = opcode;
+        Eval::Continue
+    }
+    
+    fn step_end(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        _is_static: bool
+    ) -> Eval {
+        let gas_used = data.gas.spent() - self.gas_before_step;
+        self.gas_used += gas_used;
+        self.opcode_costs
+            .entry(self.current_opcode)
+            .and_modify(|cost| *cost += gas_used)
+            .or_insert(gas_used);
+        Eval::Continue
+    }
+}
+```
+
+For execution tracing:
+
+```rust
+pub struct TracingInspector {
+    traces: Vec<ExecutionStep>,
+    depth: usize,
+}
+
+impl<DB: Database> Inspector<DB> for TracingInspector {
+    fn step(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        _is_static: bool
+    ) -> Eval {
+        let pc = data.interp.program_counter();
+        let opcode = data.interp.contract.bytecode.bytecode()[pc];
+        let opcode_name = OPCODE_JUMPMAP[opcode as usize].name.to_string();
+        
+        self.traces.push(ExecutionStep {
+            pc,
+            opcode,
+            opcode_name,
+            stack: data.interp.stack().clone(),
+            memory: data.interp.memory().data().to_vec(),
+            gas_remaining: data.gas.remaining(),
+            depth: self.depth,
+        });
+        
+        Eval::Continue
+    }
+    
+    fn call(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        inputs: &CallInputs,
+        is_static: bool
+    ) -> (Eval, Gas) {
+        self.depth += 1;
+        (Eval::Continue, Gas::new(inputs.gas_limit))
+    }
+    
+    fn call_end(
+        &mut self,
+        data: InterpreterData<'_, DB>,
+        inputs: &CallInputs,
+        remaining_gas: Gas,
+        ret: InterpreterResult,
+        is_static: bool
+    ) -> (Eval, Gas) {
+        self.depth -= 1;
+        (Eval::Continue, remaining_gas)
+    }
+}
+```
+
+## Database Trait
+
+The `Database` trait defines the interface for state access and modification.
+
+### Definition
+
+```rust
+pub trait Database {
+    /// Error type associated with this database
+    type Error;
+
+    /// Get basic account information
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error>;
+
+    /// Get storage value at a given position
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error>;
+
+    /// Get block hash for a given block number
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error>;
+
+    /// Get code by its hash
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error>;
+}
+```
+
+### Extension Traits
+
+```rust
+/// Database that can commit changes
+pub trait DatabaseCommit: Database {
+    /// Commit changes to the database
+    fn commit(&mut self, changes: HashMap<Address, Account>);
+}
+
+/// Database that can revert changes
+pub trait DatabaseRevert: Database {
+    /// Create a snapshot of the current state
+    fn snapshot(&mut self) -> u64;
+    
+    /// Revert to a previously created snapshot
+    fn revert(&mut self, snapshot: u64) -> bool;
+}
+```
+
+### Purpose
+
+The `Database` trait standardizes access to Ethereum state, providing:
+
+1. Basic account information (balance, nonce, code)
+2. Storage value access
+3. Block hash information
+4. Code lookup by hash
+
+The extension traits add capabilities for state modification (`DatabaseCommit`) and state snapshot/rollback (`DatabaseRevert`).
+
+### Usage
+
+When implementing a custom database backend, you must implement the `Database` trait and optionally the extension traits.
+
+For an in-memory database:
+
+```rust
+pub struct InMemoryDB {
+    accounts: HashMap<Address, AccountInfo>,
+    storage: HashMap<(Address, U256), U256>,
+    block_hashes: HashMap<U256, B256>,
+    code: HashMap<B256, Bytecode>,
+}
+
+impl Database for InMemoryDB {
+    type Error = DBError;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        Ok(self.accounts.get(&address).cloned())
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        Ok(self.storage.get(&(address, index)).copied().unwrap_or(U256::ZERO))
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        Ok(self.block_hashes.get(&number).copied().unwrap_or(B256::zero()))
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        self.code.get(&code_hash).cloned()
+            .ok_or(DBError::CodeNotFound)
+    }
+}
+
+impl DatabaseCommit for InMemoryDB {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        for (address, account) in changes {
+            if let Some(info) = account.info {
+                self.accounts.insert(address, info);
+                
+                // Handle code
+                if let Some(code) = info.code {
+                    self.code.insert(info.code_hash, code);
+                }
+            } else {
+                self.accounts.remove(&address);
+            }
+            
+            // Handle storage
+            if let Some(storage) = account.storage {
+                for (key, value) in storage {
+                    if value.present_value == U256::ZERO {
+                        self.storage.remove(&(address, key));
+                    } else {
+                        self.storage.insert((address, key), value.present_value);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+For a database that implements rollback:
+
+```rust
+impl DatabaseRevert for InMemoryDB {
+    fn snapshot(&mut self) -> u64 {
+        let snapshot_id = self.next_snapshot_id;
+        self.next_snapshot_id += 1;
+        
+        // Store current state
+        self.snapshots.insert(snapshot_id, Snapshot {
+            accounts: self.accounts.clone(),
+            storage: self.storage.clone(),
+        });
+        
+        snapshot_id
+    }
+    
+    fn revert(&mut self, snapshot: u64) -> bool {
+        if let Some(snapshot_data) = self.snapshots.remove(&snapshot) {
+            // Restore state
+            self.accounts = snapshot_data.accounts;
+            self.storage = snapshot_data.storage;
+            true
+        } else {
+            false
+        }
+    }
+}
+```
+
+## Handler Trait
+
+The `Handler` trait defines the core execution logic for EVM operations.
+
+### Definition
+
+```rust
+pub trait Handler<DB: Database>: Send {
+    /// Execute the current transaction
+    fn execute(
+        &mut self,
+        ctx: &mut EvmContext<DB>,
+        inspector: &mut dyn Inspector<DB>,
+    ) -> Result<ExecutionResult, EVMError<DB::Error>>;
+}
+```
+
+### Purpose
+
+The `Handler` trait encapsulates the execution logic of the EVM, separating it from the EVM configuration and state management. It:
+
+1. Handles the execution of transactions
+2. Coordinates with inspectors for execution hooks
+3. Manages gas accounting
+4. Handles error conditions and execution results
+
+### Usage
+
+The default implementation is `EvmHandler`, but you can implement custom handlers for specialized behavior:
+
+```rust
+pub struct CustomHandler {
+    // Custom state
+}
+
+impl<DB: Database> Handler<DB> for CustomHandler {
+    fn execute(
+        &mut self,
+        ctx: &mut EvmContext<DB>,
+        inspector: &mut dyn Inspector<DB>,
+    ) -> Result<ExecutionResult, EVMError<DB::Error>> {
+        // Custom pre-execution logic
+        
+        // Determine call type
+        match ctx.tx().transact_to {
+            TransactTo::Call(address) => {
+                // Handle call transaction
+                // ...
+            },
+            TransactTo::Create(_) => {
+                // Handle create transaction
+                // ...
+            }
+        }
+        
+        // Custom post-execution logic
+        
+        // Return result
+        Ok(ExecutionResult {
+            // ...
+        })
+    }
+}
+```
+
+## PrecompileOutput Struct
+
+The `PrecompileOutput` struct represents the output of a precompiled contract execution.
+
+### Definition
+
+```rust
+pub struct PrecompileOutput {
+    /// Output data
+    pub output: Bytes,
+    /// Additional output logs
+    pub logs: Vec<Log>,
+}
+```
+
+## Precompile Trait
+
+The `Precompile` trait defines the interface for precompiled contract implementations.
+
+### Definition
+
+```rust
+pub trait Precompile: Send + Sync {
+    /// Calculates the required gas for execution
+    fn required_gas(&self, input: &[u8]) -> Result<u64, PrecompileError>;
+    
+    /// Executes the precompile with the given input
+    fn run(&self, input: &[u8]) -> Result<(PrecompileOutput, u64), PrecompileError>;
+}
+```
+
+### Purpose
+
+The `Precompile` trait standardizes the implementation of precompiled contracts, providing:
+
+1. Gas calculation based on input
+2. Execution logic
+3. Output format
+4. Error handling
+
+### Usage
+
+When implementing a custom precompiled contract:
+
+```rust
+pub struct MyPrecompile;
+
+impl Precompile for MyPrecompile {
+    fn required_gas(&self, input: &[u8]) -> Result<u64, PrecompileError> {
+        // Calculate required gas based on input
+        let input_len = input.len();
+        Ok(1000 + (input_len as u64 * 10))
+    }
+    
+    fn run(&self, input: &[u8]) -> Result<(PrecompileOutput, u64), PrecompileError> {
+        // Check input length
+        if input.len() < 4 {
+            return Err(PrecompileError::InvalidInput);
+        }
+        
+        // Calculate gas
+        let gas = self.required_gas(input)?;
+        
+        // Process input
+        let result = process_my_function(input)?;
+        
+        // Return output and gas used
+        Ok((
+            PrecompileOutput {
+                output: Bytes::from(result),
+                logs: vec![],
+            },
+            gas,
+        ))
+    }
+}
+
+fn process_my_function(input: &[u8]) -> Result<Vec<u8>, PrecompileError> {
+    // Custom processing logic
+    // ...
+    Ok(vec![1, 2, 3])
+}
+```
+
+## PrecompileFn Function Type
+
+For simpler precompiles that don't need complex logic, REVM provides a function type.
+
+### Definition
+
+```rust
+pub type PrecompileFn = fn(input: &[u8], gas_limit: u64) -> Result<(Vec<u8>, u64), PrecompileError>;
+```
+
+### Usage
+
+```rust
+// Simple precompile that doubles each byte
+fn double_bytes(input: &[u8], gas_limit: u64) -> Result<(Vec<u8>, u64), PrecompileError> {
+    // Calculate gas (linear with input size)
+    let gas = 100 + (input.len() as u64 * 5);
+    
+    // Check if we have enough gas
+    if gas > gas_limit {
+        return Err(PrecompileError::OutOfGas);
+    }
+    
+    // Process input (double each byte)
+    let result = input.iter().map(|b| b * 2).collect();
+    
+    Ok((result, gas))
+}
+
+// Register the precompile
+precompiles.insert(
+    Address::from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10]),
+    PrecompileWrapper::Function(double_bytes)
+);
+```
+
+## EVMContext Struct
+
+The `EVMContext` struct provides the execution context for EVM operations.
+
+### Definition
+
+```rust
+pub struct EVMContext<'a, DB: Database> {
+    env: &'a mut Env,
+    db: &'a mut DB,
+    journaled_state: JournaledState,
+    precompiles: HashMap<Address, PrecompileWrapper>,
+}
+```
+
+### Methods
+
+```rust
+impl<'a, DB: Database> EVMContext<'a, DB> {
+    /// Get a reference to the environment
+    pub fn env(&self) -> &Env { ... }
+    
+    /// Get a mutable reference to the environment
+    pub fn env_mut(&mut self) -> &mut Env { ... }
+    
+    /// Get a reference to the database
+    pub fn db(&self) -> &DB { ... }
+    
+    /// Get a mutable reference to the database
+    pub fn db_mut(&mut self) -> &mut DB { ... }
+    
+    /// Check if an account exists
+    pub fn account_exists(&self, address: Address) -> Result<bool, DB::Error> { ... }
+    
+    /// Get the balance of an account
+    pub fn balance(&self, address: Address) -> Result<U256, DB::Error> { ... }
+    
+    /// Get the code of an account
+    pub fn code(&self, address: Address) -> Result<Bytecode, DB::Error> { ... }
+    
+    /// Get the code hash of an account
+    pub fn code_hash(&self, address: Address) -> Result<B256, DB::Error> { ... }
+    
+    /// Get the nonce of an account
+    pub fn nonce(&self, address: Address) -> Result<u64, DB::Error> { ... }
+    
+    /// Get a storage value
+    pub fn storage(&self, address: Address, key: U256) -> Result<U256, DB::Error> { ... }
+    
+    /// Make an account warm (EIP-2929)
+    pub fn make_account_warm(&mut self, address: Address) { ... }
+    
+    /// Make a storage slot warm (EIP-2929)
+    pub fn make_storage_warm(&mut self, address: Address, key: U256) { ... }
+    
+    /// Transfer value between accounts
+    pub fn transfer(
+        &mut self,
+        from: Address,
+        to: Address,
+        value: U256
+    ) -> Result<(), TransferError<DB::Error>> { ... }
+    
+    /// Selfdestruct an account
+    pub fn selfdestruct(
+        &mut self,
+        address: Address,
+        target: Address
+    ) -> Result<(), SelfdestructError<DB::Error>> { ... }
+    
+    /// Create a new account
+    pub fn create_account(
+        &mut self,
+        address: Address
+    ) -> Result<(), DB::Error> { ... }
+    
+    /// Set account code
+    pub fn set_code(
+        &mut self,
+        address: Address,
+        code: Bytecode
+    ) -> Result<(), DB::Error> { ... }
+    
+    /// Set storage value
+    pub fn set_storage(
+        &mut self,
+        address: Address,
+        key: U256,
+        value: U256
+    ) -> Result<(), DB::Error> { ... }
+    
+    /// Set account nonce
+    pub fn set_nonce(
+        &mut self,
+        address: Address,
+        nonce: u64
+    ) -> Result<(), DB::Error> { ... }
+    
+    /// Set account balance
+    pub fn set_balance(
+        &mut self,
+        address: Address,
+        balance: U256
+    ) -> Result<(), DB::Error> { ... }
+    
+    /// Create a snapshot of the current state
+    pub fn snapshot(&mut self) -> u64 { ... }
+    
+    /// Revert to a previously created snapshot
+    pub fn revert(&mut self, snapshot: u64) -> bool { ... }
+    
+    /// Commit changes to the database
+    pub fn commit(&mut self) -> Result<(), DB::Error> { ... }
+}
+```
+
+### Purpose
+
+The `EVMContext` provides a convenient interface to:
+
+1. Access and modify the execution environment
+2. Access and modify account state
+3. Manage gas usage
+4. Handle value transfers
+5. Create snapshots and revert state
+6. Access precompiled contracts
+
+### Usage
+
+The `EVMContext` is typically used within the `Handler` trait implementation to interact with the EVM state:
+
+```rust
+fn call_function(
+    ctx: &mut EVMContext<DB>,
+    from: Address,
+    to: Address,
+    value: U256,
+    data: Bytes,
+    gas_limit: u64,
+) -> Result<(Bytes, u64), CallError<DB::Error>> {
+    // Check if the to address exists
+    if !ctx.account_exists(to)? {
+        // Create a new account
+        ctx.create_account(to)?;
+    }
+    
+    // Transfer value if needed
+    if value > U256::ZERO {
+        ctx.transfer(from, to, value)?;
+    }
+    
+    // Get code from the target address
+    let code = ctx.code(to)?;
+    
+    if code.is_empty() {
+        // Empty code, just return empty output
+        return Ok((Bytes::new(), gas_limit));
+    }
+    
+    // Create interpreter and execute
+    // ...
+    
+    // Return output and remaining gas
+    Ok((output, remaining_gas))
+}
+```
+
+## Conclusion
+
+These core traits and interfaces form the foundation of REVM's architecture:
+
+- `EvmTrait` defines the main EVM interface
+- `ContextTrait` provides access to execution context
+- `Inspector` enables monitoring and modifying execution
+- `Database` standardizes state access and modification
+- `Handler` encapsulates execution logic
+- `Precompile` standardizes precompiled contract implementations
+
+By understanding these traits and their relationships, you can effectively:
+
+1. Extend REVM with custom functionality
+2. Create specialized EVM implementations
+3. Build debugging and analysis tools
+4. Implement custom state backends
+5. Create domain-specific execution environments
+
+For most users, implementing the `Inspector` trait will be sufficient for customizing behavior. For more advanced use cases, implementing custom database backends or complete EVM implementations may be necessary.

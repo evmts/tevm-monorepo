@@ -1,0 +1,632 @@
+---
+title: EVM Execution Model
+description: Detailed guide about evm execution model in REVM (Rust Ethereum Virtual Machine)
+---
+
+# EVM Execution Model
+
+This document explains the Ethereum Virtual Machine (EVM) execution model as implemented in REVM. It covers the execution context, instruction processing, gas metering, and precompiled contracts.
+
+## Overview of the EVM
+
+The Ethereum Virtual Machine (EVM) is a stack-based, register-free virtual machine that executes smart contract bytecode. As the core of Ethereum's computational layer, the EVM:
+
+- Operates on a simple but complete instruction set
+- Maintains a transient memory space and persistent storage
+- Uses a gas-based metering system to limit computation
+- Follows a deterministic execution model
+
+REVM implements this model faithfully while providing optimization and customization options.
+
+## Execution Context
+
+### Structure of the Execution Context
+
+In REVM, the execution context includes:
+
+1. **Transaction Environment** (`TxEnv`):
+   - The transaction sender (`caller`)
+   - Transaction recipient or creation flag (`kind`)
+   - Transaction value (`value`)
+   - Transaction data (`data`)
+   - Gas parameters (`gas_limit`, `gas_price`, etc.)
+   - Nonce and other metadata
+
+2. **Block Environment** (`BlockEnv`):
+   - Block number
+   - Block timestamp
+   - Block gas limit
+   - Base fee (for EIP-1559)
+   - Coinbase (beneficiary address)
+
+3. **Configuration** (`CfgEnv`):
+   - Chain ID
+   - Spec ID (hardfork rules)
+   - Gas model settings
+   - Validation flags
+
+4. **Execution State**:
+   - Program counter (`pc`)
+   - Stack
+   - Memory
+   - Return data buffer
+   - Gas remaining
+
+### Creating an Execution Context
+
+To set up an execution context in REVM:
+
+```rust
+use revm::{
+    context::Context,
+    primitives::{address, SpecId, TxKind, U256},
+    MainBuilder, MainContext,
+};
+
+// Create a context with default mainnet settings
+let ctx = Context::mainnet()
+    // Configure the transaction
+    .modify_tx_chained(|tx| {
+        tx.caller = address!("0x1000000000000000000000000000000000000000");
+        tx.kind = TxKind::Call(address!("0x2000000000000000000000000000000000000000"));
+        tx.value = U256::from(1000000000000000000u64); // 1 ETH
+        tx.data = vec![0xab, 0xcd, 0xef].into(); // Call data
+        tx.gas_limit = 100000;
+        tx.gas_price = U256::from(1000000000u64); // 1 Gwei
+    })
+    // Configure the block
+    .modify_block_chained(|block| {
+        block.number = 15_000_000;
+        block.timestamp = 1650000000;
+        block.gas_limit = 30_000_000;
+        block.basefee = 1_000_000_000;
+    })
+    // Configure the EVM settings
+    .modify_cfg_chained(|cfg| {
+        cfg.chain_id = 1; // Ethereum mainnet
+        cfg.spec = SpecId::CANCUN; // Latest hardfork
+    });
+```
+
+### Call Frames
+
+The EVM uses a call frame model to manage execution context during contract calls. Each frame represents an execution environment with its own:
+
+- Memory space
+- Program counter
+- Stack
+- Gas allocation
+- Return data buffer
+
+When a contract calls another contract, a new frame is created with:
+- The callee's code as the execution target
+- A gas allowance (subset of the caller's gas)
+- Value transfer (if applicable)
+- Call data from the caller
+
+After the callee finishes execution, control returns to the caller's frame with:
+- Remaining gas added back to the caller's allocation
+- Return data made available to the caller
+- Success or failure status
+
+This frame-based model allows for nested contract calls up to a maximum depth (1024 in Ethereum).
+
+## Instruction Processing
+
+### Instruction Set
+
+The EVM uses a compact instruction set with approximately 150 opcodes. These opcodes are grouped into categories:
+
+1. **Stack Operations**: PUSH, POP, DUP, SWAP
+2. **Arithmetic Operations**: ADD, SUB, MUL, DIV, etc.
+3. **Bitwise Operations**: AND, OR, XOR, NOT, etc.
+4. **Comparison Operations**: EQ, LT, GT, etc.
+5. **Environmental Operations**: ADDRESS, BALANCE, CALLER, etc.
+6. **Memory Operations**: MLOAD, MSTORE, MSIZE
+7. **Storage Operations**: SLOAD, SSTORE
+8. **Control Flow**: JUMP, JUMPI, PC, JUMPDEST
+9. **Block Operations**: BLOCKHASH, COINBASE, TIMESTAMP, etc.
+10. **System Operations**: CREATE, CALL, RETURN, REVERT, etc.
+11. **Log Operations**: LOG0-LOG4
+12. **Special Operations**: SELFDESTRUCT, INVALID, etc.
+
+In REVM, each opcode is implemented as a function that operates on the interpreter state.
+
+### The Fetch-Decode-Execute Cycle
+
+REVM's instruction processing follows a fetch-decode-execute cycle:
+
+1. **Fetch**: Read the next opcode from the bytecode at the current program counter
+2. **Decode**: Identify the operation to perform and any immediate operands
+3. **Execute**: Perform the operation, updating the stack, memory, and other state as necessary
+4. **Update**: Increment the program counter and deduct gas
+5. **Repeat**: Continue until termination or error
+
+Here's how this cycle is implemented in REVM:
+
+```rust
+pub fn run_interpreter(
+    interp: &mut Interpreter,
+    instruction_table: &InstructionTable,
+) -> InterpreterResult {
+    loop {
+        // Check termination conditions
+        if interp.gas_left() <= 0 {
+            return InterpreterResult::OutOfGas;
+        }
+        
+        // Fetch the next opcode
+        let opcode = interp.current_opcode();
+        
+        // Decode and execute the opcode
+        if let Some(instruction) = instruction_table.get(opcode) {
+            // Execute the instruction
+            instruction(interp)?;
+        } else {
+            return InterpreterResult::InvalidOpcode;
+        }
+        
+        // Continue execution if not terminated
+        if interp.is_terminated() {
+            return interp.take_result();
+        }
+    }
+}
+```
+
+### Instruction Implementation
+
+In REVM, each instruction is implemented as a function that operates on the interpreter state. Here's a simplified example of the ADD opcode implementation:
+
+```rust
+fn add(interpreter: &mut Interpreter) -> Result<(), InstructionExecutionError> {
+    // Pop two values from the stack
+    let a = interpreter.stack.pop()?;
+    let b = interpreter.stack.pop()?;
+    
+    // Perform the addition
+    let result = a.overflowing_add(b).0;
+    
+    // Push the result back to the stack
+    interpreter.stack.push(result)?;
+    
+    // Increment the program counter
+    interpreter.pc += 1;
+    
+    // Deduct gas
+    interpreter.gas_remaining -= GAS_VERYLOW;
+    
+    Ok(())
+}
+```
+
+### Stopping Conditions
+
+Execution continues until one of these stopping conditions is met:
+
+1. **Normal Termination**: STOP, RETURN, or end of code
+2. **Exceptional Termination**: REVERT, SELFDESTRUCT
+3. **Error Conditions**:
+   - Out of gas
+   - Stack underflow or overflow
+   - Invalid jump destination
+   - Invalid opcode
+   - Call depth exceeded
+   - Other runtime errors
+
+Each stopping condition results in a specific execution result that is passed back to the calling frame or transaction.
+
+## Gas Metering
+
+### Gas Model
+
+Gas is the unit of computation in Ethereum, designed to:
+- Limit computation to prevent resource abuse
+- Charge appropriately for resource usage
+- Incentivize efficient code
+
+Each operation has a gas cost based on:
+- Computational complexity
+- Memory usage
+- Storage impact
+- External calls
+
+### Base Gas Costs
+
+REVM implements the standard Ethereum gas costs for each operation:
+
+- **Tier 0 (Zero)**: 0 gas - STOP, RETURN
+- **Tier 1 (Base)**: 2 gas - ADD, SUB, LT, GT, etc.
+- **Tier 2 (VeryLow)**: 3 gas - MUL, DIV, SDIV, etc.
+- **Tier 3 (Low)**: 5 gas - LT, GT, SLT, SGT, etc.
+- **Tier 4 (Mid)**: 8 gas - ADDMOD, MULMOD, JUMP
+- **Tier 5 (High)**: 10 gas - JUMPI
+- **Tier 6 (ExtCode)**: 700 gas - EXTCODECOPY, EXTCODESIZE (varies by hardfork)
+- **Special Operations**: Variable costs - SSTORE, CREATE, CALL, etc.
+
+### Dynamic Gas Costs
+
+Some operations have dynamic gas costs that depend on:
+
+1. **Memory Expansion**: Operations that extend memory incur additional gas costs
+   ```
+   memory_gas = 3 * words + words^2 / 512
+   ```
+
+2. **Storage Operations**: SSTORE costs vary based on the operation:
+   - Setting a zero value to non-zero: 20,000 gas
+   - Modifying a non-zero value: 5,000 gas
+   - Setting a non-zero value to zero (refund): -15,000 gas (refund)
+
+3. **Call Operations**: CALL, CALLCODE, DELEGATECALL, STATICCALL have variable costs based on:
+   - Base call cost
+   - Value transfer cost (if transferring ETH)
+   - Memory expansion cost
+   - Account access cost (cold/warm)
+
+4. **Zero Bytes**: Data with zero bytes costs less gas in transaction data
+
+REVM handles all these dynamic costs according to the rules of the configured hardfork.
+
+### Gas Calculation Example
+
+Here's a simplified example of how REVM calculates gas for a SSTORE operation:
+
+```rust
+fn calculate_sstore_gas(
+    address: Address,
+    key: U256,
+    value: U256,
+    journal: &Journal,
+) -> Result<GasCost> {
+    // Get the current value from state
+    let current = journal.sload(address, key)?.data;
+    
+    // Get the original value (before this transaction)
+    let original = journal.sload_orig(address, key)?.unwrap_or_default();
+    
+    // Calculate gas cost
+    if value == current {
+        // No change, minimal gas
+        return Ok(GAS_SLOAD);
+    } else if current == original {
+        if original == U256::ZERO {
+            // Setting a slot from 0 to non-0
+            return Ok(GAS_SSTORE_SET);
+        } else if value == U256::ZERO {
+            // Clearing a slot (non-0 to 0)
+            return Ok(GAS_SSTORE_RESET);
+        } else {
+            // Modifying a non-0 value
+            return Ok(GAS_SSTORE_MODIFY);
+        }
+    } else {
+        // Resetting to original value (potential refund)
+        if original == value {
+            if original == U256::ZERO {
+                return Ok(GAS_SLOAD);
+            } else {
+                return Ok(GAS_SSTORE_RESET - REFUND_SSTORE_RESET);
+            }
+        } else {
+            return Ok(GAS_SSTORE_MODIFY);
+        }
+    }
+}
+```
+
+### Gas Refunds
+
+Some operations can generate gas refunds:
+
+1. **SSTORE**: Clearing storage (setting non-zero to zero) generates a refund
+2. **SELFDESTRUCT**: Removing a contract generates a refund (pre-Cancun)
+
+Gas refunds are capped at a fraction of the total gas used (1/5 in most hardforks).
+
+REVM tracks refunds separately and applies them at the end of execution:
+
+```rust
+// Calculate effective gas used
+let gas_used = gas_limit - gas_remaining;
+let max_refund = gas_used / 5; // Cap refund at 1/5 of gas used
+let actual_refund = refund.min(max_refund);
+let final_gas_used = gas_used - actual_refund;
+```
+
+## Precompiled Contracts
+
+Precompiled contracts provide efficient implementations of commonly used cryptographic operations.
+
+### Standard Precompiles
+
+REVM implements all standard Ethereum precompiles:
+
+1. **ECRECOVER (0x01)**: Recovers the address from a signature
+2. **SHA256 (0x02)**: Computes the SHA-256 hash
+3. **RIPEMD160 (0x03)**: Computes the RIPEMD-160 hash
+4. **IDENTITY (0x04)**: Returns the input data unchanged
+5. **MODEXP (0x05)**: Performs modular exponentiation
+6. **ECADD (0x06)**: Adds two points on the alt_bn128 curve
+7. **ECMUL (0x07)**: Multiplies a point on the alt_bn128 curve
+8. **ECPAIRING (0x08)**: Performs pairing check on the alt_bn128 curve
+9. **BLAKE2F (0x09)**: Compression function of the BLAKE2b hash
+
+Each precompile has its own gas cost model based on its computational complexity.
+
+### Precompile Implementation
+
+Precompiles are implemented as handlers that process input data and return a result:
+
+```rust
+pub fn ecrecover(input: &[u8], gas_limit: u64) -> PrecompileResult {
+    // Calculate gas cost
+    let gas_cost = 3000;
+    if gas_limit < gas_cost {
+        return Err(PrecompileError::OutOfGas);
+    }
+    
+    // Extract parameters from input
+    if input.len() < 128 {
+        // Return empty data for insufficient input
+        return Ok(PrecompileOutput {
+            output: vec![].into(),
+            gas_used: gas_cost,
+        });
+    }
+    
+    let msg_hash = H256::from_slice(&input[0..32]);
+    let v = H256::from_slice(&input[32..64]);
+    let r = H256::from_slice(&input[64..96]);
+    let s = H256::from_slice(&input[96..128]);
+    
+    // Perform the recovery
+    let recovery_id = match v[31] {
+        27 => 0,
+        28 => 1,
+        _ => {
+            // Invalid recovery ID
+            return Ok(PrecompileOutput {
+                output: vec![].into(),
+                gas_used: gas_cost,
+            });
+        }
+    };
+    
+    let signature = secp256k1::Signature::parse_standard_slice(&[&r[..], &s[..]].concat())?;
+    let message = secp256k1::Message::parse(&msg_hash);
+    let public_key = secp256k1::recover(&message, &signature, &recovery_id)?;
+    
+    // Compute Ethereum address from public key
+    let public_key_bytes = public_key.serialize();
+    let address = keccak256(&public_key_bytes[1..])[12..];
+    
+    // Return the recovered address
+    let mut output = vec![0; 32];
+    output[12..].copy_from_slice(&address);
+    
+    Ok(PrecompileOutput {
+        output: output.into(),
+        gas_used: gas_cost,
+    })
+}
+```
+
+### Custom Precompiles
+
+REVM allows implementing custom precompiles by creating a custom precompile set:
+
+```rust
+struct MyPrecompiles;
+
+impl Precompiles for MyPrecompiles {
+    fn execute(&self, address: Address, input: &[u8], gas_limit: u64) -> PrecompileResult {
+        match address {
+            // Standard precompiles
+            a if a == address!("0x0000000000000000000000000000000000000001") => ecrecover(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000002") => sha256(input, gas_limit),
+            // ... other standard precompiles
+            
+            // Custom precompile
+            a if a == address!("0x00000000000000000000000000000000000000fe") => my_custom_precompile(input, gas_limit),
+            
+            // Unknown precompile
+            _ => Err(PrecompileError::Unknown),
+        }
+    }
+}
+
+fn my_custom_precompile(input: &[u8], gas_limit: u64) -> PrecompileResult {
+    // Custom precompile implementation
+    // ...
+}
+```
+
+## Hardfork Implementation
+
+REVM supports all Ethereum hardforks through the `SpecId` configuration:
+
+```rust
+use revm::primitives::SpecId;
+
+// Configure the EVM for a specific hardfork
+let ctx = Context::mainnet()
+    .modify_cfg_chained(|cfg| {
+        cfg.spec = SpecId::CANCUN;
+    });
+```
+
+Each hardfork introduces changes to:
+- Opcode behavior
+- Gas costs
+- Precompile availability
+- EVM semantics
+
+REVM handles these differences by selecting the appropriate implementation based on the configured `SpecId`.
+
+### Hardfork-Specific Features
+
+REVM implements hardfork-specific EVM features including:
+
+1. **London**:
+   - EIP-1559 transaction type
+   - BASEFEE opcode
+   - Gas cost changes
+
+2. **Shanghai**:
+   - PUSH0 opcode
+   - Warm COINBASE access
+
+3. **Cancun**:
+   - EIP-4844 blob transactions
+   - MCOPY opcode
+   - SELFDESTRUCT changes
+   - EOF format (with feature flag)
+
+Configuration flags in the `CfgEnv` allow enabling or disabling specific EIPs:
+
+```rust
+ctx.modify_cfg_chained(|cfg| {
+    // Enable EIP-3855 (PUSH0 opcode)
+    cfg.enable_push0_opcode = true;
+    
+    // Enable EIP-4844 (blob transactions)
+    cfg.enable_blob_transactions = true;
+});
+```
+
+## Execution Examples
+
+Let's look at some examples of how the EVM execution model works in practice:
+
+### Simple Value Transfer
+
+```rust
+// Create an EVM instance
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = sender;
+        tx.kind = TxKind::Call(recipient);
+        tx.value = U256::from(1000000000000000000u64); // 1 ETH
+        tx.gas_limit = 21000; // Standard gas for transfers
+        tx.gas_price = U256::from(1000000000u64); // 1 Gwei
+    })
+    .build_mainnet();
+
+// Execute the transaction
+match evm.transact() {
+    Ok(result) => {
+        println!("Transfer successful");
+        println!("Gas used: {}", result.result.gas_used());
+        // State changes will show balance updates
+        for (addr, account) in result.state.iter() {
+            if let Some(balance_change) = account.balance_changed() {
+                println!("Address {}: Balance change {}", addr, balance_change);
+            }
+        }
+    },
+    Err(error) => println!("Transfer failed: {:?}", error),
+}
+```
+
+### Contract Call with Input Data
+
+```rust
+// ABI-encoded call to transfer(address,uint256)
+let call_data = hex::decode("a9059cbb000000000000000000000000recipient_address_padded_to_32_bytes000000000000000000000000000000000000000000000000000000000000000a").unwrap();
+
+// Create an EVM instance
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = sender;
+        tx.kind = TxKind::Call(token_contract);
+        tx.data = call_data.into();
+        tx.value = U256::ZERO; // No ETH transfer
+        tx.gas_limit = 100000;
+        tx.gas_price = U256::from(1000000000u64);
+    })
+    .build_mainnet();
+
+// Execute the transaction
+match evm.transact() {
+    Ok(result) => {
+        println!("Contract call successful");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        // Check for events
+        if let Some(logs) = result.result.logs() {
+            for log in logs {
+                println!("Event from {}: {:?}", log.address, log.data);
+            }
+        }
+        
+        // Check return data
+        if let revm::primitives::context_interface::result::Output::Call(return_data) = &result.result.output {
+            println!("Return data: 0x{}", hex::encode(return_data));
+        }
+    },
+    Err(error) => println!("Contract call failed: {:?}", error),
+}
+```
+
+### Tracing Contract Execution
+
+```rust
+use revm::inspector::inspectors::TracerEip3155;
+
+// Create a tracer
+let tracer = TracerEip3155::new(std::io::stdout());
+
+// Create an EVM instance with the tracer
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = sender;
+        tx.kind = TxKind::Call(contract);
+        tx.data = call_data.into();
+        tx.gas_limit = 1000000;
+    })
+    .build_mainnet()
+    .with_inspector(tracer);
+
+// Execute with tracing
+match evm.inspect_replay() {
+    Ok(result) => {
+        println!("Traced execution completed");
+        println!("Gas used: {}", result.result.gas_used());
+    },
+    Err(error) => println!("Execution failed: {:?}", error),
+}
+```
+
+## Summary
+
+The EVM execution model in REVM provides a faithful implementation of Ethereum's execution environment while offering flexibility and performance:
+
+- **Execution Context**: Transaction, block, and configuration environment
+- **Instruction Processing**: Fetch-decode-execute cycle for bytecode execution
+- **Gas Metering**: Accurate implementation of Ethereum's gas cost model
+- **Precompiled Contracts**: Efficient implementation of cryptographic operations
+- **Hardfork Support**: Implementation of all Ethereum hardforks
+
+This execution model enables REVM to:
+- Execute Ethereum transactions deterministically
+- Provide accurate gas usage estimates
+- Support custom EVM extensions
+- Trace and analyze execution in detail
+
+Understanding this model helps when working with REVM for both standard Ethereum execution and custom EVM implementations.
+
+## Next Steps
+
+Now that you understand the EVM execution model, you might want to explore:
+
+- [State and Storage](/intermediate-concepts/2.3-state-and-storage): Learn about REVM's state model and storage access
+- [Transaction Processing](/intermediate-concepts/2.4-transaction-processing): Understand the full transaction lifecycle
+- [EVM Customization](/intermediate-concepts/2.6-evm-customization): Learn how to customize the EVM execution model
+
+---
+
+**Note**: The gas costs mentioned in this document are based on the current Ethereum protocol. These costs may change with future hardforks.

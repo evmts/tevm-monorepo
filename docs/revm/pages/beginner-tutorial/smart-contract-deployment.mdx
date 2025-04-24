@@ -1,0 +1,788 @@
+---
+title: Smart Contract Deployment
+description: Detailed guide about smart contract deployment in REVM (Rust Ethereum Virtual Machine)
+---
+
+# Smart Contract Deployment
+
+This tutorial covers how to deploy smart contracts using REVM. You'll learn how to prepare contract bytecode, execute deployment transactions, verify successful deployment, and interact with the newly deployed contracts.
+
+## Understanding Smart Contract Deployment
+
+Smart contract deployment on Ethereum involves:
+
+1. Preparing the contract bytecode (compilation)
+2. Creating a deployment transaction with the bytecode as data
+3. Executing the transaction to deploy the contract
+4. Retrieving the contract address
+5. Interacting with the deployed contract
+
+In REVM, we can simulate all these steps to test and analyze contract deployments locally.
+
+## Prerequisites
+
+Before you start, make sure you've completed the previous tutorials:
+- [Getting Started with REVM](/beginner-tutorial/1.2-getting-started)
+- [Basic Transaction Execution](/beginner-tutorial/1.3-basic-transaction-execution)
+
+## Contract Bytecode Structure
+
+Ethereum smart contract bytecode consists of two main parts:
+
+1. **Initialization Bytecode (Init Code)**
+   - Executed only once during deployment
+   - Responsible for setting up the contract's initial state
+   - Returns the runtime bytecode
+
+2. **Runtime Bytecode**
+   - The actual code that gets stored on the blockchain
+   - Executed when the contract is called
+
+## Setting Up the Environment
+
+First, let's set up our development environment with REVM and create a state database:
+
+```rust
+use revm::{
+    context::Context,
+    database::{CacheDB, EmptyDB},
+    primitives::{address, AccountInfo, Bytecode, TxKind, U256, B256, KECCAK_EMPTY},
+    ExecuteEvm, MainBuilder, MainContext,
+};
+use hex::FromHex;
+
+fn main() {
+    // Create an in-memory database
+    let mut db = CacheDB::new(EmptyDB::default());
+    
+    // Define the deployer address
+    let deployer = address!("0x1000000000000000000000000000000000000000");
+    
+    // Create an account with balance for the deployer
+    let deployer_account = AccountInfo {
+        nonce: 0,
+        balance: U256::from(10000000000000000000u64), // 10 ETH
+        code_hash: KECCAK_EMPTY,
+        code: None,
+    };
+    
+    // Insert the deployer account into the database
+    db.insert_account_info(deployer, deployer_account);
+    
+    // Now we can proceed with contract deployment...
+}
+```
+
+## Simple Contract Deployment
+
+Let's deploy a basic contract that stores and retrieves a value.
+
+### 1. Preparing the Contract Bytecode
+
+Here's the Solidity code for a simple storage contract:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleStorage {
+    uint256 private _value;
+    
+    function setValue(uint256 value) public {
+        _value = value;
+    }
+    
+    function getValue() public view returns (uint256) {
+        return _value;
+    }
+}
+```
+
+After compilation, we get the bytecode. For this tutorial, we'll use pre-compiled bytecode:
+
+```rust
+// Compiled bytecode for the SimpleStorage contract
+let contract_bytecode = Vec::from_hex("608060405234801561001057600080fd5b50610150806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b5780635524107714610059575b600080fd5b610043610075565b60405161005091906100a1565b60405180910390f35b610073600480360381019061006e91906100ed565b61007e565b005b60008054905090565b8060008190555050565b6000819050919050565b61009b81610088565b82525050565b60006020820190506100b66000830184610092565b92915050565b600080fd5b6100ca81610088565b81146100d557600080fd5b50565b6000813590506100e7816100c1565b92915050565b600060208284031215610103576101026100bc565b5b6000610111848285016100d8565b9150509291505056fea2646970667358221220223701d5d0d4c6cefdd5356c93a17cd1f67302f3a4f155f2578e073eadf4d55464736f6c63430008120033").expect("Failed to parse bytecode");
+```
+
+### 2. Configuring the Deployment Transaction
+
+To deploy the contract, we create a transaction with:
+- `TxKind::Create` to indicate a contract creation
+- The contract bytecode as the transaction data
+
+```rust
+// Create the EVM instance with the deployment transaction
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Create;
+        tx.data = contract_bytecode.into();
+        tx.value = U256::ZERO;
+        tx.gas_limit = 1000000; // Sufficient gas for deployment
+        tx.gas_price = U256::from(1000000000u64); // 1 Gwei
+        tx.nonce = 0;
+    })
+    .build_mainnet();
+```
+
+### 3. Executing the Deployment Transaction
+
+Now we can execute the transaction to deploy the contract:
+
+```rust
+// Execute the deployment transaction
+match evm.transact() {
+    Ok(result) => {
+        println!("Contract deployment successful!");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        // Get the contract address from the output
+        if let revm::primitives::context_interface::result::Output::Create(_, Some(contract_address)) = &result.result.output {
+            println!("Contract deployed at: {}", contract_address);
+            
+            // Store the contract address for later use
+            let contract_addr = *contract_address;
+            
+            // Now we can interact with the deployed contract...
+        } else {
+            println!("Failed to retrieve contract address");
+        }
+    },
+    Err(error) => println!("Contract deployment failed: {:?}", error),
+}
+```
+
+### 4. Verifying the Deployed Contract
+
+To verify the deployment, we can check the contract's runtime code in the state:
+
+```rust
+// Check the deployed contract's code
+if let Ok(Some(account_info)) = db.basic_ref(contract_addr) {
+    if let Some(code) = &account_info.code {
+        println!("Contract code size: {} bytes", code.len());
+        println!("Contract code hash: {}", account_info.code_hash);
+    } else {
+        println!("No code found at the contract address!");
+    }
+} else {
+    println!("Contract account not found!");
+}
+```
+
+### Complete Deployment Example
+
+Here's a complete example of deploying a contract and verifying its deployment:
+
+```rust
+use revm::{
+    context::Context,
+    database::{CacheDB, EmptyDB},
+    primitives::{address, AccountInfo, Bytecode, TxKind, U256, B256, KECCAK_EMPTY},
+    ExecuteEvm, MainBuilder, MainContext,
+};
+use hex::FromHex;
+
+fn main() {
+    // Create an in-memory database
+    let mut db = CacheDB::new(EmptyDB::default());
+    
+    // Define the deployer address
+    let deployer = address!("0x1000000000000000000000000000000000000000");
+    
+    // Create an account with balance for the deployer
+    let deployer_account = AccountInfo {
+        nonce: 0,
+        balance: U256::from(10000000000000000000u64), // 10 ETH
+        code_hash: KECCAK_EMPTY,
+        code: None,
+    };
+    
+    // Insert the deployer account into the database
+    db.insert_account_info(deployer, deployer_account);
+    
+    // Compiled bytecode for the SimpleStorage contract
+    let contract_bytecode = Vec::from_hex("608060405234801561001057600080fd5b50610150806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b5780635524107714610059575b600080fd5b610043610075565b60405161005091906100a1565b60405180910390f35b610073600480360381019061006e91906100ed565b61007e565b005b60008054905090565b8060008190555050565b6000819050919050565b61009b81610088565b82525050565b60006020820190506100b66000830184610092565b92915050565b600080fd5b6100ca81610088565b81146100d557600080fd5b50565b6000813590506100e7816100c1565b92915050565b600060208284031215610103576101026100bc565b5b6000610111848285016100d8565b9150509291505056fea2646970667358221220223701d5d0d4c6cefdd5356c93a17cd1f67302f3a4f155f2578e073eadf4d55464736f6c63430008120033").expect("Failed to parse bytecode");
+    
+    // Create the EVM instance with the deployment transaction
+    let mut evm = Context::mainnet()
+        .with_db(db)
+        .modify_tx_chained(|tx| {
+            tx.caller = deployer;
+            tx.kind = TxKind::Create;
+            tx.data = contract_bytecode.into();
+            tx.value = U256::ZERO;
+            tx.gas_limit = 1000000; // Sufficient gas for deployment
+            tx.gas_price = U256::from(1000000000u64); // 1 Gwei
+            tx.nonce = 0;
+        })
+        .build_mainnet();
+    
+    // Execute the deployment transaction
+    let contract_addr = match evm.transact() {
+        Ok(result) => {
+            println!("Contract deployment successful!");
+            println!("Gas used: {}", result.result.gas_used());
+            
+            // Get the contract address from the output
+            if let revm::primitives::context_interface::result::Output::Create(_, Some(contract_address)) = &result.result.output {
+                println!("Contract deployed at: {}", contract_address);
+                *contract_address
+            } else {
+                println!("Failed to retrieve contract address");
+                return;
+            }
+        },
+        Err(error) => {
+            println!("Contract deployment failed: {:?}", error);
+            return;
+        }
+    };
+    
+    // Get the updated database with the deployed contract
+    let db = evm.db().unwrap();
+    
+    // Check the deployed contract's code
+    if let Ok(Some(account_info)) = db.basic_ref(contract_addr) {
+        if let Some(code) = &account_info.code {
+            println!("Contract code size: {} bytes", code.len());
+            println!("Contract code hash: {}", account_info.code_hash);
+        } else {
+            println!("No code found at the contract address!");
+        }
+    } else {
+        println!("Contract account not found!");
+    }
+}
+```
+
+## Deploying Contracts with Constructor Arguments
+
+Many contracts have constructors that accept arguments to initialize the contract state. Let's see how to deploy a contract with constructor arguments.
+
+### 1. Contract with Constructor
+
+Here's a Solidity contract with a constructor that takes an initial value:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract StorageWithInitialValue {
+    uint256 private _value;
+    
+    constructor(uint256 initialValue) {
+        _value = initialValue;
+    }
+    
+    function setValue(uint256 value) public {
+        _value = value;
+    }
+    
+    function getValue() public view returns (uint256) {
+        return _value;
+    }
+}
+```
+
+### 2. Encoding Constructor Arguments
+
+For contracts with constructors, we need to append the ABI-encoded constructor arguments to the deployment bytecode:
+
+```rust
+use ethabi::{Token, encode};
+
+// Compiled bytecode for the StorageWithInitialValue contract
+let contract_bytecode = Vec::from_hex("608060405234801561001057600080fd5b506040516101083803806101088339818101604052810191906100329190610054565b80600081905550506100a1565b60008151905061004e81610084565b92915050565b60006020828403121561006a5761006961007f565b5b60006100788482850161003f565b91505092915050565b600080fd5b6000819050919050565b61008d81610084565b811461009857600080fd5b50565b6059806100af6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c80633fa4f24514603757806355241077146051575b600080fd5b603d6069565b604051604891906083565b60405180910390f35b6067605c3660046098565b6071565b005b60008054905090565b8060008190555050565b6000819050919050565b607d8160d0565b82525050565b6000602082019050609660008301846076565b92915050565b600060208284031215609d57609c609c565b5b600060a98482850160d1565b91505092915050565b60d281607d565b811460dc57600080fd5b5056fea26469706673582212207b3f4b5ec0bb0dc8e3b4c77f3517f52e3fe75394c2b2e9d6c63a7b5fe3608bec64736f6c63430008120033").expect("Failed to parse bytecode");
+
+// Constructor argument: initial value of 42
+let initial_value = 42u64;
+
+// ABI-encode the constructor argument
+let encoded_args = encode(&[Token::Uint(U256::from(initial_value))]);
+
+// Append the encoded constructor arguments to the bytecode
+let deployment_bytecode = [contract_bytecode.as_slice(), encoded_args.as_slice()].concat();
+```
+
+### 3. Executing the Deployment with Constructor Arguments
+
+Now we can deploy the contract with the constructor arguments:
+
+```rust
+// Create the EVM instance with the deployment transaction
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Create;
+        tx.data = deployment_bytecode.into();
+        tx.value = U256::ZERO;
+        tx.gas_limit = 1000000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 0;
+    })
+    .build_mainnet();
+
+// Execute the deployment
+match evm.transact() {
+    Ok(result) => {
+        println!("Contract deployment successful!");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        if let revm::primitives::context_interface::result::Output::Create(_, Some(contract_address)) = &result.result.output {
+            println!("Contract deployed at: {}", contract_address);
+            // Now we can interact with the deployed contract...
+        }
+    },
+    Err(error) => println!("Contract deployment failed: {:?}", error),
+}
+```
+
+## Interacting with the Deployed Contract
+
+After deploying a contract, you'll typically want to interact with it by calling its functions.
+
+### 1. Calling a Contract Function
+
+Let's call the `setValue` function on our deployed contract:
+
+```rust
+// ABI function selector for setValue(uint256)
+// Function signature: setValue(uint256)
+// Keccak256 hash: 0x55241077000000000000000000000000000000000000000000000000000000000000007b
+// First 4 bytes: 0x55241077
+let function_selector = "55241077";
+
+// Function argument: value of 123 (0x7b)
+let value_arg = "000000000000000000000000000000000000000000000000000000000000007b";
+
+// Combine selector and arguments
+let call_data = Vec::from_hex(format!("{}{}", function_selector, value_arg)).expect("Failed to parse call data");
+
+// Create the EVM instance with the call transaction
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Call(contract_addr);
+        tx.data = call_data.into();
+        tx.value = U256::ZERO;
+        tx.gas_limit = 100000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 1; // Increment nonce for the deployer
+    })
+    .build_mainnet();
+
+// Execute the call
+match evm.transact() {
+    Ok(result) => {
+        println!("Function call successful!");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        // Check storage changes
+        for (address, account) in result.state.iter() {
+            if address == &contract_addr && !account.storage.is_empty() {
+                println!("Storage changes:");
+                for (slot, value) in account.storage.iter() {
+                    println!("  Slot: {}, Value: {}", slot, value.present_value());
+                }
+            }
+        }
+    },
+    Err(error) => println!("Function call failed: {:?}", error),
+}
+```
+
+### 2. Reading Contract State
+
+Now, let's call the `getValue` function to read the value we just set:
+
+```rust
+// ABI function selector for getValue()
+// Function signature: getValue()
+// Keccak256 hash: 0x3fa4f245
+// First 4 bytes: 0x3fa4f245
+let function_selector = "3fa4f245";
+
+// Create the EVM instance with the view call transaction
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Call(contract_addr);
+        tx.data = Vec::from_hex(function_selector).expect("Failed to parse function selector").into();
+        tx.value = U256::ZERO;
+        tx.gas_limit = 100000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 2; // Increment nonce for the deployer
+    })
+    .build_mainnet();
+
+// Execute the view call
+match evm.transact() {
+    Ok(result) => {
+        println!("Function call successful!");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        // Get the return data
+        if let revm::primitives::context_interface::result::Output::Call(return_data) = &result.result.output {
+            println!("Return data: 0x{}", hex::encode(return_data));
+            
+            // Parse the return data (uint256 value)
+            if return_data.len() == 32 {
+                let value = U256::from_be_bytes(return_data.try_into().unwrap());
+                println!("Retrieved value: {}", value);
+            }
+        }
+    },
+    Err(error) => println!("Function call failed: {:?}", error),
+}
+```
+
+## Understanding Contract Addresses
+
+When a contract is deployed, its address is deterministically computed based on:
+
+1. The deployer's address
+2. The deployer's nonce
+
+In Ethereum, the formula is:
+```
+contract_address = keccak256(rlp_encode([deployer_address, deployer_nonce]))[12:]
+```
+
+REVM follows this same logic. If you need to pre-compute a contract address:
+
+```rust
+use revm::primitives::create_address;
+
+// Compute the contract address from the deployer address and nonce
+let expected_contract_address = create_address(deployer, 0);
+println!("Expected contract address: {}", expected_contract_address);
+```
+
+## Gas Costs in Contract Deployment
+
+Contract deployment is typically more expensive than other transactions due to:
+
+1. **Storage Costs**: Creating a new account
+2. **Code Storage Costs**: Storing the runtime bytecode (200 gas per byte)
+3. **Execution Costs**: Running the initialization code
+
+To estimate gas costs for deployment:
+
+```rust
+// Approximate formula for Ethereum contract deployment gas cost
+fn estimate_deployment_gas(bytecode_length: usize) -> u64 {
+    let base_cost = 32000; // Base cost for contract creation
+    let code_deposit_cost = (bytecode_length as u64) * 200; // 200 gas per byte of code
+    let execution_cost = 200000; // Approximate execution cost (varies significantly)
+    
+    base_cost + code_deposit_cost + execution_cost
+}
+
+// Estimate gas for our contract
+let estimated_gas = estimate_deployment_gas(contract_bytecode.len());
+println!("Estimated gas for deployment: {}", estimated_gas);
+```
+
+Always set a sufficiently high gas limit for contract deployments, especially for complex contracts with extensive initialization logic.
+
+## Deployment with Value
+
+Sometimes, you might want to deploy a contract and send Ether to it at the same time. This is common for contracts that need an initial balance:
+
+```rust
+// Create the EVM instance with the deployment transaction that includes value
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Create;
+        tx.data = contract_bytecode.into();
+        tx.value = U256::from(1000000000000000000u64); // 1 ETH
+        tx.gas_limit = 1000000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 0;
+    })
+    .build_mainnet();
+
+// Execute the deployment
+match evm.transact() {
+    Ok(result) => {
+        println!("Contract deployment with value successful!");
+        
+        if let revm::primitives::context_interface::result::Output::Create(_, Some(contract_address)) = &result.result.output {
+            println!("Contract deployed at: {}", contract_address);
+            
+            // Check the contract's balance
+            let db = evm.db().unwrap();
+            if let Ok(Some(account_info)) = db.basic_ref(*contract_address) {
+                println!("Contract balance: {} wei", account_info.balance);
+            }
+        }
+    },
+    Err(error) => println!("Contract deployment failed: {:?}", error),
+}
+```
+
+## Handling Failed Deployments
+
+Contract deployments can fail for various reasons:
+
+1. **Insufficient Gas**: The gas limit is too low
+2. **Invalid Bytecode**: The bytecode is malformed
+3. **Constructor Revert**: The constructor execution reverts
+4. **Out of Funds**: Insufficient funds for the transaction
+
+Let's see how to handle a deployment failure:
+
+```rust
+// Intentionally invalid bytecode that will fail (missing STOP opcode)
+let invalid_bytecode = Vec::from_hex("60806040").expect("Failed to parse bytecode");
+
+// Create the EVM instance with the invalid deployment
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Create;
+        tx.data = invalid_bytecode.into();
+        tx.value = U256::ZERO;
+        tx.gas_limit = 1000000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 0;
+    })
+    .build_mainnet();
+
+// Execute the deployment and handle failure
+match evm.transact() {
+    Ok(result) => {
+        // Check if the output indicates a failure
+        if let revm::primitives::context_interface::result::Output::Create(_, None) = &result.result.output {
+            println!("Deployment failed: Contract creation returned no address");
+            println!("Gas used: {}", result.result.gas_used());
+            
+            // Get revert reason if available
+            if let Some(revert_reason) = get_revert_reason(&result) {
+                println!("Revert reason: {}", revert_reason);
+            }
+        } else {
+            println!("Deployment unexpectedly succeeded");
+        }
+    },
+    Err(error) => {
+        println!("Transaction execution failed: {:?}", error);
+        
+        // Handle specific error types
+        match error {
+            revm::primitives::context_interface::result::EVMError::Transaction(tx_error) => {
+                println!("Transaction error: {:?}", tx_error);
+            },
+            revm::primitives::context_interface::result::EVMError::Database(db_error) => {
+                println!("Database error: {:?}", db_error);
+            },
+            _ => println!("Other error: {:?}", error),
+        }
+    },
+}
+
+// Helper function to extract revert reason
+fn get_revert_reason(result: &revm::primitives::context_interface::result::ResultAndState<revm::primitives::context_interface::result::HaltReason>) -> Option<String> {
+    if let revm::primitives::context_interface::result::Output::Create(revert_data, None) = &result.result.output {
+        if revert_data.len() >= 4 + 32 + 32 {
+            // Check for revert with reason signature (0x08c379a0)
+            if revert_data[0..4] == [0x08, 0xc3, 0x79, 0xa0] {
+                // Extract string length and data
+                let offset = U256::from_be_bytes(revert_data[4..36].try_into().unwrap()).as_usize();
+                let length = U256::from_be_bytes(revert_data[offset+4..offset+36].try_into().unwrap()).as_usize();
+                
+                // Extract the string
+                if revert_data.len() >= offset + 36 + length {
+                    return String::from_utf8(revert_data[offset+36..offset+36+length].to_vec()).ok();
+                }
+            }
+        }
+    }
+    None
+}
+```
+
+## Factory Pattern: Deploying Contracts from Contracts
+
+A common pattern in Ethereum is deploying contracts from other contracts using the "factory pattern." Let's see how to simulate this with REVM:
+
+### 1. Deploying a Factory Contract
+
+First, deploy a factory contract that will deploy other contracts:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleStorage {
+    uint256 private _value;
+    
+    function setValue(uint256 value) public {
+        _value = value;
+    }
+    
+    function getValue() public view returns (uint256) {
+        return _value;
+    }
+}
+
+contract SimpleFactory {
+    SimpleStorage[] public deployedContracts;
+    
+    function createSimpleStorage() public returns (SimpleStorage) {
+        SimpleStorage newStorage = new SimpleStorage();
+        deployedContracts.push(newStorage);
+        return newStorage;
+    }
+    
+    function getDeployedContracts() public view returns (SimpleStorage[] memory) {
+        return deployedContracts;
+    }
+}
+```
+
+### 2. Simulating the Factory Pattern
+
+```rust
+// Bytecode for the SimpleFactory contract (pre-compiled)
+let factory_bytecode = Vec::from_hex("608060405234801561001057600080fd5b506102d9806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c8063695c6acb1461003b578063cf1be0bf1461006b575b600080fd5b610055600480360381019061005091906101b8565b61009b565b6040516100629190610200565b60405180910390f35b6100736100d9565b604051610080919061026e565b60405180910390f35b6000818154811061010c577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b90600052602060002001600091509050549050565b60606000805480602002602001604051908101604052809291908181526020018280548015610166576020028201916000905b82829054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001906001019060208260000104928301926001038202915080841161011d5790505b5050505050905090565b600080fd5b60008190505b9291505056").expect("Failed to parse factory bytecode");
+
+// Deploy the factory contract
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Create;
+        tx.data = factory_bytecode.into();
+        tx.value = U256::ZERO;
+        tx.gas_limit = 2000000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 0;
+    })
+    .build_mainnet();
+
+// Execute the factory deployment
+let factory_addr = match evm.transact() {
+    Ok(result) => {
+        if let revm::primitives::context_interface::result::Output::Create(_, Some(address)) = &result.result.output {
+            println!("Factory deployed at: {}", address);
+            *address
+        } else {
+            println!("Factory deployment failed");
+            return;
+        }
+    },
+    Err(error) => {
+        println!("Factory deployment failed: {:?}", error);
+        return;
+    }
+};
+
+// Get the updated database
+db = evm.db().unwrap();
+
+// Call the factory to create a SimpleStorage contract
+// ABI function selector for createSimpleStorage()
+// Function signature: createSimpleStorage()
+// Keccak256 hash: 0x695c6acb
+// First 4 bytes: 0x695c6acb
+let create_function_selector = "695c6acb";
+
+// Create the EVM instance for the factory call
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Call(factory_addr);
+        tx.data = Vec::from_hex(create_function_selector).expect("Failed to parse function selector").into();
+        tx.value = U256::ZERO;
+        tx.gas_limit = 1000000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 1;
+    })
+    .build_mainnet();
+
+// Execute the factory call
+match evm.transact() {
+    Ok(result) => {
+        println!("Factory call successful!");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        // Check the return data (address of deployed contract)
+        if let revm::primitives::context_interface::result::Output::Call(return_data) = &result.result.output {
+            if return_data.len() == 32 {
+                // Extract address from the return data
+                let deployed_addr_bytes = &return_data[12..32]; // Addresses are padded in the response
+                let deployed_addr = revm::primitives::Address::from_slice(deployed_addr_bytes);
+                println!("SimpleStorage deployed by factory at: {}", deployed_addr);
+                
+                // Get the updated database and check the new contract
+                let db = evm.db().unwrap();
+                if let Ok(Some(account_info)) = db.basic_ref(deployed_addr) {
+                    if let Some(code) = &account_info.code {
+                        println!("SimpleStorage code size: {} bytes", code.len());
+                    }
+                }
+            }
+        }
+    },
+    Err(error) => println!("Factory call failed: {:?}", error),
+}
+```
+
+## Best Practices for Contract Deployment
+
+When deploying contracts, consider these best practices:
+
+### 1. Gas Optimization
+
+- Minimize constructor logic to reduce deployment costs
+- Remove unnecessary storage initialization in constructors
+- Optimize bytecode size with compiler settings
+- Use libraries to share code between contracts
+
+### 2. Security
+
+- Verify the bytecode is what you expect (e.g., compare with source compilation)
+- Include initialization checks to prevent invalid state
+- Consider using the Checks-Effects-Interactions pattern in constructors
+- Implement proper access controls from the start
+
+### 3. Testing
+
+- Test constructor edge cases
+- Verify initial state after deployment
+- Test interactions with the deployed contract
+- Simulate failed deployments to ensure proper error handling
+
+## Summary
+
+In this tutorial, you've learned how to:
+
+1. Prepare contract bytecode for deployment
+2. Execute contract deployment transactions
+3. Verify successful deployment
+4. Interact with deployed contracts
+5. Handle constructor arguments
+6. Work with factory contracts
+7. Understand gas costs in contract deployment
+8. Handle deployment failures
+
+These skills form the foundation for working with smart contracts in REVM. In the next tutorial, we'll dive deeper into state management, including working with account balances, contract storage, and state transitions.
+
+## Next Steps
+
+Continue to [State Management](/beginner-tutorial/1.5-state-management) to learn how to work with Ethereum state in REVM.
+
+---
+
+**Note:** The code examples in this tutorial use pre-compiled bytecode for simplicity. In practice, you would typically compile Solidity code to bytecode using tools like solc or libraries that integrate with the Solidity compiler.

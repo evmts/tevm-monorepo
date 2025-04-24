@@ -1,0 +1,671 @@
+---
+title: 4.1 REVM API Reference
+description: Detailed guide about 4.1 revm api reference in REVM (Rust Ethereum Virtual Machine)
+---
+
+# 4.1 REVM API Reference
+
+This document provides a comprehensive reference of REVM's public API, covering the core execution interfaces, EVM framework, inspection system, and database interfaces.
+
+## Core Execution API
+
+The core execution API is the primary interface for interacting with REVM. It provides methods for executing transactions, manipulating state, and configuring the EVM environment.
+
+### Evm Struct
+
+The `Evm` struct is the main entry point for REVM. It encapsulates the EVM execution environment, database, and configuration.
+
+```rust
+pub struct Evm<DB: Database> {
+    pub env: Env,
+    pub db: Option<DB>,
+    pub inspector: Option<Box<dyn Inspector<DB>>>,
+    pub pre_execution: Box<dyn PreExecutionHandler<DB>>,
+    pub post_execution: Box<dyn PostExecutionHandler<DB>>,
+    handler: Option<Handler<DB>>,
+}
+```
+
+#### Core Methods
+
+```rust
+impl<DB: Database> Evm<DB> {
+    // Create a new EVM instance
+    pub fn new() -> Self { ... }
+    
+    // Set a database implementation for this EVM
+    pub fn database(&mut self, db: DB) -> &mut Self { ... }
+    
+    // Set an inspector for this EVM
+    pub fn inspect(&mut self, inspector: impl Inspector<DB> + 'static) -> &mut Self { ... }
+    
+    // Get a mutable reference to the database
+    pub fn db_mut(&mut self) -> Option<&mut DB> { ... }
+    
+    // Get an immutable reference to the database
+    pub fn db(&self) -> Option<&DB> { ... }
+    
+    // Take ownership of the database
+    pub fn take_db(&mut self) -> Option<DB> { ... }
+    
+    // Take ownership of the inspector
+    pub fn take_inspector(&mut self) -> Option<Box<dyn Inspector<DB>>> { ... }
+    
+    // Execute a transaction with state mutation
+    pub fn transact(&mut self) -> Result<ExecutionResult, EVMError<DB::Error>> { ... }
+    
+    // Execute a transaction without state mutation (read-only)
+    pub fn transact_ref(&mut self) -> Result<ExecutionResult, EVMError<DB::Error>> { ... }
+    
+    // Execute a transaction with commit control
+    pub fn transact_commit(
+        &mut self,
+        commit: bool
+    ) -> Result<ExecutionResult, EVMError<DB::Error>> { ... }
+}
+```
+
+### Env Struct
+
+The `Env` struct represents the execution environment, including block context, transaction data, and configuration.
+
+```rust
+pub struct Env {
+    pub cfg: CfgEnv,
+    pub block: BlockEnv,
+    pub tx: TxEnv,
+}
+```
+
+#### CfgEnv Struct
+
+Configuration parameters for the EVM.
+
+```rust
+pub struct CfgEnv {
+    /// Chain ID of the environment.
+    pub chain_id: u64,
+    /// EVM spec
+    pub spec_id: SpecId,
+    /// If true, call "static" code will not be allowed to modify state.
+    pub is_static: bool,
+    /// Perf analyzer sampling rate.
+    pub perf_analyser_rate: Option<usize>,
+    /// Istanbul hard-fork EIP 1884 - Gas costs.
+    /// Max amount of gas allowed for call operations.
+    pub call_gas_limit: Option<u64>,
+    /// EVM memory config.
+    pub memory: MemConfig,
+    /// A list of SpecIds that are enabled.
+    pub extras: HashMap<SpecId, bool>,
+}
+```
+
+#### BlockEnv Struct
+
+Block context information for the EVM.
+
+```rust
+pub struct BlockEnv {
+    /// Number of the block.
+    pub number: U256,
+    /// Coinbase (miner) address.
+    pub coinbase: Address,
+    /// Timestamp of the block.
+    pub timestamp: U256,
+    /// Gas limit of the block.
+    pub gas_limit: U256,
+    /// Basefee of the block.
+    pub basefee: U256,
+    /// Difficulty of the block.
+    pub difficulty: U256,
+    /// Blob gas price for the block.
+    pub blob_gas_price: Option<U256>,
+    /// Previous block hashes.
+    pub prevrandao: B256,
+}
+```
+
+#### TxEnv Struct
+
+Transaction data for execution.
+
+```rust
+pub struct TxEnv {
+    /// Caller address.
+    pub caller: Address,
+    /// Call value.
+    pub value: U256,
+    /// Data (calldata).
+    pub data: Bytes,
+    /// Gas limit.
+    pub gas_limit: u64,
+    /// Gas price.
+    pub gas_price: U256,
+    /// Transaction to (transaction target address).
+    pub transact_to: TransactTo,
+    /// Chain id (EIP-155).
+    pub chain_id: Option<u64>,
+    /// Nonce (transaction nonce).
+    pub nonce: Option<u64>,
+    /// Gas priority fee. (EIP-1559).
+    pub gas_priority_fee: Option<U256>,
+    /// Blob versioned hashes.
+    pub blob_hashes: Vec<B256>,
+    /// Max fee per blob gas.
+    pub max_fee_per_blob_gas: Option<U256>,
+    /// Access list.
+    pub access_list: Vec<(Address, Vec<U256>)>,
+}
+```
+
+#### TransactTo Enum
+
+Enum specifying the transaction target - either a call to an address or contract creation.
+
+```rust
+pub enum TransactTo {
+    /// Call to an existing account.
+    Call(Address),
+    /// Create a new contract.
+    Create(CreateScheme),
+}
+```
+
+#### CreateScheme Enum
+
+Enum for different contract creation mechanisms.
+
+```rust
+pub enum CreateScheme {
+    /// Regular creation using CREATE.
+    Create,
+    /// Creation using CREATE2.
+    Create2 { salt: B256 },
+}
+```
+
+### ExecutionResult Struct
+
+The result of an EVM execution.
+
+```rust
+pub struct ExecutionResult {
+    /// Exit reason.
+    pub result: EVMResult<ResultAndState>,
+    /// Exit gas.
+    pub gas_used: u64,
+    /// Execution state changes.
+    pub state: Option<State>,
+    /// Gas refunded. For example, when storage is cleared (set to 0), you get some gas refund.
+    pub gas_refunded: u64,
+}
+```
+
+#### EVMResult Enum
+
+The result of an EVM execution, including success, revert, or halt scenarios.
+
+```rust
+pub enum EVMResult<T> {
+    /// Execution ended with success, returning the result and state.
+    Success(T),
+    /// Execution reverted, returning the revert reason.
+    Revert(Bytes),
+    /// Execution halted, returning the halt reason.
+    Halt(HaltReason),
+}
+```
+
+#### ResultAndState Struct
+
+Contains execution output (for successful calls) and state information.
+
+```rust
+pub struct ResultAndState {
+    /// Result of the execution.
+    pub result: ExecutionResult,
+    /// State of the execution.
+    pub state: Option<State>,
+}
+```
+
+## Database Interface
+
+REVM's database interface provides access to and manipulation of Ethereum state.
+
+### Database Trait
+
+The main database interface that all REVM database implementations must implement.
+
+```rust
+pub trait Database {
+    /// Error type for database operations.
+    type Error;
+
+    /// Get basic account information.
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error>;
+
+    /// Get storage value at a given position.
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error>;
+
+    /// Get a block hash by block number.
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error>;
+
+    /// Get code by its hash.
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error>;
+}
+```
+
+### DatabaseCommit Trait
+
+Extension trait for databases that support committing changes.
+
+```rust
+pub trait DatabaseCommit: Database {
+    /// Commit changes to the database.
+    fn commit(&mut self, changes: HashMap<Address, Account>);
+}
+```
+
+### InMemoryDB Struct
+
+An in-memory implementation of the Database trait.
+
+```rust
+pub struct InMemoryDB {
+    state: BTreeMap<Address, Account>,
+    block_hashes: BTreeMap<U256, B256>,
+    bytecodes: BTreeMap<B256, Bytecode>,
+}
+```
+
+### EmptyDB Struct
+
+A database implementation that contains no data, useful for testing.
+
+```rust
+pub struct EmptyDB;
+```
+
+### CacheDB Struct
+
+A caching layer on top of any database implementation.
+
+```rust
+pub struct CacheDB<DB: Database> {
+    db: DB,
+    accounts: HashMap<Address, Option<AccountInfo>>,
+    storage: HashMap<(Address, U256), U256>,
+    block_hashes: HashMap<U256, B256>,
+    bytecodes: HashMap<B256, Bytecode>,
+}
+```
+
+## Inspector API
+
+The inspector API allows monitoring and modifying EVM execution at various points.
+
+### Inspector Trait
+
+The core inspector trait with callback methods for different execution events.
+
+```rust
+pub trait Inspector<DB: Database> {
+    /// Called before any EVM opcode is executed.
+    fn step(&mut self, context: &mut EVMContext<DB>, interpreter: &mut Interpreter) -> InspectorResult;
+
+    /// Called after an EVM opcode is executed.
+    fn step_end(&mut self, context: &mut EVMContext<DB>, interpreter: &mut Interpreter) -> InspectorResult;
+
+    /// Called at the start of contract creation.
+    fn create_begin(
+        &mut self,
+        context: &mut EVMContext<DB>,
+        data: &CreateInputs,
+    ) -> InspectorResult { ... }
+
+    /// Called at the end of contract creation.
+    fn create_end(
+        &mut self,
+        context: &mut EVMContext<DB>,
+        data: &CreateInputs,
+        status: InspectorStatus,
+        retdata: Option<Bytes>,
+    ) -> InspectorResult { ... }
+
+    /// Called at the start of contract call.
+    fn call_begin(
+        &mut self,
+        context: &mut EVMContext<DB>,
+        data: &CallInputs,
+    ) -> InspectorResult { ... }
+
+    /// Called at the end of contract call.
+    fn call_end(
+        &mut self,
+        context: &mut EVMContext<DB>,
+        data: &CallInputs,
+        status: InspectorStatus,
+        retdata: Option<Bytes>,
+    ) -> InspectorResult { ... }
+}
+```
+
+### InspectorResult Enum
+
+Result type returned by inspector callbacks.
+
+```rust
+pub enum InspectorResult {
+    /// Continue with normal execution.
+    Continue,
+    /// Modify return data from the execution.
+    ModifyReturn(Bytes),
+    /// Immediately halt execution.
+    Halt(HaltReason),
+}
+```
+
+### InspectorStatus Enum
+
+Status of the execution passed to inspector callbacks.
+
+```rust
+pub enum InspectorStatus {
+    /// Execution is ongoing.
+    Running,
+    /// Execution succeeded.
+    Success,
+    /// Execution reverted.
+    Revert,
+    /// Execution halted.
+    Halt(HaltReason),
+}
+```
+
+### Built-in Inspectors
+
+#### GasInspector
+
+Inspector that tracks gas usage during execution.
+
+```rust
+pub struct GasInspector {
+    gas_used: u64,
+    gas_used_stack: Vec<u64>,
+    opcode_gas: BTreeMap<String, u64>,
+}
+```
+
+#### TracerInspector
+
+Inspector that captures execution trace information.
+
+```rust
+pub struct TracerInspector {
+    traces: Vec<StepTrace>,
+    depth: usize,
+}
+```
+
+#### StackRecorderInspector
+
+Inspector that records the stack at each execution step.
+
+```rust
+pub struct StackRecorderInspector {
+    stack_states: Vec<Vec<U256>>,
+}
+```
+
+## Primitive Types
+
+REVM defines several core types used throughout the API.
+
+### Address
+
+20-byte Ethereum address type.
+
+```rust
+pub struct Address(pub [u8; 20]);
+```
+
+### U256
+
+256-bit unsigned integer type, used for values, gas, and storage indices.
+
+```rust
+pub struct U256(pub [u64; 4]);
+```
+
+### B256
+
+256-bit value type, used for hashes and block hashes.
+
+```rust
+pub struct B256(pub [u8; 32]);
+```
+
+### Bytes
+
+Byte array type used for transaction data, return data, etc.
+
+```rust
+pub struct Bytes(pub Arc<Vec<u8>>);
+```
+
+### Bytecode
+
+Represents EVM bytecode with optional analysis information.
+
+```rust
+pub struct Bytecode {
+    pub bytecode: Bytes,
+    pub hash: Option<B256>,
+    pub analysis: Option<BytecodeAnalysis>,
+}
+```
+
+### Account
+
+Represents an Ethereum account with its state.
+
+```rust
+pub struct Account {
+    pub info: Option<AccountInfo>,
+    pub storage: Option<BTreeMap<U256, StorageValue>>,
+    pub storage_root: Option<B256>,
+}
+```
+
+### AccountInfo
+
+Basic account information.
+
+```rust
+pub struct AccountInfo {
+    pub balance: U256,
+    pub nonce: u64,
+    pub code_hash: B256,
+    pub code: Option<Bytecode>,
+}
+```
+
+## Error Types
+
+REVM defines various error types for different failure scenarios.
+
+### EVMError Enum
+
+Main error type for EVM execution.
+
+```rust
+pub enum EVMError<DBError> {
+    /// Database error.
+    Database(DBError),
+    /// Transaction reverted.
+    Reverted(Bytes),
+    /// Execution halted.
+    Halted(HaltReason),
+    /// Custom error.
+    Custom(String),
+}
+```
+
+### HaltReason Enum
+
+Reasons for halting EVM execution.
+
+```rust
+pub enum HaltReason {
+    /// Out of gas.
+    OutOfGas,
+    /// Invalid instruction.
+    InvalidInstruction(u8),
+    /// Stack underflow.
+    StackUnderflow,
+    /// Stack overflow.
+    StackOverflow,
+    /// Out of memory bounds.
+    OutOfBoundsMemory,
+    /// Invalid jump destination.
+    InvalidJump,
+    /// Invalid operand.
+    InvalidOperand,
+    /// Return data out of bounds.
+    ReturnDataOutOfBounds,
+    /// Return stack limit exceeded.
+    ReturnStackLimitReached,
+    /// Precompile error.
+    PrecompileError,
+    /// Call depth exceeded.
+    CallDepthExceeded,
+    /// Create collision.
+    CreateCollision,
+    /// Create contract limit reached.
+    CreateContractLimit,
+    /// Invalid creation code.
+    InvalidCreationCode,
+    /// Self-destruct limit.
+    SelfDestructLimit,
+    /// Invalid self-destruct.
+    InvalidSelfDestruct,
+    /// Gas limit exceeded.
+    GasLimitExceeded,
+    /// Not activated.
+    NotActivated,
+    /// Fatal external error.
+    FatalExternalError,
+    /// Non-fatal external error.
+    NonFatalExternalError,
+}
+```
+
+## Utility Functions
+
+REVM provides several utility functions for common operations.
+
+### Conversion Utilities
+
+```rust
+// Convert a hex string to an Address
+pub fn hex_to_address(hex: &str) -> Result<Address, HexError> { ... }
+
+// Convert a hex string to a B256
+pub fn hex_to_b256(hex: &str) -> Result<B256, HexError> { ... }
+
+// Convert a hex string to a U256
+pub fn hex_to_u256(hex: &str) -> Result<U256, HexError> { ... }
+
+// Convert an Address to a hex string
+pub fn address_to_hex(address: &Address) -> String { ... }
+
+// Convert a B256 to a hex string
+pub fn b256_to_hex(hash: &B256) -> String { ... }
+
+// Convert a U256 to a hex string
+pub fn u256_to_hex(value: &U256) -> String { ... }
+```
+
+### Gas Calculation
+
+```rust
+// Calculate gas for a SSTORE operation
+pub fn sstore_gas(
+    original: U256,
+    current: U256,
+    new: U256,
+    spec: SpecId,
+) -> u64 { ... }
+
+// Calculate memory expansion gas
+pub fn memory_gas(size: usize) -> u64 { ... }
+
+// Calculate gas for a CREATE operation
+pub fn create_gas(code_len: usize, is_create2: bool) -> u64 { ... }
+
+// Calculate gas for a CALL operation
+pub fn call_gas(
+    is_call_or_callcode: bool,
+    is_call_or_staticcall: bool,
+    transfers_value: bool,
+    is_new_account: bool,
+    spec: SpecId,
+) -> u64 { ... }
+```
+
+## Precompiled Contracts
+
+REVM implements all standard Ethereum precompiled contracts.
+
+### Precompile Trait
+
+```rust
+pub trait Precompile {
+    /// Required gas for execution
+    fn required_gas(&self, input: &[u8]) -> Result<u64, PrecompileError>;
+    
+    /// Execute the precompile with the given input
+    fn run(&self, input: &[u8]) -> Result<(PrecompileOutput, u64), PrecompileError>;
+}
+```
+
+### Standard Precompiles
+
+```rust
+// ECRECOVER (recover public key from signature)
+pub struct ECRecover;
+
+// SHA256 hash function
+pub struct SHA256;
+
+// RIPEMD160 hash function
+pub struct RIPEMD160;
+
+// Identity (data copy)
+pub struct Identity;
+
+// Modular exponentiation (EIP-198)
+pub struct ModExp;
+
+// Alt BN128 addition (EIP-196)
+pub struct Bn128Add;
+
+// Alt BN128 multiplication (EIP-196)
+pub struct Bn128Mul;
+
+// Alt BN128 pairing check (EIP-197)
+pub struct Bn128Pair;
+
+// BLAKE2F compression function (EIP-152)
+pub struct Blake2f;
+```
+
+## Conclusion
+
+This reference covers the main public APIs of REVM. For more detailed information on specific aspects, refer to the corresponding reference documents in this section or the source code.
+
+The API is designed to be flexible and extensible, allowing for different database backends, custom inspectors, and various execution configurations. By understanding these core interfaces, you can effectively use REVM in a variety of Ethereum development scenarios.
+
+Remember that REVM is still evolving, and the API may change in future versions. Always check the official documentation and release notes for the most up-to-date information.

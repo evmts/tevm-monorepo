@@ -1,0 +1,856 @@
+---
+title: Transaction Processing
+description: Detailed guide about transaction processing in REVM (Rust Ethereum Virtual Machine)
+---
+
+# Transaction Processing
+
+This document explains how REVM processes Ethereum transactions, covering validation, execution flow, gas calculation, post-execution effects, and receipt generation.
+
+## Transaction Structure
+
+Before diving into transaction processing, let's understand the structure of an Ethereum transaction in REVM.
+
+### Transaction Types
+
+REVM supports multiple Ethereum transaction types:
+
+1. **Legacy Transactions** (pre-EIP-1559)
+2. **EIP-2930 Transactions** (with access lists)
+3. **EIP-1559 Transactions** (fee market)
+4. **EIP-4844 Transactions** (blob transactions)
+
+Each transaction type has specific fields and validation rules.
+
+### Transaction Environment
+
+In REVM, transactions are represented by the `TxEnv` structure:
+
+```rust
+pub struct TxEnv {
+    /// Caller address, account of transaction sender
+    pub caller: Address,
+    /// Transaction type (Call or Create)
+    pub kind: TxKind,
+    /// The max fee per gas in wei (for EIP-1559 transactions)
+    pub max_fee_per_gas: U256,
+    /// The max priority fee per gas in wei (for EIP-1559 transactions)
+    pub max_priority_fee_per_gas: Option<U256>,
+    /// Gas price in wei (for legacy and EIP-2930 transactions)
+    pub gas_price: U256,
+    /// Gas limit
+    pub gas_limit: u64,
+    /// Value transferred in wei
+    pub value: U256,
+    /// Input data
+    pub data: Bytes,
+    /// Nonce of the transaction
+    pub nonce: u64,
+    /// Access list (for EIP-2930 and EIP-1559 transactions)
+    pub access_list: TxAccessList,
+    /// Blobs (for EIP-4844 transactions)
+    pub blob_hashes: Vec<B256>,
+    /// The gas-per-blob fee paid for blobs
+    pub max_fee_per_blob_gas: Option<U256>,
+    /// Chain ID
+    pub chain_id: Option<u64>,
+}
+```
+
+The `TxKind` enum specifies the transaction type:
+
+```rust
+pub enum TxKind {
+    /// Transaction that calls contract at address. Can also transfer ETH.
+    Call(Address),
+    /// Transaction that creates contract. Can also transfer ETH.
+    Create,
+}
+```
+
+## Transaction Validation
+
+Before executing a transaction, REVM validates it to ensure it meets all requirements.
+
+### Validation Steps
+
+1. **Basic Validation**:
+   - Ensure gas limit is within block limits
+   - Verify nonce against sender's account
+   - Check sender has sufficient balance for gas and value
+   - Validate transaction signature (for external transactions)
+
+2. **EIP-1559 Validation**:
+   - Ensure `max_fee_per_gas` ≥ `max_priority_fee_per_gas`
+   - Ensure `max_fee_per_gas` ≥ block's base fee
+
+3. **EIP-4844 Validation**:
+   - Ensure `max_fee_per_blob_gas` ≥ block's blob base fee
+   - Validate blob data (in the EVM environment)
+
+### Validation Implementation
+
+REVM implements validation in the `Handler` trait's `validate_tx` method:
+
+```rust
+fn validate_tx(&self, evm: &mut Self::Evm) -> Result<(), Self::Error> {
+    let context = evm.ctx();
+    let tx = context.tx();
+    let cfg = context.cfg();
+    
+    // Validate nonce
+    if !cfg.is_nonce_check_disabled() {
+        let account = context.journal().load_account(tx.caller())?.data;
+        let state_nonce = account.info.nonce;
+        let tx_nonce = tx.nonce();
+        
+        match tx_nonce.cmp(&state_nonce) {
+            Ordering::Less => return Err(InvalidTransaction::NonceTooLow {
+                tx: tx_nonce,
+                state: state_nonce,
+            }.into()),
+            Ordering::Greater => return Err(InvalidTransaction::NonceTooHigh {
+                tx: tx_nonce,
+                state: state_nonce,
+            }.into()),
+            _ => (),
+        }
+    }
+    
+    // Validate gas limit
+    if tx.gas_limit() as u128 > context.block().gas_limit() as u128 {
+        return Err(InvalidTransaction::GasLimitTooHigh {
+            tx: tx.gas_limit(),
+            block: context.block().gas_limit(),
+        }.into());
+    }
+    
+    // Calculate total fee
+    let gas_fee = tx.gas_limit() as u128 * tx.effective_gas_price(context.block().basefee() as u128);
+    let total_fee = U256::from(gas_fee) + tx.value();
+    
+    // Validate balance
+    if !cfg.is_balance_check_disabled() {
+        let account = context.journal().load_account(tx.caller())?.data;
+        if account.info.balance < total_fee {
+            return Err(InvalidTransaction::LackOfFundForMaxFee {
+                fee: total_fee,
+                balance: account.info.balance,
+            }.into());
+        }
+    }
+    
+    // EIP-1559 specific validation
+    if let Some(max_priority_fee) = tx.max_priority_fee_per_gas() {
+        if tx.max_fee_per_gas() < max_priority_fee {
+            return Err(InvalidTransaction::MaxFeePerGasLessThanMaxPriorityFee.into());
+        }
+    }
+    
+    // EIP-4844 specific validation
+    if let Some(max_fee_per_blob_gas) = tx.max_fee_per_blob_gas() {
+        if let Some(blob_basefee) = context.block().blob_gasprice() {
+            if max_fee_per_blob_gas < blob_basefee {
+                return Err(InvalidTransaction::MaxFeePerBlobGasLessThanBlobBaseFee.into());
+            }
+        } else {
+            return Err(InvalidTransaction::MaxFeePerBlobGasNotSupported.into());
+        }
+    }
+    
+    Ok(())
+}
+```
+
+## Transaction Execution Flow
+
+Once validated, a transaction is executed through a series of steps.
+
+### Execution Steps
+
+1. **Pre-Processing**:
+   - Load sender account
+   - Deduct gas fee from sender
+   - Increment sender nonce
+   - Initialize execution environment
+
+2. **Main Execution**:
+   - For contract creation:
+     - Execute initialization code
+     - Store runtime code
+     - Create new contract account
+   - For contract calls:
+     - Transfer value (if any)
+     - Execute contract code
+     - Process state changes
+
+3. **Post-Processing**:
+   - Calculate gas used and refunds
+   - Refund unused gas to sender
+   - Pay block beneficiary
+   - Finalize state changes
+   - Generate receipt
+
+### Execution Implementation
+
+REVM's execution flow is implemented in the `Handler` trait:
+
+```rust
+fn run(&self, evm: &mut Self::Evm) -> Result<ResultAndState, Self::Error> {
+    // Validate transaction
+    self.validate_tx(evm)?;
+    
+    // Pre-processing
+    let (caller, nonce) = {
+        let tx = evm.ctx().tx();
+        (tx.caller(), tx.nonce())
+    };
+    
+    // Increment nonce
+    evm.ctx().journal().increment_nonce(caller)?;
+    
+    // Deduct gas fee
+    self.deduct_caller(evm)?;
+    
+    // Create initial gas state
+    let gas = GasState::new(evm.ctx().tx().gas_limit());
+    
+    // Main execution
+    let mut frame_result = self.process_transaction(evm, gas)?;
+    
+    // Post-processing
+    self.post_process(evm, &mut frame_result)?;
+    
+    // Collect state changes
+    let state_changes = evm.ctx().journal().state_changes();
+    
+    Ok(ResultAndState {
+        result: frame_result.into_result(),
+        state: state_changes,
+    })
+}
+```
+
+## Contract Creation
+
+Contract creation transactions (where `TxKind::Create`) follow these specific steps:
+
+1. **Generate Contract Address**:
+   - For regular creation: `keccak256(rlp([sender, nonce]))[12:]`
+   - For CREATE2: `keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]`
+
+2. **Execute Initialization Code**:
+   - Run the bytecode provided in the transaction data
+   - Initialization code should return the runtime bytecode
+
+3. **Store Contract Code**:
+   - Store the returned runtime bytecode at the contract address
+   - Calculate and store the code hash
+
+4. **Initialize Contract State**:
+   - Create the contract account with the transferred value
+   - Set initial nonce (1 for mainnet)
+
+5. **Return Address**:
+   - Return the new contract address in the transaction result
+
+Here's a simplified example of how REVM handles contract creation:
+
+```rust
+fn process_create(&self, evm: &mut Self::Evm, gas: GasState) -> Result<FrameResult, Self::Error> {
+    let context = evm.ctx();
+    let tx = context.tx();
+    
+    // Generate contract address
+    let address = create_address(tx.caller(), tx.nonce());
+    
+    // Check if address already exists
+    if context.journal().exists(address)? {
+        return Err(InvalidTransaction::ContractAddressCollision.into());
+    }
+    
+    // Transfer value to the new contract
+    if !tx.value().is_zero() {
+        context.journal().sub_balance(tx.caller(), tx.value())?;
+        context.journal().add_balance(address, tx.value())?;
+    }
+    
+    // Create initial frame for execution
+    let mut frame = Frame::new(
+        address,
+        tx.caller(),
+        tx.value(),
+        tx.data().clone(),
+        gas,
+    );
+    
+    // Execute initialization code
+    let frame_result = self.execute_frame(evm, &mut frame)?;
+    
+    // Process result
+    match frame_result.result {
+        ExecutionResult::Success { output, .. } => {
+            // Store contract code
+            context.journal().set_code(address, output.into())?;
+            
+            // Return success with contract address
+            Ok(frame_result.with_output(Output::Create(output, Some(address))))
+        },
+        ExecutionResult::Revert { output } => {
+            // Contract creation failed with revert
+            Ok(frame_result.with_output(Output::Create(output, None)))
+        },
+        ExecutionResult::Halt { reason } => {
+            // Contract creation failed with halt
+            Ok(frame_result.with_output(Output::Create(vec![].into(), None)))
+        },
+    }
+}
+```
+
+## Contract Calls
+
+For contract call transactions (where `TxKind::Call`), the execution flow is:
+
+1. **Load Contract Code**:
+   - Retrieve the contract code from its address
+   - If no code exists, treat as a simple value transfer
+
+2. **Transfer Value**:
+   - If the transaction includes value, transfer it from sender to recipient
+
+3. **Execute Contract Code**:
+   - Create an execution frame with the transaction data
+   - Run the contract code with the provided inputs
+   - Process any nested calls that occur during execution
+
+4. **Handle Result**:
+   - For successful execution, return the output data
+   - For reverts, return the revert reason
+   - For other halts, return the halt reason
+
+Here's a simplified implementation of contract call processing:
+
+```rust
+fn process_call(&self, evm: &mut Self::Evm, gas: GasState) -> Result<FrameResult, Self::Error> {
+    let context = evm.ctx();
+    let tx = context.tx();
+    
+    // Get call target
+    let address = match tx.kind() {
+        TxKind::Call(addr) => *addr,
+        _ => panic!("Expected call transaction"),
+    };
+    
+    // Transfer value
+    if !tx.value().is_zero() {
+        context.journal().sub_balance(tx.caller(), tx.value())?;
+        context.journal().add_balance(address, tx.value())?;
+    }
+    
+    // Check if target has code
+    let code = context.journal().code(address)?;
+    
+    // If no code, treat as simple value transfer
+    if code.is_empty() {
+        return Ok(FrameResult::new(
+            ExecutionResult::Success {
+                output: Output::Call(vec![].into()),
+                gas_used: 21000,
+                gas_refunded: 0,
+                logs: vec![],
+            },
+            gas,
+        ));
+    }
+    
+    // Create initial frame for execution
+    let mut frame = Frame::new(
+        address,
+        tx.caller(),
+        tx.value(),
+        tx.data().clone(),
+        gas,
+    );
+    
+    // Execute contract code
+    let frame_result = self.execute_frame(evm, &mut frame)?;
+    
+    // For call transactions, wrap the output
+    let result = match frame_result.result {
+        ExecutionResult::Success { output, .. } => {
+            frame_result.with_output(Output::Call(output))
+        },
+        ExecutionResult::Revert { output } => {
+            frame_result.with_output(Output::Call(output))
+        },
+        ExecutionResult::Halt { reason } => {
+            frame_result.with_output(Output::Call(vec![].into()))
+        },
+    };
+    
+    Ok(result)
+}
+```
+
+## Gas Calculation
+
+Gas is the computational cost unit in Ethereum. REVM implements the Ethereum gas metering system.
+
+### Gas Calculation Components
+
+1. **Intrinsic Gas**:
+   - Base transaction cost (21,000 for calls, 53,000 for creation)
+   - Data cost (4 gas per zero byte, 16 gas per non-zero byte)
+   - Access list cost (EIP-2930)
+
+2. **Execution Gas**:
+   - Opcode execution costs
+   - Memory expansion costs
+   - Storage operation costs
+
+3. **Gas Refunds**:
+   - Storage clearing refunds (setting non-zero to zero)
+   - SELFDESTRUCT refunds (pre-Cancun)
+
+### Fee Calculation
+
+REVM calculates transaction fees based on the transaction type:
+
+1. **Legacy Transactions**:
+   ```
+   fee = gas_used * gas_price
+   ```
+
+2. **EIP-1559 Transactions**:
+   ```
+   effective_gas_price = min(base_fee + priority_fee, max_fee_per_gas)
+   fee = gas_used * effective_gas_price
+   ```
+
+3. **EIP-4844 Transactions**:
+   ```
+   gas_fee = gas_used * effective_gas_price
+   blob_fee = blob_gas_used * blob_gas_price
+   total_fee = gas_fee + blob_fee
+   ```
+
+### Gas Refund Calculation
+
+Gas refunds are calculated based on specific operations:
+
+1. **SSTORE Refund**:
+   - Setting a non-zero storage slot to zero: refund 15,000 gas
+
+2. **SELFDESTRUCT Refund** (pre-Cancun):
+   - Destroying a contract: refund 24,000 gas
+
+Refunds are capped at a fraction of the gas used (1/5 in most hardforks).
+
+### Gas Calculation Example
+
+Here's how REVM calculates intrinsic gas:
+
+```rust
+fn calculate_intrinsic_gas(tx: &TxEnv, cfg: &CfgEnv) -> u64 {
+    // Base cost
+    let mut gas = match tx.kind {
+        TxKind::Call(_) => GAS_TRANSACTION,
+        TxKind::Create => GAS_TRANSACTION_CREATE,
+    };
+    
+    // Data cost
+    if !tx.data.is_empty() {
+        // Count zero and non-zero bytes
+        let mut non_zero_bytes = 0;
+        let mut zero_bytes = 0;
+        for &b in tx.data.iter() {
+            if b == 0 {
+                zero_bytes += 1;
+            } else {
+                non_zero_bytes += 1;
+            }
+        }
+        
+        // Calculate data cost
+        gas += non_zero_bytes as u64 * GAS_TXDATANONZERO;
+        gas += zero_bytes as u64 * GAS_TXDATAZERO;
+    }
+    
+    // Access list cost (EIP-2930)
+    if !tx.access_list.is_empty() {
+        // Cost per address
+        gas += tx.access_list.len() as u64 * GAS_ACCESS_LIST_ADDRESS;
+        
+        // Cost per storage key
+        let total_keys = tx.access_list.iter().map(|item| item.slots.len()).sum::<usize>();
+        gas += total_keys as u64 * GAS_ACCESS_LIST_STORAGE;
+    }
+    
+    gas
+}
+```
+
+## Post-Execution Effects
+
+After transaction execution, REVM processes several post-execution effects.
+
+### Gas Refunds and Fee Distribution
+
+1. **Calculate Gas Used and Refunds**:
+   ```rust
+   let gas_used = gas_limit - remaining_gas;
+   let max_refund = gas_used / 5; // Cap refund at 1/5 of gas used
+   let actual_refund = refund.min(max_refund);
+   let final_gas_used = gas_used - actual_refund;
+   ```
+
+2. **Refund Unused Gas to Sender**:
+   ```rust
+   let refund_amount = (remaining_gas + actual_refund) as u128 * effective_gas_price;
+   context.journal().add_balance(tx.caller(), U256::from(refund_amount))?;
+   ```
+
+3. **Pay Beneficiary**:
+   ```rust
+   let beneficiary = context.block().beneficiary();
+   let reward = gas_used * (effective_gas_price - base_fee);
+   context.journal().add_balance(beneficiary, U256::from(reward))?;
+   ```
+
+### State Finalization
+
+1. **Commit or Revert State Changes**:
+   - On success, keep all state changes
+   - On failure, revert all state changes (except nonce increment and fee deduction)
+
+2. **Handle Self-Destructs**:
+   - Process any contracts marked for destruction
+   - Transfer remaining balance to target address
+   - Remove contract code and storage
+
+3. **Collect Logs**:
+   - Gather all logs emitted during execution
+   - Include them in the transaction receipt
+
+### Receipt Generation
+
+The transaction receipt contains:
+
+1. **Status**: Success (1) or failure (0)
+2. **Cumulative Gas Used**: Total gas used in the block so far
+3. **Logs**: Events emitted during execution
+4. **Bloom Filter**: Quick lookup for log topics and addresses
+5. **Transaction Type**: Type of the transaction (0, 1, 2, or 3)
+
+REVM generates receipts through the `ReceiptManager` component:
+
+```rust
+pub fn make_receipt(&mut self, result: &ExecutionResult) -> Receipt {
+    let status = if result.is_success() { 1 } else { 0 };
+    let logs = result.logs().cloned().unwrap_or_default();
+    let gas_used = result.gas_used();
+    
+    // Update cumulative gas used
+    self.cumulative_gas_used += gas_used;
+    
+    // Create bloom filter from logs
+    let bloom = logs_bloom(&logs);
+    
+    Receipt {
+        status,
+        gas_used,
+        cumulative_gas_used: self.cumulative_gas_used,
+        logs,
+        bloom,
+    }
+}
+```
+
+## Transaction Types and Formats
+
+REVM supports all Ethereum transaction types.
+
+### Legacy Transactions (Type 0)
+
+Pre-EIP-1559 transactions with fields:
+- `nonce`
+- `gas_price`
+- `gas_limit`
+- `to` (recipient address or null for contract creation)
+- `value`
+- `data`
+- `v`, `r`, `s` (signature components)
+
+### EIP-2930 Transactions (Type 1)
+
+Access list transactions with fields:
+- All Legacy transaction fields
+- `chain_id`
+- `access_list`
+
+### EIP-1559 Transactions (Type 2)
+
+Fee market transactions with fields:
+- `chain_id`
+- `nonce`
+- `max_priority_fee_per_gas`
+- `max_fee_per_gas`
+- `gas_limit`
+- `to`
+- `value`
+- `data`
+- `access_list`
+- `v`, `r`, `s`
+
+### EIP-4844 Transactions (Type 3)
+
+Blob transactions with fields:
+- All EIP-1559 transaction fields
+- `blob_versioned_hashes`
+- `max_fee_per_blob_gas`
+- Blob data (outside the transaction proper)
+
+## Error Handling
+
+REVM provides comprehensive error handling for transaction processing.
+
+### Error Types
+
+1. **Transaction Validation Errors**:
+   - `InvalidTransaction::NonceTooLow`
+   - `InvalidTransaction::NonceTooHigh`
+   - `InvalidTransaction::GasLimitTooLow`
+   - `InvalidTransaction::GasLimitTooHigh`
+   - `InvalidTransaction::LackOfFundForMaxFee`
+   - `InvalidTransaction::MaxFeePerGasLessThanMaxPriorityFee`
+   - `InvalidTransaction::InvalidSignature`
+
+2. **Execution Errors**:
+   - `ExecutionError::OutOfGas`
+   - `ExecutionError::InvalidOpcode`
+   - `ExecutionError::StackUnderflow`
+   - `ExecutionError::StackOverflow`
+   - `ExecutionError::InvalidJump`
+   - `ExecutionError::CallDepthExceeded`
+   - `ExecutionError::Reverted`
+
+3. **Database Errors**:
+   - Any errors returned by the database implementation
+
+### Error Handling Examples
+
+Handling validation errors:
+
+```rust
+match evm.transact() {
+    Ok(result) => {
+        println!("Transaction executed successfully");
+        // Process result
+    },
+    Err(EVMError::Transaction(tx_error)) => {
+        match tx_error {
+            InvalidTransaction::NonceTooLow { tx, state } => {
+                println!("Transaction nonce ({}) is lower than current state nonce ({})", tx, state);
+            },
+            InvalidTransaction::LackOfFundForMaxFee { fee, balance } => {
+                println!("Insufficient funds: required {} but only have {}", fee, balance);
+            },
+            other => println!("Transaction validation error: {:?}", other),
+        }
+    },
+    Err(other) => println!("Other error: {:?}", other),
+}
+```
+
+Handling execution errors:
+
+```rust
+if let Ok(result) = evm.transact() {
+    match &result.result {
+        ExecutionResult::Success { .. } => {
+            println!("Transaction succeeded");
+        },
+        ExecutionResult::Revert { output } => {
+            println!("Transaction reverted");
+            if output.len() >= 4 && output[0..4] == [0x08, 0xc3, 0x79, 0xa0] {
+                // This is a revert with reason
+                let reason = decode_revert_reason(output);
+                println!("Revert reason: {}", reason);
+            }
+        },
+        ExecutionResult::Halt { reason } => {
+            println!("Transaction halted: {:?}", reason);
+        },
+    }
+}
+```
+
+## Transaction Execution Examples
+
+Let's look at some examples of transaction execution using REVM.
+
+### Simple Value Transfer
+
+```rust
+// Create an EVM instance
+let mut evm = Context::mainnet()
+    .with_db(CacheDB::new(EmptyDB::default()))
+    .modify_tx_chained(|tx| {
+        tx.caller = Address::from_str("0x1000000000000000000000000000000000000000").unwrap();
+        tx.kind = TxKind::Call(Address::from_str("0x2000000000000000000000000000000000000000").unwrap());
+        tx.value = U256::from(1000000000000000000u64); // 1 ETH
+        tx.gas_limit = 21000; // Standard gas for transfers
+        tx.gas_price = U256::from(1000000000u64); // 1 Gwei
+        tx.nonce = 0;
+    })
+    .build_mainnet();
+
+// Add sender account with balance
+let sender = Address::from_str("0x1000000000000000000000000000000000000000").unwrap();
+let sender_account = AccountInfo {
+    nonce: 0,
+    balance: U256::from(10000000000000000000u64), // 10 ETH
+    code_hash: KECCAK_EMPTY,
+    code: None,
+};
+evm.ctx().db().insert_account_info(sender, sender_account)?;
+
+// Execute the transaction
+match evm.transact() {
+    Ok(result) => {
+        println!("Transfer successful");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        // Check balances
+        for (addr, account) in result.state.iter() {
+            if let Some(balance_change) = account.balance_changed() {
+                println!("Address {}: Balance change {}", addr, balance_change);
+            }
+        }
+    },
+    Err(error) => println!("Transfer failed: {:?}", error),
+}
+```
+
+### Contract Call
+
+```rust
+// ABI-encoded call to transfer(address,uint256)
+let function_selector = "a9059cbb"; // transfer(address,uint256)
+let recipient_encoded = "0000000000000000000000002000000000000000000000000000000000000000";
+let amount_encoded = "0000000000000000000000000000000000000000000000000de0b6b3a7640000"; // 1 ETH
+let call_data = hex::decode(format!("{}{}{}", function_selector, recipient_encoded, amount_encoded))?;
+
+// Create an EVM instance
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = sender;
+        tx.kind = TxKind::Call(token_contract);
+        tx.data = call_data.into();
+        tx.value = U256::ZERO; // No ETH transfer
+        tx.gas_limit = 100000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 1;
+    })
+    .build_mainnet();
+
+// Execute the transaction
+match evm.transact() {
+    Ok(result) => {
+        println!("Contract call successful");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        // Check for events
+        if let Some(logs) = result.result.logs() {
+            for log in logs {
+                println!("Event from {}: {:?}", log.address, log.data);
+                for topic in &log.topics {
+                    println!("  Topic: {}", topic);
+                }
+            }
+        }
+        
+        // Check return value
+        if let revm::primitives::context_interface::result::Output::Call(return_data) = &result.result.output {
+            // For transfer(), return data is a boolean
+            if return_data.len() == 32 {
+                let success = return_data[31] == 1;
+                println!("Transfer success: {}", success);
+            }
+        }
+    },
+    Err(error) => println!("Contract call failed: {:?}", error),
+}
+```
+
+### Contract Deployment
+
+```rust
+// Simple storage contract bytecode
+let contract_bytecode = hex::decode("608060405234801561001057600080fd5b5060c78061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806360fe47b11460375780636d4ce63c146049575b600080fd5b60476042366004605e565b600055565b005b60005460405190815260200160405180910390f35b600060208284031215606f57600080fd5b5035919050565b")?;
+
+// Create an EVM instance
+let mut evm = Context::mainnet()
+    .with_db(db)
+    .modify_tx_chained(|tx| {
+        tx.caller = deployer;
+        tx.kind = TxKind::Create;
+        tx.data = contract_bytecode.into();
+        tx.value = U256::ZERO;
+        tx.gas_limit = 1000000;
+        tx.gas_price = U256::from(1000000000u64);
+        tx.nonce = 0;
+    })
+    .build_mainnet();
+
+// Execute the deployment
+match evm.transact() {
+    Ok(result) => {
+        println!("Contract deployment successful");
+        println!("Gas used: {}", result.result.gas_used());
+        
+        // Get the contract address
+        if let revm::primitives::context_interface::result::Output::Create(_, Some(address)) = &result.result.output {
+            println!("Contract deployed at: {}", address);
+            
+            // Store the address for later use
+            let contract_address = *address;
+            
+            // Check the deployed code
+            if let Some(account) = evm.db().map(|db| db.basic(contract_address).ok().flatten()).flatten() {
+                if let Some(code) = &account.code {
+                    println!("Deployed code size: {} bytes", code.len());
+                }
+            }
+        }
+    },
+    Err(error) => println!("Contract deployment failed: {:?}", error),
+}
+```
+
+## Summary
+
+REVM's transaction processing system provides a complete and accurate implementation of Ethereum's transaction model:
+
+- **Transaction Structure**: Support for all Ethereum transaction types
+- **Validation**: Comprehensive validation of transaction parameters
+- **Execution Flow**: Clear execution steps for different transaction types
+- **Gas Calculation**: Accurate implementation of Ethereum's gas model
+- **Post-Execution Effects**: Complete handling of state changes, refunds, and receipts
+- **Error Handling**: Robust error handling for all aspects of transaction processing
+
+Understanding this process allows for effective use of REVM for transaction simulation, testing, and custom EVM implementations.
+
+## Next Steps
+
+Now that you understand transaction processing in REVM, you might want to explore:
+
+- [Block Processing](/intermediate-concepts/2.5-block-processing): Learn how REVM processes blocks of transactions
+- [EVM Customization](/intermediate-concepts/2.6-evm-customization): Discover how to customize transaction processing behavior
+- [Performance Considerations](/intermediate-concepts/2.7-performance-considerations): Understand performance aspects of transaction processing
+
+---
+
+**Note**: The examples in this document are simplified for clarity. In real applications, you would need more robust error handling and state management.

@@ -1,0 +1,562 @@
+---
+title: REVM Architecture
+description: Detailed guide about revm architecture in REVM (Rust Ethereum Virtual Machine)
+---
+
+# REVM Architecture
+
+This document provides a comprehensive overview of REVM's architecture, explaining its components, their interactions, execution flow, and the design principles that guide the system.
+
+## High-Level Architecture
+
+REVM (Rust Ethereum Virtual Machine) is designed with modularity and flexibility in mind. Its architecture consists of several core components that work together to simulate the Ethereum execution environment.
+
+### Core Components
+
+At a high level, REVM consists of these main components:
+
+1. **EVM** - The central coordinating component that brings together all other parts
+2. **Context** - Holds the execution environment and state
+3. **Instructions** - Implements EVM opcode functionality
+4. **Precompiles** - Implements built-in contract functionality
+5. **Inspector** - Provides hooks for monitoring execution
+6. **Database** - Interface for accessing external state
+
+These components are structured to allow for maximum flexibility and customization while maintaining high performance.
+
+## Component Diagram
+
+The following diagram illustrates the relationships between REVM's main components:
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│                            REVM                                │
+│                                                                │
+│  ┌─────────┐       ┌─────────────────────────────────────────┐ │
+│  │         │       │              Context                    │ │
+│  │   EVM   │◄─────►│                                         │ │
+│  │         │       │   ┌─────────┐   ┌─────────┐   ┌──────┐  │ │
+│  └─────────┘       │   │   Tx    │   │  Block  │   │ Cfg  │  │ │
+│       ▲            │   └─────────┘   └─────────┘   └──────┘  │ │
+│       │            │                                         │ │
+│       │            │   ┌─────────┐   ┌───────────────────┐   │ │
+│       │            │   │ Journal │   │     Database      │   │ │
+│       │            │   └─────────┘   └───────────────────┘   │ │
+│       │            └─────────────────────────────────────────┘ │
+│       │                                                        │
+│       │            ┌─────────────────┐   ┌──────────────────┐  │
+│       └───────────►│  Instructions   │   │   Precompiles    │  │
+│                    └─────────────────┘   └──────────────────┘  │
+│                                                                │
+│                    ┌─────────────────────────────────────────┐ │
+│                    │               Inspector                 │ │
+│                    └─────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────────┘
+```
+
+## Component Details
+
+Let's examine each component in detail:
+
+### EVM
+
+The EVM (Ethereum Virtual Machine) is the central component that coordinates execution. It:
+
+- Holds references to all other components
+- Provides methods for executing transactions
+- Manages the execution lifecycle
+
+The EVM component in REVM is highly customizable through traits:
+
+```rust
+pub struct Evm<CTX, INSP, INST, PRE> {
+    pub ctx: CTX,
+    pub inspector: INSP,
+    pub instruction: INST,
+    pub precompiles: PRE,
+}
+```
+
+This generic structure allows substituting any component with a custom implementation as long as it implements the required traits.
+
+### Context
+
+The Context contains all the environment data needed for execution:
+
+1. **Transaction (Tx)**: Contains transaction parameters such as:
+   - Sender (caller)
+   - Recipient or creation flag
+   - Value
+   - Data payload
+   - Gas parameters
+   - Nonce
+
+2. **Block**: Contains block information such as:
+   - Block number
+   - Timestamp
+   - Gas limit
+   - Base fee (for EIP-1559)
+   - Beneficiary (miner/validator)
+
+3. **Configuration (Cfg)**: Contains EVM configuration such as:
+   - Chain ID
+   - Spec ID (hardfork rules)
+   - Gas model settings
+   - Validation settings
+
+4. **Journal**: Keeps track of state changes during execution, including:
+   - Account balance and nonce changes
+   - Storage changes
+   - Code changes
+   - Log entries
+
+5. **Database**: Provides access to external state:
+   - Account information
+   - Contract code
+   - Contract storage
+   - Historical block hashes
+
+The Context structure allows for a clean separation between execution logic and environment data.
+
+### Instructions
+
+The Instructions component implements the EVM opcode functionality:
+
+- Contains the implementation of all EVM opcodes
+- Provides an instruction table that maps opcode values to their implementations
+- Manages gas costs for operations
+- Handles execution of contract bytecode
+
+REVM allows for custom instruction implementations, enabling modifications to opcode behavior or the addition of new opcodes.
+
+### Precompiles
+
+Precompiles are special contracts with addresses in the range 0x1 to 0xff that implement functionality that would be inefficient to implement in EVM bytecode:
+
+- Cryptographic operations (ECRECOVER, SHA256, etc.)
+- Modular exponentiation
+- Elliptic curve operations
+- Other specialized functions
+
+The Precompiles component:
+- Maps precompile addresses to their implementations
+- Executes precompiled contract code
+- Calculates gas costs for precompile execution
+
+Like other components, precompiles can be customized or extended to add new functionality.
+
+### Inspector
+
+The Inspector provides a powerful mechanism for monitoring and potentially modifying execution:
+
+- Hooks into various stages of execution
+- Collects trace information
+- Can override execution results
+- Useful for debugging, gas profiling, and custom analytics
+
+Inspectors can be implemented for various purposes:
+- Execution tracing (EIP-3155)
+- Gas profiling
+- Custom state extraction
+- Debugging tools
+
+### Database
+
+The Database component is an abstraction over state storage:
+
+- Provides access to account information
+- Retrieves contract code
+- Reads and writes storage slots
+- Accesses historical block hashes
+
+REVM defines interfaces that allow for various database implementations:
+- In-memory databases for testing
+- Forking databases for mainnet simulation
+- Custom backends for specific applications
+
+## Execution Flow
+
+Understanding how these components interact during execution helps clarify REVM's architecture.
+
+### 1. Transaction Execution Flow
+
+When executing a transaction with REVM, the following sequence occurs:
+
+1. **Initialization**:
+   - Create an EVM instance with appropriate components
+   - Configure the transaction parameters
+   - Set up the execution environment
+
+2. **Validation**:
+   - Validate transaction parameters (nonce, gas limit, etc.)
+   - Check sender balance for fees
+   - Verify transaction signature
+
+3. **Execution**:
+   - For contract creations:
+     - Execute initialization code
+     - Create new contract account
+     - Store runtime code
+   - For contract calls:
+     - Load contract code
+     - Execute contract code
+     - Process state changes
+
+4. **Post-Processing**:
+   - Calculate gas usage and refunds
+   - Update account balances
+   - Apply state changes
+   - Generate logs and receipt
+
+5. **Result**:
+   - Return execution result and state changes
+   - Optionally commit changes to database
+
+### 2. Call Frame Execution Flow
+
+During contract execution, REVM creates call frames to manage nested calls:
+
+1. **Frame Setup**:
+   - Create new call frame with appropriate context
+   - Set up memory, stack, and program counter
+   - Transfer value if specified
+
+2. **Code Execution**:
+   - Execute bytecode instruction by instruction
+   - Update memory, stack, and storage as needed
+   - Calculate gas usage for each operation
+
+3. **Nested Calls**:
+   - Create new frame for CALL, DELEGATECALL, STATICCALL
+   - Execute called contract
+   - Return to calling frame with result
+
+4. **Frame Completion**:
+   - Process frame result (success or revert)
+   - Return data to parent frame
+   - Update remaining gas
+
+## Design Principles and Decisions
+
+REVM's architecture is guided by several key design principles:
+
+### 1. Modularity
+
+REVM is designed to be highly modular, allowing components to be replaced or extended:
+
+- Generic type parameters for core components
+- Trait-based interfaces for customization
+- Clear separation of concerns between components
+
+This modularity enables custom EVM implementations like Optimism's OP-REVM.
+
+### 2. Performance
+
+REVM prioritizes performance:
+
+- Efficient memory management
+- Optimized instruction dispatch
+- Cached state access
+- Minimal allocations in hot paths
+
+These optimizations make REVM one of the fastest EVM implementations available.
+
+### 3. Compatibility
+
+REVM maintains strict compatibility with the Ethereum specification:
+
+- Implements all Ethereum hardforks
+- Passes Ethereum test suites
+- Follows gas calculation rules precisely
+- Maintains consistent state transitions
+
+### 4. Extensibility
+
+The architecture allows for extensions without modifying core code:
+
+- Inspector pattern for execution monitoring
+- Custom database implementations
+- Pluggable precompile sets
+- Configurable instruction tables
+
+### 5. No Standard Library (no_std) Support
+
+REVM supports environments without the standard library:
+
+- Minimal external dependencies
+- Careful allocation patterns
+- Compatible with constrained environments
+- Enables use in zkEVM implementations
+
+## Trait Interfaces
+
+REVM defines several key traits that enable its modular design:
+
+### EvmTr Trait
+
+The core trait for EVM functionality:
+
+```rust
+pub trait EvmTr {
+    type Context: ContextTr;
+    type Instructions: InstructionProvider;
+    type Precompiles: PrecompileProvider;
+
+    fn ctx(&mut self) -> &mut Self::Context;
+    fn ctx_ref(&self) -> &Self::Context;
+    fn ctx_instructions(&mut self) -> (&mut Self::Context, &mut Self::Instructions);
+    fn ctx_precompiles(&mut self) -> (&mut Self::Context, &mut Self::Precompiles);
+}
+```
+
+This trait defines the basic interface for any EVM implementation.
+
+### ContextTr Trait
+
+Defines the context interface:
+
+```rust
+pub trait ContextTr {
+    type Tx: TxTr;
+    type Block: BlockTr;
+    type Cfg: CfgTr;
+    type Journal: JournalTr;
+    type Db: Database;
+
+    fn tx(&self) -> &Self::Tx;
+    fn block(&self) -> &Self::Block;
+    fn cfg(&self) -> &Self::Cfg;
+    fn journal(&mut self) -> &mut Self::Journal;
+    fn db(&mut self) -> &mut Self::Db;
+}
+```
+
+### Database Trait
+
+Defines the interface for state access:
+
+```rust
+pub trait Database {
+    type Error: DBErrorMarker;
+
+    fn basic(&mut self, address: Address) -> Result<Option<AccountInfo>, Self::Error>;
+    fn code_by_hash(&mut self, code_hash: B256) -> Result<Bytecode, Self::Error>;
+    fn storage(&mut self, address: Address, index: U256) -> Result<U256, Self::Error>;
+    fn block_hash(&mut self, number: u64) -> Result<B256, Self::Error>;
+}
+```
+
+### Inspector Trait
+
+Enables execution monitoring:
+
+```rust
+pub trait Inspector<DB: DatabaseRef> {
+    fn step(&mut self, interp: &mut Interpreter, context: &mut EvmContext<'_, DB>) -> InspectorResult;
+    fn step_end(&mut self, interp: &mut Interpreter, context: &mut EvmContext<'_, DB>) -> InspectorResult;
+    fn call(&mut self, inputs: &CallInputs, context: &mut EvmContext<'_, DB>) -> Option<InspectorExecutionResult>;
+    fn call_end(&mut self, outputs: &CallOutputs, context: &mut EvmContext<'_, DB>) -> Option<InspectorExecutionResult>;
+    // Other hook points...
+}
+```
+
+## Creating a Custom EVM
+
+The modular architecture enables creating custom EVM implementations. Here's a simplified example:
+
+```rust
+// Define a custom EVM struct
+struct MyEvm(Evm<
+    MyContext,
+    NoopInspector,
+    EthInstructions<EthInterpreter, MyContext>,
+    EthPrecompiles
+>);
+
+// Implement the EvmTr trait
+impl EvmTr for MyEvm {
+    type Context = MyContext;
+    type Instructions = EthInstructions<EthInterpreter, MyContext>;
+    type Precompiles = EthPrecompiles;
+
+    fn ctx(&mut self) -> &mut Self::Context {
+        &mut self.0.ctx
+    }
+
+    fn ctx_ref(&self) -> &Self::Context {
+        &self.0.ctx
+    }
+
+    fn ctx_instructions(&mut self) -> (&mut Self::Context, &mut Self::Instructions) {
+        (&mut self.0.ctx, &mut self.0.instruction)
+    }
+
+    fn ctx_precompiles(&mut self) -> (&mut Self::Context, &mut Self::Precompiles) {
+        (&mut self.0.ctx, &mut self.0.precompiles)
+    }
+}
+
+// Implement custom execution logic
+impl MyEvm {
+    fn new(ctx: MyContext) -> Self {
+        Self(Evm {
+            ctx,
+            inspector: NoopInspector,
+            instruction: EthInstructions::new_mainnet(),
+            precompiles: EthPrecompiles::default(),
+        })
+    }
+
+    fn execute_my_way(&mut self, tx: MyTransaction) -> MyResult {
+        // Custom execution logic...
+    }
+}
+```
+
+## Crate Structure
+
+REVM is organized into multiple crates, each with a specific responsibility:
+
+- **revm**: The main crate that re-exports all components
+- **revm-primitives**: Core types and constants
+- **revm-interpreter**: Bytecode interpretation logic
+- **revm-precompile**: Precompiled contract implementations
+- **revm-database-interface**: Database trait definitions
+- **revm-database**: Database implementations
+- **revm-context-interface**: Context trait definitions
+- **revm-context**: Context implementations
+- **revm-handler**: Transaction execution logic
+- **revm-inspector**: Inspection system
+- **revm-bytecode**: Bytecode analysis and manipulation
+- **revm-state**: State management structures
+
+This crate organization allows for fine-grained dependency management and ensures that users only include what they need.
+
+## Evolution of the Architecture
+
+REVM's architecture has evolved over time:
+
+### Earlier Versions
+
+- Tightly coupled components
+- Less trait-based design
+- Limited customization options
+- Fewer extension points
+
+### Current Architecture
+
+- Trait-based component interfaces
+- Generic type parameters for flexibility
+- Clear separation of concerns
+- Extensive customization options
+- Support for custom EVMs
+
+### Future Directions
+
+The REVM architecture continues to evolve with:
+
+- More granular extension points
+- Enhanced performance optimizations
+- Better support for parallel execution
+- Improved state management abstractions
+- Additional customization options
+
+## Implementation Examples
+
+To better understand REVM's architecture, here are some examples of how the components interact in practice:
+
+### Basic Transaction Execution
+
+```rust
+// Create a context with an in-memory database
+let ctx = Context::mainnet().with_db(CacheDB::new(EmptyDB::default()));
+
+// Configure the transaction
+let ctx = ctx.modify_tx_chained(|tx| {
+    tx.caller = sender_address;
+    tx.kind = TxKind::Call(contract_address);
+    tx.data = call_data.into();
+    tx.value = U256::ZERO;
+    tx.gas_limit = 1000000;
+});
+
+// Build the EVM
+let mut evm = ctx.build_mainnet();
+
+// Execute the transaction
+let result = evm.transact()?;
+
+// Process the result
+println!("Execution result: {:?}", result.result);
+println!("State changes: {:?}", result.state);
+```
+
+### Custom Inspector Implementation
+
+```rust
+struct GasTracer {
+    gas_by_opcode: HashMap<Opcode, u64>,
+}
+
+impl<DB: DatabaseRef> Inspector<DB> for GasTracer {
+    fn step(
+        &mut self,
+        interp: &mut Interpreter,
+        _context: &mut EvmContext<'_, DB>,
+    ) -> InspectorResult {
+        let opcode = interp.current_opcode();
+        let gas_before = interp.gas_left();
+        
+        // Let the operation proceed normally
+        InspectorResult::Continue
+    }
+
+    fn step_end(
+        &mut self,
+        interp: &mut Interpreter,
+        _context: &mut EvmContext<'_, DB>,
+    ) -> InspectorResult {
+        let opcode = interp.current_opcode();
+        let gas_after = interp.gas_left();
+        
+        // Record gas used for this opcode
+        let gas_used = gas_before - gas_after;
+        *self.gas_by_opcode.entry(opcode).or_insert(0) += gas_used;
+        
+        InspectorResult::Continue
+    }
+}
+
+// Using the custom inspector
+let mut tracer = GasTracer { gas_by_opcode: HashMap::new() };
+let result = evm.inspect_with_tx(tx, &mut tracer)?;
+
+// Analyze gas usage
+for (opcode, gas) in tracer.gas_by_opcode {
+    println!("Opcode {}: {} gas", opcode, gas);
+}
+```
+
+## Summary
+
+REVM's architecture is designed to be modular, performant, and extensible:
+
+- **Components**: EVM, Context, Instructions, Precompiles, Inspector, and Database
+- **Design Principles**: Modularity, Performance, Compatibility, Extensibility, no_std Support
+- **Trait Interfaces**: EvmTr, ContextTr, Database, Inspector, and more
+- **Execution Flow**: Structured process from initialization to result generation
+- **Customization**: Extensive options for creating custom EVM implementations
+
+This architecture enables REVM to serve as both a standard Ethereum execution environment and a framework for building custom EVM variants.
+
+## Next Steps
+
+Now that you understand REVM's architecture, you can explore:
+
+- [EVM Execution Model](/intermediate-concepts/2.2-evm-execution-model): Learn about instruction processing, gas metering, and execution flow
+- [State and Storage](/intermediate-concepts/2.3-state-and-storage): Dive deeper into state representation and management
+- [EVM Customization](/intermediate-concepts/2.6-evm-customization): Learn how to create custom EVM implementations
+
+---
+
+**Note**: The architecture diagrams in this document are simplified for clarity. The actual implementation may have additional details and components.

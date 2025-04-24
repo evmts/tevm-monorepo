@@ -1,0 +1,1600 @@
+---
+title: 3.8 Building a JSON-RPC API with REVM
+description: Detailed guide about 3.8 building a json-rpc api with revm in REVM (Rust Ethereum Virtual Machine)
+---
+
+# 3.8 Building a JSON-RPC API with REVM
+
+In this guide, we'll explore how to use REVM to build a fully functional Ethereum JSON-RPC API server. This allows you to create a custom Ethereum node that can interact with standard tools like web3.js, ethers.js, and MetaMask.
+
+## Overview
+
+The Ethereum JSON-RPC API is the standard interface for interacting with Ethereum nodes. By implementing this API with REVM, you can:
+
+1. Create a lightweight Ethereum node that doesn't require syncing the full blockchain
+2. Build custom development environments with tailored behavior
+3. Provide a local testing environment that matches production behavior
+4. Implement custom RPC methods for specialized use cases
+5. Control and modify Ethereum state for testing and development
+
+REVM's architecture makes it ideal for implementing a JSON-RPC server, as it provides the core EVM functionality needed to execute transactions and manage state.
+
+## Prerequisites
+
+- Understanding of REVM basics
+- Familiarity with the Ethereum JSON-RPC API specification
+- Familiarity with asynchronous Rust programming
+- Understanding of HTTP servers and JSON serialization
+
+## Basic JSON-RPC Server Architecture
+
+A complete JSON-RPC server consists of these key components:
+
+1. **HTTP Server**: Handles incoming requests and formats responses
+2. **JSON-RPC Handler**: Parses JSON-RPC requests and routes to appropriate methods
+3. **Method Implementations**: Actual implementations of each RPC method
+4. **REVM Integration**: Uses REVM to execute transactions and manage state
+5. **State Management**: Persists and manages blockchain state
+
+Let's implement each of these components:
+
+## 1. HTTP Server and JSON-RPC Handler
+
+First, let's set up the basic server structure using [jsonrpsee](https://github.com/paritytech/jsonrpsee) for JSON-RPC and [tokio](https://tokio.rs/) for asynchronous operations:
+
+```rust
+use jsonrpsee::{
+    core::{Error as JsonRpcError, RpcResult},
+    proc_macros::rpc,
+    server::{ServerBuilder, ServerHandle},
+};
+use revm::{db::CacheDB, EVM};
+use serde::{Deserialize, Serialize};
+use std::error::Error;
+use std::net::SocketAddr;
+use std::sync::{Arc, Mutex};
+use tokio::sync::RwLock;
+
+// Define the RPC API interface
+#[rpc(server)]
+pub trait EthApi {
+    #[method(name = "eth_blockNumber")]
+    async fn block_number(&self) -> RpcResult<String>;
+    
+    #[method(name = "eth_chainId")]
+    async fn chain_id(&self) -> RpcResult<String>;
+    
+    #[method(name = "eth_getBalance")]
+    async fn get_balance(&self, address: String, block_tag: String) -> RpcResult<String>;
+    
+    #[method(name = "eth_getCode")]
+    async fn get_code(&self, address: String, block_tag: String) -> RpcResult<String>;
+    
+    #[method(name = "eth_getStorageAt")]
+    async fn get_storage_at(&self, address: String, position: String, block_tag: String) -> RpcResult<String>;
+    
+    #[method(name = "eth_call")]
+    async fn call(&self, tx: TransactionCall, block_tag: String) -> RpcResult<String>;
+    
+    #[method(name = "eth_estimateGas")]
+    async fn estimate_gas(&self, tx: TransactionCall, block_tag: Option<String>) -> RpcResult<String>;
+    
+    #[method(name = "eth_gasPrice")]
+    async fn gas_price(&self) -> RpcResult<String>;
+    
+    #[method(name = "eth_sendTransaction")]
+    async fn send_transaction(&self, tx: TransactionCall) -> RpcResult<String>;
+    
+    #[method(name = "eth_sendRawTransaction")]
+    async fn send_raw_transaction(&self, data: String) -> RpcResult<String>;
+    
+    #[method(name = "eth_getTransactionCount")]
+    async fn get_transaction_count(&self, address: String, block_tag: String) -> RpcResult<String>;
+    
+    #[method(name = "eth_getBlockByNumber")]
+    async fn get_block_by_number(&self, block_tag: String, full_tx: bool) -> RpcResult<Option<Block>>;
+    
+    #[method(name = "eth_getBlockByHash")]
+    async fn get_block_by_hash(&self, block_hash: String, full_tx: bool) -> RpcResult<Option<Block>>;
+    
+    #[method(name = "eth_getTransactionByHash")]
+    async fn get_transaction_by_hash(&self, tx_hash: String) -> RpcResult<Option<Transaction>>;
+    
+    #[method(name = "eth_getTransactionReceipt")]
+    async fn get_transaction_receipt(&self, tx_hash: String) -> RpcResult<Option<TransactionReceipt>>;
+    
+    // Additional testing/manipulation methods
+    #[method(name = "evm_mine")]
+    async fn evm_mine(&self, timestamp: Option<u64>) -> RpcResult<String>;
+    
+    #[method(name = "evm_setBalance")]
+    async fn evm_set_balance(&self, address: String, balance: String) -> RpcResult<bool>;
+    
+    #[method(name = "evm_setCode")]
+    async fn evm_set_code(&self, address: String, code: String) -> RpcResult<bool>;
+    
+    #[method(name = "evm_snapshot")]
+    async fn evm_snapshot(&self) -> RpcResult<String>;
+    
+    #[method(name = "evm_revert")]
+    async fn evm_revert(&self, snapshot_id: String) -> RpcResult<bool>;
+    
+    #[method(name = "evm_setStorageAt")]
+    async fn evm_set_storage_at(&self, address: String, position: String, value: String) -> RpcResult<bool>;
+}
+
+// Define JSON-RPC request/response types
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TransactionCall {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub from: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub to: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gas: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gas_price: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub nonce: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Transaction {
+    pub hash: String,
+    pub nonce: String,
+    pub block_hash: Option<String>,
+    pub block_number: Option<String>,
+    pub transaction_index: Option<String>,
+    pub from: String,
+    pub to: Option<String>,
+    pub value: String,
+    pub gas_price: String,
+    pub gas: String,
+    pub input: String,
+    pub v: String,
+    pub r: String,
+    pub s: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Block {
+    pub number: Option<String>,
+    pub hash: Option<String>,
+    pub parent_hash: String,
+    pub nonce: Option<String>,
+    pub sha3_uncles: String,
+    pub logs_bloom: Option<String>,
+    pub transactions_root: String,
+    pub state_root: String,
+    pub receipts_root: String,
+    pub miner: String,
+    pub difficulty: String,
+    pub total_difficulty: String,
+    pub extra_data: String,
+    pub size: String,
+    pub gas_limit: String,
+    pub gas_used: String,
+    pub timestamp: String,
+    pub transactions: Vec<serde_json::Value>,
+    pub uncles: Vec<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Log {
+    pub removed: bool,
+    pub log_index: String,
+    pub transaction_index: String,
+    pub transaction_hash: String,
+    pub block_hash: String,
+    pub block_number: String,
+    pub address: String,
+    pub data: String,
+    pub topics: Vec<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TransactionReceipt {
+    pub transaction_hash: String,
+    pub transaction_index: String,
+    pub block_hash: String,
+    pub block_number: String,
+    pub from: String,
+    pub to: Option<String>,
+    pub cumulative_gas_used: String,
+    pub gas_used: String,
+    pub contract_address: Option<String>,
+    pub logs: Vec<Log>,
+    pub logs_bloom: String,
+    pub status: String,
+}
+
+// Start the JSON-RPC server
+async fn start_server(eth_api: impl EthApi, addr: SocketAddr) -> Result<ServerHandle, Box<dyn Error>> {
+    let server = ServerBuilder::default()
+        .build(addr)
+        .await?;
+    
+    let server_handle = server.start(eth_api.into_rpc())?;
+    
+    println!("Server started at: {}", addr);
+    
+    Ok(server_handle)
+}
+```
+
+## 2. REVM Integration with State Management
+
+Next, let's create a struct to hold our REVM instance and implement the core state management:
+
+```rust
+use revm::{
+    db::{CacheDB, EmptyDB},
+    primitives::{AccountInfo, Address, Bytecode, Bytes, ExecutionResult, TransactTo, TxEnv, U256},
+    EVM,
+};
+use ethers_core::types::{H160, H256, Signature};
+use std::collections::HashMap;
+use std::str::FromStr;
+use std::sync::{Arc, Mutex};
+use std::time::{SystemTime, UNIX_EPOCH};
+use tiny_keccak::{Hasher, Keccak};
+
+// Define block tag constants
+const LATEST: &str = "latest";
+const EARLIEST: &str = "earliest";
+const PENDING: &str = "pending";
+
+// Helper to convert string to U256
+fn parse_u256(hex_str: &str) -> Result<U256, Box<dyn Error>> {
+    let hex_str = hex_str.trim_start_matches("0x");
+    if hex_str.is_empty() {
+        return Ok(U256::ZERO);
+    }
+    
+    let bytes = hex::decode(hex_str)?;
+    let mut array = [0u8; 32];
+    let offset = 32 - bytes.len();
+    array[offset..].copy_from_slice(&bytes);
+    
+    Ok(U256::from_be_bytes(array))
+}
+
+// Helper to convert U256 to hex string
+fn u256_to_hex(value: U256) -> String {
+    let bytes = value.to_be_bytes::<32>();
+    let mut start = 0;
+    while start < 32 && bytes[start] == 0 {
+        start += 1;
+    }
+    
+    if start == 32 {
+        return "0x0".to_string();
+    }
+    
+    format!("0x{}", hex::encode(&bytes[start..]))
+}
+
+// Helper to convert address to string
+fn address_to_hex(address: Address) -> String {
+    format!("0x{}", hex::encode(address.as_bytes()))
+}
+
+// Helper to convert string to address
+fn parse_address(hex_str: &str) -> Result<Address, Box<dyn Error>> {
+    let hex_str = hex_str.trim_start_matches("0x");
+    let bytes = hex::decode(hex_str)?;
+    if bytes.len() != 20 {
+        return Err("Invalid address length".into());
+    }
+    
+    Ok(Address::from_slice(&bytes))
+}
+
+// Generates a keccak-256 hash
+fn keccak256(data: &[u8]) -> [u8; 32] {
+    let mut hasher = Keccak::v256();
+    let mut output = [0u8; 32];
+    hasher.update(data);
+    hasher.finalize(&mut output);
+    output
+}
+
+// Block represents an Ethereum block
+#[derive(Clone, Debug)]
+struct BlockData {
+    number: u64,
+    hash: [u8; 32],
+    parent_hash: [u8; 32],
+    timestamp: u64,
+    gas_used: u64,
+    gas_limit: u64,
+    transactions: Vec<TransactionData>,
+}
+
+// Transaction represents an Ethereum transaction
+#[derive(Clone, Debug)]
+struct TransactionData {
+    hash: [u8; 32],
+    from: Address,
+    to: Option<Address>,
+    value: U256,
+    gas: u64,
+    gas_price: U256,
+    input: Bytes,
+    nonce: u64,
+    v: u64,
+    r: U256,
+    s: U256,
+    block_number: u64,
+    block_hash: [u8; 32],
+    transaction_index: u64,
+    receipt: TransactionReceiptData,
+}
+
+// TransactionReceipt represents a receipt for an executed transaction
+#[derive(Clone, Debug)]
+struct TransactionReceiptData {
+    transaction_hash: [u8; 32],
+    transaction_index: u64,
+    block_hash: [u8; 32],
+    block_number: u64,
+    from: Address,
+    to: Option<Address>,
+    cumulative_gas_used: u64,
+    gas_used: u64,
+    contract_address: Option<Address>,
+    logs: Vec<LogData>,
+    status: bool,
+}
+
+// Log represents an event log
+#[derive(Clone, Debug)]
+struct LogData {
+    address: Address,
+    topics: Vec<[u8; 32]>,
+    data: Bytes,
+    block_number: u64,
+    block_hash: [u8; 32],
+    transaction_hash: [u8; 32],
+    transaction_index: u64,
+    log_index: u64,
+    removed: bool,
+}
+
+// Snapshot for state reversion
+#[derive(Clone, Debug)]
+struct Snapshot {
+    id: u64,
+    block_number: u64,
+    state: HashMap<Address, AccountInfo>,
+    storage: HashMap<(Address, U256), U256>,
+}
+
+// State manager for our Ethereum node
+struct EvmState {
+    evm: Mutex<EVM<CacheDB<EmptyDB>>>,
+    blocks: Mutex<Vec<BlockData>>,
+    transactions: Mutex<HashMap<String, TransactionData>>,
+    snapshots: Mutex<HashMap<u64, Snapshot>>,
+    next_snapshot_id: Mutex<u64>,
+}
+
+impl EvmState {
+    // Create a new EVM state with genesis block
+    fn new(chain_id: u64) -> Self {
+        let mut evm = EVM::new();
+        let db = CacheDB::new(EmptyDB::default());
+        evm.database(db);
+        
+        // Configure chain
+        evm.env.cfg.chain_id = chain_id;
+        
+        // Create genesis block
+        let genesis_block = BlockData {
+            number: 0,
+            hash: [0; 32],
+            parent_hash: [0; 32],
+            timestamp: SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_secs(),
+            gas_used: 0,
+            gas_limit: 30_000_000,
+            transactions: Vec::new(),
+        };
+        
+        let state = Self {
+            evm: Mutex::new(evm),
+            blocks: Mutex::new(vec![genesis_block]),
+            transactions: Mutex::new(HashMap::new()),
+            snapshots: Mutex::new(HashMap::new()),
+            next_snapshot_id: Mutex::new(1),
+        };
+        
+        state
+    }
+    
+    // Get the current block number
+    fn block_number(&self) -> u64 {
+        let blocks = self.blocks.lock().unwrap();
+        blocks.len() as u64 - 1
+    }
+    
+    // Get block by number
+    fn get_block_by_number(&self, block_tag: &str) -> Option<BlockData> {
+        let blocks = self.blocks.lock().unwrap();
+        
+        let block_number = match block_tag {
+            LATEST => blocks.len() as u64 - 1,
+            EARLIEST => 0,
+            PENDING => blocks.len() as u64 - 1, // We treat pending as latest for simplicity
+            _ => {
+                if block_tag.starts_with("0x") {
+                    let hex_str = block_tag.trim_start_matches("0x");
+                    match u64::from_str_radix(hex_str, 16) {
+                        Ok(num) => num,
+                        Err(_) => return None,
+                    }
+                } else {
+                    return None;
+                }
+            }
+        };
+        
+        if block_number >= blocks.len() as u64 {
+            return None;
+        }
+        
+        Some(blocks[block_number as usize].clone())
+    }
+    
+    // Get block by hash
+    fn get_block_by_hash(&self, block_hash: &str) -> Option<BlockData> {
+        let hash_bytes = match hex::decode(block_hash.trim_start_matches("0x")) {
+            Ok(bytes) => {
+                if bytes.len() != 32 {
+                    return None;
+                }
+                let mut hash = [0u8; 32];
+                hash.copy_from_slice(&bytes);
+                hash
+            },
+            Err(_) => return None,
+        };
+        
+        let blocks = self.blocks.lock().unwrap();
+        blocks.iter().find(|block| block.hash == hash_bytes).cloned()
+    }
+    
+    // Get transaction by hash
+    fn get_transaction_by_hash(&self, tx_hash: &str) -> Option<TransactionData> {
+        let transactions = self.transactions.lock().unwrap();
+        transactions.get(tx_hash).cloned()
+    }
+    
+    // Get account balance
+    fn get_balance(&self, address: Address, block_tag: &str) -> Result<U256, Box<dyn Error>> {
+        // For simplicity, we ignore the block tag and return current balance
+        let evm = self.evm.lock().unwrap();
+        
+        match evm.db().basic(address)? {
+            Some(account) => Ok(account.balance),
+            None => Ok(U256::ZERO),
+        }
+    }
+    
+    // Get contract code
+    fn get_code(&self, address: Address, block_tag: &str) -> Result<Bytes, Box<dyn Error>> {
+        // For simplicity, we ignore the block tag and return current code
+        let evm = self.evm.lock().unwrap();
+        
+        match evm.db().basic(address)? {
+            Some(account) => {
+                match account.code {
+                    Some(bytecode) => Ok(bytecode.bytecode().clone()),
+                    None => Ok(Bytes::default()),
+                }
+            },
+            None => Ok(Bytes::default()),
+        }
+    }
+    
+    // Get storage value
+    fn get_storage_at(&self, address: Address, position: U256, block_tag: &str) -> Result<U256, Box<dyn Error>> {
+        // For simplicity, we ignore the block tag and return current storage
+        let evm = self.evm.lock().unwrap();
+        evm.db().storage(address, position)
+    }
+    
+    // Get transaction count (nonce)
+    fn get_transaction_count(&self, address: Address, block_tag: &str) -> Result<u64, Box<dyn Error>> {
+        // For simplicity, we ignore the block tag and return current nonce
+        let evm = self.evm.lock().unwrap();
+        
+        match evm.db().basic(address)? {
+            Some(account) => Ok(account.nonce.as_u64()),
+            None => Ok(0),
+        }
+    }
+    
+    // Execute a call transaction (without state changes)
+    fn call(&self, tx: &TransactionCall, block_tag: &str) -> Result<Bytes, Box<dyn Error>> {
+        let mut evm = self.evm.lock().unwrap();
+        
+        // Configure transaction
+        let mut tx_env = TxEnv::default();
+        
+        // Set from address
+        tx_env.caller = match &tx.from {
+            Some(from) => parse_address(from)?,
+            None => Address::zero(), // Default to zero address if not specified
+        };
+        
+        // Set to address or create contract
+        tx_env.transact_to = match &tx.to {
+            Some(to) => TransactTo::Call(parse_address(to)?),
+            None => TransactTo::Create(revm::primitives::CreateScheme::Create),
+        };
+        
+        // Set value
+        tx_env.value = match &tx.value {
+            Some(value) => parse_u256(value)?,
+            None => U256::ZERO,
+        };
+        
+        // Set gas limit
+        tx_env.gas_limit = match &tx.gas {
+            Some(gas) => parse_u256(gas)?.as_u64(),
+            None => 30_000_000, // High default gas limit for calls
+        };
+        
+        // Set gas price
+        tx_env.gas_price = match &tx.gas_price {
+            Some(gas_price) => parse_u256(gas_price)?,
+            None => U256::from(1_000_000_000), // 1 gwei default
+        };
+        
+        // Set input data
+        tx_env.data = match &tx.data {
+            Some(data) => Bytes::from(hex::decode(data.trim_start_matches("0x"))?),
+            None => Bytes::default(),
+        };
+        
+        // For calls, we want to set transact kind to Call to avoid state changes
+        evm.env.tx = tx_env;
+        
+        // Execute the call
+        let result = evm.transact_ref()?;
+        
+        // Return output data
+        match result.result {
+            ExecutionResult::Success { output, .. } => {
+                match output {
+                    revm::primitives::Output::Call(data) => Ok(data),
+                    revm::primitives::Output::Create(data, _) => Ok(data),
+                }
+            },
+            ExecutionResult::Revert { output, .. } => Ok(output),
+            ExecutionResult::Halt { reason, .. } => {
+                Err(format!("Execution halted: {:?}", reason).into())
+            },
+        }
+    }
+    
+    // Estimate gas for a transaction
+    fn estimate_gas(&self, tx: &TransactionCall) -> Result<u64, Box<dyn Error>> {
+        let mut evm = self.evm.lock().unwrap();
+        
+        // Configure transaction similar to call
+        let mut tx_env = TxEnv::default();
+        
+        // Set from address
+        tx_env.caller = match &tx.from {
+            Some(from) => parse_address(from)?,
+            None => Address::zero(), // Default to zero address if not specified
+        };
+        
+        // Set to address or create contract
+        tx_env.transact_to = match &tx.to {
+            Some(to) => TransactTo::Call(parse_address(to)?),
+            None => TransactTo::Create(revm::primitives::CreateScheme::Create),
+        };
+        
+        // Set value
+        tx_env.value = match &tx.value {
+            Some(value) => parse_u256(value)?,
+            None => U256::ZERO,
+        };
+        
+        // Set a high gas limit for estimation
+        tx_env.gas_limit = 30_000_000;
+        
+        // Set gas price
+        tx_env.gas_price = match &tx.gas_price {
+            Some(gas_price) => parse_u256(gas_price)?,
+            None => U256::from(1_000_000_000), // 1 gwei default
+        };
+        
+        // Set input data
+        tx_env.data = match &tx.data {
+            Some(data) => Bytes::from(hex::decode(data.trim_start_matches("0x"))?),
+            None => Bytes::default(),
+        };
+        
+        evm.env.tx = tx_env;
+        
+        // Execute the transaction and capture gas used
+        let result = evm.transact_ref()?;
+        
+        // Check if execution was successful
+        match result.result {
+            ExecutionResult::Success { .. } => {
+                // Add a small buffer to the used gas (5%)
+                let gas_used = result.gas_used();
+                let gas_with_buffer = gas_used + (gas_used * 5 / 100);
+                Ok(gas_with_buffer)
+            },
+            ExecutionResult::Revert { .. } => {
+                Err("Transaction reverted during gas estimation".into())
+            },
+            ExecutionResult::Halt { reason, .. } => {
+                Err(format!("Execution halted during gas estimation: {:?}", reason).into())
+            },
+        }
+    }
+    
+    // Send a transaction
+    fn send_transaction(&self, tx: &TransactionCall) -> Result<String, Box<dyn Error>> {
+        let mut evm = self.evm.lock().unwrap();
+        
+        // Check for required fields
+        let from = match &tx.from {
+            Some(from) => parse_address(from)?,
+            None => return Err("Transaction must have a from address".into()),
+        };
+        
+        // Get the current nonce for the sender
+        let nonce = match &tx.nonce {
+            Some(nonce_str) => parse_u256(nonce_str)?.as_u64(),
+            None => {
+                match evm.db().basic(from)? {
+                    Some(account) => account.nonce.as_u64(),
+                    None => 0,
+                }
+            }
+        };
+        
+        // Configure transaction
+        let mut tx_env = TxEnv::default();
+        tx_env.caller = from;
+        
+        // Set to address or create contract
+        tx_env.transact_to = match &tx.to {
+            Some(to) => TransactTo::Call(parse_address(to)?),
+            None => TransactTo::Create(revm::primitives::CreateScheme::Create),
+        };
+        
+        // Set value
+        tx_env.value = match &tx.value {
+            Some(value) => parse_u256(value)?,
+            None => U256::ZERO,
+        };
+        
+        // Set gas limit
+        tx_env.gas_limit = match &tx.gas {
+            Some(gas) => parse_u256(gas)?.as_u64(),
+            None => {
+                // Estimate gas if not provided
+                // Clone the transaction and estimate
+                let tx_clone = tx.clone();
+                drop(evm); // Release the lock for estimation
+                let gas = self.estimate_gas(&tx_clone)?;
+                evm = self.evm.lock().unwrap(); // Re-acquire the lock
+                gas
+            }
+        };
+        
+        // Set gas price
+        tx_env.gas_price = match &tx.gas_price {
+            Some(gas_price) => parse_u256(gas_price)?,
+            None => U256::from(1_000_000_000), // 1 gwei default
+        };
+        
+        // Set input data
+        tx_env.data = match &tx.data {
+            Some(data) => Bytes::from(hex::decode(data.trim_start_matches("0x"))?),
+            None => Bytes::default(),
+        };
+        
+        // Set nonce
+        tx_env.nonce = Some(nonce);
+        
+        evm.env.tx = tx_env;
+        
+        // Execute the transaction
+        let result = evm.transact()?;
+        
+        // Generate transaction hash
+        let tx_hash = keccak256(&format!(
+            "{}:{}:{}",
+            hex::encode(from.as_bytes()),
+            nonce,
+            hex::encode(evm.env.tx.data.clone()),
+        ).into_bytes());
+        
+        let tx_hash_hex = format!("0x{}", hex::encode(tx_hash));
+        
+        // Get the current block
+        let mut blocks = self.blocks.lock().unwrap();
+        let block_number = blocks.len() as u64 - 1;
+        let block = &mut blocks[block_number as usize];
+        
+        // Create transaction receipt
+        let receipt = TransactionReceiptData {
+            transaction_hash: tx_hash,
+            transaction_index: block.transactions.len() as u64,
+            block_hash: block.hash,
+            block_number,
+            from,
+            to: match evm.env.tx.transact_to {
+                TransactTo::Call(addr) => Some(addr),
+                TransactTo::Create(_) => None,
+            },
+            cumulative_gas_used: block.gas_used + result.gas_used(),
+            gas_used: result.gas_used(),
+            contract_address: match (&evm.env.tx.transact_to, &result.result) {
+                (TransactTo::Create(_), ExecutionResult::Success { output: revm::primitives::Output::Create(_, addr), .. }) => Some(*addr),
+                _ => None,
+            },
+            logs: Vec::new(), // We'd capture logs here in a real implementation
+            status: matches!(result.result, ExecutionResult::Success { .. }),
+        };
+        
+        // Create transaction data
+        let tx_data = TransactionData {
+            hash: tx_hash,
+            from,
+            to: match evm.env.tx.transact_to {
+                TransactTo::Call(addr) => Some(addr),
+                TransactTo::Create(_) => None,
+            },
+            value: evm.env.tx.value,
+            gas: evm.env.tx.gas_limit,
+            gas_price: evm.env.tx.gas_price,
+            input: evm.env.tx.data.clone(),
+            nonce,
+            v: 0, // We're not implementing real signatures here
+            r: U256::ZERO,
+            s: U256::ZERO,
+            block_number,
+            block_hash: block.hash,
+            transaction_index: block.transactions.len() as u64,
+            receipt,
+        };
+        
+        // Update block gas used
+        block.gas_used += result.gas_used();
+        
+        // Add transaction to block
+        block.transactions.push(tx_data.clone());
+        
+        // Add transaction to transactions map
+        let mut transactions = self.transactions.lock().unwrap();
+        transactions.insert(tx_hash_hex.clone(), tx_data);
+        
+        Ok(tx_hash_hex)
+    }
+    
+    // Mine a new block (used for testing)
+    fn mine(&self, timestamp: Option<u64>) -> Result<BlockData, Box<dyn Error>> {
+        let mut blocks = self.blocks.lock().unwrap();
+        let last_block = blocks.last().unwrap();
+        
+        // Create a new block
+        let new_block_number = blocks.len() as u64;
+        let timestamp = timestamp.unwrap_or_else(|| {
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_secs()
+        });
+        
+        // Generate block hash (simple for demo purposes)
+        let block_hash = keccak256(&format!(
+            "{}:{}:{}",
+            hex::encode(last_block.hash),
+            new_block_number,
+            timestamp,
+        ).into_bytes());
+        
+        let new_block = BlockData {
+            number: new_block_number,
+            hash: block_hash,
+            parent_hash: last_block.hash,
+            timestamp,
+            gas_used: 0,
+            gas_limit: 30_000_000,
+            transactions: Vec::new(),
+        };
+        
+        blocks.push(new_block.clone());
+        
+        Ok(new_block)
+    }
+    
+    // Set account balance (for testing)
+    fn set_balance(&self, address: Address, balance: U256) -> Result<bool, Box<dyn Error>> {
+        let mut evm = self.evm.lock().unwrap();
+        
+        // Get the current account info
+        let account_info = match evm.db().basic(address)? {
+            Some(info) => {
+                let mut updated_info = info;
+                updated_info.balance = balance;
+                updated_info
+            },
+            None => {
+                // Create a new account
+                AccountInfo {
+                    balance,
+                    nonce: 0.into(),
+                    code: None,
+                    storage_root: revm::primitives::KECCAK_EMPTY,
+                    code_hash: revm::primitives::KECCAK_EMPTY,
+                }
+            }
+        };
+        
+        // Update the account
+        evm.db().insert_account_info(address, account_info);
+        
+        Ok(true)
+    }
+    
+    // Set account code (for testing)
+    fn set_code(&self, address: Address, code: Bytes) -> Result<bool, Box<dyn Error>> {
+        let mut evm = self.evm.lock().unwrap();
+        
+        // Get the current account info
+        let account_info = match evm.db().basic(address)? {
+            Some(mut info) => {
+                // Update the code
+                info.code = Some(Bytecode::new_raw(code));
+                info
+            },
+            None => {
+                // Create a new account with code
+                AccountInfo {
+                    balance: U256::ZERO,
+                    nonce: 0.into(),
+                    code: Some(Bytecode::new_raw(code)),
+                    storage_root: revm::primitives::KECCAK_EMPTY,
+                    code_hash: revm::primitives::KECCAK_EMPTY,
+                }
+            }
+        };
+        
+        // Update the account
+        evm.db().insert_account_info(address, account_info);
+        
+        Ok(true)
+    }
+    
+    // Set storage value (for testing)
+    fn set_storage_at(&self, address: Address, position: U256, value: U256) -> Result<bool, Box<dyn Error>> {
+        let mut evm = self.evm.lock().unwrap();
+        
+        // Ensure the account exists
+        if evm.db().basic(address)?.is_none() {
+            // Create a new empty account
+            let account_info = AccountInfo {
+                balance: U256::ZERO,
+                nonce: 0.into(),
+                code: None,
+                storage_root: revm::primitives::KECCAK_EMPTY,
+                code_hash: revm::primitives::KECCAK_EMPTY,
+            };
+            evm.db().insert_account_info(address, account_info);
+        }
+        
+        // Set the storage value
+        evm.db().insert_account_storage(address, position, value);
+        
+        Ok(true)
+    }
+    
+    // Create a snapshot of the current state (for testing)
+    fn snapshot(&self) -> Result<u64, Box<dyn Error>> {
+        let mut evm = self.evm.lock().unwrap();
+        let block_number = self.block_number();
+        
+        // Capture the current state
+        let state = evm.db().dump_state()?;
+        
+        // Convert to our format
+        let mut accounts = HashMap::new();
+        let mut storage = HashMap::new();
+        
+        for (address, account) in state {
+            if let Some(info) = account.info {
+                accounts.insert(address, info);
+            }
+            
+            if let Some(account_storage) = account.storage {
+                for (slot, value) in account_storage {
+                    storage.insert((address, slot), value.present_value);
+                }
+            }
+        }
+        
+        // Get the next snapshot ID
+        let mut next_id = self.next_snapshot_id.lock().unwrap();
+        let snapshot_id = *next_id;
+        *next_id += 1;
+        
+        // Save the snapshot
+        let mut snapshots = self.snapshots.lock().unwrap();
+        snapshots.insert(snapshot_id, Snapshot {
+            id: snapshot_id,
+            block_number,
+            state: accounts,
+            storage,
+        });
+        
+        Ok(snapshot_id)
+    }
+    
+    // Revert to a previous snapshot (for testing)
+    fn revert(&self, snapshot_id: u64) -> Result<bool, Box<dyn Error>> {
+        // Get the snapshot
+        let snapshot = {
+            let snapshots = self.snapshots.lock().unwrap();
+            match snapshots.get(&snapshot_id) {
+                Some(snapshot) => snapshot.clone(),
+                None => return Ok(false),
+            }
+        };
+        
+        // Revert the state
+        let mut evm = self.evm.lock().unwrap();
+        
+        // Reset the state
+        evm.db().clear();
+        
+        // Restore accounts
+        for (address, info) in snapshot.state {
+            evm.db().insert_account_info(address, info);
+        }
+        
+        // Restore storage
+        for ((address, slot), value) in snapshot.storage {
+            evm.db().insert_account_storage(address, slot, value);
+        }
+        
+        // Truncate blocks after snapshot block
+        let mut blocks = self.blocks.lock().unwrap();
+        blocks.truncate(snapshot.block_number as usize + 1);
+        
+        // Remove transactions after snapshot block
+        let mut transactions = self.transactions.lock().unwrap();
+        transactions.retain(|_, tx| tx.block_number <= snapshot.block_number);
+        
+        // Remove the snapshot
+        let mut snapshots = self.snapshots.lock().unwrap();
+        snapshots.remove(&snapshot_id);
+        
+        Ok(true)
+    }
+}
+```
+
+## 3. JSON-RPC API Implementation
+
+Now let's implement the actual JSON-RPC API methods:
+
+```rust
+// Implementation of the EthApi trait for our JSON-RPC server
+struct EthApiImpl {
+    state: Arc<EvmState>,
+}
+
+impl EthApiImpl {
+    fn new(state: Arc<EvmState>) -> Self {
+        Self { state }
+    }
+}
+
+#[async_trait::async_trait]
+impl EthApi for EthApiImpl {
+    async fn block_number(&self) -> RpcResult<String> {
+        let block_number = self.state.block_number();
+        Ok(format!("0x{:x}", block_number))
+    }
+    
+    async fn chain_id(&self) -> RpcResult<String> {
+        // We use chain ID 1337 for local development
+        Ok("0x539".to_string()) // 1337 in hex
+    }
+    
+    async fn get_balance(&self, address: String, block_tag: String) -> RpcResult<String> {
+        let address = match parse_address(&address) {
+            Ok(addr) => addr,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        match self.state.get_balance(address, &block_tag) {
+            Ok(balance) => Ok(u256_to_hex(balance)),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn get_code(&self, address: String, block_tag: String) -> RpcResult<String> {
+        let address = match parse_address(&address) {
+            Ok(addr) => addr,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        match self.state.get_code(address, &block_tag) {
+            Ok(code) => {
+                if code.is_empty() {
+                    Ok("0x".to_string())
+                } else {
+                    Ok(format!("0x{}", hex::encode(code)))
+                }
+            },
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn get_storage_at(&self, address: String, position: String, block_tag: String) -> RpcResult<String> {
+        let address = match parse_address(&address) {
+            Ok(addr) => addr,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        let position = match parse_u256(&position) {
+            Ok(pos) => pos,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        match self.state.get_storage_at(address, position, &block_tag) {
+            Ok(value) => Ok(u256_to_hex(value)),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn call(&self, tx: TransactionCall, block_tag: String) -> RpcResult<String> {
+        match self.state.call(&tx, &block_tag) {
+            Ok(output) => {
+                if output.is_empty() {
+                    Ok("0x".to_string())
+                } else {
+                    Ok(format!("0x{}", hex::encode(output)))
+                }
+            },
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn estimate_gas(&self, tx: TransactionCall, block_tag: Option<String>) -> RpcResult<String> {
+        let block_tag = block_tag.unwrap_or_else(|| "latest".to_string());
+        
+        match self.state.estimate_gas(&tx) {
+            Ok(gas) => Ok(format!("0x{:x}", gas)),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn gas_price(&self) -> RpcResult<String> {
+        // Return a fixed gas price for simplicity
+        Ok("0x3b9aca00".to_string()) // 1 gwei
+    }
+    
+    async fn send_transaction(&self, tx: TransactionCall) -> RpcResult<String> {
+        match self.state.send_transaction(&tx) {
+            Ok(tx_hash) => Ok(tx_hash),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn send_raw_transaction(&self, data: String) -> RpcResult<String> {
+        // For simplicity, we'll just extract the transaction data and process it
+        // In a real implementation, this would decode and verify the signature
+        
+        let data_bytes = match hex::decode(data.trim_start_matches("0x")) {
+            Ok(bytes) => bytes,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        // This is a very simplified implementation
+        // In reality, you would decode the RLP-encoded transaction
+        
+        // Just create a dummy transaction from the first 20 bytes as the from address
+        let mut from_bytes = [0u8; 20];
+        if data_bytes.len() >= 20 {
+            from_bytes.copy_from_slice(&data_bytes[0..20]);
+        }
+        
+        let tx = TransactionCall {
+            from: Some(format!("0x{}", hex::encode(from_bytes))),
+            to: None,
+            gas: None,
+            gas_price: None,
+            value: None,
+            data: Some(format!("0x{}", hex::encode(&data_bytes))),
+            nonce: None,
+        };
+        
+        match self.state.send_transaction(&tx) {
+            Ok(tx_hash) => Ok(tx_hash),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn get_transaction_count(&self, address: String, block_tag: String) -> RpcResult<String> {
+        let address = match parse_address(&address) {
+            Ok(addr) => addr,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        match self.state.get_transaction_count(address, &block_tag) {
+            Ok(nonce) => Ok(format!("0x{:x}", nonce)),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn get_block_by_number(&self, block_tag: String, full_tx: bool) -> RpcResult<Option<Block>> {
+        match self.state.get_block_by_number(&block_tag) {
+            Some(block) => {
+                let transactions = if full_tx {
+                    // Return full transaction objects
+                    block.transactions.iter().map(|tx| {
+                        serde_json::to_value(Transaction {
+                            hash: format!("0x{}", hex::encode(tx.hash)),
+                            nonce: format!("0x{:x}", tx.nonce),
+                            block_hash: Some(format!("0x{}", hex::encode(block.hash))),
+                            block_number: Some(format!("0x{:x}", block.number)),
+                            transaction_index: Some(format!("0x{:x}", tx.transaction_index)),
+                            from: address_to_hex(tx.from),
+                            to: tx.to.map(address_to_hex),
+                            value: u256_to_hex(tx.value),
+                            gas_price: u256_to_hex(tx.gas_price),
+                            gas: format!("0x{:x}", tx.gas),
+                            input: format!("0x{}", hex::encode(tx.input.clone())),
+                            v: format!("0x{:x}", tx.v),
+                            r: u256_to_hex(tx.r),
+                            s: u256_to_hex(tx.s),
+                        }).unwrap()
+                    }).collect()
+                } else {
+                    // Return only transaction hashes
+                    block.transactions.iter().map(|tx| {
+                        serde_json::to_value(format!("0x{}", hex::encode(tx.hash))).unwrap()
+                    }).collect()
+                };
+                
+                Ok(Some(Block {
+                    number: Some(format!("0x{:x}", block.number)),
+                    hash: Some(format!("0x{}", hex::encode(block.hash))),
+                    parent_hash: format!("0x{}", hex::encode(block.parent_hash)),
+                    nonce: Some("0x0000000000000000".to_string()),
+                    sha3_uncles: "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347".to_string(),
+                    logs_bloom: Some("0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000".to_string()),
+                    transactions_root: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421".to_string(),
+                    state_root: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421".to_string(),
+                    receipts_root: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421".to_string(),
+                    miner: "0x0000000000000000000000000000000000000000".to_string(),
+                    difficulty: "0x0".to_string(),
+                    total_difficulty: "0x0".to_string(),
+                    extra_data: "0x".to_string(),
+                    size: "0x0".to_string(),
+                    gas_limit: format!("0x{:x}", block.gas_limit),
+                    gas_used: format!("0x{:x}", block.gas_used),
+                    timestamp: format!("0x{:x}", block.timestamp),
+                    transactions,
+                    uncles: Vec::new(),
+                }))
+            },
+            None => Ok(None),
+        }
+    }
+    
+    async fn get_block_by_hash(&self, block_hash: String, full_tx: bool) -> RpcResult<Option<Block>> {
+        match self.state.get_block_by_hash(&block_hash) {
+            Some(block) => {
+                // Reuse get_block_by_number logic with the block number
+                self.get_block_by_number(format!("0x{:x}", block.number), full_tx).await
+            },
+            None => Ok(None),
+        }
+    }
+    
+    async fn get_transaction_by_hash(&self, tx_hash: String) -> RpcResult<Option<Transaction>> {
+        match self.state.get_transaction_by_hash(&tx_hash) {
+            Some(tx) => {
+                let block = self.state.get_block_by_number(&format!("0x{:x}", tx.block_number))
+                    .expect("Block must exist for transaction");
+                
+                Ok(Some(Transaction {
+                    hash: format!("0x{}", hex::encode(tx.hash)),
+                    nonce: format!("0x{:x}", tx.nonce),
+                    block_hash: Some(format!("0x{}", hex::encode(block.hash))),
+                    block_number: Some(format!("0x{:x}", block.number)),
+                    transaction_index: Some(format!("0x{:x}", tx.transaction_index)),
+                    from: address_to_hex(tx.from),
+                    to: tx.to.map(address_to_hex),
+                    value: u256_to_hex(tx.value),
+                    gas_price: u256_to_hex(tx.gas_price),
+                    gas: format!("0x{:x}", tx.gas),
+                    input: format!("0x{}", hex::encode(tx.input.clone())),
+                    v: format!("0x{:x}", tx.v),
+                    r: u256_to_hex(tx.r),
+                    s: u256_to_hex(tx.s),
+                }))
+            },
+            None => Ok(None),
+        }
+    }
+    
+    async fn get_transaction_receipt(&self, tx_hash: String) -> RpcResult<Option<TransactionReceipt>> {
+        match self.state.get_transaction_by_hash(&tx_hash) {
+            Some(tx) => {
+                let receipt = &tx.receipt;
+                let logs = receipt.logs.iter().enumerate().map(|(i, log)| {
+                    Log {
+                        removed: log.removed,
+                        log_index: format!("0x{:x}", i),
+                        transaction_index: format!("0x{:x}", receipt.transaction_index),
+                        transaction_hash: format!("0x{}", hex::encode(receipt.transaction_hash)),
+                        block_hash: format!("0x{}", hex::encode(receipt.block_hash)),
+                        block_number: format!("0x{:x}", receipt.block_number),
+                        address: address_to_hex(log.address),
+                        data: if log.data.is_empty() {
+                            "0x".to_string()
+                        } else {
+                            format!("0x{}", hex::encode(log.data.clone()))
+                        },
+                        topics: log.topics.iter().map(|t| format!("0x{}", hex::encode(t))).collect(),
+                    }
+                }).collect();
+                
+                Ok(Some(TransactionReceipt {
+                    transaction_hash: format!("0x{}", hex::encode(receipt.transaction_hash)),
+                    transaction_index: format!("0x{:x}", receipt.transaction_index),
+                    block_hash: format!("0x{}", hex::encode(receipt.block_hash)),
+                    block_number: format!("0x{:x}", receipt.block_number),
+                    from: address_to_hex(receipt.from),
+                    to: receipt.to.map(address_to_hex),
+                    cumulative_gas_used: format!("0x{:x}", receipt.cumulative_gas_used),
+                    gas_used: format!("0x{:x}", receipt.gas_used),
+                    contract_address: receipt.contract_address.map(address_to_hex),
+                    logs,
+                    logs_bloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000".to_string(),
+                    status: if receipt.status {
+                        "0x1".to_string()
+                    } else {
+                        "0x0".to_string()
+                    },
+                }))
+            },
+            None => Ok(None),
+        }
+    }
+    
+    // Additional testing/manipulation methods
+    
+    async fn evm_mine(&self, timestamp: Option<u64>) -> RpcResult<String> {
+        match self.state.mine(timestamp) {
+            Ok(block) => Ok(format!("0x{:x}", block.number)),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn evm_set_balance(&self, address: String, balance: String) -> RpcResult<bool> {
+        let address = match parse_address(&address) {
+            Ok(addr) => addr,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        let balance = match parse_u256(&balance) {
+            Ok(bal) => bal,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        match self.state.set_balance(address, balance) {
+            Ok(success) => Ok(success),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn evm_set_code(&self, address: String, code: String) -> RpcResult<bool> {
+        let address = match parse_address(&address) {
+            Ok(addr) => addr,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        let code_bytes = match hex::decode(code.trim_start_matches("0x")) {
+            Ok(bytes) => Bytes::from(bytes),
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        match self.state.set_code(address, code_bytes) {
+            Ok(success) => Ok(success),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn evm_snapshot(&self) -> RpcResult<String> {
+        match self.state.snapshot() {
+            Ok(id) => Ok(format!("0x{:x}", id)),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn evm_revert(&self, snapshot_id: String) -> RpcResult<bool> {
+        let id = match u64::from_str_radix(snapshot_id.trim_start_matches("0x"), 16) {
+            Ok(id) => id,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        match self.state.revert(id) {
+            Ok(success) => Ok(success),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+    
+    async fn evm_set_storage_at(&self, address: String, position: String, value: String) -> RpcResult<bool> {
+        let address = match parse_address(&address) {
+            Ok(addr) => addr,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        let position = match parse_u256(&position) {
+            Ok(pos) => pos,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        let value = match parse_u256(&value) {
+            Ok(val) => val,
+            Err(e) => return Err(JsonRpcError::Call(e.to_string())),
+        };
+        
+        match self.state.set_storage_at(address, position, value) {
+            Ok(success) => Ok(success),
+            Err(e) => Err(JsonRpcError::Call(e.to_string())),
+        }
+    }
+}
+```
+
+## 4. Main Function to Start the Server
+
+Finally, let's implement the main function to tie everything together:
+
+```rust
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+    // Parse command line arguments
+    let args: Vec<String> = std::env::args().collect();
+    let port = if args.len() > 1 {
+        args[1].parse::<u16>().unwrap_or(8545)
+    } else {
+        8545 // Default port
+    };
+    
+    let chain_id = if args.len() > 2 {
+        args[2].parse::<u64>().unwrap_or(1337)
+    } else {
+        1337 // Default chain ID for local development
+    };
+    
+    // Create the EVM state
+    let state = Arc::new(EvmState::new(chain_id));
+    
+    // Create the JSON-RPC API implementation
+    let eth_api = EthApiImpl::new(state);
+    
+    // Start the server
+    let addr = SocketAddr::from(([127, 0, 0, 1], port));
+    println!("Starting REVM JSON-RPC server on http://{} (Chain ID: {})", addr, chain_id);
+    
+    let server_handle = start_server(eth_api, addr).await?;
+    
+    // Wait for Ctrl+C
+    tokio::signal::ctrl_c().await?;
+    println!("Shutting down...");
+    
+    // Stop the server
+    server_handle.stop().unwrap();
+    
+    Ok(())
+}
+```
+
+## Example Usage: Deploying and Interacting with a Contract
+
+Let's see an example of using our REVM JSON-RPC server with ethers.js to deploy and interact with a simple smart contract:
+
+```javascript
+// Example script to test our JSON-RPC server using ethers.js
+
+const { ethers } = require("ethers");
+
+async function main() {
+  // Connect to our JSON-RPC server
+  const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
+  
+  // Create a wallet with a private key
+  const wallet = new ethers.Wallet("0x" + "1".repeat(64), provider);
+  
+  console.log("Connected to REVM JSON-RPC server");
+  console.log("Wallet address:", wallet.address);
+  
+  // Fund our wallet using evm_setBalance
+  await provider.send("evm_setBalance", [
+    wallet.address,
+    "0x" + ethers.utils.parseEther("100").toHexString().substring(2)
+  ]);
+  
+  const balance = await provider.getBalance(wallet.address);
+  console.log("Wallet balance:", ethers.utils.formatEther(balance), "ETH");
+  
+  // Simple Counter contract
+  const COUNTER_BYTECODE = "0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b60516000805490806077836099565b9190505550565b600060208284031215609457600080fd5b5035919050565b600060001982141560b757634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220223b76f32ae10c6fcee86076b19b7741bfdc6c692e328d2f3d7aaaa7609d1f5e64736f6c63430008110033";
+  
+  // Simple Counter ABI
+  const COUNTER_ABI = [
+    "function set(uint256 value) public",
+    "function count() public view returns (uint256)",
+    "function increment() public"
+  ];
+  
+  // Deploy the contract
+  console.log("Deploying Counter contract...");
+  const contractFactory = new ethers.ContractFactory(COUNTER_ABI, COUNTER_BYTECODE, wallet);
+  const counter = await contractFactory.deploy();
+  await counter.deployed();
+  console.log("Counter deployed at:", counter.address);
+  
+  // Use the contract
+  console.log("Initial count:", (await counter.count()).toString());
+  
+  const tx1 = await counter.set(42);
+  await tx1.wait();
+  console.log("Count after set(42):", (await counter.count()).toString());
+  
+  const tx2 = await counter.increment();
+  await tx2.wait();
+  console.log("Count after increment():", (await counter.count()).toString());
+  
+  // Create a snapshot
+  const snapshotId = await provider.send("evm_snapshot", []);
+  console.log("Created snapshot:", snapshotId);
+  
+  // Make more changes
+  const tx3 = await counter.increment();
+  await tx3.wait();
+  const tx4 = await counter.increment();
+  await tx4.wait();
+  console.log("Count after two more increments:", (await counter.count()).toString());
+  
+  // Revert to snapshot
+  await provider.send("evm_revert", [snapshotId]);
+  console.log("Reverted to snapshot");
+  console.log("Count after revert:", (await counter.count()).toString());
+  
+  // Mine a block
+  await provider.send("evm_mine", []);
+  const blockNumber = await provider.getBlockNumber();
+  console.log("Current block number:", blockNumber);
+  
+  // Get block information
+  const block = await provider.getBlock(blockNumber);
+  console.log("Block timestamp:", new Date(block.timestamp * 1000).toISOString());
+  
+  console.log("Test completed successfully!");
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
+```
+
+## Best Practices for Building a JSON-RPC API with REVM
+
+1. **Use Asynchronous Processing**: Make your API asynchronous to handle multiple concurrent requests efficiently.
+   ```rust
+   #[tokio::main]
+   async fn main() {
+       // Run the server asynchronously
+   }
+   ```
+
+2. **Implement Proper Error Handling**: Return informative error messages that follow the JSON-RPC specification.
+   ```rust
+   match result {
+       Ok(value) => Ok(value),
+       Err(e) => Err(JsonRpcError::Call(e.to_string())),
+   }
+   ```
+
+3. **Support Block Tags**: Properly handle "latest", "earliest", and "pending" block tags.
+   ```rust
+   match block_tag {
+       "latest" => blocks.len() as u64 - 1,
+       "earliest" => 0,
+       "pending" => blocks.len() as u64 - 1,
+       _ => parse_block_number(block_tag),
+   }
+   ```
+
+4. **Implement State Snapshots**: Allow users to create and revert to state snapshots for testing.
+   ```rust
+   // Create a snapshot
+   let snapshot_id = await provider.send("evm_snapshot", []);
+   // Revert to snapshot
+   await provider.send("evm_revert", [snapshot_id]);
+   ```
+
+5. **Use Proper Synchronization**: Protect shared state with Mutex or RwLock to handle concurrent requests.
+   ```rust
+   let mut evm = self.evm.lock().unwrap();
+   ```
+
+6. **Add Testing Methods**: Include methods like `evm_mine` and `evm_setBalance` to facilitate testing.
+   ```rust
+   #[method(name = "evm_setBalance")]
+   async fn evm_set_balance(&self, address: String, balance: String) -> RpcResult<bool>;
+   ```
+
+7. **Handle Big Numbers Correctly**: Use libraries like U256 for handling Ethereum's large numbers.
+   ```rust
+   fn u256_to_hex(value: U256) -> String {
+       // Properly format U256 to hex string
+   }
+   ```
+
+8. **Implement Transaction Pool**: For a production-ready node, implement a transaction pool to queue pending transactions.
+   ```rust
+   struct TransactionPool {
+       pending_transactions: Vec<TransactionData>,
+       // Other pool properties
+   }
+   ```
+
+9. **Consider Gas Calculation**: Implement accurate gas calculation for estimateGas calls.
+   ```rust
+   let gas_used = result.gas_used();
+   let gas_with_buffer = gas_used + (gas_used * 5 / 100); // Add 5% buffer
+   ```
+
+10. **Support Filter API**: Add support for filters and subscriptions for logs and new blocks.
+    ```rust
+    #[method(name = "eth_newFilter")]
+    async fn new_filter(&self, filter: FilterParams) -> RpcResult<String>;
+    ```
+
+## Next Steps
+
+Now that you've built a basic JSON-RPC API with REVM, you can:
+
+1. Extend it with additional JSON-RPC methods
+2. Implement a transaction pool for pending transactions
+3. Add support for the Filter API (eth_newFilter, eth_getFilterChanges, etc.)
+4. Integrate with external tools like MetaMask or Hardhat
+5. Implement WebSocket support for subscriptions
+6. Add persistent storage for blocks and state
+7. Expand the API with custom methods for your specific use case
+
+For more advanced topics, see the Expert Reference section, particularly "Deep Dive into REVM State Management" and "Implementing Custom Precompiles".
+
+---
+
+In this guide, we've explored how to use REVM to build a fully functional Ethereum JSON-RPC API server. By implementing the standard Ethereum JSON-RPC methods, we've created a node that can interact with tools like ethers.js, web3.js, and MetaMask. This provides a powerful starting point for building custom Ethereum clients, development environments, and testing frameworks.

@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/* Custom variables */
+:root {
+  --tevm-primary: #0085FF;
+  --tevm-secondary: #00C2FF;
+  --tevm-accent: #3BC9DB;
+}
+
+/* Dark mode adjustments if needed */
+:root.dark {
+  --tevm-primary: #0085FF;
+  --tevm-secondary: #00AAFF;
+}

@@ -1,0 +1,892 @@
+---
+title: State and Storage
+description: Detailed guide about state and storage in REVM (Rust Ethereum Virtual Machine)
+---
+
+# State and Storage
+
+This document explores REVM's state model, including how account and storage state is represented, accessed, and modified. You'll learn about database interfaces, state transitions, and journaling mechanisms.
+
+## Ethereum State Model
+
+Ethereum's state model is based on a global key-value store, where:
+
+- Keys are 160-bit addresses (accounts)
+- Values are account states, each consisting of:
+  - Nonce: A transaction count for externally owned accounts (EOAs) or a creation counter for contracts
+  - Balance: The amount of Ether owned by the account
+  - StorageRoot: Root hash of the account's storage trie
+  - CodeHash: Hash of the account's code (empty for EOAs)
+
+For contract accounts, there's also a secondary key-value store:
+- Keys are 256-bit integers (storage slots)
+- Values are 256-bit data values
+
+REVM implements this state model through its `Database` interface and related components.
+
+## State Representation in REVM
+
+### Account Structure
+
+In REVM, account state is represented through the `AccountInfo` structure:
+
+```rust
+pub struct AccountInfo {
+    /// Account balance.
+    pub balance: U256,
+    /// Account nonce.
+    pub nonce: u64,
+    /// Code hash.
+    pub code_hash: B256,
+    /// Code. If None and code_hash != EMPTY_CODE_HASH then we don't have it.
+    pub code: Option<Bytecode>,
+}
+```
+
+This structure contains the essential fields from the Ethereum state model, with an additional `code` field that optionally caches the account's bytecode.
+
+### Bytecode Representation
+
+Contract bytecode is stored in the `Bytecode` structure:
+
+```rust
+pub struct Bytecode {
+    bytes: Bytes,
+    // Optional analysis information
+    analysis: Option<BytecodeLocked<Analysis>>,
+}
+```
+
+This structure stores:
+- The raw bytecode bytes
+- Optional analysis information for execution optimizations
+
+### Storage Representation
+
+Storage in REVM is represented through a key-value mapping from storage keys to values:
+
+```rust
+pub type StorageMap = HashMap<U256, StorageValue>;
+
+pub struct StorageValue {
+    pub present_value: U256,
+    pub original_value: U256,
+}
+```
+
+The `StorageValue` structure tracks both:
+- The current value (`present_value`)
+- The original value at the start of the transaction (`original_value`)
+
+This dual tracking enables gas refunds for storage operations and proper state reversion on transaction failure.
+
+## Database Interfaces
+
+REVM defines several traits for accessing and modifying state:
+
+### Database Trait
+
+The core `Database` trait provides methods for reading account and storage state:
+
+```rust
+pub trait Database {
+    type Error: DBErrorMarker;
+
+    /// Get basic account information.
+    fn basic(&mut self, address: Address) -> Result<Option<AccountInfo>, Self::Error>;
+
+    /// Get account code by its hash.
+    fn code_by_hash(&mut self, code_hash: B256) -> Result<Bytecode, Self::Error>;
+
+    /// Get storage value of address at index.
+    fn storage(&mut self, address: Address, index: U256) -> Result<U256, Self::Error>;
+
+    /// Get block hash by block number.
+    fn block_hash(&mut self, number: u64) -> Result<B256, Self::Error>;
+}
+```
+
+### DatabaseRef Trait
+
+For read-only operations, REVM provides the `DatabaseRef` trait:
+
+```rust
+pub trait DatabaseRef {
+    type Error: DBErrorMarker;
+
+    fn basic_ref(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error>;
+    fn code_by_hash_ref(&self, code_hash: B256) -> Result<Bytecode, Self::Error>;
+    fn storage_ref(&self, address: Address, index: U256) -> Result<U256, Self::Error>;
+    fn block_hash_ref(&self, number: u64) -> Result<B256, Self::Error>;
+}
+```
+
+This trait enables non-mutable state access, which is important for operations like static calls.
+
+### DatabaseCommit Trait
+
+For persisting state changes, REVM provides the `DatabaseCommit` trait:
+
+```rust
+pub trait DatabaseCommit {
+    /// Commit changes to the database.
+    fn commit(&mut self, changes: HashMap<Address, Account>);
+}
+```
+
+This trait is implemented by database backends that support persisting state changes.
+
+## Database Implementations
+
+REVM provides several built-in database implementations:
+
+### EmptyDB
+
+A minimal database that always returns empty state:
+
+```rust
+#[derive(Clone, Debug, Default)]
+pub struct EmptyDB;
+
+impl Database for EmptyDB {
+    type Error = DatabaseError;
+
+    fn basic(&mut self, _: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        Ok(None)
+    }
+
+    fn code_by_hash(&mut self, _: B256) -> Result<Bytecode, Self::Error> {
+        Ok(Bytecode::default())
+    }
+
+    fn storage(&mut self, _: Address, _: U256) -> Result<U256, Self::Error> {
+        Ok(U256::ZERO)
+    }
+
+    fn block_hash(&mut self, _: u64) -> Result<B256, Self::Error> {
+        Ok(B256::default())
+    }
+}
+```
+
+This is useful for testing or as a base for other database implementations.
+
+### CacheDB
+
+A caching layer that sits on top of another database implementation:
+
+```rust
+pub struct CacheDB<DB> {
+    db: DB,
+    accounts: HashMap<Address, CacheAccount>,
+    block_hashes: HashMap<u64, B256>,
+    codes: HashMap<B256, Bytecode>,
+}
+```
+
+The `CacheDB` provides:
+- Caching of accounts, code, and storage
+- Tracking of state changes
+- Implementation of `DatabaseCommit` for persistence
+
+Example usage:
+
+```rust
+// Create a CacheDB with an EmptyDB backend
+let mut db = CacheDB::new(EmptyDB::default());
+
+// Add an account to the cache
+let account = AccountInfo {
+    balance: U256::from(10000000000000000000u64), // 10 ETH
+    nonce: 0,
+    code_hash: KECCAK_EMPTY,
+    code: None,
+};
+db.insert_account_info(address!("0x1000000000000000000000000000000000000000"), account);
+
+// Set storage
+db.insert_account_storage(
+    address!("0x1000000000000000000000000000000000000000"),
+    U256::ZERO,
+    U256::from(42),
+)?;
+```
+
+### InMemoryDB
+
+An in-memory database implementation that stores all state in memory:
+
+```rust
+pub struct InMemoryDB {
+    accounts: HashMap<Address, AccountInfo>,
+    storage: HashMap<(Address, U256), U256>,
+    block_hashes: HashMap<u64, B256>,
+}
+```
+
+This database is useful for testing and simulations that don't require persistence.
+
+### ForkDB
+
+A database implementation that forks state from a remote RPC provider:
+
+```rust
+pub struct ForkDB<P: Provider> {
+    provider: P,
+    block_id: BlockId,
+    cache: CacheDB<EmptyDB>,
+}
+```
+
+The `ForkDB` allows:
+- Reading state from a remote Ethereum node
+- Modifying state locally without affecting the remote node
+- Tracking and applying state changes
+
+Example usage:
+
+```rust
+// Create a provider for Ethereum mainnet
+let provider = JsonRpcProvider::new("https://mainnet.infura.io/v3/your-api-key");
+
+// Create a ForkDB that forks from the latest block
+let fork_db = ForkDB::new(provider, BlockId::Latest);
+
+// Create an EVM with the forked state
+let mut evm = Context::mainnet()
+    .with_db(fork_db)
+    .build_mainnet();
+
+// Now you can execute transactions against mainnet state
+// Changes will only affect your local fork, not the actual mainnet
+```
+
+## State Transitions and Journaling
+
+### The Journal
+
+The Journal is REVM's mechanism for tracking state changes during execution. It:
+- Records all modifications to accounts and storage
+- Enables rolling back changes on transaction failure
+- Tracks accessed addresses for EIP-2929 gas metering
+- Accumulates logs emitted during execution
+
+```rust
+pub struct Journal {
+    // Account changes
+    account_state: HashMap<Address, AccountStatus>,
+    // Storage changes
+    storage_state: HashMap<(Address, U256), StorageStatus>,
+    // Logs
+    logs: Vec<Log>,
+    // Accessed addresses
+    accessed_addresses: HashSet<Address>,
+    // Accessed storage slots
+    accessed_slots: HashSet<(Address, U256)>,
+}
+```
+
+### State Transitions
+
+When a transaction is executed, REVM follows these steps for state transitions:
+
+1. **Load Initial State**: Read account and storage state from the database
+2. **Record Original Values**: Store original values in the Journal
+3. **Apply Changes**: Modify state according to transaction execution
+4. **Record Logs**: Collect logs emitted during execution
+5. **Finalize State**: On success, finalize the state changes
+6. **Revert Changes**: On failure, revert to the original state
+
+Example of a state transition:
+
+```rust
+// Execute a transaction
+match evm.transact() {
+    Ok(result) => {
+        println!("Transaction successful");
+        
+        // Examine state changes
+        for (address, account) in result.state.iter() {
+            println!("Account changes for {}", address);
+            
+            // Check balance changes
+            if let Some(balance_change) = account.balance_changed() {
+                println!("  Balance change: {}", balance_change);
+            }
+            
+            // Check nonce changes
+            if account.nonce_changed() {
+                println!("  New nonce: {}", account.info.nonce);
+            }
+            
+            // Check storage changes
+            for (slot, value) in account.storage.iter() {
+                println!("  Storage slot {}: {} => {}", 
+                    slot, 
+                    value.original_value, 
+                    value.present_value
+                );
+            }
+        }
+        
+        // Commit changes to the database
+        if let Some(db) = evm.db() {
+            db.commit(result.state);
+        }
+    },
+    Err(error) => {
+        println!("Transaction failed: {:?}", error);
+        // State changes are automatically reverted
+    },
+}
+```
+
+### Committing Changes
+
+After successful execution, state changes can be committed to the database:
+
+```rust
+// Using transact_commit to automatically commit changes
+match evm.transact_commit() {
+    Ok(result) => {
+        println!("Transaction executed and changes committed");
+        println!("Gas used: {}", result.gas_used());
+    },
+    Err(error) => {
+        println!("Transaction failed: {:?}", error);
+    },
+}
+
+// Or manually committing changes after transact
+match evm.transact() {
+    Ok(result) => {
+        println!("Transaction executed successfully");
+        
+        // Manually commit the changes to the database
+        if let Some(db) = evm.db() {
+            db.commit(result.state);
+        }
+    },
+    Err(error) => {
+        println!("Transaction failed: {:?}", error);
+    },
+}
+```
+
+## Account State Operations
+
+REVM provides several methods for working with account state:
+
+### Reading Account State
+
+```rust
+// Read basic account information
+match db.basic(address) {
+    Ok(Some(account)) => {
+        println!("Account found:");
+        println!("Balance: {}", account.balance);
+        println!("Nonce: {}", account.nonce);
+        println!("Code hash: {}", account.code_hash);
+    },
+    Ok(None) => println!("Account not found"),
+    Err(error) => println!("Error reading account: {:?}", error),
+}
+
+// Read account code
+if let Ok(Some(account)) = db.basic(address) {
+    if account.code_hash != KECCAK_EMPTY {
+        match db.code_by_hash(account.code_hash) {
+            Ok(code) => println!("Contract code size: {} bytes", code.len()),
+            Err(error) => println!("Error reading code: {:?}", error),
+        }
+    }
+}
+```
+
+### Modifying Account State
+
+```rust
+// Create a new account
+let account = AccountInfo {
+    balance: U256::from(10000000000000000000u64), // 10 ETH
+    nonce: 0,
+    code_hash: KECCAK_EMPTY,
+    code: None, // No code for an EOA
+};
+db.insert_account_info(address, account);
+
+// Update account balance
+if let Ok(Some(mut account)) = db.basic(address) {
+    account.balance += U256::from(1000000000000000000u64); // Add 1 ETH
+    db.insert_account_info(address, account);
+}
+
+// Increment account nonce
+if let Ok(Some(mut account)) = db.basic(address) {
+    account.nonce += 1;
+    db.insert_account_info(address, account);
+}
+```
+
+### Deleting Accounts
+
+```rust
+// Delete an account
+db.remove_account(address);
+```
+
+## Storage Operations
+
+REVM provides methods for working with contract storage:
+
+### Reading Storage
+
+```rust
+// Read a storage slot
+match db.storage(contract_address, storage_slot) {
+    Ok(value) => println!("Storage value at slot {}: {}", storage_slot, value),
+    Err(error) => println!("Error reading storage: {:?}", error),
+}
+```
+
+### Writing Storage
+
+```rust
+// Write to a storage slot
+let storage_slot = U256::ZERO;
+let storage_value = U256::from(42);
+db.insert_account_storage(contract_address, storage_slot, storage_value)?;
+```
+
+### Storage Layout
+
+Understanding how Solidity maps variables to storage slots is important for working with contract storage:
+
+1. **State Variables**: Assigned sequential slots starting from 0
+   ```solidity
+   uint256 a; // slot 0
+   uint256 b; // slot 1
+   address c; // slot 2
+   ```
+
+2. **Mappings**: The value at key K in a mapping declared at slot S is stored at `keccak256(K . S)` where `.` is concatenation
+   ```solidity
+   mapping(address => uint256) balances; // declared at slot 0
+   
+   // balances[0x1234...] is stored at keccak256(0x1234...0000...0000)
+   ```
+
+3. **Dynamic Arrays**: The length is stored at slot S, and elements are stored at `keccak256(S) + i`
+   ```solidity
+   uint256[] array; // length stored at slot 0
+   
+   // array[i] is stored at keccak256(0) + i
+   ```
+
+4. **Structs**: Members are packed into slots where possible
+   ```solidity
+   struct Data {
+       uint128 a; // These two fit into slot 0
+       uint128 b;
+       uint256 c; // slot 1
+   }
+   ```
+
+REVM provides helper functions for computing storage slots:
+
+```rust
+// Compute storage slot for a mapping entry
+fn compute_mapping_slot(mapping_slot: U256, key: U256) -> U256 {
+    // Concatenate key and slot, then hash
+    let mut bytes = [0u8; 64];
+    key.to_be_bytes::<32>().iter().enumerate().for_each(|(i, b)| bytes[i] = *b);
+    mapping_slot.to_be_bytes::<32>().iter().enumerate().for_each(|(i, b)| bytes[32 + i] = *b);
+    U256::from_be_bytes(keccak256(&bytes))
+}
+
+// Compute storage slot for an array element
+fn compute_array_slot(array_slot: U256, index: U256) -> U256 {
+    // Hash the array slot and add the index
+    U256::from_be_bytes(keccak256(&array_slot.to_be_bytes::<32>())) + index
+}
+```
+
+## Journaling Mechanism
+
+REVM's journaling system is a key part of its state management, enabling:
+- Tracking all state changes
+- Rolling back changes on errors
+- Supporting gas refunds
+
+### Journal Structure
+
+The Journal tracks various types of state changes:
+
+```rust
+pub struct Journal {
+    // Account changes
+    account_state: HashMap<Address, AccountStatus>,
+    // Storage changes
+    storage_state: HashMap<(Address, U256), StorageStatus>,
+    // Logs
+    logs: Vec<Log>,
+    // Accessed addresses (for EIP-2929)
+    accessed_addresses: HashSet<Address>,
+    // Accessed storage slots (for EIP-2929)
+    accessed_slots: HashSet<(Address, U256)>,
+}
+```
+
+### Account Status
+
+The `AccountStatus` enum tracks different account states:
+
+```rust
+pub enum AccountStatus {
+    // Account exists in the DB
+    Existing {
+        info: AccountInfo,
+        // Original info before the transaction
+        original: Option<AccountInfo>,
+        // Storage changes
+        storage: StorageMap,
+        // Whether the account was modified
+        modified: bool,
+    },
+    // Account doesn't exist in the DB
+    NotExisting,
+    // Account was loaded but not modified
+    LoadedNotExisting,
+    // Account was destroyed
+    Destroyed {
+        // Original info before destruction
+        original: AccountInfo,
+    },
+}
+```
+
+### Storage Status
+
+The `StorageStatus` enum tracks storage states:
+
+```rust
+pub enum StorageStatus {
+    // Storage exists in the DB
+    Existing {
+        // Current value
+        value: U256,
+        // Original value before the transaction
+        original: Option<U256>,
+    },
+    // Storage doesn't exist in the DB
+    NotExisting,
+}
+```
+
+### Journal Operations
+
+The Journal provides operations for modifying and querying state:
+
+1. **Loading Accounts**:
+   ```rust
+   pub fn load_account(&mut self, address: Address) -> Result<&AccountStatus, Error>;
+   ```
+
+2. **Loading Storage**:
+   ```rust
+   pub fn sload(&mut self, address: Address, index: U256) -> Result<LoadedStorage, Error>;
+   ```
+
+3. **Modifying Storage**:
+   ```rust
+   pub fn sstore(&mut self, address: Address, index: U256, value: U256) -> Result<(), Error>;
+   ```
+
+4. **Modifying Balance**:
+   ```rust
+   pub fn add_balance(&mut self, address: Address, value: U256) -> Result<(), Error>;
+   pub fn sub_balance(&mut self, address: Address, value: U256) -> Result<(), Error>;
+   ```
+
+5. **Modifying Nonce**:
+   ```rust
+   pub fn increment_nonce(&mut self, address: Address) -> Result<(), Error>;
+   ```
+
+6. **Accessing Code**:
+   ```rust
+   pub fn code(&mut self, address: Address) -> Result<Bytecode, Error>;
+   ```
+
+7. **Creating/Destroying Accounts**:
+   ```rust
+   pub fn create_account(&mut self, address: Address, info: AccountInfo) -> Result<(), Error>;
+   pub fn destruct_account(&mut self, address: Address) -> Result<AccountInfo, Error>;
+   ```
+
+These operations ensure that all state changes are properly tracked and can be reverted if needed.
+
+## State Forking
+
+State forking is a powerful feature that allows REVM to execute transactions against a copy of a real Ethereum state.
+
+### ForkDB Implementation
+
+The `ForkDB` implementation in REVM enables state forking:
+
+```rust
+pub struct ForkDB<P: Provider> {
+    provider: P,
+    block_id: BlockId,
+    cache: CacheDB<EmptyDB>,
+}
+```
+
+It works by:
+1. Attempting to read state from the local cache first
+2. If not found, fetching from the remote provider
+3. Caching the fetched data locally
+4. Writing all changes to the local cache only
+
+### Forking Process
+
+The forking process involves these steps:
+
+1. **Initialize ForkDB**:
+   ```rust
+   // Create a provider
+   let provider = JsonRpcProvider::new("https://mainnet.infura.io/v3/your-api-key");
+   
+   // Create a ForkDB with the provider
+   let fork_db = ForkDB::new(provider, BlockId::Number(15_000_000));
+   ```
+
+2. **Create EVM with ForkDB**:
+   ```rust
+   let mut evm = Context::mainnet()
+       .with_db(fork_db)
+       .build_mainnet();
+   ```
+
+3. **Execute Transactions**:
+   ```rust
+   // All state operations now use the forked state
+   let result = evm.transact(tx)?;
+   ```
+
+4. **Access State**:
+   ```rust
+   // Reading account info from the fork
+   let account_info = evm.db().unwrap().basic(address)?;
+   ```
+
+### Forking Benefits
+
+State forking provides several benefits:
+- Testing against real-world state
+- Analyzing potential transaction impacts
+- Simulating protocol changes
+- Debugging issues in a controlled environment
+
+## Custom State Implementations
+
+REVM's flexible design allows for custom state implementations.
+
+### Example: Logging Database Wrapper
+
+This example creates a database wrapper that logs all state access:
+
+```rust
+struct LoggingDB<DB> {
+    inner: DB,
+}
+
+impl<DB: Database> Database for LoggingDB<DB> {
+    type Error = DB::Error;
+
+    fn basic(&mut self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        println!("Reading account: {}", address);
+        self.inner.basic(address)
+    }
+
+    fn code_by_hash(&mut self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        println!("Reading code by hash: {}", code_hash);
+        self.inner.code_by_hash(code_hash)
+    }
+
+    fn storage(&mut self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        println!("Reading storage: {} at slot {}", address, index);
+        self.inner.storage(address, index)
+    }
+
+    fn block_hash(&mut self, number: u64) -> Result<B256, Self::Error> {
+        println!("Reading block hash for block: {}", number);
+        self.inner.block_hash(number)
+    }
+}
+
+// Using the logging database
+let db = LoggingDB { inner: CacheDB::new(EmptyDB::default()) };
+let mut evm = Context::mainnet().with_db(db).build_mainnet();
+```
+
+### Example: Custom State Manager
+
+This more complex example implements a custom state manager:
+
+```rust
+struct MyStateManager {
+    accounts: HashMap<Address, AccountInfo>,
+    storage: HashMap<(Address, U256), U256>,
+    block_hashes: HashMap<u64, B256>,
+}
+
+impl MyStateManager {
+    fn new() -> Self {
+        Self {
+            accounts: HashMap::new(),
+            storage: HashMap::new(),
+            block_hashes: HashMap::new(),
+        }
+    }
+}
+
+#[derive(Debug)]
+struct MyStateError;
+impl std::fmt::Display for MyStateError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "MyStateError")
+    }
+}
+impl std::error::Error for MyStateError {}
+impl DBErrorMarker for MyStateError {}
+
+impl Database for MyStateManager {
+    type Error = MyStateError;
+    
+    fn basic(&mut self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        Ok(self.accounts.get(&address).cloned())
+    }
+    
+    fn code_by_hash(&mut self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        // In a real implementation, you would store and retrieve bytecode
+        Ok(Bytecode::default())
+    }
+    
+    fn storage(&mut self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        Ok(*self.storage.get(&(address, index)).unwrap_or(&U256::ZERO))
+    }
+    
+    fn block_hash(&mut self, number: u64) -> Result<B256, Self::Error> {
+        Ok(*self.block_hashes.get(&number).unwrap_or(&B256::default()))
+    }
+}
+
+impl DatabaseCommit for MyStateManager {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        for (address, account) in changes {
+            if let Some(info) = account.info {
+                self.accounts.insert(address, info);
+            } else {
+                self.accounts.remove(&address);
+            }
+            
+            for (slot, value) in account.storage {
+                if value.present_value == U256::ZERO {
+                    self.storage.remove(&(address, slot));
+                } else {
+                    self.storage.insert((address, slot), value.present_value);
+                }
+            }
+        }
+    }
+}
+
+// Using the custom state manager
+let state_manager = MyStateManager::new();
+let mut evm = Context::mainnet().with_db(state_manager).build_mainnet();
+```
+
+## Performance Considerations
+
+When working with REVM's state system, consider these performance tips:
+
+### 1. Use CacheDB for Optimization
+
+The `CacheDB` provides caching of recently accessed state, which can significantly improve performance:
+
+```rust
+let mut db = CacheDB::new(underlying_db);
+```
+
+### 2. Preload Frequently Accessed Accounts
+
+Preloading accounts that will be accessed frequently can improve performance:
+
+```rust
+// Preload accounts
+for address in frequently_accessed_addresses {
+    db.basic(address)?;
+}
+```
+
+### 3. Use DatabaseRef When Possible
+
+For read-only operations, use the `DatabaseRef` trait to avoid unnecessary cloning:
+
+```rust
+fn check_balance(db: &impl DatabaseRef, address: Address) -> Result<U256, Box<dyn Error>> {
+    let info = db.basic_ref(address)?.unwrap_or_default();
+    Ok(info.balance)
+}
+```
+
+### 4. Batch State Updates
+
+When making multiple state changes, batch them together before committing:
+
+```rust
+// Execute multiple transactions
+for tx in transactions {
+    let result = evm.transact(tx)?;
+    // Collect state changes
+    // ...
+}
+
+// Commit all changes at once
+db.commit(collected_changes);
+```
+
+### 5. Use Specialized Database Implementations
+
+For specific use cases, consider specialized database implementations:
+
+- **In-memory testing**: Use `EmptyDB` or `InMemoryDB`
+- **State analysis**: Use a custom logging database
+- **Production systems**: Use a database with persistence
+
+## Summary
+
+REVM's state model provides a flexible and efficient way to work with Ethereum state:
+
+- **State Representation**: Account and storage state are represented through `AccountInfo` and storage key-value pairs
+- **Database Interfaces**: The `Database`, `DatabaseRef`, and `DatabaseCommit` traits define the interface for state access
+- **Database Implementations**: REVM provides several implementations including `EmptyDB`, `CacheDB`, and `ForkDB`
+- **State Transitions**: Changes to state are tracked through the Journal mechanism
+- **State Operations**: REVM provides operations for reading and modifying account and storage state
+- **State Forking**: The `ForkDB` implementation allows executing against a fork of the Ethereum state
+- **Custom Implementations**: The flexible design allows for custom state implementations
+
+Understanding these concepts allows for efficient and effective use of REVM's state system, whether for simple transaction execution or complex custom EVM implementations.
+
+## Next Steps
+
+Now that you understand REVM's state model, you might want to explore:
+
+- [Transaction Processing](/intermediate-concepts/2.4-transaction-processing): Learn about the transaction lifecycle in REVM
+- [Block Processing](/intermediate-concepts/2.5-block-processing): Understand how REVM processes blocks of transactions
+- [EVM Customization](/intermediate-concepts/2.6-evm-customization): Learn how to customize REVM's behavior
+
+---
+
+**Note**: When working with storage in real contracts, it's important to understand the specific storage layout used by the contract. The examples in this document are simplified for clarity.

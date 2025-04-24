@@ -1,0 +1,43 @@
+---
+title: Introduction to REVM
+description: Overview of the Rust Ethereum Virtual Machine
+---
+
+# Introduction to REVM
+
+REVM (Rust Ethereum Virtual Machine) is a high-performance implementation of the Ethereum Virtual Machine written in Rust. It is designed to be modular, efficient, and easily integrated into various applications.
+
+## What is REVM?
+
+REVM is a Rust implementation of the Ethereum Virtual Machine (EVM), the runtime environment for smart contracts on the Ethereum blockchain. It executes the bytecode of Ethereum smart contracts with high efficiency and provides flexible interfaces for integration into different systems.
+
+## Key Features
+
+- **Performance**: Built in Rust for high-performance EVM execution
+- **Modularity**: Cleanly separated components with well-defined interfaces
+- **Flexibility**: Customizable database backends and execution contexts
+- **Correctness**: Adheres to Ethereum specifications and passes test suites
+- **Security**: Leverages Rust's memory safety guarantees
+- **Extensibility**: Easy to extend with custom precompiles and handlers
+
+## How REVM is Used in Tevm
+
+REVM serves as the core execution engine for Tevm, providing:
+
+- Efficient contract execution
+- State management
+- Gas metering
+- Bytecode processing
+
+This allows Tevm to offer a complete Ethereum-compatible environment that can run in various JavaScript environments including browsers and Node.js.
+
+## Documentation Structure
+
+This documentation is organized into several sections:
+
+1. **Beginner Tutorial**: Step-by-step guide to getting started with REVM
+2. **Intermediate Concepts**: Deeper understanding of REVM architecture and concepts
+3. **Examples**: Practical examples of common REVM usage patterns
+4. **Expert Reference**: Detailed technical documentation for advanced users
+
+Whether you're new to Ethereum development or an experienced developer looking to leverage REVM's capabilities, this documentation aims to provide the information you need.

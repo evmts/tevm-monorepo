@@ -1,0 +1,33 @@
+{
+  "name": "@tevm/revm-docs",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vocs dev",
+    "build": "bun build:app",
+    "build:app": "vocs build",
+    "preview": "vocs preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.15",
+    "ethers": "^6.13.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^4.0.15",
+    "tevm": "workspace:^",
+    "viem": "^2.23.9",
+    "vitest": "^3.0.9",
+    "vocs": "1.0.0-alpha.62"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.8.2"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

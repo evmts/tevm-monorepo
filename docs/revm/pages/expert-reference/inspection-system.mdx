@@ -1,0 +1,952 @@
+---
+title: 4.8 Inspection System
+description: Detailed guide about 4.8 inspection system in REVM (Rust Ethereum Virtual Machine)
+---
+
+# 4.8 Inspection System
+
+The inspection system is one of REVM's most powerful features, providing a comprehensive way to monitor, trace, and debug EVM execution. This reference document covers the Inspector trait in depth, execution hooks, tracing formats, and debugging capabilities.
+
+## Inspector Trait
+
+The `Inspector` trait is the foundation of REVM's inspection system, allowing code to hook into various points of EVM execution. Implementing this trait gives you access to execution events before and after they occur, with full visibility into the EVM's state.
+
+```rust
+pub trait Inspector: Clone + Send + Sync {
+    // Main execution hooks
+    fn initialize_interp(
+        &mut self,
+        interp: &mut Interpreter,
+        context: &Context,
+    ) -> InstructionResult;
+    
+    fn step(
+        &mut self,
+        interp: &mut Interpreter,
+        context: &Context,
+    ) -> InstructionResult;
+    
+    fn step_end(
+        &mut self,
+        interp: &mut Interpreter,
+        context: &Context,
+        eval: InstructionResult,
+    ) -> InstructionResult;
+    
+    fn call(
+        &mut self,
+        context: &Context,
+        call: &Call,
+        gas: u64,
+    ) -> Option<(InstructionResult, Gas, Bytes)>;
+    
+    fn call_end(
+        &mut self,
+        context: &Context,
+        call: &Call,
+        gas: u64,
+        result: InstructionResult,
+        return_data: &Bytes,
+    ) -> (InstructionResult, Gas, Bytes);
+    
+    // Storage access hooks
+    fn sload(
+        &mut self,
+        context: &Context,
+        address: &Address,
+        key: &U256,
+        value: &U256,
+    ) -> Option<U256>;
+    
+    fn sstore(
+        &mut self,
+        context: &Context,
+        address: &Address,
+        key: &U256,
+        value: &U256,
+    ) -> Option<(InstructionResult, Option<U256>)>;
+    
+    // Creation hooks
+    fn create(
+        &mut self,
+        context: &Context,
+        call: &Call,
+        gas: u64,
+    ) -> Option<(InstructionResult, Option<Address>, Gas, Bytes)>;
+    
+    fn create_end(
+        &mut self,
+        context: &Context,
+        call: &Call,
+        gas: u64,
+        result: InstructionResult,
+        address: Option<Address>,
+        return_data: &Bytes,
+    ) -> (InstructionResult, Option<Address>, Gas, Bytes);
+    
+    // Log processing
+    fn log(&mut self, context: &Context, log: &Log);
+    
+    // Program completion
+    fn selfdestruct(&mut self, context: &Context, address: &Address, target: &Address, value: U256);
+}
+```
+
+### Inspector Default Implementations
+
+The `Inspector` trait provides default implementations for all methods, making it easy to implement just the hooks you need:
+
+```rust
+impl Inspector for () {
+    // Default implementation returns None or the original inputs,
+    // effectively making it a no-op inspector
+}
+```
+
+## Main Inspection Hooks
+
+### Instruction Level Hooks
+
+These hooks are called for every EVM instruction:
+
+#### `initialize_interp`
+
+Called when an interpreter is initialized, before any execution starts.
+
+```rust
+fn initialize_interp(
+    &mut self,
+    interp: &mut Interpreter,
+    context: &Context,
+) -> InstructionResult {
+    // Perform setup or validation before execution begins
+    // Return CONTINUE to proceed or another result to halt execution
+    InstructionResult::Continue
+}
+```
+
+#### `step`
+
+Called before each instruction is executed. This is the most frequently called hook.
+
+```rust
+fn step(
+    &mut self,
+    interp: &mut Interpreter,
+    context: &Context,
+) -> InstructionResult {
+    // Access current execution state:
+    let pc = interp.program_counter();
+    let opcode = interp.current_opcode();
+    let stack = interp.stack();
+    let memory = interp.memory();
+    
+    // Inspect state, log information, etc.
+    
+    // Return CONTINUE to proceed or another result to halt execution
+    InstructionResult::Continue
+}
+```
+
+#### `step_end`
+
+Called after each instruction is executed.
+
+```rust
+fn step_end(
+    &mut self,
+    interp: &mut Interpreter,
+    context: &Context,
+    eval: InstructionResult,
+) -> InstructionResult {
+    // Check the result of instruction execution
+    match eval {
+        InstructionResult::Continue => {
+            // Instruction succeeded, continue execution
+        }
+        _ => {
+            // Instruction failed or terminated execution
+        }
+    }
+    
+    // Return eval to preserve original result or another result to override it
+    eval
+}
+```
+
+### Call Level Hooks
+
+These hooks are called for contract calls (CALL, DELEGATECALL, STATICCALL):
+
+#### `call`
+
+Called before a contract call is executed.
+
+```rust
+fn call(
+    &mut self,
+    context: &Context,
+    call: &Call,
+    gas: u64,
+) -> Option<(InstructionResult, Gas, Bytes)> {
+    // Inspect call details
+    let caller = call.caller;
+    let target = call.address;
+    let value = call.value;
+    let calldata = &call.input;
+    
+    // Return None to proceed with the call normally
+    // Return Some((result, gas, data)) to skip the call and use the returned values instead
+    None
+}
+```
+
+#### `call_end`
+
+Called after a contract call completes.
+
+```rust
+fn call_end(
+    &mut self,
+    context: &Context,
+    call: &Call,
+    gas: u64,
+    result: InstructionResult,
+    return_data: &Bytes,
+) -> (InstructionResult, Gas, Bytes) {
+    // Process call results
+    if result == InstructionResult::Success {
+        // Call succeeded
+    } else {
+        // Call failed with specific result
+    }
+    
+    // Return original values or modify them to change the outcome
+    (result, gas, return_data.clone())
+}
+```
+
+### Contract Creation Hooks
+
+#### `create`
+
+Called before a contract creation (CREATE, CREATE2).
+
+```rust
+fn create(
+    &mut self,
+    context: &Context,
+    call: &Call,
+    gas: u64,
+) -> Option<(InstructionResult, Option<Address>, Gas, Bytes)> {
+    // Inspect creation details
+    let creator = call.caller;
+    let init_code = &call.input;
+    let endowment = call.value;
+    
+    // Return None to proceed with the creation normally
+    // Return Some((result, address, gas, data)) to skip creation and use returned values
+    None
+}
+```
+
+#### `create_end`
+
+Called after contract creation completes.
+
+```rust
+fn create_end(
+    &mut self,
+    context: &Context,
+    call: &Call,
+    gas: u64,
+    result: InstructionResult,
+    address: Option<Address>,
+    return_data: &Bytes,
+) -> (InstructionResult, Option<Address>, Gas, Bytes) {
+    // Process creation results
+    if let Some(addr) = address {
+        // Contract created successfully at this address
+    } else {
+        // Creation failed
+    }
+    
+    // Return original values or modify them to change the outcome
+    (result, address, gas, return_data.clone())
+}
+```
+
+### Storage Access Hooks
+
+#### `sload`
+
+Called when a contract loads a value from storage (SLOAD).
+
+```rust
+fn sload(
+    &mut self,
+    context: &Context,
+    address: &Address,
+    key: &U256,
+    value: &U256,
+) -> Option<U256> {
+    // Inspect storage load
+    // Contract at `address` is reading `key` with resulting `value`
+    
+    // Return None to use the original value
+    // Return Some(new_value) to override the value being loaded
+    None
+}
+```
+
+#### `sstore`
+
+Called when a contract stores a value in storage (SSTORE).
+
+```rust
+fn sstore(
+    &mut self,
+    context: &Context,
+    address: &Address,
+    key: &U256,
+    value: &U256,
+) -> Option<(InstructionResult, Option<U256>)> {
+    // Inspect storage store
+    // Contract at `address` is storing `value` at `key`
+    
+    // Return None to proceed with the original store
+    // Return Some((result, value)) to override the operation
+    None
+}
+```
+
+### Event Hooks
+
+#### `log`
+
+Called when a contract emits a log (LOG0, LOG1, ...).
+
+```rust
+fn log(&mut self, context: &Context, log: &Log) {
+    // Process log entry
+    let address = log.address;
+    let topics = &log.topics;
+    let data = &log.data;
+    
+    // Log entries can't be modified or prevented
+}
+```
+
+#### `selfdestruct`
+
+Called when a contract self-destructs (SELFDESTRUCT).
+
+```rust
+fn selfdestruct(
+    &mut self, 
+    context: &Context, 
+    address: &Address, 
+    target: &Address, 
+    value: U256
+) {
+    // Process self-destruct operation
+    // Contract at `address` is self-destructing and sending `value` to `target`
+    
+    // Self-destruct can't be modified or prevented
+}
+```
+
+## Common Inspector Implementations
+
+REVM includes several built-in inspector implementations for common use cases:
+
+### NoOpInspector
+
+The simplest inspector that does nothing:
+
+```rust
+pub struct NoOpInspector;
+
+impl Inspector for NoOpInspector {
+    // All methods use default implementation
+}
+```
+
+### GasInspector
+
+Tracks gas usage during execution:
+
+```rust
+pub struct GasInspector {
+    gas_used_per_opcode: HashMap<u8, u64>,
+    total_gas_used: u64,
+}
+
+impl Inspector for GasInspector {
+    fn step(
+        &mut self,
+        interp: &mut Interpreter,
+        _context: &Context,
+    ) -> InstructionResult {
+        let opcode = interp.current_opcode();
+        let gas_before = interp.gas.remaining();
+        
+        InstructionResult::Continue
+    }
+    
+    fn step_end(
+        &mut self,
+        interp: &mut Interpreter,
+        _context: &Context,
+        eval: InstructionResult,
+    ) -> InstructionResult {
+        if eval == InstructionResult::Continue {
+            let opcode = interp.last_opcode();
+            let gas_used = self.gas_before - interp.gas.remaining();
+            
+            *self.gas_used_per_opcode.entry(opcode).or_default() += gas_used;
+            self.total_gas_used += gas_used;
+        }
+        
+        eval
+    }
+}
+```
+
+### TracingInspector
+
+Collects a full execution trace:
+
+```rust
+pub struct TracingInspector {
+    trace: Vec<ExecutionStep>,
+    current_step: Option<ExecutionStep>,
+}
+
+impl Inspector for TracingInspector {
+    fn step(
+        &mut self,
+        interp: &mut Interpreter,
+        context: &Context,
+    ) -> InstructionResult {
+        let pc = interp.program_counter();
+        let opcode = interp.current_opcode();
+        let stack_clone = interp.stack().data().clone();
+        let memory_clone = interp.memory().clone();
+        
+        self.current_step = Some(ExecutionStep {
+            pc,
+            opcode,
+            stack: stack_clone,
+            memory: memory_clone,
+            gas_remaining: interp.gas.remaining(),
+            ..Default::default()
+        });
+        
+        InstructionResult::Continue
+    }
+    
+    fn step_end(
+        &mut self,
+        interp: &mut Interpreter,
+        _context: &Context,
+        eval: InstructionResult,
+    ) -> InstructionResult {
+        if let Some(mut step) = self.current_step.take() {
+            step.gas_used = step.gas_remaining - interp.gas.remaining();
+            step.result = eval;
+            self.trace.push(step);
+        }
+        
+        eval
+    }
+    
+    // Implement other methods to track calls, storage ops, etc.
+}
+```
+
+### StackSnapshotInspector
+
+Captures stack state at specific program counters:
+
+```rust
+pub struct StackSnapshotInspector {
+    snapshots: HashMap<u64, Vec<U256>>,
+    target_pcs: HashSet<u64>,
+}
+
+impl Inspector for StackSnapshotInspector {
+    fn step(
+        &mut self,
+        interp: &mut Interpreter,
+        _context: &Context,
+    ) -> InstructionResult {
+        let pc = interp.program_counter();
+        
+        if self.target_pcs.contains(&pc) {
+            let stack_clone = interp.stack().data().clone();
+            self.snapshots.insert(pc, stack_clone);
+        }
+        
+        InstructionResult::Continue
+    }
+}
+```
+
+## Building Custom Inspectors
+
+Creating your own inspector typically involves defining a struct and implementing the `Inspector` trait:
+
+```rust
+pub struct MyCustomInspector {
+    // Your inspector's state
+    call_depth: usize,
+    interesting_addresses: HashSet<Address>,
+    storage_changes: HashMap<Address, HashMap<U256, (U256, U256)>>, // (address, (key, (old, new)))
+}
+
+impl Inspector for MyCustomInspector {
+    // Implement only the hooks you need
+    
+    fn call(
+        &mut self,
+        context: &Context,
+        call: &Call,
+        _gas: u64,
+    ) -> Option<(InstructionResult, Gas, Bytes)> {
+        self.call_depth += 1;
+        println!("Call depth: {}", self.call_depth);
+        
+        if self.interesting_addresses.contains(&call.address) {
+            println!("Calling interesting contract: {}", call.address);
+        }
+        
+        None
+    }
+    
+    fn call_end(
+        &mut self,
+        _context: &Context,
+        _call: &Call,
+        _gas: u64,
+        result: InstructionResult,
+        _return_data: &Bytes,
+    ) -> (InstructionResult, Gas, Bytes) {
+        self.call_depth -= 1;
+        
+        if result != InstructionResult::Success {
+            println!("Call failed with result: {:?}", result);
+        }
+        
+        (result, _gas, _return_data.clone())
+    }
+    
+    fn sstore(
+        &mut self,
+        _context: &Context,
+        address: &Address,
+        key: &U256,
+        new_value: &U256,
+    ) -> Option<(InstructionResult, Option<U256>)> {
+        // For interesting contracts, track storage changes
+        if self.interesting_addresses.contains(address) {
+            let old_value = _context.state.storage(*address, *key).unwrap_or_default();
+            
+            self.storage_changes
+                .entry(*address)
+                .or_default()
+                .entry(*key)
+                .or_insert((old_value, *new_value));
+        }
+        
+        None
+    }
+}
+```
+
+### Combining Inspectors
+
+REVM allows combining multiple inspectors with the `inspector_chain!` macro:
+
+```rust
+use revm::inspector_chain;
+
+let gas_inspector = GasInspector::new();
+let tracing_inspector = TracingInspector::new();
+let my_inspector = MyCustomInspector::new();
+
+// Chain them together
+let combined_inspector = inspector_chain!(
+    gas_inspector,
+    tracing_inspector,
+    my_inspector
+);
+
+// Use the combined inspector with the EVM
+let result = evm.inspect_with(combined_inspector);
+```
+
+## Tracing Formats
+
+REVM supports multiple tracing formats for capturing execution data:
+
+### Standard Trace Format
+
+A detailed step-by-step trace of execution:
+
+```rust
+pub struct StandardTrace {
+    pub steps: Vec<ExecutionStep>,
+    pub gas: u64,
+    pub failed: bool,
+    pub return_value: Bytes,
+}
+
+pub struct ExecutionStep {
+    pub pc: u64,
+    pub opcode: u8,
+    pub gas: u64,
+    pub gas_cost: u64,
+    pub memory: Option<MemoryAccessTrace>,
+    pub stack: Option<Vec<U256>>,
+    pub storage: Option<StorageAccessTrace>,
+    pub depth: usize,
+    pub error: Option<String>,
+}
+```
+
+### Call Trace Format
+
+A hierarchical trace of contract calls:
+
+```rust
+pub struct CallTrace {
+    pub calls: Vec<CallTraceNode>,
+    pub gas_used: u64,
+    pub failed: bool,
+    pub return_data: Bytes,
+}
+
+pub struct CallTraceNode {
+    pub call_type: CallType,
+    pub from: Address,
+    pub to: Address,
+    pub value: U256,
+    pub gas: u64,
+    pub gas_used: u64,
+    pub input: Bytes,
+    pub output: Bytes,
+    pub error: Option<String>,
+    pub calls: Vec<CallTraceNode>,
+}
+```
+
+### Storage Change Trace
+
+A detailed log of all storage changes:
+
+```rust
+pub struct StorageChangeTrace {
+    pub changes: HashMap<Address, HashMap<U256, (U256, U256)>>, // (address, (key, (before, after)))
+}
+```
+
+## Advanced Inspection Techniques
+
+### Conditional Tracing
+
+Only activate tracing when specific conditions are met:
+
+```rust
+pub struct ConditionalInspector<I> {
+    inner: I,
+    active: bool,
+    condition: Box<dyn Fn(&Context, &Call) -> bool>,
+}
+
+impl<I: Inspector> Inspector for ConditionalInspector<I> {
+    fn call(
+        &mut self,
+        context: &Context,
+        call: &Call,
+        gas: u64,
+    ) -> Option<(InstructionResult, Gas, Bytes)> {
+        if (self.condition)(context, call) {
+            self.active = true;
+        }
+        
+        if self.active {
+            self.inner.call(context, call, gas)
+        } else {
+            None
+        }
+    }
+    
+    // Forward other methods to inner inspector when active
+}
+```
+
+### Full Access Context
+
+The `Context` passed to inspector methods provides deep access to EVM state:
+
+```rust
+pub struct Context<'a, DB: Database> {
+    pub state: &'a mut EvmState<DB>,
+    pub env: &'a Env,
+    pub journaled_state: &'a mut JournaledState,
+    pub precompiles: &'a Precompiles,
+}
+```
+
+With this, inspectors can:
+- Read account balances: `context.state.get_account(address)`
+- Access contract storage: `context.state.storage(address, key)`
+- View environment info: `context.env.block.number`
+- Examine the journal: `context.journaled_state.snapshots`
+
+## Debugging Capabilities
+
+REVM inspectors enable powerful debugging capabilities:
+
+### Code Coverage Analysis
+
+```rust
+pub struct CoverageInspector {
+    covered_pcs: HashMap<Address, HashSet<u64>>,
+    coverage_by_contract: HashMap<Address, (HashSet<u64>, usize)>, // (covered PCs, total PCs)
+}
+
+impl Inspector for CoverageInspector {
+    fn step(
+        &mut self,
+        interp: &mut Interpreter,
+        context: &Context,
+    ) -> InstructionResult {
+        let address = context.env.tx.address;
+        let pc = interp.program_counter();
+        
+        // Record this PC as covered for this contract
+        self.covered_pcs.entry(address).or_default().insert(pc);
+        
+        InstructionResult::Continue
+    }
+}
+```
+
+### State Validation
+
+```rust
+pub struct StateValidationInspector {
+    invariants: Vec<Box<dyn Fn(&Context) -> Result<(), String>>>,
+    validation_failures: Vec<(Address, u64, String)>,
+}
+
+impl Inspector for StateValidationInspector {
+    fn step_end(
+        &mut self,
+        interp: &mut Interpreter,
+        context: &Context,
+        eval: InstructionResult,
+    ) -> InstructionResult {
+        if eval == InstructionResult::Continue {
+            let pc = interp.program_counter();
+            let address = context.env.tx.address;
+            
+            // Check all invariants
+            for invariant in &self.invariants {
+                if let Err(reason) = invariant(context) {
+                    self.validation_failures.push((address, pc, reason));
+                    // Optionally halt execution on failure
+                    // return InstructionResult::Revert;
+                }
+            }
+        }
+        
+        eval
+    }
+}
+```
+
+### Transaction Simulation with Reverts
+
+```rust
+pub struct RevertCaptureInspector {
+    pub error_data: Option<Bytes>,
+    pub revert_pc: Option<u64>,
+    pub revert_reason: Option<String>,
+}
+
+impl Inspector for RevertCaptureInspector {
+    fn step_end(
+        &mut self,
+        interp: &mut Interpreter,
+        _context: &Context,
+        eval: InstructionResult,
+    ) -> InstructionResult {
+        if eval == InstructionResult::Revert {
+            self.revert_pc = Some(interp.program_counter());
+            self.error_data = Some(interp.return_value().clone());
+            
+            // Try to decode standard revert reason
+            if self.error_data.as_ref().unwrap().len() >= 4 + 32 + 32 {
+                // Skip function selector (4 bytes) and offset (32 bytes)
+                let data = &self.error_data.as_ref().unwrap()[4+32..];
+                if data.len() >= 32 {
+                    let str_length = U256::from_big_endian(&data[0..32]).as_usize();
+                    if data.len() >= 32 + str_length {
+                        let reason = String::from_utf8_lossy(&data[32..32+str_length]);
+                        self.revert_reason = Some(reason.to_string());
+                    }
+                }
+            }
+        }
+        
+        eval
+    }
+}
+```
+
+## Performance Considerations
+
+Inspectors can have a significant impact on EVM performance:
+
+1. **Memory Usage**: Capturing full traces can consume large amounts of memory
+2. **CPU Overhead**: Inspecting every step adds processing time
+3. **Selective Activation**: Only activate inspectors when needed
+4. **Data Filtering**: Only collect data you need (e.g., only certain contracts)
+5. **Buffer Management**: For long-running processes, periodically flush trace data
+
+### Optimizing Inspector Performance
+
+```rust
+pub struct OptimizedTraceInspector {
+    // Use pre-allocated buffers
+    trace_buffer: Vec<ExecutionStep>,
+    buffer_size: usize,
+    
+    // Only trace specific contracts
+    trace_targets: HashSet<Address>,
+    
+    // Skip common opcodes that are less interesting
+    skip_opcodes: HashSet<u8>,
+}
+
+impl Inspector for OptimizedTraceInspector {
+    fn step(
+        &mut self,
+        interp: &mut Interpreter,
+        context: &Context,
+    ) -> InstructionResult {
+        let address = context.env.tx.address;
+        
+        // Only trace target contracts
+        if !self.trace_targets.contains(&address) {
+            return InstructionResult::Continue;
+        }
+        
+        let opcode = interp.current_opcode();
+        
+        // Skip common, less interesting opcodes
+        if self.skip_opcodes.contains(&opcode) {
+            return InstructionResult::Continue;
+        }
+        
+        // Capture step data...
+        
+        // Check if buffer is full and needs processing
+        if self.trace_buffer.len() >= self.buffer_size {
+            self.process_buffer();
+        }
+        
+        InstructionResult::Continue
+    }
+}
+```
+
+## Best Practices for Inspectors
+
+1. **Be Selective**: Only implement the hooks you need
+2. **Avoid Mutations**: Changing state can lead to unexpected behavior
+3. **Early Returns**: Use condition checks to skip expensive processing
+4. **Buffer Management**: For large traces, process data in chunks
+5. **Error Handling**: Be robust when parsing and processing data
+6. **Context Usage**: Take advantage of the rich context provided
+7. **Chain Inspectors**: Combine focused inspectors rather than building monolithic ones
+8. **Memory Management**: Avoid unnecessary cloning of large data structures
+
+## Inspector Use Cases
+
+### Smart Contract Debugging
+
+```rust
+// Debugging a specific function by its signature
+let function_sig = [0x23, 0x45, 0x67, 0x89]; // First 4 bytes of keccak256("myFunction()")
+
+let debug_inspector = ConditionalInspector {
+    inner: TracingInspector::new(),
+    active: false,
+    condition: Box::new(move |_context, call| {
+        // Only activate when the target function is called
+        call.input.len() >= 4 && call.input[0..4] == function_sig
+    }),
+};
+
+// Execute with the inspector
+let result = evm.inspect_with(debug_inspector);
+
+// Analyze the trace
+for step in debug_inspector.inner.trace {
+    // Process debugging information
+}
+```
+
+### Security Analysis
+
+```rust
+// Detecting reentrancy
+let reentrancy_detector = ReentrancyInspector {
+    call_stack: Vec::new(),
+    potential_reentrancy: Vec::new(),
+    storage_reads: HashMap::new(),
+    storage_writes: HashMap::new(),
+};
+
+// Execute with the inspector
+let result = evm.inspect_with(reentrancy_detector);
+
+// Check for reentrancy issues
+if !reentrancy_detector.potential_reentrancy.is_empty() {
+    println!("Potential reentrancy detected!");
+    for (address, call_depth) in reentrancy_detector.potential_reentrancy {
+        println!("  at address {} with call depth {}", address, call_depth);
+    }
+}
+```
+
+### Gas Optimization
+
+```rust
+// Finding gas-intensive operations
+let gas_inspector = GasInspector::new();
+
+// Execute with the inspector
+let result = evm.inspect_with(gas_inspector);
+
+// Analyze gas usage
+let mut sorted_opcodes: Vec<_> = gas_inspector.gas_used_per_opcode.iter().collect();
+sorted_opcodes.sort_by(|a, b| b.1.cmp(a.1));
+
+println!("Top gas-consuming opcodes:");
+for (opcode, gas) in sorted_opcodes.iter().take(10) {
+    println!("  {:?}: {} gas", Opcode::from_u8(*opcode), gas);
+}
+```
+
+## Conclusion
+
+REVM's inspection system provides a powerful framework for monitoring, debugging, and extending EVM execution. By implementing the `Inspector` trait, you can create tools for debugging, testing, security analysis, gas optimization, and more.
+
+The flexibility of the system allows you to focus on the specific aspects of execution you're interested in while maintaining high performance by only implementing the hooks you need.
+
+For advanced use cases, you can combine multiple inspectors, create conditional activation logic, and implement sophisticated analysis and debugging techniques to gain deep insights into smart contract execution.

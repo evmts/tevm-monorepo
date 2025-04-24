@@ -1,0 +1,1232 @@
+---
+title: EVM Customization
+description: Detailed guide about evm customization in REVM (Rust Ethereum Virtual Machine)
+---
+
+# EVM Customization
+
+This document explores how to customize and extend REVM for specialized use cases. You'll learn about extension points, custom EVM implementations, instruction and gas customization, precompile development, and real-world examples.
+
+## Customization Overview
+
+REVM is designed with extensibility in mind, allowing for customization at various levels:
+
+1. **EVM Framework**: Create custom EVM variants with specialized behavior
+2. **Instructions**: Modify opcode behavior or add custom opcodes
+3. **Precompiles**: Add custom precompiled contracts
+4. **Gas Rules**: Customize gas costs and refund rules
+5. **State Management**: Implement custom state handling
+
+These customization options enable REVM to support various Ethereum-compatible chains, Layer 2 solutions, and specialized applications.
+
+## Extension Points
+
+REVM provides several key extension points for customization.
+
+### Trait-Based Design
+
+The foundation of REVM's extensibility is its trait-based design:
+
+```rust
+// The core EVM trait
+pub trait EvmTr {
+    type Context: ContextTr;
+    type Instructions: InstructionProvider;
+    type Precompiles: PrecompileProvider;
+    
+    // Methods to access components
+    fn ctx(&mut self) -> &mut Self::Context;
+    fn ctx_ref(&self) -> &Self::Context;
+    fn ctx_instructions(&mut self) -> (&mut Self::Context, &mut Self::Instructions);
+    fn ctx_precompiles(&mut self) -> (&mut Self::Context, &mut Self::Precompiles);
+}
+
+// Context trait
+pub trait ContextTr {
+    type Tx: TxTr;
+    type Block: BlockTr;
+    type Cfg: CfgTr;
+    type Journal: JournalTr;
+    type Db: Database;
+    
+    // Methods to access components
+    fn tx(&self) -> &Self::Tx;
+    fn block(&self) -> &Self::Block;
+    fn cfg(&self) -> &Self::Cfg;
+    fn journal(&mut self) -> &mut Self::Journal;
+    fn db(&mut self) -> &mut Self::Db;
+}
+
+// Handler trait
+pub trait Handler {
+    type Evm: EvmTr;
+    type Error;
+    type Frame;
+    type HaltReason;
+    
+    // Core execution methods
+    fn run(&self, evm: &mut Self::Evm) -> Result<ResultAndState, Self::Error>;
+    fn process_transaction(&self, evm: &mut Self::Evm, gas: GasState) -> Result<Self::Frame, Self::Error>;
+    // Various hooks
+    fn validate_tx(&self, evm: &mut Self::Evm) -> Result<(), Self::Error>;
+    fn deduct_caller(&self, evm: &mut Self::Evm) -> Result<(), Self::Error>;
+    fn reward_beneficiary(&self, evm: &mut Self::Evm, exec_result: &mut Self::Frame) -> Result<(), Self::Error>;
+    // ...
+}
+```
+
+By implementing these traits, you can customize every aspect of EVM behavior.
+
+### Component Substitution
+
+REVM allows replacing any component with a custom implementation:
+
+1. **EVM**: Custom EVM implementations
+2. **Context**: Custom execution environments
+3. **Instructions**: Custom opcode implementations
+4. **Precompiles**: Custom precompiled contracts
+5. **Handler**: Custom execution flow
+
+This flexibility enables targeted customization without rewriting the entire system.
+
+## Creating a Custom EVM
+
+The most common customization is creating a specialized EVM variant.
+
+### Basic Custom EVM Implementation
+
+Here's a simple example of a custom EVM implementation:
+
+```rust
+// Define our custom EVM structure
+pub struct MyEvm<CTX>(
+    pub Evm<CTX, NoopInspector, EthInstructions<EthInterpreter, CTX>, EthPrecompiles>,
+);
+
+impl<CTX: ContextTr> MyEvm<CTX> {
+    pub fn new(ctx: CTX) -> Self {
+        Self(Evm {
+            ctx,
+            inspector: NoopInspector,
+            instruction: EthInstructions::new_mainnet(),
+            precompiles: EthPrecompiles::default(),
+        })
+    }
+}
+
+// Implement the EvmTr trait
+impl<CTX: ContextTr> EvmTr for MyEvm<CTX> {
+    type Context = CTX;
+    type Instructions = EthInstructions<EthInterpreter, CTX>;
+    type Precompiles = EthPrecompiles;
+
+    fn ctx(&mut self) -> &mut Self::Context {
+        &mut self.0.ctx
+    }
+
+    fn ctx_ref(&self) -> &Self::Context {
+        &self.0.ctx
+    }
+
+    fn ctx_instructions(&mut self) -> (&mut Self::Context, &mut Self::Instructions) {
+        (&mut self.0.ctx, &mut self.0.instruction)
+    }
+
+    fn ctx_precompiles(&mut self) -> (&mut Self::Context, &mut Self::Precompiles) {
+        (&mut self.0.ctx, &mut self.0.precompiles)
+    }
+}
+```
+
+This basic implementation wraps the standard `Evm` struct and implements the `EvmTr` trait.
+
+### Custom Handler Implementation
+
+To customize execution flow, implement a custom Handler:
+
+```rust
+// Define our custom handler
+pub struct MyHandler<EVM> {
+    pub _phantom: core::marker::PhantomData<EVM>,
+}
+
+impl<EVM> Default for MyHandler<EVM> {
+    fn default() -> Self {
+        Self {
+            _phantom: core::marker::PhantomData,
+        }
+    }
+}
+
+// Implement the Handler trait
+impl<EVM> Handler for MyHandler<EVM>
+where
+    EVM: EvmTr<
+        Context: ContextTr<Journal: JournalTr<FinalOutput = JournalOutput>>,
+        Precompiles: PrecompileProvider<EVM::Context, Output = InterpreterResult>,
+        Instructions: InstructionProvider<
+            Context = EVM::Context,
+            InterpreterTypes = EthInterpreter,
+        >,
+    >,
+{
+    type Evm = EVM;
+    type Error = EVMError<<<EVM::Context as ContextTr>::Db as Database>::Error, InvalidTransaction>;
+    type Frame = EthFrame<
+        EVM,
+        EVMError<<<EVM::Context as ContextTr>::Db as Database>::Error, InvalidTransaction>,
+        <EVM::Instructions as InstructionProvider>::InterpreterTypes,
+    >;
+    type HaltReason = HaltReason;
+
+    // Override reward_beneficiary to disable block rewards
+    fn reward_beneficiary(
+        &self,
+        _evm: &mut Self::Evm,
+        _exec_result: &mut FrameResult,
+    ) -> Result<(), Self::Error> {
+        // Skip beneficiary reward
+        Ok(())
+    }
+    
+    // Other methods use default implementations...
+}
+```
+
+### Complete Example with API Implementation
+
+To provide a complete EVM implementation, also implement the high-level APIs:
+
+```rust
+// Implementation of execution APIs
+impl<CTX, INSP> ExecuteEvm for MyEvm<CTX, INSP>
+where
+    CTX: ContextSetters<Journal: JournalTr<FinalOutput = JournalOutput>>,
+{
+    type Output = Result<ResultAndState, MyError<CTX>>;
+    type Tx = <CTX as ContextTr>::Tx;
+    type Block = <CTX as ContextTr>::Block;
+
+    fn set_tx(&mut self, tx: Self::Tx) {
+        self.0.ctx.set_tx(tx);
+    }
+
+    fn set_block(&mut self, block: Self::Block) {
+        self.0.ctx.set_block(block);
+    }
+
+    fn replay(&mut self) -> Self::Output {
+        MyHandler::default().run(self)
+    }
+}
+
+// Implementation of commit API
+impl<CTX, INSP> ExecuteCommitEvm for MyEvm<CTX, INSP>
+where
+    CTX: ContextSetters<Db: DatabaseCommit, Journal: JournalTr<FinalOutput = JournalOutput>>,
+{
+    type CommitOutput = Result<ExecutionResult<HaltReason>, MyError<CTX>>;
+
+    fn replay_commit(&mut self) -> Self::CommitOutput {
+        self.replay().map(|r| {
+            self.ctx().db().commit(r.state);
+            r.result
+        })
+    }
+}
+```
+
+### Using the Custom EVM
+
+Once implemented, you can use your custom EVM:
+
+```rust
+// Create an instance of your custom EVM
+let mut my_evm = MyEvm::new(Context::mainnet());
+
+// Use it with your custom handler
+let result = MyHandler::default().run(&mut my_evm);
+
+// Or use the high-level API
+my_evm.modify_tx(|tx| {
+    tx.caller = sender;
+    tx.kind = TxKind::Call(recipient);
+    tx.value = U256::from(1_000_000_000);
+    tx.gas_limit = 21000;
+});
+
+let result = my_evm.transact();
+```
+
+## Customizing Instructions
+
+REVM allows customizing the EVM instruction set by modifying or adding opcodes.
+
+### Creating a Custom Instruction Set
+
+To customize instructions, create a custom instruction table:
+
+```rust
+// Create a new instruction table based on mainnet opcodes
+let mut instructions = EthInstructions::new_mainnet();
+
+// Modify an existing opcode
+instructions.replace(
+    opcode::SSTORE,
+    |interp: &mut Interpreter<EthInterpreter>, _op| {
+        // Custom SSTORE implementation
+        let key = interp.stack.pop()?;
+        let value = interp.stack.pop()?;
+        
+        // Your custom logic here
+        // Example: Always store the value + 1
+        interp.sstore(key, value + U256::from(1))?;
+        
+        Ok(())
+    },
+);
+
+// Add a custom opcode
+const CUSTOM_OP: u8 = 0x0C; // Choose an unused opcode
+instructions.insert(
+    CUSTOM_OP,
+    |interp: &mut Interpreter<EthInterpreter>, _op| {
+        // Custom opcode implementation
+        let a = interp.stack.pop()?;
+        let b = interp.stack.pop()?;
+        let result = a * b + U256::from(42); // Custom operation
+        interp.stack.push(result)?;
+        
+        Ok(())
+    },
+);
+```
+
+### Using Custom Instructions
+
+To use your custom instructions:
+
+```rust
+// Create an EVM with custom instructions
+let mut evm = Evm {
+    ctx: Context::mainnet(),
+    instructions,
+    precompiles: EthPrecompiles::default(),
+    inspector: NoopInspector,
+};
+
+// Execute a transaction using your custom instructions
+let result = evm.transact(tx);
+```
+
+### Customizing Gas Costs
+
+You can also customize gas costs for operations:
+
+```rust
+// Customize gas costs
+let mut gas_costs = GasCosts::default();
+gas_costs.sstore_set = 10000; // Reduced cost for SSTORE
+gas_costs.jumpdest = 0; // Free JUMPDEST
+
+// Apply custom gas costs
+instructions.gas_costs = gas_costs;
+```
+
+## Custom Precompiles
+
+Precompiled contracts provide native implementations of complex operations. REVM allows adding custom precompiles.
+
+### Implementing a Custom Precompile
+
+Here's an example of a simple custom precompile that squares a number:
+
+```rust
+// Define a custom precompile
+struct SquarePrecompile;
+
+impl SquarePrecompile {
+    // Execute the precompile
+    fn execute(input: &[u8], gas_limit: u64) -> PrecompileResult {
+        // Calculate gas cost (fixed for this example)
+        let gas_cost = 100;
+        if gas_limit < gas_cost {
+            return Err(PrecompileError::OutOfGas);
+        }
+        
+        // Parse input as a U256 value
+        if input.len() < 32 {
+            return Err(PrecompileError::UserError);
+        }
+        
+        let mut input_bytes = [0u8; 32];
+        input_bytes.copy_from_slice(&input[0..32]);
+        let value = U256::from_be_bytes(input_bytes);
+        
+        // Square the value
+        let result = value * value;
+        
+        // Return the result
+        let output = Bytes::from(result.to_be_bytes::<32>().to_vec());
+        
+        Ok(PrecompileOutput {
+            output,
+            gas_used: gas_cost,
+        })
+    }
+}
+```
+
+### Creating a Custom Precompile Set
+
+To use custom precompiles, create a custom precompile set:
+
+```rust
+// Define a custom precompile set
+struct MyPrecompiles;
+
+impl Precompiles for MyPrecompiles {
+    fn execute(&self, address: Address, input: &[u8], gas_limit: u64) -> PrecompileResult {
+        match address {
+            // Standard precompiles
+            a if a == address!("0x0000000000000000000000000000000000000001") => ecrecover(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000002") => sha256(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000003") => ripemd160(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000004") => identity(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000005") => modexp(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000006") => alt_bn128_add(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000007") => alt_bn128_mul(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000008") => alt_bn128_pairing(input, gas_limit),
+            a if a == address!("0x0000000000000000000000000000000000000009") => blake2f(input, gas_limit),
+            
+            // Custom precompile at address 0x000...000A
+            a if a == address!("0x000000000000000000000000000000000000000A") => SquarePrecompile::execute(input, gas_limit),
+            
+            // Unknown precompile
+            _ => Err(PrecompileError::Unknown),
+        }
+    }
+}
+```
+
+### Using Custom Precompiles
+
+To use your custom precompiles:
+
+```rust
+// Create an EVM with custom precompiles
+let mut evm = Evm {
+    ctx: Context::mainnet(),
+    instructions: EthInstructions::new_mainnet(),
+    precompiles: MyPrecompiles,
+    inspector: NoopInspector,
+};
+
+// Execute a transaction that calls your precompile
+tx.kind = TxKind::Call(address!("0x000000000000000000000000000000000000000A"));
+tx.data = U256::from(42).to_be_bytes::<32>().to_vec().into();
+let result = evm.transact(tx);
+```
+
+## Customizing Gas Rules
+
+Gas rules control the cost of operations in the EVM. Customizing them can incentivize or discourage certain behaviors.
+
+### Modifying Gas Costs
+
+To modify gas costs for EVM operations:
+
+```rust
+// Create custom gas costs
+let mut gas_costs = GasCosts::default();
+
+// Modify specific gas costs
+gas_costs.sstore_set = 10000; // Custom cost for SSTORE
+gas_costs.sload = 100; // Reduced cost for SLOAD
+gas_costs.call = 500; // Reduced cost for CALL
+gas_costs.balance = 200; // Reduced cost for BALANCE
+
+// Apply to instructions
+let mut instructions = EthInstructions::new_mainnet();
+instructions.gas_costs = gas_costs;
+```
+
+### Custom Gas Calculation
+
+For more complex gas customization, implement custom gas calculation:
+
+```rust
+// Custom SSTORE gas calculation
+fn calculate_sstore_gas(
+    address: Address,
+    key: U256,
+    value: U256,
+    journal: &Journal,
+) -> Result<u64, JournalError> {
+    // Get current value
+    let current = journal.sload(address, key)?.data;
+    
+    // Get original value
+    let original = journal.sload_orig(address, key)?.unwrap_or_default();
+    
+    // Custom gas calculation logic
+    if value == current {
+        return Ok(100); // Same value (minimal gas)
+    } else if current == original {
+        if original == U256::ZERO {
+            return Ok(5000); // Setting from 0 to non-0
+        } else if value == U256::ZERO {
+            return Ok(2500); // Clearing a slot (non-0 to 0)
+        } else {
+            return Ok(1000); // Modifying a non-0 value
+        }
+    } else {
+        // Resetting to original value
+        if original == value {
+            return Ok(200); // Refund opportunity
+        } else {
+            return Ok(1000); // Other modification
+        }
+    }
+}
+
+// Use custom gas calculation in instruction implementation
+instructions.replace(
+    opcode::SSTORE,
+    |interp: &mut Interpreter<EthInterpreter>, _op| {
+        let key = interp.stack.pop()?;
+        let value = interp.stack.pop()?;
+        
+        // Calculate gas using custom function
+        let gas_cost = calculate_sstore_gas(
+            interp.contract.address,
+            key,
+            value,
+            interp.journal(),
+        )?;
+        
+        // Deduct gas
+        interp.use_gas(gas_cost)?;
+        
+        // Perform the operation
+        interp.sstore(key, value)?;
+        
+        Ok(())
+    },
+);
+```
+
+### Custom Refund Rules
+
+You can also customize gas refund rules:
+
+```rust
+// Custom refund calculation for SSTORE
+fn calculate_sstore_refund(
+    address: Address,
+    key: U256,
+    value: U256,
+    journal: &Journal,
+) -> Result<i64, JournalError> {
+    // Get current value
+    let current = journal.sload(address, key)?.data;
+    
+    // Get original value
+    let original = journal.sload_orig(address, key)?.unwrap_or_default();
+    
+    // Custom refund logic
+    if current != U256::ZERO && value == U256::ZERO {
+        // Clearing a non-zero slot to zero
+        return Ok(10000); // Higher refund for storage clearing
+    } else if current == original && original != value && original != U256::ZERO && value != U256::ZERO {
+        // Modifying a slot then putting it back to its original non-zero value
+        return Ok(1000);
+    }
+    
+    Ok(0) // No refund
+}
+```
+
+## Call Interception
+
+A common customization is intercepting calls to specific addresses to run custom logic or precompiles.
+
+### Using Inspector to Intercept Calls
+
+The simplest way to intercept calls is with an Inspector:
+
+```rust
+struct CallInterceptor {
+    target_address: Address,
+}
+
+impl<DB: DatabaseRef> Inspector<DB> for CallInterceptor {
+    fn call(
+        &mut self,
+        inputs: &CallInputs,
+        context: &mut EvmContext<'_, DB>,
+    ) -> Option<InspectorExecutionResult> {
+        // Check if call is to our target address
+        if inputs.contract == self.target_address {
+            println!("Intercepted call to: {}", self.target_address);
+            
+            // Extract function selector (first 4 bytes)
+            if inputs.input.len() >= 4 {
+                let selector = &inputs.input[0..4];
+                println!("Function selector: 0x{}", hex::encode(selector));
+                
+                // Check for specific functions
+                if selector == [0x12, 0x34, 0x56, 0x78] {
+                    // Return custom result for this function
+                    return Some(InspectorExecutionResult {
+                        gas: inputs.gas_limit,
+                        output: hex::decode("0000000000000000000000000000000000000000000000000000000000000042")
+                            .unwrap()
+                            .into(),
+                        result: InterpreterResult::Return,
+                    });
+                }
+            }
+        }
+        
+        // Let other calls proceed normally
+        None
+    }
+}
+```
+
+### Using Custom Handler to Intercept Calls
+
+For more complex interception, use a custom handler:
+
+```rust
+impl<EVM> Handler for MyHandler<EVM>
+where
+    // Type constraints...
+{
+    // Existing implementation...
+    
+    fn process_call(
+        &self,
+        evm: &mut Self::Evm,
+        inputs: &CallInputs,
+    ) -> Result<FrameResult, Self::Error> {
+        // Check if call is to our target address
+        if inputs.contract == self.target_address {
+            // Custom handling for this address
+            return self.handle_custom_call(evm, inputs);
+        }
+        
+        // Let other calls proceed normally
+        self.default_process_call(evm, inputs)
+    }
+    
+    fn handle_custom_call(
+        &self,
+        evm: &mut Self::Evm,
+        inputs: &CallInputs,
+    ) -> Result<FrameResult, Self::Error> {
+        // Extract function selector
+        if inputs.input.len() >= 4 {
+            let selector = &inputs.input[0..4];
+            
+            // Handle different functions
+            match selector {
+                [0x12, 0x34, 0x56, 0x78] => {
+                    // Custom implementation
+                    let result = ExecutionResult::Success {
+                        output: hex::decode("0000000000000000000000000000000000000000000000000000000000000042")
+                            .unwrap()
+                            .into(),
+                        gas_used: 1000,
+                        gas_refunded: 0,
+                        logs: vec![],
+                    };
+                    
+                    Ok(FrameResult::new(result, inputs.gas_limit - 1000))
+                },
+                // Other functions...
+                _ => self.default_process_call(evm, inputs),
+            }
+        } else {
+            // Invalid input
+            self.default_process_call(evm, inputs)
+        }
+    }
+}
+```
+
+## Custom State Manager
+
+For specialized state management, you can implement a custom state manager.
+
+### Simple Custom Database
+
+Here's a simple custom database implementation:
+
+```rust
+use std::collections::HashMap;
+
+#[derive(Debug)]
+struct MyDatabase {
+    accounts: HashMap<Address, AccountInfo>,
+    storage: HashMap<(Address, U256), U256>,
+    block_hashes: HashMap<u64, B256>,
+}
+
+#[derive(Debug)]
+struct MyDatabaseError;
+
+impl std::fmt::Display for MyDatabaseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "MyDatabase error")
+    }
+}
+
+impl std::error::Error for MyDatabaseError {}
+impl DBErrorMarker for MyDatabaseError {}
+
+impl Database for MyDatabase {
+    type Error = MyDatabaseError;
+    
+    fn basic(&mut self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        Ok(self.accounts.get(&address).cloned())
+    }
+    
+    fn code_by_hash(&mut self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        // Simplified code fetching
+        for (_, account) in &self.accounts {
+            if let Some(code) = &account.code {
+                if account.code_hash == code_hash {
+                    return Ok(code.clone());
+                }
+            }
+        }
+        Ok(Bytecode::default())
+    }
+    
+    fn storage(&mut self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        Ok(*self.storage.get(&(address, index)).unwrap_or(&U256::ZERO))
+    }
+    
+    fn block_hash(&mut self, number: u64) -> Result<B256, Self::Error> {
+        Ok(*self.block_hashes.get(&number).unwrap_or(&B256::default()))
+    }
+}
+
+impl DatabaseCommit for MyDatabase {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        for (address, account) in changes {
+            // Update or remove account
+            if let Some(info) = account.info {
+                self.accounts.insert(address, info);
+            } else {
+                self.accounts.remove(&address);
+            }
+            
+            // Update storage
+            for (slot, value) in account.storage {
+                let key = (address, slot);
+                if value.present_value == U256::ZERO {
+                    self.storage.remove(&key);
+                } else {
+                    self.storage.insert(key, value.present_value);
+                }
+            }
+        }
+    }
+}
+```
+
+### Advanced Custom State Manager
+
+For more advanced state management, you might implement a state manager with specialized features:
+
+```rust
+struct ShardedDatabase {
+    // Shard by address prefix
+    shards: HashMap<u8, CacheDB<EmptyDB>>,
+}
+
+impl ShardedDatabase {
+    fn new() -> Self {
+        let mut shards = HashMap::new();
+        for i in 0..16 {
+            shards.insert(i, CacheDB::new(EmptyDB::default()));
+        }
+        Self { shards }
+    }
+    
+    fn get_shard(&mut self, address: Address) -> &mut CacheDB<EmptyDB> {
+        // Use first nibble of address for sharding
+        let shard_key = address.as_bytes()[0] >> 4;
+        self.shards.get_mut(&shard_key).unwrap()
+    }
+}
+
+impl Database for ShardedDatabase {
+    type Error = DatabaseError;
+    
+    fn basic(&mut self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        self.get_shard(address).basic(address)
+    }
+    
+    fn code_by_hash(&mut self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        // For code, we need to check all shards
+        for (_, shard) in &mut self.shards {
+            match shard.code_by_hash(code_hash) {
+                Ok(code) if !code.is_empty() => return Ok(code),
+                _ => continue,
+            }
+        }
+        Ok(Bytecode::default())
+    }
+    
+    fn storage(&mut self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        self.get_shard(address).storage(address, index)
+    }
+    
+    fn block_hash(&mut self, number: u64) -> Result<B256, Self::Error> {
+        // For simplicity, use the first shard for block hashes
+        self.shards.get_mut(&0).unwrap().block_hash(number)
+    }
+}
+
+impl DatabaseCommit for ShardedDatabase {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        // Group changes by shard
+        let mut shard_changes: HashMap<u8, HashMap<Address, Account>> = HashMap::new();
+        
+        for (address, account) in changes {
+            let shard_key = address.as_bytes()[0] >> 4;
+            shard_changes
+                .entry(shard_key)
+                .or_insert_with(HashMap::new)
+                .insert(address, account);
+        }
+        
+        // Commit changes to each shard
+        for (shard_key, shard_change) in shard_changes {
+            if let Some(shard) = self.shards.get_mut(&shard_key) {
+                shard.commit(shard_change);
+            }
+        }
+    }
+}
+```
+
+## Real-World Customization Examples
+
+Let's look at some real-world examples of REVM customization.
+
+### Optimism EVM (OP-REVM)
+
+Optimism is a Layer 2 scaling solution that uses a modified EVM. Here's a simplified version of how OP-REVM might be implemented:
+
+```rust
+// Simplified OP-REVM implementation
+pub struct OpEvm<CTX>(
+    pub Evm<CTX, NoopInspector, OpInstructions<EthInterpreter, CTX>, OpPrecompiles>,
+);
+
+impl<CTX: ContextTr> OpEvm<CTX> {
+    pub fn new(ctx: CTX) -> Self {
+        Self(Evm {
+            ctx,
+            inspector: NoopInspector,
+            instruction: OpInstructions::new(),
+            precompiles: OpPrecompiles::default(),
+        })
+    }
+}
+
+// Custom Optimism instructions
+pub struct OpInstructions<I, CTX> {
+    inner: EthInstructions<I, CTX>,
+}
+
+impl<CTX: ContextTr> OpInstructions<EthInterpreter, CTX> {
+    pub fn new() -> Self {
+        let mut inner = EthInstructions::new_mainnet();
+        
+        // Modify gas costs
+        inner.gas_costs.sload = 100; // Reduced storage reading cost
+        inner.gas_costs.call = 500; // Reduced call cost
+        
+        // Add L1 data fee calculation
+        inner.replace(
+            opcode::GASPRICE,
+            |interp: &mut Interpreter<EthInterpreter>, _op| {
+                // Calculate L1 data fee
+                let l1_fee = calculate_l1_fee(interp);
+                
+                // Add L1 fee to gas price
+                let gas_price = interp.ctx().tx().gas_price();
+                let total_price = gas_price + l1_fee;
+                
+                // Push to stack
+                interp.stack.push(total_price)?;
+                
+                Ok(())
+            },
+        );
+        
+        Self { inner }
+    }
+}
+
+// Custom Optimism handler
+pub struct OpHandler<EVM> {
+    pub _phantom: core::marker::PhantomData<EVM>,
+}
+
+impl<EVM> Handler for OpHandler<EVM>
+where
+    // Type constraints...
+{
+    // Override validate_tx to include L1 data fee
+    fn validate_tx(&self, evm: &mut Self::Evm) -> Result<(), Self::Error> {
+        // Standard validation
+        let result = super::validate_tx(evm);
+        
+        // Additional L1 data fee validation
+        if result.is_ok() {
+            let tx = evm.ctx().tx();
+            let l1_fee = calculate_l1_data_fee(tx);
+            
+            // Check if sender has enough balance for L1 fee
+            let sender = tx.caller();
+            let account = evm.ctx().journal().load_account(sender)?.data;
+            
+            if account.info.balance < tx.gas_price() * tx.gas_limit() + l1_fee {
+                return Err(InvalidTransaction::LackOfFundForL1Fee.into());
+            }
+        }
+        
+        result
+    }
+    
+    // Override deduct_caller to include L1 data fee
+    fn deduct_caller(&self, evm: &mut Self::Evm) -> Result<(), Self::Error> {
+        // Standard deduction
+        super::deduct_caller(evm)?;
+        
+        // Additional L1 fee deduction
+        let tx = evm.ctx().tx();
+        let l1_fee = calculate_l1_data_fee(tx);
+        
+        if !l1_fee.is_zero() {
+            let sender = tx.caller();
+            evm.ctx().journal().sub_balance(sender, l1_fee)?;
+            
+            // Add to L1 fee collector
+            let l1_fee_collector = address!("0x4200000000000000000000000000000000000015");
+            evm.ctx().journal().add_balance(l1_fee_collector, l1_fee)?;
+        }
+        
+        Ok(())
+    }
+}
+
+// Helper function to calculate L1 data fee
+fn calculate_l1_data_fee(tx: &TxEnv) -> U256 {
+    // Simplified L1 data fee calculation
+    let base_fee_per_gas = 1_000_000_000; // 1 Gwei
+    let l1_scalar = 16; // Scalar for L1 fee
+    
+    // Calculate data size
+    let data_size = tx.data.len();
+    let calldata_gas = data_size * 16; // 16 gas per byte
+    
+    U256::from(calldata_gas as u64 * base_fee_per_gas) * U256::from(l1_scalar)
+}
+```
+
+### Custom Gas Token EVM
+
+Here's an example of an EVM that uses an ERC20 token for gas instead of ETH:
+
+```rust
+// Simplified ERC20 Gas EVM
+pub struct Erc20GasEvm<CTX>(
+    pub Evm<CTX, NoopInspector, EthInstructions<EthInterpreter, CTX>, EthPrecompiles>,
+);
+
+impl<CTX: ContextTr> Erc20GasEvm<CTX> {
+    pub fn new(ctx: CTX) -> Self {
+        Self(Evm {
+            ctx,
+            inspector: NoopInspector,
+            instruction: EthInstructions::new_mainnet(),
+            precompiles: EthPrecompiles::default(),
+        })
+    }
+    
+    // Get the token contract address
+    pub fn token_address(&self) -> Address {
+        // For this example, we use a fixed address
+        address!("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48") // USDC
+    }
+}
+
+// Custom handler for ERC20 gas
+pub struct Erc20GasHandler<EVM> {
+    pub _phantom: core::marker::PhantomData<EVM>,
+}
+
+impl<EVM> Handler for Erc20GasHandler<EVM>
+where
+    EVM: EvmTr<Context: ContextTr> + Erc20GasEvm<EVM::Context>,
+    // Other type constraints...
+{
+    // Override validate_tx to check token balance
+    fn validate_tx(&self, evm: &mut Self::Evm) -> Result<(), Self::Error> {
+        let context = evm.ctx();
+        let token = evm.token_address();
+        let caller = context.tx().caller();
+        
+        // Calculate required token amount for gas
+        let gas_limit = context.tx().gas_limit();
+        let gas_price = context.tx().gas_price();
+        let required_tokens = U256::from(gas_limit) * gas_price;
+        
+        // Check caller's token balance
+        let token_balance = get_token_balance(context, token, caller)?;
+        
+        if token_balance < required_tokens {
+            return Err(InvalidTransaction::LackOfFundForGas {
+                required: required_tokens,
+                has: token_balance,
+            }.into());
+        }
+        
+        // Other validation...
+        Ok(())
+    }
+    
+    // Override deduct_caller to use tokens instead of ETH
+    fn deduct_caller(&self, evm: &mut Self::Evm) -> Result<(), Self::Error> {
+        let context = evm.ctx();
+        let token = evm.token_address();
+        let caller = context.tx().caller();
+        
+        // Calculate token amount for gas
+        let gas_limit = context.tx().gas_limit();
+        let gas_price = context.tx().gas_price();
+        let token_amount = U256::from(gas_limit) * gas_price;
+        
+        // Deduct tokens (using ERC20 storage)
+        deduct_tokens(context, token, caller, token_amount)?;
+        
+        // Skip ETH deduction
+        Ok(())
+    }
+    
+    // Override reimburse_caller to refund tokens
+    fn reimburse_caller(
+        &self,
+        evm: &mut Self::Evm,
+        exec_result: &mut Self::Frame,
+    ) -> Result<(), Self::Error> {
+        let context = evm.ctx();
+        let token = evm.token_address();
+        let caller = context.tx().caller();
+        
+        // Calculate refund
+        let gas_used = exec_result.gas_used();
+        let gas_remaining = context.tx().gas_limit() - gas_used;
+        let gas_refund = exec_result.gas_refunded().min(gas_used / 5);
+        let total_refund = gas_remaining + gas_refund;
+        
+        // Refund tokens
+        if total_refund > 0 {
+            let gas_price = context.tx().gas_price();
+            let token_refund = U256::from(total_refund) * gas_price;
+            
+            refund_tokens(context, token, caller, token_refund)?;
+        }
+        
+        Ok(())
+    }
+    
+    // Override reward_beneficiary to reward with tokens
+    fn reward_beneficiary(
+        &self,
+        evm: &mut Self::Evm,
+        exec_result: &mut Self::Frame,
+    ) -> Result<(), Self::Error> {
+        let context = evm.ctx();
+        let token = evm.token_address();
+        let beneficiary = context.block().beneficiary();
+        
+        // Calculate reward
+        let gas_used = exec_result.gas_used() - exec_result.gas_refunded();
+        let gas_price = context.tx().gas_price();
+        let token_reward = U256::from(gas_used) * gas_price;
+        
+        // Reward beneficiary with tokens
+        reward_tokens(context, token, beneficiary, token_reward)?;
+        
+        Ok(())
+    }
+}
+
+// Helper functions for token operations
+fn get_token_balance<CTX: ContextTr>(
+    context: &mut CTX,
+    token: Address,
+    account: Address,
+) -> Result<U256, EVMError<CTX::Error, InvalidTransaction>> {
+    // Calculate storage slot for balances mapping
+    let slot = U256::from(3); // ERC20 balances mapping slot
+    let key = calculate_mapping_slot(slot, account);
+    
+    // Read the balance
+    context.journal().sload(token, key).map(|value| value.data)
+}
+
+fn deduct_tokens<CTX: ContextTr>(
+    context: &mut CTX,
+    token: Address,
+    account: Address,
+    amount: U256,
+) -> Result<(), EVMError<CTX::Error, InvalidTransaction>> {
+    // Calculate storage slot for balances mapping
+    let slot = U256::from(3); // ERC20 balances mapping slot
+    let key = calculate_mapping_slot(slot, account);
+    
+    // Read current balance
+    let current = context.journal().sload(token, key)?.data;
+    
+    // Check if sufficient balance
+    if current < amount {
+        return Err(InvalidTransaction::LackOfFundForGas {
+            required: amount,
+            has: current,
+        }.into());
+    }
+    
+    // Update balance
+    context.journal().sstore(token, key, current - amount)?;
+    
+    Ok(())
+}
+
+fn refund_tokens<CTX: ContextTr>(
+    context: &mut CTX,
+    token: Address,
+    account: Address,
+    amount: U256,
+) -> Result<(), EVMError<CTX::Error, InvalidTransaction>> {
+    // Calculate storage slot for balances mapping
+    let slot = U256::from(3); // ERC20 balances mapping slot
+    let key = calculate_mapping_slot(slot, account);
+    
+    // Read current balance
+    let current = context.journal().sload(token, key)?.data;
+    
+    // Update balance
+    context.journal().sstore(token, key, current + amount)?;
+    
+    Ok(())
+}
+
+fn reward_tokens<CTX: ContextTr>(
+    context: &mut CTX,
+    token: Address,
+    account: Address,
+    amount: U256,
+) -> Result<(), EVMError<CTX::Error, InvalidTransaction>> {
+    // Same as refund_tokens
+    refund_tokens(context, token, account, amount)
+}
+
+// Helper function to calculate mapping slot
+fn calculate_mapping_slot(mapping_slot: U256, key: Address) -> U256 {
+    // Concatenate key and slot, then hash
+    let mut bytes = [0u8; 64];
+    key.to_word().to_be_bytes::<32>().iter().enumerate().for_each(|(i, b)| bytes[i] = *b);
+    mapping_slot.to_be_bytes::<32>().iter().enumerate().for_each(|(i, b)| bytes[32 + i] = *b);
+    U256::from_be_bytes(keccak256(&bytes))
+}
+```
+
+## Best Practices for Customization
+
+When customizing REVM, follow these best practices:
+
+### 1. Maintain Compatibility
+
+Unless you're deliberately creating an incompatible chain:
+
+- Keep the core EVM semantics intact
+- Ensure standard contracts still work as expected
+- Follow Ethereum specifications for standard operations
+
+### 2. Test Thoroughly
+
+Custom implementations need thorough testing:
+
+- Test against Ethereum test vectors where applicable
+- Create specific tests for custom behavior
+- Test edge cases and error conditions
+- Verify gas calculations are correct
+
+### 3. Consider Performance
+
+Performance is critical for EVM implementations:
+
+- Profile your customizations for performance impacts
+- Optimize hot paths
+- Consider the impact of customizations on caching
+- Test with realistic workloads
+
+### 4. Document Differences
+
+Clear documentation helps users understand your custom EVM:
+
+- Document all deviations from standard Ethereum
+- Provide examples of custom behavior
+- Explain the rationale for customizations
+- Include gas cost differences
+
+### 5. Modular Design
+
+Keep customizations modular and focused:
+
+- Separate concerns into distinct components
+- Avoid tight coupling between custom components
+- Make it easy to update individual parts
+- Allow enabling/disabling features
+
+## Summary
+
+REVM's extensible design enables a wide range of customizations:
+
+- **Custom EVM Implementations**: Create specialized EVM variants
+- **Instruction Customization**: Modify opcodes and gas costs
+- **Custom Precompiles**: Add native implementations of complex operations
+- **Call Interception**: Intercept calls to specific addresses
+- **Custom State Management**: Implement specialized state handling
+
+These customization options allow REVM to support various use cases:
+
+- Layer 2 scaling solutions
+- Custom EVM chains
+- Specialized execution environments
+- Testing and simulation tools
+- Gas token systems
+
+By following best practices and leveraging REVM's trait-based design, you can create efficient, compatible, and powerful EVM variants.
+
+## Next Steps
+
+Now that you understand how to customize REVM, you might want to explore:
+
+- [Performance Considerations](/intermediate-concepts/2.7-performance-considerations): Learn about optimizing REVM for performance
+- [Integration Patterns](/intermediate-concepts/2.8-integration-patterns): Discover how to integrate REVM with other systems
+- [Custom Precompiles Example](../revm-examples/3.6-custom-opcodes-example.md): See a detailed example of adding custom precompiles
+
+---
+
+**Note**: The examples in this document are simplified for clarity. Real implementations would include additional error handling, optimization, and integration with other components.

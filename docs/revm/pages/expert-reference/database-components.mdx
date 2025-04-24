@@ -1,0 +1,1888 @@
+---
+title: 4.7 Database Components
+description: Detailed guide about 4.7 database components in REVM (Rust Ethereum Virtual Machine)
+---
+
+# 4.7 Database Components
+
+This document provides a comprehensive reference for REVM's database components, including the core Database trait, state components, BlockHash interfaces, caching strategies, and implementations.
+
+## Database Trait
+
+The `Database` trait is the foundation of REVM's state access system. It defines the essential methods for accessing Ethereum state:
+
+```rust
+pub trait Database {
+    /// Error type associated with this database
+    type Error;
+
+    /// Get basic account information
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error>;
+
+    /// Get storage value at a given position
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error>;
+
+    /// Get block hash for a given block number
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error>;
+
+    /// Get code by its hash
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error>;
+}
+```
+
+This trait separates the EVM execution logic from the state storage mechanism, allowing for flexibility in how state is stored and accessed.
+
+### Usage
+
+To implement a database backend, you must implement all four methods:
+
+```rust
+struct MyCustomDB {
+    // Database-specific fields
+}
+
+#[derive(Debug)]
+enum MyDBError {
+    NotFound,
+    IoError(std::io::Error),
+    Other(String),
+}
+
+impl std::fmt::Display for MyDBError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            MyDBError::NotFound => write!(f, "Not found"),
+            MyDBError::IoError(e) => write!(f, "IO error: {}", e),
+            MyDBError::Other(msg) => write!(f, "Error: {}", msg),
+        }
+    }
+}
+
+impl std::error::Error for MyDBError {}
+
+impl Database for MyCustomDB {
+    type Error = MyDBError;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        // Implementation details...
+        Ok(Some(AccountInfo {
+            balance: U256::from(1000000),
+            nonce: 0,
+            code_hash: B256::default(),
+            code: None,
+        }))
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        // Implementation details...
+        Ok(U256::ZERO)
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        // Implementation details...
+        Ok(B256::default())
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        // Implementation details...
+        Err(MyDBError::NotFound)
+    }
+}
+```
+
+## DatabaseCommit Trait
+
+The `DatabaseCommit` trait extends the `Database` trait with the ability to persist state changes:
+
+```rust
+pub trait DatabaseCommit: Database {
+    /// Commit changes to the database
+    fn commit(&mut self, changes: HashMap<Address, Account>);
+}
+```
+
+The `changes` parameter contains all modified accounts and their updated state.
+
+### Usage Example
+
+```rust
+impl DatabaseCommit for MyCustomDB {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        for (address, account) in changes {
+            match account.info {
+                Some(info) => {
+                    // Update or create account
+                    self.update_account(address, info);
+                    
+                    // Update code if present
+                    if let Some(code) = info.code {
+                        self.store_code(info.code_hash, code);
+                    }
+                    
+                    // Update storage if present
+                    if let Some(storage) = account.storage {
+                        for (key, value) in storage {
+                            self.update_storage(address, key, value.present_value);
+                        }
+                    }
+                },
+                None => {
+                    // Delete account
+                    self.delete_account(address);
+                }
+            }
+        }
+    }
+}
+```
+
+## DatabaseRevert Trait
+
+The `DatabaseRevert` trait extends the `Database` trait with the ability to create and revert to snapshots:
+
+```rust
+pub trait DatabaseRevert: Database {
+    /// Create a snapshot of the current state
+    fn snapshot(&mut self) -> u64;
+    
+    /// Revert to a previously created snapshot
+    fn revert(&mut self, snapshot: u64) -> bool;
+}
+```
+
+This trait is useful for implementing transaction atomicity, where a series of operations can be rolled back if any of them fail.
+
+### Usage Example
+
+```rust
+impl DatabaseRevert for MyCustomDB {
+    fn snapshot(&mut self) -> u64 {
+        let snapshot_id = self.next_snapshot_id;
+        self.next_snapshot_id += 1;
+        
+        // Create a deep copy of the current state
+        let state_copy = self.state.clone();
+        
+        // Store the snapshot
+        self.snapshots.insert(snapshot_id, state_copy);
+        
+        snapshot_id
+    }
+    
+    fn revert(&mut self, snapshot: u64) -> bool {
+        if let Some(state) = self.snapshots.remove(&snapshot) {
+            // Restore state from snapshot
+            self.state = state;
+            
+            // Remove snapshots with higher IDs
+            self.snapshots.retain(|&id, _| id < snapshot);
+            
+            true
+        } else {
+            false
+        }
+    }
+}
+```
+
+## EmptyDB
+
+The `EmptyDB` is a minimal database implementation that contains no data:
+
+```rust
+pub struct EmptyDB;
+
+#[derive(Debug)]
+pub enum EmptyDBError {
+    BlockHashNotFound(U256),
+    KeyNotFound(Address),
+    CodeNotFound(B256),
+}
+
+impl std::fmt::Display for EmptyDBError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            EmptyDBError::BlockHashNotFound(num) => write!(f, "Block hash not found: {}", num),
+            EmptyDBError::KeyNotFound(addr) => write!(f, "Key not found: {:?}", addr),
+            EmptyDBError::CodeNotFound(hash) => write!(f, "Code not found: {:?}", hash),
+        }
+    }
+}
+
+impl std::error::Error for EmptyDBError {}
+
+impl Database for EmptyDB {
+    type Error = EmptyDBError;
+    
+    fn basic(&self, _address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        Ok(None)
+    }
+    
+    fn storage(&self, _address: Address, _index: U256) -> Result<U256, Self::Error> {
+        Ok(U256::ZERO)
+    }
+    
+    fn block_hash(&self, _number: U256) -> Result<B256, Self::Error> {
+        Ok(B256::default())
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        Err(EmptyDBError::CodeNotFound(code_hash))
+    }
+}
+```
+
+The `EmptyDB` is primarily used as a base for other database implementations or for testing.
+
+## InMemoryDB
+
+The `InMemoryDB` is a full-featured in-memory database implementation suitable for testing and simple applications:
+
+```rust
+pub struct InMemoryDB {
+    state: HashMap<Address, Account>,
+    block_hashes: HashMap<U256, B256>,
+    codes: HashMap<B256, Bytecode>,
+}
+
+impl InMemoryDB {
+    pub fn new() -> Self {
+        Self {
+            state: HashMap::new(),
+            block_hashes: HashMap::new(),
+            codes: HashMap::new(),
+        }
+    }
+    
+    pub fn insert_account_info(&mut self, address: Address, info: AccountInfo) {
+        self.state.insert(address, Account {
+            info: Some(info),
+            storage: None,
+            storage_root: None,
+        });
+    }
+    
+    pub fn insert_account_storage(&mut self, address: Address, key: U256, value: U256) {
+        let account = self.state.entry(address).or_insert(Account {
+            info: None,
+            storage: None,
+            storage_root: None,
+        });
+        
+        if account.storage.is_none() {
+            account.storage = Some(BTreeMap::new());
+        }
+        
+        if let Some(storage) = &mut account.storage {
+            storage.insert(key, StorageValue {
+                present_value: value,
+                original_value: value,
+            });
+        }
+    }
+    
+    pub fn insert_block_hash(&mut self, number: U256, hash: B256) {
+        self.block_hashes.insert(number, hash);
+    }
+    
+    pub fn insert_code(&mut self, code_hash: B256, code: Bytecode) {
+        self.codes.insert(code_hash, code);
+    }
+    
+    pub fn accounts(&self) -> HashMap<Address, Account> {
+        self.state.clone()
+    }
+    
+    pub fn dump_storage(&self, address: Address) -> Option<BTreeMap<U256, U256>> {
+        self.state.get(&address).and_then(|account| {
+            account.storage.as_ref().map(|storage| {
+                storage.iter().map(|(k, v)| (*k, v.present_value)).collect()
+            })
+        })
+    }
+    
+    pub fn dump_state(&self) -> HashMap<Address, Account> {
+        self.state.clone()
+    }
+}
+
+#[derive(Debug)]
+pub enum InMemoryError {
+    KeyNotFound(Address),
+    CodeNotFound(B256),
+}
+
+impl std::fmt::Display for InMemoryError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            InMemoryError::KeyNotFound(addr) => write!(f, "Key not found: {:?}", addr),
+            InMemoryError::CodeNotFound(hash) => write!(f, "Code not found: {:?}", hash),
+        }
+    }
+}
+
+impl std::error::Error for InMemoryError {}
+
+impl Database for InMemoryDB {
+    type Error = InMemoryError;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        Ok(self.state.get(&address).and_then(|account| account.info.clone()))
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        if let Some(account) = self.state.get(&address) {
+            if let Some(storage) = &account.storage {
+                if let Some(slot) = storage.get(&index) {
+                    return Ok(slot.present_value);
+                }
+            }
+        }
+        Ok(U256::ZERO)
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        Ok(self.block_hashes.get(&number).cloned().unwrap_or_default())
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        self.codes.get(&code_hash).cloned().ok_or(InMemoryError::CodeNotFound(code_hash))
+    }
+}
+
+impl DatabaseCommit for InMemoryDB {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        for (address, account) in changes {
+            if let Some(info) = &account.info {
+                if let Some(code) = &info.code {
+                    self.codes.insert(info.code_hash, code.clone());
+                }
+            }
+            
+            if account.info.is_some() {
+                self.state.insert(address, account);
+            } else {
+                self.state.remove(&address);
+            }
+        }
+    }
+}
+```
+
+The `InMemoryDB` is a complete database implementation that stores all data in memory, making it ideal for testing and simple applications.
+
+## CacheDB
+
+The `CacheDB` is a caching layer that can be used with any database implementation:
+
+```rust
+pub struct CacheDB<DB: Database> {
+    db: DB,
+    accounts: HashMap<Address, Option<AccountInfo>>,
+    storage: HashMap<(Address, U256), U256>,
+    block_hashes: HashMap<U256, B256>,
+    codes: HashMap<B256, Bytecode>,
+}
+
+impl<DB: Database> CacheDB<DB> {
+    pub fn new(db: DB) -> Self {
+        Self {
+            db,
+            accounts: HashMap::new(),
+            storage: HashMap::new(),
+            block_hashes: HashMap::new(),
+            codes: HashMap::new(),
+        }
+    }
+    
+    pub fn insert_account_info(&mut self, address: Address, info: AccountInfo) {
+        self.accounts.insert(address, Some(info));
+    }
+    
+    pub fn insert_account_storage(&mut self, address: Address, key: U256, value: U256) {
+        self.storage.insert((address, key), value);
+    }
+    
+    pub fn insert_block_hash(&mut self, number: U256, hash: B256) {
+        self.block_hashes.insert(number, hash);
+    }
+    
+    pub fn insert_code(&mut self, code_hash: B256, code: Bytecode) {
+        self.codes.insert(code_hash, code);
+    }
+    
+    pub fn clear(&mut self) {
+        self.accounts.clear();
+        self.storage.clear();
+        self.block_hashes.clear();
+        self.codes.clear();
+    }
+    
+    pub fn db(&self) -> &DB {
+        &self.db
+    }
+    
+    pub fn db_mut(&mut self) -> &mut DB {
+        &mut self.db
+    }
+    
+    pub fn into_db(self) -> DB {
+        self.db
+    }
+    
+    // Helper method to collect all accounts and their changes
+    pub fn collect_accounts(&self) -> HashMap<Address, Account> {
+        let mut accounts = HashMap::new();
+        
+        // Collect accounts from the cache
+        for (&address, account_opt) in &self.accounts {
+            if let Some(info) = account_opt {
+                let mut account = Account {
+                    info: Some(info.clone()),
+                    storage: None,
+                    storage_root: None,
+                };
+                
+                // Collect storage for this account
+                let mut storage = BTreeMap::new();
+                for (&(addr, key), &value) in &self.storage {
+                    if addr == address {
+                        storage.insert(key, StorageValue {
+                            present_value: value,
+                            original_value: value,
+                        });
+                    }
+                }
+                
+                if !storage.is_empty() {
+                    account.storage = Some(storage);
+                }
+                
+                accounts.insert(address, account);
+            } else {
+                // Account was deleted
+                accounts.insert(address, Account {
+                    info: None,
+                    storage: None,
+                    storage_root: None,
+                });
+            }
+        }
+        
+        accounts
+    }
+}
+
+impl<DB: Database> Database for CacheDB<DB> {
+    type Error = DB::Error;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        if let Some(account) = self.accounts.get(&address) {
+            return Ok(account.clone());
+        }
+        
+        match self.db.basic(address) {
+            Ok(account) => {
+                // Cache the result
+                let mut cache = self.accounts.clone();
+                cache.insert(address, account.clone());
+                
+                Ok(account)
+            },
+            Err(e) => Err(e),
+        }
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        if let Some(&value) = self.storage.get(&(address, index)) {
+            return Ok(value);
+        }
+        
+        match self.db.storage(address, index) {
+            Ok(value) => {
+                // Cache the result
+                let mut cache = self.storage.clone();
+                cache.insert((address, index), value);
+                
+                Ok(value)
+            },
+            Err(e) => Err(e),
+        }
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        if let Some(&hash) = self.block_hashes.get(&number) {
+            return Ok(hash);
+        }
+        
+        match self.db.block_hash(number) {
+            Ok(hash) => {
+                // Cache the result
+                let mut cache = self.block_hashes.clone();
+                cache.insert(number, hash);
+                
+                Ok(hash)
+            },
+            Err(e) => Err(e),
+        }
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        if let Some(code) = self.codes.get(&code_hash) {
+            return Ok(code.clone());
+        }
+        
+        match self.db.code_by_hash(code_hash) {
+            Ok(code) => {
+                // Cache the result
+                let mut cache = self.codes.clone();
+                cache.insert(code_hash, code.clone());
+                
+                Ok(code)
+            },
+            Err(e) => Err(e),
+        }
+    }
+}
+
+impl<DB: DatabaseCommit> DatabaseCommit for CacheDB<DB> {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        // Update the cache
+        for (address, account) in &changes {
+            if let Some(info) = &account.info {
+                self.accounts.insert(*address, Some(info.clone()));
+                
+                if let Some(code) = &info.code {
+                    self.codes.insert(info.code_hash, code.clone());
+                }
+                
+                if let Some(storage) = &account.storage {
+                    for (&slot, value) in storage {
+                        self.storage.insert((*address, slot), value.present_value);
+                    }
+                }
+            } else {
+                // Account was deleted
+                self.accounts.insert(*address, None);
+            }
+        }
+        
+        // Forward changes to the underlying database
+        self.db.commit(changes);
+    }
+}
+```
+
+The `CacheDB` implements a caching layer on top of any database implementation, which can significantly improve performance by reducing the number of database accesses.
+
+## ForkDB
+
+The `ForkDB` allows REVM to fork from a live Ethereum network:
+
+```rust
+pub struct ForkDB {
+    provider: Arc<Provider<Http>>,
+    block_number: Option<u64>,
+    runtime: Runtime,
+    cache: CacheDB<EmptyDB>,
+}
+
+impl ForkDB {
+    pub fn new(rpc_url: &str, block_number: Option<u64>) -> Result<Self, Box<dyn std::error::Error>> {
+        let provider = Arc::new(Provider::<Http>::try_from(rpc_url)?);
+        let runtime = Runtime::new()?;
+        
+        Ok(Self {
+            provider,
+            block_number,
+            runtime,
+            cache: CacheDB::new(EmptyDB),
+        })
+    }
+    
+    fn block_id(&self) -> BlockId {
+        match self.block_number {
+            Some(num) => BlockId::Number(BlockNumber::Number(U64::from(num))),
+            None => BlockId::Number(BlockNumber::Latest),
+        }
+    }
+    
+    fn ethereum_address_to_revm(addr: H160) -> Address {
+        Address::from_slice(addr.as_bytes())
+    }
+    
+    fn revm_address_to_ethereum(addr: Address) -> H160 {
+        H160::from_slice(addr.as_bytes())
+    }
+    
+    fn ethereum_u256_to_revm(value: ethers_core::types::U256) -> U256 {
+        let mut bytes = [0u8; 32];
+        value.to_little_endian(&mut bytes);
+        U256::from_be_bytes(bytes)
+    }
+    
+    fn revm_u256_to_ethereum(value: U256) -> ethers_core::types::U256 {
+        let mut bytes = [0u8; 32];
+        value.to_big_endian(&mut bytes);
+        ethers_core::types::U256::from_little_endian(&bytes)
+    }
+    
+    fn ethereum_b256_to_revm(hash: H256) -> B256 {
+        B256::from_slice(hash.as_bytes())
+    }
+}
+
+#[derive(Debug)]
+pub enum ForkDBError {
+    Provider(String),
+    Runtime(String),
+    NotFound,
+}
+
+impl std::fmt::Display for ForkDBError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ForkDBError::Provider(msg) => write!(f, "Provider error: {}", msg),
+            ForkDBError::Runtime(msg) => write!(f, "Runtime error: {}", msg),
+            ForkDBError::NotFound => write!(f, "Not found"),
+        }
+    }
+}
+
+impl std::error::Error for ForkDBError {}
+
+impl Database for ForkDB {
+    type Error = ForkDBError;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        // Check cache first
+        match self.cache.basic(address) {
+            Ok(Some(info)) => return Ok(Some(info)),
+            Ok(None) => return Ok(None),
+            Err(_) => {} // Fall through to provider
+        }
+        
+        // Not in cache, fetch from provider
+        let h160_address = Self::revm_address_to_ethereum(address);
+        let block_id = self.block_id();
+        
+        let account_future = async {
+            // Get balance
+            let balance = match self.provider.get_balance(h160_address, Some(block_id)).await {
+                Ok(bal) => Self::ethereum_u256_to_revm(bal),
+                Err(e) => {
+                    return Err(ForkDBError::Provider(e.to_string()));
+                }
+            };
+            
+            // Get nonce
+            let nonce = match self.provider.get_transaction_count(h160_address, Some(block_id)).await {
+                Ok(n) => n.as_u64(),
+                Err(e) => {
+                    return Err(ForkDBError::Provider(e.to_string()));
+                }
+            };
+            
+            // Get code
+            let code = match self.provider.get_code(h160_address, Some(block_id)).await {
+                Ok(c) => {
+                    if c.0.is_empty() {
+                        None
+                    } else {
+                        Some(Bytecode::new_raw(Bytes::from(c.0.to_vec())))
+                    }
+                },
+                Err(e) => {
+                    return Err(ForkDBError::Provider(e.to_string()));
+                }
+            };
+            
+            if code.is_none() && balance == U256::ZERO && nonce == 0 {
+                // Account doesn't exist
+                Ok(None)
+            } else {
+                // Account exists
+                let code_hash = if let Some(code) = &code {
+                    let hash = keccak256(code.bytecode().as_ref());
+                    B256::from_slice(&hash)
+                } else {
+                    // Empty code hash
+                    B256::from([0xc5, 0xd2, 0x46, 0x01, 0x86, 0xf7, 0x23, 0x3c, 
+                               0x92, 0x7e, 0x7d, 0xb2, 0xdc, 0xc7, 0x03, 0xc0, 
+                               0xe5, 0x00, 0xb6, 0x53, 0xca, 0x82, 0x27, 0x3b, 
+                               0x7b, 0xfa, 0xd8, 0x04, 0x5d, 0x85, 0xa4, 0x70])
+                };
+                
+                Ok(Some(AccountInfo {
+                    balance,
+                    nonce: nonce.into(),
+                    code_hash,
+                    code,
+                }))
+            }
+        };
+        
+        let result = match self.runtime.block_on(account_future) {
+            Ok(info) => info,
+            Err(e) => return Err(e),
+        };
+        
+        // Cache the result
+        if let Some(info) = &result {
+            let account = Account {
+                info: Some(info.clone()),
+                storage: None,
+                storage_root: None,
+            };
+            
+            let mut changes = HashMap::new();
+            changes.insert(address, account);
+            self.cache.commit(changes);
+            
+            // If the account has code, cache it
+            if let Some(code) = &info.code {
+                self.cache.insert_code(info.code_hash, code.clone());
+            }
+        } else {
+            // Cache negative result
+            let mut changes = HashMap::new();
+            changes.insert(address, Account {
+                info: None,
+                storage: None,
+                storage_root: None,
+            });
+            self.cache.commit(changes);
+        }
+        
+        Ok(result)
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        // Check cache first
+        match self.cache.storage(address, index) {
+            Ok(value) => {
+                if value != U256::MAX {
+                    return Ok(value);
+                }
+            },
+            Err(_) => {} // Fall through to provider
+        }
+        
+        // Not in cache, fetch from provider
+        let h160_address = Self::revm_address_to_ethereum(address);
+        let slot = H256::from_slice(&index.to_be_bytes::<32>());
+        let block_id = self.block_id();
+        
+        let storage_future = async {
+            match self.provider.get_storage_at(h160_address, slot, Some(block_id)).await {
+                Ok(value) => {
+                    Ok(Self::ethereum_u256_to_revm(value))
+                },
+                Err(e) => {
+                    Err(ForkDBError::Provider(e.to_string()))
+                }
+            }
+        };
+        
+        let value = match self.runtime.block_on(storage_future) {
+            Ok(value) => value,
+            Err(e) => return Err(e),
+        };
+        
+        // Cache the result
+        self.cache.insert_account_storage(address, index, value);
+        
+        Ok(value)
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        // Check cache first
+        match self.cache.block_hash(number) {
+            Ok(hash) => {
+                if hash != B256::default() {
+                    return Ok(hash);
+                }
+            },
+            Err(_) => {} // Fall through to provider
+        }
+        
+        // If requested number is future relative to fork, return empty hash
+        if let Some(fork_number) = self.block_number {
+            if number.as_u64() > fork_number {
+                return Ok(B256::default());
+            }
+        }
+        
+        // Not in cache, fetch from provider
+        let block_future = async {
+            match self.provider.get_block(number.as_u64()).await {
+                Ok(Some(block)) => {
+                    let hash = block.hash.unwrap_or_default();
+                    Ok(Self::ethereum_b256_to_revm(hash))
+                },
+                Ok(None) => {
+                    Ok(B256::default())
+                },
+                Err(e) => {
+                    Err(ForkDBError::Provider(e.to_string()))
+                }
+            }
+        };
+        
+        let hash = match self.runtime.block_on(block_future) {
+            Ok(hash) => hash,
+            Err(e) => return Err(e),
+        };
+        
+        // Cache the result
+        self.cache.insert_block_hash(number, hash);
+        
+        Ok(hash)
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        // Check cache first
+        match self.cache.code_by_hash(code_hash) {
+            Ok(code) => return Ok(code),
+            Err(_) => {} // Fall through to error
+        }
+        
+        // We don't have a direct way to fetch code by hash from providers
+        // This would typically require first finding an account with this code hash
+        Err(ForkDBError::NotFound)
+    }
+}
+
+impl DatabaseCommit for ForkDB {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        // Commit changes to the cache
+        self.cache.commit(changes);
+    }
+}
+```
+
+The `ForkDB` allows REVM to fork from a live Ethereum network, which is useful for testing and development against real network state.
+
+## PersistentDB
+
+A persistent database implementation that stores state on disk:
+
+```rust
+use std::fs::{self, File};
+use std::io::{Read, Write};
+use std::path::{Path, PathBuf};
+
+pub struct PersistentDB {
+    base_path: PathBuf,
+    cache: CacheDB<EmptyDB>,
+}
+
+impl PersistentDB {
+    pub fn new<P: AsRef<Path>>(path: P) -> Result<Self, Box<dyn std::error::Error>> {
+        let base_path = path.as_ref().to_path_buf();
+        
+        // Create directory structure
+        fs::create_dir_all(&base_path)?;
+        fs::create_dir_all(base_path.join("accounts"))?;
+        fs::create_dir_all(base_path.join("storage"))?;
+        fs::create_dir_all(base_path.join("blocks"))?;
+        fs::create_dir_all(base_path.join("code"))?;
+        
+        Ok(Self {
+            base_path,
+            cache: CacheDB::new(EmptyDB),
+        })
+    }
+    
+    // Helper to get path for an account
+    fn account_path(&self, address: &Address) -> PathBuf {
+        self.base_path.join("accounts").join(format!("{:x}", address))
+    }
+    
+    // Helper to get path for a storage slot
+    fn storage_path(&self, address: &Address, key: &U256) -> PathBuf {
+        self.base_path.join("storage")
+            .join(format!("{:x}", address))
+            .join(format!("{:x}", key))
+    }
+    
+    // Helper to get path for a block hash
+    fn block_hash_path(&self, number: &U256) -> PathBuf {
+        self.base_path.join("blocks").join(format!("{:x}", number))
+    }
+    
+    // Helper to get path for code
+    fn code_path(&self, code_hash: &B256) -> PathBuf {
+        self.base_path.join("code").join(format!("{:x}", code_hash))
+    }
+    
+    // Load account from disk
+    fn load_account(&self, address: &Address) -> Result<Option<AccountInfo>, PersistentDBError> {
+        let path = self.account_path(address);
+        
+        if !path.exists() {
+            return Ok(None);
+        }
+        
+        let mut file = File::open(path)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        let mut data = Vec::new();
+        file.read_to_end(&mut data)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        let info: AccountInfo = bincode::deserialize(&data)
+            .map_err(|e| PersistentDBError::Serialization(e.to_string()))?;
+        
+        Ok(Some(info))
+    }
+    
+    // Load storage from disk
+    fn load_storage(&self, address: &Address, key: &U256) -> Result<U256, PersistentDBError> {
+        let path = self.storage_path(address, key);
+        
+        if !path.exists() {
+            return Ok(U256::ZERO);
+        }
+        
+        let mut file = File::open(path)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        let mut data = Vec::new();
+        file.read_to_end(&mut data)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        let value: U256 = bincode::deserialize(&data)
+            .map_err(|e| PersistentDBError::Serialization(e.to_string()))?;
+        
+        Ok(value)
+    }
+    
+    // Load block hash from disk
+    fn load_block_hash(&self, number: &U256) -> Result<B256, PersistentDBError> {
+        let path = self.block_hash_path(number);
+        
+        if !path.exists() {
+            return Ok(B256::default());
+        }
+        
+        let mut file = File::open(path)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        let mut data = Vec::new();
+        file.read_to_end(&mut data)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        let hash: B256 = bincode::deserialize(&data)
+            .map_err(|e| PersistentDBError::Serialization(e.to_string()))?;
+        
+        Ok(hash)
+    }
+    
+    // Load code from disk
+    fn load_code(&self, code_hash: &B256) -> Result<Bytecode, PersistentDBError> {
+        let path = self.code_path(code_hash);
+        
+        if !path.exists() {
+            return Err(PersistentDBError::CodeNotFound(*code_hash));
+        }
+        
+        let mut file = File::open(path)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        let mut data = Vec::new();
+        file.read_to_end(&mut data)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        let code: Bytecode = bincode::deserialize(&data)
+            .map_err(|e| PersistentDBError::Serialization(e.to_string()))?;
+        
+        Ok(code)
+    }
+    
+    // Save account to disk
+    fn save_account(&self, address: &Address, info: &AccountInfo) -> Result<(), PersistentDBError> {
+        let path = self.account_path(address);
+        
+        // Ensure parent directory exists
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)
+                .map_err(|e| PersistentDBError::IO(e))?;
+        }
+        
+        let data = bincode::serialize(info)
+            .map_err(|e| PersistentDBError::Serialization(e.to_string()))?;
+        
+        let mut file = File::create(path)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        file.write_all(&data)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        Ok(())
+    }
+    
+    // Save storage to disk
+    fn save_storage(&self, address: &Address, key: &U256, value: &U256) -> Result<(), PersistentDBError> {
+        let path = self.storage_path(address, key);
+        
+        // Ensure parent directory exists
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)
+                .map_err(|e| PersistentDBError::IO(e))?;
+        }
+        
+        if *value == U256::ZERO {
+            // If value is zero, delete the file if it exists
+            if path.exists() {
+                fs::remove_file(path)
+                    .map_err(|e| PersistentDBError::IO(e))?;
+            }
+            return Ok(());
+        }
+        
+        let data = bincode::serialize(value)
+            .map_err(|e| PersistentDBError::Serialization(e.to_string()))?;
+        
+        let mut file = File::create(path)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        file.write_all(&data)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        Ok(())
+    }
+    
+    // Save block hash to disk
+    fn save_block_hash(&self, number: &U256, hash: &B256) -> Result<(), PersistentDBError> {
+        let path = self.block_hash_path(number);
+        
+        // Ensure parent directory exists
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)
+                .map_err(|e| PersistentDBError::IO(e))?;
+        }
+        
+        let data = bincode::serialize(hash)
+            .map_err(|e| PersistentDBError::Serialization(e.to_string()))?;
+        
+        let mut file = File::create(path)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        file.write_all(&data)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        Ok(())
+    }
+    
+    // Save code to disk
+    fn save_code(&self, code_hash: &B256, code: &Bytecode) -> Result<(), PersistentDBError> {
+        let path = self.code_path(code_hash);
+        
+        // Ensure parent directory exists
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)
+                .map_err(|e| PersistentDBError::IO(e))?;
+        }
+        
+        let data = bincode::serialize(code)
+            .map_err(|e| PersistentDBError::Serialization(e.to_string()))?;
+        
+        let mut file = File::create(path)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        file.write_all(&data)
+            .map_err(|e| PersistentDBError::IO(e))?;
+        
+        Ok(())
+    }
+    
+    // Delete account from disk
+    fn delete_account(&self, address: &Address) -> Result<(), PersistentDBError> {
+        let path = self.account_path(address);
+        
+        if path.exists() {
+            fs::remove_file(path)
+                .map_err(|e| PersistentDBError::IO(e))?;
+        }
+        
+        // Also delete storage directory
+        let storage_dir = self.base_path.join("storage").join(format!("{:x}", address));
+        if storage_dir.exists() {
+            fs::remove_dir_all(storage_dir)
+                .map_err(|e| PersistentDBError::IO(e))?;
+        }
+        
+        Ok(())
+    }
+}
+
+#[derive(Debug)]
+pub enum PersistentDBError {
+    IO(std::io::Error),
+    Serialization(String),
+    CodeNotFound(B256),
+}
+
+impl std::fmt::Display for PersistentDBError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            PersistentDBError::IO(e) => write!(f, "IO error: {}", e),
+            PersistentDBError::Serialization(msg) => write!(f, "Serialization error: {}", msg),
+            PersistentDBError::CodeNotFound(hash) => write!(f, "Code not found: {:?}", hash),
+        }
+    }
+}
+
+impl std::error::Error for PersistentDBError {}
+
+impl Database for PersistentDB {
+    type Error = PersistentDBError;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        // Check cache first
+        match self.cache.basic(address) {
+            Ok(Some(info)) => return Ok(Some(info)),
+            Ok(None) => return Ok(None),
+            Err(_) => {} // Fall through to disk
+        }
+        
+        // Load from disk
+        let result = self.load_account(&address)?;
+        
+        // Cache the result
+        if let Some(info) = &result {
+            self.cache.insert_account_info(address, info.clone());
+        } else {
+            // Cache negative result
+            let mut changes = HashMap::new();
+            changes.insert(address, Account {
+                info: None,
+                storage: None,
+                storage_root: None,
+            });
+            self.cache.commit(changes);
+        }
+        
+        Ok(result)
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        // Check cache first
+        match self.cache.storage(address, index) {
+            Ok(value) => return Ok(value),
+            Err(_) => {} // Fall through to disk
+        }
+        
+        // Load from disk
+        let value = self.load_storage(&address, &index)?;
+        
+        // Cache the result
+        self.cache.insert_account_storage(address, index, value);
+        
+        Ok(value)
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        // Check cache first
+        match self.cache.block_hash(number) {
+            Ok(hash) => return Ok(hash),
+            Err(_) => {} // Fall through to disk
+        }
+        
+        // Load from disk
+        let hash = self.load_block_hash(&number)?;
+        
+        // Cache the result
+        self.cache.insert_block_hash(number, hash);
+        
+        Ok(hash)
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        // Check cache first
+        match self.cache.code_by_hash(code_hash) {
+            Ok(code) => return Ok(code),
+            Err(_) => {} // Fall through to disk
+        }
+        
+        // Load from disk
+        let code = self.load_code(&code_hash)?;
+        
+        // Cache the result
+        self.cache.insert_code(code_hash, code.clone());
+        
+        Ok(code)
+    }
+}
+
+impl DatabaseCommit for PersistentDB {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        // Update the cache
+        self.cache.commit(changes.clone());
+        
+        // Persist changes to disk
+        for (address, account) in changes {
+            match account.info {
+                Some(info) => {
+                    // Save account
+                    if let Err(e) = self.save_account(&address, &info) {
+                        eprintln!("Error saving account {:?}: {:?}", address, e);
+                    }
+                    
+                    // Save code if present
+                    if let Some(code) = &info.code {
+                        if let Err(e) = self.save_code(&info.code_hash, code) {
+                            eprintln!("Error saving code {:?}: {:?}", info.code_hash, e);
+                        }
+                    }
+                },
+                None => {
+                    // Delete account
+                    if let Err(e) = self.delete_account(&address) {
+                        eprintln!("Error deleting account {:?}: {:?}", address, e);
+                    }
+                }
+            }
+            
+            // Save storage
+            if let Some(storage) = account.storage {
+                for (slot, value) in storage {
+                    if let Err(e) = self.save_storage(&address, &slot, &value.present_value) {
+                        eprintln!("Error saving storage {:?}[{:?}]: {:?}", address, slot, e);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+The `PersistentDB` provides a way to store state persistently on disk, which is useful for long-running applications.
+
+## Advanced Caching Strategies
+
+### LRU Cache
+
+An LRU (Least Recently Used) cache can improve performance by keeping the most recently accessed items in memory:
+
+```rust
+use lru::LruCache;
+use std::num::NonZeroUsize;
+
+pub struct LRUCacheDB<DB: Database> {
+    db: DB,
+    accounts: Mutex<LruCache<Address, Option<AccountInfo>>>,
+    storage: Mutex<LruCache<(Address, U256), U256>>,
+    block_hashes: Mutex<LruCache<U256, B256>>,
+    codes: Mutex<LruCache<B256, Bytecode>>,
+}
+
+impl<DB: Database> LRUCacheDB<DB> {
+    pub fn new(db: DB, capacity: usize) -> Self {
+        let capacity = NonZeroUsize::new(capacity).unwrap_or(NonZeroUsize::new(1000).unwrap());
+        
+        Self {
+            db,
+            accounts: Mutex::new(LruCache::new(capacity)),
+            storage: Mutex::new(LruCache::new(capacity)),
+            block_hashes: Mutex::new(LruCache::new(capacity)),
+            codes: Mutex::new(LruCache::new(capacity)),
+        }
+    }
+}
+
+impl<DB: Database> Database for LRUCacheDB<DB> {
+    type Error = DB::Error;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        // Check cache first
+        let mut accounts = self.accounts.lock().unwrap();
+        if let Some(account) = accounts.get(&address) {
+            return Ok(account.clone());
+        }
+        
+        // Fetch from underlying database
+        let result = self.db.basic(address)?;
+        
+        // Update cache
+        accounts.put(address, result.clone());
+        
+        Ok(result)
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        // Check cache first
+        let mut storage = self.storage.lock().unwrap();
+        if let Some(&value) = storage.get(&(address, index)) {
+            return Ok(value);
+        }
+        
+        // Fetch from underlying database
+        let result = self.db.storage(address, index)?;
+        
+        // Update cache
+        storage.put((address, index), result);
+        
+        Ok(result)
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        // Check cache first
+        let mut block_hashes = self.block_hashes.lock().unwrap();
+        if let Some(&hash) = block_hashes.get(&number) {
+            return Ok(hash);
+        }
+        
+        // Fetch from underlying database
+        let result = self.db.block_hash(number)?;
+        
+        // Update cache
+        block_hashes.put(number, result);
+        
+        Ok(result)
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        // Check cache first
+        let mut codes = self.codes.lock().unwrap();
+        if let Some(code) = codes.get(&code_hash) {
+            return Ok(code.clone());
+        }
+        
+        // Fetch from underlying database
+        let result = self.db.code_by_hash(code_hash)?;
+        
+        // Update cache
+        codes.put(code_hash, result.clone());
+        
+        Ok(result)
+    }
+}
+
+impl<DB: DatabaseCommit> DatabaseCommit for LRUCacheDB<DB> {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        // Update caches
+        let mut accounts = self.accounts.lock().unwrap();
+        let mut storage = self.storage.lock().unwrap();
+        let mut codes = self.codes.lock().unwrap();
+        
+        for (address, account) in &changes {
+            if let Some(info) = &account.info {
+                accounts.put(*address, Some(info.clone()));
+                
+                if let Some(code) = &info.code {
+                    codes.put(info.code_hash, code.clone());
+                }
+                
+                if let Some(account_storage) = &account.storage {
+                    for (&slot, value) in account_storage {
+                        storage.put((*address, slot), value.present_value);
+                    }
+                }
+            } else {
+                accounts.put(*address, None);
+            }
+        }
+        
+        // Forward changes to the underlying database
+        self.db.commit(changes);
+    }
+}
+```
+
+### Time-Based Cache
+
+A time-based cache that expires entries after a certain period:
+
+```rust
+use std::time::{Duration, Instant};
+
+struct CacheEntry<T> {
+    value: T,
+    expires_at: Instant,
+}
+
+pub struct TimedCacheDB<DB: Database> {
+    db: DB,
+    accounts: Mutex<HashMap<Address, CacheEntry<Option<AccountInfo>>>>,
+    storage: Mutex<HashMap<(Address, U256), CacheEntry<U256>>>,
+    block_hashes: Mutex<HashMap<U256, CacheEntry<B256>>>,
+    codes: Mutex<HashMap<B256, CacheEntry<Bytecode>>>,
+    ttl: Duration,
+}
+
+impl<DB: Database> TimedCacheDB<DB> {
+    pub fn new(db: DB, ttl_seconds: u64) -> Self {
+        Self {
+            db,
+            accounts: Mutex::new(HashMap::new()),
+            storage: Mutex::new(HashMap::new()),
+            block_hashes: Mutex::new(HashMap::new()),
+            codes: Mutex::new(HashMap::new()),
+            ttl: Duration::from_secs(ttl_seconds),
+        }
+    }
+    
+    fn is_expired<T>(entry: &CacheEntry<T>) -> bool {
+        entry.expires_at <= Instant::now()
+    }
+}
+
+impl<DB: Database> Database for TimedCacheDB<DB> {
+    type Error = DB::Error;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        // Check cache first
+        let mut accounts = self.accounts.lock().unwrap();
+        if let Some(entry) = accounts.get(&address) {
+            if !Self::is_expired(entry) {
+                return Ok(entry.value.clone());
+            }
+            // Entry expired, remove it
+            accounts.remove(&address);
+        }
+        
+        // Fetch from underlying database
+        let result = self.db.basic(address)?;
+        
+        // Update cache
+        accounts.insert(address, CacheEntry {
+            value: result.clone(),
+            expires_at: Instant::now() + self.ttl,
+        });
+        
+        Ok(result)
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        // Check cache first
+        let mut storage = self.storage.lock().unwrap();
+        if let Some(entry) = storage.get(&(address, index)) {
+            if !Self::is_expired(entry) {
+                return Ok(entry.value);
+            }
+            // Entry expired, remove it
+            storage.remove(&(address, index));
+        }
+        
+        // Fetch from underlying database
+        let result = self.db.storage(address, index)?;
+        
+        // Update cache
+        storage.insert((address, index), CacheEntry {
+            value: result,
+            expires_at: Instant::now() + self.ttl,
+        });
+        
+        Ok(result)
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        // Check cache first
+        let mut block_hashes = self.block_hashes.lock().unwrap();
+        if let Some(entry) = block_hashes.get(&number) {
+            if !Self::is_expired(entry) {
+                return Ok(entry.value);
+            }
+            // Entry expired, remove it
+            block_hashes.remove(&number);
+        }
+        
+        // Fetch from underlying database
+        let result = self.db.block_hash(number)?;
+        
+        // Update cache
+        block_hashes.insert(number, CacheEntry {
+            value: result,
+            expires_at: Instant::now() + self.ttl,
+        });
+        
+        Ok(result)
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        // Check cache first
+        let mut codes = self.codes.lock().unwrap();
+        if let Some(entry) = codes.get(&code_hash) {
+            if !Self::is_expired(entry) {
+                return Ok(entry.value.clone());
+            }
+            // Entry expired, remove it
+            codes.remove(&code_hash);
+        }
+        
+        // Fetch from underlying database
+        let result = self.db.code_by_hash(code_hash)?;
+        
+        // Update cache
+        codes.insert(code_hash, CacheEntry {
+            value: result.clone(),
+            expires_at: Instant::now() + self.ttl,
+        });
+        
+        Ok(result)
+    }
+}
+
+impl<DB: DatabaseCommit> DatabaseCommit for TimedCacheDB<DB> {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        // Update caches
+        let mut accounts = self.accounts.lock().unwrap();
+        let mut storage = self.storage.lock().unwrap();
+        let mut codes = self.codes.lock().unwrap();
+        
+        let expiry = Instant::now() + self.ttl;
+        
+        for (address, account) in &changes {
+            if let Some(info) = &account.info {
+                accounts.insert(*address, CacheEntry {
+                    value: Some(info.clone()),
+                    expires_at: expiry,
+                });
+                
+                if let Some(code) = &info.code {
+                    codes.insert(info.code_hash, CacheEntry {
+                        value: code.clone(),
+                        expires_at: expiry,
+                    });
+                }
+                
+                if let Some(account_storage) = &account.storage {
+                    for (&slot, value) in account_storage {
+                        storage.insert((*address, slot), CacheEntry {
+                            value: value.present_value,
+                            expires_at: expiry,
+                        });
+                    }
+                }
+            } else {
+                accounts.insert(*address, CacheEntry {
+                    value: None,
+                    expires_at: expiry,
+                });
+            }
+        }
+        
+        // Forward changes to the underlying database
+        self.db.commit(changes);
+    }
+}
+```
+
+### Batch Loading
+
+A database implementation that supports batch loading for improved performance:
+
+```rust
+pub struct BatchLoadingDB<DB: Database> {
+    db: DB,
+    cache: CacheDB<EmptyDB>,
+}
+
+impl<DB: Database> BatchLoadingDB<DB> {
+    pub fn new(db: DB) -> Self {
+        Self {
+            db,
+            cache: CacheDB::new(EmptyDB),
+        }
+    }
+    
+    // Batch load accounts
+    pub fn batch_load_accounts(&mut self, addresses: &[Address]) -> Result<(), DB::Error> {
+        // Filter out already cached addresses
+        let addresses_to_load: Vec<_> = addresses.iter()
+            .filter(|&&addr| {
+                match self.cache.basic(addr) {
+                    Ok(_) => false, // Already cached
+                    Err(_) => true,  // Need to load
+                }
+            })
+            .collect();
+        
+        if addresses_to_load.is_empty() {
+            return Ok(());
+        }
+        
+        // Load accounts from the underlying database
+        for &address in &addresses_to_load {
+            if let Ok(account) = self.db.basic(address) {
+                if let Some(info) = &account {
+                    self.cache.insert_account_info(address, info.clone());
+                    
+                    // Also cache code if present
+                    if let Some(code) = &info.code {
+                        self.cache.insert_code(info.code_hash, code.clone());
+                    }
+                } else {
+                    // Cache negative result
+                    let mut changes = HashMap::new();
+                    changes.insert(address, Account {
+                        info: None,
+                        storage: None,
+                        storage_root: None,
+                    });
+                    self.cache.commit(changes);
+                }
+            }
+        }
+        
+        Ok(())
+    }
+    
+    // Batch load storage slots
+    pub fn batch_load_storage(&mut self, slots: &[(Address, U256)]) -> Result<(), DB::Error> {
+        // Filter out already cached slots
+        let slots_to_load: Vec<_> = slots.iter()
+            .filter(|&&(addr, idx)| {
+                match self.cache.storage(addr, idx) {
+                    Ok(_) => false, // Already cached
+                    Err(_) => true,  // Need to load
+                }
+            })
+            .collect();
+        
+        if slots_to_load.is_empty() {
+            return Ok(());
+        }
+        
+        // Load storage from the underlying database
+        for &(address, index) in &slots_to_load {
+            if let Ok(value) = self.db.storage(address, index) {
+                self.cache.insert_account_storage(address, index, value);
+            }
+        }
+        
+        Ok(())
+    }
+}
+
+impl<DB: Database> Database for BatchLoadingDB<DB> {
+    type Error = DB::Error;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        if let Ok(account) = self.cache.basic(address) {
+            return Ok(account);
+        }
+        
+        let result = self.db.basic(address)?;
+        
+        // Cache the result
+        if let Some(info) = &result {
+            self.cache.insert_account_info(address, info.clone());
+            
+            // Also cache code if present
+            if let Some(code) = &info.code {
+                self.cache.insert_code(info.code_hash, code.clone());
+            }
+        } else {
+            // Cache negative result
+            let mut changes = HashMap::new();
+            changes.insert(address, Account {
+                info: None,
+                storage: None,
+                storage_root: None,
+            });
+            self.cache.commit(changes);
+        }
+        
+        Ok(result)
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Self::Error> {
+        if let Ok(value) = self.cache.storage(address, index) {
+            return Ok(value);
+        }
+        
+        let result = self.db.storage(address, index)?;
+        
+        // Cache the result
+        self.cache.insert_account_storage(address, index, result);
+        
+        Ok(result)
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Self::Error> {
+        if let Ok(hash) = self.cache.block_hash(number) {
+            return Ok(hash);
+        }
+        
+        let result = self.db.block_hash(number)?;
+        
+        // Cache the result
+        self.cache.insert_block_hash(number, result);
+        
+        Ok(result)
+    }
+    
+    fn code_by_hash(&self, code_hash: B256) -> Result<Bytecode, Self::Error> {
+        if let Ok(code) = self.cache.code_by_hash(code_hash) {
+            return Ok(code);
+        }
+        
+        let result = self.db.code_by_hash(code_hash)?;
+        
+        // Cache the result
+        self.cache.insert_code(code_hash, result.clone());
+        
+        Ok(result)
+    }
+}
+
+impl<DB: DatabaseCommit> DatabaseCommit for BatchLoadingDB<DB> {
+    fn commit(&mut self, changes: HashMap<Address, Account>) {
+        // Update the cache
+        self.cache.commit(changes.clone());
+        
+        // Forward changes to the underlying database
+        self.db.commit(changes);
+    }
+}
+```
+
+## Best Practices
+
+### Selecting the Right Database
+
+Choose the appropriate database implementation based on your needs:
+
+| Database | Use Case | Pros | Cons |
+|----------|----------|------|------|
+| EmptyDB | Base for other DBs | Simple, minimal | Contains no data |
+| InMemoryDB | Testing, simple apps | Fast, complete | Not persistent |
+| CacheDB | Performance layer | Improves performance | Adds complexity |
+| ForkDB | Mainnet forking | Real network state | Requires RPC access |
+| PersistentDB | Long-running apps | Survives restarts | Slower, more complex |
+| LRUCacheDB | Memory-constrained | Controls memory usage | May evict needed data |
+| TimedCacheDB | Frequently changing state | Fresh data | More overhead |
+| BatchLoadingDB | Bulk operations | Optimized batch loading | More complex API |
+
+### Performance Optimization
+
+1. **Use Appropriate Caching**: Choose caching strategies based on your access patterns.
+2. **Batch Operations**: Group related operations for better performance.
+3. **Minimize Database Round-Trips**: Load all needed data in a single batch.
+4. **Consider Memory Usage**: Balance cache size with memory constraints.
+5. **Optimize Storage Layout**: Group related data for better locality.
+
+```rust
+// Example of optimized database usage
+async fn optimized_execution<DB: Database + DatabaseCommit>(
+    evm: &mut Evm<DB>,
+    addresses: &[Address],
+) -> Result<(), EVMError<DB::Error>> {
+    // Prefetch all accounts
+    let db = evm.db_mut().unwrap();
+    
+    // With a batch loading DB
+    if let Some(batch_db) = db.downcast_mut::<BatchLoadingDB<_>>() {
+        batch_db.batch_load_accounts(addresses)?;
+    } else {
+        // Manually load each account
+        for &address in addresses {
+            let _ = db.basic(address)?;
+        }
+    }
+    
+    // Execute transaction(s)
+    let result = evm.transact()?;
+    
+    // Commit changes in a single batch
+    // ...
+    
+    Ok(())
+}
+```
+
+### Error Handling
+
+1. **Specific Error Types**: Use specific error types for different failure modes.
+2. **Graceful Degradation**: Fall back to simpler behavior when optimal paths fail.
+3. **Retry Strategies**: Implement retries for transient failures.
+4. **Comprehensive Logging**: Log detailed information for debugging.
+
+```rust
+// Example of robust error handling
+fn robust_database_access<DB: Database>(
+    db: &DB,
+    address: Address,
+) -> Result<Option<AccountInfo>, Box<dyn Error>> {
+    const MAX_RETRIES: usize = 3;
+    
+    let mut retry_count = 0;
+    
+    loop {
+        match db.basic(address) {
+            Ok(info) => return Ok(info),
+            Err(e) => {
+                // Check if error is transient
+                if is_transient_error(&e) && retry_count < MAX_RETRIES {
+                    retry_count += 1;
+                    std::thread::sleep(std::time::Duration::from_millis(100 * retry_count as u64));
+                    continue;
+                }
+                
+                // Log and return the error
+                log::error!("Database error accessing account {:?}: {:?}", address, e);
+                return Err(Box::new(e));
+            }
+        }
+    }
+}
+
+fn is_transient_error<E: std::error::Error>(error: &E) -> bool {
+    // Check if the error is transient (e.g., network timeout)
+    // ...
+    false
+}
+```
+
+### Database Abstraction
+
+1. **Composable Design**: Design database components to be easily composable.
+2. **Clear Interface Boundaries**: Separate interface from implementation.
+3. **Minimal Dependencies**: Minimize dependencies between components.
+4. **Consistent Error Handling**: Use consistent error handling across components.
+
+```rust
+// Example of database abstraction
+trait StatePersistence: Send + Sync {
+    // Low-level operations
+    fn get(&self, key: &[u8]) -> Result<Option<Vec<u8>>, Box<dyn Error>>;
+    fn put(&mut self, key: &[u8], value: &[u8]) -> Result<(), Box<dyn Error>>;
+    fn delete(&mut self, key: &[u8]) -> Result<(), Box<dyn Error>>;
+}
+
+struct DatabaseAdapter<P: StatePersistence> {
+    persistence: P,
+}
+
+impl<P: StatePersistence> Database for DatabaseAdapter<P> {
+    type Error = Box<dyn Error>;
+    
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Self::Error> {
+        let key = [b"account:", address.as_bytes()].concat();
+        
+        match self.persistence.get(&key)? {
+            Some(data) => {
+                let info: AccountInfo = bincode::deserialize(&data)?;
+                Ok(Some(info))
+            },
+            None => Ok(None),
+        }
+    }
+    
+    // Implement other methods...
+}
+```
+
+## Conclusion
+
+REVM's database components provide a flexible and extensible system for managing Ethereum state. By understanding the available implementations and best practices, you can:
+
+1. Choose the right database for your specific needs
+2. Implement custom databases for specialized requirements
+3. Optimize performance with appropriate caching strategies
+4. Create robust and maintainable state management solutions
+
+The combination of a clean interface and multiple implementations makes REVM suitable for a wide range of applications, from testing and development to production systems.

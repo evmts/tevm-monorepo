@@ -1,0 +1,1339 @@
+---
+title: 3.7 Forking from a Live Network
+description: Detailed guide about 3.7 forking from a live network in REVM (Rust Ethereum Virtual Machine)
+---
+
+# 3.7 Forking from a Live Network
+
+In this guide, we'll explore how to use REVM to fork from a live Ethereum network. Forking creates a local EVM environment that mirrors the state of a real network at a specific block, allowing you to interact with deployed contracts, manipulate state, and simulate transactions in a controlled environment.
+
+## Overview
+
+Forking a live network is a powerful capability that enables:
+
+1. Local testing against production smart contracts
+2. Simulating complex DeFi operations without spending real assets
+3. Debugging production issues by recreating exact network conditions
+4. Development and testing against the latest state of protocols
+5. Scenario analysis and "what-if" simulations
+
+REVM provides a flexible forking mechanism through its database implementation. By creating a database that fetches missing state from a remote RPC endpoint, we can simulate a local environment backed by production data.
+
+## Prerequisites
+
+- Understanding of REVM basics
+- Access to an Ethereum RPC endpoint (Infura, Alchemy, or local node)
+- Familiarity with Ethereum state management
+- Rust programming knowledge
+
+## Basic Forking Setup
+
+The core of forking functionality is implementing a database that can fetch state from a remote source. Let's start with a basic implementation:
+
+```rust
+use revm::{
+    db::{CacheDB, EmptyDB, EthersDB},
+    primitives::{AccountInfo, Address, Bytecode, Bytes, B256, U256},
+    Database, DatabaseCommit,
+};
+use ethers_providers::{Http, Middleware, Provider};
+use ethers_core::types::{BlockId, BlockNumber, H160, H256, U64};
+use std::collections::HashMap;
+use std::error::Error;
+use std::sync::Arc;
+
+/// A forking database that fetches missing state from a remote RPC provider
+pub struct ForkDB {
+    provider: Arc<Provider<Http>>,
+    block_number: Option<u64>,
+    cache: HashMap<Address, Option<AccountInfo>>,
+    storage_cache: HashMap<(Address, U256), U256>,
+    block_hash_cache: HashMap<U256, B256>,
+}
+
+impl ForkDB {
+    /// Create a new forking database
+    pub fn new(provider: Arc<Provider<Http>>, block_number: Option<u64>) -> Result<Self, Box<dyn Error>> {
+        Ok(ForkDB {
+            provider,
+            block_number,
+            cache: HashMap::new(),
+            storage_cache: HashMap::new(),
+            block_hash_cache: HashMap::new(),
+        })
+    }
+
+    /// Create a new forking database from a URL
+    pub fn from_url(url: &str, block_number: Option<u64>) -> Result<Self, Box<dyn Error>> {
+        let provider = Arc::new(Provider::<Http>::try_from(url)?);
+        Self::new(provider, block_number)
+    }
+    
+    /// Get the block number being used for forking
+    pub fn block_number(&self) -> Option<u64> {
+        self.block_number
+    }
+    
+    /// Convert an Address to the ethers H160 format
+    fn to_h160(address: Address) -> H160 {
+        H160::from_slice(address.as_bytes())
+    }
+    
+    /// Convert a U256 to the ethers U256 format
+    fn to_ethers_u256(value: U256) -> ethers_core::types::U256 {
+        ethers_core::types::U256::from_little_endian(&value.to_be_bytes::<32>())
+    }
+    
+    /// Convert from ethers U256 to REVM U256
+    fn from_ethers_u256(value: ethers_core::types::U256) -> U256 {
+        let mut buffer = [0u8; 32];
+        value.to_little_endian(&mut buffer);
+        U256::from_be_bytes(buffer)
+    }
+    
+    /// Get a block identifier for the fork block
+    fn block_id(&self) -> BlockId {
+        match self.block_number {
+            Some(num) => BlockId::Number(BlockNumber::Number(U64::from(num))),
+            None => BlockId::Number(BlockNumber::Latest),
+        }
+    }
+}
+
+impl Database for ForkDB {
+    /// Get basic account information
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Box<dyn Error>> {
+        // Check cache first
+        if let Some(cached) = self.cache.get(&address) {
+            return Ok(cached.clone());
+        }
+        
+        // Fetch from provider
+        let h160_address = Self::to_h160(address);
+        let block_id = self.block_id();
+        
+        // Use a runtime to block on the async call
+        let rt = tokio::runtime::Runtime::new()?;
+        
+        let account_future = async {
+            // Get balance
+            let balance = match self.provider.get_balance(h160_address, Some(block_id)).await {
+                Ok(bal) => Self::from_ethers_u256(bal),
+                Err(e) => {
+                    println!("Failed to get balance for {:?}: {:?}", address, e);
+                    U256::ZERO
+                }
+            };
+            
+            // Get nonce
+            let nonce = match self.provider.get_transaction_count(h160_address, Some(block_id)).await {
+                Ok(n) => n.as_u64(),
+                Err(e) => {
+                    println!("Failed to get nonce for {:?}: {:?}", address, e);
+                    0
+                }
+            };
+            
+            // Get code
+            let code = match self.provider.get_code(h160_address, Some(block_id)).await {
+                Ok(c) => {
+                    if c.0.is_empty() {
+                        None
+                    } else {
+                        Some(Bytecode::new_raw(Bytes::from(c.0.to_vec())))
+                    }
+                },
+                Err(e) => {
+                    println!("Failed to get code for {:?}: {:?}", address, e);
+                    None
+                }
+            };
+            
+            if code.is_none() && balance == U256::ZERO && nonce == 0 {
+                // Account doesn't exist
+                None
+            } else {
+                // Account exists
+                Some(AccountInfo {
+                    balance,
+                    nonce: nonce.into(),
+                    code,
+                    // Use default values for storage root and code hash
+                    storage_root: revm::primitives::KECCAK_EMPTY,
+                    code_hash: revm::primitives::KECCAK_EMPTY,
+                })
+            }
+        };
+        
+        let account = rt.block_on(account_future);
+        
+        // Cache the result
+        self.cache.insert(address, account.clone());
+        
+        Ok(account)
+    }
+    
+    /// Get storage value at a specific slot
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Box<dyn Error>> {
+        // Check cache first
+        if let Some(&value) = self.storage_cache.get(&(address, index)) {
+            return Ok(value);
+        }
+        
+        // Fetch from provider
+        let h160_address = Self::to_h160(address);
+        let slot = H256::from_slice(&index.to_be_bytes::<32>());
+        let block_id = self.block_id();
+        
+        let rt = tokio::runtime::Runtime::new()?;
+        
+        let storage_future = async {
+            match self.provider.get_storage_at(h160_address, slot, Some(block_id)).await {
+                Ok(value) => {
+                    let mut bytes = [0u8; 32];
+                    value.to_little_endian(&mut bytes);
+                    U256::from_be_bytes(bytes)
+                },
+                Err(e) => {
+                    println!("Failed to get storage at {:?}[{:?}]: {:?}", address, index, e);
+                    U256::ZERO
+                }
+            }
+        };
+        
+        let value = rt.block_on(storage_future);
+        
+        // Cache the result
+        self.storage_cache.insert((address, index), value);
+        
+        Ok(value)
+    }
+    
+    /// Get block hash (needed for some EVM operations)
+    fn block_hash(&self, number: U256) -> Result<B256, Box<dyn Error>> {
+        // Check cache first
+        if let Some(&hash) = self.block_hash_cache.get(&number) {
+            return Ok(hash);
+        }
+        
+        // If requested number is future relative to fork, return empty hash
+        if let Some(fork_number) = self.block_number {
+            if number.as_u64() > fork_number {
+                return Ok(B256::default());
+            }
+        }
+        
+        let rt = tokio::runtime::Runtime::new()?;
+        
+        let block_hash_future = async {
+            match self.provider.get_block(number.as_u64()).await {
+                Ok(Some(block)) => {
+                    let hash = block.hash.unwrap_or_default();
+                    B256::from_slice(hash.as_bytes())
+                },
+                _ => B256::default(),
+            }
+        };
+        
+        let hash = rt.block_on(block_hash_future);
+        
+        // Cache the result
+        self.block_hash_cache.insert(number, hash);
+        
+        Ok(hash)
+    }
+    
+    /// Get the code at an address with given code hash
+    fn code_by_hash(&self, _code_hash: B256) -> Result<Bytecode, Box<dyn Error>> {
+        // This is not needed for basic forking, as we get code in the `basic` method
+        Err("code_by_hash not implemented for ForkDB".into())
+    }
+}
+
+impl DatabaseCommit for ForkDB {
+    /// Commit changes to the database
+    fn commit(&mut self, changes: HashMap<Address, revm::primitives::Account>) {
+        for (address, account) in changes {
+            match account.info {
+                Some(info) => {
+                    self.cache.insert(address, Some(info));
+                },
+                None => {
+                    self.cache.insert(address, None);
+                }
+            }
+            
+            // Update storage cache
+            if let Some(storage) = account.storage {
+                for (slot, value) in storage {
+                    self.storage_cache.insert((address, slot), value.present_value);
+                }
+            }
+        }
+    }
+}
+
+// Example of using the ForkDB
+fn main() -> Result<(), Box<dyn Error>> {
+    // Use a mainnet RPC URL (replace with your own)
+    let rpc_url = "https://mainnet.infura.io/v3/YOUR_API_KEY";
+    
+    // Fork from the latest block
+    let fork_db = ForkDB::from_url(rpc_url, None)?;
+    
+    // Create a cached version for better performance
+    let mut db = CacheDB::new(fork_db);
+    
+    // Example: Get USDC contract information
+    let usdc_address = Address::from_str("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48")?;
+    let usdc_info = db.basic(usdc_address)?;
+    
+    println!("USDC contract info:");
+    println!("  Balance: {} wei", usdc_info.unwrap().balance);
+    println!("  Nonce: {}", usdc_info.unwrap().nonce);
+    println!("  Has code: {}", usdc_info.unwrap().code.is_some());
+    
+    // Example: Get total supply from storage slot 0
+    let total_supply_slot = U256::ZERO;
+    let total_supply = db.storage(usdc_address, total_supply_slot)?;
+    println!("  Total supply in storage: {}", total_supply);
+    
+    Ok(())
+}
+```
+
+The `ForkDB` implementation fetches account data and storage values from a remote provider when they're not found in the local cache.
+
+## Enhanced Forking Database
+
+Let's create a more robust implementation that handles multiple network types and includes performance optimizations:
+
+```rust
+use revm::{
+    db::{CacheDB, EmptyDB},
+    primitives::{AccountInfo, Address, Bytecode, Bytes, B256, U256},
+    Database, DatabaseCommit,
+};
+use ethers_providers::{Http, JsonRpcClient, Middleware, Provider};
+use ethers_core::types::{BlockId, BlockNumber, Chain, H160, H256, U64};
+use futures::future::join_all;
+use std::collections::{HashMap, HashSet};
+use std::error::Error;
+use std::str::FromStr;
+use std::sync::{Arc, Mutex};
+use tokio::runtime::Runtime;
+
+/// Enhanced forking database with multi-chain support and optimizations
+pub struct EnhancedForkDB<C: JsonRpcClient> {
+    provider: Arc<Provider<C>>,
+    block_number: Option<u64>,
+    chain: Chain,
+    accounts: Mutex<HashMap<Address, Option<AccountInfo>>>,
+    storage: Mutex<HashMap<(Address, U256), U256>>,
+    block_hashes: Mutex<HashMap<U256, B256>>,
+    // Allow using a custom runtime for better concurrency control
+    runtime: Arc<Runtime>,
+}
+
+impl<C: JsonRpcClient + 'static> EnhancedForkDB<C> {
+    /// Create a new enhanced forking database
+    pub fn new(
+        provider: Arc<Provider<C>>,
+        block_number: Option<u64>,
+        chain: Chain,
+        runtime: Arc<Runtime>,
+    ) -> Self {
+        Self {
+            provider,
+            block_number,
+            chain,
+            accounts: Mutex::new(HashMap::new()),
+            storage: Mutex::new(HashMap::new()),
+            block_hashes: Mutex::new(HashMap::new()),
+            runtime,
+        }
+    }
+    
+    /// Helper to execute async functions with our runtime
+    fn execute<F, T>(&self, future: F) -> T
+    where
+        F: std::future::Future<Output = T> + Send + 'static,
+        T: Send + 'static,
+    {
+        self.runtime.block_on(future)
+    }
+    
+    /// Get the chain ID
+    pub fn chain_id(&self) -> u64 {
+        match self.chain {
+            Chain::Mainnet => 1,
+            Chain::Optimism => 10,
+            Chain::Arbitrum => 42161,
+            Chain::ArbitrumNova => 42170,
+            Chain::Polygon => 137,
+            Chain::PolygonMumbai => 80001,
+            _ => self.chain as u64,
+        }
+    }
+    
+    /// Get the block ID for RPC calls
+    fn block_id(&self) -> BlockId {
+        match self.block_number {
+            Some(num) => BlockId::Number(BlockNumber::Number(U64::from(num))),
+            None => BlockId::Number(BlockNumber::Latest),
+        }
+    }
+    
+    /// Convert a REVM address to ethers format
+    fn to_h160(address: Address) -> H160 {
+        H160::from_slice(address.as_bytes())
+    }
+    
+    /// Convert a REVM U256 to ethers format
+    fn to_ethers_u256(value: U256) -> ethers_core::types::U256 {
+        ethers_core::types::U256::from_little_endian(&value.to_be_bytes::<32>())
+    }
+    
+    /// Convert an ethers U256 to REVM format
+    fn from_ethers_u256(value: ethers_core::types::U256) -> U256 {
+        let mut buffer = [0u8; 32];
+        value.to_little_endian(&mut buffer);
+        U256::from_be_bytes(buffer)
+    }
+    
+    /// Get the latest block number from the provider
+    pub fn get_latest_block_number(&self) -> Result<u64, Box<dyn Error>> {
+        self.execute(async {
+            match self.provider.get_block_number().await {
+                Ok(number) => Ok(number.as_u64()),
+                Err(e) => Err(format!("Failed to get latest block number: {}", e).into()),
+            }
+        })
+    }
+    
+    /// Bulk fetch account information for multiple addresses
+    pub fn fetch_accounts(&self, addresses: &[Address]) -> Result<(), Box<dyn Error>> {
+        // Skip addresses we already have
+        let addresses_to_fetch: Vec<_> = {
+            let accounts = self.accounts.lock().unwrap();
+            addresses
+                .iter()
+                .filter(|addr| !accounts.contains_key(addr))
+                .cloned()
+                .collect()
+        };
+        
+        if addresses_to_fetch.is_empty() {
+            return Ok(());
+        }
+        
+        self.execute(async {
+            let block_id = self.block_id();
+            let addresses_h160: Vec<_> = addresses_to_fetch.iter()
+                .map(|&addr| Self::to_h160(addr))
+                .collect();
+            
+            // Create futures for balance, nonce, and code requests
+            let balance_futures: Vec<_> = addresses_h160.iter()
+                .map(|&addr| self.provider.get_balance(addr, Some(block_id)))
+                .collect();
+            
+            let nonce_futures: Vec<_> = addresses_h160.iter()
+                .map(|&addr| self.provider.get_transaction_count(addr, Some(block_id)))
+                .collect();
+            
+            let code_futures: Vec<_> = addresses_h160.iter()
+                .map(|&addr| self.provider.get_code(addr, Some(block_id)))
+                .collect();
+            
+            // Execute all futures concurrently
+            let balances = join_all(balance_futures).await;
+            let nonces = join_all(nonce_futures).await;
+            let codes = join_all(code_futures).await;
+            
+            // Process results
+            let mut accounts = self.accounts.lock().unwrap();
+            
+            for (i, address) in addresses_to_fetch.iter().enumerate() {
+                let balance = match &balances[i] {
+                    Ok(bal) => Self::from_ethers_u256(*bal),
+                    Err(_) => U256::ZERO,
+                };
+                
+                let nonce = match &nonces[i] {
+                    Ok(n) => n.as_u64(),
+                    Err(_) => 0,
+                };
+                
+                let code = match &codes[i] {
+                    Ok(c) => {
+                        if c.0.is_empty() {
+                            None
+                        } else {
+                            Some(Bytecode::new_raw(Bytes::from(c.0.to_vec())))
+                        }
+                    },
+                    Err(_) => None,
+                };
+                
+                if code.is_none() && balance == U256::ZERO && nonce == 0 {
+                    // Account doesn't exist or is empty
+                    accounts.insert(*address, None);
+                } else {
+                    // Account exists
+                    accounts.insert(*address, Some(AccountInfo {
+                        balance,
+                        nonce: nonce.into(),
+                        code,
+                        storage_root: revm::primitives::KECCAK_EMPTY,
+                        code_hash: revm::primitives::KECCAK_EMPTY,
+                    }));
+                }
+            }
+            
+            Ok(())
+        })
+    }
+    
+    /// Bulk fetch storage slots for multiple addresses
+    pub fn fetch_storage_slots(
+        &self,
+        slots: &[(Address, U256)],
+    ) -> Result<(), Box<dyn Error>> {
+        // Skip slots we already have
+        let slots_to_fetch: Vec<_> = {
+            let storage = self.storage.lock().unwrap();
+            slots
+                .iter()
+                .filter(|slot| !storage.contains_key(slot))
+                .cloned()
+                .collect()
+        };
+        
+        if slots_to_fetch.is_empty() {
+            return Ok(());
+        }
+        
+        self.execute(async {
+            let block_id = self.block_id();
+            
+            // Create futures for storage requests
+            let storage_futures: Vec<_> = slots_to_fetch.iter()
+                .map(|(addr, slot)| {
+                    let h160_addr = Self::to_h160(*addr);
+                    let h256_slot = H256::from_slice(&slot.to_be_bytes::<32>());
+                    self.provider.get_storage_at(h160_addr, h256_slot, Some(block_id))
+                })
+                .collect();
+            
+            // Execute all futures concurrently
+            let storage_values = join_all(storage_futures).await;
+            
+            // Process results
+            let mut storage = self.storage.lock().unwrap();
+            
+            for (i, (addr, slot)) in slots_to_fetch.iter().enumerate() {
+                let value = match &storage_values[i] {
+                    Ok(val) => {
+                        let mut bytes = [0u8; 32];
+                        val.to_little_endian(&mut bytes);
+                        U256::from_be_bytes(bytes)
+                    },
+                    Err(_) => U256::ZERO,
+                };
+                
+                storage.insert((*addr, *slot), value);
+            }
+            
+            Ok(())
+        })
+    }
+}
+
+impl<C: JsonRpcClient + 'static> Database for EnhancedForkDB<C> {
+    fn basic(&self, address: Address) -> Result<Option<AccountInfo>, Box<dyn Error>> {
+        // Check if we already have this account
+        {
+            let accounts = self.accounts.lock().unwrap();
+            if let Some(account) = accounts.get(&address) {
+                return Ok(account.clone());
+            }
+        }
+        
+        // Fetch the account
+        self.fetch_accounts(&[address])?;
+        
+        // Now we should have it
+        let accounts = self.accounts.lock().unwrap();
+        Ok(accounts.get(&address).cloned().unwrap_or(None))
+    }
+    
+    fn storage(&self, address: Address, index: U256) -> Result<U256, Box<dyn Error>> {
+        // Check if we already have this storage slot
+        {
+            let storage = self.storage.lock().unwrap();
+            if let Some(&value) = storage.get(&(address, index)) {
+                return Ok(value);
+            }
+        }
+        
+        // Fetch the storage slot
+        self.fetch_storage_slots(&[(address, index)])?;
+        
+        // Now we should have it
+        let storage = self.storage.lock().unwrap();
+        Ok(storage.get(&(address, index)).copied().unwrap_or(U256::ZERO))
+    }
+    
+    fn block_hash(&self, number: U256) -> Result<B256, Box<dyn Error>> {
+        // Check if we already have this block hash
+        {
+            let block_hashes = self.block_hashes.lock().unwrap();
+            if let Some(&hash) = block_hashes.get(&number) {
+                return Ok(hash);
+            }
+        }
+        
+        // If requested number is future relative to fork, return empty hash
+        if let Some(fork_number) = self.block_number {
+            if number.as_u64() > fork_number {
+                return Ok(B256::default());
+            }
+        }
+        
+        // Fetch the block hash
+        let hash = self.execute(async {
+            match self.provider.get_block(number.as_u64()).await {
+                Ok(Some(block)) => {
+                    let hash = block.hash.unwrap_or_default();
+                    B256::from_slice(hash.as_bytes())
+                },
+                _ => B256::default(),
+            }
+        });
+        
+        // Cache the result
+        let mut block_hashes = self.block_hashes.lock().unwrap();
+        block_hashes.insert(number, hash);
+        
+        Ok(hash)
+    }
+    
+    fn code_by_hash(&self, _code_hash: B256) -> Result<Bytecode, Box<dyn Error>> {
+        // This is not needed for basic forking, as we get code in the `basic` method
+        Err("code_by_hash not implemented for EnhancedForkDB".into())
+    }
+}
+
+impl<C: JsonRpcClient + 'static> DatabaseCommit for EnhancedForkDB<C> {
+    fn commit(&mut self, changes: HashMap<Address, revm::primitives::Account>) {
+        let mut accounts = self.accounts.lock().unwrap();
+        let mut storage = self.storage.lock().unwrap();
+        
+        for (address, account) in changes {
+            match account.info {
+                Some(info) => {
+                    accounts.insert(address, Some(info));
+                },
+                None => {
+                    accounts.insert(address, None);
+                }
+            }
+            
+            // Update storage cache
+            if let Some(account_storage) = account.storage {
+                for (slot, value) in account_storage {
+                    storage.insert((address, slot), value.present_value);
+                }
+            }
+        }
+    }
+}
+
+// Helper to create an HTTP-based forking database
+pub fn create_http_fork_db(
+    rpc_url: &str,
+    block_number: Option<u64>,
+    chain: Chain,
+) -> Result<EnhancedForkDB<Http>, Box<dyn Error>> {
+    let provider = Arc::new(Provider::<Http>::try_from(rpc_url)?);
+    let runtime = Arc::new(Runtime::new()?);
+    
+    Ok(EnhancedForkDB::new(provider, block_number, chain, runtime))
+}
+```
+
+This enhanced implementation provides concurrent fetching of account data and storage, significantly improving performance when loading multiple accounts or storage slots.
+
+## Using REVM with a Forked Database
+
+Now, let's put our forking database to use with REVM to simulate transactions against a forked network:
+
+```rust
+use revm::{
+    db::CacheDB,
+    EVM, Inspector, InspectorData, CallInputs, CreateInputs, InterpreterResult,
+    primitives::{
+        Address, Bytecode, Bytes, Eval, ExecutionResult, Gas, TransactTo, TxEnv, U256,
+    },
+};
+use ethers_core::types::Chain;
+use std::error::Error;
+use std::str::FromStr;
+use tokio::runtime::Runtime;
+
+/// An inspector that logs significant events during execution
+struct ExecutionLogger {
+    indentation: usize,
+}
+
+impl ExecutionLogger {
+    fn new() -> Self {
+        Self { indentation: 0 }
+    }
+    
+    fn log(&self, message: &str) {
+        println!("{:indent$}{}", "", message, indent = self.indentation * 2);
+    }
+}
+
+impl Inspector for ExecutionLogger {
+    fn initialize_interp(&mut self, _data: InspectorData, _is_static: bool) -> Eval {
+        self.log("Starting execution");
+        Eval::Continue
+    }
+    
+    fn step(&mut self, data: InspectorData, _is_static: bool) -> Eval {
+        let pc = data.interp.program_counter();
+        let opcode = data.interp.contract.bytecode.bytecode()[pc];
+        let opcode_name = revm::interpreter::opcode::OPCODE_JUMPMAP[opcode as usize].name;
+        
+        // Only log significant operations to avoid excessive output
+        match opcode_name {
+            "SLOAD" | "SSTORE" | "CALL" | "STATICCALL" | "DELEGATECALL" | "CREATE" | "CREATE2" | "LOG0" | "LOG1" | "LOG2" | "LOG3" | "LOG4" => {
+                self.log(&format!("Executing {} at PC={}", opcode_name, pc));
+            },
+            _ => {}
+        }
+        
+        Eval::Continue
+    }
+    
+    fn call(&mut self, _data: InspectorData, inputs: &CallInputs, _is_static: bool) -> (Eval, Gas) {
+        self.log(&format!("Call from {:?} to {:?} with value {}", 
+            inputs.context.caller, inputs.contract, inputs.transfer.value));
+        self.indentation += 1;
+        
+        (Eval::Continue, Gas::new(inputs.gas_limit))
+    }
+    
+    fn call_end(
+        &mut self,
+        _data: InspectorData,
+        _inputs: &CallInputs,
+        remaining_gas: Gas,
+        ret: InterpreterResult,
+        _is_static: bool,
+    ) -> (Eval, Gas) {
+        self.indentation -= 1;
+        
+        match &ret {
+            InterpreterResult::Return(d, _) => {
+                self.log(&format!("Call returned {} bytes of data", d.len()));
+            },
+            InterpreterResult::Revert(d, _) => {
+                self.log(&format!("Call reverted with {} bytes of data", d.len()));
+            },
+            InterpreterResult::OutOfGas => {
+                self.log("Call ran out of gas");
+            },
+            _ => {
+                self.log(&format!("Call ended with result: {:?}", ret));
+            }
+        }
+        
+        (Eval::Continue, remaining_gas)
+    }
+    
+    fn create(
+        &mut self,
+        _data: InspectorData,
+        inputs: &CreateInputs,
+    ) -> (Eval, Gas) {
+        self.log(&format!("Contract creation by {:?} with value {}", 
+            inputs.caller, inputs.value));
+        self.indentation += 1;
+        
+        (Eval::Continue, Gas::new(inputs.gas_limit))
+    }
+    
+    fn create_end(
+        &mut self,
+        _data: InspectorData,
+        _inputs: &CreateInputs,
+        remaining_gas: Gas,
+        ret: InterpreterResult,
+    ) -> (Eval, Gas) {
+        self.indentation -= 1;
+        
+        match &ret {
+            InterpreterResult::Return(_, addr) => {
+                self.log(&format!("Contract created at {:?}", addr));
+            },
+            InterpreterResult::Revert(d, _) => {
+                self.log(&format!("Contract creation reverted with {} bytes of data", d.len()));
+            },
+            InterpreterResult::OutOfGas => {
+                self.log("Contract creation ran out of gas");
+            },
+            _ => {
+                self.log(&format!("Contract creation ended with result: {:?}", ret));
+            }
+        }
+        
+        (Eval::Continue, remaining_gas)
+    }
+}
+
+// Example: Simulate a Uniswap swap on a forked network
+async fn simulate_uniswap_swap() -> Result<(), Box<dyn Error>> {
+    // Setup
+    let rpc_url = "https://mainnet.infura.io/v3/YOUR_API_KEY";
+    let block_number = Some(15_000_000); // Use a specific block for reproducibility
+    
+    // Create runtime for async operations
+    let runtime = Arc::new(Runtime::new()?);
+    
+    // Create forking database
+    let fork_db = create_http_fork_db(rpc_url, block_number, Chain::Mainnet)?;
+    
+    println!("Forking from Ethereum mainnet at block {}", 
+             block_number.unwrap_or_else(|| fork_db.get_latest_block_number().unwrap()));
+    
+    // Create cached database for better performance
+    let mut db = CacheDB::new(fork_db);
+    
+    // Create our EVM instance
+    let mut evm = EVM::new();
+    evm.database(db);
+    
+    // Configure EVM environment for mainnet
+    evm.env.cfg.chain_id = 1;
+    
+    // Set up a transaction to swap ETH for USDC through Uniswap V2
+    let uniswap_router = Address::from_str("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")?;
+    
+    // Swap function: swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline)
+    // Function selector: 0x7ff36ab5
+    let swap_function = "7ff36ab5";
+    
+    // Parameters:
+    // 1. amountOutMin: 1 USDC (6 decimals) = 1_000_000
+    let amount_out_min = U256::from(1_000_000);
+    
+    // 2. path: [WETH, USDC]
+    let weth = Address::from_str("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")?;
+    let usdc = Address::from_str("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48")?;
+    
+    // 3. to: our address
+    let our_address = Address::from_str("0x1111111111111111111111111111111111111111")?;
+    
+    // 4. deadline: current timestamp + 1 hour
+    let deadline = U256::from(std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)?
+        .as_secs() + 3600);
+    
+    // Encode the function call using ethabi
+    let mut encoded = hex::decode(swap_function)?;
+    
+    // Encode amount_out_min (uint256)
+    let mut amount_out_min_bytes = [0u8; 32];
+    amount_out_min.to_big_endian(&mut amount_out_min_bytes);
+    encoded.extend_from_slice(&amount_out_min_bytes);
+    
+    // Encode path array offset (32 bytes from the start of this parameter)
+    let path_offset = U256::from(32);
+    let mut path_offset_bytes = [0u8; 32];
+    path_offset.to_big_endian(&mut path_offset_bytes);
+    encoded.extend_from_slice(&path_offset_bytes);
+    
+    // Encode to address
+    let mut to_bytes = [0u8; 32];
+    to_bytes[12..32].copy_from_slice(our_address.as_bytes());
+    encoded.extend_from_slice(&to_bytes);
+    
+    // Encode deadline
+    let mut deadline_bytes = [0u8; 32];
+    deadline.to_big_endian(&mut deadline_bytes);
+    encoded.extend_from_slice(&deadline_bytes);
+    
+    // Encode path array (starting with length = 2)
+    let path_length = U256::from(2);
+    let mut path_length_bytes = [0u8; 32];
+    path_length.to_big_endian(&mut path_length_bytes);
+    encoded.extend_from_slice(&path_length_bytes);
+    
+    // Encode WETH address
+    let mut weth_bytes = [0u8; 32];
+    weth_bytes[12..32].copy_from_slice(weth.as_bytes());
+    encoded.extend_from_slice(&weth_bytes);
+    
+    // Encode USDC address
+    let mut usdc_bytes = [0u8; 32];
+    usdc_bytes[12..32].copy_from_slice(usdc.as_bytes());
+    encoded.extend_from_slice(&usdc_bytes);
+    
+    // Configure transaction
+    let mut tx_env = TxEnv::default();
+    tx_env.caller = our_address;
+    tx_env.transact_to = TransactTo::Call(uniswap_router);
+    tx_env.data = Bytes::from(encoded);
+    tx_env.value = U256::from(1_000_000_000_000_000_000_u64); // 1 ETH
+    tx_env.gas_limit = 500_000;
+    
+    // Set the transaction in the EVM
+    evm.env.tx = tx_env;
+    
+    // Add our test account with some ETH
+    let our_account = revm::primitives::AccountInfo {
+        balance: U256::from(10_000_000_000_000_000_000_u64), // 10 ETH
+        nonce: 0.into(),
+        code: None,
+        code_hash: revm::primitives::KECCAK_EMPTY,
+        storage_root: revm::primitives::KECCAK_EMPTY,
+    };
+    
+    evm.db().unwrap().insert_account_info(our_address, our_account);
+    
+    // Set up our execution logger
+    let logger = ExecutionLogger::new();
+    evm.inspect(logger);
+    
+    // Execute the transaction
+    println!("Executing Uniswap swap...");
+    let result = evm.transact()?;
+    
+    // Process the result
+    match result.result {
+        ExecutionResult::Success { output, .. } => {
+            println!("Swap successful!");
+            println!("Output: 0x{}", hex::encode(&output));
+            
+            // Check our USDC balance after the swap
+            let usdc_balance = get_erc20_balance(&mut evm, usdc, our_address)?;
+            println!("USDC balance after swap: {}", usdc_balance);
+        },
+        ExecutionResult::Revert { output, .. } => {
+            println!("Transaction reverted!");
+            println!("Output: 0x{}", hex::encode(&output));
+            
+            // Try to decode the revert reason
+            if output.len() >= 4 + 32 + 32 {
+                // Check for Error(string) selector: 0x08c379a0
+                if output[0] == 0x08 && output[1] == 0xc3 && output[2] == 0x79 && output[3] == 0xa0 {
+                    let offset = U256::from_big_endian(&output[4..36]).as_usize();
+                    if offset == 32 && output.len() >= 4 + 32 + 32 + 32 {
+                        let length = U256::from_big_endian(&output[4+32..4+64]).as_usize();
+                        if 4 + 64 + length <= output.len() {
+                            let reason = String::from_utf8_lossy(&output[4+64..4+64+length]);
+                            println!("Revert reason: {}", reason);
+                        }
+                    }
+                }
+            }
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            println!("Transaction halted: {:?}", reason);
+        },
+    }
+    
+    // Print gas used
+    println!("Gas used: {}", result.gas_used());
+    
+    Ok(())
+}
+
+// Helper function to get an ERC20 token balance
+fn get_erc20_balance(
+    evm: &mut EVM<CacheDB<EnhancedForkDB<Http>>>,
+    token: Address,
+    owner: Address,
+) -> Result<U256, Box<dyn Error>> {
+    // balanceOf(address) function selector: 0x70a08231
+    let mut call_data = hex::decode("70a08231")?;
+    
+    // Encode owner address
+    let mut owner_bytes = [0u8; 32];
+    owner_bytes[12..32].copy_from_slice(owner.as_bytes());
+    call_data.extend_from_slice(&owner_bytes);
+    
+    // Create a read-only call
+    let mut tx_env = TxEnv::default();
+    tx_env.caller = Address::zero(); // Doesn't matter for read-only call
+    tx_env.transact_to = TransactTo::Call(token);
+    tx_env.data = Bytes::from(call_data);
+    tx_env.value = U256::ZERO;
+    tx_env.gas_limit = 100_000;
+    
+    // Set up a temporary transaction env
+    let original_tx = std::mem::replace(&mut evm.env.tx, tx_env);
+    
+    // Execute the call
+    let result = evm.transact()?;
+    
+    // Restore the original transaction env
+    evm.env.tx = original_tx;
+    
+    // Process the result
+    match result.result {
+        ExecutionResult::Success { output, .. } => {
+            if output.len() == 32 {
+                let balance = U256::from_big_endian(&output);
+                Ok(balance)
+            } else {
+                Err("Invalid balance result".into())
+            }
+        },
+        _ => Err("Failed to get token balance".into()),
+    }
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
+    let runtime = Runtime::new()?;
+    runtime.block_on(simulate_uniswap_swap())
+}
+```
+
+This example demonstrates how to simulate a Uniswap swap on a forked Ethereum mainnet, including encoding the transaction data and checking the resulting token balance.
+
+## Practical Use Cases
+
+Let's explore some practical use cases for forking:
+
+### 1. Testing DeFi Strategies
+
+```rust
+async fn test_defi_strategy() -> Result<(), Box<dyn Error>> {
+    // Fork from mainnet
+    let fork_db = create_http_fork_db(
+        "https://mainnet.infura.io/v3/YOUR_API_KEY",
+        None, // Latest block
+        Chain::Mainnet
+    )?;
+    
+    let mut db = CacheDB::new(fork_db);
+    let mut evm = EVM::new();
+    evm.database(db);
+    
+    // Set up test wallet
+    let wallet = Address::from_str("0x1111111111111111111111111111111111111111")?;
+    let account = revm::primitives::AccountInfo {
+        balance: U256::from(100) * U256::from(10).pow(U256::from(18)), // 100 ETH
+        nonce: 0.into(),
+        code: None,
+        code_hash: revm::primitives::KECCAK_EMPTY,
+        storage_root: revm::primitives::KECCAK_EMPTY,
+    };
+    evm.db().unwrap().insert_account_info(wallet, account);
+    
+    // Step 1: Swap ETH for USDC on Uniswap
+    // ... swap implementation ...
+    
+    // Step 2: Deposit USDC to Aave
+    // ... deposit implementation ...
+    
+    // Step 3: Borrow DAI against USDC collateral
+    // ... borrow implementation ...
+    
+    // Step 4: Use DAI in Compound
+    // ... compound implementation ...
+    
+    // Check final positions and profits
+    // ... balance checks ...
+    
+    Ok(())
+}
+```
+
+### 2. Debugging Failed Transactions
+
+```rust
+async fn debug_failed_transaction(tx_hash: &str) -> Result<(), Box<dyn Error>> {
+    // Create a forking database at the block right before the transaction
+    let provider = Arc::new(Provider::<Http>::try_from(
+        "https://mainnet.infura.io/v3/YOUR_API_KEY"
+    )?);
+    
+    // Get the transaction
+    let tx_hash = H256::from_str(tx_hash.trim_start_matches("0x"))?;
+    let tx = provider.get_transaction(tx_hash).await?
+        .ok_or("Transaction not found")?;
+    
+    // Fork from the block just before this transaction
+    let fork_block = tx.block_number.unwrap().as_u64() - 1;
+    
+    println!("Forking from block {}", fork_block);
+    let fork_db = create_http_fork_db(
+        "https://mainnet.infura.io/v3/YOUR_API_KEY",
+        Some(fork_block),
+        Chain::Mainnet
+    )?;
+    
+    let mut db = CacheDB::new(fork_db);
+    let mut evm = EVM::new();
+    evm.database(db);
+    
+    // Set up transaction environment from the actual transaction
+    let mut tx_env = TxEnv::default();
+    tx_env.caller = Address::from_slice(tx.from.as_bytes());
+    tx_env.transact_to = match tx.to {
+        Some(to) => TransactTo::Call(Address::from_slice(to.as_bytes())),
+        None => TransactTo::Create(revm::primitives::CreateScheme::Create),
+    };
+    tx_env.data = Bytes::from(tx.input.0.clone());
+    tx_env.value = U256::from_be_bytes(tx.value.to_be_bytes::<32>());
+    tx_env.gas_limit = tx.gas.as_u64();
+    
+    if let Some(gas_price) = tx.gas_price {
+        tx_env.gas_price = U256::from_be_bytes(gas_price.to_be_bytes::<32>());
+    }
+    
+    evm.env.tx = tx_env;
+    
+    // Set up a custom inspector for debugging
+    let logger = ExecutionLogger::new();
+    evm.inspect(logger);
+    
+    // Execute the transaction
+    println!("Replaying transaction...");
+    let result = evm.transact()?;
+    
+    // Process the result
+    match result.result {
+        ExecutionResult::Success { .. } => {
+            println!("Transaction successful in replay (but failed on chain)");
+        },
+        ExecutionResult::Revert { output, .. } => {
+            println!("Transaction reverted in replay as expected");
+            // Decode the revert reason
+            if output.len() >= 4 + 32 + 32 {
+                if output[0] == 0x08 && output[1] == 0xc3 && output[2] == 0x79 && output[3] == 0xa0 {
+                    let offset = U256::from_big_endian(&output[4..36]).as_usize();
+                    if offset == 32 && output.len() >= 4 + 32 + 32 + 32 {
+                        let length = U256::from_big_endian(&output[4+32..4+64]).as_usize();
+                        if 4 + 64 + length <= output.len() {
+                            let reason = String::from_utf8_lossy(&output[4+64..4+64+length]);
+                            println!("Revert reason: {}", reason);
+                        }
+                    }
+                }
+            }
+        },
+        ExecutionResult::Halt { reason, .. } => {
+            println!("Transaction halted: {:?}", reason);
+        },
+    }
+    
+    // Print gas used
+    println!("Gas used: {}", result.gas_used());
+    
+    Ok(())
+}
+```
+
+### 3. Simulating Contract Upgrades
+
+```rust
+async fn simulate_contract_upgrade() -> Result<(), Box<dyn Error>> {
+    // Fork from mainnet
+    let fork_db = create_http_fork_db(
+        "https://mainnet.infura.io/v3/YOUR_API_KEY",
+        None, // Latest block
+        Chain::Mainnet
+    )?;
+    
+    let mut db = CacheDB::new(fork_db);
+    let mut evm = EVM::new();
+    evm.database(db);
+    
+    // Contract to upgrade (e.g., a proxy)
+    let proxy_address = Address::from_str("0x1234567890123456789012345678901234567890")?;
+    
+    // Owner of the contract (for access control)
+    let owner = Address::from_str("0x1111111111111111111111111111111111111111")?;
+    
+    // Fund the owner account
+    let owner_account = revm::primitives::AccountInfo {
+        balance: U256::from(10) * U256::from(10).pow(U256::from(18)), // 10 ETH
+        nonce: 0.into(),
+        code: None,
+        code_hash: revm::primitives::KECCAK_EMPTY,
+        storage_root: revm::primitives::KECCAK_EMPTY,
+    };
+    evm.db().unwrap().insert_account_info(owner, owner_account);
+    
+    // Step 1: Deploy new implementation contract
+    // ... implementation deployment ...
+    
+    // Step 2: Test the new implementation
+    // ... test transactions ...
+    
+    // Step 3: Upgrade the proxy to the new implementation
+    // ... upgrade transaction ...
+    
+    // Step 4: Verify everything still works
+    // ... verification transactions ...
+    
+    Ok(())
+}
+```
+
+### 4. Validating MEV Bundles
+
+```rust
+async fn validate_mev_bundle(
+    transactions: Vec<(Address, Address, U256, Bytes)>, // from, to, value, data
+) -> Result<(), Box<dyn Error>> {
+    // Fork from latest block
+    let fork_db = create_http_fork_db(
+        "https://mainnet.infura.io/v3/YOUR_API_KEY",
+        None, // Latest block
+        Chain::Mainnet
+    )?;
+    
+    let mut db = CacheDB::new(fork_db);
+    let mut evm = EVM::new();
+    evm.database(db);
+    
+    // Initial state snapshot
+    let state_before = evm.db().unwrap().dump_state()?;
+    
+    // Execute all transactions in the bundle
+    let mut results = Vec::new();
+    let mut total_profit = U256::ZERO;
+    let mut total_gas_used = 0;
+    
+    for (from, to, value, data) in transactions {
+        // Configure transaction
+        let mut tx_env = TxEnv::default();
+        tx_env.caller = from;
+        tx_env.transact_to = TransactTo::Call(to);
+        tx_env.data = data;
+        tx_env.value = value;
+        tx_env.gas_limit = 12_000_000; // Block gas limit
+        
+        evm.env.tx = tx_env;
+        
+        // Execute transaction
+        let result = evm.transact()?;
+        
+        total_gas_used += result.gas_used();
+        results.push(result);
+    }
+    
+    // Capture final state
+    let state_after = evm.db().unwrap().dump_state()?;
+    
+    // Calculate profit (simple ETH balance difference for now)
+    for (address, _) in &state_after {
+        let balance_before = match state_before.get(address) {
+            Some(account) => account.info.as_ref().map(|i| i.balance).unwrap_or(U256::ZERO),
+            None => U256::ZERO,
+        };
+        
+        let balance_after = match state_after.get(address) {
+            Some(account) => account.info.as_ref().map(|i| i.balance).unwrap_or(U256::ZERO),
+            None => U256::ZERO,
+        };
+        
+        // Track balance changes (excluding tx.origin addresses)
+        if !transactions.iter().any(|(from, _, _, _)| from == address) {
+            let diff = if balance_after > balance_before {
+                balance_after - balance_before
+            } else {
+                balance_before - balance_after
+            };
+            
+            if diff > U256::ZERO {
+                println!("Address {:?} balance change: {:?}", address, 
+                    if balance_after > balance_before { "+" } else { "-" }, diff);
+            }
+        }
+    }
+    
+    println!("Total gas used: {}", total_gas_used);
+    println!("All transactions successful: {}", 
+        results.iter().all(|r| matches!(r.result, ExecutionResult::Success { .. })));
+    
+    Ok(())
+}
+```
+
+## Best Practices for Forking
+
+1. **Use Specific Block Numbers**: Always specify a block number when forking to ensure reproducible results.
+   ```rust
+   let fork_db = create_http_fork_db(rpc_url, Some(15_000_000), Chain::Mainnet)?;
+   ```
+
+2. **Cache Database Access**: Use `CacheDB` to improve performance by caching database reads.
+   ```rust
+   let mut db = CacheDB::new(fork_db);
+   ```
+
+3. **Batch State Fetching**: Fetch multiple accounts or storage slots in a single batch to reduce RPC calls.
+   ```rust
+   fork_db.fetch_accounts(&[addr1, addr2, addr3])?;
+   ```
+
+4. **Pre-fund Test Accounts**: Add accounts with needed balances to avoid transfers.
+   ```rust
+   evm.db().unwrap().insert_account_info(test_wallet, AccountInfo { balance: eth(100), ... });
+   ```
+
+5. **Use Custom Inspectors**: Create custom inspectors to debug or analyze execution.
+   ```rust
+   evm.inspect(MyCustomInspector::new());
+   ```
+
+6. **Handle Rate Limits**: When using public RPC endpoints, handle rate limiting by adding delays or using batched requests.
+   ```rust
+   if rpc_calls % 20 == 0 {
+       tokio::time::sleep(Duration::from_secs(1)).await;
+   }
+   ```
+
+7. **Optimize Storage Access**: Only access storage slots you need, as each slot requires a separate RPC call.
+   ```rust
+   // Prefer this:
+   let total_supply = db.storage(token, slot_for_total_supply)?;
+   
+   // Over scanning all slots:
+   for i in 0..100 {
+       let value = db.storage(token, U256::from(i))?;
+       // ...
+   }
+   ```
+
+8. **Reset Database Between Tests**: Create a fresh forking database for each test to avoid state contamination.
+   ```rust
+   fn setup_test() -> CacheDB<EnhancedForkDB<Http>> {
+       let fork_db = create_http_fork_db(rpc_url, Some(block_number), Chain::Mainnet).unwrap();
+       CacheDB::new(fork_db)
+   }
+   ```
+
+## Next Steps
+
+Now that you've learned how to fork from a live network, you might want to explore:
+
+1. Building a JSON-RPC API to create a fully compatible Ethereum node
+2. Creating custom precompiles to extend EVM functionality
+3. Optimizing your forking implementation for better performance
+4. Implementing state caching and persistence to reduce RPC calls
+
+Check out the next guide, "3.8 Building a JSON-RPC API with REVM", to learn how to implement a full Ethereum JSON-RPC API using REVM.
+
+---
+
+In this guide, we've explored how to use REVM to fork from live Ethereum networks. Forking is a powerful technique that allows you to test against production contracts, simulate complex transactions, and debug real-world scenarios in a controlled environment. By combining REVM's execution capabilities with a forking database implementation, you can create powerful tools for Ethereum development, testing, and analysis.
