@@ -5,12 +5,15 @@ import type { EthCallParams } from '../eth/EthParams.js'
 /**
  * Config params for trace calls
  */
-export type TraceParams = {
+export type TraceParams<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+> = {
 	/**
 	 * The type of tracer
-	 * Currently only callTracer supported
+	 * Supported tracers: callTracer, prestateTracer
 	 */
-	readonly tracer: 'callTracer' | 'prestateTracer'
+	readonly tracer: TTracer
 	/**
 	 * A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms".
 	 * @example "10s"
@@ -36,6 +39,11 @@ export type TraceParams = {
 		 * boolean Setting this to true will disable stack capture. This avoids extra processing for each call frame if stack is not required.
 		 */
 		// readonly disableStack?: boolean
+		/**
+		 * When using the prestateTracer, setting this to true will make the tracer return only the state difference between before and after execution.
+		 * Default is false which returns the full state of all touched accounts.
+		 */
+		readonly diffMode?: TDiffMode
 	}
 }
 

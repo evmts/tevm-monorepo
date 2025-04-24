@@ -25,6 +25,18 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 			...(timeout !== undefined ? { timeout } : {}),
 			...(tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
+
+		// Handle different tracer result formats
+		if (tracer === 'prestateTracer') {
+			// For prestate tracer, return the result directly
+			return {
+				method: debugTraceCallRequest.method,
+				result: /** @type any*/ (traceResult), // Return the prestate tracer result directly
+				jsonrpc: '2.0',
+				...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
+			}
+		}
+		// For standard tracer with opcode tracing
 		return {
 			method: debugTraceCallRequest.method,
 			result: {

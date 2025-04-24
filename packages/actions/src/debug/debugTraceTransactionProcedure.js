@@ -141,6 +141,18 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			...(timeout !== undefined ? { timeout } : {}),
 			...(tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
+
+		// Handle different tracer result formats
+		if (tracer === 'prestateTracer') {
+			// For prestate tracer, return the result directly
+			return {
+				method: request.method,
+				result: /** @type any*/ (traceResult), // Return the prestate tracer result directly
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		}
+		// For standard tracer, transform the result
 		return {
 			method: request.method,
 			// TODO the typescript type for this return type is completely wrong because of copy pasta
