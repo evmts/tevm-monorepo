@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "../../typedoc.base.json"
+  ],
+  "entryPoints": [
+    "./src/index.ts"
+  ],
+  "name": "@tevm/evm-rs",
+  "out": "../../docs/evm-rs"
+}

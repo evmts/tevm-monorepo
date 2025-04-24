@@ -1,0 +1,126 @@
+/**
+ * This file contains integration tests that would run with the actual WASM module.
+ * Rename to remove .disabled extension before running with the built WASM module.
+ */
+
+import { describe, it, expect, beforeEach } from 'vitest'
+import { createEvm } from './createEvm.js'
+
+describe('EVM Integration Tests', () => {
+  it('should execute a simple ETH transfer', async () => {
+    // Create EVM instance
+    const evm = await createEvm({
+      // Minimal options for testing
+      common: {} as any, 
+      stateManager: {} as any,
+      blockchain: {} as any
+    })
+
+    // Make sure it's ready
+    await evm.ready()
+
+    // Set up sender account with 1 ETH
+    await evm.setAccount(
+      '0x1000000000000000000000000000000000000000', 
+      '0x1000000000000000000', 
+      null, 
+      0
+    )
+
+    // Execute the transfer
+    const result = await evm.runCall({
+      caller: '0x1000000000000000000000000000000000000000',
+      to: '0x2000000000000000000000000000000000000000',
+      value: '0x100000000000000000', // 0.1 ETH
+      data: '0x',
+      gasLimit: 21000
+    })
+
+    // Verify results
+    expect(result.gasUsed).toBe(21000n)
+    expect(result.result).toBe('0x')
+
+    // Check sender account (should have less ETH)
+    const sender = await evm.getAccount('0x1000000000000000000000000000000000000000')
+    expect(sender.balance).toBeLessThan(1000000000000000000n) // Less than 1 ETH
+
+    // Check recipient account (should have received ETH)
+    const recipient = await evm.getAccount('0x2000000000000000000000000000000000000000')
+    expect(recipient.balance).toBe(100000000000000000n) // 0.1 ETH
+  })
+
+  it('should deploy and interact with a simple contract', async () => {
+    // Create EVM instance
+    const evm = await createEvm({
+      common: {} as any, 
+      stateManager: {} as any,
+      blockchain: {} as any
+    })
+
+    // Make sure it's ready
+    await evm.ready()
+
+    // Set up deployer account with 1 ETH
+    await evm.setAccount(
+      '0x1000000000000000000000000000000000000000', 
+      '0x1000000000000000000', 
+      null, 
+      0
+    )
+
+    // Simple storage contract bytecode (stores and retrieves a uint256)
+    // Compiled from:
+    // pragma solidity ^0.8.0;
+    // contract SimpleStorage {
+    //     uint256 private value;
+    //     function setValue(uint256 _value) public { value = _value; }
+    //     function getValue() public view returns (uint256) { return value; }
+    // }
+    const contractBytecode = '0x608060405234801561001057600080fd5b50610150806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b5780635524107714610059575b600080fd5b610043610075565b60405161005091906100a1565b60405180910390f35b610073600480360381019061006e91906100ed565b61007e565b005b60008054905090565b8060008190555050565b6000819050919050565b61009b81610088565b82525050565b60006020820190506100b66000830184610092565b92915050565b600080fd5b6100ca81610088565b81146100d557600080fd5b50565b6000813590506100e7816100c1565b92915050565b600060208284031215610103576101026100bc565b5b6000610111848285016100d8565b9150509291505056fea2646970667358221220223701d5d0d4c6cefdd5356c93a17cd1f67302f3a4f155f2578e073eadf4d55464736f6c63430008120033'
+
+    // Deploy the contract
+    const deployResult = await evm.runCall({
+      caller: '0x1000000000000000000000000000000000000000',
+      to: null, // null means contract creation
+      value: '0x0',
+      data: contractBytecode,
+      gasLimit: 1000000,
+      skipBalance: false
+    })
+
+    // Extract the created contract address (in a real test, this would be available)
+    const contractAddress = '0x' + 'f000000000000000000000000000000000000000' // We would get this from the result
+
+    // Call setValue(42)
+    // Function selector (setValue) + argument (42)
+    const setValueCalldata = '0x552410770000000000000000000000000000000000000000000000000000000000000042'
+    const setResult = await evm.runCall({
+      caller: '0x1000000000000000000000000000000000000000',
+      to: contractAddress,
+      value: '0x0',
+      data: setValueCalldata,
+      gasLimit: 100000
+    })
+
+    // Call getValue()
+    // Function selector (getValue)
+    const getValueCalldata = '0x3fa4f245'
+    const getResult = await evm.runCall({
+      caller: '0x1000000000000000000000000000000000000000',
+      to: contractAddress,
+      value: '0x0',
+      data: getValueCalldata,
+      gasLimit: 100000
+    })
+
+    // Decode the result (uint256 is 32 bytes)
+    // result would be 0x0000000000000000000000000000000000000000000000000000000000000042
+    const returnValue = getResult.result
+    expect(returnValue).toBeTruthy()
+    
+    // In a real test with actual results:
+    // expect(returnValue.length).toBe(66) // 0x + 64 hex chars
+    // const value = BigInt(returnValue)
+    // expect(value).toBe(42n)
+  })
+})

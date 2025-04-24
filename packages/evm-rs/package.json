@@ -1,0 +1,53 @@
+{
+  "name": "@tevm/evm-rs",
+  "version": "0.1.0",
+  "description": "Rust/WASM implementation of tevm EVM using REVM",
+  "license": "MIT",
+  "type": "module",
+  "source": "src/index.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build:wasm": "node scripts/build-wasm.js",
+    "build:ts": "tsup",
+    "build": "npm run build:wasm && npm run build:ts",
+    "test": "vitest run",
+    "example:basic": "node examples/basic-usage.js",
+    "example:contract": "node examples/contract-interaction.js"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.3",
+    "vitest": "^0.34.6"
+  },
+  "dependencies": {
+    "@tevm/errors": "workspace:^"
+  },
+  "files": [
+    "dist",
+    "pkg",
+    "src",
+    "examples",
+    "scripts",
+    "!src/**/*.spec.ts",
+    "!src/**/*.test.ts"
+  ],
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  }
+}

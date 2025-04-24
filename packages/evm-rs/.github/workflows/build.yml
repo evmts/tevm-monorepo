@@ -1,0 +1,59 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/evm-rs/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/evm-rs/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+          profile: minimal
+          override: true
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./packages/evm-rs
+
+      - name: Build WASM
+        run: npm run build:wasm
+        working-directory: ./packages/evm-rs
+
+      - name: Build TypeScript
+        run: npm run build:ts
+        working-directory: ./packages/evm-rs
+
+      - name: Run tests
+        run: npm test
+        working-directory: ./packages/evm-rs
+
+      - name: Lint Rust
+        run: cargo clippy -- -D warnings
+        working-directory: ./packages/evm-rs
+
+      - name: Run Rust tests
+        run: cargo test
+        working-directory: ./packages/evm-rs
