@@ -11,6 +11,12 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
  */
 export const traceCallHandler =
 	({ getVm, logger }) =>
+	/**
+	 * @template {'callTracer' | 'prestateTracer'} TTracer
+	 * @template {boolean} TDiffMode
+	 * @param {import('./DebugParams.js').DebugTraceCallParams<TTracer, TDiffMode>} params
+	 * @returns {Promise<import('./DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode>>}
+	 */
 	(params) => {
 		logger.debug(params, 'traceCallHandler: executing trace call with params')
 
@@ -37,12 +43,12 @@ export const traceCallHandler =
 			return getVm()
 				.then((vm) => vm.deepCopy())
 				.then((vm) => runCallWithPrestateTrace(vm, logger, callParams, diffMode))
-				.then((res) => res.trace)
+				.then((res) => /** @type {any} */ (res.trace))
 		}
 
 		// Default to callTracer
 		return getVm()
 			.then((vm) => vm.deepCopy())
 			.then((vm) => runCallWithTrace(vm, logger, callParams))
-			.then((res) => res.trace)
+			.then((res) => /** @type {any} */ (res.trace))
 	}

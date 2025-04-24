@@ -10,17 +10,23 @@ type DebugError = string
 /**
  * JSON-RPC response for `debug_traceTransaction` procedure
  */
-export type DebugTraceTransactionJsonRpcResponse = JsonRpcResponse<
+export type DebugTraceTransactionJsonRpcResponse<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+> = JsonRpcResponse<
 	'debug_traceTransaction',
-	SerializeToJson<DebugTraceTransactionResult>,
+	SerializeToJson<DebugTraceTransactionResult<TTracer, TDiffMode>>,
 	DebugError
 >
 // debug_traceCall
 /**
  * JSON-RPC response for `debug_traceCall` procedure
  */
-export type DebugTraceCallJsonRpcResponse = JsonRpcResponse<
+export type DebugTraceCallJsonRpcResponse<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+> = JsonRpcResponse<
 	'debug_traceCall',
-	SerializeToJson<DebugTraceCallResult>,
+	SerializeToJson<DebugTraceCallResult<TTracer, TDiffMode>>,
 	DebugError
 >

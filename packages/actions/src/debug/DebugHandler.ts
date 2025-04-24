@@ -4,8 +4,13 @@ import type { DebugTraceCallParams, DebugTraceTransactionParams } from './DebugP
 import type { DebugTraceCallResult, DebugTraceTransactionResult } from './DebugResult.js'
 
 // debug_traceTransaction
-export type DebugTraceTransactionHandler = (
-	params: DebugTraceTransactionParams<boolean>,
-) => Promise<DebugTraceTransactionResult>
+export type DebugTraceTransactionHandler = <
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean
+>(params: DebugTraceTransactionParams<TTracer, TDiffMode>) => Promise<DebugTraceTransactionResult<TTracer, TDiffMode>>
+
 // debug_traceCall
-export type DebugTraceCallHandler = (params: DebugTraceCallParams) => Promise<DebugTraceCallResult>
+export type DebugTraceCallHandler = <
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean
+>(params: DebugTraceCallParams<TTracer, TDiffMode>) => Promise<DebugTraceCallResult<TTracer, TDiffMode>>

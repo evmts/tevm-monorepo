@@ -171,7 +171,6 @@ export const runCallWithPrestateTrace = async (vm, logger, params, diffMode = /*
 				const preValue = pre?.storage?.[slotHex] || '0x0'
 				const postValue = post.storage?.[slotHex] || '0x0'
 
-				console.log({ slot, preValue, postValue })
 				if (preValue !== postValue) {
 					storagePostDiff[slotHex] = postValue
 					hasStorageDiff = true

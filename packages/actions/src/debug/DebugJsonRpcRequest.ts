@@ -6,14 +6,25 @@ import type { DebugTraceCallParams, DebugTraceTransactionParams } from './DebugP
 /**
  * JSON-RPC request for `debug_traceTransaction` method
  */
-export type DebugTraceTransactionJsonRpcRequest = JsonRpcRequest<
+export type DebugTraceTransactionJsonRpcRequest<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+	TTTThrowOnError extends boolean = boolean,
+> = JsonRpcRequest<
 	'debug_traceTransaction',
-	[SerializeToJson<DebugTraceTransactionParams>]
+	[SerializeToJson<DebugTraceTransactionParams<TTracer, TDiffMode, TTTThrowOnError>>]
 >
 // debug_traceCall
 /**
  * JSON-RPC request for `debug_traceCall` method
  */
-export type DebugTraceCallJsonRpcRequest = JsonRpcRequest<'debug_traceCall', [SerializeToJson<DebugTraceCallParams>]>
+export type DebugTraceCallJsonRpcRequest<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+> = JsonRpcRequest<'debug_traceCall', [SerializeToJson<DebugTraceCallParams<TTracer, TDiffMode>>]>
 
-export type DebugJsonRpcRequest = DebugTraceTransactionJsonRpcRequest | DebugTraceCallJsonRpcRequest
+export type DebugJsonRpcRequest<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+	TTTThrowOnError extends boolean = boolean,
+> = DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode, TTTThrowOnError> | DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>

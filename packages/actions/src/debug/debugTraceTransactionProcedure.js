@@ -58,6 +58,12 @@ import { traceCallHandler } from './traceCallHandler.js'
  * ```
  */
 export const debugTraceTransactionJsonRpcProcedure = (client) => {
+	/**
+	 * @template {'callTracer' | 'prestateTracer'} TTracer
+	 * @template {boolean} TDiffMode
+	 * @param {import('./DebugJsonRpcRequest.js').DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode>} request
+	 * @returns {Promise<import('./DebugJsonRpcResponse.js').DebugTraceTransactionJsonRpcResponse<TTracer, TDiffMode>>}
+	 */
 	return async (request) => {
 		const { tracer, timeout, tracerConfig, transactionHash } = request.params[0]
 		if (timeout !== undefined) {
@@ -139,7 +145,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				? { blockTag: transactionByHashResponse.result.blockHash }
 				: {}),
 			...(timeout !== undefined ? { timeout } : {}),
-			...(tracerConfig !== undefined ? { tracerConfig } : {}),
+			... /** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
 
 		// Handle different tracer result formats
@@ -147,21 +153,22 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			// For prestate tracer, return the result directly
 			return {
 				method: request.method,
-				result: /** @type any*/ (traceResult), // Return the prestate tracer result directly
+				result: /** @type {any}*/ (traceResult),
 				jsonrpc: '2.0',
 				...(request.id ? { id: request.id } : {}),
 			}
 		}
 		// For standard tracer, transform the result
+		const debugTraceTransactionResult = /** @type {import('./DebugResult.js').EvmTracerResult} */ (traceResult)
 		return {
 			method: request.method,
 			// TODO the typescript type for this return type is completely wrong because of copy pasta
 			// This return value is correct shape
-			result: /** @type any*/ ({
-				gas: numberToHex(traceResult.gas),
-				failed: traceResult.failed,
-				returnValue: traceResult.returnValue,
-				structLogs: traceResult.structLogs.map((log) => {
+			result: /** @type {any}*/ ({
+				gas: numberToHex(debugTraceTransactionResult.gas),
+				failed: debugTraceTransactionResult.failed,
+				returnValue: debugTraceTransactionResult.returnValue,
+				structLogs: debugTraceTransactionResult.structLogs.map((log) => {
 					return {
 						gas: numberToHex(log.gas),
 						gasCost: numberToHex(log.gasCost),

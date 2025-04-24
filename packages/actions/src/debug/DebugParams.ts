@@ -51,8 +51,12 @@ export type TraceParams<
 /**
  * Params taken by `debug_traceTransaction` handler
  */
-export type DebugTraceTransactionParams<TThrowOnError extends boolean = boolean> = BaseParams<TThrowOnError> &
-	TraceParams & {
+export type DebugTraceTransactionParams<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+	TTTThrowOnError extends boolean = boolean,
+> = BaseParams<TTTThrowOnError> &
+	TraceParams<TTracer, TDiffMode> & {
 		/**
 		 * The transaction hash
 		 */
@@ -63,4 +67,7 @@ export type DebugTraceTransactionParams<TThrowOnError extends boolean = boolean>
 /**
  * Params taken by `debug_traceCall` handler
  */
-export type DebugTraceCallParams = TraceParams & EthCallParams
+export type DebugTraceCallParams<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+> = TraceParams<TTracer, TDiffMode> & EthCallParams

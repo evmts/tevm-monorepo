@@ -289,4 +289,129 @@ describe('debugTraceCallJsonRpcProcedure', () => {
 			},
 		})
 	})
+
+	it('should handle prestateTracer with diffMode=false', async () => {
+		// Mock trace result for prestateTracer
+		const mockPrestateResult = {
+			'0x1234567890123456789012345678901234567890': {
+				balance: '0x100',
+				nonce: '0x5',
+				code: '0x60806040...',
+				storage: {
+					'0x0000000000000000000000000000000000000000000000000000000000000000': '0x0000000000000000000000000000000000000000000000000000000000000001',
+					'0x0000000000000000000000000000000000000000000000000000000000000001': '0x0000000000000000000000000000000000000000000000000000000000000002'
+				}
+			},
+			'0xabcdefabcdefabcdefabcdefabcdefabcdefabcd': {
+				balance: '0x200',
+				nonce: '0x1',
+				code: '0x',
+				storage: {}
+			}
+		}
+
+		mockTraceCallHandlerFn.mockResolvedValue(mockPrestateResult)
+
+		const request = {
+			jsonrpc: '2.0',
+			method: 'debug_traceCall',
+			params: [
+				{
+					to: '0x1234567890123456789012345678901234567890',
+					from: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+					tracer: 'prestateTracer',
+					tracerConfig: {
+						diffMode: false
+					}
+				},
+			],
+			id: 4,
+		}
+
+		const procedure = debugTraceCallJsonRpcProcedure(mockClient)
+		const result = await procedure(request)
+
+		// Verify traceCallHandler was called with correct parameters
+		expect(mockTraceCallHandlerFn).toHaveBeenCalledWith({
+			to: '0x1234567890123456789012345678901234567890',
+			from: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+			tracer: 'prestateTracer',
+			tracerConfig: {
+				diffMode: false
+			}
+		})
+
+		// Check the result is directly passed through
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			method: 'debug_traceCall',
+			id: 4,
+			result: mockPrestateResult
+		})
+	})
+
+	it('should handle prestateTracer with diffMode=true', async () => {
+		// Mock trace result for prestateTracer with diffMode
+		const mockPrestateDiffResult = {
+			pre: {
+				'0x1234567890123456789012345678901234567890': {
+					balance: '0x100',
+					nonce: '0x5'
+				},
+				'0xabcdefabcdefabcdefabcdefabcdefabcdefabcd': {
+					balance: '0x200'
+				}
+			},
+			post: {
+				'0x1234567890123456789012345678901234567890': {
+					balance: '0x150',
+					nonce: '0x6'
+				},
+				'0xabcdefabcdefabcdefabcdefabcdefabcdefabcd': {
+					balance: '0x1b0'
+				}
+			}
+		}
+
+		mockTraceCallHandlerFn.mockResolvedValue(mockPrestateDiffResult)
+
+		const request = {
+			jsonrpc: '2.0',
+			method: 'debug_traceCall',
+			params: [
+				{
+					to: '0x1234567890123456789012345678901234567890',
+					from: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+					data: '0xabcdef',
+					tracer: 'prestateTracer',
+					tracerConfig: {
+						diffMode: true
+					}
+				},
+			],
+			id: 5,
+		}
+
+		const procedure = debugTraceCallJsonRpcProcedure(mockClient)
+		const result = await procedure(request)
+
+		// Verify traceCallHandler was called with correct parameters
+		expect(mockTraceCallHandlerFn).toHaveBeenCalledWith({
+			to: '0x1234567890123456789012345678901234567890',
+			from: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+			data: '0xabcdef',
+			tracer: 'prestateTracer',
+			tracerConfig: {
+				diffMode: true
+			}
+		})
+
+		// Check the result
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			method: 'debug_traceCall',
+			id: 5,
+			result: mockPrestateDiffResult
+		})
+	})
 })
