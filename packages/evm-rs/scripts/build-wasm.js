@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process')
-const path = require('path')
-const fs = require('fs')
+const { execSync } = require('node:child_process')
+const path = require('node:path')
+const fs = require('node:fs')
 
 // Configuration
 const pkgDir = path.join(__dirname, '..', 'pkg')
@@ -10,49 +10,45 @@ const distDir = path.join(__dirname, '..', 'dist')
 
 // Ensure the pkg and dist directories exist
 if (!fs.existsSync(pkgDir)) {
-  fs.mkdirSync(pkgDir, { recursive: true })
+	fs.mkdirSync(pkgDir, { recursive: true })
 }
 if (!fs.existsSync(distDir)) {
-  fs.mkdirSync(distDir, { recursive: true })
+	fs.mkdirSync(distDir, { recursive: true })
 }
 
 // Build the Rust WebAssembly module
 console.log('Building WASM module...')
 try {
-  execSync('wasm-pack build --target web --out-dir pkg', { 
-    cwd: path.join(__dirname, '..'),
-    stdio: 'inherit'
-  })
-  console.log('WASM build successful!')
+	execSync('wasm-pack build --target web --out-dir pkg', {
+		cwd: path.join(__dirname, '..'),
+		stdio: 'inherit',
+	})
+	console.log('WASM build successful!')
 } catch (error) {
-  console.error('WASM build failed:', error)
-  process.exit(1)
+	console.error('WASM build failed:', error)
+	process.exit(1)
 }
 
 // Make sure the pkg directory contains the WebAssembly module
 if (!fs.existsSync(path.join(pkgDir, 'tevm_evm_rs_bg.wasm'))) {
-  console.error('WASM file not found after build!')
-  process.exit(1)
+	console.error('WASM file not found after build!')
+	process.exit(1)
 }
 
 // Copy files to dist directory
 console.log('Copying WASM files to dist directory...')
-const filesToCopy = [
-  'tevm_evm_rs_bg.wasm',
-  'tevm_evm_rs.js',
-  'tevm_evm_rs_bg.js',
-]
+const filesToCopy = ['tevm_evm_rs_bg.wasm', 'tevm_evm_rs.js', 'tevm_evm_rs_bg.js']
 
-filesToCopy.forEach(file => {
-  const src = path.join(pkgDir, file)
-  const dest = path.join(distDir, file)
-  
-  if (fs.existsSync(src)) {
-    fs.copyFileSync(src, dest)
-    console.log(`Copied ${file} to dist/`)
-  } else {
-    console.warn(`Warning: ${file} not found in pkg/ directory`)
-  }
+filesToCopy.forEach((file) => {
+	const src = path.join(pkgDir, file)
+	const dest = path.join(distDir, file)
+
+	if (fs.existsSync(src)) {
+		fs.copyFileSync(src, dest)
+		console.log(`Copied ${file} to dist/`)
+	} else {
+		console.warn(`Warning: ${file} not found in pkg/ directory`)
+	}
 })
 
 // Generate loader script

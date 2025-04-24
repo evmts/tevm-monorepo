@@ -1,6 +1,6 @@
-import { formatAbi } from "abitype";
-import { succeed } from "effect/Effect";
-import { generateDtsBody } from "./generateTevmBodyDts.js";
+import { formatAbi } from 'abitype'
+import { succeed } from 'effect/Effect'
+import { generateDtsBody } from './generateTevmBodyDts.js'
 
 /**
  * Generates the body of a JavaScript/TypeScript module for Tevm contracts.
@@ -42,8 +42,8 @@ import { generateDtsBody } from "./generateTevmBodyDts.js";
  */
 export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 	// For TypeScript declaration files, delegate to generateDtsBody
-	if (moduleType === "dts") {
-		return generateDtsBody(artifacts, includeBytecode);
+	if (moduleType === 'dts') {
+		return generateDtsBody(artifacts, includeBytecode)
 	}
 
 	// Generate JavaScript/TypeScript code for the contracts
@@ -58,61 +58,52 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 						// Include bytecode if requested and available (checking for empty string for interfaces)
 						...(includeBytecode
 							? {
-								bytecode:
-									evm?.bytecode?.object && evm.bytecode.object !== ""
-										? `0x${evm.bytecode.object}`
-										: undefined,
-								deployedBytecode:
-									evm?.deployedBytecode?.object &&
-										evm.deployedBytecode.object !== ""
-										? `0x${evm.deployedBytecode.object}`
-										: undefined,
-							}
+									bytecode:
+										evm?.bytecode?.object && evm.bytecode.object !== '' ? `0x${evm.bytecode.object}` : undefined,
+									deployedBytecode:
+										evm?.deployedBytecode?.object && evm.deployedBytecode.object !== ''
+											? `0x${evm.deployedBytecode.object}`
+											: undefined,
+								}
 							: {}),
 					},
 					null,
 					2,
-				);
+				)
 
 				// Generate JSDoc documentation from NatSpec comments
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
 					([method, { notice }]) => ` * @property ${method} ${notice}`,
-				);
+				)
 
 				// Add contract-level documentation if available
 				if (userdoc.notice) {
-					natspec.unshift(` * ${userdoc.notice}`);
+					natspec.unshift(` * ${userdoc.notice}`)
 				}
 
 				// Add link to additional documentation
-				natspec.push(
-					" * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation",
-				);
-				natspec.unshift("/**");
-				natspec.push(" */");
+				natspec.push(' * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation')
+				natspec.unshift('/**')
+				natspec.push(' */')
 
 				// Generate CommonJS format
-				if (moduleType === "cjs") {
+				if (moduleType === 'cjs') {
 					return [
 						`const _${contractName} = ${contract};`,
 						...natspec,
 						`module.exports.${contractName} = createContract(_${contractName});`,
-						i === 0
-							? `module.exports.artifacts = ${JSON.stringify(artifacts, null, 2)};`
-							: "",
-					];
+						i === 0 ? `module.exports.artifacts = ${JSON.stringify(artifacts, null, 2)};` : '',
+					]
 				}
 
 				// Generate TypeScript format with const assertion
-				if (moduleType === "ts") {
+				if (moduleType === 'ts') {
 					return [
 						`const _${contractName} = ${contract} as const`,
 						...natspec,
 						`export const ${contractName} = createContract(_${contractName});`,
-						i === 0
-							? `export const artifacts = ${JSON.stringify(artifacts, null, 2)};`
-							: "",
-					];
+						i === 0 ? `export const artifacts = ${JSON.stringify(artifacts, null, 2)};` : '',
+					]
 				}
 
 				// Generate ES module format
@@ -120,11 +111,9 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 					`const _${contractName} = ${contract};`,
 					...natspec,
 					`export const ${contractName} = createContract(_${contractName});`,
-					i === 0
-						? `export const artifacts = ${JSON.stringify(artifacts, null, 2)};`
-						: "",
-				];
+					i === 0 ? `export const artifacts = ${JSON.stringify(artifacts, null, 2)};` : '',
+				]
 			})
-			.join("\n"),
-	);
-};
+			.join('\n'),
+	)
+}

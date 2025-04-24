@@ -3,10 +3,10 @@ import { Evm } from './Evm.js'
 /**
  * Creates the Tevm Evm to execute ethereum bytecode internally.
  * This implementation uses REVM via WebAssembly under the hood.
- * 
+ *
  * @param {import('./CreateEvmOptions.js').CreateEvmOptions} options
  * @returns {Promise<import('./EvmType.js').Evm>} A tevm Evm instance with tevm specific defaults
- * 
+ *
  * @example
  * ```typescript
  * import { createEvm } from '@tevm/evm-rs'
@@ -32,26 +32,26 @@ import { Evm } from './Evm.js'
  * ````
  */
 export const createEvm = async ({
-  common,
-  stateManager,
-  blockchain,
-  customPrecompiles,
-  profiler,
-  allowUnlimitedContractSize,
-  loggingLevel,
+	common,
+	stateManager,
+	blockchain,
+	customPrecompiles,
+	profiler,
+	allowUnlimitedContractSize,
+	loggingLevel,
 }) => {
-  // Create EVM instance
-  const evm = await Evm.create({
-    common,
-    stateManager,
-    blockchain,
-    customPrecompiles,
-    profiler,
-    allowUnlimitedContractSize,
-    loggingLevel,
-  })
-  
-  // The ready promise is already awaited inside Evm.create(),
-  // so the instance is ready to use when returned
-  return evm
+	// Create EVM instance
+	const evm = await Evm.create({
+		common,
+		stateManager,
+		blockchain,
+		customPrecompiles,
+		profiler,
+		allowUnlimitedContractSize,
+		loggingLevel,
+	})
+
+	// The ready promise is already awaited inside Evm.create(),
+	// so the instance is ready to use when returned
+	return evm
 }
