@@ -5,10 +5,58 @@
   --tevm-primary: #0085FF;
   --tevm-secondary: #00C2FF;
   --tevm-accent: #3BC9DB;
+  --revm-rust: #E43717;
+  --revm-ethereum: #627EEA;
 }
 
 /* Dark mode adjustments if needed */
 :root.dark {
   --tevm-primary: #0085FF;
   --tevm-secondary: #00AAFF;
+  --revm-rust: #F74C00;
+  --revm-ethereum: #7D95FF;
+}
+
+/* Custom REVM styling */
+.revm-logo {
+  animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Enhanced typography for docs */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 1px solid var(--vocs-color_border);
+  padding-bottom: 0.3em;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin-bottom: 1.25em;
+  line-height: 1.7;
 }

@@ -1,4 +1,7 @@
 
+/* Custom styles for REVM docs */
+
+/* Original card group styles */
 .card-group{
   display: flex;
   flex-direction: column;
@@ -24,10 +27,188 @@
   justify-content: center;
   align-items: center;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
+/* Enhanced Card Grid styles */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* Feature cards on the home page */
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--vocs-color_border);
+  border-radius: var(--vocs-borderRadius_4);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--tevm-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.feature-card .icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Code block enhancements */
+.code-block {
+  background-color: var(--vocs-color_background2);
+  border-radius: var(--vocs-borderRadius_4);
+  margin: 1.5rem 0;
+}
+
+.code-block-header {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  border-top-left-radius: var(--vocs-borderRadius_4);
+  border-top-right-radius: var(--vocs-borderRadius_4);
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+/* Code snippet responsiveness */
 @media (max-width: 830px) {
   .code-snippet {
     max-width: calc(100vw - 30px) !important;
+  }
+}
+
+/* File tree enhancements */
+.file-tree {
+  background-color: var(--vocs-color_background2);
+  border-radius: var(--vocs-borderRadius_4);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+/* Callout enhancements */
+.vocs-callout {
+  border-left-width: 4px;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.vocs-callout.info {
+  background-color: rgba(0, 122, 255, 0.1);
+  border-left-color: var(--tevm-primary);
+}
+
+.vocs-callout.warning {
+  background-color: rgba(255, 159, 10, 0.1);
+  border-left-color: #ff9f0a;
+}
+
+.vocs-callout.danger {
+  background-color: rgba(255, 59, 48, 0.1);
+  border-left-color: #ff3b30;
+}
+
+/* Steps component enhancements */
+.vocs-steps {
+  border-left: 2px solid var(--tevm-primary);
+  margin-left: 1rem;
+  padding-left: 1.5rem;
+}
+
+.vocs-step-header {
+  margin-left: -1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.vocs-step-circle {
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--tevm-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+}
+
+/* Custom REVM showcase container for landing page */
+.revm-showcase {
+  max-width: 800px;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.revm-showcase h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.revm-showcase p {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Table enhancements */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+th {
+  background-color: var(--vocs-color_background2);
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+
+td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--vocs-color_border);
+}
+
+tr:nth-child(even) {
+  background-color: var(--vocs-color_background2);
+}
+
+/* Blockquote styling */
+blockquote {
+  border-left: 4px solid var(--tevm-primary);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  color: var(--vocs-color_text2);
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .code-block pre {
+    font-size: 0.9rem;
   }
 }

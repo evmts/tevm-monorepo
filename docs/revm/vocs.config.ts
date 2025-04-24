@@ -1,73 +1,106 @@
 import { defineConfig } from "vocs";
 
 export default defineConfig({
-  title: "REVM Docs",
-  titleTemplate: "%s · Tevm",
+  title: "REVM Documentation",
+  titleTemplate: "%s · REVM",
   baseUrl:
     process.env.VERCEL_ENV === "production"
       ? "https://revm.tevm.sh"
       : process.env.VERCEL_URL,
   rootDir: ".",
   description:
-    "Comprehensive documentation for REVM - the Rust EVM implementation used by Tevm",
-  // Updated logo configuration
+    "Comprehensive documentation for REVM - a high-performance Rust Ethereum Virtual Machine",
+  
+  // Logo configuration
   logoUrl: {
     light: "/tevm-logo-light.png",
     dark: "/tevm-logo-dark.png",
   },
   iconUrl: "/tevm-logo.webp",
-  // Configuring OG Image
+  
+  // Configure OG image
   ogImageUrl:
     "https://vocs.dev/api/og?logo=%logo&title=%title&description=%description",
-  // Set default font
+  
+  // Font configuration
   font: {
     google: "Inter",
   },
-  // Enhance theme with accent color
+  
+  // Theme customization
   theme: {
     accentColor: "#0085FF",
     colorScheme: "system",
   },
-  // Banner for important updates or announcements
+  
+  // Announcement banner
   banner: {
     content:
-      "🚀 REVM Documentation is in Beta! Join our [Telegram community](https://t.me/+ANThR9bHDLAwMjUx)",
+      "🦀 Welcome to the REVM documentation! Join our [Telegram community](https://t.me/+ANThR9bHDLAwMjUx) for updates and discussion.",
     dismissable: true,
     backgroundColor: "#e6f7ff",
   },
-  // Improved top navigation
+  
+  // Enhanced top navigation with improved structure
   topNav: [
     {
-      text: "Docs",
+      text: "Home",
+      link: "/",
+      match: "^/$",
+    },
+    {
+      text: "Introduction",
       link: "/introduction",
       match: "/introduction",
     },
     {
-      text: "Beginner Tutorial",
-      link: "/beginner-tutorial",
-      match: "/beginner-tutorial",
+      text: "Tutorials",
+      items: [
+        { 
+          text: "Beginner Tutorial", 
+          link: "/beginner-tutorial/introduction-to-revm"
+        },
+        { 
+          text: "Example Projects", 
+          link: "/examples/basic-transaction-processing" 
+        },
+      ],
     },
-    { 
-      text: "Examples", 
-      link: "/examples", 
-      match: "/examples" 
+    {
+      text: "Reference",
+      items: [
+        { 
+          text: "Architecture", 
+          link: "/intermediate-concepts/revm-architecture"
+        },
+        { 
+          text: "API Reference", 
+          link: "/expert-reference/api-reference"
+        },
+        { 
+          text: "Precompiles", 
+          link: "/expert-reference/precompiled-contracts"
+        },
+      ],
     },
     {
       text: "Ecosystem",
       items: [
         { text: "Tevm", link: "https://tevm.sh/" },
-        { text: "Viem", link: "https://viem.sh/" },
-        {
-          text: "Ethereumjs",
-          link: "https://github.com/ethereumjs/ethereumjs-monorepo",
-        },
+        { text: "Rust Ethereum", link: "https://github.com/rust-ethereum" },
+        { text: "REVM Repository", link: "https://github.com/bluealloy/revm" },
       ],
     },
   ],
+  
+  // Enhanced sidebar with improved structure and organization
   sidebar: [
     {
-      text: "Introduction",
-      link: "/introduction",
+      text: "Getting Started",
+      items: [
+        { text: "Introduction", link: "/introduction" },
+        { text: "Quick Installation", link: "/beginner-tutorial/getting-started" },
+      ]
     },
     {
       text: "Beginner Tutorial",
@@ -82,7 +115,7 @@ export default defineConfig({
       ],
     },
     {
-      text: "Intermediate Concepts",
+      text: "Core Concepts",
       collapsed: false,
       items: [
         { text: "REVM Architecture", link: "/intermediate-concepts/revm-architecture" },
@@ -91,16 +124,16 @@ export default defineConfig({
         { text: "Transaction Processing", link: "/intermediate-concepts/transaction-processing" },
         { text: "Block Processing", link: "/intermediate-concepts/block-processing" },
         { text: "EVM Customization", link: "/intermediate-concepts/evm-customization" },
-        { text: "Performance Considerations", link: "/intermediate-concepts/performance-considerations" },
+        { text: "Performance", link: "/intermediate-concepts/performance-considerations" },
         { text: "Integration Patterns", link: "/intermediate-concepts/integration-patterns" },
       ],
     },
     {
-      text: "Examples",
-      collapsed: false,
+      text: "Example Projects",
+      collapsed: true,
       items: [
         { text: "Basic Transaction Processing", link: "/examples/basic-transaction-processing" },
-        { text: "Contract Deployment & Interaction", link: "/examples/contract-deployment-interaction" },
+        { text: "Contract Deployment", link: "/examples/contract-deployment-interaction" },
         { text: "State Manipulation", link: "/examples/state-manipulation" },
         { text: "Gas Profiling", link: "/examples/gas-profiling" },
         { text: "Tracing & Debugging", link: "/examples/tracing-debugging" },
@@ -110,7 +143,7 @@ export default defineConfig({
       ],
     },
     {
-      text: "Expert Reference",
+      text: "Technical Reference",
       collapsed: true,
       items: [
         { text: "API Reference", link: "/expert-reference/api-reference" },
@@ -125,28 +158,36 @@ export default defineConfig({
       ],
     },
   ],
+  
+  // GitHub edit link
   editLink: {
     pattern:
       "https://github.com/evmts/tevm-monorepo/edit/main/docs/revm/pages/:path",
     text: "Edit this page on GitHub",
   },
-  // Enable search with boosting for important pages
+  
+  // Enhanced search with intelligent boosting
   search: {
     boostDocument(documentId) {
-      if (
-        documentId.includes("introduction") ||
-        documentId.includes("beginner-tutorial")
-      ) {
-        return 2;
+      if (documentId.includes("introduction")) {
+        return 3;  // Highest boost for introduction pages
       }
-      return 1;
+      if (documentId.includes("beginner-tutorial")) {
+        return 2;  // High boost for beginner content
+      }
+      if (documentId.includes("examples")) {
+        return 1.5;  // Medium boost for examples
+      }
+      return 1;  // Default boost
     },
   },
+  
+  // Social links
   socials: [
     {
       icon: "github",
-      link: "https://github.com/evmts/tevm-monorepo",
-      label: "Github",
+      link: "https://github.com/bluealloy/revm",
+      label: "REVM on GitHub",
     },
     {
       icon: "telegram",
@@ -154,18 +195,44 @@ export default defineConfig({
       label: "Telegram",
     },
     {
-      icon: "x",
-      link: "https://x.com/tevmtools",
-      label: "Twitter",
+      icon: "discord",
+      link: "https://discord.gg/CBwFyGH",
+      label: "Discord",
     },
   ],
-  // Configure code highlighting
+  
+  // Enhanced code highlighting with better themes
   markdown: {
     code: {
       themes: {
         light: "github-light",
-        dark: "github-dark",
+        dark: "one-dark-pro",
       },
+      langs: [
+        'rust',
+        'typescript',
+        'javascript',
+        'solidity',
+        'json',
+        'bash',
+        'toml',
+        'yaml',
+      ],
     },
+    remarkPlugins: [
+      // Any additional plugins can be added here
+    ],
+  },
+  
+  // Advanced page customization
+  extendFrontmatter(frontmatter, filename) {
+    // Add authors to certain sections automatically
+    if (filename.includes('/expert-reference/')) {
+      return {
+        ...frontmatter,
+        authors: frontmatter.authors || ['REVM Team'],
+      };
+    }
+    return frontmatter;
   },
 });

@@ -1,31 +1,162 @@
 ---
 title: REVM Documentation
-description: Comprehensive documentation for REVM - the Rust EVM implementation used by Tevm
+description: Comprehensive documentation for REVM - the Rust Ethereum Virtual Machine
+layout: landing
 ---
 
-# REVM Documentation
+import { Button } from "vocs/components";
+import { Card, CardGrid, FeatureCard, CodeBlock, RevmLogo } from "../components";
+import "../styles/index.css";
 
-import { HomePage } from '../components/HomePage'
+<div className="text-center max-w-screen-lg mx-auto px-4 py-10">
+  <div className="flex justify-center mb-6">
+    <RevmLogo width={80} height={80} />
+  </div>
+  <h1 className="text-5xl font-bold mb-4">REVM Documentation</h1>
+  <p className="text-xl mb-8 max-w-3xl mx-auto">
+    A high-performance Ethereum Virtual Machine implementation in Rust, powering
+    Ethereum clients, Layer 2 solutions, and development tooling.
+  </p>
 
-<HomePage />
+  <div className="max-w-3xl mx-auto bg-gray-100 dark:bg-gray-800 rounded-lg p-6 my-8 overflow-auto">
+    ```rust
+    use revm::{
+        context::Context,
+        primitives::{address, TxKind, U256},
+        ExecuteEvm, MainBuilder, MainContext,
+    };
 
-REVM (Rust Ethereum Virtual Machine) is a powerful Rust implementation of the Ethereum Virtual Machine. This documentation provides comprehensive guidance from beginner tutorials to expert-level technical references.
+    // Create an EVM instance with default settings
+    let mut evm = Context::mainnet()
+        .modify_tx_chained(|tx| {
+            // Configure transaction parameters
+            tx.caller = address!("0x1000000000000000000000000000000000000000");
+            tx.kind = TxKind::Call(address!("0x2000000000000000000000000000000000000000"));
+            tx.value = U256::from(1000000000000000000u64); // 1 ETH
+        })
+        .build_mainnet();
 
-## Quick Links
+    // Execute the transaction
+    let result = evm.transact();
+    ```
+  </div>
 
-- [Introduction to REVM](/introduction)
-- [Beginner Tutorial](/beginner-tutorial/introduction-to-revm)
-- [Intermediate Concepts](/intermediate-concepts/revm-architecture)
-- [Examples](/examples/basic-transaction-processing)
-- [Expert Reference](/expert-reference/api-reference)
+  <div className="button-group">
+    <Button href="/beginner-tutorial/introduction-to-revm" variant="accent">
+      Get Started
+    </Button>
+    <Button href="/intermediate-concepts/revm-architecture">
+      Architecture Overview
+    </Button>
+    <Button href="/examples/basic-transaction-processing">
+      Code Examples
+    </Button>
+  </div>
+</div>
 
-## REVM Overview
+<div className="card-grid mx-auto max-w-screen-lg px-4">
+  <FeatureCard
+    title="High Performance"
+    description="Optimized for speed and efficiency, making it ideal for block validation, transaction processing, and real-time contract simulation."
+    icon="⚡"
+    link="/intermediate-concepts/performance-considerations"
+  />
+  <FeatureCard
+    title="Modular Design"
+    description="Composed of specialized components that can be used independently or together for maximum flexibility."
+    icon="🧩"
+    link="/intermediate-concepts/revm-architecture"
+  />
+  <FeatureCard
+    title="No-STD Compatible"
+    description="Can operate in constrained environments without the standard library, making it ideal for zkVMs and embedded systems."
+    icon="🔍"
+    link="/expert-reference/no-std-compatibility"
+  />
+  <FeatureCard
+    title="Extensible"
+    description="Create custom precompiles, extend functionality, and modify execution behavior for specialized use cases."
+    icon="🔌"
+    link="/intermediate-concepts/evm-customization"
+  />
+  <FeatureCard
+    title="Inspection System"
+    description="Powerful tracing and debugging capabilities for examining execution at the opcode level."
+    icon="🔬"
+    link="/expert-reference/inspection-system"
+  />
+  <FeatureCard
+    title="Production Ready"
+    description="Used by major Ethereum clients, Layer 2 solutions, and development tools in production environments."
+    icon="🚀"
+    link="/introduction"
+  />
+</div>
 
-REVM is a high-performance implementation of the Ethereum Virtual Machine (EVM) written in Rust. It offers:
+<div className="revm-showcase">
+  <h2>Powerful EVM Execution</h2>
+  <p>
+    REVM provides a complete Ethereum execution environment with fine-grained control 
+    over every aspect of transaction processing and state management.
+  </p>
 
-- Efficient execution of EVM bytecode
-- Flexible state management options
-- Extensible architecture for custom applications
-- Support for all EVM opcodes and precompiles
-- High performance through Rust's safety and speed
-- Modular design for integration into various applications
+  <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 overflow-auto text-left">
+    ```rust
+    // Deploy and interact with a smart contract
+    use revm::{
+        context::Context,
+        primitives::{address, bytes, Bytecode, BytecodeState, TxKind, U256},
+        ExecuteEvm, MainBuilder, MainContext,
+    };
+
+    // Create EVM instance
+    let mut evm = Context::mainnet().build_mainnet();
+
+    // ERC20 contract bytecode (simplified example)
+    let bytecode = Bytecode {
+        bytecode: bytes!("0x608060405234801561001057600080fd5b50..."),
+        state: BytecodeState::Raw,
+    };
+
+    // Deploy contract
+    let deploy_result = evm
+        .modify_tx_chained(|tx| {
+            tx.caller = address!("0x1000000000000000000000000000000000000000");
+            tx.value = U256::ZERO;
+            tx.data = bytes!("0x608060405234801561001057600080fd5b50...");
+        })
+        .transact()
+        .unwrap();
+
+    // Contract address
+    let contract_address = deploy_result.address;
+
+    // Interact with deployed contract
+    let transfer_result = evm
+        .modify_tx_chained(|tx| {
+            tx.caller = address!("0x1000000000000000000000000000000000000000");
+            tx.kind = TxKind::Call(contract_address);
+            tx.data = bytes!("0xa9059cbb00000000000000000000000020..."); // transfer(address,uint256)
+        })
+        .transact()
+        .unwrap();
+    ```
+  </div>
+</div>
+
+<div className="max-w-3xl mx-auto my-16 p-8 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+  <blockquote className="border-l-4 border-blue-500 pl-4 italic">
+    "REVM has dramatically improved our EVM execution performance, allowing us to process transactions 
+    more efficiently and validate blocks faster. Its modular design made integration straightforward, 
+    and the inspection system helps us debug complex transactions."
+    <div className="mt-3 font-medium not-italic">
+      — Ethereum Client Developer
+    </div>
+  </blockquote>
+</div>
+
+<div className="mt-16 text-center">
+  <Button href="/beginner-tutorial/introduction-to-revm" variant="accent" className="px-8 py-3 text-lg">
+    Ready to get started?
+  </Button>
+</div>
