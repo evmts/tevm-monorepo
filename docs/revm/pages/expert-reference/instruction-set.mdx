@@ -76,9 +76,9 @@ The EVM instruction set can be grouped into several functional categories:
 
 | Opcode | Value | Name | Stack Input | Stack Output | Description |
 |--------|-------|------|-------------|--------------|-------------|
-| 0x10 | LT | a, b | a < b | Less than |
+| 0x10 | LT | a, b | a &lt; b | Less than |
 | 0x11 | GT | a, b | a > b | Greater than |
-| 0x12 | SLT | a, b | a < b | Signed less than |
+| 0x12 | SLT | a, b | a &lt; b | Signed less than |
 | 0x13 | SGT | a, b | a > b | Signed greater than |
 | 0x14 | EQ | a, b | a == b | Equality |
 | 0x15 | ISZERO | a | a == 0 | Is zero |
@@ -87,9 +87,9 @@ The EVM instruction set can be grouped into several functional categories:
 | 0x18 | XOR | a, b | a ^ b | Bitwise XOR |
 | 0x19 | NOT | a | ~a | Bitwise NOT |
 | 0x1A | BYTE | i, x | i-th byte of x | Extract byte |
-| 0x1B | SHL | shift, value | value << shift | Shift left |
-| 0x1C | SHR | shift, value | value >> shift | Logical shift right |
-| 0x1D | SAR | shift, value | value >> shift | Arithmetic shift right |
+| 0x1B | SHL | shift, value | value &lt;&lt; shift | Shift left |
+| 0x1C | SHR | shift, value | value &gt;&gt; shift | Logical shift right |
+| 0x1D | SAR | shift, value | value &gt;&gt; shift | Arithmetic shift right |
 
 ### Cryptographic Operations
 

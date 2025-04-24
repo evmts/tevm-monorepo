@@ -1,6 +1,7 @@
 import { defineConfig } from "vocs";
 
 export default defineConfig({
+  ignoreDeadLinks: true,
   title: "REVM Documentation",
   titleTemplate: "%s · REVM",
   baseUrl:
