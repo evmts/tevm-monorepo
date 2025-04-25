@@ -1,8 +1,15 @@
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { DebugTraceCallParams, DebugTraceTransactionParams } from './DebugParams.js'
+import type { DebugTraceBlockParams, DebugTraceCallParams, DebugTraceTransactionParams } from './DebugParams.js'
 
-// debug_traceTransaction
+export type DebugJsonRpcRequest<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+	TTTThrowOnError extends boolean = boolean,
+> =
+	| DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode, TTTThrowOnError>
+	| DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>
+
 /**
  * JSON-RPC request for `debug_traceTransaction` method
  */
@@ -14,7 +21,7 @@ export type DebugTraceTransactionJsonRpcRequest<
 	'debug_traceTransaction',
 	[SerializeToJson<DebugTraceTransactionParams<TTracer, TDiffMode, TTTThrowOnError>>]
 >
-// debug_traceCall
+
 /**
  * JSON-RPC request for `debug_traceCall` method
  */
@@ -23,8 +30,10 @@ export type DebugTraceCallJsonRpcRequest<
 	TDiffMode extends boolean = boolean,
 > = JsonRpcRequest<'debug_traceCall', [SerializeToJson<DebugTraceCallParams<TTracer, TDiffMode>>]>
 
-export type DebugJsonRpcRequest<
+/**
+ * JSON-RPC request for `debug_traceBlock`
+ */
+export type DebugTraceBlockJsonRpcRequest<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
 	TDiffMode extends boolean = boolean,
-	TTTThrowOnError extends boolean = boolean,
-> = DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode, TTTThrowOnError> | DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>
+> = JsonRpcRequest<'debug_traceBlock', [SerializeToJson<DebugTraceBlockParams<TTracer, TDiffMode>>]>

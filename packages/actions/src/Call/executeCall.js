@@ -29,7 +29,7 @@ import { handleRunTxError } from './handleEvmError.js'
  */
 export const executeCall = async (client, evmInput, params, events) => {
 	/**
-	 * @type {import('../debug/DebugResult.js').DebugTraceCallResult | undefined}
+	 * @type {import('../debug/DebugResult.js').EvmTracerResult | undefined}
 	 */
 	let trace = undefined
 	/**

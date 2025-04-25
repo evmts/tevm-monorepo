@@ -2,7 +2,7 @@
 
 import type { JsonRpcResponse } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { DebugTraceCallResult, DebugTraceTransactionResult } from './DebugResult.js'
+import type { DebugTraceBlockResult, DebugTraceCallResult, DebugTraceTransactionResult } from './DebugResult.js'
 
 // TODO type the errors strongly
 type DebugError = string
@@ -25,8 +25,12 @@ export type DebugTraceTransactionJsonRpcResponse<
 export type DebugTraceCallJsonRpcResponse<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
 	TDiffMode extends boolean = boolean,
-> = JsonRpcResponse<
-	'debug_traceCall',
-	SerializeToJson<DebugTraceCallResult<TTracer, TDiffMode>>,
-	DebugError
->
+> = JsonRpcResponse<'debug_traceCall', SerializeToJson<DebugTraceCallResult<TTracer, TDiffMode>>, DebugError>
+
+/**
+ * JSON-RPC response for `debug_traceBlock`
+ */
+export type DebugTraceBlockJsonRpcResponse<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+> = JsonRpcResponse<'debug_traceBlock', SerializeToJson<DebugTraceBlockResult<TTracer, TDiffMode>>, DebugError>

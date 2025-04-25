@@ -14,8 +14,7 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 	 * @returns {Promise<import('./DebugJsonRpcResponse.js').DebugTraceCallJsonRpcResponse<TTracer, TDiffMode>>}
 	 */
 	return async (request) => {
-		const { blockTag, tracer, to, gas, data, from, value, timeout, gasPrice, tracerConfig } =
-			request.params[0]
+		const { blockTag, tracer, to, gas, data, from, value, timeout, gasPrice, tracerConfig } = request.params[0]
 		const traceResult = await traceCallHandler(client)({
 			tracer,
 			...(to !== undefined ? { to } : {}),
@@ -26,18 +25,18 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 			...(data !== undefined ? { data } : {}),
 			...(blockTag !== undefined ? { blockTag } : {}),
 			...(timeout !== undefined ? { timeout } : {}),
-			... /** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
+			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
 
 		// Handle different tracer result formats
 		if (tracer === 'prestateTracer') {
 			// For prestate tracer, return the result directly
-			return ({
+			return {
 				method: request.method,
 				result: /** @type {any} */ (traceResult),
 				jsonrpc: '2.0',
 				...(request.id ? { id: request.id } : {}),
-			})
+			}
 		}
 		// For standard tracer with opcode tracing
 		const debugTraceCallResult = /** @type {import('./DebugResult.js').EvmTracerResult} */ (traceResult)
@@ -63,4 +62,3 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 		}
 	}
 }
-

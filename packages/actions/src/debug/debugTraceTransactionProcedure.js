@@ -69,24 +69,30 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 		if (timeout !== undefined) {
 			client.logger.warn('Warning: timeout is currently respected param of debug_traceTransaction')
 		}
+
+		client.logger.debug({ transactionHash, tracer, tracerConfig }, 'debug_traceTransaction: executing with params')
+
 		const transactionByHashResponse = await requestProcedure(client)({
 			method: 'eth_getTransactionByHash',
 			params: [transactionHash],
 			jsonrpc: '2.0',
 			id: 1,
 		})
-		if ('error' in transactionByHashResponse) {
+		if (transactionByHashResponse.error) {
 			return {
-				error: /** @type {any}*/ (transactionByHashResponse.error),
+				error: {
+					code: transactionByHashResponse.error.code.toString(),
+					message: transactionByHashResponse.error.message,
+				},
 				...(request.id !== undefined ? { id: request.id } : {}),
 				jsonrpc: '2.0',
 				method: request.method,
 			}
 		}
+
 		const vm = await client.getVm()
 		const block = await vm.blockchain.getBlock(hexToBytes(transactionByHashResponse.result.blockHash))
 		const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
-		transactionByHashResponse.result.transactionIndex
 		const previousTx = block.transactions.filter(
 			(_, i) => i < hexToNumber(transactionByHashResponse.result.transactionIndex),
 		)
@@ -101,19 +107,20 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				method: request.method,
 				...(request.id !== undefined ? { id: request.id } : {}),
 				error: {
-					// TODO use a @tevm/errors
-					code: /** @type any*/ (-32602),
-					message: 'Parent block not found',
+					code: '-32602',
+					message: 'State root not available for parent block',
 				},
 			}
 		}
+
+		// clone the VM and set initial state
 		const vmClone = await vm.deepCopy()
 		await vmClone.stateManager.setStateRoot(parentBlock.header.stateRoot)
 
 		// execute all transactions before the current one committing to the state
 		for (const tx of previousTx) {
 			runTx(vmClone)({
-				block: parentBlock,
+				block,
 				skipNonce: true,
 				skipBalance: true,
 				skipHardForkValidation: true,
@@ -127,7 +134,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 		}
 
 		// now execute an debug_traceCall
-		const traceResult = await traceCallHandler(client)({
+		const traceResult = await traceCallHandler({ ...client, getVm: () => Promise.resolve(vmClone) })({
 			tracer,
 			...(transactionByHashResponse.result.to !== undefined ? { to: transactionByHashResponse.result.to } : {}),
 			...(transactionByHashResponse.result.from !== undefined ? { from: transactionByHashResponse.result.from } : {}),
@@ -145,12 +152,10 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				? { blockTag: transactionByHashResponse.result.blockHash }
 				: {}),
 			...(timeout !== undefined ? { timeout } : {}),
-			... /** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
+			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
 
-		// Handle different tracer result formats
 		if (tracer === 'prestateTracer') {
-			// For prestate tracer, return the result directly
 			return {
 				method: request.method,
 				result: /** @type {any}*/ (traceResult),
@@ -158,7 +163,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				...(request.id ? { id: request.id } : {}),
 			}
 		}
-		// For standard tracer, transform the result
+
 		const debugTraceTransactionResult = /** @type {import('./DebugResult.js').EvmTracerResult} */ (traceResult)
 		return {
 			method: request.method,

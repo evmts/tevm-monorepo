@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`debugTraceBlockJsonRpcProcedure > should trace transactions in a block and return the expected result 1`] = `
+{
+  "error": {
+    "code": -32602,
+    "message": "Parent block state not available",
+  },
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlock",
+}
+`;

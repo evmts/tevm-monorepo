@@ -1,5 +1,5 @@
 import type { BaseParams } from '../common/BaseParams.js'
-import type { Hex } from '../common/index.js'
+import type { BlockTag, Hex } from '../common/index.js'
 import type { EthCallParams } from '../eth/EthParams.js'
 
 /**
@@ -71,3 +71,17 @@ export type DebugTraceCallParams<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
 	TDiffMode extends boolean = boolean,
 > = TraceParams<TTracer, TDiffMode> & EthCallParams
+
+/**
+ * Params taken by `debug_traceBlock` handler
+ */
+export type DebugTraceBlockParams<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+> = TraceParams<TTracer, TDiffMode> & {
+	/**
+	 * Block number or hash or tag to trace
+	 */
+	// TODO: vm.blockchain.getBlockByTag actually only supports 'latest'
+	readonly blockTag: Hex | Uint8Array | number | bigint | BlockTag
+}

@@ -56,7 +56,9 @@ export type EvmTracerResult = {
 	structLogs: Array<StructLog>
 }
 
-// debug_traceTransaction
+/**
+ * Result from `debug_traceTransaction`
+ */
 export type DebugTraceTransactionResult<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
 	TDiffMode extends boolean = boolean,
@@ -66,7 +68,9 @@ export type DebugTraceTransactionResult<
 		? PrestateTracerAnyResult<TDiffMode>
 		: TraceResult
 
-// debug_traceCall
+/**
+ * Result from `debug_traceCall`
+ */
 export type DebugTraceCallResult<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
 	TDiffMode extends boolean = boolean,
@@ -75,3 +79,26 @@ export type DebugTraceCallResult<
 	: TTracer extends 'prestateTracer'
 		? PrestateTracerAnyResult<TDiffMode>
 		: EvmTracerResult
+
+/**
+ * Result from `debug_traceBlock`.
+ *
+ * Returns an array of transaction traces
+ */
+export type DebugTraceBlockResult<
+	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TDiffMode extends boolean = boolean,
+> = Array<{
+	/**
+	 * Transaction hash
+	 */
+	txHash: Hex
+	/**
+	 * Transaction index in the block
+	 */
+	txIndex: number
+	/**
+	 * Trace result for this transaction
+	 */
+	result: DebugTraceTransactionResult<TTracer, TDiffMode>
+}>

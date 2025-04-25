@@ -298,7 +298,6 @@ describe('traceCallHandler', async () => {
 
 	beforeEach(async () => {
 		client = createTevmNode()
-		await client.ready()
 
 		// deploy contract
 		expect(

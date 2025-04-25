@@ -4,50 +4,6 @@ import { bytesToHex, toHex } from '@tevm/utils'
 
 /**
  * @internal
- * Captures the state of an account, including its storage based on accessed slots
- * @param {import('@tevm/vm').Vm} vm
- * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/utils').EthjsAddress} address
- * @param {Set<import('@tevm/utils').Hex>} slots Set of storage slot keys that were accessed
- * @returns {Promise<import('../debug/DebugResult.js').AccountState | null>}
- */
-const captureAccountState = async (vm, logger, address, slots = new Set()) => {
-	try {
-		// Get account details
-		const account = await vm.stateManager.getAccount(address)
-		if (!account) return null
-
-		// Get code
-		const code = await vm.stateManager.getContractCode(address)
-
-		// Get storage for all accessed slots
-		/** @type {Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>} */
-		const storage = {}
-		for (const slotHex of slots) {
-			try {
-				// Convert hex slot to Uint8Array for getContractStorage
-				const slotKey = Buffer.from(slotHex.slice(2), 'hex')
-				const value = await vm.stateManager.getContractStorage(address, slotKey)
-				storage[slotHex] = bytesToHex(value)
-			} catch (err) {
-				logger.error(err, `Error getting storage at slot ${slotHex} for account ${address.toString()}`)
-			}
-		}
-
-		return {
-			balance: toHex(account.balance),
-			nonce: account.nonce.toString(),
-			code: code && code.length > 0 ? bytesToHex(code) : '0x',
-			storage,
-		}
-	} catch (err) {
-		logger.error(err, `Error capturing state for account ${address.toString()}`)
-		return null
-	}
-}
-
-/**
- * @internal
  * Executes a call with prestate tracer, which captures account state before and after execution
  * @template {boolean} TDiffMode
  * @param {import('@tevm/vm').Vm} vm
@@ -62,12 +18,12 @@ export const runCallWithPrestateTrace = async (vm, logger, params, diffMode = /*
 	await vm.evm.journal.cleanup()
 	// Start tracking which accounts and storage slots are accessed during execution
 	vm.evm.journal.startReportingAccessList()
+	vm.evm.journal.startReportingPreimages()
+	// Checkpoint to capture state pre-execution
+	await vm.evm.journal.checkpoint()
 
 	/** @type {any} */
 	let trace
-
-	// Clone the state manager to capture state before execution
-	const vmClone = await vm.deepCopy()
 
 	// Run the call
 	logger.debug(params, 'runCallWithPrestateTrace: executing call')
@@ -82,38 +38,46 @@ export const runCallWithPrestateTrace = async (vm, logger, params, diffMode = /*
 	/** @type {Map<import('@tevm/utils').Hex, Set<import('@tevm/utils').Hex>>} */
 	const accessListMap = new Map()
 	for (const [addressString, slots] of vm.evm.journal.accessList) {
-		const slotSet = new Set()
-		for (const slotString of slots) slotSet.add(`0x${slotString}`)
-		accessListMap.set(`0x${addressString}`, slotSet)
+		accessListMap.set(
+			`0x${addressString}`,
+			new Set(slots.values().map((s) => /** @type {import('@tevm/utils').Hex} */ (`0x${s}`))),
+		)
 	}
 
-	// Capture pre-state (from cloned VM before execution)
-	/** @type {import('../debug/DebugResult.js').PrestateTracerResult} */
-	const preState = {}
-	for (const [address] of accessListMap) {
-		try {
-			const ethAddress = createAddress(address)
-			const slots = accessListMap.get(address) || new Set()
-			const accountState = await captureAccountState(vmClone, logger, ethAddress, slots)
-
-			if (accountState) preState[address] = accountState
-		} catch (err) {
-			logger.error(err, `Error capturing pre-state for ${address}`)
-		}
-	}
+	const preimages = Array.from(vm.evm.journal.preimages?.values() || []).map((v) => bytesToHex(v))
 
 	// Capture post-state (from VM after execution)
 	/** @type {import('../debug/DebugResult.js').PrestateTracerResult} */
 	const postState = {}
-	for (const [address] of accessListMap) {
+	// if (diffMode) {
+	for (const addressString of preimages) {
 		try {
-			const ethAddress = createAddress(address)
-			const slots = accessListMap.get(address) || new Set()
+			const ethAddress = createAddress(addressString)
+			const slots = accessListMap.get(`0x${addressString}`) ?? new Set()
 			const accountState = await captureAccountState(vm, logger, ethAddress, slots)
 
-			if (accountState) postState[address] = accountState
+			if (accountState) postState[`0x${addressString}`] = accountState
 		} catch (err) {
-			logger.error(err, `Error capturing post-state for ${address}`)
+			logger.error(err, `Error capturing post-state for ${addressString}`)
+		}
+	}
+	// }
+
+	// Revert to pre-execution state
+	vm.evm.journal.revert()
+
+	// Capture pre-state (from cloned VM before execution)
+	/** @type {import('../debug/DebugResult.js').PrestateTracerResult} */
+	const preState = {}
+	for (const addressString of preimages) {
+		try {
+			const ethAddress = createAddress(addressString)
+			const slots = accessListMap.get(`0x${addressString}`) || new Set()
+			const accountState = await captureAccountState(vm, logger, ethAddress, slots)
+
+			if (accountState) preState[`0x${addressString}`] = accountState
+		} catch (err) {
+			logger.error(err, `Error capturing pre-state for ${addressString}`)
 		}
 	}
 
@@ -199,5 +163,49 @@ export const runCallWithPrestateTrace = async (vm, logger, params, diffMode = /*
 	return {
 		...runCallResult,
 		trace,
+	}
+}
+
+/**
+ * @internal
+ * Captures the state of an account, including its storage based on accessed slots
+ * @param {import('@tevm/vm').Vm} vm
+ * @param {import('@tevm/node').TevmNode['logger']} logger
+ * @param {import('@tevm/utils').EthjsAddress} address
+ * @param {Set<import('@tevm/utils').Hex>} slots Set of storage slot keys that were accessed
+ * @returns {Promise<import('../debug/DebugResult.js').AccountState | null>}
+ */
+const captureAccountState = async (vm, logger, address, slots = new Set()) => {
+	try {
+		// Get account details
+		const account = await vm.stateManager.getAccount(address)
+		if (!account) return null
+
+		// Get code
+		const code = await vm.stateManager.getContractCode(address)
+
+		// Get storage for all accessed slots
+		/** @type {Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>} */
+		const storage = {}
+		for (const slotHex of slots) {
+			try {
+				// Convert hex slot to Uint8Array for getContractStorage
+				const slotKey = Buffer.from(slotHex.slice(2), 'hex')
+				const value = await vm.stateManager.getContractStorage(address, slotKey)
+				storage[slotHex] = bytesToHex(value)
+			} catch (err) {
+				logger.error(err, `Error getting storage at slot ${slotHex} for account ${address.toString()}`)
+			}
+		}
+
+		return {
+			balance: toHex(account.balance),
+			nonce: account.nonce.toString(),
+			code: code && code.length > 0 ? bytesToHex(code) : '0x',
+			storage,
+		}
+	} catch (err) {
+		logger.error(err, `Error capturing state for account ${address.toString()}`)
+		return null
 	}
 }
