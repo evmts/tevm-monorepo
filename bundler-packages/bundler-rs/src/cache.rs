@@ -1,8 +1,9 @@
 use crate::models::{BundleResult, CompileResult};
-use crate::file_access::FileAccess;
 use dashmap::DashMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::fs;
+use tokio::fs as tokio_fs;
 
 /// Cache for bundling and compilation results
 pub struct Cache {
@@ -11,9 +12,6 @@ pub struct Cache {
     
     /// File system cache directory
     cache_dir: Option<PathBuf>,
-    
-    /// File access for persisting cache
-    file_access: Arc<FileAccess>,
     
     /// Root directory for relative paths
     root_dir: PathBuf,
@@ -32,14 +30,19 @@ impl Cache {
     /// Create a new cache
     pub fn new(
         cache_dir: Option<PathBuf>,
-        file_access: Arc<FileAccess>,
         root_dir: PathBuf,
         enabled: bool,
     ) -> Self {
+        // Create cache directory if it doesn't exist
+        if let Some(ref dir) = cache_dir {
+            if !dir.exists() {
+                let _ = fs::create_dir_all(dir);
+            }
+        }
+
         Self {
             memory_cache: DashMap::new(),
             cache_dir,
-            file_access,
             root_dir,
             enabled,
         }
@@ -79,8 +82,8 @@ impl Cache {
         if let Some(ref cache_dir) = self.cache_dir {
             let cache_path = cache_dir.join(format!("{}.json", key.replace(":", "_")));
             
-            if let Ok(true) = self.file_access.exists(&cache_path).await {
-                if let Ok(content) = self.file_access.read_file(&cache_path).await {
+            if cache_path.exists() {
+                if let Ok(content) = tokio_fs::read_to_string(&cache_path).await {
                     if let Ok(result) = serde_json::from_str::<BundleResult>(&content) {
                         // Update memory cache
                         self.memory_cache.insert(key, Arc::new(CacheEntry::Bundle(result.clone())));
@@ -115,7 +118,7 @@ impl Cache {
             let cache_path = cache_dir.join(format!("{}.json", key.replace(":", "_")));
             
             if let Ok(content) = serde_json::to_string(&result) {
-                let _ = self.file_access.write_file(&cache_path, &content).await;
+                let _ = tokio_fs::write(&cache_path, content).await;
             }
         }
     }
@@ -143,8 +146,8 @@ impl Cache {
         if let Some(ref cache_dir) = self.cache_dir {
             let cache_path = cache_dir.join(format!("{}.json", key.replace(":", "_")));
             
-            if let Ok(true) = self.file_access.exists(&cache_path).await {
-                if let Ok(content) = self.file_access.read_file(&cache_path).await {
+            if cache_path.exists() {
+                if let Ok(content) = tokio_fs::read_to_string(&cache_path).await {
                     if let Ok(result) = serde_json::from_str::<CompileResult>(&content) {
                         // Update memory cache
                         self.memory_cache.insert(key, Arc::new(CacheEntry::Compile(result.clone())));
@@ -178,7 +181,7 @@ impl Cache {
             let cache_path = cache_dir.join(format!("{}.json", key.replace(":", "_")));
             
             if let Ok(content) = serde_json::to_string(&result) {
-                let _ = self.file_access.write_file(&cache_path, &content).await;
+                let _ = tokio_fs::write(&cache_path, content).await;
             }
         }
     }

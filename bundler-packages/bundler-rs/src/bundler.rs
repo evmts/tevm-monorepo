@@ -1,12 +1,12 @@
 use crate::config::{BundlerConfig, SolcOptions, RuntimeOptions, ModuleType, ContractPackage};
 use crate::models::{BundleError, BundleResult, CompileResult, ModuleInfo, ContractArtifact};
-use crate::file_access::FileAccess;
 use crate::cache::Cache;
 use crate::artifacts::{extract_artifacts, generate_source_map, extract_asts};
 
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::fs;
 use sha2::{Sha256, Digest};
 use hex::encode;
 use serde_json;
@@ -27,9 +27,6 @@ pub struct Bundler {
     /// Configuration for the bundler
     config: BundlerConfig,
     
-    /// File access for reading/writing files
-    file_access: Arc<FileAccess>,
-    
     /// Cache for compilation results
     cache: Option<Cache>,
     
@@ -39,9 +36,7 @@ pub struct Bundler {
 
 impl Bundler {
     /// Create a new bundler instance
-    pub async fn new(config: BundlerConfig, file_access: FileAccess) -> Result<Self, BundleError> {
-        let file_access = Arc::new(file_access);
-        
+    pub async fn new(config: BundlerConfig) -> Result<Self, BundleError> {
         // Initialize solc compiler
         let solc_path = config.solc_path.clone();
         let solc_version = config.solc_version.clone().unwrap_or_else(|| "0.8.20".to_string());
@@ -54,7 +49,6 @@ impl Bundler {
             
             Some(Cache::new(
                 config.cache_dir.clone(),
-                file_access.clone(),
                 root_dir,
                 true,
             ))
@@ -64,7 +58,6 @@ impl Bundler {
         
         Ok(Self {
             config,
-            file_access,
             cache,
             solc,
         })
@@ -158,7 +151,7 @@ impl Bundler {
         
         // Read the Solidity file
         let full_path = PathBuf::from(base_dir).join(file_path);
-        let code = self.file_access.read_file(&full_path).await
+        let code = fs::read_to_string(&full_path)
             .map_err(|e| BundleError {
                 message: format!("Failed to read file: {}", e),
                 path: Some(full_path.clone()),

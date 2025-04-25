@@ -43,13 +43,6 @@ async function writeSampleFile() {
   }
 }
 
-// Create file access object
-const fileAccess = {
-  readFile: async (path) => fs.readFile(path, 'utf8'),
-  writeFile: async (path, content) => fs.writeFile(path, content),
-  exists: async (path) => fs.access(path).then(() => true).catch(() => false)
-};
-
 // Main function
 async function main() {
   try {
@@ -64,7 +57,7 @@ async function main() {
       solcVersion: '0.8.20',
       cacheDir: path.join(__dirname, 'temp', '.cache'),
       debug: true
-    }, fileAccess);
+    });
     
     console.log('\nCompiling to TypeScript...');
     const tsResult = await bundler.resolveTsModule(

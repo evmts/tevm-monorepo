@@ -5,7 +5,6 @@ pub mod models;
 pub mod bundle;
 pub mod artifacts;
 pub mod cache;
-pub mod file_access;
 pub mod bundler;
 
 pub use config::{BundlerConfig, SolcOptions, RuntimeOptions, ModuleType, ContractPackage};
@@ -56,13 +55,6 @@ pub struct JsSolcOptions {
 }
 
 #[napi(object)]
-pub struct JsFileAccessObject {
-    pub read_file: napi::JsFunction,
-    pub write_file: napi::JsFunction,
-    pub exists: napi::JsFunction,
-}
-
-#[napi(object)]
 pub struct JsBundleResult {
     pub code: String,
     pub source_map: Option<String>,
@@ -76,7 +68,6 @@ pub struct JsBundleResult {
 #[napi]
 pub async fn create_bundler(
     config: JsBundlerConfig,
-    file_access_object: JsFileAccessObject,
 ) -> Result<JsBundler> {
     let bundler_config = BundlerConfig {
         remappings: config.remappings.unwrap_or_default(),
@@ -89,11 +80,8 @@ pub async fn create_bundler(
         contract_package: config.contract_package.unwrap_or_else(|| "@tevm/contract".to_string()),
     };
 
-    // Create file access adapter
-    let file_access = file_access::FileAccess::new(file_access_object)?;
-
     // Create bundler
-    let bundler = bundler::Bundler::new(bundler_config, file_access).await?;
+    let bundler = bundler::Bundler::new(bundler_config).await?;
 
     Ok(JsBundler {
         inner: Arc::new(bundler),
@@ -205,12 +193,6 @@ pub async fn bundle_code_js(
     options: Option<JsBundlerConfig>,
     solc_options: Option<JsSolcOptions>,
 ) -> Result<JsBundleResult> {
-    let js_file_access = JsFileAccessObject {
-        read_file: napi::JsFunction::new(|| {}).unwrap(),
-        write_file: napi::JsFunction::new(|| {}).unwrap(),
-        exists: napi::JsFunction::new(|| {}).unwrap(),
-    };
-    
     let bundler = create_bundler(
         options.unwrap_or_else(|| JsBundlerConfig {
             remappings: None,
@@ -222,7 +204,6 @@ pub async fn bundle_code_js(
             debug: None,
             contract_package: None,
         }),
-        js_file_access,
     ).await?;
     
     bundler.resolve_ts_module(entry_point, ".".to_string(), solc_options).await

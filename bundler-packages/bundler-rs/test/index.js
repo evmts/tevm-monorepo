@@ -29,32 +29,17 @@ contract Counter {
 }
 `;
 
-// Create file access object for testing
-const fileAccess = {
-  readFile: async (path) => {
-    if (path.endsWith('Counter.sol')) {
-      return SOLIDITY_CONTENT;
-    }
-    return fs.readFile(path, 'utf8');
-  },
-  writeFile: async (path, content) => {
-    // Don't actually write to disk during tests
-    return Promise.resolve();
-  },
-  exists: async (path) => {
-    if (path.endsWith('Counter.sol')) {
-      return true;
-    }
-    return fs.access(path).then(() => true).catch(() => false);
-  }
-};
-
 async function runTest() {
   try {
     console.log('Testing bundler-rs...');
     
-    // Mock file path
-    const sampleFilePath = path.join(__dirname, 'Counter.sol');
+    // Create temp directory for test files
+    const testDir = path.join(__dirname, 'temp');
+    await fs.mkdir(testDir, { recursive: true });
+    
+    // Create a Solidity file for testing
+    const sampleFilePath = path.join(testDir, 'Counter.sol');
+    await fs.writeFile(sampleFilePath, SOLIDITY_CONTENT);
     
     // Create the bundler
     console.log('\nCreating bundler...');
@@ -62,13 +47,14 @@ async function runTest() {
       remappings: [],
       libs: [],
       solcVersion: '0.8.20',
-    }, fileAccess);
+      cacheDir: path.join(testDir, '.cache'),
+    });
     
     // Test bundling to TypeScript
     console.log('\nTesting TypeScript module generation...');
     const tsResult = await bundler.resolveTsModule(
       sampleFilePath,
-      __dirname,
+      testDir,
       {
         optimize: true,
         includeBytecode: true
@@ -85,7 +71,7 @@ async function runTest() {
     console.log('\nTesting Declaration file generation...');
     const dtsResult = await bundler.resolveDts(
       sampleFilePath,
-      __dirname,
+      testDir,
       {
         optimize: true,
         includeBytecode: true
@@ -102,7 +88,7 @@ async function runTest() {
     console.log('\nTesting artifact compilation...');
     const artifactsResult = await bundler.compileArtifacts(
       sampleFilePath,
-      __dirname,
+      testDir,
       {
         optimize: true,
         includeBytecode: true
@@ -141,6 +127,9 @@ async function runTest() {
     assert.ok(functionNames.includes('count'), 'ABI should include count function');
     
     console.log('✓ Artifact compilation passed');
+    
+    // Clean up test files
+    await fs.rm(testDir, { recursive: true, force: true });
     
     console.log('\nAll tests passed! ✅');
   } catch (err) {
