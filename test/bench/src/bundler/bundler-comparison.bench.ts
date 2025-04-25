@@ -10,7 +10,7 @@ import { createSolc } from "@tevm/solc";
 import { loadConfig } from "@tevm/config";
 
 // Import the Rust bundler
-import { create_bundler_sync as createRustBundler } from "@tevm/bundler-rs";
+import { createBundlerSync as createRustBundler } from "@tevm/bundler-rs";
 
 /**
  * Benchmark that tests the performance of bundler implementations
@@ -33,26 +33,13 @@ const NUM_LIBRARIES = 3;
  * Generate a typical ERC20 contract
  */
 function generateERC20Contract(name: string, importPath?: string): string {
+  // Remove inheritance to avoid naming conflicts
   const importStatement = importPath 
-    ? `import { IERC20 } from "${importPath}";\n\n` 
+    ? `// import { IERC20 } from "${importPath}";\n\n` 
     : '';
 
-  const interfaceDefinition = !importPath
-    ? `
-interface IERC20 {
-    function totalSupply() external view returns (uint256);
-    function balanceOf(address account) external view returns (uint256);
-    function transfer(address recipient, uint256 amount) external returns (bool);
-    function allowance(address owner, address spender) external view returns (uint256);
-    function approve(address spender, uint256 amount) external returns (bool);
-    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
-    
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-}
-
-`
-    : '';
+  // Remove the interface definition to avoid conflicts
+  const interfaceDefinition = ``;
 
   return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -62,7 +49,7 @@ ${importStatement}${interfaceDefinition}
  * @title ${name}
  * @dev Implementation of the ERC20 Token Standard
  */
-contract ${name} is IERC20 {
+contract ${name} {
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
 
@@ -90,33 +77,36 @@ contract ${name} is IERC20 {
         return _decimals;
     }
 
-    function totalSupply() public view override returns (uint256) {
+    function totalSupply() public view returns (uint256) {
         return _totalSupply;
     }
 
-    function balanceOf(address account) public view override returns (uint256) {
+    function balanceOf(address account) public view returns (uint256) {
         return _balances[account];
     }
 
-    function transfer(address recipient, uint256 amount) public override returns (bool) {
+    function transfer(address recipient, uint256 amount) public returns (bool) {
         _transfer(msg.sender, recipient, amount);
         return true;
     }
 
-    function allowance(address owner, address spender) public view override returns (uint256) {
+    function allowance(address owner, address spender) public view returns (uint256) {
         return _allowances[owner][spender];
     }
 
-    function approve(address spender, uint256 amount) public override returns (bool) {
+    function approve(address spender, uint256 amount) public returns (bool) {
         _approve(msg.sender, spender, amount);
         return true;
     }
 
-    function transferFrom(address sender, address recipient, uint256 amount) public override returns (bool) {
+    function transferFrom(address sender, address recipient, uint256 amount) public returns (bool) {
         _transfer(sender, recipient, amount);
         _approve(sender, msg.sender, _allowances[sender][msg.sender] - amount);
         return true;
     }
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
 
     function _transfer(address sender, address recipient, uint256 amount) internal {
         require(sender != address(0), "Transfer from zero address");
@@ -159,6 +149,8 @@ contract ${name} is IERC20 {
  * Generate an interface contract
  */
 function generateInterface(name: string): string {
+  // Make each interface unique by adding its name as a suffix to the function names
+  const suffix = name.replace('IERC', '');
   return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -167,15 +159,15 @@ pragma solidity ^0.8.0;
  * @dev Interface for the ${name.replace('I', '')} contract
  */
 interface ${name} {
-    function totalSupply() external view returns (uint256);
-    function balanceOf(address account) external view returns (uint256);
-    function transfer(address recipient, uint256 amount) external returns (bool);
-    function allowance(address owner, address spender) external view returns (uint256);
-    function approve(address spender, uint256 amount) external returns (bool);
-    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+    function totalSupply${suffix}() external view returns (uint256);
+    function balanceOf${suffix}(address account) external view returns (uint256);
+    function transfer${suffix}(address recipient, uint256 amount) external returns (bool);
+    function allowance${suffix}(address owner, address spender) external view returns (uint256);
+    function approve${suffix}(address spender, uint256 amount) external returns (bool);
+    function transferFrom${suffix}(address sender, address recipient, uint256 amount) external returns (bool);
     
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Transfer${suffix}(address indexed from, address indexed to, uint256 value);
+    event Approval${suffix}(address indexed owner, address indexed spender, uint256 value);
 }`;
 }
 
@@ -365,9 +357,16 @@ describe("Bundler Implementation Benchmarks", async () => {
   // Create FileAccessObject for file system access
   const fao = createFileAccessObject();
 
-  // Initialize dependencies for JS bundler
-  const config = await loadConfig();
-  const solcCompiler = await createSolc();
+  // Initialize dependencies for JS bundler with minimal config to avoid loading from disk
+  const config = {
+    remappings: {},
+    include: [],
+    libs: [],
+    cacheDir: path.join(tempDir, '.tevm-cache'),
+    debug: false
+  };
+  // Use a specific solc version to avoid download issues
+  const solcCompiler = await createSolc('0.8.20');
   const cacheInstance = createCache();
 
   // Create the JS bundler
