@@ -21,8 +21,10 @@ tevm_resolutions_rs = { path = "../resolutions-rs" }
 tevm_solc_rs = { path = "../solc-rs" }
 tevm_runtime_rs = { path = "../runtime-rs" }
 
+# No workspace definition here - it's defined at the root level
+
 # Solc version management with foundry-compilers
-foundry-compilers = { version = "0.6.0", default-features = false, features = ["async", "full"] }
+foundry-compilers = { version = "0.6.2", default-features = false, features = ["async", "full"] }
 semver = "1.0.17"
 
 # Utilities
