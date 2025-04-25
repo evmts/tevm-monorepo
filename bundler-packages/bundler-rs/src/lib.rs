@@ -9,7 +9,7 @@ pub mod file_access;
 pub mod bundler;
 
 pub use config::{BundlerConfig, SolcOptions, RuntimeOptions, ModuleType, ContractPackage};
-pub use models::{BundleError, BundleResult, CompileResult, ModuleInfo, ContractArtifact};
+pub use models::{BundleError, BundleResult, CompileResult, ModuleInfo, ContractArtifact, GenResult};
 pub use bundle::bundle_code;
 pub use bundler::Bundler;
 
@@ -34,7 +34,8 @@ pub static TOKIO: Lazy<tokio::runtime::Runtime> = Lazy::new(|| {
 
 #[napi(object)]
 pub struct JsBundlerConfig {
-    pub remappings: Option<Vec<(String, String)>>,
+    pub remappings_from: Option<Vec<String>>,
+    pub remappings_to: Option<Vec<String>>,
     pub libs: Option<Vec<String>>,
     pub solc_path: Option<String>,
     pub solc_version: Option<String>,
@@ -42,6 +43,34 @@ pub struct JsBundlerConfig {
     pub use_cache: Option<bool>,
     pub debug: Option<bool>,
     pub contract_package: Option<String>,
+}
+
+// Helper to convert JsBundlerConfig to BundlerConfig
+fn convert_js_config(config: JsBundlerConfig) -> BundlerConfig {
+    // Convert separate from/to arrays to remappings tuples
+    let remappings = match (config.remappings_from, config.remappings_to) {
+        (Some(from_list), Some(to_list)) => {
+            let mut remappings = Vec::new();
+            for (i, from) in from_list.iter().enumerate() {
+                if i < to_list.len() {
+                    remappings.push((from.clone(), to_list[i].clone()));
+                }
+            }
+            remappings
+        },
+        _ => Vec::new(),
+    };
+    
+    BundlerConfig {
+        remappings,
+        libs: config.libs.unwrap_or_default(),
+        solc_path: config.solc_path.map(PathBuf::from),
+        solc_version: config.solc_version,
+        cache_dir: config.cache_dir.map(PathBuf::from),
+        use_cache: config.use_cache.unwrap_or(true),
+        debug: config.debug.unwrap_or(false),
+        contract_package: config.contract_package.unwrap_or_else(|| "@tevm/contract".to_string()),
+    }
 }
 
 #[napi(object)]
@@ -56,6 +85,8 @@ pub struct JsSolcOptions {
     pub include_dev_docs: Option<bool>,
 }
 
+// Note: This JsFileAccessObject is kept for API compatibility but not used
+// in the current implementation, which uses native file system operations
 #[napi(object)]
 pub struct JsFileAccessObject {
     pub read_file: napi::JsFunction,
@@ -95,32 +126,50 @@ impl From<JsModuleType> for ModuleType {
 
 // Bundler factory function
 #[napi]
-pub async fn create_bundler(
+pub fn create_bundler_sync(
     config: JsBundlerConfig,
-    file_access_object: Option<JsFileAccessObject>,
 ) -> Result<JsBundler> {
-    let bundler_config = BundlerConfig {
-        remappings: config.remappings.unwrap_or_default(),
-        libs: config.libs.unwrap_or_default(),
-        solc_path: config.solc_path.map(PathBuf::from),
-        solc_version: config.solc_version,
-        cache_dir: config.cache_dir.map(PathBuf::from),
-        use_cache: config.use_cache.unwrap_or(true),
-        debug: config.debug.unwrap_or(false),
-        contract_package: config.contract_package.unwrap_or_else(|| "@tevm/contract".to_string()),
-    };
+    // Convert config to native format
+    let bundler_config = convert_js_config(config);
 
-    // Create file access if provided
-    let file_access = if let Some(fao) = file_access_object {
-        Some(FileAccess::new(fao)?)
-    } else {
-        None
-    };
+    // Create bundler in a blocking manner
+    let bundler = TOKIO.block_on(async {
+        bundler::Bundler::new(bundler_config).await
+    })
+    .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
+    
+    Ok(JsBundler {
+        inner: Arc::new(bundler),
+    })
+}
 
-    // Create bundler
-    let bundler = bundler::Bundler::new(bundler_config).await
-        .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
+// Create a bundler with file access
+#[napi]
+pub fn create_bundler_with_file_access(
+    config: JsBundlerConfig,
+    base_dir: String,
+) -> Result<JsBundler> {
+    // Convert config to native format
+    let bundler_config = convert_js_config(config);
+    
+    // Create file access
+    let file_access = FileAccess::new(&base_dir)
+        .map_err(|e| Error::new(Status::GenericFailure, format!("Failed to create file access: {}", e)))?;
 
+    // Create bundler in a blocking manner
+    let bundler = TOKIO.block_on(async {
+        // Create the bundler
+        let bundler = match bundler::Bundler::new(bundler_config).await {
+            Ok(b) => b,
+            Err(e) => return Err(Error::new(Status::GenericFailure, e.to_string())),
+        };
+        
+        // Add file access
+        let bundler_with_access = bundler.with_file_access(file_access);
+        
+        Ok(bundler_with_access)
+    }).map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
+    
     Ok(JsBundler {
         inner: Arc::new(bundler),
     })
@@ -136,7 +185,7 @@ pub struct JsBundler {
 impl JsBundler {
     // Unified file resolution method
     #[napi]
-    pub async fn resolve_file(
+    pub fn resolve_file_sync(
         &self,
         file_path: String,
         base_dir: String,
@@ -146,60 +195,61 @@ impl JsBundler {
         let options = convert_solc_options(solc_options);
         let rust_module_type = ModuleType::from(module_type);
         
-        let result = self.inner.resolve_file(&file_path, &base_dir, rust_module_type, options)
-            .await
-            .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
+        let result = TOKIO.block_on(async {
+            self.inner.resolve_file(&file_path, &base_dir, rust_module_type, options).await
+        })
+        .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
             
         Ok(convert_to_js_result(result, &file_path))
     }
     
     // Legacy TypeScript module resolution
     #[napi]
-    pub async fn resolve_ts_module(
+    pub fn resolve_ts_module_sync(
         &self,
         file_path: String,
         base_dir: String,
         solc_options: Option<JsSolcOptions>,
     ) -> Result<JsBundleResult> {
-        self.resolve_file(file_path, base_dir, JsModuleType::Ts, solc_options).await
+        self.resolve_file_sync(file_path, base_dir, JsModuleType::Ts, solc_options)
     }
     
     // Legacy CommonJS module resolution
     #[napi]
-    pub async fn resolve_cjs_module(
+    pub fn resolve_cjs_module_sync(
         &self,
         file_path: String,
         base_dir: String,
         solc_options: Option<JsSolcOptions>,
     ) -> Result<JsBundleResult> {
-        self.resolve_file(file_path, base_dir, JsModuleType::Cjs, solc_options).await
+        self.resolve_file_sync(file_path, base_dir, JsModuleType::Cjs, solc_options)
     }
     
     // Legacy ES module resolution
     #[napi]
-    pub async fn resolve_esm_module(
+    pub fn resolve_esm_module_sync(
         &self,
         file_path: String,
         base_dir: String,
         solc_options: Option<JsSolcOptions>,
     ) -> Result<JsBundleResult> {
-        self.resolve_file(file_path, base_dir, JsModuleType::Mjs, solc_options).await
+        self.resolve_file_sync(file_path, base_dir, JsModuleType::Mjs, solc_options)
     }
     
     // Legacy TypeScript declaration file resolution
     #[napi]
-    pub async fn resolve_dts(
+    pub fn resolve_dts_sync(
         &self,
         file_path: String,
         base_dir: String,
         solc_options: Option<JsSolcOptions>,
     ) -> Result<JsBundleResult> {
-        self.resolve_file(file_path, base_dir, JsModuleType::Dts, solc_options).await
+        self.resolve_file_sync(file_path, base_dir, JsModuleType::Dts, solc_options)
     }
     
     // Artifact compilation
     #[napi]
-    pub async fn compile_artifacts(
+    pub fn compile_artifacts_sync(
         &self,
         file_path: String,
         base_dir: String,
@@ -207,9 +257,10 @@ impl JsBundler {
     ) -> Result<String> {
         let options = convert_solc_options(solc_options);
         
-        let result = self.inner.compile_artifacts(&file_path, &base_dir, options)
-            .await
-            .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
+        let result = TOKIO.block_on(async {
+            self.inner.compile_artifacts(&file_path, &base_dir, options).await
+        })
+        .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
             
         // Convert result to JSON string
         let json = serde_json::to_string(&result)
@@ -219,17 +270,18 @@ impl JsBundler {
     }
 }
 
-// Direct async implementation for bundling code
+// Direct implementation for bundling code
 #[napi]
-pub async fn bundle_code_js(
+pub fn bundle_code_js_sync(
     entry_point: String,
     module_type: JsModuleType,
     options: Option<JsBundlerConfig>,
     solc_options: Option<JsSolcOptions>,
 ) -> Result<JsBundleResult> {
-    let bundler = create_bundler(
+    let bundler = create_bundler_sync(
         options.unwrap_or_else(|| JsBundlerConfig {
-            remappings: None,
+            remappings_from: None,
+            remappings_to: None,
             libs: None,
             solc_path: None,
             solc_version: None,
@@ -238,10 +290,9 @@ pub async fn bundle_code_js(
             debug: None,
             contract_package: None,
         }),
-        None,
-    ).await?;
+    )?;
     
-    bundler.resolve_file(entry_point, ".".to_string(), module_type, solc_options).await
+    bundler.resolve_file_sync(entry_point, ".".to_string(), module_type, solc_options)
 }
 
 // Helper functions
@@ -271,12 +322,23 @@ fn convert_solc_options(js_options: Option<JsSolcOptions>) -> SolcOptions {
 }
 
 fn convert_to_js_result(result: BundleResult, entry_point: &str) -> JsBundleResult {
+    // Ensure we have strings for JSON values, or empty defaults
+    let solc_input_str = match &result.solc_input {
+        Some(val) => serde_json::to_string(val).unwrap_or_default(),
+        None => "{}".to_string(),
+    };
+    
+    let solc_output_str = match &result.solc_output {
+        Some(val) => serde_json::to_string(val).unwrap_or_default(),
+        None => "{}".to_string(),
+    };
+    
     JsBundleResult {
         code: result.code,
         source_map: result.source_map,
         modules: result.modules,
-        solc_input: serde_json::to_string(&result.solc_input).unwrap_or_default(),
-        solc_output: serde_json::to_string(&result.solc_output).unwrap_or_default(),
+        solc_input: solc_input_str,
+        solc_output: solc_output_str,
         entry_point: entry_point.to_string(),
     }
 }

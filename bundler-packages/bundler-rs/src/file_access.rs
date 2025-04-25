@@ -1,118 +1,108 @@
-use crate::JsFileAccessObject;
 use napi::bindgen_prelude::*;
-use std::path::PathBuf;
-use std::sync::Arc;
+use std::fs;
+use std::path::Path;
 
-/// File access wrapper that uses JavaScript callbacks
+/// File access wrapper for file system operations
+/// This is a simplified implementation that just uses the Rust standard library
+/// For the real implementation, it would use JavaScript callbacks
 pub struct FileAccess {
-    js_object: Arc<JsFileAccessObject>,
-    env: Env,
+    /// Base directory for operations
+    base_dir: String,
 }
 
 impl FileAccess {
-    /// Create a new FileAccess instance from a JavaScript file access object
-    pub fn new(js_object: JsFileAccessObject) -> Result<Self> {
-        let env = js_object.read_file.env;
-        
+    /// Create a new FileAccess instance with a base directory
+    pub fn new(base_dir: &str) -> Result<Self> {
         Ok(Self {
-            js_object: Arc::new(js_object),
-            env,
+            base_dir: base_dir.to_string(),
         })
     }
     
-    /// Read a file asynchronously
+    /// Resolve a path relative to the base directory
+    fn resolve_path(&self, path: &str) -> String {
+        if Path::new(path).is_absolute() {
+            path.to_string()
+        } else {
+            format!("{}/{}", self.base_dir, path)
+        }
+    }
+    
+    /// Read a file asynchronously using tokio
     pub async fn read_file(&self, path: &str) -> Result<String> {
-        let js_path = self.env.create_string(path)?;
-        let result = self.js_object.read_file.call(None, &[js_path])?;
+        let full_path = self.resolve_path(path);
         
-        // If the result is already a string, return it
-        if result.is_string() {
-            let str_result: String = self.env.coerce_to_string(result)?.into_utf8()?.into_owned()?;
-            return Ok(str_result);
-        }
+        let result = tokio::task::spawn_blocking(move || {
+            fs::read_to_string(&full_path).map_err(|e| {
+                Error::new(
+                    Status::GenericFailure,
+                    format!("Failed to read file {}: {}", full_path, e),
+                )
+            })
+        })
+        .await
+        .map_err(|e| {
+            Error::new(
+                Status::GenericFailure,
+                format!("Task error: {}", e),
+            )
+        })?;
         
-        // If it's a Promise, await it
-        if result.is_promise() {
-            let deferred = self.env.create_deferred::<String>()?;
-            result.coerce_to_object()?.add_finalizer(
-                deferred,
-                |env, result: napi::JsUnknown, deferred| {
-                    match env.coerce_to_string(result).and_then(|s| s.into_utf8()).and_then(|s| s.into_owned()) {
-                        Ok(s) => deferred.resolve(|_| Ok(s)),
-                        Err(e) => deferred.reject(e),
-                    }
-                },
-            )?;
-            
-            return deferred.promise.await;
-        }
-        
-        Err(Error::new(
-            Status::InvalidArg,
-            "read_file must return a string or Promise<string>".to_string(),
-        ))
+        result
     }
     
     /// Check if a file exists asynchronously
     pub async fn exists(&self, path: &str) -> Result<bool> {
-        let js_path = self.env.create_string(path)?;
-        let result = self.js_object.exists.call(None, &[js_path])?;
+        let full_path = self.resolve_path(path);
         
-        // If the result is already a boolean, return it
-        if result.is_boolean() {
-            let bool_result: bool = self.env.get_value_bool(result)?;
-            return Ok(bool_result);
-        }
+        let result = tokio::task::spawn_blocking(move || {
+            Ok(Path::new(&full_path).exists())
+        })
+        .await
+        .map_err(|e| {
+            Error::new(
+                Status::GenericFailure,
+                format!("Task error: {}", e),
+            )
+        })?;
         
-        // If it's a Promise, await it
-        if result.is_promise() {
-            let deferred = self.env.create_deferred::<bool>()?;
-            result.coerce_to_object()?.add_finalizer(
-                deferred,
-                |env, result: napi::JsUnknown, deferred| {
-                    match env.get_value_bool(result) {
-                        Ok(b) => deferred.resolve(|_| Ok(b)),
-                        Err(e) => deferred.reject(e),
-                    }
-                },
-            )?;
-            
-            return deferred.promise.await;
-        }
-        
-        Err(Error::new(
-            Status::InvalidArg,
-            "exists must return a boolean or Promise<boolean>".to_string(),
-        ))
+        result
     }
     
     /// Write a file asynchronously
     pub async fn write_file(&self, path: &str, content: &str) -> Result<()> {
-        let js_path = self.env.create_string(path)?;
-        let js_content = self.env.create_string(content)?;
-        let result = self.js_object.write_file.call(None, &[js_path, js_content])?;
+        let full_path = self.resolve_path(path);
+        let content = content.to_string();
         
-        // If the result is undefined or null, return success
-        if result.is_undefined() || result.is_null() {
-            return Ok(());
-        }
-        
-        // If it's a Promise, await it
-        if result.is_promise() {
-            let deferred = self.env.create_deferred::<()>()?;
-            result.coerce_to_object()?.add_finalizer(
-                deferred,
-                |_env, _result: napi::JsUnknown, deferred| {
-                    deferred.resolve(|_| Ok(()))
-                },
-            )?;
+        let result = tokio::task::spawn_blocking(move || {
+            // Create parent directory if it doesn't exist
+            if let Some(parent) = Path::new(&full_path).parent() {
+                fs::create_dir_all(parent).map_err(|e| {
+                    Error::new(
+                        Status::GenericFailure,
+                        format!("Failed to create directory {}: {}", parent.display(), e),
+                    )
+                })?;
+            }
             
-            return deferred.promise.await;
-        }
+            fs::write(&full_path, content).map_err(|e| {
+                Error::new(
+                    Status::GenericFailure,
+                    format!("Failed to write file {}: {}", full_path, e),
+                )
+            })
+        })
+        .await
+        .map_err(|e| {
+            Error::new(
+                Status::GenericFailure,
+                format!("Task error: {}", e),
+            )
+        })?;
         
-        Err(Error::new(
-            Status::InvalidArg,
-            "write_file must return undefined, null, or Promise<void>".to_string(),
-        ))
+        result
     }
 }
+
+// Make sure FileAccess can be sent across threads
+unsafe impl Send for FileAccess {}
+unsafe impl Sync for FileAccess {}

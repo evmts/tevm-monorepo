@@ -9,8 +9,8 @@ import { createCache } from "@tevm/bundler-cache";
 import { createSolc } from "@tevm/solc";
 import { loadConfig } from "@tevm/config";
 
-// Import the Rust bundler when it's ready
-// import { create_bundler as createRustBundler } from "@tevm/bundler-rs";
+// Import the Rust bundler
+import { create_bundler_sync as createRustBundler } from "@tevm/bundler-rs";
 
 /**
  * Benchmark that tests the performance of bundler implementations
@@ -353,6 +353,9 @@ enum ModuleType {
   Dts = 'dts'
 }
 
+// Import the JsModuleType enum from the Rust bundler
+import { JsModuleType } from "@tevm/bundler-rs";
+
 describe("Bundler Implementation Benchmarks", async () => {
   // Create test directory with contracts
   const { tempDir, mainContractPath } = await createContractTestDirectory();
@@ -376,18 +379,16 @@ describe("Bundler Implementation Benchmarks", async () => {
     cacheInstance
   );
 
-  // Create the Rust bundler (commented out until it's ready)
-  // const rustBundlerOptions = {
-  //   remappings: [],
-  //   libs: [],
-  //   use_cache: true,
-  //   debug: false,
-  // };
-  // const rustBundler = await createRustBundler(rustBundlerOptions, {
-  //   readFile: async (path: string) => fao.readFileSync(path, 'utf8'),
-  //   writeFile: async (path: string, content: string) => fao.writeFileSync(path, content),
-  //   exists: async (path: string) => fao.existsSync(path),
-  // });
+  // Create the Rust bundler
+  const rustBundlerOptions = {
+    remappings_from: [],
+    remappings_to: [],
+    libs: [],
+    use_cache: true,
+    debug: false,
+  };
+  // Create Rust bundler with the base directory for file operations
+  const rustBundler = createRustBundler(rustBundlerOptions);
 
   // Clean up the temporary directory after tests
   afterAll(async () => {
@@ -418,19 +419,19 @@ describe("Bundler Implementation Benchmarks", async () => {
     );
   });
 
-  // Rust bundler benchmarks (commented out until it's ready)
-  // bench("Rust Bundler - TypeScript Resolution", async () => {
-  //   await rustBundler.resolve_file(
-  //     mainContractPath,
-  //     tempDir,
-  //     ModuleType.Ts,
-  //     {
-  //       optimize: true,
-  //       include_bytecode: true,
-  //       include_ast: false,
-  //     }
-  //   );
-  // });
+  // Rust bundler benchmarks
+  bench("Rust Bundler - TypeScript Resolution", () => {
+    rustBundler.resolve_file_sync(
+      mainContractPath,
+      tempDir,
+      JsModuleType.Ts,
+      {
+        optimize: true,
+        include_bytecode: true,
+        include_ast: false,
+      }
+    );
+  });
 
   // Test CommonJS module resolution
   bench("JS Bundler - Async CommonJS Resolution", async () => {
@@ -451,19 +452,19 @@ describe("Bundler Implementation Benchmarks", async () => {
     );
   });
 
-  // Rust bundler benchmarks (commented out until it's ready)
-  // bench("Rust Bundler - CommonJS Resolution", async () => {
-  //   await rustBundler.resolve_file(
-  //     mainContractPath,
-  //     tempDir,
-  //     ModuleType.Cjs,
-  //     {
-  //       optimize: true,
-  //       include_bytecode: true,
-  //       include_ast: false,
-  //     }
-  //   );
-  // });
+  // Rust bundler benchmarks
+  bench("Rust Bundler - CommonJS Resolution", () => {
+    rustBundler.resolve_file_sync(
+      mainContractPath,
+      tempDir,
+      JsModuleType.Cjs,
+      {
+        optimize: true,
+        include_bytecode: true,
+        include_ast: false,
+      }
+    );
+  });
 
   // Test ES module resolution
   bench("JS Bundler - Async ESM Resolution", async () => {
@@ -484,19 +485,19 @@ describe("Bundler Implementation Benchmarks", async () => {
     );
   });
 
-  // Rust bundler benchmarks (commented out until it's ready)
-  // bench("Rust Bundler - ESM Resolution", async () => {
-  //   await rustBundler.resolve_file(
-  //     mainContractPath,
-  //     tempDir,
-  //     ModuleType.Mjs,
-  //     {
-  //       optimize: true,
-  //       include_bytecode: true,
-  //       include_ast: false,
-  //     }
-  //   );
-  // });
+  // Rust bundler benchmarks
+  bench("Rust Bundler - ESM Resolution", () => {
+    rustBundler.resolve_file_sync(
+      mainContractPath,
+      tempDir,
+      JsModuleType.Mjs,
+      {
+        optimize: true,
+        include_bytecode: true,
+        include_ast: false,
+      }
+    );
+  });
 
   // Test TypeScript declaration resolution
   bench("JS Bundler - Async DTS Resolution", async () => {
@@ -517,17 +518,31 @@ describe("Bundler Implementation Benchmarks", async () => {
     );
   });
 
-  // Rust bundler benchmarks (commented out until it's ready)
-  // bench("Rust Bundler - DTS Resolution", async () => {
-  //   await rustBundler.resolve_file(
-  //     mainContractPath,
-  //     tempDir,
-  //     ModuleType.Dts,
-  //     {
-  //       optimize: true,
-  //       include_bytecode: true,
-  //       include_ast: false,
-  //     }
-  //   );
-  // });
+  // Rust bundler benchmarks
+  bench("Rust Bundler - DTS Resolution", () => {
+    rustBundler.resolve_file_sync(
+      mainContractPath,
+      tempDir,
+      JsModuleType.Dts,
+      {
+        optimize: true,
+        include_bytecode: true,
+        include_ast: false,
+      }
+    );
+  });
+
+  // Benchmark direct code bundling
+  bench("Rust Bundler - Direct Code Bundling", () => {
+    rustBundler.bundle_code_js_sync(
+      mainContractPath,
+      JsModuleType.Ts,
+      rustBundlerOptions,
+      {
+        optimize: true,
+        include_bytecode: true,
+        include_ast: false,
+      }
+    );
+  });
 });

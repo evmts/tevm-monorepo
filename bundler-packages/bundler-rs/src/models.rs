@@ -24,6 +24,13 @@ impl std::fmt::Display for BundleError {
 
 impl std::error::Error for BundleError {}
 
+/// Convert BundleError to napi Error
+impl From<BundleError> for Error {
+    fn from(err: BundleError) -> Self {
+        Error::new(Status::GenericFailure, err.to_string())
+    }
+}
+
 /// Result type for bundling operations
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BundleResult {
@@ -31,6 +38,7 @@ pub struct BundleResult {
     pub code: String,
     
     /// Optional source map
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub source_map: Option<String>,
     
     /// Map of module paths to their content
@@ -106,4 +114,22 @@ pub struct ContractArtifact {
     /// Developer documentation
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dev_doc: Option<serde_json::Value>,
+}
+
+/// Generic Result type for Rust functions
+pub type GenResult<T> = std::result::Result<T, BundleError>;
+
+/// Helper trait for better error handling
+pub trait BundleResultExt<T> {
+    /// Convert the result to a GenResult with proper error message
+    fn bundle_context(self, msg: &str, path: Option<PathBuf>) -> GenResult<T>;
+}
+
+impl<T, E: std::fmt::Display> BundleResultExt<T> for std::result::Result<T, E> {
+    fn bundle_context(self, msg: &str, path: Option<PathBuf>) -> GenResult<T> {
+        self.map_err(|e| BundleError {
+            message: format!("{}: {}", msg, e),
+            path,
+        })
+    }
 }

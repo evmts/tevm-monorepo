@@ -6,9 +6,10 @@ use std::fs;
 use tokio::fs as tokio_fs;
 
 /// Cache for bundling and compilation results
+#[derive(Clone)]
 pub struct Cache {
     /// In-memory cache for fast access
-    memory_cache: DashMap<String, Arc<CacheEntry>>,
+    memory_cache: Arc<DashMap<String, Arc<CacheEntry>>>,
     
     /// File system cache directory
     cache_dir: Option<PathBuf>,
@@ -21,6 +22,7 @@ pub struct Cache {
 }
 
 /// Cache entry can be either a bundle result or a compile result
+#[derive(Clone)]
 enum CacheEntry {
     Bundle(BundleResult),
     Compile(CompileResult),
@@ -41,7 +43,7 @@ impl Cache {
         }
 
         Self {
-            memory_cache: DashMap::new(),
+            memory_cache: Arc::new(DashMap::new()),
             cache_dir,
             root_dir,
             enabled,
