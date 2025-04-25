@@ -10,11 +10,11 @@ use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 
-// Use direct Rust APIs instead of NAPI wrappers
-use tevm_resolutions_rs::core::{ResolutionGraph, Config as ResolutionsConfig, FileReader};
-use tevm_runtime_rs::core::generate_code;
+// Use correct imports for Rust modules
+use tevm_resolutions_rs::module_factory;
+use tevm_runtime_rs::generate_runtime;
 use tevm_solc_rs::{
-    compile_standard, Solc, SolcInputDescription, SolcInputSource, SolcOptimizer, SolcSettings,
+    solc_compile, Solc, SolcInputDescription, SolcInputSource, SolcOptimizer, SolcSettings,
 };
 
 /// Main bundler struct that coordinates the bundling process
@@ -27,9 +27,6 @@ pub struct Bundler {
 
     /// Solidity compiler instance
     solc: Solc,
-    
-    /// Resolutions configuration
-    resolutions_config: ResolutionsConfig,
 }
 
 impl Bundler {
@@ -46,12 +43,6 @@ impl Bundler {
             .unwrap_or_else(|| "0.8.20".to_string());
 
         let solc = Solc::new(solc_path, solc_version.to_string());
-        
-        // Create resolutions config from remappings and libs
-        let resolutions_config = ResolutionsConfig::new(
-            config.libs.clone(), 
-            config.remappings.clone()
-        );
 
         // Initialize cache if enabled
         let cache = if config.use_cache {
@@ -67,7 +58,6 @@ impl Bundler {
             config,
             cache,
             solc,
-            resolutions_config,
         })
     }
 
@@ -121,21 +111,23 @@ impl Bundler {
             path: Some(full_path.clone()),
         })?;
 
-        // Create file reader for direct Rust API
-        let file_reader = FileReader::new();
-        
-        // Create a resolution graph using the direct Rust API
-        let resolution_graph = ResolutionGraph::new(
-            full_path.to_string_lossy().to_string(),
-            code,
-            &self.resolutions_config,
-            &file_reader,
-        ).await.map_err(|e| BundleError {
+        // Use resolutions module_factory to resolve imports
+        let remappings: Vec<(String, String)> = self.config.remappings.clone();
+        let libs: Vec<String> = self.config.libs.clone();
+        let config = tevm_resolutions_rs::Config::from((Some(libs), Some(remappings)));
+
+        let module_map = module_factory::module_factory(
+            PathBuf::from(&full_path),
+            &code,
+            config,
+        )
+        .await
+        .map_err(|e| BundleError {
             message: format!("Failed to resolve imports: {}", e),
-            path: Some(full_path.clone()),
+            path: Some(full_path),
         })?;
 
-        // Create solc input from resolution graph
+        // Create solc input from module map
         let mut solc_sources = HashMap::new();
         let mut solc_input = SolcInputDescription {
             language: tevm_solc_rs::SolcLanguage::Solidity,
@@ -143,12 +135,11 @@ impl Bundler {
             settings: None,
         };
 
-        // Add all source files to solc input
-        for (path, content) in resolution_graph.files() {
+        for (path, module_info) in &module_map {
             solc_sources.insert(
-                path.clone(),
+                path.to_string_lossy().to_string(),
                 SolcInputSource {
-                    content: Some(content.clone()),
+                    content: Some(module_info.code.clone()),
                     keccak256: None,
                     urls: None,
                 },
@@ -214,22 +205,25 @@ impl Bundler {
 
         solc_input.settings = Some(settings);
 
-        // Use direct Rust API for compilation
-        let solc_output = compile_standard(&self.solc, &solc_input).map_err(|e| BundleError {
+        // Compile with solc
+        let solc_output = solc_compile(&self.solc, &solc_input).map_err(|e| BundleError {
             message: format!("Compilation failed: {}", e),
             path: None,
         })?;
 
-        // Convert modules from resolution graph to ModuleInfo
-        let modules: HashMap<String, ModuleInfo> = resolution_graph.files().iter()
-            .map(|(path, content)| {
+        // Convert module map to ModuleInfo
+        let modules: HashMap<String, ModuleInfo> = module_map
+            .into_iter()
+            .map(|(path, module_info)| {
                 (
-                    path.clone(),
+                    path.to_string_lossy().to_string(),
                     ModuleInfo {
-                        id: path.clone(),
-                        code: content.clone(),
-                        raw_code: content.clone(), // Resolution graph doesn't distinguish between raw and processed
-                        imported_modules: resolution_graph.imports_for(path).unwrap_or_default().to_vec(),
+                        id: path.to_string_lossy().to_string(),
+                        code: module_info.code.clone(),
+                        raw_code: module_info.code.clone(),
+                        imported_modules: module_info.imported_ids.iter()
+                            .map(|p| p.to_string_lossy().to_string())
+                            .collect(),
                     },
                 )
             })
@@ -309,17 +303,24 @@ impl Bundler {
                 message: format!("Failed to serialize solc output: {}", e),
                 path: None,
             })?;
+        
+        // Parse the SolcOutput from JSON
+        let solc_output: tevm_solc_rs::SolcOutput = serde_json::from_str(&solc_output_json)
+            .map_err(|e| BundleError {
+                message: format!("Failed to parse solc output: {}", e),
+                path: None,
+            })?;
 
         // Generate code using direct Rust API
-        let code = generate_code(
-            &solc_output_json,
-            module_type,
-            use_scoped_package,
-        )
-        .map_err(|e| BundleError {
-            message: format!("Failed to generate runtime code: {}", e),
-            path: None,
-        })?;
+        let code = generate_runtime(
+            &solc_output,
+            runtime_options.module_type,
+            if use_scoped_package {
+                tevm_runtime_rs::ContractPackage::TevmContractScoped
+            } else {
+                tevm_runtime_rs::ContractPackage::TevmContract
+            },
+        );
 
         // Generate source map if requested
         let source_map = if solc_options.include_source_map {
