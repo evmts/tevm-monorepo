@@ -18,14 +18,12 @@ mod tevm_resolutions_rs {
     
     // Configuration for module resolution
     pub struct Config {
-        pub lib_paths: Option<Vec<String>>,
         pub remappings: Option<Vec<(String, String)>>,
         pub allow_missing: Option<bool>,
     }
     
     // Module information
     pub struct ModuleInfo {
-        pub path: PathBuf,
         pub code: String,
         pub imported_ids: Vec<PathBuf>,
     }
@@ -44,7 +42,6 @@ mod tevm_resolutions_rs {
             
             // Add the main module
             modules.insert(path.clone(), super::ModuleInfo {
-                path: path.clone(),
                 code: content.to_string(),
                 imported_ids: Vec::new(),  // No imports for now (simplified)
             });
@@ -86,7 +83,6 @@ mod tevm_resolutions_rs {
                                 if let Ok(import_content) = fs::read_to_string(&import_path) {
                                     // Add imported module and record the dependency
                                     let module = super::ModuleInfo {
-                                        path: import_path.clone(),
                                         code: import_content,
                                         imported_ids: Vec::new(),  // No nested imports for now
                                     };
@@ -323,6 +319,8 @@ impl Bundler {
     }
 
     /// Check if a file exists using standard filesystem APIs
+    /// Note: This method is currently not used but kept for future needs
+    #[allow(dead_code)]
     async fn file_exists(&self, path: &Path) -> bool {
         let path_clone = path.to_path_buf();
         tokio::task::spawn_blocking(move || {
@@ -353,13 +351,11 @@ impl Bundler {
         let full_path = PathBuf::from(base_dir).join(file_path);
         let code = self.read_file(&full_path).await?;
 
-        // Prepare remappings and library paths for resolution
+        // Prepare remappings for resolution
         let remappings = self.config.remappings.clone();
-        let libs = self.config.libs.clone();
         
         // Create the configuration for module resolution
         let config = tevm_resolutions_rs::Config {
-            lib_paths: Some(libs),
             remappings: Some(remappings),
             allow_missing: Some(false),
         };

@@ -1,7 +1,7 @@
 use crate::models::{BundleError, BundleResult};
-use crate::config::{SolcOptions, RuntimeOptions, ModuleType, ContractPackage};
+use crate::config::{SolcOptions, RuntimeOptions, ModuleType};
 use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 /// Bundle code starting from an entry point
 pub async fn bundle_code(

@@ -1,6 +1,6 @@
 use crate::models::{BundleResult, CompileResult};
 use dashmap::DashMap;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::sync::Arc;
 use std::fs;
 use tokio::fs as tokio_fs;
@@ -13,9 +13,6 @@ pub struct Cache {
     
     /// File system cache directory
     cache_dir: Option<PathBuf>,
-    
-    /// Root directory for relative paths
-    root_dir: PathBuf,
     
     /// Whether caching is enabled
     enabled: bool,
@@ -32,7 +29,7 @@ impl Cache {
     /// Create a new cache
     pub fn new(
         cache_dir: Option<PathBuf>,
-        root_dir: PathBuf,
+        _root_dir: PathBuf,
         enabled: bool,
     ) -> Self {
         // Create cache directory if it doesn't exist
@@ -45,7 +42,6 @@ impl Cache {
         Self {
             memory_cache: Arc::new(DashMap::new()),
             cache_dir,
-            root_dir,
             enabled,
         }
     }
