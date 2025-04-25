@@ -5,7 +5,6 @@ pub mod models;
 pub mod bundle;
 pub mod artifacts;
 pub mod cache;
-pub mod file_access;
 pub mod bundler;
 
 pub use config::{BundlerConfig, SolcOptions, RuntimeOptions, ModuleType, ContractPackage};
@@ -20,7 +19,6 @@ use once_cell::sync::Lazy;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::Arc;
-use file_access::FileAccess;
 
 // Global tokio runtime optimized for file system operations
 pub static TOKIO: Lazy<tokio::runtime::Runtime> = Lazy::new(|| {
@@ -147,32 +145,11 @@ pub fn create_bundler_sync(
 #[napi]
 pub fn create_bundler_with_file_access(
     config: JsBundlerConfig,
-    base_dir: String,
+    _base_dir: String, // Kept for API compatibility but not used
 ) -> Result<JsBundler> {
-    // Convert config to native format
-    let bundler_config = convert_js_config(config);
-    
-    // Create file access
-    let file_access = FileAccess::new(&base_dir)
-        .map_err(|e| Error::new(Status::GenericFailure, format!("Failed to create file access: {}", e)))?;
-
-    // Create bundler in a blocking manner
-    let bundler = TOKIO.block_on(async {
-        // Create the bundler
-        let bundler = match bundler::Bundler::new(bundler_config).await {
-            Ok(b) => b,
-            Err(e) => return Err(Error::new(Status::GenericFailure, e.to_string())),
-        };
-        
-        // Add file access
-        let bundler_with_access = bundler.with_file_access(file_access);
-        
-        Ok(bundler_with_access)
-    }).map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
-    
-    Ok(JsBundler {
-        inner: Arc::new(bundler),
-    })
+    // For compatibility with the existing API, we just delegate to create_bundler_sync
+    // This function is now just a wrapper for backward compatibility
+    create_bundler_sync(config)
 }
 
 // Bundler class for JavaScript

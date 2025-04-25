@@ -2,7 +2,6 @@ use crate::artifacts::{extract_artifacts, extract_asts, generate_source_map};
 use crate::cache::Cache;
 use crate::config::{BundlerConfig, ContractPackage, ModuleType, RuntimeOptions, SolcOptions};
 use crate::models::{BundleError, BundleResult, CompileResult, ModuleInfo};
-use crate::file_access::FileAccess;
 
 use hex::encode;
 use serde_json::{self, Value, json};
@@ -10,7 +9,6 @@ use sha2::{Digest, Sha256};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::fs;
-use std::sync::Arc;
 
 // Mock implementation for tevm_resolutions_rs until it's properly available
 mod tevm_resolutions_rs {
@@ -182,7 +180,7 @@ pub mod tevm_runtime_rs {
             }
             
             // Generate exports for each contract
-            for (file_path, file_contracts) in contracts {
+            for (_file_path, file_contracts) in contracts {
                 if let Some(file_contracts_obj) = file_contracts.as_object() {
                     for (contract_name, contract_data) in file_contracts_obj {
                         // Get contract ABI
@@ -234,9 +232,6 @@ pub struct Bundler {
     /// Cache for compilation results
     cache: Option<Cache>,
 
-    /// File access for handling file operations
-    file_access: Option<Arc<FileAccess>>,
-
     /// Solidity compiler instance
     solc: Value,  // Using Value as a placeholder since we don't have the actual type
 }
@@ -273,24 +268,15 @@ impl Bundler {
         Ok(Self {
             config,
             cache,
-            file_access: None,
             solc,
         })
     }
 
-    /// Set file access for custom file operations
-    pub fn with_file_access(self, file_access: FileAccess) -> Self {
-        let mut new_self = self.clone();
-        new_self.file_access = Some(Arc::new(file_access));
-        new_self
-    }
-    
     /// Add Clone implementation for Bundler
     pub fn clone(&self) -> Self {
         Self {
             config: self.config.clone(),
             cache: self.cache.clone(),
-            file_access: self.file_access.clone(),
             solc: self.solc.clone(),
         }
     }
@@ -320,29 +306,30 @@ impl Bundler {
         encode(hash)
     }
 
-    /// Read a file, using custom file access if available
+    /// Read a file using standard filesystem APIs
     async fn read_file(&self, path: &Path) -> Result<String, BundleError> {
-        if let Some(file_access) = &self.file_access {
-            file_access.read_file(path.to_string_lossy().as_ref()).await
-                .map_err(|e| BundleError {
-                    message: format!("Failed to read file via file access: {}", e),
-                    path: Some(path.to_path_buf()),
-                })
-        } else {
-            fs::read_to_string(path).map_err(|e| BundleError {
+        let path_clone = path.to_path_buf();
+        tokio::task::spawn_blocking(move || {
+            fs::read_to_string(&path_clone).map_err(|e| BundleError {
                 message: format!("Failed to read file: {}", e),
-                path: Some(path.to_path_buf()),
+                path: Some(path_clone.clone()),
             })
-        }
+        })
+        .await
+        .map_err(|e| BundleError {
+            message: format!("Task error: {}", e),
+            path: Some(path.to_path_buf()),
+        })?
     }
 
-    /// Check if a file exists, using custom file access if available
+    /// Check if a file exists using standard filesystem APIs
     async fn file_exists(&self, path: &Path) -> bool {
-        if let Some(file_access) = &self.file_access {
-            file_access.exists(path.to_string_lossy().as_ref()).await.unwrap_or(false)
-        } else {
-            path.exists()
-        }
+        let path_clone = path.to_path_buf();
+        tokio::task::spawn_blocking(move || {
+            path_clone.exists()
+        })
+        .await
+        .unwrap_or(false)
     }
 
     /// Compile a Solidity file to artifacts
