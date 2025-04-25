@@ -10,215 +10,14 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::fs;
 
-// Mock implementation for tevm_resolutions_rs until it's properly available
-mod tevm_resolutions_rs {
-    use std::collections::HashMap;
-    use std::path::{Path, PathBuf};
-    use std::fs;
-    
-    // Configuration for module resolution
-    pub struct Config {
-        pub remappings: Option<Vec<(String, String)>>,
-        pub allow_missing: Option<bool>,
-    }
-    
-    // Module information
-    pub struct ModuleInfo {
-        pub code: String,
-        pub imported_ids: Vec<PathBuf>,
-    }
-    
-    // Module factory for resolving imports
-    pub mod module_factory {
-        use super::*;
-        
-        /// Resolves imports for a Solidity file
-        pub async fn module_factory(
-            path: PathBuf,
-            content: &str,
-            config: Config,
-        ) -> Result<HashMap<PathBuf, super::ModuleInfo>, String> {
-            let mut modules = HashMap::new();
-            
-            // Add the main module
-            modules.insert(path.clone(), super::ModuleInfo {
-                code: content.to_string(),
-                imported_ids: Vec::new(),  // No imports for now (simplified)
-            });
-            
-            // Read the content to find imports
-            for line in content.lines() {
-                if line.trim().starts_with("import ") || line.trim().starts_with("import\"") {
-                    // Simple import detection
-                    let mut import_path = PathBuf::new();
-                    
-                    // Extract path from quotes
-                    if let Some(start) = line.find('"') {
-                        if let Some(end) = line[start+1..].find('"') {
-                            let imported = &line[start+1..start+1+end];
-                            
-                            // Try to resolve through remappings
-                            let mut resolved_path = None;
-                            
-                            if let Some(remappings) = &config.remappings {
-                                for (from, to) in remappings {
-                                    if imported.starts_with(from) {
-                                        let resolved = imported.replace(from, to);
-                                        import_path = PathBuf::from(&resolved);
-                                        resolved_path = Some(import_path.clone());
-                                        break;
-                                    }
-                                }
-                            }
-                            
-                            // If no remapping, try relative
-                            if resolved_path.is_none() {
-                                let parent = path.parent().unwrap_or(Path::new(""));
-                                import_path = parent.join(imported);
-                            }
-                            
-                            // Check if file exists
-                            if import_path.exists() {
-                                // Read content
-                                if let Ok(import_content) = fs::read_to_string(&import_path) {
-                                    // Add imported module and record the dependency
-                                    let module = super::ModuleInfo {
-                                        code: import_content,
-                                        imported_ids: Vec::new(),  // No nested imports for now
-                                    };
-                                    
-                                    // Update the main module's imports
-                                    if let Some(main_module) = modules.get_mut(&path) {
-                                        main_module.imported_ids.push(import_path.clone());
-                                    }
-                                    
-                                    modules.insert(import_path, module);
-                                }
-                            } else if config.allow_missing.unwrap_or(false) {
-                                // Skip if allow_missing is true
-                            } else {
-                                return Err(format!("Import not found: {}", imported));
-                            }
-                        }
-                    }
-                }
-            }
-            
-            Ok(modules)
-        }
-    }
-}
+// Import proper packages for Rust implementation
+use tevm_resolutions_rs::{self, Config as ResolutionsConfig, module_factory};
+use tevm_runtime_rs::{self, ModuleType as RuntimeModuleType, ContractPackage as RuntimeContractPackage};
+use tevm_solc_rs::{self, SolcOutput, SolcInputDescription, models::{SolcLanguage, SolcInputSource, SolcSettings, SolcOptimizer, SolcOutputSelection}};
 
-// Mock implementation for tevm_runtime_rs
-pub mod tevm_runtime_rs {
-    use serde_json::Value;
-    
-    // Module types
-    #[derive(Debug, Clone, Copy)]
-    pub enum ModuleType {
-        Ts,
-        Cjs,
-        Mjs,
-        Dts,
-    }
-    
-    // Contract package types
-    #[derive(Debug, Clone, Copy)]
-    pub enum ContractPackage {
-        TevmContract,
-        TevmContractScoped,
-    }
-    
-    /// Generate JavaScript/TypeScript code from solc output
-    pub fn generate_runtime(
-        solc_output: &Value,
-        module_type: ModuleType,
-        contract_package: ContractPackage,
-    ) -> String {
-        // Extract contract data from solc output
-        if let Some(contracts) = solc_output.get("contracts").and_then(|c| c.as_object()) {
-            let mut code = String::new();
-            
-            // Add module header based on type
-            match module_type {
-                ModuleType::Ts => {
-                    code.push_str("// TypeScript module\n");
-                    let package_import = match contract_package {
-                        ContractPackage::TevmContract => "@tevm/contract",
-                        ContractPackage::TevmContractScoped => "tevm/contract",
-                    };
-                    code.push_str(&format!("import {{ Contract }} from '{}';\n\n", package_import));
-                },
-                ModuleType::Cjs => {
-                    code.push_str("// CommonJS module\n");
-                    let package_import = match contract_package {
-                        ContractPackage::TevmContract => "@tevm/contract",
-                        ContractPackage::TevmContractScoped => "tevm/contract",
-                    };
-                    code.push_str(&format!("const {{ Contract }} = require('{}');\n\n", package_import));
-                },
-                ModuleType::Mjs => {
-                    code.push_str("// ES module\n");
-                    let package_import = match contract_package {
-                        ContractPackage::TevmContract => "@tevm/contract",
-                        ContractPackage::TevmContractScoped => "tevm/contract",
-                    };
-                    code.push_str(&format!("import {{ Contract }} from '{}';\n\n", package_import));
-                },
-                ModuleType::Dts => {
-                    code.push_str("// TypeScript declaration file\n");
-                    let package_import = match contract_package {
-                        ContractPackage::TevmContract => "@tevm/contract",
-                        ContractPackage::TevmContractScoped => "tevm/contract",
-                    };
-                    code.push_str(&format!("import {{ Contract }} from '{}';\n\n", package_import));
-                },
-            }
-            
-            // Generate exports for each contract
-            for (_file_path, file_contracts) in contracts {
-                if let Some(file_contracts_obj) = file_contracts.as_object() {
-                    for (contract_name, contract_data) in file_contracts_obj {
-                        // Get contract ABI
-                        let abi = match contract_data.get("abi") {
-                            Some(abi) => serde_json::to_string(abi).unwrap_or_else(|_| "[]".to_string()),
-                            None => "[]".to_string(),
-                        };
-                        
-                        // Get bytecode
-                        let bytecode = contract_data
-                            .get("evm")
-                            .and_then(|evm| evm.get("bytecode"))
-                            .and_then(|bytecode| bytecode.get("object"))
-                            .and_then(|obj| obj.as_str())
-                            .unwrap_or("");
-                        
-                        // Generate contract export
-                        match module_type {
-                            ModuleType::Ts | ModuleType::Mjs => {
-                                code.push_str(&format!("export const {} = new Contract({}, '{}');\n", 
-                                    contract_name, abi, bytecode));
-                            },
-                            ModuleType::Cjs => {
-                                code.push_str(&format!("exports.{} = new Contract({}, '{}');\n", 
-                                    contract_name, abi, bytecode));
-                            },
-                            ModuleType::Dts => {
-                                code.push_str(&format!("export declare const {}: Contract;\n", 
-                                    contract_name));
-                            },
-                        }
-                    }
-                }
-            }
-            
-            return code;
-        }
-        
-        // Fallback for empty output
-        return "// No contracts found".to_string();
-    }
-}
+// Import foundry-compilers for solc version management
+use foundry_compilers::{Solc, artifacts::output::CompilerOutput};
+use semver::Version;
 
 /// Main bundler struct that coordinates the bundling process
 pub struct Bundler {
@@ -354,14 +153,16 @@ impl Bundler {
         // Prepare remappings for resolution
         let remappings = self.config.remappings.clone();
         
-        // Create the configuration for module resolution
-        let config = tevm_resolutions_rs::Config {
-            remappings: Some(remappings),
-            allow_missing: Some(false),
-        };
+        // Create the configuration for module resolution using real ResolutionsConfig
+        let config = ResolutionsConfig::from((
+            // Optional library paths
+            None as Option<Vec<String>>, 
+            // Remappings
+            Some(remappings.clone()),
+        ));
 
-        // Use module factory to resolve imports
-        let module_map = match tevm_resolutions_rs::module_factory::module_factory(
+        // Use the real module_factory from tevm_resolutions_rs
+        let module_map = match module_factory::module_factory(
             full_path.clone(),
             &code,
             config,
@@ -375,14 +176,14 @@ impl Bundler {
             }
         };
 
-        // Create solc input description
+        // Create solc input description using proper types from tevm_solc_rs
         let mut sources = HashMap::new();
         for (path, module_info) in &module_map {
             sources.insert(
                 path.to_string_lossy().to_string(),
-                json!({
-                    "content": module_info.code,
-                }),
+                SolcInputSource {
+                    content: module_info.code.clone(),
+                },
             );
         }
 
@@ -391,19 +192,19 @@ impl Bundler {
         let mut contract_outputs = Vec::new();
         
         // Always include ABI
-        contract_outputs.push("abi");
+        contract_outputs.push("abi".to_string());
 
         if solc_options.include_bytecode {
-            contract_outputs.push("bytecode");
-            contract_outputs.push("deployedBytecode");
+            contract_outputs.push("bytecode".to_string());
+            contract_outputs.push("deployedBytecode".to_string());
         }
 
         if solc_options.include_user_docs {
-            contract_outputs.push("userdoc");
+            contract_outputs.push("userdoc".to_string());
         }
 
         if solc_options.include_dev_docs {
-            contract_outputs.push("devdoc");
+            contract_outputs.push("devdoc".to_string());
         }
 
         // Add outputs for contracts
@@ -416,101 +217,77 @@ impl Bundler {
             .map(|(from, to)| format!("{}={}", from, to))
             .collect();
 
-        // Create solc input with settings
-        let solc_input = json!({
-            "language": "Solidity",
-            "sources": sources,
-            "settings": {
-                "optimizer": {
-                    "enabled": solc_options.optimize,
-                    "runs": solc_options.optimizer_runs.unwrap_or(200)
+        // Create solc input with proper types from tevm_solc_rs
+        let solc_input = SolcInputDescription {
+            language: SolcLanguage::Solidity,
+            sources,
+            settings: SolcSettings {
+                optimizer: SolcOptimizer {
+                    enabled: solc_options.optimize,
+                    runs: solc_options.optimizer_runs.unwrap_or(200),
                 },
-                "outputSelection": output_selection,
-                "remappings": remappings_strings,
-                "evmVersion": solc_options.evm_version,
-            }
-        });
+                output_selection,
+                remappings: remappings_strings,
+                evm_version: solc_options.evm_version.clone(),
+            },
+        };
 
-        // Mock compilation - would use solc_compile in a real implementation
-        // Here we create a simple mock output with contract definition
-        let mut contracts = HashMap::new();
-        let main_source_path = full_path.to_string_lossy().to_string();
-        
-        // Extract contract name from file path
-        let file_name = full_path.file_name()
-            .and_then(|f| f.to_str())
-            .unwrap_or("Contract");
-        
-        let contract_name = if file_name.ends_with(".sol") {
-            file_name[0..file_name.len()-4].to_string()
+        // Get solc compiler using foundry-compilers
+        let solc = if let Some(path) = &self.config.solc_path {
+            // Use user-provided solc path if specified
+            Solc::new(path.clone())
         } else {
-            file_name.to_string()
+            // Use the solc version from config or default to 0.8.20
+            let version_str = self.config.solc_version.clone().unwrap_or_else(|| "0.8.20".to_string());
+            
+            // Parse version string
+            let version = match Version::parse(&version_str) {
+                Ok(v) => v,
+                Err(e) => {
+                    return Err(BundleError {
+                        message: format!("Invalid solc version format '{}': {}", version_str, e),
+                        path: Some(full_path.clone()),
+                    });
+                }
+            };
+            
+            // Find or install the solc version
+            match Solc::find_or_install(&version) {
+                Ok(solc) => solc,
+                Err(e) => {
+                    return Err(BundleError {
+                        message: format!("Failed to find or install solc {}: {}", version, e),
+                        path: Some(full_path.clone()),
+                    });
+                }
+            }
+        };
+
+        // Convert our solc input to foundry-compilers format
+        // This is a simplified conversion - a full implementation would need more mapping
+        let input_json = serde_json::to_value(solc_input.clone())
+            .map_err(|e| BundleError {
+                message: format!("Failed to convert solc input to JSON: {}", e),
+                path: Some(full_path.clone()),
+            })?;
+            
+        // Use foundry-compilers to compile
+        let compiler_output: CompilerOutput = match solc.compile_exact(&input_json) {
+            Ok(output) => output,
+            Err(e) => {
+                return Err(BundleError {
+                    message: format!("Compilation failed: {}", e),
+                    path: Some(full_path.clone()),
+                });
+            }
         };
         
-        // Create a mock contract output
-        let contract_output = json!({
-            "abi": [
-                {
-                    "type": "constructor",
-                    "inputs": [],
-                    "stateMutability": "nonpayable"
-                },
-                {
-                    "type": "function",
-                    "name": "value",
-                    "inputs": [],
-                    "outputs": [{"type": "uint256", "name": ""}],
-                    "stateMutability": "view"
-                },
-                {
-                    "type": "function",
-                    "name": "setValue",
-                    "inputs": [{"type": "uint256", "name": "_value"}],
-                    "outputs": [],
-                    "stateMutability": "nonpayable"
-                }
-            ],
-            "evm": {
-                "bytecode": {
-                    "object": "0x608060405234801561001057600080fd5b50610150806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b578063552410771461005a575b600080fd5b610043610076565b6040516100519291906100f4565b60405180910390f35b610074600480360381019061006f91906100b8565b61007f565b005b60008054905090565b8060008190555050565b600080fd5b6000819050919050565b61009581610082565b81146100a057600080fd5b50565b6000813590506100b28161008c565b92915050565b6000602082840312156100ce576100cd61007d565b5b60006100dc848285016100a3565b91505092915050565b6100ee81610082565b82525050565b600060208201905061010960008301846100e5565b9291505056fea2646970667358221220d9ec31f6a034a2bb7578d3ad41ba391c5db2dde4a5ff8daac5cfa443c268b38064736f6c63430008170033"
-                },
-                "deployedBytecode": {
-                    "object": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b578063552410771461005a575b600080fd5b610043610076565b6040516100519291906100f4565b60405180910390f35b610074600480360381019061006f91906100b8565b61007f565b005b60008054905090565b8060008190555050565b600080fd5b6000819050919050565b61009581610082565b81146100a057600080fd5b50565b6000813590506100b28161008c565b92915050565b6000602082840312156100ce576100cd61007d565b5b60006100dc848285016100a3565b91505092915050565b6100ee81610082565b82525050565b600060208201905061010960008301846100e5565b9291505056fea2646970667358221220d9ec31f6a034a2bb7578d3ad41ba391c5db2dde4a5ff8daac5cfa443c268b38064736f6c63430008170033"
-                }
-            },
-            "metadata": "...",  // Simplified
-            "userdoc": {
-                "methods": {
-                    "value()": "Get the current value",
-                    "setValue(uint256)": "Set a new value"
-                }
-            },
-            "devdoc": {
-                "methods": {
-                    "value()": "Returns the current stored value",
-                    "setValue(uint256)": "Updates the stored value"
-                }
-            }
-        });
-        
-        // Add the contract to the file entry
-        let mut file_contracts = HashMap::new();
-        file_contracts.insert(contract_name, contract_output);
-        
-        // Convert HashMap to serde_json::Map for Value::Object
-        let file_contracts_map = serde_json::Map::from_iter(file_contracts.into_iter());
-        
-        // Add the file to the contracts map
-        contracts.insert(main_source_path, Value::Object(file_contracts_map));
-        
-        // Create the complete solc output
-        let solc_output = json!({
-            "contracts": contracts,
-            "sources": {
-                // Sources info would be here
-            },
-            "errors": []
-        });
+        // Convert the foundry-compilers output to our expected format
+        let solc_output: Value = serde_json::to_value(compiler_output)
+            .map_err(|e| BundleError {
+                message: format!("Failed to convert compiler output: {}", e),
+                path: Some(full_path.clone()),
+            })?;
 
         // Convert module map to ModuleInfo for the result
         let modules: HashMap<String, ModuleInfo> = module_map
@@ -521,7 +298,7 @@ impl Bundler {
                     ModuleInfo {
                         id: path.to_string_lossy().to_string(),
                         code: module_info.code.clone(),
-                        raw_code: module_info.code.clone(),
+                        raw_code: module_info.code,
                         imported_modules: module_info.imported_ids.iter()
                             .map(|p| p.to_string_lossy().to_string())
                             .collect(),
@@ -540,11 +317,18 @@ impl Bundler {
             None
         };
 
+        // Convert the solc_input to Value for storage
+        let solc_input_value = serde_json::to_value(solc_input)
+            .map_err(|e| BundleError {
+                message: format!("Failed to convert solc input to JSON: {}", e),
+                path: Some(full_path),
+            })?;
+
         // Create compile result
         let result = CompileResult {
             modules,
-            solc_input: solc_input,
-            solc_output: solc_output,
+            solc_input: solc_input_value,
+            solc_output,
             artifacts,
             asts,
         };
@@ -595,21 +379,28 @@ impl Bundler {
 
         // Convert the module type to runtime-rs format
         let runtime_module_type = match runtime_options.module_type {
-            ModuleType::Ts => tevm_runtime_rs::ModuleType::Ts,
-            ModuleType::Cjs => tevm_runtime_rs::ModuleType::Cjs,
-            ModuleType::Mjs => tevm_runtime_rs::ModuleType::Mjs,
-            ModuleType::Dts => tevm_runtime_rs::ModuleType::Dts,
+            ModuleType::Ts => RuntimeModuleType::Ts,
+            ModuleType::Cjs => RuntimeModuleType::Cjs,
+            ModuleType::Mjs => RuntimeModuleType::Mjs,
+            ModuleType::Dts => RuntimeModuleType::Dts,
         };
 
         // Convert contract package to runtime-rs format
         let runtime_contract_package = match runtime_options.contract_package {
-            ContractPackage::TevmContract => tevm_runtime_rs::ContractPackage::TevmContract,
-            ContractPackage::TevmContractScoped => tevm_runtime_rs::ContractPackage::TevmContractScoped,
+            ContractPackage::TevmContract => RuntimeContractPackage::TevmContract,
+            ContractPackage::TevmContractScoped => RuntimeContractPackage::TevmContractScoped,
         };
 
-        // Generate code using our mock runtime generator
+        // Parse the solc output back to SolcOutput for runtime-rs
+        let solc_output_json: SolcOutput = serde_json::from_value(compile_result.solc_output.clone())
+            .map_err(|e| BundleError {
+                message: format!("Failed to parse solc output for runtime generation: {}", e),
+                path: Some(PathBuf::from(file_path)),
+            })?;
+
+        // Generate code using the real runtime-rs generator
         let code = tevm_runtime_rs::generate_runtime(
-            &compile_result.solc_output,
+            &solc_output_json,
             runtime_module_type,
             runtime_contract_package,
         );
