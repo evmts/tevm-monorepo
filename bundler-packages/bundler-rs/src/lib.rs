@@ -5,6 +5,7 @@ pub mod models;
 pub mod bundle;
 pub mod artifacts;
 pub mod cache;
+pub mod file_access;
 pub mod bundler;
 
 pub use config::{BundlerConfig, SolcOptions, RuntimeOptions, ModuleType, ContractPackage};
@@ -19,6 +20,7 @@ use once_cell::sync::Lazy;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::Arc;
+use file_access::FileAccess;
 
 // Global tokio runtime optimized for file system operations
 pub static TOKIO: Lazy<tokio::runtime::Runtime> = Lazy::new(|| {
@@ -55,6 +57,13 @@ pub struct JsSolcOptions {
 }
 
 #[napi(object)]
+pub struct JsFileAccessObject {
+    pub read_file: napi::JsFunction,
+    pub write_file: napi::JsFunction,
+    pub exists: napi::JsFunction,
+}
+
+#[napi(object)]
 pub struct JsBundleResult {
     pub code: String,
     pub source_map: Option<String>,
@@ -64,10 +73,31 @@ pub struct JsBundleResult {
     pub entry_point: String,
 }
 
+// Module type enum for JavaScript
+#[napi]
+pub enum JsModuleType {
+    Ts = 0,
+    Cjs = 1,
+    Mjs = 2,
+    Dts = 3,
+}
+
+impl From<JsModuleType> for ModuleType {
+    fn from(js_type: JsModuleType) -> Self {
+        match js_type {
+            JsModuleType::Ts => ModuleType::Ts,
+            JsModuleType::Cjs => ModuleType::Cjs,
+            JsModuleType::Mjs => ModuleType::Mjs,
+            JsModuleType::Dts => ModuleType::Dts,
+        }
+    }
+}
+
 // Bundler factory function
 #[napi]
 pub async fn create_bundler(
     config: JsBundlerConfig,
+    file_access_object: Option<JsFileAccessObject>,
 ) -> Result<JsBundler> {
     let bundler_config = BundlerConfig {
         remappings: config.remappings.unwrap_or_default(),
@@ -80,8 +110,16 @@ pub async fn create_bundler(
         contract_package: config.contract_package.unwrap_or_else(|| "@tevm/contract".to_string()),
     };
 
+    // Create file access if provided
+    let file_access = if let Some(fao) = file_access_object {
+        Some(FileAccess::new(fao)?)
+    } else {
+        None
+    };
+
     // Create bundler
-    let bundler = bundler::Bundler::new(bundler_config).await?;
+    let bundler = bundler::Bundler::new(bundler_config).await
+        .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
 
     Ok(JsBundler {
         inner: Arc::new(bundler),
@@ -96,7 +134,26 @@ pub struct JsBundler {
 
 #[napi]
 impl JsBundler {
-    // TypeScript module resolution
+    // Unified file resolution method
+    #[napi]
+    pub async fn resolve_file(
+        &self,
+        file_path: String,
+        base_dir: String,
+        module_type: JsModuleType,
+        solc_options: Option<JsSolcOptions>,
+    ) -> Result<JsBundleResult> {
+        let options = convert_solc_options(solc_options);
+        let rust_module_type = ModuleType::from(module_type);
+        
+        let result = self.inner.resolve_file(&file_path, &base_dir, rust_module_type, options)
+            .await
+            .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
+            
+        Ok(convert_to_js_result(result, &file_path))
+    }
+    
+    // Legacy TypeScript module resolution
     #[napi]
     pub async fn resolve_ts_module(
         &self,
@@ -104,16 +161,10 @@ impl JsBundler {
         base_dir: String,
         solc_options: Option<JsSolcOptions>,
     ) -> Result<JsBundleResult> {
-        let options = convert_solc_options(solc_options);
-        
-        let result = self.inner.resolve_ts_module(&file_path, &base_dir, options)
-            .await
-            .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
-            
-        Ok(convert_to_js_result(result, &file_path))
+        self.resolve_file(file_path, base_dir, JsModuleType::Ts, solc_options).await
     }
     
-    // CommonJS module resolution
+    // Legacy CommonJS module resolution
     #[napi]
     pub async fn resolve_cjs_module(
         &self,
@@ -121,16 +172,10 @@ impl JsBundler {
         base_dir: String,
         solc_options: Option<JsSolcOptions>,
     ) -> Result<JsBundleResult> {
-        let options = convert_solc_options(solc_options);
-        
-        let result = self.inner.resolve_cjs_module(&file_path, &base_dir, options)
-            .await
-            .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
-            
-        Ok(convert_to_js_result(result, &file_path))
+        self.resolve_file(file_path, base_dir, JsModuleType::Cjs, solc_options).await
     }
     
-    // ES module resolution
+    // Legacy ES module resolution
     #[napi]
     pub async fn resolve_esm_module(
         &self,
@@ -138,16 +183,10 @@ impl JsBundler {
         base_dir: String,
         solc_options: Option<JsSolcOptions>,
     ) -> Result<JsBundleResult> {
-        let options = convert_solc_options(solc_options);
-        
-        let result = self.inner.resolve_esm_module(&file_path, &base_dir, options)
-            .await
-            .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
-            
-        Ok(convert_to_js_result(result, &file_path))
+        self.resolve_file(file_path, base_dir, JsModuleType::Mjs, solc_options).await
     }
     
-    // TypeScript declaration file resolution
+    // Legacy TypeScript declaration file resolution
     #[napi]
     pub async fn resolve_dts(
         &self,
@@ -155,13 +194,7 @@ impl JsBundler {
         base_dir: String,
         solc_options: Option<JsSolcOptions>,
     ) -> Result<JsBundleResult> {
-        let options = convert_solc_options(solc_options);
-        
-        let result = self.inner.resolve_dts(&file_path, &base_dir, options)
-            .await
-            .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
-            
-        Ok(convert_to_js_result(result, &file_path))
+        self.resolve_file(file_path, base_dir, JsModuleType::Dts, solc_options).await
     }
     
     // Artifact compilation
@@ -190,6 +223,7 @@ impl JsBundler {
 #[napi]
 pub async fn bundle_code_js(
     entry_point: String,
+    module_type: JsModuleType,
     options: Option<JsBundlerConfig>,
     solc_options: Option<JsSolcOptions>,
 ) -> Result<JsBundleResult> {
@@ -204,9 +238,10 @@ pub async fn bundle_code_js(
             debug: None,
             contract_package: None,
         }),
+        None,
     ).await?;
     
-    bundler.resolve_ts_module(entry_point, ".".to_string(), solc_options).await
+    bundler.resolve_file(entry_point, ".".to_string(), module_type, solc_options).await
 }
 
 // Helper functions

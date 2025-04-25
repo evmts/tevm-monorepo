@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::PathBuf;
+use napi::{Error, Status};
 
 /// Error type for bundling operations
 #[derive(Debug, Clone)]
