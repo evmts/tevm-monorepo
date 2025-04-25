@@ -345,6 +345,14 @@ function createFileAccessObject() {
   };
 }
 
+// Module type enum that mirrors the Rust implementation's ModuleType
+enum ModuleType {
+  Ts = 'ts',
+  Cjs = 'cjs',
+  Mjs = 'mjs',
+  Dts = 'dts'
+}
+
 describe("Bundler Implementation Benchmarks", async () => {
   // Create test directory with contracts
   const { tempDir, mainContractPath } = await createContractTestDirectory();
@@ -411,10 +419,11 @@ describe("Bundler Implementation Benchmarks", async () => {
   });
 
   // Rust bundler benchmarks (commented out until it's ready)
-  // bench("Rust Bundler - Async TypeScript Resolution", async () => {
-  //   await rustBundler.resolve_ts_module(
+  // bench("Rust Bundler - TypeScript Resolution", async () => {
+  //   await rustBundler.resolve_file(
   //     mainContractPath,
   //     tempDir,
+  //     ModuleType.Ts,
   //     {
   //       optimize: true,
   //       include_bytecode: true,
@@ -443,10 +452,11 @@ describe("Bundler Implementation Benchmarks", async () => {
   });
 
   // Rust bundler benchmarks (commented out until it's ready)
-  // bench("Rust Bundler - Async CommonJS Resolution", async () => {
-  //   await rustBundler.resolve_cjs_module(
+  // bench("Rust Bundler - CommonJS Resolution", async () => {
+  //   await rustBundler.resolve_file(
   //     mainContractPath,
   //     tempDir,
+  //     ModuleType.Cjs,
   //     {
   //       optimize: true,
   //       include_bytecode: true,
@@ -475,10 +485,11 @@ describe("Bundler Implementation Benchmarks", async () => {
   });
 
   // Rust bundler benchmarks (commented out until it's ready)
-  // bench("Rust Bundler - Async ESM Resolution", async () => {
-  //   await rustBundler.resolve_esm_module(
+  // bench("Rust Bundler - ESM Resolution", async () => {
+  //   await rustBundler.resolve_file(
   //     mainContractPath,
   //     tempDir,
+  //     ModuleType.Mjs,
   //     {
   //       optimize: true,
   //       include_bytecode: true,
@@ -507,10 +518,11 @@ describe("Bundler Implementation Benchmarks", async () => {
   });
 
   // Rust bundler benchmarks (commented out until it's ready)
-  // bench("Rust Bundler - Async DTS Resolution", async () => {
-  //   await rustBundler.resolve_dts(
+  // bench("Rust Bundler - DTS Resolution", async () => {
+  //   await rustBundler.resolve_file(
   //     mainContractPath,
   //     tempDir,
+  //     ModuleType.Dts,
   //     {
   //       optimize: true,
   //       include_bytecode: true,

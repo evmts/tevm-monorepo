@@ -1,4 +1,4 @@
-use crate::models::{BundleError, CompileResult, ModuleInfo, ContractArtifact};
+use crate::models::{BundleError, CompileResult, ContractArtifact};
 use std::collections::HashMap;
 use serde_json::{Value, json};
 use tevm_solc_rs::SolcOutput;
@@ -15,27 +15,28 @@ pub async fn extract_artifacts(
                 let full_name = format!("{}:{}", file_name, contract_name);
                 
                 // Extract ABI
-                let abi = contract_data.abi.clone().unwrap_or_else(|| json!([]));
+                let abi = match &contract_data.abi {
+                    Some(abi) => serde_json::to_value(abi).unwrap_or_else(|_| json!([])),
+                    None => json!([]),
+                };
                 
                 // Extract bytecode
-                let bytecode = contract_data.evm
-                    .as_ref()
+                let bytecode = contract_data.evm.as_ref()
                     .and_then(|evm| evm.bytecode.as_ref())
-                    .and_then(|bytecode| bytecode.object.as_ref())
-                    .map(|object| object.clone());
+                    .and_then(|bytecode| bytecode.object.clone());
                 
                 // Extract deployed bytecode
-                let deployed_bytecode = contract_data.evm
-                    .as_ref()
+                let deployed_bytecode = contract_data.evm.as_ref()
                     .and_then(|evm| evm.deployed_bytecode.as_ref())
-                    .and_then(|bytecode| bytecode.object.as_ref())
-                    .map(|object| object.clone());
+                    .and_then(|bytecode| bytecode.object.clone());
                 
                 // Extract user documentation
-                let user_doc = contract_data.userdoc.clone();
+                let user_doc = contract_data.userdoc.as_ref()
+                    .map(|doc| serde_json::to_value(doc).unwrap_or_else(|_| json!({})));
                 
                 // Extract developer documentation
-                let dev_doc = contract_data.devdoc.clone();
+                let dev_doc = contract_data.devdoc.as_ref()
+                    .map(|doc| serde_json::to_value(doc).unwrap_or_else(|_| json!({})));
                 
                 // Create contract artifact
                 let artifact = ContractArtifact {

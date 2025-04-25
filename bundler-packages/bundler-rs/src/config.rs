@@ -1,6 +1,8 @@
 use std::path::PathBuf;
+use serde::{Deserialize, Serialize};
 
 /// Main configuration for the bundler
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BundlerConfig {
     /// Solidity import remappings (from -> to pairs)
     pub remappings: Vec<(String, String)>,
@@ -44,6 +46,7 @@ impl Default for BundlerConfig {
 }
 
 /// Solidity compiler options
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SolcOptions {
     /// Enable optimization
     pub optimize: bool,
@@ -86,6 +89,7 @@ impl Default for SolcOptions {
 }
 
 /// Options for code generation
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RuntimeOptions {
     /// Output module type
     pub module_type: ModuleType,
@@ -104,6 +108,7 @@ impl Default for RuntimeOptions {
 }
 
 /// Output module type
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ModuleType {
     /// TypeScript (.ts)
     Ts,
@@ -128,6 +133,7 @@ impl From<&str> for ModuleType {
 }
 
 /// Contract package import style
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ContractPackage {
     /// Import from '@tevm/contract'
     TevmContract,

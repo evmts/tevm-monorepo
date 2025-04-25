@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use std::path::PathBuf;
 
 /// Error type for bundling operations
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct BundleError {
     /// Error message
     pub message: String,
@@ -24,7 +24,7 @@ impl std::fmt::Display for BundleError {
 impl std::error::Error for BundleError {}
 
 /// Result type for bundling operations
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BundleResult {
     /// Generated code (JavaScript/TypeScript)
     pub code: String,
@@ -49,7 +49,7 @@ pub struct BundleResult {
 }
 
 /// Result of compilation operation
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CompileResult {
     /// Module information
     pub modules: HashMap<String, ModuleInfo>,

@@ -4,7 +4,7 @@ use crate::cache::Cache;
 use crate::artifacts::{extract_artifacts, generate_source_map, extract_asts};
 
 use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::sync::Arc;
 use std::fs;
 use sha2::{Sha256, Digest};
@@ -38,7 +38,7 @@ impl Bundler {
     /// Create a new bundler instance
     pub async fn new(config: BundlerConfig) -> Result<Self, BundleError> {
         // Initialize solc compiler
-        let solc_path = config.solc_path.clone();
+        let solc_path = config.solc_path.clone().unwrap_or_else(|| PathBuf::from("solc"));
         let solc_version = config.solc_version.clone().unwrap_or_else(|| "0.8.20".to_string());
         
         let solc = Solc::new(solc_path, solc_version.to_string());
@@ -172,8 +172,12 @@ impl Bundler {
         })?;
         
         // Create solc input from module map
-        let mut solc_input = SolcInputDescription::default();
         let mut solc_sources = HashMap::new();
+        let mut solc_input = SolcInputDescription {
+            language: tevm_solc_rs::SolcLanguage::Solidity,
+            sources: solc_sources.clone(),
+            settings: None,
+        };
         
         for (path, module) in &module_map {
             solc_sources.insert(
@@ -224,7 +228,7 @@ impl Bundler {
         // Configure optimizer
         let optimizer = SolcOptimizer {
             enabled: Some(solc_options.optimize),
-            runs: solc_options.optimizer_runs,
+            runs: solc_options.optimizer_runs.unwrap_or(200),
             details: None,
         };
         
