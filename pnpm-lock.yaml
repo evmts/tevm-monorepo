@@ -298,6 +298,14 @@ importers:
         specifier: ^3.0.7
         version: 3.0.8(@types/debug@4.1.12)(@types/node@22.13.10)(@vitest/ui@3.0.8)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
 
+  bundler-packages/bundler-rs:
+    devDependencies:
+      '@napi-rs/cli':
+        specifier: ^2.15.2
+        version: 2.18.4
+
+  bundler-packages/bundler-rs/npm/darwin-arm64: {}
+
   bundler-packages/compiler:
     dependencies:
       '@tevm/config':
@@ -2321,6 +2329,18 @@ importers:
 
   test/bench:
     dependencies:
+      '@tevm/base-bundler':
+        specifier: workspace:^
+        version: link:../../bundler-packages/base-bundler
+      '@tevm/bundler-cache':
+        specifier: workspace:^
+        version: link:../../bundler-packages/bundler-cache
+      '@tevm/bundler-rs':
+        specifier: workspace:^
+        version: link:../../bundler-packages/bundler-rs
+      '@tevm/config':
+        specifier: workspace:^
+        version: link:../../bundler-packages/config
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract
@@ -2333,6 +2353,9 @@ importers:
       '@tevm/runtime-rs':
         specifier: workspace:^
         version: link:../../bundler-packages/runtime-rs
+      '@tevm/solc':
+        specifier: workspace:^
+        version: link:../../bundler-packages/solc
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../test-utils
