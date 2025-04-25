@@ -8961,6 +8961,7 @@ version = "0.1.0"
 dependencies = [
  "dashmap 5.5.3",
  "futures",
+ "hex",
  "libc",
  "napi",
  "napi-build",
@@ -8970,6 +8971,10 @@ dependencies = [
  "regex",
  "serde",
  "serde_json",
+ "sha2 0.10.8",
+ "tevm_resolutions_rs",
+ "tevm_runtime_rs",
+ "tevm_solc_rs",
  "tokio",
 ]
 
