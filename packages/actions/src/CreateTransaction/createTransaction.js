@@ -77,10 +77,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
 		const sender = evmInput.origin ?? evmInput.caller ?? createAddress(`0x${'00'.repeat(20)}`)
 
-		const txPool = await client.getTxPool()
-		const txs = await txPool.getBySenderAddress(sender)
-
-		const nonce = ((await vm.stateManager.getAccount(sender)) ?? { nonce: 0n }).nonce + BigInt(txs.length)
+		const nonce = ((await vm.stateManager.getAccount(sender)) ?? { nonce: 0n }).nonce
 
 		client.logger.debug({ nonce, sender: sender.toString() }, 'creating tx with nonce')
 
