@@ -126,7 +126,9 @@ export const callHandlerOpts = async (client, params) => {
 		params.caller ||
 		params.from ||
 		params.origin ||
-		(params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
+		(params.createTransaction || params.addToMempool || params.addToBlockchain
+			? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
+			: `0x${'00'.repeat(20)}`)
 	if (caller) {
 		opts.caller = createAddress(caller)
 	}
@@ -134,12 +136,16 @@ export const callHandlerOpts = async (client, params) => {
 		params.origin ||
 		params.from ||
 		params.caller ||
-		(params.createTransaction ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' : `0x${'00'.repeat(20)}`)
+		(params.createTransaction || params.addToMempool || params.addToBlockchain
+			? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
+			: `0x${'00'.repeat(20)}`)
 	if (origin) {
 		if (params.skipBalance !== undefined) {
 			opts.skipBalance = Boolean(params.skipBalance)
 		} else {
-			opts.skipBalance = caller === `0x${'00'.repeat(20)}` && (params.createTransaction ?? false) === false
+			opts.skipBalance =
+				caller === `0x${'00'.repeat(20)}` &&
+				(params.createTransaction ?? params.addToMempool ?? params.addToBlockchain ?? false) === false
 		}
 		opts.origin = createAddress(origin)
 	}
@@ -147,7 +153,10 @@ export const callHandlerOpts = async (client, params) => {
 		opts.gasLimit = BigInt(params.gas)
 	}
 
-	if (params.createTransaction && opts.block !== (await vm.blockchain.getCanonicalHeadBlock())) {
+	if (
+		(params.createTransaction || params.addToMempool || params.addToBlockchain) &&
+		opts.block !== (await vm.blockchain.getCanonicalHeadBlock())
+	) {
 		return { errors: [new InvalidParamsError('Creating transactions on past blocks is not currently supported')] }
 	}
 
