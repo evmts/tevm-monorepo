@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { type TevmNode, createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
-import {  bytesToHex, encodeFunctionData, type Address, type Hex } from '@tevm/utils'
+import { type Address, type Hex, bytesToHex, encodeFunctionData } from '@tevm/utils'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 import type { CallParams } from '../Call/CallParams.js'
 import { callHandlerOpts } from '../Call/callHandlerOpts.js'
@@ -65,7 +65,7 @@ describe(createTransaction.name, async () => {
 	it('should create multiple transactions from the same account and add them to the tx pool', async () => {
 		const options = await runTransaction()
 		const TX_COUNT = 10
-		let txResponses: { txHash: string }[] = []
+		const txResponses: { txHash: string }[] = []
 		for (let i = 0; i < TX_COUNT; i++) {
 			const txRes = await createTransaction(client)(options)
 			assert(!('errors' in txRes), 'txRes.errors should be undefined')
@@ -86,17 +86,30 @@ describe(createTransaction.name, async () => {
 		const options = await runTransaction()
 
 		// Wait for the event to be emitted and get the transaction hash
-		const emittedTxHash = await new Promise<Hex>(async (resolve, reject) => {
+		const emittedTxHash = await new Promise<Hex>((resolve, reject) => {
 			const timeout = setTimeout(() => reject(new Error('Timeout: newPendingTransaction event was not emitted')), 1000)
-			const onNewPendingTransaction = (tx: {hash: () => Uint8Array}) => {
+			const onNewPendingTransaction = (tx: { hash: () => Uint8Array }) => {
 				clearTimeout(timeout)
 				client.removeListener('newPendingTransaction', onNewPendingTransaction)
 				resolve(bytesToHex(tx.hash()))
 			}
 
 			client.on('newPendingTransaction', onNewPendingTransaction)
-			const txRes = await createTransaction(client)(options)
-			assert(!('errors' in txRes), 'txRes.errors should be undefined')
+
+			// Execute this outside the Promise constructor
+			createTransaction(client)(options)
+				.then((txRes) => {
+					if ('errors' in txRes) {
+						clearTimeout(timeout)
+						client.removeListener('newPendingTransaction', onNewPendingTransaction)
+						reject(new Error(`Transaction failed: ${txRes.errors}`))
+					}
+				})
+				.catch((err) => {
+					clearTimeout(timeout)
+					client.removeListener('newPendingTransaction', onNewPendingTransaction)
+					reject(err)
+				})
 		})
 
 		// Verify the transaction was added to the pool
@@ -115,7 +128,7 @@ describe(createTransaction.name, async () => {
 			nonce: 0n,
 		})
 
-		const options = await runTransaction({from, skipBalance: true})
+		const options = await runTransaction({ from, skipBalance: true })
 		const txRes = await createTransaction(client)(options)
 
 		assert(!('errors' in txRes), 'txRes.errors should be undefined')
@@ -136,10 +149,12 @@ describe(createTransaction.name, async () => {
 			nonce: 0n,
 		})
 
-		const options = await runTransaction({from})
+		const options = await runTransaction({ from })
 		const txRes = await createTransaction(client)(options)
 
 		assert('errors' in txRes, 'txRes.errors should be defined')
-		expect(txRes.errors[0]?.message).toEqual('Insufficientbalance: Account 0x1111111111111111111111111111111111111111 attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address')
+		expect(txRes.errors[0]?.message).toEqual(
+			'Insufficientbalance: Account 0x1111111111111111111111111111111111111111 attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address',
+		)
 	})
 })
