@@ -2,7 +2,6 @@ import { createAddress } from '@tevm/address'
 import { createImpersonatedTx } from '@tevm/tx'
 import { bytesToHex, hexToBigInt, numberToHex } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
-import { requestProcedure } from '../requestProcedure.js'
 import { traceCallHandler } from './traceCallHandler.js'
 
 /**
@@ -79,36 +78,6 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 			}
 		}
 
-		// Get all transactions in the block
-		const transactionsByHashResponse = await Promise.all(
-			block.transactions.map(async (tx) => {
-				/** @type {import('@tevm/utils').Hex} */
-				const txHash = bytesToHex(tx.hash())
-				return {
-					txHash,
-					tx: await requestProcedure(client)({
-						method: 'eth_getTransactionByHash',
-						params: [txHash],
-						jsonrpc: '2.0',
-						id: 1,
-					}),
-				}
-			}),
-		)
-
-		const errors = transactionsByHashResponse.filter(({ tx }) => tx.error).map(({ tx }) => tx.error)
-		if (errors.length > 0) {
-			return {
-				jsonrpc: '2.0',
-				method: request.method,
-				...(request.id !== undefined ? { id: request.id } : {}),
-				error: {
-					code: '-32602',
-					message: 'Received at least one transaction with error',
-				},
-			}
-		}
-
 		const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
 		// Ensure the parent block's state root is available
 		const hasStateRoot = await vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
@@ -135,52 +104,52 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 		const traceResults = []
 
 		// Trace each transaction in the block
-		for (let i = 0; i < transactionsByHashResponse.length; i++) {
-			const { tx, txHash } = transactionsByHashResponse[i] ?? {}
-			if (!txHash || !tx || !tx.result) continue
+		for (let i = 0; i < block.transactions.length; i++) {
+			const blockTx = block.transactions[i]
+			if (!blockTx) continue
 
+			const impersonatedTx = createImpersonatedTx(
+				{
+					...blockTx,
+					gasPrice: null,
+					impersonatedAddress: createAddress(blockTx.getSenderAddress()),
+				},
+				{
+					freeze: false,
+					common: vmClone.common.ethjsCommon,
+					allowUnlimitedInitCodeSize: true,
+				},
+			)
 			// Trace the transaction
+			const txParams = impersonatedTx.toJSON()
 			const traceResult = await traceCallHandler({ ...client, getVm: () => Promise.resolve(vmClone) })({
 				tracer,
-				...(tx.result.to !== undefined ? { to: tx.result.to } : {}),
-				...(tx.result.from !== undefined ? { from: tx.result.from } : {}),
-				...(tx.result.gas !== undefined ? { gas: hexToBigInt(tx.result.gas) } : {}),
-				...(tx.result.gasPrice !== undefined ? { gasPrice: hexToBigInt(tx.result.gasPrice) } : {}),
-				...(tx.result.value !== undefined ? { value: hexToBigInt(tx.result.value) } : {}),
-				...(tx.result.input !== undefined ? { data: tx.result.input } : {}),
-				...(tx.result.blockHash !== undefined ? { blockTag: tx.result.blockHash } : {}),
+				from: impersonatedTx.getSenderAddress().toString(),
+				blockTag: bytesToHex(block.header.hash()),
+				...(txParams.to !== undefined ? { to: txParams.to } : {}),
+				...(txParams.gasLimit !== undefined ? { gas: hexToBigInt(txParams.gasLimit) } : {}),
+				...(txParams.gasPrice !== undefined ? { gasPrice: hexToBigInt(txParams.gasPrice) } : {}),
+				...(txParams.value !== undefined ? { value: hexToBigInt(txParams.value) } : {}),
+				...(txParams.data !== undefined ? { data: txParams.data } : {}),
 				...(timeout !== undefined ? { timeout } : {}),
 				.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 			})
 
 			// Add to results
 			traceResults.push({
-				txHash,
+				txHash: bytesToHex(blockTx.hash()),
 				txIndex: i,
 				result: traceResult,
 			})
 
 			// Actually run the call to update the vmClone state
-			const typedTx = block.transactions[i]
-			if (!typedTx) continue
 			await vmClone.runTx({
 				block,
 				skipNonce: true,
 				skipBalance: true,
 				skipHardForkValidation: true,
 				skipBlockGasLimitValidation: true,
-				tx: createImpersonatedTx(
-					{
-						...typedTx,
-						gasPrice: null,
-						impersonatedAddress: createAddress(typedTx.getSenderAddress()),
-					},
-					{
-						freeze: false,
-						common: vmClone.common.ethjsCommon,
-						allowUnlimitedInitCodeSize: true,
-					},
-				),
+				tx: impersonatedTx,
 			})
 		}
 

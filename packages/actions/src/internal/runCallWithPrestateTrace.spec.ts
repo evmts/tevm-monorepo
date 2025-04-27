@@ -1,6 +1,6 @@
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
-import { EthjsAddress, encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { EthjsAddress, encodeFunctionData, hexToBytes, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
@@ -48,6 +48,15 @@ describe('runCallWithPrestateTrace', () => {
 				})
 			).errors,
 		).toBeUndefined()
+
+		expect(
+			(
+				await dealHandler(client)({
+					account: CALLER_ADDRESS,
+					amount: parseEther('1'),
+				})
+			).errors,
+		).toBeUndefined()
 	})
 
 	it('should trace a contract call with prestate tracer in normal mode', async () => {
@@ -71,7 +80,7 @@ describe('runCallWithPrestateTrace', () => {
 			caller: EthjsAddress.fromString(CALLER_ADDRESS),
 		}
 
-		const result = await runCallWithPrestateTrace(vm, client.logger, params, false)
+		const result = await runCallWithPrestateTrace(client, params, false)
 		expect(result.trace).toMatchSnapshot()
 	})
 
@@ -96,7 +105,7 @@ describe('runCallWithPrestateTrace', () => {
 			caller: EthjsAddress.fromString(CALLER_ADDRESS),
 		}
 
-		const result = await runCallWithPrestateTrace(vm, client.logger, params, true)
+		const result = await runCallWithPrestateTrace(client, params, true)
 		expect(result.trace).toMatchSnapshot()
 	})
 })
