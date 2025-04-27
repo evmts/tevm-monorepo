@@ -11,6 +11,7 @@ alloy-primitives = { version = "0.7.0", features = ["serde"] }
 node-resolve = "2.2.0"
 once_cell = "1.21.3"
 regex = "1.11.1"
+foundry-compilers = { version = "0.6.2", default-features = false, features = ["async", "full"] }
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
 strum = { version = "0.26.1", features = ["derive"] }

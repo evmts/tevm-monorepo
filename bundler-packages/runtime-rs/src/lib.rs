@@ -1,7 +1,7 @@
 use alloy_primitives::Bytes;
+use foundry_compilers::artifacts::ContractBytecode;
 use napi_derive::napi;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use strum::EnumString;
 use strum_macros::Display;
 use tevm_solc_rs::SolcOutput;
@@ -30,7 +30,6 @@ impl ContractPackage {
         }
     }
 
-    #[allow(dead_code)]
     fn from_str(s: &str) -> Option<Self> {
         match s {
             "tevm/contract" => Some(ContractPackage::TevmContract),
@@ -51,58 +50,50 @@ pub struct TevmContract {
     pub human_readable_abi: Vec<String>,
 }
 
-/// Formats a contract ABI into a human-readable form
-fn format_abi(abi: &serde_json::Value) -> Vec<String> {
-    // This would need proper implementation to format the ABI
-    // For demonstration, we'll just convert the ABI items to strings
-    match abi.as_array() {
-        Some(items) => items.iter().map(|item| item.to_string()).collect(),
-        None => vec![],
-    }
-}
-
 /// Generates runtime code for Tevm contracts
 pub fn generate_runtime(
-    solc_output: &SolcOutput,
+    contracts: Vec<(String, ContractBytecode)>,
     module_type: ModuleType,
     contract_package: ContractPackage,
 ) -> String {
     let package = contract_package.to_string();
 
-    // Prepare contract data from solc output
-    let mut contracts = HashMap::new();
-    if let Some(contract_files) = &solc_output.contracts {
-        for (_file, file_contracts) in contract_files {
-            for (name, contract) in file_contracts {
-                // Convert SolcContractOutput to TevmContract
-                let tevm_contract = TevmContract {
-                    bytecode: if !contract.evm.bytecode.object.is_empty() {
-                        Some(
-                            format!("0x{}", contract.evm.bytecode.object)
-                                .parse()
-                                .unwrap_or_default(),
-                        )
-                    } else {
-                        None
-                    },
-                    deployed_bytecode: if !contract.evm.deployed_bytecode.object.is_empty() {
-                        Some(
-                            format!("0x{}", contract.evm.deployed_bytecode.object)
-                                .parse()
-                                .unwrap_or_default(),
-                        )
-                    } else {
-                        None
-                    },
-                    name: name.clone(),
-                    human_readable_abi: format_abi(&contract.abi),
-                };
-                contracts.insert(name.clone(), tevm_contract);
-            }
-        }
+    for (name, contract) in contracts {
+        let tevm_contract = TevmContract {
+            bytecode: if !contract.bytecode.is_some() {
+                Some(
+                    format!("0x{}", contract.bytecode.unwrap().object.as_str().unwrap())
+                        .parse()
+                        .unwrap_or_default(),
+                )
+            } else {
+                None
+            },
+            deployed_bytecode: if contract.deployed_bytecode.is_some() {
+                Some(
+                    format!(
+                        "0x{}",
+                        &contract
+                            .deployed_bytecode
+                            .unwrap()
+                            .bytecode
+                            .unwrap()
+                            .object
+                            .as_str()
+                            .unwrap()
+                    )
+                    .parse()
+                    .unwrap_or_default(),
+                )
+            } else {
+                None
+            },
+            name: name.clone(),
+            human_readable_abi: &contract.abi.unwrap(),
+        };
+        contracts.insert(name.clone(), tevm_contract);
     }
 
-    // If we have no contracts, return early
     if contracts.is_empty() {
         return "// No contracts found in the solc output".to_string();
     }
@@ -695,4 +686,3 @@ pub fn generate_runtime_js(
 
     Ok(result)
 }
-
