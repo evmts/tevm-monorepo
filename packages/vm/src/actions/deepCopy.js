@@ -42,7 +42,7 @@ export const deepCopy = (baseVm) => async () => {
 	evmAny._debug = /** @type any*/ (baseVm.evm)._debug
 	return createBaseVm({
 		stateManager,
-		blockchain: baseVm.blockchain,
+		blockchain,
 		activatePrecompiles: true,
 		common,
 		evm: evmCopy,
