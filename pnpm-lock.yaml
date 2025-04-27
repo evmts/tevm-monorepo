@@ -1204,7 +1204,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/9530d9ec702df1b27b7f8f50c0a63a11b1b5fba9
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@19.0.0)
@@ -2115,6 +2115,9 @@ importers:
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
+      effect:
+        specifier: ^3.14.14
+        version: 3.14.14
       ethereum-cryptography:
         specifier: ^3.1.0
         version: 3.1.0
@@ -7755,6 +7758,7 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -8721,6 +8725,9 @@ packages:
   effect@3.13.2:
     resolution: {integrity: sha512-/w+CPqHDJ33Wq7xC4YKAchrEEPtjvxh563xH9kDTZp99seNYBoBs87vl8DJwartEjj+KLQLP8PzoDne+XmGT2A==}
 
+  effect@3.14.14:
+    resolution: {integrity: sha512-Dbt9MAZHqM1UAip41RrZnypzLa/hJJGHXIVS9MbgU0L+UoJTFXToWIwWmHY/OcaQVNlf/1YxpMrD3xtxoDP/qw==}
+
   ejs@3.1.10:
     resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
     engines: {node: '>=0.10.0'}
@@ -9520,8 +9527,8 @@ packages:
     resolution: {integrity: sha512-W8+hV/qnShs4pZSIcHfYvKi7ds1FjNVW14XG5fMkkTBzbUGJh5BxbTc3KZZy7nWbPpaHLGnRszMZNZlLvi6qww==}
     hasBin: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/9530d9ec702df1b27b7f8f50c0a63a11b1b5fba9:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/9530d9ec702df1b27b7f8f50c0a63a11b1b5fba9}
     version: 1.9.6
 
   form-data@4.0.2:
@@ -23916,6 +23923,11 @@ snapshots:
       '@standard-schema/spec': 1.0.0
       fast-check: 3.23.2
 
+  effect@3.14.14:
+    dependencies:
+      '@standard-schema/spec': 1.0.0
+      fast-check: 3.23.2
+
   ejs@3.1.10:
     dependencies:
       jake: 10.9.2
@@ -25126,7 +25138,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/9530d9ec702df1b27b7f8f50c0a63a11b1b5fba9: {}
 
   form-data@4.0.2:
     dependencies:
