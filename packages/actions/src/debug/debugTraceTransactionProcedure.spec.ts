@@ -3,6 +3,7 @@ import { createTevmNode } from '@tevm/node'
 import { assert, describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { deployHandler } from '../Deploy/deployHandler.js'
+import { mineHandler } from '../Mine/mineHandler.js'
 import { debugTraceTransactionJsonRpcProcedure } from './debugTraceTransactionProcedure.js'
 
 describe('debugTraceTransactionJsonRpcProcedure', () => {
@@ -14,11 +15,18 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 		assert(createdAddress, 'Contract deployment failed')
 		const contract = SimpleContract.withAddress(createdAddress)
 
-		const { txHash } = await contractHandler(client)({
-			addToBlockchain: true,
+		// Run some other transaction before the traced one that will be included in the same block
+		await contractHandler(client)({
+			addToMempool: true,
 			...contract.write.set(42n),
 		})
+
+		const { txHash } = await contractHandler(client)({
+			addToMempool: true,
+			...contract.write.set(45n),
+		})
 		assert(txHash, 'Transaction failed')
+		await mineHandler(client)({})
 
 		expect(
 			await procedure({

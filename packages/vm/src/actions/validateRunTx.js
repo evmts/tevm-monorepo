@@ -14,16 +14,14 @@ export const validateRunTx = (vm) => {
 	const validateOpts = async (opts) => {
 		const _opts =
 			/**
-			 * @type {import("../utils/RunTxOpts.js").RunTxOpts & Required<Pick<import("../utils/RunTxOpts.js").RunTxOpts, "block">>}
+			 * @type {import("../utils/RunTxOpts.js").RunTxOpts & Required<Pick<import("../utils/RunTxOpts.js").RunTxOpts, "block" | "preserveJournal">>}
 			 */
-			(
-				opts.block !== undefined
-					? opts
-					: {
-							...opts,
-							block: opts.block ?? Block.fromBlockData({ header: {} }, { common: vm.common }),
-						}
-			)
+			{
+				...opts,
+				block: opts.block !== undefined ? opts.block : Block.fromBlockData({ header: {} }, { common: vm.common }),
+				preserveJournal: opts.preserveJournal ?? false,
+			}
+
 		if (_opts.skipHardForkValidation !== true) {
 			// Find and set preMerge hf for easy access later
 			const hfs = vm.common.ethjsCommon.hardforks()
@@ -71,6 +69,7 @@ export const validateRunTx = (vm) => {
 				throw new EipNotEnabledError(msg)
 			}
 		}
+
 		return _opts
 	}
 	return validateOpts

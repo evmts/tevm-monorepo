@@ -59,4 +59,10 @@ export interface RunTxOpts {
 	 * To obtain an accurate tx receipt input the block gas used up until this tx.
 	 */
 	blockGasUsed?: bigint
+
+	/**
+	 * If true, doesn't cleanup journal or commit state changes. Default is false.
+	 * @internal
+	 */
+	preserveJournal?: boolean
 }

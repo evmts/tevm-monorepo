@@ -1,6 +1,6 @@
-import { TransactionFactory } from '@tevm/tx'
+import { createAddress } from '@tevm/address'
+import { createImpersonatedTx } from '@tevm/tx'
 import { hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
-import { runTx } from '@tevm/vm'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 import { requestProcedure } from '../requestProcedure.js'
 import { traceCallHandler } from './traceCallHandler.js'
@@ -119,17 +119,24 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 
 		// execute all transactions before the current one committing to the state
 		for (const tx of previousTx) {
-			runTx(vmClone)({
+			await vmClone.runTx({
 				block,
 				skipNonce: true,
 				skipBalance: true,
 				skipHardForkValidation: true,
 				skipBlockGasLimitValidation: true,
-				tx: await TransactionFactory.fromRPC(tx, {
-					freeze: false,
-					common: vmClone.common.ethjsCommon,
-					allowUnlimitedInitCodeSize: true,
-				}),
+				tx: createImpersonatedTx(
+					{
+						...tx,
+						gasPrice: null,
+						impersonatedAddress: createAddress(tx.getSenderAddress()),
+					},
+					{
+						freeze: false,
+						common: vmClone.common.ethjsCommon,
+						allowUnlimitedInitCodeSize: true,
+					},
+				),
 			})
 		}
 

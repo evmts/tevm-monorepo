@@ -10,7 +10,7 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
  * mirroring the output from {@link traceTransaction}
  */
 export const traceCallHandler =
-	({ getVm, logger }) =>
+	(client) =>
 	/**
 	 * @template {'callTracer' | 'prestateTracer'} TTracer
 	 * @template {boolean} TDiffMode
@@ -18,6 +18,7 @@ export const traceCallHandler =
 	 * @returns {Promise<import('./DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode>>}
 	 */
 	(params) => {
+		const { logger, getVm } = client
 		logger.debug(params, 'traceCallHandler: executing trace call with params')
 
 		const callParams = {
@@ -42,7 +43,7 @@ export const traceCallHandler =
 
 			return getVm()
 				.then((vm) => vm.deepCopy())
-				.then((vm) => runCallWithPrestateTrace(vm, logger, callParams, diffMode))
+				.then((vm) => runCallWithPrestateTrace({ ...client, getVm: () => Promise.resolve(vm) }, callParams, diffMode))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
 

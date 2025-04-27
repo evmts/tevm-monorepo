@@ -1,3 +1,5 @@
+import { createAddress } from '@tevm/address'
+import { createImpersonatedTx } from '@tevm/tx'
 import { bytesToHex, hexToBigInt, numberToHex } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 import { requestProcedure } from '../requestProcedure.js'
@@ -134,7 +136,7 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 
 		// Trace each transaction in the block
 		for (let i = 0; i < transactionsByHashResponse.length; i++) {
-			const { tx, txHash } = transactionsByHashResponse[i] || {}
+			const { tx, txHash } = transactionsByHashResponse[i] ?? {}
 			if (!txHash || !tx || !tx.result) continue
 
 			// Trace the transaction
@@ -155,8 +157,30 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 			traceResults.push({
 				txHash,
 				txIndex: i,
-
 				result: traceResult,
+			})
+
+			// Actually run the call to update the vmClone state
+			const typedTx = block.transactions[i]
+			if (!typedTx) continue
+			await vmClone.runTx({
+				block,
+				skipNonce: true,
+				skipBalance: true,
+				skipHardForkValidation: true,
+				skipBlockGasLimitValidation: true,
+				tx: createImpersonatedTx(
+					{
+						...typedTx,
+						gasPrice: null,
+						impersonatedAddress: createAddress(typedTx.getSenderAddress()),
+					},
+					{
+						freeze: false,
+						common: vmClone.common.ethjsCommon,
+						allowUnlimitedInitCodeSize: true,
+					},
+				),
 			})
 		}
 
