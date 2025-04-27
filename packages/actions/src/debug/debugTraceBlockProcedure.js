@@ -108,14 +108,8 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 		}
 
 		const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
-		console.log({
-			txBlockNumber: transactionsByHashResponse[0]?.tx.result?.blockNumber,
-			blockNumber: block.header.number,
-			parentBlockNumber: parentBlock.header.number,
-		})
 		// Ensure the parent block's state root is available
 		const hasStateRoot = await vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
-		console.log({ stateRoot: Buffer.from(parentBlock.header.stateRoot).toString('hex'), hasStateRoot })
 		if (!hasStateRoot && client.forkTransport) {
 			await forkAndCacheBlock(client, parentBlock)
 		} else if (!hasStateRoot) {
