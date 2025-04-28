@@ -40,6 +40,7 @@ import { AesGcmEffectLayer } from './aesGcm/AesGcmEffect.js'
 import { AuthorizationEffectLayer } from './authorization/AuthorizationEffect.js'
 import { Base58EffectLayer } from './base58/Base58Effect.js'
 import { Base64EffectLayer } from './base64/Base64Effect.js'
+import { BlobsEffectLayer } from './blobs/BlobsEffect.js'
 import { BlsEffectLayer } from './bls/BlsEffect.js'
 import { BlsPointEffectLayer } from './blsPoint/BlsPointEffect.js'
 import { BlockEffectLayer } from './block/BlockEffect.js'
@@ -76,6 +77,7 @@ export const OxEffectLayer = Layer.merge(
 	AuthorizationEffectLayer,
 	Base58EffectLayer,
 	Base64EffectLayer,
+	BlobsEffectLayer,
 	BlsEffectLayer,
 	BlsPointEffectLayer,
 	BlockEffectLayer,
