@@ -249,8 +249,20 @@ The following modules need to be migrated from the service-based pattern to the 
   - [x] `commitmentsToVersionedHashes` function
   - [x] `commitmentToVersionedHash` function
   - [x] `sidecarsToVersionedHashes` function
-- [ ] **Crypto modules** (WebCryptoP256)
-- [ ] **WebAuthnP256** (PENDING - implementing by Claude)
+- [x] **WebCryptoP256** ✅
+  - [x] `getPublicKey` function
+  - [x] `importPrivateKey` function
+  - [x] `importPublicKey` function
+  - [x] `exportPublicKey` function
+  - [x] `exportPrivateKey` function
+  - [x] `generateKeyPair` function
+  - [x] `sign` function
+  - [x] `verify` function
+- [x] **WebAuthnP256**
+  - [x] `generateKeyPair` function
+  - [x] `sign` function
+  - [x] `verify` function
+  - [x] `getPublicKey` function
 - [x] **Secp256k1**
   - [x] `getPublicKey` function
   - [x] `randomPrivateKey` function
