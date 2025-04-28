@@ -4,6 +4,8 @@ export * from './address/index.js'
 export * from './aesGcm/index.js'
 export * from './base58/index.js'
 export * from './base64/index.js'
+export * from './bls/index.js'
+export * from './blsPoint/index.js'
 export * from './block/index.js'
 export * from './bytes/index.js'
 export * from './errors/index.js'
@@ -25,12 +27,16 @@ export * from './value/index.js'
 import { Layer } from 'effect'
 import { AbiEffectLayer } from './abi/AbiEffect.js'
 import { AbiConstructorEffectLayer } from './abi/AbiConstructorEffect.js'
+import { AbiErrorEffectLayer } from './abi/AbiErrorEffect.js'
+import { AbiEventEffectLayer } from './abi/AbiEventEffect.js'
 import { AbiItemEffectLayer } from './abi/AbiItemEffect.js'
 import { AbiParametersEffectLayer } from './abi/AbiParametersEffect.js'
 import { AddressEffectLayer } from './address/AddressEffect.js'
 import { AesGcmEffectLayer } from './aesGcm/AesGcmEffect.js'
 import { Base58EffectLayer } from './base58/Base58Effect.js'
 import { Base64EffectLayer } from './base64/Base64Effect.js'
+import { BlsEffectLayer } from './bls/BlsEffect.js'
+import { BlsPointEffectLayer } from './blsPoint/BlsPointEffect.js'
 import { BlockEffectLayer } from './block/BlockEffect.js'
 import { BytesEffectLayer } from './bytes/BytesEffect.js'
 import { ErrorsEffectLayer } from './errors/ErrorsEffect.js'
@@ -54,6 +60,8 @@ import { ValueEffectLayer } from './value/ValueEffect.js'
 export const OxEffectLayer = Layer.merge(
   AbiEffectLayer,
   AbiConstructorEffectLayer,
+  AbiErrorEffectLayer,
+  AbiEventEffectLayer,
   AbiItemEffectLayer,
   AbiParametersEffectLayer,
   AddressEffectLayer,
