@@ -123,7 +123,7 @@ Below is the list of Ox modules that need to be implemented:
 - [x] Create `accountProof/AccountProofEffect.ts` for `ox/execution/account-proof`
 - [x] Create `blockOverrides/BlockOverridesEffect.ts` for `ox/execution/block-overrides`
 - [x] Create `bloom/BloomEffect.ts` for `ox/execution/bloom`
-- [IN PROGRESS] Create `fee/FeeEffect.ts` for `ox/execution/fee`
+- [x] Create `fee/FeeEffect.ts` for `ox/execution/fee`
 - [x] Create `filter/FilterEffect.ts` for `ox/execution/filter`
 - [x] Create `log/LogEffect.ts` for `ox/execution/log`
 - [x] Create `stateOverrides/StateOverridesEffect.ts` for `ox/execution/state-overrides`
@@ -131,10 +131,10 @@ Below is the list of Ox modules that need to be implemented:
 - [x] Create `withdrawal/WithdrawalEffect.ts` for `ox/execution/withdrawal`
 
 ### JSON-RPC
-- [IN PROGRESS] Create `jsonRpc/JsonRpcRequestEffect.ts` for `ox/json-rpc/request`
-- [IN PROGRESS] Create `jsonRpc/JsonRpcResponseEffect.ts` for `ox/json-rpc/response`
-- [IN PROGRESS] Create `jsonRpc/JsonRpcSchemaEffect.ts` for `ox/json-rpc/schema`
-- [IN PROGRESS] Create `jsonRpc/JsonRpcTransportEffect.ts` for `ox/json-rpc/transport`
+- [x] Create `jsonRpc/JsonRpcRequestEffect.ts` for `ox/json-rpc/request`
+- [x] Create `jsonRpc/JsonRpcResponseEffect.ts` for `ox/json-rpc/response`
+- [x] Create `jsonRpc/JsonRpcSchemaEffect.ts` for `ox/json-rpc/schema`
+- [x] Create `jsonRpc/JsonRpcTransportEffect.ts` for `ox/json-rpc/transport`
 
 ### Provider
 - [x] Create `provider/ProviderEffect.ts` for `ox/provider`
@@ -147,9 +147,11 @@ Below is the list of Ox modules that need to be implemented:
 
 ## Final Steps
 
-After implementing all modules:
+All modules have been implemented! Here are the final steps:
 
-1. Update `src/index.ts` to export all the new modules
-2. Create a combined layer that provides all services (`OxCombinedEffectLayer`)
-3. Run tests to ensure everything works correctly
-4. Update documentation as needed
+1. [COMPLETED] Update `src/index.ts` to export all the new modules
+2. [COMPLETED] Create a combined layer that provides all services (`OxEffectLayer`)
+3. [COMPLETED] Run tests to ensure everything works correctly
+4. [COMPLETED] Update documentation as needed
+
+✅ The @tevm/ox package implementation is now COMPLETE!
