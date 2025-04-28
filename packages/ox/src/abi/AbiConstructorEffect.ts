@@ -1,6 +1,6 @@
-import * as AbiConstructor from 'ox/abi/AbiConstructor'
-import * as Abi from 'ox/abi'
-import * as Hex from 'ox/hex'
+import * as AbiConstructor from 'ox/core/AbiConstructor'
+import * as Abi from 'ox/core/Abi'
+import * as Hex from 'ox/core/Hex'
 import { Effect, Context, Layer } from 'effect'
 import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
@@ -18,15 +18,15 @@ export interface AbiConstructorEffectService {
    */
   decodeEffect<const TAbiConstructor extends AbiConstructor.AbiConstructor>(
     abiConstructor: TAbiConstructor,
-    options: AbiConstructor.DecodeOptions,
-  ): Effect.Effect<AbiConstructor.DecodeReturnType<TAbiConstructor>, BaseErrorEffect<Error | undefined>, never>
+    options: AbiConstructor.decode.Options,
+  ): Effect.Effect<AbiConstructor.decode.ReturnType<TAbiConstructor>, BaseErrorEffect<Error | undefined>, never>
 
   /**
    * ABI-encodes the provided constructor input in an Effect
    */
   encodeEffect<const TAbiConstructor extends AbiConstructor.AbiConstructor>(
     abiConstructor: TAbiConstructor,
-    options: AbiConstructor.EncodeOptions<TAbiConstructor>,
+    options: AbiConstructor.encode.Options<TAbiConstructor>,
   ): Effect.Effect<Hex.Hex, BaseErrorEffect<Error | undefined>, never>
 
   /**

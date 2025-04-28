@@ -68,6 +68,8 @@ export const OxEffectLayer = Layer.merge(
   AesGcmEffectLayer,
   Base58EffectLayer,
   Base64EffectLayer,
+  BlsEffectLayer,
+  BlsPointEffectLayer,
   BlockEffectLayer,
   BytesEffectLayer,
   ErrorsEffectLayer,

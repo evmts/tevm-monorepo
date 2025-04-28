@@ -1,4 +1,4 @@
-import * as Abi from 'ox/abi'
+import * as Abi from 'ox/core/Abi'
 import { Effect, Context, Layer } from 'effect'
 import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
