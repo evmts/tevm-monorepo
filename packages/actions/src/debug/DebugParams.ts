@@ -44,7 +44,7 @@ export type TraceParams<
 		 * When using the prestateTracer, setting this to true will make the tracer return only the state difference between before and after execution.
 		 * Default is false which returns the full state of all touched accounts.
 		 */
-		readonly diffMode?: TDiffMode
+		readonly diffMode?: TTracer extends 'prestateTracer' ? TDiffMode : never
 	}
 }
 

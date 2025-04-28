@@ -32,9 +32,7 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
 
-		// Handle different tracer result formats
 		if (tracer === 'prestateTracer') {
-			// For prestate tracer, return the result directly
 			return {
 				method: request.method,
 				result: /** @type {any} */ (traceResult),
@@ -42,7 +40,7 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 				...(request.id ? { id: request.id } : {}),
 			}
 		}
-		// For standard tracer with opcode tracing
+
 		const debugTraceCallResult = /** @type {import('./DebugResult.js').EvmTracerResult} */ (traceResult)
 		return {
 			method: request.method,

@@ -8,13 +8,11 @@ import type {
 	DebugTraceTransactionParams,
 } from './DebugParams.js'
 
-export type DebugJsonRpcRequest<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
-	TDiffMode extends boolean = boolean,
-	TTTThrowOnError extends boolean = boolean,
-> =
-	| DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode, TTTThrowOnError>
-	| DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>
+export type DebugJsonRpcRequest =
+	| DebugTraceTransactionJsonRpcRequest
+	| DebugTraceCallJsonRpcRequest
+	| DebugTraceBlockJsonRpcRequest
+	| DebugTraceStateJsonRpcRequest
 
 /**
  * JSON-RPC request for `debug_traceTransaction` method
