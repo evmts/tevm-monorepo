@@ -315,8 +315,16 @@ The following modules need to be migrated from the service-based pattern to the 
   - [x] **BlockOverrides**
     - [x] `parse` function
     - [x] `format` function
-  - [ ] **Log**
-  - [ ] **StateOverrides**
+  - [x] **Log**
+    - [x] `assert` function
+    - [x] `isLog` function
+    - [x] `validate` function
+    - [x] `parse` function
+    - [x] `format` function
+    - [x] `create` function
+  - [x] **StateOverrides**
+    - [x] `fromRpc` function
+    - [x] `toRpc` function
   - [ ] **TransactionRequest**
   - [ ] **Withdrawal**
 - [x] **Filter**
