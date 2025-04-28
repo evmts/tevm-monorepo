@@ -77,6 +77,7 @@
     "@tevm/receipt-manager": "workspace:^",
     "@tevm/state": "workspace:^",
     "@tevm/tx": "workspace:^",
+    "@tevm/txpool": "workspace:^",
     "@tevm/utils": "workspace:^",
     "@tevm/vm": "workspace:^",
     "zod": "^3.24.2"

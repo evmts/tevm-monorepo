@@ -15,6 +15,10 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 	 */
 	return async (request) => {
 		const { blockTag, tracer, to, gas, data, from, value, timeout, gasPrice, tracerConfig } = request.params[0]
+		if (timeout !== undefined) {
+			client.logger.warn('Warning: timeout is currently respected param of debug_traceCall')
+		}
+
 		const traceResult = await traceCallHandler(client)({
 			tracer,
 			...(to !== undefined ? { to } : {}),

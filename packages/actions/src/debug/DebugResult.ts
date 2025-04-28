@@ -1,5 +1,16 @@
+import type { Block } from '@tevm/block'
+import type { ChainOptions } from '@tevm/blockchain'
+import type { ConsensusAlgorithm, ConsensusType } from '@tevm/common'
+import type { ExecResult, PrecompileInput } from '@tevm/evm'
+import type { Filter, TevmNode } from '@tevm/node'
+import type { StateRoots, TevmState } from '@tevm/state'
+import type { TxPool } from '@tevm/txpool'
+import type { Address } from '@tevm/utils'
 import type { TraceResult } from '../common/TraceResult.js'
 import type { Hex } from '../common/index.js'
+import type { GetPath } from '../utils/GetPath.js'
+import type { UnionToIntersection } from '../utils/UnionToIntersection.js'
+import type { DebugTraceStateFilter } from './DebugParams.js'
 
 export type StructLog = {
 	readonly depth: number
@@ -102,3 +113,68 @@ export type DebugTraceBlockResult<
 	 */
 	result: DebugTraceTransactionResult<TTracer, TDiffMode>
 }>
+
+/**
+ * Complete state object structure
+ */
+export type DebugTraceStateObject = {
+	readonly blockchain: {
+		readonly blocksByNumber: Map<bigint, Block | undefined>
+		readonly initOptions: ChainOptions
+	}
+	readonly evm: {
+		readonly opcodes: Map<
+			number,
+			{
+				readonly code: number
+				readonly name: string
+				readonly fullName: string
+				readonly fee: number
+				readonly feeBigInt: bigint
+				readonly isAsync: boolean
+				readonly dynamicGas: boolean
+				readonly isInvalid: boolean
+			}
+		>
+		readonly precompiles: Map<string, (input: PrecompileInput) => Promise<ExecResult> | ExecResult>
+		readonly common: {
+			readonly eips: number[]
+			readonly hardfork: string
+			readonly consensus: {
+				readonly algorithm: string | ConsensusAlgorithm
+				readonly type: string | ConsensusType
+			}
+		}
+	}
+	readonly node: {
+		readonly status: TevmNode['status']
+		readonly mode: TevmNode['mode']
+		readonly miningConfig: TevmNode['miningConfig']
+		readonly filters: Map<Hex, Filter>
+		readonly impersonatedAccount: Address | undefined
+	}
+	readonly pool: {
+		readonly pool: TxPool['pool']
+		readonly txsByHash: TxPool['txsByHash']
+		readonly txsByNonce: TxPool['txsByNonce']
+		readonly txsInNonceOrder: TxPool['txsInNonceOrder']
+		readonly txsInPool: TxPool['txsInPool']
+	}
+	readonly stateManager: {
+		readonly storage: TevmState
+		readonly stateRoots: StateRoots
+	}
+}
+
+/**
+ * Result from `debug_traceState`
+ */
+export type DebugTraceStateResult<
+	TStateFilters extends readonly DebugTraceStateFilter[] = readonly DebugTraceStateFilter[],
+> = TStateFilters['length'] extends 0
+	? DebugTraceStateObject
+	: UnionToIntersection<
+			{
+				[I in keyof TStateFilters]: GetPath<DebugTraceStateObject, TStateFilters[I] & string>
+			}[keyof TStateFilters]
+		>

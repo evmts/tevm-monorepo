@@ -102,3 +102,55 @@ export type DebugTraceBlockParams<
 		},
 		'block' | 'blockTag' | 'blockHash' | 'blockNumber'
 	>
+
+/**
+ * State filters
+ */
+export const debugTraceStateFilters = [
+	'blockchain',
+	'blockchain.blocksByNumber',
+	'blockchain.initOptions',
+	'evm',
+	'evm.opcodes',
+	'evm.precompiles',
+	'evm.common',
+	'evm.common.eips',
+	'evm.common.hardfork',
+	'evm.common.consensus',
+	'node',
+	'node.status',
+	'node.mode',
+	'node.miningConfig',
+	'node.filters',
+	'node.impersonatedAccount',
+	'pool',
+	'pool.pool',
+	'pool.txsByHash',
+	'pool.txsByNonce',
+	'pool.txsInNonceOrder',
+	'pool.txsInPool',
+	'stateManager',
+	'stateManager.storage',
+	'stateManager.stateRoots',
+] as const
+
+/**
+ * Type for state filters
+ */
+export type DebugTraceStateFilter = (typeof debugTraceStateFilters)[number]
+
+/**
+ * Params taken by `debug_traceState` handler
+ */
+export type DebugTraceStateParams<
+	TStateFilters extends readonly DebugTraceStateFilter[] = readonly DebugTraceStateFilter[],
+> = {
+	/**
+	 * Filters to apply to the state
+	 */
+	readonly filters?: TStateFilters
+	/**
+	 * Timeout for the state trace
+	 */
+	readonly timeout?: string
+}

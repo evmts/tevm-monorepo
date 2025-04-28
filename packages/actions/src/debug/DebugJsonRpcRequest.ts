@@ -1,6 +1,12 @@
 import type { JsonRpcRequest } from '@tevm/jsonrpc'
 import type { SerializeToJson } from '../utils/SerializeToJson.js'
-import type { DebugTraceBlockParams, DebugTraceCallParams, DebugTraceTransactionParams } from './DebugParams.js'
+import type {
+	DebugTraceBlockParams,
+	DebugTraceCallParams,
+	DebugTraceStateFilter,
+	DebugTraceStateParams,
+	DebugTraceTransactionParams,
+} from './DebugParams.js'
 
 export type DebugJsonRpcRequest<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
@@ -37,3 +43,10 @@ export type DebugTraceBlockJsonRpcRequest<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
 	TDiffMode extends boolean = boolean,
 > = JsonRpcRequest<'debug_traceBlock', [SerializeToJson<DebugTraceBlockParams<TTracer, TDiffMode>>]>
+
+/**
+ * JSON-RPC request for `debug_traceState`
+ */
+export type DebugTraceStateJsonRpcRequest<
+	TStateFilters extends readonly DebugTraceStateFilter[] = readonly DebugTraceStateFilter[],
+> = JsonRpcRequest<'debug_traceState', [SerializeToJson<DebugTraceStateParams<TStateFilters>>]>

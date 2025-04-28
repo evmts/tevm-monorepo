@@ -1,13 +1,16 @@
 import type {
 	DebugTraceBlockJsonRpcRequest,
 	DebugTraceCallJsonRpcRequest,
+	DebugTraceStateJsonRpcRequest,
 	DebugTraceTransactionJsonRpcRequest,
 } from './DebugJsonRpcRequest.js'
 import type {
 	DebugTraceBlockJsonRpcResponse,
 	DebugTraceCallJsonRpcResponse,
+	DebugTraceStateJsonRpcResponse,
 	DebugTraceTransactionJsonRpcResponse,
 } from './DebugJsonRpcResponse.js'
+import type { DebugTraceStateFilter } from './DebugParams.js'
 
 /**
  * JSON-RPC procedure for `debug_traceTransaction`
@@ -38,3 +41,10 @@ export type DebugTraceBlockProcedure<
 > = (
 	request: DebugTraceBlockJsonRpcRequest<TTracer, TDiffMode>,
 ) => Promise<DebugTraceBlockJsonRpcResponse<TTracer, TDiffMode>>
+
+/**
+ * JSON-RPC procedure for `debug_traceState`
+ */
+export type DebugTraceStateProcedure<
+	TStateFilters extends readonly DebugTraceStateFilter[] = readonly DebugTraceStateFilter[],
+> = (request: DebugTraceStateJsonRpcRequest<TStateFilters>) => Promise<DebugTraceStateJsonRpcResponse<TStateFilters>>

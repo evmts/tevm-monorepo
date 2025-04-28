@@ -20,6 +20,7 @@ import { anvilSetStorageAtJsonRpcProcedure } from './anvil/anvilSetStorageAtProc
 import { anvilStopImpersonatingAccountJsonRpcProcedure } from './anvil/anvilStopImpersonatingAccountProcedure.js'
 import { debugTraceBlockJsonRpcProcedure } from './debug/debugTraceBlockProcedure.js'
 import { debugTraceCallJsonRpcProcedure } from './debug/debugTraceCallProcedure.js'
+import { debugTraceStateJsonRpcProcedure } from './debug/debugTraceStateProcedure.js'
 import { debugTraceTransactionJsonRpcProcedure } from './debug/debugTraceTransactionProcedure.js'
 import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
 import { chainIdHandler } from './eth/chainIdHandler.js'
@@ -187,6 +188,7 @@ export const createHandlers = (client) => {
 		debug_traceBlockByNumber: debugTraceBlockJsonRpcProcedure(client),
 		debug_traceCall: debugTraceCallJsonRpcProcedure(client),
 		debug_traceTransaction: debugTraceTransactionJsonRpcProcedure(client),
+		debug_traceState: debugTraceStateJsonRpcProcedure(client),
 	}
 
 	const allHandlers = {

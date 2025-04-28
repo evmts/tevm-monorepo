@@ -1488,6 +1488,9 @@ importers:
       '@tevm/tx':
         specifier: workspace:^
         version: link:../tx
+      '@tevm/txpool':
+        specifier: workspace:^
+        version: link:../txpool
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
