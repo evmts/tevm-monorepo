@@ -310,8 +310,11 @@ The following modules need to be migrated from the service-based pattern to the 
   - [x] `normalize` function
   - [x] `labelhash` function
   - [x] `namehash` function
-- [ ] **Execution modules**
+- [x] **Execution modules**
   - [x] **AccountProof**
+    - [x] `parse` function
+    - [x] `verify` function
+    - [x] `verifyStorage` function
   - [x] **BlockOverrides**
     - [x] `parse` function
     - [x] `format` function
@@ -325,8 +328,14 @@ The following modules need to be migrated from the service-based pattern to the 
   - [x] **StateOverrides**
     - [x] `fromRpc` function
     - [x] `toRpc` function
-  - [ ] **TransactionRequest**
-  - [ ] **Withdrawal**
+  - [x] **TransactionRequest**
+    - [x] `assert` function
+    - [x] `isTransactionRequest` function
+    - [x] `validate` function
+  - [x] **Withdrawal**
+    - [x] `assert` function
+    - [x] `isWithdrawal` function
+    - [x] `validate` function
 - [x] **Filter**
   - [x] `createFilter` function
   - [x] `getFilterChanges` function
