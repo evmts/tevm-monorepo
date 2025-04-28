@@ -8,6 +8,6 @@
 
 > **Hardfork**: `"chainstart"` \| `"homestead"` \| `"dao"` \| `"tangerineWhistle"` \| `"spuriousDragon"` \| `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"muirGlacier"` \| `"berlin"` \| `"london"` \| `"arrowGlacier"` \| `"grayGlacier"` \| `"mergeForkIdTransition"` \| `"paris"` \| `"shanghai"` \| `"cancun"`
 
-Defined in: packages/node/dist/index.d.ts:438
+Defined in: packages/node/dist/index.d.ts:460
 
 Ethereum hardfork option

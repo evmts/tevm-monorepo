@@ -4116,6 +4116,18 @@ The RPC transport
 
 ###### Type declaration
 
+###### debug()?
+
+> `readonly` `optional` **debug**: () => `Promise`\<\{ `blocks`: \{ `forked`: ... \| ...; `latest`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](../type-aliases/MiningConfig.md); `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, [`Filter`](../type-aliases/Filter.md)\>; `state`: [`TevmState`](../type-aliases/TevmState.md); `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+
+Returns debug information about the current node state
+including chain details, status, mode, mining config, filters,
+blocks, mempool transactions, and state
+
+###### Returns
+
+`Promise`\<\{ `blocks`: \{ `forked`: ... \| ...; `latest`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](../type-aliases/MiningConfig.md); `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, [`Filter`](../type-aliases/Filter.md)\>; `state`: [`TevmState`](../type-aliases/TevmState.md); `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+
 ###### deepCopy()
 
 > `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](../type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>\>

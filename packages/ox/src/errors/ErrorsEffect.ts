@@ -1,4 +1,4 @@
-import { Context, Effect } from 'effect'
+import { Effect } from 'effect'
 import { BaseError } from 'ox/Errors'
 
 /**
@@ -46,26 +46,3 @@ export interface ErrorsEffectService {
 	 */
 	fromBaseError<C extends Error | undefined = undefined>(error: BaseError<C>): BaseErrorEffect<C>
 }
-
-/**
- * ErrorsEffect tag for dependency injection
- */
-export const ErrorsEffectTag = Context.Tag<ErrorsEffectService>('@tevm/ox/ErrorsEffect')
-
-/**
- * Live implementation of ErrorsEffectService
- */
-export const ErrorsEffectLive: ErrorsEffectService = {
-	createBaseError: <C extends Error | undefined = undefined>(shortMessage: string, options?: BaseError.Options<C>) =>
-		new BaseErrorEffect<C>(shortMessage, options),
-
-	fromBaseError: <C extends Error | undefined = undefined>(error: BaseError<C>) => BaseErrorEffect.fromBaseError(error),
-}
-
-/**
- * Layer that provides the ErrorsEffectService implementation
- */
-export const ErrorsEffectLayer = Layer.succeed(ErrorsEffectTag, ErrorsEffectLive)
-
-// Don't forget to import Layer
-import { Layer } from 'effect'

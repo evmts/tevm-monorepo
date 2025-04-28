@@ -5,168 +5,168 @@ import * as Filter from './Filter.js'
 
 // Mock the OxFilter module
 vi.mock('ox/execution/filter', () => {
-  return {
-    createFilter: vi.fn(),
-    getFilterChanges: vi.fn(),
-    uninstallFilter: vi.fn(),
-    getFilterLogs: vi.fn(),
-  }
+	return {
+		createFilter: vi.fn(),
+		getFilterChanges: vi.fn(),
+		uninstallFilter: vi.fn(),
+		getFilterLogs: vi.fn(),
+	}
 })
 
 describe('Filter', () => {
-  const mockCreateFilter = OxFilter.createFilter as vi.Mock
-  const mockGetFilterChanges = OxFilter.getFilterChanges as vi.Mock
-  const mockUninstallFilter = OxFilter.uninstallFilter as vi.Mock
-  const mockGetFilterLogs = OxFilter.getFilterLogs as vi.Mock
-  
-  beforeEach(() => {
-    vi.resetAllMocks()
-  })
+	const mockCreateFilter = OxFilter.createFilter as vi.Mock
+	const mockGetFilterChanges = OxFilter.getFilterChanges as vi.Mock
+	const mockUninstallFilter = OxFilter.uninstallFilter as vi.Mock
+	const mockGetFilterLogs = OxFilter.getFilterLogs as vi.Mock
 
-  describe('createFilter', () => {
-    it('should create a filter', async () => {
-      const params = {
-        fromBlock: 'latest',
-        toBlock: 'latest',
-        address: '0x1234567890123456789012345678901234567890',
-      }
-      const expectedFilter = {
-        id: '0x1',
-        type: 'log',
-      }
+	beforeEach(() => {
+		vi.resetAllMocks()
+	})
 
-      mockCreateFilter.mockReturnValue(expectedFilter)
+	describe('createFilter', () => {
+		it('should create a filter', async () => {
+			const params = {
+				fromBlock: 'latest',
+				toBlock: 'latest',
+				address: '0x1234567890123456789012345678901234567890',
+			}
+			const expectedFilter = {
+				id: '0x1',
+				type: 'log',
+			}
 
-      const result = await Effect.runPromise(Filter.createFilter(params))
+			mockCreateFilter.mockReturnValue(expectedFilter)
 
-      expect(result).toEqual(expectedFilter)
-      expect(mockCreateFilter).toHaveBeenCalledWith(params)
-    })
+			const result = await Effect.runPromise(Filter.createFilter(params))
 
-    it('should handle errors', async () => {
-      const params = {
-        fromBlock: 'latest',
-        toBlock: 'latest',
-        address: '0x1234567890123456789012345678901234567890',
-      }
-      const error = new Error('Filter creation error')
+			expect(result).toEqual(expectedFilter)
+			expect(mockCreateFilter).toHaveBeenCalledWith(params)
+		})
 
-      mockCreateFilter.mockImplementation(() => {
-        throw error
-      })
+		it('should handle errors', async () => {
+			const params = {
+				fromBlock: 'latest',
+				toBlock: 'latest',
+				address: '0x1234567890123456789012345678901234567890',
+			}
+			const error = new Error('Filter creation error')
 
-      const program = Filter.createFilter(params)
-      
-      await expect(Effect.runPromise(program)).rejects.toBeInstanceOf(Filter.CreateFilterError)
-      await expect(Effect.runPromise(program)).rejects.toHaveProperty('cause', error)
-    })
-  })
+			mockCreateFilter.mockImplementation(() => {
+				throw error
+			})
 
-  describe('getFilterChanges', () => {
-    it('should get filter changes', async () => {
-      const filterId = '0x1'
-      const expectedChanges = [
-        {
-          address: '0x1234567890123456789012345678901234567890',
-          blockHash: '0xabcdef',
-          blockNumber: 100n,
-          data: '0x',
-          logIndex: 0n,
-          removed: false,
-          topics: ['0x123'],
-          transactionHash: '0xdef',
-          transactionIndex: 0n,
-        }
-      ]
+			const program = Filter.createFilter(params)
 
-      mockGetFilterChanges.mockReturnValue(expectedChanges)
+			await expect(Effect.runPromise(program)).rejects.toBeInstanceOf(Filter.CreateFilterError)
+			await expect(Effect.runPromise(program)).rejects.toHaveProperty('cause', error)
+		})
+	})
 
-      const result = await Effect.runPromise(Filter.getFilterChanges(filterId))
+	describe('getFilterChanges', () => {
+		it('should get filter changes', async () => {
+			const filterId = '0x1'
+			const expectedChanges = [
+				{
+					address: '0x1234567890123456789012345678901234567890',
+					blockHash: '0xabcdef',
+					blockNumber: 100n,
+					data: '0x',
+					logIndex: 0n,
+					removed: false,
+					topics: ['0x123'],
+					transactionHash: '0xdef',
+					transactionIndex: 0n,
+				},
+			]
 
-      expect(result).toEqual(expectedChanges)
-      expect(mockGetFilterChanges).toHaveBeenCalledWith(filterId)
-    })
+			mockGetFilterChanges.mockReturnValue(expectedChanges)
 
-    it('should handle errors', async () => {
-      const filterId = '0x1'
-      const error = new Error('Get filter changes error')
+			const result = await Effect.runPromise(Filter.getFilterChanges(filterId))
 
-      mockGetFilterChanges.mockImplementation(() => {
-        throw error
-      })
+			expect(result).toEqual(expectedChanges)
+			expect(mockGetFilterChanges).toHaveBeenCalledWith(filterId)
+		})
 
-      const program = Filter.getFilterChanges(filterId)
-      
-      await expect(Effect.runPromise(program)).rejects.toBeInstanceOf(Filter.GetFilterChangesError)
-      await expect(Effect.runPromise(program)).rejects.toHaveProperty('cause', error)
-    })
-  })
+		it('should handle errors', async () => {
+			const filterId = '0x1'
+			const error = new Error('Get filter changes error')
 
-  describe('uninstallFilter', () => {
-    it('should uninstall a filter', async () => {
-      const filterId = '0x1'
-      const expectedResult = true
+			mockGetFilterChanges.mockImplementation(() => {
+				throw error
+			})
 
-      mockUninstallFilter.mockReturnValue(expectedResult)
+			const program = Filter.getFilterChanges(filterId)
 
-      const result = await Effect.runPromise(Filter.uninstallFilter(filterId))
+			await expect(Effect.runPromise(program)).rejects.toBeInstanceOf(Filter.GetFilterChangesError)
+			await expect(Effect.runPromise(program)).rejects.toHaveProperty('cause', error)
+		})
+	})
 
-      expect(result).toBe(expectedResult)
-      expect(mockUninstallFilter).toHaveBeenCalledWith(filterId)
-    })
+	describe('uninstallFilter', () => {
+		it('should uninstall a filter', async () => {
+			const filterId = '0x1'
+			const expectedResult = true
 
-    it('should handle errors', async () => {
-      const filterId = '0x1'
-      const error = new Error('Uninstall filter error')
+			mockUninstallFilter.mockReturnValue(expectedResult)
 
-      mockUninstallFilter.mockImplementation(() => {
-        throw error
-      })
+			const result = await Effect.runPromise(Filter.uninstallFilter(filterId))
 
-      const program = Filter.uninstallFilter(filterId)
-      
-      await expect(Effect.runPromise(program)).rejects.toBeInstanceOf(Filter.UninstallFilterError)
-      await expect(Effect.runPromise(program)).rejects.toHaveProperty('cause', error)
-    })
-  })
+			expect(result).toBe(expectedResult)
+			expect(mockUninstallFilter).toHaveBeenCalledWith(filterId)
+		})
 
-  describe('getFilterLogs', () => {
-    it('should get filter logs', async () => {
-      const filterId = '0x1'
-      const expectedLogs = [
-        {
-          address: '0x1234567890123456789012345678901234567890',
-          blockHash: '0xabcdef',
-          blockNumber: 100n,
-          data: '0x',
-          logIndex: 0n,
-          removed: false,
-          topics: ['0x123'],
-          transactionHash: '0xdef',
-          transactionIndex: 0n,
-        }
-      ]
+		it('should handle errors', async () => {
+			const filterId = '0x1'
+			const error = new Error('Uninstall filter error')
 
-      mockGetFilterLogs.mockReturnValue(expectedLogs)
+			mockUninstallFilter.mockImplementation(() => {
+				throw error
+			})
 
-      const result = await Effect.runPromise(Filter.getFilterLogs(filterId))
+			const program = Filter.uninstallFilter(filterId)
 
-      expect(result).toEqual(expectedLogs)
-      expect(mockGetFilterLogs).toHaveBeenCalledWith(filterId)
-    })
+			await expect(Effect.runPromise(program)).rejects.toBeInstanceOf(Filter.UninstallFilterError)
+			await expect(Effect.runPromise(program)).rejects.toHaveProperty('cause', error)
+		})
+	})
 
-    it('should handle errors', async () => {
-      const filterId = '0x1'
-      const error = new Error('Get filter logs error')
+	describe('getFilterLogs', () => {
+		it('should get filter logs', async () => {
+			const filterId = '0x1'
+			const expectedLogs = [
+				{
+					address: '0x1234567890123456789012345678901234567890',
+					blockHash: '0xabcdef',
+					blockNumber: 100n,
+					data: '0x',
+					logIndex: 0n,
+					removed: false,
+					topics: ['0x123'],
+					transactionHash: '0xdef',
+					transactionIndex: 0n,
+				},
+			]
 
-      mockGetFilterLogs.mockImplementation(() => {
-        throw error
-      })
+			mockGetFilterLogs.mockReturnValue(expectedLogs)
 
-      const program = Filter.getFilterLogs(filterId)
-      
-      await expect(Effect.runPromise(program)).rejects.toBeInstanceOf(Filter.GetFilterLogsError)
-      await expect(Effect.runPromise(program)).rejects.toHaveProperty('cause', error)
-    })
-  })
+			const result = await Effect.runPromise(Filter.getFilterLogs(filterId))
+
+			expect(result).toEqual(expectedLogs)
+			expect(mockGetFilterLogs).toHaveBeenCalledWith(filterId)
+		})
+
+		it('should handle errors', async () => {
+			const filterId = '0x1'
+			const error = new Error('Get filter logs error')
+
+			mockGetFilterLogs.mockImplementation(() => {
+				throw error
+			})
+
+			const program = Filter.getFilterLogs(filterId)
+
+			await expect(Effect.runPromise(program)).rejects.toBeInstanceOf(Filter.GetFilterLogsError)
+			await expect(Effect.runPromise(program)).rejects.toHaveProperty('cause', error)
+		})
+	})
 })
