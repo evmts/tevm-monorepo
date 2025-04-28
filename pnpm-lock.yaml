@@ -1204,7 +1204,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/77041d2ce690e692d6e03cc812b57d1ddaa4d505
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@19.0.0)
@@ -1945,6 +1945,28 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+
+  packages/ox:
+    dependencies:
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      effect:
+        specifier: 3.13.2
+        version: 3.13.2
+      ox:
+        specifier: ^0.7.0
+        version: 0.7.0(typescript@5.8.3)(zod@3.24.3)
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^22.13.5
+        version: 22.14.1
 
   packages/precompiles:
     dependencies:
@@ -9520,9 +9542,9 @@ packages:
     resolution: {integrity: sha512-W8+hV/qnShs4pZSIcHfYvKi7ds1FjNVW14XG5fMkkTBzbUGJh5BxbTc3KZZy7nWbPpaHLGnRszMZNZlLvi6qww==}
     hasBin: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929}
-    version: 1.9.6
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/77041d2ce690e692d6e03cc812b57d1ddaa4d505:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/77041d2ce690e692d6e03cc812b57d1ddaa4d505}
+    version: 1.9.7
 
   form-data@4.0.2:
     resolution: {integrity: sha512-hGfm/slu0ZabnNt4oaRZ6uREyfCj6P4fT/n6A1rGV+Z0VdGXjfOhVUpkn6qVQONHGIFwmveGXyDs75+nr6FM8w==}
@@ -11964,6 +11986,14 @@ packages:
 
   ox@0.6.9:
     resolution: {integrity: sha512-wi5ShvzE4eOcTwQVsIPdFr+8ycyX+5le/96iAJutaZAvCes1J0+RvpEPg5QDPDiaR0XQQAvZVl7AwqQcINuUug==}
+    peerDependencies:
+      typescript: '>=5.4.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  ox@0.7.0:
+    resolution: {integrity: sha512-mgRXlQdaNukQcsvGsPENGbyFvr7glob8UmOusDfWTw7A6LcjI+9OCelQ6NoAiSk6iM77R667qyUzn+n2Cr4SJw==}
     peerDependencies:
       typescript: '>=5.4.0'
     peerDependenciesMeta:
@@ -17229,7 +17259,7 @@ snapshots:
       '@inquirer/figures': 1.0.11
       '@inquirer/type': 2.0.0
       '@types/mute-stream': 0.0.4
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
       '@types/wrap-ansi': 3.0.0
       ansi-escapes: 4.3.2
       cli-width: 4.1.0
@@ -20311,11 +20341,11 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
 
   '@types/cookie@0.6.0': {}
 
@@ -20350,7 +20380,7 @@ snapshots:
 
   '@types/express-serve-static-core@5.0.6':
     dependencies:
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
       '@types/qs': 6.9.18
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -20365,7 +20395,7 @@ snapshots:
   '@types/glob@8.1.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
 
   '@types/gradient-string@1.1.6':
     dependencies:
@@ -20417,7 +20447,7 @@ snapshots:
 
   '@types/mute-stream@0.0.4':
     dependencies:
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
 
   '@types/nlcst@2.0.3':
     dependencies:
@@ -20486,7 +20516,7 @@ snapshots:
 
   '@types/readable-stream@2.3.15':
     dependencies:
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
       safe-buffer: 5.1.2
 
   '@types/resolve@1.20.6': {}
@@ -20502,19 +20532,19 @@ snapshots:
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
 
   '@types/serve-static@1.15.7':
     dependencies:
       '@types/http-errors': 2.0.4
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
       '@types/send': 0.17.4
 
   '@types/superagent@8.1.9':
     dependencies:
       '@types/cookiejar': 2.1.5
       '@types/methods': 1.1.4
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
       form-data: 4.0.2
 
   '@types/supertest@6.0.2':
@@ -20544,7 +20574,7 @@ snapshots:
 
   '@types/ws@8.5.14':
     dependencies:
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
 
   '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)':
     dependencies:
@@ -24760,7 +24790,7 @@ snapshots:
 
   eval@0.1.8:
     dependencies:
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
       require-like: 0.1.2
 
   event-stream@3.3.4:
@@ -25126,7 +25156,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/6abf66980050ab03a35b52bdab814f55001d6929: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/77041d2ce690e692d6e03cc812b57d1ddaa4d505: {}
 
   form-data@4.0.2:
     dependencies:
@@ -26421,7 +26451,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 22.13.10
+      '@types/node': 22.14.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -28183,8 +28213,8 @@ snapshots:
   ox@0.6.7(typescript@5.8.2)(zod@3.24.2):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.8.2
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       abitype: 1.0.8(typescript@5.8.2)(zod@3.24.2)
@@ -28197,8 +28227,8 @@ snapshots:
   ox@0.6.7(typescript@5.8.2)(zod@3.24.3):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.8.2
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       abitype: 1.0.8(typescript@5.8.2)(zod@3.24.3)
@@ -28211,8 +28241,8 @@ snapshots:
   ox@0.6.7(typescript@5.8.3)(zod@3.24.3):
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.8.2
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       abitype: 1.0.8(typescript@5.8.3)(zod@3.24.3)
@@ -28269,6 +28299,20 @@ snapshots:
       '@adraffy/ens-normalize': 1.11.0
       '@noble/curves': 1.8.2
       '@noble/hashes': 1.7.2
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
+      abitype: 1.0.8(typescript@5.8.3)(zod@3.24.3)
+      eventemitter3: 5.0.1
+    optionalDependencies:
+      typescript: 5.8.3
+    transitivePeerDependencies:
+      - zod
+
+  ox@0.7.0(typescript@5.8.3)(zod@3.24.3):
+    dependencies:
+      '@adraffy/ens-normalize': 1.11.0
+      '@noble/curves': 1.8.2
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       abitype: 1.0.8(typescript@5.8.3)(zod@3.24.3)
