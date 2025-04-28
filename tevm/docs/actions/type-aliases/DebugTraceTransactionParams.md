@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugTraceTransactionParams
 
-# Type Alias: DebugTraceTransactionParams\<TThrowOnError\>
+# Type Alias: DebugTraceTransactionParams\<TTracer, TDiffMode, TTTThrowOnError\>
 
-> **DebugTraceTransactionParams**\<`TThrowOnError`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnError`\> & [`TraceParams`](../../index/type-aliases/TraceParams.md) & `object`
+> **DebugTraceTransactionParams**\<`TTracer`, `TDiffMode`, `TTTThrowOnError`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TTTThrowOnError`\> & [`TraceParams`](../../index/type-aliases/TraceParams.md)\<`TTracer`, `TDiffMode`\> & `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:26
+Defined in: packages/actions/types/debug/DebugParams.d.ts:45
 
 Params taken by `debug_traceTransaction` handler
 
@@ -22,4 +22,8 @@ The transaction hash
 
 ## Type Parameters
 
-• **TThrowOnError** *extends* `boolean` = `boolean`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+
+• **TDiffMode** *extends* `boolean` = `boolean`
+
+• **TTTThrowOnError** *extends* `boolean` = `boolean`

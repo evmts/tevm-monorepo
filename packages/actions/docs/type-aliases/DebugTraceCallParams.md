@@ -4,10 +4,16 @@
 
 [@tevm/actions](../globals.md) / DebugTraceCallParams
 
-# Type Alias: DebugTraceCallParams
+# Type Alias: DebugTraceCallParams\<TTracer, TDiffMode\>
 
-> **DebugTraceCallParams**: [`TraceParams`](TraceParams.md) & [`EthCallParams`](EthCallParams.md)
+> **DebugTraceCallParams**\<`TTracer`, `TDiffMode`\>: [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\> & [`EthCallParams`](EthCallParams.md)
 
-Defined in: [packages/actions/src/debug/DebugParams.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L58)
+Defined in: [packages/actions/src/debug/DebugParams.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L71)
 
 Params taken by `debug_traceCall` handler
+
+## Type Parameters
+
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+
+• **TDiffMode** *extends* `boolean` = `boolean`

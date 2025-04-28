@@ -192,7 +192,7 @@ This is analogous to what `eth_estimateGas` would return. Does not include L1 fe
 
 ### trace?
 
-> `optional` **trace**: [`DebugTraceCallResult`](DebugTraceCallResult.md)
+> `optional` **trace**: [`EvmTraceResult`](EvmTraceResult.md)
 
 The call trace if tracing is enabled on call.
 

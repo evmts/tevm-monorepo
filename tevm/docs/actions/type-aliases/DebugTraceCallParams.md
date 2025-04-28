@@ -4,10 +4,16 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugTraceCallParams
 
-# Type Alias: DebugTraceCallParams
+# Type Alias: DebugTraceCallParams\<TTracer, TDiffMode\>
 
-> **DebugTraceCallParams**: [`TraceParams`](../../index/type-aliases/TraceParams.md) & [`EthCallParams`](EthCallParams.md)
+> **DebugTraceCallParams**\<`TTracer`, `TDiffMode`\>: [`TraceParams`](../../index/type-aliases/TraceParams.md)\<`TTracer`, `TDiffMode`\> & [`EthCallParams`](EthCallParams.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:35
+Defined in: packages/actions/types/debug/DebugParams.d.ts:54
 
 Params taken by `debug_traceCall` handler
+
+## Type Parameters
+
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+
+• **TDiffMode** *extends* `boolean` = `boolean`

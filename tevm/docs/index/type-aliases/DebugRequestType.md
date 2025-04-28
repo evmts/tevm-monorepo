@@ -2,7 +2,7 @@
 
 ***
 
-[tevm](../../modules.md) / [actions](../README.md) / DebugRequestType
+[tevm](../../modules.md) / [index](../README.md) / DebugRequestType
 
 # Type Alias: DebugRequestType
 
@@ -14,9 +14,17 @@ A mapping of `debug_*` method names to their request type
 
 ## Type declaration
 
+### debug\_traceBlock
+
+> **debug\_traceBlock**: `DebugTraceBlockJsonRpcRequest`
+
 ### debug\_traceCall
 
 > **debug\_traceCall**: `DebugTraceCallJsonRpcRequest`
+
+### debug\_traceState
+
+> **debug\_traceState**: `DebugTraceStateJsonRpcRequest`
 
 ### debug\_traceTransaction
 

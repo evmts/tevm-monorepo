@@ -6,16 +6,22 @@
 
 # Type Alias: DebugTraceCallHandler()
 
-> **DebugTraceCallHandler**: (`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
+> **DebugTraceCallHandler**: \<`TTracer`, `TDiffMode`\>(`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\<`TTracer`, `TDiffMode`\>\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:4
+Defined in: packages/actions/types/debug/DebugHandler.d.ts:3
+
+## Type Parameters
+
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+
+• **TDiffMode** *extends* `boolean` = `boolean`
 
 ## Parameters
 
 ### params
 
-[`DebugTraceCallParams`](DebugTraceCallParams.md)
+[`DebugTraceCallParams`](DebugTraceCallParams.md)\<`TTracer`, `TDiffMode`\>
 
 ## Returns
 
-`Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
+`Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\<`TTracer`, `TDiffMode`\>\>

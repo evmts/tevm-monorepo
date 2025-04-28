@@ -2,7 +2,7 @@
 
 ***
 
-[tevm](../../modules.md) / [actions](../README.md) / DebugReturnType
+[tevm](../../modules.md) / [index](../README.md) / DebugReturnType
 
 # Type Alias: DebugReturnType
 
@@ -14,9 +14,17 @@ A mapping of `debug_*` method names to their return type
 
 ## Type declaration
 
+### debug\_traceBlock
+
+> **debug\_traceBlock**: `DebugTraceBlockJsonRpcResponse`
+
 ### debug\_traceCall
 
 > **debug\_traceCall**: `DebugTraceCallJsonRpcResponse`
+
+### debug\_traceState
+
+> **debug\_traceState**: `DebugTraceStateJsonRpcResponse`
 
 ### debug\_traceTransaction
 

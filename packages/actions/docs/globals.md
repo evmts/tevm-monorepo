@@ -18,6 +18,7 @@
 ## Type Aliases
 
 - [Abi](type-aliases/Abi.md)
+- [AccountState](type-aliases/AccountState.md)
 - [Address](type-aliases/Address.md)
 - [AnvilDealHandler](type-aliases/AnvilDealHandler.md)
 - [AnvilDealJsonRpcRequest](type-aliases/AnvilDealJsonRpcRequest.md)
@@ -131,10 +132,15 @@
 - [ContractResult](type-aliases/ContractResult.md)
 - [DebugRequestType](type-aliases/DebugRequestType.md)
 - [DebugReturnType](type-aliases/DebugReturnType.md)
+- [DebugTraceBlockParams](type-aliases/DebugTraceBlockParams.md)
+- [DebugTraceBlockResult](type-aliases/DebugTraceBlockResult.md)
 - [DebugTraceCallHandler](type-aliases/DebugTraceCallHandler.md)
 - [DebugTraceCallParams](type-aliases/DebugTraceCallParams.md)
 - [DebugTraceCallResult](type-aliases/DebugTraceCallResult.md)
-- [DebugTraceTransactionHandler](type-aliases/DebugTraceTransactionHandler.md)
+- [DebugTraceStateFilter](type-aliases/DebugTraceStateFilter.md)
+- [DebugTraceStateObject](type-aliases/DebugTraceStateObject.md)
+- [DebugTraceStateParams](type-aliases/DebugTraceStateParams.md)
+- [DebugTraceStateResult](type-aliases/DebugTraceStateResult.md)
 - [DebugTraceTransactionParams](type-aliases/DebugTraceTransactionParams.md)
 - [DebugTraceTransactionResult](type-aliases/DebugTraceTransactionResult.md)
 - [DeployHandler](type-aliases/DeployHandler.md)
@@ -384,6 +390,7 @@
 - [EthUninstallFilterParams](type-aliases/EthUninstallFilterParams.md)
 - [EthUninstallFilterResult](type-aliases/EthUninstallFilterResult.md)
 - [EvmErrorConstructor](type-aliases/EvmErrorConstructor.md)
+- [EvmTraceResult](type-aliases/EvmTraceResult.md)
 - [ExecuteCallError](type-aliases/ExecuteCallError.md)
 - [ExecuteCallResult](type-aliases/ExecuteCallResult.md)
 - [FilterLog](type-aliases/FilterLog.md)
@@ -413,6 +420,9 @@
 - [MineParams](type-aliases/MineParams.md)
 - [MineResult](type-aliases/MineResult.md)
 - [NetworkConfig](type-aliases/NetworkConfig.md)
+- [PrestateTraceAnyResult](type-aliases/PrestateTraceAnyResult.md)
+- [PrestateTraceDiffResult](type-aliases/PrestateTraceDiffResult.md)
+- [PrestateTraceResult](type-aliases/PrestateTraceResult.md)
 - [SerializedParams](type-aliases/SerializedParams.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
 - [SetAccountJsonRpcProcedure](type-aliases/SetAccountJsonRpcProcedure.md)
@@ -451,6 +461,7 @@
 
 ## Variables
 
+- [debugTraceStateFilters](variables/debugTraceStateFilters.md)
 - [zAbi](variables/zAbi.md)
 - [zAddress](variables/zAddress.md)
 - [zBaseCallParams](variables/zBaseCallParams.md)

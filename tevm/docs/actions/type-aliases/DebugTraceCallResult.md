@@ -4,26 +4,16 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugTraceCallResult
 
-# Type Alias: DebugTraceCallResult
+# Type Alias: DebugTraceCallResult\<TTracer, TDiffMode\>
 
-> **DebugTraceCallResult**: `object`
+> **DebugTraceCallResult**\<`TTracer`, `TDiffMode`\>: `TTracer` *extends* `"callTracer"` ? [`EvmTraceResult`](../../index/type-aliases/EvmTraceResult.md) : `TTracer` *extends* `"prestateTracer"` ? [`PrestateTraceAnyResult`](PrestateTraceAnyResult.md)\<`TDiffMode`\> : [`EvmTraceResult`](../../index/type-aliases/EvmTraceResult.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:16
+Defined in: packages/actions/types/debug/DebugResult.d.ts:66
 
-## Type declaration
+Result from `debug_traceCall`
 
-### failed
+## Type Parameters
 
-> **failed**: `boolean`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
 
-### gas
-
-> **gas**: `bigint`
-
-### returnValue
-
-> **returnValue**: [`Hex`](Hex.md)
-
-### structLogs
-
-> **structLogs**: [`StructLog`](StructLog.md)[]
+• **TDiffMode** *extends* `boolean` = `boolean`

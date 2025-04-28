@@ -22,7 +22,7 @@ Defined in: packages/actions/types/Call/callHandlerResult.d.ts:1
 
 ### trace
 
-`undefined` | [`DebugTraceCallResult`](../type-aliases/DebugTraceCallResult.md)
+`undefined` | [`EvmTraceResult`](../../index/type-aliases/EvmTraceResult.md)
 
 ### accessList
 

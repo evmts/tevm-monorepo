@@ -4,26 +4,16 @@
 
 [@tevm/actions](../globals.md) / DebugTraceCallResult
 
-# Type Alias: DebugTraceCallResult
+# Type Alias: DebugTraceCallResult\<TTracer, TDiffMode\>
 
-> **DebugTraceCallResult**: `object`
+> **DebugTraceCallResult**\<`TTracer`, `TDiffMode`\>: `TTracer` *extends* `"callTracer"` ? [`EvmTraceResult`](EvmTraceResult.md) : `TTracer` *extends* `"prestateTracer"` ? [`PrestateTraceAnyResult`](PrestateTraceAnyResult.md)\<`TDiffMode`\> : [`EvmTraceResult`](EvmTraceResult.md)
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L20)
+Defined in: [packages/actions/src/debug/DebugResult.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L85)
 
-## Type declaration
+Result from `debug_traceCall`
 
-### failed
+## Type Parameters
 
-> **failed**: `boolean`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
 
-### gas
-
-> **gas**: `bigint`
-
-### returnValue
-
-> **returnValue**: [`Hex`](Hex.md)
-
-### structLogs
-
-> **structLogs**: [`StructLog`](StructLog.md)[]
+• **TDiffMode** *extends* `boolean` = `boolean`
