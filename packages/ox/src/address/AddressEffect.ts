@@ -1,6 +1,6 @@
-import { Effect } from 'effect'
 import type { Address } from '@tevm/utils'
-import { getAddress, isAddress, hexToBytes, bytesToHex } from '@tevm/utils'
+import { bytesToHex, getAddress, hexToBytes, isAddress } from '@tevm/utils'
+import { Effect } from 'effect'
 import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
 /**
@@ -59,11 +59,15 @@ export function fromHexEffect(hex: string): Effect.Effect<Address, BaseErrorEffe
 /**
  * Converts from PrivateKey to Address in an Effect
  */
-export function fromPrivateKeyEffect(privateKey: string): Effect.Effect<Address, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => {
-		// TODO: Implement private key to address conversion
-		throw new Error('Not implemented')
-	}))
+export function fromPrivateKeyEffect(
+	privateKey: string,
+): Effect.Effect<Address, BaseErrorEffect<Error | undefined>, never> {
+	return catchOxErrors(
+		Effect.try(() => {
+			// TODO: Implement private key to address conversion
+			throw new Error('Not implemented')
+		}),
+	)
 }
 
 /**
@@ -80,16 +84,18 @@ export function formatEffect(
 	address: Address,
 	options?: { case?: 'lowercase' | 'uppercase' },
 ): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => {
-		const checksummed = getAddress(address)
-		if (options?.case === 'lowercase') {
-			return checksummed.toLowerCase()
-		}
-		if (options?.case === 'uppercase') {
-			return checksummed.toUpperCase()
-		}
-		return checksummed
-	}))
+	return catchOxErrors(
+		Effect.try(() => {
+			const checksummed = getAddress(address)
+			if (options?.case === 'lowercase') {
+				return checksummed.toLowerCase()
+			}
+			if (options?.case === 'uppercase') {
+				return checksummed.toUpperCase()
+			}
+			return checksummed
+		}),
+	)
 }
 
 /**
@@ -133,7 +139,7 @@ export function validateEffect(value: unknown): Effect.Effect<boolean, never, ne
 /**
  * Layer that provides the AddressEffect functions
  */
-import { Layer, Context } from 'effect'
+import { Context, Layer } from 'effect'
 
 export interface AddressEffectService {
 	assertEffect: typeof assertEffect
@@ -164,7 +170,7 @@ export const AddressEffectLive: AddressEffectService = {
 	isEqualEffect,
 	toBytesEffect,
 	toHexEffect,
-	validateEffect
+	validateEffect,
 }
 
 export const AddressEffectLayer = Layer.succeed(AddressEffectTag, AddressEffectLive)

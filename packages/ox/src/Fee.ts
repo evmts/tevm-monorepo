@@ -1,24 +1,24 @@
-import { Effect } from "effect";
-import Ox from "ox";
+import { Effect } from 'effect'
+import Ox from 'ox'
 
 // Export types
-export type CalculateNextBaseFeeParams = Ox.Fee.CalculateNextBaseFeeParams;
-export type CalculatePriorityFeeParams = Ox.Fee.CalculatePriorityFeeParams;
-export type CreateFeeHistoryParams = Ox.Fee.CreateFeeHistoryParams;
-export type FeeHistory = Ox.Fee.FeeHistory;
-export type FeeHistoryJson = Ox.Fee.FeeHistoryJson;
+export type CalculateNextBaseFeeParams = Ox.Fee.CalculateNextBaseFeeParams
+export type CalculatePriorityFeeParams = Ox.Fee.CalculatePriorityFeeParams
+export type CreateFeeHistoryParams = Ox.Fee.CreateFeeHistoryParams
+export type FeeHistory = Ox.Fee.FeeHistory
+export type FeeHistoryJson = Ox.Fee.FeeHistoryJson
 
 /**
  * Error class for calculateNextBaseFee function
  */
 export class CalculateNextBaseFeeError extends Error {
-  override name = "CalculateNextBaseFeeError";
-  _tag = "CalculateNextBaseFeeError";
-  constructor(cause: unknown) {
-    super("Failed to calculate next base fee with ox", {
-      cause,
-    });
-  }
+	override name = 'CalculateNextBaseFeeError'
+	_tag = 'CalculateNextBaseFeeError'
+	constructor(cause: unknown) {
+		super('Failed to calculate next base fee with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -27,25 +27,25 @@ export class CalculateNextBaseFeeError extends Error {
  * @returns An Effect that succeeds with the next base fee
  */
 export function calculateNextBaseFee(
-  params: CalculateNextBaseFeeParams
+	params: CalculateNextBaseFeeParams,
 ): Effect.Effect<bigint, CalculateNextBaseFeeError, never> {
-  return Effect.try({
-    try: () => Ox.Fee.calculateNextBaseFee(params),
-    catch: (cause) => new CalculateNextBaseFeeError(cause),
-  });
+	return Effect.try({
+		try: () => Ox.Fee.calculateNextBaseFee(params),
+		catch: (cause) => new CalculateNextBaseFeeError(cause),
+	})
 }
 
 /**
  * Error class for calculatePriorityFee function
  */
 export class CalculatePriorityFeeError extends Error {
-  override name = "CalculatePriorityFeeError";
-  _tag = "CalculatePriorityFeeError";
-  constructor(cause: unknown) {
-    super("Failed to calculate priority fee with ox", {
-      cause,
-    });
-  }
+	override name = 'CalculatePriorityFeeError'
+	_tag = 'CalculatePriorityFeeError'
+	constructor(cause: unknown) {
+		super('Failed to calculate priority fee with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -54,25 +54,25 @@ export class CalculatePriorityFeeError extends Error {
  * @returns An Effect that succeeds with the priority fee
  */
 export function calculatePriorityFee(
-  params: CalculatePriorityFeeParams
+	params: CalculatePriorityFeeParams,
 ): Effect.Effect<bigint, CalculatePriorityFeeError, never> {
-  return Effect.try({
-    try: () => Ox.Fee.calculatePriorityFee(params),
-    catch: (cause) => new CalculatePriorityFeeError(cause),
-  });
+	return Effect.try({
+		try: () => Ox.Fee.calculatePriorityFee(params),
+		catch: (cause) => new CalculatePriorityFeeError(cause),
+	})
 }
 
 /**
  * Error class for createFeeHistory function
  */
 export class CreateFeeHistoryError extends Error {
-  override name = "CreateFeeHistoryError";
-  _tag = "CreateFeeHistoryError";
-  constructor(cause: unknown) {
-    super("Failed to create fee history with ox", {
-      cause,
-    });
-  }
+	override name = 'CreateFeeHistoryError'
+	_tag = 'CreateFeeHistoryError'
+	constructor(cause: unknown) {
+		super('Failed to create fee history with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -81,25 +81,25 @@ export class CreateFeeHistoryError extends Error {
  * @returns An Effect that succeeds with the fee history
  */
 export function createFeeHistory(
-  params: CreateFeeHistoryParams
+	params: CreateFeeHistoryParams,
 ): Effect.Effect<FeeHistory, CreateFeeHistoryError, never> {
-  return Effect.try({
-    try: () => Ox.Fee.createFeeHistory(params),
-    catch: (cause) => new CreateFeeHistoryError(cause),
-  });
+	return Effect.try({
+		try: () => Ox.Fee.createFeeHistory(params),
+		catch: (cause) => new CreateFeeHistoryError(cause),
+	})
 }
 
 /**
  * Error class for formatFeeHistory function
  */
 export class FormatFeeHistoryError extends Error {
-  override name = "FormatFeeHistoryError";
-  _tag = "FormatFeeHistoryError";
-  constructor(cause: unknown) {
-    super("Failed to format fee history with ox", {
-      cause,
-    });
-  }
+	override name = 'FormatFeeHistoryError'
+	_tag = 'FormatFeeHistoryError'
+	constructor(cause: unknown) {
+		super('Failed to format fee history with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -107,26 +107,24 @@ export class FormatFeeHistoryError extends Error {
  * @param feeHistory The fee history to format
  * @returns An Effect that succeeds with the formatted fee history
  */
-export function formatFeeHistory(
-  feeHistory: FeeHistory
-): Effect.Effect<FeeHistoryJson, FormatFeeHistoryError, never> {
-  return Effect.try({
-    try: () => Ox.Fee.formatFeeHistory(feeHistory),
-    catch: (cause) => new FormatFeeHistoryError(cause),
-  });
+export function formatFeeHistory(feeHistory: FeeHistory): Effect.Effect<FeeHistoryJson, FormatFeeHistoryError, never> {
+	return Effect.try({
+		try: () => Ox.Fee.formatFeeHistory(feeHistory),
+		catch: (cause) => new FormatFeeHistoryError(cause),
+	})
 }
 
 /**
  * Error class for parseFeeHistory function
  */
 export class ParseFeeHistoryError extends Error {
-  override name = "ParseFeeHistoryError";
-  _tag = "ParseFeeHistoryError";
-  constructor(cause: unknown) {
-    super("Failed to parse fee history with ox", {
-      cause,
-    });
-  }
+	override name = 'ParseFeeHistoryError'
+	_tag = 'ParseFeeHistoryError'
+	constructor(cause: unknown) {
+		super('Failed to parse fee history with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -135,10 +133,10 @@ export class ParseFeeHistoryError extends Error {
  * @returns An Effect that succeeds with the parsed fee history
  */
 export function parseFeeHistory(
-  feeHistoryJson: FeeHistoryJson
+	feeHistoryJson: FeeHistoryJson,
 ): Effect.Effect<FeeHistory, ParseFeeHistoryError, never> {
-  return Effect.try({
-    try: () => Ox.Fee.parseFeeHistory(feeHistoryJson),
-    catch: (cause) => new ParseFeeHistoryError(cause),
-  });
+	return Effect.try({
+		try: () => Ox.Fee.parseFeeHistory(feeHistoryJson),
+		catch: (cause) => new ParseFeeHistoryError(cause),
+	})
 }

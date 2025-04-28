@@ -1,18 +1,18 @@
-import { Effect } from 'effect'
-import { 
-  bytesToHex, 
-  hexToBytes,
-  boolToHex,
-  numberToHex,
-  stringToHex,
-  hexToBigInt,
-  hexToNumber,
-  hexToString,
-  hexToBool,
-  isHex,
-  concatHex,
-  padHex
+import {
+	boolToHex,
+	bytesToHex,
+	concatHex,
+	hexToBigInt,
+	hexToBool,
+	hexToBytes,
+	hexToNumber,
+	hexToString,
+	isHex,
+	numberToHex,
+	padHex,
+	stringToHex,
 } from '@tevm/utils'
+import { Effect } from 'effect'
 import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
 /**
@@ -37,9 +37,7 @@ function catchOxErrors<A>(
 /**
  * Asserts if the given value is Hex in an Effect
  */
-export function assertEffect(
-	value: unknown,
-): Effect.Effect<void, BaseErrorEffect<Error | undefined>, never> {
+export function assertEffect(value: unknown): Effect.Effect<void, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(
 		Effect.try(() => {
 			if (!isHex(value)) {
@@ -59,18 +57,14 @@ export function concatEffect(...values: readonly string[]): Effect.Effect<string
 /**
  * Converts from Bytes to Hex in an Effect
  */
-export function fromBytesEffect(
-	value: Uint8Array,
-): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
+export function fromBytesEffect(value: Uint8Array): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => bytesToHex(value)))
 }
 
 /**
  * Converts from Boolean to Hex in an Effect
  */
-export function fromBooleanEffect(
-	value: boolean,
-): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
+export function fromBooleanEffect(value: boolean): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => boolToHex(value)))
 }
 
@@ -86,30 +80,37 @@ export function fromNumberEffect(
 /**
  * Converts from String to Hex in an Effect
  */
-export function fromStringEffect(
-	value: string,
-): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
+export function fromStringEffect(value: string): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => stringToHex(value)))
 }
 
 /**
  * Checks if two Hex values are equal in an Effect
  */
-export function isEqualEffect(hexA: string, hexB: string): Effect.Effect<boolean, BaseErrorEffect<Error | undefined>, never> {
+export function isEqualEffect(
+	hexA: string,
+	hexB: string,
+): Effect.Effect<boolean, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => hexA.toLowerCase() === hexB.toLowerCase()))
 }
 
 /**
  * Pads a Hex value to the left in an Effect
  */
-export function padLeftEffect(value: string, size?: number): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
+export function padLeftEffect(
+	value: string,
+	size?: number,
+): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => padHex(value, { size: size, dir: 'right' })))
 }
 
 /**
  * Pads a Hex value to the right in an Effect
  */
-export function padRightEffect(value: string, size?: number): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
+export function padRightEffect(
+	value: string,
+	size?: number,
+): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => padHex(value, { size: size, dir: 'left' })))
 }
 
@@ -117,11 +118,13 @@ export function padRightEffect(value: string, size?: number): Effect.Effect<stri
  * Creates a random Hex value in an Effect
  */
 export function randomEffect(length: number): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => {
-		const bytes = new Uint8Array(length);
-		crypto.getRandomValues(bytes);
-		return bytesToHex(bytes);
-	}))
+	return catchOxErrors(
+		Effect.try(() => {
+			const bytes = new Uint8Array(length)
+			crypto.getRandomValues(bytes)
+			return bytesToHex(bytes)
+		}),
+	)
 }
 
 /**
@@ -135,52 +138,42 @@ export function sizeEffect(value: string): Effect.Effect<number, never, never> {
 /**
  * Converts from Hex to BigInt in an Effect
  */
-export function toBigIntEffect(
-	hex: string,
-): Effect.Effect<bigint, BaseErrorEffect<Error | undefined>, never> {
+export function toBigIntEffect(hex: string): Effect.Effect<bigint, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => hexToBigInt(hex)))
 }
 
 /**
  * Converts from Hex to Boolean in an Effect
  */
-export function toBooleanEffect(
-	hex: string,
-): Effect.Effect<boolean, BaseErrorEffect<Error | undefined>, never> {
+export function toBooleanEffect(hex: string): Effect.Effect<boolean, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => hexToBool(hex)))
 }
 
 /**
  * Converts from Hex to Bytes in an Effect
  */
-export function toBytesEffect(
-	hex: string,
-): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
+export function toBytesEffect(hex: string): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => hexToBytes(hex)))
 }
 
 /**
  * Converts from Hex to Number in an Effect
  */
-export function toNumberEffect(
-	hex: string,
-): Effect.Effect<number, BaseErrorEffect<Error | undefined>, never> {
+export function toNumberEffect(hex: string): Effect.Effect<number, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => hexToNumber(hex)))
 }
 
 /**
  * Converts from Hex to String in an Effect
  */
-export function toStringEffect(
-	hex: string,
-): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
+export function toStringEffect(hex: string): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => hexToString(hex)))
 }
 
 /**
  * Layer that provides the HexEffect functions
  */
-import { Layer, Context } from 'effect'
+import { Context, Layer } from 'effect'
 
 export interface HexEffectService {
 	assertEffect: typeof assertEffect
@@ -219,7 +212,7 @@ export const HexEffectLive: HexEffectService = {
 	toBooleanEffect,
 	toBytesEffect,
 	toNumberEffect,
-	toStringEffect
+	toStringEffect,
 }
 
 export const HexEffectLayer = Layer.succeed(HexEffectTag, HexEffectLive)

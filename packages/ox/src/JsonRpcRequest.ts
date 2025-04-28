@@ -1,22 +1,25 @@
-import { Effect } from "effect";
-import Ox from "ox";
+import { Effect } from 'effect'
+import Ox from 'ox'
 
 // Export types
-export type Request<TMethod extends string = string, TParams = Ox.JsonRpcRequest.Params> = Ox.JsonRpcRequest.Request<TMethod, TParams>;
-export type Params = Ox.JsonRpcRequest.Params;
-export type Batch = Ox.JsonRpcRequest.Batch;
+export type Request<TMethod extends string = string, TParams = Ox.JsonRpcRequest.Params> = Ox.JsonRpcRequest.Request<
+	TMethod,
+	TParams
+>
+export type Params = Ox.JsonRpcRequest.Params
+export type Batch = Ox.JsonRpcRequest.Batch
 
 /**
  * Error class for create function
  */
 export class CreateError extends Error {
-  override name = "CreateError";
-  _tag = "CreateError";
-  constructor(cause: unknown) {
-    super("Failed to create JSON-RPC request with ox", {
-      cause,
-    });
-  }
+	override name = 'CreateError'
+	_tag = 'CreateError'
+	constructor(cause: unknown) {
+		super('Failed to create JSON-RPC request with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -24,31 +27,29 @@ export class CreateError extends Error {
  * @param request Request parameters
  * @returns An Effect that succeeds with a JSON-RPC request
  */
-export function create<TMethod extends string, TParams extends Params>(
-  request: {
-    method: TMethod;
-    params?: TParams;
-    id?: number | string;
-    jsonrpc?: string;
-  }
-): Effect.Effect<Request<TMethod, TParams>, CreateError, never> {
-  return Effect.try({
-    try: () => Ox.JsonRpcRequest.create(request),
-    catch: (cause) => new CreateError(cause),
-  });
+export function create<TMethod extends string, TParams extends Params>(request: {
+	method: TMethod
+	params?: TParams
+	id?: number | string
+	jsonrpc?: string
+}): Effect.Effect<Request<TMethod, TParams>, CreateError, never> {
+	return Effect.try({
+		try: () => Ox.JsonRpcRequest.create(request),
+		catch: (cause) => new CreateError(cause),
+	})
 }
 
 /**
  * Error class for createBatch function
  */
 export class CreateBatchError extends Error {
-  override name = "CreateBatchError";
-  _tag = "CreateBatchError";
-  constructor(cause: unknown) {
-    super("Failed to create JSON-RPC request batch with ox", {
-      cause,
-    });
-  }
+	override name = 'CreateBatchError'
+	_tag = 'CreateBatchError'
+	constructor(cause: unknown) {
+		super('Failed to create JSON-RPC request batch with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -57,32 +58,30 @@ export class CreateBatchError extends Error {
  * @returns An Effect that succeeds with a batch of JSON-RPC requests
  */
 export function createBatch<
-  TRequests extends ReadonlyArray<{
-    method: string;
-    params?: Params;
-    id?: number | string;
-    jsonrpc?: string;
-  }>
->(
-  requests: [...TRequests]
-): Effect.Effect<Batch, CreateBatchError, never> {
-  return Effect.try({
-    try: () => Ox.JsonRpcRequest.createBatch(requests),
-    catch: (cause) => new CreateBatchError(cause),
-  });
+	TRequests extends ReadonlyArray<{
+		method: string
+		params?: Params
+		id?: number | string
+		jsonrpc?: string
+	}>,
+>(requests: [...TRequests]): Effect.Effect<Batch, CreateBatchError, never> {
+	return Effect.try({
+		try: () => Ox.JsonRpcRequest.createBatch(requests),
+		catch: (cause) => new CreateBatchError(cause),
+	})
 }
 
 /**
  * Error class for validate function
  */
 export class ValidateError extends Error {
-  override name = "ValidateError";
-  _tag = "ValidateError";
-  constructor(cause: unknown) {
-    super("Failed to validate JSON-RPC request with ox", {
-      cause,
-    });
-  }
+	override name = 'ValidateError'
+	_tag = 'ValidateError'
+	constructor(cause: unknown) {
+		super('Failed to validate JSON-RPC request with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -91,25 +90,25 @@ export class ValidateError extends Error {
  * @returns An Effect that succeeds with the validated request
  */
 export function validate<TMethod extends string, TParams extends Params>(
-  request: Request<TMethod, TParams>
+	request: Request<TMethod, TParams>,
 ): Effect.Effect<Request<TMethod, TParams>, ValidateError, never> {
-  return Effect.try({
-    try: () => Ox.JsonRpcRequest.validate(request),
-    catch: (cause) => new ValidateError(cause),
-  });
+	return Effect.try({
+		try: () => Ox.JsonRpcRequest.validate(request),
+		catch: (cause) => new ValidateError(cause),
+	})
 }
 
 /**
  * Error class for validateBatch function
  */
 export class ValidateBatchError extends Error {
-  override name = "ValidateBatchError";
-  _tag = "ValidateBatchError";
-  constructor(cause: unknown) {
-    super("Failed to validate JSON-RPC request batch with ox", {
-      cause,
-    });
-  }
+	override name = 'ValidateBatchError'
+	_tag = 'ValidateBatchError'
+	constructor(cause: unknown) {
+		super('Failed to validate JSON-RPC request batch with ox', {
+			cause,
+		})
+	}
 }
 
 /**
@@ -117,11 +116,9 @@ export class ValidateBatchError extends Error {
  * @param batch The batch to validate
  * @returns An Effect that succeeds with the validated batch
  */
-export function validateBatch(
-  batch: Batch
-): Effect.Effect<Batch, ValidateBatchError, never> {
-  return Effect.try({
-    try: () => Ox.JsonRpcRequest.validateBatch(batch),
-    catch: (cause) => new ValidateBatchError(cause),
-  });
+export function validateBatch(batch: Batch): Effect.Effect<Batch, ValidateBatchError, never> {
+	return Effect.try({
+		try: () => Ox.JsonRpcRequest.validateBatch(batch),
+		catch: (cause) => new ValidateBatchError(cause),
+	})
 }

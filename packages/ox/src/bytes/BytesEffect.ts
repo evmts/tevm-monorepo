@@ -1,5 +1,5 @@
+import { boolToBytes, concatBytes, hexToBytes, numberToBytes, stringToBytes } from '@tevm/utils'
 import { Effect } from 'effect'
-import { hexToBytes, concatBytes, stringToBytes, numberToBytes, boolToBytes } from '@tevm/utils'
 import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
 /**
@@ -40,9 +40,7 @@ export function fromBooleanEffect(
 /**
  * Converts from Hex to Bytes in an Effect
  */
-export function fromHexEffect(
-	value: string,
-): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
+export function fromHexEffect(value: string): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => hexToBytes(value)))
 }
 
@@ -58,9 +56,7 @@ export function fromNumberEffect(
 /**
  * Converts from String to Bytes in an Effect
  */
-export function fromStringEffect(
-	value: string,
-): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
+export function fromStringEffect(value: string): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
 	return catchOxErrors(Effect.try(() => stringToBytes(value)))
 }
 
@@ -74,7 +70,7 @@ export function concatEffect(...values: readonly Uint8Array[]): Effect.Effect<Ui
 /**
  * Layer that provides the BytesEffect functions
  */
-import { Layer, Context } from 'effect'
+import { Context, Layer } from 'effect'
 
 export interface BytesEffectService {
 	fromArrayEffect: typeof fromArrayEffect
@@ -93,7 +89,7 @@ export const BytesEffectLive: BytesEffectService = {
 	fromHexEffect,
 	fromNumberEffect,
 	fromStringEffect,
-	concatEffect
+	concatEffect,
 }
 
 export const BytesEffectLayer = Layer.succeed(BytesEffectTag, BytesEffectLive)
