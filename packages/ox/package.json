@@ -60,8 +60,9 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "@tevm/utils": "workspace:^",
     "effect": "3.13.2",
-    "@tevm/utils": "workspace:^"
+    "ox": "^0.7.0"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

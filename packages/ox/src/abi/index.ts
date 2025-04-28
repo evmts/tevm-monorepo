@@ -1,7 +1,7 @@
-export * from './AbiEffect.js'
-export * from './AbiConstructorEffect.js'
-export * from './AbiErrorEffect.js'
-export * from './AbiEventEffect.js'
-export * from './AbiFunctionEffect.js'
-export * from './AbiItemEffect.js'
-export * from './AbiParametersEffect.js'
+export * as Abi from "./Abi.js";
+export * as AbiConstructor from "./AbiConstructor.js";
+export * as AbiError from "./AbiError.js";
+export * as AbiEvent from "./AbiEvent.js";
+export * as AbiFunction from "./AbiFunction.js";
+export * as AbiItem from "./AbiItem.js";
+export * as AbiParameters from "./AbiParameters.js";
