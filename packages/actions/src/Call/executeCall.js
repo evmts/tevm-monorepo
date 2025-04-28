@@ -14,7 +14,7 @@ import { handleRunTxError } from './handleEvmError.js'
 /**
  * The return value of executeCall
  * @internal
- * @typedef {{runTxResult: import("@tevm/vm").RunTxResult, trace: import('../debug/DebugResult.js').DebugTraceCallResult | undefined, accessList: undefined | Map<string, Set<string>>}} ExecuteCallResult
+ * @typedef {{runTxResult: import("@tevm/vm").RunTxResult, trace: import('../debug/DebugResult.js').EvmTraceResult | undefined, accessList: undefined | Map<string, Set<string>>}} ExecuteCallResult
  */
 
 /**
@@ -29,7 +29,7 @@ import { handleRunTxError } from './handleEvmError.js'
  */
 export const executeCall = async (client, evmInput, params, events) => {
 	/**
-	 * @type {import('../debug/DebugResult.js').EvmTracerResult | undefined}
+	 * @type {import('../debug/DebugResult.js').EvmTraceResult | undefined}
 	 */
 	let trace = undefined
 	/**

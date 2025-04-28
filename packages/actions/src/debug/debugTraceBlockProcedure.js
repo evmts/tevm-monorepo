@@ -165,7 +165,7 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 		}
 		// For standard tracer, transform results to match expected format
 		const transformedResults = traceResults.map((item) => {
-			const evmResult = /** @type {import('./DebugResult.js').EvmTracerResult} */ (item.result)
+			const evmResult = /** @type {import('./DebugResult.js').EvmTraceResult} */ (item.result)
 
 			return {
 				txHash: item.txHash,

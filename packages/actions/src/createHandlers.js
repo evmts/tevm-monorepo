@@ -183,47 +183,12 @@ export const createHandlers = (client) => {
 	)
 
 	const debugHandlers = {
-		/**
-		 * @template {'callTracer' | 'prestateTracer'} TTracer
-		 * @template {boolean} TDiffMode
-		 * @param {import('./debug/DebugJsonRpcRequest.js').DebugTraceBlockJsonRpcRequest<TTracer, TDiffMode>} request
-		 * @returns {Promise<import('./debug/DebugJsonRpcResponse.js').DebugTraceBlockJsonRpcResponse<TTracer, TDiffMode>>}
-		 */
-		debug_traceBlock: (request) => /** @type {any} */ (debugTraceBlockJsonRpcProcedure(client)(request)),
-		/**
-		 * @template {'callTracer' | 'prestateTracer'} TTracer
-		 * @template {boolean} TDiffMode
-		 * @param {import('./debug/DebugJsonRpcRequest.js').DebugTraceBlockJsonRpcRequest<TTracer, TDiffMode>} request
-		 * @returns {Promise<import('./debug/DebugJsonRpcResponse.js').DebugTraceBlockJsonRpcResponse<TTracer, TDiffMode>>}
-		 */
-		debug_traceBlockByHash: (request) => /** @type {any} */ (debugTraceBlockJsonRpcProcedure(client)(request)),
-		/**
-		 * @template {'callTracer' | 'prestateTracer'} TTracer
-		 * @template {boolean} TDiffMode
-		 * @param {import('./debug/DebugJsonRpcRequest.js').DebugTraceBlockJsonRpcRequest<TTracer, TDiffMode>} request
-		 * @returns {Promise<import('./debug/DebugJsonRpcResponse.js').DebugTraceBlockJsonRpcResponse<TTracer, TDiffMode>>}
-		 */
-		debug_traceBlockByNumber: (request) => /** @type {any} */ (debugTraceBlockJsonRpcProcedure(client)(request)),
-		/**
-		 * @template {'callTracer' | 'prestateTracer'} TTracer
-		 * @template {boolean} TDiffMode
-		 * @param {import('./debug/DebugJsonRpcRequest.js').DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>} request
-		 * @returns {Promise<import('./debug/DebugJsonRpcResponse.js').DebugTraceCallJsonRpcResponse<TTracer, TDiffMode>>}
-		 */
-		debug_traceCall: (request) => /** @type {any} */ (debugTraceCallJsonRpcProcedure(client)(/** @type {any} */ (request))),
-		/**
-		 * @template {'callTracer' | 'prestateTracer'} TTracer
-		 * @template {boolean} TDiffMode
-		 * @param {import('./debug/DebugJsonRpcRequest.js').DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode>} request
-		 * @returns {Promise<import('./debug/DebugJsonRpcResponse.js').DebugTraceTransactionJsonRpcResponse<TTracer, TDiffMode>>}
-		 */
-		debug_traceTransaction: (request) => /** @type {any} */ (debugTraceTransactionJsonRpcProcedure(client)(request)),
-		/**
-		 * @template {readonly import('./debug/DebugParams.js').DebugTraceStateFilter[]} TStateFilters
-		 * @param {import('./debug/DebugJsonRpcRequest.js').DebugTraceStateJsonRpcRequest<TStateFilters>} request
-		 * @returns {Promise<import('./debug/DebugJsonRpcResponse.js').DebugTraceStateJsonRpcResponse<TStateFilters>>}
-		 */
-		debug_traceState: (request) => /** @type {any} */ (debugTraceStateJsonRpcProcedure(client)(/** @type {any} */ (request))),
+		debug_traceBlock: debugTraceBlockJsonRpcProcedure(client),
+		debug_traceBlockByHash: debugTraceBlockJsonRpcProcedure(client),
+		debug_traceBlockByNumber: debugTraceBlockJsonRpcProcedure(client),
+		debug_traceCall: debugTraceCallJsonRpcProcedure(client),
+		debug_traceTransaction: debugTraceTransactionJsonRpcProcedure(client),
+		debug_traceState: debugTraceStateJsonRpcProcedure(client),
 	}
 
 	const allHandlers = {

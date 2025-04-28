@@ -41,7 +41,7 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 			}
 		}
 
-		const debugTraceCallResult = /** @type {import('./DebugResult.js').EvmTracerResult} */ (traceResult)
+		const debugTraceCallResult = /** @type {import('./DebugResult.js').EvmTraceResult} */ (traceResult)
 		return {
 			method: request.method,
 			result: /** @type {any} */ ({

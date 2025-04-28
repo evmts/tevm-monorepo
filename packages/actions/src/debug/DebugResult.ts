@@ -60,7 +60,7 @@ export type PrestateTracerAnyResult<TDiffMode extends boolean = boolean> = TDiff
 /**
  * Result for standard EVM tracing with opcodes
  */
-export type EvmTracerResult = {
+export type EvmTraceResult = {
 	failed: boolean
 	gas: bigint
 	returnValue: Hex
@@ -86,10 +86,10 @@ export type DebugTraceCallResult<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
-	? EvmTracerResult
+	? EvmTraceResult
 	: TTracer extends 'prestateTracer'
 		? PrestateTracerAnyResult<TDiffMode>
-		: EvmTracerResult
+		: EvmTraceResult
 
 /**
  * Result from `debug_traceBlock`.

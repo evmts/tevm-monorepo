@@ -1,7 +1,7 @@
 // TODO we should make throwOnFail get handled generically here
 
-import type {  DebugTraceCallParams } from './DebugParams.js'
-import type {  DebugTraceCallResult } from './DebugResult.js'
+import type { DebugTraceCallParams } from './DebugParams.js'
+import type { DebugTraceCallResult } from './DebugResult.js'
 
 export type DebugTraceCallHandler = <
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',

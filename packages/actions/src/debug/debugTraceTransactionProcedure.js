@@ -171,7 +171,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			}
 		}
 
-		const debugTraceTransactionResult = /** @type {import('./DebugResult.js').EvmTracerResult} */ (traceResult)
+		const debugTraceTransactionResult = /** @type {import('./DebugResult.js').EvmTraceResult} */ (traceResult)
 		return {
 			method: request.method,
 			// TODO the typescript type for this return type is completely wrong because of copy pasta
