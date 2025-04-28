@@ -1,0 +1,41 @@
+{
+	"name": "tevm_bundler_rs",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "library",
+	"sourceRoot": "bundler-packages/bundler-rs/src",
+	"tags": [],
+	"targets": {
+		"build:rust": {
+			"cache": true,
+			"outputs": ["{workspaceRoot}/bundler-packages/bundler-rs"],
+			"executor": "@monodon/rust:build",
+			"configurations": {
+				"production": {
+					"dist": "dist/bundler-rs",
+					"release": true
+				}
+			}
+		},
+		"test:coverage": {
+			"cache": true,
+			"executor": "@monodon/rust:test",
+			"outputs": ["{options.target-dir}"],
+			"options": {
+				"target-dir": "dist/target/bundler-rs"
+			},
+			"configurations": {
+				"production": {
+					"release": true
+				}
+			}
+		},
+		"lint": {
+			"cache": true,
+			"executor": "@monodon/rust:lint",
+			"outputs": ["{options.target-dir}"],
+			"options": {
+				"target-dir": "dist/target/bundler-rs"
+			}
+		}
+	}
+}
