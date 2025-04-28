@@ -58,7 +58,7 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 	 */
 	return async (request) => {
 		// Parse parameters from the request
-		const { tracer, timeout, tracerConfig, blockTag } = request.params[0]
+		const { tracer, timeout, tracerConfig, block: blockParam, blockTag, blockHash, blockNumber } = request.params[0]
 		if (timeout !== undefined) {
 			client.logger.warn('Warning: timeout is currently respected param of debug_traceBlock')
 		}
@@ -66,7 +66,7 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 		client.logger.debug({ blockTag, tracer, tracerConfig }, 'debug_traceBlock: executing with params')
 
 		const vm = await client.getVm()
-		const block = await vm.blockchain.getBlockByTag(blockTag)
+		const block = await vm.blockchain.getBlockByTag(blockParam ?? blockTag ?? blockHash ?? blockNumber ?? 'latest')
 
 		// If no transactions in the block, return empty array
 		if (block.transactions.length === 0) {
