@@ -13,6 +13,7 @@ export type {
     TraceResult,
     DebugRequestType,
     DebugReturnType,
+    AccountState,
     PrestateTraceResult,
     PrestateTraceDiffResult,
     EvmTraceResult,
