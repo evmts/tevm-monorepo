@@ -4,37 +4,36 @@ import { assert, describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { deployHandler } from '../Deploy/deployHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
-import { debugTraceTransactionJsonRpcProcedure } from './debugTraceTransactionProcedure.js'
+import { debugTraceBlockJsonRpcProcedure } from './debugTraceBlockProcedure.js'
 
-describe('debugTraceTransactionJsonRpcProcedure', () => {
-	it('should trace a transaction and return the expected result', async () => {
+describe('debugTraceBlockJsonRpcProcedure', () => {
+	it('should trace transactions in a block and return the expected result', async () => {
 		const client = createTevmNode()
-		const procedure = debugTraceTransactionJsonRpcProcedure(client)
+		const procedure = debugTraceBlockJsonRpcProcedure(client)
 
 		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
 		assert(createdAddress, 'Contract deployment failed')
 		const contract = SimpleContract.withAddress(createdAddress)
 
-		// Run some other transaction before the traced one that will be included in the same block
 		await contractHandler(client)({
 			addToMempool: true,
+			blockTag: 'pending',
 			...contract.write.set(42n),
 		})
-
-		const { txHash } = await contractHandler(client)({
+		await contractHandler(client)({
 			addToMempool: true,
-			...contract.write.set(45n),
+			blockTag: 'pending',
+			...contract.write.set(1312n),
 		})
-		assert(txHash, 'Transaction failed')
 		await mineHandler(client)({})
 
 		expect(
 			await procedure({
 				jsonrpc: '2.0',
-				method: 'debug_traceTransaction',
+				method: 'debug_traceBlock',
 				params: [
 					{
-						transactionHash: txHash,
+						blockTag: 'latest',
 						tracer: 'callTracer',
 					},
 				],
@@ -43,28 +42,33 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 		).toMatchSnapshot()
 	})
 
-	it('should trace a transaction and return the expected result with prestateTracer', async () => {
+	it('should trace transactions in a block and return the expected result with prestateTracer', async () => {
 		const client = createTevmNode()
-		const procedure = debugTraceTransactionJsonRpcProcedure(client)
+		const procedure = debugTraceBlockJsonRpcProcedure(client)
 
 		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
 		assert(createdAddress, 'Contract deployment failed')
 		const contract = SimpleContract.withAddress(createdAddress)
 
-		const { txHash } = await contractHandler(client)({
-			addToBlockchain: true,
-			...contract.write.set(45n),
+		await contractHandler(client)({
+			addToMempool: true,
+			blockTag: 'pending',
+			...contract.write.set(42n),
 		})
-		assert(txHash, 'Transaction failed')
+		await contractHandler(client)({
+			addToMempool: true,
+			blockTag: 'pending',
+			...contract.write.set(1312n),
+		})
+		await mineHandler(client)({})
 
-		// without diffMode
 		expect(
 			await procedure({
 				jsonrpc: '2.0',
-				method: 'debug_traceTransaction',
+				method: 'debug_traceBlock',
 				params: [
 					{
-						transactionHash: txHash,
+						blockTag: 'latest',
 						tracer: 'prestateTracer',
 					},
 				],
@@ -72,14 +76,13 @@ describe('debugTraceTransactionJsonRpcProcedure', () => {
 			}),
 		).toMatchSnapshot()
 
-		// with diffMode
 		expect(
 			await procedure({
 				jsonrpc: '2.0',
-				method: 'debug_traceTransaction',
+				method: 'debug_traceBlock',
 				params: [
 					{
-						transactionHash: txHash,
+						blockTag: 'latest',
 						tracer: 'prestateTracer',
 						tracerConfig: {
 							diffMode: true,

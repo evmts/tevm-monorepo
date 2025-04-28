@@ -67,7 +67,7 @@ _
 
 /target/
 **/*.rs.bk
-debug/
+./debug/
 **/*.pdb
 *.o
 *.so

@@ -1,5 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { hexToBytes } from '@tevm/utils'
+import { runCallWithPrestateTrace } from '../internal/runCallWithPrestateTrace.js'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 
 /**
@@ -9,8 +10,15 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
  * mirroring the output from {@link traceTransaction}
  */
 export const traceCallHandler =
-	({ getVm, logger }) =>
+	(client) =>
+	/**
+	 * @template {'callTracer' | 'prestateTracer'} TTracer
+	 * @template {boolean} TDiffMode
+	 * @param {import('./DebugParams.js').DebugTraceCallParams<TTracer, TDiffMode>} params
+	 * @returns {Promise<import('./DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode>>}
+	 */
 	(params) => {
+		const { logger, getVm } = client
 		logger.debug(params, 'traceCallHandler: executing trace call with params')
 
 		const callParams = {
@@ -27,8 +35,21 @@ export const traceCallHandler =
 			...(params.value ? { value: params.value } : {}),
 		}
 
+		// Handle different tracer types
+		if (params.tracer === 'prestateTracer') {
+			// Use prestate tracer with diffMode if specified in tracerConfig
+			const diffMode = params.tracerConfig?.diffMode === true
+			logger.debug({ diffMode }, 'traceCallHandler: using prestateTracer')
+
+			return getVm()
+				.then((vm) => vm.deepCopy())
+				.then((vm) => runCallWithPrestateTrace({ ...client, getVm: () => Promise.resolve(vm) }, callParams, diffMode))
+				.then((res) => /** @type {any} */ (res.trace))
+		}
+
+		// Default to callTracer
 		return getVm()
 			.then((vm) => vm.deepCopy())
 			.then((vm) => runCallWithTrace(vm, logger, callParams))
-			.then((res) => res.trace)
+			.then((res) => /** @type {any} */ (res.trace))
 	}

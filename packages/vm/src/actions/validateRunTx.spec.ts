@@ -123,10 +123,11 @@ describe('validateRunTx', () => {
 		})
 
 		const block = Block.fromBlockData({ header: {} }, { common })
+		const preserveJournal = false
 
 		vm.common.ethjsCommon.isActivatedEIP = jest.fn(() => true)
 
-		const opts = { tx, block }
+		const opts = { tx, block, preserveJournal }
 		const validate = validateRunTx(vm)
 
 		const result = await validate(opts)
@@ -134,6 +135,7 @@ describe('validateRunTx', () => {
 		expect(result).toEqual({
 			...opts,
 			block,
+			preserveJournal,
 		})
 	})
 

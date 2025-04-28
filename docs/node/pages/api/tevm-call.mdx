@@ -11,7 +11,7 @@ The Call API is one of the most important APIs in Tevm, covering 90% of use case
 
 <Callout type="warning" title="Transaction Inclusion">
   Remember that Tevm defaults to manual mining mode, which means:
-  
+
   - When using `addToMempool: true` (or the deprecated `createTransaction: true`), you must manually call `client.tevmMine()` to include the transaction in a block
   - Use `addToBlockchain: true` for immediate transaction inclusion (automatically mines the transaction)
   - You cannot use both `addToMempool` and `addToBlockchain` simultaneously
@@ -123,7 +123,7 @@ type CallResult = {
   // Access list if requested
   accessList?: Record<Address, Set<Hex>>
   // Debug trace if requested
-  trace?: DebugTraceCallResult
+  trace?: EvmTraceResult
   // Any errors that occurred
   errors?: TevmCallError[]
 }

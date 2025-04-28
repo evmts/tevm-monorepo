@@ -221,7 +221,6 @@ export const callHandler =
 				...('trace' in executedCall && executedCall.trace !== undefined ? { trace: executedCall.trace } : {}),
 			})
 		}
-		executedCall.runTxResult
 
 		const txResult = await handleTransactionCreation(client, params, executedCall, evmInput)
 		if (txResult.errors) {

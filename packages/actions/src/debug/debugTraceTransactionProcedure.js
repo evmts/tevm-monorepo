@@ -1,6 +1,6 @@
-import { TransactionFactory } from '@tevm/tx'
+import { createAddress } from '@tevm/address'
+import { createImpersonatedTx } from '@tevm/tx'
 import { hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
-import { runTx } from '@tevm/vm'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 import { requestProcedure } from '../requestProcedure.js'
 import { traceCallHandler } from './traceCallHandler.js'
@@ -58,29 +58,41 @@ import { traceCallHandler } from './traceCallHandler.js'
  * ```
  */
 export const debugTraceTransactionJsonRpcProcedure = (client) => {
+	/**
+	 * @template {'callTracer' | 'prestateTracer'} TTracer
+	 * @template {boolean} TDiffMode
+	 * @param {import('./DebugJsonRpcRequest.js').DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode>} request
+	 * @returns {Promise<import('./DebugJsonRpcResponse.js').DebugTraceTransactionJsonRpcResponse<TTracer, TDiffMode>>}
+	 */
 	return async (request) => {
 		const { tracer, timeout, tracerConfig, transactionHash } = request.params[0]
 		if (timeout !== undefined) {
 			client.logger.warn('Warning: timeout is currently respected param of debug_traceTransaction')
 		}
+
+		client.logger.debug({ transactionHash, tracer, tracerConfig }, 'debug_traceTransaction: executing with params')
+
 		const transactionByHashResponse = await requestProcedure(client)({
 			method: 'eth_getTransactionByHash',
 			params: [transactionHash],
 			jsonrpc: '2.0',
 			id: 1,
 		})
-		if ('error' in transactionByHashResponse) {
+		if (transactionByHashResponse.error) {
 			return {
-				error: /** @type {any}*/ (transactionByHashResponse.error),
+				error: {
+					code: transactionByHashResponse.error.code.toString(),
+					message: transactionByHashResponse.error.message,
+				},
 				...(request.id !== undefined ? { id: request.id } : {}),
 				jsonrpc: '2.0',
 				method: request.method,
 			}
 		}
+
 		const vm = await client.getVm()
 		const block = await vm.blockchain.getBlock(hexToBytes(transactionByHashResponse.result.blockHash))
 		const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
-		transactionByHashResponse.result.transactionIndex
 		const previousTx = block.transactions.filter(
 			(_, i) => i < hexToNumber(transactionByHashResponse.result.transactionIndex),
 		)
@@ -95,33 +107,41 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				method: request.method,
 				...(request.id !== undefined ? { id: request.id } : {}),
 				error: {
-					// TODO use a @tevm/errors
-					code: /** @type any*/ (-32602),
-					message: 'Parent block not found',
+					code: '-32602',
+					message: 'State root not available for parent block',
 				},
 			}
 		}
+
+		// clone the VM and set initial state
 		const vmClone = await vm.deepCopy()
 		await vmClone.stateManager.setStateRoot(parentBlock.header.stateRoot)
 
 		// execute all transactions before the current one committing to the state
 		for (const tx of previousTx) {
-			runTx(vmClone)({
-				block: parentBlock,
+			await vmClone.runTx({
+				block,
 				skipNonce: true,
 				skipBalance: true,
 				skipHardForkValidation: true,
 				skipBlockGasLimitValidation: true,
-				tx: await TransactionFactory.fromRPC(tx, {
-					freeze: false,
-					common: vmClone.common.ethjsCommon,
-					allowUnlimitedInitCodeSize: true,
-				}),
+				tx: createImpersonatedTx(
+					{
+						...tx,
+						gasPrice: null,
+						impersonatedAddress: createAddress(tx.getSenderAddress()),
+					},
+					{
+						freeze: false,
+						common: vmClone.common.ethjsCommon,
+						allowUnlimitedInitCodeSize: true,
+					},
+				),
 			})
 		}
 
 		// now execute an debug_traceCall
-		const traceResult = await traceCallHandler(client)({
+		const traceResult = await traceCallHandler({ ...client, getVm: () => Promise.resolve(vmClone) })({
 			tracer,
 			...(transactionByHashResponse.result.to !== undefined ? { to: transactionByHashResponse.result.to } : {}),
 			...(transactionByHashResponse.result.from !== undefined ? { from: transactionByHashResponse.result.from } : {}),
@@ -139,17 +159,28 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				? { blockTag: transactionByHashResponse.result.blockHash }
 				: {}),
 			...(timeout !== undefined ? { timeout } : {}),
-			...(tracerConfig !== undefined ? { tracerConfig } : {}),
+			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
+
+		if (tracer === 'prestateTracer') {
+			return {
+				method: request.method,
+				result: /** @type {any}*/ (traceResult),
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		}
+
+		const debugTraceTransactionResult = /** @type {import('./DebugResult.js').EvmTraceResult} */ (traceResult)
 		return {
 			method: request.method,
 			// TODO the typescript type for this return type is completely wrong because of copy pasta
 			// This return value is correct shape
-			result: /** @type any*/ ({
-				gas: numberToHex(traceResult.gas),
-				failed: traceResult.failed,
-				returnValue: traceResult.returnValue,
-				structLogs: traceResult.structLogs.map((log) => {
+			result: /** @type {any}*/ ({
+				gas: numberToHex(debugTraceTransactionResult.gas),
+				failed: debugTraceTransactionResult.failed,
+				returnValue: debugTraceTransactionResult.returnValue,
+				structLogs: debugTraceTransactionResult.structLogs.map((log) => {
 					return {
 						gas: numberToHex(log.gas),
 						gasCost: numberToHex(log.gasCost),

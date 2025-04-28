@@ -44,7 +44,7 @@ export const runTx =
 		const validatedOpts = await validateRunTx(vm)(opts)
 
 		// Ensure we start with a clear warmed accounts Map
-		await vm.evm.journal.cleanup()
+		if (!validatedOpts.preserveJournal) await vm.evm.journal.cleanup()
 
 		if (validatedOpts.reportAccessList === true) {
 			vm.evm.journal.startReportingAccessList()
@@ -68,7 +68,7 @@ export const runTx =
 
 		try {
 			const result = await _runTx(vm)(validatedOpts)
-			await vm.evm.journal.commit()
+			if (!validatedOpts.preserveJournal) await vm.evm.journal.commit()
 			return result
 		} catch (e: any) {
 			await vm.evm.journal.revert()
@@ -381,7 +381,7 @@ const _runTx =
 			results.preimages = vm.evm.journal.preimages as any
 		}
 
-		await vm.evm.journal.cleanup()
+		if (!opts.preserveJournal) await vm.evm.journal.cleanup()
 
 		// Generate the tx receipt
 		const gasUsed = (opts.blockGasUsed !== undefined ? opts.blockGasUsed : block.header.gasUsed) ?? 0n

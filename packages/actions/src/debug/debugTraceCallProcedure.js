@@ -7,31 +7,48 @@ import { traceCallHandler } from './traceCallHandler.js'
  * @returns {import('./DebugProcedure.js').DebugTraceCallProcedure}
  */
 export const debugTraceCallJsonRpcProcedure = (client) => {
+	/**
+	 * @template {'callTracer' | 'prestateTracer'} TTracer
+	 * @template {boolean} TDiffMode
+	 * @param {import('./DebugJsonRpcRequest.js').DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>} request
+	 * @returns {Promise<import('./DebugJsonRpcResponse.js').DebugTraceCallJsonRpcResponse<TTracer, TDiffMode>>}
+	 */
 	return async (request) => {
-		const debugTraceCallRequest =
-			/** @type {import('./DebugJsonRpcRequest.js').DebugTraceCallJsonRpcRequest}*/
-			(request)
-		const { blockTag, tracer, to, gas, data, from, value, timeout, gasPrice, tracerConfig } =
-			debugTraceCallRequest.params[0]
+		const { blockTag, tracer, to, gas, data, from, value, timeout, gasPrice, tracerConfig } = request.params[0]
+		if (timeout !== undefined) {
+			client.logger.warn('Warning: timeout is currently respected param of debug_traceCall')
+		}
+
 		const traceResult = await traceCallHandler(client)({
 			tracer,
 			...(to !== undefined ? { to } : {}),
 			...(from !== undefined ? { from } : {}),
-			...(gas !== undefined ? { gas: hexToBigInt(gas) } : {}),
-			...(gasPrice !== undefined ? { gasPrice: hexToBigInt(gasPrice) } : {}),
-			...(value !== undefined ? { value: hexToBigInt(value) } : {}),
+			...(gas !== undefined ? { gas: typeof gas === 'bigint' ? gas : hexToBigInt(gas) } : {}),
+			...(gasPrice !== undefined ? { gasPrice: typeof gasPrice === 'bigint' ? gasPrice : hexToBigInt(gasPrice) } : {}),
+			...(value !== undefined ? { value: typeof value === 'bigint' ? value : hexToBigInt(value) } : {}),
 			...(data !== undefined ? { data } : {}),
 			...(blockTag !== undefined ? { blockTag } : {}),
 			...(timeout !== undefined ? { timeout } : {}),
-			...(tracerConfig !== undefined ? { tracerConfig } : {}),
+			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
+
+		if (tracer === 'prestateTracer') {
+			return {
+				method: request.method,
+				result: /** @type {any} */ (traceResult),
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		}
+
+		const debugTraceCallResult = /** @type {import('./DebugResult.js').EvmTraceResult} */ (traceResult)
 		return {
-			method: debugTraceCallRequest.method,
-			result: {
-				gas: numberToHex(traceResult.gas),
-				failed: traceResult.failed,
-				returnValue: traceResult.returnValue,
-				structLogs: traceResult.structLogs.map((log) => {
+			method: request.method,
+			result: /** @type {any} */ ({
+				gas: numberToHex(debugTraceCallResult.gas),
+				failed: debugTraceCallResult.failed,
+				returnValue: debugTraceCallResult.returnValue,
+				structLogs: debugTraceCallResult.structLogs.map((log) => {
 					return {
 						gas: numberToHex(log.gas),
 						gasCost: numberToHex(log.gasCost),
@@ -41,9 +58,9 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 						depth: log.depth,
 					}
 				}),
-			},
+			}),
 			jsonrpc: '2.0',
-			...(debugTraceCallRequest.id ? { id: debugTraceCallRequest.id } : {}),
+			...(request.id ? { id: request.id } : {}),
 		}
 	}
 }

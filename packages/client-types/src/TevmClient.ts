@@ -4,7 +4,6 @@ import type {
 	DumpStateHandler,
 	// ForkHandler,
 	// DebugTraceCallHandler,
-	// DebugTraceTransactionHandler,
 	EthBlockNumberHandler,
 	EthCallHandler,
 	// EthCallHandler,
