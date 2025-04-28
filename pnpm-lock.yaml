@@ -2137,9 +2137,6 @@ importers:
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
-      effect:
-        specifier: ^3.14.14
-        version: 3.14.14
       ethereum-cryptography:
         specifier: ^3.1.0
         version: 3.1.0
@@ -8753,9 +8750,6 @@ packages:
 
   effect@3.13.2:
     resolution: {integrity: sha512-/w+CPqHDJ33Wq7xC4YKAchrEEPtjvxh563xH9kDTZp99seNYBoBs87vl8DJwartEjj+KLQLP8PzoDne+XmGT2A==}
-
-  effect@3.14.14:
-    resolution: {integrity: sha512-Dbt9MAZHqM1UAip41RrZnypzLa/hJJGHXIVS9MbgU0L+UoJTFXToWIwWmHY/OcaQVNlf/1YxpMrD3xtxoDP/qw==}
 
   ejs@3.1.10:
     resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
@@ -23962,11 +23956,6 @@ snapshots:
       fast-check: 3.23.2
 
   effect@3.13.2:
-    dependencies:
-      '@standard-schema/spec': 1.0.0
-      fast-check: 3.23.2
-
-  effect@3.14.14:
     dependencies:
       '@standard-schema/spec': 1.0.0
       fast-check: 3.23.2

@@ -70,7 +70,6 @@
     "@tevm/logger": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "effect": "^3.14.14",
     "ethereum-cryptography": "^3.1.0"
   },
   "devDependencies": {
