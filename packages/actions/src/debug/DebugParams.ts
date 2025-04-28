@@ -98,7 +98,7 @@ export type DebugTraceBlockParams<
 			/**
 			 * Block number to trace
 			 */
-			readonly blockNumber: number | bigint
+			readonly blockNumber: Hex | Uint8Array | number | bigint
 		},
 		'block' | 'blockTag' | 'blockHash' | 'blockNumber'
 	>
