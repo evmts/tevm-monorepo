@@ -1,1 +1,1 @@
-export * from './Secp256k1Effect.js'
+export * from './Secp256k1.js'

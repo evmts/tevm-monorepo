@@ -1,1 +1,1 @@
-export * from './BlobsEffect.js'
+export * from './Blobs.js'

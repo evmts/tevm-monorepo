@@ -1,1 +1,1 @@
-export * from './SiweEffect.js'
+export * as Siwe from './Siwe.js'

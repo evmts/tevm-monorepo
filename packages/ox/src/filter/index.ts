@@ -1,1 +1,1 @@
-export * from './FilterEffect.js'
+export * as Filter from './Filter.js'

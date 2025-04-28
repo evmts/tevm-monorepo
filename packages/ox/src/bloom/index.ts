@@ -1,1 +1,1 @@
-export * from './BloomEffect.js'
+export * as Bloom from './Bloom.js'

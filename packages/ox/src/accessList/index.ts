@@ -1,1 +1,1 @@
-export * from './AccessListEffect.js'
+export * as AccessList from './AccessList.js'

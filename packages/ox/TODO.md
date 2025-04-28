@@ -1,157 +1,466 @@
-# @tevm/ox Implementation TODO
+# Ox API Effect Wrapper Implementation Guide
 
-## Overview
+This document outlines the process for wrapping Ox API functions with Effect.js. Our goal is to maintain consistent patterns across the codebase while properly handling error cases.
 
-This document outlines the remaining work needed to complete the `@tevm/ox` package, which provides Effect.ts wrappers for the Ox Ethereum Standard Library. The goal is to implement Effect-based versions of all Ox utility functions, allowing users to leverage the power of Effect.ts for better error handling, dependency management, and composition when working with Ethereum utilities.
+## Links
 
-## Implementation Pattern
+Effect docs on creating effects https://effect.website/docs/getting-started/creating-effects/#try
 
-Each Ox module should be implemented following this pattern:
+## Migration Strategy
 
-1. Create a directory for the module in `src/`
-2. Create the following files inside the directory:
-   - `ModuleNameEffect.ts` - Main implementation with Effect wrappers
-   - `ModuleNameEffect.spec.ts` - Tests for the Effect wrappers
-   - `index.ts` - Barrel file exporting everything
+We're transitioning from the service-based implementation pattern to a more direct functional approach with Effect wrappers. This document provides guidelines for implementing the new pattern consistently.
 
-The implementation should:
-- Define a service interface with Effect-wrapped methods
-- Create a Context Tag for dependency injection
-- Implement a live service
-- Create a Layer that provides the implementation
-- Include proper error handling for all methods
+## Implementation Steps
 
-## Template Example
+**IMPORTANT**
 
-Here's a template for implementing a new module:
+These docs are mostly for pure utilities such as creating abi or encoding decoding data types. If you run into a module that is more like a service you should skip it for now and mark it in this doc as being a service. Services we will implement on a case by case basis
+
+### 1. Understand the Ox API Structure
+
+Before implementing, review the original Ox API documentation and source:
+
+- Check function signatures, return types, and error handling patterns
+- Note if functions are overloaded or have multiple return types
+- Understand the namespace structure (e.g., `Ox.Abi`, `Ox.AbiConstructor`, etc.)
+- Review the TypeScript types to identify specific error types
+
+### 2. Namespace Structure
+
+Each Ox component should be implemented as a separate namespace:
+
+- Create a dedicated file for each namespace (e.g., `Abi.ts`, `AbiConstructor.ts`, etc.)
+- Export the namespace in `index.ts` using `export * as Namespace from "./Namespace.js"`
+- Remove existing `*Effect.ts` files as they're being replaced with the new structure
+
+### 3. Type Exports
+
+For each namespace, export the core types:
 
 ```typescript
-// Example for a new module called "Example"
-import * as Example from 'ox/path/to/Example'
-import { Effect, Context, Layer } from 'effect'
-import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
-
-/**
- * Type alias for Ox Example
- */
-export type ExampleEffect = Example.Example
-
-/**
- * Ox Example effect service interface
- */
-export interface ExampleEffectService {
-  /**
-   * Example method with Effect
-   */
-  exampleMethodEffect(
-    param: Example.Param,
-  ): Effect.Effect<Example.Result, BaseErrorEffect<Error | undefined>, never>
-
-  // Add more methods...
-}
-
-/**
- * Tag for ExampleEffectService dependency injection
- */
-export const ExampleEffectTag = Context.Tag<ExampleEffectService>('@tevm/ox/ExampleEffect')
-
-/**
- * Catch Ox errors and convert them to BaseErrorEffect
- */
-function catchOxErrors<A>(effect: Effect.Effect<A, unknown, never>): Effect.Effect<A, BaseErrorEffect<Error | undefined>, never> {
-  return Effect.catchAll(effect, (error) => {
-    if (error instanceof Error) {
-      return Effect.fail(new BaseErrorEffect(error.message, { cause: error }))
-    }
-    return Effect.fail(new BaseErrorEffect('Unknown error', { cause: error instanceof Error ? error : undefined }))
-  })
-}
-
-/**
- * Live implementation of ExampleEffectService
- */
-export const ExampleEffectLive: ExampleEffectService = {
-  exampleMethodEffect: (param) =>
-    catchOxErrors(Effect.try(() => Example.exampleMethod(param))),
-
-  // Implement more methods...
-}
-
-/**
- * Layer that provides the ExampleEffectService implementation
- */
-export const ExampleEffectLayer = Layer.succeed(ExampleEffectTag, ExampleEffectLive)
+// Example: AbiFunction.ts
+export type AbiFunction = Ox.AbiFunction.AbiFunction;
 ```
 
-## Modules to Implement
+### 4. Error Handling Pattern
 
-Below is the list of Ox modules that need to be implemented:
+For each function, follow this error handling pattern:
 
-### ABI
-- [x] Create `abi/AbiEffect.ts` for `ox/abi`
-- [x] Create `abi/AbiConstructorEffect.ts` for `ox/abi/AbiConstructor`
-- [x] Create `abi/AbiErrorEffect.ts` for `ox/abi/AbiError`
-- [x] Create `abi/AbiEventEffect.ts` for `ox/abi/AbiEvent`
-- [x] Create `abi/AbiFunctionEffect.ts` for `ox/abi/AbiFunction`
-- [x] Create `abi/AbiItemEffect.ts` for `ox/abi/AbiItem`
-- [x] Create `abi/AbiParametersEffect.ts` for `ox/abi/AbiParameters`
+1. **Check error type structure**:
 
-### Authorization
-- [x] Create `authorization/AuthorizationEffect.ts` for `ox/authorization`
+   - Examine the original Ox implementation to see if the error type is a union of specific errors
+   - Look for `.ErrorType` type definitions which often indicate complex error types
+   - Check the Ox source code to identify possible error cases
 
-### Binary State Tree
-- [x] Create `binaryStateTree/BinaryStateTreeEffect.ts` for `ox/binary-state-tree`
+2. **Error class definition**:
 
-### Blobs
-- [x] Create `blobs/BlobsEffect.ts` for `ox/blobs` (note: KZG is already implemented)
+   - Create error classes with clear names (e.g., `FormatError`, `DecodeError`)
+   - Include the `_tag` property for Effect.js error matching
+   - Use descriptive messages that mention the function and Ox library
+   - Preserve the original error as `cause`
+   - Ensure unique error names within each namespace
 
-### Crypto
-- [x] Create `bls/BlsEffect.ts` for `ox/crypto/bls`
-- [x] Create `blsPoint/BlsPointEffect.ts` for `ox/crypto/bls-point`
-- [x] Create `hdKey/HdKeyEffect.ts` for `ox/crypto/hd-key`
-- [x] Create `mnemonic/MnemonicEffect.ts` for `ox/Mnemonic`
-- [x] Create `p256/P256Effect.ts` for `ox/crypto/p256`
-- [x] Create `secp256k1/Secp256k1Effect.ts` for `ox/crypto/secp256k1`
-- [x] Create `webAuthnP256/WebAuthnP256Effect.ts` for `ox/crypto/webauthn-p256`
-- [x] Create `webCryptoP256/WebCryptoP256Effect.ts` for `ox/crypto/webcrypto-p256`
+3. **Error class example**:
 
-### ENS
-- [x] Create `ens/EnsEffect.ts` for `ox/ens`
+```typescript
+export class FormatError extends Error {
+  override name = "FormatError";
+  _tag = "FormatError";
+  constructor(cause: Ox.Abi.format.ErrorType) {
+    super("Unexpected error formatting ABI with ox", {
+      cause,
+    });
+  }
+}
+```
 
-### Execution Spec
-- [x] Create `accessList/AccessListEffect.ts` for `ox/execution/access-list`
-- [x] Create `accountProof/AccountProofEffect.ts` for `ox/execution/account-proof`
-- [x] Create `blockOverrides/BlockOverridesEffect.ts` for `ox/execution/block-overrides`
-- [x] Create `bloom/BloomEffect.ts` for `ox/execution/bloom`
-- [x] Create `fee/FeeEffect.ts` for `ox/execution/fee`
-- [x] Create `filter/FilterEffect.ts` for `ox/execution/filter`
-- [x] Create `log/LogEffect.ts` for `ox/execution/log`
-- [x] Create `stateOverrides/StateOverridesEffect.ts` for `ox/execution/state-overrides`
-- [x] Create `transactionRequest/TransactionRequestEffect.ts` for `ox/execution/transaction-request`
-- [x] Create `withdrawal/WithdrawalEffect.ts` for `ox/execution/withdrawal`
+4. **For discriminated error handling** (when the original API has specific error types):
 
-### JSON-RPC
-- [x] Create `jsonRpc/JsonRpcRequestEffect.ts` for `ox/json-rpc/request`
-- [x] Create `jsonRpc/JsonRpcResponseEffect.ts` for `ox/json-rpc/response`
-- [x] Create `jsonRpc/JsonRpcSchemaEffect.ts` for `ox/json-rpc/schema`
-- [x] Create `jsonRpc/JsonRpcTransportEffect.ts` for `ox/json-rpc/transport`
+```typescript
+export class ParseError extends Error {
+  override name = "ParseError";
+  _tag = "ParseError";
 
-### Provider
-- [x] Create `provider/ProviderEffect.ts` for `ox/provider`
+  constructor(cause: Ox.Abi.parse.ErrorType) {
+    if (cause instanceof Ox.errors.InvalidAbiItemError) {
+      super(`Invalid ABI item: ${cause.message}`, { cause });
+    } else if (cause instanceof Ox.errors.InvalidSignatureError) {
+      super(`Invalid signature: ${cause.message}`, { cause });
+    } else {
+      super("Unexpected error parsing ABI with ox", { cause });
+    }
+  }
+}
+```
 
-### Sign-In with Ethereum
-- [x] Create `siwe/SiweEffect.ts` for `ox/siwe`
+### 5. Function Implementation Pattern
 
-### Block
-- [x] Create `block/BlockEffect.ts` for `ox/core/Block`
+For each function, follow this pattern:
 
-## Final Steps
+1. **Match the original function signature**:
 
-All modules have been implemented! Here are the final steps:
+   - Maintain parameter types and names
+   - Wrap the return type in `Effect.Effect<ReturnType, ErrorType, never>`
 
-1. [COMPLETED] Update `src/index.ts` to export all the new modules
-2. [COMPLETED] Create a combined layer that provides all services (`OxEffectLayer`)
-3. [COMPLETED] Run tests to ensure everything works correctly
-4. [COMPLETED] Update documentation as needed
+2. **Use Effect.try or Effect.promise for implementation**:
 
-✅ The @tevm/ox package implementation is now COMPLETE!
+```typescript
+export function format(
+  abi: Ox.Abi.Abi | readonly string[],
+): Effect.Effect<Ox.Abi.format.ReturnType, FormatError, never> {
+  return Effect.try({
+    try: () => Ox.Abi.format(abi),
+    catch: (cause) => new FormatError(cause as Ox.Abi.format.ErrorType),
+  });
+}
+```
+
+3. **For overloaded functions**:
+   - Implement each overload with proper Effect typing
+   - Use TypeScript overload signatures to maintain type safety
+
+### 6. Implementation Notes
+
+When implementing functions:
+
+1. **Function naming**:
+
+   - Use the same name as the original Ox function (e.g., `format`, `decode`)
+   - Do NOT add "Effect" suffix to function names in the new pattern
+
+2. **Error naming**:
+
+   - Use descriptive names for errors that match the function name (e.g., `FormatError` for `format()`)
+   - Keep error names scoped to their namespace to avoid conflicts
+   - Ensure consistent error message formatting
+
+3. **Type handling**:
+   - Export all relevant types from the original Ox library
+   - Preserve generic parameters when present in the original functions
+   - Ensure proper Error type exports
+
+### 7. Testing
+
+For each wrapped function:
+
+- Test happy path - verify successful operation returns expected results
+- Test error path - verify errors are correctly wrapped and typed
+- Test with various input types when the function supports them
+
+## Implementation Status
+
+### Completed Modules
+
+Look at completed modules as examples of how to do your module
+
+- [x] **Abi Namespace**
+
+  - [x] `format` function
+  - [x] `from` function
+
+- [x] **AbiConstructor Namespace**
+
+  - [x] `decode` function
+  - [x] `encode` function
+  - [x] `format` function
+  - [x] `from` function
+  - [x] `fromAbi` function
+
+- [x] **AbiError Namespace**
+
+  - [x] `decode` function
+  - [x] `encode` function
+  - [x] `format` function
+  - [x] `from` function
+  - [x] `fromAbi` function
+  - [x] `getSelector` function
+
+- [x] **AbiEvent Namespace**
+
+  - [x] `assertArgs` function
+  - [x] `decode` function
+  - [x] `encode` function
+  - [x] `format` function
+  - [x] `from` function
+  - [x] `fromAbi` function
+  - [x] `getSelector` function
+
+- [x] **AbiFunction Namespace**
+
+  - [x] `decodeData` function
+  - [x] `decodeResult` function
+  - [x] `encodeData` function
+  - [x] `encodeResult` function
+  - [x] `format` function
+  - [x] `from` function
+  - [x] `fromAbi` function
+  - [x] `getSelector` function
+
+- [x] **AbiItem Namespace**
+
+  - [x] `format` function
+  - [x] `from` function
+  - [x] `fromAbi` function
+  - [x] `getSelector` function
+  - [x] `getSignature` function
+  - [x] `getSignatureHash` function
+
+- [x] **AbiParameters Namespace**
+  - [x] `decode` function
+  - [x] `encode` function
+  - [x] `encodePacked` function
+  - [x] `format` function
+  - [x] `from` function
+
+### Modules To Be Implemented
+
+The following modules need to be migrated from the service-based pattern to the new functional pattern:
+
+- [x] **Authorization**
+  - [x] `fromTuple` function
+  - [x] `fromTupleList` function
+  - [x] `fromRpc` function
+  - [x] `fromRpcList` function
+  - [x] `hash` function
+  - [x] `getSignPayload` function
+  - [x] `toRpc` function
+  - [x] `toRpcList` function
+  - [x] `toTuple` function
+  - [x] `toTupleList` function
+- [x] **BinaryStateTree**
+  - [x] `create` function
+  - [x] `insert` function
+  - [x] `merkelize` function
+- [x] **Blobs**
+
+  - [x] `isBlob` function
+  - [x] `isValid` function
+  - [x] `toBytes` function
+  - [x] `toHex` function
+  - [x] `fromHex` function
+  - [x] `fromBytes` function
+  - [x] `toVersionedHash` function
+  - [x] `toCommitments` function
+  - [x] `toVersionedHashes` function
+  - [x] `toProofs` function
+  - [x] `toSidecars` function
+  - [x] `from` function
+  - [x] `to` function
+  - [x] `commitmentsToVersionedHashes` function
+  - [x] `commitmentToVersionedHash` function
+  - [x] `sidecarsToVersionedHashes` function
+- [ ] **Crypto modules** (WebCryptoP256)
+- [ ] **WebAuthnP256** (PENDING - implementing by Claude)
+- [x] **Secp256k1**
+  - [x] `getPublicKey` function
+  - [x] `randomPrivateKey` function
+  - [x] `recoverAddress` function
+  - [x] `recoverPublicKey` function
+  - [x] `sign` function
+  - [x] `verifyWithAddress` function
+  - [x] `verifyWithPublicKey` function
+- [x] **Mnemonic**
+  - [x] `random` function
+  - [x] `toSeed` function
+  - [x] `validate` function
+  - [x] `toHdKey` function
+  - [x] `toPrivateKey` function
+- [x] **P256**
+  - [x] `getPublicKey` function
+  - [x] `randomPrivateKey` function
+  - [x] `recoverPublicKey` function
+  - [x] `sign` function
+  - [x] `verify` function
+- [x] **BlsPoint**
+  - [x] `toBytes` function
+  - [x] `toHex` function
+  - [x] `fromBytes` function
+  - [x] `fromHex` function
+- [x] **HdKey**
+  - [x] `fromSeed` function
+  - [x] `fromExtendedKey` function
+  - [x] `derive` function
+  - [x] `getExtendedPrivateKey` function
+  - [x] `getExtendedPublicKey` function
+  - [x] `getAddress` function
+- [x] **Bls**
+  - [x] `aggregate` function
+  - [x] `getPublicKey` function
+  - [x] `randomPrivateKey` function
+  - [x] `sign` function
+  - [x] `verify` function
+- [x] **ENS**
+  - [x] `getAddress` function
+  - [x] `getName` function
+  - [x] `getAvatar` function
+  - [x] `getText` function
+  - [x] `getUniversalResolver` function
+  - [x] `normalize` function
+  - [x] `labelhash` function
+  - [x] `namehash` function
+- [ ] **Execution modules** (AccountProof, BlockOverrides, Log, StateOverrides, TransactionRequest, Withdrawal)
+- [x] **Filter**
+  - [x] `createFilter` function
+  - [x] `getFilterChanges` function
+  - [x] `uninstallFilter` function
+  - [x] `getFilterLogs` function
+- [x] **Fee**
+  - [x] `calculateNextBaseFee` function
+  - [x] `calculatePriorityFee` function
+  - [x] `createFeeHistory` function
+  - [x] `formatFeeHistory` function
+  - [x] `parseFeeHistory` function
+- [x] **Bloom**
+  - [x] `create` function
+  - [x] `addAddress` function
+  - [x] `addTopic` function
+  - [x] `hasAddress` function
+  - [x] `hasTopic` function
+- [x] **AccessList**
+- [ ] **JSON-RPC modules**
+  - [ ] **JsonRpcRequest** (PENDING - implementing)
+  - [x] **JsonRpcResponse**
+  - [x] `createResponse` function
+  - [x] `parseResponse` function
+  - [x] `validateResponse` function
+  - [x] `getResponseResult` function
+  - [x] `getResponseError` function
+  - [x] **JsonRpcSchema**
+  - [x] `from` function
+  - [x] **JsonRpcTransport**
+    - [x] `fromHttp` function
+    - [x] `create` function
+- [ ] **Provider**
+- [x] **SIWE**
+  - [x] `createMessage` function
+  - [x] `verifyMessage` function
+  - [x] `parseMessage` function
+- [x] **Block**
+  - [x] `toRpc` function
+  - [x] `fromRpc` function
+
+## Migration Plan
+
+For each module:
+
+1. **Identify Service Components**:
+
+   - Review the existing `*Effect.ts` file to understand the current implementation
+   - List all methods that need to be migrated
+   - Note any special error handling patterns or complex types
+
+2. **Create New Namespace File**:
+
+   - Create a new file with the plain namespace name (e.g., `Authorization.ts`)
+   - Export core types from Ox
+
+3. **Implement Functions**:
+
+   - Convert each service method to a standalone function
+   - Implement proper Effect wrapping and error handling
+   - Remove Context and Layer-related code
+
+4. **Update index.ts**:
+
+   - Update the exports to point to the new namespace files
+   - Remove exports for old service-based implementations
+
+5. **Mark for Removal**:
+   - Mark the old `*Effect.ts` file for deletion
+
+## Example Migration
+
+### Old Pattern (`AbiEffect.ts`)
+
+```typescript
+import { Context, Effect, Layer } from "effect";
+import * as Abi from "ox/core/Abi";
+import { BaseErrorEffect } from "../errors/ErrorsEffect.js";
+
+export type AbiEffect = Abi.Abi;
+
+export interface AbiEffectService {
+  formatEffect(
+    abi: Abi.Abi | readonly unknown[],
+  ): Effect.Effect<
+    readonly string[],
+    BaseErrorEffect<Error | undefined>,
+    never
+  >;
+
+  fromEffect(
+    abi: Abi.Abi | readonly string[],
+  ): Effect.Effect<Abi.Abi, BaseErrorEffect<Error | undefined>, never>;
+}
+
+export const AbiEffectTag = Context.Tag<AbiEffectService>("@tevm/ox/AbiEffect");
+
+function catchOxErrors<A>(
+  effect: Effect.Effect<A, unknown, never>,
+): Effect.Effect<A, BaseErrorEffect<Error | undefined>, never> {
+  return Effect.catchAll(effect, (error) => {
+    if (error instanceof Error) {
+      return Effect.fail(new BaseErrorEffect(error.message, { cause: error }));
+    }
+    return Effect.fail(
+      new BaseErrorEffect("Unknown error", {
+        cause: error instanceof Error ? error : undefined,
+      }),
+    );
+  });
+}
+
+export const AbiEffectLive: AbiEffectService = {
+  formatEffect: (abi) => catchOxErrors(Effect.try(() => Abi.format(abi))),
+  fromEffect: (abi) => catchOxErrors(Effect.try(() => Abi.from(abi))),
+};
+
+export const AbiEffectLayer = Layer.succeed(AbiEffectTag, AbiEffectLive);
+```
+
+### New Pattern (`Abi.ts`)
+
+```typescript
+import { Effect } from "effect";
+import Ox from "ox";
+
+export type Abi = Ox.Abi.Abi;
+
+export class FormatError extends Error {
+  override name = "FormatError";
+  _tag = "FormatError";
+  constructor(cause: Ox.Abi.format.ErrorType) {
+    super("Unexpected error formatting ABI with ox", {
+      cause,
+    });
+  }
+}
+
+export function format(
+  abi: Ox.Abi.Abi | readonly string[],
+): Effect.Effect<Ox.Abi.format.ReturnType, FormatError, never> {
+  return Effect.try({
+    try: () => Ox.Abi.format(abi),
+    catch: (cause) => new FormatError(cause as Ox.Abi.format.ErrorType),
+  });
+}
+
+export class FromError extends Error {
+  override name = "FromError";
+  _tag = "FromError";
+  constructor(cause: Ox.Abi.from.ErrorType) {
+    super("Unexpected error parsing ABI with ox", {
+      cause,
+    });
+  }
+}
+
+export function from(
+  abi: Ox.Abi.Abi | readonly string[],
+): Effect.Effect<Ox.Abi.from.ReturnType, FromError, never> {
+  return Effect.try({
+    try: () => Ox.Abi.from(abi),
+    catch: (cause) => new FromError(cause as Ox.Abi.from.ErrorType),
+  });
+}
+```

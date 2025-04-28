@@ -1,1 +1,1 @@
-export * from './FeeEffect.js'
+export * as Fee from './Fee.js'

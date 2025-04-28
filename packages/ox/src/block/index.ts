@@ -1,1 +1,1 @@
-export * from './BlockEffect.js'
+export * as Block from './Block.js'

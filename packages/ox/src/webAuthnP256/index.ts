@@ -1,1 +1,1 @@
-export * from './WebAuthnP256Effect.js'
+export * from './WebAuthnP256.js'
