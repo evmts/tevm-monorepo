@@ -8,11 +8,23 @@
 
 > **TevmNode**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
 
-Defined in: [packages/node/src/TevmNode.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNode.ts#L14)
+Defined in: [packages/node/src/TevmNode.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNode.ts#L16)
 
 The base client used by Tevm. Add extensions to add additional functionality
 
 ## Type declaration
+
+### debug()?
+
+> `readonly` `optional` **debug**: () => `Promise`\<\{ `blocks`: \{ `forked`: `JsonHeader`; `latest`: `JsonHeader`; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<`ReceiptsManager`\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<`Hex`, [`Filter`](Filter.md)\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+
+Returns debug information about the current node state
+including chain details, status, mode, mining config, filters,
+blocks, mempool transactions, and state
+
+#### Returns
+
+`Promise`\<\{ `blocks`: \{ `forked`: `JsonHeader`; `latest`: `JsonHeader`; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<`ReceiptsManager`\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<`Hex`, [`Filter`](Filter.md)\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
 ### deepCopy()
 

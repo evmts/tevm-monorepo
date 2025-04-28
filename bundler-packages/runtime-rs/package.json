@@ -3,15 +3,21 @@
   "version": "0.1.0",
   "private": false,
   "description": "Rust implementation of Tevm runtime",
-  "type": "commonjs",
-  "main": "index.js",
-  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/evmts/tevm-monorepo.git",
     "directory": "bundler-packages/runtime-rs"
   },
   "license": "MIT",
+  "type": "commonjs",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "browser.js",
+    "README.md"
+  ],
   "scripts": {
     "build": "napi build --platform --release",
     "build:debug": "napi build",
@@ -38,11 +44,5 @@
       "i686-pc-windows-msvc",
       "wasm32-wasip1-threads"
     ]
-  },
-  "files": [
-    "index.js",
-    "index.d.ts",
-    "browser.js",
-    "README.md"
-  ]
+  }
 }
