@@ -92,7 +92,7 @@ Below is the list of Ox modules that need to be implemented:
 - [x] Create `abi/AbiConstructorEffect.ts` for `ox/abi/AbiConstructor`
 - [x] Create `abi/AbiErrorEffect.ts` for `ox/abi/AbiError`
 - [x] Create `abi/AbiEventEffect.ts` for `ox/abi/AbiEvent`
-- [ ] Create `abi/AbiFunctionEffect.ts` for `ox/abi/AbiFunction`
+- [x] Create `abi/AbiFunctionEffect.ts` for `ox/abi/AbiFunction`
 - [x] Create `abi/AbiItemEffect.ts` for `ox/abi/AbiItem`
 - [x] Create `abi/AbiParametersEffect.ts` for `ox/abi/AbiParameters`
 
@@ -100,7 +100,7 @@ Below is the list of Ox modules that need to be implemented:
 - [x] Create `authorization/AuthorizationEffect.ts` for `ox/authorization`
 
 ### Binary State Tree
-- [ ] Create `binaryStateTree/BinaryStateTreeEffect.ts` for `ox/binary-state-tree`
+- [x] Create `binaryStateTree/BinaryStateTreeEffect.ts` for `ox/binary-state-tree`
 
 ### Blobs
 - [x] Create `blobs/BlobsEffect.ts` for `ox/blobs` (note: KZG is already implemented)
@@ -108,33 +108,33 @@ Below is the list of Ox modules that need to be implemented:
 ### Crypto
 - [x] Create `bls/BlsEffect.ts` for `ox/crypto/bls`
 - [x] Create `blsPoint/BlsPointEffect.ts` for `ox/crypto/bls-point`
-- [ ] Create `hdKey/HdKeyEffect.ts` for `ox/crypto/hd-key`
-- [x] Create `mnemonic/MnemonicEffect.ts` for `ox/core/Mnemonic`
+- [x] Create `hdKey/HdKeyEffect.ts` for `ox/crypto/hd-key`
+- [x] Create `mnemonic/MnemonicEffect.ts` for `ox/Mnemonic`
 - [x] Create `p256/P256Effect.ts` for `ox/crypto/p256`
 - [x] Create `secp256k1/Secp256k1Effect.ts` for `ox/crypto/secp256k1`
-- [ ] Create `webAuthnP256/WebAuthnP256Effect.ts` for `ox/crypto/webauthn-p256`
-- [ ] Create `webCryptoP256/WebCryptoP256Effect.ts` for `ox/crypto/webcrypto-p256`
+- [x] Create `webAuthnP256/WebAuthnP256Effect.ts` for `ox/crypto/webauthn-p256`
+- [x] Create `webCryptoP256/WebCryptoP256Effect.ts` for `ox/crypto/webcrypto-p256`
 
 ### ENS
 - [x] Create `ens/EnsEffect.ts` for `ox/ens`
 
 ### Execution Spec
-- [ ] Create `accessList/AccessListEffect.ts` for `ox/execution/access-list`
-- [ ] Create `accountProof/AccountProofEffect.ts` for `ox/execution/account-proof`
-- [ ] Create `blockOverrides/BlockOverridesEffect.ts` for `ox/execution/block-overrides`
-- [ ] Create `bloom/BloomEffect.ts` for `ox/execution/bloom`
-- [ ] Create `fee/FeeEffect.ts` for `ox/execution/fee`
-- [ ] Create `filter/FilterEffect.ts` for `ox/execution/filter`
-- [ ] Create `log/LogEffect.ts` for `ox/execution/log`
-- [ ] Create `stateOverrides/StateOverridesEffect.ts` for `ox/execution/state-overrides`
+- [x] Create `accessList/AccessListEffect.ts` for `ox/execution/access-list`
+- [x] Create `accountProof/AccountProofEffect.ts` for `ox/execution/account-proof`
+- [x] Create `blockOverrides/BlockOverridesEffect.ts` for `ox/execution/block-overrides`
+- [x] Create `bloom/BloomEffect.ts` for `ox/execution/bloom`
+- [IN PROGRESS] Create `fee/FeeEffect.ts` for `ox/execution/fee`
+- [x] Create `filter/FilterEffect.ts` for `ox/execution/filter`
+- [x] Create `log/LogEffect.ts` for `ox/execution/log`
+- [x] Create `stateOverrides/StateOverridesEffect.ts` for `ox/execution/state-overrides`
 - [x] Create `transactionRequest/TransactionRequestEffect.ts` for `ox/execution/transaction-request`
 - [x] Create `withdrawal/WithdrawalEffect.ts` for `ox/execution/withdrawal`
 
 ### JSON-RPC
-- [ ] Create `jsonRpc/JsonRpcRequestEffect.ts` for `ox/json-rpc/request`
-- [ ] Create `jsonRpc/JsonRpcResponseEffect.ts` for `ox/json-rpc/response`
-- [ ] Create `jsonRpc/JsonRpcSchemaEffect.ts` for `ox/json-rpc/schema`
-- [ ] Create `jsonRpc/JsonRpcTransportEffect.ts` for `ox/json-rpc/transport`
+- [IN PROGRESS] Create `jsonRpc/JsonRpcRequestEffect.ts` for `ox/json-rpc/request`
+- [IN PROGRESS] Create `jsonRpc/JsonRpcResponseEffect.ts` for `ox/json-rpc/response`
+- [IN PROGRESS] Create `jsonRpc/JsonRpcSchemaEffect.ts` for `ox/json-rpc/schema`
+- [IN PROGRESS] Create `jsonRpc/JsonRpcTransportEffect.ts` for `ox/json-rpc/transport`
 
 ### Provider
 - [x] Create `provider/ProviderEffect.ts` for `ox/provider`
