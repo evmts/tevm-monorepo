@@ -62,6 +62,8 @@ import { HashEffectLayer } from './hash/HashEffect.js'
 import { HdKeyEffectLayer } from './hdKey/HdKeyEffect.js'
 import { HexEffectLayer } from './hex/HexEffect.js'
 import { JsonEffectLayer } from './json/JsonEffect.js'
+import { JsonRpcSchemaEffectLayer } from './jsonRpc/JsonRpcSchemaEffect.js'
+import { JsonRpcTransportEffectLayer } from './jsonRpc/JsonRpcTransportEffect.js'
 import { KzgEffectLayer } from './kzg/KzgEffect.js'
 import { MnemonicEffectLayer } from './mnemonic/MnemonicEffect.js'
 import { P256EffectLayer } from './p256/P256Effect.js'
@@ -109,6 +111,8 @@ export const OxEffectLayer = Layer.merge(
 	HdKeyEffectLayer,
 	HexEffectLayer,
 	JsonEffectLayer,
+	JsonRpcSchemaEffectLayer,
+	JsonRpcTransportEffectLayer,
 	KzgEffectLayer,
 	MnemonicEffectLayer,
 	P256EffectLayer,

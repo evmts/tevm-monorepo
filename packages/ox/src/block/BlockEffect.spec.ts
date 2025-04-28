@@ -1,99 +1,102 @@
-import { describe, it, expect } from 'vitest'
 import { Effect, pipe } from 'effect'
-import { BlockEffectTag, BlockEffectLayer } from './BlockEffect.js'
 import * as Block from 'ox/core/Block'
+import { describe, expect, it } from 'vitest'
+import { BlockEffectLayer, BlockEffectTag } from './BlockEffect.js'
 
 describe('BlockEffect', () => {
-  it('should convert block to RPC in an effect', async () => {
-    // Create a minimal block for testing
-    const block: Block.Block = {
-      hash: '0x123456',
-      number: 1n,
-      parentHash: '0xabcdef',
-      timestamp: 1000n,
-      nonce: '0x0000000000000000',
-      difficulty: 0n,
-      gasLimit: 10000000n,
-      gasUsed: 5000000n,
-      miner: '0x0000000000000000000000000000000000000000',
-      extraData: '0x',
-      baseFeePerGas: 1000000000n,
-      receiptsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      transactionsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      withdrawalsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      blobGasUsed: 0n,
-      excessBlobGas: 0n,
-      parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      size: 1000n,
-      totalDifficulty: 1000000n,
-      transactions: [],
-      uncles: [],
-      withdrawals: [],
-    }
+	it('should convert block to RPC in an effect', async () => {
+		// Create a minimal block for testing
+		const block: Block.Block = {
+			hash: '0x123456',
+			number: 1n,
+			parentHash: '0xabcdef',
+			timestamp: 1000n,
+			nonce: '0x0000000000000000',
+			difficulty: 0n,
+			gasLimit: 10000000n,
+			gasUsed: 5000000n,
+			miner: '0x0000000000000000000000000000000000000000',
+			extraData: '0x',
+			baseFeePerGas: 1000000000n,
+			receiptsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			transactionsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			withdrawalsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			blobGasUsed: 0n,
+			excessBlobGas: 0n,
+			parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			size: 1000n,
+			totalDifficulty: 1000000n,
+			transactions: [],
+			uncles: [],
+			withdrawals: [],
+		}
 
-    const program = pipe(
-      Effect.provide(Effect.flatMap(BlockEffectTag, (blockService) => 
-        blockService.toRpcEffect(block)
-      ), BlockEffectLayer)
-    )
-    
-    const result = await Effect.runPromise(program)
-    expect(result).toHaveProperty('hash', '0x123456')
-    expect(result).toHaveProperty('number', '0x1')
-    expect(result).toHaveProperty('parentHash', '0xabcdef')
-    expect(result).toHaveProperty('timestamp', '0x3e8')
-  })
-  
-  it('should convert RPC block to block in an effect', async () => {
-    // Create a minimal RPC block for testing
-    const rpcBlock: Block.Rpc = {
-      hash: '0x123456',
-      number: '0x1',
-      parentHash: '0xabcdef',
-      timestamp: '0x3e8',
-      nonce: '0x0000000000000000',
-      difficulty: '0x0',
-      gasLimit: '0x989680',
-      gasUsed: '0x4c4b40',
-      miner: '0x0000000000000000000000000000000000000000',
-      extraData: '0x',
-      baseFeePerGas: '0x3b9aca00',
-      receiptsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      transactionsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      withdrawalsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      blobGasUsed: '0x0',
-      excessBlobGas: '0x0',
-      parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
-      size: '0x3e8',
-      totalDifficulty: '0xf4240',
-      transactions: [],
-      uncles: [],
-      withdrawals: [],
-    }
+		const program = pipe(
+			Effect.provide(
+				Effect.flatMap(BlockEffectTag, (blockService) => blockService.toRpcEffect(block)),
+				BlockEffectLayer,
+			),
+		)
 
-    const program = pipe(
-      Effect.provide(Effect.flatMap(BlockEffectTag, (blockService) => 
-        blockService.fromRpcEffect(rpcBlock)
-      ), BlockEffectLayer)
-    )
-    
-    const result = await Effect.runPromise(program)
-    expect(result).toHaveProperty('hash', '0x123456')
-    expect(result).toHaveProperty('number', 1n)
-    expect(result).toHaveProperty('parentHash', '0xabcdef')
-    expect(result).toHaveProperty('timestamp', 1000n)
-  })
-  
-  it('should handle null blocks in fromRpcEffect', async () => {
-    const program = pipe(
-      Effect.provide(Effect.flatMap(BlockEffectTag, (blockService) => 
-        blockService.fromRpcEffect(null)
-      ), BlockEffectLayer)
-    )
-    
-    const result = await Effect.runPromise(program)
-    expect(result).toBeNull()
-  })
+		const result = await Effect.runPromise(program)
+		expect(result).toHaveProperty('hash', '0x123456')
+		expect(result).toHaveProperty('number', '0x1')
+		expect(result).toHaveProperty('parentHash', '0xabcdef')
+		expect(result).toHaveProperty('timestamp', '0x3e8')
+	})
+
+	it('should convert RPC block to block in an effect', async () => {
+		// Create a minimal RPC block for testing
+		const rpcBlock: Block.Rpc = {
+			hash: '0x123456',
+			number: '0x1',
+			parentHash: '0xabcdef',
+			timestamp: '0x3e8',
+			nonce: '0x0000000000000000',
+			difficulty: '0x0',
+			gasLimit: '0x989680',
+			gasUsed: '0x4c4b40',
+			miner: '0x0000000000000000000000000000000000000000',
+			extraData: '0x',
+			baseFeePerGas: '0x3b9aca00',
+			receiptsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			transactionsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			withdrawalsRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			blobGasUsed: '0x0',
+			excessBlobGas: '0x0',
+			parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+			size: '0x3e8',
+			totalDifficulty: '0xf4240',
+			transactions: [],
+			uncles: [],
+			withdrawals: [],
+		}
+
+		const program = pipe(
+			Effect.provide(
+				Effect.flatMap(BlockEffectTag, (blockService) => blockService.fromRpcEffect(rpcBlock)),
+				BlockEffectLayer,
+			),
+		)
+
+		const result = await Effect.runPromise(program)
+		expect(result).toHaveProperty('hash', '0x123456')
+		expect(result).toHaveProperty('number', 1n)
+		expect(result).toHaveProperty('parentHash', '0xabcdef')
+		expect(result).toHaveProperty('timestamp', 1000n)
+	})
+
+	it('should handle null blocks in fromRpcEffect', async () => {
+		const program = pipe(
+			Effect.provide(
+				Effect.flatMap(BlockEffectTag, (blockService) => blockService.fromRpcEffect(null)),
+				BlockEffectLayer,
+			),
+		)
+
+		const result = await Effect.runPromise(program)
+		expect(result).toBeNull()
+	})
 })

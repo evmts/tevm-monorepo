@@ -1,6 +1,6 @@
-import * as Kzg from 'ox/core/Kzg'
+import { Context, Effect, Layer } from 'effect'
 import * as Bytes from 'ox/core/Bytes'
-import { Effect, Context, Layer } from 'effect'
+import * as Kzg from 'ox/core/Kzg'
 import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
 // Re-export constants
@@ -13,29 +13,27 @@ export type { Kzg as KzgType } from 'ox/core/Kzg'
  * Interface for KzgEffect service
  */
 export interface KzgEffectService {
-  /**
-   * Creates a Kzg interface from an existing Kzg implementation in an Effect
-   */
-  fromEffect(
-    value: Kzg.Kzg
-  ): Effect.Effect<Kzg.Kzg, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Creates a Kzg interface from an existing Kzg implementation in an Effect
+	 */
+	fromEffect(value: Kzg.Kzg): Effect.Effect<Kzg.Kzg, BaseErrorEffect<Error | undefined>, never>
 
-  /**
-   * Convert a blob to a KZG commitment in an Effect
-   */
-  blobToKzgCommitmentEffect(
-    kzg: Kzg.Kzg,
-    blob: Bytes.Bytes
-  ): Effect.Effect<Bytes.Bytes, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Convert a blob to a KZG commitment in an Effect
+	 */
+	blobToKzgCommitmentEffect(
+		kzg: Kzg.Kzg,
+		blob: Bytes.Bytes,
+	): Effect.Effect<Bytes.Bytes, BaseErrorEffect<Error | undefined>, never>
 
-  /**
-   * Compute a KZG proof for a blob in an Effect
-   */
-  computeBlobKzgProofEffect(
-    kzg: Kzg.Kzg,
-    blob: Bytes.Bytes,
-    commitment: Bytes.Bytes
-  ): Effect.Effect<Bytes.Bytes, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Compute a KZG proof for a blob in an Effect
+	 */
+	computeBlobKzgProofEffect(
+		kzg: Kzg.Kzg,
+		blob: Bytes.Bytes,
+		commitment: Bytes.Bytes,
+	): Effect.Effect<Bytes.Bytes, BaseErrorEffect<Error | undefined>, never>
 }
 
 /**
@@ -46,27 +44,27 @@ export const KzgEffectTag = Context.Tag<KzgEffectService>('@tevm/ox/KzgEffect')
 /**
  * Catch Ox errors and convert them to BaseErrorEffect
  */
-function catchOxErrors<A>(effect: Effect.Effect<A, unknown, never>): Effect.Effect<A, BaseErrorEffect<Error | undefined>, never> {
-  return Effect.catchAll(effect, (error) => {
-    if (error instanceof Error) {
-      return Effect.fail(new BaseErrorEffect(error.message, { cause: error }))
-    }
-    return Effect.fail(new BaseErrorEffect('Unknown error', { cause: error instanceof Error ? error : undefined }))
-  })
+function catchOxErrors<A>(
+	effect: Effect.Effect<A, unknown, never>,
+): Effect.Effect<A, BaseErrorEffect<Error | undefined>, never> {
+	return Effect.catchAll(effect, (error) => {
+		if (error instanceof Error) {
+			return Effect.fail(new BaseErrorEffect(error.message, { cause: error }))
+		}
+		return Effect.fail(new BaseErrorEffect('Unknown error', { cause: error instanceof Error ? error : undefined }))
+	})
 }
 
 /**
  * Live implementation of KzgEffectService
  */
 export const KzgEffectLive: KzgEffectService = {
-  fromEffect: (value) =>
-    catchOxErrors(Effect.try(() => Kzg.from(value))),
+	fromEffect: (value) => catchOxErrors(Effect.try(() => Kzg.from(value))),
 
-  blobToKzgCommitmentEffect: (kzg, blob) =>
-    catchOxErrors(Effect.try(() => kzg.blobToKzgCommitment(blob))),
+	blobToKzgCommitmentEffect: (kzg, blob) => catchOxErrors(Effect.try(() => kzg.blobToKzgCommitment(blob))),
 
-  computeBlobKzgProofEffect: (kzg, blob, commitment) =>
-    catchOxErrors(Effect.try(() => kzg.computeBlobKzgProof(blob, commitment))),
+	computeBlobKzgProofEffect: (kzg, blob, commitment) =>
+		catchOxErrors(Effect.try(() => kzg.computeBlobKzgProof(blob, commitment))),
 }
 
 /**

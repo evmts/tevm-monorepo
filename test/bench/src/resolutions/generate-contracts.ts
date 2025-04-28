@@ -1,63 +1,60 @@
-import * as resolutionsRs from "@tevm/resolutions-rs";
-import path, { join } from "path";
-import fs from "fs";
-import { promises as fsPromises } from "fs";
-import { runPromise, runSync } from "effect/Effect";
-import { moduleFactory, type FileAccessObject } from "@tevm/resolutions";
+import fs from 'node:fs'
+import { promises as fsPromises } from 'node:fs'
+import path, { join } from 'node:path'
+import { type FileAccessObject, moduleFactory } from '@tevm/resolutions'
+import * as resolutionsRs from '@tevm/resolutions-rs'
+import { runPromise, runSync } from 'effect/Effect'
 
 // First, log the entire module to see what's being exported
-console.log("Resolutions-RS Exports:", Object.keys(resolutionsRs));
+console.log('Resolutions-RS Exports:', Object.keys(resolutionsRs))
 
 // Extract the moduleFactoryJs function
-const { moduleFactoryJs } = resolutionsRs;
+const { moduleFactoryJs } = resolutionsRs
 
 // Paths to our test fixtures
-const FIXTURE_DIR = path.join(__dirname);
-const CONTRACTS_DIR = path.join(FIXTURE_DIR, "contracts");
-const INTERFACES_DIR = path.join(FIXTURE_DIR, "interfaces");
-const LIBRARIES_DIR = path.join(FIXTURE_DIR, "libraries");
+const FIXTURE_DIR = path.join(__dirname)
+const CONTRACTS_DIR = path.join(FIXTURE_DIR, 'contracts')
+const INTERFACES_DIR = path.join(FIXTURE_DIR, 'interfaces')
+const LIBRARIES_DIR = path.join(FIXTURE_DIR, 'libraries')
 
 // Create a proper file access object that can resolve imports correctly
 const fao: FileAccessObject = {
-  // This is the key function for resolving imports
-  readFile: fsPromises.readFile,
-  readFileSync: fs.readFileSync,
-  existsSync: fs.existsSync,
-  async exists(filePath) {
-    try {
-      await fsPromises.access(filePath);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  },
-};
+	// This is the key function for resolving imports
+	readFile: fsPromises.readFile,
+	readFileSync: fs.readFileSync,
+	existsSync: fs.existsSync,
+	async exists(filePath) {
+		try {
+			await fsPromises.access(filePath)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+}
 
 // Define remappings to help resolve imports
 const remappings = {
-  // Map import paths to actual file locations
-  "../interfaces/": INTERFACES_DIR + "/",
-  "../libraries/": LIBRARIES_DIR + "/",
-  "./": CONTRACTS_DIR + "/",
-};
+	// Map import paths to actual file locations
+	'../interfaces/': `${INTERFACES_DIR}/`,
+	'../libraries/': `${LIBRARIES_DIR}/`,
+	'./': `${CONTRACTS_DIR}/`,
+}
 
 // Generate 4 levels deep with 5 imports each (5^4 = 625 contracts total)
-const DEPTH = 4;
-const WIDTH = 4;
-let tempDir: string;
-let entryContractPath: string;
-let deepGraphFao: FileAccessObject;
-let deepGraphRemappings: Record<string, string>;
+const DEPTH = 4
+const WIDTH = 4
+let tempDir: string
+let entryContractPath: string
+let deepGraphFao: FileAccessObject
+let deepGraphRemappings: Record<string, string>
 
 // Generate a complex contract template that resembles real Solidity code
-const generateContractTemplate = (
-  name: string,
-  imports: string[] = [],
-): string => {
-  const importStatements = imports.map((imp) => `import "${imp}";`).join("\n");
+const generateContractTemplate = (name: string, imports: string[] = []): string => {
+	const importStatements = imports.map((imp) => `import "${imp}";`).join('\n')
 
-  // Create a contract with typical Solidity patterns, events, modifiers, functions, etc.
-  return `// SPDX-License-Identifier: MIT
+	// Create a contract with typical Solidity patterns, events, modifiers, functions, etc.
+	return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
 ${importStatements}
@@ -260,188 +257,176 @@ contract ${name} {
         return result;
     }
 }
-`;
-};
+`
+}
 
 // Generate a leaf node contract with no imports but lots of complexity
 const generateLeafContract = (name: string): string => {
-  return generateContractTemplate(name, []);
-};
+	return generateContractTemplate(name, [])
+}
 
 // Create a temp directory
-tempDir = join(__dirname);
-await fsPromises.mkdir(tempDir, { recursive: true });
+tempDir = join(__dirname)
+await fsPromises.mkdir(tempDir, { recursive: true })
 
 // Create the library paths
 const libPaths = [
-  path.join(tempDir, "lib1"),
-  path.join(tempDir, "lib2"),
-  path.join(tempDir, "lib3"),
-  path.join(tempDir, "lib4"),
-];
+	path.join(tempDir, 'lib1'),
+	path.join(tempDir, 'lib2'),
+	path.join(tempDir, 'lib3'),
+	path.join(tempDir, 'lib4'),
+]
 
 for (const libPath of libPaths) {
-  await fsPromises.mkdir(libPath, { recursive: true });
+	await fsPromises.mkdir(libPath, { recursive: true })
 }
 
 // Create the contracts directory
-const contractsDir = path.join(tempDir, "contracts");
-await fsPromises.mkdir(contractsDir, { recursive: true });
+const contractsDir = path.join(tempDir, 'contracts')
+await fsPromises.mkdir(contractsDir, { recursive: true })
 
-console.log(`Created temp directory at: ${tempDir}`);
+console.log(`Created temp directory at: ${tempDir}`)
 
 // Initialize file systems access object for the deep graph
 deepGraphFao = {
-  readFile: fsPromises.readFile,
-  readFileSync: fs.readFileSync,
-  existsSync: fs.existsSync,
-  async exists(filePath) {
-    try {
-      await fsPromises.access(filePath);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  },
-};
+	readFile: fsPromises.readFile,
+	readFileSync: fs.readFileSync,
+	existsSync: fs.existsSync,
+	async exists(filePath) {
+		try {
+			await fsPromises.access(filePath)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+}
 
 // Initialize remappings for the deep graph
 deepGraphRemappings = {
-  "@lib1/": path.join(tempDir, "lib1") + "/",
-  "@lib2/": path.join(tempDir, "lib2") + "/",
-  "@lib3/": path.join(tempDir, "lib3") + "/",
-  "@lib4/": path.join(tempDir, "lib4") + "/",
-  "./": path.join(tempDir, "contracts") + "/",
-};
+	'@lib1/': `${path.join(tempDir, 'lib1')}/`,
+	'@lib2/': `${path.join(tempDir, 'lib2')}/`,
+	'@lib3/': `${path.join(tempDir, 'lib3')}/`,
+	'@lib4/': `${path.join(tempDir, 'lib4')}/`,
+	'./': `${path.join(tempDir, 'contracts')}/`,
+}
 
 // Generate the super deep import graph
-const generateContractAt = async (
-  depth: number,
-  index: number,
-  parentPath: string = "",
-): Promise<string> => {
-  const contractName = `Contract_D${depth}_I${index}`;
-  const contractDir = path.join(tempDir, "contracts", `level${depth}`);
-  await fsPromises.mkdir(contractDir, { recursive: true });
+const generateContractAt = async (depth: number, index: number, parentPath = ''): Promise<string> => {
+	const contractName = `Contract_D${depth}_I${index}`
+	const contractDir = path.join(tempDir, 'contracts', `level${depth}`)
+	await fsPromises.mkdir(contractDir, { recursive: true })
 
-  const contractPath = path.join(contractDir, `${contractName}.sol`);
+	const contractPath = path.join(contractDir, `${contractName}.sol`)
 
-  if (depth === DEPTH) {
-    // Leaf node - no imports but complex contract
-    const contractContent = generateLeafContract(contractName);
-    await fsPromises.writeFile(contractPath, contractContent);
-    return contractPath;
-  }
+	if (depth === DEPTH) {
+		// Leaf node - no imports but complex contract
+		const contractContent = generateLeafContract(contractName)
+		await fsPromises.writeFile(contractPath, contractContent)
+		return contractPath
+	}
 
-  // Generate child imports
-  const imports: string[] = [];
+	// Generate child imports
+	const imports: string[] = []
 
-  for (let i = 0; i < WIDTH; i++) {
-    // Different import patterns based on the index
-    let importPath: string;
+	for (let i = 0; i < WIDTH; i++) {
+		// Different import patterns based on the index
+		let importPath: string
 
-    if (i === 0) {
-      // Use remapping for lib1
-      const libDir = path.join(tempDir, "lib1", `level${depth + 1}`);
-      await fsPromises.mkdir(libDir, { recursive: true });
+		if (i === 0) {
+			// Use remapping for lib1
+			const libDir = path.join(tempDir, 'lib1', `level${depth + 1}`)
+			await fsPromises.mkdir(libDir, { recursive: true })
 
-      const childName = `Lib1_D${depth + 1}_I${i}`;
-      const childPath = path.join(libDir, `${childName}.sol`);
+			const childName = `Lib1_D${depth + 1}_I${i}`
+			const childPath = path.join(libDir, `${childName}.sol`)
 
-      // Create the contract in the lib1 directory
-      if (depth + 1 === DEPTH) {
-        await fsPromises.writeFile(childPath, generateLeafContract(childName));
-      } else {
-        // This will be filled in the recursive call
-        await fsPromises.writeFile(childPath, "// Placeholder");
-      }
+			// Create the contract in the lib1 directory
+			if (depth + 1 === DEPTH) {
+				await fsPromises.writeFile(childPath, generateLeafContract(childName))
+			} else {
+				// This will be filled in the recursive call
+				await fsPromises.writeFile(childPath, '// Placeholder')
+			}
 
-      importPath = `@lib1/level${depth + 1}/${childName}.sol`;
+			importPath = `@lib1/level${depth + 1}/${childName}.sol`
 
-      // If not a leaf, we need to continue generating the import chain
-      if (depth + 1 < DEPTH) {
-        await generateContractAt(depth + 1, i, childPath);
+			// If not a leaf, we need to continue generating the import chain
+			if (depth + 1 < DEPTH) {
+				await generateContractAt(depth + 1, i, childPath)
 
-        // Now update the file with proper imports
-        const childImports: string[] = [];
-        for (let j = 0; j < WIDTH; j++) {
-          const nextDepth = depth + 2;
-          if (nextDepth <= DEPTH) {
-            const nextChildName = `Contract_D${nextDepth}_I${j}`;
-            childImports.push(`./level${nextDepth}/${nextChildName}.sol`);
-          }
-        }
+				// Now update the file with proper imports
+				const childImports: string[] = []
+				for (let j = 0; j < WIDTH; j++) {
+					const nextDepth = depth + 2
+					if (nextDepth <= DEPTH) {
+						const nextChildName = `Contract_D${nextDepth}_I${j}`
+						childImports.push(`./level${nextDepth}/${nextChildName}.sol`)
+					}
+				}
 
-        const updatedContent = generateContractTemplate(
-          childName,
-          childImports,
-        );
-        await fsPromises.writeFile(childPath, updatedContent);
-      }
-    } else if (i === 1) {
-      // Use lib4 which is the last in the lib paths
-      const libDir = path.join(tempDir, "lib4", `level${depth + 1}`);
-      await fsPromises.mkdir(libDir, { recursive: true });
+				const updatedContent = generateContractTemplate(childName, childImports)
+				await fsPromises.writeFile(childPath, updatedContent)
+			}
+		} else if (i === 1) {
+			// Use lib4 which is the last in the lib paths
+			const libDir = path.join(tempDir, 'lib4', `level${depth + 1}`)
+			await fsPromises.mkdir(libDir, { recursive: true })
 
-      const childName = `Lib4_D${depth + 1}_I${i}`;
-      const childPath = path.join(libDir, `${childName}.sol`);
+			const childName = `Lib4_D${depth + 1}_I${i}`
+			const childPath = path.join(libDir, `${childName}.sol`)
 
-      // Create the contract in the lib4 directory
-      if (depth + 1 === DEPTH) {
-        await fsPromises.writeFile(childPath, generateLeafContract(childName));
-      } else {
-        // This will be filled in the recursive call
-        await fsPromises.writeFile(childPath, "// Placeholder");
-      }
+			// Create the contract in the lib4 directory
+			if (depth + 1 === DEPTH) {
+				await fsPromises.writeFile(childPath, generateLeafContract(childName))
+			} else {
+				// This will be filled in the recursive call
+				await fsPromises.writeFile(childPath, '// Placeholder')
+			}
 
-      importPath = `@lib4/level${depth + 1}/${childName}.sol`;
+			importPath = `@lib4/level${depth + 1}/${childName}.sol`
 
-      // If not a leaf, we need to continue generating the import chain
-      if (depth + 1 < DEPTH) {
-        await generateContractAt(depth + 1, i, childPath);
+			// If not a leaf, we need to continue generating the import chain
+			if (depth + 1 < DEPTH) {
+				await generateContractAt(depth + 1, i, childPath)
 
-        // Now update the file with proper imports
-        const childImports: string[] = [];
-        for (let j = 0; j < WIDTH; j++) {
-          const nextDepth = depth + 2;
-          if (nextDepth <= DEPTH) {
-            const nextChildName = `Contract_D${nextDepth}_I${j}`;
-            childImports.push(`./level${nextDepth}/${nextChildName}.sol`);
-          }
-        }
+				// Now update the file with proper imports
+				const childImports: string[] = []
+				for (let j = 0; j < WIDTH; j++) {
+					const nextDepth = depth + 2
+					if (nextDepth <= DEPTH) {
+						const nextChildName = `Contract_D${nextDepth}_I${j}`
+						childImports.push(`./level${nextDepth}/${nextChildName}.sol`)
+					}
+				}
 
-        const updatedContent = generateContractTemplate(
-          childName,
-          childImports,
-        );
-        await fsPromises.writeFile(childPath, updatedContent);
-      }
-    } else {
-      // Standard relative import
-      const childPath = await generateContractAt(depth + 1, i);
-      const childName = path.basename(childPath, ".sol");
-      importPath = `./level${depth + 1}/${childName}.sol`;
-    }
+				const updatedContent = generateContractTemplate(childName, childImports)
+				await fsPromises.writeFile(childPath, updatedContent)
+			}
+		} else {
+			// Standard relative import
+			const childPath = await generateContractAt(depth + 1, i)
+			const childName = path.basename(childPath, '.sol')
+			importPath = `./level${depth + 1}/${childName}.sol`
+		}
 
-    imports.push(importPath);
-  }
+		imports.push(importPath)
+	}
 
-  // Create the contract with imports
-  const contractContent = generateContractTemplate(contractName, imports);
-  await fsPromises.writeFile(contractPath, contractContent);
+	// Create the contract with imports
+	const contractContent = generateContractTemplate(contractName, imports)
+	await fsPromises.writeFile(contractPath, contractContent)
 
-  return contractPath;
-};
+	return contractPath
+}
 
 // Start generation from the root contract
-entryContractPath = await generateContractAt(0, 0);
-console.log(`Generated entry contract at: ${entryContractPath}`);
+entryContractPath = await generateContractAt(0, 0)
+console.log(`Generated entry contract at: ${entryContractPath}`)
 
 const totalContracts = Array(DEPTH + 1)
-  .fill(0)
-  .map((_, i) => Math.pow(WIDTH, i))
-  .reduce((sum, current) => sum + current, 0);
+	.fill(0)
+	.map((_, i) => WIDTH ** i)
+	.reduce((sum, current) => sum + current, 0)
 
-console.log(
-  `Generated approximately ${totalContracts} contracts in the import graph`,
-);
+console.log(`Generated approximately ${totalContracts} contracts in the import graph`)

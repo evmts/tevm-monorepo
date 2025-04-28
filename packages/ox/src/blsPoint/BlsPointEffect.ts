@@ -1,6 +1,6 @@
+import { Context, Effect, Layer } from 'effect'
 import * as BlsPoint from 'ox/core/BlsPoint'
 import * as Hex from 'ox/core/Hex'
-import { Effect, Context, Layer } from 'effect'
 import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
 /**
@@ -12,35 +12,31 @@ export type BlsPointEffect = BlsPoint.BlsPoint
  * Ox BlsPoint effect service interface
  */
 export interface BlsPointEffectService {
-  /**
-   * Converts BLS point to bytes in an Effect
-   */
-  toBytesEffect(
-    point: BlsPoint.BlsPoint,
-  ): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Converts BLS point to bytes in an Effect
+	 */
+	toBytesEffect(point: BlsPoint.BlsPoint): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never>
 
-  /**
-   * Converts BLS point to hex in an Effect
-   */
-  toHexEffect(
-    point: BlsPoint.BlsPoint,
-  ): Effect.Effect<Hex.Hex, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Converts BLS point to hex in an Effect
+	 */
+	toHexEffect(point: BlsPoint.BlsPoint): Effect.Effect<Hex.Hex, BaseErrorEffect<Error | undefined>, never>
 
-  /**
-   * Converts bytes to BLS point in an Effect
-   */
-  fromBytesEffect(
-    bytes: Uint8Array,
-    type: 'G1' | 'G2',
-  ): Effect.Effect<BlsPoint.BlsPoint, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Converts bytes to BLS point in an Effect
+	 */
+	fromBytesEffect(
+		bytes: Uint8Array,
+		type: 'G1' | 'G2',
+	): Effect.Effect<BlsPoint.BlsPoint, BaseErrorEffect<Error | undefined>, never>
 
-  /**
-   * Converts hex to BLS point in an Effect
-   */
-  fromHexEffect(
-    hex: Hex.Hex,
-    type: 'G1' | 'G2',
-  ): Effect.Effect<BlsPoint.BlsPoint, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Converts hex to BLS point in an Effect
+	 */
+	fromHexEffect(
+		hex: Hex.Hex,
+		type: 'G1' | 'G2',
+	): Effect.Effect<BlsPoint.BlsPoint, BaseErrorEffect<Error | undefined>, never>
 }
 
 /**
@@ -51,30 +47,28 @@ export const BlsPointEffectTag = Context.Tag<BlsPointEffectService>('@tevm/ox/Bl
 /**
  * Catch Ox errors and convert them to BaseErrorEffect
  */
-function catchOxErrors<A>(effect: Effect.Effect<A, unknown, never>): Effect.Effect<A, BaseErrorEffect<Error | undefined>, never> {
-  return Effect.catchAll(effect, (error) => {
-    if (error instanceof Error) {
-      return Effect.fail(new BaseErrorEffect(error.message, { cause: error }))
-    }
-    return Effect.fail(new BaseErrorEffect('Unknown error', { cause: error instanceof Error ? error : undefined }))
-  })
+function catchOxErrors<A>(
+	effect: Effect.Effect<A, unknown, never>,
+): Effect.Effect<A, BaseErrorEffect<Error | undefined>, never> {
+	return Effect.catchAll(effect, (error) => {
+		if (error instanceof Error) {
+			return Effect.fail(new BaseErrorEffect(error.message, { cause: error }))
+		}
+		return Effect.fail(new BaseErrorEffect('Unknown error', { cause: error instanceof Error ? error : undefined }))
+	})
 }
 
 /**
  * Live implementation of BlsPointEffectService
  */
 export const BlsPointEffectLive: BlsPointEffectService = {
-  toBytesEffect: (point) =>
-    catchOxErrors(Effect.try(() => BlsPoint.toBytes(point))),
+	toBytesEffect: (point) => catchOxErrors(Effect.try(() => BlsPoint.toBytes(point))),
 
-  toHexEffect: (point) =>
-    catchOxErrors(Effect.try(() => BlsPoint.toHex(point))),
+	toHexEffect: (point) => catchOxErrors(Effect.try(() => BlsPoint.toHex(point))),
 
-  fromBytesEffect: (bytes, type) =>
-    catchOxErrors(Effect.try(() => BlsPoint.fromBytes(bytes, type))),
+	fromBytesEffect: (bytes, type) => catchOxErrors(Effect.try(() => BlsPoint.fromBytes(bytes, type))),
 
-  fromHexEffect: (hex, type) =>
-    catchOxErrors(Effect.try(() => BlsPoint.fromHex(hex, type))),
+	fromHexEffect: (hex, type) => catchOxErrors(Effect.try(() => BlsPoint.fromHex(hex, type))),
 }
 
 /**

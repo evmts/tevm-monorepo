@@ -1,26 +1,22 @@
-import * as PersonalMessage from 'ox/core/PersonalMessage'
-import { Effect, Context, Layer } from 'effect'
-import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
+import { Context, Effect, Layer } from 'effect'
 import type { Bytes } from 'ox/core/Bytes'
 import type { Hex } from 'ox/core/Hex'
+import * as PersonalMessage from 'ox/core/PersonalMessage'
+import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
 /**
  * Interface for PersonalMessageEffect service
  */
 export interface PersonalMessageEffectService {
-  /**
-   * Encodes a personal sign message in ERC-191 format
-   */
-  encodeEffect(
-    data: Hex | Bytes
-  ): Effect.Effect<Hex, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Encodes a personal sign message in ERC-191 format
+	 */
+	encodeEffect(data: Hex | Bytes): Effect.Effect<Hex, BaseErrorEffect<Error | undefined>, never>
 
-  /**
-   * Gets the payload to use for signing an ERC-191 formatted personal message
-   */
-  getSignPayloadEffect(
-    data: Hex | Bytes
-  ): Effect.Effect<Hex, BaseErrorEffect<Error | undefined>, never>
+	/**
+	 * Gets the payload to use for signing an ERC-191 formatted personal message
+	 */
+	getSignPayloadEffect(data: Hex | Bytes): Effect.Effect<Hex, BaseErrorEffect<Error | undefined>, never>
 }
 
 /**
@@ -31,24 +27,24 @@ export const PersonalMessageEffectTag = Context.Tag<PersonalMessageEffectService
 /**
  * Catch Ox errors and convert them to BaseErrorEffect
  */
-function catchOxErrors<A>(effect: Effect.Effect<A, unknown, never>): Effect.Effect<A, BaseErrorEffect<Error | undefined>, never> {
-  return Effect.catchAll(effect, (error) => {
-    if (error instanceof Error) {
-      return Effect.fail(new BaseErrorEffect(error.message, { cause: error }))
-    }
-    return Effect.fail(new BaseErrorEffect('Unknown error', { cause: error instanceof Error ? error : undefined }))
-  })
+function catchOxErrors<A>(
+	effect: Effect.Effect<A, unknown, never>,
+): Effect.Effect<A, BaseErrorEffect<Error | undefined>, never> {
+	return Effect.catchAll(effect, (error) => {
+		if (error instanceof Error) {
+			return Effect.fail(new BaseErrorEffect(error.message, { cause: error }))
+		}
+		return Effect.fail(new BaseErrorEffect('Unknown error', { cause: error instanceof Error ? error : undefined }))
+	})
 }
 
 /**
  * Live implementation of PersonalMessageEffectService
  */
 export const PersonalMessageEffectLive: PersonalMessageEffectService = {
-  encodeEffect: (data) =>
-    catchOxErrors(Effect.try(() => PersonalMessage.encode(data))),
+	encodeEffect: (data) => catchOxErrors(Effect.try(() => PersonalMessage.encode(data))),
 
-  getSignPayloadEffect: (data) =>
-    catchOxErrors(Effect.try(() => PersonalMessage.getSignPayload(data)))
+	getSignPayloadEffect: (data) => catchOxErrors(Effect.try(() => PersonalMessage.getSignPayload(data))),
 }
 
 /**
