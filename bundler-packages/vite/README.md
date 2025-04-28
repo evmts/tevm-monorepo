@@ -2,7 +2,7 @@
 
 A rollup plugin for importing solidity files.
 
-Currently @tevm/plugin only works in forge projects but work to make it support [all wagmi plugins](https://wagmi.sh/cli/plugins) is underway
+Currently @tevm/plugin only works in forge projects but work to make it support [all wagmi plugins](https://wagmi.sh/cli/api/plugins#plugins) is underway
 
 ## Installation
 
