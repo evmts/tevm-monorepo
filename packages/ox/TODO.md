@@ -103,10 +103,10 @@ Below is the list of Ox modules that need to be implemented:
 - [ ] Create `binaryStateTree/BinaryStateTreeEffect.ts` for `ox/binary-state-tree`
 
 ### Blobs
-- [ ] Create `blobs/BlobsEffect.ts` for `ox/blobs` (note: KZG is already implemented)
+- [x] Create `blobs/BlobsEffect.ts` for `ox/blobs` (note: KZG is already implemented)
 
 ### Crypto
-- [ ] Create `bls/BlsEffect.ts` for `ox/crypto/bls`
+- [x] Create `bls/BlsEffect.ts` for `ox/crypto/bls`
 - [ ] Create `blsPoint/BlsPointEffect.ts` for `ox/crypto/bls-point`
 - [ ] Create `hdKey/HdKeyEffect.ts` for `ox/crypto/hd-key`
 - [ ] Create `mnemonic/MnemonicEffect.ts` for `ox/crypto/mnemonic`
