@@ -1,7 +1,8 @@
 use alloy_primitives::Bytes;
-use foundry_compilers::artifacts::ContractBytecode;
+use foundry_compilers::artifacts::Contract;
 use napi_derive::napi;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use strum::EnumString;
 use strum_macros::Display;
 use tevm_solc_rs::SolcOutput;
@@ -50,63 +51,65 @@ pub struct TevmContract {
     pub human_readable_abi: Vec<String>,
 }
 
+/// Formats a contract ABI into a human-readable form
+fn format_abi(abi: &serde_json::Value) -> Vec<String> {
+    // For now just convert the ABI items to strings
+    match abi.as_array() {
+        Some(items) => items.iter().map(|item| item.to_string()).collect(),
+        None => vec![],
+    }
+}
+
 /// Generates runtime code for Tevm contracts
 pub fn generate_runtime(
-    contracts: Vec<(String, ContractBytecode)>,
+    contracts: Vec<(String, Contract)>,
     module_type: ModuleType,
     contract_package: ContractPackage,
 ) -> String {
     let package = contract_package.to_string();
-
+    
+    // Convert the contracts into a HashMap of TevmContract objects
+    let mut tevm_contracts = HashMap::new();
+    
     for (name, contract) in contracts {
+        // Extract bytecode
+        let bytecode_hex = contract.bytecode.as_ref()
+            .and_then(|bc| bc.object.as_str())
+            .map(|s| format!("0x{}", s))
+            .and_then(|s| s.parse::<Bytes>().ok());
+            
+        // Extract deployed bytecode
+        let deployed_bytecode_hex = contract.deployed_bytecode.as_ref()
+            .and_then(|dbc| dbc.bytecode.as_ref())
+            .and_then(|bc| bc.object.as_str())
+            .map(|s| format!("0x{}", s))
+            .and_then(|s| s.parse::<Bytes>().ok());
+        
+        // Create tevm contract
         let tevm_contract = TevmContract {
-            bytecode: if !contract.bytecode.is_some() {
-                Some(
-                    format!("0x{}", contract.bytecode.unwrap().object.as_str().unwrap())
-                        .parse()
-                        .unwrap_or_default(),
-                )
-            } else {
-                None
-            },
-            deployed_bytecode: if contract.deployed_bytecode.is_some() {
-                Some(
-                    format!(
-                        "0x{}",
-                        &contract
-                            .deployed_bytecode
-                            .unwrap()
-                            .bytecode
-                            .unwrap()
-                            .object
-                            .as_str()
-                            .unwrap()
-                    )
-                    .parse()
-                    .unwrap_or_default(),
-                )
-            } else {
-                None
-            },
+            bytecode: bytecode_hex,
+            deployed_bytecode: deployed_bytecode_hex,
             name: name.clone(),
-            human_readable_abi: &contract.abi.unwrap(),
+            human_readable_abi: contract.abi.as_ref()
+                .map(|abi| format_abi(abi))
+                .unwrap_or_else(Vec::new),
         };
-        contracts.insert(name.clone(), tevm_contract);
+        tevm_contracts.insert(name, tevm_contract);
     }
 
-    if contracts.is_empty() {
+    if tevm_contracts.is_empty() {
         return "// No contracts found in the solc output".to_string();
     }
 
     // Create a JSON string version of all contracts
-    let contracts_json = serde_json::to_string_pretty(&contracts).unwrap_or_default();
+    let contracts_json = serde_json::to_string_pretty(&tevm_contracts).unwrap_or_default();
 
     // Generate code based on module type
     match module_type {
         ModuleType::Cjs => {
             let mut output = format!("const {{ createContract }} = require('{}');\n\n", package);
 
-            for (name, contract) in &contracts {
+            for (name, contract) in &tevm_contracts {
                 let contract_json = serde_json::to_string_pretty(contract).unwrap_or_default();
                 output.push_str(&format!("const _{0} = {1};\n\n", name, contract_json));
                 output.push_str(&format!("/**\n * Contract implementation for {0}\n * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation\n */\n", name));
@@ -123,7 +126,7 @@ pub fn generate_runtime(
         ModuleType::Ts => {
             let mut output = format!("import {{ createContract }} from '{}';\n\n", package);
 
-            for (name, contract) in &contracts {
+            for (name, contract) in &tevm_contracts {
                 let contract_json = serde_json::to_string_pretty(contract).unwrap_or_default();
                 output.push_str(&format!(
                     "const _{0} = {1} as const;\n\n",
@@ -143,7 +146,7 @@ pub fn generate_runtime(
         ModuleType::Mjs => {
             let mut output = format!("import {{ createContract }} from '{}';\n\n", package);
 
-            for (name, contract) in &contracts {
+            for (name, contract) in &tevm_contracts {
                 let contract_json = serde_json::to_string_pretty(contract).unwrap_or_default();
                 output.push_str(&format!("const _{0} = {1};\n\n", name, contract_json));
                 output.push_str(&format!("/**\n * Contract implementation for {0}\n * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation\n */\n", name));
@@ -160,7 +163,7 @@ pub fn generate_runtime(
         ModuleType::Dts => {
             let mut output = format!("import type {{ Contract }} from '{}';\n\n", package);
 
-            for (name, _) in &contracts {
+            for (name, _) in &tevm_contracts {
                 output.push_str(&format!(
                     "// Contract name type\ndeclare const _name{0}: \"{0}\";\n",
                     name
@@ -188,62 +191,46 @@ pub fn generate_runtime(
 mod tests {
     use super::*;
     use serde_json::json;
-    use std::collections::HashMap;
-    use tevm_solc_rs::{
-        models::{SolcBytecodeOutput, SolcDeployedBytecodeOutput, SolcEVMOutput},
-        SolcContractOutput,
-    };
 
-    /// Helper function to create a simple SolcOutput for testing
-    fn create_test_solc_output(
-        contracts: Vec<(String, serde_json::Value, String, String)>,
-    ) -> SolcOutput {
-        let mut file_contracts = HashMap::new();
-        let mut contract_map = HashMap::new();
+    /// Helper function to create a vector of foundry-style Contract objects for testing
+    fn create_test_contracts(
+        contracts_data: Vec<(String, serde_json::Value, String, String)>,
+    ) -> Vec<(String, Contract)> {
+        let mut contracts = Vec::new();
 
-        for (name, abi, bytecode, deployed_bytecode) in contracts {
-            let contract = SolcContractOutput {
-                abi,
-                metadata: "{}".to_string(),
-                userdoc: json!({}),
-                devdoc: json!({}),
-                ir: None,
-                storage_layout: None,
-                evm: SolcEVMOutput {
-                    assembly: None,
-                    legacy_assembly: None,
-                    bytecode: SolcBytecodeOutput {
-                        function_debug_data: None,
-                        object: bytecode,
-                        opcodes: None,
-                        source_map: None,
-                        generated_sources: None,
-                        link_references: None,
-                    },
-                    deployed_bytecode: SolcDeployedBytecodeOutput {
-                        function_debug_data: None,
-                        object: deployed_bytecode,
-                        opcodes: None,
-                        source_map: None,
-                        generated_sources: None,
-                        link_references: None,
-                        immutable_references: None,
-                    },
-                    method_identifiers: None,
-                    gas_estimates: None,
-                },
-                ewasm: None,
+        for (name, abi, bytecode, deployed_bytecode) in contracts_data {
+            // Create bytecode object
+            let bytecode_obj = if !bytecode.is_empty() {
+                Some(foundry_compilers::artifacts::CompactContractBytecode {
+                    object: foundry_compilers::artifacts::BytecodeObject::String(bytecode),
+                    ..foundry_compilers::artifacts::CompactContractBytecode::empty()
+                })
+            } else {
+                None
             };
-            contract_map.insert(name, contract);
+            
+            // Create deployed bytecode object
+            let deployed_bytecode_obj = if !deployed_bytecode.is_empty() {
+                Some(foundry_compilers::artifacts::CompactDeployedBytecode {
+                    bytecode: bytecode_obj.clone(),
+                    ..foundry_compilers::artifacts::CompactDeployedBytecode::empty()
+                })
+            } else {
+                None
+            };
+            
+            // Create contract with the empty() method rather than default()
+            let contract = Contract {
+                abi: Some(abi),
+                bytecode: bytecode_obj,
+                deployed_bytecode: deployed_bytecode_obj,
+                ..Contract::empty()
+            };
+            
+            contracts.push((name, contract));
         }
 
-        file_contracts.insert("test.sol".to_string(), contract_map);
-
-        SolcOutput {
-            errors: None,
-            sources: None,
-            contracts: Some(file_contracts),
-        }
+        contracts
     }
 
     /// This test function logs the actual output
@@ -278,14 +265,14 @@ mod tests {
             { "type": "function", "name": "test", "inputs": [], "outputs": [], "stateMutability": "nonpayable" }
         ]);
 
-        let contracts = vec![(
+        let contracts_data = vec![(
             "TestContract".to_string(),
             abi,
             "1234".to_string(),
             "5678".to_string(),
         )];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         // Test each module type
         let module_types = [
@@ -297,7 +284,7 @@ mod tests {
 
         for module_type in module_types {
             let result = generate_runtime(
-                &solc_output,
+                contracts.clone(),
                 module_type.clone(),
                 ContractPackage::TevmContractScoped,
             );
@@ -322,15 +309,11 @@ mod tests {
 
     #[test]
     fn test_generate_runtime_no_contracts() {
-        // Create empty SolcOutput
-        let solc_output = SolcOutput {
-            errors: None,
-            sources: None,
-            contracts: None,
-        };
+        // Create empty contracts vector
+        let contracts: Vec<(String, Contract)> = Vec::new();
 
         let result = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Cjs,
             ContractPackage::TevmContractScoped,
         );
@@ -346,24 +329,24 @@ mod tests {
             { "type": "constructor", "inputs": [], "stateMutability": "payable" }
         ]);
 
-        let contracts = vec![(
+        let contracts_data = vec![(
             "MyContract".to_string(),
             abi,
             "420".to_string(),
             "420420".to_string(),
         )];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         // Test with TevmContract package
         let result_tevm =
-            generate_runtime(&solc_output, ModuleType::Ts, ContractPackage::TevmContract);
+            generate_runtime(contracts.clone(), ModuleType::Ts, ContractPackage::TevmContract);
         assert!(result_tevm.contains("import { createContract } from 'tevm/contract'"));
         assert!(!result_tevm.contains("import { createContract } from '@tevm/contract'"));
 
         // Test with TevmContractScoped package
         let result_scoped = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
         );
@@ -378,17 +361,17 @@ mod tests {
             { "type": "constructor", "inputs": [], "stateMutability": "payable" }
         ]);
 
-        let contracts = vec![(
+        let contracts_data = vec![(
             "MyContract".to_string(),
             abi,
             "420".to_string(),
             "420420".to_string(),
         )];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         let result = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Cjs,
             ContractPackage::TevmContractScoped,
         );
@@ -407,17 +390,17 @@ mod tests {
             { "type": "constructor", "inputs": [], "stateMutability": "payable" }
         ]);
 
-        let contracts = vec![(
+        let contracts_data = vec![(
             "MyContract".to_string(),
             abi,
             "420".to_string(),
             "420420".to_string(),
         )];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         let result = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
         );
@@ -437,17 +420,17 @@ mod tests {
             { "type": "constructor", "inputs": [], "stateMutability": "payable" }
         ]);
 
-        let contracts = vec![(
+        let contracts_data = vec![(
             "MyContract".to_string(),
             abi,
             "420".to_string(),
             "420420".to_string(),
         )];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         let result = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Mjs,
             ContractPackage::TevmContractScoped,
         );
@@ -467,17 +450,17 @@ mod tests {
             { "type": "constructor", "inputs": [], "stateMutability": "payable" }
         ]);
 
-        let contracts = vec![(
+        let contracts_data = vec![(
             "MyContract".to_string(),
             abi,
             "420".to_string(),
             "420420".to_string(),
         )];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         let result = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Dts,
             ContractPackage::TevmContractScoped,
         );
@@ -515,7 +498,7 @@ mod tests {
             }
         ]);
 
-        let contracts = vec![
+        let contracts_data = vec![
             (
                 "MainContract".to_string(),
                 abi1,
@@ -530,10 +513,10 @@ mod tests {
             ),
         ];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         let result = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
         );
@@ -579,17 +562,17 @@ mod tests {
             }
         ]);
 
-        let contracts = vec![(
+        let contracts_data = vec![(
             "ComplexABI".to_string(),
             complex_abi,
             "complexBytecode".to_string(),
             "complexDeployedBytecode".to_string(),
         )];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         let result = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
         );
@@ -606,17 +589,17 @@ mod tests {
             { "type": "function", "name": "test", "inputs": [], "outputs": [], "stateMutability": "nonpayable" }
         ]);
 
-        let contracts = vec![(
+        let contracts_data = vec![(
             "EmptyBytecodeContract".to_string(),
             abi,
             "".to_string(),
             "".to_string(),
         )];
 
-        let solc_output = create_test_solc_output(contracts);
+        let contracts = create_test_contracts(contracts_data);
 
         let result = generate_runtime(
-            &solc_output,
+            contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
         );
@@ -653,12 +636,12 @@ mod tests {
 /// Generate the JavaScript runtime code for a Solidity contract
 #[napi]
 pub fn generate_runtime_js(
-    solc_output_json: String,
+    contracts_json: String,
     module_type: String,
     use_scoped_package: bool,
 ) -> napi::Result<String> {
-    // Parse solc output from JSON
-    let solc_output: SolcOutput = serde_json::from_str(&solc_output_json)?;
+    // Parse contracts from JSON
+    let contracts: Vec<(String, Contract)> = serde_json::from_str(&contracts_json)?;
 
     // Parse module type
     let module_type = match module_type.to_lowercase().as_str() {
@@ -682,7 +665,7 @@ pub fn generate_runtime_js(
     };
 
     // Generate the runtime code
-    let result = generate_runtime(&solc_output, module_type, contract_package);
+    let result = generate_runtime(contracts, module_type, contract_package);
 
     Ok(result)
 }
