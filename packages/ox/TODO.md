@@ -110,8 +110,8 @@ Below is the list of Ox modules that need to be implemented:
 - [x] Create `blsPoint/BlsPointEffect.ts` for `ox/crypto/bls-point`
 - [ ] Create `hdKey/HdKeyEffect.ts` for `ox/crypto/hd-key`
 - [ ] Create `mnemonic/MnemonicEffect.ts` for `ox/crypto/mnemonic`
-- [ ] Create `p256/P256Effect.ts` for `ox/crypto/p256`
-- [ ] Create `secp256k1/Secp256k1Effect.ts` for `ox/crypto/secp256k1`
+- [x] Create `p256/P256Effect.ts` for `ox/crypto/p256`
+- [x] Create `secp256k1/Secp256k1Effect.ts` for `ox/crypto/secp256k1`
 - [ ] Create `webAuthnP256/WebAuthnP256Effect.ts` for `ox/crypto/webauthn-p256`
 - [ ] Create `webCryptoP256/WebCryptoP256Effect.ts` for `ox/crypto/webcrypto-p256`
 
