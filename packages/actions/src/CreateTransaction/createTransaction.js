@@ -79,16 +79,9 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 
 		const txPool = await client.getTxPool()
 		const txs = await txPool.getBySenderAddress(sender)
-		const accountNonce = ((await vm.stateManager.getAccount(sender)) ?? { nonce: 0n }).nonce
 
-		// Get the highest transaction nonce from the pool for this sender
-		let highestPoolNonce = accountNonce - 1n
-		for (const tx of txs) {
-			if (tx.tx.nonce > highestPoolNonce) highestPoolNonce = tx.tx.nonce
-		}
+		const nonce = ((await vm.stateManager.getAccount(sender)) ?? { nonce: 0n }).nonce + BigInt(txs.length)
 
-		// This ensures we never reuse nor skip a nonce
-		const nonce = highestPoolNonce >= accountNonce ? highestPoolNonce + 1n : accountNonce
 		client.logger.debug({ nonce, sender: sender.toString() }, 'creating tx with nonce')
 
 		let maxFeePerGas = parentBlock.header.calcNextBaseFee() + priorityFee

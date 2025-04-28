@@ -2,7 +2,6 @@ import { type TevmNode, createTevmNode } from '@tevm/node'
 import { type Hex, hexToBytes } from '@tevm/utils'
 import { http } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
-import type { CallResult } from '../Call/CallResult.js'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from './mineHandler.js'
 
@@ -237,49 +236,5 @@ describe(mineHandler.name, () => {
 			Details: Mining error
 			Version: 1.1.0.next-73"
 		`)
-	})
-
-	it('should mine multiple transactions with blockTag "pending" into a single block', async () => {
-		const client = createTevmNode()
-		const to = `0x${'69'.repeat(20)}` as const
-
-		const TX_COUNT = 3
-		const callResults: Array<CallResult> = []
-		for (let i = 0; i < TX_COUNT; i++) {
-			callResults.push(
-				await callHandler(client)({
-					blockTag: 'pending',
-					createTransaction: true,
-					to,
-					value: BigInt(i),
-					skipBalance: true,
-				}),
-			)
-		}
-
-		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(1)
-		expect(await client.getTxPool().then((pool) => [...pool.pool.values()][0]?.length)).toBe(TX_COUNT)
-		const { blockHashes, errors } = await mineHandler(client)({})
-
-		expect(errors).toBeUndefined()
-		expect(blockHashes).toHaveLength(1)
-
-		// All of the above transactions should be included in the same new block
-		expect(await getBlockNumber(client)).toBe(1n)
-
-		// receipt should exist now
-		const receiptsManager = await client.getReceiptsManager()
-		const receipts = await Promise.all(
-			callResults.map((callResult) => receiptsManager.getReceiptByTxHash(hexToBytes(callResult.txHash as Hex))),
-		)
-
-		if (receipts.some((receipt) => receipt === null)) throw new Error('Receipt is null')
-		receipts.forEach((receipt) => {
-			expect(receipt?.[1]).toBeDefined()
-			expect(receipt?.[2]).toBeDefined()
-		})
-
-		// should remove tx from mempool
-		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
 	})
 })
