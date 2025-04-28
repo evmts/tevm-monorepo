@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "effect": "3.13.2",
-    "ox": "0.7.0"
+    "@tevm/utils": "workspace:^"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

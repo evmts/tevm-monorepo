@@ -1,6 +1,6 @@
-import { createTsupOptions } from '@tevm/tsupconfig'
+import { createTsUpOptions } from '@tevm/tsupconfig'
 
-export default createTsupOptions({
+export default createTsUpOptions({
 	entry: ['src/index.js'],
 	outDir: 'dist',
 	platform: 'neutral',

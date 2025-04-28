@@ -1,67 +1,14 @@
-import { Context, Effect, Layer } from 'effect'
-import * as Bytes from 'ox/core/Bytes'
-import * as Hex from 'ox/core/Hex'
+import { Effect } from 'effect'
+import { hexToBytes, concatBytes, stringToBytes, numberToBytes, boolToBytes } from '@tevm/utils'
 import { BaseErrorEffect } from '../errors/ErrorsEffect.js'
 
 /**
- * Type alias for Ox Bytes
+ * Type alias for Bytes
  */
-export type BytesEffect = Bytes.Bytes
+export type Bytes = Uint8Array
 
 /**
- * Ox Bytes effect service interface
- */
-export interface BytesEffectService {
-	/**
-	 * Converts from Array to Bytes in an Effect
-	 */
-	fromArrayEffect(value: readonly number[] | Uint8Array): Effect.Effect<Bytes.Bytes, never, never>
-
-	/**
-	 * Converts from Boolean to Bytes in an Effect
-	 */
-	fromBooleanEffect(
-		value: boolean,
-		options?: Bytes.fromBoolean.Options,
-	): Effect.Effect<Bytes.Bytes, BaseErrorEffect<Error | undefined>, never>
-
-	/**
-	 * Converts from Hex to Bytes in an Effect
-	 */
-	fromHexEffect(
-		value: Hex.Hex,
-		options?: Bytes.fromHex.Options,
-	): Effect.Effect<Bytes.Bytes, BaseErrorEffect<Error | undefined>, never>
-
-	/**
-	 * Converts from Number to Bytes in an Effect
-	 */
-	fromNumberEffect(
-		value: number | bigint,
-		options?: Bytes.fromNumber.Options,
-	): Effect.Effect<Bytes.Bytes, BaseErrorEffect<Error | undefined>, never>
-
-	/**
-	 * Converts from String to Bytes in an Effect
-	 */
-	fromStringEffect(
-		value: string,
-		options?: Bytes.fromString.Options,
-	): Effect.Effect<Bytes.Bytes, BaseErrorEffect<Error | undefined>, never>
-
-	/**
-	 * Concatenates multiple Bytes in an Effect
-	 */
-	concatEffect(...values: readonly Bytes.Bytes[]): Effect.Effect<Bytes.Bytes, never, never>
-}
-
-/**
- * Tag for BytesEffectService dependency injection
- */
-export const BytesEffectTag = Context.Tag<BytesEffectService>('@tevm/ox/BytesEffect')
-
-/**
- * Catch Ox errors and convert them to BaseErrorEffect
+ * Catch errors and convert them to BaseErrorEffect
  */
 function catchOxErrors<A>(
 	effect: Effect.Effect<A, unknown, never>,
@@ -75,23 +22,78 @@ function catchOxErrors<A>(
 }
 
 /**
- * Live implementation of BytesEffectService
+ * Converts from Array to Bytes in an Effect
  */
-export const BytesEffectLive: BytesEffectService = {
-	fromArrayEffect: (value) => Effect.succeed(Bytes.fromArray(value)),
-
-	fromBooleanEffect: (value, options) => catchOxErrors(Effect.try(() => Bytes.fromBoolean(value, options))),
-
-	fromHexEffect: (value, options) => catchOxErrors(Effect.try(() => Bytes.fromHex(value, options))),
-
-	fromNumberEffect: (value, options) => catchOxErrors(Effect.try(() => Bytes.fromNumber(value, options))),
-
-	fromStringEffect: (value, options) => catchOxErrors(Effect.try(() => Bytes.fromString(value, options))),
-
-	concatEffect: (...values) => Effect.succeed(Bytes.concat(...values)),
+export function fromArrayEffect(value: readonly number[] | Uint8Array): Effect.Effect<Uint8Array, never, never> {
+	return Effect.succeed(new Uint8Array(value))
 }
 
 /**
- * Layer that provides the BytesEffectService implementation
+ * Converts from Boolean to Bytes in an Effect
  */
+export function fromBooleanEffect(
+	value: boolean,
+): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
+	return catchOxErrors(Effect.try(() => boolToBytes(value)))
+}
+
+/**
+ * Converts from Hex to Bytes in an Effect
+ */
+export function fromHexEffect(
+	value: string,
+): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
+	return catchOxErrors(Effect.try(() => hexToBytes(value)))
+}
+
+/**
+ * Converts from Number to Bytes in an Effect
+ */
+export function fromNumberEffect(
+	value: number | bigint,
+): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
+	return catchOxErrors(Effect.try(() => numberToBytes(value)))
+}
+
+/**
+ * Converts from String to Bytes in an Effect
+ */
+export function fromStringEffect(
+	value: string,
+): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
+	return catchOxErrors(Effect.try(() => stringToBytes(value)))
+}
+
+/**
+ * Concatenates multiple Bytes in an Effect
+ */
+export function concatEffect(...values: readonly Uint8Array[]): Effect.Effect<Uint8Array, never, never> {
+	return Effect.succeed(concatBytes(values))
+}
+
+/**
+ * Layer that provides the BytesEffect functions
+ */
+import { Layer, Context } from 'effect'
+
+export interface BytesEffectService {
+	fromArrayEffect: typeof fromArrayEffect
+	fromBooleanEffect: typeof fromBooleanEffect
+	fromHexEffect: typeof fromHexEffect
+	fromNumberEffect: typeof fromNumberEffect
+	fromStringEffect: typeof fromStringEffect
+	concatEffect: typeof concatEffect
+}
+
+export const BytesEffectTag = Context.Tag<BytesEffectService>('@tevm/ox/BytesEffect')
+
+export const BytesEffectLive: BytesEffectService = {
+	fromArrayEffect,
+	fromBooleanEffect,
+	fromHexEffect,
+	fromNumberEffect,
+	fromStringEffect,
+	concatEffect
+}
+
 export const BytesEffectLayer = Layer.succeed(BytesEffectTag, BytesEffectLive)
