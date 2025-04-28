@@ -35,7 +35,7 @@ export class CreateError extends Error {
  */
 export function create(_options: Options): Effect.Effect<Credential, CreateError, never> {
 	return Effect.try({
-		try: () => ({ id: "credential-id", rawId: new Uint8Array([1,2,3]) }),
+		try: () => ({ id: 'credential-id', rawId: new Uint8Array([1, 2, 3]) }),
 		catch: (cause) => new CreateError(cause),
 	})
 }
@@ -61,7 +61,7 @@ export class GetPublicKeyError extends Error {
  */
 export function getPublicKey(_options: { credential: Credential }): Effect.Effect<PublicKey, GetPublicKeyError, never> {
 	return Effect.try({
-		try: () => "0x1234",
+		try: () => '0x1234',
 		catch: (cause) => new GetPublicKeyError(cause),
 	})
 }
@@ -87,7 +87,7 @@ export class RegisterError extends Error {
  */
 export function register(_options: Options): Effect.Effect<Registration, RegisterError, never> {
 	return Effect.try({
-		try: () => ({ id: "registration-id", challenge: new Uint8Array([1,2,3]) }),
+		try: () => ({ id: 'registration-id', challenge: new Uint8Array([1, 2, 3]) }),
 		catch: (cause) => new RegisterError(cause),
 	})
 }

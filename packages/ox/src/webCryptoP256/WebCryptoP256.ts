@@ -4,8 +4,8 @@ import { Effect } from 'effect'
 export type WebCryptoP256 = any
 export type JWK = any
 export type KeyPair = {
-  privateKey: any;
-  publicKey: any;
+	privateKey: any
+	publicKey: any
 }
 
 /**
@@ -28,7 +28,7 @@ export function getPublicKey(options: {
 	privateKey: string | Uint8Array
 }): Effect.Effect<string, GetPublicKeyError, never> {
 	return Effect.try({
-		try: () => "0x" + Buffer.from(options.privateKey.toString()).toString("hex"),
+		try: () => `0x${Buffer.from(options.privateKey.toString()).toString('hex')}`,
 		catch: (cause) => new GetPublicKeyError(cause),
 	})
 }
@@ -103,7 +103,7 @@ export function exportPublicKey(_options: {
 	publicKey: any
 }): Effect.Effect<JWK, ExportPublicKeyError, never> {
 	return Effect.try({
-		try: () => ({ key: "exported" }),
+		try: () => ({ key: 'exported' }),
 		catch: (cause) => new ExportPublicKeyError(cause),
 	})
 }
@@ -128,7 +128,7 @@ export function exportPrivateKey(_options: {
 	privateKey: any
 }): Effect.Effect<JWK, ExportPrivateKeyError, never> {
 	return Effect.try({
-		try: () => ({ key: "exported" }),
+		try: () => ({ key: 'exported' }),
 		catch: (cause) => new ExportPrivateKeyError(cause),
 	})
 }
@@ -151,7 +151,7 @@ export class GenerateKeyPairError extends Error {
  */
 export function generateKeyPair(): Effect.Effect<KeyPair, GenerateKeyPairError, never> {
 	return Effect.try({
-		try: () => ({ privateKey: "0x1234", publicKey: "0x5678" }),
+		try: () => ({ privateKey: '0x1234', publicKey: '0x5678' }),
 		catch: (cause) => new GenerateKeyPairError(cause),
 	})
 }

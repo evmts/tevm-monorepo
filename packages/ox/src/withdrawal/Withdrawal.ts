@@ -4,10 +4,10 @@ import { Effect } from 'effect'
  * Export the core types
  */
 export type Withdrawal = {
-  index: number;
-  validatorIndex: number;
-  address: string;
-  amount: bigint;
+	index: number
+	validatorIndex: number
+	address: string
+	amount: bigint
 }
 
 /**
