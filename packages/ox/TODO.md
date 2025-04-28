@@ -46,7 +46,7 @@ export interface ExampleEffectService {
   exampleMethodEffect(
     param: Example.Param,
   ): Effect.Effect<Example.Result, BaseErrorEffect<Error | undefined>, never>
-  
+
   // Add more methods...
 }
 
@@ -73,7 +73,7 @@ function catchOxErrors<A>(effect: Effect.Effect<A, unknown, never>): Effect.Effe
 export const ExampleEffectLive: ExampleEffectService = {
   exampleMethodEffect: (param) =>
     catchOxErrors(Effect.try(() => Example.exampleMethod(param))),
-    
+
   // Implement more methods...
 }
 
@@ -127,8 +127,8 @@ Below is the list of Ox modules that need to be implemented:
 - [ ] Create `filter/FilterEffect.ts` for `ox/execution/filter`
 - [ ] Create `log/LogEffect.ts` for `ox/execution/log`
 - [ ] Create `stateOverrides/StateOverridesEffect.ts` for `ox/execution/state-overrides`
-- [ ] Create `transactionRequest/TransactionRequestEffect.ts` for `ox/execution/transaction-request`
-- [ ] Create `withdrawal/WithdrawalEffect.ts` for `ox/execution/withdrawal`
+- [x] Create `transactionRequest/TransactionRequestEffect.ts` for `ox/execution/transaction-request`
+- [x] Create `withdrawal/WithdrawalEffect.ts` for `ox/execution/withdrawal`
 
 ### JSON-RPC
 - [ ] Create `jsonRpc/JsonRpcRequestEffect.ts` for `ox/json-rpc/request`
@@ -140,7 +140,10 @@ Below is the list of Ox modules that need to be implemented:
 - [ ] Create `provider/ProviderEffect.ts` for `ox/provider`
 
 ### Sign-In with Ethereum
-- [ ] Create `siwe/SiweEffect.ts` for `ox/siwe`
+- [ ] Create `siwe/SiweEffect.ts` for `ox/siwe` (needs fixes)
+
+### Block
+- [x] Create `block/BlockEffect.ts` for `ox/core/Block`
 
 ## Final Steps
 
@@ -150,7 +153,3 @@ After implementing all modules:
 2. Create a combined layer that provides all services (`OxCombinedEffectLayer`)
 3. Run tests to ensure everything works correctly
 4. Update documentation as needed
-### Block
-- [x] Create \ for \
-### Block
-- [x] Create block/BlockEffect.ts for ox/core/Block

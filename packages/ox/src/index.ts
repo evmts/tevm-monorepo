@@ -5,6 +5,7 @@ export * from './aesGcm/index.js'
 export * from './authorization/index.js'
 export * from './base58/index.js'
 export * from './base64/index.js'
+export * from './blobs/index.js'
 export * from './bls/index.js'
 export * from './blsPoint/index.js'
 export * from './block/index.js'
@@ -22,26 +23,26 @@ export * from './signature/index.js'
 export * from './solidity/index.js'
 export * from './transaction/index.js'
 export * from './transactionReceipt/index.js'
-export * from './transactionRequest/index.js'
 export * from './typedData/index.js'
 export * from './value/index.js'
-export * from './withdrawal/index.js'
-
+export * from './p256/index.js'
+export * from './secp256k1/index.js'
 // Create the main OxEffect layer that provides all services
 import { Layer } from 'effect'
-import { AbiConstructorEffectLayer } from './abi/AbiConstructorEffect.js'
 import { AbiEffectLayer } from './abi/AbiEffect.js'
+import { AbiConstructorEffectLayer } from './abi/AbiConstructorEffect.js'
 import { AbiErrorEffectLayer } from './abi/AbiErrorEffect.js'
 import { AbiEventEffectLayer } from './abi/AbiEventEffect.js'
 import { AbiItemEffectLayer } from './abi/AbiItemEffect.js'
 import { AbiParametersEffectLayer } from './abi/AbiParametersEffect.js'
 import { AddressEffectLayer } from './address/AddressEffect.js'
 import { AesGcmEffectLayer } from './aesGcm/AesGcmEffect.js'
+import { AuthorizationEffectLayer } from './authorization/AuthorizationEffect.js'
 import { Base58EffectLayer } from './base58/Base58Effect.js'
 import { Base64EffectLayer } from './base64/Base64Effect.js'
-import { BlockEffectLayer } from './block/BlockEffect.js'
 import { BlsEffectLayer } from './bls/BlsEffect.js'
 import { BlsPointEffectLayer } from './blsPoint/BlsPointEffect.js'
+import { BlockEffectLayer } from './block/BlockEffect.js'
 import { BytesEffectLayer } from './bytes/BytesEffect.js'
 import { EnsEffectLayer } from './ens/EnsEffect.js'
 import { ErrorsEffectLayer } from './errors/ErrorsEffect.js'
@@ -56,12 +57,10 @@ import { SignatureEffectLayer } from './signature/SignatureEffect.js'
 import { SolidityEffectLayer } from './solidity/SolidityEffect.js'
 import { TransactionEffectLayer } from './transaction/TransactionEffect.js'
 import { TransactionReceiptEffectLayer } from './transactionReceipt/TransactionReceiptEffect.js'
-import { TransactionRequestEffectLayer } from './transactionRequest/TransactionRequestEffect.js'
 import { TypedDataEffectLayer } from './typedData/TypedDataEffect.js'
 import { ValueEffectLayer } from './value/ValueEffect.js'
 import { WithdrawalEffectLayer } from './withdrawal/WithdrawalEffect.js'
-import { P256EffectLayer } from './p256/P256Effect.js'
-import { Secp256k1EffectLayer } from './secp256k1/Secp256k1Effect.js'
+
 /**
  * Layer that provides all Ox Effect services
  */
@@ -75,20 +74,13 @@ export const OxEffectLayer = Layer.merge(
 	AddressEffectLayer,
 	AesGcmEffectLayer,
 	AuthorizationEffectLayer,
-	AbiEffectLayer,
-	AbiConstructorEffectLayer,
-	AbiErrorEffectLayer,
-	AbiEventEffectLayer,
-	AbiItemEffectLayer,
-	AbiParametersEffectLayer,
-	AddressEffectLayer,
-	AesGcmEffectLayer,
 	Base58EffectLayer,
 	Base64EffectLayer,
 	BlsEffectLayer,
 	BlsPointEffectLayer,
 	BlockEffectLayer,
 	BytesEffectLayer,
+	EnsEffectLayer,
 	ErrorsEffectLayer,
 	HashEffectLayer,
 	HexEffectLayer,
@@ -101,11 +93,8 @@ export const OxEffectLayer = Layer.merge(
 	SolidityEffectLayer,
 	TransactionEffectLayer,
 	TransactionReceiptEffectLayer,
-	TransactionRequestEffectLayer,
 	TypedDataEffectLayer,
 	ValueEffectLayer,
-	P256EffectLayer,
-	Secp256k1EffectLayer,
 	WithdrawalEffectLayer,
 )
 
