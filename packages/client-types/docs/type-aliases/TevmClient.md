@@ -8,7 +8,7 @@
 
 > **TevmClient**: `object`
 
-Defined in: [TevmClient.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L131)
+Defined in: [TevmClient.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/client-types/src/TevmClient.ts#L130)
 
 ## Type declaration
 

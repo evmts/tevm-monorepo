@@ -6,16 +6,22 @@
 
 # Type Alias: DebugTraceCallHandler()
 
-> **DebugTraceCallHandler**: (`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
+> **DebugTraceCallHandler**: \<`TTracer`, `TDiffMode`\>(`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\<`TTracer`, `TDiffMode`\>\>
 
-Defined in: [packages/actions/src/debug/DebugHandler.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugHandler.ts#L11)
+Defined in: [packages/actions/src/debug/DebugHandler.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugHandler.ts#L6)
+
+## Type Parameters
+
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+
+• **TDiffMode** *extends* `boolean` = `boolean`
 
 ## Parameters
 
 ### params
 
-[`DebugTraceCallParams`](DebugTraceCallParams.md)
+[`DebugTraceCallParams`](DebugTraceCallParams.md)\<`TTracer`, `TDiffMode`\>
 
 ## Returns
 
-`Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\>
+`Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\<`TTracer`, `TDiffMode`\>\>

@@ -4,11 +4,11 @@
 
 [@tevm/actions](../globals.md) / DebugTraceTransactionParams
 
-# Type Alias: DebugTraceTransactionParams\<TThrowOnError\>
+# Type Alias: DebugTraceTransactionParams\<TTracer, TDiffMode, TTTThrowOnError\>
 
-> **DebugTraceTransactionParams**\<`TThrowOnError`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnError`\> & [`TraceParams`](TraceParams.md) & `object`
+> **DebugTraceTransactionParams**\<`TTracer`, `TDiffMode`, `TTTThrowOnError`\>: [`BaseParams`](BaseParams.md)\<`TTTThrowOnError`\> & [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\> & `object`
 
-Defined in: [packages/actions/src/debug/DebugParams.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L46)
+Defined in: [packages/actions/src/debug/DebugParams.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L55)
 
 Params taken by `debug_traceTransaction` handler
 
@@ -22,4 +22,8 @@ The transaction hash
 
 ## Type Parameters
 
-• **TThrowOnError** *extends* `boolean` = `boolean`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+
+• **TDiffMode** *extends* `boolean` = `boolean`
+
+• **TTTThrowOnError** *extends* `boolean` = `boolean`

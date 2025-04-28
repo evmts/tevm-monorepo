@@ -88,7 +88,7 @@ Gets block given one of the following inputs:
 
 ##### blockTag
 
-`number` | `bigint` | `` `0x${string}` `` | [`BlockTag`](../../index/type-aliases/BlockTag.md) | `Uint8Array`\<`ArrayBufferLike`\>
+`number` | `bigint` | `` `0x${string}` `` | `Uint8Array`\<`ArrayBufferLike`\> | [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
 #### Returns
 

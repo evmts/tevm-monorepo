@@ -33,6 +33,18 @@ To obtain an accurate tx receipt input the block gas used up until this tx.
 
 ***
 
+### preserveJournal?
+
+> `optional` **preserveJournal**: `boolean`
+
+Defined in: packages/vm/types/utils/RunTxOpts.d.ts:58
+
+**`Internal`**
+
+If true, doesn't cleanup journal or commit state changes. Default is false.
+
+***
+
 ### reportAccessList?
 
 > `optional` **reportAccessList**: `boolean`

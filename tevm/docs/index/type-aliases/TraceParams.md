@@ -4,13 +4,19 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TraceParams
 
-# Type Alias: TraceParams
+# Type Alias: TraceParams\<TTracer, TDiffMode\>
 
-> **TraceParams**: `object`
+> **TraceParams**\<`TTracer`, `TDiffMode`\>: `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:7
+Defined in: packages/actions/types/debug/DebugParams.d.ts:8
 
 Config params for trace calls
+
+## Type Parameters
+
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+
+• **TDiffMode** *extends* `boolean` = `boolean`
 
 ## Type declaration
 
@@ -28,13 +34,20 @@ A duration string of decimal numbers that overrides the default timeout of 5 sec
 
 ### tracer
 
-> `readonly` **tracer**: `"callTracer"` \| `"prestateTracer"`
+> `readonly` **tracer**: `TTracer`
 
 The type of tracer
-Currently only callTracer supported
+Supported tracers: callTracer, prestateTracer
 
 ### tracerConfig?
 
 > `readonly` `optional` **tracerConfig**: `object`
 
 object to specify configurations for the tracer
+
+#### tracerConfig.diffMode?
+
+> `readonly` `optional` **diffMode**: `TTracer` *extends* `"prestateTracer"` ? `TDiffMode` : `never`
+
+When using the prestateTracer, setting this to true will make the tracer return only the state difference between before and after execution.
+Default is false which returns the full state of all touched accounts.

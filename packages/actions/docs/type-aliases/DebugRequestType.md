@@ -8,15 +8,23 @@
 
 > **DebugRequestType**: `object`
 
-Defined in: [packages/actions/src/tevm-request-handler/DebugRequestType.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/DebugRequestType.ts#L6)
+Defined in: [packages/actions/src/tevm-request-handler/DebugRequestType.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/tevm-request-handler/DebugRequestType.ts#L11)
 
 A mapping of `debug_*` method names to their request type
 
 ## Type declaration
 
+### debug\_traceBlock
+
+> **debug\_traceBlock**: `DebugTraceBlockJsonRpcRequest`
+
 ### debug\_traceCall
 
 > **debug\_traceCall**: `DebugTraceCallJsonRpcRequest`
+
+### debug\_traceState
+
+> **debug\_traceState**: `DebugTraceStateJsonRpcRequest`
 
 ### debug\_traceTransaction
 

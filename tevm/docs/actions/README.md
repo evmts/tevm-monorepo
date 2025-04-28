@@ -124,12 +124,15 @@
 - [CallJsonRpcRequest](type-aliases/CallJsonRpcRequest.md)
 - [CallJsonRpcResponse](type-aliases/CallJsonRpcResponse.md)
 - [ContractHandler](type-aliases/ContractHandler.md)
-- [DebugRequestType](type-aliases/DebugRequestType.md)
-- [DebugReturnType](type-aliases/DebugReturnType.md)
+- [DebugTraceBlockParams](type-aliases/DebugTraceBlockParams.md)
+- [DebugTraceBlockResult](type-aliases/DebugTraceBlockResult.md)
 - [DebugTraceCallHandler](type-aliases/DebugTraceCallHandler.md)
 - [DebugTraceCallParams](type-aliases/DebugTraceCallParams.md)
 - [DebugTraceCallResult](type-aliases/DebugTraceCallResult.md)
-- [DebugTraceTransactionHandler](type-aliases/DebugTraceTransactionHandler.md)
+- [DebugTraceStateFilter](type-aliases/DebugTraceStateFilter.md)
+- [DebugTraceStateObject](type-aliases/DebugTraceStateObject.md)
+- [DebugTraceStateParams](type-aliases/DebugTraceStateParams.md)
+- [DebugTraceStateResult](type-aliases/DebugTraceStateResult.md)
 - [DebugTraceTransactionParams](type-aliases/DebugTraceTransactionParams.md)
 - [DebugTraceTransactionResult](type-aliases/DebugTraceTransactionResult.md)
 - [DeployHandler](type-aliases/DeployHandler.md)
@@ -396,6 +399,7 @@
 - [MineJsonRpcRequest](type-aliases/MineJsonRpcRequest.md)
 - [MineJsonRpcResponse](type-aliases/MineJsonRpcResponse.md)
 - [NetworkConfig](type-aliases/NetworkConfig.md)
+- [PrestateTraceAnyResult](type-aliases/PrestateTraceAnyResult.md)
 - [SerializedParams](type-aliases/SerializedParams.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
 - [SetAccountJsonRpcProcedure](type-aliases/SetAccountJsonRpcProcedure.md)
@@ -416,6 +420,7 @@
 
 ## Variables
 
+- [debugTraceStateFilters](variables/debugTraceStateFilters.md)
 - [zAbi](variables/zAbi.md)
 - [zAddress](variables/zAddress.md)
 - [zBaseCallParams](variables/zBaseCallParams.md)
@@ -537,6 +542,12 @@
 
 ## References
 
+### AccountState
+
+Re-exports [AccountState](../index/type-aliases/AccountState.md)
+
+***
+
 ### BaseParams
 
 Re-exports [BaseParams](../index/type-aliases/BaseParams.md)
@@ -579,6 +590,18 @@ Re-exports [ContractResult](../index/type-aliases/ContractResult.md)
 
 ***
 
+### DebugRequestType
+
+Re-exports [DebugRequestType](../index/type-aliases/DebugRequestType.md)
+
+***
+
+### DebugReturnType
+
+Re-exports [DebugReturnType](../index/type-aliases/DebugReturnType.md)
+
+***
+
 ### DeployParams
 
 Re-exports [DeployParams](../index/type-aliases/DeployParams.md)
@@ -600,6 +623,12 @@ Re-exports [DumpStateResult](../index/type-aliases/DumpStateResult.md)
 ### EmptyParams
 
 Re-exports [EmptyParams](../index/type-aliases/EmptyParams.md)
+
+***
+
+### EvmTraceResult
+
+Re-exports [EvmTraceResult](../index/type-aliases/EvmTraceResult.md)
 
 ***
 
@@ -654,6 +683,18 @@ Re-exports [MineParams](../index/type-aliases/MineParams.md)
 ### MineResult
 
 Re-exports [MineResult](../index/type-aliases/MineResult.md)
+
+***
+
+### PrestateTraceDiffResult
+
+Re-exports [PrestateTraceDiffResult](../index/type-aliases/PrestateTraceDiffResult.md)
+
+***
+
+### PrestateTraceResult
+
+Re-exports [PrestateTraceResult](../index/type-aliases/PrestateTraceResult.md)
 
 ***
 

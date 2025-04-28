@@ -6,13 +6,13 @@
 
 # Function: traceCallHandler()
 
-> **traceCallHandler**(`__namedParameters`): [`DebugTraceCallHandler`](../type-aliases/DebugTraceCallHandler.md)
+> **traceCallHandler**(`client`): [`DebugTraceCallHandler`](../type-aliases/DebugTraceCallHandler.md)
 
 Defined in: packages/actions/types/debug/traceCallHandler.d.ts:1
 
 ## Parameters
 
-### \_\_namedParameters
+### client
 
 [`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
 

@@ -6,7 +6,7 @@
 
 # Function: validateRunTx()
 
-> **validateRunTx**(`vm`): (`opts`) => `Promise`\<[`RunTxOpts`](../interfaces/RunTxOpts.md) & `Required`\<`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"block"`\>\>\>
+> **validateRunTx**(`vm`): (`opts`) => `Promise`\<\{ `block`: [`Block`](../../block/classes/Block.md); `blockGasUsed`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList`: `boolean`; `reportPreimages`: `boolean`; `skipBalance`: `boolean`; `skipBlockGasLimitValidation`: `boolean`; `skipHardForkValidation`: `boolean`; `skipNonce`: `boolean`; `tx`: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md); \}\>
 
 Defined in: packages/vm/types/actions/validateRunTx.d.ts:1
 
@@ -28,4 +28,4 @@ Defined in: packages/vm/types/actions/validateRunTx.d.ts:1
 
 ### Returns
 
-`Promise`\<[`RunTxOpts`](../interfaces/RunTxOpts.md) & `Required`\<`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"block"`\>\>\>
+`Promise`\<\{ `block`: [`Block`](../../block/classes/Block.md); `blockGasUsed`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList`: `boolean`; `reportPreimages`: `boolean`; `skipBalance`: `boolean`; `skipBlockGasLimitValidation`: `boolean`; `skipHardForkValidation`: `boolean`; `skipNonce`: `boolean`; `tx`: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md); \}\>

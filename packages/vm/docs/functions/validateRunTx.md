@@ -6,7 +6,7 @@
 
 # Function: validateRunTx()
 
-> **validateRunTx**(`vm`): (`opts`) => `Promise`\<[`RunTxOpts`](../interfaces/RunTxOpts.md) & `Required`\<`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"block"`\>\>\>
+> **validateRunTx**(`vm`): (`opts`) => `Promise`\<\{ `block`: `Block`; `blockGasUsed`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList`: `boolean`; `reportPreimages`: `boolean`; `skipBalance`: `boolean`; `skipBlockGasLimitValidation`: `boolean`; `skipHardForkValidation`: `boolean`; `skipNonce`: `boolean`; `tx`: `TypedTransaction`; \}\>
 
 Defined in: [packages/vm/src/actions/validateRunTx.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/validateRunTx.js#L10)
 
@@ -28,4 +28,4 @@ Defined in: [packages/vm/src/actions/validateRunTx.js:10](https://github.com/evm
 
 ### Returns
 
-`Promise`\<[`RunTxOpts`](../interfaces/RunTxOpts.md) & `Required`\<`Pick`\<[`RunTxOpts`](../interfaces/RunTxOpts.md), `"block"`\>\>\>
+`Promise`\<\{ `block`: `Block`; `blockGasUsed`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList`: `boolean`; `reportPreimages`: `boolean`; `skipBalance`: `boolean`; `skipBlockGasLimitValidation`: `boolean`; `skipHardForkValidation`: `boolean`; `skipNonce`: `boolean`; `tx`: `TypedTransaction`; \}\>

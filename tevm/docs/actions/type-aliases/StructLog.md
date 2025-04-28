@@ -8,7 +8,7 @@
 
 > **StructLog**: `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:3
+Defined in: packages/actions/types/debug/DebugResult.d.ts:14
 
 ## Type declaration
 
