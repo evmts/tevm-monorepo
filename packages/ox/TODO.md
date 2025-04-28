@@ -90,11 +90,11 @@ Below is the list of Ox modules that need to be implemented:
 ### ABI
 - [ ] Create `abi/AbiEffect.ts` for `ox/abi`
 - [ ] Create `abi/AbiConstructorEffect.ts` for `ox/abi/AbiConstructor`
-- [ ] Create `abi/AbiErrorEffect.ts` for `ox/abi/AbiError`
-- [ ] Create `abi/AbiEventEffect.ts` for `ox/abi/AbiEvent`
+- [x] Create `abi/AbiErrorEffect.ts` for `ox/abi/AbiError`
+- [x] Create `abi/AbiEventEffect.ts` for `ox/abi/AbiEvent`
 - [ ] Create `abi/AbiFunctionEffect.ts` for `ox/abi/AbiFunction`
-- [ ] Create `abi/AbiItemEffect.ts` for `ox/abi/AbiItem`
-- [ ] Create `abi/AbiParametersEffect.ts` for `ox/abi/AbiParameters`
+- [x] Create `abi/AbiItemEffect.ts` for `ox/abi/AbiItem`
+- [x] Create `abi/AbiParametersEffect.ts` for `ox/abi/AbiParameters`
 
 ### Authorization
 - [ ] Create `authorization/AuthorizationEffect.ts` for `ox/authorization`
