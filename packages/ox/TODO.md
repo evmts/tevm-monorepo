@@ -97,7 +97,7 @@ Below is the list of Ox modules that need to be implemented:
 - [x] Create `abi/AbiParametersEffect.ts` for `ox/abi/AbiParameters`
 
 ### Authorization
-- [ ] Create `authorization/AuthorizationEffect.ts` for `ox/authorization`
+- [x] Create `authorization/AuthorizationEffect.ts` for `ox/authorization`
 
 ### Binary State Tree
 - [ ] Create `binaryStateTree/BinaryStateTreeEffect.ts` for `ox/binary-state-tree`
@@ -116,7 +116,7 @@ Below is the list of Ox modules that need to be implemented:
 - [ ] Create `webCryptoP256/WebCryptoP256Effect.ts` for `ox/crypto/webcrypto-p256`
 
 ### ENS
-- [ ] Create `ens/EnsEffect.ts` for `ox/ens`
+- [x] Create `ens/EnsEffect.ts` for `ox/ens`
 
 ### Execution Spec
 - [ ] Create `accessList/AccessListEffect.ts` for `ox/execution/access-list`
@@ -137,10 +137,10 @@ Below is the list of Ox modules that need to be implemented:
 - [ ] Create `jsonRpc/JsonRpcTransportEffect.ts` for `ox/json-rpc/transport`
 
 ### Provider
-- [ ] Create `provider/ProviderEffect.ts` for `ox/provider`
+- [x] Create `provider/ProviderEffect.ts` for `ox/provider`
 
 ### Sign-In with Ethereum
-- [ ] Create `siwe/SiweEffect.ts` for `ox/siwe` (needs fixes)
+- [x] Create `siwe/SiweEffect.ts` for `ox/siwe`
 
 ### Block
 - [x] Create `block/BlockEffect.ts` for `ox/core/Block`
