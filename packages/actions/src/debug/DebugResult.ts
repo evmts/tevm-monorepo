@@ -28,34 +28,34 @@ export type StructLog = {
 /**
  * The state of an account as captured by the prestateTracer
  */
-export type AccountState = Partial<{
+export type AccountState = {
 	readonly balance: Hex
 	readonly nonce: string
 	readonly code: Hex
 	readonly storage: Record<Hex, Hex>
-}>
+}
 
 /**
  * Result format for prestateTracer in normal mode (full state)
  */
-export type PrestateTracerResult = Record<Hex, AccountState>
+export type PrestateTraceResult = Record<Hex, AccountState>
 
 /**
  * Result format for prestateTracer in diff mode
  */
-export type PrestateTracerDiffResult = {
+export type PrestateTraceDiffResult = {
 	readonly pre: Record<Hex, AccountState>
-	readonly post: Record<Hex, AccountState>
+	readonly post: Record<Hex, Partial<AccountState>>
 }
 
 /**
  * Union type of possible prestate tracer results
  */
-export type PrestateTracerAnyResult<TDiffMode extends boolean = boolean> = TDiffMode extends true
-	? PrestateTracerDiffResult
+export type PrestateTraceAnyResult<TDiffMode extends boolean = boolean> = TDiffMode extends true
+	? PrestateTraceDiffResult
 	: TDiffMode extends false
-		? PrestateTracerResult
-		: PrestateTracerResult
+		? PrestateTraceResult
+		: PrestateTraceResult
 
 /**
  * Result for standard EVM tracing with opcodes
@@ -76,7 +76,7 @@ export type DebugTraceTransactionResult<
 > = TTracer extends 'callTracer'
 	? TraceResult
 	: TTracer extends 'prestateTracer'
-		? PrestateTracerAnyResult<TDiffMode>
+		? PrestateTraceAnyResult<TDiffMode>
 		: TraceResult
 
 /**
@@ -88,7 +88,7 @@ export type DebugTraceCallResult<
 > = TTracer extends 'callTracer'
 	? EvmTraceResult
 	: TTracer extends 'prestateTracer'
-		? PrestateTracerAnyResult<TDiffMode>
+		? PrestateTraceAnyResult<TDiffMode>
 		: EvmTraceResult
 
 /**
