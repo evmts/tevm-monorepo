@@ -310,7 +310,15 @@ The following modules need to be migrated from the service-based pattern to the 
   - [x] `normalize` function
   - [x] `labelhash` function
   - [x] `namehash` function
-- [ ] **Execution modules** (AccountProof, BlockOverrides, Log, StateOverrides, TransactionRequest, Withdrawal)
+- [ ] **Execution modules**
+  - [x] **AccountProof**
+  - [x] **BlockOverrides**
+    - [x] `parse` function
+    - [x] `format` function
+  - [ ] **Log**
+  - [ ] **StateOverrides**
+  - [ ] **TransactionRequest**
+  - [ ] **Withdrawal**
 - [x] **Filter**
   - [x] `createFilter` function
   - [x] `getFilterChanges` function
@@ -329,8 +337,8 @@ The following modules need to be migrated from the service-based pattern to the 
   - [x] `hasAddress` function
   - [x] `hasTopic` function
 - [x] **AccessList**
-- [ ] **JSON-RPC modules**
-  - [ ] **JsonRpcRequest** (PENDING - implementing)
+- [x] **JSON-RPC modules**
+  - [x] **JsonRpcRequest**
   - [x] **JsonRpcResponse**
   - [x] `createResponse` function
   - [x] `parseResponse` function
@@ -342,7 +350,20 @@ The following modules need to be migrated from the service-based pattern to the 
   - [x] **JsonRpcTransport**
     - [x] `fromHttp` function
     - [x] `create` function
-- [ ] **Provider**
+- [x] **Provider**
+  - [x] `getBlockNumber` function
+  - [x] `getChainId` function
+  - [x] `getGasPrice` function
+  - [x] `getBalance` function
+  - [x] `getCode` function
+  - [x] `getStorageAt` function
+  - [x] `getTransactionCount` function
+  - [x] `getTransaction` function
+  - [x] `getTransactionReceipt` function
+  - [x] `getLogs` function
+  - [x] `estimateGas` function
+  - [x] `getBlock` function
+  - [x] `getBlockWithTransactions` function
 - [x] **SIWE**
   - [x] `createMessage` function
   - [x] `verifyMessage` function
