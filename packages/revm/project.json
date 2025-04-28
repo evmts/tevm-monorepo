@@ -1,0 +1,48 @@
+{
+  "name": "tevm_revm",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/revm/src",
+  "tags": [],
+  "targets": {
+    "build:rust": {
+      "cache": true,
+      "outputs": ["{workspaceRoot}/packages/revm"],
+      "executor": "@monodon/rust:build",
+      "options": {
+        "target": "wasm32-wasi",
+        "release": true,
+        "additional-args": "--target wasm32-wasi"
+      },
+      "configurations": {
+        "production": {
+          "dist": "dist/revm",
+          "release": true
+        }
+      }
+    },
+    "test": {
+      "cache": true,
+      "executor": "@monodon/rust:test",
+      "outputs": ["{options.target-dir}"],
+      "options": {
+        "target-dir": "dist/target/revm",
+        "crate": "tevm_revm"
+      },
+      "configurations": {
+        "production": {
+          "release": true
+        }
+      }
+    },
+    "lint": {
+      "cache": true,
+      "executor": "@monodon/rust:lint",
+      "outputs": ["{options.target-dir}"],
+      "options": {
+        "target-dir": "dist/target/revm",
+        "crate": "tevm_revm"
+      }
+    }
+  }
+}

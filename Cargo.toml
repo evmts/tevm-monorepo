@@ -7,6 +7,7 @@ members = [
 	'bundler-packages/solc-rs',
 	'bundler-packages/bundler-rs',
 	'app/src-tauri',
+	'packages/revm',
 ]
 
 [profile.release]

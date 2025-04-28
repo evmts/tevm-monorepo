@@ -1,0 +1,12 @@
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    environment: 'node',
+    include: ['src/**/*.spec.ts'],
+    coverage: {
+      reporter: ['text', 'json', 'json-summary'],
+      exclude: ['**/node_modules/**', '**/dist/**', '**/src/**/*.spec.ts']
+    }
+  },
+})

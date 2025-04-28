@@ -1,0 +1,56 @@
+{
+  "name": "@tevm/revm",
+  "version": "1.0.0-next.142",
+  "description": "REVM Rust-based EVM implementation for Tevm with WASM support",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.spec.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evmts/tevm-monorepo.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build:dist": "tsup",
+    "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist",
+    "build:rust": "nx run tevm_revm:build:rust",
+    "clean": "rimraf dist",
+    "generate:docs": "typedoc",
+    "lint": "eslint src",
+    "lint:deps": "depcheck",
+    "lint:package": "publint",
+    "test:coverage": "vitest run --coverage",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "revm-wasm": "file:./target/wasm32-wasi/release"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "rimraf": "^5.0.5",
+    "typedoc": "^0.25.12",
+    "typedoc-plugin-markdown": "^3.17.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
