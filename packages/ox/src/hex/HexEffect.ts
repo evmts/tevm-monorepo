@@ -1,7 +1,6 @@
 import {
 	boolToHex,
 	bytesToHex,
-	concatHex,
 	hexToBigInt,
 	hexToBool,
 	hexToBytes,
@@ -9,7 +8,6 @@ import {
 	hexToString,
 	isHex,
 	numberToHex,
-	padHex,
 	stringToHex,
 } from '@tevm/utils'
 import { Effect } from 'effect'
@@ -51,7 +49,7 @@ export function assertEffect(value: unknown): Effect.Effect<void, BaseErrorEffec
  * Concatenates two or more Hex values in an Effect
  */
 export function concatEffect(...values: readonly string[]): Effect.Effect<string, never, never> {
-	return Effect.succeed(concatHex(values))
+	return Effect.succeed(values.join(''))
 }
 
 /**
@@ -101,7 +99,11 @@ export function padLeftEffect(
 	value: string,
 	size?: number,
 ): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => padHex(value, { size: size, dir: 'right' })))
+	return catchOxErrors(Effect.try(() => {
+		const hexValue = value.startsWith('0x') ? value.slice(2) : value
+		const paddedHex = hexValue.padStart(size || 0, '0')
+		return value.startsWith('0x') ? `0x${paddedHex}` : paddedHex
+	}))
 }
 
 /**
@@ -111,7 +113,11 @@ export function padRightEffect(
 	value: string,
 	size?: number,
 ): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => padHex(value, { size: size, dir: 'left' })))
+	return catchOxErrors(Effect.try(() => {
+		const hexValue = value.startsWith('0x') ? value.slice(2) : value
+		const paddedHex = hexValue.padEnd(size || 0, '0')
+		return value.startsWith('0x') ? `0x${paddedHex}` : paddedHex
+	}))
 }
 
 /**
@@ -139,80 +145,51 @@ export function sizeEffect(value: string): Effect.Effect<number, never, never> {
  * Converts from Hex to BigInt in an Effect
  */
 export function toBigIntEffect(hex: string): Effect.Effect<bigint, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => hexToBigInt(hex)))
+	return catchOxErrors(Effect.try(() => {
+		// Make sure we have a 0x prefix
+		const prefixedHex = hex.startsWith('0x') ? hex : `0x${hex}`
+		return hexToBigInt(prefixedHex as `0x${string}`)
+	}))
 }
 
 /**
  * Converts from Hex to Boolean in an Effect
  */
 export function toBooleanEffect(hex: string): Effect.Effect<boolean, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => hexToBool(hex)))
+	return catchOxErrors(Effect.try(() => {
+		const prefixedHex = hex.startsWith('0x') ? hex : `0x${hex}`
+		return hexToBool(prefixedHex as `0x${string}`)
+	}))
 }
 
 /**
  * Converts from Hex to Bytes in an Effect
  */
 export function toBytesEffect(hex: string): Effect.Effect<Uint8Array, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => hexToBytes(hex)))
+	return catchOxErrors(Effect.try(() => {
+		const prefixedHex = hex.startsWith('0x') ? hex : `0x${hex}`
+		return hexToBytes(prefixedHex as `0x${string}`)
+	}))
 }
 
 /**
  * Converts from Hex to Number in an Effect
  */
 export function toNumberEffect(hex: string): Effect.Effect<number, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => hexToNumber(hex)))
+	return catchOxErrors(Effect.try(() => {
+		const prefixedHex = hex.startsWith('0x') ? hex : `0x${hex}`
+		return hexToNumber(prefixedHex as `0x${string}`)
+	}))
 }
 
 /**
  * Converts from Hex to String in an Effect
  */
 export function toStringEffect(hex: string): Effect.Effect<string, BaseErrorEffect<Error | undefined>, never> {
-	return catchOxErrors(Effect.try(() => hexToString(hex)))
+	return catchOxErrors(Effect.try(() => {
+		const prefixedHex = hex.startsWith('0x') ? hex : `0x${hex}`
+		return hexToString(prefixedHex as `0x${string}`)
+	}))
 }
 
-/**
- * Layer that provides the HexEffect functions
- */
-import { Context, Layer } from 'effect'
-
-export interface HexEffectService {
-	assertEffect: typeof assertEffect
-	concatEffect: typeof concatEffect
-	fromBytesEffect: typeof fromBytesEffect
-	fromBooleanEffect: typeof fromBooleanEffect
-	fromNumberEffect: typeof fromNumberEffect
-	fromStringEffect: typeof fromStringEffect
-	isEqualEffect: typeof isEqualEffect
-	padLeftEffect: typeof padLeftEffect
-	padRightEffect: typeof padRightEffect
-	randomEffect: typeof randomEffect
-	sizeEffect: typeof sizeEffect
-	toBigIntEffect: typeof toBigIntEffect
-	toBooleanEffect: typeof toBooleanEffect
-	toBytesEffect: typeof toBytesEffect
-	toNumberEffect: typeof toNumberEffect
-	toStringEffect: typeof toStringEffect
-}
-
-export const HexEffectTag = Context.Tag<HexEffectService>('@tevm/ox/HexEffect')
-
-export const HexEffectLive: HexEffectService = {
-	assertEffect,
-	concatEffect,
-	fromBytesEffect,
-	fromBooleanEffect,
-	fromNumberEffect,
-	fromStringEffect,
-	isEqualEffect,
-	padLeftEffect,
-	padRightEffect,
-	randomEffect,
-	sizeEffect,
-	toBigIntEffect,
-	toBooleanEffect,
-	toBytesEffect,
-	toNumberEffect,
-	toStringEffect,
-}
-
-export const HexEffectLayer = Layer.succeed(HexEffectTag, HexEffectLive)
+// Export all functions directly without service layer

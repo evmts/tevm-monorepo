@@ -1,10 +1,14 @@
 import { Effect } from 'effect'
-import Ox from 'ox'
 
 /**
  * Export the core types
  */
-export type Withdrawal = Ox.Withdrawal.Withdrawal
+export type Withdrawal = {
+  index: number;
+  validatorIndex: number;
+  address: string;
+  amount: bigint;
+}
 
 /**
  * Error class for assert function
@@ -24,7 +28,11 @@ export class AssertError extends Error {
  */
 export function assert(value: unknown): Effect.Effect<void, AssertError, never> {
 	return Effect.try({
-		try: () => Ox.Withdrawal.assert(value),
+		try: () => {
+			if (!isWithdrawal(value)) {
+				throw new Error('Invalid withdrawal')
+			}
+		},
 		catch: (cause) => new AssertError(cause),
 	})
 }
@@ -33,12 +41,20 @@ export function assert(value: unknown): Effect.Effect<void, AssertError, never> 
  * Checks if the given value is a valid Withdrawal
  */
 export function isWithdrawal(value: unknown): boolean {
-	return Ox.Withdrawal.isWithdrawal(value)
+	const withdrawal = value as Withdrawal
+	return (
+		withdrawal !== null &&
+		typeof withdrawal === 'object' &&
+		typeof withdrawal.index === 'number' &&
+		typeof withdrawal.validatorIndex === 'number' &&
+		typeof withdrawal.address === 'string' &&
+		typeof withdrawal.amount === 'bigint'
+	)
 }
 
 /**
  * Validates a Withdrawal
  */
 export function validate(value: unknown): boolean {
-	return Ox.Withdrawal.validate(value)
+	return isWithdrawal(value)
 }
