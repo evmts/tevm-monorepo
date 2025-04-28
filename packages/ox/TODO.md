@@ -107,7 +107,7 @@ Below is the list of Ox modules that need to be implemented:
 
 ### Crypto
 - [x] Create `bls/BlsEffect.ts` for `ox/crypto/bls`
-- [ ] Create `blsPoint/BlsPointEffect.ts` for `ox/crypto/bls-point`
+- [x] Create `blsPoint/BlsPointEffect.ts` for `ox/crypto/bls-point`
 - [ ] Create `hdKey/HdKeyEffect.ts` for `ox/crypto/hd-key`
 - [ ] Create `mnemonic/MnemonicEffect.ts` for `ox/crypto/mnemonic`
 - [ ] Create `p256/P256Effect.ts` for `ox/crypto/p256`
@@ -150,3 +150,7 @@ After implementing all modules:
 2. Create a combined layer that provides all services (`OxCombinedEffectLayer`)
 3. Run tests to ensure everything works correctly
 4. Update documentation as needed
+### Block
+- [x] Create \ for \
+### Block
+- [x] Create block/BlockEffect.ts for ox/core/Block
