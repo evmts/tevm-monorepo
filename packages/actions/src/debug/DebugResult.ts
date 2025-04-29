@@ -80,10 +80,10 @@ export type DebugTraceTransactionResult<
 	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
-	? TraceResult
+	? EvmTraceResult
 	: TTracer extends 'prestateTracer'
 		? PrestateTraceAnyResult<TDiffMode>
-		: TraceResult
+		: EvmTraceResult
 
 /**
  * Result from `debug_traceCall`
