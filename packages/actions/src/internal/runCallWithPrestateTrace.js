@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { DefensiveNullCheckError } from '@tevm/errors'
-import { bytesToHex, toHex } from '@tevm/utils'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
 /**
@@ -93,13 +93,13 @@ export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** 
  * @param {import('@tevm/node').TevmNode['logger']} logger
  * @param {import('@tevm/utils').EthjsAddress} address
  * @param {Set<import('@tevm/utils').Hex>} slots Set of storage slot keys that were accessed
- * @returns {Promise<import('../debug/DebugResult.js').AccountState | null>}
+ * @returns {Promise<import('../debug/DebugResult.js').AccountState | undefined>}
  */
 const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 	try {
 		// Get account details
 		const account = await vm.stateManager.getAccount(address)
-		if (!account) return null
+		if (!account) return undefined
 
 		// Get code
 		const code = await vm.stateManager.getContractCode(address)
@@ -110,7 +110,7 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 		for (const slotHex of slots) {
 			try {
 				// Convert hex slot to Uint8Array for getContractStorage
-				const slotKey = Buffer.from(slotHex.slice(2), 'hex')
+				const slotKey = hexToBytes(slotHex)
 				const value = await vm.stateManager.getContractStorage(address, slotKey)
 				storage[slotHex] = bytesToHex(value)
 			} catch (err) {
@@ -118,15 +118,36 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 			}
 		}
 
+		/**
+		 * @param {keyof typeof account} property
+		 * @returns {any}
+		 */
+		const safeAccess = (property) => {
+			try {
+				return typeof account[property] === 'function' ? account[property]() : account[property]
+			} catch (err) {
+				logger.error(err, `Error getting ${property} for account ${address.toString()}`)
+				return undefined
+			}
+		}
+
 		return {
-			balance: toHex(account.balance),
-			nonce: account.nonce.toString(),
-			code: code && code.length > 0 ? bytesToHex(code) : '0x',
 			storage,
+			// We would want to throw if any of these is not loaded
+			balance: account.balance,
+			nonce: account.nonce,
+			code: code && code.length > 0 ? bytesToHex(code) : '0x',
+			// For these we can default (not loaded) to undefined
+			codeHash: safeAccess('codeHash') ? bytesToHex(safeAccess('codeHash')) : undefined,
+			codeSize: safeAccess('codeSize'),
+			storageRoot: safeAccess('storageRoot') ? bytesToHex(safeAccess('storageRoot')) : undefined,
+			isContract: safeAccess('isContract'),
+			isEmpty: safeAccess('isEmpty'),
+			version: safeAccess('version'),
 		}
 	} catch (err) {
 		logger.error(err, `Error capturing state for account ${address.toString()}`)
-		return null
+		return undefined
 	}
 }
 
@@ -147,60 +168,32 @@ const formatDiffResult = (preState, postState) => {
 		const post = postState[addressHex]
 		if (!post) continue
 
-		// Compare and capture differences
-		/** @type {Partial<{
-		 *   balance: import('@tevm/utils').Hex,
-		 *   nonce: string,
-		 *   code: import('@tevm/utils').Hex,
-		 *   storage: Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>
-		 * }>} */
-		const postDiffAccount = {}
-		let hasDiff = false
-
-		// Check balance difference
-		if (pre && post.balance && pre.balance !== post.balance) {
-			postDiffAccount.balance = post.balance
-			hasDiff = true
-		}
-
-		// Check nonce difference
-		if (pre && post.nonce && pre.nonce !== post.nonce) {
-			postDiffAccount.nonce = post.nonce
-			hasDiff = true
-		}
-
-		// Check code difference (rare, only for contract creation or self-destruct)
-		if (pre && post.code && pre.code !== post.code) {
-			postDiffAccount.code = post.code
-			hasDiff = true
-		}
-
-		// Check storage differences
-		/** @type {Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>} */
-		const storagePostDiff = {}
-		let hasStorageDiff = false
-
 		// Get all unique slot keys from both pre and post
 		const allSlots = new Set([...Object.keys(pre?.storage ?? {}), ...Object.keys(post.storage ?? {})])
-
+		// Build storage diff
+		/** @type {Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>} */
+		let storageDiff = {}
 		for (const slot of allSlots) {
 			const slotHex = /** @type {import('@tevm/utils').Hex} */ (slot)
 			const preValue = pre?.storage?.[slotHex] ?? '0x0'
 			const postValue = post.storage?.[slotHex] ?? '0x0'
 
-			if (preValue !== postValue) {
-				storagePostDiff[slotHex] = postValue
-				hasStorageDiff = true
+			storageDiff = {
+				...storageDiff,
+				...(preValue !== postValue ? { [slotHex]: postValue } : {}),
 			}
 		}
 
-		if (hasStorageDiff) {
-			postDiffAccount.storage = storagePostDiff
-			hasDiff = true
+		// Compare and capture differences
+		const postDiffAccount = {
+			...(pre && post.balance && pre.balance !== post.balance ? { balance: post.balance } : {}),
+			...(pre && post.nonce && pre.nonce !== post.nonce ? { nonce: post.nonce } : {}),
+			...(pre && post.code && pre.code !== post.code ? { code: post.code } : {}),
+			...(Object.keys(storageDiff).length > 0 ? { storage: storageDiff } : {}),
 		}
 
-		// Only add to diff if there were changes
-		if (hasDiff) postDiff[addressHex] = postDiffAccount
+		// Only add to diff if there were any changes
+		if (Object.keys(postDiffAccount).length > 0) postDiff[addressHex] = postDiffAccount
 	}
 
 	// Return differentials

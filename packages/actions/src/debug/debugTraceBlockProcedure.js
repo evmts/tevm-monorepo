@@ -74,7 +74,7 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 				jsonrpc: '2.0',
 				method: request.method,
 				...(request.id !== undefined ? { id: request.id } : {}),
-				result: [],
+				result: /** @type {any} */ ([]),
 			}
 		}
 
