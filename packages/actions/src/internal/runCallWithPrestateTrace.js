@@ -186,9 +186,15 @@ const formatDiffResult = (preState, postState) => {
 
 		// Compare and capture differences
 		const postDiffAccount = {
-			...(pre && post.balance && pre.balance !== post.balance ? { balance: post.balance } : {}),
-			...(pre && post.nonce && pre.nonce !== post.nonce ? { nonce: post.nonce } : {}),
-			...(pre && post.code && pre.code !== post.code ? { code: post.code } : {}),
+			...(pre !== undefined && post.balance !== undefined && pre.balance !== post.balance ? { balance: post.balance } : {}),
+			...(pre !== undefined && post.nonce !== undefined && pre.nonce !== post.nonce ? { nonce: post.nonce } : {}),
+			...(pre !== undefined && post.code !== undefined && pre.code !== post.code ? { code: post.code } : {}),
+			...(pre !== undefined && post.codeSize !== undefined && pre.codeSize !== post.codeSize ? { codeSize: post.codeSize } : {}),
+			...(pre !== undefined && post.codeHash !== undefined && pre.codeHash !== post.codeHash ? { codeHash: post.codeHash } : {}),
+			...(pre !== undefined && post.storageRoot !== undefined && pre.storageRoot !== post.storageRoot ? { storageRoot: post.storageRoot } : {}),
+			...(pre !== undefined && post.isContract !== undefined && pre.isContract !== post.isContract ? { isContract: post.isContract } : {}),
+			...(pre !== undefined && post.isEmpty !== undefined && pre.isEmpty !== post.isEmpty ? { isEmpty: post.isEmpty } : {}),
+			...(pre !== undefined && post.version !== undefined && pre.version !== post.version ? { version: post.version } : {}),
 			...(Object.keys(storageDiff).length > 0 ? { storage: storageDiff } : {}),
 		}
 
