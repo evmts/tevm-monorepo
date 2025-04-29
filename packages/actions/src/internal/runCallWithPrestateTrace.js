@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { DefensiveNullCheckError } from '@tevm/errors'
-import { bytesToHex, hexToBytes } from '@tevm/utils'
+import { bytesToHex, hexToBytes, toHex } from '@tevm/utils'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
 /**
@@ -121,8 +121,8 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 		/** @type {{-readonly [K in keyof import('../debug/DebugResult.js').AccountState]: import('../debug/DebugResult.js').AccountState[K]}} */
 		const state = {
 			storage,
-			balance: account.balance,
-			nonce: account.nonce,
+			balance: toHex(account.balance),
+			nonce: account.nonce.toString(),
 			code: code && code.length > 0 ? bytesToHex(code) : '0x',
 			codeHash: undefined,
 			codeSize: undefined,

@@ -28,8 +28,8 @@ export type StructLog = {
  * The state of an account as captured by the prestateTracer
  */
 export type AccountState = {
-	readonly balance: bigint
-	readonly nonce: bigint
+	readonly balance: Hex
+	readonly nonce: string
 	readonly code: Hex
 	readonly storage: Record<Hex, Hex>
 	readonly codeHash: Hex | undefined
