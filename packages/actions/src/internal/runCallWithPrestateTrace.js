@@ -118,33 +118,52 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 			}
 		}
 
-		/**
-		 * @param {keyof typeof account} property
-		 * @returns {any}
-		 */
-		const safeAccess = (property) => {
-			try {
-				return typeof account[property] === 'function' ? account[property]() : account[property]
-			} catch (err) {
-				logger.error(err, `Error getting ${property} for account ${address.toString()}`)
-				return undefined
-			}
-		}
-
-		return {
+		/** @type {{-readonly [K in keyof import('../debug/DebugResult.js').AccountState]: import('../debug/DebugResult.js').AccountState[K]}} */
+		const state = {
 			storage,
-			// We would want to throw if any of these is not loaded
 			balance: account.balance,
 			nonce: account.nonce,
 			code: code && code.length > 0 ? bytesToHex(code) : '0x',
-			// For these we can default (not loaded) to undefined
-			codeHash: safeAccess('codeHash') ? bytesToHex(safeAccess('codeHash')) : undefined,
-			codeSize: safeAccess('codeSize'),
-			storageRoot: safeAccess('storageRoot') ? bytesToHex(safeAccess('storageRoot')) : undefined,
-			isContract: safeAccess('isContract'),
-			isEmpty: safeAccess('isEmpty'),
-			version: safeAccess('version'),
+			codeHash: undefined,
+			codeSize: undefined,
+			storageRoot: undefined,
+			isContract: undefined,
+			isEmpty: undefined,
+			version: undefined,
 		}
+
+		try {
+			state.codeHash = bytesToHex(account.codeHash)
+		} catch (err) {
+			logger.error(err, `code hash not loaded for account ${address.toString()}`)
+		}
+		try {
+			state.codeSize = account.codeSize
+		} catch (err) {
+			logger.error(err, `code size not loaded for account ${address.toString()}`)
+		}
+		try {
+			state.storageRoot = bytesToHex(account.storageRoot)
+		} catch (err) {
+			logger.error(err, `storage root not loaded for account ${address.toString()}`)
+		}
+		try {
+			state.isContract = account.isContract()
+		} catch (err) {
+			logger.error(err, `isContract not loaded for account ${address.toString()}`)
+		}
+		try {
+			state.isEmpty = account.isEmpty()
+		} catch (err) {
+			logger.error(err, `isEmpty not loaded for account ${address.toString()}`)
+		}
+		try {
+			state.version = account.version
+		} catch (err) {
+			logger.error(err, `version not loaded for account ${address.toString()}`)
+		}
+
+		return state
 	} catch (err) {
 		logger.error(err, `Error capturing state for account ${address.toString()}`)
 		return undefined
@@ -186,15 +205,29 @@ const formatDiffResult = (preState, postState) => {
 
 		// Compare and capture differences
 		const postDiffAccount = {
-			...(pre !== undefined && post.balance !== undefined && pre.balance !== post.balance ? { balance: post.balance } : {}),
+			...(pre !== undefined && post.balance !== undefined && pre.balance !== post.balance
+				? { balance: post.balance }
+				: {}),
 			...(pre !== undefined && post.nonce !== undefined && pre.nonce !== post.nonce ? { nonce: post.nonce } : {}),
 			...(pre !== undefined && post.code !== undefined && pre.code !== post.code ? { code: post.code } : {}),
-			...(pre !== undefined && post.codeSize !== undefined && pre.codeSize !== post.codeSize ? { codeSize: post.codeSize } : {}),
-			...(pre !== undefined && post.codeHash !== undefined && pre.codeHash !== post.codeHash ? { codeHash: post.codeHash } : {}),
-			...(pre !== undefined && post.storageRoot !== undefined && pre.storageRoot !== post.storageRoot ? { storageRoot: post.storageRoot } : {}),
-			...(pre !== undefined && post.isContract !== undefined && pre.isContract !== post.isContract ? { isContract: post.isContract } : {}),
-			...(pre !== undefined && post.isEmpty !== undefined && pre.isEmpty !== post.isEmpty ? { isEmpty: post.isEmpty } : {}),
-			...(pre !== undefined && post.version !== undefined && pre.version !== post.version ? { version: post.version } : {}),
+			...(pre !== undefined && post.codeSize !== undefined && pre.codeSize !== post.codeSize
+				? { codeSize: post.codeSize }
+				: {}),
+			...(pre !== undefined && post.codeHash !== undefined && pre.codeHash !== post.codeHash
+				? { codeHash: post.codeHash }
+				: {}),
+			...(pre !== undefined && post.storageRoot !== undefined && pre.storageRoot !== post.storageRoot
+				? { storageRoot: post.storageRoot }
+				: {}),
+			...(pre !== undefined && post.isContract !== undefined && pre.isContract !== post.isContract
+				? { isContract: post.isContract }
+				: {}),
+			...(pre !== undefined && post.isEmpty !== undefined && pre.isEmpty !== post.isEmpty
+				? { isEmpty: post.isEmpty }
+				: {}),
+			...(pre !== undefined && post.version !== undefined && pre.version !== post.version
+				? { version: post.version }
+				: {}),
 			...(Object.keys(storageDiff).length > 0 ? { storage: storageDiff } : {}),
 		}
 
