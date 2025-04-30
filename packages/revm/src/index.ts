@@ -63,38 +63,31 @@ export class TevmEvm {
    */
   private async loadWasmModule(): Promise<any> {
     try {
-      // We need to use a dynamic import to load the WASM module
-      const module = await import('../pkg/tevm_revm.js');
-      
-      // In Node.js, we need to provide the WASM file directly
-      // In browsers, it can load the WASM file via fetch
-      const isNode = typeof process !== 'undefined' && 
-                     process.versions != null && 
-                     process.versions.node != null;
-      
+      const module = await import("../pkg/tevm_revm.js");
+
+      const isNode =
+        typeof process !== "undefined" &&
+        process.versions != null &&
+        process.versions.node != null;
       if (isNode) {
-        const fs = await import('fs/promises');
-        const path = await import('path');
-        
-        // Get the path to the WASM file
-        // Use import.meta.url for ESM compatibility
+        const fs = await import("fs/promises");
+        const path = await import("path");
+
         const moduleURL = new URL(import.meta.url);
         const modulePath = moduleURL.pathname;
         const dirPath = path.dirname(modulePath);
-        const wasmPath = path.resolve(dirPath, '../pkg/tevm_revm_bg.wasm');
+        const wasmPath = path.resolve(dirPath, "../pkg/tevm_revm_bg.wasm");
         const wasmBuffer = await fs.readFile(wasmPath);
-        
-        // Initialize with the WASM buffer
+
         await module.default(wasmBuffer);
       } else {
-        // Browser environment - use default loading behavior
         await module.default();
       }
-      
+
       return module;
     } catch (error) {
-      console.error('Failed to load WASM module:', error);
-      throw new Error('Failed to initialize REVM WASM module');
+      console.error("Failed to load WASM module:", error);
+      throw new Error("Failed to initialize REVM WASM module");
     }
   }
 
@@ -115,7 +108,7 @@ export class TevmEvm {
     if (!this.instance) {
       await this.init();
     }
-    
+
     const versionJson = this.instance!.get_version();
     const versionInfo = JSON.parse(versionJson);
     return versionInfo.version;
@@ -126,11 +119,14 @@ export class TevmEvm {
    * @param address The account address (hex string with 0x prefix)
    * @param balance The balance in wei (decimal string)
    */
-  public async setAccountBalance(address: string, balance: string): Promise<void> {
+  public async setAccountBalance(
+    address: string,
+    balance: string,
+  ): Promise<void> {
     if (!this.instance) {
       await this.init();
     }
-    
+
     return this.instance!.set_account_balance(address, balance);
   }
 
@@ -143,7 +139,7 @@ export class TevmEvm {
     if (!this.instance) {
       await this.init();
     }
-    
+
     return this.instance!.set_account_code(address, code);
   }
 
@@ -156,7 +152,7 @@ export class TevmEvm {
     if (!this.instance) {
       await this.init();
     }
-    
+
     const input = {
       from: params.from,
       to: params.to,
@@ -164,10 +160,10 @@ export class TevmEvm {
       value: params.value,
       data: params.data,
     };
-    
+
     const resultJson = this.instance!.call(JSON.stringify(input));
     const result = JSON.parse(resultJson);
-    
+
     return {
       success: result.success,
       gasUsed: result.gas_used,
@@ -183,7 +179,6 @@ export class TevmEvm {
     if (!this.instance) {
       await this.init();
     }
-    
     this.instance!.reset();
   }
 }

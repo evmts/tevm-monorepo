@@ -1,4 +1,4 @@
-import { bench, describe, expect, beforeAll } from "vitest";
+import { test, describe, expect, beforeAll } from "vitest";
 import {
   pureComputationSol,
   pureComputationTs,
@@ -29,28 +29,28 @@ describe("Testing pure computation fib(10)", () => {
     await tevm.tevmReady();
   });
 
-  bench("Fibonacci(10) using Rust/WASM REVM", async () => {
+  test("Fibonacci(10) using Rust/WASM REVM", async () => {
     expect(await pureComputationWasmRevm(10n, address, caller)).toEqual(FIB_10);
   });
-  bench("Fibonacci(10) using JavaScript EVM", async () => {
+  test("Fibonacci(10) using JavaScript EVM", async () => {
     expect(await pureComputationSol(10n)).toEqual(FIB_10);
   });
-  bench("Fibonacci(10) using pure TypeScript", () => {
+  test("Fibonacci(10) using pure TypeScript", () => {
     expect(pureComputationTs(10n)).toEqual(FIB_10);
   });
 });
 describe("Testing pure computation fib(200)", () => {
   const address = `0x${"21".repeat(20)}` as const;
 
-  bench("Fibonacci(200) using Rust/WASM REVM", async () => {
+  test("Fibonacci(200) using Rust/WASM REVM", async () => {
     expect(await pureComputationWasmRevm(200n, address, caller)).toEqual(
       FIB_200,
     );
   });
-  bench("Fibonacci(200) using JavaScript EVM", async () => {
+  test("Fibonacci(200) using JavaScript EVM", async () => {
     expect(await pureComputationSol(200n)).toEqual(FIB_200);
   });
-  bench("Fibonacci(200) using pure TypeScript", () => {
+  test("Fibonacci(200) using pure TypeScript", () => {
     expect(pureComputationTs(200n)).toEqual(FIB_200);
   });
 });

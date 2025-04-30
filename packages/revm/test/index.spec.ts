@@ -61,7 +61,7 @@ describe('TevmEvm', () => {
       success: true,
       gasUsed: '21000',
       returnValue: '0x0000000000000000000000000000000000000000000000000000000000000042',
-      error: undefined
+      error: null
     })
   })
 

@@ -33,15 +33,26 @@ export const pureComputationTs = (i: bigint): bigint => {
 
 export const pureComputationWasmRevm = (
   i: bigint,
-  address: Hex,
+  to: Hex,
+  from: Hex,
 ): Promise<bigint> => {
   return wasmEvm
     .call({
-      to: address,
+      to,
+      from,
       data: encodeFunctionData(Fibonacci.read.calculate(i)),
-      from: `0x${"00".repeat(20)}`,
-      gasLimit: "121000",
-      value: "0x",
+      gasLimit: "200000",
+      value: "0",
     })
-    .then((res) => hexToBigInt(res.returnValue as Hex));
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .then((res) =>
+      res.returnValue === "0x" ? 0n : hexToBigInt(res.returnValue as Hex),
+    )
+    .catch((e) => {
+      console.error(e);
+      throw e;
+    });
 };

@@ -39,11 +39,13 @@
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
+    "test:fib": "node test-fib.js",
+    "bench": "node bench.js",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.11.30",
+    "esbuild": "^0.25.0",
     "rimraf": "^5.0.5",
     "typedoc": "^0.25.12",
     "typedoc-plugin-markdown": "^3.17.1",
