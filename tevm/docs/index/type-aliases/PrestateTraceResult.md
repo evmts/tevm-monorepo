@@ -4,10 +4,14 @@
 
 [tevm](../../modules.md) / [index](../README.md) / PrestateTraceResult
 
-# Type Alias: PrestateTraceResult
+# Type Alias: PrestateTraceResult\<TDiffMode\>
 
-> **PrestateTraceResult**: `Record`\<[`Hex`](../../actions/type-aliases/Hex.md), [`AccountState`](AccountState.md)\>
+> **PrestateTraceResult**\<`TDiffMode`\>: `TDiffMode` *extends* `true` ? `object` : `Record`\<[`Hex`](../../actions/type-aliases/Hex.md), [`AccountState`](AccountState.md)\>
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:38
+Defined in: packages/actions/types/common/PrestateTraceResult.d.ts:4
 
-Result format for prestateTracer in normal mode (full state)
+Result from `debug_*` with `prestateTracer`
+
+## Type Parameters
+
+• **TDiffMode** *extends* `boolean` = `boolean`

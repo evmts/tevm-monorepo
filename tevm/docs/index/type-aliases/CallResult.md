@@ -8,7 +8,7 @@
 
 > **CallResult**\<`ErrorType`\>: `object`
 
-Defined in: packages/actions/types/Call/CallResult.d.ts:31
+Defined in: packages/actions/types/Call/CallResult.d.ts:30
 
 Result of a TEVM VM Call method.
 

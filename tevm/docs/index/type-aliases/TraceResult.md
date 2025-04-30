@@ -8,42 +8,24 @@
 
 > **TraceResult**: `object`
 
-Defined in: packages/actions/types/common/TraceResult.d.ts:5
+Defined in: packages/actions/types/common/TraceResult.d.ts:4
+
+Result from `debug_*` with no tracer
 
 ## Type declaration
 
-### calls?
+### failed
 
-> `optional` **calls**: [`TraceCall`](TraceCall.md)[]
-
-### from
-
-> **from**: [`Address`](../../actions/type-aliases/Address.md)
+> **failed**: `boolean`
 
 ### gas
 
 > **gas**: `bigint`
 
-### gasUsed
+### returnValue
 
-> **gasUsed**: `bigint`
+> **returnValue**: [`Hex`](../../actions/type-aliases/Hex.md)
 
-### input
+### structLogs
 
-> **input**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-### output
-
-> **output**: [`Hex`](../../actions/type-aliases/Hex.md)
-
-### to
-
-> **to**: [`Address`](../../actions/type-aliases/Address.md)
-
-### type
-
-> **type**: [`TraceType`](../../actions/type-aliases/TraceType.md)
-
-### value
-
-> **value**: `bigint`
+> **structLogs**: [`StructLog`](../../actions/type-aliases/StructLog.md)[]

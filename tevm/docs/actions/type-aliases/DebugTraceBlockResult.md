@@ -8,7 +8,7 @@
 
 > **DebugTraceBlockResult**\<`TTracer`, `TDiffMode`\>: `object`[]
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:72
+Defined in: packages/actions/types/debug/DebugResult.d.ts:26
 
 Result from `debug_traceBlock`.
 
@@ -16,7 +16,7 @@ Returns an array of transaction traces
 
 ## Type Parameters
 
-• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
 
 • **TDiffMode** *extends* `boolean` = `boolean`
 

@@ -123,6 +123,7 @@
 - [CallJsonRpcProcedure](type-aliases/CallJsonRpcProcedure.md)
 - [CallJsonRpcRequest](type-aliases/CallJsonRpcRequest.md)
 - [CallJsonRpcResponse](type-aliases/CallJsonRpcResponse.md)
+- [CallTraceResult](type-aliases/CallTraceResult.md)
 - [ContractHandler](type-aliases/ContractHandler.md)
 - [DebugTraceBlockParams](type-aliases/DebugTraceBlockParams.md)
 - [DebugTraceBlockResult](type-aliases/DebugTraceBlockResult.md)
@@ -399,7 +400,6 @@
 - [MineJsonRpcRequest](type-aliases/MineJsonRpcRequest.md)
 - [MineJsonRpcResponse](type-aliases/MineJsonRpcResponse.md)
 - [NetworkConfig](type-aliases/NetworkConfig.md)
-- [PrestateTraceAnyResult](type-aliases/PrestateTraceAnyResult.md)
 - [SerializedParams](type-aliases/SerializedParams.md)
 - [SetAccountHandler](type-aliases/SetAccountHandler.md)
 - [SetAccountJsonRpcProcedure](type-aliases/SetAccountJsonRpcProcedure.md)
@@ -626,12 +626,6 @@ Re-exports [EmptyParams](../index/type-aliases/EmptyParams.md)
 
 ***
 
-### TraceResult
-
-Re-exports [TraceResult](../index/type-aliases/TraceResult.md)
-
-***
-
 ### FilterParams
 
 Re-exports [FilterParams](../index/type-aliases/FilterParams.md)
@@ -683,12 +677,6 @@ Re-exports [MineParams](../index/type-aliases/MineParams.md)
 ### MineResult
 
 Re-exports [MineResult](../index/type-aliases/MineResult.md)
-
-***
-
-### PrestateTraceDiffResult
-
-Re-exports [PrestateTraceDiffResult](../index/type-aliases/PrestateTraceDiffResult.md)
 
 ***
 
