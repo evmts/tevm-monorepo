@@ -10,7 +10,7 @@ import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
  * @param {import('@tevm/node').TevmNode} client
  * @param {import('@tevm/evm').EvmRunCallOpts} evmInput
  * @param {TDiffMode} diffMode If true, only returns state that changed between pre and post execution
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: TDiffMode extends true ? import('../debug/DebugResult.js').PrestateTraceDiffResult : import('../debug/DebugResult.js').PrestateTraceResult}>}
+ * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/PrestateTraceResult.js').PrestateTraceResult<TDiffMode>}>}
  * @throws {never}
  */
 export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** @type {TDiffMode} */ (false)) => {
@@ -45,7 +45,7 @@ export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** 
 	}
 
 	// Capture post-state (from VM after execution)
-	/** @type {import('../debug/DebugResult.js').PrestateTraceResult} */
+	/** @type {import('../common/PrestateTraceResult.js').PrestateTraceResult<false>} */
 	const postState = {}
 	if (diffMode) {
 		for (const address of preimages) {
@@ -65,7 +65,7 @@ export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** 
 	vm.evm.journal.revert()
 
 	// Capture pre-state (from cloned VM before execution)
-	/** @type {import('../debug/DebugResult.js').PrestateTraceResult} */
+	/** @type {import('../common/PrestateTraceResult.js').PrestateTraceResult<false>} */
 	const preState = {}
 	for (const address of preimages) {
 		try {
@@ -93,7 +93,7 @@ export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** 
  * @param {import('@tevm/node').TevmNode['logger']} logger
  * @param {import('@tevm/utils').EthjsAddress} address
  * @param {Set<import('@tevm/utils').Hex>} slots Set of storage slot keys that were accessed
- * @returns {Promise<import('../debug/DebugResult.js').AccountState | undefined>}
+ * @returns {Promise<import('../common/AccountState.js').AccountState | undefined>}
  */
 const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 	try {
@@ -133,12 +133,12 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 /**
  * @internal
  * Formats the prestate trace result for diffMode
- * @param {import('../debug/DebugResult.js').PrestateTraceResult} preState
- * @param {import('../debug/DebugResult.js').PrestateTraceResult} postState
- * @returns {import('../debug/DebugResult.js').PrestateTraceDiffResult}
+ * @param {import('../common/PrestateTraceResult.js').PrestateTraceResult<true>["pre"]} preState
+ * @param {import('../common/PrestateTraceResult.js').PrestateTraceResult<true>["post"]} postState
+ * @returns {import('../common/PrestateTraceResult.js').PrestateTraceResult<true>}
  */
 const formatDiffResult = (preState, postState) => {
-	/** @type {import('../debug/DebugResult.js').PrestateTraceDiffResult["post"]} */
+	/** @type {import('../common/PrestateTraceResult.js').PrestateTraceResult<true>["post"]} */
 	const postDiff = {}
 
 	for (const address of Object.keys(postState)) {
