@@ -41,8 +41,7 @@
     "test:watch": "vitest",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.11.30",
     "rimraf": "^5.0.5",

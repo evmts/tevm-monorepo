@@ -71,6 +71,7 @@
     "@tevm/solc": "workspace:^",
     "@tevm/test-utils": "workspace:^",
     "@tevm/ts-plugin": "workspace:^",
+    "@tevm/revm": "workspace:^",
     "@tevm/viem": "workspace:^",
     "@types/glob": "^8.1.0",
     "effect": "3.13.2",
