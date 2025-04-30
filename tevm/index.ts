@@ -15,8 +15,6 @@ export type {
     DebugReturnType,
     AccountState,
     PrestateTraceResult,
-    PrestateTraceDiffResult,
-    EvmTraceResult,
     MineParams,
     MineResult,
     MineHandler,

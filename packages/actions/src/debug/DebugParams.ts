@@ -7,14 +7,14 @@ import type { ExactlyOne } from '../utils/ExactlyOne.js'
  * Config params for trace calls
  */
 export type TraceParams<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
 	TDiffMode extends boolean = boolean,
 > = {
 	/**
 	 * The type of tracer
 	 * Supported tracers: callTracer, prestateTracer
 	 */
-	readonly tracer: TTracer
+	readonly tracer?: TTracer
 	/**
 	 * A duration string of decimal numbers that overrides the default timeout of 5 seconds for JavaScript-based tracing calls. Max timeout is "10s". Valid time units are "ns", "us", "ms", "s" each with optional fraction, such as "300ms" or "2s45ms".
 	 * @example "10s"
@@ -53,7 +53,7 @@ export type TraceParams<
  * Params taken by `debug_traceTransaction` handler
  */
 export type DebugTraceTransactionParams<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
 	TDiffMode extends boolean = boolean,
 	TTTThrowOnError extends boolean = boolean,
 > = BaseParams<TTTThrowOnError> &
@@ -69,7 +69,7 @@ export type DebugTraceTransactionParams<
  * Params taken by `debug_traceCall` handler
  */
 export type DebugTraceCallParams<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
 	TDiffMode extends boolean = boolean,
 > = TraceParams<TTracer, TDiffMode> & EthCallParams
 
@@ -77,7 +77,7 @@ export type DebugTraceCallParams<
  * Params taken by `debug_traceBlock` handler
  */
 export type DebugTraceBlockParams<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
 	TDiffMode extends boolean = boolean,
 > = TraceParams<TTracer, TDiffMode> &
 	ExactlyOne<

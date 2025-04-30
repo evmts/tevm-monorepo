@@ -24,7 +24,7 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ### trace
 
-`undefined` | [`EvmTraceResult`](../type-aliases/EvmTraceResult.md)
+`undefined` | [`TraceResult`](../type-aliases/TraceResult.md)
 
 ### accessList
 

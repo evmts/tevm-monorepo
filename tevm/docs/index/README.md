@@ -60,7 +60,7 @@
 - [EthActionsApi](type-aliases/EthActionsApi.md)
 - [EthjsFilter](type-aliases/EthjsFilter.md)
 - [EventActionCreator](type-aliases/EventActionCreator.md)
-- [EvmTraceResult](type-aliases/EvmTraceResult.md)
+- [TraceResult](type-aliases/TraceResult.md)
 - [Extension](type-aliases/Extension.md)
 - [ExtractAbiEvent](type-aliases/ExtractAbiEvent.md)
 - [ExtractAbiEventNames](type-aliases/ExtractAbiEventNames.md)

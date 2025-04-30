@@ -390,7 +390,7 @@
 - [EthUninstallFilterParams](type-aliases/EthUninstallFilterParams.md)
 - [EthUninstallFilterResult](type-aliases/EthUninstallFilterResult.md)
 - [EvmErrorConstructor](type-aliases/EvmErrorConstructor.md)
-- [EvmTraceResult](type-aliases/EvmTraceResult.md)
+- [TraceResult](type-aliases/TraceResult.md)
 - [ExecuteCallError](type-aliases/ExecuteCallError.md)
 - [ExecuteCallResult](type-aliases/ExecuteCallResult.md)
 - [FilterLog](type-aliases/FilterLog.md)

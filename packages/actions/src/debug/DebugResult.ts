@@ -6,95 +6,34 @@ import type { Filter, TevmNode } from '@tevm/node'
 import type { StateRoots, TevmState } from '@tevm/state'
 import type { TxPool } from '@tevm/txpool'
 import type { Address } from '@tevm/utils'
-import type { Hex } from '../common/index.js'
+import type { CallTraceResult, Hex, PrestateTraceResult, TraceResult } from '../common/index.js'
 import type { GetPath } from '../utils/GetPath.js'
 import type { UnionToIntersection } from '../utils/UnionToIntersection.js'
 import type { DebugTraceStateFilter } from './DebugParams.js'
-
-export type StructLog = {
-	readonly depth: number
-	readonly gas: bigint
-	readonly gasCost: bigint
-	readonly op: string
-	readonly pc: number
-	readonly stack: Array<Hex>
-	readonly error?: {
-		error: string
-		errorType: string
-	}
-}
-
-/**
- * The state of an account as captured by the prestateTracer
- */
-export type AccountState = {
-	readonly balance: Hex
-	readonly nonce: string
-	readonly code: Hex
-	readonly storage: Record<Hex, Hex>
-	readonly codeHash: Hex | undefined
-	readonly codeSize: number | undefined
-	readonly storageRoot: Hex | undefined
-	readonly isContract: boolean | undefined
-	readonly isEmpty: boolean | undefined
-	readonly version: number | undefined
-}
-
-/**
- * Result format for prestateTracer in normal mode (full state)
- */
-export type PrestateTraceResult = Record<Hex, AccountState>
-
-/**
- * Result format for prestateTracer in diff mode
- */
-export type PrestateTraceDiffResult = {
-	readonly pre: Record<Hex, AccountState>
-	readonly post: Record<Hex, Partial<AccountState>>
-}
-
-/**
- * Union type of possible prestate tracer results
- */
-export type PrestateTraceAnyResult<TDiffMode extends boolean = boolean> = TDiffMode extends true
-	? PrestateTraceDiffResult
-	: TDiffMode extends false
-		? PrestateTraceResult
-		: PrestateTraceResult
-
-/**
- * Result for standard EVM tracing with opcodes
- */
-export type EvmTraceResult = {
-	failed: boolean
-	gas: bigint
-	returnValue: Hex
-	structLogs: Array<StructLog>
-}
 
 /**
  * Result from `debug_traceTransaction`
  */
 export type DebugTraceTransactionResult<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
-	? EvmTraceResult
+	? CallTraceResult
 	: TTracer extends 'prestateTracer'
-		? PrestateTraceAnyResult<TDiffMode>
-		: EvmTraceResult
+		? PrestateTraceResult<TDiffMode>
+		: TraceResult
 
 /**
  * Result from `debug_traceCall`
  */
 export type DebugTraceCallResult<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
-	? EvmTraceResult
+	? CallTraceResult
 	: TTracer extends 'prestateTracer'
-		? PrestateTraceAnyResult<TDiffMode>
-		: EvmTraceResult
+		? PrestateTraceResult<TDiffMode>
+		: TraceResult
 
 /**
  * Result from `debug_traceBlock`.
@@ -102,7 +41,7 @@ export type DebugTraceCallResult<
  * Returns an array of transaction traces
  */
 export type DebugTraceBlockResult<
-	TTracer extends 'callTracer' | 'prestateTracer' = 'callTracer' | 'prestateTracer',
+	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
 	TDiffMode extends boolean = boolean,
 > = Array<{
 	/**
@@ -122,6 +61,7 @@ export type DebugTraceBlockResult<
 /**
  * Complete state object structure
  */
+// TODO: make this serializable
 export type DebugTraceStateObject = {
 	readonly blockchain: {
 		readonly blocksByNumber: Map<bigint, Block | undefined>

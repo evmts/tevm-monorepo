@@ -1,4 +1,5 @@
-import { hexToBigInt, numberToHex } from '@tevm/utils'
+import { hexToBigInt } from '@tevm/utils'
+import { serializeTraceResult } from '../internal/serializeTraceResult.js'
 import { traceCallHandler } from './traceCallHandler.js'
 
 /**
@@ -8,7 +9,7 @@ import { traceCallHandler } from './traceCallHandler.js'
  */
 export const debugTraceCallJsonRpcProcedure = (client) => {
 	/**
-	 * @template {'callTracer' | 'prestateTracer'} TTracer
+	 * @template {'callTracer' | 'prestateTracer' | undefined} TTracer
 	 * @template {boolean} TDiffMode
 	 * @param {import('./DebugJsonRpcRequest.js').DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>} request
 	 * @returns {Promise<import('./DebugJsonRpcResponse.js').DebugTraceCallJsonRpcResponse<TTracer, TDiffMode>>}
@@ -32,33 +33,9 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
 
-		if (tracer === 'prestateTracer') {
-			return {
-				method: request.method,
-				result: /** @type {any} */ (traceResult),
-				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
-			}
-		}
-
-		const debugTraceCallResult = /** @type {import('./DebugResult.js').EvmTraceResult} */ (traceResult)
 		return {
 			method: request.method,
-			result: /** @type {any} */ ({
-				gas: numberToHex(debugTraceCallResult.gas),
-				failed: debugTraceCallResult.failed,
-				returnValue: debugTraceCallResult.returnValue,
-				structLogs: debugTraceCallResult.structLogs.map((log) => {
-					return {
-						gas: numberToHex(log.gas),
-						gasCost: numberToHex(log.gasCost),
-						op: log.op,
-						pc: log.pc,
-						stack: log.stack,
-						depth: log.depth,
-					}
-				}),
-			}),
+			result: /** @type {any} */ (serializeTraceResult(traceResult)),
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}

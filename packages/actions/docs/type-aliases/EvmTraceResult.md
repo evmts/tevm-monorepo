@@ -2,11 +2,11 @@
 
 ***
 
-[@tevm/actions](../globals.md) / EvmTraceResult
+[@tevm/actions](../globals.md) / TraceResult
 
-# Type Alias: EvmTraceResult
+# Type Alias: TraceResult
 
-> **EvmTraceResult**: `object`
+> **TraceResult**: `object`
 
 Defined in: [packages/actions/src/debug/DebugResult.ts:63](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L63)
 

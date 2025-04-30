@@ -626,9 +626,9 @@ Re-exports [EmptyParams](../index/type-aliases/EmptyParams.md)
 
 ***
 
-### EvmTraceResult
+### TraceResult
 
-Re-exports [EvmTraceResult](../index/type-aliases/EvmTraceResult.md)
+Re-exports [TraceResult](../index/type-aliases/TraceResult.md)
 
 ***
 

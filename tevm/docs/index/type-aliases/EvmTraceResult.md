@@ -2,11 +2,11 @@
 
 ***
 
-[tevm](../../modules.md) / [index](../README.md) / EvmTraceResult
+[tevm](../../modules.md) / [index](../README.md) / TraceResult
 
-# Type Alias: EvmTraceResult
+# Type Alias: TraceResult
 
-> **EvmTraceResult**: `object`
+> **TraceResult**: `object`
 
 Defined in: packages/actions/types/debug/DebugResult.d.ts:53
 

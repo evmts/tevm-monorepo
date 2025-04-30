@@ -7,7 +7,7 @@ import { bytesToHex, invariant, numberToHex } from '@tevm/utils'
  * @param {import('@tevm/node').TevmNode['logger']} logger
  * @param {import('@tevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../debug/DebugResult.js').EvmTraceResult}>}
+ * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/TraceResult.js').TraceResult}>}
  * @throws {never}
  */
 export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) => {
@@ -15,16 +15,11 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 	 * As the evm runs we will be updating this trace object
 	 * and then returning it
 	 */
+	/** @type {import('../common/TraceResult.js').TraceResult} */
 	const trace = {
 		gas: 0n,
-		/**
-		 * @type {import('@tevm/utils').Hex}
-		 */
 		returnValue: '0x0',
 		failed: false,
-		/**
-		 * @type {Array<import('../debug/DebugResult.js').EvmTraceResult['structLogs'][number]>}
-		 */
 		structLogs: [],
 	}
 

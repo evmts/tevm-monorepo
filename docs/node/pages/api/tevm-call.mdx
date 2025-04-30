@@ -123,7 +123,7 @@ type CallResult = {
   // Access list if requested
   accessList?: Record<Address, Set<Hex>>
   // Debug trace if requested
-  trace?: EvmTraceResult
+  trace?: TraceResult
   // Any errors that occurred
   errors?: TevmCallError[]
 }
