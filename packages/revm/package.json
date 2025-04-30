@@ -17,6 +17,7 @@
   "files": [
     "dist",
     "src",
+    "pkg",
     "!src/**/*.spec.ts"
   ],
   "repository": {
@@ -27,8 +28,9 @@
   "scripts": {
     "build:dist": "tsup",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist",
-    "build:rust": "nx run tevm_revm:build:rust",
-    "clean": "rimraf dist",
+    "build:rust": "cargo build --target wasm32-unknown-unknown --release && wasm-bindgen --target web --out-dir pkg /Users/williamcory/tevm/main/dist/target/wasm32-unknown-unknown/release/tevm_revm.wasm",
+    "build": "pnpm run build:rust && pnpm run build:dist && pnpm run build:types",
+    "clean": "rimraf dist pkg",
     "generate:docs": "typedoc",
     "lint": "eslint src",
     "lint:deps": "depcheck",
@@ -40,7 +42,6 @@
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "revm-wasm": "file:./target/wasm32-wasi/release"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",

@@ -5,8 +5,14 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "paths": {
-      "revm-wasm": ["./pkg/revm_wasm"]
+      "revm-wasm": ["./pkg/tevm_revm"]
     }
   }
 }

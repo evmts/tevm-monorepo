@@ -4,7 +4,14 @@
  * @module
  */
 
-import type { TevmEVM as WasmTevmEVM, EvmCallInput, EvmCallResult } from '../pkg/revm_wasm';
+// Our types should match those defined in our Rust code
+interface WasmTevmEVM {
+  call: (inputJson: string) => string;
+  set_account_balance: (address: string, balance: string) => void;
+  set_account_code: (address: string, code: string) => void;
+  reset: () => void;
+  get_version: () => string;
+}
 
 /**
  * Input parameters for EVM calls
@@ -40,7 +47,7 @@ export interface EvmResult {
  * EVM implementation using REVM through WebAssembly
  */
 export class TevmEvm {
-  private wasmModule: Promise<typeof import('../pkg/revm_wasm')>;
+  private wasmModule: Promise<any>;
   private instance: WasmTevmEVM | null = null;
 
   /**
@@ -54,10 +61,37 @@ export class TevmEvm {
    * Load the WASM module
    * @returns Promise that resolves to the WASM module
    */
-  private async loadWasmModule(): Promise<typeof import('../pkg/revm_wasm')> {
+  private async loadWasmModule(): Promise<any> {
     try {
-      // Dynamic import of the WASM module
-      return await import('../pkg/revm_wasm');
+      // We need to use a dynamic import to load the WASM module
+      const module = await import('../pkg/tevm_revm.js');
+      
+      // In Node.js, we need to provide the WASM file directly
+      // In browsers, it can load the WASM file via fetch
+      const isNode = typeof process !== 'undefined' && 
+                     process.versions != null && 
+                     process.versions.node != null;
+      
+      if (isNode) {
+        const fs = await import('fs/promises');
+        const path = await import('path');
+        
+        // Get the path to the WASM file
+        // Use import.meta.url for ESM compatibility
+        const moduleURL = new URL(import.meta.url);
+        const modulePath = moduleURL.pathname;
+        const dirPath = path.dirname(modulePath);
+        const wasmPath = path.resolve(dirPath, '../pkg/tevm_revm_bg.wasm');
+        const wasmBuffer = await fs.readFile(wasmPath);
+        
+        // Initialize with the WASM buffer
+        await module.default(wasmBuffer);
+      } else {
+        // Browser environment - use default loading behavior
+        await module.default();
+      }
+      
+      return module;
     } catch (error) {
       console.error('Failed to load WASM module:', error);
       throw new Error('Failed to initialize REVM WASM module');
@@ -71,6 +105,20 @@ export class TevmEvm {
   public async init(): Promise<void> {
     const wasmModule = await this.wasmModule;
     this.instance = new wasmModule.TevmEVM();
+  }
+
+  /**
+   * Get the version of the REVM implementation
+   * @returns The version string
+   */
+  public async getVersion(): Promise<string> {
+    if (!this.instance) {
+      await this.init();
+    }
+    
+    const versionJson = this.instance!.get_version();
+    const versionInfo = JSON.parse(versionJson);
+    return versionInfo.version;
   }
 
   /**
@@ -109,7 +157,7 @@ export class TevmEvm {
       await this.init();
     }
     
-    const input: EvmCallInput = {
+    const input = {
       from: params.from,
       to: params.to,
       gas_limit: params.gasLimit,
@@ -117,8 +165,8 @@ export class TevmEvm {
       data: params.data,
     };
     
-    const resultJson = await this.instance!.call(JSON.stringify(input));
-    const result = JSON.parse(resultJson) as EvmCallResult;
+    const resultJson = this.instance!.call(JSON.stringify(input));
+    const result = JSON.parse(resultJson);
     
     return {
       success: result.success,

@@ -7,16 +7,17 @@
   "targets": {
     "build:rust": {
       "cache": true,
-      "outputs": ["{workspaceRoot}/packages/revm"],
-      "executor": "@monodon/rust:build",
+      "outputs": ["{workspaceRoot}/packages/revm/pkg"],
+      "executor": "nx:run-commands",
       "options": {
-        "target": "wasm32-wasi",
-        "release": true,
-        "additional-args": "--target wasm32-wasi"
+        "commands": [
+          "cargo build --target wasm32-unknown-unknown --release",
+          "~/.cargo/bin/wasm-bindgen --target web --out-dir pkg /Users/williamcory/tevm/main/dist/target/wasm32-unknown-unknown/release/tevm_revm.wasm"
+        ],
+        "cwd": "packages/revm"
       },
       "configurations": {
         "production": {
-          "dist": "dist/revm",
           "release": true
         }
       }

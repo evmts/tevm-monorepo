@@ -1,11 +1,12 @@
-import { createTsupOptions } from '@tevm/tsupconfig';
-
-export default createTsupOptions({
-  entry: ['src/index.ts'],
-  browser: true,
-  // Allow importing of wasm files
-  external: ['../pkg/revm_wasm'],
-  copyFiles: [
-    { from: 'target/wasm32-wasi/release/*.wasm', to: 'dist/' }
-  ],
-});
+// Simple tsup configuration
+export default {
+  entryPoints: ['src/index.ts'],
+  format: ['esm', 'cjs'],
+  dts: false,
+  sourcemap: true,
+  clean: true,
+  platform: 'browser',
+  esbuildOptions(options) {
+    options.external = ['../pkg/tevm_revm'];
+  },
+};

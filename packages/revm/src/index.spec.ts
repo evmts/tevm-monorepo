@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest'
+import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { createTevmEvm, TevmEvm } from './index'
 
 // Mock the WASM module
-vi.mock('../pkg/revm_wasm', () => {
+vi.mock('../pkg/tevm_revm.js', () => {
   return {
+    default: vi.fn().mockResolvedValue(undefined),
     TevmEVM: vi.fn().mockImplementation(() => ({
       set_account_balance: vi.fn().mockResolvedValue(undefined),
       set_account_code: vi.fn().mockResolvedValue(undefined),
-      call: vi.fn().mockImplementation((jsonInput) => {
-        const input = JSON.parse(jsonInput)
+      call: vi.fn().mockImplementation((_) => {
         // Simple mock that returns successful result
         return JSON.stringify({
           success: true,
