@@ -1,47 +1,52 @@
-import { Schema, Effect } from "effect";
-import { Bytes } from "ox";
+import { Schema, Effect, Brand } from "effect";
+import { Bytes, Address as OxAddress } from "ox";
 import { B160, type B160 as B160Type } from "./B160.js";
 import { B256, type B256 as B256Type } from "./B256.js";
-import { getAddress, getContractAddress, getCreate2Address } from "viem/utils";
-import { keccak256 as viemKeccak256 } from "viem";
-import { fromHex } from "viem/utils";
 
 /**
- * Ethereum address, represented as a 20-byte fixed array
+ * Ethereum address, represented as a 20-byte fixed array with an Address brand
  */
-export type Address = B160Type;
+export type Address = B160Type & Brand.Brand<"Address">;
 
 /**
  * Schema for validating Address values from Uint8Array
  */
-export const Address = B160;
+export const Address = B160.pipe(Schema.brand("Address"));
 
 /**
  * Schema for validating Address values from hex strings
  */
-export const AddressFromHex = Schema.transform(
-  Schema.String,
-  Address,
-  (hex: string) => {
+export const AddressFromHex = Schema.transform(Schema.String, Address, {
+  decode: (hex) => {
     const hexWithPrefix = hex.startsWith("0x") ? hex : `0x${hex}`;
-    return fromHex(getAddress(hexWithPrefix));
-  }
-);
+    // Use Ox Address for validation and checksumming
+    const formatted = OxAddress.checksum(hexWithPrefix);
+    const bytes = Bytes.fromHex(formatted);
+    // First create a B160, then convert to Address
+    const b160 = Schema.decodeSync(B160)(bytes);
+    return Schema.decodeSync(Address)(b160);
+  },
+  encode: (address) => {
+    return OxAddress.checksum(Bytes.toHex(address));
+  },
+});
 
 /**
  * Converts Address to checksummed hex string
  * @param address - The Address instance.
  */
 export const toChecksummedHex = (address: Address): Effect.Effect<string> =>
-  Effect.sync(() => getAddress(Bytes.toHex(address)));
+  Effect.sync(() => OxAddress.checksum(Bytes.toHex(address)));
 
 /**
  * Creates a zero address (0x0000...0000)
  */
 export const zero = (): Effect.Effect<Address, Error> =>
-  Effect.gen(function*(_) {
+  Effect.gen(function* (_) {
     const bytes = new Uint8Array(20).fill(0);
-    return yield* _(Schema.decode(Address)(bytes));
+    // First as B160, then as Address for branding
+    const b160 = yield* _(Schema.decode(B160)(bytes));
+    return yield* _(Schema.decode(Address)(b160));
   });
 
 /**
@@ -49,9 +54,11 @@ export const zero = (): Effect.Effect<Address, Error> =>
  * @param word - The 32-byte array.
  */
 export const fromWord = (word: B256Type): Effect.Effect<Address, Error> =>
-  Effect.gen(function*(_) {
-    const bytes = Bytes.slice(word, 12, 32);  // Take last 20 bytes
-    return yield* _(Schema.decode(Address)(bytes));
+  Effect.gen(function* (_) {
+    const bytes = Bytes.slice(word, 12, 32); // Take last 20 bytes
+    // First we decode as B160, then as Address to ensure proper branding
+    const b160 = yield* _(Schema.decode(B160)(bytes));
+    return yield* _(Schema.decode(Address)(b160));
   });
 
 /**
@@ -59,78 +66,7 @@ export const fromWord = (word: B256Type): Effect.Effect<Address, Error> =>
  * @param address - The Address instance.
  */
 export const intoWord = (address: Address): Effect.Effect<B256Type, Error> =>
-  Effect.gen(function*(_) {
+  Effect.gen(function* (_) {
     const padded = Bytes.padLeft(address, 32);
     return yield* _(Schema.decode(B256)(padded));
-  });
-
-/**
- * Computes the contract address for a deployment from the specified address with the given nonce
- * @param address - The sender address.
- * @param nonce - The nonce of the sender.
- */
-export const create = (
-  address: Address,
-  nonce: bigint
-): Effect.Effect<Address, Error> =>
-  Effect.gen(function*(_) {
-    const hexAddress = Bytes.toHex(address);
-    const contractHex = getContractAddress({
-      from: hexAddress,
-      nonce
-    });
-    return yield* _(Schema.decode(AddressFromHex)(contractHex));
-  });
-
-/**
- * Computes the contract address for a CREATE2 deployment
- * @param address - The sender address.
- * @param salt - A 32-byte value.
- * @param initCodeHash - The Keccak-256 hash of the init code.
- */
-export const create2 = (
-  address: Address,
-  salt: B256Type,
-  initCodeHash: B256Type
-): Effect.Effect<Address, Error> =>
-  Effect.gen(function*(_) {
-    const hexAddress = Bytes.toHex(address);
-    const hexSalt = Bytes.toHex(salt);
-    const hexInitCodeHash = Bytes.toHex(initCodeHash);
-    
-    const contractHex = getCreate2Address({
-      from: hexAddress,
-      salt: hexSalt,
-      bytecode: hexInitCodeHash
-    });
-    
-    return yield* _(Schema.decode(AddressFromHex)(contractHex));
-  });
-
-/**
- * Computes the contract address for a CREATE2 deployment from the init code
- * @param address - The sender address.
- * @param salt - A 32-byte value.
- * @param initCode - The init code.
- */
-export const create2FromCode = (
-  address: Address,
-  salt: B256Type,
-  initCode: Uint8Array
-): Effect.Effect<Address, Error> =>
-  Effect.gen(function*(_) {
-    const hexAddress = Bytes.toHex(address);
-    const hexSalt = Bytes.toHex(salt);
-    const hexInitCode = Bytes.toHex(initCode);
-    
-    // Hash the init code
-    const initCodeHash = viemKeccak256(hexInitCode);
-    
-    const contractHex = getCreate2Address({
-      from: hexAddress,
-      salt: hexSalt,
-      bytecode: initCodeHash
-    });
-    
-    return yield* _(Schema.decode(AddressFromHex)(contractHex));
   });
