@@ -1,5 +1,5 @@
 packages:
-  - app
+  - apps/*
   - bundler-packages/*
   - bundler-packages/resolutions-rs/npm/*
   - bundler-packages/runtime-rs/npm/*
