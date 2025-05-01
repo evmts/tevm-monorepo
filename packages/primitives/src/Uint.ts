@@ -13,9 +13,9 @@ export type Uint<BITS extends number> = bigint & Brand.Brand<`Uint${BITS}`>;
  */
 export const uintSchema = <BITS extends number>(
   bits: BITS,
-): Schema.Schema<Uint<BITS>, bigint> => {
+)  => {
   const maxValue = (1n << BigInt(bits)) - 1n;
-  
+
   return Schema.BigInt.pipe(
     Schema.filter((value: bigint) => value >= 0n && value <= maxValue, {
       message: () => `Expected unsigned integer with maximum value of ${maxValue}`,
@@ -132,7 +132,7 @@ export const div = <BITS extends number>(
     if (b === 0n) {
       return yield* _(Effect.fail(new Error("Division by zero")));
     }
-    
+
     const schema = uintSchema(bits);
     return yield* _(Schema.decode(schema)(a / b));
   });
@@ -152,7 +152,7 @@ export const mod = <BITS extends number>(
     if (b === 0n) {
       return yield* _(Effect.fail(new Error("Modulo by zero")));
     }
-    
+
     const schema = uintSchema(bits);
     return yield* _(Schema.decode(schema)(a % b));
   });

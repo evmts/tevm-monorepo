@@ -20,11 +20,18 @@ export const fixedBytes = <N extends number>(
 export const fixedBytesFromHex = <N extends number>(
   length: N,
 ): Schema.Schema<FixedBytes<N>, string> =>
-  Schema.Uint8ArrayFromHex.pipe(
-    Schema.filter((bytes) => bytes.length === length, {
-      message: () => `Expected Uint8Array of length ${length}`,
-    }),
-    Schema.brand(`FixedBytes${length}`),
+  Schema.transform(
+    Schema.String,
+    fixedBytes(length),
+    {
+      decode: (fromA: string, fromI: string) => {
+        const hexWithPrefix = fromA.startsWith("0x") ? fromA : `0x${fromA}`;
+        const bytes = Bytes.fromHex(hexWithPrefix as `0x${string}`);
+        return Array.from(bytes) as readonly number[];
+      },
+      encode: (toI: readonly number[], toA: FixedBytes<N>) => Bytes.toHex(toA) as string,
+      strict: true
+    }
   );
 
 /**
@@ -35,11 +42,14 @@ export const fixedBytesFromHex = <N extends number>(
 export const fixedBytesFromBytes = <N extends number>(
   length: N,
 ): Schema.Schema<FixedBytes<N>, Uint8Array> =>
-  Schema.Uint8ArrayFromSelf.pipe(
-    Schema.filter((bytes) => bytes.length === length, {
-      message: () => `Expected Uint8Array of length ${length}`,
-    }),
-    Schema.brand(`FixedBytes${length}`),
+  Schema.transform(
+    Schema.Uint8ArrayFromSelf,
+    fixedBytes(length),
+    {
+      decode: (fromA: Uint8Array, fromI: Uint8Array) => Array.from(fromA) as readonly number[],
+      encode: (toI: readonly number[], toA: FixedBytes<N>) => toA as Uint8Array,
+      strict: true
+    }
   );
 
 /**
