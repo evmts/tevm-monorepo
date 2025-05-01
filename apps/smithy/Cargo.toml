@@ -12,6 +12,9 @@ js-sys = "0.3"
 serde = { version = "1", features = ["derive"] }
 serde-wasm-bindgen = "0.6"
 console_error_panic_hook = "0.1.7"
+alloy = "0.15.7"
+leptos_reactive = "0.6.15"
+getrandom = { version = "0.2", features = ["js"] }
 
 [workspace]
 members = ["src-tauri"]
