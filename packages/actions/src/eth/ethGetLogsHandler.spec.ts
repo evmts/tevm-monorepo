@@ -28,7 +28,7 @@ describe(ethGetLogsHandler.name, () => {
 	const setupAccount = async (client: ReturnType<typeof createTevmNode>, address: Address) => {
 		await setAccountHandler(client)({
 			address,
-			balance: 10000000000000000000n, // 10 ETH
+			balance: 10000000000000000000n,
 		})
 	}
 
@@ -74,6 +74,11 @@ describe(ethGetLogsHandler.name, () => {
 			toBlock: 'latest',
 			topics: [getValueSetTopic()],
 		}
+
+		const vm = await client.getVm()
+		const rm = await client.getReceiptsManager()
+		console.log('Vm block', vm.blockchain.blocksByTag.get('latest')?.header.number)
+		console.log('Rm block', rm.chain.blocksByTag.get('latest')?.header.number)
 
 		const logs = await ethGetLogsHandler(client)({
 			filterParams,
@@ -284,10 +289,8 @@ describe(ethGetLogsHandler.name, () => {
 
 		const contractAddress = deployResult.createdAddress as Address
 
-		// Mine the deployment transaction
 		await mineHandler(client)()
 
-		// Set values to emit events
 		await callHandler(client)({
 			to: contractAddress,
 			from: from.toString(),

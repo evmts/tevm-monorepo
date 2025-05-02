@@ -33,7 +33,6 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 		client.miningConfig.type === 'auto' || shouldAddToBlockchain(params, executedCall.runTxResult)
 	const shouldCreateTx = shouldAddToChain || shouldCreateTransaction(params, executedCall.runTxResult)
 
-	console.log({ shouldAddToChain, shouldCreateTx })
 	if (shouldCreateTx) {
 		try {
 			const txRes = await createTransaction(client)({

@@ -86,18 +86,15 @@ describe('runCallWithTrace', () => {
 			caller: EthjsAddress.zero(),
 		}
 
-		// Use lazyRun=true option
 		const lazyResult = await runCallWithTrace(vm, client.logger, params, true)
 
-		// When in lazy mode, only trace property should be present
 		expect(lazyResult.trace).toMatchObject({
-			gas: '0x0', // Should be 0 since execution hasn't happened yet
+			gas: 0n,
 			returnValue: '0x0',
 			failed: false,
 			structLogs: [],
 		})
 
-		// Should not have other execution result properties
 		expect(lazyResult.execResult).toBeUndefined()
 		expect(lazyResult.createdAddress).toBeUndefined()
 	})
@@ -107,11 +104,9 @@ describe('runCallWithTrace', () => {
 		const head = await vm.blockchain.getCanonicalHeadBlock()
 		await vm.stateManager.setStateRoot(head.header.stateRoot)
 
-		// Contract creation call (no 'to' field)
 		const params = {
 			data: hexToBytes(ERC20_BYTECODE),
 			gasLimit: 16784800n,
-			// No 'to' field for contract creation
 			value: 0n,
 			block: await vm.blockchain.getCanonicalHeadBlock(),
 			origin: EthjsAddress.zero(),
@@ -119,7 +114,6 @@ describe('runCallWithTrace', () => {
 		}
 
 		const result = await runCallWithTrace(vm, client.logger, params)
-		// Should have created a contract address
 		expect(result.createdAddress).toBeDefined()
 	})
 })
