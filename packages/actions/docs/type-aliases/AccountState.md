@@ -8,9 +8,9 @@
 
 > **AccountState**: `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L31)
+Defined in: [packages/actions/src/common/AccountState.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/AccountState.ts#L6)
 
-The state of an account as captured by the prestateTracer
+The state of an account as captured by `debug_` traces
 
 ## Type declaration
 
@@ -24,7 +24,7 @@ The state of an account as captured by the prestateTracer
 
 ### nonce
 
-> `readonly` **nonce**: `string`
+> `readonly` **nonce**: `number`
 
 ### storage
 

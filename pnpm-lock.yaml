@@ -2343,15 +2343,9 @@ importers:
       '@tevm/viem':
         specifier: workspace:^
         version: link:../../extensions/viem
-      '@types/glob':
-        specifier: ^8.1.0
-        version: 8.1.0
       effect:
         specifier: 3.13.2
         version: 3.13.2
-      glob:
-        specifier: ^11.0.1
-        version: 11.0.1
       tevm:
         specifier: workspace:^
         version: link:../../tevm
