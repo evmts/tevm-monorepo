@@ -1,0 +1,8 @@
+ignores: [
+  "@tevm/blockchain",
+  "@tevm/receipt-manager",
+  "@tevm/block",
+  "abitype",
+  "@tevm/errors"
+]
+skip-missing: true
