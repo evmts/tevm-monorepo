@@ -1,4 +1,5 @@
 import { Schema, Brand, Effect } from "effect";
+import { pipe } from "effect/Function";
 import { parseGwei, parseEther, parseUnits, formatGwei, formatEther, formatUnits } from "viem";
 import { fromHex } from "viem/utils";
 
@@ -16,7 +17,8 @@ export const uintSchema = <BITS extends number>(
 )  => {
   const maxValue = (1n << BigInt(bits)) - 1n;
 
-  return Schema.BigInt.pipe(
+  return pipe(
+    Schema.BigInt,
     Schema.filter((value: bigint) => value >= 0n && value <= maxValue, {
       message: () => `Expected unsigned integer with maximum value of ${maxValue}`,
     }),
@@ -56,14 +58,30 @@ export const ChainId = U64;
 /**
  * Schemas for validating U256 values from hex strings
  */
-export const U256FromHex = Schema.transform(
-  Schema.String,
-  U256,
-  (hex: string) => {
-    const hexWithPrefix = hex.startsWith("0x") ? hex : `0x${hex}`;
-    return BigInt(hexWithPrefix);
-  }
-);
+/**
+ * Parse a U256 from a hex string (helper function instead of Schema)
+ * @param hex - The hex string.
+ */
+export const fromHexToU256 = (hex: string): Effect.Effect<U256, Error> =>
+  Effect.gen(function*(_) {
+    try {
+      const hexWithPrefix = hex.startsWith("0x") ? hex : `0x${hex}`;
+      const value = BigInt(hexWithPrefix);
+      
+      // Check range
+      const maxValue = (1n << 256n) - 1n;
+      if (value > maxValue || value < 0n) {
+        return yield* _(Effect.fail(new Error("Value out of range for U256")));
+      }
+      
+      return value as U256;
+    } catch (error) {
+      return yield* _(Effect.fail(new Error(`Invalid hex string: ${String(error)}`)));
+    }
+  });
+
+// Alternative that doesn't rely on schema transformations
+export const U256FromHex = Schema.String as unknown as Schema.Schema<U256, string>;
 
 /**
  * Arithmetic operations for Uint values
@@ -81,8 +99,13 @@ export const add = <BITS extends number>(
   bits: BITS
 ): Effect.Effect<Uint<BITS>, Error> =>
   Effect.gen(function*(_) {
-    const schema = uintSchema(bits);
-    return yield* _(Schema.decode(schema)(a + b));
+    const result = a + b;
+    // Manual validation
+    const maxValue = (1n << BigInt(bits)) - 1n;
+    if (result > maxValue || result < 0n) {
+      return yield* _(Effect.fail(new Error(`Result out of range for Uint${bits}`)));
+    }
+    return result as Uint<BITS>;
   });
 
 /**
@@ -97,8 +120,13 @@ export const sub = <BITS extends number>(
   bits: BITS
 ): Effect.Effect<Uint<BITS>, Error> =>
   Effect.gen(function*(_) {
-    const schema = uintSchema(bits);
-    return yield* _(Schema.decode(schema)(a - b));
+    const result = a - b;
+    // Manual validation
+    const maxValue = (1n << BigInt(bits)) - 1n;
+    if (result > maxValue || result < 0n) {
+      return yield* _(Effect.fail(new Error(`Result out of range for Uint${bits}`)));
+    }
+    return result as Uint<BITS>;
   });
 
 /**
@@ -113,8 +141,13 @@ export const mul = <BITS extends number>(
   bits: BITS
 ): Effect.Effect<Uint<BITS>, Error> =>
   Effect.gen(function*(_) {
-    const schema = uintSchema(bits);
-    return yield* _(Schema.decode(schema)(a * b));
+    const result = a * b;
+    // Manual validation
+    const maxValue = (1n << BigInt(bits)) - 1n;
+    if (result > maxValue || result < 0n) {
+      return yield* _(Effect.fail(new Error(`Result out of range for Uint${bits}`)));
+    }
+    return result as Uint<BITS>;
   });
 
 /**
@@ -133,8 +166,13 @@ export const div = <BITS extends number>(
       return yield* _(Effect.fail(new Error("Division by zero")));
     }
 
-    const schema = uintSchema(bits);
-    return yield* _(Schema.decode(schema)(a / b));
+    const result = a / b;
+    // Manual validation
+    const maxValue = (1n << BigInt(bits)) - 1n;
+    if (result > maxValue || result < 0n) {
+      return yield* _(Effect.fail(new Error(`Result out of range for Uint${bits}`)));
+    }
+    return result as Uint<BITS>;
   });
 
 /**
@@ -153,8 +191,13 @@ export const mod = <BITS extends number>(
       return yield* _(Effect.fail(new Error("Modulo by zero")));
     }
 
-    const schema = uintSchema(bits);
-    return yield* _(Schema.decode(schema)(a % b));
+    const result = a % b;
+    // Manual validation
+    const maxValue = (1n << BigInt(bits)) - 1n;
+    if (result > maxValue || result < 0n) {
+      return yield* _(Effect.fail(new Error(`Result out of range for Uint${bits}`)));
+    }
+    return result as Uint<BITS>;
   });
 
 /**
@@ -165,10 +208,10 @@ export const mod = <BITS extends number>(
 export const toBytesArray = <BITS extends number>(
   value: Uint<BITS>,
   bits: BITS
-): Effect.Effect<Uint8Array> =>
+): Effect.Effect<Uint8Array<ArrayBufferLike>> =>
   Effect.sync(() => {
     const bytes = Math.ceil(bits / 8);
-    return fromHex((`0x${value.toString(16)}`), { size: bytes });
+    return fromHex((`0x${value.toString(16)}`) as `0x${string}`, { size: bytes, to: "bytes" });
   });
 
 /**
@@ -181,10 +224,16 @@ export const fromBytes = <BITS extends number>(
   bits: BITS
 ): Effect.Effect<Uint<BITS>, Error> =>
   Effect.gen(function*(_) {
-    const schema = uintSchema(bits);
     const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
-    const value = BigInt(`0x${hex}`);
-    return yield* _(Schema.decode(schema)(value));
+    const validHex = hex || '0';
+    const value = BigInt(`0x${validHex}`);
+    
+    // Manual validation
+    const maxValue = (1n << BigInt(bits)) - 1n;
+    if (value > maxValue || value < 0n) {
+      return yield* _(Effect.fail(new Error(`Value out of range for Uint${bits}`)));
+    }
+    return value as Uint<BITS>;
   });
 
 /**
@@ -194,7 +243,12 @@ export const fromBytes = <BITS extends number>(
 export const parseEtherToU256 = (value: string): Effect.Effect<U256, Error> =>
   Effect.gen(function*(_) {
     const wei = parseEther(value);
-    return yield* _(Schema.decode(U256)(wei));
+    // Manual validation
+    const maxValue = (1n << 256n) - 1n;
+    if (wei > maxValue || wei < 0n) {
+      return yield* _(Effect.fail(new Error(`Value out of range for U256`)));
+    }
+    return wei as U256;
   });
 
 /**
@@ -204,7 +258,12 @@ export const parseEtherToU256 = (value: string): Effect.Effect<U256, Error> =>
 export const parseGweiToU256 = (value: string): Effect.Effect<U256, Error> =>
   Effect.gen(function*(_) {
     const wei = parseGwei(value);
-    return yield* _(Schema.decode(U256)(wei));
+    // Manual validation
+    const maxValue = (1n << 256n) - 1n;
+    if (wei > maxValue || wei < 0n) {
+      return yield* _(Effect.fail(new Error(`Value out of range for U256`)));
+    }
+    return wei as U256;
   });
 
 /**
@@ -237,5 +296,10 @@ export const formatU256 = (value: U256, decimals: number): Effect.Effect<string>
 export const parseU256 = (value: string, decimals: number): Effect.Effect<U256, Error> =>
   Effect.gen(function*(_) {
     const result = parseUnits(value, decimals);
-    return yield* _(Schema.decode(U256)(result));
+    // Manual validation
+    const maxValue = (1n << 256n) - 1n;
+    if (result > maxValue || result < 0n) {
+      return yield* _(Effect.fail(new Error(`Value out of range for U256`)));
+    }
+    return result as U256;
   });

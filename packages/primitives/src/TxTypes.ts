@@ -60,10 +60,10 @@ export const computeTxHash = (bytes: Uint8Array): Effect.Effect<TxHash, Error> =
     const hexWithPrefix = `0x${hex}`;
     
     // Hash with keccak256
-    const hashHex = viemKeccak256(hexWithPrefix);
+    const hashHex = viemKeccak256(hexWithPrefix as `0x${string}`);
     
     // Convert to bytes
-    const hashBytes = fromHex(hashHex);
+    const hashBytes = fromHex(hashHex, { size: 32, to: "bytes" });
     
     return yield* _(Schema.decode(TxHash)(hashBytes));
   });
@@ -79,8 +79,8 @@ export const computeContractAddress = (
 ): Effect.Effect<AddressType, Error> =>
   Effect.gen(function*(_) {
     // Imports
-    const { Bytes } = await import("ox");
-    const { getContractAddress } = await import("viem/utils");
+    const { Bytes } = yield* _(Effect.promise(() => import("ox")));
+    const { getContractAddress } = yield* _(Effect.promise(() => import("viem/utils")));
     
     // Convert to hex
     const senderHex = Bytes.toHex(sender);
@@ -92,7 +92,7 @@ export const computeContractAddress = (
     });
     
     // Convert back to bytes
-    const addressBytes = fromHex(addressHex);
+    const addressBytes = fromHex(addressHex, { size: 20, to: "bytes" });
     
     return yield* _(Schema.decode(Address)(addressBytes));
   });
@@ -110,8 +110,8 @@ export const computeCreate2Address = (
 ): Effect.Effect<AddressType, Error> =>
   Effect.gen(function*(_) {
     // Imports
-    const { Bytes } = await import("ox");
-    const { getCreate2Address } = await import("viem/utils");
+    const { Bytes } = yield* _(Effect.promise(() => import("ox")));
+    const { getCreate2Address } = yield* _(Effect.promise(() => import("viem/utils")));
     
     // Convert to hex
     const senderHex = Bytes.toHex(sender);
@@ -126,7 +126,7 @@ export const computeCreate2Address = (
     });
     
     // Convert back to bytes
-    const addressBytes = fromHex(addressHex);
+    const addressBytes = fromHex(addressHex, { size: 20, to: "bytes" });
     
     return yield* _(Schema.decode(Address)(addressBytes));
   });

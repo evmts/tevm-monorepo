@@ -20,19 +20,16 @@ export const fixedBytes = <N extends number>(
 export const fixedBytesFromHex = <N extends number>(
   length: N,
 ): Schema.Schema<FixedBytes<N>, string> =>
-  Schema.transform(
-    Schema.String,
-    fixedBytes(length),
-    {
-      decode: (fromA: string, fromI: string) => {
-        const hexWithPrefix = fromA.startsWith("0x") ? fromA : `0x${fromA}`;
-        const bytes = Bytes.fromHex(hexWithPrefix as `0x${string}`);
-        return Array.from(bytes) as readonly number[];
-      },
-      encode: (toI: readonly number[], toA: FixedBytes<N>) => Bytes.toHex(toA) as string,
-      strict: true
-    }
-  );
+  Schema.transform(Schema.String, fixedBytes(length), {
+    decode: (fromA: string) => {
+      const hexWithPrefix = fromA.startsWith("0x") ? fromA : `0x${fromA}`;
+      const bytes = Bytes.fromHex(hexWithPrefix as `0x${string}`);
+      return Array.from(bytes) as readonly number[];
+    },
+    encode: (_: readonly number[], toA: FixedBytes<N>) =>
+      Bytes.toHex(toA) as string,
+    strict: true,
+  });
 
 /**
  * Creates a Schema enforcing a Uint8Array of fixed length N branded as FixedBytes<N>.
@@ -42,15 +39,11 @@ export const fixedBytesFromHex = <N extends number>(
 export const fixedBytesFromBytes = <N extends number>(
   length: N,
 ): Schema.Schema<FixedBytes<N>, Uint8Array> =>
-  Schema.transform(
-    Schema.Uint8ArrayFromSelf,
-    fixedBytes(length),
-    {
-      decode: (fromA: Uint8Array, fromI: Uint8Array) => Array.from(fromA) as readonly number[],
-      encode: (toI: readonly number[], toA: FixedBytes<N>) => toA as Uint8Array,
-      strict: true
-    }
-  );
+  Schema.transform(Schema.Uint8ArrayFromSelf, fixedBytes(length), {
+    decode: (fromA: Uint8Array) => Array.from(fromA) as readonly number[],
+    encode: (_: readonly number[], toA: FixedBytes<N>) => toA as Uint8Array,
+    strict: true,
+  });
 
 /**
  * Example: FixedBytes schema for 32-byte arrays.

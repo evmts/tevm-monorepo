@@ -32,14 +32,14 @@ export const BLOOM_SIZE_BITS = BLOOM_SIZE_BYTES * 8;
  */
 export enum BloomInputType {
   Raw, // Raw input to be hashed
-  Hash  // Already hashed input
+  Hash, // Already hashed input
 }
 
 /**
  * Creates a new empty Bloom filter
  */
 export const empty = (): Effect.Effect<Bloom, Error> =>
-  Effect.gen(function*(_) {
+  Effect.gen(function* (_) {
     const bytes = new Uint8Array(BLOOM_SIZE_BYTES).fill(0);
     return yield* _(Schema.decode(Bloom)(bytes));
   });
@@ -49,22 +49,25 @@ export const empty = (): Effect.Effect<Bloom, Error> =>
  * @param bloom - The bloom filter.
  * @param bitIndex - The bit index to set.
  */
-export const setBit = (bloom: Bloom, bitIndex: number): Effect.Effect<Bloom, Error> =>
-  Effect.gen(function*(_) {
+export const setBit = (
+  bloom: Bloom,
+  bitIndex: number,
+): Effect.Effect<Bloom, Error> =>
+  Effect.gen(function* (_) {
     // Create a mutable copy of the bloom filter
     const result = new Uint8Array(bloom);
-    
+
     // Calculate byte index and bit position within the byte
     const byteIndex = Math.floor(bitIndex / 8);
     const bitPosition = bitIndex % 8;
-    
+
     // Ensure we don't go out of bounds
     if (byteIndex < BLOOM_SIZE_BYTES && byteIndex >= 0) {
       // Set the bit - ensure we handle undefined
       const currentByte = result[byteIndex] || 0;
       result[byteIndex] = currentByte | (1 << bitPosition);
     }
-    
+
     return yield* _(Schema.decode(Bloom)(result));
   });
 
@@ -73,15 +76,18 @@ export const setBit = (bloom: Bloom, bitIndex: number): Effect.Effect<Bloom, Err
  * @param bloom - The bloom filter.
  * @param bitIndex - The bit index to check.
  */
-export const hasBit = (bloom: Bloom, bitIndex: number): Effect.Effect<boolean> =>
+export const hasBit = (
+  bloom: Bloom,
+  bitIndex: number,
+): Effect.Effect<boolean> =>
   Effect.sync(() => {
     // Calculate byte index and bit position within the byte
     const byteIndex = Math.floor(bitIndex / 8);
     const bitPosition = bitIndex % 8;
-    
+
     // Ensure we don't go out of bounds
     if (byteIndex >= BLOOM_SIZE_BYTES || byteIndex < 0) return false;
-    
+
     // Check if the bit is set - ensure we handle undefined
     const currentByte = bloom[byteIndex] || 0;
     return (currentByte & (1 << bitPosition)) !== 0;
@@ -91,30 +97,31 @@ export const hasBit = (bloom: Bloom, bitIndex: number): Effect.Effect<boolean> =
  * Calculates the bit indexes for a given input
  * @param input - The input bytes.
  */
-export const getBitIndexes = (input: Uint8Array): Effect.Effect<number[], Error> =>
-  Effect.gen(function*(_) {
+export const getBitIndexes = (
+  input: Uint8Array,
+): Effect.Effect<number[], Error> =>
+  Effect.gen(function* (_) {
     // Hash the input first
     const hash = yield* _(keccak256(input));
-    
+
     // Calculate bit indexes (3 bits per item in Ethereum's bloom filter)
     const indexes: number[] = [];
-    
+
     for (let i = 0; i < BLOOM_BITS_PER_ITEM; i++) {
       // Make sure we don't go out of bounds
-      if (i*2 + 1 >= hash.length) break;
-      
+      if (i * 2 + 1 >= hash.length) break;
+
       // For each bit we need to set, we take 2 bytes from the hash at different positions
       // and use them to determine the bit position in the bloom filter
-      const byte1 = hash[i*2] || 0;
-      const byte2 = hash[i*2 + 1] || 0;
-      
-      const bitPos = (
+      const byte1 = hash[i * 2] || 0;
+      const byte2 = hash[i * 2 + 1] || 0;
+
+      const bitPos =
         ((byte1 << 8) + byte2) & // Take 2 consecutive bytes
-        (BLOOM_SIZE_BITS - 1) // Ensure we don't exceed the size of the bloom filter
-      );
+        (BLOOM_SIZE_BITS - 1); // Ensure we don't exceed the size of the bloom filter
       indexes.push(bitPos);
     }
-    
+
     return indexes;
   });
 
@@ -127,11 +134,11 @@ export const getBitIndexes = (input: Uint8Array): Effect.Effect<number[], Error>
 export const accrue = (
   bloom: Bloom,
   input: Uint8Array,
-  inputType: BloomInputType = BloomInputType.Raw
+  inputType: BloomInputType = BloomInputType.Raw,
 ): Effect.Effect<Bloom, Error> =>
-  Effect.gen(function*(_) {
+  Effect.gen(function* (_) {
     let hashBytes: Uint8Array;
-    
+
     // If the input is raw, hash it first
     if (inputType === BloomInputType.Raw) {
       hashBytes = yield* _(keccak256(input));
@@ -142,18 +149,18 @@ export const accrue = (
       }
       hashBytes = input;
     }
-    
+
     // Get the bit indexes to set
     const indexes = yield* _(getBitIndexes(hashBytes));
-    
+
     // Start with the current bloom filter
     let result = bloom;
-    
+
     // Set each bit
     for (const index of indexes) {
       result = yield* _(setBit(result, index));
     }
-    
+
     return result;
   });
 
@@ -162,15 +169,23 @@ export const accrue = (
  * @param bloomA - First bloom filter.
  * @param bloomB - Second bloom filter.
  */
-export const accrueBloom = (bloomA: Bloom, bloomB: Bloom): Effect.Effect<Bloom, Error> =>
-  Effect.gen(function*(_) {
+export const accrueBloom = (
+  bloomA: Bloom,
+  bloomB: Bloom,
+): Effect.Effect<Bloom, Error> =>
+  Effect.gen(function* (_) {
     // Use bitwise OR to combine the bloom filters
     const result = new Uint8Array(BLOOM_SIZE_BYTES);
-    
+
     for (let i = 0; i < BLOOM_SIZE_BYTES; i++) {
-      result[i] = bloomA[i] | bloomB[i];
+      const first = bloomA[i];
+      const second = bloomB[i];
+      if (first === undefined || second === undefined) {
+        throw new Error("Undefined variable should never be undefined");
+      }
+      result[i] = first | second;
     }
-    
+
     return yield* _(Schema.decode(Bloom)(result));
   });
 
@@ -183,11 +198,11 @@ export const accrueBloom = (bloomA: Bloom, bloomB: Bloom): Effect.Effect<Bloom, 
 export const containsInput = (
   bloom: Bloom,
   input: Uint8Array,
-  inputType: BloomInputType = BloomInputType.Raw
+  inputType: BloomInputType = BloomInputType.Raw,
 ): Effect.Effect<boolean, Error> =>
-  Effect.gen(function*(_) {
+  Effect.gen(function* (_) {
     let hashBytes: Uint8Array;
-    
+
     // If the input is raw, hash it first
     if (inputType === BloomInputType.Raw) {
       hashBytes = yield* _(keccak256(input));
@@ -198,10 +213,10 @@ export const containsInput = (
       }
       hashBytes = input;
     }
-    
+
     // Get the bit indexes to check
     const indexes = yield* _(getBitIndexes(hashBytes));
-    
+
     // Check if all required bits are set
     for (const index of indexes) {
       const isSet = yield* _(hasBit(bloom, index));
@@ -209,7 +224,7 @@ export const containsInput = (
         return false;
       }
     }
-    
+
     return true;
   });
 
@@ -218,16 +233,22 @@ export const containsInput = (
  * @param bloomA - The bloom filter to check in.
  * @param bloomB - The bloom filter to check for.
  */
-export const contains = (bloomA: Bloom, bloomB: Bloom): Effect.Effect<boolean> =>
+export const contains = (
+  bloomA: Bloom,
+  bloomB: Bloom,
+): Effect.Effect<boolean> =>
   Effect.sync(() => {
     // Check if all bits set in bloomB are also set in bloomA
     for (let i = 0; i < BLOOM_SIZE_BYTES; i++) {
+      // Ensure we handle undefined values safely
+      const a = bloomA[i] ?? 0;
+      const b = bloomB[i] ?? 0;
       // If any bit set in bloomB is not set in bloomA, return false
-      if ((bloomA[i] & bloomB[i]) !== bloomB[i]) {
+      if ((a & b) !== b) {
         return false;
       }
     }
-    
+
     return true;
   });
 
@@ -240,19 +261,19 @@ export const contains = (bloomA: Bloom, bloomB: Bloom): Effect.Effect<boolean> =
 export const accrueLog = (
   bloom: Bloom,
   address: AddressType,
-  topics: B256Type[]
+  topics: B256Type[],
 ): Effect.Effect<Bloom, Error> =>
-  Effect.gen(function*(_) {
+  Effect.gen(function* (_) {
     // Add the address
     let result = yield* _(accrue(bloom, address));
-    
+
     // Add each topic that exists
     for (const topic of topics) {
       if (topic) {
         result = yield* _(accrue(result, topic, BloomInputType.Hash));
       }
     }
-    
+
     return result;
   });
 
@@ -265,24 +286,26 @@ export const accrueLog = (
 export const containsLog = (
   bloom: Bloom,
   address: AddressType,
-  topics: B256Type[]
+  topics: B256Type[],
 ): Effect.Effect<boolean, Error> =>
-  Effect.gen(function*(_) {
+  Effect.gen(function* (_) {
     // Check the address
     const hasAddress = yield* _(containsInput(bloom, address));
     if (!hasAddress) {
       return false;
     }
-    
+
     // Check each topic that exists
     for (const topic of topics) {
       if (topic) {
-        const hasTopic = yield* _(containsInput(bloom, topic, BloomInputType.Hash));
+        const hasTopic = yield* _(
+          containsInput(bloom, topic, BloomInputType.Hash),
+        );
         if (!hasTopic) {
           return false;
         }
       }
     }
-    
+
     return true;
   });

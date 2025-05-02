@@ -3,7 +3,7 @@ import { Bytes } from "ox";
 import { type B256, B256 as B256Schema } from "./B256.js";
 import { type Address } from "./Address.js";
 import { fromHex } from "viem/utils";
-import { toBytes } from "viem/utils";
+// Unused import removed
 
 /**
  * An Ethereum ECDSA signature
@@ -59,9 +59,13 @@ export const fromRaw = (bytes: Uint8Array): Effect.Effect<Signature, Error> =>
     
     const r = bytes.slice(0, 32);
     const s = bytes.slice(32, 64);
-    const v = bytes[64];
+    const v = bytes[64] ?? 0;
     
-    return yield* _(fromComponents(r, s, v));
+    // Decode the byte arrays to B256 type
+    const rB256 = yield* _(Schema.decode(B256Schema)(r));
+    const sB256 = yield* _(Schema.decode(B256Schema)(s));
+    
+    return yield* _(fromComponents(rB256, sB256, v));
   });
 
 /**
@@ -76,7 +80,7 @@ export const fromHexString = (hex: string): Effect.Effect<Signature, Error> =>
       return yield* _(Effect.fail(new Error("Signature hex must be 130 characters (65 bytes)")));
     }
     
-    const bytes = fromHex(hexWithPrefix);
+    const bytes = fromHex(hexWithPrefix as `0x${string}`, { size: 65, to: "bytes" });
     return yield* _(fromRaw(bytes));
   });
 
@@ -94,21 +98,28 @@ export const fromErc2098 = (bytes: Uint8Array): Effect.Effect<Signature, Error> 
     const s = bytes.slice(32, 64);
     
     // Extract yParity from the highest bit of s
-    const yParity = (s[0] & 0x80) ? 1 : 0;
+    const firstByte = s[0] ?? 0;
+    const yParity = (firstByte & 0x80) ? 1 : 0;
     
     // Clear the highest bit of s
     const sCopy = new Uint8Array(s);
-    sCopy[0] = sCopy[0] & 0x7f;
+    if (sCopy[0] !== undefined) {
+      sCopy[0] = sCopy[0] & 0x7f;
+    }
     
     // Calculate v
     const v = yParity + 27;
     
-    return {
-      r,
-      s: sCopy,
+    // Decode the byte arrays to B256 type
+    const rB256 = yield* _(Schema.decode(B256Schema)(r));
+    const sB256 = yield* _(Schema.decode(B256Schema)(sCopy));
+    
+    return yield* _(Schema.decode(Signature)({
+      r: rB256,
+      s: sB256,
       v,
       yParity: yParity as (0 | 1)
-    };
+    }));
   });
 
 /**
@@ -147,10 +158,12 @@ export const toErc2098 = (signature: Signature): Effect.Effect<Uint8Array> =>
     const sCopy = new Uint8Array(signature.s);
     
     // Set the highest bit of s according to yParity
-    if (signature.yParity === 1) {
-      sCopy[0] = sCopy[0] | 0x80;
-    } else {
-      sCopy[0] = sCopy[0] & 0x7f;
+    if (sCopy[0] !== undefined) {
+      if (signature.yParity === 1) {
+        sCopy[0] = sCopy[0] | 0x80;
+      } else {
+        sCopy[0] = sCopy[0] & 0x7f;
+      }
     }
     
     result.set(sCopy, 32);
@@ -164,8 +177,8 @@ export const toErc2098 = (signature: Signature): Effect.Effect<Uint8Array> =>
  * @param message - The original message that was signed.
  */
 export const recoverAddressFromMsg = (
-  signature: Signature,
-  message: Uint8Array
+  _signature: Signature,
+  _message: Uint8Array
 ): Effect.Effect<Address, Error> =>
   Effect.fail(new Error("Not implemented yet - needs viem account interface"))
 
@@ -176,8 +189,8 @@ export const recoverAddressFromMsg = (
  * @param messageHash - The hash of the message that was signed.
  */
 export const recoverAddressFromHash = (
-  signature: Signature,
-  messageHash: B256
+  _signature: Signature,
+  _messageHash: B256
 ): Effect.Effect<Address, Error> =>
   Effect.fail(new Error("Not implemented yet - needs viem account interface"))
 
@@ -203,7 +216,7 @@ export const normalizeS = (signature: Signature): Effect.Effect<Signature, Error
     const normalizedS = SECP256K1_N - s;
     
     // Convert back to bytes
-    const normalizedSBytes = fromHex(`0x${normalizedS.toString(16).padStart(64, '0')}`);
+    const normalizedSBytes = fromHex(`0x${normalizedS.toString(16).padStart(64, '0')}` as `0x${string}`, { size: 32, to: "bytes" });
     
     // Decode into a B256
     const normalizedSB256 = yield* _(Schema.decode(B256Schema)(normalizedSBytes));

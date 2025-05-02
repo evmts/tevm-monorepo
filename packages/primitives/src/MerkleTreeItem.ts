@@ -29,12 +29,12 @@ export const empty = (): Effect.Effect<MerkleTreeItem, Error> =>
  */
 export const combine = (
   left: MerkleTreeItem,
-  right: MerkleTreeItem
+  right: MerkleTreeItem,
 ): Effect.Effect<MerkleTreeItem, Error> =>
   Effect.gen(function*(_) {
     // Concatenate the two items
     const combined = Bytes.concat(left, right);
-    
+
     // Hash the combination
     return yield* _(keccak256(combined));
   });
@@ -50,12 +50,12 @@ export const verifyProof = (
   item: MerkleTreeItem,
   proof: MerkleTreeItem[],
   root: MerkleTreeItem,
-  index: number
+  index: number,
 ): Effect.Effect<boolean, Error> =>
   Effect.gen(function*(_) {
     let currentHash = item;
     let currentIndex = index;
-    
+
     // Traverse the proof nodes
     for (const proofNode of proof) {
       // Determine if the current node is on the left or right
@@ -66,11 +66,11 @@ export const verifyProof = (
         // Current node is on the right, proof node is on the left
         currentHash = yield* _(combine(proofNode, currentHash));
       }
-      
+
       // Move up the tree
       currentIndex = Math.floor(currentIndex / 2);
     }
-    
+
     // Check if the computed root matches the expected root
     return Bytes.isEqual(currentHash, root);
   });
@@ -80,31 +80,31 @@ export const verifyProof = (
  * @param items - The leaf items in the tree.
  */
 export const root = (
-  items: MerkleTreeItem[]
+  items: MerkleTreeItem[],
 ): Effect.Effect<MerkleTreeItem, Error> =>
   Effect.gen(function*(_) {
     if (items.length === 0) {
       return yield* _(empty());
     }
-    
+
     if (items.length === 1) {
-      return items[0];
+      return items[0] as B256;
     }
-    
+
     // Clone the array to avoid modifying the original
     let nodes = [...items];
-    
+
     // Iteratively combine pairs of nodes until only the root remains
     while (nodes.length > 1) {
       const newLevel: MerkleTreeItem[] = [];
-      
+
       // Process pairs of nodes
       for (let i = 0; i < nodes.length; i += 2) {
         if (i + 1 < nodes.length) {
           // Make sure both nodes exist
           const left = nodes[i];
           const right = nodes[i + 1];
-          
+
           if (left && right) {
             // Combine two adjacent nodes
             const combined = yield* _(combine(left, right));
@@ -115,18 +115,18 @@ export const root = (
           }
         } else if (nodes[i]) {
           // Odd number of nodes, promote the last one to the next level
-          newLevel.push(nodes[i]);
+          newLevel.push(nodes[i] as B256);
         }
       }
-      
+
       // Replace the current level with the new level
       nodes = newLevel;
     }
-    
+
     // The root is the only node left
     if (nodes.length === 0) {
       return yield* _(empty());
     }
-    
-    return nodes[0];
+
+    return nodes[0] as B256;
   });

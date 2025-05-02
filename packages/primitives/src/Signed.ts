@@ -1,4 +1,5 @@
 import { Schema, Brand, Effect } from "effect";
+import { pipe } from "effect/Function";
 import { fromHex } from "viem/utils";
 
 /**
@@ -25,12 +26,15 @@ export const signedSchema = <BITS extends number>(
   const maxValue = (1n << BigInt(bits - 1)) - 1n;
   const minValue = -(1n << BigInt(bits - 1));
   
-  return Schema.BigInt.pipe(
+  const schema = pipe(
+    Schema.BigInt,
     Schema.filter((value: bigint) => value >= minValue && value <= maxValue, {
       message: () => `Expected signed integer within range [${minValue}, ${maxValue}]`,
     }),
     Schema.brand(`Signed${bits}`),
   );
+  
+  return schema as unknown as Schema.Schema<Signed<BITS>, bigint>;
 };
 
 /**
@@ -60,11 +64,11 @@ export type I1 = Signed<1>;
 /**
  * Schema for validating I0 values (which can only be 0)
  */
-export const I0 = Schema.transform(
+// Simple alternative implementation for I0
+export const I0 = pipe(
   Schema.Literal(0n),
-  Schema.BigInt.pipe(Schema.brand("Signed0")), 
-  (value: bigint) => value
-);
+  Schema.brand("Signed0")
+) as unknown as Schema.Schema<Signed<0>, bigint>;
 export type I0 = Signed<0>;
 
 /**
@@ -221,7 +225,7 @@ export const mod = <BITS extends number>(
 export const toBytesArray = <BITS extends number>(
   value: Signed<BITS>,
   bits: BITS
-): Effect.Effect<Uint8Array> =>
+): Effect.Effect<Uint8Array<ArrayBufferLike>> =>
   Effect.sync(() => {
     const bytes = Math.ceil(bits / 8);
     const mask = (1n << BigInt(bits)) - 1n;
@@ -233,7 +237,7 @@ export const toBytesArray = <BITS extends number>(
     const hexString = `0x${unsignedValue.toString(16)}`;
     
     // Use viem's fromHex to get the bytes representation
-    return fromHex(hexString, { size: bytes });
+    return fromHex(hexString as `0x${string}`, { size: bytes, to: "bytes" });
   });
 
 /**
@@ -250,9 +254,11 @@ export const fromBytes = <BITS extends number>(
     
     // Convert bytes to hex string
     const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+    // Ensure we have a valid hex string
+    const validHex = hex || '0';
     
     // Convert to BigInt
-    const value = BigInt(`0x${hex}`);
+    const value = BigInt(`0x${validHex}`);
     const mask = (1n << BigInt(bits)) - 1n;
     const msb = 1n << BigInt(bits - 1);
     
@@ -307,7 +313,7 @@ export const shr = <BITS extends number>(
 export const asr = <BITS extends number>(
   value: Signed<BITS>,
   shift: number,
-  bits: BITS
+  _bits: BITS
 ): Effect.Effect<Signed<BITS>, Error> =>
   Effect.sync(() => {
     // JavaScript's >> is an arithmetic right shift for bigints
