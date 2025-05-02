@@ -3,21 +3,21 @@
 exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
 {
   "failed": false,
-  "gas": "0xb23",
+  "gas": 2851n,
   "returnValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "structLogs": [
     {
       "depth": 0,
-      "gas": "0x1001da0",
-      "gasCost": "0x6",
+      "gas": 16784800n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 0,
       "stack": [],
     },
     {
       "depth": 0,
-      "gas": "0x1001d9d",
-      "gasCost": "0x6",
+      "gas": 16784797n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 2,
       "stack": [
@@ -26,8 +26,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d9a",
-      "gasCost": "0xf",
+      "gas": 16784794n,
+      "gasCost": 15n,
       "op": "MSTORE",
       "pc": 4,
       "stack": [
@@ -37,16 +37,16 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d8e",
-      "gasCost": "0x4",
+      "gas": 16784782n,
+      "gasCost": 4n,
       "op": "CALLVALUE",
       "pc": 5,
       "stack": [],
     },
     {
       "depth": 0,
-      "gas": "0x1001d8c",
-      "gasCost": "0x6",
+      "gas": 16784780n,
+      "gasCost": 6n,
       "op": "DUP1",
       "pc": 6,
       "stack": [
@@ -55,8 +55,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d89",
-      "gasCost": "0x6",
+      "gas": 16784777n,
+      "gasCost": 6n,
       "op": "ISZERO",
       "pc": 7,
       "stack": [
@@ -66,8 +66,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d86",
-      "gasCost": "0x6",
+      "gas": 16784774n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 8,
       "stack": [
@@ -77,8 +77,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d83",
-      "gasCost": "0x14",
+      "gas": 16784771n,
+      "gasCost": 20n,
       "op": "JUMPI",
       "pc": 11,
       "stack": [
@@ -89,8 +89,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d79",
-      "gasCost": "0x2",
+      "gas": 16784761n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 15,
       "stack": [
@@ -99,8 +99,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d78",
-      "gasCost": "0x4",
+      "gas": 16784760n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 16,
       "stack": [
@@ -109,16 +109,16 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d76",
-      "gasCost": "0x6",
+      "gas": 16784758n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 17,
       "stack": [],
     },
     {
       "depth": 0,
-      "gas": "0x1001d73",
-      "gasCost": "0x4",
+      "gas": 16784755n,
+      "gasCost": 4n,
       "op": "CALLDATASIZE",
       "pc": 19,
       "stack": [
@@ -127,8 +127,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d71",
-      "gasCost": "0x6",
+      "gas": 16784753n,
+      "gasCost": 6n,
       "op": "LT",
       "pc": 20,
       "stack": [
@@ -138,8 +138,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d6e",
-      "gasCost": "0x6",
+      "gas": 16784750n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 21,
       "stack": [
@@ -148,8 +148,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d6b",
-      "gasCost": "0x14",
+      "gas": 16784747n,
+      "gasCost": 20n,
       "op": "JUMPI",
       "pc": 24,
       "stack": [
@@ -159,16 +159,16 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d61",
-      "gasCost": "0x4",
+      "gas": 16784737n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 25,
       "stack": [],
     },
     {
       "depth": 0,
-      "gas": "0x1001d5f",
-      "gasCost": "0x6",
+      "gas": 16784735n,
+      "gasCost": 6n,
       "op": "CALLDATALOAD",
       "pc": 26,
       "stack": [
@@ -177,8 +177,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d5c",
-      "gasCost": "0x6",
+      "gas": 16784732n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 27,
       "stack": [
@@ -187,8 +187,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d59",
-      "gasCost": "0x6",
+      "gas": 16784729n,
+      "gasCost": 6n,
       "op": "SHR",
       "pc": 29,
       "stack": [
@@ -198,8 +198,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d56",
-      "gasCost": "0x6",
+      "gas": 16784726n,
+      "gasCost": 6n,
       "op": "DUP1",
       "pc": 30,
       "stack": [
@@ -208,8 +208,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d53",
-      "gasCost": "0x6",
+      "gas": 16784723n,
+      "gasCost": 6n,
       "op": "PUSH4",
       "pc": 31,
       "stack": [
@@ -219,8 +219,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d50",
-      "gasCost": "0x6",
+      "gas": 16784720n,
+      "gasCost": 6n,
       "op": "GT",
       "pc": 36,
       "stack": [
@@ -231,8 +231,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d4d",
-      "gasCost": "0x6",
+      "gas": 16784717n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 37,
       "stack": [
@@ -242,8 +242,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d4a",
-      "gasCost": "0x14",
+      "gas": 16784714n,
+      "gasCost": 20n,
       "op": "JUMPI",
       "pc": 40,
       "stack": [
@@ -254,8 +254,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d40",
-      "gasCost": "0x6",
+      "gas": 16784704n,
+      "gasCost": 6n,
       "op": "DUP1",
       "pc": 41,
       "stack": [
@@ -264,8 +264,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d3d",
-      "gasCost": "0x6",
+      "gas": 16784701n,
+      "gasCost": 6n,
       "op": "PUSH4",
       "pc": 42,
       "stack": [
@@ -275,8 +275,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d3a",
-      "gasCost": "0x6",
+      "gas": 16784698n,
+      "gasCost": 6n,
       "op": "EQ",
       "pc": 47,
       "stack": [
@@ -287,8 +287,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d37",
-      "gasCost": "0x6",
+      "gas": 16784695n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 48,
       "stack": [
@@ -298,8 +298,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d34",
-      "gasCost": "0x14",
+      "gas": 16784692n,
+      "gasCost": 20n,
       "op": "JUMPI",
       "pc": 51,
       "stack": [
@@ -310,8 +310,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d2a",
-      "gasCost": "0x6",
+      "gas": 16784682n,
+      "gasCost": 6n,
       "op": "DUP1",
       "pc": 52,
       "stack": [
@@ -320,8 +320,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d27",
-      "gasCost": "0x6",
+      "gas": 16784679n,
+      "gasCost": 6n,
       "op": "PUSH4",
       "pc": 53,
       "stack": [
@@ -331,8 +331,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d24",
-      "gasCost": "0x6",
+      "gas": 16784676n,
+      "gasCost": 6n,
       "op": "EQ",
       "pc": 58,
       "stack": [
@@ -343,8 +343,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d21",
-      "gasCost": "0x6",
+      "gas": 16784673n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 59,
       "stack": [
@@ -354,8 +354,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d1e",
-      "gasCost": "0x14",
+      "gas": 16784670n,
+      "gasCost": 20n,
       "op": "JUMPI",
       "pc": 62,
       "stack": [
@@ -366,8 +366,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d14",
-      "gasCost": "0x2",
+      "gas": 16784660n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 335,
       "stack": [
@@ -376,8 +376,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d13",
-      "gasCost": "0x6",
+      "gas": 16784659n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 336,
       "stack": [
@@ -386,8 +386,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d10",
-      "gasCost": "0x6",
+      "gas": 16784656n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 339,
       "stack": [
@@ -397,8 +397,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d0d",
-      "gasCost": "0x6",
+      "gas": 16784653n,
+      "gasCost": 6n,
       "op": "DUP1",
       "pc": 341,
       "stack": [
@@ -409,8 +409,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d0a",
-      "gasCost": "0x4",
+      "gas": 16784650n,
+      "gasCost": 4n,
       "op": "CALLDATASIZE",
       "pc": 342,
       "stack": [
@@ -422,8 +422,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d08",
-      "gasCost": "0x6",
+      "gas": 16784648n,
+      "gasCost": 6n,
       "op": "SUB",
       "pc": 343,
       "stack": [
@@ -436,8 +436,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d05",
-      "gasCost": "0x6",
+      "gas": 16784645n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 344,
       "stack": [
@@ -449,8 +449,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001d02",
-      "gasCost": "0x6",
+      "gas": 16784642n,
+      "gasCost": 6n,
       "op": "ADD",
       "pc": 345,
       "stack": [
@@ -463,8 +463,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cff",
-      "gasCost": "0x6",
+      "gas": 16784639n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 346,
       "stack": [
@@ -476,8 +476,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cfc",
-      "gasCost": "0x6",
+      "gas": 16784636n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 347,
       "stack": [
@@ -489,8 +489,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cf9",
-      "gasCost": "0x6",
+      "gas": 16784633n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 350,
       "stack": [
@@ -503,8 +503,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cf6",
-      "gasCost": "0x6",
+      "gas": 16784630n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 351,
       "stack": [
@@ -517,8 +517,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cf3",
-      "gasCost": "0x6",
+      "gas": 16784627n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 352,
       "stack": [
@@ -531,8 +531,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cf0",
-      "gasCost": "0x10",
+      "gas": 16784624n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 355,
       "stack": [
@@ -546,8 +546,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ce8",
-      "gasCost": "0x2",
+      "gas": 16784616n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 3138,
       "stack": [
@@ -560,8 +560,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ce7",
-      "gasCost": "0x4",
+      "gas": 16784615n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 3139,
       "stack": [
@@ -574,8 +574,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ce5",
-      "gasCost": "0x6",
+      "gas": 16784613n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 3140,
       "stack": [
@@ -589,8 +589,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ce2",
-      "gasCost": "0x6",
+      "gas": 16784610n,
+      "gasCost": 6n,
       "op": "DUP3",
       "pc": 3142,
       "stack": [
@@ -605,8 +605,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cdf",
-      "gasCost": "0x6",
+      "gas": 16784607n,
+      "gasCost": 6n,
       "op": "DUP5",
       "pc": 3143,
       "stack": [
@@ -622,8 +622,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cdc",
-      "gasCost": "0x6",
+      "gas": 16784604n,
+      "gasCost": 6n,
       "op": "SUB",
       "pc": 3144,
       "stack": [
@@ -640,8 +640,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cd9",
-      "gasCost": "0x6",
+      "gas": 16784601n,
+      "gasCost": 6n,
       "op": "SLT",
       "pc": 3145,
       "stack": [
@@ -657,8 +657,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cd6",
-      "gasCost": "0x6",
+      "gas": 16784598n,
+      "gasCost": 6n,
       "op": "ISZERO",
       "pc": 3146,
       "stack": [
@@ -673,8 +673,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cd3",
-      "gasCost": "0x6",
+      "gas": 16784595n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 3147,
       "stack": [
@@ -689,8 +689,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cd0",
-      "gasCost": "0x14",
+      "gas": 16784592n,
+      "gasCost": 20n,
       "op": "JUMPI",
       "pc": 3150,
       "stack": [
@@ -706,8 +706,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cc6",
-      "gasCost": "0x2",
+      "gas": 16784582n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 3159,
       "stack": [
@@ -721,8 +721,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cc5",
-      "gasCost": "0x4",
+      "gas": 16784581n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 3160,
       "stack": [
@@ -736,8 +736,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cc3",
-      "gasCost": "0x6",
+      "gas": 16784579n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 3161,
       "stack": [
@@ -752,8 +752,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cc0",
-      "gasCost": "0x6",
+      "gas": 16784576n,
+      "gasCost": 6n,
       "op": "DUP5",
       "pc": 3164,
       "stack": [
@@ -769,8 +769,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cbd",
-      "gasCost": "0x6",
+      "gas": 16784573n,
+      "gasCost": 6n,
       "op": "DUP3",
       "pc": 3165,
       "stack": [
@@ -787,8 +787,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cba",
-      "gasCost": "0x6",
+      "gas": 16784570n,
+      "gasCost": 6n,
       "op": "DUP6",
       "pc": 3166,
       "stack": [
@@ -806,8 +806,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cb7",
-      "gasCost": "0x6",
+      "gas": 16784567n,
+      "gasCost": 6n,
       "op": "ADD",
       "pc": 3167,
       "stack": [
@@ -826,8 +826,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cb4",
-      "gasCost": "0x6",
+      "gas": 16784564n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 3168,
       "stack": [
@@ -845,8 +845,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001cb1",
-      "gasCost": "0x10",
+      "gas": 16784561n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 3171,
       "stack": [
@@ -865,8 +865,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ca9",
-      "gasCost": "0x2",
+      "gas": 16784553n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2782,
       "stack": [
@@ -884,8 +884,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ca8",
-      "gasCost": "0x4",
+      "gas": 16784552n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 2783,
       "stack": [
@@ -903,8 +903,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ca6",
-      "gasCost": "0x6",
+      "gas": 16784550n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 2784,
       "stack": [
@@ -923,8 +923,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ca3",
-      "gasCost": "0x6",
+      "gas": 16784547n,
+      "gasCost": 6n,
       "op": "CALLDATALOAD",
       "pc": 2785,
       "stack": [
@@ -944,8 +944,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ca0",
-      "gasCost": "0x6",
+      "gas": 16784544n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 2786,
       "stack": [
@@ -965,8 +965,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c9d",
-      "gasCost": "0x4",
+      "gas": 16784541n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2787,
       "stack": [
@@ -986,8 +986,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c9b",
-      "gasCost": "0x6",
+      "gas": 16784539n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2788,
       "stack": [
@@ -1006,8 +1006,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c98",
-      "gasCost": "0x6",
+      "gas": 16784536n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 2791,
       "stack": [
@@ -1027,8 +1027,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c95",
-      "gasCost": "0x6",
+      "gas": 16784533n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2792,
       "stack": [
@@ -1049,8 +1049,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c92",
-      "gasCost": "0x10",
+      "gas": 16784530n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2795,
       "stack": [
@@ -1072,8 +1072,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c8a",
-      "gasCost": "0x2",
+      "gas": 16784522n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2760,
       "stack": [
@@ -1094,8 +1094,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c89",
-      "gasCost": "0x6",
+      "gas": 16784521n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2761,
       "stack": [
@@ -1116,8 +1116,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c86",
-      "gasCost": "0x6",
+      "gas": 16784518n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 2764,
       "stack": [
@@ -1139,8 +1139,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c83",
-      "gasCost": "0x6",
+      "gas": 16784515n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2765,
       "stack": [
@@ -1163,8 +1163,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c80",
-      "gasCost": "0x10",
+      "gas": 16784512n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2768,
       "stack": [
@@ -1188,8 +1188,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c78",
-      "gasCost": "0x2",
+      "gas": 16784504n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2743,
       "stack": [
@@ -1212,8 +1212,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c77",
-      "gasCost": "0x4",
+      "gas": 16784503n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 2744,
       "stack": [
@@ -1236,8 +1236,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c75",
-      "gasCost": "0x6",
+      "gas": 16784501n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2745,
       "stack": [
@@ -1261,8 +1261,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c72",
-      "gasCost": "0x6",
+      "gas": 16784498n,
+      "gasCost": 6n,
       "op": "DUP3",
       "pc": 2748,
       "stack": [
@@ -1287,8 +1287,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c6f",
-      "gasCost": "0x6",
+      "gas": 16784495n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2749,
       "stack": [
@@ -1314,8 +1314,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c6c",
-      "gasCost": "0x10",
+      "gas": 16784492n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2752,
       "stack": [
@@ -1342,8 +1342,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c64",
-      "gasCost": "0x2",
+      "gas": 16784484n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2712,
       "stack": [
@@ -1369,8 +1369,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c63",
-      "gasCost": "0x4",
+      "gas": 16784483n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 2713,
       "stack": [
@@ -1396,8 +1396,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c61",
-      "gasCost": "0x6",
+      "gas": 16784481n,
+      "gasCost": 6n,
       "op": "PUSH20",
       "pc": 2714,
       "stack": [
@@ -1424,8 +1424,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c5e",
-      "gasCost": "0x6",
+      "gas": 16784478n,
+      "gasCost": 6n,
       "op": "DUP3",
       "pc": 2735,
       "stack": [
@@ -1453,8 +1453,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c5b",
-      "gasCost": "0x6",
+      "gas": 16784475n,
+      "gasCost": 6n,
       "op": "AND",
       "pc": 2736,
       "stack": [
@@ -1483,8 +1483,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c58",
-      "gasCost": "0x6",
+      "gas": 16784472n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 2737,
       "stack": [
@@ -1512,8 +1512,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c55",
-      "gasCost": "0x4",
+      "gas": 16784469n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2738,
       "stack": [
@@ -1541,8 +1541,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c53",
-      "gasCost": "0x6",
+      "gas": 16784467n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 2739,
       "stack": [
@@ -1569,8 +1569,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c50",
-      "gasCost": "0x6",
+      "gas": 16784464n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 2740,
       "stack": [
@@ -1597,8 +1597,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c4d",
-      "gasCost": "0x4",
+      "gas": 16784461n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2741,
       "stack": [
@@ -1625,8 +1625,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c4b",
-      "gasCost": "0x10",
+      "gas": 16784459n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2742,
       "stack": [
@@ -1652,8 +1652,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c43",
-      "gasCost": "0x2",
+      "gas": 16784451n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2753,
       "stack": [
@@ -1678,8 +1678,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c42",
-      "gasCost": "0x6",
+      "gas": 16784450n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 2754,
       "stack": [
@@ -1704,8 +1704,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c3f",
-      "gasCost": "0x4",
+      "gas": 16784447n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2755,
       "stack": [
@@ -1730,8 +1730,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c3d",
-      "gasCost": "0x6",
+      "gas": 16784445n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 2756,
       "stack": [
@@ -1755,8 +1755,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c3a",
-      "gasCost": "0x6",
+      "gas": 16784442n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 2757,
       "stack": [
@@ -1780,8 +1780,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c37",
-      "gasCost": "0x4",
+      "gas": 16784439n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2758,
       "stack": [
@@ -1805,8 +1805,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c35",
-      "gasCost": "0x10",
+      "gas": 16784437n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2759,
       "stack": [
@@ -1829,8 +1829,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c2d",
-      "gasCost": "0x2",
+      "gas": 16784429n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2769,
       "stack": [
@@ -1852,8 +1852,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c2c",
-      "gasCost": "0x6",
+      "gas": 16784428n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 2770,
       "stack": [
@@ -1875,8 +1875,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c29",
-      "gasCost": "0x6",
+      "gas": 16784425n,
+      "gasCost": 6n,
       "op": "EQ",
       "pc": 2771,
       "stack": [
@@ -1899,8 +1899,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c26",
-      "gasCost": "0x6",
+      "gas": 16784422n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2772,
       "stack": [
@@ -1922,8 +1922,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c23",
-      "gasCost": "0x14",
+      "gas": 16784419n,
+      "gasCost": 20n,
       "op": "JUMPI",
       "pc": 2775,
       "stack": [
@@ -1946,8 +1946,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c19",
-      "gasCost": "0x2",
+      "gas": 16784409n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2779,
       "stack": [
@@ -1968,8 +1968,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c18",
-      "gasCost": "0x4",
+      "gas": 16784408n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2780,
       "stack": [
@@ -1990,8 +1990,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c16",
-      "gasCost": "0x10",
+      "gas": 16784406n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2781,
       "stack": [
@@ -2011,8 +2011,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c0e",
-      "gasCost": "0x2",
+      "gas": 16784398n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2796,
       "stack": [
@@ -2031,8 +2031,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c0d",
-      "gasCost": "0x6",
+      "gas": 16784397n,
+      "gasCost": 6n,
       "op": "SWAP3",
       "pc": 2797,
       "stack": [
@@ -2051,8 +2051,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c0a",
-      "gasCost": "0x6",
+      "gas": 16784394n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 2798,
       "stack": [
@@ -2071,8 +2071,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c07",
-      "gasCost": "0x4",
+      "gas": 16784391n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2799,
       "stack": [
@@ -2091,8 +2091,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c05",
-      "gasCost": "0x4",
+      "gas": 16784389n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2800,
       "stack": [
@@ -2110,8 +2110,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001c03",
-      "gasCost": "0x10",
+      "gas": 16784387n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2801,
       "stack": [
@@ -2128,8 +2128,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bfb",
-      "gasCost": "0x2",
+      "gas": 16784379n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 3172,
       "stack": [
@@ -2145,8 +2145,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bfa",
-      "gasCost": "0x6",
+      "gas": 16784378n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 3173,
       "stack": [
@@ -2162,8 +2162,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bf7",
-      "gasCost": "0x4",
+      "gas": 16784375n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 3174,
       "stack": [
@@ -2179,8 +2179,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bf5",
-      "gasCost": "0x4",
+      "gas": 16784373n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 3175,
       "stack": [
@@ -2195,8 +2195,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bf3",
-      "gasCost": "0x6",
+      "gas": 16784371n,
+      "gasCost": 6n,
       "op": "SWAP3",
       "pc": 3176,
       "stack": [
@@ -2210,8 +2210,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bf0",
-      "gasCost": "0x6",
+      "gas": 16784368n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 3177,
       "stack": [
@@ -2225,8 +2225,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bed",
-      "gasCost": "0x4",
+      "gas": 16784365n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 3178,
       "stack": [
@@ -2240,8 +2240,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001beb",
-      "gasCost": "0x4",
+      "gas": 16784363n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 3179,
       "stack": [
@@ -2254,8 +2254,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001be9",
-      "gasCost": "0x10",
+      "gas": 16784361n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 3180,
       "stack": [
@@ -2267,8 +2267,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001be1",
-      "gasCost": "0x2",
+      "gas": 16784353n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 356,
       "stack": [
@@ -2279,8 +2279,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001be0",
-      "gasCost": "0x6",
+      "gas": 16784352n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 357,
       "stack": [
@@ -2291,8 +2291,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bdd",
-      "gasCost": "0x10",
+      "gas": 16784349n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 360,
       "stack": [
@@ -2304,8 +2304,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bd5",
-      "gasCost": "0x2",
+      "gas": 16784341n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 750,
       "stack": [
@@ -2316,8 +2316,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bd4",
-      "gasCost": "0x4",
+      "gas": 16784340n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 751,
       "stack": [
@@ -2328,8 +2328,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bd2",
-      "gasCost": "0x6",
+      "gas": 16784338n,
+      "gasCost": 6n,
       "op": "DUP1",
       "pc": 752,
       "stack": [
@@ -2341,8 +2341,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bcf",
-      "gasCost": "0x4",
+      "gas": 16784335n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 753,
       "stack": [
@@ -2355,8 +2355,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bcd",
-      "gasCost": "0x6",
+      "gas": 16784333n,
+      "gasCost": 6n,
       "op": "DUP4",
       "pc": 754,
       "stack": [
@@ -2370,8 +2370,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bca",
-      "gasCost": "0x6",
+      "gas": 16784330n,
+      "gasCost": 6n,
       "op": "PUSH20",
       "pc": 755,
       "stack": [
@@ -2386,8 +2386,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bc7",
-      "gasCost": "0x6",
+      "gas": 16784327n,
+      "gasCost": 6n,
       "op": "AND",
       "pc": 776,
       "stack": [
@@ -2403,8 +2403,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bc4",
-      "gasCost": "0x6",
+      "gas": 16784324n,
+      "gasCost": 6n,
       "op": "PUSH20",
       "pc": 777,
       "stack": [
@@ -2419,8 +2419,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bc1",
-      "gasCost": "0x6",
+      "gas": 16784321n,
+      "gasCost": 6n,
       "op": "AND",
       "pc": 798,
       "stack": [
@@ -2436,8 +2436,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bbe",
-      "gasCost": "0x6",
+      "gas": 16784318n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 799,
       "stack": [
@@ -2452,8 +2452,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bbb",
-      "gasCost": "0x6",
+      "gas": 16784315n,
+      "gasCost": 6n,
       "op": "MSTORE",
       "pc": 800,
       "stack": [
@@ -2469,8 +2469,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bb8",
-      "gasCost": "0x6",
+      "gas": 16784312n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 801,
       "stack": [
@@ -2484,8 +2484,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bb5",
-      "gasCost": "0x6",
+      "gas": 16784309n,
+      "gasCost": 6n,
       "op": "ADD",
       "pc": 803,
       "stack": [
@@ -2500,8 +2500,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bb2",
-      "gasCost": "0x6",
+      "gas": 16784306n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 804,
       "stack": [
@@ -2515,8 +2515,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001baf",
-      "gasCost": "0x6",
+      "gas": 16784303n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 805,
       "stack": [
@@ -2530,8 +2530,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001bac",
-      "gasCost": "0x6",
+      "gas": 16784300n,
+      "gasCost": 6n,
       "op": "MSTORE",
       "pc": 806,
       "stack": [
@@ -2546,8 +2546,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ba9",
-      "gasCost": "0x6",
+      "gas": 16784297n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 807,
       "stack": [
@@ -2560,8 +2560,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ba6",
-      "gasCost": "0x6",
+      "gas": 16784294n,
+      "gasCost": 6n,
       "op": "ADD",
       "pc": 809,
       "stack": [
@@ -2575,8 +2575,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ba3",
-      "gasCost": "0x4",
+      "gas": 16784291n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 810,
       "stack": [
@@ -2589,8 +2589,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001ba1",
-      "gasCost": "0x48",
+      "gas": 16784289n,
+      "gasCost": 72n,
       "op": "KECCAK256",
       "pc": 811,
       "stack": [
@@ -2604,8 +2604,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001b77",
-      "gasCost": "0x834",
+      "gas": 16784247n,
+      "gasCost": 2100n,
       "op": "SLOAD",
       "pc": 812,
       "stack": [
@@ -2618,8 +2618,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001343",
-      "gasCost": "0x6",
+      "gas": 16782147n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 813,
       "stack": [
@@ -2632,8 +2632,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001340",
-      "gasCost": "0x4",
+      "gas": 16782144n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 814,
       "stack": [
@@ -2646,8 +2646,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100133e",
-      "gasCost": "0x6",
+      "gas": 16782142n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 815,
       "stack": [
@@ -2659,8 +2659,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100133b",
-      "gasCost": "0x6",
+      "gas": 16782139n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 816,
       "stack": [
@@ -2672,8 +2672,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001338",
-      "gasCost": "0x4",
+      "gas": 16782136n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 817,
       "stack": [
@@ -2685,8 +2685,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001336",
-      "gasCost": "0x10",
+      "gas": 16782134n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 818,
       "stack": [
@@ -2697,8 +2697,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100132e",
-      "gasCost": "0x2",
+      "gas": 16782126n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 361,
       "stack": [
@@ -2708,8 +2708,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100132d",
-      "gasCost": "0x6",
+      "gas": 16782125n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 362,
       "stack": [
@@ -2719,8 +2719,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100132a",
-      "gasCost": "0x6",
+      "gas": 16782122n,
+      "gasCost": 6n,
       "op": "MLOAD",
       "pc": 364,
       "stack": [
@@ -2731,8 +2731,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001327",
-      "gasCost": "0x6",
+      "gas": 16782119n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 365,
       "stack": [
@@ -2743,8 +2743,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001324",
-      "gasCost": "0x6",
+      "gas": 16782116n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 368,
       "stack": [
@@ -2756,8 +2756,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001321",
-      "gasCost": "0x6",
+      "gas": 16782113n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 369,
       "stack": [
@@ -2769,8 +2769,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100131e",
-      "gasCost": "0x6",
+      "gas": 16782110n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 370,
       "stack": [
@@ -2782,8 +2782,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100131b",
-      "gasCost": "0x10",
+      "gas": 16782107n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 373,
       "stack": [
@@ -2796,8 +2796,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001313",
-      "gasCost": "0x2",
+      "gas": 16782099n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2981,
       "stack": [
@@ -2809,8 +2809,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001312",
-      "gasCost": "0x4",
+      "gas": 16782098n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 2982,
       "stack": [
@@ -2822,8 +2822,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001310",
-      "gasCost": "0x6",
+      "gas": 16782096n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 2983,
       "stack": [
@@ -2836,8 +2836,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100130d",
-      "gasCost": "0x6",
+      "gas": 16782093n,
+      "gasCost": 6n,
       "op": "DUP3",
       "pc": 2985,
       "stack": [
@@ -2851,8 +2851,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100130a",
-      "gasCost": "0x6",
+      "gas": 16782090n,
+      "gasCost": 6n,
       "op": "ADD",
       "pc": 2986,
       "stack": [
@@ -2867,8 +2867,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001307",
-      "gasCost": "0x6",
+      "gas": 16782087n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 2987,
       "stack": [
@@ -2882,8 +2882,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001304",
-      "gasCost": "0x4",
+      "gas": 16782084n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2988,
       "stack": [
@@ -2897,8 +2897,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001302",
-      "gasCost": "0x6",
+      "gas": 16782082n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2989,
       "stack": [
@@ -2911,8 +2911,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012ff",
-      "gasCost": "0x4",
+      "gas": 16782079n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 2992,
       "stack": [
@@ -2926,8 +2926,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012fd",
-      "gasCost": "0x6",
+      "gas": 16782077n,
+      "gasCost": 6n,
       "op": "DUP4",
       "pc": 2993,
       "stack": [
@@ -2942,8 +2942,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012fa",
-      "gasCost": "0x6",
+      "gas": 16782074n,
+      "gasCost": 6n,
       "op": "ADD",
       "pc": 2994,
       "stack": [
@@ -2959,8 +2959,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012f7",
-      "gasCost": "0x6",
+      "gas": 16782071n,
+      "gasCost": 6n,
       "op": "DUP5",
       "pc": 2995,
       "stack": [
@@ -2975,8 +2975,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012f4",
-      "gasCost": "0x6",
+      "gas": 16782068n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2996,
       "stack": [
@@ -2992,8 +2992,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012f1",
-      "gasCost": "0x10",
+      "gas": 16782065n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2999,
       "stack": [
@@ -3010,8 +3010,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012e9",
-      "gasCost": "0x2",
+      "gas": 16782057n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2966,
       "stack": [
@@ -3027,8 +3027,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012e8",
-      "gasCost": "0x6",
+      "gas": 16782056n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2967,
       "stack": [
@@ -3044,8 +3044,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012e5",
-      "gasCost": "0x6",
+      "gas": 16782053n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 2970,
       "stack": [
@@ -3062,8 +3062,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012e2",
-      "gasCost": "0x6",
+      "gas": 16782050n,
+      "gasCost": 6n,
       "op": "PUSH2",
       "pc": 2971,
       "stack": [
@@ -3081,8 +3081,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012df",
-      "gasCost": "0x10",
+      "gas": 16782047n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2974,
       "stack": [
@@ -3101,8 +3101,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012d7",
-      "gasCost": "0x2",
+      "gas": 16782039n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2802,
       "stack": [
@@ -3120,8 +3120,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012d6",
-      "gasCost": "0x4",
+      "gas": 16782038n,
+      "gasCost": 4n,
       "op": "PUSH0",
       "pc": 2803,
       "stack": [
@@ -3139,8 +3139,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012d4",
-      "gasCost": "0x6",
+      "gas": 16782036n,
+      "gasCost": 6n,
       "op": "DUP2",
       "pc": 2804,
       "stack": [
@@ -3159,8 +3159,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012d1",
-      "gasCost": "0x6",
+      "gas": 16782033n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 2805,
       "stack": [
@@ -3180,8 +3180,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012ce",
-      "gasCost": "0x4",
+      "gas": 16782030n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2806,
       "stack": [
@@ -3201,8 +3201,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012cc",
-      "gasCost": "0x6",
+      "gas": 16782028n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 2807,
       "stack": [
@@ -3221,8 +3221,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012c9",
-      "gasCost": "0x6",
+      "gas": 16782025n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 2808,
       "stack": [
@@ -3241,8 +3241,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012c6",
-      "gasCost": "0x4",
+      "gas": 16782022n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2809,
       "stack": [
@@ -3261,8 +3261,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012c4",
-      "gasCost": "0x10",
+      "gas": 16782020n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2810,
       "stack": [
@@ -3280,8 +3280,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012bc",
-      "gasCost": "0x2",
+      "gas": 16782012n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 2975,
       "stack": [
@@ -3298,8 +3298,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012bb",
-      "gasCost": "0x6",
+      "gas": 16782011n,
+      "gasCost": 6n,
       "op": "DUP3",
       "pc": 2976,
       "stack": [
@@ -3316,8 +3316,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012b8",
-      "gasCost": "0xc",
+      "gas": 16782008n,
+      "gasCost": 12n,
       "op": "MSTORE",
       "pc": 2977,
       "stack": [
@@ -3335,8 +3335,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012af",
-      "gasCost": "0x4",
+      "gas": 16781999n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2978,
       "stack": [
@@ -3352,8 +3352,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012ad",
-      "gasCost": "0x4",
+      "gas": 16781997n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 2979,
       "stack": [
@@ -3368,8 +3368,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012ab",
-      "gasCost": "0x10",
+      "gas": 16781995n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 2980,
       "stack": [
@@ -3383,8 +3383,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012a3",
-      "gasCost": "0x2",
+      "gas": 16781987n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 3000,
       "stack": [
@@ -3397,8 +3397,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x10012a2",
-      "gasCost": "0x6",
+      "gas": 16781986n,
+      "gasCost": 6n,
       "op": "SWAP3",
       "pc": 3001,
       "stack": [
@@ -3411,8 +3411,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100129f",
-      "gasCost": "0x6",
+      "gas": 16781983n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 3002,
       "stack": [
@@ -3425,8 +3425,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100129c",
-      "gasCost": "0x4",
+      "gas": 16781980n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 3003,
       "stack": [
@@ -3439,8 +3439,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100129a",
-      "gasCost": "0x4",
+      "gas": 16781978n,
+      "gasCost": 4n,
       "op": "POP",
       "pc": 3004,
       "stack": [
@@ -3452,8 +3452,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001298",
-      "gasCost": "0x10",
+      "gas": 16781976n,
+      "gasCost": 16n,
       "op": "JUMP",
       "pc": 3005,
       "stack": [
@@ -3464,8 +3464,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001290",
-      "gasCost": "0x2",
+      "gas": 16781968n,
+      "gasCost": 2n,
       "op": "JUMPDEST",
       "pc": 374,
       "stack": [
@@ -3475,8 +3475,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100128f",
-      "gasCost": "0x6",
+      "gas": 16781967n,
+      "gasCost": 6n,
       "op": "PUSH1",
       "pc": 375,
       "stack": [
@@ -3486,8 +3486,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100128c",
-      "gasCost": "0x6",
+      "gas": 16781964n,
+      "gasCost": 6n,
       "op": "MLOAD",
       "pc": 377,
       "stack": [
@@ -3498,8 +3498,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001289",
-      "gasCost": "0x6",
+      "gas": 16781961n,
+      "gasCost": 6n,
       "op": "DUP1",
       "pc": 378,
       "stack": [
@@ -3510,8 +3510,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001286",
-      "gasCost": "0x6",
+      "gas": 16781958n,
+      "gasCost": 6n,
       "op": "SWAP2",
       "pc": 379,
       "stack": [
@@ -3523,8 +3523,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001283",
-      "gasCost": "0x6",
+      "gas": 16781955n,
+      "gasCost": 6n,
       "op": "SUB",
       "pc": 380,
       "stack": [
@@ -3536,8 +3536,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x1001280",
-      "gasCost": "0x6",
+      "gas": 16781952n,
+      "gasCost": 6n,
       "op": "SWAP1",
       "pc": 381,
       "stack": [
@@ -3548,8 +3548,8 @@ exports[`runCallWithTrace > should execute a contract call with tracing 1`] = `
     },
     {
       "depth": 0,
-      "gas": "0x100127d",
-      "gasCost": "0x0",
+      "gas": 16781949n,
+      "gasCost": 0n,
       "op": "RETURN",
       "pc": 382,
       "stack": [

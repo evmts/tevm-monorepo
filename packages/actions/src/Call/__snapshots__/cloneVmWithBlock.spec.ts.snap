@@ -22,3 +22,22 @@ Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Details: /reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73]
 `;
+
+exports[`cloneVmWithBfockTag should handle errors during VM cloning 1`] = `[_InternalError: deepCopy error
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Details: deepCopy error
+Version: 1.1.0.next-73]`;
+
+exports[`cloneVmWithBfockTag should handle errors during forking 1`] = `[ForkError: Invalid blocktag Infinity
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73
+Invalid blocktag Infinity
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Details: /reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73]`;

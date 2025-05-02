@@ -1012,7 +1012,7 @@ describe('callHandler', () => {
 			rawData: '0x',
 			selfdestruct: new Set(),
 			totalGasSpent: 27784n,
-			txHash: '0x837ec20cf75b4fbac2da3b8efc547b9683af8afa5a54e9d2975b32224ea4ae86',
+			txHash: '0x090094e705db512a9723f73dcab5dc924b5a55571fec5706c8633c460c84bd57',
 		})
 	})
 
