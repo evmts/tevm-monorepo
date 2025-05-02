@@ -59,19 +59,17 @@
     "lint:deps": "bunx depcheck",
     "lint:package": "bunx publint --strict && attw --pack",
     "package:up": "pnpm up --latest",
-    "test": "vitest --watch",
-    "test:coverage": "vitest --coverage --run",
-    "test:run": "vitest",
+    "//test": "vitest --watch",
+    "//test:coverage": "vitest --coverage --run",
+    "//test:run": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tevm/utils": "workspace:^",
     "abitype": "^1.0.8",
     "effect": "^3.14.16",
     "ox": "^0.7.0"
   },
   "devDependencies": {
-    "@tevm/test-utils": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },

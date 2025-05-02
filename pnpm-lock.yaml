@@ -2003,9 +2003,6 @@ importers:
 
   packages/primitives:
     dependencies:
-      '@tevm/utils':
-        specifier: workspace:^
-        version: link:../utils
       abitype:
         specifier: ^1.0.8
         version: 1.0.8(typescript@5.8.3)(zod@3.24.3)
@@ -2019,9 +2016,6 @@ importers:
         specifier: ^2.21.1
         version: 2.27.3(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.24.3)
     devDependencies:
-      '@tevm/test-utils':
-        specifier: workspace:^
-        version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig

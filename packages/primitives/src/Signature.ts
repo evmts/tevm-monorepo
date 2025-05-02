@@ -35,15 +35,16 @@ export const fromComponents = (r: B256, s: B256, v: number): Effect.Effect<Signa
 	Effect.gen(
 		// biome-ignore lint/correctness/useYield: needed for Effect.gen
 		function* (_) {
-		const yParity = v % 2 === 0 ? 0 : 1
+			const yParity = v % 2 === 0 ? 0 : 1
 
-		return {
-			r,
-			s,
-			v,
-			yParity: yParity as 0 | 1,
-		}
-	})
+			return {
+				r,
+				s,
+				v,
+				yParity: yParity as 0 | 1,
+			}
+		},
+	)
 
 /**
  * Creates a Signature from a raw byte array
