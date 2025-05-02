@@ -43,7 +43,7 @@ export const createRuntimeCodeGenerator = (useScopedPackage = true) => {
 
 		// Check if we have a cached result
 		if (cache.has(cacheKey)) {
-			return cache.get(cacheKey)!
+			return cache.get(cacheKey) as string
 		}
 
 		// Generate new code

@@ -8,7 +8,7 @@
 
 > **StructLog**: `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L15)
+Defined in: [packages/actions/src/common/StructLog.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/StructLog.ts#L3)
 
 ## Type declaration
 

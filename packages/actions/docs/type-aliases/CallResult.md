@@ -8,7 +8,7 @@
 
 > **CallResult**\<`ErrorType`\>: `object`
 
-Defined in: [packages/actions/src/Call/CallResult.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L32)
+Defined in: [packages/actions/src/Call/CallResult.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/CallResult.ts#L31)
 
 Result of a TEVM VM Call method.
 

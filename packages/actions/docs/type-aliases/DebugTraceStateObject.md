@@ -8,7 +8,7 @@
 
 > **DebugTraceStateObject**: `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L120)
+Defined in: [packages/actions/src/debug/DebugResult.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L65)
 
 Complete state object structure
 

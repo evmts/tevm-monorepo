@@ -29,15 +29,6 @@
 					"release": true
 				}
 			}
-		},
-		"lint": {
-			"cache": true,
-			"executor": "@monodon/rust:lint",
-			"outputs": ["{options.target-dir}"],
-			"options": {
-				"target-dir": "dist/target/solc-rs",
-				"crate": "tevm_solc_rs"
-			}
 		}
 	}
 }

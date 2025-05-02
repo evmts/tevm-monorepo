@@ -4,10 +4,14 @@
 
 [@tevm/actions](../globals.md) / PrestateTraceResult
 
-# Type Alias: PrestateTraceResult
+# Type Alias: PrestateTraceResult\<TDiffMode\>
 
-> **PrestateTraceResult**: `Record`\<[`Hex`](Hex.md), [`AccountState`](AccountState.md)\>
+> **PrestateTraceResult**\<`TDiffMode`\>: `TDiffMode` *extends* `true` ? `object` : `Record`\<[`Hex`](Hex.md), [`AccountState`](AccountState.md)\>
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L41)
+Defined in: [packages/actions/src/common/PrestateTraceResult.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/PrestateTraceResult.ts#L5)
 
-Result format for prestateTracer in normal mode (full state)
+Result from `debug_*` with `prestateTracer`
+
+## Type Parameters
+
+• **TDiffMode** *extends* `boolean` = `boolean`

@@ -6,14 +6,14 @@
 
 # Type Alias: DebugTraceTransactionResult\<TTracer, TDiffMode\>
 
-> **DebugTraceTransactionResult**\<`TTracer`, `TDiffMode`\>: `TTracer` *extends* `"callTracer"` ? [`TraceResult`](TraceResult.md) : `TTracer` *extends* `"prestateTracer"` ? [`PrestateTraceAnyResult`](PrestateTraceAnyResult.md)\<`TDiffMode`\> : [`TraceResult`](TraceResult.md)
+> **DebugTraceTransactionResult**\<`TTracer`, `TDiffMode`\>: `TTracer` *extends* `"callTracer"` ? [`CallTraceResult`](CallTraceResult.md) : `TTracer` *extends* `"prestateTracer"` ? [`PrestateTraceResult`](PrestateTraceResult.md)\<`TDiffMode`\> : [`TraceResult`](TraceResult.md)
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L73)
+Defined in: [packages/actions/src/debug/DebugResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L17)
 
 Result from `debug_traceTransaction`
 
 ## Type Parameters
 
-• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
 
 • **TDiffMode** *extends* `boolean` = `boolean`

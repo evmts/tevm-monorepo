@@ -16,6 +16,10 @@ Defined in: [packages/actions/src/common/TraceCall.ts:5](https://github.com/evmt
 
 > `optional` **calls**: [`TraceCall`](TraceCall.md)[]
 
+### error?
+
+> `optional` **error**: `string`
+
 ### from
 
 > **from**: [`Address`](Address.md)
@@ -35,6 +39,10 @@ Defined in: [packages/actions/src/common/TraceCall.ts:5](https://github.com/evmt
 ### output
 
 > **output**: [`Hex`](Hex.md)
+
+### revertReason?
+
+> `optional` **revertReason**: `string`
 
 ### to
 

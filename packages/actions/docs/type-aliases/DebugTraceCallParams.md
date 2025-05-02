@@ -14,6 +14,6 @@ Params taken by `debug_traceCall` handler
 
 ## Type Parameters
 
-• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
 
 • **TDiffMode** *extends* `boolean` = `boolean`

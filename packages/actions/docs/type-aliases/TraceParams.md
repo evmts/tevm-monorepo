@@ -14,7 +14,7 @@ Config params for trace calls
 
 ## Type Parameters
 
-• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
 
 • **TDiffMode** *extends* `boolean` = `boolean`
 
@@ -32,9 +32,9 @@ A duration string of decimal numbers that overrides the default timeout of 5 sec
 "10s"
 ```
 
-### tracer
+### tracer?
 
-> `readonly` **tracer**: `TTracer`
+> `readonly` `optional` **tracer**: `TTracer`
 
 The type of tracer
 Supported tracers: callTracer, prestateTracer

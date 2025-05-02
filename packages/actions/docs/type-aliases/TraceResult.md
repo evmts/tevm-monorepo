@@ -8,42 +8,24 @@
 
 > **TraceResult**: `object`
 
-Defined in: [packages/actions/src/common/TraceResult.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceResult.ts#L6)
+Defined in: [packages/actions/src/common/TraceResult.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceResult.ts#L5)
+
+Result from `debug_*` with no tracer
 
 ## Type declaration
 
-### calls?
+### failed
 
-> `optional` **calls**: [`TraceCall`](TraceCall.md)[]
-
-### from
-
-> **from**: [`Address`](Address.md)
+> **failed**: `boolean`
 
 ### gas
 
 > **gas**: `bigint`
 
-### gasUsed
+### returnValue
 
-> **gasUsed**: `bigint`
+> **returnValue**: [`Hex`](Hex.md)
 
-### input
+### structLogs
 
-> **input**: [`Hex`](Hex.md)
-
-### output
-
-> **output**: [`Hex`](Hex.md)
-
-### to
-
-> **to**: [`Address`](Address.md)
-
-### type
-
-> **type**: [`TraceType`](TraceType.md)
-
-### value
-
-> **value**: `bigint`
+> **structLogs**: [`StructLog`](StructLog.md)[]
