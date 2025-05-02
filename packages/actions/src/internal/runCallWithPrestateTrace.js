@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { DefensiveNullCheckError } from '@tevm/errors'
-import { bytesToHex, toHex } from '@tevm/utils'
+import { bytesToHex, hexToBytes, toHex } from '@tevm/utils'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
 /**
@@ -10,7 +10,7 @@ import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
  * @param {import('@tevm/node').TevmNode} client
  * @param {import('@tevm/evm').EvmRunCallOpts} evmInput
  * @param {TDiffMode} diffMode If true, only returns state that changed between pre and post execution
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: TDiffMode extends true ? import('../debug/DebugResult.js').PrestateTraceDiffResult : import('../debug/DebugResult.js').PrestateTraceResult}>}
+ * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/PrestateTraceResult.js').PrestateTraceResult<TDiffMode>}>}
  * @throws {never}
  */
 export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** @type {TDiffMode} */ (false)) => {
@@ -45,7 +45,7 @@ export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** 
 	}
 
 	// Capture post-state (from VM after execution)
-	/** @type {import('../debug/DebugResult.js').PrestateTraceResult} */
+	/** @type {import('../common/PrestateTraceResult.js').PrestateTraceResult<false>} */
 	const postState = {}
 	if (diffMode) {
 		for (const address of preimages) {
@@ -65,7 +65,7 @@ export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** 
 	vm.evm.journal.revert()
 
 	// Capture pre-state (from cloned VM before execution)
-	/** @type {import('../debug/DebugResult.js').PrestateTraceResult} */
+	/** @type {import('../common/PrestateTraceResult.js').PrestateTraceResult<false>} */
 	const preState = {}
 	for (const address of preimages) {
 		try {
@@ -93,13 +93,13 @@ export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** 
  * @param {import('@tevm/node').TevmNode['logger']} logger
  * @param {import('@tevm/utils').EthjsAddress} address
  * @param {Set<import('@tevm/utils').Hex>} slots Set of storage slot keys that were accessed
- * @returns {Promise<import('../debug/DebugResult.js').AccountState | null>}
+ * @returns {Promise<import('../common/AccountState.js').AccountState | undefined>}
  */
 const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 	try {
 		// Get account details
 		const account = await vm.stateManager.getAccount(address)
-		if (!account) return null
+		if (!account) return undefined
 
 		// Get code
 		const code = await vm.stateManager.getContractCode(address)
@@ -110,7 +110,7 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 		for (const slotHex of slots) {
 			try {
 				// Convert hex slot to Uint8Array for getContractStorage
-				const slotKey = Buffer.from(slotHex.slice(2), 'hex')
+				const slotKey = hexToBytes(slotHex)
 				const value = await vm.stateManager.getContractStorage(address, slotKey)
 				storage[slotHex] = bytesToHex(value)
 			} catch (err) {
@@ -119,26 +119,26 @@ const captureAccountState = async (vm, logger, address, slots = new Set()) => {
 		}
 
 		return {
-			balance: toHex(account.balance),
-			nonce: account.nonce.toString(),
-			code: code && code.length > 0 ? bytesToHex(code) : '0x',
 			storage,
+			balance: toHex(account.balance),
+			nonce: Number(account.nonce),
+			code: code && code.length > 0 ? bytesToHex(code) : '0x',
 		}
 	} catch (err) {
 		logger.error(err, `Error capturing state for account ${address.toString()}`)
-		return null
+		return undefined
 	}
 }
 
 /**
  * @internal
  * Formats the prestate trace result for diffMode
- * @param {import('../debug/DebugResult.js').PrestateTraceResult} preState
- * @param {import('../debug/DebugResult.js').PrestateTraceResult} postState
- * @returns {import('../debug/DebugResult.js').PrestateTraceDiffResult}
+ * @param {import('../common/PrestateTraceResult.js').PrestateTraceResult<true>["pre"]} preState
+ * @param {import('../common/PrestateTraceResult.js').PrestateTraceResult<true>["post"]} postState
+ * @returns {import('../common/PrestateTraceResult.js').PrestateTraceResult<true>}
  */
 const formatDiffResult = (preState, postState) => {
-	/** @type {import('../debug/DebugResult.js').PrestateTraceDiffResult["post"]} */
+	/** @type {import('../common/PrestateTraceResult.js').PrestateTraceResult<true>["post"]} */
 	const postDiff = {}
 
 	for (const address of Object.keys(postState)) {
@@ -147,60 +147,34 @@ const formatDiffResult = (preState, postState) => {
 		const post = postState[addressHex]
 		if (!post) continue
 
-		// Compare and capture differences
-		/** @type {Partial<{
-		 *   balance: import('@tevm/utils').Hex,
-		 *   nonce: string,
-		 *   code: import('@tevm/utils').Hex,
-		 *   storage: Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>
-		 * }>} */
-		const postDiffAccount = {}
-		let hasDiff = false
-
-		// Check balance difference
-		if (pre && post.balance && pre.balance !== post.balance) {
-			postDiffAccount.balance = post.balance
-			hasDiff = true
-		}
-
-		// Check nonce difference
-		if (pre && post.nonce && pre.nonce !== post.nonce) {
-			postDiffAccount.nonce = post.nonce
-			hasDiff = true
-		}
-
-		// Check code difference (rare, only for contract creation or self-destruct)
-		if (pre && post.code && pre.code !== post.code) {
-			postDiffAccount.code = post.code
-			hasDiff = true
-		}
-
-		// Check storage differences
-		/** @type {Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>} */
-		const storagePostDiff = {}
-		let hasStorageDiff = false
-
 		// Get all unique slot keys from both pre and post
 		const allSlots = new Set([...Object.keys(pre?.storage ?? {}), ...Object.keys(post.storage ?? {})])
-
+		// Build storage diff
+		/** @type {Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>} */
+		let storageDiff = {}
 		for (const slot of allSlots) {
 			const slotHex = /** @type {import('@tevm/utils').Hex} */ (slot)
 			const preValue = pre?.storage?.[slotHex] ?? '0x0'
 			const postValue = post.storage?.[slotHex] ?? '0x0'
 
-			if (preValue !== postValue) {
-				storagePostDiff[slotHex] = postValue
-				hasStorageDiff = true
+			storageDiff = {
+				...storageDiff,
+				...(preValue !== postValue ? { [slotHex]: postValue } : {}),
 			}
 		}
 
-		if (hasStorageDiff) {
-			postDiffAccount.storage = storagePostDiff
-			hasDiff = true
+		// Compare and capture differences
+		const postDiffAccount = {
+			...(pre !== undefined && post.balance !== undefined && pre.balance !== post.balance
+				? { balance: post.balance }
+				: {}),
+			...(pre !== undefined && post.nonce !== undefined && pre.nonce !== post.nonce ? { nonce: post.nonce } : {}),
+			...(pre !== undefined && post.code !== undefined && pre.code !== post.code ? { code: post.code } : {}),
+			...(Object.keys(storageDiff).length > 0 ? { storage: storageDiff } : {}),
 		}
 
-		// Only add to diff if there were changes
-		if (hasDiff) postDiff[addressHex] = postDiffAccount
+		// Only add to diff if there were any changes
+		if (Object.keys(postDiffAccount).length > 0) postDiff[addressHex] = postDiffAccount
 	}
 
 	// Return differentials

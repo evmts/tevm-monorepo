@@ -6,14 +6,14 @@
 
 # Type Alias: DebugTraceCallResult\<TTracer, TDiffMode\>
 
-> **DebugTraceCallResult**\<`TTracer`, `TDiffMode`\>: `TTracer` *extends* `"callTracer"` ? [`EvmTraceResult`](../../index/type-aliases/EvmTraceResult.md) : `TTracer` *extends* `"prestateTracer"` ? [`PrestateTraceAnyResult`](PrestateTraceAnyResult.md)\<`TDiffMode`\> : [`EvmTraceResult`](../../index/type-aliases/EvmTraceResult.md)
+> **DebugTraceCallResult**\<`TTracer`, `TDiffMode`\>: `TTracer` *extends* `"callTracer"` ? [`CallTraceResult`](CallTraceResult.md) : `TTracer` *extends* `"prestateTracer"` ? [`PrestateTraceResult`](../../index/type-aliases/PrestateTraceResult.md)\<`TDiffMode`\> : [`TraceResult`](../../index/type-aliases/TraceResult.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:66
+Defined in: packages/actions/types/debug/DebugResult.d.ts:20
 
 Result from `debug_traceCall`
 
 ## Type Parameters
 
-• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
 
 • **TDiffMode** *extends* `boolean` = `boolean`

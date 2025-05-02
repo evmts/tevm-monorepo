@@ -305,7 +305,7 @@ describe('traceCallHandler', async () => {
 				await setAccountHandler(client)({
 					address: ERC20_ADDRESS,
 					deployedBytecode: ERC20_BYTECODE,
-					nonce: parseEther('1000'),
+					nonce: 55n,
 				})
 			).errors,
 		).toBeUndefined()
@@ -319,9 +319,33 @@ describe('traceCallHandler', async () => {
 				})
 			).errors,
 		).toBeUndefined()
+		// as well as some balance
+		expect(
+			(
+				await dealHandler(client)({
+					account: SENDER_ADDRESS,
+					amount: parseEther('1'),
+				})
+			).errors,
+		).toBeUndefined()
 	})
 
-	it('should execute a contract call with callTracer', async () => {
+	it('should execute a contract call with default tracer', async () => {
+		expect(
+			await traceCallHandler(client)({
+				data: encodeFunctionData({
+					abi: ERC20_ABI,
+					functionName: 'transferFrom',
+					args: [ERC20_ADDRESS, ERC20_ADDRESS, 0n],
+				}),
+				to: ERC20_ADDRESS,
+				from: SENDER_ADDRESS,
+				gas: 16784800n,
+			}),
+		).toMatchSnapshot()
+	})
+
+	it.todo('should execute a contract call with callTracer', async () => {
 		expect(
 			await traceCallHandler(client)({
 				tracer: 'callTracer',

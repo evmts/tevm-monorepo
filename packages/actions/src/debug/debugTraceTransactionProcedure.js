@@ -1,7 +1,8 @@
 import { createAddress } from '@tevm/address'
 import { createImpersonatedTx } from '@tevm/tx'
-import { hexToBigInt, hexToBytes, hexToNumber, numberToHex } from '@tevm/utils'
+import { hexToBigInt, hexToBytes, hexToNumber } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
+import { serializeTraceResult } from '../internal/serializeTraceResult.js'
 import { requestProcedure } from '../requestProcedure.js'
 import { traceCallHandler } from './traceCallHandler.js'
 
@@ -140,7 +141,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			})
 		}
 
-		// now execute an debug_traceCall
+		// now execute a debug_traceCall
 		const traceResult = await traceCallHandler({ ...client, getVm: () => Promise.resolve(vmClone) })({
 			tracer,
 			...(transactionByHashResponse.result.to !== undefined ? { to: transactionByHashResponse.result.to } : {}),
@@ -162,35 +163,9 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
 
-		if (tracer === 'prestateTracer') {
-			return {
-				method: request.method,
-				result: /** @type {any}*/ (traceResult),
-				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
-			}
-		}
-
-		const debugTraceTransactionResult = /** @type {import('./DebugResult.js').EvmTraceResult} */ (traceResult)
 		return {
 			method: request.method,
-			// TODO the typescript type for this return type is completely wrong because of copy pasta
-			// This return value is correct shape
-			result: /** @type {any}*/ ({
-				gas: numberToHex(debugTraceTransactionResult.gas),
-				failed: debugTraceTransactionResult.failed,
-				returnValue: debugTraceTransactionResult.returnValue,
-				structLogs: debugTraceTransactionResult.structLogs.map((log) => {
-					return {
-						gas: numberToHex(log.gas),
-						gasCost: numberToHex(log.gasCost),
-						op: log.op,
-						pc: log.pc,
-						stack: log.stack,
-						depth: log.depth,
-					}
-				}),
-			}),
+			result: /** @type {any} */ (serializeTraceResult(traceResult)),
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}

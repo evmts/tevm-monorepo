@@ -1,5 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { hexToBytes } from '@tevm/utils'
+import { runCallWithCallTrace } from '../internal/runCallWithCallTrace.js'
 import { runCallWithPrestateTrace } from '../internal/runCallWithPrestateTrace.js'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 
@@ -35,9 +36,7 @@ export const traceCallHandler =
 			...(params.value ? { value: params.value } : {}),
 		}
 
-		// Handle different tracer types
 		if (params.tracer === 'prestateTracer') {
-			// Use prestate tracer with diffMode if specified in tracerConfig
 			const diffMode = params.tracerConfig?.diffMode === true
 			logger.debug({ diffMode }, 'traceCallHandler: using prestateTracer')
 
@@ -46,8 +45,12 @@ export const traceCallHandler =
 				.then((vm) => runCallWithPrestateTrace({ ...client, getVm: () => Promise.resolve(vm) }, callParams, diffMode))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
-
-		// Default to callTracer
+		if (params.tracer === 'callTracer') {
+			return getVm()
+				.then((vm) => vm.deepCopy())
+				.then((vm) => runCallWithCallTrace(vm, logger, callParams))
+				.then((res) => /** @type {any} */ (res.trace))
+		}
 		return getVm()
 			.then((vm) => vm.deepCopy())
 			.then((vm) => runCallWithTrace(vm, logger, callParams))

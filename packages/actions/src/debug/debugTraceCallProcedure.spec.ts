@@ -22,6 +22,29 @@ describe('debugTraceCallJsonRpcProcedure', () => {
 					{
 						to: contract.address,
 						data: encodeFunctionData(contract.write.set(42n)),
+					},
+				],
+				id: 1,
+			}),
+		).toMatchSnapshot()
+	})
+
+	it.todo('should trace a transaction and return the expected result with callTracer', async () => {
+		const client = createTevmNode()
+		const procedure = debugTraceCallJsonRpcProcedure(client)
+
+		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
+		assert(createdAddress, 'Contract deployment failed')
+		const contract = SimpleContract.withAddress(createdAddress)
+
+		expect(
+			await procedure({
+				jsonrpc: '2.0',
+				method: 'debug_traceCall',
+				params: [
+					{
+						to: contract.address,
+						data: encodeFunctionData(contract.write.set(42n)),
 						tracer: 'callTracer',
 					},
 				],

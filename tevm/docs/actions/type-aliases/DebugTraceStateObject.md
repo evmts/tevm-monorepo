@@ -8,7 +8,7 @@
 
 > **DebugTraceStateObject**: `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:89
+Defined in: packages/actions/types/debug/DebugResult.d.ts:43
 
 Complete state object structure
 

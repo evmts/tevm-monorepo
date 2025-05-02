@@ -16,6 +16,10 @@ Defined in: packages/actions/types/common/TraceCall.d.ts:4
 
 > `optional` **calls**: [`TraceCall`](TraceCall.md)[]
 
+### error?
+
+> `optional` **error**: `string`
+
 ### from
 
 > **from**: [`Address`](../../actions/type-aliases/Address.md)
@@ -35,6 +39,10 @@ Defined in: packages/actions/types/common/TraceCall.d.ts:4
 ### output
 
 > **output**: [`Hex`](../../actions/type-aliases/Hex.md)
+
+### revertReason?
+
+> `optional` **revertReason**: `string`
 
 ### to
 

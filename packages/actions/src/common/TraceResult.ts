@@ -1,16 +1,10 @@
-import type { Address } from './Address.js'
 import type { Hex } from './Hex.js'
-import type { TraceCall } from './TraceCall.js'
-import type { TraceType } from './TraceType.js'
+import type { StructLog } from './StructLog.js'
 
+/** Result from `debug_*` with no tracer */
 export type TraceResult = {
-	type: TraceType
-	from: Address
-	to: Address
-	value: bigint
+	failed: boolean
 	gas: bigint
-	gasUsed: bigint
-	input: Hex
-	output: Hex
-	calls?: TraceCall[]
+	returnValue: Hex
+	structLogs: Array<StructLog>
 }

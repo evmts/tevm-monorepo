@@ -6,7 +6,7 @@ import { createEvmError } from '../internal/createEvmError.js'
  * Creates an CallHandler for handling call params with Ethereumjs EVM
  * @param {import('@tevm/vm').RunTxResult} evmResult
  * @param {import('@tevm/utils').Hex | undefined} txHash
- * @param {import('../debug/DebugResult.js').EvmTraceResult | undefined} trace
+ * @param {import('../common/TraceResult.js').TraceResult | undefined} trace
  * @param {Map<string, Set<string>> | undefined} accessList returned by the evm
  * @returns {import('./CallResult.js').CallResult}
  * @throws {never} any error means the input and output types were invalid or some invariant was broken

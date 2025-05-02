@@ -34,6 +34,40 @@ describe('debugTraceBlockJsonRpcProcedure', () => {
 				params: [
 					{
 						blockTag: 'latest',
+					},
+				],
+				id: 1,
+			}),
+		).toMatchSnapshot()
+	})
+
+	it.todo('should trace transactions in a block and return the expected result', async () => {
+		const client = createTevmNode()
+		const procedure = debugTraceBlockJsonRpcProcedure(client)
+
+		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
+		assert(createdAddress, 'Contract deployment failed')
+		const contract = SimpleContract.withAddress(createdAddress)
+
+		await contractHandler(client)({
+			addToMempool: true,
+			blockTag: 'pending',
+			...contract.write.set(42n),
+		})
+		await contractHandler(client)({
+			addToMempool: true,
+			blockTag: 'pending',
+			...contract.write.set(1312n),
+		})
+		await mineHandler(client)({})
+
+		expect(
+			await procedure({
+				jsonrpc: '2.0',
+				method: 'debug_traceBlock',
+				params: [
+					{
+						blockTag: 'latest',
 						tracer: 'callTracer',
 					},
 				],

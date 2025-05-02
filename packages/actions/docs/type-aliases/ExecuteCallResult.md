@@ -24,4 +24,4 @@ Defined in: [packages/actions/src/Call/executeCall.js:17](https://github.com/evm
 
 ### trace
 
-> **trace**: [`EvmTraceResult`](EvmTraceResult.md) \| `undefined`
+> **trace**: [`TraceResult`](TraceResult.md) \| `undefined`

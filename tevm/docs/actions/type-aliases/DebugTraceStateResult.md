@@ -8,7 +8,7 @@
 
 > **DebugTraceStateResult**\<`TStateFilters`\>: `TStateFilters`\[`"length"`\] *extends* `0` ? [`DebugTraceStateObject`](DebugTraceStateObject.md) : `UnionToIntersection`\<`{ [I in keyof TStateFilters]: GetPath<DebugTraceStateObject, TStateFilters[I] & string> }`\[keyof `TStateFilters`\]\>
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:137
+Defined in: packages/actions/types/debug/DebugResult.d.ts:91
 
 Result from `debug_traceState`
 

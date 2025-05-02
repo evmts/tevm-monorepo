@@ -8,9 +8,9 @@
 
 > **AccountState**: `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:29
+Defined in: packages/actions/types/common/AccountState.d.ts:5
 
-The state of an account as captured by the prestateTracer
+The state of an account as captured by `debug_` traces
 
 ## Type declaration
 
@@ -24,7 +24,7 @@ The state of an account as captured by the prestateTracer
 
 ### nonce
 
-> `readonly` **nonce**: `string`
+> `readonly` **nonce**: `number`
 
 ### storage
 

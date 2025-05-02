@@ -24,4 +24,4 @@ The return value of executeCall
 
 ### trace
 
-> **trace**: [`EvmTraceResult`](../../index/type-aliases/EvmTraceResult.md) \| `undefined`
+> **trace**: [`TraceResult`](../../index/type-aliases/TraceResult.md) \| `undefined`

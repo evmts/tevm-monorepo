@@ -1,5 +1,4 @@
-import type { Address, Hex, Log } from '../common/index.js'
-import type { EvmTraceResult } from '../debug/DebugResult.js'
+import type { Address, Hex, Log, TraceResult } from '../common/index.js'
 import type { TevmCallError } from './TevmCallError.js'
 
 /**
@@ -39,7 +38,7 @@ export type CallResult<ErrorType = TevmCallError> = {
 	 * trace.structLogs.forEach(console.log)
 	 * ```
 	 */
-	trace?: EvmTraceResult
+	trace?: TraceResult
 	/**
 	 * The access list if enabled on call.
 	 * Mapping of addresses to storage slots.

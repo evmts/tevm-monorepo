@@ -1,7 +1,8 @@
 import { createAddress } from '@tevm/address'
 import { createImpersonatedTx } from '@tevm/tx'
-import { bytesToHex, hexToBigInt, numberToHex } from '@tevm/utils'
+import { bytesToHex, hexToBigInt } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
+import { serializeTraceResult } from '../internal/serializeTraceResult.js'
 import { traceCallHandler } from './traceCallHandler.js'
 
 /**
@@ -74,7 +75,7 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 				jsonrpc: '2.0',
 				method: request.method,
 				...(request.id !== undefined ? { id: request.id } : {}),
-				result: [],
+				result: /** @type {any} */ ([]),
 			}
 		}
 
@@ -153,47 +154,13 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 			})
 		}
 
-		// Format results based on tracer type
-		if (tracer === 'prestateTracer') {
-			// For prestate tracer, return results directly
-			return {
-				jsonrpc: '2.0',
-				method: request.method,
-				...(request.id !== undefined ? { id: request.id } : {}),
-				result: /** @type {any} */ (traceResults),
-			}
-		}
-		// For standard tracer, transform results to match expected format
-		const transformedResults = traceResults.map((item) => {
-			const evmResult = /** @type {import('./DebugResult.js').EvmTraceResult} */ (item.result)
-
-			return {
-				txHash: item.txHash,
-				txIndex: item.txIndex,
-				result: {
-					gas: numberToHex(evmResult.gas),
-					failed: evmResult.failed,
-					returnValue: evmResult.returnValue,
-					structLogs: evmResult.structLogs.map((log) => {
-						return {
-							gas: numberToHex(log.gas),
-							gasCost: numberToHex(log.gasCost),
-							op: log.op,
-							pc: log.pc,
-							stack: log.stack,
-							depth: log.depth,
-							...(log.error ? { error: log.error } : {}),
-						}
-					}),
-				},
-			}
-		})
-
 		return {
 			jsonrpc: '2.0',
 			method: request.method,
+			result: /** @type {any} */ (
+				traceResults.map((trace) => ({ ...trace, result: serializeTraceResult(trace.result) }))
+			),
 			...(request.id !== undefined ? { id: request.id } : {}),
-			result: /** @type {any} */ (transformedResults),
 		}
 	}
 }
