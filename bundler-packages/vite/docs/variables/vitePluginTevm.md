@@ -4,9 +4,9 @@
 
 [@tevm/vite-plugin](../globals.md) / vitePluginTevm
 
-# Function: vitePluginTevm()
+# Variable: vitePluginTevm()
 
-> **vitePluginTevm**(`options`?): `Plugin`
+> `const` **vitePluginTevm**: (`options?`) => `Plugin`
 
 Defined in: [bundler-packages/vite/src/vitePluginTevm.js:54](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/vite/src/vitePluginTevm.js#L54)
 

@@ -16,7 +16,7 @@ pnpm i @tevm/rollup-plugin
 
 ## Usage
 
-See [docs](_media/rollupPluginTevm.md)
+See [docs](./docs/functions/rollupPluginTevm.md)
 
 ## License 📄
 

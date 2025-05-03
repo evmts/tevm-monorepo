@@ -4,9 +4,9 @@
 
 [@tevm/rollup-plugin](../globals.md) / rollupPluginTevm
 
-# Function: rollupPluginTevm()
+# Variable: rollupPluginTevm()
 
-> **rollupPluginTevm**(`options`?): `Plugin`
+> `const` **rollupPluginTevm**: (`options?`) => `Plugin`
 
 Defined in: [bundler-packages/rollup/src/rollupPluginTevm.js:125](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rollup/src/rollupPluginTevm.js#L125)
 

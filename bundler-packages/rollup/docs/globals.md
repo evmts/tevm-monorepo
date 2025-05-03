@@ -30,6 +30,6 @@ import { Counter } from './contracts/Counter.sol'
 console.log(Counter.abi)
 ```
 
-## Functions
+## Variables
 
-- [rollupPluginTevm](functions/rollupPluginTevm.md)
+- [rollupPluginTevm](variables/rollupPluginTevm.md)
