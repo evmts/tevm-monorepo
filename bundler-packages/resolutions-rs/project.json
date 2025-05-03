@@ -9,6 +9,10 @@
 			"cache": true,
 			"outputs": ["{workspaceRoot}/bundler-packages/resolutions-rs"],
 			"executor": "@monodon/rust:napi",
+			"options": {
+				"dist": "dist/resolutions-rs",
+				"jsFile": "index.js"
+			},
 			"configurations": {
 				"production": {
 					"dist": "dist/resolutions-rs",

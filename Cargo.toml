@@ -7,7 +7,6 @@ members = [
 	'bundler-packages/solc-rs',
 	'bundler-packages/bundler-rs',
 	'apps/app/src-tauri',
-	'packages/tevm_resolutions_rs_template',
 ]
 
 [profile.release]

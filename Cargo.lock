@@ -9395,15 +9395,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tevm_resolutions_rs_template"
-version = "0.1.0"
-dependencies = [
- "napi",
- "napi-build",
- "napi-derive",
-]
-
-[[package]]
 name = "tevm_runtime_rs"
 version = "0.1.0"
 dependencies = [

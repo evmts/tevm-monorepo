@@ -10,12 +10,12 @@
       "outputs": ["{workspaceRoot}/bundler-packages/bundler-rs"],
       "executor": "@monodon/rust:napi",
       "options": {
-        "dist": "packages/tevm_resolutions_rs_template",
+        "dist": "dist/bundler-rs",
         "jsFile": "index.js"
       },
       "configurations": {
         "production": {
-          "dist": "dist/tevm_resolutions_rs_template",
+          "dist": "dist/bundler-rs",
           "release": true
         }
       }
