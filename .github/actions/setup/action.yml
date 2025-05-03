@@ -14,14 +14,14 @@ runs:
 
     - name: Install pnpm
       run: |
-        npm i pnpm@9.4.0 --global && pnpm --version
+        npm i pnpm@10.6.1 --global && pnpm --version
       shell: bash
 
     - name: Install Foundry
       uses: foundry-rs/foundry-toolchain@v1
       with:
         version: nightly
-        
+
     - name: Install Rust toolchain
       uses: dtolnay/rust-toolchain@stable
       with:
