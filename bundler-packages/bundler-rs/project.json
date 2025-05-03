@@ -8,7 +8,7 @@
 		"build:rust": {
 			"cache": true,
 			"outputs": ["{workspaceRoot}/bundler-packages/bundler-rs"],
-			"executor": "@monodon/rust:build",
+			"executor": "@monodon/rust:napi",
 			"configurations": {
 				"production": {
 					"dist": "dist/bundler-rs",

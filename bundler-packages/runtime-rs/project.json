@@ -8,7 +8,7 @@
 		"build:rust": {
 			"cache": true,
 			"outputs": ["{workspaceRoot}/bundler-packages/runtime-rs"],
-			"executor": "@monodon/rust:build",
+			"executor": "@monodon/rust:napi",
 			"configurations": {
 				"production": {
 					"dist": "dist/runtime-rs",
