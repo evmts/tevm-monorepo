@@ -2,16 +2,16 @@
   "name": "krome",
   "version": "0.1.0",
   "description": "",
+  "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
     "build": "vite build",
-    "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "dev": "vite dev",
+    "preview": "vite preview",
     "tauri": "tauri"
   },
-  "license": "MIT",
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
     "@rainbow-me/rainbowkit": "^2.2.4",
