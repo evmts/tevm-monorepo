@@ -17,6 +17,30 @@ env:
   TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
 
 jobs:
+  rust-ci:
+    name: Nx - Rust
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout [Pull Request]
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        name: Checkout [Default Branch]
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          fetch-depth: 0
+      - name: "Setup"
+        uses: ./.github/actions/setup
+      - name: Build rust
+        run: bunx nx run-many --target build:rust
+      - name: Sort package json
+        run: bun sort-package-json:check
+      - name: Link package
+        run: bunx nx run-many --target lint:package
+
   agents:
     name: Nx Cloud Agents
     runs-on: ubuntu-latest
@@ -56,13 +80,6 @@ jobs:
 
       - name: "Setup"
         uses: ./.github/actions/setup
-
-      - name: Build rust
-        uses: JamesHenry/parallel-bash-commands@v1.0
-        with:
-          cmd1: bunx nx run-many --target build:rust
-          cmd2: bun sort-package-json:check
-          cmd3: bunx nx run-many --target lint:package
 
       - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
         run: bunx nx-cloud start-ci-run --stop-agents-on-failure=false
