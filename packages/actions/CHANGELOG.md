@@ -1,5 +1,23 @@
 # @tevm/contract
 
+## 1.0.0-next.143
+
+### Patch Changes
+
+- ead0e33: Fixes tx nonce calculation from account state in `createTransaction`.
+
+  This previously incremented the nonce by the number of transactions for this account in the tx pool, when the vm would actually already have incremented the nonce for the next transaction.
+
+- a6ee30b: Add a more comprehensive set of properties to the account prestate trace.
+- 92bde4c: Fixes impersonated tx parameters parsing: a specified `caller` parameter would be overriden by the default `origin` as the sender of the transaction.
+
+  This fix adds `caller` as a fallback value to `tx.origin`.
+
+- Updated dependencies [0a2f876]
+  - @tevm/vm@1.0.0-next.143
+  - @tevm/node@1.0.0-next.143
+  - @tevm/txpool@1.0.0-next.143
+
 ## 1.0.0-next.142
 
 ### Patch Changes
