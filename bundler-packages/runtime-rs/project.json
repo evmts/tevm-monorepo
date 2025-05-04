@@ -6,7 +6,7 @@
   "tags": [],
   "targets": {
     "build:rust": {
-      "cache": true,
+      "cache": false,
       "outputs": ["{workspaceRoot}/bundler-packages/runtime-rs"],
       "executor": "@monodon/rust:build",
       "configurations": {
@@ -17,7 +17,7 @@
       }
     },
     "test:coverage": {
-      "cache": true,
+      "cache": false,
       "executor": "@monodon/rust:test",
       "outputs": ["{options.target-dir}"],
       "options": {

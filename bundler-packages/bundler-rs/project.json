@@ -6,7 +6,7 @@
   "tags": [],
   "targets": {
     "build:rust": {
-      "cache": true,
+      "cache": false,
       "outputs": ["{workspaceRoot}/bundler-packages/bundler-rs"],
       "executor": "@monodon/rust:napi",
       "options": {
@@ -21,7 +21,7 @@
       }
     },
     "test:coverage": {
-      "cache": true,
+      "cache": false,
       "executor": "@monodon/rust:test",
       "outputs": ["{options.target-dir}"],
       "options": {
