@@ -4,6 +4,12 @@
   "private": true,
   "description": "Rust wrapper for the Solidity compiler (solc)",
   "type": "module",
+  "scripts": {
+    "build": "cargo build --release",
+    "build:debug": "cargo build",
+    "build:release": "cargo build --release",
+    "test": "cargo test"
+  },
   "devDependencies": {
     "@napi-rs/cli": "^2.18.4"
   }

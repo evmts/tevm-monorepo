@@ -17,37 +17,13 @@ env:
   TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
 
 jobs:
-  rust-ci:
-    name: Nx - Rust
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        name: Checkout [Pull Request]
-        if: ${{ github.event_name == 'pull_request' }}
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-      - uses: actions/checkout@v4
-        name: Checkout [Default Branch]
-        if: ${{ github.event_name != 'pull_request' }}
-        with:
-          fetch-depth: 0
-      - name: "Setup"
-        uses: ./.github/actions/setup
-      - name: Build rust
-        run: bunx nx run-many --target build:rust
-      - name: Sort package json
-        run: bun sort-package-json:check
-      - name: Link package
-        run: bunx nx run-many --target lint:package
-
   agents:
     name: Nx Cloud Agents
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       matrix:
-        agent: [1, 2, 3, 4]
+        agent: [1, 2, 3, 4, 5, 6]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -82,20 +58,21 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
-        run: bunx nx-cloud start-ci-run --stop-agents-on-failure=false
+        run: bunx nx-cloud start-ci-run --stop-agents-after=build:app --stop-agents-on-failure=false
 
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v1.0
         with:
-          cmd1: bunx nx affected --targets build:dist
+          cmd1: bunx nx affected --targets build:dist,build:rust
           cmd2: bunx nx affected --target build:types
-          cmd3: bunx nx affected --target build:app
-          cmd4: bunx nx affected --target generate:docs
-          cmd5: bunx nx affected --target test:coverage
-          cmd6: bunx nx affected --target lint:check
-          cmd7: bunx nx affected --target lint:deps
+          cmd3: bunx nx affected --target typecheck
+          cmd4: bunx nx affected --targets test:coverage,test:rust
+          cmd5: bunx nx affected --target lint:check && bun sort-package-json:check
+          cmd6: bunx nx affected --target lint:deps
+          cmd7: bunx nx run-many --target lint:package
           cmd8: bunx nx affected --target dev:run
-          cmd9: bunx nx affected --targets build:typecheck
+          cmd9: bunx nx affected --target generate:docs
+          cmd10: bunx nx affected --target build:app
 
       - name: Stop agents
         run: bunx nx-cloud stop-all-agents

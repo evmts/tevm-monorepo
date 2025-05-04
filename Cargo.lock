@@ -9421,6 +9421,10 @@ name = "tevm_solc_rs"
 version = "0.1.0"
 dependencies = [
  "hex",
+ "libc",
+ "napi",
+ "napi-build",
+ "napi-derive",
  "serde",
  "serde_json",
  "tempfile",

@@ -11,5 +11,12 @@
   "license": "MIT",
   "contributors": [
     "Will Cory <willcory10@gmail.com>"
-  ]
+  ],
+  "scripts": {
+    "build": "trunk build",
+    "build:rust": "cd src-tauri && cargo build --release",
+    "dev": "trunk serve",
+    "test": "cargo test",
+    "test:rust": "cd src-tauri && cargo test"
+  }
 }

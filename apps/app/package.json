@@ -6,11 +6,13 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "build:rust": "cd src-tauri && cargo build --release",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "dev": "vite dev",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "test:rust": "cd src-tauri && cargo test"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
