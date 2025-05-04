@@ -16,7 +16,7 @@ pnpm i @tevm/vite-plugin
 
 ## Usage
 
-See [docs](_media/vitePluginTevm.md)
+See [docs](./docs/functions/vitePluginTevm.md)
 
 ## License 📄
 

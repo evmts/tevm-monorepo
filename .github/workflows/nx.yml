@@ -33,6 +33,16 @@ jobs:
           registry-url: https://registry.npmjs.org
       - name: "Setup"
         uses: ./.github/actions/setup
+      - name: Install native dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pkg-config \
+            libglib2.0-dev \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
       - name: Start Nx Agent ${{ matrix.agent }}
         run: bunx nx-cloud start-agent
         env:
@@ -57,6 +67,17 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
+      - name: Install native dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pkg-config \
+            libglib2.0-dev \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+
       - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
         run: bunx nx-cloud start-ci-run --stop-agents-after=build:app --stop-agents-on-failure=false
 
@@ -66,7 +87,7 @@ jobs:
           cmd1: bunx nx affected --targets build:dist,build:rust
           cmd2: bunx nx affected --target build:types
           cmd3: bunx nx affected --target typecheck
-          cmd4: bunx nx affected --target test:coverage
+          cmd4: bunx nx affected --targets test:coverage,test:rust
           cmd5: bunx nx affected --target lint:check && bun sort-package-json:check
           cmd6: bunx nx affected --target lint:deps
           cmd7: bunx nx run-many --target lint:package

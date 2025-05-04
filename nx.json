@@ -4,8 +4,17 @@
 	"targetDefaults": {
 		"build:rust": {
 			"inputs": ["default"],
-			"outputs": ["{projectRoot}/dist/**/*"],
+			"outputs": [
+				"{projectRoot}/target/debug/**/*",
+				"{projectRoot}/target/release/**/*",
+				"{projectRoot}/index.node"
+			],
 			"dependsOn": [],
+			"cache": true
+		},
+		"test:rust": {
+			"inputs": ["default"],
+			"dependsOn": ["^build:rust"],
 			"cache": true
 		},
 		"lint:check": {
@@ -127,6 +136,5 @@
 		],
 		"testing": ["configsWorkspace", "default"]
 	},
-	"nxCloudAccessToken": "MDdkNmQwZWEtOGYwNy00ZjhkLWI5NGMtNjBiNGExY2Q5MzI2fHJlYWQ=",
-	"plugins": ["@monodon/rust"]
+	"nxCloudAccessToken": "MDdkNmQwZWEtOGYwNy00ZjhkLWI5NGMtNjBiNGExY2Q5MzI2fHJlYWQ="
 }

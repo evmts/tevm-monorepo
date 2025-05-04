@@ -1,6 +1,7 @@
 pub mod models;
 pub mod solc;
 pub mod error;
+pub mod napi;
 #[cfg(feature = "examples")]
 pub mod examples;
 
