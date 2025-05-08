@@ -56,13 +56,75 @@ pub fn executeInstruction(
         @intFromEnum(Opcode.SUB) => {
             try arithmetic.sub(stack, memory, code, pc, gas_left, gas_refund);
         },
-        // More arithmetic opcodes here...
+        @intFromEnum(Opcode.DIV) => {
+            try arithmetic.div(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.SDIV) => {
+            try arithmetic.sdiv(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.MOD) => {
+            try arithmetic.mod(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.SMOD) => {
+            try arithmetic.smod(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.ADDMOD) => {
+            try arithmetic.addmod(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.MULMOD) => {
+            try arithmetic.mulmod(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.EXP) => {
+            try arithmetic.exp(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.SIGNEXTEND) => {
+            try arithmetic.signextend(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        // More opcodes here...
         
         // 0x1* - Comparison and bitwise
         @intFromEnum(Opcode.LT) => {
             try bitwise.lt(stack, memory, code, pc, gas_left, gas_refund);
         },
-        // More comparison opcodes here...
+        @intFromEnum(Opcode.GT) => {
+            try bitwise.gt(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.SLT) => {
+            try bitwise.slt(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.SGT) => {
+            try bitwise.sgt(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.EQ) => {
+            try bitwise.eq(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.ISZERO) => {
+            try bitwise.isZero(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.AND) => {
+            try bitwise.bitAnd(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.OR) => {
+            try bitwise.bitOr(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.XOR) => {
+            try bitwise.bitXor(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.NOT) => {
+            try bitwise.bitNot(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.BYTE) => {
+            try bitwise.byte(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.SHL) => {
+            try bitwise.shl(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.SHR) => {
+            try bitwise.shr(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.SAR) => {
+            try bitwise.sar(stack, memory, code, pc, gas_left, gas_refund);
+        },
         
         // 0x5* - Memory and storage
         @intFromEnum(Opcode.MLOAD) => {

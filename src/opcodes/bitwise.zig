@@ -452,6 +452,106 @@ pub fn sar(
     pc.* += 1;
 }
 
+/// Signed less than (SLT)
+pub fn slt(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 3) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 3;
+    
+    // Pop values
+    const b = try stack.pop();
+    const a = try stack.pop();
+    
+    // Check if values are negative (most significant bit set)
+    const a_negative = (a.words[3] >> 63) & 1 == 1;
+    const b_negative = (b.words[3] >> 63) & 1 == 1;
+    
+    // Comparison logic for signed values
+    const result = if (a_negative and !b_negative) {
+        // a is negative, b is not: a < b
+        U256.one();
+    } else if (!a_negative and b_negative) {
+        // a is not negative, b is: a > b
+        U256.zero();
+    } else if (a_negative and b_negative) {
+        // Both negative: compare magnitudes in reverse
+        // If a has a larger magnitude than b, it's more negative, so a < b
+        if (a.gt(b)) U256.one() else U256.zero();
+    } else {
+        // Both positive: normal comparison
+        if (a.lt(b)) U256.one() else U256.zero();
+    };
+    
+    // Push result
+    try stack.push(result);
+    
+    // Advance PC
+    pc.* += 1;
+}
+
+/// Signed greater than (SGT)
+pub fn sgt(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 3) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 3;
+    
+    // Pop values
+    const b = try stack.pop();
+    const a = try stack.pop();
+    
+    // Check if values are negative (most significant bit set)
+    const a_negative = (a.words[3] >> 63) & 1 == 1;
+    const b_negative = (b.words[3] >> 63) & 1 == 1;
+    
+    // Comparison logic for signed values
+    const result = if (a_negative and !b_negative) {
+        // a is negative, b is not: a < b
+        U256.zero();
+    } else if (!a_negative and b_negative) {
+        // a is not negative, b is: a > b
+        U256.one();
+    } else if (a_negative and b_negative) {
+        // Both negative: compare magnitudes in reverse
+        // If a has a smaller magnitude than b, it's less negative, so a > b
+        if (a.lt(b)) U256.one() else U256.zero();
+    } else {
+        // Both positive: normal comparison
+        if (a.gt(b)) U256.one() else U256.zero();
+    };
+    
+    // Push result
+    try stack.push(result);
+    
+    // Advance PC
+    pc.* += 1;
+}
+
 // Tests
 test "bitwise operations with dispatch signature" {
     var stack = Stack.init();
@@ -519,5 +619,75 @@ test "bitwise operations with dispatch signature" {
     try stack.push(U256.fromU64(2)); // shift by 2
     try shr(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
     try std.testing.expectEqual(U256.fromU64(2), try stack.pop()); // 0000 0010
+    try std.testing.expectEqual(@as(usize, 1), pc);
+
+    // Reset PC
+    pc = 0;
+    
+    // Helper for creating negative numbers in two's complement
+    const makeNegative = struct {
+        fn make(value: u64) U256 {
+            const val = U256.fromU64(value);
+            var result = val.bitNot(); // ~x
+            result = result.add(U256.one()); // ~x + 1
+            return result;
+        }
+    }.make;
+
+    // Test SLT with positive values
+    try stack.push(U256.fromU64(10));
+    try stack.push(U256.fromU64(20));
+    try slt(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    try std.testing.expectEqual(U256.one(), try stack.pop()); // 10 < 20 is true
+    try std.testing.expectEqual(@as(usize, 1), pc);
+
+    // Reset PC
+    pc = 0;
+    
+    // Test SLT with negative values
+    try stack.push(makeNegative(10));
+    try stack.push(makeNegative(20));
+    try slt(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    try std.testing.expectEqual(U256.zero(), try stack.pop()); // -10 < -20 is false
+    try std.testing.expectEqual(@as(usize, 1), pc);
+
+    // Reset PC
+    pc = 0;
+    
+    // Test SLT with mixed signs
+    try stack.push(makeNegative(10));
+    try stack.push(U256.fromU64(20));
+    try slt(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    try std.testing.expectEqual(U256.one(), try stack.pop()); // -10 < 20 is true
+    try std.testing.expectEqual(@as(usize, 1), pc);
+
+    // Reset PC
+    pc = 0;
+    
+    // Test SGT with positive values
+    try stack.push(U256.fromU64(30));
+    try stack.push(U256.fromU64(15));
+    try sgt(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    try std.testing.expectEqual(U256.one(), try stack.pop()); // 30 > 15 is true
+    try std.testing.expectEqual(@as(usize, 1), pc);
+
+    // Reset PC
+    pc = 0;
+    
+    // Test SGT with negative values
+    try stack.push(makeNegative(5));
+    try stack.push(makeNegative(25));
+    try sgt(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    try std.testing.expectEqual(U256.one(), try stack.pop()); // -5 > -25 is true
+    try std.testing.expectEqual(@as(usize, 1), pc);
+
+    // Reset PC
+    pc = 0;
+    
+    // Test SGT with mixed signs
+    try stack.push(U256.fromU64(5));
+    try stack.push(makeNegative(10));
+    try sgt(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    try std.testing.expectEqual(U256.one(), try stack.pop()); // 5 > -10 is true
     try std.testing.expectEqual(@as(usize, 1), pc);
 }
