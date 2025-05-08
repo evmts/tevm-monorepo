@@ -119,7 +119,10 @@ pub const Interpreter = struct {
                 &self.gas_refund,
                 &self.return_data_buffer,
                 &self.storage,
-                self.is_static
+                self.is_static,
+                self.environment,
+                self.calldata,
+                &self.gas_price
             ) catch |err| {
                 // Handle execution errors
                 switch (err) {
@@ -143,7 +146,11 @@ pub const Interpreter = struct {
                     Error.ReturnDataOutOfBounds,
                     Error.StorageUnavailable,
                     Error.StaticModeViolation,
+                    Error.StaticStateChange,
                     Error.WriteProtection,
+                    Error.EnvironmentNotAvailable,
+                    Error.BalanceUnavailable,
+                    Error.NotImplemented,
                     => {
                         // For non-recoverable errors, return error result with gas used
                         return .{

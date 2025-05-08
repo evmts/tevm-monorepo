@@ -14,6 +14,8 @@ const memory_ops = @import("memory.zig");
 const return_data_ops = @import("return_data.zig");
 const storage_ops = @import("storage.zig");
 const environment_ops = @import("environment.zig");
+const stack_ops = @import("stack_ops.zig");
+const control_flow = @import("control_flow.zig");
 const Storage = storage_ops.Storage;
 const EvmEnvironment = environment_ops.EvmEnvironment;
 const Opcode = @import("opcodes.zig").Opcode;
@@ -164,6 +166,12 @@ pub fn executeInstruction(
             } else {
                 return Error.StorageUnavailable;
             }
+        },
+        @intFromEnum(Opcode.JUMP) => {
+            try control_flow.jump(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.JUMPI) => {
+            try control_flow.jumpi(stack, memory, code, pc, gas_left, gas_refund);
         },
         
         // Return data opcodes
@@ -322,6 +330,16 @@ pub fn executeInstruction(
         // 0x60-0x7F - PUSH opcodes
         @intFromEnum(Opcode.PUSH1)...@intFromEnum(Opcode.PUSH32) => {
             try pushInstruction(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        
+        // 0x80-0x8F - DUP opcodes
+        @intFromEnum(Opcode.DUP1)...@intFromEnum(Opcode.DUP16) => {
+            try stack_ops.dup(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        
+        // 0x90-0x9F - SWAP opcodes
+        @intFromEnum(Opcode.SWAP1)...@intFromEnum(Opcode.SWAP16) => {
+            try stack_ops.swap(stack, memory, code, pc, gas_left, gas_refund);
         },
         
         // System operations (partial implementation)
@@ -826,4 +844,67 @@ test "dispatch return data opcodes" {
     // Memory should now contain the copied return data
     try std.testing.expectEqual(@as(u8, 0xB2), memory.page.buffer[0]); // Byte at offset 1
     try std.testing.expectEqual(@as(u8, 0xC3), memory.page.buffer[1]); // Byte at offset 2
+}
+
+test "dispatch stack operations" {
+    // Test setup
+    var stack = Stack.init();
+    var memory = try Memory.init(std.testing.allocator);
+    defer memory.deinit();
+    
+    // Test bytecode for DUP and SWAP operations
+    const code = [_]u8{
+        @intFromEnum(Opcode.PUSH1), 0x01,        // Push 1
+        @intFromEnum(Opcode.PUSH1), 0x02,        // Push 2
+        @intFromEnum(Opcode.PUSH1), 0x03,        // Push 3
+        @intFromEnum(Opcode.DUP2),               // Duplicate 2nd item (2)
+        @intFromEnum(Opcode.SWAP1),              // Swap top two items (2 and 3)
+    };
+    
+    var pc: usize = 0;
+    var gas_left: u64 = 1000;
+    var gas_refund: u64 = 0;
+    
+    // Create return data buffer
+    var return_data = ReturnData.init(std.testing.allocator);
+    defer return_data.deinit();
+    
+    // Execute PUSH1 0x01
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 2), pc); // Move past opcode and operand
+    try std.testing.expectEqual(@as(usize, 1), stack.getSize());
+    try std.testing.expectEqual(U256.fromU64(1), try stack.peek().*);
+    
+    // Execute PUSH1 0x02
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 4), pc);
+    try std.testing.expectEqual(@as(usize, 2), stack.getSize());
+    try std.testing.expectEqual(U256.fromU64(2), try stack.peek().*);
+    
+    // Execute PUSH1 0x03
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 6), pc);
+    try std.testing.expectEqual(@as(usize, 3), stack.getSize());
+    try std.testing.expectEqual(U256.fromU64(3), try stack.peek().*);
+    
+    // Stack should now be [1, 2, 3] (top)
+    
+    // Execute DUP2 - should duplicate the 2nd item (2)
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 7), pc);
+    try std.testing.expectEqual(@as(usize, 4), stack.getSize());
+    try std.testing.expectEqual(U256.fromU64(2), try stack.peek().*);
+    
+    // Stack should now be [1, 2, 3, 2] (top)
+    
+    // Execute SWAP1 - should swap top two items (2 and 3)
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 8), pc);
+    try std.testing.expectEqual(@as(usize, 4), stack.getSize());
+    
+    // Stack should now be [1, 2, 2, 3] (top)
+    try std.testing.expectEqual(U256.fromU64(3), try stack.pop());
+    try std.testing.expectEqual(U256.fromU64(2), try stack.pop());
+    try std.testing.expectEqual(U256.fromU64(2), try stack.pop());
+    try std.testing.expectEqual(U256.fromU64(1), try stack.pop());
 }

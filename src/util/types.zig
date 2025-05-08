@@ -451,15 +451,21 @@ pub const Error = error{
     InvalidOpcode,
     InvalidJump,
     InvalidJumpDest,
+    NotImplemented,
     
     // State-related errors
     WriteProtection,
     StorageUnavailable,
     StaticModeViolation,
+    StaticStateChange,
     
     // Memory-related errors
     ReturnDataOutOfBounds,
     InvalidOffset,
+    
+    // Environment-related errors
+    EnvironmentNotAvailable,
+    BalanceUnavailable,
     
     // Call-related errors
     CallDepthExceeded,
