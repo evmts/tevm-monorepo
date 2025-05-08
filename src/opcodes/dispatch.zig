@@ -136,6 +136,12 @@ pub fn executeInstruction(
         @intFromEnum(Opcode.MSTORE8) => {
             try memory_ops.mstore8(stack, memory, code, pc, gas_left, gas_refund);
         },
+        @intFromEnum(Opcode.MSIZE) => {
+            try memory_ops.msize(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.MCOPY) => {
+            try memory_ops.mcopy(stack, memory, code, pc, gas_left, gas_refund);
+        },
         
         // Return data opcodes
         @intFromEnum(Opcode.RETURNDATASIZE) => {
