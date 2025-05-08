@@ -4,7 +4,9 @@
 const std = @import("std");
 const types = @import("../util/types.zig");
 const Stack = @import("../stack/stack.zig").Stack;
-const Memory = @import("../memory/memory.zig").Memory;
+const memory_mod = @import("../memory/memory.zig");
+const Memory = memory_mod.Memory;
+const BlockInfoManager = memory_mod.BlockInfoManager;
 
 const U256 = types.U256;
 const Address = types.Address;
@@ -35,6 +37,7 @@ pub const Interpreter = struct {
     return_data_allocator: std.mem.Allocator,
     jump_dest_map: []bool,
     depth: u16,
+    block_info: ?*BlockInfoManager = null,
     
     // For now, this is just a placeholder shell - we'll implement the full functionality in later steps
     
@@ -70,19 +73,121 @@ pub const Interpreter = struct {
         self.return_data_allocator.free(self.jump_dest_map);
     }
     
-    /// Main execution loop - placeholder implementation
+    /// Main execution loop implementation
     pub fn execute(self: *Interpreter) ExecutionResult {
         // Save original gas for calculating gas used at the end
         const original_gas = self.gas_left;
+        const dispatch = @import("../opcodes/dispatch.zig");
+
+        // Main execution loop
+        while (self.pc < self.code.len) {
+            // Load the current opcode
+            const opcode = self.code[self.pc];
+            
+            // Check for STOP opcode explicitly
+            if (opcode == 0x00) { // STOP
+                break;
+            }
+            
+            // Execute the instruction
+            dispatch.executeInstruction(
+                &self.stack,
+                &self.memory,
+                self.code,
+                &self.pc,
+                &self.gas_left,
+                &self.gas_refund
+            ) catch |err| {
+                // Handle execution errors
+                switch (err) {
+                    Error.InvalidJump => {
+                        // For jumps, we need to validate the destination
+                        if (!self.isValidJumpDest(self.pc)) {
+                            return .{
+                                .Error = .{
+                                    .error_type = Error.InvalidJumpDest,
+                                    .gas_used = original_gas,
+                                }
+                            };
+                        }
+                        // If it's a valid jump, continue execution
+                        continue;
+                    },
+                    Error.StackOverflow,
+                    Error.StackUnderflow,
+                    Error.OutOfGas,
+                    Error.InvalidOpcode,
+                    Error.ReturnDataOutOfBounds,
+                    => {
+                        // For non-recoverable errors, return error result with gas used
+                        return .{
+                            .Error = .{
+                                .error_type = err,
+                                .gas_used = original_gas,
+                            }
+                        };
+                    },
+                    else => {
+                        // For other errors, treat as internal error
+                        return .{
+                            .Error = .{
+                                .error_type = Error.InternalError,
+                                .gas_used = original_gas,
+                            }
+                        };
+                    }
+                }
+            };
+            
+            // Handle explicit RETURN and REVERT opcodes
+            if (opcode == 0xF3) { // RETURN
+                // Get memory offset and size from stack
+                const offset = try self.stack.pop();
+                const size = try self.stack.pop();
+                
+                // Convert to usize (assuming they're small enough)
+                const mem_offset = @intCast(offset.words[0]);
+                const mem_size = @intCast(size.words[0]);
+                
+                // Set the return data from memory
+                try self.setReturnData(mem_offset, mem_size);
+                
+                // Return success with the data
+                return .{
+                    .Success = .{
+                        .gas_used = original_gas - self.gas_left,
+                        .gas_refunded = self.gas_refund,
+                        .return_data = self.return_data,
+                    }
+                };
+            } else if (opcode == 0xFD) { // REVERT
+                // Get memory offset and size from stack
+                const offset = try self.stack.pop();
+                const size = try self.stack.pop();
+                
+                // Convert to usize (assuming they're small enough)
+                const mem_offset = @intCast(offset.words[0]);
+                const mem_size = @intCast(size.words[0]);
+                
+                // Set the return data from memory
+                try self.setReturnData(mem_offset, mem_size);
+                
+                // Return revert with the data
+                return .{
+                    .Revert = .{
+                        .gas_used = original_gas - self.gas_left,
+                        .return_data = self.return_data,
+                    }
+                };
+            }
+        }
         
-        // This is just a placeholder skeleton - the actual implementation
-        // will be added in a later task
-        
+        // Successful execution (e.g., via STOP)
         return .{
             .Success = .{
                 .gas_used = original_gas - self.gas_left,
                 .gas_refunded = self.gas_refund,
-                .return_data = &[_]u8{},
+                .return_data = self.return_data,
             }
         };
     }
@@ -109,7 +214,7 @@ pub const Interpreter = struct {
             
             // Copy available data
             if (available > 0) {
-                @memcpy(data[0..available], self.memory.data[offset..][0..available]);
+                @memcpy(data[0..available], self.memory.page.buffer[offset..][0..available]);
             }
             
             self.return_data = data;
@@ -181,4 +286,101 @@ test "Jump destination analysis" {
     try std.testing.expect(jumpdests[6] == true);  // JUMPDEST at position 6
     try std.testing.expect(jumpdests[0] == false); // PUSH1 at position 0
     try std.testing.expect(jumpdests[1] == false); // Immediate data of PUSH1
+}
+
+test "Simple ADD program execution" {
+    // PUSH1 5, PUSH1 10, ADD, STOP
+    const bytecode = [_]u8{0x60, 0x05, 0x60, 0x0A, 0x01, 0x00};
+    
+    var interpreter = try Interpreter.init(std.testing.allocator, &bytecode, 100000, 0);
+    defer interpreter.deinit();
+    
+    const result = interpreter.execute();
+    
+    // Check result
+    switch (result) {
+        .Success => |success| {
+            try std.testing.expect(success.gas_used > 0);
+            try std.testing.expect(success.return_data.len == 0);
+        },
+        .Revert, .Error => {
+            try std.testing.expect(false); // This should not happen
+        },
+    }
+    
+    // Check stack (should have 15 on top)
+    try std.testing.expect(interpreter.stack.getSize() == 1);
+    const top = try interpreter.stack.peek();
+    try std.testing.expectEqual(U256.fromU64(15), top.*);
+}
+
+test "RETURN program execution" {
+    // PUSH1 0xFF (value to store)
+    // PUSH1 0 (memory position)
+    // MSTORE (store 32 bytes)
+    // PUSH1 32 (return size)
+    // PUSH1 0 (return offset)
+    // RETURN
+    const bytecode = [_]u8{
+        0x60, 0xFF,     // PUSH1 0xFF
+        0x60, 0x00,     // PUSH1 0
+        0x52,           // MSTORE
+        0x60, 0x20,     // PUSH1 32 (size)
+        0x60, 0x00,     // PUSH1 0 (offset)
+        0xF3            // RETURN
+    };
+    
+    var interpreter = try Interpreter.init(std.testing.allocator, &bytecode, 100000, 0);
+    defer interpreter.deinit();
+    
+    const result = interpreter.execute();
+    
+    // Check result
+    switch (result) {
+        .Success => |success| {
+            try std.testing.expect(success.gas_used > 0);
+            try std.testing.expect(success.return_data.len == 32);
+            try std.testing.expect(success.return_data[31] == 0xFF); // Last byte should be 0xFF
+        },
+        .Revert, .Error => {
+            try std.testing.expect(false); // This should not happen
+        },
+    }
+}
+
+test "REVERT program execution" {
+    // PUSH1 0xFF (value to store)
+    // PUSH1 0 (memory position)
+    // MSTORE (store 32 bytes)
+    // PUSH1 32 (return size)
+    // PUSH1 0 (return offset)
+    // REVERT
+    const bytecode = [_]u8{
+        0x60, 0xFF,     // PUSH1 0xFF
+        0x60, 0x00,     // PUSH1 0
+        0x52,           // MSTORE
+        0x60, 0x20,     // PUSH1 32 (size)
+        0x60, 0x00,     // PUSH1 0 (offset)
+        0xFD            // REVERT
+    };
+    
+    var interpreter = try Interpreter.init(std.testing.allocator, &bytecode, 100000, 0);
+    defer interpreter.deinit();
+    
+    const result = interpreter.execute();
+    
+    // Check result
+    switch (result) {
+        .Success => {
+            try std.testing.expect(false); // This should not happen
+        },
+        .Revert => |revert| {
+            try std.testing.expect(revert.gas_used > 0);
+            try std.testing.expect(revert.return_data.len == 32);
+            try std.testing.expect(revert.return_data[31] == 0xFF); // Last byte should be 0xFF
+        },
+        .Error => {
+            try std.testing.expect(false); // This should not happen
+        },
+    }
 }
