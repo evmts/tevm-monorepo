@@ -43,6 +43,10 @@ jobs:
             libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev
+      - name: Build Zig
+        run: |
+          cd src
+          zig build
       - name: Start Nx Agent ${{ matrix.agent }}
         run: bunx nx-cloud start-agent
         env:
@@ -80,14 +84,19 @@ jobs:
 
       - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
         run: bunx nx-cloud start-ci-run --stop-agents-after=build:app --stop-agents-on-failure=false
-
+        
+      - name: Build and test Zig
+        run: |
+          cd src
+          zig build test
+          
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v1.0
         with:
-          cmd1: bunx nx affected --targets build:dist,build:rust
+          cmd1: bunx nx affected --targets build:dist,build:rust,build:zig
           cmd2: bunx nx affected --target build:types
           cmd3: bunx nx affected --target typecheck
-          cmd4: bunx nx affected --targets test:coverage,test:rust
+          cmd4: bunx nx affected --targets test:coverage,test:rust,test:zig
           cmd5: bunx nx affected --target lint:check && bun sort-package-json:check
           cmd6: bunx nx affected --target lint:deps
           cmd7: bunx nx run-many --target lint:package
