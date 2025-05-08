@@ -312,7 +312,7 @@ pub const OpcodeInfo = struct {
         var tbl: [256]OpcodeInfo = undefined;
         
         // Initialize with unknown operands
-        for (&tbl, 0..) |*info, i| {
+        for (&tbl) |*info| {
             info.* = OpcodeInfo{
                 .name = "UNKNOWN",
                 .gas_cost = 0,

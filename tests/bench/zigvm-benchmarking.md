@@ -1,6 +1,6 @@
-# ZigEVM Benchmarking Strategy
+# ZigEVM Benchmarking Methodology
 
-This document outlines the comprehensive benchmarking strategy for the ZigEVM implementation, providing guidelines for benchmark development, execution, analysis, and integration into the continuous integration (CI) pipeline.
+This document outlines the benchmarking approach for the ZigEVM implementation, providing guidelines for benchmark development, execution, analysis, and integration into the continuous integration (CI) pipeline.
 
 ## Goals of Benchmarking
 

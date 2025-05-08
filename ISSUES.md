@@ -45,69 +45,211 @@ pub const MUL: u8 = 0x02;
 
 We need a dispatch mechanism to map opcodes to their implementations, following the pattern in revm's `instructions.rs`.
 
+**Context**:
+In the EVM, instructions are represented as single-byte opcodes (0x00-0xFF). To execute bytecode efficiently, we need a fast way to map these opcodes to their implementation functions. The current implementation in ZigEVM has a basic dispatch structure in `src/opcodes/dispatch.zig`, but it's incomplete and doesn't cover all opcodes.
+
+The revm implementation uses an elegant approach with a function pointer array (jump table) where each index corresponds to an opcode value. This allows for O(1) lookup of the function that should handle a particular opcode. The table is initialized with a default handler for invalid opcodes, and then each supported opcode is mapped to its specific implementation.
+
 **Requirements**:
-- Create a jump table or function pointer array for fast opcode dispatch
+- Complete the jump table or function pointer array for fast opcode dispatch
 - Map each opcode to its implementation function
 - Support for all standard EVM opcodes
+- Handle unknown opcodes with a proper error
+- Support different EVM versions where opcodes may be enabled/disabled
 
 **Implementation Reference**:
 ```rust
 // From revm/crates/interpreter/src/instructions.rs
 pub fn instruction_table<WIRE: InterpreterTypes, H: Host + ?Sized>() -> [Instruction<WIRE, H>; 256] {
     use bytecode::opcode::*;
+    // Initialize all opcodes to the "unknown" handler
     let mut table = [control::unknown as Instruction<WIRE, H>; 256];
 
+    // Map each supported opcode to its implementation
     table[STOP as usize] = control::stop;
     table[ADD as usize] = arithmetic::add;
     table[MUL as usize] = arithmetic::mul;
-    // ... and so on
+    table[SUB as usize] = arithmetic::sub;
+    table[DIV as usize] = arithmetic::div;
+    // ... and so on for all supported opcodes
     
+    // Return the complete table
     table
+}
+
+// Implementation of the opcode handler function type
+type Instruction<W, H> = for<'a> fn(&'a mut Interpreter<W>, &'a mut H);
+
+// Example of an arithmetic operation implementation
+pub fn add<WIRE: InterpreterTypes, H: Host + ?Sized>(
+    interpreter: &mut Interpreter<WIRE>,
+    _host: &mut H,
+) {
+    // Calculate gas cost
+    gas!(interpreter, gas::VERYLOW);
+    
+    // Pop values from stack
+    popn_top!([op1], op2, interpreter);
+    
+    // Perform operation
+    *op2 = op1.wrapping_add(*op2);
+}
+
+// Default handler for unknown or invalid opcodes
+pub fn unknown<WIRE: InterpreterTypes, H: Host + ?Sized>(
+    interpreter: &mut Interpreter<WIRE>,
+    _host: &mut H,
+) {
+    interpreter.control.set_instruction_result(InstructionResult::InvalidOpcode);
+}
+
+// Main execution loop in the interpreter
+pub fn run_plain<H: Host + ?Sized>(&mut self, instruction_table: &InstructionTable<IW, H>, host: &mut H) {
+    self.reset_control();
+
+    // Main execution loop
+    while self.control.instruction_result().is_continue() {
+        // Get the current opcode
+        let opcode = self.bytecode.opcode();
+        
+        // Increment program counter
+        self.bytecode.relative_jump(1);
+        
+        // Execute the opcode
+        instruction_table[opcode as usize](self, host);
+    }
 }
 ```
 
 **Tests to Add**:
 - Test proper dispatch to the correct instruction implementation
 - Test handling of unknown opcodes
+- Test gas tracking during execution
+- Test edge cases (overflows, underflows, invalid jumps)
+- Test compatibility with different EVM versions
 
 ---
 
 ### Issue #3: Main Execution Loop Implementation
 **Tags**: `core`, `execution`, `interpreter`
 
-Our current `execute` function in `interpreter.zig` is a placeholder. We need to implement the main execution loop.
+Our current `execute` function in `interpreter.zig` has a basic structure but needs to be enhanced to properly support the full range of EVM execution features.
+
+**Context**:
+The main execution loop is the heart of the EVM interpreter, responsible for fetching opcodes from bytecode, executing them, and managing the execution state. The current implementation in `src/interpreter/interpreter.zig` has a basic structure but lacks some important features like proper gas accounting, full error handling, and comprehensive support for all termination conditions.
+
+In revm and evmone, the execution loop uses an efficient approach where each opcode implementation is responsible for its own logic, gas accounting, and state updates. The loop simply fetches the next opcode, dispatches to its implementation, and continues until a termination condition is reached.
 
 **Requirements**:
-- Implement the main execution loop that fetches, decodes, and executes opcodes
-- Handle gas accounting during execution
-- Support early termination (STOP, REVERT, etc.)
-- Support return data handling
+- Improve the main execution loop to properly fetch, decode, and execute opcodes
+- Implement comprehensive gas accounting during execution
+- Support all termination conditions:
+  - STOP: Normal termination with success
+  - RETURN: Termination with return data
+  - REVERT: Reversion of state changes with return data
+  - Error conditions: Out of gas, invalid opcode, stack overflow/underflow, etc.
+- Properly handle return data across calls
+- Implement support for tracing and debugging (optional)
+- Ensure efficiency and performance of the core loop
 
 **Implementation Reference**:
 ```cpp
 // From evmone/lib/evmone/advanced_execution.cpp
+// This example shows the core execution loop from evmone
 evmc_result execute(AdvancedExecutionState& state, const AdvancedCodeAnalysis& analysis) noexcept
 {
     state.analysis.advanced = &analysis;  // Allow accessing the analysis by instructions.
 
-    const auto* instr = state.analysis.advanced->instrs.data();  // Get the first instruction.
-    while (instr \!= nullptr)
+    // Loop initialization - get the first instruction
+    const auto* instr = state.analysis.advanced->instrs.data();
+    
+    // Main execution loop - each instruction returns the next instruction to execute
+    // This allows for efficient handling of control flow instructions like JUMP
+    while (instr != nullptr)
         instr = instr->fn(instr, state);
 
+    // After execution completes, handle gas accounting
+    // Only return unused gas for successful executions or reverts
     const auto gas_left =
         (state.status == EVMC_SUCCESS || state.status == EVMC_REVERT) ? state.gas_left : 0;
+        
+    // Gas refunds are only applied for successful executions
     const auto gas_refund = (state.status == EVMC_SUCCESS) ? state.gas_refund : 0;
 
-    assert(state.output_size \!= 0 || state.output_offset == 0);
+    // Validate output parameters
+    assert(state.output_size != 0 || state.output_offset == 0);
+    
+    // Construct and return the execution result
     return evmc::make_result(state.status, gas_left, gas_refund,
         state.memory.data() + state.output_offset, state.output_size);
+}
+
+// From revm/crates/interpreter/src/interpreter.rs
+// This example shows the main execution loop from revm
+pub fn run_plain<H: Host + ?Sized>(
+    &mut self,
+    instruction_table: &InstructionTable<IW, H>,
+    host: &mut H,
+) -> InterpreterAction {
+    // Initialize control state
+    self.reset_control();
+
+    // Main execution loop
+    while self.control.instruction_result().is_continue() {
+        // Fetch the current opcode
+        let opcode = self.bytecode.opcode();
+        
+        // Increment program counter before execution
+        // This allows opcodes to modify PC if needed (e.g., JUMP)
+        self.bytecode.relative_jump(1);
+        
+        // Execute the opcode by dispatching to its implementation
+        instruction_table[opcode as usize](self, host);
+    }
+
+    // Determine the next action based on execution result
+    self.take_next_action()
+}
+
+// Handle the execution result
+pub fn take_next_action(&mut self) -> InterpreterAction {
+    match self.control.instruction_result() {
+        InstructionResult::Continue => panic!("Unexpected continue result"),
+        InstructionResult::Stop => InterpreterAction::Stop,
+        InstructionResult::Return => InterpreterAction::Return,
+        InstructionResult::Revert => InterpreterAction::Revert,
+        InstructionResult::SelfDestruct => InterpreterAction::SelfDestruct,
+        InstructionResult::CallTooDeep
+        | InstructionResult::PrecompileError
+        | InstructionResult::OutOfGas
+        | InstructionResult::OutOfOffset
+        | InstructionResult::StackOverflow
+        | InstructionResult::StackUnderflow
+        | InstructionResult::InvalidJump
+        | InstructionResult::InvalidRange
+        | InstructionResult::InvalidOpcode
+        | InstructionResult::StaticModeViolation
+        | InstructionResult::MemoryLimitOOG
+        | InstructionResult::MemoryOOG
+        | InstructionResult::NotActivated
+        | InstructionResult::OpcodeNotFound => InterpreterAction::Error,
+    }
 }
 ```
 
 **Tests to Add**:
-- Test simple program execution
-- Test gas accounting during execution
-- Test execution results (success, revert, error)
+- Test simple program execution with various opcodes
+- Test gas accounting during execution:
+  - Normal completion within gas limit
+  - Out of gas conditions
+  - Gas refunds
+- Test all termination conditions:
+  - Normal STOP
+  - RETURN with different data sizes
+  - REVERT with different data sizes
+  - Various error conditions
+- Test program counter handling, especially with control flow opcodes (JUMP, JUMPI)
+- Test handling of invalid opcodes and other error conditions
 
 ---
 
@@ -393,14 +535,42 @@ pub fn sstore<WIRE: InterpreterTypes, H: Host + ?Sized>(
 
 Implement accurate gas cost calculation for all operations.
 
+**Context**:
+Gas metering is a fundamental aspect of the EVM, serving both as a mechanism to prevent infinite loops and as a way to charge for computational resources. Each operation in the EVM has an associated gas cost that must be carefully calculated and tracked during execution.
+
+Gas costs in the EVM are categorized as either:
+1. **Static costs**: Fixed values for operations like ADD, SUB, MUL
+2. **Dynamic costs**: Calculated at runtime based on inputs or state changes, such as memory expansion or storage operations
+
+The current ZigEVM implementation has a basic framework for tracking gas, but it lacks the detailed gas calculation logic required for accurate metering of all EVM operations, especially for complex operations like memory expansion and storage manipulation.
+
 **Requirements**:
-- Implement gas cost calculation for all opcodes
-- Support dynamic gas costs (memory expansion, SSTORE, etc.)
-- Track and apply gas refunds (for SSTORE)
+- Implement accurate gas cost calculation for all opcodes based on the Yellow Paper and relevant EIPs
+- Support dynamic gas costs:
+  - Memory expansion costs (quadratic formula)
+  - Storage operations with different costs based on state changes (EIP-2200)
+  - Complex operations like EXP with costs based on input size
+  - Access list costs (EIP-2929)
+- Track and apply gas refunds (for SSTORE, SELFDESTRUCT)
+- Handle out-of-gas errors gracefully
+- Support gas cost differences across hard forks
 
 **Implementation Reference**:
 ```rust
+// From revm/crates/interpreter/src/gas/constants.rs
+// Static gas costs
+pub const ZERO: u64 = 0;
+pub const BASE: u64 = 2;
+pub const VERYLOW: u64 = 3;
+pub const LOW: u64 = 5;
+pub const MID: u64 = 8;
+pub const HIGH: u64 = 10;
+// ... more constants
+
 // From revm/crates/interpreter/src/gas/calc.rs
+// Dynamic gas calculations
+
+// Memory expansion gas calculation (quadratic formula from Yellow Paper)
 pub fn memory_gas(size: usize) -> Option<u64> {
     // Gas cost for memory expansion
     let size_in_words = words_for_memory_len(size);
@@ -410,16 +580,111 @@ pub fn memory_gas(size: usize) -> Option<u64> {
         .checked_add(size_in_words.checked_mul(size_in_words)? / MEMORY_EXPANSION_QUAD_DENOMINATOR)
 }
 
+// SSTORE gas calculation (based on EIP-2200 net gas metering)
 pub fn sstore_gas(original: &U256, current: &U256, new: &U256, is_cold: bool) -> (u64, u64) {
-    // Complex gas calculation for SSTORE based on EIP-2200
-    // ...
+    // Get cold access cost if applicable
+    let cold_gas = if is_cold { COLD_SLOAD_COST } else { 0 };
+    
+    // Case 1: Current value equals new value (no change)
+    if current == new {
+        return (WARM_STORAGE_READ_COST + cold_gas, 0);
+    }
+    
+    // Case 2: Current value equals original value (first write in transaction)
+    if current == original {
+        // Case 2a: Original value is zero (creating new storage slot)
+        if original.is_zero() {
+            return (SSTORE_SET_GAS + cold_gas, 0);
+        }
+        // Case 2b: Original value is non-zero, new value is zero (clearing storage)
+        else if new.is_zero() {
+            return (SSTORE_RESET_GAS + cold_gas, SSTORE_RESET_REFUND);
+        }
+        // Case 2c: Original is non-zero, new is non-zero (modifying existing value)
+        else {
+            return (SSTORE_RESET_GAS + cold_gas, 0);
+        }
+    }
+    
+    // Case 3: Current value is different from original (dirty slot)
+    // Complex refund calculations for various scenarios
+    let mut gas_refund = 0;
+    
+    // Case 3a: Original value is non-zero
+    if !original.is_zero() {
+        // If current is zero but original isn't, we've already refunded for clearing
+        if current.is_zero() {
+            gas_refund -= SSTORE_RESET_REFUND;
+        }
+        // If we're now clearing the slot back to original zero value, add refund
+        else if new.is_zero() {
+            gas_refund += SSTORE_RESET_REFUND;
+        }
+    }
+    
+    // Case 3b: If the new value equals the original value
+    if original == new {
+        // If original is zero, we're clearing back to original empty state
+        if original.is_zero() {
+            gas_refund += SSTORE_SET_REFUND;
+        }
+        // Otherwise we're reverting to original non-zero value
+        else {
+            gas_refund += SSTORE_RESET_REFUND;
+        }
+    }
+    
+    // Return warm storage read cost + cold access fee if applicable, plus calculated refund
+    (WARM_STORAGE_READ_COST + cold_gas, gas_refund)
+}
+
+// Gas calculation for EXP opcode (depends on exponent byte size)
+pub fn exp_gas(exponent_byte_size: u64) -> u64 {
+    EXP_GAS + EXP_BYTE_GAS * exponent_byte_size
+}
+
+// Usage in an opcode implementation
+pub fn sstore<WIRE: InterpreterTypes, H: Host + ?Sized>(
+    interpreter: &mut Interpreter<WIRE>,
+    host: &mut H,
+) {
+    // Make sure we're not in a static context
+    check_static!(interpreter);
+    
+    // Get key and value from stack
+    popn!([key, value], interpreter);
+    
+    // Get original and current values from storage
+    let address = interpreter.caller_address;
+    let original = host.original_storage(address, key)?;
+    let current = host.storage(address, key)?;
+    
+    // Calculate gas cost and refund
+    let is_cold = !host.is_warm(address, key);
+    let (gas_cost, gas_refund) = sstore_gas(&original, &current, &value, is_cold);
+    
+    // Charge gas
+    gas!(interpreter, gas_cost);
+    
+    // Add refund
+    interpreter.gas_refund += gas_refund;
+    
+    // Update storage
+    host.set_storage(address, key, value)?;
 }
 ```
 
 **Tests to Add**:
-- Test gas calculation for simple operations
-- Test gas calculation for memory expansion
-- Test gas calculation and refunds for storage operations
+- Test gas calculation for simple operations (ADD, SUB, etc.)
+- Test gas calculation for memory expansion with different sizes
+- Test gas calculation and refunds for storage operations:
+  - Setting new values
+  - Modifying existing values
+  - Clearing values
+  - Re-setting to original values
+- Test gas calculation for complex operations (EXP, SHA3, etc.)
+- Test gas limit enforcement and out-of-gas handling
+- Test compatibility with different EVM versions
 
 ---
 
@@ -734,10 +999,20 @@ pub fn verify_eof_code(code: &[u8]) -> Option<ContainerVersion> {
 
 Implement proper return data buffer management with support for RETURNDATASIZE and RETURNDATACOPY opcodes.
 
+**Context**:
+The return data buffer is a critical component introduced in the Byzantium hard fork (EIP-211) that temporarily stores the data returned from the most recent external call. This buffer is accessible through the RETURNDATASIZE and RETURNDATACOPY opcodes, allowing contracts to efficiently work with arbitrary-length return data from external calls.
+
+In the ZigEVM, a basic `ReturnData` struct has been added in `src/interpreter/return_data.zig`, but the implementation is not complete, and the integration with call operations is missing. The return data buffer needs to be properly managed across nested call contexts, where each call should update the caller's return data buffer when it returns.
+
 **Requirements**:
-- Implement a dedicated return data buffer manager
-- Support RETURNDATASIZE and RETURNDATACOPY opcodes
+- Complete the implementation of the dedicated return data buffer manager
+- Implement RETURNDATASIZE and RETURNDATACOPY opcodes
 - Ensure proper handling of nested call contexts
+- Update the return data buffer when calls return:
+  - For successful calls: set the buffer to the output data
+  - For reverted calls: set the buffer to the revert data
+  - For failed calls: clear the buffer
+- Add proper error handling for out-of-bounds access
 
 **Implementation Reference**:
 ```rust
@@ -773,6 +1048,7 @@ pub fn returndatasize<WIRE: InterpreterTypes, H: Host + ?Sized>(
     interpreter: &mut Interpreter<WIRE>,
     _host: &mut H,
 ) {
+    // Push the size of the return data buffer onto the stack
     push_top!(interpreter, U256::from(interpreter.return_data.len()));
 }
 
@@ -780,29 +1056,53 @@ pub fn returndatacopy<WIRE: InterpreterTypes, H: Host + ?Sized>(
     interpreter: &mut Interpreter<WIRE>,
     _host: &mut H,
 ) {
+    // Pop destination offset, source offset, and size from stack
     popn!([dest_offset, offset, size], interpreter);
+    
+    // Calculate gas cost (VERYLOW base cost + dynamic memory cost)
     gas!(interpreter, gas::VERYLOW + gas::memory_copy_cost(size));
     
     let dest_offset = dest_offset.as_usize();
     let offset = offset.as_usize();
     let size = size.as_usize();
     
+    // Nothing to copy if size is zero
     if size == 0 {
         return;
     }
     
+    // Check bounds - critical security check!
     if offset.saturating_add(size) > interpreter.return_data.len() {
         interpreter.status = InstructionResult::ReturnDataOutOfBounds;
         return;
     }
     
+    // Resize memory if needed to accommodate the copied data
     resize_memory!(interpreter, dest_offset, size);
+    
+    // Copy data from return data buffer to memory
     interpreter.memory.set_data(
         dest_offset,
         offset,
         size,
         interpreter.return_data.as_ref(),
     );
+}
+
+// From revm's handler
+// When a call returns, the return data buffer is updated
+fn return_result(&mut self, evm: &mut EVM, result: FrameResult) -> Result<(), ERROR> {
+    // ...
+    match result {
+        FrameResult::Call(outcome) => {
+            // ...
+            // Set caller's return data buffer to callee's output
+            interpreter.return_data.set_buffer(outcome.result.output);
+            // ...
+        }
+        // ...
+    }
+    // ...
 }
 ```
 
@@ -811,6 +1111,7 @@ pub fn returndatacopy<WIRE: InterpreterTypes, H: Host + ?Sized>(
 - Test RETURNDATACOPY properly copies data
 - Test edge cases like out-of-bounds access
 - Test return data propagation across call contexts
+- Test interaction between different call types (CALL, DELEGATECALL, STATICCALL) and return data
 
 ---
 

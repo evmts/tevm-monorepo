@@ -150,8 +150,8 @@ pub const Interpreter = struct {
                 const size = try self.stack.pop();
                 
                 // Convert to usize (assuming they're small enough)
-                const mem_offset = @intCast(offset.words[0]);
-                const mem_size = @intCast(size.words[0]);
+                const mem_offset = @as(usize, offset.words[0]);
+                const mem_size = @as(usize, size.words[0]);
                 
                 // Set the return data from memory
                 try self.setReturnData(mem_offset, mem_size);
@@ -170,8 +170,8 @@ pub const Interpreter = struct {
                 const size = try self.stack.pop();
                 
                 // Convert to usize (assuming they're small enough)
-                const mem_offset = @intCast(offset.words[0]);
-                const mem_size = @intCast(size.words[0]);
+                const mem_offset = @as(usize, offset.words[0]);
+                const mem_size = @as(usize, size.words[0]);
                 
                 // Set the return data from memory
                 try self.setReturnData(mem_offset, mem_size);

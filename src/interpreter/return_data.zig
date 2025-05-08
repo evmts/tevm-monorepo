@@ -39,7 +39,7 @@ pub const ReturnData = struct {
         
         // Allocate and copy new buffer
         if (data.len > 0) {
-            var new_buffer = try self.allocator.alloc(u8, data.len);
+            const new_buffer = try self.allocator.alloc(u8, data.len);
             @memcpy(new_buffer, data);
             self.buffer = new_buffer;
         } else {
@@ -49,14 +49,14 @@ pub const ReturnData = struct {
     
     /// Get a slice of return data (bounds-checked)
     /// Implements the behavior of RETURNDATACOPY
-    pub fn get(self: *const ReturnData, offset: usize, size: usize) ![]const u8 {
+    pub fn get(self: *const ReturnData, offset: usize, length: usize) ![]const u8 {
         // Check for out-of-bounds
-        if (offset + size > self.buffer.len) {
+        if (offset + length > self.buffer.len) {
             return Error.ReturnDataOutOfBounds;
         }
         
         // Return slice of the buffer
-        return self.buffer[offset..][0..size];
+        return self.buffer[offset..][0..length];
     }
     
     /// Get the size of the return data
@@ -74,16 +74,47 @@ pub const ReturnData = struct {
     }
 };
 
-// OPCODE placeholder implementations (to be integrated with dispatch)
-
-/// Implementation for RETURNDATASIZE opcode
-pub fn returndatasize() Error!void {
-    // TODO: Implement this function
-    return Error.InvalidOpcode;
+// Tests
+test "ReturnData basic operations" {
+    var return_data = ReturnData.init(std.testing.allocator);
+    defer return_data.deinit();
+    
+    // Test initial empty state
+    try std.testing.expectEqual(@as(usize, 0), return_data.size());
+    
+    // Set some data
+    const test_data = [_]u8{0x01, 0x02, 0x03, 0x04};
+    try return_data.set(&test_data);
+    try std.testing.expectEqual(@as(usize, 4), return_data.size());
+    
+    // Get a slice
+    const slice = try return_data.get(1, 2);
+    try std.testing.expectEqualSlices(u8, &[_]u8{0x02, 0x03}, slice);
+    
+    // Test out-of-bounds access
+    try std.testing.expectError(Error.ReturnDataOutOfBounds, return_data.get(2, 3));
+    
+    // Clear the buffer
+    return_data.clear();
+    try std.testing.expectEqual(@as(usize, 0), return_data.size());
 }
 
-/// Implementation for RETURNDATACOPY opcode
-pub fn returndatacopy() Error!void {
-    // TODO: Implement this function
-    return Error.InvalidOpcode;
+test "ReturnData update behavior" {
+    var return_data = ReturnData.init(std.testing.allocator);
+    defer return_data.deinit();
+    
+    // Set initial data
+    const test_data1 = [_]u8{0x01, 0x02, 0x03};
+    try return_data.set(&test_data1);
+    try std.testing.expectEqual(@as(usize, 3), return_data.size());
+    
+    // Update with new data
+    const test_data2 = [_]u8{0xA1, 0xB2, 0xC3, 0xD4};
+    try return_data.set(&test_data2);
+    try std.testing.expectEqual(@as(usize, 4), return_data.size());
+    try std.testing.expectEqualSlices(u8, &test_data2, return_data.buffer);
+    
+    // Update with empty data
+    try return_data.set(&[_]u8{});
+    try std.testing.expectEqual(@as(usize, 0), return_data.size());
 }

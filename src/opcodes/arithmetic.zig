@@ -6,39 +6,134 @@ const types = @import("../util/types.zig");
 const U256 = types.U256;
 const Error = types.Error;
 const Stack = @import("../stack/stack.zig").Stack;
+const Memory = @import("../memory/memory.zig").Memory;
 
 /// Add two values from the stack (ADD)
-pub fn add(stack: *Stack) !void {
+pub fn add(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 3) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 3;
+    
+    // Pop two values
     const b = try stack.pop();
     const a = try stack.pop();
+    
+    // Add
     const result = a.add(b);
+    
+    // Push result
     try stack.push(result);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 /// Multiply two values from the stack (MUL)
-pub fn mul(stack: *Stack) !void {
+pub fn mul(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 5) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 5;
+    
+    // Pop two values
     const b = try stack.pop();
     const a = try stack.pop();
+    
+    // Multiply
     const result = a.mul(b);
+    
+    // Push result
     try stack.push(result);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 /// Subtract two values from the stack (SUB)
-pub fn sub(stack: *Stack) !void {
+pub fn sub(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 3) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 3;
+    
+    // Pop two values
     const b = try stack.pop();
     const a = try stack.pop();
+    
+    // Subtract
     const result = a.sub(b);
+    
+    // Push result
     try stack.push(result);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 /// Divide two values from the stack (DIV)
-pub fn div(stack: *Stack) !void {
+pub fn div(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 5) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 5;
+    
+    // Pop values
     var b = try stack.pop();
     const a = try stack.pop();
     
     // Division by zero returns zero
     if (b.isZero()) {
         try stack.push(U256.zero());
+        pc.* += 1;
         return;
     }
     
@@ -65,16 +160,38 @@ pub fn div(stack: *Stack) !void {
     }
     
     try stack.push(quotient);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 /// Compute a % b (MOD)
-pub fn mod(stack: *Stack) !void {
+pub fn mod(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 5) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 5;
+    
+    // Pop values
     var b = try stack.pop();
-    var a = try stack.pop();
+    const a = try stack.pop();
     
     // Modulo by zero returns zero
     if (b.isZero()) {
         try stack.push(U256.zero());
+        pc.* += 1;
         return;
     }
     
@@ -86,10 +203,31 @@ pub fn mod(stack: *Stack) !void {
     }
     
     try stack.push(remainder);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 /// Compute (a + b) % N (ADDMOD)
-pub fn addmod(stack: *Stack) !void {
+pub fn addmod(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 8) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 8;
+    
+    // Pop values
     const n = try stack.pop();
     const b = try stack.pop();
     const a = try stack.pop();
@@ -97,6 +235,7 @@ pub fn addmod(stack: *Stack) !void {
     // Modulo by zero returns zero
     if (n.isZero()) {
         try stack.push(U256.zero());
+        pc.* += 1;
         return;
     }
     
@@ -111,10 +250,31 @@ pub fn addmod(stack: *Stack) !void {
     }
     
     try stack.push(remainder);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 /// Compute (a * b) % N (MULMOD)
-pub fn mulmod(stack: *Stack) !void {
+pub fn mulmod(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 8) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 8;
+    
+    // Pop values
     const n = try stack.pop();
     const b = try stack.pop();
     const a = try stack.pop();
@@ -122,6 +282,7 @@ pub fn mulmod(stack: *Stack) !void {
     // Modulo by zero returns zero
     if (n.isZero()) {
         try stack.push(U256.zero());
+        pc.* += 1;
         return;
     }
     
@@ -136,28 +297,55 @@ pub fn mulmod(stack: *Stack) !void {
     }
     
     try stack.push(remainder);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 /// Compute a ** b (EXP)
-pub fn exp(stack: *Stack) !void {
+pub fn exp(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas - base gas cost (minimum 10)
+    if (gas_left.* < 10) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 10;
+    
+    // Pop values
     const exponent = try stack.pop();
     const base = try stack.pop();
+    
+    // Additional gas cost based on exponent bytes
+    // In a full implementation, this would be more complex
     
     // Optimization: X**0 = 1
     if (exponent.isZero()) {
         try stack.push(U256.one());
+        pc.* += 1;
         return;
     }
     
     // Optimization: 0**X = 0 (except 0**0 = 1, handled above)
     if (base.isZero()) {
         try stack.push(U256.zero());
+        pc.* += 1;
         return;
     }
     
     // Optimization: 1**X = 1
     if (base.eq(U256.one())) {
         try stack.push(U256.one());
+        pc.* += 1;
         return;
     }
     
@@ -178,24 +366,43 @@ pub fn exp(stack: *Stack) !void {
     }
     
     try stack.push(result);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 /// Compute sign extension (SIGNEXTEND)
-pub fn signextend(stack: *Stack) !void {
+pub fn signextend(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 5) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 5;
+    
+    // Pop values
     const b = try stack.pop(); // byte number to sign-extend from
     const x = try stack.pop(); // value to sign-extend
     
     // If b >= 32, return x unchanged (no sign extension necessary)
     if (b.words[0] >= 32) {
         try stack.push(x);
+        pc.* += 1;
         return;
     }
     
     // Calculate bit position to sign-extend from
     const bit_pos = b.words[0] * 8 + 7;
-    const byte_pos = bit_pos / 8;
-    const word_pos = byte_pos / 8;
-    const bit_in_byte = bit_pos % 8;
     
     // Get a copy of the value to modify
     var result = x;
@@ -207,73 +414,87 @@ pub fn signextend(stack: *Stack) !void {
     
     // If sign bit is 1, extend with 1s, otherwise extend with 0s (already 0s)
     if (sign_bit == 1) {
-        // Set all bits above the sign bit to 1
-        const byte_mask = @as(u8, 0xFF) << (bit_in_byte + 1);
-        
-        // Set bits in the current byte
-        const current_byte_index = byte_pos;
-        if (current_byte_index < 32) {
-            // Implementation would set bits in this byte
+        // Fill all words above sign_bit_word_offset with 1s
+        for (sign_bit_word_offset + 1..4) |i| {
+            result.words[i] = @as(u64, 0xFFFFFFFFFFFFFFFF);
         }
         
-        // Set all bytes above this one to all 1s
-        for (byte_pos + 1..32) |i| {
-            // Implementation would set bytes
-        }
-        
-        // For simplicity in this example, we'll use a crude approach for this demo
-        if (sign_bit == 1) {
-            // Fill all words above sign_bit_word_offset with 1s
-            for (sign_bit_word_offset + 1..4) |i| {
-                result.words[i] = @as(u64, 0xFFFFFFFFFFFFFFFF);
-            }
-            
-            // Fill current word with 1s above the sign bit
-            const mask = (@as(u64, 1) << sign_bit_pos) - 1;
-            result.words[sign_bit_word_offset] = x.words[sign_bit_word_offset] | ~mask;
-        }
+        // Fill current word with 1s above the sign bit
+        const mask = (@as(u64, 1) << sign_bit_pos) - 1;
+        result.words[sign_bit_word_offset] = x.words[sign_bit_word_offset] | ~mask;
     }
     
     try stack.push(result);
+    
+    // Advance PC
+    pc.* += 1;
 }
 
 // Tests
-test "arithmetic operations" {
+test "arithmetic operations with dispatch signature" {
     var stack = Stack.init();
+    var memory = try Memory.init(std.testing.allocator);
+    defer memory.deinit();
+    
+    var dummy_code = [_]u8{0};
+    var pc: usize = 0;
+    var gas_left: u64 = 1000;
+    var gas_refund: u64 = 0;
     
     // Test ADD
     try stack.push(U256.fromU64(100));
     try stack.push(U256.fromU64(50));
-    try add(&stack);
+    try add(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
     try std.testing.expectEqual(U256.fromU64(150), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc); // PC should be advanced
+    
+    // Reset PC
+    pc = 0;
     
     // Test SUB
     try stack.push(U256.fromU64(100));
     try stack.push(U256.fromU64(30));
-    try sub(&stack);
+    try sub(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
     try std.testing.expectEqual(U256.fromU64(70), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
     
     // Test MUL
     try stack.push(U256.fromU64(5));
     try stack.push(U256.fromU64(7));
-    try mul(&stack);
+    try mul(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
     try std.testing.expectEqual(U256.fromU64(35), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
     
     // Test DIV
     try stack.push(U256.fromU64(100));
     try stack.push(U256.fromU64(5));
-    try div(&stack);
+    try div(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
     try std.testing.expectEqual(U256.fromU64(20), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
     
     // Test DIV by zero
     try stack.push(U256.fromU64(100));
     try stack.push(U256.fromU64(0));
-    try div(&stack);
+    try div(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
     try std.testing.expectEqual(U256.fromU64(0), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
     
     // Test EXP
     try stack.push(U256.fromU64(2));
     try stack.push(U256.fromU64(3));
-    try exp(&stack);
+    try exp(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
     try std.testing.expectEqual(U256.fromU64(8), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
 }
