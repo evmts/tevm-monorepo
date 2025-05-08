@@ -9,6 +9,7 @@ const memory = @import("memory/memory.zig");
 const stack = @import("stack/stack.zig");
 const interpreter = @import("interpreter/interpreter.zig");
 const wasm = @import("wasm/exports.zig");
+const gas_module = @import("gas/gas.zig");
 
 // Re-export key types
 pub const U256 = util.U256;
@@ -18,6 +19,11 @@ pub const ExecutionResult = util.ExecutionResult;
 pub const Memory = memory.Memory;
 pub const Stack = stack.Stack;
 pub const Interpreter = interpreter.Interpreter;
+
+// Gas module exports
+pub const gas = gas_module;
+pub const GasCalculator = gas_module.GasCalculator;
+pub const GasTier = gas_module.GasTier;
 
 // WASM exports
 pub usingnamespace wasm;

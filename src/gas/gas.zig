@@ -1,3 +1,6 @@
+//! Gas module entrypoint for ZigEVM
+//! This module provides gas cost calculation functionality for EVM operations
+
 const std = @import("std");
 
 pub const constants = @import("constants.zig");

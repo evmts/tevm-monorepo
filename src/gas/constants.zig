@@ -3,6 +3,16 @@
 
 const std = @import("std");
 
+/// Gas tier categories for basic operations
+pub const GasTier = enum {
+    zero,
+    base,
+    very_low,
+    low,
+    mid,
+    high,
+};
+
 /// Gas constants as defined in the Ethereum Yellow Paper and subsequent EIPs
 pub const GasCosts = struct {
     // Basic operations
@@ -39,11 +49,14 @@ pub const GasCosts = struct {
     
     // Contract operations
     create: u64 = 32000,          // Cost of CREATE operation
+    create2_additional: u64 = 6000, // Additional cost for CREATE2 compared to CREATE
     code_deposit: u64 = 200,      // Cost per byte of deployed contract code
     selfdestruct: u64 = 5000,     // Base cost of SELFDESTRUCT
     
     // Special operations
-    expensive_operations: u64 = 40000,  // Operations like BALANCE, EXTCODESIZE
+    exp: u64 = 10,                // Base cost for EXP
+    exp_byte: u64 = 50,           // Cost per byte of exponent
+    copy_gas: u64 = 3,            // Cost per word for CODECOPY, CALLDATACOPY, etc.
     
     // EIP-150 multiplier for out-of-gas child calls
     call_gas_eip150: u64 = 63,    // Numerator of EIP-150 multiplier (63/64)
@@ -73,16 +86,16 @@ pub const GasCosts = struct {
 };
 
 /// Get the gas cost for a basic opcode by its category
-pub fn getBasicGas(category: enum { Zero, Base, VeryLow, Low, Mid, High }) u64 {
+pub fn getBasicGas(tier: GasTier) u64 {
     const gas_costs = GasCosts{};
     
-    return switch (category) {
-        .Zero => gas_costs.zero,
-        .Base => gas_costs.base,
-        .VeryLow => gas_costs.very_low, 
-        .Low => gas_costs.low,
-        .Mid => gas_costs.mid,
-        .High => gas_costs.high,
+    return switch (tier) {
+        .zero => gas_costs.zero,
+        .base => gas_costs.base,
+        .very_low => gas_costs.very_low, 
+        .low => gas_costs.low,
+        .mid => gas_costs.mid,
+        .high => gas_costs.high,
     };
 }
 
@@ -254,12 +267,12 @@ pub fn extcodehashGas(is_cold: bool) u64 {
 const testing = std.testing;
 
 test "Basic gas costs" {
-    try testing.expectEqual(@as(u64, 0), getBasicGas(.Zero));
-    try testing.expectEqual(@as(u64, 2), getBasicGas(.Base));
-    try testing.expectEqual(@as(u64, 3), getBasicGas(.VeryLow));
-    try testing.expectEqual(@as(u64, 5), getBasicGas(.Low));
-    try testing.expectEqual(@as(u64, 8), getBasicGas(.Mid));
-    try testing.expectEqual(@as(u64, 10), getBasicGas(.High));
+    try testing.expectEqual(@as(u64, 0), getBasicGas(.zero));
+    try testing.expectEqual(@as(u64, 2), getBasicGas(.base));
+    try testing.expectEqual(@as(u64, 3), getBasicGas(.very_low));
+    try testing.expectEqual(@as(u64, 5), getBasicGas(.low));
+    try testing.expectEqual(@as(u64, 8), getBasicGas(.mid));
+    try testing.expectEqual(@as(u64, 10), getBasicGas(.high));
 }
 
 test "Memory gas calculation" {
@@ -276,7 +289,10 @@ test "Memory gas calculation" {
     try testing.expectEqual(@as(u64, 3), memoryGas(16));
     
     // Test large memory size with quadratic component
-    try testing.expectEqual(@as(u64, 768 + 1), memoryGas(256 * 32));
+    const words_256 = 256;
+    const linear = words_256 * 3;
+    const quadratic = (words_256 * words_256) / 512;
+    try testing.expectEqual(linear + quadratic, memoryGas(words_256 * 32));
 }
 
 test "Storage gas calculation" {
