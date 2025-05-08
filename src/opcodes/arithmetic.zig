@@ -430,6 +430,175 @@ pub fn signextend(
     pc.* += 1;
 }
 
+/// Signed division (SDIV) 
+pub fn sdiv(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 5) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 5;
+    
+    // Pop values
+    const b = try stack.pop();
+    const a = try stack.pop();
+    
+    // Division by zero returns zero
+    if (b.isZero()) {
+        try stack.push(U256.zero());
+        pc.* += 1;
+        return;
+    }
+    
+    // Determine signs
+    const a_negative = isNegative(a);
+    const b_negative = isNegative(b);
+    
+    // Get absolute values
+    const a_abs = if (a_negative) twoComplement(a) else a;
+    const b_abs = if (b_negative) twoComplement(b) else b;
+    
+    // Compute unsigned division
+    var quotient = unsignedDiv(a_abs, b_abs);
+    
+    // Determine result sign (negative if signs differ)
+    const result_negative = a_negative != b_negative and !quotient.isZero();
+    
+    // Apply sign to result if needed
+    if (result_negative) {
+        quotient = twoComplement(quotient);
+    }
+    
+    try stack.push(quotient);
+    
+    // Advance PC
+    pc.* += 1;
+}
+
+/// Signed modulo (SMOD)
+pub fn smod(
+    stack: *Stack,
+    memory: *Memory,
+    code: []const u8,
+    pc: *usize,
+    gas_left: *u64,
+    gas_refund: ?*u64,
+) !void {
+    _ = memory;
+    _ = code;
+    _ = gas_refund;
+    
+    // Check gas
+    if (gas_left.* < 5) {
+        return Error.OutOfGas;
+    }
+    gas_left.* -= 5;
+    
+    // Pop values
+    const b = try stack.pop();
+    const a = try stack.pop();
+    
+    // Modulo by zero returns zero
+    if (b.isZero()) {
+        try stack.push(U256.zero());
+        pc.* += 1;
+        return;
+    }
+    
+    // Determine signs
+    const a_negative = isNegative(a);
+    
+    // Get absolute values
+    const a_abs = if (a_negative) twoComplement(a) else a;
+    const b_abs = if (isNegative(b)) twoComplement(b) else b;
+    
+    // Compute unsigned modulo
+    var remainder = unsignedMod(a_abs, b_abs);
+    
+    // Apply sign of dividend to result (EVM spec requirement)
+    if (a_negative and !remainder.isZero()) {
+        remainder = twoComplement(remainder);
+    }
+    
+    try stack.push(remainder);
+    
+    // Advance PC
+    pc.* += 1;
+}
+
+/// Helper function to check if a U256 value is negative (two's complement interpretation)
+fn isNegative(value: U256) bool {
+    // Check if the most significant bit (bit 255) is set
+    return (value.words[3] & 0x8000000000000000) != 0;
+}
+
+/// Helper function to compute two's complement of a U256 value
+fn twoComplement(value: U256) U256 {
+    // Two's complement: ~x + 1
+    var result = value.bitNot(); // ~x
+    result = result.add(U256.one()); // ~x + 1
+    return result;
+}
+
+/// Helper function for unsigned division
+fn unsignedDiv(a: U256, b: U256) U256 {
+    // Return 0 immediately for division by zero
+    if (b.isZero()) {
+        return U256.zero();
+    }
+    
+    // Simple long division algorithm for unsigned integers
+    var quotient = U256.zero();
+    var remainder = U256.zero();
+    
+    // Process each bit from most significant to least
+    var i: i32 = 255;
+    while (i >= 0) : (i -= 1) {
+        // Left shift remainder by 1 bit
+        remainder = remainder.shl(1);
+        
+        // Set the least significant bit of remainder to the current bit of a
+        if (a.words[i / 64] & (@as(u64, 1) << @intCast(i % 64)) != 0) {
+            remainder = remainder.bitOr(U256.one());
+        }
+        
+        // If remainder >= b, subtract b from remainder and set current bit in quotient
+        if (remainder.gte(b)) {
+            remainder = remainder.sub(b);
+            quotient = quotient.bitOr(U256.one().shl(@intCast(i)));
+        }
+    }
+    
+    return quotient;
+}
+
+/// Helper function for unsigned modulo
+fn unsignedMod(a: U256, b: U256) U256 {
+    // Return 0 immediately for modulo by zero
+    if (b.isZero()) {
+        return U256.zero();
+    }
+    
+    // Simple implementation using repeated subtraction
+    // For efficiency, we should use a more efficient algorithm in production
+    var remainder = a;
+    while (remainder.gte(b)) {
+        remainder = remainder.sub(b);
+    }
+    
+    return remainder;
+}
+
 // Tests
 test "arithmetic operations with dispatch signature" {
     var stack = Stack.init();
@@ -497,4 +666,177 @@ test "arithmetic operations with dispatch signature" {
     try exp(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
     try std.testing.expectEqual(U256.fromU64(8), try stack.pop());
     try std.testing.expectEqual(@as(usize, 1), pc);
+}
+
+test "signed arithmetic operations" {
+    var stack = Stack.init();
+    var memory = try Memory.init(std.testing.allocator);
+    defer memory.deinit();
+    
+    var dummy_code = [_]u8{0};
+    var pc: usize = 0;
+    var gas_left: u64 = 1000;
+    var gas_refund: u64 = 0;
+    
+    // Helper function to create a negative U256 value
+    const makeNegative = (struct {
+        fn make(value: u64) U256 {
+            // Create -value by using two's complement
+            const result = U256.fromU64(value);
+            return twoComplement(result);
+        }
+    }).make;
+    
+    // Test SDIV with positive values
+    try stack.push(U256.fromU64(100)); // a
+    try stack.push(U256.fromU64(5));   // b
+    try sdiv(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    try std.testing.expectEqual(U256.fromU64(20), try stack.pop()); // 100 / 5 = 20
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SDIV with negative dividend
+    try stack.push(makeNegative(100)); // a: -100
+    try stack.push(U256.fromU64(5));   // b: 5
+    try sdiv(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: -20 (as two's complement)
+    const expected_neg_20 = makeNegative(20);
+    try std.testing.expectEqual(expected_neg_20, try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SDIV with negative divisor
+    try stack.push(U256.fromU64(100));  // a: 100
+    try stack.push(makeNegative(5));    // b: -5
+    try sdiv(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: -20 (as two's complement)
+    try std.testing.expectEqual(expected_neg_20, try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SDIV with both negative
+    try stack.push(makeNegative(100));  // a: -100
+    try stack.push(makeNegative(5));    // b: -5
+    try sdiv(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: 20 (positive, since -100 / -5 = 20)
+    try std.testing.expectEqual(U256.fromU64(20), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SDIV with division by zero
+    try stack.push(makeNegative(100));  // a: -100
+    try stack.push(U256.fromU64(0));    // b: 0
+    try sdiv(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: 0 (division by zero returns zero)
+    try std.testing.expectEqual(U256.zero(), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SMOD with positive values
+    try stack.push(U256.fromU64(100)); // a
+    try stack.push(U256.fromU64(7));   // b
+    try smod(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: 2 (100 % 7 = 2)
+    try std.testing.expectEqual(U256.fromU64(2), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SMOD with negative dividend
+    try stack.push(makeNegative(100)); // a: -100
+    try stack.push(U256.fromU64(7));   // b: 7
+    try smod(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: -2 (as two's complement) because -100 % 7 = -2
+    const expected_neg_2 = makeNegative(2);
+    try std.testing.expectEqual(expected_neg_2, try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SMOD with negative divisor
+    try stack.push(U256.fromU64(100));  // a: 100
+    try stack.push(makeNegative(7));    // b: -7
+    try smod(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: 2 (100 % -7 = 2) because sign of divisor is ignored in result
+    try std.testing.expectEqual(U256.fromU64(2), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SMOD with both negative
+    try stack.push(makeNegative(100));  // a: -100
+    try stack.push(makeNegative(7));    // b: -7
+    try smod(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: -2 (as two's complement) because -100 % -7 = -2
+    try std.testing.expectEqual(expected_neg_2, try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    
+    // Reset PC
+    pc = 0;
+    
+    // Test SMOD with modulo by zero
+    try stack.push(makeNegative(100));  // a: -100
+    try stack.push(U256.fromU64(0));    // b: 0
+    try smod(&stack, &memory, &dummy_code, &pc, &gas_left, &gas_refund);
+    
+    // Expected: 0 (modulo by zero returns zero)
+    try std.testing.expectEqual(U256.zero(), try stack.pop());
+    try std.testing.expectEqual(@as(usize, 1), pc);
+}
+
+test "helper functions for signed arithmetic" {
+    // Test isNegative
+    try std.testing.expect(!isNegative(U256.fromU64(0)));
+    try std.testing.expect(!isNegative(U256.fromU64(100)));
+    try std.testing.expect(!isNegative(U256.max()));
+    
+    // Create a negative number using two's complement
+    const neg_one = U256.max(); // All bits set = -1 in two's complement
+    try std.testing.expect(isNegative(neg_one));
+    
+    // Test twoComplement and verify it works correctly
+    const positives = [_]u64{ 1, 2, 10, 100, 1000, 1000000 };
+    
+    for (positives) |positive| {
+        const pos = U256.fromU64(positive);
+        const neg = twoComplement(pos);
+        
+        // Verify it's negative
+        try std.testing.expect(isNegative(neg));
+        
+        // Verify that converting back gives the original value
+        const back_to_pos = twoComplement(neg);
+        try std.testing.expectEqual(pos, back_to_pos);
+    }
+    
+    // Test unsignedDiv
+    try std.testing.expectEqual(U256.fromU64(20), unsignedDiv(U256.fromU64(100), U256.fromU64(5)));
+    try std.testing.expectEqual(U256.fromU64(0), unsignedDiv(U256.fromU64(5), U256.fromU64(10)));
+    try std.testing.expectEqual(U256.fromU64(0), unsignedDiv(U256.fromU64(100), U256.fromU64(0))); // Division by zero
+    
+    // Test unsignedMod
+    try std.testing.expectEqual(U256.fromU64(2), unsignedMod(U256.fromU64(100), U256.fromU64(7)));
+    try std.testing.expectEqual(U256.fromU64(5), unsignedMod(U256.fromU64(5), U256.fromU64(10)));
+    try std.testing.expectEqual(U256.fromU64(0), unsignedMod(U256.fromU64(100), U256.fromU64(0))); // Modulo by zero
 }
