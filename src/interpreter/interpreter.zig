@@ -10,6 +10,8 @@ const BlockInfoManager = memory_mod.BlockInfoManager;
 const ReturnData = @import("return_data.zig").ReturnData;
 const storage_mod = @import("../opcodes/storage.zig");
 const Storage = storage_mod.Storage;
+const environment_mod = @import("../opcodes/environment.zig");
+const EvmEnvironment = environment_mod.EvmEnvironment;
 
 const U256 = types.U256;
 const Address = types.Address;
@@ -44,6 +46,11 @@ pub const Interpreter = struct {
     storage: Storage,  // Contract storage
     is_static: bool = false, // Whether this is a static call (no state modifications allowed)
     block_info: ?*BlockInfoManager = null,
+    
+    // Environment context
+    environment: ?*EvmEnvironment = null, // Blockchain environment information
+    calldata: ?[]const u8 = null,         // Call data for this execution
+    gas_price: U256 = U256.zero(),        // Gas price for the transaction
     
     // For now, this is just a placeholder shell - we'll implement the full functionality in later steps
     

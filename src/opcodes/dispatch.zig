@@ -13,7 +13,9 @@ const bitwise = @import("bitwise.zig");
 const memory_ops = @import("memory.zig");
 const return_data_ops = @import("return_data.zig");
 const storage_ops = @import("storage.zig");
+const environment_ops = @import("environment.zig");
 const Storage = storage_ops.Storage;
+const EvmEnvironment = environment_ops.EvmEnvironment;
 const Opcode = @import("opcodes.zig").Opcode;
 
 /// Instruction handler function type
@@ -39,6 +41,9 @@ pub fn executeInstruction(
     return_data: ?*ReturnData,
     storage: ?*Storage,
     is_static: bool,
+    environment: ?*EvmEnvironment,
+    calldata: ?[]const u8,
+    gas_price: ?*U256,
 ) Error!void {
     // Get the current opcode
     const opcode = code[pc.*];
@@ -333,6 +338,205 @@ pub fn executeInstruction(
             // These would need full implementations in a complete EVM
             // For now, we'll just return an unimplemented error
             return Error.InvalidOpcode;
+        },
+        
+        // Environment information operations
+        @intFromEnum(Opcode.ADDRESS) => {
+            if (environment) |env| {
+                try environment_ops.address(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.ORIGIN) => {
+            if (environment) |env| {
+                try environment_ops.origin(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.CALLER) => {
+            if (environment) |env| {
+                try environment_ops.caller(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.CALLVALUE) => {
+            if (environment) |env| {
+                try environment_ops.callvalue(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.CALLDATALOAD) => {
+            if (calldata) |data| {
+                try environment_ops.calldataload(stack, memory, code, pc, gas_left, gas_refund, data);
+            } else {
+                // If no calldata available, just provide empty data
+                try environment_ops.calldataload(stack, memory, code, pc, gas_left, gas_refund, &[_]u8{});
+            }
+        },
+        @intFromEnum(Opcode.CALLDATASIZE) => {
+            if (calldata) |data| {
+                try environment_ops.calldatasize(stack, memory, code, pc, gas_left, gas_refund, data);
+            } else {
+                // If no calldata available, size is zero
+                try environment_ops.calldatasize(stack, memory, code, pc, gas_left, gas_refund, &[_]u8{});
+            }
+        },
+        @intFromEnum(Opcode.CALLDATACOPY) => {
+            if (calldata) |data| {
+                try environment_ops.calldatacopy(stack, memory, code, pc, gas_left, gas_refund, data);
+            } else {
+                // If no calldata available, use empty data
+                try environment_ops.calldatacopy(stack, memory, code, pc, gas_left, gas_refund, &[_]u8{});
+            }
+        },
+        @intFromEnum(Opcode.CODESIZE) => {
+            try environment_ops.codesize(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.CODECOPY) => {
+            try environment_ops.codecopy(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        @intFromEnum(Opcode.GASPRICE) => {
+            if (gas_price) |price| {
+                try environment_ops.gasprice(stack, memory, code, pc, gas_left, gas_refund, price.*);
+            } else {
+                // If no gas price available, use zero
+                try environment_ops.gasprice(stack, memory, code, pc, gas_left, gas_refund, U256.zero());
+            }
+        },
+        @intFromEnum(Opcode.EXTCODESIZE) => {
+            // Not implemented yet - would need external code access
+            return Error.NotImplemented;
+        },
+        @intFromEnum(Opcode.EXTCODECOPY) => {
+            // Not implemented yet - would need external code access
+            return Error.NotImplemented;
+        },
+        @intFromEnum(Opcode.RETURNDATASIZE) => {
+            if (return_data) |rd| {
+                try return_data_ops.returndatasize(stack, rd);
+                
+                // Consume gas (same as most simple opcodes)
+                if (gas_left.* < 2) {
+                    return Error.OutOfGas;
+                }
+                gas_left.* -= 2;
+                
+                // Advance PC
+                pc.* += 1;
+            } else {
+                // Fallback to placeholder if return_data is not provided
+                try returndatasizeInstruction(stack, memory, code, pc, gas_left, gas_refund);
+            }
+        },
+        @intFromEnum(Opcode.RETURNDATACOPY) => {
+            if (return_data) |rd| {
+                // Calculate gas first before executing the opcode
+                
+                // Pop values from stack to calculate gas
+                const size = try stack.peek().*;
+                // Don't actually pop these values, just peek to check gas cost
+                
+                // Ensure the parameters fit in usize
+                if (size.words[1] != 0 or size.words[2] != 0 or size.words[3] != 0) {
+                    return Error.InvalidOffset;
+                }
+                
+                // Convert to usize
+                const mem_size = @as(usize, size.words[0]);
+                
+                // RETURNDATACOPY costs 3 base gas
+                var gas_cost: u64 = 3;
+                
+                // For non-zero size, calculate memory expansion cost
+                if (mem_size > 0) {
+                    // We need to check the destination offset too
+                    // Note: In a full implementation, this would calculate the memory expansion gas cost
+                    // based on the current memory size and the new required size.
+                    // For now, we're just charging a fixed cost per byte.
+                    gas_cost += mem_size * 3; // Simple memory gas cost
+                }
+                
+                // Charge gas
+                if (gas_left.* < gas_cost) {
+                    return Error.OutOfGas;
+                }
+                gas_left.* -= gas_cost;
+                
+                // Now execute the opcode
+                try return_data_ops.returndatacopy(stack, memory, rd);
+                
+                // Advance PC
+                pc.* += 1;
+            } else {
+                // Fallback to placeholder if return_data is not provided
+                try returndatacopyInstruction(stack, memory, code, pc, gas_left, gas_refund);
+            }
+        },
+        @intFromEnum(Opcode.EXTCODEHASH) => {
+            // Not implemented yet - would need external code access
+            return Error.NotImplemented;
+        },
+        
+        // Block information operations
+        @intFromEnum(Opcode.BLOCKHASH) => {
+            if (environment) |env| {
+                try environment_ops.blockhash(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.COINBASE) => {
+            if (environment) |env| {
+                try environment_ops.coinbase(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.TIMESTAMP) => {
+            if (environment) |env| {
+                try environment_ops.timestamp(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.NUMBER) => {
+            if (environment) |env| {
+                try environment_ops.number(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.DIFFICULTY) => {
+            if (environment) |env| {
+                try environment_ops.difficulty(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.GASLIMIT) => {
+            if (environment) |env| {
+                try environment_ops.gaslimit(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.CHAINID) => {
+            if (environment) |env| {
+                try environment_ops.chainid(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
+        },
+        @intFromEnum(Opcode.BASEFEE) => {
+            if (environment) |env| {
+                try environment_ops.basefee(stack, memory, code, pc, gas_left, gas_refund, env);
+            } else {
+                return Error.EnvironmentNotAvailable;
+            }
         },
         
         // Other opcodes would be implemented here
