@@ -77,11 +77,8 @@ _
 
 # Zig related files
 .zig-cache/
-build.zig
-build.zig.zon
-src/
-tests/
 zig-out/
+zig-cache/
 
 # TODO files
 TODO.md
