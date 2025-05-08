@@ -12,6 +12,8 @@ const arithmetic = @import("arithmetic.zig");
 const bitwise = @import("bitwise.zig");
 const memory_ops = @import("memory.zig");
 const return_data_ops = @import("return_data.zig");
+const storage_ops = @import("storage.zig");
+const Storage = storage_ops.Storage;
 const Opcode = @import("opcodes.zig").Opcode;
 
 /// Instruction handler function type
@@ -35,6 +37,8 @@ pub fn executeInstruction(
     gas_left: *u64,
     gas_refund: ?*u64,
     return_data: ?*ReturnData,
+    storage: ?*Storage,
+    is_static: bool,
 ) Error!void {
     // Get the current opcode
     const opcode = code[pc.*];
@@ -142,6 +146,20 @@ pub fn executeInstruction(
         @intFromEnum(Opcode.MCOPY) => {
             try memory_ops.mcopy(stack, memory, code, pc, gas_left, gas_refund);
         },
+        @intFromEnum(Opcode.SLOAD) => {
+            if (storage) |s| {
+                try storage_ops.sload(stack, memory, code, pc, gas_left, gas_refund, s);
+            } else {
+                return Error.StorageUnavailable;
+            }
+        },
+        @intFromEnum(Opcode.SSTORE) => {
+            if (storage) |s| {
+                try storage_ops.sstore(stack, memory, code, pc, gas_left, gas_refund, s, is_static);
+            } else {
+                return Error.StorageUnavailable;
+            }
+        },
         
         // Return data opcodes
         @intFromEnum(Opcode.RETURNDATASIZE) => {
@@ -207,11 +225,114 @@ pub fn executeInstruction(
             }
         },
         
-        // More opcodes here...
+        // LOG operations (0xA0-0xA4)
+        @intFromEnum(Opcode.LOG0), @intFromEnum(Opcode.LOG1), @intFromEnum(Opcode.LOG2), 
+        @intFromEnum(Opcode.LOG3), @intFromEnum(Opcode.LOG4) => {
+            // Check if we're in static mode (no state changes allowed)
+            if (is_static) {
+                return Error.StaticModeViolation;
+            }
+            
+            // Calculate number of topics based on opcode
+            const num_topics = opcode - @intFromEnum(Opcode.LOG0);
+            
+            // Basic LOG gas cost: 375 gas
+            var gas_cost: u64 = 375;
+            
+            // Additional gas cost per topic: 375 gas per topic
+            gas_cost += num_topics * 375;
+            
+            // Pop memory offset and size
+            const size = try stack.pop();
+            const offset = try stack.pop();
+            
+            // Ensure they fit in usize
+            if (size.words[1] != 0 or size.words[2] != 0 or size.words[3] != 0 or
+                offset.words[1] != 0 or offset.words[2] != 0 or offset.words[3] != 0) {
+                return Error.InvalidOffset;
+            }
+            
+            // Convert to usize
+            const mem_offset = @as(usize, offset.words[0]);
+            const mem_size = @as(usize, size.words[0]);
+            
+            // Additional gas cost for data: 8 gas per byte
+            if (mem_size > 0) {
+                gas_cost += mem_size * 8;
+                
+                // Calculate memory expansion cost
+                const mem_expand_gas = memory.expand(mem_offset + mem_size);
+                gas_cost += mem_expand_gas;
+            }
+            
+            // Check gas
+            if (gas_left.* < gas_cost) {
+                return Error.OutOfGas;
+            }
+            gas_left.* -= gas_cost;
+            
+            // Pop topics from stack
+            var topics = std.ArrayList(U256).init(std.heap.c_allocator);
+            defer topics.deinit();
+            
+            for (0..num_topics) |_| {
+                const topic = try stack.pop();
+                try topics.append(topic);
+            }
+            
+            // For now, LOG operations are just placeholders
+            // In a full implementation, these would emit events to a log subsystem
+            
+            // Advance PC
+            pc.* += 1;
+        },
+        
+        // SELFDESTRUCT operation (0xFF)
+        @intFromEnum(Opcode.SELFDESTRUCT) => {
+            // Check if we're in static mode (no state changes allowed)
+            if (is_static) {
+                return Error.StaticModeViolation;
+            }
+            
+            // SELFDESTRUCT gas cost: 5000 gas base cost
+            var gas_cost: u64 = 5000;
+            
+            // Pop beneficiary address
+            const beneficiary = try stack.pop();
+            
+            // In a full implementation, this would:
+            // 1. Transfer all remaining balance to beneficiary
+            // 2. Mark the contract for deletion
+            
+            // Check gas
+            if (gas_left.* < gas_cost) {
+                return Error.OutOfGas;
+            }
+            gas_left.* -= gas_cost;
+            
+            // Advance PC
+            pc.* += 1;
+        },
         
         // 0x60-0x7F - PUSH opcodes
         @intFromEnum(Opcode.PUSH1)...@intFromEnum(Opcode.PUSH32) => {
             try pushInstruction(stack, memory, code, pc, gas_left, gas_refund);
+        },
+        
+        // System operations (partial implementation)
+        @intFromEnum(Opcode.RETURN), @intFromEnum(Opcode.REVERT) => {
+            // These are handled directly in the interpreter
+            // We'll just advance the PC here
+            pc.* += 1;
+        },
+        
+        // Placeholder implementations for other system operations
+        @intFromEnum(Opcode.CREATE), @intFromEnum(Opcode.CREATE2),
+        @intFromEnum(Opcode.CALL), @intFromEnum(Opcode.CALLCODE),
+        @intFromEnum(Opcode.DELEGATECALL), @intFromEnum(Opcode.STATICCALL) => {
+            // These would need full implementations in a complete EVM
+            // For now, we'll just return an unimplemented error
+            return Error.InvalidOpcode;
         },
         
         // Other opcodes would be implemented here
