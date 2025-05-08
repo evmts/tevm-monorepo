@@ -4,6 +4,8 @@
 const std = @import("std");
 const types = @import("../util/types.zig");
 const U256 = types.U256;
+const Address = types.Address;
+const ExecutionResult = types.ExecutionResult;
 const Error = types.Error;
 const Stack = @import("../stack/stack.zig").Stack;
 const Memory = @import("../memory/memory.zig").Memory;
@@ -16,6 +18,7 @@ const storage_ops = @import("storage.zig");
 const environment_ops = @import("environment.zig");
 const stack_ops = @import("stack_ops.zig");
 const control_flow = @import("control_flow.zig");
+const call_ops = @import("call_ops.zig");
 const Storage = storage_ops.Storage;
 const EvmEnvironment = environment_ops.EvmEnvironment;
 const Opcode = @import("opcodes.zig").Opcode;
@@ -308,10 +311,10 @@ pub fn executeInstruction(
             }
             
             // SELFDESTRUCT gas cost: 5000 gas base cost
-            var gas_cost: u64 = 5000;
+            const gas_cost: u64 = 5000;
             
             // Pop beneficiary address
-            const beneficiary = try stack.pop();
+            _ = try stack.pop();
             
             // In a full implementation, this would:
             // 1. Transfer all remaining balance to beneficiary
@@ -349,13 +352,25 @@ pub fn executeInstruction(
             pc.* += 1;
         },
         
-        // Placeholder implementations for other system operations
-        @intFromEnum(Opcode.CREATE), @intFromEnum(Opcode.CREATE2),
-        @intFromEnum(Opcode.CALL), @intFromEnum(Opcode.CALLCODE),
-        @intFromEnum(Opcode.DELEGATECALL), @intFromEnum(Opcode.STATICCALL) => {
+        // Call operations
+        @intFromEnum(Opcode.CALL) => {
+            try call_ops.call(stack, memory, code, pc, gas_left, gas_refund, environment, null, is_static);
+        },
+        @intFromEnum(Opcode.CALLCODE) => {
+            try call_ops.callcode(stack, memory, code, pc, gas_left, gas_refund, environment, null);
+        },
+        @intFromEnum(Opcode.DELEGATECALL) => {
+            try call_ops.delegatecall(stack, memory, code, pc, gas_left, gas_refund, environment, null);
+        },
+        @intFromEnum(Opcode.STATICCALL) => {
+            try call_ops.staticcall(stack, memory, code, pc, gas_left, gas_refund, environment, null, is_static);
+        },
+        
+        // Placeholder implementations for CREATE operations
+        @intFromEnum(Opcode.CREATE), @intFromEnum(Opcode.CREATE2) => {
             // These would need full implementations in a complete EVM
             // For now, we'll just return an unimplemented error
-            return Error.InvalidOpcode;
+            return Error.NotImplemented;
         },
         
         // Environment information operations
@@ -426,12 +441,10 @@ pub fn executeInstruction(
             }
         },
         @intFromEnum(Opcode.EXTCODESIZE) => {
-            // Not implemented yet - would need external code access
-            return Error.NotImplemented;
+            try call_ops.extcodesize(stack, memory, code, pc, gas_left, gas_refund, null);
         },
         @intFromEnum(Opcode.EXTCODECOPY) => {
-            // Not implemented yet - would need external code access
-            return Error.NotImplemented;
+            try call_ops.extcodecopy(stack, memory, code, pc, gas_left, gas_refund, null);
         },
         @intFromEnum(Opcode.RETURNDATASIZE) => {
             if (return_data) |rd| {
@@ -495,8 +508,10 @@ pub fn executeInstruction(
             }
         },
         @intFromEnum(Opcode.EXTCODEHASH) => {
-            // Not implemented yet - would need external code access
-            return Error.NotImplemented;
+            try call_ops.extcodehash(stack, memory, code, pc, gas_left, gas_refund, null);
+        },
+        @intFromEnum(Opcode.BALANCE) => {
+            try call_ops.balance(stack, memory, code, pc, gas_left, gas_refund, null);
         },
         
         // Block information operations
@@ -907,4 +922,108 @@ test "dispatch stack operations" {
     try std.testing.expectEqual(U256.fromU64(2), try stack.pop());
     try std.testing.expectEqual(U256.fromU64(2), try stack.pop());
     try std.testing.expectEqual(U256.fromU64(1), try stack.pop());
+}
+
+// Mock callback for testing call operations
+fn mockCall(
+    caller: Address,
+    target: Address,
+    value: U256,
+    input_data: []const u8,
+    gas_limit: u64,
+    is_static: bool,
+    delegated_from: ?Address,
+) ExecutionResult {
+    _ = caller;
+    _ = target;
+    _ = value;
+    _ = gas_limit;
+    _ = is_static;
+    _ = delegated_from;
+    
+    // Echo back the first byte of input data in the return data
+    if (input_data.len > 0) {
+        return .{
+            .Success = .{
+                .gas_used = 100,
+                .gas_refunded = 0,
+                .return_data = input_data[0..1],
+            }
+        };
+    } else {
+        return .{
+            .Success = .{
+                .gas_used = 100,
+                .gas_refunded = 0,
+                .return_data = &[_]u8{0x42}, // Default return value
+            }
+        };
+    }
+}
+
+test "dispatch call operations" {
+    // Test setup
+    var stack = Stack.init();
+    var memory = try Memory.init(std.testing.allocator);
+    defer memory.deinit();
+    
+    // Set up test data in memory
+    const input_offset: usize = 0;
+    // Store a test value at input_offset
+    memory.store(input_offset, &[_]u8{0xAA});
+    
+    const output_offset: usize = 32;
+    
+    // Set up environment
+    var environment = EvmEnvironment{
+        .address = Address.zero(),
+        .caller = Address.fromHexString("0x1111111111111111111111111111111111111111"),
+        .value = U256.fromU64(1000),
+        .coinbase = Address.fromHexString("0x2222222222222222222222222222222222222222"),
+        .number = U256.fromU64(1234),
+        .timestamp = U256.fromU64(5678),
+        .chainid = U256.fromU64(1),
+        .difficulty = U256.fromU64(50000),
+        .gaslimit = U256.fromU64(1000000),
+        .basefee = U256.fromU64(10),
+    };
+    
+    // Test bytecode for a CALL operation
+    const code = [_]u8{
+        @intFromEnum(Opcode.PUSH1), 0x01,        // Push output size
+        @intFromEnum(Opcode.PUSH1), 0x20,        // Push output offset
+        @intFromEnum(Opcode.PUSH1), 0x01,        // Push input size
+        @intFromEnum(Opcode.PUSH1), 0x00,        // Push input offset
+        @intFromEnum(Opcode.PUSH1), 0x00,        // Push value (0)
+        @intFromEnum(Opcode.PUSH1), 0x42,        // Push target address
+        @intFromEnum(Opcode.PUSH2), 0x03, 0xE8,  // Push gas (1000)
+        @intFromEnum(Opcode.CALL),               // CALL operation
+    };
+    
+    var pc: usize = 0;
+    var gas_left: u64 = 10000;
+    var gas_refund: u64 = 0;
+    
+    // Create return data buffer
+    var return_data = ReturnData.init(std.testing.allocator);
+    defer return_data.deinit();
+    
+    // Execute all the PUSH operations to set up for CALL
+    for (0..7) |_| {
+        try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data, null, false, &environment, null);
+    }
+    
+    // Override the call function for this test
+    call_ops.CallFn = mockCall;
+    
+    // Call the CALL instruction
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data, null, false, &environment, null);
+    
+    // Check results
+    try std.testing.expectEqual(@as(usize, 16), pc); // PC should be advanced
+    try std.testing.expectEqual(@as(usize, 1), stack.getSize()); // Stack should have 1 item (success flag)
+    try std.testing.expectEqual(U256.fromU64(1), try stack.pop()); // Should be success (1)
+    
+    // Output data should be 0xAA (first byte of input data echoed back)
+    try std.testing.expectEqual(@as(u8, 0xAA), memory.page.buffer[output_offset]);
 }

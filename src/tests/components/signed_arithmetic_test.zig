@@ -3,10 +3,12 @@
 
 const std = @import("std");
 const testing = std.testing;
-const Interpreter = @import("../../interpreter/interpreter.zig").Interpreter;
-const Opcode = @import("../../opcodes/opcodes.zig").Opcode;
-const ExecutionResult = @import("../../util/types.zig").ExecutionResult;
-const U256 = @import("../../util/types.zig").U256;
+const root = @import("../../root.zig");
+const Interpreter = root.Interpreter;
+const opcodes = @import("../../opcodes/opcodes.zig");
+const Opcode = opcodes.Opcode;
+const U256 = root.U256;
+const ExecutionResult = root.ExecutionResult;
 
 /// Create a negative U256 value (two's complement representation)
 fn createNegative(value: u64) U256 {
@@ -15,7 +17,7 @@ fn createNegative(value: u64) U256 {
     return complement.add(U256.one()); // ~x + 1
 }
 
-/// Test executing bytecode containing SDIV instructions
+// Test executing bytecode containing SDIV instructions
 test "SDIV bytecode execution" {
     // Create bytecode for testing SDIV
     // 1. PUSH 10 (push value 10)
@@ -30,7 +32,7 @@ test "SDIV bytecode execution" {
     neg_five.toBytes(&neg_five_bytes);
     
     // Create the bytecode
-    var bytecode = [_]u8{
+    const bytecode = [_]u8{
         @intFromEnum(Opcode.PUSH32),
     };
     // Add 32 bytes for the negative number (PUSH32 value)
@@ -50,7 +52,7 @@ test "SDIV bytecode execution" {
     
     // Verify the result
     switch (result) {
-        .Success => |success| {
+        .Success => {
             // The stack should have one value: -2 (10 / -5 = -2)
             try testing.expect(interpreter.stack.getSize() == 1);
             
@@ -66,7 +68,7 @@ test "SDIV bytecode execution" {
     }
 }
 
-/// Test executing bytecode containing SMOD instructions
+// Test executing bytecode containing SMOD instructions
 test "SMOD bytecode execution" {
     // Create bytecode for testing SMOD
     // 1. PUSH -100 (push value -100 as two's complement)
@@ -81,7 +83,7 @@ test "SMOD bytecode execution" {
     neg_hundred.toBytes(&neg_hundred_bytes);
     
     // Create the bytecode
-    var bytecode = [_]u8{
+    const bytecode = [_]u8{
         @intFromEnum(Opcode.PUSH32),
     };
     // Add 32 bytes for the negative number (PUSH32 value)
@@ -101,7 +103,7 @@ test "SMOD bytecode execution" {
     
     // Verify the result
     switch (result) {
-        .Success => |success| {
+        .Success => {
             // The stack should have one value: -2 (-100 % 7 = -2)
             try testing.expect(interpreter.stack.getSize() == 1);
             
@@ -117,7 +119,7 @@ test "SMOD bytecode execution" {
     }
 }
 
-/// Test complex bytecode combining both SDIV and SMOD
+// Test complex bytecode combining both SDIV and SMOD
 test "Combined SDIV and SMOD bytecode execution" {
     // Create bytecode that:
     // 1. Performs SDIV: -128 / 4 = -32
@@ -152,7 +154,7 @@ test "Combined SDIV and SMOD bytecode execution" {
     
     // Verify the result
     switch (result) {
-        .Success => |success| {
+        .Success => {
             // The stack should have one value: -2
             try testing.expect(interpreter.stack.getSize() == 1);
             

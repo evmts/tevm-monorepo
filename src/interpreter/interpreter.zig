@@ -198,7 +198,7 @@ pub const Interpreter = struct {
                 return .{
                     .Success = .{
                         .gas_used = gas_used,
-                        .gas_refunded = @intCast(u64, @max(0, self.gas_calculator.getGasRefund())),
+                        .gas_refunded = @intCast(@max(0, self.gas_calculator.getGasRefund())),
                         .return_data = self.return_data,
                     }
                 };
@@ -233,7 +233,7 @@ pub const Interpreter = struct {
         return .{
             .Success = .{
                 .gas_used = gas_used, 
-                .gas_refunded = @intCast(u64, @max(0, self.gas_calculator.getGasRefund())),
+                .gas_refunded = @intCast(@max(0, self.gas_calculator.getGasRefund())),
                 .return_data = self.return_data,
             }
         };

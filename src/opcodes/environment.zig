@@ -149,10 +149,10 @@ pub fn balance(
         temp_u256 = temp_u256.shr(8);
     }
     
-    const address = Address{ .bytes = addr_bytes };
+    const addr = Address{ .bytes = addr_bytes };
     
     // Get balance using the provided callback
-    const balance_value = getBalanceFn(address);
+    const balance_value = getBalanceFn(addr);
     
     // Push balance to stack
     try stack.push(balance_value);
@@ -304,7 +304,7 @@ pub fn calldatacopy(
     gas_left.* -= gas_cost;
     
     // Copy data from calldata to memory
-    var to_copy = mem_size;
+    const to_copy = mem_size;
     var i: usize = 0;
     
     while (i < to_copy) : (i += 1) {
@@ -360,7 +360,7 @@ pub fn calldataload(
     
     // Load 32 bytes (or less if we're at the end of calldata)
     var value = U256.zero();
-    var bytes_to_load = @min(32, calldata.len - offset);
+    const bytes_to_load = @min(32, calldata.len - offset);
     
     for (0..bytes_to_load) |i| {
         value = value.shl(8);
@@ -451,7 +451,7 @@ pub fn codecopy(
     gas_left.* -= gas_cost;
     
     // Copy data from code to memory
-    var to_copy = mem_size;
+    const to_copy = mem_size;
     var i: usize = 0;
     
     while (i < to_copy) : (i += 1) {

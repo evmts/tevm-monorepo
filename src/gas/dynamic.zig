@@ -22,10 +22,11 @@ pub fn calculateMemoryExpansionGas(current_size: usize, new_size: usize) u64 {
 }
 
 /// Calculate gas for the EXP operation based on the exponent
-pub fn calculateExpGas(exponent: U256) u64 {
-    // If exponent is zero, just return base cost
+/// Calculate the byte size of an exponent for gas calculation
+pub fn expByteSize(exponent: U256) usize {
+    // If exponent is zero, byte size is 0
     if (exponent.isZero()) {
-        return constants.GasCosts.low;
+        return 0;
     }
     
     // Calculate the byte size of the exponent by finding the highest set bit
@@ -64,7 +65,7 @@ pub fn calculateExpGas(exponent: U256) u64 {
             }
             
             // Find highest non-zero byte
-            var word = exponent.words[1];
+            const word = exponent.words[1];
             var shift: u6 = 56;
             if (byte_size == 12) { // If in lower half, adjust shift
                 shift = 24;
@@ -78,7 +79,7 @@ pub fn calculateExpGas(exponent: U256) u64 {
             byte_size = 8; // Start with assumption that it's in the upper byte
             
             // Find highest non-zero byte
-            var word = exponent.words[0];
+            const word = exponent.words[0];
             var shift: u6 = 56;
             
             while ((word >> shift) == 0 and shift > 0) {
@@ -87,6 +88,14 @@ pub fn calculateExpGas(exponent: U256) u64 {
             }
         }
     }
+    
+    return byte_size;
+}
+
+/// Calculate gas for the EXP operation based on the exponent
+pub fn calculateExpGas(exponent: U256) u64 {
+    // Calculate the byte size of the exponent
+    const byte_size = expByteSize(exponent);
     
     // Calculate gas cost based on byte size
     return constants.expGas(byte_size);
@@ -108,12 +117,12 @@ pub fn calculateCallGas(
     is_value_transfer: bool,
     is_new_account: bool,
     gas_stipend: bool,
-    child_gas_limit: u64,
+    _: u64, // Unused child_gas_limit parameter
 ) struct {
     cost: u64,
     stipend: u64,
 } {
-    const gas_costs = constants.GasCosts{};
+    const gas_costs = constants.GasCosts{}; // Used below
     var cost = gas_costs.call;
     var stipend: u64 = 0;
     
@@ -170,7 +179,7 @@ pub fn calculateSelfdestructGas(
     is_cold_account: bool,
     creates_beneficiary: bool,
 ) u64 {
-    const gas_costs = constants.GasCosts{};
+    const gas_costs = constants.GasCosts{}; // Used below
     var cost = gas_costs.selfdestruct;
     
     // Account access cost (EIP-2929)
@@ -192,7 +201,7 @@ pub fn calculateCreateGas(
     is_create2: bool,
     salt: ?U256,
 ) u64 {
-    const gas_costs = constants.GasCosts{};
+    const gas_costs = constants.GasCosts{}; // Used in function body
     var cost = gas_costs.create;
     
     // Code deposit cost
@@ -275,7 +284,7 @@ test "SSTORE gas calculation" {
 }
 
 test "CALL gas calculation" {
-    const gas_costs = constants.GasCosts{};
+    // We'll use the exact values we expect for test comparisons
     
     // Basic CALL to warm account with no value
     var result = calculateCallGas(false, false, false, false, 0);
@@ -300,7 +309,7 @@ test "CALL gas calculation" {
 }
 
 test "CREATE gas calculation" {
-    const gas_costs = constants.GasCosts{};
+    // Using exact expected values for test clarity
     
     // Basic CREATE with 100 bytes of code
     try testing.expectEqual(
@@ -316,7 +325,7 @@ test "CREATE gas calculation" {
 }
 
 test "SELFDESTRUCT gas calculation" {
-    const gas_costs = constants.GasCosts{};
+    // Using exact expected values for test clarity
     
     // Basic SELFDESTRUCT with warm account
     try testing.expectEqual(@as(u64, 5000), calculateSelfdestructGas(false, false));

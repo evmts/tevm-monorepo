@@ -23,8 +23,8 @@ pub fn dup(
     gas_refund: ?*u64,
 ) !void {
     _ = memory;
-    _ = code;
     _ = gas_refund;
+    // code is used to get the opcode
     
     // Get the current opcode
     const opcode = code[pc.*];
@@ -64,8 +64,8 @@ pub fn swap(
     gas_refund: ?*u64,
 ) !void {
     _ = memory;
-    _ = code;
     _ = gas_refund;
+    // code is used to get the opcode
     
     // Get the current opcode
     const opcode = code[pc.*];

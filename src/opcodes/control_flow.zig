@@ -24,8 +24,8 @@ pub fn jump(
     gas_refund: ?*u64,
 ) !void {
     _ = memory;
-    _ = code;
     _ = gas_refund;
+    // code is used for bounds check
     
     // Consume gas
     if (gas_left.* < JUMP_GAS_COST) {
@@ -75,8 +75,8 @@ pub fn jumpi(
     gas_refund: ?*u64,
 ) !void {
     _ = memory;
-    _ = code;
     _ = gas_refund;
+    // code is used for bounds check
     
     // Consume gas
     if (gas_left.* < JUMPI_GAS_COST) {

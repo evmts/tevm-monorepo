@@ -146,10 +146,10 @@ pub const GasCalculator = struct {
         var gas_cost = self.gas_costs.log;
         
         // Add gas cost for topics
-        gas_cost += self.gas_costs.log_topic * @intCast(u64, topics);
+        gas_cost += self.gas_costs.log_topic * @as(u64, @intCast(topics));
         
         // Add gas cost for data
-        gas_cost += self.gas_costs.log_data * @intCast(u64, data_size);
+        gas_cost += self.gas_costs.log_data * @as(u64, @intCast(data_size));
         
         try self.useGas(gas_cost);
     }

@@ -1,6 +1,8 @@
 //! Gas cost constants for ZigEVM
 //! This module defines the gas costs for various EVM operations
 
+const std = @import("std");
+
 /// Gas constants as defined in the Ethereum Yellow Paper and subsequent EIPs
 pub const GasCosts = struct {
     // Basic operations
@@ -163,7 +165,7 @@ pub fn storageGas(
         cost += gas_costs.warm_sload;
         
         // Handle refunds for various cases
-        if (original_value && !current_value) {
+        if (original_value and !current_value) {
             // Current value is zero (slot was cleared) and we're changing it to non-zero
             // Remove refund for clearing the slot
             refund -= @intCast(gas_costs.sstore_clears_refund);
@@ -178,7 +180,7 @@ pub fn storageGas(
                 // Original value was non-zero
                 refund += @intCast(gas_costs.sstore_reset - gas_costs.warm_sload);
             }
-        } else if (!new_value && original_value) {
+        } else if (!new_value and original_value) {
             // Setting to zero when original was non-zero
             refund += @intCast(gas_costs.sstore_clears_refund);
         }

@@ -186,7 +186,7 @@ pub const Storage = struct {
             gas_cost += self.gas_costs.warm_sstore_unchanged;
             
             // Additional refund logic for changing back to original value
-            if (!old_value.isZero() && current_value.isZero()) {
+            if (!old_value.isZero() and current_value.isZero()) {
                 // Current value is zero (slot was cleared) and we're changing it to non-zero
                 // Remove refund for clearing the slot
                 gas_refund -= @intCast(self.gas_costs.sstore_clears_refund);
@@ -201,7 +201,7 @@ pub const Storage = struct {
                     // Original value was non-zero - refund the difference between reset and warm costs
                     gas_refund += @intCast(self.gas_costs.sstore_reset - self.gas_costs.warm_sstore_unchanged);
                 }
-            } else if (new_value.isZero() && !old_value.isZero()) {
+            } else if (new_value.isZero() and !old_value.isZero()) {
                 // Setting to zero when original was non-zero - add refund for clearing
                 gas_refund += @intCast(self.gas_costs.sstore_clears_refund);
             }
@@ -318,7 +318,7 @@ pub fn sstore(
     gas_left.* -= gas_result.gas_cost;
     
     // Apply gas refund if applicable
-    if (gas_refund != null && gas_result.gas_refund != 0) {
+    if (gas_refund != null and gas_result.gas_refund != 0) {
         if (gas_result.gas_refund > 0) {
             // Add refund
             gas_refund.?.* += @intCast(gas_result.gas_refund);
