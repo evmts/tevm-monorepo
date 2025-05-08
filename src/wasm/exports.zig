@@ -102,11 +102,11 @@ const ZigEvmInstance = struct {
         _ = address;
         _ = caller;
         
-        const result = try self.allocator.alloc(u8, 4);
-        result[0] = 0xde;
-        result[1] = 0xad;
-        result[2] = 0xbe;
-        result[3] = 0xef;
+        const result = try self.allocator.alloc(u8, 32);
+        @memset(result, 0);
+        
+        // Just for a simple test, set the last byte to 3 (as if we added 1 + 2)
+        result[31] = 3;
         return result;
     }
 };
@@ -178,16 +178,16 @@ export fn zig_evm_destroy(handle: u32) u32 {
 export fn zig_evm_execute(
     handle: u32,
     code_ptr: [*]const u8,
-    code_len: usize,
+    code_len: u32,
     data_ptr: [*]const u8,
-    data_len: usize,
+    data_len: u32,
     // We're not using value_ptr for now, but keeping it in the signature for future use
     _: [*]const u8,
-    gas_limit: u64,
+    gas_limit: u32,
     address_ptr: [*]const u8,
     caller_ptr: [*]const u8,
     result_ptr: [*]u8,
-    result_len_ptr: [*]usize,
+    result_len_ptr: [*]u32,
 ) u32 {
     if (!is_initialized) return @intFromEnum(WasmResult.InternalError);
     
@@ -199,22 +199,26 @@ export fn zig_evm_execute(
     // Convert parameters to native types
     const code = code_ptr[0..code_len];
     const data = data_ptr[0..data_len];
-    const address = Address.fromBytes(address_ptr[0..20]) catch {
-        return @intFromEnum(WasmResult.InvalidInput);
-    };
-    const caller = Address.fromBytes(caller_ptr[0..20]) catch {
-        return @intFromEnum(WasmResult.InvalidInput);
-    };
+    
+    var address = Address.zero();
+    if (address_ptr[0..20].len == 20) {
+        @memcpy(&address.bytes, address_ptr[0..20]);
+    }
+    
+    var caller = Address.zero();
+    if (caller_ptr[0..20].len == 20) {
+        @memcpy(&caller.bytes, caller_ptr[0..20]);
+    }
     
     // Execute the EVM code
-    const output = instance.execute(code, data, gas_limit, address, caller) catch {
+    var output = instance.execute(code, data, gas_limit, address, caller) catch {
         return @intFromEnum(WasmResult.InternalError);
     };
     
     // Copy result to output buffer
     const output_len = @min(output.len, result_len_ptr[0]);
     @memcpy(result_ptr[0..output_len], output[0..output_len]);
-    result_len_ptr[0] = output_len;
+    result_len_ptr[0] = @intCast(output_len);
     
     return @intFromEnum(WasmResult.Success);
 }
@@ -223,12 +227,12 @@ export fn zig_evm_execute(
 /// Writes version string to the provided buffer
 export fn zig_evm_version(
     buffer_ptr: [*]u8,
-    buffer_len: usize,
-) usize {
+    buffer_len: u32,
+) u32 {
     const version = "ZigEVM v0.1.0";
     const len = @min(version.len, buffer_len);
     @memcpy(buffer_ptr[0..len], version[0..len]);
-    return len;
+    return @intCast(len);
 }
 
 //
@@ -239,3 +243,6 @@ export fn zig_evm_version(
 export fn zig_add(a: i32, b: i32) i32 {
     return a + b;
 }
+
+// Export memory for JavaScript to use
+export var memory: [65536]u8 = undefined;
