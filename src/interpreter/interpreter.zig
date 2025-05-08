@@ -100,7 +100,8 @@ pub const Interpreter = struct {
                 self.code,
                 &self.pc,
                 &self.gas_left,
-                &self.gas_refund
+                &self.gas_refund,
+                &self.return_data_buffer
             ) catch |err| {
                 // Handle execution errors
                 switch (err) {

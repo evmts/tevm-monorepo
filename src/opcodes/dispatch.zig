@@ -22,6 +22,7 @@ pub const InstructionFn = fn (
     pc: *usize,
     gas_left: *u64,
     gas_refund: ?*u64,
+    return_data: ?*ReturnData,
 ) Error!void;
 
 /// Execute the current instruction
@@ -33,6 +34,7 @@ pub fn executeInstruction(
     pc: *usize,
     gas_left: *u64,
     gas_refund: ?*u64,
+    return_data: ?*ReturnData,
 ) Error!void {
     // Get the current opcode
     const opcode = code[pc.*];
@@ -75,10 +77,66 @@ pub fn executeInstruction(
         
         // Return data opcodes
         @intFromEnum(Opcode.RETURNDATASIZE) => {
-            try returndatasizeInstruction(stack, memory, code, pc, gas_left, gas_refund);
+            if (return_data) |rd| {
+                // Use the proper return data implementation if return_data is provided
+                try return_data_ops.returndatasize(stack, rd);
+                
+                // Consume gas (same as most simple opcodes)
+                if (gas_left.* < 2) {
+                    return Error.OutOfGas;
+                }
+                gas_left.* -= 2;
+                
+                // Advance PC
+                pc.* += 1;
+            } else {
+                // Fallback to placeholder if return_data is not provided
+                try returndatasizeInstruction(stack, memory, code, pc, gas_left, gas_refund);
+            }
         },
         @intFromEnum(Opcode.RETURNDATACOPY) => {
-            try returndatacopyInstruction(stack, memory, code, pc, gas_left, gas_refund);
+            if (return_data) |rd| {
+                // Calculate gas first before executing the opcode
+                
+                // Pop values from stack to calculate gas
+                const size = try stack.peek().*;
+                // Don't actually pop these values, just peek to check gas cost
+                
+                // Ensure the parameters fit in usize
+                if (size.words[1] != 0 or size.words[2] != 0 or size.words[3] != 0) {
+                    return Error.InvalidOffset;
+                }
+                
+                // Convert to usize
+                const mem_size = @as(usize, size.words[0]);
+                
+                // RETURNDATACOPY costs 3 base gas
+                var gas_cost: u64 = 3;
+                
+                // For non-zero size, calculate memory expansion cost
+                if (mem_size > 0) {
+                    // We need to check the destination offset too
+                    // Note: In a full implementation, this would calculate the memory expansion gas cost
+                    // based on the current memory size and the new required size.
+                    // For now, we're just charging a fixed cost per byte.
+                    gas_cost += mem_size * 3; // Simple memory gas cost
+                }
+                
+                // Charge gas
+                if (gas_left.* < gas_cost) {
+                    return Error.OutOfGas;
+                }
+                gas_left.* -= gas_cost;
+                
+                // Now execute the opcode
+                try return_data_ops.returndatacopy(stack, memory, rd);
+                
+                // Advance PC
+                pc.* += 1;
+            } else {
+                // Fallback to placeholder if return_data is not provided
+                try returndatacopyInstruction(stack, memory, code, pc, gas_left, gas_refund);
+            }
         },
         
         // More opcodes here...
@@ -286,8 +344,12 @@ test "dispatch basic" {
     var gas_left: u64 = 1000;
     var gas_refund: u64 = 0;
     
+    // Create return data buffer
+    var return_data = ReturnData.init(std.testing.allocator);
+    defer return_data.deinit();
+    
     // Execute PUSH1 0x10
-    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund);
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
     // PC should point to next instruction
     try std.testing.expectEqual(@as(usize, 2), pc);
     // Stack should have one item: 16
@@ -295,7 +357,7 @@ test "dispatch basic" {
     try std.testing.expectEqual(U256.fromU64(16), try stack.peek().*);
     
     // Execute PUSH1 0x20
-    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund);
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
     // PC should point to next instruction
     try std.testing.expectEqual(@as(usize, 4), pc);
     // Stack should have two items: 16, 32 (top)
@@ -303,10 +365,72 @@ test "dispatch basic" {
     try std.testing.expectEqual(U256.fromU64(32), try stack.peek().*);
     
     // Execute ADD
-    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund);
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
     // PC should point to next instruction
     try std.testing.expectEqual(@as(usize, 5), pc);
     // Stack should have one item: 48
     try std.testing.expectEqual(@as(usize, 1), stack.getSize());
     try std.testing.expectEqual(U256.fromU64(48), try stack.peek().*);
+}
+
+test "dispatch return data opcodes" {
+    // Test setup
+    var stack = Stack.init();
+    var memory = try Memory.init(std.testing.allocator);
+    defer memory.deinit();
+    
+    // Test bytecode that uses return data opcodes
+    const code = [_]u8{
+        @intFromEnum(Opcode.RETURNDATASIZE),     // Get size of return data
+        @intFromEnum(Opcode.PUSH1), 0x00,        // Push memory destination
+        @intFromEnum(Opcode.PUSH1), 0x01,        // Push return data offset
+        @intFromEnum(Opcode.PUSH1), 0x02,        // Push size to copy
+        @intFromEnum(Opcode.RETURNDATACOPY),     // Copy from return data to memory
+    };
+    
+    var pc: usize = 0;
+    var gas_left: u64 = 1000;
+    var gas_refund: u64 = 0;
+    
+    // Create return data buffer and set some data
+    var return_data = ReturnData.init(std.testing.allocator);
+    defer return_data.deinit();
+    
+    // Set test data
+    const test_data = [_]u8{0xA1, 0xB2, 0xC3, 0xD4};
+    try return_data.set(&test_data);
+    
+    // Execute RETURNDATASIZE
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    // PC should point to next instruction
+    try std.testing.expectEqual(@as(usize, 1), pc);
+    // Stack should have one item: 4 (size of return data)
+    try std.testing.expectEqual(@as(usize, 1), stack.getSize());
+    try std.testing.expectEqual(U256.fromU64(4), try stack.peek().*);
+    
+    // Execute PUSH1 0x00 (memory destination)
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 3), pc);
+    try std.testing.expectEqual(@as(usize, 2), stack.getSize());
+    
+    // Execute PUSH1 0x01 (return data offset)
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 5), pc);
+    try std.testing.expectEqual(@as(usize, 3), stack.getSize());
+    
+    // Execute PUSH1 0x02 (size to copy)
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 7), pc);
+    try std.testing.expectEqual(@as(usize, 4), stack.getSize());
+    
+    // Stack should now have: [4, 0, 1, 2] (top)
+    
+    // Execute RETURNDATACOPY
+    try executeInstruction(&stack, &memory, &code, &pc, &gas_left, &gas_refund, &return_data);
+    try std.testing.expectEqual(@as(usize, 8), pc);
+    try std.testing.expectEqual(@as(usize, 1), stack.getSize()); // Only RETURNDATASIZE result should be left
+    
+    // Memory should now contain the copied return data
+    try std.testing.expectEqual(@as(u8, 0xB2), memory.page.buffer[0]); // Byte at offset 1
+    try std.testing.expectEqual(@as(u8, 0xC3), memory.page.buffer[1]); // Byte at offset 2
 }
