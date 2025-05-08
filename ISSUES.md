@@ -1317,13 +1317,57 @@ AdvancedCodeAnalysis analyze(bytes_view code) noexcept
 - Measure execution time and gas usage for standard benchmarks
 
 **Benchmarks to Implement**:
-- **Basic Opcode Benchmarks**: Measure the performance of each opcode
-- **Standard Contract Benchmarks**: Measure performance on common contracts like ERC20, ERC721
-- **Gas-Intensive Benchmarks**: Target high-gas operations like SSTORE, KECCAK256
-- **Memory-Intensive Benchmarks**: Test memory expansion and copy operations
-- **Storage-Intensive Benchmarks**: Test scenarios with frequent storage access
-- **Blockchain-Specific Benchmarks**: Test real-world block execution scenarios
-- **Comparative Benchmarks**: Compare directly against evmone and revm implementations
+- **Basic Opcode Benchmarks**: 
+  - Measure the performance of each individual opcode
+  - Compare simple vs. complex operations (ADD vs. DIV)
+  - Measure stack operations performance (PUSH, POP, SWAP, DUP)
+  - Benchmark arithmetic operations with different input sizes
+
+- **Standard Contract Benchmarks**: 
+  - Measure performance on common contracts like ERC20, ERC721, ERC1155
+  - Benchmark popular real-world contracts like Uniswap, Aave
+  - Test complex smart contract patterns (proxies, factories)
+  - Compare performance on different Solidity compiler optimization levels
+
+- **Gas-Intensive Benchmarks**: 
+  - Target high-gas operations like SSTORE, KECCAK256
+  - Benchmark operations with dynamic gas costs (EXP, CALLDATACOPY)
+  - Test gas metering accuracy and overhead
+  - Measure performance of gas-heavy loop operations
+
+- **Memory-Intensive Benchmarks**: 
+  - Test memory expansion and copy operations
+  - Benchmark large memory allocations and growth patterns
+  - Test performance of MLOAD/MSTORE with different access patterns
+  - Measure performance impact of memory alignment optimizations
+
+- **Storage-Intensive Benchmarks**: 
+  - Test scenarios with frequent storage access
+  - Benchmark cold vs. warm storage access patterns
+  - Test storage slot collisions and hash calculations
+  - Measure storage caching effectiveness
+
+- **Blockchain-Specific Benchmarks**: 
+  - Test real-world block execution scenarios
+  - Benchmark transaction processing pipelines
+  - Measure performance on historical mainnet blocks
+  - Test block processing with varying transaction counts and types
+
+- **Comparative Benchmarks**: 
+  - Compare directly against evmone and revm implementations
+  - Benchmark using identical workloads across implementations
+  - Measure scaling characteristics with increasing workload complexity
+  - Create standardized benchmark suites for cross-implementation comparison
+
+**CI Integration Requirements**:
+- Automated benchmark runs for each significant PR
+- Performance regression detection with configurable thresholds
+- Benchmark result visualization and reporting
+- Historical performance tracking across commits
+- Comparative analysis against baseline implementations
+- Per-commit benchmark data storage and retrieval
+- Regular full benchmark suite runs on scheduled intervals
+- Documentation of benchmark methodology and interpretation guidelines
 
 ---
 

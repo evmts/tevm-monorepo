@@ -7,6 +7,7 @@ const Stack = @import("../stack/stack.zig").Stack;
 const memory_mod = @import("../memory/memory.zig");
 const Memory = memory_mod.Memory;
 const BlockInfoManager = memory_mod.BlockInfoManager;
+const ReturnData = @import("return_data.zig").ReturnData;
 
 const U256 = types.U256;
 const Address = types.Address;
@@ -35,6 +36,7 @@ pub const Interpreter = struct {
     gas_refund: u64 = 0,
     return_data: []u8,
     return_data_allocator: std.mem.Allocator,
+    return_data_buffer: ReturnData, // Buffer for RETURNDATASIZE and RETURNDATACOPY opcodes
     jump_dest_map: []bool,
     depth: u16,
     block_info: ?*BlockInfoManager = null,
@@ -59,6 +61,7 @@ pub const Interpreter = struct {
             .original_gas = gas_limit,
             .return_data = &[_]u8{},
             .return_data_allocator = allocator,
+            .return_data_buffer = ReturnData.init(allocator),
             .jump_dest_map = jump_dest_map,
             .depth = depth,
         };
@@ -70,6 +73,7 @@ pub const Interpreter = struct {
         if (self.return_data.len > 0) {
             self.return_data_allocator.free(self.return_data);
         }
+        self.return_data_buffer.deinit();
         self.return_data_allocator.free(self.jump_dest_map);
     }
     
@@ -218,6 +222,12 @@ pub const Interpreter = struct {
             }
             
             self.return_data = data;
+            
+            // Also update the return data buffer for RETURNDATASIZE/RETURNDATACOPY
+            try self.return_data_buffer.set(data);
+        } else {
+            // Clear the return data buffer if size is 0
+            try self.return_data_buffer.set(&[_]u8{});
         }
     }
     
