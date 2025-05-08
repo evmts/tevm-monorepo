@@ -1,6 +1,6 @@
 # ZigEVM Benchmark Report
 
-Generated on: 2025-05-08T04:24:50.206Z
+Generated on: 2025-05-08T05:34:31.856Z
 
 ## ZigEVM Performance Tests
 
