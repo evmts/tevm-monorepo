@@ -8,6 +8,8 @@ const memory_mod = @import("../memory/memory.zig");
 const Memory = memory_mod.Memory;
 const BlockInfoManager = memory_mod.BlockInfoManager;
 const ReturnData = @import("return_data.zig").ReturnData;
+const storage_mod = @import("../opcodes/storage.zig");
+const Storage = storage_mod.Storage;
 
 const U256 = types.U256;
 const Address = types.Address;
@@ -39,6 +41,8 @@ pub const Interpreter = struct {
     return_data_buffer: ReturnData, // Buffer for RETURNDATASIZE and RETURNDATACOPY opcodes
     jump_dest_map: []bool,
     depth: u16,
+    storage: Storage,  // Contract storage
+    is_static: bool = false, // Whether this is a static call (no state modifications allowed)
     block_info: ?*BlockInfoManager = null,
     
     // For now, this is just a placeholder shell - we'll implement the full functionality in later steps
@@ -53,6 +57,9 @@ pub const Interpreter = struct {
         const jump_dest_map = try analyzeJumpDests(allocator, code);
         errdefer allocator.free(jump_dest_map);
         
+        var storage = try Storage.init(allocator);
+        errdefer storage.deinit();
+        
         return Interpreter{
             .code = code,
             .stack = Stack.init(),
@@ -64,6 +71,7 @@ pub const Interpreter = struct {
             .return_data_buffer = ReturnData.init(allocator),
             .jump_dest_map = jump_dest_map,
             .depth = depth,
+            .storage = storage,
         };
     }
     
@@ -74,6 +82,7 @@ pub const Interpreter = struct {
             self.return_data_allocator.free(self.return_data);
         }
         self.return_data_buffer.deinit();
+        self.storage.deinit();
         self.return_data_allocator.free(self.jump_dest_map);
     }
     
@@ -101,7 +110,9 @@ pub const Interpreter = struct {
                 &self.pc,
                 &self.gas_left,
                 &self.gas_refund,
-                &self.return_data_buffer
+                &self.return_data_buffer,
+                &self.storage,
+                self.is_static
             ) catch |err| {
                 // Handle execution errors
                 switch (err) {
@@ -123,6 +134,9 @@ pub const Interpreter = struct {
                     Error.OutOfGas,
                     Error.InvalidOpcode,
                     Error.ReturnDataOutOfBounds,
+                    Error.StorageUnavailable,
+                    Error.StaticModeViolation,
+                    Error.WriteProtection,
                     => {
                         // For non-recoverable errors, return error result with gas used
                         return .{

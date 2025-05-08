@@ -454,6 +454,8 @@ pub const Error = error{
     
     // State-related errors
     WriteProtection,
+    StorageUnavailable,
+    StaticModeViolation,
     
     // Memory-related errors
     ReturnDataOutOfBounds,
