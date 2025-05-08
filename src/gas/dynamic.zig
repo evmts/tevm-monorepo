@@ -1,109 +1,210 @@
-//! Dynamic gas cost calculation for ZigEVM
-//! This module implements gas cost calculations that depend on runtime parameters
+//! Dynamic gas cost calculations for EVM operations
+//! This module provides functions to calculate gas costs that depend on runtime values
 
 const std = @import("std");
 const constants = @import("constants.zig");
 const types = @import("../util/types.zig");
 const U256 = types.U256;
-const Error = types.Error;
-const Memory = @import("../memory/memory.zig").Memory;
 
-/// Calculate gas cost for memory expansion
-/// Returns the gas required to expand memory from current_size to new_size
-pub fn memoryExpansionGas(current_size: usize, new_size: usize) u64 {
+/// Calculate the gas cost for memory expansion to a new size
+/// Returns the additional gas required to expand memory
+pub fn calculateMemoryExpansionGas(current_size: usize, new_size: usize) u64 {
     if (new_size <= current_size) {
         return 0;
     }
     
-    const current_cost = constants.memoryGas(current_size);
+    // Calculate gas costs for both sizes
+    const old_cost = constants.memoryGas(current_size);
     const new_cost = constants.memoryGas(new_size);
     
-    return new_cost - current_cost;
+    // Return the difference
+    return new_cost - old_cost;
 }
 
-/// Calculate gas cost for EXP operation based on exponent size
-pub fn expGas(exponent: U256) u64 {
-    // Find highest non-zero byte of exponent
-    var exponent_byte_size: usize = 0;
+/// Calculate gas for the EXP operation based on the exponent
+pub fn calculateExpGas(exponent: U256) u64 {
+    // If exponent is zero, just return base cost
+    if (exponent.isZero()) {
+        return constants.GasCosts.low;
+    }
     
-    inline for (0..4) |i| {
-        const word = exponent.words[3 - i];
+    // Calculate the byte size of the exponent by finding the highest set bit
+    var byte_size: usize = 0;
+    
+    // Check high-order words first
+    if (exponent.words[3] != 0 or exponent.words[2] != 0) {
+        byte_size = 32; // At least 32 bytes (256 bits)
+        
+        // Start from highest word and find highest non-zero byte
+        var i: usize = 3;
+        var word = exponent.words[3];
+        
+        while (word == 0 and i > 0) {
+            word = exponent.words[i - 1];
+            i -= 1;
+            byte_size -= 8;
+        }
+        
+        // Now find highest non-zero byte within the word
         if (word != 0) {
-            // We found a non-zero word
-            exponent_byte_size = (i * 8) + 8;
+            var shift: u6 = 56;
+            while ((word >> shift) == 0 and shift > 0) {
+                shift -= 8;
+                byte_size -= 1;
+            }
+        }
+    } else {
+        // Check low-order words
+        if (exponent.words[1] != 0) {
+            byte_size = 16; // Start with assumption that it's in the upper half
             
-            // Find the highest non-zero byte in this word
-            var temp = word;
-            var byte_pos: usize = 7;
-            while (temp != 0) : (byte_pos -= 1) {
-                if ((temp & 0xFF) != 0) {
-                    break;
-                }
-                temp >>= 8;
-                exponent_byte_size -= 1;
-                if (byte_pos == 0) break;
+            // Check if it's in upper or lower half
+            if (exponent.words[1] & 0xFFFFFFFF00000000 == 0) {
+                byte_size -= 4;
             }
             
-            break;
+            // Find highest non-zero byte
+            var word = exponent.words[1];
+            var shift: u6 = 56;
+            if (byte_size == 12) { // If in lower half, adjust shift
+                shift = 24;
+            }
+            
+            while ((word >> shift) == 0 and shift > 0) {
+                shift -= 8;
+                byte_size -= 1;
+            }
+        } else if (exponent.words[0] != 0) {
+            byte_size = 8; // Start with assumption that it's in the upper byte
+            
+            // Find highest non-zero byte
+            var word = exponent.words[0];
+            var shift: u6 = 56;
+            
+            while ((word >> shift) == 0 and shift > 0) {
+                shift -= 8;
+                byte_size -= 1;
+            }
         }
     }
     
-    return constants.expGas(exponent_byte_size);
+    // Calculate gas cost based on byte size
+    return constants.expGas(byte_size);
 }
 
-/// Calculate gas cost for CALLDATACOPY, CODECOPY, etc.
-pub fn copyGas(size: usize) u64 {
+/// Calculate cost for copying data based on size
+pub fn calculateCopyGas(size: usize) u64 {
     return constants.memoryCopyGas(size);
 }
 
-/// Calculate the amount of gas to forward to a child call
-/// Implements EIP-150 logic where child calls receive at most 63/64 of remaining gas
-pub fn callGas(gas_left: u64, requested_gas: u64, has_value: bool) u64 {
-    const gas_costs = constants.GasCosts{};
-    
-    // If stipend applies (call with value), ensure it's available
-    const stipend = if (has_value) gas_costs.callstipend else 0;
-    
-    // Maximum gas that can be provided to child
-    const max_gas = gas_left - (gas_left / 64);
-    
-    // Use the minimum of requested gas and max available gas
-    var gas_to_forward = if (requested_gas > max_gas) max_gas else requested_gas;
-    
-    // Add stipend if applicable
-    if (has_value) {
-        gas_to_forward += stipend;
-    }
-    
-    return gas_to_forward;
+/// Calculate gas for SHA3 operation
+pub fn calculateSha3Gas(size: usize) u64 {
+    return constants.sha3Gas(size);
 }
 
-/// Calculate gas cost for SSTORE operation
-pub fn sstoreGas(
+/// Calculate gas cost for CALL operations
+pub fn calculateCallGas(
+    is_cold_account: bool,
+    is_value_transfer: bool,
+    is_new_account: bool,
+    gas_stipend: bool,
+    child_gas_limit: u64,
+) struct {
+    cost: u64,
+    stipend: u64,
+} {
+    const gas_costs = constants.GasCosts{};
+    var cost = gas_costs.call;
+    var stipend: u64 = 0;
+    
+    // Account access cost (EIP-2929)
+    if (is_cold_account) {
+        cost += gas_costs.cold_account_access;
+    }
+    
+    // Value transfer cost
+    if (is_value_transfer) {
+        cost += gas_costs.call_value;
+        if (gas_stipend) {
+            stipend = gas_costs.callstipend;
+        }
+    }
+    
+    // New account creation cost
+    if (is_new_account) {
+        cost += gas_costs.new_account;
+    }
+    
+    return .{
+        .cost = cost,
+        .stipend = stipend,
+    };
+}
+
+/// Calculate gas cost for LOG operations
+pub fn calculateLogGas(num_topics: u8, data_size: usize) u64 {
+    return constants.logGas(num_topics, data_size);
+}
+
+/// Calculate gas cost for SSTORE operations
+pub fn calculateSstoreGas(
     is_cold: bool,
-    current_value: U256,
     original_value: U256,
+    current_value: U256,
     new_value: U256,
 ) struct { cost: u64, refund: i64 } {
-    // Convert to booleans for simplicity
-    const current_nonzero = !current_value.isZero();
-    const original_nonzero = !original_value.isZero();
-    const new_nonzero = !new_value.isZero();
+    const original_is_zero = original_value.isZero();
+    const current_is_zero = current_value.isZero();
+    const new_is_zero = new_value.isZero();
     
     return constants.storageGas(
         is_cold,
-        current_nonzero,
-        original_nonzero,
-        new_nonzero,
+        !current_is_zero, // Convert to bool for non-zero check
+        !original_is_zero,
+        !new_is_zero,
     );
 }
 
-/// Calculate gas cost for access list operations
-pub fn accessListGas(addresses: usize, storage_keys: usize) u64 {
+/// Calculate gas cost for SELFDESTRUCT operation
+pub fn calculateSelfdestructGas(
+    is_cold_account: bool,
+    creates_beneficiary: bool,
+) u64 {
     const gas_costs = constants.GasCosts{};
+    var cost = gas_costs.selfdestruct;
     
-    return addresses * gas_costs.access_list_address +
-           storage_keys * gas_costs.access_list_storage;
+    // Account access cost (EIP-2929)
+    if (is_cold_account) {
+        cost += gas_costs.cold_account_access;
+    }
+    
+    // Cost for creating new account as beneficiary
+    if (creates_beneficiary) {
+        cost += gas_costs.new_account;
+    }
+    
+    return cost;
+}
+
+/// Calculate gas cost for CREATE/CREATE2 operations
+pub fn calculateCreateGas(
+    code_size: usize,
+    is_create2: bool,
+    salt: ?U256,
+) u64 {
+    const gas_costs = constants.GasCosts{};
+    var cost = gas_costs.create;
+    
+    // Code deposit cost
+    cost += code_size * gas_costs.code_deposit;
+    
+    // CREATE2 has additional hashing cost
+    if (is_create2 and salt != null) {
+        // Additional SHA3 cost for CREATE2
+        cost += calculateSha3Gas(32); // Salt is 32 bytes
+    }
+    
+    return cost;
 }
 
 // Tests
@@ -111,73 +212,124 @@ const testing = std.testing;
 
 test "Memory expansion gas calculation" {
     // Test no expansion
-    try testing.expectEqual(@as(u64, 0), memoryExpansionGas(100, 100));
+    try testing.expectEqual(@as(u64, 0), calculateMemoryExpansionGas(64, 64));
     
-    // Test small expansion
-    const small_expansion = memoryExpansionGas(32, 64);
-    try testing.expect(small_expansion > 0);
+    // Test expansion by one word
+    try testing.expectEqual(@as(u64, 3), calculateMemoryExpansionGas(64, 96));
     
     // Test large expansion
-    const large_expansion = memoryExpansionGas(32, 1024);
-    try testing.expect(large_expansion > small_expansion);
+    try testing.expectEqual(
+        constants.memoryGas(10240) - constants.memoryGas(1024),
+        calculateMemoryExpansionGas(1024, 10240)
+    );
 }
 
 test "EXP gas calculation" {
     // Test zero exponent
-    try testing.expectEqual(@as(u64, 5), expGas(U256.zero()));
+    try testing.expectEqual(@as(u64, 5), calculateExpGas(U256.zero()));
     
     // Test small exponent
-    var small_exp = U256.fromU64(15); // 0x0F - 1 byte
-    try testing.expectEqual(@as(u64, 5 + 8), expGas(small_exp));
+    try testing.expectEqual(@as(u64, 13), calculateExpGas(U256.fromU64(0x100))); // 2 bytes
     
-    // Test medium exponent
-    var medium_exp = U256.fromU64(0x1234); // 2 bytes
-    try testing.expectEqual(@as(u64, 5 + 2 * 8), expGas(medium_exp));
+    // Test larger exponent
+    var large_exp = U256.zero();
+    large_exp.words[2] = 0x1;  // Set a bit in the third word
+    try testing.expectEqual(@as(u64, 5 + 25 * 8), calculateExpGas(large_exp)); // 25 bytes
+}
+
+test "LOG gas calculation" {
+    // Test LOG0 with no data
+    try testing.expectEqual(@as(u64, 375), calculateLogGas(0, 0));
     
-    // Test large exponent
-    var large_bytes: [32]u8 = [_]u8{0} ** 32;
-    large_bytes[0] = 0x01; // MSB set
-    var large_exp = U256.fromBytes(&large_bytes) catch unreachable;
-    try testing.expectEqual(@as(u64, 5 + 32 * 8), expGas(large_exp));
+    // Test LOG1 with 32 bytes
+    try testing.expectEqual(@as(u64, 375 + 375 + 32 * 8), calculateLogGas(1, 32));
+    
+    // Test LOG4 with 1024 bytes
+    try testing.expectEqual(@as(u64, 375 + 4 * 375 + 1024 * 8), calculateLogGas(4, 1024));
+}
+
+test "SSTORE gas calculation" {
+    const zero = U256.zero();
+    const one = U256.fromU64(1);
+    const two = U256.fromU64(2);
+    
+    // Test cold access, storing new non-zero value
+    var result = calculateSstoreGas(true, zero, zero, one);
+    try testing.expectEqual(@as(u64, 22100), result.cost); // 20000 SSTORE_SET + 2100 Cold access
+    try testing.expectEqual(@as(i64, 0), result.refund);
+    
+    // Test warm access, clearing storage
+    result = calculateSstoreGas(false, one, one, zero);
+    try testing.expectEqual(@as(u64, 5000), result.cost); // SSTORE_RESET
+    try testing.expectEqual(@as(i64, 15000), result.refund);
+    
+    // Test warm access, modifying existing value
+    result = calculateSstoreGas(false, one, one, two);
+    try testing.expectEqual(@as(u64, 5000), result.cost); // SSTORE_RESET
+    try testing.expectEqual(@as(i64, 0), result.refund);
+    
+    // Test warm access, resetting to original value
+    result = calculateSstoreGas(false, one, two, one);
+    try testing.expectEqual(@as(u64, 100), result.cost); // WARM_STORAGE_READ
+    try testing.expectEqual(@as(i64, 4900), result.refund); // SSTORE_RESET - WARM_STORAGE_READ
 }
 
 test "CALL gas calculation" {
     const gas_costs = constants.GasCosts{};
     
-    // Test basic call gas
-    const call_gas = callGas(1000, 500, false);
-    try testing.expectEqual(@as(u64, 500), call_gas);
+    // Basic CALL to warm account with no value
+    var result = calculateCallGas(false, false, false, false, 0);
+    try testing.expectEqual(@as(u64, 700), result.cost);
+    try testing.expectEqual(@as(u64, 0), result.stipend);
     
-    // Test call with value (stipend added)
-    const call_with_value = callGas(1000, 500, true);
-    try testing.expectEqual(@as(u64, 500 + gas_costs.callstipend), call_with_value);
+    // CALL to cold account with value
+    result = calculateCallGas(true, true, false, true, 0);
+    try testing.expectEqual(
+        @as(u64, 700 + 2600 + 9000), 
+        result.cost
+    ); // BASE_CALL + COLD_ACCOUNT + CALL_VALUE
+    try testing.expectEqual(@as(u64, 2300), result.stipend);
     
-    // Test with EIP-150 limit
-    const eip150_gas = callGas(1000, 1000, false);
-    try testing.expectEqual(@as(u64, 1000 - (1000 / 64)), eip150_gas);
+    // CALL with value creating new account
+    result = calculateCallGas(true, true, true, true, 0);
+    try testing.expectEqual(
+        @as(u64, 700 + 2600 + 9000 + 25000), 
+        result.cost
+    ); // BASE_CALL + COLD_ACCOUNT + CALL_VALUE + NEW_ACCOUNT
+    try testing.expectEqual(@as(u64, 2300), result.stipend);
 }
 
-test "Access list gas calculation" {
+test "CREATE gas calculation" {
     const gas_costs = constants.GasCosts{};
     
-    // Test empty access list
-    try testing.expectEqual(@as(u64, 0), accessListGas(0, 0));
-    
-    // Test with addresses only
+    // Basic CREATE with 100 bytes of code
     try testing.expectEqual(
-        @as(u64, 3 * gas_costs.access_list_address), 
-        accessListGas(3, 0)
-    );
+        @as(u64, 32000 + 100 * 200),
+        calculateCreateGas(100, false, null)
+    ); // BASE_CREATE + CODE_DEPOSIT * size
     
-    // Test with storage keys only
+    // CREATE2 with 100 bytes of code
     try testing.expectEqual(
-        @as(u64, 5 * gas_costs.access_list_storage), 
-        accessListGas(0, 5)
-    );
+        @as(u64, 32000 + 100 * 200 + constants.sha3Gas(32)),
+        calculateCreateGas(100, true, U256.fromU64(1))
+    ); // BASE_CREATE + CODE_DEPOSIT * size + SHA3 cost
+}
+
+test "SELFDESTRUCT gas calculation" {
+    const gas_costs = constants.GasCosts{};
     
-    // Test with both
+    // Basic SELFDESTRUCT with warm account
+    try testing.expectEqual(@as(u64, 5000), calculateSelfdestructGas(false, false));
+    
+    // SELFDESTRUCT with cold account
     try testing.expectEqual(
-        @as(u64, 2 * gas_costs.access_list_address + 3 * gas_costs.access_list_storage), 
-        accessListGas(2, 3)
-    );
+        @as(u64, 5000 + 2600),
+        calculateSelfdestructGas(true, false)
+    ); // BASE_SELFDESTRUCT + COLD_ACCOUNT
+    
+    // SELFDESTRUCT creating new account
+    try testing.expectEqual(
+        @as(u64, 5000 + 2600 + 25000),
+        calculateSelfdestructGas(true, true)
+    ); // BASE_SELFDESTRUCT + COLD_ACCOUNT + NEW_ACCOUNT
 }

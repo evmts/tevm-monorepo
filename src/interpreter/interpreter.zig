@@ -12,6 +12,8 @@ const storage_mod = @import("../opcodes/storage.zig");
 const Storage = storage_mod.Storage;
 const environment_mod = @import("../opcodes/environment.zig");
 const EvmEnvironment = environment_mod.EvmEnvironment;
+const gas_mod = @import("../gas/gas.zig");
+const GasCalculator = gas_mod.GasCalculator;
 
 const U256 = types.U256;
 const Address = types.Address;
@@ -35,9 +37,8 @@ pub const Interpreter = struct {
     code: []const u8,
     stack: Stack,
     memory: Memory,
-    gas_left: u64,
+    gas_calculator: GasCalculator,
     original_gas: u64,
-    gas_refund: u64 = 0,
     return_data: []u8,
     return_data_allocator: std.mem.Allocator,
     return_data_buffer: ReturnData, // Buffer for RETURNDATASIZE and RETURNDATACOPY opcodes
@@ -71,7 +72,7 @@ pub const Interpreter = struct {
             .code = code,
             .stack = Stack.init(),
             .memory = try Memory.init(allocator),
-            .gas_left = gas_limit,
+            .gas_calculator = GasCalculator.init(gas_limit),
             .original_gas = gas_limit,
             .return_data = &[_]u8{},
             .return_data_allocator = allocator,
@@ -96,7 +97,7 @@ pub const Interpreter = struct {
     /// Main execution loop implementation
     pub fn execute(self: *Interpreter) ExecutionResult {
         // Save original gas for calculating gas used at the end
-        const original_gas = self.gas_left;
+        const original_gas = self.original_gas;
         const dispatch = @import("../opcodes/dispatch.zig");
 
         // Main execution loop
@@ -109,14 +110,17 @@ pub const Interpreter = struct {
                 break;
             }
             
+            // Get current gas left for error reporting
+            const gas_left = self.gas_calculator.getRemainingGas();
+            
             // Execute the instruction
             dispatch.executeInstruction(
                 &self.stack,
                 &self.memory,
                 self.code,
                 &self.pc,
-                &self.gas_left,
-                &self.gas_refund,
+                &gas_left,
+                &self.gas_calculator.gas_refund,
                 &self.return_data_buffer,
                 &self.storage,
                 self.is_static,
@@ -185,11 +189,16 @@ pub const Interpreter = struct {
                 // Set the return data from memory
                 try self.setReturnData(mem_offset, mem_size);
                 
+                // Calculate final gas with refunds
+                self.gas_calculator.recordGasUsed(original_gas);
+                const final_gas = self.gas_calculator.finalize();
+                const gas_used = original_gas - final_gas;
+                
                 // Return success with the data
                 return .{
                     .Success = .{
-                        .gas_used = original_gas - self.gas_left,
-                        .gas_refunded = self.gas_refund,
+                        .gas_used = gas_used,
+                        .gas_refunded = @intCast(u64, @max(0, self.gas_calculator.getGasRefund())),
                         .return_data = self.return_data,
                     }
                 };
@@ -208,18 +217,23 @@ pub const Interpreter = struct {
                 // Return revert with the data
                 return .{
                     .Revert = .{
-                        .gas_used = original_gas - self.gas_left,
+                        .gas_used = original_gas - self.gas_calculator.getRemainingGas(),
                         .return_data = self.return_data,
                     }
                 };
             }
         }
         
+        // Calculate final gas with refunds
+        self.gas_calculator.recordGasUsed(original_gas);
+        const final_gas = self.gas_calculator.finalize();
+        const gas_used = original_gas - final_gas;
+        
         // Successful execution (e.g., via STOP)
         return .{
             .Success = .{
-                .gas_used = original_gas - self.gas_left,
-                .gas_refunded = self.gas_refund,
+                .gas_used = gas_used, 
+                .gas_refunded = @intCast(u64, @max(0, self.gas_calculator.getGasRefund())),
                 .return_data = self.return_data,
             }
         };
@@ -267,6 +281,11 @@ pub const Interpreter = struct {
         }
         return self.jump_dest_map[dest];
     }
+    
+    /// Get a reference to the gas calculator
+    pub fn getGasCalculator(self: *Interpreter) *GasCalculator {
+        return &self.gas_calculator;
+    }
 };
 
 /// Analyze bytecode to identify all valid JUMPDEST positions
@@ -302,7 +321,7 @@ test "Interpreter initialization" {
     defer interpreter.deinit();
     
     try std.testing.expect(interpreter.code.len == bytecode.len);
-    try std.testing.expect(interpreter.gas_left == 100000);
+    try std.testing.expect(interpreter.gas_calculator.getRemainingGas() == 100000);
     try std.testing.expect(interpreter.depth == 0);
     try std.testing.expect(interpreter.jump_dest_map[7] == true); // JUMPDEST at position 7
     try std.testing.expect(interpreter.jump_dest_map[0] == false); // Not a JUMPDEST
