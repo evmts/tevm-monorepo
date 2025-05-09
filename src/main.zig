@@ -1,45 +1,36 @@
-//! ZigEVM CLI - Command line interface for the ZigEVM Ethereum Virtual Machine
-//! This file provides a CLI for interacting with the ZigEVM library.
-
 const std = @import("std");
-// Temporarily comment out clap until we have it properly included
-// const clap = @import("clap");
 const zigevm = @import("zigevm");
 
 const stdout = std.io.getStdOut().writer();
 const stderr = std.io.getStdErr().writer();
 
-// Define CLI commands and options
 const Command = enum {
     execute,
     compile,
     disassemble,
     benchmark,
-    test_cmd, // renamed from 'test' which conflicts with a keyword
+    test_cmd,
 };
 
 pub fn main() !void {
-    // Initialize allocator
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
-    // Print banner
     try stdout.print("ZigEVM v0.1.0 - High Performance WebAssembly-Compatible EVM\n\n", .{});
 
-    // For now, we'll just use a simple command line interface
     try stdout.print("Usage: zigevm <command>\n\n", .{});
     try stdout.print("Commands:\n", .{});
     try stdout.print("  execute      Execute EVM bytecode\n", .{});
     try stdout.print("  compile      Compile Solidity to EVM bytecode\n", .{});
     try stdout.print("  disassemble  Disassemble EVM bytecode\n", .{});
     try stdout.print("  benchmark    Run performance benchmarks\n", .{});
-    try stdout.print("  test         Run test suite\n", .{});
-    
+    try stdout.print("  test_cmd         Run test suite\n", .{});
+
     // Get command from args
     const args = try std.process.argsAlloc(allocator);
     defer std.process.argsFree(allocator, args);
-    
+
     const cmd_str = if (args.len > 1) args[1] else null;
     const cmd = if (cmd_str) |c| parseCommand(c) else null;
 
