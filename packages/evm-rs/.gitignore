@@ -1,0 +1,13 @@
+# Rust build
+/target/
+/pkg/
+/wasm-pack.log
+
+# JavaScript build
+/dist/
+/node_modules/
+/.turbo/
+
+# Coverage
+/coverage/
+/.nyc_output/

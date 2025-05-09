@@ -1,0 +1,102 @@
+{
+  "name": "@tevm/evm-rs",
+  "version": "0.1.0",
+  "description": "Rust EVM implementation for Tevm with WASM bindings",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "pkg",
+    "src",
+    "!src/**/*.spec.ts",
+    "!**/*.tsbuildinfo"
+  ],
+  "scripts": {
+    "build": "pnpm run build:wasm && pnpm run build:js",
+    "build:wasm": "wasm-pack build --target bundler --out-dir pkg",
+    "build:js": "tsup",
+    "build:wasm:debug": "wasm-pack build --dev --target bundler --out-dir pkg",
+    "build:types": "tsc --emitDeclarationOnly",
+    "dev": "pnpm run build:wasm:debug && tsup --watch",
+    "lint": "cargo clippy",
+    "lint:fix": "cargo clippy --fix",
+    "format": "cargo fmt",
+    "format:check": "cargo fmt --check",
+    "typecheck": "tsc --noEmit",
+    "test:rust": "wasm-pack test --node",
+    "test": "vitest run",
+    "test:all": "pnpm run test:rust && pnpm run test",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "clean": "rm -rf pkg dist node_modules .turbo",
+    "prepare": "pnpm run build"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0",
+    "typescript": "^5.0.4",
+    "vitest": "^0.33.0",
+    "wasm-pack": "^0.12.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo",
+    "directory": "packages/evm-rs"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "^build",
+          "build:wasm"
+        ],
+        "outputs": [
+          "dist/**",
+          "pkg/**"
+        ]
+      },
+      "build:js": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "dist/**"
+        ]
+      },
+      "build:wasm": {
+        "dependsOn": [],
+        "outputs": [
+          "pkg/**"
+        ]
+      },
+      "test": {
+        "dependsOn": [
+          "^build:dist"
+        ]
+      },
+      "test:rust": {
+        "dependsOn": [
+          "build:wasm"
+        ]
+      },
+      "test:coverage": {
+        "dependsOn": [
+          "^build:dist"
+        ],
+        "outputs": [
+          "coverage/**"
+        ]
+      },
+      "lint": {
+        "dependsOn": []
+      },
+      "format": {
+        "dependsOn": []
+      }
+    }
+  }
+}

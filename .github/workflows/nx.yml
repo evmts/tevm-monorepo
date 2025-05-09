@@ -84,7 +84,7 @@ jobs:
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v1.0
         with:
-          cmd1: bunx nx affected --targets build:dist,build:rust
+          cmd1: bunx nx affected --targets build:dist,build:rust,build:wasm
           cmd2: bunx nx affected --target build:types
           cmd3: bunx nx affected --target typecheck
           cmd4: bunx nx affected --targets test:coverage,test:rust
