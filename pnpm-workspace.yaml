@@ -15,6 +15,7 @@ packages:
   - scripts
   - tevm
   - test/*
+  - tests
 onlyBuiltDependencies:
   - "@biomejs/biome"
   - "@swc/core"

@@ -1,0 +1,22 @@
+{
+  "name": "zigevm-tests",
+  "version": "0.1.0",
+  "description": "Tests for ZigEVM - High-Performance WebAssembly-Compatible EVM",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "bench": "vitest bench",
+    "bench:run": "vitest bench --run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/bytes": "^5.7.0",
+    "@types/node": "^20.10.6",
+    "typescript": "^5.3.3",
+    "viem": "^1.21.4",
+    "vitest": "^1.1.1"
+  }
+}

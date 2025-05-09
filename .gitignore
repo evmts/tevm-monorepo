@@ -75,6 +75,10 @@ _
 *.dll
 *.rlib
 
-*.node
-*.node
-*.node
+# Zig related files
+.zig-cache/
+zig-out/
+zig-cache/
+
+# TODO files
+TODO.md
