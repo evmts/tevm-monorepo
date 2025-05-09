@@ -1,0 +1,17 @@
+# Development files
+/target/
+/src/
+/tests/
+/.turbo/
+/coverage/
+/.nyc_output/
+/wasm-pack.log
+/.git*
+/Cargo.lock
+/tsconfig.json
+/tsup.config.ts
+/vitest.config.ts
+
+# Include compiled files
+!/dist/
+!/pkg/

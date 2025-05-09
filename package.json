@@ -12,7 +12,7 @@
   ],
   "type": "commonjs",
   "scripts": {
-    "all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,build:rust",
+    "all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,build:rust,build:rust:wasm",
     "all:clean": "bun clean && pnpm i && bun allz",
     "all:slow": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app --parallel=1",
     "allz": "npx concurrently 'pnpm i' 'bun lint' 'bun sort-package-json' && nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,lint:package,lint:deps,lint,format,build:rust:lib",
@@ -21,6 +21,7 @@
     "build:dist": "nx run-many --target=build:dist",
     "build:rust:app": "nx run-many --target=build --projects=my_rust_node_lib --configuration=production",
     "build:rust:lib": "nx run-many --target=build --projects=my_rust_node_lib",
+    "build:rust:wasm": "nx run-many --target=build:wasm --projects=@tevm/evm-rs",
     "build:types": "nx run-many --targets=build:types,typecheck",
     "clean": "nx reset && nx run-many --target=clean && rm -rf node_modules && rm -rf .nx",
     "e2e": "nx e2e e2e",
@@ -43,6 +44,7 @@
     "test": "bun test:run",
     "test:coverage": "nx run-many --target=test:coverage --skip-nx-cache",
     "test:run": "nx run-many --target=test:run",
+    "test:rust": "nx run-many --target=test:rust --projects=@tevm/evm-rs",
     "up": "bun x npm-check-updates -ui -ws"
   },
   "dependencies": {

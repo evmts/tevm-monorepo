@@ -12,9 +12,17 @@
 			"dependsOn": [],
 			"cache": true
 		},
+		"build:wasm": {
+			"inputs": ["default"],
+			"outputs": [
+				"{projectRoot}/pkg/**/*"
+			],
+			"dependsOn": [],
+			"cache": true
+		},
 		"test:rust": {
 			"inputs": ["default"],
-			"dependsOn": ["^build:rust"],
+			"dependsOn": ["^build:rust", "^build:wasm"],
 			"cache": true
 		},
 		"lint:check": {

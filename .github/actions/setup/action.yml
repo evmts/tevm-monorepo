@@ -26,6 +26,11 @@ runs:
       uses: dtolnay/rust-toolchain@stable
       with:
         components: rustfmt, clippy
+        targets: wasm32-unknown-unknown
+    
+    - name: Install wasm-pack
+      run: cargo install wasm-pack
+      shell: bash
 
     - name: Install dependencies
       run: pnpm install --frozen-lockfile

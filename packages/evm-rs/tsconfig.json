@@ -1,0 +1,14 @@
+{
+  "extends": "../../configs/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "checkJs": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "bundler"
+  },
+  "include": ["src/**/*.js", "src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"],
+  "references": []
+}
