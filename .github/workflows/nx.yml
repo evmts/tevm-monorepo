@@ -78,6 +78,10 @@ jobs:
             libayatana-appindicator3-dev \
             librsvg2-dev
 
+      - name: Build Zig
+        run: |
+          zig build
+
       - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
         run: bunx nx-cloud start-ci-run --stop-agents-after=build:app --stop-agents-on-failure=false
 
