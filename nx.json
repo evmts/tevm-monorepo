@@ -2,6 +2,21 @@
 	"defaultProject": "@tevm/example-vite",
 	"cacheDirectory": ".nx",
 	"targetDefaults": {
+		"build:zig": {
+			"inputs": ["default"],
+			"outputs": [
+				"{workspaceRoot}/zig-out/**/*",
+				"{workspaceRoot}/zig-cache/**/*",
+				"{workspaceRoot}/dist/zigevm.wasm"
+			],
+			"dependsOn": [],
+			"cache": true
+		},
+		"test:zig": {
+			"inputs": ["default"],
+			"dependsOn": ["^build:zig"],
+			"cache": true
+		},
 		"build:rust": {
 			"inputs": ["default"],
 			"outputs": [
@@ -101,12 +116,13 @@
 	"defaultBase": "main",
 	"$schema": "./node_modules/nx/schemas/nx-schema.json",
 	"namedInputs": {
-		"buildConfigs": ["{projectRoot}/tsconfig.*?.json", "{projectRoot}/tsup.config.ts"],
+		"buildConfigs": ["{projectRoot}/tsconfig.*?.json", "{projectRoot}/tsup.config.ts", "{workspaceRoot}/build.zig", "{workspaceRoot}/build.zig.zon"],
 		"default": [
 			"{projectRoot}/*.json",
 			"{projectRoot}/*.js",
 			"{projectRoot}/*.ts",
 			"{projectRoot}/*.rs",
+			"{projectRoot}/*.zig",
 			"{projectRoot}/Cargo.toml",
 			"{projectRoot}/src/**/*",
 			"sharedGlobals"
@@ -118,8 +134,11 @@
 			"{workspaceRoot}/pnpm-lock.yaml",
 			"{workspaceRoot}/Cargo.lock",
 			"{workspaceRoot}/Cargo.toml",
+			"{workspaceRoot}/build.zig",
+			"{workspaceRoot}/build.zig.zon",
 			"{workspaceRoot}/configs/**/*",
-			"{workspaceRoot}/lib/**/*"
+			"{workspaceRoot}/lib/**/*",
+			"{workspaceRoot}/src/**/*.zig"
 		],
 		"productionSrc": ["{projectRoot}/src/**/*", "!{projectRoot}/src/**/*.spec.ts", "!{projectRoot}/src/**/*.spec.rs"],
 		"productionContracts": ["{projectRoot}/contracts/**/*"],

@@ -78,3 +78,10 @@ _
 *.node
 *.node
 *.node
+
+# zig
+.zig-cache/
+zig-out/
+zig-cache/
+
+TODO.md
