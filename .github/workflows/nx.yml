@@ -78,9 +78,10 @@ jobs:
             libayatana-appindicator3-dev \
             librsvg2-dev
 
-      - name: Build Zig
+      - name: Build Zig and WASM
         run: |
           zig build
+          cd src && zig build wasm && echo "WASM size: $(ls -lh ../dist/zigevm.wasm | awk '{print $5}')"
 
       - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
         run: bunx nx-cloud start-ci-run --stop-agents-after=build:app --stop-agents-on-failure=false
@@ -88,7 +89,7 @@ jobs:
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v1.0
         with:
-          cmd1: bunx nx affected --targets build:dist,build:rust
+          cmd1: bunx nx affected --targets build:dist,build:rust,build:wasm
           cmd2: bunx nx affected --target build:types
           cmd3: bunx nx affected --target typecheck
           cmd4: bunx nx affected --targets test:coverage,test:rust
