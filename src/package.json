@@ -1,0 +1,15 @@
+{
+  "name": "@tevm/zig",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "bench": "vitest bench"
+  },
+  "devDependencies": {
+    "viem": "^2.29.2",
+    "vitest": "^3.1.3"
+  }
+}

@@ -13,6 +13,7 @@ packages:
   - lsp/*
   - packages/*
   - scripts
+  - src
   - tevm
   - test/*
 onlyBuiltDependencies:

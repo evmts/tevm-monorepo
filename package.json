@@ -23,7 +23,7 @@
     "build:rust:lib": "nx run-many --target=build --projects=my_rust_node_lib",
     "build:types": "nx run-many --targets=build:types,typecheck",
     "build:zig": "cd src && zig build",
-    "build:wasm": "cd src && zig build wasm && echo \"WASM build completed\" && echo \"WASM size: $(ls -lh ../dist/zigevm.wasm | awk '{print $5}')\" && echo \"WASM path: $(realpath ../dist/zigevm.wasm)\"",
+    "build:wasm": "cd src && zig build wasm && mkdir -p ../dist && find ../.zig-cache -name \"*.wasm\" -exec cp {} ../dist/zigevm.wasm \\; && echo \"WASM build completed\" && echo \"WASM size: $(ls -lh ../dist/zigevm.wasm | awk '{print $5}')\" && echo \"WASM path: $(realpath ../dist/zigevm.wasm)\"",
     "test:zig": "cd src && zig build test",
     "clean": "nx reset && nx run-many --target=clean && rm -rf node_modules && rm -rf .nx",
     "e2e": "nx e2e e2e",
