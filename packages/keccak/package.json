@@ -1,0 +1,84 @@
+{
+  "name": "@tevm/keccak",
+  "version": "1.0.0-next.142",
+  "private": false,
+  "description": "High-performance keccak256 implementation for Tevm using WebAssembly",
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "typescript",
+    "web3",
+    "keccak256",
+    "hash",
+    "crypto",
+    "wasm",
+    "webassembly"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evmts/tevm-monorepo.git",
+    "directory": "packages/keccak"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Will Cory <willcory10@gmail.com>"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types",
+    "src",
+    "!src/**/*.spec.ts"
+  ],
+  "scripts": {
+    "all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+    "build": "nx run-many --targets=build:dist,build:types,build:wasm --projects=@tevm/keccak",
+    "build:dist": "tsup",
+    "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+    "build:wasm": "cd src/wasm && zig build-obj keccak.zig -target wasm32-freestanding -O ReleaseSmall && mkdir -p ../../../dist && cp keccak.wasm.o ../../../dist/keccak.wasm",
+    "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+    "format": "biome format . --write",
+    "format:check": "biome format .",
+    "generate:docs": "typedoc",
+    "lint": "biome check . --write --unsafe",
+    "lint:check": "biome check . --verbose",
+    "lint:deps": "bunx depcheck",
+    "lint:package": "bunx publint --strict && attw --pack",
+    "package:up": "pnpm up --latest",
+    "test": "vitest --watch",
+    "test:coverage": "vitest --coverage --run",
+    "test:run": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tevm/errors": "workspace:^",
+    "@tevm/utils": "workspace:^"
+  },
+  "devDependencies": {
+    "@tevm/tsconfig": "workspace:^",
+    "@tevm/tsupconfig": "workspace:^"
+  },
+  "peerDependencies": {
+    "viem": "^2.21.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
