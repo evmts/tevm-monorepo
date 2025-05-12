@@ -26,6 +26,12 @@ export const U32 = intSchema(32)
 export type U32 = Int<32>
 
 /**
+ * Maximum value for a 32-bit unsigned integer
+ * 2^32 - 1 = 4294967295
+ */
+export const maxU32 = 2n ** 32n - 1n
+
+/**
  * Decodes a Uint8Array into a U32 value
  * @example
  *   import { Tevm } from 'tevm'

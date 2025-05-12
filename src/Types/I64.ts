@@ -26,6 +26,18 @@ export const I64 = intSchema(64)
 export type I64 = Int<64>
 
 /**
+ * Maximum value for a 64-bit signed integer
+ * 2^63 - 1 = 9223372036854775807
+ */
+export const maxI64 = 2n ** 63n - 1n
+
+/**
+ * Minimum value for a 64-bit signed integer
+ * -(2^63) = -9223372036854775808
+ */
+export const minI64 = -(2n ** 63n)
+
+/**
  * Decodes a Uint8Array into an I64 value
  * @example
  *   import { Tevm } from 'tevm'

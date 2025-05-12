@@ -26,6 +26,18 @@ export const I16 = intSchema(16)
 export type I16 = Int<16>
 
 /**
+ * Maximum value for a 16-bit signed integer
+ * 2^15 - 1 = 32767
+ */
+export const maxI16 = 2n ** 15n - 1n
+
+/**
+ * Minimum value for a 16-bit signed integer
+ * -(2^15) = -32768
+ */
+export const minI16 = -(2n ** 15n)
+
+/**
  * Decodes a Uint8Array into an I16 value
  * @example
  *   import { Tevm } from 'tevm'

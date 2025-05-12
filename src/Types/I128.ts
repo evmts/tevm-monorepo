@@ -26,6 +26,18 @@ export const I128 = intSchema(128)
 export type I128 = Int<128>
 
 /**
+ * Maximum value for a 128-bit signed integer
+ * 2^127 - 1 = 170141183460469231731687303715884105727
+ */
+export const maxI128 = 2n ** 127n - 1n
+
+/**
+ * Minimum value for a 128-bit signed integer
+ * -(2^127) = -170141183460469231731687303715884105728
+ */
+export const minI128 = -(2n ** 127n)
+
+/**
  * Decodes a Uint8Array into an I128 value
  * @example
  *   import { Tevm } from 'tevm'
