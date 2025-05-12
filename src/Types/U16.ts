@@ -26,6 +26,12 @@ export const U16 = intSchema(16)
 export type U16 = Int<16>
 
 /**
+ * Maximum value for a 16-bit unsigned integer
+ * 2^16 - 1 = 65535
+ */
+export const maxU16 = 2n ** 16n - 1n
+
+/**
  * Decodes a Uint8Array into a U16 value
  * @example
  *   import { Tevm } from 'tevm'

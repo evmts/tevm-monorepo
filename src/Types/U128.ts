@@ -26,6 +26,12 @@ export const U128 = intSchema(128)
 export type U128 = Int<128>
 
 /**
+ * Maximum value for a 128-bit unsigned integer
+ * 2^128 - 1 = 340282366920938463463374607431768211455
+ */
+export const maxU128 = 2n ** 128n - 1n
+
+/**
  * Decodes a Uint8Array into a U128 value
  * @example
  *   import { Tevm } from 'tevm'

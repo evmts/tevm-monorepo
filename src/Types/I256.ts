@@ -26,6 +26,18 @@ export const I256 = intSchema(256)
 export type I256 = Int<256>
 
 /**
+ * Maximum value for a 256-bit signed integer
+ * 2^255 - 1 = 57896044618658097711785492504343953926634992332820282019728792003956564819967
+ */
+export const maxI256 = 2n ** 255n - 1n
+
+/**
+ * Minimum value for a 256-bit signed integer
+ * -(2^255) = -57896044618658097711785492504343953926634992332820282019728792003956564819968
+ */
+export const minI256 = -(2n ** 255n)
+
+/**
  * Decodes a Uint8Array into an I256 value
  * @example
  *   import { Tevm } from 'tevm'

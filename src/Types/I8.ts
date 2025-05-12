@@ -8,6 +8,18 @@ export const I8FromHex = intFromHex(8)
 export const I8FromString = intFromString(8)
 
 /**
+ * Maximum value for an 8-bit signed integer
+ * 2^7 - 1 = 127
+ */
+export const maxI8 = 2n ** 7n - 1n
+
+/**
+ * Minimum value for an 8-bit signed integer
+ * -(2^7) = -128
+ */
+export const minI8 = -(2n ** 7n)
+
+/**
  * Converts an I8 value to its hex string representation
  * @param value - The I8 value to convert
  * @returns The hex string representation
