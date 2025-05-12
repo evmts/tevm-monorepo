@@ -2,18 +2,21 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
     foundry.url = "github:shazow/foundry.nix/monthly";
     rust-overlay.url = "github:oxalica/rust-overlay";
+    zig-overlay.url = "github:mitchellh/zig-overlay";
   };
 
-  outputs = { nixpkgs, flake-utils, foundry, rust-overlay, ... }:
+  outputs = { nixpkgs, flake-utils, foundry, rust-overlay, zig-overlay, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs {
         inherit system;
         overlays = [
           foundry.overlay
           rust-overlay.overlays.default
+          zig-overlay.overlays.default
         ];
       };
     in {
@@ -25,6 +28,7 @@
           pkgs.bun
           pkgs.foundry-bin
           pkgs.rust-bin.stable.latest.default # or pkgs.rust-bin.beta.latest.default
+          zig-overlay.packages.${system}.master # Use the latest master build of Zig
         ];
 
         shellHook = ''
