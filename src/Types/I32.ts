@@ -26,6 +26,18 @@ export const I32 = intSchema(32)
 export type I32 = Int<32>
 
 /**
+ * Maximum value for a 32-bit signed integer
+ * 2^31 - 1 = 2147483647
+ */
+export const maxI32 = 2n ** 31n - 1n
+
+/**
+ * Minimum value for a 32-bit signed integer
+ * -(2^31) = -2147483648
+ */
+export const minI32 = -(2n ** 31n)
+
+/**
  * Decodes a Uint8Array into an I32 value
  * @example
  *   import { Tevm } from 'tevm'

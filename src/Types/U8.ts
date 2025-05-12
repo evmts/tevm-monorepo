@@ -26,6 +26,12 @@ export const U8 = intSchema(8)
 export type U8 = Int<8>
 
 /**
+ * Maximum value for an 8-bit unsigned integer
+ * 2^8 - 1 = 255
+ */
+export const maxU8 = 2n ** 8n - 1n
+
+/**
  * Decodes a Uint8Array into a U8 value
  * @example
  *   import { Tevm } from 'tevm'

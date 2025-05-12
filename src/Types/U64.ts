@@ -26,6 +26,12 @@ export const U64 = intSchema(64)
 export type U64 = Int<64>
 
 /**
+ * Maximum value for a 64-bit unsigned integer
+ * 2^64 - 1 = 18446744073709551615
+ */
+export const maxU64 = 2n ** 64n - 1n
+
+/**
  * Decodes a Uint8Array into a U64 value
  * @example
  *   import { Tevm } from 'tevm'

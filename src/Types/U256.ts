@@ -27,6 +27,12 @@ export const U256 = uintSchema(256)
 export type U256 = Uint<256>
 
 /**
+ * Maximum value for a 256-bit unsigned integer
+ * 2^256 - 1 = 115792089237316195423570985008687907853269984665640564039457584007913129639935
+ */
+export const maxU256 = 2n ** 256n - 1n
+
+/**
  * Decodes a Uint8Array into a U256 value
  * @example
  *   import { Tevm } from 'tevm'
