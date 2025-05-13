@@ -36,7 +36,11 @@
 			"examples/next",
 			"cli",
 			"bundler-packages/config/src/fixtures",
-			"bundler-packages/cli/fixtures"
+			"bundler-packages/cli/fixtures",
+			"**/pkg/**/*.js",
+			"**/pkg/**/*.wasm",
+			"evmone/**",
+			"revm/**"
 		]
 	},
 	"formatter": {

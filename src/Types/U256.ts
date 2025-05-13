@@ -1,7 +1,7 @@
 import { pipe } from 'effect/Function'
 import { Schema, Effect } from 'effect'
 import { Value, Hex, Bytes } from 'ox'
-import { Uint, uintSchema, uintFromBytes, uintFromHex, uintFromString } from './common.js'
+import { Uint, uintSchema, uintFromBytes, uintFromHex, uintFromString } from './common-int.js'
 
 /**
  * U256 type schema for 256-bit unsigned integers. This is both a schema and a type.
