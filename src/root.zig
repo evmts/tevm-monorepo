@@ -1,9 +1,9 @@
 const std = @import("std");
 
-pub const evm = @import("evm/evm.zig");
+pub const evm = @import("Evm/evm.zig");
 pub const utils = struct {
-    pub const hex = @import("utils/hex.zig");
-    pub const keccak256 = @import("utils/keccak256.zig");
+    pub const hex = @import("Utils/hex.zig");
+    pub const keccak256 = @import("Utils/keccak256.zig");
 };
 
 pub fn main() void {

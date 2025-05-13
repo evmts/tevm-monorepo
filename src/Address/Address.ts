@@ -1,6 +1,6 @@
 import { Brand, Effect, Schema } from 'effect'
 import { Bytes, Address as OxAddress } from 'ox'
-import { B160, type B160 as B160Type } from '../types/B160.js'
+import { B160, type B160 as B160Type } from '../Types/B160.js'
 
 /**
  * Ethereum address, represented as a 20-byte fixed array with an Address brand
