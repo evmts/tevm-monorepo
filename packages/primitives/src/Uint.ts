@@ -1,6 +1,6 @@
 import { Brand, Effect, Schema } from 'effect'
 import { pipe } from 'effect/Function'
-import { Value, Hex } from 'ox'
+import { Hex, Value } from 'ox'
 
 /**
  * Generic unsigned integer with a specified bit size
@@ -27,14 +27,17 @@ const uintSchema = <Size extends number>(size: Size) => {
 
 	return pipe(
 		size <= 32 ? Schema.Number : Schema.BigInt,
-		Schema.filter((value: number | bigint) => {
-			if (size <= 32) {
-				return value >= 0 && value <= maxValue
-			}
-			return value >= 0n && value <= maxValue
-		}, {
-			message: () => `Expected unsigned integer with maximum value of ${maxValue}`,
-		}),
+		Schema.filter(
+			(value: number | bigint) => {
+				if (size <= 32) {
+					return value >= 0 && value <= maxValue
+				}
+				return value >= 0n && value <= maxValue
+			},
+			{
+				message: () => `Expected unsigned integer with maximum value of ${maxValue}`,
+			},
+		),
 		Schema.brand(`Uint${size}`),
 	)
 }
@@ -49,14 +52,17 @@ const intSchema = <Size extends number>(size: Size) => {
 
 	return pipe(
 		size <= 32 ? Schema.Number : Schema.BigInt,
-		Schema.filter((value: number | bigint) => {
-			if (size <= 32) {
+		Schema.filter(
+			(value: number | bigint) => {
+				if (size <= 32) {
+					return value >= minValue && value <= maxValue
+				}
 				return value >= minValue && value <= maxValue
-			}
-			return value >= minValue && value <= maxValue
-		}, {
-			message: () => `Expected signed integer between ${minValue} and ${maxValue}`,
-		}),
+			},
+			{
+				message: () => `Expected signed integer between ${minValue} and ${maxValue}`,
+			},
+		),
 		Schema.brand(`Int${size}`),
 	)
 }
@@ -70,29 +76,26 @@ const fooFromBytes = <Size extends number>(size: Size) => {
 
 	return pipe(
 		Schema.Uint8Array,
-		Schema.transform(
-			size <= 32 ? Schema.Number : Schema.BigIntFromSelf,
-			{
-				decode: (bytes: Uint8Array) => {
-					const hex = Array.from(bytes)
-						.map((b) => b.toString(16).padStart(2, '0'))
-						.join('')
-					const validHex = hex || '0'
-					const value = Value.from(`0x${validHex}`)
-					if (size <= 32) {
-						if (value > maxValue || value < 0) {
-							throw new Error(`Value out of range for Uint${size}`)
-						}
-					} else {
-						if (value > maxValue || value < 0n) {
-							throw new Error(`Value out of range for Uint${size}`)
-						}
+		Schema.transform(size <= 32 ? Schema.Number : Schema.BigIntFromSelf, {
+			decode: (bytes: Uint8Array) => {
+				const hex = Array.from(bytes)
+					.map((b) => b.toString(16).padStart(2, '0'))
+					.join('')
+				const validHex = hex || '0'
+				const value = Value.from(`0x${validHex}`)
+				if (size <= 32) {
+					if (value > maxValue || value < 0) {
+						throw new Error(`Value out of range for Uint${size}`)
 					}
-					return value
-				},
-				encode: () => new Uint8Array(0), // This is a dummy implementation since we don't need to transform back
+				} else {
+					if (value > maxValue || value < 0n) {
+						throw new Error(`Value out of range for Uint${size}`)
+					}
+				}
+				return value
 			},
-		),
+			encode: () => new Uint8Array(0), // This is a dummy implementation since we don't need to transform back
+		}),
 		Schema.brand(`Uint${size}`),
 	)
 }
@@ -106,29 +109,26 @@ const uintFromBytes = <Size extends number>(size: Size) => {
 
 	return pipe(
 		Schema.Uint8Array,
-		Schema.transform(
-			size <= 32 ? Schema.Number : Schema.BigIntFromSelf,
-			{
-				decode: (bytes: Uint8Array) => {
-					const hex = Array.from(bytes)
-						.map((b: number) => b.toString(16).padStart(2, '0'))
-						.join('')
-					const validHex = hex || '0'
-					const value = size <= 32 ? parseInt(validHex, 16) : BigInt(`0x${validHex}`)
-					if (size <= 32) {
-						if (value > maxValue || value < 0) {
-							throw new Error(`Value out of range for Uint${size}`)
-						}
-					} else {
-						if (value > maxValue || value < 0n) {
-							throw new Error(`Value out of range for Uint${size}`)
-						}
+		Schema.transform(size <= 32 ? Schema.Number : Schema.BigIntFromSelf, {
+			decode: (bytes: Uint8Array) => {
+				const hex = Array.from(bytes)
+					.map((b: number) => b.toString(16).padStart(2, '0'))
+					.join('')
+				const validHex = hex || '0'
+				const value = size <= 32 ? Number.parseInt(validHex, 16) : BigInt(`0x${validHex}`)
+				if (size <= 32) {
+					if (value > maxValue || value < 0) {
+						throw new Error(`Value out of range for Uint${size}`)
 					}
-					return value
-				},
-				encode: () => new Uint8Array(0), // This is a dummy implementation since we don't need to transform back
+				} else {
+					if (value > maxValue || value < 0n) {
+						throw new Error(`Value out of range for Uint${size}`)
+					}
+				}
+				return value
 			},
-		),
+			encode: () => new Uint8Array(0), // This is a dummy implementation since we don't need to transform back
+		}),
 		Schema.brand(`Uint${size}`),
 	)
 }
@@ -143,29 +143,26 @@ const intFromBytes = <Size extends number>(size: Size) => {
 
 	return pipe(
 		Schema.Uint8Array,
-		Schema.transform(
-			size <= 32 ? Schema.Number : Schema.BigIntFromSelf,
-			{
-				decode: (bytes: Uint8Array) => {
-					const hex = Array.from(bytes)
-						.map((b: number) => b.toString(16).padStart(2, '0'))
-						.join('')
-					const validHex = hex || '0'
-					const value = size <= 32 ? parseInt(validHex, 16) : BigInt(`0x${validHex}`)
-					if (size <= 32) {
-						if (value > maxValue || value < minValue) {
-							throw new Error(`Value out of range for Int${size}`)
-						}
-					} else {
-						if (value > maxValue || value < minValue) {
-							throw new Error(`Value out of range for Int${size}`)
-						}
+		Schema.transform(size <= 32 ? Schema.Number : Schema.BigIntFromSelf, {
+			decode: (bytes: Uint8Array) => {
+				const hex = Array.from(bytes)
+					.map((b: number) => b.toString(16).padStart(2, '0'))
+					.join('')
+				const validHex = hex || '0'
+				const value = size <= 32 ? Number.parseInt(validHex, 16) : BigInt(`0x${validHex}`)
+				if (size <= 32) {
+					if (value > maxValue || value < minValue) {
+						throw new Error(`Value out of range for Int${size}`)
 					}
-					return value
-				},
-				encode: () => new Uint8Array(0), // This is a dummy implementation since we don't need to transform back
+				} else {
+					if (value > maxValue || value < minValue) {
+						throw new Error(`Value out of range for Int${size}`)
+					}
+				}
+				return value
 			},
-		),
+			encode: () => new Uint8Array(0), // This is a dummy implementation since we don't need to transform back
+		}),
 		Schema.brand(`Int${size}`),
 	)
 }
@@ -179,32 +176,30 @@ const uintFromHex = <Size extends number>(size: Size) => {
 
 	return pipe(
 		Schema.String,
-		Schema.transform(
-			size <= 32 ? Schema.Number : Schema.BigIntFromSelf,
-			{
-				decode: (hex: string) => {
-					const value = size <= 32
-						? parseInt(hex.startsWith('0x') ? hex.slice(2) : hex, 16)
+		Schema.transform(size <= 32 ? Schema.Number : Schema.BigIntFromSelf, {
+			decode: (hex: string) => {
+				const value =
+					size <= 32
+						? Number.parseInt(hex.startsWith('0x') ? hex.slice(2) : hex, 16)
 						: BigInt(hex.startsWith('0x') ? hex : `0x${hex}`)
-					if (size <= 32) {
-						if (value > maxValue || value < 0) {
-							throw new Error(`Value out of range for Uint${size}`)
-						}
-					} else {
-						if (value > maxValue || value < 0n) {
-							throw new Error(`Value out of range for Uint${size}`)
-						}
+				if (size <= 32) {
+					if (value > maxValue || value < 0) {
+						throw new Error(`Value out of range for Uint${size}`)
 					}
-					return value
-				},
-				encode: (value: number | bigint) => {
-					if (size <= 32) {
-						return `0x${value.toString(16)}`
+				} else {
+					if (value > maxValue || value < 0n) {
+						throw new Error(`Value out of range for Uint${size}`)
 					}
-					return `0x${value.toString(16)}`
-				},
+				}
+				return value
 			},
-		),
+			encode: (value: number | bigint) => {
+				if (size <= 32) {
+					return `0x${value.toString(16)}`
+				}
+				return `0x${value.toString(16)}`
+			},
+		}),
 		Schema.brand(`Uint${size}`),
 	)
 }
@@ -219,32 +214,30 @@ const intFromHex = <Size extends number>(size: Size) => {
 
 	return pipe(
 		Schema.String,
-		Schema.transform(
-			size <= 32 ? Schema.Number : Schema.BigIntFromSelf,
-			{
-				decode: (hex: string) => {
-					const value = size <= 32
-						? parseInt(hex.startsWith('0x') ? hex.slice(2) : hex, 16)
+		Schema.transform(size <= 32 ? Schema.Number : Schema.BigIntFromSelf, {
+			decode: (hex: string) => {
+				const value =
+					size <= 32
+						? Number.parseInt(hex.startsWith('0x') ? hex.slice(2) : hex, 16)
 						: BigInt(hex.startsWith('0x') ? hex : `0x${hex}`)
-					if (size <= 32) {
-						if (value > maxValue || value < minValue) {
-							throw new Error(`Value out of range for Int${size}`)
-						}
-					} else {
-						if (value > maxValue || value < minValue) {
-							throw new Error(`Value out of range for Int${size}`)
-						}
+				if (size <= 32) {
+					if (value > maxValue || value < minValue) {
+						throw new Error(`Value out of range for Int${size}`)
 					}
-					return value
-				},
-				encode: (value: number | bigint) => {
-					if (size <= 32) {
-						return `0x${value.toString(16)}`
+				} else {
+					if (value > maxValue || value < minValue) {
+						throw new Error(`Value out of range for Int${size}`)
 					}
-					return `0x${value.toString(16)}`
-				},
+				}
+				return value
 			},
-		),
+			encode: (value: number | bigint) => {
+				if (size <= 32) {
+					return `0x${value.toString(16)}`
+				}
+				return `0x${value.toString(16)}`
+			},
+		}),
 		Schema.brand(`Int${size}`),
 	)
 }
@@ -641,39 +634,33 @@ export const U256FromBytes = uintFromBytes(256)
 export const U256FromHex = uintFromHex(256)
 export const U256FromEther = pipe(
 	Schema.String,
-	Schema.transform(
-		Schema.BigIntFromSelf,
-		{
-			decode: (ether: string) => {
-				const wei = Value.fromEther(ether)
-				const maxValue = (1n << 256n) - 1n
-				if (wei > maxValue || wei < 0n) {
-					throw new Error(`Value out of range for U256`)
-				}
-				return wei
-			},
-			encode: (value: bigint) => Value.formatEther(value),
+	Schema.transform(Schema.BigIntFromSelf, {
+		decode: (ether: string) => {
+			const wei = Value.fromEther(ether)
+			const maxValue = (1n << 256n) - 1n
+			if (wei > maxValue || wei < 0n) {
+				throw new Error('Value out of range for U256')
+			}
+			return wei
 		},
-	),
-	Schema.brand(`Uint256`),
+		encode: (value: bigint) => Value.formatEther(value),
+	}),
+	Schema.brand('Uint256'),
 )
 export const U256FromGwei = pipe(
 	Schema.String,
-	Schema.transform(
-		Schema.BigIntFromSelf,
-		{
-			decode: (gwei: string) => {
-				const wei = Value.fromGwei(gwei)
-				const maxValue = (1n << 256n) - 1n
-				if (wei > maxValue || wei < 0n) {
-					throw new Error(`Value out of range for U256`)
-				}
-				return wei
-			},
-			encode: (value: bigint) => Value.formatGwei(value),
+	Schema.transform(Schema.BigIntFromSelf, {
+		decode: (gwei: string) => {
+			const wei = Value.fromGwei(gwei)
+			const maxValue = (1n << 256n) - 1n
+			if (wei > maxValue || wei < 0n) {
+				throw new Error('Value out of range for U256')
+			}
+			return wei
 		},
-	),
-	Schema.brand(`Uint256`),
+		encode: (value: bigint) => Value.formatGwei(value),
+	}),
+	Schema.brand('Uint256'),
 )
 
 /**

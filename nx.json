@@ -4,11 +4,7 @@
 	"targetDefaults": {
 		"build:zig": {
 			"inputs": ["default"],
-			"outputs": [
-				"{workspaceRoot}/zig-out/**/*",
-				"{workspaceRoot}/zig-cache/**/*",
-				"{workspaceRoot}/dist/zigevm.wasm"
-			],
+			"outputs": ["{workspaceRoot}/zig-out/**/*", "{workspaceRoot}/zig-cache/**/*", "{workspaceRoot}/dist/zigevm.wasm"],
 			"dependsOn": [],
 			"cache": true
 		},
@@ -19,11 +15,7 @@
 		},
 		"build:rust": {
 			"inputs": ["default"],
-			"outputs": [
-				"{projectRoot}/target/debug/**/*",
-				"{projectRoot}/target/release/**/*",
-				"{projectRoot}/index.node"
-			],
+			"outputs": ["{projectRoot}/target/debug/**/*", "{projectRoot}/target/release/**/*", "{projectRoot}/index.node"],
 			"dependsOn": [],
 			"cache": true
 		},
@@ -116,7 +108,12 @@
 	"defaultBase": "main",
 	"$schema": "./node_modules/nx/schemas/nx-schema.json",
 	"namedInputs": {
-		"buildConfigs": ["{projectRoot}/tsconfig.*?.json", "{projectRoot}/tsup.config.ts", "{workspaceRoot}/build.zig", "{workspaceRoot}/build.zig.zon"],
+		"buildConfigs": [
+			"{projectRoot}/tsconfig.*?.json",
+			"{projectRoot}/tsup.config.ts",
+			"{workspaceRoot}/build.zig",
+			"{workspaceRoot}/build.zig.zon"
+		],
 		"default": [
 			"{projectRoot}/*.json",
 			"{projectRoot}/*.js",
