@@ -1,8 +1,8 @@
 const std = @import("std");
 
-const ZERO_ADDRESS: [20]u8 = .{0} ** 20;
+pub const ZERO_ADDRESS: [20]u8 = .{0} ** 20;
 
-const Block = struct {
+pub const Block = struct {
     number: u64,
     coinbase: [20]u8,
     timestamp: u64,
@@ -13,7 +13,7 @@ const Block = struct {
     getBlobGasPrice: u256,
 };
 
-const ExecuteParams = struct {
+pub const ExecuteParams = struct {
     block: Block = Block{
         .number = 0,
         .coinbase = ZERO_ADDRESS,
@@ -38,13 +38,13 @@ const ExecuteParams = struct {
     blobVersionedHashes: []const [32]u8 = &[_][32]u8{},
 };
 
-const Log = struct {
+pub const Log = struct {
     address: []const u8,
     topics: []const []const u8,
     data: []const u8,
 };
 
-const ExecuteResult = struct {
+pub const ExecuteResult = struct {
     gas: ?u256 = null,
     executionGasUsed: u256,
     returnValue: []u8,
@@ -55,7 +55,7 @@ const ExecuteResult = struct {
     blobGasUsed: ?u256 = null,
 };
 
-const ExecuteError = error{
+pub const ExecuteError = error{
     OUT_OF_GAS,
     CODESTORE_OUT_OF_GAS,
     CODESIZE_EXCEEDS_MAXIMUM,
