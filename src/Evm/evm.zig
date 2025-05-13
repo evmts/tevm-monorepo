@@ -9,7 +9,7 @@ const Block = struct {
     difficulty: u256,
     prevRandao: [32]u8,
     gasLimit: u265,
-    baseFeePerGas: ?u256,
+    baseFeePerGas: ?u256 = null,
     getBlobGasPrice: u256,
 };
 
@@ -22,6 +22,7 @@ const ExecuteParams = struct {
         .prevRandao = .{0} ** 32,
         .gasLimit = 0,
         .getBlobGasPrice = 0,
+        .baseFeePerGas = null,
     },
     gasPrice: u256 = 0,
     origin: [20]u8 = ZERO_ADDRESS,
@@ -32,9 +33,9 @@ const ExecuteParams = struct {
     value: u256 = 0,
     depth: u16 = 0,
     isStatic: bool = false,
-    selfdestruct: []const [20]u8 = .{},
+    selfdestruct: []const [20]u8 = &[_][20]u8{},
     to: [20]u8 = ZERO_ADDRESS,
-    blobVersionedHashes: []const [32]u8 = .{},
+    blobVersionedHashes: []const [32]u8 = &[_][32]u8{},
 };
 
 const Log = struct {
@@ -44,17 +45,17 @@ const Log = struct {
 };
 
 const ExecuteResult = struct {
-    gas: ?u256,
+    gas: ?u256 = null,
     executionGasUsed: u256,
     returnValue: []u8,
-    logs: ?[]Log,
-    selfdestruct: ?[][20]u8,
-    createdAddresses: ?[][20]u8,
-    gasRefund: ?u256,
-    blobGasUsed: ?u256,
+    logs: ?[]Log = null,
+    selfdestruct: ?[][20]u8 = null,
+    createdAddresses: ?[][20]u8 = null,
+    gasRefund: ?u256 = null,
+    blobGasUsed: ?u256 = null,
 };
 
-const ExecutionError = error{
+const ExecuteError = error{
     OUT_OF_GAS,
     CODESTORE_OUT_OF_GAS,
     CODESIZE_EXCEEDS_MAXIMUM,
@@ -85,21 +86,38 @@ const ExecutionError = error{
     INVALID_PROOF,
 };
 
-pub const EVM = struct {
+pub const Evm = struct {
     allocator: std.mem.Allocator,
 
-    pub fn init(allocator: std.mem.Allocator) !EVM {
-        return EVM{
+    pub fn init(allocator: std.mem.Allocator) !Evm {
+        return Evm{
             .allocator = allocator,
         };
     }
 
     pub fn execute(
         _: ExecuteParams,
-    ) ExecutionError!ExecuteResult {
+    ) ExecuteError!ExecuteResult {
         return ExecuteResult{
             .executionGasUsed = 0,
-            .returnValue = .{},
+            .returnValue = &[_]u8{},
         };
     }
 };
+
+test "Evm.execute" {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    // we currently aren't using the allocator yet
+    _ = try Evm.init(allocator);
+
+    const params = ExecuteParams{
+        .code = &[_]u8{},
+        .data = &[_]u8{},
+    };
+
+    const result = try Evm.execute(params);
+
+    try std.testing.expect(result.executionGasUsed == 0);
+    try std.testing.expect(result.returnValue.len == 0);
+}
