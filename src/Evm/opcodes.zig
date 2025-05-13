@@ -1,10 +1,29 @@
 // TEVM: Zig implementation of Ethereum Virtual Machine
 // Based on evmone, an EVM implementation by The evmone Authors
 // License: Apache-2.0
+
 const std = @import("std");
 
+/// Metadata for each EVM opcode
+pub const OpCodeInfo = struct {
+    name        : []const u8,
+    inputs      : u8,
+    outputs     : u8,
+    immediate   : u8,
+    notEof      : bool,
+    terminating : bool,
+
+    pub fn name(self: @This()) []const u8 { return self.name; }
+    pub fn ioDiff(self: @This()) i16 { return @intCast(i16, self.outputs) - @intCast(i16, self.inputs); }
+    pub fn isDisabledInEof(self: @This()) bool { return !self.notEof; }
+    pub fn isTerminating(self: @This()) bool { return self.terminating; }
+};
+
+/// A raw opcode byte
+pub alias RawOpCode = u8;
+
 /// The list of EVM opcodes from every EVM revision.
-pub const Opcode = enum(u8) {
+pub const Opcode = enum(RawOpCode) {
     // Arithmetic operations
     STOP = 0x00,
     ADD = 0x01,
@@ -204,318 +223,259 @@ pub const Opcode = enum(u8) {
     INVALID = 0xfe,
     SELFDESTRUCT = 0xff,
 
-    /// Convert from a byte value to the corresponding opcode
     pub fn fromByte(byte: u8) ?Opcode {
         return std.meta.intToEnum(Opcode, byte) catch null;
     }
 
-    /// Get the human-readable name of the opcode
+    pub fn toInfo(self: Opcode) OpCodeInfo {
+        const infoOpt = OPCODE_NFO[@as(u8, self)];
+        if (infoOpt) |info| return info;
+        @panic("Invalid opcode metadata lookup");
+    }
+
     pub fn getName(self: Opcode) []const u8 {
-        return switch (self) {
-            .STOP => "STOP",
-            .ADD => "ADD",
-            .MUL => "MUL",
-            .SUB => "SUB",
-            .DIV => "DIV",
-            .SDIV => "SDIV",
-            .MOD => "MOD",
-            .SMOD => "SMOD",
-            .ADDMOD => "ADDMOD",
-            .MULMOD => "MULMOD",
-            .EXP => "EXP",
-            .SIGNEXTEND => "SIGNEXTEND",
-            .LT => "LT",
-            .GT => "GT",
-            .SLT => "SLT",
-            .SGT => "SGT",
-            .EQ => "EQ",
-            .ISZERO => "ISZERO",
-            .AND => "AND",
-            .OR => "OR",
-            .XOR => "XOR",
-            .NOT => "NOT",
-            .BYTE => "BYTE",
-            .SHL => "SHL",
-            .SHR => "SHR",
-            .SAR => "SAR",
-            .KECCAK256 => "KECCAK256",
-            .ADDRESS => "ADDRESS",
-            .BALANCE => "BALANCE",
-            .ORIGIN => "ORIGIN",
-            .CALLER => "CALLER",
-            .CALLVALUE => "CALLVALUE",
-            .CALLDATALOAD => "CALLDATALOAD",
-            .CALLDATASIZE => "CALLDATASIZE",
-            .CALLDATACOPY => "CALLDATACOPY",
-            .CODESIZE => "CODESIZE",
-            .CODECOPY => "CODECOPY",
-            .GASPRICE => "GASPRICE",
-            .EXTCODESIZE => "EXTCODESIZE",
-            .EXTCODECOPY => "EXTCODECOPY",
-            .RETURNDATASIZE => "RETURNDATASIZE",
-            .RETURNDATACOPY => "RETURNDATACOPY",
-            .EXTCODEHASH => "EXTCODEHASH",
-            .BLOCKHASH => "BLOCKHASH",
-            .COINBASE => "COINBASE",
-            .TIMESTAMP => "TIMESTAMP",
-            .NUMBER => "NUMBER",
-            .PREVRANDAO => "PREVRANDAO",
-            .GASLIMIT => "GASLIMIT",
-            .CHAINID => "CHAINID",
-            .SELFBALANCE => "SELFBALANCE",
-            .BASEFEE => "BASEFEE",
-            .BLOBHASH => "BLOBHASH",
-            .BLOBBASEFEE => "BLOBBASEFEE",
-            .POP => "POP",
-            .MLOAD => "MLOAD",
-            .MSTORE => "MSTORE",
-            .MSTORE8 => "MSTORE8",
-            .SLOAD => "SLOAD",
-            .SSTORE => "SSTORE",
-            .JUMP => "JUMP",
-            .JUMPI => "JUMPI",
-            .PC => "PC",
-            .MSIZE => "MSIZE",
-            .GAS => "GAS",
-            .JUMPDEST => "JUMPDEST",
-            .TLOAD => "TLOAD",
-            .TSTORE => "TSTORE",
-            .MCOPY => "MCOPY",
-            .PUSH0 => "PUSH0",
-            .PUSH1 => "PUSH1",
-            .PUSH2 => "PUSH2",
-            .PUSH3 => "PUSH3",
-            .PUSH4 => "PUSH4",
-            .PUSH5 => "PUSH5",
-            .PUSH6 => "PUSH6",
-            .PUSH7 => "PUSH7",
-            .PUSH8 => "PUSH8",
-            .PUSH9 => "PUSH9",
-            .PUSH10 => "PUSH10",
-            .PUSH11 => "PUSH11",
-            .PUSH12 => "PUSH12",
-            .PUSH13 => "PUSH13",
-            .PUSH14 => "PUSH14",
-            .PUSH15 => "PUSH15",
-            .PUSH16 => "PUSH16",
-            .PUSH17 => "PUSH17",
-            .PUSH18 => "PUSH18",
-            .PUSH19 => "PUSH19",
-            .PUSH20 => "PUSH20",
-            .PUSH21 => "PUSH21",
-            .PUSH22 => "PUSH22",
-            .PUSH23 => "PUSH23",
-            .PUSH24 => "PUSH24",
-            .PUSH25 => "PUSH25",
-            .PUSH26 => "PUSH26",
-            .PUSH27 => "PUSH27",
-            .PUSH28 => "PUSH28",
-            .PUSH29 => "PUSH29",
-            .PUSH30 => "PUSH30",
-            .PUSH31 => "PUSH31",
-            .PUSH32 => "PUSH32",
-            .DUP1 => "DUP1",
-            .DUP2 => "DUP2",
-            .DUP3 => "DUP3",
-            .DUP4 => "DUP4",
-            .DUP5 => "DUP5",
-            .DUP6 => "DUP6",
-            .DUP7 => "DUP7",
-            .DUP8 => "DUP8",
-            .DUP9 => "DUP9",
-            .DUP10 => "DUP10",
-            .DUP11 => "DUP11",
-            .DUP12 => "DUP12",
-            .DUP13 => "DUP13",
-            .DUP14 => "DUP14",
-            .DUP15 => "DUP15",
-            .DUP16 => "DUP16",
-            .SWAP1 => "SWAP1",
-            .SWAP2 => "SWAP2",
-            .SWAP3 => "SWAP3",
-            .SWAP4 => "SWAP4",
-            .SWAP5 => "SWAP5",
-            .SWAP6 => "SWAP6",
-            .SWAP7 => "SWAP7",
-            .SWAP8 => "SWAP8",
-            .SWAP9 => "SWAP9",
-            .SWAP10 => "SWAP10",
-            .SWAP11 => "SWAP11",
-            .SWAP12 => "SWAP12",
-            .SWAP13 => "SWAP13",
-            .SWAP14 => "SWAP14",
-            .SWAP15 => "SWAP15",
-            .SWAP16 => "SWAP16",
-            .LOG0 => "LOG0",
-            .LOG1 => "LOG1",
-            .LOG2 => "LOG2",
-            .LOG3 => "LOG3",
-            .LOG4 => "LOG4",
-            .DATALOAD => "DATALOAD",
-            .DATALOADN => "DATALOADN",
-            .DATASIZE => "DATASIZE",
-            .DATACOPY => "DATACOPY",
-            .RJUMP => "RJUMP",
-            .RJUMPI => "RJUMPI",
-            .RJUMPV => "RJUMPV",
-            .CALLF => "CALLF",
-            .RETF => "RETF",
-            .JUMPF => "JUMPF",
-            .DUPN => "DUPN",
-            .SWAPN => "SWAPN",
-            .EXCHANGE => "EXCHANGE",
-            .EOFCREATE => "EOFCREATE",
-            .TXCREATE => "TXCREATE",
-            .RETURNCODE => "RETURNCODE",
-            .CREATE => "CREATE",
-            .CALL => "CALL",
-            .CALLCODE => "CALLCODE",
-            .RETURN => "RETURN",
-            .DELEGATECALL => "DELEGATECALL",
-            .CREATE2 => "CREATE2",
-            .RETURNDATALOAD => "RETURNDATALOAD",
-            .EXTCALL => "EXTCALL",
-            .EXTDELEGATECALL => "EXTDELEGATECALL",
-            .STATICCALL => "STATICCALL",
-            .EXTSTATICCALL => "EXTSTATICCALL",
-            .REVERT => "REVERT",
-            .INVALID => "INVALID",
-            .SELFDESTRUCT => "SELFDESTRUCT",
-        };
+        return self.toInfo().name;
     }
 
-    /// Get stack requirements for an opcode
     pub fn getStackRequirements(self: Opcode) struct { input: u8, output: u8 } {
-        return switch (self) {
-            // 0 inputs, 0 outputs
-            .STOP, .JUMPDEST => .{ .input = 0, .output = 0 },
-
-            // 0 inputs, 1 output
-            .PUSH0, .PUSH1, .PUSH2, .PUSH3, .PUSH4, .PUSH5, .PUSH6, .PUSH7, .PUSH8, .PUSH9, .PUSH10, .PUSH11, .PUSH12, .PUSH13, .PUSH14, .PUSH15, .PUSH16, .PUSH17, .PUSH18, .PUSH19, .PUSH20, .PUSH21, .PUSH22, .PUSH23, .PUSH24, .PUSH25, .PUSH26, .PUSH27, .PUSH28, .PUSH29, .PUSH30, .PUSH31, .PUSH32, .ADDRESS, .ORIGIN, .CALLER, .CALLVALUE, .CALLDATASIZE, .CODESIZE, .GASPRICE, .RETURNDATASIZE, .COINBASE, .TIMESTAMP, .NUMBER, .PREVRANDAO, .GASLIMIT, .CHAINID, .SELFBALANCE, .PC, .MSIZE, .GAS, .BASEFEE, .BLOBBASEFEE, .DATASIZE => .{ .input = 0, .output = 1 },
-
-            // 1 input, 0 outputs
-            .POP => .{ .input = 1, .output = 0 },
-
-            // 1 input, 1 output
-            .ISZERO, .NOT, .BLOCKHASH, .CALLDATALOAD, .MLOAD, .SLOAD, .TLOAD, .EXTCODESIZE, .EXTCODEHASH, .BALANCE, .BLOBHASH, .DATALOAD, .RETURNDATALOAD => .{ .input = 1, .output = 1 },
-
-            // 2 inputs, 0 outputs
-            .MSTORE, .MSTORE8, .SSTORE, .TSTORE, .JUMP => .{ .input = 2, .output = 0 },
-
-            // 2 inputs, 1 output
-            .ADD, .MUL, .SUB, .DIV, .SDIV, .MOD, .SMOD, .EXP, .SIGNEXTEND, .LT, .GT, .SLT, .SGT, .EQ, .AND, .OR, .XOR, .BYTE, .SHL, .SHR, .SAR => .{ .input = 2, .output = 1 },
-
-            // 3 inputs, 0 outputs
-            .CALLDATACOPY, .RETURNDATACOPY, .CODECOPY, .MCOPY, .DATACOPY => .{ .input = 3, .output = 0 },
-
-            // 3 inputs, 1 output
-            .ADDMOD, .MULMOD, .JUMPI => .{ .input = 3, .output = 1 },
-
-            // Special cases
-            .KECCAK256 => .{ .input = 2, .output = 1 },
-
-            // DUP instructions
-            .DUP1 => .{ .input = 1, .output = 2 },
-            .DUP2 => .{ .input = 2, .output = 3 },
-            .DUP3 => .{ .input = 3, .output = 4 },
-            .DUP4 => .{ .input = 4, .output = 5 },
-            .DUP5 => .{ .input = 5, .output = 6 },
-            .DUP6 => .{ .input = 6, .output = 7 },
-            .DUP7 => .{ .input = 7, .output = 8 },
-            .DUP8 => .{ .input = 8, .output = 9 },
-            .DUP9 => .{ .input = 9, .output = 10 },
-            .DUP10 => .{ .input = 10, .output = 11 },
-            .DUP11 => .{ .input = 11, .output = 12 },
-            .DUP12 => .{ .input = 12, .output = 13 },
-            .DUP13 => .{ .input = 13, .output = 14 },
-            .DUP14 => .{ .input = 14, .output = 15 },
-            .DUP15 => .{ .input = 15, .output = 16 },
-            .DUP16 => .{ .input = 16, .output = 17 },
-
-            // SWAP instructions
-            .SWAP1 => .{ .input = 2, .output = 2 },
-            .SWAP2 => .{ .input = 3, .output = 3 },
-            .SWAP3 => .{ .input = 4, .output = 4 },
-            .SWAP4 => .{ .input = 5, .output = 5 },
-            .SWAP5 => .{ .input = 6, .output = 6 },
-            .SWAP6 => .{ .input = 7, .output = 7 },
-            .SWAP7 => .{ .input = 8, .output = 8 },
-            .SWAP8 => .{ .input = 9, .output = 9 },
-            .SWAP9 => .{ .input = 10, .output = 10 },
-            .SWAP10 => .{ .input = 11, .output = 11 },
-            .SWAP11 => .{ .input = 12, .output = 12 },
-            .SWAP12 => .{ .input = 13, .output = 13 },
-            .SWAP13 => .{ .input = 14, .output = 14 },
-            .SWAP14 => .{ .input = 15, .output = 15 },
-            .SWAP15 => .{ .input = 16, .output = 16 },
-            .SWAP16 => .{ .input = 17, .output = 17 },
-
-            // LOG instructions
-            .LOG0 => .{ .input = 2, .output = 0 },
-            .LOG1 => .{ .input = 3, .output = 0 },
-            .LOG2 => .{ .input = 4, .output = 0 },
-            .LOG3 => .{ .input = 5, .output = 0 },
-            .LOG4 => .{ .input = 6, .output = 0 },
-
-            // CREATE instructions
-            .CREATE, .CREATE2 => .{ .input = 3, .output = 1 },
-
-            // CALL instructions
-            .CALL, .CALLCODE => .{ .input = 7, .output = 1 },
-            .DELEGATECALL, .STATICCALL => .{ .input = 6, .output = 1 },
-
-            // RETURN instructions
-            .RETURN, .REVERT => .{ .input = 2, .output = 0 },
-
-            // SELFDESTRUCT
-            .SELFDESTRUCT => .{ .input = 1, .output = 0 },
-
-            // Other/EOF/Specialized instructions - placeholder values
-            .EXTCODECOPY => .{ .input = 4, .output = 0 },
-            .DATALOADN, .RJUMP, .RJUMPI, .RJUMPV, .CALLF, .RETF, .JUMPF, .DUPN, .SWAPN, .EXCHANGE, .EOFCREATE, .TXCREATE, .RETURNCODE, .EXTCALL, .EXTDELEGATECALL, .EXTSTATICCALL, .INVALID => .{ .input = 0, .output = 0 },
-        };
+        const info = self.toInfo();
+        return .{ .input = info.inputs, .output = info.outputs };
     }
 
-    /// Get gas cost for an opcode
-    pub fn getGasCost(self: Opcode) u32 {
-        // This is a simplified implementation - actual gas calculation is more complex
-        // and depends on EVM state, parameters, etc.
-        return switch (self) {
-            .STOP, .RETURN, .REVERT => 0,
+    pub fn isJumpdest(self: Opcode) bool {
+        return self == .JUMPDEST;
+    }
 
-            // Very low tier
-            .ADD, .SUB, .NOT, .LT, .GT, .SLT, .SGT, .EQ, .ISZERO, .AND, .OR, .XOR, .BYTE, .SHL, .SHR, .SAR, .POP, .PUSH0, .PUSH1, .PUSH2, .PUSH3, .PUSH4, .PUSH5, .PUSH6, .PUSH7, .PUSH8, .PUSH9, .PUSH10, .PUSH11, .PUSH12, .PUSH13, .PUSH14, .PUSH15, .PUSH16, .PUSH17, .PUSH18, .PUSH19, .PUSH20, .PUSH21, .PUSH22, .PUSH23, .PUSH24, .PUSH25, .PUSH26, .PUSH27, .PUSH28, .PUSH29, .PUSH30, .PUSH31, .PUSH32, .DUP1, .DUP2, .DUP3, .DUP4, .DUP5, .DUP6, .DUP7, .DUP8, .DUP9, .DUP10, .DUP11, .DUP12, .DUP13, .DUP14, .DUP15, .DUP16, .SWAP1, .SWAP2, .SWAP3, .SWAP4, .SWAP5, .SWAP6, .SWAP7, .SWAP8, .SWAP9, .SWAP10, .SWAP11, .SWAP12, .SWAP13, .SWAP14, .SWAP15, .SWAP16, .ADDRESS, .ORIGIN, .CALLER, .CALLVALUE, .CALLDATASIZE, .CODESIZE, .GASPRICE, .RETURNDATASIZE, .COINBASE, .TIMESTAMP, .NUMBER, .PREVRANDAO, .GASLIMIT, .CHAINID, .PC, .MSIZE, .GAS => 3,
+    pub fn isPush(self: Opcode) bool {
+        return (self >= .PUSH1 and self <= .PUSH32);
+    }
 
-            // Low tier
-            .MUL, .DIV, .SDIV, .MOD, .SMOD, .SIGNEXTEND, .JUMPDEST => 5,
+    pub fn modifiesMemory(self: Opcode) bool {
+        return modifiesMemoryRaw(@as(u8, self));
+    }
 
-            // Mid tier
-            .ADDMOD, .MULMOD, .JUMP, .JUMPI => 8,
-
-            // High tier
-            .BLOCKHASH, .BASEFEE, .BLOBBASEFEE, .BLOBHASH => 20,
-
-            // Special cost tier
-            .MLOAD, .MSTORE, .MSTORE8 => 3, // Plus memory expansion cost
-            .SLOAD => 100, // Plus potential cold access cost
-            .SSTORE => 100, // Complex rules based on value changes
-            .CALLDATALOAD => 3,
-            .CALLDATACOPY, .RETURNDATACOPY, .CODECOPY, .MCOPY => 3, // Plus memory expansion and copy cost
-            .EXTCODESIZE, .EXTCODEHASH, .BALANCE => 100, // Plus potential cold access cost
-            .EXTCODECOPY => 100, // Plus memory expansion and copy cost and potential cold access
-            .SELFDESTRUCT => 5000,
-            .LOG0 => 375,
-            .LOG1 => 750,
-            .LOG2 => 1125,
-            .LOG3 => 1500,
-            .LOG4 => 1875,
-            .CREATE, .CREATE2 => 32000,
-            .CALL, .CALLCODE, .DELEGATECALL, .STATICCALL => 100, // Plus complex cost factors
-            .KECCAK256 => 30, // Plus data size cost
-            .EXP => 10, // Plus byte cost
-
-            // EOF and other specialized opcodes - placeholder values
-            .DATALOAD, .DATALOADN, .DATASIZE, .DATACOPY, .RJUMP, .RJUMPI, .RJUMPV, .CALLF, .RETF, .JUMPF, .DUPN, .SWAPN, .EXCHANGE, .EOFCREATE, .TXCREATE, .RETURNCODE, .RETURNDATALOAD, .EXTCALL, .EXTDELEGATECALL, .EXTSTATICCALL, .INVALID, .TLOAD, .TSTORE => 10,
-        };
+    pub fn computeSelector(preimage: []const u8) [4]u8 {
+        // stub: keccak256 + take first 4 bytes
+        return [_]u8{0,0,0,0};
     }
 };
+
+/// Compile-time definitions used to populate OPCODE_INFO
+const Definition = struct {
+    code        : u8,
+    name        : []const u8,
+    inputs      : u8,
+    outputs     : u8,
+    immediate   : u8,
+    notEof      : bool,
+    terminating : bool,
+};
+
+const definitions = comptime [_]Definition{
+    .{ .code=0x00, .name="STOP", .inputs=0, .outputs=0, .immediate=0, .notEof=true, .terminating=true },
+    .{ .code=0x01, .name="ADD",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x02, .name="MUL",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x03, .name="SUB",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x04, .name="DIV",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x05, .name="SDIV", .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x06, .name="MOD",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x07, .name="SMOD", .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x08, .name="ADDMOD", .inputs=3, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x09, .name="MULMOD", .inputs=3, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x0a, .name="EXP",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x0b, .name="SIGNEXTEND", .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x10, .name="LT",   .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x11, .name="GT",   .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x12, .name="SLT",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x13, .name="SGT",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x14, .name="EQ",   .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x15, .name="ISZERO", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x16, .name="AND",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x17, .name="OR",   .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x18, .name="XOR",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x19, .name="NOT",  .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x1a, .name="BYTE", .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x1b, .name="SHL",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x1c, .name="SHR",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x1d, .name="SAR",  .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x20, .name="KECCAK256", .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x30, .name="ADDRESS", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x31, .name="BALANCE", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x32, .name="ORIGIN", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x33, .name="CALLER", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x34, .name="CALLVALUE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x35, .name="CALLDATALOAD", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x36, .name="CALLDATASIZE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x37, .name="CALLDATACOPY", .inputs=3, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x38, .name="CODESIZE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x39, .name="CODECOPY", .inputs=3, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x3a, .name="GASPRICE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x3b, .name="EXTCODESIZE", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x3c, .name="EXTCODECOPY", .inputs=4, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x3d, .name="RETURNDATASIZE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x3e, .name="RETURNDATACOPY", .inputs=3, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x3f, .name="EXTCODEHASH", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x40, .name="BLOCKHASH", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x41, .name="COINBASE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x42, .name="TIMESTAMP", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x43, .name="NUMBER", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x44, .name="PREVRANDAO", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x45, .name="GASLIMIT", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x46, .name="CHAINID", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x47, .name="SELFBALANCE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x48, .name="BASEFEE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x49, .name="BLOBHASH", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x4a, .name="BLOBBASEFEE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x50, .name="POP", .inputs=1, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x51, .name="MLOAD", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x52, .name="MSTORE", .inputs=2, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x53, .name="MSTORE8", .inputs=2, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x54, .name="SLOAD", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x55, .name="SSTORE", .inputs=2, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x56, .name="JUMP", .inputs=1, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x57, .name="JUMPI", .inputs=2, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x58, .name="PC", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x59, .name="MSIZE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x5a, .name="GAS", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x5b, .name="JUMPDEST", .inputs=0, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x5c, .name="TLOAD", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x5d, .name="TSTORE", .inputs=2, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x5e, .name="MCOPY", .inputs=3, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x5f, .name="PUSH0", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x60, .name="PUSH1", .inputs=0, .outputs=1, .immediate=1, .notEof=true, .terminating=false },
+    .{ .code=0x61, .name="PUSH2", .inputs=0, .outputs=1, .immediate=2, .notEof=true, .terminating=false },
+    .{ .code=0x62, .name="PUSH3", .inputs=0, .outputs=1, .immediate=3, .notEof=true, .terminating=false },
+    .{ .code=0x63, .name="PUSH4", .inputs=0, .outputs=1, .immediate=4, .notEof=true, .terminating=false },
+    .{ .code=0x64, .name="PUSH5", .inputs=0, .outputs=1, .immediate=5, .notEof=true, .terminating=false },
+    .{ .code=0x65, .name="PUSH6", .inputs=0, .outputs=1, .immediate=6, .notEof=true, .terminating=false },
+    .{ .code=0x66, .name="PUSH7", .inputs=0, .outputs=1, .immediate=7, .notEof=true, .terminating=false },
+    .{ .code=0x67, .name="PUSH8", .inputs=0, .outputs=1, .immediate=8, .notEof=true, .terminating=false },
+    .{ .code=0x68, .name="PUSH9", .inputs=0, .outputs=1, .immediate=9, .notEof=true, .terminating=false },
+    .{ .code=0x69, .name="PUSH10", .inputs=0, .outputs=1, .immediate=10, .notEof=true, .terminating=false },
+    .{ .code=0x6a, .name="PUSH11", .inputs=0, .outputs=1, .immediate=11, .notEof=true, .terminating=false },
+    .{ .code=0x6b, .name="PUSH12", .inputs=0, .outputs=1, .immediate=12, .notEof=true, .terminating=false },
+    .{ .code=0x6c, .name="PUSH13", .inputs=0, .outputs=1, .immediate=13, .notEof=true, .terminating=false },
+    .{ .code=0x6d, .name="PUSH14", .inputs=0, .outputs=1, .immediate=14, .notEof=true, .terminating=false },
+    .{ .code=0x6e, .name="PUSH15", .inputs=0, .outputs=1, .immediate=15, .notEof=true, .terminating=false },
+    .{ .code=0x6f, .name="PUSH16", .inputs=0, .outputs=1, .immediate=16, .notEof=true, .terminating=false },
+    .{ .code=0x70, .name="PUSH17", .inputs=0, .outputs=1, .immediate=17, .notEof=true, .terminating=false },
+    .{ .code=0x71, .name="PUSH18", .inputs=0, .outputs=1, .immediate=18, .notEof=true, .terminating=false },
+    .{ .code=0x72, .name="PUSH19", .inputs=0, .outputs=1, .immediate=19, .notEof=true, .terminating=false },
+    .{ .code=0x73, .name="PUSH20", .inputs=0, .outputs=1, .immediate=20, .notEof=true, .terminating=false },
+    .{ .code=0x74, .name="PUSH21", .inputs=0, .outputs=1, .immediate=21, .notEof=true, .terminating=false },
+    .{ .code=0x75, .name="PUSH22", .inputs=0, .outputs=1, .immediate=22, .notEof=true, .terminating=false },
+    .{ .code=0x76, .name="PUSH23", .inputs=0, .outputs=1, .immediate=23, .notEof=true, .terminating=false },
+    .{ .code=0x77, .name="PUSH24", .inputs=0, .outputs=1, .immediate=24, .notEof=true, .terminating=false },
+    .{ .code=0x78, .name="PUSH25", .inputs=0, .outputs=1, .immediate=25, .notEof=true, .terminating=false },
+    .{ .code=0x79, .name="PUSH26", .inputs=0, .outputs=1, .immediate=26, .notEof=true, .terminating=false },
+    .{ .code=0x7a, .name="PUSH27", .inputs=0, .outputs=1, .immediate=27, .notEof=true, .terminating=false },
+    .{ .code=0x7b, .name="PUSH28", .inputs=0, .outputs=1, .immediate=28, .notEof=true, .terminating=false },
+    .{ .code=0x7c, .name="PUSH29", .inputs=0, .outputs=1, .immediate=29, .notEof=true, .terminating=false },
+    .{ .code=0x7d, .name="PUSH30", .inputs=0, .outputs=1, .immediate=30, .notEof=true, .terminating=false },
+    .{ .code=0x7e, .name="PUSH31", .inputs=0, .outputs=1, .immediate=31, .notEof=true, .terminating=false },
+    .{ .code=0x7f, .name="PUSH32", .inputs=0, .outputs=1, .immediate=32, .notEof=true, .terminating=false },
+    .{ .code=0x80, .name="DUP1", .inputs=1, .outputs=2, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x81, .name="DUP2", .inputs=2, .outputs=3, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x82, .name="DUP3", .inputs=3, .outputs=4, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x83, .name="DUP4", .inputs=4, .outputs=5, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x84, .name="DUP5", .inputs=5, .outputs=6, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x85, .name="DUP6", .inputs=6, .outputs=7, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x86, .name="DUP7", .inputs=7, .outputs=8, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x87, .name="DUP8", .inputs=8, .outputs=9, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x88, .name="DUP9", .inputs=9, .outputs=10, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x89, .name="DUP10", .inputs=10, .outputs=11, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x8a, .name="DUP11", .inputs=11, .outputs=12, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x8b, .name="DUP12", .inputs=12, .outputs=13, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x8c, .name="DUP13", .inputs=13, .outputs=14, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x8d, .name="DUP14", .inputs=14, .outputs=15, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x8e, .name="DUP15", .inputs=15, .outputs=16, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x8f, .name="DUP16", .inputs=16, .outputs=17, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x90, .name="SWAP1", .inputs=2, .outputs=2, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x91, .name="SWAP2", .inputs=3, .outputs=3, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x92, .name="SWAP3", .inputs=4, .outputs=4, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x93, .name="SWAP4", .inputs=5, .outputs=5, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x94, .name="SWAP5", .inputs=6, .outputs=6, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x95, .name="SWAP6", .inputs=7, .outputs=7, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x96, .name="SWAP7", .inputs=8, .outputs=8, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x97, .name="SWAP8", .inputs=9, .outputs=9, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x98, .name="SWAP9", .inputs=10, .outputs=10, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x99, .name="SWAP10", .inputs=11, .outputs=11, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x9a, .name="SWAP11", .inputs=12, .outputs=12, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x9b, .name="SWAP12", .inputs=13, .outputs=13, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x9c, .name="SWAP13", .inputs=14, .outputs=14, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x9d, .name="SWAP14", .inputs=15, .outputs=15, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x9e, .name="SWAP15", .inputs=16, .outputs=16, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0x9f, .name="SWAP16", .inputs=17, .outputs=17, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xa0, .name="LOG0", .inputs=2, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xa1, .name="LOG1", .inputs=3, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xa2, .name="LOG2", .inputs=4, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xa3, .name="LOG3", .inputs=5, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xa4, .name="LOG4", .inputs=6, .outputs=0, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xd0, .name="DATALOAD", .inputs=1, .outputs=1, .immediate=0, .notEof=false, .terminating=false },
+    .{ .code=0xd1, .name="DATALOADN", .inputs=0, .outputs=1, .immediate=2, .notEof=false, .terminating=false },
+    .{ .code=0xd2, .name="DATASIZE", .inputs=0, .outputs=1, .immediate=0, .notEof=false, .terminating=false },
+    .{ .code=0xd3, .name="DATACOPY", .inputs=3, .outputs=0, .immediate=0, .notEof=false, .terminating=false },
+    .{ .code=0xe0, .name="RJUMP", .inputs=0, .outputs=0, .immediate=2, .notEof=true, .terminating=false },
+    .{ .code=0xe1, .name="RJUMPI", .inputs=1, .outputs=0, .immediate=2, .notEof=true, .terminating=false },
+    .{ .code=0xe2, .name="RJUMPV", .inputs=1, .outputs=0, .immediate=1, .notEof=true, .terminating=false },
+    .{ .code=0xe3, .name="CALLF", .inputs=0, .outputs=0, .immediate=2, .notEof=true, .terminating=false },
+    .{ .code=0xe4, .name="RETF", .inputs=0, .outputs=0, .immediate=0, .notEof=true, .terminating=true },
+    .{ .code=0xe5, .name="JUMPF", .inputs=0, .outputs=0, .immediate=2, .notEof=true, .terminating=false },
+    .{ .code=0xe6, .name="DUPN", .inputs=1, .outputs=2, .immediate=1, .notEof=true, .terminating=false },
+    .{ .code=0xe7, .name="SWAPN", .inputs=2, .outputs=2, .immediate=1, .notEof=true, .terminating=false },
+    .{ .code=0xe8, .name="EXCHANGE", .inputs=2, .outputs=2, .immediate=1, .notEof=true, .terminating=false },
+    .{ .code=0xec, .name="EOFCREATE", .inputs=3, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xed, .name="TXCREATE", .inputs=2, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xee, .name="RETURNCODE", .inputs=0, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xf0, .name="CREATE", .inputs=3, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xf1, .name="CALL", .inputs=7, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xf2, .name="CALLCODE", .inputs=7, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xf3, .name="RETURN", .inputs=2, .outputs=0, .immediate=0, .notEof=true, .terminating=true },
+    .{ .code=0xf4, .name="DELEGATECALL", .inputs=6, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xf5, .name="CREATE2", .inputs=4, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xf7, .name="RETURNDATALOAD", .inputs=1, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xf8, .name="EXTCALL", .inputs=7, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xf9, .name="EXTDELEGATECALL", .inputs=6, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xfa, .name="STATICCALL", .inputs=6, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xfb, .name="EXTSTATICCALL", .inputs=6, .outputs=1, .immediate=0, .notEof=true, .terminating=false },
+    .{ .code=0xfd, .name="REVERT", .inputs=2, .outputs=0, .immediate=0, .notEof=true, .terminating=true },
+    .{ .code=0xfe, .name="INVALID", .inputs=0, .outputs=0, .immediate=0, .notEof=true, .terminating=true },
+    .{ .code=0xff, .name="SELFDESTRUCT", .inputs=1, .outputs=0, .immediate=0, .notEof=true, .terminating=true },
+};
+
+/// Table of opcode metadata by byte
+pub const OPCODE_INFO = comptime blk: {
+    var table: [256]?OpCodeInfo = undefined;
+    for (table) |*slot| slot.* = null;
+    for (definitions) |def| {
+        table[def.code] = OpCodeInfo{
+            .name        = def.name,
+            .inputs      = def.inputs,
+            .outputs     = def.outputs,
+            .immediate   = def.immediate,
+            .notEof      = def.notEof,
+            .terminating = def.terminating,
+        };
+    }
+    break :blk table;
+};
+
+/// Helper to test memory-modifying opcodes by raw byte
+pub fn modifiesMemoryRaw(op: u8) bool {
+    return switch (op) {
+        @as(u8, Opcode.EXTCODECOPY),
+        @as(u8, Opcode.MLOAD),
+        @as(u8, Opcode.MSTORE),
+        @as(u8, Opcode.MSTORE8),
+        @as(u8, Opcode.MCOPY),
+        @as(u8, Opcode.CODECOPY),
+        @as(u8, Opcode.CALLDATACOPY),
+        @as(u8, Opcode.RETURNDATACOPY),
+        @as(u8, Opcode.CALL),
+        @as(u8, Opcode.CALLCODE),
+        @as(u8, Opcode.DELEGATECALL),
+        @as(u8, Opcode.STATICCALL), *
+            => true,
+        else => false,
+    };
+}

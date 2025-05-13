@@ -1,22 +1,11 @@
 const std = @import("std");
-
-pub const ZERO_ADDRESS: [20]u8 = .{0} ** 20;
-
-pub const Block = struct {
-    number: u64,
-    coinbase: [20]u8,
-    timestamp: u64,
-    difficulty: u256,
-    prevRandao: [32]u8,
-    gasLimit: u265,
-    baseFeePerGas: ?u256 = null,
-    getBlobGasPrice: u256,
-};
+const block = @import("../Block/block.zig");
+const address = @import("../Address/address.zig");
 
 pub const ExecuteParams = struct {
-    block: Block = Block{
+    block: block.Block = block.Block{
         .number = 0,
-        .coinbase = ZERO_ADDRESS,
+        .coinbase = address.ZERO_ADDRESS,
         .timestamp = 0,
         .difficulty = 0,
         .prevRandao = .{0} ** 32,
@@ -25,8 +14,8 @@ pub const ExecuteParams = struct {
         .baseFeePerGas = null,
     },
     gasPrice: u256 = 0,
-    origin: [20]u8 = ZERO_ADDRESS,
-    caller: [20]u8 = ZERO_ADDRESS,
+    origin: [20]u8 = address.ZERO_ADDRESS,
+    caller: [20]u8 = address.ZERO_ADDRESS,
     code: []u8,
     data: []u8,
     gasLimit: u256 = 0xffffff,
@@ -34,7 +23,7 @@ pub const ExecuteParams = struct {
     depth: u16 = 0,
     isStatic: bool = false,
     selfdestruct: []const [20]u8 = &[_][20]u8{},
-    to: [20]u8 = ZERO_ADDRESS,
+    to: [20]u8 = address.ZERO_ADDRESS,
     blobVersionedHashes: []const [32]u8 = &[_][32]u8{},
 };
 

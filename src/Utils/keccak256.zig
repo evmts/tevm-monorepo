@@ -1,3 +1,4 @@
+// TODO remove utils package
 const std = @import("std");
 
 // WASM-compatible keccak256 function with bytes input/output
@@ -14,7 +15,7 @@ export fn zig_keccak256_hex(hex_ptr: [*]const u8, hex_len: usize, output_ptr: [*
 
     // Import the hex conversion function
     const hex = @import("hex.zig");
-    
+
     // Convert hex to bytes using stdlib
     const binary_len = hex.zig_hexToBytes(hex_ptr, hex_len, &binary_buffer);
 
