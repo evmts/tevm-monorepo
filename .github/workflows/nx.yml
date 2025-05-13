@@ -77,14 +77,13 @@ jobs:
             libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev
+      - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
+        run: bunx nx-cloud start-ci-run --stop-agents-after=build:app --stop-agents-on-failure=false
 
       - name: Build Zig and WASM
         run: |
-          zig build
-          cd src && zig build wasm && echo "WASM size: $(ls -lh ../dist/zigevm.wasm | awk '{print $5}')"
-
-      - name: Initialize the Nx Cloud distributed CI run and stop agents when the build tasks are done
-        run: bunx nx-cloud start-ci-run --stop-agents-after=build:app --stop-agents-on-failure=false
+          zig build &&
+          zig build wasm && echo "WASM size: $(ls -lh ./dist/zigevm.wasm | awk '{print $5}')"
 
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v1.0
