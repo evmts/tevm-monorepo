@@ -1,7 +1,6 @@
 import { Brand, Effect, Schema } from "effect";
 import { Bytes, Address as OxAddress } from "ox";
-import { B160, type B160 as B160Type } from "./B160.js";
-import { B256, type B256 as B256Type } from "./B256.js";
+import { B160, type B160 as B160Type } from "../types/B160.js";
 
 /**
  * Ethereum address, represented as a 20-byte fixed array with an Address brand
@@ -42,31 +41,9 @@ export const toChecksummedHex = (address: Address): Effect.Effect<string> =>
  * Creates a zero address (0x0000...0000)
  */
 export const zero = (): Effect.Effect<Address, Error> =>
-  Effect.gen(function* (_) {
+  Effect.gen(function*(_) {
     const bytes = new Uint8Array(20).fill(0);
     // First as B160, then as Address for branding
     const b160 = yield* _(Schema.decode(B160)(bytes));
     return yield* _(Schema.decode(Address)(b160));
-  });
-
-/**
- * Creates an address from a word (32-byte array) by taking the last 20 bytes
- * @param word - The 32-byte array.
- */
-export const fromWord = (word: B256Type): Effect.Effect<Address, Error> =>
-  Effect.gen(function* (_) {
-    const bytes = Bytes.slice(word, 12, 32); // Take last 20 bytes
-    // First we decode as B160, then as Address to ensure proper branding
-    const b160 = yield* _(Schema.decode(B160)(bytes));
-    return yield* _(Schema.decode(Address)(b160));
-  });
-
-/**
- * Converts an address to a word (32-byte array) by padding with zeroes
- * @param address - The Address instance.
- */
-export const intoWord = (address: Address): Effect.Effect<B256Type, Error> =>
-  Effect.gen(function* (_) {
-    const padded = Bytes.padLeft(address, 32);
-    return yield* _(Schema.decode(B256)(padded));
   });
