@@ -11,5 +11,5 @@
       "@tevm/mud": ["../../../../bundler-packages/mud/src/index.ts"]
     }
   },
-  "include": ["src"],
+  "include": ["src"]
 }

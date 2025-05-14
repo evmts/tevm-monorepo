@@ -4,30 +4,12 @@
     "name": "app__move",
     "inputs": [
       {
-        "name": "entity",
-        "type": "bytes32",
-        "internalType": "Entity"
-      },
-      {
         "name": "direction",
         "type": "uint8",
         "internalType": "enum Direction"
       }
     ],
     "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "app__spawn",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "entity",
-        "type": "bytes32",
-        "internalType": "Entity"
-      }
-    ],
     "stateMutability": "nonpayable"
   },
   {

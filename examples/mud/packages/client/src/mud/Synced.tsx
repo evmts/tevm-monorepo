@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import { useSyncStatus } from "./useSyncStatus";
-import { ComponentValue } from "@latticexyz/recs";
-import { components } from "./recs";
+import { TableRecord } from "@latticexyz/stash/internal";
+import { SyncProgress } from "@latticexyz/store-sync/internal";
 
 export type Props = {
   children: ReactNode;
-  fallback?: (props: ComponentValue<(typeof components)["SyncProgress"]["schema"]>) => ReactNode;
+  fallback?: (props: TableRecord<typeof SyncProgress>) => ReactNode;
 };
 
 export function Synced({ children, fallback }: Props) {
