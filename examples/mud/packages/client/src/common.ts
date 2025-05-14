@@ -1,6 +1,6 @@
 import mudConfig from "contracts/mud.config";
 import { chains } from "./wagmiConfig";
-import { Chain, Hex } from "viem";
+import { Chain } from "viem";
 
 export const chainId = import.meta.env.CHAIN_ID;
 export const worldAddress = import.meta.env.WORLD_ADDRESS;
@@ -8,7 +8,6 @@ export const startBlock = BigInt(import.meta.env.START_BLOCK ?? 0n);
 
 export const url = new URL(window.location.href);
 
-export type Entity = Hex;
 export type Direction = (typeof mudConfig.enums.Direction)[number];
 
 export function getWorldAddress() {
