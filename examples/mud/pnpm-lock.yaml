@@ -77,6 +77,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.63.0
         version: 5.76.0(react@18.2.0)
+      '@tevm/mud':
+        specifier: link:../../bundler-packages/mud
+        version: link:../../bundler-packages/mud
       contracts:
         specifier: workspace:*
         version: link:../contracts

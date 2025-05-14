@@ -11,6 +11,7 @@
     "test": "tsc --noEmit"
   },
   "dependencies": {
+    "@tevm/mud": "link:../../bundler-packages/mud",
     "@latticexyz/common": "2.2.21",
     "@latticexyz/entrykit": "2.2.21",
     "@latticexyz/explorer": "2.2.21",
