@@ -1,0 +1,285 @@
+const std = @import("std");
+const abi = @import("abi.zig");
+const decode_abi_parameters = @import("decode_abi_parameters.zig");
+const compute_function_selector = @import("compute_function_selector.zig");
+
+/// Error type for function data decoding operations
+pub const DecodeFunctionDataError = error{
+    InvalidData,
+    FunctionNotFound,
+    InvalidSelector,
+    BufferTooShort,
+    OutOfMemory,
+} || decode_abi_parameters.DecodeError;
+
+/// Result of decoding function data, containing function name and decoded arguments
+pub const DecodeFunctionDataResult = struct {
+    /// Name of the called function
+    function_name: []const u8,
+    /// Decoded arguments
+    args: std.StringHashMap([]const u8),
+};
+
+/// Decodes function call data to function name and arguments
+///
+/// allocator: Memory allocator for results
+/// abi_items: Array of ABI items representing contract interface
+/// data: Function call data (selector + encoded args)
+///
+/// Returns the function name and decoded arguments
+pub fn decodeFunctionData(
+    allocator: std.mem.Allocator,
+    abi_items: []const abi.AbiItem,
+    data: []const u8,
+) !DecodeFunctionDataResult {
+    if (data.len < 4) {
+        return DecodeFunctionDataError.BufferTooShort;
+    }
+    
+    // Extract the function selector (first 4 bytes)
+    const selector: [4]u8 = .{data[0], data[1], data[2], data[3]};
+    
+    // Find the matching function in the ABI
+    var func_opt: ?abi.Function = null;
+    var func_name: []const u8 = "";
+    
+    for (abi_items) |item| {
+        switch (item) {
+            .Function => |func| {
+                const func_selector = compute_function_selector.getFunctionSelector(func);
+                if (std.mem.eql(u8, &selector, &func_selector)) {
+                    func_opt = func;
+                    func_name = func.name;
+                    break;
+                }
+            },
+            else => continue,
+        }
+    }
+    
+    if (func_opt == null) {
+        return DecodeFunctionDataError.FunctionNotFound;
+    }
+    
+    // Decode arguments
+    const args = try decodeFunctionDataWithFunction(
+        allocator,
+        func_opt.?,
+        data,
+    );
+    
+    return DecodeFunctionDataResult{
+        .function_name = func_name,
+        .args = args,
+    };
+}
+
+/// Decodes function call data using a specific function ABI definition
+///
+/// allocator: Memory allocator for results
+/// func: ABI function definition
+/// data: Function call data (selector + encoded args)
+///
+/// Returns a map of decoded arguments by parameter name
+pub fn decodeFunctionDataWithFunction(
+    allocator: std.mem.Allocator,
+    func: abi.Function,
+    data: []const u8,
+) !std.StringHashMap([]const u8) {
+    if (data.len < 4) {
+        return DecodeFunctionDataError.BufferTooShort;
+    }
+    
+    // Extract the selector (first 4 bytes) and args (remaining data)
+    const selector: [4]u8 = .{data[0], data[1], data[2], data[3]};
+    const expected_selector = compute_function_selector.getFunctionSelector(func);
+    
+    if (!std.mem.eql(u8, &selector, &expected_selector)) {
+        return DecodeFunctionDataError.InvalidSelector;
+    }
+    
+    // Skip the selector (4 bytes) and decode the rest as arguments
+    const args_data = data[4..];
+    return decode_abi_parameters.decodeAbiParameters(
+        allocator,
+        func.inputs,
+        args_data,
+    );
+}
+
+/// A simpler version that only returns the decoded arguments without requiring full ABI
+///
+/// allocator: Memory allocator for results
+/// param_types: Array of parameter type strings
+/// data: Function call data (selector + encoded args)
+///
+/// Returns a map of decoded arguments by auto-generated parameter names
+pub fn decodeFunctionDataRaw(
+    allocator: std.mem.Allocator,
+    param_types: []const []const u8,
+    data: []const u8,
+) !std.StringHashMap([]const u8) {
+    if (data.len < 4) {
+        return DecodeFunctionDataError.BufferTooShort;
+    }
+    
+    // Skip the selector (4 bytes)
+    const args_data = data[4..];
+    
+    // Create param objects with generated names
+    var params = std.ArrayList(abi.Param).init(allocator);
+    defer params.deinit();
+    
+    for (param_types, 0..) |ty, i| {
+        const name = try std.fmt.allocPrint(allocator, "param{d}", .{i});
+        
+        try params.append(.{
+            .ty = ty,
+            .name = name,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        });
+    }
+    
+    // Decode the arguments
+    return decode_abi_parameters.decodeAbiParameters(
+        allocator,
+        params.items,
+        args_data,
+    );
+}
+
+/// Get the function selector from the call data
+///
+/// data: Function call data
+///
+/// Returns the 4-byte function selector
+pub fn getFunctionSelector(data: []const u8) ![4]u8 {
+    if (data.len < 4) {
+        return DecodeFunctionDataError.BufferTooShort;
+    }
+    
+    return .{data[0], data[1], data[2], data[3]};
+}
+
+/// Check if the call data matches a function signature
+///
+/// data: Function call data
+/// signature: Function signature string (e.g., "transfer(address,uint256)")
+///
+/// Returns true if the call data is for the given function
+pub fn isFunction(data: []const u8, signature: []const u8) !bool {
+    if (data.len < 4) {
+        return DecodeFunctionDataError.BufferTooShort;
+    }
+    
+    const selector = getFunctionSelector(data) catch return false;
+    const expected_selector = compute_function_selector.computeFunctionSelector(signature);
+    
+    return std.mem.eql(u8, &selector, &expected_selector);
+}
+
+/// Tests for function data decoding
+test "decodeFunctionData basic" {
+    const testing = std.testing;
+    var arena = std.heap.ArenaAllocator.init(testing.allocator);
+    defer arena.deinit();
+    const alloc = arena.allocator();
+    
+    // Define ABI items for a sample contract
+    const abi_items = [_]abi.AbiItem{
+        .{
+            .Function = .{
+                .name = "transfer",
+                .inputs = &[_]abi.Param{
+                    .{
+                        .ty = "address",
+                        .name = "to",
+                        .components = &[_]abi.Param{},
+                        .internal_type = null,
+                    },
+                    .{
+                        .ty = "uint256",
+                        .name = "amount",
+                        .components = &[_]abi.Param{},
+                        .internal_type = null,
+                    },
+                },
+                .outputs = &[_]abi.Param{
+                    .{
+                        .ty = "bool",
+                        .name = "success",
+                        .components = &[_]abi.Param{},
+                        .internal_type = null,
+                    },
+                },
+                .state_mutability = abi.StateMutability.NonPayable,
+            },
+        },
+    };
+    
+    // Create encoded function data for transfer
+    // Selector for transfer(address,uint256): 0xa9059cbb
+    // Address: 0x1234567890123456789012345678901234567890
+    // Amount: 1000000000000000000 (1 ETH)
+    
+    var data = [_]u8{0xa9, 0x05, 0x9c, 0xbb};
+    
+    // Address parameter (padded to 32 bytes)
+    var address_param = [_]u8{0} ** 32;
+    const address = [_]u8{0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90};
+    std.mem.copy(u8, address_param[32 - address.len..], &address);
+    
+    // Amount parameter (padded to 32 bytes)
+    var amount_param = [_]u8{0} ** 32;
+    const amount = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00}; // 1 ETH
+    std.mem.copy(u8, amount_param[32 - amount.len..], &amount);
+    
+    // Concatenate all parts
+    var full_data = std.ArrayList(u8).init(alloc);
+    defer full_data.deinit();
+    
+    try full_data.appendSlice(&data);
+    try full_data.appendSlice(&address_param);
+    try full_data.appendSlice(&amount_param);
+    
+    // Now decode the function data
+    const result = try decodeFunctionData(alloc, &abi_items, full_data.items);
+    defer result.args.deinit();
+    
+    // Check function name
+    try testing.expectEqualStrings("transfer", result.function_name);
+    
+    // Check arguments
+    try testing.expect(result.args.contains("to"));
+    try testing.expect(result.args.contains("amount"));
+    
+    // The address should be properly decoded
+    const decoded_to = result.args.get("to").?;
+    try testing.expectEqual(@as(usize, 32), decoded_to.len);
+    
+    // The last 20 bytes should match our address
+    try testing.expectEqualSlices(u8, &address, decoded_to[32 - address.len..]);
+    
+    // The amount should be properly decoded
+    const decoded_amount = result.args.get("amount").?;
+    try testing.expectEqual(@as(usize, 32), decoded_amount.len);
+    
+    // The last bytes should match our amount
+    try testing.expectEqualSlices(u8, &amount, decoded_amount[32 - amount.len..]);
+}
+
+test "isFunction" {
+    const testing = std.testing;
+    
+    // Data for transfer(address,uint256)
+    const transfer_data = [_]u8{0xa9, 0x05, 0x9c, 0xbb, 0x00, 0x00};
+    
+    // Check if it matches
+    const is_transfer = try isFunction(&transfer_data, "transfer(address,uint256)");
+    try testing.expect(is_transfer);
+    
+    // Check if it doesn't match a different function
+    const is_approve = try isFunction(&transfer_data, "approve(address,uint256)");
+    try testing.expect(!is_approve);
+}
