@@ -10,23 +10,23 @@ pub const GetAbiItemError = error{
     InvalidSignature,
 };
 
-/// Options for getAbiItem
-pub const GetAbiItemOpts = struct {
-    /// The name of the item to find (function, event, error name)
-    name: ?[]const u8 = null,
-    
-    /// The 4-byte selector (for functions) or 32-byte topic hash (for events)
-    selector: ?[]const u8 = null,
-    
-    /// Filter by ABI item type
-    item_type: ?enum { 
+pub const AbiItemType = enum { 
         Function,
         Event, 
         Error,
         Constructor,
         Fallback,
         Receive,
-    } = null,
+    };
+
+/// Options for getAbiItem
+pub const GetAbiItemOpts = struct {
+    /// The name of the item to find (function, event, error name)
+    name: ?[]const u8 = null,
+    /// The 4-byte selector (for functions) or 32-byte topic hash (for events)
+    selector: ?[]const u8 = null,
+    /// Filter by ABI item type
+    item_type: ?AbiItemType = null,
 };
 
 /// Get a specific item from an ABI array
