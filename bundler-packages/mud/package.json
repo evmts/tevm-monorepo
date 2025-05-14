@@ -61,7 +61,14 @@
     "lint:deps": "bunx depcheck"
   },
   "dependencies": {
+    "@latticexyz/common": "2.2.21",
+    "@latticexyz/config": "^2.2.21",
+    "@latticexyz/protocol-parser": "^2.2.21",
+    "@latticexyz/stash": "^2.2.21",
+    "@latticexyz/store": "^2.2.21",
+    "@latticexyz/store-sync": "^2.2.21",
     "@tevm/config": "workspace:^",
+    "@tevm/logger": "workspace:^",
     "viem": "^2.21.1"
   },
   "devDependencies": {
