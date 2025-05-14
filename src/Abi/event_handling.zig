@@ -13,6 +13,9 @@ pub const EventHandlingError = error{
     OutOfMemory,
     MissingTopics,
     InvalidAbi,
+    BufferTooSmall,
+    BufferFull,
+    TooManyParameters,
 } || encode_abi_parameters.EncodeError || decode_abi_parameters.DecodeError;
 
 /// Log data structure
@@ -30,7 +33,7 @@ pub const Log = struct {
     /// Log index within the block
     log_index: u32,
     /// Array of 32-byte topics (including the event signature)
-    topics: std.ArrayList([32]u8),
+    topics: []const [32]u8,
     /// Log data (non-indexed parameters)
     data: []const u8,
     /// True if removed due to chain reorganization
@@ -51,49 +54,61 @@ pub const DecodedEvent = struct {
 
 /// Encodes event topics for use in logs filtering
 ///
+/// out_topics: Pre-allocated array to store the topics
 /// abi_items: Array of ABI items representing contract interface
 /// event_name: Name of the event
 /// indexed_values: HashMap of indexed parameter values by name (can be null for wildcards)
 ///
-/// Returns an array of topics where the first item is the event signature hash 
-/// and subsequent topics are the indexed parameters
+/// Returns the number of topics written to out_topics
 pub fn encodeEventTopics(
-    allocator: std.mem.Allocator,
+    out_topics: [][32]u8,
     abi_items: []const abi.AbiItem,
     event_name: []const u8,
     indexed_values: ?std.StringHashMap(?[]const u8),
-) !std.ArrayList([32]u8) {
+) !usize {
     // Find the event in the ABI
     const event = get_abi_item.getEvent(abi_items, event_name) catch {
         return EventHandlingError.EventNotFound;
     };
     
-    return encodeEventTopicsWithEvent(
-        allocator,
-        event,
-        indexed_values,
-    );
+    return encodeEventTopicsWithEvent(out_topics, event, indexed_values);
 }
 
 /// Encodes event topics for a specific event ABI definition
 ///
+/// out_topics: Pre-allocated array to store the topics
 /// event: ABI event definition
 /// indexed_values: HashMap of indexed parameter values by name (can be null for wildcards)
 ///
-/// Returns an array of topics where the first item is the event signature hash 
-/// and subsequent topics are the indexed parameters
+/// Returns the number of topics written to out_topics
 pub fn encodeEventTopicsWithEvent(
-    allocator: std.mem.Allocator,
+    out_topics: [][32]u8,
     event: abi.Event,
     indexed_values: ?std.StringHashMap(?[]const u8),
-) !std.ArrayList([32]u8) {
-    var topics = std.ArrayList([32]u8).init(allocator);
-    errdefer topics.deinit();
+) !usize {
+    // Count number of topics needed
+    const topic_count = if (event.anonymous) 0 else 1;
+    var indexed_count: usize = 0;
+    
+    for (event.inputs) |param| {
+        if (param.indexed) {
+            indexed_count += 1;
+        }
+    }
+    
+    const total_topics = topic_count + indexed_count;
+    
+    // Check if we have enough space in the output array
+    if (out_topics.len < total_topics) {
+        return EventHandlingError.BufferTooSmall;
+    }
+    
+    var topic_index: usize = 0;
     
     // First topic is the event signature hash (unless anonymous)
     if (!event.anonymous) {
-        const event_topic = compute_function_selector.getEventTopic(event);
-        try topics.append(event_topic);
+        try compute_function_selector.getEventTopic(event, &out_topics[topic_index]);
+        topic_index += 1;
     }
     
     // Add topics for indexed parameters
@@ -109,87 +124,86 @@ pub fn encodeEventTopicsWithEvent(
                     // Non-null value provided, encode it
                     if (value_opt.? != null) {
                         // Encode the parameter value as a topic
-                        topic_value = try encodeParameterAsTopic(param, value_opt.?.?);
+                        try encodeParameterAsTopic(param, value_opt.?.?, &out_topics[topic_index]);
+                        topic_value = out_topics[topic_index];
                     }
                     // else: value is explicitly null (wildcard)
                 }
                 // else: parameter not provided (wildcard)
             }
             
-            // Add the topic (or null for a wildcard)
-            if (topic_value != null) {
-                try topics.append(topic_value.?);
-            } else {
-                // For wildcard topics, add a null entry
-                // In the actual filter implementation, null topics are skipped
-                var null_topic: [32]u8 = [_]u8{0} ** 32;
-                try topics.append(null_topic);
+            // If no value was provided or it was null, use a zero topic as wildcard
+            if (topic_value == null) {
+                std.mem.set(u8, &out_topics[topic_index], 0);
             }
+            
+            topic_index += 1;
         }
     }
     
-    return topics;
+    return topic_index;
 }
 
 /// Encode a parameter value as a 32-byte topic
 ///
 /// param: Parameter definition
 /// value: Value to encode
-///
-/// Returns a 32-byte topic value
-fn encodeParameterAsTopic(param: abi.EventParam, value: []const u8) ![32]u8 {
-    var topic: [32]u8 = [_]u8{0} ** 32;
-    
+/// out_topic: Pre-allocated 32-byte array to store the result
+pub fn encodeParameterAsTopic(
+    param: abi.EventParam,
+    value: []const u8,
+    out_topic: *[32]u8,
+) !void {
     // Special handling for dynamic types when indexed
     if (std.mem.eql(u8, param.ty, "string") or 
         std.mem.eql(u8, param.ty, "bytes") or
         param.components.len > 0) {
         // For dynamic types, indexed parameters are hashed
-        topic = abi.keccak256(value);
+        const hash = abi.keccak256(value);
+        std.mem.copy(u8, out_topic, &hash);
     } else {
         // For static types, just pad to 32 bytes
+        std.mem.set(u8, out_topic, 0); // Zero out the buffer
+        
         // If value is longer than 32 bytes, truncate
         const copy_len = @minimum(value.len, 32);
         
         if (std.mem.startsWith(u8, param.ty, "uint") or
             std.mem.startsWith(u8, param.ty, "int")) {
             // Numbers are right-aligned
-            std.mem.copy(u8, topic[32 - copy_len..], value[0..copy_len]);
+            std.mem.copy(u8, out_topic[32 - copy_len..], value[0..copy_len]);
         } else if (std.mem.eql(u8, param.ty, "address")) {
             // Addresses are right-aligned, but padded to 20 bytes
             const addr_len = @minimum(value.len, 20);
-            std.mem.copy(u8, topic[32 - addr_len..], value[0..addr_len]);
+            std.mem.copy(u8, out_topic[32 - addr_len..], value[0..addr_len]);
         } else {
             // Other types are left-aligned
-            std.mem.copy(u8, topic[0..copy_len], value[0..copy_len]);
+            std.mem.copy(u8, out_topic[0..copy_len], value[0..copy_len]);
         }
     }
-    
-    return topic;
 }
 
 /// Decodes an event log into event name and parameter values
 ///
-/// allocator: Memory allocator for results
 /// abi_items: Array of ABI items representing contract interface
 /// log: Event log data
+/// result: Pre-initialized DecodedEvent to store the result
 ///
-/// Returns the decoded event data including name and arguments
+/// Populates the result with event name and decoded arguments
 pub fn decodeEventLog(
-    allocator: std.mem.Allocator,
     abi_items: []const abi.AbiItem,
     log: Log,
-) !DecodedEvent {
-    if (log.topics.items.len == 0) {
+    result: *DecodedEvent,
+) !void {
+    if (log.topics.len == 0) {
         return EventHandlingError.MissingTopics;
     }
     
     // First topic is the event signature hash (unless anonymous)
-    const topic_hash = log.topics.items[0];
+    const topic_hash = log.topics[0];
     
     // Find matching event in the ABI
     var event_opt: ?abi.Event = null;
-    var event_name: []const u8 = "";
     
     // Try to find by topic hash
     for (abi_items) |item| {
@@ -201,10 +215,12 @@ pub fn decodeEventLog(
                     continue;
                 }
                 
-                const event_topic = compute_function_selector.getEventTopic(event);
+                var event_topic: [32]u8 = undefined;
+                compute_function_selector.getEventTopic(event, &event_topic) catch continue;
+                
                 if (std.mem.eql(u8, &topic_hash, &event_topic)) {
                     event_opt = event;
-                    event_name = event.name;
+                    result.name = event.name;
                     break;
                 }
             },
@@ -216,36 +232,23 @@ pub fn decodeEventLog(
         return EventHandlingError.EventNotFound;
     }
     
-    return decodeEventLogWithEvent(
-        allocator,
-        event_opt.?,
-        log,
-    );
+    try decodeEventLogWithEvent(event_opt.?, log, result);
 }
 
 /// Decodes an event log using a specific event ABI definition
 ///
-/// allocator: Memory allocator for results
 /// event: ABI event definition
 /// log: Event log data
+/// result: Pre-initialized DecodedEvent to store the result
 ///
-/// Returns the decoded event data including arguments
+/// Populates the result with decoded arguments
 pub fn decodeEventLogWithEvent(
-    allocator: std.mem.Allocator,
     event: abi.Event,
     log: Log,
-) !DecodedEvent {
-    var result = DecodedEvent{
-        .name = event.name,
-        .indexed_args = std.StringHashMap([]const u8).init(allocator),
-        .non_indexed_args = std.StringHashMap([]const u8).init(allocator),
-        .args = std.StringHashMap([]const u8).init(allocator),
-    };
-    errdefer {
-        result.indexed_args.deinit();
-        result.non_indexed_args.deinit();
-        result.args.deinit();
-    }
+    result: *DecodedEvent,
+) !void {
+    // Set the name in the result
+    result.name = event.name;
     
     // Check if we have enough topics
     const expected_topics = if (event.anonymous) 0 else 1;
@@ -257,25 +260,24 @@ pub fn decodeEventLogWithEvent(
         }
     }
     
-    if (log.topics.items.len < expected_topics + indexed_count) {
+    if (log.topics.len < expected_topics + indexed_count) {
         return EventHandlingError.InvalidTopicData;
     }
     
     // Process indexed parameters
     var topic_index = if (event.anonymous) 0 else 1;
-    var non_indexed_params = std.ArrayList(abi.Param).init(allocator);
+    var non_indexed_params = std.ArrayList(abi.Param).init(std.heap.page_allocator);
     defer non_indexed_params.deinit();
     
     for (event.inputs) |param| {
         if (param.indexed) {
             // Get the topic value
-            const topic = log.topics.items[topic_index];
+            const topic = log.topics[topic_index];
             topic_index += 1;
             
             // For indexed parameters, just store the topic value
-            const value = try allocator.dupe(u8, &topic);
-            try result.indexed_args.put(param.name, value);
-            try result.args.put(param.name, value);
+            try result.indexed_args.put(param.name, &topic);
+            try result.args.put(param.name, &topic);
         } else {
             // Collect non-indexed parameters for later decoding
             const param_copy = abi.Param{
@@ -290,31 +292,23 @@ pub fn decodeEventLogWithEvent(
     
     // Decode non-indexed parameters from log data
     if (non_indexed_params.items.len > 0) {
-        const decoded = try decode_abi_parameters.decodeAbiParameters(
-            allocator,
+        try decode_abi_parameters.decodeAbiParameters(
+            &result.non_indexed_args,
             non_indexed_params.items,
             log.data,
         );
-        defer decoded.deinit();
         
-        // Copy values to our result maps
-        var it = decoded.iterator();
+        // Copy non-indexed values to the main args map
+        var it = result.non_indexed_args.iterator();
         while (it.next()) |entry| {
-            const value = try allocator.dupe(u8, entry.value_ptr.*);
-            try result.non_indexed_args.put(entry.key_ptr.*, value);
-            try result.args.put(entry.key_ptr.*, value);
+            try result.args.put(entry.key_ptr.*, entry.value_ptr.*);
         }
     }
-    
-    return result;
 }
 
 /// Tests for event topic encoding
 test "encodeEventTopics basic" {
     const testing = std.testing;
-    var arena = std.heap.ArenaAllocator.init(testing.allocator);
-    defer arena.deinit();
-    const alloc = arena.allocator();
     
     // Define ABI items for a sample contract
     const abi_items = [_]abi.AbiItem{
@@ -350,7 +344,7 @@ test "encodeEventTopics basic" {
     };
     
     // Test encoding event topics with values
-    var indexed_values = std.StringHashMap(?[]const u8).init(alloc);
+    var indexed_values = std.StringHashMap(?[]const u8).init(testing.allocator);
     defer indexed_values.deinit();
     
     // From address: 0x1234567890123456789012345678901234567890
@@ -360,11 +354,13 @@ test "encodeEventTopics basic" {
     // To address: null (wildcard)
     try indexed_values.put("to", null);
     
-    const topics = try encodeEventTopics(alloc, &abi_items, "Transfer", indexed_values);
-    defer topics.deinit();
+    // Allocate space for topics
+    var topics: [3][32]u8 = undefined;
+    
+    const topic_count = try encodeEventTopics(&topics, &abi_items, "Transfer", indexed_values);
     
     // Verify that we have 3 topics: event signature, from address, wildcard
-    try testing.expectEqual(@as(usize, 3), topics.items.len);
+    try testing.expectEqual(@as(usize, 3), topic_count);
     
     // First topic should be the Transfer event signature hash
     // Expected: 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
@@ -374,24 +370,21 @@ test "encodeEventTopics basic" {
         0x95, 0x2b, 0xa7, 0xf1, 0x63, 0xc4, 0xa1, 0x16,
         0x28, 0xf5, 0x5a, 0x4d, 0xf5, 0x23, 0xb3, 0xef,
     };
-    try testing.expectEqualSlices(u8, &expected_topic0, &topics.items[0]);
+    try testing.expectEqualSlices(u8, &expected_topic0, &topics[0]);
     
     // Second topic should be the from address (right-aligned)
     // The address should be in the last 20 bytes
     var expected_topic1: [32]u8 = [_]u8{0} ** 32;
     std.mem.copy(u8, expected_topic1[32 - from_addr.len..], &from_addr);
-    try testing.expectEqualSlices(u8, &expected_topic1, &topics.items[1]);
+    try testing.expectEqualSlices(u8, &expected_topic1, &topics[1]);
     
     // Third topic should be zeroes (wildcard)
     const expected_topic2 = [_]u8{0} ** 32;
-    try testing.expectEqualSlices(u8, &expected_topic2, &topics.items[2]);
+    try testing.expectEqualSlices(u8, &expected_topic2, &topics[2]);
 }
 
 test "decodeEventLog basic" {
     const testing = std.testing;
-    var arena = std.heap.ArenaAllocator.init(testing.allocator);
-    defer arena.deinit();
-    const alloc = arena.allocator();
     
     // Define ABI items for a sample contract
     const abi_items = [_]abi.AbiItem{
@@ -426,79 +419,70 @@ test "decodeEventLog basic" {
         },
     };
     
-    // Create a sample log
-    var log = Log{
-        .block_hash = [_]u8{1} ** 32,
-        .block_number = 12345,
-        .address = [_]u8{2} ** 20,
-        .transaction_hash = [_]u8{3} ** 32,
-        .transaction_index = 0,
-        .log_index = 0,
-        .topics = std.ArrayList([32]u8).init(alloc),
-        .data = &[_]u8{},
-        .removed = false,
-    };
-    defer log.topics.deinit();
-    
     // Add topics
-    // Topic 0: Transfer event signature
-    // Expected: 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
     const topic0 = [_]u8{
         0xdd, 0xf2, 0x52, 0xad, 0x1b, 0xe2, 0xc8, 0x9b,
         0x69, 0xc2, 0xb0, 0x68, 0xfc, 0x37, 0x8d, 0xaa,
         0x95, 0x2b, 0xa7, 0xf1, 0x63, 0xc4, 0xa1, 0x16,
         0x28, 0xf5, 0x5a, 0x4d, 0xf5, 0x23, 0xb3, 0xef,
     };
-    try log.topics.append(topic0);
     
-    // Topic 1: From address (right-aligned)
+    // From address
     const from_addr = [_]u8{0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11};
     var topic1: [32]u8 = [_]u8{0} ** 32;
     std.mem.copy(u8, topic1[32 - from_addr.len..], &from_addr);
-    try log.topics.append(topic1);
     
-    // Topic 2: To address (right-aligned)
+    // To address
     const to_addr = [_]u8{0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22};
     var topic2: [32]u8 = [_]u8{0} ** 32;
     std.mem.copy(u8, topic2[32 - to_addr.len..], &to_addr);
-    try log.topics.append(topic2);
     
-    // Data: Encoded value parameter (1000000000000000000)
-    // Encode a uint256 value
+    // Create a sample log
+    const topics = [_][32]u8{topic0, topic1, topic2};
+    
+    // Add value data for the non-indexed parameter
     const value = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00}; // 1 ETH
-    var value_data = [_]u8{0} ** 32;
+    var value_data: [32]u8 = [_]u8{0} ** 32;
     std.mem.copy(u8, value_data[32 - value.len..], &value);
-    log.data = &value_data;
+    
+    const log = Log{
+        .block_hash = [_]u8{1} ** 32,
+        .block_number = 12345,
+        .address = [_]u8{2} ** 20,
+        .transaction_hash = [_]u8{3} ** 32,
+        .transaction_index = 0,
+        .log_index = 0,
+        .topics = &topics,
+        .data = &value_data,
+        .removed = false,
+    };
+    
+    // Initialize the result structures
+    var indexed_args = std.StringHashMap([]const u8).init(testing.allocator);
+    defer indexed_args.deinit();
+    
+    var non_indexed_args = std.StringHashMap([]const u8).init(testing.allocator);
+    defer non_indexed_args.deinit();
+    
+    var args = std.StringHashMap([]const u8).init(testing.allocator);
+    defer args.deinit();
+    
+    var decoded = DecodedEvent{
+        .name = "",
+        .indexed_args = indexed_args,
+        .non_indexed_args = non_indexed_args,
+        .args = args,
+    };
     
     // Decode the log
-    const decoded = try decodeEventLog(alloc, &abi_items, log);
-    defer {
-        decoded.indexed_args.deinit();
-        decoded.non_indexed_args.deinit();
-        decoded.args.deinit();
-    }
+    try decodeEventLog(&abi_items, log, &decoded);
     
-    // Check event name
+    // Verify the decoded data
     try testing.expectEqualStrings("Transfer", decoded.name);
-    
-    // Check indexed arguments
     try testing.expect(decoded.indexed_args.contains("from"));
     try testing.expect(decoded.indexed_args.contains("to"));
-    
-    // Check non-indexed arguments
     try testing.expect(decoded.non_indexed_args.contains("value"));
-    
-    // Check all arguments
     try testing.expect(decoded.args.contains("from"));
     try testing.expect(decoded.args.contains("to"));
     try testing.expect(decoded.args.contains("value"));
-    
-    // Check values (just verifying they exist - proper decoding would need more work)
-    const from_value = decoded.args.get("from").?;
-    const to_value = decoded.args.get("to").?;
-    const value_value = decoded.args.get("value").?;
-    
-    try testing.expectEqual(@as(usize, 32), from_value.len);
-    try testing.expectEqual(@as(usize, 32), to_value.len);
-    try testing.expectEqual(@as(usize, 32), value_value.len);
 }

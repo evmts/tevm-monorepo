@@ -8,31 +8,33 @@ pub const EncodeError = error{
     BufferTooSmall,
     OutOfMemory,
     InvalidValue,
+    BufferFull,
 };
 
 /// Encodes values according to the Contract ABI specification
 /// 
+/// out_buffer: Pre-allocated buffer to write the encoded data to
 /// params: Array of ABI parameters that describe the types
 /// values: HashMap of values to encode by parameter name
 /// 
-/// Returns the ABI-encoded data allocated by the provided allocator
+/// Returns the number of bytes written to out_buffer
 pub fn encodeAbiParameters(
-    allocator: std.mem.Allocator,
+    out_buffer: []u8,
     params: []const abi.Param,
     values: std.StringHashMap([]const u8),
-) ![]u8 {
-    // Initialize dynamic arrays for head and tail parts
-    var head = std.ArrayList(u8).init(allocator);
-    defer head.deinit();
+) !usize {
+    // Use temporary buffers for head and tail parts
+    var head_buf: [4096]u8 = undefined; // Adjust size as needed
+    var tail_buf: [4096]u8 = undefined; // Adjust size as needed
     
-    var tail = std.ArrayList(u8).init(allocator);
-    defer tail.deinit();
+    var head_len: usize = 0;
+    var tail_len: usize = 0;
     
     // Calculate the minimum head size (32 bytes per static param)
     var head_size: usize = 0;
     
     // First pass: calculate the total head size
-    for (params) |param| {
+    for (params) |_| {
         head_size += 32; // All types use at least 32 bytes in the head
     }
     
@@ -44,24 +46,38 @@ pub fn encodeAbiParameters(
         }
         const value = value_opt.?;
         
-        try encodeParam(allocator, param, value, &head, &tail, head_size);
+        try encodeParam(
+            param, 
+            value, 
+            head_buf[head_len..], 
+            tail_buf[tail_len..], 
+            &head_len, 
+            &tail_len, 
+            head_size
+        );
     }
     
-    // Combine head and tail
-    var result = std.ArrayList(u8).init(allocator);
-    try result.appendSlice(head.items);
-    try result.appendSlice(tail.items);
+    // Check if we have enough space in the output buffer
+    const total_len = head_len + tail_len;
+    if (out_buffer.len < total_len) {
+        return EncodeError.BufferTooSmall;
+    }
     
-    return result.toOwnedSlice();
+    // Copy head and tail to output buffer
+    std.mem.copy(u8, out_buffer[0..head_len], head_buf[0..head_len]);
+    std.mem.copy(u8, out_buffer[head_len..total_len], tail_buf[0..tail_len]);
+    
+    return total_len;
 }
 
 /// Internal helper to encode a single parameter
 fn encodeParam(
-    allocator: std.mem.Allocator,
     param: abi.Param,
     value: []const u8,
-    head: *std.ArrayList(u8),
-    tail: *std.ArrayList(u8),
+    head: []u8,
+    tail: []u8,
+    head_len: *usize,
+    tail_len: *usize,
     head_size: usize,
 ) !void {
     const ty = param.ty;
@@ -77,19 +93,23 @@ fn encodeParam(
             return EncodeError.ValueTypeMismatch;
         }
         
-        // Create a 32-byte buffer with right padding (for uint/int) or left padding (for address)
-        var buffer: [32]u8 = [_]u8{0} ** 32;
+        if (head_len.* + 32 > head.len) {
+            return EncodeError.BufferTooSmall;
+        }
+        
+        // Zero out the buffer
+        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
         
         if (std.mem.eql(u8, ty, "address")) {
             // Address: pad on the left (20 bytes for address)
-            const start_idx = 32 - @minimum(value.len, 20);
-            std.mem.copy(u8, buffer[start_idx..], value[value.len - @minimum(value.len, 20)..]);
+            const start_idx = head_len.* + 32 - @minimum(value.len, 20);
+            std.mem.copy(u8, head[start_idx..], value[value.len - @minimum(value.len, 20)..]);
         } else {
             // Other types: pad on the right
-            std.mem.copy(u8, buffer[32 - value.len..], value);
+            std.mem.copy(u8, head[head_len.* + 32 - value.len..], value);
         }
         
-        try head.appendSlice(&buffer);
+        head_len.* += 32;
         return;
     }
 
@@ -99,10 +119,17 @@ fn encodeParam(
             return EncodeError.ValueTypeMismatch;
         }
         
-        var buffer: [32]u8 = [_]u8{0} ** 32;
-        buffer[31] = value[0] != 0;
+        if (head_len.* + 32 > head.len) {
+            return EncodeError.BufferTooSmall;
+        }
         
-        try head.appendSlice(&buffer);
+        // Zero out the buffer
+        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
+        
+        // Set the last byte to the boolean value
+        head[head_len.* + 31] = value[0] != 0;
+        
+        head_len.* += 32;
         return;
     }
 
@@ -121,13 +148,17 @@ fn encodeParam(
             return EncodeError.ValueTypeMismatch;
         }
         
-        // Pad the value to 32 bytes
-        var buffer: [32]u8 = [_]u8{0} ** 32;
+        if (head_len.* + 32 > head.len) {
+            return EncodeError.BufferTooSmall;
+        }
+        
+        // Zero out the buffer
+        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
         
         // Copy with right padding
-        std.mem.copy(u8, buffer[32 - value.len..], value);
+        std.mem.copy(u8, head[head_len.* + 32 - value.len..], value);
         
-        try head.appendSlice(&buffer);
+        head_len.* += 32;
         return;
     }
 
@@ -144,37 +175,55 @@ fn encodeParam(
             return EncodeError.ValueTypeMismatch;
         }
         
-        // Pad the value to 32 bytes with right padding (for bytesN)
-        var buffer: [32]u8 = [_]u8{0} ** 32;
-        std.mem.copy(u8, buffer[0..value.len], value);
+        if (head_len.* + 32 > head.len) {
+            return EncodeError.BufferTooSmall;
+        }
         
-        try head.appendSlice(&buffer);
+        // Zero out the buffer
+        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
+        
+        // Copy with left padding (for bytesN)
+        std.mem.copy(u8, head[head_len.* .. head_len.* + value.len], value);
+        
+        head_len.* += 32;
         return;
     }
 
     // Dynamic types: bytes and string
     if (std.mem.eql(u8, ty, "bytes") or std.mem.eql(u8, ty, "string")) {
+        if (head_len.* + 32 > head.len) {
+            return EncodeError.BufferTooSmall;
+        }
+        
         // For dynamic types, store the offset to the data in the head
-        const offset = head_size + tail.items.len;
+        const offset = head_size + tail_len.*;
         
-        // Write the offset to the head
-        var offset_buffer: [32]u8 = [_]u8{0} ** 32;
-        const offset_bytes = valueToBytes(u256, @intCast(u256, offset));
-        std.mem.copy(u8, offset_buffer[32 - offset_bytes.len..], offset_bytes);
-        try head.appendSlice(&offset_buffer);
+        // Zero out the offset buffer
+        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
         
-        // Write the length and data to the tail
-        var length_buffer: [32]u8 = [_]u8{0} ** 32;
-        const length_bytes = valueToBytes(u256, @intCast(u256, value.len));
-        std.mem.copy(u8, length_buffer[32 - length_bytes.len..], length_bytes);
-        try tail.appendSlice(&length_buffer);
+        // Write the offset
+        writeUint256(offset, head[head_len.* .. head_len.* + 32]);
+        head_len.* += 32;
+        
+        // Check if we have enough space for length and data
+        const length_and_padding = 32 + value.len + ((32 - (value.len % 32)) % 32);
+        if (tail_len.* + length_and_padding > tail.len) {
+            return EncodeError.BufferTooSmall;
+        }
+        
+        // Write the length
+        std.mem.set(u8, tail[tail_len.* .. tail_len.* + 32], 0);
+        writeUint256(value.len, tail[tail_len.* .. tail_len.* + 32]);
+        tail_len.* += 32;
         
         // Write the actual data
-        try tail.appendSlice(value);
+        std.mem.copy(u8, tail[tail_len.* .. tail_len.* + value.len], value);
+        tail_len.* += value.len;
         
         // Pad to 32 bytes
         const padding_bytes = (32 - (value.len % 32)) % 32;
-        try tail.appendNTimes(0, padding_bytes);
+        std.mem.set(u8, tail[tail_len.* .. tail_len.* + padding_bytes], 0);
+        tail_len.* += padding_bytes;
         
         return;
     }
@@ -197,10 +246,31 @@ fn encodeParam(
     return EncodeError.ValueTypeMismatch;
 }
 
-/// Convert various primitive values to bytes
-pub fn valueToBytes(comptime T: type, value: T) []const u8 {
+/// Helper to write a uint256 value to a 32-byte buffer
+fn writeUint256(value: usize, out: []u8) void {
+    std.debug.assert(out.len >= 32);
+    
+    var val = value;
+    // Clear buffer first
+    std.mem.set(u8, out, 0);
+    
+    // Write bytes from least to most significant
+    var i: usize = 31;
+    while (val > 0) : (i -= 1) {
+        out[i] = @truncate(u8, val);
+        val >>= 8;
+        if (i == 0) break;
+    }
+}
+
+/// Convert a primitive value to bytes and write to out_buffer
+pub fn valueToBytes(comptime T: type, value: T, out_buffer: []u8) !usize {
     if (T == bool) {
-        return if (value) &[_]u8{1} else &[_]u8{0};
+        if (out_buffer.len < 1) {
+            return EncodeError.BufferTooSmall;
+        }
+        out_buffer[0] = if (value) 1 else 0;
+        return 1;
     }
     
     if (T == u256 or T == i256 or
@@ -210,33 +280,34 @@ pub fn valueToBytes(comptime T: type, value: T) []const u8 {
         T == u16 or T == i16 or
         T == u8 or T == i8) {
         
-        var buffer: [@sizeOf(T)]u8 = undefined;
+        const size = @sizeOf(T);
+        if (out_buffer.len < size) {
+            return EncodeError.BufferTooSmall;
+        }
         
         // Convert to big endian as per ABI spec
         const native_value = std.mem.nativeToBig(T, value);
-        std.mem.copy(u8, &buffer, std.mem.asBytes(&native_value));
+        std.mem.copy(u8, out_buffer[0..size], std.mem.asBytes(&native_value));
         
-        return &buffer;
+        return size;
     }
     
-    if (T == []const u8) {
-        return value;
-    }
-    
-    // For unsupported types, return an empty slice
-    // In practice, this should be handled before calling this function
-    return &[_]u8{};
+    return EncodeError.ValueTypeMismatch;
 }
 
 /// Tests for encodeAbiParameters
 test "encodeAbiParameters basic types" {
     const testing = std.testing;
-    var arena = std.heap.ArenaAllocator.init(testing.allocator);
-    defer arena.deinit();
-    const alloc = arena.allocator();
-
+    
     // Test encoding a uint256
     {
+        var values = std.StringHashMap([]const u8).init(testing.allocator);
+        defer values.deinit();
+        
+        // Value 42 as bytes
+        const value = [_]u8{42};
+        try values.put("value", &value);
+        
         const params = [_]abi.Param{.{
             .ty = "uint256",
             .name = "value",
@@ -244,24 +315,26 @@ test "encodeAbiParameters basic types" {
             .internal_type = null,
         }};
         
-        var values = std.StringHashMap([]const u8).init(alloc);
-        defer values.deinit();
+        // Allocate buffer for result
+        var result: [32]u8 = undefined;
         
-        // Value 42 as bytes
-        const value = [_]u8{42};
-        try values.put("value", &value);
-        
-        const result = try encodeAbiParameters(alloc, &params, values);
-        defer alloc.free(result);
+        const written = try encodeAbiParameters(&result, &params, values);
         
         // Expected: 0x000000000000000000000000000000000000000000000000000000000000002a
-        try testing.expectEqual(@as(usize, 32), result.len);
+        try testing.expectEqual(@as(usize, 32), written);
         try testing.expectEqual(@as(u8, 0), result[30]);
         try testing.expectEqual(@as(u8, 42), result[31]);
     }
 
     // Test encoding a bool
     {
+        var values = std.StringHashMap([]const u8).init(testing.allocator);
+        defer values.deinit();
+        
+        // Value true as bytes
+        const value = [_]u8{1};
+        try values.put("flag", &value);
+        
         const params = [_]abi.Param{.{
             .ty = "bool",
             .name = "flag",
@@ -269,23 +342,34 @@ test "encodeAbiParameters basic types" {
             .internal_type = null,
         }};
         
-        var values = std.StringHashMap([]const u8).init(alloc);
-        defer values.deinit();
+        // Allocate buffer for result
+        var result: [32]u8 = undefined;
         
-        // Value true as bytes
-        const value = [_]u8{1};
-        try values.put("flag", &value);
-        
-        const result = try encodeAbiParameters(alloc, &params, values);
-        defer alloc.free(result);
+        const written = try encodeAbiParameters(&result, &params, values);
         
         // Expected: 0x0000000000000000000000000000000000000000000000000000000000000001
-        try testing.expectEqual(@as(usize, 32), result.len);
+        try testing.expectEqual(@as(usize, 32), written);
         for (result[0..31]) |b| {
             try testing.expectEqual(@as(u8, 0), b);
         }
         try testing.expectEqual(@as(u8, 1), result[31]);
     }
 
-    // TODO: Add more tests for other types
+    // Test valueToBytes
+    {
+        var buffer: [8]u8 = undefined;
+        
+        // Test bool
+        const bool_size = try valueToBytes(bool, true, &buffer);
+        try testing.expectEqual(@as(usize, 1), bool_size);
+        try testing.expectEqual(@as(u8, 1), buffer[0]);
+        
+        // Test uint32
+        const u32_size = try valueToBytes(u32, 0x12345678, buffer[0..4]);
+        try testing.expectEqual(@as(usize, 4), u32_size);
+        try testing.expectEqual(@as(u8, 0x12), buffer[0]);
+        try testing.expectEqual(@as(u8, 0x34), buffer[1]);
+        try testing.expectEqual(@as(u8, 0x56), buffer[2]);
+        try testing.expectEqual(@as(u8, 0x78), buffer[3]);
+    }
 }

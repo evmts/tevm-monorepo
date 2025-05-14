@@ -10,14 +10,14 @@ pub const GetAbiItemError = error{
     InvalidSignature,
 };
 
-pub const AbiItemType = enum { 
-        Function,
-        Event, 
-        Error,
-        Constructor,
-        Fallback,
-        Receive,
-    };
+pub const AbiItemType = enum {
+    Function,
+    Event,
+    Error,
+    Constructor,
+    Fallback,
+    Receive,
+};
 
 /// Options for getAbiItem
 pub const GetAbiItemOpts = struct {
@@ -43,12 +43,12 @@ pub fn getAbiItem(
     if (opts.name == null and opts.selector == null) {
         return GetAbiItemError.ItemNotFound;
     }
-    
+
     // Check by selector if provided
     if (opts.selector != null) {
         return getAbiItemBySelector(abi_items, opts.selector.?, opts.item_type);
     }
-    
+
     // Otherwise check by name
     return getAbiItemByName(abi_items, opts.name.?, opts.item_type);
 }
@@ -63,9 +63,9 @@ pub fn getAbiItem(
 fn getAbiItemByName(
     abi_items: []const abi.AbiItem,
     name: []const u8,
-    item_type: ?enum { 
+    item_type: ?enum {
         Function,
-        Event, 
+        Event,
         Error,
         Constructor,
         Fallback,
@@ -130,7 +130,7 @@ fn getAbiItemByName(
             },
         }
     }
-    
+
     return GetAbiItemError.ItemNotFound;
 }
 
@@ -144,9 +144,9 @@ fn getAbiItemByName(
 fn getAbiItemBySelector(
     abi_items: []const abi.AbiItem,
     selector: []const u8,
-    item_type: ?enum { 
+    item_type: ?enum {
         Function,
-        Event, 
+        Event,
         Error,
         Constructor,
         Fallback,
@@ -156,21 +156,22 @@ fn getAbiItemBySelector(
     // For functions, we expect a 4-byte selector
     if (selector.len == 4) {
         // This is likely a function selector
-        if (item_type != null and 
-            item_type.? != .Function and 
+        if (item_type != null and
+            item_type.? != .Function and
             item_type.? != .Constructor and
             item_type.? != .Fallback and
-            item_type.? != .Receive) {
+            item_type.? != .Receive)
+        {
             return GetAbiItemError.ItemNotFound;
         }
-        
+
         for (abi_items) |item| {
             switch (item) {
                 .Function => |func| {
                     if (item_type != null and item_type.? != .Function) {
                         continue;
                     }
-                    
+
                     const func_selector = compute_function_selector.getFunctionSelector(func);
                     if (std.mem.eql(u8, selector, &func_selector)) {
                         return item;
@@ -180,21 +181,21 @@ fn getAbiItemBySelector(
             }
         }
     }
-    
+
     // For events, we expect a 32-byte topic hash
     if (selector.len == 32) {
         // This is likely an event topic hash
         if (item_type != null and item_type.? != .Event) {
             return GetAbiItemError.ItemNotFound;
         }
-        
+
         for (abi_items) |item| {
             switch (item) {
                 .Event => |event| {
                     if (item_type != null and item_type.? != .Event) {
                         continue;
                     }
-                    
+
                     const event_topic = compute_function_selector.getEventTopic(event);
                     if (std.mem.eql(u8, selector, &event_topic)) {
                         return item;
@@ -204,7 +205,7 @@ fn getAbiItemBySelector(
             }
         }
     }
-    
+
     return GetAbiItemError.ItemNotFound;
 }
 
@@ -222,7 +223,7 @@ pub fn getFunction(
         .name = name,
         .item_type = .Function,
     });
-    
+
     return switch (item) {
         .Function => |func| func,
         else => unreachable, // This shouldn't happen due to item_type filter
@@ -243,7 +244,7 @@ pub fn getFunctionBySelector(
         .selector = &selector,
         .item_type = .Function,
     });
-    
+
     return switch (item) {
         .Function => |func| func,
         else => unreachable, // This shouldn't happen due to item_type filter
@@ -264,7 +265,7 @@ pub fn getEvent(
         .name = name,
         .item_type = .Event,
     });
-    
+
     return switch (item) {
         .Event => |event| event,
         else => unreachable, // This shouldn't happen due to item_type filter
@@ -285,7 +286,7 @@ pub fn getEventByTopic(
         .selector = &topic,
         .item_type = .Event,
     });
-    
+
     return switch (item) {
         .Event => |event| event,
         else => unreachable, // This shouldn't happen due to item_type filter
@@ -302,17 +303,16 @@ pub fn getConstructor(abi_items: []const abi.AbiItem) !abi.Constructor {
         .name = "constructor",
         .item_type = .Constructor,
     });
-    
+
     return switch (item) {
         .Constructor => |constructor| constructor,
         else => unreachable, // This shouldn't happen due to item_type filter
     };
 }
 
-/// Tests for getAbiItem
 test "getAbiItem by name" {
     const testing = std.testing;
-    
+
     // Create a sample ABI
     const sample_abi = [_]abi.AbiItem{
         .{
@@ -392,13 +392,13 @@ test "getAbiItem by name" {
             },
         },
     };
-    
+
     // Test getting a function by name
     {
         const item = try getAbiItem(&sample_abi, .{
             .name = "transfer",
         });
-        
+
         const func = switch (item) {
             .Function => |f| f,
             else => {
@@ -406,19 +406,19 @@ test "getAbiItem by name" {
                 unreachable;
             },
         };
-        
+
         try testing.expectEqualStrings("transfer", func.name);
         try testing.expectEqual(@as(usize, 2), func.inputs.len);
         try testing.expectEqualStrings("address", func.inputs[0].ty);
     }
-    
+
     // Test getting an event by name
     {
         const item = try getAbiItem(&sample_abi, .{
             .name = "Transfer",
             .item_type = .Event,
         });
-        
+
         const event = switch (item) {
             .Event => |e| e,
             else => {
@@ -426,20 +426,20 @@ test "getAbiItem by name" {
                 unreachable;
             },
         };
-        
+
         try testing.expectEqualStrings("Transfer", event.name);
         try testing.expectEqual(@as(usize, 3), event.inputs.len);
         try testing.expectEqualStrings("address", event.inputs[0].ty);
         try testing.expect(event.inputs[0].indexed);
     }
-    
+
     // Test getting the constructor
     {
         const item = try getAbiItem(&sample_abi, .{
             .name = "constructor",
             .item_type = .Constructor,
         });
-        
+
         const constructor = switch (item) {
             .Constructor => |c| c,
             else => {
@@ -447,24 +447,24 @@ test "getAbiItem by name" {
                 unreachable;
             },
         };
-        
+
         try testing.expectEqual(@as(usize, 2), constructor.inputs.len);
         try testing.expectEqual(abi.StateMutability.Payable, constructor.state_mutability);
     }
-    
+
     // Test item not found
     {
         const result = getAbiItem(&sample_abi, .{
             .name = "nonExistentFunction",
         });
-        
+
         try testing.expectError(GetAbiItemError.ItemNotFound, result);
     }
 }
 
 test "getFunction" {
     const testing = std.testing;
-    
+
     // Create a sample ABI
     const sample_abi = [_]abi.AbiItem{
         .{
@@ -525,7 +525,7 @@ test "getFunction" {
             },
         },
     };
-    
+
     // Test getting a function
     const func = try getFunction(&sample_abi, "transfer");
     try testing.expectEqualStrings("transfer", func.name);

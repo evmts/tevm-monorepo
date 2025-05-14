@@ -9,7 +9,7 @@ pub const DecodeFunctionDataError = error{
     FunctionNotFound,
     InvalidSelector,
     BufferTooShort,
-    OutOfMemory,
+    BufferFull,
 } || decode_abi_parameters.DecodeError;
 
 /// Result of decoding function data, containing function name and decoded arguments
@@ -22,34 +22,35 @@ pub const DecodeFunctionDataResult = struct {
 
 /// Decodes function call data to function name and arguments
 ///
-/// allocator: Memory allocator for results
 /// abi_items: Array of ABI items representing contract interface
 /// data: Function call data (selector + encoded args)
+/// result: Pre-initialized DecodeFunctionDataResult to store the result
 ///
-/// Returns the function name and decoded arguments
+/// Populates the result with function name and decoded arguments
 pub fn decodeFunctionData(
-    allocator: std.mem.Allocator,
     abi_items: []const abi.AbiItem,
     data: []const u8,
-) !DecodeFunctionDataResult {
+    result: *DecodeFunctionDataResult,
+) !void {
     if (data.len < 4) {
         return DecodeFunctionDataError.BufferTooShort;
     }
     
     // Extract the function selector (first 4 bytes)
-    const selector: [4]u8 = .{data[0], data[1], data[2], data[3]};
+    const selector = [4]u8{data[0], data[1], data[2], data[3]};
     
     // Find the matching function in the ABI
     var func_opt: ?abi.Function = null;
-    var func_name: []const u8 = "";
     
     for (abi_items) |item| {
         switch (item) {
             .Function => |func| {
-                const func_selector = compute_function_selector.getFunctionSelector(func);
+                var func_selector: [4]u8 = undefined;
+                compute_function_selector.getFunctionSelector(func, &func_selector) catch continue;
+                
                 if (std.mem.eql(u8, &selector, &func_selector)) {
                     func_opt = func;
-                    func_name = func.name;
+                    result.function_name = func.name;
                     break;
                 }
             },
@@ -62,63 +63,56 @@ pub fn decodeFunctionData(
     }
     
     // Decode arguments
-    const args = try decodeFunctionDataWithFunction(
-        allocator,
-        func_opt.?,
-        data,
-    );
-    
-    return DecodeFunctionDataResult{
-        .function_name = func_name,
-        .args = args,
-    };
+    try decodeFunctionDataWithFunction(func_opt.?, data, &result.args);
 }
 
 /// Decodes function call data using a specific function ABI definition
 ///
-/// allocator: Memory allocator for results
 /// func: ABI function definition
 /// data: Function call data (selector + encoded args)
+/// args: Pre-initialized map to store decoded arguments by parameter name
 ///
-/// Returns a map of decoded arguments by parameter name
+/// Populates the args map with decoded argument values
 pub fn decodeFunctionDataWithFunction(
-    allocator: std.mem.Allocator,
     func: abi.Function,
     data: []const u8,
-) !std.StringHashMap([]const u8) {
+    args: *std.StringHashMap([]const u8),
+) !void {
     if (data.len < 4) {
         return DecodeFunctionDataError.BufferTooShort;
     }
     
     // Extract the selector (first 4 bytes) and args (remaining data)
-    const selector: [4]u8 = .{data[0], data[1], data[2], data[3]};
-    const expected_selector = compute_function_selector.getFunctionSelector(func);
+    const selector = [4]u8{data[0], data[1], data[2], data[3]};
+    
+    // Validate the selector
+    var expected_selector: [4]u8 = undefined;
+    try compute_function_selector.getFunctionSelector(func, &expected_selector);
     
     if (!std.mem.eql(u8, &selector, &expected_selector)) {
         return DecodeFunctionDataError.InvalidSelector;
     }
     
     // Skip the selector (4 bytes) and decode the rest as arguments
-    const args_data = data[4..];
-    return decode_abi_parameters.decodeAbiParameters(
-        allocator,
+    try decode_abi_parameters.decodeAbiParameters(
+        args,
         func.inputs,
-        args_data,
+        data[4..],
     );
 }
 
 /// A simpler version that only returns the decoded arguments without requiring full ABI
 ///
-/// allocator: Memory allocator for results
 /// param_types: Array of parameter type strings
 /// data: Function call data (selector + encoded args)
+/// args: Pre-initialized map to store decoded arguments by auto-generated parameter names
 ///
-/// Returns a map of decoded arguments by auto-generated parameter names
+/// Populates the args map with decoded argument values
 pub fn decodeFunctionDataRaw(
-    allocator: std.mem.Allocator,
     param_types: []const []const u8,
     data: []const u8,
-) !std.StringHashMap([]const u8) {
+    args: *std.StringHashMap([]const u8),
+) !void {
     if (data.len < 4) {
         return DecodeFunctionDataError.BufferTooShort;
     }
@@ -127,11 +121,12 @@ pub fn decodeFunctionDataRaw(
     const args_data = data[4..];
     
     // Create param objects with generated names
-    var params = std.ArrayList(abi.Param).init(allocator);
+    var params = std.ArrayList(abi.Param).init(std.heap.page_allocator);
     defer params.deinit();
     
     for (param_types, 0..) |ty, i| {
-        const name = try std.fmt.allocPrint(allocator, "param{d}", .{i});
+        var name_buf: [16]u8 = undefined; // Buffer for parameter name (param0, param1, etc.)
+        const name = std.fmt.bufPrint(&name_buf, "param{d}", .{i}) catch return DecodeFunctionDataError.BufferFull;
         
         try params.append(.{
             .ty = ty,
@@ -142,8 +137,8 @@ pub fn decodeFunctionDataRaw(
     }
     
     // Decode the arguments
-    return decode_abi_parameters.decodeAbiParameters(
-        allocator,
+    try decode_abi_parameters.decodeAbiParameters(
+        args,
         params.items,
         args_data,
     );
@@ -152,14 +147,13 @@ pub fn decodeFunctionDataRaw(
 /// Get the function selector from the call data
 ///
 /// data: Function call data
-///
-/// Returns the 4-byte function selector
-pub fn getFunctionSelector(data: []const u8) ![4]u8 {
+/// out_selector: Pre-allocated 4-byte array to store the result
+pub fn getFunctionSelector(data: []const u8, out_selector: *[4]u8) !void {
     if (data.len < 4) {
         return DecodeFunctionDataError.BufferTooShort;
     }
     
-    return .{data[0], data[1], data[2], data[3]};
+    std.mem.copy(u8, out_selector, data[0..4]);
 }
 
 /// Check if the call data matches a function signature
@@ -173,18 +167,18 @@ pub fn isFunction(data: []const u8, signature: []const u8) !bool {
         return DecodeFunctionDataError.BufferTooShort;
     }
     
-    const selector = getFunctionSelector(data) catch return false;
-    const expected_selector = compute_function_selector.computeFunctionSelector(signature);
+    var data_selector: [4]u8 = undefined;
+    std.mem.copy(u8, &data_selector, data[0..4]);
     
-    return std.mem.eql(u8, &selector, &expected_selector);
+    var expected_selector: [4]u8 = undefined;
+    compute_function_selector.computeFunctionSelector(signature, &expected_selector);
+    
+    return std.mem.eql(u8, &data_selector, &expected_selector);
 }
 
 /// Tests for function data decoding
 test "decodeFunctionData basic" {
     const testing = std.testing;
-    var arena = std.heap.ArenaAllocator.init(testing.allocator);
-    defer arena.deinit();
-    const alloc = arena.allocator();
     
     // Define ABI items for a sample contract
     const abi_items = [_]abi.AbiItem{
@@ -236,16 +230,24 @@ test "decodeFunctionData basic" {
     std.mem.copy(u8, amount_param[32 - amount.len..], &amount);
     
     // Concatenate all parts
-    var full_data = std.ArrayList(u8).init(alloc);
+    var full_data = std.ArrayList(u8).init(testing.allocator);
     defer full_data.deinit();
     
     try full_data.appendSlice(&data);
     try full_data.appendSlice(&address_param);
     try full_data.appendSlice(&amount_param);
     
+    // Initialize result structures
+    var args = std.StringHashMap([]const u8).init(testing.allocator);
+    defer args.deinit();
+    
+    var result = DecodeFunctionDataResult{
+        .function_name = "",
+        .args = args,
+    };
+    
     // Now decode the function data
-    const result = try decodeFunctionData(alloc, &abi_items, full_data.items);
-    defer result.args.deinit();
+    try decodeFunctionData(&abi_items, full_data.items, &result);
     
     // Check function name
     try testing.expectEqualStrings("transfer", result.function_name);
