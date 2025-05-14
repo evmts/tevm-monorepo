@@ -164,6 +164,39 @@ const Tokenizer = struct {
         return token;
     }
     
+    fn readType(self: *Tokenizer) ![]const u8 {
+        self.skipWhitespace();
+        const start = self.pos;
+        var bracket_depth: usize = 0;
+        
+        while (self.peek()) |c| {
+            if (bracket_depth == 0 and (c == ',' or c == ')')) {
+                break;
+            }
+            
+            _ = self.next();
+            
+            if (c == '[') {
+                bracket_depth += 1;
+            } else if (c == ']') {
+                if (bracket_depth == 0) {
+                    return ParseAbiError.UnexpectedToken;
+                }
+                bracket_depth -= 1;
+            }
+        }
+        
+        if (bracket_depth != 0) {
+            return ParseAbiError.UnclosedBracket;
+        }
+        
+        if (start == self.pos) {
+            return ParseAbiError.UnexpectedToken;
+        }
+        
+        return self.source[start..self.pos];
+    }
+    
     fn parseParamList(self: *Tokenizer, param_buffer: []abi.Param) !usize {
         // Expect opening parenthesis
         _ = try self.expect(.LeftParen);
@@ -408,161 +441,306 @@ const Tokenizer = struct {
         // Default to nonpayable
         return abi.StateMutability.NonPayable;
     }
+    
+    fn readParamList(self: *Tokenizer, allocator: std.mem.Allocator) ![]abi.Param {
+        self.skipWhitespace();
+        try self.expect(.LeftParen);
+        
+        var params = std.ArrayList(abi.Param).init(allocator);
+        defer params.deinit();
+        
+        self.skipWhitespace();
+        if (self.peek() == ')') {
+            _ = self.next();
+            return params.toOwnedSlice();
+        }
+        
+        while (true) {
+            self.skipWhitespace();
+            
+            // Read parameter type
+            const param_type = try self.readType();
+            
+            // Read parameter name (optional)
+            self.skipWhitespace();
+            var param_name: []const u8 = "";
+            
+            // Check if there's a parameter name
+            if (self.peek()) |c| {
+                if (c != ',' and c != ')') {
+                    const name_token = try self.getToken();
+                    if (name_token.type == .Identifier) {
+                        param_name = name_token.value;
+                    } else {
+                        self.pos = name_token.start;
+                    }
+                }
+            }
+            
+            // Create parameter
+            const param = abi.Param{
+                .ty = param_type,
+                .name = param_name,
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            };
+            
+            try params.append(param);
+            
+            // Check for end of list or comma
+            self.skipWhitespace();
+            const next_char = self.next() orelse return ParseAbiError.UnexpectedToken;
+            
+            if (next_char == ')') {
+                break;
+            } else if (next_char != ',') {
+                return ParseAbiError.UnexpectedToken;
+            }
+        }
+        
+        return params.toOwnedSlice();
+    }
+    
+    fn readEventParamList(self: *Tokenizer, allocator: std.mem.Allocator) ![]abi.EventParam {
+        self.skipWhitespace();
+        try self.expect(.LeftParen);
+        
+        var params = std.ArrayList(abi.EventParam).init(allocator);
+        defer params.deinit();
+        
+        self.skipWhitespace();
+        if (self.peek() == ')') {
+            _ = self.next();
+            return params.toOwnedSlice();
+        }
+        
+        while (true) {
+            self.skipWhitespace();
+            
+            // Check for indexed modifier
+            var indexed = false;
+            if (self.pos + 7 <= self.source.len and 
+                std.mem.eql(u8, self.source[self.pos..self.pos+7], "indexed ")) {
+                indexed = true;
+                self.pos += 7;
+                self.skipWhitespace();
+            }
+            
+            // Read parameter type
+            const param_type = try self.readType();
+            
+            // Read parameter name (optional)
+            self.skipWhitespace();
+            var param_name: []const u8 = "";
+            
+            // Check if there's a parameter name
+            if (self.peek()) |c| {
+                if (c != ',' and c != ')') {
+                    const name_token = try self.getToken();
+                    if (name_token.type == .Identifier) {
+                        param_name = name_token.value;
+                    } else {
+                        self.pos = name_token.start;
+                    }
+                }
+            }
+            
+            // Create parameter
+            const param = abi.EventParam{
+                .ty = param_type,
+                .name = param_name,
+                .indexed = indexed,
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            };
+            
+            try params.append(param);
+            
+            // Check for end of list or comma
+            self.skipWhitespace();
+            const next_char = self.next() orelse return ParseAbiError.UnexpectedToken;
+            
+            if (next_char == ')') {
+                break;
+            } else if (next_char != ',') {
+                return ParseAbiError.UnexpectedToken;
+            }
+        }
+        
+        return params.toOwnedSlice();
+    }
+    
+    fn readStateMutability(self: *Tokenizer) !abi.StateMutability {
+        self.skipWhitespace();
+        
+        // Check for state mutability keywords
+        if (self.pos + 4 <= self.source.len and std.mem.eql(u8, self.source[self.pos..self.pos+4], "pure")) {
+            self.pos += 4;
+            return abi.StateMutability.Pure;
+        } else if (self.pos + 4 <= self.source.len and std.mem.eql(u8, self.source[self.pos..self.pos+4], "view")) {
+            self.pos += 4;
+            return abi.StateMutability.View;
+        } else if (self.pos + 7 <= self.source.len and std.mem.eql(u8, self.source[self.pos..self.pos+7], "payable")) {
+            self.pos += 7;
+            return abi.StateMutability.Payable;
+        }
+        
+        // Default to nonpayable
+        return abi.StateMutability.NonPayable;
+    }
 };
 
 /// Parse human-readable ABI string (Solidity-like) into an ABI item
 ///
+/// allocator: Memory allocator for results
 /// signature: Human-readable ABI signature (e.g., "function foo(uint256 bar) returns (bool)")
-/// out_item: Pre-allocated ABI item to store the result
 ///
-/// Populates the out_item with the parsed ABI item
-pub fn parseAbiItem(signature: []const u8, out_item: *abi.AbiItem) !void {
+/// Returns the parsed ABI item
+pub fn parseAbiItem(allocator: std.mem.Allocator, signature: []const u8) !abi.AbiItem {
     var tokenizer = Tokenizer{ .source = signature };
     
     // Read the item type (function, event, etc.)
-    const item_type = try tokenizer.expect(.Identifier);
+    const item_type = try tokenizer.getToken();
     
-    if (std.mem.eql(u8, item_type.value, "function")) {
-        try parseFunctionSignature(&tokenizer, out_item);
-    } else if (std.mem.eql(u8, item_type.value, "event")) {
-        try parseEventSignature(&tokenizer, out_item);
-    } else if (std.mem.eql(u8, item_type.value, "error")) {
-        try parseErrorSignature(&tokenizer, out_item);
-    } else if (std.mem.eql(u8, item_type.value, "constructor")) {
-        try parseConstructorSignature(&tokenizer, out_item);
-    } else if (std.mem.eql(u8, item_type.value, "fallback")) {
-        try parseFallbackSignature(&tokenizer, out_item);
-    } else if (std.mem.eql(u8, item_type.value, "receive")) {
-        try parseReceiveSignature(&tokenizer, out_item);
-    } else {
+    if (item_type.type != .Identifier) {
         return ParseAbiError.InvalidFormat;
     }
+    
+    if (std.mem.eql(u8, item_type.value, "function")) {
+        return parseFunctionSignature(allocator, &tokenizer);
+    } else if (std.mem.eql(u8, item_type.value, "event")) {
+        return parseEventSignature(allocator, &tokenizer);
+    } else if (std.mem.eql(u8, item_type.value, "error")) {
+        return parseErrorSignature(allocator, &tokenizer);
+    } else if (std.mem.eql(u8, item_type.value, "constructor")) {
+        return parseConstructorSignature(allocator, &tokenizer);
+    } else if (std.mem.eql(u8, item_type.value, "fallback")) {
+        return parseFallbackSignature(allocator, &tokenizer);
+    } else if (std.mem.eql(u8, item_type.value, "receive")) {
+        return parseReceiveSignature(allocator, &tokenizer);
+    }
+    
+    return ParseAbiError.InvalidFormat;
 }
 
 /// Parse a function signature
-fn parseFunctionSignature(tokenizer: *Tokenizer, out_item: *abi.AbiItem) !void {
+fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read function name
     const name_token = try tokenizer.expect(.Identifier);
     
     // Read input parameters
-    var input_params: [16]abi.Param = undefined;
-    const input_count = try tokenizer.parseParamList(&input_params);
+    const inputs = try tokenizer.readParamList(allocator);
     
-    // Set up function outputs and state mutability
-    var output_params: [16]abi.Param = undefined;
-    var output_count: usize = 0;
-    var state_mutability = abi.StateMutability.NonPayable;
-    
-    // Check for state mutability and/or returns
+    // Read state mutability and/or returns
     tokenizer.skipWhitespace();
+    
+    var state_mutability = abi.StateMutability.NonPayable;
+    var outputs = &[_]abi.Param{};
     
     // Check for state mutability
-    state_mutability = try tokenizer.parseStateMutability();
-    
-    // Check for returns
-    tokenizer.skipWhitespace();
-    var token = try tokenizer.getToken();
-    
-    if (token.type == .Identifier and std.mem.eql(u8, token.value, "returns")) {
-        output_count = try tokenizer.parseParamList(&output_params);
-    } else {
-        // Put the token back
-        tokenizer.pos = token.start;
+    if (tokenizer.pos + 4 <= tokenizer.source.len and 
+        (std.mem.eql(u8, tokenizer.source[tokenizer.pos..tokenizer.pos+4], "pure") or
+         std.mem.eql(u8, tokenizer.source[tokenizer.pos..tokenizer.pos+4], "view"))) {
+        state_mutability = try tokenizer.readStateMutability();
+        tokenizer.skipWhitespace();
+    } else if (tokenizer.pos + 7 <= tokenizer.source.len and 
+              std.mem.eql(u8, tokenizer.source[tokenizer.pos..tokenizer.pos+7], "payable")) {
+        state_mutability = try tokenizer.readStateMutability();
+        tokenizer.skipWhitespace();
     }
     
-    // Set up the function item
-    out_item.* = .{
+    // Check for returns
+    if (tokenizer.pos + 7 <= tokenizer.source.len and 
+        std.mem.eql(u8, tokenizer.source[tokenizer.pos..tokenizer.pos+7], "returns")) {
+        tokenizer.pos += 7;
+        tokenizer.skipWhitespace();
+        outputs = try tokenizer.readParamList(allocator);
+    }
+    
+    return abi.AbiItem{
         .Function = .{
             .name = name_token.value,
-            .inputs = input_params[0..input_count],
-            .outputs = output_params[0..output_count],
+            .inputs = inputs,
+            .outputs = outputs,
             .state_mutability = state_mutability,
         },
     };
 }
 
 /// Parse an event signature
-fn parseEventSignature(tokenizer: *Tokenizer, out_item: *abi.AbiItem) !void {
+fn parseEventSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read event name
     const name_token = try tokenizer.expect(.Identifier);
     
     // Read event parameters
-    var params: [16]abi.EventParam = undefined;
-    const param_count = try tokenizer.parseEventParamList(&params);
+    const inputs = try tokenizer.readEventParamList(allocator);
     
     // Check for anonymous modifier
     tokenizer.skipWhitespace();
     var anonymous = false;
-    var token = try tokenizer.getToken();
     
-    if (token.type == .Identifier and std.mem.eql(u8, token.value, "anonymous")) {
+    if (tokenizer.pos + 9 <= tokenizer.source.len and 
+        std.mem.eql(u8, tokenizer.source[tokenizer.pos..tokenizer.pos+9], "anonymous")) {
         anonymous = true;
-    } else {
-        // Put the token back
-        tokenizer.pos = token.start;
+        tokenizer.pos += 9;
     }
     
-    // Set up the event item
-    out_item.* = .{
+    return abi.AbiItem{
         .Event = .{
             .name = name_token.value,
-            .inputs = params[0..param_count],
+            .inputs = inputs,
             .anonymous = anonymous,
         },
     };
 }
 
 /// Parse an error signature
-fn parseErrorSignature(tokenizer: *Tokenizer, out_item: *abi.AbiItem) !void {
+fn parseErrorSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read error name
     const name_token = try tokenizer.expect(.Identifier);
     
     // Read error parameters
-    var params: [16]abi.Param = undefined;
-    const param_count = try tokenizer.parseParamList(&params);
+    const inputs = try tokenizer.readParamList(allocator);
     
     // Set up the error item
-    out_item.* = .{
+    return abi.AbiItem{
         .Error = .{
             .name = name_token.value,
-            .inputs = params[0..param_count],
+            .inputs = inputs,
         },
     };
 }
 
 /// Parse a constructor signature
-fn parseConstructorSignature(tokenizer: *Tokenizer, out_item: *abi.AbiItem) !void {
+fn parseConstructorSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read constructor parameters
-    var params: [16]abi.Param = undefined;
-    const param_count = try tokenizer.parseParamList(&params);
+    const inputs = try tokenizer.readParamList(allocator);
     
     // Read state mutability
-    const state_mutability = try tokenizer.parseStateMutability();
+    const state_mutability = try tokenizer.readStateMutability();
     
     // Set up the constructor item
-    out_item.* = .{
+    return abi.AbiItem{
         .Constructor = .{
-            .inputs = params[0..param_count],
+            .inputs = inputs,
             .state_mutability = state_mutability,
         },
     };
 }
 
 /// Parse a fallback signature
-fn parseFallbackSignature(tokenizer: *Tokenizer, out_item: *abi.AbiItem) !void {
+fn parseFallbackSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read empty parameter list
-    var params: [1]abi.Param = undefined;
-    const param_count = try tokenizer.parseParamList(&params);
-    
-    if (param_count != 0) {
+    const inputs = try tokenizer.readParamList(allocator);
+    if (inputs.len != 0) {
         return ParseAbiError.InvalidFormat;
     }
     
     // Read state mutability
-    const state_mutability = try tokenizer.parseStateMutability();
+    const state_mutability = try tokenizer.readStateMutability();
     
     // Set up the fallback item
-    out_item.* = .{
+    return abi.AbiItem{
         .Fallback = .{
             .state_mutability = state_mutability,
         },
@@ -570,24 +748,22 @@ fn parseFallbackSignature(tokenizer: *Tokenizer, out_item: *abi.AbiItem) !void {
 }
 
 /// Parse a receive signature
-fn parseReceiveSignature(tokenizer: *Tokenizer, out_item: *abi.AbiItem) !void {
+fn parseReceiveSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read empty parameter list
-    var params: [1]abi.Param = undefined;
-    const param_count = try tokenizer.parseParamList(&params);
-    
-    if (param_count != 0) {
+    const inputs = try tokenizer.readParamList(allocator);
+    if (inputs.len != 0) {
         return ParseAbiError.InvalidFormat;
     }
     
     // Read state mutability (should be payable)
-    const state_mutability = try tokenizer.parseStateMutability();
+    const state_mutability = try tokenizer.readStateMutability();
     
     if (state_mutability != abi.StateMutability.Payable) {
         return ParseAbiError.InvalidStateMutability;
     }
     
     // Set up the receive item
-    out_item.* = .{
+    return abi.AbiItem{
         .Receive = .{
             .state_mutability = state_mutability,
         },
@@ -596,106 +772,106 @@ fn parseReceiveSignature(tokenizer: *Tokenizer, out_item: *abi.AbiItem) !void {
 
 /// Parse an array of human-readable ABI strings
 ///
+/// allocator: Memory allocator for results
 /// signatures: Array of human-readable ABI signatures
-/// out_items: Pre-allocated array to store the parsed ABI items
 ///
-/// Returns the number of items parsed
-pub fn parseAbi(signatures: []const []const u8, out_items: []abi.AbiItem) !usize {
-    var item_count: usize = 0;
+/// Returns an array of parsed ABI items
+pub fn parseAbi(allocator: std.mem.Allocator, signatures: []const []const u8) ![]abi.AbiItem {
+    var items = std.ArrayList(abi.AbiItem).init(allocator);
+    defer items.deinit();
     
     for (signatures) |signature| {
-        if (item_count >= out_items.len) {
-            return ParseAbiError.BufferTooSmall;
-        }
-        
-        try parseAbiItem(signature, &out_items[item_count]);
-        item_count += 1;
+        const item = try parseAbiItem(allocator, signature);
+        try items.append(item);
     }
     
-    return item_count;
+    return items.toOwnedSlice();
 }
 
 /// Tests for ABI parsing
 test "parseAbiItem function" {
     const testing = std.testing;
+    var arena = std.heap.ArenaAllocator.init(testing.allocator);
+    defer arena.deinit();
+    const alloc = arena.allocator();
     
     // Test parsing a function
     const func_sig = "function transfer(address to, uint256 amount) returns (bool)";
-    var item: abi.AbiItem = undefined;
-    try parseAbiItem(func_sig, &item);
+    const item = try parseAbiItem(alloc, func_sig);
     
-    switch (item) {
-        .Function => |func| {
-            try testing.expectEqualStrings("transfer", func.name);
-            try testing.expectEqual(@as(usize, 2), func.inputs.len);
-            try testing.expectEqualStrings("address", func.inputs[0].ty);
-            try testing.expectEqualStrings("to", func.inputs[0].name);
-            try testing.expectEqualStrings("uint256", func.inputs[1].ty);
-            try testing.expectEqualStrings("amount", func.inputs[1].name);
-            try testing.expectEqual(@as(usize, 1), func.outputs.len);
-            try testing.expectEqualStrings("bool", func.outputs[0].ty);
-            try testing.expectEqual(abi.StateMutability.NonPayable, func.state_mutability);
-        },
-        else => {
-            try testing.expect(false);
-        },
-    }
+    const func = switch (item) {
+        .Function => |f| f,
+        else => unreachable,
+    };
+    
+    try testing.expectEqualStrings("transfer", func.name);
+    try testing.expectEqual(@as(usize, 2), func.inputs.len);
+    try testing.expectEqualStrings("address", func.inputs[0].ty);
+    try testing.expectEqualStrings("to", func.inputs[0].name);
+    try testing.expectEqualStrings("uint256", func.inputs[1].ty);
+    try testing.expectEqualStrings("amount", func.inputs[1].name);
+    try testing.expectEqual(@as(usize, 1), func.outputs.len);
+    try testing.expectEqualStrings("bool", func.outputs[0].ty);
+    try testing.expectEqual(abi.StateMutability.NonPayable, func.state_mutability);
 }
 
 test "parseAbiItem event" {
     const testing = std.testing;
+    var arena = std.heap.ArenaAllocator.init(testing.allocator);
+    defer arena.deinit();
+    const alloc = arena.allocator();
     
     // Test parsing an event
     const event_sig = "event Transfer(address indexed from, address indexed to, uint256 value)";
-    var item: abi.AbiItem = undefined;
-    try parseAbiItem(event_sig, &item);
+    const item = try parseAbiItem(alloc, event_sig);
     
-    switch (item) {
-        .Event => |event| {
-            try testing.expectEqualStrings("Transfer", event.name);
-            try testing.expectEqual(@as(usize, 3), event.inputs.len);
-            try testing.expectEqualStrings("address", event.inputs[0].ty);
-            try testing.expectEqualStrings("from", event.inputs[0].name);
-            try testing.expect(event.inputs[0].indexed);
-            try testing.expectEqualStrings("address", event.inputs[1].ty);
-            try testing.expectEqualStrings("to", event.inputs[1].name);
-            try testing.expect(event.inputs[1].indexed);
-            try testing.expectEqualStrings("uint256", event.inputs[2].ty);
-            try testing.expectEqualStrings("value", event.inputs[2].name);
-            try testing.expect(!event.inputs[2].indexed);
-            try testing.expect(!event.anonymous);
-        },
-        else => {
-            try testing.expect(false);
-        },
-    }
+    const event = switch (item) {
+        .Event => |e| e,
+        else => unreachable,
+    };
+    
+    try testing.expectEqualStrings("Transfer", event.name);
+    try testing.expectEqual(@as(usize, 3), event.inputs.len);
+    try testing.expectEqualStrings("address", event.inputs[0].ty);
+    try testing.expectEqualStrings("from", event.inputs[0].name);
+    try testing.expect(event.inputs[0].indexed);
+    try testing.expectEqualStrings("address", event.inputs[1].ty);
+    try testing.expectEqualStrings("to", event.inputs[1].name);
+    try testing.expect(event.inputs[1].indexed);
+    try testing.expectEqualStrings("uint256", event.inputs[2].ty);
+    try testing.expectEqualStrings("value", event.inputs[2].name);
+    try testing.expect(!event.inputs[2].indexed);
+    try testing.expect(!event.anonymous);
 }
 
 test "parseAbiItem constructor" {
     const testing = std.testing;
+    var arena = std.heap.ArenaAllocator.init(testing.allocator);
+    defer arena.deinit();
+    const alloc = arena.allocator();
     
     // Test parsing a constructor
     const constructor_sig = "constructor(string name, string symbol) payable";
-    var item: abi.AbiItem = undefined;
-    try parseAbiItem(constructor_sig, &item);
+    const item = try parseAbiItem(alloc, constructor_sig);
     
-    switch (item) {
-        .Constructor => |constructor| {
-            try testing.expectEqual(@as(usize, 2), constructor.inputs.len);
-            try testing.expectEqualStrings("string", constructor.inputs[0].ty);
-            try testing.expectEqualStrings("name", constructor.inputs[0].name);
-            try testing.expectEqualStrings("string", constructor.inputs[1].ty);
-            try testing.expectEqualStrings("symbol", constructor.inputs[1].name);
-            try testing.expectEqual(abi.StateMutability.Payable, constructor.state_mutability);
-        },
-        else => {
-            try testing.expect(false);
-        },
-    }
+    const constructor = switch (item) {
+        .Constructor => |c| c,
+        else => unreachable,
+    };
+    
+    try testing.expectEqual(@as(usize, 2), constructor.inputs.len);
+    try testing.expectEqualStrings("string", constructor.inputs[0].ty);
+    try testing.expectEqualStrings("name", constructor.inputs[0].name);
+    try testing.expectEqualStrings("string", constructor.inputs[1].ty);
+    try testing.expectEqualStrings("symbol", constructor.inputs[1].name);
+    try testing.expectEqual(abi.StateMutability.Payable, constructor.state_mutability);
 }
 
 test "parseAbi multiple items" {
     const testing = std.testing;
+    var arena = std.heap.ArenaAllocator.init(testing.allocator);
+    defer arena.deinit();
+    const alloc = arena.allocator();
     
     const signatures = [_][]const u8{
         "function transfer(address to, uint256 amount) returns (bool)",
@@ -703,19 +879,16 @@ test "parseAbi multiple items" {
         "constructor(string name, string symbol) payable",
     };
     
-    var items: [3]abi.AbiItem = undefined;
-    const count = try parseAbi(&signatures, &items);
+    const items = try parseAbi(alloc, &signatures);
     
-    try testing.expectEqual(@as(usize, 3), count);
+    try testing.expectEqual(@as(usize, 3), items.len);
     
     // Check first item is a function
     switch (items[0]) {
         .Function => |func| {
             try testing.expectEqualStrings("transfer", func.name);
         },
-        else => {
-            try testing.expect(false);
-        },
+        else => unreachable,
     }
     
     // Check second item is an event
@@ -723,16 +896,12 @@ test "parseAbi multiple items" {
         .Event => |event| {
             try testing.expectEqualStrings("Transfer", event.name);
         },
-        else => {
-            try testing.expect(false);
-        },
+        else => unreachable,
     }
     
     // Check third item is a constructor
     switch (items[2]) {
         .Constructor => {},
-        else => {
-            try testing.expect(false);
-        },
+        else => unreachable,
     }
 }

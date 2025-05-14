@@ -295,6 +295,7 @@ pub fn valueToBytes(comptime T: type, value: T, out_buffer: []u8) !usize {
     return EncodeError.ValueTypeMismatch;
 }
 
+/// Tests for encodeAbiParameters
 test "encodeAbiParameters basic types" {
     const testing = std.testing;
     
