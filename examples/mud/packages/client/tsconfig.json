@@ -5,7 +5,11 @@
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@tevm/mud": ["../../../../bundler-packages/mud/src/index.ts"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
 }

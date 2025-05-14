@@ -1,7 +1,7 @@
 {
   "name": "@tevm/mud",
   "version": "1.0.0-next.142",
-  "private": false,
+  "private": true,
   "description": "MUD plugin for optimistic updates with Tevm",
   "keywords": [
     "solidity",
@@ -49,7 +49,7 @@
     "//test:run": "vitest run",
     "//test:ui": "vitest --ui",
     "all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
-    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/whatsabi ",
+    "build": "nx run-many --targets=build:dist,build:types --projects=@tevm/mud",
     "build:dist": "tsup",
     "build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
     "clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
@@ -61,7 +61,8 @@
     "lint:deps": "bunx depcheck"
   },
   "dependencies": {
-    "@tevm/config": "workspace:^"
+    "@tevm/config": "workspace:^",
+    "viem": "^2.21.1"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
