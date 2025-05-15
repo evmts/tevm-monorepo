@@ -11,6 +11,28 @@ pub const ParseAbiError = error{
     UnclosedBracket,
     UnexpectedToken,
     OutOfMemory,
+    BufferTooSmall,
+};
+
+/// Token types for the parser
+const TokenType = enum {
+    Identifier,
+    LeftParen,
+    RightParen,
+    Comma,
+    LeftBracket,
+    RightBracket,
+    Number,
+    Whitespace,
+    EndOfInput,
+};
+
+/// Token structure for the parser
+const Token = struct {
+    type: TokenType,
+    value: []const u8,
+    start: usize,
+    end: usize,
 };
 
 /// Tokenizer for human-readable ABI
@@ -44,30 +66,102 @@ const Tokenizer = struct {
         }
     }
     
-    fn expect(self: *Tokenizer, expected: u8) !void {
-        const c = self.next() orelse return ParseAbiError.UnexpectedToken;
-        if (c != expected) {
-            return ParseAbiError.UnexpectedToken;
+    fn getToken(self: *Tokenizer) !Token {
+        self.skipWhitespace();
+        
+        const start = self.pos;
+        
+        if (start >= self.source.len) {
+            return Token{
+                .type = .EndOfInput,
+                .value = "",
+                .start = start,
+                .end = start,
+            };
+        }
+        
+        const c = self.next().?;
+        
+        switch (c) {
+            '(' => return Token{
+                .type = .LeftParen,
+                .value = "(",
+                .start = start,
+                .end = self.pos,
+            },
+            ')' => return Token{
+                .type = .RightParen,
+                .value = ")",
+                .start = start,
+                .end = self.pos,
+            },
+            ',' => return Token{
+                .type = .Comma,
+                .value = ",",
+                .start = start,
+                .end = self.pos,
+            },
+            '[' => return Token{
+                .type = .LeftBracket,
+                .value = "[",
+                .start = start,
+                .end = self.pos,
+            },
+            ']' => return Token{
+                .type = .RightBracket,
+                .value = "]",
+                .start = start,
+                .end = self.pos,
+            },
+            '0'...'9' => {
+                while (self.peek()) |next_c| {
+                    if (next_c >= '0' and next_c <= '9') {
+                        _ = self.next();
+                    } else {
+                        break;
+                    }
+                }
+                
+                return Token{
+                    .type = .Number,
+                    .value = self.source[start..self.pos],
+                    .start = start,
+                    .end = self.pos,
+                };
+            },
+            'a'...'z', 'A'...'Z', '_', '$' => {
+                while (self.peek()) |next_c| {
+                    if ((next_c >= 'a' and next_c <= 'z') or
+                        (next_c >= 'A' and next_c <= 'Z') or
+                        (next_c >= '0' and next_c <= '9') or
+                        next_c == '_' or next_c == '$') {
+                        _ = self.next();
+                    } else {
+                        break;
+                    }
+                }
+                
+                return Token{
+                    .type = .Identifier,
+                    .value = self.source[start..self.pos],
+                    .start = start,
+                    .end = self.pos,
+                };
+            },
+            else => {
+                return ParseAbiError.UnexpectedToken;
+            },
         }
     }
     
-    fn readIdent(self: *Tokenizer) ![]const u8 {
-        self.skipWhitespace();
-        const start = self.pos;
+    fn expect(self: *Tokenizer, expected_type: TokenType) !Token {
+        const token = try self.getToken();
         
-        while (self.peek()) |c| {
-            if (std.ascii.isAlphanumeric(c) or c == '_' or c == '$') {
-                _ = self.next();
-            } else {
-                break;
-            }
-        }
-        
-        if (start == self.pos) {
+        if (token.type != expected_type) {
             return ParseAbiError.UnexpectedToken;
         }
         
-        return self.source[start..self.pos];
+        return token;
     }
     
     fn readType(self: *Tokenizer) ![]const u8 {
@@ -103,9 +197,254 @@ const Tokenizer = struct {
         return self.source[start..self.pos];
     }
     
+    fn parseParamList(self: *Tokenizer, param_buffer: []abi.Param) !usize {
+        // Expect opening parenthesis
+        _ = try self.expect(.LeftParen);
+        
+        var param_count: usize = 0;
+        
+        // Check for empty parameter list
+        var token = try self.getToken();
+        if (token.type == .RightParen) {
+            return 0;
+        }
+        
+        // Put the token back
+        self.pos = token.start;
+        
+        // Parse parameters
+        while (true) {
+            if (param_count >= param_buffer.len) {
+                return ParseAbiError.BufferTooSmall;
+            }
+            
+            // Parse parameter type
+            const type_token = try self.getToken();
+            if (type_token.type != .Identifier) {
+                return ParseAbiError.InvalidParameterType;
+            }
+            
+            // Check for array dimensions
+            var type_str = type_token.value;
+            var array_dims = std.ArrayList(u8).init(std.heap.page_allocator);
+            defer array_dims.deinit();
+            
+            while (true) {
+                token = try self.getToken();
+                
+                if (token.type == .LeftBracket) {
+                    try array_dims.append('[');
+                    
+                    // Check for fixed size or dynamic array
+                    token = try self.getToken();
+                    if (token.type == .Number) {
+                        try array_dims.appendSlice(token.value);
+                        _ = try self.expect(.RightBracket);
+                    } else if (token.type == .RightBracket) {
+                        // Dynamic array
+                    } else {
+                        return ParseAbiError.UnexpectedToken;
+                    }
+                    
+                    try array_dims.append(']');
+                } else {
+                    // Not an array dimension, put the token back
+                    self.pos = token.start;
+                    break;
+                }
+            }
+            
+            // Combine type and array dimensions
+            var full_type: []const u8 = undefined;
+            if (array_dims.items.len > 0) {
+                var full_type_buf = std.ArrayList(u8).init(std.heap.page_allocator);
+                defer full_type_buf.deinit();
+                
+                try full_type_buf.appendSlice(type_str);
+                try full_type_buf.appendSlice(array_dims.items);
+                
+                full_type = full_type_buf.items;
+            } else {
+                full_type = type_str;
+            }
+            
+            // Parse optional parameter name
+            token = try self.getToken();
+            var param_name: []const u8 = "";
+            
+            if (token.type == .Identifier) {
+                param_name = token.value;
+                token = try self.getToken();
+            }
+            
+            // Set up the parameter in the buffer
+            param_buffer[param_count] = .{
+                .ty = full_type,
+                .name = param_name,
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            };
+            
+            param_count += 1;
+            
+            // Check for end of list or comma
+            if (token.type == .RightParen) {
+                break;
+            } else if (token.type == .Comma) {
+                continue;
+            } else {
+                return ParseAbiError.UnexpectedToken;
+            }
+        }
+        
+        return param_count;
+    }
+    
+    fn parseEventParamList(self: *Tokenizer, param_buffer: []abi.EventParam) !usize {
+        // Expect opening parenthesis
+        _ = try self.expect(.LeftParen);
+        
+        var param_count: usize = 0;
+        
+        // Check for empty parameter list
+        var token = try self.getToken();
+        if (token.type == .RightParen) {
+            return 0;
+        }
+        
+        // Put the token back
+        self.pos = token.start;
+        
+        // Parse parameters
+        while (true) {
+            if (param_count >= param_buffer.len) {
+                return ParseAbiError.BufferTooSmall;
+            }
+            
+            // Check for indexed flag
+            var indexed = false;
+            token = try self.getToken();
+            
+            if (token.type == .Identifier and std.mem.eql(u8, token.value, "indexed")) {
+                indexed = true;
+                token = try self.getToken();
+            } else {
+                // Put the token back
+                self.pos = token.start;
+                token = try self.getToken();
+            }
+            
+            // Parse parameter type
+            if (token.type != .Identifier) {
+                return ParseAbiError.InvalidParameterType;
+            }
+            
+            // Check for array dimensions
+            var type_str = token.value;
+            var array_dims = std.ArrayList(u8).init(std.heap.page_allocator);
+            defer array_dims.deinit();
+            
+            while (true) {
+                token = try self.getToken();
+                
+                if (token.type == .LeftBracket) {
+                    try array_dims.append('[');
+                    
+                    // Check for fixed size or dynamic array
+                    token = try self.getToken();
+                    if (token.type == .Number) {
+                        try array_dims.appendSlice(token.value);
+                        _ = try self.expect(.RightBracket);
+                    } else if (token.type == .RightBracket) {
+                        // Dynamic array
+                    } else {
+                        return ParseAbiError.UnexpectedToken;
+                    }
+                    
+                    try array_dims.append(']');
+                } else {
+                    // Not an array dimension, put the token back
+                    self.pos = token.start;
+                    break;
+                }
+            }
+            
+            // Combine type and array dimensions
+            var full_type: []const u8 = undefined;
+            if (array_dims.items.len > 0) {
+                var full_type_buf = std.ArrayList(u8).init(std.heap.page_allocator);
+                defer full_type_buf.deinit();
+                
+                try full_type_buf.appendSlice(type_str);
+                try full_type_buf.appendSlice(array_dims.items);
+                
+                full_type = full_type_buf.items;
+            } else {
+                full_type = type_str;
+            }
+            
+            // Parse optional parameter name
+            token = try self.getToken();
+            var param_name: []const u8 = "";
+            
+            if (token.type == .Identifier) {
+                param_name = token.value;
+                token = try self.getToken();
+            }
+            
+            // Set up the parameter in the buffer
+            param_buffer[param_count] = .{
+                .ty = full_type,
+                .name = param_name,
+                .indexed = indexed,
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            };
+            
+            param_count += 1;
+            
+            // Check for end of list or comma
+            if (token.type == .RightParen) {
+                break;
+            } else if (token.type == .Comma) {
+                continue;
+            } else {
+                return ParseAbiError.UnexpectedToken;
+            }
+        }
+        
+        return param_count;
+    }
+    
+    fn parseStateMutability(self: *Tokenizer) !abi.StateMutability {
+        self.skipWhitespace();
+        
+        // Check for state mutability keywords
+        const token = try self.getToken();
+        
+        if (token.type == .Identifier) {
+            if (std.mem.eql(u8, token.value, "pure")) {
+                return abi.StateMutability.Pure;
+            } else if (std.mem.eql(u8, token.value, "view")) {
+                return abi.StateMutability.View;
+            } else if (std.mem.eql(u8, token.value, "payable")) {
+                return abi.StateMutability.Payable;
+            } else {
+                // Put the token back
+                self.pos = token.start;
+            }
+        } else {
+            // Put the token back
+            self.pos = token.start;
+        }
+        
+        // Default to nonpayable
+        return abi.StateMutability.NonPayable;
+    }
+    
     fn readParamList(self: *Tokenizer, allocator: std.mem.Allocator) ![]abi.Param {
         self.skipWhitespace();
-        try self.expect('(');
+        try self.expect(.LeftParen);
         
         var params = std.ArrayList(abi.Param).init(allocator);
         defer params.deinit();
@@ -129,7 +468,12 @@ const Tokenizer = struct {
             // Check if there's a parameter name
             if (self.peek()) |c| {
                 if (c != ',' and c != ')') {
-                    param_name = try self.readIdent();
+                    const name_token = try self.getToken();
+                    if (name_token.type == .Identifier) {
+                        param_name = name_token.value;
+                    } else {
+                        self.pos = name_token.start;
+                    }
                 }
             }
             
@@ -159,7 +503,7 @@ const Tokenizer = struct {
     
     fn readEventParamList(self: *Tokenizer, allocator: std.mem.Allocator) ![]abi.EventParam {
         self.skipWhitespace();
-        try self.expect('(');
+        try self.expect(.LeftParen);
         
         var params = std.ArrayList(abi.EventParam).init(allocator);
         defer params.deinit();
@@ -192,7 +536,12 @@ const Tokenizer = struct {
             // Check if there's a parameter name
             if (self.peek()) |c| {
                 if (c != ',' and c != ')') {
-                    param_name = try self.readIdent();
+                    const name_token = try self.getToken();
+                    if (name_token.type == .Identifier) {
+                        param_name = name_token.value;
+                    } else {
+                        self.pos = name_token.start;
+                    }
                 }
             }
             
@@ -251,20 +600,23 @@ pub fn parseAbiItem(allocator: std.mem.Allocator, signature: []const u8) !abi.Ab
     var tokenizer = Tokenizer{ .source = signature };
     
     // Read the item type (function, event, etc.)
-    tokenizer.skipWhitespace();
-    const item_type = try tokenizer.readIdent();
+    const item_type = try tokenizer.getToken();
     
-    if (std.mem.eql(u8, item_type, "function")) {
+    if (item_type.type != .Identifier) {
+        return ParseAbiError.InvalidFormat;
+    }
+    
+    if (std.mem.eql(u8, item_type.value, "function")) {
         return parseFunctionSignature(allocator, &tokenizer);
-    } else if (std.mem.eql(u8, item_type, "event")) {
+    } else if (std.mem.eql(u8, item_type.value, "event")) {
         return parseEventSignature(allocator, &tokenizer);
-    } else if (std.mem.eql(u8, item_type, "error")) {
+    } else if (std.mem.eql(u8, item_type.value, "error")) {
         return parseErrorSignature(allocator, &tokenizer);
-    } else if (std.mem.eql(u8, item_type, "constructor")) {
+    } else if (std.mem.eql(u8, item_type.value, "constructor")) {
         return parseConstructorSignature(allocator, &tokenizer);
-    } else if (std.mem.eql(u8, item_type, "fallback")) {
+    } else if (std.mem.eql(u8, item_type.value, "fallback")) {
         return parseFallbackSignature(allocator, &tokenizer);
-    } else if (std.mem.eql(u8, item_type, "receive")) {
+    } else if (std.mem.eql(u8, item_type.value, "receive")) {
         return parseReceiveSignature(allocator, &tokenizer);
     }
     
@@ -274,8 +626,7 @@ pub fn parseAbiItem(allocator: std.mem.Allocator, signature: []const u8) !abi.Ab
 /// Parse a function signature
 fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read function name
-    tokenizer.skipWhitespace();
-    const name = try tokenizer.readIdent();
+    const name_token = try tokenizer.expect(.Identifier);
     
     // Read input parameters
     const inputs = try tokenizer.readParamList(allocator);
@@ -308,7 +659,7 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
     
     return abi.AbiItem{
         .Function = .{
-            .name = name,
+            .name = name_token.value,
             .inputs = inputs,
             .outputs = outputs,
             .state_mutability = state_mutability,
@@ -319,8 +670,7 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
 /// Parse an event signature
 fn parseEventSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read event name
-    tokenizer.skipWhitespace();
-    const name = try tokenizer.readIdent();
+    const name_token = try tokenizer.expect(.Identifier);
     
     // Read event parameters
     const inputs = try tokenizer.readEventParamList(allocator);
@@ -337,7 +687,7 @@ fn parseEventSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi
     
     return abi.AbiItem{
         .Event = .{
-            .name = name,
+            .name = name_token.value,
             .inputs = inputs,
             .anonymous = anonymous,
         },
@@ -347,15 +697,15 @@ fn parseEventSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi
 /// Parse an error signature
 fn parseErrorSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read error name
-    tokenizer.skipWhitespace();
-    const name = try tokenizer.readIdent();
+    const name_token = try tokenizer.expect(.Identifier);
     
     // Read error parameters
     const inputs = try tokenizer.readParamList(allocator);
     
+    // Set up the error item
     return abi.AbiItem{
         .Error = .{
-            .name = name,
+            .name = name_token.value,
             .inputs = inputs,
         },
     };
@@ -367,9 +717,9 @@ fn parseConstructorSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer
     const inputs = try tokenizer.readParamList(allocator);
     
     // Read state mutability
-    tokenizer.skipWhitespace();
     const state_mutability = try tokenizer.readStateMutability();
     
+    // Set up the constructor item
     return abi.AbiItem{
         .Constructor = .{
             .inputs = inputs,
@@ -381,12 +731,15 @@ fn parseConstructorSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer
 /// Parse a fallback signature
 fn parseFallbackSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read empty parameter list
-    _ = try tokenizer.readParamList(allocator);
+    const inputs = try tokenizer.readParamList(allocator);
+    if (inputs.len != 0) {
+        return ParseAbiError.InvalidFormat;
+    }
     
     // Read state mutability
-    tokenizer.skipWhitespace();
     const state_mutability = try tokenizer.readStateMutability();
     
+    // Set up the fallback item
     return abi.AbiItem{
         .Fallback = .{
             .state_mutability = state_mutability,
@@ -397,16 +750,19 @@ fn parseFallbackSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
 /// Parse a receive signature
 fn parseReceiveSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !abi.AbiItem {
     // Read empty parameter list
-    _ = try tokenizer.readParamList(allocator);
+    const inputs = try tokenizer.readParamList(allocator);
+    if (inputs.len != 0) {
+        return ParseAbiError.InvalidFormat;
+    }
     
     // Read state mutability (should be payable)
-    tokenizer.skipWhitespace();
     const state_mutability = try tokenizer.readStateMutability();
     
     if (state_mutability != abi.StateMutability.Payable) {
         return ParseAbiError.InvalidStateMutability;
     }
     
+    // Set up the receive item
     return abi.AbiItem{
         .Receive = .{
             .state_mutability = state_mutability,
@@ -415,6 +771,11 @@ fn parseReceiveSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !a
 }
 
 /// Parse an array of human-readable ABI strings
+///
+/// allocator: Memory allocator for results
+/// signatures: Array of human-readable ABI signatures
+///
+/// Returns an array of parsed ABI items
 pub fn parseAbi(allocator: std.mem.Allocator, signatures: []const []const u8) ![]abi.AbiItem {
     var items = std.ArrayList(abi.AbiItem).init(allocator);
     defer items.deinit();

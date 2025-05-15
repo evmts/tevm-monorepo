@@ -110,7 +110,7 @@ pub const JsonAbi = struct {
     }
 
     /// Parse human-readable ABI at compile time
-    pub comptime fn parseHumanReadable(comptime inputs: [][]const u8) JsonAbi {
+    pub fn parseHumanReadable(comptime inputs: [][]const u8) JsonAbi {
         unreachable;
     }
 

@@ -10,7 +10,6 @@ const function_result = @import("function_result.zig");
 const event_handling = @import("event_handling.zig");
 const parse_abi_item = @import("parse_abi_item.zig");
 
-/// Main test suite for ABI functionality
 test "ABI basic round trip encoding/decoding" {
     const testing = std.testing;
     var arena = std.heap.ArenaAllocator.init(testing.allocator);
