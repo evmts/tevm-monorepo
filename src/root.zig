@@ -1,15 +1,29 @@
 const std = @import("std");
 
-pub const evm = @import("Evm/evm.zig");
-pub const utils = struct {
-    pub const hex = @import("Utils/hex.zig");
-    pub const keccak256 = @import("Utils/keccak256.zig");
-};
+pub const evm = @import("Evm");
+pub const utils = @import("Utils");
 
 pub fn main() void {
-    _ = evm.Evm.execute(evm.ExecuteParams{
-        .data = &[_]u8{},
-        .code = &[_]u8{},
-        .value = 0,
-    }) catch unreachable;
+    // Create state manager
+    var stateManager = evm.frame.StateManager{};
+    
+    // Initialize EVM
+    var evm_instance = evm.Evm.init(std.heap.page_allocator, &stateManager);
+    
+    // Create a simple call input
+    const input = evm.frame.FrameInput{
+        .Call = .{
+            .callData = &[_]u8{},
+            .gasLimit = 100000,
+            .target = evm.address.ZERO_ADDRESS,
+            .codeAddress = evm.address.ZERO_ADDRESS,
+            .caller = evm.address.ZERO_ADDRESS,
+            .value = 0,
+            .callType = .Call,
+            .isStatic = false,
+        },
+    };
+    
+    // Execute
+    _ = evm_instance.execute(input) catch unreachable;
 }

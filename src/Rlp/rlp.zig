@@ -1,5 +1,5 @@
 const std = @import("std");
-const hex = @import("../Utils/hex.zig");
+const hex = @import("Utils");
 const Allocator = std.mem.Allocator;
 
 pub const RlpError = error{
