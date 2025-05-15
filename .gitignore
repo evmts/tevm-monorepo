@@ -4,6 +4,10 @@
 dist/
 tree/
 
+alloy/
+evmone/
+revm/
+
 /target/
 **/*.rs.bk
 
