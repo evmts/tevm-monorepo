@@ -21,12 +21,22 @@ pub fn build(b: *std.Build) void {
         .os_tag = .freestanding,
     });
 
+    // First create individual modules for each component
+    const address_mod = b.createModule(.{
+        .root_source_file = b.path("src/Address/address.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
     // Create a ZigEVM module - our core EVM implementation
     const zigevm_mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
     });
+    
+    // Add package paths for absolute imports
+    zigevm_mod.addImport("Address", address_mod);
 
     // Create the native executable module
     const exe_mod = b.createModule(.{
@@ -97,6 +107,43 @@ pub fn build(b: *std.Build) void {
     const lib_unit_tests = b.addTest(.{
         .root_module = zigevm_mod,
     });
+    
+    // Add the same Address module to standalone tests
+    lib_unit_tests.root_module.addImport("Address", address_mod);
+
+    // Additional standalone test specifically for frame_test.zig
+    const frame_test = b.addTest(.{
+        .name = "frame-test",
+        .root_source_file = b.path("src/Evm/frame_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add the Address module to frame_test
+    frame_test.root_module.addImport("Address", address_mod);
+    
+    const run_frame_test = b.addRunArtifact(frame_test);
+    
+    // Add a separate step for testing just the frame
+    const frame_test_step = b.step("test-frame", "Run EVM frame tests");
+    frame_test_step.dependOn(&run_frame_test.step);
+    
+    // Add a test for evm.zig
+    const evm_test = b.addTest(.{
+        .name = "evm-test",
+        .root_source_file = b.path("src/Evm/evm.zig"),
+        .target = target, 
+        .optimize = optimize,
+    });
+    
+    // Add the Address module to evm_test
+    evm_test.root_module.addImport("Address", address_mod);
+    
+    const run_evm_test = b.addRunArtifact(evm_test);
+    
+    // Add a separate step for testing the EVM
+    const evm_test_step = b.step("test-evm", "Run EVM tests");
+    evm_test_step.dependOn(&run_evm_test.step);
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
