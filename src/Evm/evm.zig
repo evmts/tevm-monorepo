@@ -1,6 +1,11 @@
 const std = @import("std");
-const block = @import("../Block/block.zig");
-const address = @import("../Address/address.zig");
+pub const block = @import("Block");
+pub const address = @import("Address");
+pub const frame = @import("frame.zig");
+const _ = @import("log_config.zig"); // Import for log configuration
+
+// Define a scoped logger for EVM-related logs
+const log = std.log.scoped(.evm);
 
 pub const ExecutionContext = struct {
     block: block.Block = block.Block{
@@ -100,37 +105,191 @@ pub const StateManager = struct {
 
 pub const Evm = struct {
     allocator: std.mem.Allocator,
+    stateManager: *frame.StateManager,
 
-    pub fn init(allocator: std.mem.Allocator) !Evm {
+    pub fn init(allocator: std.mem.Allocator, stateManager: *frame.StateManager) Evm {
         return Evm{
             .allocator = allocator,
+            .stateManager = stateManager,
         };
     }
 
-    pub fn interpret(
-        self: Evm,
-        params: CallParams,
-    ) ExecuteError!ExecuteResult {
-        return ExecuteResult{
-            .executionGasUsed = 0,
-            .returnValue = &[_]u8{},
-        };
+    // Helper method to create the appropriate frame
+    pub fn createFrame(self: Evm, input: frame.FrameInput, code: frame.Bytes, depth: u16) !frame.Frame {
+        // Create checkpoint for state changes
+        const checkpoint = self.stateManager.checkpoint();
+
+        // Initialize and return the frame
+        return try frame.Frame.init(self.allocator, input, code, depth, checkpoint);
+    }
+
+    pub fn execute(self: *Evm, input: frame.FrameInput) !frame.FrameResult {
+        // Debug message to verify this method is called
+        log.debug("STARTING EVM.EXECUTE", .{});
+
+        var code: frame.Bytes = undefined;
+
+        // Get the code based on frame input type
+        switch (input) {
+            .Call => |call| {
+                // For a call, load the code from the target address
+                log.debug("Loading code for address: {any}", .{call.codeAddress});
+                code = try self.stateManager.loadCode(call.codeAddress);
+                log.debug("Call input - Gas Limit: {d}, Code length: {d}", .{ call.gasLimit, code.len });
+            },
+            .Create => |create| {
+                // For create, use the init code
+                code = create.initCode;
+                log.debug("Create input - Gas Limit: {d}, Init code length: {d}", .{ create.gasLimit, create.initCode.len });
+            },
+        }
+
+        log.debug("Creating frame...", .{});
+        // Create a new frame
+        var currentFrame = try self.createFrame(input, code, 0);
+        defer currentFrame.deinit();
+        log.debug("Frame created", .{});
+
+        // Debug info
+        log.debug("Calling debug on frame...", .{});
+        currentFrame.debug();
+        log.debug("Debug call completed", .{});
+
+        // Execute the frame
+        log.debug("Executing frame...", .{});
+        const result = try currentFrame.execute(self.stateManager);
+        log.debug("Frame execution completed", .{});
+
+        // Handle the result
+        log.debug("Handling result...", .{});
+        switch (result) {
+            .Result => |frameResult| {
+                log.debug("Got Result, returning frameResult", .{});
+
+                // Make sure we return the correct result type based on the input type
+                if (input == .Create) {
+                    if (frameResult == .Call) {
+                        log.debug("Converting Call result to Create result", .{});
+                        const callResult = frameResult.Call;
+                        return frame.FrameResult{ .Create = .{
+                            .status = callResult.status,
+                            .returnData = callResult.returnData,
+                            .gasUsed = callResult.gasUsed,
+                            .gasRefunded = callResult.gasRefunded,
+                            .createdAddress = null,
+                        } };
+                    }
+                } else if (input == .Call) {
+                    if (frameResult == .Create) {
+                        log.debug("Converting Create result to Call result", .{});
+                        const createResult = frameResult.Create;
+                        return frame.FrameResult{ .Call = .{
+                            .status = createResult.status,
+                            .returnData = createResult.returnData,
+                            .gasUsed = createResult.gasUsed,
+                            .gasRefunded = createResult.gasRefunded,
+                        } };
+                    }
+                }
+
+                return frameResult;
+            },
+            .Call => |callInput| {
+                // In a real implementation, we would recursively handle the call
+                // but for now we'll just return a success result
+                log.debug("Got Call result", .{});
+                if (callInput == .Call) {
+                    log.debug("Call type: Call", .{});
+                    return frame.FrameResult{ .Call = .{
+                        .status = .Success,
+                        .returnData = &[_]u8{},
+                        .gasUsed = 0,
+                        .gasRefunded = 0,
+                    } };
+                } else {
+                    log.debug("Call type: Create", .{});
+                    return frame.FrameResult{ .Create = .{
+                        .status = .Success,
+                        .returnData = &[_]u8{},
+                        .gasUsed = 0,
+                        .gasRefunded = 0,
+                        .createdAddress = null,
+                    } };
+                }
+            },
+        }
+        log.debug("FINISHED EVM.EXECUTE", .{});
     }
 };
 
-test "Evm.execute" {
+test "Evm.execute call" {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
     const allocator = gpa.allocator();
-    // we currently aren't using the allocator yet
-    _ = try Evm.init(allocator);
 
-    const params = ExecuteParams{
-        .code = &[_]u8{},
-        .data = &[_]u8{},
+    var stateManager = frame.StateManager{};
+    var evm = Evm.init(allocator, &stateManager);
+
+    // Create a simple call input
+    const input = frame.FrameInput{
+        .Call = .{
+            .callData = &[_]u8{},
+            .gasLimit = 100000,
+            .target = address.ZERO_ADDRESS,
+            .codeAddress = address.ZERO_ADDRESS,
+            .caller = address.ZERO_ADDRESS,
+            .value = 0,
+            .callType = .Call,
+            .isStatic = false,
+        },
     };
 
-    const result = try Evm.execute(params);
+    // Mock code for testing
+    stateManager.mockCode = &[_]u8{0x00}; // STOP opcode
 
-    try std.testing.expect(result.executionGasUsed == 0);
-    try std.testing.expect(result.returnValue.len == 0);
+    // Execute the frame
+    const result = try evm.execute(input);
+
+    // Verify result
+    switch (result) {
+        .Call => |callResult| {
+            try std.testing.expectEqual(frame.InstructionResult.Success, callResult.status);
+        },
+        .Create => {
+            try std.testing.expect(false); // We shouldn't get a Create result
+        },
+    }
+}
+
+test "Evm.execute create" {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
+    var stateManager = frame.StateManager{};
+    var evm = Evm.init(allocator, &stateManager);
+
+    // Create a contract creation input
+    const input = frame.FrameInput{
+        .Create = .{
+            .initCode = &[_]u8{0x00}, // Simple STOP opcode
+            .gasLimit = 100000,
+            .caller = address.ZERO_ADDRESS,
+            .value = 0,
+            .salt = null, // Regular CREATE (not CREATE2)
+        },
+    };
+
+    // Execute the frame
+    const result = try evm.execute(input);
+
+    // Verify result
+    switch (result) {
+        .Call => {
+            try std.testing.expect(false); // We shouldn't get a Call result
+        },
+        .Create => |createResult| {
+            try std.testing.expectEqual(frame.InstructionResult.Success, createResult.status);
+        },
+    }
 }

@@ -21,12 +21,88 @@ pub fn build(b: *std.Build) void {
         .os_tag = .freestanding,
     });
 
+    // First create individual modules for each component
+    const address_mod = b.createModule(.{
+        .root_source_file = b.path("src/Address/address.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const abi_mod = b.createModule(.{
+        .root_source_file = b.path("src/Abi/abi.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    const utils_mod = b.createModule(.{
+        .root_source_file = b.path("src/Utils/utils.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const block_mod = b.createModule(.{
+        .root_source_file = b.path("src/Block/block.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add imports to the block_mod
+    block_mod.addImport("Address", address_mod);
+
+    const bytecode_mod = b.createModule(.{
+        .root_source_file = b.path("src/Bytecode/bytecode.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const compiler_mod = b.createModule(.{
+        .root_source_file = b.path("src/Compiler/compiler.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    const rlp_mod = b.createModule(.{
+        .root_source_file = b.path("src/Rlp/rlp.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add imports to the rlp_mod
+    rlp_mod.addImport("Utils", utils_mod);
+
+    const token_mod = b.createModule(.{
+        .root_source_file = b.path("src/Token/token.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    const evm_mod = b.createModule(.{
+        .root_source_file = b.path("src/Evm/evm.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add imports to the evm_mod
+    evm_mod.addImport("Address", address_mod);
+    evm_mod.addImport("Block", block_mod);
+
     // Create a ZigEVM module - our core EVM implementation
     const zigevm_mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
     });
+    
+    // Add package paths for absolute imports for all modules
+    zigevm_mod.addImport("Address", address_mod);
+    zigevm_mod.addImport("Abi", abi_mod);
+    zigevm_mod.addImport("Block", block_mod);
+    zigevm_mod.addImport("Bytecode", bytecode_mod);
+    zigevm_mod.addImport("Compiler", compiler_mod);
+    zigevm_mod.addImport("Evm", evm_mod);
+    zigevm_mod.addImport("Rlp", rlp_mod);
+    zigevm_mod.addImport("Token", token_mod);
+    zigevm_mod.addImport("Utils", utils_mod);
 
     // Create the native executable module
     const exe_mod = b.createModule(.{
@@ -42,6 +118,17 @@ pub fn build(b: *std.Build) void {
         // For WASM we typically want small size
         .optimize = .ReleaseSmall,
     });
+    
+    // Add package paths for absolute imports to WASM module
+    wasm_mod.addImport("Address", address_mod);
+    wasm_mod.addImport("Abi", abi_mod);
+    wasm_mod.addImport("Block", block_mod);
+    wasm_mod.addImport("Bytecode", bytecode_mod);
+    wasm_mod.addImport("Compiler", compiler_mod);
+    wasm_mod.addImport("Evm", evm_mod);
+    wasm_mod.addImport("Rlp", rlp_mod);
+    wasm_mod.addImport("Token", token_mod);
+    wasm_mod.addImport("Utils", utils_mod);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", zigevm_mod);
@@ -97,6 +184,67 @@ pub fn build(b: *std.Build) void {
     const lib_unit_tests = b.addTest(.{
         .root_module = zigevm_mod,
     });
+    
+    // Add all modules to standalone tests
+    lib_unit_tests.root_module.addImport("Address", address_mod);
+    lib_unit_tests.root_module.addImport("Abi", abi_mod);
+    lib_unit_tests.root_module.addImport("Block", block_mod);
+    lib_unit_tests.root_module.addImport("Bytecode", bytecode_mod);
+    lib_unit_tests.root_module.addImport("Compiler", compiler_mod);
+    lib_unit_tests.root_module.addImport("Evm", evm_mod);
+    lib_unit_tests.root_module.addImport("Rlp", rlp_mod);
+    lib_unit_tests.root_module.addImport("Token", token_mod);
+    lib_unit_tests.root_module.addImport("Utils", utils_mod);
+
+    // Additional standalone test specifically for frame_test.zig
+    const frame_test = b.addTest(.{
+        .name = "frame-test",
+        .root_source_file = b.path("src/Evm/frame_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add all modules to frame_test
+    frame_test.root_module.addImport("Address", address_mod);
+    frame_test.root_module.addImport("Abi", abi_mod);
+    frame_test.root_module.addImport("Block", block_mod);
+    frame_test.root_module.addImport("Bytecode", bytecode_mod);
+    frame_test.root_module.addImport("Compiler", compiler_mod);
+    frame_test.root_module.addImport("Evm", evm_mod);
+    frame_test.root_module.addImport("Rlp", rlp_mod);
+    frame_test.root_module.addImport("Token", token_mod);
+    frame_test.root_module.addImport("Utils", utils_mod);
+    
+    const run_frame_test = b.addRunArtifact(frame_test);
+    
+    // Add a separate step for testing just the frame
+    const frame_test_step = b.step("test-frame", "Run EVM frame tests");
+    frame_test_step.dependOn(&run_frame_test.step);
+    
+    // Add a test for evm.zig
+    const evm_test = b.addTest(.{
+        .name = "evm-test",
+        .root_source_file = b.path("src/Evm/evm.zig"),
+        .target = target, 
+        .optimize = optimize,
+    });
+    
+    // Add all modules to evm_test
+    evm_test.root_module.addImport("Address", address_mod);
+    evm_test.root_module.addImport("Abi", abi_mod);
+    evm_test.root_module.addImport("Block", block_mod);
+    evm_test.root_module.addImport("Bytecode", bytecode_mod);
+    evm_test.root_module.addImport("Compiler", compiler_mod);
+    evm_test.root_module.addImport("Evm", evm_mod);
+    evm_test.root_module.addImport("Rlp", rlp_mod);
+    evm_test.root_module.addImport("Token", token_mod);
+    evm_test.root_module.addImport("Utils", utils_mod);
+    
+    const run_evm_test = b.addRunArtifact(evm_test);
+    
+    // Add a separate step for testing the EVM
+    const evm_test_step = b.step("test-evm", "Run EVM tests");
+    evm_test_step.dependOn(&run_evm_test.step);
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 

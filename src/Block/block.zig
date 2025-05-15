@@ -1,4 +1,4 @@
-const address = @import("../Address/address.zig");
+const address = @import("Address");
 
 pub const Block = struct {
     number: u64,
