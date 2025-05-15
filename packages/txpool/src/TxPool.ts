@@ -457,6 +457,9 @@ export class TxPool {
 			// There are more txs from this address
 			this.pool.set(address, newPoolObjects)
 		}
+
+		// Fire txremoved event
+		this.fireEvent('txremoved', `0x${txHash}`)
 	}
 
 	/**
@@ -467,11 +470,7 @@ export class TxPool {
 		for (const block of newBlocks) {
 			for (const tx of block.transactions) {
 				const txHash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
-				const prefixedHash = bytesToHex(tx.hash())
 				this.removeByHash(txHash)
-
-				// Fire txremoved event
-				this.fireEvent('txremoved', prefixedHash)
 			}
 		}
 	}
@@ -657,9 +656,6 @@ export class TxPool {
 
 				// Add tx back to the pool
 				await this.addUnverified(tx)
-
-				// Fire event
-				this.fireEvent('txadded', txHash)
 			}
 		}
 
