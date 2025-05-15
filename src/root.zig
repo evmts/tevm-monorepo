@@ -1,18 +1,15 @@
 const std = @import("std");
 
-// Import our organized modules
-pub const evm = @import("evm/evm.zig");
+pub const evm = @import("Evm/evm.zig");
 pub const utils = struct {
-    pub const hex = @import("utils/hex.zig");
-    pub const keccak256 = @import("utils/keccak256.zig");
+    pub const hex = @import("Utils/hex.zig");
+    pub const keccak256 = @import("Utils/keccak256.zig");
 };
 
-// Define a conditional compilation check for WASM
-const is_wasm = @import("builtin").target.cpu.arch == .wasm32;
-
-// This function is only included when not compiling for WASM
 pub fn main() void {
-    if (!is_wasm) {
-        _ = evm.runEvm();
-    }
+    _ = evm.Evm.execute(evm.ExecuteParams{
+        .data = &[_]u8{},
+        .code = &[_]u8{},
+        .value = 0,
+    }) catch unreachable;
 }

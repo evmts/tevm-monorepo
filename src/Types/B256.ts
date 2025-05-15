@@ -1,7 +1,7 @@
 import { Effect, Schema } from "effect";
 import { Bytes } from "ox";
-import { fixedBytesFromBytes, fixedBytesFromHex } from "./FixedBytes.js";
-import type { FixedBytes } from "./FixedBytes.js";
+import { fixedBytesFromBytes, fixedBytesFromHex } from "../FixedBytes/FixedBytes.js";
+import type { FixedBytes } from "../FixedBytes/FixedBytes.js";
 
 /**
  * B256 is a 32-byte fixed array (commonly used for hashes)

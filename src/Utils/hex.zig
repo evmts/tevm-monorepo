@@ -1,3 +1,4 @@
+// TODO remove utils package
 const std = @import("std");
 
 // Helper function to convert a hex character to its numerical value

@@ -1,4 +1,4 @@
-import { Int, intSchema, intFromBytes, intFromHex, intFromString } from './common.js'
+import { Int, intSchema, intFromBytes, intFromHex, intFromString } from './common-int.js'
 import { Hex, Bytes } from 'ox'
 import { Effect } from 'effect'
 
