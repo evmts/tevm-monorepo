@@ -2,7 +2,7 @@ const std = @import("std");
 const block = @import("../Block/block.zig");
 const address = @import("../Address/address.zig");
 
-pub const ExecuteParams = struct {
+pub const ExecutionContext = struct {
     block: block.Block = block.Block{
         .number = 0,
         .coinbase = address.ZERO_ADDRESS,
@@ -15,15 +15,24 @@ pub const ExecuteParams = struct {
     },
     gasPrice: u256 = 0,
     origin: [20]u8 = address.ZERO_ADDRESS,
+};
+
+pub const CallParams = struct {
+    message: Message,
+    context: ExecutionContext,
+};
+
+pub const Message = struct {
     caller: [20]u8 = address.ZERO_ADDRESS,
-    code: []u8,
-    data: []u8,
     gasLimit: u256 = 0xffffff,
+    to: [20]u8 = address.ZERO_ADDRESS,
     value: u256 = 0,
+    data: []u8,
+    code: []u8,
     depth: u16 = 0,
     isStatic: bool = false,
+    salt: [32]u8 = [_]u8{0} ** 32,
     selfdestruct: []const [20]u8 = &[_][20]u8{},
-    to: [20]u8 = address.ZERO_ADDRESS,
     blobVersionedHashes: []const [32]u8 = &[_][32]u8{},
 };
 
@@ -75,6 +84,20 @@ pub const ExecuteError = error{
     INVALID_PROOF,
 };
 
+const Account = struct {
+    balance: u256,
+    nonce: u64,
+};
+
+const CodeMap = std.AutoHashMap(address.Address, []u8);
+const AccountMap = std.AutoHashMap(address.Address, Account);
+const StorageMaps = std.AutoHashMap(u256, u256);
+pub const StateManager = struct {
+    bytecode: CodeMap,
+    accounts: AccountMap,
+    storage: StorageMaps,
+};
+
 pub const Evm = struct {
     allocator: std.mem.Allocator,
 
@@ -84,8 +107,9 @@ pub const Evm = struct {
         };
     }
 
-    pub fn execute(
-        _: ExecuteParams,
+    pub fn interpret(
+        self: Evm,
+        params: CallParams,
     ) ExecuteError!ExecuteResult {
         return ExecuteResult{
             .executionGasUsed = 0,
