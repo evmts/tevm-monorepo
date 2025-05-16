@@ -61,22 +61,26 @@
     "lint:deps": "bunx depcheck"
   },
   "dependencies": {
-    "@latticexyz/common": "2.2.21",
     "@latticexyz/config": "^2.2.21",
-    "@latticexyz/protocol-parser": "^2.2.21",
     "@latticexyz/stash": "^2.2.21",
     "@latticexyz/store": "^2.2.21",
     "@latticexyz/store-sync": "^2.2.21",
-    "@tevm/config": "workspace:^",
-    "@tevm/logger": "workspace:^",
-    "viem": "^2.21.1"
+    "@tevm/actions": "workspace:^",
+    "@tevm/common": "workspace:^",
+    "@tevm/memory-client": "workspace:^",
+    "@tevm/utils": "workspace:^",
+    "@tevm/vm": "workspace:^",
+    "react": "^19.1.0",
+    "viem": "^2.23.10"
   },
   "devDependencies": {
+    "@tevm/config": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
-    "@tevm/tsupconfig": "workspace:^"
+    "@tevm/tsupconfig": "workspace:^",
+    "@types/react": "^19.1.4"
   },
   "peerDependencies": {
-    "viem": "^2.21.1"
+    "viem": "^2.23.10"
   },
   "publishConfig": {
     "access": "public"

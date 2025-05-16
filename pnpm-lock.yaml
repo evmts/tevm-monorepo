@@ -312,13 +312,7 @@ importers:
 
   bundler-packages/mud:
     dependencies:
-      '@latticexyz/common':
-        specifier: 2.2.21
-        version: 2.2.21(@aws-sdk/client-kms@3.808.0)(asn1.js@5.4.1)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       '@latticexyz/config':
-        specifier: ^2.2.21
-        version: 2.2.21(@aws-sdk/client-kms@3.808.0)(asn1.js@5.4.1)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
-      '@latticexyz/protocol-parser':
         specifier: ^2.2.21
         version: 2.2.21(@aws-sdk/client-kms@3.808.0)(asn1.js@5.4.1)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       '@latticexyz/stash':
@@ -330,22 +324,40 @@ importers:
       '@latticexyz/store-sync':
         specifier: ^2.2.21
         version: 2.2.21(@aws-sdk/client-kms@3.808.0)(@opentelemetry/api@1.9.0)(@tanstack/react-query@5.76.1(react@19.1.0))(@types/react@19.1.4)(asn1.js@5.4.1)(better-sqlite3@8.7.0)(bun-types@1.2.11)(react@19.1.0)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(wagmi@2.14.13(@tanstack/query-core@5.76.0)(@tanstack/react-query@5.76.1(react@19.1.0))(@types/react@19.1.4)(bufferutil@4.0.9)(react@19.1.0)(typescript@5.8.3)(utf-8-validate@5.0.10)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8))
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../../packages/actions
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../../packages/common
+      '@tevm/memory-client':
+        specifier: workspace:^
+        version: link:../../packages/memory-client
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
+      '@tevm/vm':
+        specifier: workspace:^
+        version: link:../../packages/vm
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      viem:
+        specifier: ^2.23.10
+        version: 2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8)
+    devDependencies:
       '@tevm/config':
         specifier: workspace:^
         version: link:../config
-      '@tevm/logger':
-        specifier: workspace:^
-        version: link:../../packages/logger
-      viem:
-        specifier: ^2.21.1
-        version: 2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8)
-    devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      '@types/react':
+        specifier: ^19.1.4
+        version: 19.1.4
 
   bundler-packages/resolutions:
     dependencies:
@@ -10585,9 +10597,6 @@ packages:
   des.js@1.1.0:
     resolution: {integrity: sha512-r17GxjhUCjSRy8aiJpr8/UadFIzMzJGexI3Nmz4ADi9LYSFx4gTBp80+NaX/YsXWWLhpZ7v/v/ubEc/bCNfKwg==}
 
-  destr@2.0.3:
-    resolution: {integrity: sha512-2N3BOUU4gYMpTP24s5rF5iP7BDr7uNTCs4ozw3kf/eKfvWSIu93GEBi5m427YoyJoeOzQ5smuu4nNAPGb8idSQ==}
-
   destr@2.0.5:
     resolution: {integrity: sha512-ugFTXCtDZunbzasqBxrK93Ik/DRYsO6S/fedkWEMKqt04xZ4csmnmwGDBAb07QWNaGMAmnTIemsYZCksjATwsA==}
 
@@ -11945,9 +11954,6 @@ packages:
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
-
-  h3@1.15.1:
-    resolution: {integrity: sha512-+ORaOBttdUm1E2Uu/obAyCguiI7MbBvsLTndc3gyK3zU+SYLoZXlyCP9Xgy0gikkGufFLTZXCXD6+4BsufnmHA==}
 
   h3@1.15.3:
     resolution: {integrity: sha512-z6GknHqyX0h9aQaTx22VZDf6QyZn+0Nh+Ym8O/u0SGSkyF5cuTJYKlc8MkzW3Nzf9LE1ivcpmYC3FUGpywhuUQ==}
@@ -17010,9 +17016,6 @@ packages:
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
-  ufo@1.5.4:
-    resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
-
   ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
 
@@ -17149,65 +17152,6 @@ packages:
   unset-value@1.0.0:
     resolution: {integrity: sha512-PcA2tsuGSF9cnySLHTLSh2qrQiJ70mn+r+Glzxv2TWZblxsxCC52BDlZoPCsz7STd9pN7EZetkWZBAvk4cgZdQ==}
     engines: {node: '>=0.10.0'}
-
-  unstorage@1.15.0:
-    resolution: {integrity: sha512-m40eHdGY/gA6xAPqo8eaxqXgBuzQTlAKfmB1iF7oCKXE1HfwHwzDJBywK+qQGn52dta+bPlZluPF7++yR3p/bg==}
-    peerDependencies:
-      '@azure/app-configuration': ^1.8.0
-      '@azure/cosmos': ^4.2.0
-      '@azure/data-tables': ^13.3.0
-      '@azure/identity': ^4.6.0
-      '@azure/keyvault-secrets': ^4.9.0
-      '@azure/storage-blob': ^12.26.0
-      '@capacitor/preferences': ^6.0.3
-      '@deno/kv': '>=0.9.0'
-      '@netlify/blobs': ^6.5.0 || ^7.0.0 || ^8.1.0
-      '@planetscale/database': ^1.19.0
-      '@upstash/redis': ^1.34.3
-      '@vercel/blob': '>=0.27.1'
-      '@vercel/kv': ^1.0.1
-      aws4fetch: ^1.0.20
-      db0: '>=0.2.1'
-      idb-keyval: ^6.2.1
-      ioredis: ^5.4.2
-      uploadthing: ^7.4.4
-    peerDependenciesMeta:
-      '@azure/app-configuration':
-        optional: true
-      '@azure/cosmos':
-        optional: true
-      '@azure/data-tables':
-        optional: true
-      '@azure/identity':
-        optional: true
-      '@azure/keyvault-secrets':
-        optional: true
-      '@azure/storage-blob':
-        optional: true
-      '@capacitor/preferences':
-        optional: true
-      '@deno/kv':
-        optional: true
-      '@netlify/blobs':
-        optional: true
-      '@planetscale/database':
-        optional: true
-      '@upstash/redis':
-        optional: true
-      '@vercel/blob':
-        optional: true
-      '@vercel/kv':
-        optional: true
-      aws4fetch:
-        optional: true
-      db0:
-        optional: true
-      idb-keyval:
-        optional: true
-      ioredis:
-        optional: true
-      uploadthing:
-        optional: true
 
   unstorage@1.16.0:
     resolution: {integrity: sha512-WQ37/H5A7LcRPWfYOrDa1Ys02xAbpPJq6q5GkO88FBXVSQzHd7+BjEwfRqyaSWCv9MbsJy058GWjjPjcJ16GGA==}
@@ -20976,7 +20920,7 @@ snapshots:
   '@latticexyz/block-logs-stream@2.2.21(@aws-sdk/client-kms@3.808.0)(asn1.js@5.4.1)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@latticexyz/common': 2.2.21(@aws-sdk/client-kms@3.808.0)(asn1.js@5.4.1)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0
       rxjs: 7.5.5
       viem: 2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8)
     transitivePeerDependencies:
@@ -21076,7 +21020,7 @@ snapshots:
       '@latticexyz/schema-type': 2.2.21(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       '@solidity-parser/parser': 0.16.2
       abitype: 1.0.6(typescript@5.8.3)(zod@3.23.8)
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0
       execa: 9.5.2
       p-queue: 7.4.1
       p-retry: 5.1.2
@@ -21459,7 +21403,7 @@ snapshots:
       '@trpc/client': 10.34.0(@trpc/server@10.34.0)
       '@trpc/server': 10.34.0
       change-case: 5.4.4
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0
       drizzle-orm: 0.28.6(@opentelemetry/api@1.9.0)(better-sqlite3@8.7.0)(bun-types@1.2.11)(kysely@0.26.3)(postgres@3.4.5)(sql.js@1.13.0)
       fast-deep-equal: 3.1.3
       kysely: 0.26.3
@@ -21526,7 +21470,7 @@ snapshots:
       '@latticexyz/schema-type': 2.2.21(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       abitype: 1.0.6(typescript@5.8.3)(zod@3.23.8)
       arktype: 2.0.0-beta.6
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0
     optionalDependencies:
       viem: 2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8)
     transitivePeerDependencies:
@@ -21600,7 +21544,7 @@ snapshots:
       '@latticexyz/store': 2.2.21(@aws-sdk/client-kms@3.808.0)(asn1.js@5.4.1)(typescript@5.8.3)(viem@2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       abitype: 1.0.6(typescript@5.8.3)(zod@3.23.8)
       arktype: 2.0.0-beta.6
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0
     optionalDependencies:
       viem: 2.29.2(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.23.8)
     transitivePeerDependencies:
@@ -21804,7 +21748,7 @@ snapshots:
       bufferutil: 4.0.9
       cross-fetch: 4.1.0
       date-fns: 2.30.0
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0
       eciesjs: 0.4.14
       eventemitter2: 6.4.9
       readable-stream: 3.6.2
@@ -21874,7 +21818,7 @@ snapshots:
       '@paulmillr/qr': 0.2.1
       bowser: 2.11.0
       cross-fetch: 4.1.0
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0
       eciesjs: 0.4.14
       eth-rpc-errors: 4.0.3
       eventemitter2: 6.4.9
@@ -21896,8 +21840,8 @@ snapshots:
   '@metamask/utils@5.0.2':
     dependencies:
       '@ethereumjs/tx': 4.2.0
-      '@types/debug': 4.1.7
-      debug: 4.4.0(supports-color@8.1.1)
+      '@types/debug': 4.1.12
+      debug: 4.4.0
       semver: 7.7.1
       superstruct: 1.0.4
     transitivePeerDependencies:
@@ -21909,8 +21853,8 @@ snapshots:
       '@metamask/superstruct': 3.2.1
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.4
-      '@types/debug': 4.1.7
-      debug: 4.4.0(supports-color@8.1.1)
+      '@types/debug': 4.1.12
+      debug: 4.4.0
       pony-cause: 2.1.11
       semver: 7.7.1
       uuid: 9.0.1
@@ -21923,8 +21867,8 @@ snapshots:
       '@metamask/superstruct': 3.2.1
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.4
-      '@types/debug': 4.1.7
-      debug: 4.4.0(supports-color@8.1.1)
+      '@types/debug': 4.1.12
+      debug: 4.4.0
       pony-cause: 2.1.11
       semver: 7.7.1
       uuid: 9.0.1
@@ -27973,7 +27917,7 @@ snapshots:
     dependencies:
       '@walletconnect/safe-json': 1.0.2
       idb-keyval: 6.2.1
-      unstorage: 1.15.0(idb-keyval@6.2.1)
+      unstorage: 1.16.0(idb-keyval@6.2.1)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -30431,6 +30375,10 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
+  debug@4.4.0:
+    dependencies:
+      ms: 2.1.3
+
   debug@4.4.0(supports-color@8.1.1):
     dependencies:
       ms: 2.1.3
@@ -30563,8 +30511,6 @@ snapshots:
     dependencies:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
-
-  destr@2.0.3: {}
 
   destr@2.0.5: {}
 
@@ -32339,18 +32285,6 @@ snapshots:
       tinygradient: 1.1.5
 
   graphemer@1.4.0: {}
-
-  h3@1.15.1:
-    dependencies:
-      cookie-es: 1.2.2
-      crossws: 0.3.4
-      defu: 6.1.4
-      destr: 2.0.3
-      iron-webcrypto: 1.2.1
-      node-mock-http: 1.0.0
-      radix3: 1.1.2
-      ufo: 1.5.4
-      uncrypto: 0.1.3
 
   h3@1.15.3:
     dependencies:
@@ -35417,9 +35351,9 @@ snapshots:
 
   ofetch@1.4.1:
     dependencies:
-      destr: 2.0.3
+      destr: 2.0.5
       node-fetch-native: 1.6.6
-      ufo: 1.5.4
+      ufo: 1.6.1
 
   on-exit-leak-free@0.2.0: {}
 
@@ -38988,8 +38922,6 @@ snapshots:
 
   uc.micro@2.1.0: {}
 
-  ufo@1.5.4: {}
-
   ufo@1.6.1: {}
 
   uglify-js@3.19.3: {}
@@ -39144,19 +39076,6 @@ snapshots:
     dependencies:
       has-value: 0.3.1
       isobject: 3.0.1
-
-  unstorage@1.15.0(idb-keyval@6.2.1):
-    dependencies:
-      anymatch: 3.1.3
-      chokidar: 4.0.3
-      destr: 2.0.3
-      h3: 1.15.1
-      lru-cache: 10.4.3
-      node-fetch-native: 1.6.6
-      ofetch: 1.4.1
-      ufo: 1.5.4
-    optionalDependencies:
-      idb-keyval: 6.2.1
 
   unstorage@1.16.0(idb-keyval@6.2.1):
     dependencies:
