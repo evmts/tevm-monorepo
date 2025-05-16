@@ -1,7 +1,6 @@
 const std = @import("std");
 const Memory = @import("Memory.zig").Memory;
 const Stack = @import("Stack.zig").Stack;
-const Bytes = @import("Bytes.zig").Bytes;
 
 /// EVM execution state 
 pub const ExecutionState = struct {
@@ -12,7 +11,7 @@ pub const ExecutionState = struct {
         remaining: u64,
         refunded: u64,
     },
-    returnData: Bytes,
+    returnData: []const u8,
     
     pub fn init(allocator: std.mem.Allocator, gasLimit: u64) ExecutionState {
         return ExecutionState{

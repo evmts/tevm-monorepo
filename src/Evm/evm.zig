@@ -115,7 +115,7 @@ pub const Evm = struct {
     }
 
     // Helper method to create the appropriate frame
-    pub fn createFrame(self: Evm, input: frame.FrameInput, code: frame.Bytes, depth: u16) !@import("Frame/Frame.zig").Frame {
+    pub fn createFrame(self: Evm, input: frame.FrameInput, code: []const u8, depth: u16) !@import("Frame/Frame.zig").Frame {
         // Create checkpoint for state changes
         const checkpoint = self.stateManager.checkpoint();
 
@@ -127,7 +127,7 @@ pub const Evm = struct {
         // Debug message to verify this method is called
         log.debug("STARTING EVM.EXECUTE", .{});
 
-        var code: frame.Bytes = undefined;
+        var code: []const u8 = undefined;
 
         // Get the code based on frame input type
         switch (input) {

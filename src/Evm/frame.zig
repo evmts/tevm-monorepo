@@ -1,8 +1,3 @@
-// Main entry point file for Frame module
-// Re-exports all the components from the Frame directory
-
-// Export all components
-pub const Bytes = @import("Frame/Bytes.zig").Bytes;
 pub const CallScheme = @import("Frame/CallScheme.zig").CallScheme;
 pub const JournalCheckpoint = @import("Frame/JournalCheckpoint.zig").JournalCheckpoint;
 pub const FrameInput = @import("Frame/FrameInput.zig").FrameInput;
@@ -14,6 +9,3 @@ pub const ExecutionState = @import("Frame/ExecutionState.zig").ExecutionState;
 pub const FrameOrCall = @import("Frame/FrameOrCall.zig").FrameOrCall;
 pub const StateManager = @import("Frame/StateManager.zig").StateManager;
 pub const Frame = @import("Frame/Frame.zig").Frame;
-
-// Re-export the Frame struct directly for backward compatibility
-pub usingnamespace @import("Frame/Frame.zig");

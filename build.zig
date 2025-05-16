@@ -196,10 +196,10 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Token", token_mod);
     lib_unit_tests.root_module.addImport("Utils", utils_mod);
 
-    // Additional standalone test specifically for frame_test.zig
+    // Additional standalone test specifically for Frame_test.zig
     const frame_test = b.addTest(.{
         .name = "frame-test",
-        .root_source_file = b.path("src/Evm/frame_test.zig"),
+        .root_source_file = b.path("src/Evm/Frame_test.zig"),
         .target = target,
         .optimize = optimize,
     });

@@ -1,11 +1,10 @@
 const address = @import("Address");
 const JournalCheckpoint = @import("JournalCheckpoint.zig").JournalCheckpoint;
-const Bytes = @import("Bytes.zig").Bytes;
 
 /// State manager handles the EVM state (balances, code, storage)
 pub const StateManager = struct {
     // Simple implementation for testing
-    mockCode: ?Bytes = null,
+    mockCode: ?[]const u8 = null,
     
     pub fn checkpoint(_: *StateManager) JournalCheckpoint {
         // Create a checkpoint in the state journal
@@ -22,7 +21,7 @@ pub const StateManager = struct {
         _ = cp;
     }
     
-    pub fn loadCode(self: *StateManager, addr: address.Address) !Bytes {
+    pub fn loadCode(self: *StateManager, addr: address.Address) ![]const u8 {
         // For testing, just return mock code if available
         _ = addr;
         if (self.mockCode) |code| {

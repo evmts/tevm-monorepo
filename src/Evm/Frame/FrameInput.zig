@@ -1,12 +1,11 @@
 const address = @import("Address");
 const CallScheme = @import("CallScheme.zig").CallScheme;
-const Bytes = @import("Bytes.zig").Bytes;
 
 /// Represents EVM execution frame input parameters
 pub const FrameInput = union(enum) {
     /// Standard call to address
     Call: struct {
-        callData: Bytes,
+        callData: []const u8,
         gasLimit: u64,
         target: address.Address,
         codeAddress: address.Address, // Address where code is loaded from
@@ -18,7 +17,7 @@ pub const FrameInput = union(enum) {
     
     /// Contract creation
     Create: struct {
-        initCode: Bytes,
+        initCode: []const u8,
         gasLimit: u64,
         caller: address.Address,
         value: u256,
