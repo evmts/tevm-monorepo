@@ -1,5 +1,5 @@
 import { stash } from "./mud/stash";
-import { useRecords } from "@latticexyz/stash/react";
+import { useRecords } from "./overrides/useRecords";
 import { AccountButton } from "@latticexyz/entrykit/internal";
 import { Direction } from "./common";
 import mudConfig from "contracts/mud.config";
