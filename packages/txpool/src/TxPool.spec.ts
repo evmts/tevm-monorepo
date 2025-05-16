@@ -4,24 +4,16 @@ import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import {
+	AccessListEIP2930Transaction,
 	FeeMarketEIP1559Transaction,
-	type ImpersonatedTx,
 	LegacyTransaction,
-	TransactionFactory,
+	type ImpersonatedTx,
 	type TypedTransaction,
 } from '@tevm/tx'
-import {
-	bytesToHex,
-	createAccount,
-	createAddressFromString,
-	EthjsAddress,
-	hexToBytes,
-	PREFUNDED_ACCOUNTS,
-	parseEther,
-} from '@tevm/utils'
-import { createVm, type Vm } from '@tevm/vm'
+import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
+import { type Vm, createVm } from '@tevm/vm'
 import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
-import { bytesToUnprefixedHex, PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
+import { PREFUNDED_PRIVATE_KEYS, bytesToUnprefixedHex } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'
 
 describe(TxPool.name, () => {
@@ -32,10 +24,10 @@ describe(TxPool.name, () => {
 	beforeEach(async () => {
 		const blockchain = await createChain({ common: optimism })
 		const stateManager = createStateManager({})
-		senderAddress = createAddressFromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
 			senderAddress,
-			createAccount({
+			EthjsAccount.fromAccountData({
 				balance: parseEther('100'),
 			}),
 		)
@@ -73,44 +65,45 @@ describe(TxPool.name, () => {
 		const txHash = bytesToHex(signedTx.hash())
 		const result = await txPool.add(signedTx)
 
+		// check result
 		expect(result).toEqual({
 			error: null,
 			hash: txHash,
 		})
 
+		// check tx is in pool
 		const poolTx = txPool.getByHash(txHash)
 		assert(poolTx, 'poolTx should be defined')
 		expect(bytesToHex(poolTx.hash())).toEqual(txHash)
 
+		// check pool size
 		expect(await txPool.getPendingTransactions()).toHaveLength(1)
 	})
 
+	// TODO: should we error as well on nonce too high?
 	it('should error on tx with nonce too low', async () => {
-		console.log('nonce too low test')
-		const transaction = new FeeMarketEIP1559Transaction({
+		const transaction = new LegacyTransaction({
 			nonce: 0,
-			gasPrice: null,
+			gasPrice: 1000000000,
 			gasLimit: 21000,
 			to: '0x3535353535353535353535353535353535353535',
 			value: 10000,
 			data: '0x',
-			maxFeePerGas: 8n,
 		})
 		const signedTx = transaction.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
 
-		await vm.stateManager.putAccount(
-			createAddressFromString(PREFUNDED_ACCOUNTS[0].address),
-			createAccount({ nonce: 25, balance: 100000000000000000000n }),
-		)
-
+		// actually run the tx
+		await vm.runTx({tx: signedTx})
+		// try to add the tx to the pool
 		const result = await txPool.add(signedTx)
 
+		// check result
 		expect(result).toEqual({
-			error:
-				'0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 tries to send a tx with nonce 0, but account has nonce 25 (tx nonce too low)',
+			error: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 tries to send a tx with nonce 0, but account has nonce 1 (tx nonce too low)',
 			hash: bytesToHex(signedTx.hash()),
 		})
 
+		// check pool size
 		expect(await txPool.getPendingTransactions()).toHaveLength(0)
 	})
 
@@ -146,10 +139,10 @@ describe(TxPool.name, () => {
 		const blockchain = await createChain({ common: optimism })
 		const stateManager = createStateManager({})
 		const poorSenderPrivateKey = hexToBytes('0x1234567890123456789012345678901234567890123456789012345678901234')
-		const poorSenderAddress = createAddressFromString('0x2e988a386a799f506693793c6a5af6b54dfaabfb')
+		const poorSenderAddress = EthjsAddress.fromString("0x2e988a386a799f506693793c6a5af6b54dfaabfb")
 		await stateManager.putAccount(
 			poorSenderAddress,
-			createAccount({
+			EthjsAccount.fromAccountData({
 				balance: 1000n, // very little balance
 			}),
 		)
@@ -298,12 +291,11 @@ describe(TxPool.name, () => {
 
 	it('should handle EIP-1559 transactions', async () => {
 		// create, sign and add an EIP-1559 tx
-		const tx = TransactionFactory({
+		const tx = FeeMarketEIP1559Transaction.fromTxData({
 			nonce: 0,
 			maxFeePerGas: 2000000000, // 2 Gwei
 			maxPriorityFeePerGas: 1000000000, // 1 Gwei
 			gasLimit: 21000,
-			type: 2,
 			to: '0x3535353535353535353535353535353535353535',
 			value: 10000,
 			data: '0x',
@@ -335,18 +327,15 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const newBlock = Block.fromBlockData(
-			{
-				header: {
-					parentHash: latest.hash(),
-					number: latest.header.number + 1n,
-					timestamp: Math.floor(Date.now() / 1000),
-					gasLimit: latest.header.gasLimit,
-				},
-				transactions: [signedTx],
+		const newBlock = Block.fromBlockData({
+			header: {
+				parentHash: latest.hash(),
+				number: latest.header.number + 1n,
+				timestamp: Math.floor(Date.now() / 1000),
+				gasLimit: latest.header.gasLimit,
 			},
-			{ common: optimism },
-		)
+			transactions: [signedTx],
+		}, {common: optimism})
 
 		// listen for pool changes
 		const txRemovedSpy = vi.fn()
@@ -365,14 +354,13 @@ describe(TxPool.name, () => {
 
 	it('should handle Access List EIP-2930 transactions', async () => {
 		// create, sign and add an EIP-2930 tx
-		const tx = TransactionFactory({
+		const tx = AccessListEIP2930Transaction.fromTxData({
 			nonce: 0,
 			gasPrice: 1000000000,
 			gasLimit: 21000,
 			to: '0x3535353535353535353535353535353535353535',
 			value: 10000,
 			data: '0x',
-			type: 1,
 			chainId: 1,
 			accessList: [
 				{
@@ -469,18 +457,15 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const newBlock = Block.fromBlockData(
-			{
-				header: {
-					parentHash: latest.hash(),
-					number: latest.header.number + 1n,
-					timestamp: Math.floor(Date.now() / 1000),
-					gasLimit: latest.header.gasLimit,
-				},
-				transactions: [signedTx],
+		const newBlock = Block.fromBlockData({
+			header: {
+				parentHash: latest.hash(),
+				number: latest.header.number + 1n,
+				timestamp: Math.floor(Date.now() / 1000),
+				gasLimit: latest.header.gasLimit,
 			},
-			{ common: optimism },
-		)
+			transactions: [signedTx],
+		}, {common: optimism})
 
 		// add the block to the chain
 		await txPool.onBlockAdded(newBlock)
@@ -572,18 +557,15 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const newBlock = Block.fromBlockData(
-			{
-				header: {
-					parentHash: latest.hash(),
-					number: latest.header.number + 1n,
-					timestamp: Math.floor(Date.now() / 1000),
-					gasLimit: latest.header.gasLimit,
-				},
-				transactions: [signedTx],
+		const newBlock = Block.fromBlockData({
+			header: {
+				parentHash: latest.hash(),
+				number: latest.header.number + 1n,
+				timestamp: Math.floor(Date.now() / 1000),
+				gasLimit: latest.header.gasLimit,
 			},
-			{ common: optimism },
-		)
+			transactions: [signedTx],
+		}, {common: optimism})
 
 		// add the block to the chain
 		await txPool.onBlockAdded(newBlock)
@@ -615,18 +597,15 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const blockWithTx = Block.fromBlockData(
-			{
-				header: {
-					parentHash: latest.hash(),
-					number: latest.header.number + 1n,
-					timestamp: Math.floor(Date.now() / 1000),
-					gasLimit: latest.header.gasLimit,
-				},
-				transactions: [signedTx],
+		const blockWithTx = Block.fromBlockData({
+			header: {
+				parentHash: latest.hash(),
+				number: latest.header.number + 1n,
+				timestamp: Math.floor(Date.now() / 1000),
+				gasLimit: latest.header.gasLimit,
 			},
-			{ common: optimism },
-		)
+			transactions: [signedTx],
+		}, {common: optimism})
 
 		// add the block to the chain
 		await vm.blockchain.putBlock(blockWithTx)
@@ -636,17 +615,14 @@ describe(TxPool.name, () => {
 		expect(await txPool.getPendingTransactions()).toHaveLength(0)
 
 		// simulate chain reorg by creating a new block that doesn't include the tx
-		const newBlock = Block.fromBlockData(
-			{
-				header: {
-					parentHash: latest.hash(),
-					number: latest.header.number + 1n,
-					timestamp: Math.floor(Date.now() / 1000) + 1, // Higher timestamp to ensure it's preferred
-					gasLimit: latest.header.gasLimit,
-				},
+		const newBlock = Block.fromBlockData({
+			header: {
+				parentHash: latest.hash(),
+				number: latest.header.number + 1n,
+				timestamp: Math.floor(Date.now() / 1000) + 1, // Higher timestamp to ensure it's preferred
+				gasLimit: latest.header.gasLimit,
 			},
-			{ common: optimism },
-		)
+		}, {common: optimism})
 
 		// Put this "better" block in the chain to trigger a reorg
 		await vm.blockchain.putBlock(newBlock)
@@ -676,18 +652,15 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const newBlock = Block.fromBlockData(
-			{
-				header: {
-					parentHash: latest.hash(),
-					number: latest.header.number + 1n,
-					timestamp: Math.floor(Date.now() / 1000),
-					gasLimit: latest.header.gasLimit,
-				},
-				transactions: [signedTx],
+		const newBlock = Block.fromBlockData({
+			header: {
+				parentHash: latest.hash(),
+				number: latest.header.number + 1n,
+				timestamp: Math.floor(Date.now() / 1000),
+				gasLimit: latest.header.gasLimit,
 			},
-			{ common: optimism },
-		)
+			transactions: [signedTx],
+		}, {common: optimism})
 
 		// add the block to the chain without notifying the txpool
 		await vm.blockchain.putBlock(newBlock)
@@ -756,9 +729,7 @@ describe(TxPool.name, () => {
 		for (let i = 0; i < maxSize; i++) {
 			// Create a new sender address and add funds
 			const privateKey = hexToBytes(`0x${(i + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`) // Generate different keys
-			const senderAccount = createAccount({
-				balance: parseEther('100'),
-			})
+			const senderAccount = EthjsAccount.fromAccountData({ balance: parseEther('100') })
 			const wallet = new LegacyTransaction({
 				nonce: 0,
 				gasPrice: 0,
@@ -786,9 +757,7 @@ describe(TxPool.name, () => {
 
 		// Try to add one more transaction from yet another account
 		const extraPrivateKey = hexToBytes(`0x${(maxSize + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`)
-		const extraSenderAccount = createAccount({
-			balance: parseEther('100'),
-		})
+		const extraSenderAccount = EthjsAccount.fromAccountData({ balance: parseEther('100') })
 		const extraWallet = new LegacyTransaction({
 			nonce: 0,
 			gasPrice: 0,
@@ -829,9 +798,7 @@ describe(TxPool.name, () => {
 			// Create a new sender address and add funds
 			const privateKey = hexToBytes(`0x${(i + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`)
 			privateKeys.push(privateKey)
-			const senderAccount = createAccount({
-				balance: parseEther('100'),
-			})
+			const senderAccount = EthjsAccount.fromAccountData({ balance: parseEther('100') })
 			const wallet = new LegacyTransaction({
 				nonce: 0,
 				gasPrice: 0,
@@ -866,7 +833,7 @@ describe(TxPool.name, () => {
 			value: 10000,
 			data: '0x',
 		})
-		const signedReplacementTx = replacementTx.sign(privateKeys[0] as any)
+		const signedReplacementTx = replacementTx.sign(privateKeys[0]!)
 		const result = await customTxPool.add(signedReplacementTx)
 
 		// Should succeed
@@ -880,8 +847,8 @@ describe(TxPool.name, () => {
 		// Verify the replacement tx is in the pool
 		const replacementHash = bytesToHex(signedReplacementTx.hash())
 		const poolTx = customTxPool.getByHash(replacementHash) as TypedTransaction | ImpersonatedTx | undefined
-		assert(poolTx, 'poolTx should be defined')
-		expect(bytesToHex(poolTx.hash())).toEqual(replacementHash)
+		expect(poolTx).toBeDefined()
+		expect(bytesToHex(poolTx!.hash())).toEqual(replacementHash)
 	})
 
 	// Test logStats method
@@ -900,6 +867,7 @@ describe(TxPool.name, () => {
 			await txPool.add(signedTx)
 		}
 
+		// Mock console.log
 		const originalConsoleLog = console.log
 		const mockLog = vi.fn()
 		console.log = mockLog

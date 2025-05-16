@@ -374,6 +374,12 @@ export class TxPool {
 	getByHash(txHashes: string): TypedTransaction | ImpersonatedTx | null
 	getByHash(txHashes: ReadonlyArray<Uint8Array>): Array<TypedTransaction | ImpersonatedTx>
 	getByHash(
+		txHashes: string,
+	): TypedTransaction | ImpersonatedTx | null
+	getByHash(
+		txHashes: ReadonlyArray<Uint8Array>,
+	): Array<TypedTransaction | ImpersonatedTx>
+	getByHash(
 		txHashes: ReadonlyArray<Uint8Array> | string,
 	): Array<TypedTransaction | ImpersonatedTx> | TypedTransaction | ImpersonatedTx | null {
 		if (typeof txHashes === 'string') {
