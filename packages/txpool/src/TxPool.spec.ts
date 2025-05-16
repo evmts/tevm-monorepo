@@ -847,8 +847,8 @@ describe(TxPool.name, () => {
 		// Verify the replacement tx is in the pool
 		const replacementHash = bytesToHex(signedReplacementTx.hash())
 		const poolTx = customTxPool.getByHash(replacementHash) as TypedTransaction | ImpersonatedTx | undefined
-		expect(poolTx).toBeDefined()
-		expect(bytesToHex(poolTx!.hash())).toEqual(replacementHash)
+		assert(poolTx, 'poolTx should be defined')
+		expect(bytesToHex(poolTx.hash())).toEqual(replacementHash)
 	})
 
 	// Test logStats method
