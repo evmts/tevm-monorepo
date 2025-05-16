@@ -1,4 +1,4 @@
-import { useClient } from "wagmi";
+import { useAccount, useClient } from "wagmi";
 import { chainId, getWorldAddress } from "../common";
 import { Account, Chain, Client, GetContractReturnType, Transport } from "viem";
 import { useQuery } from "@tanstack/react-query";
@@ -19,17 +19,19 @@ export function useWorldContract():
   | undefined {
   const client = useClient({ chainId });
   const { data: sessionClient } = useSessionClient();
+  const { address } = useAccount()
 
   const { data: worldContract } = useQuery({
     queryKey: ["worldContract", client?.uid, sessionClient?.uid],
-    queryFn: () => {
+    queryFn: async () => {
       if (!client || !sessionClient) {
         throw new Error("Not connected.");
       }
 
-      return getOptimisticContract(memoryClient)({
+      return (await getOptimisticContract(memoryClient))({
         abi: worldAbi,
         address: getWorldAddress(),
+        caller: address,
         client: {
           // TODO: fix these types
           public: client,
