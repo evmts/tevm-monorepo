@@ -6,8 +6,8 @@ import { createStateManager } from '@tevm/state'
 import {
 	AccessListEIP2930Transaction,
 	FeeMarketEIP1559Transaction,
-	LegacyTransaction,
 	type ImpersonatedTx,
+	LegacyTransaction,
 	type TypedTransaction,
 } from '@tevm/tx'
 import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
@@ -93,13 +93,14 @@ describe(TxPool.name, () => {
 		const signedTx = transaction.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
 
 		// actually run the tx
-		await vm.runTx({tx: signedTx})
+		await vm.runTx({ tx: signedTx })
 		// try to add the tx to the pool
 		const result = await txPool.add(signedTx)
 
 		// check result
 		expect(result).toEqual({
-			error: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 tries to send a tx with nonce 0, but account has nonce 1 (tx nonce too low)',
+			error:
+				'0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 tries to send a tx with nonce 0, but account has nonce 1 (tx nonce too low)',
 			hash: bytesToHex(signedTx.hash()),
 		})
 
@@ -139,7 +140,7 @@ describe(TxPool.name, () => {
 		const blockchain = await createChain({ common: optimism })
 		const stateManager = createStateManager({})
 		const poorSenderPrivateKey = hexToBytes('0x1234567890123456789012345678901234567890123456789012345678901234')
-		const poorSenderAddress = EthjsAddress.fromString("0x2e988a386a799f506693793c6a5af6b54dfaabfb")
+		const poorSenderAddress = EthjsAddress.fromString('0x2e988a386a799f506693793c6a5af6b54dfaabfb')
 		await stateManager.putAccount(
 			poorSenderAddress,
 			EthjsAccount.fromAccountData({
@@ -327,15 +328,18 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const newBlock = Block.fromBlockData({
-			header: {
-				parentHash: latest.hash(),
-				number: latest.header.number + 1n,
-				timestamp: Math.floor(Date.now() / 1000),
-				gasLimit: latest.header.gasLimit,
+		const newBlock = Block.fromBlockData(
+			{
+				header: {
+					parentHash: latest.hash(),
+					number: latest.header.number + 1n,
+					timestamp: Math.floor(Date.now() / 1000),
+					gasLimit: latest.header.gasLimit,
+				},
+				transactions: [signedTx],
 			},
-			transactions: [signedTx],
-		}, {common: optimism})
+			{ common: optimism },
+		)
 
 		// listen for pool changes
 		const txRemovedSpy = vi.fn()
@@ -457,15 +461,18 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const newBlock = Block.fromBlockData({
-			header: {
-				parentHash: latest.hash(),
-				number: latest.header.number + 1n,
-				timestamp: Math.floor(Date.now() / 1000),
-				gasLimit: latest.header.gasLimit,
+		const newBlock = Block.fromBlockData(
+			{
+				header: {
+					parentHash: latest.hash(),
+					number: latest.header.number + 1n,
+					timestamp: Math.floor(Date.now() / 1000),
+					gasLimit: latest.header.gasLimit,
+				},
+				transactions: [signedTx],
 			},
-			transactions: [signedTx],
-		}, {common: optimism})
+			{ common: optimism },
+		)
 
 		// add the block to the chain
 		await txPool.onBlockAdded(newBlock)
@@ -557,15 +564,18 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const newBlock = Block.fromBlockData({
-			header: {
-				parentHash: latest.hash(),
-				number: latest.header.number + 1n,
-				timestamp: Math.floor(Date.now() / 1000),
-				gasLimit: latest.header.gasLimit,
+		const newBlock = Block.fromBlockData(
+			{
+				header: {
+					parentHash: latest.hash(),
+					number: latest.header.number + 1n,
+					timestamp: Math.floor(Date.now() / 1000),
+					gasLimit: latest.header.gasLimit,
+				},
+				transactions: [signedTx],
 			},
-			transactions: [signedTx],
-		}, {common: optimism})
+			{ common: optimism },
+		)
 
 		// add the block to the chain
 		await txPool.onBlockAdded(newBlock)
@@ -597,15 +607,18 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const blockWithTx = Block.fromBlockData({
-			header: {
-				parentHash: latest.hash(),
-				number: latest.header.number + 1n,
-				timestamp: Math.floor(Date.now() / 1000),
-				gasLimit: latest.header.gasLimit,
+		const blockWithTx = Block.fromBlockData(
+			{
+				header: {
+					parentHash: latest.hash(),
+					number: latest.header.number + 1n,
+					timestamp: Math.floor(Date.now() / 1000),
+					gasLimit: latest.header.gasLimit,
+				},
+				transactions: [signedTx],
 			},
-			transactions: [signedTx],
-		}, {common: optimism})
+			{ common: optimism },
+		)
 
 		// add the block to the chain
 		await vm.blockchain.putBlock(blockWithTx)
@@ -615,14 +628,17 @@ describe(TxPool.name, () => {
 		expect(await txPool.getPendingTransactions()).toHaveLength(0)
 
 		// simulate chain reorg by creating a new block that doesn't include the tx
-		const newBlock = Block.fromBlockData({
-			header: {
-				parentHash: latest.hash(),
-				number: latest.header.number + 1n,
-				timestamp: Math.floor(Date.now() / 1000) + 1, // Higher timestamp to ensure it's preferred
-				gasLimit: latest.header.gasLimit,
+		const newBlock = Block.fromBlockData(
+			{
+				header: {
+					parentHash: latest.hash(),
+					number: latest.header.number + 1n,
+					timestamp: Math.floor(Date.now() / 1000) + 1, // Higher timestamp to ensure it's preferred
+					gasLimit: latest.header.gasLimit,
+				},
 			},
-		}, {common: optimism})
+			{ common: optimism },
+		)
 
 		// Put this "better" block in the chain to trigger a reorg
 		await vm.blockchain.putBlock(newBlock)
@@ -652,15 +668,18 @@ describe(TxPool.name, () => {
 
 		// create a new block with our transaction in it
 		const latest = await vm.blockchain.getCanonicalHeadBlock()
-		const newBlock = Block.fromBlockData({
-			header: {
-				parentHash: latest.hash(),
-				number: latest.header.number + 1n,
-				timestamp: Math.floor(Date.now() / 1000),
-				gasLimit: latest.header.gasLimit,
+		const newBlock = Block.fromBlockData(
+			{
+				header: {
+					parentHash: latest.hash(),
+					number: latest.header.number + 1n,
+					timestamp: Math.floor(Date.now() / 1000),
+					gasLimit: latest.header.gasLimit,
+				},
+				transactions: [signedTx],
 			},
-			transactions: [signedTx],
-		}, {common: optimism})
+			{ common: optimism },
+		)
 
 		// add the block to the chain without notifying the txpool
 		await vm.blockchain.putBlock(newBlock)
