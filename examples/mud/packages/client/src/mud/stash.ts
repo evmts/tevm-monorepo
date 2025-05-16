@@ -3,7 +3,6 @@ import config from "contracts/mud.config";
 import { http } from "viem";
 import { createSyncAdapter } from "@latticexyz/store-sync/internal";
 import { anvil } from "viem/chains";
-import { createStash } from "@latticexyz/stash/internal";
 import { createMemoryClient, createCommon, createOptimisticStash, mudStoreForkInterceptor, type MemoryClient } from "@tevm/mud";
 
 // TODO: fix that, triggers probably some cyclical dependecy/trying to access chainId before declaration
@@ -25,7 +24,6 @@ export const memoryClient: MemoryClient = createMemoryClient({
 })
 
 export const stash = createOptimisticStash(memoryClient)(config);
-// export const stash = createStash(config)
 memoryClient.extend(mudStoreForkInterceptor({ stash, storeAddress: worldAddress }))
 
 export const syncAdapter = createSyncAdapter({ stash })

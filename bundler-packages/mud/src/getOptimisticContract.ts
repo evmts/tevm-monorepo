@@ -2,6 +2,7 @@ import { type MemoryClient } from '@tevm/memory-client'
 import {
 	type Abi,
 	type Account,
+	type Address,
 	type Chain,
 	type Client,
 	type GetContractParameters,
@@ -20,31 +21,33 @@ import {
  * This allows us to use the pending block in the Tevm client as the optimistic state that we add
  * on top of the canonical state of the chain.
  */
-export const getOptimisticContract =
-	(memoryClient: MemoryClient) =>
-	(
+export const getOptimisticContract = async (memoryClient: MemoryClient) => {
+	const logger = memoryClient.transport.tevm.logger
+	const txPool = await memoryClient.transport.tevm.getTxPool()
+
+	return (
 		params: GetContractParameters<
 			Transport,
 			Chain,
 			Account,
 			Abi,
 			{ public: Client<Transport, Chain>; wallet: Client<Transport, Chain, Account> }
-		>,
+		> & { caller?: Address },
 	) => {
-		const logger = memoryClient.transport.tevm.logger
 		const contract = getContract(params)
 		if (contract.write === undefined) throw new Error('Wallet client must be provided.')
 		const {
-			client: { public: publicClient, wallet: walletClient },
+			client: { public: publicClient },
 			abi,
 			address,
+			caller,
 		} = params
 		const { waitForTransactionReceipt } = publicClient.extend(publicActions)
 
 		// TODO: we shouldn't have to do this but from the 2nd tx in the pool it starts failing because
 		// "sender doesn't have enough funds to send tx"
-		memoryClient.tevmDeal({
-			account: walletClient.account.address,
+		if (caller) memoryClient.tevmDeal({
+			account: caller,
 			amount: 100000000000000000000n,
 		})
 
@@ -64,7 +67,7 @@ export const getOptimisticContract =
 								try {
 									const { txHash: optimisticTxHash, errors } = await memoryClient.tevmContract({
 										abi,
-										from: walletClient.account.address,
+										...(caller ? { from: caller } : {}),
 										to: address,
 										functionName: methodName.toString(),
 										args: args,
@@ -85,17 +88,11 @@ export const getOptimisticContract =
 									logger.debug(`Method ${String(methodName)} completed successfully. Hash:`, txHash)
 
 									// Whenever the tx is mined on the actual network, remove it from the pending block
+									// if we didn't intercept getStorageAt requests we would want to mine the tx to update the fork state additionally
 									waitForTransactionReceipt({ hash: txHash })
-										.then(() =>
-											memoryClient.transport.tevm
-												.getTxPool()
-												.then((pool) => {
-													if (optimisticTxHash) pool.removeByHash(optimisticTxHash.slice(2))
-												})
-												.catch((err) => {
-													logger.error('Failed to remove tx from pool:', err)
-												}),
-										)
+										.then(() => {
+											if (optimisticTxHash) txPool.removeByHash(optimisticTxHash.slice(2))
+										})
 										.catch((err) => {
 											logger.error('Failed to wait for tx receipt:', err)
 										})
@@ -116,3 +113,4 @@ export const getOptimisticContract =
 
 		return wrappedContract
 	}
+}
