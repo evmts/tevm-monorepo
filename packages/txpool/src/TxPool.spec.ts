@@ -1,12 +1,3 @@
-// @ts-nocheck - THIS FILE CONTAINS TESTS THAT DO NOT MATCH THE IMPLEMENTATION
-//
-// IMPORTANT: This test file has many failing tests because the interface of TxPool has changed.
-// The tests need to be updated to match the new implementation.
-// We're keeping these tests for reference but they should be marked pending or updated.
-//
-// See https://github.com/tevm/tevm/pull/your-pr-number for more information about the changes.
-//
-
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
@@ -14,29 +5,24 @@ import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import {
 	AccessListEIP2930Transaction,
-	// BlobEIP4844Transaction, - not used
 	FeeMarketEIP1559Transaction,
 	LegacyTransaction,
+	type ImpersonatedTx,
+	type TypedTransaction,
 } from '@tevm/tx'
 import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
 import { type Vm, createVm } from '@tevm/vm'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
 import { PREFUNDED_PRIVATE_KEYS, bytesToUnprefixedHex } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'
 
-// @ts-ignore - Silence TypeScript errors in the entire file
-// This test file has many TypeScript errors because it doesn't match the actual implementation
-// We're keeping it to preserve test logic but using 'as any' to bypass type errors
-
-describe.skip(TxPool.name, () => {
-	// Using any to bypass type errors since tests don't match implementation
-	let txPool: any
+describe(TxPool.name, () => {
+	let txPool: TxPool
 	let vm: Vm
 	let senderAddress: EthjsAddress
 
 	beforeEach(async () => {
-		const common = optimism.copy()
-		const blockchain = await createChain({ common })
+		const blockchain = await createChain({ common: optimism })
 		const stateManager = createStateManager({})
 		senderAddress = EthjsAddress.fromString('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
 		await stateManager.putAccount(
@@ -45,10 +31,10 @@ describe.skip(TxPool.name, () => {
 				balance: parseEther('100'),
 			}),
 		)
-		const evm = await createEvm({ common, stateManager, blockchain })
+		const evm = await createEvm({ common: optimism, stateManager, blockchain })
 		vm = createVm({
 			blockchain,
-			common,
+			common: optimism,
 			evm,
 			stateManager,
 		})
@@ -57,12 +43,12 @@ describe.skip(TxPool.name, () => {
 
 	it('should initialize transaction pool', async () => {
 		expect(txPool).toBeDefined()
-		// @ts-ignore
-		expect(txPool.txsByNonce).toBeDefined()
-		// @ts-ignore
-		expect(txPool.txsByHash).toBeDefined()
-		// @ts-ignore
-		expect(txPool.txsInNonceOrder).toBeDefined()
+		expect(txPool.pool).toBeInstanceOf(Map)
+		expect(txPool.txsInPool).toEqual(0)
+		expect(txPool.txsByHash).toBeInstanceOf(Map)
+		expect(txPool.txsByNonce).toBeInstanceOf(Map)
+		expect(txPool.txsInNonceOrder).toBeInstanceOf(Map)
+		expect(txPool.running).toBe(true)
 	})
 
 	it('should add and get transaction', async () => {
@@ -86,18 +72,18 @@ describe.skip(TxPool.name, () => {
 		})
 
 		// check tx is in pool
-		const poolTx = await txPool.getByHash(txHash)
-		expect(poolTx).toBeDefined()
-		expect(bytesToHex(poolTx?.hash())).toEqual(txHash)
+		const poolTx = txPool.getByHash(txHash)
+		assert(poolTx, 'poolTx should be defined')
+		expect(bytesToHex(poolTx.hash())).toEqual(txHash)
 
 		// check pool size
 		expect(await txPool.getPendingTransactions()).toHaveLength(1)
 	})
 
-	it('should error on tx with bad nonce', async () => {
-		// create, sign transaction with too high nonce
+	// TODO: should we error as well on nonce too high?
+	it('should error on tx with nonce too low', async () => {
 		const transaction = new LegacyTransaction({
-			nonce: 1, // too high, should be 0
+			nonce: 0,
 			gasPrice: 1000000000,
 			gasLimit: 21000,
 			to: '0x3535353535353535353535353535353535353535',
@@ -105,11 +91,15 @@ describe.skip(TxPool.name, () => {
 			data: '0x',
 		})
 		const signedTx = transaction.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+
+		// actually run the tx
+		await vm.runTx({tx: signedTx})
+		// try to add the tx to the pool
 		const result = await txPool.add(signedTx)
 
 		// check result
 		expect(result).toEqual({
-			error: 'Tx has nonce 1 but the expected nonce is 0',
+			error: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 tries to send a tx with nonce 0, but account has nonce 1 (tx nonce too low)',
 			hash: bytesToHex(signedTx.hash()),
 		})
 
@@ -136,7 +126,7 @@ describe.skip(TxPool.name, () => {
 
 		// check result
 		expect(result).toEqual({
-			error: `Transaction gas limit (${blockGasLimit + 1n}) exceeds block gas limit (${blockGasLimit})`,
+			error: `Tx gaslimit of ${blockGasLimit + 1n} exceeds block gas limit of ${blockGasLimit} (exceeds last block gas limit)`,
 			hash: bytesToHex(signedTx.hash()),
 		})
 
@@ -146,20 +136,20 @@ describe.skip(TxPool.name, () => {
 
 	it('should error on tx with insufficient balance', async () => {
 		// create a vm with new account that has very little balance
-		const common = optimism.copy()
-		const blockchain = await createChain({ common })
+		const blockchain = await createChain({ common: optimism })
 		const stateManager = createStateManager({})
-		const poorSenderAddress = EthjsAddress.fromString('0x1111111111111111111111111111111111111111')
+		const poorSenderPrivateKey = hexToBytes('0x1234567890123456789012345678901234567890123456789012345678901234')
+		const poorSenderAddress = EthjsAddress.fromString("0x2e988a386a799f506693793c6a5af6b54dfaabfb")
 		await stateManager.putAccount(
 			poorSenderAddress,
 			EthjsAccount.fromAccountData({
 				balance: 1000n, // very little balance
 			}),
 		)
-		const evm = await createEvm({ common, stateManager, blockchain })
+		const evm = await createEvm({ common: optimism, stateManager, blockchain })
 		const newVm = createVm({
 			blockchain,
-			common,
+			common: optimism,
 			evm,
 			stateManager,
 		})
@@ -176,8 +166,7 @@ describe.skip(TxPool.name, () => {
 		})
 
 		// create account that has the key matching our poorSenderAddress
-		const privateKey = hexToBytes('0x1234567890123456789012345678901234567890123456789012345678901234')
-		const signedTx = transaction.sign(privateKey)
+		const signedTx = transaction.sign(poorSenderPrivateKey)
 
 		// verify that the sender is in fact our poor account
 		expect(signedTx.getSenderAddress().toString()).toEqual(poorSenderAddress.toString())
@@ -185,8 +174,10 @@ describe.skip(TxPool.name, () => {
 		const result = await newTxPool.add(signedTx)
 
 		// check result
-		expect(result.error).toContain('Insufficient balance to cover transaction costs')
-		expect(result.hash).toEqual(bytesToHex(signedTx.hash()))
+		expect(result).toEqual({
+			error: `${poorSenderAddress} does not have enough balance to cover transaction costs, need 21000000010000, but have 1000 (insufficient balance)`,
+			hash: bytesToHex(signedTx.hash()),
+		})
 
 		// check pool size
 		expect(await newTxPool.getPendingTransactions()).toHaveLength(0)
@@ -285,8 +276,10 @@ describe.skip(TxPool.name, () => {
 		const result = await txPool.add(signedTx2)
 
 		// check result
-		expect(result.error).toContain('Insufficient fee bump')
-		expect(result.hash).toEqual(bytesToHex(signedTx2.hash()))
+		expect(result).toEqual({
+			error: 'replacement gas too low, got tip 1000000000, min: 2200000000, got fee 1000000000, min: 2200000000',
+			hash: bytesToHex(signedTx2.hash()),
+		})
 
 		// check pool size - should still be 1 tx
 		const pendingTxs = await txPool.getPendingTransactions()
@@ -342,7 +335,7 @@ describe.skip(TxPool.name, () => {
 				gasLimit: latest.header.gasLimit,
 			},
 			transactions: [signedTx],
-		})
+		}, {common: optimism})
 
 		// listen for pool changes
 		const txRemovedSpy = vi.fn()
@@ -356,7 +349,7 @@ describe.skip(TxPool.name, () => {
 		expect(await txPool.getPendingTransactions()).toHaveLength(0)
 
 		// check getByHash returns null for the removed tx
-		expect(await txPool.getByHash(bytesToHex(signedTx.hash()))).toBeNull()
+		expect(txPool.getByHash(bytesToHex(signedTx.hash()))).toBeNull()
 	})
 
 	it('should handle Access List EIP-2930 transactions', async () => {
@@ -387,7 +380,8 @@ describe.skip(TxPool.name, () => {
 		expect(pendingTxs[0]?.hash()).toEqual(signedTx.hash())
 	})
 
-	it('should handle transaction nonce gaps properly', async () => {
+	// TODO: this is not implemented, should it be?
+	it.todo('should handle transaction nonce gaps properly', async () => {
 		// create, sign and add tx with nonce 0
 		const tx1 = new LegacyTransaction({
 			nonce: 0,
@@ -471,7 +465,7 @@ describe.skip(TxPool.name, () => {
 				gasLimit: latest.header.gasLimit,
 			},
 			transactions: [signedTx],
-		})
+		}, {common: optimism})
 
 		// add the block to the chain
 		await txPool.onBlockAdded(newBlock)
@@ -495,30 +489,27 @@ describe.skip(TxPool.name, () => {
 		await txPool.add(signedTx)
 
 		// check tx is in pool
-		expect(await txPool.getByHash(txHash)).not.toBeNull()
+		expect(txPool.getByHash(txHash)).not.toBeNull()
 
 		// listen for pool changes
 		const txRemovedSpy = vi.fn()
 		txPool.on('txremoved', txRemovedSpy)
 
 		// remove the transaction
-		await txPool.removeByHash(txHash)
+		txPool.removeByHash(txHash)
 
 		// check txremoved event was emitted
 		expect(txRemovedSpy).toHaveBeenCalledWith(txHash)
 
 		// check tx is no longer in pool
-		expect(await txPool.getByHash(txHash)).toBeNull()
+		expect(txPool.getByHash(txHash)).toBeNull()
 		expect(await txPool.getPendingTransactions()).toHaveLength(0)
 	})
 
 	it('should error gracefully when removing a transaction that does not exist', async () => {
 		// attempt to remove non-existent tx
 		const fakeTxHash = '0x1234567890123456789012345678901234567890123456789012345678901234'
-		await txPool.removeByHash(fakeTxHash)
-
-		// should not throw
-		expect(true).toBe(true)
+		expect(() => txPool.removeByHash(fakeTxHash)).not.toThrow()
 	})
 
 	it('should clear all transactions', async () => {
@@ -574,7 +565,7 @@ describe.skip(TxPool.name, () => {
 				gasLimit: latest.header.gasLimit,
 			},
 			transactions: [signedTx],
-		})
+		}, {common: optimism})
 
 		// add the block to the chain
 		await txPool.onBlockAdded(newBlock)
@@ -602,7 +593,6 @@ describe.skip(TxPool.name, () => {
 			data: '0x',
 		})
 		const signedTx = transaction.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
-		const txHash = bytesToHex(signedTx.hash())
 		await txPool.add(signedTx)
 
 		// create a new block with our transaction in it
@@ -615,7 +605,7 @@ describe.skip(TxPool.name, () => {
 				gasLimit: latest.header.gasLimit,
 			},
 			transactions: [signedTx],
-		})
+		}, {common: optimism})
 
 		// add the block to the chain
 		await vm.blockchain.putBlock(blockWithTx)
@@ -632,7 +622,7 @@ describe.skip(TxPool.name, () => {
 				timestamp: Math.floor(Date.now() / 1000) + 1, // Higher timestamp to ensure it's preferred
 				gasLimit: latest.header.gasLimit,
 			},
-		})
+		}, {common: optimism})
 
 		// Put this "better" block in the chain to trigger a reorg
 		await vm.blockchain.putBlock(newBlock)
@@ -646,7 +636,7 @@ describe.skip(TxPool.name, () => {
 		expect(pendingTxs[0]?.hash()).toEqual(signedTx.hash())
 	})
 
-	it('should throw when trying to getByHash a transaction in handled but not in pool', async () => {
+	it('should return null when trying to getByHash a transaction that is not handled', async () => {
 		// create and add transaction
 		const transaction = new LegacyTransaction({
 			nonce: 0,
@@ -657,7 +647,7 @@ describe.skip(TxPool.name, () => {
 			data: '0x',
 		})
 		const signedTx = transaction.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
-		const txHash = bytesToHex(signedTx.hash())
+		const txHash = bytesToUnprefixedHex(signedTx.hash())
 		await txPool.add(signedTx)
 
 		// create a new block with our transaction in it
@@ -670,24 +660,25 @@ describe.skip(TxPool.name, () => {
 				gasLimit: latest.header.gasLimit,
 			},
 			transactions: [signedTx],
-		})
+		}, {common: optimism})
 
 		// add the block to the chain without notifying the txpool
 		await vm.blockchain.putBlock(newBlock)
 
-		// Manually mark the tx as handled in txpool
-		// @ts-ignore - accessing private fields
-		txPool.handled.set(txHash.toLowerCase(), bytesToUnprefixedHex(newBlock.hash()))
+		// Manually mark the tx as not handled in txpool
+		// @ts-expect-error - accessing private fields
+		txPool.handled.set(txHash.toLowerCase(), undefined)
 
 		// Try to get the tx
-		const tx = await txPool.getByHash(txHash)
+		const tx = txPool.getByHash(txHash)
 
 		// This should be null since the tx is no longer in the pool
 		expect(tx).toBeNull()
 	})
 
 	// Test for handling max transactions per sender limit
-	it('should enforce maxPerSender limit', async () => {
+	// TODO: this won't error because `add` calls `validate` with `isLocalTransaction: true`, which skips the max per sender limit
+	it.todo('should enforce maxPerSender limit', async () => {
 		// Set a custom max per sender
 		const maxPerSender = 3
 		const customTxPool = new TxPool({ vm, maxPerSender })
@@ -727,7 +718,8 @@ describe.skip(TxPool.name, () => {
 	})
 
 	// Test for handling max transaction limit for the pool
-	it('should enforce max pool size limit', async () => {
+	// TODO: same here
+	it.todo('should enforce max pool size limit', async () => {
 		// Create a pool with a small max size
 		const maxSize = 3
 		const customTxPool = new TxPool({ vm, maxSize })
@@ -841,7 +833,7 @@ describe.skip(TxPool.name, () => {
 			value: 10000,
 			data: '0x',
 		})
-		const signedReplacementTx = replacementTx.sign(privateKeys[0])
+		const signedReplacementTx = replacementTx.sign(privateKeys[0]!)
 		const result = await customTxPool.add(signedReplacementTx)
 
 		// Should succeed
@@ -854,9 +846,9 @@ describe.skip(TxPool.name, () => {
 
 		// Verify the replacement tx is in the pool
 		const replacementHash = bytesToHex(signedReplacementTx.hash())
-		const poolTx = await customTxPool.getByHash(replacementHash)
-		expect(poolTx).not.toBeNull()
-		expect(bytesToHex(poolTx?.hash())).toEqual(replacementHash)
+		const poolTx = customTxPool.getByHash(replacementHash) as TypedTransaction | ImpersonatedTx | undefined
+		assert(poolTx, 'poolTx should be defined')
+		expect(bytesToHex(poolTx.hash())).toEqual(replacementHash)
 	})
 
 	// Test logStats method

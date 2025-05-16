@@ -374,6 +374,12 @@ export class TxPool {
 	 * @returns Array with tx objects
 	 */
 	getByHash(
+		txHashes: string,
+	): TypedTransaction | ImpersonatedTx | null
+	getByHash(
+		txHashes: ReadonlyArray<Uint8Array>,
+	): Array<TypedTransaction | ImpersonatedTx>
+	getByHash(
 		txHashes: ReadonlyArray<Uint8Array> | string,
 	): Array<TypedTransaction | ImpersonatedTx> | TypedTransaction | ImpersonatedTx | null {
 		if (typeof txHashes === 'string') {
@@ -411,20 +417,21 @@ export class TxPool {
 	 * Removes the given tx from the pool
 	 * @param txHash Hash of the transaction
 	 */
-	removeByHash(txHash: UnprefixedHash) {
-		const handled = this.handled.get(txHash)
+	removeByHash(txHash: string) {
+		const unprefixedTxHash = txHash.startsWith('0x') ? txHash.slice(2).toLowerCase() : txHash.toLowerCase()
+		const handled = this.handled.get(unprefixedTxHash)
 		if (!handled) return
 		const { address } = handled
 
 		// Remove from txsByHash
-		this.txsByHash.delete(txHash)
+		this.txsByHash.delete(unprefixedTxHash)
 
 		// Get the transaction to find its nonce
 		const poolObjects = this.pool.get(address)
 		if (!poolObjects) return
 
 		// Find the tx to get its nonce
-		const txToRemove = poolObjects.find((poolObj) => poolObj.hash === txHash)
+		const txToRemove = poolObjects.find((poolObj) => poolObj.hash === unprefixedTxHash)
 		if (txToRemove) {
 			// Remove from txsByNonce
 			const nonceMap = this.txsByNonce.get(address)
@@ -448,7 +455,7 @@ export class TxPool {
 		}
 
 		// Update main pool
-		const newPoolObjects = poolObjects.filter((poolObj) => poolObj.hash !== txHash)
+		const newPoolObjects = poolObjects.filter((poolObj) => poolObj.hash !== unprefixedTxHash)
 		this.txsInPool--
 		if (newPoolObjects.length === 0) {
 			// List of txs for address is now empty, can delete
@@ -459,7 +466,7 @@ export class TxPool {
 		}
 
 		// Fire txremoved event
-		this.fireEvent('txremoved', `0x${txHash}`)
+		this.fireEvent('txremoved', `0x${unprefixedTxHash}`)
 	}
 
 	/**
