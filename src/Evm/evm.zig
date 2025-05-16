@@ -1,7 +1,7 @@
 const std = @import("std");
 pub const block = @import("Block");
 pub const address = @import("Address");
-pub const frame = @import("frame.zig");
+pub const frame = @import("Frame.zig");
 const _ = @import("log_config.zig"); // Import for log configuration
 
 // Define a scoped logger for EVM-related logs
@@ -115,12 +115,12 @@ pub const Evm = struct {
     }
 
     // Helper method to create the appropriate frame
-    pub fn createFrame(self: Evm, input: frame.FrameInput, code: frame.Bytes, depth: u16) !frame.Frame {
+    pub fn createFrame(self: Evm, input: frame.FrameInput, code: frame.Bytes, depth: u16) !@import("Frame/Frame.zig").Frame {
         // Create checkpoint for state changes
         const checkpoint = self.stateManager.checkpoint();
 
         // Initialize and return the frame
-        return try frame.Frame.init(self.allocator, input, code, depth, checkpoint);
+        return try @import("Frame/Frame.zig").Frame.init(self.allocator, input, code, depth, checkpoint);
     }
 
     pub fn execute(self: *Evm, input: frame.FrameInput) !frame.FrameResult {

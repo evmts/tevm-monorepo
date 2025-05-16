@@ -1,8 +1,11 @@
 const std = @import("std");
 const testing = std.testing;
-const address = @import("Address");
-const frame = @import("frame.zig");
+const address = @import("../Address/address.zig");
+const frame = @import("Frame.zig");
 const evm = @import("evm.zig");
+
+// Use this to avoid ambiguous reference
+const ActualFrame = @import("Frame/Frame.zig").Frame;
 
 test "Frame initialization" {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -23,7 +26,7 @@ test "Frame initialization" {
     };
     
     // Create a frame
-    var testFrame = try frame.Frame.init(
+    var testFrame = try ActualFrame.init(
         allocator,
         callInput,
         &[_]u8{0x00}, // STOP opcode
@@ -59,7 +62,7 @@ test "Frame simple execution (STOP)" {
     };
     
     // Create a frame with STOP bytecode
-    var testFrame = try frame.Frame.init(
+    var testFrame = try ActualFrame.init(
         allocator,
         callInput,
         &[_]u8{0x00}, // STOP opcode
