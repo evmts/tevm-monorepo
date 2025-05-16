@@ -61,8 +61,16 @@ pub const Frame = struct {
                 log.debug("Gas Limit: {d}", .{create.gasLimit});
                 log.debug("Caller: {any}", .{create.caller});
                 log.debug("Value: {d}", .{create.value});
-                log.debug("Has Salt: {}", .{create.salt != null});
+                log.debug("Salt: null (regular Create)", .{});
                 log.debug("Init Code Size: {d} bytes", .{create.initCode.len});
+            },
+            .Create2 => |create2| {
+                log.debug("Type: Create2", .{});
+                log.debug("Gas Limit: {d}", .{create2.gasLimit});
+                log.debug("Caller: {any}", .{create2.caller});
+                log.debug("Value: {d}", .{create2.value});
+                log.debug("Salt: {any}", .{create2.salt});
+                log.debug("Init Code Size: {d} bytes", .{create2.initCode.len});
             },
         }
 
