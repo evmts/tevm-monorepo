@@ -229,7 +229,7 @@ Implementation for structured data signing according to EIP-712.
    - Design API for compile-time Solidity parsing
    - Integrate with compiler package
 
-10. **Solidity Parser**:
+10. Skipped **Solidity Parser**:
 
 - Research solar integration
 - Wrap Rust solar parser for Zig use
