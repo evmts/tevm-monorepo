@@ -1,34 +1,26 @@
+import { type Abi, type EthjsLog, bytesToHex, decodeEventLog } from '@tevm/utils'
 import type { Log } from 'viem'
-import {
-	type Abi,
-	type EthjsLog,
-	bytesToHex,
-	decodeEventLog,
-} from '@tevm/utils'
 
 /**
  * Converts ethjs log format back to structured log arguments
  */
-export const ethjsLogToAbiLog = <TAbi extends Abi>(
-	abi: TAbi,
-	ethjsLog: EthjsLog,
-): Log => {
+export const ethjsLogToAbiLog = <TAbi extends Abi>(abi: TAbi, ethjsLog: EthjsLog): Log => {
 	const [addressBytes, topicsBytes, dataBytes] = ethjsLog
 
 	const addressHex = bytesToHex(addressBytes)
 	const topicsHex = topicsBytes.map((topic) => bytesToHex(topic))
-  const dataHex = bytesToHex(dataBytes)
+	const dataHex = bytesToHex(dataBytes)
 
 	return {
-    ...decodeEventLog({
-      abi,
-      data: dataHex,
-      // @ts-expect-error - Source provides no match for required element at position 0 in target.
-      topics: topicsHex
-    }),
+		...decodeEventLog({
+			abi,
+			data: dataHex,
+			// @ts-expect-error - Source provides no match for required element at position 0 in target.
+			topics: topicsHex,
+		}),
 		address: addressHex,
 		data: dataHex,
-    // @ts-expect-error - Source provides no match for required element at position 0 in target.
-    topics: topicsHex
+		// @ts-expect-error - Source provides no match for required element at position 0 in target.
+		topics: topicsHex,
 	}
 }
