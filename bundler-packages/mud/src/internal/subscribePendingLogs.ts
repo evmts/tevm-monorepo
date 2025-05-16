@@ -40,6 +40,6 @@ export const subscribePendingLogs = async (memoryClient: MemoryClient, onChange:
 		onChange(storeEventsLogs)
 	}
 
-	pool.on('txadded', () => updatePendingLogs)
-	pool.on('txremoved', () => updatePendingLogs)
+	pool.on('txadded', updatePendingLogs)
+	pool.on('txremoved', updatePendingLogs)
 }
