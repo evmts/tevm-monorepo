@@ -373,6 +373,8 @@ export class TxPool {
 	 * @param txHashes
 	 * @returns Array with tx objects
 	 */
+	getByHash(txHashes: string): TypedTransaction | ImpersonatedTx | null
+	getByHash(txHashes: ReadonlyArray<Uint8Array>): Array<TypedTransaction | ImpersonatedTx>
 	getByHash(
 		txHashes: ReadonlyArray<Uint8Array> | string,
 	): Array<TypedTransaction | ImpersonatedTx> | TypedTransaction | ImpersonatedTx | null {
@@ -411,20 +413,21 @@ export class TxPool {
 	 * Removes the given tx from the pool
 	 * @param txHash Hash of the transaction
 	 */
-	removeByHash(txHash: UnprefixedHash) {
-		const handled = this.handled.get(txHash)
+	removeByHash(txHash: string) {
+		const unprefixedTxHash = txHash.startsWith('0x') ? txHash.slice(2).toLowerCase() : txHash.toLowerCase()
+		const handled = this.handled.get(unprefixedTxHash)
 		if (!handled) return
 		const { address } = handled
 
 		// Remove from txsByHash
-		this.txsByHash.delete(txHash)
+		this.txsByHash.delete(unprefixedTxHash)
 
 		// Get the transaction to find its nonce
 		const poolObjects = this.pool.get(address)
 		if (!poolObjects) return
 
 		// Find the tx to get its nonce
-		const txToRemove = poolObjects.find((poolObj) => poolObj.hash === txHash)
+		const txToRemove = poolObjects.find((poolObj) => poolObj.hash === unprefixedTxHash)
 		if (txToRemove) {
 			// Remove from txsByNonce
 			const nonceMap = this.txsByNonce.get(address)
@@ -448,7 +451,7 @@ export class TxPool {
 		}
 
 		// Update main pool
-		const newPoolObjects = poolObjects.filter((poolObj) => poolObj.hash !== txHash)
+		const newPoolObjects = poolObjects.filter((poolObj) => poolObj.hash !== unprefixedTxHash)
 		this.txsInPool--
 		if (newPoolObjects.length === 0) {
 			// List of txs for address is now empty, can delete
@@ -457,6 +460,9 @@ export class TxPool {
 			// There are more txs from this address
 			this.pool.set(address, newPoolObjects)
 		}
+
+		// Fire txremoved event
+		this.fireEvent('txremoved', `0x${unprefixedTxHash}`)
 	}
 
 	/**
@@ -467,11 +473,7 @@ export class TxPool {
 		for (const block of newBlocks) {
 			for (const tx of block.transactions) {
 				const txHash: UnprefixedHash = bytesToUnprefixedHex(tx.hash())
-				const prefixedHash = bytesToHex(tx.hash())
 				this.removeByHash(txHash)
-
-				// Fire txremoved event
-				this.fireEvent('txremoved', prefixedHash)
 			}
 		}
 	}
@@ -657,9 +659,6 @@ export class TxPool {
 
 				// Add tx back to the pool
 				await this.addUnverified(tx)
-
-				// Fire event
-				this.fireEvent('txadded', txHash)
 			}
 		}
 
