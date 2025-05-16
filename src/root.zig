@@ -11,7 +11,7 @@ pub fn main() void {
     var evm_instance = evm.Evm.init(std.heap.page_allocator, &stateManager);
     
     // Create a simple call input
-    const input = evm.frame.FrameInput{
+    var input = evm.frame.FrameInput{
         .Call = .{
             .callData = &[_]u8{},
             .gasLimit = 100000,
@@ -25,5 +25,5 @@ pub fn main() void {
     };
     
     // Execute
-    _ = evm_instance.execute(input) catch unreachable;
+    _ = evm_instance.execute(&input) catch unreachable;
 }
