@@ -115,68 +115,39 @@ pub const Evm = struct {
     }
 
     // Helper method to create the appropriate frame
-    pub fn createFrame(self: Evm, input: frame.FrameInput, code: []const u8, depth: u16) !@import("Frame/Frame.zig").Frame {
+    pub fn createFrame(self: Evm, input: frame.FrameInput, code: []const u8, depth: u16) !frame.Frame {
         // Create checkpoint for state changes
         const checkpoint = self.stateManager.checkpoint();
 
         // Initialize and return the frame
-        return try @import("Frame/Frame.zig").Frame.init(self.allocator, input, code, depth, checkpoint);
+        return try frame.Frame.init(self.allocator, input, code, depth, checkpoint);
     }
 
-    pub fn execute(self: *Evm, input: frame.FrameInput) !frame.FrameResult {
-        // Debug message to verify this method is called
-        log.debug("STARTING EVM.EXECUTE", .{});
-
-        var code: []const u8 = undefined;
-
-        // Get the code based on frame input type
-        switch (input) {
+    fn getCode(self: *Evm, input: *frame.FrameInput) ![]const u8 {
+        switch (input.*) {
             .Call => |call| {
-                // For a call, load the code from the target address
-                log.debug("Loading code for address: {any}", .{call.codeAddress});
-                code = try self.stateManager.loadCode(call.codeAddress);
-                log.debug("Call input - Gas Limit: {d}, Code length: {d}", .{ call.gasLimit, code.len });
+                return self.stateManager.loadCode(call.codeAddress);
             },
             .Create => |create| {
-                // For create, use the init code
-                code = create.initCode;
-                log.debug("Create input - Gas Limit: {d}, Init code length: {d}", .{ create.gasLimit, create.initCode.len });
+                return create.initCode;
             },
             .Create2 => |create2| {
-                // For create2, use the init code
-                code = create2.initCode;
-                log.debug("Create2 input - Gas Limit: {d}, Init code length: {d}, Salt: {any}", .{ 
-                    create2.gasLimit, create2.initCode.len, create2.salt 
-                });
+                return create2.initCode;
             },
         }
+    }
 
-        log.debug("Creating frame...", .{});
-        // Create a new frame
+    pub fn execute(self: *Evm, input: *frame.FrameInput) !frame.FrameResult {
+        const code = self.getCode();
         var currentFrame = try self.createFrame(input, code, 0);
         defer currentFrame.deinit();
-        log.debug("Frame created", .{});
 
-        // Debug info
-        log.debug("Calling debug on frame...", .{});
-        currentFrame.debug();
-        log.debug("Debug call completed", .{});
-
-        // Execute the frame
-        log.debug("Executing frame...", .{});
         const result = try currentFrame.execute(self.stateManager);
-        log.debug("Frame execution completed", .{});
 
-        // Handle the result
-        log.debug("Handling result...", .{});
         switch (result) {
             .Result => |frameResult| {
-                log.debug("Got Result, returning frameResult", .{});
-
-                // Make sure we return the correct result type based on the input type
                 if (input == .Create or input == .Create2) {
                     if (frameResult == .Call) {
-                        log.debug("Converting Call result to Create result", .{});
                         const callResult = frameResult.Call;
                         return frame.FrameResult{ .Create = .{
                             .status = callResult.status,
@@ -315,7 +286,7 @@ test "Evm.execute create2" {
             .gasLimit = 100000,
             .caller = address.ZERO_ADDRESS,
             .value = 0,
-            .salt = [_]u8{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32},
+            .salt = [_]u8{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 },
         },
     };
 
