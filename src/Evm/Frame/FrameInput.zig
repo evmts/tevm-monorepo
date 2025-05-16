@@ -15,19 +15,28 @@ pub const FrameInput = union(enum) {
         isStatic: bool,
     },
     
-    /// Contract creation
+    /// Regular contract creation (CREATE)
     Create: struct {
         initCode: []const u8,
         gasLimit: u64,
         caller: address.Address,
         value: u256,
-        salt: ?[32]u8, // NULL for regular CREATE, non-null for CREATE2
+    },
+    
+    /// Contract creation with salt (CREATE2)
+    Create2: struct {
+        initCode: []const u8,
+        gasLimit: u64,
+        caller: address.Address,
+        value: u256,
+        salt: [32]u8, // Required for CREATE2
     },
     
     pub fn getGasLimit(self: FrameInput) u64 {
         return switch (self) {
             .Call => |call| call.gasLimit,
             .Create => |create| create.gasLimit,
+            .Create2 => |create2| create2.gasLimit,
         };
     }
 };

@@ -59,7 +59,6 @@ test "Frame initialization with Create input" {
             .gasLimit = 50000,
             .caller = address.ZERO_ADDRESS,
             .value = 100,
-            .salt = null,
         },
     };
     
@@ -272,9 +271,9 @@ test "Frame debug output" {
     // Call debug - this mainly tests that it doesn't crash
     testFrame.debug();
     
-    // Create a frame with Create input
-    const createInput = FrameInput{
-        .Create = .{
+    // Create a frame with Create2 input
+    const create2Input = FrameInput{
+        .Create2 = .{
             .initCode = &[_]u8{0x01, 0x02, 0x03},
             .gasLimit = 50000,
             .caller = address.ZERO_ADDRESS,
@@ -285,7 +284,7 @@ test "Frame debug output" {
     
     var testFrame2 = try ActualFrame.init(
         allocator,
-        createInput,
+        create2Input,
         &[_]u8{0x60, 0x01, 0x60, 0x02, 0x01}, // PUSH1 1 PUSH1 2 ADD
         2, // Depth 2
         42

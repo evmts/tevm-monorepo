@@ -142,6 +142,13 @@ pub const Evm = struct {
                 code = create.initCode;
                 log.debug("Create input - Gas Limit: {d}, Init code length: {d}", .{ create.gasLimit, create.initCode.len });
             },
+            .Create2 => |create2| {
+                // For create2, use the init code
+                code = create2.initCode;
+                log.debug("Create2 input - Gas Limit: {d}, Init code length: {d}, Salt: {any}", .{ 
+                    create2.gasLimit, create2.initCode.len, create2.salt 
+                });
+            },
         }
 
         log.debug("Creating frame...", .{});
@@ -167,7 +174,7 @@ pub const Evm = struct {
                 log.debug("Got Result, returning frameResult", .{});
 
                 // Make sure we return the correct result type based on the input type
-                if (input == .Create) {
+                if (input == .Create or input == .Create2) {
                     if (frameResult == .Call) {
                         log.debug("Converting Call result to Create result", .{});
                         const callResult = frameResult.Call;
@@ -276,7 +283,39 @@ test "Evm.execute create" {
             .gasLimit = 100000,
             .caller = address.ZERO_ADDRESS,
             .value = 0,
-            .salt = null, // Regular CREATE (not CREATE2)
+        },
+    };
+
+    // Execute the frame
+    const result = try evm.execute(input);
+
+    // Verify result
+    switch (result) {
+        .Call => {
+            try std.testing.expect(false); // We shouldn't get a Call result
+        },
+        .Create => |createResult| {
+            try std.testing.expectEqual(frame.InstructionResult.Success, createResult.status);
+        },
+    }
+}
+
+test "Evm.execute create2" {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
+    var stateManager = frame.StateManager{};
+    var evm = Evm.init(allocator, &stateManager);
+
+    // Create a contract creation input with salt (CREATE2)
+    const input = frame.FrameInput{
+        .Create2 = .{
+            .initCode = &[_]u8{0x00}, // Simple STOP opcode
+            .gasLimit = 100000,
+            .caller = address.ZERO_ADDRESS,
+            .value = 0,
+            .salt = [_]u8{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32},
         },
     };
 
