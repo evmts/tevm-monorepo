@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilLoadStateHandler()
 
-> **AnvilLoadStateHandler**: (`params`) => `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
+> **AnvilLoadStateHandler** = (`params`) => `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:15
 

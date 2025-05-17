@@ -68,7 +68,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### ecrecover()?
 
-> `optional` **ecrecover**: (`msgHash`, `v`, `r`, `s`, `chainId`?) => `Uint8Array`
+> `optional` **ecrecover**: (`msgHash`, `v`, `r`, `s`, `chainId?`) => `Uint8Array`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:67
 
@@ -102,7 +102,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### ecsign()?
 
-> `optional` **ecsign**: (`msg`, `pk`, `chainId`?) => `ECDSASignature`
+> `optional` **ecsign**: (`msg`, `pk`, `chainId?`) => `ECDSASignature`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:69
 

@@ -6,7 +6,7 @@
 
 # Type Alias: DumpStateJsonRpcProcedure()
 
-> **DumpStateJsonRpcProcedure**: (`request`) => `Promise`\<[`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)\>
+> **DumpStateJsonRpcProcedure** = (`request`) => `Promise`\<[`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/DumpState/DumpStateJsonRpcProcedure.d.ts:15
 

@@ -17,7 +17,7 @@ If the node is forked, anvil_reset will reset to the forked block.
 
 ### node
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

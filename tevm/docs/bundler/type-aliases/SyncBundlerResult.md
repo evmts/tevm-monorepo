@@ -6,7 +6,7 @@
 
 # Type Alias: SyncBundlerResult
 
-> **SyncBundlerResult**: `SyncBundlerResult`
+> **SyncBundlerResult** = `SyncBundlerResult`
 
 Defined in: bundler-packages/base-bundler/types/src/index.d.ts:30
 

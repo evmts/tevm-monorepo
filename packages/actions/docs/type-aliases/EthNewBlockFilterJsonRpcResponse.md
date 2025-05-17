@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewBlockFilterJsonRpcResponse
 
-> **EthNewBlockFilterJsonRpcResponse**: `JsonRpcResponse`\<`"eth_newBlockFilter"`, `Hex`, `string` \| `number`\>
+> **EthNewBlockFilterJsonRpcResponse** = `JsonRpcResponse`\<`"eth_newBlockFilter"`, `Hex`, `string` \| `number`\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L303)
 

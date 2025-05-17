@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure()
 
-> **EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)\>
+> **EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:26
 

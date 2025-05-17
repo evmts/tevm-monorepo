@@ -10,7 +10,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 If you are using a custom chain Common, pass the genesis state.
 
-Pattern 1 (with genesis state see [GenesisState](GenesisState.md) for format):
+Pattern 1 (with genesis state see GenesisState for format):
 
 ```javascript
 {

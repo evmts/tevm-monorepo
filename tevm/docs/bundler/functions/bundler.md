@@ -6,7 +6,7 @@
 
 # Function: bundler()
 
-> **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage`?): `object`
+> **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage?`): `object`
 
 Defined in: bundler-packages/base-bundler/types/src/bundler.d.ts:1
 
@@ -37,8 +37,6 @@ Defined in: bundler-packages/base-bundler/types/src/bundler.d.ts:1
 `"tevm/contract"` | `"@tevm/contract"`
 
 ## Returns
-
-`object`
 
 ### config
 

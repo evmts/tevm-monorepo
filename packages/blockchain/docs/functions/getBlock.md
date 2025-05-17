@@ -20,7 +20,7 @@ An ethereumjs interface method that accepts a block id number or hash and return
 
 ## Returns
 
-`Function`
+> (`blockId`): `Promise`\<`Block`\>
 
 Returns a block by its hash or number.
 

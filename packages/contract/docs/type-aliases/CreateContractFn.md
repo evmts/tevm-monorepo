@@ -6,7 +6,7 @@
 
 # Type Alias: CreateContractFn()
 
-> **CreateContractFn**: \<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`{
+> **CreateContractFn** = \<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`{
 	name,
 	humanReadableAbi,
 	bytecode,
@@ -21,31 +21,45 @@ Creates a tevm Contract instance from a human readable ABI or JSON ABI.
 
 ## Type Parameters
 
-• **TName** *extends* `string`
+### TName
+
+`TName` *extends* `string`
 
 The name of the contract
 
-• **TAbi** *extends* readonly `string`[] \| `Abi`
+### TAbi
+
+`TAbi` *extends* readonly `string`[] \| `Abi`
 
 The ABI type (either string[] for human readable or Abi for JSON)
 
-• **TAddress** *extends* `undefined` \| `Address` = `undefined`
+### TAddress
+
+`TAddress` *extends* `undefined` \| `Address` = `undefined`
 
 The contract address type (optional)
 
-• **TBytecode** *extends* `undefined` \| `Hex` = `undefined`
+### TBytecode
+
+`TBytecode` *extends* `undefined` \| `Hex` = `undefined`
 
 The contract bytecode type (optional)
 
-• **TDeployedBytecode** *extends* `undefined` \| `Hex` = `undefined`
+### TDeployedBytecode
+
+`TDeployedBytecode` *extends* `undefined` \| `Hex` = `undefined`
 
 The deployed bytecode type (optional)
 
-• **TCode** *extends* `undefined` \| `Hex` = `undefined`
+### TCode
+
+`TCode` *extends* `undefined` \| `Hex` = `undefined`
 
 The runtime bytecode type (optional)
 
-• **THumanReadableAbi** *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\> : `never`
+### THumanReadableAbi
+
+`THumanReadableAbi` *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\> : `never`
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 # Type Alias: MemoryClient\<TChain, TAccountOrAddress\>
 
-> **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`TevmRpcSchema`](TevmRpcSchema.md), [`TevmActions`](TevmActions.md) & `PublicActions`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>\>
+> **MemoryClient**\<`TChain`, `TAccountOrAddress`\> = `Prettify`\<`Client`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, [`TevmRpcSchema`](TevmRpcSchema.md), [`TevmActions`](TevmActions.md) & `PublicActions`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>\>
 
 Defined in: [packages/memory-client/src/MemoryClient.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClient.ts#L233)
 
@@ -30,9 +30,13 @@ The client implements multiple API styles:
 
 ## Type Parameters
 
-• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+### TChain
 
-• **TAccountOrAddress** *extends* `Account` \| `Address` \| `undefined` = `Account` \| `Address` \| `undefined`
+`TChain` *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+
+### TAccountOrAddress
+
+`TAccountOrAddress` *extends* `Account` \| `Address` \| `undefined` = `Account` \| `Address` \| `undefined`
 
 ## Example
 

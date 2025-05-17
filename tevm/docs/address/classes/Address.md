@@ -56,9 +56,9 @@ address = createAddress('8ba1f109551bd432803012645ac136ddd64dba72');
 
 ## Constructors
 
-### new Address()
+### Constructor
 
-> **new Address**(`bytes`): [`Address`](Address.md)
+> **new Address**(`bytes`): `Address`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:7
 
@@ -70,11 +70,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Returns
 
-[`Address`](Address.md)
+`Address`
 
 #### Inherited from
 
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md).[`constructor`](../../utils/classes/EthjsAddress.md#constructors)
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md).[`constructor`](../../utils/classes/EthjsAddress.md#constructor)
 
 ## Properties
 
@@ -86,7 +86,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Inherited from
 
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md).[`bytes`](../../utils/classes/EthjsAddress.md#bytes-1)
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md).[`bytes`](../../utils/classes/EthjsAddress.md#bytes)
 
 ## Methods
 

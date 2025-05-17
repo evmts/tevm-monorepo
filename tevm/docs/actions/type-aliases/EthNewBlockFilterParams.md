@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewBlockFilterParams
 
-> **EthNewBlockFilterParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthNewBlockFilterParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:277
 

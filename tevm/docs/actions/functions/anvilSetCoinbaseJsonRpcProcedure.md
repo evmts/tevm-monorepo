@@ -14,7 +14,7 @@ Defined in: packages/actions/types/anvil/anvilSetCoinbaseProcedure.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

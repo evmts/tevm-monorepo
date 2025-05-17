@@ -6,7 +6,7 @@
 
 # Type Alias: DumpStateParams\<TThrowOnFail\>
 
-> **DumpStateParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+> **DumpStateParams**\<`TThrowOnFail`\> = [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Defined in: [packages/actions/src/DumpState/DumpStateParams.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateParams.ts#L4)
 
@@ -23,4 +23,6 @@ Block tag to fetch account from
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`

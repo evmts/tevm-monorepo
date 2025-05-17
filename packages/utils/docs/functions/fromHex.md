@@ -17,7 +17,9 @@ Decodes a hex string into a string, number, bigint, boolean, or byte array.
 
 ## Type Parameters
 
-• **to** *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
+### to
+
+`to` *extends* `"string"` \| `"number"` \| `"bigint"` \| `"boolean"` \| `"bytes"`
 
 ## Parameters
 

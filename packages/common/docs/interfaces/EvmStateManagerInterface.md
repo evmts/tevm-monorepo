@@ -22,11 +22,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### clear()
 
+> **clear**(): `void`
+
 ##### Returns
 
 `void`
 
 #### get()
+
+> **get**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 ##### Parameters
 
@@ -324,7 +328,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### getProof()
 
-> **getProof**(`address`, `storageSlots`?): `Promise`\<`Proof`\>
+> **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:143
 
@@ -414,7 +418,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### putAccount()
 
-> **putAccount**(`address`, `account`?): `Promise`\<`void`\>
+> **putAccount**(`address`, `account?`): `Promise`\<`void`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:115
 
@@ -512,7 +516,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### setStateRoot()
 
-> **setStateRoot**(`stateRoot`, `clearCache`?): `Promise`\<`void`\>
+> **setStateRoot**(`stateRoot`, `clearCache?`): `Promise`\<`void`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:128
 
@@ -538,7 +542,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### shallowCopy()
 
-> **shallowCopy**(`downlevelCaches`?): [`EvmStateManagerInterface`](EvmStateManagerInterface.md)
+> **shallowCopy**(`downlevelCaches?`): `EVMStateManagerInterface`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:144
 
@@ -550,7 +554,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### Returns
 
-[`EvmStateManagerInterface`](EvmStateManagerInterface.md)
+`EVMStateManagerInterface`
 
 #### Overrides
 

@@ -18,7 +18,7 @@ Defined in: [packages/blockchain/src/actions/putBlock.js:7](https://github.com/e
 
 ## Returns
 
-`Function`
+> (`block`): `Promise`\<`void`\>
 
 Adds a block to the blockchain.
 

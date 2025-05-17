@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/getCodeProcedure.js:7](https://github.com/
 
 ### baseClient
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

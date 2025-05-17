@@ -12,7 +12,9 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 
 ## Type Parameters
 
-• **packedAbiTypes** *extends* readonly `unknown`[] \| readonly `PackedAbiType`[]
+### packedAbiTypes
+
+`packedAbiTypes` *extends* readonly `unknown`[] \| readonly `PackedAbiType`[]
 
 ## Parameters
 

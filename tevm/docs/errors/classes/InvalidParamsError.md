@@ -70,9 +70,9 @@ Additional parameters for the BaseError.
 
 ## Constructors
 
-### new InvalidParamsError()
+### Constructor
 
-> **new InvalidParamsError**(`message`, `args`?, `tag`?): [`InvalidParamsError`](InvalidParamsError.md)
+> **new InvalidParamsError**(`message`, `args?`, `tag?`): `InvalidParamsError`
 
 Defined in: packages/errors/types/ethereum/InvalidParamsError.d.ts:50
 
@@ -100,11 +100,11 @@ The tag for the error.
 
 #### Returns
 
-[`InvalidParamsError`](InvalidParamsError.md)
+`InvalidParamsError`
 
 #### Overrides
 
-[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
+[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructor)
 
 ## Properties
 
@@ -118,7 +118,7 @@ Same as name, used internally.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag-1)
+[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 ***
 
@@ -142,7 +142,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:64
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code-1)
+[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
 ***
 
@@ -176,7 +176,7 @@ Path to the documentation for this error.
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 Human-readable error message.
 
@@ -204,7 +204,7 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 The name of the error, used to discriminate errors.
 
@@ -222,7 +222,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage-1)
+[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
 
 ***
 
@@ -230,7 +230,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -306,7 +306,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 ### walk()
 
-> **walk**(`fn`?): `unknown`
+> **walk**(`fn?`): `unknown`
 
 Defined in: packages/errors/types/ethereum/BaseError.d.ts:71
 
@@ -336,7 +336,7 @@ The first error that matches the function, or the original error.
 
 #### Call Signature
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
@@ -362,9 +362,9 @@ Create .stack property on a target object
 
 #### Call Signature
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.14.1/node\_modules/@types/node/globals.d.ts:136
+Defined in: node\_modules/.pnpm/@types+node@22.15.3/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 

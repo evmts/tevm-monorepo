@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetFilterChangesJsonRpcProcedure()
 
-> **EthGetFilterChangesJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](EthGetFilterChangesJsonRpcResponse.md)\>
+> **EthGetFilterChangesJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](EthGetFilterChangesJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:17
 

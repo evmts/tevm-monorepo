@@ -6,7 +6,7 @@
 
 # Type Alias: EthSendRawTransactionJsonRpcRequest
 
-> **EthSendRawTransactionJsonRpcRequest**: `JsonRpcRequest`\<`"eth_sendRawTransaction"`, \[`Hex`\]\>
+> **EthSendRawTransactionJsonRpcRequest** = `JsonRpcRequest`\<`"eth_sendRawTransaction"`, \[`Hex`\]\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:238](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L238)
 

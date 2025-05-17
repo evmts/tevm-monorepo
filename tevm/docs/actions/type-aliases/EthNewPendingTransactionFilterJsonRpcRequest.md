@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewPendingTransactionFilterJsonRpcRequest
 
-> **EthNewPendingTransactionFilterJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_newPendingTransactionFilter"`, readonly \[\]\>
+> **EthNewPendingTransactionFilterJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_newPendingTransactionFilter"`, readonly \[\]\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:203
 

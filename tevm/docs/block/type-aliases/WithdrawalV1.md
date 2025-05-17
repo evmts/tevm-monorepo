@@ -6,7 +6,7 @@
 
 # Type Alias: WithdrawalV1
 
-> **WithdrawalV1**: `object`
+> **WithdrawalV1** = `object`
 
 Defined in: packages/block/types/types.d.ts:502
 
@@ -14,24 +14,6 @@ Represents an Ethereum withdrawal from the consensus layer to the execution laye
 
 Introduced in the Shanghai/Capella upgrade (EIP-4895), these withdrawals allow validators
 to receive ETH from the beacon chain to their execution layer accounts.
-
-## Type declaration
-
-### address
-
-> **address**: [`Hex`](../../index/type-aliases/Hex.md)
-
-### amount
-
-> **amount**: [`Hex`](../../index/type-aliases/Hex.md)
-
-### index
-
-> **index**: [`Hex`](../../index/type-aliases/Hex.md)
-
-### validatorIndex
-
-> **validatorIndex**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ## See
 
@@ -58,3 +40,35 @@ function processWithdrawals(withdrawals: WithdrawalV1[]): void {
   }
 }
 ```
+
+## Properties
+
+### address
+
+> **address**: [`Hex`](../../index/type-aliases/Hex.md)
+
+Defined in: packages/block/types/types.d.ts:505
+
+***
+
+### amount
+
+> **amount**: [`Hex`](../../index/type-aliases/Hex.md)
+
+Defined in: packages/block/types/types.d.ts:506
+
+***
+
+### index
+
+> **index**: [`Hex`](../../index/type-aliases/Hex.md)
+
+Defined in: packages/block/types/types.d.ts:503
+
+***
+
+### validatorIndex
+
+> **validatorIndex**: [`Hex`](../../index/type-aliases/Hex.md)
+
+Defined in: packages/block/types/types.d.ts:504

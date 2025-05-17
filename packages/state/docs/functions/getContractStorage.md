@@ -6,7 +6,7 @@
 
 # Function: getContractStorage()
 
-> **getContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+> **getContractStorage**(`baseState`, `skipFetchingFromFork?`): (`address`, `key`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 Defined in: [packages/state/src/actions/getContractStorage.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractStorage.js#L22)
 
@@ -33,7 +33,7 @@ When running in fork mode:
 
 ## Returns
 
-`Function`
+> (`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 ### Parameters
 

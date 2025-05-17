@@ -6,7 +6,7 @@
 
 # Function: createImpersonatedTx()
 
-> **createImpersonatedTx**(`txData`, `opts`?): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
+> **createImpersonatedTx**(`txData`, `opts?`): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
 Defined in: [packages/tx/src/createImpersonatedTx.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L21)
 

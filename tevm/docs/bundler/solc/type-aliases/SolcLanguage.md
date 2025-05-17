@@ -6,6 +6,6 @@
 
 # Type Alias: SolcLanguage
 
-> **SolcLanguage**: `"Solidity"` \| `"Yul"` \| `"SolidityAST"`
+> **SolcLanguage** = `"Solidity"` \| `"Yul"` \| `"SolidityAST"`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:4

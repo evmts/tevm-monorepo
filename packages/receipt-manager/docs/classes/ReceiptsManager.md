@@ -13,9 +13,9 @@ Provides methods for storing, retrieving, and searching transaction receipts and
 
 ## Constructors
 
-### new ReceiptsManager()
+### Constructor
 
-> **new ReceiptsManager**(`mapDb`, `chain`): [`ReceiptsManager`](ReceiptsManager.md)
+> **new ReceiptsManager**(`mapDb`, `chain`): `ReceiptsManager`
 
 Defined in: [ReceiptManager.ts:219](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L219)
 
@@ -37,7 +37,7 @@ The blockchain instance for retrieving blocks
 
 #### Returns
 
-[`ReceiptsManager`](ReceiptsManager.md)
+`ReceiptsManager`
 
 ## Properties
 
@@ -96,7 +96,7 @@ The database instance for storing receipts and indexes
 
 ### deepCopy()
 
-> **deepCopy**(`chain`): [`ReceiptsManager`](ReceiptsManager.md)
+> **deepCopy**(`chain`): `ReceiptsManager`
 
 Defined in: [ReceiptManager.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L249)
 
@@ -113,7 +113,7 @@ The new chain reference to use
 
 #### Returns
 
-[`ReceiptsManager`](ReceiptsManager.md)
+`ReceiptsManager`
 
 A new ReceiptsManager instance with copied state
 
@@ -153,7 +153,7 @@ await receiptManager.deleteReceipts(block)
 
 ### getLogs()
 
-> **getLogs**(`from`, `to`, `addresses`?, `topics`?): `Promise`\<`GetLogsReturn`\>
+> **getLogs**(`from`, `to`, `addresses?`, `topics?`): `Promise`\<`GetLogsReturn`\>
 
 Defined in: [ReceiptManager.ts:385](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L385)
 
@@ -247,7 +247,7 @@ if (receiptData) {
 
 #### Call Signature
 
-> **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
+> **getReceipts**(`blockHash`, `calcBloom?`, `includeTxType?`): `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
 
 Defined in: [ReceiptManager.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L303)
 
@@ -292,7 +292,7 @@ const receiptsWithDetails = await receiptManager.getReceipts(blockHash, true, tr
 
 #### Call Signature
 
-> **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
+> **getReceipts**(`blockHash`, `calcBloom?`, `includeTxType?`): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
 
 Defined in: [ReceiptManager.ts:304](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L304)
 

@@ -6,7 +6,7 @@
 
 # Function: createMemoryClient()
 
-> **createMemoryClient**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options`?): `object`
+> **createMemoryClient**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options?`): `object`
 
 Defined in: [packages/memory-client/src/createMemoryClient.js:302](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/createMemoryClient.js#L302)
 
@@ -27,11 +27,17 @@ This provides an integrated environment for local Ethereum development with capa
 
 ## Type Parameters
 
-• **TCommon** *extends* `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\> = `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\>
+### TCommon
 
-• **TAccountOrAddress** *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+`TCommon` *extends* `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\> = `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\>
 
-• **TRpcSchema** *extends* `undefined` \| `RpcSchema` = \[\{ `Method`: `"web3_clientVersion"`; `Parameters`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]
+### TAccountOrAddress
+
+`TAccountOrAddress` *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+
+### TRpcSchema
+
+`TRpcSchema` *extends* `undefined` \| `RpcSchema` = \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]
 
 ## Parameters
 
@@ -40,8 +46,6 @@ This provides an integrated environment for local Ethereum development with capa
 [`MemoryClientOptions`](../type-aliases/MemoryClientOptions.md)\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>
 
 ## Returns
-
-`object`
 
 ### account
 
@@ -90,7 +94,7 @@ Flags for batch settings.
 
 #### batch.multicall?
 
-> `optional` **multicall**: `boolean` \| \{ `batchSize`: `number`; `wait`: `number`; \}
+> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `wait?`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
@@ -98,7 +102,7 @@ Toggle to enable `eth_call` multicall aggregation.
 
 `boolean`
 
-\{ `batchSize`: `number`; `wait`: `number`; \}
+\{ `batchSize?`: `number`; `wait?`: `number`; \}
 
 ### cacheTime
 
@@ -146,7 +150,7 @@ const data = await client.call({
 
 ### ccipRead?
 
-> `optional` **ccipRead**: `false` \| \{ `request`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
+> `optional` **ccipRead**: `false` \| \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
@@ -154,7 +158,7 @@ const data = await client.call({
 
 `false`
 
-\{ `request`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
+\{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
 ### chain
 
@@ -239,17 +243,29 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 #### Type Parameters
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+##### abi
 
-• **eventName** *extends* `undefined` \| `string`
+`abi` *extends* `Abi` \| readonly `unknown`[]
 
-• **args** *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
+##### eventName
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+`eventName` *extends* `undefined` \| `string`
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+##### args
 
-• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`args` *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
+
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
@@ -282,7 +298,7 @@ const filter = await client.createContractEventFilter({
 
 ### createEventFilter()
 
-> **createEventFilter**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>(`args`?) => `Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", abiEvents, \_EventName, \_Args, strict, fromBlock, toBlock\>\[K\] \}\>
+> **createEventFilter**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>(`args?`) => `Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", abiEvents, \_EventName, \_Args, strict, fromBlock, toBlock\>\[K\] \}\>
 
 Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for new events that can be used with [`getFilterChanges`](https://viem.sh/docs/actions/public/getFilterChanges).
 
@@ -291,19 +307,33 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 #### Type Parameters
 
-• **abiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
+##### abiEvent
 
-• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvent` *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### abiEvents
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+##### strict
 
-• **_EventName** *extends* `undefined` \| `string` = `MaybeAbiEventName`\<`abiEvent`\>
+`strict` *extends* `undefined` \| `boolean` = `undefined`
 
-• **_Args** *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[] = `undefined`
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+
+##### _EventName
+
+`_EventName` *extends* `undefined` \| `string` = `MaybeAbiEventName`\<`abiEvent`\>
+
+##### _Args
+
+`_Args` *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[] = `undefined`
 
 #### Parameters
 
@@ -374,9 +404,13 @@ Deploys a contract to the network, given bytecode and constructor arguments.
 
 #### Type Parameters
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+##### abi
 
-• **chainOverride** *extends* `undefined` \| `Chain`
+`abi` *extends* `Abi` \| readonly `unknown`[]
+
+##### chainOverride
+
+`chainOverride` *extends* `undefined` \| `Chain`
 
 #### Parameters
 
@@ -484,13 +518,21 @@ Estimates the gas required to successfully execute a contract write function cal
 
 #### Type Parameters
 
-• **chain** *extends* `undefined` \| `Chain`
+##### chain
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+`chain` *extends* `undefined` \| `Chain`
 
-• **functionName** *extends* `string`
+##### abi
 
-• **args** *extends* `unknown`
+`abi` *extends* `Abi` \| readonly `unknown`[]
+
+##### functionName
+
+`functionName` *extends* `string`
+
+##### args
+
+`args` *extends* `unknown`
 
 #### Parameters
 
@@ -530,7 +572,7 @@ const gas = await client.estimateContractGas({
 
 ### estimateFeesPerGas()
 
-> **estimateFeesPerGas**: \<`chainOverride`, `type`\>(`args`?) => `Promise`\<`EstimateFeesPerGasReturnType`\<`type`\>\>
+> **estimateFeesPerGas**: \<`chainOverride`, `type`\>(`args?`) => `Promise`\<`EstimateFeesPerGasReturnType`\<`type`\>\>
 
 Returns an estimate for the fees per gas for a transaction to be included
 in the next block.
@@ -539,9 +581,13 @@ in the next block.
 
 #### Type Parameters
 
-• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
+##### chainOverride
 
-• **type** *extends* `FeeValuesType` = `"eip1559"`
+`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
+
+##### type
+
+`type` *extends* `FeeValuesType` = `"eip1559"`
 
 #### Parameters
 
@@ -611,7 +657,7 @@ const gasEstimate = await client.estimateGas({
 
 ### estimateMaxPriorityFeePerGas()
 
-> **estimateMaxPriorityFeePerGas**: \<`chainOverride`\>(`args`?) => `Promise`\<`bigint`\>
+> **estimateMaxPriorityFeePerGas**: \<`chainOverride`\>(`args?`) => `Promise`\<`bigint`\>
 
 Returns an estimate for the max priority fee per gas (in wei) for a transaction
 to be included in the next block.
@@ -620,7 +666,9 @@ to be included in the next block.
 
 #### Type Parameters
 
-• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
+##### chainOverride
+
+`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
 
 #### Parameters
 
@@ -650,11 +698,13 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 
 ### extend()
 
-> **extend**: \<`client`\>(`fn`) => `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
+> **extend**: \<`client`\>(`fn`) => `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
 
 #### Type Parameters
 
-• **client** *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\>\>
+##### client
+
+`client` *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\>\>
 
 #### Parameters
 
@@ -664,7 +714,7 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 
 #### Returns
 
-`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
 
 ### getAddresses()
 
@@ -805,7 +855,7 @@ const blobBaseFee = await client.getBlobBaseFee()
 
 ### getBlock()
 
-> **getBlock**: \<`includeTransactions`, `blockTag`\>(`args`?) => `Promise`\<\{ \[K in string \| number \| symbol\]: FormattedBlock\<TCommon, includeTransactions, blockTag\>\[K\] \}\>
+> **getBlock**: \<`includeTransactions`, `blockTag`\>(`args?`) => `Promise`\<\{ \[K in string \| number \| symbol\]: FormattedBlock\<TCommon, includeTransactions, blockTag\>\[K\] \}\>
 
 Returns information about a block at a block number, hash, or tag.
 
@@ -817,9 +867,13 @@ Returns information about a block at a block number, hash, or tag.
 
 #### Type Parameters
 
-• **includeTransactions** *extends* `boolean` = `false`
+##### includeTransactions
 
-• **blockTag** *extends* `BlockTag` = `"latest"`
+`includeTransactions` *extends* `boolean` = `false`
+
+##### blockTag
+
+`blockTag` *extends* `BlockTag` = `"latest"`
 
 #### Parameters
 
@@ -850,7 +904,7 @@ const block = await client.getBlock()
 
 ### getBlockNumber()
 
-> **getBlockNumber**: (`args`?) => `Promise`\<`bigint`\>
+> **getBlockNumber**: (`args?`) => `Promise`\<`bigint`\>
 
 Returns the number of the most recent block seen.
 
@@ -888,7 +942,7 @@ const blockNumber = await client.getBlockNumber()
 
 ### getBlockTransactionCount()
 
-> **getBlockTransactionCount**: (`args`?) => `Promise`\<`number`\>
+> **getBlockTransactionCount**: (`args?`) => `Promise`\<`number`\>
 
 Returns the number of Transactions at a block number, hash, or tag.
 
@@ -1018,15 +1072,25 @@ Returns a list of event logs emitted by a contract.
 
 #### Type Parameters
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+##### abi
 
-• **eventName** *extends* `undefined` \| `string` = `undefined`
+`abi` *extends* `Abi` \| readonly `unknown`[]
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### eventName
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`eventName` *extends* `undefined` \| `string` = `undefined`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
@@ -1586,17 +1650,29 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 
 #### Type Parameters
 
-• **filterType** *extends* `FilterType`
+##### filterType
 
-• **abi** *extends* `undefined` \| `Abi` \| readonly `unknown`[]
+`filterType` *extends* `FilterType`
 
-• **eventName** *extends* `undefined` \| `string`
+##### abi
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+`abi` *extends* `undefined` \| `Abi` \| readonly `unknown`[]
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+##### eventName
 
-• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`eventName` *extends* `undefined` \| `string`
+
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
@@ -1699,15 +1775,25 @@ Returns a list of event logs since the filter was created.
 
 #### Type Parameters
 
-• **abi** *extends* `undefined` \| `Abi` \| readonly `unknown`[]
+##### abi
 
-• **eventName** *extends* `undefined` \| `string`
+`abi` *extends* `undefined` \| `Abi` \| readonly `unknown`[]
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### eventName
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`eventName` *extends* `undefined` \| `string`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
@@ -1774,7 +1860,7 @@ const gasPrice = await client.getGasPrice()
 
 ### getLogs()
 
-> **getLogs**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>(`args`?) => `Promise`\<`GetLogsReturnType`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>\>
+> **getLogs**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>(`args?`) => `Promise`\<`GetLogsReturnType`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>\>
 
 Returns a list of event logs matching the provided parameters.
 
@@ -1784,15 +1870,25 @@ Returns a list of event logs matching the provided parameters.
 
 #### Type Parameters
 
-• **abiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
+##### abiEvent
 
-• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvent` *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### abiEvents
 
-• **fromBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
 
-• **toBlock** *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
+
+##### fromBlock
+
+`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+
+##### toBlock
+
+`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
 
 #### Parameters
 
@@ -1939,7 +2035,9 @@ Returns information about a [Transaction](https://viem.sh/docs/glossary/terms#tr
 
 #### Type Parameters
 
-• **blockTag** *extends* `BlockTag` = `"latest"`
+##### blockTag
+
+`blockTag` *extends* `BlockTag` = `"latest"`
 
 #### Parameters
 
@@ -2324,9 +2422,13 @@ Similar to [`readContract`](https://viem.sh/docs/contract/readContract), but bat
 
 #### Type Parameters
 
-• **contracts** *extends* readonly `unknown`[]
+##### contracts
 
-• **allowFailure** *extends* `boolean` = `true`
+`contracts` *extends* readonly `unknown`[]
+
+##### allowFailure
+
+`allowFailure` *extends* `boolean` = `true`
 
 #### Parameters
 
@@ -2447,11 +2549,17 @@ Calls a read-only function on a contract, and returns the response.
 
 #### Type Parameters
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+##### abi
 
-• **functionName** *extends* `string`
+`abi` *extends* `Abi` \| readonly `unknown`[]
 
-• **args** *extends* `unknown`
+##### functionName
+
+`functionName` *extends* `string`
+
+##### args
+
+`args` *extends* `unknown`
 
 #### Parameters
 
@@ -2522,7 +2630,7 @@ await client.removeBlockTimestampInterval()
 
 ### request
 
-> **request**: `EIP1193RequestFn`\<\[\{ `Method`: `"web3_clientVersion"`; `Parameters`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]\>
+> **request**: `EIP1193RequestFn`\<\[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]\>
 
 Request function wrapped with friendly error handling
 
@@ -2600,7 +2708,7 @@ const permissions = await client.requestPermissions({
 
 ### reset()
 
-> **reset**: (`args`?) => `Promise`\<`void`\>
+> **reset**: (`args?`) => `Promise`\<`void`\>
 
 Resets fork back to its original state.
 
@@ -2718,9 +2826,13 @@ Creates, signs, and sends a new transaction to the network.
 
 #### Type Parameters
 
-• **request** *extends* `Omit`\<\{ `accessList`: `undefined`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"legacy"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip2930"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip1559"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `Kzg`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip4844"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `AuthorizationList`\<`number`, `boolean`\>; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip7702"`; `value`: `bigint`; \}, `"from"`\> & `object`
+##### request
 
-• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
+`request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `null` \| `` `0x${string}` ``; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> & `object`
+
+##### chainOverride
+
+`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
 
 #### Parameters
 
@@ -2780,7 +2892,9 @@ Executes a transaction regardless of the signature.
 
 #### Type Parameters
 
-• **chain** *extends* `undefined` \| `Chain`
+##### chain
+
+`chain` *extends* `undefined` \| `Chain`
 
 #### Parameters
 
@@ -3379,9 +3493,13 @@ Signs a transaction.
 
 #### Type Parameters
 
-• **chainOverride** *extends* `undefined` \| `Chain`
+##### chainOverride
 
-• **request** *extends* `Omit`\<\{ `accessList`: `undefined`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"legacy"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `bigint`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `undefined`; `maxPriorityFeePerGas`: `undefined`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip2930"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip1559"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `Kzg`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip4844"`; `value`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList`: `AccessList`; `authorizationList`: `AuthorizationList`\<`number`, `boolean`\>; `blobs`: `undefined`; `blobVersionedHashes`: `undefined`; `data`: `` `0x${string}` ``; `from`: `` `0x${string}` ``; `gas`: `bigint`; `gasPrice`: `undefined`; `kzg`: `undefined`; `maxFeePerBlobGas`: `undefined`; `maxFeePerGas`: `bigint`; `maxPriorityFeePerGas`: `bigint`; `nonce`: `number`; `sidecars`: `undefined`; `to`: `null` \| `` `0x${string}` ``; `type`: `"eip7702"`; `value`: `bigint`; \}, `"from"`\> = `UnionOmit`\<`ExtractChainFormatterParameters`\<`DeriveChain`\<`TCommon`, `chainOverride`\>, `"transactionRequest"`, `TransactionRequest`\>, `"from"`\>
+`chainOverride` *extends* `undefined` \| `Chain`
+
+##### request
+
+`request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `null` \| `` `0x${string}` ``; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> = `UnionOmit`\<`ExtractChainFormatterParameters`\<`DeriveChain`\<`TCommon`, `chainOverride`\>, `"transactionRequest"`, `TransactionRequest`\>, `"from"`\>
 
 #### Parameters
 
@@ -3446,9 +3564,116 @@ Signs typed data and calculates an Ethereum-specific signature in [EIP-191 forma
 
 #### Type Parameters
 
-• **typedData** *extends* \{ `[key: `uint256[${string}]`]`: `undefined`;  `[key: `uint248[${string}]`]`: `undefined`;  `[key: `uint240[${string}]`]`: `undefined`;  `[key: `uint232[${string}]`]`: `undefined`;  `[key: `uint224[${string}]`]`: `undefined`;  `[key: `uint216[${string}]`]`: `undefined`;  `[key: `uint208[${string}]`]`: `undefined`;  `[key: `uint200[${string}]`]`: `undefined`;  `[key: `uint192[${string}]`]`: `undefined`;  `[key: `uint184[${string}]`]`: `undefined`;  `[key: `uint176[${string}]`]`: `undefined`;  `[key: `uint168[${string}]`]`: `undefined`;  `[key: `uint160[${string}]`]`: `undefined`;  `[key: `uint152[${string}]`]`: `undefined`;  `[key: `uint144[${string}]`]`: `undefined`;  `[key: `uint136[${string}]`]`: `undefined`;  `[key: `uint128[${string}]`]`: `undefined`;  `[key: `uint120[${string}]`]`: `undefined`;  `[key: `uint112[${string}]`]`: `undefined`;  `[key: `uint104[${string}]`]`: `undefined`;  `[key: `uint96[${string}]`]`: `undefined`;  `[key: `uint88[${string}]`]`: `undefined`;  `[key: `uint80[${string}]`]`: `undefined`;  `[key: `uint72[${string}]`]`: `undefined`;  `[key: `uint64[${string}]`]`: `undefined`;  `[key: `uint56[${string}]`]`: `undefined`;  `[key: `uint48[${string}]`]`: `undefined`;  `[key: `uint40[${string}]`]`: `undefined`;  `[key: `uint32[${string}]`]`: `undefined`;  `[key: `uint24[${string}]`]`: `undefined`;  `[key: `uint16[${string}]`]`: `undefined`;  `[key: `uint8[${string}]`]`: `undefined`;  `[key: `uint[${string}]`]`: `undefined`;  `[key: `int256[${string}]`]`: `undefined`;  `[key: `int248[${string}]`]`: `undefined`;  `[key: `int240[${string}]`]`: `undefined`;  `[key: `int232[${string}]`]`: `undefined`;  `[key: `int224[${string}]`]`: `undefined`;  `[key: `int216[${string}]`]`: `undefined`;  `[key: `int208[${string}]`]`: `undefined`;  `[key: `int200[${string}]`]`: `undefined`;  `[key: `int192[${string}]`]`: `undefined`;  `[key: `int184[${string}]`]`: `undefined`;  `[key: `int176[${string}]`]`: `undefined`;  `[key: `int168[${string}]`]`: `undefined`;  `[key: `int160[${string}]`]`: `undefined`;  `[key: `int152[${string}]`]`: `undefined`;  `[key: `int144[${string}]`]`: `undefined`;  `[key: `int136[${string}]`]`: `undefined`;  `[key: `int128[${string}]`]`: `undefined`;  `[key: `int120[${string}]`]`: `undefined`;  `[key: `int112[${string}]`]`: `undefined`;  `[key: `int104[${string}]`]`: `undefined`;  `[key: `int96[${string}]`]`: `undefined`;  `[key: `int88[${string}]`]`: `undefined`;  `[key: `int80[${string}]`]`: `undefined`;  `[key: `int72[${string}]`]`: `undefined`;  `[key: `int64[${string}]`]`: `undefined`;  `[key: `int56[${string}]`]`: `undefined`;  `[key: `int48[${string}]`]`: `undefined`;  `[key: `int40[${string}]`]`: `undefined`;  `[key: `int32[${string}]`]`: `undefined`;  `[key: `int24[${string}]`]`: `undefined`;  `[key: `int16[${string}]`]`: `undefined`;  `[key: `int8[${string}]`]`: `undefined`;  `[key: `int[${string}]`]`: `undefined`;  `[key: `bytes32[${string}]`]`: `undefined`;  `[key: `bytes31[${string}]`]`: `undefined`;  `[key: `bytes30[${string}]`]`: `undefined`;  `[key: `bytes29[${string}]`]`: `undefined`;  `[key: `bytes28[${string}]`]`: `undefined`;  `[key: `bytes27[${string}]`]`: `undefined`;  `[key: `bytes26[${string}]`]`: `undefined`;  `[key: `bytes25[${string}]`]`: `undefined`;  `[key: `bytes24[${string}]`]`: `undefined`;  `[key: `bytes23[${string}]`]`: `undefined`;  `[key: `bytes22[${string}]`]`: `undefined`;  `[key: `bytes21[${string}]`]`: `undefined`;  `[key: `bytes20[${string}]`]`: `undefined`;  `[key: `bytes19[${string}]`]`: `undefined`;  `[key: `bytes18[${string}]`]`: `undefined`;  `[key: `bytes17[${string}]`]`: `undefined`;  `[key: `bytes16[${string}]`]`: `undefined`;  `[key: `bytes15[${string}]`]`: `undefined`;  `[key: `bytes14[${string}]`]`: `undefined`;  `[key: `bytes13[${string}]`]`: `undefined`;  `[key: `bytes12[${string}]`]`: `undefined`;  `[key: `bytes11[${string}]`]`: `undefined`;  `[key: `bytes10[${string}]`]`: `undefined`;  `[key: `bytes9[${string}]`]`: `undefined`;  `[key: `bytes8[${string}]`]`: `undefined`;  `[key: `bytes7[${string}]`]`: `undefined`;  `[key: `bytes6[${string}]`]`: `undefined`;  `[key: `bytes5[${string}]`]`: `undefined`;  `[key: `bytes4[${string}]`]`: `undefined`;  `[key: `bytes3[${string}]`]`: `undefined`;  `[key: `bytes2[${string}]`]`: `undefined`;  `[key: `bytes1[${string}]`]`: `undefined`;  `[key: `bytes[${string}]`]`: `undefined`;  `[key: `bool[${string}]`]`: `undefined`;  `[key: `address[${string}]`]`: `undefined`;  `[key: `function[${string}]`]`: `undefined`;  `[key: `string[${string}]`]`: `undefined`;  `[key: string]`: readonly `TypedDataParameter`[];  `address`: `undefined`; `bool`: `undefined`; `bytes`: `undefined`; `bytes1`: `undefined`; `bytes10`: `undefined`; `bytes11`: `undefined`; `bytes12`: `undefined`; `bytes13`: `undefined`; `bytes14`: `undefined`; `bytes15`: `undefined`; `bytes16`: `undefined`; `bytes17`: `undefined`; `bytes18`: `undefined`; `bytes19`: `undefined`; `bytes2`: `undefined`; `bytes20`: `undefined`; `bytes21`: `undefined`; `bytes22`: `undefined`; `bytes23`: `undefined`; `bytes24`: `undefined`; `bytes25`: `undefined`; `bytes26`: `undefined`; `bytes27`: `undefined`; `bytes28`: `undefined`; `bytes29`: `undefined`; `bytes3`: `undefined`; `bytes30`: `undefined`; `bytes31`: `undefined`; `bytes32`: `undefined`; `bytes4`: `undefined`; `bytes5`: `undefined`; `bytes6`: `undefined`; `bytes7`: `undefined`; `bytes8`: `undefined`; `bytes9`: `undefined`; `int104`: `undefined`; `int112`: `undefined`; `int120`: `undefined`; `int128`: `undefined`; `int136`: `undefined`; `int144`: `undefined`; `int152`: `undefined`; `int16`: `undefined`; `int160`: `undefined`; `int168`: `undefined`; `int176`: `undefined`; `int184`: `undefined`; `int192`: `undefined`; `int200`: `undefined`; `int208`: `undefined`; `int216`: `undefined`; `int224`: `undefined`; `int232`: `undefined`; `int24`: `undefined`; `int240`: `undefined`; `int248`: `undefined`; `int256`: `undefined`; `int32`: `undefined`; `int40`: `undefined`; `int48`: `undefined`; `int56`: `undefined`; `int64`: `undefined`; `int72`: `undefined`; `int8`: `undefined`; `int80`: `undefined`; `int88`: `undefined`; `int96`: `undefined`; `string`: `undefined`; `uint104`: `undefined`; `uint112`: `undefined`; `uint120`: `undefined`; `uint128`: `undefined`; `uint136`: `undefined`; `uint144`: `undefined`; `uint152`: `undefined`; `uint16`: `undefined`; `uint160`: `undefined`; `uint168`: `undefined`; `uint176`: `undefined`; `uint184`: `undefined`; `uint192`: `undefined`; `uint200`: `undefined`; `uint208`: `undefined`; `uint216`: `undefined`; `uint224`: `undefined`; `uint232`: `undefined`; `uint24`: `undefined`; `uint240`: `undefined`; `uint248`: `undefined`; `uint256`: `undefined`; `uint32`: `undefined`; `uint40`: `undefined`; `uint48`: `undefined`; `uint56`: `undefined`; `uint64`: `undefined`; `uint72`: `undefined`; `uint8`: `undefined`; `uint80`: `undefined`; `uint88`: `undefined`; `uint96`: `undefined`; \} \| \{\}
+##### typedData
 
-• **primaryType** *extends* `string`
+`typedData` *extends* \{[`key`: `string`]: readonly `TypedDataParameter`[];
+[`key`: `` `string[${string}]` ``]: `undefined`;
+[`key`: `` `function[${string}]` ``]: `undefined`;
+[`key`: `` `address[${string}]` ``]: `undefined`;
+[`key`: `` `bool[${string}]` ``]: `undefined`;
+[`key`: `` `bytes[${string}]` ``]: `undefined`;
+[`key`: `` `bytes1[${string}]` ``]: `undefined`;
+[`key`: `` `bytes2[${string}]` ``]: `undefined`;
+[`key`: `` `bytes3[${string}]` ``]: `undefined`;
+[`key`: `` `bytes4[${string}]` ``]: `undefined`;
+[`key`: `` `bytes5[${string}]` ``]: `undefined`;
+[`key`: `` `bytes6[${string}]` ``]: `undefined`;
+[`key`: `` `bytes7[${string}]` ``]: `undefined`;
+[`key`: `` `bytes8[${string}]` ``]: `undefined`;
+[`key`: `` `bytes9[${string}]` ``]: `undefined`;
+[`key`: `` `bytes10[${string}]` ``]: `undefined`;
+[`key`: `` `bytes11[${string}]` ``]: `undefined`;
+[`key`: `` `bytes12[${string}]` ``]: `undefined`;
+[`key`: `` `bytes13[${string}]` ``]: `undefined`;
+[`key`: `` `bytes14[${string}]` ``]: `undefined`;
+[`key`: `` `bytes15[${string}]` ``]: `undefined`;
+[`key`: `` `bytes16[${string}]` ``]: `undefined`;
+[`key`: `` `bytes17[${string}]` ``]: `undefined`;
+[`key`: `` `bytes18[${string}]` ``]: `undefined`;
+[`key`: `` `bytes19[${string}]` ``]: `undefined`;
+[`key`: `` `bytes20[${string}]` ``]: `undefined`;
+[`key`: `` `bytes21[${string}]` ``]: `undefined`;
+[`key`: `` `bytes22[${string}]` ``]: `undefined`;
+[`key`: `` `bytes23[${string}]` ``]: `undefined`;
+[`key`: `` `bytes24[${string}]` ``]: `undefined`;
+[`key`: `` `bytes25[${string}]` ``]: `undefined`;
+[`key`: `` `bytes26[${string}]` ``]: `undefined`;
+[`key`: `` `bytes27[${string}]` ``]: `undefined`;
+[`key`: `` `bytes28[${string}]` ``]: `undefined`;
+[`key`: `` `bytes29[${string}]` ``]: `undefined`;
+[`key`: `` `bytes30[${string}]` ``]: `undefined`;
+[`key`: `` `bytes31[${string}]` ``]: `undefined`;
+[`key`: `` `bytes32[${string}]` ``]: `undefined`;
+[`key`: `` `int[${string}]` ``]: `undefined`;
+[`key`: `` `int8[${string}]` ``]: `undefined`;
+[`key`: `` `int16[${string}]` ``]: `undefined`;
+[`key`: `` `int24[${string}]` ``]: `undefined`;
+[`key`: `` `int32[${string}]` ``]: `undefined`;
+[`key`: `` `int40[${string}]` ``]: `undefined`;
+[`key`: `` `int48[${string}]` ``]: `undefined`;
+[`key`: `` `int56[${string}]` ``]: `undefined`;
+[`key`: `` `int64[${string}]` ``]: `undefined`;
+[`key`: `` `int72[${string}]` ``]: `undefined`;
+[`key`: `` `int80[${string}]` ``]: `undefined`;
+[`key`: `` `int88[${string}]` ``]: `undefined`;
+[`key`: `` `int96[${string}]` ``]: `undefined`;
+[`key`: `` `int104[${string}]` ``]: `undefined`;
+[`key`: `` `int112[${string}]` ``]: `undefined`;
+[`key`: `` `int120[${string}]` ``]: `undefined`;
+[`key`: `` `int128[${string}]` ``]: `undefined`;
+[`key`: `` `int136[${string}]` ``]: `undefined`;
+[`key`: `` `int144[${string}]` ``]: `undefined`;
+[`key`: `` `int152[${string}]` ``]: `undefined`;
+[`key`: `` `int160[${string}]` ``]: `undefined`;
+[`key`: `` `int168[${string}]` ``]: `undefined`;
+[`key`: `` `int176[${string}]` ``]: `undefined`;
+[`key`: `` `int184[${string}]` ``]: `undefined`;
+[`key`: `` `int192[${string}]` ``]: `undefined`;
+[`key`: `` `int200[${string}]` ``]: `undefined`;
+[`key`: `` `int208[${string}]` ``]: `undefined`;
+[`key`: `` `int216[${string}]` ``]: `undefined`;
+[`key`: `` `int224[${string}]` ``]: `undefined`;
+[`key`: `` `int232[${string}]` ``]: `undefined`;
+[`key`: `` `int240[${string}]` ``]: `undefined`;
+[`key`: `` `int248[${string}]` ``]: `undefined`;
+[`key`: `` `int256[${string}]` ``]: `undefined`;
+[`key`: `` `uint[${string}]` ``]: `undefined`;
+[`key`: `` `uint8[${string}]` ``]: `undefined`;
+[`key`: `` `uint16[${string}]` ``]: `undefined`;
+[`key`: `` `uint24[${string}]` ``]: `undefined`;
+[`key`: `` `uint32[${string}]` ``]: `undefined`;
+[`key`: `` `uint40[${string}]` ``]: `undefined`;
+[`key`: `` `uint48[${string}]` ``]: `undefined`;
+[`key`: `` `uint56[${string}]` ``]: `undefined`;
+[`key`: `` `uint64[${string}]` ``]: `undefined`;
+[`key`: `` `uint72[${string}]` ``]: `undefined`;
+[`key`: `` `uint80[${string}]` ``]: `undefined`;
+[`key`: `` `uint88[${string}]` ``]: `undefined`;
+[`key`: `` `uint96[${string}]` ``]: `undefined`;
+[`key`: `` `uint104[${string}]` ``]: `undefined`;
+[`key`: `` `uint112[${string}]` ``]: `undefined`;
+[`key`: `` `uint120[${string}]` ``]: `undefined`;
+[`key`: `` `uint128[${string}]` ``]: `undefined`;
+[`key`: `` `uint136[${string}]` ``]: `undefined`;
+[`key`: `` `uint144[${string}]` ``]: `undefined`;
+[`key`: `` `uint152[${string}]` ``]: `undefined`;
+[`key`: `` `uint160[${string}]` ``]: `undefined`;
+[`key`: `` `uint168[${string}]` ``]: `undefined`;
+[`key`: `` `uint176[${string}]` ``]: `undefined`;
+[`key`: `` `uint184[${string}]` ``]: `undefined`;
+[`key`: `` `uint192[${string}]` ``]: `undefined`;
+[`key`: `` `uint200[${string}]` ``]: `undefined`;
+[`key`: `` `uint208[${string}]` ``]: `undefined`;
+[`key`: `` `uint216[${string}]` ``]: `undefined`;
+[`key`: `` `uint224[${string}]` ``]: `undefined`;
+[`key`: `` `uint232[${string}]` ``]: `undefined`;
+[`key`: `` `uint240[${string}]` ``]: `undefined`;
+[`key`: `` `uint248[${string}]` ``]: `undefined`;
+[`key`: `` `uint256[${string}]` ``]: `undefined`; `address?`: `undefined`; `bool?`: `undefined`; `bytes?`: `undefined`; `bytes1?`: `undefined`; `bytes10?`: `undefined`; `bytes11?`: `undefined`; `bytes12?`: `undefined`; `bytes13?`: `undefined`; `bytes14?`: `undefined`; `bytes15?`: `undefined`; `bytes16?`: `undefined`; `bytes17?`: `undefined`; `bytes18?`: `undefined`; `bytes19?`: `undefined`; `bytes2?`: `undefined`; `bytes20?`: `undefined`; `bytes21?`: `undefined`; `bytes22?`: `undefined`; `bytes23?`: `undefined`; `bytes24?`: `undefined`; `bytes25?`: `undefined`; `bytes26?`: `undefined`; `bytes27?`: `undefined`; `bytes28?`: `undefined`; `bytes29?`: `undefined`; `bytes3?`: `undefined`; `bytes30?`: `undefined`; `bytes31?`: `undefined`; `bytes32?`: `undefined`; `bytes4?`: `undefined`; `bytes5?`: `undefined`; `bytes6?`: `undefined`; `bytes7?`: `undefined`; `bytes8?`: `undefined`; `bytes9?`: `undefined`; `int104?`: `undefined`; `int112?`: `undefined`; `int120?`: `undefined`; `int128?`: `undefined`; `int136?`: `undefined`; `int144?`: `undefined`; `int152?`: `undefined`; `int16?`: `undefined`; `int160?`: `undefined`; `int168?`: `undefined`; `int176?`: `undefined`; `int184?`: `undefined`; `int192?`: `undefined`; `int200?`: `undefined`; `int208?`: `undefined`; `int216?`: `undefined`; `int224?`: `undefined`; `int232?`: `undefined`; `int24?`: `undefined`; `int240?`: `undefined`; `int248?`: `undefined`; `int256?`: `undefined`; `int32?`: `undefined`; `int40?`: `undefined`; `int48?`: `undefined`; `int56?`: `undefined`; `int64?`: `undefined`; `int72?`: `undefined`; `int8?`: `undefined`; `int80?`: `undefined`; `int88?`: `undefined`; `int96?`: `undefined`; `string?`: `undefined`; `uint104?`: `undefined`; `uint112?`: `undefined`; `uint120?`: `undefined`; `uint128?`: `undefined`; `uint136?`: `undefined`; `uint144?`: `undefined`; `uint152?`: `undefined`; `uint16?`: `undefined`; `uint160?`: `undefined`; `uint168?`: `undefined`; `uint176?`: `undefined`; `uint184?`: `undefined`; `uint192?`: `undefined`; `uint200?`: `undefined`; `uint208?`: `undefined`; `uint216?`: `undefined`; `uint224?`: `undefined`; `uint232?`: `undefined`; `uint24?`: `undefined`; `uint240?`: `undefined`; `uint248?`: `undefined`; `uint256?`: `undefined`; `uint32?`: `undefined`; `uint40?`: `undefined`; `uint48?`: `undefined`; `uint56?`: `undefined`; `uint64?`: `undefined`; `uint72?`: `undefined`; `uint8?`: `undefined`; `uint80?`: `undefined`; `uint88?`: `undefined`; `uint96?`: `undefined`; \} \| \{[`key`: `string`]: `unknown`; \}
+
+##### primaryType
+
+`primaryType` *extends* `string`
 
 #### Parameters
 
@@ -3558,7 +3783,9 @@ const signature = await client.signTypedData({
 
 #### Type Parameters
 
-• **calls** *extends* readonly `unknown`[]
+##### calls
+
+`calls` *extends* readonly `unknown`[]
 
 #### Parameters
 
@@ -3582,7 +3809,9 @@ Simulates a set of calls on block(s) with optional block and state overrides.
 
 #### Type Parameters
 
-• **calls** *extends* readonly `unknown`[]
+##### calls
+
+`calls` *extends* readonly `unknown`[]
 
 #### Parameters
 
@@ -3640,7 +3869,9 @@ Simulates a set of calls.
 
 #### Type Parameters
 
-• **calls** *extends* readonly `unknown`[]
+##### calls
+
+`calls` *extends* readonly `unknown`[]
 
 #### Parameters
 
@@ -3691,15 +3922,25 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 #### Type Parameters
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+##### abi
 
-• **functionName** *extends* `string`
+`abi` *extends* `Abi` \| readonly `unknown`[]
 
-• **args** *extends* `unknown`
+##### functionName
 
-• **chainOverride** *extends* `undefined` \| `Chain`
+`functionName` *extends* `string`
 
-• **accountOverride** *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+##### args
+
+`args` *extends* `unknown`
+
+##### chainOverride
+
+`chainOverride` *extends* `undefined` \| `Chain`
+
+##### accountOverride
+
+`accountOverride` *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
 
 #### Parameters
 
@@ -4118,7 +4359,7 @@ The RPC transport
 
 ###### debug()?
 
-> `readonly` `optional` **debug**: () => `Promise`\<\{ `blocks`: \{ `forked`: ... \| ...; `latest`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: `MiningConfig`; `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, `Filter`\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+> `readonly` `optional` **debug**: () => `Promise`\<\{ `blocks`: \{ `forked?`: ... \| ...; `latest?`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: `MiningConfig`; `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, `Filter`\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
 Returns debug information about the current node state
 including chain details, status, mode, mining config, filters,
@@ -4126,17 +4367,17 @@ blocks, mempool transactions, and state
 
 ###### Returns
 
-`Promise`\<\{ `blocks`: \{ `forked`: ... \| ...; `latest`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: `MiningConfig`; `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, `Filter`\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+`Promise`\<\{ `blocks`: \{ `forked?`: ... \| ...; `latest?`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: `MiningConfig`; `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, `Filter`\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
 ###### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>\>
+> `readonly` **deepCopy**: () => `Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>\>
 
 Copies the current client state into a new client
 
 ###### Returns
 
-`Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>\>
+`Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>\>
 
 ###### extend()
 
@@ -4147,7 +4388,9 @@ and extensibility
 
 ###### Type Parameters
 
-• **TExtension** *extends* `Record`\<`string`, `any`\>
+###### TExtension
+
+`TExtension` *extends* `Record`\<`string`, `any`\>
 
 ###### Parameters
 
@@ -4340,6 +4583,8 @@ Returns status of the client
 ###### Type declaration
 
 ###### emit()
+
+> **emit**(`eventName`, ...`args`): `boolean`
 
 Emit an event.
 
@@ -4748,9 +4993,13 @@ Watches and returns information for incoming blocks.
 
 #### Type Parameters
 
-• **includeTransactions** *extends* `boolean` = `false`
+##### includeTransactions
 
-• **blockTag** *extends* `BlockTag` = `"latest"`
+`includeTransactions` *extends* `boolean` = `false`
+
+##### blockTag
+
+`blockTag` *extends* `BlockTag` = `"latest"`
 
 #### Parameters
 
@@ -4791,11 +5040,17 @@ Watches and returns emitted contract event logs.
 
 #### Type Parameters
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+##### abi
 
-• **eventName** *extends* `string`
+`abi` *extends* `Abi` \| readonly `unknown`[]
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### eventName
+
+`eventName` *extends* `string`
+
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
 
 #### Parameters
 
@@ -4852,11 +5107,17 @@ Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#eve
 
 #### Type Parameters
 
-• **abiEvent** *extends* `undefined` \| `AbiEvent` = `undefined`
+##### abiEvent
 
-• **abiEvents** *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvent` *extends* `undefined` \| `AbiEvent` = `undefined`
 
-• **strict** *extends* `undefined` \| `boolean` = `undefined`
+##### abiEvents
+
+`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+
+##### strict
+
+`strict` *extends* `undefined` \| `boolean` = `undefined`
 
 #### Parameters
 
@@ -4956,13 +5217,21 @@ __Warning: The `write` internally sends a transaction – it does not validate i
 
 #### Type Parameters
 
-• **abi** *extends* `Abi` \| readonly `unknown`[]
+##### abi
 
-• **functionName** *extends* `string`
+`abi` *extends* `Abi` \| readonly `unknown`[]
 
-• **args** *extends* `unknown`
+##### functionName
 
-• **chainOverride** *extends* `undefined` \| `Chain` = `undefined`
+`functionName` *extends* `string`
+
+##### args
+
+`args` *extends* `unknown`
+
+##### chainOverride
+
+`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
 
 #### Parameters
 

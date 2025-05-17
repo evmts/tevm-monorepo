@@ -6,7 +6,7 @@
 
 # Function: mineHandler()
 
-> **mineHandler**(`client`, `options`?): [`MineHandler`](../type-aliases/MineHandler.md)
+> **mineHandler**(`client`, `options?`): [`MineHandler`](../type-aliases/MineHandler.md)
 
 Defined in: [packages/actions/src/Mine/mineHandler.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/mineHandler.js#L16)
 
@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/Mine/mineHandler.js:16](https://github.com/evm
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### options?
 

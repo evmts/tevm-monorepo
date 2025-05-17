@@ -6,7 +6,7 @@
 
 # Function: callHandler()
 
-> **callHandler**(`client`, `options`?): [`CallHandler`](../type-aliases/CallHandler.md)
+> **callHandler**(`client`, `options?`): [`CallHandler`](../type-aliases/CallHandler.md)
 
 Defined in: [packages/actions/src/Call/callHandler.js:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandler.js#L57)
 
@@ -20,7 +20,7 @@ Note: This is the internal logic used by higher-level APIs such as `tevmCall`.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 The TEVM base client instance.
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthUninstallFilterJsonRpcProcedure()
 
-> **EthUninstallFilterJsonRpcProcedure**: (`request`) => `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
+> **EthUninstallFilterJsonRpcProcedure** = (`request`) => `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:40
 

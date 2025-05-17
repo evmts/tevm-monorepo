@@ -13,9 +13,9 @@ Provides methods for storing, retrieving, and searching transaction receipts and
 
 ## Constructors
 
-### new ReceiptsManager()
+### Constructor
 
-> **new ReceiptsManager**(`mapDb`, `chain`): [`ReceiptsManager`](ReceiptsManager.md)
+> **new ReceiptsManager**(`mapDb`, `chain`): `ReceiptsManager`
 
 Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:136
 
@@ -37,7 +37,7 @@ The blockchain instance for retrieving blocks
 
 #### Returns
 
-[`ReceiptsManager`](ReceiptsManager.md)
+`ReceiptsManager`
 
 ## Properties
 
@@ -92,7 +92,7 @@ Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:129
 
 ### deepCopy()
 
-> **deepCopy**(`chain`): [`ReceiptsManager`](ReceiptsManager.md)
+> **deepCopy**(`chain`): `ReceiptsManager`
 
 Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:159
 
@@ -109,7 +109,7 @@ The new chain reference to use
 
 #### Returns
 
-[`ReceiptsManager`](ReceiptsManager.md)
+`ReceiptsManager`
 
 A new ReceiptsManager instance with copied state
 
@@ -149,7 +149,7 @@ await receiptManager.deleteReceipts(block)
 
 ### getLogs()
 
-> **getLogs**(`from`, `to`, `addresses`?, `topics`?): `Promise`\<`GetLogsReturn`\>
+> **getLogs**(`from`, `to`, `addresses?`, `topics?`): `Promise`\<`GetLogsReturn`\>
 
 Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:239
 
@@ -243,7 +243,7 @@ if (receiptData) {
 
 #### Call Signature
 
-> **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
+> **getReceipts**(`blockHash`, `calcBloom?`, `includeTxType?`): `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
 
 Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:201
 
@@ -288,7 +288,7 @@ const receiptsWithDetails = await receiptManager.getReceipts(blockHash, true, tr
 
 #### Call Signature
 
-> **getReceipts**(`blockHash`, `calcBloom`?, `includeTxType`?): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
+> **getReceipts**(`blockHash`, `calcBloom?`, `includeTxType?`): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
 
 Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:202
 

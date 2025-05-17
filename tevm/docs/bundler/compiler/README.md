@@ -15,7 +15,7 @@
 - [ModuleInfo](type-aliases/ModuleInfo.md)
 - [ResolvedArtifacts](type-aliases/ResolvedArtifacts.md)
 
-## Functions
+## Variables
 
-- [resolveArtifacts](functions/resolveArtifacts.md)
-- [resolveArtifactsSync](functions/resolveArtifactsSync.md)
+- [resolveArtifacts](variables/resolveArtifacts.md)
+- [resolveArtifactsSync](variables/resolveArtifactsSync.md)

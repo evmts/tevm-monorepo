@@ -6,15 +6,17 @@
 
 # Type Alias: SolcDeployedBytecodeOutput
 
-> **SolcDeployedBytecodeOutput**: `object`
+> **SolcDeployedBytecodeOutput** = `object`
 
 Defined in: [solcTypes.ts:608](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L608)
 
-## Type declaration
+## Properties
 
 ### immutableReferences
 
 > **immutableReferences**: `object`
+
+Defined in: [solcTypes.ts:610](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L610)
 
 #### Index Signature
 

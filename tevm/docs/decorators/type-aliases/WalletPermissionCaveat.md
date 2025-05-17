@@ -6,22 +6,12 @@
 
 # Type Alias: WalletPermissionCaveat
 
-> **WalletPermissionCaveat**: `object`
+> **WalletPermissionCaveat** = `object`
 
 Defined in: packages/decorators/dist/index.d.ts:1487
 
 Restrictions or conditions applied to a wallet permission.
 Used in the EIP-2255 wallet permissions system to add constraints to granted permissions.
-
-## Type declaration
-
-### type
-
-> **type**: `string`
-
-### value
-
-> **value**: `any`
 
 ## Example
 
@@ -38,3 +28,19 @@ const expirationCaveat: WalletPermissionCaveat = {
   value: 1720872662291 // Unix timestamp in milliseconds
 }
 ```
+
+## Properties
+
+### type
+
+> **type**: `string`
+
+Defined in: packages/decorators/dist/index.d.ts:1488
+
+***
+
+### value
+
+> **value**: `any`
+
+Defined in: packages/decorators/dist/index.d.ts:1489

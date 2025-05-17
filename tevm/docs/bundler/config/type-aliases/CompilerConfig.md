@@ -6,6 +6,6 @@
 
 # Type Alias: CompilerConfig
 
-> **CompilerConfig**: `CompilerConfig`
+> **CompilerConfig** = `CompilerConfig`
 
 Defined in: bundler-packages/config/types/index.d.ts:4

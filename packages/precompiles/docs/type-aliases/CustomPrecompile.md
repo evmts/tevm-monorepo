@@ -6,7 +6,7 @@
 
 # Type Alias: CustomPrecompile
 
-> **CustomPrecompile**: `Exclude`\<`Exclude`\<[`ConstructorArgument`](ConstructorArgument.md)\<`Evm`\>, `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
+> **CustomPrecompile** = `Exclude`\<`Exclude`\<[`ConstructorArgument`](ConstructorArgument.md)\<`Evm`\>, `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
 
 Defined in: [CustomPrecompile.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/precompiles/src/CustomPrecompile.ts#L13)
 

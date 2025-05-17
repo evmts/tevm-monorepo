@@ -6,14 +6,16 @@
 
 # Type Alias: JsonRpcClient
 
-> **JsonRpcClient**: `object`
+> **JsonRpcClient** = `object`
 
 Defined in: packages/jsonrpc/types/JsonRpcClient.d.ts:5
 
 A client for making JsonRpc requests over http
 
-## Type declaration
+## Properties
 
 ### request
 
 > **request**: [`JsonRpcProcedure`](JsonRpcProcedure.md)\<`string`, `unknown`, `unknown`, `string` \| `number`\>
+
+Defined in: packages/jsonrpc/types/JsonRpcClient.d.ts:6

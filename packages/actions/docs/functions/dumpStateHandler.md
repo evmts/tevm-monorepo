@@ -6,7 +6,7 @@
 
 # Function: dumpStateHandler()
 
-> **dumpStateHandler**(`client`, `options`?): [`DumpStateHandler`](../type-aliases/DumpStateHandler.md)
+> **dumpStateHandler**(`client`, `options?`): [`DumpStateHandler`](../type-aliases/DumpStateHandler.md)
 
 Defined in: [packages/actions/src/DumpState/dumpStateHandler.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/dumpStateHandler.js#L32)
 
@@ -16,7 +16,7 @@ Creates a handler for dumping the TEVM state.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 The TEVM client instance.
 

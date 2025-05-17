@@ -18,7 +18,7 @@ Defined in: [packages/blockchain/src/actions/getCanonicalHeadBlock.js:7](https:/
 
 ## Returns
 
-`Function`
+> (): `Promise`\<`Block`\>
 
 Returns the latest full block in the canonical chain.
 

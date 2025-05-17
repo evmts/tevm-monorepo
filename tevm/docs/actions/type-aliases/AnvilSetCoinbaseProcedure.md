@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetCoinbaseProcedure()
 
-> **AnvilSetCoinbaseProcedure**: (`request`) => `Promise`\<[`AnvilSetCoinbaseJsonRpcResponse`](AnvilSetCoinbaseJsonRpcResponse.md)\>
+> **AnvilSetCoinbaseProcedure** = (`request`) => `Promise`\<[`AnvilSetCoinbaseJsonRpcResponse`](AnvilSetCoinbaseJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:3
 

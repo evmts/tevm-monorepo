@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBlockByHashHandler()
 
-> **EthGetBlockByHashHandler**: (`request`) => `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
+> **EthGetBlockByHashHandler** = (`request`) => `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:12
 

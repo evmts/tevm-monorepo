@@ -18,7 +18,7 @@ Defined in: packages/blockchain/types/actions/deepCopy.d.ts:1
 
 ## Returns
 
-`Function`
+> (): `Promise`\<`BaseChain`\>
 
 ### Returns
 

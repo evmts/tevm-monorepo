@@ -6,7 +6,7 @@
 
 # Function: getContractCode()
 
-> **getContractCode**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+> **getContractCode**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 Defined in: [packages/state/src/actions/getContractCode.js:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getContractCode.js#L20)
 
@@ -31,7 +31,7 @@ When running in fork mode:
 
 ## Returns
 
-`Function`
+> (`address`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 ### Parameters
 

@@ -19,9 +19,9 @@ witness access
 
 ## Constructors
 
-### new EthjsAccount()
+### Constructor
 
-> **new EthjsAccount**(`nonce`?, `balance`?, `storageRoot`?, `codeHash`?, `codeSize`?, `version`?): [`EthjsAccount`](EthjsAccount.md)
+> **new EthjsAccount**(`nonce?`, `balance?`, `storageRoot?`, `codeHash?`, `codeSize?`, `version?`): `Account`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:56
 
@@ -57,7 +57,7 @@ undefined get assigned with the defaults present, but null args are retained as 
 
 #### Returns
 
-[`EthjsAccount`](EthjsAccount.md)
+`Account`
 
 ## Properties
 
@@ -361,7 +361,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 ### fromAccountData()
 
-> `static` **fromAccountData**(`accountData`): [`EthjsAccount`](EthjsAccount.md)
+> `static` **fromAccountData**(`accountData`): `Account`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:46
 
@@ -373,13 +373,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Returns
 
-[`EthjsAccount`](EthjsAccount.md)
+`Account`
 
 ***
 
 ### fromPartialAccountData()
 
-> `static` **fromPartialAccountData**(`partialAccountData`): [`EthjsAccount`](EthjsAccount.md)
+> `static` **fromPartialAccountData**(`partialAccountData`): `Account`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:47
 
@@ -391,13 +391,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Returns
 
-[`EthjsAccount`](EthjsAccount.md)
+`Account`
 
 ***
 
 ### fromRlpSerializedAccount()
 
-> `static` **fromRlpSerializedAccount**(`serialized`): [`EthjsAccount`](EthjsAccount.md)
+> `static` **fromRlpSerializedAccount**(`serialized`): `Account`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:48
 
@@ -409,13 +409,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Returns
 
-[`EthjsAccount`](EthjsAccount.md)
+`Account`
 
 ***
 
 ### fromRlpSerializedPartialAccount()
 
-> `static` **fromRlpSerializedPartialAccount**(`serialized`): [`EthjsAccount`](EthjsAccount.md)
+> `static` **fromRlpSerializedPartialAccount**(`serialized`): `Account`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:49
 
@@ -427,13 +427,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Returns
 
-[`EthjsAccount`](EthjsAccount.md)
+`Account`
 
 ***
 
 ### fromValuesArray()
 
-> `static` **fromValuesArray**(`values`): [`EthjsAccount`](EthjsAccount.md)
+> `static` **fromValuesArray**(`values`): `Account`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/account.d.ts:50
 
@@ -445,4 +445,4 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 #### Returns
 
-[`EthjsAccount`](EthjsAccount.md)
+`Account`

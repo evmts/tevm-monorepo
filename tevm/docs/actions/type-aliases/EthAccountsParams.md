@@ -6,7 +6,7 @@
 
 # Type Alias: EthAccountsParams
 
-> **EthAccountsParams**: [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
+> **EthAccountsParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:6
 

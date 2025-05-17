@@ -16,7 +16,7 @@ Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests w
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

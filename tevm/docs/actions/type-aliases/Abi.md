@@ -6,7 +6,7 @@
 
 # Type Alias: Abi
 
-> **Abi**: [`Abi`](../../index/type-aliases/Abi.md)
+> **Abi** = [`Abi`](../../index/type-aliases/Abi.md)
 
 Defined in: packages/actions/types/common/Abi.d.ts:5
 

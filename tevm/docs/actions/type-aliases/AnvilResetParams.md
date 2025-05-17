@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilResetParams
 
-> **AnvilResetParams**: `object`
+> **AnvilResetParams** = `object`
 
 Defined in: packages/actions/types/anvil/AnvilParams.d.ts:47
 

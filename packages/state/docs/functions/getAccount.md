@@ -6,7 +6,7 @@
 
 # Function: getAccount()
 
-> **getAccount**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`undefined` \| `Account`\>
+> **getAccount**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`undefined` \| `Account`\>
 
 Defined in: [packages/state/src/actions/getAccount.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L16)
 
@@ -31,7 +31,7 @@ When running in fork mode:
 
 ## Returns
 
-`Function`
+> (`address`): `Promise`\<`undefined` \| `Account`\>
 
 ### Parameters
 

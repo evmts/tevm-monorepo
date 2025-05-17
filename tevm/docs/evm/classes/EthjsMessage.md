@@ -10,9 +10,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/
 
 ## Constructors
 
-### new EthjsMessage()
+### Constructor
 
-> **new EthjsMessage**(`opts`): [`EthjsMessage`](EthjsMessage.md)
+> **new EthjsMessage**(`opts`): `Message`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:65
 
@@ -24,7 +24,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/
 
 #### Returns
 
-[`EthjsMessage`](EthjsMessage.md)
+`Message`
 
 ## Properties
 

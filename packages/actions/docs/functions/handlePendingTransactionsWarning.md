@@ -16,7 +16,7 @@ Handles warning for pending transactions in the transaction pool.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 The TEVM base client instance.
 

@@ -14,9 +14,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 ## Constructors
 
-### new StorageCache()
+### Constructor
 
-> **new StorageCache**(`opts`): [`StorageCache`](StorageCache.md)
+> **new StorageCache**(`opts`): `StorageCache`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:26
 
@@ -28,7 +28,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 #### Returns
 
-[`StorageCache`](StorageCache.md)
+`StorageCache`
 
 #### Overrides
 
@@ -370,7 +370,7 @@ Returns the size of the cache
 
 ### stats()
 
-> **stats**(`reset`?): `object`
+> **stats**(`reset?`): `object`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/storage.d.ts:82
 

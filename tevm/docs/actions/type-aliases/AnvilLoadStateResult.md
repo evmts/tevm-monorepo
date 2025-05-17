@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilLoadStateResult
 
-> **AnvilLoadStateResult**: `null`
+> **AnvilLoadStateResult** = `null`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:14

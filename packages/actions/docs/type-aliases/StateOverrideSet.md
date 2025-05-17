@@ -6,7 +6,7 @@
 
 # Type Alias: StateOverrideSet
 
-> **StateOverrideSet**: `object`
+> **StateOverrideSet** = `object`
 
 Defined in: [packages/actions/src/common/StateOverrideSet.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/StateOverrideSet.ts#L29)
 

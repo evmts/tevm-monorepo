@@ -18,7 +18,7 @@ Defined in: packages/state/dist/index.d.ts:397
 
 ## Returns
 
-`Function`
+> (`address`): `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
 ### Parameters
 

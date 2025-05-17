@@ -6,7 +6,7 @@
 
 # Type Alias: Common
 
-> **Common**: `Prettify`\<`ViemChain` & `object`\>
+> **Common** = `Prettify`\<`ViemChain` & `object`\>
 
 Defined in: [packages/common/src/Common.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/Common.ts#L27)
 

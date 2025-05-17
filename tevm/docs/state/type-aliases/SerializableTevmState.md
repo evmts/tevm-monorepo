@@ -6,7 +6,7 @@
 
 # Type Alias: SerializableTevmState
 
-> **SerializableTevmState**: `object`
+> **SerializableTevmState** = `object`
 
 Defined in: packages/state/dist/index.d.ts:116
 

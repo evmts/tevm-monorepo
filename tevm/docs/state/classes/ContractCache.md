@@ -13,9 +13,9 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 ## Constructors
 
-### new ContractCache()
+### Constructor
 
-> **new ContractCache**(`storageCache`?): [`ContractCache`](ContractCache.md)
+> **new ContractCache**(`storageCache?`): `ContractCache`
 
 Defined in: packages/state/dist/index.d.ts:131
 
@@ -27,7 +27,7 @@ Defined in: packages/state/dist/index.d.ts:131
 
 #### Returns
 
-[`ContractCache`](ContractCache.md)
+`ContractCache`
 
 ## Properties
 

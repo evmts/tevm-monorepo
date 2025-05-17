@@ -6,7 +6,7 @@
 
 # Function: callHandler()
 
-> **callHandler**(`client`, `__namedParameters`?): [`CallHandler`](../type-aliases/CallHandler.md)
+> **callHandler**(`client`, `__namedParameters?`): [`CallHandler`](../type-aliases/CallHandler.md)
 
 Defined in: packages/actions/types/Call/callHandler.d.ts:1
 
@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Call/callHandler.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### \_\_namedParameters?
 

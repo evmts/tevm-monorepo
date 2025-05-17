@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetNonceProcedure()
 
-> **AnvilSetNonceProcedure**: (`request`) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
+> **AnvilSetNonceProcedure** = (`request`) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:43
 

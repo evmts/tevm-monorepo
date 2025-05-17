@@ -6,7 +6,7 @@
 
 # Function: originalStorageCache()
 
-> **originalStorageCache**(`baseState`, `skipFetchingFromFork`?): `object`
+> **originalStorageCache**(`baseState`, `skipFetchingFromFork?`): `object`
 
 Defined in: [packages/state/src/actions/originalStorageCache.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/originalStorageCache.js#L9)
 
@@ -29,11 +29,15 @@ last call to checkpoint.
 
 ### clear()
 
+> **clear**(): `void`
+
 #### Returns
 
 `void`
 
 ### get()
+
+> **get**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 #### Parameters
 

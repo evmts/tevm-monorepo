@@ -6,7 +6,7 @@
 
 # Type Alias: EthEstimateGasJsonRpcResponse
 
-> **EthEstimateGasJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_estimateGas"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
+> **EthEstimateGasJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_estimateGas"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:32
 

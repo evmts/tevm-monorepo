@@ -6,6 +6,6 @@
 
 # bundler/vite-plugin
 
-## Functions
+## Variables
 
-- [vitePluginTevm](functions/vitePluginTevm.md)
+- [vitePluginTevm](variables/vitePluginTevm.md)

@@ -6,7 +6,7 @@
 
 # Function: bundler()
 
-> **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage`?): `object`
+> **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage?`): `object`
 
 Defined in: [bundler.js:89](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/base-bundler/src/bundler.js#L89)
 
@@ -61,8 +61,6 @@ Optional contract package name
 `"tevm/contract"` | `"@tevm/contract"`
 
 ## Returns
-
-`object`
 
 A bundler instance with methods for resolving Solidity modules
 

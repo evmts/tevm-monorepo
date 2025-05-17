@@ -6,6 +6,6 @@
 
 # Type Alias: ValidateGetAccountParamsError
 
-> **ValidateGetAccountParamsError**: [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
+> **ValidateGetAccountParamsError** = [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
 
 Defined in: packages/actions/types/GetAccount/validateGetAccountParams.d.ts:2

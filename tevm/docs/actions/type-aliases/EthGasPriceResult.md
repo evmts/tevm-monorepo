@@ -6,7 +6,7 @@
 
 # Type Alias: EthGasPriceResult
 
-> **EthGasPriceResult**: `bigint`
+> **EthGasPriceResult** = `bigint`
 
 Defined in: packages/actions/types/eth/EthResult.d.ts:39
 

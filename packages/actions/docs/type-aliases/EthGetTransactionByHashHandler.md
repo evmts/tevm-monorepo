@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByHashHandler()
 
-> **EthGetTransactionByHashHandler**: (`request`) => `Promise`\<[`EthGetTransactionByHashResult`](EthGetTransactionByHashResult.md)\>
+> **EthGetTransactionByHashHandler** = (`request`) => `Promise`\<[`EthGetTransactionByHashResult`](EthGetTransactionByHashResult.md)\>
 
 Defined in: [packages/actions/src/eth/EthHandler.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L135)
 

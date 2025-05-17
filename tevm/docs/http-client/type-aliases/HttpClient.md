@@ -6,7 +6,7 @@
 
 # Type Alias: ~~HttpClient~~
 
-> **HttpClient**: [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
+> **HttpClient** = [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
 
 Defined in: packages/http-client/types/HttpClient.d.ts:5
 

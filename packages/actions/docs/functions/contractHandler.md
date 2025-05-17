@@ -6,7 +6,7 @@
 
 # Function: contractHandler()
 
-> **contractHandler**(`client`, `options`?): [`ContractHandler`](../type-aliases/ContractHandler.md)
+> **contractHandler**(`client`, `options?`): [`ContractHandler`](../type-aliases/ContractHandler.md)
 
 Defined in: [packages/actions/src/Contract/contractHandler.js:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L38)
 
@@ -19,7 +19,7 @@ Note: This is the internal logic used by higher-level APIs such as `tevmContract
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 The TEVM base client instance.
 

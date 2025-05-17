@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/ethSendRawTransactionHandler.js:79](https:
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

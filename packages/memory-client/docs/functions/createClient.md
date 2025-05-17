@@ -12,13 +12,21 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 
 ## Type Parameters
 
-• **transport** *extends* `Transport`
+### transport
 
-• **chain** *extends* `undefined` \| `Chain` = `undefined`
+`transport` *extends* `Transport`
 
-• **accountOrAddress** *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+### chain
 
-• **rpcSchema** *extends* `undefined` \| `RpcSchema` = `undefined`
+`chain` *extends* `undefined` \| `Chain` = `undefined`
+
+### accountOrAddress
+
+`accountOrAddress` *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+
+### rpcSchema
+
+`rpcSchema` *extends* `undefined` \| `RpcSchema` = `undefined`
 
 ## Parameters
 
@@ -27,8 +35,6 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 `ClientConfig`\<`transport`, `chain`, `accountOrAddress`, `rpcSchema`\>
 
 ## Returns
-
-`object`
 
 ### account
 
@@ -44,7 +50,7 @@ Flags for batch settings.
 
 #### batch.multicall?
 
-> `optional` **multicall**: `boolean` \| \{ `batchSize`: `number`; `wait`: `number`; \}
+> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `wait?`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
@@ -52,7 +58,7 @@ Toggle to enable `eth_call` multicall aggregation.
 
 `boolean`
 
-\{ `batchSize`: `number`; `wait`: `number`; \}
+\{ `batchSize?`: `number`; `wait?`: `number`; \}
 
 ### cacheTime
 
@@ -62,7 +68,7 @@ Time (in ms) that cached data will remain in memory.
 
 ### ccipRead?
 
-> `optional` **ccipRead**: `false` \| \{ `request`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
+> `optional` **ccipRead**: `false` \| \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
@@ -70,7 +76,7 @@ Time (in ms) that cached data will remain in memory.
 
 `false`
 
-\{ `request`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
+\{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
 ### chain
 
@@ -84,7 +90,9 @@ Chain for the client.
 
 #### Type Parameters
 
-• **client** *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`transport`, `chain`, `accountOrAddress` *extends* `` `0x${string}` `` ? `object` : `accountOrAddress`\>\>
+##### client
+
+`client` *extends* `object` & `ExactPartial`\<`ExtendableProtectedActions`\<`transport`, `chain`, `accountOrAddress` *extends* `` `0x${string}` `` ? `object` : `accountOrAddress`\>\>
 
 #### Parameters
 
@@ -116,7 +124,7 @@ Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 millis
 
 ### request
 
-> **request**: `EIP1193RequestFn`\<`rpcSchema` *extends* `undefined` ? \[\{ `Method`: `"web3_clientVersion"`; `Parameters`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\] : `rpcSchema`\>
+> **request**: `EIP1193RequestFn`\<`rpcSchema` *extends* `undefined` ? \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\] : `rpcSchema`\>
 
 Request function wrapped with friendly error handling
 

@@ -6,6 +6,6 @@
 
 # Type Alias: Tevm
 
-> **Tevm**: [`MemoryClient`](../../index/type-aliases/MemoryClient.md)\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]
+> **Tevm** = [`MemoryClient`](../../index/type-aliases/MemoryClient.md)\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]
 
 Defined in: packages/server/types/Client.d.ts:2

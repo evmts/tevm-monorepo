@@ -6,7 +6,7 @@
 
 # Type Alias: EthCoinbaseHandler()
 
-> **EthCoinbaseHandler**: (`request`) => `Promise`\<[`EthCoinbaseResult`](EthCoinbaseResult.md)\>
+> **EthCoinbaseHandler** = (`request`) => `Promise`\<[`EthCoinbaseResult`](EthCoinbaseResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:7
 

@@ -12,11 +12,17 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 
 ## Type Parameters
 
-• **abi** *extends* readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md)
+### abi
 
-• **functionName** *extends* `undefined` \| `string` = `undefined`
+`abi` *extends* readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md)
 
-• **args** *extends* `unknown` = `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` *extends* [`ContractFunctionName`](../type-aliases/ContractFunctionName.md)\<`abi`\> ? `functionName`\<`functionName`\> : [`ContractFunctionName`](../type-aliases/ContractFunctionName.md)\<`abi`\>\>
+### functionName
+
+`functionName` *extends* `undefined` \| `string` = `undefined`
+
+### args
+
+`args` *extends* `unknown` = `ContractFunctionArgs`\<`abi`, `AbiStateMutability`, `functionName` *extends* [`ContractFunctionName`](../type-aliases/ContractFunctionName.md)\<`abi`\> ? `functionName`\<`functionName`\> : [`ContractFunctionName`](../type-aliases/ContractFunctionName.md)\<`abi`\>\>
 
 ## Parameters
 

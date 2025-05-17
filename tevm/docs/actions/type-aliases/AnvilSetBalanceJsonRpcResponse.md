@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetBalanceJsonRpcResponse
 
-> **AnvilSetBalanceJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setBalance"`, `SerializeToJson`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>, `AnvilError`\>
+> **AnvilSetBalanceJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setBalance"`, `SerializeToJson`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>, `AnvilError`\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:41
 

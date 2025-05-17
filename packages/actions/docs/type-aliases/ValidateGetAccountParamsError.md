@@ -6,7 +6,7 @@
 
 # Type Alias: ValidateGetAccountParamsError
 
-> **ValidateGetAccountParamsError**\<\>: `InvalidRequestError`
+> **ValidateGetAccountParamsError**\<\> = `InvalidRequestError`
 
 Defined in: [packages/actions/src/GetAccount/validateGetAccountParams.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/validateGetAccountParams.js#L5)
 

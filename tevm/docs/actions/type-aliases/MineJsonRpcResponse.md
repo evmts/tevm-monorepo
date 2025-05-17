@@ -6,7 +6,7 @@
 
 # Type Alias: MineJsonRpcResponse
 
-> **MineJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_mine"`, `SerializeToJson`\<[`MineResult`](../../index/type-aliases/MineResult.md)\>, [`TevmMineError`](../../index/type-aliases/TevmMineError.md)\[`"code"`\]\>
+> **MineJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_mine"`, `SerializeToJson`\<[`MineResult`](MineResult.md)\>, [`TevmMineError`](TevmMineError.md)\[`"code"`\]\>
 
 Defined in: packages/actions/types/Mine/MineJsonRpcResponse.d.ts:8
 

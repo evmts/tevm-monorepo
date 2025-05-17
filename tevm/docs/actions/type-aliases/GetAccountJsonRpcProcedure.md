@@ -6,7 +6,7 @@
 
 # Type Alias: GetAccountJsonRpcProcedure()
 
-> **GetAccountJsonRpcProcedure**: (`request`) => `Promise`\<[`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)\>
+> **GetAccountJsonRpcProcedure** = (`request`) => `Promise`\<[`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/GetAccount/GetAccountJsonRpcProcedure.d.ts:6
 

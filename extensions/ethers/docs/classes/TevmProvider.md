@@ -116,9 +116,9 @@ console.log(await provider.send('tevm_getAccount', {
 
 ## Constructors
 
-### new TevmProvider()
+### Constructor
 
-> **new TevmProvider**(`client`): [`TevmProvider`](TevmProvider.md)
+> **new TevmProvider**(`client`): `TevmProvider`
 
 Defined in: [extensions/ethers/src/TevmProvider.js:173](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L173)
 
@@ -132,7 +132,7 @@ An instance of a tevm Memory client or TevmNode with TevmSendApi
 
 #### Returns
 
-[`TevmProvider`](TevmProvider.md)
+`TevmProvider`
 
 #### Overrides
 
@@ -490,7 +490,7 @@ Returns or resolves to the address for %%address%%, resolving ENS
 
 ### \_getBlockTag()
 
-> **\_getBlockTag**(`blockTag`?): `string` \| `Promise`\<`string`\>
+> **\_getBlockTag**(`blockTag?`): `string` \| `Promise`\<`string`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:337
 
@@ -551,7 +551,9 @@ Returns the value associated with the option %%key%%.
 
 #### Type Parameters
 
-• **K** *extends* keyof `JsonRpcApiProviderOptions`
+##### K
+
+`K` *extends* keyof `JsonRpcApiProviderOptions`
 
 #### Parameters
 
@@ -731,7 +733,7 @@ Sends a JSON-RPC %%payload%% (or a batch) to the underlying tevm instance.
 
 ### \_setTimeout()
 
-> **\_setTimeout**(`_func`, `timeout`?): `number`
+> **\_setTimeout**(`_func`, `timeout?`): `number`
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:383
 
@@ -926,7 +928,7 @@ Provides the opportunity for a sub-class to wrap a transaction
 
 ### addListener()
 
-> **addListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **addListener**(`event`, `listener`): `Promise`\<`TevmProvider`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:410
 
@@ -944,7 +946,7 @@ Alias for [[on]].
 
 #### Returns
 
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+`Promise`\<`TevmProvider`\>
 
 #### Inherited from
 
@@ -1156,7 +1158,7 @@ Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@
 
 ### getBalance()
 
-> **getBalance**(`address`, `blockTag`?): `Promise`\<`bigint`\>
+> **getBalance**(`address`, `blockTag?`): `Promise`\<`bigint`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:354
 
@@ -1191,7 +1193,7 @@ On nodes without archive access enabled, the %%blockTag%% may be
 
 ### getBlock()
 
-> **getBlock**(`block`, `prefetchTxs`?): `Promise`\<`null` \| `Block`\>
+> **getBlock**(`block`, `prefetchTxs?`): `Promise`\<`null` \| `Block`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:359
 
@@ -1242,7 +1244,7 @@ Get the current block number.
 
 ### getCode()
 
-> **getCode**(`address`, `blockTag`?): `Promise`\<`string`\>
+> **getCode**(`address`, `blockTag?`): `Promise`\<`string`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:356
 
@@ -1343,7 +1345,9 @@ Get a plugin by name.
 
 #### Type Parameters
 
-• **T** *extends* `AbstractProviderPlugin` = `AbstractProviderPlugin`
+##### T
+
+`T` *extends* `AbstractProviderPlugin` = `AbstractProviderPlugin`
 
 #### Parameters
 
@@ -1467,7 +1471,7 @@ Returns %%tx%% as a normalized JSON-RPC transaction request,
 
 ### getSigner()
 
-> **getSigner**(`address`?): `Promise`\<`JsonRpcSigner`\>
+> **getSigner**(`address?`): `Promise`\<`JsonRpcSigner`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/provider-jsonrpc.d.ts:318
 
@@ -1500,7 +1504,7 @@ Resolves to the [[Signer]] account for  %%address%% managed by
 
 ### getStorage()
 
-> **getStorage**(`address`, `_position`, `blockTag`?): `Promise`\<`string`\>
+> **getStorage**(`address`, `_position`, `blockTag?`): `Promise`\<`string`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:357
 
@@ -1564,7 +1568,7 @@ Resolves to the transaction for %%hash%%.
 
 ### getTransactionCount()
 
-> **getTransactionCount**(`address`, `blockTag`?): `Promise`\<`number`\>
+> **getTransactionCount**(`address`, `blockTag?`): `Promise`\<`number`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:355
 
@@ -1672,7 +1676,7 @@ Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@
 
 ### listenerCount()
 
-> **listenerCount**(`event`?): `Promise`\<`number`\>
+> **listenerCount**(`event?`): `Promise`\<`number`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:406
 
@@ -1696,7 +1700,7 @@ Resolves to the number of listeners for %%event%%.
 
 ### listeners()
 
-> **listeners**(`event`?): `Promise`\<`Listener`[]\>
+> **listeners**(`event?`): `Promise`\<`Listener`[]\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:407
 
@@ -1748,7 +1752,7 @@ Resolves to the ENS name associated for the %%address%% or
 
 ### off()
 
-> **off**(`event`, `listener`?): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **off**(`event`, `listener?`): `Promise`\<`TevmProvider`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:408
 
@@ -1767,7 +1771,7 @@ Unregister the %%listener%% for %%event%%. If %%listener%%
 
 #### Returns
 
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+`Promise`\<`TevmProvider`\>
 
 #### Inherited from
 
@@ -1777,7 +1781,7 @@ Unregister the %%listener%% for %%event%%. If %%listener%%
 
 ### on()
 
-> **on**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **on**(`event`, `listener`): `Promise`\<`TevmProvider`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:403
 
@@ -1796,7 +1800,7 @@ Registers a %%listener%% that is called whenever the
 
 #### Returns
 
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+`Promise`\<`TevmProvider`\>
 
 #### Inherited from
 
@@ -1806,7 +1810,7 @@ Registers a %%listener%% that is called whenever the
 
 ### once()
 
-> **once**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **once**(`event`, `listener`): `Promise`\<`TevmProvider`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:404
 
@@ -1825,7 +1829,7 @@ Registers a %%listener%% that is called the next time
 
 #### Returns
 
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+`Promise`\<`TevmProvider`\>
 
 #### Inherited from
 
@@ -1835,7 +1839,7 @@ Registers a %%listener%% that is called the next time
 
 ### pause()
 
-> **pause**(`dropWhilePaused`?): `void`
+> **pause**(`dropWhilePaused?`): `void`
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:445
 
@@ -1861,7 +1865,7 @@ Pause the provider. If %%dropWhilePaused%%, any events that occur
 
 ### removeAllListeners()
 
-> **removeAllListeners**(`event`?): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **removeAllListeners**(`event?`): `Promise`\<`TevmProvider`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:409
 
@@ -1875,7 +1879,7 @@ Unregister all listeners for %%event%%.
 
 #### Returns
 
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+`Promise`\<`TevmProvider`\>
 
 #### Inherited from
 
@@ -1885,7 +1889,7 @@ Unregister all listeners for %%event%%.
 
 ### removeListener()
 
-> **removeListener**(`event`, `listener`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> **removeListener**(`event`, `listener`): `Promise`\<`TevmProvider`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:411
 
@@ -1903,7 +1907,7 @@ Alias for [[off]].
 
 #### Returns
 
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+`Promise`\<`TevmProvider`\>
 
 #### Inherited from
 
@@ -1994,7 +1998,7 @@ Requests the %%method%% with %%params%% via the JSON-RPC protocol
 
 ### waitForBlock()
 
-> **waitForBlock**(`blockTag`?): `Promise`\<`Block`\>
+> **waitForBlock**(`blockTag?`): `Promise`\<`Block`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:370
 
@@ -2021,7 +2025,7 @@ Resolves to the block at %%blockTag%% once it has been mined.
 
 ### waitForTransaction()
 
-> **waitForTransaction**(`hash`, `_confirms`?, `timeout`?): `Promise`\<`null` \| `TransactionReceipt`\>
+> **waitForTransaction**(`hash`, `_confirms?`, `timeout?`): `Promise`\<`null` \| `TransactionReceipt`\>
 
 Defined in: node\_modules/.pnpm/ethers@6.13.5\_bufferutil@4.0.9\_utf-8-validate@5.0.10/node\_modules/ethers/lib.esm/providers/abstract-provider.d.ts:369
 
@@ -2054,7 +2058,7 @@ Waits until the transaction %%hash%% is mined and has %%confirms%%
 
 ### createMemoryProvider()
 
-> `readonly` `static` **createMemoryProvider**(`options`): `Promise`\<[`TevmProvider`](TevmProvider.md)\>
+> `readonly` `static` **createMemoryProvider**(`options`): `Promise`\<`TevmProvider`\>
 
 Defined in: [extensions/ethers/src/TevmProvider.js:124](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/TevmProvider.js#L124)
 
@@ -2064,13 +2068,13 @@ Creates a new TevmProvider instance with a TevmMemoryClient.
 
 ##### options
 
-`TevmNodeOptions`\<\{ `blockExplorers`: \{ `[key: string]`: `ChainBlockExplorer`;  `default`: `ChainBlockExplorer`; \}; `contracts`: \{ `[key: string]`: `undefined` \| `ChainContract` \| \{\};  `ensRegistry`: `ChainContract`; `ensUniversalResolver`: `ChainContract`; `multicall3`: `ChainContract`; `universalSignatureVerifier`: `ChainContract`; \}; `copy`: () => `object`; `custom`: `Record`\<`string`, `unknown`\>; `ethjsCommon`: `Common`; `fees`: `ChainFees`\<`undefined` \| `ChainFormatters`\>; `formatters`: `ChainFormatters`; `id`: `number`; `name`: `string`; `nativeCurrency`: `ChainNativeCurrency`; `rpcUrls`: \{ `[key: string]`: `ChainRpcUrls`;  `default`: `ChainRpcUrls`; \}; `serializers`: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>; `sourceId`: `number`; `testnet`: `boolean`; \}\>
+`TevmNodeOptions`\<\{ `blockExplorers?`: \{[`key`: `string`]: `ChainBlockExplorer`; `default`: `ChainBlockExplorer`; \}; `contracts?`: \{[`key`: `string`]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}; `ensRegistry?`: `ChainContract`; `ensUniversalResolver?`: `ChainContract`; `multicall3?`: `ChainContract`; `universalSignatureVerifier?`: `ChainContract`; \}; `copy`: () => `object`; `custom?`: `Record`\<`string`, `unknown`\>; `ethjsCommon`: `Common`; `fees?`: `ChainFees`\<`undefined` \| `ChainFormatters`\>; `formatters?`: `ChainFormatters`; `id`: `number`; `name`: `string`; `nativeCurrency`: `ChainNativeCurrency`; `rpcUrls`: \{[`key`: `string`]: `ChainRpcUrls`; `default`: `ChainRpcUrls`; \}; `serializers?`: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>; `sourceId?`: `number`; `testnet?`: `boolean`; \}\>
 
 Options to create a new TevmProvider.
 
 #### Returns
 
-`Promise`\<[`TevmProvider`](TevmProvider.md)\>
+`Promise`\<`TevmProvider`\>
 
 A new TevmProvider instance.
 

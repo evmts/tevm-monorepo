@@ -6,7 +6,7 @@
 
 # Type Alias: Address
 
-> **Address**: `_Address`
+> **Address** = `_Address`
 
 Defined in: [packages/actions/src/common/Address.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Address.ts#L7)
 

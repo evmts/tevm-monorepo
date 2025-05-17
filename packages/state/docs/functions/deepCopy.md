@@ -26,7 +26,7 @@ and the copied state. This is intentional and safe because:
 
 ## Returns
 
-`Function`
+> (): `Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
 
 ### Returns
 

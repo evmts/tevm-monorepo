@@ -6,7 +6,7 @@
 
 # Type Alias: UncleHeadersBytes
 
-> **UncleHeadersBytes**: `Uint8Array`[][]
+> **UncleHeadersBytes** = `Uint8Array`[][]
 
 Defined in: packages/block/types/types.d.ts:401
 

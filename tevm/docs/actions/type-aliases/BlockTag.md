@@ -6,6 +6,6 @@
 
 # Type Alias: BlockTag
 
-> **BlockTag**: `"latest"` \| `"earliest"` \| `"pending"` \| `"safe"` \| `"finalized"`
+> **BlockTag** = `"latest"` \| `"earliest"` \| `"pending"` \| `"safe"` \| `"finalized"`
 
 Defined in: packages/actions/types/common/BlockTag.d.ts:1

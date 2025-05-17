@@ -6,7 +6,7 @@
 
 # Function: contractHandler()
 
-> **contractHandler**(`client`, `__namedParameters`?): [`ContractHandler`](../type-aliases/ContractHandler.md)
+> **contractHandler**(`client`, `__namedParameters?`): [`ContractHandler`](../type-aliases/ContractHandler.md)
 
 Defined in: packages/actions/types/Contract/contractHandler.d.ts:1
 
@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Contract/contractHandler.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### \_\_namedParameters?
 

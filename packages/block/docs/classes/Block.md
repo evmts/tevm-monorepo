@@ -12,9 +12,9 @@ An object that represents the block.
 
 ## Constructors
 
-### new Block()
+### Constructor
 
-> **new Block**(`opts`, `header`?, `transactions`?, `uncleHeaders`?, `withdrawals`?, `requests`?, `executionWitness`?): [`Block`](Block.md)
+> **new Block**(`opts`, `header?`, `transactions?`, `uncleHeaders?`, `withdrawals?`, `requests?`, `executionWitness?`): `Block`
 
 Defined in: [packages/block/src/block.ts:334](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L334)
 
@@ -53,7 +53,7 @@ Use the static factory methods to assist in creating a Block object from varying
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 ## Properties
 
@@ -105,7 +105,7 @@ Collection of contracts
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 ##### contracts.ensRegistry?
 
@@ -301,7 +301,7 @@ Returns the canonical difficulty for this block.
 
 ##### parentBlock
 
-[`Block`](Block.md)
+`Block`
 
 the parent of this `Block`
 
@@ -554,7 +554,7 @@ Throws if invalid
 
 ##### parentBlock
 
-[`Block`](Block.md)
+`Block`
 
 the parent of this `Block`
 
@@ -602,7 +602,7 @@ true if the withdrawals trie root is valid, false otherwise
 
 ### fromBeaconPayloadJson()
 
-> `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
+> `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<`Block`\>
 
 Defined in: [packages/block/src/block.ts:325](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L325)
 
@@ -624,7 +624,7 @@ json of a beacon beacon fetched from beacon apis
 
 #### Returns
 
-`Promise`\<[`Block`](Block.md)\>
+`Promise`\<`Block`\>
 
 the block constructed block
 
@@ -632,7 +632,7 @@ the block constructed block
 
 ### fromBlockData()
 
-> `static` **fromBlockData**(`blockData`, `opts`): [`Block`](Block.md)
+> `static` **fromBlockData**(`blockData`, `opts`): `Block`
 
 Defined in: [packages/block/src/block.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L109)
 
@@ -650,13 +650,13 @@ Static constructor to create a block from a block data dictionary
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 ***
 
 ### fromExecutionPayload()
 
-> `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<[`Block`](Block.md)\>
+> `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<`Block`\>
 
 Defined in: [packages/block/src/block.ts:260](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L260)
 
@@ -676,7 +676,7 @@ Method to retrieve a block from an execution payload
 
 #### Returns
 
-`Promise`\<[`Block`](Block.md)\>
+`Promise`\<`Block`\>
 
 the block constructed block
 
@@ -684,7 +684,7 @@ the block constructed block
 
 ### fromRLPSerializedBlock()
 
-> `static` **fromRLPSerializedBlock**(`serialized`, `opts`): [`Block`](Block.md)
+> `static` **fromRLPSerializedBlock**(`serialized`, `opts`): `Block`
 
 Defined in: [packages/block/src/block.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L161)
 
@@ -702,13 +702,13 @@ Static constructor to create a block from a RLP-serialized block
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 ***
 
 ### fromValuesArray()
 
-> `static` **fromValuesArray**(`values`, `opts`): [`Block`](Block.md)
+> `static` **fromValuesArray**(`values`, `opts`): `Block`
 
 Defined in: [packages/block/src/block.ts:177](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L177)
 
@@ -726,13 +726,13 @@ Static constructor to create a block from an array of Bytes values
 
 #### Returns
 
-[`Block`](Block.md)
+`Block`
 
 ***
 
 ### genRequestsTrieRoot()
 
-> `static` **genRequestsTrieRoot**(`requests`, `emptyTrie`?): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+> `static` **genRequestsTrieRoot**(`requests`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 Defined in: [packages/block/src/block.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L93)
 
@@ -762,7 +762,7 @@ a 32 byte Uint8Array representing the requests trie root
 
 ### genTransactionsTrieRoot()
 
-> `static` **genTransactionsTrieRoot**(`txs`, `emptyTrie`?): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+> `static` **genTransactionsTrieRoot**(`txs`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 Defined in: [packages/block/src/block.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L79)
 
@@ -788,7 +788,7 @@ array of TypedTransaction to compute the root of
 
 ### genWithdrawalsTrieRoot()
 
-> `static` **genWithdrawalsTrieRoot**(`wts`, `emptyTrie`?): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+> `static` **genWithdrawalsTrieRoot**(`wts`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 Defined in: [packages/block/src/block.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L66)
 

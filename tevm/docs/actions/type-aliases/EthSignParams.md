@@ -6,7 +6,7 @@
 
 # Type Alias: EthSignParams
 
-> **EthSignParams**: `object`
+> **EthSignParams** = `object`
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:224
 
@@ -14,12 +14,18 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:224
 
 Based on the JSON-RPC request for `eth_sign` procedure
 
-## Type declaration
+## Properties
 
 ### address
 
 > `readonly` **address**: [`Address`](Address.md)
 
+Defined in: packages/actions/types/eth/EthParams.d.ts:225
+
+***
+
 ### data
 
 > `readonly` **data**: [`Hex`](Hex.md)
+
+Defined in: packages/actions/types/eth/EthParams.d.ts:226

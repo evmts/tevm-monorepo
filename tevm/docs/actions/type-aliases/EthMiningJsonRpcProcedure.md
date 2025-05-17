@@ -6,7 +6,7 @@
 
 # Type Alias: EthMiningJsonRpcProcedure()
 
-> **EthMiningJsonRpcProcedure**: (`request`) => `Promise`\<[`EthMiningJsonRpcResponse`](EthMiningJsonRpcResponse.md)\>
+> **EthMiningJsonRpcProcedure** = (`request`) => `Promise`\<[`EthMiningJsonRpcResponse`](EthMiningJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:30
 

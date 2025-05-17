@@ -12,7 +12,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 ### fromBlockBodyData()
 
-> `static` **fromBlockBodyData**(`data`, `txOptions`?): [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md) \| `EOACodeEIP7702Transaction`
+> `static` **fromBlockBodyData**(`data`, `txOptions?`): [`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md) \| `EOACodeEIP7702Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:34
 
@@ -43,7 +43,7 @@ The transaction options
 
 ### fromJsonRpcProvider()
 
-> `static` **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions`?): `Promise`\<[`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md) \| `EOACodeEIP7702Transaction`\>
+> `static` **fromJsonRpcProvider**(`provider`, `txHash`, `txOptions?`): `Promise`\<[`LegacyTransaction`](LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md) \| `EOACodeEIP7702Transaction`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:42
 
@@ -79,7 +79,7 @@ the transaction specified by `txHash`
 
 ### fromRPC()
 
-> `static` **fromRPC**\<`T`\>(`txData`, `txOptions`?): `Promise`\<`Transaction`\[`T`\]\>
+> `static` **fromRPC**\<`T`\>(`txData`, `txOptions?`): `Promise`\<`Transaction`\[`T`\]\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:50
 
@@ -88,7 +88,9 @@ Note that this normalizes some of the parameters
 
 #### Type Parameters
 
-• **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
+##### T
+
+`T` *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
 #### Parameters
 
@@ -112,7 +114,7 @@ The transaction options
 
 ### fromSerializedData()
 
-> `static` **fromSerializedData**\<`T`\>(`data`, `txOptions`?): `Transaction`\[`T`\]
+> `static` **fromSerializedData**\<`T`\>(`data`, `txOptions?`): `Transaction`\[`T`\]
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:24
 
@@ -120,7 +122,9 @@ This method tries to decode serialized data.
 
 #### Type Parameters
 
-• **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
+##### T
+
+`T` *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
 #### Parameters
 
@@ -144,7 +148,7 @@ The transaction options
 
 ### fromTxData()
 
-> `static` **fromTxData**\<`T`\>(`txData`, `txOptions`?): `Transaction`\[`T`\]
+> `static` **fromTxData**\<`T`\>(`txData`, `txOptions?`): `Transaction`\[`T`\]
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:17
 
@@ -152,7 +156,9 @@ Create a transaction from a `txData` object
 
 #### Type Parameters
 
-• **T** *extends* [`TransactionType`](../enumerations/TransactionType.md)
+##### T
+
+`T` *extends* [`TransactionType`](../enumerations/TransactionType.md)
 
 #### Parameters
 

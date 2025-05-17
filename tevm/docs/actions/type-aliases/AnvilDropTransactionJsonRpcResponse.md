@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilDropTransactionJsonRpcResponse
 
-> **AnvilDropTransactionJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_dropTransaction"`, `SerializeToJson`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>, `AnvilError`\>
+> **AnvilDropTransactionJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_dropTransaction"`, `SerializeToJson`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>, `AnvilError`\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:37
 

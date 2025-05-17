@@ -18,7 +18,7 @@ Defined in: packages/blockchain/types/actions/setIteratorHead.d.ts:1
 
 ## Returns
 
-`Function`
+> (`tag`, `headHash`): `Promise`\<`void`\>
 
 Set header hash of a certain `tag`.
 When calling the iterator, the iterator will start running the first child block after the header hash currently stored.

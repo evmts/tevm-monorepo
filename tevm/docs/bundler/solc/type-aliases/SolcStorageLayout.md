@@ -6,7 +6,7 @@
 
 # Type Alias: SolcStorageLayout\<T\>
 
-> **SolcStorageLayout**\<`T`\>: `object`
+> **SolcStorageLayout**\<`T`\> = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:146
 
@@ -14,13 +14,17 @@ The storage layout for a contract.
 
 ## Type Parameters
 
-• **T** *extends* [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md) = [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md)
+### T
 
-## Type declaration
+`T` *extends* [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md) = [`SolcStorageLayoutTypes`](SolcStorageLayoutTypes.md)
+
+## Properties
 
 ### storage
 
 > **storage**: [`SolcStorageLayoutItem`](SolcStorageLayoutItem.md)\<`T`\>[]
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:151
 
 The list of stored variables with relevant slot information, type and metadata.
 
@@ -28,9 +32,13 @@ The list of stored variables with relevant slot information, type and metadata.
 
 [SolcStorageLayoutItem](SolcStorageLayoutItem.md)
 
+***
+
 ### types
 
 > **types**: `T`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:156
 
 A record of all types relevant to the stored variables with additional encoding information.
 

@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilGetAutomineResult
 
-> **AnvilGetAutomineResult**: `boolean`
+> **AnvilGetAutomineResult** = `boolean`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:4

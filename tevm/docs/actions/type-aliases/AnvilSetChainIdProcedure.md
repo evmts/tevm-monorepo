@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetChainIdProcedure()
 
-> **AnvilSetChainIdProcedure**: (`request`) => `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](AnvilSetChainIdJsonRpcResponse.md)\>
+> **AnvilSetChainIdProcedure** = (`request`) => `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](AnvilSetChainIdJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:51
 

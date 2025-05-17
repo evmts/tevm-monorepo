@@ -6,7 +6,7 @@
 
 # Function: getAccountHandler()
 
-> **getAccountHandler**(`client`, `options`?): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
+> **getAccountHandler**(`client`, `options?`): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
 
 Defined in: [packages/actions/src/GetAccount/getAccountHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/getAccountHandler.js#L17)
 
@@ -16,7 +16,7 @@ Creates an GetAccountHandler for handling account params with Ethereumjs VM
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### options?
 

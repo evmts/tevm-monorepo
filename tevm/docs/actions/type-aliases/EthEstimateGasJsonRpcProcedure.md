@@ -6,7 +6,7 @@
 
 # Type Alias: EthEstimateGasJsonRpcProcedure()
 
-> **EthEstimateGasJsonRpcProcedure**: (`request`) => `Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
+> **EthEstimateGasJsonRpcProcedure** = (`request`) => `Promise`\<[`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:8
 

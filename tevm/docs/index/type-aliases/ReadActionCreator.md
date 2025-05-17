@@ -6,7 +6,7 @@
 
 # Type Alias: ReadActionCreator\<THumanReadableAbi, TAddress, TCode, TAddressArgs\>
 
-> **ReadActionCreator**\<`THumanReadableAbi`, `TAddress`, `TCode`, `TAddressArgs`\>: \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "pure" \| "view"\>\]: (args: TArgs) =\> \{ abi: \[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]; functionName: TFunctionName; humanReadableAbi: FormatAbi\<\[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]\> \} & (TCode extends undefined ? \{\} : \{ code: TCode \}) & (TArgs\["length"\] extends 0 ? \{\} : \{ args: TArgs \}) & TAddressArgs & \{ abi: \[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]; functionName: TFunctionName; humanReadableAbi: FormatAbi\<\[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]\> \} & (TCode extends undefined ? \{\} : \{ code: TCode \}) & TAddressArgs \}
+> **ReadActionCreator**\<`THumanReadableAbi`, `TAddress`, `TCode`, `TAddressArgs`\> = \{ \[TFunctionName in ExtractAbiFunctionNames\<ParseAbi\<THumanReadableAbi\>, "pure" \| "view"\>\]: (args: TArgs) =\> \{ abi: \[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]; functionName: TFunctionName; humanReadableAbi: FormatAbi\<\[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]\> \} & (TCode extends undefined ? \{\} : \{ code: TCode \}) & (TArgs\["length"\] extends 0 ? \{\} : \{ args: TArgs \}) & TAddressArgs & \{ abi: \[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]; functionName: TFunctionName; humanReadableAbi: FormatAbi\<\[ExtractAbiFunction\<ParseAbi\<THumanReadableAbi\>, TFunctionName\>\]\> \} & (TCode extends undefined ? \{\} : \{ code: TCode \}) & TAddressArgs \}
 
 Defined in: packages/contract/types/read/ReadActionCreator.d.ts:26
 
@@ -15,19 +15,27 @@ This type provides a way to create type-safe read actions for contract methods.
 
 ## Type Parameters
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+### THumanReadableAbi
+
+`THumanReadableAbi` *extends* readonly `string`[]
 
 The human-readable ABI of the contract.
 
-• **TAddress** *extends* [`Address`](Address.md) \| `undefined`
+### TAddress
+
+`TAddress` *extends* [`Address`](Address.md) \| `undefined`
 
 The address of the contract (optional).
 
-• **TCode** *extends* [`Hex`](Hex.md) \| `undefined`
+### TCode
+
+`TCode` *extends* [`Hex`](Hex.md) \| `undefined`
 
 The runtime bytecode of the contract (optional).
 
-• **TAddressArgs** = `TAddress` *extends* `undefined` ? `object` : `object`
+### TAddressArgs
+
+`TAddressArgs` = `TAddress` *extends* `undefined` ? `object` : `object`
 
 Additional arguments for the address (derived from TAddress).
 

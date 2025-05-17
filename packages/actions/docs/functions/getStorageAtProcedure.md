@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/getStorageAtProcedure.js:7](https://github
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

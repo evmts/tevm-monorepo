@@ -18,7 +18,7 @@ Defined in: packages/blockchain/types/actions/shallowCopy.d.ts:1
 
 ## Returns
 
-`Function`
+> (): `BaseChain`
 
 ### Returns
 

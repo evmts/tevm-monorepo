@@ -6,7 +6,7 @@
 
 # Function: handleTransactionCreation()
 
-> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../../index/type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
+> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors?`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash?`: `undefined`; \}\>
 
 Defined in: packages/actions/types/Call/handleTransactionCreation.d.ts:1
 
@@ -14,11 +14,11 @@ Defined in: packages/actions/types/Call/handleTransactionCreation.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 
 ### executedCall
 
@@ -30,4 +30,4 @@ Defined in: packages/actions/types/Call/handleTransactionCreation.d.ts:1
 
 ## Returns
 
-`Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../../index/type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
+`Promise`\<\{ `errors?`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash?`: `undefined`; \}\>

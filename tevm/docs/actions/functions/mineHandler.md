@@ -6,7 +6,7 @@
 
 # Function: mineHandler()
 
-> **mineHandler**(`client`, `options`?): [`MineHandler`](../../index/type-aliases/MineHandler.md)
+> **mineHandler**(`client`, `options?`): [`MineHandler`](../type-aliases/MineHandler.md)
 
 Defined in: packages/actions/types/Mine/mineHandler.d.ts:1
 
@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Mine/mineHandler.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### options?
 
@@ -24,4 +24,4 @@ Defined in: packages/actions/types/Mine/mineHandler.d.ts:1
 
 ## Returns
 
-[`MineHandler`](../../index/type-aliases/MineHandler.md)
+[`MineHandler`](../type-aliases/MineHandler.md)

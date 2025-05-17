@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetNonceJsonRpcRequest
 
-> **AnvilSetNonceJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setNonce"`, readonly \[[`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
+> **AnvilSetNonceJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setNonce"`, readonly \[[`Address`](../../index/type-aliases/Address.md), [`Hex`](../../index/type-aliases/Hex.md)\]\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:54
 
