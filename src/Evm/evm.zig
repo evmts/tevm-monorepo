@@ -1,7 +1,7 @@
 const std = @import("std");
 pub const block = @import("Block");
 pub const address = @import("Address");
-pub const frame = @import("Frame.zig");
+pub const frame = @import("frame.zig");
 const _ = @import("log_config.zig"); // Import for log configuration
 
 // Define a scoped logger for EVM-related logs
@@ -138,15 +138,16 @@ pub const Evm = struct {
     }
 
     pub fn execute(self: *Evm, input: *frame.FrameInput) !frame.FrameResult {
-        const code = self.getCode();
-        var currentFrame = try self.createFrame(input, code, 0);
+        const code = try self.getCode(input);
+        var currentFrame = try self.createFrame(input.*, code, 0);
         defer currentFrame.deinit();
 
         const result = try currentFrame.execute(self.stateManager);
 
         switch (result) {
             .Result => |frameResult| {
-                if (input == .Create or input == .Create2) {
+                // Check the tag of the union
+                if (input.* == .Create or input.* == .Create2) {
                     if (frameResult == .Call) {
                         const callResult = frameResult.Call;
                         return frame.FrameResult{ .Create = .{
@@ -157,7 +158,7 @@ pub const Evm = struct {
                             .createdAddress = null,
                         } };
                     }
-                } else if (input == .Call) {
+                } else if (input.* == .Call) {
                     if (frameResult == .Create) {
                         log.debug("Converting Create result to Call result", .{});
                         const createResult = frameResult.Create;
@@ -209,7 +210,7 @@ test "Evm.execute call" {
     var evm = Evm.init(allocator, &stateManager);
 
     // Create a simple call input
-    const input = frame.FrameInput{
+    var input = frame.FrameInput{
         .Call = .{
             .callData = &[_]u8{},
             .gasLimit = 100000,
@@ -226,7 +227,7 @@ test "Evm.execute call" {
     stateManager.mockCode = &[_]u8{0x00}; // STOP opcode
 
     // Execute the frame
-    const result = try evm.execute(input);
+    const result = try evm.execute(&input);
 
     // Verify result
     switch (result) {
@@ -248,7 +249,7 @@ test "Evm.execute create" {
     var evm = Evm.init(allocator, &stateManager);
 
     // Create a contract creation input
-    const input = frame.FrameInput{
+    var input = frame.FrameInput{
         .Create = .{
             .initCode = &[_]u8{0x00}, // Simple STOP opcode
             .gasLimit = 100000,
@@ -258,7 +259,7 @@ test "Evm.execute create" {
     };
 
     // Execute the frame
-    const result = try evm.execute(input);
+    const result = try evm.execute(&input);
 
     // Verify result
     switch (result) {
@@ -280,7 +281,7 @@ test "Evm.execute create2" {
     var evm = Evm.init(allocator, &stateManager);
 
     // Create a contract creation input with salt (CREATE2)
-    const input = frame.FrameInput{
+    var input = frame.FrameInput{
         .Create2 = .{
             .initCode = &[_]u8{0x00}, // Simple STOP opcode
             .gasLimit = 100000,
@@ -291,7 +292,7 @@ test "Evm.execute create2" {
     };
 
     // Execute the frame
-    const result = try evm.execute(input);
+    const result = try evm.execute(&input);
 
     // Verify result
     switch (result) {
