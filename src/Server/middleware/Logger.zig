@@ -3,7 +3,7 @@ const httpz = @import("httpz");
 
 const Logger = @This();
 
-pub fn init() !Logger {
+pub fn init(_: Config) !Logger {
     return .{};
 }
 
@@ -13,5 +13,7 @@ pub fn execute(_: *const Logger, req: *httpz.Request, res: *httpz.Response, exec
         const elapsed = std.time.microTimestamp() - start;
         std.debug.print("Request: {s} {s} -> Status: {d} (took {d}us)\n", .{ @tagName(req.method), req.url.path, res.status, elapsed });
     }
-    executor.next();
+    try executor.next();
 }
+
+pub const Config = struct {};
