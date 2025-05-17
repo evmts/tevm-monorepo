@@ -101,7 +101,8 @@
     "@tevm/runtime-rs-wasm32-wasi": "0.1.0",
     "@tevm/runtime-rs-win32-arm64-msvc": "0.1.0",
     "@tevm/runtime-rs-win32-ia32-msvc": "0.1.0",
-    "@tevm/primitives": "1.0.0-next.142"
+    "@tevm/primitives": "1.0.0-next.142",
+    "@tevm/zig": "0.0.1"
   },
   "changesets": [
     "add-deal-action",
@@ -545,6 +546,7 @@
     "unlucky-days-hang",
     "unlucky-nails-tan",
     "unlucky-rice-applaud",
+    "vast-kings-sink",
     "violet-foxes-tan",
     "warm-dancers-glow",
     "warm-glasses-glow",
@@ -559,6 +561,7 @@
     "wild-balloons-applaud",
     "wild-bats-complain",
     "wild-bears-look",
+    "wild-mangos-lick",
     "wild-pugs-cheat",
     "wild-spies-push",
     "wise-rabbits-visit",
