@@ -1,5 +1,7 @@
 # TEVM Zig EVM Implementation
 
+**IMPORTANT** This was just exploratory work. THe current EVM implementation is in [src/Interpreter](../Interpreter/)
+
 This directory contains the Zig implementation of the Ethereum Virtual Machine (EVM) for the TEVM project. The implementation is based on the [evmone](https://github.com/ethereum/evmone) C++ EVM implementation but rewritten in Zig to leverage Zig's memory safety, performance, and cross-compilation capabilities.
 
 ## Current Status
@@ -56,24 +58,24 @@ pub fn main() !void {
         if (leak) std.debug.print("Memory leak detected!\n", .{});
     }
     const allocator = gpa.allocator();
-    
+
     // Create EVM instance
     var vm = try evm.EVM.init(allocator);
     defer vm.deinit();
-    
+
     // Set up message and host context
     const msg = execution_state.EvmcMessage{
         .gas = 100000,
         // ... other fields
     };
     const host_ctx = execution_state.HostContext{};
-    
+
     // Simple bytecode: PUSH1 0x01, PUSH1 0x02, ADD, STOP
     const bytecode = [_]u8{ 0x60, 0x01, 0x60, 0x02, 0x01, 0x00 };
-    
+
     // Execute
     const result = try vm.execute(0, &msg, &bytecode, host_ctx);
-    
+
     // Check result
     std.debug.print("Status: {}\n", .{result.status_code});
 }
