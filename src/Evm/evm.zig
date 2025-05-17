@@ -1,7 +1,7 @@
 const std = @import("std");
 pub const block = @import("Block");
 pub const address = @import("Address");
-pub const frame = @import("Frame.zig");
+pub const frame = @import("frame.zig");
 const _ = @import("log_config.zig"); // Import for log configuration
 
 // Define a scoped logger for EVM-related logs
