@@ -58,7 +58,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:448
 
 ##### callback
 
-(`err`, `solc`?) => `void`
+(`err`, `solc?`) => `void`
 
 #### Returns
 

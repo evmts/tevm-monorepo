@@ -16,7 +16,7 @@ Request handler for eth_getTransactionByHash JSON-RPC requests.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

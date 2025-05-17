@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilDumpStateParams
 
-> **AnvilDumpStateParams**: \{\} \| `undefined` \| `never`
+> **AnvilDumpStateParams** = \{ \} \| `undefined` \| `never`
 
 Defined in: [packages/actions/src/anvil/AnvilParams.ts:153](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L153)
 

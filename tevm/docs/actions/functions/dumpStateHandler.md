@@ -6,7 +6,7 @@
 
 # Function: dumpStateHandler()
 
-> **dumpStateHandler**(`client`, `options`?): [`DumpStateHandler`](../type-aliases/DumpStateHandler.md)
+> **dumpStateHandler**(`client`, `options?`): [`DumpStateHandler`](../type-aliases/DumpStateHandler.md)
 
 Defined in: packages/actions/types/DumpState/dumpStateHandler.d.ts:1
 
@@ -14,7 +14,7 @@ Defined in: packages/actions/types/DumpState/dumpStateHandler.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### options?
 

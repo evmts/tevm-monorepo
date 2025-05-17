@@ -6,7 +6,7 @@
 
 # Type Alias: EthBlockNumberJsonRpcResponse
 
-> **EthBlockNumberJsonRpcResponse**: `JsonRpcResponse`\<`"eth_blockNumber"`, `SerializeToJson`\<[`EthBlockNumberResult`](EthBlockNumberResult.md)\>, `string` \| `number`\>
+> **EthBlockNumberJsonRpcResponse** = `JsonRpcResponse`\<`"eth_blockNumber"`, `SerializeToJson`\<[`EthBlockNumberResult`](EthBlockNumberResult.md)\>, `string` \| `number`\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L20)
 

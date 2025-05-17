@@ -8,7 +8,7 @@
 
 Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:8
 
-Result of [applyBlock](../functions/applyBlock.md)
+Result of [applyBlock](../variables/applyBlock.md)
 
 ## Properties
 

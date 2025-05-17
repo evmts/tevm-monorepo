@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilResetJsonRpcResponse
 
-> **AnvilResetJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_reset"`, `SerializeToJson`\<[`AnvilResetResult`](AnvilResetResult.md)\>, `AnvilError`\>
+> **AnvilResetJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_reset"`, `SerializeToJson`\<[`AnvilResetResult`](AnvilResetResult.md)\>, `AnvilError`\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:33
 

@@ -6,14 +6,16 @@
 
 # Type Alias: EthGetFilterChangesParams
 
-> **EthGetFilterChangesParams**: `object`
+> **EthGetFilterChangesParams** = `object`
 
 Defined in: [packages/actions/src/eth/EthParams.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L135)
 
 Based on the JSON-RPC request for `eth_getFilterChanges` procedure
 
-## Type declaration
+## Properties
 
 ### filterId
 
 > `readonly` **filterId**: [`Hex`](Hex.md)
+
+Defined in: [packages/actions/src/eth/EthParams.ts:135](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L135)

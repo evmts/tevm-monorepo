@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilDropTransactionResult
 
-> **AnvilDropTransactionResult**: `null`
+> **AnvilDropTransactionResult** = `null`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:7

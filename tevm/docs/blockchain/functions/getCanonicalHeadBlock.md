@@ -18,7 +18,7 @@ Defined in: packages/blockchain/types/actions/getCanonicalHeadBlock.d.ts:1
 
 ## Returns
 
-`Function`
+> (): `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
 Returns the latest full block in the canonical chain.
 

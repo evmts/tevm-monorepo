@@ -16,7 +16,7 @@ Request handler for eth_getFilterLogs JSON-RPC requests.
 
 ### node
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

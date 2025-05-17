@@ -18,7 +18,7 @@ Defined in: packages/blockchain/types/actions/getBlock.d.ts:1
 
 ## Returns
 
-`Function`
+> (`blockId`): `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
 Returns a block by its hash or number.
 

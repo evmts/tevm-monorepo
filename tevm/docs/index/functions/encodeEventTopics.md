@@ -12,9 +12,13 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 
 ## Type Parameters
 
-• **abi** *extends* [`Abi`](../type-aliases/Abi.md) \| readonly `unknown`[]
+### abi
 
-• **eventName** *extends* `undefined` \| `string` = `undefined`
+`abi` *extends* readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md)
+
+### eventName
+
+`eventName` *extends* `undefined` \| `string` = `undefined`
 
 ## Parameters
 

@@ -10,9 +10,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/
 
 ## Constructors
 
-### new EvmError()
+### Constructor
 
-> **new EvmError**(`error`): [`EvmError`](EvmError.md)
+> **new EvmError**(`error`): `EvmError`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/evm/dist/esm/exceptions.d.ts:37
 
@@ -24,7 +24,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@3.1.1/node\_modules/@ethereumjs/
 
 #### Returns
 
-[`EvmError`](EvmError.md)
+`EvmError`
 
 ## Properties
 

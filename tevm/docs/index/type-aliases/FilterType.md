@@ -6,6 +6,6 @@
 
 # Type Alias: FilterType
 
-> **FilterType**: `"PendingTransaction"` \| `"Block"` \| `"Log"`
+> **FilterType** = `"PendingTransaction"` \| `"Block"` \| `"Log"`
 
 Defined in: packages/node/dist/index.d.ts:57

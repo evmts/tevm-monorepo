@@ -6,7 +6,7 @@
 
 # Type Alias: SolcModelCheckerContracts
 
-> **SolcModelCheckerContracts**: `object`
+> **SolcModelCheckerContracts** = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:42
 

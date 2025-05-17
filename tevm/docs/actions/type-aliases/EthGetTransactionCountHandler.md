@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionCountHandler()
 
-> **EthGetTransactionCountHandler**: (`request`) => `Promise`\<[`EthGetTransactionCountResult`](EthGetTransactionCountResult.md)\>
+> **EthGetTransactionCountHandler** = (`request`) => `Promise`\<[`EthGetTransactionCountResult`](EthGetTransactionCountResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:21
 

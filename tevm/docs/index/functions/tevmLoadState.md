@@ -6,7 +6,7 @@
 
 # Function: tevmLoadState()
 
-> **tevmLoadState**(`client`, `params`): `Promise`\<[`LoadStateResult`](../type-aliases/LoadStateResult.md)\<[`InternalError`](../../errors/classes/InternalError.md)\>\>
+> **tevmLoadState**(`client`, `params`): `Promise`\<[`LoadStateResult`](../../actions/type-aliases/LoadStateResult.md)\<[`InternalError`](../../errors/classes/InternalError.md)\>\>
 
 Defined in: packages/memory-client/types/tevmLoadState.d.ts:1
 
@@ -14,7 +14,7 @@ Defined in: packages/memory-client/types/tevmLoadState.d.ts:1
 
 ### client
 
-`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| [`Account`](../type-aliases/Account.md), `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| [`Account`](../type-aliases/Account.md), `undefined`, `undefined` \| \{[`key`: `string`]: `unknown`; `account?`: `undefined`; `batch?`: `undefined`; `cacheTime?`: `undefined`; `ccipRead?`: `undefined`; `chain?`: `undefined`; `key?`: `undefined`; `name?`: `undefined`; `pollingInterval?`: `undefined`; `request?`: `undefined`; `transport?`: `undefined`; `type?`: `undefined`; `uid?`: `undefined`; \}\>
 
 ### params
 
@@ -22,4 +22,4 @@ Defined in: packages/memory-client/types/tevmLoadState.d.ts:1
 
 ## Returns
 
-`Promise`\<[`LoadStateResult`](../type-aliases/LoadStateResult.md)\<[`InternalError`](../../errors/classes/InternalError.md)\>\>
+`Promise`\<[`LoadStateResult`](../../actions/type-aliases/LoadStateResult.md)\<[`InternalError`](../../errors/classes/InternalError.md)\>\>

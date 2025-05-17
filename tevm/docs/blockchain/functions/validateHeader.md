@@ -6,7 +6,7 @@
 
 # Function: validateHeader()
 
-> **validateHeader**(`baseChain`): (`header`, `height`?) => `Promise`\<`void`\>
+> **validateHeader**(`baseChain`): (`header`, `height?`) => `Promise`\<`void`\>
 
 Defined in: packages/blockchain/types/actions/validateHeader.d.ts:1
 
@@ -18,7 +18,7 @@ Defined in: packages/blockchain/types/actions/validateHeader.d.ts:1
 
 ## Returns
 
-`Function`
+> (`header`, `height?`): `Promise`\<`void`\>
 
 Validates a block header, throwing if invalid. It is being validated against the reported `parentHash`.
 

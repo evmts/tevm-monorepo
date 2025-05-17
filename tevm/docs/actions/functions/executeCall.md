@@ -6,7 +6,7 @@
 
 # Function: executeCall()
 
-> **executeCall**(`client`, `evmInput`, `params`, `events`?): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`HandleRunTxError`](../type-aliases/HandleRunTxError.md)\]; \}\>
+> **executeCall**(`client`, `evmInput`, `params`, `events?`): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`HandleRunTxError`](../type-aliases/HandleRunTxError.md)\]; \}\>
 
 Defined in: packages/actions/types/Call/executeCall.d.ts:1
 
@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Call/executeCall.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### evmInput
 
@@ -22,7 +22,7 @@ Defined in: packages/actions/types/Call/executeCall.d.ts:1
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 
 ### events?
 

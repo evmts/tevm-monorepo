@@ -6,7 +6,7 @@
 
 # Type Alias: LoadStateJsonRpcProcedure()
 
-> **LoadStateJsonRpcProcedure**: (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
+> **LoadStateJsonRpcProcedure** = (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/LoadState/LoadStateJsonRpcProcedure.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateJsonRpcProcedure.ts#L17)
 

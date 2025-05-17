@@ -14,7 +14,7 @@ Defined in: packages/actions/types/eth/getCodeHandler.d.ts:1
 
 ### baseClient
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

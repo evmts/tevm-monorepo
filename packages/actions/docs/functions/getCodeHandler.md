@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/getCodeHandler.js:10](https://github.com/e
 
 ### baseClient
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

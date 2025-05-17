@@ -6,7 +6,7 @@
 
 # Type Alias: EthMiningJsonRpcRequest
 
-> **EthMiningJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_mining"`, readonly \[\]\>
+> **EthMiningJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_mining"`, readonly \[\]\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:156
 

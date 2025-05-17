@@ -6,7 +6,7 @@
 
 # Type Alias: RpcSchemaOverride
 
-> **RpcSchemaOverride**: `Omit`\<[`RpcSchema`](RpcSchema.md)\[`number`\], `"Method"`\>
+> **RpcSchemaOverride** = `Omit`\<[`RpcSchema`](RpcSchema.md)\[`number`\], `"Method"`\>
 
 Defined in: packages/decorators/dist/index.d.ts:289
 

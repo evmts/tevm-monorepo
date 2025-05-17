@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilSetChainIdHandler()
 
-> **AnvilSetChainIdHandler**: (`params`) => `Promise`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>
+> **AnvilSetChainIdHandler** = (`params`) => `Promise`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>
 
 Defined in: [packages/actions/src/anvil/AnvilHandler.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L62)
 

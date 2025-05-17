@@ -6,7 +6,7 @@
 
 # Function: callHandlerOpts()
 
-> **callHandlerOpts**(`client`, `params`): `Promise`\<\{ `data`: [`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md); `errors`: `undefined`; \} \| \{ `data`: `undefined`; `errors`: [`CallHandlerOptsError`](../type-aliases/CallHandlerOptsError.md)[]; \}\>
+> **callHandlerOpts**(`client`, `params`): `Promise`\<\{ `data`: [`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md); `errors?`: `undefined`; \} \| \{ `data?`: `undefined`; `errors`: [`CallHandlerOptsError`](../type-aliases/CallHandlerOptsError.md)[]; \}\>
 
 Defined in: packages/actions/types/Call/callHandlerOpts.d.ts:1
 
@@ -14,12 +14,12 @@ Defined in: packages/actions/types/Call/callHandlerOpts.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 
 ## Returns
 
-`Promise`\<\{ `data`: [`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md); `errors`: `undefined`; \} \| \{ `data`: `undefined`; `errors`: [`CallHandlerOptsError`](../type-aliases/CallHandlerOptsError.md)[]; \}\>
+`Promise`\<\{ `data`: [`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md); `errors?`: `undefined`; \} \| \{ `data?`: `undefined`; `errors`: [`CallHandlerOptsError`](../type-aliases/CallHandlerOptsError.md)[]; \}\>

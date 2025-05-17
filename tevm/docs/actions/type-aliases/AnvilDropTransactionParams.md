@@ -6,16 +6,18 @@
 
 # Type Alias: AnvilDropTransactionParams
 
-> **AnvilDropTransactionParams**: `object`
+> **AnvilDropTransactionParams** = `object`
 
 Defined in: packages/actions/types/anvil/AnvilParams.d.ts:51
 
 Params for `anvil_dropTransaction` handler
 
-## Type declaration
+## Properties
 
 ### transactionHash
 
 > `readonly` **transactionHash**: [`Hex`](Hex.md)
+
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:55
 
 The transaction hash

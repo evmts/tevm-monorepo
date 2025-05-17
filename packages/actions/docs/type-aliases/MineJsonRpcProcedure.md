@@ -6,7 +6,7 @@
 
 # Type Alias: MineJsonRpcProcedure()
 
-> **MineJsonRpcProcedure**: (`request`) => `Promise`\<[`MineJsonRpcResponse`](MineJsonRpcResponse.md)\>
+> **MineJsonRpcProcedure** = (`request`) => `Promise`\<[`MineJsonRpcResponse`](MineJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/Mine/MineJsonRpcProcedure.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineJsonRpcProcedure.ts#L7)
 

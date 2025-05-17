@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Call/shouldCreateTransaction.d.ts:2
 
 ### params
 
-[`CallParams`](../../index/type-aliases/CallParams.md)\<`boolean`\>
+[`CallParams`](../type-aliases/CallParams.md)\<`boolean`\>
 
 ### runTxResult
 

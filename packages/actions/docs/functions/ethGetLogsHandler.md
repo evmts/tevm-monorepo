@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/ethGetLogsHandler.js:14](https://github.co
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

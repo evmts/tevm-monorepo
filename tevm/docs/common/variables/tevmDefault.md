@@ -44,7 +44,7 @@ The default chain if no fork url is passed
 
 #### Index Signature
 
-\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+\[`x`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### contracts.ensRegistry?
 

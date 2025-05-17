@@ -10,9 +10,9 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:9
 
 ## Constructors
 
-### new BlockBuilder()
+### Constructor
 
-> **new BlockBuilder**(`vm`, `opts`): [`BlockBuilder`](BlockBuilder.md)
+> **new BlockBuilder**(`vm`, `opts`): `BlockBuilder`
 
 Defined in: packages/vm/types/actions/BlockBuilder.d.ts:33
 
@@ -28,7 +28,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:33
 
 #### Returns
 
-[`BlockBuilder`](BlockBuilder.md)
+`BlockBuilder`
 
 ## Properties
 
@@ -82,7 +82,7 @@ Defined in: packages/vm/types/actions/BlockBuilder.d.ts:31
 
 ### addTransaction()
 
-> **addTransaction**(`tx`, `__namedParameters`?): `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
+> **addTransaction**(`tx`, `__namedParameters?`): `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
 Defined in: packages/vm/types/actions/BlockBuilder.d.ts:65
 
@@ -111,7 +111,7 @@ the remaining gas in the block.
 
 ### build()
 
-> **build**(`sealOpts`?): `Promise`\<[`Block`](../../block/classes/Block.md)\>
+> **build**(`sealOpts?`): `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
 Defined in: packages/vm/types/actions/BlockBuilder.d.ts:83
 

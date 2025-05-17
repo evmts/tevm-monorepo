@@ -6,7 +6,7 @@
 
 # Type Alias: EthHashrateResult
 
-> **EthHashrateResult**: [`Hex`](Hex.md)
+> **EthHashrateResult** = [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/eth/EthResult.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L48)
 

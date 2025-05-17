@@ -6,12 +6,14 @@
 
 # Type Alias: AnvilDealResult
 
-> **AnvilDealResult**: `object`
+> **AnvilDealResult** = `object`
 
 Defined in: [packages/actions/src/anvil/AnvilResult.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L35)
 
-## Type declaration
+## Properties
 
 ### errors?
 
 > `optional` **errors**: `Error`[]
+
+Defined in: [packages/actions/src/anvil/AnvilResult.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L36)

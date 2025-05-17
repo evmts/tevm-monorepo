@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/requestBulkProcedure.js:7](https://github.com/
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

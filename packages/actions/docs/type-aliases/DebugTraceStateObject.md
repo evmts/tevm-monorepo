@@ -6,118 +6,136 @@
 
 # Type Alias: DebugTraceStateObject
 
-> **DebugTraceStateObject**: `object`
+> **DebugTraceStateObject** = `object`
 
 Defined in: [packages/actions/src/debug/DebugResult.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L65)
 
 Complete state object structure
 
-## Type declaration
+## Properties
 
 ### blockchain
 
 > `readonly` **blockchain**: `object`
 
-#### blockchain.blocksByNumber
+Defined in: [packages/actions/src/debug/DebugResult.ts:66](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L66)
+
+#### blocksByNumber
 
 > `readonly` **blocksByNumber**: `Map`\<`bigint`, `Block` \| `undefined`\>
 
-#### blockchain.initOptions
+#### initOptions
 
 > `readonly` **initOptions**: `ChainOptions`
+
+***
 
 ### evm
 
 > `readonly` **evm**: `object`
 
-#### evm.common
+Defined in: [packages/actions/src/debug/DebugResult.ts:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L70)
+
+#### common
 
 > `readonly` **common**: `object`
 
-#### evm.common.consensus
+##### common.consensus
 
 > `readonly` **consensus**: `object`
 
-#### evm.common.consensus.algorithm
+##### common.consensus.algorithm
 
 > `readonly` **algorithm**: `string` \| `ConsensusAlgorithm`
 
-#### evm.common.consensus.type
+##### common.consensus.type
 
 > `readonly` **type**: `string` \| `ConsensusType`
 
-#### evm.common.eips
+##### common.eips
 
 > `readonly` **eips**: `number`[]
 
-#### evm.common.hardfork
+##### common.hardfork
 
 > `readonly` **hardfork**: `string`
 
-#### evm.opcodes
+#### opcodes
 
 > `readonly` **opcodes**: `Map`\<`number`, \{ `code`: `number`; `dynamicGas`: `boolean`; `fee`: `number`; `feeBigInt`: `bigint`; `fullName`: `string`; `isAsync`: `boolean`; `isInvalid`: `boolean`; `name`: `string`; \}\>
 
-#### evm.precompiles
+#### precompiles
 
 > `readonly` **precompiles**: `Map`\<`string`, (`input`) => `Promise`\<`ExecResult`\> \| `ExecResult`\>
+
+***
 
 ### node
 
 > `readonly` **node**: `object`
 
-#### node.filters
+Defined in: [packages/actions/src/debug/DebugResult.ts:94](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L94)
+
+#### filters
 
 > `readonly` **filters**: `Map`\<[`Hex`](Hex.md), `Filter`\>
 
-#### node.impersonatedAccount
+#### impersonatedAccount
 
 > `readonly` **impersonatedAccount**: `Address` \| `undefined`
 
-#### node.miningConfig
+#### miningConfig
 
 > `readonly` **miningConfig**: `TevmNode`\[`"miningConfig"`\]
 
-#### node.mode
+#### mode
 
 > `readonly` **mode**: `TevmNode`\[`"mode"`\]
 
-#### node.status
+#### status
 
 > `readonly` **status**: `TevmNode`\[`"status"`\]
+
+***
 
 ### pool
 
 > `readonly` **pool**: `object`
 
-#### pool.pool
+Defined in: [packages/actions/src/debug/DebugResult.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L101)
+
+#### pool
 
 > `readonly` **pool**: `TxPool`\[`"pool"`\]
 
-#### pool.txsByHash
+#### txsByHash
 
 > `readonly` **txsByHash**: `TxPool`\[`"txsByHash"`\]
 
-#### pool.txsByNonce
+#### txsByNonce
 
 > `readonly` **txsByNonce**: `TxPool`\[`"txsByNonce"`\]
 
-#### pool.txsInNonceOrder
+#### txsInNonceOrder
 
 > `readonly` **txsInNonceOrder**: `TxPool`\[`"txsInNonceOrder"`\]
 
-#### pool.txsInPool
+#### txsInPool
 
 > `readonly` **txsInPool**: `TxPool`\[`"txsInPool"`\]
+
+***
 
 ### stateManager
 
 > `readonly` **stateManager**: `object`
 
-#### stateManager.stateRoots
+Defined in: [packages/actions/src/debug/DebugResult.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L108)
+
+#### stateRoots
 
 > `readonly` **stateRoots**: `StateRoots`
 
-#### stateManager.storage
+#### storage
 
 > `readonly` **storage**: `TevmState`

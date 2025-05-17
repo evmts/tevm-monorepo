@@ -6,17 +6,37 @@
 
 # Type Alias: CallEvents
 
-> **CallEvents**: `object`
+> **CallEvents** = `object`
 
 Defined in: packages/actions/types/common/CallEvents.d.ts:63
 
 Event handlers for EVM execution during a call
 
-## Type declaration
+## Example
+
+```typescript
+import { createMemoryClient } from 'tevm'
+import { tevmCall } from 'tevm/actions'
+
+const client = createMemoryClient()
+
+const result = await tevmCall(client, {
+  to: '0x1234...',
+  data: '0xabcdef...',
+  onStep: (step, next) => {
+    console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
+    next?.()
+  }
+})
+```
+
+## Properties
 
 ### onAfterMessage()?
 
-> `optional` **onAfterMessage**: (`data`, `next`?) => `void`
+> `optional` **onAfterMessage**: (`data`, `next?`) => `void`
+
+Defined in: packages/actions/types/common/CallEvents.d.ts:87
 
 Handler called after a message (call) is processed
 
@@ -38,9 +58,13 @@ Function to continue execution - must be called to proceed
 
 `void`
 
+***
+
 ### onBeforeMessage()?
 
-> `optional` **onBeforeMessage**: (`data`, `next`?) => `void`
+> `optional` **onBeforeMessage**: (`data`, `next?`) => `void`
+
+Defined in: packages/actions/types/common/CallEvents.d.ts:81
 
 Handler called before a message (call) is processed
 
@@ -62,9 +86,13 @@ Function to continue execution - must be called to proceed
 
 `void`
 
+***
+
 ### onNewContract()?
 
-> `optional` **onNewContract**: (`data`, `next`?) => `void`
+> `optional` **onNewContract**: (`data`, `next?`) => `void`
+
+Defined in: packages/actions/types/common/CallEvents.d.ts:75
 
 Handler called when a new contract is created
 
@@ -86,9 +114,13 @@ Function to continue execution - must be called to proceed
 
 `void`
 
+***
+
 ### onStep()?
 
-> `optional` **onStep**: (`data`, `next`?) => `void`
+> `optional` **onStep**: (`data`, `next?`) => `void`
+
+Defined in: packages/actions/types/common/CallEvents.d.ts:69
 
 Handler called on each EVM step (instruction execution)
 
@@ -109,21 +141,3 @@ Function to continue execution - must be called to proceed
 #### Returns
 
 `void`
-
-## Example
-
-```typescript
-import { createMemoryClient } from 'tevm'
-import { tevmCall } from 'tevm/actions'
-
-const client = createMemoryClient()
-
-const result = await tevmCall(client, {
-  to: '0x1234...',
-  data: '0xabcdef...',
-  onStep: (step, next) => {
-    console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
-    next?.()
-  }
-})
-```

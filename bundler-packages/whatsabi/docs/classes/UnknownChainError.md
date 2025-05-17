@@ -14,9 +14,9 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:7](https://gith
 
 ## Constructors
 
-### new UnknownChainError()
+### Constructor
 
-> **new UnknownChainError**(`chainId`): [`UnknownChainError`](UnknownChainError.md)
+> **new UnknownChainError**(`chainId`): `UnknownChainError`
 
 Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:20](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/resolveContractUri.js#L20)
 
@@ -28,7 +28,7 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:20](https://git
 
 #### Returns
 
-[`UnknownChainError`](UnknownChainError.md)
+`UnknownChainError`
 
 #### Overrides
 
@@ -48,7 +48,7 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:16](https://git
 
 > `optional` **cause**: `unknown`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
 
 #### Inherited from
 
@@ -60,7 +60,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 #### Inherited from
 
@@ -84,7 +84,7 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:12](https://git
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -138,7 +138,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 ### captureStackTrace()
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 

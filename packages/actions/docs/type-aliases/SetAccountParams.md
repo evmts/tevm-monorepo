@@ -6,7 +6,7 @@
 
 # Type Alias: SetAccountParams\<TThrowOnFail\>
 
-> **SetAccountParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+> **SetAccountParams**\<`TThrowOnFail`\> = [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Defined in: [packages/actions/src/SetAccount/SetAccountParams.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountParams.ts#L17)
 
@@ -59,7 +59,9 @@ Storage root to set account to
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 ## Example
 

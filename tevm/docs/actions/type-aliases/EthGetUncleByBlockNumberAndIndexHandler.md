@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetUncleByBlockNumberAndIndexHandler()
 
-> **EthGetUncleByBlockNumberAndIndexHandler**: (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](EthGetUncleByBlockNumberAndIndexResult.md)\>
+> **EthGetUncleByBlockNumberAndIndexHandler** = (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](EthGetUncleByBlockNumberAndIndexResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:29
 

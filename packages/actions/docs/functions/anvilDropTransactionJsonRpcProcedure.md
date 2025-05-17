@@ -16,7 +16,7 @@ Request handler for anvil_dropTransaction JSON-RPC requests.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

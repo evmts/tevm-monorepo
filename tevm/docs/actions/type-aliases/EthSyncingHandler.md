@@ -6,7 +6,7 @@
 
 # Type Alias: EthSyncingHandler()
 
-> **EthSyncingHandler**: (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
+> **EthSyncingHandler** = (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:36
 

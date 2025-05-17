@@ -6,7 +6,7 @@
 
 # Function: deployHandler()
 
-> **deployHandler**(`client`, `options`?): [`DeployHandler`](../type-aliases/DeployHandler.md)
+> **deployHandler**(`client`, `options?`): [`DeployHandler`](../type-aliases/DeployHandler.md)
 
 Defined in: [packages/actions/src/Deploy/deployHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/deployHandler.js#L37)
 
@@ -19,7 +19,7 @@ Note: This is the internal logic used by higher-level APIs such as `tevmDeploy`.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 The TEVM base client instance.
 

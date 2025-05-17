@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilStopImpersonatingAccountHandler()
 
-> **AnvilStopImpersonatingAccountHandler**: (`params`) => `Promise`\<[`AnvilStopImpersonatingAccountResult`](AnvilStopImpersonatingAccountResult.md)\>
+> **AnvilStopImpersonatingAccountHandler** = (`params`) => `Promise`\<[`AnvilStopImpersonatingAccountResult`](AnvilStopImpersonatingAccountResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:4
 

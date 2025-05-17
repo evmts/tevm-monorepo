@@ -12,7 +12,9 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 
 ## Type Parameters
 
-• **mode** *extends* `TestClientMode`
+### mode
+
+`mode` *extends* `TestClientMode`
 
 ## Parameters
 
@@ -24,15 +26,21 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 
 ## Returns
 
-`Function`
+> \<`transport`, `chain`, `account`\>(`client`): `TestActions`
 
 ### Type Parameters
 
-• **transport** *extends* `Transport` = `Transport`
+#### transport
 
-• **chain** *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
+`transport` *extends* `Transport` = `Transport`
 
-• **account** *extends* `undefined` \| `Account` = `undefined` \| `Account`
+#### chain
+
+`chain` *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
+
+#### account
+
+`account` *extends* `undefined` \| `Account` = `undefined` \| `Account`
 
 ### Parameters
 

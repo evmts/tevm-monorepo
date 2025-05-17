@@ -16,7 +16,7 @@ Request handler for eth_getBlockTransactionCountByHash JSON-RPC requests.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

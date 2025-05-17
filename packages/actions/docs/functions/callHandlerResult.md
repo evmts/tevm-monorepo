@@ -10,6 +10,8 @@
 
 Defined in: [packages/actions/src/Call/callHandlerResult.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/callHandlerResult.js#L14)
 
+**`Internal`**
+
 Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ## Parameters

@@ -46,11 +46,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 #### clear()
 
+> **clear**(): `void`
+
 ##### Returns
 
 `void`
 
 #### get()
+
+> **get**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
 ##### Parameters
 
@@ -164,7 +168,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### commit()
 
-> **commit**(`createNewStateRoot`?): `Promise`\<`void`\>
+> **commit**(`createNewStateRoot?`): `Promise`\<`void`\>
 
 Defined in: packages/state/dist/index.d.ts:233
 
@@ -194,7 +198,7 @@ This api is not stable
 
 ### deepCopy()
 
-> **deepCopy**(): `Promise`\<[`StateManager`](StateManager.md)\>
+> **deepCopy**(): `Promise`\<`StateManager`\>
 
 Defined in: packages/state/dist/index.d.ts:215
 
@@ -202,7 +206,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 #### Returns
 
-`Promise`\<[`StateManager`](StateManager.md)\>
+`Promise`\<`StateManager`\>
 
 ***
 
@@ -432,7 +436,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### getProof()
 
-> **getProof**(`address`, `storageSlots`?): `Promise`\<`Proof`\>
+> **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:143
 
@@ -522,7 +526,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### putAccount()
 
-> **putAccount**(`address`, `account`?): `Promise`\<`void`\>
+> **putAccount**(`address`, `account?`): `Promise`\<`void`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:115
 
@@ -647,7 +651,7 @@ THis API is considered unstable
 
 ### setStateRoot()
 
-> **setStateRoot**(`stateRoot`, `clearCache`?): `Promise`\<`void`\>
+> **setStateRoot**(`stateRoot`, `clearCache?`): `Promise`\<`void`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:128
 
@@ -673,7 +677,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereum
 
 ### shallowCopy()
 
-> **shallowCopy**(`downlevelCaches`?): [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
+> **shallowCopy**(`downlevelCaches?`): [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
 
 Defined in: node\_modules/.pnpm/@ethereumjs+common@4.4.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:144
 

@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilSetCodeResult
 
-> **AnvilSetCodeResult**: `null`
+> **AnvilSetCodeResult** = `null`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:9

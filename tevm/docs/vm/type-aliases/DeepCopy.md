@@ -6,7 +6,7 @@
 
 # Type Alias: DeepCopy()
 
-> **DeepCopy**: () => `Promise`\<`BaseVm`\>
+> **DeepCopy** = () => `Promise`\<`BaseVm`\>
 
 Defined in: packages/vm/types/actions/deepCopy.d.ts:3
 

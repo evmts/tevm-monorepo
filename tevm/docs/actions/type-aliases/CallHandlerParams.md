@@ -6,7 +6,7 @@
 
 # Type Alias: CallHandlerParams
 
-> **CallHandlerParams**: [`CallParams`](../../index/type-aliases/CallParams.md) & [`CallEvents`](CallEvents.md)
+> **CallHandlerParams** = [`CallParams`](CallParams.md) & [`CallEvents`](CallEvents.md)
 
 Defined in: packages/actions/types/Call/CallHandlerType.d.ts:8
 

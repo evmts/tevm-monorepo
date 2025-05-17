@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetUncleCountByBlockNumberJsonRpcResponse
 
-> **EthGetUncleCountByBlockNumberJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getUncleCountByBlockNumber"`, `Hex`, `string` \| `number`\>
+> **EthGetUncleCountByBlockNumberJsonRpcResponse** = `JsonRpcResponse`\<`"eth_getUncleCountByBlockNumber"`, `Hex`, `string` \| `number`\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L162)
 

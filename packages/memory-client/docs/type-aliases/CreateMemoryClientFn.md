@@ -6,7 +6,7 @@
 
 # Type Alias: CreateMemoryClientFn()
 
-> **CreateMemoryClientFn**: \<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options`?) => [`MemoryClient`](MemoryClient.md)\<`TCommon`, `TAccountOrAddress`\>
+> **CreateMemoryClientFn** = \<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options?`) => [`MemoryClient`](MemoryClient.md)\<`TCommon`, `TAccountOrAddress`\>
 
 Defined in: [packages/memory-client/src/CreateMemoryClientFn.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/CreateMemoryClientFn.ts#L84)
 
@@ -27,15 +27,21 @@ capabilities for more advanced EVM interaction.
 
 ## Type Parameters
 
-• **TCommon** *extends* `Common` & `Chain` = `Common` & `Chain`
+### TCommon
+
+`TCommon` *extends* `Common` & `Chain` = `Common` & `Chain`
 
 The common chain configuration, extending both `Common` and `Chain`.
 
-• **TAccountOrAddress** *extends* `Account` \| `Address` \| `undefined` = `undefined`
+### TAccountOrAddress
+
+`TAccountOrAddress` *extends* `Account` \| `Address` \| `undefined` = `undefined`
 
 The account or address type for the client.
 
-• **TRpcSchema** *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](TevmRpcSchema.md)
+### TRpcSchema
+
+`TRpcSchema` *extends* `RpcSchema` \| `undefined` = [`TevmRpcSchema`](TevmRpcSchema.md)
 
 The RPC schema type, defaults to `TevmRpcSchema`.
 

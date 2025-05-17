@@ -6,6 +6,6 @@
 
 # Type Alias: AnvilSetChainIdResult
 
-> **AnvilSetChainIdResult**: `null`
+> **AnvilSetChainIdResult** = `null`
 
 Defined in: packages/actions/types/anvil/AnvilResult.d.ts:12

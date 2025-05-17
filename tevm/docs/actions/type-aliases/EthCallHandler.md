@@ -6,7 +6,7 @@
 
 # Type Alias: EthCallHandler()
 
-> **EthCallHandler**: (`request`) => `Promise`\<[`EthCallResult`](EthCallResult.md)\>
+> **EthCallHandler** = (`request`) => `Promise`\<[`EthCallResult`](EthCallResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:5
 

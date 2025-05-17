@@ -6,7 +6,7 @@
 
 # Type Alias: BuildBlock()
 
-> **BuildBlock**: (`opts`) => `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
+> **BuildBlock** = (`opts`) => `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
 
 Defined in: packages/vm/types/actions/buildBlock.d.ts:4
 

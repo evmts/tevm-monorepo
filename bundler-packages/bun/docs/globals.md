@@ -36,8 +36,8 @@ const count = await deployed.read.count()
 ## Variables
 
 - [bunFileAccesObject](variables/bunFileAccesObject.md)
+- [file](variables/file.md)
 
 ## Functions
 
 - [bunPluginTevm](functions/bunPluginTevm.md)
-- [file](functions/file.md)

@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilImpersonateAccountJsonRpcResponse
 
-> **AnvilImpersonateAccountJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_impersonateAccount"`, `SerializeToJson`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>, `AnvilError`\>
+> **AnvilImpersonateAccountJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_impersonateAccount"`, `SerializeToJson`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>, `AnvilError`\>
 
 Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:9
 

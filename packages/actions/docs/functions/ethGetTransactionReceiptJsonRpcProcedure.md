@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/ethGetTransactionReceiptProcedure.js:8](ht
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

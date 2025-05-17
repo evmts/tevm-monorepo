@@ -6,7 +6,7 @@
 
 # Function: invariant()
 
-> **invariant**(`condition`, `error`?): `asserts condition`
+> **invariant**(`condition`, `error?`): `asserts condition`
 
 Defined in: packages/utils/types/invariant.d.ts:1
 

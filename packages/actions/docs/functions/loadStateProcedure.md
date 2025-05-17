@@ -16,7 +16,7 @@ Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethe
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

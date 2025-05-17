@@ -18,7 +18,7 @@ Defined in: packages/state/dist/index.d.ts:345
 
 ## Returns
 
-`Function`
+> (): `Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
 
 ### Returns
 

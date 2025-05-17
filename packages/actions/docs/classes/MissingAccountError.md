@@ -14,11 +14,11 @@ Defined in: [packages/actions/src/eth/ethSignHandler.js:2](https://github.com/ev
 
 ## Constructors
 
-### new MissingAccountError()
+### Constructor
 
-> **new MissingAccountError**(`message`?): [`MissingAccountError`](MissingAccountError.md)
+> **new MissingAccountError**(`message?`): `MissingAccountError`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1082
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1082
 
 #### Parameters
 
@@ -28,17 +28,17 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 #### Returns
 
-[`MissingAccountError`](MissingAccountError.md)
+`MissingAccountError`
 
 #### Inherited from
 
 `Error.constructor`
 
-### new MissingAccountError()
+### Constructor
 
-> **new MissingAccountError**(`message`?, `options`?): [`MissingAccountError`](MissingAccountError.md)
+> **new MissingAccountError**(`message?`, `options?`): `MissingAccountError`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1082
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1082
 
 #### Parameters
 
@@ -52,7 +52,31 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 #### Returns
 
-[`MissingAccountError`](MissingAccountError.md)
+`MissingAccountError`
+
+#### Inherited from
+
+`Error.constructor`
+
+### Constructor
+
+> **new MissingAccountError**(`message?`, `options?`): `MissingAccountError`
+
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1082
+
+#### Parameters
+
+##### message?
+
+`string`
+
+##### options?
+
+`ErrorOptions`
+
+#### Returns
+
+`MissingAccountError`
 
 #### Inherited from
 
@@ -72,7 +96,9 @@ Defined in: [packages/actions/src/eth/ethSignHandler.js:6](https://github.com/ev
 
 > `optional` **cause**: `unknown`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+
+The cause of the error.
 
 #### Inherited from
 
@@ -84,7 +110,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 #### Inherited from
 
@@ -108,7 +134,7 @@ Defined in: [packages/actions/src/eth/ethSignHandler.js:11](https://github.com/e
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -120,7 +146,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:143
+Defined in: node\_modules/.pnpm/bun-types@1.2.11/node\_modules/bun-types/globals.d.ts:962
 
 Optional override for formatting stack traces
 
@@ -152,7 +178,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:145
+Defined in: node\_modules/.pnpm/bun-types@1.2.11/node\_modules/bun-types/globals.d.ts:967
+
+The maximum number of stack frames to capture.
 
 #### Inherited from
 
@@ -164,7 +192,33 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 #### Call Signature
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Defined in: node\_modules/.pnpm/bun-types@1.2.11/node\_modules/bun-types/globals.d.ts:955
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`Error.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
@@ -190,35 +244,9 @@ Create .stack property on a target object
 
 #### Call Signature
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.14.1/node\_modules/@types/node/globals.d.ts:136
-
-Create .stack property on a target object
-
-##### Parameters
-
-###### targetObject
-
-`object`
-
-###### constructorOpt?
-
-`Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-`Error.captureStackTrace`
-
-#### Call Signature
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Defined in: node\_modules/.pnpm/bun-types@1.2.5/node\_modules/bun-types/globals.d.ts:1441
+Defined in: node\_modules/.pnpm/@types+node@22.15.3/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
@@ -239,3 +267,31 @@ Create .stack property on a target object
 ##### Inherited from
 
 `Error.captureStackTrace`
+
+***
+
+### isError()
+
+> `static` **isError**(`value`): `value is Error`
+
+Defined in: node\_modules/.pnpm/bun-types@1.2.11/node\_modules/bun-types/globals.d.ts:950
+
+Check if a value is an instance of Error
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+The value to check
+
+#### Returns
+
+`value is Error`
+
+True if the value is an instance of Error, false otherwise
+
+#### Inherited from
+
+`Error.isError`

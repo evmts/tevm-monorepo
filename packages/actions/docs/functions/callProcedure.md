@@ -16,7 +16,7 @@ Creates a Call JSON-RPC Procedure for handling call requests with Ethereumjs EVM
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

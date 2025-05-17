@@ -6,7 +6,7 @@
 
 # Type Alias: EthSendRawTransactionJsonRpcProcedure()
 
-> **EthSendRawTransactionJsonRpcProcedure**: (`request`) => `Promise`\<[`EthSendRawTransactionJsonRpcResponse`](EthSendRawTransactionJsonRpcResponse.md)\>
+> **EthSendRawTransactionJsonRpcProcedure** = (`request`) => `Promise`\<[`EthSendRawTransactionJsonRpcResponse`](EthSendRawTransactionJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:32
 

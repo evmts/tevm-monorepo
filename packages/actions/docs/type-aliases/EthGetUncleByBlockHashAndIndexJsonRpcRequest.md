@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetUncleByBlockHashAndIndexJsonRpcRequest
 
-> **EthGetUncleByBlockHashAndIndexJsonRpcRequest**: `JsonRpcRequest`\<`"eth_getUncleByBlockHashAndIndex"`, readonly \[`Hex`, `Hex`\]\>
+> **EthGetUncleByBlockHashAndIndexJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getUncleByBlockHashAndIndex"`, readonly \[`Hex`, `Hex`\]\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:212](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L212)
 

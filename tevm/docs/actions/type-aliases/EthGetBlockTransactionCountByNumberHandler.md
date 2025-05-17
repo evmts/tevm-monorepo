@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetBlockTransactionCountByNumberHandler()
 
-> **EthGetBlockTransactionCountByNumberHandler**: (`request`) => `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](EthGetBlockTransactionCountByNumberResult.md)\>
+> **EthGetBlockTransactionCountByNumberHandler** = (`request`) => `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](EthGetBlockTransactionCountByNumberResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:15
 

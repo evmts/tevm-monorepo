@@ -6,7 +6,7 @@
 
 # Type Alias: ContractParams\<TAbi, TFunctionName, TThrowOnFail\>
 
-> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\>: `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & \{ `code`: `Hex`; `deployedBytecode`: `Hex`; `to`: [`Address`](Address.md); \} \| \{ `code`: `Hex`; `deployedBytecode`: `Hex`; `to`: [`Address`](Address.md); \} \| \{ `code`: `Hex`; `deployedBytecode`: `Hex`; `to`: [`Address`](Address.md); \}
+> **ContractParams**\<`TAbi`, `TFunctionName`, `TThrowOnFail`\> = `EncodeFunctionDataParameters`\<`TAbi`, `TFunctionName`\> & [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & \{ `code?`: `Hex`; `deployedBytecode?`: `Hex`; `to`: [`Address`](Address.md); \} \| \{ `code`: `Hex`; `deployedBytecode?`: `Hex`; `to?`: [`Address`](Address.md); \} \| \{ `code?`: `Hex`; `deployedBytecode`: `Hex`; `to?`: [`Address`](Address.md); \}
 
 Defined in: [packages/actions/src/Contract/ContractParams.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractParams.ts#L42)
 
@@ -16,15 +16,21 @@ This type combines the parameters required for encoding function data with addit
 
 ## Type Parameters
 
-• **TAbi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
+### TAbi
+
+`TAbi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] = [`Abi`](Abi.md)
 
 The ABI type.
 
-• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+### TFunctionName
+
+`TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
 
 The function name type from the ABI.
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 The type indicating whether to throw on failure.
 

@@ -6,7 +6,7 @@
 
 # Type Alias: DebugTraceTransactionParams\<TTracer, TDiffMode, TTTThrowOnError\>
 
-> **DebugTraceTransactionParams**\<`TTracer`, `TDiffMode`, `TTTThrowOnError`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TTTThrowOnError`\> & [`TraceParams`](../../index/type-aliases/TraceParams.md)\<`TTracer`, `TDiffMode`\> & `object`
+> **DebugTraceTransactionParams**\<`TTracer`, `TDiffMode`, `TTTThrowOnError`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TTTThrowOnError`\> & [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\> & `object`
 
 Defined in: packages/actions/types/debug/DebugParams.d.ts:45
 
@@ -22,8 +22,14 @@ The transaction hash
 
 ## Type Parameters
 
-• **TTracer** *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
+### TTracer
 
-• **TDiffMode** *extends* `boolean` = `boolean`
+`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
 
-• **TTTThrowOnError** *extends* `boolean` = `boolean`
+### TDiffMode
+
+`TDiffMode` *extends* `boolean` = `boolean`
+
+### TTTThrowOnError
+
+`TTTThrowOnError` *extends* `boolean` = `boolean`

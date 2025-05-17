@@ -6,7 +6,7 @@
 
 # Type Alias: DumpStateJsonRpcProcedure()
 
-> **DumpStateJsonRpcProcedure**: (`request`) => `Promise`\<[`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)\>
+> **DumpStateJsonRpcProcedure** = (`request`) => `Promise`\<[`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/DumpState/DumpStateJsonRpcProcedure.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateJsonRpcProcedure.ts#L16)
 

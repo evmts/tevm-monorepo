@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionReceiptJsonRpcProcedure()
 
-> **EthGetTransactionReceiptJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetTransactionReceiptJsonRpcResponse`](EthGetTransactionReceiptJsonRpcResponse.md)\>
+> **EthGetTransactionReceiptJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetTransactionReceiptJsonRpcResponse`](EthGetTransactionReceiptJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:27
 

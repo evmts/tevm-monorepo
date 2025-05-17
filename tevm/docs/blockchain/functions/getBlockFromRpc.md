@@ -34,7 +34,7 @@ Defined in: packages/blockchain/types/utils/getBlockFromRpc.d.ts:1
 
 #### blockExplorers?
 
-\{ `[key: string]`: `ChainBlockExplorer`;  `default`: `ChainBlockExplorer`; \}
+\{[`key`: `string`]: `ChainBlockExplorer`; `default`: `ChainBlockExplorer`; \}
 
 Collection of block explorers
 
@@ -44,7 +44,7 @@ Collection of block explorers
 
 #### contracts?
 
-\{ `[key: string]`: `undefined` \| `ChainContract` \| \{\};  `ensRegistry`: `ChainContract`; `ensUniversalResolver`: `ChainContract`; `multicall3`: `ChainContract`; `universalSignatureVerifier`: `ChainContract`; \}
+\{[`key`: `string`]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}; `ensRegistry?`: `ChainContract`; `ensUniversalResolver?`: `ChainContract`; `multicall3?`: `ChainContract`; `universalSignatureVerifier?`: `ChainContract`; \}
 
 Collection of contracts
 
@@ -110,7 +110,7 @@ Currency used by chain
 
 #### rpcUrls
 
-\{ `[key: string]`: `ChainRpcUrls`;  `default`: `ChainRpcUrls`; \}
+\{[`key`: `string`]: `ChainRpcUrls`; `default`: `ChainRpcUrls`; \}
 
 Collection of RPC endpoints
 

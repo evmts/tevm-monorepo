@@ -6,6 +6,6 @@
 
 # Type Alias: EmptyParams
 
-> **EmptyParams**: readonly \[\] \| \{\} \| `undefined` \| `never`
+> **EmptyParams** = readonly \[\] \| \{ \} \| `undefined` \| `never`
 
 Defined in: packages/actions/types/common/EmptyParams.d.ts:1

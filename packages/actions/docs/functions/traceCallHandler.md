@@ -16,7 +16,7 @@ Returns a trace of an eth_call within the context of the given block execution u
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

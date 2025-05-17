@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetLogsHandler()
 
-> **EthGetLogsHandler**: (`request`) => `Promise`\<[`EthGetLogsResult`](EthGetLogsResult.md)\>
+> **EthGetLogsHandler** = (`request`) => `Promise`\<[`EthGetLogsResult`](EthGetLogsResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:19
 
