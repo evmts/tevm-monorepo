@@ -5,10 +5,11 @@ const Memory = @import("Memory.zig").Memory;
 const Contract = @import("Contract.zig").Contract;
 const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 const Evm = @import("Evm.zig");
+const JumpTableModule = @import("JumpTable.zig");
 
 // Import specific items from opcodes for convenience
 const Operation = opcodes.Operation;
-const JumpTable = opcodes.JumpTable;
+const JumpTable = JumpTableModule.JumpTable;
 const ExecutionError = opcodes.ExecutionError;
 const getOperation = opcodes.getOperation;
 
@@ -18,9 +19,9 @@ const InterpreterError = error{TODO};
 pub const Interpreter = struct {
     allocator: std.mem.Allocator,
     evm: *Evm,
-    table: *JumpTable,
+    table: JumpTable,
 
-    pub fn create(allocator: std.memory.Allocator, evm: *Evm, table: *JumpTable) Interpreter {
+    pub fn create(allocator: std.mem.Allocator, evm: *Evm, table: JumpTable) Interpreter {
         return Interpreter{
             .evm = evm,
             .table = table,
@@ -41,8 +42,9 @@ pub const Interpreter = struct {
         contract.input = input;
 
         while (true) {
-            // Here geth checks EIP4762 https://github.com/ethereum/go-ethereum/blob/c8be0f9a74fdabe5f82fa5b647e9973c9c3567ef/core/vm/interpreter.go#L236
-            const operation = self.table.getOp(contract.getOp(state.pc));
+            // Get the current operation from the bytecode
+            const op_code = contract.getOp(state.pc);
+            const operation = self.table.getOperation(op_code);
 
             // Execute the operation
             _ = operation.execute(state.pc, self, &state) catch |err| {
