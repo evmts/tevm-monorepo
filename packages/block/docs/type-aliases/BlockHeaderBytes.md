@@ -6,7 +6,7 @@
 
 # Type Alias: BlockHeaderBytes
 
-> **BlockHeaderBytes**: `Uint8Array`[]
+> **BlockHeaderBytes** = `Uint8Array`[]
 
 Defined in: [packages/block/src/types.ts:340](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L340)
 

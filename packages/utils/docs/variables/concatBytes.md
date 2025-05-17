@@ -4,9 +4,9 @@
 
 [@tevm/utils](../globals.md) / concatBytes
 
-# Function: concatBytes()
+# Variable: concatBytes()
 
-> **concatBytes**(...`arrays`): `Uint8Array`
+> `const` **concatBytes**: (...`arrays`) => `Uint8Array`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:202
 
@@ -18,7 +18,7 @@ Can give small performance gains on large arrays
 
 ### arrays
 
-...`Uint8Array`\<`ArrayBufferLike`\>[]
+...`Uint8Array`[]
 
 an array of Uint8Arrays
 

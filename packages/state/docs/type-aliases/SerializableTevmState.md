@@ -6,7 +6,7 @@
 
 # Type Alias: SerializableTevmState
 
-> **SerializableTevmState**: `object`
+> **SerializableTevmState** = `object`
 
 Defined in: [packages/state/src/state-types/SerializableTevmState.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/SerializableTevmState.ts#L21)
 

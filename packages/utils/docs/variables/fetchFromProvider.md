@@ -4,9 +4,9 @@
 
 [@tevm/utils](../globals.md) / fetchFromProvider
 
-# Function: fetchFromProvider()
+# Variable: fetchFromProvider()
 
-> **fetchFromProvider**(`url`, `params`): `Promise`\<`any`\>
+> `const` **fetchFromProvider**: (`url`, `params`) => `Promise`\<`any`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/provider.d.ts:23
 

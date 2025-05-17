@@ -18,7 +18,7 @@ Defined in: [packages/vm/src/actions/assignWithdrawals.ts:8](https://github.com/
 
 ## Returns
 
-`Function`
+> (`block`): `Promise`\<`void`\>
 
 ### Parameters
 

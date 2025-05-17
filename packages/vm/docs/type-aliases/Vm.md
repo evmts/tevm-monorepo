@@ -6,7 +6,7 @@
 
 # Type Alias: Vm
 
-> **Vm**: `BaseVm` & `object`
+> **Vm** = `BaseVm` & `object`
 
 Defined in: [packages/vm/src/Vm.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/Vm.ts#L6)
 
@@ -18,11 +18,11 @@ Defined in: [packages/vm/src/Vm.ts:6](https://github.com/evmts/tevm-monorepo/blo
 
 ### deepCopy()
 
-> **deepCopy**: () => `Promise`\<[`Vm`](Vm.md)\>
+> **deepCopy**: () => `Promise`\<`Vm`\>
 
 #### Returns
 
-`Promise`\<[`Vm`](Vm.md)\>
+`Promise`\<`Vm`\>
 
 ### runBlock
 

@@ -6,7 +6,7 @@
 
 # Type Alias: RunTx()
 
-> **RunTx**: (`opts`) => `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
+> **RunTx** = (`opts`) => `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
 Defined in: [packages/vm/src/actions/runTx.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/runTx.ts#L34)
 

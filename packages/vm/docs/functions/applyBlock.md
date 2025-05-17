@@ -23,7 +23,7 @@ them on state (but doesn't persist the changes).
 
 ## Returns
 
-`Function`
+> (`block`, `opts`): `Promise`\<[`ApplyBlockResult`](../interfaces/ApplyBlockResult.md)\>
 
 ### Parameters
 

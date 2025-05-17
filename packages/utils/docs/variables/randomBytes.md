@@ -4,9 +4,9 @@
 
 [@tevm/utils](../globals.md) / randomBytes
 
-# Function: randomBytes()
+# Variable: randomBytes()
 
-> **randomBytes**(`length`): `Uint8Array`
+> `const` **randomBytes**: (`length`) => `Uint8Array`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:193
 

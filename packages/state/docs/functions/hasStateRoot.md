@@ -6,7 +6,7 @@
 
 # Function: hasStateRoot()
 
-> **hasStateRoot**(`baseState`, `skipFetchingFromFork`?): (`root`) => `Promise`\<`boolean`\>
+> **hasStateRoot**(`baseState`, `skipFetchingFromFork?`): (`root`) => `Promise`\<`boolean`\>
 
 Defined in: [packages/state/src/actions/hasStateRoot.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/hasStateRoot.js#L7)
 
@@ -24,7 +24,7 @@ Returns true if state root exists
 
 ## Returns
 
-`Function`
+> (`root`): `Promise`\<`boolean`\>
 
 ### Parameters
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EVMOpts
 
-> **EVMOpts**: `Parameters`\<*typeof* `EVM.create`\>\[`0`\]
+> **EVMOpts** = `Parameters`\<*typeof* `EVM.create`\>\[`0`\]
 
 Defined in: [packages/evm/src/EvmOpts.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmOpts.ts#L21)
 

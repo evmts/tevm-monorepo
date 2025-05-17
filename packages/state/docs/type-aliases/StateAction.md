@@ -6,13 +6,15 @@
 
 # Type Alias: StateAction()\<T\>
 
-> **StateAction**\<`T`\>: (`baseState`, `skipFetchingFromFork`?) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
+> **StateAction**\<`T`\> = (`baseState`, `skipFetchingFromFork?`) => [`StateManager`](../interfaces/StateManager.md)\[`T`\]
 
 Defined in: [packages/state/src/state-types/StateAction.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateAction.ts#L4)
 
 ## Type Parameters
 
-• **T** *extends* keyof [`StateManager`](../interfaces/StateManager.md)
+### T
+
+`T` *extends* keyof [`StateManager`](../interfaces/StateManager.md)
 
 ## Parameters
 

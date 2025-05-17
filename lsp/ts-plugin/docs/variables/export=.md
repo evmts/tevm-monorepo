@@ -4,11 +4,11 @@
 
 [@tevm/ts-plugin](../globals.md) / export=
 
-# Function: export=()
+# Variable: export=
 
-> **export=**(`mod`): `PluginModule`
+> `const` **export=**: `typescript.server.PluginModuleFactory`
 
-Defined in: [lsp/ts-plugin/src/tsPlugin.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L36)
+Defined in: [tsPlugin.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/lsp/ts-plugin/src/tsPlugin.ts#L36)
 
 TypeScript server plugin factory that enables Solidity support in TypeScript.
 This plugin allows direct importing of .sol files in TypeScript with proper
@@ -18,18 +18,6 @@ The plugin works by decorating the TypeScript language service to handle
 Solidity files, compile them with solc, and provide TypeScript definitions.
 
 Add to your tsconfig.json:
-
-## Parameters
-
-### mod
-
-#### typescript
-
-*typeof* `ts`
-
-## Returns
-
-`PluginModule`
 
 ## Example
 

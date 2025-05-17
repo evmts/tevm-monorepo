@@ -4,9 +4,9 @@
 
 [@tevm/utils](../globals.md) / ecrecover
 
-# Function: ecrecover()
+# Variable: ecrecover()
 
-> **ecrecover**(`msgHash`, `v`, `r`, `s`, `chainId`?): `Uint8Array`
+> `const` **ecrecover**: (`msgHash`, `v`, `r`, `s`, `chainId?`) => `Uint8Array`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/signature.d.ts:20
 

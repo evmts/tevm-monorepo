@@ -26,7 +26,7 @@ and the copied state. This is intentional and safe because:
 
 ## Returns
 
-`Function`
+> (): [`BaseState`](../type-aliases/BaseState.md)
 
 ### Returns
 

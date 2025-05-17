@@ -6,7 +6,7 @@
 
 # Type Alias: ParameterizedTevmState
 
-> **ParameterizedTevmState**: `object`
+> **ParameterizedTevmState** = `object`
 
 Defined in: [packages/state/src/state-types/ParameterizedTevmState.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ParameterizedTevmState.ts#L21)
 

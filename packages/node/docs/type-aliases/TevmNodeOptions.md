@@ -6,7 +6,7 @@
 
 # Type Alias: TevmNodeOptions\<TCommon\>
 
-> **TevmNodeOptions**\<`TCommon`\>: `StateOptions` & `object`
+> **TevmNodeOptions**\<`TCommon`\> = `StateOptions` & `object`
 
 Defined in: [packages/node/src/TevmNodeOptions.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/TevmNodeOptions.ts#L12)
 
@@ -154,4 +154,6 @@ Enable profiler. Defaults to false.
 
 ## Type Parameters
 
-• **TCommon** *extends* `Common` = `Common`
+### TCommon
+
+`TCommon` *extends* `Common` = `Common`

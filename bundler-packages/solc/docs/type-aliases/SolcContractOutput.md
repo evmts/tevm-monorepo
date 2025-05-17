@@ -6,56 +6,86 @@
 
 # Type Alias: SolcContractOutput
 
-> **SolcContractOutput**: `object`
+> **SolcContractOutput** = `object`
 
 Defined in: [solcTypes.ts:395](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L395)
 
-## Type declaration
+## Properties
 
 ### abi
 
 > **abi**: `Abi`
 
+Defined in: [solcTypes.ts:397](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L397)
+
+***
+
 ### devdoc
 
 > **devdoc**: `any`
+
+Defined in: [solcTypes.ts:411](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L411)
+
+***
 
 ### evm
 
 > **evm**: [`SolcEVMOutput`](SolcEVMOutput.md)
 
+Defined in: [solcTypes.ts:420](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L420)
+
+***
+
 ### ewasm
 
 > **ewasm**: [`SolcEwasmOutput`](SolcEwasmOutput.md)
+
+Defined in: [solcTypes.ts:423](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L423)
+
+***
 
 ### ir
 
 > **ir**: `string`
 
+Defined in: [solcTypes.ts:414](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L414)
+
+***
+
 ### metadata
 
 > **metadata**: `string`
+
+Defined in: [solcTypes.ts:400](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L400)
+
+***
 
 ### storageLayout
 
 > **storageLayout**: [`SolcStorageLayout`](SolcStorageLayout.md)
 
+Defined in: [solcTypes.ts:417](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L417)
+
+***
+
 ### userdoc
 
 > **userdoc**: `object`
 
-#### userdoc.kind
+Defined in: [solcTypes.ts:403](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L403)
+
+#### kind
 
 > **kind**: `"user"`
 
-#### userdoc.methods?
+#### methods?
 
 > `optional` **methods**: `Record`\<`string`, \{ `notice`: `string`; \}\>
 
-#### userdoc.notice?
+#### notice?
 
 > `optional` **notice**: `string`
 
-#### userdoc.version
+#### version
 
 > **version**: `number`

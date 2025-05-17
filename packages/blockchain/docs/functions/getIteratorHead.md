@@ -6,7 +6,7 @@
 
 # Function: getIteratorHead()
 
-> **getIteratorHead**(`baseChain`): (`name`?) => `Promise`\<`Block`\>
+> **getIteratorHead**(`baseChain`): (`name?`) => `Promise`\<`Block`\>
 
 Defined in: [packages/blockchain/src/actions/getIteratorHead.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getIteratorHead.js#L8)
 
@@ -18,7 +18,7 @@ Defined in: [packages/blockchain/src/actions/getIteratorHead.js:8](https://githu
 
 ## Returns
 
-`Function`
+> (`name?`): `Promise`\<`Block`\>
 
 Returns the specified iterator head.
 

@@ -4,9 +4,9 @@
 
 [@tevm/utils](../globals.md) / setLengthLeft
 
-# Function: setLengthLeft()
+# Variable: setLengthLeft()
 
-> **setLengthLeft**(`msg`, `length`): `Uint8Array`
+> `const` **setLengthLeft**: (`msg`, `length`) => `Uint8Array`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:64
 

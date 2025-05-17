@@ -6,7 +6,7 @@
 
 # Function: generateCanonicalGenesis()
 
-> **generateCanonicalGenesis**(`baseState`, `skipFetchingFromFork`?): (`initState`) => `Promise`\<`void`\>
+> **generateCanonicalGenesis**(`baseState`, `skipFetchingFromFork?`): (`initState`) => `Promise`\<`void`\>
 
 Defined in: [packages/state/src/actions/generateCannonicalGenesis.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/generateCannonicalGenesis.js#L12)
 
@@ -24,7 +24,7 @@ Loads a [TevmState](../type-aliases/TevmState.md) into the state manager
 
 ## Returns
 
-`Function`
+> (`initState`): `Promise`\<`void`\>
 
 ### Parameters
 

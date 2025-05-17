@@ -6,7 +6,7 @@
 
 # Function: validateHeader()
 
-> **validateHeader**(`baseChain`): (`header`, `height`?) => `Promise`\<`void`\>
+> **validateHeader**(`baseChain`): (`header`, `height?`) => `Promise`\<`void`\>
 
 Defined in: [packages/blockchain/src/actions/validateHeader.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/validateHeader.js#L8)
 
@@ -18,7 +18,7 @@ Defined in: [packages/blockchain/src/actions/validateHeader.js:8](https://github
 
 ## Returns
 
-`Function`
+> (`header`, `height?`): `Promise`\<`void`\>
 
 Validates a block header, throwing if invalid. It is being validated against the reported `parentHash`.
 

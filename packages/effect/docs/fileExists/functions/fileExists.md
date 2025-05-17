@@ -10,6 +10,8 @@
 
 Defined in: [packages/effect/src/fileExists.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/effect/src/fileExists.js#L16)
 
+**`Internal`**
+
 Checks if a file exists at the given path
 
 ## Parameters

@@ -4,9 +4,9 @@
 
 [@tevm/esbuild-plugin](../globals.md) / esbuildPluginTevm
 
-# Function: esbuildPluginTevm()
+# Variable: esbuildPluginTevm()
 
-> **esbuildPluginTevm**(`options`?): `Plugin`
+> `const` **esbuildPluginTevm**: (`options?`) => `Plugin`
 
 Defined in: [bundler-packages/esbuild/src/esbuildPluginTevm.js:113](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L113)
 

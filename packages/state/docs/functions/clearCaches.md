@@ -6,7 +6,7 @@
 
 # Function: clearCaches()
 
-> **clearCaches**(`baseState`, `skipFetchingFromFork`?): () => `void`
+> **clearCaches**(`baseState`, `skipFetchingFromFork?`): () => `void`
 
 Defined in: [packages/state/src/actions/clearCaches.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/clearCaches.js#L5)
 
@@ -24,7 +24,7 @@ Resets all internal caches
 
 ## Returns
 
-`Function`
+> (): `void`
 
 Resets all internal caches
 

@@ -6,7 +6,7 @@
 
 # Function: putContractStorage()
 
-> **putContractStorage**(`baseState`, `skipFetchingFromFork`?): (`address`, `key`, `value`) => `Promise`\<`void`\>
+> **putContractStorage**(`baseState`, `skipFetchingFromFork?`): (`address`, `key`, `value`) => `Promise`\<`void`\>
 
 Defined in: [packages/state/src/actions/putContractStorage.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L12)
 
@@ -27,7 +27,7 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Returns
 
-`Function`
+> (`address`, `key`, `value`): `Promise`\<`void`\>
 
 ### Parameters
 

@@ -4,9 +4,9 @@
 
 [@tevm/utils](../globals.md) / zeros
 
-# Function: zeros()
+# Variable: zeros()
 
-> **zeros**(`bytes`): `Uint8Array`
+> `const` **zeros**: (`bytes`) => `Uint8Array`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:56
 

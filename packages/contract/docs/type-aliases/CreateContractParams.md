@@ -6,7 +6,7 @@
 
 # Type Alias: CreateContractParams\<TName, TAbi, TAddress, TBytecode, TDeployedBytecode, TCode\>
 
-> **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>: \{ `abi`: `never`; `address`: `TAddress`; `bytecode`: `TBytecode`; `code`: `TCode`; `deployedBytecode`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name`: `TName`; \} \| \{ `abi`: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`; `address`: `TAddress`; `bytecode`: `TBytecode`; `code`: `TCode`; `deployedBytecode`: `TDeployedBytecode`; `humanReadableAbi`: `never`; `name`: `TName`; \}
+> **CreateContractParams**\<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\> = \{ `abi?`: `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name?`: `TName`; \} \| \{ `abi`: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi?`: `never`; `name?`: `TName`; \}
 
 Defined in: [CreateContractParams.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/CreateContractParams.ts#L49)
 
@@ -16,33 +16,45 @@ either as a human-readable ABI or as a JSON ABI.
 
 ## Type Parameters
 
-• **TName** *extends* `string` \| `undefined` \| `never`
+### TName
+
+`TName` *extends* `string` \| `undefined` \| `never`
 
 The name of the contract (optional)
 
-• **TAbi** *extends* readonly `string`[] \| `Abi`
+### TAbi
+
+`TAbi` *extends* readonly `string`[] \| `Abi`
 
 The ABI type (either string[] for human readable or Abi for JSON)
 
-• **TAddress** *extends* `undefined` \| `Address` \| `never`
+### TAddress
+
+`TAddress` *extends* `undefined` \| `Address` \| `never`
 
 The contract address type (optional)
 
-• **TBytecode** *extends* `undefined` \| `Hex` \| `never`
+### TBytecode
+
+`TBytecode` *extends* `undefined` \| `Hex` \| `never`
 
 The contract creation bytecode type (optional)
 
-• **TDeployedBytecode** *extends* `undefined` \| `Hex` \| `never`
+### TDeployedBytecode
+
+`TDeployedBytecode` *extends* `undefined` \| `Hex` \| `never`
 
 The deployed bytecode type (optional)
 
-• **TCode** *extends* `undefined` \| `Hex` \| `never`
+### TCode
+
+`TCode` *extends* `undefined` \| `Hex` \| `never`
 
 The runtime bytecode type (optional)
 
 ## Type declaration
 
-\{ `abi`: `never`; `address`: `TAddress`; `bytecode`: `TBytecode`; `code`: `TCode`; `deployedBytecode`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name`: `TName`; \}
+\{ `abi?`: `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name?`: `TName`; \}
 
 ### abi?
 
@@ -84,7 +96,7 @@ Human-readable ABI of the contract
 
 Optional name of the contract
 
-\{ `abi`: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`; `address`: `TAddress`; `bytecode`: `TBytecode`; `code`: `TCode`; `deployedBytecode`: `TDeployedBytecode`; `humanReadableAbi`: `never`; `name`: `TName`; \}
+\{ `abi`: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi?`: `never`; `name?`: `TName`; \}
 
 ### abi
 

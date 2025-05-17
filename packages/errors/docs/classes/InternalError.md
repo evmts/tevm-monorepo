@@ -53,9 +53,9 @@ Additional parameters for the BaseError.
 
 ## Constructors
 
-### new InternalError()
+### Constructor
 
-> **new InternalError**(`message`, `args`?, `tag`?): [`InternalError`](InternalError.md)
+> **new InternalError**(`message`, `args?`, `tag?`): `InternalError`
 
 Defined in: [packages/errors/src/ethereum/InternalErrorError.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/InternalErrorError.js#L61)
 
@@ -83,11 +83,11 @@ The tag for the error.
 
 #### Returns
 
-[`InternalError`](InternalError.md)
+`InternalError`
 
 #### Overrides
 
-[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructors)
+[`BaseError`](BaseError.md).[`constructor`](BaseError.md#constructor)
 
 ## Properties
 
@@ -101,7 +101,7 @@ Same as name, used internally.
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag-1)
+[`BaseError`](BaseError.md).[`_tag`](BaseError.md#_tag)
 
 ***
 
@@ -125,7 +125,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:112](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`code`](BaseError.md#code-1)
+[`BaseError`](BaseError.md).[`code`](BaseError.md#code)
 
 ***
 
@@ -159,7 +159,7 @@ Path to the documentation for this error.
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 Human-readable error message.
 
@@ -215,7 +215,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/e
 
 #### Inherited from
 
-[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage-1)
+[`BaseError`](BaseError.md).[`shortMessage`](BaseError.md#shortmessage)
 
 ***
 
@@ -223,7 +223,7 @@ Defined in: [packages/errors/src/ethereum/BaseError.js:104](https://github.com/e
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -257,7 +257,7 @@ Error code (-32603), standard JSON-RPC error code for internal errors.
 
 > `static` `optional` **prepareStackTrace**: (`err`, `stackTraces`) => `any`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:143
+Defined in: node\_modules/.pnpm/bun-types@1.2.11/node\_modules/bun-types/globals.d.ts:962
 
 Optional override for formatting stack traces
 
@@ -289,7 +289,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:145
+Defined in: node\_modules/.pnpm/bun-types@1.2.11/node\_modules/bun-types/globals.d.ts:967
+
+The maximum number of stack frames to capture.
 
 #### Inherited from
 
@@ -299,7 +301,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 ### walk()
 
-> **walk**(`fn`?): `unknown`
+> **walk**(`fn?`): `unknown`
 
 Defined in: [packages/errors/src/ethereum/BaseError.js:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/errors/src/ethereum/BaseError.js#L137)
 
@@ -329,7 +331,33 @@ The first error that matches the function, or the original error.
 
 #### Call Signature
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Defined in: node\_modules/.pnpm/bun-types@1.2.11/node\_modules/bun-types/globals.d.ts:955
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
@@ -355,35 +383,9 @@ Create .stack property on a target object
 
 #### Call Signature
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.14.1/node\_modules/@types/node/globals.d.ts:136
-
-Create .stack property on a target object
-
-##### Parameters
-
-###### targetObject
-
-`object`
-
-###### constructorOpt?
-
-`Function`
-
-##### Returns
-
-`void`
-
-##### Inherited from
-
-[`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
-
-#### Call Signature
-
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
-
-Defined in: node\_modules/.pnpm/bun-types@1.2.5/node\_modules/bun-types/globals.d.ts:1441
+Defined in: node\_modules/.pnpm/@types+node@22.15.3/node\_modules/@types/node/globals.d.ts:136
 
 Create .stack property on a target object
 
@@ -404,3 +406,31 @@ Create .stack property on a target object
 ##### Inherited from
 
 [`BaseError`](BaseError.md).[`captureStackTrace`](BaseError.md#capturestacktrace)
+
+***
+
+### isError()
+
+> `static` **isError**(`value`): `value is Error`
+
+Defined in: node\_modules/.pnpm/bun-types@1.2.11/node\_modules/bun-types/globals.d.ts:950
+
+Check if a value is an instance of Error
+
+#### Parameters
+
+##### value
+
+`unknown`
+
+The value to check
+
+#### Returns
+
+`value is Error`
+
+True if the value is an instance of Error, false otherwise
+
+#### Inherited from
+
+[`BaseError`](BaseError.md).[`isError`](BaseError.md#iserror)

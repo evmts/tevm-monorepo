@@ -12,15 +12,25 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 
 ## Type Parameters
 
-• **abi** *extends* readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md)
+### abi
 
-• **eventName** *extends* `undefined` \| `string` = `undefined`
+`abi` *extends* readonly `unknown`[] \| [`Abi`](../type-aliases/Abi.md)
 
-• **topics** *extends* `` `0x${string}` ``[] = `` `0x${string}` ``[]
+### eventName
 
-• **data** *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+`eventName` *extends* `undefined` \| `string` = `undefined`
 
-• **strict** *extends* `boolean` = `true`
+### topics
+
+`topics` *extends* `` `0x${string}` ``[] = `` `0x${string}` ``[]
+
+### data
+
+`data` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+
+### strict
+
+`strict` *extends* `boolean` = `true`
 
 ## Parameters
 

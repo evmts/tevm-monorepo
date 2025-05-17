@@ -6,7 +6,7 @@
 
 # Type Alias: ExecutionPayload
 
-> **ExecutionPayload**: `object`
+> **ExecutionPayload** = `object`
 
 Defined in: [packages/block/src/types.ts:575](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L575)
 
@@ -21,88 +21,6 @@ The structure has evolved over time with various Ethereum upgrades:
 - Shanghai: Added withdrawals field
 - Cancun: Added blobGasUsed, excessBlobGas, parentBeaconBlockRoot
 - Prague (planned): Will add verkle-related fields
-
-## Type declaration
-
-### baseFeePerGas
-
-> **baseFeePerGas**: `Hex` \| `string`
-
-### blobGasUsed?
-
-> `optional` **blobGasUsed**: `Hex` \| `string`
-
-### blockHash
-
-> **blockHash**: `Hex` \| `string`
-
-### blockNumber
-
-> **blockNumber**: `Hex` \| `string`
-
-### excessBlobGas?
-
-> `optional` **excessBlobGas**: `Hex` \| `string`
-
-### executionWitness?
-
-> `optional` **executionWitness**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
-
-### extraData
-
-> **extraData**: `Hex` \| `string`
-
-### feeRecipient
-
-> **feeRecipient**: `Hex` \| `string`
-
-### gasLimit
-
-> **gasLimit**: `Hex` \| `string`
-
-### gasUsed
-
-> **gasUsed**: `Hex` \| `string`
-
-### logsBloom
-
-> **logsBloom**: `Hex` \| `string`
-
-### parentBeaconBlockRoot?
-
-> `optional` **parentBeaconBlockRoot**: `Hex` \| `string`
-
-### parentHash
-
-> **parentHash**: `Hex` \| `string`
-
-### prevRandao
-
-> **prevRandao**: `Hex` \| `string`
-
-### receiptsRoot
-
-> **receiptsRoot**: `Hex` \| `string`
-
-### requestsRoot?
-
-> `optional` **requestsRoot**: `Hex` \| `string` \| `null`
-
-### stateRoot
-
-> **stateRoot**: `Hex` \| `string`
-
-### timestamp
-
-> **timestamp**: `Hex` \| `string`
-
-### transactions
-
-> **transactions**: `Hex`[] \| `string`[]
-
-### withdrawals?
-
-> `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
 
 ## See
 
@@ -133,3 +51,163 @@ async function handleNewPayload(payload: ExecutionPayload): Promise<{status: str
   }
 }
 ```
+
+## Properties
+
+### baseFeePerGas
+
+> **baseFeePerGas**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:587](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L587)
+
+***
+
+### blobGasUsed?
+
+> `optional` **blobGasUsed**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:591](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L591)
+
+***
+
+### blockHash
+
+> **blockHash**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:588](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L588)
+
+***
+
+### blockNumber
+
+> **blockNumber**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:582](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L582)
+
+***
+
+### excessBlobGas?
+
+> `optional` **excessBlobGas**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:592](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L592)
+
+***
+
+### executionWitness?
+
+> `optional` **executionWitness**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
+
+Defined in: [packages/block/src/types.ts:595](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L595)
+
+***
+
+### extraData
+
+> **extraData**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:586](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L586)
+
+***
+
+### feeRecipient
+
+> **feeRecipient**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:577](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L577)
+
+***
+
+### gasLimit
+
+> **gasLimit**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:583](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L583)
+
+***
+
+### gasUsed
+
+> **gasUsed**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:584](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L584)
+
+***
+
+### logsBloom
+
+> **logsBloom**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:580](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L580)
+
+***
+
+### parentBeaconBlockRoot?
+
+> `optional` **parentBeaconBlockRoot**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:593](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L593)
+
+***
+
+### parentHash
+
+> **parentHash**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:576](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L576)
+
+***
+
+### prevRandao
+
+> **prevRandao**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:581](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L581)
+
+***
+
+### receiptsRoot
+
+> **receiptsRoot**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:579](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L579)
+
+***
+
+### requestsRoot?
+
+> `optional` **requestsRoot**: `Hex` \| `string` \| `null`
+
+Defined in: [packages/block/src/types.ts:596](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L596)
+
+***
+
+### stateRoot
+
+> **stateRoot**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:578](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L578)
+
+***
+
+### timestamp
+
+> **timestamp**: `Hex` \| `string`
+
+Defined in: [packages/block/src/types.ts:585](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L585)
+
+***
+
+### transactions
+
+> **transactions**: `Hex`[] \| `string`[]
+
+Defined in: [packages/block/src/types.ts:589](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L589)
+
+***
+
+### withdrawals?
+
+> `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
+
+Defined in: [packages/block/src/types.ts:590](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L590)
