@@ -2,44 +2,39 @@ const std = @import("std");
 const bitvec = @import("bitvec.zig");
 const opcodes = @import("opcodes.zig");
 
-// For compilation in test context
-const is_test = @import("builtin").is_test;
+// Opcode constants for testing
+pub const STOP_OPCODE: u8 = 0x00;
+pub const JUMPDEST_OPCODE: u8 = 0x5B;
 
-// If testing, use local mocked versions
-const U256 = if (is_test) 
-    struct {
-        value: u64 = 0,
-        
-        fn fromU64(value: u64) @This() {
-            return .{ .value = value };
-        }
-        
-        fn toU64(self: @This()) u64 {
-            return self.value;
-        }
-        
-        fn isAboveOrEqual(self: @This(), other: @This()) bool {
-            return self.value >= other.value;
-        }
-        
-        fn from(value: usize) @This() {
-            return .{ .value = @intCast(value) };
-        }
+/// Mock Address for testing
+pub const Address = struct {
+    value: u8 = 0,
+    
+    pub fn equals(self: Address, other: Address) bool {
+        return self.value == other.value;
     }
-else 
-    @import("../Types/U256.ts").U256;
+};
 
-// If testing, use local mocked version
-const Address = if (is_test)
-    struct {
-        value: u8 = 0,
-        
-        fn equals(self: @This(), other: @This()) bool {
-            return self.value == other.value;
-        }
+/// Mock U256 for testing
+pub const U256 = struct {
+    value: u64 = 0,
+    
+    pub fn fromU64(value: u64) U256 {
+        return U256{ .value = value };
     }
-else
-    @import("../Address/Address.ts").Address;
+    
+    pub fn toU64(self: U256) u64 {
+        return self.value;
+    }
+    
+    pub fn isAboveOrEqual(self: U256, other: U256) bool {
+        return self.value >= other.value;
+    }
+    
+    pub fn from(value: usize) U256 {
+        return U256{ .value = @intCast(value) };
+    }
+};
 
 /// Contract represents an ethereum contract in the state database
 pub const Contract = struct {
@@ -108,7 +103,7 @@ pub const Contract = struct {
         const udest = dest.toU64();
         
         // Only JUMPDEST opcode is a valid destination
-        if (self.code[udest] != opcodes.JUMPDEST_OPCODE) {
+        if (self.code[udest] != JUMPDEST_OPCODE) {
             return false;
         }
         
@@ -161,7 +156,7 @@ pub const Contract = struct {
         if (n < self.code.len) {
             return self.code[n];
         }
-        return opcodes.STOP_OPCODE; // Return STOP if beyond code length
+        return STOP_OPCODE; // Return STOP if beyond code length
     }
     
     /// Get the caller address
