@@ -8,7 +8,7 @@
 
 > **ParseAbi**\<`signatures`\> = `string`[] *extends* `signatures` ? [`Abi`](Abi.md) : `signatures` *extends* readonly `string`[] ? `signatures` *extends* `Signatures`\<`signatures`\> ? `ParseStructs`\<`signatures`\> *extends* infer sructs ? `{ [key in keyof signatures]: signatures[key] extends string ? ParseSignature<signatures[key], sructs> : never }` *extends* infer mapped ? `Filter`\<`mapped`, `never`\> *extends* infer result ? `result` *extends* readonly \[\] ? `never` : `result` : `never` : `never` : `never` : `never` : `never`
 
-Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.3/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
+Defined in: node\_modules/.pnpm/abitype@1.0.8\_typescript@5.8.3\_zod@3.24.4/node\_modules/abitype/dist/types/human-readable/parseAbi.d.ts:21
 
 Parses human-readable ABI into JSON [Abi](Abi.md)
 
