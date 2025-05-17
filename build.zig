@@ -21,6 +21,12 @@ pub fn build(b: *std.Build) void {
         .os_tag = .freestanding,
     });
 
+    // Get httpz dependency
+    const httpz_dep = b.dependency("httpz", .{
+        .target = target,
+        .optimize = optimize,
+    });
+
     // First create individual modules for each component
     const address_mod = b.createModule(.{
         .root_source_file = b.path("src/Address/address.zig"),
@@ -33,7 +39,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     const utils_mod = b.createModule(.{
         .root_source_file = b.path("src/Utils/utils.zig"),
         .target = target,
@@ -45,7 +51,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add imports to the block_mod
     block_mod.addImport("Address", address_mod);
 
@@ -60,13 +66,13 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     const rlp_mod = b.createModule(.{
         .root_source_file = b.path("src/Rlp/rlp.zig"),
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add imports to the rlp_mod
     rlp_mod.addImport("Utils", utils_mod);
 
@@ -75,13 +81,13 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     const evm_mod = b.createModule(.{
         .root_source_file = b.path("src/Evm/evm.zig"),
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add imports to the evm_mod
     evm_mod.addImport("Address", address_mod);
     evm_mod.addImport("Block", block_mod);
@@ -92,7 +98,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add package paths for absolute imports for all modules
     zigevm_mod.addImport("Address", address_mod);
     zigevm_mod.addImport("Abi", abi_mod);
@@ -118,7 +124,7 @@ pub fn build(b: *std.Build) void {
         // For WASM we typically want small size
         .optimize = .ReleaseSmall,
     });
-    
+
     // Add package paths for absolute imports to WASM module
     wasm_mod.addImport("Address", address_mod);
     wasm_mod.addImport("Abi", abi_mod);
@@ -146,6 +152,17 @@ pub fn build(b: *std.Build) void {
         .root_module = exe_mod,
     });
 
+    // Create a separate executable for the server
+    const server_exe = b.addExecutable(.{
+        .name = "zigevm-server",
+        .root_source_file = b.path("src/Server/main.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add httpz dependency to the server
+    server_exe.root_module.addImport("httpz", httpz_dep.module("httpz"));
+
     // Create the WebAssembly artifact
     const wasm = b.addExecutable(.{
         .name = "zigevm",
@@ -162,6 +179,7 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(lib);
     b.installArtifact(exe);
     b.installArtifact(wasm);
+    b.installArtifact(server_exe);
 
     // This *creates* a Run step in the build graph
     const run_cmd = b.addRunArtifact(exe);
@@ -180,11 +198,24 @@ pub fn build(b: *std.Build) void {
     const build_wasm_step = b.step("wasm", "Build the WebAssembly artifact");
     build_wasm_step.dependOn(&install_wasm.step);
 
+    // Define a run server step
+    const run_server_cmd = b.addRunArtifact(server_exe);
+    run_server_cmd.step.dependOn(b.getInstallStep());
+
+    // Pass arguments to the server application
+    if (b.args) |args| {
+        run_server_cmd.addArgs(args);
+    }
+
+    // Define run server step
+    const run_server_step = b.step("run-server", "Run the JSON-RPC server");
+    run_server_step.dependOn(&run_server_cmd.step);
+
     // Creates a step for unit testing.
     const lib_unit_tests = b.addTest(.{
         .root_module = zigevm_mod,
     });
-    
+
     // Add all modules to standalone tests
     lib_unit_tests.root_module.addImport("Address", address_mod);
     lib_unit_tests.root_module.addImport("Abi", abi_mod);
@@ -203,7 +234,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add all modules to frame_test
     frame_test.root_module.addImport("Address", address_mod);
     frame_test.root_module.addImport("Abi", abi_mod);
@@ -214,21 +245,21 @@ pub fn build(b: *std.Build) void {
     frame_test.root_module.addImport("Rlp", rlp_mod);
     frame_test.root_module.addImport("Token", token_mod);
     frame_test.root_module.addImport("Utils", utils_mod);
-    
+
     const run_frame_test = b.addRunArtifact(frame_test);
-    
+
     // Add a separate step for testing just the frame
     const frame_test_step = b.step("test-frame", "Run EVM frame tests");
     frame_test_step.dependOn(&run_frame_test.step);
-    
+
     // Add a test for evm.zig
     const evm_test = b.addTest(.{
         .name = "evm-test",
         .root_source_file = b.path("src/Evm/evm.zig"),
-        .target = target, 
+        .target = target,
         .optimize = optimize,
     });
-    
+
     // Add all modules to evm_test
     evm_test.root_module.addImport("Address", address_mod);
     evm_test.root_module.addImport("Abi", abi_mod);
@@ -239,12 +270,96 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("Rlp", rlp_mod);
     evm_test.root_module.addImport("Token", token_mod);
     evm_test.root_module.addImport("Utils", utils_mod);
-    
+
     const run_evm_test = b.addRunArtifact(evm_test);
-    
+
     // Add a separate step for testing the EVM
     const evm_test_step = b.step("test-evm", "Run EVM tests");
     evm_test_step.dependOn(&run_evm_test.step);
+
+    // Add a test for server.zig
+    const server_test = b.addTest(.{
+        .name = "server-test",
+        .root_source_file = b.path("src/Server/server.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add the httpz dependency to the server test
+    server_test.root_module.addImport("httpz", httpz_dep.module("httpz"));
+
+    const run_server_test = b.addRunArtifact(server_test);
+
+    // Add a separate step for testing the server
+    const server_test_step = b.step("test-server", "Run Server tests");
+    server_test_step.dependOn(&run_server_test.step);
+
+    // Add a test for rlp_test.zig
+    const rlp_specific_test = b.addTest(.{
+        .name = "rlp-test",
+        .root_source_file = b.path("src/Rlp/rlp_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add dependencies to rlp_test
+    rlp_specific_test.root_module.addImport("Rlp", rlp_mod);
+    rlp_specific_test.root_module.addImport("Utils", utils_mod);
+
+    const run_rlp_test = b.addRunArtifact(rlp_specific_test);
+
+    // Add a separate step for testing RLP
+    const rlp_test_step = b.step("test-rlp", "Run RLP tests");
+    rlp_test_step.dependOn(&run_rlp_test.step);
+
+    // Add a test for abi_test.zig
+    const abi_specific_test = b.addTest(.{
+        .name = "abi-test",
+        .root_source_file = b.path("src/Abi/abi_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add dependencies to abi_test
+    abi_specific_test.root_module.addImport("Abi", abi_mod);
+    abi_specific_test.root_module.addImport("Utils", utils_mod);
+
+    const run_abi_test = b.addRunArtifact(abi_specific_test);
+
+    // Add a separate step for testing ABI
+    const abi_test_step = b.step("test-abi", "Run ABI tests");
+    abi_test_step.dependOn(&run_abi_test.step);
+
+    // Add a test for Compiler tests
+    const compiler_test = b.addTest(.{
+        .name = "compiler-test",
+        .root_source_file = b.path("src/Compiler/resolutions.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add dependencies to compiler_test
+    compiler_test.root_module.addImport("Compiler", compiler_mod);
+
+    const run_compiler_test = b.addRunArtifact(compiler_test);
+
+    // Add a separate step for testing Compiler
+    const compiler_test_step = b.step("test-compiler", "Run Compiler tests");
+    compiler_test_step.dependOn(&run_compiler_test.step);
+
+    // Add a test for Interpreter tests
+    const interpreter_test = b.addTest(.{
+        .name = "interpreter-test",
+        .root_source_file = b.path("src/Interpreter/JumpTable.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_interpreter_test = b.addRunArtifact(interpreter_test);
+
+    // Add a separate step for testing Interpreter
+    const interpreter_test_step = b.step("test-interpreter", "Run Interpreter tests");
+    interpreter_test_step.dependOn(&run_interpreter_test.step);
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
@@ -254,8 +369,19 @@ pub fn build(b: *std.Build) void {
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
-    // Define test step
+    // Define test step for all tests
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
+    test_step.dependOn(&run_frame_test.step);
+    test_step.dependOn(&run_evm_test.step);
+    test_step.dependOn(&run_server_test.step);
+    test_step.dependOn(&run_rlp_test.step);
+    test_step.dependOn(&run_abi_test.step);
+    test_step.dependOn(&run_compiler_test.step);
+    test_step.dependOn(&run_interpreter_test.step);
+
+    // Define a single test step that runs all tests
+    const test_all_step = b.step("test-all", "Run all unit tests");
+    test_all_step.dependOn(test_step);
 }
