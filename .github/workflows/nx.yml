@@ -85,6 +85,10 @@ jobs:
           zig build &&
           zig build wasm && echo "WASM size: $(ls -lh ./dist/zigevm.wasm | awk '{print $5}')"
 
+      - name: Run Zig tests
+        run: |
+          zig build test-server && echo "✅ Server tests passed"
+
       - name: Run verification
         uses: JamesHenry/parallel-bash-commands@v1.0
         with:
