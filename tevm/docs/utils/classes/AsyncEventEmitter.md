@@ -195,7 +195,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/e
 
 > `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.3/node\_modules/@types/node/events.d.ts:592
+Defined in: node\_modules/.pnpm/@types+node@22.15.18/node\_modules/@types/node/events.d.ts:592
 
 #### Type Parameters
 
@@ -605,7 +605,7 @@ v10.0.0
 
 > **off**\<`K`\>(`eventName`, `listener`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.3/node\_modules/@types/node/events.d.ts:747
+Defined in: node\_modules/.pnpm/@types+node@22.15.18/node\_modules/@types/node/events.d.ts:747
 
 Alias for `emitter.removeListener()`.
 
@@ -931,7 +931,7 @@ v9.4.0
 
 > **rawListeners**\<`K`\>(`eventName`): `Function`[]
 
-Defined in: node\_modules/.pnpm/@types+node@22.15.3/node\_modules/@types/node/events.d.ts:818
+Defined in: node\_modules/.pnpm/@types+node@22.15.18/node\_modules/@types/node/events.d.ts:818
 
 Returns a copy of the array of listeners for the event named `eventName`,
 including any wrappers (such as those created by `.once()`).
