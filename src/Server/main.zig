@@ -6,10 +6,8 @@ pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
 
-    // Create the JSON-RPC server on port 8546 with logging middleware
     var server = try server_mod.createServer(allocator, 8546);
     defer {
-        // Ensure server is always stopped before deinitialization
         server.stop();
         server.deinit();
         std.debug.print("Server shutdown complete\n", .{});
