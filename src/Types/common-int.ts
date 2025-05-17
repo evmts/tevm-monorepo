@@ -68,7 +68,15 @@ export const uintFromBytes = <Size extends number>(size: Size) => {
 					}
 					return value
 				},
-				encode: () => new Uint8Array(0), // This is a dummy implementation since we don't need to transform back
+				encode: (value: bigint) => {
+					const bytes = new Uint8Array(size / 8)
+					let v = value
+					for (let i = bytes.length - 1; i >= 0; i--) {
+						bytes[i] = Number(v & 0xffn)
+						v >>= 8n
+					}
+					return bytes
+				},
 			},
 		),
 		Schema.brand(`Uint${size}`),
