@@ -1,7 +1,10 @@
 const std = @import("std");
 const Interpreter = @import("interpreter.zig").Interpreter;
 const InterpreterState = @import("InterpreterState.zig").InterpreterState;
-const Stack = @import("Stack.zig").Stack;
+pub const Stack = @import("Stack.zig").Stack;
+
+// Import the JumpTable module
+pub const JumpTable = @import("JumpTable.zig");
 
 pub const MemorySize = struct {
     size: u32,
@@ -14,12 +17,12 @@ pub const ExecutionError = error{
     INVALID,
 };
 
-const STOP = struct {
+pub const STOP = struct {
     constantGas: u32 = 0,
     minStack: u32 = 0,
     maxStack: u32 = 1028,
     dynamicGas: u32 = 0,
-    fn execute(_: usize, _: *Interpreter, _: *InterpreterState) ExecutionError![]const u8 {
+    pub fn execute(_: usize, _: *Interpreter, _: *InterpreterState) ExecutionError![]const u8 {
         return ExecutionError.STOP;
     }
     // Not needed with STOP but might be needed for future opcodes
@@ -1361,7 +1364,7 @@ const INVALID = struct {
     minStack: u32 = 0,
     maxStack: u32 = 0,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    pub fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -1652,12 +1655,6 @@ pub fn getOperation(opcode: u8) Operation {
         else => Operation{ .INVALID = INVALID{} }, // Default to INVALID for undefined opcodes
     };
 }
-
-pub const JumpTable = struct {
-    fn getOp(_: []const u8) Operation {
-        unreachable;
-    }
-};
 
 // Function to get the string name of an opcode
 pub fn getOpcodeName(opcode: u8) []const u8 {
