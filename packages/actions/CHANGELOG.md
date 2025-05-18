@@ -1,5 +1,14 @@
 # @tevm/contract
 
+## 1.0.0-next.144
+
+### Patch Changes
+
+- Updated dependencies [93c7b32]
+- Updated dependencies [93c7b32]
+  - @tevm/txpool@1.0.0-next.144
+  - @tevm/node@1.0.0-next.144
+
 ## 1.0.0-next.143
 
 ### Patch Changes
