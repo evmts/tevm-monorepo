@@ -18,12 +18,11 @@
     "solid-js": "^1.9.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.7",
     "@tauri-apps/cli": "^2",
     "@types/node": "^22.15.18",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.7",
+    "tailwindcss": "3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.6.2",
     "vite": "^6.0.3",
