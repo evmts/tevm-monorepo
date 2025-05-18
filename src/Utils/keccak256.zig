@@ -17,12 +17,12 @@ export fn keccak256_hex(hex_ptr: [*]const u8, hex_len: usize, output_ptr: [*]u8)
     const hex = @import("hex.zig");
 
     // Convert hex to bytes using stdlib
-    const binary_len = hex.hexToBytes(hex_ptr, hex_len, &binary_buffer);
+    const binary_len = hex.zig_hexToBytes(hex_ptr, hex_len, &binary_buffer);
 
     // Compute keccak256 hash
     var hash: [32]u8 = undefined;
     std.crypto.hash.sha3.Keccak256.hash(binary_buffer[0..binary_len], &hash, .{});
 
     // Convert hash to hex string using stdlib
-    return hex.bytesToHex(&hash, 32, output_ptr);
+    return hex.zig_bytesToHex(&hash, 32, output_ptr);
 }

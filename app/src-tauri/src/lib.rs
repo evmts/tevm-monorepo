@@ -1,7 +1,25 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+extern "C" {
+    // src/utils/keccak256.zig
+    fn keccak256(input: *const u8, input_len: usize, output: *mut u8);
+}
+
 #[tauri::command]
 fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+    let mut output = [0u8; 32];
+
+    unsafe {
+        keccak256(name.as_ptr(), name.len(), output.as_mut_ptr());
+    }
+
+    let hash = output
+        .iter()
+        .map(|byte| format!("{:02x}", byte))
+        .collect::<String>();
+
+    format!(
+        "Hello, {}! You've been greeted from Zig via rust! Your Kekkak256 of your name is {}",
+        name, hash
+    )
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
