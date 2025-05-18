@@ -1,0 +1,18 @@
+{
+  "name": "app",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run build:dev && electrobun dev",
+    "build:dev": "bun install && electrobun build"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "electrobun": "^0.0.18"
+  }
+}
