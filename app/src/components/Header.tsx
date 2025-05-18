@@ -8,6 +8,8 @@ interface HeaderProps {
   setShowSample: (value: boolean) => void;
   setBytecode: (value: string) => void;
   sampleContracts: SampleContract[];
+  activePanel: "all" | "stack" | "memory" | "storage" | "logs";
+  setActivePanel: (value: "all" | "stack" | "memory" | "storage" | "logs") => void;
 }
 
 export const Header = (props: HeaderProps) => {
@@ -39,32 +41,52 @@ export const Header = (props: HeaderProps) => {
 
             <div class="hidden md:flex space-x-1 ml-6">
               <button
-                onClick={() => {}}
-                class="px-3 py-1.5 text-sm rounded-md transition-colors bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
+                onClick={() => props.setActivePanel("all")}
+                class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  props.activePanel === "all"
+                    ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                }`}
               >
                 All Panels
               </button>
               <button
-                onClick={() => {}}
-                class="px-3 py-1.5 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                onClick={() => props.setActivePanel("stack")}
+                class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  props.activePanel === "stack"
+                    ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                }`}
               >
                 Stack
               </button>
               <button
-                onClick={() => {}}
-                class="px-3 py-1.5 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                onClick={() => props.setActivePanel("memory")}
+                class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  props.activePanel === "memory"
+                    ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                }`}
               >
                 Memory
               </button>
               <button
-                onClick={() => {}}
-                class="px-3 py-1.5 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                onClick={() => props.setActivePanel("storage")}
+                class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  props.activePanel === "storage"
+                    ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                }`}
               >
                 Storage
               </button>
               <button
-                onClick={() => {}}
-                class="px-3 py-1.5 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                onClick={() => props.setActivePanel("logs")}
+                class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  props.activePanel === "logs"
+                    ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                }`}
               >
                 Logs
               </button>
