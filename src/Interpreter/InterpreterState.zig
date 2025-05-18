@@ -2,6 +2,8 @@ const std = @import("std");
 const Memory = @import("Memory.zig").Memory;
 const Stack = @import("Stack.zig").Stack;
 
+// TODO rename Frame
+
 pub const InterpreterState = struct {
     // InterpreterState contains the execution state of the EVM interpreter
 
