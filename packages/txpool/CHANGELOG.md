@@ -1,5 +1,14 @@
 # @tevm/state
 
+## 1.0.0-next.144
+
+### Patch Changes
+
+- 93c7b32: Better TxPool.getByHash typing based on input (returns array or not), enforce unprefixed hash in TxPool.removeByHash to be consistent with other methods.
+- 93c7b32: Fix events on tx added/removed from the pool:
+  - remove duplicate 'txadded' event in `onChainReorganization` then `addUnverified`
+  - remove 'txremoved' event in `onBlockAdded` to fire in `removeNewBlockTxs` instead
+
 ## 1.0.0-next.143
 
 ### Patch Changes
