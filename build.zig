@@ -93,22 +93,22 @@ pub fn build(b: *std.Build) void {
     evm_mod.addImport("Block", block_mod);
 
     // Create a ZigEVM module - our core EVM implementation
-    const zigevm_mod = b.createModule(.{
+    const target_architecture_mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
     });
 
     // Add package paths for absolute imports for all modules
-    zigevm_mod.addImport("Address", address_mod);
-    zigevm_mod.addImport("Abi", abi_mod);
-    zigevm_mod.addImport("Block", block_mod);
-    zigevm_mod.addImport("Bytecode", bytecode_mod);
-    zigevm_mod.addImport("Compiler", compiler_mod);
-    zigevm_mod.addImport("Evm", evm_mod);
-    zigevm_mod.addImport("Rlp", rlp_mod);
-    zigevm_mod.addImport("Token", token_mod);
-    zigevm_mod.addImport("Utils", utils_mod);
+    target_architecture_mod.addImport("Address", address_mod);
+    target_architecture_mod.addImport("Abi", abi_mod);
+    target_architecture_mod.addImport("Block", block_mod);
+    target_architecture_mod.addImport("Bytecode", bytecode_mod);
+    target_architecture_mod.addImport("Compiler", compiler_mod);
+    target_architecture_mod.addImport("Evm", evm_mod);
+    target_architecture_mod.addImport("Rlp", rlp_mod);
+    target_architecture_mod.addImport("Token", token_mod);
+    target_architecture_mod.addImport("Utils", utils_mod);
 
     // Create the native executable module
     const exe_mod = b.createModule(.{
@@ -121,7 +121,6 @@ pub fn build(b: *std.Build) void {
     const wasm_mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
         .target = wasm_target,
-        // For WASM we typically want small size
         .optimize = .ReleaseSmall,
     });
 
@@ -137,13 +136,13 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Utils", utils_mod);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
-    exe_mod.addImport("zigevm", zigevm_mod);
+    exe_mod.addImport("zigevm", target_architecture_mod);
 
     // Create the ZigEVM static library artifact
     const lib = b.addLibrary(.{
         .linkage = .static,
         .name = "zigevm",
-        .root_module = zigevm_mod,
+        .root_module = target_architecture_mod,
     });
 
     // Create the CLI executable
@@ -213,7 +212,7 @@ pub fn build(b: *std.Build) void {
 
     // Creates a step for unit testing.
     const lib_unit_tests = b.addTest(.{
-        .root_module = zigevm_mod,
+        .root_module = target_architecture_mod,
     });
 
     // Add all modules to standalone tests
