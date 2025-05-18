@@ -12,7 +12,7 @@ fn hexCharToValue(c: u8) ?u8 {
 }
 
 // These functions use standard library implementions where possible
-export fn zig_hexToBytes(hex_ptr: [*]const u8, hex_len: usize, output_ptr: [*]u8) usize {
+export fn hexToBytes(hex_ptr: [*]const u8, hex_len: usize, output_ptr: [*]u8) usize {
     // Skip "0x" prefix if present
     var start_idx: usize = 0;
     if (hex_len >= 2 and hex_ptr[0] == '0' and (hex_ptr[1] == 'x' or hex_ptr[1] == 'X')) {
@@ -62,7 +62,7 @@ export fn zig_hexToBytes(hex_ptr: [*]const u8, hex_len: usize, output_ptr: [*]u8
 }
 
 // WASM-compatible bytesToHex function using std fmt utilities
-export fn zig_bytesToHex(bytes_ptr: [*]const u8, bytes_len: usize, output_ptr: [*]u8) usize {
+export fn bytesToHex(bytes_ptr: [*]const u8, bytes_len: usize, output_ptr: [*]u8) usize {
     // Write the 0x prefix
     output_ptr[0] = '0';
     output_ptr[1] = 'x';

@@ -55,7 +55,7 @@ export function hexToBytes(instance, hexString) {
 	const outputPtr = inputLen
 
 	// Call WASM function
-	const bytesWritten = instance.exports.zig_hexToBytes(inputPtr, inputLen, outputPtr)
+	const bytesWritten = instance.exports.hexToBytes(inputPtr, inputLen, outputPtr)
 
 	// Copy output to a new array
 	return new Uint8Array(memoryArray.buffer, outputPtr, bytesWritten)
@@ -93,7 +93,7 @@ export function bytesToHex(instance, bytes) {
 	const outputPtr = inputLen
 
 	// Call WASM function
-	const hexLen = instance.exports.zig_bytesToHex(inputPtr, inputLen, outputPtr)
+	const hexLen = instance.exports.bytesToHex(inputPtr, inputLen, outputPtr)
 
 	// Convert output to JavaScript string
 	const decoder = new TextDecoder()
@@ -136,7 +136,7 @@ export function keccak256(instance, input) {
 		const outputPtr = inputLen
 
 		// Call the all-in-one function
-		const hexLen = instance.exports.zig_keccak256_hex(inputPtr, inputLen, outputPtr)
+		const hexLen = instance.exports.keccak256_hex(inputPtr, inputLen, outputPtr)
 
 		// Convert output to JavaScript string
 		const decoder = new TextDecoder()
@@ -167,7 +167,7 @@ export function keccak256(instance, input) {
 	const outputPtr = inputLen
 
 	// Call the keccak256 function
-	instance.exports.zig_keccak256(inputPtr, inputLen, outputPtr)
+	instance.exports.keccak256(inputPtr, inputLen, outputPtr)
 
 	// Get the hash as bytes
 	const hashBytes = new Uint8Array(memory.buffer, outputPtr, 32)
