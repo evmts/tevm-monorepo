@@ -170,57 +170,17 @@ pub const Stack = struct {
 
     /// Push multiple bytes onto the stack efficiently
     /// Similar to evmone's push_slice implementation
-    pub fn push_slice(self: *Stack, slice: []const u8) !void {
-        // Return early if no data to push
-        if (slice.len == 0) return;
-
-        // Calculate how many words we need
-        const word_bytes = @sizeOf(u256);
-        const n_words = (slice.len + word_bytes - 1) / word_bytes;
-
-        // Check stack capacity
-        if (self.size + n_words > 1024) return StackError.StackOverflow;
-
-        // Process full 32-byte words
-        var src_index: usize = 0;
-        while (src_index + word_bytes <= slice.len) {
-            var word: u256 = 0;
-
-            // Process 8 bytes at a time when possible
-            var i: usize = 0;
-            while (i < word_bytes) : (i += 8) {
-                if (src_index + i + 8 <= slice.len) {
-                    const bytes = slice[src_index + i .. src_index + i + 8];
-                    // Convert to u64 in big-endian order
-                    const limb = std.mem.readInt(u64, bytes[0..8], .big);
-                    // Place in correct position in the u256
-                    word = word | (@as(u256, limb) << @intCast((word_bytes - i - 8) * 8));
-                }
-            }
-
-            // Push the completed word
-            self.data[self.size] = word;
-            self.size += 1;
-            src_index += word_bytes;
-        }
-
         // Handle remaining bytes (less than 32)
         if (src_index < slice.len) {
-            var word: u256 = 0;
+            var buf: [32]u8 = [_]u8{0} ** 32;
             const remaining = slice.len - src_index;
+            // Right-align the remaining bytes
+            std.mem.copy(u8, buf[32 - remaining ..], slice[src_index ..]);
 
-            // Process remaining bytes, padding with zeros
-            var i: usize = 0;
-            while (i < remaining) : (i += 1) {
-                // Place each byte in right position (big endian)
-                word = word | (@as(u256, slice[src_index + i]) << @intCast((remaining - i - 1) * 8));
-            }
-
-            // Push the final partial word
+            const word = std.mem.readInt(u256, &buf, .big);
             self.data[self.size] = word;
             self.size += 1;
         }
-    }
 
     /// Peek at a value at specific position without popping
     pub inline fn peek_n(self: *Stack, n: usize) !u256 {
