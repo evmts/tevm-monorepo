@@ -434,4 +434,8 @@ pub fn build(b: *std.Build) void {
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
     test_all_step.dependOn(test_step);
+
+    const zabi_module = b.dependency("zabi", .{}).module("zabi");
+    exe.root_module.addImport("zabi", zabi_module);
+    lib.root_module.addImport("zabi", zabi_module);
 }
