@@ -2,29 +2,30 @@ const std = @import("std");
 
 /// Stack implementation for EVM
 pub const Stack = struct {
-    data: std.ArrayList(u256),
-    
+    data: [1024]u256,
+    size: usize,
+
     pub fn init(allocator: std.mem.Allocator) Stack {
+        _ = allocator;
         return Stack{
-            .data = std.ArrayList(u256).init(allocator),
+            .data = undefined,
+            .size = 0,
         };
     }
-    
-    pub fn deinit(self: *Stack) void {
-        self.data.deinit();
-    }
-    
+
     pub fn push(self: *Stack, value: u256) !void {
-        if (self.data.items.len >= 1024) {
+        if (self.size >= 1024) {
             return error.StackOverflow;
         }
-        try self.data.append(value);
+        self.data[self.size] = value;
+        self.size += 1;
     }
-    
+
     pub fn pop(self: *Stack) !u256 {
-        if (self.data.items.len == 0) {
+        if (self.size == 0) {
             return error.StackUnderflow;
         }
-        return self.data.pop() orelse return error.StackUnderflow;
+        self.size -= 1;
+        return self.data[self.size];
     }
 };

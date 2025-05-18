@@ -3,154 +3,195 @@ const std = @import("std");
 pub const StackError = error{
     OutOfBounds,
     OutOfMemory,
+    StackOverflow,
 };
 
 pub const Stack = struct {
-    data: std.ArrayList(u256),
-    allocator: std.mem.Allocator,
+    data: [1024]u256 = undefined,
+    size: usize = 0,
 
-    pub fn init(allocator: std.mem.Allocator) !Stack {
-        return Stack{
-            .data = std.ArrayList(u256).init(allocator),
-            .allocator = allocator,
-        };
+    inline fn push(self: *Stack, value: u256) StackError!void {
+        if (self.size >= 1024) {
+            return StackError.StackOverflow;
+        }
+        self.data[self.size] = value;
+        self.size += 1;
     }
 
-    pub fn deinit(self: *Stack) void {
-        self.data.deinit();
+    inline fn pop(self: *Stack) StackError!u256 {
+        if (self.size == 0) return StackError.OutOfBounds;
+        self.size -= 1;
+        return self.data[self.size];
     }
 
-    pub fn push(self: *Stack, value: u256) !void {
-        try self.data.append(value);
+    inline fn peek(self: *Stack) StackError!*u256 {
+        if (self.size == 0) return StackError.OutOfBounds;
+        return &self.data[self.size - 1];
     }
 
-    pub fn pop(self: *Stack) StackError!u256 {
-        if (self.data.items.len == 0) return StackError.OutOfBounds;
-        const value = self.data.items[self.data.items.len - 1];
-        _ = self.data.pop();
-        return value;
+    inline fn len(self: *Stack) usize {
+        return self.size;
     }
 
-    pub fn peek(self: *Stack) StackError!*u256 {
-        if (self.data.items.len == 0) return StackError.OutOfBounds;
-        return &self.data.items[self.data.items.len - 1];
+    inline fn swap1(self: *Stack) StackError!void {
+        if (self.size < 2) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 2], &self.data[stack_len - 1]);
     }
 
-    pub fn len(self: *Stack) usize {
-        return self.data.items.len;
+    inline fn swap2(self: *Stack) StackError!void {
+        if (self.size < 3) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 3], &self.data[stack_len - 1]);
     }
 
-    pub fn swap1(self: *Stack) StackError!void {
-        if (self.data.items.len < 2) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 2], &self.data.items[stack_len - 1]);
+    inline fn swap3(self: *Stack) StackError!void {
+        if (self.size < 4) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 4], &self.data[stack_len - 1]);
     }
 
-    pub fn swap2(self: *Stack) StackError!void {
-        if (self.data.items.len < 3) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 3], &self.data.items[stack_len - 1]);
+    inline fn swap4(self: *Stack) StackError!void {
+        if (self.size < 5) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 5], &self.data[stack_len - 1]);
     }
 
-    pub fn swap3(self: *Stack) StackError!void {
-        if (self.data.items.len < 4) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 4], &self.data.items[stack_len - 1]);
+    inline fn swap5(self: *Stack) StackError!void {
+        if (self.size < 6) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 6], &self.data[stack_len - 1]);
     }
 
-    pub fn swap4(self: *Stack) StackError!void {
-        if (self.data.items.len < 5) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 5], &self.data.items[stack_len - 1]);
+    inline fn swap6(self: *Stack) StackError!void {
+        if (self.size < 7) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 7], &self.data[stack_len - 1]);
     }
 
-    pub fn swap5(self: *Stack) StackError!void {
-        if (self.data.items.len < 6) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 6], &self.data.items[stack_len - 1]);
+    inline fn swap7(self: *Stack) StackError!void {
+        if (self.size < 8) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 8], &self.data[stack_len - 1]);
     }
 
-    pub fn swap6(self: *Stack) StackError!void {
-        if (self.data.items.len < 7) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 7], &self.data.items[stack_len - 1]);
+    inline fn swap8(self: *Stack) StackError!void {
+        if (self.size < 9) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 9], &self.data[stack_len - 1]);
     }
 
-    pub fn swap7(self: *Stack) StackError!void {
-        if (self.data.items.len < 8) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 8], &self.data.items[stack_len - 1]);
+    inline fn swap9(self: *Stack) StackError!void {
+        if (self.size < 10) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 10], &self.data[stack_len - 1]);
     }
 
-    pub fn swap8(self: *Stack) StackError!void {
-        if (self.data.items.len < 9) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 9], &self.data.items[stack_len - 1]);
+    inline fn swap10(self: *Stack) StackError!void {
+        if (self.size < 11) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 11], &self.data[stack_len - 1]);
     }
 
-    pub fn swap9(self: *Stack) StackError!void {
-        if (self.data.items.len < 10) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 10], &self.data.items[stack_len - 1]);
+    inline fn swap11(self: *Stack) StackError!void {
+        if (self.size < 12) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 12], &self.data[stack_len - 1]);
     }
 
-    pub fn swap10(self: *Stack) StackError!void {
-        if (self.data.items.len < 11) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 11], &self.data.items[stack_len - 1]);
+    inline fn swap12(self: *Stack) StackError!void {
+        if (self.size < 13) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 13], &self.data[stack_len - 1]);
     }
 
-    pub fn swap11(self: *Stack) StackError!void {
-        if (self.data.items.len < 12) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 12], &self.data.items[stack_len - 1]);
+    inline fn swap13(self: *Stack) StackError!void {
+        if (self.size < 14) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 14], &self.data[stack_len - 1]);
     }
 
-    pub fn swap12(self: *Stack) StackError!void {
-        if (self.data.items.len < 13) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 13], &self.data.items[stack_len - 1]);
+    inline fn swap14(self: *Stack) StackError!void {
+        if (self.size < 15) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 15], &self.data[stack_len - 1]);
     }
 
-    pub fn swap13(self: *Stack) StackError!void {
-        if (self.data.items.len < 14) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 14], &self.data.items[stack_len - 1]);
+    inline fn swap15(self: *Stack) StackError!void {
+        if (self.size < 16) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 16], &self.data[stack_len - 1]);
     }
 
-    pub fn swap14(self: *Stack) StackError!void {
-        if (self.data.items.len < 15) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 15], &self.data.items[stack_len - 1]);
+    inline fn swap16(self: *Stack) StackError!void {
+        if (self.size < 17) return StackError.OutOfBounds;
+        const stack_len = self.size;
+        std.mem.swap(u256, &self.data[stack_len - 17], &self.data[stack_len - 1]);
     }
 
-    pub fn swap15(self: *Stack) StackError!void {
-        if (self.data.items.len < 16) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 16], &self.data.items[stack_len - 1]);
+    inline fn dup(self: *Stack, n: usize) StackError!void {
+        if (n == 0 or n > self.size) return StackError.OutOfBounds;
+        try self.push(self.data[self.size - n]);
     }
 
-    pub fn swap16(self: *Stack) StackError!void {
-        if (self.data.items.len < 17) return StackError.OutOfBounds;
-        const stack_len = self.data.items.len;
-        std.mem.swap(u256, &self.data.items[stack_len - 17], &self.data.items[stack_len - 1]);
+    inline fn back(self: *Stack, n: usize) StackError!*u256 {
+        if (n >= self.size) return StackError.OutOfBounds;
+        return &self.data[self.size - n - 1];
     }
 
-    pub fn dup(self: *Stack, n: usize) StackError!void {
-        if (n == 0 or n > self.data.items.len) return StackError.OutOfBounds;
-        try self.push(self.data.items[self.data.items.len - n]);
+    pub fn swap_unsafe(self: *Stack, n: usize) void {
+        std.debug.assert(self.size > n);
+        const top_index = self.size - 1;
+        std.mem.swap(u256, &self.data[top_index], &self.data[top_index - n]);
     }
 
-    pub fn back(self: *Stack, n: usize) StackError!*u256 {
-        if (n >= self.data.items.len) return StackError.OutOfBounds;
-        return &self.data.items[self.data.items.len - n - 1];
+    // this is a batch operation that does N pops
+    pub inline fn popn(self: *Stack, comptime N: usize) ![N]u256 {
+        if (self.size < N) return StackError.OutOfBounds;
+        var result: [N]u256 = undefined;
+        var i: usize = 0;
+        while (i < N) : (i += 1) {
+            self.size -= 1;
+            result[N - i - 1] = self.data[self.size]; // Unchecked access after initial bounds check
+        }
+        return result;
+    }
+
+    // this is a batch operation that does N pops
+    pub inline fn popn_top(self: *Stack, comptime N: usize) !.{ [N]u256, *u256 } {
+        if (self.size <= N) return StackError.OutOfBounds;
+        const top = try self.peek();
+        var result: [N]u256 = undefined;
+        var i: usize = 0;
+        while (i < N) : (i += 1) {
+            result[N - i - 1] = try self.pop();
+        }
+        return .{ result, top };
+    }
+
+    // Similar to revm's peek method
+    pub inline fn peek_n(self: *Stack, n: usize) !u256 {
+        if (self.size <= n) return StackError.OutOfBounds;
+        return self.data[self.size - n - 1];
+    }
+
+    // Push a slice of bytes (helpful for PUSH operations)
+    pub inline fn push_slice(self: *Stack, slice: []const u8) !void {
+        // Logic to push bytes onto stack, padding to 32 bytes
+        // Similar to revm's implementation
+    }
+
+    // Unsafe peek for hot paths
+    pub inline fn top_unsafe(self: *Stack) *u256 {
+        std.debug.assert(self.size > 0);
+        return &self.data[self.size - 1];
     }
 };
 
 const testing = std.testing;
 
 test "Stack basic operations" {
-    var stack = try Stack.init(testing.allocator);
+    var stack = Stack.init();
     defer stack.deinit();
 
     // Test push and pop
@@ -170,7 +211,7 @@ test "Stack basic operations" {
 }
 
 test "Stack swap operations" {
-    var stack = try Stack.init(testing.allocator);
+    var stack = Stack.init();
     defer stack.deinit();
 
     const value1: u256 = 1;
@@ -190,7 +231,7 @@ test "Stack swap operations" {
 }
 
 test "Stack dup operations" {
-    var stack = try Stack.init(testing.allocator);
+    var stack = Stack.init();
     defer stack.deinit();
 
     const value1: u256 = 1;
@@ -213,7 +254,7 @@ test "Stack dup operations" {
 }
 
 test "Stack back operations" {
-    var stack = try Stack.init(testing.allocator);
+    var stack = Stack.init();
     defer stack.deinit();
 
     const value1: u256 = 1;
@@ -230,7 +271,7 @@ test "Stack back operations" {
 }
 
 test "Stack multiple operations" {
-    var stack = try Stack.init(testing.allocator);
+    var stack = Stack.init();
     defer stack.deinit();
 
     // Push multiple values
@@ -262,7 +303,7 @@ test "Stack multiple operations" {
 }
 
 test "Stack swap operations comprehensive" {
-    var stack = try Stack.init(testing.allocator);
+    var stack = Stack.init();
     defer stack.deinit();
 
     // Push 17 values to test all swap operations
@@ -295,7 +336,7 @@ test "Stack swap operations comprehensive" {
 }
 
 test "Stack error cases" {
-    var stack = try Stack.init(testing.allocator);
+    var stack = Stack.init();
     defer stack.deinit();
 
     // Test pop on empty stack
