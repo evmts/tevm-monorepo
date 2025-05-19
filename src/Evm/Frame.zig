@@ -2,6 +2,7 @@ const std = @import("std");
 const Memory = @import("Memory.zig").Memory;
 const Stack = @import("Stack.zig").Stack;
 const Contract = @import("Contract.zig").Contract;
+const Address = @import("../Address/address.zig").Address;
 
 /// Frame contains the execution state of the EVM interpreter
 /// It represents a single execution frame, similar to geth's ScopeContext

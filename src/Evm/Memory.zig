@@ -1,5 +1,8 @@
 const std = @import("std");
 
+// Import the u256 type from the appropriate module
+const u256 = u256;
+
 /// Memory implements a simple memory model for the ethereum virtual machine.
 pub const Memory = struct {
     store: std.ArrayList(u8),

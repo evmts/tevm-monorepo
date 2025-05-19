@@ -1,5 +1,6 @@
 const std = @import("std");
 const Frame = @import("Frame.zig").Frame;
+const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 
 /// EVM represents the Ethereum Virtual Machine
 pub const Evm = struct {
@@ -11,6 +12,9 @@ pub const Evm = struct {
     
     /// Chain rules configuration (e.g., which hardfork rules to apply)
     chainRules: ChainRules = ChainRules{},
+    
+    /// State manager for accessing account and storage state
+    state_manager: ?*StateManager = null,
     
     /// Create a new EVM instance
     pub fn init() Evm {
@@ -25,6 +29,11 @@ pub const Evm = struct {
     /// Set read-only mode
     pub fn setReadOnly(self: *Evm, readOnly: bool) void {
         self.readOnly = readOnly;
+    }
+    
+    /// Set state manager
+    pub fn setStateManager(self: *Evm, stateManager: *StateManager) void {
+        self.state_manager = stateManager;
     }
 };
 

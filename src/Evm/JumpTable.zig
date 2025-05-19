@@ -5,6 +5,16 @@ const Frame = @import("Frame.zig").Frame;
 const ExecutionError = @import("Frame.zig").ExecutionError;
 const Stack = @import("Stack.zig").Stack;
 const Memory = @import("Memory.zig").Memory;
+const math = @import("opcodes/math.zig");
+const math2 = @import("opcodes/math2.zig");
+const comparison = @import("opcodes/comparison.zig");
+const bitwise = @import("opcodes/bitwise.zig");
+const memory = @import("opcodes/memory.zig");
+const storage = @import("opcodes/storage.zig");
+const controlflow = @import("opcodes/controlflow.zig");
+const environment = @import("opcodes/environment.zig");
+const calls = @import("opcodes/calls.zig");
+const block = @import("opcodes/block.zig");
 
 /// ExecutionFunc is a function executed by the EVM during interpretation
 pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8;
@@ -152,12 +162,7 @@ fn undefinedExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     return ExecutionError.INVALID;
 }
 
-fn stopExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    _ = pc;
-    _ = interpreter;
-    _ = frame;
-    return ExecutionError.STOP;
-}
+// We'll use the controlflow module for STOP now
 
 fn dummyExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
@@ -170,15 +175,8 @@ fn dummyExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 pub fn newFrontierInstructionSet(allocator: std.mem.Allocator) !JumpTable {
     var jt = JumpTable.init();
 
-    // Setup operation table manually instead of using opcodes structs directly
-    const stop_op = try allocator.create(Operation);
-    stop_op.* = Operation{
-        .execute = stopExecute,
-        .constant_gas = 0,
-        .min_stack = minStack(0, 0),
-        .max_stack = maxStack(0, 0),
-    };
-    jt.table[0x00] = stop_op;
+    // Register control flow opcodes (STOP, JUMP, JUMPI, PC, JUMPDEST, RETURN, REVERT, INVALID, SELFDESTRUCT)
+    try controlflow.registerControlFlowOpcodes(allocator, &jt);
 
     const add_op = try allocator.create(Operation);
     add_op.* = Operation{
@@ -188,6 +186,33 @@ pub fn newFrontierInstructionSet(allocator: std.mem.Allocator) !JumpTable {
         .max_stack = maxStack(2, 1),
     };
     jt.table[0x01] = add_op;
+
+    // Register math opcodes (ADD, SUB, MUL, etc.)
+    try math.registerMathOpcodes(allocator, &jt);
+    
+    // Register advanced math opcodes (ADDMOD, MULMOD, EXP, SIGNEXTEND, SDIV, MOD, SMOD)
+    try math2.registerMath2Opcodes(allocator, &jt);
+    
+    // Register comparison opcodes (LT, GT, SLT, SGT, EQ, ISZERO)
+    try comparison.registerComparisonOpcodes(allocator, &jt);
+    
+    // Register bitwise opcodes (AND, OR, XOR, NOT, BYTE, SHL, SHR, SAR)
+    try bitwise.registerBitwiseOpcodes(allocator, &jt);
+    
+    // Register memory opcodes (MLOAD, MSTORE, MSTORE8, MSIZE, POP, PUSH*, DUP*, SWAP*)
+    try memory.registerMemoryOpcodes(allocator, &jt);
+    
+    // Register storage opcodes (SLOAD, SSTORE)
+    try storage.registerStorageOpcodes(allocator, &jt);
+    
+    // Register environment opcodes (ADDRESS, BALANCE, etc.)
+    try environment.registerEnvironmentOpcodes(allocator, &jt);
+    
+    // Register block opcodes (BLOCKHASH, COINBASE, TIMESTAMP, etc.)
+    try block.registerBlockOpcodes(allocator, &jt);
+    
+    // Register call opcodes (CALL, CALLCODE, DELEGATECALL, STATICCALL, CREATE, CREATE2)
+    try calls.registerCallOpcodes(allocator, &jt);
 
     // Add more operations based on Geth's frontier implementation
     // This would continue for all opcodes...
@@ -216,6 +241,42 @@ test "JumpTable basic operations" {
 
     const add_op = jt.getOperation(0x01);
     try std.testing.expectEqual(@as(u64, GasFastestStep), add_op.constant_gas);
+    
+    // Test environment opcodes
+    const address_op = jt.getOperation(0x30); // ADDRESS
+    try std.testing.expectEqual(@as(u64, GasQuickStep), address_op.constant_gas);
+    
+    const balance_op = jt.getOperation(0x31); // BALANCE
+    try std.testing.expectEqual(@as(u64, GasExtStep), balance_op.constant_gas);
+    
+    // Test block opcodes
+    const blockhash_op = jt.getOperation(0x40); // BLOCKHASH
+    try std.testing.expectEqual(@as(u64, GasMidStep), blockhash_op.constant_gas);
+    
+    const coinbase_op = jt.getOperation(0x41); // COINBASE
+    try std.testing.expectEqual(@as(u64, GasQuickStep), coinbase_op.constant_gas);
+    
+    const timestamp_op = jt.getOperation(0x42); // TIMESTAMP
+    try std.testing.expectEqual(@as(u64, GasQuickStep), timestamp_op.constant_gas);
+    
+    const difficulty_op = jt.getOperation(0x44); // DIFFICULTY/PREVRANDAO
+    try std.testing.expectEqual(@as(u64, GasQuickStep), difficulty_op.constant_gas);
+    
+    const chainid_op = jt.getOperation(0x46); // CHAINID
+    try std.testing.expectEqual(@as(u64, GasQuickStep), chainid_op.constant_gas);
+    
+    // Test call opcodes
+    const call_op = jt.getOperation(0xF1); // CALL
+    try std.testing.expectEqual(@as(u64, CallGas), call_op.constant_gas);
+    
+    const create_op = jt.getOperation(0xF0); // CREATE
+    try std.testing.expectEqual(@as(u64, CreateGas), create_op.constant_gas);
+    
+    const delegatecall_op = jt.getOperation(0xF4); // DELEGATECALL
+    try std.testing.expectEqual(@as(u64, CallGas), delegatecall_op.constant_gas);
+    
+    const create2_op = jt.getOperation(0xF5); // CREATE2
+    try std.testing.expectEqual(@as(u64, CreateGas), create2_op.constant_gas);
 
     // Test an undefined operation
     const undef_op = jt.getOperation(0xFF);
