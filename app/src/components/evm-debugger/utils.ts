@@ -3,7 +3,7 @@ import { EvmState } from "./types";
 
 export async function loadBytecode(bytecodeHex: string): Promise<void> {
   try {
-    await invoke<void>("load_bytecode", { bytecode_hex: bytecodeHex });
+    await invoke<void>("load_bytecode", { bytecodeHex });
   } catch (err) {
     throw new Error(`Failed to load bytecode: ${err}`);
   }
