@@ -45,6 +45,12 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    
+    const trie_mod = b.createModule(.{
+        .root_source_file = b.path("src/Trie/module.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
 
     const block_mod = b.createModule(.{
         .root_source_file = b.path("src/Block/block.zig"),
@@ -75,6 +81,10 @@ pub fn build(b: *std.Build) void {
 
     // Add imports to the rlp_mod
     rlp_mod.addImport("Utils", utils_mod);
+    
+    // Add imports to the trie_mod
+    trie_mod.addImport("Rlp", rlp_mod);
+    trie_mod.addImport("Utils", utils_mod);
 
     const token_mod = b.createModule(.{
         .root_source_file = b.path("src/Token/token.zig"),
@@ -108,6 +118,7 @@ pub fn build(b: *std.Build) void {
     target_architecture_mod.addImport("Evm", evm_mod);
     target_architecture_mod.addImport("Rlp", rlp_mod);
     target_architecture_mod.addImport("Token", token_mod);
+    target_architecture_mod.addImport("Trie", trie_mod);
     target_architecture_mod.addImport("Utils", utils_mod);
 
     // Create the native executable module
@@ -133,6 +144,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Evm", evm_mod);
     wasm_mod.addImport("Rlp", rlp_mod);
     wasm_mod.addImport("Token", token_mod);
+    wasm_mod.addImport("Trie", trie_mod);
     wasm_mod.addImport("Utils", utils_mod);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
@@ -224,6 +236,7 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Evm", evm_mod);
     lib_unit_tests.root_module.addImport("Rlp", rlp_mod);
     lib_unit_tests.root_module.addImport("Token", token_mod);
+    lib_unit_tests.root_module.addImport("Trie", trie_mod);
     lib_unit_tests.root_module.addImport("Utils", utils_mod);
 
     // Additional standalone test specifically for Frame_test.zig
@@ -243,6 +256,7 @@ pub fn build(b: *std.Build) void {
     frame_test.root_module.addImport("Evm", evm_mod);
     frame_test.root_module.addImport("Rlp", rlp_mod);
     frame_test.root_module.addImport("Token", token_mod);
+    frame_test.root_module.addImport("Trie", trie_mod);
     frame_test.root_module.addImport("Utils", utils_mod);
 
     const run_frame_test = b.addRunArtifact(frame_test);
@@ -268,6 +282,7 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("Evm", evm_mod);
     evm_test.root_module.addImport("Rlp", rlp_mod);
     evm_test.root_module.addImport("Token", token_mod);
+    evm_test.root_module.addImport("Trie", trie_mod);
     evm_test.root_module.addImport("Utils", utils_mod);
 
     const run_evm_test = b.addRunArtifact(evm_test);
@@ -345,6 +360,25 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing Compiler
     const compiler_test_step = b.step("test-compiler", "Run Compiler tests");
     compiler_test_step.dependOn(&run_compiler_test.step);
+    
+    // Add a test for Trie tests
+    const trie_test = b.addTest(.{
+        .name = "trie-test",
+        .root_source_file = b.path("src/Trie/main_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to trie_test
+    trie_test.root_module.addImport("Rlp", rlp_mod);
+    trie_test.root_module.addImport("Utils", utils_mod);
+    trie_test.root_module.addImport("Trie", trie_mod);
+    
+    const run_trie_test = b.addRunArtifact(trie_test);
+    
+    // Add a separate step for testing Trie
+    const trie_test_step = b.step("test-trie", "Run Trie tests");
+    trie_test_step.dependOn(&run_trie_test.step);
 
     // Add a test for Interpreter tests
     const interpreter_test = b.addTest(.{
@@ -378,6 +412,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_rlp_test.step);
     test_step.dependOn(&run_abi_test.step);
     test_step.dependOn(&run_compiler_test.step);
+    test_step.dependOn(&run_trie_test.step);
     test_step.dependOn(&run_interpreter_test.step);
 
     // Define a single test step that runs all tests
