@@ -5,7 +5,7 @@ export interface EvmState {
   depth: number; // call depth
   stack: string[]; // hex values, top last
   memory: string; // full 0x… hex dump
-  storage: Record<string, string>;
+  storage: Record<string, string>; // storage as key-value pairs
   logs: string[]; // JSON-encoded events
   returnData: string; // hex buffer
 }
@@ -57,7 +57,9 @@ export const formatMemory = (memory: string): string[] => {
   return chunks;
 };
 
-export const formatStorage = (storage: Record<string, string>): { key: string; value: string }[] => {
+export const formatStorage = (
+  storage: Record<string, string>,
+): { key: string; value: string }[] => {
   return Object.entries(storage).map(([key, value]) => ({
     key,
     value,
