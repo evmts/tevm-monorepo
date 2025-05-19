@@ -1,154 +1,306 @@
-# EVM Implementation Plan
+# EVM Implementation Roadmap
 
-## Go-Ethereum Architecture Overview
+## Project Overview
 
-The Go-Ethereum (geth) EVM implementation is based on several key components:
+This document outlines the plan for implementing a production-ready Ethereum Virtual Machine (EVM) in Zig, based on Go-Ethereum's architecture. The goal is to create a fully compliant EVM that can execute Ethereum smart contracts with the same behavior as geth, but optimized for performance and embedded in a Zig codebase.
 
-1. **EVMInterpreter**: The main execution engine that runs smart contract code
-   - Manages VM configuration and execution context
-   - Contains the main execution loop
-   - Handles operations like gas metering, code execution, and stack management
+## Current Status
 
-2. **JumpTable**: Contains all opcode definitions for the EVM
-   - Different instruction sets for different hardforks
-   - Each opcode has associated gas costs, stack requirements, and an execution function
+- ✅ Basic architecture established
+- ✅ Frame (execution context) implemented
+- ✅ JumpTable structure for opcode definitions
+- ✅ Basic interpreter loop
+- ✅ Math opcodes implemented
+- ❌ Most opcodes still need implementation
+- ❌ Gas calculation needs completion
+- ❌ Testing infrastructure needs expansion
 
-3. **ScopeContext**: Contains the execution context for a particular call
-   - Memory, Stack, and Contract references
-   - Helper methods for accessing contract data
+## Architecture
 
-4. **Memory**: EVM memory implementation
-   - Resizable byte array 
-   - Methods for accessing and modifying memory
+### Core Components
 
-5. **Stack**: EVM stack implementation
-   - Methods for pushing, popping, and manipulating stack items
-   - Fixed size with validation
+1. **EVM**: The main container for execution context
+   - Tracks call depth
+   - Maintains chain rules (for different hardforks)
+   - Controls execution settings (readOnly, etc.)
 
-6. **Contract**: Represents an Ethereum contract 
-   - Contains code, caller, callee addresses, value
+2. **Interpreter**: The execution engine
+   - Main execution loop
+   - Opcode dispatch
+   - Gas tracking
+   - Error handling
+
+3. **Frame**: The execution context for a particular call
+   - Memory management
+   - Stack operations
+   - Current execution state (PC, gas cost, etc.)
+   - Return data handling
+
+4. **JumpTable**: The opcode registry
+   - Maps bytecodes to operations
+   - Stores gas costs for operations
+   - Holds execution functions for each opcode
+
+5. **Contract**: Represents a smart contract
+   - Contains code and execution state
    - Tracks gas usage
-   - Validates jumpdest targets
+   - Validates jump destinations
 
-7. **Error Handling**: Comprehensive error types for different EVM errors
-   - Stack underflow/overflow
-   - Out of gas
-   - Execution reverted
-   - Invalid opcode, etc.
+6. **Memory**: EVM memory model
+   - Resizable byte array
+   - Methods for reading/writing data
 
-## Current TEVM Architecture
+7. **Stack**: EVM stack
+   - Fixed maximum size (1024 items)
+   - Basic and specialized operations (push, pop, swap, dup)
 
-1. **Interpreter**: Main execution component
-   - Main run loop with program counter
-   - Executes opcodes with operation.execute method
+## Implementation Plan
 
-2. **InterpreterState** (to be renamed to Frame): Contains execution state
-   - Represents a single execution frame
-   - Manages stack, memory, and program counter
-   - **TODO:** Expand to match geth's functionality
+### 1. Opcode Implementation
 
-3. **JumpTable**: Contains opcode definitions
-   - Maps opcodes to their implementations
-   - Includes gas cost and stack requirements
-   - Initialization for different Ethereum versions
+All opcodes need to be implemented following the geth specification. Group them by category:
 
-4. **Stack**: Fixed-size stack for EVM
-   - Push/pop operations
-   - Dup/swap operations
-   - Error handling for overflow/underflow
+#### 1.1 Math Operations
+- ✅ ADD, SUB, MUL, DIV, SDIV, MOD, SMOD, ADDMOD, MULMOD, EXP, SIGNEXTEND
 
-5. **Memory**: Represents EVM memory
-   - Resizing capability
-   - Methods to read/write bytes
-   - Set32 for writing 32-byte values
+#### 1.2 Comparison Operations
+- ❌ LT, GT, SLT, SGT, EQ, ISZERO
 
-6. **Contract**: Represents a contract execution
-   - Contains code, addresses, gas tracking
-   - JUMPDEST validation
+#### 1.3 Bitwise Operations
+- ❌ AND, OR, XOR, NOT, BYTE, SHL, SHR, SAR
 
-## TODO List
+#### 1.4 Cryptographic Operations
+- ❌ KECCAK256
 
-1. **Rename InterpreterState to Frame**
-   - Update all references and imports
-   - Match geth's concept of execution frame/context
+#### 1.5 Environmental Information
+- ❌ ADDRESS, BALANCE, ORIGIN, CALLER, CALLVALUE, CALLDATALOAD, CALLDATASIZE, CALLDATACOPY
+- ❌ CODESIZE, CODECOPY, GASPRICE, EXTCODESIZE, EXTCODECOPY, RETURNDATASIZE, RETURNDATACOPY, EXTCODEHASH
+- ❌ BLOCKHASH, COINBASE, TIMESTAMP, NUMBER, DIFFICULTY/PREVRANDAO, GASLIMIT, CHAINID, SELFBALANCE, BASEFEE
+- ❌ BLOBHASH, BLOBBASEFEE
 
-2. **Complete EVM Implementation**
-   - Implement all missing operations in opcodes.zig
-   - Implement proper gas calculation for all operations
-   - Complete memory size calculation for memory-modifying operations
+#### 1.6 Memory Operations
+- ❌ MLOAD, MSTORE, MSTORE8, MSIZE, MCOPY
 
-3. **Execution Loop Enhancement**
-   - Add proper error handling with specific error types
-   - Implement gas metering based on geth's approach
-   - Add proper tracing hooks for debugging
+#### 1.7 Storage Operations
+- ❌ SLOAD, SSTORE, TLOAD, TSTORE
 
-4. **Frame Implementation**
-   - Add returnData field to store data from calls
-   - Enhance memory management
-   - Add proper scope management for nested calls
+#### 1.8 Flow Control Operations
+- ❌ JUMP, JUMPI, PC, JUMPDEST
 
-5. **Testing Infrastructure**
-   - Port test cases from geth
-   - Create comprehensive test suite for all opcodes
-   - Test edge cases like gas exhaustion, stack errors
+#### 1.9 Push Operations
+- ❌ PUSH0, PUSH1-PUSH32
 
-6. **Gas Calculation**
-   - Implement dynamic gas calculation functions
-   - Memory expansion gas costs
-   - Storage costs based on EIP-2200 (net gas metering)
+#### 1.10 Duplication Operations
+- ❌ DUP1-DUP16
 
-7. **Add Support for Different Hardforks**
-   - Implement different instruction sets based on hardforks
-   - Make JumpTable initialization hardfork-aware
+#### 1.11 Exchange Operations
+- ❌ SWAP1-SWAP16
 
-8. **Implement State Modifications**
-   - SSTORE/SLOAD implementations
-   - Account creation/destruction
-   - Value transfer operations
+#### 1.12 Logging Operations
+- ❌ LOG0, LOG1, LOG2, LOG3, LOG4
 
-9. **External Contract Interactions**
-   - CALL/DELEGATECALL/STATICCALL operations
-   - CREATE/CREATE2 operations
-   - SELFDESTRUCT implementation
+#### 1.13 System Operations
+- ❌ CREATE, CALL, CALLCODE, RETURN, DELEGATECALL, CREATE2, STATICCALL, REVERT, INVALID, SELFDESTRUCT
 
-10. **Precompiled Contracts**
-    - Implement standard precompiled contracts (ECRECOVER, SHA256, etc.)
-    - Integrate with main interpreter
+### 2. Gas Calculation
 
-## Testing Strategy
+#### 2.1 Basic Gas Costs
+- ✅ Constants defined for all operation types
+- ❌ Complete implementation of constant gas costs
 
-1. **Unit Tests for Each Component**
-   - Stack, Memory, Contract, Frame, etc.
-   - Test all edge cases and error conditions
+#### 2.2 Dynamic Gas Calculation
+- ❌ Memory expansion costs
+- ❌ Storage costs with EIP-2200 net metering
+- ❌ KECCAK256 dynamic costs
+- ❌ EXP operation dynamic costs
+- ❌ CALL family dynamic costs
+- ❌ CREATE family dynamic costs
+- ❌ LOG operations dynamic costs
 
-2. **Opcode Tests**
-   - Individual tests for each opcode
-   - Gas consumption tests
-   - Error handling tests
+### 3. State Management
 
-3. **Integration Tests**
-   - Full contract execution tests
-   - Ethereum test vectors
-   - Transaction-level tests
+#### 3.1 Account State
+- ❌ Account creation and destruction
+- ❌ Balance management
+- ❌ Nonce tracking
+- ❌ Code storage
 
-4. **Performance Testing**
-   - Compare with geth implementation
-   - Optimize hot paths
+#### 3.2 Storage Management
+- ❌ Storage trie implementation
+- ❌ Storage slot read/write
+- ❌ Snapshot and revert functionality
 
-## Implementation Order
+#### 3.3 Transaction Processing
+- ❌ Transaction validation
+- ❌ Transaction execution
+- ❌ Receipt generation
 
-1. Focus on core components first:
-   - Complete Frame implementation
-   - Basic arithmetic operations
-   - Stack and memory operations
+### 4. Testing
 
-2. Then implement state-affecting operations:
-   - Storage operations
-   - Log operations
+#### 4.1 Unit Tests
+- ❌ Stack tests (complete coverage)
+- ❌ Memory tests (complete coverage)
+- ❌ Individual opcode tests
+- ❌ Gas calculation tests
 
-3. Finally, implement more complex operations:
-   - External calls
-   - Contract creation
-   - Precompiled contracts
+#### 4.2 Integration Tests
+- ❌ Full contract execution tests
+- ❌ State transition tests
+- ❌ Fork tests
 
-This approach ensures we have a solid foundation before tackling more complex features.
+#### 4.3 Ethereum Test Vectors
+- ❌ Port Ethereum test vectors from geth
+- ❌ Implement test harness for test vectors
+
+### 5. Precompiled Contracts
+
+#### 5.1 Standard Precompiles
+- ❌ ECRECOVER (0x01)
+- ❌ SHA256 (0x02)
+- ❌ RIPEMD160 (0x03)
+- ❌ IDENTITY (0x04)
+- ❌ MODEXP (0x05)
+- ❌ ECADD (0x06)
+- ❌ ECMUL (0x07)
+- ❌ ECPAIRING (0x08)
+- ❌ BLAKE2F (0x09)
+
+#### 5.2 EIP-specific Precompiles
+- ❌ POINT_EVALUATION (0x0A) (EIP-4844)
+- ❌ Any other precompiles from active EIPs
+
+### 6. Hardfork Support
+
+#### 6.1 Frontier
+- ❌ Basic opcodes
+- ❌ Original gas costs
+
+#### 6.2 Homestead
+- ❌ Changes to DELEGATECALL
+
+#### 6.3 Tangerine Whistle (EIP-150)
+- ❌ Gas cost changes
+
+#### 6.4 Spurious Dragon (EIP-158)
+- ❌ Empty account cleanup
+- ❌ EXP gas cost change
+
+#### 6.5 Byzantium
+- ❌ REVERT opcode
+- ❌ RETURNDATASIZE and RETURNDATACOPY opcodes
+- ❌ STATICCALL opcode
+- ❌ New precompiled contracts
+
+#### 6.6 Constantinople/Petersburg
+- ❌ SHL, SHR, SAR opcodes
+- ❌ CREATE2 opcode
+- ❌ EXTCODEHASH opcode
+
+#### 6.7 Istanbul
+- ❌ Gas cost changes
+- ❌ CHAINID opcode
+- ❌ SELFBALANCE opcode
+
+#### 6.8 Berlin
+- ❌ Gas cost changes
+- ❌ BASEFEE opcode
+
+#### 6.9 London
+- ❌ BASEFEE opcode
+- ❌ EIP-3529 (refund changes)
+
+#### 6.10 Merge
+- ❌ DIFFICULTY -> PREVRANDAO changes
+
+#### 6.11 Shanghai
+- ❌ PUSH0 opcode
+- ❌ Warm COINBASE access
+
+#### 6.12 Cancun
+- ❌ TLOAD, TSTORE opcodes
+- ❌ MCOPY opcode
+- ❌ BLOBHASH, BLOBBASEFEE opcodes
+- ❌ POINT_EVALUATION precompile
+
+### 7. Optimizations
+
+#### 7.1 Performance Optimization
+- ❌ Hot path optimization
+- ❌ Memory allocation optimization
+- ❌ JIT compilation for frequently executed code
+
+#### 7.2 Memory Usage Optimization
+- ❌ Reduce memory allocations
+- ❌ Optimize data structures
+
+#### 7.3 Gas Usage Optimization
+- ❌ Fast paths for common operations
+- ❌ Optimize gas calculation
+
+## Porting Strategy
+
+When porting code from Go to Zig, follow these principles:
+
+1. **Understand before porting**: Fully understand how the Go code works before attempting to port it.
+2. **Test-driven approach**: Write tests first, then implement the functionality.
+3. **Language idioms**: Don't blindly translate Go code to Zig; use Zig idioms and features.
+4. **Start simple**: Get basic functionality working before adding optimizations.
+5. **Incremental testing**: Test each component as it's implemented.
+
+## Test Cases from Geth
+
+Look in these locations in the geth codebase for test cases:
+
+- `core/vm/runtime_test.go` - Runtime tests
+- `core/vm/evm_test.go` - EVM tests
+- `core/vm/instructions_test.go` - Opcode tests
+- `core/vm/jump_table_test.go` - Jump table tests
+- `core/state/state_test.go` - State tests
+- `tests/state_test.go` - Ethereum official state tests
+
+## References
+
+- [Go-Ethereum (geth) GitHub repository](https://github.com/ethereum/go-ethereum)
+- [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
+- [EVM Opcodes Reference](https://www.evm.codes/)
+- [EIPs (Ethereum Improvement Proposals)](https://eips.ethereum.org/)
+
+## Appendix: EVM Diagram
+
+```
+┌─────────────────────────┐
+│          EVM            │
+│                         │
+│   ┌─────────────────┐   │
+│   │   Interpreter   │   │
+│   │                 │   │
+│   │  ┌──────────┐   │   │
+│   │  │ JumpTable│   │   │
+│   │  └──────────┘   │   │
+│   │                 │   │
+│   │  ┌──────────┐   │   │
+│   │  │Operations│   │   │
+│   │  └──────────┘   │   │
+│   └─────────────────┘   │
+│                         │
+│   ┌─────────────────┐   │
+│   │      Frame      │   │
+│   │                 │   │
+│   │  ┌──────────┐   │   │
+│   │  │  Stack   │   │   │
+│   │  └──────────┘   │   │
+│   │                 │   │
+│   │  ┌──────────┐   │   │
+│   │  │  Memory  │   │   │
+│   │  └──────────┘   │   │
+│   └─────────────────┘   │
+│                         │
+│   ┌─────────────────┐   │
+│   │    Contract     │   │
+│   └─────────────────┘   │
+│                         │
+│   ┌─────────────────┐   │
+│   │StateManager/Trie│   │
+│   └─────────────────┘   │
+└─────────────────────────┘
+```
