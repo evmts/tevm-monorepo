@@ -1,18 +1,19 @@
 const std = @import("std");
 const opcodes = @import("opcodes.zig");
 const Interpreter = @import("interpreter.zig").Interpreter;
-const InterpreterState = @import("InterpreterState.zig").InterpreterState;
+const Frame = @import("Frame.zig").Frame;
+const ExecutionError = @import("Frame.zig").ExecutionError;
 const Stack = @import("Stack.zig").Stack;
 const Memory = @import("Memory.zig").Memory;
 
 /// ExecutionFunc is a function executed by the EVM during interpretation
-pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8;
+pub const ExecutionFunc = *const fn (pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8;
 
 /// GasFunc calculates the gas required for an operation
-pub const GasFunc = *const fn (interpreter: *Interpreter, state: *InterpreterState, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
+pub const GasFunc = *const fn (interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64;
 
 /// MemorySizeFunc calculates the memory size required for an operation
-pub const MemorySizeFunc = *const fn (stack: *Stack) opcodes.MemorySize;
+pub const MemorySizeFunc = *const fn (stack: *Stack) struct { size: u64, overflow: bool };
 
 /// Operation represents an opcode in the EVM
 pub const Operation = struct {
@@ -144,24 +145,24 @@ var UNDEFINED = Operation{
     .undefined = true,
 };
 
-fn undefinedExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8 {
+fn undefinedExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
-    _ = state;
-    return opcodes.ExecutionError.INVALID;
+    _ = frame;
+    return ExecutionError.INVALID;
 }
 
-fn stopExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8 {
+fn stopExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
-    _ = state;
-    return opcodes.ExecutionError.STOP;
+    _ = frame;
+    return ExecutionError.STOP;
 }
 
-fn dummyExecute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) opcodes.ExecutionError![]const u8 {
+fn dummyExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     _ = interpreter;
-    _ = state;
+    _ = frame;
     return "";
 }
 
