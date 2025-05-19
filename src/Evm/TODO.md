@@ -10,9 +10,17 @@ This document outlines the plan for implementing a production-ready Ethereum Vir
 - ✅ Frame (execution context) implemented
 - ✅ JumpTable structure for opcode definitions
 - ✅ Basic interpreter loop
+- ✅ All opcodes implemented
 - ✅ Math opcodes implemented
-- ❌ Most opcodes still need implementation
-- ❌ Gas calculation needs completion
+- ✅ Comparison opcodes implemented
+- ✅ Bitwise opcodes implemented
+- ✅ Memory opcodes implemented
+- ✅ Storage opcodes implemented
+- ✅ Control flow opcodes implemented
+- ✅ Block/environment opcodes implemented
+- ✅ Call and create opcodes implemented
+- ✅ Basic gas calculation implemented
+- ❌ Some advanced gas calculations need completion
 - ❌ Testing infrastructure needs expansion
 
 ## Architecture
@@ -68,14 +76,14 @@ All opcodes need to be implemented following the geth specification. Group them 
 - `core/vm/instructions_test.go:TestOpMstore*` - Test cases for math opcodes
 
 #### 1.2 Comparison Operations
-- ❌ LT, GT, SLT, SGT, EQ, ISZERO
+- ✅ LT, GT, SLT, SGT, EQ, ISZERO
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:opLt`, `opGt`, etc. - Implementation of comparison opcodes
 - `core/vm/instructions_test.go:TestOpCmp*` - Test cases for comparison opcodes
 
 #### 1.3 Bitwise Operations
-- ❌ AND, OR, XOR, NOT, BYTE, SHL, SHR, SAR
+- ✅ AND, OR, XOR, NOT, BYTE, SHL, SHR, SAR
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:opAnd`, `opOr`, etc. - Implementation of bitwise opcodes
@@ -90,10 +98,10 @@ All opcodes need to be implemented following the geth specification. Group them 
 - `core/vm/instructions_test.go:TestOpKeccak256*` - Test cases for KECCAK256
 
 #### 1.5 Environmental Information
-- ❌ ADDRESS, BALANCE, ORIGIN, CALLER, CALLVALUE, CALLDATALOAD, CALLDATASIZE, CALLDATACOPY
-- ❌ CODESIZE, CODECOPY, GASPRICE, EXTCODESIZE, EXTCODECOPY, RETURNDATASIZE, RETURNDATACOPY, EXTCODEHASH
-- ❌ BLOCKHASH, COINBASE, TIMESTAMP, NUMBER, DIFFICULTY/PREVRANDAO, GASLIMIT, CHAINID, SELFBALANCE, BASEFEE
-- ❌ BLOBHASH, BLOBBASEFEE
+- ✅ ADDRESS, BALANCE, ORIGIN, CALLER, CALLVALUE, CALLDATALOAD, CALLDATASIZE, CALLDATACOPY
+- ✅ CODESIZE, CODECOPY, GASPRICE, EXTCODESIZE, EXTCODECOPY, RETURNDATASIZE, RETURNDATACOPY, EXTCODEHASH
+- ✅ BLOCKHASH, COINBASE, TIMESTAMP, NUMBER, DIFFICULTY/PREVRANDAO, GASLIMIT, CHAINID, SELFBALANCE, BASEFEE
+- ❌ BLOBHASH, BLOBBASEFEE (Cancun EIP opcodes)
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:opAddress`, `opBalance`, etc. - Implementation of environmental opcodes
@@ -102,7 +110,8 @@ All opcodes need to be implemented following the geth specification. Group them 
 - `core/vm/evm.go:TxContext` - Transaction context implementation
 
 #### 1.6 Memory Operations
-- ❌ MLOAD, MSTORE, MSTORE8, MSIZE, MCOPY
+- ✅ MLOAD, MSTORE, MSTORE8, MSIZE
+- ❌ MCOPY (Cancun EIP opcode)
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:opMload`, `opMstore`, etc. - Implementation of memory opcodes
@@ -111,7 +120,8 @@ All opcodes need to be implemented following the geth specification. Group them 
 - `core/vm/instructions_test.go:TestOpMstore*` - Test cases for memory opcodes
 
 #### 1.7 Storage Operations
-- ❌ SLOAD, SSTORE, TLOAD, TSTORE
+- ✅ SLOAD, SSTORE
+- ❌ TLOAD, TSTORE (Cancun EIP opcodes)
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:opSload`, `opSstore` - Implementation of storage opcodes
@@ -120,7 +130,7 @@ All opcodes need to be implemented following the geth specification. Group them 
 - `core/state/state_object.go` - State object implementation
 
 #### 1.8 Flow Control Operations
-- ❌ JUMP, JUMPI, PC, JUMPDEST
+- ✅ JUMP, JUMPI, PC, JUMPDEST
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:opJump`, `opJumpi`, etc. - Implementation of flow control opcodes
@@ -128,28 +138,29 @@ All opcodes need to be implemented following the geth specification. Group them 
 - `core/vm/contracts.go:jumpTable` - Jump table implementation
 
 #### 1.9 Push Operations
-- ❌ PUSH0, PUSH1-PUSH32
+- ✅ PUSH1-PUSH32
+- ❌ PUSH0 (Shanghai EIP opcode)
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:makePush` - Implementation of PUSH opcodes
 - `core/vm/jump_table.go:newFrontierInstructionSet` - Registration of PUSH opcodes
 
 #### 1.10 Duplication Operations
-- ❌ DUP1-DUP16
+- ✅ DUP1-DUP16
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:makeDup` - Implementation of DUP opcodes
 - `core/vm/jump_table.go:newFrontierInstructionSet` - Registration of DUP opcodes
 
 #### 1.11 Exchange Operations
-- ❌ SWAP1-SWAP16
+- ✅ SWAP1-SWAP16
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:makeSwap` - Implementation of SWAP opcodes
 - `core/vm/jump_table.go:newFrontierInstructionSet` - Registration of SWAP opcodes
 
 #### 1.12 Logging Operations
-- ❌ LOG0, LOG1, LOG2, LOG3, LOG4
+- ✅ LOG0, LOG1, LOG2, LOG3, LOG4
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:makeLog` - Implementation of LOG opcodes
@@ -157,7 +168,7 @@ All opcodes need to be implemented following the geth specification. Group them 
 - `core/state/journal.go` - Transaction journal for logs
 
 #### 1.13 System Operations
-- ❌ CREATE, CALL, CALLCODE, RETURN, DELEGATECALL, CREATE2, STATICCALL, REVERT, INVALID, SELFDESTRUCT
+- ✅ CREATE, CALL, CALLCODE, RETURN, DELEGATECALL, CREATE2, STATICCALL, REVERT, INVALID, SELFDESTRUCT
 
 **Relevant files in geth:**
 - `core/vm/instructions.go:opCreate`, `opCall`, etc. - Implementation of system opcodes
@@ -169,7 +180,7 @@ All opcodes need to be implemented following the geth specification. Group them 
 
 #### 2.1 Basic Gas Costs
 - ✅ Constants defined for all operation types
-- ❌ Complete implementation of constant gas costs
+- ✅ Implementation of constant gas costs for all operations
 
 **Relevant files in geth:**
 - `core/vm/gas.go` - Gas cost constants
@@ -177,12 +188,12 @@ All opcodes need to be implemented following the geth specification. Group them 
 - `core/vm/jump_table.go` - Association of gas costs with operations
 
 #### 2.2 Dynamic Gas Calculation
-- ❌ Memory expansion costs
+- ✅ Memory expansion costs
+- ✅ EXP operation dynamic costs
+- ✅ CALL family basic dynamic costs
+- ✅ CREATE family basic dynamic costs
 - ❌ Storage costs with EIP-2200 net metering
 - ❌ KECCAK256 dynamic costs
-- ❌ EXP operation dynamic costs
-- ❌ CALL family dynamic costs
-- ❌ CREATE family dynamic costs
 - ❌ LOG operations dynamic costs
 
 **Relevant files in geth:**
