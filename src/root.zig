@@ -11,19 +11,19 @@ export fn keccak256(input_ptr: [*]const u8, input_len: usize, output_ptr: [*]u8)
 }
 
 /// Load bytecode into the EVM
-export fn loadBytecode_zig(bytecode_hex_ptr: [*]const u8, bytecode_hex_len: usize) void {
+export fn loadBytecode(bytecode_hex_ptr: [*]const u8, bytecode_hex_len: usize) void {
     const bytecode_hex = bytecode_hex_ptr[0..bytecode_hex_len];
     // TODO: Implement bytecode loading functionality
     _ = bytecode_hex;
 }
 
 /// Reset the EVM state
-export fn resetEvm_zig() void {
+export fn resetEvm() void {
     // TODO: Implement EVM reset functionality
 }
 
 /// Execute one step in the EVM
-export fn stepEvm_zig(state_ptr: [*]u8, state_len: *usize) void {
+export fn stepEvm(state_ptr: [*]u8, state_len: *usize) void {
     // TODO: Implement EVM step functionality
     // For now, just create an empty JSON state
     const state_json = "{}";
@@ -38,7 +38,7 @@ export fn stepEvm_zig(state_ptr: [*]u8, state_len: *usize) void {
 }
 
 /// Toggle EVM between running and paused states
-export fn toggleRunPause_zig(state_ptr: [*]u8, state_len: *usize) void {
+export fn toggleRunPause(state_ptr: [*]u8, state_len: *usize) void {
     // TODO: Implement run/pause toggle functionality
     // For now, just create an empty JSON state
     const state_json = "{}";
@@ -53,7 +53,7 @@ export fn toggleRunPause_zig(state_ptr: [*]u8, state_len: *usize) void {
 }
 
 /// Get the current EVM state
-export fn getEvmState_zig(state_ptr: [*]u8, state_len: *usize) void {
+export fn getEvmState(state_ptr: [*]u8, state_len: *usize) void {
     // TODO: Implement state retrieval functionality
     // For now, just create an empty JSON state
     const state_json = "{}";
