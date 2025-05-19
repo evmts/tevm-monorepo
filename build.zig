@@ -45,7 +45,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     const trie_mod = b.createModule(.{
         .root_source_file = b.path("src/Trie/module.zig"),
         .target = target,
@@ -81,7 +81,7 @@ pub fn build(b: *std.Build) void {
 
     // Add imports to the rlp_mod
     rlp_mod.addImport("Utils", utils_mod);
-    
+
     // Add imports to the trie_mod
     trie_mod.addImport("Rlp", rlp_mod);
     trie_mod.addImport("Utils", utils_mod);
@@ -360,7 +360,7 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing Compiler
     const compiler_test_step = b.step("test-compiler", "Run Compiler tests");
     compiler_test_step.dependOn(&run_compiler_test.step);
-    
+
     // Add a test for Trie tests
     const trie_test = b.addTest(.{
         .name = "trie-test",
@@ -368,22 +368,21 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add dependencies to trie_test
     trie_test.root_module.addImport("Rlp", rlp_mod);
     trie_test.root_module.addImport("Utils", utils_mod);
     trie_test.root_module.addImport("Trie", trie_mod);
-    
+
     const run_trie_test = b.addRunArtifact(trie_test);
-    
+
     // Add a separate step for testing Trie
     const trie_test_step = b.step("test-trie", "Run Trie tests");
     trie_test_step.dependOn(&run_trie_test.step);
 
-    // Add a test for Interpreter tests
     const interpreter_test = b.addTest(.{
-        .name = "interpreter-test",
-        .root_source_file = b.path("src/Interpreter/JumpTable.zig"),
+        .name = "evm-test",
+        .root_source_file = b.path("src/Evm/JumpTable.zig"),
         .target = target,
         .optimize = optimize,
     });
