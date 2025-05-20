@@ -27,9 +27,12 @@ fn setupInterpreter(enable_eip3541: bool) !Interpreter {
     // Create an EVM instance with custom chain rules
     var custom_evm = try Evm.init(std.testing.allocator, custom_rules);
 
+    // Create jump table
+    var jump_table = JumpTable.init();
+    try JumpTable.initMainnetJumpTable(std.testing.allocator, &jump_table);
+    
     // Create an interpreter with our custom EVM
-    var test_interpreter = try Interpreter.init(std.testing.allocator, .{ .chainRules = custom_rules });
-    test_interpreter.evm = &custom_evm;
+    var test_interpreter = Interpreter.create(std.testing.allocator, &custom_evm, jump_table);
 
     return test_interpreter;
 }

@@ -86,7 +86,7 @@ const MockStateManager = struct {
     pub fn getContractStorage(self: *MockStateManager, address: Address, key: B256) ![]u8 {
         _ = address;
         _ = key;
-        _ = self;
+        // Don't discard self since we use it below
 
         // Return empty data
         const result = try self.allocator.alloc(u8, 32);
@@ -125,9 +125,10 @@ test "EIP-2929: SLOAD Gas Cost Differences" {
     var state_manager = MockStateManager.init(allocator);
 
     var evm_instance = try Evm.init(allocator, null);
-    evm_instance.state_manager = @ptrCast(&state_manager);
+    evm_instance.state_manager = @ptrCast(@alignCast(&state_manager));
 
-    var interpreter = try Interpreter.init(allocator, &evm_instance);
+    // Cast the evm_instance to the expected type for Interpreter.init
+    var interpreter = try Interpreter.create(allocator, &evm_instance, undefined);
 
     const bytecode = &[_]u8{ 0x60, 0x00, 0x54, 0x60, 0x00, 0x54, 0x00 };
     var contract_instance = createContract(try hexToAddress(allocator, "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), try hexToAddress(allocator, "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"), 0, TEST_GAS);
@@ -145,9 +146,10 @@ test "EIP-2929: EXTCODEHASH Gas Cost Differences" {
     var state_manager = MockStateManager.init(allocator);
 
     var evm_instance = try Evm.init(allocator, null);
-    evm_instance.state_manager = @ptrCast(&state_manager);
+    evm_instance.state_manager = @ptrCast(@alignCast(&state_manager));
 
-    var interpreter = try Interpreter.init(allocator, &evm_instance);
+    // Cast the evm_instance to the expected type for Interpreter.init
+    var interpreter = try Interpreter.create(allocator, &evm_instance, undefined);
 
     var bytecode = [_]u8{ 0x73, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0x3F, 0x73, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0x3F, 0x00 };
 

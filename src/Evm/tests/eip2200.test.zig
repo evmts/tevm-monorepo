@@ -135,7 +135,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
         return error.InvalidAddressFormat;
     }
     var addr: Address = undefined;
-    try std.fmt.hexToBytes(&addr, hex_str[2..]);
+    _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
     _ = allocator; // Keep allocator if needed elsewhere or for consistency
     return addr;
 }
@@ -184,15 +184,13 @@ test "EIP-2200: SSTORE gas costs and refunds" {
     // Create EVM
     // Interpreter.init now comes from Evm module, need to check its signature
     // Assuming Interpreter is a struct with a static init method.
-    var evm_interpreter = try Interpreter.init(allocator, .{}); // Pass empty ChainRules or actual config
-    // The TestStateManager in this file has methods like getContractStorage, putContractStorage
-    // The Interpreter expects a StateManager that conforms to a certain interface.
-    // The `evm.state_manager = &state_manager;` line implies TestStateManager must be compatible.
-    // This needs a closer look at how Interpreter uses StateManager.
-    // For now, this is a placeholder for the correct assignment or wrapping.
-    // evm_interpreter.state_manager = &state_manager; // This assignment might be incorrect type-wise
-    var evm_instance = Evm.Evm.init(allocator, null) catch @panic("evm init failed");
-    evm_instance.state_manager = &state_manager;
+    var evm_instance = Evm.init(allocator, null);
+    var jump_table = JumpTable.init();
+    defer jump_table.deinit(allocator);
+    try JumpTable.initMainnetJumpTable(allocator, &jump_table);
+    var evm_interpreter = Interpreter.create(allocator, &evm_instance, jump_table);
+    // Set the state manager
+    evm_instance.state_manager = @ptrCast(@alignCast(&state_manager));
 
     defer evm_interpreter.deinit();
 

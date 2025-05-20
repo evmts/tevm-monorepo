@@ -1,20 +1,23 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-// Use direct file imports for tests 
-const Contract = @import("/Users/williamcory/tevm/main/src/Evm/Contract.zig").Contract;
-const createContract = @import("/Users/williamcory/tevm/main/src/Evm/Contract.zig").createContract;
-const Evm = @import("/Users/williamcory/tevm/main/src/Evm/evm.zig").Evm;
-const ChainRules = @import("/Users/williamcory/tevm/main/src/Evm/evm.zig").ChainRules;
-const JumpTable = @import("/Users/williamcory/tevm/main/src/Evm/JumpTable.zig");
-const Interpreter = @import("/Users/williamcory/tevm/main/src/Evm/interpreter.zig").Interpreter;
-const InterpreterError = @import("/Users/williamcory/tevm/main/src/Evm/interpreter.zig").InterpreterError;
+// Use module imports for consistency
+const EvmModule = @import("Evm");
+const Contract = EvmModule.Contract;
+const createContract = EvmModule.createContract;
+const Evm = EvmModule.Evm;
+const ChainRules = EvmModule.ChainRules;
+const JumpTable = EvmModule.JumpTable;
+const Interpreter = EvmModule.Interpreter;
+const InterpreterError = EvmModule.InterpreterError;
 
-// Import Address directly from file
-const Address = @import("/Users/williamcory/tevm/main/src/Address/address.zig").Address;
+// Import Address module
+const AddressModule = @import("Address");
+const Address = AddressModule.Address;
 
-// Import StateManager directly from file
-const StateManager = @import("/Users/williamcory/tevm/main/src/StateManager/StateManager.zig").StateManager;
+// Import StateManager module
+const StateManagerModule = @import("StateManager");
+const StateManager = StateManagerModule.StateManager;
 
 // Helper function to convert hex string to Address
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
@@ -22,7 +25,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
         return error.InvalidAddressFormat;
     }
     var addr: Address = undefined;
-    try std.fmt.hexToBytes(&addr, hex_str[2..]);
+    _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
     _ = allocator;
     return addr;
 }
