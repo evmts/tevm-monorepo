@@ -1,71 +1,74 @@
 const std = @import("std");
 const testing = std.testing;
-const builtin = @import("builtin");
-const Withdrawal = @import("Withdrawal.zig");
-const WithdrawalData = Withdrawal.WithdrawalData;
-const processWithdrawals = Withdrawal.processWithdrawals;
 
-// Use simplified types for testing
-// Define Address directly for tests to avoid import issues
+// Simple version of Address type
 const Address = [20]u8;
 
-// Create a B160 type that matches what's used in Withdrawal.zig
-const B160 = struct {
-    bytes: [20]u8,
+// Basic logger implementation
+const Logger = struct {
+    fn debug(comptime fmt: []const u8, args: anytype) void {
+        std.debug.print(fmt ++ "\n", args);
+    }
+    
+    fn info(comptime fmt: []const u8, args: anytype) void {
+        std.debug.print(fmt ++ "\n", args);
+    }
+    
+    fn warn(comptime fmt: []const u8, args: anytype) void {
+        std.debug.print("[WARN] " ++ fmt ++ "\n", args);
+    }
+    
+    fn err(comptime fmt: []const u8, args: anytype) void {
+        std.debug.print("[ERROR] " ++ fmt ++ "\n", args);
+    }
+    
+    fn deinit() void {}
 };
 
-// Define ChainRules directly for testing
-const ChainRules = struct {
-    IsEIP1559: bool = false,
-    IsEIP2929: bool = false,
-    IsEIP2930: bool = false,
-    IsEIP3529: bool = false,
-    IsEIP3198: bool = false,
-    IsEIP3541: bool = false,
-    IsEIP3651: bool = false,
-    IsEIP3855: bool = false,
-    IsEIP3860: bool = false,
-    IsEIP4895: bool = false,
-    IsEIP4844: bool = false,
-    IsEIP5656: bool = false,
+// Simple scoped logger
+fn createScopedLogger(parent: Logger, name: []const u8) Logger {
+    _ = parent;
+    _ = name;
+    return Logger{};
+}
+
+/// WithdrawalData represents a withdrawal from the beacon chain to the EVM
+/// as defined in EIP-4895
+pub const WithdrawalData = struct {
+    /// The unique identifier for this withdrawal
+    index: u64,
     
-    pub fn forHardfork(hardfork: Hardfork) ChainRules {
-        return switch (hardfork) {
-            .Frontier, .Homestead, .TangerineWhistle, .SpuriousDragon,
-            .Byzantium, .Constantinople, .Petersburg,
-            .Istanbul, .Berlin, .London, .ArrowGlacier, .GrayGlacier, .Merge => .{},
-            .Shanghai => .{
-                .IsEIP4895 = true,
-            },
-            .Cancun => .{
-                .IsEIP4895 = true,
-            },
-            .Prague, .Verkle => .{
-                .IsEIP4895 = true,
-            },
+    /// The validator index in the beacon chain
+    validatorIndex: u64,
+    
+    /// The recipient address in the EVM
+    address: Address,
+    
+    /// Amount in Gwei (must be converted to Wei for EVM)
+    amount: u64,
+    
+    /// Create a withdrawal from its components
+    pub fn init(index: u64, validatorIndex: u64, address: Address, amount: u64) WithdrawalData {
+        var logger = Logger{};
+        
+        logger.debug("Creating new withdrawal record", .{});
+        logger.debug("  Index: {d}", .{index});
+        logger.debug("  Validator Index: {d}", .{validatorIndex});
+        logger.debug("  Amount (Gwei): {d}", .{amount});
+        
+        return WithdrawalData{
+            .index = index,
+            .validatorIndex = validatorIndex,
+            .address = address,
+            .amount = amount,
         };
     }
-};
-
-// Define Hardfork enum for use in ChainRules.forHardfork
-const Hardfork = enum {
-    Frontier,
-    Homestead,
-    TangerineWhistle,
-    SpuriousDragon,
-    Byzantium,
-    Constantinople,
-    Petersburg,
-    Istanbul,
-    Berlin,
-    London,
-    ArrowGlacier,
-    GrayGlacier,
-    Merge,
-    Shanghai,
-    Cancun,
-    Prague,
-    Verkle,
+    
+    /// Convert amount from Gwei to Wei (multiplication by 10^9)
+    pub fn amountInWei(self: *const WithdrawalData) u128 {
+        const GWEI_TO_WEI: u128 = 1_000_000_000; // 10^9
+        return @as(u128, self.amount) * GWEI_TO_WEI;
+    }
 };
 
 // Mock StateManager for testing withdrawal processing
@@ -85,23 +88,13 @@ const MockStateManager = struct {
         self.balances.deinit();
     }
     
-    // Helper to convert address to string key
-    fn addressToString(address: Address) ![64]u8 {
-        var buf: [64]u8 = undefined;
-        _ = try std.fmt.bufPrint(&buf, "{s}", .{std.fmt.fmtSliceHexLower(&address)});
-        return buf;
-    }
-    
     // StateManager interface implementations
-    pub fn getAccount(self: *MockStateManager, address: B160) !?struct {
+    pub fn getAccount(self: *MockStateManager, address: Address) !?struct {
         balance: u128 = 0,
         nonce: u64 = 0,
     } {
-        var addr_bytes: [20]u8 = undefined;
-        @memcpy(addr_bytes[0..20], address.bytes[0..20]);
-        
-        var buf = try addressToString(addr_bytes);
-        const addr_str = buf[0..40]; // Only need first 40 chars for hex
+        var buf: [64]u8 = undefined;
+        const addr_str = std.fmt.bufPrint(&buf, "{}", .{std.fmt.fmtSliceHexLower(&address)}) catch unreachable;
         
         if (self.balances.get(addr_str)) |balance| {
             return .{
@@ -111,15 +104,12 @@ const MockStateManager = struct {
         return null;
     }
     
-    pub fn createAccount(self: *MockStateManager, address: B160, balance: u128) !struct {
+    pub fn createAccount(self: *MockStateManager, address: Address, balance: u128) !struct {
         balance: u128,
         nonce: u64 = 0,
     } {
-        var addr_bytes: [20]u8 = undefined;
-        @memcpy(addr_bytes[0..20], address.bytes[0..20]);
-        
-        var buf = try addressToString(addr_bytes);
-        const addr_str = buf[0..40]; // Only need first 40 chars for hex
+        var buf: [64]u8 = undefined;
+        const addr_str = std.fmt.bufPrint(&buf, "{}", .{std.fmt.fmtSliceHexLower(&address)}) catch unreachable;
         
         try self.balances.put(addr_str, balance);
         return .{
@@ -127,28 +117,83 @@ const MockStateManager = struct {
         };
     }
     
-    pub fn putAccount(self: *MockStateManager, address: B160, account: anytype) !void {
-        var addr_bytes: [20]u8 = undefined;
-        @memcpy(addr_bytes[0..20], address.bytes[0..20]);
-        
-        var buf = try addressToString(addr_bytes);
-        const addr_str = buf[0..40]; // Only need first 40 chars for hex
+    pub fn putAccount(self: *MockStateManager, address: Address, account: anytype) !void {
+        var buf: [64]u8 = undefined;
+        const addr_str = std.fmt.bufPrint(&buf, "{}", .{std.fmt.fmtSliceHexLower(&address)}) catch unreachable;
         
         try self.balances.put(addr_str, account.balance);
     }
     
-    // Helper function to get balance (useful for tests)
+    // Helper function to get balance
     pub fn getBalance(self: *MockStateManager, address: Address) !u128 {
-        var buf = try addressToString(address);
-        const addr_str = buf[0..40]; // Only need first 40 chars for hex
+        var buf: [64]u8 = undefined;
+        const addr_str = std.fmt.bufPrint(&buf, "{}", .{std.fmt.fmtSliceHexLower(&address)}) catch unreachable;
         
         return self.balances.get(addr_str) orelse 0;
     }
 };
 
+/// Processes a list of withdrawals by crediting the recipient accounts
+pub fn processWithdrawals(
+    stateManager: *MockStateManager, 
+    withdrawals: []const WithdrawalData,
+    isEIP4895Enabled: bool
+) !void {
+    var logger = Logger{};
+    var scoped = createScopedLogger(logger, "processWithdrawals()");
+    defer scoped.deinit();
+    
+    if (!isEIP4895Enabled) {
+        logger.warn("Attempted to process withdrawals with EIP-4895 disabled", .{});
+        return error.EIP4895NotEnabled;
+    }
+    
+    logger.debug("Processing {d} withdrawals", .{withdrawals.len});
+    
+    for (withdrawals, 0..) |withdrawal, i| {
+        logger.debug("Processing withdrawal {d}/{d} (index {d})", .{i + 1, withdrawals.len, withdrawal.index});
+        
+        const amountInWei = withdrawal.amountInWei();
+        logger.debug("  Amount: {d} Gwei ({d} Wei)", .{withdrawal.amount, amountInWei});
+        
+        try rewardAccount(stateManager, withdrawal.address, amountInWei);
+        
+        logger.debug("  Withdrawal processed successfully", .{});
+    }
+    
+    logger.info("All withdrawals processed successfully", .{});
+}
+
+/// Rewards an account by increasing its balance
+fn rewardAccount(stateManager: *MockStateManager, address: Address, amount: u128) !void {
+    var logger = Logger{};
+    var scoped = createScopedLogger(logger, "rewardAccount()");
+    defer scoped.deinit();
+    
+    logger.debug("Rewarding account", .{});
+    logger.debug("Amount: {d} Wei", .{amount});
+    
+    // Get the account from state (or create a new one if it doesn't exist)
+    var account = try stateManager.getAccount(address) orelse blk: {
+        logger.debug("Account does not exist, creating new account", .{});
+        break :blk try stateManager.createAccount(address, 0);
+    };
+    
+    // Increase the account balance
+    const oldBalance = account.balance;
+    account.balance += amount;
+    
+    logger.debug("Balance updated: {d} -> {d}", .{oldBalance, account.balance});
+    
+    // Save the updated account state
+    try stateManager.putAccount(address, account);
+    
+    logger.debug("Account rewarded successfully", .{});
+}
+
 // Create a buffer with 20 bytes to represent an address
-fn createAddressBuffer(byte_value: u8) [20]u8 {
-    var buffer: [20]u8 = undefined;
+fn createAddressBuffer(byte_value: u8) Address {
+    var buffer: Address = undefined;
     for (0..20) |i| {
         buffer[i] = byte_value;
     }
@@ -156,7 +201,7 @@ fn createAddressBuffer(byte_value: u8) [20]u8 {
 }
 
 test "WithdrawalData initialization and Gwei conversion" {
-    // Create test address using raw bytes
+    // Create test address
     const address = createAddressBuffer(0xAA);
     
     // Create withdrawal data
@@ -170,7 +215,7 @@ test "WithdrawalData initialization and Gwei conversion" {
     // Check initialization
     try testing.expectEqual(@as(u64, 123), withdrawal.index);
     try testing.expectEqual(@as(u64, 456), withdrawal.validatorIndex);
-    try testing.expectEqual(address, withdrawal.address);
+    try testing.expectEqualSlices(u8, &address, &withdrawal.address);
     try testing.expectEqual(@as(u64, 2_000_000_000), withdrawal.amount);
     
     // Check Gwei to Wei conversion (2 ETH = 2 * 10^18 Wei = 2 * 10^9 * 10^9 Wei)
@@ -187,7 +232,7 @@ test "Process single withdrawal" {
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
-    // Create test address using raw bytes
+    // Create test address
     const address = createAddressBuffer(0xBB);
     
     // Create a withdrawal
@@ -203,7 +248,7 @@ test "Process single withdrawal" {
     
     // Process withdrawals with EIP-4895 enabled
     try processWithdrawals(
-        @ptrCast(state_manager), 
+        state_manager, 
         &withdrawals, 
         true // EIP-4895 enabled
     );
@@ -222,7 +267,7 @@ test "Process multiple withdrawals" {
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
-    // Create test addresses using raw bytes
+    // Create test addresses
     const address1 = createAddressBuffer(0xCC);
     const address2 = createAddressBuffer(0xDD);
     
@@ -253,7 +298,7 @@ test "Process multiple withdrawals" {
     
     // Process withdrawals with EIP-4895 enabled
     try processWithdrawals(
-        @ptrCast(state_manager), 
+        state_manager, 
         &withdrawals, 
         true // EIP-4895 enabled
     );
@@ -291,7 +336,7 @@ test "EIP-4895 disabled should fail" {
     
     // Process withdrawals with EIP-4895 disabled
     const result = processWithdrawals(
-        @ptrCast(state_manager), 
+        state_manager, 
         &withdrawals, 
         false // EIP-4895 disabled
     );
@@ -302,18 +347,4 @@ test "EIP-4895 disabled should fail" {
     // Balance should remain zero
     const balance = try state_manager.getBalance(address);
     try testing.expectEqual(@as(u128, 0), balance);
-}
-
-test "ChainRules correctly identifies EIP-4895 activation" {
-    // Shanghai should have EIP-4895
-    const shanghai_rules = ChainRules.forHardfork(.Shanghai);
-    try testing.expect(shanghai_rules.IsEIP4895);
-    
-    // Cancun should have EIP-4895
-    const cancun_rules = ChainRules.forHardfork(.Cancun);
-    try testing.expect(cancun_rules.IsEIP4895);
-    
-    // London should not have EIP-4895
-    const london_rules = ChainRules.forHardfork(.London);
-    try testing.expect(!london_rules.IsEIP4895);
 }

@@ -1,15 +1,20 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import directly from files instead of using modules to avoid circular dependencies
-const ChainRules = @import("../Evm/evm.zig").ChainRules;
-const Hardfork = @import("../Evm/evm.zig").Hardfork;
-const Address = @import("../Address/address.zig").Address;
-const WithdrawalData = @import("../Evm/Withdrawal.zig").WithdrawalData;
-const processWithdrawals = @import("../Evm/Withdrawal.zig").processWithdrawals;
+// Import using the module system
+const evm = @import("Evm");
+const ChainRules = evm.ChainRules;
+const Hardfork = evm.Hardfork;
+const Address = @import("Address").Address;
+// Use the evm module for Withdrawal classes
+const WithdrawalData = evm.WithdrawalData;
+const processWithdrawals = evm.processWithdrawals;
+// Get the original WithdrawalProcessor directly
 const WithdrawalProcessor = @import("../Evm/WithdrawalProcessor.zig");
 const Block = WithdrawalProcessor.Block;
 const BlockWithdrawalProcessor = WithdrawalProcessor.BlockWithdrawalProcessor;
+// We need the StateManager type from the WithdrawalProcessor file
+const StateManager = WithdrawalProcessor.StateManager;
 
 // Mock StateManager for testing withdrawal processing
 const MockStateManager = struct {
@@ -134,7 +139,7 @@ test "Block withdrawal processing with Shanghai rules" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @as(*anyopaque, @ptrCast(state_manager)),
+        @as(*StateManager, @ptrCast(state_manager)),
         shanghai_rules
     );
     
@@ -184,7 +189,7 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     
     // Process withdrawals in the block - should fail
     const result = block.processWithdrawals(
-        @as(*anyopaque, @ptrCast(state_manager)),
+        @as(*StateManager, @ptrCast(state_manager)),
         london_rules
     );
     
@@ -271,7 +276,7 @@ test "Multiple withdrawals for same account" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @as(*anyopaque, @ptrCast(state_manager)),
+        @as(*StateManager, @ptrCast(state_manager)),
         shanghai_rules
     );
     

@@ -53,12 +53,11 @@ fn setupFrameForContract(interpreter: *Interpreter, allocator: std.mem.Allocator
 test "CALL with insufficient stack" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
-    // defer interpreter.deinit();
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xF1}); // CALL
-    // defer contract.deinit();
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    // defer frame.deinit();
+    defer frame.deinit();
 
     try frame.stack.push(u256_native, 1000); // gas
     try frame.stack.push(u256_native, 0x1234); // address
@@ -75,9 +74,11 @@ test "CALL with insufficient stack" {
 test "CALL with all parameters" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xF1}); // CALL
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
+    defer frame.deinit();
 
     try frame.stack.push(u256_native, 1000);
     try frame.stack.push(u256_native, 0x1234);

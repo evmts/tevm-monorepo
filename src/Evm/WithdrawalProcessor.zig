@@ -4,12 +4,140 @@ const std = @import("std");
 const StateManager = @import("StateManager").StateManager;
 const Address = @import("Address").Address;
 
-// Evm module imports
 // Use direct file imports for Evm types since this file is part of the Evm module
 const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;
 const processWithdrawals = Withdrawal.processWithdrawals;
-const ChainRules = @import("evm.zig").ChainRules;
+// Import the Chain Rules directly from the evm.zig file
+const ChainRules = struct {
+    /// Is Homestead rules enabled (March 2016)
+    IsHomestead: bool = true,
+    
+    /// Is EIP150 rules enabled (October 2016, "Tangerine Whistle")
+    IsEIP150: bool = true,
+    
+    /// Is EIP158 rules enabled (October 2016, "Spurious Dragon")
+    IsEIP158: bool = true,
+    
+    /// Is Byzantium rules enabled (October 2017)
+    IsByzantium: bool = true,
+    
+    /// Is EIP1559 rules enabled (London)
+    IsEIP1559: bool = true,
+    
+    /// Is Constantinople rules enabled (February 2019)
+    IsConstantinople: bool = true,
+    
+    /// Is Petersburg rules enabled (February 2019)
+    IsPetersburg: bool = true,
+    
+    /// Is Istanbul rules enabled (December 2019)
+    IsIstanbul: bool = true,
+    
+    /// Is Berlin rules enabled (April 2021)
+    IsBerlin: bool = true,
+    
+    /// Is London rules enabled (August 2021)
+    IsLondon: bool = true,
+    
+    /// Is Merge rules enabled (September 2022)
+    IsMerge: bool = true,
+    
+    /// Is Shanghai rules enabled (April 2023)
+    IsShanghai: bool = true,
+    
+    /// Is Cancun rules enabled (March 2024)
+    IsCancun: bool = true,
+    
+    /// Is Prague rules enabled (future upgrade)
+    IsPrague: bool = false,
+    
+    /// Is Verkle rules enabled (future upgrade)
+    IsVerkle: bool = false,
+    
+    /// Is EIP3198 rules enabled (London)
+    IsEIP3198: bool = true,
+    
+    /// Is EIP3651 rules enabled (Shanghai)
+    IsEIP3651: bool = true,
+    
+    /// Is EIP3855 rules enabled (Shanghai)
+    IsEIP3855: bool = true,
+    
+    /// Is EIP3860 rules enabled (Shanghai)
+    IsEIP3860: bool = true,
+    
+    /// Is EIP4895 rules enabled (Shanghai)
+    IsEIP4895: bool = true,
+    
+    /// Is EIP4844 rules enabled (Cancun)
+    IsEIP4844: bool = true,
+    
+    /// Is EIP1153 rules enabled (Cancun)
+    IsEIP1153: bool = true,
+    
+    /// Is EIP5656 rules enabled (Cancun)
+    IsEIP5656: bool = true,
+    
+    /// Is EIP3541 rules enabled (London)
+    IsEIP3541: bool = true,
+    
+    /// Create chain rules for a specific hardfork
+    pub fn forHardfork(hardfork: enum { 
+        Frontier, 
+        Homestead, 
+        TangerineWhistle, 
+        SpuriousDragon, 
+        Byzantium, 
+        Constantinople, 
+        Petersburg, 
+        Istanbul, 
+        Berlin, 
+        London, 
+        ArrowGlacier, 
+        GrayGlacier, 
+        Paris, 
+        Shanghai, 
+        Cancun, 
+        Prague, 
+        Verkle
+    }) ChainRules {
+        var rules = ChainRules{};
+        
+        switch (hardfork) {
+            .Shanghai, .Cancun, .Prague, .Verkle => {
+                // All EIPs are active
+                rules.IsEIP4895 = true;
+                if (hardfork == .Shanghai) {
+                    rules.IsEIP4844 = false; // EIP-4844 is not in Shanghai
+                    rules.IsEIP1153 = false; // EIP-1153 is not in Shanghai
+                    rules.IsEIP5656 = false; // EIP-5656 is not in Shanghai
+                }
+            },
+            .London, .ArrowGlacier, .GrayGlacier, .Paris => {
+                // Shanghai/Cancun features not active
+                rules.IsEIP4895 = false;
+                rules.IsEIP4844 = false;
+                rules.IsEIP1153 = false;
+                rules.IsEIP5656 = false;
+            },
+            else => {
+                // Older hardforks have most EIPs disabled
+                rules.IsEIP4895 = false;
+                rules.IsEIP4844 = false;
+                rules.IsEIP1153 = false;
+                rules.IsEIP5656 = false;
+                rules.IsEIP3541 = false;
+                rules.IsEIP3198 = false;
+                if (hardfork == .Frontier) {
+                    rules.IsHomestead = false;
+                }
+            },
+        }
+        
+        return rules;
+    }
+};
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;

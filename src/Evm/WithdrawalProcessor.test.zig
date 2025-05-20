@@ -10,14 +10,14 @@ const Address = if (builtin.is_test)
     [20]u8 // Just use the raw type in tests as a direct alias for compatibility
 else 
     @import("Address").Address;
-// Use the Evm module imports to avoid conflicts
-const WithdrawalData = evm.WithdrawalData;
-const WithdrawalProcessor = evm.WithdrawalProcessor;
+// Use direct file imports to avoid conflicts
+const WithdrawalData = @import("Withdrawal.zig").WithdrawalData;
+const WithdrawalProcessor = @import("WithdrawalProcessor.zig").WithdrawalProcessor;
 // Import directly from the file
 const WithdrawalProcessorModule = @import("WithdrawalProcessor.zig");
 const Block = WithdrawalProcessorModule.Block;
 const BlockWithdrawalProcessor = WithdrawalProcessorModule.BlockWithdrawalProcessor;
-const StateManager = @import("StateManager").StateManager;
+const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 
 // Mock StateManager for testing withdrawal processing
 const MockStateManager = struct {
@@ -33,6 +33,11 @@ const MockStateManager = struct {
     }
     
     fn deinit(self: *MockStateManager) void {
+        // Free all allocated keys before deinitializing the hashmap
+        var key_it = self.balances.keyIterator();
+        while (key_it.next()) |key_ptr| {
+            self.balances.allocator.free(key_ptr.*);
+        }
         self.balances.deinit();
     }
     
@@ -73,7 +78,19 @@ const MockStateManager = struct {
         }
         
         const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{std.fmt.fmtSliceHexLower(&addr_bytes)});
-        try self.balances.put(addr_str, balance);
+        
+        // Create a copy for long-term storage in the hash map
+        const key_dupe = try self.balances.allocator.dupe(u8, addr_str);
+        errdefer self.balances.allocator.free(key_dupe);
+        
+        // Check if key already exists to avoid memory leaks
+        if (self.balances.getKey(addr_str)) |existing_key| {
+            self.balances.allocator.free(existing_key);
+        }
+        
+        try self.balances.put(key_dupe, balance);
+        self.balances.allocator.free(addr_str);
+        
         return .{
             .balance = balance,
         };
@@ -89,7 +106,18 @@ const MockStateManager = struct {
         }
         
         const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{std.fmt.fmtSliceHexLower(&addr_bytes)});
-        try self.balances.put(addr_str, account.balance);
+        defer self.balances.allocator.free(addr_str);
+        
+        // If key already exists, update the value
+        if (self.balances.contains(addr_str)) {
+            try self.balances.put(addr_str, account.balance);
+        } else {
+            // Create a copy for long-term storage
+            const key_dupe = try self.balances.allocator.dupe(u8, addr_str);
+            errdefer self.balances.allocator.free(key_dupe);
+            
+            try self.balances.put(key_dupe, account.balance);
+        }
     }
     
     // Helper function to get balance

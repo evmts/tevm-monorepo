@@ -75,6 +75,8 @@ pub const PrecompiledContract = enum(u8) {
         input: []const u8, 
         allocator: std.mem.Allocator
     ) !?[]const u8 {
+        // Each function is responsible for proper memory management.
+        // All functions will return owned memory that the caller is responsible for freeing.
         return switch (self) {
             .ECRECOVER => try ecRecover(input, allocator),
             .SHA256 => try sha256(input, allocator),
@@ -116,6 +118,7 @@ fn ecRecover(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
 fn sha256(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Allocate the result buffer
     const result = try allocator.alloc(u8, 32);
+    errdefer allocator.free(result);
     
     // Create a fixed-size buffer for the hash result
     var hash_result: [32]u8 = undefined;
@@ -124,7 +127,7 @@ fn sha256(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     std.crypto.hash.sha2.Sha256.hash(input, &hash_result, .{});
     
     // Copy the hash result to the allocated buffer
-    @memcpy(result, &hash_result);
+    std.mem.copy(u8, result, &hash_result);
     
     return result;
 }
@@ -165,7 +168,9 @@ fn identity(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     
     // Simply copy the input to the output, respecting max size
     const result = try allocator.alloc(u8, safe_length);
-    @memcpy(result, input[0..safe_length]);
+    errdefer allocator.free(result);
+    
+    std.mem.copy(u8, result, input[0..safe_length]);
     
     return result;
 }
