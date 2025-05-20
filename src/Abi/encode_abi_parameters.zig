@@ -102,8 +102,8 @@ fn encodeParam(
         
         if (std.mem.eql(u8, ty, "address")) {
             // Address: pad on the left (20 bytes for address)
-            const start_idx = head_len.* + 32 - @minimum(value.len, 20);
-            std.mem.copy(u8, head[start_idx..], value[value.len - @minimum(value.len, 20)..]);
+            const start_idx = head_len.* + 32 - @min(value.len, 20);
+            @memcpy(head[start_idx..start_idx+@min(value.len, 20)], value[value.len - @min(value.len, 20)..]);
         } else {
             // Other types: pad on the right
             std.mem.copy(u8, head[head_len.* + 32 - value.len..], value);
@@ -257,7 +257,7 @@ fn writeUint256(value: usize, out: []u8) void {
     // Write bytes from least to most significant
     var i: usize = 31;
     while (val > 0) : (i -= 1) {
-        out[i] = @truncate(u8, val);
+        out[i] = @truncate(val);
         val >>= 8;
         if (i == 0) break;
     }
@@ -295,7 +295,6 @@ pub fn valueToBytes(comptime T: type, value: T, out_buffer: []u8) !usize {
     return EncodeError.ValueTypeMismatch;
 }
 
-/// Tests for encodeAbiParameters
 test "encodeAbiParameters basic types" {
     const testing = std.testing;
     

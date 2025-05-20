@@ -176,7 +176,6 @@ pub fn isFunction(data: []const u8, signature: []const u8) !bool {
     return std.mem.eql(u8, &data_selector, &expected_selector);
 }
 
-/// Tests for function data decoding
 test "decodeFunctionData basic" {
     const testing = std.testing;
     

@@ -1,5 +1,15 @@
 const std = @import("std");
+const crypto = @import("std").crypto;
 const abi = @import("abi.zig");
+
+/// Compute Keccak-256 hash of data
+/// 
+/// Returns a 32-byte array containing the Keccak-256 hash
+pub fn keccak256(data: []const u8) [32]u8 {
+    var out: [32]u8 = undefined;
+    crypto.hash.sha3.Keccak256.hash(data, &out, .{});
+    return out;
+}
 
 /// Compute the 4-byte function selector for a function signature
 /// 
@@ -9,8 +19,15 @@ const abi = @import("abi.zig");
 /// signature: Function signature string in the format "functionName(type1,type2,...)"
 /// out_selector: Pre-allocated 4-byte array to store the result
 pub fn computeFunctionSelector(signature: []const u8, out_selector: *[4]u8) void {
-    const hash = abi.keccak256(signature);
-    std.mem.copy(u8, out_selector, hash[0..4]);
+    const hash = keccak256(signature);
+    @memcpy(out_selector[0..4], hash[0..4]);
+}
+
+/// Alternative signature for computeFunctionSelector that returns the value directly
+pub fn computeFunctionSelectorValue(signature: []const u8) [4]u8 {
+    var selector: [4]u8 = undefined;
+    computeFunctionSelector(signature, &selector);
+    return selector;
 }
 
 /// Compute the 4-byte function selector from an ABI function item
@@ -27,7 +44,7 @@ pub fn getFunctionSelector(func: abi.Function, out_selector: *[4]u8) !void {
         return error.BufferTooSmall;
     }
     
-    std.mem.copy(u8, signature_buf[0..func.name.len], func.name);
+    @memcpy(signature_buf[0..func.name.len], func.name);
     signature_len += func.name.len;
     
     signature_buf[signature_len] = '(';
@@ -46,7 +63,7 @@ pub fn getFunctionSelector(func: abi.Function, out_selector: *[4]u8) !void {
             return error.BufferTooSmall;
         }
         
-        std.mem.copy(u8, signature_buf[signature_len..], canonical_type);
+        @memcpy(signature_buf[signature_len..signature_len+canonical_type.len], canonical_type);
         signature_len += canonical_type.len;
     }
     
@@ -63,17 +80,16 @@ pub fn getFunctionSelector(func: abi.Function, out_selector: *[4]u8) !void {
 /// The event topic hash is the entire Keccak-256 hash of the event signature.
 /// 
 /// signature: Event signature string in the format "EventName(type1,type2,...)"
-/// out_topic: Pre-allocated 32-byte array to store the result
-pub fn computeEventTopic(signature: []const u8, out_topic: *[32]u8) void {
-    const hash = abi.keccak256(signature);
-    std.mem.copy(u8, out_topic, &hash);
+/// Returns a 32-byte array containing the event topic hash
+pub fn computeEventTopic(signature: []const u8) [32]u8 {
+    return keccak256(signature);
 }
 
 /// Compute event topic hash from an ABI event item
 ///
 /// event: ABI event definition
-/// out_topic: Pre-allocated 32-byte array to store the result
-pub fn getEventTopic(event: abi.Event, out_topic: *[32]u8) !void {
+/// Returns a 32-byte array containing the event topic hash
+pub fn getEventTopic(event: abi.Event) ![32]u8 {
     // Build the canonical event signature using a fixed-size buffer
     var signature_buf: [256]u8 = undefined;
     var signature_len: usize = 0;
@@ -83,7 +99,7 @@ pub fn getEventTopic(event: abi.Event, out_topic: *[32]u8) !void {
         return error.BufferTooSmall;
     }
     
-    std.mem.copy(u8, signature_buf[0..event.name.len], event.name);
+    @memcpy(signature_buf[0..event.name.len], event.name);
     signature_len += event.name.len;
     
     signature_buf[signature_len] = '(';
@@ -108,7 +124,7 @@ pub fn getEventTopic(event: abi.Event, out_topic: *[32]u8) !void {
             return error.BufferTooSmall;
         }
         
-        std.mem.copy(u8, signature_buf[signature_len..], canonical_type);
+        @memcpy(signature_buf[signature_len..signature_len+canonical_type.len], canonical_type);
         signature_len += canonical_type.len;
     }
     
@@ -117,8 +133,7 @@ pub fn getEventTopic(event: abi.Event, out_topic: *[32]u8) !void {
     signature_len += 1;
     
     // Compute topic hash
-    const hash = abi.keccak256(signature_buf[0..signature_len]);
-    std.mem.copy(u8, out_topic, &hash);
+    return keccak256(signature_buf[0..signature_len]);
 }
 
 /// Get the canonical type representation
@@ -151,7 +166,6 @@ fn getCanonicalType(ty: []const u8) []const u8 {
     return ty;
 }
 
-/// Tests for function selectors and event topics
 test "computeFunctionSelector basic" {
     const testing = std.testing;
     
@@ -193,22 +207,24 @@ test "getFunctionSelector from ABI" {
     const testing = std.testing;
     
     // Test transfer(address,uint256)
+    const transfer_inputs = [_]abi.Param{
+        .{
+            .ty = "address",
+            .name = "to",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "uint256",
+            .name = "amount",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
     const transfer_func = abi.Function{
         .name = "transfer",
-        .inputs = &[_]abi.Param{
-            .{
-                .ty = "address",
-                .name = "to",
-                .components = &[_]abi.Param{},
-                .internal_type = null,
-            },
-            .{
-                .ty = "uint256",
-                .name = "amount",
-                .components = &[_]abi.Param{},
-                .internal_type = null,
-            },
-        },
+        .inputs = &transfer_inputs,
         .outputs = &[_]abi.Param{
             .{
                 .ty = "bool",

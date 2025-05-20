@@ -788,7 +788,6 @@ pub fn parseAbi(allocator: std.mem.Allocator, signatures: []const []const u8) ![
     return items.toOwnedSlice();
 }
 
-/// Tests for ABI parsing
 test "parseAbiItem function" {
     const testing = std.testing;
     var arena = std.heap.ArenaAllocator.init(testing.allocator);

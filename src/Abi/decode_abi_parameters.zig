@@ -232,7 +232,6 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
     return DecodeError.InvalidType;
 }
 
-/// Tests for decodeAbiParameters
 test "decodeAbiParameters basic types" {
     const testing = std.testing;
     
