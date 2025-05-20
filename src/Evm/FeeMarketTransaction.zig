@@ -58,49 +58,76 @@ pub const AccessList = []const AccessListEntry;
 
 /// FeeMarketTransaction represents an EIP-1559 transaction
 ///
-/// EIP-1559 transactions have the following additional fields compared to legacy transactions:
+/// EIP-1559 introduced a new transaction type with a fee market mechanism that:
+/// - Burns the base fee (removing ETH from circulation)
+/// - Allows users to specify maximum fees they're willing to pay
+/// - Provides more predictable transaction confirmation times
+/// - Reduces the incentive for miners to manipulate fees
+///
+/// Key differences from legacy transactions:
 /// - max_fee_per_gas: Maximum total fee per gas the sender is willing to pay
 /// - max_priority_fee_per_gas: Maximum tip per gas the sender is willing to pay to miners
 /// - access_list: List of addresses and storage slots the transaction plans to access
 pub const FeeMarketTransaction = struct {
-    /// Chain ID for replay protection
+    /// Chain ID for replay protection (EIP-155)
+    /// Prevents transactions from one network being replayed on another
     chain_id: u64,
     
-    /// Sender's nonce
+    /// Sender's account nonce
+    /// Incremented for each transaction to prevent replay attacks
     nonce: u64,
     
-    /// Maximum tip per gas to be given to miners
+    /// Maximum priority fee (tip) per gas unit
+    /// This portion goes directly to miners/validators as an incentive
     max_priority_fee_per_gas: u64,
     
     /// Maximum total fee per gas the sender is willing to pay
+    /// Includes both the base fee (burned) and priority fee (to miners)
     max_fee_per_gas: u64,
     
-    /// Maximum gas the transaction may consume
+    /// Maximum amount of gas this transaction can consume
+    /// Protects senders from spending more than intended on gas
     gas_limit: u64,
     
-    /// Recipient address (null for contract creation)
+    /// Recipient address (null for contract creation transactions)
+    /// When null, the transaction creates a new contract
     to: ?Address,
     
-    /// Value in wei to be transferred
+    /// Amount of ether (in wei) to transfer with the transaction
     value: u256,
     
-    /// Transaction data payload
+    /// Transaction input data (for contract calls or deployments)
+    /// Contains function selectors and parameters or contract bytecode
     data: []const u8,
     
-    /// List of addresses and storage keys the transaction plans to access
+    /// Optional pre-declared storage accesses for gas optimization
+    /// Allows the EVM to pre-warm accesses for lower gas costs
     access_list: AccessList,
     
-    /// Signature values
-    signature_yParity: bool,
-    signature_r: [32]u8,
-    signature_s: [32]u8,
+    /// ECDSA signature components
+    /// These values prove the transaction was authorized by the sender
+    signature_yParity: bool, // Parity bit for the y-coordinate
+    signature_r: [32]u8,     // r component of the signature
+    signature_s: [32]u8,     // s component of the signature
     
-    /// Calculate the sender's address from the transaction's signature
+    /// Recover the sender's address from the transaction's signature
+    ///
+    /// This uses ECDSA signature recovery to determine which Ethereum address
+    /// authorized this transaction. The process involves:
+    /// 1. Constructing the transaction hash (signed message)
+    /// 2. Recovering the public key from the signature components
+    /// 3. Deriving the Ethereum address from the public key
     ///
     /// Returns: The sender's address
     pub fn getSender(self: *const FeeMarketTransaction) !Address {
-        // In a real implementation, this would recover the address from the signature
-        // For now, return a placeholder
+        // Note: This is a placeholder implementation
+        // A complete implementation would:
+        // 1. RLP encode the transaction without the signature
+        // 2. Hash the encoded transaction with keccak256
+        // 3. Recover the public key using the signature components
+        // 4. Hash the public key and take the last 20 bytes as the address
+        
+        // For now, return a placeholder address
         var addr_bytes = [_]u8{0} ** 20;
         return Address{ .bytes = addr_bytes };
     }
