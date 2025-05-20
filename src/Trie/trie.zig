@@ -67,9 +67,24 @@ pub const HashValue = union(enum) {
 
     pub fn deinit(self: HashValue, allocator: Allocator) void {
         switch (self) {
-            .Raw => |data| allocator.free(data),
+            .Raw => |data| {
+                if (data.len > 0) {
+                    allocator.free(data);
+                }
+            },
             .Hash => {}, // Hashes are static/fixed size
         }
+    }
+
+    // Create a deep clone of the HashValue that owns its own memory
+    pub fn clone(self: HashValue, allocator: Allocator) !HashValue {
+        return switch (self) {
+            .Hash => |h| HashValue{ .Hash = h },
+            .Raw => |data| {
+                const new_data = try allocator.dupe(u8, data);
+                return HashValue{ .Raw = new_data };
+            },
+        };
     }
 
     pub fn hash(self: HashValue, allocator: Allocator) ![32]u8 {

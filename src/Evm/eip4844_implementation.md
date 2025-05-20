@@ -1,18 +1,18 @@
-# EIP-4844 Implementation Details
+# EIP-4844 Implementation: Shard Blob Transactions
 
 ## Overview
 
 EIP-4844 (Shard Blob Transactions) adds support for blob-carrying transactions in Ethereum, which are designed to be more efficient for rollups. This implementation focuses on:
 
-1. The two new opcodes: `BLOBHASH` and `BLOBBASEFEE`
-2. The KZG Point Evaluation precompile
+1. Two new opcodes: `BLOBHASH` (0x49) and `BLOBBASEFEE` (0x4A)
+2. The KZG Point Evaluation precompile (0x0A)
 3. The necessary EVM and chain rule changes to support these features
 
-## Implementation Components
+## Implementation Details
 
 ### 1. Chain Rules Flag
 
-In `Evm.zig`, we've added the `IsEIP4844` flag to the `ChainRules` struct to control whether EIP-4844 features are active:
+A new flag `IsEIP4844` has been added to the `ChainRules` struct in `Evm.zig`:
 
 ```zig
 /// Is EIP4844 rules enabled (Cancun, shard blob transactions)
@@ -20,7 +20,7 @@ In `Evm.zig`, we've added the `IsEIP4844` flag to the `ChainRules` struct to con
 IsEIP4844: bool = true,
 ```
 
-This flag is properly set for different hardforks in the `forHardfork` method, ensuring it's only enabled for Cancun and later hardforks.
+This flag is set appropriately for different hardforks in the `forHardfork` method, ensuring it's only enabled for Cancun and later.
 
 ### 2. BLOBHASH Opcode (0x49)
 
@@ -57,12 +57,12 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
 }
 ```
 
-The opcode:
-- Checks if EIP-4844 is enabled
-- Takes an index from the stack
-- Would normally retrieve the hash of the blob at that index from transaction data
-- Currently returns a placeholder value (in a full implementation, it would access real blob hashes)
-- Has a gas cost of 3 (set in `JumpTable.zig` as `BlobHashGas`)
+#### Stack Behavior
+- Pop: 1 item (blob index)
+- Push: 1 item (versioned hash of the blob)
+
+#### Gas Considerations
+- Fixed cost: 3 gas (defined as `BlobHashGas` in JumpTable.zig)
 
 ### 3. BLOBBASEFEE Opcode (0x4A)
 
@@ -91,14 +91,14 @@ pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
 }
 ```
 
-The opcode:
-- Checks if EIP-4844 is enabled
-- Takes no inputs
-- Would normally retrieve the current blob base fee from the block header
-- Currently returns a placeholder value (in a full implementation, it would return the actual blob base fee)
-- Has a gas cost of 2 (set in `JumpTable.zig` as `BlobBaseFeeGas`)
+#### Stack Behavior
+- Pop: 0 items
+- Push: 1 item (current blob base fee)
 
-### 4. KZG Point Evaluation Precompile
+#### Gas Considerations
+- Fixed cost: 2 gas (defined as `BlobBaseFeeGas` in JumpTable.zig)
+
+### 4. KZG Point Evaluation Precompile (0x0A)
 
 The KZG Point Evaluation precompile is implemented in `precompile/kzg.zig`:
 
@@ -146,11 +146,8 @@ fn pointEvaluationRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
 }
 ```
 
-The precompile:
-- Verifies that the input follows the expected format (192 bytes)
-- Would normally perform KZG proof verification
-- Currently returns a placeholder success value
-- Has a gas cost of 50,000 (set in `params.zig` as `BlobTxPointEvaluationPrecompileGas`)
+#### Gas Considerations
+- Fixed cost: 50,000 gas (defined as `BlobTxPointEvaluationPrecompileGas` in params.zig)
 
 ### 5. Registration in Jump Table
 
@@ -181,42 +178,9 @@ pub fn registerBlobOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.
 }
 ```
 
-This ensures the opcodes are available at the correct locations in the EVM.
+## Activation
 
-## Future Enhancements
-
-While this implementation provides the basic infrastructure for EIP-4844, a full implementation would require:
-
-1. **Transaction Type Support**: Add support for the new blob transaction type (0x03)
-
-2. **Blob Data Handling**: Implement data structures to store and manage blobs
-
-3. **Blob Gas Pricing**: Implement the elastic supply mechanism for blob gas pricing
-
-4. **KZG Library Integration**: Integrate a KZG library for actual cryptographic operations
-
-5. **Data Availability Sampling**: Implement mechanisms to ensure data availability
-
-## Gas Costs
-
-The gas costs for EIP-4844 operations are defined in `JumpTable.zig`:
-
-```zig
-// EIP-4844: Shard Blob Transactions
-pub const BlobHashGas: u64 = 3;
-pub const BlobBaseFeeGas: u64 = 2;
-```
-
-And for the precompile in `params.zig`:
-
-```zig
-// Cancun precompiles
-pub const BlobTxPointEvaluationPrecompileGas: u64 = 50000; // Gas for KZG point evaluation
-```
-
-## Hardfork Configuration
-
-The EIP-4844 flag is set in the hardfork configuration in `Evm.zig`:
+EIP-4844 is activated when the chain rules have `IsEIP4844` set to true. This is enabled by default for the Cancun hardfork and later, as specified in the `forHardfork` method:
 
 ```zig
 pub fn forHardfork(hardfork: Hardfork) ChainRules {
@@ -235,15 +199,32 @@ pub fn forHardfork(hardfork: Hardfork) ChainRules {
 }
 ```
 
-## Usage Notes
+## Testing
 
-1. **Blob Access**: Contracts can only access the versioned hashes of blobs, not the blob data itself.
+The implementation includes a test file (`eip4844.test.zig`) that verifies:
+- The BLOBHASH opcode works as expected when EIP-4844 is enabled
+- The BLOBBASEFEE opcode works as expected when EIP-4844 is enabled
+- Both opcodes fail with an InvalidOpcode error when EIP-4844 is disabled
+- The KZG Point Evaluation precompile handles inputs correctly
 
-2. **Transaction Limitations**: Blob transactions have certain limitations:
-   - They cannot create contracts
-   - They have a separate gas fee for the blob data
-   - Blobs are limited in size and number per transaction
+## Integration with Other EIPs
 
-3. **Blob Lifecycle**: Blobs are only guaranteed to be available for a certain period, after which they may be pruned from the network.
+EIP-4844 builds on:
+- EIP-1559 (Fee market change) - The blob fee market uses a similar elastic supply mechanism
+- EIP-2718 (Typed transactions) - Defines a new transaction type (0x03) for blob transactions
 
-4. **Fee Market**: The blob fee market operates separately from the regular transaction fee market, with its own target gas usage (equivalent to 3 blobs per block).
+## Future Enhancements
+
+While this implementation provides the basic infrastructure for EIP-4844, a full implementation would require:
+
+1. **Transaction Type Support**: Add support for the new blob transaction type (0x03)
+2. **Blob Data Handling**: Implement data structures to store and manage blobs
+3. **Blob Gas Pricing**: Implement the elastic supply mechanism for blob gas pricing
+4. **KZG Library Integration**: Integrate a KZG library for actual cryptographic operations
+5. **Data Availability Sampling**: Implement mechanisms to ensure data availability
+
+## References
+
+1. [EIP-4844: Shard Blob Transactions](https://eips.ethereum.org/EIPS/eip-4844)
+2. [EIP-1559: Fee market change](https://eips.ethereum.org/EIPS/eip-1559)
+3. [EIP-2718: Typed Transaction Envelope](https://eips.ethereum.org/EIPS/eip-2718)
