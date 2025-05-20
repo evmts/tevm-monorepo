@@ -448,7 +448,7 @@ const KECCAK256 = struct {
 
         // Pop offset and size from stack
         if (state.stack.size < 2) {
-            return ExecutionError_Op.StackUnderflow;
+            return ExecutionError.StackUnderflow;
         }
 
         const size = try state.stack.pop();
@@ -466,7 +466,7 @@ const KECCAK256 = struct {
 
         // Make sure the memory access is valid
         if (mem_offset + mem_size > state.memory.data().len) {
-            return ExecutionError_Op.OutOfOffset;
+            return ExecutionError.OutOfOffset;
         }
 
         // Get memory slice to hash
@@ -1445,7 +1445,7 @@ const REVERT = struct {
         _ = interpreter; // autofix
         _ = state; // autofix
         // Pop offset and size, revert state changes and return data from memory
-        return ExecutionError_Op.REVERT;
+        return ExecutionError.REVERT;
     }
 };
 
@@ -1459,7 +1459,7 @@ const INVALID = struct {
         _ = interpreter; // autofix
         _ = state; // autofix
         // Invalid operation
-        return ExecutionError_Op.INVALID;
+        return ExecutionError.INVALID;
     }
 };
 
