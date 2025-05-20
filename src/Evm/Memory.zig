@@ -182,6 +182,8 @@ pub const Memory = struct {
     pub fn getCopy(self: *const Memory, offset: u64, size: u64) ![]u8 {
         // Optimization for empty copies
         if (size == 0) {
+            // Return an empty slice without allocation
+            // This is safe as the compiler guarantees the lifetime of this empty array
             return &[_]u8{};
         }
 
@@ -192,7 +194,7 @@ pub const Memory = struct {
         
         // Check for overflow in offset + size calculation
         // This is important since u64 addition can wrap around
-        if (offset > std.math.maxInt(u64) - size) {
+        if (std.math.add(u64, offset, size) catch null == null) {
             return error.OutOfBounds;
         }
         
@@ -209,7 +211,8 @@ pub const Memory = struct {
             
         // Allocate memory for the copy - caller must free this with allocator.free()
         const cpy = try self.allocator.alloc(u8, alloc_size);
-        errdefer self.allocator.free(cpy); // Free memory if a later operation fails
+        // Free memory if a later operation fails
+        errdefer self.allocator.free(cpy);
         
         // Use safe slice bounds that were already validated
         if (size > 0) {

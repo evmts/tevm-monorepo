@@ -43,12 +43,24 @@ fn createTestFrame() !struct {
 }
 
 fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
+    // If returnData was set, free it
+    if (test_frame.frame.returnData) |data| {
+        allocator.free(data);
+        test_frame.frame.returnData = null;
+    }
+    
     // The frame takes care of cleaning up stack and memory
     test_frame.frame.deinit();
     
     // Free the contract's code and the contract itself
     allocator.free(test_frame.frame.contract.code);
     allocator.destroy(test_frame.frame.contract);
+    
+    // Free any resources the mock EVM might be holding
+    if (test_frame.interpreter.evm) |evm| {
+        // Make sure to clean up any resources associated with the EVM
+        allocator.destroy(evm);
+    }
     
     // Destroy frame and interpreter
     allocator.destroy(test_frame.frame);

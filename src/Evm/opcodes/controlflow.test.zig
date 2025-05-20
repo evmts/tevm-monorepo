@@ -251,6 +251,9 @@ test "RETURN opcode" {
     try std.testing.expect(frame.returnData != null);
     if (frame.returnData) |data| {
         try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xab, 0xac, 0xad }, data);
+        // Make sure we free the returnData if it's set by the test
+        allocator.free(data);
+        frame.returnData = null;
     }
 }
 
@@ -294,6 +297,9 @@ test "REVERT opcode" {
     try std.testing.expect(frame.returnData != null);
     if (frame.returnData) |data| {
         try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xab, 0xac, 0xad }, data);
+        // Make sure we free the returnData if it's set by the test
+        allocator.free(data);
+        frame.returnData = null;
     }
 }
 

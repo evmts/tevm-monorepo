@@ -407,10 +407,20 @@ fn pairingRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // Output is a `32` bytes where last single byte is `0x01` if pairing result is equal to multiplicative identity 
     // in a pairing target field and `0x00` otherwise.
     
-    const k = input.len / 384;
-    if (input.len == 0 or input.len % 384 != 0) {
+    // Special case: empty input means empty product, which is identity (returns 1)
+    if (input.len == 0) {
+        const result = try allocator.alloc(u8, 32);
+        @memset(result, 0);
+        result[31] = 1; // Empty product equals identity (1)
+        return result;
+    }
+    
+    // For non-empty input, validate length is multiple of 384
+    if (input.len % 384 != 0) {
         return BLS12381InvalidInputLengthError;
     }
+    
+    const k = input.len / 384;
     
     // Validate all point pairs
     var i: usize = 0;
