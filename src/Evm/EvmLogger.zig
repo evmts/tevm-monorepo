@@ -151,7 +151,7 @@ pub fn debugOnly(comptime callback: anytype) void {
 }
 
 /// Logs EVM stack contents for debugging
-pub fn logStack(logger: EvmLogger, stack_data: []const u32) void {
+pub fn logStack(logger: EvmLogger, stack_data: anytype) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
     }
@@ -168,7 +168,7 @@ pub fn logStack(logger: EvmLogger, stack_data: []const u32) void {
 
 /// SLOP (Stack-Log-Output-Projector) provides a compact visual
 /// representation of the stack for easier debugging
-pub fn logStackSlop(logger: EvmLogger, stack_data: []const u32, op_name: []const u8, pc: usize) void {
+pub fn logStackSlop(logger: EvmLogger, stack_data: anytype, op_name: []const u8, pc: usize) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
     }
@@ -347,7 +347,7 @@ pub fn logOpcodeDetailed(logger: EvmLogger, pc: usize, op: u8, op_name: []const 
 
 /// Logs a complete execution step including PC, opcode, gas, stack and memory
 pub fn logStep(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, gas_left: u64, 
-              stack_data: []const TestInt, memory_data: []const u8) void {
+              stack_data: anytype, memory_data: []const u8) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
     }

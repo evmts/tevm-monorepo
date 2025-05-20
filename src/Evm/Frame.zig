@@ -244,7 +244,7 @@ pub const Frame = struct {
     /// Get access to the stack data
     ///
     /// Returns: Slice containing the valid stack elements (excludes unused slots)
-    pub fn stackData(self: *const Frame) []u256 {
+    pub fn stackData(self: *const Frame) []const @"u256" {
         const stack_slice = self.stack.data[0..self.stack.size];
         getLogger().debug("Getting stack data: {d} items", .{stack_slice.len});
         return stack_slice;
