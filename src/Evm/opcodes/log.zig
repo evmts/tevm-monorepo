@@ -1,11 +1,11 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
-const Contract = @import("../Contract.zig").Contract;
+const Interpreter = @import("Evm").Interpreter;
+const Frame = @import("Evm").Frame;
+const ExecutionError = @import("Evm").ExecutionError;
+const JumpTable = @import("Evm").JumpTable;
+const Stack = @import("Evm").Stack;
+const Memory = @import("Evm").Memory;
+const Contract = @import("Evm").Contract;
 
 /// LOG0 operation
 pub fn opLog0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -48,10 +48,11 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
     }
     
     // Pop topics from the stack (in reverse order)
-    var topics: [4]u256 = undefined;
+    var topics: [4]u64 = undefined;
     var i: u8 = 0;
     while (i < n_topics) : (i += 1) {
-        topics[i] = try frame.stack.pop();
+        const topic_val = try frame.stack.pop();
+        topics[i] = @as(u64, @truncate(topic_val));
     }
     
     // Pop memory offset and size
@@ -62,14 +63,20 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
     const mem_offset = @as(u64, @truncate(offset));
     const mem_size = @as(u64, @truncate(size));
     
-    // Check if memory access is valid
-    if (mem_offset + mem_size > frame.memory.data().len) {
-        return ExecutionError.OutOfOffset;
-    }
+    // Ensure memory has enough capacity
+    try frame.memory.require(mem_offset, mem_size);
     
-    // Get data from memory
-    // We would use this data in a complete implementation
-    _ = frame.memory.data()[mem_offset..mem_offset + mem_size];
+    // In a production implementation, we would fetch the data from memory
+    // and emit a log event
+    if (mem_size > 0) {
+        // Safely get a reference to the data
+        // We just use it to verify it's valid
+        _ = frame.memory.get8(mem_offset);
+        if (mem_size > 1) {
+            // Check last byte to ensure range is valid
+            _ = frame.memory.get8(mem_offset + mem_size - 1);
+        }
+    }
     
     // In a complete implementation, we would:
     // 1. Create a log record with address, topics, and data
@@ -87,7 +94,7 @@ fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
         return .{ .size = 0, .overflow = false };
     }
     
-    // Get memory offset and size
+    // Get memory offset and size safely
     const offset = stack.data[stack.size - 2];  // Second to top
     const size = stack.data[stack.size - 1];    // Top of stack
     
@@ -95,12 +102,12 @@ fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     const mem_offset = @as(u64, @truncate(offset));
     const mem_size = @as(u64, @truncate(size));
     
-    // Check for potential overflow
-    if (mem_size > std.math.maxInt(u64) or mem_offset > std.math.maxInt(u64) - mem_size) {
+    // Check for potential overflow with direct arithmetic
+    if (mem_size > std.math.maxInt(u64) - mem_offset) {
         return .{ .size = 0, .overflow = true };
     }
     
-    // Return total memory size required
+    // No overflow, return total memory size required
     return .{ .size = mem_offset + mem_size, .overflow = false };
 }
 

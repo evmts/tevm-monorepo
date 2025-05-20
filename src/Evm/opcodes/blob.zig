@@ -94,24 +94,12 @@ pub fn opMcopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
         return "";
     }
     
-    // Check memory bounds
-    if ((mem_source + mem_length > frame.memory.data().len) or (mem_dest + mem_length > frame.memory.data().len)) {
-        return ExecutionError.OutOfOffset;
-    }
+    // Ensure memory has enough capacity for both source and destination
+    try frame.memory.require(mem_source, mem_length);
+    try frame.memory.require(mem_dest, mem_length);
     
-    // Handle potential overlap by using memmove
-    const source_slice = frame.memory.data()[mem_source..mem_source + mem_length];
-    const dest_slice = frame.memory.data()[mem_dest..mem_dest + mem_length];
-    
-    // Create a temporary buffer for the copy
-    const temp_buffer = try std.heap.page_allocator.alloc(u8, mem_length);
-    defer std.heap.page_allocator.free(temp_buffer);
-    
-    // Copy data to temp buffer
-    @memcpy(temp_buffer, source_slice);
-    
-    // Copy from temp buffer to destination
-    @memcpy(dest_slice, temp_buffer);
+    // Use memory's built-in copy method which safely handles overlapping regions
+    frame.memory.copy(mem_dest, mem_source, mem_length);
     
     return "";
 }

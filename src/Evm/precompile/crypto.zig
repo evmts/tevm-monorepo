@@ -160,7 +160,7 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement actual ECRECOVER using secp256k1
     // For now, return a zero address as a placeholder
     // This should be replaced with actual cryptographic recovery
-    var result = try allocator.alloc(u8, 32);
+    const result = try allocator.alloc(u8, 32);
     @memset(result, 0);
     
     return result;
@@ -170,7 +170,7 @@ fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     var hash: [Sha256.digest_length]u8 = undefined;
     Sha256.hash(input, &hash, .{});
     
-    var result = try allocator.alloc(u8, hash.len);
+    const result = try allocator.alloc(u8, hash.len);
     @memcpy(result, &hash);
     
     return result;
@@ -179,7 +179,7 @@ fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
 fn ripemd160Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement actual RIPEMD160 (need to either import a library or implement it)
     // For now, return zeros as a placeholder
-    var result = try allocator.alloc(u8, 32);
+    const result = try allocator.alloc(u8, 32);
     @memset(result, 0);
     
     return result;
@@ -189,7 +189,7 @@ fn bn256AddRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement BN256 elliptic curve operations
     // For now, just return a placeholder
     _ = input;
-    var result = try allocator.alloc(u8, 64);
+    const result = try allocator.alloc(u8, 64);
     @memset(result, 0);
     
     return result;
@@ -199,7 +199,7 @@ fn bn256ScalarMulRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement BN256 scalar multiplication
     // For now, just return a placeholder
     _ = input;
-    var result = try allocator.alloc(u8, 64);
+    const result = try allocator.alloc(u8, 64);
     @memset(result, 0);
     
     return result;
@@ -209,7 +209,7 @@ fn bn256PairingRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement BN256 pairing check
     // For now, return false (all zeros) as a placeholder
     _ = input;
-    var result = try allocator.alloc(u8, 32);
+    const result = try allocator.alloc(u8, 32);
     @memset(result, 0);
     
     return result;
@@ -219,7 +219,7 @@ fn blake2fRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement Blake2F compression function
     // For now, return placeholder output
     _ = input;
-    var result = try allocator.alloc(u8, 64);
+    const result = try allocator.alloc(u8, 64);
     @memset(result, 0);
     
     return result;

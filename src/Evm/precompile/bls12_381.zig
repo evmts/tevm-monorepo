@@ -248,7 +248,7 @@ fn g1AddRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
         }
     }
     
-    var result = try allocator.alloc(u8, 128);
+    const result = try allocator.alloc(u8, 128);
     
     // If both points are infinity, return infinity
     if (first_is_infinity and second_is_infinity) {
@@ -298,7 +298,7 @@ fn g1MultiExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     
     // In a real implementation, use BLS12-381 library for multi-exponentiation
     // For now, create a placeholder result
-    var result = try allocator.alloc(u8, 128);
+    const result = try allocator.alloc(u8, 128);
     @memset(result, 0);
     
     // TODO: Replace with actual multi-exponentiation implementation
@@ -340,7 +340,7 @@ fn g2AddRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
         }
     }
     
-    var result = try allocator.alloc(u8, 256);
+    const result = try allocator.alloc(u8, 256);
     
     // If both points are infinity, return infinity
     if (first_is_infinity and second_is_infinity) {
@@ -390,7 +390,7 @@ fn g2MultiExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     
     // In a real implementation, use BLS12-381 library for multi-exponentiation
     // For now, create a placeholder result
-    var result = try allocator.alloc(u8, 256);
+    const result = try allocator.alloc(u8, 256);
     @memset(result, 0);
     
     // TODO: Replace with actual multi-exponentiation implementation
@@ -421,7 +421,7 @@ fn pairingRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     }
     
     // In a real implementation, compute the pairing check using a BLS12-381 library
-    var result = try allocator.alloc(u8, 32);
+    const result = try allocator.alloc(u8, 32);
     @memset(result, 0);
     
     // We need to verify: e(p1, q1) * e(p2, q2) * ... * e(pk, qk) == 1
@@ -447,7 +447,7 @@ fn mapG1Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     
     // Map the field element to a G1 point
     // For now, create a placeholder result (a valid G1 point)
-    var result = try allocator.alloc(u8, 128);
+    const result = try allocator.alloc(u8, 128);
     @memset(result, 0);
     
     // TODO: Replace with actual field-to-curve mapping implementation
@@ -470,7 +470,7 @@ fn mapG2Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     
     // Map the field element to a G2 point
     // For now, create a placeholder result (a valid G2 point)
-    var result = try allocator.alloc(u8, 256);
+    const result = try allocator.alloc(u8, 256);
     @memset(result, 0);
     
     // TODO: Replace with actual field-to-curve mapping implementation

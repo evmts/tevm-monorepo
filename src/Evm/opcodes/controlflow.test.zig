@@ -1,17 +1,17 @@
 const std = @import("std");
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Evm = @import("../Evm.zig");
-const Contract = @import("../Contract.zig");
-const Memory = @import("../Memory.zig").Memory;
-const controlflow = @import("./controlflow.zig");
-const Address = @import("../../Address/address.zig").Address;
+const Frame = @import("Evm").Frame;
+const ExecutionError = @import("Evm").ExecutionError;
+const Interpreter = @import("Evm").Interpreter;
+const Evm = @import("Evm");
+const Contract = @import("Evm").Contract;
+const Memory = @import("Evm").Memory;
+const controlflow = @import("Evm").Opcodes.controlflow;
+const Address = @import("Address").Address;
 
 // Mock contract for testing
-fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract.Contract {
-    const contract = try allocator.create(Contract.Contract);
-    contract.* = Contract.Contract{
+fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract {
+    const contract = try allocator.create(Contract);
+    contract.* = Contract{
         .code = try allocator.dupe(u8, code),
         .input = &[_]u8{},
         .address = Address.zero(),

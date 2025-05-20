@@ -1,18 +1,18 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
-const createLogger = @import("../EvmLogger.zig").createLogger;
-const logStack = @import("../EvmLogger.zig").logStack;
-const logStackSlop = @import("../EvmLogger.zig").logStackSlop;
-const logMemory = @import("../EvmLogger.zig").logMemory;
-const debugOnly = @import("../EvmLogger.zig").debugOnly;
-const logHexBytes = @import("../EvmLogger.zig").logHexBytes;
-const createScopedLogger = @import("../EvmLogger.zig").createScopedLogger;
-const hex = @import("../../Utils/hex.zig");
-const U256 = @import("../../Types/U256.ts").u256;
+const Interpreter = @import("Evm").Interpreter;
+const Frame = @import("Evm").Frame;
+const ExecutionError = @import("Evm").ExecutionError;
+const JumpTable = @import("Evm").JumpTable;
+const EvmLogger = @import("Evm").EvmLogger;
+const createLogger = @import("Evm").createLogger;
+const logStack = @import("Evm").logStack;
+const logStackSlop = @import("Evm").logStackSlop;
+const logMemory = @import("Evm").logMemory;
+const debugOnly = @import("Evm").debugOnly;
+const logHexBytes = @import("Evm").logHexBytes;
+const createScopedLogger = @import("Evm").createScopedLogger;
+const hex = @import("Utils").hex;
+const U256 = @import("Types").U256.u256;
 
 // Create a file-specific logger
 const logger = EvmLogger.init("controlflow.zig");
@@ -21,7 +21,7 @@ const logger = EvmLogger.init("controlflow.zig");
 pub fn opStop(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("Executing STOP at PC={d} [Contract: {x}]", .{pc, frame.contract.address});
         
         // Log stack state at STOP for debugging
@@ -54,7 +54,7 @@ pub fn opStop(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
 pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         const scoped = createScopedLogger(frame.logger, "JUMP Operation");
         defer scoped.deinit();
         
@@ -70,7 +70,7 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     
     // We need at least 1 item on the stack
     if (frame.stack.size < 1) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("JUMP: Stack underflow - cannot pop jump destination", .{});
         }
         return ExecutionError.StackUnderflow;
@@ -78,13 +78,13 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     
     // Pop destination from the stack
     const dest = try frame.stack.pop();
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("JUMP: Destination popped from stack: {d} (0x{x})", .{dest, dest});
     }
     
     // Check if destination is too large for the code
     if (dest >= frame.contract.code.len) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("JUMP: Invalid destination {d} (0x{x}) - exceeds code length {d}", .{dest, dest, frame.contract.code.len});
         }
         return ExecutionError.InvalidJump;
@@ -96,7 +96,7 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     // Check if destination is a JUMPDEST opcode
     const dest_opcode = frame.contract.code[dest_usize];
     if (dest_opcode != 0x5B) { // 0x5B is JUMPDEST
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("JUMP: Destination {d} (0x{x}) is not a JUMPDEST, found opcode 0x{X:0>2}", .{dest, dest, dest_opcode});
             
             // Additional debug info: show surrounding bytecode context at destination
@@ -131,7 +131,7 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     // Set the program counter to the destination (minus 1 because the interpreter will increment after)
     frame.pc = dest_usize - 1;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("JUMP: Valid jump - Setting PC to {d} (will be {d} after increment)", .{frame.pc, frame.pc + 1});
         
         // Additional info about what instruction we're jumping to
@@ -153,7 +153,7 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
 pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         const scoped = createScopedLogger(frame.logger, "JUMPI Operation");
         defer scoped.deinit();
         
@@ -169,7 +169,7 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     
     // We need at least 2 items on the stack
     if (frame.stack.size < 2) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("JUMPI: Stack underflow - need 2 items: [destination, condition]", .{});
         }
         return ExecutionError.StackUnderflow;
@@ -179,19 +179,19 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     const condition = try frame.stack.pop();
     const dest = try frame.stack.pop();
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("JUMPI: Destination={d} (0x{x}), condition={d} (0x{x})", .{dest, dest, condition, condition});
     }
     
     // Only jump if condition is not zero
     if (condition != 0) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("JUMPI: Condition is true (non-zero), jumping to destination {d} (0x{x})", .{dest, dest});
         }
         
         // Check if destination is too large for the code
         if (dest >= frame.contract.code.len) {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            if (@import("Evm").ENABLE_DEBUG_LOGS) {
                 frame.logger.err("JUMPI: Invalid destination {d} (0x{x}) - exceeds code length {d}", .{dest, dest, frame.contract.code.len});
             }
             return ExecutionError.InvalidJump;
@@ -203,7 +203,7 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
         // Check if destination is a JUMPDEST opcode
         const dest_opcode = frame.contract.code[dest_usize];
         if (dest_opcode != 0x5B) { // 0x5B is JUMPDEST
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            if (@import("Evm").ENABLE_DEBUG_LOGS) {
                 frame.logger.err("JUMPI: Destination {d} (0x{x}) is not a JUMPDEST, found opcode 0x{X:0>2}", .{dest, dest, dest_opcode});
                 
                 // Additional debug info: show surrounding bytecode context at destination
@@ -238,7 +238,7 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
         // Set the program counter to the destination (minus 1 because the interpreter will increment after)
         frame.pc = dest_usize - 1;
         
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("JUMPI: Valid conditional jump - Setting PC to {d} (will be {d} after increment)", .{frame.pc, frame.pc + 1});
             
             // Additional info about what instruction we're jumping to
@@ -264,7 +264,7 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
 pub fn opJumpdest(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("Executing JUMPDEST at PC={d} [Contract: {x}]", .{pc, frame.contract.address});
         
         // Log stack state when reaching a jump destination
@@ -304,7 +304,7 @@ pub fn opJumpdest(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
 pub fn opPc(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("Executing PC at PC={d} [Contract: {x}]", .{pc, frame.contract.address});
         
         // Log current stack before operation
@@ -321,16 +321,16 @@ pub fn opPc(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
     
     // We need to have room on the stack
     if (frame.stack.size >= frame.stack.capacity) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("PC: Stack overflow - cannot push PC value to stack (capacity={d})", .{frame.stack.capacity});
         }
         return ExecutionError.StackOverflow;
     }
     
     // Push the current program counter onto the stack
-    try frame.stack.push(@as(u256, @intCast(pc)));
+    try frame.stack.push(@as(U256, @intCast(pc)));
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("PC: Pushed current PC value {d} (0x{x}) to stack", .{pc, pc});
         
         // Log stack after push
@@ -367,7 +367,7 @@ pub fn opPc(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
 pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         const scoped = createScopedLogger(frame.logger, "RETURN Operation");
         defer scoped.deinit();
         
@@ -385,7 +385,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     
     // We need at least 2 items on the stack
     if (frame.stack.size < 2) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("RETURN: Stack underflow - need 2 items [offset, size]", .{});
         }
         return ExecutionError.StackUnderflow;
@@ -395,7 +395,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const offset = try frame.stack.pop();
     const size = try frame.stack.pop();
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("RETURN: Memory offset={d} (0x{x}), size={d} (0x{x})", .{offset, offset, size, size});
     }
     
@@ -406,7 +406,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         // Check if offset + size_usize would overflow
         const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
         
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("RETURN: Reading {d} bytes from memory at offset {d}", .{size_usize, offset_usize});
         }
         
@@ -418,7 +418,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         
         // Set the return data
         if (offset_usize + size_usize <= mem.len) {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            if (@import("Evm").ENABLE_DEBUG_LOGS) {
                 // Log a detailed view of memory and the return data
                 debugOnly(struct {
                     fn callback() void {
@@ -475,14 +475,14 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
                         } else if (size_usize > 32 + 32) {
                             // Check for dynamic data (string/bytes/array)
                             // If first 32 bytes contain a pointer (usually 32 or 64) and that matches total size
-                            var offset_value: u256 = 0;
-                            for (return_data[0..32], 0..) |byte, i| {
+                            var offset_value: U256 = 0;
+                            for (return_data[0..32]) |byte| {
                                 offset_value = (offset_value << 8) | byte;
                             }
                             if (offset_value == 32 and size_usize > 64) {
                                 // Try to decode length from next word
-                                var length_value: u256 = 0;
-                                for (return_data[32..64], 0..) |byte, i| {
+                                var length_value: U256 = 0;
+                                for (return_data[32..64]) |byte| {
                                     length_value = (length_value << 8) | byte;
                                 }
                                 if (length_value + 64 == size_usize) {
@@ -496,18 +496,18 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
             
             try frame.setReturnData(mem[offset_usize..offset_usize + size_usize]);
             
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            if (@import("Evm").ENABLE_DEBUG_LOGS) {
                 frame.logger.info("RETURN: Successfully set return data, {d} bytes", .{size_usize});
             }
         } else {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            if (@import("Evm").ENABLE_DEBUG_LOGS) {
                 frame.logger.err("RETURN: Memory access out of bounds - offset {d} + size {d} exceeds memory length {d}", 
                     .{offset_usize, size_usize, mem.len});
             }
             return ExecutionError.OutOfOffset;
         }
     } else {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("RETURN: Empty return (size=0)", .{});
         }
         // Empty return data
@@ -515,7 +515,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Halt execution
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.info("RETURN: Halting execution successfully at PC={d}", .{pc});
     }
     return ExecutionError.STOP;
@@ -525,7 +525,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         const scoped = createScopedLogger(frame.logger, "REVERT Operation");
         defer scoped.deinit();
         
@@ -543,7 +543,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     
     // We need at least 2 items on the stack
     if (frame.stack.size < 2) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("REVERT: Stack underflow - need 2 items [offset, size]", .{});
         }
         return ExecutionError.StackUnderflow;
@@ -553,7 +553,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const offset = try frame.stack.pop();
     const size = try frame.stack.pop();
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("REVERT: Memory offset={d} (0x{x}), size={d} (0x{x})", .{offset, offset, size, size});
     }
     
@@ -564,7 +564,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         // Check if offset + size_usize would overflow
         const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
         
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("REVERT: Reading {d} bytes from memory at offset {d}", .{size_usize, offset_usize});
         }
         
@@ -576,7 +576,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         
         // Set the return data
         if (offset_usize + size_usize <= mem.len) {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            if (@import("Evm").ENABLE_DEBUG_LOGS) {
                 // Log a detailed view of the revert data
                 debugOnly(struct {
                     fn callback() void {
@@ -592,7 +592,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
                         var has_selector = false;
                         
                         if (size_usize >= 4) {
-                            var selector_str = hex.bytesToHex(revert_data[0..4], &selector_buf) catch "";
+                            const selector_str = hex.bytesToHex(revert_data[0..4], &selector_buf) catch "";
                             if (selector_str.len >= 8) {
                                 has_selector = std.mem.eql(u8, selector_str, error_selector);
                                 frame.logger.debug("REVERT: Selector: 0x{s} {s} standard error selector", 
@@ -645,18 +645,18 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
             
             try frame.setReturnData(mem[offset_usize..offset_usize + size_usize]);
             
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            if (@import("Evm").ENABLE_DEBUG_LOGS) {
                 frame.logger.info("REVERT: Set return data from memory, {d} bytes", .{size_usize});
             }
         } else {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            if (@import("Evm").ENABLE_DEBUG_LOGS) {
                 frame.logger.err("REVERT: Memory access out of bounds - offset {d} + size {d} exceeds memory length {d}", 
                     .{offset_usize, size_usize, mem.len});
             }
             return ExecutionError.OutOfOffset;
         }
     } else {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("REVERT: Empty revert data (size=0)", .{});
         }
         // Empty return data (silent revert)
@@ -664,7 +664,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Halt execution and revert state changes
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.warn("REVERT: Halting execution and reverting state changes at PC={d}", .{pc});
     }
     return ExecutionError.REVERT;
@@ -674,7 +674,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 pub fn opInvalid(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("Executing INVALID at PC={d} [Contract: {x}]", .{pc, frame.contract.address});
         
         // Log stack and execution context when hitting an invalid opcode
@@ -723,7 +723,7 @@ pub fn opInvalid(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
 
 /// SELFDESTRUCT (0xFF) - Halt execution and register account for deletion
 pub fn opSelfdestruct(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         const scoped = createScopedLogger(frame.logger, "SELFDESTRUCT Operation");
         defer scoped.deinit();
         
@@ -743,7 +743,7 @@ pub fn opSelfdestruct(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     
     // We need at least 1 item on the stack
     if (frame.stack.size < 1) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("SELFDESTRUCT: Stack underflow - cannot pop beneficiary address", .{});
         }
         return ExecutionError.StackUnderflow;
@@ -751,19 +751,19 @@ pub fn opSelfdestruct(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     
     // Pop beneficiary address from the stack
     const beneficiary = try frame.stack.pop();
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("SELFDESTRUCT: Beneficiary address: 0x{x}", .{beneficiary});
     }
     
     // Check if we're in a static call (can't modify state)
     if (interpreter.readOnly) {
-        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+        if (@import("Evm").ENABLE_DEBUG_LOGS) {
             frame.logger.err("SELFDESTRUCT: Cannot modify state in static call context", .{});
         }
         return ExecutionError.StaticStateChange;
     }
     
-    if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+    if (@import("Evm").ENABLE_DEBUG_LOGS) {
         frame.logger.info("SELFDESTRUCT: Contract at 0x{x} will be destroyed", .{frame.contract.address});
         frame.logger.info("SELFDESTRUCT: Any remaining balance will be transferred to 0x{x}", .{beneficiary});
         

@@ -130,6 +130,23 @@ pub const Memory = struct {
     pub fn resize(self: *Memory, size: u64) !void {
         try self.store.resize(size);
     }
+    
+    /// Require ensures memory is sized to at least offset + size
+    ///
+    /// This function will expand the memory if necessary to ensure
+    /// the requested region is accessible.
+    ///
+    /// Parameters:
+    /// - offset: The starting memory offset
+    /// - size: The size of the required memory region
+    ///
+    /// Error: Returns an error if memory allocation fails
+    pub fn require(self: *Memory, offset: u64, size: u64) !void {
+        const required_size = offset + size;
+        if (required_size > self.len()) {
+            try self.resize(required_size);
+        }
+    }
 
     /// GetCopy returns a copy of the slice from offset to offset+size
     ///

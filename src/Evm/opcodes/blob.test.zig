@@ -1,11 +1,25 @@
 const std = @import("std");
 const testing = std.testing;
 const blob = @import("blob.zig");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
-const Contract = @import("../Contract.zig").Contract;
+// Use direct imports to avoid import path issues
+const interpreter_mod = @import("../interpreter.zig");
+const frame_mod = @import("../Frame.zig");
+const stack_mod = @import("../Stack.zig");
+const memory_mod = @import("../Memory.zig");
+const contract_mod = @import("../Contract.zig");
+const evm_mod = @import("../evm.zig");
+
+const Interpreter = interpreter_mod.Interpreter;
+const Frame = frame_mod.Frame;
+const Stack = stack_mod.Stack;
+const Memory = memory_mod.Memory;
+const Contract = contract_mod.Contract;
+const EVM = evm_mod.EVM;
+const ExecutionStatus = evm_mod.ExecutionStatus;
+const Log = evm_mod.Log;
+
+// Define a wrapper for u64 to use in place of u256
+pub const BigInt = u64;
 
 // Mock implementation for testing
 fn createTestFrame() !struct {
@@ -16,13 +30,13 @@ fn createTestFrame() !struct {
 } {
     const allocator = testing.allocator;
     
-    var stack = try allocator.create(Stack);
+    const stack = try allocator.create(Stack);
     stack.* = Stack.init(allocator);
     
-    var memory = try allocator.create(Memory);
+    const memory = try allocator.create(Memory);
     memory.* = Memory.init(allocator);
     
-    var contract = try allocator.create(Contract);
+    const contract = try allocator.create(Contract);
     contract.* = Contract{
         .gas = 100000,
         .code_address = undefined,
@@ -32,7 +46,7 @@ fn createTestFrame() !struct {
         .gas_refund = 0,
     };
     
-    var frame = try allocator.create(Frame);
+    const frame = try allocator.create(Frame);
     frame.* = Frame{
         .stack = stack,
         .memory = memory,
@@ -48,11 +62,12 @@ fn createTestFrame() !struct {
         .call_depth = 0,
     };
     
-    var interpreter = try allocator.create(Interpreter);
+    const interpreter = try allocator.create(Interpreter);
     
-    // Create a simple EVM struct with chain rules enabled for testing
-    var evm = try allocator.create(@import("../evm.zig").EVM);
-    evm.* = @import("../evm.zig").EVM{
+    // EVM imports are already done at the top of file
+    
+    const evm = try allocator.create(EVM);
+    evm.* = EVM{
         .chainRules = .{
             .IsEIP4844 = true,  // Enable EIP-4844 for BLOBHASH and BLOBBASEFEE
             .IsEIP5656 = true,  // Enable EIP-5656 for MCOPY
@@ -62,11 +77,11 @@ fn createTestFrame() !struct {
         .transientStorage = std.StringHashMap(std.StringHashMap([]u8)).init(allocator),
         .contracts = undefined,
         .returnValue = undefined,
-        .status = @import("../evm.zig").ExecutionStatus.Success,
+        .status = ExecutionStatus.Success,
         .gasUsed = 0,
         .gasRefund = 0,
         .depth = 0,
-        .logs = std.ArrayList(@import("../evm.zig").Log).init(allocator),
+        .logs = std.ArrayList(Log).init(allocator),
         .accounts = undefined,
         .accessList = undefined,
         .storageAccessList = undefined,
@@ -106,7 +121,7 @@ fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
 
 test "BLOBHASH basic operation" {
     const allocator = testing.allocator;
-    var test_frame = try createTestFrame();
+    const test_frame = try createTestFrame();
     defer cleanupTestFrame(test_frame, allocator);
     
     // Setup stack for BLOBHASH operation test
@@ -117,12 +132,12 @@ test "BLOBHASH basic operation" {
     
     // Check result - should have one item on stack
     try testing.expectEqual(@as(usize, 1), test_frame.stack.size);
-    try testing.expectEqual(@as(u256, 0), test_frame.stack.data[0]);
+    try testing.expectEqual(@as(BigInt, 0), test_frame.stack.data[0]);
 }
 
 test "BLOBBASEFEE basic operation" {
     const allocator = testing.allocator;
-    var test_frame = try createTestFrame();
+    const test_frame = try createTestFrame();
     defer cleanupTestFrame(test_frame, allocator);
     
     // Execute BLOBBASEFEE operation
@@ -131,19 +146,19 @@ test "BLOBBASEFEE basic operation" {
     // Check result - should have one item on stack
     try testing.expectEqual(@as(usize, 1), test_frame.stack.size);
     // Our placeholder value is 1000000
-    try testing.expectEqual(@as(u256, 1000000), test_frame.stack.data[0]);
+    try testing.expectEqual(@as(BigInt, 1000000), test_frame.stack.data[0]);
 }
 
 test "MCOPY basic operation" {
     const allocator = testing.allocator;
-    var test_frame = try createTestFrame();
+    const test_frame = try createTestFrame();
     defer cleanupTestFrame(test_frame, allocator);
     
     // Prepare memory with test data
     try test_frame.memory.resize(128);
-    // Set memory data by directly accessing the store ArrayList
+    // Set memory data using safe methods
     for (0..64) |i| {
-        test_frame.memory.store.items[i] = @truncate(i);
+        try test_frame.memory.store8(i, @truncate(i));
     }
     
     // Setup stack for MCOPY operation test
@@ -156,13 +171,13 @@ test "MCOPY basic operation" {
     
     // Check result - memory should be copied correctly
     for (0..32) |i| {
-        try testing.expectEqual(@as(u8, @truncate(i)), test_frame.memory.store.items[64 + i]);
+        try testing.expectEqual(@as(u8, @truncate(i)), test_frame.memory.get8(64 + i));
     }
 }
 
 test "MCOPY memory size calculation" {
     const allocator = testing.allocator;
-    var test_frame = try createTestFrame();
+    const test_frame = try createTestFrame();
     defer cleanupTestFrame(test_frame, allocator);
     
     // Setup stack for MCOPY memory size test
@@ -190,7 +205,7 @@ test "MCOPY memory size calculation" {
 
 test "MCOPY dynamic gas calculation" {
     const allocator = testing.allocator;
-    var test_frame = try createTestFrame();
+    const test_frame = try createTestFrame();
     defer cleanupTestFrame(test_frame, allocator);
     
     // Prepare memory with enough capacity for test
