@@ -239,10 +239,10 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Trie", trie_mod);
     lib_unit_tests.root_module.addImport("Utils", utils_mod);
 
-    // Additional standalone test specifically for Frame_test.zig
+    // Additional standalone test specifically for Frame.test.zig
     const frame_test = b.addTest(.{
         .name = "frame-test",
-        .root_source_file = b.path("src/Evm/Frame_test.zig"),
+        .root_source_file = b.path("src/Evm/Frame.test.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -401,6 +401,375 @@ pub fn build(b: *std.Build) void {
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
+    // Add a test for Contract.test.zig
+    const contract_test = b.addTest(.{
+        .name = "contract-test",
+        .root_source_file = b.path("src/Evm/Contract.test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to contract_test
+    contract_test.root_module.addImport("Address", address_mod);
+    contract_test.root_module.addImport("Abi", abi_mod);
+    contract_test.root_module.addImport("Block", block_mod);
+    contract_test.root_module.addImport("Bytecode", bytecode_mod);
+    contract_test.root_module.addImport("Compiler", compiler_mod);
+    contract_test.root_module.addImport("Evm", evm_mod);
+    contract_test.root_module.addImport("Rlp", rlp_mod);
+    contract_test.root_module.addImport("Token", token_mod);
+    contract_test.root_module.addImport("Trie", trie_mod);
+    contract_test.root_module.addImport("Utils", utils_mod);
+
+    const run_contract_test = b.addRunArtifact(contract_test);
+    
+    // Add a separate step for testing Contract
+    const contract_test_step = b.step("test-contract", "Run Contract tests");
+    contract_test_step.dependOn(&run_contract_test.step);
+
+    // Add a test for EvmLogger.test.zig
+    const evm_logger_test = b.addTest(.{
+        .name = "evm-logger-test",
+        .root_source_file = b.path("src/Evm/EvmLogger.test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to evm_logger_test
+    evm_logger_test.root_module.addImport("Address", address_mod);
+    evm_logger_test.root_module.addImport("Abi", abi_mod);
+    evm_logger_test.root_module.addImport("Block", block_mod);
+    evm_logger_test.root_module.addImport("Bytecode", bytecode_mod);
+    evm_logger_test.root_module.addImport("Compiler", compiler_mod);
+    evm_logger_test.root_module.addImport("Evm", evm_mod);
+    evm_logger_test.root_module.addImport("Rlp", rlp_mod);
+    evm_logger_test.root_module.addImport("Token", token_mod);
+    evm_logger_test.root_module.addImport("Trie", trie_mod);
+    evm_logger_test.root_module.addImport("Utils", utils_mod);
+
+    const run_evm_logger_test = b.addRunArtifact(evm_logger_test);
+    
+    // Add a separate step for testing EvmLogger
+    const evm_logger_test_step = b.step("test-evm-logger", "Run EvmLogger tests");
+    evm_logger_test_step.dependOn(&run_evm_logger_test.step);
+
+    // Add tests for opcode files
+    const opcodes_test_files = [_][]const u8{
+        "src/Evm/opcodes/bitwise.test.zig",
+        "src/Evm/opcodes/blob.test.zig",
+        "src/Evm/opcodes/block.test.zig",
+        "src/Evm/opcodes/calls.test.zig",
+        "src/Evm/opcodes/comparison.test.zig",
+        "src/Evm/opcodes/controlflow.test.zig",
+        "src/Evm/opcodes/crypto.test.zig",
+        "src/Evm/opcodes/environment.test.zig",
+        "src/Evm/opcodes/log.test.zig",
+        "src/Evm/opcodes/math.test.zig",
+        "src/Evm/opcodes/math2.test.zig",
+        "src/Evm/opcodes/memory.test.zig",
+        "src/Evm/opcodes/storage.test.zig",
+        "src/Evm/opcodes/transient.test.zig",
+    };
+
+    // Create a step for running all opcode tests
+    const opcodes_test_step = b.step("test-opcodes", "Run all opcode tests");
+    
+    // Add each opcode test individually
+    for (opcodes_test_files) |test_file| {
+        const file_name_start = std.mem.lastIndexOf(u8, test_file, "/") orelse 0;
+        const file_name = test_file[(file_name_start + 1)..];
+        // Extract the base name for use as the test name
+        const base_name_end = std.mem.indexOf(u8, file_name, ".test.zig") orelse file_name.len;
+        const base_name = file_name[0..base_name_end];
+        
+        const opcode_test = b.addTest(.{
+            .name = b.fmt("{s}-test", .{base_name}),
+            .root_source_file = b.path(test_file),
+            .target = target,
+            .optimize = optimize,
+        });
+        
+        // Add dependencies to opcode test
+        opcode_test.root_module.addImport("Address", address_mod);
+        opcode_test.root_module.addImport("Abi", abi_mod);
+        opcode_test.root_module.addImport("Block", block_mod);
+        opcode_test.root_module.addImport("Bytecode", bytecode_mod);
+        opcode_test.root_module.addImport("Compiler", compiler_mod);
+        opcode_test.root_module.addImport("Evm", evm_mod);
+        opcode_test.root_module.addImport("Rlp", rlp_mod);
+        opcode_test.root_module.addImport("Token", token_mod);
+        opcode_test.root_module.addImport("Trie", trie_mod);
+        opcode_test.root_module.addImport("Utils", utils_mod);
+        
+        const run_opcode_test = b.addRunArtifact(opcode_test);
+        opcodes_test_step.dependOn(&run_opcode_test.step);
+    }
+
+    // Add a test for precompile_test.zig
+    const precompile_test = b.addTest(.{
+        .name = "precompile-test",
+        .root_source_file = b.path("src/Evm/precompile/precompile_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to precompile_test
+    precompile_test.root_module.addImport("Address", address_mod);
+    precompile_test.root_module.addImport("Abi", abi_mod);
+    precompile_test.root_module.addImport("Block", block_mod);
+    precompile_test.root_module.addImport("Bytecode", bytecode_mod);
+    precompile_test.root_module.addImport("Compiler", compiler_mod);
+    precompile_test.root_module.addImport("Evm", evm_mod);
+    precompile_test.root_module.addImport("Rlp", rlp_mod);
+    precompile_test.root_module.addImport("Token", token_mod);
+    precompile_test.root_module.addImport("Trie", trie_mod);
+    precompile_test.root_module.addImport("Utils", utils_mod);
+
+    const run_precompile_test = b.addRunArtifact(precompile_test);
+    
+    // Add a separate step for testing precompiles
+    const precompile_test_step = b.step("test-precompile", "Run precompile tests");
+    precompile_test_step.dependOn(&run_precompile_test.step);
+
+    // Add a test for Precompiled.test.zig
+    const precompiled_test = b.addTest(.{
+        .name = "precompiled-test",
+        .root_source_file = b.path("src/Evm/precompiles/Precompiled.test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to precompiled_test
+    precompiled_test.root_module.addImport("Address", address_mod);
+    precompiled_test.root_module.addImport("Abi", abi_mod);
+    precompiled_test.root_module.addImport("Block", block_mod);
+    precompiled_test.root_module.addImport("Bytecode", bytecode_mod);
+    precompiled_test.root_module.addImport("Compiler", compiler_mod);
+    precompiled_test.root_module.addImport("Evm", evm_mod);
+    precompiled_test.root_module.addImport("Rlp", rlp_mod);
+    precompiled_test.root_module.addImport("Token", token_mod);
+    precompiled_test.root_module.addImport("Trie", trie_mod);
+    precompiled_test.root_module.addImport("Utils", utils_mod);
+
+    const run_precompiled_test = b.addRunArtifact(precompiled_test);
+    
+    // Add a separate step for testing precompiled contracts
+    const precompiled_test_step = b.step("test-precompiled", "Run precompiled contract tests");
+    precompiled_test_step.dependOn(&run_precompiled_test.step);
+
+    // Add test for EvmTestHelpers.test.zig
+    const evm_test_helpers_test = b.addTest(.{
+        .name = "evm-test-helpers-test",
+        .root_source_file = b.path("src/Evm/test/EvmTestHelpers.test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to evm_test_helpers_test
+    evm_test_helpers_test.root_module.addImport("Address", address_mod);
+    evm_test_helpers_test.root_module.addImport("Abi", abi_mod);
+    evm_test_helpers_test.root_module.addImport("Block", block_mod);
+    evm_test_helpers_test.root_module.addImport("Bytecode", bytecode_mod);
+    evm_test_helpers_test.root_module.addImport("Compiler", compiler_mod);
+    evm_test_helpers_test.root_module.addImport("Evm", evm_mod);
+    evm_test_helpers_test.root_module.addImport("Rlp", rlp_mod);
+    evm_test_helpers_test.root_module.addImport("Token", token_mod);
+    evm_test_helpers_test.root_module.addImport("Trie", trie_mod);
+    evm_test_helpers_test.root_module.addImport("Utils", utils_mod);
+
+    const run_evm_test_helpers_test = b.addRunArtifact(evm_test_helpers_test);
+    
+    // Add a separate step for testing EvmTestHelpers
+    const evm_test_helpers_test_step = b.step("test-evm-helpers", "Run EVM test helpers tests");
+    evm_test_helpers_test_step.dependOn(&run_evm_test_helpers_test.step);
+
+    // Add tests for EIP test files
+    const eip_test_files = [_][]const u8{
+        "src/Evm/tests/eip2200.test.zig",
+        "src/Evm/tests/eip2929.test.zig",
+        "src/Evm/tests/eip3198.test.zig",
+        "src/Evm/tests/eip3651.test.zig",
+        "src/Evm/tests/eip3855.test.zig",
+        "src/Evm/tests/eip5656.test.zig",
+    };
+
+    // Create a step for running all EIP tests
+    const eip_test_step = b.step("test-eips", "Run all EIP tests");
+    
+    // Add each EIP test individually
+    for (eip_test_files) |test_file| {
+        const file_name_start = std.mem.lastIndexOf(u8, test_file, "/") orelse 0;
+        const file_name = test_file[(file_name_start + 1)..];
+        // Extract the base name for use as the test name
+        const base_name_end = std.mem.indexOf(u8, file_name, ".test.zig") orelse file_name.len;
+        const base_name = file_name[0..base_name_end];
+        
+        const eip_test = b.addTest(.{
+            .name = b.fmt("{s}-test", .{base_name}),
+            .root_source_file = b.path(test_file),
+            .target = target,
+            .optimize = optimize,
+        });
+        
+        // Add dependencies to EIP test
+        eip_test.root_module.addImport("Address", address_mod);
+        eip_test.root_module.addImport("Abi", abi_mod);
+        eip_test.root_module.addImport("Block", block_mod);
+        eip_test.root_module.addImport("Bytecode", bytecode_mod);
+        eip_test.root_module.addImport("Compiler", compiler_mod);
+        eip_test.root_module.addImport("Evm", evm_mod);
+        eip_test.root_module.addImport("Rlp", rlp_mod);
+        eip_test.root_module.addImport("Token", token_mod);
+        eip_test.root_module.addImport("Trie", trie_mod);
+        eip_test.root_module.addImport("Utils", utils_mod);
+        
+        const run_eip_test = b.addRunArtifact(eip_test);
+        eip_test_step.dependOn(&run_eip_test.step);
+    }
+
+    // Add test for Logger_test.zig
+    const logger_test = b.addTest(.{
+        .name = "logger-test",
+        .root_source_file = b.path("src/Server/middleware/Logger_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add httpz dependency to logger test
+    logger_test.root_module.addImport("httpz", httpz_dep.module("httpz"));
+
+    const run_logger_test = b.addRunArtifact(logger_test);
+    
+    // Add a separate step for testing Logger middleware
+    const logger_test_step = b.step("test-logger", "Run Logger middleware tests");
+    logger_test_step.dependOn(&run_logger_test.step);
+
+    // Add test for server_test.zig (if different from server.zig tests)
+    const server_specific_test = b.addTest(.{
+        .name = "server-specific-test",
+        .root_source_file = b.path("src/Server/server_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add the httpz dependency to the server specific test
+    server_specific_test.root_module.addImport("httpz", httpz_dep.module("httpz"));
+
+    const run_server_specific_test = b.addRunArtifact(server_specific_test);
+    
+    // Add a separate step for testing Server specific tests
+    const server_specific_test_step = b.step("test-server-specific", "Run Server specific tests");
+    server_specific_test_step.dependOn(&run_server_specific_test.step);
+
+    // Add a test for signature_test.zig
+    const signature_test = b.addTest(.{
+        .name = "signature-test",
+        .root_source_file = b.path("src/Signature/signature_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to signature_test
+    signature_test.root_module.addImport("Utils", utils_mod);
+
+    const run_signature_test = b.addRunArtifact(signature_test);
+    
+    // Add a separate step for testing Signature
+    const signature_test_step = b.step("test-signature", "Run Signature tests");
+    signature_test_step.dependOn(&run_signature_test.step);
+
+    // Add a test for test.zig in Test module
+    const test_module_test = b.addTest(.{
+        .name = "test-module-test",
+        .root_source_file = b.path("src/Test/test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to test_module_test as needed
+    test_module_test.root_module.addImport("Address", address_mod);
+    test_module_test.root_module.addImport("Abi", abi_mod);
+    test_module_test.root_module.addImport("Utils", utils_mod);
+
+    const run_test_module_test = b.addRunArtifact(test_module_test);
+    
+    // Add a separate step for testing Test module
+    const test_module_test_step = b.step("test-module", "Run Test module tests");
+    test_module_test_step.dependOn(&run_test_module_test.step);
+
+    // Add a test for token_test.zig
+    const token_specific_test = b.addTest(.{
+        .name = "token-test",
+        .root_source_file = b.path("src/Token/token_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to token_specific_test
+    token_specific_test.root_module.addImport("Token", token_mod);
+    token_specific_test.root_module.addImport("Utils", utils_mod);
+
+    const run_token_specific_test = b.addRunArtifact(token_specific_test);
+    
+    // Add a separate step for testing Token specific tests
+    const token_specific_test_step = b.step("test-token", "Run Token tests");
+    token_specific_test_step.dependOn(&run_token_specific_test.step);
+
+    // Add a test for known_roots_test.zig
+    const known_roots_test = b.addTest(.{
+        .name = "known-roots-test",
+        .root_source_file = b.path("src/Trie/known_roots_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to known_roots_test
+    known_roots_test.root_module.addImport("Rlp", rlp_mod);
+    known_roots_test.root_module.addImport("Utils", utils_mod);
+    known_roots_test.root_module.addImport("Trie", trie_mod);
+
+    const run_known_roots_test = b.addRunArtifact(known_roots_test);
+    
+    // Add a separate step for testing Known Roots
+    const known_roots_test_step = b.step("test-known-roots", "Run Known Roots tests");
+    known_roots_test_step.dependOn(&run_known_roots_test.step);
+
+    // Add a test for trie_test.zig
+    const trie_specific_test = b.addTest(.{
+        .name = "trie-specific-test",
+        .root_source_file = b.path("src/Trie/trie_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to trie_specific_test
+    trie_specific_test.root_module.addImport("Rlp", rlp_mod);
+    trie_specific_test.root_module.addImport("Utils", utils_mod);
+    trie_specific_test.root_module.addImport("Trie", trie_mod);
+
+    const run_trie_specific_test = b.addRunArtifact(trie_specific_test);
+    
+    // Add a separate step for testing Trie specific tests
+    const trie_specific_test_step = b.step("test-trie-specific", "Run Trie specific tests");
+    trie_specific_test_step.dependOn(&run_trie_specific_test.step);
+
+    // Add a test for utils_test.zig
+    const utils_test = b.addTest(.{
+        .name = "utils-test",
+        .root_source_file = b.path("src/Utils/utils_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to utils_test
+    utils_test.root_module.addImport("Utils", utils_mod);
+
+    const run_utils_test = b.addRunArtifact(utils_test);
+    
+    // Add a separate step for testing Utils
+    const utils_test_step = b.step("test-utils", "Run Utils tests");
+    utils_test_step.dependOn(&run_utils_test.step);
+
     // Define test step for all tests
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
@@ -413,6 +782,21 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_compiler_test.step);
     test_step.dependOn(&run_trie_test.step);
     test_step.dependOn(&run_interpreter_test.step);
+    test_step.dependOn(&run_contract_test.step);
+    test_step.dependOn(&run_evm_logger_test.step);
+    test_step.dependOn(opcodes_test_step);
+    test_step.dependOn(&run_precompile_test.step);
+    test_step.dependOn(&run_precompiled_test.step);
+    test_step.dependOn(&run_evm_test_helpers_test.step);
+    test_step.dependOn(eip_test_step);
+    test_step.dependOn(&run_logger_test.step);
+    test_step.dependOn(&run_server_specific_test.step);
+    test_step.dependOn(&run_signature_test.step);
+    test_step.dependOn(&run_test_module_test.step);
+    test_step.dependOn(&run_token_specific_test.step);
+    test_step.dependOn(&run_known_roots_test.step);
+    test_step.dependOn(&run_trie_specific_test.step);
+    test_step.dependOn(&run_utils_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

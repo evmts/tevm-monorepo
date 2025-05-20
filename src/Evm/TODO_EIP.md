@@ -95,14 +95,14 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 
 ### Cancun Hard Fork Opcodes
 
-- **Status**: Partially implemented
+- **Status**: Implemented
 - **Description**: TLOAD, TSTORE (transient storage), MCOPY (memory copy), and BLOBHASH, BLOBBASEFEE opcodes
 - **Complexity**: Medium
 - **Implementation**: Add new opcodes and related infrastructure
 - **What's done**: 
   - Implemented MCOPY opcode (EIP-5656) with proper gas calculation and error handling
+  - Implemented TLOAD and TSTORE opcodes (EIP-1153) with proper gas calculation and transient storage 
   - BLOBHASH and BLOBBASEFEE opcodes are already implemented
-  - TLOAD and TSTORE need to be properly integrated with EIP flag checks
 
 ## Implementation Order
 
@@ -113,7 +113,7 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 5. ✅ Implement EIP-3198 (BASEFEE opcode)
 6. ✅ Implement Shanghai opcodes (PUSH0)
 7. ✅ Implement MCOPY opcode from Cancun (EIP-5656)
-8. Implement remaining Cancun opcodes (TLOAD, TSTORE) - Support partially added
+8. ✅ Implement Transient Storage opcodes from Cancun (TLOAD, TSTORE - EIP-1153)
 9. Implement EIP-4844 (Shard Blob Transactions) - Basic opcodes (BLOBHASH, BLOBBASEFEE) support partially added
 
 ## Test Cases

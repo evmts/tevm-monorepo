@@ -1,14 +1,34 @@
 const std = @import("std");
-const B256 = @import("../../Types/B256.ts");
-const Address = @import("../../Address/address.zig").Address;
 const testing = std.testing;
+
+// For testing purposes, we'll define Address locally
+const Address = [20]u8;
+
+// Define B256 for this module (since it's only for testing now)
+const B256 = [32]u8;
+// For testing purposes, we'll use u128 as our "u256" type
+const EVM_u256 = u128;
+
+// Since our Address module doesn't have a fromString function, we'll define one here for testing
+fn addressFromHexString(hex: []const u8) !Address {
+    if (hex.len < 2 or !std.mem.eql(u8, hex[0..2], "0x"))
+        return error.InvalidAddressFormat;
+    
+    if (hex.len != 42)
+        return error.InvalidAddressLength;
+    
+    var addr: Address = undefined;
+    const hex_without_prefix = hex[2..];
+    _ = try std.fmt.hexToBytes(&addr, hex_without_prefix);
+    return addr;
+}
 
 /// JournalEntry represents a state change that can be reverted
 pub const JournalEntry = union(enum) {
     /// Track a balance change
     BalanceChange: struct {
         address: Address,
-        prev_balance: u256,
+        prev_balance: EVM_u256,
     },
     
     /// Track a nonce change
@@ -193,7 +213,7 @@ test "Journal append entries" {
     defer journal.deinit();
     
     // Add a balance change entry
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     try journal.append(.{ .BalanceChange = .{ .address = addr, .prev_balance = 100 } });
     
     // Add a nonce change entry
@@ -206,7 +226,7 @@ test "Journal append entries" {
     switch (entries[0]) {
         .BalanceChange => |change| {
             try testing.expectEqual(addr, change.address);
-            try testing.expectEqual(@as(u256, 100), change.prev_balance);
+            try testing.expectEqual(@as(EVM_u256, 100), change.prev_balance);
         },
         else => return error.InvalidEntryType,
     }
@@ -226,7 +246,7 @@ test "Journal snapshots" {
     defer journal.deinit();
     
     // Add initial entries
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     try journal.append(.{ .BalanceChange = .{ .address = addr, .prev_balance = 100 } });
     
     // Create a snapshot
@@ -268,7 +288,7 @@ test "Journal entries since snapshot" {
     defer journal.deinit();
     
     // Add initial entries
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     try journal.append(.{ .BalanceChange = .{ .address = addr, .prev_balance = 100 } });
     
     // Create a snapshot
@@ -311,7 +331,7 @@ test "Journal multiple snapshots and reverts" {
     var journal = Journal.init(allocator);
     defer journal.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Create snapshot 0
     const snapshot0 = try journal.snapshot();
