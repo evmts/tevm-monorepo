@@ -1,6 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 
+// Import directly from modules
+// Use package-based imports
 const EvmModule = @import("Evm");
 const Contract = EvmModule.Contract;
 const createContract = EvmModule.createContract;
@@ -8,18 +10,15 @@ const Evm = EvmModule.Evm;
 const ChainRules = EvmModule.ChainRules;
 const JumpTable = EvmModule.JumpTable;
 const Interpreter = EvmModule.Interpreter;
-const EvmLoggerModule = EvmModule.EvmLogger;
-const EvmLogger = EvmLoggerModule.EvmLogger;
-const createLogger = EvmLoggerModule.createLogger;
-const createScopedLogger = EvmLoggerModule.createScopedLogger;
-const debugOnly = EvmLoggerModule.debugOnly;
+const InterpreterError = EvmModule.InterpreterError;
+const EvmLogger = EvmModule.EvmLogger;
+const createLogger = EvmModule.createLogger;
+const createScopedLogger = EvmModule.createScopedLogger;
+const debugOnly = EvmModule.debugOnly;
 
-const AddressModule = @import("Address");
-const Address = AddressModule.Address;
-
-const StateManagerModule = @import("StateManager");
-const StateManager = StateManagerModule.StateManager;
-const StateOptions = StateManagerModule.StateOptions;
+const Address = @import("Address").Address;
+const StateManager = @import("StateManager").StateManager;
+const StateOptions = @import("StateManager").StateOptions;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;
@@ -50,13 +49,11 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     // Create a copy of addr for debugging to avoid capture issues
     const addr_copy = addr;
     
-    debugOnly(struct {
-        fn callback() void {
-            var addr_str_buf: [128]u8 = undefined;
-            var addr_str_len = std.fmt.bufPrint(&addr_str_buf, "{}", .{addr_copy}) catch return;
-            getLogger().debug("Address conversion result: {s}", .{addr_str_buf[0..addr_str_len]});
-        }
-    }.callback);
+    debugOnly(getLogger(), {
+        var addr_str_buf: [128]u8 = undefined;
+        const addr_str_len = std.fmt.bufPrint(&addr_str_buf, "{}", .{addr_copy}) catch return;
+        getLogger().debug("Address conversion result: {s}", .{addr_str_buf[0..addr_str_len]});
+    });
     
     return addr;
 }
@@ -88,20 +85,18 @@ fn createTestContract(allocator: std.mem.Allocator) !Contract {
     // 0xf3 - RETURN (return data)
 
     getLogger().debug("Contract bytecode: BASEFEE + SSTORE + RETURN", .{});
-    debugOnly(struct {
-        fn callback() void {
-            // Log bytecode in detail if debug logging is enabled
-            var bytecode_buf: [256]u8 = undefined;
-            var bytecode_fbs = std.io.fixedBufferStream(&bytecode_buf);
-            const bytecode_writer = bytecode_fbs.writer();
-            
-            for (code) |byte| {
-                std.fmt.format(bytecode_writer, "{x:0>2} ", .{byte}) catch return;
-            }
-            
-            getLogger().debug("Bytecode: {s}", .{bytecode_buf[0..bytecode_fbs.pos]});
+    debugOnly(getLogger(), {
+        // Log bytecode in detail if debug logging is enabled
+        var bytecode_buf: [256]u8 = undefined;
+        var bytecode_fbs = std.io.fixedBufferStream(&bytecode_buf);
+        const bytecode_writer = bytecode_fbs.writer();
+        
+        for (code) |byte| {
+            std.fmt.format(bytecode_writer, "{x:0>2} ", .{byte}) catch return;
         }
-    }.callback);
+        
+        getLogger().debug("Bytecode: {s}", .{bytecode_buf[0..bytecode_fbs.pos]});
+    });
 
     const code_hash = [_]u8{0} ** 32; // Dummy hash
     contract.setCallCode(code_hash, &code);
@@ -160,31 +155,29 @@ test "EIP-3198: BASEFEE opcode with EIP-3198 enabled" {
     };
 
     // Log result details if debug is enabled
-    debugOnly(struct {
-        fn callback() void {
-            if (result) |data| {
-                getLogger().debug("BASEFEE opcode returned data of length: {d}", .{data.len});
+    debugOnly(getLogger(), {
+        if (result) |data| {
+            getLogger().debug("BASEFEE opcode returned data of length: {d}", .{data.len});
+            
+            if (data.len > 0) {
+                var hex_buf: [256]u8 = undefined;
+                var hex_fbs = std.io.fixedBufferStream(&hex_buf);
+                const hex_writer = hex_fbs.writer();
                 
-                if (data.len > 0) {
-                    var hex_buf: [256]u8 = undefined;
-                    var hex_fbs = std.io.fixedBufferStream(&hex_buf);
-                    const hex_writer = hex_fbs.writer();
-                    
-                    // Only print first few bytes if large
-                    const display_len = @min(data.len, 16);
-                    for (data[0..display_len]) |byte| {
-                        std.fmt.format(hex_writer, "{x:0>2} ", .{byte}) catch return;
-                    }
-                    
-                    if (data.len > display_len) {
-                        std.fmt.format(hex_writer, "... ({d} more bytes)", .{data.len - display_len}) catch return;
-                    }
-                    
-                    getLogger().debug("Result data: {s}", .{hex_buf[0..hex_fbs.pos]});
+                // Only print first few bytes if large
+                const display_len = @min(data.len, 16);
+                for (data[0..display_len]) |byte| {
+                    std.fmt.format(hex_writer, "{x:0>2} ", .{byte}) catch return;
                 }
+                
+                if (data.len > display_len) {
+                    std.fmt.format(hex_writer, "... ({d} more bytes)", .{data.len - display_len}) catch return;
+                }
+                
+                getLogger().debug("Result data: {s}", .{hex_buf[0..hex_fbs.pos]});
             }
         }
-    }.callback);
+    });
     
     getLogger().info("EIP-3198 test with BASEFEE opcode enabled - PASSED", .{});
 }
@@ -232,7 +225,7 @@ test "EIP-3198: BASEFEE opcode with EIP-3198 disabled" {
 
     // Verify result - should be an InvalidOpcode error
     getLogger().debug("Verifying test failure with InvalidOpcode error", .{});
-    testing.expectError(EvmModule.InterpreterError.InvalidOpcode, result) catch |err| {
+    testing.expectError(InterpreterError.InvalidOpcode, result) catch |err| {
         getLogger().err("Test failed: expected InvalidOpcode error but got: {}", .{err});
         std.debug.print("Test failed: {}\n", .{err});
         return err;

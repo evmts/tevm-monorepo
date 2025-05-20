@@ -10,19 +10,38 @@ pub fn opAnd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     _ = interpreter;
     _ = pc;
     
+    // Debug logging (only in debug builds)
+    if (@import("builtin").mode == .Debug) {
+        std.debug.print("opAnd: stack.size={d}\n", .{frame.stack.size});
+    }
+    
     // We need at least 2 items on the stack
     if (frame.stack.size < 2) {
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("opAnd: Stack underflow (size={d})\n", .{frame.stack.size});
+        }
         return ExecutionError.StackUnderflow;
     }
     
     // Pop y from the stack
     const y = try frame.stack.pop();
+    if (@import("builtin").mode == .Debug) {
+        std.debug.print("opAnd: Popped y={x}\n", .{y});
+    }
     
     // Get reference to x (which is now at the top of the stack)
     const x = try frame.stack.peek();
+    if (@import("builtin").mode == .Debug) {
+        std.debug.print("opAnd: Peeked x={x}\n", .{x.*});
+    }
     
     // Perform bitwise AND and store result
-    x.* = x.* & y;
+    const result = x.* & y;
+    x.* = result;
+    
+    if (@import("builtin").mode == .Debug) {
+        std.debug.print("opAnd: Result={x}\n", .{result});
+    }
     
     return "";
 }

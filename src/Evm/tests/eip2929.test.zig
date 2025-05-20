@@ -1,6 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 
+// Use package-based imports
 const EvmModule = @import("Evm");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
@@ -9,7 +10,7 @@ const createContract = EvmModule.createContract;
 const ExecutionError = EvmModule.InterpreterError;
 const Evm = EvmModule.Evm;
 const JumpTable = EvmModule.JumpTable;
-const B256 = EvmModule.B256;
+const B256 = u256; // Use native type
 const EvmLogger = EvmModule.EvmLogger;
 const createLogger = EvmModule.createLogger;
 const createScopedLogger = EvmModule.createScopedLogger;
@@ -25,11 +26,8 @@ fn getLogger() EvmLogger {
     return _logger.?;
 }
 
-const StateManagerModule = @import("StateManager");
-const StateManager = StateManagerModule.StateManager;
-
-const AddressModule = @import("Address");
-const Address = AddressModule.Address;
+const StateManager = @import("StateManager").StateManager;
+const Address = @import("Address").Address;
 
 // Helper function to convert hex string to Address
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
@@ -172,7 +170,7 @@ const MockStateManager = struct {
         return result;
     }
 
-    pub fn putContractStorage(self: *MockStateManager, address: Address, key: B256, value: *const [32]u8) !void {
+    pub fn putContractStorage(self: *MockStateManager, _: Address, _: B256, _: *const [32]u8) !void {
         var scoped = createScopedLogger(getLogger(), "MockStateManager.putContractStorage()");
         defer scoped.deinit();
         
@@ -194,7 +192,7 @@ const MockStateManager = struct {
         getLogger().debug("Storage set operation is a no-op in mock", .{});
     }
 
-    pub fn getAccount(self: *MockStateManager, address: Address) !?struct {
+    pub fn getAccount(self: *MockStateManager, _: Address) !?struct {
         balance: struct { value: u256 },
         codeHash: struct { bytes: [32]u8 },
     } {
@@ -211,7 +209,7 @@ const MockStateManager = struct {
         return null;
     }
 
-    pub fn getContractCode(self: *MockStateManager, address: Address) ![]u8 {
+    pub fn getContractCode(self: *MockStateManager, _: Address) ![]u8 {
         var scoped = createScopedLogger(getLogger(), "MockStateManager.getContractCode()");
         defer scoped.deinit();
         

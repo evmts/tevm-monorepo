@@ -1,13 +1,14 @@
 const std = @import("std");
 const testing = std.testing;
-const interpreter = @import("../interpreter.zig");
-const Interpreter = interpreter.Interpreter;
-const ExecutionError = interpreter.ExecutionError;
-const evm = @import("../evm.zig");
-const Frame = @import("../Frame.zig");
-const Evm = evm.Evm;
-const JumpTable = @import("../JumpTable.zig");
-const calls = @import("../opcodes/calls.zig");
+
+// Use package-based imports for consistency
+const EvmModule = @import("Evm");
+const Interpreter = EvmModule.Interpreter;
+const ExecutionError = EvmModule.InterpreterError;
+const Evm = EvmModule.Evm;
+const Frame = EvmModule.Frame;
+const JumpTable = EvmModule.JumpTable;
+const calls = EvmModule.opcodes.calls;
 
 // Test setup helper function
 fn setupInterpreter(enable_eip3860: bool) !Interpreter {

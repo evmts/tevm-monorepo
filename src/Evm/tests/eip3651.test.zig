@@ -1,6 +1,7 @@
 const std = @import("std");
 
-const EvmModule = @import("Evm");
+// Use relative import path when running directly with zig test
+const EvmModule = @import("../evm.zig");
 const Contract = EvmModule.Contract;
 const createContract = EvmModule.createContract;
 const Evm = EvmModule.Evm;
@@ -8,10 +9,11 @@ const ChainRules = EvmModule.ChainRules;
 const JumpTable = EvmModule.JumpTable;
 const Interpreter = EvmModule.Interpreter;
 
-const AddressModule = @import("Address");
+// Use relative imports for test
+const AddressModule = @import("../Address/address.zig");
 const Address = AddressModule.Address;
 
-const StateManagerModule = @import("StateManager");
+const StateManagerModule = @import("../StateManager/StateManager.zig");
 const StateManager = StateManagerModule.StateManager;
 
 // Helper function to convert hex string to Address
@@ -65,7 +67,7 @@ test "EIP-3651: COINBASE should be warm by default" {
     evm.setStateManager(@ptrCast(&state_manager));
 
     // Create jump table
-    var jt = try JumpTable.newJumpTable(allocator, "latest");
+    const jt = try JumpTable.newJumpTable(allocator, "latest");
     // Don't manually deinit the jump table, let the arena cleanup handle it
     // defer jt.deinit(allocator);
 

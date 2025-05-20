@@ -67,7 +67,7 @@ fn addressToB160(address: Address) B160 {
     // Handle the address differently based on its exact type
     if (@TypeOf(address) == [20]u8) {
         // Direct assignment for array type
-        b160.bytes = address;
+        std.mem.copy(u8, &b160.bytes, &address);
     } else {
         // Proper field access for struct type
         std.mem.copy(u8, &b160.bytes, &address.bytes);

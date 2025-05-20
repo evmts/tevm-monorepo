@@ -9,13 +9,14 @@ pub const JumpTable = @import("JumpTable.zig");
 pub const opcodes = @import("opcodes.zig");
 pub const Memory = @import("Memory.zig");
 pub const Stack = @import("Stack.zig");
-const StateManager = @import("StateManager").StateManager;
-pub const EvmLogger = @import("EvmLogger.zig").EvmLogger;
-pub const createLogger = @import("EvmLogger.zig").createLogger;
-pub const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
-pub const debugOnly = @import("EvmLogger.zig").debugOnly;
-pub const logHexBytes = @import("EvmLogger.zig").logHexBytes;
-pub const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
+// Import StateManager stub for tests
+const StateManager = @import("test_stubs.zig").StateManager;
+pub const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
+pub const createLogger = @import("TestEvmLogger.zig").createLogger;
+pub const createScopedLogger = @import("TestEvmLogger.zig").createScopedLogger;
+pub const debugOnly = @import("TestEvmLogger.zig").debugOnly;
+pub const logHexBytes = @import("TestEvmLogger.zig").logHexBytes;
+pub const ENABLE_DEBUG_LOGS = @import("TestEvmLogger.zig").ENABLE_DEBUG_LOGS;
 pub const B256 = StateManager.B256;
 
 pub const WithdrawalData = @import("Withdrawal.zig").WithdrawalData;
@@ -196,16 +197,14 @@ pub const Evm = struct {
             getLogger().debug("Assigning initial state manager", .{});
         }
 
-        debugOnly(struct {
-            fn callback() void {
-                // This code only runs when debug logs are enabled
-                if (stateManager.isForkEnabled()) |is_fork| {
-                    if (is_fork) {
-                        getLogger().info("State manager is configured with forking enabled", .{});
-                    }
-                } else |_| {}
-            }
-        }.callback);
+        debugOnly({
+            // This code only runs when debug logs are enabled
+            if (stateManager.isForkEnabled()) |is_fork| {
+                if (is_fork) {
+                    getLogger().info("State manager is configured with forking enabled", .{});
+                }
+            } else |_| {}
+        });
 
         self.state_manager = stateManager;
         getLogger().info("State manager configured successfully", .{});

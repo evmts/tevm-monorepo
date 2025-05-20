@@ -288,58 +288,72 @@ pub const Memory = struct {
     /// Returns: A newly allocated buffer containing the copied data
     /// Errors: Returns error.OutOfMemory if allocation fails or error.InvalidArgument for bad parameters
     pub fn getCopy(self: *Memory, offset: u64, size: u64) ![]u8 {
-        // Debug logging
-        comptime {
-            @setEvalBranchQuota(10000);
+        // Debug logging - only in debug builds
+        if (@import("builtin").mode == .Debug) {
             std.debug.print("Memory.getCopy: offset={d}, size={d}, current_memory_size={d}\n", 
-                         .{@as(u64, 0), @as(u64, 0), @as(usize, 0)}); // Placeholder values
+                         .{offset, size, self.store.items.len});
         }
         
         // For empty copies, still allocate an empty slice for consistent memory management
         if (size == 0) {
             // Always allocate a buffer, even for zero size
             // This ensures consistent memory management where caller always needs to free
-            comptime std.debug.print("Memory.getCopy: Allocating empty slice for size=0\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.getCopy: Allocating empty slice for size=0\n", .{});
+            }
             return self.allocator.alloc(u8, 0);
         }
 
         // Ensure memory is sized correctly, expanding if necessary
         // Using require() which will resize as needed
-        comptime std.debug.print("Memory.getCopy: Ensuring memory is sized correctly\n", .{});
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.getCopy: Ensuring memory is sized correctly\n", .{});
+        }
         try self.require(offset, size);
         
         // Now do checks for safety
         // Check for overflow in offset + size calculation using safe arithmetic
         const end_offset = std.math.add(u64, offset, size) catch {
-            comptime std.debug.print("Memory.getCopy: Overflow in offset({d}) + size({d})\n", 
-                                 .{@as(u64, 0), @as(u64, 0)}); // Placeholder values
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.getCopy: Overflow in offset({d}) + size({d})\n", 
+                                 .{offset, size});
+            }
             return error.InvalidArgument;
         };
         
-        comptime std.debug.print("Memory.getCopy: end_offset={d}, actual_memory_size={d}\n", 
-                             .{@as(u64, 0), @as(usize, 0)}); // Placeholder values
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.getCopy: end_offset={d}, actual_memory_size={d}\n", 
+                             .{end_offset, self.store.items.len});
+        }
 
         // Safely convert size to usize for allocation
-        const alloc_size: usize = if (size > std.math.maxInt(usize)) {
-            comptime std.debug.print("Memory.getCopy: Size {d} too large for usize\n", .{@as(u64, 0)}); // Placeholder
+        if (size > std.math.maxInt(usize)) {
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.getCopy: Size {d} too large for usize\n", .{size});
+            }
             return error.OutOfMemory;
-        } else {
-            @as(usize, @intCast(size));
-        };
+        }
+        const alloc_size: usize = @as(usize, @intCast(size));
         
         // Allocate memory for the copy - caller must free this with allocator.free()
-        comptime std.debug.print("Memory.getCopy: Allocating buffer of size {d}\n", .{@as(usize, 0)}); // Placeholder
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.getCopy: Allocating buffer of size {d}\n", .{alloc_size});
+        }
         const cpy = try self.allocator.alloc(u8, alloc_size);
         // Free memory if a later operation fails
         errdefer {
-            comptime std.debug.print("Memory.getCopy: Error occurred, freeing allocated buffer\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.getCopy: Error occurred, freeing allocated buffer\n", .{});
+            }
             self.allocator.free(cpy);
         }
         
         // Verify our calculated end_offset is still valid after potential memory resize
         if (end_offset > self.store.items.len) {
-            comptime std.debug.print("Memory.getCopy: end_offset {d} beyond memory size {d} after resize\n", 
-                                 .{@as(u64, 0), @as(usize, 0)}); // Placeholder values
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.getCopy: end_offset {d} beyond memory size {d} after resize\n", 
+                                 .{end_offset, self.store.items.len});
+            }
             self.allocator.free(cpy); // Manually free memory to prevent leaks
             return error.OutOfBounds;
         }
@@ -347,12 +361,16 @@ pub const Memory = struct {
         // Get source slice using validated bounds
         const source_slice = self.store.items[offset..end_offset];
         
-        comptime std.debug.print("Memory.getCopy: Copying {d} bytes from memory to result buffer\n", 
-                             .{@as(u64, 0)}); // Placeholder value
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.getCopy: Copying {d} bytes from memory to result buffer\n", 
+                             .{size});
+        }
         @memcpy(cpy, source_slice);
         
-        comptime std.debug.print("Memory.getCopy: Successfully returned copy of size {d}\n", 
-                             .{@as(usize, 0)}); // Placeholder value
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.getCopy: Successfully returned copy of size {d}\n", 
+                             .{cpy.len});
+        }
         return cpy;
     }
 
@@ -445,15 +463,10 @@ pub const Memory = struct {
     /// - OutOfBounds: If source or destination ranges would exceed memory bounds after calculation
     /// - MemoryTooLarge: If the required memory size exceeds the maximum allowed
     pub fn copy(self: *Memory, dst: u64, src: u64, length: u64) !void {
-        // Debug information
-        comptime {
-            @setEvalBranchQuota(10000);
-            var log_buffer: [1024]u8 = undefined;
-            const log_msg = std.fmt.bufPrint(&log_buffer, 
-                "Memory.copy: dst={d}, src={d}, length={d}", 
-                .{dst, src, length}) catch "Memory.copy: Error formatting debug message";
-            
-            std.debug.print("{s}\n", .{log_msg});
+        // Debug information - only in debug builds
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.copy: dst={d}, src={d}, length={d}\n", 
+                .{dst, src, length});
         }
         
         // Early return for zero-length operations
@@ -463,30 +476,42 @@ pub const Memory = struct {
         
         // Check for bounds and overflow using safe arithmetic operations
         const src_end = std.math.add(u64, src, length) catch {
-            comptime std.debug.print("Memory.copy: src_end overflow\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: src_end overflow\n", .{});
+            }
             return error.OutOfBounds;
         };
         
         const dst_end = std.math.add(u64, dst, length) catch {
-            comptime std.debug.print("Memory.copy: dst_end overflow\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: dst_end overflow\n", .{});
+            }
             return error.OutOfBounds;
         };
         
-        comptime std.debug.print("Memory.copy: src_end={d}, dst_end={d}, current memory size={d}\n", 
-                                .{@as(u64, 0), @as(u64, 0), @as(u64, 0)}); // Placeholder values
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.copy: src_end={d}, dst_end={d}, current memory size={d}\n", 
+                            .{src_end, dst_end, self.store.items.len});
+        }
         
         // Ensure source range is within bounds
         if (src_end > self.store.items.len) {
-            comptime std.debug.print("Memory.copy: Source range out of bounds\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: Source range out of bounds\n", .{});
+            }
             return error.OutOfBounds;
         }
         
         // Ensure destination range is within bounds
         // Expand memory if needed
         if (dst_end > self.store.items.len) {
-            comptime std.debug.print("Memory.copy: Resizing memory to {d}\n", .{@as(u64, 0)}); // Placeholder
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: Resizing memory to {d}\n", .{dst_end});
+            }
             try self.resize(dst_end);
-            comptime std.debug.print("Memory.copy: Memory resized to {d}\n", .{@as(u64, 0)}); // Placeholder
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: Memory resized to {d}\n", .{self.store.items.len});
+            }
         }
 
         // After resizing, validate all ranges are within bounds
@@ -494,15 +519,21 @@ pub const Memory = struct {
         // ArrayList had to reallocate its storage
         const mem_size = self.store.items.len;
         
-        comptime std.debug.print("Memory.copy: After resize memory size={d}\n", .{@as(u64, 0)}); // Placeholder
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.copy: After resize memory size={d}\n", .{mem_size});
+        }
         
         // Safe checks with proper bound validation
         if (src >= mem_size) {
-            comptime std.debug.print("Memory.copy: Source start {d} out of bounds\n", .{@as(u64, 0)}); // Placeholder
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: Source start {d} out of bounds\n", .{src});
+            }
             return error.OutOfBounds;
         }
         if (dst >= mem_size) {
-            comptime std.debug.print("Memory.copy: Destination start {d} out of bounds\n", .{@as(u64, 0)}); // Placeholder
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: Destination start {d} out of bounds\n", .{dst});
+            }
             return error.OutOfBounds;
         }
         
@@ -511,11 +542,15 @@ pub const Memory = struct {
         const safe_dst_end = @min(dst_end, mem_size);
         const safe_length = @min(safe_src_end - src, safe_dst_end - dst);
         
-        comptime std.debug.print("Memory.copy: safe_src_end={d}, safe_dst_end={d}, safe_length={d}\n", 
-                                .{@as(u64, 0), @as(u64, 0), @as(u64, 0)}); // Placeholder values
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.copy: safe_src_end={d}, safe_dst_end={d}, safe_length={d}\n", 
+                            .{safe_src_end, safe_dst_end, safe_length});
+        }
         
         if (safe_length == 0) {
-            comptime std.debug.print("Memory.copy: Nothing to copy safely\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: Nothing to copy safely\n", .{});
+            }
             return; // Nothing to copy safely
         }
         
@@ -523,17 +558,23 @@ pub const Memory = struct {
         const source_slice = self.store.items[src..src + safe_length];
         const dest_slice = self.store.items[dst..dst + safe_length];
         
-        comptime std.debug.print("Memory.copy: source_slice.len={d}, dest_slice.len={d}, overlap={}\n", 
-                                .{@as(u64, 0), @as(u64, 0), dst > src and dst < src + safe_length}); // Placeholder values
+        if (@import("builtin").mode == .Debug) {
+            std.debug.print("Memory.copy: source_slice.len={d}, dest_slice.len={d}, overlap={}\n", 
+                            .{source_slice.len, dest_slice.len, dst > src and dst < src + safe_length});
+        }
         
         // Handle overlapping regions safely
         if (dst <= src) {
             // Copy forwards for non-overlapping or when destination is before source
-            comptime std.debug.print("Memory.copy: Using copyForwards (dst <= src)\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: Using copyForwards (dst <= src)\n", .{});
+            }
             std.mem.copyForwards(u8, dest_slice, source_slice);
         } else {
             // Copy backwards when source is before destination (overlapping)
-            comptime std.debug.print("Memory.copy: Using copyBackwards (dst > src)\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.copy: Using copyBackwards (dst > src)\n", .{});
+            }
             std.mem.copyBackwards(u8, dest_slice, source_slice);
         }
     }

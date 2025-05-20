@@ -1,23 +1,22 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import from the main Evm module
-const EvmModule = @import("Evm");
-const Interpreter = EvmModule.Interpreter;
-const Frame = EvmModule.Frame;
-const ExecutionError = EvmModule.InterpreterError;
-const Stack = EvmModule.Stack;
-const Memory = EvmModule.Memory;
-const Evm = EvmModule.Evm;
-const Contract = EvmModule.Contract;
-const createContract = EvmModule.createContract;
-const ChainRules = EvmModule.ChainRules;
-const Hardfork = EvmModule.Hardfork;
-const JumpTable = EvmModule.JumpTable;
+// Import from the main Evm module directly using local imports
+const Interpreter = @import("interpreter.zig").Interpreter;
+const Frame = @import("Frame.zig").Frame;
+const ExecutionError = @import("interpreter.zig").InterpreterError;
+const Stack = @import("Stack.zig").Stack;
+const Memory = @import("Memory.zig").Memory;
+const Evm = @import("evm.zig").Evm;
+const Contract = @import("Contract.zig").Contract;
+const createContract = @import("Contract.zig").createContract;
+const ChainRules = @import("evm.zig").ChainRules;
+const Hardfork = @import("evm.zig").Hardfork;
+const JumpTable = @import("JumpTable.zig");
+const opcodes = @import("opcodes.zig");
 
-// Import Address from the Address module
-const AddressModule = @import("Address");
-const Address = AddressModule.Address;
+// Create a stub Address type for testing
+const Address = [20]u8;
 
 // Import opcode-specific modules
 const block = @import("opcodes/block.zig");
@@ -37,21 +36,21 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
 }
 
 /// Setup function to create an EVM instance with a specific hardfork
-fn setupEvmForHardfork(allocator: std.testing.Allocator, hardfork: Hardfork) !Evm {
+fn setupEvmForHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Evm {
     var evm_instance = try Evm.init(allocator, null);
     evm_instance.chainRules = ChainRules.forHardfork(hardfork);
     return evm_instance;
 }
 
 /// Setup function to create a JumpTable for a specific hardfork
-fn setupJumpTableForHardfork(allocator: std.testing.Allocator, hardfork: []const u8) !JumpTable.JumpTable {
+fn setupJumpTableForHardfork(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTable.JumpTable {
     return try JumpTable.newJumpTable(allocator, hardfork);
 }
 
 /// Setup function to create an Interpreter for a specific hardfork
-fn setupInterpreterForHardfork(allocator: std.testing.Allocator, hardfork: Hardfork) !*Interpreter {
+fn setupInterpreterForHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !*Interpreter {
     var evm_instance = try setupEvmForHardfork(allocator, hardfork);
-    var jump_table = try setupJumpTableForHardfork(allocator, @tagName(hardfork));
+    const jump_table = try setupJumpTableForHardfork(allocator, @tagName(hardfork));
     
     // Create and return the interpreter
     const interpreter_instance = try Interpreter.create(allocator, &evm_instance, jump_table);
@@ -76,9 +75,10 @@ fn setupFrameForContract(allocator: std.testing.Allocator, contract: *Contract) 
     return frame_instance;
 }
 
-/// Test to verify availability of opcodes based on different hardforks
+// Test to verify availability of opcodes based on different hardforks
 test "Opcode Availability by Hardfork" {
-    const allocator = testing.allocator;
+    // Use testing allocator
+    const allocator = std.testing.allocator;
     
     // Test structure: hardfork name -> opcode byte -> should be available
     const test_cases = [_]struct {
@@ -156,7 +156,7 @@ test "Opcode Availability by Hardfork" {
     }
 }
 
-/// Test to verify the DIFFICULTY/PREVRANDAO opcode name switch after the Merge
+// Test to verify the DIFFICULTY/PREVRANDAO opcode name switch after the Merge
 test "DIFFICULTY/PREVRANDAO Opcode Behavior after Merge" {
     const allocator = testing.allocator;
     
@@ -178,7 +178,7 @@ test "DIFFICULTY/PREVRANDAO Opcode Behavior after Merge" {
         contract_instance.code = &[_]u8{0x44}; // DIFFICULTY opcode
         
         // Setup interpreter and frame
-        var jump_table = try setupJumpTableForHardfork(allocator, "london");
+        const jump_table = try setupJumpTableForHardfork(allocator, "london");
         var interpreter_instance = try Interpreter.create(allocator, &evm_instance, jump_table);
         var frame_instance = try Frame.init(allocator, &contract_instance);
         
@@ -214,7 +214,7 @@ test "DIFFICULTY/PREVRANDAO Opcode Behavior after Merge" {
         contract_instance.code = &[_]u8{0x44}; // Now PREVRANDAO opcode
         
         // Setup interpreter and frame
-        var jump_table = try setupJumpTableForHardfork(allocator, "merge");
+        const jump_table = try setupJumpTableForHardfork(allocator, "merge");
         var interpreter_instance = try Interpreter.create(allocator, &evm_instance, jump_table);
         var frame_instance = try Frame.init(allocator, &contract_instance);
         
@@ -237,7 +237,7 @@ test "DIFFICULTY/PREVRANDAO Opcode Behavior after Merge" {
     }
 }
 
-/// Test to verify JumpTable updates when hardfork changes
+// Test to verify JumpTable updates when hardfork changes
 test "JumpTable Updates for Different Hardforks" {
     const allocator = testing.allocator;
     
@@ -297,7 +297,7 @@ test "JumpTable Updates for Different Hardforks" {
     }
 }
 
-/// Test execution behavior when hardfork disables an opcode
+// Test execution behavior when hardfork disables an opcode
 test "Opcode Execution Behavior Across Hardforks" {
     const allocator = testing.allocator;
     
@@ -384,9 +384,9 @@ test "Opcode Execution Behavior Across Hardforks" {
     }
 }
 
-/// Test to verify that opcode names are correctly mapped across hardforks
+// Test to verify that opcode names are correctly mapped across hardforks
 test "Opcode Names Across Hardforks" {
-    const allocator = testing.allocator;
+    // Allocator not used in this test
     
     // Test specific opcodes names in different hardforks
     const test_cases = [_]struct {
@@ -411,21 +411,16 @@ test "Opcode Names Across Hardforks" {
     
     // Run the tests
     for (test_cases) |test_case| {
-        const actual_name = EvmModule.opcodes.getOpcodeName(test_case.opcode);
+        const actual_name = opcodes.getOpcodeName(test_case.opcode);
         
         // Compare with expected name
-        try testing.expectEqualStrings(
-            test_case.expected_name,
-            actual_name,
-            "Opcode name mismatch for opcode 0x{X:0>2} in hardfork {s}: expected {s}, got {s}",
-            .{ test_case.opcode, test_case.hardfork, test_case.expected_name, actual_name }
-        );
+        try testing.expectEqualStrings(test_case.expected_name, actual_name);
     }
 }
 
-/// Test that EIP3651 is correctly implemented (COINBASE should be warm)
+// Test that EIP3651 is correctly implemented (COINBASE should be warm)
 test "EIP-3651: COINBASE should be warm by default" {
-    const allocator = testing.allocator;
+    const allocator = std.testing.allocator;
     
     // Create EVM with EIP-3651 disabled
     {
@@ -435,7 +430,7 @@ test "EIP-3651: COINBASE should be warm by default" {
         evm.setChainRules(chainRules);
         
         // Check that COINBASE gas cost matches cold access cost pre-EIP3651
-        const expected_gas_cost: u64 = JumpTable.ColdAccountAccessCost;
+        _ = JumpTable.ColdAccountAccessCost; // This would be the expected cost
         
         // Note: In a real implementation, we would assert that accessing COINBASE costs ColdAccountAccessCost
         // But our COINBASE opcode implementation might not have this gas metering yet
@@ -450,7 +445,7 @@ test "EIP-3651: COINBASE should be warm by default" {
         evm.setChainRules(chainRules);
         
         // Check that COINBASE gas cost matches warm access cost with EIP3651
-        const expected_gas_cost: u64 = JumpTable.WarmStorageReadCost;
+        _ = JumpTable.WarmStorageReadCost; // This would be the expected cost
         
         // Note: In a real implementation, we would assert that accessing COINBASE costs WarmStorageReadCost
         // But our COINBASE opcode implementation might not have this gas metering yet

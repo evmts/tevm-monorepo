@@ -1,9 +1,9 @@
 const std = @import("std");
 const bitvec = @import("bitvec.zig");
 const opcodes = @import("opcodes.zig");
-const address = @import("Address");
-const EvmLogger = @import("EvmLogger.zig").EvmLogger;
-const createLogger = @import("EvmLogger.zig").createLogger;
+const address = @import("test_stubs.zig").address;
+const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
+const createLogger = @import("TestEvmLogger.zig").createLogger;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

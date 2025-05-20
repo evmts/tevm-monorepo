@@ -21,6 +21,23 @@ const Block = WithdrawalProcessorModule.Block;
 const BlockWithdrawalProcessor = WithdrawalProcessorModule.BlockWithdrawalProcessor;
 const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 
+// Import logging tools
+const EvmLogger = @import("EvmLogger.zig").EvmLogger;
+const createLogger = @import("EvmLogger.zig").createLogger;
+const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
+const debugOnly = @import("EvmLogger.zig").debugOnly;
+const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
+
+// We'll initialize the logger inside a function
+var _logger: ?EvmLogger = null;
+
+fn getLogger() EvmLogger {
+    if (_logger == null) {
+        _logger = createLogger(@src().file);
+    }
+    return _logger.?;
+}
+
 // Mock StateManager for testing withdrawal processing
 const MockStateManager = struct {
     // Using the raw address bytes as the key is more direct and safer
@@ -28,135 +45,325 @@ const MockStateManager = struct {
     is_freed: bool = false, // Flag to prevent double-free
     
     fn init(allocator: std.mem.Allocator) !*MockStateManager {
+        var scoped = createScopedLogger(getLogger(), "MockStateManager.init()");
+        defer scoped.deinit();
+        
+        getLogger().debug("Creating new MockStateManager instance", .{});
+        
         const self = try allocator.create(MockStateManager);
         self.* = .{
             .balances = std.AutoHashMap([20]u8, u128).init(allocator),
             .is_freed = false,
         };
+        
+        getLogger().debug("MockStateManager created successfully", .{});
+        
         return self;
     }
     
     fn deinit(self: *MockStateManager) void {
-        std.debug.print("Starting MockStateManager deinit()\n", .{});
+        var scoped = createScopedLogger(getLogger(), "MockStateManager.deinit()");
+        defer scoped.deinit();
+        
+        getLogger().debug("Starting MockStateManager cleanup...", .{});
         
         // Prevent double-free
         if (self.is_freed) {
-            std.debug.print("  MockStateManager already freed, skipping\n", .{});
+            getLogger().warn("MockStateManager already freed, skipping deinit", .{});
             return;
         }
         
         // Mark as freed
         self.is_freed = true;
         
+        // Log current state
+        if (ENABLE_DEBUG_LOGS) {
+            getLogger().debug("Current balances state before clearing:", .{});
+            var it = self.balances.iterator();
+            var idx: usize = 0;
+            while (it.next()) |entry| {
+                var addr_buf: [50]u8 = undefined;
+                var addr_fbs = std.io.fixedBufferStream(&addr_buf);
+                for (entry.key_ptr.*) |byte| {
+                    std.fmt.format(addr_fbs.writer(), "{x:0>2}", .{byte}) catch continue;
+                }
+                getLogger().debug("  [{d}] Address: 0x{s}, Balance: {d}", .{
+                    idx, addr_fbs.getWritten(), entry.value_ptr.*
+                });
+                idx += 1;
+            }
+        }
+        
         // Clear and deinit the hash map
-        std.debug.print("  Deinitializing balances hashmap\n", .{});
+        getLogger().debug("Deinitializing balances hashmap with {d} entries", .{self.balances.count()});
         self.balances.deinit();
         
         // The allocator that created this object will take care of freeing it
         // when the arena is destroyed, don't destroy it manually
-        std.debug.print("  Completed MockStateManager deinit() without self-destroy\n", .{});
+        getLogger().debug("Completed MockStateManager deinit without self-destruction", .{});
+    }
+    
+    /// Format an address for debug output
+    fn formatAddress(address: Address) ![]const u8 {
+        var buf: [50]u8 = undefined;
+        var fbs = std.io.fixedBufferStream(&buf);
+        try fbs.writer().print("0x", .{});
+        for (address) |byte| {
+            try fbs.writer().print("{x:0>2}", .{byte});
+        }
+        return fbs.getWritten();
     }
     
     // StateManager interface implementations
     pub fn getAccount(self: *MockStateManager, address: Address) !?TestAccountData {
-        std.debug.print("getAccount called for address bytes: ", .{});
-        for (address) |byte| {
-            std.debug.print("{x:0>2}", .{byte});
+        var scoped = createScopedLogger(getLogger(), "MockStateManager.getAccount()");
+        defer scoped.deinit();
+        
+        const addr_str = try formatAddress(address);
+        getLogger().debug("Looking up account with address: {s}", .{addr_str});
+        
+        // Log memory representation for debugging
+        if (ENABLE_DEBUG_LOGS) {
+            const logger = getLogger();
+            logger.debug("Raw address bytes:", .{});
+            for (address, 0..) |byte, i| {
+                if (i % 8 == 0) {
+                    logger.debug("  ", .{});
+                }
+                logger.debug("{x:0>2} ", .{byte});
+            }
         }
-        std.debug.print("\n", .{});
         
         // Use raw bytes as the key - simpler and safer
         if (self.balances.get(address)) |balance| {
-            std.debug.print("  Found account with balance: {d}\n", .{balance});
+            getLogger().debug("Found account with balance: {d} wei", .{balance});
+            getLogger().debug("Balance in Ether: {d:.18} ETH", .{@as(f64, @floatFromInt(balance)) / 1e18});
             return TestAccountData{ .balance = balance };
         }
-        std.debug.print("  Account not found\n", .{});
+        
+        getLogger().debug("Account not found in state", .{});
         return null;
     }
     
     pub fn createAccount(self: *MockStateManager, address: Address, balance: u128) !TestAccountData {
-        std.debug.print("createAccount called for address bytes: ", .{});
-        for (address) |byte| {
-            std.debug.print("{x:0>2}", .{byte});
+        var scoped = createScopedLogger(getLogger(), "MockStateManager.createAccount()");
+        defer scoped.deinit();
+        
+        const addr_str = try formatAddress(address);
+        getLogger().debug("Creating new account at address: {s}", .{addr_str});
+        getLogger().debug("Initial balance: {d} wei", .{balance});
+        
+        // Check if the account already exists (shouldn't happen)
+        if (self.balances.contains(address)) {
+            const existing = self.balances.get(address) orelse 0;
+            getLogger().warn("Account already exists with balance {d}, overwriting", .{existing});
         }
-        std.debug.print(" with balance: {d}\n", .{balance});
         
         // Use raw bytes as the key - simpler and safer
         try self.balances.put(address, balance);
+        getLogger().debug("Account created successfully", .{});
+        
+        // Add detailed debug logging
+        if (ENABLE_DEBUG_LOGS) {
+            getLogger().debug("Current state after creation:", .{});
+            getLogger().debug("  Total accounts: {d}", .{self.balances.count()});
+        }
         
         return TestAccountData{ .balance = balance };
     }
     
     pub fn putAccount(self: *MockStateManager, address: Address, account: anytype) !void {
-        std.debug.print("putAccount called for address bytes: ", .{});
-        for (address) |byte| {
-            std.debug.print("{x:0>2}", .{byte});
-        }
-        std.debug.print(" with balance: {d}\n", .{account.balance});
+        var scoped = createScopedLogger(getLogger(), "MockStateManager.putAccount()");
+        defer scoped.deinit();
+        
+        const addr_str = try formatAddress(address);
+        getLogger().debug("Updating account at address: {s}", .{addr_str});
+        getLogger().debug("New balance: {d} wei", .{account.balance});
+        
+        // Check previous state for debugging
+        const oldBalance = self.balances.get(address) orelse 0;
+        
+        // Calculate delta for debugging
+        const delta: i128 = @as(i128, @intCast(account.balance)) - @as(i128, @intCast(oldBalance));
+        const deltaStr = if (delta >= 0) 
+            std.fmt.allocPrint(std.heap.page_allocator, "+{d}", .{delta}) catch "?"
+        else 
+            std.fmt.allocPrint(std.heap.page_allocator, "{d}", .{delta}) catch "?";
+        defer if (delta != 0) std.heap.page_allocator.free(deltaStr);
+        
+        getLogger().debug("Balance change: {d} -> {d} ({s} wei)", .{
+            oldBalance, account.balance, deltaStr
+        });
         
         // Use raw bytes as the key - simpler and safer
         try self.balances.put(address, account.balance);
+        getLogger().debug("Account updated successfully", .{});
     }
     
-    // Helper function to get balance
+    // Helper function to get balance with detailed logging
     pub fn getBalance(self: *MockStateManager, address: Address) !u128 {
-        std.debug.print("getBalance called for address bytes: ", .{});
-        for (address) |byte| {
-            std.debug.print("{x:0>2}", .{byte});
-        }
-        std.debug.print("\n", .{});
+        var scoped = createScopedLogger(getLogger(), "MockStateManager.getBalance()");
+        defer scoped.deinit();
+        
+        const addr_str = try formatAddress(address);
+        getLogger().debug("Retrieving balance for account: {s}", .{addr_str});
         
         const balance = self.balances.get(address) orelse 0;
-        std.debug.print("  Balance: {d}\n", .{balance});
+        
+        // Convert to ETH for easier debugging
+        const eth_balance = @as(f64, @floatFromInt(balance)) / 1e18;
+        getLogger().debug("Balance: {d} wei ({d:.18} ETH)", .{balance, eth_balance});
+        
         return balance;
     }
 };
 
 // Create a buffer with 20 bytes to represent an address
 fn createAddressBuffer(byte_value: u8) [20]u8 {
+    var scoped = createScopedLogger(getLogger(), "createAddressBuffer()");
+    defer scoped.deinit();
+    
+    getLogger().debug("Creating address buffer with pattern byte: 0x{x:0>2}", .{byte_value});
+    
     var buffer: [20]u8 = undefined;
     for (0..20) |i| {
         buffer[i] = byte_value;
     }
+    
+    // Format the created address for debug
+    var addr_buf: [50]u8 = undefined;
+    var fbs = std.io.fixedBufferStream(&addr_buf);
+    _ = fbs.writer().print("0x", .{}) catch {};
+    for (buffer) |byte| {
+        _ = fbs.writer().print("{x:0>2}", .{byte}) catch {};
+    }
+    getLogger().debug("Created address: {s}", .{fbs.getWritten()});
+    
     return buffer;
 }
 
 // Create a withdrawal root hash (this would normally be a Merkle root)
 fn createWithdrawalRoot() [32]u8 {
+    var scoped = createScopedLogger(getLogger(), "createWithdrawalRoot()");
+    defer scoped.deinit();
+    
+    getLogger().debug("Generating test withdrawal Merkle root", .{});
+    
     var root: [32]u8 = undefined;
     for (0..32) |i| {
         root[i] = @truncate(i);
     }
+    
+    // Format the root for debug
+    var root_buf: [70]u8 = undefined;
+    var fbs = std.io.fixedBufferStream(&root_buf);
+    _ = fbs.writer().print("0x", .{}) catch {};
+    for (root) |byte| {
+        _ = fbs.writer().print("{x:0>2}", .{byte}) catch {};
+    }
+    getLogger().debug("Created root hash: {s}", .{fbs.getWritten()});
+    
     return root;
 }
 
 // This is a more robust implementation for test safety
 fn processWithdrawalsForTest(mock: *MockStateManager, block_var: *Block, rules: ChainRules) !void {
+    var scoped = createScopedLogger(getLogger(), "processWithdrawalsForTest()");
+    defer scoped.deinit();
+    
+    getLogger().debug("╔═════════════════════════════════════════════════════════════════════", .{});
+    getLogger().debug("║ PROCESSING WITHDRAWALS", .{});
+    getLogger().debug("╠═════════════════════════════════════════════════════════════════════", .{});
+    
+    // Log chain rules context
+    getLogger().debug("║ Chain Rules:", .{});
+    getLogger().debug("║   EIP-4895 Enabled: {}", .{rules.IsEIP4895});
+    getLogger().debug("║   Shanghai: {}", .{rules.IsShanghai});
+    
     // Check if EIP-4895 is enabled in the rules
     if (!rules.IsEIP4895) {
+        getLogger().err("EIP-4895 not enabled in chain rules, withdrawals are not supported", .{});
+        getLogger().debug("╚═════════════════════════════════════════════════════════════════════", .{});
         return error.EIP4895NotEnabled;
     }
     
     const withdrawals = block_var.withdrawals;
     const GWEI_TO_WEI: u128 = 1_000_000_000; // 10^9
     
+    getLogger().debug("║ Processing {d} withdrawals", .{withdrawals.len});
+    
+    // Log the withdrawal root for debugging
+    {
+        var root_buf: [70]u8 = undefined;
+        var fbs = std.io.fixedBufferStream(&root_buf);
+        _ = fbs.writer().print("0x", .{}) catch {};
+        for (block_var.withdrawals_root) |byte| {
+            _ = fbs.writer().print("{x:0>2}", .{byte}) catch {};
+        }
+        getLogger().debug("║ Withdrawal root: {s}", .{fbs.getWritten()});
+    }
+    
+    if (ENABLE_DEBUG_LOGS) {
+        getLogger().debug("║ Memory address of MockStateManager: {*}", .{mock});
+        getLogger().debug("║ Memory address of Block: {*}", .{block_var});
+    }
+    
     // Process each withdrawal in the block with safer memory handling
-    for (withdrawals) |withdrawal| {
+    for (withdrawals, 0..) |withdrawal, i| {
+        var withdrawal_scoped = createScopedLogger(getLogger(), 
+            "Withdrawal processing");
+        defer withdrawal_scoped.deinit();
+        
+        getLogger().debug("Processing withdrawal {d}/{d}", .{i + 1, withdrawals.len});
+        getLogger().debug("  Index: {d}", .{withdrawal.index});
+        getLogger().debug("  Validator Index: {d}", .{withdrawal.validatorIndex});
+        
+        // Format the address
+        var addr_buf: [50]u8 = undefined;
+        var addr_fbs = std.io.fixedBufferStream(&addr_buf);
+        _ = addr_fbs.writer().print("0x", .{}) catch {};
+        for (withdrawal.address) |byte| {
+            _ = addr_fbs.writer().print("{x:0>2}", .{byte}) catch {};
+        }
+        getLogger().debug("  Recipient: {s}", .{addr_fbs.getWritten()});
+        
         // Convert Gwei to Wei
         const amountInWei = @as(u128, withdrawal.amount) * GWEI_TO_WEI;
         
-        // Safely create or update the account
+        // Format for readability in both denominations
+        getLogger().debug("  Amount: {d} Gwei = {d} Wei", .{withdrawal.amount, amountInWei});
+        const eth_amount = @as(f64, @floatFromInt(amountInWei)) / 1e18;
+        getLogger().debug("  Amount in ETH: {d:.18} ETH", .{eth_amount});
+        
+        // Get current account state
+        getLogger().debug("  Retrieving current account state...", .{});
         const accountOpt = try mock.getAccount(withdrawal.address);
         var newBalance: u128 = amountInWei;
         
         if (accountOpt) |account| {
             // Account exists, add to balance
+            getLogger().debug("  Account exists with balance: {d} wei", .{account.balance});
+            const oldEthBalance = @as(f64, @floatFromInt(account.balance)) / 1e18;
+            getLogger().debug("  Current balance in ETH: {d:.18} ETH", .{oldEthBalance});
+            
             newBalance += account.balance;
+            
+            const newEthBalance = @as(f64, @floatFromInt(newBalance)) / 1e18;
+            getLogger().debug("  New balance after withdrawal: {d:.18} ETH", .{newEthBalance});
+        } else {
+            getLogger().debug("  Account doesn't exist yet, creating with initial balance", .{});
+            getLogger().debug("  Initial balance will be: {d} Wei ({d:.18} ETH)", 
+                .{amountInWei, eth_amount});
         }
         
         // Create or update the account with the new balance
+        getLogger().debug("  Updating account state...", .{});
         try mock.putAccount(withdrawal.address, TestAccountData{ .balance = newBalance });
+        getLogger().debug("  Account updated successfully", .{});
     }
+    
+    getLogger().debug("║ All withdrawals processed successfully", .{});
+    getLogger().debug("╚═════════════════════════════════════════════════════════════════════", .{});
 }
 
 test "Block withdrawal processing with Shanghai rules" {
