@@ -2,72 +2,124 @@
 
 ## Overview
 
-EIP-3541 introduces a new restriction in the EVM's contract creation mechanism:
+EIP-3541 is implemented in the Tevm Zig EVM by adding a validation check in both the `CREATE` and `CREATE2` opcodes to reject contract creation if the contract bytecode starts with `0xEF`. This implementation is controlled by the `IsEIP3541` flag in the `ChainRules` struct.
 
-- Reject new contract creation if the contract bytecode starts with the `0xEF` byte
-- This change maintains forward compatibility for a potential EVM update that would change the meaning of bytecode starting with `0xEF`
+## Code Structure
 
-The implementation enforces this check in both the `CREATE` and `CREATE2` opcodes.
+### Flag Declaration
 
-## Implementation Components
-
-### 1. Chain Rules Flag
-
-In `Evm.zig`, the `IsEIP3541` flag in the `ChainRules` struct controls whether EIP-3541 is active:
+The implementation begins with adding the `IsEIP3541` flag to the `ChainRules` struct in `evm.zig`:
 
 ```zig
-/// Is EIP3541 rules enabled (London, reject new contracts that start with 0xEF)
-/// Rejects new contract code starting with the 0xEF byte
-IsEIP3541: bool = true,
+pub const ChainRules = struct {
+    // Other flags...
+    
+    /// Is EIP3541 rules enabled (London, reject new contracts that start with 0xEF)
+    /// Rejects new contract code starting with the 0xEF byte
+    IsEIP3541: bool = true,
+    
+    // Rest of the struct...
+};
 ```
 
-This flag is set based on the hardfork, being enabled for London (July 2021) and later hardforks.
+### Implementation in CREATE Opcode
 
-### 2. Bytecode Validation in CREATE and CREATE2 Opcodes
-
-Both the `CREATE` and `CREATE2` opcodes check the bytecode's first byte and reject contracts starting with `0xEF`:
+The check is implemented in the `opCreate` function in `calls.zig`:
 
 ```zig
-// EIP-3541: Reject new contracts starting with the 0xEF byte
-if (interpreter.evm.chainRules.IsEIP3541 and contract_code.items.len > 0 and contract_code.items[0] == 0xEF) {
-    file_logger.err("EIP-3541: Cannot deploy a contract starting with the 0xEF byte", .{});
-    try frame.stack.push(0); // Failure
-    return "";
+// Get the contract code
+var contract_code = std.ArrayList(u8).init(interpreter.allocator);
+defer contract_code.deinit();
+
+if (size_usize > 0) {
+    const mem = frame.memory.data();
+    if (offset_usize + size_usize <= mem.len) {
+        try contract_code.appendSlice(mem[offset_usize..offset_usize + size_usize]);
+        
+        // EIP-3541: Reject new contracts starting with the 0xEF byte
+        if (interpreter.evm.chainRules.IsEIP3541 and contract_code.items.len > 0 and contract_code.items[0] == 0xEF) {
+            file_logger.err("EIP-3541: Cannot deploy a contract starting with the 0xEF byte", .{});
+            try frame.stack.push(0); // Failure
+            return "";
+        }
+    } else {
+        return ExecutionError.OutOfOffset;
+    }
 }
 ```
 
-## Important Details
+### Implementation in CREATE2 Opcode
 
-### Error Handling
+Similarly, the check is implemented in the `opCreate2` function in `calls.zig`:
 
-When a contract deployment is rejected due to EIP-3541, the operation fails silently (by pushing 0 to the stack) rather than reverting the entire transaction. This is consistent with how other EVM errors in contract creation are handled.
+```zig
+// Get the contract code
+var contract_code = std.ArrayList(u8).init(interpreter.allocator);
+defer contract_code.deinit();
 
-### Existing Contracts
+if (size_usize > 0) {
+    const mem = frame.memory.data();
+    if (offset_usize + size_usize <= mem.len) {
+        try contract_code.appendSlice(mem[offset_usize..offset_usize + size_usize]);
+        
+        // EIP-3541: Reject new contracts starting with the 0xEF byte
+        if (interpreter.evm.chainRules.IsEIP3541 and contract_code.items.len > 0 and contract_code.items[0] == 0xEF) {
+            file_logger.err("EIP-3541: Cannot deploy a contract starting with the 0xEF byte", .{});
+            try frame.stack.push(0); // Failure
+            return "";
+        }
+    } else {
+        return ExecutionError.OutOfOffset;
+    }
+}
+```
 
-This EIP and implementation only affect new contract deployments - existing contracts starting with `0xEF` (if any) remain valid and callable.
+## Hardfork Integration
 
-### Optimization
+The EIP is enabled in the London hardfork, as shown in the `forHardfork` function in `evm.zig`:
 
-The implementation is minimal and only adds a small check to the contract creation path, with negligible performance impact.
+```zig
+// Berlin hardfork before London does not enable EIP-3541
+.Berlin => {
+    rules.IsLondon = false;
+    rules.IsMerge = false;
+    rules.IsShanghai = false;
+    rules.IsCancun = false;
+    rules.IsEIP1559 = false;
+    rules.IsEIP3541 = false; // EIP-3541 not enabled in Berlin
+    // Other EIPs...
+},
 
-## Test Suite
+// London hardfork enables EIP-3541
+.London => {
+    rules.IsMerge = false;
+    rules.IsShanghai = false;
+    rules.IsCancun = false;
+    // EIP-3541 is enabled by default in the ChainRules struct
+    // Other EIPs...
+},
+```
 
-Comprehensive tests have been created in `eip3541.test.zig` to verify:
+## Testing
 
-1. CREATE and CREATE2 reject contracts starting with 0xEF when EIP-3541 is enabled
-2. CREATE and CREATE2 accept contracts not starting with 0xEF when EIP-3541 is enabled
-3. CREATE and CREATE2 accept any contract (including those starting with 0xEF) when EIP-3541 is disabled
+The implementation is thoroughly tested in `eip3541.test.zig`, which includes:
 
-## Edge Cases
+1. Tests to verify that CREATE and CREATE2 reject contracts starting with 0xEF when EIP-3541 is enabled
+2. Tests to verify that CREATE and CREATE2 accept contracts not starting with 0xEF when EIP-3541 is enabled
+3. Tests to verify that CREATE and CREATE2 accept contracts starting with 0xEF when EIP-3541 is disabled
 
-### Empty Contract
+These tests use a custom `setupInterpreter` function to create an EVM instance with EIP-3541 either enabled or disabled, allowing for comprehensive testing of both scenarios.
 
-The implementation correctly handles the case of empty contract code (not affected by EIP-3541).
+## Error Handling
 
-### Length Check
+When a contract creation is rejected due to the 0xEF first byte, the implementation:
 
-The implementation checks if `contract_code.items.len > 0` before examining the first byte to avoid out-of-bounds access.
+1. Logs an error message: "EIP-3541: Cannot deploy a contract starting with the 0xEF byte"
+2. Pushes 0 onto the stack to indicate failure
+3. Returns an empty string to continue execution
 
-## Future Considerations
+This ensures that contract creation fails correctly without causing the entire transaction to revert unnecessarily.
 
-While EIP-3541 only rejects a specific prefix (0xEF), future EVM upgrades might introduce further restrictions or new bytecode semantics. The current implementation can easily be extended to accommodate such changes.
+## Integration with Other EIPs
+
+The EIP-3541 check is performed in the same section of code that also implements other contract creation-related EIPs, such as EIP-3860 (which limits initcode size). Both checks are executed independently, ensuring that all active restrictions are properly enforced.

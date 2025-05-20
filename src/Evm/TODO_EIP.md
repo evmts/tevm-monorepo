@@ -64,7 +64,7 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
   - Added IsEIP3541 flag to ChainRules (activated for London hardfork and later)
   - Added validation in CREATE and CREATE2 opcodes to reject contracts starting with 0xEF
   - Created comprehensive tests for both opcodes with EIP-3541 enabled and disabled
-  - Added detailed implementation documentation
+  - Added detailed implementation documentation in eip3541_summary.md and eip3541_implementation.md
 
 ### EIP-3198: BASEFEE opcode
 
@@ -131,10 +131,15 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 
 ### EIP-3860: Limit and meter initcode
 
-- **Status**: Not implemented
+- **Status**: Implemented
 - **Description**: Limits the maximum size of initcode and adds gas cost per byte
 - **Complexity**: Low
-- **Implementation**: Add size check and adjust gas calculation for contract creation
+- **Implementation**: 
+  - Added constants for MAX_INITCODE_SIZE (49152 bytes) and INITCODE_WORD_COST (2 gas)
+  - Modified CREATE and CREATE2 opcodes to check and enforce the initcode size limit
+  - Updated createGas function to add per-word gas cost for initcode
+  - Created comprehensive tests to verify size limits and gas calculations
+  - Added detailed implementation documentation
 
 ### Shanghai Hard Fork Opcodes
 
