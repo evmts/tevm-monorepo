@@ -509,6 +509,7 @@ pub fn build(b: *std.Build) void {
         opcode_test.root_module.addImport("Token", token_mod);
         opcode_test.root_module.addImport("Trie", trie_mod);
         opcode_test.root_module.addImport("Utils", utils_mod);
+        opcode_test.root_module.addImport("StateManager", state_manager_mod);
         
         const run_opcode_test = b.addRunArtifact(opcode_test);
         opcodes_test_step.dependOn(&run_opcode_test.step);
@@ -919,7 +920,7 @@ pub fn build(b: *std.Build) void {
     // Create a standalone test that doesn't rely on module imports
     const environment_test = b.addTest(.{
         .name = "environment-test",
-        .root_source_file = b.path("src/Evm/tests/environment_test.zig"),
+        .root_source_file = b.path("src/Evm/tests/environment_test3.zig"),
         .target = target,
         .optimize = optimize,
     });

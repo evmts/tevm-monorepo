@@ -2,8 +2,37 @@ const std = @import("std");
 const testing = std.testing;
 const bitwise = @import("bitwise.zig");
 
-// Import from Stack module directly to avoid import conflicts
-const Stack = @import("../Stack.zig");
+// Create simplified Stack implementation for testing
+const Stack = struct {
+    // The Stack itself
+    pub const Stack = struct {
+        values: std.ArrayList(u256_native),
+        
+        pub fn init(self: *Stack, allocator: std.mem.Allocator, capacity: usize) !void {
+            _ = capacity;  // Unused in test
+            self.values = std.ArrayList(u256_native).init(allocator);
+        }
+        
+        pub fn deinit(self: *Stack) void {
+            self.values.deinit();
+        }
+        
+        pub fn push(self: *Stack, value: u256_native) !void {
+            try self.values.append(value);
+        }
+        
+        pub fn pop(self: *Stack) !u256_native {
+            if (self.values.items.len == 0) {
+                return 0;
+            }
+            return self.values.pop();
+        }
+        
+        pub fn length(self: *const Stack) usize {
+            return self.values.items.len;
+        }
+    };
+};
 
 // Use Zig's built-in u256 type
 const u256_native = u256;

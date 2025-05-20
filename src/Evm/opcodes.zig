@@ -1,10 +1,10 @@
 const std = @import("std");
+
+// These are now direct imports of sibling files within the Evm module context
 const Interpreter = @import("interpreter.zig").Interpreter;
 const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 pub const Stack = @import("Stack.zig").Stack;
-
-// Import the JumpTable module
-pub const JumpTable = @import("JumpTable.zig");
+pub const JumpTable = @import("JumpTable.zig"); // This is the module itself
 
 /// MemorySize represents memory expansion requirements for EVM operations
 ///
@@ -13,7 +13,7 @@ pub const JumpTable = @import("JumpTable.zig");
 pub const MemorySize = struct {
     /// Size in bytes needed for memory expansion
     size: u32,
-    
+
     /// Whether the calculation resulted in an overflow
     /// This is used to detect and handle arithmetic overflow errors
     overflow: bool,
@@ -23,13 +23,13 @@ pub const MemorySize = struct {
 ///
 /// These are the fundamental stop/error conditions that can terminate
 /// an EVM operation during execution.
-pub const ExecutionError = error{
+pub const ExecutionError_Op = error{
     /// Normal stop (STOP opcode)
     STOP,
-    
+
     /// Revert operation (REVERT opcode)
     REVERT,
-    
+
     /// Invalid operation (INVALID opcode or invalid state)
     INVALID,
 };
@@ -39,8 +39,8 @@ pub const STOP = struct {
     minStack: u32 = 0,
     maxStack: u32 = 1028,
     dynamicGas: u32 = 0,
-    pub fn execute(_: usize, _: *Interpreter, _: *InterpreterState) ExecutionError![]const u8 {
-        return ExecutionError.STOP;
+    pub fn execute(_: usize, _: *Interpreter, _: *InterpreterState) ExecutionError_Op![]const u8 {
+        return ExecutionError_Op.STOP;
     }
     // Not needed with STOP but might be needed for future opcodes
     // fn getMemorySize(_: Stack) MemorySize {
@@ -53,7 +53,7 @@ const ADD = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = interpreter; // autofix
         _ = pc; // autofix
         // Pop two values from stack
@@ -70,7 +70,7 @@ const MUL = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -84,7 +84,7 @@ const SUB = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -98,7 +98,7 @@ const DIV = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -113,7 +113,7 @@ const SDIV = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -128,7 +128,7 @@ const MOD = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -143,7 +143,7 @@ const SMOD = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -158,7 +158,7 @@ const ADDMOD = struct {
     minStack: u32 = 3,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -173,7 +173,7 @@ const MULMOD = struct {
     minStack: u32 = 3,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -187,7 +187,7 @@ const EXP = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 50, // Additional dynamic calculation needed per byte in exponent
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -201,7 +201,7 @@ const SIGNEXTEND = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -215,7 +215,7 @@ const LT = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -229,7 +229,7 @@ const GT = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -243,7 +243,7 @@ const SLT = struct {
     minStack: u32 = 2,
     maxStack: u32 = 1,
     dynamicGas: u32 = 0,
-    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError_Op![]const u8 {
         _ = pc; // autofix
         _ = interpreter; // autofix
         _ = state; // autofix
@@ -415,71 +415,71 @@ const KECCAK256 = struct {
         if (stack.size < 2) {
             return MemorySize{ .size = 0, .overflow = false };
         }
-        
+
         // Stack has [offset, size]
         // We need to get the memory size required to perform the operation
         // First, we need a copy of the stack to avoid modifying it
         const offset = stack.data[stack.size - 2];
         const size = stack.data[stack.size - 1];
-        
+
         // If size is 0, no memory expansion is needed
         if (size == 0) {
             return MemorySize{ .size = 0, .overflow = false };
         }
-        
+
         // Calculate the memory size required (offset + size, rounded up to next multiple of 32)
         var total_size: u64 = undefined;
-        
+
         // Check for overflow when adding offset and size
         const add_result = @addWithOverflow(offset, size);
         if (add_result[1] != 0) {
             return MemorySize{ .size = 0, .overflow = true };
         }
         total_size = add_result[0];
-        
+
         // Calculate memory size with proper alignment (32 bytes)
         const words = (total_size + 31) / 32;
         const memory_size = words * 32;
-        
+
         return MemorySize{ .size = memory_size, .overflow = false };
     }
     fn execute(pc: usize, _: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
         _ = pc;
-        
+
         // Pop offset and size from stack
         if (state.stack.size < 2) {
             return ExecutionError.StackUnderflow;
         }
-        
+
         const size = try state.stack.pop();
         const offset = try state.stack.pop();
-        
+
         // If size is 0, return empty hash (all zeros)
         if (size == 0) {
             try state.stack.push(0);
             return "";
         }
-        
+
         // Get memory range to hash
         const mem_offset = @as(u64, offset); // Convert to u64
-        const mem_size = @as(u64, size);     // Convert to u64
-        
+        const mem_size = @as(u64, size); // Convert to u64
+
         // Make sure the memory access is valid
         if (mem_offset + mem_size > state.memory.data().len) {
             return ExecutionError.OutOfOffset;
         }
-        
+
         // Get memory slice to hash
-        const data = state.memory.data()[mem_offset..mem_offset + mem_size];
-        
+        const data = state.memory.data()[mem_offset .. mem_offset + mem_size];
+
         // Calculate keccak256 hash
         var hash: [32]u8 = undefined;
         std.crypto.hash.sha3.Keccak256.hash(data, &hash, .{});
-        
+
         // Convert hash to u256 and push to stack
         const hash_value = bytesToUint256(hash);
         try state.stack.push(hash_value);
-        
+
         return "";
     }
 };
@@ -487,14 +487,14 @@ const KECCAK256 = struct {
 // Helper function to convert bytes to u256
 fn bytesToUint256(bytes: [32]u8) u256 {
     var result: u256 = 0;
-    
+
     for (bytes, 0..) |byte, i| {
         // Shift and OR each byte into the result
         // For big-endian, start with most significant byte (index 0)
         const shift_amount = (31 - i) * 8;
         result |= @as(u256, byte) << shift_amount;
     }
-    
+
     return result;
 }
 

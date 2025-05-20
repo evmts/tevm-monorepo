@@ -52,6 +52,7 @@ fn createTestContract(allocator: std.mem.Allocator) !Contract {
 
 // Test EIP-3855: PUSH0 opcode
 test "EIP-3855: PUSH0 opcode with EIP-3855 enabled" {
+    // EIP-3855 PUSH0 opcode test
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-3855 enabled
@@ -90,6 +91,7 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 enabled" {
 
 // Test that PUSH0 opcode fails when EIP-3855 is disabled
 test "EIP-3855: PUSH0 opcode with EIP-3855 disabled" {
+    // EIP-3855 PUSH0 opcode test
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-3855 disabled

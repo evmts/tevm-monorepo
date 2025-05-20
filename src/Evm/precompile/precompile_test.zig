@@ -1,11 +1,21 @@
 const std = @import("std");
 const precompile = @import("Precompiles.zig");
+const builtin = @import("builtin");
 
-const AddressModule = @import("Address");
-const Address = AddressModule.Address;
+// Use direct path to Address module for test
+const Address = if (builtin.is_test)
+    [20]u8 // Just use the raw type in tests
+else 
+    @import("Address").Address;
 
-const EvmModule = @import("Evm");
-const Evm = EvmModule.Evm;
+// Direct path for Evm module
+const EvmModule = if (builtin.is_test)
+    @import("/Users/williamcory/tevm/main/src/Evm/evm.zig")
+else
+    @import("Evm");
+
+// Define ChainRules directly to avoid import issues
+const ChainRules = precompile.ChainRules;
 
 test "Precompile contract loading" {
     const testing = std.testing;
@@ -16,7 +26,7 @@ test "Precompile contract loading" {
     const allocator = arena.allocator();
 
     // Test getting precompiled contracts
-    var rules = EvmModule.ChainRules{};
+    var rules = ChainRules{};
     rules.IsByzantium = true;
 
     var contracts = try precompile.activePrecompiledContracts(allocator, rules);

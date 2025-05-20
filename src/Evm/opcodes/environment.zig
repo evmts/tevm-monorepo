@@ -1,212 +1,27 @@
 const std = @import("std");
 
-// For testing, we'll use stubs and minimal imports
-const is_test = @import("builtin").is_test;
+// Use direct module imports
+const EvmModule = @import("Evm");
+const Interpreter = EvmModule.Interpreter;
+const Frame = EvmModule.Frame;
+const ExecutionError = EvmModule.InterpreterError;
+const JumpTable = EvmModule.JumpTable;
+const Memory = EvmModule.Memory;
+const Stack = EvmModule.Stack;
+const EvmLogger = EvmModule.EvmLogger; // Assuming EvmLogger is exported by EvmModule
 
-const EvmModule = @import("Evm"); // Import Evm module
+const AddressModule = @import("Address");
+const Address = AddressModule.Address;
 
-// Conditional imports to avoid import path errors during testing
-const Interpreter = if (is_test)
-    struct {
-        // Minimal stub for testing
-        pub const Self = @This();
-        allocator: std.mem.Allocator = undefined,
-        callDepth: u32 = 0,
-        readOnly: bool = false,
-        returnData: ?[]u8 = null,
-        evm: struct {
-            state_manager: ?*anyopaque = null,
-        } = .{},
-    }
-else
-    EvmModule.Interpreter;
+const u256_native = u256; // Using Zig's native u256 as the base type for stack/values
 
-const Frame = if (is_test)
-    struct {
-        // Minimal stub for testing
-        pub const Self = @This();
-        gas: u64 = 10000,
-        stack: Stack = undefined,
-        memory: Memory = undefined,
-        logger: ?EvmLogger = null,
-        returnData: ?[]u8 = null,
-        returnSize: usize = 0,
-        contract: struct {
-            gas: u64 = 10000,
-            isAccountCold: fn () bool = struct {
-                pub fn stub() bool {
-                    return false;
-                }
-            }.stub,
-            markAccountWarm: fn () bool = struct {
-                pub fn stub() bool {
-                    return true;
-                }
-            }.stub,
-            useGas: fn (u64) void = struct {
-                pub fn stub(_: u64) void {}
-            }.stub,
-        } = .{},
-
-        pub fn address(self: *const Self) Address {
-            _ = self;
-            return std.mem.zeroes(Address);
-        }
-
-        pub fn caller(self: *const Self) Address {
-            _ = self;
-            return std.mem.zeroes(Address);
-        }
-
-        pub fn callValue(self: *const Self) u256 {
-            _ = self;
-            return 0;
-        }
-
-        pub fn callInput(self: *const Self) []const u8 {
-            _ = self;
-            return &[_]u8{};
-        }
-
-        pub fn contractCode(self: *const Self) []const u8 {
-            _ = self;
-            return &[_]u8{};
-        }
-    }
-else
-    EvmModule.Frame;
-
-const ExecutionError = if (is_test)
-    error{
-        OutOfGas,
-        StackUnderflow,
-        StackOverflow,
-        OutOfOffset,
-        StaticStateChange,
-        ReturnDataOutOfBounds,
-        INVALID,
-    }
-else
-    EvmModule.InterpreterError; // InterpreterError is exported by EvmModule
-
-const JumpTable = if (is_test)
-    struct {
-        // Constants
-        pub const CreateGas: u64 = 32000;
-        pub const CallGas: u64 = 40;
-        pub const ColdAccountAccessCost: u64 = 2600;
-        pub const WarmStorageReadCost: u64 = 100;
-        pub const GasQuickStep: u64 = 2;
-        pub const GasFastestStep: u64 = 3;
-    }
-else
-    EvmModule.JumpTable;
-
-const Memory = if (is_test)
-    struct {
-        // Minimal stub for testing
-        pub const Self = @This();
-        mem: std.ArrayList(u8),
-
-        pub fn init(allocator: std.mem.Allocator) Self {
-            return .{
-                .mem = std.ArrayList(u8).init(allocator),
-            };
-        }
-
-        pub fn deinit(self: *Self) void {
-            self.mem.deinit();
-        }
-
-        pub fn data(self: *const Self) []u8 {
-            return self.mem.items;
-        }
-
-        pub fn set(_: *Self, _: usize, _: usize, _: []const u8) void {
-            // Just a stub
-        }
-
-        pub fn len(self: *const Self) usize {
-            return self.mem.items.len;
-        }
-
-        pub fn resize(self: *Self, size: usize) !void {
-            try self.mem.resize(size);
-        }
-
-        pub fn require(self: *Self, offset: usize, size: usize) !void {
-            const needed_size = offset + size;
-            if (needed_size > self.mem.items.len) {
-                try self.mem.resize(needed_size);
-            }
-        }
-    }
-else
-    EvmModule.Memory;
-
-const Stack = if (is_test)
-    struct {
-        // Minimal stub for testing
-        pub const Self = @This();
-        data: [1024]u256 = [_]u256{0} ** 1024,
-        size: usize = 0,
-        capacity: usize = 1024,
-
-        pub fn push(self: *Self, value: u256) ExecutionError!void {
-            if (self.size >= self.capacity) {
-                return ExecutionError.StackOverflow;
-            }
-            self.data[self.size] = value;
-            self.size += 1;
-        }
-
-        pub fn pop(self: *Self) ExecutionError!u256 {
-            if (self.size == 0) {
-                return ExecutionError.StackUnderflow;
-            }
-            self.size -= 1;
-            return self.data[self.size];
-        }
-    }
-else
-    EvmModule.Stack;
-
-// Define Address type for testing
-const Address = if (is_test)
-    [20]u8
-else
-    @import("Address").Address;
-
-const EvmLogger = if (is_test)
-    struct {
-        pub const Self = @This();
-
-        pub fn debug(self: Self, comptime fmt: []const u8, args: anytype) void {
-            _ = self;
-            _ = fmt;
-            _ = args;
-        }
-
-        pub fn info(self: Self, comptime fmt: []const u8, args: anytype) void {
-            _ = self;
-            _ = fmt;
-            _ = args;
-        }
-
-        pub fn warn(self: Self, comptime fmt: []const u8, args: anytype) void {
-            _ = self;
-            _ = fmt;
-            _ = args;
-        }
-
-        pub fn err(self: Self, comptime fmt: []const u8, args: anytype) void {
-            _ = self;
-            _ = fmt;
-            _ = args;
-        }
-    }
-else
-    EvmModule.EvmLogger;
+// Gas costs (ensure these are consistent with JumpTable or chain rules)
+const GasPriceGas: u64 = 2;
+const ExtcodeSizeGas: u64 = 100; // Formerly EIP150AccountAccessGas, now Berlin warm access
+const BalanceGas: u64 = 100; // Berlin warm access
+const SelfBalanceGas: u64 = 5; // Berlin
+const BaseFeeGas: u64 = 2; // London
+const ChainIdGas: u64 = 2; // Istanbul
 
 /// ADDRESS operation - pushes the address of the current executing account onto the stack
 pub fn opAddress(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

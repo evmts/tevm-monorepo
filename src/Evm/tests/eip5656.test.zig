@@ -1,18 +1,20 @@
 const std = @import("std");
+const builtin = @import("builtin");
 
-const EvmModule = @import("Evm");
-const Contract = EvmModule.Contract;
-const createContract = EvmModule.createContract;
-const Evm = EvmModule.Evm;
-const ChainRules = EvmModule.ChainRules;
-const JumpTable = EvmModule.JumpTable;
-const Interpreter = EvmModule.Interpreter;
+// Use direct file imports for tests 
+const Contract = @import("/Users/williamcory/tevm/main/src/Evm/Contract.zig").Contract;
+const createContract = @import("/Users/williamcory/tevm/main/src/Evm/Contract.zig").createContract;
+const Evm = @import("/Users/williamcory/tevm/main/src/Evm/evm.zig").Evm;
+const ChainRules = @import("/Users/williamcory/tevm/main/src/Evm/evm.zig").ChainRules;
+const JumpTable = @import("/Users/williamcory/tevm/main/src/Evm/JumpTable.zig");
+const Interpreter = @import("/Users/williamcory/tevm/main/src/Evm/interpreter.zig").Interpreter;
+const InterpreterError = @import("/Users/williamcory/tevm/main/src/Evm/interpreter.zig").InterpreterError;
 
-const AddressModule = @import("Address");
-const Address = AddressModule.Address;
+// Import Address directly from file
+const Address = @import("/Users/williamcory/tevm/main/src/Address/address.zig").Address;
 
-const StateManagerModule = @import("StateManager");
-const StateManager = StateManagerModule.StateManager;
+// Import StateManager directly from file
+const StateManager = @import("/Users/williamcory/tevm/main/src/StateManager/StateManager.zig").StateManager;
 
 // Helper function to convert hex string to Address
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
@@ -88,6 +90,7 @@ fn createTestContract(allocator: std.mem.Allocator) !Contract {
 
 // Test EIP-5656: MCOPY opcode
 test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
+    // EIP-5656 MCOPY opcode test
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-5656 enabled
@@ -132,6 +135,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
 
 // Test that MCOPY opcode fails when EIP-5656 is disabled
 test "EIP-5656: MCOPY opcode with EIP-5656 disabled" {
+    // EIP-5656 MCOPY opcode test
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-5656 disabled
@@ -162,5 +166,5 @@ test "EIP-5656: MCOPY opcode with EIP-5656 disabled" {
     const result = interpreter.run(&contract, &[_]u8{}, false);
 
     // Verify that the execution failed with InvalidOpcode error
-    try std.testing.expectError(Interpreter.InterpreterError.InvalidOpcode, result);
+    try std.testing.expectError(InterpreterError.InvalidOpcode, result);
 }

@@ -46,7 +46,7 @@ fn pointEvaluationRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     while (i < retLen) : (i += 1) {
         const highNibble = try hexCharToU4(blobPrecompileReturnValue[i * 2]);
         const lowNibble = try hexCharToU4(blobPrecompileReturnValue[i * 2 + 1]);
-        output[i] = (highNibble << 4) | lowNibble;
+        output[i] = (@as(u8, highNibble) << 4) | @as(u8, lowNibble);
     }
     
     return output;

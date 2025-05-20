@@ -20,6 +20,7 @@ pub const Bn256AddGasIstanbul: u64 = 150; // Gas for BN256 addition in Istanbul
 pub const Bn256ScalarMulGasIstanbul: u64 = 6000; // Gas for BN256 scalar multiplication in Istanbul
 pub const Bn256PairingBaseGasIstanbul: u64 = 45000; // Base gas for BN256 pairing in Istanbul
 pub const Bn256PairingPerPointGasIstanbul: u64 = 34000; // Additional gas per point for BN256 pairing in Istanbul
+pub const Blake2FPerRoundGas: u64 = 1; // Gas per round for Blake2F, defined in EIP-152
 
 // Minimum gas for ModExp
 pub const ModExpMinGas: u64 = 200;

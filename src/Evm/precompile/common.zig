@@ -85,10 +85,10 @@ pub fn allZero(data: []const u8) bool {
 /// PrecompiledContract struct definition
 pub const PrecompiledContract = struct {
     /// Calculate required gas for execution
-    requiredGas: fn (input: []const u8) u64,
+    requiredGas: *const fn (input: []const u8) u64,
     
     /// Execute the precompiled contract
-    run: fn (input: []const u8, allocator: std.mem.Allocator) anyerror!?[]u8,
+    run: *const fn (input: []const u8, allocator: std.mem.Allocator) anyerror!?[]u8,
 };
 
 // Tests

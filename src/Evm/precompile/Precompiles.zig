@@ -59,7 +59,7 @@ fn debugOnly(comptime callback: anytype) void {
     _ = callback;
 }
 // Define ChainRules directly in precompiles for testing since we cannot import Evm module in tests
-const ChainRules = struct {
+pub const ChainRules = struct {
     IsEIP1559: bool = false,
     IsEIP2929: bool = false,
     IsEIP2930: bool = false,

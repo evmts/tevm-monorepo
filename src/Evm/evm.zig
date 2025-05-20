@@ -4,6 +4,7 @@ pub const Contract = @import("Contract.zig").Contract;
 pub const createContract = @import("Contract.zig").createContract;
 pub const Interpreter = @import("interpreter.zig").Interpreter;
 pub const InterpreterError = @import("interpreter.zig").InterpreterError;
+pub const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 pub const JumpTable = @import("JumpTable.zig");
 pub const opcodes = @import("opcodes.zig");
 pub const Memory = @import("Memory.zig");
