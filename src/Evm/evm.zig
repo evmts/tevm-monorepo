@@ -480,6 +480,10 @@ pub const ChainRules = struct {
     /// Adds a new transaction type for data blobs (proto-danksharding)
     IsEIP4844: bool = true,
     
+    /// Is EIP1153 rules enabled (Cancun, transient storage)
+    /// Adds TLOAD and TSTORE instructions for transient storage
+    IsEIP1153: bool = true,
+    
     /// Is EIP5656 rules enabled (Cancun, MCOPY instruction)
     /// Adds MCOPY instruction for efficient memory copying
     IsEIP5656: bool = true,

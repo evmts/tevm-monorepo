@@ -18,6 +18,11 @@ pub const TStoreGas: u64 = 100; // Warm access cost, significantly less than SST
 pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
+    // Check if EIP-1153 is enabled
+    if (!interpreter.evm.chainRules.IsEIP1153) {
+        return ExecutionError.InvalidOpcode;
+    }
+    
     // We need at least 1 item on the stack (the key)
     if (frame.stack.size < 1) {
         return ExecutionError.StackUnderflow;
@@ -80,6 +85,11 @@ pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
 /// EIP-1153: Transient Storage
 pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
+    
+    // Check if EIP-1153 is enabled
+    if (!interpreter.evm.chainRules.IsEIP1153) {
+        return ExecutionError.InvalidOpcode;
+    }
     
     // Check for read-only mode
     if (interpreter.readOnly) {
