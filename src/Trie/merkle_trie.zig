@@ -36,6 +36,8 @@ pub const MerkleTrie = struct {
 
     /// Put a key-value pair into the trie
     pub fn put(self: *MerkleTrie, key: []const u8, value: []const u8) !void {
+        // We directly delegate to the builder.insert method, which is responsible
+        // for making copies of key and value data as needed
         return try self.builder.insert(key, value);
     }
 

@@ -27,38 +27,68 @@ pub const HashBuilder = struct {
     }
     
     pub fn deinit(self: *HashBuilder) void {
-        // First, free all the TrieNodes, which will deinit all HashValues
+        // Create a list of all keys and values to free after the hashmap is cleared
+        var keys = std.ArrayList([]u8).init(self.allocator);
+        defer keys.deinit();
+        
+        var nodes = std.ArrayList(TrieNode).init(self.allocator);
+        defer nodes.deinit();
+        
+        // First collect all keys and nodes
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
-            var node = entry.value_ptr.*;
+            // Add key to list for freeing later
+            keys.append(entry.key_ptr.*) catch {};
+            
+            // Add node to list for deinit later
+            nodes.append(entry.value_ptr.*) catch {};
+        }
+        
+        // Deinit the hashmap first
+        self.nodes.clearAndFree();
+        
+        // Now deinit all nodes
+        for (nodes.items) |*node| {
             node.deinit(self.allocator);
         }
         
-        // Then free all the hash strings used as keys
-        var key_it = self.nodes.keyIterator();
-        while (key_it.next()) |key_ptr| {
-            self.allocator.free(key_ptr.*);
+        // Free all keys
+        for (keys.items) |key| {
+            self.allocator.free(key);
         }
-        
-        self.nodes.deinit();
     }
     
     pub fn reset(self: *HashBuilder) void {
-        // Free all the TrieNodes, which will deinit all HashValues
+        // Create a list of all keys and values to free after the hashmap is cleared
+        var keys = std.ArrayList([]u8).init(self.allocator);
+        defer keys.deinit();
+        
+        var nodes = std.ArrayList(TrieNode).init(self.allocator);
+        defer nodes.deinit();
+        
+        // First collect all keys and nodes
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
-            var node = entry.value_ptr.*;
+            // Add key to list for freeing later
+            keys.append(entry.key_ptr.*) catch {};
+            
+            // Add node to list for deinit later
+            nodes.append(entry.value_ptr.*) catch {};
+        }
+        
+        // Clear the hashmap first 
+        self.nodes.clearRetainingCapacity();
+        self.root_hash = null;
+        
+        // Now deinit all nodes
+        for (nodes.items) |*node| {
             node.deinit(self.allocator);
         }
         
-        // Free all the hash strings used as keys
-        var key_it = self.nodes.keyIterator();
-        while (key_it.next()) |key_ptr| {
-            self.allocator.free(key_ptr.*);
+        // Free all keys
+        for (keys.items) |key| {
+            self.allocator.free(key);
         }
-        
-        self.nodes.clearRetainingCapacity();
-        self.root_hash = null;
     }
     
     /// Add a key-value pair to the trie
@@ -67,7 +97,7 @@ pub const HashBuilder = struct {
         const nibbles = try trie.keyToNibbles(self.allocator, key);
         defer self.allocator.free(nibbles);
         
-        // Make a copy of the value
+        // Make a copy of the value - this is the source of truth for this insertion
         const value_copy = try self.allocator.dupe(u8, value);
         errdefer self.allocator.free(value_copy);
         
@@ -81,7 +111,8 @@ pub const HashBuilder = struct {
         } else TrieNode{ .Empty = {} };
         
         // Insert the key-value pair
-        const result = try self.update(nibbles, value_copy, current);
+        var result = try self.update(nibbles, value_copy, current);
+        errdefer result.deinit(self.allocator);
         
         // Get the hash of the result
         const hash = try result.hash(self.allocator);
@@ -89,6 +120,8 @@ pub const HashBuilder = struct {
         
         // Store the node
         const hash_str = try bytesToHexString(self.allocator, &hash);
+        errdefer self.allocator.free(hash_str);
+        
         try self.nodes.put(hash_str, result);
     }
     
@@ -107,6 +140,9 @@ pub const HashBuilder = struct {
         
         const root_node = self.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
         
+        // The returned value will be a slice of internally stored data, ownership remains with the trie
+        // We don't need to copy the result since the Trie is responsible for managing this memory
+        // Users should not modify or free this data
         return try self.getValue(root_node, nibbles);
     }
     
@@ -350,6 +386,7 @@ pub const HashBuilder = struct {
                     
                     // Create an extension node for the common prefix
                     const common_prefix = try self.allocator.dupe(u8, nibbles[0..common_prefix_len]);
+                    errdefer self.allocator.free(common_prefix);
                     
                     // Hash the branch node
                     const branch_node = TrieNode{ .Branch = branch };
@@ -584,6 +621,7 @@ pub const HashBuilder = struct {
                     // Create extension node for common prefix
                     if (common_prefix_len > 0) {
                         const common_prefix = try self.allocator.dupe(u8, nibbles[0..common_prefix_len]);
+                        errdefer self.allocator.free(common_prefix);
                         const new_extension = try ExtensionNode.init(
                             self.allocator,
                             common_prefix,
@@ -848,8 +886,10 @@ pub const HashBuilder = struct {
                 // Store the updated node
                 try self.nodes.put(result_hash_str, result.?);
                 
-                // Create a new extension node
+                // Create a new extension node with cloned data 
                 const path_copy = try self.allocator.dupe(u8, extension.nibbles);
+                errdefer self.allocator.free(path_copy);
+                
                 const new_extension = try ExtensionNode.init(
                     self.allocator,
                     path_copy,

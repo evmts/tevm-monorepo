@@ -5,8 +5,10 @@ const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 const FeeMarket = @import("FeeMarket.zig").FeeMarket;
 const Address = @import("../Address/address.zig").Address;
 
-// Create a file-specific logger
-const logger = createLogger(@src().file);
+// Module logger will be initialized when functions are called
+fn getLogger() EvmLogger {
+    return createLogger(@src().file);
+}
 
 /// TransactionType enum for the different types of transactions in Ethereum
 /// 
@@ -152,6 +154,7 @@ pub const FeeMarketTransaction = struct {
         effective_gas_price: u64,
         miner_tip: u64,
     } {
+        const logger = getLogger();
         const scoped = createScopedLogger(logger, "getEffectiveGasPrice()");
         defer scoped.deinit();
         
@@ -169,6 +172,7 @@ pub const FeeMarketTransaction = struct {
             self.max_priority_fee_per_gas
         );
         
+        const logger = getLogger();
         logger.debug("Calculated effective gas price: {d} wei", .{result.effective_gas_price});
         logger.debug("Miner tip portion: {d} wei", .{result.miner_fee});
         
@@ -193,6 +197,7 @@ pub const FeeMarketTransaction = struct {
     ///
     /// Returns: The total maximum cost in wei
     pub fn getCost(self: *const FeeMarketTransaction, base_fee_per_gas: u64) u256 {
+        const logger = getLogger();
         const scoped = createScopedLogger(logger, "getCost()");
         defer scoped.deinit();
         
@@ -209,6 +214,7 @@ pub const FeeMarketTransaction = struct {
         // Add the transferred value to get the total transaction cost
         const total_cost = gas_cost + self.value;
         
+        const logger = getLogger();
         logger.debug("Maximum gas cost: {d} wei", .{gas_cost});
         logger.debug("Transferred value: {d} wei", .{self.value});
         logger.debug("Total transaction cost: {d} wei", .{total_cost});
@@ -218,51 +224,75 @@ pub const FeeMarketTransaction = struct {
     
     /// Encode the transaction to RLP format
     ///
-    /// In a real implementation, this would encode the transaction to RLP format
-    /// which is used for serialization in Ethereum.
+    /// Recursive Length Prefix (RLP) encoding is Ethereum's primary serialization method
+    /// for transactions and other data structures. For EIP-1559 transactions, the encoding 
+    /// follows EIP-2718's typed transaction envelope format.
     ///
-    /// Returns: The RLP-encoded transaction
+    /// Format: 0x02 || RLP([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas,
+    ///                      gas_limit, to, value, data, access_list,
+    ///                      signature_y_parity, signature_r, signature_s])
+    ///
+    /// Parameters:
+    /// - allocator: Memory allocator for the encoded output
+    ///
+    /// Returns: The RLP-encoded transaction bytes
     pub fn encodeRLP(self: *const FeeMarketTransaction, allocator: std.mem.Allocator) ![]u8 {
         _ = self;
-        _ = allocator;
-        // In a real implementation, this would encode the transaction to RLP
-        // For now, return a placeholder
+        // Note: This is a placeholder implementation
+        // A complete implementation would:
+        // 1. Create an RLP list with all transaction fields
+        // 2. RLP encode each field according to its type
+        // 3. Prepend 0x02 type identifier (for EIP-1559 transactions)
+        
+        const logger = getLogger();
+        logger.debug("RLP encoding transaction (placeholder implementation)", .{});
         return allocator.alloc(u8, 0);
     }
     
-    /// Calculate the hash of this transaction
+    /// Calculate the cryptographic hash of this transaction
     ///
-    /// This hash is used as the transaction ID.
+    /// The transaction hash serves as the unique identifier (txid) for the transaction
+    /// and is calculated as keccak256(typed_transaction_envelope).
     ///
-    /// Returns: The 32-byte transaction hash
+    /// The hash calculation steps are:
+    /// 1. Encode the transaction using EIP-2718 typed transaction format
+    /// 2. Apply the keccak256 hash function to the encoded bytes
+    ///
+    /// Returns: The 32-byte keccak256 transaction hash
     pub fn hash(self: *const FeeMarketTransaction) ![32]u8 {
         _ = self;
-        // In a real implementation, this would calculate the keccak256 hash
-        // of the RLP-encoded transaction
-        // For now, return a placeholder
+        // Note: This is a placeholder implementation
+        // A complete implementation would:
+        // 1. RLP encode the transaction with its type prefix
+        // 2. Calculate the keccak256 hash of the encoding
+        
+        const logger = getLogger();
+        logger.debug("Calculating transaction hash (placeholder implementation)", .{});
         return [_]u8{0} ** 32;
     }
     
-    /// Create a new FeeMarketTransaction
+    /// Create a new EIP-1559 (Type-2) transaction
     ///
-    /// This is a constructor for the FeeMarketTransaction struct.
+    /// This factory function allocates and initializes a new FeeMarketTransaction
+    /// with the provided parameters.
     ///
     /// Parameters:
-    /// - allocator: Memory allocator
-    /// - chain_id: Chain ID for replay protection
-    /// - nonce: Sender's nonce
-    /// - max_priority_fee_per_gas: Maximum tip per gas for miners
-    /// - max_fee_per_gas: Maximum total fee per gas
-    /// - gas_limit: Maximum gas the transaction may consume
-    /// - to: Recipient address (null for contract creation)
-    /// - value: Value in wei to be transferred
-    /// - data: Transaction data payload
-    /// - access_list: List of addresses and storage keys to access
-    /// - signature_yParity: Signature Y parity
-    /// - signature_r: Signature R value
-    /// - signature_s: Signature S value
+    /// - allocator: Memory allocator for transaction and its data
+    /// - chain_id: Chain ID for replay protection (e.g., 1 for Ethereum mainnet)
+    /// - nonce: Sender's account nonce
+    /// - max_priority_fee_per_gas: Maximum tip per gas for miners/validators
+    /// - max_fee_per_gas: Maximum total fee per gas the sender will pay
+    /// - gas_limit: Maximum gas units the transaction can consume
+    /// - to: Recipient address (null for contract creation transactions)
+    /// - value: Amount of ether (in wei) to transfer
+    /// - data: Transaction input data (function call data or contract bytecode)
+    /// - access_list: Optional pre-declared storage accesses
+    /// - signature_yParity: Signature Y coordinate parity bit
+    /// - signature_r: First 32 bytes of the signature
+    /// - signature_s: Second 32 bytes of the signature
     ///
-    /// Returns: A new FeeMarketTransaction
+    /// Returns: A pointer to the newly allocated transaction
+    /// Errors: InvalidFee if max_fee_per_gas < max_priority_fee_per_gas
     pub fn create(
         allocator: std.mem.Allocator,
         chain_id: u64,
@@ -278,30 +308,34 @@ pub const FeeMarketTransaction = struct {
         signature_r: [32]u8,
         signature_s: [32]u8,
     ) !*FeeMarketTransaction {
+        const logger = getLogger();
         const scoped = createScopedLogger(logger, "create()");
         defer scoped.deinit();
         
         logger.debug("Creating new EIP-1559 fee market transaction", .{});
         
-        // Validate the max_fee_per_gas is at least max_priority_fee_per_gas
+        // Validate fee parameters
+        // The max_fee_per_gas must be at least as high as max_priority_fee_per_gas
         if (max_fee_per_gas < max_priority_fee_per_gas) {
-            logger.err("max_fee_per_gas ({d}) is less than max_priority_fee_per_gas ({d})", .{
+            logger.err("Invalid fee parameters: max_fee_per_gas ({d}) < max_priority_fee_per_gas ({d})", .{
                 max_fee_per_gas, max_priority_fee_per_gas
             });
             return error.InvalidFee;
         }
         
-        // Allocate a new transaction
-        var tx = try allocator.create(FeeMarketTransaction);
+        // Allocate memory for the transaction object
+        const tx = try allocator.create(FeeMarketTransaction);
+        errdefer allocator.destroy(tx); // Clean up on error
         
-        // Copy the data
-        var data_copy = try allocator.alloc(u8, data.len);
+        // Copy the data buffer to avoid external modification
+        const data_copy = try allocator.alloc(u8, data.len);
+        errdefer allocator.free(data_copy); // Clean up on error
         std.mem.copy(u8, data_copy, data);
         
-        // Copy the access list (in a real implementation)
+        // In a full implementation, we would also deep copy the access_list
         // For now, we're just storing the reference since this is for testing
         
-        // Initialize the transaction
+        // Initialize all transaction fields
         tx.* = FeeMarketTransaction{
             .chain_id = chain_id,
             .nonce = nonce,
@@ -317,26 +351,33 @@ pub const FeeMarketTransaction = struct {
             .signature_s = signature_s,
         };
         
-        logger.info("Created EIP-1559 transaction with max fee {d} and priority fee {d}", .{
+        const logger = getLogger();
+        logger.info("Created EIP-1559 transaction with chain_id={d}, nonce={d}", .{chain_id, nonce});
+        logger.info("Transaction fees: max_fee={d} wei, max_priority_fee={d} wei", .{
             max_fee_per_gas, max_priority_fee_per_gas
         });
         
         return tx;
     }
     
-    /// Free resources used by the transaction
+    /// Release all resources associated with the transaction
     ///
-    /// This releases any memory allocated by the transaction.
+    /// This method should be called when the transaction is no longer needed
+    /// to prevent memory leaks. It frees all dynamically allocated memory.
     ///
     /// Parameters:
-    /// - allocator: Memory allocator used to create the transaction
+    /// - allocator: The same memory allocator used to create the transaction
     pub fn deinit(self: *FeeMarketTransaction, allocator: std.mem.Allocator) void {
-        logger.debug("Deallocating EIP-1559 transaction", .{});
+        const logger = getLogger();
+        logger.debug("Deallocating EIP-1559 transaction resources", .{});
         
-        // Free the data
+        // Free the data buffer
         allocator.free(self.data);
         
-        // Free the transaction
+        // In a full implementation, we would also free the access_list entries
+        // For now, we're assuming the caller manages the access_list memory
+        
+        // Finally, free the transaction object itself
         allocator.destroy(self);
     }
 };
