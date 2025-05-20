@@ -1,10 +1,10 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import the Evm module using the global import path
-const EvmModule = @import("Evm");
+// Import the Evm module using relative path
+const EvmModule = @import("../evm.zig");
 // Get crypto opcodes functions from the Evm module
-const crypto = EvmModule.opcodes.crypto;
+const crypto = @import("crypto.zig");
 const Frame = EvmModule.Frame;
 const Stack = EvmModule.Stack;
 const Contract = EvmModule.Contract;
@@ -13,7 +13,7 @@ const JumpTable = EvmModule.JumpTable;
 const u256_native = u256;
 
 // Import the Address module
-const AddressModule = @import("Address");
+const AddressModule = @import("../../Address/address.zig");
 const Address = AddressModule.Address;
 
 // Helper function to convert hex string to Address

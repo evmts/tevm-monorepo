@@ -1,10 +1,10 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import the Evm module using the global import path
-const EvmModule = @import("Evm");
+// Import the Evm module using relative path
+const EvmModule = @import("../evm.zig");
 // Get blob opcodes functions from the Evm module
-const blob = EvmModule.opcodes.blob;
+const blob = @import("blob.zig");
 const Frame = EvmModule.Frame;
 const Contract = EvmModule.Contract;
 const Stack = EvmModule.Stack;
@@ -12,11 +12,11 @@ const Memory = EvmModule.Memory;
 const Interpreter = EvmModule.Interpreter;
 const Evm = EvmModule.Evm;
 const ExecutionError = EvmModule.InterpreterError;
-const ExecutionStatus = EvmModule.ExecutionStatus;
+// Use our explicitly imported blob.zig rather than trying to access it through EvmModule.ExecutionStatus
 const JumpTable = EvmModule.JumpTable;
 
-// Import the Address module
-const AddressModule = @import("Address");
+// Import the Address module using relative path
+const AddressModule = @import("../../Address/address.zig");
 
 // Use the actual u256 type
 const BigInt = u256;

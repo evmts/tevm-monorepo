@@ -1,9 +1,9 @@
 const std = @import("std");
 
-// Import the Evm module using the global import path
-const EvmModule = @import("Evm");
+// Import the Evm module using relative path
+const EvmModule = @import("../evm.zig");
 // Get environment functions from the Evm module
-const environment = EvmModule.opcodes.environment;
+const environment = @import("environment.zig");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
 const Memory = EvmModule.Memory;
@@ -13,8 +13,8 @@ const Evm = EvmModule.Evm;
 const JumpTable = EvmModule.JumpTable;
 const u256_native = u256;
 
-// Import the Address module using the standard module path
-const AddressModule = @import("Address");
+// Import the Address module using relative path
+const AddressModule = @import("../../Address/address.zig");
 const Address = AddressModule.Address;
 
 // Test setup: Create a frame and contract for testing opcodes

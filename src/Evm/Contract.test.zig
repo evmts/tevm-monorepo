@@ -1,8 +1,8 @@
 const std = @import("std");
-const EvmModule = @import("Evm");
+const EvmModule = @import("evm.zig");
 const Contract = EvmModule.Contract;
 const createContract = EvmModule.createContract;
-const address = @import("Address");
+const address = @import("../Address/address.zig");
 
 test "Contract warm/cold storage tracking" {
     // Use allocator if needed later

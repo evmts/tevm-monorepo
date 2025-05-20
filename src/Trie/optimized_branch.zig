@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const trie = @import("trie.zig");
-const rlp = @import("Rlp");
+const rlp = @import("../Rlp/rlp.zig");
 
 const TrieMask = trie.TrieMask;
 const HashValue = trie.HashValue;

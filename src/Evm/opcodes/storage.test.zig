@@ -1,7 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 
-const EvmModule = @import("Evm");
+const EvmModule = @import("../evm.zig");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
 const Stack = EvmModule.Stack;
@@ -14,11 +14,11 @@ const B256 = EvmModule.B256;
 
 const storage = @import("storage.zig");
 
-const StateManagerModule = @import("StateManager");
+const StateManagerModule = @import("../../StateManager/StateManager.zig");
 const StateManager = StateManagerModule.StateManager;
 const StateOptions = StateManagerModule.StateOptions;
 
-const AddressModule = @import("Address");
+const AddressModule = @import("../../Address/address.zig");
 const Address = AddressModule.Address;
 
 // Helper fn for hex to address

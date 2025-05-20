@@ -1,13 +1,13 @@
 const std = @import("std");
 const testing = std.testing;
 
-const EvmModule = @import("Evm");
+const EvmModule = @import("evm.zig");
 const Frame = EvmModule.Frame;
 const ExecutionError = EvmModule.InterpreterError;
 const Contract = EvmModule.Contract;
 const u256_native = u256;
 
-const AddressModule = @import("Address");
+const AddressModule = @import("../Address/address.zig");
 const Address = AddressModule.Address;
 
 // Helper function to convert hex string to Address
