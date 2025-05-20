@@ -100,9 +100,11 @@ pub fn decodeFunctionDataWithFunction(
     }
     
     // Skip the selector (4 bytes) and decode the rest as arguments
+    // Ensure inputs are treated as a slice by accessing the slice directly
+    const inputs_slice = func.inputs;
     try decode_abi_parameters.decodeAbiParameters(
         args,
-        func.inputs,
+        inputs_slice,
         data[4..],
     );
 }

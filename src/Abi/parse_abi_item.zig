@@ -656,10 +656,16 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
         tokenizer.pos += 7;
         tokenizer.skipWhitespace();
         const params_slice = try tokenizer.readParamList(allocator);
-        // Copy to a mutable array
-        const output_array = try allocator.alloc(abi.Param, params_slice.len);
-        @memcpy(output_array, params_slice);
-        outputs = output_array;
+        // Handle array to slice conversion properly
+        if (params_slice.len > 0) {
+            // Allocate a new array and copy the parameters
+            const output_array = try allocator.alloc(abi.Param, params_slice.len);
+            @memcpy(output_array, params_slice);
+            outputs = output_array;
+        } else {
+            // Empty slice case
+            outputs = &[_]abi.Param{};
+        }
     }
     
     return abi.AbiItem{
