@@ -1,13 +1,15 @@
 // Package entry point for opcodes
 
-// Import core components
-pub const Frame = @import("../Frame.zig");
-pub const Interpreter = @import("../interpreter.zig");
-pub const Evm = @import("../evm.zig");
-pub const Contract = @import("../Contract.zig");
-pub const Memory = @import("../Memory.zig");
-pub const Stack = @import("../Stack.zig");
-pub const JumpTable = @import("../JumpTable.zig");
+// Import core components from Evm package
+pub const pkg = @import("../package.zig");
+pub const Frame = pkg.Frame;
+pub const ExecutionError = pkg.ExecutionError;
+pub const Interpreter = pkg.Interpreter;
+pub const Evm = pkg.Evm;
+pub const Contract = pkg.Contract;
+pub const Memory = pkg.Memory;
+pub const Stack = pkg.Stack;
+pub const JumpTable = pkg.JumpTable;
 pub const Address = @import("../../Address/address.zig");
 
 // Re-export modules

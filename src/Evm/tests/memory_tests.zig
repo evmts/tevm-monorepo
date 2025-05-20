@@ -1,19 +1,17 @@
 const std = @import("std");
 const testing = std.testing;
-const memory_ops = @import("memory.zig");
-const evm_pkg = @import("../package.zig");
+const memory_ops = @import("../opcodes/memory.zig");
 
-// Import interfaces
-const Frame = evm_pkg.Frame.Frame;
-const ExecutionError = evm_pkg.Frame.ExecutionError;
-const Contract = evm_pkg.Contract.Contract;
-const Interpreter = evm_pkg.Interpreter.Interpreter;
-const Evm = evm_pkg.Evm.Evm;
-const Memory = evm_pkg.Memory.Memory;
-const Stack = evm_pkg.Stack.Stack;
-const JumpTable = evm_pkg.JumpTable;
-const Address = evm_pkg.Address.Address;
-const ChainRules = evm_pkg.Evm.ChainRules;
+// Import directly for testing
+const Frame = @import("../Frame.zig").Frame;
+const Contract = @import("../Contract.zig").Contract;
+const Memory = @import("../Memory.zig").Memory;
+const Stack = @import("../Stack.zig").Stack;
+const Address = @import("../../Address/address.zig").Address;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Evm = @import("../evm.zig").Evm;
+const ChainRules = @import("../evm.zig").ChainRules;
+const JumpTable = @import("../JumpTable.zig");
 
 /// Creates a mock contract for testing
 fn createMockContract(allocator: std.mem.Allocator) !*Contract {
@@ -28,7 +26,7 @@ fn createMockContract(allocator: std.mem.Allocator) !*Contract {
         .address = Address.zero(),
         .code_address = Address.zero(),
         .value = 0,
-        .gas = 100000,
+        .gas = 100000,  // Add some gas for execution
         .gas_refund = 0,
     };
     return contract;
@@ -45,7 +43,7 @@ fn createMockEvm(allocator: std.mem.Allocator) !*Evm {
             .IsEIP150 = true,
             .IsEIP158 = true,
             .IsEIP1559 = true,
-            .IsEIP3855 = true, // Enable PUSH0
+            .IsEIP3855 = true, // Needed for PUSH0
         },
         .state_manager = null,
     };
@@ -62,10 +60,8 @@ fn createMockInterpreter(allocator: std.mem.Allocator) !*Interpreter {
     interpreter.* = Interpreter{
         .allocator = allocator,
         .evm = evm,
-        .table = JumpTable.JumpTable.init(),
         .readOnly = false,
         .returnData = null,
-        .logger = undefined,
     };
     
     return interpreter;
@@ -92,17 +88,16 @@ test "MLOAD and MSTORE operations" {
     // Execute MSTORE
     _ = try memory_ops.opMstore(0, interpreter, &frame);
     
-    // Now check the memory content safely by checking individual bytes
+    // Now check the memory content
+    const memory_content = frame.memory.getPtr(0, 32);
     
     // The value 42 should be stored in big-endian format at offset 0
     const expected_value: u256 = 42;
     var expected_bytes: [32]u8 = [_]u8{0} ** 32;
     expected_bytes[31] = 42; // Lowest byte of 42 in big-endian
     
-    // Test that the memory contains the expected value by checking individual bytes
-    for (expected_bytes, 0..) |expected_byte, i| {
-        try testing.expectEqual(expected_byte, frame.memory.get8(@intCast(i)));
-    }
+    // Test that the memory contains the expected value
+    try testing.expectEqualSlices(u8, &expected_bytes, memory_content);
     
     // Now test MLOAD to retrieve the value
     try frame.stack.push(0); // memory offset to load from
@@ -136,13 +131,14 @@ test "MSTORE8 operation" {
     // Execute MSTORE8
     _ = try memory_ops.opMstore8(0, interpreter, &frame);
     
-    // Now check the memory content safely using get8
+    // Now check the memory content
+    const memory_byte = frame.memory.getPtr(10, 1)[0];
     
     // Only the lowest byte 0xCD should be stored
     const expected_byte: u8 = 0xCD;
     
-    // Test that the memory contains the expected byte using the safe get8 method
-    try testing.expectEqual(expected_byte, frame.memory.get8(10));
+    // Test that the memory contains the expected byte
+    try testing.expectEqual(expected_byte, memory_byte);
 }
 
 test "MSIZE operation" {

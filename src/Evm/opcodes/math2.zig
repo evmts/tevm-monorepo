@@ -3,7 +3,7 @@ const Interpreter = @import("../interpreter.zig").Interpreter;
 const Frame = @import("../Frame.zig").Frame;
 const ExecutionError = @import("../Frame.zig").ExecutionError;
 const JumpTable = @import("../JumpTable.zig");
-const Stack = @import("../Stack.zig");
+const Stack = @import("../Stack.zig").Stack;
 const Memory = @import("../Memory.zig").Memory;
 
 // Use the u256 type alias directly from Stack module
@@ -134,7 +134,7 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
 }
 
 /// Calculate dynamic gas for the EXP operation
-pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack.Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
+pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = interpreter;
     _ = frame;
     _ = memory;

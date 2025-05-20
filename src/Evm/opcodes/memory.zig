@@ -1,10 +1,11 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const Memory = @import("../Memory.zig").Memory;
-const Stack = @import("../Stack.zig").Stack;
+const evm_pkg = @import("../package.zig");
+const Interpreter = evm_pkg.Interpreter.Interpreter;
+const Frame = evm_pkg.Frame.Frame;
+const ExecutionError = evm_pkg.Frame.ExecutionError;
+const JumpTable = evm_pkg.JumpTable;
+const Memory = evm_pkg.Memory.Memory;
+const Stack = evm_pkg.Stack.Stack;
 
 /// MLOAD operation - loads word from memory at the specified offset
 pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

@@ -11,4 +11,3 @@ pub const Log = @import("evm.zig").Log;
 pub const JumpTable = @import("JumpTable.zig");
 pub const EvmLogger = @import("EvmLogger.zig");
 pub const opcodes = @import("opcodes/package.zig");
-EOF < /dev/null

@@ -145,15 +145,13 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // Check v value (should be 27 or 28 for legacy compatibility)
     if (v != 27 and v != 28) {
         // Return empty result for invalid signature
-        const empty = try allocator.alloc(u8, 0);
-        return empty;
+        return try allocator.alloc(u8, 0);
     }
     
     // Check that bytes 32-63 (except for v) are all zero
     if (!common.allZero(padded_input[33..64])) {
         // Return empty result for invalid signature format
-        const empty = try allocator.alloc(u8, 0);
-        return empty;
+        return try allocator.alloc(u8, 0);
     }
     
     // TODO: Implement actual ECRECOVER using secp256k1

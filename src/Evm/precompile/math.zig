@@ -190,7 +190,7 @@ fn bytesToBigInt(bytes: []const u8) u256 {
 }
 
 /// Implementation of modular exponentiation
-fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
+fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     if (input.len < 96) {
         // Return empty result for invalid input
         return try allocator.alloc(u8, 0);

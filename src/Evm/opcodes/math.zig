@@ -71,14 +71,14 @@ pub fn opSub(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8
 
 // Test DIV operation
 pub fn opDiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    const a = try frame.stack.pop();
-    const b = try frame.stack.pop();
+    const divisor = try frame.stack.pop();
+    const dividend = try frame.stack.pop();
     
     // Handle division by zero
-    if (b == 0) {
+    if (divisor == 0) {
         try frame.stack.push(0);
     } else {
-        try frame.stack.push(a / b);
+        try frame.stack.push(dividend / divisor);
     }
     
     return "";
@@ -108,14 +108,14 @@ pub fn opSdiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u
 
 // Test MOD operation
 pub fn opMod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    const a = try frame.stack.pop();
-    const b = try frame.stack.pop();
+    const modulus = try frame.stack.pop();
+    const value = try frame.stack.pop();
     
     // Handle division by zero
-    if (b == 0) {
+    if (modulus == 0) {
         try frame.stack.push(0);
     } else {
-        try frame.stack.push(a % b);
+        try frame.stack.push(value % modulus);
     }
     
     return "";
@@ -144,8 +144,8 @@ pub fn opSmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u
 
 // Test EXP operation (exponentiation)
 pub fn opExp(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    const base = try frame.stack.pop();
     const exponent = try frame.stack.pop();
+    const base = try frame.stack.pop();
     
     // Handle special cases
     if (exponent == 0) {
@@ -177,17 +177,17 @@ pub fn opExp(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8
 
 // Test ADDMOD operation
 pub fn opAddmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    const a = try frame.stack.pop();
+    const modulus = try frame.stack.pop();
     const b = try frame.stack.pop();
-    const n = try frame.stack.pop();
+    const a = try frame.stack.pop();
     
     // Handle division by zero
-    if (n == 0) {
+    if (modulus == 0) {
         try frame.stack.push(0);
     } else {
         // Calculate (a + b) % n
         const sum = a +% b; // Use wrapping addition
-        try frame.stack.push(sum % n);
+        try frame.stack.push(sum % modulus);
     }
     
     return "";
