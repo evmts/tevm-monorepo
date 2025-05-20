@@ -156,7 +156,7 @@ fn encodeParam(
         @memset(head[head_len.* .. head_len.* + 32], 0);
         
         // Copy with right padding
-        std.mem.copy(u8, head[head_len.* + 32 - value.len..], value);
+        @memcpy(head[head_len.* + 32 - value.len..][0..value.len], value);
         
         head_len.* += 32;
         return;
@@ -183,7 +183,7 @@ fn encodeParam(
         @memset(head[head_len.* .. head_len.* + 32], 0);
         
         // Copy with left padding (for bytesN)
-        std.mem.copy(u8, head[head_len.* .. head_len.* + value.len], value);
+        @memcpy(head[head_len.* .. head_len.* + value.len], value);
         
         head_len.* += 32;
         return;

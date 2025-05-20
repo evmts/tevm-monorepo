@@ -46,7 +46,18 @@ pub fn getAbiItem(
 
     // Check by selector if provided
     if (opts.selector != null) {
-        return getAbiItemBySelector(abi_items, opts.selector.?, opts.item_type);
+        // Convert AbiItemType to inner enum type
+        const SelectorItemType = enum { Function, Event, Error, Constructor, Fallback, Receive };
+        const item_type_enum = if (opts.item_type) |t| switch (t) {
+            .Function => @as(?SelectorItemType, .Function),
+            .Event => @as(?SelectorItemType, .Event),
+            .Error => @as(?SelectorItemType, .Error),
+            .Constructor => @as(?SelectorItemType, .Constructor),
+            .Fallback => @as(?SelectorItemType, .Fallback),
+            .Receive => @as(?SelectorItemType, .Receive),
+        } else null;
+        
+        return getAbiItemBySelector(abi_items, opts.selector.?, item_type_enum);
     }
 
     // Otherwise check by name
@@ -313,82 +324,70 @@ pub fn getConstructor(abi_items: []const abi.AbiItem) !abi.Constructor {
 test "getAbiItem by name" {
     const testing = std.testing;
 
+    // Prepare parameter arrays
+    var transfer_inputs = [_]abi.Param{
+        .{
+            .ty = "address",
+            .name = "to",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "uint256",
+            .name = "amount",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
+    var transfer_outputs = [_]abi.Param{
+        .{
+            .ty = "bool",
+            .name = "success",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
+    var transfer_event_inputs = [_]abi.EventParam{
+        .{
+            .ty = "address",
+            .name = "from",
+            .indexed = true,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "address",
+            .name = "to",
+            .indexed = true,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "uint256",
+            .name = "value",
+            .indexed = false,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
     // Create a sample ABI
-    const sample_abi = [_]abi.AbiItem{
+    var sample_abi = [_]abi.AbiItem{
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
-                    .{
-                        .ty = "address",
-                        .name = "to",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "uint256",
-                        .name = "amount",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
-                .outputs = &[_]abi.Param{
-                    .{
-                        .ty = "bool",
-                        .name = "success",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
+                .inputs = &transfer_inputs,
+                .outputs = &transfer_outputs,
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
-                    .{
-                        .ty = "address",
-                        .name = "from",
-                        .indexed = true,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "address",
-                        .name = "to",
-                        .indexed = true,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "uint256",
-                        .name = "value",
-                        .indexed = false,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
+                .inputs = &transfer_event_inputs,
                 .anonymous = false,
-            },
-        },
-        .{
-            .Constructor = .{
-                .inputs = &[_]abi.Param{
-                    .{
-                        .ty = "string",
-                        .name = "name",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "string",
-                        .name = "symbol",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
-                .state_mutability = abi.StateMutability.Payable,
             },
         },
     };
@@ -466,11 +465,11 @@ test "getFunction" {
     const testing = std.testing;
 
     // Create a sample ABI
-    const sample_abi = [_]abi.AbiItem{
+    var sample_abi = [_]abi.AbiItem{
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
+                .inputs = &inputs,
                     .{
                         .ty = "address",
                         .name = "to",

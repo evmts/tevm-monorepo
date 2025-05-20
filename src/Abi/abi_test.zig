@@ -314,89 +314,99 @@ test "ABI complex types and edge cases" {
     // 2. Test getAbiItem
     {
         // Define a sample ABI with multiple items
+        var transfer_params = [_]abi.Param{
+            .{
+                .ty = "address",
+                .name = "to",
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+            .{
+                .ty = "uint256",
+                .name = "amount",
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+        };
+        
+        var transfer_output = [_]abi.Param{
+            .{
+                .ty = "bool",
+                .name = "success",
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+        };
+        
+        var approve_params = [_]abi.Param{
+            .{
+                .ty = "address",
+                .name = "spender",
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+            .{
+                .ty = "uint256",
+                .name = "amount",
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+        };
+        
+        var approve_output = [_]abi.Param{
+            .{
+                .ty = "bool",
+                .name = "success",
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+        };
+        
+        var event_params = [_]abi.EventParam{
+            .{
+                .ty = "address",
+                .name = "from",
+                .indexed = true,
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+            .{
+                .ty = "address",
+                .name = "to",
+                .indexed = true,
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+            .{
+                .ty = "uint256",
+                .name = "value",
+                .indexed = false,
+                .components = &[_]abi.Param{},
+                .internal_type = null,
+            },
+        };
+        
         const sample_abi = [_]abi.AbiItem{
             .{
                 .Function = .{
                     .name = "transfer",
-                    .inputs = &[_]abi.Param{
-                        .{
-                            .ty = "address",
-                            .name = "to",
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                        .{
-                            .ty = "uint256",
-                            .name = "amount",
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                    },
-                    .outputs = &[_]abi.Param{
-                        .{
-                            .ty = "bool",
-                            .name = "success",
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                    },
+                    .inputs = &transfer_params,
+                    .outputs = &transfer_output,
                     .state_mutability = abi.StateMutability.NonPayable,
                 },
             },
             .{
                 .Function = .{
                     .name = "approve",
-                    .inputs = &[_]abi.Param{
-                        .{
-                            .ty = "address",
-                            .name = "spender",
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                        .{
-                            .ty = "uint256",
-                            .name = "amount",
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                    },
-                    .outputs = &[_]abi.Param{
-                        .{
-                            .ty = "bool",
-                            .name = "success",
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                    },
+                    .inputs = &approve_params,
+                    .outputs = &approve_output,
                     .state_mutability = abi.StateMutability.NonPayable,
                 },
             },
             .{
                 .Event = .{
                     .name = "Transfer",
-                    .inputs = &[_]abi.EventParam{
-                        .{
-                            .ty = "address",
-                            .name = "from",
-                            .indexed = true,
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                        .{
-                            .ty = "address",
-                            .name = "to",
-                            .indexed = true,
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                        .{
-                            .ty = "uint256",
-                            .name = "value",
-                            .indexed = false,
-                            .components = &[_]abi.Param{},
-                            .internal_type = null,
-                        },
-                    },
+                    .inputs = &event_params,
                     .anonymous = false,
                 },
             },

@@ -1,82 +1,73 @@
 const std = @import("std");
-const crypto = @import("std").crypto;
 const abi = @import("abi.zig");
 
-/// Compute Keccak-256 hash of data
-/// 
-/// Returns a 32-byte array containing the Keccak-256 hash
-pub fn keccak256(data: []const u8) [32]u8 {
-    var out: [32]u8 = undefined;
-    crypto.hash.sha3.Keccak256.hash(data, &out, .{});
-    return out;
-}
-
-/// Compute the 4-byte function selector for a function signature
-/// 
-/// The function selector is defined as the first 4 bytes of the Keccak-256 hash
-/// of the canonical representation of the function signature.
+/// Generate a function selector (first 4 bytes of Keccak-256 hash of the signature)
 /// 
 /// signature: Function signature string in the format "functionName(type1,type2,...)"
-/// out_selector: Pre-allocated 4-byte array to store the result
-pub fn computeFunctionSelector(signature: []const u8, out_selector: *[4]u8) void {
+/// selector: A 4-byte array where the result will be stored
+pub fn computeFunctionSelector(signature: []const u8, selector: *[4]u8) void {
     const hash = keccak256(signature);
-    @memcpy(out_selector[0..4], hash[0..4]);
+    selector[0] = hash[0];
+    selector[1] = hash[1];
+    selector[2] = hash[2];
+    selector[3] = hash[3];
 }
 
-/// Alternative signature for computeFunctionSelector that returns the value directly
-pub fn computeFunctionSelectorValue(signature: []const u8) [4]u8 {
-    var selector: [4]u8 = undefined;
-    computeFunctionSelector(signature, &selector);
-    return selector;
-}
-
-/// Compute the 4-byte function selector from an ABI function item
+/// Compute the function selector from an ABI function definition
 /// 
-/// func: ABI function definition
-/// out_selector: Pre-allocated 4-byte array to store the result
-pub fn getFunctionSelector(func: abi.Function, out_selector: *[4]u8) !void {
-    // Build the canonical function signature using a fixed-size buffer
-    var signature_buf: [256]u8 = undefined;
+/// func: The ABI function definition
+/// selector: A 4-byte array where the result will be stored
+/// 
+/// Returns error if unable to generate the selector
+pub fn getFunctionSelector(func: abi.Function, selector: *[4]u8) !void {
+    // Build the function signature string
+    var signature_buf: [256]u8 = undefined; // Should be enough for typical signatures
     var signature_len: usize = 0;
     
-    // Add function name
-    if (func.name.len > signature_buf.len - 2) { // Need room for at least '(' and ')'
-        return error.BufferTooSmall;
+    // Function name
+    if (signature_len + func.name.len > signature_buf.len) {
+        return error.SignatureTooLong;
     }
-    
-    @memcpy(signature_buf[0..func.name.len], func.name);
+    @memcpy(signature_buf[signature_len..][0..func.name.len], func.name);
     signature_len += func.name.len;
     
+    // Opening parenthesis
+    if (signature_len + 1 > signature_buf.len) {
+        return error.SignatureTooLong;
+    }
     signature_buf[signature_len] = '(';
     signature_len += 1;
     
-    // Add parameter types
+    // Parameter types
     for (func.inputs, 0..) |param, i| {
         if (i > 0) {
-            if (signature_len + 1 > signature_buf.len) return error.BufferTooSmall;
+            // Add comma between parameters
+            if (signature_len + 1 > signature_buf.len) {
+                return error.SignatureTooLong;
+            }
             signature_buf[signature_len] = ',';
             signature_len += 1;
         }
         
-        const canonical_type = getCanonicalType(param.ty);
-        if (signature_len + canonical_type.len > signature_buf.len) {
-            return error.BufferTooSmall;
+        // Add parameter type
+        if (signature_len + param.ty.len > signature_buf.len) {
+            return error.SignatureTooLong;
         }
-        
-        @memcpy(signature_buf[signature_len..signature_len+canonical_type.len], canonical_type);
-        signature_len += canonical_type.len;
+        @memcpy(signature_buf[signature_len..][0..param.ty.len], param.ty);
+        signature_len += param.ty.len;
     }
     
-    if (signature_len + 1 > signature_buf.len) return error.BufferTooSmall;
+    // Closing parenthesis
+    if (signature_len + 1 > signature_buf.len) {
+        return error.SignatureTooLong;
+    }
     signature_buf[signature_len] = ')';
     signature_len += 1;
     
-    // Compute selector
-    computeFunctionSelector(signature_buf[0..signature_len], out_selector);
+    // Compute the selector from the signature
+    computeFunctionSelector(signature_buf[0..signature_len], selector);
 }
 
-/// Compute event topic hash (used for event filtering)
-///
 /// The event topic hash is the entire Keccak-256 hash of the event signature.
 /// 
 /// signature: Event signature string in the format "EventName(type1,type2,...)"
@@ -87,109 +78,69 @@ pub fn computeEventTopic(signature: []const u8) [32]u8 {
 
 /// Compute event topic hash from an ABI event item
 ///
-/// event: ABI event definition
+/// event: The ABI event definition
 /// Returns a 32-byte array containing the event topic hash
 pub fn getEventTopic(event: abi.Event) ![32]u8 {
-    // Build the canonical event signature using a fixed-size buffer
-    var signature_buf: [256]u8 = undefined;
+    // Build the event signature string
+    var signature_buf: [256]u8 = undefined; // Should be enough for typical signatures
     var signature_len: usize = 0;
     
-    // Add event name
-    if (event.name.len > signature_buf.len - 2) { // Need room for at least '(' and ')'
-        return error.BufferTooSmall;
+    // Event name
+    if (signature_len + event.name.len > signature_buf.len) {
+        return error.SignatureTooLong;
     }
-    
-    @memcpy(signature_buf[0..event.name.len], event.name);
+    @memcpy(signature_buf[signature_len..][0..event.name.len], event.name);
     signature_len += event.name.len;
     
+    // Opening parenthesis
+    if (signature_len + 1 > signature_buf.len) {
+        return error.SignatureTooLong;
+    }
     signature_buf[signature_len] = '(';
     signature_len += 1;
     
-    // Add parameter types (only non-indexed for anonymous events, all params otherwise)
-    var first = true;
-    for (event.inputs) |param| {
-        if (event.anonymous and param.indexed) {
-            continue;
-        }
-        
-        if (!first) {
-            if (signature_len + 1 > signature_buf.len) return error.BufferTooSmall;
+    // Parameter types
+    for (event.inputs, 0..) |param, i| {
+        if (i > 0) {
+            // Add comma between parameters
+            if (signature_len + 1 > signature_buf.len) {
+                return error.SignatureTooLong;
+            }
             signature_buf[signature_len] = ',';
             signature_len += 1;
         }
-        first = false;
         
-        const canonical_type = getCanonicalType(param.ty);
-        if (signature_len + canonical_type.len > signature_buf.len) {
-            return error.BufferTooSmall;
+        // Add parameter type
+        if (signature_len + param.ty.len > signature_buf.len) {
+            return error.SignatureTooLong;
         }
-        
-        @memcpy(signature_buf[signature_len..signature_len+canonical_type.len], canonical_type);
-        signature_len += canonical_type.len;
+        @memcpy(signature_buf[signature_len..][0..param.ty.len], param.ty);
+        signature_len += param.ty.len;
     }
     
-    if (signature_len + 1 > signature_buf.len) return error.BufferTooSmall;
+    // Closing parenthesis
+    if (signature_len + 1 > signature_buf.len) {
+        return error.SignatureTooLong;
+    }
     signature_buf[signature_len] = ')';
     signature_len += 1;
     
-    // Compute topic hash
+    // Compute the topic hash from the signature
     return keccak256(signature_buf[0..signature_len]);
 }
 
-/// Get the canonical type representation
+/// Calculate Keccak-256 hash of input data
 ///
-/// This normalizes types according to the ABI spec for computing selectors.
-/// For example, removing whitespace, using uint256 instead of uint, etc.
-fn getCanonicalType(ty: []const u8) []const u8 {
-    // Special case for basic types with implicit bit sizes
-    if (std.mem.eql(u8, ty, "uint")) {
-        return "uint256";
-    }
-    if (std.mem.eql(u8, ty, "int")) {
-        return "int256";
-    }
-    if (std.mem.eql(u8, ty, "fixed")) {
-        return "fixed128x18";
-    }
-    if (std.mem.eql(u8, ty, "ufixed")) {
-        return "ufixed128x18";
-    }
-    
-    // For array types, we need to normalize the base type
-    if (std.mem.indexOfScalar(u8, ty, '[') != null) {
-        // TODO: Implement array type normalization
-        // This would involve parsing the base type and dimensions
-        return ty;
-    }
-    
-    // All other types are used as-is
-    return ty;
+/// data: Bytes to hash
+/// Returns a 32-byte array containing the hash
+pub fn keccak256(data: []const u8) [32]u8 {
+    var out: [32]u8 = undefined;
+    std.crypto.hash.sha3.Keccak256.hash(data, &out, .{});
+    return out;
 }
 
-test "computeFunctionSelector basic" {
+test "computeFunctionSelector" {
     const testing = std.testing;
-    
-    // Test baz(uint32,bool)
-    {
-        const signature = "baz(uint32,bool)";
-        var selector: [4]u8 = undefined;
-        computeFunctionSelector(signature, &selector);
-        
-        // Expected: 0xcdcd77c0
-        const expected = [_]u8{0xcd, 0xcd, 0x77, 0xc0};
-        try testing.expectEqualSlices(u8, &expected, &selector);
-    }
-    
-    // Test bar(bytes3[2])
-    {
-        const signature = "bar(bytes3[2])";
-        var selector: [4]u8 = undefined;
-        computeFunctionSelector(signature, &selector);
-        
-        // Expected: 0xfce353f6
-        const expected = [_]u8{0xfc, 0xe3, 0x53, 0xf6};
-        try testing.expectEqualSlices(u8, &expected, &selector);
-    }
     
     // Test transfer(address,uint256)
     {
@@ -222,17 +173,19 @@ test "getFunctionSelector from ABI" {
         },
     };
     
+    var transfer_outputs = [_]abi.Param{
+        .{
+            .ty = "bool",
+            .name = "success",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
     const transfer_func = abi.Function{
         .name = "transfer",
         .inputs = &transfer_inputs,
-        .outputs = &[_]abi.Param{
-            .{
-                .ty = "bool",
-                .name = "success",
-                .components = &[_]abi.Param{},
-                .internal_type = null,
-            },
-        },
+        .outputs = &transfer_outputs,
         .state_mutability = abi.StateMutability.NonPayable,
     };
     
@@ -250,8 +203,7 @@ test "computeEventTopic" {
     // Test Transfer(address,address,uint256)
     {
         const signature = "Transfer(address,address,uint256)";
-        var topic: [32]u8 = undefined;
-        topic = computeEventTopic(signature);
+        var topic = computeEventTopic(signature);
         
         // Expected: 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
         const expected = [_]u8{

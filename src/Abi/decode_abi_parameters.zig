@@ -227,7 +227,9 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
         
         // Extract the value (always big-endian in ABI)
         var result: T = 0;
-        for (bytes[bytes.len-size..bytes.len], 0..) |b, _| {
+        var i: usize = 0;
+        while (i < size) : (i += 1) {
+            const b = bytes[bytes.len - size + i];
             result = result << 8 | @as(T, b);
         }
         out.* = result;

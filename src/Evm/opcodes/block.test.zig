@@ -35,7 +35,7 @@ test "BLOCKHASH opcode" {
 
     var evm_instance = try Evm.init(allocator, null);
 
-    var jump_table_instance = try JumpTable.init(allocator); // Assuming init(allocator)
+    var jump_table_instance = try JumpTable.newJumpTable(allocator, "latest"); // Use newJumpTable instead of init
     try block.registerBlockOpcodes(allocator, &jump_table_instance);
     // defer jump_table_instance.deinit(); // If needed
 
@@ -69,7 +69,7 @@ test "Block information opcodes" {
 
     var evm_instance = try Evm.init(allocator, null);
 
-    var jump_table_instance = try JumpTable.init(allocator);
+    var jump_table_instance = try JumpTable.newJumpTable(allocator, "latest");
     try block.registerBlockOpcodes(allocator, &jump_table_instance);
 
     var interpreter_instance = Interpreter.create(allocator, &evm_instance, jump_table_instance);
