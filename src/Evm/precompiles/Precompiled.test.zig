@@ -45,7 +45,7 @@ test "isPrecompiled check" {
     var non_small_addr_bytes: [32]u8 = [_]u8{0} ** 32;
     non_small_addr_bytes[0] = 1; // Set first byte, making it not a small address
     non_small_addr_bytes[31] = 1; // Set value to 1
-    const non_small_addr = B256.fromBytes(&non_small_addr_bytes);
+    const non_small_addr = B256{ .value = non_small_addr_bytes };
     try testing.expect(!Precompiled.isPrecompiled(non_small_addr));
 }
 
@@ -107,7 +107,7 @@ test "identity execution" {
     const input = [_]u8{1, 2, 3, 4, 5};
     result = try Precompiled.IDENTITY.execute(&input, allocator);
     defer if (result) |r| allocator.free(r);
-    try testing.expectEqualSlices(u8, &input, result);
+    try testing.expectEqualSlices(u8, &input, result.?);
 }
 
 test "sha256 execution" {
@@ -133,8 +133,8 @@ test "sha256 execution" {
     
     // Check first few bytes of the hash
     try testing.expectEqual(@as(u8, 0x9f), result.?[0]);
-    try testing.expectEqual(@as(u8, 0x86), result[1]);
-    try testing.expectEqual(@as(u8, 0xd0), result[2]);
+    try testing.expectEqual(@as(u8, 0x86), result.?[1]);
+    try testing.expectEqual(@as(u8, 0xd0), result.?[2]);
 }
 
 test "ecrecover execution with invalid input" {
@@ -143,7 +143,7 @@ test "ecrecover execution with invalid input" {
     // Test with invalid input (too short)
     var result = try Precompiled.ECRECOVER.execute(&[_]u8{1, 2, 3}, allocator);
     defer if (result) |r| allocator.free(r);
-    try testing.expectEqual(@as(usize, 0), result.len);
+    try testing.expectEqual(@as(usize, 0), result.?.len);
     
     // Test with 128 bytes of zeros
     var zeros = [_]u8{0} ** 128;
@@ -152,7 +152,7 @@ test "ecrecover execution with invalid input" {
     try testing.expectEqual(@as(usize, 32), result.?.len);
     
     // All zeros should return zeros (invalid signature)
-    for (result) |byte| {
+    for (result.?) |byte| {
         try testing.expectEqual(@as(u8, 0), byte);
     }
 }
@@ -162,7 +162,10 @@ test "Contract wrapper" {
     
     // Create a precompiled contract
     const addr = try createPrecompiledAddress(4); // IDENTITY
-    const contract = Contract.fromAddress(addr, allocator).?;
+    // Create a contract directly since we don't need any special functionality
+    const contract = Contract{
+        .address = addr
+    };
     
     // Check gas cost
     const gas = contract.gasCost(&[_]u8{1, 2, 3, 4});

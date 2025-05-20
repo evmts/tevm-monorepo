@@ -57,26 +57,52 @@ pub const BlockWithdrawalProcessor = struct {
     pub fn processBlockWithdrawals(self: *BlockWithdrawalProcessor, block_withdrawals: []const WithdrawalData) !void {
         var scoped = createScopedLogger(getLogger(), "processBlockWithdrawals()");
         defer scoped.deinit();
-
+        
         getLogger().debug("Processing block withdrawals", .{});
-        getLogger().debug("Number of withdrawals: {d}", .{block_withdrawals.len});
-
+        
+        // Validate inputs
+        if (block_withdrawals.len > 0) {
+            getLogger().debug("Number of withdrawals: {d}", .{block_withdrawals.len});
+        } else {
+            getLogger().debug("No withdrawals provided in block", .{});
+        }
+        
+        // Check if EIP-4895 is enabled
         if (!self.chainRules.IsEIP4895) {
             getLogger().warn("EIP-4895 not enabled, skipping withdrawals", .{});
             return error.EIP4895NotEnabled;
         }
-
-        // No withdrawals to process
+        
+        // Skip processing for empty withdrawal lists
         if (block_withdrawals.len == 0) {
             getLogger().debug("No withdrawals to process in block", .{});
             return;
         }
-
+        
+        // Validate each withdrawal before processing
+        for (block_withdrawals, 0..) |withdrawal, i| {
+            if (withdrawal.amount == 0) {
+                getLogger().warn("Withdrawal {d} has zero amount - this is unusual but allowed", .{i});
+            }
+            
+            // Check for very large amounts that might cause issues
+            if (withdrawal.amount > 1_000_000_000_000) { // 1 trillion Gwei
+                getLogger().warn("Withdrawal {d} has an unusually large amount: {d} Gwei", .{i, withdrawal.amount});
+            }
+        }
+        
         getLogger().debug("Processing withdrawals according to EIP-4895", .{});
-
-        // Process withdrawals using our core implementation
-        try processWithdrawals(self.state_manager, block_withdrawals, self.chainRules.IsEIP4895);
-
+        
+        // Process withdrawals using our core implementation with error handling
+        processWithdrawals(
+            self.state_manager, 
+            block_withdrawals, 
+            self.chainRules.IsEIP4895
+        ) catch |err| {
+            getLogger().err("Failed to process withdrawals: {}", .{err});
+            return err;
+        };
+        
         getLogger().info("Block withdrawals processed successfully", .{});
     }
 
@@ -138,16 +164,37 @@ pub const Block = struct {
     ///
     /// Returns: Error if processing fails
     pub fn processWithdrawals(self: *const Block, state_manager: *StateManager, chain_rules: ChainRules) !void {
+        // No need to check for null state_manager as it's enforced by the compiler
+        // We can add other validation here if needed in the future
+        
+        // Create a withdrawal processor
         var processor = BlockWithdrawalProcessor.init(state_manager, chain_rules);
 
-        // Verify withdrawals root first
-        const root_valid = try processor.verifyWithdrawalsRoot(self.withdrawals, self.withdrawals_root);
+        // Perform basic validation on the withdrawals_root
+        if (self.withdrawals_root.len == 0) {
+            return error.EmptyWithdrawalsRoot;
+        }
+        
+        // Verify withdrawals root first with error handling
+        const root_valid = processor.verifyWithdrawalsRoot(
+            self.withdrawals, 
+            self.withdrawals_root
+        ) catch |err| {
+            getLogger().err("Withdrawals root verification failed: {}", .{err});
+            return err;
+        };
 
         if (!root_valid) {
+            getLogger().err("Invalid withdrawals root", .{});
             return error.InvalidWithdrawalsRoot;
         }
 
-        // Process all withdrawals
-        try processor.processBlockWithdrawals(self.withdrawals);
+        // Process all withdrawals with error handling
+        processor.processBlockWithdrawals(self.withdrawals) catch |err| {
+            getLogger().err("Block withdrawals processing failed: {}", .{err});
+            return err;
+        };
+        
+        getLogger().info("Block withdrawals processed successfully", .{});
     }
 };

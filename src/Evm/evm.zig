@@ -13,6 +13,7 @@ pub const createLogger = @import("EvmLogger.zig").createLogger;
 pub const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 pub const debugOnly = @import("EvmLogger.zig").debugOnly;
 pub const logHexBytes = @import("EvmLogger.zig").logHexBytes;
+pub const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

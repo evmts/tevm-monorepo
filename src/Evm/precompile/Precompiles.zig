@@ -28,16 +28,22 @@ const ChainRules = struct {
     pub fn forHardfork(hardfork: Hardfork) ChainRules {
         return switch (hardfork) {
             .Frontier, .Homestead, .TangerineWhistle, .SpuriousDragon => .{},
-            .Byzantium, .Constantinople, .Petersburg, .Istanbul => .{
+            .Byzantium, .Constantinople, .Petersburg => .{
                 .IsByzantium = true,
+            },
+            .Istanbul => .{
+                .IsByzantium = true,
+                .IsIstanbul = true,
             },
             .Berlin => .{
                 .IsByzantium = true,
+                .IsIstanbul = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
             },
             .London => .{
                 .IsByzantium = true,
+                .IsIstanbul = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -47,6 +53,7 @@ const ChainRules = struct {
             },
             .ArrowGlacier, .GrayGlacier, .Merge => .{
                 .IsByzantium = true,
+                .IsIstanbul = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -56,6 +63,7 @@ const ChainRules = struct {
             },
             .Shanghai => .{
                 .IsByzantium = true,
+                .IsIstanbul = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -69,6 +77,7 @@ const ChainRules = struct {
             },
             .Cancun => .{
                 .IsByzantium = true,
+                .IsIstanbul = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,

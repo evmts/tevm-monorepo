@@ -294,9 +294,38 @@ const file_logger = createLogger("calls.zig");
 /// Maximum call depth for Ethereum VM
 const MAX_CALL_DEPTH: u32 = 1024;
 
+/// Helper function to safely copy memory data to an array list
+/// Returns true if successful, false if allocation failed
+fn getInputData(
+    allocator: std.mem.Allocator, 
+    memory: []const u8, 
+    offset: usize, 
+    size: usize, 
+    out_data: *std.ArrayList(u8)
+) bool {
+    if (size == 0) return true;
+    
+    if (offset + size > memory.len) {
+        return false; // Out of bounds
+    }
+    
+    out_data.clearRetainingCapacity();
+    out_data.appendSlice(memory[offset..offset + size]) catch {
+        return false;
+    };
+    
+    return true;
+}
+
 /// Helper function to safely allocate and set return data
 /// Returns true if successful, false if allocation failed
 fn setReturnData(interpreter: *Interpreter, data: []const u8) bool {
+    return setReturnDataWithReporting(interpreter, data, false);
+}
+
+/// Helper function to safely allocate and set return data with error reporting
+/// Returns true if successful, false if allocation failed
+fn setReturnDataWithReporting(interpreter: *Interpreter, data: []const u8, report_error: bool) bool {
     // Free any existing return data first
     if (interpreter.returnData) |old_data| {
         interpreter.allocator.free(old_data);
@@ -307,7 +336,9 @@ fn setReturnData(interpreter: *Interpreter, data: []const u8) bool {
     if (data.len > 0) {
         // Allocate a new buffer for the return data
         const return_copy = interpreter.allocator.alloc(u8, data.len) catch |err| {
-            file_logger.err("Failed to allocate memory for return data: {}", .{err});
+            if (report_error) {
+                file_logger.err("Failed to allocate memory for return data: {}", .{err});
+            }
             return false;
         };
         
@@ -1699,4 +1730,46 @@ test "Precompiled contract address detection" {
     // Basic verification that last byte is 1 and rest are 0
     try testing.expectEqual(@as(u8, 0), addr_bytes[0]);
     try testing.expectEqual(@as(u8, 1), addr_bytes[19]);
+}
+
+// Test for the return data helper
+test "setReturnData function" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    // Create a test interpreter instance
+    var interpreter = Interpreter{
+        .allocator = allocator,
+        .callDepth = 0,
+        .readOnly = false,
+        .returnData = null,
+    };
+    
+    // Test with empty data
+    try testing.expect(setReturnData(&interpreter, &[_]u8{}));
+    try testing.expectEqual(@as(?[]u8, null), interpreter.returnData);
+    
+    // Test with some data
+    const test_data = [_]u8{ 1, 2, 3, 4 };
+    try testing.expect(setReturnData(&interpreter, &test_data));
+    try testing.expect(interpreter.returnData != null);
+    if (interpreter.returnData) |data| {
+        try testing.expectEqualSlices(u8, &test_data, data);
+        allocator.free(data);
+    }
+    
+    // Test replacing existing data
+    const new_data = [_]u8{ 5, 6, 7 };
+    const old_data = try allocator.dupe(u8, &test_data);
+    interpreter.returnData = old_data;
+    
+    try testing.expect(setReturnData(&interpreter, &new_data));
+    try testing.expect(interpreter.returnData != null);
+    if (interpreter.returnData) |data| {
+        try testing.expectEqualSlices(u8, &new_data, data);
+        allocator.free(data);
+    }
+    
+    // Clean up
+    interpreter.returnData = null;
 }
