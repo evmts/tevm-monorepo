@@ -1,7 +1,7 @@
 const std = @import("std");
 
 // Use direct file imports to avoid module import issues
-const StateManager = @import("../StateManager/StateManager.zig").StateManager;
+const StateManager = @import("StateManager").StateManager;
 const Address = @import("Address").Address;
 
 // Define B160 type directly to avoid import conflicts

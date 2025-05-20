@@ -153,6 +153,12 @@ fn ripemd160(_: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
 
 /// IDENTITY: Returns the input data
 fn identity(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
+    // For empty input, return empty slice
+    if (input.len == 0) {
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
+    }
+    
     // Cap the output size to prevent excessive memory allocation
     const max_safe_len: usize = 1024 * 1024; // 1MB max for safety
     const safe_length = @min(input.len, max_safe_len);

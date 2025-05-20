@@ -228,16 +228,8 @@ fn createPrecompileAddress(value: u8) Address {
     return addr;
 }
 
-/// PrecompiledContract is the basic interface for native contracts implemented in Zig.
-/// Each contract must provide a method to calculate required gas based on input size
-/// and a method to execute the contract logic.
-pub const PrecompiledContract = struct {
-    /// Calculate required gas for execution
-    requiredGas: fn (input: []const u8) u64,
-    
-    /// Execute the precompiled contract
-    run: fn (input: []const u8, allocator: std.mem.Allocator) anyerror!?[]u8,
-};
+/// Use the PrecompiledContract type defined in common.zig
+const PrecompiledContract = common.PrecompiledContract;
 
 /// PrecompiledContracts is a mapping of addresses to precompiled contracts
 pub const PrecompiledContracts = std.AutoHashMap(Address, *const PrecompiledContract);
@@ -330,25 +322,25 @@ pub fn pragueContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try cancunContracts(allocator);
     
     // Address 0x0b: BLS12_381 G1 Add
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x0b}), &bls12_381.G1Add);
+    try contracts.put(createPrecompileAddress(0x0b), &bls12_381.G1Add);
     
     // Address 0x0c: BLS12_381 G1 Mul
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x0c}), &bls12_381.G1MultiExp);
+    try contracts.put(createPrecompileAddress(0x0c), &bls12_381.G1MultiExp);
     
     // Address 0x0d: BLS12_381 G2 Add
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x0d}), &bls12_381.G2Add);
+    try contracts.put(createPrecompileAddress(0x0d), &bls12_381.G2Add);
     
     // Address 0x0e: BLS12_381 G2 Mul
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x0e}), &bls12_381.G2MultiExp);
+    try contracts.put(createPrecompileAddress(0x0e), &bls12_381.G2MultiExp);
     
     // Address 0x0f: BLS12_381 Pairing
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x0f}), &bls12_381.Pairing);
+    try contracts.put(createPrecompileAddress(0x0f), &bls12_381.Pairing);
     
     // Address 0x10: BLS12_381 Map G1
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x10}), &bls12_381.MapG1);
+    try contracts.put(createPrecompileAddress(0x10), &bls12_381.MapG1);
     
     // Address 0x11: BLS12_381 Map G2
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x11}), &bls12_381.MapG2);
+    try contracts.put(createPrecompileAddress(0x11), &bls12_381.MapG2);
 
     logger.debug("Created Prague precompiled contracts", .{});
     

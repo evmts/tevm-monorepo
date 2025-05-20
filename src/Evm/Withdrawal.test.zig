@@ -3,9 +3,9 @@ const testing = std.testing;
 const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;
 const processWithdrawals = Withdrawal.processWithdrawals;
-// Use direct file imports
-const Address = @import("../Address/address.zig").Address;
-const StateManager = @import("../StateManager/StateManager.zig").StateManager;
+// Use module imports
+const Address = @import("Address").Address;
+const StateManager = @import("StateManager").StateManager;
 const evm = @import("evm.zig");
 const ChainRules = evm.ChainRules;
 

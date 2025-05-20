@@ -781,26 +781,14 @@ pub fn build(b: *std.Build) void {
     utils_test_step.dependOn(&run_utils_test.step);
     
     // Add a test for WithdrawalProcessor.test.zig
-    // Use a simple standard test for WithdrawalProcessor
+    // Create a standalone test for WithdrawalProcessor that directly uses files without module system
+    // This bypasses the module system's circular dependencies
     const withdrawal_processor_test = b.addTest(.{
         .name = "withdrawal-processor-test",
-        .root_source_file = b.path("src/Evm/WithdrawalProcessor.test.zig"),
+        .root_source_file = b.path("src/Test/WithdrawalProcessor.test.zig"),
         .target = target,
         .optimize = optimize,
     });
-    
-    // Add all modules to withdrawal_processor_test (same approach as other tests)
-    withdrawal_processor_test.root_module.addImport("Address", address_mod);
-    withdrawal_processor_test.root_module.addImport("Abi", abi_mod);
-    withdrawal_processor_test.root_module.addImport("Block", block_mod);
-    withdrawal_processor_test.root_module.addImport("Bytecode", bytecode_mod);
-    withdrawal_processor_test.root_module.addImport("Compiler", compiler_mod);
-    withdrawal_processor_test.root_module.addImport("Evm", evm_mod);
-    withdrawal_processor_test.root_module.addImport("Rlp", rlp_mod);
-    withdrawal_processor_test.root_module.addImport("Token", token_mod);
-    withdrawal_processor_test.root_module.addImport("Trie", trie_mod);
-    withdrawal_processor_test.root_module.addImport("Utils", utils_mod);
-    withdrawal_processor_test.root_module.addImport("StateManager", state_manager_mod);
 
     const run_withdrawal_processor_test = b.addRunArtifact(withdrawal_processor_test);
     
