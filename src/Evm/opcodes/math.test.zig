@@ -99,26 +99,17 @@ const math = struct {
     }
 };
 
-// Define a Stack that matches the interface in math.zig
+// Simple Stack implementation for tests
 const Stack = struct {
     data: [1024]BigInt = [_]BigInt{0} ** 1024, // Initialize all elements to 0
     size: usize = 0,
-    capacity: usize = 1024,
-    allocator: std.mem.Allocator,
     
-    pub fn init(allocator: std.mem.Allocator, capacity_unused: usize) !Stack {
-        _ = capacity_unused;
-        return Stack{ 
-            .allocator = allocator,
-        };
-    }
-    
-    pub fn deinit(self: *Stack) void {
-        _ = self;
+    pub fn init() Stack {
+        return Stack{ };
     }
     
     pub fn push(self: *Stack, value: BigInt) !void {
-        if (self.size >= self.capacity) {
+        if (self.size >= 1024) {
             return error.StackOverflow;
         }
         self.data[self.size] = value;
@@ -126,7 +117,7 @@ const Stack = struct {
     }
     
     pub fn pop(self: *Stack) !BigInt {
-        if (self.size == 0) return error.OutOfBounds;
+        if (self.size == 0) return error.StackUnderflow;
         self.size -= 1;
         const value = self.data[self.size];
         // Clear the popped value for security
@@ -135,38 +126,20 @@ const Stack = struct {
     }
 };
 
-// Simple mock implementation for testing, matching the expected structure in math.zig
+// Simple mock implementation for testing
 const MockInterpreter = struct {
-    evm: ?*anyopaque = null, // Match the struct in math.zig
-    allocator: std.mem.Allocator,
-    
-    pub fn init(allocator: std.mem.Allocator) MockInterpreter {
-        return MockInterpreter{ .allocator = allocator };
+    pub fn init() MockInterpreter {
+        return MockInterpreter{};
     }
 };
 
 const MockFrame = struct {
-    stack: *Stack,
-    memory: ?*anyopaque = null,
-    contract: ?*anyopaque = null,
-    logger: ?*anyopaque = null,
+    stack: Stack,
     
-    pub fn init() !*MockFrame {
-        var frame = std.testing.allocator.create(MockFrame) catch unreachable;
-        var stack = std.testing.allocator.create(Stack) catch unreachable;
-        stack.* = try Stack.init(std.testing.allocator, 1024);
-        
-        frame.* = MockFrame{
-            .stack = stack,
+    pub fn init() MockFrame {
+        return MockFrame{
+            .stack = Stack.init(),
         };
-        
-        return frame;
-    }
-    
-    pub fn deinit(self: *MockFrame) void {
-        self.stack.deinit();
-        std.testing.allocator.destroy(self.stack);
-        std.testing.allocator.destroy(self);
     }
 };
 

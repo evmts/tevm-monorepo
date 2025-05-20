@@ -145,13 +145,15 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // Check v value (should be 27 or 28 for legacy compatibility)
     if (v != 27 and v != 28) {
         // Return empty result for invalid signature
-        return try allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // Check that bytes 32-63 (except for v) are all zero
     if (!common.allZero(padded_input[33..64])) {
         // Return empty result for invalid signature format
-        return try allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // TODO: Implement actual ECRECOVER using secp256k1
@@ -234,9 +236,10 @@ test "SHA256 precompile" {
     
     // Test execution
     const output = try sha256Run(input, allocator);
-    defer allocator.free(output);
+    defer if (output) |data| allocator.free(data);
     
-    try std.testing.expectEqual(@as(usize, 32), output.len);
+    try std.testing.expect(output != null);
+    try std.testing.expectEqual(@as(usize, 32), output.?.len);
     // Known SHA256 hash of "hello world"
     const expected = [_]u8{
         0xb9, 0x4d, 0x27, 0xb9, 0x93, 0x4d, 0x3e, 0x08,
@@ -244,5 +247,5 @@ test "SHA256 precompile" {
         0xc4, 0x84, 0xef, 0xe3, 0x7a, 0x53, 0x80, 0xee,
         0x90, 0x88, 0xf7, 0xac, 0xe2, 0xef, 0xcd, 0xe9,
     };
-    try std.testing.expectEqualSlices(u8, &expected, output);
+    try std.testing.expectEqualSlices(u8, &expected, output.?);
 }

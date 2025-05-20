@@ -134,7 +134,7 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
 }
 
 /// Calculate dynamic gas for the EXP operation
-pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
+pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack.Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = interpreter;
     _ = frame;
     _ = memory;

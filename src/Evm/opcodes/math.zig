@@ -46,7 +46,7 @@ const Stack = struct {
 const Memory = struct {};
 
 // Test ADD operation
-pub fn opAdd(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opAdd(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a = try frame.stack.pop();
     const b = try frame.stack.pop();
     try frame.stack.push(a +% b); // Wrapping addition
@@ -54,7 +54,7 @@ pub fn opAdd(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u
 }
 
 // Test MUL operation
-pub fn opMul(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opMul(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a = try frame.stack.pop();
     const b = try frame.stack.pop();
     try frame.stack.push(a *% b); // Wrapping multiplication
@@ -62,15 +62,15 @@ pub fn opMul(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u
 }
 
 // Test SUB operation
-pub fn opSub(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opSub(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a = try frame.stack.pop();
     const b = try frame.stack.pop();
-    try frame.stack.push(a -% b); // Wrapping subtraction
+    try frame.stack.push(b -% a); // Correct order: first - second
     return "";
 }
 
 // Test DIV operation
-pub fn opDiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opDiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a = try frame.stack.pop();
     const b = try frame.stack.pop();
     
@@ -85,7 +85,7 @@ pub fn opDiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u
 }
 
 // Test SDIV operation (signed division)
-pub fn opSdiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opSdiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a_unsigned = try frame.stack.pop();
     const b_unsigned = try frame.stack.pop();
     
@@ -107,7 +107,7 @@ pub fn opSdiv(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const 
 }
 
 // Test MOD operation
-pub fn opMod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opMod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a = try frame.stack.pop();
     const b = try frame.stack.pop();
     
@@ -122,7 +122,7 @@ pub fn opMod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u
 }
 
 // Test SMOD operation (signed modulo)
-pub fn opSmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opSmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a_unsigned = try frame.stack.pop();
     const b_unsigned = try frame.stack.pop();
     
@@ -143,7 +143,7 @@ pub fn opSmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const 
 }
 
 // Test EXP operation (exponentiation)
-pub fn opExp(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opExp(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const base = try frame.stack.pop();
     const exponent = try frame.stack.pop();
     
@@ -176,7 +176,7 @@ pub fn opExp(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u
 }
 
 // Test ADDMOD operation
-pub fn opAddmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opAddmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a = try frame.stack.pop();
     const b = try frame.stack.pop();
     const n = try frame.stack.pop();
@@ -194,7 +194,7 @@ pub fn opAddmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]cons
 }
 
 // Test MULMOD operation
-pub fn opMulmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError\![]const u8 {
+pub fn opMulmod(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     const a = try frame.stack.pop();
     const b = try frame.stack.pop();
     const n = try frame.stack.pop();
@@ -460,4 +460,3 @@ test "Math - MULMOD operation" {
     _ = try opMulmod(0, undefined, &frame);
     try std.testing.expectEqual(@as(@"u256", 0), try stack.pop());
 }
-EOF < /dev/null

@@ -1,16 +1,17 @@
 const std = @import("std");
 const testing = std.testing;
-const test_utils = @import("test_utils.zig");
-const log = @import("log.zig");
+const pkg = @import("package.zig");
+const test_utils = pkg.test_utils;
+const log = pkg.log;
 
-// Direct imports like in the opcode file
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Contract = @import("../Contract.zig").Contract;
-const Memory = @import("../Memory.zig").Memory;
-const Stack = @import("../Stack.zig").Stack;
-const JumpTable = @import("../JumpTable.zig");
+// Import from package.zig
+const Frame = pkg.Frame.Frame;
+const ExecutionError = pkg.Frame.ExecutionError;
+const Interpreter = pkg.Interpreter.Interpreter;
+const Contract = pkg.Contract.Contract;
+const Memory = pkg.Memory.Memory;
+const Stack = pkg.Stack.Stack;
+const JumpTable = pkg.JumpTable;
 
 // Create test objects using test_utils
 fn createTestFrame() !struct {

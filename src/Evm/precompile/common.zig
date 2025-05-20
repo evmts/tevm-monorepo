@@ -67,7 +67,7 @@ pub fn rightPadBytes(allocator: std.mem.Allocator, data: []const u8, length: usi
     // Initialize to zeros
     @memset(result, 0);
     // Copy data to the left side
-    @memcpy(result, data);
+    @memcpy(result[0..data.len], data);
     
     return result;
 }
