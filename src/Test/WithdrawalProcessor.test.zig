@@ -1,23 +1,15 @@
 const std = @import("std");
 const testing = std.testing;
-const builtin = @import("builtin");
-// Import directly from local files instead of module
-const evm_module = @import("evm.zig");
-const ChainRules = evm_module.ChainRules;
-const Hardfork = evm_module.Hardfork;
-// Use a different approach for Address in tests to avoid import issues
-const Address = if (builtin.is_test) 
-    [20]u8 // Just use the raw type in tests as a direct alias for compatibility
-else 
-    @import("Address").Address;
-// Use the Evm module imports to avoid conflicts
-const WithdrawalData = evm.WithdrawalData;
-const WithdrawalProcessor = evm.WithdrawalProcessor;
-// Import directly from the file
-const WithdrawalProcessorModule = @import("WithdrawalProcessor.zig");
-const Block = WithdrawalProcessorModule.Block;
-const BlockWithdrawalProcessor = WithdrawalProcessorModule.BlockWithdrawalProcessor;
-const StateManager = @import("StateManager").StateManager;
+
+// Import directly from files instead of using modules to avoid circular dependencies
+const ChainRules = @import("../Evm/evm.zig").ChainRules;
+const Hardfork = @import("../Evm/evm.zig").Hardfork;
+const Address = @import("../Address/address.zig").Address;
+const WithdrawalData = @import("../Evm/Withdrawal.zig").WithdrawalData;
+const processWithdrawals = @import("../Evm/Withdrawal.zig").processWithdrawals;
+const WithdrawalProcessor = @import("../Evm/WithdrawalProcessor.zig");
+const Block = WithdrawalProcessor.Block;
+const BlockWithdrawalProcessor = WithdrawalProcessor.BlockWithdrawalProcessor;
 
 // Mock StateManager for testing withdrawal processing
 const MockStateManager = struct {
@@ -41,15 +33,7 @@ const MockStateManager = struct {
         balance: u128 = 0,
         nonce: u64 = 0,
     } {
-        // Convert Address to a consistent string representation for storage
-        var addr_bytes: [20]u8 = undefined;
-        if (@TypeOf(address) == [20]u8) {
-            addr_bytes = address;
-        } else {
-            @memcpy(addr_bytes[0..20], address[0..20]);
-        }
-        
-        const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{std.fmt.fmtSliceHexLower(&addr_bytes)});
+        const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{any}", .{address});
         defer self.balances.allocator.free(addr_str);
         
         if (self.balances.get(addr_str)) |balance| {
@@ -64,15 +48,7 @@ const MockStateManager = struct {
         balance: u128,
         nonce: u64 = 0,
     } {
-        // Convert Address to a consistent string representation for storage
-        var addr_bytes: [20]u8 = undefined;
-        if (@TypeOf(address) == [20]u8) {
-            addr_bytes = address;
-        } else {
-            @memcpy(addr_bytes[0..20], address[0..20]);
-        }
-        
-        const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{std.fmt.fmtSliceHexLower(&addr_bytes)});
+        const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{any}", .{address});
         try self.balances.put(addr_str, balance);
         return .{
             .balance = balance,
@@ -80,29 +56,13 @@ const MockStateManager = struct {
     }
     
     pub fn putAccount(self: *MockStateManager, address: Address, account: anytype) !void {
-        // Convert Address to a consistent string representation for storage
-        var addr_bytes: [20]u8 = undefined;
-        if (@TypeOf(address) == [20]u8) {
-            addr_bytes = address;
-        } else {
-            @memcpy(addr_bytes[0..20], address[0..20]);
-        }
-        
-        const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{std.fmt.fmtSliceHexLower(&addr_bytes)});
+        const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{any}", .{address});
         try self.balances.put(addr_str, account.balance);
     }
     
     // Helper function to get balance
     pub fn getBalance(self: *MockStateManager, address: Address) !u128 {
-        // Convert Address to a consistent string representation for storage
-        var addr_bytes: [20]u8 = undefined;
-        if (@TypeOf(address) == [20]u8) {
-            addr_bytes = address;
-        } else {
-            @memcpy(addr_bytes[0..20], address[0..20]);
-        }
-        
-        const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{std.fmt.fmtSliceHexLower(&addr_bytes)});
+        const addr_str = try std.fmt.allocPrint(self.balances.allocator, "{any}", .{address});
         defer self.balances.allocator.free(addr_str);
         return self.balances.get(addr_str) orelse 0;
     }
@@ -174,7 +134,7 @@ test "Block withdrawal processing with Shanghai rules" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @ptrCast(state_manager),
+        @as(*anyopaque, @ptrCast(state_manager)),
         shanghai_rules
     );
     
@@ -224,7 +184,7 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     
     // Process withdrawals in the block - should fail
     const result = block.processWithdrawals(
-        @ptrCast(state_manager),
+        @as(*anyopaque, @ptrCast(state_manager)),
         london_rules
     );
     
@@ -311,7 +271,7 @@ test "Multiple withdrawals for same account" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @ptrCast(state_manager),
+        @as(*anyopaque, @ptrCast(state_manager)),
         shanghai_rules
     );
     

@@ -25,11 +25,11 @@ fn getLogger() EvmLogger {
     return _logger.?;
 }
 
-// Convert Address ([20]u8) to B160 for StateManager
+// Convert Address to B160 for StateManager
 fn addressToB160(address: Address) B160 {
     var b160 = B160{ .bytes = undefined };
     // Safe copy with explicit sizes to prevent buffer overflows
-    @memcpy(b160.bytes[0..20], address[0..20]);
+    std.mem.copy(u8, &b160.bytes, &address.bytes);
     return b160;
 }
 

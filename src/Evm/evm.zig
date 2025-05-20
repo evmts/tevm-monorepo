@@ -15,6 +15,7 @@ pub const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 pub const debugOnly = @import("EvmLogger.zig").debugOnly;
 pub const logHexBytes = @import("EvmLogger.zig").logHexBytes;
 pub const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
+pub const B256 = StateManager.B256;
 
 pub const WithdrawalData = @import("Withdrawal.zig").WithdrawalData;
 pub const processWithdrawals = @import("Withdrawal.zig").processWithdrawals;

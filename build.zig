@@ -637,6 +637,33 @@ pub fn build(b: *std.Build) void {
         eip_test_step.dependOn(&run_eip_test.step);
     }
 
+    // Add a test for Withdrawal.test.zig
+    const withdrawal_test = b.addTest(.{
+        .name = "withdrawal-test",
+        .root_source_file = b.path("src/Evm/Withdrawal.test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to withdrawal_test
+    withdrawal_test.root_module.addImport("Address", address_mod);
+    withdrawal_test.root_module.addImport("Abi", abi_mod);
+    withdrawal_test.root_module.addImport("Block", block_mod);
+    withdrawal_test.root_module.addImport("Bytecode", bytecode_mod);
+    withdrawal_test.root_module.addImport("Compiler", compiler_mod);
+    withdrawal_test.root_module.addImport("Evm", evm_mod);
+    withdrawal_test.root_module.addImport("Rlp", rlp_mod);
+    withdrawal_test.root_module.addImport("Token", token_mod);
+    withdrawal_test.root_module.addImport("Trie", trie_mod);
+    withdrawal_test.root_module.addImport("Utils", utils_mod);
+    withdrawal_test.root_module.addImport("StateManager", state_manager_mod);
+    
+    const run_withdrawal_test = b.addRunArtifact(withdrawal_test);
+    
+    // Add a separate step for testing Withdrawal
+    const withdrawal_test_step = b.step("test-withdrawal", "Run Withdrawal tests");
+    withdrawal_test_step.dependOn(&run_withdrawal_test.step);
+    
     // Add test for Logger_test.zig
     const logger_test = b.addTest(.{
         .name = "logger-test",
