@@ -8,6 +8,11 @@ const Frame = @import("../Frame.zig").Frame;
 const Evm = evm_mod.Evm;
 const JumpTable = @import("../JumpTable.zig");
 const calls = @import("../opcodes/calls.zig");
+const Contract = @import("../Contract.zig").Contract;
+const Address = @import("../../Address/address.zig").Address;
+
+// For convenience
+const u256 = u256;
 
 // Test setup helper function
 fn setupInterpreter(enable_eip3541: bool) !Interpreter {
@@ -28,8 +33,23 @@ test "CREATE rejects contracts starting with 0xEF with EIP-3541 enabled" {
     var test_interpreter = try setupInterpreter(true);
     defer test_interpreter.deinit();
     
+    // Create a dummy contract for the test
+    var contract = try std.testing.allocator.create(Contract);
+    defer std.testing.allocator.destroy(contract);
+    
+    // Initialize the contract with minimal required fields
+    contract.* = Contract{
+        .code = &[_]u8{},
+        .input = &[_]u8{},
+        .gas = 1000000,
+        .address = std.mem.zeroes(Address), // Zero address
+        .caller = std.mem.zeroes(Address),  // Zero address
+        .value = 0,
+        .gas_refund = 0,
+    };
+    
     // Create a frame for execution
-    var frame = try Frame.init(std.testing.allocator);
+    var frame = try Frame.init(std.testing.allocator, contract);
     defer frame.deinit();
     
     // Push parameters for CREATE: value, offset, size
@@ -55,8 +75,23 @@ test "CREATE accepts contracts not starting with 0xEF with EIP-3541 enabled" {
     var test_interpreter = try setupInterpreter(true);
     defer test_interpreter.deinit();
     
+    // Create a dummy contract for the test
+    var contract = try std.testing.allocator.create(Contract);
+    defer std.testing.allocator.destroy(contract);
+    
+    // Initialize the contract with minimal required fields
+    contract.* = Contract{
+        .code = &[_]u8{},
+        .input = &[_]u8{},
+        .gas = 1000000,
+        .address = std.mem.zeroes(Address), // Zero address
+        .caller = std.mem.zeroes(Address),  // Zero address
+        .value = 0,
+        .gas_refund = 0,
+    };
+    
     // Create a frame for execution
-    var frame = try Frame.init(std.testing.allocator);
+    var frame = try Frame.init(std.testing.allocator, contract);
     defer frame.deinit();
     
     // Push parameters for CREATE: value, offset, size

@@ -32,6 +32,8 @@ pub const ProofNodes = struct {
     pub fn deinit(self: *ProofNodes) void {
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
+            // Free both key and value
+            self.allocator.free(entry.key_ptr.*);
             self.allocator.free(entry.value_ptr.*);
         }
         self.nodes.deinit();
@@ -444,12 +446,21 @@ test "ProofNodes - add and verify" {
     const path = [_]u8{1, 2, 3, 4};
     const value = "test_value";
     
+    // Create path_copy directly as a local variable that gets deferred
+    var path_copy = try allocator.dupe(u8, &path);
+    defer allocator.free(path_copy);
+    
+    // Create value_copy directly as a local variable that gets deferred
+    var value_copy = try allocator.dupe(u8, value);
+    defer allocator.free(value_copy);
+    
     const leaf = try trie.LeafNode.init(
         allocator,
-        try allocator.dupe(u8, &path),
-        trie.HashValue{ .Raw = try allocator.dupe(u8, value) }
+        path_copy,
+        trie.HashValue{ .Raw = value_copy }
     );
     var node = trie.TrieNode{ .Leaf = leaf };
+    defer node.deinit(allocator);
     
     // Encode the node
     const encoded = try node.encode(allocator);
@@ -473,9 +484,6 @@ test "ProofNodes - add and verify" {
     
     try testing.expectEqual(@as(usize, 1), nodes.len);
     try testing.expectEqualSlices(u8, encoded, nodes[0]);
-    
-    // Clean up the node
-    node.deinit(allocator);
 }
 
 test "ProofRetainer - collect nodes" {
@@ -490,10 +498,17 @@ test "ProofRetainer - collect nodes" {
     const path = [_]u8{1, 2};
     const value = "test_value";
     
+    // Create path_copy and value_copy as local variables that get deferred
+    var path_copy = try allocator.dupe(u8, &path);
+    defer allocator.free(path_copy);
+    
+    var value_copy = try allocator.dupe(u8, value);
+    defer allocator.free(value_copy);
+    
     const extension = try trie.ExtensionNode.init(
         allocator,
-        try allocator.dupe(u8, &path),
-        trie.HashValue{ .Raw = try allocator.dupe(u8, value) }
+        path_copy,
+        trie.HashValue{ .Raw = value_copy }
     );
     var node = trie.TrieNode{ .Extension = extension };
     defer node.deinit(allocator);
