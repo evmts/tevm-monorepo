@@ -62,10 +62,17 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 
 ### EIP-4895: Beacon chain withdrawals
 
-- **Status**: Not implemented
+- **Status**: Implemented
 - **Description**: Adds support for withdrawals from the beacon chain to the execution layer
 - **Complexity**: Medium
-- **Implementation**: Add new transaction type and processing logic for withdrawals
+- **Implementation**: Add withdrawal processing logic for beacon chain withdrawals
+- **What's done**: 
+  - Created WithdrawalData structure with index, validatorIndex, address, and amount fields
+  - Implemented Gwei to Wei conversion for withdrawal amounts
+  - Added process to credit withdrawal amounts to recipient accounts
+  - Added validation for chain rules and withdrawals root
+  - Integrated withdrawal processing in the block execution flow
+  - Added comprehensive test coverage for withdrawal processing
 
 ## Medium Priority
 
@@ -133,6 +140,7 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 8. ✅ Implement MCOPY opcode from Cancun (EIP-5656)
 9. ✅ Implement Transient Storage opcodes from Cancun (TLOAD, TSTORE - EIP-1153)
 10. ✅ Implement EIP-4844 (Shard Blob Transactions) - BLOBHASH and BLOBBASEFEE opcodes plus KZG precompile
+11. ✅ Implement EIP-4895 (Beacon chain withdrawals) - Process beacon chain withdrawals in blocks
 
 ## Test Cases
 

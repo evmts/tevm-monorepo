@@ -118,6 +118,7 @@ pub const FeeMarket = struct {
         
         if (parent_gas_used == parent_gas_target) {
             // If parent block used exactly the target gas, keep the base fee the same
+            const logger = getLogger();
             logger.debug("Parent block used exactly the target gas, keeping base fee the same", .{});
         } else if (parent_gas_used > parent_gas_target) {
             // If parent block used more than the target gas, increase the base fee
@@ -135,6 +136,7 @@ pub const FeeMarket = struct {
             // The overflow check is probably unnecessary given gas limits, but it's a good safety measure
             next_base_fee = if (std.math.add(u64, parent_base_fee, base_fee_delta)) |fee| fee else parent_base_fee;
             
+            const logger = getLogger();
             logger.debug("Parent block used more than target gas, increasing base fee by {d} wei", .{base_fee_delta});
         } else {
             // If parent block used less than the target gas, decrease the base fee
@@ -154,12 +156,14 @@ pub const FeeMarket = struct {
             else
                 MIN_BASE_FEE;
                 
+            const logger = getLogger();
             logger.debug("Parent block used less than target gas, decreasing base fee by {d} wei", .{base_fee_delta});
         }
         
         // Ensure base fee is at least the minimum
         next_base_fee = std.math.max(next_base_fee, MIN_BASE_FEE);
         
+        const logger = getLogger();
         logger.info("Next block base fee calculated: {d} wei", .{next_base_fee});
         return next_base_fee;
     }
@@ -181,6 +185,7 @@ pub const FeeMarket = struct {
         max_fee_per_gas: u64,
         max_priority_fee_per_gas: u64
     ) struct { effective_gas_price: u64, miner_fee: u64 } {
+        const logger = getLogger();
         const scoped = createScopedLogger(logger, "getEffectiveGasPrice()");
         defer scoped.deinit();
         
