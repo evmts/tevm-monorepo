@@ -4,8 +4,15 @@ const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 
-// Create a file-specific logger
-const logger = createLogger(@src().file);
+// We'll initialize the logger inside a function
+var _logger: ?EvmLogger = null;
+
+fn getLogger() EvmLogger {
+    if (_logger == null) {
+        _logger = createLogger("evm.zig");
+    }
+    return _logger.?;
+}
 
 /// EVM represents the Ethereum Virtual Machine
 /// 
@@ -47,7 +54,7 @@ pub const Evm = struct {
     ///
     /// Returns: A new Evm instance
     pub fn init() Evm {
-        logger.debug("Creating new EVM instance", .{});
+        getLogger().debug("Creating new EVM instance", .{});
         return Evm{};
     }
     
@@ -59,21 +66,21 @@ pub const Evm = struct {
     /// Parameters:
     /// - rules: The ChainRules to apply
     pub fn setChainRules(self: *Evm, rules: ChainRules) void {
-        logger.debug("Setting chain rules", .{});
-        logger.debug("  - Homestead: {}", .{rules.IsHomestead});
-        logger.debug("  - EIP150: {}", .{rules.IsEIP150});
-        logger.debug("  - EIP158: {}", .{rules.IsEIP158});
-        logger.debug("  - Byzantium: {}", .{rules.IsByzantium});
-        logger.debug("  - Constantinople: {}", .{rules.IsConstantinople});
-        logger.debug("  - Petersburg: {}", .{rules.IsPetersburg});
-        logger.debug("  - Istanbul: {}", .{rules.IsIstanbul});
-        logger.debug("  - Berlin: {}", .{rules.IsBerlin});
-        logger.debug("  - London: {}", .{rules.IsLondon});
-        logger.debug("  - Merge: {}", .{rules.IsMerge});
-        logger.debug("  - Shanghai: {}", .{rules.IsShanghai});
-        logger.debug("  - Cancun: {}", .{rules.IsCancun});
-        logger.debug("  - Prague: {}", .{rules.IsPrague});
-        logger.debug("  - Verkle: {}", .{rules.IsVerkle});
+        getLogger().debug("Setting chain rules", .{});
+        getLogger().debug("  - Homestead: {}", .{rules.IsHomestead});
+        getLogger().debug("  - EIP150: {}", .{rules.IsEIP150});
+        getLogger().debug("  - EIP158: {}", .{rules.IsEIP158});
+        getLogger().debug("  - Byzantium: {}", .{rules.IsByzantium});
+        getLogger().debug("  - Constantinople: {}", .{rules.IsConstantinople});
+        getLogger().debug("  - Petersburg: {}", .{rules.IsPetersburg});
+        getLogger().debug("  - Istanbul: {}", .{rules.IsIstanbul});
+        getLogger().debug("  - Berlin: {}", .{rules.IsBerlin});
+        getLogger().debug("  - London: {}", .{rules.IsLondon});
+        getLogger().debug("  - Merge: {}", .{rules.IsMerge});
+        getLogger().debug("  - Shanghai: {}", .{rules.IsShanghai});
+        getLogger().debug("  - Cancun: {}", .{rules.IsCancun});
+        getLogger().debug("  - Prague: {}", .{rules.IsPrague});
+        getLogger().debug("  - Verkle: {}", .{rules.IsVerkle});
         self.chainRules = rules;
     }
     
@@ -86,7 +93,7 @@ pub const Evm = struct {
     /// Parameters:
     /// - readOnly: Whether to enable read-only mode
     pub fn setReadOnly(self: *Evm, readOnly: bool) void {
-        logger.debug("Setting EVM read-only mode: {}", .{readOnly});
+        getLogger().debug("Setting EVM read-only mode: {}", .{readOnly});
         self.readOnly = readOnly;
     }
     
@@ -99,7 +106,7 @@ pub const Evm = struct {
     /// Parameters:
     /// - stateManager: Pointer to the StateManager to use
     pub fn setStateManager(self: *Evm, stateManager: *StateManager) void {
-        logger.debug("Setting state manager for EVM", .{});
+        getLogger().debug("Setting state manager for EVM", .{});
         self.state_manager = stateManager;
     }
 };

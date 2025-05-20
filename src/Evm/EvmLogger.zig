@@ -35,8 +35,14 @@ pub const EvmLogger = struct {
     /// The tag for this logger instance (typically the module or component name)
     tag: []const u8,
     
-    /// Optional custom writer (if null, uses std.debug.print)
-    writer: ?std.io.Writer(anytype, std.io.Error!usize, std.io.write) = null,
+    /// Whether to use standard debug.print (true) or custom writer (false)
+    use_std_debug: bool = true,
+    
+    /// Custom data for alternate logging implementations
+    writer_data: ?*anyopaque = null,
+    
+    /// Writer function pointer for custom logging
+    writer_fn: ?*const fn(*anyopaque, []const u8) void = null,
 
     /// Creates a new logger with the specified tag
     pub fn init(tag: []const u8) EvmLogger {
@@ -44,10 +50,22 @@ pub const EvmLogger = struct {
     }
     
     /// Creates a new logger with the specified tag and custom writer
-    pub fn initWithWriter(tag: []const u8, writer: anytype) EvmLogger {
+    pub fn initWithWriter(tag: []const u8, writer_ctx: anytype, writer_function: fn(@TypeOf(writer_ctx), []const u8) void) EvmLogger {
+        const T = @TypeOf(writer_ctx);
+        const ptr = @constCast(&writer_ctx);
+        
+        const writerFn = struct {
+            fn writerCallback(data: *anyopaque, message: []const u8) void {
+                const ctx_ptr = @as(*T, @ptrCast(@alignCast(data)));
+                writer_function(ctx_ptr.*, message);
+            }
+        }.writerCallback;
+        
         return EvmLogger{ 
             .tag = tag,
-            .writer = writer,
+            .use_std_debug = false,
+            .writer_data = @ptrCast(ptr),
+            .writer_fn = writerFn,
         };
     }
 
@@ -76,8 +94,11 @@ pub const EvmLogger = struct {
         if (comptime ENABLE_DEBUG_LOGS) {
             const level_str = levelFormat(level);
             
-            if (self.writer) |writer| {
-                // Use the custom writer if available
+            if (!self.use_std_debug and self.writer_fn != null and self.writer_data != null) {
+                // Use the custom writer
+                const writer_fn = self.writer_fn.?;
+                const writer_data = self.writer_data.?;
+                
                 const message = std.fmt.allocPrint(
                     std.heap.page_allocator, 
                     "{s} {s}: " ++ fmt ++ "\n", 
@@ -85,7 +106,7 @@ pub const EvmLogger = struct {
                 ) catch return;
                 defer std.heap.page_allocator.free(message);
                 
-                writer.write(message) catch {};
+                writer_fn(writer_data, message);
             } else {
                 // Fall back to std.debug.print
                 std.debug.print("{s} {s}: " ++ fmt ++ "\n", .{ level_str, self.tag } ++ args);
@@ -105,7 +126,7 @@ pub fn createLogger(comptime file_path: []const u8) EvmLogger {
     }
     
     // Use the file name as the logger tag
-    comptime const file_name = file_path[file_name_start:];
+    const file_name = comptime file_path[file_name_start..file_path.len];
     
     return EvmLogger.init(file_name);
 }
@@ -146,8 +167,8 @@ pub fn logStackSlop(logger: EvmLogger, stack_data: []const u256, op_name: []cons
         
         // Define how many stack items to show (all if <= 8, otherwise top and bottom)
         const compact_view = stack_data.len > 8;
-        const top_items = if (compact_view) 4 else stack_data.len;
-        const bottom_items = if (compact_view) 2 else 0;
+        const top_items: usize = if (compact_view) 4 else stack_data.len;
+        const bottom_items: usize = if (compact_view) 2 else 0;
         
         // Show top N items
         var i: usize = 0;
@@ -213,6 +234,7 @@ pub fn logStorage(logger: EvmLogger, storage: anytype) void {
         // Implementation depends on how storage is represented
         // This is a placeholder
         logger.debug("  (storage logging not yet implemented)", .{});
+        _ = storage; // Suppress unused parameter warning
     }
 }
 

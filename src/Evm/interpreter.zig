@@ -148,7 +148,6 @@ pub const Interpreter = struct {
 
         // Make sure the readOnly is only set if we aren't in readOnly yet.
         // This also makes sure that the readOnly flag isn't removed for child calls.
-        const previousReadOnly = self.readOnly;
         if (readOnly and !self.readOnly) {
             self.logger.debug("Setting readOnly mode to true", .{});
             self.readOnly = true;

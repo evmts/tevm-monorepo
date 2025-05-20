@@ -431,9 +431,11 @@ const KECCAK256 = struct {
         var total_size: u64 = undefined;
         
         // Check for overflow when adding offset and size
-        if (@addWithOverflow(u64, offset, size, &total_size)) {
+        const add_result = @addWithOverflow(offset, size);
+        if (add_result[1] != 0) {
             return MemorySize{ .size = 0, .overflow = true };
         }
+        total_size = add_result[0];
         
         // Calculate memory size with proper alignment (32 bytes)
         var words = (total_size + 31) / 32;

@@ -140,10 +140,10 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     defer allocator.free(padded_input);
     
     // Extract the hash, v, r, s components
-    const hash = padded_input[0:32];
+    const hash = padded_input[0..32];
     const v = padded_input[32];
-    const r = padded_input[64:96];
-    const s = padded_input[96:128];
+    const r = padded_input[64..96];
+    const s = padded_input[96..128];
     
     // Check v value (should be 27 or 28 for legacy compatibility)
     if (v != 27 and v != 28) {

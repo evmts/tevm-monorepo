@@ -16,7 +16,7 @@ fn dataCopyRequiredGas(input: []const u8) u64 {
 /// Execute the identity (data copy) precompile
 /// Simply returns a copy of the input data
 fn dataCopyRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
-    var output = try allocator.alloc(u8, input.len);
+    const output = try allocator.alloc(u8, input.len);
     @memcpy(output, input);
     return output;
 }

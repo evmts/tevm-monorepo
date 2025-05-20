@@ -319,7 +319,7 @@ test "RLP error handling - remainder in non-stream mode" {
     const allocator = testing.allocator;
     
     // Encode "a", but append an extra byte
-    var encoded = try rlp.encode(allocator, "a");
+    const encoded = try rlp.encode(allocator, "a");
     defer allocator.free(encoded);
     
     var with_remainder = try allocator.alloc(u8, encoded.len + 1);
