@@ -806,10 +806,8 @@ pub const HashBuilder = struct {
                 // No match, keep the node
                 var leaf_copy = leaf;
                 leaf_copy.nibbles = try self.allocator.dupe(u8, leaf.nibbles);
-                leaf_copy.value = switch (leaf.value) {
-                    .Raw => |data| HashValue{ .Raw = try self.allocator.dupe(u8, data) },
-                    .Hash => |hash| HashValue{ .Hash = hash },
-                };
+                // Use the clone method to properly handle memory ownership
+                leaf_copy.value = try leaf.value.clone(self.allocator);
                 return TrieNode{ .Leaf = leaf_copy };
             },
             .Extension => |extension| {
@@ -982,10 +980,16 @@ pub const HashBuilder = struct {
                 switch (child) {
                     .Raw => |data| {
                         // Create a leaf for the raw data
+                        const empty_path = try self.allocator.alloc(u8, 0);
+                        errdefer self.allocator.free(empty_path);
+                        
+                        const data_copy = try self.allocator.dupe(u8, data);
+                        errdefer self.allocator.free(data_copy);
+                        
                         const leaf = try LeafNode.init(
                             self.allocator,
-                            try self.allocator.alloc(u8, 0),
-                            HashValue{ .Raw = try self.allocator.dupe(u8, data) }
+                            empty_path,
+                            HashValue{ .Raw = data_copy }
                         );
                         next_node = TrieNode{ .Leaf = leaf };
                     },
