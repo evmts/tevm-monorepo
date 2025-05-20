@@ -2,7 +2,7 @@
 
 ## Overview
 
-EIP-3541 is implemented in the Tevm Zig EVM by adding a validation check in both the `CREATE` and `CREATE2` opcodes to reject contract creation if the contract bytecode starts with `0xEF`. This implementation is controlled by the `IsEIP3541` flag in the `ChainRules` struct.
+EIP-3541 is implemented in the Tevm Zig EVM by adding a validation check in both the `CREATE` and `CREATE2` opcodes to reject contract creation if the contract bytecode starts with `0xEF`. This implementation is controlled by the `IsEIP3541` flag in the `ChainRules` struct. Note that this EIP reserves the `0xEF` prefix for future protocol upgrades.
 
 ## Code Structure
 

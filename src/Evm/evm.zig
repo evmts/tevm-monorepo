@@ -489,7 +489,7 @@ pub const ChainRules = struct {
     IsEIP5656: bool = true,
     
     /// Is EIP3541 rules enabled (London, reject new contracts that start with 0xEF)
-    /// Rejects new contract code starting with the 0xEF byte
+    /// Rejects new contract code starting with the 0xEF byte to reserve this prefix for future protocol upgrades
     IsEIP3541: bool = true,
     
     /// Create chain rules for a specific hardfork

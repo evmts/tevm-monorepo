@@ -6,7 +6,7 @@ EIP-3541 introduces a simple restriction that rejects new contract creation (dep
 
 ## Motivation
 
-The motivation behind EIP-3541 was to prepare for a future upgrade to the Ethereum Virtual Machine (EVM) that would add new instructions beginning with the `0xEF` prefix, specifically targeting EVM Object Format (EOF). By rejecting contracts that start with `0xEF`, this EIP reserves this prefix for future upgrades without worrying about backward compatibility with existing deployed contracts.
+The motivation behind EIP-3541 was to prepare for a future upgrade to the Ethereum Virtual Machine (EVM) that would add new instructions beginning with the `0xEF` prefix. By rejecting contracts that start with `0xEF`, this EIP reserves this prefix for future upgrades without worrying about backward compatibility with existing deployed contracts.
 
 ## Implementation Requirements
 
