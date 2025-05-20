@@ -1,15 +1,16 @@
 const std = @import("std");
 
-// Use package-relative imports instead of package imports
-pub const Frame = @import("../Frame.zig").Frame;
-pub const ExecutionError = @import("../Frame.zig").ExecutionError;
-pub const Interpreter = @import("../interpreter.zig").Interpreter;
-pub const Evm = @import("../evm.zig").EVM;
-pub const Contract = @import("../Contract.zig").Contract;
-pub const Memory = @import("../Memory.zig").Memory;
-pub const Stack = @import("../Stack.zig").Stack;
-pub const Address = @import("../State/Account.zig").Address;
-pub const JumpTable = @import("../JumpTable.zig");
+// Use the local package.zig file for imports
+const pkg = @import("package.zig");
+pub const Frame = pkg.Frame;
+pub const ExecutionError = pkg.ExecutionError;
+pub const Interpreter = pkg.Interpreter;
+pub const Evm = pkg.Evm;
+pub const Contract = pkg.Contract;
+pub const Memory = pkg.Memory;
+pub const Stack = pkg.Stack;
+pub const Address = pkg.Address;
+pub const JumpTable = pkg.JumpTable;
 
 // Define a constant for the u256 type to ensure consistency across test files
 pub const @"u256" = u64;

@@ -26,8 +26,13 @@ pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const z = try frame.stack.pop(); // Modulus
     const y = try frame.stack.pop();
     
-    // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    // Get reference to x (which is now at the top of the stack) - handle error case
+    const x = frame.stack.peek() catch |err| {
+        // Re-push the values we popped so stack is in a consistent state
+        try frame.stack.push(y);
+        try frame.stack.push(z);
+        return err;
+    };
     
     // If modulus is zero, the result is zero
     if (z == 0) {
@@ -57,8 +62,13 @@ pub fn opMulmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const z = try frame.stack.pop(); // Modulus
     const y = try frame.stack.pop();
     
-    // Get reference to x (which is now at the top of the stack)
-    const x = try frame.stack.peek();
+    // Get reference to x (which is now at the top of the stack) - handle error case
+    const x = frame.stack.peek() catch |err| {
+        // Re-push the values we popped so stack is in a consistent state
+        try frame.stack.push(y);
+        try frame.stack.push(z);
+        return err;
+    };
     
     // If modulus is zero, the result is zero
     if (z == 0) {
@@ -169,8 +179,8 @@ pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, me
         return error.OutOfGas;
     }
     
-    // Check if stack access is valid
-    if (stack.size - 2 >= stack.capacity) {
+    // Check if stack access is valid - prevent out-of-bounds access
+    if (stack.size <= 2 || stack.data.len < stack.size) {
         return error.OutOfGas;
     }
     
@@ -229,8 +239,12 @@ pub fn opSignextend(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     // Pop the byte position from the stack (the number of low-order bytes to consider)
     const byte_pos = try frame.stack.pop();
     
-    // Get reference to the value (which is now at the top of the stack)
-    const value = try frame.stack.peek();
+    // Get reference to the value (which is now at the top of the stack) - handle error case
+    const value = frame.stack.peek() catch |err| {
+        // Re-push the value we popped so stack is in a consistent state
+        try frame.stack.push(byte_pos);
+        return err;
+    };
     
     // If byte_pos >= 32, value remains unchanged
     if (byte_pos >= 32) {
@@ -269,8 +283,12 @@ pub fn opMod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     // Pop x (divisor) from the stack
     const x = try frame.stack.pop();
     
-    // Get reference to y (dividend, which is now at the top of the stack)
-    const y = try frame.stack.peek();
+    // Get reference to y (dividend, which is now at the top of the stack) - handle error case
+    const y = frame.stack.peek() catch |err| {
+        // Re-push the value we popped so stack is in a consistent state
+        try frame.stack.push(x);
+        return err;
+    };
     
     // Modulo by zero returns 0 in the EVM
     if (x == 0) {
@@ -295,8 +313,12 @@ pub fn opSdiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     // Pop divisor from the stack
     const divisor = try frame.stack.pop();
     
-    // Get reference to dividend (which is now at the top of the stack)
-    const dividend = try frame.stack.peek();
+    // Get reference to dividend (which is now at the top of the stack) - handle error case
+    const dividend = frame.stack.peek() catch |err| {
+        // Re-push the value we popped so stack is in a consistent state
+        try frame.stack.push(divisor);
+        return err;
+    };
     
     // Division by zero returns 0 in the EVM
     if (divisor == 0) {
