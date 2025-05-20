@@ -26,8 +26,9 @@ const Address = AddressModule.Address;
 const UtilsModule = @import("Utils");
 const hex = UtilsModule.hex;
 
-// Using Zig's native u256
-const u256_t = u256;
+// Get U256 from StateManager
+const StateManagerModule = @import("StateManager");
+const u256_t = @import("StateManager").U256;
 fn u256_t_from_be_bytes(bytes: []const u8) u256_t {
     if (bytes.len == 0) return 0;
     // Ensure bytes slice is 32 bytes for std.mem.bytesToValue

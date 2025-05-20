@@ -247,6 +247,7 @@ pub fn build(b: *std.Build) void {
     lib_unit_tests.root_module.addImport("Token", token_mod);
     lib_unit_tests.root_module.addImport("Trie", trie_mod);
     lib_unit_tests.root_module.addImport("Utils", utils_mod);
+    lib_unit_tests.root_module.addImport("StateManager", state_manager_mod);
 
     // Additional standalone test specifically for Frame.test.zig
     const frame_test = b.addTest(.{
@@ -267,6 +268,7 @@ pub fn build(b: *std.Build) void {
     frame_test.root_module.addImport("Token", token_mod);
     frame_test.root_module.addImport("Trie", trie_mod);
     frame_test.root_module.addImport("Utils", utils_mod);
+    frame_test.root_module.addImport("StateManager", state_manager_mod);
 
     const run_frame_test = b.addRunArtifact(frame_test);
 
@@ -293,6 +295,7 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("Token", token_mod);
     evm_test.root_module.addImport("Trie", trie_mod);
     evm_test.root_module.addImport("Utils", utils_mod);
+    evm_test.root_module.addImport("StateManager", state_manager_mod);
 
     const run_evm_test = b.addRunArtifact(evm_test);
 
@@ -429,6 +432,7 @@ pub fn build(b: *std.Build) void {
     contract_test.root_module.addImport("Token", token_mod);
     contract_test.root_module.addImport("Trie", trie_mod);
     contract_test.root_module.addImport("Utils", utils_mod);
+    contract_test.root_module.addImport("StateManager", state_manager_mod);
 
     const run_contract_test = b.addRunArtifact(contract_test);
     
@@ -455,6 +459,7 @@ pub fn build(b: *std.Build) void {
     evm_logger_test.root_module.addImport("Token", token_mod);
     evm_logger_test.root_module.addImport("Trie", trie_mod);
     evm_logger_test.root_module.addImport("Utils", utils_mod);
+    evm_logger_test.root_module.addImport("StateManager", state_manager_mod);
 
     const run_evm_logger_test = b.addRunArtifact(evm_logger_test);
     
@@ -534,6 +539,7 @@ pub fn build(b: *std.Build) void {
     precompile_test.root_module.addImport("Token", token_mod);
     precompile_test.root_module.addImport("Trie", trie_mod);
     precompile_test.root_module.addImport("Utils", utils_mod);
+    precompile_test.root_module.addImport("StateManager", state_manager_mod);
 
     const run_precompile_test = b.addRunArtifact(precompile_test);
     
@@ -560,6 +566,7 @@ pub fn build(b: *std.Build) void {
     precompiled_test.root_module.addImport("Token", token_mod);
     precompiled_test.root_module.addImport("Trie", trie_mod);
     precompiled_test.root_module.addImport("Utils", utils_mod);
+    precompiled_test.root_module.addImport("StateManager", state_manager_mod);
 
     const run_precompiled_test = b.addRunArtifact(precompiled_test);
     
@@ -586,6 +593,7 @@ pub fn build(b: *std.Build) void {
     evm_test_helpers_test.root_module.addImport("Token", token_mod);
     evm_test_helpers_test.root_module.addImport("Trie", trie_mod);
     evm_test_helpers_test.root_module.addImport("Utils", utils_mod);
+    evm_test_helpers_test.root_module.addImport("StateManager", state_manager_mod);
 
     const run_evm_test_helpers_test = b.addRunArtifact(evm_test_helpers_test);
     
@@ -633,6 +641,7 @@ pub fn build(b: *std.Build) void {
         eip_test.root_module.addImport("Token", token_mod);
         eip_test.root_module.addImport("Trie", trie_mod);
         eip_test.root_module.addImport("Utils", utils_mod);
+        eip_test.root_module.addImport("StateManager", state_manager_mod);
         
         const run_eip_test = b.addRunArtifact(eip_test);
         eip_test_step.dependOn(&run_eip_test.step);
