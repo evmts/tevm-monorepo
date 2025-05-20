@@ -121,7 +121,7 @@ pub const Memory = struct {
     /// - offset: The offset in memory to write to
     /// - val: The 256-bit value to write
     ///
-    /// Errors: Returns error if memory resize fails
+    /// Errors: Returns error if memory resize fails or if offset arithmetic overflows
     pub fn set32(self: *Memory, offset: u64, val: BigInt) !void {
         // Safety check for overflow using safe arithmetic
         const end_offset = std.math.add(u64, offset, 32) catch return error.InvalidOffset;
@@ -131,13 +131,7 @@ pub const Memory = struct {
             try self.resize(end_offset);
         }
 
-        // Get a slice to the target memory region for safer operations
-        const target_slice = self.store.items[offset..end_offset];
-        
-        // First, clear the memory region
-        @memset(target_slice, 0);
-
-        // Convert u256 to bytes in big-endian format
+        // Convert value to big-endian bytes first
         var buffer: [32]u8 = [_]u8{0} ** 32;
         
         // Manually convert the value to big-endian bytes in a safer way
@@ -147,26 +141,48 @@ pub const Memory = struct {
             // Mask to only get the least significant byte
             buffer[i] = @truncate(v & 0xFF);
             v >>= 8;
+            
             // Exit condition checks
             if (i == 0) break;
             if (v == 0) break; // Optimization: Stop early if remainder is 0
             i -= 1;
         }
         
-        // Safe copy to the target memory region
+        // Now access memory and copy buffer contents after all calculations are complete
+        // This ensures we don't access memory until after the memory resize succeeds
+        const target_slice = self.store.items[offset..end_offset];
+        
+        // Clear the target memory region first
+        @memset(target_slice, 0);
+        
+        // Safer approach: Copy from known-size buffer to target
         @memcpy(target_slice, &buffer);
     }
 
     /// Resize expands the memory to accommodate the specified size
     ///
     /// This function grows or shrinks the memory to exactly the specified size.
+    /// It uses a safe approach to convert between potentially different integer sizes.
     ///
     /// Parameters:
     /// - size: The new size in bytes for the memory
     ///
-    /// Error: Returns an error if memory allocation fails
+    /// Error: Returns an error if memory allocation fails or if size exceeds maximum allowed size
     pub fn resize(self: *Memory, size: u64) !void {
-        try self.store.resize(size);
+        // Check if size is too large for usize (required by ArrayList.resize)
+        if (size > std.math.maxInt(usize)) {
+            return error.MemoryTooLarge;
+        }
+        
+        // Convert to usize for ArrayList.resize
+        const safe_size: usize = @intCast(size);
+        
+        // Resize the backing store
+        try self.store.resize(safe_size);
+        
+        // Update gas cost metrics when memory expands
+        // This is important for EVM gas metering
+        // TODO: Implement more accurate gas metering
     }
     
     /// Require ensures memory is sized to at least offset + size
@@ -242,7 +258,12 @@ pub const Memory = struct {
     /// GetPtr returns a slice from offset to offset+size
     ///
     /// This returns a direct slice into the memory without making a copy.
-    /// The returned slice must not be stored or used after memory contents change.
+    /// IMPORTANT: The returned slice must not be stored or used after memory contents change.
+    /// This function is primarily intended for immediate, read-only access to memory data,
+    /// such as for logging or temporary viewing of memory contents.
+    ///
+    /// For any operation that requires storing the memory data or using it after memory
+    /// might change, use getCopy() instead.
     ///
     /// Parameters:
     /// - offset: The starting offset in memory
@@ -250,7 +271,7 @@ pub const Memory = struct {
     ///
     /// Returns: A slice referencing the memory data directly
     /// Errors: Returns error.OutOfBounds if the requested range is not in memory
-    pub fn getPtr(self: *const Memory, offset: u64, size: u64) error{OutOfBounds}![]u8 {
+    pub fn getPtr(self: *const Memory, offset: u64, size: u64) error{OutOfBounds}![]const u8 {
         if (size == 0) {
             // For consistency with the rest of the API, return an empty slice from the store
             // if available, otherwise an empty static array
@@ -274,7 +295,8 @@ pub const Memory = struct {
             return error.OutOfBounds;
         }
 
-        // Return slice after all bounds checking is complete
+        // Return a constant slice after all bounds checking is complete
+        // This makes it clear that the slice should not be modified directly
         return self.store.items[offset..end_offset];
     }
 

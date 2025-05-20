@@ -770,6 +770,32 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing Utils
     const utils_test_step = b.step("test-utils", "Run Utils tests");
     utils_test_step.dependOn(&run_utils_test.step);
+    
+    // Add a test for WithdrawalProcessor.test.zig
+    const withdrawal_processor_test = b.addTest(.{
+        .name = "withdrawal-processor-test",
+        .root_source_file = b.path("src/Evm/WithdrawalProcessor.test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to withdrawal_processor_test
+    withdrawal_processor_test.root_module.addImport("Address", address_mod);
+    withdrawal_processor_test.root_module.addImport("Abi", abi_mod);
+    withdrawal_processor_test.root_module.addImport("Block", block_mod);
+    withdrawal_processor_test.root_module.addImport("Bytecode", bytecode_mod);
+    withdrawal_processor_test.root_module.addImport("Compiler", compiler_mod);
+    withdrawal_processor_test.root_module.addImport("Evm", evm_mod);
+    withdrawal_processor_test.root_module.addImport("Rlp", rlp_mod);
+    withdrawal_processor_test.root_module.addImport("Token", token_mod);
+    withdrawal_processor_test.root_module.addImport("Trie", trie_mod);
+    withdrawal_processor_test.root_module.addImport("Utils", utils_mod);
+
+    const run_withdrawal_processor_test = b.addRunArtifact(withdrawal_processor_test);
+    
+    // Add a separate step for testing WithdrawalProcessor
+    const withdrawal_processor_test_step = b.step("test-withdrawal-processor", "Run WithdrawalProcessor tests");
+    withdrawal_processor_test_step.dependOn(&run_withdrawal_processor_test.step);
 
     // Define test step for all tests
     const test_step = b.step("test", "Run unit tests");
@@ -798,6 +824,7 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_known_roots_test.step);
     test_step.dependOn(&run_trie_specific_test.step);
     test_step.dependOn(&run_utils_test.step);
+    test_step.dependOn(&run_withdrawal_processor_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

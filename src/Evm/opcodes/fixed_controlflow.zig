@@ -125,7 +125,6 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         var return_buffer = frame.memory.allocator.alloc(u8, size_usize) catch {
             return ExecutionError.OutOfGas;
         };
-        errdefer frame.memory.allocator.free(return_buffer);
         
         // Safely copy memory contents to the new buffer
         var i: usize = 0;
@@ -134,10 +133,27 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
             return_buffer[i] = frame.memory.get8(offset_usize + i);
         }
         
+        // Free existing return data if any
+        if (frame.returnData) |old_data| {
+            // Only free if it's not a static empty slice
+            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+                frame.memory.allocator.free(old_data);
+            }
+        }
+        
         // Set the return data using the safely constructed buffer
         frame.returnData = return_buffer;
     } else {
         // Empty return data
+        // Free existing return data if any
+        if (frame.returnData) |old_data| {
+            // Only free if it's not a static empty slice
+            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+                frame.memory.allocator.free(old_data);
+            }
+        }
+        
+        // Use a static empty slice to avoid allocation
         frame.returnData = &[_]u8{};
     }
     
@@ -191,10 +207,15 @@ pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         }
         
         // Set the return data using the safely constructed buffer
+        // Free any existing return data first
+        if (frame.returnData) |old_data| {
+            frame.memory.allocator.free(old_data);
+        }
         frame.returnData = return_buffer;
     } else {
         // Empty return data (silent revert)
-        frame.returnData = &[_]u8{};
+        // Use a static empty slice to avoid allocation errors
+        try frame.setReturnData(&[_]u8{});
     }
     
     // Halt execution and revert state changes

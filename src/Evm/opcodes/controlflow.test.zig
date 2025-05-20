@@ -51,8 +51,8 @@ test "JUMP opcode" {
 test "JUMPI opcode - condition true" {
     const allocator = std.testing.allocator;
     
-    // Create a simple contract with JUMPDEST at position 4
-    const code = [_]u8{ 0x60, 0x04, 0x60, 0x01, 0x57, 0x5B, 0x00 }; // PUSH1 0x04, PUSH1 0x01, JUMPI, JUMPDEST, STOP
+    // Create a simple contract with JUMPDEST at position 5
+    const code = [_]u8{ 0x60, 0x05, 0x60, 0x01, 0x57, 0x5B, 0x00 }; // PUSH1 0x05, PUSH1 0x01, JUMPI, JUMPDEST, STOP
     const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
@@ -64,7 +64,7 @@ test "JUMPI opcode - condition true" {
     defer frame.deinit();
     
     // Set up the stack with destination and condition
-    try frame.stack.push(4); // Destination is position 4 (JUMPDEST)
+    try frame.stack.push(5); // Destination is position 5 (JUMPDEST)
     try frame.stack.push(1); // Condition is true (non-zero)
     frame.pc = 4; // PC is at the JUMPI opcode
     
@@ -79,7 +79,7 @@ test "JUMPI opcode - condition true" {
     _ = try controlflow.opJumpi(frame.pc, interpreter, &frame);
     
     // Check if PC was updated correctly (should be at JUMPDEST)
-    try std.testing.expectEqual(@as(usize, 3), frame.pc); // One less because interpreter will increment
+    try std.testing.expectEqual(@as(usize, 4), frame.pc); // One less because interpreter will increment
 }
 
 // Test the JUMPI opcode with condition false

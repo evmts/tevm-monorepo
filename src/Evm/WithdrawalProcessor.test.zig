@@ -5,7 +5,8 @@ const Block = WithdrawalProcessor.Block;
 const BlockWithdrawalProcessor = WithdrawalProcessor.BlockWithdrawalProcessor;
 const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;
-const Address = @import("../Address/address.zig").Address;
+// Use imports for which module paths are defined in build.zig
+const Address = @import("Address").Address;
 const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 const evm = @import("evm.zig");
 const ChainRules = evm.ChainRules;
@@ -131,7 +132,7 @@ test "Block withdrawal processing with Shanghai rules" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @ptrCast(*StateManager, @constCast(state_manager)),
+        @as(*StateManager, @ptrCast(state_manager)),
         shanghai_rules
     );
     
@@ -181,7 +182,7 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     
     // Process withdrawals in the block - should fail
     const result = block.processWithdrawals(
-        @ptrCast(*StateManager, @constCast(state_manager)),
+        @as(*StateManager, @ptrCast(state_manager)),
         london_rules
     );
     
@@ -268,7 +269,7 @@ test "Multiple withdrawals for same account" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @ptrCast(*StateManager, @constCast(state_manager)),
+        @as(*StateManager, @ptrCast(state_manager)),
         shanghai_rules
     );
     

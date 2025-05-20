@@ -210,7 +210,10 @@ pub const Frame = struct {
     pub fn setReturnData(self: *Frame, data: []u8) !void {
         // Free existing return data if any
         if (self.returnData) |old_data| {
-            self.memory.allocator.free(old_data);
+            // Only free if it's not a static empty slice
+            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+                self.memory.allocator.free(old_data);
+            }
         }
         
         self.returnData = data;
