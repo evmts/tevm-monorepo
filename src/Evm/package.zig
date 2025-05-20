@@ -10,4 +10,6 @@ pub const ExecutionStatus = @import("evm.zig").ExecutionStatus;
 pub const Log = @import("evm.zig").Log;
 pub const JumpTable = @import("JumpTable.zig");
 pub const EvmLogger = @import("EvmLogger.zig");
+pub const Withdrawal = @import("Withdrawal.zig");
+pub const WithdrawalProcessor = @import("WithdrawalProcessor.zig");
 pub const opcodes = @import("opcodes/package.zig");

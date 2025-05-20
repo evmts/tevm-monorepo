@@ -5,9 +5,9 @@ const ChainRules = evm.ChainRules;
 const Hardfork = evm.Hardfork;
 // Import using modules defined in build.zig
 const Address = @import("Address").Address;
-const Withdrawal = @import("Withdrawal.zig");
+const Withdrawal = @import("Withdrawal");
 const WithdrawalData = Withdrawal.WithdrawalData;
-const WithdrawalProcessor = @import("WithdrawalProcessor.zig");
+const WithdrawalProcessor = @import("WithdrawalProcessor");
 const Block = WithdrawalProcessor.Block;
 const BlockWithdrawalProcessor = WithdrawalProcessor.BlockWithdrawalProcessor;
 const StateManager = @import("StateManager").StateManager;
@@ -87,13 +87,10 @@ fn createAddressBuffer(byte_value: u8) [20]u8 {
     return buffer;
 }
 
-// Convert from Address ([20]u8) to StateManager.B160
-fn convertToStateManagerAddress(addr_bytes: [20]u8) StateManager.B160 {
-    var b160 = StateManager.B160{ .bytes = undefined };
-    for (addr_bytes, 0..) |b, i| {
-        b160.bytes[i] = b;
-    }
-    return b160;
+// Fix to use Address directly since that's what mock implementation expects
+fn convertToAddress(addr_bytes: [20]u8) Address {
+    // Since Address is already a [20]u8, we can just return it directly
+    return addr_bytes;
 }
 
 // Create a withdrawal root hash (this would normally be a Merkle root)
@@ -114,12 +111,12 @@ test "Block withdrawal processing with Shanghai rules" {
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
-    // Create test addresses - convert [20]u8 to B160
+    // Create test addresses
     const addr1_bytes = createAddressBuffer(0x01);
-    const address1 = convertToStateManagerAddress(addr1_bytes);
+    const address1 = convertToAddress(addr1_bytes);
     
     const addr2_bytes = createAddressBuffer(0x02);
-    const address2 = convertToStateManagerAddress(addr2_bytes);
+    const address2 = convertToAddress(addr2_bytes);
     
     // Create withdrawals
     const withdrawal1 = WithdrawalData.init(
@@ -174,9 +171,9 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
-    // Create test address - convert [20]u8 to B160
+    // Create test address
     const addr_bytes = createAddressBuffer(0x03);
-    const address = convertToStateManagerAddress(addr_bytes);
+    const address = convertToAddress(addr_bytes);
     
     // Create a withdrawal
     const withdrawal = WithdrawalData.init(
@@ -247,9 +244,9 @@ test "Multiple withdrawals for same account" {
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
-    // Create test address - convert [20]u8 to B160
+    // Create test address
     const addr_bytes = createAddressBuffer(0x04);
-    const address = convertToStateManagerAddress(addr_bytes);
+    const address = convertToAddress(addr_bytes);
     
     // Create multiple withdrawals for the same address
     const withdrawal1 = WithdrawalData.init(

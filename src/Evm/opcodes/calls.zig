@@ -294,6 +294,33 @@ const file_logger = createLogger("calls.zig");
 /// Maximum call depth for Ethereum VM
 const MAX_CALL_DEPTH: u32 = 1024;
 
+/// Helper function to safely allocate and set return data
+/// Returns true if successful, false if allocation failed
+fn setReturnData(interpreter: *Interpreter, data: []const u8) bool {
+    // Free any existing return data first
+    if (interpreter.returnData) |old_data| {
+        interpreter.allocator.free(old_data);
+        interpreter.returnData = null;
+    }
+    
+    // Only allocate if we have data to copy
+    if (data.len > 0) {
+        // Allocate a new buffer for the return data
+        const return_copy = interpreter.allocator.alloc(u8, data.len) catch |err| {
+            file_logger.err("Failed to allocate memory for return data: {}", .{err});
+            return false;
+        };
+        
+        // Copy the data to the newly allocated buffer
+        @memcpy(return_copy, data);
+        
+        // Store the buffer in the interpreter for later access
+        interpreter.returnData = return_copy;
+    }
+    
+    return true;
+}
+
 /// Check if an address is a precompiled contract in the current chain context
 /// Returns the precompiled contract if found, null otherwise
 fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.PrecompiledContract {
@@ -301,10 +328,8 @@ fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.Pr
         return null; // Early return if no precompiles are registered
     }
     // Convert u256 address to Ethereum Address type
-    var addr_bytes: [32]u8 = undefined;
-    
-    // Initialize with zeros
-    @memset(&addr_bytes, 0);
+    // Use zero-initialized memory to avoid undefined behavior
+    var addr_bytes: [32]u8 = [_]u8{0} ** 32;
     
     // Extract the last 20 bytes (Ethereum address size)
     var value = addr;
@@ -335,10 +360,8 @@ fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.Pr
 
 /// Helper to convert 256-bit address to Ethereum Address type
 fn addressFromU256(addr_u256: u256) Address {
-    var addr_bytes: [32]u8 = undefined;
-    
-    // Initialize with zeros
-    @memset(&addr_bytes, 0);
+    // Use zero-initialized memory to avoid undefined behavior
+    var addr_bytes: [32]u8 = [_]u8{0} ** 32;
     
     // Extract the last 20 bytes (Ethereum address size)
     var value = addr_u256;
@@ -419,12 +442,16 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     
     // Get the input data
     var input_data = std.ArrayList(u8).init(interpreter.allocator);
-    defer input_data.deinit();
+    errdefer input_data.deinit(); // Clean up on any error
     
     if (in_size_usize > 0) {
         const mem = frame.memory.data();
         if (in_offset_usize + in_size_usize <= mem.len) {
-            try input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]);
+            input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]) catch |err| {
+                file_logger.err("Failed to append input data: {}", .{err});
+                try frame.stack.push(0); // Indicate failure
+                return "";
+            };
         } else {
             return ExecutionError.OutOfOffset;
         }
@@ -472,7 +499,12 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
             success = true;
             
             // Store the output in return data for future use
-            try return_data.appendSlice(output);
+            return_data.appendSlice(output) catch |err| {
+                file_logger.err("Failed to append output data: {}", .{err});
+                interpreter.allocator.free(output); // Clean up output memory to prevent leak
+                try frame.stack.push(0); // Indicate failure
+                return "";
+            };
             
             // Update the caller's memory with the return data
             if (out_size_usize > 0) {
@@ -608,12 +640,16 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     
     // Get the input data
     var input_data = std.ArrayList(u8).init(interpreter.allocator);
-    defer input_data.deinit();
+    errdefer input_data.deinit(); // Clean up on any error
     
     if (in_size_usize > 0) {
         const mem = frame.memory.data();
         if (in_offset_usize + in_size_usize <= mem.len) {
-            try input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]);
+            input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]) catch |err| {
+                file_logger.err("Failed to append input data: {}", .{err});
+                try frame.stack.push(0); // Indicate failure
+                return "";
+            };
         } else {
             return ExecutionError.OutOfOffset;
         }
@@ -661,7 +697,12 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
             success = true;
             
             // Store the output in return data for future use
-            try return_data.appendSlice(output);
+            return_data.appendSlice(output) catch |err| {
+                file_logger.err("Failed to append output data: {}", .{err});
+                interpreter.allocator.free(output); // Clean up output memory to prevent leak
+                try frame.stack.push(0); // Indicate failure
+                return "";
+            };
             
             // Update the caller's memory with the return data
             if (out_size_usize > 0) {
@@ -796,12 +837,16 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     
     // Get the input data
     var input_data = std.ArrayList(u8).init(interpreter.allocator);
-    defer input_data.deinit();
+    errdefer input_data.deinit(); // Clean up on any error
     
     if (in_size_usize > 0) {
         const mem = frame.memory.data();
         if (in_offset_usize + in_size_usize <= mem.len) {
-            try input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]);
+            input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]) catch |err| {
+                file_logger.err("Failed to append input data: {}", .{err});
+                try frame.stack.push(0); // Indicate failure
+                return "";
+            };
         } else {
             return ExecutionError.OutOfOffset;
         }
@@ -849,7 +894,12 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
             success = true;
             
             // Store the output in return data for future use
-            try return_data.appendSlice(output);
+            return_data.appendSlice(output) catch |err| {
+                file_logger.err("Failed to append output data: {}", .{err});
+                interpreter.allocator.free(output); // Clean up output memory to prevent leak
+                try frame.stack.push(0); // Indicate failure
+                return "";
+            };
             
             // Update the caller's memory with the return data
             if (out_size_usize > 0) {
@@ -984,12 +1034,16 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     
     // Get the input data
     var input_data = std.ArrayList(u8).init(interpreter.allocator);
-    defer input_data.deinit();
+    errdefer input_data.deinit(); // Clean up on any error
     
     if (in_size_usize > 0) {
         const mem = frame.memory.data();
         if (in_offset_usize + in_size_usize <= mem.len) {
-            try input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]);
+            input_data.appendSlice(mem[in_offset_usize..in_offset_usize + in_size_usize]) catch |err| {
+                file_logger.err("Failed to append input data: {}", .{err});
+                try frame.stack.push(0); // Indicate failure
+                return "";
+            };
         } else {
             return ExecutionError.OutOfOffset;
         }
@@ -1042,7 +1096,12 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
             success = true;
             
             // Store the output in return data for future use
-            try return_data.appendSlice(output);
+            return_data.appendSlice(output) catch |err| {
+                file_logger.err("Failed to append output data: {}", .{err});
+                interpreter.allocator.free(output); // Clean up output memory to prevent leak
+                try frame.stack.push(0); // Indicate failure
+                return "";
+            };
             
             // Update the caller's memory with the return data
             if (out_size_usize > 0) {

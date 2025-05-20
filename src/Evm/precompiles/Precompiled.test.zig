@@ -100,13 +100,13 @@ test "identity execution" {
     
     // Test empty input
     var result = try Precompiled.IDENTITY.execute(&[_]u8{}, allocator);
-    defer allocator.free(result);
+    defer if (result) |r| allocator.free(r);
     try testing.expectEqualSlices(u8, &[_]u8{}, result.?);
     
     // Test with data
     const input = [_]u8{1, 2, 3, 4, 5};
     result = try Precompiled.IDENTITY.execute(&input, allocator);
-    defer allocator.free(result);
+    defer if (result) |r| allocator.free(r);
     try testing.expectEqualSlices(u8, &input, result);
 }
 
@@ -116,23 +116,23 @@ test "sha256 execution" {
     // Test empty input
     // SHA256("") = e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     var result = try Precompiled.SHA256.execute(&[_]u8{}, allocator);
-    defer allocator.free(result);
-    try testing.expectEqual(@as(usize, 32), result.len);
+    defer if (result) |r| allocator.free(r);
+    try testing.expectEqual(@as(usize, 32), result.?.len);
     
     // Check first few bytes of the hash
-    try testing.expectEqual(@as(u8, 0xe3), result[0]);
-    try testing.expectEqual(@as(u8, 0xb0), result[1]);
-    try testing.expectEqual(@as(u8, 0xc4), result[2]);
+    try testing.expectEqual(@as(u8, 0xe3), result.?[0]);
+    try testing.expectEqual(@as(u8, 0xb0), result.?[1]);
+    try testing.expectEqual(@as(u8, 0xc4), result.?[2]);
     
     // Test with data
     // SHA256("test") = 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
     const input = [_]u8{'t', 'e', 's', 't'};
     result = try Precompiled.SHA256.execute(&input, allocator);
-    defer allocator.free(result);
-    try testing.expectEqual(@as(usize, 32), result.len);
+    defer if (result) |r| allocator.free(r);
+    try testing.expectEqual(@as(usize, 32), result.?.len);
     
     // Check first few bytes of the hash
-    try testing.expectEqual(@as(u8, 0x9f), result[0]);
+    try testing.expectEqual(@as(u8, 0x9f), result.?[0]);
     try testing.expectEqual(@as(u8, 0x86), result[1]);
     try testing.expectEqual(@as(u8, 0xd0), result[2]);
 }
@@ -142,14 +142,14 @@ test "ecrecover execution with invalid input" {
     
     // Test with invalid input (too short)
     var result = try Precompiled.ECRECOVER.execute(&[_]u8{1, 2, 3}, allocator);
-    defer allocator.free(result);
+    defer if (result) |r| allocator.free(r);
     try testing.expectEqual(@as(usize, 0), result.len);
     
     // Test with 128 bytes of zeros
     var zeros = [_]u8{0} ** 128;
     result = try Precompiled.ECRECOVER.execute(&zeros, allocator);
-    defer allocator.free(result);
-    try testing.expectEqual(@as(usize, 32), result.len);
+    defer if (result) |r| allocator.free(r);
+    try testing.expectEqual(@as(usize, 32), result.?.len);
     
     // All zeros should return zeros (invalid signature)
     for (result) |byte| {
@@ -170,7 +170,7 @@ test "Contract wrapper" {
     
     // Run the contract
     const result = try contract.run(&[_]u8{1, 2, 3, 4});
-    defer allocator.free(result);
+    defer if (result) |r| allocator.free(r);
     try testing.expectEqualSlices(u8, &[_]u8{1, 2, 3, 4}, result);
     
     // Test non-precompiled address

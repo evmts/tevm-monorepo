@@ -104,10 +104,21 @@ pub const BlockWithdrawalProcessor = struct {
 
         // In a real implementation, this would compute the Merkle root
         // of the withdrawals and compare it to the expected_root.
-        // For this simplified version, we'll just return true
-        // TODO: Implement actual Merkle root verification
 
-        getLogger().debug("Withdrawals root verification passed", .{});
+        // Validate parameters with proper bounds checking
+        if (expected_root.len == 0) {
+            getLogger().warn("Empty withdrawals root provided", .{});
+            return false;
+        }
+
+        // Basic validation for now - ensure expected_root has correct length
+        if (expected_root.len != 32) {
+            getLogger().warn("Invalid withdrawals root length: {d} (expected 32 bytes)", .{expected_root.len});
+            return false;
+        }
+        
+        // TODO: Implement actual Merkle root verification
+        getLogger().debug("Withdrawals root validation passed. Note: actual Merkle verification not implemented.", .{});
         return true;
     }
 };

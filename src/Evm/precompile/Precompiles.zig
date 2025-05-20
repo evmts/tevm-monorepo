@@ -1,8 +1,5 @@
 const std = @import("std");
-const Address = if (@import("builtin").is_test) 
-    @import("../../Address/address.zig").Address 
-else 
-    @import("Address").Address;
+const Address = @import("Address").Address;
 const common = @import("common.zig");
 const crypto = @import("crypto.zig");
 const math = @import("math.zig");
@@ -25,16 +22,22 @@ const ChainRules = struct {
     IsEIP4895: bool = false,
     IsEIP4844: bool = false,
     IsEIP5656: bool = false,
+    IsByzantium: bool = false,
+    IsIstanbul: bool = false,
 
     pub fn forHardfork(hardfork: Hardfork) ChainRules {
         return switch (hardfork) {
             .Frontier, .Homestead, .TangerineWhistle, .SpuriousDragon => .{},
-            .Byzantium, .Constantinople, .Petersburg, .Istanbul => .{},
+            .Byzantium, .Constantinople, .Petersburg, .Istanbul => .{
+                .IsByzantium = true,
+            },
             .Berlin => .{
+                .IsByzantium = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
             },
             .London => .{
+                .IsByzantium = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -43,6 +46,7 @@ const ChainRules = struct {
                 .IsEIP3541 = true,
             },
             .ArrowGlacier, .GrayGlacier, .Merge => .{
+                .IsByzantium = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -51,6 +55,7 @@ const ChainRules = struct {
                 .IsEIP3541 = true,
             },
             .Shanghai => .{
+                .IsByzantium = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -63,6 +68,7 @@ const ChainRules = struct {
                 .IsEIP4895 = true,
             },
             .Cancun => .{
+                .IsByzantium = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -77,6 +83,7 @@ const ChainRules = struct {
                 .IsEIP5656 = true,
             },
             .Prague, .Verkle => .{
+                .IsByzantium = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
