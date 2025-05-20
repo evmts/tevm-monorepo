@@ -46,10 +46,13 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     var addr: Address = undefined;
     _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
     
+    // Create a copy of addr for debugging to avoid capture issues
+    const addr_copy = addr;
+    
     debugOnly(struct {
         fn callback() void {
             var addr_str_buf: [128]u8 = undefined;
-            var addr_str_len = std.fmt.bufPrint(&addr_str_buf, "{}", .{addr}) catch return;
+            var addr_str_len = std.fmt.bufPrint(&addr_str_buf, "{}", .{addr_copy}) catch return;
             getLogger().debug("Address conversion result: {s}", .{addr_str_buf[0..addr_str_len]});
         }
     }.callback);

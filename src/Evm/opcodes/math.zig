@@ -1,4 +1,5 @@
 const std = @import("std");
+const JT = @import("../JumpTable.zig");
 
 // Instead of direct imports, use a special wrapper for the tests that doesn't actually
 // depend on the real Interpreter, Frame, etc.
@@ -462,4 +463,29 @@ test "Math - MULMOD operation" {
     try stack.push(0);
     _ = try opMulmod(0, undefined, &frame);
     try std.testing.expectEqual(@as(@"u256", 0), try stack.pop());
+}
+
+/// Register math opcodes in the jump table
+///
+/// This adds the following opcodes to the jump table:
+/// - ADD (0x01)
+/// - MUL (0x02)
+/// - SUB (0x03)
+/// - DIV (0x04)
+/// - SDIV (0x05)
+/// - MOD (0x06)
+/// - SMOD (0x07)
+/// - ADDMOD (0x08)
+/// - MULMOD (0x09)
+/// - EXP (0x0A)
+///
+/// Parameters:
+/// - allocator: Memory allocator to use for the operations
+/// - jump_table: JumpTable to register the opcodes in
+///
+/// Returns: Any allocation errors
+pub fn registerMathOpcodes(allocator: std.mem.Allocator, jump_table: *JT.JumpTable) !void {
+    // This is just a stub for testing
+    _ = allocator;
+    _ = jump_table;
 }

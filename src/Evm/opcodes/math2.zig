@@ -1,11 +1,12 @@
 const std = @import("std");
+const JT = @import("../JumpTable.zig");
 
 // Use simpler imports from test_utils
 const test_utils = @import("test_utils.zig");
 const Interpreter = test_utils.Interpreter;
 const Frame = test_utils.Frame;
 const ExecutionError = test_utils.ExecutionError;
-const JumpTable = test_utils.JumpTable;
+const JumpTableTest = test_utils.JumpTable;
 const Stack = test_utils.Stack;
 const Memory = test_utils.Memory;
 
@@ -404,75 +405,75 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
 }
 
 /// Register all math2 opcodes in the given jump table
-pub fn registerMath2Opcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerMath2Opcodes(allocator: std.mem.Allocator, jump_table: *JT.JumpTable) !void {
     // SDIV (0x05)
-    const sdiv_op = try allocator.create(JumpTable.Operation);
-    sdiv_op.* = JumpTable.Operation{
+    const sdiv_op = try allocator.create(JT.Operation);
+    sdiv_op.* = JT.Operation{
         .execute = opSdiv,
-        .constant_gas = JumpTable.GasFastStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = JT.GasFastStep,
+        .min_stack = JT.minStack(2, 1),
+        .max_stack = JT.maxStack(2, 1),
     };
     jump_table.table[0x05] = sdiv_op;
     
     // MOD (0x06)
-    const mod_op = try allocator.create(JumpTable.Operation);
-    mod_op.* = JumpTable.Operation{
+    const mod_op = try allocator.create(JT.Operation);
+    mod_op.* = JT.Operation{
         .execute = opMod,
-        .constant_gas = JumpTable.GasFastStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = JT.GasFastStep,
+        .min_stack = JT.minStack(2, 1),
+        .max_stack = JT.maxStack(2, 1),
     };
     jump_table.table[0x06] = mod_op;
     
     // SMOD (0x07)
-    const smod_op = try allocator.create(JumpTable.Operation);
-    smod_op.* = JumpTable.Operation{
+    const smod_op = try allocator.create(JT.Operation);
+    smod_op.* = JT.Operation{
         .execute = opSmod,
-        .constant_gas = JumpTable.GasFastStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = JT.GasFastStep,
+        .min_stack = JT.minStack(2, 1),
+        .max_stack = JT.maxStack(2, 1),
     };
     jump_table.table[0x07] = smod_op;
     
     // ADDMOD (0x08)
-    const addmod_op = try allocator.create(JumpTable.Operation);
-    addmod_op.* = JumpTable.Operation{
+    const addmod_op = try allocator.create(JT.Operation);
+    addmod_op.* = JT.Operation{
         .execute = opAddmod,
-        .constant_gas = JumpTable.GasMidStep,
-        .min_stack = JumpTable.minStack(3, 1),
-        .max_stack = JumpTable.maxStack(3, 1),
+        .constant_gas = JT.GasMidStep,
+        .min_stack = JT.minStack(3, 1),
+        .max_stack = JT.maxStack(3, 1),
     };
     jump_table.table[0x08] = addmod_op;
     
     // MULMOD (0x09)
-    const mulmod_op = try allocator.create(JumpTable.Operation);
-    mulmod_op.* = JumpTable.Operation{
+    const mulmod_op = try allocator.create(JT.Operation);
+    mulmod_op.* = JT.Operation{
         .execute = opMulmod,
-        .constant_gas = JumpTable.GasMidStep,
-        .min_stack = JumpTable.minStack(3, 1),
-        .max_stack = JumpTable.maxStack(3, 1),
+        .constant_gas = JT.GasMidStep,
+        .min_stack = JT.minStack(3, 1),
+        .max_stack = JT.maxStack(3, 1),
     };
     jump_table.table[0x09] = mulmod_op;
     
     // EXP (0x0A)
-    const exp_op = try allocator.create(JumpTable.Operation);
-    exp_op.* = JumpTable.Operation{
+    const exp_op = try allocator.create(JT.Operation);
+    exp_op.* = JT.Operation{
         .execute = opExp,
-        .constant_gas = JumpTable.GasSlowStep,
+        .constant_gas = JT.GasSlowStep,
         .dynamic_gas = expDynamicGas,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .min_stack = JT.minStack(2, 1),
+        .max_stack = JT.maxStack(2, 1),
     };
     jump_table.table[0x0A] = exp_op;
     
     // SIGNEXTEND (0x0B)
-    const signextend_op = try allocator.create(JumpTable.Operation);
-    signextend_op.* = JumpTable.Operation{
+    const signextend_op = try allocator.create(JT.Operation);
+    signextend_op.* = JT.Operation{
         .execute = opSignextend,
-        .constant_gas = JumpTable.GasFastStep,
-        .min_stack = JumpTable.minStack(2, 1),
-        .max_stack = JumpTable.maxStack(2, 1),
+        .constant_gas = JT.GasFastStep,
+        .min_stack = JT.minStack(2, 1),
+        .max_stack = JT.maxStack(2, 1),
     };
     jump_table.table[0x0B] = signextend_op;
 }
