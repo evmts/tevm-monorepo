@@ -27,20 +27,36 @@ pub const HashBuilder = struct {
     }
     
     pub fn deinit(self: *HashBuilder) void {
+        // First, free all the TrieNodes, which will deinit all HashValues
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
             var node = entry.value_ptr.*;
             node.deinit(self.allocator);
         }
+        
+        // Then free all the hash strings used as keys
+        var key_it = self.nodes.keyIterator();
+        while (key_it.next()) |key_ptr| {
+            self.allocator.free(key_ptr.*);
+        }
+        
         self.nodes.deinit();
     }
     
     pub fn reset(self: *HashBuilder) void {
+        // Free all the TrieNodes, which will deinit all HashValues
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
             var node = entry.value_ptr.*;
             node.deinit(self.allocator);
         }
+        
+        // Free all the hash strings used as keys
+        var key_it = self.nodes.keyIterator();
+        while (key_it.next()) |key_ptr| {
+            self.allocator.free(key_ptr.*);
+        }
+        
         self.nodes.clearRetainingCapacity();
         self.root_hash = null;
     }
@@ -293,7 +309,11 @@ pub const HashBuilder = struct {
                         
                         if (new_path.len == 1) {
                             // Direct branch entry
-                            branch.children[new_path[0]] = HashValue{ .Raw = value };
+                            // Create a value copy to ensure ownership
+                            const value_copy5 = try self.allocator.dupe(u8, value);
+                            errdefer self.allocator.free(value_copy5);
+                            
+                            branch.children[new_path[0]] = HashValue{ .Raw = value_copy5 };
                             branch.children_mask.set(@intCast(new_path[0]));
                         } else {
                             // Create new leaf for remaining path
@@ -321,7 +341,11 @@ pub const HashBuilder = struct {
                         }
                     } else {
                         // This is a terminating node
-                        branch.value = HashValue{ .Raw = value };
+                        // Create a value copy to ensure ownership
+                        const value_copy4 = try self.allocator.dupe(u8, value);
+                        errdefer self.allocator.free(value_copy4);
+                        
+                        branch.value = HashValue{ .Raw = value_copy4 };
                     }
                     
                     // Create an extension node for the common prefix
@@ -394,7 +418,11 @@ pub const HashBuilder = struct {
                         
                         if (nibbles.len == 1) {
                             // Direct branch entry (value node)
-                            branch.children[new_key] = HashValue{ .Raw = value };
+                            // Create a value copy to ensure ownership
+                            const value_copy6 = try self.allocator.dupe(u8, value);
+                            errdefer self.allocator.free(value_copy6);
+                            
+                            branch.children[new_key] = HashValue{ .Raw = value_copy6 };
                             branch.children_mask.set(@intCast(new_key));
                         } else {
                             // Create new leaf for remaining path
@@ -422,7 +450,11 @@ pub const HashBuilder = struct {
                         }
                     } else {
                         // This is a terminating node (empty path)
-                        branch.value = HashValue{ .Raw = value };
+                        // Create a value copy to ensure ownership
+                        const value_copy4 = try self.allocator.dupe(u8, value);
+                        errdefer self.allocator.free(value_copy4);
+                        
+                        branch.value = HashValue{ .Raw = value_copy4 };
                     }
                     
                     return TrieNode{ .Branch = branch };
@@ -505,7 +537,11 @@ pub const HashBuilder = struct {
                         
                         if (nibbles.len == common_prefix_len + 1) {
                             // Direct branch entry for value
-                            branch.children[new_key] = HashValue{ .Raw = value };
+                            // Create a value copy to ensure ownership
+                            const value_copy6 = try self.allocator.dupe(u8, value);
+                            errdefer self.allocator.free(value_copy6);
+                            
+                            branch.children[new_key] = HashValue{ .Raw = value_copy6 };
                             branch.children_mask.set(@intCast(new_key));
                         } else {
                             // Create new leaf for remaining path
@@ -530,7 +566,11 @@ pub const HashBuilder = struct {
                         }
                     } else {
                         // This is a terminating node
-                        branch.value = HashValue{ .Raw = value };
+                        // Create a value copy to ensure ownership
+                        const value_copy4 = try self.allocator.dupe(u8, value);
+                        errdefer self.allocator.free(value_copy4);
+                        
+                        branch.value = HashValue{ .Raw = value_copy4 };
                     }
                     
                     // Hash the branch node
@@ -624,7 +664,11 @@ pub const HashBuilder = struct {
                     
                     if (remaining_path.len == 0) {
                         // Insert directly into branch
-                        new_branch.children[key] = HashValue{ .Raw = value };
+                        // Create a value copy to ensure ownership
+                        const value_copy7 = try self.allocator.dupe(u8, value);
+                        errdefer self.allocator.free(value_copy7);
+                        
+                        new_branch.children[key] = HashValue{ .Raw = value_copy7 };
                         new_branch.children_mask.set(@intCast(key));
                     } else {
                         // Create a new leaf for the remaining path
