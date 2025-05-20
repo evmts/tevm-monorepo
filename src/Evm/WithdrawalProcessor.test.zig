@@ -161,13 +161,111 @@ fn processWithdrawalsForTest(mock: *MockStateManager, block_var: *Block, rules: 
 }
 
 test "Block withdrawal processing with Shanghai rules" {
-    // Temporarily skip this test until we fully understand the segfault
-    return error.SkipZigTest;
+    // NOTE: There is a segmentation fault in this test that needs to be investigated.
+    // The segfault occurs at address 0xaaaaaaaaaaaaaac2.
+    var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
+    defer arena.deinit();
+    const allocator = arena.allocator();
+    
+    // Create mock state manager
+    var state_manager = try MockStateManager.init(allocator);
+    defer state_manager.deinit();
+    
+    // Create test addresses
+    const addr1_bytes = createAddressBuffer(0x01);
+    const address1 = addr1_bytes; // Address is a [20]u8 per Address/address.zig
+    
+    const addr2_bytes = createAddressBuffer(0x02);
+    const address2 = addr2_bytes; // Address is a [20]u8 per Address/address.zig
+    
+    // Create withdrawals
+    const withdrawal1 = WithdrawalData.init(
+        1,  // index
+        100,  // validator index
+        address1, // recipient address
+        1_500_000_000,  // amount in Gwei (1.5 ETH)
+    );
+    
+    const withdrawal2 = WithdrawalData.init(
+        2,  // index
+        200,  // validator index
+        address2, // recipient address
+        2_500_000_000,  // amount in Gwei (2.5 ETH)
+    );
+    
+    // Create withdrawals array
+    var withdrawals = [_]WithdrawalData{withdrawal1, withdrawal2};
+    
+    // Create a dummy withdrawal root
+    const withdrawal_root = createWithdrawalRoot();
+    
+    // Create a block with withdrawals
+    var block = Block{
+        .withdrawals = &withdrawals,
+        .withdrawals_root = &withdrawal_root,
+    };
+    
+    // Define Shanghai chain rules (EIP-4895 enabled)
+    const shanghai_rules = WithdrawalProcessorModule.ChainRules.forHardfork(.Shanghai);
+    
+    // Process withdrawals using our test helper
+    try processWithdrawalsForTest(state_manager, &block, shanghai_rules);
+    
+    // Check that account balances were updated correctly
+    const balance1 = try state_manager.getBalance(address1);
+    try testing.expectEqual(@as(u128, 1_500_000_000_000_000_000), balance1); // 1.5 ETH in Wei
+    
+    const balance2 = try state_manager.getBalance(address2);
+    try testing.expectEqual(@as(u128, 2_500_000_000_000_000_000), balance2); // 2.5 ETH in Wei
 }
 
 test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
-    // Temporarily skip this test until we fully understand the segfault
-    return error.SkipZigTest;
+    // NOTE: There is a segmentation fault in this test that needs to be investigated.
+    // The segfault occurs at address 0xaaaaaaaaaaaaaac2.
+    var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
+    defer arena.deinit();
+    const allocator = arena.allocator();
+    
+    // Create mock state manager
+    var state_manager = try MockStateManager.init(allocator);
+    defer state_manager.deinit();
+    
+    // Create test address
+    const addr_bytes = createAddressBuffer(0x03);
+    const address = addr_bytes; // Address is a [20]u8 per Address/address.zig
+    
+    // Create a withdrawal
+    const withdrawal = WithdrawalData.init(
+        1,  // index
+        100,  // validator index
+        address, // recipient address
+        1_000_000_000,  // amount in Gwei (1 ETH)
+    );
+    
+    // Create withdrawals array
+    var withdrawals = [_]WithdrawalData{withdrawal};
+    
+    // Create a dummy withdrawal root
+    const withdrawal_root = createWithdrawalRoot();
+    
+    // Create a block with withdrawals
+    var block = Block{
+        .withdrawals = &withdrawals,
+        .withdrawals_root = &withdrawal_root,
+    };
+    
+    // Define London chain rules (EIP-4895 not enabled)
+    const london_rules = WithdrawalProcessorModule.ChainRules.forHardfork(.London);
+    
+    // Process withdrawals using our test helper - should fail since EIP-4895 is not enabled
+    const result = processWithdrawalsForTest(state_manager, &block, london_rules);
+    
+    // Should return an error
+    try testing.expectError(error.EIP4895NotEnabled, result);
+    
+    // Balance should remain zero
+    const balance = try state_manager.getBalance(address);
+    try testing.expectEqual(@as(u128, 0), balance);
 }
 
 test "Hardfork versions correctly set EIP-4895 flag" {
@@ -194,6 +292,8 @@ test "Hardfork versions correctly set EIP-4895 flag" {
 }
 
 test "Multiple withdrawals for same account" {
+    // NOTE: There is a segmentation fault in this test that needs to be investigated.
+    // The segfault occurs at address 0xaaaaaaaaaaaaaac2.
     var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
     defer arena.deinit();
     const allocator = arena.allocator();
