@@ -32,14 +32,28 @@ pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Pop values from the stack
-    const z = try frame.stack.pop(); // Modulus
-    const y = try frame.stack.pop();
+    var z: u64 = 0;
+    var y: u64 = 0;
+    
+    if (frame.stack.pop()) |value| {
+        z = value;
+    } else |_| {
+        return ExecutionError.StackUnderflow;
+    }
+    
+    if (frame.stack.pop()) |value| {
+        y = value;
+    } else |_| {
+        // Push back z since we couldn't complete the operation
+        _ = frame.stack.push(z) catch {};
+        return ExecutionError.StackUnderflow;
+    }
     
     // Get reference to x (which is now at the top of the stack) - handle error case
     const x = frame.stack.peek() catch |err| {
         // Re-push the values we popped so stack is in a consistent state
-        try frame.stack.push(y);
-        try frame.stack.push(z);
+        _ = frame.stack.push(y) catch {};
+        _ = frame.stack.push(z) catch {};
         return err;
     };
     
@@ -68,14 +82,28 @@ pub fn opMulmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Pop values from the stack
-    const z = try frame.stack.pop(); // Modulus
-    const y = try frame.stack.pop();
+    var z: u64 = 0;
+    var y: u64 = 0;
+    
+    if (frame.stack.pop()) |value| {
+        z = value;
+    } else |_| {
+        return ExecutionError.StackUnderflow;
+    }
+    
+    if (frame.stack.pop()) |value| {
+        y = value;
+    } else |_| {
+        // Push back z since we couldn't complete the operation
+        _ = frame.stack.push(z) catch {};
+        return ExecutionError.StackUnderflow;
+    }
     
     // Get reference to x (which is now at the top of the stack) - handle error case
     const x = frame.stack.peek() catch |err| {
         // Re-push the values we popped so stack is in a consistent state
-        try frame.stack.push(y);
-        try frame.stack.push(z);
+        _ = frame.stack.push(y) catch {};
+        _ = frame.stack.push(z) catch {};
         return err;
     };
     
@@ -104,12 +132,17 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop exponent from the stack
-    const exponent = try frame.stack.pop();
+    var exponent: u64 = 0;
+    if (frame.stack.pop()) |value| {
+        exponent = value;
+    } else |_| {
+        return ExecutionError.StackUnderflow;
+    }
     
     // Get reference to base (which is now at the top of the stack)
     const base = frame.stack.peek() catch |err| {
         // Re-push the exponent so the stack remains consistent
-        try frame.stack.push(exponent);
+        _ = frame.stack.push(exponent) catch {};
         return err;
     };
     
@@ -234,12 +267,17 @@ pub fn opSignextend(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     }
     
     // Pop the byte position from the stack (the number of low-order bytes to consider)
-    const byte_pos = try frame.stack.pop();
+    var byte_pos: u64 = 0;
+    if (frame.stack.pop()) |value| {
+        byte_pos = value;
+    } else |_| {
+        return ExecutionError.StackUnderflow;
+    }
     
     // Get reference to the value (which is now at the top of the stack) - handle error case
     const value = frame.stack.peek() catch |err| {
         // Re-push the value we popped so stack is in a consistent state
-        try frame.stack.push(byte_pos);
+        _ = frame.stack.push(byte_pos) catch {};
         return err;
     };
     
@@ -282,12 +320,17 @@ pub fn opMod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // Pop x (divisor) from the stack
-    const x = try frame.stack.pop();
+    var x: u64 = 0;
+    if (frame.stack.pop()) |value| {
+        x = value;
+    } else |_| {
+        return ExecutionError.StackUnderflow;
+    }
     
     // Get reference to y (dividend, which is now at the top of the stack) - handle error case
     const y = frame.stack.peek() catch |err| {
         // Re-push the value we popped so stack is in a consistent state
-        try frame.stack.push(x);
+        _ = frame.stack.push(x) catch {};
         return err;
     };
     
@@ -312,12 +355,17 @@ pub fn opSdiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Pop divisor from the stack
-    const divisor = try frame.stack.pop();
+    var divisor: u64 = 0;
+    if (frame.stack.pop()) |value| {
+        divisor = value;
+    } else |_| {
+        return ExecutionError.StackUnderflow;
+    }
     
     // Get reference to dividend (which is now at the top of the stack) - handle error case
     const dividend = frame.stack.peek() catch |err| {
         // Re-push the value we popped so stack is in a consistent state
-        try frame.stack.push(divisor);
+        _ = frame.stack.push(divisor) catch {};
         return err;
     };
     
@@ -368,12 +416,17 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Pop modulus from the stack
-    const modulus = try frame.stack.pop();
+    var modulus: u64 = 0;
+    if (frame.stack.pop()) |value| {
+        modulus = value;
+    } else |_| {
+        return ExecutionError.StackUnderflow;
+    }
     
     // Get reference to value (which is now at the top of the stack) - handle error case
     const value = frame.stack.peek() catch |err| {
         // Re-push the value we popped so stack is in a consistent state
-        try frame.stack.push(modulus);
+        _ = frame.stack.push(modulus) catch {};
         return err;
     };
     
