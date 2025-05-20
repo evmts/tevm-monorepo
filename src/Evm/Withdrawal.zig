@@ -2,8 +2,12 @@ const std = @import("std");
 
 // Use direct file imports to avoid module import issues
 const StateManager = @import("../StateManager/StateManager.zig").StateManager;
-const Address = @import("../Address/address.zig").Address;
-const B160 = @import("../StateManager/StateManager.zig").B160;
+const Address = @import("Address").Address;
+
+// Define B160 type directly to avoid import conflicts
+const B160 = struct {
+    bytes: [20]u8,
+};
 
 // Use direct file imports for logging
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
@@ -102,11 +106,11 @@ pub fn processWithdrawals(
     stateManager: *StateManager, 
     withdrawals: []const WithdrawalData,
     isEIP4895Enabled: bool
-) \!void {
+) !void {
     var scoped = createScopedLogger(getLogger(), "processWithdrawals()");
     defer scoped.deinit();
     
-    if (\!isEIP4895Enabled) {
+    if (!isEIP4895Enabled) {
         getLogger().warn("Attempted to process withdrawals with EIP-4895 disabled", .{});
         return error.EIP4895NotEnabled;
     }
@@ -139,7 +143,7 @@ pub fn processWithdrawals(
 /// - amount: The amount (in Wei) to add to the account's balance
 ///
 /// Returns: An error if the state update fails
-fn rewardAccount(stateManager: *StateManager, address: Address, amount: u128) \!void {
+fn rewardAccount(stateManager: *StateManager, address: Address, amount: u128) !void {
     var scoped = createScopedLogger(getLogger(), "rewardAccount()");
     defer scoped.deinit();
     
@@ -166,4 +170,3 @@ fn rewardAccount(stateManager: *StateManager, address: Address, amount: u128) \!
     
     getLogger().debug("Account rewarded successfully", .{});
 }
-EOL < /dev/null

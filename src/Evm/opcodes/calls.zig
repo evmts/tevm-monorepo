@@ -295,7 +295,19 @@ const file_logger = createLogger("calls.zig");
 const MAX_CALL_DEPTH: u32 = 1024;
 
 /// Helper function to safely copy memory data to an array list
-/// Returns true if successful, false if allocation failed
+/// This function prevents memory leaks by:
+/// 1. Checking for out-of-bounds access before attempting memory operations
+/// 2. Using clearRetainingCapacity to avoid unnecessary allocations
+/// 3. Using the existing ArrayList's memory when possible
+/// 4. Properly handling allocation failures with boolean return values
+///
+/// Parameters:
+/// - memory: The source memory buffer to read from
+/// - offset: Starting offset within the memory buffer
+/// - size: Number of bytes to copy
+/// - out_data: Preallocated ArrayList to store the result (cleared before use)
+///
+/// Returns: true if successful, false if allocation failed or out of bounds access
 fn getInputData(
     memory: []const u8, 
     offset: usize, 
@@ -317,13 +329,38 @@ fn getInputData(
 }
 
 /// Helper function to safely allocate and set return data
-/// Returns true if successful, false if allocation failed
+/// This is a wrapper around setReturnDataWithReporting with error reporting disabled
+/// 
+/// Memory safety aspects:
+/// 1. Frees existing return data before allocating new memory
+/// 2. Only allocates memory when there's actual data to store
+/// 3. Handles allocation failures gracefully
+/// 4. Ensures no memory is leaked even in error paths
+///
+/// Parameters:
+/// - interpreter: The interpreter instance containing the return data
+/// - data: The data to copy and store as return data
+///
+/// Returns: true if successful, false if allocation failed
 fn setReturnData(interpreter: *Interpreter, data: []const u8) bool {
     return setReturnDataWithReporting(interpreter, data, false);
 }
 
 /// Helper function to safely allocate and set return data with error reporting
-/// Returns true if successful, false if allocation failed
+/// This function is critical for preventing memory leaks in the call operations
+/// 
+/// Memory safety features:
+/// 1. Always frees existing return data before allocating new memory
+/// 2. Skips allocation entirely for empty data
+/// 3. Reports allocation failures via logs when enabled
+/// 4. Provides a clear success/failure indicator
+///
+/// Parameters:
+/// - interpreter: The interpreter instance containing the return data
+/// - data: The data to copy and store as return data
+/// - report_error: Whether to log allocation failures
+///
+/// Returns: true if successful, false if allocation failed
 fn setReturnDataWithReporting(interpreter: *Interpreter, data: []const u8, report_error: bool) bool {
     // Free any existing return data first
     if (interpreter.returnData) |old_data| {
@@ -412,9 +449,26 @@ fn addressFromU256(addr_u256: u256) Address {
 }
 
 /// Helper function for common call operation setup
-/// Returns false if input data access fails
+/// Safely extracts input data from memory for EVM call operations
+///
+/// This function is used by call operations to safely extract input data
+/// from VM memory. It prevents memory leaks and simplifies error handling.
+///
+/// Memory safety features:
+/// 1. Uses getInputData which has comprehensive bounds checking
+/// 2. Centralizes memory access logic to prevent duplication and errors
+/// 3. Reduces the chance of missing error cases in multiple call opcodes
+///
+/// Parameters:
+/// - interpreter: The interpreter instance (unused currently, but kept for future use)
+/// - frame: The current execution frame containing memory
+/// - in_offset_usize: Offset in memory to read from
+/// - in_size_usize: Number of bytes to read
+/// - input_data: Output ArrayList to store the copied data
+///
+/// Returns: true if successful, false if memory access failed
 fn prepareCallInput(
-    interpreter: *Interpreter,
+    _ : *Interpreter,
     frame: *Frame,
     in_offset_usize: usize,
     in_size_usize: usize,
@@ -1622,7 +1676,21 @@ pub fn createGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, _: *Me
 }
 
 /// Register all call opcodes in the given jump table
+/// This function sets up all EVM call operations in the jump table
+///
+/// Memory safety features:
+/// 1. Uses errdefer to clean up already allocated operations on error
+/// 2. Ensures no memory leaks if an allocation fails mid-function
+/// 3. Properly initializes all function pointers to prevent undefined behavior
+///
+/// Parameters:
+/// - allocator: The memory allocator to use for creating operations
+/// - jump_table: The jump table to register operations in
+///
+/// Returns: An error if any allocation fails
 pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
+    // Use errdefer to clean up any already allocated operations if an error occurs
+    // This prevents memory leaks if allocation fails after some operations are created
     errdefer {
         // Clean up any operations we've already created on error
         if (jump_table.table[0xF1]) |op| allocator.destroy(op);

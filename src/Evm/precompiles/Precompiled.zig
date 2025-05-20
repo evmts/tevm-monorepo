@@ -25,15 +25,22 @@ pub const PrecompiledContract = enum(u8) {
     /// Check if an address is a precompiled contract
     pub fn isPrecompiled(addr: B256) bool {
         // Ethereum precompiled contracts are at addresses 1-9
-        // Check if it's a small address (first 19 bytes are 0)
-        for (0..19) |i| {
+        // First check that bytes 0-11 are all zeros
+        for (0..12) |i| {
+            if (addr.value[i] != 0) {
+                return false;
+            }
+        }
+        
+        // Then check bytes 12-30 are all zeros except possibly byte 31
+        for (12..31) |i| {
             if (addr.value[i] != 0) {
                 return false;
             }
         }
         
         // Check if last byte is between 1-9
-        const value = addr.value[19];
+        const value = addr.value[31];
         return value >= 1 and value <= 9;
     }
     
@@ -43,7 +50,7 @@ pub const PrecompiledContract = enum(u8) {
             return null;
         }
         
-        const value = addr.value[19];
+        const value = addr.value[31];
         return @enumFromInt(value);
     }
     

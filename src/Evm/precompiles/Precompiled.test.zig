@@ -159,19 +159,20 @@ test "ecrecover execution with invalid input" {
 
 test "Precompiled gas cost" {
     // Get precompiled contract type
+    const allocator = testing.allocator;
     const precompiled = Precompiled.IDENTITY;
     
     // Check gas cost
     const gas = precompiled.gasCost(&[_]u8{1, 2, 3, 4});
     try testing.expectEqual(@as(u64, 18), gas); // 15 + 3 * (4+31)/32 = 18
     
-    // Run the contract
-    const result = try contract.run(&[_]u8{1, 2, 3, 4});
+    // Run the contract with execute
+    const result = try precompiled.execute(&[_]u8{1, 2, 3, 4}, allocator);
     defer if (result) |r| allocator.free(r);
-    try testing.expectEqualSlices(u8, &[_]u8{1, 2, 3, 4}, result);
+    try testing.expectEqualSlices(u8, &[_]u8{1, 2, 3, 4}, result.?);
     
     // Test non-precompiled address
     const addr_0 = try createPrecompiledAddress(0);
-    const contract_0 = Contract.fromAddress(addr_0, allocator);
-    try testing.expectEqual(@as(?Contract, null), contract_0);
+    const contract_0 = Precompiled.fromAddress(addr_0);
+    try testing.expectEqual(@as(?Precompiled, null), contract_0);
 }

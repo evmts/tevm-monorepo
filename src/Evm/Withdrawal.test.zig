@@ -3,9 +3,9 @@ const testing = std.testing;
 const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;
 const processWithdrawals = Withdrawal.processWithdrawals;
-// Use relative path that works within the codebase structure
-const Address = @import("package.zig").Address;
-const StateManager = @import("package.zig").StateManager;
+// Use direct file imports
+const Address = @import("../Address/address.zig").Address;
+const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 const evm = @import("evm.zig");
 const ChainRules = evm.ChainRules;
 

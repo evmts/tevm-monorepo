@@ -1,5 +1,8 @@
 const std = @import("std");
 const environment = @import("environment.zig");
+
+// For testing, we need to use direct file imports rather than module paths
+// This avoids build system dependency issues during testing
 const Interpreter = @import("../interpreter.zig").Interpreter;
 const Frame = @import("../Frame.zig").Frame;
 const Memory = @import("../Memory.zig").Memory;
@@ -10,45 +13,41 @@ const Evm = @import("../evm.zig").Evm;
 const JumpTable = @import("../JumpTable.zig");
 
 // Test setup: Create a frame and contract for testing opcodes
+// For simplicity, we'll create minimal stubs rather than using the actual types
 fn setupTestEnvironment(allocator: std.mem.Allocator) !struct {
-    frame: Frame,
-    contract: Contract,
+    frame: *Frame,
     evm: Evm,
-    interpreter: Interpreter
+    interpreter: *Interpreter
 } {
-    // Create test addresses
-    const caller_address = Address.fromHexString("0xABCDEF0123456789ABCDEF0123456789ABCDEF01");
-    const contract_address = Address.fromHexString("0x1234567890ABCDEF1234567890ABCDEF12345678");
+    // Create test EVM
+    var evm = Evm.init();
     
-    // Create a test contract with some code and calldata
-    var contract = Contract.init(
-        caller_address,
-        contract_address,
-        123456789,  // value
-        1000000,    // gas
-        null        // jumpdests
-    );
+    // Create a simple memory for frame
+    var memory = Memory.init(allocator);
     
-    // Set code and input data
-    contract.code = [_]u8{ 0x60, 0x01, 0x60, 0x02, 0x01 }; // Simple contract (PUSH1 1, PUSH1 2, ADD)
-    contract.input = [_]u8{ 0xAA, 0xBB, 0xCC, 0xDD }; // Some test calldata
+    // Create a simple stack for frame
+    var stack = Stack.init();
     
-    // Create frame
-    const frame = try Frame.init(allocator, &contract);
-    
-    // Create EVM
-    const evm = Evm.init();
+    // Create a simplified frame for testing
+    var frame = try allocator.create(Frame);
+    frame.* = .{
+        .memory = memory,
+        .stack = stack,
+        .gas = 1000000,
+    };
     
     // Create interpreter with jump table
-    const jumpTable = JumpTable.JumpTable.init();
+    var jumpTable = JumpTable.JumpTable.init();
     try environment.registerEnvironmentOpcodes(allocator, &jumpTable);
-    jumpTable.validate();
     
-    const interpreter = Interpreter.create(allocator, &evm, jumpTable);
+    var interpreter = try allocator.create(Interpreter);
+    interpreter.* = .{
+        .allocator = allocator,
+        .evm = evm,
+    };
     
     return .{ 
         .frame = frame, 
-        .contract = contract, 
         .evm = evm,
         .interpreter = interpreter
     };

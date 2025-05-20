@@ -3,17 +3,25 @@ pub const Frame = @import("Frame.zig").Frame;
 pub const Contract = @import("Contract.zig").Contract;
 pub const createContract = @import("Contract.zig").createContract;
 pub const Interpreter = @import("interpreter.zig").Interpreter;
+pub const InterpreterError = @import("interpreter.zig").InterpreterError;
 pub const JumpTable = @import("JumpTable.zig");
 pub const opcodes = @import("opcodes.zig");
 pub const Memory = @import("Memory.zig");
 pub const Stack = @import("Stack.zig");
-const StateManager = @import("StateManager").StateManager;
+const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 pub const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 pub const createLogger = @import("EvmLogger.zig").createLogger;
 pub const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 pub const debugOnly = @import("EvmLogger.zig").debugOnly;
 pub const logHexBytes = @import("EvmLogger.zig").logHexBytes;
 pub const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
+
+// Forward declarations for Withdrawal module
+pub const withdrawal_mod = @import("Withdrawal.zig");
+pub const WithdrawalData = @import("Withdrawal.zig").WithdrawalData;
+pub const processWithdrawals = @import("Withdrawal.zig").processWithdrawals;
+pub const WithdrawalProcessor = @import("WithdrawalProcessor.zig").BlockWithdrawalProcessor;
+pub const WithdrawalBlock = @import("WithdrawalProcessor.zig").Block;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

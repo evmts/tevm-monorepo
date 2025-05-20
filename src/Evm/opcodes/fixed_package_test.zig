@@ -78,7 +78,8 @@ pub const Memory = struct {
     
     pub fn get8(self: *const Memory, offset: usize) u8 {
         if (offset >= self.data.len) {
-            return 0;  // Safety - return 0 for out of bounds
+            // Safety - return 0 for out of bounds but also ensure memory is sized correctly
+            @panic("Memory access out of bounds");
         }
         return self.data[offset];
     }

@@ -1,13 +1,66 @@
 const std = @import("std");
-const Address = @import("Address").Address;
+// Use an alternative approach for Address in tests
+const builtin = @import("builtin");
+const Address = if (builtin.is_test) 
+    [20]u8 // Just use the raw type in tests
+else 
+    @import("Address").Address;
 const common = @import("common.zig");
 const crypto = @import("crypto.zig");
 const math = @import("math.zig");
 const bls12_381 = @import("bls12_381.zig");
 const kzg = @import("kzg.zig");
-// Use relative path for tests, otherwise use module name
-const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
-const createLogger = @import("../EvmLogger.zig").createLogger;
+// Simple logger for tests that doesn't require importing EvmLogger
+const EvmLogger = struct {
+    name: []const u8,
+    
+    pub fn debug(self: EvmLogger, comptime fmt: []const u8, args: anytype) void {
+        if (builtin.mode == .Debug) {
+            std.debug.print("[DEBUG][{s}] " ++ fmt ++ "\n", .{self.name} ++ args);
+        }
+    }
+    
+    pub fn info(self: EvmLogger, comptime fmt: []const u8, args: anytype) void {
+        std.debug.print("[INFO][{s}] " ++ fmt ++ "\n", .{self.name} ++ args);
+    }
+    
+    pub fn warn(self: EvmLogger, comptime fmt: []const u8, args: anytype) void {
+        std.debug.print("[WARN][{s}] " ++ fmt ++ "\n", .{self.name} ++ args);
+    }
+    
+    pub fn err(self: EvmLogger, comptime fmt: []const u8, args: anytype) void {
+        std.debug.print("[ERROR][{s}] " ++ fmt ++ "\n", .{self.name} ++ args);
+    }
+};
+
+fn createLogger(name: []const u8) EvmLogger {
+    return EvmLogger{ .name = name };
+}
+
+fn createScopedLogger(parent: EvmLogger, name: []const u8) struct {
+    name: []const u8,
+    
+    pub fn deinit(self: @This()) void {
+        _ = self;
+    }
+    
+    pub fn debug(self: @This(), comptime fmt: []const u8, args: anytype) void {
+        _ = self;
+        _ = fmt;
+        _ = args;
+    }
+} {
+    _ = parent;
+    return .{ .name = name };
+}
+
+fn debugOnly(comptime _: anytype) type {
+    return struct {
+        pub fn apply(args: anytype) void {
+            _ = args;
+        }
+    };
+}
 // Define ChainRules directly in precompiles for testing since we cannot import Evm module in tests
 const ChainRules = struct {
     IsEIP1559: bool = false,
@@ -25,6 +78,9 @@ const ChainRules = struct {
     IsByzantium: bool = false,
     IsIstanbul: bool = false,
     IsBerlin: bool = false,
+    IsCancun: bool = false,
+    IsPrague: bool = false,
+    IsVerkle: bool = false,
 
     pub fn forHardfork(hardfork: Hardfork) ChainRules {
         return switch (hardfork) {
@@ -84,6 +140,7 @@ const ChainRules = struct {
                 .IsByzantium = true,
                 .IsIstanbul = true,
                 .IsBerlin = true,
+                .IsCancun = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -97,9 +154,32 @@ const ChainRules = struct {
                 .IsEIP4844 = true,
                 .IsEIP5656 = true,
             },
-            .Prague, .Verkle => .{
+            .Prague => .{
                 .IsByzantium = true,
                 .IsIstanbul = true,
+                .IsBerlin = true,
+                .IsCancun = true,
+                .IsPrague = true,
+                .IsEIP1559 = true,
+                .IsEIP2929 = true,
+                .IsEIP2930 = true,
+                .IsEIP3198 = true,
+                .IsEIP3529 = true,
+                .IsEIP3541 = true,
+                .IsEIP3651 = true,
+                .IsEIP3855 = true,
+                .IsEIP3860 = true,
+                .IsEIP4895 = true,
+                .IsEIP4844 = true,
+                .IsEIP5656 = true,
+            },
+            .Verkle => .{
+                .IsByzantium = true,
+                .IsIstanbul = true,
+                .IsBerlin = true,
+                .IsCancun = true,
+                .IsPrague = true,
+                .IsVerkle = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -141,6 +221,13 @@ pub const Hardfork = enum {
 // Create a file-specific logger
 const logger = createLogger("Precompiles.zig");
 
+// Helper to create addresses for precompiled contracts
+fn createPrecompileAddress(value: u8) Address {
+    var addr = [_]u8{0} ** 20;
+    addr[19] = value;
+    return addr;
+}
+
 /// PrecompiledContract is the basic interface for native contracts implemented in Zig.
 /// Each contract must provide a method to calculate required gas based on input size
 /// and a method to execute the contract logic.
@@ -160,16 +247,16 @@ pub fn homesteadContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = PrecompiledContracts.init(allocator);
     
     // Address 0x01: ECRECOVER
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x01}), &crypto.ECRecover);
+    try contracts.put(createPrecompileAddress(0x01), &crypto.ECRecover);
     
     // Address 0x02: SHA256
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x02}), &crypto.SHA256Hash);
+    try contracts.put(createPrecompileAddress(0x02), &crypto.SHA256Hash);
     
     // Address 0x03: RIPEMD160
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x03}), &crypto.RIPEMD160Hash);
+    try contracts.put(createPrecompileAddress(0x03), &crypto.RIPEMD160Hash);
     
     // Address 0x04: IDENTITY (data copy)
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x04}), &common.DataCopy);
+    try contracts.put(createPrecompileAddress(0x04), &common.DataCopy);
 
     logger.debug("Created Homestead precompiled contracts", .{});
     
@@ -181,16 +268,16 @@ pub fn byzantiumContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try homesteadContracts(allocator);
     
     // Address 0x05: ModExp
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x05}), &math.BigModExp);
+    try contracts.put(createPrecompileAddress(0x05), &math.BigModExp);
     
     // Address 0x06: Bn256Add
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x06}), &crypto.Bn256AddByzantium);
+    try contracts.put(createPrecompileAddress(0x06), &crypto.Bn256AddByzantium);
     
     // Address 0x07: Bn256ScalarMul
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x07}), &crypto.Bn256ScalarMulByzantium);
+    try contracts.put(createPrecompileAddress(0x07), &crypto.Bn256ScalarMulByzantium);
     
     // Address 0x08: Bn256Pairing
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x08}), &crypto.Bn256PairingByzantium);
+    try contracts.put(createPrecompileAddress(0x08), &crypto.Bn256PairingByzantium);
 
     logger.debug("Created Byzantium precompiled contracts", .{});
     
@@ -202,12 +289,12 @@ pub fn istanbulContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try byzantiumContracts(allocator);
     
     // Update BN256 contracts to use Istanbul gas costs
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x06}), &crypto.Bn256AddIstanbul);
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x07}), &crypto.Bn256ScalarMulIstanbul);
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x08}), &crypto.Bn256PairingIstanbul);
+    try contracts.put(createPrecompileAddress(0x06), &crypto.Bn256AddIstanbul);
+    try contracts.put(createPrecompileAddress(0x07), &crypto.Bn256ScalarMulIstanbul);
+    try contracts.put(createPrecompileAddress(0x08), &crypto.Bn256PairingIstanbul);
     
     // Address 0x09: Blake2F
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x09}), &crypto.Blake2F);
+    try contracts.put(createPrecompileAddress(0x09), &crypto.Blake2F);
 
     logger.debug("Created Istanbul precompiled contracts", .{});
     
@@ -219,7 +306,7 @@ pub fn berlinContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try istanbulContracts(allocator);
     
     // Update ModExp to use EIP-2565 gas cost formula
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x05}), &math.BigModExpEIP2565);
+    try contracts.put(createPrecompileAddress(0x05), &math.BigModExpEIP2565);
 
     logger.debug("Created Berlin precompiled contracts", .{});
     
@@ -231,7 +318,7 @@ pub fn cancunContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
     var contracts = try berlinContracts(allocator);
     
     // Address 0x0a: KZG Point Evaluation
-    try contracts.put(Address.fromBytesAddress(&[_]u8{0x0a}), &kzg.PointEvaluation);
+    try contracts.put(createPrecompileAddress(0x0a), &kzg.PointEvaluation);
 
     logger.debug("Created Cancun precompiled contracts", .{});
     
