@@ -4,7 +4,7 @@ const trie = @import("trie.zig");
 const hash_builder = @import("hash_builder.zig");
 const proof_module = @import("proof.zig");
 const rlp = @import("Rlp");
-const utils = @import("../Utils/utils.zig");
+const utils = @import("Utils");
 
 const TrieNode = trie.TrieNode;
 const HashValue = trie.HashValue;

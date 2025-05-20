@@ -450,8 +450,8 @@ pub const ScopedLogger = struct {
     }
 };
 
-/// Test that demonstrates zero runtime overhead when ENABLE_DEBUG_LOGS is false
 test "EvmLogger - zero overhead when disabled" {
+    // This test demonstrates zero runtime overhead when ENABLE_DEBUG_LOGS is false
     // This test demonstrates that when ENABLE_DEBUG_LOGS is false,
     // all logging functions become no-ops with zero runtime overhead
     
