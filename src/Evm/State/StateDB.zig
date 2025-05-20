@@ -1,11 +1,70 @@
 const std = @import("std");
-const B256 = @import("../../Types/B256.ts");
-const Address = @import("../../Address/address.zig").Address;
+const testing = std.testing;
+
+// Define local types for testing
+pub const B256 = struct {
+    bytes: [32]u8,
+    
+    // Helper functions
+    pub fn zero() B256 {
+        return B256{ .bytes = [_]u8{0} ** 32 };
+    }
+    
+    pub fn isZero(hash: B256) bool {
+        for (hash.bytes) |byte| {
+            if (byte != 0) return false;
+        }
+        return true;
+    }
+    
+    pub fn fromBytes(bytes: *const [32]u8) B256 {
+        var result = B256{ .bytes = undefined };
+        @memcpy(&result.bytes, bytes);
+        return result;
+    }
+    
+    pub fn equal(a: B256, b: B256) bool {
+        return std.mem.eql(u8, &a.bytes, &b.bytes);
+    }
+    
+    pub fn fromInt(value: u128) B256 {
+        var result = B256.zero();
+        // Convert integer to bytes (little-endian)
+        var tmp = value;
+        var i: usize = 0;
+        while (tmp > 0 and i < 16) : (i += 1) {
+            result.bytes[i] = @intCast(tmp & 0xFF);
+            tmp >>= 8;
+        }
+        return result;
+    }
+};
+
+// Define local Address for testing
+const Address = [20]u8;
+
+// Define u256 for testing
+const EVM_u256 = u128;
+
+// Import local modules
 const Account = @import("Account.zig").Account;
 const Storage = @import("Storage.zig").Storage;
 const Journal = @import("Journal.zig").Journal;
 const JournalEntry = @import("Journal.zig").JournalEntry;
-const testing = std.testing;
+
+// Helper function for tests to create an address from a hex string
+fn addressFromHexString(hex: []const u8) !Address {
+    if (hex.len < 2 or !std.mem.eql(u8, hex[0..2], "0x"))
+        return error.InvalidAddressFormat;
+    
+    if (hex.len != 42)
+        return error.InvalidAddressLength;
+    
+    var addr: Address = undefined;
+    const hex_without_prefix = hex[2..];
+    _ = try std.fmt.hexToBytes(&addr, hex_without_prefix);
+    return addr;
+}
 
 /// StateDB is the main state database that tracks account states
 pub const StateDB = struct {

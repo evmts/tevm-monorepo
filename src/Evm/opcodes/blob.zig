@@ -15,6 +15,11 @@ pub const BlobBaseFeeGas: u64 = 2;
 pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
+    // Check if EIP-4844 is enabled
+    if (!interpreter.evm.chainRules.IsEIP4844) {
+        return ExecutionError.InvalidOpcode;
+    }
+    
     // We need at least 1 item on the stack
     if (frame.stack.size < 1) {
         return ExecutionError.StackUnderflow;
@@ -42,7 +47,11 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
 /// Returns the current blob base fee
 pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
-    _ = interpreter;
+    
+    // Check if EIP-4844 is enabled
+    if (!interpreter.evm.chainRules.IsEIP4844) {
+        return ExecutionError.InvalidOpcode;
+    }
     
     // Get the current blob base fee
     // Note: In a full implementation, we would get the actual blob base fee
