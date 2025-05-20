@@ -124,7 +124,7 @@ pub const StateDB = struct {
         }
         
         // Create a new account
-        var account = try self.allocator.create(Account);
+        const account = try self.allocator.create(Account);
         account.* = Account.init();
         
         // Store in accounts map
@@ -184,13 +184,13 @@ pub const StateDB = struct {
     }
     
     /// Get account balance
-    pub fn getBalance(self: *StateDB, address: Address) u256 {
+    pub fn getBalance(self: *StateDB, address: Address) EVM_u256 {
         const account = self.accounts.get(address) orelse return 0;
         return account.getBalance();
     }
     
     /// Set account balance
-    pub fn setBalance(self: *StateDB, address: Address, balance: u256) !void {
+    pub fn setBalance(self: *StateDB, address: Address, balance: EVM_u256) !void {
         var account = try self.getOrCreateAccount(address);
         
         // Record original balance in journal
@@ -204,7 +204,7 @@ pub const StateDB = struct {
     }
     
     /// Add to account balance
-    pub fn addBalance(self: *StateDB, address: Address, amount: u256) !void {
+    pub fn addBalance(self: *StateDB, address: Address, amount: EVM_u256) !void {
         var account = try self.getOrCreateAccount(address);
         
         // Record original balance in journal
@@ -218,7 +218,7 @@ pub const StateDB = struct {
     }
     
     /// Subtract from account balance
-    pub fn subBalance(self: *StateDB, address: Address, amount: u256) !void {
+    pub fn subBalance(self: *StateDB, address: Address, amount: EVM_u256) !void {
         var account = try self.getOrCreateAccount(address);
         
         // Record original balance in journal
@@ -275,20 +275,46 @@ pub const StateDB = struct {
     pub fn setCode(self: *StateDB, address: Address, code: []const u8) !void {
         var account = try self.getOrCreateAccount(address);
         
+        // Get the code hash as raw bytes
+        const codeHashAB = account.getCodeHash();
+        
+        // Create a raw B256 array for the journal
+        var codeHashRaw: [32]u8 = undefined;
+        @memcpy(&codeHashRaw, &codeHashAB.bytes);
+        
         // Record original code hash in journal
         try self.journal.append(.{ .CodeChange = .{
             .address = address,
-            .prev_code_hash = account.getCodeHash(),
+            .prev_code_hash = codeHashRaw,
         }});
         
         // Update code
         try account.setCode(self.allocator, code);
     }
     
+    // Helper to convert between different B256 types
+    fn convertFromAccountB256(hash: @import("Account.zig").B256) B256 {
+        var result = B256{ .bytes = undefined };
+        @memcpy(&result.bytes, &hash.bytes);
+        return result;
+    }
+    
+    fn convertToStorageB256(hash: B256) @import("Storage.zig").B256 {
+        var result = @import("Storage.zig").B256{ .bytes = undefined };
+        @memcpy(&result.bytes, &hash.bytes);
+        return result;
+    }
+    
+    fn convertFromStorageB256(hash: @import("Storage.zig").B256) B256 {
+        var result = B256{ .bytes = undefined };
+        @memcpy(&result.bytes, &hash.bytes);
+        return result;
+    }
+    
     /// Get account code hash
     pub fn getCodeHash(self: *StateDB, address: Address) B256 {
         const account = self.accounts.get(address) orelse return B256.zero();
-        return account.getCodeHash();
+        return convertFromAccountB256(account.getCodeHash());
     }
     
     /// Get account code size
@@ -301,7 +327,9 @@ pub const StateDB = struct {
     pub fn getState(self: *StateDB, address: Address, key: B256) !B256 {
         // Get or create storage for this account
         var storage = try self.getOrCreateStorage(address);
-        return storage.get(key);
+        const storageKey = convertToStorageB256(key);
+        const result = storage.get(storageKey);
+        return convertFromStorageB256(result);
     }
     
     /// Set storage value
@@ -309,23 +337,34 @@ pub const StateDB = struct {
         // Get or create storage for this account
         var storage = try self.getOrCreateStorage(address);
         
+        // Convert key and value to Storage.B256
+        const storageKey = convertToStorageB256(key);
+        const storageValue = convertToStorageB256(value);
+        
         // Get current value
-        const current = storage.get(key);
+        const currentStorage = storage.get(storageKey);
+        const current = convertFromStorageB256(currentStorage);
         
         // If no change, nothing to do
         if (B256.equal(current, value)) {
             return;
         }
         
+        // Create raw B256 arrays for journal
+        var keyRaw: [32]u8 = undefined;
+        var valueRaw: [32]u8 = undefined;
+        @memcpy(&keyRaw, &key.bytes);
+        @memcpy(&valueRaw, &current.bytes);
+        
         // Record change in journal
         try self.journal.append(.{ .StorageChange = .{
             .address = address,
-            .key = key,
-            .prev_value = current,
+            .key = keyRaw,
+            .prev_value = valueRaw,
         }});
         
         // Update storage
-        try storage.set(key, value);
+        try storage.set(storageKey, storageValue);
         
         // Mark account storage as dirty
         var account = try self.getOrCreateAccount(address);
@@ -340,7 +379,7 @@ pub const StateDB = struct {
         }
         
         // Otherwise create new storage
-        var storage = try self.allocator.create(Storage);
+        const storage = try self.allocator.create(Storage);
         storage.* = Storage.init(self.allocator);
         
         // Store in storage map
@@ -385,14 +424,21 @@ pub const StateDB = struct {
             },
             .StorageChange => |change| {
                 if (self.storage.get(change.address)) |storage| {
-                    try storage.set(change.key, change.prev_value);
+                    // Convert raw arrays to our B256 type
+                    const keyStruct = B256{ .bytes = change.key };
+                    const valueStruct = B256{ .bytes = change.prev_value };
+                    
+                    // Then convert to Storage.B256
+                    const storageKey = convertToStorageB256(keyStruct);
+                    const storageValue = convertToStorageB256(valueStruct);
+                    try storage.set(storageKey, storageValue);
                 }
             },
             .CodeChange => |change| {
                 // Code changes are complex to revert since we need the original code
                 // For now, we'll just restore the code hash and clear the code
                 if (self.accounts.get(change.address)) |account| {
-                    account.code_hash = change.prev_code_hash;
+                    account.code_hash = @import("Account.zig").B256{ .bytes = change.prev_code_hash };
                     if (account.code) |code| {
                         self.allocator.free(code);
                         account.code = null;
@@ -483,7 +529,7 @@ test "Account creation and retrieval" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Initially account should not exist
     try testing.expect(!state.accountExists(addr));
@@ -495,7 +541,7 @@ test "Account creation and retrieval" {
     // Get the account
     const account = state.getAccount(addr);
     try testing.expect(account != null);
-    try testing.expectEqual(@as(u256, 0), account.?.getBalance());
+    try testing.expectEqual(@as(EVM_u256, 0), account.?.getBalance());
     try testing.expectEqual(@as(u64, 0), account.?.getNonce());
 }
 
@@ -504,27 +550,27 @@ test "Account balance operations" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Initially balance should be 0
-    try testing.expectEqual(@as(u256, 0), state.getBalance(addr));
+    try testing.expectEqual(@as(EVM_u256, 0), state.getBalance(addr));
     
     // Set balance
     try state.setBalance(addr, 1000);
-    try testing.expectEqual(@as(u256, 1000), state.getBalance(addr));
+    try testing.expectEqual(@as(EVM_u256, 1000), state.getBalance(addr));
     try testing.expect(state.accountExists(addr));
     
     // Add to balance
     try state.addBalance(addr, 500);
-    try testing.expectEqual(@as(u256, 1500), state.getBalance(addr));
+    try testing.expectEqual(@as(EVM_u256, 1500), state.getBalance(addr));
     
     // Subtract from balance
     try state.subBalance(addr, 200);
-    try testing.expectEqual(@as(u256, 1300), state.getBalance(addr));
+    try testing.expectEqual(@as(EVM_u256, 1300), state.getBalance(addr));
     
     // Cannot subtract more than balance
     try testing.expectError(error.InsufficientBalance, state.subBalance(addr, 2000));
-    try testing.expectEqual(@as(u256, 1300), state.getBalance(addr));
+    try testing.expectEqual(@as(EVM_u256, 1300), state.getBalance(addr));
 }
 
 test "Account nonce operations" {
@@ -532,7 +578,7 @@ test "Account nonce operations" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Initially nonce should be 0
     try testing.expectEqual(@as(u64, 0), state.getNonce(addr));
@@ -552,7 +598,7 @@ test "Account code operations" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Initially code should be null
     try testing.expect(state.getCode(addr) == null);
@@ -578,7 +624,7 @@ test "Storage operations" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     const key = B256.fromInt(123);
     const value = B256.fromInt(456);
     
@@ -603,7 +649,7 @@ test "Snapshots and reverts" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Set initial state
     try state.setBalance(addr, 1000);
@@ -617,14 +663,14 @@ test "Snapshots and reverts" {
     try state.incrementNonce(addr);
     
     // Verify modifications
-    try testing.expectEqual(@as(u256, 1500), state.getBalance(addr));
+    try testing.expectEqual(@as(EVM_u256, 1500), state.getBalance(addr));
     try testing.expectEqual(@as(u64, 6), state.getNonce(addr));
     
     // Revert to snapshot
     try state.revertToSnapshot(snapshot1);
     
     // Verify state was reverted
-    try testing.expectEqual(@as(u256, 1000), state.getBalance(addr));
+    try testing.expectEqual(@as(EVM_u256, 1000), state.getBalance(addr));
     try testing.expectEqual(@as(u64, 5), state.getNonce(addr));
 }
 
@@ -633,7 +679,7 @@ test "Account deletion" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Create and set up account
     try state.createAccount(addr);
@@ -644,7 +690,7 @@ test "Account deletion" {
     // Delete account
     try state.deleteAccount(addr);
     try testing.expect(!state.accountExists(addr));
-    try testing.expectEqual(@as(u256, 0), state.getBalance(addr));
+    try testing.expectEqual(@as(EVM_u256, 0), state.getBalance(addr));
     try testing.expectEqual(@as(u64, 0), state.getNonce(addr));
 }
 
@@ -678,7 +724,7 @@ test "Empty account checks" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr = Address.fromString("0x1234567890123456789012345678901234567890");
+    const addr = try addressFromHexString("0x1234567890123456789012345678901234567890");
     
     // Initially account is empty (doesn't exist)
     try testing.expect(state.isEmpty(addr));
@@ -709,8 +755,8 @@ test "Complex state transitions with snapshots" {
     var state = StateDB.init(allocator);
     defer state.deinit();
     
-    const addr1 = Address.fromString("0x1111111111111111111111111111111111111111");
-    const addr2 = Address.fromString("0x2222222222222222222222222222222222222222");
+    const addr1 = try addressFromHexString("0x1111111111111111111111111111111111111111");
+    const addr2 = try addressFromHexString("0x2222222222222222222222222222222222222222");
     const key = B256.fromInt(123);
     
     // Initial setup
@@ -739,7 +785,7 @@ test "Complex state transitions with snapshots" {
     try state.deleteAccount(addr2);
     
     // Verify current state
-    try testing.expectEqual(@as(u256, 1500), state.getBalance(addr1));
+    try testing.expectEqual(@as(EVM_u256, 1500), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 2), state.getNonce(addr1));
     try testing.expect(!state.accountExists(addr2));
     
@@ -747,20 +793,20 @@ test "Complex state transitions with snapshots" {
     try state.revertToSnapshot(snapshot2);
     
     // Verify state after revert to snapshot 2
-    try testing.expectEqual(@as(u256, 1200), state.getBalance(addr1));
+    try testing.expectEqual(@as(EVM_u256, 1200), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 2), state.getNonce(addr1));
     try testing.expect(state.accountExists(addr2));
-    try testing.expectEqual(@as(u256, 400), state.getBalance(addr2));
+    try testing.expectEqual(@as(EVM_u256, 400), state.getBalance(addr2));
     
     // Revert to snapshot 1
     try state.revertToSnapshot(snapshot1);
     
     // Verify state after revert to snapshot 1
-    try testing.expectEqual(@as(u256, 1000), state.getBalance(addr1));
+    try testing.expectEqual(@as(EVM_u256, 1000), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 1), state.getNonce(addr1));
     
     const initial_storage = try state.getState(addr1, key);
     try testing.expect(B256.isZero(initial_storage));
     
-    try testing.expectEqual(@as(u256, 500), state.getBalance(addr2));
+    try testing.expectEqual(@as(EVM_u256, 500), state.getBalance(addr2));
 }

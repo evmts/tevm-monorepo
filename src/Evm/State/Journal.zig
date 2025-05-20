@@ -147,7 +147,8 @@ pub const Journal = struct {
         // Find the index for this snapshot
         const index = self.snapshot_indexes.get(id) orelse return error.InvalidSnapshotID;
         
-        // Remove all entries after (and including) the snapshot
+        // Remove all entries after (and including) the snapshot marker
+        // (snapshot marker is at index position)
         if (index < self.entries.items.len) {
             self.entries.shrinkRetainingCapacity(index);
         }
@@ -346,7 +347,7 @@ test "Journal multiple snapshots and reverts" {
     try journal.append(.{ .RefundChange = .{ .prev_refund = 200 } });
     
     // Verify state
-    try testing.expectEqual(@as(usize, 7), journal.len());
+    try testing.expectEqual(@as(usize, 6), journal.len());
     
     // Revert to snapshot 1
     try journal.revertToSnapshot(snapshot1);

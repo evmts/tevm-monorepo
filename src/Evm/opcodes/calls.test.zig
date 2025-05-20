@@ -18,23 +18,23 @@ fn setupInterpreter() !*Interpreter {
     var evm = try EVM.init(testing.allocator, EvmConfig{});
     defer evm.deinit();
     
-    var interpreter = try Interpreter.init(evm);
+    const interpreter = try Interpreter.init(evm);
     return interpreter;
 }
 
 fn setupFrame(interpreter: *Interpreter) !*Frame {
-    var code = [_]u8{0xF1}; // CALL
-    var contract = try Contract.init(testing.allocator, &code, createAddress(1));
-    var frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
+    const code = [_]u8{0xF1}; // CALL
+    const contract = try Contract.init(testing.allocator, &code, createAddress(1));
+    const frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
     return frame;
 }
 
 // Tests for CALL opcode (0xF1)
 test "CALL with insufficient stack" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
-    var frame = try setupFrame(interpreter);
+    const frame = try setupFrame(interpreter);
     defer frame.deinit();
     
     // Stack should have 7 elements, but we'll only push 6
@@ -52,10 +52,10 @@ test "CALL with insufficient stack" {
 }
 
 test "CALL with all parameters" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
-    var frame = try setupFrame(interpreter);
+    const frame = try setupFrame(interpreter);
     defer frame.deinit();
     
     // Push all required parameters
@@ -78,13 +78,13 @@ test "CALL with all parameters" {
 
 // Test for STATICCALL opcode (0xFA)
 test "STATICCALL basic functionality" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
     // Setup a frame with STATICCALL opcode
-    var code = [_]u8{0xFA}; // STATICCALL
-    var contract = try Contract.init(testing.allocator, &code, createAddress(1));
-    var frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
+    const code = [_]u8{0xFA}; // STATICCALL
+    const contract = try Contract.init(testing.allocator, &code, createAddress(1));
+    const frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
     defer frame.deinit();
     
     // Push parameters for STATICCALL
@@ -104,13 +104,13 @@ test "STATICCALL basic functionality" {
 
 // Test for DELEGATECALL opcode (0xF4)
 test "DELEGATECALL basic functionality" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
     // Setup a frame with DELEGATECALL opcode
-    var code = [_]u8{0xF4}; // DELEGATECALL
-    var contract = try Contract.init(testing.allocator, &code, createAddress(1));
-    var frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
+    const code = [_]u8{0xF4}; // DELEGATECALL
+    const contract = try Contract.init(testing.allocator, &code, createAddress(1));
+    const frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
     defer frame.deinit();
     
     // Push parameters for DELEGATECALL
@@ -130,13 +130,13 @@ test "DELEGATECALL basic functionality" {
 
 // Test for CREATE opcode (0xF0)
 test "CREATE basic functionality" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
     // Setup a frame with CREATE opcode
-    var code = [_]u8{0xF0}; // CREATE
-    var contract = try Contract.init(testing.allocator, &code, createAddress(1));
-    var frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
+    const code = [_]u8{0xF0}; // CREATE
+    const contract = try Contract.init(testing.allocator, &code, createAddress(1));
+    const frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
     defer frame.deinit();
     
     // Push parameters for CREATE
@@ -153,13 +153,13 @@ test "CREATE basic functionality" {
 
 // Test for CREATE2 opcode (0xF5)
 test "CREATE2 basic functionality" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
     // Setup a frame with CREATE2 opcode
-    var code = [_]u8{0xF5}; // CREATE2
-    var contract = try Contract.init(testing.allocator, &code, createAddress(1));
-    var frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
+    const code = [_]u8{0xF5}; // CREATE2
+    const contract = try Contract.init(testing.allocator, &code, createAddress(1));
+    const frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
     defer frame.deinit();
     
     // Push parameters for CREATE2
@@ -177,16 +177,16 @@ test "CREATE2 basic functionality" {
 
 // Test for RETURN opcode (0xF3)
 test "RETURN opcode" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
     // Setup data in memory
-    var return_data = [_]u8{0x01, 0x02, 0x03, 0x04};
+    const return_data = [_]u8{0x01, 0x02, 0x03, 0x04};
     
     // Setup a frame with RETURN opcode
-    var code = [_]u8{0xF3}; // RETURN
-    var contract = try Contract.init(testing.allocator, &code, createAddress(1));
-    var frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
+    const code = [_]u8{0xF3}; // RETURN
+    const contract = try Contract.init(testing.allocator, &code, createAddress(1));
+    const frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
     defer frame.deinit();
     
     // Add data to memory
@@ -206,16 +206,16 @@ test "RETURN opcode" {
 
 // Test for REVERT opcode (0xFD)
 test "REVERT opcode" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
     // Setup data in memory
-    var revert_data = [_]u8{0x08, 0x09, 0x0A, 0x0B};
+    const revert_data = [_]u8{0x08, 0x09, 0x0A, 0x0B};
     
     // Setup a frame with REVERT opcode
-    var code = [_]u8{0xFD}; // REVERT
-    var contract = try Contract.init(testing.allocator, &code, createAddress(1));
-    var frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
+    const code = [_]u8{0xFD}; // REVERT
+    const contract = try Contract.init(testing.allocator, &code, createAddress(1));
+    const frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
     defer frame.deinit();
     
     // Add data to memory
@@ -237,13 +237,13 @@ test "REVERT opcode" {
 
 // Test for SELFDESTRUCT opcode (0xFF)
 test "SELFDESTRUCT opcode" {
-    var interpreter = try setupInterpreter();
+    const interpreter = try setupInterpreter();
     defer interpreter.deinit();
     
     // Setup a frame with SELFDESTRUCT opcode
-    var code = [_]u8{0xFF}; // SELFDESTRUCT
-    var contract = try Contract.init(testing.allocator, &code, createAddress(1));
-    var frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
+    const code = [_]u8{0xFF}; // SELFDESTRUCT
+    const contract = try Contract.init(testing.allocator, &code, createAddress(1));
+    const frame = try Frame.init(interpreter, contract, createAddress(2), 100000);
     defer frame.deinit();
     
     // Push beneficiary address for SELFDESTRUCT

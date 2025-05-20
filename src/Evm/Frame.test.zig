@@ -1,5 +1,6 @@
 const std = @import("std");
 const Frame = @import("Frame.zig").Frame;
+const ExecutionError = @import("Frame.zig").ExecutionError;
 const Contract = @import("Contract.zig").Contract;
 const Address = @import("Address");
 

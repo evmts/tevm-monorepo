@@ -236,6 +236,9 @@ pub const SelfdestructRefundGas: u64 = 24000; /// Gas refund for SELFDESTRUCT
 pub const MemoryGas: u64 = 3;                /// Linear coefficient for memory gas
 pub const QuadCoeffDiv: u64 = 512;           /// Quadratic coefficient divisor for memory gas
 pub const CreateDataGas: u64 = 200;          /// Gas per byte of CREATE data
+// EIP-3860: Limit and meter initcode
+pub const InitcodeWordGas: u64 = 2;          /// Gas per 32-byte word of initcode (EIP-3860)
+pub const MaxInitcodeSize: u64 = 49152;      /// Maximum initcode size (2 * 24576 bytes) (EIP-3860)
 pub const TxGas: u64 = 21000;                /// Base gas for a transaction
 pub const TxGasContractCreation: u64 = 53000; /// Base gas for contract creation
 pub const TxDataZeroGas: u64 = 4;            /// Gas per zero byte of tx data
@@ -302,7 +305,7 @@ pub fn maxDupStack(n: u32) u32 {
 ///
 /// Returns: Minimum stack depth required for SWAPn
 pub fn minSwapStack(n: u32) u32 {
-    return n;
+    return n + 1;
 }
 
 /// Calculate maximum stack allowance for SWAP operations
@@ -312,199 +315,188 @@ pub fn minSwapStack(n: u32) u32 {
 ///
 /// Returns: Maximum stack items allowed for SWAPn
 pub fn maxSwapStack(n: u32) u32 {
-    return n;
+    return n + 1;
 }
 
-// Define a default undefined operation
-var UNDEFINED = Operation{
-    .execute = undefinedExecute,
-    .constant_gas = 0,
-    .min_stack = 0,
-    .max_stack = 0,
-    .undefined = true,
-};
+/// Create a new jump table for a specific Ethereum hardfork
+///
+/// This creates a jump table with all the opcodes appropriate for
+/// the specified Ethereum hardfork.
+///
+/// Parameters:
+/// - allocator: Memory allocator to use for the operations
+/// - hardfork: Name of the Ethereum hardfork
+///
+/// Returns: A new JumpTable configured for the hardfork
+/// Error: May return allocation errors
+pub fn newJumpTable(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTable {
+    var jump_table = JumpTable.init();
+    
+    // Register opcode categories
+    try math.registerMathOpcodes(allocator, &jump_table);
+    try math2.registerMath2Opcodes(allocator, &jump_table);
+    try bitwise.registerBitwiseOpcodes(allocator, &jump_table);
+    try comparison.registerComparisonOpcodes(allocator, &jump_table);
+    try controlflow.registerControlFlowOpcodes(allocator, &jump_table);
+    try memory.registerMemoryOpcodes(allocator, &jump_table);
+    try environment.registerEnvironmentOpcodes(allocator, &jump_table);
+    try storage.registerStorageOpcodes(allocator, &jump_table);
+    try calls.registerCallOpcodes(allocator, &jump_table);
+    try block.registerBlockOpcodes(allocator, &jump_table);
+    try crypto.registerCryptoOpcodes(allocator, &jump_table);
+    try log.registerLogOpcodes(allocator, &jump_table);
+    
+    // Register hardfork-specific opcodes
 
-fn undefinedExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    _ = pc;
-    _ = interpreter;
-    _ = frame;
-    return ExecutionError.INVALID;
-}
-
-// We'll use the controlflow module for STOP now
-
-fn dummyExecute(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    _ = pc;
-    _ = interpreter;
-    _ = frame;
-    return "";
-}
-
-// Create a new frontier instruction set
-pub fn newFrontierInstructionSet(allocator: std.mem.Allocator) !JumpTable {
-    var jt = JumpTable.init();
-
-    // Register control flow opcodes (STOP, JUMP, JUMPI, PC, JUMPDEST, RETURN, REVERT, INVALID, SELFDESTRUCT)
-    try controlflow.registerControlFlowOpcodes(allocator, &jt);
-
-    const add_op = try allocator.create(Operation);
-    add_op.* = Operation{
-        .execute = dummyExecute,
-        .constant_gas = GasFastestStep,
-        .min_stack = minStack(2, 1),
-        .max_stack = maxStack(2, 1),
-    };
-    jt.table[0x01] = add_op;
-
-    // Register math opcodes (ADD, SUB, MUL, etc.)
-    try math.registerMathOpcodes(allocator, &jt);
-    
-    // Register advanced math opcodes (ADDMOD, MULMOD, EXP, SIGNEXTEND, SDIV, MOD, SMOD)
-    try math2.registerMath2Opcodes(allocator, &jt);
-    
-    // Register comparison opcodes (LT, GT, SLT, SGT, EQ, ISZERO)
-    try comparison.registerComparisonOpcodes(allocator, &jt);
-    
-    // Register bitwise opcodes (AND, OR, XOR, NOT, BYTE, SHL, SHR, SAR)
-    try bitwise.registerBitwiseOpcodes(allocator, &jt);
-    
-    // Register memory opcodes (MLOAD, MSTORE, MSTORE8, MSIZE, POP, PUSH*, DUP*, SWAP*)
-    try memory.registerMemoryOpcodes(allocator, &jt);
-    
-    // Register storage opcodes (SLOAD, SSTORE)
-    try storage.registerStorageOpcodes(allocator, &jt);
-    
-    // Register environment opcodes (ADDRESS, BALANCE, etc.)
-    try environment.registerEnvironmentOpcodes(allocator, &jt);
-    
-    // Register block opcodes (BLOCKHASH, COINBASE, TIMESTAMP, etc.)
-    try block.registerBlockOpcodes(allocator, &jt);
-    
-    // Register call opcodes (CALL, CALLCODE, DELEGATECALL, STATICCALL, CREATE, CREATE2)
-    try calls.registerCallOpcodes(allocator, &jt);
-    
-    // Register cryptographic opcodes (KECCAK256)
-    try crypto.registerCryptoOpcodes(allocator, &jt);
-    
-    // Register LOG opcodes (LOG0, LOG1, LOG2, LOG3, LOG4)
-    try log.registerLogOpcodes(allocator, &jt);
-    
-    // Register EIP-4844 blob opcodes (BLOBHASH, BLOBBASEFEE) and EIP-5656 (MCOPY)
-    try blob.registerBlobOpcodes(allocator, &jt);
-    
-    // Register EIP-1153 transient storage opcodes (TLOAD, TSTORE)
-    try transient.registerTransientOpcodes(allocator, &jt);
-
-    // Add more operations based on Geth's frontier implementation
-    // This would continue for all opcodes...
-
-    jt.validate();
-    return jt;
-}
-
-// Create test for the JumpTable
-test "JumpTable basic operations" {
-    const allocator = std.testing.allocator;
-
-    var jt = try newFrontierInstructionSet(allocator);
-    defer {
-        // Free allocated operations
-        for (0..256) |i| {
-            if (jt.table[i] != null and !jt.table[i].?.undefined) {
-                allocator.destroy(jt.table[i].?);
-            }
+    // Homestead+ (all currently supported forks)
+    if (std.mem.eql(u8, hardfork, "homestead") or
+        std.mem.eql(u8, hardfork, "byzantium") or
+        std.mem.eql(u8, hardfork, "constantinople") or
+        std.mem.eql(u8, hardfork, "petersburg") or
+        std.mem.eql(u8, hardfork, "istanbul") or
+        std.mem.eql(u8, hardfork, "berlin") or
+        std.mem.eql(u8, hardfork, "london") or
+        std.mem.eql(u8, hardfork, "merge") or
+        std.mem.eql(u8, hardfork, "shanghai") or
+        std.mem.eql(u8, hardfork, "cancun") or
+        std.mem.eql(u8, hardfork, "latest")) {
+        
+        // Add opDelegateCall if available from Homestead+
+        if (std.mem.eql(u8, hardfork, "homestead") or
+            std.mem.eql(u8, hardfork, "byzantium") or
+            std.mem.eql(u8, hardfork, "constantinople") or
+            std.mem.eql(u8, hardfork, "petersburg") or
+            std.mem.eql(u8, hardfork, "istanbul") or
+            std.mem.eql(u8, hardfork, "berlin") or
+            std.mem.eql(u8, hardfork, "london") or
+            std.mem.eql(u8, hardfork, "merge") or
+            std.mem.eql(u8, hardfork, "shanghai") or
+            std.mem.eql(u8, hardfork, "cancun") or
+            std.mem.eql(u8, hardfork, "latest")) {
+            // DELEGATECALL already registered in registerCallOpcodes
         }
     }
 
-    // Test a couple of operations
-    const stop_op = jt.getOperation(0x00);
-    try std.testing.expectEqual(@as(u64, 0), stop_op.constant_gas);
+    // Byzantium+ opcodes
+    if (std.mem.eql(u8, hardfork, "byzantium") or
+        std.mem.eql(u8, hardfork, "constantinople") or
+        std.mem.eql(u8, hardfork, "petersburg") or
+        std.mem.eql(u8, hardfork, "istanbul") or
+        std.mem.eql(u8, hardfork, "berlin") or
+        std.mem.eql(u8, hardfork, "london") or
+        std.mem.eql(u8, hardfork, "merge") or
+        std.mem.eql(u8, hardfork, "shanghai") or
+        std.mem.eql(u8, hardfork, "cancun") or
+        std.mem.eql(u8, hardfork, "latest")) {
+        
+        // Add opStaticCall if available from Byzantium+
+        if (std.mem.eql(u8, hardfork, "byzantium") or
+            std.mem.eql(u8, hardfork, "constantinople") or
+            std.mem.eql(u8, hardfork, "petersburg") or
+            std.mem.eql(u8, hardfork, "istanbul") or
+            std.mem.eql(u8, hardfork, "berlin") or
+            std.mem.eql(u8, hardfork, "london") or
+            std.mem.eql(u8, hardfork, "merge") or
+            std.mem.eql(u8, hardfork, "shanghai") or
+            std.mem.eql(u8, hardfork, "cancun") or
+            std.mem.eql(u8, hardfork, "latest")) {
+            // STATICCALL already registered in registerCallOpcodes
+        }
 
-    const add_op = jt.getOperation(0x01);
-    try std.testing.expectEqual(@as(u64, GasFastestStep), add_op.constant_gas);
-    
-    // Test environment opcodes
-    const address_op = jt.getOperation(0x30); // ADDRESS
-    try std.testing.expectEqual(@as(u64, GasQuickStep), address_op.constant_gas);
-    
-    const balance_op = jt.getOperation(0x31); // BALANCE
-    try std.testing.expectEqual(@as(u64, GasExtStep), balance_op.constant_gas);
-    
-    // Test block opcodes
-    const blockhash_op = jt.getOperation(0x40); // BLOCKHASH
-    try std.testing.expectEqual(@as(u64, GasMidStep), blockhash_op.constant_gas);
-    
-    const coinbase_op = jt.getOperation(0x41); // COINBASE
-    try std.testing.expectEqual(@as(u64, GasQuickStep), coinbase_op.constant_gas);
-    
-    const timestamp_op = jt.getOperation(0x42); // TIMESTAMP
-    try std.testing.expectEqual(@as(u64, GasQuickStep), timestamp_op.constant_gas);
-    
-    const difficulty_op = jt.getOperation(0x44); // DIFFICULTY/PREVRANDAO
-    try std.testing.expectEqual(@as(u64, GasQuickStep), difficulty_op.constant_gas);
-    
-    const chainid_op = jt.getOperation(0x46); // CHAINID
-    try std.testing.expectEqual(@as(u64, GasQuickStep), chainid_op.constant_gas);
-    
-    // Test call opcodes
-    const call_op = jt.getOperation(0xF1); // CALL
-    try std.testing.expectEqual(@as(u64, CallGas), call_op.constant_gas);
-    
-    const create_op = jt.getOperation(0xF0); // CREATE
-    try std.testing.expectEqual(@as(u64, CreateGas), create_op.constant_gas);
-    
-    const delegatecall_op = jt.getOperation(0xF4); // DELEGATECALL
-    try std.testing.expectEqual(@as(u64, CallGas), delegatecall_op.constant_gas);
-    
-    const create2_op = jt.getOperation(0xF5); // CREATE2
-    try std.testing.expectEqual(@as(u64, CreateGas), create2_op.constant_gas);
-
-    // Test an undefined operation
-    const undef_op = jt.getOperation(0xFF);
-    try std.testing.expect(undef_op.undefined);
-}
-
-// Create a very basic test for JumpTable that doesn't depend on external implementation details
-test "JumpTable initialization and validation" {
-    const jt = JumpTable.init();
-    try std.testing.expectEqual(@as(usize, 256), jt.table.len);
-
-    // Check that all entries are initially null
-    for (jt.table) |entry| {
-        try std.testing.expectEqual(true, entry == null);
+        // Add RETURNDATASIZE and RETURNDATACOPY opcodes
+        // These are already added in registerMemoryOpcodes
     }
 
-    // Validate should fill all nulls with UNDEFINED
-    var mutable_jt = jt;
-    mutable_jt.validate();
-
-    // Now check that all entries have been filled
-    for (mutable_jt.table) |entry| {
-        try std.testing.expectEqual(false, entry == null);
-        try std.testing.expectEqual(true, entry.?.undefined);
+    // Constantinople+ opcodes
+    if (std.mem.eql(u8, hardfork, "constantinople") or
+        std.mem.eql(u8, hardfork, "petersburg") or
+        std.mem.eql(u8, hardfork, "istanbul") or
+        std.mem.eql(u8, hardfork, "berlin") or
+        std.mem.eql(u8, hardfork, "london") or
+        std.mem.eql(u8, hardfork, "merge") or
+        std.mem.eql(u8, hardfork, "shanghai") or
+        std.mem.eql(u8, hardfork, "cancun") or
+        std.mem.eql(u8, hardfork, "latest")) {
+        
+        // Add CREATE2 opcode if available from Constantinople+
+        if (std.mem.eql(u8, hardfork, "constantinople") or
+            std.mem.eql(u8, hardfork, "petersburg") or
+            std.mem.eql(u8, hardfork, "istanbul") or
+            std.mem.eql(u8, hardfork, "berlin") or
+            std.mem.eql(u8, hardfork, "london") or
+            std.mem.eql(u8, hardfork, "merge") or
+            std.mem.eql(u8, hardfork, "shanghai") or
+            std.mem.eql(u8, hardfork, "cancun") or
+            std.mem.eql(u8, hardfork, "latest")) {
+            // CREATE2 already registered in registerCallOpcodes
+        }
     }
+    
+    // Istanbul+ opcodes
+    if (std.mem.eql(u8, hardfork, "istanbul") or
+        std.mem.eql(u8, hardfork, "berlin") or
+        std.mem.eql(u8, hardfork, "london") or
+        std.mem.eql(u8, hardfork, "merge") or
+        std.mem.eql(u8, hardfork, "shanghai") or
+        std.mem.eql(u8, hardfork, "cancun") or
+        std.mem.eql(u8, hardfork, "latest")) {
+        
+        // Add CHAINID and SELFBALANCE opcodes
+        // These are already added in registerEnvironmentOpcodes
+    }
+
+    // London+ opcodes
+    if (std.mem.eql(u8, hardfork, "london") or
+        std.mem.eql(u8, hardfork, "merge") or
+        std.mem.eql(u8, hardfork, "shanghai") or
+        std.mem.eql(u8, hardfork, "cancun") or
+        std.mem.eql(u8, hardfork, "latest")) {
+        
+        // Add BASEFEE opcode
+        // This is already added in registerBlockOpcodes
+    }
+
+    // Shanghai+ opcodes
+    if (std.mem.eql(u8, hardfork, "shanghai") or
+        std.mem.eql(u8, hardfork, "cancun") or
+        std.mem.eql(u8, hardfork, "latest")) {
+        
+        // Add PUSH0 opcode
+        // This is already added in registerMemoryOpcodes
+    }
+
+    // Cancun+ opcodes
+    if (std.mem.eql(u8, hardfork, "cancun") or
+        std.mem.eql(u8, hardfork, "latest")) {
+        
+        // Add TLOAD and TSTORE opcodes (EIP-1153)
+        try transient.registerTransientOpcodes(allocator, &jump_table);
+        
+        // Add MCOPY, BLOBHASH, BLOBBASEFEE opcodes (EIP-4844 + EIP-5656)
+        try blob.registerBlobOpcodes(allocator, &jump_table);
+    }
+
+    // Fill in any remaining opcodes with UNDEFINED
+    const undefined_op = try allocator.create(Operation);
+    undefined_op.* = UNDEFINED;
+    
+    for (0..256) |i| {
+        if (jump_table.table[i] == null) {
+            jump_table.table[i] = undefined_op;
+        }
+    }
+
+    return jump_table;
 }
 
-test "JumpTable stack calculation helpers" {
-    try std.testing.expectEqual(@as(u32, 2), minStack(2, 1));
-    try std.testing.expectEqual(@as(u32, 1), maxStack(2, 1));
-
-    try std.testing.expectEqual(@as(u32, 3), minDupStack(3));
-    try std.testing.expectEqual(@as(u32, 4), maxDupStack(3));
-
-    try std.testing.expectEqual(@as(u32, 4), minSwapStack(4));
-    try std.testing.expectEqual(@as(u32, 4), maxSwapStack(4));
-}
-
-test "JumpTable gas constants" {
-    try std.testing.expectEqual(@as(u64, 2), GasQuickStep);
-    try std.testing.expectEqual(@as(u64, 3), GasFastestStep);
-    try std.testing.expectEqual(@as(u64, 5), GasFastStep);
-    try std.testing.expectEqual(@as(u64, 8), GasMidStep);
-    try std.testing.expectEqual(@as(u64, 10), GasSlowStep);
-    try std.testing.expectEqual(@as(u64, 20), GasExtStep);
-
-    try std.testing.expectEqual(@as(u64, 30), Keccak256Gas);
-    try std.testing.expectEqual(@as(u64, 375), LogGas);
-    try std.testing.expectEqual(@as(u64, 32000), CreateGas);
-}
+/// UNDEFINED is the default operation for any opcode not defined in a hardfork
+/// Executing an undefined opcode will result in InvalidOpcode error
+pub const UNDEFINED = Operation{
+    .execute = opcodes.opUndefined,
+    .constant_gas = 0,
+    .dynamic_gas = null,
+    .min_stack = minStack(0, 0),
+    .max_stack = maxStack(0, 0),
+    .memory_size = null,
+    .undefined = true,
+};

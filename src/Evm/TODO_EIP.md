@@ -73,10 +73,21 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 
 ### EIP-4844: Shard Blob Transactions
 
-- **Status**: Not implemented
+- **Status**: Implemented
 - **Description**: Introduces a new transaction type that includes a blob of data
 - **Complexity**: High
-- **Implementation**: Add new transaction type, pricing rules, and processing logic
+- **Implementation**: Add new opcodes, precompile, and related infrastructure
+- **What's done**: 
+  - Implemented BLOBHASH opcode (0x49) to access versioned hashes of blobs
+  - Implemented BLOBBASEFEE opcode (0x4A) to get the current blob base fee
+  - Added KZG Point Evaluation precompile for blob verification
+  - Added IsEIP4844 flag in ChainRules struct
+  - Added comprehensive tests for the new opcodes
+  - Created detailed documentation on the EIP implementation
+- **TODO**:
+  - Support for the new blob transaction type (0x03)
+  - Actual KZG cryptography implementation in the precompile
+  - Blob data management and lifecycle
 
 ### EIP-3860: Limit and meter initcode
 
@@ -102,7 +113,7 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 - **What's done**: 
   - Implemented MCOPY opcode (EIP-5656) with proper gas calculation and error handling
   - Implemented TLOAD and TSTORE opcodes (EIP-1153) with proper gas calculation and transient storage 
-  - BLOBHASH and BLOBBASEFEE opcodes are already implemented
+  - Implemented BLOBHASH and BLOBBASEFEE opcodes (EIP-4844) with proper flag checking
 
 ## Implementation Order
 
@@ -114,7 +125,7 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 6. ✅ Implement Shanghai opcodes (PUSH0)
 7. ✅ Implement MCOPY opcode from Cancun (EIP-5656)
 8. ✅ Implement Transient Storage opcodes from Cancun (TLOAD, TSTORE - EIP-1153)
-9. Implement EIP-4844 (Shard Blob Transactions) - Basic opcodes (BLOBHASH, BLOBBASEFEE) support partially added
+9. ✅ Implement EIP-4844 (Shard Blob Transactions) - BLOBHASH and BLOBBASEFEE opcodes plus KZG precompile
 
 ## Test Cases
 

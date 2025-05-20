@@ -1118,6 +1118,14 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
     const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
     
+    // EIP-3860: Limit and meter initcode
+    // Check if initcode size exceeds MAX_INITCODE_SIZE (49152 bytes)
+    if (interpreter.evm.chainRules.IsEIP3860 and size_usize > JumpTableModule.MaxInitcodeSize) {
+        file_logger.err("EIP-3860: Initcode size exceeds maximum allowed size: {} > {}", .{size_usize, JumpTableModule.MaxInitcodeSize});
+        try frame.stack.push(0); // Failure
+        return "";
+    }
+    
     // Ensure memory access is within bounds
     try frame.memory.require(offset_usize, size_usize);
     
@@ -1137,6 +1145,14 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Log the create if we have a logger
     if (frame.logger) |frame_logger| {
         frame_logger.debug("CREATE: value={}, code_size={}", .{ value, size_usize });
+        
+        if (interpreter.evm.chainRules.IsEIP3860 and size_usize > 0) {
+            // Log the additional EIP-3860 gas cost
+            const word_count = (size_usize + 31) / 32; // Round up division to get word count
+            const initcode_gas_cost = word_count * JumpTableModule.InitcodeWordGas;
+            frame_logger.debug("EIP-3860: Adding gas cost for initcode: {} words * {} gas = {} gas", 
+                .{word_count, JumpTableModule.InitcodeWordGas, initcode_gas_cost});
+        }
     }
     
     // In a real implementation, we would:
@@ -1197,6 +1213,14 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
     const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
     
+    // EIP-3860: Limit and meter initcode
+    // Check if initcode size exceeds MAX_INITCODE_SIZE (49152 bytes)
+    if (interpreter.evm.chainRules.IsEIP3860 and size_usize > JumpTableModule.MaxInitcodeSize) {
+        file_logger.err("EIP-3860: Initcode size exceeds maximum allowed size: {} > {}", .{size_usize, JumpTableModule.MaxInitcodeSize});
+        try frame.stack.push(0); // Failure
+        return "";
+    }
+    
     // Ensure memory access is within bounds
     try frame.memory.require(offset_usize, size_usize);
     
@@ -1216,6 +1240,14 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     // Log the create2 if we have a logger
     if (frame.logger) |frame_logger| {
         frame_logger.debug("CREATE2: value={}, code_size={}, salt={x}", .{ value, size_usize, salt });
+        
+        if (interpreter.evm.chainRules.IsEIP3860 and size_usize > 0) {
+            // Log the additional EIP-3860 gas cost
+            const word_count = (size_usize + 31) / 32; // Round up division to get word count
+            const initcode_gas_cost = word_count * JumpTableModule.InitcodeWordGas;
+            frame_logger.debug("EIP-3860: Adding gas cost for initcode: {} words * {} gas = {} gas", 
+                .{word_count, JumpTableModule.InitcodeWordGas, initcode_gas_cost});
+        }
     }
     
     // In a real implementation, we would:
@@ -1395,16 +1427,40 @@ pub fn callGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: 
 
 /// Calculate gas cost for create operations
 pub fn createGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
-    _ = interpreter;
-    _ = frame;
-    _ = stack;
-    _ = memory;
     _ = requested_size;
     
-    // For now, return a fixed gas cost
-    // In a real implementation, this would calculate the dynamic gas cost
-    // based on the create parameters, value, code size, memory expansion, etc.
-    return JumpTable.CreateGas;
+    // Start with the base gas cost for CREATE
+    var gas: u64 = JumpTableModule.CreateGas;
+    
+    // For CREATE, size is at stack[stack.size - 1]
+    // For CREATE2, size is at stack[stack.size - 2] (because salt is on top)
+    var size_pos = stack.size - 1;
+    
+    // Adjust for CREATE2 which has an extra parameter (salt)
+    if (frame.memory.data()[frame.pc - 1] == 0xF5) { // If this is CREATE2 (0xF5)
+        size_pos = stack.size - 2;
+    }
+    
+    // If stack is too small, just return base gas
+    if (size_pos >= stack.size) {
+        return gas;
+    }
+    
+    // Get the size of the initcode
+    const size = stack.data[size_pos];
+    const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
+    
+    // EIP-3860: Add gas cost for initcode (2 gas per 32-byte word)
+    if (interpreter.evm.chainRules.IsEIP3860 and size_usize > 0) {
+        const word_count = (size_usize + 31) / 32; // Round up division to get word count
+        const initcode_gas_cost = word_count * JumpTableModule.InitcodeWordGas;
+        gas += initcode_gas_cost;
+        
+        file_logger.debug("EIP-3860 gas cost for initcode: {} words * {} gas = {} gas", 
+            .{word_count, JumpTableModule.InitcodeWordGas, initcode_gas_cost});
+    }
+    
+    return gas;
 }
 
 /// Register all call opcodes in the given jump table
