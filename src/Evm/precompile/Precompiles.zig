@@ -1,12 +1,12 @@
 const std = @import("std");
-const Address = @import("../../Address/address.zig").Address;
-const Evm = @import("../Evm.zig").Evm;
+const Address = @import("Address").Address;
+const Evm = @import("Evm");
 const common = @import("common.zig");
 const crypto = @import("crypto.zig");
 const math = @import("math.zig");
 const bls12_381 = @import("bls12_381.zig");
 const kzg = @import("kzg.zig");
-const ChainRules = @import("../Evm.zig").ChainRules;
+const ChainRules = Evm.ChainRules;
 const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
 const createLogger = @import("../EvmLogger.zig").createLogger;
 

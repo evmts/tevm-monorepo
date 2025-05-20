@@ -1,9 +1,19 @@
 const std = @import("std");
 const testing = std.testing;
 const Precompiled = @import("Precompiled.zig").PrecompiledContract;
-const B256 = @import("root").Types.B256;
-const ExecutionError = @import("root").Evm.Frame.ExecutionError;
-const Contract = @import("root").Evm.Contract.Contract;
+const B256 = @import("Precompiled.zig").B256;
+// Use appropriate error set
+const ExecutionError = error{
+    OutOfGas,
+    OutOfMemory,
+    InvalidInput,
+};
+
+// Define a minimal Contract structure for tests
+const Contract = struct {
+    address: B256 = .{ .value = [_]u8{0} ** 32 },
+    bytecode: []const u8 = &[_]u8{},
+};
 
 // Helper to create a B256 address for a precompiled contract
 fn createPrecompiledAddress(addr_num: u8) !B256 {

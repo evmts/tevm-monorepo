@@ -1,14 +1,14 @@
 const std = @import("std");
 const testing = std.testing;
 const crypto = @import("crypto.zig");
-const Frame = @import("../Frame.zig").Frame;
-const Stack = @import("../Stack.zig").Stack;
-const Contract = @import("../Contract.zig").Contract;
-const Address = @import("../Address");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const JumpTable = @import("../JumpTable.zig");
+const Frame = @import("Evm").Frame;
+const Stack = @import("Evm").Stack;
+const Contract = @import("Evm").Contract;
+const Address = @import("Address");
+const Interpreter = @import("Evm").Interpreter;
+const JumpTable = @import("Evm").JumpTable;
 
-/// Test bytesToUint256 conversion function
+// Test bytesToUint256 conversion function
 test "bytesToUint256 conversion" {
     // Test case 1: All zeros
     {
@@ -43,7 +43,7 @@ test "bytesToUint256 conversion" {
     }
 }
 
-/// Test KECCAK256 opcode
+// Test KECCAK256 opcode
 test "KECCAK256 opcode" {
     const allocator = testing.allocator;
     
@@ -119,7 +119,7 @@ test "KECCAK256 opcode" {
     }
 }
 
-/// Test memory size calculation for KECCAK256
+// Test memory size calculation for KECCAK256
 test "KECCAK256 memory size calculation" {
     var stack = Stack{};
     
@@ -163,7 +163,7 @@ test "KECCAK256 memory size calculation" {
     }
 }
 
-/// Test dynamic gas calculation for KECCAK256
+// Test dynamic gas calculation for KECCAK256
 test "KECCAK256 dynamic gas calculation" {
     const allocator = testing.allocator;
     

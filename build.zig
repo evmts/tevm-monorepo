@@ -33,6 +33,12 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    
+    const state_manager_mod = b.createModule(.{
+        .root_source_file = b.path("src/StateManager/StateManager.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
 
     const abi_mod = b.createModule(.{
         .root_source_file = b.path("src/Abi/abi.zig"),
@@ -101,6 +107,7 @@ pub fn build(b: *std.Build) void {
     // Add imports to the evm_mod
     evm_mod.addImport("Address", address_mod);
     evm_mod.addImport("Block", block_mod);
+    evm_mod.addImport("StateManager", state_manager_mod);
 
     // Create a ZigEVM module - our core EVM implementation
     const target_architecture_mod = b.createModule(.{
@@ -120,6 +127,7 @@ pub fn build(b: *std.Build) void {
     target_architecture_mod.addImport("Token", token_mod);
     target_architecture_mod.addImport("Trie", trie_mod);
     target_architecture_mod.addImport("Utils", utils_mod);
+    target_architecture_mod.addImport("StateManager", state_manager_mod);
 
     // Create the native executable module
     const exe_mod = b.createModule(.{
@@ -146,6 +154,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("Token", token_mod);
     wasm_mod.addImport("Trie", trie_mod);
     wasm_mod.addImport("Utils", utils_mod);
+    wasm_mod.addImport("StateManager", state_manager_mod);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", target_architecture_mod);
@@ -772,24 +781,49 @@ pub fn build(b: *std.Build) void {
     utils_test_step.dependOn(&run_utils_test.step);
     
     // Add a test for WithdrawalProcessor.test.zig
-    const withdrawal_processor_test = b.addTest(.{
-        .name = "withdrawal-processor-test",
+    // Create a module for Withdrawal.zig to ensure proper imports
+    const withdrawal_mod = b.createModule(.{
+        .root_source_file = b.path("src/Evm/Withdrawal.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add imports to withdrawal_mod
+    withdrawal_mod.addImport("Address", address_mod);
+    withdrawal_mod.addImport("StateManager", state_manager_mod);
+    
+    // Create a module for WithdrawalProcessor.zig
+    const withdrawal_processor_mod = b.createModule(.{
+        .root_source_file = b.path("src/Evm/WithdrawalProcessor.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add imports to withdrawal_processor_mod
+    withdrawal_processor_mod.addImport("Address", address_mod);
+    withdrawal_processor_mod.addImport("StateManager", state_manager_mod);
+    withdrawal_processor_mod.addImport("Evm", evm_mod);
+    
+    // Create a specific test module to correctly handle the module dependencies
+    const test_withdrawal_processor_mod = b.createModule(.{
         .root_source_file = b.path("src/Evm/WithdrawalProcessor.test.zig"),
         .target = target,
         .optimize = optimize,
     });
     
-    // Add dependencies to withdrawal_processor_test
-    withdrawal_processor_test.root_module.addImport("Address", address_mod);
-    withdrawal_processor_test.root_module.addImport("Abi", abi_mod);
-    withdrawal_processor_test.root_module.addImport("Block", block_mod);
-    withdrawal_processor_test.root_module.addImport("Bytecode", bytecode_mod);
-    withdrawal_processor_test.root_module.addImport("Compiler", compiler_mod);
-    withdrawal_processor_test.root_module.addImport("Evm", evm_mod);
-    withdrawal_processor_test.root_module.addImport("Rlp", rlp_mod);
-    withdrawal_processor_test.root_module.addImport("Token", token_mod);
-    withdrawal_processor_test.root_module.addImport("Trie", trie_mod);
-    withdrawal_processor_test.root_module.addImport("Utils", utils_mod);
+    // Add imports to the test module
+    test_withdrawal_processor_mod.addImport("Address", address_mod);
+    test_withdrawal_processor_mod.addImport("Evm", evm_mod);
+    test_withdrawal_processor_mod.addImport("StateManager", state_manager_mod);
+    test_withdrawal_processor_mod.addImport("Withdrawal", withdrawal_mod);
+    test_withdrawal_processor_mod.addImport("WithdrawalProcessor", withdrawal_processor_mod);
+    
+    const withdrawal_processor_test = b.addTest(.{
+        .name = "withdrawal-processor-test",
+        .root_module = test_withdrawal_processor_mod,
+    });
+    
+    // We already added the imports directly to the test_withdrawal_processor_mod
 
     const run_withdrawal_processor_test = b.addRunArtifact(withdrawal_processor_test);
     

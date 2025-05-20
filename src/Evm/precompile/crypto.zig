@@ -112,31 +112,37 @@ fn bn256PairingIstanbulRequiredGas(input: []const u8) u64 {
 }
 
 fn blake2fRequiredGas(input: []const u8) u64 {
+    // Per EIP-152, the Blake2F input should be 213 bytes
     const blake2FInputLength = 213;
+    const rounds_offset = 0;  // Rounds value starts at byte 0
+    const rounds_size = 4;    // Rounds value is 4 bytes (u32)
     
-    // Validate input length
+    // Validate input length - must be exactly 213 bytes for proper Blake2F input
     if (input.len != blake2FInputLength) {
         // Return a reasonable default for malformed input
         return params.Blake2FPerRoundGas;
     }
     
     // Safety check: ensure input has at least 4 bytes for the rounds value
-    if (input.len < 4) {
+    if (input.len < rounds_size) {
         return params.Blake2FPerRoundGas;
     }
     
-    // Extract rounds from the first 4 bytes (big-endian format)
+    // Extract rounds from the first 4 bytes (big-endian format) using safer indexing
     var rounds: u32 = 0;
-    rounds |= @as(u32, input[0]) << 24;
-    rounds |= @as(u32, input[1]) << 16;
-    rounds |= @as(u32, input[2]) << 8;
-    rounds |= @as(u32, input[3]);
-    
-    // Gas cost is proportional to the number of rounds
-    // Ensure the result is reasonable and prevent potential DoS attacks
+    if (rounds_offset + 3 < input.len) {
+        rounds |= @as(u32, input[rounds_offset]) << 24;
+        rounds |= @as(u32, input[rounds_offset + 1]) << 16;
+        rounds |= @as(u32, input[rounds_offset + 2]) << 8;
+        rounds |= @as(u32, input[rounds_offset + 3]);
+    } else {
+        // Not enough bytes to safely extract rounds
+        return params.Blake2FPerRoundGas;
+    }
     
     // Set an upper limit on acceptable rounds to prevent excessive gas consumption
-    const max_reasonable_rounds: u32 = 64; // Blake2 typically uses 12-64 rounds
+    // Blake2 typically uses 12 rounds, but we allow up to 64 for flexibility
+    const max_reasonable_rounds: u32 = 64;
     
     if (rounds > max_reasonable_rounds) {
         // If someone is trying to specify an unreasonable number of rounds,
@@ -144,7 +150,8 @@ fn blake2fRequiredGas(input: []const u8) u64 {
         return std.math.maxInt(u64);
     }
     
-    // Gas cost is one unit per round (per EIP-152)
+    // Gas cost is proportional to the number of rounds (per EIP-152)
+    // Safe conversion from u32 to u64
     return @as(u64, rounds);
 }
 

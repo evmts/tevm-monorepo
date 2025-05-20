@@ -1,16 +1,16 @@
 const std = @import("std");
 const testing = std.testing;
-const WithdrawalProcessor = @import("WithdrawalProcessor.zig");
-const Block = WithdrawalProcessor.Block;
-const BlockWithdrawalProcessor = WithdrawalProcessor.BlockWithdrawalProcessor;
-const Withdrawal = @import("Withdrawal.zig");
-const WithdrawalData = Withdrawal.WithdrawalData;
-// Use imports for which module paths are defined in build.zig
-const Address = @import("Address").Address;
-const StateManager = @import("StateManager").StateManager;
 const evm = @import("evm.zig");
 const ChainRules = evm.ChainRules;
 const Hardfork = evm.Hardfork;
+// Use direct file imports
+const Address = @import("../Address/address.zig").Address;
+const Withdrawal = @import("Withdrawal.zig");
+const WithdrawalData = Withdrawal.WithdrawalData;
+const WithdrawalProcessor = @import("WithdrawalProcessor.zig");
+const Block = WithdrawalProcessor.Block;
+const BlockWithdrawalProcessor = WithdrawalProcessor.BlockWithdrawalProcessor;
+const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 
 // Mock StateManager for testing withdrawal processing
 const MockStateManager = struct {
@@ -30,11 +30,14 @@ const MockStateManager = struct {
     }
     
     // StateManager interface implementations
-    pub fn getAccount(self: *MockStateManager, address: Address) !?struct {
+    pub fn getAccount(self: *MockStateManager, address: StateManager.B160) !?struct {
         balance: u128 = 0,
         nonce: u64 = 0,
     } {
-        const addr_str = try address.toString();
+        // Create a hex string representation of the address
+        var addr_str_buf: [40]u8 = undefined;
+        const addr_str = try std.fmt.bufPrint(&addr_str_buf, "{s}", .{std.fmt.fmtSliceHexLower(&address.bytes)});
+        
         if (self.balances.get(addr_str)) |balance| {
             return .{
                 .balance = balance,
@@ -43,25 +46,34 @@ const MockStateManager = struct {
         return null;
     }
     
-    pub fn createAccount(self: *MockStateManager, address: Address, balance: u128) !struct {
+    pub fn createAccount(self: *MockStateManager, address: StateManager.B160, balance: u128) !struct {
         balance: u128,
         nonce: u64 = 0,
     } {
-        const addr_str = try address.toString();
+        // Create a hex string representation of the address
+        var addr_str_buf: [40]u8 = undefined;
+        const addr_str = try std.fmt.bufPrint(&addr_str_buf, "{s}", .{std.fmt.fmtSliceHexLower(&address.bytes)});
+        
         try self.balances.put(addr_str, balance);
         return .{
             .balance = balance,
         };
     }
     
-    pub fn putAccount(self: *MockStateManager, address: Address, account: anytype) !void {
-        const addr_str = try address.toString();
+    pub fn putAccount(self: *MockStateManager, address: StateManager.B160, account: anytype) !void {
+        // Create a hex string representation of the address
+        var addr_str_buf: [40]u8 = undefined;
+        const addr_str = try std.fmt.bufPrint(&addr_str_buf, "{s}", .{std.fmt.fmtSliceHexLower(&address.bytes)});
+        
         try self.balances.put(addr_str, account.balance);
     }
     
     // Helper function to get balance
-    pub fn getBalance(self: *MockStateManager, address: Address) !u128 {
-        const addr_str = try address.toString();
+    pub fn getBalance(self: *MockStateManager, address: StateManager.B160) !u128 {
+        // Create a hex string representation of the address
+        var addr_str_buf: [40]u8 = undefined;
+        const addr_str = try std.fmt.bufPrint(&addr_str_buf, "{s}", .{std.fmt.fmtSliceHexLower(&address.bytes)});
+        
         return self.balances.get(addr_str) orelse 0;
     }
 };
@@ -73,6 +85,15 @@ fn createAddressBuffer(byte_value: u8) [20]u8 {
         buffer[i] = byte_value;
     }
     return buffer;
+}
+
+// Convert from Address ([20]u8) to StateManager.B160
+fn convertToStateManagerAddress(addr_bytes: [20]u8) StateManager.B160 {
+    var b160 = StateManager.B160{ .bytes = undefined };
+    for (addr_bytes, 0..) |b, i| {
+        b160.bytes[i] = b;
+    }
+    return b160;
 }
 
 // Create a withdrawal root hash (this would normally be a Merkle root)
@@ -93,12 +114,12 @@ test "Block withdrawal processing with Shanghai rules" {
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
-    // Create test addresses
+    // Create test addresses - convert [20]u8 to B160
     const addr1_bytes = createAddressBuffer(0x01);
-    const address1 = try Address.fromBytes(&addr1_bytes);
+    const address1 = convertToStateManagerAddress(addr1_bytes);
     
     const addr2_bytes = createAddressBuffer(0x02);
-    const address2 = try Address.fromBytes(&addr2_bytes);
+    const address2 = convertToStateManagerAddress(addr2_bytes);
     
     // Create withdrawals
     const withdrawal1 = WithdrawalData.init(
@@ -132,7 +153,7 @@ test "Block withdrawal processing with Shanghai rules" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @as(*StateManager, @ptrCast(state_manager)),
+        @ptrCast(state_manager),
         shanghai_rules
     );
     
@@ -153,9 +174,9 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
-    // Create test address
+    // Create test address - convert [20]u8 to B160
     const addr_bytes = createAddressBuffer(0x03);
-    const address = try Address.fromBytes(&addr_bytes);
+    const address = convertToStateManagerAddress(addr_bytes);
     
     // Create a withdrawal
     const withdrawal = WithdrawalData.init(
@@ -182,7 +203,7 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     
     // Process withdrawals in the block - should fail
     const result = block.processWithdrawals(
-        @as(*StateManager, @ptrCast(state_manager)),
+        @ptrCast(state_manager),
         london_rules
     );
     
@@ -226,9 +247,9 @@ test "Multiple withdrawals for same account" {
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
-    // Create test address
+    // Create test address - convert [20]u8 to B160
     const addr_bytes = createAddressBuffer(0x04);
-    const address = try Address.fromBytes(&addr_bytes);
+    const address = convertToStateManagerAddress(addr_bytes);
     
     // Create multiple withdrawals for the same address
     const withdrawal1 = WithdrawalData.init(
@@ -269,7 +290,7 @@ test "Multiple withdrawals for same account" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @as(*StateManager, @ptrCast(state_manager)),
+        @ptrCast(state_manager),
         shanghai_rules
     );
     

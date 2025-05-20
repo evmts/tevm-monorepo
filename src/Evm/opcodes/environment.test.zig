@@ -34,17 +34,17 @@ fn setupTestEnvironment(allocator: std.mem.Allocator) !struct {
     contract.input = [_]u8{ 0xAA, 0xBB, 0xCC, 0xDD }; // Some test calldata
     
     // Create frame
-    var frame = try Frame.init(allocator, &contract);
+    const frame = try Frame.init(allocator, &contract);
     
     // Create EVM
-    var evm = Evm.init();
+    const evm = Evm.init();
     
     // Create interpreter with jump table
-    var jumpTable = JumpTable.JumpTable.init();
+    const jumpTable = JumpTable.JumpTable.init();
     try environment.registerEnvironmentOpcodes(allocator, &jumpTable);
     jumpTable.validate();
     
-    var interpreter = Interpreter.create(allocator, &evm, jumpTable);
+    const interpreter = Interpreter.create(allocator, &evm, jumpTable);
     
     return .{ 
         .frame = frame, 

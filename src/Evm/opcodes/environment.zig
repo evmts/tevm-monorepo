@@ -173,7 +173,7 @@ else
 const Address = if (is_test)
     [20]u8
 else
-    @import("../../Address/address.zig").Address;
+    @import("Address").Address;
 
 const EvmLogger = if (is_test)
     struct {

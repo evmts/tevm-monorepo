@@ -3,7 +3,7 @@ const evm_pkg = @import("Evm");
 const Contract = evm_pkg.Contract;
 const ExecutionError = evm_pkg.ExecutionError;
 // For B256, we'll use a simple struct with a fixed-size array
-const B256 = struct {
+pub const B256 = struct {
     value: [32]u8,
 };
 
@@ -161,7 +161,8 @@ fn identity(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
 fn modexp(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     if (input.len < 96) {
         // Input too short, return empty
-        return allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // Parse base length, exponent length, and modulus length
@@ -185,14 +186,15 @@ fn modexp(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     
     // Handle zero modulus length specially
     if (mod_len_u64 == 0) {
-        var result = try allocator.alloc(u8, 0);
+        const result = try allocator.alloc(u8, 0);
         return result;
     }
     
     // Validate input length to ensure we don't read past input buffer
     if (input.len < 96 + base_len_u64 + exp_len_u64 + mod_len_u64) {
         // Input too short, return empty
-        return allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // For a complete implementation, would implement full modular exponentiation
@@ -253,7 +255,8 @@ fn bn256Add(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // BN256 points are represented as 64-byte values (32 bytes for X, 32 bytes for Y)
     if (input.len != 128) {
         // Invalid input, return empty
-        return allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // For a complete implementation, would perform actual ECC point addition
@@ -269,7 +272,8 @@ fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Expects a point (64 bytes) and a scalar (32 bytes)
     if (input.len != 96) {
         // Invalid input, return empty
-        return allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // For a complete implementation, would perform actual ECC scalar multiplication
@@ -285,7 +289,8 @@ fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Expects multiple pairs of points (k*192 bytes)
     if (input.len % 192 != 0) {
         // Invalid input, return empty
-        return allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // For a complete implementation, would perform actual ECC pairing check
@@ -303,7 +308,8 @@ fn blake2f(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Requires at least 213 bytes
     if (input.len < 213) {
         // Invalid input, return empty
-        return allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // For a complete implementation, would perform BLAKE2 F compression function

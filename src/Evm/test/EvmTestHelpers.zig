@@ -17,8 +17,8 @@ const logStep = @import("../EvmLogger.zig").logStep;
 const logHexBytes = @import("../EvmLogger.zig").logHexBytes;
 const debugOnly = @import("../EvmLogger.zig").debugOnly;
 const ENABLE_DEBUG_LOGS = @import("../EvmLogger.zig").ENABLE_DEBUG_LOGS;
-const u256 = @import("../../Types/U256.ts").u256;
-const u256_from_be_bytes = @import("../../Types/U256.ts").u256_from_be_bytes;
+const u256_t_t = @import("../../Types/U256.ts").u256_t;
+const u256_t_from_be_bytes = @import("../../Types/U256.ts").u256_t_from_be_bytes;
 const hex = @import("../../Utils/hex.zig");
 
 // Create a file-specific logger
@@ -49,16 +49,16 @@ pub const EvmResult = struct {
         }
     }
 
-    /// Convert output to u256 if possible
-    pub fn asU256(self: *const EvmResult) ?u256 {
+    /// Convert output to u256_t if possible
+    pub fn asU256(self: *const EvmResult) ?u256_t {
         if (self.output) |data| {
             if (data.len == 32) {
-                return u256_from_be_bytes(data);
+                return u256_t_from_be_bytes(data);
             } else if (data.len < 32) {
                 // Pad with zeros if less than 32 bytes
                 var padded: [32]u8 = [_]u8{0} ** 32;
                 @memcpy(padded[32-data.len..], data);
-                return u256_from_be_bytes(&padded);
+                return u256_t_from_be_bytes(&padded);
             }
         }
         return null;
@@ -113,8 +113,8 @@ pub const EvmResult = struct {
                 
                 // Try to interpret the output if it's 32 bytes (common for return values)
                 if (output.len == 32) {
-                    const value = u256_from_be_bytes(output);
-                    try buffer.writer().print("  output as u256: {d}\n", .{value});
+                    const value = u256_t_from_be_bytes(output);
+                    try buffer.writer().print("  output as u256_t: {d}\n", .{value});
                 }
             } else {
                 // For large outputs, just show length and prefix
@@ -374,8 +374,8 @@ pub const EvmTest = struct {
                         
                         // Try to interpret the output if it's 32 bytes (common for return values)
                         if (output.len == 32) {
-                            const value = u256_from_be_bytes(output);
-                            self.test_logger.debug("Output as u256: {d}", .{value});
+                            const value = u256_t_from_be_bytes(output);
+                            self.test_logger.debug("Output as u256_t: {d}", .{value});
                         }
                     } else {
                         self.test_logger.debug("Output: {d} bytes", .{output.len});
@@ -416,8 +416,8 @@ pub const EvmTest = struct {
         return error.NoResult;
     }
     
-    /// Get the numeric result of the execution (assumes 32 byte output that can be interpreted as u256)
-    pub fn getNumericResult(self: *const EvmTest) !u256 {
+    /// Get the numeric result of the execution (assumes 32 byte output that can be interpreted as u256_t)
+    pub fn getNumericResult(self: *const EvmTest) !u256_t {
         if (self.result) |result| {
             if (result.status) |err| {
                 return err;
@@ -425,12 +425,12 @@ pub const EvmTest = struct {
             
             if (result.output) |output| {
                 if (output.len == 32) {
-                    return u256_from_be_bytes(output);
+                    return u256_t_from_be_bytes(output);
                 } else if (output.len < 32) {
                     // Pad with zeros if less than 32 bytes
                     var padded: [32]u8 = [_]u8{0} ** 32;
                     @memcpy(padded[32-output.len..], output);
-                    return u256_from_be_bytes(&padded);
+                    return u256_t_from_be_bytes(&padded);
                 } else {
                     return error.InvalidNumericOutput;
                 }
@@ -491,7 +491,7 @@ pub const EvmTest = struct {
     }
     
     /// Assert that the numeric result equals the expected value
-    pub fn expectResult(self: *const EvmTest, expected: u256) !void {
+    pub fn expectResult(self: *const EvmTest, expected: u256_t) !void {
         try self.expectSuccess();
         
         const result_value = try self.getNumericResult();
@@ -580,7 +580,7 @@ pub const EvmTest = struct {
 /// Bytecode building utilities to simplify test creation
 
 /// Create a bytecode with PUSH instructions for the given number
-pub fn push(n: u256) []const u8 {
+pub fn push(n: u256_t) []const u8 {
     // Find the smallest PUSH opcode that can represent the number
     var bytes: [32]u8 = undefined;
     var byte_len: usize = 0;
@@ -648,107 +648,107 @@ pub fn swap(n: u8) []const u8 {
 }
 
 /// Create a bytecode with MSTORE instruction
-pub fn mstore(offset: u256, value: u256) []const u8 {
+pub fn mstore(offset: u256_t, value: u256_t) []const u8 {
     return push(value) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MSTORE)};
 }
 
 /// Create a bytecode with MSTORE8 instruction
-pub fn mstore8(offset: u256, value: u256) []const u8 {
+pub fn mstore8(offset: u256_t, value: u256_t) []const u8 {
     return push(value) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MSTORE8)};
 }
 
 /// Create a bytecode with RETURN(offset, size)
-pub fn ret(offset: u256, size: u256) []const u8 {
+pub fn ret(offset: u256_t, size: u256_t) []const u8 {
     return push(size) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.RETURN)};
 }
 
 /// Create a bytecode that returns the top stack item
 pub fn ret_top() []const u8 {
-    return mstore(0, u256(0)) ++ ret(0, u256(32));
+    return mstore(0, u256_t(0)) ++ ret(0, u256_t(32));
 }
 
 /// Create a bytecode with REVERT(offset, size)
-pub fn revert(offset: u256, size: u256) []const u8 {
+pub fn revert(offset: u256_t, size: u256_t) []const u8 {
     return push(size) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.REVERT)};
 }
 
 /// Create a bytecode for the top stack item's NOT
-pub fn not(value: u256) []const u8 {
+pub fn not(value: u256_t) []const u8 {
     return push(value) ++ &[_]u8{@intFromEnum(opcodes.Opcode.NOT)};
 }
 
 /// Create a bytecode with ADD operation
-pub fn add(a: u256, b: u256) []const u8 {
+pub fn add(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.ADD)};
 }
 
 /// Create a bytecode with SUB operation
-pub fn sub(a: u256, b: u256) []const u8 {
+pub fn sub(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SUB)};
 }
 
 /// Create a bytecode with MUL operation
-pub fn mul(a: u256, b: u256) []const u8 {
+pub fn mul(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MUL)};
 }
 
 /// Create a bytecode with DIV operation
-pub fn div(a: u256, b: u256) []const u8 {
+pub fn div(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.DIV)};
 }
 
 /// Create a bytecode with SDIV operation
-pub fn sdiv(a: u256, b: u256) []const u8 {
+pub fn sdiv(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SDIV)};
 }
 
 /// Create a bytecode with MOD operation
-pub fn mod(a: u256, b: u256) []const u8 {
+pub fn mod(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MOD)};
 }
 
 /// Create a bytecode with ADDMOD operation
-pub fn addmod(a: u256, b: u256, m: u256) []const u8 {
+pub fn addmod(a: u256_t, b: u256_t, m: u256_t) []const u8 {
     return push(a) ++ push(b) ++ push(m) ++ &[_]u8{@intFromEnum(opcodes.Opcode.ADDMOD)};
 }
 
 /// Create a bytecode with MULMOD operation
-pub fn mulmod(a: u256, b: u256, m: u256) []const u8 {
+pub fn mulmod(a: u256_t, b: u256_t, m: u256_t) []const u8 {
     return push(a) ++ push(b) ++ push(m) ++ &[_]u8{@intFromEnum(opcodes.Opcode.MULMOD)};
 }
 
 /// Create a bytecode with KECCAK256 operation
-pub fn keccak256(offset: u256, size: u256) []const u8 {
+pub fn keccak256(offset: u256_t, size: u256_t) []const u8 {
     return push(size) ++ push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SHA3)};
 }
 
 /// Create a bytecode that loads from calldata
-pub fn calldataload(offset: u256) []const u8 {
+pub fn calldataload(offset: u256_t) []const u8 {
     return push(offset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.CALLDATALOAD)};
 }
 
 /// Create a bytecode that copies from calldata to memory
-pub fn calldatacopy(destOffset: u256, offset: u256, size: u256) []const u8 {
+pub fn calldatacopy(destOffset: u256_t, offset: u256_t, size: u256_t) []const u8 {
     return push(size) ++ push(offset) ++ push(destOffset) ++ &[_]u8{@intFromEnum(opcodes.Opcode.CALLDATACOPY)};
 }
 
 /// Create a bytecode that compares for equality
-pub fn eq(a: u256, b: u256) []const u8 {
+pub fn eq(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.EQ)};
 }
 
 /// Create a bytecode that tests if value is zero
-pub fn iszero(a: u256) []const u8 {
+pub fn iszero(a: u256_t) []const u8 {
     return push(a) ++ &[_]u8{@intFromEnum(opcodes.Opcode.ISZERO)};
 }
 
 /// Create a bytecode with JUMP
-pub fn jump(dest: u256) []const u8 {
+pub fn jump(dest: u256_t) []const u8 {
     return push(dest) ++ &[_]u8{@intFromEnum(opcodes.Opcode.JUMP)};
 }
 
 /// Create a bytecode with conditional JUMPI
-pub fn jumpi(dest: u256, condition: u256) []const u8 {
+pub fn jumpi(dest: u256_t, condition: u256_t) []const u8 {
     return push(condition) ++ push(dest) ++ &[_]u8{@intFromEnum(opcodes.Opcode.JUMPI)};
 }
 
@@ -756,54 +756,54 @@ pub fn jumpi(dest: u256, condition: u256) []const u8 {
 pub const jumpdest = &[_]u8{@intFromEnum(opcodes.Opcode.JUMPDEST)};
 
 /// Create a bytecode with AND operation
-pub fn and(a: u256, b: u256) []const u8 {
+pub fn @"and"(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.AND)};
 }
 
 /// Create a bytecode with OR operation
-pub fn or(a: u256, b: u256) []const u8 {
+pub fn @"or"(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.OR)};
 }
 
 /// Create a bytecode with XOR operation
-pub fn xor(a: u256, b: u256) []const u8 {
+pub fn xor(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.XOR)};
 }
 
 /// Create a bytecode with BYTE operation (get the nth byte)
-pub fn byte(n: u256, val: u256) []const u8 {
+pub fn byte(n: u256_t, val: u256_t) []const u8 {
     return push(val) ++ push(n) ++ &[_]u8{@intFromEnum(opcodes.Opcode.BYTE)};
 }
 
 /// Create a bytecode with SHL operation (shift left)
-pub fn shl(shift: u256, val: u256) []const u8 {
+pub fn shl(shift: u256_t, val: u256_t) []const u8 {
     return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SHL)};
 }
 
 /// Create a bytecode with SHR operation (logical shift right)
-pub fn shr(shift: u256, val: u256) []const u8 {
+pub fn shr(shift: u256_t, val: u256_t) []const u8 {
     return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SHR)};
 }
 
 /// Create a bytecode with SAR operation (arithmetic shift right)
-pub fn sar(shift: u256, val: u256) []const u8 {
+pub fn sar(shift: u256_t, val: u256_t) []const u8 {
     return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SAR)};
 }
 
 /// Create a bytecode with comparison operations
-pub fn lt(a: u256, b: u256) []const u8 {
+pub fn lt(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.LT)};
 }
 
-pub fn gt(a: u256, b: u256) []const u8 {
+pub fn gt(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.GT)};
 }
 
-pub fn slt(a: u256, b: u256) []const u8 {
+pub fn slt(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SLT)};
 }
 
-pub fn sgt(a: u256, b: u256) []const u8 {
+pub fn sgt(a: u256_t, b: u256_t) []const u8 {
     return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SGT)};
 }
 

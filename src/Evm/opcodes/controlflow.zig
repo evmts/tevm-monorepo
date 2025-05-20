@@ -1,5 +1,5 @@
 const std = @import("std");
-const pkg = @import("fixed_package_test.zig");
+const pkg = @import("package_test.zig");
 const Interpreter = pkg.Interpreter;
 const Frame = pkg.Frame;
 const ExecutionError = pkg.ExecutionError;
@@ -124,7 +124,6 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         var return_buffer = frame.memory.allocator.alloc(u8, size_usize) catch {
             return ExecutionError.OutOfGas;
         };
-        errdefer frame.memory.allocator.free(return_buffer);
         
         // Safely copy memory contents to the new buffer
         var i: usize = 0;
@@ -133,11 +132,34 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
             return_buffer[i] = frame.memory.get8(offset_usize + i);
         }
         
+        // Free any existing return data
+        if (frame.returnData) |old_data| {
+            // Only free if it's not a static empty slice
+            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+                frame.memory.allocator.free(old_data);
+            }
+        }
+        
         // Set the return data using the safely constructed buffer
         frame.returnData = return_buffer;
+        frame.returnSize = size_usize;
     } else {
+        // Free any existing return data
+        if (frame.returnData) |old_data| {
+            // Only free if it's not a static empty slice
+            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+                frame.memory.allocator.free(old_data);
+            }
+        }
+        
+        // Create an empty buffer to avoid null return data
+        const empty_buffer = frame.memory.allocator.alloc(u8, 0) catch {
+            return ExecutionError.OutOfGas;
+        };
+        
         // Empty return data
-        frame.returnData = &[_]u8{};
+        frame.returnData = empty_buffer;
+        frame.returnSize = 0;
     }
     
     // Halt execution
@@ -180,7 +202,6 @@ pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         var return_buffer = frame.memory.allocator.alloc(u8, size_usize) catch {
             return ExecutionError.OutOfGas;
         };
-        errdefer frame.memory.allocator.free(return_buffer);
         
         // Safely copy memory contents to the new buffer
         var i: usize = 0;
@@ -189,11 +210,34 @@ pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
             return_buffer[i] = frame.memory.get8(offset_usize + i);
         }
         
+        // Free any existing return data
+        if (frame.returnData) |old_data| {
+            // Only free if it's not a static empty slice
+            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+                frame.memory.allocator.free(old_data);
+            }
+        }
+        
         // Set the return data using the safely constructed buffer
         frame.returnData = return_buffer;
+        frame.returnSize = size_usize;
     } else {
+        // Free any existing return data
+        if (frame.returnData) |old_data| {
+            // Only free if it's not a static empty slice
+            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+                frame.memory.allocator.free(old_data);
+            }
+        }
+        
+        // Create an empty buffer to avoid null return data
+        const empty_buffer = frame.memory.allocator.alloc(u8, 0) catch {
+            return ExecutionError.OutOfGas;
+        };
+        
         // Empty return data (silent revert)
-        frame.returnData = &[_]u8{};
+        frame.returnData = empty_buffer;
+        frame.returnSize = 0;
     }
     
     // Halt execution and revert state changes

@@ -2,7 +2,7 @@ const std = @import("std");
 const Memory = @import("Memory.zig").Memory;
 const Stack = @import("Stack.zig").Stack;
 const Contract = @import("Contract.zig").Contract;
-const Address = @import("../Address/address.zig").Address;
+const Address = @import("Address").Address;
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 const logMemory = @import("EvmLogger.zig").logMemory;
@@ -121,37 +121,55 @@ pub const Frame = struct {
         defer scoped.deinit();
         
         getLogger().debug("Freeing Frame resources", .{});
-        getLogger().debug("Final memory size: {d} bytes", .{self.memory.len()});
-        getLogger().debug("Final stack size: {d} items", .{self.stack.len()});
         
+        // Safe access to memory and stack sizes
+        if (self.memory.len() > 0) {
+            getLogger().debug("Final memory size: {d} bytes", .{self.memory.len()});
+        }
+        
+        getLogger().debug("Final stack size: {d} items", .{self.stack.size});
+        
+        // Log frame execution status
         if (self.err) |err| {
             getLogger().debug("Frame ended with error: {}", .{err});
         } else {
             getLogger().debug("Frame ended successfully", .{});
         }
         
+        // Safely free return data
         if (self.returnData) |data| {
-            if (data.len <= 64) {
-                logHexBytes(getLogger(), "Return data", data);
+            if (data.len > 0) {
+                // Log return data with bounds checking
+                if (data.len <= 64) {
+                    logHexBytes(getLogger(), "Return data", data);
+                } else {
+                    logHexBytes(getLogger(), "Return data (first 64 bytes)", data[0..64]);
+                    getLogger().debug("Return data total size: {d} bytes", .{data.len});
+                }
+                getLogger().debug("Freeing return data buffer ({d} bytes)", .{data.len});
+                
+                // Free the memory and set to null to prevent use-after-free
+                self.allocator.free(data);
             } else {
-                logHexBytes(getLogger(), "Return data (first 64 bytes)", data[0..64]);
-                getLogger().debug("Return data total size: {d} bytes", .{data.len});
+                getLogger().debug("Empty return data buffer, freeing", .{});
+                self.allocator.free(data);
             }
-            getLogger().debug("Freeing return data buffer ({d} bytes)", .{data.len});
-            self.allocator.free(data);
+            
+            // Clear references after freeing
             self.returnData = null;
             self.returnSize = 0;
         } else {
             getLogger().debug("No return data to free", .{});
         }
         
+        // Log gas stats
         getLogger().debug("Remaining gas: {d}", .{self.contract.gas});
         
-        // Log gas refund if any
         if (self.contract.gas_refund > 0) {
             getLogger().debug("Gas refund: {d}", .{self.contract.gas_refund});
         }
         
+        // Deinitialize memory last since some of the above code might still access it
         self.memory.deinit();
     }
 
@@ -170,21 +188,45 @@ pub const Frame = struct {
         
         getLogger().debug("Setting return data, size: {d} bytes", .{data.len});
         
-        if (data.len <= 64) {
-            logHexBytes(getLogger(), "New return data", data);
+        // Safely log the first portion of data
+        if (data.len > 0) {
+            if (data.len <= 64) {
+                logHexBytes(getLogger(), "New return data", data);
+            } else {
+                logHexBytes(getLogger(), "New return data (first 64 bytes)", data[0..64]);
+            }
         } else {
-            logHexBytes(getLogger(), "New return data (first 64 bytes)", data[0..64]);
+            getLogger().debug("Setting empty return data", .{});
         }
         
+        // Free any existing return data first to prevent memory leaks
         if (self.returnData) |old_data| {
             getLogger().debug("Freeing previous return data ({d} bytes)", .{old_data.len});
             self.allocator.free(old_data);
+            // Clear pointer after freeing to avoid potential use-after-free
+            self.returnData = null;
+            self.returnSize = 0;
         }
 
+        // Handle empty data case
+        if (data.len == 0) {
+            self.returnData = null;
+            self.returnSize = 0;
+            getLogger().debug("Empty return data set successfully", .{});
+            return;
+        }
+
+        // Allocate and copy the data in a safe manner
         getLogger().debug("Allocating new return data buffer of {d} bytes", .{data.len});
+        
+        // Use alloc + errdefer to ensure we don't leak memory if a later operation fails
         const copy = try self.allocator.alloc(u8, data.len);
+        errdefer self.allocator.free(copy);
+        
+        // Safely copy with bounds check
         @memcpy(copy, data);
         
+        // Update frame state
         self.returnData = copy;
         self.returnSize = data.len;
         getLogger().debug("Return data set successfully", .{});

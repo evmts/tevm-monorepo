@@ -91,9 +91,10 @@ pub fn opPc(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8
 
 /// RETURN (0xF3) - Halt execution and return data
 pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    // Pop size and offset from the stack
-    // Note: In the test, we push offset first, then size, so when we pop
-    // we get them in reverse order
+    // Pop offset and size from the stack
+    // NOTE: In EVM, the stack order is: [offset, size]
+    // But in our stack implementation, we need to be careful about ordering
+    // In the test, values are pushed as [offset, size] so we need to pop them in reverse order
     const size = try frame.stack.pop();
     const offset = try frame.stack.pop();
     
@@ -129,8 +130,7 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         };
         
         // Safely copy memory contents to the new buffer
-        var i: usize = 0;
-        while (i < size_usize) : (i += 1) {
+        for (0..size_usize) |i| {
             // Use safer get8 method that will handle bounds checking
             return_buffer[i] = frame.memory.get8(offset_usize + i);
         }
@@ -138,24 +138,23 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         // Free existing return data if any
         if (frame.returnData) |old_data| {
             // Only free if it's not a static empty slice
-            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+            if (old_data.len > 0 and @intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
                 frame.memory.allocator.free(old_data);
             }
         }
         
-        // Set the return data using the safely constructed buffer
         frame.returnData = return_buffer;
     } else {
         // Empty return data
         // Free existing return data if any
         if (frame.returnData) |old_data| {
             // Only free if it's not a static empty slice
-            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+            if (old_data.len > 0 and @intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
                 frame.memory.allocator.free(old_data);
             }
         }
         
-        // Use a static empty slice to avoid allocation
+        // Set a static empty slice
         frame.returnData = &[_]u8{};
     }
     
@@ -165,9 +164,10 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
 
 /// REVERT (0xFD) - Halt execution, revert state changes, and return data
 pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
-    // Pop size and offset from the stack
-    // Note: In the test, we push offset first, then size, so when we pop
-    // we get them in reverse order
+    // Pop offset and size from the stack
+    // NOTE: In EVM, the stack order is: [offset, size]
+    // But in our stack implementation, we need to be careful about ordering
+    // In the test, values are pushed as [offset, size] so we need to pop them in reverse order
     const size = try frame.stack.pop();
     const offset = try frame.stack.pop();
     
@@ -203,31 +203,31 @@ pub fn opRevert(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         };
         
         // Safely copy memory contents to the new buffer
-        var i: usize = 0;
-        while (i < size_usize) : (i += 1) {
+        for (0..size_usize) |i| {
             // Use safer get8 method that will handle bounds checking
             return_buffer[i] = frame.memory.get8(offset_usize + i);
         }
         
-        // Set the return data using the safely constructed buffer
-        // Free any existing return data first
+        // Free existing return data if any
         if (frame.returnData) |old_data| {
             // Only free if it's not a static empty slice
-            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+            if (old_data.len > 0 and @intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
                 frame.memory.allocator.free(old_data);
             }
         }
+        
         frame.returnData = return_buffer;
     } else {
         // Empty return data (silent revert)
-        // Use a static empty slice to avoid allocation errors
-        // Free any existing return data first
+        // Free existing return data if any
         if (frame.returnData) |old_data| {
             // Only free if it's not a static empty slice
-            if (@intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
+            if (old_data.len > 0 and @intFromPtr(old_data.ptr) != @intFromPtr((&[_]u8{}).ptr)) {
                 frame.memory.allocator.free(old_data);
             }
         }
+        
+        // Set a static empty slice
         frame.returnData = &[_]u8{};
     }
     

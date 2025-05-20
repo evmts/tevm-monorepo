@@ -213,7 +213,7 @@ else
 const Address = if (is_test)
     [20]u8
 else
-    @import("../../Address/address.zig").Address;
+    @import("Address").Address;
 
 // We only need minimal stubs for these in test mode
 const precompile = if (is_test)

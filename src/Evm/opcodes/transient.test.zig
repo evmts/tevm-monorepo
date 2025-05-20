@@ -74,13 +74,13 @@ const Memory = struct {
 
 const Stack = struct {
     allocator: std.mem.Allocator,
-    data: std.ArrayList(u256),
+    data: std.ArrayList(TestValue),
     size: usize = 0,
     
     pub fn init(allocator: std.mem.Allocator) Stack {
         return Stack{
             .allocator = allocator,
-            .data = std.ArrayList(u256).init(allocator),
+            .data = std.ArrayList(TestValue).init(allocator),
         };
     }
     
@@ -88,12 +88,12 @@ const Stack = struct {
         self.data.deinit();
     }
     
-    pub fn push(self: *Stack, value: u256) !void {
+    pub fn push(self: *Stack, value: TestValue) !void {
         try self.data.append(value);
         self.size += 1;
     }
     
-    pub fn pop(self: *Stack) !u256 {
+    pub fn pop(self: *Stack) !TestValue {
         if (self.size == 0) return ExecutionError.StackUnderflow;
         self.size -= 1;
         return self.data.items[self.size];
@@ -105,11 +105,12 @@ const Contract = struct {
     code_address: usize = 0,
     address: usize = 0,
     input: []const u8 = &[_]u8{},
-    value: u256 = 0,
+    value: TestValue = 0,
     gas_refund: u64 = 0,
 };
 
-const u256 = u64;
+// Use a different name to avoid shadowing the builtin
+const TestValue = u64;
 
 // Mock implementation for testing
 fn createTestFrame() !struct {
@@ -191,7 +192,7 @@ test "TLOAD basic operation" {
     
     // Check result - should have one item on stack with value 0
     try testing.expectEqual(@as(usize, 1), test_frame.stack.size);
-    try testing.expectEqual(@as(u256, 0), test_frame.stack.data[0]);
+    try testing.expectEqual(@as(TestValue, 0), test_frame.stack.data[0]);
 }
 
 test "TSTORE basic operation" {

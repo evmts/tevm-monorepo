@@ -1,7 +1,7 @@
 const std = @import("std");
 const bitvec = @import("bitvec.zig");
 const opcodes = @import("opcodes.zig");
-const address = @import("../Address/package.zig");
+const address = @import("Address");
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 
@@ -44,7 +44,7 @@ pub const Contract = struct {
     is_cold: bool = true,
 
     /// Initialize a new Contract instance
-    /// 
+    ///
     /// Parameters:
     /// - caller: The address that initiated the contract call
     /// - contract_address: The address of the contract being executed
@@ -58,7 +58,7 @@ pub const Contract = struct {
         getLogger().debug("  - Caller: {any}", .{caller});
         getLogger().debug("  - Value: {d}", .{value});
         getLogger().debug("  - Gas: {d}", .{gas});
-        
+
         return Contract{
             .caller = caller,
             .address = contract_address,
@@ -85,18 +85,18 @@ pub const Contract = struct {
     /// Returns: true if destination is valid, false otherwise
     pub fn validJumpdest(self: *Contract, dest: u256) bool {
         getLogger().debug("Checking jump destination: {d}", .{dest});
-        
+
         if (dest.isAboveOrEqual(self.code.len)) {
-            getLogger().debug("Jump destination out of code bounds: {d} >= {d}", .{dest, self.code.len});
+            getLogger().debug("Jump destination out of code bounds: {d} >= {d}", .{ dest, self.code.len });
             return false;
         }
-        
+
         const udest = dest.toU64();
         if (self.code[udest] != opcodes.JUMPDEST_OPCODE) {
-            getLogger().debug("Destination is not a JUMPDEST opcode: {x} != {x}", .{self.code[udest], opcodes.JUMPDEST_OPCODE});
+            getLogger().debug("Destination is not a JUMPDEST opcode: {x} != {x}", .{ self.code[udest], opcodes.JUMPDEST_OPCODE });
             return false;
         }
-        
+
         const result = self.isCode(udest);
         getLogger().debug("Jump destination validity: {}", .{result});
         return result;
@@ -165,10 +165,10 @@ pub const Contract = struct {
     /// Returns: true if enough gas was available, false if insufficient gas
     pub fn useGas(self: *Contract, gas_amount: u64) bool {
         if (self.gas < gas_amount) {
-            getLogger().warn("Insufficient gas: requested {d}, available {d}", .{gas_amount, self.gas});
+            getLogger().warn("Insufficient gas: requested {d}, available {d}", .{ gas_amount, self.gas });
             return false;
         }
-        getLogger().debug("Using {d} gas, remaining: {d}", .{gas_amount, self.gas - gas_amount});
+        getLogger().debug("Using {d} gas, remaining: {d}", .{ gas_amount, self.gas - gas_amount });
         self.gas -= gas_amount;
         return true;
     }
@@ -183,10 +183,10 @@ pub const Contract = struct {
         if (gas_amount == 0) {
             return;
         }
-        getLogger().debug("Refunding {d} gas, new total: {d}", .{gas_amount, self.gas + gas_amount});
+        getLogger().debug("Refunding {d} gas, new total: {d}", .{ gas_amount, self.gas + gas_amount });
         self.gas += gas_amount;
     }
-    
+
     /// Add gas to the EIP-3529 refund counter
     ///
     /// Used for operations that release storage (SSTORE clearing, SELFDESTRUCT)
@@ -194,10 +194,10 @@ pub const Contract = struct {
     /// Parameters:
     /// - gas_amount: Amount of gas to add to the refund counter
     pub fn addGasRefund(self: *Contract, gas_amount: u64) void {
-        getLogger().debug("Adding {d} to gas refund, new refund: {d}", .{gas_amount, self.gas_refund + gas_amount});
+        getLogger().debug("Adding {d} to gas refund, new refund: {d}", .{ gas_amount, self.gas_refund + gas_amount });
         self.gas_refund += gas_amount;
     }
-    
+
     /// Subtract gas from the EIP-3529 refund counter
     ///
     /// Parameters:
@@ -208,11 +208,11 @@ pub const Contract = struct {
             getLogger().debug("Subtracting {d} from gas refund (clamping to 0)", .{gas_amount});
             self.gas_refund = 0;
         } else {
-            getLogger().debug("Subtracting {d} from gas refund, new refund: {d}", .{gas_amount, self.gas_refund - gas_amount});
+            getLogger().debug("Subtracting {d} from gas refund, new refund: {d}", .{ gas_amount, self.gas_refund - gas_amount });
             self.gas_refund -= gas_amount;
         }
     }
-    
+
     /// Get current gas refund counter value
     ///
     /// Returns: Current gas refund amount
@@ -247,7 +247,7 @@ pub const Contract = struct {
         self.code = code;
         self.code_hash = hash;
     }
-    
+
     /// Initialize the storage access tracking map if not already initialized
     ///
     /// This is an internal helper function for EIP-2929 access list tracking
@@ -257,7 +257,7 @@ pub const Contract = struct {
             self.storage_access = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
         }
     }
-    
+
     /// Mark a storage slot as accessed (warm) for EIP-2929 gas calculations
     ///
     /// Parameters:
@@ -311,7 +311,7 @@ pub const Contract = struct {
     pub fn isAccountCold(self: *const Contract) bool {
         return self.is_cold;
     }
-    
+
     /// Initialize the original storage tracking map if not already initialized
     ///
     /// This is an internal helper function for EIP-2200 original value tracking
@@ -321,7 +321,7 @@ pub const Contract = struct {
             self.original_storage = std.AutoHashMap(u256, u256).init(std.heap.page_allocator);
         }
     }
-    
+
     /// Records the original value of a storage slot if not already tracked
     ///
     /// This method should be called before making any changes to a storage slot,
@@ -333,16 +333,16 @@ pub const Contract = struct {
     /// - value: The current value of the slot (before any changes)
     pub fn trackOriginalStorageValue(self: *Contract, slot: u256, value: u256) void {
         self.ensureOriginalStorage();
-        
+
         // Only store if we haven't seen this slot before in this transaction
         if (!self.original_storage.?.contains(slot)) {
-            getLogger().debug("Recording original value for storage slot {any}: {any}", .{slot, value});
+            getLogger().debug("Recording original value for storage slot {any}: {any}", .{ slot, value });
             self.original_storage.?.put(slot, value) catch {
                 getLogger().err("Failed to record original storage value", .{});
             };
         }
     }
-    
+
     /// Get the original value of a storage slot (from the start of the transaction)
     ///
     /// Parameters:
@@ -354,10 +354,10 @@ pub const Contract = struct {
         if (self.original_storage == null) {
             return current_value;
         }
-        
+
         return self.original_storage.?.get(slot) orelse current_value;
     }
-    
+
     /// Clean up resources used by the contract
     ///
     /// This should be called when the contract is no longer needed
@@ -368,12 +368,12 @@ pub const Contract = struct {
             self.storage_access.?.deinit();
             self.storage_access = null;
         }
-        
+
         if (self.original_storage != null) {
             self.original_storage.?.deinit();
             self.original_storage = null;
         }
-        
+
         if (self.analysis) |analysis| {
             // We don't own this memory if it came from the jumpdests cache
             // So only deinit if we created it ourselves (jumpdests is null)

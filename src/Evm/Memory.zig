@@ -315,12 +315,20 @@ pub const Memory = struct {
     
     /// Returns the current size of the memory in bytes
     pub fn memSize(self: *const Memory) u64 {
+        // Safe casting from usize to u64
+        if (self.store.items.len > std.math.maxInt(u64)) {
+            // Extremely unlikely in practice, but handle overflow case safely
+            return std.math.maxInt(u64);
+        }
         return @intCast(self.store.items.len);
     }
 
     /// Data returns the backing slice
     ///
     /// This provides direct access to the entire memory array.
+    /// IMPORTANT: This returns a direct reference to the internal memory buffer.
+    /// The caller must not store this reference for later use after any operation
+    /// that might resize the memory.
     ///
     /// Returns: A slice representing the entire memory contents
     pub fn data(self: *const Memory) []u8 {
@@ -362,34 +370,39 @@ pub const Memory = struct {
             try self.resize(dst_end);
         }
 
-        // Now that memory is properly sized, get slices for source and destination
-        // We check bounds again after potential resize
-        if (src_end > self.store.items.len) {
+        // After resizing, validate all ranges are within bounds
+        // The src range bounds might have changed if we resized memory and the 
+        // ArrayList had to reallocate its storage
+        const mem_size = self.store.items.len;
+        
+        // Safe checks with proper bound validation
+        if (src >= mem_size) {
             return error.OutOfBounds;
         }
-        if (dst_end > self.store.items.len) {
+        if (dst >= mem_size) {
             return error.OutOfBounds;
         }
         
-        const source_slice = self.store.items[src..src_end];
-        const dest_slice = self.store.items[dst..dst_end];
+        // Recalculate the actual ranges that can be safely accessed
+        const safe_src_end = @min(src_end, mem_size);
+        const safe_dst_end = @min(dst_end, mem_size);
+        const safe_length = @min(safe_src_end - src, safe_dst_end - dst);
+        
+        if (safe_length == 0) {
+            return; // Nothing to copy safely
+        }
+        
+        // Get slices for source and destination using safe bounds
+        const source_slice = self.store.items[src..src + safe_length];
+        const dest_slice = self.store.items[dst..dst + safe_length];
         
         // Handle overlapping regions safely
-        if (dst <= src or dst >= src_end) {
+        if (dst <= src or dst >= src + safe_length) {
             // Non-overlapping or safe direction - can use memcpy
             @memcpy(dest_slice, source_slice);
         } else {
-            // Overlapping regions that require reverse copy
-            // We must copy one byte at a time from the end
-            var i: u64 = length;
-            while (i > 0) {
-                i -= 1;
-                // Check bounds again for extra safety
-                if (dst + i >= self.store.items.len || src + i >= self.store.items.len) {
-                    return error.OutOfBounds;
-                }
-                self.store.items[dst + i] = self.store.items[src + i];
-            }
+            // Use copyBackwards for overlapping regions - this handles memmove-like behavior
+            std.mem.copyBackwards(u8, dest_slice, source_slice);
         }
     }
 };
