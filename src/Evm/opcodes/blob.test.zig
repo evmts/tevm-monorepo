@@ -1,8 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import the Evm module (using relative path from opcodes directory)
-const EvmModule = @import("../");
+// Import the Evm module using the global import path
+const EvmModule = @import("Evm");
 // Get blob opcodes functions from the Evm module
 const blob = EvmModule.opcodes.blob;
 const Frame = EvmModule.Frame;
@@ -11,9 +11,9 @@ const Stack = EvmModule.Stack;
 const Memory = EvmModule.Memory;
 const Interpreter = EvmModule.Interpreter;
 const Evm = EvmModule.Evm;
-const ExecutionError = EvmModule.ExecutionError;
+const ExecutionError = EvmModule.InterpreterError;
 const ExecutionStatus = EvmModule.ExecutionStatus;
-const Log = EvmModule.Log;
+const JumpTable = EvmModule.JumpTable;
 
 // Import the Address module
 const AddressModule = @import("Address");
