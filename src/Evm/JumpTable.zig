@@ -532,3 +532,18 @@ pub const UNDEFINED = Operation{
     .memory_size = null,
     .undefined = true,
 };
+
+/// Initialize a jump table for Ethereum mainnet with latest rules
+///
+/// This is a convenience function that creates a jump table for the latest
+/// Ethereum mainnet hardfork.
+///
+/// Parameters:
+/// - allocator: Memory allocator to use for the operations
+/// - jump_table: Pointer to an existing JumpTable to initialize
+///
+/// Returns: Error if initialization fails
+pub fn initMainnetJumpTable(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
+    const new_table = try newJumpTable(allocator, "latest");
+    jump_table.* = new_table;
+}

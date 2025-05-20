@@ -64,7 +64,7 @@ test "EIP-3198: BASEFEE opcode with EIP-3198 enabled" {
     defer state_manager.deinit();
     evm.setStateManager(@ptrCast(@alignCast(&state_manager)));
 
-    var jt = JumpTable.init();
+    var jt = JumpTable{ .table = [_]?*const JumpTable.Operation{null} ** 256 };
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     var interpreter = try Interpreter.create(allocator, &evm, jt);
@@ -92,7 +92,7 @@ test "EIP-3198: BASEFEE opcode with EIP-3198 disabled" {
     defer state_manager.deinit();
     evm.setStateManager(@ptrCast(@alignCast(&state_manager)));
 
-    var jt = JumpTable.init();
+    var jt = JumpTable{ .table = [_]?*const JumpTable.Operation{null} ** 256 };
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     var interpreter = try Interpreter.create(allocator, &evm, jt);

@@ -97,7 +97,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-5656 enabled
-    var evm = Evm.init(allocator, null);
+    var evm = try Evm.init(allocator, null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP5656 = true;
     evm.setChainRules(chainRules);
@@ -105,7 +105,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
     // Create state manager
     var state_manager = try StateManager.init(allocator, .{});
     defer state_manager.deinit();
-    evm.setStateManager(&state_manager);
+    evm.setStateManager(@ptrCast(&state_manager));
 
     // Create jump table
     var jt = JumpTable.init();
@@ -113,7 +113,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     // Create interpreter
-    var interpreter = Interpreter.create(allocator, &evm, jt);
+    var interpreter = try Interpreter.create(allocator, &evm, jt);
     defer interpreter.deinit();
 
     // Create test contract with MCOPY opcode
@@ -142,7 +142,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 disabled" {
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-5656 disabled
-    var evm = Evm.init(allocator, null);
+    var evm = try Evm.init(allocator, null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP5656 = false;
     evm.setChainRules(chainRules);
@@ -150,7 +150,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 disabled" {
     // Create state manager
     var state_manager = try StateManager.init(allocator, .{});
     defer state_manager.deinit();
-    evm.setStateManager(&state_manager);
+    evm.setStateManager(@ptrCast(&state_manager));
 
     // Create jump table
     var jt = JumpTable.init();
@@ -158,7 +158,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 disabled" {
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     // Create interpreter
-    var interpreter = Interpreter.create(allocator, &evm, jt);
+    var interpreter = try Interpreter.create(allocator, &evm, jt);
     defer interpreter.deinit();
 
     // Create test contract with MCOPY opcode

@@ -62,10 +62,10 @@ test "EIP-3651: COINBASE should be warm by default" {
     // Create state manager
     var state_manager = try StateManager.init(allocator, .{});
     defer state_manager.deinit();
-    evm.setStateManager(&state_manager);
+    evm.setStateManager(@ptrCast(&state_manager));
 
     // Create jump table
-    var jt = JumpTable.init();
+    var jt = JumpTable{ .table = [_]?*const JumpTable.Operation{null} ** 256 };
     defer jt.deinit(allocator);
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 

@@ -378,7 +378,8 @@ pub const Contract = struct {
             // We don't own this memory if it came from the jumpdests cache
             // So only deinit if we created it ourselves (jumpdests is null)
             if (self.jumpdests == null) {
-                analysis.deinit(std.heap.page_allocator);
+                var mutable_analysis = analysis;
+                mutable_analysis.deinit(std.heap.page_allocator);
             }
         }
     }

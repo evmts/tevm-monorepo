@@ -68,12 +68,12 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 enabled" {
     evm.setStateManager(@ptrCast(@alignCast(&state_manager)));
 
     // Create jump table
-    var jt = JumpTable.init();
+    var jt = JumpTable{ .table = [_]?*const JumpTable.Operation{null} ** 256 };
     defer jt.deinit(allocator);
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     // Create interpreter
-    var interpreter = Interpreter.create(allocator, &evm, jt);
+    var interpreter = try Interpreter.create(allocator, &evm, jt);
     defer interpreter.deinit();
 
     // Create test contract with PUSH0 opcode
@@ -108,12 +108,12 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 disabled" {
     evm.setStateManager(@ptrCast(@alignCast(&state_manager)));
 
     // Create jump table
-    var jt = JumpTable.init();
+    var jt = JumpTable{ .table = [_]?*const JumpTable.Operation{null} ** 256 };
     defer jt.deinit(allocator);
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     // Create interpreter
-    var interpreter = Interpreter.create(allocator, &evm, jt);
+    var interpreter = try Interpreter.create(allocator, &evm, jt);
     defer interpreter.deinit();
 
     // Create test contract with PUSH0 opcode
