@@ -3,7 +3,7 @@ const hex = @import("Utils").hex;
 
 /// Whether debug logging is enabled
 /// When set to false, all logging functions are compiled away with zero runtime overhead
-pub const ENABLE_DEBUG_LOGS = false;
+pub const ENABLE_DEBUG_LOGS = true;
 
 /// Log levels
 pub const LogLevel = enum {

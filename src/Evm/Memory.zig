@@ -99,19 +99,37 @@ pub const Memory = struct {
     ///
     /// Errors: Returns error if memory resize fails or if offset+size would overflow
     pub fn set(self: *Memory, offset: u64, size: u64, value: []const u8) !void {
+        // Debug logging
+        comptime {
+            @setEvalBranchQuota(10000);
+            std.debug.print("Memory.set: offset={d}, size={d}, value.len={d}, current_memory_size={d}\n", 
+                         .{@as(u64, 0), @as(u64, 0), @as(usize, 0), @as(usize, 0)}); // Placeholder values
+        }
+        
         // It's possible the offset is greater than 0 and size equals 0. This is because
         // the calcMemSize could potentially return 0 when size is zero (NO-OP)
         if (size > 0) {
             // Check for overflow using safe arithmetic
-            const end_offset = std.math.add(u64, offset, size) catch return error.InvalidArgument;
+            const end_offset = std.math.add(u64, offset, size) catch {
+                comptime std.debug.print("Memory.set: Overflow in offset({d}) + size({d})\n", 
+                                     .{@as(u64, 0), @as(u64, 0)}); // Placeholder values
+                return error.InvalidArgument;
+            };
+            
+            comptime std.debug.print("Memory.set: end_offset={d}, current_memory_size={d}\n", 
+                                 .{@as(u64, 0), @as(usize, 0)}); // Placeholder values
             
             // Ensure memory is sized properly
             if (end_offset > self.store.items.len) {
+                comptime std.debug.print("Memory.set: Resizing memory to {d}\n", .{@as(u64, 0)}); // Placeholder
                 try self.resize(end_offset);
+                comptime std.debug.print("Memory.set: Memory resized to {d}\n", .{@as(usize, 0)}); // Placeholder
             }
             
             // Verify size of value matches the requested size
             if (value.len < size) {
+                comptime std.debug.print("Memory.set: Value length {d} is less than requested size {d}\n", 
+                                     .{@as(usize, 0), @as(u64, 0)}); // Placeholder values
                 return error.InvalidArgument;
             }
             
@@ -119,7 +137,14 @@ pub const Memory = struct {
             const target_slice = self.store.items[offset..end_offset];
             const source_slice = value[0..size];
             
+            comptime std.debug.print("Memory.set: Copying {d} bytes from value to memory at offset {d}\n", 
+                                 .{@as(u64, 0), @as(u64, 0)}); // Placeholder values
+            
             @memcpy(target_slice, source_slice);
+            
+            comptime std.debug.print("Memory.set: Copy complete\n", .{});
+        } else {
+            comptime std.debug.print("Memory.set: Size is 0, no operation performed\n", .{});
         }
     }
 
@@ -248,36 +273,71 @@ pub const Memory = struct {
     /// Returns: A newly allocated buffer containing the copied data
     /// Errors: Returns error.OutOfMemory if allocation fails or error.InvalidArgument for bad parameters
     pub fn getCopy(self: *Memory, offset: u64, size: u64) ![]u8 {
+        // Debug logging
+        comptime {
+            @setEvalBranchQuota(10000);
+            std.debug.print("Memory.getCopy: offset={d}, size={d}, current_memory_size={d}\n", 
+                         .{@as(u64, 0), @as(u64, 0), @as(usize, 0)}); // Placeholder values
+        }
+        
         // For empty copies, still allocate an empty slice for consistent memory management
         if (size == 0) {
             // Always allocate a buffer, even for zero size
             // This ensures consistent memory management where caller always needs to free
+            comptime std.debug.print("Memory.getCopy: Allocating empty slice for size=0\n", .{});
             return self.allocator.alloc(u8, 0);
         }
 
         // Ensure memory is sized correctly, expanding if necessary
         // Using require() which will resize as needed
+        comptime std.debug.print("Memory.getCopy: Ensuring memory is sized correctly\n", .{});
         try self.require(offset, size);
         
         // Now do checks for safety
         // Check for overflow in offset + size calculation using safe arithmetic
-        const end_offset = std.math.add(u64, offset, size) catch return error.InvalidArgument;
+        const end_offset = std.math.add(u64, offset, size) catch {
+            comptime std.debug.print("Memory.getCopy: Overflow in offset({d}) + size({d})\n", 
+                                 .{@as(u64, 0), @as(u64, 0)}); // Placeholder values
+            return error.InvalidArgument;
+        };
+        
+        comptime std.debug.print("Memory.getCopy: end_offset={d}, actual_memory_size={d}\n", 
+                             .{@as(u64, 0), @as(usize, 0)}); // Placeholder values
 
         // Safely convert size to usize for allocation
-        const alloc_size: usize = if (size > std.math.maxInt(usize)) 
-            return error.OutOfMemory 
-        else 
-            @intCast(size);
-            
+        const alloc_size: usize = if (size > std.math.maxInt(usize)) {
+            comptime std.debug.print("Memory.getCopy: Size {d} too large for usize\n", .{@as(u64, 0)}); // Placeholder
+            return error.OutOfMemory;
+        } else {
+            @intCast(size)
+        };
+        
         // Allocate memory for the copy - caller must free this with allocator.free()
+        comptime std.debug.print("Memory.getCopy: Allocating buffer of size {d}\n", .{@as(usize, 0)}); // Placeholder
         const cpy = try self.allocator.alloc(u8, alloc_size);
         // Free memory if a later operation fails
-        errdefer self.allocator.free(cpy);
+        errdefer {
+            comptime std.debug.print("Memory.getCopy: Error occurred, freeing allocated buffer\n", .{});
+            self.allocator.free(cpy);
+        }
+        
+        // Verify our calculated end_offset is still valid after potential memory resize
+        if (end_offset > self.store.items.len) {
+            comptime std.debug.print("Memory.getCopy: end_offset {d} beyond memory size {d} after resize\n", 
+                                 .{@as(u64, 0), @as(usize, 0)}); // Placeholder values
+            self.allocator.free(cpy); // Manually free memory to prevent leaks
+            return error.OutOfBounds;
+        }
         
         // Get source slice using validated bounds
         const source_slice = self.store.items[offset..end_offset];
+        
+        comptime std.debug.print("Memory.getCopy: Copying {d} bytes from memory to result buffer\n", 
+                             .{@as(u64, 0)}); // Placeholder value
         @memcpy(cpy, source_slice);
         
+        comptime std.debug.print("Memory.getCopy: Successfully returned copy of size {d}\n", 
+                             .{@as(usize, 0)}); // Placeholder value
         return cpy;
     }
 
@@ -370,24 +430,48 @@ pub const Memory = struct {
     /// - OutOfBounds: If source or destination ranges would exceed memory bounds after calculation
     /// - MemoryTooLarge: If the required memory size exceeds the maximum allowed
     pub fn copy(self: *Memory, dst: u64, src: u64, length: u64) !void {
+        // Debug information
+        comptime {
+            @setEvalBranchQuota(10000);
+            var log_buffer: [1024]u8 = undefined;
+            const log_msg = std.fmt.bufPrint(&log_buffer, 
+                "Memory.copy: dst={d}, src={d}, length={d}", 
+                .{dst, src, length}) catch "Memory.copy: Error formatting debug message";
+            
+            std.debug.print("{s}\n", .{log_msg});
+        }
+        
         // Early return for zero-length operations
         if (length == 0) {
             return;
         }
         
         // Check for bounds and overflow using safe arithmetic operations
-        const src_end = std.math.add(u64, src, length) catch return error.OutOfBounds;
-        const dst_end = std.math.add(u64, dst, length) catch return error.OutOfBounds;
+        const src_end = std.math.add(u64, src, length) catch {
+            comptime std.debug.print("Memory.copy: src_end overflow\n", .{});
+            return error.OutOfBounds;
+        };
+        
+        const dst_end = std.math.add(u64, dst, length) catch {
+            comptime std.debug.print("Memory.copy: dst_end overflow\n", .{});
+            return error.OutOfBounds;
+        };
+        
+        comptime std.debug.print("Memory.copy: src_end={d}, dst_end={d}, current memory size={d}\n", 
+                                .{@as(u64, 0), @as(u64, 0), @as(u64, 0)}); // Placeholder values
         
         // Ensure source range is within bounds
         if (src_end > self.store.items.len) {
+            comptime std.debug.print("Memory.copy: Source range out of bounds\n", .{});
             return error.OutOfBounds;
         }
         
         // Ensure destination range is within bounds
         // Expand memory if needed
         if (dst_end > self.store.items.len) {
+            comptime std.debug.print("Memory.copy: Resizing memory to {d}\n", .{@as(u64, 0)}); // Placeholder
             try self.resize(dst_end);
+            comptime std.debug.print("Memory.copy: Memory resized to {d}\n", .{@as(u64, 0)}); // Placeholder
         }
 
         // After resizing, validate all ranges are within bounds
@@ -395,11 +479,15 @@ pub const Memory = struct {
         // ArrayList had to reallocate its storage
         const mem_size = self.store.items.len;
         
+        comptime std.debug.print("Memory.copy: After resize memory size={d}\n", .{@as(u64, 0)}); // Placeholder
+        
         // Safe checks with proper bound validation
         if (src >= mem_size) {
+            comptime std.debug.print("Memory.copy: Source start {d} out of bounds\n", .{@as(u64, 0)}); // Placeholder
             return error.OutOfBounds;
         }
         if (dst >= mem_size) {
+            comptime std.debug.print("Memory.copy: Destination start {d} out of bounds\n", .{@as(u64, 0)}); // Placeholder
             return error.OutOfBounds;
         }
         
@@ -408,7 +496,11 @@ pub const Memory = struct {
         const safe_dst_end = @min(dst_end, mem_size);
         const safe_length = @min(safe_src_end - src, safe_dst_end - dst);
         
+        comptime std.debug.print("Memory.copy: safe_src_end={d}, safe_dst_end={d}, safe_length={d}\n", 
+                                .{@as(u64, 0), @as(u64, 0), @as(u64, 0)}); // Placeholder values
+        
         if (safe_length == 0) {
+            comptime std.debug.print("Memory.copy: Nothing to copy safely\n", .{});
             return; // Nothing to copy safely
         }
         
@@ -416,12 +508,17 @@ pub const Memory = struct {
         const source_slice = self.store.items[src..src + safe_length];
         const dest_slice = self.store.items[dst..dst + safe_length];
         
+        comptime std.debug.print("Memory.copy: source_slice.len={d}, dest_slice.len={d}, overlap={}\n", 
+                                .{@as(u64, 0), @as(u64, 0), dst > src && dst < src + safe_length}); // Placeholder values
+        
         // Handle overlapping regions safely
         if (dst <= src) {
             // Copy forwards for non-overlapping or when destination is before source
+            comptime std.debug.print("Memory.copy: Using copyForwards (dst <= src)\n", .{});
             std.mem.copyForwards(u8, dest_slice, source_slice);
         } else {
             // Copy backwards when source is before destination (overlapping)
+            comptime std.debug.print("Memory.copy: Using copyBackwards (dst > src)\n", .{});
             std.mem.copyBackwards(u8, dest_slice, source_slice);
         }
     }

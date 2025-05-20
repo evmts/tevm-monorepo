@@ -8,10 +8,11 @@ const Evm = EvmModule.Evm;
 const ChainRules = EvmModule.ChainRules;
 const JumpTable = EvmModule.JumpTable;
 const Interpreter = EvmModule.Interpreter;
-const EvmLogger = EvmModule.EvmLogger;
-const createLogger = EvmModule.createLogger;
-const createScopedLogger = EvmModule.createScopedLogger;
-const debugOnly = EvmModule.debugOnly;
+const EvmLoggerModule = EvmModule.EvmLogger;
+const EvmLogger = EvmLoggerModule.EvmLogger;
+const createLogger = EvmLoggerModule.createLogger;
+const createScopedLogger = EvmLoggerModule.createScopedLogger;
+const debugOnly = EvmLoggerModule.debugOnly;
 
 const AddressModule = @import("Address");
 const Address = AddressModule.Address;

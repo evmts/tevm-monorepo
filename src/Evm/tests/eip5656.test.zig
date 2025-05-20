@@ -10,10 +10,11 @@ const ChainRules = EvmModule.ChainRules;
 const JumpTable = EvmModule.JumpTable;
 const Interpreter = EvmModule.Interpreter;
 const InterpreterError = EvmModule.InterpreterError;
-const EvmLogger = EvmModule.EvmLogger;
-const createLogger = EvmLogger.createLogger;
-const createScopedLogger = EvmLogger.createScopedLogger;
-const debugOnly = EvmLogger.debugOnly;
+const EvmLoggerModule = EvmModule.EvmLogger;
+const EvmLogger = EvmLoggerModule.EvmLogger;
+const createLogger = EvmLoggerModule.createLogger;
+const createScopedLogger = EvmLoggerModule.createScopedLogger;
+const debugOnly = EvmLoggerModule.debugOnly;
 
 // Import Address module
 const AddressModule = @import("Address");
@@ -48,7 +49,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
     _ = allocator;
     
-    debugOnly(getLogger(), {
+    debugOnly({
         var hex_buf: [42]u8 = undefined;
         _ = std.fmt.bufPrint(&hex_buf, "0x{}", .{std.fmt.fmtSliceHexLower(&addr)}) catch unreachable;
         getLogger().debug("Converted address: {s}", .{hex_buf});
@@ -80,7 +81,7 @@ fn createTestContract(allocator: std.mem.Allocator) !Contract {
     // 3. Return 32 bytes from offset 64 (which should contain the copied data)
 
     getLogger().debug("Creating contract bytecode with MCOPY operation", .{});
-    debugOnly(getLogger(), {
+    debugOnly({
         getLogger().debug("Contract operation sequence:", .{});
         getLogger().debug("1. Initialize memory[0:32] with 0x1234...", .{});
         getLogger().debug("2. Initialize memory[32:64] with 0xABCD...", .{});
@@ -129,7 +130,7 @@ fn createTestContract(allocator: std.mem.Allocator) !Contract {
         0x20, 0x60, 0x40, 0xF3,
     };
 
-    debugOnly(getLogger(), {
+    debugOnly({
         getLogger().debug("Bytecode length: {d} bytes", .{code.len});
         var hex_buf: [256]u8 = undefined;
         _ = std.fmt.bufPrint(&hex_buf, "0x{}", .{std.fmt.fmtSliceHexLower(&code)}) catch unreachable;
@@ -206,7 +207,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
     if (result) |data| {
         getLogger().debug("Result data length: {d} bytes", .{data.len});
         
-        debugOnly(getLogger(), {
+        debugOnly({
             var hex_buf: [100]u8 = undefined;
             _ = std.fmt.bufPrint(&hex_buf, "0x{}", .{std.fmt.fmtSliceHexLower(data)}) catch unreachable;
             getLogger().debug("Return data: {s}", .{hex_buf});

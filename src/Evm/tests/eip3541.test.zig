@@ -12,10 +12,11 @@ const Contract = EvmModule.Contract;
 const Memory = EvmModule.Memory.Memory;
 const Stack = EvmModule.Stack.Stack;
 const Address = @import("Address").Address;
-const EvmLogger = EvmModule.EvmLogger;
-const createLogger = EvmModule.createLogger;
-const createScopedLogger = EvmModule.createScopedLogger;
-const debugOnly = EvmModule.debugOnly;
+const EvmLoggerModule = EvmModule.EvmLogger;
+const EvmLogger = EvmLoggerModule.EvmLogger;
+const createLogger = EvmLoggerModule.createLogger;
+const createScopedLogger = EvmLoggerModule.createScopedLogger;
+const debugOnly = EvmLoggerModule.debugOnly;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;
@@ -344,14 +345,23 @@ test "CREATE2 accepts contracts not starting with 0xEF with EIP-3541 enabled" {
 
 // Test that CREATE accepts contracts starting with 0xEF when EIP-3541 is disabled
 test "CREATE accepts contracts starting with 0xEF with EIP-3541 disabled" {
+    var scoped = createScopedLogger(getLogger(), "test_CREATE_accepts_0xEF_disabled");
+    defer scoped.deinit();
+    
+    getLogger().info("│▓▒░ Starting test: CREATE accepts contracts starting with 0xEF with EIP-3541 disabled ░▒▓│", .{});
+    
+    // Set up the interpreter with EIP-3541 disabled
+    getLogger().debug("Setting up interpreter with EIP-3541 disabled", .{});
     const test_interpreter = try setupInterpreter(false);
     defer test_interpreter.deinit();
 
     // Create a dummy contract for the test
+    getLogger().debug("Creating test contract", .{});
     const contract = try std.testing.allocator.create(Contract);
     defer std.testing.allocator.destroy(contract);
 
     // Initialize the contract with minimal required fields
+    getLogger().debug("Initializing contract with minimal required fields", .{});
     contract.* = Contract{
         .code = &[_]u8{},
         .input = &[_]u8{},
@@ -361,39 +371,68 @@ test "CREATE accepts contracts starting with 0xEF with EIP-3541 disabled" {
         .value = 0,
         .gas_refund = 0,
     };
+    getLogger().debug("Contract initialized: gas={d}, address={}, caller={}", 
+                     .{contract.gas, contract.address, contract.caller});
 
     // Create a frame for execution
+    getLogger().debug("Creating execution frame", .{});
     var frame = try Frame.init(std.testing.allocator, contract);
     defer frame.deinit();
 
     // Push parameters for CREATE: value, offset, size
+    getLogger().debug("Pushing CREATE parameters to stack", .{});
     try frame.stack.push(0); // value: 0
     try frame.stack.push(0); // offset: 0
     try frame.stack.push(10); // size: 10 (small contract)
+    getLogger().debug("Stack prepared with CREATE parameters: value=0, offset=0, size=10", .{});
 
     // We need to make sure memory is allocated and contains 0xEF at the first byte
+    getLogger().debug("Allocating memory and setting first byte to 0xEF", .{});
     try frame.memory.resize(10);
     const mem = frame.memory.data();
     mem[0] = 0xEF; // First byte is 0xEF
+    
+    debugOnly(struct {
+        fn callback() void {
+            getLogger().debug("Memory initialized: size={d}, first byte=0x{x}", .{mem.len, mem[0]});
+        }
+    }.callback);
 
     // Execute CREATE operation
+    getLogger().info("Executing CREATE operation (should succeed with EIP-3541 disabled)", .{});
     const result = try calls.opCreate(0, &test_interpreter, &frame);
 
     // Verify CREATE executed successfully even with 0xEF as first byte
+    getLogger().debug("CREATE returned: '{s}'", .{result});
     try testing.expectEqualStrings("", result);
-    try testing.expectEqual(@as(BigInt, 0x1234), try frame.stack.peek(0)); // Using our stub's fake address
+    
+    const stack_value = try frame.stack.peek(0);
+    getLogger().debug("Stack top after CREATE: 0x{x}", .{stack_value});
+    try testing.expectEqual(@as(BigInt, 0x1234), stack_value); // Using our stub's fake address
+    
+    getLogger().info("Test PASSED: CREATE accepted contract starting with 0xEF with EIP-3541 disabled", .{});
+    getLogger().info("│▓▒░ Test completed successfully ░▒▓│", .{});
 }
 
 // Test that CREATE2 accepts contracts starting with 0xEF when EIP-3541 is disabled
 test "CREATE2 accepts contracts starting with 0xEF with EIP-3541 disabled" {
+    var scoped = createScopedLogger(getLogger(), "test_CREATE2_accepts_0xEF_disabled");
+    defer scoped.deinit();
+    
+    getLogger().info("│▓▒░ Starting test: CREATE2 accepts contracts starting with 0xEF with EIP-3541 disabled ░▒▓│", .{});
+    
+    // Set up the interpreter with EIP-3541 disabled
+    getLogger().debug("Setting up interpreter with EIP-3541 disabled", .{});
     const test_interpreter = try setupInterpreter(false);
     defer test_interpreter.deinit();
 
     // Create a dummy contract for the test
+    getLogger().debug("Creating test contract", .{});
     const contract = try std.testing.allocator.create(Contract);
     defer std.testing.allocator.destroy(contract);
 
     // Initialize the contract with minimal required fields
+    getLogger().debug("Initializing contract with minimal required fields", .{});
     contract.* = Contract{
         .code = &[_]u8{},
         .input = &[_]u8{},
@@ -403,26 +442,46 @@ test "CREATE2 accepts contracts starting with 0xEF with EIP-3541 disabled" {
         .value = 0,
         .gas_refund = 0,
     };
+    getLogger().debug("Contract initialized: gas={d}, address={}, caller={}", 
+                     .{contract.gas, contract.address, contract.caller});
 
     // Create a frame for execution
+    getLogger().debug("Creating execution frame", .{});
     var frame = try Frame.init(std.testing.allocator, contract);
     defer frame.deinit();
 
     // Push parameters for CREATE2: value, offset, size, salt
+    getLogger().debug("Pushing CREATE2 parameters to stack", .{});
     try frame.stack.push(0); // value: 0
     try frame.stack.push(0); // offset: 0
     try frame.stack.push(10); // size: 10 (small contract)
     try frame.stack.push(0); // salt: 0
+    getLogger().debug("Stack prepared with CREATE2 parameters: value=0, offset=0, size=10, salt=0", .{});
 
     // We need to make sure memory is allocated and contains 0xEF at the first byte
+    getLogger().debug("Allocating memory and setting first byte to 0xEF", .{});
     try frame.memory.resize(10);
     const mem = frame.memory.data();
     mem[0] = 0xEF; // First byte is 0xEF
+    
+    debugOnly(struct {
+        fn callback() void {
+            getLogger().debug("Memory initialized: size={d}, first byte=0x{x}", .{mem.len, mem[0]});
+        }
+    }.callback);
 
     // Execute CREATE2 operation
+    getLogger().info("Executing CREATE2 operation (should succeed with EIP-3541 disabled)", .{});
     const result = try calls.opCreate2(0, &test_interpreter, &frame);
 
     // Verify CREATE2 executed successfully even with 0xEF as first byte
+    getLogger().debug("CREATE2 returned: '{s}'", .{result});
     try testing.expectEqualStrings("", result);
-    try testing.expectEqual(@as(BigInt, 0x5678), try frame.stack.peek(0)); // Using our stub's fake address
+    
+    const stack_value = try frame.stack.peek(0);
+    getLogger().debug("Stack top after CREATE2: 0x{x}", .{stack_value});
+    try testing.expectEqual(@as(BigInt, 0x5678), stack_value); // Using our stub's fake address
+    
+    getLogger().info("Test PASSED: CREATE2 accepted contract starting with 0xEF with EIP-3541 disabled", .{});
+    getLogger().info("│▓▒░ Test completed successfully ░▒▓│", .{});
 }

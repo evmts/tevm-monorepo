@@ -7,10 +7,11 @@ const Evm = EvmModule.Evm;
 const ChainRules = EvmModule.ChainRules;
 const JumpTable = EvmModule.JumpTable;
 const Interpreter = EvmModule.Interpreter;
-const EvmLogger = EvmModule.EvmLogger;
-const createLogger = EvmLogger.createLogger;
-const createScopedLogger = EvmLogger.createScopedLogger;
-const debugOnly = EvmLogger.debugOnly;
+const EvmLoggerModule = EvmModule.EvmLogger;
+const EvmLogger = EvmLoggerModule.EvmLogger;
+const createLogger = EvmLoggerModule.createLogger;
+const createScopedLogger = EvmLoggerModule.createScopedLogger;
+const debugOnly = EvmLoggerModule.debugOnly;
 
 const AddressModule = @import("Address");
 const Address = AddressModule.Address;
@@ -44,7 +45,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
     _ = allocator;
     
-    debugOnly(getLogger(), {
+    debugOnly({
         var hex_buf: [42]u8 = undefined;
         _ = std.fmt.bufPrint(&hex_buf, "0x{}", .{std.fmt.fmtSliceHexLower(&addr)}) catch unreachable;
         getLogger().debug("Converted address: {s}", .{hex_buf});
@@ -79,7 +80,7 @@ fn createTestContract(allocator: std.mem.Allocator) !Contract {
     // 0x6000 - PUSH1 0 (offset in memory to return)
     // 0xf3 - RETURN (return data)
 
-    debugOnly(getLogger(), {
+    debugOnly({
         getLogger().debug("Contract bytecode:", .{});
         getLogger().debug("  0x5F - PUSH0 (push 0 onto stack)", .{});
         getLogger().debug("  0x6000 - PUSH1 0 (push storage slot 0)", .{});
