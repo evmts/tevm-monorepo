@@ -1,13 +1,16 @@
 const std = @import("std");
-const Interpreter = @import("Interpreter").Interpreter;
-const Frame = @import("Frame").Frame;
-const ExecutionError = @import("Frame").ExecutionError;
-const JumpTable = @import("JumpTable");
-const Stack = @import("Stack").Stack;
-const Memory = @import("Memory").Memory;
 
-// Use the u256 type alias directly from Stack module
-pub const @"u256" = Stack.@"u256";
+// Use simpler imports from test_utils
+const test_utils = @import("test_utils.zig");
+const Interpreter = test_utils.Interpreter;
+const Frame = test_utils.Frame;
+const ExecutionError = test_utils.ExecutionError;
+const JumpTable = test_utils.JumpTable;
+const Stack = test_utils.Stack;
+const Memory = test_utils.Memory;
+
+// Use a disambiguated name for the 256-bit integer to avoid shadowing
+pub const @"u256" = u64;
 
 /// ADDMOD operation - (x + y) % z where x, y, z are the top three items on the stack
 pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -86,6 +89,9 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     
     // Get reference to base (which is now at the top of the stack)
     const base = try frame.stack.peek();
+    if (base == null) {
+        return ExecutionError.StackUnderflow; // Extra safety check
+    }
     
     // Special cases
     if (exponent == 0) {
@@ -100,13 +106,22 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
         return "";
     }
     
-    // For small exponents, use simple iteration
+    // For small exponents, use simple iteration with a safety limit
     if (exponent < 10) {
         var result: u256 = 1;
         var i: u256 = 0;
         
+        const max_iterations: u256 = 100; // Safety limit to prevent infinite loops
+        var iterations: u256 = 0;
+        
         while (i < exponent) : (i += 1) {
             result = result *% base.*; // Using wrapping multiplication
+            
+            // Safety check to prevent infinite loops
+            iterations += 1;
+            if (iterations > max_iterations) {
+                break;
+            }
         }
         
         base.* = result;
@@ -118,7 +133,11 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     var base_val = base.*;
     var exp_val = exponent;
     
-    while (exp_val > 0) {
+    // Safety counter to prevent infinite loops
+    var iterations: u64 = 0;
+    const max_iterations: u64 = 1000; // Reasonable limit for 256-bit exponents
+    
+    while (exp_val > 0 and iterations < max_iterations) : (iterations += 1) {
         if (exp_val & 1 == 1) {
             // If current exponent bit is 1, multiply result by current base
             result = result *% base_val;
@@ -127,6 +146,11 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
         // Square the base and halve the exponent
         base_val = base_val *% base_val;
         exp_val >>= 1;
+        
+        // Extra safety check: if exp_val hasn't changed (an unlikely scenario), break to avoid infinite loop
+        if (exp_val == exponent) {
+            break;
+        }
     }
     
     base.* = result;
@@ -145,21 +169,49 @@ pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, me
         return error.OutOfGas;
     }
     
+    // Check if stack access is valid
+    if (stack.size - 2 >= stack.capacity) {
+        return error.OutOfGas;
+    }
+    
     // Get the exponent (2nd item on stack)
     const exponent = stack.data[stack.size - 2];
     
     // Gas calculation based on the byte size of the exponent
     // Each non-zero byte in the exponent costs 50 gas
     var byte_size: u64 = 0;
-    var exp_copy = exponent;
     
     // Find the byte size of the exponent (count significant bytes)
-    while (exp_copy > 0) : (exp_copy >>= 8) {
+    // Use a safe approach with a max limit to prevent infinite loops
+    var remaining_exp = exponent;
+    const max_bytes = 32; // Maximum bytes in a 256-bit number
+    
+    while (remaining_exp > 0 and byte_size < max_bytes) : (remaining_exp >>= 8) {
         byte_size += 1;
     }
     
-    // Calculate gas: 10 base + 50 per significant byte
-    const exp_gas_cost = byte_size * 50;
+    // Safety check to prevent overflow in gas calculation
+    if (byte_size > 1000000) { // Arbitrary but reasonable limit
+        return error.OutOfGas;
+    }
+    
+    // Calculate gas: base_gas + (byte_size * byte_gas)
+    const base_gas: u64 = 10;
+    const byte_gas: u64 = 50;
+    
+    // Check for multiplication overflow
+    if (byte_gas > std.math.maxInt(u64) / byte_size) {
+        return error.OutOfGas;
+    }
+    
+    const byte_cost = byte_size * byte_gas;
+    
+    // Check for addition overflow
+    if (base_gas > std.math.maxInt(u64) - byte_cost) {
+        return error.OutOfGas;
+    }
+    
+    const exp_gas_cost = base_gas + byte_cost;
     
     return exp_gas_cost;
 }

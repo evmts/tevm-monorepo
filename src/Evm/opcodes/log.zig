@@ -49,6 +49,11 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
     
     // Pop topics from the stack (in reverse order)
     var topics: [4]u64 = undefined;
+    if (n_topics > 4) {
+        // Safety check to prevent buffer overflow
+        return ExecutionError.InvalidOpcode;
+    }
+    
     var i: u8 = 0;
     while (i < n_topics) : (i += 1) {
         const topic_val = try frame.stack.pop();
@@ -59,9 +64,22 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
     const size = try frame.stack.pop();
     const offset = try frame.stack.pop();
     
+    // Safety check for overflow when truncating to u64
+    if (size > std.math.maxInt(u64)) {
+        return ExecutionError.OutOfGas; // Use OutOfGas as a general failure case
+    }
+    if (offset > std.math.maxInt(u64)) {
+        return ExecutionError.OutOfGas; // Use OutOfGas as a general failure case
+    }
+    
     // Convert to u64 values
     const mem_offset = @as(u64, @truncate(offset));
     const mem_size = @as(u64, @truncate(size));
+    
+    // Check for overflow in mem_offset + mem_size calculation
+    if (mem_size > 0 and mem_offset > std.math.maxInt(u64) - mem_size) {
+        return ExecutionError.OutOfGas;
+    }
     
     // Ensure memory has enough capacity
     try frame.memory.require(mem_offset, mem_size);
@@ -69,12 +87,22 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
     // In a production implementation, we would fetch the data from memory
     // and emit a log event
     if (mem_size > 0) {
-        // Safely get a reference to the data
-        // We just use it to verify it's valid
+        // Use a safer approach to verify memory range is valid
+        // We'll do this by copying to a temporary buffer if needed
+        // But for now, just do basic checks at boundaries
+        
         _ = frame.memory.get8(mem_offset);
         if (mem_size > 1) {
             // Check last byte to ensure range is valid
             _ = frame.memory.get8(mem_offset + mem_size - 1);
+            
+            // For extra safety, check a few points in the middle for very large ranges
+            if (mem_size > 1024) {
+                // Check at 25%, 50% and 75% points
+                _ = frame.memory.get8(mem_offset + (mem_size / 4));
+                _ = frame.memory.get8(mem_offset + (mem_size / 2));
+                _ = frame.memory.get8(mem_offset + (mem_size * 3 / 4));
+            }
         }
     }
     
@@ -94,16 +122,37 @@ pub fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
         return .{ .size = 0, .overflow = false };
     }
     
+    // Check if we have valid indices for stack access
+    if (stack.size <= 1) {
+        return .{ .size = 0, .overflow = true };
+    }
+    if (stack.size - 1 >= stack.capacity) {
+        return .{ .size = 0, .overflow = true };
+    }
+    if (stack.size - 2 >= stack.capacity) {
+        return .{ .size = 0, .overflow = true };
+    }
+    
     // Get memory offset and size safely
     const offset = stack.data[stack.size - 2];  // Second to top
     const size = stack.data[stack.size - 1];    // Top of stack
+    
+    // Check for values too large for u64
+    if (offset > std.math.maxInt(u64) or size > std.math.maxInt(u64)) {
+        return .{ .size = 0, .overflow = true };
+    }
     
     // Convert to u64 (truncate higher bits)
     const mem_offset = @as(u64, @truncate(offset));
     const mem_size = @as(u64, @truncate(size));
     
+    // If size is 0, just return the offset as size (no memory needed beyond offset)
+    if (mem_size == 0) {
+        return .{ .size = mem_offset, .overflow = false };
+    }
+    
     // Check for potential overflow with direct arithmetic
-    if (mem_size > std.math.maxInt(u64) - mem_offset) {
+    if (mem_offset > std.math.maxInt(u64) - mem_size) {
         return .{ .size = 0, .overflow = true };
     }
     

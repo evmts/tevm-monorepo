@@ -246,7 +246,7 @@ test "MUL operation" {
     // Execute opMul - this should wrap around
     _ = try math.opMul(0, &mock_interpreter, &frame);
     
-    // Check the result - should be (2^255 - 1) * 2 = 2^256 - 2 which wraps to -2 (using 2's complement)
+    // Check the result - should be (2^63 - 1) * 2 = 2^64 - 2 which wraps to -2 (using 2's complement)
     const overflow_result = try frame.stack.pop();
     const expected_wrap = ~@as(BigInt, 1); // All bits set except least significant bit
     try testing.expectEqual(expected_wrap, overflow_result);

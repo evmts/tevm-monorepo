@@ -1,14 +1,23 @@
 const std = @import("std");
 const testing = std.testing;
-const test_utils = @import("test_utils.zig");
 const log = @import("log.zig");
+const test_utils = @import("test_utils.zig");
+
+// Direct imports instead of using package.zig
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Contract = @import("../Contract.zig").Contract;
+const Memory = @import("../Memory.zig").Memory;
+const Stack = @import("../Stack.zig").Stack;
+const JumpTable = @import("../JumpTable.zig");
 
 // Create test objects using test_utils
 fn createTestFrame() !struct {
-    frame: *test_utils.Frame,
-    stack: *test_utils.Stack,
-    memory: *test_utils.Memory,
-    interpreter: *test_utils.Interpreter,
+    frame: *Frame,
+    stack: *Stack,
+    memory: *Memory,
+    interpreter: *Interpreter,
 } {
     const allocator = testing.allocator;
     
@@ -16,8 +25,8 @@ fn createTestFrame() !struct {
     const contract = try test_utils.createMockContract(allocator, &[_]u8{});
     
     // Create a frame with the mock contract
-    const frame = try allocator.create(test_utils.Frame);
-    frame.* = try test_utils.Frame.init(allocator, contract);
+    const frame = try allocator.create(Frame);
+    frame.* = try Frame.init(allocator, contract);
     
     // Create a mock EVM
     const evm = try test_utils.createMockEvm(allocator);

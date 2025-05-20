@@ -184,10 +184,20 @@ fn bytesToBigInt(bytes: []const u8) u256 {
     
     // Protect against overflow: only process the last 32 bytes at most
     // which is the maximum that can fit in a u256
+    const effective_len = @min(bytes.len, 32);
     const start_idx = if (bytes.len > 32) bytes.len - 32 else 0;
-    const effective_bytes = bytes[start_idx..];
     
-    for (effective_bytes) |byte| {
+    // Safer slice handling
+    if (start_idx >= bytes.len) {
+        return 0; // Empty slice or invalid index
+    }
+    
+    const end_idx = @min(start_idx + effective_len, bytes.len);
+    for (bytes[start_idx..end_idx]) |byte| {
+        // Check for overflow during shift
+        if ((result >> 248) != 0) {
+            return std.math.maxInt(u256); // Indicate overflow with max value
+        }
         result = (result << 8) | byte;
     }
     

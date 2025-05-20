@@ -1,20 +1,22 @@
 // Package entry point for opcodes
-// Use direct imports to avoid module issues
+// For test files, we need to use direct imports
 
-// Import core components
-pub const Frame = @import("../../Evm/Frame.zig").Frame;
-pub const ExecutionError = @import("../../Evm/Frame.zig").ExecutionError;
-pub const Interpreter = @import("../../Evm/interpreter.zig").Interpreter;
-pub const Evm = @import("../../Evm/evm.zig").Evm;
-pub const Contract = @import("../../Evm/Contract.zig").Contract;
-pub const Memory = @import("../../Evm/Memory.zig").Memory;
-pub const Stack = @import("../../Evm/Stack.zig").Stack;
-pub const JumpTable = @import("../../Evm/JumpTable.zig");
+// Import directly from implementation files - this works with 'zig test' command
+pub const Frame = @import("../Frame.zig").Frame;
+pub const ExecutionError = @import("../Frame.zig").ExecutionError;
+pub const Interpreter = @import("../interpreter.zig").Interpreter;
+pub const Evm = @import("../evm.zig").Evm;
+pub const Contract = @import("../Contract.zig").Contract;
+pub const Memory = @import("../Memory.zig").Memory;
+pub const Stack = @import("../Stack.zig").Stack;
+pub const JumpTable = @import("../JumpTable.zig");
+pub const ChainRules = @import("../evm.zig").ChainRules;
+pub const EvmLogger = @import("../EvmLogger.zig");
+
+// Import Address directly for tests
 pub const Address = @import("../../Address/address.zig").Address;
-pub const ChainRules = @import("../../Evm/evm.zig").ChainRules;
-pub const EvmLogger = @import("../../Evm/EvmLogger.zig");
 
-// Re-export modules
+// Re-export modules - these are all local to the opcodes directory
 pub const bitwise = @import("bitwise.zig");
 pub const blob = @import("blob.zig");
 pub const block = @import("block.zig");

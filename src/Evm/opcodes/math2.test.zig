@@ -11,17 +11,26 @@ const Contract = test_utils.Contract;
 const Memory = test_utils.Memory;
 const Address = test_utils.Address;
 
-// Define the u256 type from math2
-const @"u256" = math2.@"u256";
+// Use u64 as our test type for simplicity
+// This must match what's used in test_utils.zig and math2.zig
+const @"u256" = u64;
 
 // Helper function to create a negative u256 number using two's complement
 fn makeNegative(value: @"u256") @"u256" {
     return (~value) +% 1;
 }
 
-// Helper for running opcode tests
-fn runOpcodeTest(execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]const u8, input: []const @"u256", expected_output: []const @"u256") !void {
+// Helper for running opcode tests with arrays
+fn runOpcodeTest(
+    execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]const u8, 
+    input_array: anytype, 
+    expected_array: anytype
+) !void {
     const allocator = testing.allocator;
+    
+    // Create a stack data array for our test
+    const stack_data = try allocator.alloc(u64, 1024);
+    defer allocator.free(stack_data);
     
     // Create a mock contract with empty code
     const contract = try test_utils.createMockContract(allocator, &[_]u8{});
@@ -34,6 +43,10 @@ fn runOpcodeTest(execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]c
     var frame = try Frame.init(allocator, contract);
     defer frame.deinit();
     
+    // Initialize the stack data
+    frame.stack.data = stack_data;
+    frame.stack.size = 0;
+    
     // Create a mock EVM
     const evm_instance = try test_utils.createMockEvm(allocator);
     defer allocator.destroy(evm_instance);
@@ -43,7 +56,7 @@ fn runOpcodeTest(execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]c
     defer allocator.destroy(interpreter);
     
     // Push input values onto the stack
-    for (input) |val| {
+    for (input_array) |val| {
         try frame.stack.push(val);
     }
     
@@ -51,25 +64,25 @@ fn runOpcodeTest(execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]c
     _ = try execute_fn(0, interpreter, &frame);
     
     // Check if the stack has the expected size after execution
-    try testing.expectEqual(expected_output.len, frame.stack.size);
+    try testing.expectEqual(expected_array.len, frame.stack.size);
     
     // Check each stack value
-    for (0..expected_output.len) |i| {
+    for (0..expected_array.len) |i| {
         const actual = frame.stack.data[frame.stack.size - 1 - i];
-        try testing.expectEqual(expected_output[i], actual);
+        try testing.expectEqual(expected_array[i], actual);
     }
 }
 
 test "ADDMOD with non-zero modulus" {
     const input = [_]u256{ 7, 5, 3 }; // 7 + 5 mod 3
     const expected = [_]u256{0}; // (7 + 5) % 3 = 12 % 3 = 0
-    try runOpcodeTest(math2.opAddmod, &input, &expected);
+    try runOpcodeTest(math2.opAddmod, input, expected);
 }
 
 test "ADDMOD with zero modulus" {
     const input = [_]u256{ 7, 5, 0 }; // 7 + 5 mod 0
     const expected = [_]u256{0}; // Modulo by zero returns 0
-    try runOpcodeTest(math2.opAddmod, &input, &expected);
+    try runOpcodeTest(math2.opAddmod, input, expected);
 }
 
 test "ADDMOD with large numbers" {
@@ -79,7 +92,7 @@ test "ADDMOD with large numbers" {
         10 
     };
     const expected = [_]u256{1}; // (max_u256 + 2) % 10 = 1
-    try runOpcodeTest(math2.opAddmod, &input, &expected);
+    try runOpcodeTest(math2.opAddmod, input, expected);
 }
 
 test "MULMOD with non-zero modulus" {

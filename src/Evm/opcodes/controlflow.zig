@@ -81,7 +81,11 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
         // Log current stack before operation
         debugOnly(struct {
             fn callback() void {
-                logStackSlop(frame.logger, frame.stack.data[0..frame.stack.size], "JUMP", pc);
+                if (frame.stack.size > 0) {
+                    logStackSlop(frame.logger, frame.stack.data[0..frame.stack.size], "JUMP", pc);
+                } else {
+                    frame.logger.debug("JUMP: Stack is empty", .{});
+                }
             }
         }.callback);
     }
@@ -100,16 +104,24 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
         frame.logger.debug("JUMP: Destination popped from stack: {d} (0x{x})", .{dest, dest});
     }
     
-    // Check if destination is too large for the code
-    if (dest >= frame.contract.code.len) {
+    // Check if destination is negative or too large to fit in usize
+    if (dest > std.math.maxInt(usize)) {
         if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-            frame.logger.err("JUMP: Invalid destination {d} (0x{x}) - exceeds code length {d}", .{dest, dest, frame.contract.code.len});
+            frame.logger.err("JUMP: Invalid destination {d} (0x{x}) - value too large for architecture", .{dest, dest});
         }
         return ExecutionError.InvalidJump;
     }
     
     // Convert to usize for indexing
     const dest_usize = @as(usize, @intCast(dest));
+    
+    // Check if destination is too large for the code
+    if (dest_usize >= frame.contract.code.len) {
+        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            frame.logger.err("JUMP: Invalid destination {d} (0x{x}) - exceeds code length {d}", .{dest, dest, frame.contract.code.len});
+        }
+        return ExecutionError.InvalidJump;
+    }
     
     // Check if destination is a JUMPDEST opcode
     const dest_opcode = frame.contract.code[dest_usize];
@@ -120,6 +132,7 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
             // Additional debug info: show surrounding bytecode context at destination
             debugOnly(struct {
                 fn callback() void {
+                    // Find safe bounds for displaying context
                     const start = if (dest_usize > 5) dest_usize - 5 else 0;
                     const end = if (dest_usize + 6 < frame.contract.code.len) dest_usize + 6 else frame.contract.code.len;
                     frame.logger.debug("JUMP: Bytecode context around destination:", .{});
@@ -128,13 +141,23 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
                     var line_fbs = std.io.fixedBufferStream(&line_buf);
                     const line_writer = line_fbs.writer();
                     
-                    for (frame.contract.code[start..end], start..) |byte, i| {
-                        if (std.fmt.format(line_writer, "{}{x:0>2} ", .{
-                            if (i == dest_usize) "[" else " ",
-                            byte,
-                        }) catch false) {}
+                    // Safe way to build up context string
+                    var i: usize = start;
+                    while (i < end) : (i += 1) {
                         if (i == dest_usize) {
-                            if (std.fmt.format(line_writer, "] <- invalid jump dest ", .{}) catch false) {}
+                            _ = line_writer.write("[") catch continue;
+                        } else {
+                            _ = line_writer.write(" ") catch continue;
+                        }
+                        
+                        var hex_buf: [3]u8 = undefined;
+                        _ = std.fmt.bufPrint(&hex_buf, "{x:0>2}", .{frame.contract.code[i]}) catch continue;
+                        _ = line_writer.write(&hex_buf) catch continue;
+                        
+                        _ = line_writer.write(" ") catch continue;
+                        
+                        if (i == dest_usize) {
+                            _ = line_writer.write("] <- invalid jump dest ") catch continue;
                         }
                     }
                     
@@ -147,7 +170,17 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Set the program counter to the destination (minus 1 because the interpreter will increment after)
-    frame.pc = dest_usize - 1;
+    if (dest_usize > 0) {
+        frame.pc = dest_usize - 1;
+    } else {
+        // Special case for jumping to position 0 to avoid underflow
+        frame.pc = 0;
+        // Interpreter will still increment PC, so we need to handle this specially
+        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            frame.logger.debug("JUMP: Special case - jumping to position 0, setting PC to 0", .{});
+            frame.logger.debug("JUMP: Interpreter will increment PC, this may cause unexpected behavior", .{});
+        }
+    }
     
     if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
         frame.logger.debug("JUMP: Valid jump - Setting PC to {d} (will be {d} after increment)", .{frame.pc, frame.pc + 1});
@@ -180,7 +213,11 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
         // Log current stack before operation
         debugOnly(struct {
             fn callback() void {
-                logStackSlop(frame.logger, frame.stack.data[0..frame.stack.size], "JUMPI", pc);
+                if (frame.stack.size > 0) {
+                    logStackSlop(frame.logger, frame.stack.data[0..frame.stack.size], "JUMPI", pc);
+                } else {
+                    frame.logger.debug("JUMPI: Stack is empty", .{});
+                }
             }
         }.callback);
     }
@@ -207,16 +244,24 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
             frame.logger.debug("JUMPI: Condition is true (non-zero), jumping to destination {d} (0x{x})", .{dest, dest});
         }
         
-        // Check if destination is too large for the code
-        if (dest >= frame.contract.code.len) {
+        // Check if destination is negative or too large to fit in usize
+        if (dest > std.math.maxInt(usize)) {
             if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-                frame.logger.err("JUMPI: Invalid destination {d} (0x{x}) - exceeds code length {d}", .{dest, dest, frame.contract.code.len});
+                frame.logger.err("JUMPI: Invalid destination {d} (0x{x}) - value too large for architecture", .{dest, dest});
             }
             return ExecutionError.InvalidJump;
         }
         
         // Convert to usize for indexing
         const dest_usize = @as(usize, @intCast(dest));
+        
+        // Check if destination is too large for the code
+        if (dest_usize >= frame.contract.code.len) {
+            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+                frame.logger.err("JUMPI: Invalid destination {d} (0x{x}) - exceeds code length {d}", .{dest, dest, frame.contract.code.len});
+            }
+            return ExecutionError.InvalidJump;
+        }
         
         // Check if destination is a JUMPDEST opcode
         const dest_opcode = frame.contract.code[dest_usize];
@@ -227,6 +272,7 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
                 // Additional debug info: show surrounding bytecode context at destination
                 debugOnly(struct {
                     fn callback() void {
+                        // Find safe bounds for displaying context
                         const start = if (dest_usize > 5) dest_usize - 5 else 0;
                         const end = if (dest_usize + 6 < frame.contract.code.len) dest_usize + 6 else frame.contract.code.len;
                         frame.logger.debug("JUMPI: Bytecode context around destination:", .{});
@@ -235,13 +281,23 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
                         var line_fbs = std.io.fixedBufferStream(&line_buf);
                         const line_writer = line_fbs.writer();
                         
-                        for (frame.contract.code[start..end], start..) |byte, i| {
-                            if (std.fmt.format(line_writer, "{}{x:0>2} ", .{
-                                if (i == dest_usize) "[" else " ",
-                                byte,
-                            }) catch false) {}
+                        // Safe way to build up context string
+                        var i: usize = start;
+                        while (i < end) : (i += 1) {
                             if (i == dest_usize) {
-                                if (std.fmt.format(line_writer, "] <- invalid jump dest ", .{}) catch false) {}
+                                _ = line_writer.write("[") catch continue;
+                            } else {
+                                _ = line_writer.write(" ") catch continue;
+                            }
+                            
+                            var hex_buf: [3]u8 = undefined;
+                            _ = std.fmt.bufPrint(&hex_buf, "{x:0>2}", .{frame.contract.code[i]}) catch continue;
+                            _ = line_writer.write(&hex_buf) catch continue;
+                            
+                            _ = line_writer.write(" ") catch continue;
+                            
+                            if (i == dest_usize) {
+                                _ = line_writer.write("] <- invalid jump dest ") catch continue;
                             }
                         }
                         
@@ -254,7 +310,17 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
         }
         
         // Set the program counter to the destination (minus 1 because the interpreter will increment after)
-        frame.pc = dest_usize - 1;
+        if (dest_usize > 0) {
+            frame.pc = dest_usize - 1;
+        } else {
+            // Special case for jumping to position 0 to avoid underflow
+            frame.pc = 0;
+            // Interpreter will still increment PC, so we need to handle this specially
+            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+                frame.logger.debug("JUMPI: Special case - jumping to position 0, setting PC to 0", .{});
+                frame.logger.debug("JUMPI: Interpreter will increment PC, this may cause unexpected behavior", .{});
+            }
+        }
         
         if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("JUMPI: Valid conditional jump - Setting PC to {d} (will be {d} after increment)", .{frame.pc, frame.pc + 1});
@@ -832,7 +898,18 @@ pub fn getReturnDataMemorySize(stack: *const JumpTable.Stack, memory: *const Jum
         return .{ .size = 0, .overflow = false };
     }
     
-    // Get offset and size from stack
+    // Safely get offset and size from stack with bound checking
+    const offset_idx = stack.size - 1;
+    const size_idx = stack.size - 2;
+    if (offset_idx >= stack.capacity) {
+        // This shouldn't happen with proper stack validation, but we check anyway
+        return .{ .size = 0, .overflow = true };
+    }
+    if (size_idx >= stack.capacity) {
+        // This shouldn't happen with proper stack validation, but we check anyway
+        return .{ .size = 0, .overflow = true };
+    }
+    
     // offset is at stack.size - 1, size is at stack.size - 2
     const offset = stack.data[stack.size - 1];
     const size = stack.data[stack.size - 2];
@@ -847,17 +924,22 @@ pub fn getReturnDataMemorySize(stack: *const JumpTable.Stack, memory: *const Jum
         return .{ .size = 0, .overflow = true };
     }
     
-    // Calculate the size needed
-    const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
+    // Sanity check offset to prevent overflow
+    if (offset > std.math.maxInt(usize)) {
+        return .{ .size = 0, .overflow = true };
+    }
+    
+    // Cast values to usize for calculations
+    const offset_usize = @as(usize, @intCast(offset));
     const size_usize = @as(usize, @intCast(size));
+    
+    // Check for overflow in offset + size calculation
+    if (offset_usize > std.math.maxInt(usize) - size_usize) {
+        return .{ .size = 0, .overflow = true };
+    }
     
     // Memory needed is offset + size
     const end_pos = offset_usize + size_usize;
-    
-    // Check for overflow
-    if (end_pos < offset_usize) {
-        return .{ .size = 0, .overflow = true };
-    }
     
     return .{ .size = end_pos, .overflow = false };
 }

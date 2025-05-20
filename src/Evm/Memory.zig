@@ -105,6 +105,11 @@ pub const Memory = struct {
     ///
     /// Errors: Returns error if memory resize fails
     pub fn set32(self: *Memory, offset: u64, val: BigInt) !void {
+        // Safety check for overflow
+        if (offset > std.math.maxInt(u64) - 32) {
+            return error.InvalidOffset;
+        }
+
         // Ensure memory is sized properly
         if (offset + 32 > self.store.items.len) {
             try self.resize(offset + 32);
@@ -117,19 +122,20 @@ pub const Memory = struct {
         // We need to handle the full 32 bytes of the u256 value, not just the least significant byte
         var buffer: [32]u8 = [_]u8{0} ** 32;
         
-        // Manually convert the value to big-endian bytes
-        // Since we're using u64 for simplicity in tests, we'll only use the last 8 bytes
+        // Manually convert the value to big-endian bytes in a safer way
         var v = val;
         var i: usize = 31;
         while (true) {
+            // Mask to only get the least significant byte
             buffer[i] = @truncate(v & 0xFF);
             v >>= 8;
+            // Exit condition checks
             if (i == 0) break;
-            if (v == 0) break;
+            if (v == 0) break; // Optimization: Stop early if remainder is 0
             i -= 1;
         }
         
-        // Copy the buffer to memory
+        // Safe copy that won't overflow (we've checked offset+32 is valid earlier)
         @memcpy(self.store.items[offset .. offset + 32], &buffer);
     }
 
@@ -172,8 +178,9 @@ pub const Memory = struct {
     /// - size: The number of bytes to copy
     ///
     /// Returns: A newly allocated buffer containing the copied data
-    /// Errors: Returns error.OutOfMemory if allocation fails
+    /// Errors: Returns error.OutOfMemory if allocation fails or error.OutOfBounds if the requested range is invalid
     pub fn getCopy(self: *const Memory, offset: u64, size: u64) ![]u8 {
+        // Optimization for empty copies
         if (size == 0) {
             return &[_]u8{};
         }
@@ -182,13 +189,30 @@ pub const Memory = struct {
         if (offset >= self.store.items.len) {
             return error.OutOfBounds;
         }
+        
+        // Check for overflow in offset + size calculation
+        // This is important since u64 addition can wrap around
+        if (offset > std.math.maxInt(u64) - size) {
+            return error.OutOfBounds;
+        }
+        
+        // Check if the range is within memory bounds
         if (offset + size > self.store.items.len) {
             return error.OutOfBounds;
         }
 
-        // Create a new buffer and copy data safely
-        const cpy = try self.allocator.alloc(u8, @intCast(size));
-        @memcpy(cpy, self.store.items[offset .. offset + size]);
+        // Create a new buffer for the copy - allocate in a way that doesn't assume size can be 
+        // casted to usize without checking (u64 may be larger than usize on some platforms)
+        const alloc_size: usize = if (size > std.math.maxInt(usize)) 
+            return error.OutOfMemory 
+        else 
+            @intCast(size);
+            
+        const cpy = try self.allocator.alloc(u8, alloc_size);
+        
+        // Use safe slice bounds that were already validated
+        const source_slice = self.store.items[offset .. offset + size];
+        @memcpy(cpy, source_slice);
         return cpy;
     }
 
@@ -212,10 +236,18 @@ pub const Memory = struct {
         if (offset >= self.store.items.len) {
             return error.OutOfBounds;
         }
+        
+        // Check for overflow in offset + size calculation
+        if (@addWithOverflow(u64, offset, size)[1] != 0) {
+            return error.OutOfBounds;
+        }
+        
+        // Check if the range is within memory bounds
         if (offset + size > self.store.items.len) {
             return error.OutOfBounds;
         }
 
+        // Return slice after all bounds checking is complete
         return self.store.items[offset .. offset + size];
     }
 
@@ -250,9 +282,30 @@ pub const Memory = struct {
     /// - dst: The destination offset in memory
     /// - src: The source offset in memory
     /// - length: The number of bytes to copy
-    pub fn copy(self: *Memory, dst: u64, src: u64, length: u64) void {
+    ///
+    /// Note: This function assumes that both src+length and dst+length are within bounds.
+    /// Memory should be resized appropriately before calling this function.
+    pub fn copy(self: *Memory, dst: u64, src: u64, length: u64) !void {
         if (length == 0) {
             return;
+        }
+        
+        // Check for bounds and overflow
+        const src_overflow = @addWithOverflow(u64, src, length)[1] != 0;
+        const dst_overflow = @addWithOverflow(u64, dst, length)[1] != 0;
+        if (src_overflow or dst_overflow) {
+            return error.OutOfBounds;
+        }
+        
+        // Ensure source range is within bounds
+        if (src + length > self.store.items.len) {
+            return error.OutOfBounds;
+        }
+        
+        // Ensure destination range is within bounds
+        // Expand memory if needed
+        if (dst + length > self.store.items.len) {
+            try self.resize(dst + length);
         }
 
         // Handle overlapping regions safely
@@ -325,14 +378,17 @@ test "Memory copy" {
     const value = [_]u8{ 1, 2, 3, 4, 5, 6, 7, 8 };
     try memory.set(0, value.len, &value); // Now auto-resizes
 
+    // Make sure there's enough memory for the copy destination
+    try memory.require(32 + value.len, 0);
+    
     // Test copy (non-overlapping)
-    memory.copy(32, 0, value.len);
+    try memory.copy(32, 0, value.len);
     const copied = try memory.getCopy(32, value.len);
     defer testing.allocator.free(copied);
     try testing.expectEqualSlices(u8, &value, copied);
 
     // Test copy (overlapping)
-    memory.copy(4, 0, value.len - 2);
+    try memory.copy(4, 0, value.len - 2);
     const expected = [_]u8{ 1, 2, 3, 4, 1, 2, 3, 4, 5, 6 };
     const actual = try memory.getCopy(0, 10);
     defer testing.allocator.free(actual);

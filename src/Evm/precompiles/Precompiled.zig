@@ -1,6 +1,7 @@
 const std = @import("std");
-const Contract = @import("../Contract.zig").Contract;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
+const evm_pkg = @import("Evm");
+const Contract = evm_pkg.Contract;
+const ExecutionError = evm_pkg.ExecutionError;
 // For B256, we'll use a simple struct with a fixed-size array
 const B256 = struct {
     value: [32]u8,
@@ -82,7 +83,7 @@ pub const PrecompiledContract = enum(u8) {
 };
 
 /// ECRECOVER: Recovers public key associated with the signature of the data
-fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+fn ecRecover(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // ECRECOVER expects:
     // - hash: 32 bytes (message hash)
     // - v: 32 bytes (recovery id)
@@ -90,7 +91,8 @@ fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     // - s: 32 bytes (signature component)
     if (input.len < 128) {
         // Return empty data for invalid input
-        return allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // Note: In a full implementation, we would extract these inputs and use them
@@ -104,7 +106,7 @@ fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
 }
 
 /// SHA256: Computes the SHA-256 hash of the input
-fn sha256(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+fn sha256(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     const result = try allocator.alloc(u8, 32);
     
     // Compute SHA-256 hash
@@ -114,7 +116,7 @@ fn sha256(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
 }
 
 /// RIPEMD160: Computes the RIPEMD-160 hash of the input
-fn ripemd160(_: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+fn ripemd160(_: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // A full Zig implementation would use a RIPEMD-160 library
     // Since Zig standard library doesn't include RIPEMD-160,
     // this is a simplified placeholder
@@ -136,16 +138,20 @@ fn ripemd160(_: []const u8, allocator: std.mem.Allocator) ![]const u8 {
 }
 
 /// IDENTITY: Returns the input data
-fn identity(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
-    // Simply copy the input to the output
-    const result = try allocator.alloc(u8, input.len);
-    @memcpy(result, input);
+fn identity(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
+    // Cap the output size to prevent excessive memory allocation
+    const max_safe_len: usize = 1024 * 1024; // 1MB max for safety
+    const safe_length = @min(input.len, max_safe_len);
+    
+    // Simply copy the input to the output, respecting max size
+    const result = try allocator.alloc(u8, safe_length);
+    @memcpy(result, input[0..safe_length]);
     
     return result;
 }
 
 /// MODEXP: Arbitrary precision modular exponentiation
-fn modexp(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+fn modexp(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     if (input.len < 96) {
         // Input too short, return empty
         return allocator.alloc(u8, 0);
@@ -164,12 +170,18 @@ fn modexp(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     }
     
     // Convert to u64 for practical use
-    // For a full implementation, need to handle big numbers properly
-    const base_len_u64: u64 = @truncate(base_len);
-    const exp_len_u64: u64 = @truncate(exp_len);
-    const mod_len_u64: u64 = @truncate(mod_len);
+    // Cap to maximum safe lengths to prevent excessive allocation
+    const max_safe_len: u64 = 1024 * 1024; // 1MB max for safety
+    const base_len_u64: u64 = @min(@truncate(base_len), max_safe_len);
+    const exp_len_u64: u64 = @min(@truncate(exp_len), max_safe_len);
+    const mod_len_u64: u64 = @min(@truncate(mod_len), max_safe_len);
     
-    // Validate input length
+    // Handle zero modulus length specially
+    if (mod_len_u64 == 0) {
+        return allocator.alloc(u8, 0);
+    }
+    
+    // Validate input length to ensure we don't read past input buffer
     if (input.len < 96 + base_len_u64 + exp_len_u64 + mod_len_u64) {
         // Input too short, return empty
         return allocator.alloc(u8, 0);
@@ -201,11 +213,11 @@ fn modexpGasCost(input: []const u8) u64 {
         mod_len = (mod_len << 8) | input[64 + i];
     }
     
-    // Convert to u64 for practical use
-    const base_len_u64: u64 = @truncate(base_len);
-    // Note: In a complete implementation, exp_len would be used for calculating gas cost
-    // but we're using a simplified approach for now
-    const mod_len_u64: u64 = @truncate(mod_len);
+    // Cap to reasonable values to prevent overflow
+    const max_safe_len: u64 = 1024 * 1024; // 1MB max
+    const base_len_u64: u64 = @min(@truncate(base_len), max_safe_len);
+    const exp_len_u64: u64 = @min(@truncate(exp_len), max_safe_len); 
+    const mod_len_u64: u64 = @min(@truncate(mod_len), max_safe_len);
     
     // For a full implementation, would calculate proper gas cost
     // See EIP-198 for detailed gas calculation
@@ -215,15 +227,21 @@ fn modexpGasCost(input: []const u8) u64 {
     // Note: in a complete implementation, we'd use adjusted exponent length
     // min(exp_len_u64, 32) to compute gas more precisely
     
-    // For a proper implementation, need to consider exponent bytes
-    // and implement specific gas calculation formula from EIP-198
+    // Use checked multiplication to avoid potential overflow
+    var gas: u64 = 200; // Minimum gas cost
+    if (mul_complexity <= 1000) {
+        // Safe multiplication - mul_complexity is capped
+        gas = max(gas, mul_complexity * mul_complexity / 3);
+    } else {
+        // For very large inputs, use a simpler calculation to avoid overflow
+        gas = max(gas, mul_complexity * 1000 / 3);
+    }
     
-    // Simplified gas calculation formula from EIP-198
-    return max(200, mul_complexity * mul_complexity / 3);
+    return gas;
 }
 
 /// BN256ADD: Elliptic curve addition on bn256 curve
-fn bn256Add(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+fn bn256Add(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // BN256 points are represented as 64-byte values (32 bytes for X, 32 bytes for Y)
     if (input.len != 128) {
         // Invalid input, return empty
@@ -239,7 +257,7 @@ fn bn256Add(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
 }
 
 /// BN256MUL: Elliptic curve scalar multiplication on bn256 curve
-fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Expects a point (64 bytes) and a scalar (32 bytes)
     if (input.len != 96) {
         // Invalid input, return empty
@@ -255,7 +273,7 @@ fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
 }
 
 /// BN256PAIRING: Elliptic curve pairing check on bn256 curve
-fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Expects multiple pairs of points (k*192 bytes)
     if (input.len % 192 != 0) {
         // Invalid input, return empty
@@ -273,7 +291,7 @@ fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
 }
 
 /// BLAKE2F: Compression function F used in BLAKE2 (EIP-152)
-fn blake2f(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+fn blake2f(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Requires at least 213 bytes
     if (input.len < 213) {
         // Invalid input, return empty

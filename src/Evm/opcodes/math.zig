@@ -32,7 +32,10 @@ const Stack = struct {
     pub fn pop(self: *Stack) !@"u256" {
         if (self.size == 0) return ExecutionError.StackUnderflow;
         self.size -= 1;
-        return self.data[self.size];
+        const value = self.data[self.size];
+        // Clear the popped value for security
+        self.data[self.size] = 0;
+        return value;
     }
     
     pub fn push(self: *Stack, value: @"u256") !void {
