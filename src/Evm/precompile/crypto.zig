@@ -120,7 +120,11 @@ fn blake2fRequiredGas(input: []const u8) u64 {
         return params.Blake2FPerRoundGas;
     }
     
-    // Input length check ensures we have at least 4 bytes for the rounds value
+    // Safety check: ensure input has at least 4 bytes for the rounds value
+    if (input.len < 4) {
+        return params.Blake2FPerRoundGas;
+    }
+    
     // Extract rounds from the first 4 bytes (big-endian format)
     var rounds: u32 = 0;
     rounds |= @as(u32, input[0]) << 24;
@@ -170,6 +174,13 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     const padded_input = try common.rightPadBytes(allocator, input, ecRecoverInputLength);
     defer allocator.free(padded_input);
     
+    // Safety check to ensure we have enough bytes to extract components
+    if (padded_input.len < ecRecoverInputLength) {
+        // This shouldn't happen since the rightPadBytes function should ensure we have exactly
+        // ecRecoverInputLength bytes, but best to check for safety
+        return result;
+    }
+    
     // Extract the components from padded input
     
     // Message hash is the first 32 bytes
@@ -179,7 +190,15 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     const v = padded_input[32];
     
     // Check that bytes 33-63 are all zero (v should only use first byte)
-    if (v != 27 and v != 28 or !common.allZero(padded_input[33..64])) {
+    // Use a safer approach to ensure we can access all the bytes
+    var valid_v_padding = true;
+    if (padded_input.len >= 64) {
+        valid_v_padding = common.allZero(padded_input[33..64]);
+    } else {
+        valid_v_padding = false;
+    }
+    
+    if (v != 27 and v != 28 or !valid_v_padding) {
         // Return zero address for invalid signature
         return result;
     }

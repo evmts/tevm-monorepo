@@ -33,11 +33,22 @@ pub const Memory = struct {
     
     /// Store a byte to memory at the specified offset
     /// Used by tests to safely write to memory
+    ///
+    /// Parameters:
+    /// - offset: The memory offset to write to
+    /// - value: The byte value to store
+    ///
+    /// Errors: Returns error if memory resize fails
     pub fn store8(self: *Memory, offset: u64, value: u8) !void {
+        // Check for overflow
+        const offset_plus_one = std.math.add(u64, offset, 1) catch return error.InvalidOffset;
+        
         // Ensure memory is sized properly
         if (offset >= self.store.items.len) {
-            try self.resize(offset + 1);
+            try self.resize(offset_plus_one);
         }
+        
+        // Store the byte
         self.store.items[offset] = value;
     }
 
@@ -75,14 +86,17 @@ pub const Memory = struct {
     /// - size: The number of bytes to copy
     /// - value: The byte slice to copy from
     ///
-    /// Errors: Returns error if memory resize fails
+    /// Errors: Returns error if memory resize fails or if offset+size would overflow
     pub fn set(self: *Memory, offset: u64, size: u64, value: []const u8) !void {
         // It's possible the offset is greater than 0 and size equals 0. This is because
         // the calcMemSize could potentially return 0 when size is zero (NO-OP)
         if (size > 0) {
+            // Check for overflow using safe arithmetic
+            const end_offset = std.math.add(u64, offset, size) catch return error.InvalidArgument;
+            
             // Ensure memory is sized properly
-            if (offset + size > self.store.items.len) {
-                try self.resize(offset + size);
+            if (end_offset > self.store.items.len) {
+                try self.resize(end_offset);
             }
             
             // Verify size of value matches the requested size
@@ -90,7 +104,11 @@ pub const Memory = struct {
                 return error.InvalidArgument;
             }
             
-            @memcpy(self.store.items[offset .. offset + size], value[0..size]);
+            // Get slices for safer memory operations
+            const target_slice = self.store.items[offset..end_offset];
+            const source_slice = value[0..size];
+            
+            @memcpy(target_slice, source_slice);
         }
     }
 
@@ -105,21 +123,21 @@ pub const Memory = struct {
     ///
     /// Errors: Returns error if memory resize fails
     pub fn set32(self: *Memory, offset: u64, val: BigInt) !void {
-        // Safety check for overflow
-        if (offset > std.math.maxInt(u64) - 32) {
-            return error.InvalidOffset;
-        }
+        // Safety check for overflow using safe arithmetic
+        const end_offset = std.math.add(u64, offset, 32) catch return error.InvalidOffset;
 
         // Ensure memory is sized properly
-        if (offset + 32 > self.store.items.len) {
-            try self.resize(offset + 32);
+        if (end_offset > self.store.items.len) {
+            try self.resize(end_offset);
         }
 
+        // Get a slice to the target memory region for safer operations
+        const target_slice = self.store.items[offset..end_offset];
+        
         // First, clear the memory region
-        @memset(self.store.items[offset .. offset + 32], 0);
+        @memset(target_slice, 0);
 
         // Convert u256 to bytes in big-endian format
-        // We need to handle the full 32 bytes of the u256 value, not just the least significant byte
         var buffer: [32]u8 = [_]u8{0} ** 32;
         
         // Manually convert the value to big-endian bytes in a safer way
@@ -135,8 +153,8 @@ pub const Memory = struct {
             i -= 1;
         }
         
-        // Safe copy that won't overflow (we've checked offset+32 is valid earlier)
-        @memcpy(self.store.items[offset .. offset + 32], &buffer);
+        // Safe copy to the target memory region
+        @memcpy(target_slice, &buffer);
     }
 
     /// Resize expands the memory to accommodate the specified size
@@ -160,9 +178,12 @@ pub const Memory = struct {
     /// - offset: The starting memory offset
     /// - size: The size of the required memory region
     ///
-    /// Error: Returns an error if memory allocation fails
+    /// Error: Returns an error if memory allocation fails or if offset+size overflows
     pub fn require(self: *Memory, offset: u64, size: u64) !void {
-        const required_size = offset + size;
+        // Check for overflow using safe addition
+        const required_size = std.math.add(u64, offset, size) catch return error.InvalidArgument;
+        
+        // Only resize if needed
         if (required_size > self.len()) {
             try self.resize(required_size);
         }
@@ -180,11 +201,11 @@ pub const Memory = struct {
     /// Returns: A newly allocated buffer containing the copied data
     /// Errors: Returns error.OutOfMemory if allocation fails or error.OutOfBounds if the requested range is invalid
     pub fn getCopy(self: *const Memory, offset: u64, size: u64) ![]u8 {
-        // Optimization for empty copies
+        // For empty copies, still allocate an empty slice for consistent memory management
         if (size == 0) {
-            // Return an empty slice without allocation
-            // This is safe as the compiler guarantees the lifetime of this empty array
-            return &[_]u8{};
+            // Always allocate a buffer, even for zero size
+            // This ensures consistent memory management where caller always needs to free
+            return self.allocator.alloc(u8, 0);
         }
 
         // Safety check for offsets
@@ -192,14 +213,11 @@ pub const Memory = struct {
             return error.OutOfBounds;
         }
         
-        // Check for overflow in offset + size calculation
-        // This is important since u64 addition can wrap around
-        if (std.math.add(u64, offset, size) catch null == null) {
-            return error.OutOfBounds;
-        }
+        // Check for overflow in offset + size calculation using safe arithmetic
+        const end_offset = std.math.add(u64, offset, size) catch return error.OutOfBounds;
         
         // Check if the range is within memory bounds
-        if (offset + size > self.store.items.len) {
+        if (end_offset > self.store.items.len) {
             return error.OutOfBounds;
         }
 
@@ -214,11 +232,9 @@ pub const Memory = struct {
         // Free memory if a later operation fails
         errdefer self.allocator.free(cpy);
         
-        // Use safe slice bounds that were already validated
-        if (size > 0) {
-            const source_slice = self.store.items[offset .. offset + size];
-            @memcpy(cpy, source_slice);
-        }
+        // Get source slice using validated bounds
+        const source_slice = self.store.items[offset..end_offset];
+        @memcpy(cpy, source_slice);
         
         return cpy;
     }
@@ -236,7 +252,13 @@ pub const Memory = struct {
     /// Errors: Returns error.OutOfBounds if the requested range is not in memory
     pub fn getPtr(self: *const Memory, offset: u64, size: u64) error{OutOfBounds}![]u8 {
         if (size == 0) {
-            return &[_]u8{};
+            // For consistency with the rest of the API, return an empty slice from the store
+            // if available, otherwise an empty static array
+            if (self.store.items.len > 0) {
+                return self.store.items[0..0];
+            } else {
+                return &[_]u8{};
+            }
         }
 
         // Safety check for offsets
@@ -244,18 +266,16 @@ pub const Memory = struct {
             return error.OutOfBounds;
         }
         
-        // Check for overflow in offset + size calculation
-        if (std.math.add(u64, offset, size) catch null == null) {
-            return error.OutOfBounds;
-        }
+        // Check for overflow in offset + size calculation using safe arithmetic
+        const end_offset = std.math.add(u64, offset, size) catch return error.OutOfBounds;
         
         // Check if the range is within memory bounds
-        if (offset + size > self.store.items.len) {
+        if (end_offset > self.store.items.len) {
             return error.OutOfBounds;
         }
 
         // Return slice after all bounds checking is complete
-        return self.store.items[offset .. offset + size];
+        return self.store.items[offset..end_offset];
     }
 
     /// Len returns the length of the backing slice
@@ -297,33 +317,32 @@ pub const Memory = struct {
             return;
         }
         
-        // Check for bounds and overflow
-        const src_ok = std.math.add(u64, src, length) catch null != null;
-        const dst_ok = std.math.add(u64, dst, length) catch null != null;
-        if (!src_ok or !dst_ok) {
-            return error.OutOfBounds;
-        }
+        // Check for bounds and overflow using safe arithmetic operations
+        const src_end = std.math.add(u64, src, length) catch return error.OutOfBounds;
+        const dst_end = std.math.add(u64, dst, length) catch return error.OutOfBounds;
         
         // Ensure source range is within bounds
-        if (src + length > self.store.items.len) {
+        if (src_end > self.store.items.len) {
             return error.OutOfBounds;
         }
         
         // Ensure destination range is within bounds
         // Expand memory if needed
-        if (dst + length > self.store.items.len) {
-            try self.resize(dst + length);
+        if (dst_end > self.store.items.len) {
+            try self.resize(dst_end);
         }
 
+        // Get slices for source and destination
+        const source_slice = self.store.items[src..src_end];
+        const dest_slice = self.store.items[dst..dst_end];
+        
         // Handle overlapping regions safely
-        if (dst <= src) {
-            // Forward copy is safe
-            var i: u64 = 0;
-            while (i < length) : (i += 1) {
-                self.store.items[dst + i] = self.store.items[src + i];
-            }
+        if (dst <= src or dst >= src_end) {
+            // Non-overlapping or safe direction - can use memcpy
+            @memcpy(dest_slice, source_slice);
         } else {
-            // Backward copy for overlapping regions
+            // Overlapping regions that require reverse copy
+            // We must copy one byte at a time from the end
             var i: u64 = length;
             while (i > 0) {
                 i -= 1;

@@ -3,8 +3,9 @@ const testing = std.testing;
 const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;
 const processWithdrawals = Withdrawal.processWithdrawals;
-const Address = @import("../Address/address.zig").Address;
-const StateManager = @import("../StateManager/StateManager.zig").StateManager;
+// Use relative path that works within the codebase structure
+const Address = @import("package.zig").Address;
+const StateManager = @import("package.zig").StateManager;
 const evm = @import("evm.zig");
 const ChainRules = evm.ChainRules;
 
@@ -14,7 +15,7 @@ const MockStateManager = struct {
     balances: std.StringHashMap(u128),
     
     fn init(allocator: std.mem.Allocator) !*MockStateManager {
-        var self = try allocator.create(MockStateManager);
+        const self = try allocator.create(MockStateManager);
         self.* = .{
             .balances = std.StringHashMap(u128).init(allocator),
         };
@@ -121,7 +122,7 @@ test "Process single withdrawal" {
     
     // Process withdrawals with EIP-4895 enabled
     try processWithdrawals(
-        @ptrCast(*StateManager, state_manager), 
+        @ptrCast(state_manager), 
         &withdrawals, 
         true // EIP-4895 enabled
     );
@@ -174,7 +175,7 @@ test "Process multiple withdrawals" {
     
     // Process withdrawals with EIP-4895 enabled
     try processWithdrawals(
-        @ptrCast(*StateManager, state_manager), 
+        @ptrCast(state_manager), 
         &withdrawals, 
         true // EIP-4895 enabled
     );
@@ -213,7 +214,7 @@ test "EIP-4895 disabled should fail" {
     
     // Process withdrawals with EIP-4895 disabled
     const result = processWithdrawals(
-        @ptrCast(*StateManager, state_manager), 
+        @ptrCast(state_manager), 
         &withdrawals, 
         false // EIP-4895 disabled
     );

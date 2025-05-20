@@ -1,5 +1,5 @@
 const std = @import("std");
-const evm_pkg = @import("../package.zig");
+const evm_pkg = @import("package.zig");
 const Interpreter = evm_pkg.Interpreter;
 const Frame = evm_pkg.Frame;
 const ExecutionError = evm_pkg.ExecutionError;
@@ -29,7 +29,7 @@ const hex = struct {
         return buf[0..bytes.len * 2];
     }
 };
-const U256 = @import("../Stack.zig").@"u256";
+const U256 = evm_pkg.@"u256";
 
 // Create a file-specific logger
 const logger = EvmLogger.init("controlflow.zig");

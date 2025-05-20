@@ -1,6 +1,6 @@
 const std = @import("std");
 const controlflow = @import("controlflow.zig");
-const test_utils = @import("test_utils.zig");
+const test_utils = @import("fixed_test_utils.zig");
 
 // Import everything via test_utils
 const Frame = test_utils.Frame;
@@ -251,9 +251,7 @@ test "RETURN opcode" {
     try std.testing.expect(frame.returnData != null);
     if (frame.returnData) |data| {
         try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xab, 0xac, 0xad }, data);
-        // Make sure we free the returnData if it's set by the test
-        allocator.free(data);
-        frame.returnData = null;
+        // Memory will be freed by frame.deinit() according to Frame.deinit() implementation
     }
 }
 
@@ -297,9 +295,7 @@ test "REVERT opcode" {
     try std.testing.expect(frame.returnData != null);
     if (frame.returnData) |data| {
         try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xab, 0xac, 0xad }, data);
-        // Make sure we free the returnData if it's set by the test
-        allocator.free(data);
-        frame.returnData = null;
+        // Memory will be freed by frame.deinit() according to Frame.deinit() implementation
     }
 }
 

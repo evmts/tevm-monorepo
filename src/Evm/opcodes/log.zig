@@ -1,11 +1,12 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
-const Contract = @import("../Contract.zig").Contract;
+const pkg = @import("package.zig");
+const Interpreter = pkg.Interpreter;
+const Frame = pkg.Frame;
+const ExecutionError = pkg.ExecutionError;
+const JumpTable = pkg.JumpTable;
+const Stack = pkg.Stack;
+const Memory = pkg.Memory;
+const Contract = pkg.Contract;
 
 /// LOG0 operation
 pub fn opLog0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

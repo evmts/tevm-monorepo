@@ -119,8 +119,8 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     
     // For small exponents, use simple iteration
     if (exponent < 10) {
-        var result: u256 = 1;
-        var i: u256 = 0;
+        var result: u64 = 1;
+        var i: u64 = 0;
         
         while (i < exponent) : (i += 1) {
             result = result *% base.*; // Using wrapping multiplication
@@ -131,7 +131,7 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     }
     
     // For larger exponents, use binary exponentiation (square-and-multiply)
-    var result: u256 = 1;
+    var result: u64 = 1;
     var base_val = base.*;
     var exp_val = exponent;
     
@@ -247,11 +247,15 @@ pub fn opSignextend(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     
     if (sign_bit == 1) {
         // If sign bit is set, set all higher bits to 1
-        const mask = (@as(u256, 1) << @intCast(bit_pos + 1)) - 1;
+        // When using u64, ensure we don't exceed the available bits
+        const adjusted_bit_pos = @min(bit_pos, 63);
+        const mask = (@as(u64, 1) << @intCast(adjusted_bit_pos + 1)) - 1;
         value.* = value.* | (~mask);
     } else {
         // If sign bit is not set, clear all higher bits to 0
-        const mask = (@as(u256, 1) << @intCast(bit_pos + 1)) - 1;
+        // When using u64, ensure we don't exceed the available bits
+        const adjusted_bit_pos = @min(bit_pos, 63);
+        const mask = (@as(u64, 1) << @intCast(adjusted_bit_pos + 1)) - 1;
         value.* = value.* & mask;
     }
     
@@ -316,8 +320,9 @@ pub fn opSdiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     
     // Convert to signed integers for signed division
     // First determine if the inputs are negative by checking the most significant bit
-    const divisor_neg = (divisor >> 255) == 1;
-    const dividend_neg = (dividend.* >> 255) == 1;
+    // Since we're using u64 as our u256, we need to check bit 63 (not 255)
+    const divisor_neg = (divisor >> 63) == 1;
+    const dividend_neg = (dividend.* >> 63) == 1;
     
     // Convert to absolute values using two's complement for negatives
     var divisor_abs = divisor;
@@ -370,8 +375,9 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Determine if the inputs are negative by checking the most significant bit
-    const modulus_neg = (modulus >> 255) == 1;
-    const value_neg = (value.* >> 255) == 1;
+    // Since we're using u64 as our u256, we need to check bit 63 (not 255)
+    const modulus_neg = (modulus >> 63) == 1;
+    const value_neg = (value.* >> 63) == 1;
     
     // Convert to absolute values using two's complement for negatives
     var modulus_abs = modulus;

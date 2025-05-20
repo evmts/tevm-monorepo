@@ -103,6 +103,10 @@ pub const Memory = struct {
         }
     }
     
+    pub fn require(self: *Memory, offset: usize, length: usize) !void {
+        try self.requireMemory(offset, length);
+    }
+
     pub fn requireMemory(self: *Memory, offset: usize, length: usize) !void {
         // Check for overflow
         if (length > 0 and offset > std.math.maxInt(usize) - length) {
@@ -131,6 +135,39 @@ pub const Contract = struct {
             .code_address = code_address,
             .code = &[_]u8{},
         };
+    }
+};
+
+// Simple logger for tests
+pub const Logger = struct {
+    name: []const u8,
+    
+    pub fn init(name: []const u8) Logger {
+        return Logger{ .name = name };
+    }
+    
+    pub fn debug(self: *Logger, comptime fmt: []const u8, args: anytype) void {
+        _ = self;
+        _ = fmt;
+        _ = args;
+    }
+    
+    pub fn info(self: *Logger, comptime fmt: []const u8, args: anytype) void {
+        _ = self;
+        _ = fmt;
+        _ = args;
+    }
+    
+    pub fn warn(self: *Logger, comptime fmt: []const u8, args: anytype) void {
+        _ = self;
+        _ = fmt;
+        _ = args;
+    }
+    
+    pub fn err(self: *Logger, comptime fmt: []const u8, args: anytype) void {
+        _ = self;
+        _ = fmt;
+        _ = args;
     }
 };
 
@@ -164,6 +201,7 @@ pub const Frame = struct {
     memory: Memory,
     contract: *Contract,
     returnData: ?[]u8 = null,
+    logger: Logger = Logger.init("test-frame"),
     
     pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Frame {
         const memory = Memory.init(allocator);
