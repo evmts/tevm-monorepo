@@ -140,10 +140,14 @@ pub const HashBuilder = struct {
             .Empty => {
                 // Create a new leaf node
                 const path_copy = try self.allocator.dupe(u8, nibbles);
+                // Create a value copy to ensure ownership
+                const value_copy = try self.allocator.dupe(u8, value);
+                errdefer self.allocator.free(value_copy);
+                
                 const leaf = try LeafNode.init(
                     self.allocator,
                     path_copy,
-                    HashValue{ .Raw = value }
+                    HashValue{ .Raw = value_copy }
                 );
                 return TrieNode{ .Leaf = leaf };
             },
@@ -153,7 +157,12 @@ pub const HashBuilder = struct {
                     // Same path, replace the value
                     var new_leaf = leaf;
                     new_leaf.value.deinit(self.allocator);
-                    new_leaf.value = HashValue{ .Raw = value };
+                    
+                    // Create a value copy to ensure ownership
+                    const value_copy = try self.allocator.dupe(u8, value);
+                    errdefer self.allocator.free(value_copy);
+                    
+                    new_leaf.value = HashValue{ .Raw = value_copy };
                     return TrieNode{ .Leaf = new_leaf };
                 }
                 
@@ -206,7 +215,11 @@ pub const HashBuilder = struct {
                     const new_path = nibbles[common_prefix_len..];
                     if (new_path.len == 1) {
                         // Direct branch entry
-                        branch.children[@intCast(new_path[0])] = HashValue{ .Raw = value };
+                        // Create a value copy to ensure ownership
+                        const value_copy2 = try self.allocator.dupe(u8, value);
+                        errdefer self.allocator.free(value_copy2);
+                        
+                        branch.children[@intCast(new_path[0])] = HashValue{ .Raw = value_copy2 };
                         branch.children_mask.set(@intCast(new_path[0]));
                         // No further action needed
                     } else {
