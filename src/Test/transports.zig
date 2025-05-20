@@ -22,7 +22,7 @@ pub const EnvUrls = struct {
         }
         
         // Split by comma
-        var iter = std.mem.split(u8, env_value, ",");
+        var iter = std.mem.splitScalar(u8, env_value, ',');
         while (iter.next()) |url| {
             const trimmed_url = std.mem.trim(u8, url, &std.ascii.whitespace);
             if (trimmed_url.len > 0) {
@@ -38,7 +38,7 @@ pub const EnvUrls = struct {
         for (self.items) |url| {
             self.allocator.free(url);
         }
-        self.deinit();
+        self.clearAndFree();
     }
 };
 
@@ -48,8 +48,8 @@ pub fn getTransports(allocator: std.mem.Allocator) !struct {
     mainnet: std.ArrayList([]const u8),
     optimism: std.ArrayList([]const u8),
 } {
-    var mainnet_urls = try EnvUrls.fromEnv(allocator, "TEVM_RPC_URLS_MAINNET");
-    var optimism_urls = try EnvUrls.fromEnv(allocator, "TEVM_RPC_URLS_OPTIMISM");
+    const mainnet_urls = try EnvUrls.fromEnv(allocator, "TEVM_RPC_URLS_MAINNET");
+    const optimism_urls = try EnvUrls.fromEnv(allocator, "TEVM_RPC_URLS_OPTIMISM");
     
     return .{
         .mainnet = mainnet_urls,

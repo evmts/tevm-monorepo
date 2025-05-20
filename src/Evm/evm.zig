@@ -480,6 +480,10 @@ pub const ChainRules = struct {
     /// Adds a new transaction type for data blobs (proto-danksharding)
     IsEIP4844: bool = true,
     
+    /// Is EIP5656 rules enabled (Cancun, MCOPY instruction)
+    /// Adds MCOPY instruction for efficient memory copying
+    IsEIP5656: bool = true,
+    
     /// Create chain rules for a specific hardfork
     ///
     /// This is a factory method that creates a ChainRules configuration
@@ -656,6 +660,7 @@ pub const ChainRules = struct {
                 rules.IsEIP3860 = false;
                 rules.IsEIP4895 = false;
                 rules.IsEIP4844 = false;
+                rules.IsEIP5656 = false;
             },
             .ArrowGlacier => {
                 rules.IsMerge = false;
@@ -666,6 +671,7 @@ pub const ChainRules = struct {
                 rules.IsEIP3860 = false;
                 rules.IsEIP4895 = false;
                 rules.IsEIP4844 = false;
+                rules.IsEIP5656 = false;
             },
             .GrayGlacier => {
                 rules.IsMerge = false;
@@ -676,6 +682,7 @@ pub const ChainRules = struct {
                 rules.IsEIP3860 = false;
                 rules.IsEIP4895 = false;
                 rules.IsEIP4844 = false;
+                rules.IsEIP5656 = false;
             },
             .Merge => {
                 rules.IsShanghai = false;
@@ -685,10 +692,12 @@ pub const ChainRules = struct {
                 rules.IsEIP3860 = false;
                 rules.IsEIP4895 = false;
                 rules.IsEIP4844 = false;
+                rules.IsEIP5656 = false;
             },
             .Shanghai => {
                 rules.IsCancun = false;
                 rules.IsEIP4844 = false;
+                rules.IsEIP5656 = false;
             },
             .Cancun => {},
             .Prague => {

@@ -188,11 +188,16 @@ fn pushN(pc: usize, interpreter: *Interpreter, frame: *Frame, n: u8) ExecutionEr
     return "";
 }
 
-/// PUSH0 opcode - pushes 0 onto the stack
+/// PUSH0 opcode - pushes 0 onto the stack (EIP-3855)
 pub fn opPush0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
-    _ = interpreter;
     
+    // Check if EIP-3855 (PUSH0) is active
+    if (!interpreter.evm.chainRules.IsEIP3855) {
+        return ExecutionError.InvalidOpcode;
+    }
+    
+    // Push 0 onto the stack
     try frame.stack.push(0);
     return "";
 }
@@ -809,7 +814,7 @@ pub fn registerMemoryOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTabl
     };
     jump_table.table[0x50] = pop_op;
     
-    // PUSH0 (0x5F)
+    // PUSH0 (0x5F) - EIP-3855
     const push0_op = try allocator.create(JumpTable.Operation);
     push0_op.* = JumpTable.Operation{
         .execute = opPush0,

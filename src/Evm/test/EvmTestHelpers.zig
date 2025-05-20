@@ -10,11 +10,19 @@ const buildJumpTable = @import("../JumpTable.zig").buildJumpTable;
 const opcodes = @import("../opcodes.zig");
 const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
 const createLogger = @import("../EvmLogger.zig").createLogger;
+const logStack = @import("../EvmLogger.zig").logStack;
+const logStackSlop = @import("../EvmLogger.zig").logStackSlop;
+const logMemory = @import("../EvmLogger.zig").logMemory;
+const logStep = @import("../EvmLogger.zig").logStep;
+const logHexBytes = @import("../EvmLogger.zig").logHexBytes;
+const debugOnly = @import("../EvmLogger.zig").debugOnly;
+const ENABLE_DEBUG_LOGS = @import("../EvmLogger.zig").ENABLE_DEBUG_LOGS;
 const u256 = @import("../../Types/U256.ts").u256;
 const u256_from_be_bytes = @import("../../Types/U256.ts").u256_from_be_bytes;
+const hex = @import("../../Utils/hex.zig");
 
 // Create a file-specific logger
-const logger = createLogger(@src().file);
+const logger = EvmLogger.init("EvmTestHelpers");
 
 /// Result of an EVM execution
 pub const EvmResult = struct {
@@ -40,6 +48,144 @@ pub const EvmResult = struct {
             self.output = null;
         }
     }
+
+    /// Convert output to u256 if possible
+    pub fn asU256(self: *const EvmResult) ?u256 {
+        if (self.output) |data| {
+            if (data.len == 32) {
+                return u256_from_be_bytes(data);
+            } else if (data.len < 32) {
+                // Pad with zeros if less than 32 bytes
+                var padded: [32]u8 = [_]u8{0} ** 32;
+                @memcpy(padded[32-data.len..], data);
+                return u256_from_be_bytes(&padded);
+            }
+        }
+        return null;
+    }
+
+    /// Format the output as a hex string
+    pub fn outputAsHex(self: *const EvmResult, allocator: std.mem.Allocator) !?[]const u8 {
+        if (self.output) |data| {
+            var buffer = try allocator.alloc(u8, data.len * 2 + 2);
+            buffer[0] = '0';
+            buffer[1] = 'x';
+            
+            for (data, 0..) |byte, i| {
+                const high = @as(u4, @truncate(byte >> 4));
+                const low = @as(u4, @truncate(byte & 0x0F));
+                buffer[2 + i * 2] = std.fmt.digitToChar(high, .lower);
+                buffer[2 + i * 2 + 1] = std.fmt.digitToChar(low, .lower);
+            }
+            
+            return buffer;
+        }
+        return null;
+    }
+
+    /// Format the result as a string
+    pub fn format(self: *const EvmResult, allocator: std.mem.Allocator) ![]const u8 {
+        var buffer = std.ArrayList(u8).init(allocator);
+        errdefer buffer.deinit();
+        
+        try buffer.appendSlice("EvmResult {\n");
+        
+        if (self.status) |status| {
+            try buffer.writer().print("  status: {s}\n", .{@errorName(status)});
+        } else {
+            try buffer.appendSlice("  status: success\n");
+        }
+        
+        try buffer.writer().print("  gas_left: {d}\n", .{self.gas_left});
+        try buffer.writer().print("  gas_used: {d}\n", .{self.gas_used});
+        
+        if (self.output) |output| {
+            if (output.len == 0) {
+                try buffer.appendSlice("  output: (empty)\n");
+            } else if (output.len <= 64) {
+                const hex_output = try self.outputAsHex(allocator);
+                defer if (hex_output) |ho| allocator.free(ho);
+                
+                try buffer.writer().print("  output: {s} ({d} bytes)\n", .{
+                    hex_output orelse "(encoding error)",
+                    output.len,
+                });
+                
+                // Try to interpret the output if it's 32 bytes (common for return values)
+                if (output.len == 32) {
+                    const value = u256_from_be_bytes(output);
+                    try buffer.writer().print("  output as u256: {d}\n", .{value});
+                }
+            } else {
+                // For large outputs, just show length and prefix
+                const prefix_len = @min(output.len, 32);
+                var hex_buf = try allocator.alloc(u8, prefix_len * 2 + 2);
+                defer allocator.free(hex_buf);
+                
+                hex_buf[0] = '0';
+                hex_buf[1] = 'x';
+                
+                for (output[0..prefix_len], 0..) |byte, i| {
+                    const high = @as(u4, @truncate(byte >> 4));
+                    const low = @as(u4, @truncate(byte & 0x0F));
+                    hex_buf[2 + i * 2] = std.fmt.digitToChar(high, .lower);
+                    hex_buf[2 + i * 2 + 1] = std.fmt.digitToChar(low, .lower);
+                }
+                
+                try buffer.writer().print("  output: {s}... ({d} bytes total)\n", .{
+                    hex_buf,
+                    output.len,
+                });
+            }
+        } else {
+            try buffer.appendSlice("  output: null\n");
+        }
+        
+        try buffer.appendSlice("}");
+        
+        return buffer.toOwnedSlice();
+    }
+};
+
+/// Log level for test output
+pub const TestLogLevel = enum {
+    silent,  // No output
+    minimal, // Only basic test info
+    verbose, // Detailed execution info
+    trace,   // Full execution trace
+};
+
+/// Configuration for EVM tests
+pub const EvmTestConfig = struct {
+    /// Allocator for test resources
+    allocator: std.mem.Allocator,
+    
+    /// EVM revision to use for tests (defaults to Byzantium)
+    hardfork: Hardfork = .Byzantium,
+    
+    /// Maximum call depth
+    max_call_depth: u16 = 1024,
+    
+    /// Maximum stack depth
+    max_stack_depth: u16 = 1024,
+    
+    /// Verbosity level for test output
+    log_level: TestLogLevel = .minimal,
+    
+    /// Whether to trace execution in verbose mode
+    trace_execution: bool = false,
+    
+    /// Custom caller address (default: zero address)
+    caller: ?Address = null,
+    
+    /// Custom contract address (default: zero address)
+    contract_address: ?Address = null,
+    
+    /// Initial gas amount (default: max u64)
+    initial_gas: u64 = std.math.maxInt(u64),
+    
+    /// Initial value to send with transaction (default: 0)
+    value: u64 = 0,
 };
 
 /// Test fixture for EVM execution tests
@@ -53,11 +199,17 @@ pub const EvmTest = struct {
     /// The jump table containing opcode implementations
     jump_table: JumpTable,
     
-    /// EVM revision to use for tests (defaults to Byzantium)
-    hardfork: Hardfork = .Byzantium,
+    /// EVM revision to use for tests
+    hardfork: Hardfork,
     
     /// The result of the last execution
     result: ?EvmResult = null,
+    
+    /// Test configuration 
+    config: EvmTestConfig,
+
+    /// The logger for this test
+    test_logger: EvmLogger,
     
     /// Create a new EVM test fixture
     pub fn init(allocator: std.mem.Allocator) !EvmTest {
@@ -71,6 +223,29 @@ pub const EvmTest = struct {
             .allocator = allocator,
             .evm = evm,
             .jump_table = jump_table,
+            .hardfork = .Byzantium,
+            .config = .{
+                .allocator = allocator,
+            },
+            .test_logger = EvmLogger.init("EvmTest"),
+        };
+    }
+    
+    /// Create a new EVM test fixture with custom configuration
+    pub fn initWithConfig(config: EvmTestConfig) !EvmTest {
+        var evm = Evm.init();
+        evm.setChainRules(Evm.ChainRules.forHardfork(config.hardfork));
+        
+        // Create a jump table
+        var jump_table = try buildJumpTable(config.allocator);
+        
+        return EvmTest{
+            .allocator = config.allocator,
+            .evm = evm,
+            .jump_table = jump_table,
+            .hardfork = config.hardfork,
+            .config = config,
+            .test_logger = EvmLogger.init("EvmTest"),
         };
     }
     
@@ -95,10 +270,47 @@ pub const EvmTest = struct {
             self.result = null;
         }
         
+        // Log test execution
+        if (ENABLE_DEBUG_LOGS) {
+            if (self.config.log_level != .silent) {
+                self.test_logger.debug("==== Executing EVM Test ====", .{});
+                self.test_logger.debug("Hardfork: {s}", .{@tagName(self.hardfork)});
+                self.test_logger.debug("Gas: {d}", .{gas});
+                self.test_logger.debug("Code length: {d} bytes", .{code.len});
+                
+                if (self.config.log_level == .verbose or self.config.log_level == .trace) {
+                    var hex_buf: [1024]u8 = undefined;
+                    const code_display = if (code.len > 100) 
+                        try std.fmt.bufPrint(&hex_buf, "{s}... ({d} bytes total)", .{
+                            hex.bytesToHex(code[0..32], hex_buf[0..64]) catch "??",
+                            code.len
+                        })
+                    else
+                        hex.bytesToHex(code, &hex_buf) catch "??";
+                    
+                    self.test_logger.debug("Code: 0x{s}", .{code_display});
+                    
+                    if (input.len > 0) {
+                        const input_display = if (input.len > 100)
+                            try std.fmt.bufPrint(&hex_buf, "{s}... ({d} bytes total)", .{
+                                hex.bytesToHex(input[0..32], hex_buf[0..64]) catch "??",
+                                input.len
+                            })
+                        else
+                            hex.bytesToHex(input, &hex_buf) catch "??";
+                        
+                        self.test_logger.debug("Input: 0x{s}", .{input_display});
+                    } else {
+                        self.test_logger.debug("Input: (empty)", .{});
+                    }
+                }
+            }
+        }
+        
         // Create a contract
-        const caller = try Address.fromHexString("0x0000000000000000000000000000000000000000");
-        const contract_addr = try Address.fromHexString("0x0000000000000000000000000000000000000000");
-        var contract = Contract.createContract(caller, contract_addr, 0, gas);
+        const caller = self.config.caller orelse try Address.fromHexString("0x0000000000000000000000000000000000000000");
+        const contract_addr = self.config.contract_address orelse try Address.fromHexString("0x0000000000000000000000000000000000000000");
+        var contract = Contract.createContract(caller, contract_addr, self.config.value, gas);
         
         // Set the contract code
         const code_hash = [_]u8{0} ** 32; // Dummy hash, not used in tests
@@ -108,8 +320,24 @@ pub const EvmTest = struct {
         var interpreter_instance = Interpreter.create(self.allocator, &self.evm, self.jump_table);
         defer interpreter_instance.deinit();
         
+        // Set up tracing if requested
+        if (ENABLE_DEBUG_LOGS and self.config.trace_execution) {
+            // Install step tracing
+            interpreter_instance.enableTracing();
+            
+            // Log start of execution
+            self.test_logger.debug("==== Starting Execution Trace ====", .{});
+        }
+        
         // Execute the code
         const execution_result = interpreter_instance.run(&contract, input, false) catch |err| {
+            if (ENABLE_DEBUG_LOGS and self.config.log_level != .silent) {
+                self.test_logger.debug("==== Execution Failed ====", .{});
+                self.test_logger.debug("Error: {s}", .{@errorName(err)});
+                self.test_logger.debug("Gas used: {d}", .{gas - contract.gas});
+                self.test_logger.debug("Gas left: {d}", .{contract.gas});
+            }
+            
             // Create result with error
             self.result = EvmResult{
                 .status = err,
@@ -125,6 +353,41 @@ pub const EvmTest = struct {
         var output_copy: ?[]u8 = null;
         if (execution_result) |output| {
             output_copy = try self.allocator.dupe(u8, output);
+            
+            if (ENABLE_DEBUG_LOGS and self.config.log_level != .silent) {
+                self.test_logger.debug("==== Execution Succeeded ====", .{});
+                self.test_logger.debug("Gas used: {d}", .{gas - contract.gas});
+                self.test_logger.debug("Gas left: {d}", .{contract.gas});
+                
+                if (output.len > 0) {
+                    if (self.config.log_level == .verbose or self.config.log_level == .trace) {
+                        var hex_buf: [1024]u8 = undefined;
+                        const output_display = if (output.len > 100)
+                            try std.fmt.bufPrint(&hex_buf, "{s}... ({d} bytes total)", .{
+                                hex.bytesToHex(output[0..32], hex_buf[0..64]) catch "??",
+                                output.len
+                            })
+                        else
+                            hex.bytesToHex(output, &hex_buf) catch "??";
+                        
+                        self.test_logger.debug("Output: 0x{s}", .{output_display});
+                        
+                        // Try to interpret the output if it's 32 bytes (common for return values)
+                        if (output.len == 32) {
+                            const value = u256_from_be_bytes(output);
+                            self.test_logger.debug("Output as u256: {d}", .{value});
+                        }
+                    } else {
+                        self.test_logger.debug("Output: {d} bytes", .{output.len});
+                    }
+                } else {
+                    self.test_logger.debug("Output: (empty)", .{});
+                }
+            }
+        } else if (ENABLE_DEBUG_LOGS and self.config.log_level != .silent) {
+            self.test_logger.debug("==== Execution Succeeded (No Output) ====", .{});
+            self.test_logger.debug("Gas used: {d}", .{gas - contract.gas});
+            self.test_logger.debug("Gas left: {d}", .{contract.gas});
         }
         
         // Create successful result
@@ -140,6 +403,177 @@ pub const EvmTest = struct {
     /// Execute bytecode with unlimited gas
     pub fn executeUnlimited(self: *EvmTest, code: []const u8, input: []const u8) !void {
         try self.execute(std.math.maxInt(u64), code, input);
+    }
+    
+    /// Get the result of the last execution as a success value (fails if there was an error)
+    pub fn getResult(self: *const EvmTest) !EvmResult {
+        if (self.result) |result| {
+            if (result.status) |err| {
+                return err;
+            }
+            return result;
+        }
+        return error.NoResult;
+    }
+    
+    /// Get the numeric result of the execution (assumes 32 byte output that can be interpreted as u256)
+    pub fn getNumericResult(self: *const EvmTest) !u256 {
+        if (self.result) |result| {
+            if (result.status) |err| {
+                return err;
+            }
+            
+            if (result.output) |output| {
+                if (output.len == 32) {
+                    return u256_from_be_bytes(output);
+                } else if (output.len < 32) {
+                    // Pad with zeros if less than 32 bytes
+                    var padded: [32]u8 = [_]u8{0} ** 32;
+                    @memcpy(padded[32-output.len..], output);
+                    return u256_from_be_bytes(&padded);
+                } else {
+                    return error.InvalidNumericOutput;
+                }
+            }
+            
+            return error.NoOutput;
+        }
+        
+        return error.NoResult;
+    }
+    
+    /// Assert that the execution succeeded
+    pub fn expectSuccess(self: *const EvmTest) !void {
+        if (self.result) |result| {
+            if (result.status) |err| {
+                if (ENABLE_DEBUG_LOGS) {
+                    self.test_logger.err("Expected successful execution but got error: {s}", .{@errorName(err)});
+                }
+                return err;
+            }
+        } else {
+            if (ENABLE_DEBUG_LOGS) {
+                self.test_logger.err("Expected successful execution but no result available", .{});
+            }
+            return error.NoResult;
+        }
+    }
+    
+    /// Assert that the execution failed with the expected error
+    pub fn expectError(self: *const EvmTest, expected: interpreter.InterpreterError) !void {
+        if (self.result) |result| {
+            if (result.status) |err| {
+                if (err != expected) {
+                    if (ENABLE_DEBUG_LOGS) {
+                        self.test_logger.err("Expected error {s} but got {s}", .{
+                            @errorName(expected),
+                            @errorName(err),
+                        });
+                    }
+                    return error.UnexpectedError;
+                }
+            } else {
+                if (ENABLE_DEBUG_LOGS) {
+                    self.test_logger.err("Expected error {s} but execution succeeded", .{
+                        @errorName(expected),
+                    });
+                }
+                return error.ExpectedError;
+            }
+        } else {
+            if (ENABLE_DEBUG_LOGS) {
+                self.test_logger.err("Expected error {s} but no result available", .{
+                    @errorName(expected),
+                });
+            }
+            return error.NoResult;
+        }
+    }
+    
+    /// Assert that the numeric result equals the expected value
+    pub fn expectResult(self: *const EvmTest, expected: u256) !void {
+        try self.expectSuccess();
+        
+        const result_value = try self.getNumericResult();
+        if (result_value != expected) {
+            if (ENABLE_DEBUG_LOGS) {
+                self.test_logger.err("Expected result {d} but got {d}", .{
+                    expected,
+                    result_value,
+                });
+            }
+            return error.UnexpectedResult;
+        }
+    }
+    
+    /// Assert that the execution used the expected amount of gas
+    pub fn expectGasUsed(self: *const EvmTest, expected: u64) !void {
+        if (self.result) |result| {
+            if (result.gas_used != expected) {
+                if (ENABLE_DEBUG_LOGS) {
+                    self.test_logger.err("Expected {d} gas used but got {d}", .{
+                        expected,
+                        result.gas_used,
+                    });
+                }
+                return error.UnexpectedGasUsed;
+            }
+        } else {
+            if (ENABLE_DEBUG_LOGS) {
+                self.test_logger.err("Expected {d} gas used but no result available", .{
+                    expected,
+                });
+            }
+            return error.NoResult;
+        }
+    }
+    
+    /// Assert that the execution used no more than the expected amount of gas
+    pub fn expectMaxGasUsed(self: *const EvmTest, max_expected: u64) !void {
+        if (self.result) |result| {
+            if (result.gas_used > max_expected) {
+                if (ENABLE_DEBUG_LOGS) {
+                    self.test_logger.err("Expected at most {d} gas used but got {d}", .{
+                        max_expected,
+                        result.gas_used,
+                    });
+                }
+                return error.GasUsageExceeded;
+            }
+        } else {
+            if (ENABLE_DEBUG_LOGS) {
+                self.test_logger.err("Expected at most {d} gas used but no result available", .{
+                    max_expected,
+                });
+            }
+            return error.NoResult;
+        }
+    }
+    
+    /// Format a diagnostic message about the last execution
+    pub fn formatDiagnostic(self: *const EvmTest) ![]const u8 {
+        var buffer = std.ArrayList(u8).init(self.allocator);
+        errdefer buffer.deinit();
+        
+        try buffer.appendSlice("EVM Test Diagnostic:\n");
+        try buffer.writer().print("  Hardfork: {s}\n", .{@tagName(self.hardfork)});
+        
+        if (self.result) |result| {
+            try buffer.appendSlice("  Result:\n");
+            
+            const result_formatted = try result.format(self.allocator);
+            defer self.allocator.free(result_formatted);
+            
+            // Indent the result
+            var lines = std.mem.split(u8, result_formatted, "\n");
+            while (lines.next()) |line| {
+                try buffer.writer().print("    {s}\n", .{line});
+            }
+        } else {
+            try buffer.appendSlice("  Result: none\n");
+        }
+        
+        return buffer.toOwnedSlice();
     }
 };
 
@@ -320,3 +754,60 @@ pub fn jumpi(dest: u256, condition: u256) []const u8 {
 
 /// Bytecode for JUMPDEST
 pub const jumpdest = &[_]u8{@intFromEnum(opcodes.Opcode.JUMPDEST)};
+
+/// Create a bytecode with AND operation
+pub fn and(a: u256, b: u256) []const u8 {
+    return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.AND)};
+}
+
+/// Create a bytecode with OR operation
+pub fn or(a: u256, b: u256) []const u8 {
+    return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.OR)};
+}
+
+/// Create a bytecode with XOR operation
+pub fn xor(a: u256, b: u256) []const u8 {
+    return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.XOR)};
+}
+
+/// Create a bytecode with BYTE operation (get the nth byte)
+pub fn byte(n: u256, val: u256) []const u8 {
+    return push(val) ++ push(n) ++ &[_]u8{@intFromEnum(opcodes.Opcode.BYTE)};
+}
+
+/// Create a bytecode with SHL operation (shift left)
+pub fn shl(shift: u256, val: u256) []const u8 {
+    return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SHL)};
+}
+
+/// Create a bytecode with SHR operation (logical shift right)
+pub fn shr(shift: u256, val: u256) []const u8 {
+    return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SHR)};
+}
+
+/// Create a bytecode with SAR operation (arithmetic shift right)
+pub fn sar(shift: u256, val: u256) []const u8 {
+    return push(val) ++ push(shift) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SAR)};
+}
+
+/// Create a bytecode with comparison operations
+pub fn lt(a: u256, b: u256) []const u8 {
+    return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.LT)};
+}
+
+pub fn gt(a: u256, b: u256) []const u8 {
+    return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.GT)};
+}
+
+pub fn slt(a: u256, b: u256) []const u8 {
+    return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SLT)};
+}
+
+pub fn sgt(a: u256, b: u256) []const u8 {
+    return push(a) ++ push(b) ++ &[_]u8{@intFromEnum(opcodes.Opcode.SGT)};
+}
+
+/// Create full program that performs operation and returns the result
+pub fn program(operation: []const u8) []const u8 {
+    return operation ++ ret_top();
+}

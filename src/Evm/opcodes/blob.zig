@@ -56,10 +56,14 @@ pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
 }
 
 /// MCOPY opcode (EIP-5656)
-/// Memory copy operation
+/// Memory copy operation - copies a chunk of memory from one location to another
 pub fn opMcopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
-    _ = interpreter;
+    
+    // Check if EIP-5656 is enabled
+    if (!interpreter.evm.chainRules.IsEIP5656) {
+        return ExecutionError.InvalidOpcode;
+    }
     
     // We need at least 3 items on the stack
     if (frame.stack.size < 3) {
