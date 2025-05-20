@@ -5,11 +5,12 @@ const createContract = EvmModule.createContract;
 const address = @import("Address");
 
 test "Contract warm/cold storage tracking" {
-    const allocator = std.testing.allocator;
+    // Use allocator if needed later
+    _ = std.testing.allocator;
     
-    // Create a test contract
-    const caller_addr = address.Address.fromString("0x1234567890123456789012345678901234567890");
-    const contract_addr = address.Address.fromString("0xabcdefabcdefabcdefabcdefabcdefabcdefabcd");
+    // Create a test contract - set dummy addresses
+    var caller_addr: address.Address = [_]u8{1} ** 20;
+    var contract_addr: address.Address = [_]u8{2} ** 20;
     var contract = createContract(caller_addr, contract_addr, 100, 1000000);
     defer {
         // Clean up resources

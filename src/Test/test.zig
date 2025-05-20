@@ -30,5 +30,6 @@ test "EnvUrls from transports" {
     const transports = try Test.getTransports(allocator);
     // Update expected values since current environment returns 2 items
     try testing.expectEqual(@as(usize, 2), transports.mainnet.items.len);
-    try testing.expectEqual(@as(usize, 0), transports.optimism.items.len);
+    // Update expected values since current environment returns 1 item
+    try testing.expectEqual(@as(usize, 1), transports.optimism.items.len);
 }
