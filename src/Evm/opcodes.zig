@@ -6,14 +6,31 @@ pub const Stack = @import("Stack.zig").Stack;
 // Import the JumpTable module
 pub const JumpTable = @import("JumpTable.zig");
 
+/// MemorySize represents memory expansion requirements for EVM operations
+///
+/// This is used by opcodes that need to calculate memory expansion costs
+/// and ensure memory is properly sized before execution.
 pub const MemorySize = struct {
+    /// Size in bytes needed for memory expansion
     size: u32,
+    
+    /// Whether the calculation resulted in an overflow
+    /// This is used to detect and handle arithmetic overflow errors
     overflow: bool,
 };
 
+/// ExecutionError represents errors that can occur during EVM execution
+///
+/// These are the fundamental stop/error conditions that can terminate
+/// an EVM operation during execution.
 pub const ExecutionError = error{
+    /// Normal stop (STOP opcode)
     STOP,
+    
+    /// Revert operation (REVERT opcode)
     REVERT,
+    
+    /// Invalid operation (INVALID opcode or invalid state)
     INVALID,
 };
 

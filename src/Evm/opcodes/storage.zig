@@ -90,7 +90,7 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
 }
 
 /// SSTORE operation - stores a value to storage at the specified key
-/// Implements EIP-2200 Istanbul net gas metering
+/// Implements EIP-2200 Istanbul net gas metering and EIP-2929 cold/warm access
 pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
@@ -114,10 +114,8 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     const value = try frame.stack.pop();  // Second item, the value to store
     const key = try frame.stack.pop();    // First item, the storage key
     
-    // EIP-2929: Track warm/cold storage access
-    // Check if this is a cold access and mark it as warm for future accesses
-    // In a full implementation, we'd apply additional gas costs for cold accesses
-    _ = frame.contract.markStorageSlotWarm(key);
+    // EIP-2929: Check if this is a cold access
+    const is_cold_storage = frame.contract.isStorageSlotCold(key);
     
     // Convert key to B256 format
     var key_bytes: [32]u8 = undefined;
@@ -137,7 +135,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     // Get account address
     const addr = frame.address();
     
-    // Also mark the contract account as warm for EIP-2929
+    // Mark account as warm (may already be warm)
     _ = frame.contract.markAccountWarm();
     
     // Get state manager from interpreter
@@ -163,7 +161,7 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     
     if (value == current_value) {
         // No change, minimal gas (warm access)
-        gas_cost = JumpTable.SstoreSentryGas;
+        gas_cost = JumpTable.WarmStorageReadCost; // 100 gas per EIP-2929
     } else {
         // Need to calculate full gas cost based on value changes
         if (current_value == 0) {
@@ -198,6 +196,11 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         }
     }
     
+    // Add EIP-2929 cold access cost if needed
+    if (is_cold_storage) {
+        gas_cost += JumpTable.ColdSloadCost - JumpTable.WarmStorageReadCost; // 2100 - 100 = 2000
+    }
+    
     // Check if we have enough gas
     if (frame.contract.gas < gas_cost) {
         return ExecutionError.OutOfGas;
@@ -205,6 +208,9 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     
     // Use gas
     frame.contract.useGas(gas_cost);
+    
+    // Mark the storage slot as warm for future accesses
+    _ = frame.contract.markStorageSlotWarm(key);
     
     // Convert value to bytes for storage
     var value_bytes: [32]u8 = undefined;
@@ -253,15 +259,12 @@ pub fn sstoreDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack,
     // In gas calculation, we don't modify the access status, just check it
     // The actual opcode execution will mark it warm 
     const cold_access = frame.contract.isStorageSlotCold(key);
-    const cold_account = frame.contract.isAccountCold();
     
     // Additional cold access gas (EIP-2929)
-    // In a full implementation, we'd apply additional costs:
-    // Cold SLOAD/SSTORE: ColdSloadCostEIP2929 = 2100 gas
-    // Cold account: ColdAccountAccessCostEIP2929 = 2600 gas
-    // Here we're using simplified EIP-2200 costs only
-    _ = cold_access;
-    _ = cold_account; 
+    var cold_access_cost: u64 = 0;
+    if (cold_access) {
+        cold_access_cost = JumpTable.ColdSloadCost - JumpTable.WarmStorageReadCost; // 2100 - 100 = 2000
+    }
     
     // Get state manager
     const evm = interpreter.evm;
@@ -297,7 +300,7 @@ pub fn sstoreDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack,
     
     if (value == current_value) {
         // No change, minimal gas (warm access)
-        gas_cost = JumpTable.SstoreSentryGas;
+        gas_cost = JumpTable.WarmStorageReadCost; // 100 gas per EIP-2929
     } else {
         // Need to calculate full gas cost based on value changes
         if (current_value == 0) {
@@ -320,6 +323,9 @@ pub fn sstoreDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack,
         }
     }
     
+    // Add the cold access cost from EIP-2929 if applicable
+    gas_cost += cold_access_cost;
+    
     return gas_cost;
 }
 
@@ -329,7 +335,8 @@ pub fn registerStorageOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTab
     const sload_op = try allocator.create(JumpTable.Operation);
     sload_op.* = JumpTable.Operation{
         .execute = opSload,
-        .constant_gas = JumpTable.SloadGas,
+        .constant_gas = 0, // We use dynamic gas costs based on warm/cold access
+        .dynamic_gas = sloadDynamicGas,
         .min_stack = JumpTable.minStack(1, 1),
         .max_stack = JumpTable.maxStack(1, 1),
     };
@@ -345,4 +352,32 @@ pub fn registerStorageOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTab
         .dynamic_gas = sstoreDynamicGas,
     };
     jump_table.table[0x55] = sstore_op;
+}
+
+/// Calculate dynamic gas for SLOAD operation
+/// Implements EIP-2929 warm/cold storage access
+pub fn sloadDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
+    // Parameters needed in this function
+    _ = interpreter;
+    _ = memory;
+    _ = requested_size;
+    
+    // We need at least 1 item on stack for SLOAD
+    if (stack.size < 1) {
+        return error.OutOfGas;
+    }
+    
+    // Take a snapshot of the stack to avoid modifying it
+    const key = stack.data[stack.size - 1]; // Top of stack is the key
+    
+    // Check if this is a cold access
+    const is_cold_storage = frame.contract.isStorageSlotCold(key);
+    
+    // Calculate gas cost based on EIP-2929
+    const gas_cost = if (is_cold_storage)
+        JumpTable.ColdSloadCost  // Cold access (2100 gas)
+    else
+        JumpTable.WarmStorageReadCost;  // Warm access (100 gas)
+    
+    return gas_cost;
 }

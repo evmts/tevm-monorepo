@@ -951,6 +951,8 @@ pub fn getCreateMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTab
 /// Calculate gas cost for call operations
 pub fn callGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = interpreter;
+    _ = frame;
+    _ = stack;
     _ = memory;
     _ = requested_size;
     
