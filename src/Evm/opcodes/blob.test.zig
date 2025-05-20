@@ -1,12 +1,21 @@
 const std = @import("std");
 const testing = std.testing;
 const blob = @import("blob.zig");
+const utils = @import("test_utils.zig");
 
-// Define helpers for the tests
-pub const u256 = u64; // Simplified for testing purposes
+// Import needed types from test_utils to ensure consistent imports
+const Frame = utils.Frame;
+const Contract = utils.Contract;
+const Stack = utils.Stack;
+const Memory = utils.Memory;
+const Interpreter = utils.Interpreter;
+const EVM = utils.Evm;
+const ExecutionStatus = utils.ExecutionStatus;
+const Log = utils.Log;
+const ExecutionError = utils.ExecutionError;
 
-// Define a wrapper for u64 to use in place of u256
-pub const BigInt = u64;
+// Use the u256 type but aliased to avoid shadowing primitive
+const BigInt = utils.Stack.@"u256";
 
 // Mock implementation for testing
 fn createTestFrame() !struct {
@@ -51,7 +60,7 @@ fn createTestFrame() !struct {
     
     const interpreter = try allocator.create(Interpreter);
     
-    // EVM imports are already done at the top of file
+    // Create EVM instance
     
     const evm = try allocator.create(EVM);
     evm.* = EVM{

@@ -1,11 +1,11 @@
 const std = @import("std");
-const Interpreter = @import("Evm").Interpreter;
-const Frame = @import("Evm").Frame;
-const ExecutionError = @import("Evm").ExecutionError;
-const JumpTable = @import("Evm").JumpTable;
-const Stack = @import("Evm").Stack;
-const Memory = @import("Evm").Memory;
-const Contract = @import("Evm").Contract;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
+const JumpTable = @import("../JumpTable.zig");
+const Stack = @import("../Stack.zig").Stack;
+const Memory = @import("../Memory.zig").Memory;
+const Contract = @import("../Contract.zig").Contract;
 
 /// LOG0 operation
 pub fn opLog0(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -88,7 +88,7 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
 }
 
 /// Calculate memory size for LOG operations
-fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
+pub fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
     // We need at least 2 items on the stack for any LOG operation
     if (stack.size < 2) {
         return .{ .size = 0, .overflow = false };

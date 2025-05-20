@@ -14,11 +14,12 @@ pub const StackError = error{
 };
 
 pub const Stack = struct {
-    data: [1024]@"u256" align(@alignOf(@"u256")) = undefined,
+    data: [1024]@"u256" align(@alignOf(@"u256")) = [_]@"u256"{0} ** 1024, // Initialize all elements to 0
     size: usize = 0,
+    pub const capacity: usize = 1024;
 
     pub inline fn push(self: *Stack, value: @"u256") StackError!void {
-        if (self.size >= 1024) {
+        if (self.size >= capacity) {
             return StackError.StackOverflow;
         }
         self.data[self.size] = value;
@@ -26,7 +27,7 @@ pub const Stack = struct {
     }
 
     pub inline fn push_unsafe(self: *Stack, value: @"u256") void {
-        std.debug.assert(self.size < 1024);
+        std.debug.assert(self.size < capacity);
         self.data[self.size] = value;
         self.size += 1;
     }
@@ -192,7 +193,7 @@ pub const Stack = struct {
     }
 
     pub fn push_slice(self: *Stack, slice: []const u8) !void {
-        if (self.size + (slice.len + 31) / 32 > 1024) {
+        if (self.size + (slice.len + 31) / 32 > capacity) {
             return StackError.StackOverflow;
         }
 
@@ -379,23 +380,23 @@ test "Stack swap operations comprehensive" {
 
     try stack.swap1();
     try testing.expectEqual(@as(@"u256", 16), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 17), (try stack.back(1)).*);
+    try testing.expectEqual(@as(@"u256", 17), (try stack.back(1)).*);
 
     try stack.swap2();
-    try testing.expectEqual(@as(u256, 15), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 17), (try stack.back(1)).*);
-    try testing.expectEqual(@as(u256, 16), (try stack.back(2)).*);
+    try testing.expectEqual(@as(@"u256", 15), (try stack.peek()).*);
+    try testing.expectEqual(@as(@"u256", 17), (try stack.back(1)).*);
+    try testing.expectEqual(@as(@"u256", 16), (try stack.back(2)).*);
 
     try stack.swap3();
-    try testing.expectEqual(@as(u256, 14), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 17), (try stack.back(1)).*);
-    try testing.expectEqual(@as(u256, 16), (try stack.back(2)).*);
-    try testing.expectEqual(@as(u256, 15), (try stack.back(3)).*);
+    try testing.expectEqual(@as(@"u256", 14), (try stack.peek()).*);
+    try testing.expectEqual(@as(@"u256", 17), (try stack.back(1)).*);
+    try testing.expectEqual(@as(@"u256", 16), (try stack.back(2)).*);
+    try testing.expectEqual(@as(@"u256", 15), (try stack.back(3)).*);
 
     try stack.swap16();
     try testing.expectEqual(@as(@"u256", 1), (try stack.peek()).*);
-    try testing.expectEqual(@as(u256, 17), (try stack.back(1)).*);
-    try testing.expectEqual(@as(u256, 16), (try stack.back(2)).*);
+    try testing.expectEqual(@as(@"u256", 17), (try stack.back(1)).*);
+    try testing.expectEqual(@as(@"u256", 16), (try stack.back(2)).*);
 }
 
 test "Stack error cases" {

@@ -1,12 +1,12 @@
 const std = @import("std");
 const testing = std.testing;
 const log = @import("log.zig");
-const Interpreter = @import("Evm").Interpreter;
-const Frame = @import("Evm").Frame;
-const Stack = @import("Evm").Stack;
-const Memory = @import("Evm").Memory;
-const JumpTable = @import("Evm").JumpTable;
-const Contract = @import("Evm").Contract;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const Stack = @import("../Stack.zig").Stack;
+const Memory = @import("../Memory.zig").Memory;
+const JumpTable = @import("../JumpTable.zig");
+const Contract = @import("../Contract.zig").Contract;
 
 // Mock implementation for testing
 fn createTestFrame() !struct {
@@ -77,7 +77,7 @@ fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
 
 test "LOG memory size calculation" {
     const allocator = testing.allocator;
-    var test_frame = try createTestFrame();
+    const test_frame = try createTestFrame();
     defer cleanupTestFrame(test_frame, allocator);
     
     // Setup stack for LOG operation test
@@ -101,7 +101,7 @@ test "LOG memory size calculation" {
 
 test "LOG dynamic gas calculation" {
     const allocator = testing.allocator;
-    var test_frame = try createTestFrame();
+    const test_frame = try createTestFrame();
     defer cleanupTestFrame(test_frame, allocator);
     
     // Prepare memory with enough capacity for test
@@ -136,7 +136,7 @@ test "LOG dynamic gas calculation" {
 
 test "LOG operation stack requirements" {
     const allocator = testing.allocator;
-    var test_frame = try createTestFrame();
+    const test_frame = try createTestFrame();
     defer cleanupTestFrame(test_frame, allocator);
     
     // Test with not enough items on stack for LOG operations

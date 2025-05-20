@@ -2,14 +2,14 @@ const std = @import("std");
 const testing = std.testing;
 const test_utils = @import("test_utils.zig");
 const math2 = @import("math2.zig");
-const root = @import("root");
-const Evm = root.Evm;
-const Frame = root.Frame;
-const ExecutionError = root.ExecutionError;
-const Interpreter = root.Interpreter;
-const Contract = root.Contract;
-const Memory = root.Memory;
-const Address = root.Address;
+const evm_pkg = @import("../package.zig");
+const Frame = evm_pkg.Frame;
+const ExecutionError = evm_pkg.ExecutionError;
+const Interpreter = evm_pkg.Interpreter;
+const Evm = evm_pkg.EVM;
+const Contract = evm_pkg.Contract;
+const Memory = evm_pkg.Memory;
+const Address = @import("../../Address/package.zig");
 
 // Helper function to create a negative u256 number using two's complement
 fn makeNegative(value: u256) u256 {

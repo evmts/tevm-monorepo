@@ -148,7 +148,7 @@ test "DIV operation" {
     
     // Check the result
     const result = try frame.stack.pop();
-    try testing.expectEqual(@as(u256, 6), result);
+    try testing.expectEqual(@as(BigInt, 6), result);
     
     // Test integer division truncation
     try frame.stack.push(10);  // First push (dividend)
@@ -159,7 +159,7 @@ test "DIV operation" {
     
     // Check the result
     const trunc_result = try frame.stack.pop();
-    try testing.expectEqual(@as(u256, 3), trunc_result);
+    try testing.expectEqual(@as(BigInt, 3), trunc_result);
     
     // Test division by zero
     try frame.stack.push(42);  // First push (dividend)

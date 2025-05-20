@@ -1,26 +1,15 @@
 const std = @import("std");
 
-// These imports work when using the build system
-pub const pkg = if (@hasDecl(@import("root"), "Evm")) 
-    @import("root").Evm 
-else 
-    @import("../package.zig");
-
-pub const Frame = pkg.Frame;
-pub const ExecutionError = pkg.ExecutionError;
-pub const Interpreter = pkg.Interpreter;
-pub const Evm = pkg.EVM;
-pub const Contract = pkg.Contract;
-pub const Memory = pkg.Memory;
-pub const Stack = pkg.Stack;
-pub const ExecutionStatus = pkg.ExecutionStatus;
-pub const Log = pkg.Log;
-
-// Conditionally import Address
-pub const Address = if (@hasDecl(@import("root"), "Address")) 
-    @import("root").Address 
-else 
-    @import("../../Address/package.zig");
+// Direct imports for testing
+pub const Frame = @import("../Frame.zig").Frame;
+pub const ExecutionError = @import("../Frame.zig").ExecutionError;
+pub const Interpreter = @import("../interpreter.zig").Interpreter;
+pub const Evm = @import("../evm.zig").EVM;
+pub const Contract = @import("../Contract.zig").Contract;
+pub const Memory = @import("../Memory.zig").Memory;
+pub const Stack = @import("../Stack.zig").Stack;
+pub const ExecutionStatus = @import("../evm.zig").ExecutionStatus;
+pub const Log = @import("../evm.zig").Log;
 
 /// Creates a mock contract for testing
 pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract {
