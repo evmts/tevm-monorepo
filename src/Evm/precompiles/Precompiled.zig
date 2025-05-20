@@ -1,7 +1,11 @@
 const std = @import("std");
-const Contract = @import("root").Evm.Contract.Contract;
-const B256 = @import("root").Types.B256;
-const ExecutionError = @import("root").Evm.Frame.ExecutionError;
+const Contract = @import("../Contract.zig").Contract;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
+// For B256, we'll simply use a u256 array type for now
+const u256 = u256;
+const B256 = struct {
+    value: [32]u8,
+};
 
 /// Enum representing the different precompiled contract addresses
 pub const PrecompiledContract = enum(u8) {

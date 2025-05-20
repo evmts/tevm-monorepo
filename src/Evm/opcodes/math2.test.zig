@@ -175,26 +175,26 @@ test "SDIV with positive numbers" {
 }
 
 test "SDIV with negative dividend" {
-    // -10 in two's complement is (2^256 - 10)
-    const negative_ten: u256 = (@as(u256, 1) << 256) - 10;
+    // -10 in two's complement using wraparound subtraction
+    const negative_ten: u256 = 0 -% 10;
     const input = [_]u256{ 3, negative_ten }; // -10 / 3
-    const expected = [_]u256{(@as(u256, 1) << 256) - 3}; // -3 in two's complement
+    const expected = [_]u256{0 -% 3}; // -3 in two's complement
     try runOpcodeTest(math2.opSdiv, &input, &expected);
 }
 
 test "SDIV with negative divisor" {
-    // -3 in two's complement is (2^256 - 3)
-    const negative_three: u256 = (@as(u256, 1) << 256) - 3;
+    // -3 in two's complement using wraparound subtraction
+    const negative_three: u256 = 0 -% 3;
     const input = [_]u256{ negative_three, 10 }; // 10 / -3
-    const expected = [_]u256{(@as(u256, 1) << 256) - 3}; // -3 in two's complement
+    const expected = [_]u256{0 -% 3}; // -3 in two's complement
     try runOpcodeTest(math2.opSdiv, &input, &expected);
 }
 
 test "SDIV with both negative" {
-    // -10 in two's complement is (2^256 - 10)
-    const negative_ten: u256 = (@as(u256, 1) << 256) - 10;
-    // -3 in two's complement is (2^256 - 3)
-    const negative_three: u256 = (@as(u256, 1) << 256) - 3;
+    // -10 in two's complement using wraparound subtraction
+    const negative_ten: u256 = 0 -% 10;
+    // -3 in two's complement using wraparound subtraction
+    const negative_three: u256 = 0 -% 3;
     const input = [_]u256{ negative_three, negative_ten }; // -10 / -3
     const expected = [_]u256{3}; // -10 / -3 = 3
     try runOpcodeTest(math2.opSdiv, &input, &expected);
@@ -213,28 +213,28 @@ test "SMOD with positive numbers" {
 }
 
 test "SMOD with negative dividend" {
-    // -17 in two's complement is (2^256 - 17)
-    const negative_seventeen: u256 = (@as(u256, 1) << 256) - 17;
+    // -17 in two's complement using wraparound subtraction
+    const negative_seventeen: u256 = 0 -% 17;
     const input = [_]u256{ 5, negative_seventeen }; // -17 % 5
-    const expected = [_]u256{(@as(u256, 1) << 256) - 2}; // -2 in two's complement
+    const expected = [_]u256{0 -% 2}; // -2 in two's complement
     try runOpcodeTest(math2.opSmod, &input, &expected);
 }
 
 test "SMOD with negative modulus" {
-    // -5 in two's complement is (2^256 - 5)
-    const negative_five: u256 = (@as(u256, 1) << 256) - 5;
+    // -5 in two's complement using wraparound subtraction
+    const negative_five: u256 = 0 -% 5;
     const input = [_]u256{ negative_five, 17 }; // 17 % -5
     const expected = [_]u256{2}; // 17 % -5 = 2 (sign follows dividend)
     try runOpcodeTest(math2.opSmod, &input, &expected);
 }
 
 test "SMOD with both negative" {
-    // -17 in two's complement is (2^256 - 17)
-    const negative_seventeen: u256 = (@as(u256, 1) << 256) - 17;
-    // -5 in two's complement is (2^256 - 5)
-    const negative_five: u256 = (@as(u256, 1) << 256) - 5;
+    // -17 in two's complement using wraparound subtraction
+    const negative_seventeen: u256 = 0 -% 17;
+    // -5 in two's complement using wraparound subtraction
+    const negative_five: u256 = 0 -% 5;
     const input = [_]u256{ negative_five, negative_seventeen }; // -17 % -5
-    const expected = [_]u256{(@as(u256, 1) << 256) - 2}; // -2 in two's complement (sign follows dividend)
+    const expected = [_]u256{0 -% 2}; // -2 in two's complement (sign follows dividend)
     try runOpcodeTest(math2.opSmod, &input, &expected);
 }
 

@@ -12,7 +12,7 @@ const debugOnly = @import("../EvmLogger.zig").debugOnly;
 const logHexBytes = @import("../EvmLogger.zig").logHexBytes;
 const createScopedLogger = @import("../EvmLogger.zig").createScopedLogger;
 const hex = @import("../../Utils/hex.zig");
-const u256 = @import("../../Types/U256.ts").u256;
+const U256 = @import("../../Types/U256.ts").u256;
 
 // Create a file-specific logger
 const logger = EvmLogger.init("controlflow.zig");
@@ -470,7 +470,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
                             }
                         } else if (size_usize == 64) {
                             frame.logger.debug("RETURN: Data size (64 bytes) suggests a two-word return value", .{});
-                        } else if (size_usize >= 96 && size_usize % 32 == 0) { 
+                        } else if (size_usize >= 96 and size_usize % 32 == 0) { 
                             frame.logger.debug("RETURN: Data size ({d} bytes) suggests multiple word return values", .{size_usize});
                         } else if (size_usize > 32 + 32) {
                             // Check for dynamic data (string/bytes/array)
@@ -479,7 +479,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
                             for (return_data[0..32], 0..) |byte, i| {
                                 offset_value = (offset_value << 8) | byte;
                             }
-                            if (offset_value == 32 && size_usize > 64) {
+                            if (offset_value == 32 and size_usize > 64) {
                                 // Try to decode length from next word
                                 var length_value: u256 = 0;
                                 for (return_data[32..64], 0..) |byte, i| {
@@ -601,7 +601,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
                         }
                         
                         // Try to decode the revert reason if it matches the standard error format
-                        if (has_selector && size_usize >= 4 + 32 + 32) {
+                        if (has_selector and size_usize >= 4 + 32 + 32) {
                             // Extract string length from the second 32-byte chunk
                             var length: u64 = 0;
                             for (revert_data[4+32-8..4+32]) |byte| {

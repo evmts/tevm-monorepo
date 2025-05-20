@@ -105,7 +105,7 @@ fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
 }
 
 /// Dynamic gas calculation for LOG operations
-pub fn logDynamicGas(_: *Interpreter, _: *Frame, stack: *Stack, _: *Memory, _: u64, topics: u8) error{OutOfGas}!u64 {
+pub fn logDynamicGas(_: *Interpreter, _: *Frame, stack: *Stack, memory: *Memory, _: u64, topics: u8) error{OutOfGas}!u64 {
     
     // We need at least 2 + topics items on the stack
     if (stack.size < 2 + topics) {
