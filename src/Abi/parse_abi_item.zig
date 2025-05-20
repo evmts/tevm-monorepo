@@ -635,7 +635,8 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
     tokenizer.skipWhitespace();
     
     var state_mutability = abi.StateMutability.NonPayable;
-    var outputs = &[_]abi.Param{};
+    var outputs_array = [_]abi.Param{};
+    var outputs: []const abi.Param = &outputs_array;
     
     // Check for state mutability
     if (tokenizer.pos + 4 <= tokenizer.source.len and 
@@ -654,7 +655,11 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
         std.mem.eql(u8, tokenizer.source[tokenizer.pos..tokenizer.pos+7], "returns")) {
         tokenizer.pos += 7;
         tokenizer.skipWhitespace();
-        outputs = try tokenizer.readParamList(allocator);
+        var params_slice = try tokenizer.readParamList(allocator);
+        // Copy to a mutable array
+        var output_array = try allocator.alloc(abi.Param, params_slice.len);
+        @memcpy(output_array, params_slice);
+        outputs = output_array;
     }
     
     return abi.AbiItem{

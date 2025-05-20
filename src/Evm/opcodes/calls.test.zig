@@ -1,8 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Root module imports using the package pattern
+// Import the Evm module using the global import path
 const EvmModule = @import("Evm");
+// Import all needed components from the Evm module
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
 const ExecutionError = EvmModule.InterpreterError;
@@ -11,9 +12,10 @@ const Memory = EvmModule.Memory;
 const Evm = EvmModule.Evm;
 const Contract = EvmModule.Contract;
 const createContract = EvmModule.createContract;
+const JumpTable = EvmModule.JumpTable;
 const ChainRules = EvmModule.ChainRules;
 
-// Import Address from the Address module
+// Import the Address module using the standard module path
 const AddressModule = @import("Address");
 const Address = AddressModule.Address;
 
@@ -32,223 +34,199 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     return addr;
 }
 
-fn setupInterpreter(allocator: std.mem.Allocator) !*Interpreter {
+fn setupTestEnvironment(allocator: std.mem.Allocator, code: []const u8) !struct {
+    evm: Evm,
+    interpreter: *Interpreter,
+    contract: Contract,
+    frame: *Frame,
+} {
     // Create an EVM instance with default configurations
     var evm_instance = try Evm.init(allocator, null);
     
-    // The JumpTable API has changed from init to newJumpTable
-    // Create a jump table using the updated API and then initialize the interpreter
-    const jump_table = try EvmModule.JumpTable.newJumpTable(allocator, "latest");
-    
-    // Create and return the interpreter using the create method instead of init
-    // This resolves the type mismatch between *Evm and *evm.Evm
-    const interpreter_instance = Interpreter.create(allocator, &evm_instance, jump_table);
-    
-    return interpreter_instance;
-}
-
-fn setupContract(allocator: std.mem.Allocator, code_slice: []const u8) !Contract {
+    // Create a contract with the specified code
     var contract_instance = createContract(
         try hexToAddress(allocator, "0x0000000000000000000000000000000000000001"),
         try hexToAddress(allocator, "0x0000000000000000000000000000000000000002"),
         0,
         1000000, // Increased gas for tests
     );
-    contract_instance.code = code_slice;
-    return contract_instance;
-}
-
-fn setupFrameForContract(interpreter: *Interpreter, allocator: std.mem.Allocator, contract: *Contract) !*Frame {
-    _ = interpreter;
-    const frame_instance = try Frame.init(allocator, contract);
-    return frame_instance;
+    contract_instance.code = code;
+    
+    // Create a jump table using the newJumpTable API 
+    const jump_table = try JumpTable.newJumpTable(allocator, "latest");
+    
+    // Create the interpreter 
+    const interpreter_instance = Interpreter.create(allocator, &evm_instance, jump_table);
+    
+    // Create a frame for the contract
+    const frame_instance = try Frame.init(allocator, &contract_instance);
+    
+    return .{
+        .evm = evm_instance,
+        .interpreter = interpreter_instance,
+        .contract = contract_instance,
+        .frame = frame_instance,
+    };
 }
 
 // Tests for CALL opcode (0xF1)
 test "CALL with insufficient stack" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xF1}); // CALL opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
-    var contract = try setupContract(allocator, &[_]u8{0xF1}); // CALL
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
-
-    try frame.stack.push(u256_native, 1000); // gas
-    try frame.stack.push(u256_native, 0x1234); // address
-    try frame.stack.push(u256_native, 0); // value
-    try frame.stack.push(u256_native, 0); // inOffset
-    try frame.stack.push(u256_native, 0); // inSize
-    try frame.stack.push(u256_native, 0); // outOffset
+    try env.frame.stack.push(u256_native, 1000); // gas
+    try env.frame.stack.push(u256_native, 0x1234); // address
+    try env.frame.stack.push(u256_native, 0); // value
+    try env.frame.stack.push(u256_native, 0); // inOffset
+    try env.frame.stack.push(u256_native, 0); // inSize
+    try env.frame.stack.push(u256_native, 0); // outOffset
     // Missing outSize
 
-    const result = interpreter.run(&contract, &[_]u8{}, false);
+    const result = env.interpreter.run(&env.contract, &[_]u8{}, false);
     try testing.expectError(ExecutionError.StackUnderflow, result);
 }
 
 test "CALL with all parameters" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xF1}); // CALL opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
-    var contract = try setupContract(allocator, &[_]u8{0xF1}); // CALL
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
-
-    try frame.stack.push(u256_native, 1000);
-    try frame.stack.push(u256_native, 0x1234);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
+    try env.frame.stack.push(u256_native, 1000); // gas
+    try env.frame.stack.push(u256_native, 0x1234); // address
+    try env.frame.stack.push(u256_native, 0); // value
+    try env.frame.stack.push(u256_native, 0); // inOffset
+    try env.frame.stack.push(u256_native, 0); // inSize
+    try env.frame.stack.push(u256_native, 0); // outOffset
+    try env.frame.stack.push(u256_native, 0); // outSize
 
     // This will still fail due to no state manager, but stack should be consumed.
     // Or it might error differently (e.g. OutOfGas if it tries to do account existence checks)
-    _ = interpreter.run(&contract, &[_]u8{}, false);
+    _ = env.interpreter.run(&env.contract, &[_]u8{}, false);
 
-    try testing.expectEqual(@as(usize, 0), frame.stack.size);
+    try testing.expectEqual(@as(usize, 0), env.frame.stack.size);
 }
 
 // Test for STATICCALL opcode (0xFA)
 test "STATICCALL basic functionality" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xFA}); // STATICCALL opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
-    var contract = try setupContract(allocator, &[_]u8{0xFA}); // STATICCALL
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
+    try env.frame.stack.push(u256_native, 1000); // gas
+    try env.frame.stack.push(u256_native, 0x1234); // address
+    try env.frame.stack.push(u256_native, 0); // inOffset
+    try env.frame.stack.push(u256_native, 0); // inSize
+    try env.frame.stack.push(u256_native, 0); // outOffset
+    try env.frame.stack.push(u256_native, 0); // outSize
 
-    try frame.stack.push(u256_native, 1000);
-    try frame.stack.push(u256_native, 0x1234);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
+    _ = env.interpreter.run(&env.contract, &[_]u8{}, true); // readOnly = true
 
-    _ = interpreter.run(&contract, &[_]u8{}, true); // readOnly = true
-
-    try testing.expectEqual(@as(usize, 0), frame.stack.size);
+    try testing.expectEqual(@as(usize, 0), env.frame.stack.size);
 }
 
 // Test for DELEGATECALL opcode (0xF4)
 test "DELEGATECALL basic functionality" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xF4}); // DELEGATECALL opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
-    var contract = try setupContract(allocator, &[_]u8{0xF4}); // DELEGATECALL
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
+    try env.frame.stack.push(u256_native, 1000); // gas
+    try env.frame.stack.push(u256_native, 0x1234); // address
+    try env.frame.stack.push(u256_native, 0); // inOffset
+    try env.frame.stack.push(u256_native, 0); // inSize
+    try env.frame.stack.push(u256_native, 0); // outOffset
+    try env.frame.stack.push(u256_native, 0); // outSize
 
-    try frame.stack.push(u256_native, 1000);
-    try frame.stack.push(u256_native, 0x1234);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
-    try frame.stack.push(u256_native, 0);
+    _ = env.interpreter.run(&env.contract, &[_]u8{}, false);
 
-    _ = interpreter.run(&contract, &[_]u8{}, false);
-
-    try testing.expectEqual(@as(usize, 0), frame.stack.size);
+    try testing.expectEqual(@as(usize, 0), env.frame.stack.size);
 }
 
 // Test for CREATE opcode (0xF0)
 test "CREATE basic functionality" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xF0}); // CREATE opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
-    var contract = try setupContract(allocator, &[_]u8{0xF0}); // CREATE
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
+    try env.frame.stack.push(u256_native, 0); // value
+    try env.frame.stack.push(u256_native, 0); // offset
+    try env.frame.stack.push(u256_native, 0); // size
 
-    try frame.stack.push(u256_native, 0); // value
-    try frame.stack.push(u256_native, 0); // offset
-    try frame.stack.push(u256_native, 0); // size
+    _ = env.interpreter.run(&env.contract, &[_]u8{}, false);
 
-    _ = interpreter.run(&contract, &[_]u8{}, false);
-
-    try testing.expectEqual(@as(usize, 0), frame.stack.size);
+    try testing.expectEqual(@as(usize, 0), env.frame.stack.size);
 }
 
 // Test for CREATE2 opcode (0xF5)
 test "CREATE2 basic functionality" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xF5}); // CREATE2 opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
-    var contract = try setupContract(allocator, &[_]u8{0xF5}); // CREATE2
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
+    try env.frame.stack.push(u256_native, 0); // value
+    try env.frame.stack.push(u256_native, 0); // offset
+    try env.frame.stack.push(u256_native, 0); // size
+    try env.frame.stack.push(u256_native, 0); // salt
 
-    try frame.stack.push(u256_native, 0); // value
-    try frame.stack.push(u256_native, 0); // offset
-    try frame.stack.push(u256_native, 0); // size
-    try frame.stack.push(u256_native, 0); // salt
+    _ = env.interpreter.run(&env.contract, &[_]u8{}, false);
 
-    _ = interpreter.run(&contract, &[_]u8{}, false);
-
-    try testing.expectEqual(@as(usize, 0), frame.stack.size);
+    try testing.expectEqual(@as(usize, 0), env.frame.stack.size);
 }
 
 // Test for RETURN opcode (0xF3)
 test "RETURN opcode" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
-
-    var contract = try setupContract(allocator, &[_]u8{0xF3}); // RETURN
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xF3}); // RETURN opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
     const return_data = [_]u8{ 0x01, 0x02, 0x03, 0x04 };
-    try frame.memory.store(0, &return_data);
+    try env.frame.memory.store(0, &return_data);
 
-    try frame.stack.push(u256_native, 0); // offset
-    try frame.stack.push(u256_native, 4); // size
+    try env.frame.stack.push(u256_native, 0); // offset
+    try env.frame.stack.push(u256_native, 4); // size
 
-    _ = interpreter.run(&contract, &[_]u8{}, false);
+    _ = env.interpreter.run(&env.contract, &[_]u8{}, false);
 
-    try testing.expectEqual(@as(usize, 0), frame.stack.size);
+    try testing.expectEqual(@as(usize, 0), env.frame.stack.size);
 }
 
 // Test for REVERT opcode (0xFD)
 test "REVERT opcode" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
-
-    var contract = try setupContract(allocator, &[_]u8{0xFD}); // REVERT
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xFD}); // REVERT opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
     const revert_data = [_]u8{ 0x08, 0x09, 0x0A, 0x0B };
-    try frame.memory.store(0, &revert_data);
+    try env.frame.memory.store(0, &revert_data);
 
-    try frame.stack.push(u256_native, 0); // offset
-    try frame.stack.push(u256_native, 4); // size
+    try env.frame.stack.push(u256_native, 0); // offset
+    try env.frame.stack.push(u256_native, 4); // size
 
-    const result = interpreter.run(&contract, &[_]u8{}, false);
-    try testing.expectError(ExecutionError.ExecutionReverted, result); // Assuming ExecutionReverted is a valid error variant
+    const result = env.interpreter.run(&env.contract, &[_]u8{}, false);
+    try testing.expectError(ExecutionError.ExecutionReverted, result);
 
-    try testing.expectEqual(@as(usize, 0), frame.stack.size);
+    try testing.expectEqual(@as(usize, 0), env.frame.stack.size);
 }
 
 // Test for SELFDESTRUCT opcode (0xFF)
 test "SELFDESTRUCT opcode" {
     const allocator = testing.allocator;
-    const interpreter = try setupInterpreter(allocator);
-    defer allocator.destroy(interpreter);
+    var env = try setupTestEnvironment(allocator, &[_]u8{0xFF}); // SELFDESTRUCT opcode
+    defer allocator.destroy(env.interpreter);
+    defer env.frame.deinit();
 
-    var contract = try setupContract(allocator, &[_]u8{0xFF}); // SELFDESTRUCT
-    const frame = try setupFrameForContract(interpreter, allocator, &contract);
-    defer frame.deinit();
+    try env.frame.stack.push(u256_native, 0x1234); // beneficiary address
 
-    try frame.stack.push(u256_native, 0x1234); // beneficiary address
+    _ = env.interpreter.run(&env.contract, &[_]u8{}, false);
 
-    _ = interpreter.run(&contract, &[_]u8{}, false);
-
-    try testing.expectEqual(@as(usize, 0), frame.stack.size);
+    try testing.expectEqual(@as(usize, 0), env.frame.stack.size);
 }

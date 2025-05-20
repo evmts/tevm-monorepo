@@ -102,7 +102,7 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const offset_ptr = @as(*const u256, @ptrCast(@alignCast(@alignOf(u256), &data[offset.*])));
+        const offset_ptr = @as(*const u256, @ptrCast(&data[offset.*]));
         const dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
         offset.* += 32;
         
@@ -151,7 +151,7 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const offset_ptr = @as(*const u256, @ptrCast(@alignCast(@alignOf(u256), &data[offset.*])));
+        const offset_ptr = @as(*const u256, @ptrCast(&data[offset.*]));
         const dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
         offset.* += 32;
         

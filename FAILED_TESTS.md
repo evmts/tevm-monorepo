@@ -2,6 +2,52 @@
 
 This document catalogs all failing tests in the TEVM Zig implementation, along with potential causes and analysis.
 
+## Recent Test Failures (2025-05-20)
+
+The most recent run of `zig build test` revealed several issues in the ABI and EVM modules:
+
+### ABI Module Failures
+
+- **Test:** `src/Abi/abi_test.zig`
+- **Error:** Multiple compilation errors in ABI-related functions
+- **Error Messages:**
+  ```
+  src/Abi/decode_abi_parameters.zig:105:54: error: expected 1 argument, found 2
+        const offset_ptr = @as(*const u256, @ptrCast(@alignCast(@alignOf(u256), &data[offset.*])));
+                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+  src/Abi/abi_test.zig:114:69: error: expected type '[]const abi.AbiItem', found 'mem.Allocator'
+        const decoded = try decode_function_data.decodeFunctionData(alloc, &sample_abi, encoded);
+                                                                    ^~~~~
+  
+  src/Abi/decode_function_data.zig:187:18: error: expected type '[]abi.Param', found '*const [2]abi.Param'
+                .inputs = &[_]abi.Param{
+                ~^~~~~~
+  
+  src/Abi/encode_abi_parameters.zig:290:16: error: root source file struct 'mem' has no member named 'copy'
+        std.mem.copy(u8, out_buffer[0..size], std.mem.asBytes(&native_value));
+        ~~~~~~~^~~~~
+  
+  src/Abi/parse_abi_item.zig:657:19: error: expected type '*const [0]abi.Param', found '[]abi.Param'
+        outputs = try tokenizer.readParamList(allocator);
+                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ```
+- **Potential Causes:**
+  1. Recent changes to improve memory safety in the ABI module have introduced type mismatches
+  2. The `@alignCast` function is being called with two arguments when it only accepts one
+  3. Parameter order issues in function calls (e.g., passing an allocator where ABI items are expected)
+  4. Type conversion errors between arrays and slices (e.g., `*const [2]abi.Param` vs `[]abi.Param`)
+  5. Use of a non-existent function `std.mem.copy` (possibly intended to be `std.mem.copyForwards` or similar)
+
+### Contract and EVM Test Failures
+
+- **Test:** `contract-test` and several EVM-related tests
+- **Error:** Transitive failures cascading from the ABI module errors
+- **Details:**
+  - The contract test failures are likely caused by the ABI module issues
+  - EVM test helpers and opcode tests also fail transitively from these root causes
+  - The tests for various EIPs (Ethereum Improvement Proposals) fail as a result of the core module failures
+
 ## Common Patterns in Failures
 
 Several patterns emerge across multiple test failures:
@@ -12,7 +58,9 @@ Several patterns emerge across multiple test failures:
 
 3. **Missing or Incorrect Dependencies**: Some failures indicate missing dependency specifications in the build configuration.
 
-## Detailed Test Failures Analysis
+4. **Memory Safety Improvements**: Recent commits focused on memory safety have introduced type compatibility issues, particularly in the ABI module.
+
+## Detailed Previous Test Failures Analysis
 
 ### Environment Tests
 - **Test:** `src/Evm/opcodes/environment.test.zig`
@@ -81,7 +129,19 @@ Several patterns emerge across multiple test failures:
 
 After analyzing the build.zig file and test failures, several root issues emerge:
 
-### 1. Module Structure Issues
+### 1. ABI Module Type Safety Issues
+
+The recent commits with message "🚨 fix: improve memory safety and refactor ABI-related functions" have introduced type compatibility issues in the ABI module. Functions like `decodeFunctionData` now have parameter type mismatches, and there are issues with pointer casting and memory operations.
+
+**Solution:**
+- Review the changes made to the ABI module, particularly focusing on:
+  - Fixing the `@alignCast` usage in `decode_abi_parameters.zig`
+  - Correcting parameter order in `decodeFunctionData` calls
+  - Ensuring proper conversions between arrays and slices
+  - Replacing `std.mem.copy` with the correct memory operation function
+  - Addressing type compatibility between returned values and variable declarations
+
+### 2. Module Structure Issues
 
 The codebase is experiencing conflicts between direct imports and module imports. In Zig, when you define modules like:
 
@@ -99,7 +159,7 @@ This creates a namespace where imports inside that module are resolved relative 
 - In test files, avoid direct imports of files that are already part of a module
 - Use consistent import paths throughout the codebase
 
-### 2. Test Mocks Incompatibility
+### 3. Test Mocks Incompatibility
 
 Several tests create mock versions of structures (like `Interpreter`) that don't match the real implementation, causing type mismatches when passed to functions.
 
@@ -108,7 +168,7 @@ Several tests create mock versions of structures (like `Interpreter`) that don't
 - Consider using interfaces or traits instead of concrete types where possible
 - Create a proper testing framework with compatible mocks
 
-### 3. Build Configuration
+### 4. Build Configuration
 
 The `build.zig` file is adding tests with all module dependencies, but the tests themselves may be importing files in a way that conflicts with these modules.
 
@@ -121,14 +181,21 @@ The `build.zig` file is adding tests with all module dependencies, but the tests
 
 To make progress with the codebase:
 
-1. **Fix Module Structure**: Update imports to use a consistent pattern throughout the codebase
+1. **Fix ABI Module Issues First**: Address the specific issues in the ABI module that are causing test failures across the codebase:
+   - Fix the `@alignCast` usage in `decode_abi_parameters.zig` (remove extra parameter)
+   - Correct the parameter order in `decodeFunctionData` function calls
+   - Fix the type conversions between arrays and slices
+   - Replace `std.mem.copy` with the correct memory function
+   - Ensure consistent typing in function returns and variable declarations
 
-2. **Address Environment Test First**: Fix the environment test by:
+2. **Fix Module Structure**: Update imports to use a consistent pattern throughout the codebase
+
+3. **Address Environment Test**: Fix the environment test by:
    - Updating the import in `environment.test.zig` to use the Evm module instead of direct import
    - Or adjusting the build.zig to correctly handle the direct import
 
-3. **Create Compatible Test Mocks**: For tests that mock types like `Interpreter`, ensure the mock types match the interface of the real types
+4. **Create Compatible Test Mocks**: For tests that mock types like `Interpreter`, ensure the mock types match the interface of the real types
 
-4. **Use Consistent Naming**: Ensure types with the same name but in different modules have the same structure, or use different names to avoid confusion
+5. **Use Consistent Naming**: Ensure types with the same name but in different modules have the same structure, or use different names to avoid confusion
 
-These issues are typical of a work-in-progress Zig project, especially one implementing something as complex as an EVM. The module system in Zig is powerful but requires careful management of imports and dependencies.
+These issues are typical of a work-in-progress Zig project, especially one implementing something as complex as an EVM. The memory safety improvements are important but require careful attention to type compatibility, especially in a language like Zig where types are strictly enforced.

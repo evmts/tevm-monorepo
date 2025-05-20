@@ -185,25 +185,28 @@ pub fn isFunction(data: []const u8, signature: []const u8) !bool {
 test "decodeFunctionData basic" {
     const testing = std.testing;
     
+    // Define inputs for our test function
+    var inputs = [_]abi.Param{
+        .{
+            .ty = "address",
+            .name = "to",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "uint256",
+            .name = "amount",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
     // Define ABI items for a sample contract
     const abi_items = [_]abi.AbiItem{
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
-                    .{
-                        .ty = "address",
-                        .name = "to",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "uint256",
-                        .name = "amount",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
+                .inputs = &inputs,
                 .outputs = &[_]abi.Param{
                     .{
                         .ty = "bool",
@@ -252,7 +255,7 @@ test "decodeFunctionData basic" {
     };
     
     // Now decode the function data
-    try decodeFunctionData(&abi_items, full_data.items, &result);
+    result = try decodeFunctionData(testing.allocator, &abi_items, full_data.items);
     
     // Check function name
     try testing.expectEqualStrings("transfer", result.function_name);
