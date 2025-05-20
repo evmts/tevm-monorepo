@@ -1,7 +1,7 @@
 const std = @import("std");
 
-// Use the local package.zig file for imports
-const pkg = @import("package.zig");
+// Use the simplified test package that avoids external imports
+const pkg = @import("package_test.zig");
 pub const Frame = pkg.Frame;
 pub const ExecutionError = pkg.ExecutionError;
 pub const Interpreter = pkg.Interpreter;

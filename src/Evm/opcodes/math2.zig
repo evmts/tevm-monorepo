@@ -98,10 +98,11 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     const exponent = try frame.stack.pop();
     
     // Get reference to base (which is now at the top of the stack)
-    const base = try frame.stack.peek();
-    if (base == null) {
-        return ExecutionError.StackUnderflow; // Extra safety check
-    }
+    const base = frame.stack.peek() catch |err| {
+        // Re-push the exponent so the stack remains consistent
+        try frame.stack.push(exponent);
+        return err;
+    };
     
     // Special cases
     if (exponent == 0) {
@@ -116,22 +117,13 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
         return "";
     }
     
-    // For small exponents, use simple iteration with a safety limit
+    // For small exponents, use simple iteration
     if (exponent < 10) {
         var result: u256 = 1;
         var i: u256 = 0;
         
-        const max_iterations: u256 = 100; // Safety limit to prevent infinite loops
-        var iterations: u256 = 0;
-        
         while (i < exponent) : (i += 1) {
             result = result *% base.*; // Using wrapping multiplication
-            
-            // Safety check to prevent infinite loops
-            iterations += 1;
-            if (iterations > max_iterations) {
-                break;
-            }
         }
         
         base.* = result;
@@ -143,24 +135,20 @@ pub fn opExp(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     var base_val = base.*;
     var exp_val = exponent;
     
-    // Safety counter to prevent infinite loops
-    var iterations: u64 = 0;
-    const max_iterations: u64 = 1000; // Reasonable limit for 256-bit exponents
-    
-    while (exp_val > 0 and iterations < max_iterations) : (iterations += 1) {
+    // Binary exponentiation algorithm (no need for explicit iteration limit
+    // since we're working with finite-width integers)
+    while (exp_val > 0) {
         if (exp_val & 1 == 1) {
             // If current exponent bit is 1, multiply result by current base
             result = result *% base_val;
         }
         
-        // Square the base and halve the exponent
+        // Square the base
         base_val = base_val *% base_val;
-        exp_val >>= 1;
         
-        // Extra safety check: if exp_val hasn't changed (an unlikely scenario), break to avoid infinite loop
-        if (exp_val == exponent) {
-            break;
-        }
+        // Shift exponent right by 1 bit
+        // This guarantees termination since we're working with a finite-width integer
+        exp_val >>= 1;
     }
     
     base.* = result;
@@ -180,7 +168,7 @@ pub fn expDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, me
     }
     
     // Check if stack access is valid - prevent out-of-bounds access
-    if (stack.size <= 2 || stack.data.len < stack.size) {
+    if (stack.size <= 2 or stack.data.len < stack.size) {
         return error.OutOfGas;
     }
     
@@ -368,8 +356,12 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     // Pop modulus from the stack
     const modulus = try frame.stack.pop();
     
-    // Get reference to value (which is now at the top of the stack)
-    const value = try frame.stack.peek();
+    // Get reference to value (which is now at the top of the stack) - handle error case
+    const value = frame.stack.peek() catch |err| {
+        // Re-push the value we popped so stack is in a consistent state
+        try frame.stack.push(modulus);
+        return err;
+    };
     
     // Modulo by zero returns 0 in the EVM
     if (modulus == 0) {

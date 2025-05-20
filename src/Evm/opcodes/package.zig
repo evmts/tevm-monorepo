@@ -1,20 +1,22 @@
 // Package entry point for opcodes
 // For test files, we need to use direct imports
 
-// Import directly from implementation files - this works with 'zig test' command
-pub const Frame = @import("../Frame.zig").Frame;
-pub const ExecutionError = @import("../Frame.zig").ExecutionError;
-pub const Interpreter = @import("../interpreter.zig").Interpreter;
-pub const Evm = @import("../evm.zig").Evm;
-pub const Contract = @import("../Contract.zig").Contract;
-pub const Memory = @import("../Memory.zig").Memory;
-pub const Stack = @import("../Stack.zig").Stack;
-pub const JumpTable = @import("../JumpTable.zig");
-pub const ChainRules = @import("../evm.zig").ChainRules;
-pub const EvmLogger = @import("../EvmLogger.zig");
+// Import from parent directory
+const evm_pkg = @import("../package.zig");
 
-// Import Address directly for tests
-pub const Address = @import("../../Address/address.zig").Address;
+pub const Frame = evm_pkg.Frame;
+pub const ExecutionError = evm_pkg.ExecutionError;
+pub const Interpreter = evm_pkg.Interpreter;
+pub const Evm = evm_pkg.Evm;
+pub const Contract = evm_pkg.Contract;
+pub const Memory = evm_pkg.Memory;
+pub const Stack = evm_pkg.Stack;
+pub const JumpTable = evm_pkg.JumpTable;
+pub const ChainRules = evm_pkg.ExecutionStatus;
+pub const EvmLogger = evm_pkg.EvmLogger;
+
+// Import Address
+pub const Address = evm_pkg.Address;
 
 // Re-export modules - these are all local to the opcodes directory
 pub const bitwise = @import("bitwise.zig");

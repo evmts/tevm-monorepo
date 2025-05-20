@@ -107,10 +107,17 @@ fn ecRecover(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
 
 /// SHA256: Computes the SHA-256 hash of the input
 fn sha256(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
+    // Allocate the result buffer
     const result = try allocator.alloc(u8, 32);
     
+    // Create a fixed-size buffer for the hash result
+    var hash_result: [32]u8 = undefined;
+    
     // Compute SHA-256 hash
-    std.crypto.hash.sha2.Sha256.hash(input, result, .{});
+    std.crypto.hash.sha2.Sha256.hash(input, &hash_result, .{});
+    
+    // Copy the hash result to the allocated buffer
+    @memcpy(result, &hash_result);
     
     return result;
 }
