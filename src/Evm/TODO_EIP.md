@@ -49,10 +49,16 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 
 ### EIP-1559: Fee market change
 
-- **Status**: Not implemented
+- **Status**: Implemented
 - **Description**: Introduces a base fee per block and fee burning mechanism
 - **Complexity**: Medium
 - **Implementation**: Update block processing to include base fee calculation and burning mechanism
+- **What's done**: 
+  - Added FeeMarket struct for EIP-1559 fee calculations
+  - Implemented base fee adjustment algorithm based on block utilization
+  - Added support for Type-2 (EIP-1559) transactions with max_fee_per_gas and max_priority_fee_per_gas
+  - Implemented fee burning mechanism with only priority fees going to miners
+  - Added comprehensive tests for base fee adjustment and transaction processing
 
 ### EIP-4895: Beacon chain withdrawals
 
@@ -122,10 +128,11 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 3. ✅ Implement EIP-3529 (Gas refund reduction)
 4. ✅ Implement EIP-3651 (Warm COINBASE)
 5. ✅ Implement EIP-3198 (BASEFEE opcode)
-6. ✅ Implement Shanghai opcodes (PUSH0)
-7. ✅ Implement MCOPY opcode from Cancun (EIP-5656)
-8. ✅ Implement Transient Storage opcodes from Cancun (TLOAD, TSTORE - EIP-1153)
-9. ✅ Implement EIP-4844 (Shard Blob Transactions) - BLOBHASH and BLOBBASEFEE opcodes plus KZG precompile
+6. ✅ Implement EIP-1559 (Fee market change) - Base fee calculation, Type-2 transactions, fee burning
+7. ✅ Implement Shanghai opcodes (PUSH0)
+8. ✅ Implement MCOPY opcode from Cancun (EIP-5656)
+9. ✅ Implement Transient Storage opcodes from Cancun (TLOAD, TSTORE - EIP-1153)
+10. ✅ Implement EIP-4844 (Shard Blob Transactions) - BLOBHASH and BLOBBASEFEE opcodes plus KZG precompile
 
 ## Test Cases
 
