@@ -29,13 +29,13 @@ const Stack = struct {
     data: []@"u256",
     size: usize = 0,
     
-    pub fn pop(self: *Stack) \!@"u256" {
+    pub fn pop(self: *Stack) !@"u256" {
         if (self.size == 0) return ExecutionError.StackUnderflow;
         self.size -= 1;
         return self.data[self.size];
     }
     
-    pub fn push(self: *Stack, value: @"u256") \!void {
+    pub fn push(self: *Stack, value: @"u256") !void {
         if (self.size >= self.data.len) return ExecutionError.StackOverflow;
         self.data[self.size] = value;
         self.size += 1;

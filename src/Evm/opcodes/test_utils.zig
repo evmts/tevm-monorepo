@@ -16,14 +16,14 @@ pub const JumpTable = @import("../../Evm/JumpTable.zig");
 pub const Address = @import("../../Address/address.zig").Address;
 
 /// Creates a mock contract for testing
-pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) *Contract {
+pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract {
     const contract = try allocator.create(Contract);
     
     contract.* = Contract{
         .code = try allocator.dupe(u8, code),
         .input = &[_]u8{},
         .address = Address.zero(),
-        .code_address = undefined,
+        .code_address = Address.zero(),
         .value = 0,
         .gas = 1000000,
         .gas_refund = 0,
@@ -32,14 +32,17 @@ pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) *Contr
 }
 
 /// Creates a mock EVM instance
-pub fn createMockEvm(allocator: std.mem.Allocator) *Evm {
+pub fn createMockEvm(allocator: std.mem.Allocator) !*Evm {
     const evm = try allocator.create(Evm);
     evm.* = Evm{
         .depth = 0,
         .readOnly = false,
         .chainRules = .{
-            .IsEIP4844 = true,
-            .IsEIP5656 = true,
+            .IsHomestead = true,
+            .IsEIP150 = true,
+            .IsEIP158 = true,
+            .IsEIP1559 = true,
+            .IsEIP3855 = true, // Needed for PUSH0
         },
         .state_manager = null,
     };

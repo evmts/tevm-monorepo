@@ -6,6 +6,9 @@ const B256 = struct {
     value: [32]u8,
 };
 
+// Define u256 type for modexp operations
+const u256 = u64;
+
 /// Enum representing the different precompiled contract addresses
 pub const PrecompiledContract = enum(u8) {
     ECRECOVER = 1,

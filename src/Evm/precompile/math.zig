@@ -6,7 +6,7 @@ const getData = common.getData;
 const Stack = @import("../Stack.zig");
 
 // Use the u256 type from Stack
-const u256 = Stack.u256;
+const @"u256" = Stack.@"u256";
 
 /// BigModExp precompiled contract (pre EIP-2565)
 pub const BigModExp = PrecompiledContract{
