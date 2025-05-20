@@ -55,6 +55,17 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
   - Added MaxRefundQuotient constant (changed from 2 to 5, limiting refunds to 20% of gas used)
   - Added tests verifying the reduced refund values
 
+### EIP-3541: Reject new contracts starting with the 0xEF byte
+
+- **Status**: Implemented
+- **Description**: Rejects new contract creation if the contract bytecode starts with the 0xEF byte
+- **Complexity**: Low
+- **Implementation**:
+  - Added IsEIP3541 flag to ChainRules (activated for London hardfork and later)
+  - Added validation in CREATE and CREATE2 opcodes to reject contracts starting with 0xEF
+  - Created comprehensive tests for both opcodes with EIP-3541 enabled and disabled
+  - Added detailed implementation documentation
+
 ### EIP-3198: BASEFEE opcode
 
 - **Status**: Implemented
@@ -152,12 +163,13 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 4. ✅ Implement EIP-3651 (Warm COINBASE)
 5. ✅ Implement EIP-3198 (BASEFEE opcode)
 6. ✅ Implement EIP-1559 (Fee market change) - Base fee calculation, Type-2 transactions, fee burning
-7. ✅ Implement Shanghai opcodes (PUSH0)
-8. ✅ Implement MCOPY opcode from Cancun (EIP-5656)
-9. ✅ Implement Transient Storage opcodes from Cancun (TLOAD, TSTORE - EIP-1153)
-10. ✅ Implement EIP-4844 (Shard Blob Transactions) - BLOBHASH and BLOBBASEFEE opcodes plus KZG precompile
-11. ✅ Implement EIP-4895 (Beacon chain withdrawals) - Process beacon chain withdrawals in blocks
-12. ✅ Implement EIP-2537 (BLS12-381 curve operations) - Precompiled contracts for BLS12-381 operations
+7. ✅ Implement EIP-3541 (Reject new contracts starting with the 0xEF byte)
+8. ✅ Implement Shanghai opcodes (PUSH0)
+9. ✅ Implement MCOPY opcode from Cancun (EIP-5656)
+10. ✅ Implement Transient Storage opcodes from Cancun (TLOAD, TSTORE - EIP-1153)
+11. ✅ Implement EIP-4844 (Shard Blob Transactions) - BLOBHASH and BLOBBASEFEE opcodes plus KZG precompile
+12. ✅ Implement EIP-4895 (Beacon chain withdrawals) - Process beacon chain withdrawals in blocks
+13. ✅ Implement EIP-2537 (BLS12-381 curve operations) - Precompiled contracts for BLS12-381 operations
 
 ## Test Cases
 
