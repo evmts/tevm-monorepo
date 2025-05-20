@@ -102,8 +102,10 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const offset_ptr = @as(*const u256, @ptrCast(&data[offset.*]));
-        const dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
+        const ptr = &data[offset.*];
+        const offset_ptr = @as(*const u256, @ptrCast(@alignCast(ptr)));
+        const big_dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
+        const dynamic_offset = @as(usize, @intCast(big_dynamic_offset));
         offset.* += 32;
         
         // Read the length
@@ -111,8 +113,10 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length_ptr = @as(*const u256, @ptrCast(&data[dynamic_offset]));
-        const length = std.mem.bigToNative(u256, length_ptr.*);
+        const length_ptr_u8 = &data[dynamic_offset];
+        const length_ptr = @as(*const u256, @ptrCast(@alignCast(length_ptr_u8)));
+        const big_length = std.mem.bigToNative(u256, length_ptr.*);
+        const length = @as(usize, @truncate(big_length));
         
         // Check bounds
         if (dynamic_offset + 32 + length > data.len) {
@@ -151,8 +155,10 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const offset_ptr = @as(*const u256, @ptrCast(&data[offset.*]));
-        const dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
+        const ptr = &data[offset.*];
+        const offset_ptr = @as(*const u256, @ptrCast(@alignCast(ptr)));
+        const big_dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
+        const dynamic_offset = @as(usize, @intCast(big_dynamic_offset));
         offset.* += 32;
         
         // Read the length
@@ -160,8 +166,10 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length_ptr = @as(*const u256, @ptrCast(&data[dynamic_offset]));
-        const length = std.mem.bigToNative(u256, length_ptr.*);
+        const length_ptr_u8 = &data[dynamic_offset];
+        const length_ptr = @as(*const u256, @ptrCast(@alignCast(length_ptr_u8)));
+        const big_length = std.mem.bigToNative(u256, length_ptr.*);
+        const length = @as(usize, @truncate(big_length));
         
         // Check bounds
         if (dynamic_offset + 32 + length > data.len) {
@@ -216,7 +224,7 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
         T == i8 or T == i16 or T == i32 or T == i64 or T == i128) {
         // For smaller integers, verify padding
         const size = @sizeOf(T);
-        const is_signed = @typeInfo(T).Int.signedness == .signed;
+        const is_signed = (T == i8 or T == i16 or T == i32 or T == i64 or T == i128);
         
         // Check padding based on sign
         const padding_byte: u8 = if (is_signed and (bytes[bytes.len - size] & 0x80) != 0) 0xFF else 0x00;
@@ -225,14 +233,12 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
             if (b != padding_byte) return DecodeError.InvalidPadding;
         }
         
-        // Extract the value (always big-endian in ABI)
-        var result: T = 0;
-        var i: usize = 0;
-        while (i < size) : (i += 1) {
-            const b = bytes[bytes.len - size + i];
-            result = result << 8 | @as(T, b);
-        }
-        out.* = result;
+        // For simple types, just copy the bytes directly
+        var temp_value: T = undefined;
+        @memcpy(@as([*]u8, @ptrCast(&temp_value))[0..size], bytes[bytes.len - size..]);
+        
+        // Convert from big-endian (network order) to native endian
+        out.* = std.mem.bigToNative(T, temp_value);
         return;
     }
     

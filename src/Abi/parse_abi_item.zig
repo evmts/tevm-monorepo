@@ -655,9 +655,9 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
         std.mem.eql(u8, tokenizer.source[tokenizer.pos..tokenizer.pos+7], "returns")) {
         tokenizer.pos += 7;
         tokenizer.skipWhitespace();
-        var params_slice = try tokenizer.readParamList(allocator);
+        const params_slice = try tokenizer.readParamList(allocator);
         // Copy to a mutable array
-        var output_array = try allocator.alloc(abi.Param, params_slice.len);
+        const output_array = try allocator.alloc(abi.Param, params_slice.len);
         @memcpy(output_array, params_slice);
         outputs = output_array;
     }
@@ -666,7 +666,7 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
         .Function = .{
             .name = name_token.value,
             .inputs = inputs,
-            .outputs = outputs,
+            .outputs = @constCast(outputs),
             .state_mutability = state_mutability,
         },
     };

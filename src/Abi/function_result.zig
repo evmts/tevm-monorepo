@@ -164,26 +164,30 @@ test "encodeFunctionResult and decodeFunctionResult basic" {
     const testing = std.testing;
     
     // Define ABI items for a sample contract
+    var inputs = [_]abi.Param{
+        .{
+            .ty = "address",
+            .name = "account",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
+    var outputs = [_]abi.Param{
+        .{
+            .ty = "uint256",
+            .name = "balance",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
     const abi_items = [_]abi.AbiItem{
         .{
             .Function = .{
                 .name = "balanceOf",
-                .inputs = &[_]abi.Param{
-                    .{
-                        .ty = "address",
-                        .name = "account",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
-                .outputs = &[_]abi.Param{
-                    .{
-                        .ty = "uint256",
-                        .name = "balance",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
+                .inputs = &inputs,
+                .outputs = &outputs,
                 .state_mutability = abi.StateMutability.View,
             },
         },

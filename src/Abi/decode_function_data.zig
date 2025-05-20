@@ -201,20 +201,23 @@ test "decodeFunctionData basic" {
         },
     };
     
+    // Define outputs for our test function
+    const outputs = [_]abi.Param{
+        .{
+            .ty = "bool",
+            .name = "success",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
     // Define ABI items for a sample contract
     const abi_items = [_]abi.AbiItem{
         .{
             .Function = .{
                 .name = "transfer",
                 .inputs = &inputs,
-                .outputs = &[_]abi.Param{
-                    .{
-                        .ty = "bool",
-                        .name = "success",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
+                .outputs = @constCast(&outputs),
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },

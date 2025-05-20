@@ -111,7 +111,7 @@ test "ABI basic round trip encoding/decoding" {
         try testing.expectEqual(@as(u8, 0xbb), encoded[3]);
         
         // Now decode the function call data
-        const decoded = try decode_function_data.decodeFunctionData(alloc, &sample_abi, encoded);
+        var decoded = try decode_function_data.decodeFunctionData(alloc, &sample_abi, encoded);
         defer decoded.args.deinit();
         
         // Check that we got the right function name and arguments
@@ -140,15 +140,17 @@ test "ABI basic round trip encoding/decoding" {
         try result_values.put("success", &success);
         
         // Encode function result
-        const encoded_result = try function_result.encodeFunctionResult(alloc, &sample_abi, "transfer", result_values);
-        defer alloc.free(encoded_result);
+        var result_buffer: [32]u8 = undefined;
+        const written = try function_result.encodeFunctionResult(&result_buffer, &sample_abi, "transfer", result_values);
+        const encoded_result = result_buffer[0..written];
         
         // Verify the encoded result
         try testing.expectEqual(@as(usize, 32), encoded_result.len); // 1 boolean padded to 32 bytes
         
         // Decode function result
-        const decoded_result = try function_result.decodeFunctionResult(alloc, &sample_abi, "transfer", encoded_result);
+        var decoded_result = std.StringHashMap([]const u8).init(alloc);
         defer decoded_result.deinit();
+        try function_result.decodeFunctionResult(&sample_abi, "transfer", encoded_result, &decoded_result);
         
         // Verify decoded result
         try testing.expect(decoded_result.contains("success"));
@@ -170,12 +172,13 @@ test "ABI basic round trip encoding/decoding" {
         // To address: wildcard (null)
         try indexed_values.put("to", null);
         
-        // Encode event topics
-        const topics = try event_handling.encodeEventTopics(alloc, &sample_abi, "Transfer", indexed_values);
-        defer topics.deinit();
+        // Allocate space for topics
+        var topics_buffer: [4][32]u8 = undefined;
+        const topic_count = try event_handling.encodeEventTopics(&topics_buffer, &sample_abi, "Transfer", indexed_values);
+        const topics = topics_buffer[0..topic_count];
         
         // Check that we have 3 topics: event signature hash, from address, wildcard
-        try testing.expectEqual(@as(usize, 3), topics.items.len);
+        try testing.expectEqual(@as(usize, 3), topics.len);
         
         // Expected topic0 for Transfer(address,address,uint256): 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
         const expected_topic0 = [_]u8{
@@ -184,16 +187,16 @@ test "ABI basic round trip encoding/decoding" {
             0x95, 0x2b, 0xa7, 0xf1, 0x63, 0xc4, 0xa1, 0x16,
             0x28, 0xf5, 0x5a, 0x4d, 0xf5, 0x23, 0xb3, 0xef,
         };
-        try testing.expectEqualSlices(u8, &expected_topic0, &topics.items[0]);
+        try testing.expectEqualSlices(u8, &expected_topic0, &topics[0]);
         
         // Test topic with the from address
         var expected_topic1: [32]u8 = [_]u8{0} ** 32;
         std.mem.copy(u8, expected_topic1[32 - from_addr.len..], &from_addr);
-        try testing.expectEqualSlices(u8, &expected_topic1, &topics.items[1]);
+        try testing.expectEqualSlices(u8, &expected_topic1, &topics[1]);
         
         // Test wildcard topic
         const expected_topic2 = [_]u8{0} ** 32;
-        try testing.expectEqualSlices(u8, &expected_topic2, &topics.items[2]);
+        try testing.expectEqualSlices(u8, &expected_topic2, &topics[2]);
     }
     
     // 4. Test event log decoding

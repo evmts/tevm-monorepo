@@ -87,7 +87,8 @@ pub fn encodeEventTopicsWithEvent(
     indexed_values: ?std.StringHashMap(?[]const u8),
 ) !usize {
     // Count number of topics needed
-    const topic_count = if (event.anonymous) 0 else 1;
+    const is_anonymous = event.anonymous;
+    const topic_count: usize = if (is_anonymous) 0 else 1;
     var indexed_count: usize = 0;
     
     for (event.inputs) |param| {
@@ -310,33 +311,35 @@ test "encodeEventTopics basic" {
     const testing = std.testing;
     
     // Define ABI items for a sample contract
+    var event_inputs = [_]abi.EventParam{
+        .{
+            .ty = "address",
+            .name = "from",
+            .indexed = true,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "address",
+            .name = "to",
+            .indexed = true,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "uint256",
+            .name = "value",
+            .indexed = false,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
     const abi_items = [_]abi.AbiItem{
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
-                    .{
-                        .ty = "address",
-                        .name = "from",
-                        .indexed = true,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "address",
-                        .name = "to",
-                        .indexed = true,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "uint256",
-                        .name = "value",
-                        .indexed = false,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
+                .inputs = &event_inputs,
                 .anonymous = false,
             },
         },
@@ -386,33 +389,35 @@ test "decodeEventLog basic" {
     const testing = std.testing;
     
     // Define ABI items for a sample contract
+    var event_inputs = [_]abi.EventParam{
+        .{
+            .ty = "address",
+            .name = "from",
+            .indexed = true,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "address",
+            .name = "to",
+            .indexed = true,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "uint256",
+            .name = "value",
+            .indexed = false,
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
     const abi_items = [_]abi.AbiItem{
         .{
             .Event = .{
                 .name = "Transfer",
-                .inputs = &[_]abi.EventParam{
-                    .{
-                        .ty = "address",
-                        .name = "from",
-                        .indexed = true,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "address",
-                        .name = "to",
-                        .indexed = true,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "uint256",
-                        .name = "value",
-                        .indexed = false,
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
+                .inputs = &event_inputs,
                 .anonymous = false,
             },
         },
@@ -429,7 +434,7 @@ test "decodeEventLog basic" {
     // From address
     const from_addr = [_]u8{0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11};
     var topic1: [32]u8 = [_]u8{0} ** 32;
-    std.mem.copy(u8, topic1[32 - from_addr.len..], &from_addr);
+    @memcpy(topic1[32 - from_addr.len..], &from_addr);
     
     // To address
     const to_addr = [_]u8{0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22};
