@@ -99,11 +99,10 @@ pub const Memory = struct {
     ///
     /// Errors: Returns error if memory resize fails or if offset+size would overflow
     pub fn set(self: *Memory, offset: u64, size: u64, value: []const u8) !void {
-        // Debug logging
-        comptime {
-            @setEvalBranchQuota(10000);
+        // Debug logging - only in debug builds
+        if (@import("builtin").mode == .Debug) {
             std.debug.print("Memory.set: offset={d}, size={d}, value.len={d}, current_memory_size={d}\n", 
-                         .{@as(u64, 0), @as(u64, 0), @as(usize, 0), @as(usize, 0)}); // Placeholder values
+                         .{offset, size, value.len, self.store.items.len});
         }
         
         // It's possible the offset is greater than 0 and size equals 0. This is because
@@ -111,25 +110,35 @@ pub const Memory = struct {
         if (size > 0) {
             // Check for overflow using safe arithmetic
             const end_offset = std.math.add(u64, offset, size) catch {
-                comptime std.debug.print("Memory.set: Overflow in offset({d}) + size({d})\n", 
-                                     .{@as(u64, 0), @as(u64, 0)}); // Placeholder values
+                if (@import("builtin").mode == .Debug) {
+                    std.debug.print("Memory.set: Overflow in offset({d}) + size({d})\n", 
+                                     .{offset, size});
+                }
                 return error.InvalidArgument;
             };
             
-            comptime std.debug.print("Memory.set: end_offset={d}, current_memory_size={d}\n", 
-                                 .{@as(u64, 0), @as(usize, 0)}); // Placeholder values
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.set: end_offset={d}, current_memory_size={d}\n", 
+                             .{end_offset, self.store.items.len});
+            }
             
             // Ensure memory is sized properly
             if (end_offset > self.store.items.len) {
-                comptime std.debug.print("Memory.set: Resizing memory to {d}\n", .{@as(u64, 0)}); // Placeholder
+                if (@import("builtin").mode == .Debug) {
+                    std.debug.print("Memory.set: Resizing memory to {d}\n", .{end_offset});
+                }
                 try self.resize(end_offset);
-                comptime std.debug.print("Memory.set: Memory resized to {d}\n", .{@as(usize, 0)}); // Placeholder
+                if (@import("builtin").mode == .Debug) {
+                    std.debug.print("Memory.set: Memory resized to {d}\n", .{self.store.items.len});
+                }
             }
             
             // Verify size of value matches the requested size
             if (value.len < size) {
-                comptime std.debug.print("Memory.set: Value length {d} is less than requested size {d}\n", 
-                                     .{@as(usize, 0), @as(u64, 0)}); // Placeholder values
+                if (@import("builtin").mode == .Debug) {
+                    std.debug.print("Memory.set: Value length {d} is less than requested size {d}\n", 
+                                 .{value.len, size});
+                }
                 return error.InvalidArgument;
             }
             
@@ -137,14 +146,20 @@ pub const Memory = struct {
             const target_slice = self.store.items[offset..end_offset];
             const source_slice = value[0..size];
             
-            comptime std.debug.print("Memory.set: Copying {d} bytes from value to memory at offset {d}\n", 
-                                 .{@as(u64, 0), @as(u64, 0)}); // Placeholder values
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.set: Copying {d} bytes from value to memory at offset {d}\n", 
+                             .{size, offset});
+            }
             
             @memcpy(target_slice, source_slice);
             
-            comptime std.debug.print("Memory.set: Copy complete\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.set: Copy complete\n", .{});
+            }
         } else {
-            comptime std.debug.print("Memory.set: Size is 0, no operation performed\n", .{});
+            if (@import("builtin").mode == .Debug) {
+                std.debug.print("Memory.set: Size is 0, no operation performed\n", .{});
+            }
         }
     }
 
@@ -309,7 +324,7 @@ pub const Memory = struct {
             comptime std.debug.print("Memory.getCopy: Size {d} too large for usize\n", .{@as(u64, 0)}); // Placeholder
             return error.OutOfMemory;
         } else {
-            @intCast(size)
+            @as(usize, @intCast(size));
         };
         
         // Allocate memory for the copy - caller must free this with allocator.free()
@@ -509,7 +524,7 @@ pub const Memory = struct {
         const dest_slice = self.store.items[dst..dst + safe_length];
         
         comptime std.debug.print("Memory.copy: source_slice.len={d}, dest_slice.len={d}, overlap={}\n", 
-                                .{@as(u64, 0), @as(u64, 0), dst > src && dst < src + safe_length}); // Placeholder values
+                                .{@as(u64, 0), @as(u64, 0), dst > src and dst < src + safe_length}); // Placeholder values
         
         // Handle overlapping regions safely
         if (dst <= src) {
@@ -588,8 +603,8 @@ test "Memory copy" {
     // Test copy (overlapping)
     try memory.copy(4, 0, value.len - 2);
     
-    // Due to copy behavior with overlapping regions, this will result in a recursive pattern
-    const expected = [_]u8{ 1, 2, 3, 4, 1, 2, 3, 4, 1, 2 };
+    // With memmove-like semantics, this should maintain correct ordering
+    const expected = [_]u8{ 1, 2, 3, 4, 1, 2, 3, 4, 5, 6 };
     const actual = try memory.getCopy(0, 10);
     defer testing.allocator.free(actual);
     try testing.expectEqualSlices(u8, expected[0..10], actual);

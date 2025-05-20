@@ -12,11 +12,10 @@ const Contract = EvmModule.Contract;
 const Memory = EvmModule.Memory.Memory;
 const Stack = EvmModule.Stack.Stack;
 const Address = @import("Address").Address;
-const EvmLoggerModule = EvmModule.EvmLogger;
-const EvmLogger = EvmLoggerModule.EvmLogger;
-const createLogger = EvmLoggerModule.createLogger;
-const createScopedLogger = EvmLoggerModule.createScopedLogger;
-const debugOnly = EvmLoggerModule.debugOnly;
+const EvmLogger = EvmModule.EvmLogger;
+const createLogger = EvmModule.createLogger;
+const createScopedLogger = EvmModule.createScopedLogger;
+const debugOnly = EvmModule.debugOnly;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;

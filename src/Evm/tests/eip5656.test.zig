@@ -10,11 +10,10 @@ const ChainRules = EvmModule.ChainRules;
 const JumpTable = EvmModule.JumpTable;
 const Interpreter = EvmModule.Interpreter;
 const InterpreterError = EvmModule.InterpreterError;
-const EvmLoggerModule = EvmModule.EvmLogger;
-const EvmLogger = EvmLoggerModule.EvmLogger;
-const createLogger = EvmLoggerModule.createLogger;
-const createScopedLogger = EvmLoggerModule.createScopedLogger;
-const debugOnly = EvmLoggerModule.debugOnly;
+const EvmLogger = EvmModule.EvmLogger;
+const createLogger = EvmModule.createLogger;
+const createScopedLogger = EvmModule.createScopedLogger;
+const debugOnly = EvmModule.debugOnly;
 
 // Import Address module
 const AddressModule = @import("Address");
@@ -216,7 +215,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
         // Expected value is what we stored at memory[0:32]
         const expected = [_]u8{ 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, 0xDE, 0xF0, 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, 0xDE, 0xF0, 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, 0xDE, 0xF0, 0x12, 0x34, 0x56, 0x78, 0x9A, 0xBC, 0xDE, 0xF0 };
 
-        debugOnly(getLogger(), {
+        debugOnly({
             var hex_buf: [100]u8 = undefined;
             _ = std.fmt.bufPrint(&hex_buf, "0x{}", .{std.fmt.fmtSliceHexLower(&expected)}) catch unreachable;
             getLogger().debug("Expected data: {s}", .{hex_buf});
