@@ -465,7 +465,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
                                     break;
                                 }
                             }
-                            if (is_bool && (return_data[31] == 0 || return_data[31] == 1)) {
+                            if (is_bool and (return_data[31] == 0 or return_data[31] == 1)) {
                                 frame.logger.debug("RETURN: Data pattern suggests a boolean return value: {}", .{return_data[31] == 1});
                             }
                         } else if (size_usize == 64) {

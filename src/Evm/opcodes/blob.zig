@@ -26,13 +26,13 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     }
     
     // Pop the blob index from the stack
-    const index = try frame.stack.pop();
+    _ = try frame.stack.pop(); // Index would be used in real implementation
     
     // Get blob versioned hash for the given index
     // Note: In a full implementation, we would check if the index is valid
     // and get the actual blob hash from the transaction
     // For now, we'll return a placeholder value
-    var placeholder_hash: u256 = 0;
+    const placeholder_hash: u256 = 0;
     
     // If we have a valid blob index in a full implementation,
     // we would get the hash from evm.blobs[index]
@@ -56,7 +56,7 @@ pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     // Get the current blob base fee
     // Note: In a full implementation, we would get the actual blob base fee
     // from the block header or environment
-    var blob_base_fee: u256 = 1000000; // Placeholder value
+    const blob_base_fee: u256 = 1000000; // Placeholder value
     
     // Push the blob base fee onto the stack
     try frame.stack.push(blob_base_fee);
@@ -104,7 +104,7 @@ pub fn opMcopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     const dest_slice = frame.memory.data()[mem_dest..mem_dest + mem_length];
     
     // Create a temporary buffer for the copy
-    var temp_buffer = try std.heap.page_allocator.alloc(u8, mem_length);
+    const temp_buffer = try std.heap.page_allocator.alloc(u8, mem_length);
     defer std.heap.page_allocator.free(temp_buffer);
     
     // Copy data to temp buffer
