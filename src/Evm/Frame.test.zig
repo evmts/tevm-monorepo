@@ -64,7 +64,7 @@ test "Frame memory and stack access" {
     try frame.memory.resize(32);
     const data = [_]u8{0xFF} ** 8;
     if (@hasDecl(@TypeOf(frame.memory), "set")) {
-        frame.memory.set(0, data.len, &data);
+        try frame.memory.set(0, data.len, &data);
     } else if (@hasDecl(@TypeOf(frame.memory), "store")) {
         try frame.memory.store(0, &data);
     }

@@ -182,9 +182,7 @@ test "EIP-2200: SSTORE gas costs and refunds" {
     defer state_manager.deinit();
 
     // Create EVM
-    // Interpreter.init now comes from Evm module, need to check its signature
-    // Assuming Interpreter is a struct with a static init method.
-    var evm_instance = Evm.init(allocator, null);
+    var evm_instance = try Evm.init(allocator, null);
     var jump_table = JumpTable.init();
     defer jump_table.deinit(allocator);
     try JumpTable.initMainnetJumpTable(allocator, &jump_table);

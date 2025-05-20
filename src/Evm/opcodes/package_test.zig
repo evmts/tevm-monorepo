@@ -128,6 +128,7 @@ pub const Contract = struct {
     code_address: Address = Address.zero(),
     value: u64 = 0,
     gas: u64 = 1000000,
+    gas_refund: u64 = 0,  // Added gas_refund field for EIP-3529
     
     pub fn init(address: Address, code_address: Address) Contract {
         return Contract{

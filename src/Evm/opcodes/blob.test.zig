@@ -47,22 +47,16 @@ fn createTestFrame() !struct {
         .input = &[_]u8{},
         .value = 0,
         .gas_refund = 0,
+        .code = &[_]u8{},
     };
 
     const frame = try allocator.create(Frame);
     frame.* = Frame{
-        .stack = stack,
-        .memory = memory,
+        .stack = stack.*,
+        .memory = memory.*,
         .contract = contract,
-        .ret_data = undefined,
-        .return_data_size = 0,
         .pc = 0,
-        .gas_remaining = 100000,
-        .err = null,
-        .depth = 0,
-        .ret_offset = 0,
-        .ret_size = 0,
-        .call_depth = 0,
+        .returnData = null,
     };
 
     const interpreter = try allocator.create(Interpreter);
