@@ -1,10 +1,10 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
+const Interpreter = @import("Interpreter").Interpreter;
+const Frame = @import("Frame").Frame;
+const ExecutionError = @import("Frame").ExecutionError;
+const JumpTable = @import("JumpTable");
+const Stack = @import("Stack").Stack;
+const Memory = @import("Memory").Memory;
 
 // Use the u256 type alias directly from Stack module
 pub const @"u256" = Stack.@"u256";

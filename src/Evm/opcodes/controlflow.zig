@@ -418,90 +418,102 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Sanity check size to prevent excessive memory usage
-    const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
+    if (size > std.math.maxInt(usize)) {
+        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            frame.logger.err("RETURN: Size too large for this architecture", .{});
+        }
+        return ExecutionError.OutOfGas; // Use OutOfGas as a general "operation too expensive" error
+    }
+    
+    const size_usize = @as(usize, @intCast(size));
     
     if (size_usize > 0) {
-        // Check if offset + size_usize would overflow
-        const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
+        // Check if offset is too large
+        if (offset > std.math.maxInt(usize)) {
+            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+                frame.logger.err("RETURN: Offset too large for this architecture", .{});
+            }
+            return ExecutionError.OutOfGas;
+        }
+        
+        const offset_usize = @as(usize, @intCast(offset));
+        
+        // Check if offset + size would overflow
+        if (offset_usize > std.math.maxInt(usize) - size_usize) {
+            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+                frame.logger.err("RETURN: Memory range would overflow usize", .{});
+            }
+            return ExecutionError.OutOfGas;
+        }
         
         if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("RETURN: Reading {d} bytes from memory at offset {d}", .{size_usize, offset_usize});
         }
         
-        // Ensure memory access is within bounds
+        // Ensure memory is sized appropriately before accessing
         try frame.memory.require(offset_usize, size_usize);
         
-        // Get the memory slice
-        const mem = frame.memory.data();
+        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            // Log a detailed view of memory and the return data
+            debugOnly(struct {
+                fn callback() void {
+                    // Log a summary of memory being accessed for return data
+                    frame.logger.debug("RETURN: Memory area being accessed for return data:", .{});
+                    frame.logger.debug("RETURN: Offset: {d}, Size: {d}", .{offset_usize, size_usize});
+                    
+                    // Safely summarize return data size without accessing raw memory
+                    frame.logger.debug("RETURN: Return data size: {d} bytes", .{size_usize});
+                    
+                    // Log size-specific information to help with debugging
+                    if (size_usize == 0) {
+                        frame.logger.debug("RETURN: Empty return data", .{});
+                    } else if (size_usize == 32) {
+                        frame.logger.debug("RETURN: Standard 32-byte (single word) return", .{});
+                    } else if (size_usize == 64) {
+                        frame.logger.debug("RETURN: 64-byte (two word) return", .{});
+                    } else if (size_usize % 32 == 0) {
+                        frame.logger.debug("RETURN: Multiple of 32 bytes ({d} words)", .{size_usize / 32});
+                    } else {
+                        frame.logger.debug("RETURN: Non-standard size return data", .{});
+                    }
+                }
+            }.callback);
+            
+            // ABI return type analysis using just size information
+            debugOnly(struct {
+                fn callback() void {
+                    frame.logger.debug("RETURN: ABI return size analysis", .{});
+                    
+                    // Common return sizes and what they might represent
+                    if (size_usize == 32) {
+                        frame.logger.debug("RETURN: 32-byte size suggests single word return value (uint256, address, bool, etc.)", .{});
+                    } else if (size_usize == 64) {
+                        frame.logger.debug("RETURN: 64-byte size suggests two-word return or struct with two fields", .{});
+                    } else if (size_usize >= 96 and size_usize % 32 == 0) { 
+                        frame.logger.debug("RETURN: Size ({d} bytes) suggests multiple word return values", .{size_usize});
+                    } else if (size_usize > 64) {
+                        frame.logger.debug("RETURN: Size ({d} bytes) may indicate dynamic return data like string/bytes/array", .{size_usize});
+                    }
+                }
+            }.callback);
+        }
         
-        // Set the return data
-        if (offset_usize + size_usize <= mem.len) {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-                // Log a detailed view of memory and the return data
-                debugOnly(struct {
-                    fn callback() void {
-                        // Log a summary of memory being accessed for return data
-                        frame.logger.debug("RETURN: Memory area being accessed for return data:", .{});
-                        frame.logger.debug("RETURN: Offset: {d}, Size: {d}", .{offset_usize, size_usize});
-                        
-                        // Safely summarize return data size without accessing raw memory
-                        frame.logger.debug("RETURN: Return data size: {d} bytes", .{size_usize});
-                        
-                        // Log size-specific information to help with debugging
-                        if (size_usize == 0) {
-                            frame.logger.debug("RETURN: Empty return data", .{});
-                        } else if (size_usize == 32) {
-                            frame.logger.debug("RETURN: Standard 32-byte (single word) return", .{});
-                        } else if (size_usize == 64) {
-                            frame.logger.debug("RETURN: 64-byte (two word) return", .{});
-                        } else if (size_usize % 32 == 0) {
-                            frame.logger.debug("RETURN: Multiple of 32 bytes ({d} words)", .{size_usize / 32});
-                        } else {
-                            frame.logger.debug("RETURN: Non-standard size return data", .{});
-                        }
-                    }
-                }.callback);
-                
-                // ABI return type analysis using just size information
-                debugOnly(struct {
-                    fn callback() void {
-                        frame.logger.debug("RETURN: ABI return size analysis", .{});
-                        
-                        // Common return sizes and what they might represent
-                        if (size_usize == 32) {
-                            frame.logger.debug("RETURN: 32-byte size suggests single word return value (uint256, address, bool, etc.)", .{});
-                        } else if (size_usize == 64) {
-                            frame.logger.debug("RETURN: 64-byte size suggests two-word return or struct with two fields", .{});
-                        } else if (size_usize >= 96 and size_usize % 32 == 0) { 
-                            frame.logger.debug("RETURN: Size ({d} bytes) suggests multiple word return values", .{size_usize});
-                        } else if (size_usize > 64) {
-                            frame.logger.debug("RETURN: Size ({d} bytes) may indicate dynamic return data like string/bytes/array", .{size_usize});
-                        }
-                    }
-                }.callback);
-            }
-            
-            // Create a new buffer for the return data
-            var return_buffer = try frame.memory.allocator.alloc(u8, size_usize);
-            defer frame.memory.allocator.free(return_buffer);
-            
-            // Safely copy memory contents to the new buffer
-            for (0..size_usize) |i| {
-                return_buffer[i] = frame.memory.get8(offset_usize + i);
-            }
-            
-            // Set the return data using the safely constructed buffer
-            try frame.setReturnData(return_buffer);
-            
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-                frame.logger.info("RETURN: Successfully set return data, {d} bytes", .{size_usize});
-            }
-        } else {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-                frame.logger.err("RETURN: Memory access out of bounds - offset {d} + size {d} exceeds memory length {d}", 
-                    .{offset_usize, size_usize, mem.len});
-            }
-            return ExecutionError.OutOfOffset;
+        // Create a new buffer for the return data
+        var return_buffer = try frame.memory.allocator.alloc(u8, size_usize);
+        errdefer frame.memory.allocator.free(return_buffer);
+        
+        // Safely copy memory contents to the new buffer
+        var i: usize = 0;
+        while (i < size_usize) : (i += 1) {
+            // Use safer get8 method that will handle bounds checking
+            return_buffer[i] = frame.memory.get8(offset_usize + i);
+        }
+        
+        // Set the return data using the safely constructed buffer
+        try frame.setReturnData(return_buffer);
+        
+        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            frame.logger.info("RETURN: Successfully set return data, {d} bytes", .{size_usize});
         }
     } else {
         if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
@@ -555,112 +567,131 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Sanity check size to prevent excessive memory usage
-    const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
+    if (size > std.math.maxInt(usize)) {
+        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            frame.logger.err("REVERT: Size too large for this architecture", .{});
+        }
+        return ExecutionError.OutOfGas; // Use OutOfGas as a general "operation too expensive" error
+    }
+    
+    const size_usize = @as(usize, @intCast(size));
     
     if (size_usize > 0) {
-        // Check if offset + size_usize would overflow
-        const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
+        // Check if offset is too large
+        if (offset > std.math.maxInt(usize)) {
+            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+                frame.logger.err("REVERT: Offset too large for this architecture", .{});
+            }
+            return ExecutionError.OutOfGas;
+        }
+        
+        const offset_usize = @as(usize, @intCast(offset));
+        
+        // Check if offset + size would overflow
+        if (offset_usize > std.math.maxInt(usize) - size_usize) {
+            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+                frame.logger.err("REVERT: Memory range would overflow usize", .{});
+            }
+            return ExecutionError.OutOfGas;
+        }
         
         if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
             frame.logger.debug("REVERT: Reading {d} bytes from memory at offset {d}", .{size_usize, offset_usize});
         }
         
-        // Ensure memory access is within bounds
+        // Ensure memory is sized appropriately before accessing
         try frame.memory.require(offset_usize, size_usize);
         
-        // Get the memory slice
-        const mem = frame.memory.data();
-        
-        // Set the return data
-        if (offset_usize + size_usize <= mem.len) {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-                // Log a detailed view of the revert data
-                debugOnly(struct {
-                    fn callback() void {
-                        // Get the error data
-                        const revert_data = mem[offset_usize..offset_usize + size_usize];
-                        
-                        // Standard error format check: Error(string)
-                        frame.logger.debug("REVERT: Analyzing revert reason", .{});
-                        
-                        // Check for Solidity error selector 0x08c379a0 (Error(string))
-                        const error_selector = "08c379a0";
-                        var selector_buf: [32]u8 = undefined;
-                        var has_selector = false;
-                        
-                        if (size_usize >= 4) {
-                            const selector_str = hex.bytesToHex(revert_data[0..4], &selector_buf) catch "";
-                            if (selector_str.len >= 8) {
-                                has_selector = std.mem.eql(u8, selector_str, error_selector);
-                                frame.logger.debug("REVERT: Selector: 0x{s} {s} standard error selector", 
-                                    .{selector_str, if (has_selector) "matches" else "does not match"});
-                            }
+        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            // Log a detailed view of the revert data
+            debugOnly(struct {
+                fn callback() void {
+                    frame.logger.debug("REVERT: Analyzing revert reason", .{});
+                    
+                    // Check for Solidity error selector 0x08c379a0 (Error(string))
+                    const error_selector = "08c379a0";
+                    var selector_buf: [32]u8 = undefined;
+                    var has_selector = false;
+                    
+                    // Safe check for selector
+                    if (size_usize >= 4) {
+                        // Safely access the first 4 bytes using get8 method
+                        var selector_bytes: [4]u8 = undefined;
+                        for (0..4) |i| {
+                            selector_bytes[i] = frame.memory.get8(offset_usize + i);
                         }
                         
-                        // Try to decode the revert reason if it matches the standard error format
-                        if (has_selector and size_usize >= 4 + 32 + 32) {
-                            // Extract string length from the second 32-byte chunk
-                            var length: u64 = 0;
-                            for (revert_data[4+32-8..4+32]) |byte| {
-                                length = (length << 8) | byte;
-                            }
-                            
-                            if (4 + 32 + 32 + length <= size_usize) {
-                                // We can extract the error string
-                                const error_string = revert_data[4+32+32..4+32+32+length];
-                                frame.logger.debug("REVERT: Error message: {s}", .{error_string});
-                            } else {
-                                frame.logger.debug("REVERT: Error message length ({d}) exceeds available data", .{length});
-                            }
-                        } else if (size_usize >= 4) {
-                            // Try to interpret as a custom error selector
-                            frame.logger.debug("REVERT: Possibly a custom error with selector 0x{s}", 
-                                .{hex.bytesToHex(revert_data[0..4], &selector_buf) catch "??"});
-                        }
-                        
-                        // Log the raw revert data
-                        if (size_usize <= 32) {
-                            // If small enough, log the entire data
-                            frame.logger.debug("REVERT: Complete revert data ({d} bytes):", .{size_usize});
-                            logHexBytes(frame.logger, "REVERT data", revert_data);
-                        } else {
-                            // Otherwise just log the first 32 bytes
-                            frame.logger.debug("REVERT: First 32 bytes of revert data:", .{});
-                            logHexBytes(frame.logger, "REVERT data prefix", revert_data[0..32]);
-                            frame.logger.debug("REVERT: ... plus {d} more bytes", .{size_usize - 32});
-                            
-                            // Also log the last 8 bytes if there are more than 40 bytes
-                            if (size_usize > 40) {
-                                const last_bytes = revert_data[size_usize-8..size_usize];
-                                frame.logger.debug("REVERT: Last 8 bytes of revert data:", .{});
-                                logHexBytes(frame.logger, "REVERT data suffix", last_bytes);
-                            }
+                        const selector_str = hex.bytesToHex(&selector_bytes, &selector_buf) catch "";
+                        if (selector_str.len >= 8) {
+                            has_selector = std.mem.eql(u8, selector_str, error_selector);
+                            frame.logger.debug("REVERT: Selector: 0x{s} {s} standard error selector", 
+                                .{selector_str, if (has_selector) "matches" else "does not match"});
                         }
                     }
-                }.callback);
-            }
-            
-            // Create a new buffer for the return data
-            var return_buffer = try frame.memory.allocator.alloc(u8, size_usize);
-            defer frame.memory.allocator.free(return_buffer);
-            
-            // Safely copy memory contents to the new buffer
-            for (0..size_usize) |i| {
-                return_buffer[i] = frame.memory.get8(offset_usize + i);
-            }
-            
-            // Set the return data using the safely constructed buffer
-            try frame.setReturnData(return_buffer);
-            
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-                frame.logger.info("REVERT: Set return data from memory, {d} bytes", .{size_usize});
-            }
-        } else {
-            if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-                frame.logger.err("REVERT: Memory access out of bounds - offset {d} + size {d} exceeds memory length {d}", 
-                    .{offset_usize, size_usize, mem.len});
-            }
-            return ExecutionError.OutOfOffset;
+                    
+                    // Try to decode the revert reason if it matches the standard error format
+                    if (has_selector and size_usize >= 4 + 32 + 32) {
+                        // Extract string length from the second 32-byte chunk
+                        var length: u64 = 0;
+                        // Safely build up the length from individual bytes
+                        for (0..8) |i| {
+                            if (4+32-8+i < offset_usize + size_usize) {
+                                length = (length << 8) | frame.memory.get8(offset_usize + 4+32-8+i);
+                            }
+                        }
+                        
+                        if (4 + 32 + 32 + length <= size_usize) {
+                            frame.logger.debug("REVERT: Error message length: {d} bytes", .{length});
+                            
+                            // Only log the first 100 characters of the error string to avoid memory issues
+                            const max_display_length = @min(length, 100);
+                            frame.logger.debug("REVERT: Error message preview (first {d} bytes):", .{max_display_length});
+                            
+                            // Don't access memory directly, use a buffer to store the preview
+                            if (max_display_length > 0) {
+                                var preview = frame.memory.allocator.alloc(u8, max_display_length) catch {
+                                    frame.logger.debug("REVERT: Could not allocate memory for error preview", .{});
+                                    return;
+                                };
+                                defer frame.memory.allocator.free(preview);
+                                
+                                // Safely copy the error message bytes using get8
+                                for (0..max_display_length) |i| {
+                                    preview[i] = frame.memory.get8(offset_usize + 4+32+32+i);
+                                }
+                                
+                                frame.logger.debug("REVERT: Error message: {s}", .{preview});
+                            }
+                        } else {
+                            frame.logger.debug("REVERT: Error message length ({d}) exceeds available data", .{length});
+                        }
+                    } else if (size_usize >= 4) {
+                        // Try to interpret as a custom error selector
+                        frame.logger.debug("REVERT: Possibly a custom error with selector shown above", .{});
+                    }
+                    
+                    // Log a summary of the revert data size
+                    frame.logger.debug("REVERT: Total revert data size: {d} bytes", .{size_usize});
+                }
+            }.callback);
+        }
+        
+        // Create a new buffer for the return data
+        var return_buffer = try frame.memory.allocator.alloc(u8, size_usize);
+        errdefer frame.memory.allocator.free(return_buffer);
+        
+        // Safely copy memory contents to the new buffer
+        var i: usize = 0;
+        while (i < size_usize) : (i += 1) {
+            // Use safer get8 method that will handle bounds checking
+            return_buffer[i] = frame.memory.get8(offset_usize + i);
+        }
+        
+        // Set the return data using the safely constructed buffer
+        try frame.setReturnData(return_buffer);
+        
+        if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {
+            frame.logger.info("REVERT: Set return data from memory, {d} bytes", .{size_usize});
         }
     } else {
         if (@import("../EvmLogger.zig").ENABLE_DEBUG_LOGS) {

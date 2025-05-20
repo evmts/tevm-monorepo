@@ -16,8 +16,8 @@ fn createTestFrame() !struct {
     const contract = try test_utils.createMockContract(allocator, &[_]u8{});
     
     // Create a frame with the mock contract
-    const frame = try allocator.create(Frame);
-    frame.* = try Frame.init(allocator, contract);
+    const frame = try allocator.create(test_utils.Frame);
+    frame.* = try test_utils.Frame.init(allocator, contract);
     
     // Create a mock EVM
     const evm = try test_utils.createMockEvm(allocator);

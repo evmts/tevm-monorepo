@@ -182,7 +182,12 @@ fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
 fn bytesToBigInt(bytes: []const u8) u256 {
     var result: u256 = 0;
     
-    for (bytes) |byte| {
+    // Protect against overflow: only process the last 32 bytes at most
+    // which is the maximum that can fit in a u256
+    const start_idx = if (bytes.len > 32) bytes.len - 32 else 0;
+    const effective_bytes = bytes[start_idx..];
+    
+    for (effective_bytes) |byte| {
         result = (result << 8) | byte;
     }
     
@@ -193,8 +198,7 @@ fn bytesToBigInt(bytes: []const u8) u256 {
 fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     if (input.len < 96) {
         // Return empty result for invalid input
-        const empty = try allocator.alloc(u8, 0);
-        return empty;
+        return try allocator.alloc(u8, 0);
     }
     
     // Extract the input dimensions
@@ -202,20 +206,36 @@ fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     const expLen = bytesToBigInt(getData(input, 32, 32));
     const modLen = bytesToBigInt(getData(input, 64, 32));
     
+    // Handle potential overflow in lengths - cap them at reasonable values
+    const maxSafeLen: u256 = 1024 * 1024; // 1MB max for safety
+    const safeBaseLen = @min(baseLen, maxSafeLen);
+    const safeExpLen = @min(expLen, maxSafeLen);
+    const safeModLen = @min(modLen, maxSafeLen);
+    
     // Handle a special case when both the base and mod length is zero
-    if (baseLen == 0 and modLen == 0) {
-        const empty = try allocator.alloc(u8, 0);
-        return empty;
+    if (safeBaseLen == 0 and safeModLen == 0) {
+        return try allocator.alloc(u8, 0);
+    }
+    
+    // Protect against excessive memory allocation
+    if (safeModLen > maxSafeLen) {
+        return error.ModLengthTooLarge;
     }
     
     // Extract the actual parameters
     const baseStart = 96;
-    const expStart = baseStart + @as(usize, @intCast(baseLen));
-    const modStart = expStart + @as(usize, @intCast(expLen));
+    const expStart = baseStart + @as(usize, @intCast(safeBaseLen));
+    const modStart = expStart + @as(usize, @intCast(safeExpLen));
     
-    const baseBytes = getData(input, baseStart, @intCast(baseLen));
-    const expBytes = getData(input, expStart, @intCast(expLen));
-    const modBytes = getData(input, modStart, @intCast(modLen));
+    // Check if the input has enough bytes for all parameters or if there's integer overflow
+    if (modStart >= input.len or safeModLen > input.len - modStart) {
+        // Input too short or overflow in calculation, return empty
+        return try allocator.alloc(u8, 0);
+    }
+    
+    const baseBytes = getData(input, baseStart, @intCast(safeBaseLen));
+    const expBytes = getData(input, expStart, @intCast(safeExpLen));
+    const modBytes = getData(input, modStart, @intCast(safeModLen));
     
     const base = bytesToBigInt(baseBytes);
     const exp = bytesToBigInt(expBytes);
@@ -226,7 +246,12 @@ fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // Special cases
     if (mod == 0) {
         // Modulo 0 is undefined, return zero
-        const zeroes = try allocator.alloc(u8, @intCast(modLen));
+        const zeroes = try allocator.alloc(u8, @intCast(safeModLen));
+        @memset(zeroes, 0);
+        return zeroes;
+    } else if (base == 0) {
+        // If base == 0, always return 0
+        const zeroes = try allocator.alloc(u8, @intCast(safeModLen));
         @memset(zeroes, 0);
         return zeroes;
     } else if (base == 1) {
@@ -239,17 +264,33 @@ fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
         var e = exp;
         var b = base % mod;
         
+        // We need to watch for potential overflows during the operation
         while (e > 0) {
             if (e & 1 == 1) {
-                result = (result * b) % mod;
+                // Check for multiplication overflow
+                const mul_result = result *| b;
+                if (mul_result / b != result) {
+                    // Overflow occurred, use mod to reduce size
+                    result = (result * (b % mod)) % mod;
+                } else {
+                    result = (mul_result) % mod;
+                }
             }
             e >>= 1;
-            b = (b * b) % mod;
+            
+            // Check for squaring overflow
+            const square_result = b *| b;
+            if (square_result / b != b) {
+                // Overflow occurred, use mod to reduce size
+                b = ((b % mod) * (b % mod)) % mod;
+            } else {
+                b = (square_result) % mod;
+            }
         }
     }
     
     // Convert result back to byte array with proper padding
-    var resultBytes = try allocator.alloc(u8, @intCast(modLen));
+    var resultBytes = try allocator.alloc(u8, @intCast(safeModLen));
     @memset(resultBytes, 0);
     
     // Fill in the bytes from the right (big-endian)

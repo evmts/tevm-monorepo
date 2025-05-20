@@ -1,16 +1,18 @@
 // Package entry point for opcodes
+// Use direct imports to avoid module issues
 
-// Import core components from Evm package
-pub const pkg = @import("../package.zig");
-pub const Frame = pkg.Frame;
-pub const ExecutionError = pkg.ExecutionError;
-pub const Interpreter = pkg.Interpreter;
-pub const Evm = pkg.Evm;
-pub const Contract = pkg.Contract;
-pub const Memory = pkg.Memory;
-pub const Stack = pkg.Stack;
-pub const JumpTable = pkg.JumpTable;
-pub const Address = @import("../../Address/address.zig");
+// Import core components
+pub const Frame = @import("../../Evm/Frame.zig").Frame;
+pub const ExecutionError = @import("../../Evm/Frame.zig").ExecutionError;
+pub const Interpreter = @import("../../Evm/interpreter.zig").Interpreter;
+pub const Evm = @import("../../Evm/evm.zig").Evm;
+pub const Contract = @import("../../Evm/Contract.zig").Contract;
+pub const Memory = @import("../../Evm/Memory.zig").Memory;
+pub const Stack = @import("../../Evm/Stack.zig").Stack;
+pub const JumpTable = @import("../../Evm/JumpTable.zig");
+pub const Address = @import("../../Address/address.zig").Address;
+pub const ChainRules = @import("../../Evm/evm.zig").ChainRules;
+pub const EvmLogger = @import("../../Evm/EvmLogger.zig");
 
 // Re-export modules
 pub const bitwise = @import("bitwise.zig");

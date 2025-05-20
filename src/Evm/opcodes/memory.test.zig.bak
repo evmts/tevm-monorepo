@@ -1,20 +1,19 @@
 const std = @import("std");
 const testing = std.testing;
 const memory_ops = @import("memory.zig");
-const root = @import("../../root.zig");
-const evm_pkg = root.Evm;
+const pkg = @import("package.zig");
 
 // Import interfaces
-const Frame = evm_pkg.Frame.Frame;
-const ExecutionError = evm_pkg.Frame.ExecutionError;
-const Contract = evm_pkg.Contract.Contract;
-const Interpreter = evm_pkg.Interpreter.Interpreter;
-const Evm = evm_pkg.Evm.Evm;
-const Memory = evm_pkg.Memory.Memory;
-const Stack = evm_pkg.Stack.Stack;
-const JumpTable = evm_pkg.JumpTable;
-const Address = evm_pkg.Address.Address;
-const ChainRules = evm_pkg.Evm.ChainRules;
+const Frame = pkg.Frame;
+const ExecutionError = pkg.ExecutionError;
+const Contract = pkg.Contract;
+const Interpreter = pkg.Interpreter;
+const Evm = pkg.Evm;
+const Memory = pkg.Memory;
+const Stack = pkg.Stack;
+const JumpTable = pkg.JumpTable;
+const Address = pkg.Address;
+const ChainRules = @import("../evm.zig").ChainRules;
 
 /// Creates a mock contract for testing
 fn createMockContract(allocator: std.mem.Allocator) !*Contract {

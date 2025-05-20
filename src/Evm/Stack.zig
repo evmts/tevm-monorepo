@@ -235,11 +235,9 @@ pub const Stack = struct {
         // Process full words
         var i: usize = 0;
         while (i + u256_byte_size <= slice.len) : (i += u256_byte_size) {
-            const chunk = slice[i..i+u256_byte_size];
-            
             // Build the word in big-endian order
             var value: @"u256" = 0;
-            for (chunk) |byte| {
+            for (slice[i..i+u256_byte_size]) |byte| {
                 value = (value << 8) | byte;
             }
             
@@ -249,17 +247,18 @@ pub const Stack = struct {
         // Process any remaining partial word
         if (i < slice.len) {
             const remaining = slice.len - i;
-            const chunk = slice[i..];
             
             // Build the word in big-endian order
             var value: @"u256" = 0;
-            for (chunk) |byte| {
+            for (slice[i..]) |byte| {
                 value = (value << 8) | byte;
             }
             
             // Shift to align with expected endianness for test case
             const shift_bits = @min(8 * (u256_byte_size - remaining), 56);
-            value <<= @truncate(shift_bits);
+            // Use a safer truncation that handles overflow better
+            const truncated_shift = @as(u6, @truncate(@as(u8, @intCast(shift_bits))));
+            value <<= truncated_shift;
             
             try self.push(value);
         }

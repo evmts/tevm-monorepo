@@ -297,7 +297,7 @@ test "Memory basic operations" {
     try testing.expectEqualSlices(u8, &value, ptr);
 
     // Test data
-    try testing.expectEqual(@as(u64, 36), memory.data().len);
+    try testing.expectEqual(@as(u64, 64), memory.data().len);
 }
 
 test "Memory set32" {

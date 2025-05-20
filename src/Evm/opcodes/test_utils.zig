@@ -1,19 +1,19 @@
 const std = @import("std");
 
 // Import from the Evm package
-pub const Frame = @import("Frame").Frame;
-pub const ExecutionError = @import("Frame").ExecutionError;
-pub const Interpreter = @import("Interpreter").Interpreter;
-pub const Evm = @import("Evm").Evm;
-pub const Contract = @import("Contract").Contract;
-pub const Memory = @import("Memory").Memory;
-pub const Stack = @import("Stack").Stack;
-pub const ExecutionStatus = @import("Evm").ExecutionStatus;
-pub const Log = @import("Evm").Log;
-pub const JumpTable = @import("JumpTable");
+pub const Frame = @import("../Frame.zig").Frame;
+pub const ExecutionError = @import("../Frame.zig").ExecutionError;
+pub const Interpreter = @import("../interpreter.zig").Interpreter;
+pub const Evm = @import("../evm.zig").Evm;
+pub const Contract = @import("../Contract.zig").Contract;
+pub const Memory = @import("../Memory.zig").Memory;
+pub const Stack = @import("../Stack.zig").Stack;
+pub const ExecutionStatus = @import("../evm.zig").ExecutionStatus;
+pub const Log = @import("../evm.zig").Log;
+pub const JumpTable = @import("../JumpTable.zig");
 
 // Address is a separate import
-pub const Address = @import("Address").Address;
+pub const Address = @import("../../Address/address.zig").Address;
 
 /// Creates a mock contract for testing
 pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract {

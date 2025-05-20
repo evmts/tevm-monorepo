@@ -162,7 +162,7 @@ test "ADD operation" {
     try frame.stack.push(20); // Second push
     
     // Execute opAdd - this should add 10 + 20 = 30
-    _ = try math.opAdd(0, &mock_interpreter, frame);
+    _ = try math.opAdd(0, &mock_interpreter, &frame);
     
     // Check the result
     const result = try frame.stack.pop();
@@ -174,7 +174,7 @@ test "ADD operation" {
     try frame.stack.push(1);         // Second push (1)
     
     // Execute opAdd - this should wrap around to 0
-    _ = try math.opAdd(0, &mock_interpreter, frame);
+    _ = try math.opAdd(0, &mock_interpreter, &frame);
     
     // Check the result
     const overflow_result = try frame.stack.pop();
@@ -192,7 +192,7 @@ test "SUB operation" {
     try frame.stack.push(10); // Second push
     
     // Execute opSub - this should subtract 30 - 10 = 20
-    _ = try math.opSub(0, &mock_interpreter, frame);
+    _ = try math.opSub(0, &mock_interpreter, &frame);
     
     // Check the result
     const result = try frame.stack.pop();
@@ -203,7 +203,7 @@ test "SUB operation" {
     try frame.stack.push(1); // Second push (1)
     
     // Execute opSub - this should wrap around to max value
-    _ = try math.opSub(0, &mock_interpreter, frame);
+    _ = try math.opSub(0, &mock_interpreter, &frame);
     
     // Check the result
     const underflow_result = try frame.stack.pop();
@@ -221,7 +221,7 @@ test "MUL operation" {
     try frame.stack.push(6);  // Second push
     
     // Execute opMul - this should multiply 7 * 6 = 42
-    _ = try math.opMul(0, &mock_interpreter, frame);
+    _ = try math.opMul(0, &mock_interpreter, &frame);
     
     // Check the result
     const result = try frame.stack.pop();
@@ -232,19 +232,19 @@ test "MUL operation" {
     try frame.stack.push(0x10);       // 16
     
     // Execute opMul - this should multiply 2^28 * 16 = 2^32
-    _ = try math.opMul(0, &mock_interpreter, frame);
+    _ = try math.opMul(0, &mock_interpreter, &frame);
     
     // Check the result
     const large_result = try frame.stack.pop();
     try testing.expectEqual(@as(BigInt, 0x100000000), large_result); // 2^32
     
     // Test multiplication with wrapping (overflow)
-    const half_max: BigInt = (@as(BigInt, 1) << (std.math.log2(BigInt) - 1)) - 1; // 2^(bits-1) - 1
+    const half_max: BigInt = (@as(BigInt, 1) << 63) - 1; // 2^63 - 1 (for u64)
     try frame.stack.push(half_max);  // Value close to overflow
     try frame.stack.push(2);         // Multiply by 2 to cause overflow
     
     // Execute opMul - this should wrap around
-    _ = try math.opMul(0, &mock_interpreter, frame);
+    _ = try math.opMul(0, &mock_interpreter, &frame);
     
     // Check the result - should be (2^255 - 1) * 2 = 2^256 - 2 which wraps to -2 (using 2's complement)
     const overflow_result = try frame.stack.pop();
@@ -263,7 +263,7 @@ test "DIV operation" {
     try frame.stack.push(7);   // Second push (divisor)
     
     // Execute opDiv - this should divide 42 / 7 = 6
-    _ = try math.opDiv(0, &mock_interpreter, frame);
+    _ = try math.opDiv(0, &mock_interpreter, &frame);
     
     // Check the result
     const result = try frame.stack.pop();
@@ -274,7 +274,7 @@ test "DIV operation" {
     try frame.stack.push(3);   // Second push (divisor)
     
     // Execute opDiv - this should divide 10 / 3 = 3 (integer division truncates)
-    _ = try math.opDiv(0, &mock_interpreter, frame);
+    _ = try math.opDiv(0, &mock_interpreter, &frame);
     
     // Check the result
     const trunc_result = try frame.stack.pop();
@@ -285,7 +285,7 @@ test "DIV operation" {
     try frame.stack.push(0);   // Second push (divisor = 0)
     
     // Execute opDiv - this should result in 0 per EVM specs
-    _ = try math.opDiv(0, &mock_interpreter, frame);
+    _ = try math.opDiv(0, &mock_interpreter, &frame);
     
     // Check the result
     const div_by_zero_result = try frame.stack.pop();
