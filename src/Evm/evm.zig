@@ -456,6 +456,10 @@ pub const ChainRules = struct {
     /// Optional access lists for transactions
     IsEIP2930: bool = true,
     
+    /// Is EIP3198 rules enabled (London)
+    /// BASEFEE opcode to access block's base fee
+    IsEIP3198: bool = true,
+    
     /// Is EIP3651 rules enabled (Shanghai, warm COINBASE)
     /// Makes the COINBASE address warm for EIP-2929 gas calculations
     IsEIP3651: bool = true,

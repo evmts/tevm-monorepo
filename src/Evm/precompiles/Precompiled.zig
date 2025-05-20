@@ -77,8 +77,6 @@ pub const PrecompiledContract = enum(u8) {
 
 /// ECRECOVER: Recovers public key associated with the signature of the data
 fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
-    _ = input;
-    
     // ECRECOVER expects:
     // - hash: 32 bytes (message hash)
     // - v: 32 bytes (recovery id)
@@ -89,20 +87,11 @@ fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]c
         return allocator.alloc(u8, 0);
     }
     
-    // Extract inputs
-    const hash = input[0..32];
-    // v is at position 32-63, but we only need the last byte
-    const v = input[63];
-    const r = input[64..96];
-    const s = input[96..128];
-    
-    // For a complete implementation, here we would:
-    // 1. Validate the signature components (r and s)
-    // 2. Perform the signature recovery operation
-    // 3. Return the recovered address (20 bytes)
+    // Note: In a full implementation, we would extract these inputs and use them
+    // to recover the signer address. For now we're just returning zeros.
     
     // Placeholder implementation - returns zeros
-    var result = try allocator.alloc(u8, 32);
+    const result = try allocator.alloc(u8, 32);
     @memset(result, 0);
     
     return result;
@@ -110,7 +99,7 @@ fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]c
 
 /// SHA256: Computes the SHA-256 hash of the input
 fn sha256(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
-    var result = try allocator.alloc(u8, 32);
+    const result = try allocator.alloc(u8, 32);
     
     // Compute SHA-256 hash
     std.crypto.hash.sha2.Sha256.hash(input, result, .{});
@@ -119,7 +108,7 @@ fn sha256(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]cons
 }
 
 /// RIPEMD160: Computes the RIPEMD-160 hash of the input
-fn ripemd160(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn ripemd160(_: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
     // A full Zig implementation would use a RIPEMD-160 library
     // Since Zig standard library doesn't include RIPEMD-160,
     // this is a simplified placeholder
@@ -127,7 +116,7 @@ fn ripemd160(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]c
     // For a complete implementation, use a proper RIPEMD-160 hash function
     
     // RIPEMD-160 result is 20 bytes, but Ethereum pads it to 32 bytes
-    var result = try allocator.alloc(u8, 32);
+    const result = try allocator.alloc(u8, 32);
     @memset(result, 0);
     
     // Here we would compute the hash and place it in the last 20 bytes
@@ -142,7 +131,7 @@ fn ripemd160(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]c
 /// IDENTITY: Returns the input data
 fn identity(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
     // Simply copy the input to the output
-    var result = try allocator.alloc(u8, input.len);
+    const result = try allocator.alloc(u8, input.len);
     @memcpy(result, input);
     
     return result;
@@ -181,7 +170,7 @@ fn modexp(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]cons
     
     // For a complete implementation, would implement full modular exponentiation
     // This is a placeholder - returns a result of same length as modulus
-    var result = try allocator.alloc(u8, mod_len_u64);
+    const result = try allocator.alloc(u8, mod_len_u64);
     @memset(result, 0);
     
     return result;
@@ -207,7 +196,8 @@ fn modexpGasCost(input: []const u8) u64 {
     
     // Convert to u64 for practical use
     const base_len_u64: u64 = @truncate(base_len);
-    const exp_len_u64: u64 = @truncate(exp_len);
+    // Note: In a complete implementation, exp_len would be used for calculating gas cost
+    // but we're using a simplified approach for now
     const mod_len_u64: u64 = @truncate(mod_len);
     
     // For a full implementation, would calculate proper gas cost
@@ -215,7 +205,8 @@ fn modexpGasCost(input: []const u8) u64 {
     // This is a simplified approach
     
     const mul_complexity = max(base_len_u64, mod_len_u64);
-    const adjusted_exp_len = min(exp_len_u64, 32);
+    // Note: in a complete implementation, we'd use adjusted exponent length
+    // min(exp_len_u64, 32) to compute gas more precisely
     
     // For a proper implementation, need to consider exponent bytes
     // and implement specific gas calculation formula from EIP-198
@@ -234,7 +225,7 @@ fn bn256Add(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]co
     
     // For a complete implementation, would perform actual ECC point addition
     // This is a placeholder returning a dummy 64-byte result
-    var result = try allocator.alloc(u8, 64);
+    const result = try allocator.alloc(u8, 64);
     @memset(result, 0);
     
     return result;
@@ -250,7 +241,7 @@ fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]co
     
     // For a complete implementation, would perform actual ECC scalar multiplication
     // This is a placeholder returning a dummy 64-byte result
-    var result = try allocator.alloc(u8, 64);
+    const result = try allocator.alloc(u8, 64);
     @memset(result, 0);
     
     return result;
@@ -266,7 +257,7 @@ fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) ExecutionError!
     
     // For a complete implementation, would perform actual ECC pairing check
     // This is a placeholder - returns 32 bytes (boolean result)
-    var result = try allocator.alloc(u8, 32);
+    const result = try allocator.alloc(u8, 32);
     @memset(result, 0);
     // Set the last byte to 1 (true) for testing
     result[31] = 1;
@@ -284,7 +275,7 @@ fn blake2f(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]con
     
     // For a complete implementation, would perform BLAKE2 F compression function
     // This is a placeholder - returns 64 bytes
-    var result = try allocator.alloc(u8, 64);
+    const result = try allocator.alloc(u8, 64);
     @memset(result, 0);
     
     return result;

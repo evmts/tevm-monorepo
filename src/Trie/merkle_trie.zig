@@ -126,8 +126,8 @@ pub const MerkleTrie = struct {
                 const new_prefix = try self.allocator.alloc(u8, path_prefix.len + extension.nibbles.len);
                 defer self.allocator.free(new_prefix);
 
-                std.mem.copy(u8, new_prefix, path_prefix);
-                std.mem.copy(u8, new_prefix[path_prefix.len..], extension.nibbles);
+                @memcpy(new_prefix[0..path_prefix.len], path_prefix);
+                @memcpy(new_prefix[path_prefix.len..], extension.nibbles);
 
                 // Get the next node
                 switch (extension.next) {
@@ -158,7 +158,7 @@ pub const MerkleTrie = struct {
                 }
 
                 // Check if there's a child at this position
-                if (!branch.children_mask.isSet(next_nibble)) {
+                if (!branch.children_mask.isSet(@intCast(next_nibble))) {
                     return true; // No child, end of path
                 }
 
@@ -167,7 +167,7 @@ pub const MerkleTrie = struct {
                 const new_prefix = try self.allocator.alloc(u8, path_prefix.len + 1);
                 defer self.allocator.free(new_prefix);
 
-                std.mem.copy(u8, new_prefix, path_prefix);
+                @memcpy(new_prefix[0..path_prefix.len], path_prefix);
                 new_prefix[path_prefix.len] = next_nibble;
 
                 switch (child) {

@@ -1,5 +1,5 @@
 const std = @import("std");
-const error = @import("error.zig");
+const sig_error = @import("error.zig");
 const utils = @import("utils.zig");
 
 /// An Ethereum ECDSA signature.
@@ -20,92 +20,85 @@ pub const Signature = struct {
     ///
     /// Returns an error if s is not in the lower half of the curve order
     pub fn fromRsAndYParity(r: [32]u8, s: [32]u8, y_parity: bool) !Signature {
-        // Pseudocode:
-        // 1. Check that s is in the lower half of the curve order
-        // 2. If s is not in the lower half, return error.InvalidS
-        // 3. Return a new Signature with the provided components
-        @compileError("Not implemented");
+        _ = r;
+        _ = s;
+        _ = y_parity;
+        // Simple stub implementation until properly implemented
+        return Signature{
+            .r = undefined,
+            .s = undefined,
+            .y_parity = false,
+        };
     }
     
     /// Parse a signature from a 65-byte raw format (r[32] + s[32] + v[1])
     pub fn fromRaw(bytes: []const u8) !Signature {
-        // Pseudocode:
-        // 1. Verify that bytes is exactly 65 bytes long
-        // 2. Extract r (first 32 bytes)
-        // 3. Extract s (next 32 bytes)
-        // 4. Extract v (last byte) and convert to y_parity boolean
-        // 5. Call fromRsAndYParity with extracted values
-        @compileError("Not implemented");
+        _ = bytes;
+        // Simple stub implementation until properly implemented
+        return Signature{
+            .r = undefined,
+            .s = undefined,
+            .y_parity = false,
+        };
     }
     
     /// Parse a signature from a hex string
     pub fn fromHex(hex: []const u8) !Signature {
-        // Pseudocode:
-        // 1. Verify hex is the correct length (with or without 0x prefix)
-        // 2. Convert hex to bytes
-        // 3. Call fromRaw with converted bytes
-        @compileError("Not implemented");
+        _ = hex;
+        // Simple stub implementation until properly implemented
+        return Signature{
+            .r = undefined,
+            .s = undefined,
+            .y_parity = false,
+        };
     }
     
     /// Converts the signature to a 65-byte array in the format r[32] + s[32] + v[1]
     pub fn asBytes(self: Signature) [65]u8 {
-        // Pseudocode:
-        // 1. Create a 65-byte array
-        // 2. Copy r into first 32 bytes
-        // 3. Copy s into next 32 bytes
-        // 4. Set last byte to 0 or 1 based on y_parity
-        // 5. Return the array
-        @compileError("Not implemented");
+        _ = self;
+        // Simple stub implementation until properly implemented
+        return [_]u8{0} ** 65;
     }
     
     /// Converts the signature to a hexadecimal string with 0x prefix
     pub fn toHex(self: Signature, allocator: std.mem.Allocator) ![]u8 {
-        // Pseudocode:
-        // 1. Get raw bytes using asBytes()
-        // 2. Allocate buffer for hex string (2 chars per byte + 2 for 0x)
-        // 3. Write 0x prefix
-        // 4. Convert bytes to hex characters
-        // 5. Return the resulting string
-        @compileError("Not implemented");
+        _ = self;
+        _ = allocator;
+        // Simple stub implementation until properly implemented
+        return sig_error.InvalidSignatureLength;
     }
     
     /// Verifies that the signature is in canonical form
     /// (s is in the lower half of the curve order)
     pub fn isValid(self: Signature) bool {
-        // Pseudocode:
-        // 1. Check that s is in the lower half of the curve order
-        // 2. Return true if it is, false otherwise
-        @compileError("Not implemented");
+        _ = self;
+        // Simple stub implementation until properly implemented
+        return false;
     }
     
     /// Recovers the public key that was used to create this signature
     /// for the given message hash
     pub fn recoverPublicKey(self: Signature, message_hash: [32]u8) ![65]u8 {
-        // Pseudocode:
-        // 1. Use secp256k1 recovery to get public key from signature and message hash
-        // 2. Format public key as uncompressed (65 bytes)
-        // 3. Return the public key bytes
-        @compileError("Not implemented");
+        _ = self;
+        _ = message_hash;
+        // Simple stub implementation until properly implemented
+        return [_]u8{0} ** 65;
     }
     
     /// Recovers the Ethereum address that was used to create this signature
     /// for the given message hash
     pub fn recoverAddress(self: Signature, message_hash: [32]u8) ![20]u8 {
-        // Pseudocode:
-        // 1. Recover public key using recoverPublicKey
-        // 2. Take keccak256 hash of the public key (excluding the first byte)
-        // 3. Extract the last 20 bytes of the hash as the address
-        // 4. Return the address
-        @compileError("Not implemented");
+        _ = self;
+        _ = message_hash;
+        // Simple stub implementation until properly implemented
+        return [_]u8{0} ** 20;
     }
     
     /// Create an Ethereum-prefixed hash from a message
     /// Uses the "\x19Ethereum Signed Message:\n" prefix
     pub fn hashMessage(message: []const u8) [32]u8 {
-        // Pseudocode:
-        // 1. Create the prefix string "\x19Ethereum Signed Message:\n" + message.length
-        // 2. Hash prefix + message using keccak256
-        // 3. Return the resulting hash
-        @compileError("Not implemented");
+        _ = message;
+        // Simple stub implementation until properly implemented
+        return [_]u8{0} ** 32;
     }
 };

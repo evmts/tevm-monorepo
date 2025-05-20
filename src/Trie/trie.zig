@@ -318,6 +318,13 @@ pub fn nibblesToKey(allocator: Allocator, nibbles: []const u8) ![]u8 {
 
 /// Encodes a path for either leaf or extension nodes
 fn encodePath(allocator: Allocator, nibbles: []const u8, is_leaf: bool) ![]u8 {
+    // Handle special case of empty nibbles
+    if (nibbles.len == 0) {
+        const hex_arr = try allocator.alloc(u8, 1);
+        hex_arr[0] = if (is_leaf) 0x20 else 0x00;
+        return hex_arr;
+    }
+
     // Create a new array for the encoded path
     const hex_arr = try allocator.alloc(u8, (nibbles.len + 1) / 2);
     errdefer allocator.free(hex_arr);
@@ -531,7 +538,8 @@ test "LeafNode encoding" {
     const value_copy = try allocator.dupe(u8, value);
     
     const leaf = try LeafNode.init(allocator, &path, HashValue{ .Raw = value_copy });
-    defer leaf.deinit(allocator);
+    var leaf_copy = leaf;
+    defer leaf_copy.deinit(allocator);
     
     const encoded = try leaf.encode(allocator);
     defer allocator.free(encoded);

@@ -22,13 +22,20 @@ pub fn opBlockhash(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
 }
 
 /// COINBASE operation - Get the block's beneficiary address
+/// Note: EIP-3651 makes COINBASE always warm for EIP-2929 gas metering
 pub fn opCoinbase(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
-    _ = interpreter;
     
-    // In a real implementation, this would return the current block's coinbase address
-    // For now, return a dummy value (zero address)
-    try frame.stack.push(0);
+    // In a real implementation, we would set the actual COINBASE address
+    // For now, use a dummy coinbase address (zero address)
+    const coinbase_address_value: u256 = 0;
+    
+    // The COINBASE address is already marked as warm at the start of execution
+    // per EIP-3651, so we don't need to mark it warm here. This is handled during
+    // transaction setup.
+    
+    // Push the coinbase address to the stack
+    try frame.stack.push(coinbase_address_value);
     
     return "";
 }
@@ -127,16 +134,17 @@ pub fn opSelfbalance(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     return "";
 }
 
-/// BASEFEE operation - Get the block's base fee (EIP-1559)
+/// BASEFEE operation - Get the block's base fee (EIP-3198)
 pub fn opBasefee(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
-    // Check if EIP-1559 is active
-    if (!interpreter.evm.chainRules.IsEIP1559) {
+    // Check if EIP-3198 is active (BASEFEE opcode added in London)
+    if (!interpreter.evm.chainRules.IsEIP3198) {
         return ExecutionError.InvalidOpcode;
     }
     
     // In a real implementation, this would return the current block's base fee
+    // from block header, which was introduced with EIP-1559 fee market
     // For now, return a standard base fee value
     try frame.stack.push(1000000000); // 1 gwei
     

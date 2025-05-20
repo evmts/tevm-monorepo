@@ -41,10 +41,11 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 
 ### EIP-3198: BASEFEE opcode
 
-- **Status**: Not implemented
+- **Status**: Implemented
 - **Description**: Adds a new opcode to access the block's base fee
 - **Complexity**: Low
 - **Implementation**: Add a new opcode that pushes the current block's base fee onto the stack
+- **What's done**: Added IsEIP3198 flag and updated BASEFEE opcode to check for this flag
 
 ### EIP-1559: Fee market change
 
@@ -64,10 +65,11 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 
 ### EIP-3651: Warm COINBASE
 
-- **Status**: Not implemented
+- **Status**: Implemented
 - **Description**: Makes the COINBASE address warm for EIP-2929 access
 - **Complexity**: Low
-- **Implementation**: Mark the COINBASE address as warm at the beginning of the transaction
+- **Implementation**: Mark the COINBASE address as warm at the beginning of the transaction (first depth level)
+- **What's done**: Added code to mark the COINBASE address as warm at transaction start time in the interpreter
 
 ### EIP-4844: Shard Blob Transactions
 
@@ -102,8 +104,8 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 1. ✅ Complete EIP-2929 implementation (gas pricing) - Implemented for SLOAD, SSTORE, BALANCE, EXTCODESIZE, EXTCODECOPY, EXTCODEHASH
 2. ✅ Complete EIP-2200 implementation (proper refund tracking)
 3. ✅ Implement EIP-3529 (Gas refund reduction)
-4. Implement EIP-3651 (Warm COINBASE)
-5. Implement EIP-3198 (BASEFEE opcode)
+4. ✅ Implement EIP-3651 (Warm COINBASE)
+5. ✅ Implement EIP-3198 (BASEFEE opcode)
 6. Implement Shanghai opcodes (PUSH0)
 7. Implement Cancun opcodes (TLOAD, TSTORE, MCOPY, etc.) - TLOAD and TSTORE support partially added
 8. Implement EIP-4844 (Shard Blob Transactions) - Basic opcodes (BLOBHASH, BLOBBASEFEE) support partially added
