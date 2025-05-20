@@ -4,12 +4,31 @@ const std = @import("std");
 const u256 = u256;
 
 /// Memory implements a simple memory model for the ethereum virtual machine.
+///
+/// The EVM memory is a linear array of bytes that can be addressed on byte level.
+/// It is initialized to 0 and reset for each message call. Memory is only 
+/// persistent within a single transaction and is wiped between transactions.
+///
+/// Memory is expanded by 32 bytes at a time when accessed beyond its current size,
+/// with the cost of expansion increasing quadratically.
 pub const Memory = struct {
+    /// The underlying byte array storing the memory contents
     store: std.ArrayList(u8),
+    
+    /// Cached gas cost from the last memory expansion for gas metering
     last_gas_cost: u64,
+    
+    /// Memory allocator used for memory operations
     allocator: std.mem.Allocator,
 
     /// Initialize a new Memory instance
+    ///
+    /// Creates an empty memory instance with the provided allocator.
+    ///
+    /// Parameters:
+    /// - allocator: The memory allocator to use for memory allocation
+    ///
+    /// Returns: A new Memory instance
     pub fn init(allocator: std.mem.Allocator) Memory {
         return Memory{
             .store = std.ArrayList(u8).init(allocator),
@@ -19,11 +38,24 @@ pub const Memory = struct {
     }
 
     /// Free the memory resources
+    ///
+    /// This must be called when the Memory instance is no longer needed
+    /// to prevent memory leaks.
     pub fn deinit(self: *Memory) void {
         self.store.deinit();
     }
 
     /// Set copies data from value to the memory at the specified offset
+    ///
+    /// This copies the provided byte slice to memory at the given offset.
+    /// The memory must have been resized appropriately before calling this function.
+    ///
+    /// Parameters:
+    /// - offset: The offset in memory to write to
+    /// - size: The number of bytes to copy
+    /// - value: The byte slice to copy from
+    ///
+    /// Panics: If the memory has not been properly resized before the operation
     pub fn set(self: *Memory, offset: u64, size: u64, value: []const u8) void {
         // It's possible the offset is greater than 0 and size equals 0. This is because
         // the calcMemSize could potentially return 0 when size is zero (NO-OP)
@@ -38,6 +70,15 @@ pub const Memory = struct {
     }
 
     /// Set32 sets the 32 bytes starting at offset to the value of val, left-padded with zeroes to 32 bytes
+    ///
+    /// This is a specialized function for writing 256-bit values to memory, which is
+    /// a common operation in the EVM. The value is stored in big-endian byte order.
+    ///
+    /// Parameters:
+    /// - offset: The offset in memory to write to
+    /// - val: The 256-bit value to write
+    ///
+    /// Panics: If the memory has not been properly resized before the operation
     pub fn set32(self: *Memory, offset: u64, val: u256) void {
         // length of store may never be less than offset + size.
         // The store should be resized PRIOR to setting the memory
@@ -49,20 +90,57 @@ pub const Memory = struct {
         @memset(self.store.items[offset .. offset + 32], 0);
 
         // Convert u256 to bytes in big-endian format
-        // Assuming u256 is stored in machine-native format (likely little-endian),
-        // we need to place it at the end of the 32-byte region for proper big-endian representation
-        const bytes = [1]u8{@truncate(val)}; // Get the least significant byte
-        if (val > 0) {
-            self.store.items[offset + 31] = bytes[0]; // Place at the end for big-endian
+        // We need to handle the full 32 bytes of the u256 value, not just the least significant byte
+        var buffer: [32]u8 = [_]u8{0} ** 32;
+        
+        // Write the value to buffer in big-endian format
+        // This assumes u256 has methods to extract bytes or can be converted to bytes
+        if (@hasDecl(u256, "toBeBytes")) {
+            // If u256 has a toBeBytes method, use it
+            buffer = val.toBeBytes();
+        } else if (@hasDecl(u256, "toBigEndianBytes")) {
+            // Alternative method name
+            val.toBigEndianBytes(&buffer);
+        } else {
+            // Fallback approach: manually convert the u256 to bytes
+            // This assumes u256 can be bitshifted and cast to u8
+            var v = val;
+            var i: usize = 31;
+            while (true) {
+                buffer[i] = @truncate(v & 0xFF);
+                v >>= 8;
+                if (i == 0) break;
+                i -= 1;
+            }
         }
+        
+        // Copy the buffer to memory
+        @memcpy(self.store.items[offset .. offset + 32], &buffer);
     }
 
     /// Resize expands the memory to accommodate the specified size
+    ///
+    /// This function grows or shrinks the memory to exactly the specified size.
+    ///
+    /// Parameters:
+    /// - size: The new size in bytes for the memory
+    ///
+    /// Error: Returns an error if memory allocation fails
     pub fn resize(self: *Memory, size: u64) !void {
         try self.store.resize(size);
     }
 
     /// GetCopy returns a copy of the slice from offset to offset+size
+    ///
+    /// This allocates a new buffer and copies the requested memory range into it.
+    /// The caller is responsible for freeing the returned buffer when done.
+    ///
+    /// Parameters:
+    /// - offset: The starting offset in memory
+    /// - size: The number of bytes to copy
+    ///
+    /// Returns: A newly allocated buffer containing the copied data
+    /// Panics: If memory allocation fails
     pub fn getCopy(self: *const Memory, offset: u64, size: u64) []u8 {
         if (size == 0) {
             return &[_]u8{};
@@ -77,6 +155,15 @@ pub const Memory = struct {
     }
 
     /// GetPtr returns a slice from offset to offset+size
+    ///
+    /// This returns a direct slice into the memory without making a copy.
+    /// The returned slice must not be stored or used after memory contents change.
+    ///
+    /// Parameters:
+    /// - offset: The starting offset in memory
+    /// - size: The number of bytes in the slice
+    ///
+    /// Returns: A slice referencing the memory data directly
     pub fn getPtr(self: *const Memory, offset: u64, size: u64) []u8 {
         if (size == 0) {
             return &[_]u8{};
@@ -87,17 +174,31 @@ pub const Memory = struct {
     }
 
     /// Len returns the length of the backing slice
+    ///
+    /// Returns: The current size of the memory in bytes
     pub fn len(self: *const Memory) u64 {
         return self.store.items.len;
     }
 
     /// Data returns the backing slice
+    ///
+    /// This provides direct access to the entire memory array.
+    ///
+    /// Returns: A slice representing the entire memory contents
     pub fn data(self: *const Memory) []u8 {
         return self.store.items;
     }
 
     /// Copy copies data from the src position slice into the dst position
     /// The source and destination may overlap.
+    ///
+    /// This is the implementation of the EVM's MEMMOVE operation.
+    /// It safely handles overlapping regions by copying in the appropriate direction.
+    ///
+    /// Parameters:
+    /// - dst: The destination offset in memory
+    /// - src: The source offset in memory
+    /// - length: The number of bytes to copy
     pub fn copy(self: *Memory, dst: u64, src: u64, length: u64) void {
         if (length == 0) {
             return;

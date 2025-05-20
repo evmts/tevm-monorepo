@@ -395,18 +395,89 @@ const KECCAK256 = struct {
     maxStack: u32 = 1,
     dynamicGas: u32 = 6, // Per word, plus memory expansion cost
     fn getMemorySize(stack: Stack) MemorySize {
-        _ = stack; // autofix
-        // Calculate memory size based on offset and size from stack
-        return MemorySize{ .size = 0, .overflow = false }; // Placeholder
+        if (stack.size < 2) {
+            return MemorySize{ .size = 0, .overflow = false };
+        }
+        
+        // Stack has [offset, size]
+        // We need to get the memory size required to perform the operation
+        // First, we need a copy of the stack to avoid modifying it
+        var offset = stack.data[stack.size - 2];
+        var size = stack.data[stack.size - 1];
+        
+        // If size is 0, no memory expansion is needed
+        if (size == 0) {
+            return MemorySize{ .size = 0, .overflow = false };
+        }
+        
+        // Calculate the memory size required (offset + size, rounded up to next multiple of 32)
+        var total_size: u64 = undefined;
+        
+        // Check for overflow when adding offset and size
+        if (@addWithOverflow(u64, offset, size, &total_size)) {
+            return MemorySize{ .size = 0, .overflow = true };
+        }
+        
+        // Calculate memory size with proper alignment (32 bytes)
+        var words = (total_size + 31) / 32;
+        var memory_size = words * 32;
+        
+        return MemorySize{ .size = memory_size, .overflow = false };
     }
     fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
-        _ = pc; // autofix
-        _ = interpreter; // autofix
-        _ = state; // autofix
-        // Pop offset and size, compute keccak256 hash of memory region, push result
+        _ = pc;
+        
+        // Pop offset and size from stack
+        if (state.stack.size < 2) {
+            return ExecutionError.StackUnderflow;
+        }
+        
+        const size = try state.stack.pop();
+        const offset = try state.stack.pop();
+        
+        // If size is 0, return empty hash (all zeros)
+        if (size == 0) {
+            try state.stack.push(0);
+            return "";
+        }
+        
+        // Get memory range to hash
+        const mem_offset = @as(u64, offset); // Convert to u64
+        const mem_size = @as(u64, size);     // Convert to u64
+        
+        // Make sure the memory access is valid
+        if (mem_offset + mem_size > state.memory.data().len) {
+            return ExecutionError.OutOfOffset;
+        }
+        
+        // Get memory slice to hash
+        const data = state.memory.data()[mem_offset..mem_offset + mem_size];
+        
+        // Calculate keccak256 hash
+        var hash: [32]u8 = undefined;
+        std.crypto.hash.sha3.Keccak256.hash(data, &hash, .{});
+        
+        // Convert hash to u256 and push to stack
+        const hash_value = bytesToUint256(hash);
+        try state.stack.push(hash_value);
+        
         return "";
     }
 };
+
+// Helper function to convert bytes to u256
+fn bytesToUint256(bytes: [32]u8) u256 {
+    var result: u256 = 0;
+    
+    for (bytes, 0..) |byte, i| {
+        // Shift and OR each byte into the result
+        // For big-endian, start with most significant byte (index 0)
+        const shift_amount = (31 - i) * 8;
+        result |= @as(u256, byte) << shift_amount;
+    }
+    
+    return result;
+}
 
 const ADDRESS = struct {
     constantGas: u32 = 2, // GasQuickStep

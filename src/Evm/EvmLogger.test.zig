@@ -1,0 +1,93 @@
+const std = @import("std");
+const testing = std.testing;
+const EvmLogger = @import("EvmLogger.zig").EvmLogger;
+const createLogger = @import("EvmLogger.zig").createLogger;
+const logStack = @import("EvmLogger.zig").logStack;
+const logMemory = @import("EvmLogger.zig").logMemory;
+const logOpcode = @import("EvmLogger.zig").logOpcode;
+const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
+
+test "EvmLogger basic functionality" {
+    // Create a logger
+    const logger = createLogger(@src().file);
+    
+    // Log at different levels
+    logger.debug("This is a debug message: {d}", .{42});
+    logger.info("This is an info message: {s}", .{"hello"});
+    logger.warn("This is a warning message: {any}", .{true});
+    logger.err("This is an error message: {}", .{@as(f32, 3.14)});
+    
+    // No assertions because we're just verifying that logging doesn't crash
+    // and visually confirming the output in the test results
+}
+
+test "EvmLogger stack and memory logging" {
+    // Create a logger
+    const logger = createLogger(@src().file);
+    
+    // Test stack logging
+    const stack_data = [_]u256{1, 2, 3, 4, 5};
+    logStack(logger, &stack_data);
+    
+    // Test memory logging
+    const memory_data = [_]u8{0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A} ** 10;
+    logMemory(logger, &memory_data, 64);
+    
+    // Test opcode logging
+    logOpcode(logger, 0x42, 0x56, "JUMP", 8, 1000);
+}
+
+test "EvmLogger comptime configuration" {
+    // This test verifies that ENABLE_DEBUG_LOGS can be configured at compile time
+    // You can toggle ENABLE_DEBUG_LOGS in EvmLogger.zig to see the difference
+    
+    // Output this so we can see the current status in test output
+    std.debug.print("\nDEBUG LOGS ENABLED: {}\n", .{ENABLE_DEBUG_LOGS});
+    
+    const logger = createLogger(@src().file);
+    logger.debug("This message will only appear if debug logs are enabled", .{});
+    
+    // This is just a demo - in real usage, you'd set ENABLE_DEBUG_LOGS with build flags
+    // when compiling for production vs development
+}
+
+// Custom test buffer to capture log output
+const TestLogCapture = struct {
+    buf: std.ArrayList(u8),
+    
+    pub fn init(allocator: std.mem.Allocator) TestLogCapture {
+        return .{
+            .buf = std.ArrayList(u8).init(allocator),
+        };
+    }
+    
+    pub fn deinit(self: *TestLogCapture) void {
+        self.buf.deinit();
+    }
+    
+    pub fn writer(self: *TestLogCapture) std.ArrayList(u8).Writer {
+        return self.buf.writer();
+    }
+    
+    pub fn getContents(self: *const TestLogCapture) []const u8 {
+        return self.buf.items;
+    }
+};
+
+test "EvmLogger custom output capture" {
+    // This demonstrates how you could capture log output in tests if needed
+    // (Not actually implemented in EvmLogger.zig yet, would need to modify the logger to accept a custom writer)
+    
+    var log_capture = TestLogCapture.init(testing.allocator);
+    defer log_capture.deinit();
+    
+    // In a real implementation, you'd pass the writer to the logger
+    // For now, we'll just write directly to it to demonstrate
+    log_capture.writer().print("Test log capture: {s}\n", .{"Hello World"}) catch unreachable;
+    
+    // Show the captured output
+    std.debug.print("\nCaptured log output:\n{s}\n", .{log_capture.getContents()});
+    
+    // Verify the captured output contains expected text
+    try testing.expect(std.mem.indexOf(u8, log_capture.getContents(), "Hello World") != null);
+}

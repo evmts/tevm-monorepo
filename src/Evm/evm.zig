@@ -1,6 +1,11 @@
 const std = @import("std");
 const Frame = @import("Frame.zig").Frame;
 const StateManager = @import("../StateManager/StateManager.zig").StateManager;
+const EvmLogger = @import("EvmLogger.zig").EvmLogger;
+const createLogger = @import("EvmLogger.zig").createLogger;
+
+// Create a file-specific logger
+const logger = createLogger(@src().file);
 
 /// EVM represents the Ethereum Virtual Machine
 pub const Evm = struct {
@@ -18,21 +23,39 @@ pub const Evm = struct {
     
     /// Create a new EVM instance
     pub fn init() Evm {
+        logger.debug("Creating new EVM instance", .{});
         return Evm{};
     }
     
     /// Set chain rules
     pub fn setChainRules(self: *Evm, rules: ChainRules) void {
+        logger.debug("Setting chain rules", .{});
+        logger.debug("  - Homestead: {}", .{rules.IsHomestead});
+        logger.debug("  - EIP150: {}", .{rules.IsEIP150});
+        logger.debug("  - EIP158: {}", .{rules.IsEIP158});
+        logger.debug("  - Byzantium: {}", .{rules.IsByzantium});
+        logger.debug("  - Constantinople: {}", .{rules.IsConstantinople});
+        logger.debug("  - Petersburg: {}", .{rules.IsPetersburg});
+        logger.debug("  - Istanbul: {}", .{rules.IsIstanbul});
+        logger.debug("  - Berlin: {}", .{rules.IsBerlin});
+        logger.debug("  - London: {}", .{rules.IsLondon});
+        logger.debug("  - Merge: {}", .{rules.IsMerge});
+        logger.debug("  - Shanghai: {}", .{rules.IsShanghai});
+        logger.debug("  - Cancun: {}", .{rules.IsCancun});
+        logger.debug("  - Prague: {}", .{rules.IsPrague});
+        logger.debug("  - Verkle: {}", .{rules.IsVerkle});
         self.chainRules = rules;
     }
     
     /// Set read-only mode
     pub fn setReadOnly(self: *Evm, readOnly: bool) void {
+        logger.debug("Setting EVM read-only mode: {}", .{readOnly});
         self.readOnly = readOnly;
     }
     
     /// Set state manager
     pub fn setStateManager(self: *Evm, stateManager: *StateManager) void {
+        logger.debug("Setting state manager for EVM", .{});
         self.state_manager = stateManager;
     }
 };

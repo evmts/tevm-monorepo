@@ -1,0 +1,156 @@
+const std = @import("std");
+const testing = std.testing;
+const log = @import("log.zig");
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const Stack = @import("../Stack.zig").Stack;
+const Memory = @import("../Memory.zig").Memory;
+const JumpTable = @import("../JumpTable.zig");
+const Contract = @import("../Contract.zig").Contract;
+
+// Mock implementation for testing
+fn createTestFrame() !struct {
+    frame: *Frame,
+    stack: *Stack,
+    memory: *Memory,
+    interpreter: *Interpreter,
+} {
+    const allocator = testing.allocator;
+    
+    var stack = try allocator.create(Stack);
+    stack.* = Stack.init(allocator);
+    
+    var memory = try allocator.create(Memory);
+    memory.* = Memory.init(allocator);
+    
+    var contract = try allocator.create(Contract);
+    contract.* = Contract{
+        .gas = 100000,
+        .code_address = undefined,
+        .address = undefined,
+        .input = &[_]u8{},
+        .value = 0,
+        .gas_refund = 0,
+    };
+    
+    var frame = try allocator.create(Frame);
+    frame.* = Frame{
+        .stack = stack,
+        .memory = memory,
+        .contract = contract,
+        .ret_data = undefined,
+        .return_data_size = 0,
+        .pc = 0,
+        .gas_remaining = 100000,
+        .err = null,
+        .depth = 0,
+        .ret_offset = 0,
+        .ret_size = 0,
+        .call_depth = 0,
+    };
+    
+    var interpreter = try allocator.create(Interpreter);
+    interpreter.* = Interpreter{
+        .evm = undefined,
+        .cfg = undefined,
+        .readOnly = false,
+        .returnData = &[_]u8{},
+    };
+    
+    return .{
+        .frame = frame,
+        .stack = stack,
+        .memory = memory,
+        .interpreter = interpreter,
+    };
+}
+
+fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
+    test_frame.memory.deinit();
+    test_frame.stack.deinit();
+    allocator.destroy(test_frame.memory);
+    allocator.destroy(test_frame.stack);
+    allocator.destroy(test_frame.frame.contract);
+    allocator.destroy(test_frame.frame);
+    allocator.destroy(test_frame.interpreter);
+}
+
+test "LOG memory size calculation" {
+    const allocator = testing.allocator;
+    var test_frame = try createTestFrame();
+    defer cleanupTestFrame(test_frame, allocator);
+    
+    // Setup stack for LOG operation test
+    try test_frame.stack.push(0x100); // offset at 0x100
+    try test_frame.stack.push(0x80);  // size of 0x80 (128 bytes)
+    
+    // Test memory size calculation
+    const mem_size = log.logMemorySize(test_frame.stack);
+    try testing.expectEqual(@as(u64, 0x180), mem_size.size); // 0x100 + 0x80 = 0x180
+    try testing.expect(!mem_size.overflow);
+    
+    // Test with extreme values to trigger overflow
+    try test_frame.stack.pop();
+    try test_frame.stack.pop();
+    try test_frame.stack.push(0xFFFFFFFFFFFFFFFF); // max u64
+    try test_frame.stack.push(1); // Adding 1 would overflow
+    
+    const overflow_mem_size = log.logMemorySize(test_frame.stack);
+    try testing.expect(overflow_mem_size.overflow);
+}
+
+test "LOG dynamic gas calculation" {
+    const allocator = testing.allocator;
+    var test_frame = try createTestFrame();
+    defer cleanupTestFrame(test_frame, allocator);
+    
+    // Prepare memory with enough capacity for test
+    try test_frame.memory.resize(0x200);
+    
+    // Test LOG0 with no topics
+    // Push memory offset and size to stack
+    try test_frame.stack.push(0x80); // offset
+    try test_frame.stack.push(0x20); // size (32 bytes)
+    
+    // Calculate LOG0 gas: 
+    // Base: 375 (LOG_GAS) + 
+    // Data: 8 * 32 (LOG_DATA_GAS * size) = 256
+    // Total: 375 + 256 = 631
+    const log0_gas = try log.log0DynamicGas(test_frame.interpreter, test_frame.frame, test_frame.stack, test_frame.memory, 0);
+    try testing.expectEqual(@as(u64, 375 + 256), log0_gas);
+    
+    // Test LOG1 (need one more stack item for topic)
+    try test_frame.stack.push(0x1234); // topic1
+    const log1_gas = try log.log1DynamicGas(test_frame.interpreter, test_frame.frame, test_frame.stack, test_frame.memory, 0);
+    // LOG1: 375 (LOG_GAS) + 375 (LOG_TOPIC_GAS) + 256 (data) = 1006
+    try testing.expectEqual(@as(u64, 375 + 375 + 256), log1_gas);
+    
+    // Test LOG4 (need 3 more stack items for topics)
+    try test_frame.stack.push(0x5678); // topic2
+    try test_frame.stack.push(0x9ABC); // topic3
+    try test_frame.stack.push(0xDEF0); // topic4
+    const log4_gas = try log.log4DynamicGas(test_frame.interpreter, test_frame.frame, test_frame.stack, test_frame.memory, 0);
+    // LOG4: 375 (LOG_GAS) + 4*375 (4 topics * LOG_TOPIC_GAS) + 256 (data) = 2131
+    try testing.expectEqual(@as(u64, 375 + (4 * 375) + 256), log4_gas);
+}
+
+test "LOG operation stack requirements" {
+    const allocator = testing.allocator;
+    var test_frame = try createTestFrame();
+    defer cleanupTestFrame(test_frame, allocator);
+    
+    // Test with not enough items on stack for LOG operations
+    const log0_result = log.log0DynamicGas(test_frame.interpreter, test_frame.frame, test_frame.stack, test_frame.memory, 0);
+    try testing.expectError(error.OutOfGas, log0_result);
+    
+    // Add offset and size but not topics
+    try test_frame.stack.push(0x80); // offset
+    try test_frame.stack.push(0x20); // size
+    
+    // This should work for LOG0
+    _ = try log.log0DynamicGas(test_frame.interpreter, test_frame.frame, test_frame.stack, test_frame.memory, 0);
+    
+    // But not for LOG1 (needs 1 topic)
+    const log1_result = log.log1DynamicGas(test_frame.interpreter, test_frame.frame, test_frame.stack, test_frame.memory, 0);
+    try testing.expectError(error.OutOfGas, log1_result);
+}

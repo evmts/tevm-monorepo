@@ -3,12 +3,19 @@ const Interpreter = @import("../interpreter.zig").Interpreter;
 const Frame = @import("../Frame.zig").Frame;
 const ExecutionError = @import("../Frame.zig").ExecutionError;
 const JumpTable = @import("../JumpTable.zig");
+const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
+const createLogger = @import("../EvmLogger.zig").createLogger;
+const logStack = @import("../EvmLogger.zig").logStack;
+const logMemory = @import("../EvmLogger.zig").logMemory;
+
+// Create a file-specific logger
+const logger = createLogger(@src().file);
 
 /// STOP (0x00) - Halt execution
 pub fn opStop(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
-    _ = pc;
-    _ = frame;
+    
+    frame.logger.debug("Executing STOP at PC={d}", .{pc});
     
     // Simply halt execution by returning STOP error
     return ExecutionError.STOP;
@@ -17,18 +24,22 @@ pub fn opStop(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
 /// JUMP (0x56) - Jump to a destination position in code
 pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
-    _ = pc;
+    
+    frame.logger.debug("Executing JUMP at PC={d}", .{pc});
     
     // We need at least 1 item on the stack
     if (frame.stack.size < 1) {
+        frame.logger.err("JUMP: Stack underflow", .{});
         return ExecutionError.StackUnderflow;
     }
     
     // Pop destination from the stack
     const dest = try frame.stack.pop();
+    frame.logger.debug("JUMP: Destination {d}", .{dest});
     
     // Check if destination is too large for the code
     if (dest >= frame.contract.code.len) {
+        frame.logger.err("JUMP: Invalid destination {d}, code length {d}", .{dest, frame.contract.code.len});
         return ExecutionError.InvalidJump;
     }
     
@@ -37,11 +48,13 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     
     // Check if destination is a JUMPDEST opcode
     if (frame.contract.code[dest_usize] != 0x5B) { // 0x5B is JUMPDEST
+        frame.logger.err("JUMP: Destination {d} is not a JUMPDEST, found opcode 0x{X:0>2}", .{dest, frame.contract.code[dest_usize]});
         return ExecutionError.InvalidJump;
     }
     
     // Set the program counter to the destination (minus 1 because the interpreter will increment after)
     frame.pc = dest_usize - 1;
+    frame.logger.debug("JUMP: Set PC to {d}", .{frame.pc});
     
     return "";
 }
@@ -49,21 +62,27 @@ pub fn opJump(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
 /// JUMPI (0x57) - Conditional jump
 pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
-    _ = pc;
+    
+    frame.logger.debug("Executing JUMPI at PC={d}", .{pc});
     
     // We need at least 2 items on the stack
     if (frame.stack.size < 2) {
+        frame.logger.err("JUMPI: Stack underflow", .{});
         return ExecutionError.StackUnderflow;
     }
     
     // Pop condition and destination from the stack
     const condition = try frame.stack.pop();
     const dest = try frame.stack.pop();
+    frame.logger.debug("JUMPI: Destination {d}, condition {d}", .{dest, condition});
     
     // Only jump if condition is not zero
     if (condition != 0) {
+        frame.logger.debug("JUMPI: Condition is true, jumping", .{});
+        
         // Check if destination is too large for the code
         if (dest >= frame.contract.code.len) {
+            frame.logger.err("JUMPI: Invalid destination {d}, code length {d}", .{dest, frame.contract.code.len});
             return ExecutionError.InvalidJump;
         }
         
@@ -72,11 +91,15 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
         
         // Check if destination is a JUMPDEST opcode
         if (frame.contract.code[dest_usize] != 0x5B) { // 0x5B is JUMPDEST
+            frame.logger.err("JUMPI: Destination {d} is not a JUMPDEST, found opcode 0x{X:0>2}", .{dest, frame.contract.code[dest_usize]});
             return ExecutionError.InvalidJump;
         }
         
         // Set the program counter to the destination (minus 1 because the interpreter will increment after)
         frame.pc = dest_usize - 1;
+        frame.logger.debug("JUMPI: Set PC to {d}", .{frame.pc});
+    } else {
+        frame.logger.debug("JUMPI: Condition is false, not jumping", .{});
     }
     
     return "";
@@ -85,8 +108,8 @@ pub fn opJumpi(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
 /// JUMPDEST (0x5B) - Mark a valid jump destination
 pub fn opJumpdest(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
-    _ = pc;
-    _ = frame;
+    
+    frame.logger.debug("Executing JUMPDEST at PC={d}", .{pc});
     
     // This operation does nothing at runtime, it's just a marker
     return "";
@@ -96,13 +119,17 @@ pub fn opJumpdest(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
 pub fn opPc(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
     
+    frame.logger.debug("Executing PC at PC={d}", .{pc});
+    
     // We need to have room on the stack
     if (frame.stack.size >= frame.stack.capacity) {
+        frame.logger.err("PC: Stack overflow", .{});
         return ExecutionError.StackOverflow;
     }
     
     // Push the current program counter onto the stack
     try frame.stack.push(@as(u256, @intCast(pc)));
+    frame.logger.debug("PC: Pushed value {d} to stack", .{pc});
     
     return "";
 }
@@ -110,16 +137,19 @@ pub fn opPc(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
 /// RETURN (0xF3) - Halt execution and return data
 pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
-    _ = pc;
+    
+    frame.logger.debug("Executing RETURN at PC={d}", .{pc});
     
     // We need at least 2 items on the stack
     if (frame.stack.size < 2) {
+        frame.logger.err("RETURN: Stack underflow", .{});
         return ExecutionError.StackUnderflow;
     }
     
     // Pop offset and size from the stack
     const offset = try frame.stack.pop();
     const size = try frame.stack.pop();
+    frame.logger.debug("RETURN: offset={d}, size={d}", .{offset, size});
     
     // Sanity check size to prevent excessive memory usage
     const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
@@ -127,6 +157,7 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     if (size_usize > 0) {
         // Check if offset + size_usize would overflow
         const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
+        frame.logger.debug("RETURN: Reading {d} bytes from memory at offset {d}", .{size_usize, offset_usize});
         
         // Ensure memory access is within bounds
         try frame.memory.require(offset_usize, size_usize);
@@ -136,29 +167,46 @@ pub fn opReturn(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         
         // Set the return data
         if (offset_usize + size_usize <= mem.len) {
+            // Log a preview of the return data
+            if (size_usize <= 32) {
+                // If small enough, log the entire data
+                frame.logger.debug("RETURN data: {any}", .{mem[offset_usize..offset_usize + size_usize]});
+            } else {
+                // Otherwise just log the first 32 bytes
+                frame.logger.debug("RETURN data (first 32 bytes): {any}", .{mem[offset_usize..offset_usize + 32]});
+                frame.logger.debug("... plus {d} more bytes", .{size_usize - 32});
+            }
+            
             try frame.setReturnData(mem[offset_usize..offset_usize + size_usize]);
         } else {
+            frame.logger.err("RETURN: Memory access out of bounds", .{});
             return ExecutionError.OutOfOffset;
         }
+    } else {
+        frame.logger.debug("RETURN: Empty return (size=0)", .{});
     }
     
     // Halt execution
+    frame.logger.info("RETURN: Halting execution", .{});
     return ExecutionError.STOP;
 }
 
 /// REVERT (0xFD) - Halt execution, revert state changes, and return data
 pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
-    _ = pc;
+    
+    frame.logger.debug("Executing REVERT at PC={d}", .{pc});
     
     // We need at least 2 items on the stack
     if (frame.stack.size < 2) {
+        frame.logger.err("REVERT: Stack underflow", .{});
         return ExecutionError.StackUnderflow;
     }
     
     // Pop offset and size from the stack
     const offset = try frame.stack.pop();
     const size = try frame.stack.pop();
+    frame.logger.debug("REVERT: offset={d}, size={d}", .{offset, size});
     
     // Sanity check size to prevent excessive memory usage
     const size_usize = if (size > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(size));
@@ -166,6 +214,7 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     if (size_usize > 0) {
         // Check if offset + size_usize would overflow
         const offset_usize = if (offset > std.math.maxInt(usize)) std.math.maxInt(usize) else @as(usize, @intCast(offset));
+        frame.logger.debug("REVERT: Reading {d} bytes from memory at offset {d}", .{size_usize, offset_usize});
         
         // Ensure memory access is within bounds
         try frame.memory.require(offset_usize, size_usize);
@@ -175,21 +224,36 @@ pub fn opRevert(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         
         // Set the return data
         if (offset_usize + size_usize <= mem.len) {
+            // Log a preview of the revert data
+            if (size_usize <= 32) {
+                // If small enough, log the entire data
+                frame.logger.debug("REVERT data: {any}", .{mem[offset_usize..offset_usize + size_usize]});
+            } else {
+                // Otherwise just log the first 32 bytes
+                frame.logger.debug("REVERT data (first 32 bytes): {any}", .{mem[offset_usize..offset_usize + 32]});
+                frame.logger.debug("... plus {d} more bytes", .{size_usize - 32});
+            }
+            
             try frame.setReturnData(mem[offset_usize..offset_usize + size_usize]);
         } else {
+            frame.logger.err("REVERT: Memory access out of bounds", .{});
             return ExecutionError.OutOfOffset;
         }
+    } else {
+        frame.logger.debug("REVERT: Empty revert data (size=0)", .{});
     }
     
     // Halt execution and revert state changes
+    frame.logger.info("REVERT: Halting execution and reverting state changes", .{});
     return ExecutionError.REVERT;
 }
 
 /// INVALID (0xFE) - Designated invalid opcode
 pub fn opInvalid(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = interpreter;
-    _ = pc;
-    _ = frame;
+    
+    frame.logger.debug("Executing INVALID at PC={d}", .{pc});
+    frame.logger.err("Encountered invalid opcode", .{});
     
     // Halt execution with invalid opcode error
     return ExecutionError.INVALID;

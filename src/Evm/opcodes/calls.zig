@@ -7,11 +7,74 @@ const Memory = @import("../Memory.zig").Memory;
 const JumpTable = @import("../JumpTable.zig");
 const keccak256 = @import("../../Utils/keccak256.zig").keccak256;
 const Address = @import("../../Address/address.zig").Address;
+const precompile = @import("../precompile/Precompiles.zig");
+const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
+const createLogger = @import("../EvmLogger.zig").createLogger;
 // Use built-in u256 type
 const u256 = u256;
 
+// Create a file-specific logger
+const logger = createLogger(@src().file);
+
 /// Maximum call depth for Ethereum VM
 const MAX_CALL_DEPTH: u32 = 1024;
+
+/// Check if an address is a precompiled contract in the current chain context
+/// Returns the precompiled contract if found, null otherwise
+fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.PrecompiledContract {
+    // Convert u256 address to Ethereum Address type
+    var addr_bytes: [32]u8 = undefined;
+    
+    // Initialize with zeros
+    std.mem.set(u8, &addr_bytes, 0);
+    
+    // Extract the last 20 bytes (Ethereum address size)
+    var value = addr;
+    var i: usize = 31;
+    while (i >= 12) : (i -= 1) {
+        addr_bytes[i] = @intCast(value & 0xFF);
+        value >>= 8;
+        
+        // Stop if we've processed the lower 20 bytes
+        if (i == 12) break;
+    }
+    
+    // Create an Address from the bytes
+    var target_address = Address.fromBytesAddress(addr_bytes[12..32]);
+    
+    // Get precompiled contracts based on chain rules
+    if (interpreter.evm.precompiles) |contracts| {
+        // Check if this address is a precompiled contract
+        if (contracts.get(target_address)) |contract| {
+            logger.debug("Found precompiled contract at address 0x{x}", .{addr});
+            return contract;
+        }
+    }
+    
+    return null;
+}
+
+/// Helper to convert 256-bit address to Ethereum Address type
+fn addressFromU256(addr_u256: u256) Address {
+    var addr_bytes: [32]u8 = undefined;
+    
+    // Initialize with zeros
+    std.mem.set(u8, &addr_bytes, 0);
+    
+    // Extract the last 20 bytes (Ethereum address size)
+    var value = addr_u256;
+    var i: usize = 31;
+    while (i >= 12) : (i -= 1) {
+        addr_bytes[i] = @intCast(value & 0xFF);
+        value >>= 8;
+        
+        // Stop if we've processed the lower 20 bytes
+        if (i == 12) break;
+    }
+    
+    // Create an Address from the bytes
+    return Address.fromBytesAddress(addr_bytes[12..32]);
+}
 
 /// CALL (0xF1) - Call contract
 pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
