@@ -124,6 +124,35 @@ pub const Interpreter = struct {
             .logger = logger,
         };
     }
+    
+    /// Initialize a new Interpreter instance with default jump table
+    ///
+    /// This convenience function creates an interpreter with the default
+    /// jump table configuration. It's primarily used for testing and simpler
+    /// initialization.
+    ///
+    /// Parameters:
+    /// - allocator: Memory allocator for the interpreter's resources
+    /// - evm: Pointer to the EVM instance to use
+    ///
+    /// Returns: A new Interpreter instance
+    /// Error: Returned if initialization fails
+    pub fn init(allocator: std.mem.Allocator, evm: *Evm) !Interpreter {
+        logger.debug("Initializing new Interpreter instance", .{});
+        
+        // Create a new jump table with default opcode implementations
+        var jump_table = try JumpTable.init(allocator);
+        
+        // Register all standard opcodes 
+        try opcodes.registerOpcodes(allocator, &jump_table);
+        
+        return Interpreter{
+            .evm = evm,
+            .table = jump_table,
+            .allocator = allocator,
+            .logger = logger,
+        };
+    }
 
     /// Run the interpreter to execute contract code
     ///

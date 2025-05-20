@@ -1138,7 +1138,7 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         if (offset_usize + size_usize <= mem.len) {
             try contract_code.appendSlice(mem[offset_usize..offset_usize + size_usize]);
             
-            // EIP-3541: Reject new contracts starting with the 0xEF byte
+            // EIP-3541: Reject new contracts starting with the 0xEF byte (reserved for future protocol upgrades)
             if (interpreter.evm.chainRules.IsEIP3541 and contract_code.items.len > 0 and contract_code.items[0] == 0xEF) {
                 file_logger.err("EIP-3541: Cannot deploy a contract starting with the 0xEF byte", .{});
                 try frame.stack.push(0); // Failure
@@ -1240,7 +1240,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
         if (offset_usize + size_usize <= mem.len) {
             try contract_code.appendSlice(mem[offset_usize..offset_usize + size_usize]);
             
-            // EIP-3541: Reject new contracts starting with the 0xEF byte
+            // EIP-3541: Reject new contracts starting with the 0xEF byte (reserved for future protocol upgrades)
             if (interpreter.evm.chainRules.IsEIP3541 and contract_code.items.len > 0 and contract_code.items[0] == 0xEF) {
                 file_logger.err("EIP-3541: Cannot deploy a contract starting with the 0xEF byte", .{});
                 try frame.stack.push(0); // Failure

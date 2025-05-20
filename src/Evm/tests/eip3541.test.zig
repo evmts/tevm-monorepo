@@ -1,20 +1,22 @@
 const std = @import("std");
 const testing = std.testing;
-const interpreter = @import("../interpreter.zig");
-const Interpreter = interpreter.Interpreter;
-const ExecutionError = interpreter.ExecutionError;
-const evm = @import("../evm.zig");
-const Frame = @import("../Frame.zig");
-const Evm = evm.Evm;
+const interpreter_mod = @import("../interpreter.zig");
+const Interpreter = interpreter_mod.Interpreter;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
+const evm_mod = @import("../evm.zig");
+const Frame = @import("../Frame.zig").Frame;
+const Evm = evm_mod.Evm;
 const JumpTable = @import("../JumpTable.zig");
 const calls = @import("../opcodes/calls.zig");
 
 // Test setup helper function
 fn setupInterpreter(enable_eip3541: bool) !Interpreter {
+    // Create a custom chain rules configuration
+    var custom_rules = evm_mod.ChainRules{};
+    custom_rules.IsEIP3541 = enable_eip3541; // Control EIP-3541 (Reject new contracts starting with 0xEF)
+    
     // Create an EVM instance with custom chain rules
-    var custom_evm = try Evm.init(std.testing.allocator, .{
-        .IsEIP3541 = enable_eip3541, // Control EIP-3541 (Reject new contracts starting with 0xEF)
-    });
+    var custom_evm = try Evm.init(std.testing.allocator, custom_rules);
     
     // Create an interpreter with our custom EVM
     var test_interpreter = try Interpreter.init(std.testing.allocator, &custom_evm);
