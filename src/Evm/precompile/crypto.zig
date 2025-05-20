@@ -334,3 +334,50 @@ test "SHA256 precompile" {
         try std.testing.expectEqualSlices(u8, &expected, data);
     }
 }
+
+test "ECRECOVER precompile" {
+    const allocator = std.testing.allocator;
+    
+    // Test with empty input
+    {
+        const output = try ecrecoverRun(&[_]u8{}, allocator);
+        defer if (output) |data| allocator.free(data);
+        
+        try std.testing.expect(output != null);
+        if (output) |data| {
+            try std.testing.expectEqual(@as(usize, 32), data.len);
+            // Should return all zeros for empty input
+            try std.testing.expectEqualSlices(u8, &[_]u8{0} ** 32, data);
+        }
+    }
+    
+    // Test with invalid input (too short, not a valid signature)
+    {
+        const invalid_input = [_]u8{1, 2, 3, 4};
+        const output = try ecrecoverRun(&invalid_input, allocator);
+        defer if (output) |data| allocator.free(data);
+        
+        try std.testing.expect(output != null);
+        if (output) |data| {
+            try std.testing.expectEqual(@as(usize, 32), data.len);
+            // Should return all zeros for invalid input
+            try std.testing.expectEqualSlices(u8, &[_]u8{0} ** 32, data);
+        }
+    }
+    
+    // Test with valid-looking input format but invalid v value
+    {
+        var valid_format = [_]u8{0} ** 128;
+        valid_format[32] = 29; // Invalid v value (must be 27 or 28)
+        
+        const output = try ecrecoverRun(&valid_format, allocator);
+        defer if (output) |data| allocator.free(data);
+        
+        try std.testing.expect(output != null);
+        if (output) |data| {
+            try std.testing.expectEqual(@as(usize, 32), data.len);
+            // Should return all zeros for invalid signature
+            try std.testing.expectEqualSlices(u8, &[_]u8{0} ** 32, data);
+        }
+    }
+}

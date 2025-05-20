@@ -1,5 +1,5 @@
 const std = @import("std");
-const controlflow = @import("controlflow.zig");
+const controlflow = @import("fixed_controlflow.zig");
 const test_utils = @import("fixed_test_utils.zig");
 
 // Import everything via test_utils

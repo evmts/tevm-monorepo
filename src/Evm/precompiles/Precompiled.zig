@@ -179,9 +179,9 @@ fn modexp(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     // Convert to u64 for practical use
     // Cap to maximum safe lengths to prevent excessive allocation
     const max_safe_len: u64 = 1024 * 1024; // 1MB max for safety
-    const base_len_u64: u64 = @min(@truncate(base_len), max_safe_len);
-    const exp_len_u64: u64 = @min(@truncate(exp_len), max_safe_len);
-    const mod_len_u64: u64 = @min(@truncate(mod_len), max_safe_len);
+    const base_len_u64: u64 = @min(@as(u64, @truncate(base_len)), max_safe_len);
+    const exp_len_u64: u64 = @min(@as(u64, @truncate(exp_len)), max_safe_len);
+    const mod_len_u64: u64 = @min(@as(u64, @truncate(mod_len)), max_safe_len);
     
     // Handle zero modulus length specially
     if (mod_len_u64 == 0) {
@@ -222,9 +222,9 @@ fn modexpGasCost(input: []const u8) u64 {
     
     // Cap to reasonable values to prevent overflow
     const max_safe_len: u64 = 1024 * 1024; // 1MB max
-    const base_len_u64: u64 = @min(@truncate(base_len), max_safe_len);
-    const exp_len_u64: u64 = @min(@truncate(exp_len), max_safe_len); 
-    const mod_len_u64: u64 = @min(@truncate(mod_len), max_safe_len);
+    const base_len_u64: u64 = @min(@as(u64, @truncate(base_len)), max_safe_len);
+    const exp_len_u64: u64 = @min(@as(u64, @truncate(exp_len)), max_safe_len); 
+    const mod_len_u64: u64 = @min(@as(u64, @truncate(mod_len)), max_safe_len);
     
     // For a full implementation, would calculate proper gas cost
     // See EIP-198 for detailed gas calculation

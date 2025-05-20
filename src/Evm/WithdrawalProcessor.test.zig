@@ -78,7 +78,7 @@ fn createAddressBuffer(byte_value: u8) [20]u8 {
 fn createWithdrawalRoot() [32]u8 {
     var root: [32]u8 = undefined;
     for (0..32) |i| {
-        root[i] = @truncate(u8, i);
+        root[i] = @truncate(i);
     }
     return root;
 }
