@@ -38,7 +38,7 @@ test "Frame initialization and basic operations" {
     try frame.memory.resize(64);
     try std.testing.expectEqual(@as(u64, 64), frame.memory.len());
 
-    try frame.stack.push(u256_native, 42);
+    try frame.stack.push(42);
     try std.testing.expectEqual(@as(usize, 1), frame.stack.len());
 
     const test_data = [_]u8{ 1, 2, 3, 4 };
@@ -72,8 +72,8 @@ test "Frame memory and stack access" {
     const mem_data = frame.memoryData();
     try std.testing.expectEqualSlices(u8, &data, mem_data[0..data.len]);
 
-    try frame.stack.push(u256_native, 123);
-    try frame.stack.push(u256_native, 456);
+    try frame.stack.push(123);
+    try frame.stack.push(456);
 
     const stack_data = frame.stackData();
     try std.testing.expectEqual(@as(usize, 2), stack_data.len);

@@ -1,6 +1,7 @@
 const std = @import("std");
-const Contract = @import("Contract.zig").Contract;
-const createContract = @import("Contract.zig").createContract;
+const EvmModule = @import("Evm");
+const Contract = EvmModule.Contract;
+const createContract = EvmModule.createContract;
 const address = @import("Address");
 
 test "Contract warm/cold storage tracking" {
