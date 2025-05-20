@@ -62,6 +62,24 @@ pub fn opBalance(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     
     const queryAddress = Address{ .bytes = addressBytes };
     
+    // EIP-2929: Check if the address is cold and calculate appropriate gas cost
+    const is_cold_account = frame.contract.isAccountCold();
+    const gas_cost = if (is_cold_account)
+        JumpTable.ColdAccountAccessCost  // Cold access (2600 gas)
+    else
+        JumpTable.WarmStorageReadCost;   // Warm access (100 gas)
+    
+    // Check if we have enough gas
+    if (frame.contract.gas < gas_cost) {
+        return ExecutionError.OutOfGas;
+    }
+    
+    // Use gas
+    frame.contract.useGas(gas_cost);
+    
+    // Mark the account as warm for future accesses
+    _ = frame.contract.markAccountWarm();
+    
     // Get the account from state
     if (try interpreter.evm.state_manager.?.getAccount(queryAddress)) |account| {
         // Push account balance to stack
@@ -425,6 +443,24 @@ pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     
     const queryAddress = Address{ .bytes = addressBytes };
     
+    // EIP-2929: Check if the address is cold and calculate appropriate gas cost
+    const is_cold_account = frame.contract.isAccountCold();
+    const gas_cost = if (is_cold_account)
+        JumpTable.ColdAccountAccessCost  // Cold access (2600 gas)
+    else
+        JumpTable.WarmStorageReadCost;   // Warm access (100 gas)
+    
+    // Check if we have enough gas
+    if (frame.contract.gas < gas_cost) {
+        return ExecutionError.OutOfGas;
+    }
+    
+    // Use gas
+    frame.contract.useGas(gas_cost);
+    
+    // Mark the account as warm for future accesses
+    _ = frame.contract.markAccountWarm();
+    
     // Get contract code for the address
     const code = try interpreter.evm.state_manager.?.getContractCode(queryAddress);
     
@@ -472,17 +508,6 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     const offset_u64 = if (offset > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, offset);
     const size_u64 = if (size > std.math.maxInt(u64)) std.math.maxInt(u64) else @as(u64, size);
     
-    // If size is zero, nothing to copy
-    if (size_u64 == 0) {
-        return "";
-    }
-    
-    // Ensure memory is large enough
-    const needed_size = destOffset_u64 + size_u64;
-    if (needed_size > frame.memory.len()) {
-        try frame.memory.resize(needed_size);
-    }
-    
     // Convert address value to Address type
     const addressBytes = blk: {
         var bytes: [20]u8 = [_]u8{0} ** 20;
@@ -498,6 +523,45 @@ pub fn opExtcodecopy(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     };
     
     const queryAddress = Address{ .bytes = addressBytes };
+    
+    // EIP-2929: Check if the address is cold and calculate appropriate gas cost
+    const is_cold_account = frame.contract.isAccountCold();
+    const cold_access_cost = if (is_cold_account)
+        JumpTable.ColdAccountAccessCost - JumpTable.WarmStorageReadCost  // Additional cold access cost (2500 gas)
+    else
+        0;   // No additional cost for warm access
+    
+    // If size is zero, nothing to copy, but still apply EIP-2929 gas costs
+    if (size_u64 == 0) {
+        // Check if we have enough gas for cold access (if applicable)
+        if (cold_access_cost > 0) {
+            if (frame.contract.gas < cold_access_cost) {
+                return ExecutionError.OutOfGas;
+            }
+            frame.contract.useGas(cold_access_cost);
+            
+            // Mark the account as warm for future accesses
+            _ = frame.contract.markAccountWarm();
+        }
+        return "";
+    }
+    
+    // Ensure memory is large enough
+    const needed_size = destOffset_u64 + size_u64;
+    if (needed_size > frame.memory.len()) {
+        try frame.memory.resize(needed_size);
+    }
+    
+    // Apply cold access cost if needed
+    if (cold_access_cost > 0) {
+        if (frame.contract.gas < cold_access_cost) {
+            return ExecutionError.OutOfGas;
+        }
+        frame.contract.useGas(cold_access_cost);
+        
+        // Mark the account as warm for future accesses
+        _ = frame.contract.markAccountWarm();
+    }
     
     // Get contract code for the address
     const code = blk: {
@@ -644,6 +708,24 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     
     const queryAddress = Address{ .bytes = addressBytes };
     
+    // EIP-2929: Check if the address is cold and calculate appropriate gas cost
+    const is_cold_account = frame.contract.isAccountCold();
+    const gas_cost = if (is_cold_account)
+        JumpTable.ColdAccountAccessCost  // Cold access (2600 gas)
+    else
+        JumpTable.WarmStorageReadCost;   // Warm access (100 gas)
+    
+    // Check if we have enough gas
+    if (frame.contract.gas < gas_cost) {
+        return ExecutionError.OutOfGas;
+    }
+    
+    // Use gas
+    frame.contract.useGas(gas_cost);
+    
+    // Mark the account as warm for future accesses
+    _ = frame.contract.markAccountWarm();
+    
     // Constant for empty code hash
     const EMPTY_CODE_HASH: u256 = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
     
@@ -676,6 +758,96 @@ pub fn opExtcodehash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     return "";
 }
 
+// Dynamic gas cost functions for opcodes that need EIP-2929 warm/cold access tracking
+fn balanceDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
+    _ = interpreter;
+    _ = memory;
+    _ = requested_size;
+    
+    // We need at least 1 item on stack for BALANCE
+    if (stack.size < 1) {
+        return error.OutOfGas;
+    }
+    
+    // Check if address is cold
+    const is_cold_account = frame.contract.isAccountCold();
+    
+    // Return gas cost based on cold/warm status
+    if (is_cold_account) {
+        return JumpTable.ColdAccountAccessCost; // 2600 gas for cold access
+    } else {
+        return JumpTable.WarmStorageReadCost;   // 100 gas for warm access
+    }
+}
+
+fn extcodesizeDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
+    _ = interpreter;
+    _ = memory;
+    _ = requested_size;
+    
+    // We need at least 1 item on stack for EXTCODESIZE
+    if (stack.size < 1) {
+        return error.OutOfGas;
+    }
+    
+    // Check if address is cold
+    const is_cold_account = frame.contract.isAccountCold();
+    
+    // Return gas cost based on cold/warm status
+    if (is_cold_account) {
+        return JumpTable.ColdAccountAccessCost; // 2600 gas for cold access
+    } else {
+        return JumpTable.WarmStorageReadCost;   // 100 gas for warm access
+    }
+}
+
+fn extcodecopyDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
+    // First calculate memory expansion cost
+    const memory_cost = try memoryGas(interpreter, frame, stack, memory, requested_size);
+    
+    // We need at least 4 items on stack for EXTCODECOPY
+    if (stack.size < 4) {
+        return error.OutOfGas;
+    }
+    
+    // Take a snapshot of the stack to avoid modifying it
+    const addressValue = stack.data[stack.size - 4]; // Address is 4th from top
+    
+    // Check if address is cold
+    const is_cold_account = frame.contract.isAccountCold();
+    
+    // Base cost is EXTCODESIZE plus memory cost
+    var gas_cost = JumpTable.GasExtStep + memory_cost;
+    
+    // Add cold access cost if needed
+    if (is_cold_account) {
+        gas_cost += JumpTable.ColdAccountAccessCost - JumpTable.WarmStorageReadCost; // 2500 gas extra
+    }
+    
+    return gas_cost;
+}
+
+fn extcodehashDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
+    _ = interpreter;
+    _ = memory;
+    _ = requested_size;
+    
+    // We need at least 1 item on stack for EXTCODEHASH
+    if (stack.size < 1) {
+        return error.OutOfGas;
+    }
+    
+    // Check if address is cold
+    const is_cold_account = frame.contract.isAccountCold();
+    
+    // Return gas cost based on cold/warm status
+    if (is_cold_account) {
+        return JumpTable.ColdAccountAccessCost; // 2600 gas for cold access
+    } else {
+        return JumpTable.WarmStorageReadCost;   // 100 gas for warm access
+    }
+}
+
 /// Register all environment opcodes in the given jump table
 pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
     // ADDRESS (0x30)
@@ -688,15 +860,14 @@ pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *Jum
     };
     jump_table.table[0x30] = address_op;
     
-    // BALANCE (0x31)
+    // BALANCE (0x31) - Using dynamic gas for EIP-2929
     const balance_op = try allocator.create(JumpTable.Operation);
     balance_op.* = JumpTable.Operation{
         .execute = opBalance,
-        .constant_gas = JumpTable.GasExtStep,
+        .constant_gas = 0, // Using dynamic gas calculation
+        .dynamic_gas = balanceDynamicGas,
         .min_stack = JumpTable.minStack(1, 1),
         .max_stack = JumpTable.maxStack(1, 1),
-        // Note: In a full implementation, this would also include dynamic gas 
-        // cost that depends on EIP-2929 (warm/cold access)
     };
     jump_table.table[0x31] = balance_op;
     
@@ -794,29 +965,26 @@ pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *Jum
     };
     jump_table.table[0x3A] = gasprice_op;
     
-    // EXTCODESIZE (0x3B)
+    // EXTCODESIZE (0x3B) - Using dynamic gas for EIP-2929
     const extcodesize_op = try allocator.create(JumpTable.Operation);
     extcodesize_op.* = JumpTable.Operation{
         .execute = opExtcodesize,
-        .constant_gas = JumpTable.GasExtStep,
+        .constant_gas = 0, // Using dynamic gas calculation
+        .dynamic_gas = extcodesizeDynamicGas,
         .min_stack = JumpTable.minStack(1, 1),
         .max_stack = JumpTable.maxStack(1, 1),
-        // Note: In a full implementation, this would also include dynamic gas 
-        // cost that depends on EIP-2929 (warm/cold access)
     };
     jump_table.table[0x3B] = extcodesize_op;
     
-    // EXTCODECOPY (0x3C)
+    // EXTCODECOPY (0x3C) - Using dynamic gas for EIP-2929
     const extcodecopy_op = try allocator.create(JumpTable.Operation);
     extcodecopy_op.* = JumpTable.Operation{
         .execute = opExtcodecopy,
-        .constant_gas = JumpTable.GasExtStep,
+        .constant_gas = 0, // Using dynamic gas calculation
+        .dynamic_gas = extcodecopyDynamicGas,
         .min_stack = JumpTable.minStack(4, 0),
         .max_stack = JumpTable.maxStack(4, 0),
-        .dynamic_gas = memoryGas,
         .memory_size = extcodecopyMemorySize,
-        // Note: In a full implementation, this would also include dynamic gas 
-        // cost that depends on EIP-2929 (warm/cold access)
     };
     jump_table.table[0x3C] = extcodecopy_op;
     
@@ -842,15 +1010,14 @@ pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *Jum
     };
     jump_table.table[0x3E] = returndatacopy_op;
     
-    // EXTCODEHASH (0x3F)
+    // EXTCODEHASH (0x3F) - Using dynamic gas for EIP-2929
     const extcodehash_op = try allocator.create(JumpTable.Operation);
     extcodehash_op.* = JumpTable.Operation{
         .execute = opExtcodehash,
-        .constant_gas = JumpTable.GasExtStep,
+        .constant_gas = 0, // Using dynamic gas calculation
+        .dynamic_gas = extcodehashDynamicGas, 
         .min_stack = JumpTable.minStack(1, 1),
         .max_stack = JumpTable.maxStack(1, 1),
-        // Note: In a full implementation, this would also include dynamic gas 
-        // cost that depends on EIP-2929 (warm/cold access)
     };
     jump_table.table[0x3F] = extcodehash_op;
 }

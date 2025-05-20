@@ -34,10 +34,21 @@ fn levelFormat(comptime level: LogLevel) []const u8 {
 pub const EvmLogger = struct {
     /// The tag for this logger instance (typically the module or component name)
     tag: []const u8,
+    
+    /// Optional custom writer (if null, uses std.debug.print)
+    writer: ?std.io.Writer(anytype, std.io.Error!usize, std.io.write) = null,
 
     /// Creates a new logger with the specified tag
     pub fn init(tag: []const u8) EvmLogger {
         return EvmLogger{ .tag = tag };
+    }
+    
+    /// Creates a new logger with the specified tag and custom writer
+    pub fn initWithWriter(tag: []const u8, writer: anytype) EvmLogger {
+        return EvmLogger{ 
+            .tag = tag,
+            .writer = writer,
+        };
     }
 
     /// Log a debug message if debug logging is enabled
@@ -64,7 +75,21 @@ pub const EvmLogger = struct {
     fn logMessage(self: EvmLogger, comptime level: LogLevel, comptime fmt: []const u8, args: anytype) void {
         if (comptime ENABLE_DEBUG_LOGS) {
             const level_str = levelFormat(level);
-            std.debug.print("{s} {s}: " ++ fmt ++ "\n", .{ level_str, self.tag } ++ args);
+            
+            if (self.writer) |writer| {
+                // Use the custom writer if available
+                const message = std.fmt.allocPrint(
+                    std.heap.page_allocator, 
+                    "{s} {s}: " ++ fmt ++ "\n", 
+                    .{ level_str, self.tag } ++ args
+                ) catch return;
+                defer std.heap.page_allocator.free(message);
+                
+                writer.write(message) catch {};
+            } else {
+                // Fall back to std.debug.print
+                std.debug.print("{s} {s}: " ++ fmt ++ "\n", .{ level_str, self.tag } ++ args);
+            }
         }
     }
 };
@@ -101,6 +126,46 @@ pub fn logStack(logger: EvmLogger, stack_data: []const u256) void {
         } else {
             for (stack_data, 0..) |value, i| {
                 logger.debug("  [{d}]: {x}", .{ i, value });
+            }
+        }
+    }
+}
+
+/// SLOP (Stack-Log-Output-Projector) provides a compact visual
+/// representation of the stack for easier debugging
+pub fn logStackSlop(logger: EvmLogger, stack_data: []const u256, op_name: []const u8, pc: usize) void {
+    if (comptime ENABLE_DEBUG_LOGS) {
+        // Create a compact representation header
+        logger.debug("SLOP [pc:{d}, op:{s}] Stack depth: {d}", .{ pc, op_name, stack_data.len });
+        
+        // If stack is empty, show a simple message
+        if (stack_data.len == 0) {
+            logger.debug("  │ (empty stack)", .{});
+            return;
+        }
+        
+        // Define how many stack items to show (all if <= 8, otherwise top and bottom)
+        const compact_view = stack_data.len > 8;
+        const top_items = if (compact_view) 4 else stack_data.len;
+        const bottom_items = if (compact_view) 2 else 0;
+        
+        // Show top N items
+        var i: usize = 0;
+        while (i < top_items and i < stack_data.len) : (i += 1) {
+            const idx = stack_data.len - 1 - i;
+            logger.debug("  │ {d}: {x}", .{ stack_data.len - 1 - i, stack_data[idx] });
+        }
+        
+        // If using compact view, show ellipsis if there are items in the middle
+        if (compact_view and stack_data.len > (top_items + bottom_items)) {
+            logger.debug("  │ ... ({d} more items) ...", .{stack_data.len - top_items - bottom_items});
+        }
+        
+        // Show bottom N items if using compact view
+        if (compact_view) {
+            var j: usize = 0;
+            while (j < bottom_items and j < stack_data.len - top_items) : (j += 1) {
+                logger.debug("  │ {d}: {x}", .{ j, stack_data[j] });
             }
         }
     }
@@ -151,10 +216,83 @@ pub fn logStorage(logger: EvmLogger, storage: anytype) void {
     }
 }
 
+/// Log storage with specific key-value pairs for debugging
+pub fn logStorageKV(logger: EvmLogger, keys: []const u256, values: []const u256) void {
+    if (comptime ENABLE_DEBUG_LOGS) {
+        logger.debug("Storage contents:", .{});
+        
+        if (keys.len == 0) {
+            logger.debug("  (empty storage)", .{});
+            return;
+        }
+        
+        const len = @min(keys.len, values.len);
+        for (keys[0..len], values[0..len], 0..) |key, value, i| {
+            logger.debug("  [{d}] {x} => {x}", .{ i, key, value });
+        }
+        
+        if (keys.len > len or values.len > len) {
+            logger.debug("  Note: keys and values arrays have different lengths (keys:{d}, values:{d})", 
+                .{ keys.len, values.len });
+        }
+    }
+}
+
 /// Logs opcode execution information
 pub fn logOpcode(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, gas_cost: u64, gas_left: u64) void {
     if (comptime ENABLE_DEBUG_LOGS) {
         logger.debug("Executing opcode: pc={d}, op=0x{x:0>2} ({s}), gas_cost={d}, gas_left={d}", 
             .{ pc, op, op_name, gas_cost, gas_left });
+    }
+}
+
+/// Logs detailed opcode execution with stack impacts and context
+pub fn logOpcodeDetailed(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, 
+                         gas_cost: u64, gas_left: u64, 
+                         stack_before: []const u256, stack_after: []const u256,
+                         context: ?[]const u8) void {
+    if (comptime ENABLE_DEBUG_LOGS) {
+        // Calculate stack impact (delta)
+        const stack_delta = @as(i32, @intCast(stack_after.len)) - @as(i32, @intCast(stack_before.len));
+        const stack_impact = if (stack_delta > 0) 
+                               std.fmt.allocPrint(std.heap.page_allocator, "+{d}", .{stack_delta}) catch "?" 
+                             else if (stack_delta < 0) 
+                               std.fmt.allocPrint(std.heap.page_allocator, "{d}", .{stack_delta}) catch "?" 
+                             else "±0";
+        defer if (stack_delta != 0) std.heap.page_allocator.free(stack_impact);
+        
+        // Header line with opcode info
+        logger.debug("EXEC [{d}] 0x{x:0>2} {s} (gas: {d}, left: {d}, stack: {s})",
+            .{ pc, op, op_name, gas_cost, gas_left, stack_impact });
+        
+        // Additional context if provided
+        if (context) |ctx| {
+            logger.debug("  Context: {s}", .{ctx});
+        }
+        
+        // Log stack differences if there was a change
+        if (stack_before.len > 0 or stack_after.len > 0) {
+            // Show what was popped (consumed by the opcode)
+            if (stack_before.len > stack_after.len) {
+                const popped_count = stack_before.len - stack_after.len;
+                logger.debug("  Popped {d} item(s):", .{popped_count});
+                
+                var i: usize = 0;
+                while (i < popped_count and stack_before.len > i) : (i += 1) {
+                    logger.debug("    [-] {x}", .{stack_before[stack_before.len - 1 - i]});
+                }
+            }
+            
+            // Show what was pushed (produced by the opcode)
+            if (stack_after.len > stack_before.len) {
+                const pushed_count = stack_after.len - stack_before.len;
+                logger.debug("  Pushed {d} item(s):", .{pushed_count});
+                
+                var i: usize = 0;
+                while (i < pushed_count and stack_after.len > i) : (i += 1) {
+                    logger.debug("    [+] {x}", .{stack_after[stack_after.len - 1 - i]});
+                }
+            }
+        }
     }
 }

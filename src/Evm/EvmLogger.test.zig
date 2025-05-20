@@ -3,8 +3,12 @@ const testing = std.testing;
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 const logStack = @import("EvmLogger.zig").logStack;
+const logStackSlop = @import("EvmLogger.zig").logStackSlop;
 const logMemory = @import("EvmLogger.zig").logMemory;
 const logOpcode = @import("EvmLogger.zig").logOpcode;
+const logOpcodeDetailed = @import("EvmLogger.zig").logOpcodeDetailed;
+const logStorage = @import("EvmLogger.zig").logStorage;
+const logStorageKV = @import("EvmLogger.zig").logStorageKV;
 const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
 
 test "EvmLogger basic functionality" {
@@ -29,12 +33,35 @@ test "EvmLogger stack and memory logging" {
     const stack_data = [_]u256{1, 2, 3, 4, 5};
     logStack(logger, &stack_data);
     
+    // Test SLOP stack logging
+    logStackSlop(logger, &stack_data, "ADD", 0x10);
+    
+    // Test with large stack for SLOP compact view
+    var large_stack: [12]u256 = undefined;
+    for (large_stack, 0..) |*val, i| {
+        val.* = @intCast(i + 1);
+    }
+    logStackSlop(logger, &large_stack, "MSTORE", 0x20);
+    
     // Test memory logging
     const memory_data = [_]u8{0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A} ** 10;
     logMemory(logger, &memory_data, 64);
     
     // Test opcode logging
     logOpcode(logger, 0x42, 0x56, "JUMP", 8, 1000);
+    
+    // Test detailed opcode logging
+    const stack_before = [_]u256{0x10, 0x20, 0x30};
+    const stack_after = [_]u256{0x10, 0x50};
+    logOpcodeDetailed(logger, 0x44, 0x01, "ADD", 3, 997, &stack_before, &stack_after, "Testing ADD operation");
+    
+    // Test storage logging
+    logStorage(logger, "any");
+    
+    // Test storage KV logging
+    const storage_keys = [_]u256{0x01, 0x02, 0x03};
+    const storage_values = [_]u256{0xAA, 0xBB, 0xCC};
+    logStorageKV(logger, &storage_keys, &storage_values);
 }
 
 test "EvmLogger comptime configuration" {

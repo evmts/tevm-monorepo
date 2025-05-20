@@ -4,7 +4,8 @@ const Frame = @import("../Frame.zig").Frame;
 const ExecutionError = @import("../Frame.zig").ExecutionError;
 const Stack = @import("../Stack.zig").Stack;
 const Memory = @import("../Memory.zig").Memory;
-const JumpTable = @import("../JumpTable.zig");
+const JumpTableModule = @import("../JumpTable.zig");
+const JumpTable = JumpTableModule.JumpTable;
 const keccak256 = @import("../../Utils/keccak256.zig").keccak256;
 const Address = @import("../../Address/address.zig").Address;
 const precompile = @import("../precompile/Precompiles.zig");
@@ -151,8 +152,8 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Log the call if we have a logger
-    if (frame.logger) |logger| {
-        logger.debug("CALL: to_addr={x}, value={}, gas={}", .{ to_addr, value, gas });
+    if (frame.logger) |frame_logger| {
+        frame_logger.debug("CALL: to_addr={x}, value={}, gas={}", .{ to_addr, value, gas });
     }
     
     // Check if this is a call to a precompiled contract
@@ -331,33 +332,110 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     }
     
     // Log the callcode if we have a logger
-    if (frame.logger) |logger| {
-        logger.debug("CALLCODE: to_addr={x}, value={}, gas={}", .{ to_addr, value, gas });
+    if (frame.logger) |frame_logger| {
+        frame_logger.debug("CALLCODE: to_addr={x}, value={}, gas={}", .{ to_addr, value, gas });
     }
     
-    // In a real implementation, we would:
-    // 1. Create a new call frame with the target's code but the current context (sender, value, etc.)
-    // 2. Run the call
-    // 3. Process the result
-    
-    // For now, we'll simulate a basic call
-    var success: bool = true; // Default to true for this stub
+    // Check if this is a callcode to a precompiled contract
+    var success: bool = false;
     var return_data = std.ArrayList(u8).init(interpreter.allocator);
     defer return_data.deinit();
     
-    // Deduct used gas from current frame
-    frame.gas -= gas_cost;
-    
-    // Write the return data to memory if the call was successful
-    if (success and out_size_usize > 0) {
-        // In a real implementation, we would copy the actual return data
-        // For now, just zero out the memory region
-        const memory_data = frame.memory.data();
-        for (out_offset_usize..out_offset_usize + out_size_usize) |i| {
-            if (i < memory_data.len) {
-                memory_data[i] = 0;
+    // Check for precompiled contracts
+    if (checkPrecompiled(to_addr, interpreter)) |contract| {
+        // Execute precompiled contract
+        file_logger.debug("Executing precompiled contract with CALLCODE at address: 0x{x}", .{to_addr});
+        
+        // Cap gas to the remaining gas in the frame
+        const capped_gas = @min(gas_cost, frame.gas);
+        
+        // Run the precompiled contract
+        const result = precompile.runPrecompiledContract(
+            contract,
+            input_data.items,
+            capped_gas,
+            interpreter.allocator,
+            &frame.logger
+        ) catch |err| {
+            file_logger.err("Precompiled contract callcode execution failed: {}", .{err});
+            
+            // Push 0 to the stack to indicate failure
+            try frame.stack.push(0);
+            return "";
+        };
+        
+        // Update gas used
+        const gas_used = capped_gas - result.remaining_gas;
+        frame.gas -= gas_used;
+        
+        // Process the result
+        if (result.output) |output| {
+            success = true;
+            
+            // Store the output in return data for future use
+            try return_data.appendSlice(output);
+            
+            // Update the caller's memory with the return data
+            if (out_size_usize > 0) {
+                const memory_data = frame.memory.data();
+                const copy_size = @min(out_size_usize, output.len);
+                
+                for (0..copy_size) |i| {
+                    if (out_offset_usize + i < memory_data.len) {
+                        memory_data[out_offset_usize + i] = output[i];
+                    }
+                }
+                
+                // Zero out any remaining output memory area
+                for (copy_size..out_size_usize) |i| {
+                    if (out_offset_usize + i < memory_data.len) {
+                        memory_data[out_offset_usize + i] = 0;
+                    }
+                }
+            }
+            
+            // Free the output if it was allocated
+            interpreter.allocator.free(output);
+        } else {
+            // No output, but not necessarily a failure
+            success = true;
+        }
+    } else {
+        // Regular callcode (not precompiled)
+        // In a real implementation, we would:
+        // 1. Create a new call frame with the target's code but the current context (sender, value, etc.)
+        // 2. Run the call
+        // 3. Process the result
+        
+        // For now, we'll simulate a basic call
+        success = true; // Default to true for this stub
+        
+        // Deduct used gas from current frame
+        frame.gas -= gas_cost;
+        
+        // Write the return data to memory if the call was successful
+        if (success and out_size_usize > 0) {
+            // In a real implementation, we would copy the actual return data
+            // For now, just zero out the memory region
+            const memory_data = frame.memory.data();
+            for (out_offset_usize..out_offset_usize + out_size_usize) |i| {
+                if (i < memory_data.len) {
+                    memory_data[i] = 0;
+                }
             }
         }
+    }
+    
+    // Save return data for later retrieval with RETURNDATACOPY
+    if (interpreter.returnData) |old_data| {
+        interpreter.allocator.free(old_data);
+        interpreter.returnData = null;
+    }
+    
+    if (return_data.items.len > 0) {
+        const return_copy = try interpreter.allocator.alloc(u8, return_data.items.len);
+        @memcpy(return_copy, return_data.items);
+        interpreter.returnData = return_copy;
     }
     
     // Push result to stack (1 for success, 0 for failure)
@@ -433,33 +511,110 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     }
     
     // Log the delegatecall if we have a logger
-    if (frame.logger) |logger| {
-        logger.debug("DELEGATECALL: to_addr={x}, gas={}", .{ to_addr, gas });
+    if (frame.logger) |frame_logger| {
+        frame_logger.debug("DELEGATECALL: to_addr={x}, gas={}", .{ to_addr, gas });
     }
     
-    // In a real implementation, we would:
-    // 1. Create a new call frame with the target's code but preserving the sender, value, etc.
-    // 2. Run the call
-    // 3. Process the result
-    
-    // For now, we'll simulate a basic call
-    var success: bool = true; // Default to true for this stub
+    // Check if this is a delegatecall to a precompiled contract
+    var success: bool = false;
     var return_data = std.ArrayList(u8).init(interpreter.allocator);
     defer return_data.deinit();
     
-    // Deduct used gas from current frame
-    frame.gas -= gas_cost;
-    
-    // Write the return data to memory if the call was successful
-    if (success and out_size_usize > 0) {
-        // In a real implementation, we would copy the actual return data
-        // For now, just zero out the memory region
-        const memory_data = frame.memory.data();
-        for (out_offset_usize..out_offset_usize + out_size_usize) |i| {
-            if (i < memory_data.len) {
-                memory_data[i] = 0;
+    // Check for precompiled contracts
+    if (checkPrecompiled(to_addr, interpreter)) |contract| {
+        // Execute precompiled contract
+        file_logger.debug("Executing precompiled contract with DELEGATECALL at address: 0x{x}", .{to_addr});
+        
+        // Cap gas to the remaining gas in the frame
+        const capped_gas = @min(gas_cost, frame.gas);
+        
+        // Run the precompiled contract
+        const result = precompile.runPrecompiledContract(
+            contract,
+            input_data.items,
+            capped_gas,
+            interpreter.allocator,
+            &frame.logger
+        ) catch |err| {
+            file_logger.err("Precompiled contract delegatecall execution failed: {}", .{err});
+            
+            // Push 0 to the stack to indicate failure
+            try frame.stack.push(0);
+            return "";
+        };
+        
+        // Update gas used
+        const gas_used = capped_gas - result.remaining_gas;
+        frame.gas -= gas_used;
+        
+        // Process the result
+        if (result.output) |output| {
+            success = true;
+            
+            // Store the output in return data for future use
+            try return_data.appendSlice(output);
+            
+            // Update the caller's memory with the return data
+            if (out_size_usize > 0) {
+                const memory_data = frame.memory.data();
+                const copy_size = @min(out_size_usize, output.len);
+                
+                for (0..copy_size) |i| {
+                    if (out_offset_usize + i < memory_data.len) {
+                        memory_data[out_offset_usize + i] = output[i];
+                    }
+                }
+                
+                // Zero out any remaining output memory area
+                for (copy_size..out_size_usize) |i| {
+                    if (out_offset_usize + i < memory_data.len) {
+                        memory_data[out_offset_usize + i] = 0;
+                    }
+                }
+            }
+            
+            // Free the output if it was allocated
+            interpreter.allocator.free(output);
+        } else {
+            // No output, but not necessarily a failure
+            success = true;
+        }
+    } else {
+        // Regular delegatecall (not precompiled)
+        // In a real implementation, we would:
+        // 1. Create a new call frame with the target's code but preserving the sender, value, etc.
+        // 2. Run the call
+        // 3. Process the result
+        
+        // For now, we'll simulate a basic call
+        success = true; // Default to true for this stub
+        
+        // Deduct used gas from current frame
+        frame.gas -= gas_cost;
+        
+        // Write the return data to memory if the call was successful
+        if (success and out_size_usize > 0) {
+            // In a real implementation, we would copy the actual return data
+            // For now, just zero out the memory region
+            const memory_data = frame.memory.data();
+            for (out_offset_usize..out_offset_usize + out_size_usize) |i| {
+                if (i < memory_data.len) {
+                    memory_data[i] = 0;
+                }
             }
         }
+    }
+    
+    // Save return data for later retrieval with RETURNDATACOPY
+    if (interpreter.returnData) |old_data| {
+        interpreter.allocator.free(old_data);
+        interpreter.returnData = null;
+    }
+    
+    if (return_data.items.len > 0) {
+        const return_copy = try interpreter.allocator.alloc(u8, return_data.items.len);
+        @memcpy(return_copy, return_data.items);
+        interpreter.returnData = return_copy;
     }
     
     // Push result to stack (1 for success, 0 for failure)
@@ -535,8 +690,8 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     }
     
     // Log the staticcall if we have a logger
-    if (frame.logger) |logger| {
-        logger.debug("STATICCALL: to_addr={x}, gas={}", .{ to_addr, gas });
+    if (frame.logger) |frame_logger| {
+        frame_logger.debug("STATICCALL: to_addr={x}, gas={}", .{ to_addr, gas });
     }
     
     // Check if this is a call to a precompiled contract
@@ -704,8 +859,8 @@ pub fn opCreate(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     }
     
     // Log the create if we have a logger
-    if (frame.logger) |logger| {
-        logger.debug("CREATE: value={}, code_size={}", .{ value, size_usize });
+    if (frame.logger) |frame_logger| {
+        frame_logger.debug("CREATE: value={}, code_size={}", .{ value, size_usize });
     }
     
     // In a real implementation, we would:
@@ -783,8 +938,8 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     }
     
     // Log the create2 if we have a logger
-    if (frame.logger) |logger| {
-        logger.debug("CREATE2: value={}, code_size={}, salt={x}", .{ value, size_usize, salt });
+    if (frame.logger) |frame_logger| {
+        frame_logger.debug("CREATE2: value={}, code_size={}, salt={x}", .{ value, size_usize, salt });
     }
     
     // In a real implementation, we would:
@@ -810,7 +965,7 @@ pub fn opCreate2(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
 }
 
 /// Calculate memory size required for call operations
-pub fn getCallMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTable.Memory) JumpTable.MemorySizeFunc.ReturnType {
+pub fn getCallMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTable.Memory) JumpTableModule.MemorySizeFunc.ReturnType {
     _ = memory;
     
     // For CALL and CALLCODE, we need at least 7 items on the stack

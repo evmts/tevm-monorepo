@@ -11,7 +11,7 @@ const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
 const createLogger = @import("../EvmLogger.zig").createLogger;
 
 // Create a file-specific logger
-const logger = createLogger(@src().file);
+const logger = createLogger("Precompiles.zig");
 
 /// PrecompiledContract is the basic interface for native contracts implemented in Zig.
 /// Each contract must provide a method to calculate required gas based on input size

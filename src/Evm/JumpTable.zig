@@ -197,7 +197,8 @@ pub const JumpTable = struct {
 
 /// Gas cost constants for basic operations
 /// These define the static gas costs for various opcode categories
-pub const GasQuickStep: u64 = 2;    /// Very cheap operations (like PC, CALLDATASIZE)
+/// Very cheap operations (like PC, CALLDATASIZE)
+pub const GasQuickStep: u64 = 2;
 pub const GasFastestStep: u64 = 3;  /// Fast operations (like ADD, SUB, NOT)
 pub const GasFastStep: u64 = 5;     /// Faster operations (like MUL, DIV)
 pub const GasMidStep: u64 = 8;      /// Mid-range operations (like ADDMOD, MULMOD)
