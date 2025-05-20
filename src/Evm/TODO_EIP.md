@@ -2,18 +2,20 @@
 
 This document outlines key EIPs that should be implemented in the Tevm Zig EVM to maintain compatibility with current Ethereum network standards. Based on our analysis of Revm and other implementations, the following EIPs are high priority for implementation:
 
-## Already Partially Implemented
+## Implemented
 
 ### EIP-2929: Gas cost increases for state access opcodes
 
-- **Status**: Tracking infrastructure implemented, pricing not fully implemented
+- **Status**: Implemented
 - **Description**: Increases gas costs for SLOAD, *CALL, EXT*, and BALANCE opcodes to prevent DoS attacks
-- **What's done**: Added warm/cold access tracking for storage slots and accounts
+- **What's done**: 
+  - Added warm/cold access tracking for storage slots and accounts
+  - Implemented gas cost increases for cold accesses
+  - Added cold/warm access for EXTCODEHASH, EXTCODESIZE, EXTCODECOPY, BALANCE
+  - Updated gas tables with the new cold/warm access costs
 - **TODO**: 
-  - Implement the actual gas cost increases for cold accesses
-  - Add cold/warm access for other opcodes (EXTCODEHASH, EXTCODESIZE, EXTCODECOPY, BALANCE, CALL, CALLCODE, DELEGATECALL, STATICCALL)
   - Add warm access presets for precompiled contract addresses
-  - Update gas tables to use the new cold/warm access costs
+  - Implement cold/warm access for CALL, CALLCODE, DELEGATECALL, STATICCALL
 
 ### EIP-2200: Structured Definitions for Gas Metering
 

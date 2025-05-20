@@ -102,19 +102,26 @@ const TestLogCapture = struct {
 };
 
 test "EvmLogger custom output capture" {
-    // This demonstrates how you could capture log output in tests if needed
-    // (Not actually implemented in EvmLogger.zig yet, would need to modify the logger to accept a custom writer)
+    // This test now uses the custom writer functionality added to EvmLogger
     
     var log_capture = TestLogCapture.init(testing.allocator);
     defer log_capture.deinit();
     
-    // In a real implementation, you'd pass the writer to the logger
-    // For now, we'll just write directly to it to demonstrate
-    log_capture.writer().print("Test log capture: {s}\n", .{"Hello World"}) catch unreachable;
+    // Create a logger with a custom writer
+    const writer = log_capture.writer();
+    var logger = EvmLogger.initWithWriter("TestCapture", writer);
     
-    // Show the captured output
+    // Log some messages
+    logger.debug("This is a debug message", .{});
+    logger.info("This is an info message with a value: {d}", .{42});
+    logger.warn("This is a warning message", .{});
+    
+    // Show the captured output for visual inspection
     std.debug.print("\nCaptured log output:\n{s}\n", .{log_capture.getContents()});
     
     // Verify the captured output contains expected text
-    try testing.expect(std.mem.indexOf(u8, log_capture.getContents(), "Hello World") != null);
+    try testing.expect(std.mem.indexOf(u8, log_capture.getContents(), "TestCapture") != null);
+    try testing.expect(std.mem.indexOf(u8, log_capture.getContents(), "debug message") != null);
+    try testing.expect(std.mem.indexOf(u8, log_capture.getContents(), "42") != null);
+    try testing.expect(std.mem.indexOf(u8, log_capture.getContents(), "warning message") != null);
 }

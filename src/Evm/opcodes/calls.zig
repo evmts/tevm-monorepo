@@ -1015,7 +1015,7 @@ pub fn getCallMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTable
 }
 
 /// Calculate memory size required for delegate call and static call operations
-pub fn getDelegateCallMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTable.Memory) JumpTable.MemorySizeFunc.ReturnType {
+pub fn getDelegateCallMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTable.Memory) JumpTableModule.MemorySizeFunc.ReturnType {
     _ = memory;
     
     // For DELEGATECALL and STATICCALL, we need at least 6 items on the stack
@@ -1065,7 +1065,7 @@ pub fn getDelegateCallMemorySize(stack: *const JumpTable.Stack, memory: *const J
 }
 
 /// Calculate memory size required for create operations
-pub fn getCreateMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTable.Memory) JumpTable.MemorySizeFunc.ReturnType {
+pub fn getCreateMemorySize(stack: *const JumpTable.Stack, memory: *const JumpTable.Memory) JumpTableModule.MemorySizeFunc.ReturnType {
     _ = memory;
     
     // For CREATE and CREATE2, we need at least 3 items on the stack (4 for CREATE2)

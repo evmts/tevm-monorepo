@@ -148,8 +148,8 @@ pub const Bytecode = union(enum) {
 
     pub fn newRawChecked(raw_bytes: Bytes) !Bytecode {
         if (raw_bytes.len >= 2 and std.mem.eql(u8, raw_bytes[0..2], &EOF_MAGIC_BYTES)) {
-            const eof = try Eof.decode(raw_bytes);
-            return Bytecode{ .Eof = &eof };
+            const eof_obj = try Eof.decode(raw_bytes);
+            return Bytecode{ .Eof = &eof_obj };
         } else if (raw_bytes.len >= 2 and std.mem.eql(u8, raw_bytes[0..2], &eip7702.EIP7702_MAGIC_BYTES)) {
             const e2 = try eip7702.Eip7702Bytecode.newRaw(raw_bytes);
             return Bytecode{ .Eip7702 = e2 };
@@ -296,8 +296,8 @@ test "Bytecode enum variant checks" {
     
     // Test isEmpty function 
     {
-        var analyzed = LegacyAnalyzedBytecode{};
-        var bytecode = Bytecode{ .LegacyAnalyzed = analyzed };
+        const analyzed = LegacyAnalyzedBytecode{};
+        const bytecode = Bytecode{ .LegacyAnalyzed = analyzed };
         
         try testing.expect(bytecode.isEmpty());
     }

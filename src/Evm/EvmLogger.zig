@@ -8,7 +8,7 @@ pub const LogLevel = enum {
     debug,
     info,
     warn,
-    error,
+    error_level, // Can't use 'error' as it's a reserved keyword
 };
 
 /// Formatting for log levels
@@ -17,7 +17,7 @@ const LevelColor = struct {
     const debug = "\x1b[36m"; // Cyan
     const info = "\x1b[32m";  // Green
     const warn = "\x1b[33m";  // Yellow
-    const error = "\x1b[31m"; // Red
+    const error_color = "\x1b[31m"; // Red
 };
 
 /// Format string for different log levels
@@ -26,7 +26,7 @@ fn levelFormat(comptime level: LogLevel) []const u8 {
         .debug => LevelColor.debug ++ "[DEBUG]" ++ LevelColor.reset,
         .info => LevelColor.info ++ "[INFO]" ++ LevelColor.reset,
         .warn => LevelColor.warn ++ "[WARN]" ++ LevelColor.reset,
-        .error => LevelColor.error ++ "[ERROR]" ++ LevelColor.reset,
+        .error_level => LevelColor.error_color ++ "[ERROR]" ++ LevelColor.reset,
     };
 }
 
@@ -68,7 +68,7 @@ pub const EvmLogger = struct {
 
     /// Log an error message if debug logging is enabled
     pub fn err(self: EvmLogger, comptime fmt: []const u8, args: anytype) void {
-        logMessage(self, .error, fmt, args);
+        logMessage(self, .error_level, fmt, args);
     }
 
     /// Internal function to format and print log messages
