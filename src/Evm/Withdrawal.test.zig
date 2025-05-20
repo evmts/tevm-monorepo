@@ -106,13 +106,24 @@ const MockStateManager = struct {
         return try self.balances.allocator.dupe(u8, key_buf[0..]);
     }
     
-    // StateManager interface implementations
-    pub fn getAccount(self: *MockStateManager, address: B160) !?struct {
-        balance: u128 = 0,
+    // Define a consistent account type for the interfaces
+    const AccountType = struct {
+        balance: u128,
         nonce: u64 = 0,
-    } {
+    };
+    
+    // StateManager interface implementations
+    pub fn getAccount(self: *MockStateManager, address: anytype) !?AccountType {
         var key_buf: [40]u8 = undefined;
-        _ = try std.fmt.bufPrint(&key_buf, "{s}", .{std.fmt.fmtSliceHexLower(&address.bytes)});
+        
+        // Handle different address types
+        if (@TypeOf(address) == B160) {
+            _ = try std.fmt.bufPrint(&key_buf, "{s}", .{std.fmt.fmtSliceHexLower(&address.bytes)});
+        } else if (@TypeOf(address) == Address) {
+            _ = try std.fmt.bufPrint(&key_buf, "{s}", .{std.fmt.fmtSliceHexLower(&address)});
+        } else {
+            @compileError("Unsupported address type in getAccount");
+        }
         
         if (self.balances.get(&key_buf)) |balance| {
             return .{
@@ -123,10 +134,7 @@ const MockStateManager = struct {
         return null;
     }
     
-    pub fn createAccount(self: *MockStateManager, address: B160, balance: u128) !struct {
-        balance: u128,
-        nonce: u64 = 0,
-    } {
+    pub fn createAccount(self: *MockStateManager, address: anytype, balance: u128) !AccountType {
         // Create a consistent key for this address
         const key = try self.getAddressKey(address);
         defer self.balances.allocator.free(key);
@@ -141,7 +149,7 @@ const MockStateManager = struct {
         };
     }
     
-    pub fn putAccount(self: *MockStateManager, address: B160, account: anytype) !void {
+    pub fn putAccount(self: *MockStateManager, address: anytype, account: anytype) !void {
         // Create a consistent key for this address
         const key = try self.getAddressKey(address);
         defer self.balances.allocator.free(key);

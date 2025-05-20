@@ -1,21 +1,13 @@
 const std = @import("std");
-const precompile = @import("Precompiles.zig");
 const builtin = @import("builtin");
 
-// Use direct path to Address module for test
-const Address = if (builtin.is_test)
-    [20]u8 // Just use the raw type in tests
-else 
-    @import("Address").Address;
+// Direct imports to avoid module conflicts
+const Precompiles = @import("Precompiles.zig");
+const ChainRules = Precompiles.ChainRules;
+const precompile = Precompiles;
 
-// Direct path for Evm module
-const EvmModule = if (builtin.is_test)
-    @import("/Users/williamcory/tevm/main/src/Evm/evm.zig")
-else
-    @import("Evm");
-
-// Define ChainRules directly to avoid import issues
-const ChainRules = precompile.ChainRules;
+// Import Address module directly 
+const Address = @import("Address").Address;
 
 test "Precompile contract loading" {
     const testing = std.testing;

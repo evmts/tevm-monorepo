@@ -98,7 +98,7 @@ fn encodeParam(
         }
         
         // Zero out the buffer
-        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
+        @memset(head[head_len.* .. head_len.* + 32], 0);
         
         if (std.mem.eql(u8, ty, "address")) {
             // Address: pad on the left (20 bytes for address)
@@ -106,7 +106,7 @@ fn encodeParam(
             @memcpy(head[start_idx..start_idx+@min(value.len, 20)], value[value.len - @min(value.len, 20)..]);
         } else {
             // Other types: pad on the right
-            std.mem.copy(u8, head[head_len.* + 32 - value.len..], value);
+            @memcpy(head[head_len.* + 32 - value.len..][0..value.len], value);
         }
         
         head_len.* += 32;
@@ -124,10 +124,10 @@ fn encodeParam(
         }
         
         // Zero out the buffer
-        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
+        @memset(head[head_len.* .. head_len.* + 32], 0);
         
         // Set the last byte to the boolean value
-        head[head_len.* + 31] = value[0] != 0;
+        head[head_len.* + 31] = if (value[0] != 0) 1 else 0;
         
         head_len.* += 32;
         return;
@@ -153,7 +153,7 @@ fn encodeParam(
         }
         
         // Zero out the buffer
-        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
+        @memset(head[head_len.* .. head_len.* + 32], 0);
         
         // Copy with right padding
         std.mem.copy(u8, head[head_len.* + 32 - value.len..], value);
@@ -180,7 +180,7 @@ fn encodeParam(
         }
         
         // Zero out the buffer
-        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
+        @memset(head[head_len.* .. head_len.* + 32], 0);
         
         // Copy with left padding (for bytesN)
         std.mem.copy(u8, head[head_len.* .. head_len.* + value.len], value);
@@ -199,7 +199,7 @@ fn encodeParam(
         const offset = head_size + tail_len.*;
         
         // Zero out the offset buffer
-        std.mem.set(u8, head[head_len.* .. head_len.* + 32], 0);
+        @memset(head[head_len.* .. head_len.* + 32], 0);
         
         // Write the offset
         writeUint256(offset, head[head_len.* .. head_len.* + 32]);

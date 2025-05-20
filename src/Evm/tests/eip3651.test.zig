@@ -1,7 +1,7 @@
 const std = @import("std");
 
-// Use relative import path when running directly with zig test
-const EvmModule = @import("../evm.zig");
+// Import Evm module properly
+const EvmModule = @import("Evm");
 const Contract = EvmModule.Contract;
 const createContract = EvmModule.createContract;
 const Evm = EvmModule.Evm;
@@ -9,11 +9,11 @@ const ChainRules = EvmModule.ChainRules;
 const JumpTable = EvmModule.JumpTable;
 const Interpreter = EvmModule.Interpreter;
 
-// Use relative imports for test
-const AddressModule = @import("../Address/address.zig");
+// Import modules properly
+const AddressModule = @import("Address");
 const Address = AddressModule.Address;
 
-const StateManagerModule = @import("../StateManager/StateManager.zig");
+const StateManagerModule = @import("StateManager");
 const StateManager = StateManagerModule.StateManager;
 
 // Helper function to convert hex string to Address

@@ -210,7 +210,7 @@ fn rewardAccount(stateManager: anytype, address: Address, amount: u128) !void {
     var scoped = createScopedLogger(getLogger(), "rewardAccount()");
     defer scoped.deinit();
     
-    getLogger().debug("Rewarding account: {}", .{address});
+    getLogger().debug("Rewarding account: {any}", .{address});
     getLogger().debug("Amount: {d} Wei", .{amount});
     std.debug.print("rewardAccount: {d} Wei\n", .{amount});
     
@@ -238,6 +238,7 @@ fn rewardAccount(stateManager: anytype, address: Address, amount: u128) !void {
         std.debug.print("Processing withdrawal in test mode\n", .{});
         
         // Get the account from state (or create a new one if it doesn't exist)
+        // Use raw Address in test mode since that's what the test expects
         var account = try stateManager.getAccount(address) orelse blk: {
             std.debug.print("  Account does not exist, creating new account with balance 0\n", .{});
             break :blk try stateManager.createAccount(address, 0);

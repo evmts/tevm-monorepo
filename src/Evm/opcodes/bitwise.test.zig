@@ -1,6 +1,10 @@
 const std = @import("std");
 const testing = std.testing;
-const bitwise = @import("bitwise.zig");
+
+// Import the Evm module using the global import path
+const EvmModule = @import("Evm");
+// Get bitwise opcodes functions from the Evm module
+const bitwise = EvmModule.opcodes.bitwise;
 
 // Create simplified Stack implementation for testing
 const TestStack = struct {

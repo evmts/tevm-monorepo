@@ -20,11 +20,11 @@ pub const EncodeFunctionDataError = error{
 ///
 /// Returns the number of bytes written to out_buffer
 pub fn encodeFunctionData(
-    out_buffer: []u8,
+    allocator: std.mem.Allocator,
     abi_items: []const abi.AbiItem,
     function_name: []const u8,
     args: std.StringHashMap([]const u8),
-) !usize {
+) ![]u8 {
     // Find the function in the ABI
     var func_opt: ?abi.Function = null;
     
@@ -44,7 +44,22 @@ pub fn encodeFunctionData(
         return EncodeFunctionDataError.FunctionNotFound;
     }
     
-    return encodeFunctionDataWithFunction(out_buffer, func_opt.?, args);
+    // Estimate buffer size: 4 bytes for selector + 32 bytes per param (conservative)
+    const estimated_size = 4 + (func_opt.?.inputs.len * 32);
+    var buffer = try allocator.alloc(u8, estimated_size);
+    errdefer allocator.free(buffer);
+    
+    const written = try encodeFunctionDataWithFunction(buffer, func_opt.?, args);
+    
+    // Resize buffer to actual size
+    if (allocator.resize(buffer, written)) {
+        return buffer[0..written];
+    } else {
+        var exact = try allocator.alloc(u8, written);
+        @memcpy(exact[0..written], buffer[0..written]);
+        allocator.free(buffer);
+        return exact;
+    }
 }
 
 /// Encodes a function call with its arguments using a specific function ABI definition
@@ -76,7 +91,7 @@ pub fn encodeFunctionDataWithFunction(
     try compute_function_selector.getFunctionSelector(func, &selector);
     
     // Copy selector to the output buffer
-    std.mem.copy(u8, out_buffer[0..4], &selector);
+    @memcpy(out_buffer[0..4], &selector);
     
     // Encode arguments to the rest of the buffer
     const encoded_len = try encode_abi_parameters.encodeAbiParameters(
@@ -113,7 +128,7 @@ pub fn encodeFunctionDataRaw(
     compute_function_selector.computeFunctionSelector(function_signature, &selector);
     
     // Copy selector to the output buffer
-    std.mem.copy(u8, out_buffer[0..4], &selector);
+    @memcpy(out_buffer[0..4], &selector);
     
     // If there are no parameters, just return the selector
     if (values.len == 0) {
@@ -195,32 +210,36 @@ test "encodeFunctionData basic" {
     const testing = std.testing;
     
     // Define ABI items for a sample contract
-    const abi_items = [_]abi.AbiItem{
+    var params_inputs = [_]abi.Param{
+        .{
+            .ty = "address",
+            .name = "to",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+        .{
+            .ty = "uint256",
+            .name = "amount",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
+    var params_outputs = [_]abi.Param{
+        .{
+            .ty = "bool",
+            .name = "success",
+            .components = &[_]abi.Param{},
+            .internal_type = null,
+        },
+    };
+    
+    var abi_items = [_]abi.AbiItem{
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
-                    .{
-                        .ty = "address",
-                        .name = "to",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                    .{
-                        .ty = "uint256",
-                        .name = "amount",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
-                .outputs = &[_]abi.Param{
-                    .{
-                        .ty = "bool",
-                        .name = "success",
-                        .components = &[_]abi.Param{},
-                        .internal_type = null,
-                    },
-                },
+                .inputs = &params_inputs,
+                .outputs = &params_outputs,
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },
@@ -238,14 +257,13 @@ test "encodeFunctionData basic" {
     const amount = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00};
     try args.put("amount", &amount);
     
-    // Buffer to hold the result
-    var result: [100]u8 = undefined;
-    
-    const written = try encodeFunctionData(&result, &abi_items, "transfer", args);
+    // Get encoded data
+    const result = try encodeFunctionData(testing.allocator, &abi_items, "transfer", args);
+    defer testing.allocator.free(result);
     
     // Verify the result starts with the correct selector for transfer(address,uint256)
     // Expected: 0xa9059cbb
-    try testing.expectEqual(@as(usize, 68), written); // 4 bytes selector + 64 bytes params
+    try testing.expectEqual(@as(usize, 68), result.len); // 4 bytes selector + 64 bytes params
     try testing.expectEqual(@as(u8, 0xa9), result[0]);
     try testing.expectEqual(@as(u8, 0x05), result[1]);
     try testing.expectEqual(@as(u8, 0x9c), result[2]);

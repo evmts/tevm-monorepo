@@ -1,14 +1,20 @@
 const std = @import("std");
 const testing = std.testing;
-const crypto = @import("crypto.zig");
-const Frame = @import("Evm").Frame;
-const Stack = @import("Evm").Stack;
-const Contract = @import("Evm").Contract;
-const Address = @import("Address");
-const Interpreter = @import("Evm").Interpreter;
-const JumpTable = @import("Evm").JumpTable;
-const u256_native = u256;
+
+// Import the Evm module using the global import path
 const EvmModule = @import("Evm");
+// Get crypto opcodes functions from the Evm module
+const crypto = EvmModule.opcodes.crypto;
+const Frame = EvmModule.Frame;
+const Stack = EvmModule.Stack;
+const Contract = EvmModule.Contract;
+const Interpreter = EvmModule.Interpreter;
+const JumpTable = EvmModule.JumpTable;
+const u256_native = u256;
+
+// Import the Address module
+const AddressModule = @import("Address");
+const Address = AddressModule.Address;
 
 // Helper function to convert hex string to Address
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {

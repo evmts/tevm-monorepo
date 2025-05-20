@@ -207,7 +207,7 @@ test "getFunctionSelector from ABI" {
     const testing = std.testing;
     
     // Test transfer(address,uint256)
-    const transfer_inputs = [_]abi.Param{
+    var transfer_inputs = [_]abi.Param{
         .{
             .ty = "address",
             .name = "to",
@@ -251,7 +251,7 @@ test "computeEventTopic" {
     {
         const signature = "Transfer(address,address,uint256)";
         var topic: [32]u8 = undefined;
-        computeEventTopic(signature, &topic);
+        topic = computeEventTopic(signature);
         
         // Expected: 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
         const expected = [_]u8{

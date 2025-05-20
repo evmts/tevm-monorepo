@@ -9,6 +9,7 @@ pub const JumpTable = @import("JumpTable.zig");
 pub const opcodes = @import("opcodes.zig");
 pub const Memory = @import("Memory.zig");
 pub const Stack = @import("Stack.zig");
+pub const types = @import("types.zig");
 // Import StateManager stub for tests
 const StateManager = @import("test_stubs.zig").StateManager;
 pub const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
@@ -23,6 +24,9 @@ pub const WithdrawalData = @import("Withdrawal.zig").WithdrawalData;
 pub const processWithdrawals = @import("Withdrawal.zig").processWithdrawals;
 pub const WithdrawalProcessor = @import("WithdrawalProcessor.zig").BlockWithdrawalProcessor;
 pub const WithdrawalBlock = @import("WithdrawalProcessor.zig").Block;
+
+// Export the precompile module
+pub const precompile = @import("precompile/package.zig");
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;
@@ -197,14 +201,8 @@ pub const Evm = struct {
             getLogger().debug("Assigning initial state manager", .{});
         }
 
-        debugOnly({
-            // This code only runs when debug logs are enabled
-            if (stateManager.isForkEnabled()) |is_fork| {
-                if (is_fork) {
-                    getLogger().info("State manager is configured with forking enabled", .{});
-                }
-            } else |_| {}
-        });
+        // Skip additional debug logging for state manager
+        getLogger().debug("State manager configured", .{});
 
         self.state_manager = stateManager;
         getLogger().info("State manager configured successfully", .{});

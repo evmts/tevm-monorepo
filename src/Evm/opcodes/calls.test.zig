@@ -26,7 +26,9 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
         return error.InvalidAddressFormat;
     }
     var addr: Address = undefined;
-    try std.fmt.hexToBytes(&addr, hex_str[2..]);
+    // Use AddressModule functions to parse addresses consistently
+    const bytes = try std.fmt.hexToBytes(&addr.bytes, hex_str[2..]);
+    _ = bytes;
     return addr;
 }
 

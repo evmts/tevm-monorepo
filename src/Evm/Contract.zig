@@ -98,7 +98,7 @@ pub const Contract = struct {
         }
 
         const result = self.isCode(udest);
-        getLogger().debug("Jump destination validity: {}", .{result});
+        getLogger().debug("Jump destination validity: {any}", .{result});
         return result;
     }
 

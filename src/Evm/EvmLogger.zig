@@ -295,7 +295,7 @@ pub fn logOpcode(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, gas_
 /// Logs detailed opcode execution with stack impacts and context
 pub fn logOpcodeDetailed(logger: EvmLogger, pc: usize, op: u8, op_name: []const u8, 
                          gas_cost: u64, gas_left: u64, 
-                         stack_before: []const TestInt, stack_after: []const TestInt,
+                         stack_before: anytype, stack_after: anytype,
                          context: ?[]const u8) void {
     if (comptime !ENABLE_DEBUG_LOGS) {
         return; // This entire function will be optimized away at compile time
@@ -415,11 +415,16 @@ pub fn logHexBytes(logger: EvmLogger, name: []const u8, bytes: []const u8) void 
     }
     
     var buf: [1024]u8 = undefined;
-    const hex_str = hex.bytesToHex(bytes, &buf) catch {
+    
+    // Handle the call to bytesToHex with the correct signature (bytes_ptr, bytes_len, output_ptr)
+    const hex_len = hex.bytesToHex(@ptrCast(bytes.ptr), bytes.len, &buf);
+    if (hex_len == 0) {
         logger.debug("{s}: <too large to display>", .{name});
         return;
-    };
+    }
     
+    // Use the output buffer as a slice (exclude the 0x prefix)
+    const hex_str = buf[2..hex_len];
     logger.debug("{s}: 0x{s}", .{name, hex_str});
 }
 
@@ -432,6 +437,7 @@ pub fn createScopedLogger(logger: EvmLogger, scope_name: []const u8) ScopedLogge
         };
     }
     
+    // Use explicit string format specifier for scope_name
     logger.debug("▶ Entering {s}", .{scope_name});
     return ScopedLogger{
         .logger = logger, 
@@ -449,6 +455,7 @@ pub const ScopedLogger = struct {
             return;
         }
         
+        // Use explicit string format specifier for scope_name
         self.logger.debug("◀ Exiting {s}", .{self.scope_name});
     }
 };

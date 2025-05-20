@@ -15,7 +15,7 @@ const Hardfork = EvmModule.Hardfork;
 const AddressModule = @import("Address");
 const Address = AddressModule.Address;
 
-const block = @import("block.zig"); // Local import for file under test
+const block = EvmModule.opcodes.block; // Get block opcodes from Evm module
 const u256_native = u256;
 
 test "BLOCKHASH opcode" {

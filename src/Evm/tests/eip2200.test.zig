@@ -1,15 +1,23 @@
 const std = @import("std");
 const testing = std.testing;
+
+// Import the Evm module using the standard module path 
 const EvmModule = @import("Evm");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
 const Contract = EvmModule.Contract;
 const createContract = EvmModule.createContract;
 const JumpTable = EvmModule.JumpTable;
-const StateManager = @import("StateManager").StateManager;
-const Address = @import("Address").Address;
-const ExecutionError = EvmModule.Frame.ExecutionError; 
-const B256 = @import("StateManager").B256;
+const ExecutionError = EvmModule.InterpreterError;
+
+// Import the StateManager module
+const StateManagerModule = @import("StateManager");
+const StateManager = StateManagerModule.StateManager;
+const B256 = StateManagerModule.B256;
+
+// Import the Address module
+const AddressModule = @import("Address");
+const Address = AddressModule.Address;
 
 // Test constants
 const TEST_GAS = 10000000;
@@ -134,9 +142,11 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
     if (!std.mem.startsWith(u8, hex_str, "0x") or hex_str.len != 42) {
         return error.InvalidAddressFormat;
     }
+    
     var addr: Address = undefined;
-    _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
+    _ = try std.fmt.hexToBytes(&addr.bytes, hex_str[2..]);
     _ = allocator; // Keep allocator if needed elsewhere or for consistency
+    
     return addr;
 }
 

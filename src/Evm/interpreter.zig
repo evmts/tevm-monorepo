@@ -20,7 +20,7 @@ const JumpTable = JumpTableModule.JumpTable;
 const getOperation = opcodes.getOperation;
 
 // Import precompiles system
-const precompile = @import("precompile/Precompiles.zig");
+const precompile = @import("precompile/package.zig");
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

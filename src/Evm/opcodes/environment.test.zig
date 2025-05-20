@@ -1,8 +1,9 @@
 const std = @import("std");
-const environment = @import("environment.zig");
 
 // Import the Evm module using the global import path
 const EvmModule = @import("Evm");
+// Get environment functions from the Evm module
+const environment = EvmModule.opcodes.environment;
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
 const Memory = EvmModule.Memory;
@@ -24,10 +25,10 @@ fn setupTestEnvironment(allocator: std.mem.Allocator) !struct {
 } {
     const evm_instance = try Evm.init(allocator, null);
 
-    const memory_instance = try Memory.init(allocator);
+    const memory_instance = Memory.init(allocator);
     _ = memory_instance; // autofix
 
-    const stack_instance = try Stack.init(allocator, 1024);
+    const stack_instance = Stack.init(allocator);
     _ = stack_instance; // autofix
 
     var contract_val = EvmModule.createContract(std.mem.zeroes(Address), std.mem.zeroes(Address), 0, 1000000);

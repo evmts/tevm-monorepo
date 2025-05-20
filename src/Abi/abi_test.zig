@@ -17,7 +17,7 @@ test "ABI basic round trip encoding/decoding" {
     const alloc = arena.allocator();
     
     // Create a sample ABI with multiple functions and events
-    const transfer_inputs = [_]abi.Param{
+    var transfer_inputs = [_]abi.Param{
         .{
             .ty = "address",
             .name = "to",
@@ -32,7 +32,7 @@ test "ABI basic round trip encoding/decoding" {
         },
     };
     
-    const transfer_outputs = [_]abi.Param{
+    var transfer_outputs = [_]abi.Param{
         .{
             .ty = "bool",
             .name = "success",
@@ -41,7 +41,7 @@ test "ABI basic round trip encoding/decoding" {
         },
     };
     
-    const transfer_event_inputs = [_]abi.EventParam{
+    var transfer_event_inputs = [_]abi.EventParam{
         .{
             .ty = "address",
             .name = "from",

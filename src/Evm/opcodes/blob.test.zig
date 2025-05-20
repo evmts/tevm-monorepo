@@ -1,21 +1,25 @@
 const std = @import("std");
 const testing = std.testing;
-const blob = @import("blob.zig");
-const utils = @import("test_utils.zig");
 
-// Import needed types from test_utils to ensure consistent imports
-const Frame = utils.Frame;
-const Contract = utils.Contract;
-const Stack = utils.Stack;
-const Memory = utils.Memory;
-const Interpreter = utils.Interpreter;
-const EVM = utils.Evm;
-const ExecutionStatus = utils.ExecutionStatus;
-const Log = utils.Log;
-const ExecutionError = utils.ExecutionError;
+// Import the Evm module using the global import path
+const EvmModule = @import("Evm");
+// Get blob opcodes functions from the Evm module
+const blob = EvmModule.opcodes.blob;
+const Frame = EvmModule.Frame;
+const Contract = EvmModule.Contract;
+const Stack = EvmModule.Stack;
+const Memory = EvmModule.Memory;
+const Interpreter = EvmModule.Interpreter;
+const Evm = EvmModule.Evm;
+const ExecutionError = EvmModule.ExecutionError;
+const ExecutionStatus = EvmModule.ExecutionStatus;
+const Log = EvmModule.Log;
 
-// Alias for the u256 type from Stack
-const BigInt = Stack.u256;
+// Import the Address module
+const AddressModule = @import("Address");
+
+// Use the actual u256 type
+const BigInt = u256;
 
 // Mock implementation for testing
 fn createTestFrame() !struct {
@@ -26,93 +30,58 @@ fn createTestFrame() !struct {
 } {
     const allocator = testing.allocator;
 
-    const stack = try allocator.create(Stack);
-    const stack_capacity = 1024;
-    const stack_data = try allocator.alloc(u64, stack_capacity);
-    @memset(stack_data, 0);
-    stack.* = Stack{
-        .data = stack_data,
-        .size = 0,
-        .capacity = stack_capacity,
-    };
+    // Initialize EVM
+    var evm = try Evm.init(allocator, null);
 
-    const memory = try allocator.create(Memory);
-    memory.* = Memory.init(allocator);
+    // Create a stack
+    var stack = try Stack.init(allocator, 1024);
+    const stack_ptr = try allocator.create(Stack);
+    stack_ptr.* = stack;
 
-    const contract = try allocator.create(Contract);
-    contract.* = Contract{
-        .gas = 100000,
-        .code_address = undefined,
-        .address = undefined,
-        .input = &[_]u8{},
-        .value = 0,
-        .gas_refund = 0,
-        .code = &[_]u8{},
-    };
+    // Create memory
+    var memory = try Memory.init(allocator);
+    const memory_ptr = try allocator.create(Memory);
+    memory_ptr.* = memory;
 
-    const frame = try allocator.create(Frame);
-    frame.* = Frame{
-        .stack = stack.*,
-        .memory = memory.*,
-        .contract = contract,
-        .pc = 0,
-        .returnData = null,
-    };
+    // Create contract
+    var contract = EvmModule.createContract(std.mem.zeroes(AddressModule.Address), std.mem.zeroes(AddressModule.Address), 0, 100000);
+    contract.code = &[_]u8{};
+    contract.input = &[_]u8{};
+    const contract_ptr = try allocator.create(Contract);
+    contract_ptr.* = contract;
 
-    const interpreter = try allocator.create(Interpreter);
+    // Create frame
+    var frame = try Frame.init(allocator, contract_ptr);
+    const frame_ptr = try allocator.create(Frame);
+    frame_ptr.* = frame;
 
-    // Create EVM instance
-
-    const evm = try allocator.create(EVM);
-    evm.* = EVM{
-        .chainRules = .{
-            .IsEIP4844 = true, // Enable EIP-4844 for BLOBHASH and BLOBBASEFEE
-            .IsEIP5656 = true, // Enable EIP-5656 for MCOPY
-            // Add other necessary rules
-        },
-        .allocator = allocator,
-        .transientStorage = std.StringHashMap(std.StringHashMap([]u8)).init(allocator),
-        .contracts = undefined,
-        .returnValue = undefined,
-        .status = ExecutionStatus.Success,
-        .gasUsed = 0,
-        .gasRefund = 0,
-        .depth = 0,
-        .logs = std.ArrayList(Log).init(allocator),
-        .accounts = undefined,
-        .accessList = undefined,
-        .storageAccessList = undefined,
-    };
-
-    interpreter.* = Interpreter{
-        .evm = evm,
-        .cfg = undefined,
-        .readOnly = false,
-        .returnData = &[_]u8{},
-    };
+    // Create jump table
+    var jump_table = try EvmModule.JumpTable.init(allocator);
+    
+    // Create interpreter
+    var interpreter = try Interpreter.create(allocator, &evm, jump_table);
+    interpreter.returnData = &[_]u8{};
 
     return .{
-        .frame = frame,
-        .stack = stack,
-        .memory = memory,
+        .frame = frame_ptr,
+        .stack = stack_ptr,
+        .memory = memory_ptr,
         .interpreter = interpreter,
     };
 }
 
 fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
-    test_frame.memory.deinit();
-    allocator.free(test_frame.stack.data);
-
-    // Deinitialize EVM resources
-    test_frame.interpreter.evm.transientStorage.deinit();
-    test_frame.interpreter.evm.logs.deinit();
-
-    // Free all allocated memory
+    // Proper cleanup using Evm module's cleanup methods
+    test_frame.frame.deinit();
+    
+    // Free the memory we allocated
     allocator.destroy(test_frame.memory);
     allocator.destroy(test_frame.stack);
     allocator.destroy(test_frame.frame.contract);
     allocator.destroy(test_frame.frame);
-    allocator.destroy(test_frame.interpreter.evm); // Free the EVM we created
+    
+    // Deinitialize the interpreter and its EVM
+    test_frame.interpreter.deinit();
     allocator.destroy(test_frame.interpreter);
 }
 

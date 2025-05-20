@@ -237,7 +237,7 @@ const precompile = if (is_test)
         }
     }
 else
-    @import("../precompile/Precompiles.zig");
+    @import("../precompile/package.zig");
 
 const keccak256 = if (is_test)
     struct {

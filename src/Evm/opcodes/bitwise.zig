@@ -1,9 +1,11 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const Stack = @import("../Stack.zig").Stack;
+const pkg = @import("package.zig");
+const Interpreter = pkg.Interpreter;
+const Frame = pkg.Frame;
+const ExecutionError = pkg.ExecutionError;
+const JumpTable = pkg.JumpTable;
+const Stack = pkg.Stack;
+const @"u256" = pkg.@"u256";
 
 /// AND operation - bitwise AND of the top two stack items
 pub fn opAnd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

@@ -102,7 +102,8 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const dynamic_offset = std.mem.bigToNative(u256, @ptrCast(*const u256, data[offset.* .. offset.* + 32].*));
+        const offset_ptr = @as(*const u256, @ptrCast(&data[offset.*]));
+        const dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
         offset.* += 32;
         
         // Read the length
@@ -110,7 +111,8 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length = std.mem.bigToNative(u256, @ptrCast(*const u256, data[dynamic_offset .. dynamic_offset + 32].*));
+        const length_ptr = @as(*const u256, @ptrCast(&data[dynamic_offset]));
+        const length = std.mem.bigToNative(u256, length_ptr.*);
         
         // Check bounds
         if (dynamic_offset + 32 + length > data.len) {
@@ -149,7 +151,8 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const dynamic_offset = std.mem.bigToNative(u256, @ptrCast(*const u256, data[offset.* .. offset.* + 32].*));
+        const offset_ptr = @as(*const u256, @ptrCast(&data[offset.*]));
+        const dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
         offset.* += 32;
         
         // Read the length
@@ -157,7 +160,8 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length = std.mem.bigToNative(u256, @ptrCast(*const u256, data[dynamic_offset .. dynamic_offset + 32].*));
+        const length_ptr = @as(*const u256, @ptrCast(&data[dynamic_offset]));
+        const length = std.mem.bigToNative(u256, length_ptr.*);
         
         // Check bounds
         if (dynamic_offset + 32 + length > data.len) {
@@ -203,7 +207,8 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
     }
     
     if (T == u256 or T == i256) {
-        out.* = std.mem.bigToNative(T, @ptrCast(*const T, bytes[0..@sizeOf(T)]).*);
+        const ptr = @as(*const T, @ptrCast(&bytes[0]));
+        out.* = std.mem.bigToNative(T, ptr.*);
         return;
     }
     
@@ -222,8 +227,8 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
         
         // Extract the value (always big-endian in ABI)
         var result: T = 0;
-        for (bytes[bytes.len-size..bytes.len], 0..) |b, i| {
-            result = result << 8 | @intCast(T, b);
+        for (bytes[bytes.len-size..bytes.len], 0..) |b, _| {
+            result = result << 8 | @as(T, b);
         }
         out.* = result;
         return;

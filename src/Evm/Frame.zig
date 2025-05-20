@@ -1,6 +1,7 @@
 const std = @import("std");
 const Memory = @import("Memory.zig").Memory;
 const Stack = @import("Stack.zig").Stack;
+const @"u256" = @import("types.zig").@"u256";
 const Contract = @import("Contract.zig").Contract;
 const Address = @import("Address").Address;
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
@@ -80,8 +81,8 @@ pub const Frame = struct {
         const scoped = createScopedLogger(getLogger(), "Frame.init");
         defer scoped.deinit();
         
-        getLogger().debug("Creating new Frame for contract at address: {}", .{contract.address});
-        getLogger().debug("Contract caller: {}", .{contract.caller});
+        getLogger().debug("Creating new Frame for contract at address: {any}", .{contract.address});
+        getLogger().debug("Contract caller: {any}", .{contract.caller});
         getLogger().debug("Contract value: {d} wei", .{contract.value});
         getLogger().debug("Initial gas: {d}", .{contract.gas});
         getLogger().debug("Code size: {d} bytes", .{contract.code.len});
@@ -131,7 +132,7 @@ pub const Frame = struct {
         
         // Log frame execution status
         if (self.err) |err| {
-            getLogger().debug("Frame ended with error: {}", .{err});
+            getLogger().debug("Frame ended with error: {any}", .{err});
         } else {
             getLogger().debug("Frame ended successfully", .{});
         }
@@ -255,7 +256,7 @@ pub const Frame = struct {
     /// Returns: Address of the caller
     pub fn caller(self: *const Frame) Address {
         const caller_addr = self.contract.getCaller();
-        getLogger().debug("Getting caller address: {}", .{caller_addr});
+        getLogger().debug("Getting caller address: {any}", .{caller_addr});
         return caller_addr;
     }
 
@@ -264,7 +265,7 @@ pub const Frame = struct {
     /// Returns: Address of the contract
     pub fn address(self: *const Frame) Address {
         const contract_addr = self.contract.getAddress();
-        getLogger().debug("Getting contract address: {}", .{contract_addr});
+        getLogger().debug("Getting contract address: {any}", .{contract_addr});
         return contract_addr;
     }
 
@@ -440,7 +441,7 @@ pub fn createFrame(allocator: std.mem.Allocator, contract: *Contract) !Frame {
     const scoped = createScopedLogger(getLogger(), "createFrame");
     defer scoped.deinit();
     
-    getLogger().debug("Creating frame via helper function for contract at {}", .{contract.address});
+    getLogger().debug("Creating frame via helper function for contract at {any}", .{contract.address});
     
     if (contract.code.len > 0) {
         getLogger().debug("Contract has {d} bytes of code", .{contract.code.len});
