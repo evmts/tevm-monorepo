@@ -23,7 +23,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
         return error.InvalidAddressFormat;
     }
     var addr: Address = undefined;
-    try std.fmt.hexToBytes(&addr, hex_str[2..]);
+    _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
     return addr;
 }
 
@@ -62,9 +62,9 @@ test "EIP-3198: BASEFEE opcode with EIP-3198 enabled" {
 
     var state_manager = try StateManager.init(allocator, .{});
     defer state_manager.deinit();
-    evm.setStateManager(state_manager);
+    evm.setStateManager(@ptrCast(@alignCast(&state_manager)));
 
-    var jt = try JumpTable.init(allocator);
+    var jt = JumpTable.init();
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     var interpreter = try Interpreter.create(allocator, &evm, jt);
@@ -90,9 +90,9 @@ test "EIP-3198: BASEFEE opcode with EIP-3198 disabled" {
 
     var state_manager = try StateManager.init(allocator, .{});
     defer state_manager.deinit();
-    evm.setStateManager(state_manager);
+    evm.setStateManager(@ptrCast(@alignCast(&state_manager)));
 
-    var jt = try JumpTable.init(allocator);
+    var jt = JumpTable.init();
     try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     var interpreter = try Interpreter.create(allocator, &evm, jt);

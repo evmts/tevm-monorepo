@@ -21,7 +21,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
         return error.InvalidAddressFormat;
     }
     var addr: Address = undefined;
-    try std.fmt.hexToBytes(&addr, hex_str[2..]);
+    _ = try std.fmt.hexToBytes(&addr, hex_str[2..]);
     _ = allocator;
     return addr;
 }
@@ -64,7 +64,7 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 enabled" {
     // Create state manager
     var state_manager = try StateManager.init(allocator, .{});
     defer state_manager.deinit();
-    evm.setStateManager(&state_manager);
+    evm.setStateManager(@ptrCast(@alignCast(&state_manager)));
 
     // Create jump table
     var jt = JumpTable.init();
@@ -103,7 +103,7 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 disabled" {
     // Create state manager
     var state_manager = try StateManager.init(allocator, .{});
     defer state_manager.deinit();
-    evm.setStateManager(&state_manager);
+    evm.setStateManager(@ptrCast(@alignCast(&state_manager)));
 
     // Create jump table
     var jt = JumpTable.init();
@@ -122,7 +122,7 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 disabled" {
     const result = interpreter.run(&contract, &[_]u8{}, false);
 
     // Verify that the execution failed with InvalidOpcode error
-    std.testing.expectError(Interpreter.InterpreterError.InvalidOpcode, result) catch |err| {
+    std.testing.expectError(EvmModule.InterpreterError.InvalidOpcode, result) catch |err| {
         std.debug.print("Test failed: {}\n", .{err});
         return err;
     };
