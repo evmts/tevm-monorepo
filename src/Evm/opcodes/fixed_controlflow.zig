@@ -228,12 +228,12 @@ pub fn opInvalid(_: usize, _: *Interpreter, _: *Frame) ExecutionError![]const u8
 }
 
 /// SELFDESTRUCT (0xFF) - Halt execution and register account for deletion
-pub fn opSelfdestruct(_: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+pub fn opSelfdestruct(_: usize, interp: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     // Pop beneficiary address from the stack
     _ = try frame.stack.pop();
     
     // Check if we're in a static call (can't modify state)
-    if (interpreter.readOnly) {
+    if (interp.readOnly) {
         return ExecutionError.StaticStateChange;
     }
     

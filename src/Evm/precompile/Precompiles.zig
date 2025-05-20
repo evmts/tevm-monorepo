@@ -54,12 +54,9 @@ fn createScopedLogger(parent: EvmLogger, name: []const u8) struct {
     return .{ .name = name };
 }
 
-fn debugOnly(comptime _: anytype) type {
-    return struct {
-        pub fn apply(args: anytype) void {
-            _ = args;
-        }
-    };
+fn debugOnly(comptime callback: anytype) void {
+    // This does nothing in production code
+    _ = callback;
 }
 // Define ChainRules directly in precompiles for testing since we cannot import Evm module in tests
 const ChainRules = struct {
@@ -80,7 +77,6 @@ const ChainRules = struct {
     IsBerlin: bool = false,
     IsCancun: bool = false,
     IsPrague: bool = false,
-    IsVerkle: bool = false,
 
     pub fn forHardfork(hardfork: Hardfork) ChainRules {
         return switch (hardfork) {
@@ -179,7 +175,6 @@ const ChainRules = struct {
                 .IsBerlin = true,
                 .IsCancun = true,
                 .IsPrague = true,
-                .IsVerkle = true,
                 .IsEIP1559 = true,
                 .IsEIP2929 = true,
                 .IsEIP2930 = true,
@@ -349,11 +344,7 @@ pub fn pragueContracts(allocator: std.mem.Allocator) !PrecompiledContracts {
 
 /// Get precompiled contracts based on chain rules
 pub fn activePrecompiledContracts(allocator: std.mem.Allocator, rules: ChainRules) !PrecompiledContracts {
-    if (rules.IsVerkle) {
-        // Verkle rules match Berlin
-        logger.debug("Using Verkle precompiled contracts (same as Berlin)", .{});
-        return try berlinContracts(allocator);
-    } else if (rules.IsPrague) {
+    if (rules.IsPrague) {
         logger.debug("Using Prague precompiled contracts", .{});
         return try pragueContracts(allocator);
     } else if (rules.IsCancun) {
@@ -403,6 +394,7 @@ pub fn runPrecompiledContract(
     // Run the contract
     const output = try contract.run(input, allocator);
     
+    // Return the result with outputting data and remaining gas
     return .{
         .output = output,
         .remaining_gas = remaining_gas,
@@ -431,6 +423,7 @@ test "Active precompiled contracts per hardfork" {
     // Test Byzantium contracts
     {
         var rules = ChainRules{};
+        rules.IsByzantium = true; // Enable Byzantium
         rules.IsIstanbul = false;
         rules.IsBerlin = false;
         rules.IsCancun = false;
@@ -445,6 +438,8 @@ test "Active precompiled contracts per hardfork" {
     // Test Istanbul contracts
     {
         var rules = ChainRules{};
+        rules.IsByzantium = true; // Enable Byzantium
+        rules.IsIstanbul = true; // Enable Istanbul
         rules.IsBerlin = false;
         rules.IsCancun = false;
         rules.IsPrague = false;
@@ -458,6 +453,9 @@ test "Active precompiled contracts per hardfork" {
     // Test Berlin contracts
     {
         var rules = ChainRules{};
+        rules.IsByzantium = true; // Enable Byzantium
+        rules.IsIstanbul = true; // Enable Istanbul
+        rules.IsBerlin = true; // Enable Berlin
         rules.IsCancun = false;
         rules.IsPrague = false;
         
@@ -470,6 +468,10 @@ test "Active precompiled contracts per hardfork" {
     // Test Cancun contracts
     {
         var rules = ChainRules{};
+        rules.IsByzantium = true; // Enable Byzantium
+        rules.IsIstanbul = true; // Enable Istanbul
+        rules.IsBerlin = true; // Enable Berlin
+        rules.IsCancun = true; // Enable Cancun
         rules.IsPrague = false;
         
         var contracts = try activePrecompiledContracts(allocator, rules);
@@ -481,7 +483,11 @@ test "Active precompiled contracts per hardfork" {
     // Test Prague contracts
     {
         var rules = ChainRules{};
-        rules.IsPrague = true;
+        rules.IsByzantium = true; // Enable Byzantium
+        rules.IsIstanbul = true; // Enable Istanbul
+        rules.IsBerlin = true; // Enable Berlin
+        rules.IsCancun = true; // Enable Cancun
+        rules.IsPrague = true; // Enable Prague
         
         var contracts = try activePrecompiledContracts(allocator, rules);
         defer contracts.deinit();

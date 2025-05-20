@@ -8,7 +8,8 @@ const JumpTable = EvmModule.JumpTable;
 const B256 = EvmModule.B256;
 const Stack = EvmModule.Stack;
 const Memory = EvmModule.Memory;
-// We don't need to create an alias for the built-in u256 type
+// StateManager is accessed via interpreter.evm.state_manager, so direct import not needed for type if not used directly.
+// If StateManager type is needed for casting or struct definition, it would be EvmModule.StateManager.
 
 // EIP-1153: Transient Storage gas costs
 pub const TLoadGas: u64 = 100; // Aligned with the SLOAD gas cost, but a bit higher

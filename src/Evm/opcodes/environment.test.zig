@@ -1,6 +1,7 @@
 const std = @import("std");
 const environment = @import("environment.zig");
 
+// Import the Evm module using the global import path
 const EvmModule = @import("Evm");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
@@ -11,6 +12,7 @@ const Evm = EvmModule.Evm;
 const JumpTable = EvmModule.JumpTable;
 const u256_native = u256;
 
+// Import the Address module using the standard module path
 const AddressModule = @import("Address");
 const Address = AddressModule.Address;
 
@@ -20,21 +22,21 @@ fn setupTestEnvironment(allocator: std.mem.Allocator) !struct {
     evm: Evm,
     interpreter: *Interpreter,
 } {
-    var evm_instance = try Evm.init(allocator, null);
+    const evm_instance = try Evm.init(allocator, null);
 
-    var memory_instance = try Memory.init(allocator);
+    const memory_instance = try Memory.init(allocator);
+    _ = memory_instance; // autofix
 
-    var stack_instance = try Stack.init(allocator, 1024);
+    const stack_instance = try Stack.init(allocator, 1024);
+    _ = stack_instance; // autofix
 
     var contract_val = EvmModule.createContract(std.mem.zeroes(Address), std.mem.zeroes(Address), 0, 1000000);
     contract_val.code = &[_]u8{ 0x60, 0x01, 0x60, 0x02, 0x01 };
     contract_val.input = &[_]u8{ 0xAA, 0xBB, 0xCC, 0xDD };
 
     const frame_instance = try Frame.init(allocator, &contract_val);
-    frame_instance.memory = memory_instance;
-    frame_instance.stack = stack_instance;
 
-    var jump_table_instance = try JumpTable.init(allocator);
+    const jump_table_instance = try JumpTable.init(allocator);
     try environment.registerEnvironmentOpcodes(allocator, &jump_table_instance);
 
     const interpreter_instance = try Interpreter.create(allocator, &evm_instance, jump_table_instance);
@@ -50,7 +52,7 @@ fn setupTestEnvironment(allocator: std.mem.Allocator) !struct {
 test "environment - ADDRESS opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     _ = try environment.opAddress(0, test_env.interpreter, test_env.frame);
 
@@ -68,7 +70,7 @@ test "environment - ADDRESS opcode" {
 test "environment - CALLER opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     _ = try environment.opCaller(0, test_env.interpreter, test_env.frame);
 
@@ -86,7 +88,7 @@ test "environment - CALLER opcode" {
 test "environment - CALLVALUE opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     _ = try environment.opCallValue(0, test_env.interpreter, test_env.frame);
 
@@ -99,7 +101,7 @@ test "environment - CALLVALUE opcode" {
 test "environment - CALLDATASIZE opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     _ = try environment.opCalldatasize(0, test_env.interpreter, test_env.frame);
 
@@ -112,7 +114,7 @@ test "environment - CALLDATASIZE opcode" {
 test "environment - CALLDATALOAD opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     try test_env.frame.stack.push(0);
 
@@ -129,7 +131,7 @@ test "environment - CALLDATALOAD opcode" {
 test "environment - CODESIZE opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     _ = try environment.opCodesize(0, test_env.interpreter, test_env.frame);
 
@@ -142,7 +144,7 @@ test "environment - CODESIZE opcode" {
 test "environment - CALLDATACOPY opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     try test_env.frame.stack.push(0x20);
     try test_env.frame.stack.push(0);
@@ -166,7 +168,7 @@ test "environment - CALLDATACOPY opcode" {
 test "environment - CODECOPY opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     try test_env.frame.stack.push(0x20);
     try test_env.frame.stack.push(0);
@@ -191,7 +193,7 @@ test "environment - CODECOPY opcode" {
 test "environment - RETURNDATASIZE and RETURNDATACOPY opcodes" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     const return_data = [_]u8{ 0x12, 0x34, 0x56, 0x78 };
     try test_env.frame.setReturnData(&return_data);
@@ -222,7 +224,7 @@ test "environment - RETURNDATASIZE and RETURNDATACOPY opcodes" {
 test "environment - GASPRICE opcode" {
     const allocator = std.testing.allocator;
 
-    var test_env = try setupTestEnvironment(allocator);
+    const test_env = try setupTestEnvironment(allocator);
 
     _ = try environment.opGasprice(0, test_env.interpreter, test_env.frame);
 

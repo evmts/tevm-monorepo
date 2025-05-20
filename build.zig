@@ -815,6 +815,10 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
+    // Make sure the StateManager module has the right dependencies
+    state_manager_mod.addImport("Address", address_mod);
+    state_manager_mod.addImport("Trie", trie_mod);
+
     // Add all modules to test_mod
     test_mod.addImport("Address", address_mod);
     test_mod.addImport("Abi", abi_mod);
@@ -828,15 +832,15 @@ pub fn build(b: *std.Build) void {
     test_mod.addImport("Utils", utils_mod);
     test_mod.addImport("StateManager", state_manager_mod);
     
-    // Create a standalone test for WithdrawalProcessor using the test module
+    // Create a standalone test for WithdrawalProcessor that uses direct file imports
     const withdrawal_processor_test = b.addTest(.{
         .name = "withdrawal-processor-test",
-        .root_source_file = b.path("src/Test/WithdrawalProcessor.test.zig"),
+        .root_source_file = b.path("src/Evm/WithdrawalProcessor.test.zig"),
         .target = target,
         .optimize = optimize,
     });
     
-    // Add all modules to withdrawal_processor_test
+    // Add imports to withdrawal_processor_test
     withdrawal_processor_test.root_module.addImport("Address", address_mod);
     withdrawal_processor_test.root_module.addImport("Abi", abi_mod);
     withdrawal_processor_test.root_module.addImport("Block", block_mod);
@@ -854,6 +858,33 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing WithdrawalProcessor
     const withdrawal_processor_test_step = b.step("test-withdrawal-processor", "Run WithdrawalProcessor tests");
     withdrawal_processor_test_step.dependOn(&run_withdrawal_processor_test.step);
+    
+    // Create a standalone test for Withdrawal.test.zig
+    const withdrawal_specific_test = b.addTest(.{
+        .name = "withdrawal-specific-test",
+        .root_source_file = b.path("src/Evm/Withdrawal.test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add dependencies to withdrawal_specific_test
+    withdrawal_specific_test.root_module.addImport("Address", address_mod);
+    withdrawal_specific_test.root_module.addImport("Abi", abi_mod);
+    withdrawal_specific_test.root_module.addImport("Block", block_mod);
+    withdrawal_specific_test.root_module.addImport("Bytecode", bytecode_mod);
+    withdrawal_specific_test.root_module.addImport("Compiler", compiler_mod);
+    withdrawal_specific_test.root_module.addImport("Evm", evm_mod);
+    withdrawal_specific_test.root_module.addImport("Rlp", rlp_mod);
+    withdrawal_specific_test.root_module.addImport("Token", token_mod);
+    withdrawal_specific_test.root_module.addImport("Trie", trie_mod);
+    withdrawal_specific_test.root_module.addImport("Utils", utils_mod);
+    withdrawal_specific_test.root_module.addImport("StateManager", state_manager_mod);
+
+    const run_withdrawal_specific_test = b.addRunArtifact(withdrawal_specific_test);
+    
+    // Add a separate step for testing Withdrawal
+    const withdrawal_specific_test_step = b.step("test-withdrawal-specific", "Run Withdrawal specific tests");
+    withdrawal_specific_test_step.dependOn(&run_withdrawal_specific_test.step);
 
     // Define test step for all tests
     const test_step = b.step("test", "Run unit tests");
@@ -883,6 +914,24 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_trie_specific_test.step);
     test_step.dependOn(&run_utils_test.step);
     test_step.dependOn(&run_withdrawal_processor_test.step);
+    test_step.dependOn(&run_withdrawal_specific_test.step);
+
+    // Create a standalone test that doesn't rely on module imports
+    const environment_test = b.addTest(.{
+        .name = "environment-test",
+        .root_source_file = b.path("src/Evm/tests/environment_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_environment_test = b.addRunArtifact(environment_test);
+
+    // Add a separate step for testing environment opcodes
+    const environment_test_step = b.step("test-environment", "Run environment opcode tests");
+    environment_test_step.dependOn(&run_environment_test.step);
+
+    // Add environment test to all tests
+    test_step.dependOn(&run_environment_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");

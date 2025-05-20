@@ -1,9 +1,38 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-// Proper module imports based on build.zig module system
-const StateManager = if (builtin.is_test) 
-    opaque {} // Just use an opaque type for test builds
+// Define B160 type first to avoid forward references
+const B160 = struct {
+    bytes: [20]u8,
+};
+
+// For tests, we use a more simplified StateManager interface that allows calling directly
+pub const TestAccountData = struct {
+    balance: u128,
+    nonce: u64 = 0,
+};
+
+// Define StateManager interface for rewardAccount
+pub const StateManager = if (builtin.is_test)
+    struct {
+        // Define function pointers for interface methods
+        getAccountPtr: *const fn(self: *@This(), address: B160) anyerror!?TestAccountData,
+        createAccountPtr: *const fn(self: *@This(), address: B160, balance: u128) anyerror!TestAccountData,
+        putAccountPtr: *const fn(self: *@This(), address: B160, account: anytype) anyerror!void,
+        
+        // Interface methods that forward to the implementation
+        pub fn getAccount(self: *@This(), address: B160) !?TestAccountData {
+            return self.getAccountPtr(self, address);
+        }
+        
+        pub fn createAccount(self: *@This(), address: B160, balance: u128) !TestAccountData {
+            return self.createAccountPtr(self, address, balance);
+        }
+        
+        pub fn putAccount(self: *@This(), address: B160, account: anytype) !void {
+            return self.putAccountPtr(self, address, account);
+        }
+    }
 else
     @import("StateManager").StateManager;
 
@@ -13,10 +42,7 @@ const Address = if (builtin.is_test)
 else 
     @import("Address").Address;
 
-// Define B160 type from StateManager's expected type
-const B160 = struct {
-    bytes: [20]u8,
-};
+// B160 type is already defined above
 
 // Use direct file imports for logging
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
@@ -133,20 +159,35 @@ pub fn processWithdrawals(
     }
     
     getLogger().debug("Processing {d} withdrawals", .{withdrawals.len});
+    std.debug.print("processWithdrawals: Processing {d} withdrawals\n", .{withdrawals.len});
     
     for (withdrawals, 0..) |withdrawal, i| {
         getLogger().debug("Processing withdrawal {d}/{d} (index {d})", .{i + 1, withdrawals.len, withdrawal.index});
-        getLogger().debug("  Recipient: {}", .{withdrawal.address});
+        std.debug.print("Processing withdrawal {d}/{d} (index {d})\n", .{i + 1, withdrawals.len, withdrawal.index});
+        
+        // Print recipient address for debugging
+        std.debug.print("  Recipient: ", .{});
+        if (@TypeOf(withdrawal.address) == [20]u8) {
+            for (withdrawal.address) |byte| {
+                std.debug.print("{x:0>2}", .{byte});
+            }
+        } else {
+            std.debug.print("{any}", .{withdrawal.address});
+        }
+        std.debug.print("\n", .{});
         
         const amountInWei = withdrawal.amountInWei();
         getLogger().debug("  Amount: {d} Gwei ({d} Wei)", .{withdrawal.amount, amountInWei});
+        std.debug.print("  Amount: {d} Gwei ({d} Wei)\n", .{withdrawal.amount, amountInWei});
         
         try rewardAccount(stateManager, withdrawal.address, amountInWei);
         
         getLogger().debug("  Withdrawal processed successfully", .{});
+        std.debug.print("  Withdrawal processed successfully\n", .{});
     }
     
     getLogger().info("All withdrawals processed successfully", .{});
+    std.debug.print("All withdrawals processed successfully\n", .{});
 }
 
 /// Rewards an account by increasing its balance
@@ -171,9 +212,9 @@ fn rewardAccount(stateManager: *StateManager, address: Address, amount: u128) !v
     const b160_address = addressToB160(address);
     
     // Get the account from state (or create a new one if it doesn't exist)
-    var account = try stateManager.getAccount(b160_address) orelse blk: {
+    var account = try (stateManager.getAccount)(b160_address) orelse blk: {
         getLogger().debug("Account does not exist, creating new account", .{});
-        break :blk try stateManager.createAccount(b160_address, 0);
+        break :blk try (stateManager.createAccount)(b160_address, 0);
     };
     
     // Increase the account balance

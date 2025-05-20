@@ -2,19 +2,21 @@ const std = @import("std");
 const testing = std.testing;
 const builtin = @import("builtin");
 // Import directly from local files instead of module
-const evm_module = @import("evm.zig");
-const ChainRules = evm_module.ChainRules;
-const Hardfork = evm_module.Hardfork;
-// Use a different approach for Address in tests to avoid import issues
-const Address = if (builtin.is_test) 
-    [20]u8 // Just use the raw type in tests as a direct alias for compatibility
-else 
-    @import("Address").Address;
-// Use direct file imports to avoid conflicts
-const WithdrawalData = @import("Withdrawal.zig").WithdrawalData;
-const WithdrawalProcessor = @import("WithdrawalProcessor.zig").WithdrawalProcessor;
-// Import directly from the file
 const WithdrawalProcessorModule = @import("WithdrawalProcessor.zig");
+const ChainRules = WithdrawalProcessorModule.ChainRules;
+// The enum must match the one in WithdrawalProcessor.zig
+const Hardfork = enum { 
+    Frontier, Homestead, TangerineWhistle, SpuriousDragon, 
+    Byzantium, Constantinople, Petersburg, Istanbul, 
+    Berlin, London, ArrowGlacier, GrayGlacier, Paris, 
+    Shanghai, Cancun, Prague, Verkle
+};
+// In test files, we consistently use the raw type for Address
+const Address = [20]u8; // Just use the raw type in tests as a direct alias for compatibility
+// Import from local files for testing
+const Withdrawal = @import("Withdrawal.zig");
+const WithdrawalData = Withdrawal.WithdrawalData;
+const TestAccountData = Withdrawal.TestAccountData;
 const Block = WithdrawalProcessorModule.Block;
 const BlockWithdrawalProcessor = WithdrawalProcessorModule.BlockWithdrawalProcessor;
 const StateManager = @import("../StateManager/StateManager.zig").StateManager;
@@ -42,10 +44,7 @@ const MockStateManager = struct {
     }
     
     // StateManager interface implementations
-    pub fn getAccount(self: *MockStateManager, address: Address) !?struct {
-        balance: u128 = 0,
-        nonce: u64 = 0,
-    } {
+    pub fn getAccount(self: *MockStateManager, address: Address) !?TestAccountData {
         // Convert Address to a consistent string representation for storage
         var addr_bytes: [20]u8 = undefined;
         if (@TypeOf(address) == [20]u8) {
@@ -58,17 +57,12 @@ const MockStateManager = struct {
         defer self.balances.allocator.free(addr_str);
         
         if (self.balances.get(addr_str)) |balance| {
-            return .{
-                .balance = balance,
-            };
+            return TestAccountData{ .balance = balance };
         }
         return null;
     }
     
-    pub fn createAccount(self: *MockStateManager, address: Address, balance: u128) !struct {
-        balance: u128,
-        nonce: u64 = 0,
-    } {
+    pub fn createAccount(self: *MockStateManager, address: Address, balance: u128) !TestAccountData {
         // Convert Address to a consistent string representation for storage
         var addr_bytes: [20]u8 = undefined;
         if (@TypeOf(address) == [20]u8) {
@@ -91,9 +85,7 @@ const MockStateManager = struct {
         try self.balances.put(key_dupe, balance);
         self.balances.allocator.free(addr_str);
         
-        return .{
-            .balance = balance,
-        };
+        return TestAccountData{ .balance = balance };
     }
     
     pub fn putAccount(self: *MockStateManager, address: Address, account: anytype) !void {
@@ -154,6 +146,34 @@ fn createWithdrawalRoot() [32]u8 {
     return root;
 }
 
+// This is a workaround for directly processing withdrawals in tests
+// We implement the same logic as in Withdrawal.processWithdrawals but directly
+// using our MockStateManager instead of going through the StateManager interface
+fn processWithdrawalsForTest(mock: *MockStateManager, block_var: *Block, rules: ChainRules) !void {
+    // Directly process withdrawals without going through the normal path
+    // This is a workaround for testing only
+    if (!rules.IsEIP4895) {
+        return error.EIP4895NotEnabled;
+    }
+    
+    const withdrawals = block_var.withdrawals;
+    const GWEI_TO_WEI: u128 = 1_000_000_000; // 10^9
+    
+    for (withdrawals) |withdrawal| {
+        const amountInWei = @as(u128, withdrawal.amount) * GWEI_TO_WEI;
+        
+        // Get or create account
+        var account = try mock.getAccount(withdrawal.address) orelse 
+            try mock.createAccount(withdrawal.address, 0);
+            
+        // Update balance
+        account.balance += amountInWei;
+        
+        // Save account
+        try mock.putAccount(withdrawal.address, account);
+    }
+}
+
 test "Block withdrawal processing with Shanghai rules" {
     var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
     defer arena.deinit();
@@ -198,11 +218,42 @@ test "Block withdrawal processing with Shanghai rules" {
     };
     
     // Define Shanghai chain rules (EIP-4895 enabled)
-    const shanghai_rules = ChainRules.forHardfork(.Shanghai);
+    const shanghai_rules = WithdrawalProcessorModule.ChainRules.forHardfork(.Shanghai);
+    
+    // First, make the proper cast and conversion to use our state manager implementation
+    const state_manager_ptr: *Withdrawal.StateManager = @ptrCast(@alignCast(state_manager));
+    
+    // Register the implementation methods
+    state_manager_ptr.*.getAccount = (
+        struct {
+            pub fn getAccount(self: *anyopaque, addr: anytype) !?TestAccountData {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.getAccount(addr);
+            }
+        }
+    ).getAccount;
+    
+    state_manager_ptr.*.createAccount = (
+        struct {
+            pub fn createAccount(self: *anyopaque, addr: anytype, balance: u128) !TestAccountData {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.createAccount(addr, balance);
+            }
+        }
+    ).createAccount;
+    
+    state_manager_ptr.*.putAccount = (
+        struct {
+            pub fn putAccount(self: *anyopaque, addr: anytype, acct: anytype) !void {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.putAccount(addr, acct);
+            }
+        }
+    ).putAccount;
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @ptrCast(state_manager),
+        state_manager_ptr,
         shanghai_rules
     );
     
@@ -248,11 +299,42 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     };
     
     // Define London chain rules (EIP-4895 not enabled)
-    const london_rules = ChainRules.forHardfork(.London);
+    const london_rules = WithdrawalProcessorModule.ChainRules.forHardfork(.London);
+    
+    // Create a properly typed state manager pointer
+    const state_manager_ptr: *Withdrawal.StateManager = @ptrCast(@alignCast(state_manager));
+    
+    // Register the implementation methods
+    state_manager_ptr.*.getAccount = (
+        struct {
+            pub fn getAccount(self: *anyopaque, addr: anytype) !?TestAccountData {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.getAccount(addr);
+            }
+        }
+    ).getAccount;
+    
+    state_manager_ptr.*.createAccount = (
+        struct {
+            pub fn createAccount(self: *anyopaque, addr: anytype, balance: u128) !TestAccountData {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.createAccount(addr, balance);
+            }
+        }
+    ).createAccount;
+    
+    state_manager_ptr.*.putAccount = (
+        struct {
+            pub fn putAccount(self: *anyopaque, addr: anytype, acct: anytype) !void {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.putAccount(addr, acct);
+            }
+        }
+    ).putAccount;
     
     // Process withdrawals in the block - should fail
     const result = block.processWithdrawals(
-        @ptrCast(state_manager),
+        state_manager_ptr,
         london_rules
     );
     
@@ -278,7 +360,7 @@ test "Hardfork versions correctly set EIP-4895 flag" {
     try testing.expect(!ChainRules.forHardfork(.London).IsEIP4895);
     try testing.expect(!ChainRules.forHardfork(.ArrowGlacier).IsEIP4895);
     try testing.expect(!ChainRules.forHardfork(.GrayGlacier).IsEIP4895);
-    try testing.expect(!ChainRules.forHardfork(.Merge).IsEIP4895);
+    try testing.expect(!ChainRules.forHardfork(.Paris).IsEIP4895);
     
     // Shanghai and later hardforks should have EIP-4895 enabled
     try testing.expect(ChainRules.forHardfork(.Shanghai).IsEIP4895);
@@ -335,11 +417,42 @@ test "Multiple withdrawals for same account" {
     };
     
     // Define Shanghai chain rules (EIP-4895 enabled)
-    const shanghai_rules = ChainRules.forHardfork(.Shanghai);
+    const shanghai_rules = WithdrawalProcessorModule.ChainRules.forHardfork(.Shanghai);
+    
+    // First, make the proper cast and conversion to use our state manager implementation
+    const state_manager_ptr: *Withdrawal.StateManager = @ptrCast(@alignCast(state_manager));
+    
+    // Register the implementation methods
+    state_manager_ptr.*.getAccount = (
+        struct {
+            pub fn getAccount(self: *anyopaque, addr: anytype) !?TestAccountData {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.getAccount(addr);
+            }
+        }
+    ).getAccount;
+    
+    state_manager_ptr.*.createAccount = (
+        struct {
+            pub fn createAccount(self: *anyopaque, addr: anytype, balance: u128) !TestAccountData {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.createAccount(addr, balance);
+            }
+        }
+    ).createAccount;
+    
+    state_manager_ptr.*.putAccount = (
+        struct {
+            pub fn putAccount(self: *anyopaque, addr: anytype, acct: anytype) !void {
+                const mock: *MockStateManager = @ptrCast(@alignCast(self));
+                return mock.putAccount(addr, acct);
+            }
+        }
+    ).putAccount;
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @ptrCast(state_manager),
+        state_manager_ptr,
         shanghai_rules
     );
     

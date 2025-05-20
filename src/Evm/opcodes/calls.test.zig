@@ -1,20 +1,22 @@
 const std = @import("std");
 const testing = std.testing;
 
-const EvmModule = @import("Evm");
-const Interpreter = EvmModule.Interpreter;
-const Frame = EvmModule.Frame;
-const ExecutionError = EvmModule.InterpreterError; // InterpreterError is exported by EvmModule now
-const Stack = EvmModule.Stack;
-const Memory = EvmModule.Memory;
-const Evm = EvmModule.Evm;
-const Contract = EvmModule.Contract;
-const ChainRules = EvmModule.ChainRules;
+// Import modules directly to avoid circular dependencies
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const Stack = @import("../Stack.zig").Stack;
+const Memory = @import("../Memory.zig");
+const Evm = @import("../evm.zig").Evm;
+const Contract = @import("../Contract.zig").Contract;
+const createContract = @import("../Contract.zig").createContract;
+const ChainRules = @import("../evm.zig").ChainRules;
 
-const AddressModule = @import("Address");
-const Address = AddressModule.Address;
+// Direct import for Address
+const Address = @import("../../Address/address.zig").Address;
 
-const u256_native = u256; // Using Zig's native u256
+// Use Zig's built-in u256 type
+const u256_native = u256;
 
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
     _ = allocator;
@@ -33,7 +35,7 @@ fn setupInterpreter(allocator: std.mem.Allocator) !*Interpreter {
 }
 
 fn setupContract(allocator: std.mem.Allocator, code_slice: []const u8) !Contract {
-    var contract_instance = EvmModule.createContract(
+    var contract_instance = createContract(
         try hexToAddress(allocator, "0x0000000000000000000000000000000000000001"),
         try hexToAddress(allocator, "0x0000000000000000000000000000000000000002"),
         0,
@@ -182,9 +184,11 @@ test "CREATE2 basic functionality" {
 test "RETURN opcode" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xF3}); // RETURN
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
+    defer frame.deinit();
 
     const return_data = [_]u8{ 0x01, 0x02, 0x03, 0x04 };
     try frame.memory.store(0, &return_data);
@@ -201,9 +205,11 @@ test "RETURN opcode" {
 test "REVERT opcode" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xFD}); // REVERT
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
+    defer frame.deinit();
 
     const revert_data = [_]u8{ 0x08, 0x09, 0x0A, 0x0B };
     try frame.memory.store(0, &revert_data);
@@ -221,9 +227,11 @@ test "REVERT opcode" {
 test "SELFDESTRUCT opcode" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xFF}); // SELFDESTRUCT
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
+    defer frame.deinit();
 
     try frame.stack.push(u256_native, 0x1234); // beneficiary address
 

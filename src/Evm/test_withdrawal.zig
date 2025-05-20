@@ -38,6 +38,12 @@ fn createScopedLogger(parent: Logger, name: []const u8) Logger {
     return Logger{};
 }
 
+// Define Account type for consistency
+const Account = struct {
+    balance: u128,
+    nonce: u64 = 0,
+};
+
 /// WithdrawalData represents a withdrawal from the beacon chain to the EVM
 /// as defined in EIP-4895
 pub const WithdrawalData = struct {
@@ -94,48 +100,80 @@ const MockStateManager = struct {
         self.balances.deinit();
     }
     
+    // Convert address to string key for storage
+    fn addressToKey(address: Address) [40]u8 {
+        var key: [40]u8 = undefined;
+        for (address, 0..) |byte, i| {
+            const high = (byte >> 4) & 0xF;
+            const low = byte & 0xF;
+            key[i*2] = switch (high) {
+                0...9 => '0' + @as(u8, @intCast(high)),
+                10...15 => 'a' + @as(u8, @intCast(high - 10)),
+                else => unreachable,
+            };
+            key[i*2 + 1] = switch (low) {
+                0...9 => '0' + @as(u8, @intCast(low)),
+                10...15 => 'a' + @as(u8, @intCast(low - 10)),
+                else => unreachable,
+            };
+        }
+        return key;
+    }
+    
     // StateManager interface implementations
-    pub fn getAccount(self: *MockStateManager, address: Address) !?struct {
-        balance: u128 = 0,
-        nonce: u64 = 0,
-    } {
-        var buf: [64]u8 = undefined;
-        const addr_str = std.fmt.bufPrint(&buf, "{}", .{std.fmt.fmtSliceHexLower(&address)}) catch unreachable;
+    pub fn getAccount(self: *MockStateManager, address: Address) !?Account {
+        const key = addressToKey(address);
         
-        if (self.balances.get(addr_str)) |balance| {
-            return .{
+        // We need to allocate a string that will persist in the hash map
+        const key_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{&key});
+        
+        if (self.balances.get(key_str)) |balance| {
+            return Account{
                 .balance = balance,
             };
         }
+        self.balances.allocator.free(key_str);
         return null;
     }
     
-    pub fn createAccount(self: *MockStateManager, address: Address, balance: u128) !struct {
-        balance: u128,
-        nonce: u64 = 0,
-    } {
-        var buf: [64]u8 = undefined;
-        const addr_str = std.fmt.bufPrint(&buf, "{}", .{std.fmt.fmtSliceHexLower(&address)}) catch unreachable;
+    pub fn createAccount(self: *MockStateManager, address: Address, balance: u128) !Account {
+        const key = addressToKey(address);
         
-        try self.balances.put(addr_str, balance);
-        return .{
+        // We need to allocate a string that will persist in the hash map
+        const key_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{&key});
+        
+        try self.balances.put(key_str, balance);
+        return Account{
             .balance = balance,
         };
     }
     
-    pub fn putAccount(self: *MockStateManager, address: Address, account: anytype) !void {
-        var buf: [64]u8 = undefined;
-        const addr_str = std.fmt.bufPrint(&buf, "{}", .{std.fmt.fmtSliceHexLower(&address)}) catch unreachable;
+    pub fn putAccount(self: *MockStateManager, address: Address, account: Account) !void {
+        const key = addressToKey(address);
         
-        try self.balances.put(addr_str, account.balance);
+        // We need to allocate a string that will persist in the hash map
+        const key_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{&key});
+        
+        // Check if key already exists and free the previous key if it does
+        if (self.balances.contains(key_str)) {
+            const existing_key = self.balances.getKey(key_str) orelse unreachable;
+            // Don't allocate a new key, use the existing one
+            self.balances.allocator.free(key_str);
+            try self.balances.put(existing_key, account.balance);
+        } else {
+            try self.balances.put(key_str, account.balance);
+        }
     }
     
     // Helper function to get balance
     pub fn getBalance(self: *MockStateManager, address: Address) !u128 {
-        var buf: [64]u8 = undefined;
-        const addr_str = std.fmt.bufPrint(&buf, "{}", .{std.fmt.fmtSliceHexLower(&address)}) catch unreachable;
+        const key = addressToKey(address);
         
-        return self.balances.get(addr_str) orelse 0;
+        // Temporary key for lookup
+        const key_str = try std.fmt.allocPrint(self.balances.allocator, "{s}", .{&key});
+        defer self.balances.allocator.free(key_str);
+        
+        return self.balances.get(key_str) orelse 0;
     }
 };
 
