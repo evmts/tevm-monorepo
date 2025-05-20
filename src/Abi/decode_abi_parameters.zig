@@ -103,7 +103,7 @@ fn decodeParam(
         }
         
         const ptr = &data[offset.*];
-        const offset_ptr = @as(*const u256, @ptrCast(@alignCast(ptr)));
+        const offset_ptr = @as(*const u256, @ptrCast(ptr));
         const big_dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
         const dynamic_offset = @as(usize, @intCast(big_dynamic_offset));
         offset.* += 32;
@@ -114,7 +114,7 @@ fn decodeParam(
         }
         
         const length_ptr_u8 = &data[dynamic_offset];
-        const length_ptr = @as(*const u256, @ptrCast(@alignCast(length_ptr_u8)));
+        const length_ptr = @as(*const u256, @ptrCast(length_ptr_u8));
         const big_length = std.mem.bigToNative(u256, length_ptr.*);
         const length = @as(usize, @truncate(big_length));
         
@@ -156,7 +156,7 @@ fn decodeParam(
         }
         
         const ptr = &data[offset.*];
-        const offset_ptr = @as(*const u256, @ptrCast(@alignCast(ptr)));
+        const offset_ptr = @as(*const u256, @ptrCast(ptr));
         const big_dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
         const dynamic_offset = @as(usize, @intCast(big_dynamic_offset));
         offset.* += 32;
@@ -167,7 +167,7 @@ fn decodeParam(
         }
         
         const length_ptr_u8 = &data[dynamic_offset];
-        const length_ptr = @as(*const u256, @ptrCast(@alignCast(length_ptr_u8)));
+        const length_ptr = @as(*const u256, @ptrCast(length_ptr_u8));
         const big_length = std.mem.bigToNative(u256, length_ptr.*);
         const length = @as(usize, @truncate(big_length));
         

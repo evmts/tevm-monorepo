@@ -1,8 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import the Evm module using the global import path
-const EvmModule = @import("Evm");
+// Import the Evm module using a relative path
+const EvmModule = @import("../");
 // Get blob opcodes functions from the Evm module
 const blob = EvmModule.opcodes.blob;
 const Frame = EvmModule.Frame;
@@ -34,12 +34,12 @@ fn createTestFrame() !struct {
     var evm = try Evm.init(allocator, null);
 
     // Create a stack
-    var stack = try Stack.init(allocator, 1024);
+    const stack = Stack.init(allocator);
     const stack_ptr = try allocator.create(Stack);
     stack_ptr.* = stack;
 
     // Create memory
-    var memory = try Memory.init(allocator);
+    const memory = try Memory.init(allocator);
     const memory_ptr = try allocator.create(Memory);
     memory_ptr.* = memory;
 
@@ -51,12 +51,12 @@ fn createTestFrame() !struct {
     contract_ptr.* = contract;
 
     // Create frame
-    var frame = try Frame.init(allocator, contract_ptr);
+    const frame = try Frame.init(allocator, contract_ptr);
     const frame_ptr = try allocator.create(Frame);
     frame_ptr.* = frame;
 
     // Create jump table
-    var jump_table = try EvmModule.JumpTable.init(allocator);
+    const jump_table = try EvmModule.JumpTable.init(allocator);
     
     // Create interpreter
     var interpreter = try Interpreter.create(allocator, &evm, jump_table);
