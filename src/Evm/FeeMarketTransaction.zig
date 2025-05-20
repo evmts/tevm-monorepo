@@ -134,13 +134,20 @@ pub const FeeMarketTransaction = struct {
     
     /// Calculate the effective gas price for this transaction
     ///
-    /// This uses the EIP-1559 rules to determine how much gas price is
-    /// effectively paid, and how much goes to the miner vs. being burned.
+    /// Under EIP-1559, the actual gas price paid is calculated based on:
+    /// - The current block's base fee (which is burned)
+    /// - The transaction's maximum fee per gas
+    /// - The transaction's maximum priority fee per gas (tip to miners)
+    ///
+    /// The calculation follows these rules:
+    /// 1. The effective gas price cannot exceed the max_fee_per_gas
+    /// 2. The priority fee (tip) is capped at max_priority_fee_per_gas
+    /// 3. The remaining amount after base fee goes to miners as a tip
     ///
     /// Parameters:
-    /// - base_fee_per_gas: The block's base fee
+    /// - base_fee_per_gas: The current block's base fee (in wei)
     ///
-    /// Returns: The effective gas price and the miner tip
+    /// Returns: A struct containing the effective gas price and miner tip
     pub fn getEffectiveGasPrice(self: *const FeeMarketTransaction, base_fee_per_gas: u64) struct {
         effective_gas_price: u64,
         miner_tip: u64,
@@ -149,19 +156,21 @@ pub const FeeMarketTransaction = struct {
         defer scoped.deinit();
         
         logger.debug("Calculating effective gas price for EIP-1559 transaction", .{});
-        logger.debug("Base fee: {d}, max fee: {d}, max priority fee: {d}", .{
-            base_fee_per_gas, self.max_fee_per_gas, self.max_priority_fee_per_gas
+        logger.debug("Block base fee: {d} wei", .{base_fee_per_gas});
+        logger.debug("Transaction max fee: {d} wei, max priority fee: {d} wei", .{
+            self.max_fee_per_gas, self.max_priority_fee_per_gas
         });
         
+        // Delegate to the FeeMarket module for the calculation
+        // This ensures consistent fee calculations across the codebase
         const result = FeeMarket.getEffectiveGasPrice(
             base_fee_per_gas,
             self.max_fee_per_gas,
             self.max_priority_fee_per_gas
         );
         
-        logger.debug("Effective gas price: {d}, miner tip: {d}", .{
-            result.effective_gas_price, result.miner_fee
-        });
+        logger.debug("Calculated effective gas price: {d} wei", .{result.effective_gas_price});
+        logger.debug("Miner tip portion: {d} wei", .{result.miner_fee});
         
         return .{
             .effective_gas_price = result.effective_gas_price,
@@ -169,34 +178,40 @@ pub const FeeMarketTransaction = struct {
         };
     }
     
-    /// Calculate the cost of this transaction in wei
+    /// Calculate the total cost of this transaction in wei
     ///
-    /// This calculates the total cost including the transferred value
-    /// and the gas cost at the effective gas price.
+    /// The total cost of a transaction consists of:
+    /// 1. The maximum gas cost (gas_limit * effective_gas_price)
+    /// 2. The value being transferred to the recipient
+    ///
+    /// Note: This calculates the maximum cost a sender needs to have available
+    /// in their account. The actual cost may be lower if the transaction
+    /// uses less gas than the gas limit.
     ///
     /// Parameters:
-    /// - base_fee_per_gas: The block's base fee
+    /// - base_fee_per_gas: The current block's base fee
     ///
-    /// Returns: The total cost in wei
+    /// Returns: The total maximum cost in wei
     pub fn getCost(self: *const FeeMarketTransaction, base_fee_per_gas: u64) u256 {
         const scoped = createScopedLogger(logger, "getCost()");
         defer scoped.deinit();
         
-        logger.debug("Calculating transaction cost", .{});
+        logger.debug("Calculating maximum transaction cost", .{});
         
-        // Get the effective gas price
+        // Calculate the effective gas price based on current base fee
         const gas_price_info = self.getEffectiveGasPrice(base_fee_per_gas);
         const effective_gas_price = gas_price_info.effective_gas_price;
         
-        // Calculate the gas cost
+        // Calculate the maximum gas cost (gas_limit * effective_gas_price)
+        // This is the maximum amount that could be spent on gas
         const gas_cost: u256 = @as(u256, effective_gas_price) * @as(u256, self.gas_limit);
         
-        // Add the transferred value
+        // Add the transferred value to get the total transaction cost
         const total_cost = gas_cost + self.value;
         
-        logger.debug("Gas cost: {d}, value: {d}, total cost: {d}", .{
-            gas_cost, self.value, total_cost
-        });
+        logger.debug("Maximum gas cost: {d} wei", .{gas_cost});
+        logger.debug("Transferred value: {d} wei", .{self.value});
+        logger.debug("Total transaction cost: {d} wei", .{total_cost});
         
         return total_cost;
     }
