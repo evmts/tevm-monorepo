@@ -3,6 +3,9 @@ const Frame = @import("Frame.zig").Frame;
 const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
+const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
+const debugOnly = @import("EvmLogger.zig").debugOnly;
+const logHexBytes = @import("EvmLogger.zig").logHexBytes;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;
@@ -54,7 +57,19 @@ pub const Evm = struct {
     ///
     /// Returns: A new Evm instance
     pub fn init() Evm {
+        var scoped = createScopedLogger(getLogger(), "init()");
+        defer scoped.deinit();
+        
         getLogger().debug("Creating new EVM instance", .{});
+        getLogger().debug("Default configuration: depth=0, readOnly=false, chainRules=latest", .{});
+        
+        debugOnly(struct {
+            fn callback() void {
+                // This code only runs when debug logs are enabled
+                getLogger().info("EVM instance created with default settings", .{});
+            }
+        }.callback);
+        
         return Evm{};
     }
     
@@ -66,7 +81,13 @@ pub const Evm = struct {
     /// Parameters:
     /// - rules: The ChainRules to apply
     pub fn setChainRules(self: *Evm, rules: ChainRules) void {
-        getLogger().debug("Setting chain rules", .{});
+        var scoped = createScopedLogger(getLogger(), "setChainRules()");
+        defer scoped.deinit();
+        
+        getLogger().debug("Setting chain rules for EVM execution", .{});
+        
+        // Log all rule settings
+        getLogger().debug("Hardfork configuration:", .{});
         getLogger().debug("  - Homestead: {}", .{rules.IsHomestead});
         getLogger().debug("  - EIP150: {}", .{rules.IsEIP150});
         getLogger().debug("  - EIP158: {}", .{rules.IsEIP158});
@@ -81,7 +102,19 @@ pub const Evm = struct {
         getLogger().debug("  - Cancun: {}", .{rules.IsCancun});
         getLogger().debug("  - Prague: {}", .{rules.IsPrague});
         getLogger().debug("  - Verkle: {}", .{rules.IsVerkle});
+        
+        getLogger().debug("EIP configuration:", .{});
+        getLogger().debug("  - EIP1559: {}", .{rules.IsEIP1559});
+        getLogger().debug("  - EIP2930: {}", .{rules.IsEIP2930});
+        getLogger().debug("  - EIP3651: {}", .{rules.IsEIP3651});
+        getLogger().debug("  - EIP3855: {}", .{rules.IsEIP3855});
+        getLogger().debug("  - EIP3860: {}", .{rules.IsEIP3860});
+        getLogger().debug("  - EIP4895: {}", .{rules.IsEIP4895});
+        getLogger().debug("  - EIP4844: {}", .{rules.IsEIP4844});
+        
+        // Store the new rules
         self.chainRules = rules;
+        getLogger().info("Chain rules updated successfully", .{});
     }
     
     /// Set read-only mode for the EVM
@@ -93,8 +126,23 @@ pub const Evm = struct {
     /// Parameters:
     /// - readOnly: Whether to enable read-only mode
     pub fn setReadOnly(self: *Evm, readOnly: bool) void {
-        getLogger().debug("Setting EVM read-only mode: {}", .{readOnly});
+        var scoped = createScopedLogger(getLogger(), "setReadOnly()");
+        defer scoped.deinit();
+        
+        const previous = self.readOnly;
+        getLogger().debug("Setting EVM read-only mode: {} (was: {})", .{readOnly, previous});
+        
+        if (previous == readOnly) {
+            getLogger().debug("Read-only mode unchanged (already {})", .{readOnly});
+        } else if (readOnly) {
+            getLogger().debug("Enabling read-only mode - state modifications will be blocked", .{});
+            getLogger().debug("The following operations will fail: SSTORE, CREATE, CREATE2, SELFDESTRUCT, CALL with value", .{});
+        } else {
+            getLogger().debug("Disabling read-only mode - state modifications will be allowed", .{});
+        }
+        
         self.readOnly = readOnly;
+        getLogger().info("Read-only mode set to: {}", .{readOnly});
     }
     
     /// Set the state manager for the EVM
@@ -106,8 +154,225 @@ pub const Evm = struct {
     /// Parameters:
     /// - stateManager: Pointer to the StateManager to use
     pub fn setStateManager(self: *Evm, stateManager: *StateManager) void {
+        var scoped = createScopedLogger(getLogger(), "setStateManager()");
+        defer scoped.deinit();
+        
         getLogger().debug("Setting state manager for EVM", .{});
+        
+        const had_manager = self.state_manager != null;
+        if (had_manager) {
+            getLogger().debug("Replacing existing state manager", .{});
+        } else {
+            getLogger().debug("Assigning initial state manager", .{});
+        }
+        
+        debugOnly(struct {
+            fn callback() void {
+                // This code only runs when debug logs are enabled
+                if (stateManager.isForkEnabled()) |is_fork| {
+                    if (is_fork) {
+                        getLogger().info("State manager is configured with forking enabled", .{});
+                    }
+                } else |_| {}
+            }
+        }.callback);
+        
         self.state_manager = stateManager;
+        getLogger().info("State manager configured successfully", .{});
+    }
+    
+    /// Get call depth of the EVM
+    ///
+    /// The call depth tracks how many nested calls are currently executing.
+    /// Ethereum limits this to 1024 to prevent stack overflows and
+    /// infinite recursion between contracts.
+    ///
+    /// Returns: Current call depth
+    pub fn getCallDepth(self: *const Evm) u16 {
+        getLogger().debug("Getting current call depth: {d}", .{self.depth});
+        return self.depth;
+    }
+    
+    /// Increment call depth
+    ///
+    /// This is called when a new call frame is created (CALL, STATICCALL, etc.)
+    /// Returns an error if the maximum call depth would be exceeded.
+    ///
+    /// Returns: Nothing if successful, error if depth limit reached
+    /// Error: DepthLimit if maximum call depth would be exceeded
+    pub fn incrementCallDepth(self: *Evm) !void {
+        getLogger().debug("Incrementing call depth: {d} -> {d}", .{self.depth, self.depth + 1});
+        
+        if (self.depth >= 1024) {
+            getLogger().err("Call depth limit reached: {d}", .{self.depth});
+            return error.DepthLimit;
+        }
+        
+        self.depth += 1;
+        getLogger().debug("New call depth: {d}", .{self.depth});
+    }
+    
+    /// Decrement call depth
+    ///
+    /// This is called when a call frame completes and returns to its parent.
+    pub fn decrementCallDepth(self: *Evm) void {
+        getLogger().debug("Decrementing call depth: {d} -> {d}", .{self.depth, self.depth - 1});
+        
+        if (self.depth == 0) {
+            getLogger().warn("Attempted to decrement call depth below zero", .{});
+            return;
+        }
+        
+        self.depth -= 1;
+        getLogger().debug("New call depth: {d}", .{self.depth});
+    }
+    
+    /// Create a debug tracelog entry for contract execution
+    ///
+    /// This is a helper method to log contract execution events
+    /// for debugging purposes. It takes the contract address, the call type,
+    /// and optional context information.
+    ///
+    /// Parameters:
+    /// - contract_address: The address of the contract being executed
+    /// - call_type: Type of call (e.g., "CALL", "STATICCALL", "DELEGATECALL")
+    /// - context: Optional context string with additional information
+    pub fn logContractExecution(self: *const Evm, contract_address: []const u8, call_type: []const u8, context: ?[]const u8) void {
+        getLogger().debug("╔══════════════════════════════════════════════════════════", .{});
+        getLogger().debug("║ {s} to contract {s}", .{call_type, contract_address});
+        getLogger().debug("║ Depth: {d}, ReadOnly: {}", .{self.depth, self.readOnly});
+        
+        if (context) |ctx| {
+            getLogger().debug("║ Context: {s}", .{ctx});
+        }
+        
+        // Log chain rules summary for this execution
+        getLogger().debug("║ Chain rules: Cancun={}, Shanghai={}, London={}, Berlin={}",
+            .{
+                self.chainRules.IsCancun,
+                self.chainRules.IsShanghai, 
+                self.chainRules.IsLondon, 
+                self.chainRules.IsBerlin
+            }
+        );
+        
+        getLogger().debug("╚══════════════════════════════════════════════════════════", .{});
+    }
+    
+    /// Log execution error details
+    ///
+    /// This method provides detailed error information when an EVM execution
+    /// fails. It includes information about call state, gas usage, and error context.
+    ///
+    /// Parameters:
+    /// - error_type: String description of the error
+    /// - gas_used: Gas used before the error occurred
+    /// - gas_limit: Gas limit for the execution
+    /// - pc: Program counter at the point of failure
+    /// - contract_address: Address of the contract where execution failed
+    /// - details: Optional additional error details
+    pub fn logExecutionError(
+        self: *const Evm, 
+        error_type: []const u8, 
+        gas_used: u64, 
+        gas_limit: u64, 
+        pc: usize, 
+        contract_address: []const u8, 
+        details: ?[]const u8
+    ) void {
+        getLogger().err("┌─────────────────────────────────────────────────────────", .{});
+        getLogger().err("│ EVM EXECUTION ERROR: {s}", .{error_type});
+        getLogger().err("│ Contract: {s}", .{contract_address});
+        getLogger().err("│ Call depth: {d}, ReadOnly mode: {}", .{self.depth, self.readOnly});
+        getLogger().err("│ PC: {d}, Gas used: {d}/{d} ({d}%)", 
+            .{
+                pc, 
+                gas_used, 
+                gas_limit,
+                if (gas_limit > 0) (gas_used * 100) / gas_limit else 0
+            }
+        );
+        
+        if (details) |det| {
+            getLogger().err("│ Details: {s}", .{det});
+        }
+        
+        debugOnly(struct {
+            fn callback() void {
+                // Get state manager information if available
+                if (self.state_manager) |_| {
+                    getLogger().err("│ State manager: Active", .{});
+                } else {
+                    getLogger().err("│ State manager: Not attached", .{});
+                }
+            }
+        }.callback);
+        
+        getLogger().err("└─────────────────────────────────────────────────────────", .{});
+    }
+    
+    /// Log gas usage statistics
+    ///
+    /// This method logs detailed gas usage information for a contract execution.
+    /// It's useful for debugging and optimization purposes.
+    ///
+    /// Parameters:
+    /// - gas_used: Total gas used for the execution
+    /// - gas_limit: Gas limit for the execution
+    /// - contract_address: Address of the executed contract
+    /// - successful: Whether execution completed successfully
+    /// - gas_details: Optional breakdown of gas usage by category
+    pub fn logGasUsage(
+        self: *const Evm,
+        gas_used: u64,
+        gas_limit: u64,
+        contract_address: []const u8,
+        successful: bool,
+        gas_details: ?struct {
+            compute: u64 = 0,
+            memory: u64 = 0,
+            storage: u64 = 0,
+            calls: u64 = 0,
+        }
+    ) void {
+        getLogger().debug("┌─────────────────────────────────────────────────────────", .{});
+        getLogger().debug("│ GAS USAGE SUMMARY", .{});
+        getLogger().debug("│ Contract: {s}", .{contract_address});
+        getLogger().debug("│ Call depth: {d}, Execution successful: {}", .{self.depth, successful});
+        
+        const percentage = if (gas_limit > 0) (gas_used * 100) / gas_limit else 0;
+        getLogger().debug("│ Gas used: {d}/{d} ({d}%)", .{gas_used, gas_limit, percentage});
+        
+        // Log efficiency rating based on gas usage percentage
+        if (percentage < 50) {
+            getLogger().debug("│ Efficiency: Good (used less than 50% of gas limit)", .{});
+        } else if (percentage < 80) {
+            getLogger().debug("│ Efficiency: Average (used 50-80% of gas limit)", .{});
+        } else if (percentage < 95) {
+            getLogger().debug("│ Efficiency: Warning (used 80-95% of gas limit)", .{});
+        } else {
+            getLogger().debug("│ Efficiency: Critical (used >95% of gas limit)", .{});
+        }
+        
+        // Detailed gas breakdown if provided
+        if (gas_details) |details| {
+            getLogger().debug("│", .{});
+            getLogger().debug("│ Gas breakdown:", .{});
+            getLogger().debug("│   - Compute: {d} ({d}%)", 
+                .{details.compute, if (gas_used > 0) (details.compute * 100) / gas_used else 0});
+            getLogger().debug("│   - Memory: {d} ({d}%)", 
+                .{details.memory, if (gas_used > 0) (details.memory * 100) / gas_used else 0});
+            getLogger().debug("│   - Storage: {d} ({d}%)", 
+                .{details.storage, if (gas_used > 0) (details.storage * 100) / gas_used else 0});
+            getLogger().debug("│   - External calls: {d} ({d}%)", 
+                .{details.calls, if (gas_used > 0) (details.calls * 100) / gas_used else 0});
+            
+            const other = gas_used - details.compute - details.memory - details.storage - details.calls;
+            getLogger().debug("│   - Other: {d} ({d}%)", 
+                .{other, if (gas_used > 0) (other * 100) / gas_used else 0});
+        }
+        
+        getLogger().debug("└─────────────────────────────────────────────────────────", .{});
     }
 };
 
@@ -221,6 +486,8 @@ pub const ChainRules = struct {
     ///
     /// Returns: A ChainRules instance configured for the specified hardfork
     pub fn forHardfork(hardfork: Hardfork) ChainRules {
+        var logger = getLogger();
+        logger.debug("Creating chain rules for hardfork: {s}", .{@tagName(hardfork)});
         var rules = ChainRules{};
         
         switch (hardfork) {
@@ -429,6 +696,7 @@ pub const ChainRules = struct {
             },
         }
         
+        logger.debug("Chain rules created for hardfork: {s}", .{@tagName(hardfork)});
         return rules;
     }
 };

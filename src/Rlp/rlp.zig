@@ -11,6 +11,7 @@ pub const RlpError = error{
     UnexpectedInput,
     InvalidRemainder,
     ExtraZeros,
+    NegativeIntegerNotSupported,
 };
 
 pub const Decoded = struct {
@@ -48,60 +49,112 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     const T = @TypeOf(input);
     const info = @typeInfo(T);
 
-    // Handle byte arrays and slices
-    if (info == .Array) {
-        const child_info = @typeInfo(info.Array.child);
-        if (child_info == .Int and child_info.Int.bits == 8) {
-            return try encodeBytes(allocator, input);
-        }
-    } else if (info == .Pointer) {
-        const child_info = @typeInfo(info.Pointer.child);
-        if (child_info == .Int and child_info.Int.bits == 8) {
-            return try encodeBytes(allocator, input);
-        }
-    }
-    
-    // Handle lists
-    if (info == .Array or info == .Slice) {
-        var result = std.ArrayList(u8).init(allocator);
-        defer result.deinit();
-        
-        // First encode each element
-        var encoded_items = std.ArrayList([]u8).init(allocator);
-        defer {
-            for (encoded_items.items) |item| {
-                allocator.free(item);
+    // Let's manually check for string types
+    switch (info) {
+        .array => {
+            // Check if it's a byte array
+            const child_info = @typeInfo(info.array.child);
+            if (child_info == .int and child_info.int.bits == 8) {
+                // Convert array to slice
+                return try encodeBytes(allocator, &input);
             }
-            encoded_items.deinit();
+        },
+        .pointer => {
+            // Check if it's a byte slice
+            const child_info = @typeInfo(info.pointer.child);
+            if (child_info == .int and child_info.int.bits == 8) {
+                return try encodeBytes(allocator, input);
+            }
+        },
+        else => {},
+    }
+
+    // We've already handled byte arrays and slices in the switch above
+    
+    // Handle lists (arrays or slices of non-bytes)
+    if (info == .array) {
+        const child_info = @typeInfo(info.array.child);
+        if (child_info != .int or child_info.int.bits != 8) {
+            var result = std.ArrayList(u8).init(allocator);
+            defer result.deinit();
+            
+            // First encode each element
+            var encoded_items = std.ArrayList([]u8).init(allocator);
+            defer {
+                for (encoded_items.items) |item| {
+                    allocator.free(item);
+                }
+                encoded_items.deinit();
+            }
+            
+            var total_len: usize = 0;
+            for (input) |item| {
+                const encoded_item = try encode(allocator, item);
+                try encoded_items.append(encoded_item);
+                total_len += encoded_item.len;
+            }
+            
+            // Calculate header
+            if (total_len < 56) {
+                try result.append(0xc0 + @as(u8, @intCast(total_len)));
+            } else {
+                const len_bytes = try encodeLength(allocator, total_len);
+                defer allocator.free(len_bytes);
+                try result.append(0xf7 + @as(u8, @intCast(len_bytes.len)));
+                try result.appendSlice(len_bytes);
+            }
+            
+            // Append encoded items
+            for (encoded_items.items) |item| {
+                try result.appendSlice(item);
+            }
+            
+            return try result.toOwnedSlice();
         }
-        
-        var total_len: usize = 0;
-        for (input) |item| {
-            const encoded_item = try encode(allocator, item);
-            try encoded_items.append(encoded_item);
-            total_len += encoded_item.len;
+    } else if (info == .pointer) {
+        const child_info = @typeInfo(info.pointer.child);
+        // Skip byte slices (already handled above)
+        if (child_info != .int or child_info.int.bits != 8) {
+            var result = std.ArrayList(u8).init(allocator);
+            defer result.deinit();
+            
+            // First encode each element
+            var encoded_items = std.ArrayList([]u8).init(allocator);
+            defer {
+                for (encoded_items.items) |item| {
+                    allocator.free(item);
+                }
+                encoded_items.deinit();
+            }
+            
+            var total_len: usize = 0;
+            for (input) |item| {
+                const encoded_item = try encode(allocator, item);
+                try encoded_items.append(encoded_item);
+                total_len += encoded_item.len;
+            }
+            
+            // Calculate header
+            if (total_len < 56) {
+                try result.append(0xc0 + @as(u8, @intCast(total_len)));
+            } else {
+                const len_bytes = try encodeLength(allocator, total_len);
+                defer allocator.free(len_bytes);
+                try result.append(0xf7 + @as(u8, @intCast(len_bytes.len)));
+                try result.appendSlice(len_bytes);
+            }
+            
+            // Append encoded items
+            for (encoded_items.items) |item| {
+                try result.appendSlice(item);
+            }
+            
+            return try result.toOwnedSlice();
         }
-        
-        // Calculate header
-        if (total_len < 56) {
-            try result.append(0xc0 + @as(u8, @intCast(total_len)));
-        } else {
-            const len_bytes = try encodeLength(allocator, total_len);
-            defer allocator.free(len_bytes);
-            try result.append(0xf7 + @as(u8, @intCast(len_bytes.len)));
-            try result.appendSlice(len_bytes);
-        }
-        
-        // Append encoded items
-        for (encoded_items.items) |item| {
-            try result.appendSlice(item);
-        }
-        
-        return try result.toOwnedSlice();
     }
     
-    // Handle integers
-    if (info == .Int) {
+    // Handle integers and comptime_int
+    if (info == .int or info == .comptime_int) {
         if (input == 0) {
             // Special case: 0 is encoded as empty string
             const result = try allocator.alloc(u8, 1);
@@ -112,16 +165,42 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
         var bytes = std.ArrayList(u8).init(allocator);
         defer bytes.deinit();
         
-        var value = input;
-        while (value > 0) {
-            try bytes.insert(0, @as(u8, @intCast(value & 0xff)));
-            value >>= 8;
+        // For comptime_int, convert to u64
+        if (info == .comptime_int) {
+            var value: u64 = @intCast(input);
+            while (value > 0) {
+                try bytes.insert(0, @intCast(value & 0xff));
+                value = value >> 8;
+            }
+        } else {
+            // For runtime integers
+            const InputType = @TypeOf(input);
+            switch (InputType) {
+                u8, u16, u32, u64, usize => {
+                    var value: u64 = @intCast(input);
+                    while (value > 0) {
+                        try bytes.insert(0, @intCast(value & 0xff));
+                        value = value >> 8;
+                    }
+                },
+                i8, i16, i32, i64, isize => {
+                    var value: i64 = @intCast(input);
+                    if (value < 0) {
+                        return error.NegativeIntegerNotSupported;
+                    }
+                    while (value > 0) {
+                        try bytes.insert(0, @intCast(value & 0xff));
+                        value = value >> 8;
+                    }
+                },
+                else => @compileError("Unsupported integer type"),
+            }
         }
         
         return try encodeBytes(allocator, bytes.items);
     }
     
-    @compileError("Unsupported type for RLP encoding");
+    @compileError("Unsupported type for RLP encoding: " ++ @typeName(T));
 }
 
 /// Encodes a byte array or slice according to RLP rules
@@ -137,7 +216,7 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     if (bytes.len < 56) {
         const result = try allocator.alloc(u8, 1 + bytes.len);
         result[0] = 0x80 + @as(u8, @intCast(bytes.len));
-        std.mem.copy(u8, result[1..], bytes);
+        @memcpy(result[1..], bytes);
         return result;
     }
     
@@ -147,8 +226,8 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     
     const result = try allocator.alloc(u8, 1 + len_bytes.len + bytes.len);
     result[0] = 0xb7 + @as(u8, @intCast(len_bytes.len));
-    std.mem.copy(u8, result[1..], len_bytes);
-    std.mem.copy(u8, result[1 + len_bytes.len..], bytes);
+    @memcpy(result[1..][0..len_bytes.len], len_bytes);
+    @memcpy(result[1 + len_bytes.len..], bytes);
     
     return result;
 }
@@ -227,7 +306,7 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
         }
         
         const data = try allocator.alloc(u8, length);
-        std.mem.copy(u8, data, input[1 .. 1 + length]);
+        @memcpy(data, input[1 .. 1 + length]);
         
         return Decoded{
             .data = Data{ .String = data },
@@ -263,7 +342,7 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
         }
         
         const data = try allocator.alloc(u8, total_length);
-        std.mem.copy(u8, data, input[1 + length_of_length .. 1 + length_of_length + total_length]);
+        @memcpy(data, input[1 + length_of_length .. 1 + length_of_length + total_length]);
         
         return Decoded{
             .data = Data{ .String = data },
@@ -383,10 +462,10 @@ pub fn concatBytes(allocator: Allocator, arrays: []const []const u8) ![]u8 {
         total_len += arr.len;
     }
     
-    const result = try allocator.alloc(u8, total_len);
+    var result = try allocator.alloc(u8, total_len);
     var index: usize = 0;
     for (arrays) |arr| {
-        std.mem.copy(u8, result[index..], arr);
+        @memcpy(result[index..][0..arr.len], arr);
         index += arr.len;
     }
     
@@ -653,46 +732,47 @@ test "RLP stream decoding" {
     const buffer_stream = try concatBytes(allocator, &arrays);
     defer allocator.free(buffer_stream);
     
-    // Decode stream one by one
-    var remaining = buffer_stream;
-    
-    // First item (number)
-    var decoded = try decode(allocator, remaining, true);
-    remaining = decoded.remainder;
-    switch (decoded.data) {
-        .String => |str| {
-            try testing.expectEqual(@as(usize, 1), str.len);
-            try testing.expectEqual(@as(u8, 1), str[0]);
-        },
-        .List => unreachable,
-    }
-    decoded.data.deinit(allocator);
-    
-    // Second item (string)
-    decoded = try decode(allocator, remaining, true);
-    remaining = decoded.remainder;
-    switch (decoded.data) {
-        .String => |str| {
-            try testing.expectEqualSlices(u8, "test", str);
-        },
-        .List => unreachable,
-    }
-    decoded.data.deinit(allocator);
-    
-    // Third item (long string)
-    decoded = try decode(allocator, remaining, true);
-    remaining = decoded.remainder;
-    switch (decoded.data) {
-        .String => |str| {
-            try testing.expectEqualSlices(u8, long_string, str);
-        },
-        .List => unreachable,
-    }
-    decoded.data.deinit(allocator);
-    
-    // Fourth item (list)
-    decoded = try decode(allocator, remaining, true);
-    remaining = decoded.remainder;
+    // Using nested blocks to avoid variable reassignment issues
+    {
+        // First item (number)
+        const decoded1 = try decode(allocator, buffer_stream, true);
+        defer decoded1.data.deinit(allocator);
+        
+        switch (decoded1.data) {
+            .String => |str| {
+                try testing.expectEqual(@as(usize, 1), str.len);
+                try testing.expectEqual(@as(u8, 1), str[0]);
+            },
+            .List => unreachable,
+        }
+        
+        // Second item (string)
+        {
+            const decoded2 = try decode(allocator, decoded1.remainder, true);
+            defer decoded2.data.deinit(allocator);
+            
+            switch (decoded2.data) {
+                .String => |str| {
+                    try testing.expectEqualSlices(u8, "test", str);
+                },
+                .List => unreachable,
+            }
+            
+            // Third item (long string)
+            {
+                const decoded3 = try decode(allocator, decoded2.remainder, true);
+                defer decoded3.data.deinit(allocator);
+                
+                switch (decoded3.data) {
+                    .String => |str| {
+                        try testing.expectEqualSlices(u8, long_string, str);
+                    },
+                    .List => unreachable,
+                }
+                
+                // Fourth item (list)
+                {
+                    const decoded4 = try decode(allocator, decoded3.remainder, true);
     switch (decoded.data) {
         .List => |list| {
             try testing.expectEqual(@as(usize, 3), list.len);

@@ -222,7 +222,7 @@ pub const SstoreSentryGas: u64 = 2300;       /// Gas sent with a call
 pub const SstoreSetGas: u64 = 20000;         /// Gas for SSTORE when setting from zero
 pub const SstoreResetGas: u64 = 5000;        /// Gas for SSTORE when changing existing value
 pub const SstoreClearGas: u64 = 5000;        /// Gas for SSTORE when clearing to zero
-pub const SstoreRefundGas: u64 = 15000;      /// Gas refund for clearing storage
+pub const SstoreRefundGas: u64 = 4800;       /// Gas refund for clearing storage (EIP-3529 reduced from 15000)
 pub const JumpdestGas: u64 = 1;              /// Gas for JUMPDEST
 pub const LogGas: u64 = 375;                 /// Base gas for LOG
 pub const LogDataGas: u64 = 8;               /// Gas per byte of LOG data
@@ -241,6 +241,7 @@ pub const TxGasContractCreation: u64 = 53000; /// Base gas for contract creation
 pub const TxDataZeroGas: u64 = 4;            /// Gas per zero byte of tx data
 pub const TxDataNonZeroGas: u64 = 16;        /// Gas per non-zero byte of tx data
 pub const CopyGas: u64 = 3;
+pub const MaxRefundQuotient: u64 = 5;        /// Maximum refund quotient (EIP-3529 - gas_used/5 maximum)
 
 // EIP-4844: Shard Blob Transactions
 pub const BlobHashGas: u64 = 3;

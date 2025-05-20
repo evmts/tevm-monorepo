@@ -19,22 +19,25 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 
 ### EIP-2200: Structured Definitions for Gas Metering
 
-- **Status**: Partially implemented in SSTORE
+- **Status**: Implemented
 - **Description**: Redefines gas metering for SSTORE operation to account for storage slot value changes
-- **What's done**: Basic implementation for the storage slot value change gas calculations
-- **TODO**:
-  - Complete gas refund handling 
-  - Add proper original value tracking 
-  - Add comprehensive tests for various state transition scenarios
+- **What's done**: 
+  - Implementation for the storage slot value change gas calculations
+  - Added proper original value tracking in Contract struct
+  - Gas refund handling for different state transition cases
+  - Added comprehensive tests for various state transition scenarios
 
 ## High Priority
 
 ### EIP-3529: Reduction in gas refunds
 
-- **Status**: Not implemented
+- **Status**: Implemented
 - **Description**: Reduces the gas refund for SELFDESTRUCT and SSTORE operations
 - **Complexity**: Low
-- **Implementation**: Adjust gas refund calculations in the SSTORE and SELFDESTRUCT operations
+- **Implementation**: 
+  - Adjusted gas refund calculations in SSTORE operations (reduced from 15,000 to 4,800)
+  - Added MaxRefundQuotient constant (changed from 2 to 5, limiting refunds to 20% of gas used)
+  - Added tests verifying the reduced refund values
 
 ### EIP-3198: BASEFEE opcode
 
@@ -97,9 +100,9 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 ## Implementation Order
 
 1. ✅ Complete EIP-2929 implementation (gas pricing) - Implemented for SLOAD, SSTORE, BALANCE, EXTCODESIZE, EXTCODECOPY, EXTCODEHASH
-2. Complete EIP-2200 implementation (proper refund tracking)
-3. Implement EIP-3651 (Warm COINBASE)
-4. Implement EIP-3529 (Gas refund reduction)
+2. ✅ Complete EIP-2200 implementation (proper refund tracking)
+3. ✅ Implement EIP-3529 (Gas refund reduction)
+4. Implement EIP-3651 (Warm COINBASE)
 5. Implement EIP-3198 (BASEFEE opcode)
 6. Implement Shanghai opcodes (PUSH0)
 7. Implement Cancun opcodes (TLOAD, TSTORE, MCOPY, etc.) - TLOAD and TSTORE support partially added

@@ -151,10 +151,12 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
         current_value = (current_value << 8) | byte;
     }
     
-    // For EIP-2200 we also need the original value (before any transactions in the current execution)
-    // For our implementation, we'll use the current value as the original value
-    // In a full implementation, this would track the original values separately
-    const original_value = current_value;
+    // Track original value for EIP-2200 gas calculations
+    // This ensures we track the value at the start of the transaction
+    frame.contract.trackOriginalStorageValue(key, current_value);
+    
+    // Get the original value (from the start of the transaction)
+    const original_value = frame.contract.getOriginalStorageValue(key, current_value);
     
     // Calculate gas cost based on EIP-2200 (Istanbul net gas metering)
     var gas_cost: u64 = 0;
@@ -289,11 +291,12 @@ pub fn sstoreDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack,
         current_value = (current_value << 8) | byte;
     }
     
-    // For EIP-2200 we also need the original value (before any transactions in the current execution)
-    // For a full implementation, we would look this up from a separate tracking mechanism
-    // For our implementation, we'll use the current value for original_value
-    // In a full implementation, this would track the original values separately
-    const original_value = current_value;
+    // Track original value for EIP-2200 gas calculations
+    // This ensures we track the value at the start of the transaction
+    frame.contract.trackOriginalStorageValue(key, current_value);
+    
+    // Get the original value (from the start of the transaction)
+    const original_value = frame.contract.getOriginalStorageValue(key, current_value);
     
     // Calculate gas cost based on EIP-2200 (Istanbul net gas metering)
     var gas_cost: u64 = 0;

@@ -9,6 +9,9 @@ const logOpcode = @import("EvmLogger.zig").logOpcode;
 const logOpcodeDetailed = @import("EvmLogger.zig").logOpcodeDetailed;
 const logStorage = @import("EvmLogger.zig").logStorage;
 const logStorageKV = @import("EvmLogger.zig").logStorageKV;
+const logStep = @import("EvmLogger.zig").logStep;
+const logHexBytes = @import("EvmLogger.zig").logHexBytes;
+const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
 
 test "EvmLogger basic functionality" {
@@ -129,4 +132,38 @@ test "EvmLogger custom output capture" {
     // to keep it from being optimized away
     log_capture.appendMessage("Test completed");
     std.debug.print("\nTest capture buffer: {s}\n", .{log_capture.getContents()});
+}
+
+test "EvmLogger new functions" {
+    // Create a logger
+    const logger = createLogger(@src().file);
+    
+    // Test the new logStep function
+    var stack_data = [_]u256{0x1234, 0x5678, 0xabcd};
+    var memory_data = [_]u8{0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80, 0x90, 0xa0, 0xb0, 0xc0, 0xd0, 0xe0, 0xf0};
+    logStep(logger, 0x42, 0x01, "ADD", 50000, &stack_data, &memory_data);
+    
+    // Test the logHexBytes function
+    const bytes = [_]u8{0xde, 0xad, 0xbe, 0xef, 0xca, 0xfe, 0xba, 0xbe};
+    logHexBytes(logger, "TestBytes", &bytes);
+    
+    // Test the scoped logger
+    {
+        var scoped = createScopedLogger(logger, "TestScopedFunction");
+        defer scoped.deinit();
+        
+        logger.debug("Inside the scoped function", .{});
+        
+        // Nest another scoped section
+        {
+            var nested = createScopedLogger(logger, "NestedScope");
+            defer nested.deinit();
+            
+            logger.debug("Inside nested scope", .{});
+        }
+        
+        logger.debug("Back to outer scope", .{});
+    }
+    
+    logger.debug("After all scopes", .{});
 }

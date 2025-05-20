@@ -419,8 +419,8 @@ const KECCAK256 = struct {
         // Stack has [offset, size]
         // We need to get the memory size required to perform the operation
         // First, we need a copy of the stack to avoid modifying it
-        var offset = stack.data[stack.size - 2];
-        var size = stack.data[stack.size - 1];
+        const offset = stack.data[stack.size - 2];
+        const size = stack.data[stack.size - 1];
         
         // If size is 0, no memory expansion is needed
         if (size == 0) {
@@ -438,8 +438,8 @@ const KECCAK256 = struct {
         total_size = add_result[0];
         
         // Calculate memory size with proper alignment (32 bytes)
-        var words = (total_size + 31) / 32;
-        var memory_size = words * 32;
+        const words = (total_size + 31) / 32;
+        const memory_size = words * 32;
         
         return MemorySize{ .size = memory_size, .overflow = false };
     }

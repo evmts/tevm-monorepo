@@ -30,6 +30,9 @@ pub const Contract = struct {
     /// Cache of access status for storage slots (warm vs cold)
     /// Maps storage slot keys to their access status (true = accessed/warm)
     storage_access: ?std.AutoHashMap(u256, bool) = null,
+    /// Cache of original storage values (before any transaction changes)
+    /// Maps storage slot keys to their original values for EIP-2200 refund logic
+    original_storage: ?std.AutoHashMap(u256, u256) = null,
     /// Whether the contract account is cold (for EIP-2929 gas calculations)
     is_cold: bool = true,
 
@@ -302,6 +305,52 @@ pub const Contract = struct {
         return self.is_cold;
     }
     
+    /// Initialize the original storage tracking map if not already initialized
+    ///
+    /// This is an internal helper function for EIP-2200 original value tracking
+    fn ensureOriginalStorage(self: *Contract) void {
+        if (self.original_storage == null) {
+            logger.debug("Initializing original storage tracking map", .{});
+            self.original_storage = std.AutoHashMap(u256, u256).init(std.heap.page_allocator);
+        }
+    }
+    
+    /// Records the original value of a storage slot if not already tracked
+    ///
+    /// This method should be called before making any changes to a storage slot,
+    /// to preserve the original value (at the start of the transaction) for proper
+    /// EIP-2200 gas refund calculations.
+    ///
+    /// Parameters:
+    /// - slot: The storage slot key
+    /// - value: The current value of the slot (before any changes)
+    pub fn trackOriginalStorageValue(self: *Contract, slot: u256, value: u256) void {
+        self.ensureOriginalStorage();
+        
+        // Only store if we haven't seen this slot before in this transaction
+        if (!self.original_storage.?.contains(slot)) {
+            logger.debug("Recording original value for storage slot {any}: {any}", .{slot, value});
+            self.original_storage.?.put(slot, value) catch {
+                logger.err("Failed to record original storage value", .{});
+            };
+        }
+    }
+    
+    /// Get the original value of a storage slot (from the start of the transaction)
+    ///
+    /// Parameters:
+    /// - slot: The storage slot key to get the original value for
+    /// - current_value: The current value (used as fallback if no original value is tracked)
+    ///
+    /// Returns: The original value of the slot, or current_value if not tracked
+    pub fn getOriginalStorageValue(self: *const Contract, slot: u256, current_value: u256) u256 {
+        if (self.original_storage == null) {
+            return current_value;
+        }
+        
+        return self.original_storage.?.get(slot) orelse current_value;
+    }
+    
     /// Clean up resources used by the contract
     ///
     /// This should be called when the contract is no longer needed
@@ -311,6 +360,11 @@ pub const Contract = struct {
         if (self.storage_access != null) {
             self.storage_access.?.deinit();
             self.storage_access = null;
+        }
+        
+        if (self.original_storage != null) {
+            self.original_storage.?.deinit();
+            self.original_storage = null;
         }
         
         if (self.analysis) |analysis| {

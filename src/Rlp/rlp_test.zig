@@ -163,12 +163,12 @@ test "RLP encode/decode integers" {
     
     // Test small integer (fits in single byte)
     {
-        const value: u8 = 15;
+        const value: u32 = 15;
         const encoded = try rlp.encode(allocator, value);
         defer allocator.free(encoded);
         
         try testing.expectEqual(@as(usize, 1), encoded.len);
-        try testing.expectEqual(value, encoded[0]);
+        try testing.expectEqual(@as(u8, 15), encoded[0]);
         
         const decoded = try rlp.decode(allocator, encoded, false);
         defer decoded.data.deinit(allocator);
@@ -176,7 +176,7 @@ test "RLP encode/decode integers" {
         switch (decoded.data) {
             .String => |str| {
                 try testing.expectEqual(@as(usize, 1), str.len);
-                try testing.expectEqual(value, str[0]);
+                try testing.expectEqual(@as(u8, 15), str[0]);
             },
             .List => unreachable,
         }
@@ -184,7 +184,7 @@ test "RLP encode/decode integers" {
     
     // Test larger integer
     {
-        const value: u16 = 1024;
+        const value: u32 = 1024;
         const encoded = try rlp.encode(allocator, value);
         defer allocator.free(encoded);
         
@@ -208,7 +208,7 @@ test "RLP encode/decode integers" {
     
     // Test zero
     {
-        const value: u8 = 0;
+        const value: u32 = 0;
         const encoded = try rlp.encode(allocator, value);
         defer allocator.free(encoded);
         
@@ -248,58 +248,63 @@ test "RLP stream decoding" {
     const stream = try rlp.concatBytes(allocator, &arrays);
     defer allocator.free(stream);
     
-    // Decode the stream one item at a time
-    var remaining = stream;
-    
-    // First item - "a"
-    var decoded = try rlp.decode(allocator, remaining, true);
-    remaining = decoded.remainder;
-    switch (decoded.data) {
-        .String => |str| try testing.expectEqualSlices(u8, "a", str),
-        .List => unreachable,
-    }
-    decoded.data.deinit(allocator);
-    
-    // Second item - "dog"
-    decoded = try rlp.decode(allocator, remaining, true);
-    remaining = decoded.remainder;
-    switch (decoded.data) {
-        .String => |str| try testing.expectEqualSlices(u8, "dog", str),
-        .List => unreachable,
-    }
-    decoded.data.deinit(allocator);
-    
-    // Third item - long string
-    decoded = try rlp.decode(allocator, remaining, true);
-    remaining = decoded.remainder;
-    switch (decoded.data) {
-        .String => |str| try testing.expectEqualSlices(u8, long_string, str),
-        .List => unreachable,
-    }
-    decoded.data.deinit(allocator);
-    
-    // Fourth item - list [1, 2, 3]
-    decoded = try rlp.decode(allocator, remaining, true);
-    remaining = decoded.remainder;
-    switch (decoded.data) {
-        .List => |list| {
-            try testing.expectEqual(@as(usize, 3), list.len);
-            for (0..3) |i| {
-                switch (list[i]) {
-                    .String => |str| {
-                        try testing.expectEqual(@as(usize, 1), str.len);
-                        try testing.expectEqual(@as(u8, @intCast(i + 1)), str[0]);
-                    },
+    // First decode "a"
+    {
+        const decoded = try rlp.decode(allocator, stream, true);
+        defer decoded.data.deinit(allocator);
+        
+        switch (decoded.data) {
+            .String => |str| try testing.expectEqualSlices(u8, "a", str),
+            .List => unreachable,
+        }
+        
+        // Now decode "dog"
+        {
+            const decoded2 = try rlp.decode(allocator, decoded.remainder, true);
+            defer decoded2.data.deinit(allocator);
+            
+            switch (decoded2.data) {
+                .String => |str| try testing.expectEqualSlices(u8, "dog", str),
+                .List => unreachable,
+            }
+            
+            // Now decode long string
+            {
+                const decoded3 = try rlp.decode(allocator, decoded2.remainder, true);
+                defer decoded3.data.deinit(allocator);
+                
+                switch (decoded3.data) {
+                    .String => |str| try testing.expectEqualSlices(u8, long_string, str),
                     .List => unreachable,
                 }
+                
+                // Now decode list [1, 2, 3]
+                {
+                    const decoded4 = try rlp.decode(allocator, decoded3.remainder, true);
+                    defer decoded4.data.deinit(allocator);
+                    
+                    switch (decoded4.data) {
+                        .List => |list| {
+                            try testing.expectEqual(@as(usize, 3), list.len);
+                            for (0..3) |i| {
+                                switch (list[i]) {
+                                    .String => |str| {
+                                        try testing.expectEqual(@as(usize, 1), str.len);
+                                        try testing.expectEqual(@as(u8, @intCast(i + 1)), str[0]);
+                                    },
+                                    .List => unreachable,
+                                }
+                            }
+                        },
+                        .String => unreachable,
+                    }
+                    
+                    // Verify all data was consumed
+                    try testing.expectEqual(@as(usize, 0), decoded4.remainder.len);
+                }
             }
-        },
-        .String => unreachable,
+        }
     }
-    decoded.data.deinit(allocator);
-    
-    // Verify all data was consumed
-    try testing.expectEqual(@as(usize, 0), remaining.len);
 }
 
 test "RLP error handling - non-canonical encoding" {
@@ -325,7 +330,7 @@ test "RLP error handling - remainder in non-stream mode" {
     var with_remainder = try allocator.alloc(u8, encoded.len + 1);
     defer allocator.free(with_remainder);
     
-    std.mem.copy(u8, with_remainder, encoded);
+    @memcpy(with_remainder[0..encoded.len], encoded);
     with_remainder[encoded.len] = 0x01;
     
     // This should fail in non-stream mode because there is a remainder
