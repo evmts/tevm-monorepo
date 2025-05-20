@@ -171,9 +171,9 @@ pub const Frame = struct {
         getLogger().debug("Setting return data, size: {d} bytes", .{data.len});
         
         if (data.len <= 64) {
-            logHexBytes(logger, "New return data", data);
+            logHexBytes(getLogger(), "New return data", data);
         } else {
-            logHexBytes(logger, "New return data (first 64 bytes)", data[0..64]);
+            logHexBytes(getLogger(), "New return data (first 64 bytes)", data[0..64]);
         }
         
         if (self.returnData) |old_data| {
@@ -263,19 +263,19 @@ pub const Frame = struct {
             
             // Log current stack state
             const stack_data = self.stackData();
-            logStackSlop(logger, stack_data, op_name, self.pc);
+            logStackSlop(getLogger(), stack_data, op_name, self.pc);
             
             // Log memory state (first 128 bytes max)
             const mem_data = self.memoryData();
             if (mem_data.len > 0) {
                 const display_size = @min(mem_data.len, 128);
-                logMemory(logger, mem_data, display_size);
+                logMemory(getLogger(), mem_data, display_size);
             }
             
             // Log full execution step with more details
             if (stack_data.len > 0 or mem_data.len > 0) {
                 const curr_op = if (self.pc < self.contract.code.len) self.contract.code[self.pc] else 0;
-                logStep(logger, self.pc, curr_op, op_name, self.contract.gas, stack_data, mem_data);
+                logStep(getLogger(), self.pc, curr_op, op_name, self.contract.gas, stack_data, mem_data);
             }
         }
     }

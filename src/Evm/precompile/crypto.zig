@@ -152,7 +152,7 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     }
     
     // Check that bytes 32-63 (except for v) are all zero
-    if (!common.allZero(padded_input[33:64])) {
+    if (!common.allZero(padded_input[33..64])) {
         // Return empty result for invalid signature format
         return try allocator.alloc(u8, 0);
     }

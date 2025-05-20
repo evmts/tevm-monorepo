@@ -37,14 +37,14 @@ pub fn getData(input: []const u8, offset: usize, length: usize) []const u8 {
 pub fn leftPadBytes(allocator: std.mem.Allocator, data: []const u8, length: usize) ![]u8 {
     if (data.len >= length) {
         // If data is already the desired length or longer, just copy the rightmost bytes
-        var result = try allocator.alloc(u8, length);
+        const result = try allocator.alloc(u8, length);
         const start = data.len - length;
         @memcpy(result, data[start..]);
         return result;
     }
     
     // Otherwise pad with zeros
-    var result = try allocator.alloc(u8, length);
+    const result = try allocator.alloc(u8, length);
     // Initialize to zeros
     @memset(result, 0);
     // Copy data to the right side
@@ -57,13 +57,13 @@ pub fn leftPadBytes(allocator: std.mem.Allocator, data: []const u8, length: usiz
 pub fn rightPadBytes(allocator: std.mem.Allocator, data: []const u8, length: usize) ![]u8 {
     if (data.len >= length) {
         // If data is already the desired length or longer, just copy the leftmost bytes
-        var result = try allocator.alloc(u8, length);
+        const result = try allocator.alloc(u8, length);
         @memcpy(result, data[0..length]);
         return result;
     }
     
     // Otherwise pad with zeros
-    var result = try allocator.alloc(u8, length);
+    const result = try allocator.alloc(u8, length);
     // Initialize to zeros
     @memset(result, 0);
     // Copy data to the left side

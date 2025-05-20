@@ -1,18 +1,16 @@
 const std = @import("std");
 const testing = std.testing;
-// Import directly from test dependencies
-const interpreter_mod = @import("../interpreter.zig");
-const Interpreter = interpreter_mod.Interpreter;
-const ExecutionError = interpreter_mod.InterpreterError;
-const evm_mod = @import("../evm.zig");
-const Frame = @import("../Frame.zig").Frame;
-const Evm = evm_mod.Evm;
-const JumpTable = @import("../JumpTable.zig");
-const calls = @import("../opcodes/calls.zig");
-const Contract = @import("../Contract.zig").Contract;
-const Memory = @import("../Memory.zig").Memory;
-const Stack = @import("../Stack.zig").Stack;
-const Address = @import("../../Address/address.zig").Address;
+// Import from the root module to avoid path issues
+const Interpreter = @import("root").Evm.interpreter.Interpreter;
+const ExecutionError = @import("root").Evm.Frame.ExecutionError;
+const Evm = @import("root").Evm.evm.Evm;
+const Frame = @import("root").Evm.Frame.Frame;
+const JumpTable = @import("root").Evm.JumpTable;
+const calls = @import("root").Evm.opcodes.calls;
+const Contract = @import("root").Evm.Contract.Contract;
+const Memory = @import("root").Evm.Memory.Memory;
+const Stack = @import("root").Evm.Stack.Stack;
+const Address = @import("root").Address.Address;
 
 // For convenience and compatibility with test stubs
 // The actual u256 type would be imported from a proper bigint library
@@ -22,7 +20,7 @@ const BigInt = u64;
 // Test setup helper function
 fn setupInterpreter(enable_eip3541: bool) !Interpreter {
     // Create a custom chain rules configuration
-    var custom_rules = evm_mod.ChainRules{};
+    var custom_rules = @import("../evm.zig").ChainRules{};
     custom_rules.IsEIP3541 = enable_eip3541; // Control EIP-3541 (Reject new contracts starting with 0xEF)
     
     // Create an EVM instance with custom chain rules

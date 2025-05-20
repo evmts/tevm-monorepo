@@ -184,10 +184,10 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
                 // we need to account for potential storage refunds
                 if (original_value != 0) {
                     // If we're restoring to the original value, refund some gas
-                    if (original_value == value && current_value != value) {
+                    if (original_value == value and current_value != value) {
                         // Refund for restoring original value
                         frame.contract.addGasRefund(JumpTable.SstoreResetGas - JumpTable.SstoreClearGas);
-                    } else if (original_value == current_value && value == 0) {
+                    } else if (original_value == current_value and value == 0) {
                         // We're clearing a slot that was also cleared during this execution
                         // This means we need to remove the previous refund given for clearing
                         // (avoiding double refunds)

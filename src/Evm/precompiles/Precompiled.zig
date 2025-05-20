@@ -1,7 +1,7 @@
 const std = @import("std");
-const Contract = @import("Contract.zig").Contract;
-const B256 = @import("../../Types/B256.ts");
-const ExecutionError = @import("../Frame.zig").ExecutionError;
+const Contract = @import("root").Evm.Contract.Contract;
+const B256 = @import("root").Types.B256;
+const ExecutionError = @import("root").Evm.Frame.ExecutionError;
 
 /// Enum representing the different precompiled contract addresses
 pub const PrecompiledContract = enum(u8) {

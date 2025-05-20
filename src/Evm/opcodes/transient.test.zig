@@ -16,13 +16,13 @@ fn createTestFrame() !struct {
 } {
     const allocator = testing.allocator;
     
-    var stack = try allocator.create(Stack);
+    const stack = try allocator.create(Stack);
     stack.* = Stack.init(allocator);
     
-    var memory = try allocator.create(Memory);
+    const memory = try allocator.create(Memory);
     memory.* = Memory.init(allocator);
     
-    var contract = try allocator.create(Contract);
+    const contract = try allocator.create(Contract);
     contract.* = Contract{
         .gas = 100000,
         .code_address = undefined,
@@ -32,7 +32,7 @@ fn createTestFrame() !struct {
         .gas_refund = 0,
     };
     
-    var frame = try allocator.create(Frame);
+    const frame = try allocator.create(Frame);
     frame.* = Frame{
         .stack = stack,
         .memory = memory,
@@ -48,7 +48,7 @@ fn createTestFrame() !struct {
         .call_depth = 0,
     };
     
-    var interpreter = try allocator.create(Interpreter);
+    const interpreter = try allocator.create(Interpreter);
     interpreter.* = Interpreter{
         .evm = undefined,
         .cfg = undefined,

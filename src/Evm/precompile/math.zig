@@ -262,4 +262,4 @@ fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
 
 // Type definition for 256-bit integer (placeholder)
 // In a real implementation, use proper big integer library
-const u256 = usize;
+// We don't need to define this since u256 is now a built-in type in Zig

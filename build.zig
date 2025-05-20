@@ -588,6 +588,7 @@ pub fn build(b: *std.Build) void {
         "src/Evm/tests/eip2200.test.zig",
         "src/Evm/tests/eip2929.test.zig",
         "src/Evm/tests/eip3198.test.zig",
+        "src/Evm/tests/eip3541.test.zig",
         "src/Evm/tests/eip3651.test.zig",
         "src/Evm/tests/eip3855.test.zig",
         "src/Evm/tests/eip5656.test.zig",

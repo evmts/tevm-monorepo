@@ -490,7 +490,8 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
                 }
             }
             
-            // Free the output if it was allocated
+            // Free the output which was allocated by the precompile contract
+            // This prevents memory leaks since we've already copied what we need
             interpreter.allocator.free(output);
         } else {
             // No output, but not necessarily a failure
@@ -523,14 +524,22 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
     }
     
     // Save return data for later retrieval with RETURNDATACOPY
+    // First, free any existing return data to prevent memory leaks
     if (interpreter.returnData) |old_data| {
         interpreter.allocator.free(old_data);
         interpreter.returnData = null;
     }
     
+    // Only allocate and copy return data if we have something to return
     if (return_data.items.len > 0) {
+        // Allocate a new buffer for the return data
         const return_copy = try interpreter.allocator.alloc(u8, return_data.items.len);
+        errdefer interpreter.allocator.free(return_copy); // Free on error
+        
+        // Copy the data to the newly allocated buffer
         @memcpy(return_copy, return_data.items);
+        
+        // Store the buffer in the interpreter for later access
         interpreter.returnData = return_copy;
     }
     
@@ -670,7 +679,8 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
                 }
             }
             
-            // Free the output if it was allocated
+            // Free the output which was allocated by the precompile contract
+            // This prevents memory leaks since we've already copied what we need
             interpreter.allocator.free(output);
         } else {
             // No output, but not necessarily a failure
@@ -703,14 +713,22 @@ pub fn opCallCode(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     }
     
     // Save return data for later retrieval with RETURNDATACOPY
+    // First, free any existing return data to prevent memory leaks
     if (interpreter.returnData) |old_data| {
         interpreter.allocator.free(old_data);
         interpreter.returnData = null;
     }
     
+    // Only allocate and copy return data if we have something to return
     if (return_data.items.len > 0) {
+        // Allocate a new buffer for the return data
         const return_copy = try interpreter.allocator.alloc(u8, return_data.items.len);
+        errdefer interpreter.allocator.free(return_copy); // Free on error
+        
+        // Copy the data to the newly allocated buffer
         @memcpy(return_copy, return_data.items);
+        
+        // Store the buffer in the interpreter for later access
         interpreter.returnData = return_copy;
     }
     
@@ -849,7 +867,8 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
                 }
             }
             
-            // Free the output if it was allocated
+            // Free the output which was allocated by the precompile contract
+            // This prevents memory leaks since we've already copied what we need
             interpreter.allocator.free(output);
         } else {
             // No output, but not necessarily a failure
@@ -882,14 +901,22 @@ pub fn opDelegateCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Execu
     }
     
     // Save return data for later retrieval with RETURNDATACOPY
+    // First, free any existing return data to prevent memory leaks
     if (interpreter.returnData) |old_data| {
         interpreter.allocator.free(old_data);
         interpreter.returnData = null;
     }
     
+    // Only allocate and copy return data if we have something to return
     if (return_data.items.len > 0) {
+        // Allocate a new buffer for the return data
         const return_copy = try interpreter.allocator.alloc(u8, return_data.items.len);
+        errdefer interpreter.allocator.free(return_copy); // Free on error
+        
+        // Copy the data to the newly allocated buffer
         @memcpy(return_copy, return_data.items);
+        
+        // Store the buffer in the interpreter for later access
         interpreter.returnData = return_copy;
     }
     
@@ -1033,7 +1060,8 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
                 }
             }
             
-            // Free the output if it was allocated
+            // Free the output which was allocated by the precompile contract
+            // This prevents memory leaks since we've already copied what we need
             interpreter.allocator.free(output);
         } else {
             // No output, but not necessarily a failure
@@ -1066,14 +1094,22 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
     }
     
     // Save return data for later retrieval with RETURNDATACOPY
+    // First, free any existing return data to prevent memory leaks
     if (interpreter.returnData) |old_data| {
         interpreter.allocator.free(old_data);
         interpreter.returnData = null;
     }
     
+    // Only allocate and copy return data if we have something to return
     if (return_data.items.len > 0) {
+        // Allocate a new buffer for the return data
         const return_copy = try interpreter.allocator.alloc(u8, return_data.items.len);
+        errdefer interpreter.allocator.free(return_copy); // Free on error
+        
+        // Copy the data to the newly allocated buffer
         @memcpy(return_copy, return_data.items);
+        
+        // Store the buffer in the interpreter for later access
         interpreter.returnData = return_copy;
     }
     

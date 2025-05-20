@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const trie = @import("trie.zig");
-const rlp = @import("Rlp");
+const rlp = @import("../Rlp");
 
 const TrieNode = trie.TrieNode;
 const HashValue = trie.HashValue;
@@ -411,7 +411,6 @@ pub const ProofRetainer = struct {
 
         // This node is on the path, encode it once
         const encoded = try node.encode(self.allocator);
-        errdefer self.allocator.free(encoded); // Ensure encoded is freed if addNode fails
         
         // Calculate the node hash
         var hash: [32]u8 = undefined;
@@ -472,10 +471,7 @@ test "ProofNodes - basic functionality" {
     try testing.expectEqualStrings(test_data, nodes[0]);
 }
 
-test "ProofRetainer - basic" {
-    // Skip this test - it has memory leak issues we'll fix separately
-    if (true) return;
-    
+test "ProofRetainer - collect nodes" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
@@ -483,7 +479,34 @@ test "ProofRetainer - basic" {
     var retainer = try ProofRetainer.init(allocator, &key);
     defer retainer.deinit();
     
-    // Just verify we can access the proof
+    // Create a node on the path
+    const path = [_]u8{1, 2};
+    const value = "test_value";
+    
+    // Create a new scope to control the lifetime of the TrieNode
+    {
+        // Create the extension node - init will handle duplication
+        const extension = try trie.ExtensionNode.init(
+            allocator,
+            &path,
+            trie.HashValue{ .Raw = value }
+        );
+        var node = trie.TrieNode{ .Extension = extension };
+        
+        // Collect the node
+        const collected = try retainer.collectNode(node, &path);
+        try testing.expect(collected);
+        
+        // Node not on path
+        const off_path = [_]u8{5, 6};
+        const not_collected = try retainer.collectNode(node, &off_path);
+        try testing.expect(!not_collected);
+        
+        // Clean up the node at the end of this scope
+        node.deinit(allocator);
+    }
+    
+    // Verify it was added to the proof
     const proof = retainer.getProof();
-    try testing.expectEqual(@as(usize, 0), proof.nodes.count());
+    try testing.expectEqual(@as(usize, 1), proof.nodes.count());
 }

@@ -6,8 +6,7 @@ const JumpTable = @import("../JumpTable.zig");
 const B256 = @import("../../Types/B256.ts");
 const Stack = @import("../Stack.zig").Stack;
 const Memory = @import("../Memory.zig").Memory;
-// Built-in u256 type
-const u256 = u256;
+// We don't need to create an alias for the built-in u256 type
 
 // EIP-1153: Transient Storage gas costs
 pub const TLoadGas: u64 = 100;  // Aligned with the SLOAD gas cost, but a bit higher

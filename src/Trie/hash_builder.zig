@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const trie = @import("trie.zig");
-const rlp = @import("../Rlp");
+const rlp = @import("Rlp");
 
 const TrieNode = trie.TrieNode;
 const HashValue = trie.HashValue;
@@ -106,8 +106,10 @@ pub const HashBuilder = struct {
         // Start with either existing root or empty node
         // Get the current node
         const current = if (self.root_hash) |hash| blk: {
-            const hash_str = try bytesToHexString(self.allocator, &hash);
-            defer self.allocator.free(hash_str);
+            // Use a stack buffer for the hash string (32 bytes = 64 hex chars)
+            var hash_buf: [64]u8 = undefined;
+            bytesToHexStringWithBuffer(&hash, &hash_buf);
+            const hash_str = hash_buf[0..];
             
             const node = self.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
             break :blk node;
@@ -123,16 +125,22 @@ pub const HashBuilder = struct {
         
         // Store the node - we need to store before updating root_hash
         // in case storing fails
-        const hash_str = try bytesToHexString(self.allocator, &hash);
-        errdefer self.allocator.free(hash_str);
+        
+        // Use a temporary stack buffer for checking if the hash exists
+        var temp_hash_buf: [64]u8 = undefined;
+        bytesToHexStringWithBuffer(&hash, &temp_hash_buf);
+        const temp_hash_str = temp_hash_buf[0..];
         
         // Check if this node hash already exists in our map
-        if (self.nodes.contains(hash_str)) {
+        if (self.nodes.contains(temp_hash_str)) {
             // This node already exists in our map, so we need to free the result
             // to avoid a memory leak
             result.deinit(self.allocator);
-            self.allocator.free(hash_str);
         } else {
+            // Need to allocate a permanent copy of the hash string for the map
+            const hash_str = try self.allocator.dupe(u8, temp_hash_str);
+            errdefer self.allocator.free(hash_str);
+            
             // Put the node in the map
             try self.nodes.put(hash_str, result);
         }
@@ -151,8 +159,10 @@ pub const HashBuilder = struct {
         const nibbles = try trie.keyToNibbles(self.allocator, key);
         defer self.allocator.free(nibbles);
         
-        const hash_str = try bytesToHexString(self.allocator, &self.root_hash.?);
-        defer self.allocator.free(hash_str);
+        // Use a stack buffer for the hash string
+        var hash_buf: [64]u8 = undefined;
+        bytesToHexStringWithBuffer(&self.root_hash.?, &hash_buf);
+        const hash_str = hash_buf[0..];
         
         const root_node = self.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
         
@@ -172,8 +182,10 @@ pub const HashBuilder = struct {
         const nibbles = try trie.keyToNibbles(self.allocator, key);
         defer self.allocator.free(nibbles);
         
-        const hash_str = try bytesToHexString(self.allocator, &self.root_hash.?);
-        defer self.allocator.free(hash_str);
+        // Use a stack buffer for the hash string
+        var hash_buf: [64]u8 = undefined;
+        bytesToHexStringWithBuffer(&self.root_hash.?, &hash_buf);
+        const hash_str = hash_buf[0..];
         
         const root_node = self.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
         
@@ -183,12 +195,20 @@ pub const HashBuilder = struct {
         if (result) |node| {
             const hash = try node.hash(self.allocator);
             
-            // Store the updated node
-            const new_hash_str = try bytesToHexString(self.allocator, &hash);
-            errdefer self.allocator.free(new_hash_str);
+            // Use a temporary stack buffer for checking if the hash exists
+            var temp_hash_buf: [64]u8 = undefined;
+            bytesToHexStringWithBuffer(&hash, &temp_hash_buf);
+            const temp_hash_str = temp_hash_buf[0..];
             
-            // Put the node in the map
-            try self.nodes.put(new_hash_str, node);
+            // Check if this node hash already exists in our map
+            if (!self.nodes.contains(temp_hash_str)) {
+                // Need to allocate a permanent copy of the hash string for the map
+                const new_hash_str = try self.allocator.dupe(u8, temp_hash_str);
+                errdefer self.allocator.free(new_hash_str);
+                
+                // Put the node in the map
+                try self.nodes.put(new_hash_str, node);
+            }
             
             // Update the root hash only after successful storage
             self.root_hash = hash;
@@ -1205,18 +1225,33 @@ fn commonPrefixLength(a: []const u8, b: []const u8) usize {
     return i;
 }
 
-/// Convert a byte array to a hex string
-fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
+/// Convert bytes to hex in a provided buffer
+/// Buffer must be at least bytes.len * 2 in size
+fn bytesToHexStringWithBuffer(bytes: []const u8, buffer: []u8) void {
     const hex_chars = "0123456789abcdef";
-    const hex = try allocator.alloc(u8, bytes.len * 2);
-    errdefer allocator.free(hex);
+    std.debug.assert(buffer.len >= bytes.len * 2);
     
     for (bytes, 0..) |byte, i| {
-        hex[i * 2] = hex_chars[byte >> 4];
-        hex[i * 2 + 1] = hex_chars[byte & 0x0F];
+        buffer[i * 2] = hex_chars[byte >> 4];
+        buffer[i * 2 + 1] = hex_chars[byte & 0x0F];
     }
-    
-    return hex;
+}
+
+/// Convert a byte array to a hex string - legacy version that allocates memory
+fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
+    // For 32-byte hashes (common case), use a fixed-size buffer on the stack
+    if (bytes.len == 32) {
+        var buffer: [64]u8 = undefined;
+        bytesToHexStringWithBuffer(bytes, &buffer);
+        return allocator.dupe(u8, &buffer);
+    } else {
+        // For other sizes, allocate on the heap
+        const hex = try allocator.alloc(u8, bytes.len * 2);
+        errdefer allocator.free(hex);
+        
+        bytesToHexStringWithBuffer(bytes, hex);
+        return hex;
+    }
 }
 
 // Tests

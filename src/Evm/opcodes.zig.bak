@@ -443,6 +443,7 @@ const KECCAK256 = struct {
         
         return MemorySize{ .size = memory_size, .overflow = false };
     }
+    fn execute(pc: usize, interpreter: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
     fn execute(pc: usize, _: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
         _ = pc;
         

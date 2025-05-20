@@ -1,9 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
 const Precompiled = @import("Precompiled.zig").PrecompiledContract;
-const B256 = @import("../../Types/B256.ts");
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const Contract = @import("Contract.zig").Contract;
+const B256 = @import("root").Types.B256;
+const ExecutionError = @import("root").Evm.Frame.ExecutionError;
+const Contract = @import("root").Evm.Contract.Contract;
 
 // Helper to create a B256 address for a precompiled contract
 fn createPrecompiledAddress(addr_num: u8) !B256 {

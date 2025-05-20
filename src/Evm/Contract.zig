@@ -1,12 +1,19 @@
 const std = @import("std");
 const bitvec = @import("bitvec.zig");
 const opcodes = @import("opcodes.zig");
-const address = @import("Address");
+const address = @import("../Address/package.zig");
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 
-// Create a file-specific logger
-const logger = createLogger(@src().file);
+// We'll initialize the logger inside a function
+var _logger: ?EvmLogger = null;
+
+fn getLogger() EvmLogger {
+    if (_logger == null) {
+        _logger = createLogger("Contract.zig");
+    }
+    return _logger.?;
+}
 
 /// Contract represents an ethereum contract in the state database
 /// It contains the contract's code, address, and execution context
@@ -47,10 +54,10 @@ pub const Contract = struct {
     ///
     /// Returns: A new Contract instance with empty code
     pub fn init(caller: address.Address, contract_address: address.Address, value: u256, gas: u64, jumpdests: ?std.StringHashMap(bitvec.BitVec)) Contract {
-        logger.debug("Initializing contract at address {any}", .{contract_address});
-        logger.debug("  - Caller: {any}", .{caller});
-        logger.debug("  - Value: {d}", .{value});
-        logger.debug("  - Gas: {d}", .{gas});
+        getLogger().debug("Initializing contract at address {any}", .{contract_address});
+        getLogger().debug("  - Caller: {any}", .{caller});
+        getLogger().debug("  - Value: {d}", .{value});
+        getLogger().debug("  - Gas: {d}", .{gas});
         
         return Contract{
             .caller = caller,
@@ -77,21 +84,21 @@ pub const Contract = struct {
     ///
     /// Returns: true if destination is valid, false otherwise
     pub fn validJumpdest(self: *Contract, dest: u256) bool {
-        logger.debug("Checking jump destination: {d}", .{dest});
+        getLogger().debug("Checking jump destination: {d}", .{dest});
         
         if (dest.isAboveOrEqual(self.code.len)) {
-            logger.debug("Jump destination out of code bounds: {d} >= {d}", .{dest, self.code.len});
+            getLogger().debug("Jump destination out of code bounds: {d} >= {d}", .{dest, self.code.len});
             return false;
         }
         
         const udest = dest.toU64();
         if (self.code[udest] != opcodes.JUMPDEST_OPCODE) {
-            logger.debug("Destination is not a JUMPDEST opcode: {x} != {x}", .{self.code[udest], opcodes.JUMPDEST_OPCODE});
+            getLogger().debug("Destination is not a JUMPDEST opcode: {x} != {x}", .{self.code[udest], opcodes.JUMPDEST_OPCODE});
             return false;
         }
         
         const result = self.isCode(udest);
-        logger.debug("Jump destination validity: {}", .{result});
+        getLogger().debug("Jump destination validity: {}", .{result});
         return result;
     }
 
@@ -158,10 +165,10 @@ pub const Contract = struct {
     /// Returns: true if enough gas was available, false if insufficient gas
     pub fn useGas(self: *Contract, gas_amount: u64) bool {
         if (self.gas < gas_amount) {
-            logger.warn("Insufficient gas: requested {d}, available {d}", .{gas_amount, self.gas});
+            getLogger().warn("Insufficient gas: requested {d}, available {d}", .{gas_amount, self.gas});
             return false;
         }
-        logger.debug("Using {d} gas, remaining: {d}", .{gas_amount, self.gas - gas_amount});
+        getLogger().debug("Using {d} gas, remaining: {d}", .{gas_amount, self.gas - gas_amount});
         self.gas -= gas_amount;
         return true;
     }
@@ -176,7 +183,7 @@ pub const Contract = struct {
         if (gas_amount == 0) {
             return;
         }
-        logger.debug("Refunding {d} gas, new total: {d}", .{gas_amount, self.gas + gas_amount});
+        getLogger().debug("Refunding {d} gas, new total: {d}", .{gas_amount, self.gas + gas_amount});
         self.gas += gas_amount;
     }
     
@@ -187,7 +194,7 @@ pub const Contract = struct {
     /// Parameters:
     /// - gas_amount: Amount of gas to add to the refund counter
     pub fn addGasRefund(self: *Contract, gas_amount: u64) void {
-        logger.debug("Adding {d} to gas refund, new refund: {d}", .{gas_amount, self.gas_refund + gas_amount});
+        getLogger().debug("Adding {d} to gas refund, new refund: {d}", .{gas_amount, self.gas_refund + gas_amount});
         self.gas_refund += gas_amount;
     }
     
@@ -198,10 +205,10 @@ pub const Contract = struct {
     /// Note: If the amount is greater than available refund, counter is clamped to 0
     pub fn subGasRefund(self: *Contract, gas_amount: u64) void {
         if (gas_amount > self.gas_refund) {
-            logger.debug("Subtracting {d} from gas refund (clamping to 0)", .{gas_amount});
+            getLogger().debug("Subtracting {d} from gas refund (clamping to 0)", .{gas_amount});
             self.gas_refund = 0;
         } else {
-            logger.debug("Subtracting {d} from gas refund, new refund: {d}", .{gas_amount, self.gas_refund - gas_amount});
+            getLogger().debug("Subtracting {d} from gas refund, new refund: {d}", .{gas_amount, self.gas_refund - gas_amount});
             self.gas_refund -= gas_amount;
         }
     }
@@ -235,8 +242,8 @@ pub const Contract = struct {
     /// - hash: The 32-byte keccak256 hash of the code
     /// - code: The bytecode for the contract
     pub fn setCallCode(self: *Contract, hash: [32]u8, code: []const u8) void {
-        logger.debug("Setting contract code, length: {d} bytes", .{code.len});
-        logger.debug("  - Code hash: {any}", .{hash});
+        getLogger().debug("Setting contract code, length: {d} bytes", .{code.len});
+        getLogger().debug("  - Code hash: {any}", .{hash});
         self.code = code;
         self.code_hash = hash;
     }
@@ -246,7 +253,7 @@ pub const Contract = struct {
     /// This is an internal helper function for EIP-2929 access list tracking
     fn ensureStorageAccess(self: *Contract) void {
         if (self.storage_access == null) {
-            logger.debug("Initializing storage access tracking map", .{});
+            getLogger().debug("Initializing storage access tracking map", .{});
             self.storage_access = std.AutoHashMap(u256, bool).init(std.heap.page_allocator);
         }
     }
@@ -261,9 +268,9 @@ pub const Contract = struct {
         self.ensureStorageAccess();
         const was_cold = self.isStorageSlotCold(slot);
         if (was_cold) {
-            logger.debug("Marking storage slot {any} as warm (was cold)", .{slot});
+            getLogger().debug("Marking storage slot {any} as warm (was cold)", .{slot});
             self.storage_access.?.put(slot, true) catch {
-                logger.err("Failed to mark storage slot as warm", .{});
+                getLogger().err("Failed to mark storage slot as warm", .{});
             };
         }
         return was_cold;
@@ -292,7 +299,7 @@ pub const Contract = struct {
     pub fn markAccountWarm(self: *Contract) bool {
         const was_cold = self.is_cold;
         if (was_cold) {
-            logger.debug("Marking contract account {any} as warm (was cold)", .{self.address});
+            getLogger().debug("Marking contract account {any} as warm (was cold)", .{self.address});
             self.is_cold = false;
         }
         return was_cold;
@@ -310,7 +317,7 @@ pub const Contract = struct {
     /// This is an internal helper function for EIP-2200 original value tracking
     fn ensureOriginalStorage(self: *Contract) void {
         if (self.original_storage == null) {
-            logger.debug("Initializing original storage tracking map", .{});
+            getLogger().debug("Initializing original storage tracking map", .{});
             self.original_storage = std.AutoHashMap(u256, u256).init(std.heap.page_allocator);
         }
     }
@@ -329,9 +336,9 @@ pub const Contract = struct {
         
         // Only store if we haven't seen this slot before in this transaction
         if (!self.original_storage.?.contains(slot)) {
-            logger.debug("Recording original value for storage slot {any}: {any}", .{slot, value});
+            getLogger().debug("Recording original value for storage slot {any}: {any}", .{slot, value});
             self.original_storage.?.put(slot, value) catch {
-                logger.err("Failed to record original storage value", .{});
+                getLogger().err("Failed to record original storage value", .{});
             };
         }
     }
@@ -356,7 +363,7 @@ pub const Contract = struct {
     /// This should be called when the contract is no longer needed
     /// to free memory used by analysis and storage access tracking
     pub fn deinit(self: *Contract) void {
-        logger.debug("Deinitializing contract resources", .{});
+        getLogger().debug("Deinitializing contract resources", .{});
         if (self.storage_access != null) {
             self.storage_access.?.deinit();
             self.storage_access = null;
@@ -387,7 +394,7 @@ pub const Contract = struct {
 ///
 /// Returns: A new Contract instance
 pub fn createContract(caller: address.Address, contract_address: address.Address, value: u256, gas: u64) Contract {
-    logger.debug("Creating new contract", .{});
+    getLogger().debug("Creating new contract", .{});
     const jumpdests = std.StringHashMap(bitvec.BitVec).init(std.heap.page_allocator);
     return Contract.init(caller, contract_address, value, gas, jumpdests);
 }
@@ -406,6 +413,6 @@ pub fn createContract(caller: address.Address, contract_address: address.Address
 ///
 /// Returns: A new Contract instance with shared JUMPDEST cache
 pub fn createContractWithParent(caller: address.Address, contract_address: address.Address, value: u256, gas: u64, parent: *const Contract) Contract {
-    logger.debug("Creating contract with parent jumpdests table", .{});
+    getLogger().debug("Creating contract with parent jumpdests table", .{});
     return Contract.init(caller, contract_address, value, gas, parent.jumpdests);
 }

@@ -215,7 +215,7 @@ pub const Interpreter = struct {
             const coinbase_addr = Address.ZERO_ADDRESS;
             
             // Get account access list from state manager
-            if (self.evm.state_manager) |state_manager| {
+            if (self.evm.state_manager) |_| {
                 // Mark the COINBASE address as accessed (warm) in the state manager's access list
                 // This would be implementation-specific based on how access lists are tracked
                 // For now, we'll just log that it should happen
@@ -333,6 +333,12 @@ pub const Interpreter = struct {
                         // and return revert data
                         if (frame.returnData) |data| {
                             getLogger().debug("REVERT with {d} bytes of return data", .{data.len});
+                            // Clean up previous return data if it exists to prevent memory leaks
+                            if (self.returnData) |old_data| {
+                                self.allocator.free(old_data);
+                                self.returnData = null;
+                            }
+                            
                             // Copy return data for the caller to access
                             const return_copy = self.allocator.dupe(u8, data) catch return InterpreterError.OutOfGas;
                             self.returnData = return_copy;
@@ -390,6 +396,13 @@ pub const Interpreter = struct {
         // Return successful completion data if any
         if (frame.returnData) |data| {
             getLogger().debug("Returning successful completion data: {d} bytes", .{data.len});
+            
+            // Clean up previous return data if it exists to prevent memory leaks
+            if (self.returnData) |old_data| {
+                self.allocator.free(old_data);
+                self.returnData = null;
+            }
+            
             // Copy return data for the caller to access
             const return_copy = self.allocator.dupe(u8, data) catch return InterpreterError.OutOfGas;
             self.returnData = return_copy;

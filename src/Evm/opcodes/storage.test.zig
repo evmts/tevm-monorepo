@@ -30,7 +30,7 @@ fn createTestEnvironment(allocator: std.mem.Allocator) !struct {
     
     // Create state manager with default options
     const options = StateManager.StateOptions{};
-    var stateManager = try StateManager.init(allocator, options);
+    const stateManager = try StateManager.init(allocator, options);
     
     // Set state manager in EVM
     evm.setStateManager(stateManager);
@@ -48,16 +48,16 @@ fn createTestEnvironment(allocator: std.mem.Allocator) !struct {
     );
     
     // Set empty code
-    var code_hash: [32]u8 = [_]u8{0} ** 32;
+    const code_hash: [32]u8 = [_]u8{0} ** 32;
     contract.setCallCode(code_hash, &[_]u8{});
     
-    var frame = try Frame.init(allocator, &contract);
+    const frame = try Frame.init(allocator, &contract);
     
     // Initialize an empty jump table for testing
     const table = JumpTable.JumpTable.init();
     
     // Create interpreter
-    var interpreter = Interpreter.create(allocator, &evm, table);
+    const interpreter = Interpreter.create(allocator, &evm, table);
     
     return .{
         .evm = evm,
