@@ -27,9 +27,24 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     // Pop the key from the stack
     const key = try frame.stack.pop();
     
-    // EIP-2929: Track warm/cold storage access
-    // Check if this is a cold access and mark it as warm for future accesses
-    // In a full implementation, we'd apply additional gas costs for cold accesses
+    // EIP-2929: Check if this is a cold access and apply appropriate gas costs
+    const is_cold_storage = frame.contract.isStorageSlotCold(key);
+    
+    // Calculate EIP-2929 gas cost
+    const gas_cost = if (is_cold_storage)
+        JumpTable.ColdSloadCost  // Cold access (2100 gas)
+    else
+        JumpTable.WarmStorageReadCost;  // Warm access (100 gas)
+    
+    // Check if we have enough gas
+    if (frame.contract.gas < gas_cost) {
+        return ExecutionError.OutOfGas;
+    }
+    
+    // Use gas
+    frame.contract.useGas(gas_cost);
+    
+    // Mark the slot as warm for future accesses
     _ = frame.contract.markStorageSlotWarm(key);
     
     // Convert key to B256 format

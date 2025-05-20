@@ -24,35 +24,97 @@ const precompile = @import("precompile/Precompiles.zig");
 // Create a file-specific logger
 const logger = createLogger(@src().file);
 
-// Interpreter error type
+/// Interpreter error type
+///
+/// These errors represent the various execution errors that can occur
+/// during contract execution. They map closely to error conditions
+/// defined in the Ethereum Yellow Paper.
 const InterpreterError = error{
+    /// Not enough gas to continue execution
     OutOfGas,
+    
+    /// Attempted to pop from an empty stack
     StackUnderflow,
+    
+    /// Attempted to push to a full stack (beyond 1024 elements)
     StackOverflow,
+    
+    /// Jump to an invalid destination (not a JUMPDEST opcode)
     InvalidJump,
+    
+    /// Encountered an undefined opcode
     InvalidOpcode,
+    
+    /// Attempted to modify state in a static (view) context
     StaticStateChange,
+    
+    /// Memory access beyond valid bounds or overflow
     OutOfOffset,
+    
+    /// Gas calculation resulted in an integer overflow
     GasUintOverflow,
+    
+    /// Attempted to write in a read-only context
     WriteProtection,
+    
+    /// Accessed return data outside of bounds
     ReturnDataOutOfBounds,
+    
+    /// Contract creation code exceeds size limits
     DeployCodeTooBig,
+    
+    /// Contract code size exceeds the maximum allowed size
     MaxCodeSizeExceeded,
+    
+    /// Contract entry code is invalid (e.g., starts with EF)
     InvalidCodeEntry,
+    
+    /// Call depth exceeds limit (1024)
     DepthLimit,
 };
 
+/// The Interpreter executes EVM bytecode
+///
+/// The Interpreter is responsible for running the EVM execution loop:
+/// - Fetching opcodes from contract bytecode
+/// - Calculating gas costs for each operation
+/// - Executing the operations
+/// - Managing memory, stack, and execution context
+/// - Handling errors and exceptional conditions
+/// - Returning execution results
 pub const Interpreter = struct {
+    /// Memory allocator for the interpreter's resources
     allocator: std.mem.Allocator,
+    
+    /// Pointer to the EVM instance that provides context and state access
     evm: *Evm,
+    
+    /// Jump table containing the implementation of all opcodes
     table: JumpTable,
+    
+    /// Whether the interpreter is running in read-only mode
+    /// In read-only mode, operations that modify state will fail
     readOnly: bool = false,
+    
+    /// Return data from the last call operation
+    /// This is stored at the interpreter level to allow access across frames
     returnData: ?[]u8 = null,
+    
+    /// Logger for debug information
     logger: EvmLogger,
     
-    // Opcodes to operation names mapping for debug logging
+    /// Opcodes to operation names mapping for debug logging
+    /// Used to provide human-readable names in logs
     const opcodeNames = opcodes.opcodeNames;
 
+    /// Create a new Interpreter instance
+    ///
+    /// Parameters:
+    /// - allocator: Memory allocator for the interpreter's resources
+    /// - evm: Pointer to the EVM instance to use
+    /// - table: Jump table containing opcode implementations
+    ///
+    /// Returns: A new Interpreter instance
     pub fn create(allocator: std.mem.Allocator, evm: *Evm, table: JumpTable) Interpreter {
         logger.debug("Creating new Interpreter instance", .{});
         return Interpreter{
@@ -63,6 +125,19 @@ pub const Interpreter = struct {
         };
     }
 
+    /// Run the interpreter to execute contract code
+    ///
+    /// This is the main entry point for EVM execution. It handles the entire
+    /// lifecycle of a contract call, from setting up the execution environment
+    /// to running the execution loop and returning results.
+    ///
+    /// Parameters:
+    /// - contract: Pointer to the contract to execute
+    /// - input: Input data (calldata) for the execution
+    /// - readOnly: Whether this execution should be read-only (STATICCALL)
+    ///
+    /// Returns: Return data from the execution, or null if none
+    /// Error: Various execution errors that can occur during execution
     pub fn run(self: *Interpreter, contract: *Contract, input: []const u8, readOnly: bool) InterpreterError!?[]const u8 {
         self.logger.debug("Starting execution in 'run' with depth {d}", .{self.evm.depth + 1});
         self.logger.debug("Contract code length: {d}, readOnly: {}", .{contract.code.len, readOnly});
@@ -267,6 +342,11 @@ pub const Interpreter = struct {
         return null;
     }
     
+    /// Free resources used by the interpreter
+    ///
+    /// This releases any memory allocated by the interpreter, primarily
+    /// the return data buffer. It should be called when the interpreter
+    /// is no longer needed to prevent memory leaks.
     pub fn deinit(self: *Interpreter) void {
         self.logger.debug("Deinitializing interpreter", .{});
         if (self.returnData) |data| {

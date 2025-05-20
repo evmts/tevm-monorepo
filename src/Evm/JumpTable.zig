@@ -207,7 +207,11 @@ pub const GasExtStep: u64 = 20;     /// Extended/expensive operations (like BALA
 /// Gas cost constants for specific operations
 pub const Keccak256Gas: u64 = 30;            /// Base gas for KECCAK256
 pub const Keccak256WordGas: u64 = 6;         /// Gas per word for KECCAK256
-pub const SloadGas: u64 = 50;                /// Base gas for SLOAD
+pub const SloadGas: u64 = 100;               /// Base gas for SLOAD (warm access)
+pub const ColdSloadCost: u64 = 2100;         /// Gas for first-time (cold) SLOAD access (EIP-2929)
+pub const ColdAccountAccessCost: u64 = 2600; /// Gas for first-time (cold) account access (EIP-2929)
+pub const WarmStorageReadCost: u64 = 100;    /// Gas for warm storage access (EIP-2929)
+
 pub const SstoreSentryGas: u64 = 2300;       /// Gas sent with a call
 pub const SstoreSetGas: u64 = 20000;         /// Gas for SSTORE when setting from zero
 pub const SstoreResetGas: u64 = 5000;        /// Gas for SSTORE when changing existing value

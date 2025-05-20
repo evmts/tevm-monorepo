@@ -10,11 +10,9 @@ const Address = @import("../../Address/address.zig").Address;
 const precompile = @import("../precompile/Precompiles.zig");
 const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
 const createLogger = @import("../EvmLogger.zig").createLogger;
-// Use built-in u256 type
-const u256 = u256;
 
 // Create a file-specific logger
-const logger = createLogger(@src().file);
+const file_logger = createLogger("calls.zig");
 
 /// Maximum call depth for Ethereum VM
 const MAX_CALL_DEPTH: u32 = 1024;
@@ -39,14 +37,15 @@ fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.Pr
         if (i == 12) break;
     }
     
-    // Create an Address from the bytes
-    var target_address = Address.fromBytesAddress(addr_bytes[12..32]);
+    // Extract the last 20 bytes for the Ethereum address
+    var target_address: Address = undefined;
+    @memcpy(&target_address, addr_bytes[12..32]);
     
     // Get precompiled contracts based on chain rules
     if (interpreter.evm.precompiles) |contracts| {
         // Check if this address is a precompiled contract
         if (contracts.get(target_address)) |contract| {
-            logger.debug("Found precompiled contract at address 0x{x}", .{addr});
+            file_logger.debug("Found precompiled contract at address 0x{x}", .{addr});
             return contract;
         }
     }
@@ -72,8 +71,11 @@ fn addressFromU256(addr_u256: u256) Address {
         if (i == 12) break;
     }
     
-    // Create an Address from the bytes
-    return Address.fromBytesAddress(addr_bytes[12..32]);
+    // Extract the last 20 bytes for the Ethereum address
+    var address: Address = undefined;
+    @memcpy(&address, addr_bytes[12..32]);
+    
+    return address;
 }
 
 /// CALL (0xF1) - Call contract
@@ -153,29 +155,106 @@ pub fn opCall(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
         logger.debug("CALL: to_addr={x}, value={}, gas={}", .{ to_addr, value, gas });
     }
     
-    // In a real implementation, we would:
-    // 1. Create a new call frame
-    // 2. Run the call
-    // 3. Process the result
-    
-    // For now, we'll simulate a basic call
-    var success: bool = true; // Default to true for this stub
+    // Check if this is a call to a precompiled contract
+    var success: bool = false;
     var return_data = std.ArrayList(u8).init(interpreter.allocator);
     defer return_data.deinit();
     
-    // Deduct used gas from current frame
-    frame.gas -= gas_cost;
-    
-    // Write the return data to memory if the call was successful
-    if (success and out_size_usize > 0) {
-        // In a real implementation, we would copy the actual return data
-        // For now, just zero out the memory region
-        const memory_data = frame.memory.data();
-        for (out_offset_usize..out_offset_usize + out_size_usize) |i| {
-            if (i < memory_data.len) {
-                memory_data[i] = 0;
+    // Check for precompiled contracts
+    if (checkPrecompiled(to_addr, interpreter)) |contract| {
+        // Execute precompiled contract
+        file_logger.debug("Executing precompiled contract at address: 0x{x}", .{to_addr});
+        
+        // Cap gas to the remaining gas in the frame
+        const capped_gas = @min(gas_cost, frame.gas);
+        
+        // Run the precompiled contract
+        const result = precompile.runPrecompiledContract(
+            contract,
+            input_data.items,
+            capped_gas,
+            interpreter.allocator,
+            &frame.logger
+        ) catch |err| {
+            file_logger.err("Precompiled contract execution failed: {}", .{err});
+            
+            // Push 0 to the stack to indicate failure
+            try frame.stack.push(0);
+            return "";
+        };
+        
+        // Update gas used
+        const gas_used = capped_gas - result.remaining_gas;
+        frame.gas -= gas_used;
+        
+        // Process the result
+        if (result.output) |output| {
+            success = true;
+            
+            // Store the output in return data for future use
+            try return_data.appendSlice(output);
+            
+            // Update the caller's memory with the return data
+            if (out_size_usize > 0) {
+                const memory_data = frame.memory.data();
+                const copy_size = @min(out_size_usize, output.len);
+                
+                for (0..copy_size) |i| {
+                    if (out_offset_usize + i < memory_data.len) {
+                        memory_data[out_offset_usize + i] = output[i];
+                    }
+                }
+                
+                // Zero out any remaining output memory area
+                for (copy_size..out_size_usize) |i| {
+                    if (out_offset_usize + i < memory_data.len) {
+                        memory_data[out_offset_usize + i] = 0;
+                    }
+                }
+            }
+            
+            // Free the output if it was allocated
+            interpreter.allocator.free(output);
+        } else {
+            // No output, but not necessarily a failure
+            success = true;
+        }
+    } else {
+        // Regular contract call (not precompiled)
+        // In a real implementation, we would:
+        // 1. Create a new call frame
+        // 2. Run the call
+        // 3. Process the result
+        
+        // For now, we'll simulate a basic call
+        success = true; // Default to true for this stub
+        
+        // Deduct used gas from current frame
+        frame.gas -= gas_cost;
+        
+        // Write the return data to memory if the call was successful
+        if (success and out_size_usize > 0) {
+            // In a real implementation, we would copy the actual return data
+            // For now, just zero out the memory region
+            const memory_data = frame.memory.data();
+            for (out_offset_usize..out_offset_usize + out_size_usize) |i| {
+                if (i < memory_data.len) {
+                    memory_data[i] = 0;
+                }
             }
         }
+    }
+    
+    // Save return data for later retrieval with RETURNDATACOPY
+    if (interpreter.returnData) |old_data| {
+        interpreter.allocator.free(old_data);
+        interpreter.returnData = null;
+    }
+    
+    if (return_data.items.len > 0) {
+        const return_copy = try interpreter.allocator.alloc(u8, return_data.items.len);
+        @memcpy(return_copy, return_data.items);
+        interpreter.returnData = return_copy;
     }
     
     // Push result to stack (1 for success, 0 for failure)
@@ -460,29 +539,111 @@ pub fn opStaticCall(pc: usize, interpreter: *Interpreter, frame: *Frame) Executi
         logger.debug("STATICCALL: to_addr={x}, gas={}", .{ to_addr, gas });
     }
     
-    // In a real implementation, we would:
-    // 1. Create a new call frame with readOnly = true
-    // 2. Run the call
-    // 3. Process the result
-    
-    // For now, we'll simulate a basic call
-    var success: bool = true; // Default to true for this stub
+    // Check if this is a call to a precompiled contract
+    var success: bool = false;
     var return_data = std.ArrayList(u8).init(interpreter.allocator);
     defer return_data.deinit();
     
-    // Deduct used gas from current frame
-    frame.gas -= gas_cost;
+    // Set read-only flag for static call
+    const prevReadOnly = interpreter.readOnly;
+    interpreter.readOnly = true;
+    defer interpreter.readOnly = prevReadOnly;
     
-    // Write the return data to memory if the call was successful
-    if (success and out_size_usize > 0) {
-        // In a real implementation, we would copy the actual return data
-        // For now, just zero out the memory region
-        const memory_data = frame.memory.data();
-        for (out_offset_usize..out_offset_usize + out_size_usize) |i| {
-            if (i < memory_data.len) {
-                memory_data[i] = 0;
+    // Check for precompiled contracts
+    if (checkPrecompiled(to_addr, interpreter)) |contract| {
+        // Execute precompiled contract
+        file_logger.debug("Executing precompiled contract at address: 0x{x} in static context", .{to_addr});
+        
+        // Cap gas to the remaining gas in the frame
+        const capped_gas = @min(gas_cost, frame.gas);
+        
+        // Run the precompiled contract
+        const result = precompile.runPrecompiledContract(
+            contract,
+            input_data.items,
+            capped_gas,
+            interpreter.allocator,
+            &frame.logger
+        ) catch |err| {
+            file_logger.err("Precompiled contract static execution failed: {}", .{err});
+            
+            // Push 0 to the stack to indicate failure
+            try frame.stack.push(0);
+            return "";
+        };
+        
+        // Update gas used
+        const gas_used = capped_gas - result.remaining_gas;
+        frame.gas -= gas_used;
+        
+        // Process the result
+        if (result.output) |output| {
+            success = true;
+            
+            // Store the output in return data for future use
+            try return_data.appendSlice(output);
+            
+            // Update the caller's memory with the return data
+            if (out_size_usize > 0) {
+                const memory_data = frame.memory.data();
+                const copy_size = @min(out_size_usize, output.len);
+                
+                for (0..copy_size) |i| {
+                    if (out_offset_usize + i < memory_data.len) {
+                        memory_data[out_offset_usize + i] = output[i];
+                    }
+                }
+                
+                // Zero out any remaining output memory area
+                for (copy_size..out_size_usize) |i| {
+                    if (out_offset_usize + i < memory_data.len) {
+                        memory_data[out_offset_usize + i] = 0;
+                    }
+                }
+            }
+            
+            // Free the output if it was allocated
+            interpreter.allocator.free(output);
+        } else {
+            // No output, but not necessarily a failure
+            success = true;
+        }
+    } else {
+        // Regular staticcall (not precompiled)
+        // In a real implementation, we would:
+        // 1. Create a new call frame with readOnly = true
+        // 2. Run the call
+        // 3. Process the result
+        
+        // For now, we'll simulate a basic call
+        success = true; // Default to true for this stub
+        
+        // Deduct used gas from current frame
+        frame.gas -= gas_cost;
+        
+        // Write the return data to memory if the call was successful
+        if (success and out_size_usize > 0) {
+            // In a real implementation, we would copy the actual return data
+            // For now, just zero out the memory region
+            const memory_data = frame.memory.data();
+            for (out_offset_usize..out_offset_usize + out_size_usize) |i| {
+                if (i < memory_data.len) {
+                    memory_data[i] = 0;
+                }
             }
         }
+    }
+    
+    // Save return data for later retrieval with RETURNDATACOPY
+    if (interpreter.returnData) |old_data| {
+        interpreter.allocator.free(old_data);
+        interpreter.returnData = null;
+    }
+    
+    if (return_data.items.len > 0) {
+        const return_copy = try interpreter.allocator.alloc(u8, return_data.items.len);
+        @memcpy(return_copy, return_data.items);
+        interpreter.returnData = return_copy;
     }
     
     // Push result to stack (1 for success, 0 for failure)
@@ -934,4 +1095,40 @@ test "Calls basic operations" {
     try testing.expectEqual(true, jt.table[0xF4].?.memory_size != null); // DELEGATECALL
     try testing.expectEqual(true, jt.table[0xF5].?.memory_size != null); // CREATE2
     try testing.expectEqual(true, jt.table[0xFA].?.memory_size != null); // STATICCALL
+}
+
+// Test precompiled contract detection and address conversion
+test "Precompiled contract address detection" {
+    const testing = std.testing;
+    
+    // We'll just test our address conversion code to ensure it works
+    // Create some test addresses
+    
+    // Address 0x01 (ECRECOVER precompile)
+    const ecrecover_addr: u256 = 1;
+    const ecrecover_eth = addressFromU256(ecrecover_addr);
+    
+    try testing.expectEqualSlices(u8, 
+        &[_]u8{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+        &ecrecover_eth
+    );
+    
+    // Address 0x05 (MODEXP precompile)
+    const modexp_addr: u256 = 5;
+    const modexp_eth = addressFromU256(modexp_addr);
+    
+    try testing.expectEqualSlices(u8, 
+        &[_]u8{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5}, 
+        &modexp_eth
+    );
+    
+    // A larger address to test conversion
+    const addr: u256 = 0x1234567890123456789012345678901234567890;
+    const eth_addr = addressFromU256(addr);
+    
+    try testing.expectEqualSlices(u8, 
+        &[_]u8{0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90, 
+               0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56, 0x78, 0x90}, 
+        &eth_addr
+    );
 }
