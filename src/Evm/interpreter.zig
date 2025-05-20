@@ -12,6 +12,7 @@ const createLogger = @import("EvmLogger.zig").createLogger;
 const logStack = @import("EvmLogger.zig").logStack;
 const logMemory = @import("EvmLogger.zig").logMemory;
 const logOpcode = @import("EvmLogger.zig").logOpcode;
+const Address = @import("../Address/package.zig");
 
 // Import specific items from opcodes for convenience
 const Operation = opcodes.Operation;
@@ -21,8 +22,15 @@ const getOperation = opcodes.getOperation;
 // Import precompiles system
 const precompile = @import("precompile/Precompiles.zig");
 
-// Create a file-specific logger
-const logger = createLogger(@src().file);
+// We'll initialize the logger inside a function
+var _logger: ?EvmLogger = null;
+
+fn getLogger() EvmLogger {
+    if (_logger == null) {
+        _logger = createLogger("interpreter.zig");
+    }
+    return _logger.?;
+}
 
 /// Interpreter error type
 ///
@@ -116,12 +124,12 @@ pub const Interpreter = struct {
     ///
     /// Returns: A new Interpreter instance
     pub fn create(allocator: std.mem.Allocator, evm: *Evm, table: JumpTable) Interpreter {
-        logger.debug("Creating new Interpreter instance", .{});
+        getLogger().debug("Creating new Interpreter instance", .{});
         return Interpreter{
             .evm = evm,
             .table = table,
             .allocator = allocator,
-            .logger = logger,
+            .logger = getLogger(),
         };
     }
     
@@ -138,7 +146,7 @@ pub const Interpreter = struct {
     /// Returns: A new Interpreter instance
     /// Error: Returned if initialization fails
     pub fn init(allocator: std.mem.Allocator, evm: *Evm) !Interpreter {
-        logger.debug("Initializing new Interpreter instance", .{});
+        getLogger().debug("Initializing new Interpreter instance", .{});
         
         // Create a new jump table with default opcode implementations
         var jump_table = try JumpTable.init(allocator);
@@ -150,7 +158,7 @@ pub const Interpreter = struct {
             .evm = evm,
             .table = jump_table,
             .allocator = allocator,
-            .logger = logger,
+            .logger = getLogger(),
         };
     }
 
@@ -168,8 +176,8 @@ pub const Interpreter = struct {
     /// Returns: Return data from the execution, or null if none
     /// Error: Various execution errors that can occur during execution
     pub fn run(self: *Interpreter, contract: *Contract, input: []const u8, readOnly: bool) InterpreterError!?[]const u8 {
-        self.logger.debug("Starting execution in 'run' with depth {d}", .{self.evm.depth + 1});
-        self.logger.debug("Contract code length: {d}, readOnly: {}", .{contract.code.len, readOnly});
+        getLogger().debug("Starting execution in 'run' with depth {d}", .{self.evm.depth + 1});
+        getLogger().debug("Contract code length: {d}, readOnly: {}", .{contract.code.len, readOnly});
         
         // Increment the call depth which is restricted to 1024
         self.evm.depth += 1;
@@ -178,21 +186,21 @@ pub const Interpreter = struct {
         // Make sure the readOnly is only set if we aren't in readOnly yet.
         // This also makes sure that the readOnly flag isn't removed for child calls.
         if (readOnly and !self.readOnly) {
-            self.logger.debug("Setting readOnly mode to true", .{});
+            getLogger().debug("Setting readOnly mode to true", .{});
             self.readOnly = true;
             defer self.readOnly = false;
         }
 
         // Reset the previous call's return data
         if (self.returnData) |data| {
-            self.logger.debug("Freeing previous return data ({d} bytes)", .{data.len});
+            getLogger().debug("Freeing previous return data ({d} bytes)", .{data.len});
             self.allocator.free(data);
             self.returnData = null;
         }
 
         // Don't bother with the execution if there's no code.
         if (contract.code.len == 0) {
-            self.logger.info("Contract has no code, skipping execution", .{});
+            getLogger().info("Contract has no code, skipping execution", .{});
             return null;
         }
 
@@ -200,18 +208,18 @@ pub const Interpreter = struct {
         // For the real implementation, we would use the actual COINBASE address from the block
         // Since we don't have access to it here, we'll just implement the EIP-3651 behavior
         if (self.evm.chainRules.IsEIP3651 and self.evm.depth == 1) {
-            self.logger.debug("EIP-3651: Marking COINBASE address as warm from the start", .{});
+            getLogger().debug("EIP-3651: Marking COINBASE address as warm from the start", .{});
             // Note: In a real implementation, we would get the actual COINBASE address
             // and mark that specific address as warm. For now, we're using a dummy 
             // zero address since that's what our opCoinbase implementation uses.
-            const coinbase_addr = address.createAddress("0x0000000000000000000000000000000000000000");
+            const coinbase_addr = Address.ZERO_ADDRESS;
             
             // Get account access list from state manager
             if (self.evm.state_manager) |state_manager| {
                 // Mark the COINBASE address as accessed (warm) in the state manager's access list
                 // This would be implementation-specific based on how access lists are tracked
                 // For now, we'll just log that it should happen
-                self.logger.debug("EIP-3651: Should mark COINBASE {any} as warm in state manager", .{coinbase_addr});
+                getLogger().debug("EIP-3651: Should mark COINBASE {any} as warm in state manager", .{coinbase_addr});
                 
                 // If there was a markAccountWarm method on the state manager, we'd call it here
                 // state_manager.markAccountWarm(coinbase_addr);
@@ -219,16 +227,16 @@ pub const Interpreter = struct {
         }
 
         // Initialize the Frame
-        self.logger.debug("Initializing execution frame", .{});
+        getLogger().debug("Initializing execution frame", .{});
         var frame = try Frame.init(self.allocator, contract);
         defer frame.deinit();
 
         // Set contract input
         contract.input = input;
-        self.logger.debug("Input data set, length: {d} bytes", .{input.len});
+        getLogger().debug("Input data set, length: {d} bytes", .{input.len});
 
         // Main execution loop
-        self.logger.debug("Starting main execution loop", .{});
+        getLogger().debug("Starting main execution loop", .{});
         while (true) {
             // Get the current operation from the bytecode
             const op_code = contract.getOp(frame.pc);
@@ -246,31 +254,31 @@ pub const Interpreter = struct {
             
             // Validate stack
             if (frame.stack.size < operation.min_stack) {
-                self.logger.err("Stack underflow: required {d}, have {d}", .{operation.min_stack, frame.stack.size});
+                getLogger().err("Stack underflow: required {d}, have {d}", .{operation.min_stack, frame.stack.size});
                 return InterpreterError.StackUnderflow;
             } else if (frame.stack.size > operation.max_stack) {
-                self.logger.err("Stack overflow: maximum {d}, have {d}", .{operation.max_stack, frame.stack.size});
+                getLogger().err("Stack overflow: maximum {d}, have {d}", .{operation.max_stack, frame.stack.size});
                 return InterpreterError.StackOverflow;
             }
 
             // Check if we have enough gas for the constant part
             const constantGas = operation.constant_gas;
             if (contract.gas < constantGas) {
-                self.logger.err("Out of gas: need {d}, have {d}", .{constantGas, contract.gas});
+                getLogger().err("Out of gas: need {d}, have {d}", .{constantGas, contract.gas});
                 return InterpreterError.OutOfGas;
             }
             contract.useGas(constantGas);
-            self.logger.debug("Charged {d} constant gas, remaining: {d}", .{constantGas, contract.gas});
+            getLogger().debug("Charged {d} constant gas, remaining: {d}", .{constantGas, contract.gas});
             
             // Calculate and charge dynamic gas if needed
             if (operation.dynamic_gas != null and operation.memory_size != null) {
                 // Calculate memory expansion size if needed
                 var memorySize: u64 = 0;
                 if (operation.memory_size) |memory_size_fn| {
-                    self.logger.debug("Calculating memory size for operation", .{});
+                    getLogger().debug("Calculating memory size for operation", .{});
                     const result = memory_size_fn(&frame.stack);
                     if (result.overflow) {
-                        self.logger.err("Memory size calculation overflowed", .{});
+                        getLogger().err("Memory size calculation overflowed", .{});
                         return InterpreterError.GasUintOverflow;
                     }
                     
@@ -278,32 +286,32 @@ pub const Interpreter = struct {
                     // Gas is also calculated in words
                     const word_size = (result.size + 31) / 32;
                     memorySize = word_size * 32;
-                    self.logger.debug("Memory size: {d} bytes ({d} words)", .{memorySize, word_size});
+                    getLogger().debug("Memory size: {d} bytes ({d} words)", .{memorySize, word_size});
                 }
                 
                 // Calculate dynamic gas
                 if (operation.dynamic_gas) |dynamic_gas_fn| {
-                    self.logger.debug("Calculating dynamic gas cost", .{});
+                    getLogger().debug("Calculating dynamic gas cost", .{});
                     const dynamicCost = dynamic_gas_fn(self, &frame, &frame.stack, &frame.memory, memorySize) catch {
-                        self.logger.err("Dynamic gas calculation failed", .{});
+                        getLogger().err("Dynamic gas calculation failed", .{});
                         return InterpreterError.OutOfGas;
                     };
                     
                     // Check if we have enough gas for the dynamic part
                     if (contract.gas < dynamicCost) {
-                        self.logger.err("Out of gas for dynamic part: need {d}, have {d}", .{dynamicCost, contract.gas});
+                        getLogger().err("Out of gas for dynamic part: need {d}, have {d}", .{dynamicCost, contract.gas});
                         return InterpreterError.OutOfGas;
                     }
                     
                     // Charge the dynamic gas
                     contract.useGas(dynamicCost);
-                    self.logger.debug("Charged {d} dynamic gas, remaining: {d}", .{dynamicCost, contract.gas});
+                    getLogger().debug("Charged {d} dynamic gas, remaining: {d}", .{dynamicCost, contract.gas});
                     
                     // Resize memory if necessary
                     if (memorySize > 0) {
-                        self.logger.debug("Resizing memory to {d} bytes", .{memorySize});
+                        getLogger().debug("Resizing memory to {d} bytes", .{memorySize});
                         frame.memory.resize(memorySize) catch {
-                            self.logger.err("Failed to resize memory", .{});
+                            getLogger().err("Failed to resize memory", .{});
                             return InterpreterError.OutOfGas;
                         };
                     }
@@ -311,54 +319,54 @@ pub const Interpreter = struct {
             }
             
             // Execute the operation
-            self.logger.debug("Executing operation {s}", .{op_name});
+            getLogger().debug("Executing operation {s}", .{op_name});
             _ = operation.execute(frame.pc, self, &frame) catch |err| {
                 // Handle execution errors
                 switch (err) {
                     ExecutionError.STOP => {
-                        self.logger.info("Execution stopped normally with STOP", .{});
+                        getLogger().info("Execution stopped normally with STOP", .{});
                         break; // Successful completion with STOP
                     },
                     ExecutionError.REVERT => {
-                        self.logger.info("Execution reverted with REVERT", .{});
+                        getLogger().info("Execution reverted with REVERT", .{});
                         // Handle revert - return remaining gas to caller
                         // and return revert data
                         if (frame.returnData) |data| {
-                            self.logger.debug("REVERT with {d} bytes of return data", .{data.len});
+                            getLogger().debug("REVERT with {d} bytes of return data", .{data.len});
                             // Copy return data for the caller to access
                             const return_copy = self.allocator.dupe(u8, data) catch return InterpreterError.OutOfGas;
                             self.returnData = return_copy;
                             return return_copy;
                         }
-                        self.logger.debug("REVERT with no return data", .{});
+                        getLogger().debug("REVERT with no return data", .{});
                         return null;
                     },
                     ExecutionError.OutOfGas => {
-                        self.logger.err("Execution failed: Out of gas", .{});
+                        getLogger().err("Execution failed: Out of gas", .{});
                         return InterpreterError.OutOfGas;
                     },
                     ExecutionError.StackUnderflow => {
-                        self.logger.err("Execution failed: Stack underflow", .{});
+                        getLogger().err("Execution failed: Stack underflow", .{});
                         return InterpreterError.StackUnderflow;
                     },
                     ExecutionError.StackOverflow => {
-                        self.logger.err("Execution failed: Stack overflow", .{});
+                        getLogger().err("Execution failed: Stack overflow", .{});
                         return InterpreterError.StackOverflow;
                     },
                     ExecutionError.InvalidJump => {
-                        self.logger.err("Execution failed: Invalid jump destination", .{});
+                        getLogger().err("Execution failed: Invalid jump destination", .{});
                         return InterpreterError.InvalidJump;
                     },
                     ExecutionError.InvalidOpcode => {
-                        self.logger.err("Execution failed: Invalid opcode", .{});
+                        getLogger().err("Execution failed: Invalid opcode", .{});
                         return InterpreterError.InvalidOpcode;
                     },
                     ExecutionError.StaticStateChange => {
-                        self.logger.err("Execution failed: State change in static call", .{});
+                        getLogger().err("Execution failed: State change in static call", .{});
                         return InterpreterError.StaticStateChange;
                     },
                     else => {
-                        self.logger.err("Execution failed with error: {}", .{err});
+                        getLogger().err("Execution failed with error: {}", .{err});
                         return InterpreterError.InvalidOpcode;
                     },
                 }
@@ -374,21 +382,21 @@ pub const Interpreter = struct {
 
             // Update program counter for next iteration
             frame.pc += 1;
-            self.logger.debug("Updated PC to {d}", .{frame.pc});
+            getLogger().debug("Updated PC to {d}", .{frame.pc});
         }
         
-        self.logger.info("Execution completed successfully", .{});
+        getLogger().info("Execution completed successfully", .{});
 
         // Return successful completion data if any
         if (frame.returnData) |data| {
-            self.logger.debug("Returning successful completion data: {d} bytes", .{data.len});
+            getLogger().debug("Returning successful completion data: {d} bytes", .{data.len});
             // Copy return data for the caller to access
             const return_copy = self.allocator.dupe(u8, data) catch return InterpreterError.OutOfGas;
             self.returnData = return_copy;
             return return_copy;
         }
         
-        self.logger.debug("Execution completed with no return data", .{});
+        getLogger().debug("Execution completed with no return data", .{});
         return null;
     }
     
@@ -398,9 +406,9 @@ pub const Interpreter = struct {
     /// the return data buffer. It should be called when the interpreter
     /// is no longer needed to prevent memory leaks.
     pub fn deinit(self: *Interpreter) void {
-        self.logger.debug("Deinitializing interpreter", .{});
+        getLogger().debug("Deinitializing interpreter", .{});
         if (self.returnData) |data| {
-            self.logger.debug("Freeing return data: {d} bytes", .{data.len});
+            getLogger().debug("Freeing return data: {d} bytes", .{data.len});
             self.allocator.free(data);
             self.returnData = null;
         }
