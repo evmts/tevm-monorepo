@@ -1,11 +1,12 @@
 // OBSOLETE: This file is kept for reference purposes only
 // A fixed version of this test is now available in block.test.zig
-// The module import conflicts have been resolved by using a consistent import approach
+// The module import conflicts have been resolved by using relative imports
 // DO NOT USE THIS FILE - It contains outdated code with module import conflicts
 
 const std = @import("std");
 const testing = std.testing;
 
+// Using absolute imports (problematic approach)
 const EvmModule = @import("Evm");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
@@ -17,10 +18,12 @@ const Evm = EvmModule.Evm;
 const ChainRules = EvmModule.ChainRules;
 const Hardfork = EvmModule.Hardfork;
 
+// Using absolute import for Address (problematic)
 const AddressModule = @import("Address");
 const Address = AddressModule.Address;
 
-const block = EvmModule.opcodes.block; // Get block opcodes from Evm module
+// Using module-based import for opcodes (problematic)
+const block = EvmModule.opcodes.block; 
 const u256_native = u256;
 
 test "BLOCKHASH opcode" {

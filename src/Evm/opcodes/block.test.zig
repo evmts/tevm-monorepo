@@ -12,8 +12,7 @@ const ChainRules = @import("../evm.zig").ChainRules;
 const Hardfork = @import("../evm.zig").Hardfork;
 
 // Import the Address module
-const AddressModule = @import("Address");
-const Address = AddressModule.Address;
+const Address = @import("../../Address/address.zig").Address;
 
 // Import the block opcodes directly
 const block = @import("block.zig");

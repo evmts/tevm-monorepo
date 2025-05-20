@@ -362,9 +362,6 @@ pub fn opSdiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
         return ExecutionError.StackUnderflow;
     }
     
-    // DISABLED: Error set incompatibilities
-    // Function returns error{StackOverflow,OutOfMemory,OutOfBounds} but the destination error set doesn't include OutOfMemory and OutOfBounds
-    // Need to map these errors to appropriate errors in the destination set or modify the destination error set to include these
     // Get reference to dividend (which is now at the top of the stack) - handle error case
     const dividend = frame.stack.peek() catch |err| {
         // Re-push the value we popped so stack is in a consistent state
@@ -432,9 +429,6 @@ pub fn opSmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErro
         return ExecutionError.StackUnderflow;
     }
     
-    // DISABLED: Error set incompatibilities
-    // Function returns error{StackOverflow,OutOfMemory,OutOfBounds} but the destination error set doesn't include OutOfMemory and OutOfBounds
-    // Need to map these errors to appropriate errors in the destination set or modify the destination error set to include these
     // Get reference to value (which is now at the top of the stack) - handle error case
     const value = frame.stack.peek() catch |err| {
         // Re-push the value we popped so stack is in a consistent state

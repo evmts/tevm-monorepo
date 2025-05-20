@@ -27,108 +27,12 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // First create individual modules for each component
-    const address_mod = b.createModule(.{
-        .root_source_file = b.path("src/Address/address.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    const state_manager_mod = b.createModule(.{
-        .root_source_file = b.path("src/StateManager/StateManager.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const abi_mod = b.createModule(.{
-        .root_source_file = b.path("src/Abi/abi.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const utils_mod = b.createModule(.{
-        .root_source_file = b.path("src/Utils/utils.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const trie_mod = b.createModule(.{
-        .root_source_file = b.path("src/Trie/module.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const block_mod = b.createModule(.{
-        .root_source_file = b.path("src/Block/block.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add imports to the block_mod
-    block_mod.addImport("Address", address_mod);
-
-    const bytecode_mod = b.createModule(.{
-        .root_source_file = b.path("src/Bytecode/bytecode.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const compiler_mod = b.createModule(.{
-        .root_source_file = b.path("src/Compiler/compiler.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const rlp_mod = b.createModule(.{
-        .root_source_file = b.path("src/Rlp/rlp.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add imports to the rlp_mod
-    rlp_mod.addImport("Utils", utils_mod);
-
-    // Add imports to the trie_mod
-    trie_mod.addImport("Rlp", rlp_mod);
-    trie_mod.addImport("Utils", utils_mod);
-
-    const token_mod = b.createModule(.{
-        .root_source_file = b.path("src/Token/token.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const evm_mod = b.createModule(.{
-        .root_source_file = b.path("src/Evm/evm.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add imports to the evm_mod
-    evm_mod.addImport("Address", address_mod);
-    evm_mod.addImport("Block", block_mod);
-    evm_mod.addImport("StateManager", state_manager_mod);
-    evm_mod.addImport("Utils", utils_mod);
-
-    // Create a ZigEVM module - our core EVM implementation
-    const target_architecture_mod = b.createModule(.{
+    // Create a single zigevm module - our core EVM implementation
+    const zigevm_mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
     });
-
-    // Add package paths for absolute imports for all modules
-    target_architecture_mod.addImport("Address", address_mod);
-    target_architecture_mod.addImport("Abi", abi_mod);
-    target_architecture_mod.addImport("Block", block_mod);
-    target_architecture_mod.addImport("Bytecode", bytecode_mod);
-    target_architecture_mod.addImport("Compiler", compiler_mod);
-    target_architecture_mod.addImport("Evm", evm_mod);
-    target_architecture_mod.addImport("Rlp", rlp_mod);
-    target_architecture_mod.addImport("Token", token_mod);
-    target_architecture_mod.addImport("Trie", trie_mod);
-    target_architecture_mod.addImport("Utils", utils_mod);
-    target_architecture_mod.addImport("StateManager", state_manager_mod);
 
     // Create the native executable module
     const exe_mod = b.createModule(.{
@@ -144,27 +48,14 @@ pub fn build(b: *std.Build) void {
         .optimize = .ReleaseSmall,
     });
 
-    // Add package paths for absolute imports to WASM module
-    wasm_mod.addImport("Address", address_mod);
-    wasm_mod.addImport("Abi", abi_mod);
-    wasm_mod.addImport("Block", block_mod);
-    wasm_mod.addImport("Bytecode", bytecode_mod);
-    wasm_mod.addImport("Compiler", compiler_mod);
-    wasm_mod.addImport("Evm", evm_mod);
-    wasm_mod.addImport("Rlp", rlp_mod);
-    wasm_mod.addImport("Token", token_mod);
-    wasm_mod.addImport("Trie", trie_mod);
-    wasm_mod.addImport("Utils", utils_mod);
-    wasm_mod.addImport("StateManager", state_manager_mod);
-
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
-    exe_mod.addImport("zigevm", target_architecture_mod);
+    exe_mod.addImport("zigevm", zigevm_mod);
 
     // Create the ZigEVM static library artifact
     const lib = b.addLibrary(.{
         .linkage = .static,
         .name = "zigevm",
-        .root_module = target_architecture_mod,
+        .root_module = zigevm_mod,
     });
 
     // Create the CLI executable
@@ -183,6 +74,7 @@ pub fn build(b: *std.Build) void {
 
     // Add httpz dependency to the server
     server_exe.root_module.addImport("httpz", httpz_dep.module("httpz"));
+    server_exe.root_module.addImport("zigevm", zigevm_mod);
 
     // Create the WebAssembly artifact
     const wasm = b.addExecutable(.{
@@ -234,21 +126,8 @@ pub fn build(b: *std.Build) void {
 
     // Creates a step for unit testing.
     const lib_unit_tests = b.addTest(.{
-        .root_module = target_architecture_mod,
+        .root_module = zigevm_mod,
     });
-
-    // Add all modules to standalone tests
-    lib_unit_tests.root_module.addImport("Address", address_mod);
-    lib_unit_tests.root_module.addImport("Abi", abi_mod);
-    lib_unit_tests.root_module.addImport("Block", block_mod);
-    lib_unit_tests.root_module.addImport("Bytecode", bytecode_mod);
-    lib_unit_tests.root_module.addImport("Compiler", compiler_mod);
-    lib_unit_tests.root_module.addImport("Evm", evm_mod);
-    lib_unit_tests.root_module.addImport("Rlp", rlp_mod);
-    lib_unit_tests.root_module.addImport("Token", token_mod);
-    lib_unit_tests.root_module.addImport("Trie", trie_mod);
-    lib_unit_tests.root_module.addImport("Utils", utils_mod);
-    lib_unit_tests.root_module.addImport("StateManager", state_manager_mod);
 
     // Additional standalone test specifically for Frame.test.zig
     const frame_test = b.addTest(.{
@@ -258,18 +137,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add all modules to frame_test
-    frame_test.root_module.addImport("Address", address_mod);
-    frame_test.root_module.addImport("Abi", abi_mod);
-    frame_test.root_module.addImport("Block", block_mod);
-    frame_test.root_module.addImport("Bytecode", bytecode_mod);
-    frame_test.root_module.addImport("Compiler", compiler_mod);
-    frame_test.root_module.addImport("Evm", evm_mod);
-    frame_test.root_module.addImport("Rlp", rlp_mod);
-    frame_test.root_module.addImport("Token", token_mod);
-    frame_test.root_module.addImport("Trie", trie_mod);
-    frame_test.root_module.addImport("Utils", utils_mod);
-    frame_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to frame_test
+    frame_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_frame_test = b.addRunArtifact(frame_test);
 
@@ -285,18 +154,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add all modules to evm_test
-    evm_test.root_module.addImport("Address", address_mod);
-    evm_test.root_module.addImport("Abi", abi_mod);
-    evm_test.root_module.addImport("Block", block_mod);
-    evm_test.root_module.addImport("Bytecode", bytecode_mod);
-    evm_test.root_module.addImport("Compiler", compiler_mod);
-    evm_test.root_module.addImport("Evm", evm_mod);
-    evm_test.root_module.addImport("Rlp", rlp_mod);
-    evm_test.root_module.addImport("Token", token_mod);
-    evm_test.root_module.addImport("Trie", trie_mod);
-    evm_test.root_module.addImport("Utils", utils_mod);
-    evm_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to evm_test
+    evm_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_evm_test = b.addRunArtifact(evm_test);
 
@@ -329,9 +188,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add dependencies to rlp_test
-    rlp_specific_test.root_module.addImport("Rlp", rlp_mod);
-    rlp_specific_test.root_module.addImport("Utils", utils_mod);
+    // Add zigevm module to rlp_test
+    rlp_specific_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_rlp_test = b.addRunArtifact(rlp_specific_test);
 
@@ -347,9 +205,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add dependencies to abi_test
-    abi_specific_test.root_module.addImport("Abi", abi_mod);
-    abi_specific_test.root_module.addImport("Utils", utils_mod);
+    // Add zigevm module to abi_test
+    abi_specific_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_abi_test = b.addRunArtifact(abi_specific_test);
 
@@ -365,8 +222,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add dependencies to compiler_test
-    compiler_test.root_module.addImport("Compiler", compiler_mod);
+    // Add zigevm module to compiler_test
+    compiler_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_compiler_test = b.addRunArtifact(compiler_test);
 
@@ -382,10 +239,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add dependencies to trie_test
-    trie_test.root_module.addImport("Rlp", rlp_mod);
-    trie_test.root_module.addImport("Utils", utils_mod);
-    trie_test.root_module.addImport("Trie", trie_mod);
+    // Add zigevm module to trie_test
+    trie_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_trie_test = b.addRunArtifact(trie_test);
 
@@ -422,18 +277,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to contract_test
-    contract_test.root_module.addImport("Address", address_mod);
-    contract_test.root_module.addImport("Abi", abi_mod);
-    contract_test.root_module.addImport("Block", block_mod);
-    contract_test.root_module.addImport("Bytecode", bytecode_mod);
-    contract_test.root_module.addImport("Compiler", compiler_mod);
-    contract_test.root_module.addImport("Evm", evm_mod);
-    contract_test.root_module.addImport("Rlp", rlp_mod);
-    contract_test.root_module.addImport("Token", token_mod);
-    contract_test.root_module.addImport("Trie", trie_mod);
-    contract_test.root_module.addImport("Utils", utils_mod);
-    contract_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to contract_test
+    contract_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_contract_test = b.addRunArtifact(contract_test);
     
@@ -449,18 +294,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to evm_logger_test
-    evm_logger_test.root_module.addImport("Address", address_mod);
-    evm_logger_test.root_module.addImport("Abi", abi_mod);
-    evm_logger_test.root_module.addImport("Block", block_mod);
-    evm_logger_test.root_module.addImport("Bytecode", bytecode_mod);
-    evm_logger_test.root_module.addImport("Compiler", compiler_mod);
-    evm_logger_test.root_module.addImport("Evm", evm_mod);
-    evm_logger_test.root_module.addImport("Rlp", rlp_mod);
-    evm_logger_test.root_module.addImport("Token", token_mod);
-    evm_logger_test.root_module.addImport("Trie", trie_mod);
-    evm_logger_test.root_module.addImport("Utils", utils_mod);
-    evm_logger_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to evm_logger_test
+    evm_logger_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_evm_logger_test = b.addRunArtifact(evm_logger_test);
     
@@ -504,18 +339,8 @@ pub fn build(b: *std.Build) void {
             .optimize = optimize,
         });
         
-        // Add dependencies to opcode test
-        opcode_test.root_module.addImport("Address", address_mod);
-        opcode_test.root_module.addImport("Abi", abi_mod);
-        opcode_test.root_module.addImport("Block", block_mod);
-        opcode_test.root_module.addImport("Bytecode", bytecode_mod);
-        opcode_test.root_module.addImport("Compiler", compiler_mod);
-        opcode_test.root_module.addImport("Evm", evm_mod);
-        opcode_test.root_module.addImport("Rlp", rlp_mod);
-        opcode_test.root_module.addImport("Token", token_mod);
-        opcode_test.root_module.addImport("Trie", trie_mod);
-        opcode_test.root_module.addImport("Utils", utils_mod);
-        opcode_test.root_module.addImport("StateManager", state_manager_mod);
+        // Add zigevm module to opcode test
+        opcode_test.root_module.addImport("zigevm", zigevm_mod);
         
         const run_opcode_test = b.addRunArtifact(opcode_test);
         opcodes_test_step.dependOn(&run_opcode_test.step);
@@ -529,18 +354,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to precompile_test
-    precompile_test.root_module.addImport("Address", address_mod);
-    precompile_test.root_module.addImport("Abi", abi_mod);
-    precompile_test.root_module.addImport("Block", block_mod);
-    precompile_test.root_module.addImport("Bytecode", bytecode_mod);
-    precompile_test.root_module.addImport("Compiler", compiler_mod);
-    precompile_test.root_module.addImport("Evm", evm_mod);
-    precompile_test.root_module.addImport("Rlp", rlp_mod);
-    precompile_test.root_module.addImport("Token", token_mod);
-    precompile_test.root_module.addImport("Trie", trie_mod);
-    precompile_test.root_module.addImport("Utils", utils_mod);
-    precompile_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to precompile_test
+    precompile_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_precompile_test = b.addRunArtifact(precompile_test);
     
@@ -556,18 +371,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to precompiled_test
-    precompiled_test.root_module.addImport("Address", address_mod);
-    precompiled_test.root_module.addImport("Abi", abi_mod);
-    precompiled_test.root_module.addImport("Block", block_mod);
-    precompiled_test.root_module.addImport("Bytecode", bytecode_mod);
-    precompiled_test.root_module.addImport("Compiler", compiler_mod);
-    precompiled_test.root_module.addImport("Evm", evm_mod);
-    precompiled_test.root_module.addImport("Rlp", rlp_mod);
-    precompiled_test.root_module.addImport("Token", token_mod);
-    precompiled_test.root_module.addImport("Trie", trie_mod);
-    precompiled_test.root_module.addImport("Utils", utils_mod);
-    precompiled_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to precompiled_test
+    precompiled_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_precompiled_test = b.addRunArtifact(precompiled_test);
     
@@ -583,18 +388,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to evm_test_helpers_test
-    evm_test_helpers_test.root_module.addImport("Address", address_mod);
-    evm_test_helpers_test.root_module.addImport("Abi", abi_mod);
-    evm_test_helpers_test.root_module.addImport("Block", block_mod);
-    evm_test_helpers_test.root_module.addImport("Bytecode", bytecode_mod);
-    evm_test_helpers_test.root_module.addImport("Compiler", compiler_mod);
-    evm_test_helpers_test.root_module.addImport("Evm", evm_mod);
-    evm_test_helpers_test.root_module.addImport("Rlp", rlp_mod);
-    evm_test_helpers_test.root_module.addImport("Token", token_mod);
-    evm_test_helpers_test.root_module.addImport("Trie", trie_mod);
-    evm_test_helpers_test.root_module.addImport("Utils", utils_mod);
-    evm_test_helpers_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to evm_test_helpers_test
+    evm_test_helpers_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_evm_test_helpers_test = b.addRunArtifact(evm_test_helpers_test);
     
@@ -631,18 +426,8 @@ pub fn build(b: *std.Build) void {
             .optimize = optimize,
         });
         
-        // Add dependencies to EIP test
-        eip_test.root_module.addImport("Address", address_mod);
-        eip_test.root_module.addImport("Abi", abi_mod);
-        eip_test.root_module.addImport("Block", block_mod);
-        eip_test.root_module.addImport("Bytecode", bytecode_mod);
-        eip_test.root_module.addImport("Compiler", compiler_mod);
-        eip_test.root_module.addImport("Evm", evm_mod);
-        eip_test.root_module.addImport("Rlp", rlp_mod);
-        eip_test.root_module.addImport("Token", token_mod);
-        eip_test.root_module.addImport("Trie", trie_mod);
-        eip_test.root_module.addImport("Utils", utils_mod);
-        eip_test.root_module.addImport("StateManager", state_manager_mod);
+        // Add zigevm module to EIP test
+        eip_test.root_module.addImport("zigevm", zigevm_mod);
         
         const run_eip_test = b.addRunArtifact(eip_test);
         eip_test_step.dependOn(&run_eip_test.step);
@@ -656,18 +441,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to withdrawal_test
-    withdrawal_test.root_module.addImport("Address", address_mod);
-    withdrawal_test.root_module.addImport("Abi", abi_mod);
-    withdrawal_test.root_module.addImport("Block", block_mod);
-    withdrawal_test.root_module.addImport("Bytecode", bytecode_mod);
-    withdrawal_test.root_module.addImport("Compiler", compiler_mod);
-    withdrawal_test.root_module.addImport("Evm", evm_mod);
-    withdrawal_test.root_module.addImport("Rlp", rlp_mod);
-    withdrawal_test.root_module.addImport("Token", token_mod);
-    withdrawal_test.root_module.addImport("Trie", trie_mod);
-    withdrawal_test.root_module.addImport("Utils", utils_mod);
-    withdrawal_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to withdrawal_test
+    withdrawal_test.root_module.addImport("zigevm", zigevm_mod);
     
     const run_withdrawal_test = b.addRunArtifact(withdrawal_test);
     
@@ -717,8 +492,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to signature_test
-    signature_test.root_module.addImport("Utils", utils_mod);
+    // Add zigevm module to signature_test
+    signature_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_signature_test = b.addRunArtifact(signature_test);
     
@@ -734,10 +509,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to test_module_test as needed
-    test_module_test.root_module.addImport("Address", address_mod);
-    test_module_test.root_module.addImport("Abi", abi_mod);
-    test_module_test.root_module.addImport("Utils", utils_mod);
+    // Add zigevm module to test_module_test
+    test_module_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_test_module_test = b.addRunArtifact(test_module_test);
     
@@ -753,9 +526,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to token_specific_test
-    token_specific_test.root_module.addImport("Token", token_mod);
-    token_specific_test.root_module.addImport("Utils", utils_mod);
+    // Add zigevm module to token_specific_test
+    token_specific_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_token_specific_test = b.addRunArtifact(token_specific_test);
     
@@ -771,10 +543,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to known_roots_test
-    known_roots_test.root_module.addImport("Rlp", rlp_mod);
-    known_roots_test.root_module.addImport("Utils", utils_mod);
-    known_roots_test.root_module.addImport("Trie", trie_mod);
+    // Add zigevm module to known_roots_test
+    known_roots_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_known_roots_test = b.addRunArtifact(known_roots_test);
     
@@ -790,10 +560,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to trie_specific_test
-    trie_specific_test.root_module.addImport("Rlp", rlp_mod);
-    trie_specific_test.root_module.addImport("Utils", utils_mod);
-    trie_specific_test.root_module.addImport("Trie", trie_mod);
+    // Add zigevm module to trie_specific_test
+    trie_specific_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_trie_specific_test = b.addRunArtifact(trie_specific_test);
     
@@ -809,8 +577,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to utils_test
-    utils_test.root_module.addImport("Utils", utils_mod);
+    // Add zigevm module to utils_test
+    utils_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_utils_test = b.addRunArtifact(utils_test);
     
@@ -819,29 +587,7 @@ pub fn build(b: *std.Build) void {
     utils_test_step.dependOn(&run_utils_test.step);
     
     // Add a test for WithdrawalProcessor.test.zig
-    // Create a test module specifically for the src/Test directory
-    const test_mod = b.createModule(.{
-        .root_source_file = b.path("src/Test/test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Make sure the StateManager module has the right dependencies
-    state_manager_mod.addImport("Address", address_mod);
-    state_manager_mod.addImport("Trie", trie_mod);
-
-    // Add all modules to test_mod
-    test_mod.addImport("Address", address_mod);
-    test_mod.addImport("Abi", abi_mod);
-    test_mod.addImport("Block", block_mod);
-    test_mod.addImport("Bytecode", bytecode_mod);
-    test_mod.addImport("Compiler", compiler_mod);
-    test_mod.addImport("Evm", evm_mod);
-    test_mod.addImport("Rlp", rlp_mod);
-    test_mod.addImport("Token", token_mod);
-    test_mod.addImport("Trie", trie_mod);
-    test_mod.addImport("Utils", utils_mod);
-    test_mod.addImport("StateManager", state_manager_mod);
+    // We no longer need a separate test_mod since all tests use the unified zigevm_mod
     
     // Create a standalone test for WithdrawalProcessor that uses direct file imports
     const withdrawal_processor_test = b.addTest(.{
@@ -851,18 +597,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add imports to withdrawal_processor_test
-    withdrawal_processor_test.root_module.addImport("Address", address_mod);
-    withdrawal_processor_test.root_module.addImport("Abi", abi_mod);
-    withdrawal_processor_test.root_module.addImport("Block", block_mod);
-    withdrawal_processor_test.root_module.addImport("Bytecode", bytecode_mod);
-    withdrawal_processor_test.root_module.addImport("Compiler", compiler_mod);
-    withdrawal_processor_test.root_module.addImport("Evm", evm_mod);
-    withdrawal_processor_test.root_module.addImport("Rlp", rlp_mod);
-    withdrawal_processor_test.root_module.addImport("Token", token_mod);
-    withdrawal_processor_test.root_module.addImport("Trie", trie_mod);
-    withdrawal_processor_test.root_module.addImport("Utils", utils_mod);
-    withdrawal_processor_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to withdrawal_processor_test
+    withdrawal_processor_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_withdrawal_processor_test = b.addRunArtifact(withdrawal_processor_test);
     
@@ -878,18 +614,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add dependencies to withdrawal_specific_test
-    withdrawal_specific_test.root_module.addImport("Address", address_mod);
-    withdrawal_specific_test.root_module.addImport("Abi", abi_mod);
-    withdrawal_specific_test.root_module.addImport("Block", block_mod);
-    withdrawal_specific_test.root_module.addImport("Bytecode", bytecode_mod);
-    withdrawal_specific_test.root_module.addImport("Compiler", compiler_mod);
-    withdrawal_specific_test.root_module.addImport("Evm", evm_mod);
-    withdrawal_specific_test.root_module.addImport("Rlp", rlp_mod);
-    withdrawal_specific_test.root_module.addImport("Token", token_mod);
-    withdrawal_specific_test.root_module.addImport("Trie", trie_mod);
-    withdrawal_specific_test.root_module.addImport("Utils", utils_mod);
-    withdrawal_specific_test.root_module.addImport("StateManager", state_manager_mod);
+    // Add zigevm module to withdrawal_specific_test
+    withdrawal_specific_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_withdrawal_specific_test = b.addRunArtifact(withdrawal_specific_test);
     

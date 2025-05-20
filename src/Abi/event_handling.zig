@@ -135,7 +135,7 @@ pub fn encodeEventTopicsWithEvent(
             
             // If no value was provided or it was null, use a zero topic as wildcard
             if (topic_value == null) {
-                std.mem.set(u8, &out_topics[topic_index], 0);
+                @memset(&out_topics[topic_index], 0);
             }
             
             topic_index += 1;
@@ -161,10 +161,10 @@ pub fn encodeParameterAsTopic(
         param.components.len > 0) {
         // For dynamic types, indexed parameters are hashed
         const hash = abi.keccak256(value);
-        std.mem.copy(u8, out_topic, &hash);
+        @memcpy(out_topic, &hash);
     } else {
         // For static types, just pad to 32 bytes
-        std.mem.set(u8, out_topic, 0); // Zero out the buffer
+        @memset(out_topic, 0); // Zero out the buffer
         
         // If value is longer than 32 bytes, truncate
         const copy_len = @min(value.len, 32);
@@ -172,14 +172,16 @@ pub fn encodeParameterAsTopic(
         if (std.mem.startsWith(u8, param.ty, "uint") or
             std.mem.startsWith(u8, param.ty, "int")) {
             // Numbers are right-aligned
-            std.mem.copy(u8, out_topic[32 - copy_len..], value[0..copy_len]);
+            @memcpy(out_topic[32 - copy_len..], value[0..copy_len]);
         } else if (std.mem.eql(u8, param.ty, "address")) {
             // Addresses are right-aligned, but padded to 20 bytes
-            const addr_len = @min(value.len, 20);
-            std.mem.copy(u8, out_topic[32 - addr_len..], value[0..addr_len]);
+            // Make sure we use a usize for the calculation to handle large values
+            const addr_len: usize = @min(value.len, 20);
+            const offset: usize = 32 - addr_len;
+            @memcpy(out_topic[offset..], value[0..addr_len]);
         } else {
             // Other types are left-aligned
-            std.mem.copy(u8, out_topic[0..copy_len], value[0..copy_len]);
+            @memcpy(out_topic[0..copy_len], value[0..copy_len]);
         }
     }
 }
@@ -191,7 +193,7 @@ pub fn encodeParameterAsTopic(
 /// result: Pre-initialized DecodedEvent to store the result
 ///
 /// Populates the result with event name and decoded arguments
-pub fn decodeEventLog(
+pub fn decodeEventLogInternal(
     abi_items: []const abi.AbiItem,
     log: Log,
     result: *DecodedEvent,
@@ -217,7 +219,8 @@ pub fn decodeEventLog(
                 }
                 
                 var event_topic: [32]u8 = undefined;
-                compute_function_selector.getEventTopic(event, &event_topic) catch continue;
+                // getEventTopic returns the topic directly now
+                event_topic = compute_function_selector.getEventTopic(event) catch continue;
                 
                 if (std.mem.eql(u8, &topic_hash, &event_topic)) {
                     event_opt = event;
@@ -252,7 +255,8 @@ pub fn decodeEventLogWithEvent(
     result.name = event.name;
     
     // Check if we have enough topics
-    const expected_topics = if (event.anonymous) 0 else 1;
+    // In Zig 0.14, we need to provide an explicit type for this value
+    const expected_topics: usize = if (event.anonymous) 0 else 1;
     var indexed_count: usize = 0;
     
     for (event.inputs) |param| {
@@ -266,7 +270,8 @@ pub fn decodeEventLogWithEvent(
     }
     
     // Process indexed parameters
-    var topic_index = if (event.anonymous) 0 else 1;
+    // In Zig 0.14, we need to provide an explicit type for this value
+    var topic_index: usize = if (event.anonymous) 0 else 1;
     var non_indexed_params = std.ArrayList(abi.Param).init(std.heap.page_allocator);
     defer non_indexed_params.deinit();
     
@@ -305,6 +310,30 @@ pub fn decodeEventLogWithEvent(
             try result.args.put(entry.key_ptr.*, entry.value_ptr.*);
         }
     }
+}
+
+/// Convenience function that allocates and returns a DecodedEvent
+/// 
+/// allocator: Memory allocator for results
+/// abi_items: Array of ABI items representing contract interface
+/// log: Event log data
+/// 
+/// Returns a newly allocated DecodedEvent with decoded arguments
+pub fn decodeEventLog(
+    allocator: std.mem.Allocator,
+    abi_items: []const abi.AbiItem,
+    log: Log,
+) !DecodedEvent {
+    var result = DecodedEvent{
+        .name = "",
+        .indexed_args = std.StringHashMap([]const u8).init(allocator),
+        .non_indexed_args = std.StringHashMap([]const u8).init(allocator),
+        .args = std.StringHashMap([]const u8).init(allocator),
+    };
+    
+    try decodeEventLogInternal(abi_items, log, &result);
+    
+    return result;
 }
 
 test "encodeEventTopics basic" {
@@ -377,7 +406,7 @@ test "encodeEventTopics basic" {
     // Second topic should be the from address (right-aligned)
     // The address should be in the last 20 bytes
     var expected_topic1: [32]u8 = [_]u8{0} ** 32;
-    std.mem.copy(u8, expected_topic1[32 - from_addr.len..], &from_addr);
+    @memcpy(expected_topic1[32 - from_addr.len..], &from_addr);
     try testing.expectEqualSlices(u8, &expected_topic1, &topics[1]);
     
     // Third topic should be zeroes (wildcard)
@@ -439,7 +468,7 @@ test "decodeEventLog basic" {
     // To address
     const to_addr = [_]u8{0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22};
     var topic2: [32]u8 = [_]u8{0} ** 32;
-    std.mem.copy(u8, topic2[32 - to_addr.len..], &to_addr);
+    @memcpy(topic2[32 - to_addr.len..], &to_addr);
     
     // Create a sample log
     const topics = [_][32]u8{topic0, topic1, topic2};
@@ -447,7 +476,7 @@ test "decodeEventLog basic" {
     // Add value data for the non-indexed parameter
     const value = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00}; // 1 ETH
     var value_data: [32]u8 = [_]u8{0} ** 32;
-    std.mem.copy(u8, value_data[32 - value.len..], &value);
+    @memcpy(value_data[32 - value.len..], &value);
     
     const log = Log{
         .block_hash = [_]u8{1} ** 32,
@@ -479,7 +508,7 @@ test "decodeEventLog basic" {
     };
     
     // Decode the log
-    try decodeEventLog(&abi_items, log, &decoded);
+    try decodeEventLogInternal(&abi_items, log, &decoded);
     
     // Verify the decoded data
     try testing.expectEqualStrings("Transfer", decoded.name);

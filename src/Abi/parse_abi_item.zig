@@ -452,7 +452,8 @@ const Tokenizer = struct {
         self.skipWhitespace();
         if (self.peek() == ')') {
             _ = self.next();
-            return params.toOwnedSlice();
+            // For an empty parameter list, return an empty slice
+            return allocator.dupe(abi.Param, &[_]abi.Param{});
         }
         
         while (true) {
@@ -511,7 +512,8 @@ const Tokenizer = struct {
         self.skipWhitespace();
         if (self.peek() == ')') {
             _ = self.next();
-            return params.toOwnedSlice();
+            // For an empty parameter list, return an empty slice
+            return allocator.dupe(abi.EventParam, &[_]abi.EventParam{});
         }
         
         while (true) {
@@ -635,8 +637,9 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
     tokenizer.skipWhitespace();
     
     var state_mutability = abi.StateMutability.NonPayable;
-    var outputs_array = [_]abi.Param{};
-    var outputs: []const abi.Param = &outputs_array;
+    // Initialize an empty array that will be properly allocated if needed
+    var outputs = std.ArrayList(abi.Param).init(allocator);
+    defer outputs.deinit();
     
     // Check for state mutability
     if (tokenizer.pos + 4 <= tokenizer.source.len and 
@@ -656,15 +659,9 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
         tokenizer.pos += 7;
         tokenizer.skipWhitespace();
         const params_slice = try tokenizer.readParamList(allocator);
-        // Handle array to slice conversion properly
-        if (params_slice.len > 0) {
-            // Allocate a new array and copy the parameters
-            const output_array = try allocator.alloc(abi.Param, params_slice.len);
-            @memcpy(output_array, params_slice);
-            outputs = output_array;
-        } else {
-            // Empty slice case
-            outputs = &[_]abi.Param{};
+        // Add all parameters to our outputs array
+        for (params_slice) |param| {
+            try outputs.append(param);
         }
     }
     
@@ -672,7 +669,7 @@ fn parseFunctionSignature(allocator: std.mem.Allocator, tokenizer: *Tokenizer) !
         .Function = .{
             .name = name_token.value,
             .inputs = inputs,
-            .outputs = @constCast(outputs),
+            .outputs = try outputs.toOwnedSlice(),
             .state_mutability = state_mutability,
         },
     };

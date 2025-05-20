@@ -191,7 +191,7 @@ test "ABI basic round trip encoding/decoding" {
         
         // Test topic with the from address
         var expected_topic1: [32]u8 = [_]u8{0} ** 32;
-        std.mem.copy(u8, expected_topic1[32 - from_addr.len..], &from_addr);
+        @memcpy(expected_topic1[32 - from_addr.len..], &from_addr);
         try testing.expectEqualSlices(u8, &expected_topic1, &topics[1]);
         
         // Test wildcard topic
@@ -202,6 +202,10 @@ test "ABI basic round trip encoding/decoding" {
     // 4. Test event log decoding
     {
         // Create a sample log
+        // Create topics array first, then use it in the Log struct
+        var topics_list = std.ArrayList([32]u8).init(alloc);
+        defer topics_list.deinit();
+        
         var log = event_handling.Log{
             .block_hash = [_]u8{1} ** 32,
             .block_number = 12345,
@@ -209,11 +213,10 @@ test "ABI basic round trip encoding/decoding" {
             .transaction_hash = [_]u8{3} ** 32,
             .transaction_index = 0,
             .log_index = 0,
-            .topics = std.ArrayList([32]u8).init(alloc),
+            .topics = &[_][32]u8{}, // Initialize with empty array
             .data = &[_]u8{},
             .removed = false,
         };
-        defer log.topics.deinit();
         
         // Add topics
         const topic0 = [_]u8{
@@ -222,28 +225,31 @@ test "ABI basic round trip encoding/decoding" {
             0x95, 0x2b, 0xa7, 0xf1, 0x63, 0xc4, 0xa1, 0x16,
             0x28, 0xf5, 0x5a, 0x4d, 0xf5, 0x23, 0xb3, 0xef,
         };
-        try log.topics.append(topic0);
+        try topics_list.append(topic0);
         
         // From address
         const from_addr = [_]u8{0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11};
         var topic1: [32]u8 = [_]u8{0} ** 32;
-        std.mem.copy(u8, topic1[32 - from_addr.len..], &from_addr);
-        try log.topics.append(topic1);
+        @memcpy(topic1[32 - from_addr.len..], &from_addr);
+        try topics_list.append(topic1);
         
         // To address
         const to_addr = [_]u8{0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22};
         var topic2: [32]u8 = [_]u8{0} ** 32;
-        std.mem.copy(u8, topic2[32 - to_addr.len..], &to_addr);
-        try log.topics.append(topic2);
+        @memcpy(topic2[32 - to_addr.len..], &to_addr);
+        try topics_list.append(topic2);
+        
+        // Now set the topics slice in the log
+        log.topics = try topics_list.toOwnedSlice();
         
         // Add value data for the non-indexed parameter
         const value = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00}; // 1 ETH
         var value_data = [_]u8{0} ** 32;
-        std.mem.copy(u8, value_data[32 - value.len..], &value);
+        @memcpy(value_data[32 - value.len..], &value);
         log.data = &value_data;
         
         // Decode the log
-        const decoded = try event_handling.decodeEventLog(alloc, &sample_abi, log);
+        var decoded = try event_handling.decodeEventLog(alloc, &sample_abi, log);
         defer {
             decoded.indexed_args.deinit();
             decoded.non_indexed_args.deinit();

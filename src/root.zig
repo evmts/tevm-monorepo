@@ -1,7 +1,18 @@
 const std = @import("std");
 
-pub const evm = @import("Evm");
-pub const utils = @import("Utils");
+// Import all components directly using relative imports
+pub const evm = @import("Evm/evm.zig");
+pub const utils = @import("Utils/utils.zig");
+pub const address = @import("Address/address.zig");
+pub const abi = @import("Abi/abi.zig");
+pub const block = @import("Block/block.zig");
+pub const bytecode = @import("Bytecode/bytecode.zig");
+pub const compiler = @import("Compiler/compiler.zig");
+pub const rlp = @import("Rlp/rlp.zig");
+pub const token = @import("Token/token.zig");
+pub const trie = @import("Trie/trie.zig");
+pub const state_manager = @import("StateManager/StateManager.zig");
+pub const test_utils = @import("Test/test.zig");
 
 pub const EvmState = extern struct {
     pc: u32 = 0,

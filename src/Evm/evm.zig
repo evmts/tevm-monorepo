@@ -25,8 +25,16 @@ pub const processWithdrawals = @import("Withdrawal.zig").processWithdrawals;
 pub const WithdrawalProcessor = @import("WithdrawalProcessor.zig").BlockWithdrawalProcessor;
 pub const WithdrawalBlock = @import("WithdrawalProcessor.zig").Block;
 
-// Export the precompile module
-pub const precompile = @import("precompile/package.zig");
+// Export the precompile module directly
+pub const precompile = struct {
+    pub usingnamespace @import("precompile/Precompiles.zig");
+    pub const bls = @import("precompile/bls12_381.zig");
+    pub const common_utils = @import("precompile/common.zig");
+    pub const crypto_utils = @import("precompile/crypto.zig");
+    pub const kzg_functions = @import("precompile/kzg.zig");
+    pub const math_utils = @import("precompile/math.zig");
+    pub const config_params = @import("precompile/params.zig");
+};
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

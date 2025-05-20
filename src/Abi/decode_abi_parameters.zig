@@ -102,9 +102,13 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const ptr = &data[offset.*];
-        const offset_ptr = @as(*const u256, @ptrCast(ptr));
-        const big_dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
+        // Let's use a completely different approach for Zig 0.14
+        // First copy the bytes to a properly aligned buffer
+        var buf: [32]u8 align(@alignOf(u256)) = undefined;
+        @memcpy(&buf, data[offset.* .. offset.* + 32]);
+        // Then convert the bytes to a u256
+        const offset_value_ptr = @as(*const u256, @ptrCast(&buf));
+        const big_dynamic_offset = std.mem.bigToNative(u256, offset_value_ptr.*);
         const dynamic_offset = @as(usize, @intCast(big_dynamic_offset));
         offset.* += 32;
         
@@ -113,8 +117,12 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length_ptr_u8 = &data[dynamic_offset];
-        const length_ptr = @as(*const u256, @ptrCast(length_ptr_u8));
+        // Let's use a completely different approach for Zig 0.14
+        // First copy the bytes to a properly aligned buffer
+        var length_buf: [32]u8 align(@alignOf(u256)) = undefined;
+        @memcpy(&length_buf, data[dynamic_offset .. dynamic_offset + 32]);
+        // Then convert the bytes to a u256
+        const length_ptr = @as(*const u256, @ptrCast(&length_buf));
         const big_length = std.mem.bigToNative(u256, length_ptr.*);
         const length = @as(usize, @truncate(big_length));
         
@@ -155,9 +163,13 @@ fn decodeParam(
             return DecodeError.BufferTooShort;
         }
         
-        const ptr = &data[offset.*];
-        const offset_ptr = @as(*const u256, @ptrCast(ptr));
-        const big_dynamic_offset = std.mem.bigToNative(u256, offset_ptr.*);
+        // Let's use a completely different approach for Zig 0.14
+        // First copy the bytes to a properly aligned buffer
+        var buf: [32]u8 align(@alignOf(u256)) = undefined;
+        @memcpy(&buf, data[offset.* .. offset.* + 32]);
+        // Then convert the bytes to a u256
+        const offset_value_ptr = @as(*const u256, @ptrCast(&buf));
+        const big_dynamic_offset = std.mem.bigToNative(u256, offset_value_ptr.*);
         const dynamic_offset = @as(usize, @intCast(big_dynamic_offset));
         offset.* += 32;
         
@@ -166,8 +178,12 @@ fn decodeParam(
             return DecodeError.DynamicDataOutOfBounds;
         }
         
-        const length_ptr_u8 = &data[dynamic_offset];
-        const length_ptr = @as(*const u256, @ptrCast(length_ptr_u8));
+        // Let's use a completely different approach for Zig 0.14
+        // First copy the bytes to a properly aligned buffer
+        var length_buf: [32]u8 align(@alignOf(u256)) = undefined;
+        @memcpy(&length_buf, data[dynamic_offset .. dynamic_offset + 32]);
+        // Then convert the bytes to a u256
+        const length_ptr = @as(*const u256, @ptrCast(&length_buf));
         const big_length = std.mem.bigToNative(u256, length_ptr.*);
         const length = @as(usize, @truncate(big_length));
         
@@ -215,7 +231,12 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
     }
     
     if (T == u256 or T == i256) {
-        const ptr = @as(*const T, @ptrCast(&bytes[0]));
+        // Let's use a completely different approach for Zig 0.14
+        // First copy the bytes to a properly aligned buffer
+        var buf: [32]u8 align(@alignOf(T)) = undefined;
+        @memcpy(&buf, bytes[0..@min(bytes.len, 32)]);
+        // Then convert the bytes to the target type
+        const ptr = @as(*const T, @ptrCast(&buf));
         out.* = std.mem.bigToNative(T, ptr.*);
         return;
     }
