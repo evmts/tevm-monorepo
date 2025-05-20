@@ -56,6 +56,7 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 enabled" {
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-3855 enabled
+    // Fix the initialization syntax for Evm
     var evm = try Evm.init(allocator, null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP3855 = true;
@@ -95,6 +96,7 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 disabled" {
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-3855 disabled
+    // Fix the initialization syntax for Evm
     var evm = try Evm.init(allocator, null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP3855 = false;
