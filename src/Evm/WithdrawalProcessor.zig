@@ -3,7 +3,8 @@ const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;
 const processWithdrawals = Withdrawal.processWithdrawals;
 const StateManager = @import("../StateManager/StateManager.zig").StateManager;
-const Address = @import("../Address/address.zig").Address;
+// Import via Address module defined in build.zig
+const Address = @import("Address").Address;
 const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;

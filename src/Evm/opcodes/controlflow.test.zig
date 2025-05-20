@@ -232,9 +232,9 @@ test "RETURN opcode" {
         try frame.memory.store8(i, @truncate(0xaa + i));
     }
     
-    // Set up the stack with offset and size
-    try frame.stack.push(0); // offset: 0
+    // Stack is in reverse order - first push is popped last
     try frame.stack.push(4); // size: 4 bytes
+    try frame.stack.push(0); // offset: 0
     
     // Create a mock EVM and interpreter
     const evm = try test_utils.createMockEvm(allocator);
@@ -276,9 +276,9 @@ test "REVERT opcode" {
         try frame.memory.store8(i, @truncate(0xaa + i));
     }
     
-    // Set up the stack with offset and size
-    try frame.stack.push(0); // offset: 0
+    // Stack is in reverse order - first push is popped last
     try frame.stack.push(4); // size: 4 bytes
+    try frame.stack.push(0); // offset: 0
     
     // Create a mock EVM and interpreter
     const evm = try test_utils.createMockEvm(allocator);

@@ -286,20 +286,13 @@ test "REVERT opcode" {
     const interpreter = try test_utils.createMockInterpreter(allocator, evm);
     defer allocator.destroy(interpreter);
     
-    // Debug memory content before execution
-    std.debug.print("Memory content before REVERT: {any}\n", .{frame.memory.data[0..4]});
-    
     // Execute the REVERT opcode and expect REVERT error
     const result = controlflow.opRevert(0, interpreter, &frame);
     try std.testing.expectError(ExecutionError.REVERT, result);
     
-    // Debug memory content after execution
-    std.debug.print("Memory content after REVERT: {any}\n", .{frame.memory.data[0..4]});
-    
     // Check that return data was set correctly
     try std.testing.expect(frame.returnData != null);
     if (frame.returnData) |data| {
-        std.debug.print("Return data: {any}, length: {d}\n", .{data, data.len});
         try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xab, 0xac, 0xad }, data);
     }
 }

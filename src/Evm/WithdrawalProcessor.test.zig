@@ -7,7 +7,7 @@ const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;
 // Use imports for which module paths are defined in build.zig
 const Address = @import("Address").Address;
-const StateManager = @import("../StateManager/StateManager.zig").StateManager;
+const StateManager = @import("StateManager").StateManager;
 const evm = @import("evm.zig");
 const ChainRules = evm.ChainRules;
 const Hardfork = evm.Hardfork;

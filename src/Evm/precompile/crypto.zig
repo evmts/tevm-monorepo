@@ -271,7 +271,14 @@ fn bn256AddRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement BN256 elliptic curve operations
     // For now, just return a placeholder
     _ = input;
+    
+    // Allocate memory for result
     const result = try allocator.alloc(u8, 64);
+    
+    // Free the memory in case of error after allocation
+    errdefer allocator.free(result);
+    
+    // Zero-initialize the result
     @memset(result, 0);
     
     return result;
@@ -281,7 +288,14 @@ fn bn256ScalarMulRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement BN256 scalar multiplication
     // For now, just return a placeholder
     _ = input;
+    
+    // Allocate memory for result
     const result = try allocator.alloc(u8, 64);
+    
+    // Free the memory in case of error after allocation
+    errdefer allocator.free(result);
+    
+    // Zero-initialize the result
     @memset(result, 0);
     
     return result;
@@ -291,7 +305,14 @@ fn bn256PairingRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement BN256 pairing check
     // For now, return false (all zeros) as a placeholder
     _ = input;
+    
+    // Allocate memory for result
     const result = try allocator.alloc(u8, 32);
+    
+    // Free the memory in case of error after allocation
+    errdefer allocator.free(result);
+    
+    // Zero-initialize the result
     @memset(result, 0);
     
     return result;
@@ -301,7 +322,14 @@ fn blake2fRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement Blake2F compression function
     // For now, return placeholder output
     _ = input;
+    
+    // Allocate memory for result with proper safety handling
     const result = try allocator.alloc(u8, 64);
+    
+    // Free the memory in case of error after allocation
+    errdefer allocator.free(result);
+    
+    // Zero-initialize the result
     @memset(result, 0);
     
     return result;

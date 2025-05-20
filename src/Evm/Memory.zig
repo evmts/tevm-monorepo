@@ -194,8 +194,14 @@ pub const Memory = struct {
     /// - offset: The starting memory offset
     /// - size: The size of the required memory region
     ///
-    /// Error: Returns an error if memory allocation fails or if offset+size overflows
+    /// Error: Returns an error if memory allocation fails, if offset+size overflows,
+    /// or if the required size exceeds maximum allowed memory size
     pub fn require(self: *Memory, offset: u64, size: u64) !void {
+        // Handle special case where size is 0 - no resize needed
+        if (size == 0) {
+            return;
+        }
+        
         // Check for overflow using safe addition
         const required_size = std.math.add(u64, offset, size) catch return error.InvalidArgument;
         
@@ -332,9 +338,11 @@ pub const Memory = struct {
     /// - src: The source offset in memory
     /// - length: The number of bytes to copy
     ///
-    /// Note: This function assumes that both src+length and dst+length are within bounds.
-    /// Memory should be resized appropriately before calling this function.
+    /// Errors:
+    /// - OutOfBounds: If source or destination ranges would exceed memory bounds after calculation
+    /// - MemoryTooLarge: If the required memory size exceeds the maximum allowed
     pub fn copy(self: *Memory, dst: u64, src: u64, length: u64) !void {
+        // Early return for zero-length operations
         if (length == 0) {
             return;
         }
@@ -354,7 +362,15 @@ pub const Memory = struct {
             try self.resize(dst_end);
         }
 
-        // Get slices for source and destination
+        // Now that memory is properly sized, get slices for source and destination
+        // We check bounds again after potential resize
+        if (src_end > self.store.items.len) {
+            return error.OutOfBounds;
+        }
+        if (dst_end > self.store.items.len) {
+            return error.OutOfBounds;
+        }
+        
         const source_slice = self.store.items[src..src_end];
         const dest_slice = self.store.items[dst..dst_end];
         
@@ -368,6 +384,10 @@ pub const Memory = struct {
             var i: u64 = length;
             while (i > 0) {
                 i -= 1;
+                // Check bounds again for extra safety
+                if (dst + i >= self.store.items.len || src + i >= self.store.items.len) {
+                    return error.OutOfBounds;
+                }
                 self.store.items[dst + i] = self.store.items[src + i];
             }
         }
