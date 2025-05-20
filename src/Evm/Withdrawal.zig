@@ -1,16 +1,19 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-// Use direct file imports to avoid module import issues
-const StateManager = @import("../StateManager/StateManager.zig").StateManager;
+// Proper module imports based on build.zig module system
+const StateManager = if (builtin.is_test) 
+    opaque {} // Just use an opaque type for test builds
+else
+    @import("StateManager").StateManager;
 
-// Use a different approach for Address in tests to avoid import issues
+// Import Address using the module system
 const Address = if (builtin.is_test) 
     [20]u8 // Just use the raw type in tests as a direct alias for compatibility
 else 
-    @import("../Address/address.zig").Address;
+    @import("Address").Address;
 
-// Define B160 type directly to avoid import conflicts
+// Define B160 type from StateManager's expected type
 const B160 = struct {
     bytes: [20]u8,
 };
@@ -31,11 +34,19 @@ fn getLogger() EvmLogger {
     return _logger.?;
 }
 
-// Convert Address to B160 for StateManager
+// Convert Address to B160 for StateManager, handling both Address types
 fn addressToB160(address: Address) B160 {
     var b160 = B160{ .bytes = undefined };
-    // Safe copy with explicit sizes to prevent buffer overflows
-    std.mem.copy(u8, &b160.bytes, &address.bytes);
+    
+    // Handle the address differently based on its exact type
+    if (@TypeOf(address) == [20]u8) {
+        // Direct assignment for array type
+        b160.bytes = address;
+    } else {
+        // Proper field access for struct type
+        std.mem.copy(u8, &b160.bytes, &address.bytes);
+    }
+    
     return b160;
 }
 

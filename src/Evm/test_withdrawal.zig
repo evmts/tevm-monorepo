@@ -6,23 +6,29 @@ const Address = [20]u8;
 
 // Basic logger implementation
 const Logger = struct {
-    fn debug(comptime fmt: []const u8, args: anytype) void {
+    pub fn debug(self: Logger, comptime fmt: []const u8, args: anytype) void {
+        _ = self;
         std.debug.print(fmt ++ "\n", args);
     }
     
-    fn info(comptime fmt: []const u8, args: anytype) void {
+    pub fn info(self: Logger, comptime fmt: []const u8, args: anytype) void {
+        _ = self;
         std.debug.print(fmt ++ "\n", args);
     }
     
-    fn warn(comptime fmt: []const u8, args: anytype) void {
+    pub fn warn(self: Logger, comptime fmt: []const u8, args: anytype) void {
+        _ = self;
         std.debug.print("[WARN] " ++ fmt ++ "\n", args);
     }
     
-    fn err(comptime fmt: []const u8, args: anytype) void {
+    pub fn err(self: Logger, comptime fmt: []const u8, args: anytype) void {
+        _ = self;
         std.debug.print("[ERROR] " ++ fmt ++ "\n", args);
     }
     
-    fn deinit() void {}
+    pub fn deinit(self: Logger) void {
+        _ = self;
+    }
 };
 
 // Simple scoped logger

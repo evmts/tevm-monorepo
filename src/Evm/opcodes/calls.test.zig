@@ -99,9 +99,11 @@ test "CALL with all parameters" {
 test "STATICCALL basic functionality" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xFA}); // STATICCALL
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
+    defer frame.deinit();
 
     try frame.stack.push(u256_native, 1000);
     try frame.stack.push(u256_native, 0x1234);
@@ -119,9 +121,11 @@ test "STATICCALL basic functionality" {
 test "DELEGATECALL basic functionality" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xF4}); // DELEGATECALL
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
+    defer frame.deinit();
 
     try frame.stack.push(u256_native, 1000);
     try frame.stack.push(u256_native, 0x1234);
@@ -139,9 +143,11 @@ test "DELEGATECALL basic functionality" {
 test "CREATE basic functionality" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xF0}); // CREATE
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
+    defer frame.deinit();
 
     try frame.stack.push(u256_native, 0); // value
     try frame.stack.push(u256_native, 0); // offset
@@ -156,9 +162,11 @@ test "CREATE basic functionality" {
 test "CREATE2 basic functionality" {
     const allocator = testing.allocator;
     const interpreter = try setupInterpreter(allocator);
+    defer allocator.destroy(interpreter);
 
     var contract = try setupContract(allocator, &[_]u8{0xF5}); // CREATE2
     const frame = try setupFrameForContract(interpreter, allocator, &contract);
+    defer frame.deinit();
 
     try frame.stack.push(u256_native, 0); // value
     try frame.stack.push(u256_native, 0); // offset

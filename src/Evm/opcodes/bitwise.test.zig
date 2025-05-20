@@ -1,8 +1,11 @@
 const std = @import("std");
 const testing = std.testing;
 const bitwise = @import("bitwise.zig");
-const EvmModule = @import("Evm");
-const Stack = EvmModule.Stack;
+
+// Import from Stack module directly to avoid import conflicts
+const Stack = @import("../Stack.zig");
+
+// Use Zig's built-in u256 type
 const u256_native = u256;
 
 // Simple mock implementation for testing
@@ -15,11 +18,11 @@ const MockInterpreter = struct {
 };
 
 const MockFrame = struct {
-    stack: Stack,
+    stack: Stack.Stack,
     gas: u64 = 1000000,
 
     pub fn init(allocator: std.mem.Allocator) !MockFrame {
-        var stack_instance = Stack{};
+        var stack_instance = Stack.Stack{};
         try stack_instance.init(allocator, 1024);
 
         return MockFrame{
@@ -32,8 +35,32 @@ const MockFrame = struct {
     }
 };
 
-const ExecutionError = EvmModule.InterpreterError;
-const TestValue = u256_native;
+// Define error type to match the one from interpreter.zig
+const ExecutionError = error{
+    OutOfGas,
+    StackUnderflow,
+    StackOverflow,
+    InvalidJump,
+    InvalidOpcode,
+    OutOfOffset,
+    OutOfRange,
+    GasUintOverflow,
+    NonceTooHigh,
+    ContractAddressCollision,
+    ExecutionReverted,
+    MaxCodeSizeExceeded,
+    InvalidCode,
+    OutOfFunds,
+    WriteProtection,
+    ReturnDataOutOfBounds,
+    GasLimitReached,
+    DepthLimit,
+    MemoryLimitExceeded,
+    MaxInitCodeSizeExceeded,
+    InvalidCommitment,
+    InvalidBlob,
+    InvalidStateAccess,
+};
 
 test "AND operation" {
     var frame = try MockFrame.init(testing.allocator);

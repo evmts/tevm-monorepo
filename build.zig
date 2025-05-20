@@ -637,10 +637,10 @@ pub fn build(b: *std.Build) void {
         eip_test_step.dependOn(&run_eip_test.step);
     }
 
-    // Add a test for Withdrawal.test.zig
+    // Add a test for test_withdrawal.zig
     const withdrawal_test = b.addTest(.{
         .name = "withdrawal-test",
-        .root_source_file = b.path("src/Evm/Withdrawal.test.zig"),
+        .root_source_file = b.path("src/Evm/test_withdrawal.zig"),
         .target = target,
         .optimize = optimize,
     });
