@@ -3,35 +3,32 @@ const testing = std.testing;
 const bitwise = @import("bitwise.zig");
 
 // Create simplified Stack implementation for testing
-const Stack = struct {
-    // The Stack itself
-    pub const Stack = struct {
-        values: std.ArrayList(u256_native),
-        
-        pub fn init(self: *Stack, allocator: std.mem.Allocator, capacity: usize) !void {
-            _ = capacity;  // Unused in test
-            self.values = std.ArrayList(u256_native).init(allocator);
+const TestStack = struct {
+    values: std.ArrayList(u256_native),
+    
+    pub fn init(self: *TestStack, allocator: std.mem.Allocator, capacity: usize) !void {
+        _ = capacity;  // Unused in test
+        self.values = std.ArrayList(u256_native).init(allocator);
+    }
+    
+    pub fn deinit(self: *TestStack) void {
+        self.values.deinit();
+    }
+    
+    pub fn push(self: *TestStack, value: u256_native) !void {
+        try self.values.append(value);
+    }
+    
+    pub fn pop(self: *TestStack) !u256_native {
+        if (self.values.items.len == 0) {
+            return 0;
         }
-        
-        pub fn deinit(self: *Stack) void {
-            self.values.deinit();
-        }
-        
-        pub fn push(self: *Stack, value: u256_native) !void {
-            try self.values.append(value);
-        }
-        
-        pub fn pop(self: *Stack) !u256_native {
-            if (self.values.items.len == 0) {
-                return 0;
-            }
-            return self.values.pop();
-        }
-        
-        pub fn length(self: *const Stack) usize {
-            return self.values.items.len;
-        }
-    };
+        return self.values.pop();
+    }
+    
+    pub fn length(self: *const TestStack) usize {
+        return self.values.items.len;
+    }
 };
 
 // Use Zig's built-in u256 type
@@ -47,11 +44,11 @@ const MockInterpreter = struct {
 };
 
 const MockFrame = struct {
-    stack: Stack.Stack,
+    stack: TestStack,
     gas: u64 = 1000000,
 
     pub fn init(allocator: std.mem.Allocator) !MockFrame {
-        var stack_instance = Stack.Stack{};
+        var stack_instance = TestStack{};
         try stack_instance.init(allocator, 1024);
 
         return MockFrame{

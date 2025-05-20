@@ -1,19 +1,21 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import modules directly to avoid circular dependencies
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../interpreter.zig").InterpreterError;
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig");
-const Evm = @import("../evm.zig").Evm;
-const Contract = @import("../Contract.zig").Contract;
-const createContract = @import("../Contract.zig").createContract;
-const ChainRules = @import("../evm.zig").ChainRules;
+// Import from the main Evm module
+const EvmModule = @import("Evm");
+const Interpreter = EvmModule.Interpreter;
+const Frame = EvmModule.Frame;
+const ExecutionError = EvmModule.InterpreterError;
+const Stack = EvmModule.Stack;
+const Memory = EvmModule.Memory;
+const Evm = EvmModule.Evm;
+const Contract = EvmModule.Contract;
+const createContract = EvmModule.createContract;
+const ChainRules = EvmModule.ChainRules;
 
-// Direct import for Address
-const Address = @import("../../Address/address.zig").Address;
+// Import Address from the Address module
+const AddressModule = @import("Address");
+const Address = AddressModule.Address;
 
 // Use Zig's built-in u256 type
 const u256_native = u256;
