@@ -1,18 +1,35 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
-const createLogger = @import("../EvmLogger.zig").createLogger;
-const logStack = @import("../EvmLogger.zig").logStack;
-const logStackSlop = @import("../EvmLogger.zig").logStackSlop;
-const logMemory = @import("../EvmLogger.zig").logMemory;
-const debugOnly = @import("../EvmLogger.zig").debugOnly;
-const logHexBytes = @import("../EvmLogger.zig").logHexBytes;
-const createScopedLogger = @import("../EvmLogger.zig").createScopedLogger;
-const hex = @import("Utils").hex;
-const U256 = @import("../../Types/U256.ts").u256;
+const evm_pkg = @import("../package.zig");
+const Interpreter = evm_pkg.Interpreter;
+const Frame = evm_pkg.Frame;
+const ExecutionError = evm_pkg.ExecutionError;
+const JumpTable = evm_pkg.JumpTable;
+const EvmLogger = evm_pkg.EvmLogger;
+const createLogger = EvmLogger.createLogger;
+const logStack = EvmLogger.logStack;
+const logStackSlop = EvmLogger.logStackSlop;
+const logMemory = EvmLogger.logMemory;
+const debugOnly = EvmLogger.debugOnly;
+const logHexBytes = EvmLogger.logHexBytes;
+const createScopedLogger = EvmLogger.createScopedLogger;
+// We'll use a simple hex conversion function for logging
+const hex = struct {
+    pub fn bytesToHex(bytes: []const u8, buf: *[32]u8) ![]const u8 {
+        if (bytes.len * 2 > buf.len) return error.BufferTooSmall;
+        
+        const hex_chars = "0123456789abcdef";
+        var i: usize = 0;
+        
+        for (bytes) |b| {
+            buf[i] = hex_chars[b >> 4];
+            buf[i + 1] = hex_chars[b & 0x0F];
+            i += 2;
+        }
+        
+        return buf[0..bytes.len * 2];
+    }
+};
+const U256 = @import("../Stack.zig").@"u256";
 
 // Create a file-specific logger
 const logger = EvmLogger.init("controlflow.zig");

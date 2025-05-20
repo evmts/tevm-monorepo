@@ -6,6 +6,9 @@ const JumpTable = @import("../JumpTable.zig");
 const Stack = @import("../Stack.zig").Stack;
 const Memory = @import("../Memory.zig").Memory;
 
+// Use the u256 type from Stack.zig
+const BigInt = Stack.@"u256";
+
 // EIP-4844: Shard Blob Transactions (Blob opcode gas prices)
 pub const BlobHashGas: u64 = 3;
 pub const BlobBaseFeeGas: u64 = 2;
@@ -32,7 +35,7 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     // Note: In a full implementation, we would check if the index is valid
     // and get the actual blob hash from the transaction
     // For now, we'll return a placeholder value
-    const placeholder_hash: u256 = 0;
+    const placeholder_hash: BigInt = 0;
     
     // If we have a valid blob index in a full implementation,
     // we would get the hash from evm.blobs[index]
@@ -56,7 +59,7 @@ pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
     // Get the current blob base fee
     // Note: In a full implementation, we would get the actual blob base fee
     // from the block header or environment
-    const blob_base_fee: u256 = 1000000; // Placeholder value
+    const blob_base_fee: BigInt = 1000000; // Placeholder value
     
     // Push the blob base fee onto the stack
     try frame.stack.push(blob_base_fee);
