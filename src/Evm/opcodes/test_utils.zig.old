@@ -1,22 +1,23 @@
 const std = @import("std");
 
-// Direct imports for better compatibility
-pub const Frame = @import("../../Evm/Frame.zig").Frame;
-pub const ExecutionError = @import("../../Evm/Frame.zig").ExecutionError;
-pub const Interpreter = @import("../../Evm/interpreter.zig").Interpreter;
-pub const Evm = @import("../../Evm/evm.zig").Evm;
-pub const Contract = @import("../../Evm/Contract.zig").Contract;
-pub const Memory = @import("../../Evm/Memory.zig").Memory;
-pub const Stack = @import("../../Evm/Stack.zig").Stack;
-pub const ExecutionStatus = @import("../../Evm/evm.zig").ExecutionStatus;
-pub const Log = @import("../../Evm/evm.zig").Log;
-pub const JumpTable = @import("../../Evm/JumpTable.zig");
+// Import from the parent package
+const evm_pkg = @import("../package.zig");
+pub const Frame = evm_pkg.Frame;
+pub const ExecutionError = evm_pkg.ExecutionError;
+pub const Interpreter = evm_pkg.Interpreter;
+pub const Evm = evm_pkg.Evm;
+pub const Contract = evm_pkg.Contract;
+pub const Memory = evm_pkg.Memory;
+pub const Stack = evm_pkg.Stack;
+pub const ExecutionStatus = evm_pkg.ExecutionStatus;
+pub const Log = evm_pkg.Log;
+pub const JumpTable = evm_pkg.JumpTable;
 
 // Address is a separate import
 pub const Address = @import("../../Address/address.zig").Address;
 
 /// Creates a mock contract for testing
-pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) *Contract {
+pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) \!*Contract {
     const contract = try allocator.create(Contract);
     
     contract.* = Contract{
@@ -32,7 +33,7 @@ pub fn createMockContract(allocator: std.mem.Allocator, code: []const u8) *Contr
 }
 
 /// Creates a mock EVM instance
-pub fn createMockEvm(allocator: std.mem.Allocator) *Evm {
+pub fn createMockEvm(allocator: std.mem.Allocator) \!*Evm {
     const evm = try allocator.create(Evm);
     evm.* = Evm{
         .depth = 0,
@@ -47,7 +48,7 @@ pub fn createMockEvm(allocator: std.mem.Allocator) *Evm {
 }
 
 /// Creates a mock interpreter
-pub fn createMockInterpreter(allocator: std.mem.Allocator, evm: *Evm) *Interpreter {
+pub fn createMockInterpreter(allocator: std.mem.Allocator, evm: *Evm) \!*Interpreter {
     const interpreter = try allocator.create(Interpreter);
     interpreter.* = Interpreter{
         .evm = evm,
@@ -57,3 +58,4 @@ pub fn createMockInterpreter(allocator: std.mem.Allocator, evm: *Evm) *Interpret
     };
     return interpreter;
 }
+EOF < /dev/null

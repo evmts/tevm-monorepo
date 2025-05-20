@@ -1,62 +1,23 @@
 const std = @import("std");
 const testing = std.testing;
 const memory_ops = @import("memory.zig");
-const evm_pkg = @import("../package.zig");
-const Frame = evm_pkg.Frame;
-const Contract = evm_pkg.Contract;
-const Interpreter = evm_pkg.Interpreter;
-const Memory = evm_pkg.Memory;
-const Stack = evm_pkg.Stack;
-const Evm = evm_pkg.Evm;
-const JumpTable = evm_pkg.JumpTable;
-
-// Mock contract for testing
-fn createMockContract(allocator: std.mem.Allocator) !*Contract {
-    const code = &[_]u8{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-                      0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-                      0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f};
-    
-    const contract = try allocator.create(Contract);
-    contract.* = Contract{
-        .code = code,
-        .input = &[_]u8{},
-        .address = undefined,
-        .caller = undefined,
-        .value = 0,
-        .gas = 100000,  // Add some gas for execution
-    };
-    return contract;
-}
-
-// Mock interpreter for testing
-fn createMockInterpreter(allocator: std.mem.Allocator) !*Interpreter {
-    // Create mock EVM
-    const evm = try allocator.create(Evm);
-    
-    // Create JumpTable
-    const jump_table = JumpTable.JumpTable.init();
-    
-    // Create and initialize an interpreter
-    const interpreter = try allocator.create(Interpreter);
-    interpreter.* = Interpreter{
-        .allocator = allocator,
-        .evm = evm,
-        .table = jump_table,
-        .readOnly = false,
-        .returnData = null,
-    };
-    
-    return interpreter;
-}
+const test_utils = @import("test_utils.zig");
+const Frame = test_utils.Frame;
+const Contract = test_utils.Contract;
+const Interpreter = test_utils.Interpreter;
+const Memory = test_utils.Memory;
+const Stack = test_utils.Stack;
+const Evm = test_utils.Evm;
+const JumpTable = test_utils.JumpTable;
 
 test "MLOAD and MSTORE operations" {
     const allocator = testing.allocator;
     
     // Create mock objects
-    const contract = try createMockContract(allocator);
+    const contract = try test_utils.createBasicMockContract(allocator);
     defer allocator.destroy(contract);
     
-    const interpreter = try createMockInterpreter(allocator);
+    const interpreter = try test_utils.createBasicMockInterpreter(allocator);
     defer allocator.destroy(interpreter);
     
     var frame = try Frame.init(allocator, contract);
@@ -96,10 +57,10 @@ test "MSTORE8 operation" {
     const allocator = testing.allocator;
     
     // Create mock objects
-    const contract = try createMockContract(allocator);
+    const contract = try test_utils.createBasicMockContract(allocator);
     defer allocator.destroy(contract);
     
-    const interpreter = try createMockInterpreter(allocator);
+    const interpreter = try test_utils.createBasicMockInterpreter(allocator);
     defer allocator.destroy(interpreter);
     
     var frame = try Frame.init(allocator, contract);
@@ -127,10 +88,10 @@ test "MSIZE operation" {
     const allocator = testing.allocator;
     
     // Create mock objects
-    const contract = try createMockContract(allocator);
+    const contract = try test_utils.createBasicMockContract(allocator);
     defer allocator.destroy(contract);
     
-    const interpreter = try createMockInterpreter(allocator);
+    const interpreter = try test_utils.createBasicMockInterpreter(allocator);
     defer allocator.destroy(interpreter);
     
     var frame = try Frame.init(allocator, contract);
@@ -152,10 +113,10 @@ test "POP operation" {
     const allocator = testing.allocator;
     
     // Create mock objects
-    const contract = try createMockContract(allocator);
+    const contract = try test_utils.createBasicMockContract(allocator);
     defer allocator.destroy(contract);
     
-    const interpreter = try createMockInterpreter(allocator);
+    const interpreter = try test_utils.createBasicMockInterpreter(allocator);
     defer allocator.destroy(interpreter);
     
     var frame = try Frame.init(allocator, contract);
@@ -183,10 +144,10 @@ test "PUSH operations" {
     const allocator = testing.allocator;
     
     // Create mock objects
-    const contract = try createMockContract(allocator);
+    const contract = try test_utils.createBasicMockContract(allocator);
     defer allocator.destroy(contract);
     
-    const interpreter = try createMockInterpreter(allocator);
+    const interpreter = try test_utils.createBasicMockInterpreter(allocator);
     defer allocator.destroy(interpreter);
     
     var frame = try Frame.init(allocator, contract);
@@ -219,10 +180,10 @@ test "DUP operations" {
     const allocator = testing.allocator;
     
     // Create mock objects
-    const contract = try createMockContract(allocator);
+    const contract = try test_utils.createBasicMockContract(allocator);
     defer allocator.destroy(contract);
     
-    const interpreter = try createMockInterpreter(allocator);
+    const interpreter = try test_utils.createBasicMockInterpreter(allocator);
     defer allocator.destroy(interpreter);
     
     var frame = try Frame.init(allocator, contract);
@@ -259,10 +220,10 @@ test "SWAP operations" {
     const allocator = testing.allocator;
     
     // Create mock objects
-    const contract = try createMockContract(allocator);
+    const contract = try test_utils.createBasicMockContract(allocator);
     defer allocator.destroy(contract);
     
-    const interpreter = try createMockInterpreter(allocator);
+    const interpreter = try test_utils.createBasicMockInterpreter(allocator);
     defer allocator.destroy(interpreter);
     
     var frame = try Frame.init(allocator, contract);

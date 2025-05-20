@@ -1,12 +1,49 @@
 const std = @import("std");
 const testing = std.testing;
 const math = @import("math.zig");
-const Stack = @import("std").meta.import("../Stack.zig").Stack;
-const BigInt = u64; // Use BigInt as alias for u256 in the test
 
-// Simple mock implementation for testing
+// Use the types defined in math.zig for consistency
+const BigInt = u64; // Local type for the tests
+
+// Define a Stack that matches the interface in math.zig
+const Stack = struct {
+    data: [1024]BigInt = [_]BigInt{0} ** 1024, // Initialize all elements to 0
+    size: usize = 0,
+    capacity: usize = 1024,
+    allocator: std.mem.Allocator,
+    
+    pub fn init(allocator: std.mem.Allocator, capacity_unused: usize) !Stack {
+        _ = capacity_unused;
+        return Stack{ 
+            .allocator = allocator,
+        };
+    }
+    
+    pub fn deinit(self: *Stack) void {
+        _ = self;
+    }
+    
+    pub fn push(self: *Stack, value: BigInt) !void {
+        if (self.size >= self.capacity) {
+            return error.StackOverflow;
+        }
+        self.data[self.size] = value;
+        self.size += 1;
+    }
+    
+    pub fn pop(self: *Stack) !BigInt {
+        if (self.size == 0) return error.OutOfBounds;
+        self.size -= 1;
+        const value = self.data[self.size];
+        // Clear the popped value for security
+        self.data[self.size] = 0; 
+        return value;
+    }
+};
+
+// Simple mock implementation for testing, matching the expected structure in math.zig
 const MockInterpreter = struct {
-    // Simplified mock interpreter for testing
+    evm: ?*anyopaque = null, // Match the struct in math.zig
     allocator: std.mem.Allocator,
     
     pub fn init(allocator: std.mem.Allocator) MockInterpreter {
@@ -15,20 +52,27 @@ const MockInterpreter = struct {
 };
 
 const MockFrame = struct {
-    stack: Stack,
-    gas: u64 = 1000000,
+    stack: *Stack,
+    memory: ?*anyopaque = null,
+    contract: ?*anyopaque = null,
+    logger: ?*anyopaque = null,
     
-    pub fn init() !MockFrame {
-        var stack = Stack{};
-        try stack.init(std.testing.allocator, 1024);
+    pub fn init() !*MockFrame {
+        var frame = std.testing.allocator.create(MockFrame) catch unreachable;
+        var stack = std.testing.allocator.create(Stack) catch unreachable;
+        stack.* = try Stack.init(std.testing.allocator, 1024);
         
-        return MockFrame{ 
+        frame.* = MockFrame{
             .stack = stack,
         };
+        
+        return frame;
     }
     
     pub fn deinit(self: *MockFrame) void {
         self.stack.deinit();
+        std.testing.allocator.destroy(self.stack);
+        std.testing.allocator.destroy(self);
     }
 };
 
@@ -43,7 +87,7 @@ test "ADD operation" {
     try frame.stack.push(20); // Second push
     
     // Execute opAdd - this should add 10 + 20 = 30
-    _ = try math.opAdd(0, &mock_interpreter, &frame);
+    _ = try math.opAdd(0, &mock_interpreter, frame);
     
     // Check the result
     const result = try frame.stack.pop();
@@ -55,7 +99,7 @@ test "ADD operation" {
     try frame.stack.push(1);         // Second push (1)
     
     // Execute opAdd - this should wrap around to 0
-    _ = try math.opAdd(0, &mock_interpreter, &frame);
+    _ = try math.opAdd(0, &mock_interpreter, frame);
     
     // Check the result
     const overflow_result = try frame.stack.pop();
@@ -73,7 +117,7 @@ test "SUB operation" {
     try frame.stack.push(10); // Second push
     
     // Execute opSub - this should subtract 30 - 10 = 20
-    _ = try math.opSub(0, &mock_interpreter, &frame);
+    _ = try math.opSub(0, &mock_interpreter, frame);
     
     // Check the result
     const result = try frame.stack.pop();
@@ -84,7 +128,7 @@ test "SUB operation" {
     try frame.stack.push(1); // Second push (1)
     
     // Execute opSub - this should wrap around to max value
-    _ = try math.opSub(0, &mock_interpreter, &frame);
+    _ = try math.opSub(0, &mock_interpreter, frame);
     
     // Check the result
     const underflow_result = try frame.stack.pop();
@@ -102,7 +146,7 @@ test "MUL operation" {
     try frame.stack.push(6);  // Second push
     
     // Execute opMul - this should multiply 7 * 6 = 42
-    _ = try math.opMul(0, &mock_interpreter, &frame);
+    _ = try math.opMul(0, &mock_interpreter, frame);
     
     // Check the result
     const result = try frame.stack.pop();
@@ -113,7 +157,7 @@ test "MUL operation" {
     try frame.stack.push(0x10);       // 16
     
     // Execute opMul - this should multiply 2^28 * 16 = 2^32
-    _ = try math.opMul(0, &mock_interpreter, &frame);
+    _ = try math.opMul(0, &mock_interpreter, frame);
     
     // Check the result
     const large_result = try frame.stack.pop();
@@ -125,7 +169,7 @@ test "MUL operation" {
     try frame.stack.push(2);         // Multiply by 2 to cause overflow
     
     // Execute opMul - this should wrap around
-    _ = try math.opMul(0, &mock_interpreter, &frame);
+    _ = try math.opMul(0, &mock_interpreter, frame);
     
     // Check the result - should be (2^255 - 1) * 2 = 2^256 - 2 which wraps to -2 (using 2's complement)
     const overflow_result = try frame.stack.pop();
@@ -144,7 +188,7 @@ test "DIV operation" {
     try frame.stack.push(7);   // Second push (divisor)
     
     // Execute opDiv - this should divide 42 / 7 = 6
-    _ = try math.opDiv(0, &mock_interpreter, &frame);
+    _ = try math.opDiv(0, &mock_interpreter, frame);
     
     // Check the result
     const result = try frame.stack.pop();
@@ -155,7 +199,7 @@ test "DIV operation" {
     try frame.stack.push(3);   // Second push (divisor)
     
     // Execute opDiv - this should divide 10 / 3 = 3 (integer division truncates)
-    _ = try math.opDiv(0, &mock_interpreter, &frame);
+    _ = try math.opDiv(0, &mock_interpreter, frame);
     
     // Check the result
     const trunc_result = try frame.stack.pop();
@@ -166,9 +210,9 @@ test "DIV operation" {
     try frame.stack.push(0);   // Second push (divisor = 0)
     
     // Execute opDiv - this should result in 0 per EVM specs
-    _ = try math.opDiv(0, &mock_interpreter, &frame);
+    _ = try math.opDiv(0, &mock_interpreter, frame);
     
     // Check the result
     const div_by_zero_result = try frame.stack.pop();
-    try testing.expectEqual(@as(u256, 0), div_by_zero_result);
+    try testing.expectEqual(@as(BigInt, 0), div_by_zero_result);
 }

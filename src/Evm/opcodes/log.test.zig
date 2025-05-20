@@ -1,14 +1,18 @@
 const std = @import("std");
 const testing = std.testing;
+const test_utils = @import("test_utils.zig");
 const log = @import("log.zig");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
-const JumpTable = @import("../JumpTable.zig");
-const Contract = @import("../Contract.zig").Contract;
 
-// Mock implementation for testing
+// Direct imports like in the opcode file
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Contract = @import("../Contract.zig").Contract;
+const Memory = @import("../Memory.zig").Memory;
+const Stack = @import("../Stack.zig").Stack;
+const JumpTable = @import("../JumpTable.zig");
+
+// Create test objects using test_utils
 fn createTestFrame() !struct {
     frame: *Frame,
     stack: *Stack,
@@ -17,60 +21,36 @@ fn createTestFrame() !struct {
 } {
     const allocator = testing.allocator;
     
-    const stack = try allocator.create(Stack);
-    stack.* = Stack.init(allocator);
+    // Create a mock contract with empty code
+    const contract = try test_utils.createMockContract(allocator, &[_]u8{});
     
-    const memory = try allocator.create(Memory);
-    memory.* = Memory.init(allocator);
-    
-    const contract = try allocator.create(Contract);
-    contract.* = Contract{
-        .gas = 100000,
-        .code_address = undefined,
-        .address = undefined,
-        .input = &[_]u8{},
-        .value = 0,
-        .gas_refund = 0,
-    };
-    
+    // Create a frame with the mock contract
     const frame = try allocator.create(Frame);
-    frame.* = Frame{
-        .stack = stack,
-        .memory = memory,
-        .contract = contract,
-        .ret_data = undefined,
-        .return_data_size = 0,
-        .pc = 0,
-        .gas_remaining = 100000,
-        .err = null,
-        .depth = 0,
-        .ret_offset = 0,
-        .ret_size = 0,
-        .call_depth = 0,
-    };
+    frame.* = try Frame.init(allocator, contract);
     
-    const interpreter = try allocator.create(Interpreter);
-    interpreter.* = Interpreter{
-        .evm = undefined,
-        .cfg = undefined,
-        .readOnly = false,
-        .returnData = &[_]u8{},
-    };
+    // Create a mock EVM
+    const evm = try test_utils.createMockEvm(allocator);
+    
+    // Create a mock interpreter
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
     
     return .{
         .frame = frame,
-        .stack = stack,
-        .memory = memory,
+        .stack = &frame.stack,
+        .memory = &frame.memory,
         .interpreter = interpreter,
     };
 }
 
 fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
-    test_frame.memory.deinit();
-    test_frame.stack.deinit();
-    allocator.destroy(test_frame.memory);
-    allocator.destroy(test_frame.stack);
+    // The frame takes care of cleaning up stack and memory
+    test_frame.frame.deinit();
+    
+    // Free the contract's code and the contract itself
+    allocator.free(test_frame.frame.contract.code);
     allocator.destroy(test_frame.frame.contract);
+    
+    // Destroy frame and interpreter
     allocator.destroy(test_frame.frame);
     allocator.destroy(test_frame.interpreter);
 }

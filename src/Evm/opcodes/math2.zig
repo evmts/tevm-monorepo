@@ -1,11 +1,13 @@
 const std = @import("std");
-const evm_pkg = @import("../package.zig");
-const Interpreter = evm_pkg.Interpreter;
-const Frame = evm_pkg.Frame;
-const ExecutionError = evm_pkg.ExecutionError;
-const JumpTable = evm_pkg.JumpTable;
-const Stack = evm_pkg.Stack;
-const Memory = evm_pkg.Memory;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
+const JumpTable = @import("../JumpTable.zig");
+const Stack = @import("../Stack.zig");
+const Memory = @import("../Memory.zig").Memory;
+
+// Use the u256 type alias directly from Stack module
+pub const @"u256" = Stack.@"u256";
 
 /// ADDMOD operation - (x + y) % z where x, y, z are the top three items on the stack
 pub fn opAddmod(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

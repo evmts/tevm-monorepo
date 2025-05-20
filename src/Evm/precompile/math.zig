@@ -3,6 +3,10 @@ const common = @import("common.zig");
 const params = @import("params.zig");
 const PrecompiledContract = common.PrecompiledContract;
 const getData = common.getData;
+const Stack = @import("../Stack.zig");
+
+// Use the u256 type from Stack
+const u256 = Stack.u256;
 
 /// BigModExp precompiled contract (pre EIP-2565)
 pub const BigModExp = PrecompiledContract{
@@ -186,7 +190,7 @@ fn bytesToBigInt(bytes: []const u8) u256 {
 }
 
 /// Implementation of modular exponentiation
-fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     if (input.len < 96) {
         // Return empty result for invalid input
         return try allocator.alloc(u8, 0);

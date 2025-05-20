@@ -132,7 +132,7 @@ fn blake2fRequiredGas(input: []const u8) u64 {
 
 // Implementation of execution functions
 
-fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     const ecRecoverInputLength = 128;
     
     // Make sure we have enough input bytes for ECRECOVER
@@ -163,7 +163,7 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     return result;
 }
 
-fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn sha256Run(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     var hash: [Sha256.digest_length]u8 = undefined;
     Sha256.hash(input, &hash, .{});
     
@@ -173,7 +173,7 @@ fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     return result;
 }
 
-fn ripemd160Run(_: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn ripemd160Run(_: []const u8, allocator: std.mem.Allocator) ![]u8 {
     // TODO: Implement actual RIPEMD160 (need to either import a library or implement it)
     // For now, return zeros as a placeholder
     const result = try allocator.alloc(u8, 32);
@@ -182,7 +182,7 @@ fn ripemd160Run(_: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     return result;
 }
 
-fn bn256AddRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn bn256AddRun(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     // TODO: Implement BN256 elliptic curve operations
     // For now, just return a placeholder
     _ = input;
@@ -192,7 +192,7 @@ fn bn256AddRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     return result;
 }
 
-fn bn256ScalarMulRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn bn256ScalarMulRun(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     // TODO: Implement BN256 scalar multiplication
     // For now, just return a placeholder
     _ = input;
@@ -202,7 +202,7 @@ fn bn256ScalarMulRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     return result;
 }
 
-fn bn256PairingRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn bn256PairingRun(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     // TODO: Implement BN256 pairing check
     // For now, return false (all zeros) as a placeholder
     _ = input;
@@ -212,7 +212,7 @@ fn bn256PairingRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     return result;
 }
 
-fn blake2fRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn blake2fRun(input: []const u8, allocator: std.mem.Allocator) ![]u8 {
     // TODO: Implement Blake2F compression function
     // For now, return placeholder output
     _ = input;
@@ -234,9 +234,9 @@ test "SHA256 precompile" {
     
     // Test execution
     const output = try sha256Run(input, allocator);
-    defer if (output) |data| allocator.free(data);
+    defer allocator.free(output);
     
-    try std.testing.expectEqual(@as(usize, 32), output.?.len);
+    try std.testing.expectEqual(@as(usize, 32), output.len);
     // Known SHA256 hash of "hello world"
     const expected = [_]u8{
         0xb9, 0x4d, 0x27, 0xb9, 0x93, 0x4d, 0x3e, 0x08,
@@ -244,5 +244,5 @@ test "SHA256 precompile" {
         0xc4, 0x84, 0xef, 0xe3, 0x7a, 0x53, 0x80, 0xee,
         0x90, 0x88, 0xf7, 0xac, 0xe2, 0xef, 0xcd, 0xe9,
     };
-    try std.testing.expectEqualSlices(u8, &expected, output.?);
+    try std.testing.expectEqualSlices(u8, &expected, output);
 }

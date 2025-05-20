@@ -2,22 +2,25 @@ const std = @import("std");
 const testing = std.testing;
 const test_utils = @import("test_utils.zig");
 const math2 = @import("math2.zig");
-const evm_pkg = @import("../package.zig");
-const Frame = evm_pkg.Frame;
-const ExecutionError = evm_pkg.ExecutionError;
-const Interpreter = evm_pkg.Interpreter;
-const Evm = evm_pkg.EVM;
-const Contract = evm_pkg.Contract;
-const Memory = evm_pkg.Memory;
-const Address = @import("../../Address/package.zig");
+// Import everything via test_utils
+const Frame = test_utils.Frame;
+const ExecutionError = test_utils.ExecutionError;
+const Interpreter = test_utils.Interpreter;
+const Evm = test_utils.Evm;
+const Contract = test_utils.Contract;
+const Memory = test_utils.Memory;
+const Address = test_utils.Address;
+
+// Define the u256 type from math2
+const @"u256" = math2.@"u256";
 
 // Helper function to create a negative u256 number using two's complement
-fn makeNegative(value: u256) u256 {
+fn makeNegative(value: @"u256") @"u256" {
     return (~value) +% 1;
 }
 
 // Helper for running opcode tests
-fn runOpcodeTest(execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]const u8, input: []const u256, expected_output: []const u256) !void {
+fn runOpcodeTest(execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]const u8, input: []const @"u256", expected_output: []const @"u256") !void {
     const allocator = testing.allocator;
     
     // Create a mock contract with empty code

@@ -1,6 +1,6 @@
 const std = @import("std");
-const Contract = @import("Evm").Contract;
-const ExecutionError = @import("Evm").ExecutionError;
+const Contract = @import("../Contract.zig").Contract;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
 // For B256, we'll use a simple struct with a fixed-size array
 const B256 = struct {
     value: [32]u8,
@@ -63,7 +63,7 @@ pub const PrecompiledContract = enum(u8) {
         self: PrecompiledContract, 
         input: []const u8, 
         allocator: std.mem.Allocator
-    ) ExecutionError![]const u8 {
+    ) ![]const u8 {
         return switch (self) {
             .ECRECOVER => try ecRecover(input, allocator),
             .SHA256 => try sha256(input, allocator),
@@ -79,7 +79,7 @@ pub const PrecompiledContract = enum(u8) {
 };
 
 /// ECRECOVER: Recovers public key associated with the signature of the data
-fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     // ECRECOVER expects:
     // - hash: 32 bytes (message hash)
     // - v: 32 bytes (recovery id)
@@ -101,7 +101,7 @@ fn ecRecover(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]c
 }
 
 /// SHA256: Computes the SHA-256 hash of the input
-fn sha256(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn sha256(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     const result = try allocator.alloc(u8, 32);
     
     // Compute SHA-256 hash
@@ -111,7 +111,7 @@ fn sha256(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]cons
 }
 
 /// RIPEMD160: Computes the RIPEMD-160 hash of the input
-fn ripemd160(_: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn ripemd160(_: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     // A full Zig implementation would use a RIPEMD-160 library
     // Since Zig standard library doesn't include RIPEMD-160,
     // this is a simplified placeholder
@@ -133,7 +133,7 @@ fn ripemd160(_: []const u8, allocator: std.mem.Allocator) ExecutionError![]const
 }
 
 /// IDENTITY: Returns the input data
-fn identity(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn identity(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     // Simply copy the input to the output
     const result = try allocator.alloc(u8, input.len);
     @memcpy(result, input);
@@ -142,7 +142,7 @@ fn identity(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]co
 }
 
 /// MODEXP: Arbitrary precision modular exponentiation
-fn modexp(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn modexp(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     if (input.len < 96) {
         // Input too short, return empty
         return allocator.alloc(u8, 0);
@@ -220,7 +220,7 @@ fn modexpGasCost(input: []const u8) u64 {
 }
 
 /// BN256ADD: Elliptic curve addition on bn256 curve
-fn bn256Add(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn bn256Add(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     // BN256 points are represented as 64-byte values (32 bytes for X, 32 bytes for Y)
     if (input.len != 128) {
         // Invalid input, return empty
@@ -236,7 +236,7 @@ fn bn256Add(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]co
 }
 
 /// BN256MUL: Elliptic curve scalar multiplication on bn256 curve
-fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     // Expects a point (64 bytes) and a scalar (32 bytes)
     if (input.len != 96) {
         // Invalid input, return empty
@@ -252,7 +252,7 @@ fn bn256Mul(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]co
 }
 
 /// BN256PAIRING: Elliptic curve pairing check on bn256 curve
-fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     // Expects multiple pairs of points (k*192 bytes)
     if (input.len % 192 != 0) {
         // Invalid input, return empty
@@ -270,7 +270,7 @@ fn bn256Pairing(input: []const u8, allocator: std.mem.Allocator) ExecutionError!
 }
 
 /// BLAKE2F: Compression function F used in BLAKE2 (EIP-152)
-fn blake2f(input: []const u8, allocator: std.mem.Allocator) ExecutionError![]const u8 {
+fn blake2f(input: []const u8, allocator: std.mem.Allocator) ![]const u8 {
     // Requires at least 213 bytes
     if (input.len < 213) {
         // Invalid input, return empty

@@ -14,8 +14,8 @@ const ExecutionStatus = utils.ExecutionStatus;
 const Log = utils.Log;
 const ExecutionError = utils.ExecutionError;
 
-// Use the u256 type but aliased to avoid shadowing primitive
-const BigInt = utils.Stack.@"u256";
+// Alias for the u256 type from Stack
+const BigInt = Stack.@"u256";
 
 // Mock implementation for testing
 fn createTestFrame() !struct {
@@ -27,7 +27,7 @@ fn createTestFrame() !struct {
     const allocator = testing.allocator;
     
     const stack = try allocator.create(Stack);
-    stack.* = Stack.init(allocator);
+    stack.* = Stack{};
     
     const memory = try allocator.create(Memory);
     memory.* = Memory.init(allocator);
@@ -100,7 +100,6 @@ fn createTestFrame() !struct {
 
 fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
     test_frame.memory.deinit();
-    test_frame.stack.deinit();
     
     // Deinitialize EVM resources
     test_frame.interpreter.evm.transientStorage.deinit();
@@ -128,7 +127,7 @@ test "BLOBHASH basic operation" {
     
     // Check result - should have one item on stack
     try testing.expectEqual(@as(usize, 1), test_frame.stack.size);
-    try testing.expectEqual(@as(u64, 0), test_frame.stack.data[0]);
+    try testing.expectEqual(@as(BigInt, 0), test_frame.stack.data[0]);
 }
 
 test "BLOBBASEFEE basic operation" {
@@ -142,7 +141,7 @@ test "BLOBBASEFEE basic operation" {
     // Check result - should have one item on stack
     try testing.expectEqual(@as(usize, 1), test_frame.stack.size);
     // Our placeholder value is 1000000
-    try testing.expectEqual(@as(u64, 1000000), test_frame.stack.data[0]);
+    try testing.expectEqual(@as(BigInt, 1000000), test_frame.stack.data[0]);
 }
 
 test "MCOPY basic operation" {
