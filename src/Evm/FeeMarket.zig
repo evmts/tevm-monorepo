@@ -3,8 +3,10 @@ const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 
-// Create a file-specific logger
-const logger = createLogger(@src().file);
+// Module logger will be initialized when functions are called
+fn getLogger() EvmLogger {
+    return createLogger(@src().file);
+}
 
 /// FeeMarket implements the EIP-1559 fee market mechanism
 ///
@@ -36,6 +38,7 @@ pub const FeeMarket = struct {
     ///
     /// Returns: The initial base fee (in wei)
     pub fn initialBaseFee(parent_gas_used: u64, parent_gas_limit: u64) u64 {
+        const logger = getLogger();
         const scoped = createScopedLogger(logger, "initialBaseFee()");
         defer scoped.deinit();
         
@@ -75,6 +78,7 @@ pub const FeeMarket = struct {
         // Ensure base fee is at least the minimum
         initial_base_fee = std.math.max(initial_base_fee, MIN_BASE_FEE);
         
+        const logger = getLogger();
         logger.info("Initial base fee calculated: {d} wei", .{initial_base_fee});
         return initial_base_fee;
     }
@@ -94,6 +98,7 @@ pub const FeeMarket = struct {
     ///
     /// Returns: The next block's base fee (in wei)
     pub fn nextBaseFee(parent_base_fee: u64, parent_gas_used: u64, parent_gas_target: u64) u64 {
+        const logger = getLogger();
         const scoped = createScopedLogger(logger, "nextBaseFee()");
         defer scoped.deinit();
         
@@ -103,6 +108,7 @@ pub const FeeMarket = struct {
         
         // If parent block is empty, keep the base fee the same
         if (parent_gas_used == 0) {
+            const logger = getLogger();
             logger.info("Parent block was empty, keeping base fee the same: {d} wei", .{parent_base_fee});
             return parent_base_fee;
         }
