@@ -1,14 +1,119 @@
 const std = @import("std");
-const Address = @import("Address").Address;
-const Evm = @import("Evm");
+const Address = if (@import("builtin").is_test) 
+    @import("../../Address/address.zig").Address 
+else 
+    @import("Address").Address;
 const common = @import("common.zig");
 const crypto = @import("crypto.zig");
 const math = @import("math.zig");
 const bls12_381 = @import("bls12_381.zig");
 const kzg = @import("kzg.zig");
-const ChainRules = Evm.ChainRules;
+// Use relative path for tests, otherwise use module name
 const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
 const createLogger = @import("../EvmLogger.zig").createLogger;
+// Define ChainRules directly in precompiles for testing since we cannot import Evm module in tests
+const ChainRules = struct {
+    IsEIP1559: bool = false,
+    IsEIP2929: bool = false,
+    IsEIP2930: bool = false,
+    IsEIP3529: bool = false,
+    IsEIP3198: bool = false,
+    IsEIP3541: bool = false,
+    IsEIP3651: bool = false,
+    IsEIP3855: bool = false,
+    IsEIP3860: bool = false,
+    IsEIP4895: bool = false,
+    IsEIP4844: bool = false,
+    IsEIP5656: bool = false,
+
+    pub fn forHardfork(hardfork: Hardfork) ChainRules {
+        return switch (hardfork) {
+            .Frontier, .Homestead, .TangerineWhistle, .SpuriousDragon => .{},
+            .Byzantium, .Constantinople, .Petersburg, .Istanbul => .{},
+            .Berlin => .{
+                .IsEIP2929 = true,
+                .IsEIP2930 = true,
+            },
+            .London => .{
+                .IsEIP1559 = true,
+                .IsEIP2929 = true,
+                .IsEIP2930 = true,
+                .IsEIP3198 = true,
+                .IsEIP3529 = true,
+                .IsEIP3541 = true,
+            },
+            .ArrowGlacier, .GrayGlacier, .Merge => .{
+                .IsEIP1559 = true,
+                .IsEIP2929 = true,
+                .IsEIP2930 = true,
+                .IsEIP3198 = true,
+                .IsEIP3529 = true,
+                .IsEIP3541 = true,
+            },
+            .Shanghai => .{
+                .IsEIP1559 = true,
+                .IsEIP2929 = true,
+                .IsEIP2930 = true,
+                .IsEIP3198 = true,
+                .IsEIP3529 = true,
+                .IsEIP3541 = true,
+                .IsEIP3651 = true,
+                .IsEIP3855 = true,
+                .IsEIP3860 = true,
+                .IsEIP4895 = true,
+            },
+            .Cancun => .{
+                .IsEIP1559 = true,
+                .IsEIP2929 = true,
+                .IsEIP2930 = true,
+                .IsEIP3198 = true,
+                .IsEIP3529 = true,
+                .IsEIP3541 = true,
+                .IsEIP3651 = true,
+                .IsEIP3855 = true,
+                .IsEIP3860 = true,
+                .IsEIP4895 = true,
+                .IsEIP4844 = true,
+                .IsEIP5656 = true,
+            },
+            .Prague, .Verkle => .{
+                .IsEIP1559 = true,
+                .IsEIP2929 = true,
+                .IsEIP2930 = true,
+                .IsEIP3198 = true,
+                .IsEIP3529 = true,
+                .IsEIP3541 = true,
+                .IsEIP3651 = true,
+                .IsEIP3855 = true,
+                .IsEIP3860 = true,
+                .IsEIP4895 = true,
+                .IsEIP4844 = true,
+                .IsEIP5656 = true,
+            },
+        };
+    }
+};
+
+// Define Hardfork enum for use in ChainRules.forHardfork
+pub const Hardfork = enum {
+    Frontier,
+    Homestead,
+    TangerineWhistle,
+    SpuriousDragon,
+    Byzantium,
+    Constantinople,
+    Petersburg,
+    Istanbul,
+    Berlin,
+    London,
+    ArrowGlacier,
+    GrayGlacier,
+    Merge,
+    Shanghai,
+    Cancun,
+    Prague,
+    Verkle,
+};
 
 // Create a file-specific logger
 const logger = createLogger("Precompiles.zig");

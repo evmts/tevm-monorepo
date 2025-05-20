@@ -1,16 +1,16 @@
 const std = @import("std");
 const testing = std.testing;
-const evm = @import("evm.zig");
+const evm = @import("Evm");
 const ChainRules = evm.ChainRules;
 const Hardfork = evm.Hardfork;
-// Use direct file imports
-const Address = @import("../Address/address.zig").Address;
+// Import using modules defined in build.zig
+const Address = @import("Address").Address;
 const Withdrawal = @import("Withdrawal.zig");
 const WithdrawalData = Withdrawal.WithdrawalData;
 const WithdrawalProcessor = @import("WithdrawalProcessor.zig");
 const Block = WithdrawalProcessor.Block;
 const BlockWithdrawalProcessor = WithdrawalProcessor.BlockWithdrawalProcessor;
-const StateManager = @import("../StateManager/StateManager.zig").StateManager;
+const StateManager = @import("StateManager").StateManager;
 
 // Mock StateManager for testing withdrawal processing
 const MockStateManager = struct {

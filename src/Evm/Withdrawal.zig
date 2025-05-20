@@ -22,7 +22,6 @@ fn getLogger() EvmLogger {
 }
 
 // Convert Address ([20]u8) to B160 for StateManager
-
 fn addressToB160(address: Address) B160 {
     var b160 = B160{ .bytes = undefined };
     // Safe copy with explicit sizes to prevent buffer overflows
@@ -83,6 +82,12 @@ pub const WithdrawalData = struct {
     /// Returns: The amount in Wei as a u128 (to handle large values)
     pub fn amountInWei(self: *const WithdrawalData) u128 {
         const GWEI_TO_WEI: u128 = 1_000_000_000; // 10^9
+        // Check for multiplication overflow
+        if (self.amount > std.math.maxInt(u128) / GWEI_TO_WEI) {
+            // Handle overflow by returning max value
+            getLogger().warn("Gwei to Wei conversion would overflow. Returning max value.", .{});
+            return std.math.maxInt(u128);
+        }
         return @as(u128, self.amount) * GWEI_TO_WEI;
     }
 };
@@ -152,9 +157,16 @@ fn rewardAccount(stateManager: *StateManager, address: Address, amount: u128) !v
         break :blk try stateManager.createAccount(b160_address, 0);
     };
 
-    // Increase the account balance
+    // Safely increase the account balance with overflow protection
     const oldBalance = account.balance;
-    account.balance += amount;
+    
+    // Check for overflow before adding
+    if (std.math.maxInt(u128) - account.balance < amount) {
+        getLogger().warn("Balance overflow prevented. Setting to max value.", .{});
+        account.balance = std.math.maxInt(u128);
+    } else {
+        account.balance += amount;
+    }
 
     getLogger().debug("Balance updated: {d} -> {d}", .{ oldBalance, account.balance });
 

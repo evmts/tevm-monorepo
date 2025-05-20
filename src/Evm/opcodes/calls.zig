@@ -297,6 +297,9 @@ const MAX_CALL_DEPTH: u32 = 1024;
 /// Check if an address is a precompiled contract in the current chain context
 /// Returns the precompiled contract if found, null otherwise
 fn checkPrecompiled(addr: u256, interpreter: *Interpreter) ?*const precompile.PrecompiledContract {
+    if (interpreter.evm.precompiles == null) {
+        return null; // Early return if no precompiles are registered
+    }
     // Convert u256 address to Ethereum Address type
     var addr_bytes: [32]u8 = undefined;
     
@@ -1515,6 +1518,15 @@ pub fn createGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, _: *Me
 
 /// Register all call opcodes in the given jump table
 pub fn registerCallOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
+    errdefer {
+        // Clean up any operations we've already created on error
+        if (jump_table.table[0xF1]) |op| allocator.destroy(op);
+        if (jump_table.table[0xF2]) |op| allocator.destroy(op);
+        if (jump_table.table[0xF4]) |op| allocator.destroy(op);
+        if (jump_table.table[0xFA]) |op| allocator.destroy(op);
+        if (jump_table.table[0xF0]) |op| allocator.destroy(op);
+        if (jump_table.table[0xF5]) |op| allocator.destroy(op);
+    }
     // CALL (0xF1)
     const call_op = try allocator.create(JumpTable.Operation);
     call_op.* = JumpTable.Operation{

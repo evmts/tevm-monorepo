@@ -24,7 +24,7 @@ fn createPrecompiledAddress(addr_num: u8) !B256 {
     var full_bytes: [32]u8 = [_]u8{0} ** 32;
     @memcpy(full_bytes[12..32], &addr_bytes);
     
-    return B256.fromBytes(&full_bytes);
+    return B256{ .value = full_bytes };
 }
 
 test "isPrecompiled check" {
@@ -101,7 +101,7 @@ test "identity execution" {
     // Test empty input
     var result = try Precompiled.IDENTITY.execute(&[_]u8{}, allocator);
     defer allocator.free(result);
-    try testing.expectEqualSlices(u8, &[_]u8{}, result);
+    try testing.expectEqualSlices(u8, &[_]u8{}, result.?);
     
     // Test with data
     const input = [_]u8{1, 2, 3, 4, 5};
