@@ -114,34 +114,33 @@ fn bn256PairingIstanbulRequiredGas(input: []const u8) u64 {
 fn blake2fRequiredGas(input: []const u8) u64 {
     const blake2FInputLength = 213;
     
-    // If the input is malformed, return a safe default gas amount
+    // Validate input length
     if (input.len != blake2FInputLength) {
-        return params.Blake2FPerRoundGas; // Return a reasonable default
+        // Return a reasonable default for malformed input
+        return params.Blake2FPerRoundGas;
     }
     
-    // Make sure we have at least 4 bytes
-    if (input.len < 4) {
-        return params.Blake2FPerRoundGas; // Return a reasonable default
-    }
-    
-    // First 4 bytes contain the number of rounds
+    // Input length check ensures we have at least 4 bytes for the rounds value
+    // Extract rounds from the first 4 bytes (big-endian format)
     var rounds: u32 = 0;
     rounds |= @as(u32, input[0]) << 24;
     rounds |= @as(u32, input[1]) << 16;
     rounds |= @as(u32, input[2]) << 8;
     rounds |= @as(u32, input[3]);
     
-    // Ensure rounds is reasonable (not excessive)
-    const max_reasonable_rounds: u32 = 100000; // An arbitrary limit
-    if (rounds > max_reasonable_rounds) {
-        return std.math.maxInt(u64); // Return max gas to prevent abuse
-    }
+    // Gas cost is proportional to the number of rounds
+    // Ensure the result is reasonable and prevent potential DoS attacks
     
-    // Ensure the gas calculation doesn't overflow
-    if (rounds > std.math.maxInt(u64)) {
+    // Set an upper limit on acceptable rounds to prevent excessive gas consumption
+    const max_reasonable_rounds: u32 = 64; // Blake2 typically uses 12-64 rounds
+    
+    if (rounds > max_reasonable_rounds) {
+        // If someone is trying to specify an unreasonable number of rounds,
+        // return the maximum gas amount to effectively deny the transaction
         return std.math.maxInt(u64);
     }
     
+    // Gas cost is one unit per round (per EIP-152)
     return @as(u64, rounds);
 }
 
@@ -204,21 +203,30 @@ fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     var hash: [Sha256.digest_length]u8 = undefined;
     Sha256.hash(input, &hash, .{});
     
-    // Allocate result with error handling
-    var result = try allocator.alloc(u8, hash.len);
+    // In Ethereum, all precompile outputs must be 32 bytes
+    // SHA256 output is already 32 bytes, so we just allocate 32 bytes
+    var result = try allocator.alloc(u8, 32);
     errdefer allocator.free(result); // Ensure memory is freed on error
     
-    // Copy with bounds checking (though hash.len == result.len is guaranteed)
-    @memcpy(result[0..hash.len], hash[0..]);
+    // Copy the hash to the result
+    @memcpy(result[0..32], &hash);
     
     return result;
 }
 
-fn ripemd160Run(_: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn ripemd160Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement actual RIPEMD160 (need to either import a library or implement it)
-    // For now, return zeros as a placeholder
-    const result = try allocator.alloc(u8, 32);
+
+    // In Ethereum, RIPEMD160 outputs 20 bytes but precompiles return 32 bytes
+    // The result is left-padded with zeros
+    var result = try allocator.alloc(u8, 32);
+    errdefer allocator.free(result); // Ensure memory is freed on error
+    
+    // Zero-initialize all 32 bytes
     @memset(result, 0);
+    
+    // TODO: Replace with actual RIPEMD160 computation and copy to bytes 12-31
+    // For now, we're just returning zeros as a placeholder
     
     return result;
 }

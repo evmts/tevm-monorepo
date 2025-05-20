@@ -1,15 +1,15 @@
 const std = @import("std");
-const opcodes_pkg = @import("package.zig");
-const controlflow = opcodes_pkg.controlflow;
+const controlflow = @import("controlflow.zig");
 const test_utils = @import("test_utils.zig");
-const evm_pkg = @import("../package.zig");
-const Frame = evm_pkg.Frame;
-const ExecutionError = evm_pkg.ExecutionError;
-const Interpreter = evm_pkg.Interpreter;
-const Evm = evm_pkg.EVM;
-const Contract = evm_pkg.Contract;
-const Memory = evm_pkg.Memory;
-const Stack = evm_pkg.Stack;
+
+// Import everything via test_utils
+const Frame = test_utils.Frame;
+const ExecutionError = test_utils.ExecutionError;
+const Interpreter = test_utils.Interpreter;
+const Evm = test_utils.Evm;
+const Contract = test_utils.Contract;
+const Memory = test_utils.Memory;
+const Stack = test_utils.Stack;
 
 // Use the test_utils module for creating mock objects
 

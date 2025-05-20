@@ -171,7 +171,7 @@ pub const Memory = struct {
     /// GetCopy returns a copy of the slice from offset to offset+size
     ///
     /// This allocates a new buffer and copies the requested memory range into it.
-    /// The caller is responsible for freeing the returned buffer when done.
+    /// The caller is responsible for freeing the returned buffer when done with allocator.free().
     ///
     /// Parameters:
     /// - offset: The starting offset in memory
@@ -201,18 +201,22 @@ pub const Memory = struct {
             return error.OutOfBounds;
         }
 
-        // Create a new buffer for the copy - allocate in a way that doesn't assume size can be 
-        // casted to usize without checking (u64 may be larger than usize on some platforms)
+        // Safely convert size to usize for allocation
         const alloc_size: usize = if (size > std.math.maxInt(usize)) 
             return error.OutOfMemory 
         else 
             @intCast(size);
             
+        // Allocate memory for the copy - caller must free this with allocator.free()
         const cpy = try self.allocator.alloc(u8, alloc_size);
+        errdefer self.allocator.free(cpy); // Free memory if a later operation fails
         
         // Use safe slice bounds that were already validated
-        const source_slice = self.store.items[offset .. offset + size];
-        @memcpy(cpy, source_slice);
+        if (size > 0) {
+            const source_slice = self.store.items[offset .. offset + size];
+            @memcpy(cpy, source_slice);
+        }
+        
         return cpy;
     }
 

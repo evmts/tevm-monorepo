@@ -12,8 +12,8 @@ const Memory = test_utils.Memory;
 const Address = test_utils.Address;
 
 // Use u64 as our test type for simplicity
-// This must match what's used in test_utils.zig and math2.zig
-const @"u256" = u64;
+// Make sure we're using test_utils' u256 definition
+const @"u256" = test_utils.@"u256";
 
 // Helper function to create a negative u256 number using two's complement
 fn makeNegative(value: @"u256") @"u256" {

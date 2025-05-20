@@ -3,14 +3,14 @@ const testing = std.testing;
 const log = @import("log.zig");
 const test_utils = @import("test_utils.zig");
 
-// Direct imports instead of using package.zig
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Contract = @import("../Contract.zig").Contract;
-const Memory = @import("../Memory.zig").Memory;
-const Stack = @import("../Stack.zig").Stack;
-const JumpTable = @import("../JumpTable.zig");
+// Import everything via test_utils
+const Frame = test_utils.Frame;
+const ExecutionError = test_utils.ExecutionError;
+const Interpreter = test_utils.Interpreter;
+const Contract = test_utils.Contract;
+const Memory = test_utils.Memory;
+const Stack = test_utils.Stack;
+const JumpTable = test_utils.JumpTable;
 
 // Create test objects using test_utils
 fn createTestFrame() !struct {
