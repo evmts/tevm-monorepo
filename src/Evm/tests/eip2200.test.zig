@@ -1,15 +1,15 @@
 const std = @import("std");
 const testing = std.testing;
-const Evm = @import("Evm");
-const Interpreter = Evm.Interpreter;
-const Frame = Evm.Frame;
-const Contract = Evm.Contract;
-const createContract = Evm.createContract;
-const JumpTable = Evm.JumpTable;
+const EvmModule = @import("Evm");
+const Interpreter = EvmModule.Interpreter;
+const Frame = EvmModule.Frame;
+const Contract = EvmModule.Contract;
+const createContract = EvmModule.createContract;
+const JumpTable = EvmModule.JumpTable;
 const StateManager = @import("StateManager").StateManager;
 const Address = @import("Address").Address;
-const ExecutionError = Evm.Frame.ExecutionError; // Assuming Frame exports ExecutionError or it's Evm.ExecutionError
-const B256 = @import("StateManager").B256; // Using B256 from StateManager module
+const ExecutionError = EvmModule.Frame.ExecutionError; 
+const B256 = @import("StateManager").B256;
 
 // Test constants
 const TEST_GAS = 10000000;
@@ -182,11 +182,9 @@ test "EIP-2200: SSTORE gas costs and refunds" {
     defer state_manager.deinit();
 
     // Create EVM
-    var evm_instance = try Evm.init(allocator, null);
-    var jump_table = JumpTable.init();
-    defer jump_table.deinit(allocator);
-    try JumpTable.initMainnetJumpTable(allocator, &jump_table);
-    var evm_interpreter = Interpreter.create(allocator, &evm_instance, jump_table);
+    var evm_instance = try EvmModule.Evm.init(allocator, null);
+    const jump_table = try JumpTable.newJumpTable(allocator, "latest");
+    var evm_interpreter = try Interpreter.create(allocator, &evm_instance, jump_table);
     // Set the state manager
     evm_instance.state_manager = @ptrCast(@alignCast(&state_manager));
 

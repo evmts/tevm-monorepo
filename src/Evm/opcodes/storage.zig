@@ -376,15 +376,28 @@ pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 
 /// Get values from the stack and convert to storage slot
 fn getKeyFromStack(frame: *Frame) !u256 {
+    var scoped = createScopedLogger(getLogger(), "getKeyFromStack()");
+    defer scoped.deinit();
+    
+    getLogger().debug("Getting key from stack", .{});
+    
     if (frame.stack.size < 1) {
+        getLogger().err("Stack underflow trying to get key: stack size = {d}", .{frame.stack.size});
         return ExecutionError.StackUnderflow;
     }
     
-    return try frame.stack.peek(0);
+    const key = try frame.stack.peek(0);
+    getLogger().debug("Retrieved key from stack: 0x{x}", .{key});
+    return key;
 }
 
 /// Convert a 32-byte array to a u256 for storage key/value
 fn bytesToU256(bytes: []const u8) u256 {
+    var scoped = createScopedLogger(getLogger(), "bytesToU256()");
+    defer scoped.deinit();
+    
+    getLogger().debug("Converting byte array (length: {d}) to u256", .{bytes.len});
+    
     var result: u256 = 0;
     
     // Process all available bytes (up to 32)
@@ -395,11 +408,17 @@ fn bytesToU256(bytes: []const u8) u256 {
         result = (result << 8) | byte;
     }
     
+    getLogger().debug("Conversion result: 0x{x}", .{result});
     return result;
 }
 
 /// Convert a u256 to a 32-byte array for storage operations
 fn u256ToBytes(allocator: std.mem.Allocator, value: u256) ![]u8 {
+    var scoped = createScopedLogger(getLogger(), "u256ToBytes()");
+    defer scoped.deinit();
+    
+    getLogger().debug("Converting u256 value 0x{x} to byte array", .{value});
+    
     var bytes = try allocator.alloc(u8, 32);
     // Initialize all bytes to zero
     @memset(bytes, 0);
@@ -412,6 +431,31 @@ fn u256ToBytes(allocator: std.mem.Allocator, value: u256) ![]u8 {
         bytes[i] = @intCast(temp & 0xFF);
         temp >>= 8;
     }
+    
+    // Create a copy of bytes for the debug function to avoid the capturing issue
+    const bytes_copy = bytes;
+    
+    debugOnly(struct {
+        fn callback() void {
+            // Log a preview of the byte array
+            if (bytes_copy.len > 0) {
+                const preview_len = @min(bytes_copy.len, 8);
+                var preview_buf: [256]u8 = undefined;
+                var preview_fbs = std.io.fixedBufferStream(&preview_buf);
+                const preview_writer = preview_fbs.writer();
+                
+                for (0..preview_len) |j| {
+                    std.fmt.format(preview_writer, "{x:0>2} ", .{bytes_copy[j]}) catch {};
+                }
+                
+                if (bytes_copy.len > preview_len) {
+                    std.fmt.format(preview_writer, "... ({d} more bytes)", .{bytes_copy.len - preview_len}) catch {};
+                }
+                
+                getLogger().debug("Byte array result: {s}", .{preview_buf[0..preview_fbs.pos]});
+            }
+        }
+    }.callback);
     
     return bytes;
 }
