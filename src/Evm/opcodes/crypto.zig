@@ -5,7 +5,7 @@ const ExecutionError = @import("../Frame.zig").ExecutionError;
 const JumpTable = @import("../JumpTable.zig");
 
 /// KECCAK256 operation - computes Keccak-256 hash of a region of memory
-pub fn opKeccak256(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
     // Pop offset and size from stack
@@ -65,8 +65,9 @@ pub fn getKeccak256MemorySize(stack: *const Frame.Stack) struct { size: u64, ove
     const size_u64 = @as(u64, @truncate(size));
     
     // Check for overflow when adding offset and size
-    var total_size: u64 = 0;
-    if (@addWithOverflow(u64, offset_u64, size_u64, &total_size)) {
+    var overflow = false;
+    const total_size = @addWithOverflow(offset_u64, size_u64, &overflow);
+    if (overflow) {
         return .{ .size = 0, .overflow = true };
     }
     

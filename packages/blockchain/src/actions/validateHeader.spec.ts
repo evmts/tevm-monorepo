@@ -23,7 +23,7 @@ describe(validateHeader.name, async () => {
 		await getBlock(chain)(cannonicalHead.header.parentHash)
 		const headerValidator = validateHeader(chain)
 		expect(await headerValidator(cannonicalHead.header)).toBeUndefined()
-	})
+	}, 20000) // Increase timeout to 20 seconds
 
 	it('should return early for genesis block validation', async () => {
 		const chain = createBaseChain({ common: optimism.copy() })

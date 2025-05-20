@@ -4,6 +4,7 @@ const Frame = @import("../Frame.zig").Frame;
 const ExecutionError = @import("../Frame.zig").ExecutionError;
 const JumpTable = @import("../JumpTable.zig");
 const Memory = @import("../Memory.zig").Memory;
+const Stack = @import("../Stack.zig").Stack;
 
 /// MLOAD operation - loads word from memory at the specified offset
 pub fn opMload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

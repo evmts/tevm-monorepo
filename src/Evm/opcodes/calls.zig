@@ -1476,7 +1476,7 @@ pub fn callGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: 
 }
 
 /// Calculate gas cost for create operations
-pub fn createGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
+pub fn createGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, _: *Memory, requested_size: u64) error{OutOfGas}!u64 {
     _ = requested_size;
     
     // Start with the base gas cost for CREATE

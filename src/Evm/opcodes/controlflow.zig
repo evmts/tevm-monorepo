@@ -341,7 +341,7 @@ pub fn opPc(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
                 
                 // Look at surrounding code to check if we're part of a pattern like PUSH, PC, ADD, JUMP
                 // which is a common pattern for dynamic jumps in compiled contracts
-                if (pc > 0 && pc + 2 < frame.contract.code.len) {
+                if (pc > 0 and pc + 2 < frame.contract.code.len) {
                     const prev_op = frame.contract.code[pc-1];
                     const next_op = frame.contract.code[pc+1];
                     const next_next_op = frame.contract.code[pc+2];

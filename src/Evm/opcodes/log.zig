@@ -68,7 +68,8 @@ fn opLog(pc: usize, interpreter: *Interpreter, frame: *Frame, n_topics: u8) Exec
     }
     
     // Get data from memory
-    const data = frame.memory.data()[mem_offset..mem_offset + mem_size];
+    // We would use this data in a complete implementation
+    _ = frame.memory.data()[mem_offset..mem_offset + mem_size];
     
     // In a complete implementation, we would:
     // 1. Create a log record with address, topics, and data
@@ -104,8 +105,7 @@ fn logMemorySize(stack: *Stack) struct { size: u64, overflow: bool } {
 }
 
 /// Dynamic gas calculation for LOG operations
-pub fn logDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64, topics: u8) error{OutOfGas}!u64 {
-    _ = interpreter;
+pub fn logDynamicGas(_: *Interpreter, _: *Frame, stack: *Stack, memory: *Memory, requested_size: u64, topics: u8) error{OutOfGas}!u64 {
     
     // We need at least 2 + topics items on the stack
     if (stack.size < 2 + topics) {

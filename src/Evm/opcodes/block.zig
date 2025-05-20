@@ -23,7 +23,7 @@ pub fn opBlockhash(pc: usize, interpreter: *Interpreter, frame: *Frame) Executio
 
 /// COINBASE operation - Get the block's beneficiary address
 /// Note: EIP-3651 makes COINBASE always warm for EIP-2929 gas metering
-pub fn opCoinbase(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+pub fn opCoinbase(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
     // In a real implementation, we would set the actual COINBASE address

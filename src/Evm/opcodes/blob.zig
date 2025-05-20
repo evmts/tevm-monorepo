@@ -95,8 +95,7 @@ pub fn opMcopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Check memory bounds
-    if (mem_source + mem_length > frame.memory.data().len || 
-        mem_dest + mem_length > frame.memory.data().len) {
+    if ((mem_source + mem_length > frame.memory.data().len) or (mem_dest + mem_length > frame.memory.data().len)) {
         return ExecutionError.OutOfOffset;
     }
     

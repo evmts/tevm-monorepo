@@ -7,296 +7,99 @@ const StateManager = @import("../../StateManager/StateManager.zig").StateManager
 const B256 = @import("../../Types/B256.ts");
 const Stack = @import("../Stack.zig").Stack;
 const Memory = @import("../Memory.zig").Memory;
-// Built-in u256 type
-const u256 = u256;
+// We don't need to define this since u256 is now a built-in type in Zig
 
 /// SLOAD operation - loads a value from storage at the specified key
 pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
-    // Check for read-only mode
-    if (interpreter.readOnly) {
-        return ExecutionError.WriteProtection;
-    }
-    
-    // We need at least 1 item on the stack (the key)
+    // Check stack underflow
     if (frame.stack.size < 1) {
         return ExecutionError.StackUnderflow;
     }
     
-    // Pop the key from the stack
+    // Pop key from stack
     const key = try frame.stack.pop();
     
-    // EIP-2929: Check if this is a cold access and apply appropriate gas costs
-    const is_cold_storage = frame.contract.isStorageSlotCold(key);
+    // Get EVM from interpreter
+    const evm = interpreter.evm;
     
-    // Calculate EIP-2929 gas cost
-    const gas_cost = if (is_cold_storage)
-        JumpTable.ColdSloadCost  // Cold access (2100 gas)
-    else
-        JumpTable.WarmStorageReadCost;  // Warm access (100 gas)
+    // Get state manager from EVM
+    const state_manager = evm.getStateManager() orelse {
+        return ExecutionError.StaticStateChange;
+    };
     
-    // Check if we have enough gas
+    // Get contract address
+    const address = frame.contract.address;
+    
+    // Check if this is a cold or warm access
+    const is_warm = state_manager.isWarmStorage(address, key);
+    const cold_access_cost: u64 = if (is_warm) 0 else JumpTable.ColdSloadCost;
+    
+    // Calculate gas cost (base + cold access if applicable)
+    const gas_cost = JumpTable.WarmStorageReadCost + cold_access_cost;
+    
+    // Charge gas
     if (frame.contract.gas < gas_cost) {
         return ExecutionError.OutOfGas;
     }
+    frame.contract.gas -= gas_cost;
     
-    // Use gas
-    frame.contract.useGas(gas_cost);
+    // Mark the storage slot as warm for future accesses
+    state_manager.markStorageWarm(address, key);
     
-    // Mark the slot as warm for future accesses
-    _ = frame.contract.markStorageSlotWarm(key);
+    // Get value from state
+    const value = try state_manager.getStorage(address, key);
     
-    // Convert key to B256 format
-    var key_bytes: [32]u8 = undefined;
-    
-    // Convert u256 to bytes in big-endian format
-    var temp_key = key;
-    
-    // Fill the byte array from right to left (big-endian)
-    var i: isize = 31;
-    while (i >= 0) : (i -= 1) {
-        key_bytes[@intCast(i)] = @truncate(temp_key);
-        temp_key >>= 8;
-    }
-    
-    const key_b256 = B256.fromBytes(&key_bytes);
-    
-    // Get account address
-    const addr = frame.address();
-    
-    // Also mark the contract account as warm for EIP-2929
-    _ = frame.contract.markAccountWarm();
-    
-    // Get state manager from interpreter
-    const evm = interpreter.evm;
-    const state_manager = evm.state_manager orelse return ExecutionError.InvalidStateAccess;
-    
-    // Get value from storage
-    const value_bytes = try state_manager.getContractStorage(addr, key_b256);
-    
-    // Convert bytes to u256
-    var value: u256 = 0;
-    
-    // Convert storage bytes to u256 (big-endian format)
-    for (value_bytes) |byte| {
-        value = (value << 8) | byte;
-    }
-    
-    // Push the result onto the stack
+    // Push value to stack
     try frame.stack.push(value);
     
     return "";
 }
 
-/// SSTORE operation - stores a value to storage at the specified key
-/// Implements EIP-2200 Istanbul net gas metering and EIP-2929 cold/warm access
+/// SSTORE operation - stores a value at the specified key in storage
 pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
     
-    // Check for read-only mode
+    // Check if we're in a static (read-only) context
     if (interpreter.readOnly) {
         return ExecutionError.StaticStateChange;
     }
     
-    // We need at least 2 items on the stack (key and value)
+    // Check stack underflow
     if (frame.stack.size < 2) {
         return ExecutionError.StackUnderflow;
     }
     
-    // Minimal gas check to fail fast
-    if (frame.contract.gas < JumpTable.SstoreSentryGas) {
-        return ExecutionError.OutOfGas;
-    }
+    // Pop value and key from stack
+    const value = try frame.stack.pop();
+    const key = try frame.stack.pop();
     
-    // Pop value and key from the stack
-    // Note: Stack pops in reverse order (LIFO)
-    const value = try frame.stack.pop();  // Second item, the value to store
-    const key = try frame.stack.pop();    // First item, the storage key
-    
-    // EIP-2929: Check if this is a cold access
-    const is_cold_storage = frame.contract.isStorageSlotCold(key);
-    
-    // Convert key to B256 format
-    var key_bytes: [32]u8 = undefined;
-    
-    // Convert u256 to bytes in big-endian format
-    var temp_key = key;
-    
-    // Fill the byte array from right to left (big-endian)
-    var i: isize = 31;
-    while (i >= 0) : (i -= 1) {
-        key_bytes[@intCast(i)] = @truncate(temp_key);
-        temp_key >>= 8;
-    }
-    
-    const key_b256 = B256.fromBytes(&key_bytes);
-    
-    // Get account address
-    const addr = frame.address();
-    
-    // Mark account as warm (may already be warm)
-    _ = frame.contract.markAccountWarm();
-    
-    // Get state manager from interpreter
+    // Get EVM
     const evm = interpreter.evm;
-    const state_manager = evm.state_manager orelse return ExecutionError.InvalidStateAccess;
-    
-    // Load current value to calculate gas cost
-    const current_value_bytes = try state_manager.getContractStorage(addr, key_b256);
-    
-    // Convert current value bytes to u256
-    var current_value: u256 = 0;
-    for (current_value_bytes) |byte| {
-        current_value = (current_value << 8) | byte;
-    }
-    
-    // Track original value for EIP-2200 gas calculations
-    // This ensures we track the value at the start of the transaction
-    frame.contract.trackOriginalStorageValue(key, current_value);
-    
-    // Get the original value (from the start of the transaction)
-    const original_value = frame.contract.getOriginalStorageValue(key, current_value);
-    
-    // Calculate gas cost based on EIP-2200 (Istanbul net gas metering)
-    var gas_cost: u64 = 0;
-    
-    if (value == current_value) {
-        // No change, minimal gas (warm access)
-        gas_cost = JumpTable.WarmStorageReadCost; // 100 gas per EIP-2929
-    } else {
-        // Need to calculate full gas cost based on value changes
-        if (current_value == 0) {
-            // Setting a zero slot to non-zero
-            gas_cost = JumpTable.SstoreSetGas;
-        } else {
-            if (value == 0) {
-                // Clearing a slot (refund may apply)
-                gas_cost = JumpTable.SstoreClearGas;
-                
-                // EIP-2200: Add refund for clearing storage
-                frame.contract.addGasRefund(JumpTable.SstoreRefundGas);
-            } else {
-                // Modifying an existing non-zero value
-                gas_cost = JumpTable.SstoreResetGas;
-                
-                // EIP-2200: If we're replacing a non-zero value with another non-zero value
-                // we need to account for potential storage refunds
-                if (original_value != 0) {
-                    // If we're restoring to the original value, refund some gas
-                    if (original_value == value and current_value != value) {
-                        // Refund for restoring original value
-                        frame.contract.addGasRefund(JumpTable.SstoreResetGas - JumpTable.SstoreClearGas);
-                    } else if (original_value == current_value and value == 0) {
-                        // We're clearing a slot that was also cleared during this execution
-                        // This means we need to remove the previous refund given for clearing
-                        // (avoiding double refunds)
-                        frame.contract.subGasRefund(JumpTable.SstoreRefundGas);
-                    }
-                }
-            }
-        }
-    }
-    
-    // Add EIP-2929 cold access cost if needed
-    if (is_cold_storage) {
-        gas_cost += JumpTable.ColdSloadCost - JumpTable.WarmStorageReadCost; // 2100 - 100 = 2000
-    }
-    
-    // Check if we have enough gas
-    if (frame.contract.gas < gas_cost) {
-        return ExecutionError.OutOfGas;
-    }
-    
-    // Use gas
-    frame.contract.useGas(gas_cost);
-    
-    // Mark the storage slot as warm for future accesses
-    _ = frame.contract.markStorageSlotWarm(key);
-    
-    // Convert value to bytes for storage
-    var value_bytes: [32]u8 = undefined;
-    
-    // Convert u256 to bytes in big-endian format
-    var temp_value = value;
-    
-    // Fill the byte array from right to left (big-endian)
-    i = 31;
-    while (i >= 0) : (i -= 1) {
-        value_bytes[@intCast(i)] = @truncate(temp_value);
-        temp_value >>= 8;
-    }
-    
-    // Store the value
-    try state_manager.putContractStorage(addr, key_b256, &value_bytes);
-    
-    return "";
-}
-
-/// Calculate dynamic gas for SSTORE operation
-/// Implements EIP-2200 Istanbul net gas metering and EIP-2929 cold/warm storage access
-pub fn sstoreDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
-    // Parameters needed in this function
-    _ = memory;
-    _ = requested_size;
-    
-    // We need at least 2 items on stack for SSTORE
-    if (stack.size < 2) {
-        return error.OutOfGas;
-    }
-    
-    // Minimum gas requirement for SSTORE
-    if (frame.contract.gas < JumpTable.SstoreSentryGas) {
-        return error.OutOfGas;
-    }
-    
-    // Take a snapshot of the stack to avoid modifying it
-    const key = stack.data[stack.size - 2];      // 2nd from top is key
-    const value = stack.data[stack.size - 1];    // Top of stack is value
-    
-    // Get account address
-    const addr = frame.address();
-    
-    // Check cold access status for EIP-2929
-    // In gas calculation, we don't modify the access status, just check it
-    // The actual opcode execution will mark it warm 
-    const cold_access = frame.contract.isStorageSlotCold(key);
-    
-    // Additional cold access gas (EIP-2929)
-    var cold_access_cost: u64 = 0;
-    if (cold_access) {
-        cold_access_cost = JumpTable.ColdSloadCost - JumpTable.WarmStorageReadCost; // 2100 - 100 = 2000
-    }
     
     // Get state manager
-    const evm = interpreter.evm;
-    const state_manager = evm.state_manager orelse return error.OutOfGas;
+    const state_manager = evm.getStateManager() orelse {
+        return ExecutionError.StaticStateChange;
+    };
     
-    // Convert key to B256 format
-    var key_bytes: [32]u8 = undefined;
-    var temp_key = key;
-    var i: isize = 31;
-    while (i >= 0) : (i -= 1) {
-        key_bytes[@intCast(i)] = @truncate(temp_key);
-        temp_key >>= 8;
-    }
-    const key_b256 = B256.fromBytes(&key_bytes);
+    // Get contract address
+    const address = frame.contract.address;
     
-    // Get current value
-    const current_value_bytes = state_manager.getContractStorage(addr, key_b256) catch return error.OutOfGas;
+    // Get the current value from state
+    const current_value = try state_manager.getStorage(address, key);
     
-    // Convert to u256
-    var current_value: u256 = 0;
-    for (current_value_bytes) |byte| {
-        current_value = (current_value << 8) | byte;
-    }
+    // Check if the slot is warm or cold for gas calculation
+    const is_warm = state_manager.isWarmStorage(address, key);
+    const cold_access_cost: u64 = if (is_warm) 0 else JumpTable.ColdSloadCost;
     
     // Track original value for EIP-2200 gas calculations
     // This ensures we track the value at the start of the transaction
     frame.contract.trackOriginalStorageValue(key, current_value);
     
     // Get the original value (from the start of the transaction)
-    const original_value = frame.contract.getOriginalStorageValue(key, current_value);
+    // Currently commented out as it's not fully used yet, will be used for EIP-2200
+    // const original_value = frame.contract.getOriginalStorageValue(key, current_value);
     
     // Calculate gas cost based on EIP-2200 (Istanbul net gas metering)
     var gas_cost: u64 = 0;
@@ -329,58 +132,170 @@ pub fn sstoreDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack,
     // Add the cold access cost from EIP-2929 if applicable
     gas_cost += cold_access_cost;
     
-    return gas_cost;
-}
-
-/// Register storage opcodes in the jump table
-pub fn registerStorageOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
-    // SLOAD (0x54)
-    const sload_op = try allocator.create(JumpTable.Operation);
-    sload_op.* = JumpTable.Operation{
-        .execute = opSload,
-        .constant_gas = 0, // We use dynamic gas costs based on warm/cold access
-        .dynamic_gas = sloadDynamicGas,
-        .min_stack = JumpTable.minStack(1, 1),
-        .max_stack = JumpTable.maxStack(1, 1),
-    };
-    jump_table.table[0x54] = sload_op;
+    // Charge gas
+    if (frame.contract.gas < gas_cost) {
+        return ExecutionError.OutOfGas;
+    }
+    frame.contract.gas -= gas_cost;
     
-    // SSTORE (0x55)
-    const sstore_op = try allocator.create(JumpTable.Operation);
-    sstore_op.* = JumpTable.Operation{
-        .execute = opSstore,
-        .constant_gas = 0, // All gas is calculated dynamically
-        .min_stack = JumpTable.minStack(2, 0),
-        .max_stack = JumpTable.maxStack(2, 0),
-        .dynamic_gas = sstoreDynamicGas,
-    };
-    jump_table.table[0x55] = sstore_op;
-}
-
-/// Calculate dynamic gas for SLOAD operation
-/// Implements EIP-2929 warm/cold storage access
-pub fn sloadDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack, memory: *Memory, requested_size: u64) error{OutOfGas}!u64 {
-    // Parameters needed in this function
-    _ = interpreter;
-    _ = memory;
-    _ = requested_size;
+    // Mark the storage slot as warm for future accesses
+    state_manager.markStorageWarm(address, key);
     
-    // We need at least 1 item on stack for SLOAD
-    if (stack.size < 1) {
-        return error.OutOfGas;
+    // Now handle storage refunds according to EIP-2200
+    
+    // Get the original value (from the start of the transaction)
+    const original_value = frame.contract.getOriginalStorageValue(key, current_value);
+    
+    // EIP-2200 refund logic
+    if (current_value != value) {
+        if (original_value != 0) {
+            // If we're restoring the original value (clearing a dirty slot)
+            if (original_value == value and current_value != value) {
+                // Refund for restoring original value
+                frame.contract.addGasRefund(JumpTable.SstoreResetGas - JumpTable.SstoreClearGas);
+            } else if (original_value == current_value and value == 0) {
+                // We're clearing a slot that was also cleared during this execution
+                // This means we need to remove the previous refund given for clearing
+                // (avoiding double refunds)
+                frame.contract.subGasRefund(JumpTable.SstoreRefundGas);
+            }
+        }
+        
+        // Standard refund for clearing a slot (2900 gas)
+        if (current_value != 0 and value == 0) {
+            frame.contract.addGasRefund(JumpTable.SstoreRefundGas);
+        }
     }
     
-    // Take a snapshot of the stack to avoid modifying it
-    const key = stack.data[stack.size - 1]; // Top of stack is the key
+    // Update the storage
+    try state_manager.putStorage(address, key, value);
     
-    // Check if this is a cold access
-    const is_cold_storage = frame.contract.isStorageSlotCold(key);
+    return "";
+}
+
+/// TLOAD operation - loads a value from transient storage at the specified key
+pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+    _ = pc;
     
-    // Calculate gas cost based on EIP-2929
-    const gas_cost = if (is_cold_storage)
-        JumpTable.ColdSloadCost  // Cold access (2100 gas)
-    else
-        JumpTable.WarmStorageReadCost;  // Warm access (100 gas)
+    // Check stack underflow
+    if (frame.stack.size < 1) {
+        return ExecutionError.StackUnderflow;
+    }
     
-    return gas_cost;
+    // Pop key from stack
+    const key = try frame.stack.pop();
+    
+    // Get EVM
+    const evm = interpreter.evm;
+    
+    // Get state manager
+    const state_manager = evm.getStateManager() orelse {
+        return ExecutionError.StaticStateChange;
+    };
+    
+    // Get contract address
+    const address = frame.contract.address;
+    
+    // Define gas cost
+    const gas_cost = @import("transient.zig").TLoadGas;
+    
+    // Charge gas
+    if (frame.contract.gas < gas_cost) {
+        return ExecutionError.OutOfGas;
+    }
+    frame.contract.gas -= gas_cost;
+    
+    // Get value from transient storage
+    const value = try state_manager.getTransientStorage(address, key);
+    
+    // Push value to stack
+    try frame.stack.push(value);
+    
+    return "";
+}
+
+/// TSTORE operation - stores a value at the specified key in transient storage
+pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+    _ = pc;
+    
+    // Check if we're in a static (read-only) context
+    if (interpreter.readOnly) {
+        return ExecutionError.StaticStateChange;
+    }
+    
+    // Check stack underflow
+    if (frame.stack.size < 2) {
+        return ExecutionError.StackUnderflow;
+    }
+    
+    // Pop value and key from stack
+    const value = try frame.stack.pop();
+    const key = try frame.stack.pop();
+    
+    // Get EVM
+    const evm = interpreter.evm;
+    
+    // Get state manager
+    const state_manager = evm.getStateManager() orelse {
+        return ExecutionError.StaticStateChange;
+    };
+    
+    // Get contract address
+    const address = frame.contract.address;
+    
+    // Define gas cost - EIP-1153: Transient Storage Opcodes
+    const gas_cost = @import("transient.zig").TStoreGas;
+    
+    // Charge gas
+    if (frame.contract.gas < gas_cost) {
+        return ExecutionError.OutOfGas;
+    }
+    frame.contract.gas -= gas_cost;
+    
+    // Update the transient storage
+    try state_manager.putTransientStorage(address, key, value);
+    
+    return "";
+}
+
+/// Get values from the stack and convert to storage slot
+fn getKeyFromStack(frame: *Frame) !u256 {
+    if (frame.stack.size < 1) {
+        return ExecutionError.StackUnderflow;
+    }
+    
+    return try frame.stack.peek(0);
+}
+
+/// Convert a 32-byte array to a u256 for storage key/value
+fn bytesToU256(bytes: []const u8) u256 {
+    var result: u256 = 0;
+    
+    // Process all available bytes (up to 32)
+    const len = @min(bytes.len, 32);
+    
+    for (0..len) |i| {
+        const byte = bytes[i];
+        result = (result << 8) | byte;
+    }
+    
+    return result;
+}
+
+/// Convert a u256 to a 32-byte array for storage operations
+fn u256ToBytes(allocator: std.mem.Allocator, value: u256) ![]u8 {
+    var bytes = try allocator.alloc(u8, 32);
+    // Initialize all bytes to zero
+    @memset(bytes, 0);
+    
+    var temp = value;
+    var i: usize = 31;
+    
+    // Fill in bytes from right to left (most significant first)
+    while (temp > 0 and i < 32) : (i -= 1) {
+        bytes[i] = @intCast(temp & 0xFF);
+        temp >>= 8;
+    }
+    
+    return bytes;
 }
