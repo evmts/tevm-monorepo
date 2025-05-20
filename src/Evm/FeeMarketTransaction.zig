@@ -3,7 +3,7 @@ const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 const FeeMarket = @import("FeeMarket.zig").FeeMarket;
-const Address = @import("Address");
+const Address = [20]u8; // Define directly to avoid import issues
 
 // Module logger will be initialized when functions are called
 fn getLogger() EvmLogger {
@@ -132,8 +132,8 @@ pub const FeeMarketTransaction = struct {
         // 4. Hash the public key and take the last 20 bytes as the address
         
         // For now, return a placeholder address
-        const addr_bytes = [_]u8{0} ** 20;
-        return Address{ .bytes = addr_bytes };
+        const addr_bytes: Address = [_]u8{0} ** 20;
+        return addr_bytes;
     }
     
     /// Calculate the effective gas price for this transaction
@@ -388,9 +388,9 @@ test "FeeMarketTransaction - basic functionality" {
     const allocator = testing.allocator;
     
     // Create a test transaction
-    var to_bytes = [_]u8{0} ** 20;
+    var to_bytes: Address = [_]u8{0} ** 20;
     to_bytes[19] = 1;
-    const to = Address{ .bytes = to_bytes };
+    const to = to_bytes;
     
     const data = [_]u8{ 0xAB, 0xCD, 0xEF };
     const access_list = [_]AccessListEntry{};
@@ -456,9 +456,9 @@ test "FeeMarketTransaction - error handling" {
     const allocator = testing.allocator;
     
     // Try to create a transaction with max_fee < max_priority_fee
-    var to_bytes = [_]u8{0} ** 20;
+    var to_bytes: Address = [_]u8{0} ** 20;
     to_bytes[19] = 1;
-    const to = Address{ .bytes = to_bytes };
+    const to = to_bytes;
     
     const data = [_]u8{ 0xAB, 0xCD, 0xEF };
     const access_list = [_]AccessListEntry{};

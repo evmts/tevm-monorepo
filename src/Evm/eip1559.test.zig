@@ -12,8 +12,8 @@ const JumpTable = @import("JumpTable.zig");
 const Evm = @import("evm.zig").Evm;
 const Address = @import("../Address/address.zig").Address;
 
-/// Test to verify that the BASEFEE opcode correctly works with EIP-1559
 test "EIP-1559 - BASEFEE opcode behavior" {
+    // Test to verify that the BASEFEE opcode correctly works with EIP-1559
     const testing = std.testing;
     const allocator = testing.allocator;
     
@@ -80,8 +80,8 @@ test "EIP-1559 - BASEFEE opcode behavior" {
     }
 }
 
-/// Test the EIP-1559 base fee adjustment algorithm
 test "EIP-1559 - Base fee adjustment algorithm" {
+    // Test the EIP-1559 base fee adjustment algorithm
     const testing = std.testing;
     
     // Test case 1: Empty block - base fee should not change
@@ -151,8 +151,8 @@ test "EIP-1559 - Base fee adjustment algorithm" {
     }
 }
 
-/// Test the effective gas price calculation for EIP-1559 transactions
 test "EIP-1559 - Effective gas price calculation" {
+    // Test the effective gas price calculation for EIP-1559 transactions
     const testing = std.testing;
     
     // Test case 1: Standard case
@@ -201,8 +201,8 @@ test "EIP-1559 - Effective gas price calculation" {
     }
 }
 
-/// Test the gas target calculation for EIP-1559
 test "EIP-1559 - Gas target calculation" {
+    // Test the gas target calculation for EIP-1559
     const testing = std.testing;
     
     // Test standard block gas limit

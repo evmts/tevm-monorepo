@@ -428,6 +428,66 @@ test "FeeMarket - nextBaseFee calculation" {
         // Base fee should never go below minimum
         try testing.expectEqual(FeeMarket.MIN_BASE_FEE, next_fee);
     }
+    
+    // Test with maximum base fee and increasing usage
+    {
+        const parent_base_fee = std.math.maxInt(u64) - 1000;
+        const parent_gas_target = 15_000_000;
+        const parent_gas_used = parent_gas_target * 2; // 100% above target
+        
+        const next_fee = FeeMarket.nextBaseFee(parent_base_fee, parent_gas_used, parent_gas_target);
+        
+        // Since we can't increase past maxInt(u64), it should revert to parent fee
+        try testing.expectEqual(parent_base_fee, next_fee);
+    }
+    
+    // Test with small gas target (to test rounding issues)
+    {
+        const parent_base_fee = 1_000_000_000; // 1 gwei
+        const parent_gas_target = 100;
+        const parent_gas_used = 150; // 50% above target
+        
+        const next_fee = FeeMarket.nextBaseFee(parent_base_fee, parent_gas_used, parent_gas_target);
+        
+        // Base fee should increase
+        try testing.expect(next_fee > parent_base_fee);
+    }
+    
+    // Test with zero gas target (should not happen in practice)
+    {
+        const parent_base_fee = 1_000_000_000; // 1 gwei
+        const parent_gas_target = 0;
+        const parent_gas_used = 100;
+        
+        const next_fee = FeeMarket.nextBaseFee(parent_base_fee, parent_gas_used, parent_gas_target);
+        
+        // Should handle division by zero gracefully and return the parent fee
+        try testing.expectEqual(parent_base_fee, next_fee);
+    }
+    
+    // Test with parent gas usage > parent gas target by a tiny amount
+    {
+        const parent_base_fee = 1_000_000_000; // 1 gwei
+        const parent_gas_target = 15_000_000;
+        const parent_gas_used = parent_gas_target + 1; // Just 1 gas unit above target
+        
+        const next_fee = FeeMarket.nextBaseFee(parent_base_fee, parent_gas_used, parent_gas_target);
+        
+        // Base fee should increase slightly but possibly by just 1 wei due to integer division
+        try testing.expect(next_fee >= parent_base_fee);
+    }
+    
+    // Test with parent gas usage < parent gas target by a tiny amount
+    {
+        const parent_base_fee = 1_000_000_000; // 1 gwei
+        const parent_gas_target = 15_000_000;
+        const parent_gas_used = parent_gas_target - 1; // Just 1 gas unit below target
+        
+        const next_fee = FeeMarket.nextBaseFee(parent_base_fee, parent_gas_used, parent_gas_target);
+        
+        // Base fee should decrease slightly but possibly by just 1 wei due to integer division
+        try testing.expect(next_fee <= parent_base_fee);
+    }
 }
 
 test "FeeMarket - getEffectiveGasPrice calculation" {
@@ -490,6 +550,80 @@ test "FeeMarket - getEffectiveGasPrice calculation" {
         
         // Miner fee should be zero
         try testing.expectEqual(@as(u64, 0), result.miner_fee);
+    }
+    
+    // Test with base fee equal to max fee
+    {
+        const base_fee = 1_000_000_000; // 1 gwei
+        const max_fee = 1_000_000_000; // 1 gwei
+        const max_priority_fee = 500_000_000; // 0.5 gwei
+        
+        const result = FeeMarket.getEffectiveGasPrice(base_fee, max_fee, max_priority_fee);
+        
+        // Effective gas price should be max fee (which equals base fee)
+        try testing.expectEqual(max_fee, result.effective_gas_price);
+        
+        // Miner fee should be zero since nothing is left after base fee
+        try testing.expectEqual(@as(u64, 0), result.miner_fee);
+    }
+    
+    // Test with max priority fee higher than max fee (not possible in practice but test boundary)
+    {
+        const base_fee = 1_000_000_000; // 1 gwei
+        const max_fee = 1_500_000_000; // 1.5 gwei
+        const max_priority_fee = 2_000_000_000; // 2 gwei
+        
+        const result = FeeMarket.getEffectiveGasPrice(base_fee, max_fee, max_priority_fee);
+        
+        // Effective gas price should be max fee
+        try testing.expectEqual(max_fee, result.effective_gas_price);
+        
+        // Miner fee should be limited to what's left after base fee
+        try testing.expectEqual(@as(u64, 500_000_000), result.miner_fee);
+    }
+    
+    // Test with zero base fee (shouldn't happen in practice due to MIN_BASE_FEE)
+    {
+        const base_fee = 0; // 0 gwei
+        const max_fee = 1_000_000_000; // 1 gwei
+        const max_priority_fee = 500_000_000; // 0.5 gwei
+        
+        const result = FeeMarket.getEffectiveGasPrice(base_fee, max_fee, max_priority_fee);
+        
+        // Effective gas price should be base fee + priority fee
+        try testing.expectEqual(@as(u64, 500_000_000), result.effective_gas_price);
+        
+        // Miner fee should be the priority fee
+        try testing.expectEqual(max_priority_fee, result.miner_fee);
+    }
+    
+    // Test with all zeros (edge case)
+    {
+        const base_fee = 0;
+        const max_fee = 0;
+        const max_priority_fee = 0;
+        
+        const result = FeeMarket.getEffectiveGasPrice(base_fee, max_fee, max_priority_fee);
+        
+        // Both effective gas price and miner fee should be zero
+        try testing.expectEqual(@as(u64, 0), result.effective_gas_price);
+        try testing.expectEqual(@as(u64, 0), result.miner_fee);
+    }
+    
+    // Test with maximum values (edge case)
+    {
+        const base_fee = std.math.maxInt(u64) / 2;
+        const max_fee = std.math.maxInt(u64);
+        const max_priority_fee = std.math.maxInt(u64) / 2;
+        
+        const result = FeeMarket.getEffectiveGasPrice(base_fee, max_fee, max_priority_fee);
+        
+        // Effective gas price should be base fee + priority fee without overflow
+        const expected_effective_gas_price = base_fee + max_priority_fee;
+        try testing.expectEqual(expected_effective_gas_price, result.effective_gas_price);
+        
+        // Miner fee should be the full priority fee
+        try testing.expectEqual(max_priority_fee, result.miner_fee);
     }
 }
 
