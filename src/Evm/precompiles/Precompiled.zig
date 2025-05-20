@@ -185,7 +185,8 @@ fn modexp(input: []const u8, allocator: std.mem.Allocator) !?[]const u8 {
     
     // Handle zero modulus length specially
     if (mod_len_u64 == 0) {
-        return allocator.alloc(u8, 0);
+        var result = try allocator.alloc(u8, 0);
+        return result;
     }
     
     // Validate input length to ensure we don't read past input buffer
@@ -223,7 +224,7 @@ fn modexpGasCost(input: []const u8) u64 {
     // Cap to reasonable values to prevent overflow
     const max_safe_len: u64 = 1024 * 1024; // 1MB max
     const base_len_u64: u64 = @min(@as(u64, @truncate(base_len)), max_safe_len);
-    const exp_len_u64: u64 = @min(@as(u64, @truncate(exp_len)), max_safe_len); 
+    _ = @min(@as(u64, @truncate(exp_len)), max_safe_len); // Used in full implementation 
     const mod_len_u64: u64 = @min(@as(u64, @truncate(mod_len)), max_safe_len);
     
     // For a full implementation, would calculate proper gas cost

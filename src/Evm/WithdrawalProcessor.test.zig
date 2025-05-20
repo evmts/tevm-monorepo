@@ -17,7 +17,7 @@ const MockStateManager = struct {
     balances: std.StringHashMap(u128),
     
     fn init(allocator: std.mem.Allocator) !*MockStateManager {
-        var self = try allocator.create(MockStateManager);
+        const self = try allocator.create(MockStateManager);
         self.* = .{
             .balances = std.StringHashMap(u128).init(allocator),
         };
@@ -131,7 +131,7 @@ test "Block withdrawal processing with Shanghai rules" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @ptrCast(*StateManager, state_manager),
+        @ptrCast(*StateManager, @constCast(state_manager)),
         shanghai_rules
     );
     
@@ -181,7 +181,7 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     
     // Process withdrawals in the block - should fail
     const result = block.processWithdrawals(
-        @ptrCast(*StateManager, state_manager),
+        @ptrCast(*StateManager, @constCast(state_manager)),
         london_rules
     );
     
@@ -268,7 +268,7 @@ test "Multiple withdrawals for same account" {
     
     // Process withdrawals in the block
     try block.processWithdrawals(
-        @ptrCast(*StateManager, state_manager),
+        @ptrCast(*StateManager, @constCast(state_manager)),
         shanghai_rules
     );
     

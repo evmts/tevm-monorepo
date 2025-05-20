@@ -202,6 +202,9 @@ pub const Frame = struct {
         
         self.memory.allocator.free(self.stack.data);
         self.memory.deinit();
+        
+        // Free the logger
+        self.memory.allocator.destroy(self.logger);
     }
     
     pub fn setReturnData(self: *Frame, data: []u8) !void {

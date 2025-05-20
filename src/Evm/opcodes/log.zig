@@ -1,5 +1,5 @@
 const std = @import("std");
-const pkg = @import("package.zig");
+const pkg = @import("package_test.zig");
 const Interpreter = pkg.Interpreter;
 const Frame = pkg.Frame;
 const ExecutionError = pkg.ExecutionError;
