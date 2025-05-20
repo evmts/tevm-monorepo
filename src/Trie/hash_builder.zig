@@ -126,8 +126,16 @@ pub const HashBuilder = struct {
         const hash_str = try bytesToHexString(self.allocator, &hash);
         errdefer self.allocator.free(hash_str);
         
-        // Put the node in the map
-        try self.nodes.put(hash_str, result);
+        // Check if this node hash already exists in our map
+        if (self.nodes.contains(hash_str)) {
+            // This node already exists in our map, so we need to free the result
+            // to avoid a memory leak
+            result.deinit(self.allocator);
+            self.allocator.free(hash_str);
+        } else {
+            // Put the node in the map
+            try self.nodes.put(hash_str, result);
+        }
         
         // Update the root hash only after everything succeeds
         self.root_hash = hash;

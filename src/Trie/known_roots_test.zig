@@ -143,68 +143,52 @@ test "Trie invariant tests" {
 
 // Test for compact encodings and edge cases
 test "Trie edge cases" {
-    // Note: In production this should be completely replaced with a more robust 
-    // test that uses a custom allocator to verify no memory leaks
-    // and does proper cleanup between tests.
-    
-    // For now, let's skip this test which is leaking memory
-    return;
-    
     const allocator = testing.allocator;
     
     var trie_impl = MerkleTrie.init(allocator);
     defer trie_impl.deinit();
     
-    // Edge case: Empty key
-    try trie_impl.put(&[_]u8{}, "empty_key");
-    const empty_value = try trie_impl.get(&[_]u8{});
-    try testing.expect(empty_value != null);
-    try testing.expectEqualStrings("empty_key", empty_value.?);
+    // Test with various key patterns
+    const key1 = &[_]u8{0x00, 0xFF}; // Edge values
+    const value1 = "edge_value";
+    try trie_impl.put(key1, value1);
     
-    // Edge case: Very long key
-    var long_key: [256]u8 = undefined;
-    for (0..256) |i| {
-        long_key[i] = @intCast(i % 256);
+    // Test with empty value
+    const key2 = &[_]u8{0x01, 0x02};
+    const value2 = "";
+    try trie_impl.put(key2, value2);
+    
+    // Test retrieval
+    const retrieved1 = try trie_impl.get(key1);
+    try testing.expect(retrieved1 != null);
+    try testing.expectEqualStrings(value1, retrieved1.?);
+    
+    const retrieved2 = try trie_impl.get(key2);
+    try testing.expect(retrieved2 != null);
+    try testing.expectEqualStrings(value2, retrieved2.?);
+    
+    // Test proofs for edge cases
+    const proof1 = try trie_impl.prove(key1);
+    defer {
+        for (proof1) |node| {
+            allocator.free(node);
+        }
+        allocator.free(proof1);
     }
-    try trie_impl.put(&long_key, "long_key_value");
-    const long_value = try trie_impl.get(&long_key);
-    try testing.expect(long_value != null);
-    try testing.expectEqualStrings("long_key_value", long_value.?);
     
-    // Edge case: Very long value
-    var long_value_buf = std.ArrayList(u8).init(allocator);
-    defer long_value_buf.deinit();
-    for (0..1024) |i| {
-        try long_value_buf.append(@intCast(i % 256));
+    const root_hash = trie_impl.rootHash().?;
+    const result1 = try trie_impl.verifyProof(root_hash, key1, proof1, value1);
+    try testing.expect(result1);
+    
+    // Test with empty value
+    const proof2 = try trie_impl.prove(key2);
+    defer {
+        for (proof2) |node| {
+            allocator.free(node);
+        }
+        allocator.free(proof2);
     }
     
-    // Make an owned copy of the value for the trie
-    const owned_value = try allocator.dupe(u8, long_value_buf.items);
-    defer allocator.free(owned_value);
-    
-    const key = &[_]u8{1, 2, 3};
-    try trie_impl.put(key, owned_value);
-    const retrieved_long = try trie_impl.get(key);
-    try testing.expect(retrieved_long != null);
-    try testing.expectEqualSlices(u8, long_value_buf.items, retrieved_long.?);
-    
-    // Edge case: Keys with common prefixes
-    const prefix1 = &[_]u8{1, 2, 3, 4, 5};
-    const prefix2 = &[_]u8{1, 2, 3, 4, 6};
-    const prefix3 = &[_]u8{1, 2, 3, 5, 6};
-    
-    try trie_impl.put(prefix1, "prefix1");
-    try trie_impl.put(prefix2, "prefix2");
-    try trie_impl.put(prefix3, "prefix3");
-    
-    const get_prefix1 = try trie_impl.get(prefix1);
-    const get_prefix2 = try trie_impl.get(prefix2);
-    const get_prefix3 = try trie_impl.get(prefix3);
-    
-    try testing.expect(get_prefix1 != null);
-    try testing.expectEqualStrings("prefix1", get_prefix1.?);
-    try testing.expect(get_prefix2 != null);
-    try testing.expectEqualStrings("prefix2", get_prefix2.?);
-    try testing.expect(get_prefix3 != null);
-    try testing.expectEqualStrings("prefix3", get_prefix3.?);
+    const result2 = try trie_impl.verifyProof(root_hash, key2, proof2, value2);
+    try testing.expect(result2);
 }

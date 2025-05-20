@@ -39,21 +39,34 @@ pub const ProofNodes = struct {
 
     /// Add a node to the proof
     pub fn addNode(self: *ProofNodes, hash: [32]u8, node_data: []const u8) !void {
-        const hash_str = try bytesToHexString(self.allocator, &hash);
-        errdefer self.allocator.free(hash_str);
+        // Use an array on stack for converting to hex
+        var hex_buf: [64]u8 = undefined;
+        const hex_chars = "0123456789abcdef";
+        
+        // Convert hash to hex string directly without allocation
+        for (hash, 0..) |byte, i| {
+            hex_buf[i * 2] = hex_chars[byte >> 4];
+            hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
+        }
+        
+        // Use the fixed-length buffer as key
+        const hash_str = hex_buf[0..];
 
         // Check if already exists
         if (self.nodes.contains(hash_str)) {
-            self.allocator.free(hash_str);
             return;
         }
 
+        // Only allocate the key when we're sure we need to store it
+        const key_copy = try self.allocator.dupe(u8, hash_str);
+        errdefer self.allocator.free(key_copy);
+        
         // Copy the node data
         const data_copy = try self.allocator.dupe(u8, node_data);
         errdefer self.allocator.free(data_copy);
 
         // Store the node
-        try self.nodes.put(hash_str, data_copy);
+        try self.nodes.put(key_copy, data_copy);
     }
 
     /// Convert to a list of RLP-encoded nodes for external use
@@ -87,9 +100,18 @@ pub const ProofNodes = struct {
         const nibbles = try trie.keyToNibbles(allocator, key);
         defer allocator.free(nibbles);
 
-        // Get root node
-        const root_hash_str = try bytesToHexString(allocator, &root_hash);
-        defer allocator.free(root_hash_str);
+        // Use a stack buffer for the hex string
+        var hex_buf: [64]u8 = undefined;
+        const hex_chars = "0123456789abcdef";
+        
+        // Convert hash to hex string directly
+        for (root_hash, 0..) |byte, i| {
+            hex_buf[i * 2] = hex_chars[byte >> 4];
+            hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
+        }
+        
+        // Use the fixed-length buffer as key
+        const root_hash_str = hex_buf[0..];
 
         const root_node_data = self.nodes.get(root_hash_str) orelse {
             return ProofError.InvalidRootHash;
@@ -192,9 +214,18 @@ pub const ProofNodes = struct {
                                         var hash_buf: [32]u8 = undefined;
                                         @memcpy(&hash_buf, next_hash);
 
-                                        // Get the next node
-                                        const hash_str = try bytesToHexString(allocator, &hash_buf);
-                                        defer allocator.free(hash_str);
+                                        // Use a stack buffer for the hex string
+                                        var hex_buf: [64]u8 = undefined;
+                                        const hex_chars = "0123456789abcdef";
+                                        
+                                        // Convert hash to hex string directly
+                                        for (hash_buf, 0..) |byte, i| {
+                                            hex_buf[i * 2] = hex_chars[byte >> 4];
+                                            hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
+                                        }
+                                        
+                                        // Use the fixed-length buffer as key
+                                        const hash_str = hex_buf[0..];
 
                                         const next_node_data = self.nodes.get(hash_str) orelse {
                                             return ProofError.MissingNode;
@@ -272,9 +303,18 @@ pub const ProofNodes = struct {
                                     var hash_buf: [32]u8 = undefined;
                                     @memcpy(&hash_buf, next);
 
-                                    // Get the next node
-                                    const hash_str = try bytesToHexString(allocator, &hash_buf);
-                                    defer allocator.free(hash_str);
+                                    // Use a stack buffer for the hex string
+                                    var hex_buf: [64]u8 = undefined;
+                                    const hex_chars = "0123456789abcdef";
+                                    
+                                    // Convert hash to hex string directly
+                                    for (hash_buf, 0..) |byte, i| {
+                                        hex_buf[i * 2] = hex_chars[byte >> 4];
+                                        hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
+                                    }
+                                    
+                                    // Use the fixed-length buffer as key
+                                    const hash_str = hex_buf[0..];
 
                                     const next_node_data = self.nodes.get(hash_str) orelse {
                                         return ProofError.MissingNode;
@@ -367,16 +407,18 @@ pub const ProofRetainer = struct {
             return false; // Path doesn't match key prefix, not relevant
         }
 
-        // This node is on the path, encode and collect it
+        // This node is on the path, encode it once
         const encoded = try node.encode(self.allocator);
-        defer self.allocator.free(encoded);
-
+        
         // Calculate the node hash
         var hash: [32]u8 = undefined;
         std.crypto.hash.sha3.Keccak256.hash(encoded, &hash, .{});
 
-        // Add to proof
+        // Add to proof - addNode will make its own copy
         try self.proof.addNode(hash, encoded);
+        
+        // Free the temporary encoded data since addNode makes a copy
+        self.allocator.free(encoded);
         return true;
     }
 
@@ -386,19 +428,8 @@ pub const ProofRetainer = struct {
     }
 };
 
-// Helper function - Duplicated from hash_builder.zig for modularity
-fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
-    const hex_chars = "0123456789abcdef";
-    const hex = try allocator.alloc(u8, bytes.len * 2);
-    errdefer allocator.free(hex);
-    
-    for (bytes, 0..) |byte, i| {
-        hex[i * 2] = hex_chars[byte >> 4];
-        hex[i * 2 + 1] = hex_chars[byte & 0x0F];
-    }
-    
-    return hex;
-}
+// Note: bytesToHexString was removed and replaced with stack-based buffer solutions
+// at each call site to avoid memory leaks
 
 // Tests
 
