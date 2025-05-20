@@ -1,9 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import directly from modules
-// Use package-based imports
-const EvmModule = @import("Evm");
+// Import directly from modules with relative paths
+const EvmModule = @import("../evm.zig");
 const Contract = EvmModule.Contract;
 const createContract = EvmModule.createContract;
 const Evm = EvmModule.Evm;
@@ -16,9 +15,9 @@ const createLogger = EvmModule.createLogger;
 const createScopedLogger = EvmModule.createScopedLogger;
 const debugOnly = EvmModule.debugOnly;
 
-const Address = @import("Address").Address;
-const StateManager = @import("StateManager").StateManager;
-const StateOptions = @import("StateManager").StateOptions;
+const Address = @import("../../Address/address.zig").Address;
+const StateManager = @import("../State/StateManager.zig").StateManager;
+const StateOptions = @import("../State/StateManager.zig").StateOptions;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;

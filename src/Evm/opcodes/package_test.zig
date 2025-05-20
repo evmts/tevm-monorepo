@@ -1,5 +1,6 @@
 // Simplified package module for tests only
 // This uses simplified types that don't rely on external dependencies
+// This approach allows tests to run without global module imports
 
 const std = @import("std");
 
@@ -10,12 +11,16 @@ pub const ExecutionError = error{
     InvalidJump,
     InvalidOpcode,
     OutOfGas,
+    OutOfOffset,
     STOP,
     REVERT,
     WriteProtection,
     StaticStateChange,
     INVALID,
 };
+
+// Alias for ExecutionError to match naming in crypto.test.zig
+pub const InterpreterError = ExecutionError;
 
 // Define a u256 type for testing - matches what's used in math2.test.zig
 pub const @"u256" = u64;

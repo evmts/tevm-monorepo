@@ -30,7 +30,7 @@ pub fn build(b: *std.Build) void {
         
         const test_exe = b.addTest(.{
             .name = test_name,
-            .root_source_file = .{ .path = test_file },
+            .root_source_file = b.path(test_file),
             .target = target,
             .optimize = optimize,
         });
@@ -54,7 +54,7 @@ pub fn build(b: *std.Build) void {
     // Test for the math2 submodule tests
     const test_math2 = b.addTest(.{
         .name = "math2-submodule-test",
-        .root_source_file = .{ .path = "tests/math2_test.zig" },
+        .root_source_file = b.path("tests/math2_test.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -69,7 +69,26 @@ pub fn build(b: *std.Build) void {
     const test_math2_step = b.step("test-math2-submodule", "Run math2 submodule tests");
     test_math2_step.dependOn(&run_math2_test.step);
     
-    // Add the math2 submodule test to the main "test" step as well
+    // Create a custom standalone test for the crypto.test.zig file
+    // This is helpful for debugging complex test failures
+    const test_crypto_standalone = b.addTest(.{
+        .name = "crypto-standalone-test",
+        .root_source_file = b.path("crypto.test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add include paths for imports
+    test_crypto_standalone.addIncludePath(.{ .path = "../.." });
+    
+    // Create a runnable step for the crypto standalone test
+    const run_crypto_standalone_test = b.addRunArtifact(test_crypto_standalone);
+    
+    // Add the crypto standalone test to its own step
+    const test_crypto_standalone_step = b.step("test-crypto-standalone", "Run crypto tests as standalone");
+    test_crypto_standalone_step.dependOn(&run_crypto_standalone_test.step);
+    
+    // Add the standalone test to the main "test" step as well
     const run_tests = b.getExistingStep("test") orelse b.step("test", "Run all tests");
     run_tests.dependOn(&run_math2_test.step);
 }

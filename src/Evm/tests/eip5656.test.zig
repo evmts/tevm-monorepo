@@ -1,8 +1,8 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
-// Use module imports for consistency
-const EvmModule = @import("Evm");
+// Use module imports for consistency with relative paths
+const EvmModule = @import("../evm.zig");
 const Contract = EvmModule.Contract;
 const createContract = EvmModule.createContract;
 const Evm = EvmModule.Evm;
@@ -15,12 +15,12 @@ const createLogger = EvmModule.createLogger;
 const createScopedLogger = EvmModule.createScopedLogger;
 const debugOnly = EvmModule.debugOnly;
 
-// Import Address module
-const AddressModule = @import("Address");
+// Import Address module with relative path
+const AddressModule = @import("../../Address/address.zig");
 const Address = AddressModule.Address;
 
-// Import StateManager module
-const StateManagerModule = @import("StateManager");
+// Import StateManager module with relative path
+const StateManagerModule = @import("../State/StateManager.zig");
 const StateManager = StateManagerModule.StateManager;
 
 // Module-level logger initialization

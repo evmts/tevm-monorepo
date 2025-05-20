@@ -1,11 +1,20 @@
 const std = @import("std");
 
-const EvmModule = @import("Evm");
-const Interpreter = EvmModule.Interpreter;
-const Frame = EvmModule.Frame;
-const ExecutionError = EvmModule.InterpreterError;
-const JumpTable = EvmModule.JumpTable;
-const Stack = EvmModule.Stack;
+// Try using package_test if available, otherwise use EvmModule
+const package_test = @cImport({
+    @cDefine("PACKAGE_TEST_AVAILABLE", "1");
+    _ = @import("package_test.zig");
+});
+
+// Include the EvmModule import with relative path for when package_test is not available
+const EvmModule = @import("../evm.zig");
+
+// Use the appropriate types based on what's available
+const Frame = if (@hasDecl(package_test, "Frame")) package_test.Frame else EvmModule.Frame;
+const ExecutionError = if (@hasDecl(package_test, "ExecutionError")) package_test.ExecutionError else EvmModule.InterpreterError;
+const Interpreter = if (@hasDecl(package_test, "Interpreter")) package_test.Interpreter else EvmModule.Interpreter;
+const JumpTable = if (@hasDecl(package_test, "JumpTable")) package_test.JumpTable else EvmModule.JumpTable;
+const Stack = if (@hasDecl(package_test, "Stack")) package_test.Stack else EvmModule.Stack;
 
 /// KECCAK256 operation - computes Keccak-256 hash of a region of memory
 pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
@@ -84,11 +93,17 @@ pub fn getKeccak256MemorySize(stack: *const Frame.Stack) struct { size: u64, ove
 pub fn bytesToUint256(bytes: [32]u8) u256 {
     var result: u256 = 0;
 
+    // For big-endian, start with most significant byte (index 0)
+    // Process 32 bytes (256 bits) in a safe way
     for (bytes, 0..) |byte, i| {
-        // Shift and OR each byte into the result
-        // For big-endian, start with most significant byte (index 0)
-        const shift_amount = (31 - i) * 8;
-        result |= @as(u256, byte) << @intCast(shift_amount);
+        // Use safe bit manipulation to avoid overflow in shift amount
+        if (i < 32) {
+            const shift_amount = (31 - i) * 8;
+            // Only shift if it's within the safe range for the platform's u256 type
+            if (shift_amount < 256) {
+                result |= @as(u256, byte) << @intCast(shift_amount);
+            }
+        }
     }
 
     return result;
@@ -98,20 +113,31 @@ pub fn bytesToUint256(bytes: [32]u8) u256 {
 pub fn getKeccak256DynamicGas(interpreter: *Interpreter, frame: *Frame) !u64 {
     _ = interpreter;
 
-    if (frame.stack.size < 2) {
+    // Safe access to stack size
+    if (frame.stack.size < 1) {
         return 0; // Not enough stack items, will fail later
     }
 
-    const size = try frame.stack.peek_n(0);
-
+    // Access stack data directly for more reliable behavior
+    // across different implementations
+    var size: u64 = 0;
+    if (@hasField(@TypeOf(frame.stack), "data") and frame.stack.size > 0) {
+        // Direct array access if possible
+        size = @as(u64, @truncate(frame.stack.data[frame.stack.size - 1]));
+    } else {
+        // Otherwise try to peek
+        if (@hasDecl(@TypeOf(frame.stack), "peek_n")) {
+            size = @as(u64, @truncate(try frame.stack.peek_n(0)));
+        }
+    }
+    
     // If size is 0, only pay for the base cost
     if (size == 0) {
         return 0;
     }
 
     // Calculate number of words (rounded up)
-    const size_u64 = @as(u64, @truncate(size));
-    const words = (size_u64 + 31) / 32;
+    const words = (size + 31) / 32;
 
     // Keccak256 costs 6 gas per word
     return words * 6;

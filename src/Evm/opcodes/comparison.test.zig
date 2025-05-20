@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 const comparison = @import("comparison.zig");
 
-const EvmModule = @import("Evm");
+const EvmModule = @import("../evm.zig");
 const Stack = EvmModule.Stack;
 const u256_native = u256;
 

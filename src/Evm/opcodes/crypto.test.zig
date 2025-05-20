@@ -1,24 +1,24 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import the Evm module using relative path
-const EvmModule = @import("../evm.zig");
-// Get crypto opcodes functions from the Evm module
+// Import using package_test approach with relative imports
+const package_test = @import("package_test.zig");
 const crypto = @import("crypto.zig");
-const Frame = EvmModule.Frame;
-const Stack = EvmModule.Stack;
-const Contract = EvmModule.Contract;
-const Interpreter = EvmModule.Interpreter;
-const JumpTable = EvmModule.JumpTable;
+
+// Use types from package_test
+const Frame = package_test.Frame;
+const Stack = package_test.Stack;
+const Contract = package_test.Contract;
+const Interpreter = package_test.Interpreter;
+const JumpTable = package_test.JumpTable;
+const ExecutionError = package_test.InterpreterError;
 const u256_native = u256;
 
-// Import the Address module
-const AddressModule = @import("../../Address/address.zig");
-const Address = AddressModule.Address;
+// Use Address from package_test
+const Address = package_test.Address;
 
 // Helper function to convert hex string to Address
-fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
-    _ = allocator;
+fn hexToAddress(_: std.mem.Allocator, comptime hex_str: []const u8) !Address {
     if (!std.mem.startsWith(u8, hex_str, "0x") or hex_str.len != 42) {
         return error.InvalidAddressFormat;
     }
@@ -65,15 +65,29 @@ test "bytesToUint256 conversion" {
 // Test KECCAK256 opcode
 test "KECCAK256 opcode" {
     const allocator = testing.allocator;
-    const caller = try hexToAddress(allocator, "0x1111111111111111111111111111111111111111");
-    const contract_addr = try hexToAddress(allocator, "0x2222222222222222222222222222222222222222");
-    const contract = Contract.init(caller, contract_addr, 0, 100000, null);
+    var caller: Address = undefined;
+    try std.fmt.hexToBytes(&caller.data, "1111111111111111111111111111111111111111");
+    
+    var contract_addr: Address = undefined;
+    try std.fmt.hexToBytes(&contract_addr.data, "2222222222222222222222222222222222222222");
+    
+    var contract = Contract{
+        .code = &[_]u8{},
+        .address = caller,
+        .code_address = contract_addr,
+        .gas = 100000,
+    };
 
-    const frame = try Frame.init(allocator, &contract);
-
-    const evm_instance = try EvmModule.Evm.init(allocator, null);
-    const jump_table_instance = try JumpTable.init(allocator);
-    const interpreter_instance = Interpreter.create(allocator, &evm_instance, jump_table_instance);
+    var frame = try Frame.init(allocator, &contract);
+    defer frame.deinit();
+    
+    var evm_instance = package_test.Evm{
+        .logs = std.ArrayList(package_test.Evm.Log).init(allocator),
+    };
+    
+    var interpreter_instance = Interpreter{
+        .evm = &evm_instance,
+    };
 
     // Test case 1: Empty data (should return zero)
     {
@@ -117,7 +131,7 @@ test "KECCAK256 opcode" {
         try frame.stack.push(u256_native, 32); // size (exceeds memory bounds)
 
         const result = crypto.opKeccak256(0, &interpreter_instance, &frame);
-        try testing.expectError(EvmModule.InterpreterError.OutOfOffset, result); // Use EvmModule.InterpreterError
+        try testing.expectError(ExecutionError.OutOfOffset, result); // Use EvmModule.InterpreterError
     }
 
     // Test case 4: Stack underflow
@@ -127,13 +141,22 @@ test "KECCAK256 opcode" {
         frame.stack.size = 0; // Assuming Stack has a size field and can be cleared this way for test
 
         const result = crypto.opKeccak256(0, &interpreter_instance, &frame);
-        try testing.expectError(EvmModule.InterpreterError.StackUnderflow, result); // Use EvmModule.InterpreterError
+        try testing.expectError(ExecutionError.StackUnderflow, result); // Use EvmModule.InterpreterError
     }
 }
 
 // Test memory size calculation for KECCAK256
 test "KECCAK256 memory size calculation" {
-    var stack_instance = try Stack.init(testing.allocator, 1024);
+    const allocator = testing.allocator;
+    const stack_data = try allocator.alloc(u64, 1024);
+    defer allocator.free(stack_data);
+    
+    @memset(stack_data, 0);
+    var stack_instance = Stack{
+        .data = stack_data,
+        .size = 0,
+        .capacity = 1024,
+    };
 
     // Test case 1: Empty stack
     {
@@ -155,8 +178,8 @@ test "KECCAK256 memory size calculation" {
     // Test case 3: Normal case
     {
         stack_instance.size = 0; // Clear stack_instance
-        try stack_instance.push(u256_native, 64); // offset
-        try stack_instance.push(u256_native, 32); // size
+        try stack_instance.push(64); // offset
+        try stack_instance.push(32); // size
 
         const result = crypto.getKeccak256MemorySize(&stack_instance);
         try testing.expectEqual(@as(u64, 96), result.size); // 64+32 rounded to nearest 32
@@ -166,8 +189,8 @@ test "KECCAK256 memory size calculation" {
     // Test case 4: Unaligned size
     {
         stack_instance.size = 0; // Clear stack_instance
-        try stack_instance.push(u256_native, 100); // offset
-        try stack_instance.push(u256_native, 10); // size
+        try stack_instance.push(100); // offset
+        try stack_instance.push(10); // size
         const result = crypto.getKeccak256MemorySize(&stack_instance);
         try testing.expectEqual(@as(u64, 128), result.size); // 100+10=110, rounded up to 128 (4 words)
         try testing.expectEqual(false, result.overflow);
@@ -177,14 +200,30 @@ test "KECCAK256 memory size calculation" {
 // Test dynamic gas calculation for KECCAK256
 test "KECCAK256 dynamic gas calculation" {
     const allocator = testing.allocator;
-    const caller = try hexToAddress(allocator, "0x1111111111111111111111111111111111111111");
-    const contract_addr = try hexToAddress(allocator, "0x2222222222222222222222222222222222222222");
-    const contract = Contract.init(caller, contract_addr, 0, 100000, null);
-    const frame = try Frame.init(allocator, &contract);
+    var caller: Address = undefined;
+    try std.fmt.hexToBytes(&caller.data, "1111111111111111111111111111111111111111");
+    
+    var contract_addr: Address = undefined;
+    try std.fmt.hexToBytes(&contract_addr.data, "2222222222222222222222222222222222222222");
+    
+    var contract = Contract{
+        .code = &[_]u8{},
+        .address = caller,
+        .code_address = contract_addr,
+        .gas = 100000,
+    };
 
-    const evm_instance = try EvmModule.Evm.init(allocator, null);
-    const jump_table_instance = try JumpTable.init(allocator);
-    const interpreter_instance = Interpreter.create(allocator, &evm_instance, jump_table_instance);
+    var frame = try Frame.init(allocator, &contract);
+    defer frame.deinit();
+    
+    var evm_instance = package_test.Evm{
+        .logs = std.ArrayList(package_test.Evm.Log).init(allocator),
+    };
+    defer evm_instance.logs.deinit();
+    
+    var interpreter_instance = Interpreter{
+        .evm = &evm_instance,
+    };
 
     // Test case 1: Zero size
     {
@@ -196,7 +235,7 @@ test "KECCAK256 dynamic gas calculation" {
 
     // Test case 2: 1 word
     {
-        frame.stack = Stack{};
+        frame.stack.size = 0;
         try frame.stack.push(32); // size (1 word)
 
         const gas = try crypto.getKeccak256DynamicGas(&interpreter_instance, &frame);
@@ -205,7 +244,7 @@ test "KECCAK256 dynamic gas calculation" {
 
     // Test case 3: Unaligned size
     {
-        frame.stack = Stack{};
+        frame.stack.size = 0;
         try frame.stack.push(33); // size (just over 1 word)
 
         const gas = try crypto.getKeccak256DynamicGas(&interpreter_instance, &frame);
@@ -214,7 +253,7 @@ test "KECCAK256 dynamic gas calculation" {
 
     // Test case 4: Multiple words
     {
-        frame.stack = Stack{};
+        frame.stack.size = 0;
         try frame.stack.push(100); // size (4 words)
 
         const gas = try crypto.getKeccak256DynamicGas(&interpreter_instance, &frame);
