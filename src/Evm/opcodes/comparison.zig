@@ -177,7 +177,7 @@ pub fn opIszero(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
 }
 
 /// Register all comparison opcodes in the given jump table
-pub fn registerComparisonOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable.JumpTable) !void {
+pub fn registerComparisonOpcodes(allocator: std.mem.Allocator, jump_table: anytype) !void {
     // LT (0x10)
     const lt_op = try allocator.create(JumpTable.Operation);
     lt_op.* = JumpTable.Operation{

@@ -50,7 +50,7 @@ const B256 = struct {
     }
 };
 
-const U256 = struct {
+pub const U256 = struct {
     value: u128, // Using u128 for simplicity in this mock
     
     pub fn fromDecimalString(decimal_str: []const u8) U256 {

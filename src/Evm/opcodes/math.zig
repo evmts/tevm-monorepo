@@ -1,5 +1,5 @@
 const std = @import("std");
-const JT = @import("../JumpTable.zig");
+const JumpTable = @import("../JumpTable.zig");
 
 // Instead of direct imports, use a special wrapper for the tests that doesn't actually
 // depend on the real Interpreter, Frame, etc.
@@ -484,7 +484,7 @@ test "Math - MULMOD operation" {
 /// - jump_table: JumpTable to register the opcodes in
 ///
 /// Returns: Any allocation errors
-pub fn registerMathOpcodes(allocator: std.mem.Allocator, jump_table: *JT.JumpTable) !void {
+pub fn registerMathOpcodes(allocator: std.mem.Allocator, jump_table: anytype) !void {
     // This is just a stub for testing
     _ = allocator;
     _ = jump_table;

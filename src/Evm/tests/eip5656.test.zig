@@ -10,6 +10,10 @@ const ChainRules = EvmModule.ChainRules;
 const JumpTable = EvmModule.JumpTable;
 const Interpreter = EvmModule.Interpreter;
 const InterpreterError = EvmModule.InterpreterError;
+const EvmLogger = EvmModule.EvmLogger;
+const createLogger = EvmLogger.createLogger;
+const createScopedLogger = EvmLogger.createScopedLogger;
+const debugOnly = EvmLogger.debugOnly;
 
 // Import Address module
 const AddressModule = @import("Address");
@@ -18,6 +22,16 @@ const Address = AddressModule.Address;
 // Import StateManager module
 const StateManagerModule = @import("StateManager");
 const StateManager = StateManagerModule.StateManager;
+
+// Module-level logger initialization
+var _logger: ?EvmLogger = null;
+
+fn getLogger() EvmLogger {
+    if (_logger == null) {
+        _logger = createLogger(@src().file);
+    }
+    return _logger.?;
+}
 
 // Helper function to convert hex string to Address
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {
