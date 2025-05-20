@@ -27,6 +27,22 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
   - Gas refund handling for different state transition cases
   - Added comprehensive tests for various state transition scenarios
 
+### EIP-2537: BLS12-381 curve operations
+
+- **Status**: Implemented
+- **Description**: Adds precompiled contracts for BLS12-381 elliptic curve operations
+- **What's done**: 
+  - Added precompiled contracts for G1 addition, G1 multi-exponentiation
+  - Added precompiled contracts for G2 addition, G2 multi-exponentiation
+  - Added pairing check precompiled contract
+  - Added field-to-point mapping for G1 and G2
+  - Implemented correct gas cost calculations for all operations
+  - Provided input validation and special case handling
+- **TODO**: 
+  - Integrate with a full BLS12-381 cryptographic library
+  - Complete full point validation including subgroup checks
+  - Add more comprehensive test vectors
+
 ## High Priority
 
 ### EIP-3529: Reduction in gas refunds
@@ -141,6 +157,7 @@ This document outlines key EIPs that should be implemented in the Tevm Zig EVM t
 9. ✅ Implement Transient Storage opcodes from Cancun (TLOAD, TSTORE - EIP-1153)
 10. ✅ Implement EIP-4844 (Shard Blob Transactions) - BLOBHASH and BLOBBASEFEE opcodes plus KZG precompile
 11. ✅ Implement EIP-4895 (Beacon chain withdrawals) - Process beacon chain withdrawals in blocks
+12. ✅ Implement EIP-2537 (BLS12-381 curve operations) - Precompiled contracts for BLS12-381 operations
 
 ## Test Cases
 
