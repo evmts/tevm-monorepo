@@ -98,13 +98,13 @@ test "ADDMOD with large numbers" {
 test "MULMOD with non-zero modulus" {
     const input = [_]u256{ 7, 5, 3 }; // 7 * 5 mod 3
     const expected = [_]u256{2}; // (7 * 5) % 3 = 35 % 3 = 2
-    try runOpcodeTest(math2.opMulmod, &input, &expected);
+    try runOpcodeTest(math2.opMulmod, input, expected);
 }
 
 test "MULMOD with zero modulus" {
     const input = [_]u256{ 7, 5, 0 }; // 7 * 5 mod 0
     const expected = [_]u256{0}; // Modulo by zero returns 0
-    try runOpcodeTest(math2.opMulmod, &input, &expected);
+    try runOpcodeTest(math2.opMulmod, input, expected);
 }
 
 test "MULMOD with large numbers" {
@@ -114,7 +114,7 @@ test "MULMOD with large numbers" {
         10 
     };
     const expected = [_]u256{8}; // (max_u256 * 2) % 10 = 8
-    try runOpcodeTest(math2.opMulmod, &input, &expected);
+    try runOpcodeTest(math2.opMulmod, input, expected);
 }
 
 test "EXP with zero exponent" {

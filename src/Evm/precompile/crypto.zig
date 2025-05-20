@@ -114,10 +114,14 @@ fn bn256PairingIstanbulRequiredGas(input: []const u8) u64 {
 fn blake2fRequiredGas(input: []const u8) u64 {
     const blake2FInputLength = 213;
     
-    // If the input is malformed, we can't calculate the gas, return 0 and let the
-    // actual call choke and fault.
+    // If the input is malformed, return a safe default gas amount
     if (input.len != blake2FInputLength) {
-        return 0;
+        return params.Blake2FPerRoundGas; // Return a reasonable default
+    }
+    
+    // Make sure we have at least 4 bytes
+    if (input.len < 4) {
+        return params.Blake2FPerRoundGas; // Return a reasonable default
     }
     
     // First 4 bytes contain the number of rounds
@@ -127,7 +131,18 @@ fn blake2fRequiredGas(input: []const u8) u64 {
     rounds |= @as(u32, input[2]) << 8;
     rounds |= @as(u32, input[3]);
     
-    return rounds;
+    // Ensure rounds is reasonable (not excessive)
+    const max_reasonable_rounds: u32 = 100000; // An arbitrary limit
+    if (rounds > max_reasonable_rounds) {
+        return std.math.maxInt(u64); // Return max gas to prevent abuse
+    }
+    
+    // Ensure the gas calculation doesn't overflow
+    if (rounds > std.math.maxInt(u64)) {
+        return std.math.maxInt(u64);
+    }
+    
+    return @as(u64, rounds);
 }
 
 // Implementation of execution functions
@@ -135,11 +150,22 @@ fn blake2fRequiredGas(input: []const u8) u64 {
 fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     const ecRecoverInputLength = 128;
     
+    // Handle error cases first to avoid unnecessary allocations
+    if (input.len == 0) {
+        // Early return for empty input to avoid unnecessary allocations
+        return try allocator.alloc(u8, 0);
+    }
+    
     // Make sure we have enough input bytes for ECRECOVER
     const padded_input = try common.rightPadBytes(allocator, input, ecRecoverInputLength);
     defer allocator.free(padded_input);
     
-    // Extract the v component (we only use v in this implementation)
+    // Bounds check for v component extraction
+    if (padded_input.len <= 32) {
+        return try allocator.alloc(u8, 0); // Return empty on bounds error
+    }
+    
+    // Extract the v component
     const v = padded_input[32];
     
     // Check v value (should be 27 or 28 for legacy compatibility)
@@ -148,7 +174,12 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
         return try allocator.alloc(u8, 0);
     }
     
-    // Check that bytes 32-63 (except for v) are all zero
+    // Bounds check for validating bytes 33-63
+    if (padded_input.len < 64) {
+        return try allocator.alloc(u8, 0); // Return empty on bounds error
+    }
+    
+    // Check that bytes 33-63 are all zero
     if (!common.allZero(padded_input[33..64])) {
         // Return empty result for invalid signature format
         return try allocator.alloc(u8, 0);
@@ -157,18 +188,28 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement actual ECRECOVER using secp256k1
     // For now, return a zero address as a placeholder
     // This should be replaced with actual cryptographic recovery
+    
+    // Create the result - a 32-byte empty buffer (zero address)
     const result = try allocator.alloc(u8, 32);
+    errdefer allocator.free(result); // Free on error
+    
+    // Initialize the result to zeros 
     @memset(result, 0);
     
     return result;
 }
 
 fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+    // Compute the SHA256 hash
     var hash: [Sha256.digest_length]u8 = undefined;
     Sha256.hash(input, &hash, .{});
     
-    const result = try allocator.alloc(u8, hash.len);
-    @memcpy(result, hash[0..]);
+    // Allocate result with error handling
+    var result = try allocator.alloc(u8, hash.len);
+    errdefer allocator.free(result); // Ensure memory is freed on error
+    
+    // Copy with bounds checking (though hash.len == result.len is guaranteed)
+    @memcpy(result[0..hash.len], hash[0..]);
     
     return result;
 }

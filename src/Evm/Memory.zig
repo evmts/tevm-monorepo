@@ -238,7 +238,7 @@ pub const Memory = struct {
         }
         
         // Check for overflow in offset + size calculation
-        if (@addWithOverflow(u64, offset, size)[1] != 0) {
+        if (std.math.add(u64, offset, size) catch null == null) {
             return error.OutOfBounds;
         }
         
@@ -291,9 +291,9 @@ pub const Memory = struct {
         }
         
         // Check for bounds and overflow
-        const src_overflow = @addWithOverflow(u64, src, length)[1] != 0;
-        const dst_overflow = @addWithOverflow(u64, dst, length)[1] != 0;
-        if (src_overflow or dst_overflow) {
+        const src_ok = std.math.add(u64, src, length) catch null != null;
+        const dst_ok = std.math.add(u64, dst, length) catch null != null;
+        if (!src_ok or !dst_ok) {
             return error.OutOfBounds;
         }
         
