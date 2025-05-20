@@ -196,6 +196,7 @@ pub const FeeMarket = struct {
         
         // Ensure the transaction at least pays the base fee
         if (max_fee_per_gas < base_fee_per_gas) {
+            const logger = getLogger();
             logger.warn("Transaction's max fee ({d}) is less than base fee ({d})", .{
                 max_fee_per_gas, base_fee_per_gas
             });
@@ -217,6 +218,7 @@ pub const FeeMarket = struct {
         // The effective gas price is base fee plus priority fee
         const effective_gas_price = base_fee_per_gas + max_priority_fee;
         
+        const logger = getLogger();
         logger.debug("Effective gas price: {d} wei", .{effective_gas_price});
         logger.debug("Miner fee (priority fee): {d} wei", .{max_priority_fee});
         
