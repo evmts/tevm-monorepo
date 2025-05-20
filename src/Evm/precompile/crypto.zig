@@ -230,6 +230,14 @@ fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     var result = try allocator.alloc(u8, 32);
     errdefer allocator.free(result); // Ensure memory is freed on error
     
+    // Safety check: ensure the hash length matches expected digest length
+    if (hash.len != 32) {
+        // Should never happen since Sha256.digest_length is 32,
+        // but good for safety and future-proofing
+        @memset(result, 0);  // Set all bytes to 0 in case of mismatch
+        return result;
+    }
+    
     // Copy the hash to the result
     @memcpy(result[0..32], &hash);
     
