@@ -49,8 +49,8 @@ pub const ProofNodes = struct {
             hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
         }
         
-        // Use the fixed-length buffer as key
-        const hash_str = hex_buf[0..];
+        // Use the fixed-length buffer as key with explicit length
+        const hash_str = hex_buf[0..64];
 
         // Check if already exists
         if (self.nodes.contains(hash_str)) {
@@ -224,8 +224,8 @@ pub const ProofNodes = struct {
                                             hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
                                         }
                                         
-                                        // Use the fixed-length buffer as key
-                                        const hash_str = hex_buf[0..];
+                                        // Use the fixed-length buffer as key with explicit length
+                                        const hash_str = hex_buf[0..64];
 
                                         const next_node_data = self.nodes.get(hash_str) orelse {
                                             return ProofError.MissingNode;
@@ -313,8 +313,8 @@ pub const ProofNodes = struct {
                                         hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
                                     }
                                     
-                                    // Use the fixed-length buffer as key
-                                    const hash_str = hex_buf[0..];
+                                    // Use the fixed-length buffer as key with explicit length
+                                    const hash_str = hex_buf[0..64];
 
                                     const next_node_data = self.nodes.get(hash_str) orelse {
                                         return ProofError.MissingNode;

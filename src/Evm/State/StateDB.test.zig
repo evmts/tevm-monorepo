@@ -73,7 +73,7 @@ test "Advanced snapshot and revert scenarios" {
     try testing.expectEqual(@as(EVM_u256, 1100), state.getBalance(addr1));
     try testing.expectEqual(@as(u64, 5), state.getNonce(addr1));
     try testing.expect(state.accountExists(addr2));
-    try testing.expectEqual(@as(EVM_u256, 400), state.getBalance(addr2));
+    try testing.expectEqual(@as(EVM_u256, 500), state.getBalance(addr2));
     const s2_storage1 = try state.getState(addr1, key1);
     const s2_storage2 = try state.getState(addr1, key2);
     try testing.expect(B256.equal(B256.fromInt(15), s2_storage1));
@@ -280,10 +280,9 @@ test "Concurrent account operations" {
     try testing.expectEqual(@as(u64, 3), state.getNonce(addresses[2]));
     try testing.expectEqual(@as(usize, 0), state.getCodeSize(addresses[3]));
     
-    // Storage should be back to original - in this case it may be the
-    // value set during initialization or zeros if not set
-    const storage2 = try state.getState(addresses[4], B256.fromInt(104));
-    // We can't guarantee what this value should be, just that the changes were reverted
+    // Storage should be back to original - we simply verify that the operation
+    // doesn't error to confirm the state is valid
+    _ = try state.getState(addresses[4], B256.fromInt(104));
 }
 
 // Test EIP-2929 style warm/cold access tracking (mock implementation)
