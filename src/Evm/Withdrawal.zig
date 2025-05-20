@@ -15,21 +15,21 @@ pub const TestAccountData = struct {
 // Define StateManager interface for rewardAccount
 pub const StateManager = if (builtin.is_test)
     struct {
-        // Define function pointers for interface methods
-        getAccountPtr: *const fn(self: *@This(), address: B160) anyerror!?TestAccountData,
-        createAccountPtr: *const fn(self: *@This(), address: B160, balance: u128) anyerror!TestAccountData,
-        putAccountPtr: *const fn(self: *@This(), address: B160, account: anytype) anyerror!void,
+        // Define function pointers for interface methods - using Address directly instead of B160
+        getAccountPtr: *const fn(self: *@This(), address: Address) anyerror!?TestAccountData,
+        createAccountPtr: *const fn(self: *@This(), address: Address, balance: u128) anyerror!TestAccountData,
+        putAccountPtr: *const fn(self: *@This(), address: Address, account: anytype) anyerror!void,
         
         // Interface methods that forward to the implementation
-        pub fn getAccount(self: *@This(), address: B160) !?TestAccountData {
+        pub fn getAccount(self: *@This(), address: Address) !?TestAccountData {
             return self.getAccountPtr(self, address);
         }
         
-        pub fn createAccount(self: *@This(), address: B160, balance: u128) !TestAccountData {
+        pub fn createAccount(self: *@This(), address: Address, balance: u128) !TestAccountData {
             return self.createAccountPtr(self, address, balance);
         }
         
-        pub fn putAccount(self: *@This(), address: B160, account: anytype) !void {
+        pub fn putAccount(self: *@This(), address: Address, account: anytype) !void {
             return self.putAccountPtr(self, address, account);
         }
     }

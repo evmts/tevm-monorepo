@@ -23,93 +23,92 @@ const StateManager = @import("../StateManager/StateManager.zig").StateManager;
 
 // Mock StateManager for testing withdrawal processing
 const MockStateManager = struct {
-    // Track balances for testing - use fixed-size key to avoid memory issues
-    balances: std.AutoHashMap([40]u8, u128),
+    // Using the raw address bytes as the key is more direct and safer
+    balances: std.AutoHashMap([20]u8, u128),
+    is_freed: bool = false, // Flag to prevent double-free
     
     fn init(allocator: std.mem.Allocator) !*MockStateManager {
         const self = try allocator.create(MockStateManager);
         self.* = .{
-            .balances = std.AutoHashMap([40]u8, u128).init(allocator),
+            .balances = std.AutoHashMap([20]u8, u128).init(allocator),
+            .is_freed = false,
         };
         return self;
     }
     
     fn deinit(self: *MockStateManager) void {
+        std.debug.print("Starting MockStateManager deinit()\n", .{});
+        
+        // Prevent double-free
+        if (self.is_freed) {
+            std.debug.print("  MockStateManager already freed, skipping\n", .{});
+            return;
+        }
+        
+        // Mark as freed
+        self.is_freed = true;
+        
         // Clear and deinit the hash map
+        std.debug.print("  Deinitializing balances hashmap\n", .{});
         self.balances.deinit();
         
-        // Free the state manager itself
-        self.balances.allocator.destroy(self);
+        // The allocator that created this object will take care of freeing it
+        // when the arena is destroyed, don't destroy it manually
+        std.debug.print("  Completed MockStateManager deinit() without self-destroy\n", .{});
     }
     
     // StateManager interface implementations
     pub fn getAccount(self: *MockStateManager, address: Address) !?TestAccountData {
-        // Convert Address to a consistent string representation for storage
-        var addr_bytes: [20]u8 = undefined;
-        if (@TypeOf(address) == [20]u8) {
-            addr_bytes = address;
-        } else {
-            std.mem.copy(u8, &addr_bytes, address[0..20]);
+        std.debug.print("getAccount called for address bytes: ", .{});
+        for (address) |byte| {
+            std.debug.print("{x:0>2}", .{byte});
         }
+        std.debug.print("\n", .{});
         
-        // Get hex representation for address
-        const addr_hex = std.fmt.bytesToHex(addr_bytes, std.fmt.Case.lower);
-        
-        // Use direct hashmap get function with the slice
-        if (self.balances.get(addr_hex)) |balance| {
+        // Use raw bytes as the key - simpler and safer
+        if (self.balances.get(address)) |balance| {
+            std.debug.print("  Found account with balance: {d}\n", .{balance});
             return TestAccountData{ .balance = balance };
         }
+        std.debug.print("  Account not found\n", .{});
         return null;
     }
     
     pub fn createAccount(self: *MockStateManager, address: Address, balance: u128) !TestAccountData {
-        // Convert Address to a consistent string representation for storage
-        var addr_bytes: [20]u8 = undefined;
-        if (@TypeOf(address) == [20]u8) {
-            addr_bytes = address;
-        } else {
-            std.mem.copy(u8, &addr_bytes, address[0..20]);
+        std.debug.print("createAccount called for address bytes: ", .{});
+        for (address) |byte| {
+            std.debug.print("{x:0>2}", .{byte});
         }
+        std.debug.print(" with balance: {d}\n", .{balance});
         
-        // Get hex representation for address
-        const addr_hex = std.fmt.bytesToHex(addr_bytes, std.fmt.Case.lower);
-        
-        // Simply put the key-value pair 
-        try self.balances.put(addr_hex, balance);
+        // Use raw bytes as the key - simpler and safer
+        try self.balances.put(address, balance);
         
         return TestAccountData{ .balance = balance };
     }
     
     pub fn putAccount(self: *MockStateManager, address: Address, account: anytype) !void {
-        // Convert Address to a consistent string representation for storage
-        var addr_bytes: [20]u8 = undefined;
-        if (@TypeOf(address) == [20]u8) {
-            addr_bytes = address;
-        } else {
-            std.mem.copy(u8, &addr_bytes, address[0..20]);
+        std.debug.print("putAccount called for address bytes: ", .{});
+        for (address) |byte| {
+            std.debug.print("{x:0>2}", .{byte});
         }
+        std.debug.print(" with balance: {d}\n", .{account.balance});
         
-        // Get hex representation for address
-        const addr_hex = std.fmt.bytesToHex(addr_bytes, std.fmt.Case.lower);
-        
-        // Simply put the key-value pair 
-        try self.balances.put(addr_hex, account.balance);
+        // Use raw bytes as the key - simpler and safer
+        try self.balances.put(address, account.balance);
     }
     
     // Helper function to get balance
     pub fn getBalance(self: *MockStateManager, address: Address) !u128 {
-        // Convert Address to a consistent string representation for storage
-        var addr_bytes: [20]u8 = undefined;
-        if (@TypeOf(address) == [20]u8) {
-            addr_bytes = address;
-        } else {
-            std.mem.copy(u8, &addr_bytes, address[0..20]);
+        std.debug.print("getBalance called for address bytes: ", .{});
+        for (address) |byte| {
+            std.debug.print("{x:0>2}", .{byte});
         }
+        std.debug.print("\n", .{});
         
-        // Get hex representation for address
-        const addr_hex = std.fmt.bytesToHex(addr_bytes, std.fmt.Case.lower);
-        
-        return self.balances.get(addr_hex) orelse 0;
+        const balance = self.balances.get(address) orelse 0;
+        std.debug.print("  Balance: {d}\n", .{balance});
+        return balance;
     }
 };
 
@@ -163,22 +162,36 @@ fn processWithdrawalsForTest(mock: *MockStateManager, block_var: *Block, rules: 
 test "Block withdrawal processing with Shanghai rules" {
     // NOTE: There is a segmentation fault in this test that needs to be investigated.
     // The segfault occurs at address 0xaaaaaaaaaaaaaac2.
+    std.debug.print("\n--- Starting Block withdrawal test ---\n", .{});
     var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
-    defer arena.deinit();
+    defer {
+        std.debug.print("Before arena.deinit() in Shanghai test\n", .{});
+        arena.deinit();
+        std.debug.print("After arena.deinit() in Shanghai test\n", .{});
+    }
     const allocator = arena.allocator();
     
+    std.debug.print("Initialized arena allocator\n", .{});
+    
     // Create mock state manager
+    std.debug.print("Creating mock state manager\n", .{});
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
+    std.debug.print("Mock state manager created\n", .{});
+    
     // Create test addresses
+    std.debug.print("Creating test addresses\n", .{});
     const addr1_bytes = createAddressBuffer(0x01);
     const address1 = addr1_bytes; // Address is a [20]u8 per Address/address.zig
     
     const addr2_bytes = createAddressBuffer(0x02);
     const address2 = addr2_bytes; // Address is a [20]u8 per Address/address.zig
     
+    std.debug.print("Test addresses created\n", .{});
+    
     // Create withdrawals
+    std.debug.print("Creating withdrawals\n", .{});
     const withdrawal1 = WithdrawalData.init(
         1,  // index
         100,  // validator index
@@ -193,48 +206,76 @@ test "Block withdrawal processing with Shanghai rules" {
         2_500_000_000,  // amount in Gwei (2.5 ETH)
     );
     
+    std.debug.print("Withdrawals created\n", .{});
+    
     // Create withdrawals array
+    std.debug.print("Creating withdrawals array\n", .{});
     var withdrawals = [_]WithdrawalData{withdrawal1, withdrawal2};
     
     // Create a dummy withdrawal root
+    std.debug.print("Creating withdrawal root\n", .{});
     const withdrawal_root = createWithdrawalRoot();
     
     // Create a block with withdrawals
+    std.debug.print("Creating block with withdrawals\n", .{});
     var block = Block{
         .withdrawals = &withdrawals,
         .withdrawals_root = &withdrawal_root,
     };
     
     // Define Shanghai chain rules (EIP-4895 enabled)
+    std.debug.print("Defining Shanghai chain rules\n", .{});
     const shanghai_rules = WithdrawalProcessorModule.ChainRules.forHardfork(.Shanghai);
     
     // Process withdrawals using our test helper
+    std.debug.print("Processing withdrawals using test helper\n", .{});
     try processWithdrawalsForTest(state_manager, &block, shanghai_rules);
     
+    std.debug.print("Withdrawals processed successfully\n", .{});
+    
     // Check that account balances were updated correctly
+    std.debug.print("Checking account balances\n", .{});
     const balance1 = try state_manager.getBalance(address1);
+    std.debug.print("Balance 1: {d}\n", .{balance1});
     try testing.expectEqual(@as(u128, 1_500_000_000_000_000_000), balance1); // 1.5 ETH in Wei
     
     const balance2 = try state_manager.getBalance(address2);
+    std.debug.print("Balance 2: {d}\n", .{balance2});
     try testing.expectEqual(@as(u128, 2_500_000_000_000_000_000), balance2); // 2.5 ETH in Wei
+    
+    std.debug.print("--- Test completed successfully ---\n", .{});
 }
 
 test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     // NOTE: There is a segmentation fault in this test that needs to be investigated.
     // The segfault occurs at address 0xaaaaaaaaaaaaaac2.
+    std.debug.print("\n--- Starting London rules test (EIP-4895 disabled) ---\n", .{});
     var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
-    defer arena.deinit();
+    defer {
+        std.debug.print("Before arena.deinit() in London test\n", .{});
+        arena.deinit();
+        std.debug.print("After arena.deinit() in London test\n", .{});
+    }
     const allocator = arena.allocator();
     
+    std.debug.print("Initialized arena allocator\n", .{});
+    
     // Create mock state manager
+    std.debug.print("Creating mock state manager\n", .{});
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
+    std.debug.print("Mock state manager created\n", .{});
+    
     // Create test address
+    std.debug.print("Creating test address\n", .{});
     const addr_bytes = createAddressBuffer(0x03);
     const address = addr_bytes; // Address is a [20]u8 per Address/address.zig
     
+    std.debug.print("Test address created\n", .{});
+    
     // Create a withdrawal
+    std.debug.print("Creating withdrawal\n", .{});
     const withdrawal = WithdrawalData.init(
         1,  // index
         100,  // validator index
@@ -242,30 +283,41 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
         1_000_000_000,  // amount in Gwei (1 ETH)
     );
     
+    std.debug.print("Withdrawal created\n", .{});
+    
     // Create withdrawals array
+    std.debug.print("Creating withdrawals array\n", .{});
     var withdrawals = [_]WithdrawalData{withdrawal};
     
     // Create a dummy withdrawal root
+    std.debug.print("Creating withdrawal root\n", .{});
     const withdrawal_root = createWithdrawalRoot();
     
     // Create a block with withdrawals
+    std.debug.print("Creating block with withdrawals\n", .{});
     var block = Block{
         .withdrawals = &withdrawals,
         .withdrawals_root = &withdrawal_root,
     };
     
     // Define London chain rules (EIP-4895 not enabled)
+    std.debug.print("Defining London chain rules\n", .{});
     const london_rules = WithdrawalProcessorModule.ChainRules.forHardfork(.London);
     
     // Process withdrawals using our test helper - should fail since EIP-4895 is not enabled
+    std.debug.print("Processing withdrawals using test helper (expecting error)\n", .{});
     const result = processWithdrawalsForTest(state_manager, &block, london_rules);
     
     // Should return an error
+    std.debug.print("Checking for expected error\n", .{});
     try testing.expectError(error.EIP4895NotEnabled, result);
     
     // Balance should remain zero
+    std.debug.print("Checking account balance (should be zero)\n", .{});
     const balance = try state_manager.getBalance(address);
     try testing.expectEqual(@as(u128, 0), balance);
+    
+    std.debug.print("--- Test completed successfully ---\n", .{});
 }
 
 test "Hardfork versions correctly set EIP-4895 flag" {
@@ -294,19 +346,33 @@ test "Hardfork versions correctly set EIP-4895 flag" {
 test "Multiple withdrawals for same account" {
     // NOTE: There is a segmentation fault in this test that needs to be investigated.
     // The segfault occurs at address 0xaaaaaaaaaaaaaac2.
+    std.debug.print("\n--- Starting multiple withdrawals test ---\n", .{});
     var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
-    defer arena.deinit();
+    defer {
+        std.debug.print("Before arena.deinit() in multiple withdrawals test\n", .{});
+        arena.deinit();
+        std.debug.print("After arena.deinit() in multiple withdrawals test\n", .{});
+    }
     const allocator = arena.allocator();
     
+    std.debug.print("Initialized arena allocator\n", .{});
+    
     // Create mock state manager
+    std.debug.print("Creating mock state manager\n", .{});
     var state_manager = try MockStateManager.init(allocator);
     defer state_manager.deinit();
     
+    std.debug.print("Mock state manager created\n", .{});
+    
     // Create test address
+    std.debug.print("Creating test address\n", .{});
     const addr_bytes = createAddressBuffer(0x04);
     const address = addr_bytes; // Address is a [20]u8 per Address/address.zig
     
+    std.debug.print("Test address created\n", .{});
+    
     // Create multiple withdrawals for the same address
+    std.debug.print("Creating multiple withdrawals\n", .{});
     const withdrawal1 = WithdrawalData.init(
         1,  // index
         100,  // validator index
@@ -328,26 +394,39 @@ test "Multiple withdrawals for same account" {
         3_000_000_000,  // amount in Gwei (3 ETH)
     );
     
+    std.debug.print("Multiple withdrawals created\n", .{});
+    
     // Create withdrawals array
+    std.debug.print("Creating withdrawals array\n", .{});
     var withdrawals = [_]WithdrawalData{withdrawal1, withdrawal2, withdrawal3};
     
     // Create a dummy withdrawal root
+    std.debug.print("Creating withdrawal root\n", .{});
     const withdrawal_root = createWithdrawalRoot();
     
     // Create a block with withdrawals
+    std.debug.print("Creating block with withdrawals\n", .{});
     var block = Block{
         .withdrawals = &withdrawals,
         .withdrawals_root = &withdrawal_root,
     };
     
     // Define Shanghai chain rules (EIP-4895 enabled)
+    std.debug.print("Defining Shanghai chain rules\n", .{});
     const shanghai_rules = WithdrawalProcessorModule.ChainRules.forHardfork(.Shanghai);
     
     // Process withdrawals using our test helper
+    std.debug.print("Processing withdrawals using test helper\n", .{});
     try processWithdrawalsForTest(state_manager, &block, shanghai_rules);
     
+    std.debug.print("Withdrawals processed successfully\n", .{});
+    
     // Check that account balance is the sum of all withdrawals
+    std.debug.print("Checking account balance\n", .{});
     const balance = try state_manager.getBalance(address);
     const expected_balance: u128 = 6_000_000_000_000_000_000; // 6 ETH (1+2+3)
+    std.debug.print("Balance: {d}, Expected: {d}\n", .{balance, expected_balance});
     try testing.expectEqual(expected_balance, balance);
+    
+    std.debug.print("--- Test completed successfully ---\n", .{});
 }

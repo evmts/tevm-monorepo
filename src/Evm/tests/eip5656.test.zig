@@ -108,9 +108,8 @@ test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
     evm.setStateManager(@ptrCast(&state_manager));
 
     // Create jump table
-    var jt = JumpTable{ .table = [_]?*const JumpTable.Operation{null} ** 256 };
+    var jt = try JumpTable.newJumpTable(allocator, "latest");
     defer jt.deinit(allocator);
-    try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     // Create interpreter
     var interpreter = try Interpreter.create(allocator, &evm, jt);
@@ -153,9 +152,8 @@ test "EIP-5656: MCOPY opcode with EIP-5656 disabled" {
     evm.setStateManager(@ptrCast(&state_manager));
 
     // Create jump table
-    var jt = JumpTable{ .table = [_]?*const JumpTable.Operation{null} ** 256 };
+    var jt = try JumpTable.newJumpTable(allocator, "latest");
     defer jt.deinit(allocator);
-    try JumpTable.initMainnetJumpTable(allocator, &jt);
 
     // Create interpreter
     var interpreter = try Interpreter.create(allocator, &evm, jt);

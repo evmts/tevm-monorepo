@@ -28,8 +28,7 @@ fn setupInterpreter(enable_eip3541: bool) !Interpreter {
     var custom_evm = try Evm.init(std.testing.allocator, custom_rules);
 
     // Create jump table
-    var jump_table = JumpTable{ .table = [_]?*const JumpTable.Operation{null} ** 256 };
-    try JumpTable.initMainnetJumpTable(std.testing.allocator, &jump_table);
+    var jump_table = try JumpTable.newJumpTable(std.testing.allocator, "latest");
     
     // Create an interpreter with our custom EVM
     var test_interpreter = try Interpreter.create(std.testing.allocator, &custom_evm, jump_table);
