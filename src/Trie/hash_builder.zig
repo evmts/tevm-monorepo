@@ -193,8 +193,8 @@ pub const HashBuilder = struct {
                     const existing_path = leaf.nibbles[common_prefix_len..];
                     const existing_value = leaf.value;
                     if (existing_path.len == 1) {
-                        // Direct branch entry
-                        branch.children[@intCast(existing_path[0])] = existing_value;
+                        // Direct branch entry - clone to prevent double ownership
+                        branch.children[@intCast(existing_path[0])] = try existing_value.clone(self.allocator);
                         branch.children_mask.set(@intCast(existing_path[0]));
                         // No further action needed
                     } else {
@@ -275,7 +275,7 @@ pub const HashBuilder = struct {
                         
                         if (existing_path.len == 1) {
                             // Direct branch entry
-                            branch.children[existing_path[0]] = existing_value;
+                            branch.children[existing_path[0]] = try existing_value.clone(self.allocator);
                             branch.children_mask.set(@intCast(existing_path[0]));
                         } else {
                             // Create new leaf for remaining path

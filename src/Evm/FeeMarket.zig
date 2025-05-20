@@ -78,7 +78,6 @@ pub const FeeMarket = struct {
         // Ensure base fee is at least the minimum
         initial_base_fee = std.math.max(initial_base_fee, MIN_BASE_FEE);
         
-        const logger = getLogger();
         logger.info("Initial base fee calculated: {d} wei", .{initial_base_fee});
         return initial_base_fee;
     }
