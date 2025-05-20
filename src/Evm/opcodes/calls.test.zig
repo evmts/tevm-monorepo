@@ -1,7 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 
-// Import from the main Evm module
+// Root module imports using the package pattern
 const EvmModule = @import("Evm");
 const Interpreter = EvmModule.Interpreter;
 const Frame = EvmModule.Frame;
@@ -33,11 +33,16 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
 }
 
 fn setupInterpreter(allocator: std.mem.Allocator) !*Interpreter {
+    // Create an EVM instance with default configurations
     var evm_instance = try Evm.init(allocator, null);
     
-    // Create and return the interpreter, but make sure not to free the EVM
-    // since it's owned by the test arena allocator
-    const interpreter_instance = try Interpreter.init(allocator, &evm_instance);
+    // The JumpTable API has changed from init to newJumpTable
+    // Create a jump table using the updated API and then initialize the interpreter
+    const jump_table = try EvmModule.JumpTable.newJumpTable(allocator, "latest");
+    
+    // Create and return the interpreter using the create method instead of init
+    // This resolves the type mismatch between *Evm and *evm.Evm
+    const interpreter_instance = Interpreter.create(allocator, &evm_instance, jump_table);
     
     return interpreter_instance;
 }

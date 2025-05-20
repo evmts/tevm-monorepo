@@ -64,8 +64,8 @@ pub fn encodeAbiParameters(
     }
     
     // Copy head and tail to output buffer
-    std.mem.copy(u8, out_buffer[0..head_len], head_buf[0..head_len]);
-    std.mem.copy(u8, out_buffer[head_len..total_len], tail_buf[0..tail_len]);
+    @memcpy(out_buffer[0..head_len], head_buf[0..head_len]);
+    @memcpy(out_buffer[head_len..total_len], tail_buf[0..tail_len]);
     
     return total_len;
 }
@@ -212,17 +212,17 @@ fn encodeParam(
         }
         
         // Write the length
-        std.mem.set(u8, tail[tail_len.* .. tail_len.* + 32], 0);
+        @memset(tail[tail_len.* .. tail_len.* + 32], 0);
         writeUint256(value.len, tail[tail_len.* .. tail_len.* + 32]);
         tail_len.* += 32;
         
         // Write the actual data
-        std.mem.copy(u8, tail[tail_len.* .. tail_len.* + value.len], value);
+        @memcpy(tail[tail_len.* .. tail_len.* + value.len], value);
         tail_len.* += value.len;
         
         // Pad to 32 bytes
         const padding_bytes = (32 - (value.len % 32)) % 32;
-        std.mem.set(u8, tail[tail_len.* .. tail_len.* + padding_bytes], 0);
+        @memset(tail[tail_len.* .. tail_len.* + padding_bytes], 0);
         tail_len.* += padding_bytes;
         
         return;
@@ -252,7 +252,7 @@ fn writeUint256(value: usize, out: []u8) void {
     
     var val = value;
     // Clear buffer first
-    std.mem.set(u8, out, 0);
+    @memset(out, 0);
     
     // Write bytes from least to most significant
     var i: usize = 31;
@@ -287,7 +287,8 @@ pub fn valueToBytes(comptime T: type, value: T, out_buffer: []u8) !usize {
         
         // Convert to big endian as per ABI spec
         const native_value = std.mem.nativeToBig(T, value);
-        std.mem.copy(u8, out_buffer[0..size], std.mem.asBytes(&native_value));
+        const bytes = std.mem.asBytes(&native_value);
+        @memcpy(out_buffer[0..size], bytes);
         
         return size;
     }

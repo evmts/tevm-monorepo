@@ -63,8 +63,8 @@ test "EvmLogger stack and memory logging" {
     logStorage(logger, "any");
     
     // Test storage KV logging
-    const storage_keys = [_]u256{0x01, 0x02, 0x03};
-    const storage_values = [_]u256{0xAA, 0xBB, 0xCC};
+    const storage_keys = [_]u64{0x01, 0x02, 0x03};
+    const storage_values = [_]u64{0xAA, 0xBB, 0xCC};
     logStorageKV(logger, &storage_keys, &storage_values);
 }
 

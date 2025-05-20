@@ -444,7 +444,7 @@ const Tokenizer = struct {
     
     fn readParamList(self: *Tokenizer, allocator: std.mem.Allocator) ![]abi.Param {
         self.skipWhitespace();
-        try self.expect(.LeftParen);
+        _ = try self.expect(.LeftParen);
         
         var params = std.ArrayList(abi.Param).init(allocator);
         defer params.deinit();
@@ -503,7 +503,7 @@ const Tokenizer = struct {
     
     fn readEventParamList(self: *Tokenizer, allocator: std.mem.Allocator) ![]abi.EventParam {
         self.skipWhitespace();
-        try self.expect(.LeftParen);
+        _ = try self.expect(.LeftParen);
         
         var params = std.ArrayList(abi.EventParam).init(allocator);
         defer params.deinit();
