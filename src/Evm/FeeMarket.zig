@@ -107,7 +107,6 @@ pub const FeeMarket = struct {
         
         // If parent block is empty, keep the base fee the same
         if (parent_gas_used == 0) {
-            const logger = getLogger();
             logger.info("Parent block was empty, keeping base fee the same: {d} wei", .{parent_base_fee});
             return parent_base_fee;
         }
@@ -117,7 +116,6 @@ pub const FeeMarket = struct {
         
         if (parent_gas_used == parent_gas_target) {
             // If parent block used exactly the target gas, keep the base fee the same
-            const logger = getLogger();
             logger.debug("Parent block used exactly the target gas, keeping base fee the same", .{});
         } else if (parent_gas_used > parent_gas_target) {
             // If parent block used more than the target gas, increase the base fee
@@ -135,7 +133,6 @@ pub const FeeMarket = struct {
             // The overflow check is probably unnecessary given gas limits, but it's a good safety measure
             next_base_fee = if (std.math.add(u64, parent_base_fee, base_fee_delta)) |fee| fee else parent_base_fee;
             
-            const logger = getLogger();
             logger.debug("Parent block used more than target gas, increasing base fee by {d} wei", .{base_fee_delta});
         } else {
             // If parent block used less than the target gas, decrease the base fee
@@ -155,14 +152,12 @@ pub const FeeMarket = struct {
             else
                 MIN_BASE_FEE;
                 
-            const logger = getLogger();
             logger.debug("Parent block used less than target gas, decreasing base fee by {d} wei", .{base_fee_delta});
         }
         
         // Ensure base fee is at least the minimum
         next_base_fee = std.math.max(next_base_fee, MIN_BASE_FEE);
         
-        const logger = getLogger();
         logger.info("Next block base fee calculated: {d} wei", .{next_base_fee});
         return next_base_fee;
     }
@@ -195,7 +190,6 @@ pub const FeeMarket = struct {
         
         // Ensure the transaction at least pays the base fee
         if (max_fee_per_gas < base_fee_per_gas) {
-            const logger = getLogger();
             logger.warn("Transaction's max fee ({d}) is less than base fee ({d})", .{
                 max_fee_per_gas, base_fee_per_gas
             });
@@ -217,7 +211,6 @@ pub const FeeMarket = struct {
         // The effective gas price is base fee plus priority fee
         const effective_gas_price = base_fee_per_gas + max_priority_fee;
         
-        const logger = getLogger();
         logger.debug("Effective gas price: {d} wei", .{effective_gas_price});
         logger.debug("Miner fee (priority fee): {d} wei", .{max_priority_fee});
         
