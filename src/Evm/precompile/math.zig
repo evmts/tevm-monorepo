@@ -193,7 +193,8 @@ fn bytesToBigInt(bytes: []const u8) u256 {
 fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     if (input.len < 96) {
         // Return empty result for invalid input
-        return try allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // Extract the input dimensions
@@ -203,7 +204,8 @@ fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     
     // Handle a special case when both the base and mod length is zero
     if (baseLen == 0 and modLen == 0) {
-        return try allocator.alloc(u8, 0);
+        const empty = try allocator.alloc(u8, 0);
+        return empty;
     }
     
     // Extract the actual parameters

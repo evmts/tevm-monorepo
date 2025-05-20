@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 
 // Define our own mock implementation to test the math operations
-const u256 = u64;  // Mock u256 type for testing
+const MockBigInt = u64;  // Mock big integer type for testing
 const BigInt = u64; // Local alias for tests
 
 // Create our own mock math module with the exact functions we want to test
@@ -128,18 +128,26 @@ const Stack = struct {
 
 // Simple mock implementation for testing
 const MockInterpreter = struct {
-    pub fn init() MockInterpreter {
-        return MockInterpreter{};
+    allocator: std.mem.Allocator,
+    
+    pub fn init(allocator: std.mem.Allocator) MockInterpreter {
+        return MockInterpreter{
+            .allocator = allocator,
+        };
     }
 };
 
 const MockFrame = struct {
     stack: Stack,
     
-    pub fn init() MockFrame {
+    pub fn init() !MockFrame {
         return MockFrame{
             .stack = Stack.init(),
         };
+    }
+    
+    pub fn deinit(self: *MockFrame) void {
+        _ = self; // No resources to free
     }
 };
 

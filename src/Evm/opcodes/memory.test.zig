@@ -1,7 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 const memory_ops = @import("memory.zig");
-const evm_pkg = @import("../package.zig");
+const root = @import("../../root.zig");
+const evm_pkg = root.Evm;
 
 // Import interfaces
 const Frame = evm_pkg.Frame.Frame;

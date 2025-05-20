@@ -1,24 +1,14 @@
 const std = @import("std");
 const testing = std.testing;
-const pkg = @import("package.zig");
-const test_utils = pkg.test_utils;
-const log = pkg.log;
-
-// Import from package.zig
-const Frame = pkg.Frame.Frame;
-const ExecutionError = pkg.Frame.ExecutionError;
-const Interpreter = pkg.Interpreter.Interpreter;
-const Contract = pkg.Contract.Contract;
-const Memory = pkg.Memory.Memory;
-const Stack = pkg.Stack.Stack;
-const JumpTable = pkg.JumpTable;
+const test_utils = @import("test_utils.zig");
+const log = @import("log.zig");
 
 // Create test objects using test_utils
 fn createTestFrame() !struct {
-    frame: *Frame,
-    stack: *Stack,
-    memory: *Memory,
-    interpreter: *Interpreter,
+    frame: *test_utils.Frame,
+    stack: *test_utils.Stack,
+    memory: *test_utils.Memory,
+    interpreter: *test_utils.Interpreter,
 } {
     const allocator = testing.allocator;
     

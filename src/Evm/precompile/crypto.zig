@@ -168,7 +168,7 @@ fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     Sha256.hash(input, &hash, .{});
     
     const result = try allocator.alloc(u8, hash.len);
-    @memcpy(result, &hash);
+    @memcpy(result, hash[0..]);
     
     return result;
 }
@@ -237,13 +237,15 @@ test "SHA256 precompile" {
     defer if (output) |data| allocator.free(data);
     
     try std.testing.expect(output != null);
-    try std.testing.expectEqual(@as(usize, 32), output.?.len);
-    // Known SHA256 hash of "hello world"
-    const expected = [_]u8{
-        0xb9, 0x4d, 0x27, 0xb9, 0x93, 0x4d, 0x3e, 0x08,
-        0xa5, 0x2e, 0x52, 0xd7, 0xda, 0x7d, 0xab, 0xfa,
-        0xc4, 0x84, 0xef, 0xe3, 0x7a, 0x53, 0x80, 0xee,
-        0x90, 0x88, 0xf7, 0xac, 0xe2, 0xef, 0xcd, 0xe9,
-    };
-    try std.testing.expectEqualSlices(u8, &expected, output.?);
+    if (output) |data| {
+        try std.testing.expectEqual(@as(usize, 32), data.len);
+        // Known SHA256 hash of "hello world"
+        const expected = [_]u8{
+            0xb9, 0x4d, 0x27, 0xb9, 0x93, 0x4d, 0x3e, 0x08,
+            0xa5, 0x2e, 0x52, 0xd7, 0xda, 0x7d, 0xab, 0xfa,
+            0xc4, 0x84, 0xef, 0xe3, 0x7a, 0x53, 0x80, 0xee,
+            0x90, 0x88, 0xf7, 0xac, 0xe2, 0xef, 0xcd, 0xe9,
+        };
+        try std.testing.expectEqualSlices(u8, &expected, data);
+    }
 }
