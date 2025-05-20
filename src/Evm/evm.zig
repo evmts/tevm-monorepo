@@ -488,6 +488,10 @@ pub const ChainRules = struct {
     /// Adds MCOPY instruction for efficient memory copying
     IsEIP5656: bool = true,
     
+    /// Is EIP3541 rules enabled (London, reject new contracts that start with 0xEF)
+    /// Rejects new contract code starting with the 0xEF byte
+    IsEIP3541: bool = true,
+    
     /// Create chain rules for a specific hardfork
     ///
     /// This is a factory method that creates a ChainRules configuration
@@ -649,6 +653,7 @@ pub const ChainRules = struct {
                 rules.IsShanghai = false;
                 rules.IsCancun = false;
                 rules.IsEIP1559 = false;
+                rules.IsEIP3541 = false;
                 rules.IsEIP3651 = false;
                 rules.IsEIP3855 = false;
                 rules.IsEIP3860 = false;

@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
-const rlp = @import("../Rlp/rlp.zig");
-const utils = @import("../Utils/utils.zig");
+const rlp = @import("Rlp");
+const utils = @import("Utils");
 
 /// Error type for trie operations
 pub const TrieError = error{

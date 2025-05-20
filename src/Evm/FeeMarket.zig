@@ -280,6 +280,51 @@ test "FeeMarket - initialBaseFee calculation" {
         try testing.expect(initial_fee < 1_000_000_000);
         try testing.expect(initial_fee >= FeeMarket.MIN_BASE_FEE);
     }
+    
+    // Test with extremely high gas usage (100% full)
+    {
+        const parent_gas_limit = 30_000_000;
+        const parent_gas_used = parent_gas_limit;
+        const initial_fee = FeeMarket.initialBaseFee(parent_gas_used, parent_gas_limit);
+        
+        // Expected increase: initial_base_fee * 0.5 / 8 = 1_000_000_000 * 0.5 / 8 = 62_500_000
+        const expected_initial_fee = 1_000_000_000 + 62_500_000;
+        
+        // Allow a small margin of error due to integer division
+        try testing.expect(initial_fee >= expected_initial_fee - 10);
+        try testing.expect(initial_fee <= expected_initial_fee + 10);
+    }
+    
+    // Test with extremely low gas usage (near 0% full)
+    {
+        const parent_gas_limit = 30_000_000;
+        const parent_gas_used = 1;
+        const initial_fee = FeeMarket.initialBaseFee(parent_gas_used, parent_gas_limit);
+        
+        // Should be close to minimum but still above it
+        try testing.expect(initial_fee >= FeeMarket.MIN_BASE_FEE);
+        try testing.expect(initial_fee < 1_000_000_000);
+    }
+    
+    // Test with zero gas limit (should not happen in practice)
+    {
+        const parent_gas_limit = 0;
+        const parent_gas_used = 0;
+        const initial_fee = FeeMarket.initialBaseFee(parent_gas_used, parent_gas_limit);
+        
+        // Should default to minimum base fee
+        try testing.expectEqual(FeeMarket.MIN_BASE_FEE, initial_fee);
+    }
+    
+    // Test with parent gas usage > parent gas limit (should not happen in practice)
+    {
+        const parent_gas_limit = 30_000_000;
+        const parent_gas_used = parent_gas_limit + 1_000_000;
+        const initial_fee = FeeMarket.initialBaseFee(parent_gas_used, parent_gas_limit);
+        
+        // Should be higher than 1 gwei
+        try testing.expect(initial_fee > 1_000_000_000);
+    }
 }
 
 test "FeeMarket - nextBaseFee calculation" {
@@ -467,5 +512,32 @@ test "FeeMarket - getGasTarget calculation" {
         
         // Gas target should be half the gas limit
         try testing.expectEqual(@as(u64, 5), gas_target);
+    }
+    
+    // Edge case - odd gas limit
+    {
+        const gas_limit = 15_000_001;
+        const gas_target = FeeMarket.getGasTarget(gas_limit);
+        
+        // Gas target should be half the gas limit (integer division truncates)
+        try testing.expectEqual(@as(u64, 7_500_000), gas_target);
+    }
+    
+    // Edge case - zero gas limit
+    {
+        const gas_limit = 0;
+        const gas_target = FeeMarket.getGasTarget(gas_limit);
+        
+        // Gas target should be zero
+        try testing.expectEqual(@as(u64, 0), gas_target);
+    }
+    
+    // Edge case - maximum gas limit
+    {
+        const gas_limit = std.math.maxInt(u64);
+        const gas_target = FeeMarket.getGasTarget(gas_limit);
+        
+        // Gas target should be half the gas limit
+        try testing.expectEqual(@as(u64, std.math.maxInt(u64) / 2), gas_target);
     }
 }

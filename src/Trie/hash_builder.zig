@@ -38,7 +38,7 @@ pub const HashBuilder = struct {
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
             // Add key to list for freeing later
-            keys.append(entry.key_ptr.*) catch {};
+            keys.append(try self.allocator.dupe(u8, entry.key_ptr.*)) catch {};
             
             // Add node to list for deinit later
             nodes.append(entry.value_ptr.*) catch {};
@@ -70,7 +70,7 @@ pub const HashBuilder = struct {
         var it = self.nodes.iterator();
         while (it.next()) |entry| {
             // Add key to list for freeing later
-            keys.append(entry.key_ptr.*) catch {};
+            keys.append(try self.allocator.dupe(u8, entry.key_ptr.*)) catch {};
             
             // Add node to list for deinit later
             nodes.append(entry.value_ptr.*) catch {};

@@ -3,7 +3,7 @@ const EvmLogger = @import("EvmLogger.zig").EvmLogger;
 const createLogger = @import("EvmLogger.zig").createLogger;
 const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 const FeeMarket = @import("FeeMarket.zig").FeeMarket;
-const Address = @import("../Address/address.zig").Address;
+const Address = @import("Address");
 
 // Module logger will be initialized when functions are called
 fn getLogger() EvmLogger {
@@ -122,6 +122,8 @@ pub const FeeMarketTransaction = struct {
     ///
     /// Returns: The sender's address
     pub fn getSender(self: *const FeeMarketTransaction) !Address {
+        _ = self; // Unused in placeholder implementation
+        
         // Note: This is a placeholder implementation
         // A complete implementation would:
         // 1. RLP encode the transaction without the signature
@@ -130,7 +132,7 @@ pub const FeeMarketTransaction = struct {
         // 4. Hash the public key and take the last 20 bytes as the address
         
         // For now, return a placeholder address
-        var addr_bytes = [_]u8{0} ** 20;
+        const addr_bytes = [_]u8{0} ** 20;
         return Address{ .bytes = addr_bytes };
     }
     
@@ -172,7 +174,6 @@ pub const FeeMarketTransaction = struct {
             self.max_priority_fee_per_gas
         );
         
-        const logger = getLogger();
         logger.debug("Calculated effective gas price: {d} wei", .{result.effective_gas_price});
         logger.debug("Miner tip portion: {d} wei", .{result.miner_fee});
         
@@ -214,7 +215,6 @@ pub const FeeMarketTransaction = struct {
         // Add the transferred value to get the total transaction cost
         const total_cost = gas_cost + self.value;
         
-        const logger = getLogger();
         logger.debug("Maximum gas cost: {d} wei", .{gas_cost});
         logger.debug("Transferred value: {d} wei", .{self.value});
         logger.debug("Total transaction cost: {d} wei", .{total_cost});
@@ -351,7 +351,6 @@ pub const FeeMarketTransaction = struct {
             .signature_s = signature_s,
         };
         
-        const logger = getLogger();
         logger.info("Created EIP-1559 transaction with chain_id={d}, nonce={d}", .{chain_id, nonce});
         logger.info("Transaction fees: max_fee={d} wei, max_priority_fee={d} wei", .{
             max_fee_per_gas, max_priority_fee_per_gas
