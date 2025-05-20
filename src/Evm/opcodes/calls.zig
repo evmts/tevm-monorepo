@@ -246,7 +246,7 @@ const keccak256 = if (is_test)
         }
     }.keccak256
 else
-    @import("../../Utils/keccak256.zig").keccak256;
+    @import("Utils").keccak256.keccak256;
 
 const EvmLogger = if (is_test)
     struct {

@@ -1,65 +1,43 @@
 const std = @import("std");
 const testing = std.testing;
-const math2 = @import("./math2.zig");
-const Evm = @import("Evm");
-const Frame = Evm.Frame;
-const Contract = Evm.Contract;
-const Interpreter = Evm.Interpreter;
-const Address = @import("Address");
-const ExecutionError = Evm.ExecutionError;
+const test_utils = @import("test_utils.zig");
+const math2 = @import("math2.zig");
+const root = @import("root");
+const Evm = root.Evm;
+const Frame = root.Frame;
+const ExecutionError = root.ExecutionError;
+const Interpreter = root.Interpreter;
+const Contract = root.Contract;
+const Memory = root.Memory;
+const Address = root.Address;
 
 // Helper function to create a negative u256 number using two's complement
 fn makeNegative(value: u256) u256 {
     return (~value) +% 1;
 }
 
-// Mock interpreter for testing
-fn createMockInterpreter() !*Interpreter {
-    const interpreter = try testing.allocator.create(Interpreter);
-    interpreter.* = Interpreter{
-        .evm = undefined,
-        .depth = 0,
-        .gas = 0,
-        .abort = false,
-        .returnData = null,
-        .readOnly = false,
-        .static_mode = false,
-    };
-    return interpreter;
-}
-
-// Mock contract for testing
-fn createMockContract() !*Contract {
-    var address: Address.Address = undefined;
-    _ = std.fmt.hexToBytes(&address, "1234567890123456789012345678901234567890") catch unreachable;
-    
-    var caller: Address.Address = undefined;
-    _ = std.fmt.hexToBytes(&caller, "2345678901234567890123456789012345678901") catch unreachable;
-    
-    const contract = try testing.allocator.create(Contract);
-    contract.* = Contract{
-        .input = "",
-        .code = "",
-        .hash = null,
-        .address = address,
-        .caller = caller,
-        .value = 0,
-        .gas = 1000000,
-        .readOnly = false,
-    };
-    return contract;
-}
-
 // Helper for running opcode tests
 fn runOpcodeTest(execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]const u8, input: []const u256, expected_output: []const u256) !void {
-    const mock_interpreter = try createMockInterpreter();
-    defer testing.allocator.destroy(mock_interpreter);
+    const allocator = testing.allocator;
     
-    const mock_contract = try createMockContract();
-    defer testing.allocator.destroy(mock_contract);
+    // Create a mock contract with empty code
+    const contract = try test_utils.createMockContract(allocator, &[_]u8{});
+    defer {
+        allocator.free(contract.code);
+        allocator.destroy(contract);
+    }
     
-    var frame = try Frame.init(testing.allocator, mock_contract);
+    // Create a frame with the mock contract
+    var frame = try Frame.init(allocator, contract);
     defer frame.deinit();
+    
+    // Create a mock EVM
+    const evm_instance = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm_instance);
+    
+    // Create a mock interpreter
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm_instance);
+    defer allocator.destroy(interpreter);
     
     // Push input values onto the stack
     for (input) |val| {
@@ -67,7 +45,7 @@ fn runOpcodeTest(execute_fn: fn (usize, *Interpreter, *Frame) ExecutionError![]c
     }
     
     // Execute the opcode
-    _ = try execute_fn(0, mock_interpreter, &frame);
+    _ = try execute_fn(0, interpreter, &frame);
     
     // Check if the stack has the expected size after execution
     try testing.expectEqual(expected_output.len, frame.stack.size);
@@ -103,7 +81,7 @@ test "ADDMOD with large numbers" {
 
 test "MULMOD with non-zero modulus" {
     const input = [_]u256{ 7, 5, 3 }; // 7 * 5 mod 3
-    const expected = [_]u256{1}; // (7 * 5) % 3 = 35 % 3 = 2
+    const expected = [_]u256{2}; // (7 * 5) % 3 = 35 % 3 = 2
     try runOpcodeTest(math2.opMulmod, &input, &expected);
 }
 

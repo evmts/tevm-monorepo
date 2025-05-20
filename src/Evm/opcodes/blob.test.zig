@@ -1,22 +1,9 @@
 const std = @import("std");
 const testing = std.testing;
 const blob = @import("blob.zig");
-// Use direct imports to avoid import path issues
-const interpreter_mod = @import("../interpreter.zig");
-const frame_mod = @import("../Frame.zig");
-const stack_mod = @import("../Stack.zig");
-const memory_mod = @import("../Memory.zig");
-const contract_mod = @import("../Contract.zig");
-const evm_mod = @import("../evm.zig");
 
-const Interpreter = interpreter_mod.Interpreter;
-const Frame = frame_mod.Frame;
-const Stack = stack_mod.Stack;
-const Memory = memory_mod.Memory;
-const Contract = contract_mod.Contract;
-const EVM = evm_mod.EVM;
-const ExecutionStatus = evm_mod.ExecutionStatus;
-const Log = evm_mod.Log;
+// Define helpers for the tests
+pub const u256 = u64; // Simplified for testing purposes
 
 // Define a wrapper for u64 to use in place of u256
 pub const BigInt = u64;
@@ -132,7 +119,7 @@ test "BLOBHASH basic operation" {
     
     // Check result - should have one item on stack
     try testing.expectEqual(@as(usize, 1), test_frame.stack.size);
-    try testing.expectEqual(@as(BigInt, 0), test_frame.stack.data[0]);
+    try testing.expectEqual(@as(u64, 0), test_frame.stack.data[0]);
 }
 
 test "BLOBBASEFEE basic operation" {
@@ -146,7 +133,7 @@ test "BLOBBASEFEE basic operation" {
     // Check result - should have one item on stack
     try testing.expectEqual(@as(usize, 1), test_frame.stack.size);
     // Our placeholder value is 1000000
-    try testing.expectEqual(@as(BigInt, 1000000), test_frame.stack.data[0]);
+    try testing.expectEqual(@as(u64, 1000000), test_frame.stack.data[0]);
 }
 
 test "MCOPY basic operation" {

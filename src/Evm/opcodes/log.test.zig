@@ -1,12 +1,12 @@
 const std = @import("std");
 const testing = std.testing;
 const log = @import("log.zig");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
-const JumpTable = @import("../JumpTable.zig");
-const Contract = @import("../Contract.zig").Contract;
+const Interpreter = @import("Evm").Interpreter;
+const Frame = @import("Evm").Frame;
+const Stack = @import("Evm").Stack;
+const Memory = @import("Evm").Memory;
+const JumpTable = @import("Evm").JumpTable;
+const Contract = @import("Evm").Contract;
 
 // Mock implementation for testing
 fn createTestFrame() !struct {

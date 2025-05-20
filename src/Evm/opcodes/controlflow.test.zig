@@ -1,31 +1,15 @@
 const std = @import("std");
-const Frame = @import("Evm").Frame;
-const ExecutionError = @import("Evm").ExecutionError;
-const Interpreter = @import("Evm").Interpreter;
-const Evm = @import("Evm");
-const Contract = @import("Evm").Contract;
-const Memory = @import("Evm").Memory;
-const controlflow = @import("Evm").Opcodes.controlflow;
-const Address = @import("Address").Address;
+const test_utils = @import("test_utils.zig");
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Evm = @import("../evm.zig").Evm;
+const Contract = @import("../Contract.zig").Contract;
+const Memory = @import("../Memory.zig").Memory;
+const controlflow = @import("controlflow.zig");
+const Address = @import("../../Address/address.zig").Address;
 
-// Mock contract for testing
-fn createMockContract(allocator: std.mem.Allocator, code: []const u8) !*Contract {
-    const contract = try allocator.create(Contract);
-    contract.* = Contract{
-        .code = try allocator.dupe(u8, code),
-        .input = &[_]u8{},
-        .address = Address.zero(),
-        .caller = Address.zero(),
-        .value = 0,
-        .gas = 1000000,
-        .code_hash = [_]u8{0} ** 32,
-        .analysis = null,
-        .jumpdests = null,
-        .is_deployment = false,
-        .is_system_call = false,
-    };
-    return contract;
-}
+// Use the test_utils module for creating mock objects
 
 // Test the JUMP opcode
 test "JUMP opcode" {
@@ -33,7 +17,7 @@ test "JUMP opcode" {
     
     // Create a simple contract with JUMPDEST at position 3
     const code = [_]u8{ 0x60, 0x03, 0x56, 0x5B, 0x00 }; // PUSH1 0x03, JUMP, JUMPDEST, STOP
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -47,14 +31,15 @@ test "JUMP opcode" {
     try frame.stack.push(3); // Destination is position 3 (JUMPDEST)
     frame.pc = 2; // PC is at the JUMP opcode
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the JUMP opcode
-    _ = try controlflow.opJump(frame.pc, &interpreter, &frame);
+    _ = try controlflow.opJump(frame.pc, interpreter, &frame);
     
     // Check if PC was updated correctly (should be at JUMPDEST)
     try std.testing.expectEqual(@as(usize, 2), frame.pc); // One less because interpreter will increment
@@ -66,7 +51,7 @@ test "JUMPI opcode - condition true" {
     
     // Create a simple contract with JUMPDEST at position 4
     const code = [_]u8{ 0x60, 0x04, 0x60, 0x01, 0x57, 0x5B, 0x00 }; // PUSH1 0x04, PUSH1 0x01, JUMPI, JUMPDEST, STOP
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -81,14 +66,15 @@ test "JUMPI opcode - condition true" {
     try frame.stack.push(1); // Condition is true (non-zero)
     frame.pc = 4; // PC is at the JUMPI opcode
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the JUMPI opcode
-    _ = try controlflow.opJumpi(frame.pc, &interpreter, &frame);
+    _ = try controlflow.opJumpi(frame.pc, interpreter, &frame);
     
     // Check if PC was updated correctly (should be at JUMPDEST)
     try std.testing.expectEqual(@as(usize, 3), frame.pc); // One less because interpreter will increment
@@ -100,7 +86,7 @@ test "JUMPI opcode - condition false" {
     
     // Create a simple contract with JUMPDEST at position 4
     const code = [_]u8{ 0x60, 0x04, 0x60, 0x00, 0x57, 0x5B, 0x00 }; // PUSH1 0x04, PUSH1 0x00, JUMPI, JUMPDEST, STOP
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -115,14 +101,15 @@ test "JUMPI opcode - condition false" {
     try frame.stack.push(0); // Condition is false (zero)
     frame.pc = 4; // PC is at the JUMPI opcode
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the JUMPI opcode
-    _ = try controlflow.opJumpi(frame.pc, &interpreter, &frame);
+    _ = try controlflow.opJumpi(frame.pc, interpreter, &frame);
     
     // Check if PC was not updated (should remain at JUMPI)
     try std.testing.expectEqual(@as(usize, 4), frame.pc);
@@ -134,7 +121,7 @@ test "PC opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0x58, 0x00 }; // PC, STOP
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -146,19 +133,20 @@ test "PC opcode" {
     
     frame.pc = 0; // PC is at the PC opcode
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the PC opcode
-    _ = try controlflow.opPc(frame.pc, &interpreter, &frame);
+    _ = try controlflow.opPc(frame.pc, interpreter, &frame);
     
     // Check if the stack contains the correct PC value
     try std.testing.expectEqual(@as(usize, 1), frame.stack.size);
-    const pc_value = try frame.stack.peek().*;
-    try std.testing.expectEqual(@as(u256, 0), pc_value); // PC was 0 before execution
+    const pc_value = frame.stack.data[0];
+    try std.testing.expectEqual(@as(u64, 0), pc_value); // PC was 0 before execution
 }
 
 // Test the JUMPDEST opcode
@@ -167,7 +155,7 @@ test "JUMPDEST opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0x5B, 0x00 }; // JUMPDEST, STOP
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -179,14 +167,15 @@ test "JUMPDEST opcode" {
     
     frame.pc = 0; // PC is at the JUMPDEST opcode
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the JUMPDEST opcode
-    _ = try controlflow.opJumpdest(frame.pc, &interpreter, &frame);
+    _ = try controlflow.opJumpdest(frame.pc, interpreter, &frame);
     
     // JUMPDEST does nothing, just check that it doesn't crash
     try std.testing.expect(true);
@@ -198,7 +187,7 @@ test "STOP opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0x00 }; // STOP
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -208,14 +197,15 @@ test "STOP opcode" {
     var frame = try Frame.init(allocator, contract);
     defer frame.deinit();
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the STOP opcode and expect STOP error
-    const result = controlflow.opStop(0, &interpreter, &frame);
+    const result = controlflow.opStop(0, interpreter, &frame);
     try std.testing.expectError(ExecutionError.STOP, result);
 }
 
@@ -225,7 +215,7 @@ test "RETURN opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0xF3 }; // RETURN
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -236,26 +226,29 @@ test "RETURN opcode" {
     defer frame.deinit();
     
     // Set up memory with some data
-    try frame.memory.store(0, &[_]u8{ 0xaa, 0xbb, 0xcc, 0xdd });
+    for (0..4) |i| {
+        try frame.memory.store8(i, @truncate(0xaa + i));
+    }
     
     // Set up the stack with offset and size
     try frame.stack.push(0); // offset: 0
     try frame.stack.push(4); // size: 4 bytes
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the RETURN opcode and expect STOP error
-    const result = controlflow.opReturn(0, &interpreter, &frame);
+    const result = controlflow.opReturn(0, interpreter, &frame);
     try std.testing.expectError(ExecutionError.STOP, result);
     
     // Check that return data was set correctly
     try std.testing.expect(frame.returnData != null);
     if (frame.returnData) |data| {
-        try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xbb, 0xcc, 0xdd }, data);
+        try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xab, 0xac, 0xad }, data);
     }
 }
 
@@ -265,7 +258,7 @@ test "REVERT opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0xFD }; // REVERT
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -276,26 +269,29 @@ test "REVERT opcode" {
     defer frame.deinit();
     
     // Set up memory with some data
-    try frame.memory.store(0, &[_]u8{ 0xaa, 0xbb, 0xcc, 0xdd });
+    for (0..4) |i| {
+        try frame.memory.store8(i, @truncate(0xaa + i));
+    }
     
     // Set up the stack with offset and size
     try frame.stack.push(0); // offset: 0
     try frame.stack.push(4); // size: 4 bytes
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the REVERT opcode and expect REVERT error
-    const result = controlflow.opRevert(0, &interpreter, &frame);
+    const result = controlflow.opRevert(0, interpreter, &frame);
     try std.testing.expectError(ExecutionError.REVERT, result);
     
     // Check that return data was set correctly
     try std.testing.expect(frame.returnData != null);
     if (frame.returnData) |data| {
-        try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xbb, 0xcc, 0xdd }, data);
+        try std.testing.expectEqualSlices(u8, &[_]u8{ 0xaa, 0xab, 0xac, 0xad }, data);
     }
 }
 
@@ -305,7 +301,7 @@ test "INVALID opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0xFE }; // INVALID
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -315,14 +311,15 @@ test "INVALID opcode" {
     var frame = try Frame.init(allocator, contract);
     defer frame.deinit();
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the INVALID opcode and expect INVALID error
-    const result = controlflow.opInvalid(0, &interpreter, &frame);
+    const result = controlflow.opInvalid(0, interpreter, &frame);
     try std.testing.expectError(ExecutionError.INVALID, result);
 }
 
@@ -332,7 +329,7 @@ test "SELFDESTRUCT opcode" {
     
     // Create a simple contract
     const code = [_]u8{ 0xFF }; // SELFDESTRUCT
-    const contract = try createMockContract(allocator, &code);
+    const contract = try test_utils.createMockContract(allocator, &code);
     defer {
         allocator.free(contract.code);
         allocator.destroy(contract);
@@ -345,19 +342,20 @@ test "SELFDESTRUCT opcode" {
     // Set up the stack with beneficiary address
     try frame.stack.push(0x1234); // Some beneficiary address
     
-    // Create a mock interpreter
-    var evm = try Evm.create(allocator, .{});
-    defer evm.deinit();
+    // Create a mock EVM and interpreter
+    const evm = try test_utils.createMockEvm(allocator);
+    defer allocator.destroy(evm);
     
-    var interpreter = Interpreter.create(allocator, &evm, undefined);
+    const interpreter = try test_utils.createMockInterpreter(allocator, evm);
+    defer allocator.destroy(interpreter);
     
     // Execute the SELFDESTRUCT opcode and expect STOP error
-    const result = controlflow.opSelfdestruct(0, &interpreter, &frame);
+    const result = controlflow.opSelfdestruct(0, interpreter, &frame);
     try std.testing.expectError(ExecutionError.STOP, result);
     
     // Test with readOnly=true
     try frame.stack.push(0x1234); // Push beneficiary address again
     interpreter.readOnly = true;
-    const readonly_result = controlflow.opSelfdestruct(0, &interpreter, &frame);
+    const readonly_result = controlflow.opSelfdestruct(0, interpreter, &frame);
     try std.testing.expectError(ExecutionError.StaticStateChange, readonly_result);
 }

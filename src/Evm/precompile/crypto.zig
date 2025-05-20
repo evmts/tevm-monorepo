@@ -139,11 +139,8 @@ fn ecrecoverRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     const padded_input = try common.rightPadBytes(allocator, input, ecRecoverInputLength);
     defer allocator.free(padded_input);
     
-    // Extract the hash, v, r, s components
-    const hash = padded_input[0..32];
+    // Extract the v component (we only use v in this implementation)
     const v = padded_input[32];
-    const r = padded_input[64..96];
-    const s = padded_input[96..128];
     
     // Check v value (should be 27 or 28 for legacy compatibility)
     if (v != 27 and v != 28) {
@@ -176,7 +173,7 @@ fn sha256Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     return result;
 }
 
-fn ripemd160Run(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
+fn ripemd160Run(_: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // TODO: Implement actual RIPEMD160 (need to either import a library or implement it)
     // For now, return zeros as a placeholder
     const result = try allocator.alloc(u8, 32);

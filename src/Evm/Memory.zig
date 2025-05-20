@@ -168,16 +168,22 @@ pub const Memory = struct {
     /// - size: The number of bytes to copy
     ///
     /// Returns: A newly allocated buffer containing the copied data
-    /// Panics: If memory allocation fails
-    pub fn getCopy(self: *const Memory, offset: u64, size: u64) []u8 {
+    /// Errors: Returns error.OutOfMemory if allocation fails
+    pub fn getCopy(self: *const Memory, offset: u64, size: u64) ![]u8 {
         if (size == 0) {
             return &[_]u8{};
         }
 
-        // Memory is always resized before being accessed, no need to check bounds
-        const cpy = self.allocator.alloc(u8, size) catch {
-            @panic("memory allocation failed");
-        };
+        // Safety check for offsets
+        if (offset >= self.store.items.len) {
+            return error.OutOfBounds;
+        }
+        if (offset + size > self.store.items.len) {
+            return error.OutOfBounds;
+        }
+
+        // Create a new buffer and copy data safely
+        const cpy = try self.allocator.alloc(u8, @intCast(size));
         @memcpy(cpy, self.store.items[offset .. offset + size]);
         return cpy;
     }
@@ -205,7 +211,12 @@ pub const Memory = struct {
     ///
     /// Returns: The current size of the memory in bytes
     pub fn len(self: *const Memory) u64 {
-        return self.store.items.len;
+        return @intCast(self.store.items.len);
+    }
+    
+    /// Returns the current size of the memory in bytes
+    pub fn memSize(self: *const Memory) u64 {
+        return @intCast(self.store.items.len);
     }
 
     /// Data returns the backing slice
@@ -266,7 +277,7 @@ test "Memory basic operations" {
     memory.set(32, value.len, &value);
 
     // Test getCopy
-    const copied = memory.getCopy(32, value.len);
+    const copied = try memory.getCopy(32, value.len);
     defer testing.allocator.free(copied);
     try testing.expectEqualSlices(u8, &value, copied);
 
@@ -291,7 +302,7 @@ test "Memory set32" {
     var expected = [_]u8{0} ** 32;
     expected[31] = 42;
 
-    const actual = memory.getCopy(32, 32);
+    const actual = try memory.getCopy(32, 32);
     defer testing.allocator.free(actual);
     try testing.expectEqualSlices(u8, &expected, actual);
 }
@@ -307,14 +318,14 @@ test "Memory copy" {
 
     // Test copy (non-overlapping)
     memory.copy(32, 0, value.len);
-    const copied = memory.getCopy(32, value.len);
+    const copied = try memory.getCopy(32, value.len);
     defer testing.allocator.free(copied);
     try testing.expectEqualSlices(u8, &value, copied);
 
     // Test copy (overlapping)
     memory.copy(4, 0, value.len - 2);
     const expected = [_]u8{ 1, 2, 3, 4, 1, 2, 3, 4, 5, 6 };
-    const actual = memory.getCopy(0, 10);
+    const actual = try memory.getCopy(0, 10);
     defer testing.allocator.free(actual);
     try testing.expectEqualSlices(u8, expected[0..10], actual);
 }
@@ -339,19 +350,19 @@ test "Memory edge cases" {
     // Test setting data at offset 0
     const value = [_]u8{ 0xFF, 0xEE, 0xDD, 0xCC };
     memory.set(0, value.len, &value);
-    const result = memory.getCopy(0, value.len);
+    const result = try memory.getCopy(0, value.len);
     defer testing.allocator.free(result);
     try testing.expectEqualSlices(u8, &value, result);
 
     // Test setting multiple regions
     const value2 = [_]u8{ 0xAA, 0xBB, 0xCC, 0xDD };
     memory.set(32, value2.len, &value2);
-    const result2 = memory.getCopy(32, value2.len);
+    const result2 = try memory.getCopy(32, value2.len);
     defer testing.allocator.free(result2);
     try testing.expectEqualSlices(u8, &value2, result2);
 
     // Verify first region is still intact
-    const verify = memory.getCopy(0, value.len);
+    const verify = try memory.getCopy(0, value.len);
     defer testing.allocator.free(verify);
     try testing.expectEqualSlices(u8, &value, verify);
 }

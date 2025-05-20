@@ -1,13 +1,14 @@
 const std = @import("std");
 const testing = std.testing;
 const memory_ops = @import("memory.zig");
-const Frame = @import("../Frame.zig").Frame;
-const Contract = @import("../Contract.zig").Contract;
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Memory = @import("../Memory.zig").Memory;
-const Stack = @import("../Stack.zig").Stack;
-const Evm = @import("../evm.zig");
-const JumpTable = @import("../JumpTable.zig");
+const evm_pkg = @import("../package.zig");
+const Frame = evm_pkg.Frame;
+const Contract = evm_pkg.Contract;
+const Interpreter = evm_pkg.Interpreter;
+const Memory = evm_pkg.Memory;
+const Stack = evm_pkg.Stack;
+const Evm = evm_pkg.Evm;
+const JumpTable = evm_pkg.JumpTable;
 
 // Mock contract for testing
 fn createMockContract(allocator: std.mem.Allocator) !*Contract {
@@ -33,7 +34,7 @@ fn createMockInterpreter(allocator: std.mem.Allocator) !*Interpreter {
     const evm = try allocator.create(Evm);
     
     // Create JumpTable
-    var jump_table = JumpTable.JumpTable.init();
+    const jump_table = JumpTable.JumpTable.init();
     
     // Create and initialize an interpreter
     const interpreter = try allocator.create(Interpreter);

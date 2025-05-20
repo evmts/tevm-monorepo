@@ -11,7 +11,7 @@ const logStackSlop = @import("EvmLogger.zig").logStackSlop;
 const logStep = @import("EvmLogger.zig").logStep;
 const logHexBytes = @import("EvmLogger.zig").logHexBytes;
 const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
-const hex = @import("../Utils/hex.zig");
+const hex = @import("Utils").hex;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

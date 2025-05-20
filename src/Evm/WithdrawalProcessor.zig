@@ -103,7 +103,8 @@ pub const BlockWithdrawalProcessor = struct {
         var scoped = createScopedLogger(getLogger(), "verifyWithdrawalsRoot()");
         defer scoped.deinit();
         
-        getLogger().debug("Verifying withdrawals root", .{});
+        getLogger().debug("Verifying withdrawals root for {d} withdrawals", .{withdrawals.len});
+        getLogger().debug("Expected withdrawals root: {s}", .{std.fmt.fmtSliceHexLower(expected_root)});
         
         if (!self.chainRules.IsEIP4895) {
             getLogger().warn("EIP-4895 not enabled, withdrawals root validation skipped", .{});

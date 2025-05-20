@@ -1,5 +1,5 @@
 const std = @import("std");
-const hex = @import("../Utils/hex.zig");
+const hex = @import("Utils").hex;
 
 /// Whether debug logging is enabled
 /// When set to false, all logging functions are compiled away with zero runtime overhead

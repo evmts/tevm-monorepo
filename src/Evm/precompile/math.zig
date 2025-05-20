@@ -38,10 +38,9 @@ fn bigModExpRequiredGas(input: []const u8) u64 {
     }
     
     // Use the longer of baseLen and modLen as the size parameter
-    var arithSize = if (baseLen > modLen) baseLen else modLen;
+    const arithSize = if (baseLen > modLen) baseLen else modLen;
     
-    // Calculate the multiplier based on the adjusted exp length
-    var multiplier = u256(0);
+    // Calculate the adjusted exp length
     var adjExpLen = u256(0);
     
     if (expLen > 32) {
@@ -58,7 +57,7 @@ fn bigModExpRequiredGas(input: []const u8) u64 {
     
     // Find the highest bit set in expHead
     var msb: i32 = -1;
-    var expHeadInt: usize = @intCast(expHead);
+    const expHeadInt: usize = @intCast(expHead);
     var tempVal = expHeadInt;
     while (tempVal > 0) {
         tempVal >>= 1;
@@ -118,10 +117,9 @@ fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
     }
     
     // Use the longer of baseLen and modLen as the size parameter
-    var arithSize = if (baseLen > modLen) baseLen else modLen;
+    const arithSize = if (baseLen > modLen) baseLen else modLen;
     
-    // Calculate the multiplier based on the adjusted exp length
-    var multiplier = u256(0);
+    // Calculate the adjusted exp length
     var adjExpLen = u256(0);
     
     if (expLen > 32) {
@@ -138,7 +136,7 @@ fn bigModExpEIP2565RequiredGas(input: []const u8) u64 {
     
     // Find the highest bit set in expHead
     var msb: i32 = -1;
-    var expHeadInt: usize = @intCast(expHead);
+    const expHeadInt: usize = @intCast(expHead);
     var tempVal = expHeadInt;
     while (tempVal > 0) {
         tempVal >>= 1;
@@ -222,7 +220,7 @@ fn bigModExpRun(input: []const u8, allocator: std.mem.Allocator) !?[]u8 {
     // Special cases
     if (mod == 0) {
         // Modulo 0 is undefined, return zero
-        var zeroes = try allocator.alloc(u8, @intCast(modLen));
+        const zeroes = try allocator.alloc(u8, @intCast(modLen));
         @memset(zeroes, 0);
         return zeroes;
     } else if (base == 1) {

@@ -1,8 +1,7 @@
 const std = @import("std");
-const Contract = @import("../Contract.zig").Contract;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-// For B256, we'll simply use a u256 array type for now
-const u256 = u256;
+const Contract = @import("Evm").Contract;
+const ExecutionError = @import("Evm").ExecutionError;
+// For B256, we'll use a simple struct with a fixed-size array
 const B256 = struct {
     value: [32]u8,
 };
@@ -125,8 +124,9 @@ fn ripemd160(_: []const u8, allocator: std.mem.Allocator) ExecutionError![]const
     
     // Here we would compute the hash and place it in the last 20 bytes
     // Placeholder: set last 20 bytes to some value for testing
+    // Only populate with values that fit in a u8
     for (0..20) |i| {
-        result[12 + i] = @truncate(i);
+        result[12 + i] = @truncate(@as(u8, @intCast(i)));
     }
     
     return result;

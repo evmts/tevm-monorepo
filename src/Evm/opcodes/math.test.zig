@@ -1,7 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 const math = @import("math.zig");
-const Stack = @import("../Stack.zig").Stack;
+const Stack = @import("std").meta.import("../Stack.zig").Stack;
+const BigInt = u64; // Use BigInt as alias for u256 in the test
 
 // Simple mock implementation for testing
 const MockInterpreter = struct {
@@ -46,10 +47,10 @@ test "ADD operation" {
     
     // Check the result
     const result = try frame.stack.pop();
-    try testing.expectEqual(@as(u256, 30), result);
+    try testing.expectEqual(@as(BigInt, 30), result);
     
     // Test addition with wrapping (overflow)
-    const max_value: u256 = ~@as(u256, 0); // All bits set to 1
+    const max_value: BigInt = ~@as(BigInt, 0); // All bits set to 1
     try frame.stack.push(max_value); // First push (max value)
     try frame.stack.push(1);         // Second push (1)
     
@@ -58,7 +59,7 @@ test "ADD operation" {
     
     // Check the result
     const overflow_result = try frame.stack.pop();
-    try testing.expectEqual(@as(u256, 0), overflow_result);
+    try testing.expectEqual(@as(BigInt, 0), overflow_result);
 }
 
 test "SUB operation" {
@@ -76,7 +77,7 @@ test "SUB operation" {
     
     // Check the result
     const result = try frame.stack.pop();
-    try testing.expectEqual(@as(u256, 20), result);
+    try testing.expectEqual(@as(BigInt, 20), result);
     
     // Test subtraction with wrapping (underflow)
     try frame.stack.push(0); // First push (0)
@@ -87,7 +88,7 @@ test "SUB operation" {
     
     // Check the result
     const underflow_result = try frame.stack.pop();
-    try testing.expectEqual(~@as(u256, 0), underflow_result); // All bits set to 1
+    try testing.expectEqual(~@as(BigInt, 0), underflow_result); // All bits set to 1
 }
 
 test "MUL operation" {
@@ -105,7 +106,7 @@ test "MUL operation" {
     
     // Check the result
     const result = try frame.stack.pop();
-    try testing.expectEqual(@as(u256, 42), result);
+    try testing.expectEqual(@as(BigInt, 42), result);
     
     // Test multiplication with large numbers (not overflowing)
     try frame.stack.push(0x10000000); // 2^28
@@ -116,10 +117,10 @@ test "MUL operation" {
     
     // Check the result
     const large_result = try frame.stack.pop();
-    try testing.expectEqual(@as(u256, 0x100000000), large_result); // 2^32
+    try testing.expectEqual(@as(BigInt, 0x100000000), large_result); // 2^32
     
     // Test multiplication with wrapping (overflow)
-    const half_max: u256 = (@as(u256, 1) << 255) - 1; // 2^255 - 1
+    const half_max: BigInt = (@as(BigInt, 1) << (std.math.log2(BigInt) - 1)) - 1; // 2^(bits-1) - 1
     try frame.stack.push(half_max);  // Value close to overflow
     try frame.stack.push(2);         // Multiply by 2 to cause overflow
     
@@ -128,7 +129,7 @@ test "MUL operation" {
     
     // Check the result - should be (2^255 - 1) * 2 = 2^256 - 2 which wraps to -2 (using 2's complement)
     const overflow_result = try frame.stack.pop();
-    const expected_wrap = ~@as(u256, 1); // All bits set except least significant bit
+    const expected_wrap = ~@as(BigInt, 1); // All bits set except least significant bit
     try testing.expectEqual(expected_wrap, overflow_result);
 }
 

@@ -14,14 +14,15 @@ pub fn opAdd(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
         return ExecutionError.StackUnderflow;
     }
     
-    // Pop x from the stack
+    // Pop both values from the stack
     const x = try frame.stack.pop();
+    const y = try frame.stack.pop();
     
-    // Get reference to y (which is now at the top of the stack)
-    const y = try frame.stack.peek();
+    // Perform the operation with wrapping addition
+    const result = x +% y;
     
-    // Add x + y and store result in y
-    y.* = x +% y.*; // Using wrapping addition for EVM semantics
+    // Push the result back onto the stack
+    try frame.stack.push(result);
     
     return "";
 }
@@ -36,14 +37,15 @@ pub fn opSub(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
         return ExecutionError.StackUnderflow;
     }
     
-    // Pop x from the stack
+    // Pop both values from the stack
     const x = try frame.stack.pop();
+    const y = try frame.stack.pop();
     
-    // Get reference to y (which is now at the top of the stack)
-    const y = try frame.stack.peek();
+    // Perform the operation with wrapping subtraction
+    const result = y -% x;
     
-    // Subtract y - x and store result in y
-    y.* = y.* -% x; // Using wrapping subtraction for EVM semantics
+    // Push the result back onto the stack
+    try frame.stack.push(result);
     
     return "";
 }
@@ -58,14 +60,15 @@ pub fn opMul(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
         return ExecutionError.StackUnderflow;
     }
     
-    // Pop x from the stack
+    // Pop both values from the stack
     const x = try frame.stack.pop();
+    const y = try frame.stack.pop();
     
-    // Get reference to y (which is now at the top of the stack)
-    const y = try frame.stack.peek();
+    // Perform the operation with wrapping multiplication
+    const result = x *% y;
     
-    // Multiply x * y and store result in y
-    y.* = x *% y.*; // Using wrapping multiplication for EVM semantics
+    // Push the result back onto the stack
+    try frame.stack.push(result);
     
     return "";
 }
@@ -80,18 +83,18 @@ pub fn opDiv(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
         return ExecutionError.StackUnderflow;
     }
     
-    // Pop x (divisor) from the stack
-    const x = try frame.stack.pop();
+    // Pop both values from the stack (divisor, dividend)
+    const x = try frame.stack.pop(); // divisor
+    const y = try frame.stack.pop(); // dividend
     
-    // Get reference to y (dividend, which is now at the top of the stack)
-    const y = try frame.stack.peek();
-    
-    // Division by zero returns 0 in the EVM
-    if (x == 0) {
-        y.* = 0;
-    } else {
-        y.* = y.* / x; // Integer division
+    // Calculate division result, handling division by zero per EVM rules
+    var result: u256 = 0;
+    if (x != 0) {
+        result = y / x; // Integer division
     }
+    
+    // Push the result back onto the stack
+    try frame.stack.push(result);
     
     return "";
 }
