@@ -161,10 +161,9 @@ pub fn processWithdrawals(
     getLogger().debug("Processing {d} withdrawals", .{withdrawals.len});
     std.debug.print("processWithdrawals: Processing {d} withdrawals\n", .{withdrawals.len});
     
-    // In test builds, we'll skip the actual state operations to avoid interface issues
+    // In test builds, we'll process withdrawals directly
     if (builtin.is_test) {
-        std.debug.print("Test build - skipping withdrawal processing\n", .{});
-        return;
+        std.debug.print("Test build - processing withdrawals...\n", .{});
     }
     
     for (withdrawals, 0..) |withdrawal, i| {
@@ -235,7 +234,23 @@ fn rewardAccount(stateManager: anytype, address: Address, amount: u128) !void {
         // Save the updated account state
         try stateManager.putAccount(b160_address, account);
     } else {
-        std.debug.print("Skip state operations in test build\n", .{});
+        // In test builds, call the methods directly on MockStateManager
+        std.debug.print("Processing withdrawal in test mode\n", .{});
+        
+        // Get the account from state (or create a new one if it doesn't exist)
+        var account = try stateManager.getAccount(address) orelse blk: {
+            std.debug.print("  Account does not exist, creating new account with balance 0\n", .{});
+            break :blk try stateManager.createAccount(address, 0);
+        };
+        
+        // Increase the account balance
+        const oldBalance = account.balance;
+        account.balance += amount;
+        
+        std.debug.print("  Balance updated: {d} -> {d}\n", .{oldBalance, account.balance});
+        
+        // Save the updated account state
+        try stateManager.putAccount(address, account);
     }
     
     getLogger().debug("Account rewarded successfully", .{});

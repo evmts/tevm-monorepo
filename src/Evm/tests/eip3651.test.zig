@@ -66,11 +66,13 @@ test "EIP-3651: COINBASE should be warm by default" {
 
     // Create jump table
     var jt = try JumpTable.newJumpTable(allocator, "latest");
-    defer jt.deinit(allocator);
+    // Don't manually deinit the jump table, let the arena cleanup handle it
+    // defer jt.deinit(allocator);
 
     // Create interpreter
-    var interpreter = Interpreter.create(allocator, &evm, jt);
-    defer interpreter.deinit();
+    var interpreter = try Interpreter.create(allocator, &evm, jt);
+    // Don't manually deinit the interpreter, let the arena cleanup handle it
+    // defer interpreter.deinit();
 
     // Create test contract with COINBASE opcode
     var contract = try createTestContract(allocator);

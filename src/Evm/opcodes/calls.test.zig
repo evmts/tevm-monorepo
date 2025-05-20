@@ -32,7 +32,11 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
 
 fn setupInterpreter(allocator: std.mem.Allocator) !*Interpreter {
     var evm_instance = try Evm.init(allocator, null);
+    
+    // Create and return the interpreter, but make sure not to free the EVM
+    // since it's owned by the test arena allocator
     const interpreter_instance = try Interpreter.init(allocator, &evm_instance);
+    
     return interpreter_instance;
 }
 

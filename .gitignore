@@ -8,6 +8,7 @@ alloy/
 evmone/
 revm/
 src/Evm/go-ethereum/
+ethereumjs-monorepo
 
 /target/
 **/*.rs.bk
