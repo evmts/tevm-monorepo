@@ -111,21 +111,21 @@ test "Block withdrawal processing with Shanghai rules" {
 
     // Create withdrawals
     const withdrawal1 = WithdrawalData.init(
-        1,  // index
-        100,  // validator index
+        1, // index
+        100, // validator index
         address1, // recipient address
-        1_500_000_000,  // amount in Gwei (1.5 ETH)
+        1_500_000_000, // amount in Gwei (1.5 ETH)
     );
 
     const withdrawal2 = WithdrawalData.init(
-        2,  // index
-        200,  // validator index
+        2, // index
+        200, // validator index
         address2, // recipient address
-        2_500_000_000,  // amount in Gwei (2.5 ETH)
+        2_500_000_000, // amount in Gwei (2.5 ETH)
     );
 
     // Create withdrawals array
-    var withdrawals = [_]WithdrawalData{withdrawal1, withdrawal2};
+    var withdrawals = [_]WithdrawalData{ withdrawal1, withdrawal2 };
 
     // Create a dummy withdrawal root
     const withdrawal_root = createWithdrawalRoot();
@@ -140,10 +140,7 @@ test "Block withdrawal processing with Shanghai rules" {
     const shanghai_rules = ChainRules.forHardfork(.Shanghai);
 
     // Process withdrawals in the block
-    try block.processWithdrawals(
-        @ptrCast(state_manager),
-        shanghai_rules
-    );
+    try block.processWithdrawals(@ptrCast(state_manager), shanghai_rules);
 
     // Check that account balances were updated correctly
     const balance1 = try state_manager.getBalance(address1);
@@ -168,10 +165,10 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
 
     // Create a withdrawal
     const withdrawal = WithdrawalData.init(
-        1,  // index
-        100,  // validator index
+        1, // index
+        100, // validator index
         address, // recipient address
-        1_000_000_000,  // amount in Gwei (1 ETH)
+        1_000_000_000, // amount in Gwei (1 ETH)
     );
 
     // Create withdrawals array
@@ -190,10 +187,7 @@ test "Block withdrawal processing with London rules (EIP-4895 disabled)" {
     const london_rules = ChainRules.forHardfork(.London);
 
     // Process withdrawals in the block - should fail
-    const result = block.processWithdrawals(
-        @ptrCast(state_manager),
-        london_rules
-    );
+    const result = block.processWithdrawals(@ptrCast(state_manager), london_rules);
 
     // Should return an error
     try testing.expectError(error.EIP4895NotEnabled, result);
@@ -241,28 +235,28 @@ test "Multiple withdrawals for same account" {
 
     // Create multiple withdrawals for the same address
     const withdrawal1 = WithdrawalData.init(
-        1,  // index
-        100,  // validator index
+        1, // index
+        100, // validator index
         address, // recipient address
-        1_000_000_000,  // amount in Gwei (1 ETH)
+        1_000_000_000, // amount in Gwei (1 ETH)
     );
 
     const withdrawal2 = WithdrawalData.init(
-        2,  // index
-        101,  // validator index
+        2, // index
+        101, // validator index
         address, // same recipient address
-        2_000_000_000,  // amount in Gwei (2 ETH)
+        2_000_000_000, // amount in Gwei (2 ETH)
     );
 
     const withdrawal3 = WithdrawalData.init(
-        3,  // index
-        102,  // validator index
+        3, // index
+        102, // validator index
         address, // same recipient address
-        3_000_000_000,  // amount in Gwei (3 ETH)
+        3_000_000_000, // amount in Gwei (3 ETH)
     );
 
     // Create withdrawals array
-    var withdrawals = [_]WithdrawalData{withdrawal1, withdrawal2, withdrawal3};
+    var withdrawals = [_]WithdrawalData{ withdrawal1, withdrawal2, withdrawal3 };
 
     // Create a dummy withdrawal root
     const withdrawal_root = createWithdrawalRoot();
@@ -277,14 +271,10 @@ test "Multiple withdrawals for same account" {
     const shanghai_rules = ChainRules.forHardfork(.Shanghai);
 
     // Process withdrawals in the block
-    try block.processWithdrawals(
-        @ptrCast(state_manager),
-        shanghai_rules
-    );
+    try block.processWithdrawals(@ptrCast(state_manager), shanghai_rules);
 
     // Check that account balance is the sum of all withdrawals
     const balance = try state_manager.getBalance(address);
     const expected_balance: u128 = 6_000_000_000_000_000_000; // 6 ETH (1+2+3)
     try testing.expectEqual(expected_balance, balance);
 }
-EOL < /dev/null

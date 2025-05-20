@@ -145,8 +145,6 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         
         // Store the copied data in returnData
         frame.returnData = return_buffer;
-        // Set the size too for consistency
-        frame.returnSize = size_usize;
     } else {
         // Empty return data
         // Free existing return data if any
@@ -159,7 +157,6 @@ pub fn opReturn(_: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const
         
         // Set a static empty slice
         frame.returnData = &[_]u8{};
-        frame.returnSize = 0;
     }
     
     // Halt execution

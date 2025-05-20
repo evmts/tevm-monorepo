@@ -157,18 +157,12 @@ test "ecrecover execution with invalid input" {
     }
 }
 
-test "Contract wrapper" {
-    const allocator = testing.allocator;
-    
-    // Create a precompiled contract
-    const addr = try createPrecompiledAddress(4); // IDENTITY
-    // Create a contract directly since we don't need any special functionality
-    const contract = Contract{
-        .address = addr
-    };
+test "Precompiled gas cost" {
+    // Get precompiled contract type
+    const precompiled = Precompiled.IDENTITY;
     
     // Check gas cost
-    const gas = contract.gasCost(&[_]u8{1, 2, 3, 4});
+    const gas = precompiled.gasCost(&[_]u8{1, 2, 3, 4});
     try testing.expectEqual(@as(u64, 18), gas); // 15 + 3 * (4+31)/32 = 18
     
     // Run the contract

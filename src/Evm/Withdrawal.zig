@@ -38,16 +38,16 @@ fn addressToB160(address: Address) B160 {
 pub const WithdrawalData = struct {
     /// The unique identifier for this withdrawal
     index: u64,
-
+    
     /// The validator index in the beacon chain
     validatorIndex: u64,
-
+    
     /// The recipient address in the EVM
     address: Address,
-
+    
     /// Amount in Gwei (must be converted to Wei for EVM)
     amount: u64,
-
+    
     /// Create a withdrawal from its components
     ///
     /// Parameters:
@@ -60,12 +60,12 @@ pub const WithdrawalData = struct {
     pub fn init(index: u64, validatorIndex: u64, address: Address, amount: u64) WithdrawalData {
         var scoped = createScopedLogger(getLogger(), "init()");
         defer scoped.deinit();
-
+        
         getLogger().debug("Creating new withdrawal record", .{});
         getLogger().debug("  Index: {d}", .{index});
         getLogger().debug("  Validator Index: {d}", .{validatorIndex});
         getLogger().debug("  Amount (Gwei): {d}", .{amount});
-
+        
         return WithdrawalData{
             .index = index,
             .validatorIndex = validatorIndex,
@@ -73,7 +73,7 @@ pub const WithdrawalData = struct {
             .amount = amount,
         };
     }
-
+    
     /// Convert amount from Gwei to Wei (multiplication by 10^9)
     ///
     /// In the EVM, all values are handled in Wei, but withdrawals specify
@@ -82,12 +82,6 @@ pub const WithdrawalData = struct {
     /// Returns: The amount in Wei as a u128 (to handle large values)
     pub fn amountInWei(self: *const WithdrawalData) u128 {
         const GWEI_TO_WEI: u128 = 1_000_000_000; // 10^9
-        // Check for multiplication overflow
-        if (self.amount > std.math.maxInt(u128) / GWEI_TO_WEI) {
-            // Handle overflow by returning max value
-            getLogger().warn("Gwei to Wei conversion would overflow. Returning max value.", .{});
-            return std.math.maxInt(u128);
-        }
         return @as(u128, self.amount) * GWEI_TO_WEI;
     }
 };
@@ -104,29 +98,33 @@ pub const WithdrawalData = struct {
 /// - isEIP4895Enabled: Whether EIP-4895 is enabled in the chain rules
 ///
 /// Returns: An error if the state update fails
-pub fn processWithdrawals(stateManager: *StateManager, withdrawals: []const WithdrawalData, isEIP4895Enabled: bool) !void {
+pub fn processWithdrawals(
+    stateManager: *StateManager, 
+    withdrawals: []const WithdrawalData,
+    isEIP4895Enabled: bool
+) \!void {
     var scoped = createScopedLogger(getLogger(), "processWithdrawals()");
     defer scoped.deinit();
-
-    if (!isEIP4895Enabled) {
+    
+    if (\!isEIP4895Enabled) {
         getLogger().warn("Attempted to process withdrawals with EIP-4895 disabled", .{});
         return error.EIP4895NotEnabled;
     }
-
+    
     getLogger().debug("Processing {d} withdrawals", .{withdrawals.len});
-
+    
     for (withdrawals, 0..) |withdrawal, i| {
-        getLogger().debug("Processing withdrawal {d}/{d} (index {d})", .{ i + 1, withdrawals.len, withdrawal.index });
+        getLogger().debug("Processing withdrawal {d}/{d} (index {d})", .{i + 1, withdrawals.len, withdrawal.index});
         getLogger().debug("  Recipient: {}", .{withdrawal.address});
-
+        
         const amountInWei = withdrawal.amountInWei();
-        getLogger().debug("  Amount: {d} Gwei ({d} Wei)", .{ withdrawal.amount, amountInWei });
-
+        getLogger().debug("  Amount: {d} Gwei ({d} Wei)", .{withdrawal.amount, amountInWei});
+        
         try rewardAccount(stateManager, withdrawal.address, amountInWei);
-
+        
         getLogger().debug("  Withdrawal processed successfully", .{});
     }
-
+    
     getLogger().info("All withdrawals processed successfully", .{});
 }
 
@@ -141,37 +139,31 @@ pub fn processWithdrawals(stateManager: *StateManager, withdrawals: []const With
 /// - amount: The amount (in Wei) to add to the account's balance
 ///
 /// Returns: An error if the state update fails
-fn rewardAccount(stateManager: *StateManager, address: Address, amount: u128) !void {
+fn rewardAccount(stateManager: *StateManager, address: Address, amount: u128) \!void {
     var scoped = createScopedLogger(getLogger(), "rewardAccount()");
     defer scoped.deinit();
-
+    
     getLogger().debug("Rewarding account: {}", .{address});
     getLogger().debug("Amount: {d} Wei", .{amount});
-
+    
     // Convert address to B160 for StateManager
     const b160_address = addressToB160(address);
-
+    
     // Get the account from state (or create a new one if it doesn't exist)
     var account = try stateManager.getAccount(b160_address) orelse blk: {
         getLogger().debug("Account does not exist, creating new account", .{});
         break :blk try stateManager.createAccount(b160_address, 0);
     };
-
-    // Safely increase the account balance with overflow protection
-    const oldBalance = account.balance;
     
-    // Check for overflow before adding
-    if (std.math.maxInt(u128) - account.balance < amount) {
-        getLogger().warn("Balance overflow prevented. Setting to max value.", .{});
-        account.balance = std.math.maxInt(u128);
-    } else {
-        account.balance += amount;
-    }
-
-    getLogger().debug("Balance updated: {d} -> {d}", .{ oldBalance, account.balance });
-
+    // Increase the account balance
+    const oldBalance = account.balance;
+    account.balance += amount;
+    
+    getLogger().debug("Balance updated: {d} -> {d}", .{oldBalance, account.balance});
+    
     // Save the updated account state
     try stateManager.putAccount(b160_address, account);
-
+    
     getLogger().debug("Account rewarded successfully", .{});
 }
+EOL < /dev/null

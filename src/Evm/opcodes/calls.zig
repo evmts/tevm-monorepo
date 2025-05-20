@@ -297,7 +297,6 @@ const MAX_CALL_DEPTH: u32 = 1024;
 /// Helper function to safely copy memory data to an array list
 /// Returns true if successful, false if allocation failed
 fn getInputData(
-    allocator: std.mem.Allocator, 
     memory: []const u8, 
     offset: usize, 
     size: usize, 
@@ -410,6 +409,22 @@ fn addressFromU256(addr_u256: u256) Address {
     @memcpy(&address, addr_bytes[12..32]);
     
     return address;
+}
+
+/// Helper function for common call operation setup
+/// Returns false if input data access fails
+fn prepareCallInput(
+    interpreter: *Interpreter,
+    frame: *Frame,
+    in_offset_usize: usize,
+    in_size_usize: usize,
+    input_data: *std.ArrayList(u8)
+) bool {
+    if (in_size_usize > 0) {
+        const mem = frame.memory.data();
+        return getInputData(mem, in_offset_usize, in_size_usize, input_data);
+    }
+    return true;
 }
 
 /// CALL (0xF1) - Call contract
@@ -1730,6 +1745,34 @@ test "Precompiled contract address detection" {
     // Basic verification that last byte is 1 and rest are 0
     try testing.expectEqual(@as(u8, 0), addr_bytes[0]);
     try testing.expectEqual(@as(u8, 1), addr_bytes[19]);
+}
+
+// Test for the input data helper
+test "getInputData function" {
+    const testing = std.testing;
+    const allocator = testing.allocator;
+    
+    // Create some memory data
+    const memory = [_]u8{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    
+    // Create output array list
+    var output = std.ArrayList(u8).init(allocator);
+    defer output.deinit();
+    
+    // Test empty size
+    try testing.expect(getInputData(&memory, 0, 0, &output));
+    try testing.expectEqual(@as(usize, 0), output.items.len);
+    
+    // Test normal case
+    try testing.expect(getInputData(&memory, 2, 3, &output));
+    try testing.expectEqualSlices(u8, &[_]u8{3, 4, 5}, output.items);
+    
+    // Test out of bounds
+    try testing.expect(!getInputData(&memory, 8, 3, &output));
+    
+    // Test exact bounds
+    try testing.expect(getInputData(&memory, 0, memory.len, &output));
+    try testing.expectEqualSlices(u8, &memory, output.items);
 }
 
 // Test for the return data helper
