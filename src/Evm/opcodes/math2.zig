@@ -1,14 +1,22 @@
 const std = @import("std");
 const JumpTable = @import("../JumpTable.zig");
 
-// Use simpler imports from test_utils
+// Import the interpreter module directly to get the correct types
+const interpreter_mod = @import("../interpreter.zig");
+const Interpreter = interpreter_mod.Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../Frame.zig").ExecutionError;
+const Stack = @import("../Stack.zig").Stack;
+const Memory = @import("../Memory.zig").Memory;
+
+// For tests we'll use these types
 const test_utils = @import("test_utils.zig");
-const Interpreter = test_utils.Interpreter;
-const Frame = test_utils.Frame;
-const ExecutionError = test_utils.ExecutionError;
+const TestInterpreter = test_utils.Interpreter;
+const TestFrame = test_utils.Frame;
+const TestExecutionError = test_utils.ExecutionError;
 const JumpTableTest = test_utils.JumpTable;
-const Stack = test_utils.Stack;
-const Memory = test_utils.Memory;
+const TestStack = test_utils.Stack;
+const TestMemory = test_utils.Memory;
 
 // Use a disambiguated name for the 256-bit integer to avoid shadowing
 pub const @"u256" = u64;

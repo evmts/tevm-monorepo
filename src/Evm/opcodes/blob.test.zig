@@ -31,7 +31,7 @@ fn createTestFrame() !struct {
     const allocator = testing.allocator;
 
     // Initialize EVM
-    var evm = try Evm.init(allocator, null);
+    const evm = try Evm.init(allocator, null);
 
     // Create a stack
     const stack_ptr = try allocator.create(Stack);
@@ -42,7 +42,7 @@ fn createTestFrame() !struct {
     memory_ptr.* = try Memory.init(allocator);
 
     // Create contract
-    var contract = EvmModule.createContract(std.mem.zeroes(AddressModule.Address), std.mem.zeroes(AddressModule.Address), 0, 100000);
+    const contract = EvmModule.createContract(std.mem.zeroes(AddressModule.Address), std.mem.zeroes(AddressModule.Address), 0, 100000);
     contract.code = &[_]u8{};
     contract.input = &[_]u8{};
     const contract_ptr = try allocator.create(Contract);
@@ -56,7 +56,7 @@ fn createTestFrame() !struct {
     const jump_table = try EvmModule.JumpTable.init(allocator);
     
     // Create interpreter
-    var interpreter = try Interpreter.create(allocator, &evm, jump_table);
+    const interpreter = try Interpreter.create(allocator, &evm, jump_table);
     interpreter.returnData = &[_]u8{};
 
     return .{
