@@ -13,8 +13,15 @@ const logHexBytes = @import("EvmLogger.zig").logHexBytes;
 const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
 const hex = @import("../Utils/hex.zig");
 
-// Create a file-specific logger
-const logger = createLogger(@src().file);
+// We'll initialize the logger inside a function
+var _logger: ?EvmLogger = null;
+
+fn getLogger() EvmLogger {
+    if (_logger == null) {
+        _logger = createLogger("Frame.zig");
+    }
+    return _logger.?;
+}
 
 /// Frame contains the execution state of the EVM interpreter
 /// It represents a single execution frame, similar to geth's ScopeContext
@@ -70,37 +77,37 @@ pub const Frame = struct {
     /// Returns: A new Frame instance
     /// Error: May return allocation errors if memory setup fails
     pub fn init(allocator: std.mem.Allocator, contract: *Contract) !Frame {
-        const scoped = createScopedLogger(logger, "Frame.init");
+        const scoped = createScopedLogger(getLogger(), "Frame.init");
         defer scoped.deinit();
         
-        logger.debug("Creating new Frame for contract at address: {}", .{contract.address});
-        logger.debug("Contract caller: {}", .{contract.caller});
-        logger.debug("Contract value: {d} wei", .{contract.value});
-        logger.debug("Initial gas: {d}", .{contract.gas});
-        logger.debug("Code size: {d} bytes", .{contract.code.len});
+        getLogger().debug("Creating new Frame for contract at address: {}", .{contract.address});
+        getLogger().debug("Contract caller: {}", .{contract.caller});
+        getLogger().debug("Contract value: {d} wei", .{contract.value});
+        getLogger().debug("Initial gas: {d}", .{contract.gas});
+        getLogger().debug("Code size: {d} bytes", .{contract.code.len});
         
         if (contract.code.len > 0 and contract.code.len <= 64) {
-            logHexBytes(logger, "Contract bytecode", contract.code);
+            logHexBytes(getLogger(), "Contract bytecode", contract.code);
         } else if (contract.code.len > 64) {
-            logHexBytes(logger, "Contract bytecode (first 64 bytes)", contract.code[0..64]);
+            logHexBytes(getLogger(), "Contract bytecode (first 64 bytes)", contract.code[0..64]);
         }
         
         if (contract.input.len > 0) {
             if (contract.input.len <= 64) {
-                logHexBytes(logger, "Input data (calldata)", contract.input);
+                logHexBytes(getLogger(), "Input data (calldata)", contract.input);
             } else {
-                logHexBytes(logger, "Input data (calldata, first 64 bytes)", contract.input[0..64]);
-                logger.debug("Input data total size: {d} bytes", .{contract.input.len});
+                logHexBytes(getLogger(), "Input data (calldata, first 64 bytes)", contract.input[0..64]);
+                getLogger().debug("Input data total size: {d} bytes", .{contract.input.len});
             }
         } else {
-            logger.debug("No input data (empty calldata)", .{});
+            getLogger().debug("No input data (empty calldata)", .{});
         }
         
         return Frame{
             .memory = Memory.init(allocator),
             .stack = Stack{},
             .contract = contract,
-            .logger = logger,
+            .logger = getLogger(),
             .allocator = allocator,
         };
     }
@@ -110,39 +117,39 @@ pub const Frame = struct {
     /// This must be called when a frame is no longer needed to prevent memory leaks.
     /// It frees the EVM memory and any return data buffer.
     pub fn deinit(self: *Frame) void {
-        const scoped = createScopedLogger(logger, "Frame.deinit");
+        const scoped = createScopedLogger(getLogger(), "Frame.deinit");
         defer scoped.deinit();
         
-        logger.debug("Freeing Frame resources", .{});
-        logger.debug("Final memory size: {d} bytes", .{self.memory.len()});
-        logger.debug("Final stack size: {d} items", .{self.stack.len()});
+        getLogger().debug("Freeing Frame resources", .{});
+        getLogger().debug("Final memory size: {d} bytes", .{self.memory.len()});
+        getLogger().debug("Final stack size: {d} items", .{self.stack.len()});
         
         if (self.err) |err| {
-            logger.debug("Frame ended with error: {}", .{err});
+            getLogger().debug("Frame ended with error: {}", .{err});
         } else {
-            logger.debug("Frame ended successfully", .{});
+            getLogger().debug("Frame ended successfully", .{});
         }
         
         if (self.returnData) |data| {
             if (data.len <= 64) {
-                logHexBytes(logger, "Return data", data);
+                logHexBytes(getLogger(), "Return data", data);
             } else {
-                logHexBytes(logger, "Return data (first 64 bytes)", data[0..64]);
-                logger.debug("Return data total size: {d} bytes", .{data.len});
+                logHexBytes(getLogger(), "Return data (first 64 bytes)", data[0..64]);
+                getLogger().debug("Return data total size: {d} bytes", .{data.len});
             }
-            logger.debug("Freeing return data buffer ({d} bytes)", .{data.len});
+            getLogger().debug("Freeing return data buffer ({d} bytes)", .{data.len});
             self.allocator.free(data);
             self.returnData = null;
             self.returnSize = 0;
         } else {
-            logger.debug("No return data to free", .{});
+            getLogger().debug("No return data to free", .{});
         }
         
-        logger.debug("Remaining gas: {d}", .{self.contract.gas});
+        getLogger().debug("Remaining gas: {d}", .{self.contract.gas});
         
         // Log gas refund if any
         if (self.contract.gas_refund > 0) {
-            logger.debug("Gas refund: {d}", .{self.contract.gas_refund});
+            getLogger().debug("Gas refund: {d}", .{self.contract.gas_refund});
         }
         
         self.memory.deinit();
@@ -158,10 +165,10 @@ pub const Frame = struct {
     ///
     /// Error: May return allocation errors if memory allocation fails
     pub fn setReturnData(self: *Frame, data: []const u8) !void {
-        const scoped = createScopedLogger(logger, "Frame.setReturnData");
+        const scoped = createScopedLogger(getLogger(), "Frame.setReturnData");
         defer scoped.deinit();
         
-        logger.debug("Setting return data, size: {d} bytes", .{data.len});
+        getLogger().debug("Setting return data, size: {d} bytes", .{data.len});
         
         if (data.len <= 64) {
             logHexBytes(logger, "New return data", data);
@@ -170,17 +177,17 @@ pub const Frame = struct {
         }
         
         if (self.returnData) |old_data| {
-            logger.debug("Freeing previous return data ({d} bytes)", .{old_data.len});
+            getLogger().debug("Freeing previous return data ({d} bytes)", .{old_data.len});
             self.allocator.free(old_data);
         }
 
-        logger.debug("Allocating new return data buffer of {d} bytes", .{data.len});
+        getLogger().debug("Allocating new return data buffer of {d} bytes", .{data.len});
         const copy = try self.allocator.alloc(u8, data.len);
         @memcpy(copy, data);
         
         self.returnData = copy;
         self.returnSize = data.len;
-        logger.debug("Return data set successfully", .{});
+        getLogger().debug("Return data set successfully", .{});
     }
 
     /// Get access to the raw memory data buffer
@@ -188,7 +195,7 @@ pub const Frame = struct {
     /// Returns: Slice representing the EVM memory contents
     pub fn memoryData(self: *const Frame) []u8 {
         const data = self.memory.data();
-        logger.debug("Getting memory data: {d} bytes", .{data.len});
+        getLogger().debug("Getting memory data: {d} bytes", .{data.len});
         return data;
     }
 
@@ -197,7 +204,7 @@ pub const Frame = struct {
     /// Returns: Slice containing the valid stack elements (excludes unused slots)
     pub fn stackData(self: *const Frame) []u256 {
         const stack_slice = self.stack.data[0..self.stack.size];
-        logger.debug("Getting stack data: {d} items", .{stack_slice.len});
+        getLogger().debug("Getting stack data: {d} items", .{stack_slice.len});
         return stack_slice;
     }
 
@@ -206,7 +213,7 @@ pub const Frame = struct {
     /// Returns: Address of the caller
     pub fn caller(self: *const Frame) Address {
         const caller_addr = self.contract.getCaller();
-        logger.debug("Getting caller address: {}", .{caller_addr});
+        getLogger().debug("Getting caller address: {}", .{caller_addr});
         return caller_addr;
     }
 
@@ -215,7 +222,7 @@ pub const Frame = struct {
     /// Returns: Address of the contract
     pub fn address(self: *const Frame) Address {
         const contract_addr = self.contract.getAddress();
-        logger.debug("Getting contract address: {}", .{contract_addr});
+        getLogger().debug("Getting contract address: {}", .{contract_addr});
         return contract_addr;
     }
 
@@ -224,7 +231,7 @@ pub const Frame = struct {
     /// Returns: Value in wei as a 256-bit integer
     pub fn callValue(self: *const Frame) u256 {
         const value = self.contract.getValue();
-        logger.debug("Getting call value: {d} wei", .{value});
+        getLogger().debug("Getting call value: {d} wei", .{value});
         return value;
     }
 
@@ -233,7 +240,7 @@ pub const Frame = struct {
     /// Returns: Slice of bytes passed as calldata
     pub fn callInput(self: *const Frame) []const u8 {
         const input = self.contract.input;
-        logger.debug("Getting call input data: {d} bytes", .{input.len});
+        getLogger().debug("Getting call input data: {d} bytes", .{input.len});
         return input;
     }
 
@@ -242,7 +249,7 @@ pub const Frame = struct {
     /// Returns: Slice of bytes containing the contract's bytecode
     pub fn contractCode(self: *const Frame) []const u8 {
         const code = self.contract.code;
-        logger.debug("Getting contract code: {d} bytes", .{code.len});
+        getLogger().debug("Getting contract code: {d} bytes", .{code.len});
         return code;
     }
     
@@ -252,7 +259,7 @@ pub const Frame = struct {
     /// including PC, opcode, stack contents, and memory contents
     pub fn logExecutionState(self: *const Frame, op_name: []const u8) void {
         if (@import("EvmLogger.zig").ENABLE_DEBUG_LOGS) {
-            logger.debug("Execution state at PC={d}, Opcode={s}", .{self.pc, op_name});
+            getLogger().debug("Execution state at PC={d}, Opcode={s}", .{self.pc, op_name});
             
             // Log current stack state
             const stack_data = self.stackData();
@@ -277,32 +284,32 @@ pub const Frame = struct {
     ///
     /// This logs the gas cost of the current operation and remaining gas
     pub fn logGasUsage(self: *const Frame, op_name: []const u8, gas_cost: u64) void {
-        logger.debug("Gas: {s} uses {d} gas, remaining: {d}", .{op_name, gas_cost, self.contract.gas});
+        getLogger().debug("Gas: {s} uses {d} gas, remaining: {d}", .{op_name, gas_cost, self.contract.gas});
         if (gas_cost > 50) {
-            logger.debug("High gas operation: {s} used {d} gas", .{op_name, gas_cost});
+            getLogger().debug("High gas operation: {s} used {d} gas", .{op_name, gas_cost});
         }
     }
     
     /// Log memory expansion operations
     ///
     /// This logs details about memory expansions and their gas costs
-    pub fn logMemoryExpansion(self: *const Frame, old_size: u64, new_size: u64, gas_cost: u64) void {
-        logger.debug("Memory expanded: {d} -> {d} bytes (cost: {d} gas)", .{old_size, new_size, gas_cost});
+    pub fn logMemoryExpansion(_: *const Frame, old_size: u64, new_size: u64, gas_cost: u64) void {
+        getLogger().debug("Memory expanded: {d} -> {d} bytes (cost: {d} gas)", .{old_size, new_size, gas_cost});
     }
     
     /// Log a stack operation (push or pop)
     ///
     /// This logs details about values being pushed to or popped from the stack
-    pub fn logStackOp(self: *const Frame, is_push: bool, value: ?u256) void {
+    pub fn logStackOp(_: *const Frame, is_push: bool, value: ?u256) void {
         if (is_push) {
             if (value) |v| {
-                logger.debug("Stack push: {x}", .{v});
+                getLogger().debug("Stack push: {x}", .{v});
             }
         } else {
             if (value) |v| {
-                logger.debug("Stack pop: {x}", .{v});
+                getLogger().debug("Stack pop: {x}", .{v});
             } else {
-                logger.debug("Stack pop (no value)", .{});
+                getLogger().debug("Stack pop (no value)", .{});
             }
         }
     }
@@ -388,20 +395,20 @@ pub fn getErrorDescription(err: ExecutionError) []const u8 {
 /// Returns: A new Frame instance
 /// Error: May return allocation errors if memory setup fails
 pub fn createFrame(allocator: std.mem.Allocator, contract: *Contract) !Frame {
-    const scoped = createScopedLogger(logger, "createFrame");
+    const scoped = createScopedLogger(getLogger(), "createFrame");
     defer scoped.deinit();
     
-    logger.debug("Creating frame via helper function for contract at {}", .{contract.address});
+    getLogger().debug("Creating frame via helper function for contract at {}", .{contract.address});
     
     if (contract.code.len > 0) {
-        logger.debug("Contract has {d} bytes of code", .{contract.code.len});
+        getLogger().debug("Contract has {d} bytes of code", .{contract.code.len});
         if (contract.code.len <= 32) {
             var buf: [128]u8 = undefined;
             const hex_str = hex.bytesToHex(contract.code, &buf) catch "error encoding hex";
-            logger.debug("Code: 0x{s}", .{hex_str});
+            getLogger().debug("Code: 0x{s}", .{hex_str});
         }
     } else {
-        logger.debug("Contract has no code (EOA or new contract)", .{});
+        getLogger().debug("Contract has no code (EOA or new contract)", .{});
     }
     
     return Frame.init(allocator, contract);

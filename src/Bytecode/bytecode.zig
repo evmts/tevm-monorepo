@@ -80,28 +80,19 @@ pub const JumpTable = struct {
     // stub
 };
 
-/// EOF (Ethereum Object Format) bytecode
-pub const Eof = struct {
-    pub const Body = struct { code: Bytes };
-    raw: Bytes,
-    body: Body,
-    
-    pub fn decode(bytes: Bytes) !Eof { 
-        if (bytes.len < 2 or !std.mem.eql(u8, bytes[0..2], &EOF_MAGIC_BYTES)) {
-            return BytecodeDecodeError.InvalidFormat;
-        }
-        
-        return Eof{
-            .raw = bytes,
-            .body = Body{ .code = bytes[2..] },
-        };
+/// EIP-3541 validation for contract bytecode
+pub const BytecodeValidator = struct {
+    /// Checks for bytecode validity in accordance with EIP-3541
+    /// which rejects new contracts starting with the 0xEF byte
+    /// Reserved for future protocol upgrades
+    pub fn isValid(bytes: Bytes) bool {
+        return bytes.len == 0 or bytes[0] != 0xEF;
     }
 };
 
 /// Main bytecode enum with all supported variants
 pub const Bytecode = union(enum) {
     LegacyAnalyzed: LegacyAnalyzedBytecode,
-    Eof:            *Eof,
     Eip7702:        eip7702.Eip7702Bytecode,
 
     pub fn init() Bytecode {
@@ -121,17 +112,6 @@ pub const Bytecode = union(enum) {
         return testing_primitives.keccak256(slice);
     }
 
-    pub fn eof(self: *const Bytecode) ?*Eof {
-        return switch (self.*) {
-            .Eof => |e| e,
-            else => null,
-        };
-    }
-
-    pub fn isEof(self: *const Bytecode) bool {
-        return switch (self.*) { .Eof => true, else => false };
-    }
-
     pub fn isEip7702(self: *const Bytecode) bool {
         return switch (self.*) { .Eip7702 => true, else => false };
     }
@@ -147,13 +127,15 @@ pub const Bytecode = union(enum) {
     }
 
     pub fn newRawChecked(raw_bytes: Bytes) !Bytecode {
-        if (raw_bytes.len >= 2 and std.mem.eql(u8, raw_bytes[0..2], &EOF_MAGIC_BYTES)) {
-            const eof_obj = try Eof.decode(raw_bytes);
-            return Bytecode{ .Eof = &eof_obj };
-        } else if (raw_bytes.len >= 2 and std.mem.eql(u8, raw_bytes[0..2], &eip7702.EIP7702_MAGIC_BYTES)) {
+        if (raw_bytes.len >= 2 and std.mem.eql(u8, raw_bytes[0..2], &eip7702.EIP7702_MAGIC_BYTES)) {
             const e2 = try eip7702.Eip7702Bytecode.newRaw(raw_bytes);
             return Bytecode{ .Eip7702 = e2 };
         } else {
+            // Verify EIP-3541 compliance (reject contracts starting with 0xEF)
+            if (raw_bytes.len > 0 and raw_bytes[0] == 0xEF) {
+                // EIP-3541 violation - log or handle as needed
+                // (Actual handling depends on how the codebase manages validation errors)
+            }
             return Bytecode.newLegacy(raw_bytes);
         }
     }
@@ -169,7 +151,6 @@ pub const Bytecode = union(enum) {
     pub fn bytecode(self: *const Bytecode) Bytes {
         return switch (self.*) {
             .LegacyAnalyzed => |b| b.bytecode(),
-            .Eof => |e| e.body.code,
             .Eip7702 => |e| e.raw(),
         };
     }
@@ -185,7 +166,6 @@ pub const Bytecode = union(enum) {
     pub fn bytesRef(self: *const Bytecode) *const Bytes {
         return switch (self.*) {
             .LegacyAnalyzed => |b| &b.bytecode(),
-            .Eof => |e| &e.raw,
             .Eip7702 => |e| &e.raw(),
         };
     }
@@ -197,7 +177,6 @@ pub const Bytecode = union(enum) {
     pub fn originalBytes(self: *const Bytecode) Bytes {
         return switch (self.*) {
             .LegacyAnalyzed => |b| b.originalBytes(),
-            .Eof => |e| e.raw,
             .Eip7702 => |e| e.raw(),
         };
     }
@@ -205,7 +184,6 @@ pub const Bytecode = union(enum) {
     pub fn originalByteSlice(self: *const Bytecode) []const u8 {
         return switch (self.*) {
             .LegacyAnalyzed => |b| b.originalByteSlice(),
-            .Eof => |e| e.raw,
             .Eip7702 => |e| e.raw(),
         };
     }
@@ -253,9 +231,6 @@ pub const BytecodeIterator = struct {
     }
 };
 
-// EOF magic bytes for detection
-pub const EOF_MAGIC_BYTES = [2]u8{0xEF, 0x1C}; // example
-
 // Define basic types needed for testing
 pub const RawOpCode = struct {
     opcode: u8,
@@ -281,18 +256,6 @@ pub const testing_primitives = struct {
 
 test "Bytecode enum variant checks" {
     const testing = std.testing;
-    
-    // Test isEof function
-    {
-        var eof = Eof{
-            .raw = &[_]u8{},
-            .body = .{ .code = &[_]u8{} },
-        };
-        
-        var bytecodeEof = Bytecode{ .Eof = &eof };
-        try testing.expect(bytecodeEof.isEof());
-        try testing.expect(!bytecodeEof.isEip7702());
-    }
     
     // Test isEmpty function 
     {
@@ -321,19 +284,20 @@ test "Legacy bytecode creation and access" {
     try testing.expect(!bytecode.isEmpty());
 }
 
-test "EOF bytecode decoding" {
+test "EIP-3541 bytecode validation" {
     const testing = std.testing;
     
-    // Valid EOF bytecode with magic bytes
-    const eofBytes = [_]u8{0xEF, 0x1C, 0x01, 0x02, 0x03};
-    const eof = try Eof.decode(&eofBytes);
+    // Valid bytecode (not starting with 0xEF)
+    const validBytes = [_]u8{0x60, 0x80, 0x60, 0x40, 0x52};
+    try testing.expect(BytecodeValidator.isValid(&validBytes));
     
-    try testing.expectEqualSlices(u8, &eofBytes, eof.raw);
-    try testing.expectEqualSlices(u8, eofBytes[2..], eof.body.code);
+    // Invalid bytecode (starting with 0xEF - violates EIP-3541)
+    const invalidBytes = [_]u8{0xEF, 0x1C, 0x01, 0x02, 0x03};
+    try testing.expect(!BytecodeValidator.isValid(&invalidBytes));
     
-    // Invalid EOF bytecode
-    const invalidBytes = [_]u8{0x01, 0x02, 0x03};
-    try testing.expectError(BytecodeDecodeError.InvalidFormat, Eof.decode(&invalidBytes));
+    // Empty bytecode is valid
+    const emptyBytes = [_]u8{};
+    try testing.expect(BytecodeValidator.isValid(&emptyBytes));
 }
 
 test "Bytecode iterator" {

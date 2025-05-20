@@ -1,16 +1,18 @@
 const std = @import("std");
 const testing = std.testing;
-// Use relative imports to avoid module path errors
-const interpreter_mod = @import("interpreter");
+// Import directly from test dependencies
+const interpreter_mod = @import("../interpreter.zig");
 const Interpreter = interpreter_mod.Interpreter;
-const ExecutionError = @import("Frame").ExecutionError;
-const evm_mod = @import("evm");
-const Frame = @import("Frame").Frame;
+const ExecutionError = interpreter_mod.InterpreterError;
+const evm_mod = @import("../evm.zig");
+const Frame = @import("../Frame.zig").Frame;
 const Evm = evm_mod.Evm;
-const JumpTable = @import("JumpTable");
-const calls = @import("opcodes/calls");
-const Contract = @import("Contract").Contract;
-const Address = @import("../Address/address").Address;
+const JumpTable = @import("../JumpTable.zig");
+const calls = @import("../opcodes/calls.zig");
+const Contract = @import("../Contract.zig").Contract;
+const Memory = @import("../Memory.zig").Memory;
+const Stack = @import("../Stack.zig").Stack;
+const Address = @import("../../Address/address.zig").Address;
 
 // For convenience and compatibility with test stubs
 // The actual u256 type would be imported from a proper bigint library
@@ -160,11 +162,11 @@ test "CREATE2 rejects contracts starting with 0xEF with EIP-3541 enabled" {
 
 // Test that CREATE2 accepts contracts not starting with 0xEF with EIP-3541 enabled
 test "CREATE2 accepts contracts not starting with 0xEF with EIP-3541 enabled" {
-    var test_interpreter = try setupInterpreter(true);
+    const test_interpreter = try setupInterpreter(true);
     defer test_interpreter.deinit();
     
     // Create a dummy contract for the test
-    var contract = try std.testing.allocator.create(Contract);
+    const contract = try std.testing.allocator.create(Contract);
     defer std.testing.allocator.destroy(contract);
     
     // Initialize the contract with minimal required fields
@@ -190,7 +192,7 @@ test "CREATE2 accepts contracts not starting with 0xEF with EIP-3541 enabled" {
     
     // We need to make sure memory is allocated and contains something other than 0xEF
     try frame.memory.resize(10);
-    var mem = frame.memory.data();
+    const mem = frame.memory.data();
     mem[0] = 0x60; // First byte is not 0xEF
     
     // Execute CREATE2 operation
@@ -203,11 +205,11 @@ test "CREATE2 accepts contracts not starting with 0xEF with EIP-3541 enabled" {
 
 // Test that CREATE accepts contracts starting with 0xEF when EIP-3541 is disabled
 test "CREATE accepts contracts starting with 0xEF with EIP-3541 disabled" {
-    var test_interpreter = try setupInterpreter(false);
+    const test_interpreter = try setupInterpreter(false);
     defer test_interpreter.deinit();
     
     // Create a dummy contract for the test
-    var contract = try std.testing.allocator.create(Contract);
+    const contract = try std.testing.allocator.create(Contract);
     defer std.testing.allocator.destroy(contract);
     
     // Initialize the contract with minimal required fields
@@ -232,7 +234,7 @@ test "CREATE accepts contracts starting with 0xEF with EIP-3541 disabled" {
     
     // We need to make sure memory is allocated and contains 0xEF at the first byte
     try frame.memory.resize(10);
-    var mem = frame.memory.data();
+    const mem = frame.memory.data();
     mem[0] = 0xEF; // First byte is 0xEF
     
     // Execute CREATE operation
@@ -245,11 +247,11 @@ test "CREATE accepts contracts starting with 0xEF with EIP-3541 disabled" {
 
 // Test that CREATE2 accepts contracts starting with 0xEF when EIP-3541 is disabled
 test "CREATE2 accepts contracts starting with 0xEF with EIP-3541 disabled" {
-    var test_interpreter = try setupInterpreter(false);
+    const test_interpreter = try setupInterpreter(false);
     defer test_interpreter.deinit();
     
     // Create a dummy contract for the test
-    var contract = try std.testing.allocator.create(Contract);
+    const contract = try std.testing.allocator.create(Contract);
     defer std.testing.allocator.destroy(contract);
     
     // Initialize the contract with minimal required fields
@@ -275,7 +277,7 @@ test "CREATE2 accepts contracts starting with 0xEF with EIP-3541 disabled" {
     
     // We need to make sure memory is allocated and contains 0xEF at the first byte
     try frame.memory.resize(10);
-    var mem = frame.memory.data();
+    const mem = frame.memory.data();
     mem[0] = 0xEF; // First byte is 0xEF
     
     // Execute CREATE2 operation

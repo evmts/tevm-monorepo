@@ -112,8 +112,8 @@ pub const ProofNodes = struct {
             hex_buf[i * 2 + 1] = hex_chars[byte & 0x0F];
         }
         
-        // Use the fixed-length buffer as key
-        const root_hash_str = hex_buf[0..];
+        // Use the fixed-length buffer as key with explicit length
+        const root_hash_str = hex_buf[0..64];
 
         const root_node_data = self.nodes.get(root_hash_str) orelse {
             return ProofError.InvalidRootHash;
@@ -435,43 +435,30 @@ pub const ProofRetainer = struct {
 
 // Tests
 
-test "ProofNodes - add and verify" {
+test "ProofNodes - basic functionality" {
     const testing = std.testing;
     const allocator = testing.allocator;
     
+    // Create a proof nodes collection
     var proof_nodes = ProofNodes.init(allocator);
     defer proof_nodes.deinit();
     
-    // Create a sample leaf node
-    const path = [_]u8{1, 2, 3, 4};
-    const value = "test_value";
+    // Create a simple byte array as test data
+    const test_data = "test data for proof node";
+    var hash: [32]u8 = undefined;
+    std.crypto.hash.sha3.Keccak256.hash(test_data, &hash, .{});
     
-    // Create a new scope to control the lifetime of the TrieNode
-    {
-        // Path and value are duplicated by LeafNode.init, we don't need to defer free here
-        const leaf = try trie.LeafNode.init(
-            allocator,
-            &path,
-            trie.HashValue{ .Raw = value }
-        );
-        var node = trie.TrieNode{ .Leaf = leaf };
-        
-        // Encode the node - must be done before deinit
-        const encoded = try node.encode(allocator);
-        defer allocator.free(encoded);
-        
-        // Calculate the hash
-        var hash: [32]u8 = undefined;
-        std.crypto.hash.sha3.Keccak256.hash(encoded, &hash, .{});
-        
-        // Add to proof nodes - addNode makes its own copies
-        try proof_nodes.addNode(hash, encoded);
-        
-        // Clean up the node at the end of this scope
-        node.deinit(allocator);
-    }
+    // Make a copy of the data to add to proof nodes
+    const data_copy = try allocator.dupe(u8, test_data);
+    defer allocator.free(data_copy);
     
-    // Convert to node list
+    // Add the node
+    try proof_nodes.addNode(hash, data_copy);
+    
+    // Verify it was added
+    try testing.expectEqual(@as(usize, 1), proof_nodes.nodes.count());
+    
+    // Convert to node list and verify
     const nodes = try proof_nodes.toNodeList(allocator);
     defer {
         for (nodes) |node_data| {
@@ -481,6 +468,7 @@ test "ProofNodes - add and verify" {
     }
     
     try testing.expectEqual(@as(usize, 1), nodes.len);
+    try testing.expectEqualStrings(test_data, nodes[0]);
 }
 
 test "ProofRetainer - collect nodes" {

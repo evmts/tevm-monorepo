@@ -60,9 +60,10 @@ pub const MerkleTrie = struct {
         // Get the root hash
         const root = self.builder.rootHash() orelse return &[_][]const u8{};
 
-        // Get the root node
-        const root_hash_str = try bytesToHexString(self.allocator, &root);
-        defer self.allocator.free(root_hash_str);
+        // Get the root node using a stack buffer
+        var root_hash_buf: [64]u8 = undefined;
+        bytesToHexStringWithBuffer(&root, &root_hash_buf);
+        const root_hash_str = root_hash_buf[0..];
 
         const root_node = self.builder.nodes.get(root_hash_str) orelse return TrieError.NonExistentNode;
 
@@ -138,8 +139,10 @@ pub const MerkleTrie = struct {
                         return TrieError.InvalidNode;
                     },
                     .Hash => |hash| {
-                        const hash_str = try bytesToHexString(self.allocator, &hash);
-                        defer self.allocator.free(hash_str);
+                        // Use a stack buffer for the hash string
+                        var hash_buf: [64]u8 = undefined;
+                        bytesToHexStringWithBuffer(&hash, &hash_buf);
+                        const hash_str = hash_buf[0..];
 
                         const next_node = self.builder.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
                         return try self.collectProofNodes(retainer, next_node, new_prefix);
@@ -178,8 +181,10 @@ pub const MerkleTrie = struct {
                         return true;
                     },
                     .Hash => |hash| {
-                        const hash_str = try bytesToHexString(self.allocator, &hash);
-                        defer self.allocator.free(hash_str);
+                        // Use a stack buffer for the hash string
+                        var hash_buf: [64]u8 = undefined;
+                        bytesToHexStringWithBuffer(&hash, &hash_buf);
+                        const hash_str = hash_buf[0..];
 
                         const next_node = self.builder.nodes.get(hash_str) orelse return TrieError.NonExistentNode;
                         return try self.collectProofNodes(retainer, next_node, new_prefix);
@@ -190,18 +195,33 @@ pub const MerkleTrie = struct {
     }
 };
 
-// Helper function - Duplicated from hash_builder.zig for modularity
-fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
+// Helper function - In-place version that works with a buffer
+/// Buffer must be at least bytes.len * 2 in size
+fn bytesToHexStringWithBuffer(bytes: []const u8, buffer: []u8) void {
     const hex_chars = "0123456789abcdef";
-    const hex = try allocator.alloc(u8, bytes.len * 2);
-    errdefer allocator.free(hex);
+    std.debug.assert(buffer.len >= bytes.len * 2);
     
     for (bytes, 0..) |byte, i| {
-        hex[i * 2] = hex_chars[byte >> 4];
-        hex[i * 2 + 1] = hex_chars[byte & 0x0F];
+        buffer[i * 2] = hex_chars[byte >> 4];
+        buffer[i * 2 + 1] = hex_chars[byte & 0x0F];
     }
-    
-    return hex;
+}
+
+// Legacy function that allocates memory - only use when needed
+fn bytesToHexString(allocator: Allocator, bytes: []const u8) ![]u8 {
+    // For 32-byte hashes (common case), use a fixed-size buffer on the stack
+    if (bytes.len == 32) {
+        var buffer: [64]u8 = undefined;
+        bytesToHexStringWithBuffer(bytes, &buffer);
+        return allocator.dupe(u8, &buffer);
+    } else {
+        // For other sizes, allocate on the heap
+        const hex = try allocator.alloc(u8, bytes.len * 2);
+        errdefer allocator.free(hex);
+        
+        bytesToHexStringWithBuffer(bytes, hex);
+        return hex;
+    }
 }
 
 // Tests
