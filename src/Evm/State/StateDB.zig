@@ -139,8 +139,18 @@ pub const StateDB = struct {
         // If account doesn't exist, nothing to do
         const account_ptr = self.accounts.get(address) orelse return;
         
+        // Get current account state before deleting
+        const balance = account_ptr.getBalance();
+        const nonce = account_ptr.getNonce();
+        const has_code = account_ptr.hasCode();
+        
         // Record in journal before deletion
-        try self.journal.append(.{ .SelfDestruct = .{ .address = address } });
+        try self.journal.append(.{ .SelfDestruct = .{
+            .address = address,
+            .prev_balance = balance,
+            .prev_nonce = nonce,
+            .had_code = has_code,
+        }});
         
         // Delete the account
         account_ptr.deinit(self.allocator);
@@ -450,10 +460,19 @@ pub const StateDB = struct {
                 try self.deleteAccount(change.address);
             },
             .SelfDestruct => |change| {
-                // Account was deleted, would need to restore from a backup
-                // This is complex and would require keeping a full account backup
-                // For now, we'll just recreate an empty account
+                // Recreate the account
                 try self.createAccount(change.address);
+                
+                // Restore previous state
+                if (self.accounts.get(change.address)) |account| {
+                    account.setBalance(change.prev_balance);
+                    account.setNonce(change.prev_nonce);
+                    // Code restoration would be more complex and require keeping the actual bytecode
+                    // For now, just set a flag if code existed
+                    if (change.had_code) {
+                        account.dirty_code = true;
+                    }
+                }
             },
             .AccountChange => |change| {
                 // Account changed from empty to non-empty or vice versa

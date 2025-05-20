@@ -49,8 +49,31 @@ fn createTestFrame() !struct {
     };
     
     var interpreter = try allocator.create(Interpreter);
+    
+    // Create a simple EVM struct with chain rules enabled for testing
+    var evm = try allocator.create(@import("../evm.zig").EVM);
+    evm.* = @import("../evm.zig").EVM{
+        .chainRules = .{
+            .IsEIP4844 = true,  // Enable EIP-4844 for BLOBHASH and BLOBBASEFEE
+            .IsEIP5656 = true,  // Enable EIP-5656 for MCOPY
+            // Add other necessary rules
+        },
+        .allocator = allocator,
+        .transientStorage = std.StringHashMap(std.StringHashMap([]u8)).init(allocator),
+        .contracts = undefined,
+        .returnValue = undefined,
+        .status = @import("../evm.zig").ExecutionStatus.Success,
+        .gasUsed = 0,
+        .gasRefund = 0,
+        .depth = 0,
+        .logs = std.ArrayList(@import("../evm.zig").Log).init(allocator),
+        .accounts = undefined,
+        .accessList = undefined,
+        .storageAccessList = undefined,
+    };
+    
     interpreter.* = Interpreter{
-        .evm = undefined,
+        .evm = evm,
         .cfg = undefined,
         .readOnly = false,
         .returnData = &[_]u8{},
@@ -67,10 +90,17 @@ fn createTestFrame() !struct {
 fn cleanupTestFrame(test_frame: anytype, allocator: std.mem.Allocator) void {
     test_frame.memory.deinit();
     test_frame.stack.deinit();
+    
+    // Deinitialize EVM resources
+    test_frame.interpreter.evm.transientStorage.deinit();
+    test_frame.interpreter.evm.logs.deinit();
+    
+    // Free all allocated memory
     allocator.destroy(test_frame.memory);
     allocator.destroy(test_frame.stack);
     allocator.destroy(test_frame.frame.contract);
     allocator.destroy(test_frame.frame);
+    allocator.destroy(test_frame.interpreter.evm); // Free the EVM we created
     allocator.destroy(test_frame.interpreter);
 }
 
@@ -111,8 +141,9 @@ test "MCOPY basic operation" {
     
     // Prepare memory with test data
     try test_frame.memory.resize(128);
+    // Set memory data by directly accessing the store ArrayList
     for (0..64) |i| {
-        test_frame.memory.store[i] = @truncate(i);
+        test_frame.memory.store.items[i] = @truncate(i);
     }
     
     // Setup stack for MCOPY operation test

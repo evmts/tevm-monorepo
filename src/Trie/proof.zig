@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 const trie = @import("trie.zig");
-const rlp = @import("Rlp");
+const rlp = @import("../Rlp/rlp.zig");
 
 const TrieNode = trie.TrieNode;
 const HashValue = trie.HashValue;
@@ -154,7 +154,16 @@ pub const ProofNodes = struct {
                                     .String => |value| {
                                         // Found value, compare with expected
                                         if (expected_value) |expected| {
-                                            return std.mem.eql(u8, value, expected);
+                                            // Handle string comparison correctly
+                                            // The RLP-encoded value might need to be decoded here
+                                            const decoded_value = try rlp.decode(allocator, value, true);
+                                            defer decoded_value.data.deinit(allocator);
+                                            
+                                            if (decoded_value.data == .String) {
+                                                return std.mem.eql(u8, decoded_value.data.String, expected);
+                                            } else {
+                                                return false; // Value has unexpected format
+                                            }
                                         } else {
                                             return false; // Value exists but none expected
                                         }
@@ -228,7 +237,16 @@ pub const ProofNodes = struct {
                                 } else {
                                     // Has value
                                     if (expected_value) |expected| {
-                                        return std.mem.eql(u8, value, expected);
+                                        // Handle string comparison correctly
+                                        // The RLP-encoded value might need to be decoded here
+                                        const decoded_value = try rlp.decode(allocator, value, true);
+                                        defer decoded_value.data.deinit(allocator);
+                                        
+                                        if (decoded_value.data == .String) {
+                                            return std.mem.eql(u8, decoded_value.data.String, expected);
+                                        } else {
+                                            return false; // Value has unexpected format
+                                        }
                                     } else {
                                         return false; // Value exists but none expected
                                     }
@@ -284,7 +302,16 @@ pub const ProofNodes = struct {
                                     // Direct value reference
                                     if (remaining_path.len == 1) {
                                         if (expected_value) |expected| {
-                                            return std.mem.eql(u8, next, expected);
+                                            // Handle string comparison correctly
+                                            // The RLP-encoded value might need to be decoded here
+                                            const decoded_value = try rlp.decode(allocator, next, true);
+                                            defer decoded_value.data.deinit(allocator);
+                                            
+                                            if (decoded_value.data == .String) {
+                                                return std.mem.eql(u8, decoded_value.data.String, expected);
+                                            } else {
+                                                return false; // Value has unexpected format
+                                            }
                                         } else {
                                             return false; // Value exists but none expected
                                         }

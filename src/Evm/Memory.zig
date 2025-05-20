@@ -1,7 +1,8 @@
 const std = @import("std");
 
 // Import the u256 type from the appropriate module
-const u256 = u256;
+// This should be fixed by using a proper path but for now we'll use a different name
+const BigInt = @import("../Types/U256.ts").u256;
 
 /// Memory implements a simple memory model for the ethereum virtual machine.
 ///
