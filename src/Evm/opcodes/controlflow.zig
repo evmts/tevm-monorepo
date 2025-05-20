@@ -350,9 +350,9 @@ pub fn opPc(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError!
                         .{prev_op, next_op, next_next_op});
                     
                     // Check for common patterns
-                    if (next_op == 0x01 && next_next_op == 0x56) { // ADD followed by JUMP
+                    if (next_op == 0x01 and next_next_op == 0x56) { // ADD followed by JUMP
                         frame.logger.debug("PC: Detected PC + value -> JUMP pattern (dynamic jump table)", .{});
-                    } else if (next_op >= 0x60 && next_op <= 0x7F && frame.contract.code[pc+2] == 0x01) { // PUSH followed by ADD
+                    } else if (next_op >= 0x60 and next_op <= 0x7F and frame.contract.code[pc+2] == 0x01) { // PUSH followed by ADD
                         frame.logger.debug("PC: Detected PC + literal pattern", .{});
                     }
                 }

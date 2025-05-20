@@ -65,11 +65,10 @@ pub fn getKeccak256MemorySize(stack: *const Frame.Stack) struct { size: u64, ove
     const size_u64 = @as(u64, @truncate(size));
     
     // Check for overflow when adding offset and size
-    var overflow = false;
-    const total_size = @addWithOverflow(offset_u64, size_u64, &overflow);
-    if (overflow) {
+    if (offset_u64 > std.math.maxInt(u64) - size_u64) {
         return .{ .size = 0, .overflow = true };
     }
+    const total_size = offset_u64 + size_u64;
     
     // Calculate memory size with proper alignment (32 bytes)
     const words = (total_size + 31) / 32;
