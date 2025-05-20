@@ -95,8 +95,10 @@ pub fn opMcopy(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     }
     
     // Ensure memory has enough capacity for both source and destination
-    try frame.memory.require(mem_source, mem_length);
-    try frame.memory.require(mem_dest, mem_length);
+    const required_size = @max(mem_source + mem_length, mem_dest + mem_length);
+    if (required_size > frame.memory.len()) {
+        try frame.memory.resize(required_size);
+    }
     
     // Use memory's built-in copy method which safely handles overlapping regions
     frame.memory.copy(mem_dest, mem_source, mem_length);
