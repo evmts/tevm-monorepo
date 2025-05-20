@@ -206,7 +206,7 @@ pub const HashBuilder = struct {
                         const new_leaf = try LeafNode.init(
                             self.allocator,
                             new_path,
-                            existing_value
+                            try existing_value.clone(self.allocator)
                         );
                         const new_node = TrieNode{ .Leaf = new_leaf };
                         
@@ -286,7 +286,7 @@ pub const HashBuilder = struct {
                             const new_leaf = try LeafNode.init(
                                 self.allocator,
                                 new_path,
-                                existing_value
+                                try existing_value.clone(self.allocator)
                             );
                             const new_node = TrieNode{ .Leaf = new_leaf };
                             

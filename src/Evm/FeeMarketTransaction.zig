@@ -8,37 +8,52 @@ const Address = @import("../Address/address.zig").Address;
 // Create a file-specific logger
 const logger = createLogger(@src().file);
 
-/// TransactionType enum for the different types of transactions
+/// TransactionType enum for the different types of transactions in Ethereum
+/// 
+/// EIP-2718 introduced typed transactions to Ethereum, with each type
+/// having a different format and capabilities. 
 pub const TransactionType = enum(u8) {
-    /// Legacy transaction (pre-EIP2718)
+    /// Legacy transaction (pre-EIP-2718)
+    /// The original transaction format without an explicit type
     Legacy = 0,
     
-    /// AccessList transaction (EIP2930)
+    /// AccessList transaction (EIP-2930)
+    /// Introduced access lists to optimize gas usage for contract interactions
     AccessList = 1,
     
-    /// FeeMarket transaction (EIP1559)
+    /// FeeMarket transaction (EIP-1559)
+    /// Introduced base fee and priority fee for improved fee market dynamics
     FeeMarket = 2,
     
-    /// Blob transaction (EIP4844)
+    /// Blob transaction (EIP-4844)
+    /// Supports data blobs for Layer 2 rollups with reduced gas costs
     Blob = 3,
 };
 
 /// AccessListEntry represents a single entry in an access list
-/// These are used in both EIP-2930 and EIP-1559 transactions to
-/// specify addresses and storage slots that will be accessed
+/// 
+/// These entries are used in both EIP-2930 and EIP-1559 transactions to
+/// specify addresses and storage slots that will be accessed during execution.
+/// Pre-declaring these accesses optimizes gas costs under EIP-2929 by marking
+/// the slots as "warm" before transaction execution begins.
 pub const AccessListEntry = struct {
-    /// The address being accessed
+    /// The Ethereum address being accessed during transaction execution
     address: Address,
     
-    /// List of storage slots being accessed
+    /// List of 32-byte storage slot keys that will be accessed at this address
+    /// Each key corresponds to a specific storage slot in the account's state
     storage_keys: []const [32]u8,
 };
 
-/// AccessList represents a list of addresses and storage slots
+/// AccessList represents a complete list of addresses and storage slots
 /// that will be accessed during transaction execution.
 ///
-/// Pre-declaring these accesses allows for gas savings under EIP-2929,
-/// as these addresses and slots will be marked as "warm" before execution.
+/// Benefits of using access lists:
+/// 1. Gas savings: Pre-declared accesses have reduced gas costs under EIP-2929
+/// 2. Predictability: Helps prevent unexpected out-of-gas errors from cold accesses
+/// 3. Optimization: Makes gas costs more predictable for complex transactions
+///
+/// This type is a slice of AccessListEntry structures.
 pub const AccessList = []const AccessListEntry;
 
 /// FeeMarketTransaction represents an EIP-1559 transaction
