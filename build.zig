@@ -46,12 +46,6 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    const abi_pkg = b.createModule(.{
-        .root_source_file = b.path("src/Abi/package.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
     const block_pkg = b.createModule(.{
         .root_source_file = b.path("src/Block/package.zig"),
         .target = target,
@@ -103,7 +97,6 @@ pub fn build(b: *std.Build) void {
     // Add imports between packages
     evm_pkg.addImport("utils", utils_pkg);
     evm_pkg.addImport("address", address_pkg);
-    evm_pkg.addImport("abi", abi_pkg);
     evm_pkg.addImport("block", block_pkg);
     evm_pkg.addImport("bytecode", bytecode_pkg);
     evm_pkg.addImport("compiler", compiler_pkg);
@@ -116,19 +109,17 @@ pub fn build(b: *std.Build) void {
     state_manager_pkg.addImport("evm", evm_pkg);
     state_manager_pkg.addImport("utils", utils_pkg);
     state_manager_pkg.addImport("address", address_pkg);
-    
-    abi_pkg.addImport("utils", utils_pkg);
-    
+
     address_pkg.addImport("utils", utils_pkg);
-    
+
     block_pkg.addImport("utils", utils_pkg);
     block_pkg.addImport("rlp", rlp_pkg);
-    
+
     bytecode_pkg.addImport("utils", utils_pkg);
-    
+
     trie_pkg.addImport("utils", utils_pkg);
     trie_pkg.addImport("rlp", rlp_pkg);
-    
+
     test_pkg.addImport("evm", evm_pkg);
     test_pkg.addImport("utils", utils_pkg);
     test_pkg.addImport("address", address_pkg);
@@ -144,7 +135,6 @@ pub fn build(b: *std.Build) void {
     zigevm_mod.addImport("evm", evm_pkg);
     zigevm_mod.addImport("utils", utils_pkg);
     zigevm_mod.addImport("address", address_pkg);
-    zigevm_mod.addImport("abi", abi_pkg);
     zigevm_mod.addImport("block", block_pkg);
     zigevm_mod.addImport("bytecode", bytecode_pkg);
     zigevm_mod.addImport("compiler", compiler_pkg);
@@ -172,7 +162,6 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("evm", evm_pkg);
     wasm_mod.addImport("utils", utils_pkg);
     wasm_mod.addImport("address", address_pkg);
-    wasm_mod.addImport("abi", abi_pkg);
     wasm_mod.addImport("block", block_pkg);
     wasm_mod.addImport("bytecode", bytecode_pkg);
     wasm_mod.addImport("compiler", compiler_pkg);
@@ -275,7 +264,6 @@ pub fn build(b: *std.Build) void {
     frame_test.root_module.addImport("evm", evm_pkg);
     frame_test.root_module.addImport("utils", utils_pkg);
     frame_test.root_module.addImport("address", address_pkg);
-    frame_test.root_module.addImport("abi", abi_pkg);
     frame_test.root_module.addImport("block", block_pkg);
     frame_test.root_module.addImport("bytecode", bytecode_pkg);
     frame_test.root_module.addImport("compiler", compiler_pkg);
@@ -303,7 +291,6 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("evm", evm_pkg);
     evm_test.root_module.addImport("utils", utils_pkg);
     evm_test.root_module.addImport("address", address_pkg);
-    evm_test.root_module.addImport("abi", abi_pkg);
     evm_test.root_module.addImport("block", block_pkg);
     evm_test.root_module.addImport("bytecode", bytecode_pkg);
     evm_test.root_module.addImport("compiler", compiler_pkg);
@@ -354,24 +341,6 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing RLP
     const rlp_test_step = b.step("test-rlp", "Run RLP tests");
     rlp_test_step.dependOn(&run_rlp_test.step);
-
-    // Add a test for abi_test.zig
-    const abi_specific_test = b.addTest(.{
-        .name = "abi-test",
-        .root_source_file = b.path("src/Abi/abi_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add package imports to abi_test
-    abi_specific_test.root_module.addImport("abi", abi_pkg);
-    abi_specific_test.root_module.addImport("utils", utils_pkg);
-
-    const run_abi_test = b.addRunArtifact(abi_specific_test);
-
-    // Add a separate step for testing ABI
-    const abi_test_step = b.step("test-abi", "Run ABI tests");
-    abi_test_step.dependOn(&run_abi_test.step);
 
     // Add a test for Compiler tests
     const compiler_test = b.addTest(.{
@@ -442,13 +411,13 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add package imports to contract_test
     contract_test.root_module.addImport("evm", evm_pkg);
     contract_test.root_module.addImport("utils", utils_pkg);
 
     const run_contract_test = b.addRunArtifact(contract_test);
-    
+
     // Add a separate step for testing Contract
     const contract_test_step = b.step("test-contract", "Run Contract tests");
     contract_test_step.dependOn(&run_contract_test.step);
@@ -460,13 +429,13 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    
+
     // Add package imports to evm_logger_test
     evm_logger_test.root_module.addImport("evm", evm_pkg);
     evm_logger_test.root_module.addImport("utils", utils_pkg);
 
     const run_evm_logger_test = b.addRunArtifact(evm_logger_test);
-    
+
     // Add a separate step for testing EvmLogger
     const evm_logger_test_step = b.step("test-evm-logger", "Run EvmLogger tests");
     evm_logger_test_step.dependOn(&run_evm_logger_test.step);
@@ -479,7 +448,6 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_evm_test.step);
     test_step.dependOn(&run_server_test.step);
     test_step.dependOn(&run_rlp_test.step);
-    test_step.dependOn(&run_abi_test.step);
     test_step.dependOn(&run_compiler_test.step);
     test_step.dependOn(&run_trie_test.step);
     test_step.dependOn(&run_interpreter_test.step);
