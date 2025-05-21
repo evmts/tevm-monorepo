@@ -748,7 +748,9 @@ describe(TxPool.name, () => {
 		for (let i = 0; i < maxSize; i++) {
 			// Create a new sender address and add funds
 			const privateKey = hexToBytes(`0x${(i + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`) // Generate different keys
-			const senderAccount = EthjsAccount.fromAccountData({ balance: parseEther('100') })
+			const senderAccount = EthjsAccount.fromAccountData({
+				balance: parseEther('100'),
+			})
 			const wallet = new LegacyTransaction({
 				nonce: 0,
 				gasPrice: 0,
@@ -776,7 +778,9 @@ describe(TxPool.name, () => {
 
 		// Try to add one more transaction from yet another account
 		const extraPrivateKey = hexToBytes(`0x${(maxSize + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`)
-		const extraSenderAccount = EthjsAccount.fromAccountData({ balance: parseEther('100') })
+		const extraSenderAccount = EthjsAccount.fromAccountData({
+			balance: parseEther('100'),
+		})
 		const extraWallet = new LegacyTransaction({
 			nonce: 0,
 			gasPrice: 0,
@@ -817,7 +821,9 @@ describe(TxPool.name, () => {
 			// Create a new sender address and add funds
 			const privateKey = hexToBytes(`0x${(i + 2).toString().padStart(2, '0')}${'00'.repeat(31)}`)
 			privateKeys.push(privateKey)
-			const senderAccount = EthjsAccount.fromAccountData({ balance: parseEther('100') })
+			const senderAccount = EthjsAccount.fromAccountData({
+				balance: parseEther('100'),
+			})
 			const wallet = new LegacyTransaction({
 				nonce: 0,
 				gasPrice: 0,
@@ -852,7 +858,7 @@ describe(TxPool.name, () => {
 			value: 10000,
 			data: '0x',
 		})
-		const signedReplacementTx = replacementTx.sign(privateKeys[0]!)
+		const signedReplacementTx = replacementTx.sign(privateKeys[0] as any)
 		const result = await customTxPool.add(signedReplacementTx)
 
 		// Should succeed

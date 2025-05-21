@@ -6,7 +6,7 @@
 
 # Type Alias: Address
 
-> **Address**: [`Address`](../../index/type-aliases/Address.md)
+> **Address** = [`Address`](../../index/type-aliases/Address.md)
 
 Defined in: packages/actions/types/common/Address.d.ts:6
 

@@ -6,7 +6,7 @@
 
 # Function: checkpoint()
 
-> **checkpoint**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<`void`\>
+> **checkpoint**(`baseState`, `skipFetchingFromFork?`): () => `Promise`\<`void`\>
 
 Defined in: [packages/state/src/actions/checkpoint.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/checkpoint.js#L6)
 
@@ -25,7 +25,7 @@ last call to checkpoint.
 
 ## Returns
 
-`Function`
+> (): `Promise`\<`void`\>
 
 ### Returns
 

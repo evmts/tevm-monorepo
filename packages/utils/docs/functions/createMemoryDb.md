@@ -6,7 +6,7 @@
 
 # Function: createMemoryDb()
 
-> **createMemoryDb**(`initialDb`?): [`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`\<`ArrayBufferLike`\>, `Uint8Array`\<`ArrayBufferLike`\>\>
+> **createMemoryDb**(`initialDb?`): [`MemoryDb`](../type-aliases/MemoryDb.md)\<`Uint8Array`\<`ArrayBufferLike`\>, `Uint8Array`\<`ArrayBufferLike`\>\>
 
 Defined in: [packages/utils/src/createMemoryDb.js:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/createMemoryDb.js#L22)
 

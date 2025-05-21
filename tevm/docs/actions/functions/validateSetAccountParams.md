@@ -14,7 +14,7 @@ Defined in: packages/actions/types/SetAccount/validateSetAccountParams.d.ts:1
 
 ### action
 
-[`SetAccountParams`](../../index/type-aliases/SetAccountParams.md)\<`boolean`\>
+[`SetAccountParams`](../type-aliases/SetAccountParams.md)\<`boolean`\>
 
 ## Returns
 

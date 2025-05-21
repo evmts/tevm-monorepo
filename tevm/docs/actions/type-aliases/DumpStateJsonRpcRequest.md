@@ -6,7 +6,7 @@
 
 # Type Alias: DumpStateJsonRpcRequest
 
-> **DumpStateJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_dumpState"`, \[\]\>
+> **DumpStateJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_dumpState"`, \[\]\>
 
 Defined in: packages/actions/types/DumpState/DumpStateJsonRpcRequest.d.ts:5
 

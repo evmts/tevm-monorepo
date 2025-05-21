@@ -16,7 +16,7 @@ Request handler for eth_newFilter JSON-RPC requests.
 
 ### tevmNode
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

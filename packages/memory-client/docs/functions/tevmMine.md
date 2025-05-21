@@ -6,7 +6,7 @@
 
 # Function: tevmMine()
 
-> **tevmMine**(`client`, `params`?): `Promise`\<`MineResult`\>
+> **tevmMine**(`client`, `params?`): `Promise`\<`MineResult`\>
 
 Defined in: [packages/memory-client/src/tevmMine.js:122](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/tevmMine.js#L122)
 
@@ -36,7 +36,7 @@ ideal for step-by-step testing and debugging scenarios.
 
 ### client
 
-`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{ `[key: string]`: `unknown`;  `account`: `undefined`; `batch`: `undefined`; `cacheTime`: `undefined`; `ccipRead`: `undefined`; `chain`: `undefined`; `key`: `undefined`; `name`: `undefined`; `pollingInterval`: `undefined`; `request`: `undefined`; `transport`: `undefined`; `type`: `undefined`; `uid`: `undefined`; \}\>
+`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{[`key`: `string`]: `unknown`; `account?`: `undefined`; `batch?`: `undefined`; `cacheTime?`: `undefined`; `ccipRead?`: `undefined`; `chain?`: `undefined`; `key?`: `undefined`; `name?`: `undefined`; `pollingInterval?`: `undefined`; `request?`: `undefined`; `transport?`: `undefined`; `type?`: `undefined`; `uid?`: `undefined`; \}\>
 
 The viem client configured with TEVM transport.
 

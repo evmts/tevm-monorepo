@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByBlockHashAndIndexHandler()
 
-> **EthGetTransactionByBlockHashAndIndexHandler**: (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
+> **EthGetTransactionByBlockHashAndIndexHandler** = (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:25
 

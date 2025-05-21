@@ -6,7 +6,7 @@
 
 # Function: ~~blockFromRpc()~~
 
-> **blockFromRpc**(`blockParams`, `options`, `uncles`?): [`Block`](../classes/Block.md)
+> **blockFromRpc**(`blockParams`, `options`, `uncles?`): [`Block`](../classes/Block.md)
 
 Defined in: packages/block/types/from-rpc.d.ts:11
 

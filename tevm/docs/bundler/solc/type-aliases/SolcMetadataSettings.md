@@ -6,20 +6,30 @@
 
 # Type Alias: SolcMetadataSettings
 
-> **SolcMetadataSettings**: `object`
+> **SolcMetadataSettings** = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:62
 
-## Type declaration
+## Properties
 
 ### appendCBOR?
 
 > `optional` **appendCBOR**: `boolean`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:63
+
+***
+
 ### bytecodeHash?
 
 > `optional` **bytecodeHash**: `"ipfs"` \| `"bzzr1"` \| `"none"`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:65
+
+***
+
 ### useLiteralContent?
 
 > `optional` **useLiteralContent**: `boolean`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:64

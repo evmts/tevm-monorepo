@@ -16,7 +16,7 @@ Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethe
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

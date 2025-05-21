@@ -6,6 +6,6 @@
 
 # Type Alias: EvmErrorConstructor
 
-> **EvmErrorConstructor**: *typeof* `evmErrors`\[`number`\]
+> **EvmErrorConstructor** = *typeof* `evmErrors`\[`number`\]
 
 Defined in: packages/actions/types/Call/handleEvmError.d.ts:2

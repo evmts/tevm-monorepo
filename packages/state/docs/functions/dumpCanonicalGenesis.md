@@ -6,7 +6,7 @@
 
 # Function: dumpCanonicalGenesis()
 
-> **dumpCanonicalGenesis**(`baseState`, `skipFetchingFromFork`?): () => `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
+> **dumpCanonicalGenesis**(`baseState`, `skipFetchingFromFork?`): () => `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
 
 Defined in: [packages/state/src/actions/dumpCannonicalGenesis.js:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpCannonicalGenesis.js#L14)
 
@@ -24,7 +24,7 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 ## Returns
 
-`Function`
+> (): `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
 
 Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.md)
 

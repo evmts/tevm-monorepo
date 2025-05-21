@@ -6,7 +6,7 @@
 
 # Function: getIteratorHead()
 
-> **getIteratorHead**(`baseChain`): (`name`?) => `Promise`\<[`Block`](../../block/classes/Block.md)\>
+> **getIteratorHead**(`baseChain`): (`name?`) => `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
 Defined in: packages/blockchain/types/actions/getIteratorHead.d.ts:1
 
@@ -18,7 +18,7 @@ Defined in: packages/blockchain/types/actions/getIteratorHead.d.ts:1
 
 ## Returns
 
-`Function`
+> (`name?`): `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
 Returns the specified iterator head.
 

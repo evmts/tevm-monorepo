@@ -6,7 +6,7 @@
 
 # Function: generateTxReceipt()
 
-> **generateTxReceipt**(`vm`): (`tx`, `txResult`, `cumulativeGasUsed`, `blobGasUsed`?, `blobGasPrice`?) => `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>
+> **generateTxReceipt**(`vm`): (`tx`, `txResult`, `cumulativeGasUsed`, `blobGasUsed?`, `blobGasPrice?`) => `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>
 
 Defined in: [packages/vm/src/actions/generateTxResult.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/actions/generateTxResult.ts#L23)
 
@@ -20,7 +20,7 @@ Returns the tx receipt.
 
 ## Returns
 
-`Function`
+> (`tx`, `txResult`, `cumulativeGasUsed`, `blobGasUsed?`, `blobGasPrice?`): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>
 
 ### Parameters
 

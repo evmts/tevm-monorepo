@@ -6,7 +6,7 @@
 
 # Function: createImpersonatedTx()
 
-> **createImpersonatedTx**(`txData`, `opts`?): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
+> **createImpersonatedTx**(`txData`, `opts?`): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
 Defined in: packages/tx/types/createImpersonatedTx.d.ts:1
 

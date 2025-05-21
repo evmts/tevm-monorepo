@@ -6,7 +6,7 @@
 
 # Type Alias: Chain
 
-> **Chain**: `object` & `BaseChain` & `object`
+> **Chain** = `object` & `BaseChain` & `object`
 
 Defined in: [packages/blockchain/src/Chain.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/Chain.ts#L16)
 
@@ -20,11 +20,11 @@ Blockchain
 
 ### deepCopy()
 
-> **deepCopy**: () => `Promise`\<[`Chain`](Chain.md)\>
+> **deepCopy**: () => `Promise`\<`Chain`\>
 
 #### Returns
 
-`Promise`\<[`Chain`](Chain.md)\>
+`Promise`\<`Chain`\>
 
 ### events?
 
@@ -34,15 +34,17 @@ Optional events emitter
 
 ### shallowCopy()
 
-> **shallowCopy**: () => [`Chain`](Chain.md)
+> **shallowCopy**: () => `Chain`
 
 Returns a shallow copy of the blockchain that may share state with the original
 
 #### Returns
 
-[`Chain`](Chain.md)
+`Chain`
 
 ### delBlock()
+
+> **delBlock**(`blockHash`): `Promise`\<`void`\>
 
 Deletes a block from the blockchain. All child blocks in the chain are
 deleted and any encountered heads are set to the parent block.
@@ -61,6 +63,8 @@ The hash of the block to be deleted
 
 ### getBlock()
 
+> **getBlock**(`blockId`): `Promise`\<`Block`\>
+
 Returns a block by its hash or number.
 
 #### Parameters
@@ -74,6 +78,8 @@ Returns a block by its hash or number.
 `Promise`\<`Block`\>
 
 ### getBlockByTag()
+
+> **getBlockByTag**(`blockTag`): `Promise`\<`Block`\>
 
 Gets block given one of the following inputs:
 - Hex block hash
@@ -104,6 +110,8 @@ Gets block given one of the following inputs:
 
 ### getCanonicalHeadBlock()
 
+> **getCanonicalHeadBlock**(): `Promise`\<`Block`\>
+
 Returns the latest full block in the canonical chain.
 
 #### Returns
@@ -111,6 +119,8 @@ Returns the latest full block in the canonical chain.
 `Promise`\<`Block`\>
 
 ### getIteratorHead()
+
+> **getIteratorHead**(`name?`): `Promise`\<`Block`\>
 
 Returns the specified iterator head.
 
@@ -127,6 +137,8 @@ Optional name of the iterator head (default: 'vm')
 `Promise`\<`Block`\>
 
 ### getTotalDifficulty()?
+
+> `optional` **getTotalDifficulty**(`hash`, `number?`): `Promise`\<`bigint`\>
 
 Gets total difficulty for a block specified by hash and number
 
@@ -145,6 +157,8 @@ Gets total difficulty for a block specified by hash and number
 `Promise`\<`bigint`\>
 
 ### iterator()
+
+> **iterator**(`name`, `onBlock`, `maxBlocks?`, `releaseLockOnCallback?`): `Promise`\<`number`\>
 
 Iterates through blocks starting at the specified iterator head and calls
 the onBlock function on each block.
@@ -180,6 +194,8 @@ reorg: boolean)
 
 ### putBlock()
 
+> **putBlock**(`block`): `Promise`\<`void`\>
+
 Adds a block to the blockchain.
 
 #### Parameters
@@ -195,6 +211,8 @@ The block to be added to the blockchain.
 `Promise`\<`void`\>
 
 ### setIteratorHead()
+
+> **setIteratorHead**(`tag`, `headHash`): `Promise`\<`void`\>
 
 Set header hash of a certain `tag`.
 When calling the iterator, the iterator will start running the first child block after the header hash currently stored.
@@ -218,6 +236,8 @@ The head hash to save
 `Promise`\<`void`\>
 
 ### validateHeader()
+
+> **validateHeader**(`header`, `height?`): `Promise`\<`void`\>
 
 Validates a block header, throwing if invalid. It is being validated against the reported `parentHash`.
 

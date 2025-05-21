@@ -6,7 +6,7 @@
 
 # Function: commit()
 
-> **commit**(`baseState`, `skipFetchingFromFork`?): (`createNewStateRoot`?) => `Promise`\<`void`\>
+> **commit**(`baseState`, `skipFetchingFromFork?`): (`createNewStateRoot?`) => `Promise`\<`void`\>
 
 Defined in: [packages/state/src/actions/commit.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/commit.js#L9)
 
@@ -25,7 +25,7 @@ last call to checkpoint.
 
 ## Returns
 
-`Function`
+> (`createNewStateRoot?`): `Promise`\<`void`\>
 
 Commits the current state.
 

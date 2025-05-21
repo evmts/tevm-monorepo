@@ -6,7 +6,7 @@
 
 # Type Alias: MineParams\<TThrowOnFail\>
 
-> **MineParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](MineEvents.md) & `object`
+> **MineParams**\<`TThrowOnFail`\> = [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & [`MineEvents`](MineEvents.md) & `object`
 
 Defined in: [packages/actions/src/Mine/MineParams.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineParams.ts#L22)
 
@@ -34,7 +34,9 @@ The txHash to mine if only mining one tx
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 ## Example
 

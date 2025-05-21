@@ -6,7 +6,7 @@
 
 # Type Alias: DumpStateHandler()
 
-> **DumpStateHandler**: (`params`?) => `Promise`\<[`DumpStateResult`](../../index/type-aliases/DumpStateResult.md)\>
+> **DumpStateHandler** = (`params?`) => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
 Defined in: packages/actions/types/DumpState/DumpStateHandlerType.d.ts:28
 
@@ -25,7 +25,7 @@ Optional parameters to customize the state dumping process.
 
 ## Returns
 
-`Promise`\<[`DumpStateResult`](../../index/type-aliases/DumpStateResult.md)\>
+`Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
 A promise that resolves to a `DumpStateResult` object containing the state data.
 

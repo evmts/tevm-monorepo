@@ -16,9 +16,9 @@ Error class for [loadConfig](../functions/loadConfig.md)
 
 ## Constructors
 
-### new LoadConfigError()
+### Constructor
 
-> **new LoadConfigError**(`configFilePath`, `underlyingError`): [`LoadConfigError`](LoadConfigError.md)
+> **new LoadConfigError**(`configFilePath`, `underlyingError`): `LoadConfigError`
 
 Defined in: [bundler-packages/config/src/loadConfig.js:30](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/loadConfig.js#L30)
 
@@ -34,7 +34,7 @@ Defined in: [bundler-packages/config/src/loadConfig.js:30](https://github.com/ev
 
 #### Returns
 
-[`LoadConfigError`](LoadConfigError.md)
+`LoadConfigError`
 
 #### Overrides
 
@@ -54,7 +54,7 @@ Defined in: [bundler-packages/config/src/loadConfig.js:25](https://github.com/ev
 
 > `optional` **cause**: `unknown`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 #### Inherited from
 
@@ -90,7 +90,7 @@ Defined in: [bundler-packages/config/src/loadConfig.js:21](https://github.com/ev
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -144,7 +144,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 ### captureStackTrace()
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 

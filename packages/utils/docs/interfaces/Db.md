@@ -10,9 +10,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs
 
 ## Type Parameters
 
-• **TKey** *extends* `Uint8Array` \| `string` \| `number` = `Uint8Array`
+### TKey
 
-• **TValue** *extends* `Uint8Array` \| `string` \| [`DbObject`](../type-aliases/DbObject.md) = `Uint8Array`
+`TKey` *extends* `Uint8Array` \| `string` \| `number` = `Uint8Array`
+
+### TValue
+
+`TValue` *extends* `Uint8Array` \| `string` \| [`DbObject`](../type-aliases/DbObject.md) = `Uint8Array`
 
 ## Methods
 
@@ -40,7 +44,7 @@ A stack of levelup operations
 
 ### del()
 
-> **del**(`key`, `opts`?): `Promise`\<`void`\>
+> **del**(`key`, `opts?`): `Promise`\<`void`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:47
 
@@ -64,7 +68,7 @@ Removes a raw value in the underlying db.
 
 ### get()
 
-> **get**(`key`, `opts`?): `Promise`\<`undefined` \| `TValue`\>
+> **get**(`key`, `opts?`): `Promise`\<`undefined` \| `TValue`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:36
 
@@ -104,7 +108,7 @@ Opens the database -- if applicable
 
 ### put()
 
-> **put**(`key`, `val`, `opts`?): `Promise`\<`void`\>
+> **put**(`key`, `val`, `opts?`): `Promise`\<`void`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:42
 
@@ -134,7 +138,7 @@ The key as a `TValue`
 
 ### shallowCopy()
 
-> **shallowCopy**(): [`Db`](Db.md)\<`TKey`, `TValue`\>
+> **shallowCopy**(): `DB`\<`TKey`, `TValue`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+util@9.1.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:57
 
@@ -143,4 +147,4 @@ to the **same** underlying db instance.
 
 #### Returns
 
-[`Db`](Db.md)\<`TKey`, `TValue`\>
+`DB`\<`TKey`, `TValue`\>

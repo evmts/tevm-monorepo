@@ -6,7 +6,7 @@
 
 # Type Alias: StateOverrideSet
 
-> **StateOverrideSet**: `object`
+> **StateOverrideSet** = `object`
 
 Defined in: packages/actions/types/common/StateOverrideSet.d.ts:26
 

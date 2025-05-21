@@ -6,7 +6,7 @@
 
 # Type Alias: EthSyncingParams
 
-> **EthSyncingParams**: [`EmptyParams`](EmptyParams.md)
+> **EthSyncingParams** = [`EmptyParams`](EmptyParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:288](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L288)
 

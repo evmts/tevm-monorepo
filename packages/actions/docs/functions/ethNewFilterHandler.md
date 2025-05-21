@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/ethNewFilterHandler.js:16](https://github.
 
 ### tevmNode
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

@@ -26,9 +26,9 @@ The VM to run on
 
 ## Returns
 
-`Function`
-
 Function that accumulates parent block hash
+
+> (`currentBlockNumber`, `parentHash`): `Promise`\<`void`\>
 
 ### Parameters
 

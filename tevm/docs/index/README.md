@@ -31,25 +31,16 @@
 - [BlockParam](type-aliases/BlockParam.md)
 - [BlockResult](type-aliases/BlockResult.md)
 - [BlockTag](type-aliases/BlockTag.md)
-- [CallParams](type-aliases/CallParams.md)
-- [CallResult](type-aliases/CallResult.md)
 - [ConstructorArgument](type-aliases/ConstructorArgument.md)
 - [Contract](type-aliases/Contract.md)
 - [ContractFunctionName](type-aliases/ContractFunctionName.md)
-- [ContractParams](type-aliases/ContractParams.md)
-- [ContractResult](type-aliases/ContractResult.md)
 - [CreateContractParams](type-aliases/CreateContractParams.md)
 - [CreateEventFilterParameters](type-aliases/CreateEventFilterParameters.md)
 - [CreateMemoryClientFn](type-aliases/CreateMemoryClientFn.md)
 - [CreateMemoryDbFn](type-aliases/CreateMemoryDbFn.md)
 - [CreateSyncStoragePersisterOptions](type-aliases/CreateSyncStoragePersisterOptions.md)
 - [CustomPrecompile](type-aliases/CustomPrecompile.md)
-- [DebugRequestType](type-aliases/DebugRequestType.md)
-- [DebugReturnType](type-aliases/DebugReturnType.md)
 - [DecodeFunctionResultReturnType](type-aliases/DecodeFunctionResultReturnType.md)
-- [DeployParams](type-aliases/DeployParams.md)
-- [DeployResult](type-aliases/DeployResult.md)
-- [DumpStateResult](type-aliases/DumpStateResult.md)
 - [EIP1193EventEmitter](type-aliases/EIP1193EventEmitter.md)
 - [EIP1193EventMap](type-aliases/EIP1193EventMap.md)
 - [EIP1193Events](type-aliases/EIP1193Events.md)
@@ -70,8 +61,6 @@
 - [FilterParams](type-aliases/FilterParams.md)
 - [FilterType](type-aliases/FilterType.md)
 - [FormatAbi](type-aliases/FormatAbi.md)
-- [GetAccountParams](type-aliases/GetAccountParams.md)
-- [GetAccountResult](type-aliases/GetAccountResult.md)
 - [GetEventArgs](type-aliases/GetEventArgs.md)
 - [Hardfork](type-aliases/Hardfork.md)
 - [HDAccount](type-aliases/HDAccount.md)
@@ -81,17 +70,11 @@
 - [JsonRpcClient](type-aliases/JsonRpcClient.md)
 - [JsonRpcProcedure](type-aliases/JsonRpcProcedure.md)
 - [JsonRpcRequest](type-aliases/JsonRpcRequest.md)
-- [JsonRpcRequestTypeFromMethod](type-aliases/JsonRpcRequestTypeFromMethod.md)
 - [JsonRpcResponse](type-aliases/JsonRpcResponse.md)
-- [JsonRpcReturnTypeFromMethod](type-aliases/JsonRpcReturnTypeFromMethod.md)
-- [LoadStateResult](type-aliases/LoadStateResult.md)
 - [ManualMining](type-aliases/ManualMining.md)
 - [MemoryClient](type-aliases/MemoryClient.md)
 - [MemoryClientOptions](type-aliases/MemoryClientOptions.md)
 - [MemoryDb](type-aliases/MemoryDb.md)
-- [MineHandler](type-aliases/MineHandler.md)
-- [MineParams](type-aliases/MineParams.md)
-- [MineResult](type-aliases/MineResult.md)
 - [MiningConfig](type-aliases/MiningConfig.md)
 - [ParseAbi](type-aliases/ParseAbi.md)
 - [Predeploy](type-aliases/Predeploy.md)
@@ -99,33 +82,19 @@
 - [ProviderConnectInfo](type-aliases/ProviderConnectInfo.md)
 - [ProviderMessage](type-aliases/ProviderMessage.md)
 - [ReadActionCreator](type-aliases/ReadActionCreator.md)
-- [SetAccountParams](type-aliases/SetAccountParams.md)
-- [SetAccountResult](type-aliases/SetAccountResult.md)
 - [StateOptions](type-aliases/StateOptions.md)
 - [SyncStoragePersister](type-aliases/SyncStoragePersister.md)
 - [TevmActions](type-aliases/TevmActions.md)
 - [TevmActionsApi](type-aliases/TevmActionsApi.md)
-- [TevmCallError](type-aliases/TevmCallError.md)
 - [~~TevmClient~~](type-aliases/TevmClient.md)
 - [TevmContract](type-aliases/TevmContract.md)
-- [TevmContractError](type-aliases/TevmContractError.md)
-- [TevmDeployError](type-aliases/TevmDeployError.md)
-- [TevmDumpStateError](type-aliases/TevmDumpStateError.md)
-- [TevmGetAccountError](type-aliases/TevmGetAccountError.md)
-- [TevmJsonRpcBulkRequestHandler](type-aliases/TevmJsonRpcBulkRequestHandler.md)
-- [TevmJsonRpcRequest](type-aliases/TevmJsonRpcRequest.md)
-- [TevmJsonRpcRequestHandler](type-aliases/TevmJsonRpcRequestHandler.md)
-- [TevmLoadStateError](type-aliases/TevmLoadStateError.md)
-- [TevmMineError](type-aliases/TevmMineError.md)
 - [TevmNode](type-aliases/TevmNode.md)
 - [TevmNodeOptions](type-aliases/TevmNodeOptions.md)
 - [TevmRpcSchema](type-aliases/TevmRpcSchema.md)
-- [TevmSetAccountError](type-aliases/TevmSetAccountError.md)
 - [TevmState](type-aliases/TevmState.md)
 - [TevmTransport](type-aliases/TevmTransport.md)
 - [TevmViemActionsApi](type-aliases/TevmViemActionsApi.md)
 - [TraceCall](type-aliases/TraceCall.md)
-- [TraceParams](type-aliases/TraceParams.md)
 - [TraceResult](type-aliases/TraceResult.md)
 - [TransactionParams](type-aliases/TransactionParams.md)
 - [TransactionResult](type-aliases/TransactionResult.md)
@@ -133,12 +102,17 @@
 
 ## Variables
 
+- [createContract](variables/createContract.md)
+- [createMemoryClient](variables/createMemoryClient.md)
+- [createMemoryDb](variables/createMemoryDb.md)
+- [defineCall](variables/defineCall.md)
+- [definePrecompile](variables/definePrecompile.md)
+- [definePredeploy](variables/definePredeploy.md)
 - [GENESIS\_STATE](variables/GENESIS_STATE.md)
-- [PREFUNDED\_ACCOUNTS](variables/PREFUNDED_ACCOUNTS.md)
-- [PREFUNDED\_PRIVATE\_KEYS](variables/PREFUNDED_PRIVATE_KEYS.md)
-- [PREFUNDED\_PUBLIC\_KEYS](variables/PREFUNDED_PUBLIC_KEYS.md)
-- [PREFUNDED\_SEED](variables/PREFUNDED_SEED.md)
+- [loadBalance](variables/loadBalance.md)
 - [prefundedAccounts](variables/prefundedAccounts.md)
+- [rateLimit](variables/rateLimit.md)
+- [tevmContract](variables/tevmContract.md)
 
 ## Functions
 
@@ -148,12 +122,8 @@
 - [bytesToBool](functions/bytesToBool.md)
 - [bytesToHex](functions/bytesToHex.md)
 - [bytesToNumber](functions/bytesToNumber.md)
-- [createAddress](functions/createAddress.md)
 - [createClient](functions/createClient.md)
-- [createContract](functions/createContract.md)
 - [createJsonRpcFetcher](functions/createJsonRpcFetcher.md)
-- [createMemoryClient](functions/createMemoryClient.md)
-- [createMemoryDb](functions/createMemoryDb.md)
 - [createSyncStoragePersister](functions/createSyncStoragePersister.md)
 - [createTevmNode](functions/createTevmNode.md)
 - [createTevmTransport](functions/createTevmTransport.md)
@@ -162,9 +132,6 @@
 - [decodeEventLog](functions/decodeEventLog.md)
 - [decodeFunctionData](functions/decodeFunctionData.md)
 - [decodeFunctionResult](functions/decodeFunctionResult.md)
-- [defineCall](functions/defineCall.md)
-- [definePrecompile](functions/definePrecompile.md)
-- [definePredeploy](functions/definePredeploy.md)
 - [encodeAbiParameters](functions/encodeAbiParameters.md)
 - [encodeDeployData](functions/encodeDeployData.md)
 - [encodeErrorResult](functions/encodeErrorResult.md)
@@ -190,18 +157,15 @@
 - [isBytes](functions/isBytes.md)
 - [isHex](functions/isHex.md)
 - [keccak256](functions/keccak256.md)
-- [loadBalance](functions/loadBalance.md)
 - [mnemonicToAccount](functions/mnemonicToAccount.md)
 - [numberToHex](functions/numberToHex.md)
 - [parseAbi](functions/parseAbi.md)
 - [parseEther](functions/parseEther.md)
 - [parseGwei](functions/parseGwei.md)
 - [publicActions](functions/publicActions.md)
-- [rateLimit](functions/rateLimit.md)
 - [stringToHex](functions/stringToHex.md)
 - [testActions](functions/testActions.md)
 - [tevmCall](functions/tevmCall.md)
-- [tevmContract](functions/tevmContract.md)
 - [tevmDeploy](functions/tevmDeploy.md)
 - [tevmDumpState](functions/tevmDumpState.md)
 - [tevmGetAccount](functions/tevmGetAccount.md)
@@ -222,3 +186,219 @@
 ### bytesToBigInt
 
 Renames and re-exports [bytesToBigint](functions/bytesToBigint.md)
+
+***
+
+### CallParams
+
+Re-exports [CallParams](../actions/type-aliases/CallParams.md)
+
+***
+
+### CallResult
+
+Re-exports [CallResult](../actions/type-aliases/CallResult.md)
+
+***
+
+### ContractParams
+
+Re-exports [ContractParams](../actions/type-aliases/ContractParams.md)
+
+***
+
+### ContractResult
+
+Re-exports [ContractResult](../actions/type-aliases/ContractResult.md)
+
+***
+
+### createAddress
+
+Re-exports [createAddress](../address/functions/createAddress.md)
+
+***
+
+### DebugRequestType
+
+Re-exports [DebugRequestType](../actions/type-aliases/DebugRequestType.md)
+
+***
+
+### DebugReturnType
+
+Re-exports [DebugReturnType](../actions/type-aliases/DebugReturnType.md)
+
+***
+
+### DeployParams
+
+Re-exports [DeployParams](../actions/type-aliases/DeployParams.md)
+
+***
+
+### DeployResult
+
+Re-exports [DeployResult](../actions/type-aliases/DeployResult.md)
+
+***
+
+### DumpStateResult
+
+Re-exports [DumpStateResult](../actions/type-aliases/DumpStateResult.md)
+
+***
+
+### GetAccountParams
+
+Re-exports [GetAccountParams](../actions/type-aliases/GetAccountParams.md)
+
+***
+
+### GetAccountResult
+
+Re-exports [GetAccountResult](../actions/type-aliases/GetAccountResult.md)
+
+***
+
+### JsonRpcRequestTypeFromMethod
+
+Re-exports [JsonRpcRequestTypeFromMethod](../actions/type-aliases/JsonRpcRequestTypeFromMethod.md)
+
+***
+
+### JsonRpcReturnTypeFromMethod
+
+Re-exports [JsonRpcReturnTypeFromMethod](../actions/type-aliases/JsonRpcReturnTypeFromMethod.md)
+
+***
+
+### LoadStateResult
+
+Re-exports [LoadStateResult](../actions/type-aliases/LoadStateResult.md)
+
+***
+
+### MineHandler
+
+Re-exports [MineHandler](../actions/type-aliases/MineHandler.md)
+
+***
+
+### MineParams
+
+Re-exports [MineParams](../actions/type-aliases/MineParams.md)
+
+***
+
+### MineResult
+
+Re-exports [MineResult](../actions/type-aliases/MineResult.md)
+
+***
+
+### PREFUNDED\_ACCOUNTS
+
+Re-exports [PREFUNDED_ACCOUNTS](../utils/variables/PREFUNDED_ACCOUNTS.md)
+
+***
+
+### PREFUNDED\_PRIVATE\_KEYS
+
+Re-exports [PREFUNDED_PRIVATE_KEYS](../utils/variables/PREFUNDED_PRIVATE_KEYS.md)
+
+***
+
+### PREFUNDED\_PUBLIC\_KEYS
+
+Re-exports [PREFUNDED_PUBLIC_KEYS](../utils/variables/PREFUNDED_PUBLIC_KEYS.md)
+
+***
+
+### PREFUNDED\_SEED
+
+Re-exports [PREFUNDED_SEED](../utils/variables/PREFUNDED_SEED.md)
+
+***
+
+### SetAccountParams
+
+Re-exports [SetAccountParams](../actions/type-aliases/SetAccountParams.md)
+
+***
+
+### SetAccountResult
+
+Re-exports [SetAccountResult](../actions/type-aliases/SetAccountResult.md)
+
+***
+
+### TevmCallError
+
+Re-exports [TevmCallError](../actions/type-aliases/TevmCallError.md)
+
+***
+
+### TevmContractError
+
+Re-exports [TevmContractError](../actions/type-aliases/TevmContractError.md)
+
+***
+
+### TevmDeployError
+
+Re-exports [TevmDeployError](../actions/type-aliases/TevmDeployError.md)
+
+***
+
+### TevmDumpStateError
+
+Re-exports [TevmDumpStateError](../actions/type-aliases/TevmDumpStateError.md)
+
+***
+
+### TevmGetAccountError
+
+Re-exports [TevmGetAccountError](../actions/type-aliases/TevmGetAccountError.md)
+
+***
+
+### TevmJsonRpcBulkRequestHandler
+
+Re-exports [TevmJsonRpcBulkRequestHandler](../actions/type-aliases/TevmJsonRpcBulkRequestHandler.md)
+
+***
+
+### TevmJsonRpcRequest
+
+Re-exports [TevmJsonRpcRequest](../actions/type-aliases/TevmJsonRpcRequest.md)
+
+***
+
+### TevmJsonRpcRequestHandler
+
+Re-exports [TevmJsonRpcRequestHandler](../actions/type-aliases/TevmJsonRpcRequestHandler.md)
+
+***
+
+### TevmLoadStateError
+
+Re-exports [TevmLoadStateError](../actions/type-aliases/TevmLoadStateError.md)
+
+***
+
+### TevmMineError
+
+Re-exports [TevmMineError](../actions/type-aliases/TevmMineError.md)
+
+***
+
+### TevmSetAccountError
+
+Re-exports [TevmSetAccountError](../actions/type-aliases/TevmSetAccountError.md)
+
+***
+
+### TraceParams
+
+Re-exports [TraceParams](../actions/type-aliases/TraceParams.md)

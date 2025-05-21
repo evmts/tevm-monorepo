@@ -6,7 +6,7 @@
 
 # Type Alias: EthChainIdHandler()
 
-> **EthChainIdHandler**: (`request`?) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
+> **EthChainIdHandler** = (`request?`) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:6
 

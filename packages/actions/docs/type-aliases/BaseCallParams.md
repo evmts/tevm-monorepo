@@ -6,7 +6,7 @@
 
 # Type Alias: BaseCallParams\<TThrowOnFail\>
 
-> **BaseCallParams**\<`TThrowOnFail`\>: [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
+> **BaseCallParams**\<`TThrowOnFail`\> = [`BaseParams`](BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Defined in: [packages/actions/src/BaseCall/BaseCallParams.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/BaseCallParams.ts#L39)
 
@@ -282,7 +282,9 @@ The value in ether that is being sent to the `to` address. Defaults to `0`.
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`
 
 ## Example
 

@@ -6,7 +6,7 @@
 
 # Type Alias: MemoryClient\<TChain, TAccountOrAddress\>
 
-> **MemoryClient**\<`TChain`, `TAccountOrAddress`\>: `Prettify`\<`Client`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`, [`TevmRpcSchema`](TevmRpcSchema.md), [`TevmActions`](TevmActions.md) & `PublicActions`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`\> & `TestActions`\>\>
+> **MemoryClient**\<`TChain`, `TAccountOrAddress`\> = `Prettify`\<`Client`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`, [`TevmRpcSchema`](TevmRpcSchema.md), [`TevmActions`](TevmActions.md) & `PublicActions`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`\> & `TestActions`\>\>
 
 Defined in: packages/memory-client/types/MemoryClient.d.ts:232
 
@@ -30,9 +30,13 @@ The client implements multiple API styles:
 
 ## Type Parameters
 
-• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+### TChain
 
-• **TAccountOrAddress** *extends* [`Account`](Account.md) \| [`Address`](Address.md) \| `undefined` = [`Account`](Account.md) \| [`Address`](Address.md) \| `undefined`
+`TChain` *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+
+### TAccountOrAddress
+
+`TAccountOrAddress` *extends* [`Account`](Account.md) \| [`Address`](Address.md) \| `undefined` = [`Account`](Account.md) \| [`Address`](Address.md) \| `undefined`
 
 ## Example
 
@@ -78,7 +82,7 @@ console.log(`Contract deployed at: ${deployResult.createdAddress}`);
 
 ## See
 
- - For creating a MemoryClient instance, see [createMemoryClient](../functions/createMemoryClient.md).
+ - For creating a MemoryClient instance, see [createMemoryClient](../variables/createMemoryClient.md).
  - [Client Guide](https://tevm.sh/learn/clients/)
  - [Actions Guide](https://tevm.sh/learn/actions/)
  - [Reference Docs](https://tevm.sh/reference/tevm/memory-client/functions/creatememoryclient/)

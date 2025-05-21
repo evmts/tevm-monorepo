@@ -6,18 +6,12 @@
 
 # Type Alias: EVMProfilerOpts
 
-> **EVMProfilerOpts**: `object`
+> **EVMProfilerOpts** = `object`
 
 Defined in: packages/vm/types/utils/EVMProfileOpts.d.ts:13
 
 Configuration options for EVM code execution profiling.
 Controls whether detailed execution metrics are collected.
-
-## Type declaration
-
-### enabled
-
-> **enabled**: `boolean`
 
 ## Example
 
@@ -28,3 +22,11 @@ const value: EVMProfilerOpts = {
   enabled: true // Enable EVM profiling to collect execution metrics
 }
 ```
+
+## Properties
+
+### enabled
+
+> **enabled**: `boolean`
+
+Defined in: packages/vm/types/utils/EVMProfileOpts.d.ts:14

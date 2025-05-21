@@ -16,7 +16,7 @@ Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethe
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

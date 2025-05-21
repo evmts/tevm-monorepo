@@ -18,8 +18,6 @@ Defined in: packages/common/types/createCommon.d.ts:1
 
 ## Returns
 
-`object`
-
 ### blockExplorers?
 
 > `optional` **blockExplorers**: `object`
@@ -42,7 +40,7 @@ Collection of contracts
 
 #### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 #### contracts.ensRegistry?
 

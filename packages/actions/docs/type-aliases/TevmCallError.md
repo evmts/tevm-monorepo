@@ -6,7 +6,7 @@
 
 # Type Alias: TevmCallError
 
-> **TevmCallError**: [`ValidateCallParamsError`](ValidateCallParamsError.md) \| [`CallHandlerOptsError`](CallHandlerOptsError.md) \| `InternalError` \| `ExecutionError` \| `RevertError` \| [`ExecuteCallError`](ExecuteCallError.md) \| [`ExecuteCallError`](ExecuteCallError.md)
+> **TevmCallError** = [`ValidateCallParamsError`](ValidateCallParamsError.md) \| [`CallHandlerOptsError`](CallHandlerOptsError.md) \| `InternalError` \| `ExecutionError` \| `RevertError` \| [`ExecuteCallError`](ExecuteCallError.md) \| [`ExecuteCallError`](ExecuteCallError.md)
 
 Defined in: [packages/actions/src/Call/TevmCallError.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/TevmCallError.ts#L62)
 

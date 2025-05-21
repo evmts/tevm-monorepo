@@ -6,7 +6,7 @@
 
 # Function: getAccountHandler()
 
-> **getAccountHandler**(`client`, `options`?): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
+> **getAccountHandler**(`client`, `options?`): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
 
 Defined in: packages/actions/types/GetAccount/getAccountHandler.d.ts:1
 
@@ -14,7 +14,7 @@ Defined in: packages/actions/types/GetAccount/getAccountHandler.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### options?
 

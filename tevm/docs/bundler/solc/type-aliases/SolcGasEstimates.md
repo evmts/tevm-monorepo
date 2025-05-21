@@ -6,39 +6,49 @@
 
 # Type Alias: SolcGasEstimates
 
-> **SolcGasEstimates**: `object`
+> **SolcGasEstimates** = `object`
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:309
 
-## Type declaration
+## Properties
 
 ### creation
 
 > **creation**: `object`
 
-#### creation.codeDepositCost
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:310
+
+#### codeDepositCost
 
 > **codeDepositCost**: `string`
 
-#### creation.executionCost
+#### executionCost
 
 > **executionCost**: `string`
 
-#### creation.totalCost
+#### totalCost
 
 > **totalCost**: `string`
+
+***
 
 ### external
 
 > **external**: `object`
 
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:315
+
 #### Index Signature
 
 \[`functionSignature`: `string`\]: `string`
 
+***
+
 ### internal
 
 > **internal**: `object`
+
+Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:318
 
 #### Index Signature
 

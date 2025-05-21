@@ -6,7 +6,7 @@
 
 # Type Alias: EthHashrateParams
 
-> **EthHashrateParams**: [`EmptyParams`](EmptyParams.md)
+> **EthHashrateParams** = [`EmptyParams`](EmptyParams.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L87)
 

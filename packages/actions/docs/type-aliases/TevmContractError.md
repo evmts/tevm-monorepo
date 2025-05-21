@@ -6,7 +6,7 @@
 
 # Type Alias: TevmContractError
 
-> **TevmContractError**: [`TevmCallError`](TevmCallError.md)
+> **TevmContractError** = [`TevmCallError`](TevmCallError.md)
 
 Defined in: [packages/actions/src/Contract/TevmContractError.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/TevmContractError.ts#L38)
 

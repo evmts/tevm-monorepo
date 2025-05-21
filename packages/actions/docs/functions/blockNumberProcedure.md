@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/blockNumberProcedure.js:8](https://github.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

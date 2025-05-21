@@ -6,7 +6,7 @@
 
 # Function: deployHandler()
 
-> **deployHandler**(`client`, `__namedParameters`?): [`DeployHandler`](../type-aliases/DeployHandler.md)
+> **deployHandler**(`client`, `__namedParameters?`): [`DeployHandler`](../type-aliases/DeployHandler.md)
 
 Defined in: packages/actions/types/Deploy/deployHandler.d.ts:1
 
@@ -14,7 +14,7 @@ Defined in: packages/actions/types/Deploy/deployHandler.d.ts:1
 
 ### client
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ### \_\_namedParameters?
 

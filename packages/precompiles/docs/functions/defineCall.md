@@ -18,7 +18,9 @@ that will be encoded according to the ABI.
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi`
+### TAbi
+
+`TAbi` *extends* `Abi`
 
 ## Parameters
 
@@ -32,7 +34,7 @@ that will be encoded according to the ABI.
 
 ## Returns
 
-`Function`
+> (`__namedParameters`): `Promise`\<`ExecResult`\>
 
 ### Parameters
 

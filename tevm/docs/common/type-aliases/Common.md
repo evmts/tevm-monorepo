@@ -6,7 +6,7 @@
 
 # Type Alias: Common
 
-> **Common**: `Prettify`\<`ViemChain` & `object`\>
+> **Common** = `Prettify`\<`ViemChain` & `object`\>
 
 Defined in: packages/common/types/Common.d.ts:26
 

@@ -14,9 +14,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 ## Constructors
 
-### new AccountCache()
+### Constructor
 
-> **new AccountCache**(`opts`): [`AccountCache`](AccountCache.md)
+> **new AccountCache**(`opts`): `AccountCache`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:27
 
@@ -28,7 +28,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@et
 
 #### Returns
 
-[`AccountCache`](AccountCache.md)
+`AccountCache`
 
 #### Overrides
 
@@ -246,7 +246,7 @@ Address of account
 
 ### put()
 
-> **put**(`address`, `account`, `couldBeParitalAccount`?): `void`
+> **put**(`address`, `account`, `couldBeParitalAccount?`): `void`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:34
 
@@ -306,7 +306,7 @@ Returns the size of the cache
 
 ### stats()
 
-> **stats**(`reset`?): `object`
+> **stats**(`reset?`): `object`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@2.4.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:72
 

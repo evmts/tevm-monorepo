@@ -12,9 +12,9 @@ An object that represents the block header.
 
 ## Constructors
 
-### new BlockHeader()
+### Constructor
 
-> **new BlockHeader**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
+> **new BlockHeader**(`headerData`, `opts`): `BlockHeader`
 
 Defined in: [packages/block/src/header.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L148)
 
@@ -32,12 +32,12 @@ This constructor takes the values, validates them, assigns them and freezes the 
 
 #### Returns
 
-[`BlockHeader`](BlockHeader.md)
+`BlockHeader`
 
 #### Deprecated
 
 Use the public static factory methods to assist in creating a Header object from
-varying data types. For a default empty header, use [BlockHeader.fromHeaderData](BlockHeader.md#fromheaderdata).
+varying data types. For a default empty header, use [BlockHeader.fromHeaderData](#fromheaderdata).
 
 ## Properties
 
@@ -101,7 +101,7 @@ Collection of contracts
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\}
+\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{[`sourceId`: `number`]: `undefined` \| `ChainContract`; \}
 
 ##### contracts.ensRegistry?
 
@@ -523,7 +523,7 @@ Returns a list of signers
 
 This function throws if not called on an epoch
 transition block and should therefore be used
-in conjunction with [BlockHeader.cliqueIsEpochTransition](BlockHeader.md#cliqueisepochtransition)
+in conjunction with [BlockHeader.cliqueIsEpochTransition](#cliqueisepochtransition)
 
 #### Returns
 
@@ -653,7 +653,7 @@ Returns the canonical difficulty for this block.
 
 ##### parentBlockHeader
 
-[`BlockHeader`](BlockHeader.md)
+`BlockHeader`
 
 the header from the parent `Block` of this header
 
@@ -762,7 +762,7 @@ Throws if out of bounds.
 
 ##### parentBlockHeader
 
-[`BlockHeader`](BlockHeader.md)
+`BlockHeader`
 
 the header from the parent `Block` of this header
 
@@ -774,7 +774,7 @@ the header from the parent `Block` of this header
 
 ### fromHeaderData()
 
-> `static` **fromHeaderData**(`headerData`, `opts`): [`BlockHeader`](BlockHeader.md)
+> `static` **fromHeaderData**(`headerData`, `opts`): `BlockHeader`
 
 Defined in: [packages/block/src/header.ts:90](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L90)
 
@@ -792,13 +792,13 @@ Static constructor to create a block header from a header data dictionary
 
 #### Returns
 
-[`BlockHeader`](BlockHeader.md)
+`BlockHeader`
 
 ***
 
 ### fromRLPSerializedHeader()
 
-> `static` **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`): [`BlockHeader`](BlockHeader.md)
+> `static` **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`): `BlockHeader`
 
 Defined in: [packages/block/src/header.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L100)
 
@@ -816,13 +816,13 @@ Static constructor to create a block header from a RLP-serialized header
 
 #### Returns
 
-[`BlockHeader`](BlockHeader.md)
+`BlockHeader`
 
 ***
 
 ### fromValuesArray()
 
-> `static` **fromValuesArray**(`values`, `opts`): [`BlockHeader`](BlockHeader.md)
+> `static` **fromValuesArray**(`values`, `opts`): `BlockHeader`
 
 Defined in: [packages/block/src/header.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/header.ts#L114)
 
@@ -840,4 +840,4 @@ Static constructor to create a block header from an array of Bytes values
 
 #### Returns
 
-[`BlockHeader`](BlockHeader.md)
+`BlockHeader`

@@ -6,7 +6,7 @@
 
 # Function: setAccountHandler()
 
-> **setAccountHandler**(`client`, `options`?): [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
+> **setAccountHandler**(`client`, `options?`): [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
 
 Defined in: [packages/actions/src/SetAccount/setAccountHandler.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L71)
 
@@ -25,7 +25,7 @@ specific contract states or account balances before running tests.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 The TEVM node instance
 

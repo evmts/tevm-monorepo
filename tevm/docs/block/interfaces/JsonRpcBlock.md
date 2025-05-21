@@ -220,7 +220,7 @@ Defined in: packages/block/types/types.d.ts:450
 
 ### uncles
 
-> **uncles**: `string`[] \| `` `0x${string}` ``[]
+> **uncles**: `` `0x${string}` ``[] \| `string`[]
 
 Defined in: packages/block/types/types.d.ts:462
 

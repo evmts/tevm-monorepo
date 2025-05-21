@@ -6,15 +6,19 @@
 
 # Function: http()
 
-> **http**\<`rpcSchema`, `raw`\>(`url`?, `config`?): `HttpTransport`\<`rpcSchema`, `raw`\>
+> **http**\<`rpcSchema`, `raw`\>(`url?`, `config?`): `HttpTransport`\<`rpcSchema`, `raw`\>
 
-Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.24.3/node\_modules/viem/\_types/clients/transports/http.d.ts:51
+Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.24.4/node\_modules/viem/\_types/clients/transports/http.d.ts:51
 
 ## Type Parameters
 
-• **rpcSchema** *extends* `undefined` \| `RpcSchema` = `undefined`
+### rpcSchema
 
-• **raw** *extends* `boolean` = `false`
+`rpcSchema` *extends* `undefined` \| `RpcSchema` = `undefined`
+
+### raw
+
+`raw` *extends* `boolean` = `false`
 
 ## Parameters
 

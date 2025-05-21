@@ -6,7 +6,7 @@
 
 # Type Alias: DumpStateParams\<TThrowOnFail\>
 
-> **DumpStateParams**\<`TThrowOnFail`\>: [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
+> **DumpStateParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
 Defined in: packages/actions/types/DumpState/DumpStateParams.d.ts:3
 
@@ -23,4 +23,6 @@ Block tag to fetch account from
 
 ## Type Parameters
 
-• **TThrowOnFail** *extends* `boolean` = `boolean`
+### TThrowOnFail
+
+`TThrowOnFail` *extends* `boolean` = `boolean`

@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetUncleCountByBlockNumberJsonRpcResponse
 
-> **EthGetUncleCountByBlockNumberJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getUncleCountByBlockNumber"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
+> **EthGetUncleCountByBlockNumberJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getUncleCountByBlockNumber"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:92
 

@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/ethCallHandler.js:7](https://github.com/ev
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

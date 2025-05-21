@@ -6,7 +6,7 @@
 
 # Type Alias: EthUninstallFilterJsonRpcResponse
 
-> **EthUninstallFilterJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_uninstallFilter"`, `boolean`, `string` \| `number`\>
+> **EthUninstallFilterJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_uninstallFilter"`, `boolean`, `string` \| `number`\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:175
 

@@ -6,7 +6,7 @@
 
 # Type Alias: RunTx()
 
-> **RunTx**: (`opts`) => `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
+> **RunTx** = (`opts`) => `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
 Defined in: packages/vm/types/actions/runTx.d.ts:3
 

@@ -6,16 +6,18 @@
 
 # Type Alias: Client
 
-> **Client**: `object`
+> **Client** = `object`
 
 Defined in: [packages/server/src/Client.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/Client.ts#L5)
 
-## Type declaration
+## Properties
 
 ### transport
 
 > **transport**: `object`
 
-#### transport.tevm
+Defined in: [packages/server/src/Client.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/Client.ts#L6)
+
+#### tevm
 
 > **tevm**: `MemoryClient`\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]

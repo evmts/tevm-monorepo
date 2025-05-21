@@ -58,7 +58,7 @@ Defined in: [solcTypes.ts:892](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ##### callback
 
-(`err`, `solc`?) => `void`
+(`err`, `solc?`) => `void`
 
 #### Returns
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthHashrateJsonRpcProcedure()
 
-> **EthHashrateJsonRpcProcedure**: (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
+> **EthHashrateJsonRpcProcedure** = (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 
 Defined in: [packages/actions/src/eth/EthProcedure.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L101)
 

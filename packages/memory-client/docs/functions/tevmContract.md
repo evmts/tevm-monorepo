@@ -27,9 +27,13 @@ logic while providing access to the same advanced features like execution tracin
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+### TAbi
 
-• **TFunctionName** *extends* `string` = `ContractFunctionName`\<`TAbi`\>
+`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
+
+### TFunctionName
+
+`TFunctionName` *extends* `string` = `ContractFunctionName`\<`TAbi`\>
 
 ## Parameters
 

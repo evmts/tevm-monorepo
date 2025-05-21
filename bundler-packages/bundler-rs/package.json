@@ -21,8 +21,8 @@
   "scripts": {
     "build": "cargo build --release",
     "build:debug": "cargo build",
-    "build:release": "cargo build --release",
     "build:napi": "napi build --platform --release",
+    "build:release": "cargo build --release",
     "example": "node examples/usage.js",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "cargo test"

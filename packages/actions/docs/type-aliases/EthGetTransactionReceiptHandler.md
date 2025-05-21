@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionReceiptHandler()
 
-> **EthGetTransactionReceiptHandler**: (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
+> **EthGetTransactionReceiptHandler** = (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 
 Defined in: [packages/actions/src/eth/EthHandler.ts:147](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L147)
 

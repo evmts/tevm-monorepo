@@ -6,7 +6,7 @@
 
 # Function: putContractCode()
 
-> **putContractCode**(`baseState`, `skipFetchingFromFork`?): (`address`, `value`) => `Promise`\<`void`\>
+> **putContractCode**(`baseState`, `skipFetchingFromFork?`): (`address`, `value`) => `Promise`\<`void`\>
 
 Defined in: [packages/state/src/actions/putContractCode.js:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractCode.js#L10)
 
@@ -25,7 +25,7 @@ corresponding to `address` to reference this.
 
 ## Returns
 
-`Function`
+> (`address`, `value`): `Promise`\<`void`\>
 
 ### Parameters
 

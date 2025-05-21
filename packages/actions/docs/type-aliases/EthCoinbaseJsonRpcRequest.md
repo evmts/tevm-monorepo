@@ -6,7 +6,7 @@
 
 # Type Alias: EthCoinbaseJsonRpcRequest
 
-> **EthCoinbaseJsonRpcRequest**: `JsonRpcRequest`\<`"eth_coinbase"`, readonly \[\]\>
+> **EthCoinbaseJsonRpcRequest** = `JsonRpcRequest`\<`"eth_coinbase"`, readonly \[\]\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L69)
 

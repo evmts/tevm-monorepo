@@ -6,7 +6,7 @@
 
 # Type Alias: JsonSerializableObject
 
-> **JsonSerializableObject**: `object`
+> **JsonSerializableObject** = `object`
 
 Defined in: packages/utils/types/SerializeToJson.d.ts:13
 

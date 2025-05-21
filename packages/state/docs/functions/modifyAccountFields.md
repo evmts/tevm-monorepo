@@ -6,7 +6,7 @@
 
 # Function: modifyAccountFields()
 
-> **modifyAccountFields**(`baseState`, `skipFetchingFromFork`?): (`address`, `accountFields`) => `Promise`\<`void`\>
+> **modifyAccountFields**(`baseState`, `skipFetchingFromFork?`): (`address`, `accountFields`) => `Promise`\<`void`\>
 
 Defined in: [packages/state/src/actions/modifyAccountFields.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/modifyAccountFields.js#L11)
 
@@ -26,7 +26,7 @@ fields, then saves the account into state. Account fields can include
 
 ## Returns
 
-`Function`
+> (`address`, `accountFields`): `Promise`\<`void`\>
 
 ### Parameters
 

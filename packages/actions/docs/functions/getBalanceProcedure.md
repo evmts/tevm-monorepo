@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/getBalanceProcedure.js:8](https://github.c
 
 ### baseClient
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

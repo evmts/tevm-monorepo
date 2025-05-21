@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/chainIdProcedure.js:8](https://github.com/
 
 ### baseClient
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

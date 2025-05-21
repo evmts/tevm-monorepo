@@ -1,5 +1,5 @@
 const std = @import("std");
-const hex = @import("../Utils/hex.zig");
+const hex = @import("Utils").hex;
 const Allocator = std.mem.Allocator;
 
 pub const RlpError = error{
@@ -573,8 +573,6 @@ test "RLP nested lists" {
     const allocator = testing.allocator;
     
     const nested_list = [_][]const u8{};
-    const nested_list2 = [_][]const []const u8{nested_list};
-    const nested_list3 = [_][]const []const []const u8{nested_list2};
     
     // Encode [[[]]]
     var encoded_nested = std.ArrayList([]u8).init(allocator);

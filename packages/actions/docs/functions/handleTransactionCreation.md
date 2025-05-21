@@ -6,7 +6,7 @@
 
 # Function: handleTransactionCreation()
 
-> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
+> **handleTransactionCreation**(`client`, `params`, `executedCall`, `evmInput`): `Promise`\<\{ `errors?`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash?`: `undefined`; \}\>
 
 Defined in: [packages/actions/src/Call/handleTransactionCreation.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleTransactionCreation.js#L15)
 
@@ -16,7 +16,7 @@ Handles the creation of a transaction based on the call parameters and execution
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 The TEVM base client instance.
 
@@ -40,7 +40,7 @@ The EVM input parameters.
 
 ## Returns
 
-`Promise`\<\{ `errors`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash`: `undefined`; \}\>
+`Promise`\<\{ `errors?`: `undefined`; `hash`: `undefined` \| `` `0x${string}` ``; \} \| \{ `errors`: [`TevmCallError`](../type-aliases/TevmCallError.md)[]; `hash?`: `undefined`; \}\>
 
 A promise that resolves to the transaction hash or undefined.
 

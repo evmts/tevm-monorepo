@@ -6,7 +6,7 @@
 
 # Type Alias: ~~ViemTevmOptimisticClientDecorator()~~
 
-> **ViemTevmOptimisticClientDecorator**: \<`TTransport`, `TChain`, `TAccount`\>(`client`) => [`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
+> **ViemTevmOptimisticClientDecorator** = \<`TTransport`, `TChain`, `TAccount`\>(`client`) => [`ViemTevmOptimisticClient`](ViemTevmOptimisticClient.md)\<`TChain`, `TAccount`\>
 
 Defined in: [extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/ViemTevmOptimisticClientDecorator.ts#L9)
 
@@ -14,11 +14,17 @@ Defined in: [extensions/viem/src/ViemTevmOptimisticClientDecorator.ts:9](https:/
 
 ## Type Parameters
 
-• **TTransport** *extends* `Transport` = `Transport`
+### TTransport
 
-• **TChain** *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+`TTransport` *extends* `Transport` = `Transport`
 
-• **TAccount** *extends* `Account` \| `undefined` = `Account` \| `undefined`
+### TChain
+
+`TChain` *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
+
+### TAccount
+
+`TAccount` *extends* `Account` \| `undefined` = `Account` \| `undefined`
 
 ## Parameters
 

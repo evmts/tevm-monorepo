@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/gasPriceProcedure.js:9](https://github.com
 
 ### options
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

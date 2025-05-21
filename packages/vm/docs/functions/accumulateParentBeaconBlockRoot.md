@@ -18,7 +18,7 @@ Defined in: [packages/vm/src/actions/accumulateParentBeaconBlockRoot.ts:7](https
 
 ## Returns
 
-`Function`
+> (`root`, `timestamp`): `Promise`\<`void`\>
 
 ### Parameters
 

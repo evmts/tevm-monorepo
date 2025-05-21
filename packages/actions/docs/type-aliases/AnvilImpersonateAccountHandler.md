@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilImpersonateAccountHandler()
 
-> **AnvilImpersonateAccountHandler**: (`params`) => `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
+> **AnvilImpersonateAccountHandler** = (`params`) => `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
 
 Defined in: [packages/actions/src/anvil/AnvilHandler.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L35)
 

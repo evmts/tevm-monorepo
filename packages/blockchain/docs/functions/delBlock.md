@@ -20,7 +20,7 @@ Deletes a block from the blockchain
 
 ## Returns
 
-`Function`
+> (`blockHash`): `Promise`\<`void`\>
 
 Deletes a block from the blockchain. All child blocks in the chain are
 deleted and any encountered heads are set to the parent block.

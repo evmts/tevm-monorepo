@@ -39,9 +39,9 @@ Additional parameters for the InvalidJsonError.
 
 ## Constructors
 
-### new InvalidJsonError()
+### Constructor
 
-> **new InvalidJsonError**(`message`, `args`?): [`InvalidJsonError`](InvalidJsonError.md)
+> **new InvalidJsonError**(`message`, `args?`): `InvalidJsonError`
 
 Defined in: [packages/server/src/errors/InvalidJsonError.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/errors/InvalidJsonError.js#L47)
 
@@ -63,7 +63,7 @@ Additional parameters for the InvalidJsonError.
 
 #### Returns
 
-[`InvalidJsonError`](InvalidJsonError.md)
+`InvalidJsonError`
 
 #### Overrides
 
@@ -90,6 +90,8 @@ Same as name, used internally.
 > **cause**: `any`
 
 Defined in: packages/errors/types/ethereum/BaseError.d.ts:65
+
+The cause of the error.
 
 #### Inherited from
 
@@ -141,7 +143,7 @@ Path to the documentation for this error.
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 Human-readable error message.
 
@@ -169,7 +171,7 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1076
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 The name of the error, used to discriminate errors.
 
@@ -195,7 +197,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -251,7 +253,9 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:145
+Defined in: node\_modules/.pnpm/bun-types@1.2.13/node\_modules/bun-types/globals.d.ts:960
+
+The maximum number of stack frames to capture.
 
 #### Inherited from
 
@@ -261,7 +265,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 ### walk()
 
-> **walk**(`fn`?): `unknown`
+> **walk**(`fn?`): `unknown`
 
 Defined in: packages/errors/types/ethereum/BaseError.d.ts:71
 
@@ -291,7 +295,33 @@ The first error that matches the function, or the original error.
 
 #### Call Signature
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+
+Defined in: node\_modules/.pnpm/bun-types@1.2.13/node\_modules/bun-types/globals.d.ts:955
+
+Create .stack property on a target object
+
+##### Parameters
+
+###### targetObject
+
+`object`
+
+###### constructorOpt?
+
+`Function`
+
+##### Returns
+
+`void`
+
+##### Inherited from
+
+`BaseError.captureStackTrace`
+
+#### Call Signature
+
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 
@@ -317,11 +347,53 @@ Create .stack property on a target object
 
 #### Call Signature
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@22.14.1/node\_modules/@types/node/globals.d.ts:136
+Defined in: node\_modules/.pnpm/@types+node@22.15.18/node\_modules/@types/node/globals.d.ts:145
 
-Create .stack property on a target object
+Creates a `.stack` property on `targetObject`, which when accessed returns
+a string representing the location in the code at which
+`Error.captureStackTrace()` was called.
+
+```js
+const myObject = {};
+Error.captureStackTrace(myObject);
+myObject.stack;  // Similar to `new Error().stack`
+```
+
+The first line of the trace will be prefixed with
+`${myObject.name}: ${myObject.message}`.
+
+The optional `constructorOpt` argument accepts a function. If given, all frames
+above `constructorOpt`, including `constructorOpt`, will be omitted from the
+generated stack trace.
+
+The `constructorOpt` argument is useful for hiding implementation
+details of error generation from the user. For instance:
+
+```js
+function a() {
+  b();
+}
+
+function b() {
+  c();
+}
+
+function c() {
+  // Create an error without stack trace to avoid calculating the stack trace twice.
+  const { stackTraceLimit } = Error;
+  Error.stackTraceLimit = 0;
+  const error = new Error();
+  Error.stackTraceLimit = stackTraceLimit;
+
+  // Capture the stack trace above function b
+  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace
+  throw error;
+}
+
+a();
+```
 
 ##### Parameters
 
@@ -341,28 +413,30 @@ Create .stack property on a target object
 
 `BaseError.captureStackTrace`
 
-#### Call Signature
+***
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+### isError()
 
-Defined in: node\_modules/.pnpm/bun-types@1.2.5/node\_modules/bun-types/globals.d.ts:1441
+> `static` **isError**(`value`): `value is Error`
 
-Create .stack property on a target object
+Defined in: node\_modules/.pnpm/bun-types@1.2.13/node\_modules/bun-types/globals.d.ts:950
 
-##### Parameters
+Check if a value is an instance of Error
 
-###### targetObject
+#### Parameters
 
-`object`
+##### value
 
-###### constructorOpt?
+`unknown`
 
-`Function`
+The value to check
 
-##### Returns
+#### Returns
 
-`void`
+`value is Error`
 
-##### Inherited from
+True if the value is an instance of Error, false otherwise
 
-`BaseError.captureStackTrace`
+#### Inherited from
+
+`BaseError.isError`

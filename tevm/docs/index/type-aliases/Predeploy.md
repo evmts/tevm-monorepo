@@ -6,7 +6,7 @@
 
 # Type Alias: Predeploy\<TName, THumanReadableAbi\>
 
-> **Predeploy**\<`TName`, `THumanReadableAbi`\>: `object`
+> **Predeploy**\<`TName`, `THumanReadableAbi`\> = `object`
 
 Defined in: packages/predeploys/types/Predeploy.d.ts:6
 
@@ -14,19 +14,29 @@ Type of predeploy contract for tevm
 
 ## Type Parameters
 
-• **TName** *extends* `string`
+### TName
 
-• **THumanReadableAbi** *extends* readonly `string`[]
+`TName` *extends* `string`
 
-## Type declaration
+### THumanReadableAbi
+
+`THumanReadableAbi` *extends* readonly `string`[]
+
+## Properties
 
 ### contract
 
 > `readonly` **contract**: [`Contract`](Contract.md)\<`TName`, `THumanReadableAbi`, [`Address`](Address.md), [`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
+Defined in: packages/predeploys/types/Predeploy.d.ts:7
+
+***
+
 ### predeploy()
 
 > `readonly` **predeploy**: () => `object`
+
+Defined in: packages/predeploys/types/Predeploy.d.ts:8
 
 #### Returns
 

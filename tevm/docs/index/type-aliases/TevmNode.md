@@ -6,7 +6,7 @@
 
 # Type Alias: TevmNode\<TMode, TExtended\>
 
-> **TevmNode**\<`TMode`, `TExtended`\>: `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
+> **TevmNode**\<`TMode`, `TExtended`\> = `object` & [`EIP1193EventEmitter`](EIP1193EventEmitter.md) & `TExtended`
 
 Defined in: packages/node/dist/index.d.ts:196
 
@@ -16,7 +16,7 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ### debug()?
 
-> `readonly` `optional` **debug**: () => `Promise`\<\{ `blocks`: \{ `forked`: [`JsonHeader`](../../block/interfaces/JsonHeader.md); `latest`: [`JsonHeader`](../../block/interfaces/JsonHeader.md); \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<[`ReceiptsManager`](../../receipt-manager/classes/ReceiptsManager.md)\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<[`Hex`](Hex.md), [`Filter`](Filter.md)\>; `state`: [`TevmState`](TevmState.md); `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+> `readonly` `optional` **debug**: () => `Promise`\<\{ `blocks`: \{ `forked?`: [`JsonHeader`](../../block/interfaces/JsonHeader.md); `latest?`: [`JsonHeader`](../../block/interfaces/JsonHeader.md); \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<[`ReceiptsManager`](../../receipt-manager/classes/ReceiptsManager.md)\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<[`Hex`](Hex.md), [`Filter`](Filter.md)\>; `state`: [`TevmState`](TevmState.md); `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
 Returns debug information about the current node state
 including chain details, status, mode, mining config, filters,
@@ -24,28 +24,30 @@ blocks, mempool transactions, and state
 
 #### Returns
 
-`Promise`\<\{ `blocks`: \{ `forked`: [`JsonHeader`](../../block/interfaces/JsonHeader.md); `latest`: [`JsonHeader`](../../block/interfaces/JsonHeader.md); \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<[`ReceiptsManager`](../../receipt-manager/classes/ReceiptsManager.md)\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<[`Hex`](Hex.md), [`Filter`](Filter.md)\>; `state`: [`TevmState`](TevmState.md); `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+`Promise`\<\{ `blocks`: \{ `forked?`: [`JsonHeader`](../../block/interfaces/JsonHeader.md); `latest?`: [`JsonHeader`](../../block/interfaces/JsonHeader.md); \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<[`ReceiptsManager`](../../receipt-manager/classes/ReceiptsManager.md)\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<[`Hex`](Hex.md), [`Filter`](Filter.md)\>; `state`: [`TevmState`](TevmState.md); `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
 ### deepCopy()
 
-> `readonly` **deepCopy**: () => `Promise`\<[`TevmNode`](TevmNode.md)\<`TMode`, `TExtended`\>\>
+> `readonly` **deepCopy**: () => `Promise`\<`TevmNode`\<`TMode`, `TExtended`\>\>
 
 Copies the current client state into a new client
 
 #### Returns
 
-`Promise`\<[`TevmNode`](TevmNode.md)\<`TMode`, `TExtended`\>\>
+`Promise`\<`TevmNode`\<`TMode`, `TExtended`\>\>
 
 ### extend()
 
-> `readonly` **extend**: \<`TExtension`\>(`decorator`) => [`TevmNode`](TevmNode.md)\<`TMode`, `TExtended` & `TExtension`\>
+> `readonly` **extend**: \<`TExtension`\>(`decorator`) => `TevmNode`\<`TMode`, `TExtended` & `TExtension`\>
 
 Extends the base client with additional functionality. This enables optimal code splitting
 and extensibility
 
 #### Type Parameters
 
-• **TExtension** *extends* `Record`\<`string`, `any`\>
+##### TExtension
+
+`TExtension` *extends* `Record`\<`string`, `any`\>
 
 #### Parameters
 
@@ -55,7 +57,7 @@ and extensibility
 
 #### Returns
 
-[`TevmNode`](TevmNode.md)\<`TMode`, `TExtended` & `TExtension`\>
+`TevmNode`\<`TMode`, `TExtended` & `TExtension`\>
 
 ### forkTransport?
 
@@ -237,6 +239,10 @@ Returns status of the client
 
 ## Type Parameters
 
-• **TMode** *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
+### TMode
 
-• **TExtended** = \{\}
+`TMode` *extends* `"fork"` \| `"normal"` = `"fork"` \| `"normal"`
+
+### TExtended
+
+`TExtended` = \{ \}

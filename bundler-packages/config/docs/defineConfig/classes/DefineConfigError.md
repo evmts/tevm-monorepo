@@ -16,9 +16,9 @@ Error class for [defineConfig](../functions/defineConfig.md)
 
 ## Constructors
 
-### new DefineConfigError()
+### Constructor
 
-> **new DefineConfigError**(`configFilePath`, `underlyingError`): [`DefineConfigError`](DefineConfigError.md)
+> **new DefineConfigError**(`configFilePath`, `underlyingError`): `DefineConfigError`
 
 Defined in: [bundler-packages/config/src/defineConfig.js:22](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/config/src/defineConfig.js#L22)
 
@@ -34,7 +34,7 @@ Defined in: [bundler-packages/config/src/defineConfig.js:22](https://github.com/
 
 #### Returns
 
-[`DefineConfigError`](DefineConfigError.md)
+`DefineConfigError`
 
 #### Overrides
 
@@ -54,7 +54,7 @@ Defined in: [bundler-packages/config/src/defineConfig.js:17](https://github.com/
 
 > `optional` **cause**: `unknown`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/li
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 #### Inherited from
 
@@ -90,7 +90,7 @@ Defined in: [bundler-packages/config/src/defineConfig.js:13](https://github.com/
 
 > `optional` **stack**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@5.8.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 #### Inherited from
 
@@ -144,7 +144,7 @@ Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/g
 
 ### captureStackTrace()
 
-> `static` **captureStackTrace**(`targetObject`, `constructorOpt`?): `void`
+> `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Defined in: node\_modules/.pnpm/@types+node@22.13.10/node\_modules/@types/node/globals.d.ts:136
 

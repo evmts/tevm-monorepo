@@ -6,7 +6,7 @@
 
 # Type Alias: WithdrawalV1
 
-> **WithdrawalV1**: `object`
+> **WithdrawalV1** = `object`
 
 Defined in: [packages/block/src/types.ts:526](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L526)
 
@@ -14,24 +14,6 @@ Represents an Ethereum withdrawal from the consensus layer to the execution laye
 
 Introduced in the Shanghai/Capella upgrade (EIP-4895), these withdrawals allow validators
 to receive ETH from the beacon chain to their execution layer accounts.
-
-## Type declaration
-
-### address
-
-> **address**: `Hex`
-
-### amount
-
-> **amount**: `Hex`
-
-### index
-
-> **index**: `Hex`
-
-### validatorIndex
-
-> **validatorIndex**: `Hex`
 
 ## See
 
@@ -58,3 +40,35 @@ function processWithdrawals(withdrawals: WithdrawalV1[]): void {
   }
 }
 ```
+
+## Properties
+
+### address
+
+> **address**: `Hex`
+
+Defined in: [packages/block/src/types.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L529)
+
+***
+
+### amount
+
+> **amount**: `Hex`
+
+Defined in: [packages/block/src/types.ts:530](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L530)
+
+***
+
+### index
+
+> **index**: `Hex`
+
+Defined in: [packages/block/src/types.ts:527](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L527)
+
+***
+
+### validatorIndex
+
+> **validatorIndex**: `Hex`
+
+Defined in: [packages/block/src/types.ts:528](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L528)

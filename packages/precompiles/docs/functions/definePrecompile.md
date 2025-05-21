@@ -18,7 +18,9 @@ functionality that would be difficult or inefficient to implement in Solidity.
 
 ## Type Parameters
 
-• **TContract** *extends* `Contract`\<`any`, `any`, `` `0x${string}` ``, `any`, `any`, `any`\> = `Contract`\<`string`, readonly `string`[], `` `0x${string}` ``, `any`, `any`, `any`\>
+### TContract
+
+`TContract` *extends* `Contract`\<`any`, `any`, `` `0x${string}` ``, `any`, `any`, `any`\> = `Contract`\<`string`, readonly `string`[], `` `0x${string}` ``, `any`, `any`, `any`\>
 
 ## Parameters
 

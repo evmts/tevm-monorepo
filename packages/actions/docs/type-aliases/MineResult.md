@@ -6,7 +6,7 @@
 
 # Type Alias: MineResult
 
-> **MineResult**: \{ `blockHashes`: `Hex`[]; `errors`: `undefined`; \} \| \{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](TevmMineError.md)[]; \}
+> **MineResult** = \{ `blockHashes`: `Hex`[]; `errors?`: `undefined`; \} \| \{ `blockHashes?`: `undefined`; `errors`: [`TevmMineError`](TevmMineError.md)[]; \}
 
 Defined in: [packages/actions/src/Mine/MineResult.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineResult.ts#L7)
 
@@ -14,7 +14,7 @@ Result of Mine Method
 
 ## Type declaration
 
-\{ `blockHashes`: `Hex`[]; `errors`: `undefined`; \}
+\{ `blockHashes`: `Hex`[]; `errors?`: `undefined`; \}
 
 ### blockHashes
 
@@ -28,7 +28,7 @@ Array of mined block hashes
 
 No errors occurred
 
-\{ `blockHashes`: `undefined`; `errors`: [`TevmMineError`](TevmMineError.md)[]; \}
+\{ `blockHashes?`: `undefined`; `errors`: [`TevmMineError`](TevmMineError.md)[]; \}
 
 ### blockHashes?
 

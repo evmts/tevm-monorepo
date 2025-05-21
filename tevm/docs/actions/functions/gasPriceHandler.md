@@ -14,7 +14,7 @@ Defined in: packages/actions/types/eth/gasPriceHandler.d.ts:1
 
 ### \_\_namedParameters
 
-[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{\}\>
+[`TevmNode`](../../index/type-aliases/TevmNode.md)\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

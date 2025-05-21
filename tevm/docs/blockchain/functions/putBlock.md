@@ -18,7 +18,7 @@ Defined in: packages/blockchain/types/actions/putBlock.d.ts:1
 
 ## Returns
 
-`Function`
+> (`block`): `Promise`\<`void`\>
 
 Adds a block to the blockchain.
 

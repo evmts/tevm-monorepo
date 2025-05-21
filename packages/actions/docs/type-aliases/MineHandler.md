@@ -6,7 +6,7 @@
 
 # Type Alias: MineHandler()
 
-> **MineHandler**: (`params`?) => `Promise`\<[`MineResult`](MineResult.md)\>
+> **MineHandler** = (`params?`) => `Promise`\<[`MineResult`](MineResult.md)\>
 
 Defined in: [packages/actions/src/Mine/MineHandlerType.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineHandlerType.ts#L19)
 

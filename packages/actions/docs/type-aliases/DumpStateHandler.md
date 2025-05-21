@@ -6,7 +6,7 @@
 
 # Type Alias: DumpStateHandler()
 
-> **DumpStateHandler**: (`params`?) => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
+> **DumpStateHandler** = (`params?`) => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
 Defined in: [packages/actions/src/DumpState/DumpStateHandlerType.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateHandlerType.ts#L29)
 

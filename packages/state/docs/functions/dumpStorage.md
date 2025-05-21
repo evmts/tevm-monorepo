@@ -6,7 +6,7 @@
 
 # Function: dumpStorage()
 
-> **dumpStorage**(`baseState`, `skipFetchingFromFork`?): (`address`) => `Promise`\<`StorageDump`\>
+> **dumpStorage**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`StorageDump`\>
 
 Defined in: [packages/state/src/actions/dumpStorage.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorage.js#L9)
 
@@ -26,7 +26,7 @@ Both are represented as `0x` prefixed hex strings.
 
 ## Returns
 
-`Function`
+> (`address`): `Promise`\<`StorageDump`\>
 
 ### Parameters
 

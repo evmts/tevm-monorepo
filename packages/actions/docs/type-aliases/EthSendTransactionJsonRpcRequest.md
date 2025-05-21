@@ -6,7 +6,7 @@
 
 # Type Alias: EthSendTransactionJsonRpcRequest
 
-> **EthSendTransactionJsonRpcRequest**: `JsonRpcRequest`\<`"eth_sendTransaction"`, readonly \[[`JsonRpcTransaction`](JsonRpcTransaction.md)\]\>
+> **EthSendTransactionJsonRpcRequest** = `JsonRpcRequest`\<`"eth_sendTransaction"`, readonly \[[`JsonRpcTransaction`](JsonRpcTransaction.md)\]\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L243)
 

@@ -6,7 +6,7 @@
 
 # Type Alias: EthChainIdJsonRpcRequest
 
-> **EthChainIdJsonRpcRequest**: [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_chainId"`, readonly \[\]\>
+> **EthChainIdJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_chainId"`, readonly \[\]\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:55
 

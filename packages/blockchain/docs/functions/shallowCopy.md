@@ -18,7 +18,7 @@ Defined in: [packages/blockchain/src/actions/shallowCopy.js:7](https://github.co
 
 ## Returns
 
-`Function`
+> (): `BaseChain`
 
 ### Returns
 

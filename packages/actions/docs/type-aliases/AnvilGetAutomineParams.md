@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilGetAutomineParams
 
-> **AnvilGetAutomineParams**: \{\} \| `undefined` \| `never`
+> **AnvilGetAutomineParams** = \{ \} \| `undefined` \| `never`
 
 Defined in: [packages/actions/src/anvil/AnvilParams.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L39)
 

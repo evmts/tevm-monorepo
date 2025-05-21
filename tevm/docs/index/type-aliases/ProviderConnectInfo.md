@@ -6,12 +6,14 @@
 
 # Type Alias: ProviderConnectInfo
 
-> **ProviderConnectInfo**: `object`
+> **ProviderConnectInfo** = `object`
 
 Defined in: packages/node/dist/index.d.ts:17
 
-## Type declaration
+## Properties
 
 ### chainId
 
 > **chainId**: `string`
+
+Defined in: packages/node/dist/index.d.ts:18

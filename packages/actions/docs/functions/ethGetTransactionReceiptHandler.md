@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/eth/ethGetTransactionReceipt.js:26](https://gi
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

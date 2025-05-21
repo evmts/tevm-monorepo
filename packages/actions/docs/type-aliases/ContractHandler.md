@@ -6,7 +6,7 @@
 
 # Type Alias: ContractHandler()
 
-> **ContractHandler**: \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
+> **ContractHandler** = \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
 Defined in: [packages/actions/src/Contract/ContractHandlerType.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/ContractHandlerType.ts#L51)
 
@@ -17,11 +17,15 @@ It encodes the ABI, function name, and arguments to perform the contract call.
 
 ## Type Parameters
 
-• **TAbi** *extends* `Abi` \| readonly `unknown`[] = `Abi`
+### TAbi
+
+`TAbi` *extends* `Abi` \| readonly `unknown`[] = `Abi`
 
 The ABI type.
 
-• **TFunctionName** *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
+### TFunctionName
+
+`TFunctionName` *extends* `ContractFunctionName`\<`TAbi`\> = `ContractFunctionName`\<`TAbi`\>
 
 The function name type from the ABI.
 

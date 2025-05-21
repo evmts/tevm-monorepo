@@ -6,21 +6,11 @@
 
 # Type Alias: IntervalMining
 
-> **IntervalMining**: `object`
+> **IntervalMining** = `object`
 
 Defined in: packages/node/dist/index.d.ts:118
 
 Mining configuration that creates blocks at fixed time intervals.
-
-## Type declaration
-
-### interval
-
-> **interval**: `number`
-
-### type
-
-> **type**: `"interval"`
 
 ## Example
 
@@ -32,3 +22,19 @@ const value: IntervalMining = {
   interval: 5000 // Mine blocks every 5 seconds
 }
 ```
+
+## Properties
+
+### interval
+
+> **interval**: `number`
+
+Defined in: packages/node/dist/index.d.ts:120
+
+***
+
+### type
+
+> **type**: `"interval"`
+
+Defined in: packages/node/dist/index.d.ts:119

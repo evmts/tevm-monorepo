@@ -6,7 +6,7 @@
 
 # Type Alias: EthNewFilterParams
 
-> **EthNewFilterParams**: [`FilterParams`](../../index/type-aliases/FilterParams.md)
+> **EthNewFilterParams** = [`FilterParams`](../../index/type-aliases/FilterParams.md)
 
 Defined in: packages/actions/types/eth/EthParams.d.ts:273
 

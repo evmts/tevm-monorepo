@@ -6,7 +6,7 @@
 
 # Type Alias: DeployResult
 
-> **DeployResult**: [`CallResult`](CallResult.md)
+> **DeployResult** = [`CallResult`](CallResult.md)
 
 Defined in: [packages/actions/src/Deploy/DeployResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Deploy/DeployResult.ts#L38)
 

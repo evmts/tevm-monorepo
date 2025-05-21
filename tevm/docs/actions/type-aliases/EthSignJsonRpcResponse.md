@@ -6,7 +6,7 @@
 
 # Type Alias: EthSignJsonRpcResponse
 
-> **EthSignJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_sign"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
+> **EthSignJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_sign"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
 Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:136
 

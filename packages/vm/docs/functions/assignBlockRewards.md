@@ -21,7 +21,7 @@ the updated balances of their accounts to state.
 
 ## Returns
 
-`Function`
+> (`block`): `Promise`\<`void`\>
 
 ### Parameters
 

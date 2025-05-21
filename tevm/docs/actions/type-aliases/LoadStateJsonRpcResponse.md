@@ -6,7 +6,7 @@
 
 # Type Alias: LoadStateJsonRpcResponse
 
-> **LoadStateJsonRpcResponse**: [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_loadState"`, `SerializeToJson`\<[`LoadStateResult`](../../index/type-aliases/LoadStateResult.md)\>, [`TevmLoadStateError`](../../index/type-aliases/TevmLoadStateError.md)\[`"code"`\]\>
+> **LoadStateJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_loadState"`, `SerializeToJson`\<[`LoadStateResult`](LoadStateResult.md)\>, [`TevmLoadStateError`](TevmLoadStateError.md)\[`"code"`\]\>
 
 Defined in: packages/actions/types/LoadState/LoadStateJsonRpcResponse.d.ts:8
 

@@ -290,7 +290,7 @@ tx type implementations.
 
 ### \_validateCannotExceedMaxInteger()
 
-> `protected` **\_validateCannotExceedMaxInteger**(`values`, `bits`?, `cannotEqual`?): `void`
+> `protected` **\_validateCannotExceedMaxInteger**(`values`, `bits?`, `cannotEqual?`): `void`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:168
 
@@ -326,7 +326,7 @@ Pass true if the number also cannot equal one less the maximum value
 
 ### addSignature()
 
-> **addSignature**(`v`, `r`, `s`, `convertV`?): [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
+> **addSignature**(`v`, `r`, `s`, `convertV?`): [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:127
 
@@ -554,7 +554,7 @@ Returns the public key of the sender
 
 ### getUpfrontCost()
 
-> **getUpfrontCost**(`baseFee`?): `bigint`
+> **getUpfrontCost**(`baseFee?`): `bigint`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip1559Transaction.d.ts:66
 

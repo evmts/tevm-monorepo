@@ -17,7 +17,7 @@ Returns list of addresses and storage keys that the transaction plans to access.
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

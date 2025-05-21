@@ -6,7 +6,7 @@
 
 # Type Alias: EthGasPriceHandler()
 
-> **EthGasPriceHandler**: (`request`?) => `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
+> **EthGasPriceHandler** = (`request?`) => `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 
 Defined in: packages/actions/types/eth/EthHandler.d.ts:10
 

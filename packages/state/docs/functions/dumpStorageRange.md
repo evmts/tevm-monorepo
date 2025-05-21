@@ -6,7 +6,7 @@
 
 # Function: dumpStorageRange()
 
-> **dumpStorageRange**(`baseState`, `skipFetchingFromFork`?): (`address`, `startKey`, `limit`) => `Promise`\<`StorageRange`\>
+> **dumpStorageRange**(`baseState`, `skipFetchingFromFork?`): (`address`, `startKey`, `limit`) => `Promise`\<`StorageRange`\>
 
 Defined in: [packages/state/src/actions/dumpStorageRange.js:7](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/dumpStorageRange.js#L7)
 
@@ -22,7 +22,7 @@ Defined in: [packages/state/src/actions/dumpStorageRange.js:7](https://github.co
 
 ## Returns
 
-`Function`
+> (`address`, `startKey`, `limit`): `Promise`\<`StorageRange`\>
 
 ### Parameters
 

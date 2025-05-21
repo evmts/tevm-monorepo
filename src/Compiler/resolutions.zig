@@ -135,60 +135,44 @@ const UnprocessedModule = struct {
     code: []const u8,
 };
 
-const State = struct {
-    seen: std.StringHashMap(void),
-    graph: std.StringHashMap(ModuleInfo),
-    unprocessed: std.ArrayList,
-
-    pub fn init(allocator: std.mem.Allocator) State {
-        return State{
-            .seen = std.StringHashMap(void).init(allocator),
-            .graph = std.StringHashMap(ModuleInfo).init(allocator),
-            .unprocessed = std.ArrayList(UnprocessedModule).init(allocator),
-        };
-    }
-
-    pub fn deinit(self: *State) void {
-        self.seen.deinit();
-        self.graph.deinit();
-        self.unprocessed.deinit();
-    }
-};
-
-pub fn moduleFactory(
+pub fn moduleGraphFactory(
     allocator: std.mem.Allocator,
     entrypoint_path: []const u8,
     raw_code: []const u8,
     cfg: Config,
 ) ResolveImportsError!std.StringHashMap {
-    const state = State.init(allocator);
-    defer state.deinit();
+    const moduleGraph = std.StringHashMap(ModuleInfo).init(allocator);
 
-    state.unprocessed.append(UnprocessedModule{
+    const seen = std.StringHashMap(void).init(allocator);
+    defer seen.deinit();
+    const unprocessed = std.ArrayList(UnprocessedModule).init(allocator);
+    defer unprocessed.deinit();
+
+    unprocessed.append(UnprocessedModule{
         .path = entrypoint_path,
         .code = raw_code,
     });
 
-    while (state.unprocessed.len > 0) {
-        const next_module = state.unprocessed.pop();
+    while (unprocessed.len > 0) {
+        const next_module = unprocessed.pop();
         const imported_ids = try resolveImports(next_module, &cfg);
-        state.graph.put(next_module.path, ModuleInfo{
+        moduleGraph.put(next_module.path, ModuleInfo{
             .code = next_module.code,
             .imported_ids = imported_ids,
         });
         for (imported_ids) |id| {
-            if (state.seen.contains(id)) {
+            if (seen.contains(id)) {
                 continue;
             }
-            state.seen.put(id);
-            state.unprocessed.push(UnprocessedModule{
+            seen.put(id);
+            unprocessed.push(UnprocessedModule{
                 .path = id,
                 .code = try std.fs.openFileAbsolute(id, .{}),
             });
         }
     }
 
-    return state.graph;
+    return moduleGraph;
 }
 
 test "resolveImportPath parses Solidity imports correctly" {

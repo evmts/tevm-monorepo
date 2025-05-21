@@ -1,5 +1,24 @@
 # @tevm/client
 
+## 1.0.0-next.145
+
+### Patch Changes
+
+- Updated dependencies [0377ad7]
+  - @tevm/blockchain@1.0.0-next.145
+  - @tevm/evm@1.0.0-next.145
+  - @tevm/receipt-manager@1.0.0-next.145
+  - @tevm/txpool@1.0.0-next.145
+  - @tevm/vm@1.0.0-next.145
+
+## 1.0.0-next.144
+
+### Patch Changes
+
+- Updated dependencies [93c7b32]
+- Updated dependencies [93c7b32]
+  - @tevm/txpool@1.0.0-next.144
+
 ## 1.0.0-next.143
 
 ### Patch Changes

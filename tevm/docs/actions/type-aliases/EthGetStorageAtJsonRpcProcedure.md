@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetStorageAtJsonRpcProcedure()
 
-> **EthGetStorageAtJsonRpcProcedure**: (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
+> **EthGetStorageAtJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
 Defined in: packages/actions/types/eth/EthProcedure.d.ts:20
 

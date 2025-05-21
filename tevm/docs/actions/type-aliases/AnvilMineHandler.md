@@ -6,7 +6,7 @@
 
 # Type Alias: AnvilMineHandler()
 
-> **AnvilMineHandler**: (`params`) => `Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
+> **AnvilMineHandler** = (`params`) => `Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
 
 Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:6
 

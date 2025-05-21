@@ -19,9 +19,9 @@ Typed transaction with a new gas fee market mechanism for transactions that incl
 
 ## Constructors
 
-### new BlobEIP4844Transaction()
+### Constructor
 
-> **new BlobEIP4844Transaction**(`txData`, `opts`?): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> **new BlobEIP4844Transaction**(`txData`, `opts?`): `BlobEIP4844Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:32
 
@@ -43,7 +43,7 @@ varying data types.
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
 #### Overrides
 
@@ -334,7 +334,7 @@ tx type implementations.
 
 ### \_validateCannotExceedMaxInteger()
 
-> `protected` **\_validateCannotExceedMaxInteger**(`values`, `bits`?, `cannotEqual`?): `void`
+> `protected` **\_validateCannotExceedMaxInteger**(`values`, `bits?`, `cannotEqual?`): `void`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:168
 
@@ -370,7 +370,7 @@ Pass true if the number also cannot equal one less the maximum value
 
 ### addSignature()
 
-> **addSignature**(`v`, `r`, `s`, `convertV`?): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> **addSignature**(`v`, `r`, `s`, `convertV?`): `BlobEIP4844Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:147
 
@@ -406,7 +406,7 @@ Set this to `true` if the raw output of `ecsign` is used. If this is `false` (de
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
 #### Overrides
 
@@ -596,7 +596,7 @@ Returns the public key of the sender
 
 ### getUpfrontCost()
 
-> **getUpfrontCost**(`baseFee`?): `bigint`
+> **getUpfrontCost**(`baseFee?`): `bigint`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:76
 
@@ -649,7 +649,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 Computes a sha3-256 hash of the serialized tx.
 
 This method can only be used for signed txs (it throws otherwise).
-Use [BlobEIP4844Transaction.getMessageToSign](BlobEIP4844Transaction.md#getmessagetosign) to get a tx hash for the purpose of signing.
+Use [BlobEIP4844Transaction.getMessageToSign](#getmessagetosign) to get a tx hash for the purpose of signing.
 
 #### Returns
 
@@ -722,12 +722,12 @@ Returns a Uint8Array Array of the raw Bytes of the EIP-4844 transaction, in orde
 Format: [chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, to, value, data,
 access_list, max_fee_per_data_gas, blob_versioned_hashes, y_parity, r, s]`.
 
-Use [BlobEIP4844Transaction.serialize](BlobEIP4844Transaction.md#serialize) to add a transaction to a block
+Use [BlobEIP4844Transaction.serialize](#serialize) to add a transaction to a block
 with Block.fromValuesArray.
 
 For an unsigned tx this method uses the empty Bytes values for the
 signature parameters `v`, `r` and `s` for encoding. For an EIP-155 compliant
-representation for external signing use [BlobEIP4844Transaction.getMessageToSign](BlobEIP4844Transaction.md#getmessagetosign).
+representation for external signing use [BlobEIP4844Transaction.getMessageToSign](#getmessagetosign).
 
 #### Returns
 
@@ -780,7 +780,7 @@ the serialized form of a blob transaction in the network wrapper format (used fo
 
 ### sign()
 
-> **sign**(`privateKey`): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> **sign**(`privateKey`): `BlobEIP4844Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/baseTransaction.d.ts:138
 
@@ -800,7 +800,7 @@ const signedTx = tx.sign(privateKey)
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
 #### Inherited from
 
@@ -921,7 +921,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 ### fromSerializedBlobTxNetworkWrapper()
 
-> `static` **fromSerializedBlobTxNetworkWrapper**(`serialized`, `opts`?): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> `static` **fromSerializedBlobTxNetworkWrapper**(`serialized`, `opts?`): `BlobEIP4844Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:67
 
@@ -943,7 +943,7 @@ any TxOptions defined
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
 a BlobEIP4844Transaction
 
@@ -951,7 +951,7 @@ a BlobEIP4844Transaction
 
 ### fromSerializedTx()
 
-> `static` **fromSerializedTx**(`serialized`, `opts`?): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> `static` **fromSerializedTx**(`serialized`, `opts?`): `BlobEIP4844Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:53
 
@@ -972,13 +972,13 @@ access_list, max_fee_per_data_gas, blob_versioned_hashes, y_parity, r, s])`
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
 ***
 
 ### fromTxData()
 
-> `static` **fromTxData**(`txData`, `opts`?): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> `static` **fromTxData**(`txData`, `opts?`): `BlobEIP4844Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:33
 
@@ -994,13 +994,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/t
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
 ***
 
 ### fromValuesArray()
 
-> `static` **fromValuesArray**(`values`, `opts`?): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> `static` **fromValuesArray**(`values`, `opts?`): `BlobEIP4844Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:60
 
@@ -1021,13 +1021,13 @@ accessList, signatureYParity, signatureR, signatureS]`
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
 ***
 
 ### minimalFromNetworkWrapper()
 
-> `static` **minimalFromNetworkWrapper**(`txData`, `opts`?): [`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+> `static` **minimalFromNetworkWrapper**(`txData`, `opts?`): `BlobEIP4844Transaction`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:46
 
@@ -1038,9 +1038,9 @@ The minimal representation is used when adding transactions to an execution payl
 
 ##### txData
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
-a [BlobEIP4844Transaction](BlobEIP4844Transaction.md) containing optional blobs/kzg commitments
+a BlobEIP4844Transaction containing optional blobs/kzg commitments
 
 ##### opts?
 
@@ -1050,7 +1050,7 @@ dictionary of [TxOptions](../interfaces/TxOptions.md)
 
 #### Returns
 
-[`BlobEIP4844Transaction`](BlobEIP4844Transaction.md)
+`BlobEIP4844Transaction`
 
 the "minimal" representation of a BlobEIP4844Transaction (i.e. transaction object minus blobs and kzg commitments)
 
@@ -1058,7 +1058,7 @@ the "minimal" representation of a BlobEIP4844Transaction (i.e. transaction objec
 
 ### networkWrapperToJson()
 
-> `static` **networkWrapperToJson**(`serialized`, `opts`?): `JsonBlobTxNetworkWrapper`
+> `static` **networkWrapperToJson**(`serialized`, `opts?`): `JsonBlobTxNetworkWrapper`
 
 Defined in: node\_modules/.pnpm/@ethereumjs+tx@5.4.0/node\_modules/@ethereumjs/tx/dist/esm/eip4844Transaction.d.ts:145
 

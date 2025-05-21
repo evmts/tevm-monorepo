@@ -6,7 +6,7 @@
 
 # Type Alias: EthSignParams
 
-> **EthSignParams**: `object`
+> **EthSignParams** = `object`
 
 Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)
 
@@ -14,12 +14,18 @@ Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts
 
 Based on the JSON-RPC request for `eth_sign` procedure
 
-## Type declaration
+## Properties
 
 ### address
 
 > `readonly` **address**: [`Address`](Address.md)
 
+Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)
+
+***
+
 ### data
 
 > `readonly` **data**: [`Hex`](Hex.md)
+
+Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)

@@ -4,6 +4,6 @@
 
 # @tevm/ts-plugin
 
-## Functions
+## Variables
 
-- [export=](functions/export=.md)
+- [export=](variables/export=.md)

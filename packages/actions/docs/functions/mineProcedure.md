@@ -16,7 +16,7 @@ Creates an Mine JSON-RPC Procedure for handling tevm_mine requests with Ethereum
 
 ### client
 
-`TevmNode`\<`"fork"` \| `"normal"`, \{\}\>
+`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>
 
 ## Returns
 

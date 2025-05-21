@@ -6,7 +6,7 @@
 
 # Type Alias: EthGetTransactionByBlockNumberAndIndexJsonRpcResponse
 
-> **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse**: `JsonRpcResponse`\<`"eth_getTransactionByBlockNumberAndIndex"`, [`TransactionResult`](TransactionResult.md), `string` \| `number`\>
+> **EthGetTransactionByBlockNumberAndIndexJsonRpcResponse** = `JsonRpcResponse`\<`"eth_getTransactionByBlockNumberAndIndex"`, [`TransactionResult`](TransactionResult.md), `string` \| `number`\>
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L192)
 

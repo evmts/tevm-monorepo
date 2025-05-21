@@ -6,9 +6,9 @@
 
 # Type Alias: Filter\<filterType, abi, eventName, args, strict, fromBlock, toBlock\>
 
-> **Filter**\<`filterType`, `abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>: `object` & `filterType` *extends* `"event"` ? `object` & `abi` *extends* [`Abi`](Abi.md) ? `undefined` *extends* `eventName` ? `object` : `args` *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> ? `object` : `object` : `object` : `object`
+> **Filter**\<`filterType`, `abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\> = `object` & `filterType` *extends* `"event"` ? `object` & `abi` *extends* [`Abi`](Abi.md) ? `undefined` *extends* `eventName` ? `object` : `args` *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> ? `object` : `object` : `object` : `object`
 
-Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.24.3/node\_modules/viem/\_types/types/filter.d.ts:11
+Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3\_utf-8-validate@5.0.10\_zod@3.24.4/node\_modules/viem/\_types/types/filter.d.ts:11
 
 ## Type declaration
 
@@ -26,16 +26,30 @@ Defined in: node\_modules/.pnpm/viem@2.23.10\_bufferutil@4.0.9\_typescript@5.8.3
 
 ## Type Parameters
 
-• **filterType** *extends* `FilterType` = `"event"`
+### filterType
 
-• **abi** *extends* [`Abi`](Abi.md) \| readonly `unknown`[] \| `undefined` = `undefined`
+`filterType` *extends* `FilterType` = `"event"`
 
-• **eventName** *extends* `string` \| `undefined` = `undefined`
+### abi
 
-• **args** *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\>
+`abi` *extends* [`Abi`](Abi.md) \| readonly `unknown`[] \| `undefined` = `undefined`
 
-• **strict** *extends* `boolean` \| `undefined` = `undefined`
+### eventName
 
-• **fromBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+`eventName` *extends* `string` \| `undefined` = `undefined`
 
-• **toBlock** *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+### args
+
+`args` *extends* `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\> \| `undefined` = `MaybeExtractEventArgsFromAbi`\<`abi`, `eventName`\>
+
+### strict
+
+`strict` *extends* `boolean` \| `undefined` = `undefined`
+
+### fromBlock
+
+`fromBlock` *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`
+
+### toBlock
+
+`toBlock` *extends* [`BlockNumber`](BlockNumber.md) \| [`BlockTag`](BlockTag.md) \| `undefined` = `undefined`

@@ -6,7 +6,7 @@
 
 # Type Alias: SolcBytecodeOutput
 
-> **SolcBytecodeOutput**: `object` & `Omit`\<[`SolcDeployedBytecodeOutput`](SolcDeployedBytecodeOutput.md), `"immutableReferences"`\>
+> **SolcBytecodeOutput** = `object` & `Omit`\<[`SolcDeployedBytecodeOutput`](SolcDeployedBytecodeOutput.md), `"immutableReferences"`\>
 
 Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:271
 
