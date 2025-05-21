@@ -1,1 +1,0 @@
-    fn execute(pc: usize, _: *Interpreter, state: *InterpreterState) ExecutionError![]const u8 {
