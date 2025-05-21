@@ -1,5 +1,11 @@
 # @tevm/state
 
+## 1.0.0-next.145
+
+### Patch Changes
+
+- 0377ad7: Workaround for 6 blob issue
+
 ## 1.0.0-next.142
 
 ### Patch Changes

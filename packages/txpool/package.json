@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/txpool",
-	"version": "1.0.0-next.144",
+	"version": "1.0.0-next.145",
 	"private": false,
 	"description": "A custom implementation of ethereumjs txpool",
 	"keywords": [
