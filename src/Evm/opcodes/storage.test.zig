@@ -39,7 +39,7 @@ fn createTestAddress(allocator: std.mem.Allocator) !Address {
 
 // Create minimal test environment for storage operations
 fn createTestEnvironment(allocator: std.mem.Allocator) !struct { evm: Evm, contract: Contract, frame: *Frame, interpreter: Interpreter, stateManager: *StateManager } {
-    var evm_instance = try Evm.init(allocator, null);
+    var evm_instance = try Evm.init(null);
 
     const options = StateOptions{};
     const state_manager_instance = try StateManager.init(allocator, options);

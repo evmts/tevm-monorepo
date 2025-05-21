@@ -192,7 +192,7 @@ test "EIP-2200: SSTORE gas costs and refunds" {
     defer state_manager.deinit();
 
     // Create EVM
-    var evm_instance = try EvmModule.Evm.init(allocator, null);
+    var evm_instance = try EvmModule.Evm.init(null);
     const jump_table = try JumpTable.newJumpTable(allocator, "latest");
     var evm_interpreter = try Interpreter.create(allocator, &evm_instance, jump_table);
     // Set the state manager

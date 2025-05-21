@@ -56,7 +56,7 @@ test "EIP-3651: COINBASE should be warm by default" {
     const allocator = std.testing.allocator;
 
     // Create EVM with EIP-3651 enabled
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP3651 = true;
     evm.setChainRules(chainRules);

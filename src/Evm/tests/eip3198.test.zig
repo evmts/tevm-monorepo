@@ -114,7 +114,7 @@ test "EIP-3198: BASEFEE opcode with EIP-3198 enabled" {
 
     // Create EVM with EIP-3198 enabled
     getLogger().debug("Initializing EVM with EIP-3198 enabled", .{});
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP3198 = true;
     evm.setChainRules(chainRules);
@@ -191,7 +191,7 @@ test "EIP-3198: BASEFEE opcode with EIP-3198 disabled" {
 
     // Create EVM with EIP-3198 disabled
     getLogger().debug("Initializing EVM with EIP-3198 disabled", .{});
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP3198 = false;
     evm.setChainRules(chainRules);

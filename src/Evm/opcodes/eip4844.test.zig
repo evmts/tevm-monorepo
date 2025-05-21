@@ -11,7 +11,7 @@ const blob = @import("blob.zig");
 // Test setup helper function
 fn setupInterpreter(enable_eip4844: bool) !Interpreter {
     // Create an EVM instance with custom chain rules
-    var custom_evm = try Evm.init(std.testing.allocator, .{
+    var custom_evm = try Evm.init(.{
         .IsEIP4844 = enable_eip4844, // Control EIP-4844 (Shard Blob Transactions)
     });
     

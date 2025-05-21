@@ -155,7 +155,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 enabled" {
 
     // Create EVM with EIP-5656 enabled
     getLogger().debug("Creating EVM with EIP-5656 enabled", .{});
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP5656 = true;
     evm.setChainRules(chainRules);
@@ -243,7 +243,7 @@ test "EIP-5656: MCOPY opcode with EIP-5656 disabled" {
 
     // Create EVM with EIP-5656 disabled
     getLogger().debug("Creating EVM with EIP-5656 disabled", .{});
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP5656 = false;
     evm.setChainRules(chainRules);

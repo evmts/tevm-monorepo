@@ -112,7 +112,7 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 enabled" {
 
     // Create EVM with EIP-3855 enabled
     getLogger().debug("Creating EVM with EIP-3855 enabled", .{});
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP3855 = true;
     evm.setChainRules(chainRules);
@@ -173,7 +173,7 @@ test "EIP-3855: PUSH0 opcode with EIP-3855 disabled" {
 
     // Create EVM with EIP-3855 disabled
     getLogger().debug("Creating EVM with EIP-3855 disabled", .{});
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     var chainRules = evm.chainRules;
     chainRules.IsEIP3855 = false;
     evm.setChainRules(chainRules);

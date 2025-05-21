@@ -236,7 +236,7 @@ test "EIP-2929: SLOAD Gas Cost Differences" {
     var state_manager = MockStateManager.init(allocator);
 
     getLogger().debug("Initializing EVM", .{});
-    var evm_instance = try Evm.init(allocator, null);
+    var evm_instance = try Evm.init(null);
     var chain_rules = evm_instance.chainRules;
     chain_rules.IsEIP2929 = true; // Ensure EIP-2929 is enabled
     evm_instance.setChainRules(chain_rules);
@@ -304,7 +304,7 @@ test "EIP-2929: EXTCODEHASH Gas Cost Differences" {
     var state_manager = MockStateManager.init(allocator);
 
     getLogger().debug("Initializing EVM", .{});
-    var evm_instance = try Evm.init(allocator, null);
+    var evm_instance = try Evm.init(null);
     var chain_rules = evm_instance.chainRules;
     chain_rules.IsEIP2929 = true; // Ensure EIP-2929 is enabled
     evm_instance.setChainRules(chain_rules);

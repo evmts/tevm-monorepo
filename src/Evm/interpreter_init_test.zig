@@ -12,7 +12,7 @@ test "Interpreter init with default jump table" {
     const allocator = std.testing.allocator;
     
     // First create an EVM instance
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     
     // Now create an interpreter using the new init() method
     var interpreter = try Interpreter.init(allocator, &evm);
@@ -34,7 +34,7 @@ test "Interpreter init properly allocates resources" {
     const allocator = std.testing.allocator;
     
     // Create an EVM instance
-    var evm = try Evm.init(allocator, null);
+    var evm = try Evm.init(null);
     
     // Use a scoped block to ensure resources are freed
     {

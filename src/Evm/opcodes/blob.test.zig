@@ -31,7 +31,7 @@ fn createTestFrame() !struct {
     const allocator = testing.allocator;
 
     // Initialize EVM
-    const evm = try Evm.init(allocator, null);
+    const evm = try Evm.init(null);
 
     // Create a stack
     const stack_ptr = try allocator.create(Stack);

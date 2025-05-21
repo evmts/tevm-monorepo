@@ -44,7 +44,7 @@ test "BLOCKHASH opcode" {
     contract_instance.code = &[_]u8{}; // Set empty code for this test
     defer contract_instance.deinit(allocator);
 
-    var evm_instance = try Evm.init(allocator, null);
+    var evm_instance = try Evm.init(null);
     defer evm_instance.deinit();
 
     var jump_table_instance = try JumpTable.JumpTable.init(allocator, "latest");
@@ -80,7 +80,7 @@ test "Block information opcodes" {
     contract_instance.code = &[_]u8{}; // Set empty code
     defer contract_instance.deinit(allocator);
 
-    var evm_instance = try Evm.init(allocator, null);
+    var evm_instance = try Evm.init(null);
     defer evm_instance.deinit();
 
     var jump_table_instance = try JumpTable.JumpTable.init(allocator, "latest");

@@ -13,7 +13,7 @@ const calls = EvmModule.opcodes.calls;
 // Test setup helper function
 fn setupInterpreter(enable_eip3860: bool) !Interpreter {
     // Create an EVM instance with custom chain rules
-    var custom_evm = try Evm.init(std.testing.allocator, .{
+    var custom_evm = try Evm.init(.{
         .IsEIP3860 = enable_eip3860, // Control EIP-3860 (Limit and meter initcode)
     });
     

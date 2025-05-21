@@ -45,7 +45,7 @@ test "EIP-1559 - BASEFEE opcode behavior" {
     // Test with EIP-1559 (London) enabled
     {
         // Create EVM with London rules (EIP-1559 enabled)
-        var evm = Evm.init();
+        var evm = try Evm.init(null);
         evm.chainRules = ChainRules.forHardfork(.London);
         
         // Create interpreter
@@ -66,7 +66,7 @@ test "EIP-1559 - BASEFEE opcode behavior" {
     // Test with EIP-1559 (London) disabled
     {
         // Create EVM with Berlin rules (before EIP-1559)
-        var evm = Evm.init();
+        var evm = try Evm.init(null);
         evm.chainRules = ChainRules.forHardfork(.Berlin);
         
         // Create interpreter

@@ -37,7 +37,7 @@ fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Add
 
 /// Setup function to create an EVM instance with a specific hardfork
 fn setupEvmForHardfork(allocator: std.mem.Allocator, hardfork: Hardfork) !Evm {
-    var evm_instance = try Evm.init(allocator, null);
+    var evm_instance = try Evm.init(null);
     evm_instance.chainRules = ChainRules.forHardfork(hardfork);
     return evm_instance;
 }
@@ -424,7 +424,7 @@ test "EIP-3651: COINBASE should be warm by default" {
     
     // Create EVM with EIP-3651 disabled
     {
-        var evm = try Evm.init(allocator, null);
+        var evm = try Evm.init(null);
         var chainRules = evm.chainRules;
         chainRules.IsEIP3651 = false;
         evm.setChainRules(chainRules);
@@ -439,7 +439,7 @@ test "EIP-3651: COINBASE should be warm by default" {
     
     // Create EVM with EIP-3651 enabled
     {
-        var evm = try Evm.init(allocator, null);
+        var evm = try Evm.init(null);
         var chainRules = evm.chainRules;
         chainRules.IsEIP3651 = true;
         evm.setChainRules(chainRules);

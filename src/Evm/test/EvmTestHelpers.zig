@@ -231,7 +231,7 @@ pub const EvmTest = struct {
 
     /// Create a new EVM test fixture
     pub fn init(allocator: std.mem.Allocator) !EvmTest {
-        var evm = try Evm.init(allocator, null);
+        var evm = try Evm.init(null);
         evm.setChainRules(Evm.ChainRules.forHardfork(.Byzantium));
 
         // Create a jump table
@@ -251,7 +251,7 @@ pub const EvmTest = struct {
 
     /// Create a new EVM test fixture with custom configuration
     pub fn initWithConfig(config: EvmTestConfig) !EvmTest {
-        var evm = Evm.init();
+        var evm = try Evm.init(null);
         evm.setChainRules(Evm.ChainRules.forHardfork(config.hardfork));
 
         // Create a jump table

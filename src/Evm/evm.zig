@@ -57,14 +57,11 @@ pub const Evm = struct {
     /// - No state manager attached
     ///
     /// Parameters:
-    /// - allocator: Memory allocator for resources used by the EVM (optional)
     /// - custom_rules: Optional custom chain rules to apply
     ///
     /// Returns: A new Evm instance
     /// Error: Returned if initialization fails
-    pub fn init(allocator: ?std.mem.Allocator, custom_rules: ?ChainRules) !Evm {
-        _ = allocator; // Will be used in future implementations
-
+    pub fn init(custom_rules: ?ChainRules) !Evm {
         var scoped = createScopedLogger(getLogger(), "init()");
         defer scoped.deinit();
 

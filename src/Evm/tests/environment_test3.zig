@@ -584,7 +584,7 @@ fn setupTestEnvironment(allocator: std.mem.Allocator) !struct {
     evm: Evm,
     interpreter: *Interpreter,
 } {
-    const evm_instance = try Evm.init(allocator, null);
+    const evm_instance = try Evm.init(null);
 
     var contract_val = createContract(std.mem.zeroes(Address), std.mem.zeroes(Address), 0, 1000000);
     contract_val.code = &[_]u8{ 0x60, 0x01, 0x60, 0x02, 0x01 };

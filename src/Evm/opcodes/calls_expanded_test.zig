@@ -125,7 +125,8 @@ fn setupInterpreterWithState(allocator: std.testing.AllocatorType.e) !struct { i
     var state_manager = try MockStateManager.init(allocator);
     errdefer state_manager.deinit();
     
-    var evm_instance = try Evm.init(allocator, state_manager);
+    var evm_instance = try Evm.init(null);
+    evm_instance.state_manager = state_manager;
     
     // Create the interpreter
     const interpreter_instance = try Interpreter.init(allocator, &evm_instance);

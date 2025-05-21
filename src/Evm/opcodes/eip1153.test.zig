@@ -11,7 +11,7 @@ const transient = @import("transient.zig");
 // Test setup helper function
 fn setupInterpreter(enable_eip1153: bool) !Interpreter {
     // Create an EVM instance with custom chain rules
-    var custom_evm = try Evm.init(std.testing.allocator, .{
+    var custom_evm = try Evm.init(.{
         .IsEIP1153 = enable_eip1153, // Control EIP-1153 (Transient Storage)
     });
     

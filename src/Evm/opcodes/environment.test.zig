@@ -23,7 +23,7 @@ fn setupTestEnvironment(allocator: std.mem.Allocator) !struct {
     evm: Evm,
     interpreter: *Interpreter,
 } {
-    const evm_instance = try Evm.init(allocator, null);
+    const evm_instance = try Evm.init(null);
 
     const memory_instance = Memory.init(allocator);
     _ = memory_instance; // autofix

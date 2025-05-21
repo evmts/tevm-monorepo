@@ -49,7 +49,7 @@ fn setupInterpreter(enable_eip3541: bool) !Interpreter {
 
     // Create an EVM instance with custom chain rules
     getLogger().debug("Initializing EVM with custom chain rules", .{});
-    var custom_evm = try Evm.init(std.testing.allocator, custom_rules);
+    var custom_evm = try Evm.init(custom_rules);
 
     // Create jump table
     getLogger().debug("Creating jump table", .{});
