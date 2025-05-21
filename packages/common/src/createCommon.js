@@ -69,7 +69,7 @@ export const createCommon = ({
 			{
 				hardfork,
 				baseChain: 1,
-				eips: [...eips, 1559, 4895, 4844, 4788, 7702],
+				eips: [...eips, 1559, 4895, 4844, 4788],
 				customCrypto: {
 					kzg: createMockKzg(),
 					...customCrypto,

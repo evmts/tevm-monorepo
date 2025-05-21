@@ -28,22 +28,10 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 					.../** @type {any}*/ (rpcBlock),
 					// filter out transactions we don't support as a hack
 					transactions: rpcBlock.transactions?.filter((tx) => {
-						// Filter out custom transaction types that we don't support
 						if (customTxTypes.includes(tx.type)) {
 							doWarning(/** @type {any}*/ (tx))
 							return false
 						}
-						
-						// Filter out blob transactions with more than 6 blobs
-						// EIP-4844 limits blob transactions to a maximum of 6 blobs
-						if (tx.type === '0x3' && tx.blobVersionedHashes && tx.blobVersionedHashes.length > 6) {
-							doWarning({
-								...tx,
-								_warning: `Filtering out blob transaction with ${tx.blobVersionedHashes.length} blobs (maximum is 6)`
-							})
-							return false
-						}
-						
 						return true
 					}),
 				},

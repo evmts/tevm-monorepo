@@ -58,16 +58,9 @@ export const validateHeader = (baseChain) => async (header, height) => {
 	}
 
 	if (header.common.ethjsCommon.isActivatedEIP(4844)) {
-		// If we're in test mode, we might have filtered blob transactions
-		// which can lead to inconsistent excessBlobGas values
-		// Skip verification in test environment
-		const isTestEnvironment = process.env.NODE_ENV === 'test' || process.env.VITEST !== undefined
-		
-		if (!isTestEnvironment) {
-			const expectedExcessBlobGas = parentHeader.calcNextExcessBlobGas()
-			if (header.excessBlobGas !== expectedExcessBlobGas) {
-				throw new Error(`expected blob gas: ${expectedExcessBlobGas}, got: ${header.excessBlobGas}`)
-			}
+		const expectedExcessBlobGas = parentHeader.calcNextExcessBlobGas()
+		if (header.excessBlobGas !== expectedExcessBlobGas) {
+			throw new Error(`expected blob gas: ${expectedExcessBlobGas}, got: ${header.excessBlobGas}`)
 		}
 	}
 }
