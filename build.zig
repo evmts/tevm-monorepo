@@ -381,8 +381,8 @@ pub fn build(b: *std.Build) void {
     trie_test_step.dependOn(&run_trie_test.step);
 
     const interpreter_test = b.addTest(.{
-        .name = "evm-test",
-        .root_source_file = b.path("src/Evm/JumpTable.zig"),
+        .name = "evm-interpreter-test",
+        .root_source_file = b.path("src/Evm/Interpreter.zig"),
         .target = target,
         .optimize = optimize,
     });
