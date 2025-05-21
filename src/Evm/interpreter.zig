@@ -1,4 +1,9 @@
 const std = @import("std");
+const _contract = @import("Contract.zig");
+const _frame = @import("Frame.zig");
+
+const Contract = _contract.Contract;
+const Frame = _frame.Frame;
 
 const Allocator = std.mem.Allocator;
 const print = std.debug.print;
@@ -6,31 +11,6 @@ const print = std.debug.print;
 pub const InterpreterError = error{
     /// Not enough gas to continue execution
     OutOfGas,
-};
-
-pub const Contract = struct {
-    const Self = @This();
-    code: []const u8,
-    pub fn getOp(self: Self, pc: usize) u8 {
-        if (pc < self.code.len) {
-            return self.code[pc];
-        }
-        return opcodes.STOP_OPCODE;
-    }
-};
-
-pub const Frame = struct {
-    const Self = @This();
-
-    allocator: Allocator,
-
-    pc: usize = undefined,
-
-    pub fn create(allocator: Allocator) Self {
-        return Frame{ .allocator = allocator };
-    }
-
-    pub fn destroy() void {}
 };
 
 pub const Evm = struct {
