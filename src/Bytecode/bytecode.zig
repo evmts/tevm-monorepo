@@ -1,36 +1,11 @@
 const std = @import("std");
+const Address = @import("Address");
+const Evm = @import("Evm");
 
 // Define basic primitives for testing since we can't import directly
 pub const Bytes = []const u8;
-pub const Address = [20]u8;
 pub const B256 = [32]u8;
 pub const KECCAK_EMPTY = [32]u8{0} ** 32;
-
-// Mock modules for compilation
-pub const eip7702 = struct {
-    pub const EIP7702_MAGIC_BYTES = [2]u8{0xE7, 0x02};
-    
-    pub const Eip7702Bytecode = struct {
-        address: Address,
-        
-        pub fn new(address: Address) Eip7702Bytecode {
-            return .{ .address = address };
-        }
-        
-        pub fn newRaw(bytes: Bytes) !Eip7702Bytecode {
-            var address: Address = undefined;
-            if (bytes.len > 20) {
-                @memcpy(&address, bytes[2..22]);
-            }
-            return Eip7702Bytecode.new(address);
-        }
-        
-        pub fn raw(self: *const Eip7702Bytecode) Bytes {
-            _ = self;
-            return &[_]u8{};
-        }
-    };
-};
 
 pub const BytecodeDecodeError = error{InvalidFormat};
 
@@ -93,7 +68,7 @@ pub const BytecodeValidator = struct {
 /// Main bytecode enum with all supported variants
 pub const Bytecode = union(enum) {
     LegacyAnalyzed: LegacyAnalyzedBytecode,
-    Eip7702:        eip7702.Eip7702Bytecode,
+    Eip7702:        Evm.eip7702.Eip7702Bytecode,
 
     pub fn init() Bytecode {
         return Bytecode{ .LegacyAnalyzed = LegacyAnalyzedBytecode.default() };
@@ -127,8 +102,8 @@ pub const Bytecode = union(enum) {
     }
 
     pub fn newRawChecked(raw_bytes: Bytes) !Bytecode {
-        if (raw_bytes.len >= 2 and std.mem.eql(u8, raw_bytes[0..2], &eip7702.EIP7702_MAGIC_BYTES)) {
-            const e2 = try eip7702.Eip7702Bytecode.newRaw(raw_bytes);
+        if (raw_bytes.len >= 2 and std.mem.eql(u8, raw_bytes[0..2], &Evm.eip7702.EIP7702_MAGIC_BYTES)) {
+            const e2 = try Evm.eip7702.Eip7702Bytecode.newRaw(raw_bytes);
             return Bytecode{ .Eip7702 = e2 };
         } else {
             // Verify EIP-3541 compliance (reject contracts starting with 0xEF)
@@ -140,8 +115,8 @@ pub const Bytecode = union(enum) {
         }
     }
 
-    pub fn newEip7702(address: Address) Bytecode {
-        return Bytecode{ .Eip7702 = eip7702.Eip7702Bytecode.new(address) };
+    pub fn newEip7702(address: Address.Address) Bytecode {
+        return Bytecode{ .Eip7702 = Evm.eip7702.Eip7702Bytecode.new(address) };
     }
 
     pub fn newAnalyzed(code: Bytes, original_len: usize, jump_table: JumpTable) Bytecode {

@@ -52,6 +52,9 @@ pub const Evm = @import("evm.zig").Evm;
 pub const ChainRules = @import("evm.zig").ChainRules;
 pub const Hardfork = @import("evm.zig").Hardfork;
 
+// Import EIP-7702
+pub const eip7702 = @import("eip7702.zig");
+
 // Export precompiles
 pub const precompile = struct {
     pub usingnamespace @import("precompile/Precompiles.zig");

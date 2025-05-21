@@ -1,5 +1,5 @@
-// Since we can't import directly, we'll define constants here
-pub const ZERO_ADDRESS = [_]u8{0} ** 20;
+// Import from Address package
+const Address = @import("Address");
 
 pub const Block = struct {
     number: u64,
@@ -14,7 +14,7 @@ pub const Block = struct {
 
 pub const emptyBlock = Block{
     .number = 0,
-    .coinbase = ZERO_ADDRESS,
+    .coinbase = Address.ZERO_ADDRESS,
     .timestamp = 0,
     .difficulty = 0,
     .prevRandao = .{0} ** 32,
@@ -29,7 +29,7 @@ test "Block structure" {
     // Test empty block initialization
     const empty = emptyBlock;
     try std.testing.expectEqual(@as(u64, 0), empty.number);
-    try std.testing.expectEqualSlices(u8, &ZERO_ADDRESS, &empty.coinbase);
+    try std.testing.expectEqualSlices(u8, &Address.ZERO_ADDRESS, &empty.coinbase);
     try std.testing.expectEqual(@as(u64, 0), empty.timestamp);
     try std.testing.expectEqual(@as(u64, 0), empty.difficulty);
     
@@ -43,7 +43,7 @@ test "Block structure" {
     // Test custom block
     const testBlock = Block{
         .number = 12345,
-        .coinbase = ZERO_ADDRESS,
+        .coinbase = Address.ZERO_ADDRESS,
         .timestamp = 1675297352,
         .difficulty = 2,
         .prevRandao = .{1} ** 32,
