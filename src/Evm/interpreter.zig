@@ -51,6 +51,46 @@ pub const Evm = struct {
             executor.execute(self, &frame) catch |err| {
                 switch (err) {
                     opcode_executor.ExecutionError.STOP => return try self.allocator.alloc(u8, 0),
+                    opcode_executor.ExecutionError.REVERT => {
+                        // TODO: Handle REVERT - return return data and revert state changes
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.INVALID => {
+                        // TODO: Handle INVALID instruction
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.StackUnderflow => {
+                        // TODO: Handle stack underflow error
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.StackOverflow => {
+                        // TODO: Handle stack overflow error
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.OutOfOffset => {
+                        // TODO: Handle out of offset error
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.OutOfGas => {
+                        // TODO: Handle out of gas error
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.InvalidJump => {
+                        // TODO: Handle invalid jump error
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.InvalidOpcode => {
+                        // TODO: Handle invalid opcode error
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.StaticCallViolation => {
+                        // TODO: Handle static call violation error
+                        return try self.allocator.alloc(u8, 0);
+                    },
+                    opcode_executor.ExecutionError.CreateContractFailed => {
+                        // TODO: Handle contract creation failure
+                        return try self.allocator.alloc(u8, 0);
+                    },
                 }
             };
             // Increment PC, which will be ignored if the operation modified PC
