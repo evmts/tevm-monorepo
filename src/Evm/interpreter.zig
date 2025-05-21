@@ -1,66 +1,60 @@
 const std = @import("std");
-const opcodes = @import("opcodes.zig");
-const Stack = @import("Stack.zig").Stack;
-const Memory = @import("Memory.zig").Memory;
-const Contract = @import("Contract.zig").Contract;
-const InterpreterState = @import("InterpreterState.zig").InterpreterState;
-const Evm = @import("Evm.zig");
-const JumpTableModule = @import("JumpTable.zig");
 
-// Import specific items from opcodes for convenience
-const Operation = opcodes.Operation;
-const JumpTable = JumpTableModule.JumpTable;
-const ExecutionError = opcodes.ExecutionError;
-const getOperation = opcodes.getOperation;
+const Allocator = std.mem.Allocator;
+const print = std.debug.print;
 
-// Interpreter error type
-const InterpreterError = error{TODO};
+pub const InterpreterError = error{
+    /// Not enough gas to continue execution
+    OutOfGas,
+};
 
-pub const Interpreter = struct {
-    allocator: std.mem.Allocator,
-    evm: *Evm,
-    table: JumpTable,
+pub const Contract = struct {
+    const Self = @This();
+    code: []const u8,
+    pub fn getOp(self: Self, pc: usize) u8 {
+        if (pc < self.code.len) {
+            return self.code[pc];
+        }
+        return opcodes.STOP_OPCODE;
+    }
+};
 
-    pub fn create(allocator: std.mem.Allocator, evm: *Evm, table: JumpTable) Interpreter {
-        return Interpreter{
-            .evm = evm,
-            .table = table,
-            .allocator = allocator,
-        };
+pub const Frame = struct {
+    const Self = @This();
+
+    allocator: Allocator,
+
+    pc: usize = undefined,
+
+    pub fn create(allocator: Allocator) Self {
+        return Frame{ .allocator = allocator };
     }
 
-    pub fn run(self: *Interpreter, contract: *Contract, input: []const u8) InterpreterError!?[]const u8 {
-        self.evm.depth += 1;
-        defer self.evm.depth -= 1;
+    pub fn destroy() void {}
+};
 
-        if (contract.deployedBytecode.len == 0) {
-            return null;
-        }
+pub const Evm = struct {
+    const Self = @This();
 
-        var state = InterpreterState{};
+    allocator: Allocator,
 
-        contract.input = input;
+    returnData: []u8,
+
+    /// Pointer to the EVM instance that provides context and state access
+    depth: u16,
+
+    pub fn create(allocator: Allocator) Self {
+        return Evm{ .allocator = allocator };
+    }
+
+    pub fn run(self: *Self, contract: *Contract, input: []const u8) InterpreterError![]const u8 {
+        print("Starting execution", .{});
+
+        var frame = try Frame.create(self.allocator, contract);
+        defer frame.destroy();
 
         while (true) {
-            // Get the current operation from the bytecode
-            const op_code = contract.getOp(state.pc);
-            const operation = self.table.getOperation(op_code);
-
-            // Execute the operation
-            _ = operation.execute(state.pc, self, &state) catch |err| {
-                // Handle execution errors
-                if (err == ExecutionError.STOP) {
-                    // Successful completion with STOP
-                    break;
-                }
-                // Other error handling could be implemented here
-                return InterpreterError.TODO;
-            };
-
-            // Update program counter for next iteration
-            state.pc += 1;
+            const op_code = contract.getOp(frame.pc);
         }
-
-        return null; // Return result (would typically be state.returnData)
     }
 };
