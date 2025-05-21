@@ -14,7 +14,6 @@ const Contract = evm.Contract;
 const Frame = evm.Frame;
 const ExecutionError = evm.ExecutionError;
 const Evm = evm.Evm;
-// Import JumpTable through the evm package to avoid circular references
 
 // Import from logger module
 const EvmLogger = logger_module.EvmLogger;
@@ -28,6 +27,7 @@ const address = @import("address");
 
 // Import specific items from opcodes for convenience
 const Operation = opcodes.Operation;
+// Import JumpTable from the evm package
 const JumpTable = evm.JumpTable;
 const getOperation = opcodes.getOperation;
 

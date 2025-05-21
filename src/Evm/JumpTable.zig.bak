@@ -1,12 +1,11 @@
 const std = @import("std");
-// Import from evm module to avoid circular dependencies
-const evm = @import("evm");
-const opcodes = evm.opcodes;
-const Interpreter = evm.Interpreter;
-const Frame = evm.Frame;
-const ExecutionError = evm.InterpreterError;
-const Stack = evm.Stack;
-const Memory = evm.Memory;
+// Import directly from files to avoid circular dependencies
+const opcodes = @import("opcodes.zig");
+const Interpreter = @import("interpreter.zig").Interpreter;
+const Frame = @import("Frame.zig").Frame;
+const ExecutionError = @import("interpreter.zig").InterpreterError;
+const Stack = @import("Stack.zig").Stack;
+const Memory = @import("Memory.zig").Memory;
 
 // Import opcode implementations directly
 const math = @import("opcodes/math.zig");

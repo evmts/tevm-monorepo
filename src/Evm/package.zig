@@ -7,11 +7,9 @@ pub const createContract = @import("Contract.zig").createContract;
 pub const Interpreter = @import("interpreter.zig").Interpreter;
 pub const InterpreterError = @import("interpreter.zig").InterpreterError;
 pub const InterpreterState = @import("InterpreterState.zig").InterpreterState;
-// Use namespace for JumpTable to avoid circular imports
-pub const jumpTableMod = struct {
-    pub usingnamespace @import("JumpTable.zig");
-};
-pub const JumpTable = jumpTableMod.JumpTable;
+// Import JumpTable from jumpTable module to avoid circular imports
+pub const jumpTable = @import("jumpTable/package.zig");
+pub const JumpTable = jumpTable.JumpTable;
 pub const Memory = @import("Memory.zig").Memory;
 pub const MemoryError = @import("Memory.zig").MemoryError;
 pub const Stack = @import("Stack.zig").Stack;
