@@ -27,12 +27,132 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Create a single zigevm module - our core EVM implementation
+    // Define package modules for each major component
+    const evm_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Evm/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const utils_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Utils/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const address_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Address/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const abi_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Abi/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const block_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Block/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const bytecode_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Bytecode/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const compiler_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Compiler/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const rlp_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Rlp/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const token_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Token/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const trie_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Trie/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const state_manager_pkg = b.createModule(.{
+        .root_source_file = b.path("src/StateManager/package.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const test_pkg = b.createModule(.{
+        .root_source_file = b.path("src/Test/test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add imports between packages
+    evm_pkg.addImport("utils", utils_pkg);
+    evm_pkg.addImport("address", address_pkg);
+    evm_pkg.addImport("abi", abi_pkg);
+    evm_pkg.addImport("block", block_pkg);
+    evm_pkg.addImport("bytecode", bytecode_pkg);
+    evm_pkg.addImport("compiler", compiler_pkg);
+    evm_pkg.addImport("rlp", rlp_pkg);
+    evm_pkg.addImport("token", token_pkg);
+    evm_pkg.addImport("trie", trie_pkg);
+    evm_pkg.addImport("state_manager", state_manager_pkg);
+    evm_pkg.addImport("test_utils", test_pkg);
+
+    state_manager_pkg.addImport("evm", evm_pkg);
+    state_manager_pkg.addImport("utils", utils_pkg);
+    state_manager_pkg.addImport("address", address_pkg);
+    
+    abi_pkg.addImport("utils", utils_pkg);
+    
+    address_pkg.addImport("utils", utils_pkg);
+    
+    block_pkg.addImport("utils", utils_pkg);
+    block_pkg.addImport("rlp", rlp_pkg);
+    
+    bytecode_pkg.addImport("utils", utils_pkg);
+    
+    trie_pkg.addImport("utils", utils_pkg);
+    trie_pkg.addImport("rlp", rlp_pkg);
+    
+    test_pkg.addImport("evm", evm_pkg);
+    test_pkg.addImport("utils", utils_pkg);
+    test_pkg.addImport("address", address_pkg);
+
+    // Create the zigevm module - our core EVM implementation
     const zigevm_mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
     });
+
+    // Add package imports to zigevm module
+    zigevm_mod.addImport("evm", evm_pkg);
+    zigevm_mod.addImport("utils", utils_pkg);
+    zigevm_mod.addImport("address", address_pkg);
+    zigevm_mod.addImport("abi", abi_pkg);
+    zigevm_mod.addImport("block", block_pkg);
+    zigevm_mod.addImport("bytecode", bytecode_pkg);
+    zigevm_mod.addImport("compiler", compiler_pkg);
+    zigevm_mod.addImport("rlp", rlp_pkg);
+    zigevm_mod.addImport("token", token_pkg);
+    zigevm_mod.addImport("trie", trie_pkg);
+    zigevm_mod.addImport("state_manager", state_manager_pkg);
+    zigevm_mod.addImport("test_utils", test_pkg);
 
     // Create the native executable module
     const exe_mod = b.createModule(.{
@@ -47,6 +167,20 @@ pub fn build(b: *std.Build) void {
         .target = wasm_target,
         .optimize = .ReleaseSmall,
     });
+
+    // Add package imports to wasm module
+    wasm_mod.addImport("evm", evm_pkg);
+    wasm_mod.addImport("utils", utils_pkg);
+    wasm_mod.addImport("address", address_pkg);
+    wasm_mod.addImport("abi", abi_pkg);
+    wasm_mod.addImport("block", block_pkg);
+    wasm_mod.addImport("bytecode", bytecode_pkg);
+    wasm_mod.addImport("compiler", compiler_pkg);
+    wasm_mod.addImport("rlp", rlp_pkg);
+    wasm_mod.addImport("token", token_pkg);
+    wasm_mod.addImport("trie", trie_pkg);
+    wasm_mod.addImport("state_manager", state_manager_pkg);
+    wasm_mod.addImport("test_utils", test_pkg);
 
     // Modules can depend on one another using the `std.Build.Module.addImport` function.
     exe_mod.addImport("zigevm", zigevm_mod);
@@ -137,8 +271,19 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add zigevm module to frame_test
-    frame_test.root_module.addImport("zigevm", zigevm_mod);
+    // Add package imports to frame_test
+    frame_test.root_module.addImport("evm", evm_pkg);
+    frame_test.root_module.addImport("utils", utils_pkg);
+    frame_test.root_module.addImport("address", address_pkg);
+    frame_test.root_module.addImport("abi", abi_pkg);
+    frame_test.root_module.addImport("block", block_pkg);
+    frame_test.root_module.addImport("bytecode", bytecode_pkg);
+    frame_test.root_module.addImport("compiler", compiler_pkg);
+    frame_test.root_module.addImport("rlp", rlp_pkg);
+    frame_test.root_module.addImport("token", token_pkg);
+    frame_test.root_module.addImport("trie", trie_pkg);
+    frame_test.root_module.addImport("state_manager", state_manager_pkg);
+    frame_test.root_module.addImport("test_utils", test_pkg);
 
     const run_frame_test = b.addRunArtifact(frame_test);
 
@@ -154,8 +299,19 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add zigevm module to evm_test
-    evm_test.root_module.addImport("zigevm", zigevm_mod);
+    // Add package imports to evm_test
+    evm_test.root_module.addImport("evm", evm_pkg);
+    evm_test.root_module.addImport("utils", utils_pkg);
+    evm_test.root_module.addImport("address", address_pkg);
+    evm_test.root_module.addImport("abi", abi_pkg);
+    evm_test.root_module.addImport("block", block_pkg);
+    evm_test.root_module.addImport("bytecode", bytecode_pkg);
+    evm_test.root_module.addImport("compiler", compiler_pkg);
+    evm_test.root_module.addImport("rlp", rlp_pkg);
+    evm_test.root_module.addImport("token", token_pkg);
+    evm_test.root_module.addImport("trie", trie_pkg);
+    evm_test.root_module.addImport("state_manager", state_manager_pkg);
+    evm_test.root_module.addImport("test_utils", test_pkg);
 
     const run_evm_test = b.addRunArtifact(evm_test);
 
@@ -173,6 +329,7 @@ pub fn build(b: *std.Build) void {
 
     // Add the httpz dependency to the server test
     server_test.root_module.addImport("httpz", httpz_dep.module("httpz"));
+    server_test.root_module.addImport("zigevm", zigevm_mod);
 
     const run_server_test = b.addRunArtifact(server_test);
 
@@ -188,8 +345,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add zigevm module to rlp_test
-    rlp_specific_test.root_module.addImport("zigevm", zigevm_mod);
+    // Add package imports to rlp_test
+    rlp_specific_test.root_module.addImport("rlp", rlp_pkg);
+    rlp_specific_test.root_module.addImport("utils", utils_pkg);
 
     const run_rlp_test = b.addRunArtifact(rlp_specific_test);
 
@@ -205,8 +363,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add zigevm module to abi_test
-    abi_specific_test.root_module.addImport("zigevm", zigevm_mod);
+    // Add package imports to abi_test
+    abi_specific_test.root_module.addImport("abi", abi_pkg);
+    abi_specific_test.root_module.addImport("utils", utils_pkg);
 
     const run_abi_test = b.addRunArtifact(abi_specific_test);
 
@@ -222,8 +381,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add zigevm module to compiler_test
-    compiler_test.root_module.addImport("zigevm", zigevm_mod);
+    // Add package imports to compiler_test
+    compiler_test.root_module.addImport("compiler", compiler_pkg);
+    compiler_test.root_module.addImport("utils", utils_pkg);
 
     const run_compiler_test = b.addRunArtifact(compiler_test);
 
@@ -239,8 +399,10 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    // Add zigevm module to trie_test
-    trie_test.root_module.addImport("zigevm", zigevm_mod);
+    // Add package imports to trie_test
+    trie_test.root_module.addImport("trie", trie_pkg);
+    trie_test.root_module.addImport("utils", utils_pkg);
+    trie_test.root_module.addImport("rlp", rlp_pkg);
 
     const run_trie_test = b.addRunArtifact(trie_test);
 
@@ -254,6 +416,10 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+
+    // Add package imports to interpreter_test
+    interpreter_test.root_module.addImport("evm", evm_pkg);
+    interpreter_test.root_module.addImport("utils", utils_pkg);
 
     const run_interpreter_test = b.addRunArtifact(interpreter_test);
 
@@ -277,8 +443,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add zigevm module to contract_test
-    contract_test.root_module.addImport("zigevm", zigevm_mod);
+    // Add package imports to contract_test
+    contract_test.root_module.addImport("evm", evm_pkg);
+    contract_test.root_module.addImport("utils", utils_pkg);
 
     const run_contract_test = b.addRunArtifact(contract_test);
     
@@ -294,334 +461,15 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     
-    // Add zigevm module to evm_logger_test
-    evm_logger_test.root_module.addImport("zigevm", zigevm_mod);
+    // Add package imports to evm_logger_test
+    evm_logger_test.root_module.addImport("evm", evm_pkg);
+    evm_logger_test.root_module.addImport("utils", utils_pkg);
 
     const run_evm_logger_test = b.addRunArtifact(evm_logger_test);
     
     // Add a separate step for testing EvmLogger
     const evm_logger_test_step = b.step("test-evm-logger", "Run EvmLogger tests");
     evm_logger_test_step.dependOn(&run_evm_logger_test.step);
-
-    // Add tests for opcode files
-    const opcodes_test_files = [_][]const u8{
-        "src/Evm/opcodes/bitwise.test.zig",
-        "src/Evm/opcodes/blob.test.zig",
-        "src/Evm/opcodes/block.test.zig",
-        "src/Evm/opcodes/calls.test.zig",
-        "src/Evm/opcodes/comparison.test.zig",
-        "src/Evm/opcodes/controlflow.test.zig",
-        "src/Evm/opcodes/crypto.test.zig",
-        "src/Evm/opcodes/environment.test.zig",
-        "src/Evm/opcodes/log.test.zig",
-        "src/Evm/opcodes/math.test.zig",
-        "src/Evm/opcodes/math2.test.zig",
-        "src/Evm/opcodes/memory.test.zig",
-        "src/Evm/opcodes/storage.test.zig",
-        "src/Evm/opcodes/transient.test.zig",
-    };
-
-    // Create a step for running all opcode tests
-    const opcodes_test_step = b.step("test-opcodes", "Run all opcode tests");
-    
-    // Add each opcode test individually
-    for (opcodes_test_files) |test_file| {
-        const file_name_start = std.mem.lastIndexOf(u8, test_file, "/") orelse 0;
-        const file_name = test_file[(file_name_start + 1)..];
-        // Extract the base name for use as the test name
-        const base_name_end = std.mem.indexOf(u8, file_name, ".test.zig") orelse file_name.len;
-        const base_name = file_name[0..base_name_end];
-        
-        const opcode_test = b.addTest(.{
-            .name = b.fmt("{s}-test", .{base_name}),
-            .root_source_file = b.path(test_file),
-            .target = target,
-            .optimize = optimize,
-        });
-        
-        // Add zigevm module to opcode test
-        opcode_test.root_module.addImport("zigevm", zigevm_mod);
-        
-        const run_opcode_test = b.addRunArtifact(opcode_test);
-        opcodes_test_step.dependOn(&run_opcode_test.step);
-    }
-
-    // Add a test for precompile_test.zig
-    const precompile_test = b.addTest(.{
-        .name = "precompile-test",
-        .root_source_file = b.path("src/Evm/precompile/precompile_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to precompile_test
-    precompile_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_precompile_test = b.addRunArtifact(precompile_test);
-    
-    // Add a separate step for testing precompiles
-    const precompile_test_step = b.step("test-precompile", "Run precompile tests");
-    precompile_test_step.dependOn(&run_precompile_test.step);
-
-    // Add a test for Precompiled.test.zig
-    const precompiled_test = b.addTest(.{
-        .name = "precompiled-test",
-        .root_source_file = b.path("src/Evm/precompiles/Precompiled.test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to precompiled_test
-    precompiled_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_precompiled_test = b.addRunArtifact(precompiled_test);
-    
-    // Add a separate step for testing precompiled contracts
-    const precompiled_test_step = b.step("test-precompiled", "Run precompiled contract tests");
-    precompiled_test_step.dependOn(&run_precompiled_test.step);
-
-    // Add test for EvmTestHelpers.test.zig
-    const evm_test_helpers_test = b.addTest(.{
-        .name = "evm-test-helpers-test",
-        .root_source_file = b.path("src/Evm/test/EvmTestHelpers.test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to evm_test_helpers_test
-    evm_test_helpers_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_evm_test_helpers_test = b.addRunArtifact(evm_test_helpers_test);
-    
-    // Add a separate step for testing EvmTestHelpers
-    const evm_test_helpers_test_step = b.step("test-evm-helpers", "Run EVM test helpers tests");
-    evm_test_helpers_test_step.dependOn(&run_evm_test_helpers_test.step);
-
-    // Add tests for EIP test files
-    const eip_test_files = [_][]const u8{
-        "src/Evm/tests/eip2200.test.zig",
-        "src/Evm/tests/eip2929.test.zig",
-        "src/Evm/tests/eip3198.test.zig",
-        "src/Evm/tests/eip3541.test.zig",
-        "src/Evm/tests/eip3651.test.zig",
-        "src/Evm/tests/eip3855.test.zig",
-        "src/Evm/tests/eip5656.test.zig",
-    };
-
-    // Create a step for running all EIP tests
-    const eip_test_step = b.step("test-eips", "Run all EIP tests");
-    
-    // Add each EIP test individually
-    for (eip_test_files) |test_file| {
-        const file_name_start = std.mem.lastIndexOf(u8, test_file, "/") orelse 0;
-        const file_name = test_file[(file_name_start + 1)..];
-        // Extract the base name for use as the test name
-        const base_name_end = std.mem.indexOf(u8, file_name, ".test.zig") orelse file_name.len;
-        const base_name = file_name[0..base_name_end];
-        
-        const eip_test = b.addTest(.{
-            .name = b.fmt("{s}-test", .{base_name}),
-            .root_source_file = b.path(test_file),
-            .target = target,
-            .optimize = optimize,
-        });
-        
-        // Add zigevm module to EIP test
-        eip_test.root_module.addImport("zigevm", zigevm_mod);
-        
-        const run_eip_test = b.addRunArtifact(eip_test);
-        eip_test_step.dependOn(&run_eip_test.step);
-    }
-
-    // Add a test for test_withdrawal.zig
-    const withdrawal_test = b.addTest(.{
-        .name = "withdrawal-test",
-        .root_source_file = b.path("src/Evm/test_withdrawal.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to withdrawal_test
-    withdrawal_test.root_module.addImport("zigevm", zigevm_mod);
-    
-    const run_withdrawal_test = b.addRunArtifact(withdrawal_test);
-    
-    // Add a separate step for testing Withdrawal
-    const withdrawal_test_step = b.step("test-withdrawal", "Run Withdrawal tests");
-    withdrawal_test_step.dependOn(&run_withdrawal_test.step);
-    
-    // Add test for Logger_test.zig
-    const logger_test = b.addTest(.{
-        .name = "logger-test",
-        .root_source_file = b.path("src/Server/middleware/Logger_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add httpz dependency to logger test
-    logger_test.root_module.addImport("httpz", httpz_dep.module("httpz"));
-
-    const run_logger_test = b.addRunArtifact(logger_test);
-    
-    // Add a separate step for testing Logger middleware
-    const logger_test_step = b.step("test-logger", "Run Logger middleware tests");
-    logger_test_step.dependOn(&run_logger_test.step);
-
-    // Add test for server_test.zig (if different from server.zig tests)
-    const server_specific_test = b.addTest(.{
-        .name = "server-specific-test",
-        .root_source_file = b.path("src/Server/server_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add the httpz dependency to the server specific test
-    server_specific_test.root_module.addImport("httpz", httpz_dep.module("httpz"));
-
-    const run_server_specific_test = b.addRunArtifact(server_specific_test);
-    
-    // Add a separate step for testing Server specific tests
-    const server_specific_test_step = b.step("test-server-specific", "Run Server specific tests");
-    server_specific_test_step.dependOn(&run_server_specific_test.step);
-
-    // Add a test for signature_test.zig
-    const signature_test = b.addTest(.{
-        .name = "signature-test",
-        .root_source_file = b.path("src/Signature/signature_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to signature_test
-    signature_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_signature_test = b.addRunArtifact(signature_test);
-    
-    // Add a separate step for testing Signature
-    const signature_test_step = b.step("test-signature", "Run Signature tests");
-    signature_test_step.dependOn(&run_signature_test.step);
-
-    // Add a test for test.zig in Test module
-    const test_module_test = b.addTest(.{
-        .name = "test-module-test",
-        .root_source_file = b.path("src/Test/test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to test_module_test
-    test_module_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_test_module_test = b.addRunArtifact(test_module_test);
-    
-    // Add a separate step for testing Test module
-    const test_module_test_step = b.step("test-module", "Run Test module tests");
-    test_module_test_step.dependOn(&run_test_module_test.step);
-
-    // Add a test for token_test.zig
-    const token_specific_test = b.addTest(.{
-        .name = "token-test",
-        .root_source_file = b.path("src/Token/token_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to token_specific_test
-    token_specific_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_token_specific_test = b.addRunArtifact(token_specific_test);
-    
-    // Add a separate step for testing Token specific tests
-    const token_specific_test_step = b.step("test-token", "Run Token tests");
-    token_specific_test_step.dependOn(&run_token_specific_test.step);
-
-    // Add a test for known_roots_test.zig
-    const known_roots_test = b.addTest(.{
-        .name = "known-roots-test",
-        .root_source_file = b.path("src/Trie/known_roots_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to known_roots_test
-    known_roots_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_known_roots_test = b.addRunArtifact(known_roots_test);
-    
-    // Add a separate step for testing Known Roots
-    const known_roots_test_step = b.step("test-known-roots", "Run Known Roots tests");
-    known_roots_test_step.dependOn(&run_known_roots_test.step);
-
-    // Add a test for trie_test.zig
-    const trie_specific_test = b.addTest(.{
-        .name = "trie-specific-test",
-        .root_source_file = b.path("src/Trie/trie_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to trie_specific_test
-    trie_specific_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_trie_specific_test = b.addRunArtifact(trie_specific_test);
-    
-    // Add a separate step for testing Trie specific tests
-    const trie_specific_test_step = b.step("test-trie-specific", "Run Trie specific tests");
-    trie_specific_test_step.dependOn(&run_trie_specific_test.step);
-
-    // Add a test for utils_test.zig
-    const utils_test = b.addTest(.{
-        .name = "utils-test",
-        .root_source_file = b.path("src/Utils/utils_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to utils_test
-    utils_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_utils_test = b.addRunArtifact(utils_test);
-    
-    // Add a separate step for testing Utils
-    const utils_test_step = b.step("test-utils", "Run Utils tests");
-    utils_test_step.dependOn(&run_utils_test.step);
-    
-    // Add a test for WithdrawalProcessor.test.zig
-    // We no longer need a separate test_mod since all tests use the unified zigevm_mod
-    
-    // Create a standalone test for WithdrawalProcessor that uses direct file imports
-    const withdrawal_processor_test = b.addTest(.{
-        .name = "withdrawal-processor-test",
-        .root_source_file = b.path("src/Evm/WithdrawalProcessor.test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to withdrawal_processor_test
-    withdrawal_processor_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_withdrawal_processor_test = b.addRunArtifact(withdrawal_processor_test);
-    
-    // Add a separate step for testing WithdrawalProcessor
-    const withdrawal_processor_test_step = b.step("test-withdrawal-processor", "Run WithdrawalProcessor tests");
-    withdrawal_processor_test_step.dependOn(&run_withdrawal_processor_test.step);
-    
-    // Create a standalone test for Withdrawal.test.zig
-    const withdrawal_specific_test = b.addTest(.{
-        .name = "withdrawal-specific-test",
-        .root_source_file = b.path("src/Evm/Withdrawal.test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    
-    // Add zigevm module to withdrawal_specific_test
-    withdrawal_specific_test.root_module.addImport("zigevm", zigevm_mod);
-
-    const run_withdrawal_specific_test = b.addRunArtifact(withdrawal_specific_test);
-    
-    // Add a separate step for testing Withdrawal
-    const withdrawal_specific_test_step = b.step("test-withdrawal-specific", "Run Withdrawal specific tests");
-    withdrawal_specific_test_step.dependOn(&run_withdrawal_specific_test.step);
 
     // Define test step for all tests
     const test_step = b.step("test", "Run unit tests");
@@ -637,21 +485,6 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_interpreter_test.step);
     test_step.dependOn(&run_contract_test.step);
     test_step.dependOn(&run_evm_logger_test.step);
-    test_step.dependOn(opcodes_test_step);
-    test_step.dependOn(&run_precompile_test.step);
-    test_step.dependOn(&run_precompiled_test.step);
-    test_step.dependOn(&run_evm_test_helpers_test.step);
-    test_step.dependOn(eip_test_step);
-    test_step.dependOn(&run_logger_test.step);
-    test_step.dependOn(&run_server_specific_test.step);
-    test_step.dependOn(&run_signature_test.step);
-    test_step.dependOn(&run_test_module_test.step);
-    test_step.dependOn(&run_token_specific_test.step);
-    test_step.dependOn(&run_known_roots_test.step);
-    test_step.dependOn(&run_trie_specific_test.step);
-    test_step.dependOn(&run_utils_test.step);
-    test_step.dependOn(&run_withdrawal_processor_test.step);
-    test_step.dependOn(&run_withdrawal_specific_test.step);
 
     // Create a standalone test that doesn't rely on module imports
     const environment_test = b.addTest(.{
@@ -660,6 +493,10 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+
+    // Add package imports to environment_test
+    environment_test.root_module.addImport("evm", evm_pkg);
+    environment_test.root_module.addImport("utils", utils_pkg);
 
     const run_environment_test = b.addRunArtifact(environment_test);
 

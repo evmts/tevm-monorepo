@@ -30,7 +30,7 @@ pub const StructType = struct {
     allocator: std.mem.Allocator,
     
     /// Create a new struct type with the given fields
-    pub fn init(name: []const u8, fields: []StructField, allocator: std.mem.Allocator) !StructType {
+    pub fn init(_: []const u8, _: []StructField, _: std.mem.Allocator) !StructType {
         // Pseudocode:
         // 1. Validate field types
         // 2. Calculate offsets for each field
@@ -48,7 +48,7 @@ pub const StructType = struct {
     }
     
     /// Get the ABI encoding for this struct type
-    pub fn abiEncode(self: StructType, values: std.StringHashMap([]const u8), allocator: std.mem.Allocator) ![]u8 {
+    pub fn abiEncode(_: StructType, _: std.StringHashMap([]const u8), _: std.mem.Allocator) ![]u8 {
         // Pseudocode:
         // 1. Validate that all required fields are present
         // 2. Determine head and tail sizes
@@ -59,7 +59,7 @@ pub const StructType = struct {
     }
     
     /// Decode ABI-encoded data into struct fields
-    pub fn abiDecode(self: StructType, data: []const u8, allocator: std.mem.Allocator) !std.StringHashMap([]const u8) {
+    pub fn abiDecode(_: StructType, _: []const u8, _: std.mem.Allocator) !std.StringHashMap([]const u8) {
         // Pseudocode:
         // 1. Create a result map
         // 2. For each field in the struct:
@@ -71,7 +71,7 @@ pub const StructType = struct {
     }
     
     /// Get the Solidity signature for this struct type
-    pub fn signature(self: StructType, allocator: std.mem.Allocator) ![]u8 {
+    pub fn signature(_: StructType, _: std.mem.Allocator) ![]u8 {
         // Pseudocode:
         // 1. Build a string with the struct name
         // 2. Add opening parenthesis
@@ -92,7 +92,7 @@ pub const Struct = struct {
     allocator: std.mem.Allocator,
     
     /// Create a new struct instance
-    pub fn init(ty: StructType, allocator: std.mem.Allocator) !Struct {
+    pub fn init(_: StructType, _: std.mem.Allocator) !Struct {
         // Create a struct with empty values
         @compileError("Not implemented");
     }
@@ -107,7 +107,7 @@ pub const Struct = struct {
     }
     
     /// Set a field value
-    pub fn setField(self: *Struct, name: []const u8, value: []const u8) !void {
+    pub fn setField(_: *Struct, _: []const u8, _: []const u8) !void {
         // Pseudocode:
         // 1. Verify the field exists in the struct type
         // 2. Allocate memory for the value
@@ -117,7 +117,7 @@ pub const Struct = struct {
     }
     
     /// Get a field value
-    pub fn getField(self: Struct, name: []const u8) ![]const u8 {
+    pub fn getField(_: Struct, _: []const u8) ![]const u8 {
         // Pseudocode:
         // 1. Verify the field exists
         // 2. Return the value from the values map
@@ -125,14 +125,14 @@ pub const Struct = struct {
     }
     
     /// Encode the struct to ABI format
-    pub fn abiEncode(self: Struct, allocator: std.mem.Allocator) ![]u8 {
+    pub fn abiEncode(_: Struct, _: std.mem.Allocator) ![]u8 {
         // Pseudocode:
         // 1. Call the struct type's abiEncode method with our values
         @compileError("Not implemented");
     }
     
     /// Create a struct by decoding ABI data
-    pub fn abiDecode(ty: StructType, data: []const u8, allocator: std.mem.Allocator) !Struct {
+    pub fn abiDecode(_: StructType, _: []const u8, _: std.mem.Allocator) !Struct {
         // Pseudocode:
         // 1. Create a new struct instance
         // 2. Decode the data using the struct type

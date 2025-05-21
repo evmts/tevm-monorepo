@@ -1,18 +1,19 @@
 const std = @import("std");
 const Memory = @import("Memory.zig").Memory;
 const Stack = @import("Stack.zig").Stack;
-const @"u256" = @import("types.zig").@"u256";
+// Import u256 directly to avoid circular imports
+const @"u256" = @import("Stack.zig").@"u256";
 const Contract = @import("Contract.zig").Contract;
-const Address = @import("Address").Address;
-const EvmLogger = @import("EvmLogger.zig").EvmLogger;
-const createLogger = @import("EvmLogger.zig").createLogger;
+const Address = @import("address").Address;
+const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
+const createLogger = @import("TestEvmLogger.zig").createLogger;
 const logMemory = @import("EvmLogger.zig").logMemory;
 const logStack = @import("EvmLogger.zig").logStack;
 const logStackSlop = @import("EvmLogger.zig").logStackSlop;
 const logStep = @import("EvmLogger.zig").logStep;
-const logHexBytes = @import("EvmLogger.zig").logHexBytes;
-const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
-const hex = @import("Utils").hex;
+const logHexBytes = @import("TestEvmLogger.zig").logHexBytes;
+const createScopedLogger = @import("TestEvmLogger.zig").createScopedLogger;
+const hex = @import("utils").hex;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

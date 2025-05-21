@@ -1,5 +1,5 @@
 const std = @import("std");
-const evm_pkg = @import("../package.zig");
+const evm_pkg = @import("evm");
 const Interpreter = evm_pkg.Interpreter.Interpreter;
 const Frame = evm_pkg.Frame.Frame;
 const ExecutionError = evm_pkg.Frame.ExecutionError;

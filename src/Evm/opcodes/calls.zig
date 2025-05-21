@@ -3,6 +3,9 @@ const std = @import("std");
 // For testing, we'll use stubs and minimal imports
 const is_test = @import("builtin").is_test;
 
+// Import from package instead of relative path
+const evm = @import("evm");
+
 // Conditional imports to avoid import path errors during testing
 const Interpreter = if (is_test)
     struct {
@@ -18,7 +21,7 @@ const Interpreter = if (is_test)
         } = .{},
     }
 else
-    @import("../interpreter.zig").Interpreter;
+    evm.Interpreter;
 
 const Frame = if (is_test)
     struct {
@@ -71,7 +74,7 @@ const Frame = if (is_test)
         }
     }
 else
-    @import("../Frame.zig").Frame;
+    evm.Frame;
 
 const ExecutionError = if (is_test)
     error{
@@ -84,7 +87,7 @@ const ExecutionError = if (is_test)
         INVALID,
     }
 else
-    @import("../Frame.zig").ExecutionError;
+    evm.ExecutionError;
 
 const Stack = if (is_test)
     struct {
@@ -111,7 +114,7 @@ const Stack = if (is_test)
         }
     }
 else
-    @import("../Stack.zig").Stack;
+    evm.Stack;
 
 const Memory = if (is_test)
     struct {
@@ -153,7 +156,7 @@ const Memory = if (is_test)
         }
     }
 else
-    @import("../Memory.zig").Memory;
+    evm.Memory;
 
 const JumpTableModule = if (is_test)
     struct {
@@ -183,7 +186,7 @@ const JumpTableModule = if (is_test)
         }
     }
 else
-    @import("../JumpTable.zig");
+    evm.JumpTable;
 
 const JumpTable = if (is_test)
     struct {
@@ -213,7 +216,7 @@ else
 const Address = if (is_test)
     [20]u8
 else
-    @import("Address").Address;
+    @import("address").Address;
 
 // We only need minimal stubs for these in test mode
 const precompile = if (is_test)
@@ -237,7 +240,7 @@ const precompile = if (is_test)
         }
     }
 else
-    @import("../precompile/package.zig");
+    evm.precompile;
 
 const keccak256 = if (is_test)
     struct {
@@ -246,7 +249,7 @@ const keccak256 = if (is_test)
         }
     }.keccak256
 else
-    @import("Utils").keccak256.keccak256;
+    @import("utils").keccak256.keccak256;
 
 const EvmLogger = if (is_test)
     struct {
@@ -277,7 +280,7 @@ const EvmLogger = if (is_test)
         }
     }
 else
-    @import("../EvmLogger.zig").EvmLogger;
+    evm.EvmLogger;
 
 const createLogger = if (is_test)
     struct {
@@ -286,7 +289,7 @@ const createLogger = if (is_test)
         }
     }.createLogger
 else
-    @import("../EvmLogger.zig").createLogger;
+    evm.createLogger;
 
 // Create a file-specific logger
 const file_logger = createLogger("calls.zig");

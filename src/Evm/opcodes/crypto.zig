@@ -1,20 +1,20 @@
 const std = @import("std");
 
-// Try using package_test if available, otherwise use EvmModule
+// Use package imports instead of relative imports
+const evm = @import("evm");
+
+// Try using package_test if available, otherwise use evm module
 const package_test = @cImport({
     @cDefine("PACKAGE_TEST_AVAILABLE", "1");
     _ = @import("package_test.zig");
 });
 
-// Include the EvmModule import with relative path for when package_test is not available
-const EvmModule = @import("../evm.zig");
-
 // Use the appropriate types based on what's available
-const Frame = if (@hasDecl(package_test, "Frame")) package_test.Frame else EvmModule.Frame;
-const ExecutionError = if (@hasDecl(package_test, "ExecutionError")) package_test.ExecutionError else EvmModule.InterpreterError;
-const Interpreter = if (@hasDecl(package_test, "Interpreter")) package_test.Interpreter else EvmModule.Interpreter;
-const JumpTable = if (@hasDecl(package_test, "JumpTable")) package_test.JumpTable else EvmModule.JumpTable;
-const Stack = if (@hasDecl(package_test, "Stack")) package_test.Stack else EvmModule.Stack;
+const Frame = if (@hasDecl(package_test, "Frame")) package_test.Frame else evm.Frame;
+const ExecutionError = if (@hasDecl(package_test, "ExecutionError")) package_test.ExecutionError else evm.ExecutionError;
+const Interpreter = if (@hasDecl(package_test, "Interpreter")) package_test.Interpreter else evm.Interpreter;
+const JumpTable = if (@hasDecl(package_test, "JumpTable")) package_test.JumpTable else evm.JumpTable;
+const Stack = if (@hasDecl(package_test, "Stack")) package_test.Stack else evm.Stack;
 
 /// KECCAK256 operation - computes Keccak-256 hash of a region of memory
 pub fn opKeccak256(pc: usize, _: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

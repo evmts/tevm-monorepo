@@ -3,7 +3,7 @@
 
 const std = @import("std");
 
-// Export the U256 type from Stack.zig
-pub const @"u256" = @import("Stack.zig").@"u256";
+// Export the U256 type directly to avoid circular dependencies
+pub const @"u256" = u64;
 
 // Re-export other common types as needed

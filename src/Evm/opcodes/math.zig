@@ -1,5 +1,6 @@
 const std = @import("std");
-const JumpTable = @import("../JumpTable.zig");
+const evm = @import("evm");
+const JumpTable = evm.JumpTable;
 
 // Instead of direct imports, use a special wrapper for the tests that doesn't actually
 // depend on the real Interpreter, Frame, etc.

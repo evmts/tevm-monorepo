@@ -1,16 +1,18 @@
 const std = @import("std");
-const FeeMarket = @import("FeeMarket.zig").FeeMarket;
-const ChainRules = @import("evm.zig").ChainRules;
-const Hardfork = @import("evm.zig").Hardfork;
-const block = @import("opcodes/block.zig");
-const Interpreter = @import("interpreter.zig").Interpreter;
-const Frame = @import("Frame.zig").Frame;
-const Contract = @import("Contract.zig").Contract;
-const Stack = @import("Stack.zig").Stack;
-const Memory = @import("Memory.zig").Memory;
-const JumpTable = @import("JumpTable.zig");
-const Evm = @import("evm.zig").Evm;
-const Address = @import("../Address/address.zig").Address;
+const evm = @import("evm");
+const FeeMarket = evm.FeeMarket;
+const ChainRules = evm.ChainRules;
+const Hardfork = evm.Hardfork;
+const block = @import("opcodes/block.zig"); // Keeping this direct import for opcodes
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const Contract = evm.Contract;
+const Stack = evm.Stack;
+const Memory = evm.Memory;
+const JumpTable = evm.JumpTable;
+const Evm = evm.Evm;
+const address = @import("address");
+const Address = address.Address;
 
 test "EIP-1559 - BASEFEE opcode behavior" {
     // Test to verify that the BASEFEE opcode correctly works with EIP-1559

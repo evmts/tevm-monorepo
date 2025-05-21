@@ -1,7 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 const builtin = @import("builtin");
-const Withdrawal = @import("Withdrawal.zig");
+const evm = @import("evm");
+const Withdrawal = evm.Withdrawal;
 const WithdrawalData = Withdrawal.WithdrawalData;
 const processWithdrawals = Withdrawal.processWithdrawals;
 

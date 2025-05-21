@@ -1,19 +1,21 @@
 const std = @import("std");
 const testing = std.testing;
-const EvmLogger = @import("EvmLogger.zig").EvmLogger;
-const @"u256" = @import("types.zig").@"u256";
-const createLogger = @import("EvmLogger.zig").createLogger;
-const logStack = @import("EvmLogger.zig").logStack;
-const logStackSlop = @import("EvmLogger.zig").logStackSlop;
-const logMemory = @import("EvmLogger.zig").logMemory;
-const logOpcode = @import("EvmLogger.zig").logOpcode;
-const logOpcodeDetailed = @import("EvmLogger.zig").logOpcodeDetailed;
-const logStorage = @import("EvmLogger.zig").logStorage;
-const logStorageKV = @import("EvmLogger.zig").logStorageKV;
-const logStep = @import("EvmLogger.zig").logStep;
-const logHexBytes = @import("EvmLogger.zig").logHexBytes;
-const createScopedLogger = @import("EvmLogger.zig").createScopedLogger;
-const ENABLE_DEBUG_LOGS = @import("EvmLogger.zig").ENABLE_DEBUG_LOGS;
+const evm = @import("evm");
+const loggerModule = evm.logger;
+const EvmLogger = loggerModule.EvmLogger;
+const @"u256" = evm.types.@"u256"; // Use types from evm module instead of direct import
+const createLogger = loggerModule.createLogger;
+const logStack = loggerModule.logStack;
+const logStackSlop = loggerModule.logStackSlop;
+const logMemory = loggerModule.logMemory;
+const logOpcode = loggerModule.logOpcode;
+const logOpcodeDetailed = loggerModule.logOpcodeDetailed;
+const logStorage = loggerModule.logStorage;
+const logStorageKV = loggerModule.logStorageKV;
+const logStep = loggerModule.logStep;
+const logHexBytes = loggerModule.logHexBytes;
+const createScopedLogger = loggerModule.createScopedLogger;
+const ENABLE_DEBUG_LOGS = loggerModule.ENABLE_DEBUG_LOGS;
 
 test "EvmLogger basic functionality" {
     // Create a logger

@@ -1,40 +1,12 @@
 const std = @import("std");
-pub const Frame = @import("Frame.zig").Frame;
-pub const Contract = @import("Contract.zig").Contract;
-pub const createContract = @import("Contract.zig").createContract;
-pub const Interpreter = @import("interpreter.zig").Interpreter;
-pub const InterpreterError = @import("interpreter.zig").InterpreterError;
-pub const InterpreterState = @import("InterpreterState.zig").InterpreterState;
-pub const JumpTable = @import("JumpTable.zig");
-pub const opcodes = @import("opcodes.zig");
-pub const Memory = @import("Memory.zig");
-pub const Stack = @import("Stack.zig");
-pub const types = @import("types.zig");
-// Import StateManager stub for tests
-const StateManager = @import("test_stubs.zig").StateManager;
-pub const EvmLogger = @import("TestEvmLogger.zig").EvmLogger;
-pub const createLogger = @import("TestEvmLogger.zig").createLogger;
-pub const createScopedLogger = @import("TestEvmLogger.zig").createScopedLogger;
-pub const debugOnly = @import("TestEvmLogger.zig").debugOnly;
-pub const logHexBytes = @import("TestEvmLogger.zig").logHexBytes;
-pub const ENABLE_DEBUG_LOGS = @import("TestEvmLogger.zig").ENABLE_DEBUG_LOGS;
-pub const B256 = StateManager.B256;
-
-pub const WithdrawalData = @import("Withdrawal.zig").WithdrawalData;
-pub const processWithdrawals = @import("Withdrawal.zig").processWithdrawals;
-pub const WithdrawalProcessor = @import("WithdrawalProcessor.zig").BlockWithdrawalProcessor;
-pub const WithdrawalBlock = @import("WithdrawalProcessor.zig").Block;
-
-// Export the precompile module directly
-pub const precompile = struct {
-    pub usingnamespace @import("precompile/Precompiles.zig");
-    pub const bls = @import("precompile/bls12_381.zig");
-    pub const common_utils = @import("precompile/common.zig");
-    pub const crypto_utils = @import("precompile/crypto.zig");
-    pub const kzg_functions = @import("precompile/kzg.zig");
-    pub const math_utils = @import("precompile/math.zig");
-    pub const config_params = @import("precompile/params.zig");
-};
+// Use internal imports to avoid circular dependencies
+const test_stubs = @import("test_stubs.zig");
+const StateManager = test_stubs.StateManager;
+const test_logger = @import("TestEvmLogger.zig");
+const EvmLogger = test_logger.EvmLogger;
+const createLogger = test_logger.createLogger;
+const createScopedLogger = test_logger.createScopedLogger;
+const debugOnly = test_logger.debugOnly;
 
 // We'll initialize the logger inside a function
 var _logger: ?EvmLogger = null;

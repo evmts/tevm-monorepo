@@ -1,22 +1,34 @@
 const std = @import("std");
+
+// Instead of relative imports, use package imports
+const evm = @import("evm");
+
+// Import internal modules in a way that avoids circular dependencies
 const opcodes = @import("opcodes.zig");
-const Stack = @import("Stack.zig").Stack;
-const Memory = @import("Memory.zig").Memory;
-const Contract = @import("Contract.zig").Contract;
-const Frame = @import("Frame.zig").Frame;
-const ExecutionError = @import("Frame.zig").ExecutionError;
-const Evm = @import("Evm.zig");
-const JumpTableModule = @import("JumpTable.zig");
-const EvmLogger = @import("EvmLogger.zig").EvmLogger;
-const createLogger = @import("EvmLogger.zig").createLogger;
-const logStack = @import("EvmLogger.zig").logStack;
-const logMemory = @import("EvmLogger.zig").logMemory;
-const logOpcode = @import("EvmLogger.zig").logOpcode;
-const Address = @import("../Address/package.zig");
+const logger_module = @import("EvmLogger.zig");
+
+// Import from evm package
+const Stack = evm.Stack;
+const Memory = evm.Memory;
+const Contract = evm.Contract;
+const Frame = evm.Frame;
+const ExecutionError = evm.ExecutionError;
+const Evm = evm.Evm;
+// Import JumpTable through the evm package to avoid circular references
+
+// Import from logger module
+const EvmLogger = logger_module.EvmLogger;
+const createLogger = logger_module.createLogger;
+const logStack = logger_module.logStack;
+const logMemory = logger_module.logMemory;
+const logOpcode = logger_module.logOpcode;
+
+// Import external packages
+const address = @import("address");
 
 // Import specific items from opcodes for convenience
 const Operation = opcodes.Operation;
-const JumpTable = JumpTableModule.JumpTable;
+const JumpTable = evm.JumpTable;
 const getOperation = opcodes.getOperation;
 
 // Import precompiles system
@@ -123,10 +135,10 @@ pub const Interpreter = struct {
     /// - table: Jump table containing opcode implementations
     ///
     /// Returns: A new Interpreter instance
-    pub fn create(allocator: std.mem.Allocator, evm: *Evm, table: JumpTable) Interpreter {
+    pub fn create(allocator: std.mem.Allocator, evm_instance: *Evm, table: JumpTable) Interpreter {
         getLogger().debug("Creating new Interpreter instance", .{});
         return Interpreter{
-            .evm = evm,
+            .evm = evm_instance,
             .table = table,
             .allocator = allocator,
             .logger = getLogger(),
@@ -145,7 +157,7 @@ pub const Interpreter = struct {
     ///
     /// Returns: A new Interpreter instance
     /// Error: Returned if initialization fails
-    pub fn init(allocator: std.mem.Allocator, evm: *Evm) !Interpreter {
+    pub fn init(allocator: std.mem.Allocator, evm_instance: *Evm) !Interpreter {
         getLogger().debug("Initializing new Interpreter instance", .{});
 
         // Create a new jump table with default opcode implementations
@@ -155,7 +167,7 @@ pub const Interpreter = struct {
         try opcodes.registerOpcodes(allocator, &jump_table);
 
         return Interpreter{
-            .evm = evm,
+            .evm = evm_instance,
             .table = jump_table,
             .allocator = allocator,
             .logger = getLogger(),
@@ -212,7 +224,7 @@ pub const Interpreter = struct {
             // Note: In a real implementation, we would get the actual COINBASE address
             // and mark that specific address as warm. For now, we're using a dummy
             // zero address since that's what our opCoinbase implementation uses.
-            const coinbase_addr = Address.ZERO_ADDRESS;
+            const coinbase_addr = address.ZERO_ADDRESS;
 
             // Get account access list from state manager
             if (self.evm.state_manager) |_| {

@@ -51,7 +51,7 @@ pub const DynamicValue = union(enum) {
     Struct: std.StringHashMap(DynamicValue),
     
     /// Free allocated memory
-    pub fn deinit(self: *DynamicValue, allocator: std.mem.Allocator) void {
+    pub fn deinit(_: *DynamicValue, _: std.mem.Allocator) void {
         // Pseudocode:
         // 1. Switch on value type
         // 2. Free allocated memory depending on type
@@ -60,7 +60,7 @@ pub const DynamicValue = union(enum) {
     }
     
     /// Clone this value
-    pub fn clone(self: DynamicValue, allocator: std.mem.Allocator) !DynamicValue {
+    pub fn clone(_: DynamicValue, _: std.mem.Allocator) !DynamicValue {
         // Pseudocode:
         // 1. Switch on value type
         // 2. Deep copy the value
@@ -101,7 +101,7 @@ pub const DynamicType = union(enum) {
     UserDefined: *udt.UserDefinedType,
     
     /// Parse a Solidity type string into a DynamicType
-    pub fn fromString(type_str: []const u8, allocator: std.mem.Allocator) !DynamicType {
+    pub fn fromString(_: []const u8, _: std.mem.Allocator) !DynamicType {
         // Pseudocode:
         // 1. Parse the type string
         // 2. Handle basic types directly
@@ -111,7 +111,7 @@ pub const DynamicType = union(enum) {
     }
     
     /// Free allocated memory
-    pub fn deinit(self: *DynamicType, allocator: std.mem.Allocator) void {
+    pub fn deinit(_: *DynamicType, _: std.mem.Allocator) void {
         // Pseudocode:
         // 1. Switch on type
         // 2. Free allocated memory depending on type
@@ -120,7 +120,7 @@ pub const DynamicType = union(enum) {
     }
     
     /// Convert to string representation
-    pub fn toString(self: DynamicType, allocator: std.mem.Allocator) ![]u8 {
+    pub fn toString(_: DynamicType, _: std.mem.Allocator) ![]u8 {
         // Pseudocode:
         // 1. Switch on type
         // 2. Format basic types directly
@@ -130,7 +130,7 @@ pub const DynamicType = union(enum) {
     }
     
     /// Check if a value is compatible with this type
-    pub fn isCompatible(self: DynamicType, value: DynamicValue) bool {
+    pub fn isCompatible(_: DynamicType, _: DynamicValue) bool {
         // Pseudocode:
         // 1. Switch on type
         // 2. Check if value matches type
@@ -140,7 +140,7 @@ pub const DynamicType = union(enum) {
     }
     
     /// Create an empty value of this type
-    pub fn createEmpty(self: DynamicType, allocator: std.mem.Allocator) !DynamicValue {
+    pub fn createEmpty(_: DynamicType, _: std.mem.Allocator) !DynamicValue {
         // Pseudocode:
         // 1. Switch on type
         // 2. Create an appropriate empty value for each type
@@ -193,7 +193,7 @@ pub const DynamicToken = union(enum) {
     },
     
     /// Create an empty token of the given type
-    pub fn createEmpty(ty: DynamicType, allocator: std.mem.Allocator) !DynamicToken {
+    pub fn createEmpty(_: DynamicType, _: std.mem.Allocator) !DynamicToken {
         // Pseudocode:
         // 1. Switch on type
         // 2. Create appropriate empty token
@@ -203,7 +203,7 @@ pub const DynamicToken = union(enum) {
     }
     
     /// Free allocated memory
-    pub fn deinit(self: *DynamicToken, allocator: std.mem.Allocator) void {
+    pub fn deinit(_: *DynamicToken, _: std.mem.Allocator) void {
         // Pseudocode:
         // 1. Switch on token type
         // 2. Free allocated memory
@@ -212,7 +212,7 @@ pub const DynamicToken = union(enum) {
     }
     
     /// Encode this token to ABI format
-    pub fn abiEncode(self: DynamicToken, allocator: std.mem.Allocator) ![]u8 {
+    pub fn abiEncode(_: DynamicToken, _: std.mem.Allocator) ![]u8 {
         // Pseudocode:
         // 1. Switch on token type
         // 2. Encode each type according to ABI rules
@@ -222,7 +222,7 @@ pub const DynamicToken = union(enum) {
     }
     
     /// Decode ABI data into a token
-    pub fn abiDecode(ty: DynamicType, data: []const u8, allocator: std.mem.Allocator) !DynamicToken {
+    pub fn abiDecode(_: DynamicType, _: []const u8, _: std.mem.Allocator) !DynamicToken {
         // Pseudocode:
         // 1. Create an empty token of the given type
         // 2. Decode data into token recursively
@@ -231,7 +231,7 @@ pub const DynamicToken = union(enum) {
     }
     
     /// Convert a token to a value
-    pub fn toValue(self: DynamicToken, ty: DynamicType, allocator: std.mem.Allocator) !DynamicValue {
+    pub fn toValue(_: DynamicToken, _: DynamicType, _: std.mem.Allocator) !DynamicValue {
         // Pseudocode:
         // 1. Switch on token type
         // 2. Convert token to appropriate value type
@@ -241,7 +241,7 @@ pub const DynamicToken = union(enum) {
     }
     
     /// Create a token from a value
-    pub fn fromValue(value: DynamicValue, ty: DynamicType, allocator: std.mem.Allocator) !DynamicToken {
+    pub fn fromValue(_: DynamicValue, _: DynamicType, _: std.mem.Allocator) !DynamicToken {
         // Pseudocode:
         // 1. Verify value is compatible with type
         // 2. Convert value to appropriate token type
@@ -252,7 +252,7 @@ pub const DynamicToken = union(enum) {
 };
 
 /// Encode a value with a given type to ABI format
-pub fn encodeDynamic(ty: DynamicType, value: DynamicValue, allocator: std.mem.Allocator) ![]u8 {
+pub fn encodeDynamic(_: DynamicType, _: DynamicValue, _: std.mem.Allocator) ![]u8 {
     // Pseudocode:
     // 1. Convert value to token using DynamicToken.fromValue
     // 2. Encode the token using token.abiEncode
@@ -261,7 +261,7 @@ pub fn encodeDynamic(ty: DynamicType, value: DynamicValue, allocator: std.mem.Al
 }
 
 /// Decode ABI data with a given type to a value
-pub fn decodeDynamic(ty: DynamicType, data: []const u8, allocator: std.mem.Allocator) !DynamicValue {
+pub fn decodeDynamic(_: DynamicType, _: []const u8, _: std.mem.Allocator) !DynamicValue {
     // Pseudocode:
     // 1. Decode the data to a token using DynamicToken.abiDecode
     // 2. Convert the token to a value using token.toValue

@@ -1,5 +1,5 @@
 const std = @import("std");
-const abi_pkg = @import("package.zig");
+const abi_pkg = @import("abi");
 const abi = abi_pkg;
 const decode_abi_parameters = abi_pkg.decode_abi_parameters;
 const encode_abi_parameters = abi_pkg.encode_abi_parameters;
@@ -11,8 +11,8 @@ const function_result = abi_pkg.function_result;
 const event_handling = abi_pkg.event_handling;
 const parse_abi_item = abi_pkg.parse_abi_item;
 
-// Disabled due to failing tests
-test "ABI basic round trip encoding/decoding DISABLED" {
+// TODO: Fix this test - temporarily commenting out due to failures
+test "ABI basic round trip encoding/decoding disabled" {
     const testing = std.testing;
     var arena = std.heap.ArenaAllocator.init(testing.allocator);
     defer arena.deinit();
@@ -96,7 +96,7 @@ test "ABI basic round trip encoding/decoding DISABLED" {
         try args.put("to", &to_address);
         
         // Amount: 1000000000000000000 (1 ETH)
-        const amount = [_]u8{0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa}; // Match actual value 
+        const amount = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00};
         try args.put("amount", &amount);
         
         // Encode function call data
@@ -245,7 +245,7 @@ test "ABI basic round trip encoding/decoding DISABLED" {
         log.topics = try topics_list.toOwnedSlice();
         
         // Add value data for the non-indexed parameter
-        const value = [_]u8{0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa}; // Updated value
+        const value = [_]u8{0x0d, 0xe0, 0xb6, 0xb3, 0xa7, 0x64, 0x00, 0x00}; // 1 ETH
         var value_data = [_]u8{0} ** 32;
         @memcpy(value_data[32 - value.len..], &value);
         log.data = &value_data;
@@ -277,10 +277,10 @@ test "ABI basic round trip encoding/decoding DISABLED" {
             .Function => |func| {
                 try testing.expectEqualStrings("transfer", func.name);
                 try testing.expectEqual(@as(usize, 2), func.inputs.len);
-                try testing.expectEqualStrings("address to", func.inputs[0].ty); // This matches actual test behavior
-                try testing.expectEqualStrings("", func.inputs[0].name);
-                try testing.expectEqualStrings("uint256 amount", func.inputs[1].ty); // This matches actual test behavior
-                try testing.expectEqualStrings("", func.inputs[1].name);
+                try testing.expectEqualStrings("address", func.inputs[0].ty);
+                try testing.expectEqualStrings("to", func.inputs[0].name);
+                try testing.expectEqualStrings("uint256", func.inputs[1].ty);
+                try testing.expectEqualStrings("amount", func.inputs[1].name);
                 try testing.expectEqual(@as(usize, 1), func.outputs.len);
                 try testing.expectEqualStrings("bool", func.outputs[0].ty);
             },
@@ -496,8 +496,8 @@ test "ABI complex types and edge cases" {
     }
 }
 
-// Disabled due to failing tests
-test "ABI bytecode and value conversions DISABLED" {
+// TODO: Fix this test - temporarily commenting out due to failures
+test "ABI bytecode and value conversions disabled" {
     const testing = std.testing;
     
     // Test keccak256
@@ -505,12 +505,12 @@ test "ABI bytecode and value conversions DISABLED" {
         const input = "Hello, world!";
         const hash = abi.keccak256(input);
         
-        // Updated expected value to match actual hash
+        // Expected: 0xacaf3289d7b601cbd114fb36c4d29c85bbfd5e133f14cb355c3fd8d99367964f
         const expected = [_]u8{
-            0xB6, 0xE1, 0x6D, 0x27, 0xAC, 0x5A, 0xB4, 0x27,
-            0xA7, 0xF6, 0x89, 0x00, 0xAC, 0x55, 0x59, 0xCE,
-            0x27, 0x2D, 0xC6, 0xC3, 0x7C, 0x82, 0xB3, 0xE0,
-            0x52, 0x24, 0x6C, 0x82, 0x24, 0x4C, 0x50, 0xE4,
+            0xac, 0xaf, 0x32, 0x89, 0xd7, 0xb6, 0x01, 0xcb,
+            0xd1, 0x14, 0xfb, 0x36, 0xc4, 0xd2, 0x9c, 0x85,
+            0xbb, 0xfd, 0x5e, 0x13, 0x3f, 0x14, 0xcb, 0x35,
+            0x5c, 0x3f, 0xd8, 0xd9, 0x93, 0x67, 0x96, 0x4f,
         };
         try testing.expectEqualSlices(u8, &expected, &hash);
     }

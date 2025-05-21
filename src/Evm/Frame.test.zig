@@ -1,14 +1,14 @@
 const std = @import("std");
 const testing = std.testing;
 
-const EvmModule = @import("evm.zig");
-const Frame = EvmModule.Frame;
-const ExecutionError = EvmModule.InterpreterError;
-const Contract = EvmModule.Contract;
+const evm = @import("evm");
+const Frame = evm.Frame;
+const ExecutionError = evm.InterpreterError;
+const Contract = evm.Contract;
 const u256_native = u256;
 
-const AddressModule = @import("../Address/address.zig");
-const Address = AddressModule.Address;
+const address = @import("address");
+const Address = address.Address;
 
 // Helper function to convert hex string to Address
 fn hexToAddress(allocator: std.mem.Allocator, comptime hex_str: []const u8) !Address {

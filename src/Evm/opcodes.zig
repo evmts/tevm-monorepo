@@ -1,10 +1,12 @@
 const std = @import("std");
 
-// These are now direct imports of sibling files within the Evm module context
-const Interpreter = @import("interpreter.zig").Interpreter;
+// Use relative imports to avoid circular dependencies
+const interpreterModule = @import("interpreter.zig");
+const Interpreter = interpreterModule.Interpreter;
 const InterpreterState = @import("InterpreterState.zig").InterpreterState;
 pub const Stack = @import("Stack.zig").Stack;
-pub const JumpTable = @import("JumpTable.zig"); // This is the module itself
+// Don't import JumpTable directly to avoid circular dependencies
+// The JumpTable types are defined in the package.zig file
 
 /// MemorySize represents memory expansion requirements for EVM operations
 ///

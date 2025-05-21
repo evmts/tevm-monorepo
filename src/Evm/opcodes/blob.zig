@@ -1,10 +1,11 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
+const evm = @import("evm");
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.ExecutionError;
+const JumpTable = evm.JumpTable;
+const Stack = evm.Stack;
+const Memory = evm.Memory;
 
 // Use the u256 type from Stack.zig
 const BigInt = Stack.@"u256";

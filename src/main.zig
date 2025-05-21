@@ -1,5 +1,5 @@
 const std = @import("std");
-const zigevm = @import("root.zig");
+const zigevm = @import("zigevm");
 
 const stdout = std.io.getStdOut().writer();
 const stderr = std.io.getStdErr().writer();

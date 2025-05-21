@@ -1,16 +1,17 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
-const StateManager = @import("StateManager").StateManager;
+const evm = @import("evm");
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.ExecutionError;
+const JumpTable = evm.JumpTable;
+const StateManager = @import("state_manager").StateManager;
 const B256 = @import("../../Types/B256.ts");
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
-const EvmLogger = @import("../EvmLogger.zig").EvmLogger;
-const createLogger = @import("../EvmLogger.zig").createLogger;
-const createScopedLogger = @import("../EvmLogger.zig").createScopedLogger;
-const debugOnly = @import("../EvmLogger.zig").debugOnly;
+const Stack = evm.Stack;
+const Memory = evm.Memory;
+const EvmLogger = evm.EvmLogger;
+const createLogger = evm.createLogger;
+const createScopedLogger = evm.createScopedLogger;
+const debugOnly = evm.debugOnly;
 
 // Module-level logger initialization
 var _logger: ?EvmLogger = null;
@@ -41,10 +42,10 @@ pub fn opSload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     getLogger().debug("SLOAD key: 0x{x}", .{key});
     
     // Get EVM from interpreter
-    const evm = interpreter.evm;
+    const evm_instance = interpreter.evm;
     
     // Get state manager from EVM
-    const state_manager = evm.getStateManager() orelse {
+    const state_manager = evm_instance.getStateManager() orelse {
         getLogger().err("State manager not available in SLOAD", .{});
         return ExecutionError.StaticStateChange;
     };
@@ -121,10 +122,10 @@ pub fn opSstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("SSTORE key: 0x{x}, value: 0x{x}", .{key, value});
     
     // Get EVM
-    const evm = interpreter.evm;
+    const evm_instance = interpreter.evm;
     
     // Get state manager
-    const state_manager = evm.getStateManager() orelse {
+    const state_manager = evm_instance.getStateManager() orelse {
         getLogger().err("State manager not available in SSTORE", .{});
         return ExecutionError.StaticStateChange;
     };
@@ -260,10 +261,10 @@ pub fn opTload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionErr
     getLogger().debug("TLOAD key: 0x{x}", .{key});
     
     // Get EVM
-    const evm = interpreter.evm;
+    const evm_instance = interpreter.evm;
     
     // Get state manager
-    const state_manager = evm.getStateManager() orelse {
+    const state_manager = evm_instance.getStateManager() orelse {
         getLogger().err("State manager not available in TLOAD", .{});
         return ExecutionError.StaticStateChange;
     };
@@ -331,10 +332,10 @@ pub fn opTstore(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionEr
     getLogger().debug("TSTORE key: 0x{x}, value: 0x{x}", .{key, value});
     
     // Get EVM
-    const evm = interpreter.evm;
+    const evm_instance = interpreter.evm;
     
     // Get state manager
-    const state_manager = evm.getStateManager() orelse {
+    const state_manager = evm_instance.getStateManager() orelse {
         getLogger().err("State manager not available in TSTORE", .{});
         return ExecutionError.StaticStateChange;
     };

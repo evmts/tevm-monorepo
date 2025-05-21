@@ -1,13 +1,11 @@
 const std = @import("std");
-const JumpTable = @import("../JumpTable.zig");
-
-// Import the interpreter module directly to get the correct types
-const interpreter_mod = @import("../interpreter.zig");
-const Interpreter = interpreter_mod.Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const Stack = @import("../Stack.zig").Stack;
-const Memory = @import("../Memory.zig").Memory;
+const evm = @import("evm");
+const JumpTable = evm.JumpTable;
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.ExecutionError;
+const Stack = evm.Stack;
+const Memory = evm.Memory;
 
 // For tests we'll use these types
 const test_utils = @import("test_utils.zig");

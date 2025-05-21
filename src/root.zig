@@ -1,18 +1,19 @@
 const std = @import("std");
 
-// Import all components directly using relative imports
-pub const evm = @import("Evm/evm.zig");
-pub const utils = @import("Utils/utils.zig");
-pub const address = @import("Address/address.zig");
-pub const abi = @import("Abi/abi.zig");
-pub const block = @import("Block/block.zig");
-pub const bytecode = @import("Bytecode/bytecode.zig");
-pub const compiler = @import("Compiler/compiler.zig");
-pub const rlp = @import("Rlp/rlp.zig");
-pub const token = @import("Token/token.zig");
-pub const trie = @import("Trie/trie.zig");
-pub const state_manager = @import("StateManager/StateManager.zig");
-pub const test_utils = @import("Test/test.zig");
+// Import all components using packages
+// These modules are provided by the build system via addImport
+pub const evm = @import("evm");
+pub const utils = @import("utils");
+pub const address = @import("address");
+pub const abi = @import("abi");
+pub const block = @import("block");
+pub const bytecode = @import("bytecode");
+pub const compiler = @import("compiler");
+pub const rlp = @import("rlp");
+pub const token = @import("token");
+pub const trie = @import("trie");
+pub const state_manager = @import("state_manager");
+pub const test_utils = @import("test_utils");
 
 pub const EvmState = extern struct {
     pc: u32 = 0,

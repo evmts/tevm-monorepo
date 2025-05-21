@@ -1,10 +1,14 @@
 const std = @import("std");
-const opcodes = @import("opcodes.zig");
-const Interpreter = @import("interpreter.zig").Interpreter;
-const Frame = @import("Frame.zig").Frame;
-const ExecutionError = @import("Frame.zig").ExecutionError;
-const Stack = @import("Stack.zig").Stack;
-const Memory = @import("Memory.zig").Memory;
+// Import from evm module to avoid circular dependencies
+const evm = @import("evm");
+const opcodes = evm.opcodes;
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.InterpreterError;
+const Stack = evm.Stack;
+const Memory = evm.Memory;
+
+// Import opcode implementations directly
 const math = @import("opcodes/math.zig");
 const math2 = @import("opcodes/math2.zig");
 const comparison = @import("opcodes/comparison.zig");
@@ -524,7 +528,8 @@ pub fn newJumpTable(allocator: std.mem.Allocator, hardfork: []const u8) !JumpTab
 /// UNDEFINED is the default operation for any opcode not defined in a hardfork
 /// Executing an undefined opcode will result in InvalidOpcode error
 pub const UNDEFINED = Operation{
-    .execute = opcodes.opUndefined,
+    // Use a dummy function for now, will be replaced later
+    .execute = undefined_op_placeholder,
     .constant_gas = 0,
     .dynamic_gas = null,
     .min_stack = minStack(0, 0),
@@ -532,6 +537,13 @@ pub const UNDEFINED = Operation{
     .memory_size = null,
     .undefined = true,
 };
+
+fn undefined_op_placeholder(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    _ = frame;
+    return error.InvalidOpcode;
+}
 
 /// Initialize a jump table for Ethereum mainnet with latest rules
 ///

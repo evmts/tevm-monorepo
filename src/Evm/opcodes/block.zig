@@ -1,8 +1,9 @@
 const std = @import("std");
-const Interpreter = @import("../interpreter.zig").Interpreter;
-const Frame = @import("../Frame.zig").Frame;
-const ExecutionError = @import("../Frame.zig").ExecutionError;
-const JumpTable = @import("../JumpTable.zig");
+const evm = @import("evm");
+const Interpreter = evm.Interpreter;
+const Frame = evm.Frame;
+const ExecutionError = evm.ExecutionError;
+const JumpTable = evm.JumpTable;
 
 /// BLOCKHASH operation - Get the hash of one of the 256 most recent complete blocks
 pub fn opBlockhash(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {

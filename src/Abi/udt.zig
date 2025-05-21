@@ -19,7 +19,7 @@ pub const UserDefinedType = struct {
     allocator: std.mem.Allocator,
     
     /// Create a new UDT with an underlying type
-    pub fn init(name: []const u8, underlying_type: abi.Type, allocator: std.mem.Allocator) !UserDefinedType {
+    pub fn init(_: []const u8, _: abi.Type, _: std.mem.Allocator) !UserDefinedType {
         // Pseudocode:
         // 1. Validate the underlying type
         // 2. Allocate memory for the name
@@ -33,7 +33,7 @@ pub const UserDefinedType = struct {
     }
     
     /// Encode a UDT value to ABI format (same as encoding the underlying type)
-    pub fn abiEncode(self: UserDefinedType, value: []const u8, allocator: std.mem.Allocator) ![]u8 {
+    pub fn abiEncode(_: UserDefinedType, _: []const u8, _: std.mem.Allocator) ![]u8 {
         // Pseudocode:
         // 1. Encode the value as if it were the underlying type
         // 2. Return the encoded data
@@ -41,7 +41,7 @@ pub const UserDefinedType = struct {
     }
     
     /// Decode ABI-encoded data into a UDT value
-    pub fn abiDecode(self: UserDefinedType, data: []const u8, allocator: std.mem.Allocator) ![]const u8 {
+    pub fn abiDecode(_: UserDefinedType, _: []const u8, _: std.mem.Allocator) ![]const u8 {
         // Pseudocode:
         // 1. Decode the data as if it were the underlying type
         // 2. Return the decoded value
@@ -49,7 +49,7 @@ pub const UserDefinedType = struct {
     }
     
     /// Get the Solidity signature for this UDT
-    pub fn signature(self: UserDefinedType, allocator: std.mem.Allocator) ![]u8 {
+    pub fn signature(_: UserDefinedType, _: std.mem.Allocator) ![]u8 {
         // Pseudocode:
         // 1. Return the name of the UDT
         @compileError("Not implemented");
@@ -66,7 +66,7 @@ pub const UdtValue = struct {
     allocator: std.mem.Allocator,
     
     /// Create a new UDT value
-    pub fn init(ty: UserDefinedType, value: []const u8, allocator: std.mem.Allocator) !UdtValue {
+    pub fn init(_: UserDefinedType, _: []const u8, _: std.mem.Allocator) !UdtValue {
         // Pseudocode:
         // 1. Validate the value against the underlying type
         // 2. Allocate memory for the value
@@ -80,14 +80,14 @@ pub const UdtValue = struct {
     }
     
     /// Encode the UDT value to ABI format
-    pub fn abiEncode(self: UdtValue, allocator: std.mem.Allocator) ![]u8 {
+    pub fn abiEncode(_: UdtValue, _: std.mem.Allocator) ![]u8 {
         // Pseudocode:
         // 1. Call the UDT type's abiEncode method with our value
         @compileError("Not implemented");
     }
     
     /// Create a UDT value by decoding ABI data
-    pub fn abiDecode(ty: UserDefinedType, data: []const u8, allocator: std.mem.Allocator) !UdtValue {
+    pub fn abiDecode(_: UserDefinedType, _: []const u8, _: std.mem.Allocator) !UdtValue {
         // Pseudocode:
         // 1. Decode the data using the UDT type
         // 2. Create a new UDT value with the decoded data
