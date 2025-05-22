@@ -57,8 +57,8 @@ const getTables = (state: State) => {
 	return { tablesById, tableIds: Object.keys(tablesById) }
 }
 
-const getAll = async (getOptimisticState: () => Promise<State>) => {
-	const state = await getOptimisticState()
+const getAll = async (getState: () => Promise<State>) => {
+	const state = await getState()
 	const { tablesById } = getTables(state)
 
 	const records = Object.fromEntries(
@@ -71,18 +71,14 @@ const getAll = async (getOptimisticState: () => Promise<State>) => {
 }
 
 export const mudStoreGetStorageAtOverride =
-	({ getOptimisticState, storeAddress }: { getOptimisticState: () => Promise<State>; storeAddress: Address }) =>
-	(client: MemoryClient): any => {
-		const logger = client.transport.tevm.logger
+	(transport: { request: EIP1193RequestFn }) =>
+	({ getState, storeAddress }: { getState: () => Promise<State>; storeAddress: Address }): EIP1193RequestFn => {
 		// const logger = console
-		if (!client.transport?.tevm?.forkTransport?.request) {
-			logger.warn('No fork transport found - MUD storage interceptor will have no effect')
-			return {}
-		}
+		const logger = {debug: (...args: any[]) => {}, error: (...args: any[]) => {}}
 
-		const originalForkRequest = client.transport.tevm.forkTransport.request
+		const originalRequest = transport.request
 		// @ts-expect-error - Type 'unknown' is not assignable to type '_returnType'.
-		client.transport.tevm.forkTransport.request = async function interceptedRequest(
+		return async function interceptedRequest(
 			requestArgs: any,
 			options: any,
 		): ReturnType<EIP1193RequestFn> {
@@ -92,11 +88,14 @@ export const mudStoreGetStorageAtOverride =
 				Array.isArray(requestArgs.params) &&
 				requestArgs.params[0]?.toLowerCase() === storeAddress.toLowerCase()
 			) {
+				logger.debug('mudStoreGetStorageAtOverride', getState())
+				logger.debug("ARG", requestArgs.params)
 				const requestedPosition = requestArgs.params[1] as Hex
 				logger.debug(`MUD Intercept: eth_getStorageAt ${storeAddress} pos ${requestedPosition}`)
 
 				try {
-					const { records, tablesById } = await getAll(getOptimisticState)
+					const { records, tablesById } = await getAll(() => getState())
+					logger.debug({ records, tablesById })
 
 					/* ----------------------------------- POC ---------------------------------- */
 					// position of player is stored at slot: 0x4e4b8e26ffb342bf2c02b7d8accf09945411e68c9f4dfcc636a9ff4365c84aaf
@@ -119,18 +118,18 @@ export const mudStoreGetStorageAtOverride =
 						const values = Object.values(
 							Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key)),
 						).flatMap(([, value]) => value)
-						// console.log({positionValueSchema})
-						// console.log({ data })
-						// console.log({values})
-						// console.log({entries: Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key))})
-						// console.log({toEncode: Object.entries(positionValueSchema).map(([name, type]) => ({name, type})), values})
-						// console.log({encoded: pad(encodePacked(Object.values(positionValueSchema), values), {size: 32})})
+						// logger.debug({positionValueSchema})
+						// logger.debug({ data })
+						// logger.debug({values})
+						// logger.debug({entries: Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key))})
+						// logger.debug({toEncode: Object.entries(positionValueSchema).map(([name, type]) => ({name, type})), values})
+						// logger.debug({encoded: pad(encodePacked(Object.values(positionValueSchema), values), {size: 32})})
 
 						logger.debug(
 							'Returning static data',
 							pad(encodePacked(Object.values(positionValueSchema), values), { size: 32, dir: 'right' }),
 						)
-						logger.debug('Would have returned', await originalForkRequest.call(this, requestArgs, options))
+						logger.debug('Would have returned', await originalRequest(requestArgs, options))
 						return pad(encodePacked(Object.values(positionValueSchema), values), { size: 32, dir: 'right' })
 					}
 					/* --------------------------------- END POC -------------------------------- */
@@ -214,7 +213,7 @@ export const mudStoreGetStorageAtOverride =
 
 					// 4. If no match is found after checking all tables and all their records for the `requestedPosition`:
 					//    - The `logger.debug` message "No MUD data in stash..." will be hit.
-					//    - The request will then fall through to `originalForkRequest.call(this, requestArgs, options)`.
+					//    - The request will then fall through to `originalRequest.call(this, requestArgs, options)`.
 
 					/* -------------------------------- END PLAN -------------------------------- */
 
@@ -224,8 +223,6 @@ export const mudStoreGetStorageAtOverride =
 				}
 			}
 
-			return originalForkRequest.call(this, requestArgs, options)
+			return originalRequest(requestArgs, options)
 		}
-
-		return {}
 	}

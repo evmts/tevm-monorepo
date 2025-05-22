@@ -22,14 +22,11 @@ import { type Table } from '@latticexyz/store/internal'
 import { createCommon } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
 import { type Address, EthjsAddress } from '@tevm/utils'
-import type { RunTxResult } from '@tevm/vm'
 import { http, type Client, parseEventLogs } from 'viem'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
 import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWriteRequestOverride.js'
 import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
 import type { SessionClient } from './types.js'
-
-// TODO: add debug logs
 
 export type CreateOptimisticHandlerOptions<TConfig extends StoreConfig = StoreConfig> = {
 	/** A base viem client */
@@ -56,6 +53,9 @@ export type CreateOptimisticHandlerResult<TConfig extends StoreConfig = StoreCon
 	subscribeOptimisticState: (args: { subscriber: StoreUpdatesSubscriber }) => Unsubscribe
 }
 
+// TODO: add debug logs
+// TODO: also create our own storage adapter for single record
+
 /**
  * Initializes the optimistic handlers (storage and send transaction interceptors), and returns optimistic methods.
  */
@@ -64,25 +64,44 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	storeAddress,
 	stash,
 }: CreateOptimisticHandlerOptions<TConfig>): CreateOptimisticHandlerResult<TConfig> => {
+	const createForkRequestOverrideClient = (getState: () => Promise<State>) => {
 	if (!client.chain) throw new Error('Client must be connected to a chain')
-	const memoryClient = createMemoryClient({
+		const transport = http(client.chain.rpcUrls.default.http[0])({
+			chain: client.chain,
+		})
+
+		return createMemoryClient({
 		fork: {
-			transport: http(client.chain.rpcUrls.default.http[0])({
-				chain: client.chain,
-			}),
+			transport: {
+				request: mudStoreGetStorageAtOverride(transport)({ getState, storeAddress })
+			},
 			blockTag: 'latest',
 		},
 		// @ts-expect-error - version mismatch, properties such as `fees` incompatibles
 		common: createCommon(client.chain),
 	})
+}
 
 	// Create optimistic subscribers
 	const optimisticTableSubscribers: TableSubscribers = {}
 	const optimisticStoreSubscribers: StoreSubscribers = new Set()
 
+	// TODO: we don't want to have two clients but that's a workaround because we apply different getStorageAt interceptors:
+	// - internalClient: used during _optimisticStateView:runTx and uses a mudStoreGetStorageAtOverride that builds up the optimistic state
+	// as the pool txs are executed (so the getStorageAt override reads the current optimistic state SO FAR, at each tx)
+	// - optimisticClient: used for the write interceptor, and uses a mudStoreGetStorageAtOverride that always reads the optimistic state
+	// from the _optimisticStateView
+	const internalClient = createForkRequestOverrideClient(() => Promise.resolve(internalOptimisticState))
+	const optimisticClient = createForkRequestOverrideClient(() => _optimisticStateView())
+	// Internal state that builds up as runTx goes
+	const internalOptimisticState: MutableState = {
+		config: stash.get().config,
+		records: structuredClone(stash.get().records),
+	}
+
 	// TODO: is it clean to do that? So we start the promises asap, and below it should await only the first time?
-	const _vm = memoryClient.transport.tevm.getVm()
-	const _txPool = memoryClient.transport.tevm.getTxPool()
+	const _vm = internalClient.transport.tevm.getVm()
+	const _txPool = optimisticClient.transport.tevm.getTxPool()
 	// Adds the optimistic state on top of the canonical state by applying the logs on a deep copy of the canonical state and returning it instead
 	const _optimisticStateView = async (notifySubscribers = false) => {
 		const vm = await _vm
@@ -91,8 +110,20 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 
 		// Get the txs in the pending block to apply them on top of the canonical state
 		const orderedTxs = await txPool.txsByPriceAndNonce()
-		const txResults: Array<RunTxResult> = []
-		const vmCopy = orderedTxs.length > 0 ? await vm.deepCopy() : vm // we don't want to share the state with the client as it ran these already
+		const vmCopy = await vm.deepCopy() // we don't want to share the state with the client as it ran these already
+		// Reset the internal state
+		internalOptimisticState.records = structuredClone(stash.get().records)
+
+		const adapter = createStorageAdapter({
+			stash: {
+				get: () => internalOptimisticState,
+				_: {
+					state: internalOptimisticState,
+					tableSubscribers: notifySubscribers ? optimisticTableSubscribers : {},
+					storeSubscribers: notifySubscribers ? optimisticStoreSubscribers : new Set(),
+				},
+			},
+		})
 
 		// Replay txs to get the logs
 		for (const tx of orderedTxs) {
@@ -107,39 +138,25 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			})
 
 			if (txResult.execResult.exceptionError) throw txResult.execResult.exceptionError
-			txResults.push(txResult)
+
+			// Parse the logs for usage by the storage adapter
+			const storeEventsLogs = parseEventLogs({
+				abi: storeEventsAbi,
+				logs: txResult.receipt.logs.map((log) => ethjsLogToAbiLog(storeEventsAbi, log)),
+			})
+
+			// Apply the logs to the optimistic state
+			adapter({ logs: storeEventsLogs, blockNumber: 0n })
 		}
 
-		// Parse the logs for usage by the storage adapter
-		const storeEventsLogs = parseEventLogs({
-			abi: storeEventsAbi,
-			logs: txResults.flatMap((tx) => tx.receipt.logs.map((log) => ethjsLogToAbiLog(storeEventsAbi, log))),
-		})
-
-		// Create a deep clone of the canonical state
-		const canonicalState = stash.get()
-		const optimisticState: MutableState = {
-			config: canonicalState.config,
-			records: structuredClone(canonicalState.records),
-		}
-		console.log('computing optimistic state', notifySubscribers)
-		// Apply the logs to the optimistic state
-		createStorageAdapter({
-			stash: {
-				get: () => optimisticState,
-				_: {
-					state: optimisticState,
-					tableSubscribers: notifySubscribers ? optimisticTableSubscribers : {},
-					storeSubscribers: notifySubscribers ? optimisticStoreSubscribers : new Set(),
-				},
-			},
-		})({ logs: storeEventsLogs, blockNumber: 0n })
-
-		return optimisticState as State<TConfig>
+		// TODO: do we need to do that or am I in object closure hell?
+		return {
+			config: internalOptimisticState.config,
+			records: structuredClone(internalOptimisticState.records),
+		} as State<TConfig>
 	}
 
-	client.extend(mudStoreWriteRequestOverride({ memoryClient, storeAddress }))
-	memoryClient.extend(mudStoreGetStorageAtOverride({ getOptimisticState: () => _optimisticStateView(), storeAddress }))
+	client.extend(mudStoreWriteRequestOverride({ memoryClient: optimisticClient, storeAddress }))
 
 	// Update subscribers when the optimistic state changes
 	const _subscribeToOptimisticState = async () => {
