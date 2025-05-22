@@ -1,0 +1,16 @@
+[package]
+name = "foundry_wrapper"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib"]  # Build as a static library for Zig to link
+
+[dependencies]
+foundry-compilers = "0.10.1"
+serde_json = "1.0"
+semver = "1.0"
+libc = "0.2"
+
+[build-dependencies]
+cbindgen = "0.24"

@@ -1,8 +1,5 @@
 const std = @import("std");
 
-// Although this function looks imperative, note that its job is to
-// declaratively construct a build graph that will be executed by an external
-// runner.
 pub fn build(b: *std.Build) void {
     // Standard target options allows the person running `zig build` to choose
     // what target to build for. Here we do not override the defaults, which
@@ -15,364 +12,66 @@ pub fn build(b: *std.Build) void {
     // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
-    // Create a special target for WebAssembly compilation
-    const wasm_target = b.resolveTargetQuery(.{
-        .cpu_arch = .wasm32,
-        .os_tag = .freestanding,
-    });
-
-    // Get httpz dependency
-    const httpz_dep = b.dependency("httpz", .{
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // First create individual modules for each component
-    const address_mod = b.createModule(.{
-        .root_source_file = b.path("src/Address/address.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const abi_mod = b.createModule(.{
-        .root_source_file = b.path("src/Abi/abi.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const utils_mod = b.createModule(.{
-        .root_source_file = b.path("src/Utils/utils.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const trie_mod = b.createModule(.{
-        .root_source_file = b.path("src/Trie/module.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const block_mod = b.createModule(.{
-        .root_source_file = b.path("src/Block/block.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add imports to the block_mod
-    block_mod.addImport("Address", address_mod);
-
-    const bytecode_mod = b.createModule(.{
-        .root_source_file = b.path("src/Bytecode/bytecode.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const compiler_mod = b.createModule(.{
-        .root_source_file = b.path("src/Compiler/compiler.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const rlp_mod = b.createModule(.{
-        .root_source_file = b.path("src/Rlp/rlp.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add imports to the rlp_mod
-    rlp_mod.addImport("Utils", utils_mod);
-
-    // Add imports to the trie_mod
-    trie_mod.addImport("Rlp", rlp_mod);
-    trie_mod.addImport("Utils", utils_mod);
-
-    const token_mod = b.createModule(.{
-        .root_source_file = b.path("src/Token/token.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const evm_mod = b.createModule(.{
-        .root_source_file = b.path("src/Evm/evm.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add imports to the evm_mod
-    evm_mod.addImport("Address", address_mod);
-    evm_mod.addImport("Block", block_mod);
-
-    // Create a ZigEVM module - our core EVM implementation
-    const target_architecture_mod = b.createModule(.{
-        .root_source_file = b.path("src/root.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add package paths for absolute imports for all modules
-    target_architecture_mod.addImport("Address", address_mod);
-    target_architecture_mod.addImport("Abi", abi_mod);
-    target_architecture_mod.addImport("Block", block_mod);
-    target_architecture_mod.addImport("Bytecode", bytecode_mod);
-    target_architecture_mod.addImport("Compiler", compiler_mod);
-    target_architecture_mod.addImport("Evm", evm_mod);
-    target_architecture_mod.addImport("Rlp", rlp_mod);
-    target_architecture_mod.addImport("Token", token_mod);
-    target_architecture_mod.addImport("Trie", trie_mod);
-    target_architecture_mod.addImport("Utils", utils_mod);
-
-    // Create the native executable module
-    const exe_mod = b.createModule(.{
+    // Creates a step for building a static library
+    const lib = b.addStaticLibrary(.{
+        .name = "tevm",
         .root_source_file = b.path("src/main.zig"),
         .target = target,
         .optimize = optimize,
     });
 
-    // Create WASM module with the same source but different target
-    const wasm_mod = b.createModule(.{
-        .root_source_file = b.path("src/root.zig"),
-        .target = wasm_target,
-        .optimize = .ReleaseSmall,
-    });
-
-    // Add package paths for absolute imports to WASM module
-    wasm_mod.addImport("Address", address_mod);
-    wasm_mod.addImport("Abi", abi_mod);
-    wasm_mod.addImport("Block", block_mod);
-    wasm_mod.addImport("Bytecode", bytecode_mod);
-    wasm_mod.addImport("Compiler", compiler_mod);
-    wasm_mod.addImport("Evm", evm_mod);
-    wasm_mod.addImport("Rlp", rlp_mod);
-    wasm_mod.addImport("Token", token_mod);
-    wasm_mod.addImport("Trie", trie_mod);
-    wasm_mod.addImport("Utils", utils_mod);
-
-    // Modules can depend on one another using the `std.Build.Module.addImport` function.
-    exe_mod.addImport("zigevm", target_architecture_mod);
-
-    // Create the ZigEVM static library artifact
-    const lib = b.addLibrary(.{
-        .linkage = .static,
-        .name = "zigevm",
-        .root_module = target_architecture_mod,
-    });
-
-    // Create the CLI executable
-    const exe = b.addExecutable(.{
-        .name = "zigevm",
-        .root_module = exe_mod,
-    });
-
-    // Create a separate executable for the server
-    const server_exe = b.addExecutable(.{
-        .name = "zigevm-server",
-        .root_source_file = b.path("src/Server/main.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add httpz dependency to the server
-    server_exe.root_module.addImport("httpz", httpz_dep.module("httpz"));
-
-    // Create the WebAssembly artifact
-    const wasm = b.addExecutable(.{
-        .name = "zigevm",
-        .root_module = wasm_mod,
-    });
-    wasm.rdynamic = true; // Required for exported functions
-    wasm.entry = .disabled; // No entry point for library mode
-
-    // Define the WASM output path
-    const wasm_output_path = "dist/zigevm.wasm";
-    const install_wasm = b.addInstallFile(wasm.getEmittedBin(), wasm_output_path);
-
-    // Install all artifacts
+    // This declares intent for the library to be installed into the standard
+    // location when the user invokes the "install" step (the default step when
+    // running `zig build`).
     b.installArtifact(lib);
-    b.installArtifact(exe);
-    b.installArtifact(wasm);
-    b.installArtifact(server_exe);
 
-    // This *creates* a Run step in the build graph
-    const run_cmd = b.addRunArtifact(exe);
-    run_cmd.step.dependOn(b.getInstallStep());
-
-    // Pass arguments to the application
-    if (b.args) |args| {
-        run_cmd.addArgs(args);
-    }
-
-    // Define run step
-    const run_step = b.step("run", "Run the app");
-    run_step.dependOn(&run_cmd.step);
-
-    // Build WASM step
-    const build_wasm_step = b.step("wasm", "Build the WebAssembly artifact");
-    build_wasm_step.dependOn(&install_wasm.step);
-
-    // Define a run server step
-    const run_server_cmd = b.addRunArtifact(server_exe);
-    run_server_cmd.step.dependOn(b.getInstallStep());
-
-    // Pass arguments to the server application
-    if (b.args) |args| {
-        run_server_cmd.addArgs(args);
-    }
-
-    // Define run server step
-    const run_server_step = b.step("run-server", "Run the JSON-RPC server");
-    run_server_step.dependOn(&run_server_cmd.step);
-
-    // Creates a step for unit testing.
-    const lib_unit_tests = b.addTest(.{
-        .root_module = target_architecture_mod,
+    // ===== Types =====
+    // Include the U256 module
+    const u256_mod = b.createModule(.{
+        .root_source_file = b.path("src/Types/U256.ts"),
     });
 
-    // Add all modules to standalone tests
-    lib_unit_tests.root_module.addImport("Address", address_mod);
-    lib_unit_tests.root_module.addImport("Abi", abi_mod);
-    lib_unit_tests.root_module.addImport("Block", block_mod);
-    lib_unit_tests.root_module.addImport("Bytecode", bytecode_mod);
-    lib_unit_tests.root_module.addImport("Compiler", compiler_mod);
-    lib_unit_tests.root_module.addImport("Evm", evm_mod);
-    lib_unit_tests.root_module.addImport("Rlp", rlp_mod);
-    lib_unit_tests.root_module.addImport("Token", token_mod);
-    lib_unit_tests.root_module.addImport("Trie", trie_mod);
-    lib_unit_tests.root_module.addImport("Utils", utils_mod);
+    // ===== Rust integration =====
+    // Add a module for the Rust compilers integration
+    const compilers_mod = b.createModule(.{
+        .root_source_file = b.path("src/Compilers/compiler.zig"),
+    });
 
-    // Additional standalone test specifically for Frame_test.zig
-    const frame_test = b.addTest(.{
-        .name = "frame-test",
-        .root_source_file = b.path("src/Evm/Frame_test.zig"),
+    // Add Compilers as a dependency to the main library
+    lib.root_module.addImport("Compilers", compilers_mod);
+
+    // Build the Rust code for Compilers
+    const rust_build = b.addTranslateC(.{
+        .root_source_file = b.path("src/Compilers/rust_build.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    lib.step.dependOn(&rust_build.step);
+
+    // ===== Tests =====
+    const u256_test = b.addTest(.{
+        .name = "u256-test",
+        .root_source_file = b.path("src/Types/U256.spec.ts"),
         .target = target,
         .optimize = optimize,
     });
 
-    // Add all modules to frame_test
-    frame_test.root_module.addImport("Address", address_mod);
-    frame_test.root_module.addImport("Abi", abi_mod);
-    frame_test.root_module.addImport("Block", block_mod);
-    frame_test.root_module.addImport("Bytecode", bytecode_mod);
-    frame_test.root_module.addImport("Compiler", compiler_mod);
-    frame_test.root_module.addImport("Evm", evm_mod);
-    frame_test.root_module.addImport("Rlp", rlp_mod);
-    frame_test.root_module.addImport("Token", token_mod);
-    frame_test.root_module.addImport("Trie", trie_mod);
-    frame_test.root_module.addImport("Utils", utils_mod);
+    // Add dependencies to u256_test
+    u256_test.root_module.addImport("U256", u256_mod);
 
-    const run_frame_test = b.addRunArtifact(frame_test);
+    const run_u256_test = b.addRunArtifact(u256_test);
 
-    // Add a separate step for testing just the frame
-    const frame_test_step = b.step("test-frame", "Run EVM frame tests");
-    frame_test_step.dependOn(&run_frame_test.step);
+    // Add a separate step for testing U256
+    const u256_test_step = b.step("test-u256", "Run U256 tests");
+    u256_test_step.dependOn(&run_u256_test.step);
 
-    // Add a test for evm.zig
-    const evm_test = b.addTest(.{
-        .name = "evm-test",
-        .root_source_file = b.path("src/Evm/evm.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add all modules to evm_test
-    evm_test.root_module.addImport("Address", address_mod);
-    evm_test.root_module.addImport("Abi", abi_mod);
-    evm_test.root_module.addImport("Block", block_mod);
-    evm_test.root_module.addImport("Bytecode", bytecode_mod);
-    evm_test.root_module.addImport("Compiler", compiler_mod);
-    evm_test.root_module.addImport("Evm", evm_mod);
-    evm_test.root_module.addImport("Rlp", rlp_mod);
-    evm_test.root_module.addImport("Token", token_mod);
-    evm_test.root_module.addImport("Trie", trie_mod);
-    evm_test.root_module.addImport("Utils", utils_mod);
-
-    const run_evm_test = b.addRunArtifact(evm_test);
-
-    // Add a separate step for testing the EVM
-    const evm_test_step = b.step("test-evm", "Run EVM tests");
-    evm_test_step.dependOn(&run_evm_test.step);
-
-    // Add a test for server.zig
-    const server_test = b.addTest(.{
-        .name = "server-test",
-        .root_source_file = b.path("src/Server/server.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add the httpz dependency to the server test
-    server_test.root_module.addImport("httpz", httpz_dep.module("httpz"));
-
-    const run_server_test = b.addRunArtifact(server_test);
-
-    // Add a separate step for testing the server
-    const server_test_step = b.step("test-server", "Run Server tests");
-    server_test_step.dependOn(&run_server_test.step);
-
-    // Add a test for rlp_test.zig
-    const rlp_specific_test = b.addTest(.{
-        .name = "rlp-test",
-        .root_source_file = b.path("src/Rlp/rlp_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add dependencies to rlp_test
-    rlp_specific_test.root_module.addImport("Rlp", rlp_mod);
-    rlp_specific_test.root_module.addImport("Utils", utils_mod);
-
-    const run_rlp_test = b.addRunArtifact(rlp_specific_test);
-
-    // Add a separate step for testing RLP
-    const rlp_test_step = b.step("test-rlp", "Run RLP tests");
-    rlp_test_step.dependOn(&run_rlp_test.step);
-
-    // Add a test for abi_test.zig
-    const abi_specific_test = b.addTest(.{
-        .name = "abi-test",
-        .root_source_file = b.path("src/Abi/abi_test.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add dependencies to abi_test
-    abi_specific_test.root_module.addImport("Abi", abi_mod);
-    abi_specific_test.root_module.addImport("Utils", utils_mod);
-
-    const run_abi_test = b.addRunArtifact(abi_specific_test);
-
-    // Add a separate step for testing ABI
-    const abi_test_step = b.step("test-abi", "Run ABI tests");
-    abi_test_step.dependOn(&run_abi_test.step);
-
-    // Add a test for Compiler tests
-    const compiler_test = b.addTest(.{
-        .name = "compiler-test",
-        .root_source_file = b.path("src/Compiler/resolutions.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add dependencies to compiler_test
-    compiler_test.root_module.addImport("Compiler", compiler_mod);
-
-    const run_compiler_test = b.addRunArtifact(compiler_test);
-
-    // Add a separate step for testing Compiler
-    const compiler_test_step = b.step("test-compiler", "Run Compiler tests");
-    compiler_test_step.dependOn(&run_compiler_test.step);
-
-    // Add a test for Trie tests
+    // Add test for Trie
     const trie_test = b.addTest(.{
         .name = "trie-test",
-        .root_source_file = b.path("src/Trie/main_test.zig"),
+        .root_source_file = b.path("src/Trie/trie_test.zig"),
         .target = target,
         .optimize = optimize,
     });
-
-    // Add dependencies to trie_test
-    trie_test.root_module.addImport("Rlp", rlp_mod);
-    trie_test.root_module.addImport("Utils", utils_mod);
-    trie_test.root_module.addImport("Trie", trie_mod);
 
     const run_trie_test = b.addRunArtifact(trie_test);
 
@@ -380,9 +79,38 @@ pub fn build(b: *std.Build) void {
     const trie_test_step = b.step("test-trie", "Run Trie tests");
     trie_test_step.dependOn(&run_trie_test.step);
 
+    // Add test for Rlp
+    const rlp_test = b.addTest(.{
+        .name = "rlp-test",
+        .root_source_file = b.path("src/Rlp/rlp_test.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_rlp_test = b.addRunArtifact(rlp_test);
+
+    // Add a separate step for testing Rlp
+    const rlp_test_step = b.step("test-rlp", "Run Rlp tests");
+    rlp_test_step.dependOn(&run_rlp_test.step);
+
+    // Add test for Compiler
+    const compiler_test = b.addTest(.{
+        .name = "compiler-test",
+        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_compiler_test = b.addRunArtifact(compiler_test);
+
+    // Add a separate step for testing Compiler
+    const compiler_test_step = b.step("test-compiler", "Run Compiler tests");
+    compiler_test_step.dependOn(&run_compiler_test.step);
+
+    // Add test for Interpreter
     const interpreter_test = b.addTest(.{
-        .name = "evm-test",
-        .root_source_file = b.path("src/Evm/JumpTable.zig"),
+        .name = "interpreter-test",
+        .root_source_file = b.path("src/Evm/interpreter.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -393,28 +121,52 @@ pub fn build(b: *std.Build) void {
     const interpreter_test_step = b.step("test-interpreter", "Run Interpreter tests");
     interpreter_test_step.dependOn(&run_interpreter_test.step);
 
+    // Add a test for SnailTracer
+    const snailtracer_test = b.addTest(.{
+        .name = "snailtracer-test",
+        .root_source_file = b.path("src/Solidity/SnailTracer.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add dependencies to snailtracer_test
+    snailtracer_test.root_module.addImport("Compiler", compilers_mod);
+
+    const run_snailtracer_test = b.addRunArtifact(snailtracer_test);
+
+    // Add a separate step for testing SnailTracer
+    const snailtracer_test_step = b.step("test-snailtracer", "Run SnailTracer Solidity compiler integration tests");
+    snailtracer_test_step.dependOn(&run_snailtracer_test.step);
+
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
     const exe_unit_tests = b.addTest(.{
-        .root_module = exe_mod,
+        .name = "exe-test",
+        .root_source_file = b.path("src/root.zig"),
+        .target = target,
+        .optimize = optimize,
     });
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
-    // Define test step for all tests
+    const lib_unit_tests = b.addTest(.{
+        .name = "lib-test",
+        .root_source_file = b.path("src/main.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Add a step that runs all unit tests
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
-    test_step.dependOn(&run_frame_test.step);
-    test_step.dependOn(&run_evm_test.step);
-    test_step.dependOn(&run_server_test.step);
+    test_step.dependOn(&run_u256_test.step);
     test_step.dependOn(&run_rlp_test.step);
-    test_step.dependOn(&run_abi_test.step);
     test_step.dependOn(&run_compiler_test.step);
     test_step.dependOn(&run_trie_test.step);
     test_step.dependOn(&run_interpreter_test.step);
+    test_step.dependOn(&run_snailtracer_test.step);
 
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
-    test_all_step.dependOn(test_step);
 }
