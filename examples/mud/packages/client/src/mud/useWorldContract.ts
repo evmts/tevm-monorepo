@@ -33,8 +33,9 @@ export function useWorldContract():
         address: getWorldAddress(),
         caller: address,
         client: {
-          // TODO: fix these types
+          // @ts-expect-error - type mismatch
           public: client,
+          // @ts-expect-error - type mismatch
           wallet: sessionClient.extend(observer()),
         },
       });
