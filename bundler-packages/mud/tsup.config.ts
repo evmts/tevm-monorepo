@@ -1,5 +1,5 @@
 import { createTsUpOptions } from '@tevm/tsupconfig'
 export default createTsUpOptions({
-	entry: ['src/index.ts'],
-	target: 'node',
+	entry: ['src/index.ts', 'src/react/index.ts'],
+	target: 'browser',
 })
