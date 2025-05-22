@@ -1,2 +1,9 @@
-// EVM structure that would typically be passed in from outside
-const Evm = struct { depth: u16 };
+const std = @import("std");
+const _interpreter = @import("EvmInterpreter.zig");
+
+pub const Evm = _interpreter.Evm;
+
+test "export test" {
+    std.testing.refAllDeclsRecursive(@This());
+    std.testing.refAllDeclsRecursive(Evm);
+}

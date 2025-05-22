@@ -1,0 +1,48 @@
+name: Check WASM Size
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**/*.zig'
+      - 'build.zig'
+      - 'build.zig.zon'
+  pull_request:
+    paths:
+      - 'src/**/*.zig'
+      - 'build.zig'
+      - 'build.zig.zon'
+  workflow_dispatch:
+
+jobs:
+  check-wasm-size:
+    name: Check WASM Bundle Size
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build WASM
+        run: |
+          cd src && zig build wasm && mkdir -p ../dist && \
+          find ../.zig-cache -name "*.wasm" -exec cp {} ../dist/zigevm.wasm \; && \
+          echo "WASM build completed"
+
+      - name: Check WASM size
+        run: bun check:wasm-size
+
+      - name: Verify WASM size against thresholds
+        run: bun check:wasm-size:threshold
+        
+      - name: Report WASM size on failure
+        if: failure()
+        run: |
+          echo "::error::WASM size exceeded threshold limits. Please optimize your code or adjust thresholds if necessary."
+          echo "Current WASM file: $(ls -lh ./dist/zigevm.wasm)"
+          echo "Gzipped size: $(gzip -c ./dist/zigevm.wasm | wc -c | awk '{printf \"%.1fKB\\n\", $1/1024}')"
