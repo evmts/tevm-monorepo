@@ -1,7 +1,7 @@
 import { type Stash, type TableRecord, decodeKey, getRecord, getRecords } from '@latticexyz/stash/internal'
 import type { EthGetStorageAtJsonRpcRequest, EthGetStorageAtJsonRpcResponse } from '@tevm/actions'
 import type { MemoryClient } from '@tevm/memory-client'
-import type { Address, Hex } from '@tevm/utils'
+import { encodeAbiParameters, type Address, type Hex } from '@tevm/utils'
 import {
 	bytesToHex,
 	concatHex, // Changed from concat
@@ -13,6 +13,7 @@ import {
 	pad,
 	sliceHex as slice, // Changed from slice
 	toHex,
+	type EIP1193RequestFn,
 } from 'viem'
 
 // Core MUD imports
@@ -26,7 +27,7 @@ import {
 	encodeValueArgs,
 	getKeySchema,
 	getKeyTuple,
-	getSchemaTypes, // Main function to get all parts of a record
+	getSchemaTypes, getValueSchema, // Main function to get all parts of a record
 	hexToEncodedLengths, // To parse EncodedLengths hex
 	getKeySchema as protocolParserGetKeySchema, // To avoid naming clash
 	getValueSchema as protocolParserGetValueSchema,
@@ -78,10 +79,12 @@ export const mudStoreForkInterceptor =
 		const { tablesById, tableIds } = getTables(stash)
 
 		const originalForkRequest = client.transport.tevm.forkTransport.request
+		// @ts-expect-error - Type 'unknown' is not assignable to type '_returnType'.
 		client.transport.tevm.forkTransport.request = async function interceptedRequest(
 			requestArgs: any,
 			options: any,
-		): Promise<EthGetStorageAtJsonRpcResponse | undefined> {
+		): ReturnType<EIP1193RequestFn> {
+			console.log("Intercepted request", requestArgs)
 			if (
 				requestArgs.method === 'eth_getStorageAt' &&
 				requestArgs.params &&
@@ -93,7 +96,6 @@ export const mudStoreForkInterceptor =
 
 				try {
 					const records = getAllRecords(stash, tablesById)
-					console.log({ records })
 
 					/* ----------------------------------- POC ---------------------------------- */
 					// position of player is stored at slot: 0x4e4b8e26ffb342bf2c02b7d8accf09945411e68c9f4dfcc636a9ff4365c84aaf
@@ -104,14 +106,26 @@ export const mudStoreForkInterceptor =
 					const playerKey = { player: '0xAD285b5dF24BDE77A8391924569AF2AD2D4eE4A7' as Hex }
 
 					const positionKeySchema = getSchemaTypes(getKeySchema(positionTable))
+					const positionValueSchema = getSchemaTypes(getValueSchema(positionTable))
 					const keyTuple = encodeKey(positionKeySchema, playerKey)
 
 					const recordHashStatic = keccak256(concatHex([positionTableId, ...keyTuple]))
 					const staticDataSlot = numberToHex(hexToBigInt(STORE_SLOT) ^ hexToBigInt(recordHashStatic), { size: 32 })
 
 					if (requestedPosition.toLowerCase() === staticDataSlot.toLowerCase()) {
-						const data = getRecord({ stash, table: positionTable!, key: playerKey })
-						console.log({ data })
+						// const data = getRecord({ stash, table: positionTable!, key: playerKey })
+						const data = records[positionTableId]?.[playerKey.player]
+						const values = Object.values(Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key))).flatMap(([, value]) => value)
+						// console.log({positionValueSchema})
+						// console.log({ data })
+						// console.log({values})
+						// console.log({entries: Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key))})
+						// console.log({toEncode: Object.entries(positionValueSchema).map(([name, type]) => ({name, type})), values})
+						// console.log({encoded: pad(encodePacked(Object.values(positionValueSchema), values), {size: 32})})
+
+						console.log("Returning static data", pad(encodePacked(Object.values(positionValueSchema), values), {size: 32, dir: 'right'}))
+						console.log("Would have returned", await originalForkRequest.call(this, requestArgs, options))
+						return pad(encodePacked(Object.values(positionValueSchema), values), {size: 32, dir: 'right'})
 					}
 					/* --------------------------------- END POC -------------------------------- */
 
@@ -119,6 +133,9 @@ export const mudStoreForkInterceptor =
 
 					// Goal: For the given `requestedPosition` (storage slot), identify the corresponding
 					// MUD table, record (key), and specific data type (static data, dynamic data length, or a specific dynamic field).
+
+					// For the two TODOs below, as in figuring out all storage slots -> field/packed fields mappings,
+					// this is pretty much what we did in polareth/evmstate during storage layout/storage diff exploration.
 
 					// 1. Iterate through each table defined in `tablesById`.
 					//    `tableIds` (derived from `getTables(stash)`) contains the string identifiers for each table.
@@ -144,6 +161,9 @@ export const mudStoreForkInterceptor =
 					//         `const keyTuple = encodeKey(keySchemaObject, decodedKeyObject);` (`encodeKey` is imported from `@latticexyz/protocol-parser/internal`).
 
 					//      c. Calculate the potential static data storage slot:
+					//         TODO: we'll need to calculate all the slots the static data occupies, then map the field/packed fields to their slot
+					//         using the offset of each field
+					//         Then we can do the following for each slot:
 					//         `const recordHashStatic = keccak256(concatHex([tableIdHex, ...keyTuple]));`
 					//         `const staticDataSlot = numberToHex(hexToBigInt(STORE_SLOT) ^ hexToBigInt(recordHashStatic), { size: 32 });`
 					//         If `staticDataSlot.toLowerCase() === requestedPosition.toLowerCase()`:
@@ -162,6 +182,7 @@ export const mudStoreForkInterceptor =
 					//               - (Future: retrieve data, encode, and return). Stop further checks for this request.
 
 					//          ii. Calculate potential dynamic data storage slots for each dynamic field:
+					//              TODO: same as above, we'll need to get the offset of each dynamic field, and also it could occupy multiple slots
 					//              `const recordHashDynamic = keccak256(concatHex([tableIdHex, ...keyTuple]));` (same as recordHashStatic)
 					//              For `dynamicFieldIndex` from `0` to `dynamicFieldAbiTypes.length - 1`:
 					//                  `const dynamicFieldSlot = numberToHex(hexToBigInt(STORE_DYNAMIC_DATA_SLOT) ^ BigInt(dynamicFieldIndex) ^ hexToBigInt(recordHashDynamic), { size: 32 });`
@@ -199,5 +220,6 @@ export const mudStoreForkInterceptor =
 
 			return originalForkRequest.call(this, requestArgs, options) as Promise<EthGetStorageAtJsonRpcResponse>
 		}
+
 		return {}
 	}

@@ -1,4 +1,5 @@
 import { type MemoryClient } from '@tevm/memory-client'
+import { EthjsAddress } from '@tevm/utils'
 import {
 	type Abi,
 	type Account,
@@ -23,6 +24,7 @@ import {
  */
 export const getOptimisticContract = async (memoryClient: MemoryClient) => {
 	const logger = memoryClient.transport.tevm.logger
+	const vm = await memoryClient.transport.tevm.getVm()
 	const txPool = await memoryClient.transport.tevm.getTxPool()
 
 	return (
@@ -44,13 +46,6 @@ export const getOptimisticContract = async (memoryClient: MemoryClient) => {
 		} = params
 		const { waitForTransactionReceipt } = publicClient.extend(publicActions)
 
-		// TODO: we shouldn't have to do this but from the 2nd tx in the pool it starts failing because
-		// "sender doesn't have enough funds to send tx"
-		if (caller) memoryClient.tevmDeal({
-			account: caller,
-			amount: 100000000000000000000n,
-		})
-
 		const wrappedContract = new Proxy(contract, {
 			get(target, prop, receiver) {
 				if (prop === 'write') {
@@ -64,6 +59,9 @@ export const getOptimisticContract = async (memoryClient: MemoryClient) => {
 							return async function (this: any, ...args: any[]) {
 								logger.debug(`Calling method ${String(methodName)} with args:`, args)
 
+								// clear the fork cache so it doesn't bypass the request we're intercepting in the mudStoreForkInterceptor
+								// by fetching the initial never-modified fork cache
+								vm.stateManager._baseState.forkCache.storage.clearContractStorage(EthjsAddress.fromString(address))
 								try {
 									const { txHash: optimisticTxHash, errors } = await memoryClient.tevmContract({
 										abi,
@@ -91,7 +89,8 @@ export const getOptimisticContract = async (memoryClient: MemoryClient) => {
 									// if we didn't intercept getStorageAt requests we would want to mine the tx to update the fork state additionally
 									waitForTransactionReceipt({ hash: txHash })
 										.then(() => {
-											if (optimisticTxHash) txPool.removeByHash(optimisticTxHash.slice(2))
+											if (optimisticTxHash) txPool.removeByHash(optimisticTxHash)
+
 										})
 										.catch((err) => {
 											logger.error('Failed to wait for tx receipt:', err)
