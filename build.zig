@@ -49,6 +49,24 @@ pub fn build(b: *std.Build) void {
     lib.step.dependOn(&rust_build.step);
 
     // ===== Tests =====
+    const lib_unit_tests = b.addTest(.{
+        .name = "lib-test",
+        .root_source_file = b.path("src/main.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
+
+    const exe_unit_tests = b.addTest(.{
+        .name = "exe-test",
+        .root_source_file = b.path("src/root.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
+
     const u256_test = b.addTest(.{
         .name = "u256-test",
         .root_source_file = b.path("src/Types/U256.spec.ts"),
@@ -137,24 +155,6 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing SnailTracer
     const snailtracer_test_step = b.step("test-snailtracer", "Run SnailTracer Solidity compiler integration tests");
     snailtracer_test_step.dependOn(&run_snailtracer_test.step);
-
-    const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
-
-    const exe_unit_tests = b.addTest(.{
-        .name = "exe-test",
-        .root_source_file = b.path("src/root.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
-
-    const lib_unit_tests = b.addTest(.{
-        .name = "lib-test",
-        .root_source_file = b.path("src/main.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
 
     // Add a step that runs all unit tests
     const test_step = b.step("test", "Run unit tests");
