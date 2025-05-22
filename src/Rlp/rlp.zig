@@ -49,20 +49,66 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     const info = @typeInfo(T);
 
     // Handle byte arrays and slices
-    if (info == .Array) {
-        const child_info = @typeInfo(info.Array.child);
-        if (child_info == .Int and child_info.Int.bits == 8) {
+    if (info == .array) {
+        const child_info = @typeInfo(info.array.child);
+        if (child_info == .int and child_info.int.bits == 8) {
             return try encodeBytes(allocator, input);
         }
-    } else if (info == .Pointer) {
-        const child_info = @typeInfo(info.Pointer.child);
-        if (child_info == .Int and child_info.Int.bits == 8) {
+    } else if (info == .pointer) {
+        const ptr_info = info.pointer;
+        const child_info = @typeInfo(ptr_info.child);
+        
+        // Handle byte slices/arrays as strings
+        if (child_info == .int and child_info.int.bits == 8 and ptr_info.size == .slice) {
             return try encodeBytes(allocator, input);
+        }
+        
+        // Handle slices as lists
+        if (ptr_info.size == .slice) {
+            var result = std.ArrayList(u8).init(allocator);
+            defer result.deinit();
+            
+            // First encode each element
+            var encoded_items = std.ArrayList([]u8).init(allocator);
+            defer encoded_items.deinit();
+            defer {
+                for (encoded_items.items) |item| {
+                    allocator.free(item);
+                }
+            }
+            
+            for (input) |item| {
+                const encoded = try encode(allocator, item);
+                try encoded_items.append(encoded);
+            }
+            
+            // Calculate total payload length
+            var total_payload_len: usize = 0;
+            for (encoded_items.items) |item| {
+                total_payload_len += item.len;
+            }
+            
+            // Encode list header
+            if (total_payload_len < 56) {
+                try result.append(0xc0 + @as(u8, @intCast(total_payload_len)));
+            } else {
+                const len_bytes = try encodeLength(allocator, total_payload_len);
+                defer allocator.free(len_bytes);
+                try result.append(0xf7 + @as(u8, @intCast(len_bytes.len)));
+                try result.appendSlice(len_bytes);
+            }
+            
+            // Append encoded items
+            for (encoded_items.items) |item| {
+                try result.appendSlice(item);
+            }
+            
+            return try result.toOwnedSlice();
         }
     }
     
-    // Handle lists
-    if (info == .Array or info == .Slice) {
+    // Handle lists  
+    if (info == .array) {
         var result = std.ArrayList(u8).init(allocator);
         defer result.deinit();
         
@@ -101,7 +147,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     }
     
     // Handle integers
-    if (info == .Int) {
+    if (info == .int) {
         if (input == 0) {
             // Special case: 0 is encoded as empty string
             const result = try allocator.alloc(u8, 1);
@@ -112,7 +158,8 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
         var bytes = std.ArrayList(u8).init(allocator);
         defer bytes.deinit();
         
-        var value = input;
+        // Convert to a larger type to handle the shift operation
+        var value: u64 = @intCast(input);
         while (value > 0) {
             try bytes.insert(0, @as(u8, @intCast(value & 0xff)));
             value >>= 8;
@@ -137,7 +184,7 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     if (bytes.len < 56) {
         const result = try allocator.alloc(u8, 1 + bytes.len);
         result[0] = 0x80 + @as(u8, @intCast(bytes.len));
-        std.mem.copy(u8, result[1..], bytes);
+        @memcpy(result[1..], bytes);
         return result;
     }
     
@@ -147,8 +194,8 @@ fn encodeBytes(allocator: Allocator, bytes: []const u8) ![]u8 {
     
     const result = try allocator.alloc(u8, 1 + len_bytes.len + bytes.len);
     result[0] = 0xb7 + @as(u8, @intCast(len_bytes.len));
-    std.mem.copy(u8, result[1..], len_bytes);
-    std.mem.copy(u8, result[1 + len_bytes.len..], bytes);
+    @memcpy(result[1..1 + len_bytes.len], len_bytes);
+    @memcpy(result[1 + len_bytes.len..], bytes);
     
     return result;
 }
@@ -227,7 +274,7 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
         }
         
         const data = try allocator.alloc(u8, length);
-        std.mem.copy(u8, data, input[1 .. 1 + length]);
+        @memcpy(data, input[1 .. 1 + length]);
         
         return Decoded{
             .data = Data{ .String = data },
@@ -263,7 +310,7 @@ fn _decode(allocator: Allocator, input: []const u8) !Decoded {
         }
         
         const data = try allocator.alloc(u8, total_length);
-        std.mem.copy(u8, data, input[1 + length_of_length .. 1 + length_of_length + total_length]);
+        @memcpy(data, input[1 + length_of_length .. 1 + length_of_length + total_length]);
         
         return Decoded{
             .data = Data{ .String = data },
@@ -386,7 +433,7 @@ pub fn concatBytes(allocator: Allocator, arrays: []const []const u8) ![]u8 {
     const result = try allocator.alloc(u8, total_len);
     var index: usize = 0;
     for (arrays) |arr| {
-        std.mem.copy(u8, result[index..], arr);
+        @memcpy(result[index..index + arr.len], arr);
         index += arr.len;
     }
     

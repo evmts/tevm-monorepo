@@ -11,6 +11,7 @@ foundry-compilers = "0.10.1"
 serde_json = "1.0"
 semver = "1.0"
 libc = "0.2"
+hex = "0.4"
 
 [build-dependencies]
 cbindgen = "0.24"

@@ -3,8 +3,13 @@ use std::os::raw::{c_char, c_int};
 use std::path::{Path, PathBuf};
 use std::ptr;
 
-use foundry_compilers::{Project, ProjectPathsConfig};
+// Include get_artifacts module
+mod get_artifacts;
+pub use get_artifacts::*;
+
+use foundry_compilers::compilers::multi::MultiCompiler;
 use foundry_compilers::solc::Solc;
+use foundry_compilers::{Project, ProjectPathsConfig};
 
 #[repr(C)]
 pub struct FoundryError {
@@ -17,7 +22,6 @@ const ERROR_NONE: c_int = 0;
 const ERROR_INVALID_PATH: c_int = 1;
 const ERROR_COMPILATION: c_int = 2;
 const ERROR_INVALID_VERSION: c_int = 3;
-const ERROR_SOLC_INSTALL: c_int = 4;
 const ERROR_OTHER: c_int = 99;
 
 #[no_mangle]
@@ -122,7 +126,10 @@ pub extern "C" fn foundry_compile_project(
         }
     };
 
-    let project = match Project::builder().paths(paths).build() {
+    let project = match Project::builder()
+        .paths(paths)
+        .build(MultiCompiler::default())
+    {
         Ok(proj) => proj,
         Err(e) => {
             if !out_error.is_null() {
@@ -204,7 +211,7 @@ pub extern "C" fn foundry_install_solc_version(
     // In a production implementation, we would try to install the specific solc version
     // This functionality requires foundry-compilers' solc management which can download
     // and install specific versions of the Solidity compiler
-    match Solc::find_svm_installed_version(&version.to_string()) {
+    match Solc::find_svm_installed_version(&version) {
         Ok(_) => 1, // Version already installed
         Err(_) => {
             // In a full implementation, we would install the compiler here
@@ -271,7 +278,7 @@ pub extern "C" fn foundry_compile_file(
                         return 0;
                     }
                 }
-            },
+            }
             _ => None,
         }
     } else {
@@ -280,26 +287,33 @@ pub extern "C" fn foundry_compile_file(
 
     let source_path = PathBuf::from(file_str);
 
-    let temp_dir = std::env::temp_dir().join("foundry-temp-project");
+    // Create a temporary directory for isolated compilation
+    let temp_dir = std::env::temp_dir().join(format!("foundry-compile-{}", std::process::id()));
     let _ = std::fs::create_dir_all(&temp_dir);
 
+    // Copy the source file to the temp directory
+    let file_name = source_path.file_name().unwrap();
+    let temp_file_path = temp_dir.join(file_name);
+    std::fs::copy(&source_path, &temp_file_path).ok();
+
+    // Use a paths config that only looks at our temp directory
     let paths = ProjectPathsConfig::builder()
-        .sources(source_path.parent().unwrap_or(&temp_dir))
+        .sources(&temp_dir)
         .build()
         .unwrap_or_else(|_| ProjectPathsConfig::hardhat(&temp_dir).unwrap());
 
     // Create project builder
-    let mut project_builder = Project::builder().paths(paths);
-    
+    let project_builder = Project::builder().paths(paths);
+
     // If a specific solc version was provided, configure it
-    if let Some(version) = solc_version_str {
+    if let Some(_version) = solc_version_str {
         // For now we don't set the version in the project builder
         // The actual implementation would configure this using the
         // appropriate builder methods available in the foundry-compilers library
         // This part may need to be adjusted based on the actual API
     }
 
-    let project = match project_builder.build() {
+    let project = match project_builder.build(MultiCompiler::default()) {
         Ok(p) => p,
         Err(e) => {
             if !out_error.is_null() {
@@ -312,7 +326,7 @@ pub extern "C" fn foundry_compile_file(
         }
     };
 
-    match project.compile() {
+    let result = match project.compile() {
         Ok(_) => 1,
         Err(e) => {
             if !out_error.is_null() {
@@ -323,5 +337,11 @@ pub extern "C" fn foundry_compile_file(
             }
             0
         }
-    }
+    };
+
+    // Clean up temp directory
+    let _ = std::fs::remove_dir_all(&temp_dir);
+
+    result
 }
+

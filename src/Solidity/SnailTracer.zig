@@ -21,12 +21,13 @@ pub const ContractArtifact = struct {
 /// Compiler configuration for the SnailTracer contract
 pub const SnailTracerCompiler = struct {
     allocator: std.mem.Allocator,
+    bundler: Compiler.Bundler,
     
     /// Initialize the SnailTracer compiler with a specific Solidity version
     pub fn init(allocator: std.mem.Allocator, solc_version: ?[]const u8) SnailTracerCompiler {
-        _ = solc_version; // Unused for now
         return .{
             .allocator = allocator,
+            .bundler = Compiler.Bundler.init(allocator, solc_version),
         };
     }
     
@@ -44,10 +45,9 @@ pub const SnailTracerCompiler = struct {
         });
     }
     
-    /// Install the Solidity compiler (simulation)
+    /// Install the Solidity compiler
     pub fn installCompiler(self: *SnailTracerCompiler) !void {
-        // Simulate success without actually calling Rust
-        _ = self;
+        try self.bundler.installSolc("0.8.17");
     }
     
     /// Compile the SnailTracer contract and return its artifacts
@@ -56,30 +56,22 @@ pub const SnailTracerCompiler = struct {
         const contract_path = try self.getContractPath();
         defer self.allocator.free(contract_path);
         
-        std.debug.print("Would compile: {s}\n", .{contract_path});
+        std.debug.print("Compiling: {s}\n", .{contract_path});
         
-        // Create a placeholder artifact for testing
+        // Use the real compiler to compile the contract
+        const contract = try self.bundler.compileFile(contract_path);
+        
+        // Convert to ContractArtifact format
         return ContractArtifact{
-            .name = try self.allocator.dupe(u8, "SnailTracer"),
-            .abi = try self.allocator.dupe(u8, 
-                \\[
-                \\  {
-                \\    "inputs": [],
-                \\    "name": "Benchmark",
-                \\    "outputs": [{"type": "byte"}, {"type": "byte"}, {"type": "byte"}],
-                \\    "stateMutability": "constant",
-                \\    "type": "function"
-                \\  }
-                \\]
-            ),
-            .bytecode = try self.allocator.dupe(u8, "0x60806040..."), // Placeholder bytecode
+            .name = contract.name,
+            .abi = contract.abi,
+            .bytecode = contract.bytecode,
         };
     }
     
     /// Deinitialize the compiler
     pub fn deinit(self: *SnailTracerCompiler) void {
-        // Nothing to clean up in the current implementation
-        _ = self;
+        self.bundler.deinit();
     }
 };
 
@@ -109,9 +101,12 @@ test "SnailTracer compilation and artifacts" {
     // Check the artifact fields
     try std.testing.expectEqualStrings("SnailTracer", artifact.name);
     try std.testing.expect(artifact.abi.len > 0);
-    try std.testing.expect(artifact.bytecode.len > 0);
+    try std.testing.expect(artifact.bytecode.len > 2); // More than just "0x"
     
-    std.debug.print("Successfully simulated SnailTracer contract compilation\n", .{});
+    std.debug.print("Successfully compiled SnailTracer contract!\n", .{});
+    std.debug.print("Contract name: {s}\n", .{artifact.name});
+    std.debug.print("ABI length: {}\n", .{artifact.abi.len});
+    std.debug.print("Bytecode length: {}\n", .{artifact.bytecode.len});
 }
 
 test "Multi-version Solidity compiler" {
@@ -128,7 +123,7 @@ test "Multi-version Solidity compiler" {
         // Just test the compiler installation (simulated)
         try compiler.installCompiler();
         
-        std.debug.print("Default compiler simulated successfully\n", .{});
+        std.debug.print("Default compiler setup successfully\n", .{});
     }
     
     // Test with a specific version
@@ -139,6 +134,6 @@ test "Multi-version Solidity compiler" {
         // Just test the compiler installation (simulated)
         try compiler.installCompiler();
         
-        std.debug.print("Compiler 0.8.20 simulated successfully\n", .{});
+        std.debug.print("Compiler 0.8.20 setup successfully\n", .{});
     }
 }

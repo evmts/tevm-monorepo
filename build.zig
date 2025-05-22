@@ -26,11 +26,6 @@ pub fn build(b: *std.Build) void {
     // running `zig build`).
     b.installArtifact(lib);
 
-    // ===== Types =====
-    // Include the U256 module
-    const u256_mod = b.createModule(.{
-        .root_source_file = b.path("src/Types/U256.ts"),
-    });
 
     // ===== Rust integration =====
     // Add a module for the Rust compilers integration
@@ -40,10 +35,17 @@ pub fn build(b: *std.Build) void {
 
     // Add Compilers as a dependency to the main library
     lib.root_module.addImport("Compilers", compilers_mod);
+    
+    // Add include path for the compiler module
+    lib.addIncludePath(b.path("include"));
+
+    // Define the Rust library path that will be used by the build
+    const rust_lib_path = b.pathJoin(&.{ "dist", "target", "release", "libfoundry_wrapper.a" });
 
     // Build the Rust code for Compilers
-    RustBuild.addRustIntegration(b, target, optimize) catch |err| {
+    const rust_build_step = RustBuild.addRustIntegration(b, target, optimize) catch |err| {
         std.debug.print("Failed to add Rust integration: {}\n", .{err});
+        std.process.exit(1);
     };
 
     // ===== Tests =====
@@ -65,21 +67,6 @@ pub fn build(b: *std.Build) void {
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
-    const u256_test = b.addTest(.{
-        .name = "u256-test",
-        .root_source_file = b.path("src/Types/U256.spec.ts"),
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Add dependencies to u256_test
-    u256_test.root_module.addImport("U256", u256_mod);
-
-    const run_u256_test = b.addRunArtifact(u256_test);
-
-    // Add a separate step for testing U256
-    const u256_test_step = b.step("test-u256", "Run U256 tests");
-    u256_test_step.dependOn(&run_u256_test.step);
 
     // Add test for Trie
     const trie_test = b.addTest(.{
@@ -88,6 +75,12 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    
+    // Add RLP module dependency to Trie test
+    const rlp_mod = b.createModule(.{
+        .root_source_file = b.path("src/Rlp/rlp.zig"),
+    });
+    trie_test.root_module.addImport("Rlp", rlp_mod);
 
     const run_trie_test = b.addRunArtifact(trie_test);
 
@@ -116,6 +109,22 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    
+    // Add include path for the C headers
+    compiler_test.addIncludePath(b.path("include"));
+    
+    // Link the Rust static library
+    compiler_test.addObjectFile(b.path(rust_lib_path));
+    
+    // Link required system libraries
+    compiler_test.linkLibC();
+    if (target.result.os.tag == .macos) {
+        compiler_test.linkFramework("Security");
+        compiler_test.linkFramework("SystemConfiguration");
+    }
+    
+    // Make the test depend on the Rust build
+    compiler_test.step.dependOn(rust_build_step);
 
     const run_compiler_test = b.addRunArtifact(compiler_test);
 
@@ -147,6 +156,22 @@ pub fn build(b: *std.Build) void {
 
     // Add dependencies to snailtracer_test
     snailtracer_test.root_module.addImport("Compiler", compilers_mod);
+    
+    // Add include path for the C headers
+    snailtracer_test.addIncludePath(b.path("include"));
+    
+    // Link the Rust static library
+    snailtracer_test.addObjectFile(b.path(rust_lib_path));
+    
+    // Link required system libraries
+    snailtracer_test.linkLibC();
+    if (target.result.os.tag == .macos) {
+        snailtracer_test.linkFramework("Security");
+        snailtracer_test.linkFramework("SystemConfiguration");
+    }
+    
+    // Make the test depend on the Rust build
+    snailtracer_test.step.dependOn(rust_build_step);
 
     const run_snailtracer_test = b.addRunArtifact(snailtracer_test);
 
@@ -158,7 +183,6 @@ pub fn build(b: *std.Build) void {
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
-    test_step.dependOn(&run_u256_test.step);
     test_step.dependOn(&run_rlp_test.step);
     test_step.dependOn(&run_compiler_test.step);
     test_step.dependOn(&run_trie_test.step);

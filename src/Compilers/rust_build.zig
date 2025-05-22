@@ -1,20 +1,38 @@
 const std = @import("std");
 
-pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builtin.OptimizeMode) !void {
-    // Define a fake build command for Rust - we won't actually run Cargo 
-    // in this implementation as we're using a simulation
+pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builtin.OptimizeMode) !*std.Build.Step {
+    // Build the Rust static library
     const cargo_build = b.addSystemCommand(&.{
-        "echo",
-        "Simulating Rust build for Foundry wrapper...",
+        "cargo",
+        "build",
+        "--release",
+        "--manifest-path",
+        "src/Compilers/Cargo.toml",
+        "--target-dir",
+        "dist/target",
     });
 
     // Add a message to show build progress
-    std.debug.print("Simulating Rust Foundry wrapper build...\n", .{});
+    std.debug.print("Building Rust Foundry wrapper...\n", .{});
+
+    // Generate C bindings using cbindgen
+    const cbindgen_cmd = b.addSystemCommand(&.{
+        "cbindgen",
+        "--config", "src/Compilers/cbindgen.toml",
+        "--crate", "foundry_wrapper",
+        "--output", "include/foundry_wrapper.h",
+        "src/Compilers",
+    });
+    
+    cbindgen_cmd.step.dependOn(&cargo_build.step);
 
     // Create a module for the Compiler
     const compiler_mod = b.createModule(.{
         .root_source_file = b.path("src/Compilers/compiler.zig"),
     });
+    
+    // Define the Rust library path
+    const rust_lib_path = b.pathJoin(&.{ "dist", "target", "release", "libfoundry_wrapper.a" });
 
     const artifacts = [_]*std.Build.Step.Compile{
         b.addExecutable(.{
@@ -27,18 +45,31 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     
     // Add the compiler module to the executable
     artifacts[0].root_module.addImport("Compiler", compiler_mod);
-
+    
+    // Add include path for the C headers
+    artifacts[0].addIncludePath(b.path("include"));
+    
+    // Link the Rust static library
+    artifacts[0].addObjectFile(b.path(rust_lib_path));
+    
+    // Link required system libraries
+    artifacts[0].linkLibC();
+    if (target.result.os.tag == .macos) {
+        artifacts[0].linkFramework("Security");
+        artifacts[0].linkFramework("SystemConfiguration");
+    }
+    
     for (artifacts) |artifact| {
-        // Make the artifact depend on the simulated build
-        artifact.step.dependOn(&cargo_build.step);
+        // Make the artifact depend on the Rust build
+        artifact.step.dependOn(&cbindgen_cmd.step);
     }
 
     // Install the foundry-test executable
     b.installArtifact(artifacts[0]);
 
-    // Create a custom step to run the simulated cargo build
-    const build_rust_step = b.step("build-rust", "Simulate building the Rust Foundry wrapper library");
-    build_rust_step.dependOn(&cargo_build.step);
+    // Create a custom step to build the Rust library
+    const build_rust_step = b.step("build-rust", "Build the Rust Foundry wrapper library");
+    build_rust_step.dependOn(&cbindgen_cmd.step);
 
     // Add tests
     const foundry_test = b.addTest(.{
@@ -58,4 +89,7 @@ pub fn addRustIntegration(b: *std.Build, target: std.Build.ResolvedTarget, optim
     const run_snailtracer = b.addRunArtifact(artifacts[0]);
     const run_snailtracer_step = b.step("run-snailtracer", "Run the SnailTracer example");
     run_snailtracer_step.dependOn(&run_snailtracer.step);
+    
+    // Return the cbindgen step so it can be used as a dependency
+    return &cbindgen_cmd.step;
 }
