@@ -168,5 +168,5 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_snailtracer_test.step);
 
     // Define a single test step that runs all tests
-    const test_all_step = b.step("test-all", "Run all unit tests");
+    _ = b.step("test-all", "Run all unit tests");
 }
