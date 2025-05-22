@@ -24,7 +24,7 @@ pub fn main() !void {
     try compiler.installCompiler();
     
     // Try to get the artifacts (simulated)
-    const artifact = try compiler.compile();
+    var artifact = try compiler.compile();
     defer artifact.deinit(allocator);
     
     // Print information about the artifact
