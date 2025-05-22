@@ -1,13 +1,11 @@
 const std = @import("std");
 
-const Allocator = std.mem.Allocator;
-
 /// Maximum stack depth for the EVM
 pub const MAX_STACK_DEPTH = 1024;
 
 /// Stack represents the EVM stack, which contains 256-bit words
 ///
-/// The EVM stack is a last-in-first-out (LIFO) data structure that can hold 
+/// The EVM stack is a last-in-first-out (LIFO) data structure that can hold
 /// a maximum of 1024 items, each 256 bits wide. It's used to store operands
 /// for computation and control flow within the EVM.
 ///
@@ -36,31 +34,15 @@ pub const MAX_STACK_DEPTH = 1024;
 pub const Stack = struct {
     const Self = @This();
 
-    /// The allocator used for stack operations
-    allocator: Allocator,
-    
     /// The underlying array storing the stack items
-    data: []u256,
-    
+    data: [1024]u256 align(@alignOf(u256)) = [_]u256{0} ** 1024,
+
     /// The current size of the stack (number of items)
-    size: usize,
+    size: usize = 0,
 
-    /// Creates a new stack instance with the provided allocator
-    pub fn create(allocator: Allocator) !Self {
-        const data = try allocator.alloc(u256, MAX_STACK_DEPTH);
-        
-        return Self{
-            .allocator = allocator,
-            .data = data,
-            .size = 0,
-        };
-    }
-
-    /// Destroys the stack instance, freeing allocated memory
-    pub fn destroy(self: *Self) void {
-        self.allocator.free(self.data);
-        self.data = &[_]u256{};
-        self.size = 0;
+    /// Creates a new stack instance
+    pub fn create() Self {
+        return Self{};
     }
 
     /// Pushes a value onto the stack
@@ -69,7 +51,7 @@ pub const Stack = struct {
         if (self.size >= MAX_STACK_DEPTH) {
             return error.StackOverflow;
         }
-        
+
         self.data[self.size] = value;
         self.size += 1;
     }
@@ -80,7 +62,7 @@ pub const Stack = struct {
         if (self.size == 0) {
             return error.StackUnderflow;
         }
-        
+
         self.size -= 1;
         return self.data[self.size];
     }
@@ -91,7 +73,7 @@ pub const Stack = struct {
         if (self.size == 0) {
             return error.StackUnderflow;
         }
-        
+
         return &self.data[self.size - 1];
     }
 
@@ -102,7 +84,7 @@ pub const Stack = struct {
         if (n >= self.size) {
             return error.StackUnderflow;
         }
-        
+
         return &self.data[self.size - 1 - n];
     }
 
@@ -113,7 +95,7 @@ pub const Stack = struct {
         if (n == 0 or n >= self.size) {
             return error.StackUnderflow;
         }
-        
+
         const temp = self.data[self.size - 1];
         self.data[self.size - 1] = self.data[self.size - 1 - n];
         self.data[self.size - 1 - n] = temp;
@@ -126,11 +108,11 @@ pub const Stack = struct {
         if (n >= self.size) {
             return error.StackUnderflow;
         }
-        
+
         if (self.size >= MAX_STACK_DEPTH) {
             return error.StackOverflow;
         }
-        
+
         self.data[self.size] = self.data[self.size - 1 - n];
         self.size += 1;
     }

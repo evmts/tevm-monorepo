@@ -15,27 +15,20 @@ pub const Frame = struct {
     memory: Memory,
     gas: u64 = 0,
     gas_used: u64 = 0,
-    
+
     // Contract context
     caller: []u8 = &[_]u8{},
     callvalue: u256 = 0,
     calldata: []u8 = &[_]u8{},
     return_data: []u8 = &[_]u8{},
-    
-    // TODO: Add additional fields for contract state, storage, etc.
 
     pub fn create(allocator: Allocator, contract: *const Contract) Self {
-        // Create stack and memory
-        const stack = Stack.create(allocator) catch {
-            // Handle error in production code
-            @panic("Failed to create stack");
-        };
-        
+        const stack = Stack.create();
+
         const memory = Memory.create(allocator) catch {
-            // Handle error in production code
             @panic("Failed to create memory");
         };
-        
+
         return Frame{
             .allocator = allocator,
             .contract = contract,
@@ -45,8 +38,6 @@ pub const Frame = struct {
     }
 
     pub fn destroy(self: *Self) void {
-        self.stack.destroy();
         self.memory.destroy();
-        // Cleanup will happen here in the future
     }
 };

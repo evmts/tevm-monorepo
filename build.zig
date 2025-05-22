@@ -26,6 +26,12 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    
+    // Get zBench dependency
+    const zbench_dep = b.dependency("zbench", .{
+        .target = target,
+        .optimize = optimize,
+    });
 
     // First create individual modules for each component
     const address_mod = b.createModule(.{
@@ -417,4 +423,23 @@ pub fn build(b: *std.Build) void {
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
     test_all_step.dependOn(test_step);
+    
+    // Add Stack benchmarks
+    const stack_bench = b.addExecutable(.{
+        .name = "stack-bench",
+        .root_source_file = b.path("src/Evm/Stack.bench.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add module imports to the benchmark
+    stack_bench.root_module.addImport("zbench", zbench_dep.module("zbench"));
+    stack_bench.root_module.addImport("Evm", evm_mod);
+    
+    // Create a run step for the benchmark
+    const run_stack_bench = b.addRunArtifact(stack_bench);
+    
+    // Add a separate step for running Stack benchmarks
+    const bench_step = b.step("bench-stack", "Run Stack benchmarks");
+    bench_step.dependOn(&run_stack_bench.step);
 }

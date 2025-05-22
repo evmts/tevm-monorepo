@@ -3,7 +3,7 @@ const _frame = @import("Frame.zig");
 const _stack = @import("Stack.zig");
 const _opcodes = @import("Opcodes.zig");
 const bytecode = @import("Bytecode");
-const Evm = @import("Interpreter.zig").Evm;
+const Evm = @import("EvmInterpreter.zig").Evm;
 
 const Frame = _frame.Frame;
 const Stack = _stack.Stack;
@@ -1329,159 +1329,465 @@ pub const OpcodeExecutor = struct {
     // TODO: Perf improvement we should use a jump table though
     pub fn execute(self: Self, evm: *Evm, frame: *Frame) ExecutionError!void {
         return switch (self.opcode) {
-            Opcode.STOP => { _ = try STOP.execute(evm, frame); },
-            Opcode.ADD => { _ = try ADD.execute(evm, frame); },
-            Opcode.MUL => { _ = try MUL.execute(evm, frame); },
-            Opcode.SUB => { _ = try SUB.execute(evm, frame); },
-            Opcode.DIV => { _ = try DIV.execute(evm, frame); },
-            Opcode.SDIV => { _ = try SDIV.execute(evm, frame); },
-            Opcode.MOD => { _ = try MOD.execute(evm, frame); },
-            Opcode.SMOD => { _ = try SMOD.execute(evm, frame); },
-            Opcode.ADDMOD => { _ = try ADDMOD.execute(evm, frame); },
-            Opcode.MULMOD => { _ = try MULMOD.execute(evm, frame); },
-            Opcode.EXP => { _ = try EXP.execute(evm, frame); },
-            Opcode.SIGNEXTEND => { _ = try SIGNEXTEND.execute(evm, frame); },
-            Opcode.LT => { _ = try LT.execute(evm, frame); },
-            Opcode.GT => { _ = try GT.execute(evm, frame); },
-            Opcode.SLT => { _ = try SLT.execute(evm, frame); },
-            Opcode.SGT => { _ = try SGT.execute(evm, frame); },
-            Opcode.EQ => { _ = try EQ.execute(evm, frame); },
-            Opcode.ISZERO => { _ = try ISZERO.execute(evm, frame); },
-            Opcode.AND => { _ = try AND.execute(evm, frame); },
-            Opcode.OR => { _ = try OR.execute(evm, frame); },
-            Opcode.XOR => { _ = try XOR.execute(evm, frame); },
-            Opcode.NOT => { _ = try NOT.execute(evm, frame); },
-            Opcode.BYTE => { _ = try BYTE.execute(evm, frame); },
-            Opcode.SHL => { _ = try SHL.execute(evm, frame); },
-            Opcode.SHR => { _ = try SHR.execute(evm, frame); },
-            Opcode.SAR => { _ = try SAR.execute(evm, frame); },
-            Opcode.KECCAK256 => { _ = try KECCAK256.execute(evm, frame); },
-            Opcode.ADDRESS => { _ = try ADDRESS.execute(evm, frame); },
-            Opcode.BALANCE => { _ = try BALANCE.execute(evm, frame); },
-            Opcode.ORIGIN => { _ = try ORIGIN.execute(evm, frame); },
-            Opcode.CALLER => { _ = try CALLER.execute(evm, frame); },
-            Opcode.CALLVALUE => { _ = try CALLVALUE.execute(evm, frame); },
-            Opcode.CALLDATALOAD => { _ = try CALLDATALOAD.execute(evm, frame); },
-            Opcode.CALLDATASIZE => { _ = try CALLDATASIZE.execute(evm, frame); },
-            Opcode.CALLDATACOPY => { _ = try CALLDATACOPY.execute(evm, frame); },
-            Opcode.CODESIZE => { _ = try CODESIZE.execute(evm, frame); },
-            Opcode.CODECOPY => { _ = try CODECOPY.execute(evm, frame); },
-            Opcode.GASPRICE => { _ = try GASPRICE.execute(evm, frame); },
-            Opcode.EXTCODESIZE => { _ = try EXTCODESIZE.execute(evm, frame); },
-            Opcode.EXTCODECOPY => { _ = try EXTCODECOPY.execute(evm, frame); },
-            Opcode.RETURNDATASIZE => { _ = try RETURNDATASIZE.execute(evm, frame); },
-            Opcode.RETURNDATACOPY => { _ = try RETURNDATACOPY.execute(evm, frame); },
-            Opcode.EXTCODEHASH => { _ = try EXTCODEHASH.execute(evm, frame); },
-            Opcode.BLOCKHASH => { _ = try BLOCKHASH.execute(evm, frame); },
-            Opcode.COINBASE => { _ = try COINBASE.execute(evm, frame); },
-            Opcode.TIMESTAMP => { _ = try TIMESTAMP.execute(evm, frame); },
-            Opcode.NUMBER => { _ = try NUMBER.execute(evm, frame); },
-            Opcode.PREVRANDAO => { _ = try PREVRANDAO.execute(evm, frame); },
-            Opcode.GASLIMIT => { _ = try GASLIMIT.execute(evm, frame); },
-            Opcode.CHAINID => { _ = try CHAINID.execute(evm, frame); },
-            Opcode.SELFBALANCE => { _ = try SELFBALANCE.execute(evm, frame); },
-            Opcode.BASEFEE => { _ = try BASEFEE.execute(evm, frame); },
-            Opcode.BLOBHASH => { _ = try BLOBHASH.execute(evm, frame); },
-            Opcode.BLOBBASEFEE => { _ = try BLOBBASEFEE.execute(evm, frame); },
-            Opcode.POP => { _ = try POP.execute(evm, frame); },
-            Opcode.MLOAD => { _ = try MLOAD.execute(evm, frame); },
-            Opcode.MSTORE => { _ = try MSTORE.execute(evm, frame); },
-            Opcode.MSTORE8 => { _ = try MSTORE8.execute(evm, frame); },
-            Opcode.SLOAD => { _ = try SLOAD.execute(evm, frame); },
-            Opcode.SSTORE => { _ = try SSTORE.execute(evm, frame); },
-            Opcode.JUMP => { _ = try JUMP.execute(evm, frame); },
-            Opcode.JUMPI => { _ = try JUMPI.execute(evm, frame); },
-            Opcode.PC => { _ = try PC.execute(evm, frame); },
-            Opcode.MSIZE => { _ = try MSIZE.execute(evm, frame); },
-            Opcode.GAS => { _ = try GAS.execute(evm, frame); },
-            Opcode.JUMPDEST => { _ = try JUMPDEST.execute(evm, frame); },
-            Opcode.TLOAD => { _ = try TLOAD.execute(evm, frame); },
-            Opcode.TSTORE => { _ = try TSTORE.execute(evm, frame); },
-            Opcode.MCOPY => { _ = try MCOPY.execute(evm, frame); },
-            Opcode.PUSH0 => { _ = try PUSH0.execute(evm, frame); },
-            Opcode.PUSH1 => { _ = try PUSH1.execute(evm, frame); },
-            Opcode.PUSH2 => { _ = try PUSH2.execute(evm, frame); },
-            Opcode.PUSH3 => { _ = try PUSH3.execute(evm, frame); },
-            Opcode.PUSH4 => { _ = try PUSH4.execute(evm, frame); },
-            Opcode.PUSH5 => { _ = try PUSH5.execute(evm, frame); },
-            Opcode.PUSH6 => { _ = try PUSH6.execute(evm, frame); },
-            Opcode.PUSH7 => { _ = try PUSH7.execute(evm, frame); },
-            Opcode.PUSH8 => { _ = try PUSH8.execute(evm, frame); },
-            Opcode.PUSH9 => { _ = try PUSH9.execute(evm, frame); },
-            Opcode.PUSH10 => { _ = try PUSH10.execute(evm, frame); },
-            Opcode.PUSH11 => { _ = try PUSH11.execute(evm, frame); },
-            Opcode.PUSH12 => { _ = try PUSH12.execute(evm, frame); },
-            Opcode.PUSH13 => { _ = try PUSH13.execute(evm, frame); },
-            Opcode.PUSH14 => { _ = try PUSH14.execute(evm, frame); },
-            Opcode.PUSH15 => { _ = try PUSH15.execute(evm, frame); },
-            Opcode.PUSH16 => { _ = try PUSH16.execute(evm, frame); },
-            Opcode.PUSH17 => { _ = try PUSH17.execute(evm, frame); },
-            Opcode.PUSH18 => { _ = try PUSH18.execute(evm, frame); },
-            Opcode.PUSH19 => { _ = try PUSH19.execute(evm, frame); },
-            Opcode.PUSH20 => { _ = try PUSH20.execute(evm, frame); },
-            Opcode.PUSH21 => { _ = try PUSH21.execute(evm, frame); },
-            Opcode.PUSH22 => { _ = try PUSH22.execute(evm, frame); },
-            Opcode.PUSH23 => { _ = try PUSH23.execute(evm, frame); },
-            Opcode.PUSH24 => { _ = try PUSH24.execute(evm, frame); },
-            Opcode.PUSH25 => { _ = try PUSH25.execute(evm, frame); },
-            Opcode.PUSH26 => { _ = try PUSH26.execute(evm, frame); },
-            Opcode.PUSH27 => { _ = try PUSH27.execute(evm, frame); },
-            Opcode.PUSH28 => { _ = try PUSH28.execute(evm, frame); },
-            Opcode.PUSH29 => { _ = try PUSH29.execute(evm, frame); },
-            Opcode.PUSH30 => { _ = try PUSH30.execute(evm, frame); },
-            Opcode.PUSH31 => { _ = try PUSH31.execute(evm, frame); },
-            Opcode.PUSH32 => { _ = try PUSH32.execute(evm, frame); },
-            Opcode.DUP1 => { _ = try DUP1.execute(evm, frame); },
-            Opcode.DUP2 => { _ = try DUP2.execute(evm, frame); },
-            Opcode.DUP3 => { _ = try DUP3.execute(evm, frame); },
-            Opcode.DUP4 => { _ = try DUP4.execute(evm, frame); },
-            Opcode.DUP5 => { _ = try DUP5.execute(evm, frame); },
-            Opcode.DUP6 => { _ = try DUP6.execute(evm, frame); },
-            Opcode.DUP7 => { _ = try DUP7.execute(evm, frame); },
-            Opcode.DUP8 => { _ = try DUP8.execute(evm, frame); },
-            Opcode.DUP9 => { _ = try DUP9.execute(evm, frame); },
-            Opcode.DUP10 => { _ = try DUP10.execute(evm, frame); },
-            Opcode.DUP11 => { _ = try DUP11.execute(evm, frame); },
-            Opcode.DUP12 => { _ = try DUP12.execute(evm, frame); },
-            Opcode.DUP13 => { _ = try DUP13.execute(evm, frame); },
-            Opcode.DUP14 => { _ = try DUP14.execute(evm, frame); },
-            Opcode.DUP15 => { _ = try DUP15.execute(evm, frame); },
-            Opcode.DUP16 => { _ = try DUP16.execute(evm, frame); },
-            Opcode.SWAP1 => { _ = try SWAP1.execute(evm, frame); },
-            Opcode.SWAP2 => { _ = try SWAP2.execute(evm, frame); },
-            Opcode.SWAP3 => { _ = try SWAP3.execute(evm, frame); },
-            Opcode.SWAP4 => { _ = try SWAP4.execute(evm, frame); },
-            Opcode.SWAP5 => { _ = try SWAP5.execute(evm, frame); },
-            Opcode.SWAP6 => { _ = try SWAP6.execute(evm, frame); },
-            Opcode.SWAP7 => { _ = try SWAP7.execute(evm, frame); },
-            Opcode.SWAP8 => { _ = try SWAP8.execute(evm, frame); },
-            Opcode.SWAP9 => { _ = try SWAP9.execute(evm, frame); },
-            Opcode.SWAP10 => { _ = try SWAP10.execute(evm, frame); },
-            Opcode.SWAP11 => { _ = try SWAP11.execute(evm, frame); },
-            Opcode.SWAP12 => { _ = try SWAP12.execute(evm, frame); },
-            Opcode.SWAP13 => { _ = try SWAP13.execute(evm, frame); },
-            Opcode.SWAP14 => { _ = try SWAP14.execute(evm, frame); },
-            Opcode.SWAP15 => { _ = try SWAP15.execute(evm, frame); },
-            Opcode.SWAP16 => { _ = try SWAP16.execute(evm, frame); },
-            Opcode.LOG0 => { _ = try LOG0.execute(evm, frame); },
-            Opcode.LOG1 => { _ = try LOG1.execute(evm, frame); },
-            Opcode.LOG2 => { _ = try LOG2.execute(evm, frame); },
-            Opcode.LOG3 => { _ = try LOG3.execute(evm, frame); },
-            Opcode.LOG4 => { _ = try LOG4.execute(evm, frame); },
-            Opcode.CREATE => { _ = try CREATE.execute(evm, frame); },
-            Opcode.CALL => { _ = try CALL.execute(evm, frame); },
-            Opcode.CALLCODE => { _ = try CALLCODE.execute(evm, frame); },
-            Opcode.RETURN => { _ = try RETURN.execute(evm, frame); },
-            Opcode.DELEGATECALL => { _ = try DELEGATECALL.execute(evm, frame); },
-            Opcode.CREATE2 => { _ = try CREATE2.execute(evm, frame); },
-            Opcode.RETURNDATALOAD => { _ = try RETURNDATALOAD.execute(evm, frame); },
-            Opcode.EXTCALL => { _ = try EXTCALL.execute(evm, frame); },
-            Opcode.EXTDELEGATECALL => { _ = try EXTDELEGATECALL.execute(evm, frame); },
-            Opcode.STATICCALL => { _ = try STATICCALL.execute(evm, frame); },
-            Opcode.EXTSTATICCALL => { _ = try EXTSTATICCALL.execute(evm, frame); },
-            Opcode.REVERT => { _ = try REVERT.execute(evm, frame); },
-            Opcode.INVALID => { _ = try INVALID.execute(evm, frame); },
-            Opcode.SELFDESTRUCT => { _ = try SELFDESTRUCT.execute(evm, frame); },
+            Opcode.STOP => {
+                _ = try STOP.execute(evm, frame);
+            },
+            Opcode.ADD => {
+                _ = try ADD.execute(evm, frame);
+            },
+            Opcode.MUL => {
+                _ = try MUL.execute(evm, frame);
+            },
+            Opcode.SUB => {
+                _ = try SUB.execute(evm, frame);
+            },
+            Opcode.DIV => {
+                _ = try DIV.execute(evm, frame);
+            },
+            Opcode.SDIV => {
+                _ = try SDIV.execute(evm, frame);
+            },
+            Opcode.MOD => {
+                _ = try MOD.execute(evm, frame);
+            },
+            Opcode.SMOD => {
+                _ = try SMOD.execute(evm, frame);
+            },
+            Opcode.ADDMOD => {
+                _ = try ADDMOD.execute(evm, frame);
+            },
+            Opcode.MULMOD => {
+                _ = try MULMOD.execute(evm, frame);
+            },
+            Opcode.EXP => {
+                _ = try EXP.execute(evm, frame);
+            },
+            Opcode.SIGNEXTEND => {
+                _ = try SIGNEXTEND.execute(evm, frame);
+            },
+            Opcode.LT => {
+                _ = try LT.execute(evm, frame);
+            },
+            Opcode.GT => {
+                _ = try GT.execute(evm, frame);
+            },
+            Opcode.SLT => {
+                _ = try SLT.execute(evm, frame);
+            },
+            Opcode.SGT => {
+                _ = try SGT.execute(evm, frame);
+            },
+            Opcode.EQ => {
+                _ = try EQ.execute(evm, frame);
+            },
+            Opcode.ISZERO => {
+                _ = try ISZERO.execute(evm, frame);
+            },
+            Opcode.AND => {
+                _ = try AND.execute(evm, frame);
+            },
+            Opcode.OR => {
+                _ = try OR.execute(evm, frame);
+            },
+            Opcode.XOR => {
+                _ = try XOR.execute(evm, frame);
+            },
+            Opcode.NOT => {
+                _ = try NOT.execute(evm, frame);
+            },
+            Opcode.BYTE => {
+                _ = try BYTE.execute(evm, frame);
+            },
+            Opcode.SHL => {
+                _ = try SHL.execute(evm, frame);
+            },
+            Opcode.SHR => {
+                _ = try SHR.execute(evm, frame);
+            },
+            Opcode.SAR => {
+                _ = try SAR.execute(evm, frame);
+            },
+            Opcode.KECCAK256 => {
+                _ = try KECCAK256.execute(evm, frame);
+            },
+            Opcode.ADDRESS => {
+                _ = try ADDRESS.execute(evm, frame);
+            },
+            Opcode.BALANCE => {
+                _ = try BALANCE.execute(evm, frame);
+            },
+            Opcode.ORIGIN => {
+                _ = try ORIGIN.execute(evm, frame);
+            },
+            Opcode.CALLER => {
+                _ = try CALLER.execute(evm, frame);
+            },
+            Opcode.CALLVALUE => {
+                _ = try CALLVALUE.execute(evm, frame);
+            },
+            Opcode.CALLDATALOAD => {
+                _ = try CALLDATALOAD.execute(evm, frame);
+            },
+            Opcode.CALLDATASIZE => {
+                _ = try CALLDATASIZE.execute(evm, frame);
+            },
+            Opcode.CALLDATACOPY => {
+                _ = try CALLDATACOPY.execute(evm, frame);
+            },
+            Opcode.CODESIZE => {
+                _ = try CODESIZE.execute(evm, frame);
+            },
+            Opcode.CODECOPY => {
+                _ = try CODECOPY.execute(evm, frame);
+            },
+            Opcode.GASPRICE => {
+                _ = try GASPRICE.execute(evm, frame);
+            },
+            Opcode.EXTCODESIZE => {
+                _ = try EXTCODESIZE.execute(evm, frame);
+            },
+            Opcode.EXTCODECOPY => {
+                _ = try EXTCODECOPY.execute(evm, frame);
+            },
+            Opcode.RETURNDATASIZE => {
+                _ = try RETURNDATASIZE.execute(evm, frame);
+            },
+            Opcode.RETURNDATACOPY => {
+                _ = try RETURNDATACOPY.execute(evm, frame);
+            },
+            Opcode.EXTCODEHASH => {
+                _ = try EXTCODEHASH.execute(evm, frame);
+            },
+            Opcode.BLOCKHASH => {
+                _ = try BLOCKHASH.execute(evm, frame);
+            },
+            Opcode.COINBASE => {
+                _ = try COINBASE.execute(evm, frame);
+            },
+            Opcode.TIMESTAMP => {
+                _ = try TIMESTAMP.execute(evm, frame);
+            },
+            Opcode.NUMBER => {
+                _ = try NUMBER.execute(evm, frame);
+            },
+            Opcode.PREVRANDAO => {
+                _ = try PREVRANDAO.execute(evm, frame);
+            },
+            Opcode.GASLIMIT => {
+                _ = try GASLIMIT.execute(evm, frame);
+            },
+            Opcode.CHAINID => {
+                _ = try CHAINID.execute(evm, frame);
+            },
+            Opcode.SELFBALANCE => {
+                _ = try SELFBALANCE.execute(evm, frame);
+            },
+            Opcode.BASEFEE => {
+                _ = try BASEFEE.execute(evm, frame);
+            },
+            Opcode.BLOBHASH => {
+                _ = try BLOBHASH.execute(evm, frame);
+            },
+            Opcode.BLOBBASEFEE => {
+                _ = try BLOBBASEFEE.execute(evm, frame);
+            },
+            Opcode.POP => {
+                _ = try POP.execute(evm, frame);
+            },
+            Opcode.MLOAD => {
+                _ = try MLOAD.execute(evm, frame);
+            },
+            Opcode.MSTORE => {
+                _ = try MSTORE.execute(evm, frame);
+            },
+            Opcode.MSTORE8 => {
+                _ = try MSTORE8.execute(evm, frame);
+            },
+            Opcode.SLOAD => {
+                _ = try SLOAD.execute(evm, frame);
+            },
+            Opcode.SSTORE => {
+                _ = try SSTORE.execute(evm, frame);
+            },
+            Opcode.JUMP => {
+                _ = try JUMP.execute(evm, frame);
+            },
+            Opcode.JUMPI => {
+                _ = try JUMPI.execute(evm, frame);
+            },
+            Opcode.PC => {
+                _ = try PC.execute(evm, frame);
+            },
+            Opcode.MSIZE => {
+                _ = try MSIZE.execute(evm, frame);
+            },
+            Opcode.GAS => {
+                _ = try GAS.execute(evm, frame);
+            },
+            Opcode.JUMPDEST => {
+                _ = try JUMPDEST.execute(evm, frame);
+            },
+            Opcode.TLOAD => {
+                _ = try TLOAD.execute(evm, frame);
+            },
+            Opcode.TSTORE => {
+                _ = try TSTORE.execute(evm, frame);
+            },
+            Opcode.MCOPY => {
+                _ = try MCOPY.execute(evm, frame);
+            },
+            Opcode.PUSH0 => {
+                _ = try PUSH0.execute(evm, frame);
+            },
+            Opcode.PUSH1 => {
+                _ = try PUSH1.execute(evm, frame);
+            },
+            Opcode.PUSH2 => {
+                _ = try PUSH2.execute(evm, frame);
+            },
+            Opcode.PUSH3 => {
+                _ = try PUSH3.execute(evm, frame);
+            },
+            Opcode.PUSH4 => {
+                _ = try PUSH4.execute(evm, frame);
+            },
+            Opcode.PUSH5 => {
+                _ = try PUSH5.execute(evm, frame);
+            },
+            Opcode.PUSH6 => {
+                _ = try PUSH6.execute(evm, frame);
+            },
+            Opcode.PUSH7 => {
+                _ = try PUSH7.execute(evm, frame);
+            },
+            Opcode.PUSH8 => {
+                _ = try PUSH8.execute(evm, frame);
+            },
+            Opcode.PUSH9 => {
+                _ = try PUSH9.execute(evm, frame);
+            },
+            Opcode.PUSH10 => {
+                _ = try PUSH10.execute(evm, frame);
+            },
+            Opcode.PUSH11 => {
+                _ = try PUSH11.execute(evm, frame);
+            },
+            Opcode.PUSH12 => {
+                _ = try PUSH12.execute(evm, frame);
+            },
+            Opcode.PUSH13 => {
+                _ = try PUSH13.execute(evm, frame);
+            },
+            Opcode.PUSH14 => {
+                _ = try PUSH14.execute(evm, frame);
+            },
+            Opcode.PUSH15 => {
+                _ = try PUSH15.execute(evm, frame);
+            },
+            Opcode.PUSH16 => {
+                _ = try PUSH16.execute(evm, frame);
+            },
+            Opcode.PUSH17 => {
+                _ = try PUSH17.execute(evm, frame);
+            },
+            Opcode.PUSH18 => {
+                _ = try PUSH18.execute(evm, frame);
+            },
+            Opcode.PUSH19 => {
+                _ = try PUSH19.execute(evm, frame);
+            },
+            Opcode.PUSH20 => {
+                _ = try PUSH20.execute(evm, frame);
+            },
+            Opcode.PUSH21 => {
+                _ = try PUSH21.execute(evm, frame);
+            },
+            Opcode.PUSH22 => {
+                _ = try PUSH22.execute(evm, frame);
+            },
+            Opcode.PUSH23 => {
+                _ = try PUSH23.execute(evm, frame);
+            },
+            Opcode.PUSH24 => {
+                _ = try PUSH24.execute(evm, frame);
+            },
+            Opcode.PUSH25 => {
+                _ = try PUSH25.execute(evm, frame);
+            },
+            Opcode.PUSH26 => {
+                _ = try PUSH26.execute(evm, frame);
+            },
+            Opcode.PUSH27 => {
+                _ = try PUSH27.execute(evm, frame);
+            },
+            Opcode.PUSH28 => {
+                _ = try PUSH28.execute(evm, frame);
+            },
+            Opcode.PUSH29 => {
+                _ = try PUSH29.execute(evm, frame);
+            },
+            Opcode.PUSH30 => {
+                _ = try PUSH30.execute(evm, frame);
+            },
+            Opcode.PUSH31 => {
+                _ = try PUSH31.execute(evm, frame);
+            },
+            Opcode.PUSH32 => {
+                _ = try PUSH32.execute(evm, frame);
+            },
+            Opcode.DUP1 => {
+                _ = try DUP1.execute(evm, frame);
+            },
+            Opcode.DUP2 => {
+                _ = try DUP2.execute(evm, frame);
+            },
+            Opcode.DUP3 => {
+                _ = try DUP3.execute(evm, frame);
+            },
+            Opcode.DUP4 => {
+                _ = try DUP4.execute(evm, frame);
+            },
+            Opcode.DUP5 => {
+                _ = try DUP5.execute(evm, frame);
+            },
+            Opcode.DUP6 => {
+                _ = try DUP6.execute(evm, frame);
+            },
+            Opcode.DUP7 => {
+                _ = try DUP7.execute(evm, frame);
+            },
+            Opcode.DUP8 => {
+                _ = try DUP8.execute(evm, frame);
+            },
+            Opcode.DUP9 => {
+                _ = try DUP9.execute(evm, frame);
+            },
+            Opcode.DUP10 => {
+                _ = try DUP10.execute(evm, frame);
+            },
+            Opcode.DUP11 => {
+                _ = try DUP11.execute(evm, frame);
+            },
+            Opcode.DUP12 => {
+                _ = try DUP12.execute(evm, frame);
+            },
+            Opcode.DUP13 => {
+                _ = try DUP13.execute(evm, frame);
+            },
+            Opcode.DUP14 => {
+                _ = try DUP14.execute(evm, frame);
+            },
+            Opcode.DUP15 => {
+                _ = try DUP15.execute(evm, frame);
+            },
+            Opcode.DUP16 => {
+                _ = try DUP16.execute(evm, frame);
+            },
+            Opcode.SWAP1 => {
+                _ = try SWAP1.execute(evm, frame);
+            },
+            Opcode.SWAP2 => {
+                _ = try SWAP2.execute(evm, frame);
+            },
+            Opcode.SWAP3 => {
+                _ = try SWAP3.execute(evm, frame);
+            },
+            Opcode.SWAP4 => {
+                _ = try SWAP4.execute(evm, frame);
+            },
+            Opcode.SWAP5 => {
+                _ = try SWAP5.execute(evm, frame);
+            },
+            Opcode.SWAP6 => {
+                _ = try SWAP6.execute(evm, frame);
+            },
+            Opcode.SWAP7 => {
+                _ = try SWAP7.execute(evm, frame);
+            },
+            Opcode.SWAP8 => {
+                _ = try SWAP8.execute(evm, frame);
+            },
+            Opcode.SWAP9 => {
+                _ = try SWAP9.execute(evm, frame);
+            },
+            Opcode.SWAP10 => {
+                _ = try SWAP10.execute(evm, frame);
+            },
+            Opcode.SWAP11 => {
+                _ = try SWAP11.execute(evm, frame);
+            },
+            Opcode.SWAP12 => {
+                _ = try SWAP12.execute(evm, frame);
+            },
+            Opcode.SWAP13 => {
+                _ = try SWAP13.execute(evm, frame);
+            },
+            Opcode.SWAP14 => {
+                _ = try SWAP14.execute(evm, frame);
+            },
+            Opcode.SWAP15 => {
+                _ = try SWAP15.execute(evm, frame);
+            },
+            Opcode.SWAP16 => {
+                _ = try SWAP16.execute(evm, frame);
+            },
+            Opcode.LOG0 => {
+                _ = try LOG0.execute(evm, frame);
+            },
+            Opcode.LOG1 => {
+                _ = try LOG1.execute(evm, frame);
+            },
+            Opcode.LOG2 => {
+                _ = try LOG2.execute(evm, frame);
+            },
+            Opcode.LOG3 => {
+                _ = try LOG3.execute(evm, frame);
+            },
+            Opcode.LOG4 => {
+                _ = try LOG4.execute(evm, frame);
+            },
+            Opcode.CREATE => {
+                _ = try CREATE.execute(evm, frame);
+            },
+            Opcode.CALL => {
+                _ = try CALL.execute(evm, frame);
+            },
+            Opcode.CALLCODE => {
+                _ = try CALLCODE.execute(evm, frame);
+            },
+            Opcode.RETURN => {
+                _ = try RETURN.execute(evm, frame);
+            },
+            Opcode.DELEGATECALL => {
+                _ = try DELEGATECALL.execute(evm, frame);
+            },
+            Opcode.CREATE2 => {
+                _ = try CREATE2.execute(evm, frame);
+            },
+            Opcode.RETURNDATALOAD => {
+                _ = try RETURNDATALOAD.execute(evm, frame);
+            },
+            Opcode.EXTCALL => {
+                _ = try EXTCALL.execute(evm, frame);
+            },
+            Opcode.EXTDELEGATECALL => {
+                _ = try EXTDELEGATECALL.execute(evm, frame);
+            },
+            Opcode.STATICCALL => {
+                _ = try STATICCALL.execute(evm, frame);
+            },
+            Opcode.EXTSTATICCALL => {
+                _ = try EXTSTATICCALL.execute(evm, frame);
+            },
+            Opcode.REVERT => {
+                _ = try REVERT.execute(evm, frame);
+            },
+            Opcode.INVALID => {
+                _ = try INVALID.execute(evm, frame);
+            },
+            Opcode.SELFDESTRUCT => {
+                _ = try SELFDESTRUCT.execute(evm, frame);
+            },
         };
     }
 };

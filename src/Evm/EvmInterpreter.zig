@@ -29,7 +29,7 @@ pub const Evm = struct {
     depth: u16 = 0,
 
     pub fn create(allocator: Allocator) Self {
-        return Evm{ .allocator = allocator };
+        return Self{ .allocator = allocator };
     }
 
     pub fn interpret(self: *Self, contract: *const Contract, input: []const u8) InterpreterError![]const u8 {
