@@ -1,4 +1,5 @@
 const std = @import("std");
+const RustBuild = @import("src/Compilers/rust_build.zig");
 
 pub fn build(b: *std.Build) void {
     // Standard target options allows the person running `zig build` to choose
@@ -41,12 +42,9 @@ pub fn build(b: *std.Build) void {
     lib.root_module.addImport("Compilers", compilers_mod);
 
     // Build the Rust code for Compilers
-    const rust_build = b.addTranslateC(.{
-        .root_source_file = b.path("src/Compilers/rust_build.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    lib.step.dependOn(&rust_build.step);
+    RustBuild.addRustIntegration(b, target, optimize) catch |err| {
+        std.debug.print("Failed to add Rust integration: {}\n", .{err});
+    };
 
     // ===== Tests =====
     const lib_unit_tests = b.addTest(.{
