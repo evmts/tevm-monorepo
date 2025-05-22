@@ -32,6 +32,16 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./react": {
+      "import": {
+        "types": "./types/src/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.cts",
+        "default": "./dist/react/index.cjs"
+      }
     }
   },
   "main": "dist/index.cjs",
@@ -69,19 +79,26 @@
     "@tevm/actions": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/memory-client": "workspace:^",
+    "@tevm/txpool": "workspace:^",
     "@tevm/utils": "workspace:^",
     "@tevm/vm": "workspace:^",
-    "react": "^19.1.0",
+    "react": "^18.2.0",
     "viem": "^2.23.10"
   },
   "devDependencies": {
     "@tevm/config": "workspace:^",
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^",
-    "@types/react": "^19.1.4"
+    "@types/react": "^18.2.0"
   },
   "peerDependencies": {
-    "viem": "^2.23.10"
+    "viem": "^2.23.10",
+    "react": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"

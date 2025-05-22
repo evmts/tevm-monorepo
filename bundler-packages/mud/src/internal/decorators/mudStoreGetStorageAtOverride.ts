@@ -1,8 +1,9 @@
-import { type Stash, type TableRecord, decodeKey, getRecord, getRecords } from '@latticexyz/stash/internal'
+import { type Stash, type State, type TableRecord, decodeKey, getRecord, getRecords } from '@latticexyz/stash/internal'
 import type { EthGetStorageAtJsonRpcRequest, EthGetStorageAtJsonRpcResponse } from '@tevm/actions'
 import type { MemoryClient } from '@tevm/memory-client'
-import { encodeAbiParameters, type Address, type Hex } from '@tevm/utils'
+import { type Address, type Hex, encodeAbiParameters } from '@tevm/utils'
 import {
+	type EIP1193RequestFn,
 	bytesToHex,
 	concatHex, // Changed from concat
 	encodePacked,
@@ -13,7 +14,6 @@ import {
 	pad,
 	sliceHex as slice, // Changed from slice
 	toHex,
-	type EIP1193RequestFn,
 } from 'viem'
 
 // Core MUD imports
@@ -27,7 +27,8 @@ import {
 	encodeValueArgs,
 	getKeySchema,
 	getKeyTuple,
-	getSchemaTypes, getValueSchema, // Main function to get all parts of a record
+	getSchemaTypes,
+	getValueSchema, // Main function to get all parts of a record
 	hexToEncodedLengths, // To parse EncodedLengths hex
 	getKeySchema as protocolParserGetKeySchema, // To avoid naming clash
 	getValueSchema as protocolParserGetValueSchema,
@@ -46,9 +47,9 @@ const STORE_SLOT: Hex = keccak256(toHex('mud.store'))
 const STORE_DYNAMIC_DATA_SLOT: Hex = keccak256(toHex('mud.store.dynamicData'))
 const STORE_DYNAMIC_DATA_LENGTH_SLOT: Hex = keccak256(toHex('mud.store.dynamicDataLength'))
 
-const getTables = (stash: Stash) => {
+const getTables = (state: State) => {
 	const tablesById = Object.fromEntries(
-		Object.values(stash.get().config)
+		Object.values(state.config)
 			.flatMap((namespace) => Object.values(namespace) as readonly Table[])
 			.map((table) => [table.tableId, table]),
 	)
@@ -56,27 +57,28 @@ const getTables = (stash: Stash) => {
 	return { tablesById, tableIds: Object.keys(tablesById) }
 }
 
-const getAllRecords = (stash: Stash, tablesById: Record<string, Table>) => {
+const getAll = async (getOptimisticState: () => Promise<State>) => {
+	const state = await getOptimisticState()
+	const { tablesById } = getTables(state)
+
 	const records = Object.fromEntries(
 		Object.entries(tablesById).map(([tableId, table]) => {
-			return [tableId, getRecords({ stash, table })]
+			return [tableId, getRecords({ state, table })]
 		}),
 	)
 
-	return records
+	return { tablesById, records }
 }
 
-export const mudStoreForkInterceptor =
-	({ stash, storeAddress }: { stash: Stash; storeAddress: Address }) =>
+export const mudStoreGetStorageAtOverride =
+	({ getOptimisticState, storeAddress }: { getOptimisticState: () => Promise<State>; storeAddress: Address }) =>
 	(client: MemoryClient): any => {
-		// const logger = client.transport.tevm.logger;
-		const logger = console
+		const logger = client.transport.tevm.logger
+		// const logger = console
 		if (!client.transport?.tevm?.forkTransport?.request) {
 			logger.warn('No fork transport found - MUD storage interceptor will have no effect')
 			return {}
 		}
-
-		const { tablesById, tableIds } = getTables(stash)
 
 		const originalForkRequest = client.transport.tevm.forkTransport.request
 		// @ts-expect-error - Type 'unknown' is not assignable to type '_returnType'.
@@ -84,7 +86,6 @@ export const mudStoreForkInterceptor =
 			requestArgs: any,
 			options: any,
 		): ReturnType<EIP1193RequestFn> {
-			console.log("Intercepted request", requestArgs)
 			if (
 				requestArgs.method === 'eth_getStorageAt' &&
 				requestArgs.params &&
@@ -95,7 +96,7 @@ export const mudStoreForkInterceptor =
 				logger.debug(`MUD Intercept: eth_getStorageAt ${storeAddress} pos ${requestedPosition}`)
 
 				try {
-					const records = getAllRecords(stash, tablesById)
+					const { records, tablesById } = await getAll(getOptimisticState)
 
 					/* ----------------------------------- POC ---------------------------------- */
 					// position of player is stored at slot: 0x4e4b8e26ffb342bf2c02b7d8accf09945411e68c9f4dfcc636a9ff4365c84aaf
@@ -115,7 +116,9 @@ export const mudStoreForkInterceptor =
 					if (requestedPosition.toLowerCase() === staticDataSlot.toLowerCase()) {
 						// const data = getRecord({ stash, table: positionTable!, key: playerKey })
 						const data = records[positionTableId]?.[playerKey.player]
-						const values = Object.values(Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key))).flatMap(([, value]) => value)
+						const values = Object.values(
+							Object.entries(data ?? {}).filter(([key]) => Object.keys(positionValueSchema).includes(key)),
+						).flatMap(([, value]) => value)
 						// console.log({positionValueSchema})
 						// console.log({ data })
 						// console.log({values})
@@ -123,9 +126,12 @@ export const mudStoreForkInterceptor =
 						// console.log({toEncode: Object.entries(positionValueSchema).map(([name, type]) => ({name, type})), values})
 						// console.log({encoded: pad(encodePacked(Object.values(positionValueSchema), values), {size: 32})})
 
-						console.log("Returning static data", pad(encodePacked(Object.values(positionValueSchema), values), {size: 32, dir: 'right'}))
-						console.log("Would have returned", await originalForkRequest.call(this, requestArgs, options))
-						return pad(encodePacked(Object.values(positionValueSchema), values), {size: 32, dir: 'right'})
+						logger.debug(
+							'Returning static data',
+							pad(encodePacked(Object.values(positionValueSchema), values), { size: 32, dir: 'right' }),
+						)
+						logger.debug('Would have returned', await originalForkRequest.call(this, requestArgs, options))
+						return pad(encodePacked(Object.values(positionValueSchema), values), { size: 32, dir: 'right' })
 					}
 					/* --------------------------------- END POC -------------------------------- */
 
@@ -218,7 +224,7 @@ export const mudStoreForkInterceptor =
 				}
 			}
 
-			return originalForkRequest.call(this, requestArgs, options) as Promise<EthGetStorageAtJsonRpcResponse>
+			return originalForkRequest.call(this, requestArgs, options)
 		}
 
 		return {}

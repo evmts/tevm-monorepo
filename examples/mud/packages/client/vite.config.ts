@@ -12,7 +12,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      "@tevm/mud/react": path.resolve(__dirname, "../../../../bundler-packages/mud/src/react/index.ts"),
       "@tevm/mud": path.resolve(__dirname, "../../../../bundler-packages/mud/src/index.ts"),
     },
+  },
+  optimizeDeps: {
+    exclude: ["@tevm/mud", "@tevm/mud/react"],
   },
 });

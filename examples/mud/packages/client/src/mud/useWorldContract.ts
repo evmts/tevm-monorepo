@@ -1,12 +1,10 @@
 import { useAccount, useClient } from "wagmi";
 import { chainId, getWorldAddress } from "../common";
-import { Account, Chain, Client, GetContractReturnType, Transport } from "viem";
+import { Account, Chain, Client, getContract, GetContractReturnType, Transport } from "viem";
 import { useQuery } from "@tanstack/react-query";
 import { useSessionClient } from "@latticexyz/entrykit/internal";
 import { observer } from "@latticexyz/explorer/observer";
 import worldAbi from "contracts/out/IWorld.sol/IWorld.abi.json";
-import { getOptimisticContract } from "@tevm/mud";
-import { memoryClient } from "./stash";
 
 export function useWorldContract():
   | GetContractReturnType<
@@ -28,14 +26,11 @@ export function useWorldContract():
         throw new Error("Not connected.");
       }
 
-      return (await getOptimisticContract(memoryClient))({
+      return getContract({
         abi: worldAbi,
         address: getWorldAddress(),
-        caller: address,
         client: {
-          // @ts-expect-error - type mismatch
           public: client,
-          // @ts-expect-error - type mismatch
           wallet: sessionClient.extend(observer()),
         },
       });
