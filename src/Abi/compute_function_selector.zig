@@ -194,7 +194,7 @@ test "getFunctionSelector from ABI" {
     // Test transfer(address,uint256)
     const transfer_func = abi.Function{
         .name = "transfer",
-        .inputs = &[_]abi.Param{
+        .inputs = @constCast(&[_]abi.Param{
             .{
                 .ty = "address",
                 .name = "to",
@@ -207,8 +207,8 @@ test "getFunctionSelector from ABI" {
                 .components = &.{},
                 .internal_type = null,
             },
-        },
-        .outputs = @as([]const abi.Param, &.{
+        }),
+        .outputs = @constCast(&.{
             .{
                 .ty = "bool",
                 .name = "success",

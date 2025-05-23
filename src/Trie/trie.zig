@@ -530,7 +530,7 @@ test "LeafNode encoding" {
     const value = "test_value";
     const value_copy = try allocator.dupe(u8, value);
     
-    const leaf = try LeafNode.init(allocator, &path, HashValue{ .Raw = value_copy });
+    var leaf = try LeafNode.init(allocator, &path, HashValue{ .Raw = value_copy });
     defer leaf.deinit(allocator);
     
     const encoded = try leaf.encode(allocator);

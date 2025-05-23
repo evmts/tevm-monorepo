@@ -227,7 +227,12 @@ pub fn bytesToValueInPlace(comptime T: type, bytes: []const u8, out: *T) !void {
         // Extract the value (always big-endian in ABI)
         var result: T = 0;
         for (bytes[bytes.len-size..bytes.len]) |b| {
-            result = (result << @as(std.math.Log2Int(T), 8)) | @as(T, @intCast(b));
+            if (@bitSizeOf(T) >= 8) {
+                result = (result << 8) | @as(T, @intCast(b));
+            } else {
+                // For types smaller than u8, just use the last byte
+                result = @as(T, @intCast(b & ((1 << @bitSizeOf(T)) - 1)));
+            }
         }
         out.* = result;
         return;

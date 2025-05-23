@@ -240,7 +240,8 @@ test "RLP stream decoding" {
     defer allocator.free(encoded_long_string);
     
     // Integer array
-    const encoded_list = try rlp.encode(allocator, [_]u8{ 1, 2, 3 });
+    const int_array = [_]u8{ 1, 2, 3 };
+    const encoded_list = try rlp.encode(allocator, &int_array);
     defer allocator.free(encoded_list);
     
     // Concatenate all encoded items to create a stream
@@ -249,7 +250,7 @@ test "RLP stream decoding" {
     defer allocator.free(stream);
     
     // Decode the stream one item at a time
-    var remaining = stream;
+    var remaining: []const u8 = stream;
     
     // First item - "a"
     var decoded = try rlp.decode(allocator, remaining, true);

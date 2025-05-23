@@ -100,6 +100,13 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
         return try result.toOwnedSlice();
     }
     
+    // Handle comptime integers
+    if (info == .comptime_int) {
+        // Convert to u64 at compile time
+        const value_u64: u64 = input;
+        return try encode(allocator, value_u64);
+    }
+    
     // Handle integers
     if (info == .int) {
         if (input == 0) {
@@ -118,14 +125,14 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
             if (@TypeOf(value) == u8) {
                 value = 0; // For u8, after extracting the byte, we're done
             } else {
-                value = value / @as(@TypeOf(value), 256); // Divide by 256 instead of shifting by 8
+                value = @divTrunc(value, @as(@TypeOf(value), 256)); // Divide by 256 instead of shifting by 8
             }
         }
         
         return try encodeBytes(allocator, bytes.items);
     }
     
-    @compileError("Unsupported type for RLP encoding");
+    @compileError("Unsupported type for RLP encoding: " ++ @typeName(T));
 }
 
 /// Encodes a byte array or slice according to RLP rules
@@ -658,7 +665,7 @@ test "RLP stream decoding" {
     defer allocator.free(buffer_stream);
     
     // Decode stream one by one
-    var remaining = buffer_stream;
+    var remaining: []const u8 = buffer_stream;
     
     // First item (number)
     var decoded = try decode(allocator, remaining, true);

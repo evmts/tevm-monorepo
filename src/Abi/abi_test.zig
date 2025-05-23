@@ -21,7 +21,7 @@ test "ABI basic round trip encoding/decoding" {
         .{
             .Function = .{
                 .name = "transfer",
-                .inputs = &[_]abi.Param{
+                .inputs = @constCast(&[_]abi.Param{
                     .{
                         .ty = "address",
                         .name = "to",
@@ -34,15 +34,15 @@ test "ABI basic round trip encoding/decoding" {
                         .components = &.{},
                         .internal_type = null,
                     },
-                },
-                .outputs = &.{
+                }),
+                .outputs = @constCast(&.{
                     .{
                         .ty = "bool",
                         .name = "success",
                         .components = &.{},
                         .internal_type = null,
                     },
-                },
+                }),
                 .state_mutability = abi.StateMutability.NonPayable,
             },
         },
@@ -313,7 +313,7 @@ test "ABI complex types and edge cases" {
             .{
                 .Function = .{
                     .name = "transfer",
-                    .inputs = &[_]abi.Param{
+                    .inputs = @constCast(&[_]abi.Param{
                         .{
                             .ty = "address",
                             .name = "to",
@@ -326,15 +326,15 @@ test "ABI complex types and edge cases" {
                             .components = &.{},
                             .internal_type = null,
                         },
-                    },
-                    .outputs = &.{
+                    }),
+                    .outputs = @constCast(@constCast(@constCast(.outputs = @constCast(.outputs = &.{.{.{.{.{
                         .{
                             .ty = "bool",
                             .name = "success",
                             .components = &.{},
                             .internal_type = null,
                         },
-                    },
+                    }),
                     .state_mutability = abi.StateMutability.NonPayable,
                 },
             },
@@ -355,14 +355,14 @@ test "ABI complex types and edge cases" {
                             .internal_type = null,
                         },
                     }),
-                    .outputs = &.{
+                    .outputs = @constCast(@constCast(@constCast(.outputs = @constCast(.outputs = &.{.{.{.{.{
                         .{
                             .ty = "bool",
                             .name = "success",
                             .components = &.{},
                             .internal_type = null,
                         },
-                    },
+                    }),
                     .state_mutability = abi.StateMutability.NonPayable,
                 },
             },
