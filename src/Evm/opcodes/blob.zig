@@ -30,19 +30,30 @@ pub fn opBlobHash(pc: usize, interpreter: *Interpreter, frame: *Frame) Execution
     }
     
     // Pop the blob index from the stack
-    _ = try frame.stack.pop(); // Index would be used in real implementation
+    const index = try frame.stack.pop();
+    
+    // Convert index to usize, checking for overflow
+    const index_usize = std.math.cast(usize, index) orelse {
+        // Index too large, push 0
+        try frame.stack.push(0);
+        return "";
+    };
     
     // Get blob versioned hash for the given index
-    // Note: In a full implementation, we would check if the index is valid
-    // and get the actual blob hash from the transaction
-    // For now, we'll return a placeholder value
-    const placeholder_hash: BigInt = 0;
+    var hash_value: BigInt = 0;
     
-    // If we have a valid blob index in a full implementation,
-    // we would get the hash from evm.blobs[index]
+    // Check if index is within bounds of available blob hashes
+    if (index_usize < interpreter.evm.blobHashes.len) {
+        // Convert the 32-byte hash to u256
+        const hash_bytes = interpreter.evm.blobHashes[index_usize];
+        for (hash_bytes) |byte| {
+            hash_value = (hash_value << 8) | byte;
+        }
+    }
+    // If index is out of bounds, hash_value remains 0
     
     // Push the blob hash onto the stack
-    try frame.stack.push(placeholder_hash);
+    try frame.stack.push(hash_value);
     
     return "";
 }
@@ -57,10 +68,8 @@ pub fn opBlobBaseFee(pc: usize, interpreter: *Interpreter, frame: *Frame) Execut
         return ExecutionError.InvalidOpcode;
     }
     
-    // Get the current blob base fee
-    // Note: In a full implementation, we would get the actual blob base fee
-    // from the block header or environment
-    const blob_base_fee: BigInt = 1000000; // Placeholder value
+    // Get the current blob base fee from the EVM context
+    const blob_base_fee = interpreter.evm.blobBaseFee;
     
     // Push the blob base fee onto the stack
     try frame.stack.push(blob_base_fee);

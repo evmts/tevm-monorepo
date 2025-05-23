@@ -47,6 +47,14 @@ pub const Evm = struct {
     /// State manager for accessing account and storage state
     /// This provides access to the world state (accounts, balances, storage, code)
     state_manager: ?*StateManager = null,
+    
+    /// Blob hashes from the current transaction (EIP-4844)
+    /// Used by the BLOBHASH opcode to access versioned blob hashes
+    blobHashes: []const [32]u8 = &[_][32]u8{},
+    
+    /// Current blob base fee (EIP-4844)
+    /// Used by the BLOBBASEFEE opcode to get the blob gas price
+    blobBaseFee: u256 = 0,
 
     /// Create a new EVM instance
     ///
@@ -291,6 +299,39 @@ pub const Evm = struct {
         }.callback);
 
         getLogger().err("└─────────────────────────────────────────────────────────", .{});
+    }
+    
+    /// Set blob hashes for the current transaction context
+    ///
+    /// This sets the blob hashes that will be accessible via the BLOBHASH opcode.
+    /// These are versioned hashes of the blob data in EIP-4844 transactions.
+    ///
+    /// Parameters:
+    /// - hashes: Array of 32-byte blob hashes
+    pub fn setBlobHashes(self: *Evm, hashes: []const [32]u8) void {
+        getLogger().debug("Setting blob hashes for transaction: {} hashes", .{hashes.len});
+        self.blobHashes = hashes;
+        
+        // Log first few hashes for debugging
+        for (hashes, 0..) |hash, i| {
+            if (i >= 3) break; // Only log first 3
+            getLogger().debug("  Blob hash[{}]: 0x{x}", .{ i, std.fmt.fmtSliceHexLower(&hash) });
+        }
+        if (hashes.len > 3) {
+            getLogger().debug("  ... and {} more", .{hashes.len - 3});
+        }
+    }
+    
+    /// Set blob base fee for the current block
+    ///
+    /// This sets the blob base fee that will be returned by the BLOBBASEFEE opcode.
+    /// The blob base fee is part of EIP-4844 and determines the cost of blob data.
+    ///
+    /// Parameters:
+    /// - fee: The blob base fee in wei
+    pub fn setBlobBaseFee(self: *Evm, fee: u256) void {
+        getLogger().debug("Setting blob base fee: {}", .{fee});
+        self.blobBaseFee = fee;
     }
 
     /// Log gas usage statistics
