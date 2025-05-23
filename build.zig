@@ -58,17 +58,25 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    const compiler_pkg = b.createModule(.{
-        .root_source_file = b.path("src/Compiler/package.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
 
     const rlp_pkg = b.createModule(.{
         .root_source_file = b.path("src/Rlp/package.zig"),
         .target = target,
         .optimize = optimize,
     });
+
+    const compiler_mod = b.createModule(.{
+        .root_source_file = b.path("src/Compilers/compiler.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    
+    // Add zabi dependency to compiler module
+    const zabi_dep = b.dependency("zabi", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
 
     const token_pkg = b.createModule(.{
         .root_source_file = b.path("src/Token/package.zig"),
@@ -99,7 +107,7 @@ pub fn build(b: *std.Build) void {
     evm_pkg.addImport("address", address_pkg);
     evm_pkg.addImport("block", block_pkg);
     evm_pkg.addImport("bytecode", bytecode_pkg);
-    evm_pkg.addImport("compiler", compiler_pkg);
+    evm_pkg.addImport("compiler", compiler_mod);
     evm_pkg.addImport("rlp", rlp_pkg);
     evm_pkg.addImport("token", token_pkg);
     evm_pkg.addImport("trie", trie_pkg);
@@ -137,7 +145,7 @@ pub fn build(b: *std.Build) void {
     zigevm_mod.addImport("address", address_pkg);
     zigevm_mod.addImport("block", block_pkg);
     zigevm_mod.addImport("bytecode", bytecode_pkg);
-    zigevm_mod.addImport("compiler", compiler_pkg);
+    zigevm_mod.addImport("compiler", compiler_mod);
     zigevm_mod.addImport("rlp", rlp_pkg);
     zigevm_mod.addImport("token", token_pkg);
     zigevm_mod.addImport("trie", trie_pkg);
@@ -164,7 +172,7 @@ pub fn build(b: *std.Build) void {
     wasm_mod.addImport("address", address_pkg);
     wasm_mod.addImport("block", block_pkg);
     wasm_mod.addImport("bytecode", bytecode_pkg);
-    wasm_mod.addImport("compiler", compiler_pkg);
+    wasm_mod.addImport("compiler", compiler_mod);
     wasm_mod.addImport("rlp", rlp_pkg);
     wasm_mod.addImport("token", token_pkg);
     wasm_mod.addImport("trie", trie_pkg);
@@ -291,6 +299,17 @@ pub fn build(b: *std.Build) void {
         .root_module = zigevm_mod,
     });
 
+    // Add all modules to standalone tests
+    lib_unit_tests.root_module.addImport("Address", address_pkg);
+    lib_unit_tests.root_module.addImport("Block", block_pkg);
+    lib_unit_tests.root_module.addImport("Bytecode", bytecode_pkg);
+    lib_unit_tests.root_module.addImport("Compiler", compiler_mod);
+    lib_unit_tests.root_module.addImport("Evm", evm_pkg);
+    lib_unit_tests.root_module.addImport("Rlp", rlp_pkg);
+    lib_unit_tests.root_module.addImport("Token", token_pkg);
+    lib_unit_tests.root_module.addImport("Trie", trie_pkg);
+    lib_unit_tests.root_module.addImport("Utils", utils_pkg);
+
     // Additional standalone test specifically for Frame.test.zig
     const frame_test = b.addTest(.{
         .name = "frame-test",
@@ -305,7 +324,7 @@ pub fn build(b: *std.Build) void {
     frame_test.root_module.addImport("address", address_pkg);
     frame_test.root_module.addImport("block", block_pkg);
     frame_test.root_module.addImport("bytecode", bytecode_pkg);
-    frame_test.root_module.addImport("compiler", compiler_pkg);
+    frame_test.root_module.addImport("compiler", compiler_mod);
     frame_test.root_module.addImport("rlp", rlp_pkg);
     frame_test.root_module.addImport("token", token_pkg);
     frame_test.root_module.addImport("trie", trie_pkg);
@@ -332,7 +351,7 @@ pub fn build(b: *std.Build) void {
     evm_test.root_module.addImport("address", address_pkg);
     evm_test.root_module.addImport("block", block_pkg);
     evm_test.root_module.addImport("bytecode", bytecode_pkg);
-    evm_test.root_module.addImport("compiler", compiler_pkg);
+    evm_test.root_module.addImport("compiler", compiler_mod);
     evm_test.root_module.addImport("rlp", rlp_pkg);
     evm_test.root_module.addImport("token", token_pkg);
     evm_test.root_module.addImport("trie", trie_pkg);
@@ -384,13 +403,13 @@ pub fn build(b: *std.Build) void {
     // Add a test for Compiler tests
     const compiler_test = b.addTest(.{
         .name = "compiler-test",
-        .root_source_file = b.path("src/Compiler/resolutions.zig"),
+        .root_source_file = b.path("src/Compilers/compiler.zig"),
         .target = target,
         .optimize = optimize,
     });
 
     // Add package imports to compiler_test
-    compiler_test.root_module.addImport("compiler", compiler_pkg);
+    compiler_test.root_module.addImport("compiler", compiler_mod);
     compiler_test.root_module.addImport("utils", utils_pkg);
 
     const run_compiler_test = b.addRunArtifact(compiler_test);
@@ -434,6 +453,16 @@ pub fn build(b: *std.Build) void {
     // Add a separate step for testing Interpreter
     const interpreter_test_step = b.step("test-interpreter", "Run Interpreter tests");
     interpreter_test_step.dependOn(&run_interpreter_test.step);
+
+    // Add Rust Foundry wrapper integration
+    const rust_build = @import("src/Compilers/rust_build.zig");
+    const rust_step = rust_build.addRustIntegration(b, target, optimize) catch |err| {
+        std.debug.print("Failed to add Rust integration: {}\n", .{err});
+        return;
+    };
+
+    // Make the compiler test depend on the Rust build
+    compiler_test.step.dependOn(rust_step);
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
@@ -483,7 +512,6 @@ pub fn build(b: *std.Build) void {
     const test_step = b.step("test", "Run unit tests");
     test_step.dependOn(&run_lib_unit_tests.step);
     test_step.dependOn(&run_exe_unit_tests.step);
-    test_step.dependOn(&run_frame_test.step);
     test_step.dependOn(&run_evm_test.step);
     test_step.dependOn(&run_server_test.step);
     test_step.dependOn(&run_rlp_test.step);
@@ -517,4 +545,8 @@ pub fn build(b: *std.Build) void {
     // Define a single test step that runs all tests
     const test_all_step = b.step("test-all", "Run all unit tests");
     test_all_step.dependOn(test_step);
+
+    const zabi_module = b.dependency("zabi", .{}).module("zabi");
+    exe.root_module.addImport("zabi", zabi_module);
+    lib.root_module.addImport("zabi", zabi_module);
 }

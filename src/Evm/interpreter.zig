@@ -110,6 +110,20 @@ pub const InterpreterError = error{
 /// - Managing memory, stack, and execution context
 /// - Handling errors and exceptional conditions
 /// - Returning execution results
+///
+/// Performance comparison with revm and evmone:
+///
+/// Interpreter Architecture:
+/// - Tevm: Simple loop with function pointer dispatch
+/// - revm: Macro-based instruction dispatch with gas metering (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter.rs#L285)
+/// - evmone: Advanced interpreter with computed goto (https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline.cpp)
+///
+/// Critical optimizations missing:
+/// 1. evmone uses computed goto for ~20% performance boost
+/// 2. revm uses macros to inline gas checks and reduce function call overhead
+/// 3. Both batch gas checks for sequential opcodes
+///
+/// evmone's baseline interpreter ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline.cpp#L42
 pub const Interpreter = struct {
     /// Memory allocator for the interpreter's resources
     allocator: std.mem.Allocator,
@@ -195,6 +209,15 @@ pub const Interpreter = struct {
     ///
     /// Returns: Return data from the execution, or null if none
     /// Error: Various execution errors that can occur during execution
+    ///
+    /// Main interpreter loop comparison:
+    /// - revm: Uses loop-continue pattern with inline gas checks (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter.rs#L363)
+    /// - evmone: Uses computed goto or switch in tight loop (https://github.com/ethereum/evmone/blob/master/lib/evmone/baseline.cpp#L47)
+    ///
+    /// Performance insights:
+    /// 1. evmone pre-validates jumps to avoid checks in hot loop
+    /// 2. revm batches gas accounting for common opcode sequences
+    /// 3. Both avoid function calls in the hot path where possible
     pub fn run(self: *Interpreter, contract: *Contract, input: []const u8, readOnly: bool) InterpreterError!?[]const u8 {
         getLogger().debug("Starting execution in 'run' with depth {d}", .{self.evm.depth + 1});
         getLogger().debug("Contract code length: {d}, readOnly: {}", .{ contract.code.len, readOnly });

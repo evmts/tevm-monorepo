@@ -9,6 +9,22 @@ pub const StackError = error{
     StackOverflow,
 };
 
+// Performance comparison with revm and evmone:
+//
+// Memory Layout:
+// - Tevm: Static array [1024]u256 with explicit alignment
+// - revm: Vec<U256> dynamic allocation (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L15)
+// - evmone: std::vector<uint256> dynamic allocation (https://github.com/ethereum/evmone/blob/master/lib/evmone/execution_state.hpp#L179)
+//
+// Performance implications:
+// - Static array avoids heap allocation overhead
+// - revm/evmone's dynamic allocation allows flexibility but adds indirection
+// - Consider: evmone uses custom uint256 type optimized for EVM operations
+//
+// Optimization opportunities from revm/evmone:
+// 1. evmone uses aggressive inlining and noexcept annotations
+// 2. revm provides both safe and unsafe variants for all operations
+// 3. Both use custom bigint implementations optimized for 256-bit operations
 pub const Stack = struct {
     data: [1024]u256 align(@alignOf(u256)) = [_]u256{0} ** 1024, // Initialize all elements to 0
     size: usize = 0,
@@ -29,6 +45,10 @@ pub const Stack = struct {
         _ = self;
     }
 
+    // Push operation comparison:
+    // - revm: Uses capacity check with Vec::push (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L92)
+    // - evmone: Direct index assignment with bounds check (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L16)
+    // Tevm matches evmone's approach with static bounds, avoiding Vec overhead
     pub inline fn push(self: *Stack, value: u256) StackError!void {
         if (self.size >= capacity) {
             return StackError.StackOverflow;
@@ -37,12 +57,18 @@ pub const Stack = struct {
         self.size += 1;
     }
 
+    // Unsafe variant matches revm's dual API pattern
+    // revm ref: https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L101
     pub inline fn push_unsafe(self: *Stack, value: u256) void {
         std.debug.assert(self.size < capacity);
         self.data[self.size] = value;
         self.size += 1;
     }
 
+    // Pop operation comparison:
+    // - revm: Vec::pop with Option return (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L115)
+    // - evmone: Direct array access with decrement (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L24)
+    // Tevm follows evmone's approach, avoiding Option wrapper overhead
     pub inline fn pop(self: *Stack) StackError!u256 {
         if (self.size == 0) return StackError.OutOfBounds;
         self.size -= 1;
@@ -52,6 +78,8 @@ pub const Stack = struct {
         return value;
     }
 
+    // evmone optimization: No bounds checking in release builds
+    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L32
     pub inline fn pop_unsafe(self: *Stack) u256 {
         std.debug.assert(self.size > 0);
         self.size -= 1;
@@ -75,11 +103,20 @@ pub const Stack = struct {
         return self.size;
     }
 
+    // Swap operations comparison:
+    // - revm: Generic swap_top function with index parameter (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/interpreter/stack.rs#L174)
+    // - evmone: Template-based swap with compile-time index (https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L39)
+    //
+    // Performance note: evmone's template approach eliminates index calculation at runtime
+    // Tevm could benefit from comptime swap generation like evmone
     pub inline fn swap1(self: *Stack) StackError!void {
         if (self.size < 2) return StackError.OutOfBounds;
         std.mem.swap(u256, &self.data[self.size - 1], &self.data[self.size - 2]);
     }
 
+    // Manual swap implementation avoids std.mem.swap overhead
+    // Similar to evmone's direct assignment approach
+    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_stack.hpp#L41-L44
     pub inline fn swap1_fast(self: *Stack) StackError!void {
         if (self.size < 2) return StackError.OutOfBounds;
 
@@ -188,6 +225,12 @@ pub const Stack = struct {
         return &self.data[self.size - n - 1];
     }
 
+    // Multi-pop optimization comparison:
+    // - revm: Individual pop calls (https://github.com/bluealloy/revm/blob/main/crates/interpreter/src/instructions/arithmetic.rs)
+    // - evmone: Bulk pointer operations for multi-argument opcodes
+    //
+    // Tevm's comptime N parameter enables unrolled loops like evmone
+    // This avoids loop overhead for known sizes (common in EVM opcodes)
     pub inline fn popn(self: *Stack, comptime N: usize) ![N]u256 {
         if (self.size < N) return StackError.OutOfBounds;
 
@@ -195,6 +238,8 @@ pub const Stack = struct {
 
         var result: [N]u256 = [_]u256{0} ** N; // Initialize to zeros for safety
 
+        // Unrolled at compile time - matches evmone's template approach
+        // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_traits.hpp
         inline for (0..N) |i| {
             result[i] = self.data[self.size + i];
             // Clear the stack items that have been popped (optional but safer)
@@ -204,6 +249,9 @@ pub const Stack = struct {
         return result;
     }
 
+    // Optimization from evmone: Combined pop + peek for opcodes that pop N and push 1
+    // Common pattern in arithmetic operations (ADD, MUL, etc.)
+    // evmone ref: https://github.com/ethereum/evmone/blob/master/lib/evmone/instructions_arithmetic.cpp
     pub inline fn popn_top(self: *Stack, comptime N: usize) !struct { values: [N]u256, top: *u256 } {
         if (self.size <= N) return StackError.OutOfBounds;
 

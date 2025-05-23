@@ -40,6 +40,10 @@
             .url = "git+https://github.com/karlseguin/http.zig?ref=master#6afc7a5854c202438c372d940851c999dbe4ce75",
             .hash = "httpz-0.0.0-PNVzrMG3BgC2nAeXR0VFONPZgaOJ9TpAjanNn5zl9D9c",
         },
+        .zabi = .{
+            .url = "git+https://github.com/Raiden1411/zabi.git?ref=zig_version_0.14.0#b91004e008f81b34aee13fd78f1a3c8cf597eac3",
+            .hash = "zabi-0.16.1-UB4phl86SABdBvFceyCgBARQTki8rNko7MLouY-TeGVQ",
+        },
     },
     .paths = .{
         "build.zig",

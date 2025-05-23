@@ -1,5 +1,14 @@
 # @tevm/state
 
+## 1.0.0-next.145
+
+### Patch Changes
+
+- Updated dependencies [0377ad7]
+  - @tevm/blockchain@1.0.0-next.145
+  - @tevm/evm@1.0.0-next.145
+  - @tevm/vm@1.0.0-next.145
+
 ## 1.0.0-next.144
 
 ### Patch Changes
