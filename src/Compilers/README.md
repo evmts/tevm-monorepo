@@ -7,6 +7,7 @@ This package provides a Zig wrapper around the Foundry Solidity compiler infrast
 - **Full Solidity compilation support** via Foundry's compiler infrastructure
 - **In-memory and file-based compilation** for flexible integration
 - **Strongly typed error handling** with detailed error messages
+- **Typed ABI parsing** using zabi for compile-time safety
 - **Caching support** for improved performance
 - **Remappings and optimizer configuration**
 - **Automatic Solc version management**
@@ -17,6 +18,7 @@ This package provides a Zig wrapper around the Foundry Solidity compiler infrast
 - Zig 0.14.0 or later
 - Rust toolchain (for building the Foundry wrapper)
 - cbindgen (`cargo install cbindgen`)
+- zabi (automatically fetched via `zig fetch`)
 
 ## Building
 
@@ -26,6 +28,7 @@ zig build
 ```
 
 This will:
+
 1. Build the Rust Foundry wrapper static library
 2. Generate C bindings using cbindgen
 3. Build the Zig wrapper and tests
@@ -36,8 +39,9 @@ This will:
 
 ```zig
 const std = @import("std");
-const Compiler = @import("compiler.zig").Compiler;
-const CompilerSettings = @import("compiler.zig").CompilerSettings;
+const tevm = @import("tevm");
+const Compiler = tevm.Compiler;
+const CompilerSettings = tevm.CompilerSettings;
 
 // Create allocator
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -63,19 +67,23 @@ defer result.deinit();
 for (result.contracts) |contract| {
     std.debug.print("Contract: {s}\n", .{contract.name});
     std.debug.print("Bytecode: {s}\n", .{contract.bytecode});
+    std.debug.print("ABI Items: {}\n", .{contract.abi.len});
 }
+
+// Access ABI
+const balanceOfAbi = contract.abi[1].abiFunction
 ```
 
 ### In-Memory Source Compilation
 
 ```zig
-const source = 
+const source =
     \\// SPDX-License-Identifier: MIT
     \\pragma solidity ^0.8.0;
     \\
     \\contract SimpleStorage {
     \\    uint256 public value;
-    \\    
+    \\
     \\    function setValue(uint256 _value) public {
     \\        value = _value;
     \\    }
@@ -89,6 +97,91 @@ var result = try Compiler.compileSource(
     settings,
 );
 defer result.deinit();
+```
+
+### Working with Typed ABI
+
+The compiler now returns strongly-typed ABI structures using the [zabi](https://github.com/Raiden1411/zabi) library instead of raw JSON strings:
+
+```zig
+const std = @import("std");
+const zabi = @import("zabi");
+const Compiler = @import("compiler.zig").Compiler;
+const CompilerSettings = @import("compiler.zig").CompilerSettings;
+
+// Compile a simple storage contract
+const source =
+    \\// SPDX-License-Identifier: MIT
+    \\pragma solidity ^0.8.0;
+    \\
+    \\contract SimpleStorage {
+    \\    uint256 public value;
+    \\
+    \\    function setValue(uint256 _value) public {
+    \\        value = _value;
+    \\    }
+    \\}
+;
+
+const settings = CompilerSettings{};
+var result = try Compiler.compileSource(
+    allocator,
+    "SimpleStorage.sol",
+    source,
+    settings,
+);
+defer result.deinit();
+
+// Access the compiled contract
+const contract = result.contracts[0];
+std.debug.print("Contract name: {s}\n", .{contract.name});
+
+// Work with the typed ABI
+std.debug.print("ABI has {} items\n", .{contract.abi.len});
+
+// Iterate through ABI items
+for (contract.abi) |item| {
+    switch (item) {
+        .abiFunction => |func| {
+            std.debug.print("Function: {s}\n", .{func.name});
+            std.debug.print("  State Mutability: {s}\n", .{@tagName(func.stateMutability)});
+            std.debug.print("  Inputs: {}\n", .{func.inputs.len});
+
+            // Check function parameters
+            for (func.inputs) |input| {
+                std.debug.print("    - {s}: ", .{input.name});
+                switch (input.type) {
+                    .uint => |bits| std.debug.print("uint{}\n", .{bits}),
+                    .int => |bits| std.debug.print("int{}\n", .{bits}),
+                    .address => std.debug.print("address\n", .{}),
+                    .bool => std.debug.print("bool\n", .{}),
+                    .string => std.debug.print("string\n", .{}),
+                    .bytes => std.debug.print("bytes\n", .{}),
+                    else => std.debug.print("{s}\n", .{@tagName(input.type)}),
+                }
+            }
+        },
+        .abiEvent => |event| {
+            std.debug.print("Event: {s}\n", .{event.name});
+        },
+        .abiError => |err| {
+            std.debug.print("Error: {s}\n", .{err.name});
+        },
+        .abiConstructor => |ctor| {
+            std.debug.print("Constructor with {} params\n", .{ctor.inputs.len});
+        },
+        else => {},
+    }
+}
+
+// Example: Find a specific function
+for (contract.abi) |item| {
+    if (item == .abiFunction and std.mem.eql(u8, item.abiFunction.name, "setValue")) {
+        const setValue = item.abiFunction;
+        // Use the function metadata...
+        break;
+    }
+}
 ```
 
 ### Advanced Configuration
@@ -184,7 +277,7 @@ Result of compilation containing:
 Information about a compiled contract:
 
 - `name: []const u8` - Contract name
-- `abi: []const u8` - Contract ABI as JSON string
+- `abi: zabi.abi.abitypes.Abi` - Contract ABI as parsed zabi types
 - `bytecode: []const u8` - Creation bytecode (hex string)
 - `deployed_bytecode: []const u8` - Runtime bytecode (hex string)
 

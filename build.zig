@@ -68,10 +68,17 @@ pub fn build(b: *std.Build) void {
     });
 
     const compiler_mod = b.createModule(.{
-        .root_source_file = b.path("src/Compiler/compiler.zig"),
+        .root_source_file = b.path("src/Compilers/compiler.zig"),
         .target = target,
         .optimize = optimize,
     });
+    
+    // Add zabi dependency to compiler module
+    const zabi_dep = b.dependency("zabi", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
 
     const rlp_mod = b.createModule(.{
         .root_source_file = b.path("src/Rlp/rlp.zig"),
