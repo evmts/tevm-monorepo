@@ -1,19 +1,27 @@
 const std = @import("std");
 
-// Use direct module imports
-const EvmModule = @import("Evm");
-const Interpreter = EvmModule.Interpreter;
-const Frame = EvmModule.Frame;
-const ExecutionError = EvmModule.InterpreterError;
-const JumpTable = EvmModule.JumpTable;
-const Memory = EvmModule.Memory;
-const Stack = EvmModule.Stack;
-const EvmLogger = EvmModule.EvmLogger; // Assuming EvmLogger is exported by EvmModule
-
-const AddressModule = @import("Address");
-const Address = AddressModule.Address;
+// Use direct imports from parent modules
+const Interpreter = @import("../interpreter.zig").Interpreter;
+const Frame = @import("../Frame.zig").Frame;
+const ExecutionError = @import("../interpreter.zig").InterpreterError;
+const JumpTable = @import("../jumpTable/JumpTable.zig").JumpTable;
+const jumpTableModule = @import("../jumpTable/JumpTable.zig");
+const Operation = jumpTableModule.Operation;
+const Memory = @import("../Memory.zig").Memory;
+const Stack = @import("../Stack.zig").Stack;
+const address = @import("address");
+const Address = address.Address;
 
 const u256_native = u256; // Using Zig's native u256 as the base type for stack/values
+
+// Helper function to map stack errors to execution errors
+fn mapStackError(err: anyerror) ExecutionError {
+    return switch (err) {
+        error.StackUnderflow => ExecutionError.StackUnderflow,
+        error.StackOverflow => ExecutionError.StackOverflow,
+        else => ExecutionError.OutOfGas,
+    };
+}
 
 // Gas costs (ensure these are consistent with JumpTable or chain rules)
 const GasPriceGas: u64 = 2;
@@ -29,12 +37,12 @@ pub fn opAddress(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionE
     _ = interpreter;
 
     // Get the address of the current contract
-    const address = frame.address();
+    const contractAddress = frame.address();
 
     // Convert address bytes to u256
     const value = blk: {
         var result: u256 = 0;
-        for (address.bytes) |byte| {
+        for (contractAddress) |byte| {
             result = (result << 8) | byte;
         }
         break :blk result;
@@ -916,7 +924,7 @@ fn extcodehashDynamicGas(interpreter: *Interpreter, frame: *Frame, stack: *Stack
 }
 
 /// Register all environment opcodes in the given jump table
-pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: **JumpTable) !void {
+pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *JumpTable) !void {
     // ADDRESS (0x30)
     const address_op = try allocator.create(Operation);
     address_op.* = Operation{

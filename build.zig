@@ -77,6 +77,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     compiler_mod.addImport("zabi", zabi_dep.module("zabi"));
+    
+    // Add include path for the C headers
+    compiler_mod.addIncludePath(b.path("include"));
 
     const token_pkg = b.createModule(.{
         .root_source_file = b.path("src/Token/package.zig"),
@@ -287,6 +290,19 @@ pub fn build(b: *std.Build) void {
     benchmark_suite.root_module.addImport("utils", utils_pkg);
     benchmark_suite.root_module.addImport("address", address_pkg);
     benchmark_suite.root_module.addImport("state_manager", state_manager_pkg);
+    benchmark_suite.root_module.addImport("compiler", compiler_mod);
+    benchmark_suite.root_module.addImport("zabi", zabi_dep.module("zabi"));
+    
+    // Link the Rust static library
+    benchmark_suite.addObjectFile(b.path("dist/target/release/libfoundry_wrapper.a"));
+    benchmark_suite.linkLibC();
+    
+    // Link required system libraries for macOS
+    if (target.result.os.tag == .macos) {
+        benchmark_suite.linkFramework("Security");
+        benchmark_suite.linkFramework("SystemConfiguration");
+        benchmark_suite.linkFramework("CoreFoundation");
+    }
     
     b.installArtifact(benchmark_suite);
     
@@ -463,6 +479,9 @@ pub fn build(b: *std.Build) void {
 
     // Make the compiler test depend on the Rust build
     compiler_test.step.dependOn(rust_step);
+    
+    // Make the benchmark suite depend on the Rust build
+    benchmark_suite.step.dependOn(rust_step);
 
     const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
 
