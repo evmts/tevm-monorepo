@@ -439,6 +439,49 @@ pub fn opGas(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError
     return "";
 }
 
+/// RETURNDATALOAD operation - load data from return data buffer
+/// See: https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go#L392
+pub fn opReturndataload(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
+    _ = pc;
+    _ = interpreter;
+    
+    // Pop offset from stack
+    const offset = try frame.stack.pop();
+    
+    // Check if we have return data
+    if (frame.returndata == null) {
+        // If no return data, push 0
+        try frame.stack.push(0);
+        return "";
+    }
+    
+    const returndata = frame.returndata.?;
+    
+    // Load 32 bytes from return data at the given offset
+    var value: u256 = 0;
+    
+    // Convert offset to usize, checking for overflow
+    const offset_usize = std.math.cast(usize, offset) orelse {
+        // Offset too large, push 0
+        try frame.stack.push(0);
+        return "";
+    };
+    
+    // Read up to 32 bytes from return data
+    var i: usize = 0;
+    while (i < 32) : (i += 1) {
+        if (offset_usize + i < returndata.len) {
+            value = (value << 8) | returndata[offset_usize + i];
+        } else {
+            // Pad with zeros if reading past the end
+            value = value << 8;
+        }
+    }
+    
+    try frame.stack.push(value);
+    return "";
+}
+
 /// EXTCODESIZE operation - get size of an account's code
 pub fn opExtcodesize(pc: usize, interpreter: *Interpreter, frame: *Frame) ExecutionError![]const u8 {
     _ = pc;
@@ -1053,6 +1096,16 @@ pub fn registerEnvironmentOpcodes(allocator: std.mem.Allocator, jump_table: *Jum
         .max_stack = JumpTable.maxStack(0, 1),
     };
     jump_table.table[0x5A] = gas_op;
+    
+    // RETURNDATALOAD (0xF7) - Load data from return data buffer
+    const returndataload_op = try allocator.create(JumpTable.Operation);
+    returndataload_op.* = JumpTable.Operation{
+        .execute = opReturndataload,
+        .constant_gas = JumpTable.GasFastestStep,
+        .min_stack = JumpTable.minStack(1, 1),
+        .max_stack = JumpTable.maxStack(1, 1),
+    };
+    jump_table.table[0xF7] = returndataload_op;
 }
 
 // Simplified test for environment opcodes

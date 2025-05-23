@@ -249,3 +249,46 @@ test "environment - GAS opcode" {
     // Should push the gas remaining value
     try std.testing.expectEqual(@as(u256, 999999), test_env.frame.stack.items[0]);
 }
+
+// Test the RETURNDATALOAD opcode
+test "environment - RETURNDATALOAD opcode" {
+    const allocator = std.testing.allocator;
+
+    const test_env = try setupTestEnvironment(allocator);
+    
+    // Set up return data
+    const return_data = [_]u8{0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
+    try test_env.frame.setReturnData(&return_data);
+    
+    // Test loading from offset 0
+    try test_env.frame.stack.push(0); // offset
+    _ = try environment.opReturndataload(0, test_env.interpreter, test_env.frame);
+    
+    try std.testing.expectEqual(@as(usize, 1), test_env.frame.stack.size);
+    
+    // Expected value: first 8 bytes left-padded to 32 bytes
+    // 0x1122334455667788 followed by 24 zero bytes
+    const expected: u256 = 0x1122334455667788000000000000000000000000000000000000000000000000;
+    try std.testing.expectEqual(expected, test_env.frame.stack.items[0]);
+    
+    // Clean up for next test
+    _ = try test_env.frame.stack.pop();
+    
+    // Test loading from offset 4
+    try test_env.frame.stack.push(4); // offset
+    _ = try environment.opReturndataload(0, test_env.interpreter, test_env.frame);
+    
+    // Expected value: bytes 4-7 followed by 28 zero bytes
+    const expected2: u256 = 0x5566778800000000000000000000000000000000000000000000000000000000;
+    try std.testing.expectEqual(expected2, test_env.frame.stack.items[0]);
+    
+    // Clean up
+    _ = try test_env.frame.stack.pop();
+    
+    // Test loading past the end
+    try test_env.frame.stack.push(100); // offset past data
+    _ = try environment.opReturndataload(0, test_env.interpreter, test_env.frame);
+    
+    // Should return 0 when reading past the end
+    try std.testing.expectEqual(@as(u256, 0), test_env.frame.stack.items[0]);
+}
