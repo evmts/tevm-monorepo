@@ -101,7 +101,7 @@ pub fn encode(allocator: Allocator, input: anytype) ![]u8 {
     }
     
     // Handle integers
-    if (info == .Int) {
+    if (info == .int) {
         if (input == 0) {
             // Special case: 0 is encoded as empty string
             const result = try allocator.alloc(u8, 1);

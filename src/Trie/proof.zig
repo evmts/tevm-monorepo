@@ -252,7 +252,7 @@ pub const ProofNodes = struct {
                                 } else if (next.len == 32) {
                                     // Child is a hash reference
                                     var hash_buf: [32]u8 = undefined;
-                                    std.mem.copy(u8, &hash_buf, next);
+                                    @memcpy(&hash_buf, next);
 
                                     // Get the next node
                                     const hash_str = try bytesToHexString(allocator, &hash_buf);
