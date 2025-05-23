@@ -92,7 +92,4 @@ TODO.md
 
 **/.claude/settings.local.json
 
-# Git worktrees
-g/handcrafted-slop
-g/new-claude
-g/compilers
+g/
