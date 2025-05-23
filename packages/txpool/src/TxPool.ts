@@ -615,12 +615,17 @@ export class TxPool {
 	 * Register an event handler
 	 * @param event Event name ('txadded' or 'txremoved')
 	 * @param callback Handler function
+	 * @returns Unsubscribe function
 	 */
 	on(event: 'txadded' | 'txremoved', callback: (hash: string) => void) {
 		if (!this.events[event]) {
 			this.events[event] = []
 		}
 		this.events[event].push(callback)
+
+		return () => {
+			this.events[event] = this.events[event]?.filter((cb) => cb !== callback) ?? []
+		}
 	}
 
 	/**
