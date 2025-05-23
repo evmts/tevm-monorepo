@@ -1,5 +1,5 @@
 import type { StoreConfig } from '@latticexyz/stash/internal'
-import React, { createContext, useContext, useMemo, type ReactNode } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, type ReactNode } from 'react'
 import {
 	type CreateOptimisticHandlerOptions,
 	type CreateOptimisticHandlerResult,
@@ -20,7 +20,14 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
 	children,
 	...options
 }) => {
-	const handlerResult = useMemo(() => createOptimisticHandler(options), [options])
+	const { client, storeAddress, stash, config } = options
+	const handlerResult = useMemo(() => createOptimisticHandler(options), [client, storeAddress, stash, config])
+
+	useEffect(() => {
+		return () => {
+			handlerResult._.cleanup()
+		}
+	}, [handlerResult])
 
 	return <OptimisticWrapperContext.Provider value={handlerResult}>{children}</OptimisticWrapperContext.Provider>
 }
@@ -30,6 +37,7 @@ export const OptimisticWrapperProvider: React.FC<OptimisticWrapperProviderProps<
  */
 export const useOptimisticWrapper = <TConfig extends StoreConfig>(): OptimisticWrapperContextType<TConfig> => {
 	const context = useContext(OptimisticWrapperContext) as OptimisticWrapperContextType<TConfig>
+	console.log("useOptimisticWrapper", context?._?.optimisticClient.uid)
 	if (context === undefined) throw new Error('useOptimisticWrapper must be used within an OptimisticWrapperProvider')
 	return context
 }

@@ -20,7 +20,7 @@ import { storeEventsAbi } from '@latticexyz/store'
 import { createStorageAdapter } from '@latticexyz/store-sync/internal'
 import { type Table } from '@latticexyz/store/internal'
 import { createCommon } from '@tevm/common'
-import { createMemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { type Address, EthjsAddress } from '@tevm/utils'
 import { http, type Client, parseEventLogs } from 'viem'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
@@ -51,6 +51,13 @@ export type CreateOptimisticHandlerResult<TConfig extends StoreConfig = StoreCon
 		args: Omit<GetRecordsArgs<TTable>, 'stash'>,
 	) => Promise<GetRecordsResult<TTable>>
 	subscribeOptimisticState: (args: { subscriber: StoreUpdatesSubscriber }) => Unsubscribe
+	_: {
+		optimisticClient: MemoryClient
+		internalClient: MemoryClient
+		optimisticStoreSubscribers: StoreSubscribers
+		optimisticTableSubscribers: TableSubscribers
+		cleanup: () => Promise<void>
+	}
 }
 
 // TODO: add debug logs
@@ -102,11 +109,19 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	// TODO: is it clean to do that? So we start the promises asap, and below it should await only the first time?
 	const _vm = internalClient.transport.tevm.getVm()
 	const _txPool = optimisticClient.transport.tevm.getTxPool()
+	// TODO: we should use txPool.txsInPool but for some reason there is a race condition if we do:
+	// -> the mud indexer on the canonical chain will fire an update right in sync with our 'txremoved' event
+	// BUT txPool.txsInPool (and the txs inside) will not reflect the change yet, meaning that it will apply that tx that was supposed to be removed
+	// on top of its canonical counterpart. Weird thing is that if we use that local txsInPool variable below, incremented/decremented when the events are fired,
+	// it is somehow perfectly in sync with the mud indexer.
+	// Hence the race condition:
+	// why is that event fired at the right time, but the entire txPool state not updated yet, although it's supposed to be updated _before_ the event is fired?
+	let txsInPool = 0
 	// Adds the optimistic state on top of the canonical state by applying the logs on a deep copy of the canonical state and returning it instead
 	const _optimisticStateView = async (notifySubscribers = false) => {
 		const vm = await _vm
 		const txPool = await _txPool
-		if (txPool.txsInPool === 0) return stash.get()
+		if (txsInPool === 0) return stash.get()
 
 		// Get the txs in the pending block to apply them on top of the canonical state
 		const orderedTxs = await txPool.txsByPriceAndNonce()
@@ -161,11 +176,22 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 	// Update subscribers when the optimistic state changes
 	const _subscribeToOptimisticState = async () => {
 		const txPool = await _txPool
-		txPool.on('txadded', () => _optimisticStateView(true))
-		txPool.on('txremoved', () => _optimisticStateView(true))
+		const unsubscribeTxAdded = txPool.on('txadded', () => {
+			txsInPool++
+			_optimisticStateView(true)
+		})
+		const unsubscribeTxRemoved = txPool.on('txremoved', () => {
+			txsInPool--
+			_optimisticStateView(true)
+		})
+
+		return () => {
+			unsubscribeTxAdded()
+			unsubscribeTxRemoved()
+		}
 	}
 
-	_subscribeToOptimisticState()
+	const unsubscribe = _subscribeToOptimisticState()
 
 	return {
 		getOptimisticState: async () => _optimisticStateView(),
@@ -182,5 +208,15 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 				optimisticStoreSubscribers.delete(subscriber)
 			}
 		},
+		_: {
+			optimisticClient,
+			internalClient,
+			optimisticStoreSubscribers,
+			optimisticTableSubscribers,
+			cleanup: async () => {
+				(await unsubscribe)()
+				// TODO: how do we completely get rid of a client?
+			}
+		}
 	}
 }
