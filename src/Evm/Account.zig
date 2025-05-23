@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 
 // Import the unified B256 type
-pub const B256 = @import("../../Types/B256.zig").B256;
+pub const B256 = @import("utils").B256;
 
 
 /// Account represents an Ethereum account
@@ -117,7 +117,7 @@ pub const Account = struct {
             hasher.update(code);
             var hash_result: [32]u8 = undefined;
             hasher.final(&hash_result);
-            self.code_hash = B256.fromBytes(&hash_result);
+            self.code_hash = B256.fromBytes(hash_result);
         } else {
             self.code = null;
             self.code_hash = B256.zero();
